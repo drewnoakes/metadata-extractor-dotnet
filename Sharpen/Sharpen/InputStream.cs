@@ -22,7 +22,7 @@ namespace Sharpen
 		public virtual int Available ()
 		{
 			if (Wrapped is WrappedSystemStream)
-				return ((WrappedSystemStream)Wrapped).InputStream.Available ();
+				return ((WrappedSystemStream)Wrapped).InputStream.Available();
 			else
 				return 0;
 		}
@@ -39,12 +39,17 @@ namespace Sharpen
 			Close ();
 		}
 
-		internal Stream GetWrappedStream ()
+		public Stream GetWrappedStream ()
 		{
 			// Always create a wrapper stream (not directly Wrapped) since the subclass
 			// may be overriding methods that need to be called when used through the Stream class
 			return new WrappedSystemStream (this);
 		}
+
+        internal Stream GetNativeStream()
+        {
+            return Wrapped;
+        }
 
 		public virtual void Mark (int readlimit)
 		{
@@ -74,18 +79,21 @@ namespace Sharpen
 			return Wrapped.ReadByte ();
 		}
 
-		public virtual int Read (byte[] buf)
+		public virtual int Read (sbyte[] buf)
 		{
 			return Read (buf, 0, buf.Length);
 		}
 
-		public virtual int Read (byte[] b, int off, int len)
+		public virtual int Read (sbyte[] b, int off, int len)
 		{
 			if (Wrapped is WrappedSystemStream)
 				return ((WrappedSystemStream)Wrapped).InputStream.Read (b, off, len);
 			
 			if (Wrapped != null) {
-				int num = Wrapped.Read (b, off, len);
+                byte[] buffer = new byte[b.Length];
+				int num = Wrapped.Read (buffer, off, len);
+                if (num > 0)
+                    Extensions.Copy(buffer, b);
 				return ((num <= 0) ? -1 : num);
 			}
 			int totalRead = 0;
@@ -93,7 +101,7 @@ namespace Sharpen
 				int nr = Read ();
 				if (nr == -1)
 					return -1;
-				b[off + totalRead] = (byte)nr;
+				b[off + totalRead] = (sbyte)nr;
 				totalRead++;
 			}
 			return totalRead;
@@ -124,7 +132,7 @@ namespace Sharpen
 			return cnt - n;
 		}
 		
-		internal bool CanSeek ()
+		public bool CanSeek ()
 		{
 			if (Wrapped != null)
 				return Wrapped.CanSeek;
@@ -132,7 +140,7 @@ namespace Sharpen
 				return false;
 		}
 		
-		internal long Position {
+		public long Position {
 			get {
 				if (Wrapped != null)
 					return Wrapped.Position;
@@ -147,7 +155,7 @@ namespace Sharpen
 			}
 		}
 
-		static internal InputStream Wrap (Stream s)
+		static public InputStream Wrap (Stream s)
 		{
 			InputStream stream = new InputStream ();
 			stream.Wrapped = s;

@@ -36,12 +36,12 @@ namespace Sharpen
 			return this.@in.Read ();
 		}
 
-		public override int Read (byte[] buf)
+		public override int Read (sbyte[] buf)
 		{
 			return this.@in.Read (buf);
 		}
 
-		public override int Read (byte[] b, int off, int len)
+		public override int Read (sbyte[] b, int off, int len)
 		{
 			return this.@in.Read (b, off, len);
 		}

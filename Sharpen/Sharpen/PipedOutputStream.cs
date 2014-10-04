@@ -2,7 +2,7 @@ namespace Sharpen
 {
 	using System;
 
-	internal class PipedOutputStream : OutputStream
+	public class PipedOutputStream : OutputStream
 	{
 		PipedInputStream ips;
 
@@ -21,7 +21,7 @@ namespace Sharpen
 			base.Close ();
 		}
 
-		internal void Attach (PipedInputStream iss)
+		public void Attach (PipedInputStream iss)
 		{
 			ips = iss;
 		}
@@ -31,7 +31,7 @@ namespace Sharpen
 			ips.Write (b);
 		}
 
-		public override void Write (byte[] b, int offset, int len)
+		public override void Write (sbyte[] b, int offset, int len)
 		{
 			ips.Write (b, offset, len);
 		}

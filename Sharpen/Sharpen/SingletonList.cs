@@ -2,7 +2,7 @@ namespace Sharpen
 {
 	using System;
 
-	internal class SingletonList
+	public class SingletonList
 	{
 		public SingletonList (string val)
 		{

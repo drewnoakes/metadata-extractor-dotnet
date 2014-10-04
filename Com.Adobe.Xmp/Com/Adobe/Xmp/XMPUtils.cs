@@ -27,7 +27,6 @@ namespace Com.Adobe.Xmp
 		{
 		}
 
-		// EMPTY
 		/// <summary>Create a single edit string from an array of strings.</summary>
 		/// <param name="xmp">The XMP object containing the array to be catenated.</param>
 		/// <param name="schemaNS">
@@ -139,7 +138,7 @@ namespace Com.Adobe.Xmp
 		/// <summary><p>Append properties from one XMP object to another.</summary>
 		/// <remarks>
 		/// <p>Append properties from one XMP object to another.
-		/// <p>XMPUtils#appendProperties was created to support the File Info dialog's Append button, and
+		/// <p>XMPUtils#AppendProperties was created to support the File Info dialog's Append button, and
 		/// has been been generalized somewhat from those specific needs. It appends information from one
 		/// XMP object (source) to another (dest). The default operation is to append only external
 		/// properties that do not already exist in the destination. The flag
@@ -166,7 +165,7 @@ namespace Com.Adobe.Xmp
 		/// <p>The detailed behavior is defined by the following pseudo-code:
 		/// <blockquote>
 		/// <pre>
-		/// appendProperties ( sourceXMP, destXMP, doAllProperties,
+		/// AppendProperties ( sourceXMP, destXMP, doAllProperties,
 		/// replaceOldValues, deleteEmptyValues ):
 		/// for all source schema (top level namespaces):
 		/// for all top level properties in sourceSchema:
@@ -193,7 +192,7 @@ namespace Com.Adobe.Xmp
 		/// copy new items by value into the destination, ignoring order and duplicates
 		/// </pre>
 		/// </blockquote>
-		/// <p><em>Note:</em> appendProperties can be expensive if replaceOldValues is not passed and
+		/// <p><em>Note:</em> AppendProperties can be expensive if replaceOldValues is not passed and
 		/// the XMP contains large arrays. The array item checking described above is n-squared.
 		/// Each source item is checked to see if it already exists in the destination,
 		/// without regard to order or duplicates.
@@ -220,9 +219,9 @@ namespace Com.Adobe.Xmp
 		/// for <code>true</code> and <code>false</code> are:
 		/// <ul>
 		/// <li>
-		/// <see cref="XMPConst.Truestr"/>
+		/// <see cref="XMPConstConstants.Truestr"/>
 		/// and
-		/// <see cref="XMPConst.Falsestr"/>
+        /// <see cref="XMPConstConstants.Falsestr"/>
 		/// <li>&quot;t&quot; and &quot;f&quot;
 		/// <li>&quot;on&quot; and &quot;off&quot;
 		/// <li>&quot;yes&quot; and &quot;no&quot;
@@ -254,9 +253,9 @@ namespace Com.Adobe.Xmp
 		/// <returns>
 		/// The XMP string representation of the boolean. The values used are
 		/// given by the constnts
-		/// <see cref="XMPConst.Truestr"/>
+        /// <see cref="XMPConstConstants.Truestr"/>
 		/// and
-		/// <see cref="XMPConst.Falsestr"/>
+        /// <see cref="XMPConstConstants.Falsestr"/>
 		/// .
 		/// </returns>
 		public static string ConvertFromBoolean(bool value)

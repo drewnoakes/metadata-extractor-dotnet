@@ -2,7 +2,7 @@ namespace Sharpen
 {
 	using System;
 
-	internal interface Future<T>
+	public interface Future<T>
 	{
 		bool Cancel (bool mayInterruptIfRunning);
 		T Get ();

@@ -46,57 +46,57 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 		{
 			switch (tagType)
 			{
-				case TagCaptureMode:
+                case PentaxMakernoteDirectory.TagCaptureMode:
 				{
 					return GetCaptureModeDescription();
 				}
 
-				case TagQualityLevel:
+                case PentaxMakernoteDirectory.TagQualityLevel:
 				{
 					return GetQualityLevelDescription();
 				}
 
-				case TagFocusMode:
+                case PentaxMakernoteDirectory.TagFocusMode:
 				{
 					return GetFocusModeDescription();
 				}
 
-				case TagFlashMode:
+                case PentaxMakernoteDirectory.TagFlashMode:
 				{
 					return GetFlashModeDescription();
 				}
 
-				case TagWhiteBalance:
+                case PentaxMakernoteDirectory.TagWhiteBalance:
 				{
 					return GetWhiteBalanceDescription();
 				}
 
-				case TagDigitalZoom:
+                case PentaxMakernoteDirectory.TagDigitalZoom:
 				{
 					return GetDigitalZoomDescription();
 				}
 
-				case TagSharpness:
+                case PentaxMakernoteDirectory.TagSharpness:
 				{
 					return GetSharpnessDescription();
 				}
 
-				case TagContrast:
+                case PentaxMakernoteDirectory.TagContrast:
 				{
 					return GetContrastDescription();
 				}
 
-				case TagSaturation:
+                case PentaxMakernoteDirectory.TagSaturation:
 				{
 					return GetSaturationDescription();
 				}
 
-				case TagIsoSpeed:
+                case PentaxMakernoteDirectory.TagIsoSpeed:
 				{
 					return GetIsoSpeedDescription();
 				}
 
-				case TagColour:
+                case PentaxMakernoteDirectory.TagColour:
 				{
 					return GetColourDescription();
 				}
@@ -111,13 +111,13 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 		[CanBeNull]
 		public virtual string GetColourDescription()
 		{
-			return GetIndexedDescription(TagColour, 1, "Normal", "Black & White", "Sepia");
+            return GetIndexedDescription(PentaxMakernoteDirectory.TagColour, 1, "Normal", "Black & White", "Sepia");
 		}
 
 		[CanBeNull]
 		public virtual string GetIsoSpeedDescription()
 		{
-			int value = _directory.GetInteger(TagIsoSpeed);
+            int? value = _directory.GetInteger(PentaxMakernoteDirectory.TagIsoSpeed);
 			if (value == null)
 			{
 				return null;
@@ -155,25 +155,25 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 		[CanBeNull]
 		public virtual string GetSaturationDescription()
 		{
-			return GetIndexedDescription(TagSaturation, "Normal", "Low", "High");
+            return GetIndexedDescription(PentaxMakernoteDirectory.TagSaturation, "Normal", "Low", "High");
 		}
 
 		[CanBeNull]
 		public virtual string GetContrastDescription()
 		{
-			return GetIndexedDescription(TagContrast, "Normal", "Low", "High");
+            return GetIndexedDescription(PentaxMakernoteDirectory.TagContrast, "Normal", "Low", "High");
 		}
 
 		[CanBeNull]
 		public virtual string GetSharpnessDescription()
 		{
-			return GetIndexedDescription(TagSharpness, "Normal", "Soft", "Hard");
+            return GetIndexedDescription(PentaxMakernoteDirectory.TagSharpness, "Normal", "Soft", "Hard");
 		}
 
 		[CanBeNull]
 		public virtual string GetDigitalZoomDescription()
 		{
-			float value = _directory.GetFloatObject(TagDigitalZoom);
+            float? value = _directory.GetFloatObject(PentaxMakernoteDirectory.TagDigitalZoom);
 			if (value == null)
 			{
 				return null;
@@ -188,31 +188,31 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 		[CanBeNull]
 		public virtual string GetWhiteBalanceDescription()
 		{
-			return GetIndexedDescription(TagWhiteBalance, "Auto", "Daylight", "Shade", "Tungsten", "Fluorescent", "Manual");
+            return GetIndexedDescription(PentaxMakernoteDirectory.TagWhiteBalance, "Auto", "Daylight", "Shade", "Tungsten", "Fluorescent", "Manual");
 		}
 
 		[CanBeNull]
 		public virtual string GetFlashModeDescription()
 		{
-			return GetIndexedDescription(TagFlashMode, 1, "Auto", "Flash On", null, "Flash Off", null, "Red-eye Reduction");
+            return GetIndexedDescription(PentaxMakernoteDirectory.TagFlashMode, 1, "Auto", "Flash On", null, "Flash Off", null, "Red-eye Reduction");
 		}
 
 		[CanBeNull]
 		public virtual string GetFocusModeDescription()
 		{
-			return GetIndexedDescription(TagFocusMode, 2, "Custom", "Auto");
+            return GetIndexedDescription(PentaxMakernoteDirectory.TagFocusMode, 2, "Custom", "Auto");
 		}
 
 		[CanBeNull]
 		public virtual string GetQualityLevelDescription()
 		{
-			return GetIndexedDescription(TagQualityLevel, "Good", "Better", "Best");
+            return GetIndexedDescription(PentaxMakernoteDirectory.TagQualityLevel, "Good", "Better", "Best");
 		}
 
 		[CanBeNull]
 		public virtual string GetCaptureModeDescription()
 		{
-			return GetIndexedDescription(TagCaptureMode, "Auto", "Night-scene", "Manual", null, "Multiple");
+            return GetIndexedDescription(PentaxMakernoteDirectory.TagCaptureMode, "Auto", "Night-scene", "Manual", null, "Multiple");
 		}
 	}
 }

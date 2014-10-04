@@ -69,7 +69,7 @@ namespace Com.Drew.Imaging.Jpeg
 				}
 				segmentTypes.Add(segmentType);
 			}
-			return segmentTypes;
+			return segmentTypes.AsIterable();
 		}
 
 		/// <summary>Gets the first JPEG segment data for the specified type.</summary>
@@ -137,7 +137,7 @@ namespace Com.Drew.Imaging.Jpeg
 		public virtual Iterable<sbyte[]> GetSegments(sbyte segmentType)
 		{
 			IList<sbyte[]> segmentList = GetSegmentList(segmentType);
-			return segmentList == null ? new AList<sbyte[]>() : segmentList;
+			return (segmentList == null ? new AList<sbyte[]>() : segmentList).AsIterable();
 		}
 
 		[CanBeNull]

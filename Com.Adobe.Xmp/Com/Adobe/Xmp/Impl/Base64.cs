@@ -24,13 +24,13 @@ namespace Com.Adobe.Xmp.Impl
 	public class Base64
 	{
 		/// <summary>marker for invalid bytes</summary>
-		private const sbyte Invalid = unchecked((byte)(-1));
+		private const sbyte Invalid = unchecked((sbyte)(-1));
 
 		/// <summary>marker for accepted whitespace bytes</summary>
-		private const sbyte Whitespace = unchecked((byte)(-2));
+		private const sbyte Whitespace = unchecked((sbyte)(-2));
 
 		/// <summary>marker for an equal symbol</summary>
-		private const sbyte Equal = unchecked((byte)(-3));
+		private const sbyte Equal = unchecked((sbyte)(-3));
 
 		private static sbyte[] base64 = new sbyte[] { unchecked((sbyte)(byte)('A')), unchecked((sbyte)(byte)('B')), unchecked((sbyte)(byte)('C')), unchecked((sbyte)(byte)('D')), unchecked((sbyte)(byte)('E')), unchecked((sbyte)(byte)('F')), unchecked(
 			(sbyte)(byte)('G')), unchecked((sbyte)(byte)('H')), unchecked((sbyte)(byte)('I')), unchecked((sbyte)(byte)('J')), unchecked((sbyte)(byte)('K')), unchecked((sbyte)(byte)('L')), unchecked((sbyte)(byte)('M')), unchecked((sbyte)(byte)('N')), unchecked(

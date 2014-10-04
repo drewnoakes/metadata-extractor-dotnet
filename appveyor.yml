@@ -1,0 +1,50 @@
+# version format
+version: 1.0.{build}
+
+# branches to build
+branches:
+  # whitelist
+  only:
+    - master
+
+# Operating system (build VM template)
+os: Windows Server 2012
+
+# scripts that run after cloning repository
+install:
+  # by default, all script lines are interpreted as batch
+  ps: cinst doxygen.install
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+# build platform, i.e. x86, x64, Any CPU. This setting is optional.
+platform: Any CPU
+
+# to add several platforms to build matrix:
+#platform:
+#  - x86
+#  - Any CPU
+
+# build Configuration, i.e. Debug, Release, etc.
+configuration: Release
+
+# to add several configurations to build matrix:
+#configuration:
+#  - Debug
+#  - Release
+
+build:
+  project: metadata_extractor.sln      # path to Visual Studio solution or project
+
+  # MSBuild verbosity level
+  verbosity: minimal
+
+# scripts to run before build
+before_build:
+  ps: nuget restore
+
+# scripts to run after build
+after_build:
+  ps: doxygen.exe "C:\projects\n-metadata-extractor\doc\Com.Drew.Doxyfile"

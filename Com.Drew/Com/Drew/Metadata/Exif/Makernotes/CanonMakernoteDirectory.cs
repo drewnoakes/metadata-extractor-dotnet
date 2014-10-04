@@ -170,7 +170,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
 		public sealed class CameraSettings
 		{
-			private const int Offset = unchecked((int)(0xC100));
+		    internal const int Offset = unchecked((int)(0xC100));
 
 			/// <summary>
 			/// 1 = Macro
@@ -387,7 +387,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
 		public sealed class FocalLength
 		{
-			private const int Offset = unchecked((int)(0xC200));
+		    internal const int Offset = unchecked((int)(0xC200));
 
 			/// <summary>
 			/// 0 = Auto
@@ -437,7 +437,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
 		public sealed class ShotInfo
 		{
-			private const int Offset = unchecked((int)(0xC400));
+		    internal const int Offset = unchecked((int)(0xC400));
 
 			public const int TagAutoIso = Offset + 1;
 
@@ -499,7 +499,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
 		public sealed class Panorama
 		{
-			private const int Offset = unchecked((int)(0xC500));
+		    internal const int Offset = unchecked((int)(0xC500));
 
 			public const int TagPanoramaFrameNumber = Offset + 2;
 
@@ -509,7 +509,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
 		public sealed class AFInfo
 		{
-			private const int Offset = unchecked((int)(0xD200));
+		    internal const int Offset = unchecked((int)(0xD200));
 
 			public const int TagNumAfPoints = Offset;
 

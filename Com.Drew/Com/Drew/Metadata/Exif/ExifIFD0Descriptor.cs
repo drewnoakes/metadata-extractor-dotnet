@@ -68,57 +68,57 @@ namespace Com.Drew.Metadata.Exif
 		{
 			switch (tagType)
 			{
-				case TagResolutionUnit:
+                case ExifIFD0Directory.TagResolutionUnit:
 				{
 					return GetResolutionDescription();
 				}
 
-				case TagYcbcrPositioning:
+                case ExifIFD0Directory.TagYcbcrPositioning:
 				{
 					return GetYCbCrPositioningDescription();
 				}
 
-				case TagXResolution:
+                case ExifIFD0Directory.TagXResolution:
 				{
 					return GetXResolutionDescription();
 				}
 
-				case TagYResolution:
+                case ExifIFD0Directory.TagYResolution:
 				{
 					return GetYResolutionDescription();
 				}
 
-				case TagReferenceBlackWhite:
+                case ExifIFD0Directory.TagReferenceBlackWhite:
 				{
 					return GetReferenceBlackWhiteDescription();
 				}
 
-				case TagOrientation:
+                case ExifIFD0Directory.TagOrientation:
 				{
 					return GetOrientationDescription();
 				}
 
-				case TagWinAuthor:
+                case ExifIFD0Directory.TagWinAuthor:
 				{
 					return GetWindowsAuthorDescription();
 				}
 
-				case TagWinComment:
+                case ExifIFD0Directory.TagWinComment:
 				{
 					return GetWindowsCommentDescription();
 				}
 
-				case TagWinKeywords:
+                case ExifIFD0Directory.TagWinKeywords:
 				{
 					return GetWindowsKeywordsDescription();
 				}
 
-				case TagWinSubject:
+                case ExifIFD0Directory.TagWinSubject:
 				{
 					return GetWindowsSubjectDescription();
 				}
 
-				case TagWinTitle:
+                case ExifIFD0Directory.TagWinTitle:
 				{
 					return GetWindowsTitleDescription();
 				}
@@ -133,7 +133,7 @@ namespace Com.Drew.Metadata.Exif
 		[CanBeNull]
 		public virtual string GetReferenceBlackWhiteDescription()
 		{
-			int[] ints = _directory.GetIntArray(TagReferenceBlackWhite);
+            int[] ints = _directory.GetIntArray(ExifIFD0Directory.TagReferenceBlackWhite);
 			if (ints == null || ints.Length < 6)
 			{
 				return null;
@@ -150,7 +150,7 @@ namespace Com.Drew.Metadata.Exif
 		[CanBeNull]
 		public virtual string GetYResolutionDescription()
 		{
-			Rational value = _directory.GetRational(TagYResolution);
+            Rational value = _directory.GetRational(ExifIFD0Directory.TagYResolution);
 			if (value == null)
 			{
 				return null;
@@ -162,7 +162,7 @@ namespace Com.Drew.Metadata.Exif
 		[CanBeNull]
 		public virtual string GetXResolutionDescription()
 		{
-			Rational value = _directory.GetRational(TagXResolution);
+            Rational value = _directory.GetRational(ExifIFD0Directory.TagXResolution);
 			if (value == null)
 			{
 				return null;
@@ -174,21 +174,21 @@ namespace Com.Drew.Metadata.Exif
 		[CanBeNull]
 		public virtual string GetYCbCrPositioningDescription()
 		{
-			return GetIndexedDescription(TagYcbcrPositioning, 1, "Center of pixel array", "Datum point");
+            return GetIndexedDescription(ExifIFD0Directory.TagYcbcrPositioning, 1, "Center of pixel array", "Datum point");
 		}
 
 		[CanBeNull]
 		public virtual string GetOrientationDescription()
 		{
-			return GetIndexedDescription(TagOrientation, 1, "Top, left side (Horizontal / normal)", "Top, right side (Mirror horizontal)", "Bottom, right side (Rotate 180)", "Bottom, left side (Mirror vertical)", "Left side, top (Mirror horizontal and rotate 270 CW)"
-				, "Right side, top (Rotate 90 CW)", "Right side, bottom (Mirror horizontal and rotate 90 CW)", "Left side, bottom (Rotate 270 CW)");
+            return GetIndexedDescription(ExifIFD0Directory.TagOrientation, 1, "Top, left side (Horizontal / normal)", "Top, right side (Mirror horizontal)", "Bottom, right side (Rotate 180)", "Bottom, left side (Mirror vertical)", 
+				"Left side, top (Mirror horizontal and rotate 270 CW)", "Right side, top (Rotate 90 CW)", "Right side, bottom (Mirror horizontal and rotate 90 CW)", "Left side, bottom (Rotate 270 CW)");
 		}
 
 		[CanBeNull]
 		public virtual string GetResolutionDescription()
 		{
 			// '1' means no-unit, '2' means inch, '3' means centimeter. Default value is '2'(inch)
-			return GetIndexedDescription(TagResolutionUnit, 1, "(No unit)", "Inch", "cm");
+            return GetIndexedDescription(ExifIFD0Directory.TagResolutionUnit, 1, "(No unit)", "Inch", "cm");
 		}
 
 		/// <summary>The Windows specific tags uses plain Unicode.</summary>
@@ -214,31 +214,31 @@ namespace Com.Drew.Metadata.Exif
 		[CanBeNull]
 		public virtual string GetWindowsAuthorDescription()
 		{
-			return GetUnicodeDescription(TagWinAuthor);
+            return GetUnicodeDescription(ExifIFD0Directory.TagWinAuthor);
 		}
 
 		[CanBeNull]
 		public virtual string GetWindowsCommentDescription()
 		{
-			return GetUnicodeDescription(TagWinComment);
+            return GetUnicodeDescription(ExifIFD0Directory.TagWinComment);
 		}
 
 		[CanBeNull]
 		public virtual string GetWindowsKeywordsDescription()
 		{
-			return GetUnicodeDescription(TagWinKeywords);
+            return GetUnicodeDescription(ExifIFD0Directory.TagWinKeywords);
 		}
 
 		[CanBeNull]
 		public virtual string GetWindowsTitleDescription()
 		{
-			return GetUnicodeDescription(TagWinTitle);
+            return GetUnicodeDescription(ExifIFD0Directory.TagWinTitle);
 		}
 
 		[CanBeNull]
 		public virtual string GetWindowsSubjectDescription()
 		{
-			return GetUnicodeDescription(TagWinSubject);
+            return GetUnicodeDescription(ExifIFD0Directory.TagWinSubject);
 		}
 	}
 }

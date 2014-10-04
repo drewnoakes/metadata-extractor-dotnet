@@ -3,14 +3,14 @@ namespace Sharpen
 	using System;
 	using System.Text.RegularExpressions;
 
-	internal class Matcher
+    public class Matcher
 	{
 		private int current;
 		private MatchCollection matches;
 		private Regex regex;
 		private string str;
 
-		internal Matcher (Regex regex, string str)
+		public Matcher (Regex regex, string str)
 		{
 			this.regex = regex;
 			this.str = str;

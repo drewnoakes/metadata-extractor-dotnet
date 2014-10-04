@@ -5,7 +5,7 @@ using ST = System.Threading;
 
 namespace Sharpen
 {
-	internal class ScheduledThreadPoolExecutor: ThreadPoolExecutor
+	public class ScheduledThreadPoolExecutor: ThreadPoolExecutor
 	{
 		bool continueExistingPeriodicTasksAfterShutdownPolicy;
 		bool executeExistingDelayedTasksAfterShutdownPolicy = true;
@@ -144,7 +144,7 @@ namespace Sharpen
 		
 	class Scheduler
 	{
-		internal static Scheduler Instance = new Scheduler ();
+		public static Scheduler Instance = new Scheduler ();
 		
 		List<IScheduledITask> tasks = new List<IScheduledITask> ();
 		ST.Thread scheduler;

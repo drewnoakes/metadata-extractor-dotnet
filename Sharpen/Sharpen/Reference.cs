@@ -2,7 +2,7 @@ namespace Sharpen
 {
 	using System;
 
-	internal abstract class Reference<T>
+	public abstract class Reference<T>
 	{
 		protected Reference ()
 		{

@@ -142,14 +142,14 @@ namespace Com.Drew.Imaging.Jpeg
 			//    /** Start-of-Frame (12) segment identifier. */
 			//    SOF12((byte)0xCC, true),
 			IList<Com.Drew.Imaging.Jpeg.JpegSegmentType> segmentTypes = new AList<Com.Drew.Imaging.Jpeg.JpegSegmentType>();
-			foreach (Com.Drew.Imaging.Jpeg.JpegSegmentType segmentType in typeof(Com.Drew.Imaging.Jpeg.JpegSegmentType).GetEnumConstants())
+            foreach (Com.Drew.Imaging.Jpeg.JpegSegmentType segmentType in typeof(Com.Drew.Imaging.Jpeg.JpegSegmentType).GetEnumConstants<JpegSegmentType>())
 			{
 				if (segmentType.canContainMetadata)
 				{
 					segmentTypes.Add(segmentType);
 				}
 			}
-			Com.Drew.Imaging.Jpeg.JpegSegmentType.canContainMetadataTypes = segmentTypes;
+			canContainMetadataTypes = segmentTypes;
 		}
 
 		public readonly sbyte byteValue;
@@ -174,5 +174,10 @@ namespace Com.Drew.Imaging.Jpeg
 			}
 			return null;
 		}
+
+	    public static JpegSegmentType ValueOf(string segmentName)
+	    {
+	        return Extensions.GetEnumConstantByName<JpegSegmentType>(segmentName);
+	    }
 	}
 }

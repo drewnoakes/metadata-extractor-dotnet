@@ -74,16 +74,16 @@ namespace Com.Adobe.Xmp
 		/// Provides access to items within an array. The index is passed as an integer, you need not
 		/// worry about the path string syntax for array items, convert a loop index to a string, etc.
 		/// </remarks>
-		/// <param name="schemaNS">The namespace URI for the array. Has the same usage as in getProperty.</param>
+		/// <param name="schemaNS">The namespace URI for the array. Has the same usage as in GetProperty.</param>
 		/// <param name="arrayName">
 		/// The name of the array. May be a general path expression, must not be
 		/// <code>null</code> or the empty string. Has the same namespace prefix usage as
-		/// propName in <code>getProperty()</code>.
+		/// propName in <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="itemIndex">
 		/// The index of the desired item. Arrays in XMP are indexed from 1. The
 		/// constant
-		/// <see cref="XMPConst.ArrayLastItem"/>
+		/// <see cref="XMPConstConstants.ArrayLastItem"/>
 		/// always refers to the last existing array
 		/// item.
 		/// </param>
@@ -96,11 +96,11 @@ namespace Com.Adobe.Xmp
 		XMPProperty GetArrayItem(string schemaNS, string arrayName, int itemIndex);
 
 		/// <summary>Returns the number of items in the array.</summary>
-		/// <param name="schemaNS">The namespace URI for the array. Has the same usage as in getProperty.</param>
+		/// <param name="schemaNS">The namespace URI for the array. Has the same usage as in GetProperty.</param>
 		/// <param name="arrayName">
 		/// The name of the array. May be a general path expression, must not be
 		/// <code>null</code> or the empty string. Has the same namespace prefix usage as
-		/// propName in <code>getProperty()</code>.
+		/// propName in <code>GetProperty()</code>.
 		/// </param>
 		/// <returns>Returns the number of items in the array.</returns>
 		/// <exception cref="XMPException">Wraps all errors and exceptions that may occur.</exception>
@@ -117,11 +117,11 @@ namespace Com.Adobe.Xmp
 		/// never guaranteed. The URI is the formal name, the prefix is just a local shorthand in a given
 		/// sequence of XML text.
 		/// </remarks>
-		/// <param name="schemaNS">The namespace URI for the struct. Has the same usage as in getProperty.</param>
+		/// <param name="schemaNS">The namespace URI for the struct. Has the same usage as in GetProperty.</param>
 		/// <param name="structName">
 		/// The name of the struct. May be a general path expression, must not be
 		/// <code>null</code> or the empty string. Has the same namespace prefix usage as
-		/// propName in <code>getProperty()</code>.
+		/// propName in <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="fieldNS">
 		/// The namespace URI for the field. Has the same URI and prefix usage as the
@@ -155,11 +155,11 @@ namespace Com.Adobe.Xmp
 		/// <p>
 		/// <em>Note:</em> Qualifiers are only supported for simple leaf properties at this time.
 		/// </remarks>
-		/// <param name="schemaNS">The namespace URI for the struct. Has the same usage as in getProperty.</param>
+		/// <param name="schemaNS">The namespace URI for the struct. Has the same usage as in GetProperty.</param>
 		/// <param name="propName">
 		/// The name of the property to which the qualifier is attached. May be a general
 		/// path expression, must not be <code>null</code> or the empty string. Has the same
-		/// namespace prefix usage as in <code>getProperty()</code>.
+		/// namespace prefix usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="qualNS">
 		/// The namespace URI for the qualifier. Has the same URI and prefix usage as the
@@ -210,17 +210,17 @@ namespace Com.Adobe.Xmp
 		/// <see cref="XMPPathFactory"/>
 		/// .
 		/// </remarks>
-		/// <param name="schemaNS">The namespace URI for the property. Has the same usage as in getProperty.</param>
+		/// <param name="schemaNS">The namespace URI for the property. Has the same usage as in GetProperty.</param>
 		/// <param name="propName">
 		/// The name of the property.
-		/// Has the same usage as in <code>getProperty()</code>.
+		/// Has the same usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propValue">
 		/// the value for the property (only leaf properties have a value).
 		/// Arrays and non-leaf levels of structs do not have values.
 		/// Must be <code>null</code> if the value is not relevant.<br/>
 		/// The value is automatically detected: Boolean, Integer, Long, Double, XMPDateTime and
-		/// byte[] are handled, on all other <code>toString()</code> is called.
+		/// byte[] are handled, on all other <code>ToString()</code> is called.
 		/// </param>
 		/// <param name="options">Option flags describing the property. See the earlier description.</param>
 		/// <exception cref="XMPException">Wraps all errors and exceptions that may occur.</exception>
@@ -242,11 +242,11 @@ namespace Com.Adobe.Xmp
 		/// passed must already exist. In normal usage the selected array item is modified. A new item is
 		/// automatically appended if the index is the array size plus 1.
 		/// </remarks>
-		/// <param name="schemaNS">The namespace URI for the array. Has the same usage as in getProperty.</param>
+		/// <param name="schemaNS">The namespace URI for the array. Has the same usage as in GetProperty.</param>
 		/// <param name="arrayName">
 		/// The name of the array. May be a general path expression, must not be
 		/// <code>null</code> or the empty string. Has the same namespace prefix usage as
-		/// propName in getProperty.
+		/// propName in GetProperty.
 		/// </param>
 		/// <param name="itemIndex">
 		/// The index of the desired item. Arrays in XMP are indexed from 1. To address
@@ -257,7 +257,7 @@ namespace Com.Adobe.Xmp
 		/// </param>
 		/// <param name="itemValue">
 		/// the new value of the array item. Has the same usage as propValue in
-		/// <code>setProperty()</code>.
+		/// <code>SetProperty()</code>.
 		/// </param>
 		/// <param name="options">the set options for the item.</param>
 		/// <exception cref="XMPException">Wraps all errors and exceptions that may occur.</exception>
@@ -280,19 +280,19 @@ namespace Com.Adobe.Xmp
 		/// string, etc. The array passed must already exist. In normal usage the selected array item is
 		/// modified. A new item is automatically appended if the index is the array size plus 1.
 		/// </remarks>
-		/// <param name="schemaNS">The namespace URI for the array. Has the same usage as in getProperty.</param>
+		/// <param name="schemaNS">The namespace URI for the array. Has the same usage as in GetProperty.</param>
 		/// <param name="arrayName">
 		/// The name of the array. May be a general path expression, must not be
 		/// <code>null</code> or the empty string. Has the same namespace prefix usage as
-		/// propName in getProperty.
+		/// propName in GetProperty.
 		/// </param>
 		/// <param name="itemIndex">
 		/// The index to insert the new item. Arrays in XMP are indexed from 1. Use
-		/// <code>XMPConst.ARRAY_LAST_ITEM</code> to append items.
+        /// <code>XMPConstConstants.ArrayLastItem</code> to append items.
 		/// </param>
 		/// <param name="itemValue">
 		/// the new value of the array item. Has the same usage as
-		/// propValue in <code>setProperty()</code>.
+		/// propValue in <code>SetProperty()</code>.
 		/// </param>
 		/// <param name="options">the set options that decide about the kind of the node.</param>
 		/// <exception cref="XMPException">Wraps all errors and exceptions that may occur.</exception>
@@ -312,14 +312,14 @@ namespace Com.Adobe.Xmp
 		/// <remarks>
 		/// Simplifies the construction of an array by not requiring that you pre-create an empty array.
 		/// The array that is assigned is created automatically if it does not yet exist. Each call to
-		/// appendArrayItem() appends an item to the array. The corresponding parameters have the same
-		/// use as setArrayItem(). The arrayOptions parameter is used to specify what kind of array. If
+		/// AppendArrayItem() appends an item to the array. The corresponding parameters have the same
+		/// use as SetArrayItem(). The arrayOptions parameter is used to specify what kind of array. If
 		/// the array exists, it must have the specified form.
 		/// </remarks>
-		/// <param name="schemaNS">The namespace URI for the array. Has the same usage as in getProperty.</param>
+		/// <param name="schemaNS">The namespace URI for the array. Has the same usage as in GetProperty.</param>
 		/// <param name="arrayName">
 		/// The name of the array. May be a general path expression, must not be null or
-		/// the empty string. Has the same namespace prefix usage as propPath in getProperty.
+		/// the empty string. Has the same namespace prefix usage as propPath in GetProperty.
 		/// </param>
 		/// <param name="arrayOptions">
 		/// Option flags describing the array form. The only valid options are
@@ -342,7 +342,7 @@ namespace Com.Adobe.Xmp
 		/// <see cref="AppendArrayItem(string, string, string)"/>
 		/// .
 		/// </param>
-		/// <param name="itemValue">the value of the array item. Has the same usage as propValue in getProperty.</param>
+		/// <param name="itemValue">the value of the array item. Has the same usage as propValue in GetProperty.</param>
 		/// <param name="itemOptions">
 		/// Option flags describing the item to append (
 		/// <see cref="Com.Adobe.Xmp.Options.PropertyOptions"/>
@@ -368,10 +368,10 @@ namespace Com.Adobe.Xmp
 		/// the namespace prefix, which is unreliable because the prefix is never guaranteed. The URI is
 		/// the formal name, the prefix is just a local shorthand in a given sequence of XML text.
 		/// </remarks>
-		/// <param name="schemaNS">The namespace URI for the struct. Has the same usage as in getProperty.</param>
+		/// <param name="schemaNS">The namespace URI for the struct. Has the same usage as in GetProperty.</param>
 		/// <param name="structName">
 		/// The name of the struct. May be a general path expression, must not be null
-		/// or the empty string. Has the same namespace prefix usage as propName in getProperty.
+		/// or the empty string. Has the same namespace prefix usage as propName in GetProperty.
 		/// </param>
 		/// <param name="fieldNS">
 		/// The namespace URI for the field. Has the same URI and prefix usage as the
@@ -383,7 +383,7 @@ namespace Com.Adobe.Xmp
 		/// </param>
 		/// <param name="fieldValue">
 		/// the value of thefield, if the field has a value.
-		/// Has the same usage as propValue in getProperty.
+		/// Has the same usage as propValue in GetProperty.
 		/// </param>
 		/// <param name="options">Option flags describing the field. See the earlier description.</param>
 		/// <exception cref="XMPException">Wraps all errors and exceptions that may occur.</exception>
@@ -411,10 +411,10 @@ namespace Com.Adobe.Xmp
 		/// just a local shorthand in a given sequence of XML text. The property the qualifier
 		/// will be attached has to exist.
 		/// </remarks>
-		/// <param name="schemaNS">The namespace URI for the struct. Has the same usage as in getProperty.</param>
+		/// <param name="schemaNS">The namespace URI for the struct. Has the same usage as in GetProperty.</param>
 		/// <param name="propName">
 		/// The name of the property to which the qualifier is attached. Has the same
-		/// usage as in getProperty.
+		/// usage as in GetProperty.
 		/// </param>
 		/// <param name="qualNS">
 		/// The namespace URI for the qualifier. Has the same URI and prefix usage as the
@@ -428,7 +428,7 @@ namespace Com.Adobe.Xmp
 		/// <param name="qualValue">
 		/// A pointer to the <code>null</code> terminated UTF-8 string that is the
 		/// value of the qualifier, if the qualifier has a value. Has the same usage as propValue
-		/// in getProperty.
+		/// in GetProperty.
 		/// </param>
 		/// <param name="options">Option flags describing the qualifier. See the earlier description.</param>
 		/// <exception cref="XMPException">Wraps all errors and exceptions that may occur.</exception>
@@ -455,9 +455,9 @@ namespace Com.Adobe.Xmp
 		/// </remarks>
 		/// <param name="schemaNS">
 		/// The namespace URI for the property. Has the same usage as in
-		/// <code>getProperty()</code>.
+		/// <code>GetProperty()</code>.
 		/// </param>
-		/// <param name="propName">The name of the property. Has the same usage as in getProperty.</param>
+		/// <param name="propName">The name of the property. Has the same usage as in GetProperty.</param>
 		void DeleteProperty(string schemaNS, string propName);
 
 		/// <summary>Deletes the given XMP subtree rooted at the given array item.</summary>
@@ -465,15 +465,15 @@ namespace Com.Adobe.Xmp
 		/// Deletes the given XMP subtree rooted at the given array item. It is not an error if the array
 		/// item does not exist.
 		/// </remarks>
-		/// <param name="schemaNS">The namespace URI for the array. Has the same usage as in getProperty.</param>
+		/// <param name="schemaNS">The namespace URI for the array. Has the same usage as in GetProperty.</param>
 		/// <param name="arrayName">
 		/// The name of the array. May be a general path expression, must not be
 		/// <code>null</code> or the empty string. Has the same namespace prefix usage as
-		/// propName in <code>getProperty()</code>.
+		/// propName in <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="itemIndex">
 		/// The index of the desired item. Arrays in XMP are indexed from 1. The
-		/// constant <code>XMPConst.ARRAY_LAST_ITEM</code> always refers to the last
+        /// constant <code>XMPConstConstants.ArrayLastItem</code> always refers to the last
 		/// existing array item.
 		/// </param>
 		void DeleteArrayItem(string schemaNS, string arrayName, int itemIndex);
@@ -485,12 +485,12 @@ namespace Com.Adobe.Xmp
 		/// </remarks>
 		/// <param name="schemaNS">
 		/// The namespace URI for the struct. Has the same usage as in
-		/// <code>getProperty()</code>.
+		/// <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="structName">
 		/// The name of the struct. May be a general path expression, must not be
 		/// <code>null</code> or the empty string. Has the same namespace prefix usage as
-		/// propName in getProperty.
+		/// propName in GetProperty.
 		/// </param>
 		/// <param name="fieldNS">
 		/// The namespace URI for the field. Has the same URI and prefix usage as the
@@ -510,11 +510,11 @@ namespace Com.Adobe.Xmp
 		/// </remarks>
 		/// <param name="schemaNS">
 		/// The namespace URI for the struct. Has the same usage as in
-		/// <code>getProperty()</code>.
+		/// <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property to which the qualifier is attached. Has the same
-		/// usage as in getProperty.
+		/// usage as in GetProperty.
 		/// </param>
 		/// <param name="qualNS">
 		/// The namespace URI for the qualifier. Has the same URI and prefix usage as the
@@ -530,11 +530,11 @@ namespace Com.Adobe.Xmp
 		/// <summary>Returns whether the property exists.</summary>
 		/// <param name="schemaNS">
 		/// The namespace URI for the property. Has the same usage as in
-		/// <code>getProperty()</code>.
+		/// <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property.
-		/// Has the same usage as in <code>getProperty()</code>.
+		/// Has the same usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <returns>Returns true if the property exists.</returns>
 		bool DoesPropertyExist(string schemaNS, string propName);
@@ -542,16 +542,16 @@ namespace Com.Adobe.Xmp
 		/// <summary>Tells if the array item exists.</summary>
 		/// <param name="schemaNS">
 		/// The namespace URI for the array. Has the same usage as in
-		/// <code>getProperty()</code>.
+		/// <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="arrayName">
 		/// The name of the array. May be a general path expression, must not be
 		/// <code>null</code> or the empty string. Has the same namespace prefix usage as
-		/// propName in <code>getProperty()</code>.
+		/// propName in <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="itemIndex">
 		/// The index of the desired item. Arrays in XMP are indexed from 1. The
-		/// constant <code>XMPConst.ARRAY_LAST_ITEM</code> always refers to the last
+        /// constant <code>XMPConstConstants.ArrayLastItem</code> always refers to the last
 		/// existing array item.
 		/// </param>
 		/// <returns>Returns <code>true</code> if the array exists, <code>false</code> otherwise.</returns>
@@ -560,12 +560,12 @@ namespace Com.Adobe.Xmp
 		/// <summary>DoesStructFieldExist tells if the struct field exists.</summary>
 		/// <param name="schemaNS">
 		/// The namespace URI for the struct. Has the same usage as in
-		/// <code>getProperty()</code>.
+		/// <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="structName">
 		/// The name of the struct. May be a general path expression, must not be
 		/// <code>null</code> or the empty string. Has the same namespace prefix usage as
-		/// propName in <code>getProperty()</code>.
+		/// propName in <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="fieldNS">
 		/// The namespace URI for the field. Has the same URI and prefix usage as the
@@ -582,11 +582,11 @@ namespace Com.Adobe.Xmp
 		/// <summary>DoesQualifierExist tells if the qualifier exists.</summary>
 		/// <param name="schemaNS">
 		/// The namespace URI for the struct. Has the same usage as in
-		/// <code>getProperty()</code>.
+		/// <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property to which the qualifier is attached. Has the same
-		/// usage as in <code>getProperty()</code>.
+		/// usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="qualNS">
 		/// The namespace URI for the qualifier. Has the same URI and prefix usage as the
@@ -655,12 +655,12 @@ namespace Com.Adobe.Xmp
 		/// </remarks>
 		/// <param name="schemaNS">
 		/// The namespace URI for the alt-text array. Has the same usage as in
-		/// <code>getProperty()</code>.
+		/// <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="altTextName">
 		/// The name of the alt-text array. May be a general path expression, must not
 		/// be <code>null</code> or the empty string. Has the same namespace prefix usage as
-		/// propName in <code>getProperty()</code>.
+		/// propName in <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="genericLang">
 		/// The name of the generic language as an RFC 3066 primary subtag. May be
@@ -702,12 +702,12 @@ namespace Com.Adobe.Xmp
 		/// </remarks>
 		/// <param name="schemaNS">
 		/// The namespace URI for the alt-text array. Has the same usage as in
-		/// <code>getProperty()</code>.
+		/// <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="altTextName">
 		/// The name of the alt-text array. May be a general path expression, must not
 		/// be <code>null</code> or the empty string. Has the same namespace prefix usage as
-		/// propName in <code>getProperty()</code>.
+		/// propName in <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="genericLang">
 		/// The name of the generic language as an RFC 3066 primary subtag. May be
@@ -739,22 +739,22 @@ namespace Com.Adobe.Xmp
 		// ---------------------------------------------------------------------------------------------
 		// Functions accessing properties as binary values.
 		/// <summary>
-		/// These are very similar to <code>getProperty()</code> and <code>SetProperty()</code> above,
+		/// These are very similar to <code>GetProperty()</code> and <code>SetProperty()</code> above,
 		/// but the value is returned or provided in a literal form instead of as a UTF-8 string.
 		/// </summary>
 		/// <remarks>
-		/// These are very similar to <code>getProperty()</code> and <code>SetProperty()</code> above,
+		/// These are very similar to <code>GetProperty()</code> and <code>SetProperty()</code> above,
 		/// but the value is returned or provided in a literal form instead of as a UTF-8 string.
 		/// The path composition functions in <code>XMPPathFactory</code> may be used to compose an path
 		/// expression for fields in nested structures, items in arrays, or qualifiers.
 		/// </remarks>
 		/// <param name="schemaNS">
 		/// The namespace URI for the property. Has the same usage as in
-		/// <code>getProperty()</code>.
+		/// <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property.
-		/// Has the same usage as in <code>getProperty()</code>.
+		/// Has the same usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <returns>
 		/// Returns a <code>Boolean</code> value or <code>null</code>
@@ -770,11 +770,11 @@ namespace Com.Adobe.Xmp
 		/// <summary>Convenience method to retrieve the literal value of a property.</summary>
 		/// <param name="schemaNS">
 		/// The namespace URI for the property. Has the same usage as in
-		/// <code>getProperty()</code>.
+		/// <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property.
-		/// Has the same usage as in <code>getProperty()</code>.
+		/// Has the same usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <returns>
 		/// Returns an <code>Integer</code> value or <code>null</code>
@@ -790,11 +790,11 @@ namespace Com.Adobe.Xmp
 		/// <summary>Convenience method to retrieve the literal value of a property.</summary>
 		/// <param name="schemaNS">
 		/// The namespace URI for the property. Has the same usage as in
-		/// <code>getProperty()</code>.
+		/// <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property.
-		/// Has the same usage as in <code>getProperty()</code>.
+		/// Has the same usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <returns>
 		/// Returns a <code>Long</code> value or <code>null</code>
@@ -810,11 +810,11 @@ namespace Com.Adobe.Xmp
 		/// <summary>Convenience method to retrieve the literal value of a property.</summary>
 		/// <param name="schemaNS">
 		/// The namespace URI for the property. Has the same usage as in
-		/// <code>getProperty()</code>.
+		/// <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property.
-		/// Has the same usage as in <code>getProperty()</code>.
+		/// Has the same usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <returns>
 		/// Returns a <code>Double</code> value or <code>null</code>
@@ -830,11 +830,11 @@ namespace Com.Adobe.Xmp
 		/// <summary>Convenience method to retrieve the literal value of a property.</summary>
 		/// <param name="schemaNS">
 		/// The namespace URI for the property. Has the same usage as in
-		/// <code>getProperty()</code>.
+		/// <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property.
-		/// Has the same usage as in <code>getProperty()</code>.
+		/// Has the same usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <returns>
 		/// Returns a <code>XMPDateTime</code>-object or <code>null</code>
@@ -850,11 +850,11 @@ namespace Com.Adobe.Xmp
 		/// <summary>Convenience method to retrieve the literal value of a property.</summary>
 		/// <param name="schemaNS">
 		/// The namespace URI for the property. Has the same usage as in
-		/// <code>getProperty()</code>.
+		/// <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property.
-		/// Has the same usage as in <code>getProperty()</code>.
+		/// Has the same usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <returns>
 		/// Returns a Java <code>Calendar</code>-object or <code>null</code>
@@ -870,11 +870,11 @@ namespace Com.Adobe.Xmp
 		/// <summary>Convenience method to retrieve the literal value of a property.</summary>
 		/// <param name="schemaNS">
 		/// The namespace URI for the property. Has the same usage as in
-		/// <code>getProperty()</code>.
+		/// <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property.
-		/// Has the same usage as in <code>getProperty()</code>.
+		/// Has the same usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <returns>
 		/// Returns a <code>byte[]</code>-array contained the decoded base64 value
@@ -891,15 +891,15 @@ namespace Com.Adobe.Xmp
 		/// <remarks>
 		/// Convenience method to retrieve the literal value of a property.
 		/// <em>Note:</em> There is no <code>setPropertyString()</code>,
-		/// because <code>setProperty()</code> sets a string value.
+		/// because <code>SetProperty()</code> sets a string value.
 		/// </remarks>
 		/// <param name="schemaNS">
 		/// The namespace URI for the property. Has the same usage as in
-		/// <code>getProperty()</code>.
+		/// <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property.
-		/// Has the same usage as in <code>getProperty()</code>.
+		/// Has the same usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <returns>
 		/// Returns a <code>String</code> value or <code>null</code>
@@ -915,11 +915,11 @@ namespace Com.Adobe.Xmp
 		/// <summary>Convenience method to set a property to a literal <code>boolean</code> value.</summary>
 		/// <param name="schemaNS">
 		/// The namespace URI for the property. Has the same usage as in
-		/// <code>setProperty()</code>.
+		/// <code>SetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property.
-		/// Has the same usage as in <code>getProperty()</code>.
+		/// Has the same usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propValue">the literal property value as <code>boolean</code>.</param>
 		/// <param name="options">options of the property to set (optional).</param>
@@ -938,11 +938,11 @@ namespace Com.Adobe.Xmp
 		/// <summary>Convenience method to set a property to a literal <code>int</code> value.</summary>
 		/// <param name="schemaNS">
 		/// The namespace URI for the property. Has the same usage as in
-		/// <code>setProperty()</code>.
+		/// <code>SetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property.
-		/// Has the same usage as in <code>getProperty()</code>.
+		/// Has the same usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propValue">the literal property value as <code>int</code>.</param>
 		/// <param name="options">options of the property to set (optional).</param>
@@ -961,11 +961,11 @@ namespace Com.Adobe.Xmp
 		/// <summary>Convenience method to set a property to a literal <code>long</code> value.</summary>
 		/// <param name="schemaNS">
 		/// The namespace URI for the property. Has the same usage as in
-		/// <code>setProperty()</code>.
+		/// <code>SetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property.
-		/// Has the same usage as in <code>getProperty()</code>.
+		/// Has the same usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propValue">the literal property value as <code>long</code>.</param>
 		/// <param name="options">options of the property to set (optional).</param>
@@ -984,11 +984,11 @@ namespace Com.Adobe.Xmp
 		/// <summary>Convenience method to set a property to a literal <code>double</code> value.</summary>
 		/// <param name="schemaNS">
 		/// The namespace URI for the property. Has the same usage as in
-		/// <code>setProperty()</code>.
+		/// <code>SetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property.
-		/// Has the same usage as in <code>getProperty()</code>.
+		/// Has the same usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propValue">the literal property value as <code>double</code>.</param>
 		/// <param name="options">options of the property to set (optional).</param>
@@ -1010,11 +1010,11 @@ namespace Com.Adobe.Xmp
 		/// </summary>
 		/// <param name="schemaNS">
 		/// The namespace URI for the property. Has the same usage as in
-		/// <code>setProperty()</code>.
+		/// <code>SetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property.
-		/// Has the same usage as in <code>getProperty()</code>.
+		/// Has the same usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propValue">the property value as <code>XMPDateTime</code>.</param>
 		/// <param name="options">options of the property to set (optional).</param>
@@ -1036,11 +1036,11 @@ namespace Com.Adobe.Xmp
 		/// </summary>
 		/// <param name="schemaNS">
 		/// The namespace URI for the property. Has the same usage as in
-		/// <code>setProperty()</code>.
+		/// <code>SetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property.
-		/// Has the same usage as in <code>getProperty()</code>.
+		/// Has the same usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propValue">the property value as Java <code>Calendar</code>.</param>
 		/// <param name="options">options of the property to set (optional).</param>
@@ -1062,11 +1062,11 @@ namespace Com.Adobe.Xmp
 		/// </summary>
 		/// <param name="schemaNS">
 		/// The namespace URI for the property. Has the same usage as in
-		/// <code>setProperty()</code>.
+		/// <code>SetProperty()</code>.
 		/// </param>
 		/// <param name="propName">
 		/// The name of the property.
-		/// Has the same usage as in <code>getProperty()</code>.
+		/// Has the same usage as in <code>GetProperty()</code>.
 		/// </param>
 		/// <param name="propValue">the literal property value as byte array.</param>
 		/// <param name="options">options of the property to set (optional).</param>

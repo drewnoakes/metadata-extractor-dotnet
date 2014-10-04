@@ -4,7 +4,7 @@ namespace Sharpen
 	using System.IO;
 	using System.Text;
 
-	internal class PrintWriter : TextWriter
+	public class PrintWriter : TextWriter
 	{
 		TextWriter writer;
 		
@@ -18,7 +18,14 @@ namespace Sharpen
 			writer = other;
 		}
 
-		public override Encoding Encoding {
+	    public PrintWriter(OutputStream outputStream, bool append)
+	    {
+            writer = new StreamWriter(outputStream);
+	        if(append)
+	            throw new NotSupportedException();
+	    }
+
+	    public override Encoding Encoding {
 			get { return writer.Encoding; }
 		}
 		
@@ -59,22 +66,22 @@ namespace Sharpen
 	
 		public override void Write (string format, object arg0, object arg1, object arg2)
 		{
-			writer.Write (format, arg0, arg1, arg2);
+			writer.Write (Extensions.ConvertStringFormat(format), arg0, arg1, arg2);
 		}
 	
 		public override void Write (string format, object arg0, object arg1)
 		{
-			writer.Write (format, arg0, arg1);
+            writer.Write(Extensions.ConvertStringFormat(format), arg0, arg1);
 		}
 	
 		public override void Write (string format, object arg0)
 		{
-			writer.Write (format, arg0);
+            writer.Write(Extensions.ConvertStringFormat(format), arg0);
 		}
 	
 		public override void Write (string format, params object[] arg)
 		{
-			writer.Write (format, arg);
+            writer.Write(Extensions.ConvertStringFormat(format), arg);
 		}
 	
 		public override void WriteLine (char[] buffer, int index, int count)
@@ -89,22 +96,22 @@ namespace Sharpen
 	
 		public override void WriteLine (string format, object arg0, object arg1, object arg2)
 		{
-			writer.WriteLine (format, arg0, arg1, arg2);
+            writer.WriteLine(Extensions.ConvertStringFormat(format), arg0, arg1, arg2);
 		}
 	
 		public override void WriteLine (string format, object arg0, object arg1)
 		{
-			writer.WriteLine (format, arg0, arg1);
+            writer.WriteLine(Extensions.ConvertStringFormat(format), arg0, arg1);
 		}
 	
 		public override void WriteLine (string format, object arg0)
 		{
-			writer.WriteLine (format, arg0);
+            writer.WriteLine(Extensions.ConvertStringFormat(format), arg0);
 		}
 	
 		public override void WriteLine (string format, params object[] arg)
 		{
-			writer.WriteLine (format, arg);
+            writer.WriteLine(Extensions.ConvertStringFormat(format), arg);
 		}
 	
 		public override void WriteLine (ulong value)

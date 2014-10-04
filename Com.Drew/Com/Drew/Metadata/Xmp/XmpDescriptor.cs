@@ -120,7 +120,7 @@ namespace Com.Drew.Metadata.Xmp
 			// '1' means manual control, '2' program normal, '3' aperture priority,
 			// '4' shutter priority, '5' program creative (slow program),
 			// '6' program action(high-speed program), '7' portrait mode, '8' landscape mode.
-			int value = _directory.GetInteger(XmpDirectory.TagExposureProgram);
+			int? value = _directory.GetInteger(XmpDirectory.TagExposureProgram);
 			if (value == null)
 			{
 				return null;
@@ -178,7 +178,7 @@ namespace Com.Drew.Metadata.Xmp
 		[CanBeNull]
 		public virtual string GetShutterSpeedDescription()
 		{
-			float value = _directory.GetFloatObject(XmpDirectory.TagShutterSpeed);
+			float? value = _directory.GetFloatObject(XmpDirectory.TagShutterSpeed);
 			if (value == null)
 			{
 				return null;
@@ -188,14 +188,14 @@ namespace Com.Drew.Metadata.Xmp
 			// thanks also to Gli Blr for spotting this bug
 			if (value <= 1)
 			{
-				float apexPower = (float)(1 / (Math.Exp(value * Math.Log(2))));
-				long apexPower10 = Math.Round((double)apexPower * 10.0);
+				float apexPower = (float)(1 / (Math.Exp(value.Value * Math.Log(2))));
+				double apexPower10 = Math.Round((double)apexPower * 10.0);
 				float fApexPower = (float)apexPower10 / 10.0f;
 				return fApexPower + " sec";
 			}
 			else
 			{
-				int apexPower = (int)((Math.Exp(value * Math.Log(2))));
+				int apexPower = (int)((Math.Exp(value.Value * Math.Log(2))));
 				return "1/" + apexPower + " sec";
 			}
 		}
@@ -229,12 +229,12 @@ namespace Com.Drew.Metadata.Xmp
 		[CanBeNull]
 		public virtual string GetApertureValueDescription()
 		{
-			double value = _directory.GetDoubleObject(XmpDirectory.TagApertureValue);
+			double? value = _directory.GetDoubleObject(XmpDirectory.TagApertureValue);
 			if (value == null)
 			{
 				return null;
 			}
-			double fStop = PhotographicConversions.ApertureToFStop(value);
+			double fStop = PhotographicConversions.ApertureToFStop(value.Value);
 			return "F" + SimpleDecimalFormatter.Format(fStop);
 		}
 	}

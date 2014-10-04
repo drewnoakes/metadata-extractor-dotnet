@@ -43,12 +43,12 @@ namespace Com.Drew.Metadata.Exif
 		{
 			switch (tagType)
 			{
-				case TagInteropIndex:
+                case ExifInteropDirectory.TagInteropIndex:
 				{
 					return GetInteropIndexDescription();
 				}
 
-				case TagInteropVersion:
+                case ExifInteropDirectory.TagInteropVersion:
 				{
 					return GetInteropVersionDescription();
 				}
@@ -63,13 +63,13 @@ namespace Com.Drew.Metadata.Exif
 		[CanBeNull]
 		public virtual string GetInteropVersionDescription()
 		{
-			return GetVersionBytesDescription(TagInteropVersion, 2);
+            return GetVersionBytesDescription(ExifInteropDirectory.TagInteropVersion, 2);
 		}
 
 		[CanBeNull]
 		public virtual string GetInteropIndexDescription()
 		{
-			string value = _directory.GetString(TagInteropIndex);
+            string value = _directory.GetString(ExifInteropDirectory.TagInteropIndex);
 			if (value == null)
 			{
 				return null;

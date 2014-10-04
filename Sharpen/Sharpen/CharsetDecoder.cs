@@ -3,7 +3,7 @@ namespace Sharpen
 	using System;
 	using System.Text;
 
-	internal class CharsetDecoder
+	public class CharsetDecoder
 	{
 		private Encoding enc;
 		Decoder decoder;

@@ -4,7 +4,7 @@ namespace Sharpen
 	using System.Collections;
 	using System.Collections.Generic;
 
-	internal class ConcurrentHashMap<T, U> : AbstractMap<T, U>, IEnumerable, ConcurrentMap<T, U>, IDictionary<T, U>, IEnumerable<KeyValuePair<T, U>>, ICollection<KeyValuePair<T, U>>
+	public class ConcurrentHashMap<T, U> : AbstractMap<T, U>, IEnumerable, ConcurrentMap<T, U>, IDictionary<T, U>, IEnumerable<KeyValuePair<T, U>>, ICollection<KeyValuePair<T, U>>
 	{
 		private Dictionary<T, U> table;
 

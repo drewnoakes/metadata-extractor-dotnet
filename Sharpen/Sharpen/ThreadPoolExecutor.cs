@@ -4,7 +4,7 @@ using ST = System.Threading;
 
 namespace Sharpen
 {
-	class ThreadPoolExecutor
+    public class ThreadPoolExecutor
 	{
 		ThreadFactory tf;
 		int corePoolSize;
@@ -69,7 +69,7 @@ namespace Sharpen
 			InternalExecute (r, true);
 		}
 		
-		internal void InternalExecute (Runnable r, bool checkShutdown)
+		public void InternalExecute (Runnable r, bool checkShutdown)
 		{
 			lock (pendingTasks) {
 				if (shutdown && checkShutdown)

@@ -27,10 +27,10 @@ namespace Com.Adobe.Xmp.Properties
 
 		/// <returns>
 		/// Returns the kind of the alias. This can be a direct alias
-		/// (ARRAY), a simple property to an ordered array
-		/// (ARRAY_ORDERED), to an alternate array
-		/// (ARRAY_ALTERNATE) or to an alternate text array
-		/// (ARRAY_ALT_TEXT).
+        /// (Array), a simple property to an ordered array
+		/// (ArrayOrdered), to an alternate array
+		/// (ArrayAlternate) or to an alternate text array
+		/// (ArrayAltText).
 		/// </returns>
 		AliasOptions GetAliasForm();
 	}

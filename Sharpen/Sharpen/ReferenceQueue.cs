@@ -3,7 +3,7 @@ namespace Sharpen
 	using System;
 	using System.Collections.Generic;
 
-	internal class ReferenceQueue<T>
+	public class ReferenceQueue<T>
 	{
 		private Queue<Reference<T>> queue;
 
@@ -12,7 +12,7 @@ namespace Sharpen
 			this.queue = new Queue<Reference<T>> ();
 		}
 
-		internal bool Add (Reference<T> t)
+		public bool Add (Reference<T> t)
 		{
 			Queue<Reference<T>> queue = this.queue;
 			lock (queue) {

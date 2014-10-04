@@ -350,7 +350,7 @@ namespace Com.Drew.Metadata.Icc
 		[CanBeNull]
 		private string GetRenderingIntentDescription()
 		{
-			int value = _directory.GetInteger(IccDirectory.TagRenderingIntent);
+			int? value = _directory.GetInteger(IccDirectory.TagRenderingIntent);
 			if (value == null)
 			{
 				return null;
@@ -506,14 +506,14 @@ namespace Com.Drew.Metadata.Icc
 		[CanBeNull]
 		private string GetProfileVersionDescription()
 		{
-			int value = _directory.GetInteger(IccDirectory.TagProfileVersion);
+			int? value = _directory.GetInteger(IccDirectory.TagProfileVersion);
 			if (value == null)
 			{
 				return null;
 			}
-			int m = (value & unchecked((int)(0xFF000000))) >> 24;
-			int r = (value & unchecked((int)(0x00F00000))) >> 20;
-			int R = (value & unchecked((int)(0x000F0000))) >> 16;
+			int m = (value.Value & unchecked((int)(0xFF000000))) >> 24;
+			int r = (value.Value & unchecked((int)(0x00F00000))) >> 20;
+			int R = (value.Value & unchecked((int)(0x000F0000))) >> 16;
 			return Sharpen.Extensions.StringFormat("%d.%d.%d", m, r, R);
 		}
 

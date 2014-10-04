@@ -55,42 +55,42 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 		{
 			switch (tagType)
 			{
-				case TagQuality:
+                case NikonType1MakernoteDirectory.TagQuality:
 				{
 					return GetQualityDescription();
 				}
 
-				case TagColorMode:
+                case NikonType1MakernoteDirectory.TagColorMode:
 				{
 					return GetColorModeDescription();
 				}
 
-				case TagImageAdjustment:
+                case NikonType1MakernoteDirectory.TagImageAdjustment:
 				{
 					return GetImageAdjustmentDescription();
 				}
 
-				case TagCcdSensitivity:
+                case NikonType1MakernoteDirectory.TagCcdSensitivity:
 				{
 					return GetCcdSensitivityDescription();
 				}
 
-				case TagWhiteBalance:
+                case NikonType1MakernoteDirectory.TagWhiteBalance:
 				{
 					return GetWhiteBalanceDescription();
 				}
 
-				case TagFocus:
+                case NikonType1MakernoteDirectory.TagFocus:
 				{
 					return GetFocusDescription();
 				}
 
-				case TagDigitalZoom:
+                case NikonType1MakernoteDirectory.TagDigitalZoom:
 				{
 					return GetDigitalZoomDescription();
 				}
 
-				case TagConverter:
+                case NikonType1MakernoteDirectory.TagConverter:
 				{
 					return GetConverterDescription();
 				}
@@ -105,51 +105,51 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 		[CanBeNull]
 		public virtual string GetConverterDescription()
 		{
-			return GetIndexedDescription(TagConverter, "None", "Fisheye converter");
+            return GetIndexedDescription(NikonType1MakernoteDirectory.TagConverter, "None", "Fisheye converter");
 		}
 
 		[CanBeNull]
 		public virtual string GetDigitalZoomDescription()
 		{
-			Rational value = _directory.GetRational(TagDigitalZoom);
+            Rational value = _directory.GetRational(NikonType1MakernoteDirectory.TagDigitalZoom);
 			return value == null ? null : value.GetNumerator() == 0 ? "No digital zoom" : value.ToSimpleString(true) + "x digital zoom";
 		}
 
 		[CanBeNull]
 		public virtual string GetFocusDescription()
 		{
-			Rational value = _directory.GetRational(TagFocus);
+            Rational value = _directory.GetRational(NikonType1MakernoteDirectory.TagFocus);
 			return value == null ? null : value.GetNumerator() == 1 && value.GetDenominator() == 0 ? "Infinite" : value.ToSimpleString(true);
 		}
 
 		[CanBeNull]
 		public virtual string GetWhiteBalanceDescription()
 		{
-			return GetIndexedDescription(TagWhiteBalance, "Auto", "Preset", "Daylight", "Incandescence", "Florescence", "Cloudy", "SpeedLight");
+            return GetIndexedDescription(NikonType1MakernoteDirectory.TagWhiteBalance, "Auto", "Preset", "Daylight", "Incandescence", "Florescence", "Cloudy", "SpeedLight");
 		}
 
 		[CanBeNull]
 		public virtual string GetCcdSensitivityDescription()
 		{
-			return GetIndexedDescription(TagCcdSensitivity, "ISO80", null, "ISO160", null, "ISO320", "ISO100");
+            return GetIndexedDescription(NikonType1MakernoteDirectory.TagCcdSensitivity, "ISO80", null, "ISO160", null, "ISO320", "ISO100");
 		}
 
 		[CanBeNull]
 		public virtual string GetImageAdjustmentDescription()
 		{
-			return GetIndexedDescription(TagImageAdjustment, "Normal", "Bright +", "Bright -", "Contrast +", "Contrast -");
+            return GetIndexedDescription(NikonType1MakernoteDirectory.TagImageAdjustment, "Normal", "Bright +", "Bright -", "Contrast +", "Contrast -");
 		}
 
 		[CanBeNull]
 		public virtual string GetColorModeDescription()
 		{
-			return GetIndexedDescription(TagColorMode, 1, "Color", "Monochrome");
+            return GetIndexedDescription(NikonType1MakernoteDirectory.TagColorMode, 1, "Color", "Monochrome");
 		}
 
 		[CanBeNull]
 		public virtual string GetQualityDescription()
 		{
-			return GetIndexedDescription(TagQuality, 1, "VGA Basic", "VGA Normal", "VGA Fine", "SXGA Basic", "SXGA Normal", "SXGA Fine");
+            return GetIndexedDescription(NikonType1MakernoteDirectory.TagQuality, 1, "VGA Basic", "VGA Normal", "VGA Fine", "SXGA Basic", "SXGA Normal", "SXGA Fine");
 		}
 	}
 }

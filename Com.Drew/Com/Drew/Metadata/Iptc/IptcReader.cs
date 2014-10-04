@@ -57,7 +57,7 @@ namespace Com.Drew.Metadata.Iptc
 		[NotNull]
 		public virtual Iterable<JpegSegmentType> GetSegmentTypes()
 		{
-			return Arrays.AsList(JpegSegmentType.Appd);
+			return Arrays.AsList(JpegSegmentType.Appd).AsIterable();
 		}
 
 		public virtual bool CanProcess(sbyte[] segmentBytes, JpegSegmentType segmentType)

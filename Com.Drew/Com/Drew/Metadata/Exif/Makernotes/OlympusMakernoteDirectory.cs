@@ -212,7 +212,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
 		public sealed class CameraSettings
 		{
-			private const int Offset = unchecked((int)(0xF000));
+		    internal const int Offset = unchecked((int)(0xF000));
 
 			public const int TagExposureMode = Offset + 2;
 
@@ -461,7 +461,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
 		public virtual bool IsIntervalMode()
 		{
-			long value = GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagShootingMode);
+			long? value = GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagShootingMode);
 			return value != null && value == 5;
 		}
 

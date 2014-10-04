@@ -28,17 +28,22 @@ using System.Net;
 
 namespace Sharpen
 {
-	public class URLConnection
+	public abstract class URLConnection
 	{
+	    public abstract InputStream GetInputStream();
 	}
 	
 	public class HttpsURLConnection: HttpURLConnection
 	{
-		internal HttpsURLConnection (Uri uri, Proxy p): base (uri, p)
+		public HttpsURLConnection (Uri uri): base (uri)
+		{
+		}
+        
+        public HttpsURLConnection (Uri uri, Proxy p): base (uri, p)
 		{
 		}
 		
-		internal void SetSSLSocketFactory (object factory)
+		public void SetSSLSocketFactory (object factory)
 		{
 			// TODO
 		}
@@ -55,7 +60,13 @@ namespace Sharpen
 		HttpWebResponse reqResponse;
 		Uri url;
 		
-		internal HttpURLConnection (Uri uri, Proxy p)
+		public HttpURLConnection (Uri uri)
+		{
+			url = uri;
+			request = (HttpWebRequest) HttpWebRequest.Create (uri);
+		}
+        
+        public HttpURLConnection (Uri uri, Proxy p)
 		{
 			url = uri;
 			request = (HttpWebRequest) HttpWebRequest.Create (uri);
@@ -152,7 +163,7 @@ namespace Sharpen
 			// Not available
 		}
 		
-		public InputStream GetInputStream ()
+		public override InputStream GetInputStream ()
 		{
 			return Response.GetResponseStream ();
 		}

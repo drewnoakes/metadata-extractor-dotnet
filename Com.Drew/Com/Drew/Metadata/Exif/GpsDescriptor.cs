@@ -44,73 +44,73 @@ namespace Com.Drew.Metadata.Exif
 		{
 			switch (tagType)
 			{
-				case TagVersionId:
+                case GpsDirectory.TagVersionId:
 				{
 					return GetGpsVersionIdDescription();
 				}
 
-				case TagAltitude:
+                case GpsDirectory.TagAltitude:
 				{
 					return GetGpsAltitudeDescription();
 				}
 
-				case TagAltitudeRef:
+                case GpsDirectory.TagAltitudeRef:
 				{
 					return GetGpsAltitudeRefDescription();
 				}
 
-				case TagStatus:
+                case GpsDirectory.TagStatus:
 				{
 					return GetGpsStatusDescription();
 				}
 
-				case TagMeasureMode:
+                case GpsDirectory.TagMeasureMode:
 				{
 					return GetGpsMeasureModeDescription();
 				}
 
-				case TagSpeedRef:
+                case GpsDirectory.TagSpeedRef:
 				{
 					return GetGpsSpeedRefDescription();
 				}
 
-				case TagTrackRef:
-				case TagImgDirectionRef:
-				case TagDestBearingRef:
+                case GpsDirectory.TagTrackRef:
+                case GpsDirectory.TagImgDirectionRef:
+                case GpsDirectory.TagDestBearingRef:
 				{
 					return GetGpsDirectionReferenceDescription(tagType);
 				}
 
-				case TagTrack:
-				case TagImgDirection:
-				case TagDestBearing:
+                case GpsDirectory.TagTrack:
+                case GpsDirectory.TagImgDirection:
+                case GpsDirectory.TagDestBearing:
 				{
 					return GetGpsDirectionDescription(tagType);
 				}
 
-				case TagDestDistanceRef:
+                case GpsDirectory.TagDestDistanceRef:
 				{
 					return GetGpsDestinationReferenceDescription();
 				}
 
-				case TagTimeStamp:
+                case GpsDirectory.TagTimeStamp:
 				{
 					return GetGpsTimeStampDescription();
 				}
 
-				case TagLongitude:
+                case GpsDirectory.TagLongitude:
 				{
 					// three rational numbers -- displayed in HH"MM"SS.ss
 					return GetGpsLongitudeDescription();
 				}
 
-				case TagLatitude:
+                case GpsDirectory.TagLatitude:
 				{
 					// three rational numbers -- displayed in HH"MM"SS.ss
 					return GetGpsLatitudeDescription();
 				}
 
-				case TagDifferential:
+                case GpsDirectory.TagDifferential:
 				{
 					return GetGpsDifferentialDescription();
 				}
@@ -125,7 +125,7 @@ namespace Com.Drew.Metadata.Exif
 		[CanBeNull]
 		private string GetGpsVersionIdDescription()
 		{
-			return GetVersionBytesDescription(TagVersionId, 1);
+            return GetVersionBytesDescription(GpsDirectory.TagVersionId, 1);
 		}
 
 		[CanBeNull]
@@ -146,14 +146,14 @@ namespace Com.Drew.Metadata.Exif
 		public virtual string GetGpsTimeStampDescription()
 		{
 			// time in hour, min, sec
-			int[] timeComponents = _directory.GetIntArray(TagTimeStamp);
+            int[] timeComponents = _directory.GetIntArray(GpsDirectory.TagTimeStamp);
 			return timeComponents == null ? null : Sharpen.Extensions.StringFormat("%d:%d:%d UTC", timeComponents[0], timeComponents[1], timeComponents[2]);
 		}
 
 		[CanBeNull]
 		public virtual string GetGpsDestinationReferenceDescription()
 		{
-			string value = _directory.GetString(TagDestDistanceRef);
+            string value = _directory.GetString(GpsDirectory.TagDestDistanceRef);
 			if (value == null)
 			{
 				return null;
@@ -221,7 +221,7 @@ namespace Com.Drew.Metadata.Exif
 		[CanBeNull]
 		public virtual string GetGpsSpeedRefDescription()
 		{
-			string value = _directory.GetString(TagSpeedRef);
+            string value = _directory.GetString(GpsDirectory.TagSpeedRef);
 			if (value == null)
 			{
 				return null;
@@ -254,7 +254,7 @@ namespace Com.Drew.Metadata.Exif
 		[CanBeNull]
 		public virtual string GetGpsMeasureModeDescription()
 		{
-			string value = _directory.GetString(TagMeasureMode);
+            string value = _directory.GetString(GpsDirectory.TagMeasureMode);
 			if (value == null)
 			{
 				return null;
@@ -280,7 +280,7 @@ namespace Com.Drew.Metadata.Exif
 		[CanBeNull]
 		public virtual string GetGpsStatusDescription()
 		{
-			string value = _directory.GetString(TagStatus);
+            string value = _directory.GetString(GpsDirectory.TagStatus);
 			if (value == null)
 			{
 				return null;
@@ -306,20 +306,20 @@ namespace Com.Drew.Metadata.Exif
 		[CanBeNull]
 		public virtual string GetGpsAltitudeRefDescription()
 		{
-			return GetIndexedDescription(TagAltitudeRef, "Sea level", "Below sea level");
+            return GetIndexedDescription(GpsDirectory.TagAltitudeRef, "Sea level", "Below sea level");
 		}
 
 		[CanBeNull]
 		public virtual string GetGpsAltitudeDescription()
 		{
-			Rational value = _directory.GetRational(TagAltitude);
+            Rational value = _directory.GetRational(GpsDirectory.TagAltitude);
 			return value == null ? null : value.IntValue() + " metres";
 		}
 
 		[CanBeNull]
 		public virtual string GetGpsDifferentialDescription()
 		{
-			return GetIndexedDescription(TagDifferential, "No Correction", "Differential Corrected");
+            return GetIndexedDescription(GpsDirectory.TagDifferential, "No Correction", "Differential Corrected");
 		}
 
 		[CanBeNull]

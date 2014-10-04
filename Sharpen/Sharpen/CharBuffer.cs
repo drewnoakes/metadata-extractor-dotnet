@@ -2,9 +2,9 @@ namespace Sharpen
 {
 	using System;
 
-	internal class CharBuffer : CharSequence
+	public class CharBuffer : CharSequence
 	{
-		internal string Wrapped;
+		public string Wrapped;
 
 		public override string ToString ()
 		{

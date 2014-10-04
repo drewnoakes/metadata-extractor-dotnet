@@ -3,7 +3,7 @@ namespace Sharpen
 	using System;
 	using System.IO;
 
-	internal class ObjectOutputStream : OutputStream
+	public class ObjectOutputStream : OutputStream
 	{
 		private BinaryWriter bw;
 

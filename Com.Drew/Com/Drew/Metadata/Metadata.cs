@@ -53,7 +53,7 @@ namespace Com.Drew.Metadata
 		[NotNull]
 		public Iterable<Com.Drew.Metadata.Directory> GetDirectories()
 		{
-			return _directoryList;
+			return _directoryList.AsIterable();
 		}
 
 		/// <summary>Returns a count of unique directories in this metadata collection.</summary>
@@ -62,6 +62,45 @@ namespace Com.Drew.Metadata
 		{
 			return _directoryList.Count;
 		}
+
+        /// <summary>
+        /// Returns a
+        /// <see cref="Directory"/>
+        /// of specified type.  If this
+        /// <see cref="Metadata"/>
+        /// object already contains
+        /// such a directory, it is returned.  Otherwise a new instance of this directory will be created and stored within
+        /// this
+        /// <see cref="Metadata"/>
+        /// object.
+        /// </summary>
+        /// <param name="type">the type of the Directory implementation required.</param>
+        /// <returns>a directory of the specified type.</returns>
+        /// HACK: this method is absent in core library. It was converted to GetOrCreateDirectory<T>()
+        [NotNull]
+        public Directory GetOrCreateDirectory(Type type)
+        {
+            // We suppress the warning here as the code asserts a map signature of Class<T>,T.
+            // So after get(Class<T>) it is for sure the result is from type T.
+            // check if we've already issued this type of directory
+            if (_directoryByClass.ContainsKey(type))
+            {
+                return _directoryByClass.Get(type);
+            }
+            Directory directory;
+            try
+            {
+                directory = (Directory)System.Activator.CreateInstance(type);
+            }
+            catch (Exception)
+            {
+                throw new RuntimeException("Cannot instantiate provided Directory type: " + type.ToString());
+            }
+            // store the directory
+            _directoryByClass.Put(type, directory);
+            _directoryList.Add(directory);
+            return directory;
+        }
 
 		/// <summary>
 		/// Returns a
@@ -74,7 +113,7 @@ namespace Com.Drew.Metadata
 		/// <see cref="Metadata"/>
 		/// object.
 		/// </summary>
-		/// <param name="type">the type of the Directory implementation required.</param>
+        /// <typeparam name="T">the type of the Directory implementation required.</typeparam>
 		/// <returns>a directory of the specified type.</returns>
 		[NotNull]
 		public T GetOrCreateDirectory<T>()
@@ -91,7 +130,7 @@ namespace Com.Drew.Metadata
 			T directory;
 			try
 			{
-				directory = System.Activator.CreateInstance(type);
+				directory = (T) System.Activator.CreateInstance(type);
 			}
 			catch (Exception)
 			{
@@ -111,8 +150,7 @@ namespace Com.Drew.Metadata
 		/// of the specified type, it is returned.
 		/// Otherwise <code>null</code> is returned.
 		/// </summary>
-		/// <param name="type">the Directory type</param>
-		/// <?/>
+        /// <typeparam name="T">the Directory type</typeparam>
 		/// <returns>
 		/// a Directory of type T if it exists in this
 		/// <see cref="Metadata"/>
@@ -136,20 +174,20 @@ namespace Com.Drew.Metadata
 		/// Indicates whether a given directory type has been created in this metadata
 		/// repository.  Directories are created by calling <code>getOrCreateDirectory(Class)</code>.
 		/// </remarks>
-		/// <param name="type">
+		/// <typeparam name="T">
 		/// the
 		/// <see cref="Directory"/>
 		/// type
-		/// </param>
+        /// </typeparam>
 		/// <returns>
 		/// true if the
 		/// <see cref="Directory"/>
 		/// has been created
 		/// </returns>
-		public bool ContainsDirectory<_T0>(Type<_T0> type)
-			where _T0 : Com.Drew.Metadata.Directory
+		public bool ContainsDirectory<T>()
+			where T : Com.Drew.Metadata.Directory
 		{
-			return _directoryByClass.ContainsKey(type);
+			return _directoryByClass.ContainsKey(typeof(T));
 		}
 
 		/// <summary>Indicates whether any errors were reported during the reading of metadata values.</summary>

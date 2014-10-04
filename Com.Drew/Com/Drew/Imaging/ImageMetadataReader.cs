@@ -90,7 +90,7 @@ namespace Com.Drew.Imaging
 		// "GI" // TODO the full magic number is GIF or possibly GIF89a/GIF87a
 		/// <summary>
 		/// Reads metadata from an
-		/// <see cref="System.IO.InputStream"/>
+		/// <see cref="InputStream"/>
 		/// .
 		/// <p/>
 		/// The file type is determined by inspecting the leading bytes of the stream, and parsing of the file

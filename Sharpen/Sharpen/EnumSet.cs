@@ -29,12 +29,12 @@ namespace Sharpen
 	public class EnumSet<T> : AbstractSet<T>
 	{
 		// Fields
-		private HashSet<T> hset;
+		private System.Collections.Generic.HashSet<T> hset;
 
 		// Methods
 		public EnumSet ()
 		{
-			this.hset = new HashSet<T> ();
+			this.hset = new System.Collections.Generic.HashSet<T> ();
 		}
 
 		public override bool AddItem (T item)
@@ -50,7 +50,7 @@ namespace Sharpen
 		public virtual EnumSet<T> Clone ()
 		{
 			EnumSet<T> @set = new EnumSet<T> ();
-			@set.hset = new HashSet<T> (this.hset);
+			@set.hset = new System.Collections.Generic.HashSet<T> (this.hset);
 			return @set;
 		}
 

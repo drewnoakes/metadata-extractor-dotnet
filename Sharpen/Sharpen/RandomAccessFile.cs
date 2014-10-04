@@ -3,7 +3,7 @@ namespace Sharpen
 	using System;
 	using System.IO;
 
-	internal class RandomAccessFile
+	public class RandomAccessFile
 	{
 		private FileStream stream;
 
@@ -41,11 +41,41 @@ namespace Sharpen
 
 		public int Read (byte[] buffer)
 		{
+            if (buffer.Length == 0)
+            {
+                return 0;
+            }
+
 			int r = stream.Read (buffer, 0, buffer.Length);
 			return r > 0 ? r : -1;
 		}
 
-		public int Read (byte[] buffer, int start, int size)
+        public int Read(sbyte[] sbuffer)
+        {
+            if (sbuffer.Length == 0)
+            {
+                return 0;
+            }
+
+            byte[] buffer = new byte[sbuffer.Length];
+            int r = stream.Read(buffer, 0, buffer.Length);
+            if (r > 0)
+            {
+                Extensions.Copy(buffer, sbuffer);
+                return r;
+            }
+            
+            return -1;
+        }
+
+		public int Read ()
+		{
+            byte[] buffer = new byte[1];
+            int r = stream.Read(buffer, 0, buffer.Length);
+            return r > 0 ? buffer[0] : -1;
+		}
+        
+        public int Read (byte[] buffer, int start, int size)
 		{
 			return stream.Read (buffer, start, size);
 		}

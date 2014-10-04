@@ -18,10 +18,11 @@
  *    http://drewnoakes.com/code/exif/
  *    http://code.google.com/p/metadata-extractor/
  */
-using Com.Drew.Lang;
+ using Com.Drew.Lang;
 using Com.Drew.Metadata.Exif;
 using Com.Drew.Metadata.Exif.Makernotes;
-using Sharpen;
+ using NUnit.Framework;
+ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
 {
@@ -72,7 +73,7 @@ namespace Com.Drew.Metadata.Exif
         [Nikon Makernote] Makernote Unknown 3 = 0 0 16777216 0 2685774096 0 34833 6931 16178 4372 4372 3322676767 3373084416 15112 0 0 1151495 252903424 17 0 0 844038208 55184128 218129428 1476410198 370540566 4044363286 16711749 204629079 1729
     */
 		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
+        [NUnit.Framework.Test, SetCulture("en-US")]
 		public virtual void TestNikonMakernote_MatchesKnownValues()
 		{
 			Sharpen.Tests.IsTrue(_nikonDirectory.GetTagCount() > 0);
@@ -87,8 +88,8 @@ namespace Com.Drew.Metadata.Exif
 			Sharpen.Tests.AreEqual(0, _nikonDirectory.GetDouble(NikonType1MakernoteDirectory.TagDigitalZoom), 0.0001);
 			Sharpen.Tests.AreEqual(0, _nikonDirectory.GetInt(NikonType1MakernoteDirectory.TagConverter));
 			long[] unknown3 = (long[])_nikonDirectory.GetObject(NikonType1MakernoteDirectory.TagUnknown3);
-			long[] expected = new long[] { 0, 0, 16777216, 0, 2685774096L, 0, 34833, 6931, 16178, 4372, 4372, 3322676767L, 3373084416L, 15112, 0, 0, 1151495, 252903424, 17, 0, 0, 844038208, 55184128, 218129428, 1476410198, 370540566, 4044363286L, 16711749
-				, 204629079, 1729 };
+			long[] expected = new long[] { 0, 0, 16777216, 0, 2685774096L, 0, 34833, 6931, 16178, 4372, 4372, 3322676767L, 3373084416L, 15112, 0, 0, 1151495, 252903424, 17, 0, 0, 844038208, 55184128, 218129428, 1476410198
+				, 370540566, 4044363286L, 16711749, 204629079, 1729 };
 			NUnit.Framework.Assert.IsNotNull(unknown3);
 			Sharpen.Tests.AreEqual(expected.Length, unknown3.Length);
 			for (int i = 0; i < expected.Length; i++)

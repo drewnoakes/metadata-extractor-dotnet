@@ -5,7 +5,7 @@ namespace Sharpen
 	using System.Collections.Generic;
 	using System.Reflection;
 
-	internal class SynchronizedList<T> : IEnumerable, ICollection<T>, IList<T>, IEnumerable<T>
+	public class SynchronizedList<T> : IEnumerable, ICollection<T>, IList<T>, IEnumerable<T>
 	{
 		private IList<T> list;
 

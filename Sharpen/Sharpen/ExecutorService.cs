@@ -2,7 +2,7 @@ namespace Sharpen
 {
 	using System;
 
-	internal interface ExecutorService : Executor
+	public interface ExecutorService : Executor
 	{
 		bool AwaitTermination (long n, TimeUnit unit);
 		void Shutdown ();

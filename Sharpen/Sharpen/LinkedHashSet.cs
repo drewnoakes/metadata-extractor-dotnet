@@ -31,7 +31,7 @@ namespace Sharpen
 	public class LinkedHashSet<T>: AbstractSet<T>
 	{
 		private List<T> list = new List<T> ();
-		private HashSet<T> table = new HashSet<T> ();
+		private System.Collections.Generic.HashSet<T> table = new System.Collections.Generic.HashSet<T> ();
 		
 		public LinkedHashSet ()
 		{

@@ -81,34 +81,34 @@ namespace Com.Drew.Lang
 			return @string.ToString();
 		}
 
-		public override void PrintStackTrace(PrintStream s)
-		{
-			base.Sharpen.Runtime.PrintStackTrace(s);
-			if (_innerException != null)
-			{
-				s.Println("--- inner exception ---");
-				Sharpen.Runtime.PrintStackTrace(_innerException, s);
-			}
-		}
-
-		public override void PrintStackTrace(PrintWriter s)
-		{
-			base.Sharpen.Runtime.PrintStackTrace(s);
-			if (_innerException != null)
-			{
-				s.WriteLine("--- inner exception ---");
-				Sharpen.Runtime.PrintStackTrace(_innerException, s);
-			}
-		}
-
-		public override void PrintStackTrace()
-		{
-			base.Sharpen.Runtime.PrintStackTrace();
-			if (_innerException != null)
-			{
-				System.Console.Error.Println("--- inner exception ---");
-				Sharpen.Runtime.PrintStackTrace(_innerException);
-			}
-		}
+//		public override void PrintStackTrace(PrintStream s)
+//		{
+//			base.Sharpen.Runtime.PrintStackTrace(s);
+//			if (_innerException != null)
+//			{
+//				s.Println("--- inner exception ---");
+//				Sharpen.Runtime.PrintStackTrace(_innerException, s);
+//			}
+//		}
+//
+//		public override void PrintStackTrace(PrintWriter s)
+//		{
+//			base.Sharpen.Runtime.PrintStackTrace(s);
+//			if (_innerException != null)
+//			{
+//				s.WriteLine("--- inner exception ---");
+//				Sharpen.Runtime.PrintStackTrace(_innerException, s);
+//			}
+//		}
+//
+//		public override void PrintStackTrace()
+//		{
+//			base.Sharpen.Runtime.PrintStackTrace();
+//			if (_innerException != null)
+//			{
+//				System.Console.Error.Println("--- inner exception ---");
+//				Sharpen.Runtime.PrintStackTrace(_innerException);
+//			}
+//		}
 	}
 }

@@ -54,7 +54,7 @@ namespace Com.Drew.Tools
 			ICollection<JpegSegmentType> segmentTypes = new HashSet<JpegSegmentType>();
 			for (int i = 1; i < args.Length; i++)
 			{
-				JpegSegmentType segmentType = Sharpen.(args[i].ToUpper());
+                JpegSegmentType segmentType = JpegSegmentType.ValueOf(args[i].ToUpper());
 				if (!segmentType.canContainMetadata)
 				{
 					System.Console.Error.Printf("WARNING: Segment type %s cannot contain metadata so it may not be necessary to extract it%n", segmentType);

@@ -32,7 +32,7 @@ namespace Com.Drew.Lang
 		[NotNull]
 		private readonly sbyte[] _bytes;
 
-		private int _index;
+		private long _index;
 
 		public SequentialByteArrayReader(sbyte[] bytes)
 		{

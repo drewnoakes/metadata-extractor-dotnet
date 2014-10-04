@@ -57,7 +57,7 @@ namespace Com.Drew.Imaging.Png
 			IList<KeyValuePair> textPairs = new AList<KeyValuePair>();
 			foreach (PngChunk chunk in chunks)
 			{
-				PngChunkType chunkType = chunk.GetType();
+				PngChunkType chunkType = chunk.GetChunkType();
 				sbyte[] bytes = chunk.GetBytes();
 				if (chunkType.Equals(PngChunkType.Ihdr))
 				{

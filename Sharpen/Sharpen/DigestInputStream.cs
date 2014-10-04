@@ -18,11 +18,11 @@ namespace Sharpen
 		{
 			var read = this.@in.Read ();
 			if (read > 0)
-				Digest.Update ((byte) read);
+				Digest.Update ((sbyte) read);
 			return read;
 		}
 		
-		public override int Read (byte[] buf)
+		public override int Read (sbyte[] buf)
 		{
 			var read = this.@in.Read (buf);
 			if (read > 0)
@@ -30,7 +30,7 @@ namespace Sharpen
 			return read;
 		}
 		
-		public override int Read (byte[] b, int off, int len)
+		public override int Read (sbyte[] b, int off, int len)
 		{
 			var read = this.@in.Read (b, off, len);
 			if (read > 0)

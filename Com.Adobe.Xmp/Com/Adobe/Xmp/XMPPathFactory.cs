@@ -19,13 +19,13 @@ namespace Com.Adobe.Xmp
 	/// an object. These are all functions that layer cleanly on top of the core XMP toolkit.
 	/// <p>
 	/// These functions provide support for composing path expressions to deeply nested properties. The
-	/// functions <code>XMPMeta</code> such as <code>getProperty()</code>,
-	/// <code>getArrayItem()</code> and <code>getStructField()</code> provide easy access to top
+	/// functions <code>XMPMeta</code> such as <code>GetProperty()</code>,
+	/// <code>GetArrayItem()</code> and <code>GetStructField()</code> provide easy access to top
 	/// level simple properties, items in top level arrays, and fields of top level structs. They do not
 	/// provide convenient access to more complex things like fields several levels deep in a complex
 	/// struct, or fields within an array of structs, or items of an array that is a field of a struct.
 	/// These functions can also be used to compose paths to top level array items or struct fields so
-	/// that you can use the binary accessors like <code>getPropertyAsInteger()</code>.
+    /// that you can use the binary accessors like <code>GetPropertyInteger()</code>.
 	/// <p>
 	/// You can use these functions is to compose a complete path expression, or all but the last
 	/// component. Suppose you have a property that is an array of integers within a struct. You can
@@ -33,17 +33,17 @@ namespace Com.Adobe.Xmp
 	/// <p>
 	/// <blockquote>
 	/// <pre>
-	/// String path = XMPPathFactory.composeStructFieldPath (schemaNS, &quot;Struct&quot;, fieldNS,
+	/// String path = XMPPathFactory.ComposeStructFieldPath (schemaNS, &quot;Struct&quot;, fieldNS,
 	/// &quot;Array&quot;);
-	/// String path += XMPPathFactory.composeArrayItemPath (schemaNS, &quot;Array&quot; index);
-	/// PropertyInteger result = xmpObj.getPropertyAsInteger(schemaNS, path);
+	/// String path += XMPPathFactory.ComposeArrayItemPath (schemaNS, &quot;Array&quot; index);
+	/// PropertyInteger result = xmpObj.GetPropertyInteger(schemaNS, path);
 	/// </pre>
 	/// </blockquote> You could also use this code if you want the string form of the integer:
 	/// <blockquote>
 	/// <pre>
-	/// String path = XMPPathFactory.composeStructFieldPath (schemaNS, &quot;Struct&quot;, fieldNS,
+	/// String path = XMPPathFactory.ComposeStructFieldPath (schemaNS, &quot;Struct&quot;, fieldNS,
 	/// &quot;Array&quot;);
-	/// PropertyText xmpObj.getArrayItem (schemaNS, path, index);
+	/// PropertyText xmpObj.GetArrayItem (schemaNS, path, index);
 	/// </pre>
 	/// </blockquote>
 	/// <p>
@@ -61,7 +61,6 @@ namespace Com.Adobe.Xmp
 		{
 		}
 
-		// EMPTY
 		/// <summary>Compose the path expression for an item in an array.</summary>
 		/// <param name="arrayName">
 		/// The name of the array. May be a general path expression, must not be
@@ -199,9 +198,9 @@ namespace Com.Adobe.Xmp
 		/// <p>
 		/// <blockquote>
 		/// <pre>
-		/// String path = composeFieldSelector ( schemaNS, &quot;Downloads&quot;, fieldNS,
+		/// String path = ComposeFieldSelector ( schemaNS, &quot;Downloads&quot;, fieldNS,
 		/// &quot;City&quot;, chosenCity );
-		/// XMPProperty prop = xmpObj.getStructField ( schemaNS, path, fieldNS, &quot;URI&quot; );
+		/// XMPProperty prop = xmpObj.GetStructField ( schemaNS, path, fieldNS, &quot;URI&quot; );
 		/// </pre>
 		/// </blockquote>
 		/// </remarks>

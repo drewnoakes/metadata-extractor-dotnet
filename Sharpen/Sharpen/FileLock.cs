@@ -3,7 +3,7 @@ namespace Sharpen
 	using System;
 	using System.IO;
 
-	internal class FileLock
+	public class FileLock
 	{
 		private FileStream s;
 

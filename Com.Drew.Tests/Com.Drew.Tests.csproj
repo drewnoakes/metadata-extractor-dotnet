@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -94,20 +97,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Com.Adobe.Xmp\Com.Adobe.Xmp.csproj">
-      <Project>{5a1f2aff-7219-4543-97c4-364d4502c3c5}</Project>
-      <Name>Com.Adobe.Xmp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Com.Drew\Com.Drew.csproj">
-      <Project>{26e27564-a74f-423b-a986-e979988f259d}</Project>
-      <Name>Com.Drew</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sharpen\Sharpen.csproj">
-      <Project>{72944a6c-45ff-4ef8-b349-8c9cabf519d4}</Project>
-      <Name>Sharpen</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Data\10x12x16bit-CMYK.psd" />
     <None Include="Data\8x4x8bit-Grayscale.psd" />
     <None Include="Data\adobeJpeg1.jpg.app0" />
@@ -161,6 +150,7 @@
     <None Include="Data\withXmpAndIptc.jpg.app1.1" />
     <None Include="Data\withXmpAndIptc.jpg.app2" />
     <None Include="Data\withXmpAndIptc.jpg.appd" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\16color-10x10.bmp" />
@@ -185,6 +175,7 @@
     <Content Include="Data\photoshop-8x12-rgba32-interlaced.png" />
     <Content Include="Data\photoshop-8x12-rgba32.png" />
     <Content Include="Data\simple.jpg" />
+    <Content Include="Data\test.txt" />
     <Content Include="Data\windowsXpFields.jpg" />
     <Content Include="Data\withExif.jpg" />
     <Content Include="Data\withExifAndIptc.jpg" />
@@ -198,10 +189,23 @@
     <Content Include="Data\withUncompressedYCbCrThumbnail3.jpg" />
     <Content Include="Data\withUncompressedYCbCrThumbnail4.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Com.Adobe.Xmp\Com.Adobe.Xmp.csproj">
+      <Project>{5a1f2aff-7219-4543-97c4-364d4502c3c5}</Project>
+      <Name>Com.Adobe.Xmp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Com.Drew\Com.Drew.csproj">
+      <Project>{26e27564-a74f-423b-a986-e979988f259d}</Project>
+      <Name>Com.Drew</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sharpen\Sharpen.csproj">
+      <Project>{72944a6c-45ff-4ef8-b349-8c9cabf519d4}</Project>
+      <Name>Sharpen</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>xcopy $(ProjectDir)Data "$(TargetDir)Tests\Data\" /E /R /Y /I</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

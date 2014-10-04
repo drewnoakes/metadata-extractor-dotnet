@@ -55,12 +55,11 @@ namespace Com.Drew.Metadata.Tiff
 			_currentDirectory = _directoryStack.IsEmpty() ? null : _directoryStack.Pop();
 		}
 
-		protected internal virtual void PushDirectory<_T0>(Type<_T0> directoryClass)
-			where _T0 : Com.Drew.Metadata.Directory
+		protected internal virtual void PushDirectory<T>() where T : Com.Drew.Metadata.Directory
 		{
-			System.Diagnostics.Debug.Assert((directoryClass != _currentDirectory.GetType()));
+			System.Diagnostics.Debug.Assert((typeof(T) != _currentDirectory.GetType()));
 			_directoryStack.Push(_currentDirectory);
-			_currentDirectory = _metadata.GetOrCreateDirectory(directoryClass);
+			_currentDirectory = _metadata.GetOrCreateDirectory<T>();
 		}
 
 		public virtual void Warn(string message)

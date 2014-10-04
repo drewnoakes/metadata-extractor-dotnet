@@ -6,6 +6,7 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+using System.Collections.Generic;
 using System.IO;
 using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Impl;
@@ -52,7 +53,7 @@ namespace Com.Adobe.Xmp.Impl
 		private const string RdfEmptyStruct = "<rdf:Description/>";
 
 		/// <summary>a set of all rdf attribute qualifier</summary>
-		internal static readonly Set RdfAttrQualifier = new HashSet(Arrays.AsList(new string[] { XMPConstConstants.XmlLang, "rdf:resource", "rdf:ID", "rdf:bagID", "rdf:nodeID" }));
+		internal static readonly HashSet<string> RdfAttrQualifier = new HashSet<string> (Arrays.AsList(new string[] { XMPConstConstants.XmlLang, "rdf:resource", "rdf:ID", "rdf:bagID", "rdf:nodeID" }));
 
 		/// <summary>the metadata object to be serialized.</summary>
 		private XMPMetaImpl xmp;
@@ -78,7 +79,7 @@ namespace Com.Adobe.Xmp.Impl
 		/// case of option <em>exactPacketLength</em>.
 		/// </summary>
 		private int padding;
-
+        
 		// UTF-8
 		/// <summary>The actual serialization.</summary>
 		/// <param name="xmp">the metadata object to be serialized</param>
@@ -327,7 +328,7 @@ namespace Com.Adobe.Xmp.Impl
 			Write(RdfSchemaStart);
 			WriteTreeName();
 			// Write all necessary xmlns attributes.
-			Set usedPrefixes = new HashSet();
+            HashSet<string> usedPrefixes = new HashSet<string>();
 			usedPrefixes.Add("xml");
 			usedPrefixes.Add("rdf");
 			for (Iterator it = xmp.GetRoot().IterateChildren(); it.HasNext(); )
@@ -732,7 +733,7 @@ namespace Com.Adobe.Xmp.Impl
 		/// <param name="usedPrefixes">a set containing currently used prefixes</param>
 		/// <param name="indent">the current indent level</param>
 		/// <exception cref="System.IO.IOException">Forwards all writer exceptions.</exception>
-		private void DeclareUsedNamespaces(XMPNode node, Set usedPrefixes, int indent)
+        private void DeclareUsedNamespaces(XMPNode node, HashSet<string> usedPrefixes, int indent)
 		{
 			if (node.GetOptions().IsSchemaNode())
 			{
@@ -770,7 +771,7 @@ namespace Com.Adobe.Xmp.Impl
 		/// <param name="usedPrefixes">a set containing currently used prefixes</param>
 		/// <param name="indent">the current indent level</param>
 		/// <exception cref="System.IO.IOException">Forwards all writer exceptions.</exception>
-		private void DeclareNamespace(string prefix, string @namespace, Set usedPrefixes, int indent)
+        private void DeclareNamespace(string prefix, string @namespace, HashSet<string> usedPrefixes, int indent)
 		{
 			if (@namespace == null)
 			{
@@ -813,7 +814,7 @@ namespace Com.Adobe.Xmp.Impl
 			WriteIndent(level + 1);
 			Write(RdfSchemaStart);
 			WriteTreeName();
-			Set usedPrefixes = new HashSet();
+            HashSet<string> usedPrefixes = new HashSet<string>();
 			usedPrefixes.Add("xml");
 			usedPrefixes.Add("rdf");
 			DeclareUsedNamespaces(schemaNode, usedPrefixes, level + 3);

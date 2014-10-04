@@ -109,7 +109,15 @@ namespace Com.Drew.Lang
 		/// </returns>
 		public sealed override int IntValue()
 		{
-			return (int)DoubleValue();
+			//  HACK: repeats Java behaviour
+            double value = DoubleValue();
+
+            if (double.IsNaN(value))
+            {
+                return 0;
+            }
+
+		    return (int) value;
 		}
 
 		/// <summary>Returns the value of the specified number as a <code>long</code>.</summary>

@@ -21,10 +21,10 @@ namespace Com.Adobe.Xmp.Impl
 	/// The <code>XMPIterator</code> implementation.
 	/// Iterates the XMP Tree according to a set of options.
 	/// During the iteration the XMPMeta-object must not be changed.
-	/// Calls to <code>skipSubtree()</code> / <code>skipSiblings()</code> will affect the iteration.
+	/// Calls to <code>SkipSubtree()</code> / <code>SkipSiblings()</code> will affect the iteration.
 	/// </remarks>
 	/// <since>29.06.2006</since>
-	public class XMPIteratorImpl : XMPIterator
+    public class XMPIteratorImpl : XMPIterator
 	{
 		/// <summary>stores the iterator options</summary>
 		private IteratorOptions options;
@@ -32,10 +32,10 @@ namespace Com.Adobe.Xmp.Impl
 		/// <summary>the base namespace of the property path, will be changed during the iteration</summary>
 		private string baseNS = null;
 
-		/// <summary>flag to indicate that skipSiblings() has been called.</summary>
+		/// <summary>flag to indicate that SkipSiblings() has been called.</summary>
 		protected internal bool skipSiblings = false;
 
-		/// <summary>flag to indicate that skipSiblings() has been called.</summary>
+		/// <summary>flag to indicate that SkipSiblings() has been called.</summary>
 		protected internal bool skipSubtree = false;
 
 		/// <summary>the node iterator doing the work</summary>
@@ -114,7 +114,7 @@ namespace Com.Adobe.Xmp.Impl
 			else
 			{
 				// create null iterator
-				nodeIterator = Sharpen.Collections.EmptyList().Iterator();
+				nodeIterator = Collections.EmptyList().ListIterator();
 			}
 		}
 
@@ -173,7 +173,7 @@ namespace Com.Adobe.Xmp.Impl
 		/// It first returns the node itself, then recursivly the children and qualifier of the node.
 		/// </remarks>
 		/// <since>29.06.2006</since>
-		private class NodeIterator : Iterator
+        private class NodeIterator : Iterator<XMPPropertyInfo>
 		{
 			/// <summary>iteration state</summary>
 			protected internal const int IterateNode = 0;
@@ -200,7 +200,7 @@ namespace Com.Adobe.Xmp.Impl
 			private int index = 0;
 
 			/// <summary>the iterator for each child</summary>
-			private Iterator subIterator = Sharpen.Collections.EmptyList().Iterator();
+			private Iterator subIterator = Collections.EmptyList().Iterator();
 
 			/// <summary>the cached <code>PropertyInfo</code> to return</summary>
 			private XMPPropertyInfo returnProperty = null;
@@ -231,7 +231,7 @@ namespace Com.Adobe.Xmp.Impl
 
 			/// <summary>Prepares the next node to return if not already done.</summary>
 			/// <seealso cref="Sharpen.Iterator{E}.HasNext()"/>
-			public virtual bool HasNext()
+			public override bool HasNext()
 			{
 				if (this.returnProperty != null)
 				{
@@ -251,7 +251,7 @@ namespace Com.Adobe.Xmp.Impl
 						{
 							this.childrenIterator = this.visitedNode.IterateChildren();
 						}
-						bool hasNext = this.IterateChildren(this.childrenIterator);
+						bool hasNext = this.IterateChildrenMethod(this.childrenIterator);
 						if (!hasNext && this.visitedNode.HasQualifier() && !this._enclosing.GetOptions().IsOmitQualifiers())
 						{
 							this.state = XMPIteratorImpl.NodeIterator.IterateQualifier;
@@ -266,12 +266,12 @@ namespace Com.Adobe.Xmp.Impl
 						{
 							this.childrenIterator = this.visitedNode.IterateQualifier();
 						}
-						return this.IterateChildren(this.childrenIterator);
+						return this.IterateChildrenMethod(this.childrenIterator);
 					}
 				}
 			}
 
-			/// <summary>Sets the returnProperty as next item or recurses into <code>hasNext()</code>.</summary>
+			/// <summary>Sets the returnProperty as next item or recurses into <code>HasNext()</code>.</summary>
 			/// <returns>Returns if there is a next item to return.</returns>
 			protected internal virtual bool ReportNode()
 			{
@@ -290,13 +290,13 @@ namespace Com.Adobe.Xmp.Impl
 			/// <summary>Handles the iteration of the children or qualfier</summary>
 			/// <param name="iterator">an iterator</param>
 			/// <returns>Returns if there are more elements available.</returns>
-			private bool IterateChildren(Iterator iterator)
+			private bool IterateChildrenMethod(Iterator iterator)
 			{
 				if (this._enclosing.skipSiblings)
 				{
 					// setSkipSiblings(false);
 					this._enclosing.skipSiblings = false;
-					this.subIterator = Sharpen.Collections.EmptyList().Iterator();
+					this.subIterator = Collections.EmptyList().ListIterator();
 				}
 				// create sub iterator for every child,
 				// if its the first child visited or the former child is finished 
@@ -304,7 +304,7 @@ namespace Com.Adobe.Xmp.Impl
 				{
 					XMPNode child = (XMPNode)iterator.Next();
 					this.index++;
-					this.subIterator = new XMPIteratorImpl.NodeIterator(this, child, this.path, this.index);
+                    this.subIterator = new XMPIteratorImpl.NodeIterator(_enclosing, child, this.path, this.index);
 				}
 				if (this.subIterator.HasNext())
 				{
@@ -317,14 +317,14 @@ namespace Com.Adobe.Xmp.Impl
 				}
 			}
 
-			/// <summary>Calls hasNext() and returnes the prepared node.</summary>
+			/// <summary>Calls HasNext() and returnes the prepared node.</summary>
 			/// <remarks>
-			/// Calls hasNext() and returnes the prepared node. Afterwards its set to null.
+			/// Calls HasNext() and returnes the prepared node. Afterwards its set to null.
 			/// The existance of returnProperty indicates if there is a next node, otherwise
 			/// an exceptio is thrown.
 			/// </remarks>
 			/// <seealso cref="Sharpen.Iterator{E}.Next()"/>
-			public virtual object Next()
+            public override XMPPropertyInfo Next()
 			{
 				if (this.HasNext())
 				{
@@ -340,7 +340,7 @@ namespace Com.Adobe.Xmp.Impl
 
 			/// <summary>Not supported.</summary>
 			/// <seealso cref="Sharpen.Iterator{E}.Remove()"/>
-			public virtual void Remove()
+			public override void Remove()
 			{
 				throw new NotSupportedException();
 			}

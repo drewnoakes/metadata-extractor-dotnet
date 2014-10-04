@@ -3,7 +3,7 @@ namespace Sharpen
 	using System;
 	using System.Threading;
 
-	internal class InheritableThreadLocal<T> where T : class
+	public class InheritableThreadLocal<T> where T : class
 	{
 		private static object nullMarker;
 		private LocalDataStoreSlot slot;

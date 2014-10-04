@@ -37,12 +37,12 @@ namespace Sharpen
 		public override void Write (int b)
 		{
 			if (@on) {
-				digest.Update ((byte)b);
+				digest.Update ((sbyte)b);
 			}
 			os.Write (b);
 		}
 
-		public override void Write (byte[] b, int offset, int len)
+		public override void Write (sbyte[] b, int offset, int len)
 		{
 			if (@on) {
 				digest.Update (b, offset, len);

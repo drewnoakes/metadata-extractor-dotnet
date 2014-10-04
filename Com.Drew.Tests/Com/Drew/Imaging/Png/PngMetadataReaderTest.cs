@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Com.Drew.Imaging.Png;
@@ -17,8 +18,7 @@ namespace Com.Drew.Imaging.Png
 		public static T ProcessFile<T>(string filePath)
 			where T : Com.Drew.Metadata.Directory
 		{
-			System.Type directoryClass = typeof(T);
-			T directory = ProcessFile(filePath).GetDirectory(directoryClass);
+			T directory = ProcessFile(filePath).GetDirectory<T>();
 			NUnit.Framework.Assert.IsNotNull(directory);
 			return directory;
 		}
@@ -58,7 +58,12 @@ namespace Com.Drew.Imaging.Png
 			Sharpen.Tests.AreEqual(0.45455, directory.GetDouble(PngDirectory.TagGamma), 0.00001);
 			NUnit.Framework.CollectionAssert.AreEqual(new sbyte[] { 0, 52 }, directory.GetByteArray(PngDirectory.TagBackgroundColor));
 			//noinspection ConstantConditions
-			Sharpen.Tests.AreEqual("Tue Jan 01 04:08:30 GMT 2013", directory.GetDate(PngDirectory.TagLastModificationTime).ToString());
+			//Sharpen.Tests.AreEqual("Tue Jan 01 04:08:30 GMT 2013", directory.GetDate(PngDirectory.TagLastModificationTime).ToString());
+            //  HACK: test modification which solves problem with ToString conversion
+            TimeZoneInfo gmt = Sharpen.Extensions.GetTimeZone("GMT");
+		    Calendar calendar = Calendar.GetInstance(gmt);
+            calendar.Set(2013, 00, 01, 04, 08, 30);
+            Sharpen.Tests.AreEqual(calendar.GetTime(), directory.GetDate(PngDirectory.TagLastModificationTime));
 			IList<KeyValuePair> pairs = (IList<KeyValuePair>)directory.GetObject(PngDirectory.TagTextualData);
 			NUnit.Framework.Assert.IsNotNull(pairs);
 			Sharpen.Tests.AreEqual(1, pairs.Count);

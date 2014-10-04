@@ -37,11 +37,32 @@ namespace Com.Drew.Imaging.Png
 			}
 		}
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestConstructorInvalidBytes()
-		{
-			string[] invalidStrings = new string[] { "ABC1", "1234", "    ", "!ВЈ$%" };
+        /// <exception cref="System.Exception"/>
+        /// <summary>Extra test fixes source TestConstructorInvalidBytes from java version</summary>
+        [NUnit.Framework.Test]
+        public virtual void TestConstructorInvalidLength()
+        {
+            string[] invalidStrings = new string[] { "ABC", "1", "", "!ВЈ$%" };
+            foreach (string invalidString in invalidStrings)
+            {
+                try
+                {
+                    new PngChunkType(invalidString);
+                    NUnit.Framework.Assert.Fail("Expecting exception");
+                }
+                catch (ArgumentException ex)
+                {
+                    NUnit.Framework.Assert.AreEqual("PNG chunk type identifier must be four bytes in length"
+                                                    , ex.Message);
+                }
+            }
+        }
+
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestConstructorInvalidBytes()
+        {
+            string[] invalidStrings = new string[] { "ABC1", "1234", "    ", "ВЈ$%", "!ВAЈ" };
 			foreach (string invalidString in invalidStrings)
 			{
 				try

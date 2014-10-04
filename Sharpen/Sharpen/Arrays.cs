@@ -1,12 +1,14 @@
+using System.Collections;
+
 namespace Sharpen
 {
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
 
-	internal class Arrays
+	public class Arrays
 	{
-		public static List<T> AsList<T> (params T[] array)
+        public static List<T> AsList<T> (params T[] array)
 		{
 			return array.ToList<T> ();
 		}
@@ -60,5 +62,23 @@ namespace Sharpen
 		{
 			Array.Sort<T> (array, start, count, c);
 		}
+
+        /// <summary>
+        /// Counts array hash code
+        /// </summary>
+        /// <remarks>Implementation ported from openjdk source</remarks>
+        /// <param name="a"></param>
+        /// <returns></returns>
+	    public static int HashCode(sbyte[] a)
+	    {
+	        if (a == null)
+	            return 0;
+
+	        int result = 1;
+	        foreach (sbyte element in a)
+	            result = 31*result + element;
+
+	        return result;
+	    }
 	}
 }

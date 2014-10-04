@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 
 using System;
+using System.IO;
 
 namespace Sharpen
 {
@@ -43,7 +44,7 @@ namespace Sharpen
 	{
 	}
 
-	internal class BufferUnderflowException : Exception
+	public class BufferUnderflowException : Exception
 	{
 	}
 
@@ -55,7 +56,7 @@ namespace Sharpen
 	{
 	}
 
-	public class EOFException : Exception
+    public class EOFException : IOException
 	{
 		public EOFException ()
 		{
@@ -113,13 +114,21 @@ namespace Sharpen
 
 	public class NoSuchElementException : Exception
 	{
+	    public NoSuchElementException() : base()
+	    {
+	    }
+
+        public NoSuchElementException(string message)
+            : base(message)
+	    {
+	    }
 	}
 
-	internal class NoSuchMethodException : Exception
+	public class NoSuchMethodException : Exception
 	{
 	}
 
-	internal class OverlappingFileLockException : Exception
+	public class OverlappingFileLockException : Exception
 	{
 	}
 
@@ -153,11 +162,11 @@ namespace Sharpen
 		}
 	}
 
-	internal class StringIndexOutOfBoundsException : Exception
+	public class StringIndexOutOfBoundsException : Exception
 	{
 	}
 
-	internal class UnknownHostException : Exception
+	public class UnknownHostException : Exception
 	{
 		public UnknownHostException ()
 		{
@@ -168,18 +177,18 @@ namespace Sharpen
 		}
 	}
 
-	internal class UnsupportedEncodingException : Exception
+	public class UnsupportedEncodingException : Exception
 	{
 	}
 
-	internal class URISyntaxException : Exception
+	public class URISyntaxException : Exception
 	{
 		public URISyntaxException (string s, string msg) : base(s + " " + msg)
 		{
 		}
 	}
 
-	internal class ZipException : Exception
+	public class ZipException : Exception
 	{
 	}
 

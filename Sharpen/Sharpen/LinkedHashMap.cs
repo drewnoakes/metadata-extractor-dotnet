@@ -5,7 +5,7 @@ namespace Sharpen
 	using System.Linq;
 	using System.Runtime.CompilerServices;
 
-	internal class LinkedHashMap<T, U> : AbstractMap<T, U>
+	public class LinkedHashMap<T, U> : AbstractMap<T, U>
 	{
 		private List<KeyValuePair<T, U>> list;
 		private Dictionary<T, U> table;

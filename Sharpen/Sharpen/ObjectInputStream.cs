@@ -3,7 +3,7 @@ namespace Sharpen
 	using System;
 	using System.IO;
 
-	internal class ObjectInputStream : InputStream
+	public class ObjectInputStream : InputStream
 	{
 		private BinaryReader reader;
 

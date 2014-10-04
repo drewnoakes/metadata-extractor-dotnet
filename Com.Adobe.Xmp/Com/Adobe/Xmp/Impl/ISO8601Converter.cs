@@ -245,7 +245,7 @@ namespace Com.Adobe.Xmp.Impl
 			}
 			// create a corresponding TZ and set it time zone
 			int offset = (tzHour * 3600 * 1000 + tzMinute * 60 * 1000) * tzSign;
-			binValue.SetTimeZone(new SimpleTimeZone(offset, string.Empty));
+			binValue.SetTimeZone((TimeZoneInfo) new SimpleTimeZone(offset, string.Empty));
 			if (input.HasNext())
 			{
 				throw new XMPException("Invalid date string, extra chars at end", XMPErrorConstants.Badvalue);
@@ -377,13 +377,13 @@ namespace Com.Adobe.Xmp.Impl
 		/// <returns>Returns char at a certain index.</returns>
 		public virtual char Ch(int index)
 		{
-			return index < str.Length ? str[index] : unchecked((int)(0x0000));
+			return index < str.Length ? str[index] : unchecked((char)(0x0000));
 		}
 
 		/// <returns>Returns the current char or 0x0000 if there are no more chars.</returns>
 		public virtual char Ch()
 		{
-			return pos < str.Length ? str[pos] : unchecked((int)(0x0000));
+            return pos < str.Length ? str[pos] : unchecked((char)(0x0000));
 		}
 
 		/// <summary>Skips the next char.</summary>

@@ -50,12 +50,12 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 		{
 			switch (tagType)
 			{
-				case TagPrintImageMatchingInfo:
+                case KyoceraMakernoteDirectory.TagPrintImageMatchingInfo:
 				{
 					return GetPrintImageMatchingInfoDescription();
 				}
 
-				case TagProprietaryThumbnail:
+                case KyoceraMakernoteDirectory.TagProprietaryThumbnail:
 				{
 					return GetProprietaryThumbnailDataDescription();
 				}
@@ -70,13 +70,13 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 		[CanBeNull]
 		public virtual string GetPrintImageMatchingInfoDescription()
 		{
-			return GetByteLengthDescription(TagPrintImageMatchingInfo);
+            return GetByteLengthDescription(KyoceraMakernoteDirectory.TagPrintImageMatchingInfo);
 		}
 
 		[CanBeNull]
 		public virtual string GetProprietaryThumbnailDataDescription()
 		{
-			return GetByteLengthDescription(TagProprietaryThumbnail);
+            return GetByteLengthDescription(KyoceraMakernoteDirectory.TagProprietaryThumbnail);
 		}
 	}
 }

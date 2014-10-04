@@ -1,6 +1,6 @@
 namespace Sharpen
 {
-	internal interface Callable<T>
+	public interface Callable<T>
 	{
 		T Call ();
 	}

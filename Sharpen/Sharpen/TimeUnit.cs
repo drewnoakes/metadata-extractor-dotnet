@@ -8,7 +8,7 @@ namespace Sharpen
 		SECONDS = 1000
 	}
 
-	internal static class TimeUnitExtensions
+	public static class TimeUnitExtensions
 	{
 		public static long Convert (this TimeUnit thisUnit, long duration, TimeUnit targetUnit)
 		{

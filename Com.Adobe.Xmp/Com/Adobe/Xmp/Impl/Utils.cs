@@ -497,10 +497,10 @@ namespace Com.Adobe.Xmp.Impl
 		/// <returns>Returns true if the character is a valid first char of an XML name.</returns>
 		private static bool IsNameStartChar(char ch)
 		{
-			return (ch <= unchecked((int)(0xFF)) && xmlNameStartChars[ch]) || (ch >= unchecked((int)(0x100)) && ch <= unchecked((int)(0x2FF))) || (ch >= unchecked((int)(0x370)) && ch <= unchecked((int)(0x37D))) || (ch >= unchecked((int)(0x37F)) && ch <=
-				 unchecked((int)(0x1FFF))) || (ch >= unchecked((int)(0x200C)) && ch <= unchecked((int)(0x200D))) || (ch >= unchecked((int)(0x2070)) && ch <= unchecked((int)(0x218F))) || (ch >= unchecked((int)(0x2C00)) && ch <= unchecked((int)(0x2FEF))) || 
-				(ch >= unchecked((int)(0x3001)) && ch <= unchecked((int)(0xD7FF))) || (ch >= unchecked((int)(0xF900)) && ch <= unchecked((int)(0xFDCF))) || (ch >= unchecked((int)(0xFDF0)) && ch <= unchecked((int)(0xFFFD))) || (ch >= unchecked((int)(0x10000
-				)) && ch <= unchecked((int)(0xEFFFF)));
+			return (ch <= unchecked((int)(0xFF)) && xmlNameStartChars[ch]) || (ch >= unchecked((int)(0x100)) && ch <= unchecked((int)(0x2FF))) || (ch >= unchecked((int)(0x370)) && ch <= unchecked((int)(0x37D))) ||
+				 (ch >= unchecked((int)(0x37F)) && ch <= unchecked((int)(0x1FFF))) || (ch >= unchecked((int)(0x200C)) && ch <= unchecked((int)(0x200D))) || (ch >= unchecked((int)(0x2070)) && ch <= unchecked((int)(0x218F
+				))) || (ch >= unchecked((int)(0x2C00)) && ch <= unchecked((int)(0x2FEF))) || (ch >= unchecked((int)(0x3001)) && ch <= unchecked((int)(0xD7FF))) || (ch >= unchecked((int)(0xF900)) && ch <= unchecked((int
+				)(0xFDCF))) || (ch >= unchecked((int)(0xFDF0)) && ch <= unchecked((int)(0xFFFD))) || (ch >= unchecked((int)(0x10000)) && ch <= unchecked((int)(0xEFFFF)));
 		}
 
 		/// <summary>
@@ -512,7 +512,8 @@ namespace Com.Adobe.Xmp.Impl
 		/// <returns>Returns true if the character is a valid char of an XML name.</returns>
 		private static bool IsNameChar(char ch)
 		{
-			return (ch <= unchecked((int)(0xFF)) && xmlNameChars[ch]) || IsNameStartChar(ch) || (ch >= unchecked((int)(0x300)) && ch <= unchecked((int)(0x36F))) || (ch >= unchecked((int)(0x203F)) && ch <= unchecked((int)(0x2040)));
+			return (ch <= unchecked((int)(0xFF)) && xmlNameChars[ch]) || IsNameStartChar(ch) || (ch >= unchecked((int)(0x300)) && ch <= unchecked((int)(0x36F))) || (ch >= unchecked((int)(0x203F)) && ch <= unchecked(
+				(int)(0x2040)));
 		}
 
 		/// <summary>
@@ -524,10 +525,10 @@ namespace Com.Adobe.Xmp.Impl
 		{
 			xmlNameChars = new bool[unchecked((int)(0x0100))];
 			xmlNameStartChars = new bool[unchecked((int)(0x0100))];
-			for (char ch = 0; ch < xmlNameChars.Length; ch++)
+			for (char ch = (char) 0; ch < xmlNameChars.Length; ch++)
 			{
-				xmlNameStartChars[ch] = ch == ':' || ('A' <= ch && ch <= 'Z') || ch == '_' || ('a' <= ch && ch <= 'z') || (unchecked((int)(0xC0)) <= ch && ch <= unchecked((int)(0xD6))) || (unchecked((int)(0xD8)) <= ch && ch <= unchecked((int)(0xF6))) || (unchecked(
-					(int)(0xF8)) <= ch && ch <= unchecked((int)(0xFF)));
+				xmlNameStartChars[ch] = ch == ':' || ('A' <= ch && ch <= 'Z') || ch == '_' || ('a' <= ch && ch <= 'z') || (unchecked((int)(0xC0)) <= ch && ch <= unchecked((int)(0xD6))) || (unchecked((int)(0xD8)) <= ch
+					 && ch <= unchecked((int)(0xF6))) || (unchecked((int)(0xF8)) <= ch && ch <= unchecked((int)(0xFF)));
 				xmlNameChars[ch] = xmlNameStartChars[ch] || ch == '-' || ch == '.' || ('0' <= ch && ch <= '9') || ch == unchecked((int)(0xB7));
 			}
 		}

@@ -46,11 +46,11 @@ namespace Com.Drew.Lang
 		/// <summary>Skips forward in the sequence.</summary>
 		/// <remarks>
 		/// Skips forward in the sequence. If the sequence ends, an
-		/// <see cref="System.IO.EOFException"/>
+		/// <see cref="EOFException"/>
 		/// is thrown.
 		/// </remarks>
 		/// <param name="n">the number of byte to skip. Must be zero or greater.</param>
-		/// <exception cref="System.IO.EOFException">the end of the sequence is reached.</exception>
+		/// <exception cref="EOFException">the end of the sequence is reached.</exception>
 		/// <exception cref="System.IO.IOException">an error occurred reading from the underlying source.</exception>
 		public abstract void Skip(long n);
 
@@ -128,12 +128,12 @@ namespace Com.Drew.Lang
 			if (_isMotorolaByteOrder)
 			{
 				// Motorola - MSB first
-				return (short)(((short)GetByte() << 8 & (short)unchecked((int)(0xFF00))) | ((short)GetByte() & (short)unchecked((int)(0xFF))));
+				return (short)(((short)GetByte() << 8 & 0xFF00 | ((short)GetByte() & (short)unchecked((int)(0xFF)))));
 			}
 			else
 			{
 				// Intel ordering - LSB first
-				return (short)(((short)GetByte() & (short)unchecked((int)(0xFF))) | ((short)GetByte() << 8 & (short)unchecked((int)(0xFF00))));
+				return (short)(((short)GetByte() & (short)unchecked((int)(0xFF))) | ((short)GetByte() << 8 & 0xFF00));
 			}
 		}
 
@@ -145,12 +145,14 @@ namespace Com.Drew.Lang
 			if (_isMotorolaByteOrder)
 			{
 				// Motorola - MSB first (big endian)
-				return (((long)GetByte()) << 24 & unchecked((long)(0xFF000000L))) | (((long)GetByte()) << 16 & unchecked((long)(0xFF0000L))) | (((long)GetByte()) << 8 & unchecked((long)(0xFF00L))) | (((long)GetByte()) & unchecked((long)(0xFFL)));
+				return (((long)GetByte()) << 24 & unchecked((long)(0xFF000000L))) | (((long)GetByte()) << 16 & unchecked((long)(0xFF0000L))) | (((long)GetByte()) << 8 & unchecked((long)(0xFF00L))) | (((long)GetByte())
+					 & unchecked((long)(0xFFL)));
 			}
 			else
 			{
 				// Intel ordering - LSB first (little endian)
-				return (((long)GetByte()) & unchecked((long)(0xFFL))) | (((long)GetByte()) << 8 & unchecked((long)(0xFF00L))) | (((long)GetByte()) << 16 & unchecked((long)(0xFF0000L))) | (((long)GetByte()) << 24 & unchecked((long)(0xFF000000L)));
+				return (((long)GetByte()) & unchecked((long)(0xFFL))) | (((long)GetByte()) << 8 & unchecked((long)(0xFF00L))) | (((long)GetByte()) << 16 & unchecked((long)(0xFF0000L))) | (((long)GetByte()) << 24 & unchecked(
+					(long)(0xFF000000L)));
 			}
 		}
 
@@ -179,14 +181,16 @@ namespace Com.Drew.Lang
 			if (_isMotorolaByteOrder)
 			{
 				// Motorola - MSB first
-				return ((long)GetByte() << 56 & unchecked((long)(0xFF00000000000000L))) | ((long)GetByte() << 48 & unchecked((long)(0xFF000000000000L))) | ((long)GetByte() << 40 & unchecked((long)(0xFF0000000000L))) | ((long)GetByte() << 32 & unchecked((long
-					)(0xFF00000000L))) | ((long)GetByte() << 24 & unchecked((long)(0xFF000000L))) | ((long)GetByte() << 16 & unchecked((long)(0xFF0000L))) | ((long)GetByte() << 8 & unchecked((long)(0xFF00L))) | ((long)GetByte() & unchecked((long)(0xFFL)));
+				return ((long)GetByte() << 56 & unchecked((long)(0xFF00000000000000L))) | ((long)GetByte() << 48 & unchecked((long)(0xFF000000000000L))) | ((long)GetByte() << 40 & unchecked((long)(0xFF0000000000L))) |
+					 ((long)GetByte() << 32 & unchecked((long)(0xFF00000000L))) | ((long)GetByte() << 24 & unchecked((long)(0xFF000000L))) | ((long)GetByte() << 16 & unchecked((long)(0xFF0000L))) | ((long)GetByte() << 8 
+					& unchecked((long)(0xFF00L))) | ((long)GetByte() & unchecked((long)(0xFFL)));
 			}
 			else
 			{
 				// Intel ordering - LSB first
-				return ((long)GetByte() & unchecked((long)(0xFFL))) | ((long)GetByte() << 8 & unchecked((long)(0xFF00L))) | ((long)GetByte() << 16 & unchecked((long)(0xFF0000L))) | ((long)GetByte() << 24 & unchecked((long)(0xFF000000L))) | ((long)GetByte() 
-					<< 32 & unchecked((long)(0xFF00000000L))) | ((long)GetByte() << 40 & unchecked((long)(0xFF0000000000L))) | ((long)GetByte() << 48 & unchecked((long)(0xFF000000000000L))) | ((long)GetByte() << 56 & unchecked((long)(0xFF00000000000000L)));
+				return ((long)GetByte() & unchecked((long)(0xFFL))) | ((long)GetByte() << 8 & unchecked((long)(0xFF00L))) | ((long)GetByte() << 16 & unchecked((long)(0xFF0000L))) | ((long)GetByte() << 24 & unchecked((
+					long)(0xFF000000L))) | ((long)GetByte() << 32 & unchecked((long)(0xFF00000000L))) | ((long)GetByte() << 40 & unchecked((long)(0xFF0000000000L))) | ((long)GetByte() << 48 & unchecked((long)(0xFF000000000000L
+					))) | ((long)GetByte() << 56 & unchecked((long)(0xFF00000000000000L)));
 			}
 		}
 

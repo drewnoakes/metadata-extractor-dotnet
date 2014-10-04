@@ -3,7 +3,7 @@ namespace Sharpen
 	using System;
 	using System.Threading;
 
-	internal class AtomicInteger
+	public class AtomicInteger
 	{
 		private int val;
 

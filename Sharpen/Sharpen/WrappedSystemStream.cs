@@ -3,7 +3,7 @@ namespace Sharpen
 	using System;
 	using System.IO;
 
-	internal class WrappedSystemStream : Stream
+	public class WrappedSystemStream : Stream
 	{
 		private InputStream ist;
 		private OutputStream ost;
@@ -45,7 +45,9 @@ namespace Sharpen
 
 		public override int Read (byte[] buffer, int offset, int count)
 		{
-			int res = this.ist.Read (buffer, offset, count);
+		    sbyte[] sbuffer = new sbyte[buffer.Length];
+            int res = this.ist.Read(sbuffer, offset, count);
+		    Extensions.Copy(sbuffer, buffer);
 			if (res != -1) {
 				position += res;
 				return res;
@@ -79,7 +81,9 @@ namespace Sharpen
 
 		public override void Write (byte[] buffer, int offset, int count)
 		{
-			this.ost.Write (buffer, offset, count);
+            sbyte[] sbuffer = new sbyte[buffer.Length];
+            Extensions.Copy(buffer, sbuffer);
+			this.ost.Write (sbuffer, offset, count);
 			position += count;
 		}
 
@@ -102,12 +106,18 @@ namespace Sharpen
 		}
 
 		public override long Length {
-			get {
-				throw new NotSupportedException ();
+			get 
+            {
+                if (ist != null)
+                {
+                    return ist.GetNativeStream().Length;
+                }
+                
+                throw new NotSupportedException ();
 			}
 		}
 		
-		internal void OnMark (int nb)
+		public void OnMark (int nb)
 		{
 			markedPosition = position;
 			ist.Mark (nb);

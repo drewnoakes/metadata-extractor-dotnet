@@ -3,19 +3,19 @@ namespace Sharpen
 	using System;
 	using System.IO;
 
-	internal class FileChannel
+	public class FileChannel
 	{
 		private FileStream s;
 		byte[] buffer;
 		bool isOpen;
 
-		internal FileChannel (FileStream s)
+		public FileChannel (FileStream s)
 		{
 			this.s = s;
 			isOpen = true;
 		}
 		
-		internal FileStream Stream {
+		public FileStream Stream {
 			get { return s; }
 		}
 

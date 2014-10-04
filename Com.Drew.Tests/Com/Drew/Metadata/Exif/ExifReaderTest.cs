@@ -47,8 +47,7 @@ namespace Com.Drew.Metadata.Exif
 		public static T ProcessBytes<T>(string filePath)
 			where T : Com.Drew.Metadata.Directory
 		{
-			System.Type directoryClass = typeof(T);
-			T directory = ProcessBytes(filePath).GetDirectory(directoryClass);
+			T directory = ProcessBytes(filePath).GetDirectory<T>();
 			NUnit.Framework.Assert.IsNotNull(directory);
 			return directory;
 		}

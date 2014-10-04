@@ -4,7 +4,7 @@ namespace Sharpen
 	using System.IO;
 	using System.Text;
 
-	internal class InputStreamReader : StreamReader
+	public class InputStreamReader : StreamReader
 	{
 		protected InputStreamReader (string file) : base(file)
 		{

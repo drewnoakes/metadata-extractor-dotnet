@@ -18,6 +18,8 @@
  *    http://drewnoakes.com/code/exif/
  *    http://code.google.com/p/metadata-extractor/
  */
+
+using System;
 using System.Text;
 using Com.Drew.Lang;
 using Com.Drew.Metadata;

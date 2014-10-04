@@ -17,10 +17,7 @@ namespace Sharpen
 			return true;
 		}
 
-		public virtual void Add (int index, T element)
-		{
-			throw new NotSupportedException ();
-		}
+	    public abstract void Add(int index, T element);
 
 		public virtual bool AddAll<Q>(ICollection<Q> c) where Q:T
 		{
@@ -83,10 +80,7 @@ namespace Sharpen
 			}
 		}
 
-		public virtual T Set (int index, T element)
-		{
-			throw new NotSupportedException ();
-		}
+	    public abstract T Set(int index, T element);
 		
 		public override bool Equals (object obj)
 		{

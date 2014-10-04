@@ -5,7 +5,7 @@ using SThread = System.Threading.Thread;
 
 namespace Sharpen
 {
-	internal class Executors
+	public class Executors
 	{
 		static ThreadFactory defaultThreadFactory = new ThreadFactory ();
 		
@@ -20,7 +20,7 @@ namespace Sharpen
 		}
 	}
 	
-	internal class FixedThreadPoolExecutorService: ExecutorService
+	public class FixedThreadPoolExecutorService: ExecutorService
 	{
 		List<WaitHandle> tasks = new List<WaitHandle> ();
 		bool shuttingDown;
@@ -63,7 +63,7 @@ namespace Sharpen
 			return future;
 		}
 		
-		internal void RemoveTask (WaitHandle handle)
+		public void RemoveTask (WaitHandle handle)
 		{
 			lock (tasks) {
 				tasks.Remove (handle);
@@ -80,7 +80,7 @@ namespace Sharpen
 		#endregion
 	}
 	
-	internal interface FutureBase
+	public interface FutureBase
 	{
 	}
 	
@@ -161,11 +161,11 @@ namespace Sharpen
 		}
 	}
 	
-	internal class CancellationException: Exception
+	public class CancellationException: Exception
 	{
 	}
 	
-	internal class RejectedExecutionException: Exception
+	public class RejectedExecutionException: Exception
 	{
 	}
 }

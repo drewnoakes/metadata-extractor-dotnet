@@ -4,7 +4,7 @@ namespace Sharpen
 	using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 	using System;
 
-	internal class InflaterInputStream : InputStream
+	public class InflaterInputStream : InputStream
 	{
 		protected InputStream @in;
 		protected Inflater inf;

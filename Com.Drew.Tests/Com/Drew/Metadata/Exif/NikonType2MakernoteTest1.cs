@@ -18,9 +18,10 @@
  *    http://drewnoakes.com/code/exif/
  *    http://code.google.com/p/metadata-extractor/
  */
-using Com.Drew.Metadata.Exif;
+ using Com.Drew.Metadata.Exif;
 using Com.Drew.Metadata.Exif.Makernotes;
-using Sharpen;
+ using NUnit.Framework;
+ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
 {
@@ -62,18 +63,28 @@ namespace Com.Drew.Metadata.Exif
         [Nikon Makernote] Unknown 06 = 
         [Nikon Makernote] Unknown 07 = 1
         [Nikon Makernote] Unknown 20 = 0
-        [Nikon Makernote] Unknown 08 = @
+        [Nikon Makernote] Unknown 08 = @
+
         [Nikon Makernote] Colour Mode = MODE1
         [Nikon Makernote] Unknown 10 = NATURAL
-        [Nikon Makernote] Unknown 11 = 0100
-        
-        
-        -
+        [Nikon Makernote] Unknown 11 = 0100
+
+        
+
+
+
+        
+
+
+
+        
+-
         [Nikon Makernote] Camera Hue = 0
         [Nikon Makernote] Noise Reduction = OFF
         [Nikon Makernote] Unknown 12 = 0100
 
-        [Nikon Makernote] Unknown 13 = 0100{t@7b,4x,D"Y
+        [Nikon Makernote] Unknown 13 = 0100
+{t@7b,4x,D"Y
         [Nikon Makernote] Unknown 15 = 78/10 78/10
     */
 		/// <exception cref="System.Exception"/>
@@ -103,7 +114,7 @@ namespace Com.Drew.Metadata.Exif
 		}
 
 		/// <exception cref="Com.Drew.Metadata.MetadataException"/>
-		[NUnit.Framework.Test]
+        [NUnit.Framework.Test, SetCulture("en-US")]
 		public virtual void TestGetLensDescription()
 		{
 			Sharpen.Tests.AreEqual("24-85mm f/3.5-4.5", _descriptor.GetDescription(NikonType2MakernoteDirectory.TagLens));
@@ -127,7 +138,7 @@ namespace Com.Drew.Metadata.Exif
 		}
 
 		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
+        [NUnit.Framework.Test, SetCulture("en-US")]
 		public virtual void TestGetAutoFlashCompensationDescription()
 		{
 			NikonType2MakernoteDirectory directory = new NikonType2MakernoteDirectory();

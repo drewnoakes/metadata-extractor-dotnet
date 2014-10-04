@@ -18,9 +18,10 @@
  *    http://drewnoakes.com/code/exif/
  *    http://code.google.com/p/metadata-extractor/
  */
-using Com.Drew.Metadata.Exif;
+ using Com.Drew.Metadata.Exif;
 using Com.Drew.Metadata.Exif.Makernotes;
-using Sharpen;
+ using NUnit.Framework;
+ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
 {
@@ -28,7 +29,7 @@ namespace Com.Drew.Metadata.Exif
 	public class CanonMakernoteDescriptorTest
 	{
 		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
+        [NUnit.Framework.Test, SetCulture("en-US")]
 		public virtual void TestGetFlashBiasDescription()
 		{
 			CanonMakernoteDirectory directory = new CanonMakernoteDirectory();

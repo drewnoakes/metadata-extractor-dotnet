@@ -39,7 +39,7 @@ namespace Com.Drew.Metadata.Jfif
 		[NotNull]
 		public virtual Iterable<JpegSegmentType> GetSegmentTypes()
 		{
-			return Arrays.AsList(JpegSegmentType.App0);
+			return Arrays.AsList(JpegSegmentType.App0).AsIterable();
 		}
 
 		public virtual bool CanProcess(sbyte[] segmentBytes, JpegSegmentType segmentType)

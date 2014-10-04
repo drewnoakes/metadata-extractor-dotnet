@@ -2,7 +2,7 @@ namespace Sharpen
 {
 	using System;
 
-	internal enum CodingErrorAction
+	public enum CodingErrorAction
 	{
 		REPORT
 	}

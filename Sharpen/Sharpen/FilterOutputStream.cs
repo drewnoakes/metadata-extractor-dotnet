@@ -21,7 +21,7 @@ namespace Sharpen
 			this.@out.Flush ();
 		}
 
-		public override void Write (byte[] b)
+		public override void Write (sbyte[] b)
 		{
 			this.@out.Write (b);
 		}
@@ -31,7 +31,7 @@ namespace Sharpen
 			this.@out.Write (b);
 		}
 
-		public override void Write (byte[] b, int offset, int len)
+		public override void Write (sbyte[] b, int offset, int len)
 		{
 			this.@out.Write (b, offset, len);
 		}

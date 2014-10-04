@@ -3,7 +3,7 @@ namespace Sharpen
 	using System;
 	using System.IO;
 
-	internal class ByteArrayOutputStream : OutputStream
+	public class ByteArrayOutputStream : OutputStream
 	{
 		public ByteArrayOutputStream ()
 		{
@@ -20,7 +20,12 @@ namespace Sharpen
 			return ((MemoryStream)base.Wrapped).Length;
 		}
 
-		public byte[] ToByteArray ()
+		public sbyte[] ToByteArray ()
+		{
+		    return Extensions.ConvertToByteArray(ToByteArrayInternal());
+		}
+        
+        private  byte[] ToByteArrayInternal()
 		{
 			return ((MemoryStream)base.Wrapped).ToArray ();
 		}
@@ -32,7 +37,13 @@ namespace Sharpen
 		
 		public override string ToString ()
 		{
-			return System.Text.Encoding.UTF8.GetString (ToByteArray ());
+            return System.Text.Encoding.UTF8.GetString(ToByteArrayInternal());
 		}
+
+	    public string ToString(string encoding)
+	    {
+            //  TODO: check encoding
+            return System.Text.Encoding.GetEncoding(encoding).GetString(ToByteArrayInternal());
+	    }
 	}
 }

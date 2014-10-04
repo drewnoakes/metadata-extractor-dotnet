@@ -27,7 +27,7 @@ using System;
 
 namespace Sharpen
 {
-	internal static class Channels
+	public static class Channels
 	{
 		public static OutputStream NewOutputStream (FileChannel c)
 		{

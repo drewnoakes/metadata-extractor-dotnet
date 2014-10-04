@@ -1,6 +1,6 @@
 namespace Sharpen
 {
-	internal interface PrivilegedAction<T>
+	public interface PrivilegedAction<T>
 	{
 		T Run ();
 	}

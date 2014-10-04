@@ -1,6 +1,6 @@
 namespace Sharpen
 {
-	internal class MappedByteBuffer : ByteBuffer
+	public class MappedByteBuffer : ByteBuffer
 	{
 	}
 }

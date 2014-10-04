@@ -200,14 +200,14 @@ namespace Com.Drew.Metadata.Exif
 			{
 				return null;
 			}
-			double lat = GeoLocation.DegreesMinutesSecondsToDecimal(latitudes[0], latitudes[1], latitudes[2], Sharpen.Runtime.EqualsIgnoreCase(latitudeRef, "S"));
-			double lon = GeoLocation.DegreesMinutesSecondsToDecimal(longitudes[0], longitudes[1], longitudes[2], Sharpen.Runtime.EqualsIgnoreCase(longitudeRef, "W"));
+			double? lat = GeoLocation.DegreesMinutesSecondsToDecimal(latitudes[0], latitudes[1], latitudes[2], Sharpen.Runtime.EqualsIgnoreCase(latitudeRef, "S"));
+			double? lon = GeoLocation.DegreesMinutesSecondsToDecimal(longitudes[0], longitudes[1], longitudes[2], Sharpen.Runtime.EqualsIgnoreCase(longitudeRef, "W"));
 			// This can return null, in cases where the conversion was not possible
 			if (lat == null || lon == null)
 			{
 				return null;
 			}
-			return new GeoLocation(lat, lon);
+			return new GeoLocation(lat.Value, lon.Value);
 		}
 	}
 }

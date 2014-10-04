@@ -39,13 +39,13 @@ namespace Com.Adobe.Xmp.Impl
 		private int digits = 0;
 
 		/// <summary>The look-ahead size is 6 at maximum (&amp;#xAB;)</summary>
-		/// <seealso cref="System.IO.PushbackReader.PushbackReader(System.IO.StreamReader, int)"/>
+		/// <seealso cref="Sharpen.PushbackReader(System.IO.StreamReader, int)"/>
 		/// <param name="in">a Reader</param>
 		public FixASCIIControlsReader(System.IO.StreamReader @in)
 			: base(@in, BufferSize)
 		{
 		}
-
+        
 		/// <seealso cref="System.IO.StreamReader.Read(char[], int, int)"/>
 		/// <exception cref="System.IO.IOException"/>
 		public override int Read(char[] cbuf, int off, int len)

@@ -4,7 +4,7 @@ namespace Sharpen
 	using System.Threading;
 	using System.Collections.Generic;
 
-	internal class Thread : Runnable
+	public class Thread : Runnable
 	{
 		private static ThreadGroup defaultGroup = new ThreadGroup ();
 		private bool interrupted;
@@ -150,7 +150,7 @@ namespace Sharpen
 		
 	}
 
-	internal class ThreadGroup
+	public class ThreadGroup
 	{
 		private List<Thread> threads = new List<Thread> ();
 		
@@ -162,14 +162,14 @@ namespace Sharpen
 		{
 		}
 
-		internal void Add (Thread t)
+		public void Add (Thread t)
 		{
 			lock (threads) {
 				threads.Add (t);
 			}
 		}
 		
-		internal void Remove (Thread t)
+		public void Remove (Thread t)
 		{
 			lock (threads) {
 				threads.Remove (t);

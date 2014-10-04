@@ -43,7 +43,7 @@ namespace Com.Drew.Metadata.Icc
 		[NotNull]
 		public virtual Iterable<JpegSegmentType> GetSegmentTypes()
 		{
-			return Arrays.AsList(JpegSegmentType.App2);
+			return Arrays.AsList(JpegSegmentType.App2).AsIterable();
 		}
 
 		public virtual bool CanProcess(sbyte[] segmentBytes, JpegSegmentType segmentType)
@@ -162,8 +162,8 @@ namespace Com.Drew.Metadata.Icc
 		public static string GetStringFromInt32(int d)
 		{
 			// MSB
-			sbyte[] b = new sbyte[] { unchecked((sbyte)((d & unchecked((int)(0xFF000000))) >> 24)), unchecked((sbyte)((d & unchecked((int)(0x00FF0000))) >> 16)), unchecked((sbyte)((d & unchecked((int)(0x0000FF00))) >> 8)), unchecked((sbyte)((d & unchecked(
-				(int)(0x000000FF))))) };
+			sbyte[] b = new sbyte[] { unchecked((sbyte)((d & unchecked((int)(0xFF000000))) >> 24)), unchecked((sbyte)((d & unchecked((int)(0x00FF0000))) >> 16)), unchecked((sbyte)((d & unchecked((int)(0x0000FF00))
+				) >> 8)), unchecked((sbyte)((d & unchecked((int)(0x000000FF))))) };
 			return Sharpen.Runtime.GetStringForBytes(b);
 		}
 	}

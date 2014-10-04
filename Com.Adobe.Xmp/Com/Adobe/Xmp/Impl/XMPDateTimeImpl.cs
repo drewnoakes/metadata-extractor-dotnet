@@ -232,7 +232,7 @@ namespace Com.Adobe.Xmp.Impl
 			this.hasTime = true;
 		}
 
-		/// <seealso cref="System.IComparable{T}.CompareTo(object)"/>
+		/// <seealso cref="System.IComparable{T}.CompareTo(T)"/>
 		public virtual int CompareTo(object dt)
 		{
 			long d = GetCalendar().GetTimeInMillis() - ((XMPDateTime)dt).GetCalendar().GetTimeInMillis();

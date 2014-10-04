@@ -70,7 +70,7 @@ namespace Com.Drew.Metadata.Xmp
 		[NotNull]
 		public virtual Iterable<JpegSegmentType> GetSegmentTypes()
 		{
-			return Arrays.AsList(JpegSegmentType.App1);
+			return Arrays.AsList(JpegSegmentType.App1).AsIterable();
 		}
 
 		public virtual bool CanProcess(sbyte[] segmentBytes, JpegSegmentType segmentType)

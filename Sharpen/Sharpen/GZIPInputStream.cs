@@ -3,7 +3,7 @@ namespace Sharpen
 	using System;
 	using System.IO.Compression;
 
-	internal class GZIPInputStream : InputStream
+	public class GZIPInputStream : InputStream
 	{
 		public const int GZIP_MAGIC = 0;
 

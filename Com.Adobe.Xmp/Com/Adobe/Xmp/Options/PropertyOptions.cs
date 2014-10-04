@@ -224,13 +224,13 @@ namespace Com.Adobe.Xmp.Options
 			return this;
 		}
 
-		/// <returns>Returns whether the SCHEMA_NODE option is set.</returns>
+        /// <returns>Returns whether the SchemaNode option is set.</returns>
 		public bool IsSchemaNode()
 		{
 			return GetOption(SchemaNode);
 		}
 
-		/// <param name="value">the option DELETE_EXISTING to set</param>
+        /// <param name="value">the option DeleteExisting to set</param>
 		/// <returns>Returns this to enable cascaded options.</returns>
 		public Com.Adobe.Xmp.Options.PropertyOptions SetSchemaNode(bool value)
 		{

@@ -16,7 +16,7 @@ namespace Sharpen
 			d.CopyTo (buffer, o);
 		}
 
-		public byte[] Digest (byte[] buffer)
+		public byte[] Digest (sbyte[] buffer)
 		{
 			Update (buffer);
 			return Digest ();
@@ -36,9 +36,9 @@ namespace Sharpen
 		}
 
 		public abstract void Reset ();
-		public abstract void Update (byte[] b);
-		public abstract void Update (byte b);
-		public abstract void Update (byte[] b, int offset, int len);
+		public abstract void Update (sbyte[] b);
+		public abstract void Update (sbyte b);
+		public abstract void Update (sbyte[] b, int offset, int len);
 	}
 
 
@@ -85,21 +85,21 @@ namespace Sharpen
 			this.Init ();
 		}
 
-		public override void Update (byte[] input)
+		public override void Update (sbyte[] input)
 		{
-			this._stream.Write (input, 0, input.Length);
+			this._stream.Write (Extensions.ConvertToByteArray(input), 0, input.Length);
 		}
 
-		public override void Update (byte input)
+		public override void Update (sbyte input)
 		{
-			this._stream.WriteByte (input);
+			this._stream.WriteByte (unchecked ((byte)input));
 		}
 
-		public override void Update (byte[] input, int index, int count)
+		public override void Update (sbyte[] input, int index, int count)
 		{
 			if (count < 0)
 				Console.WriteLine ("Argh!");
-			this._stream.Write (input, index, count);
+			this._stream.Write (Extensions.ConvertToByteArray(input), index, count);
 		}
 	}
 }

@@ -6,6 +6,8 @@ namespace Sharpen
 	public abstract class DateFormat
 	{
 		public const int DEFAULT = 2;
+
+        TimeZoneInfo timeZone;
 		
 		public static DateFormat GetDateTimeInstance (int dateStyle, int timeStyle)
 		{
@@ -17,9 +19,7 @@ namespace Sharpen
 			return new SimpleDateFormat (aLocale.DateTimeFormat.FullDateTimePattern, aLocale);
 		}
 		
-		TimeZoneInfo timeZone;
-		
-		public DateFormat ()
+		protected DateFormat ()
 		{
 		}
 

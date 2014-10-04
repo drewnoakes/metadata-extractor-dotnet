@@ -66,21 +66,21 @@ namespace Com.Drew.Metadata.Exif
 		{
 			if (tagType == ExifIFD0Directory.TagExifSubIfdOffset && _currentDirectory is ExifIFD0Directory)
 			{
-				PushDirectory(typeof(ExifSubIFDDirectory));
+                PushDirectory<ExifSubIFDDirectory>();
 				return true;
 			}
 			else
 			{
 				if (tagType == ExifIFD0Directory.TagGpsInfoOffset && _currentDirectory is ExifIFD0Directory)
 				{
-					PushDirectory(typeof(GpsDirectory));
+                    PushDirectory<GpsDirectory>();
 					return true;
 				}
 				else
 				{
 					if (tagType == ExifSubIFDDirectory.TagInteropOffset && _currentDirectory is ExifSubIFDDirectory)
 					{
-						PushDirectory(typeof(ExifInteropDirectory));
+                        PushDirectory<ExifInteropDirectory>();
 						return true;
 					}
 				}
@@ -93,7 +93,7 @@ namespace Com.Drew.Metadata.Exif
 			// In Exif, the only known 'follower' IFD is the thumbnail one, however this may not be the case.
 			if (_currentDirectory is ExifIFD0Directory)
 			{
-				PushDirectory(typeof(ExifThumbnailDirectory));
+                PushDirectory<ExifThumbnailDirectory>();
 				return true;
 			}
 			// This should not happen, as Exif doesn't use follower IFDs apart from that above.
@@ -120,13 +120,13 @@ namespace Com.Drew.Metadata.Exif
 				ExifThumbnailDirectory thumbnailDirectory = _metadata.GetDirectory<ExifThumbnailDirectory>();
 				if (thumbnailDirectory != null && thumbnailDirectory.ContainsTag(ExifThumbnailDirectory.TagThumbnailCompression))
 				{
-					int offset = thumbnailDirectory.GetInteger(ExifThumbnailDirectory.TagThumbnailOffset);
-					int length = thumbnailDirectory.GetInteger(ExifThumbnailDirectory.TagThumbnailLength);
+					int? offset = thumbnailDirectory.GetInteger(ExifThumbnailDirectory.TagThumbnailOffset);
+					int? length = thumbnailDirectory.GetInteger(ExifThumbnailDirectory.TagThumbnailLength);
 					if (offset != null && length != null)
 					{
 						try
 						{
-							sbyte[] thumbnailData = reader.GetBytes(tiffHeaderOffset + offset, length);
+							sbyte[] thumbnailData = reader.GetBytes(tiffHeaderOffset + offset.Value, length.Value);
 							thumbnailDirectory.SetThumbnailData(thumbnailData);
 						}
 						catch (IOException ex)
@@ -161,7 +161,7 @@ namespace Com.Drew.Metadata.Exif
 			{
 				// Olympus Makernote
 				// Epson and Agfa use Olympus makernote standard: http://www.ozhiker.com/electronics/pjmt/jpeg_info/
-				PushDirectory(typeof(OlympusMakernoteDirectory));
+                PushDirectory<OlympusMakernoteDirectory>();
 				TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 8, tiffHeaderOffset);
 			}
 			else
@@ -170,7 +170,7 @@ namespace Com.Drew.Metadata.Exif
 				{
 					// Cases seen with the model starting with MINOLTA in capitals seem to have a valid Olympus makernote
 					// area that commences immediately.
-					PushDirectory(typeof(OlympusMakernoteDirectory));
+                    PushDirectory<OlympusMakernoteDirectory>();
 					TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset, tiffHeaderOffset);
 				}
 				else
@@ -191,14 +191,14 @@ namespace Com.Drew.Metadata.Exif
                  * :0000: 4E 69 6B 6F 6E 00 02 00-00 00 4D 4D 00 2A 00 00 Nikon....MM.*...
                  * :0010: 00 08 00 1E 00 01 00 07-00 00 00 04 30 32 30 30 ............0200
                  */
-									PushDirectory(typeof(NikonType1MakernoteDirectory));
+                                    PushDirectory<NikonType1MakernoteDirectory>();
 									TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 8, tiffHeaderOffset);
 									break;
 								}
 
 								case 2:
 								{
-									PushDirectory(typeof(NikonType2MakernoteDirectory));
+                                    PushDirectory<NikonType2MakernoteDirectory>();
 									TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 18, makernoteOffset + 10);
 									break;
 								}
@@ -213,7 +213,7 @@ namespace Com.Drew.Metadata.Exif
 						else
 						{
 							// The IFD begins with the first Makernote byte (no ASCII name).  This occurs with CoolPix 775, E990 and D1 models.
-							PushDirectory(typeof(NikonType2MakernoteDirectory));
+                            PushDirectory<NikonType2MakernoteDirectory>();
 							TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset, tiffHeaderOffset);
 						}
 					}
@@ -221,7 +221,7 @@ namespace Com.Drew.Metadata.Exif
 					{
 						if ("SONY CAM".Equals(firstEightChars) || "SONY DSC".Equals(firstEightChars))
 						{
-							PushDirectory(typeof(SonyType1MakernoteDirectory));
+                            PushDirectory<SonyType1MakernoteDirectory>();
 							TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 12, tiffHeaderOffset);
 						}
 						else
@@ -231,14 +231,14 @@ namespace Com.Drew.Metadata.Exif
 								// force MM for this directory
 								reader.SetMotorolaByteOrder(true);
 								// skip 12 byte header + 2 for "MM" + 6
-								PushDirectory(typeof(SonyType6MakernoteDirectory));
+                                PushDirectory<SonyType6MakernoteDirectory>();
 								TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 20, tiffHeaderOffset);
 							}
 							else
 							{
 								if ("SIGMA\u0000\u0000\u0000".Equals(firstEightChars) || "FOVEON\u0000\u0000".Equals(firstEightChars))
 								{
-									PushDirectory(typeof(SigmaMakernoteDirectory));
+                                    PushDirectory<SigmaMakernoteDirectory>();
 									TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 10, tiffHeaderOffset);
 								}
 								else
@@ -252,7 +252,7 @@ namespace Com.Drew.Metadata.Exif
 									{
 										if (Sharpen.Runtime.EqualsIgnoreCase("Canon", cameraMake))
 										{
-											PushDirectory(typeof(CanonMakernoteDirectory));
+                                            PushDirectory<CanonMakernoteDirectory>();
 											TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset, tiffHeaderOffset);
 										}
 										else
@@ -261,12 +261,12 @@ namespace Com.Drew.Metadata.Exif
 											{
 												if ("QVC\u0000\u0000\u0000".Equals(firstSixChars))
 												{
-													PushDirectory(typeof(CasioType2MakernoteDirectory));
+                                                    PushDirectory<CasioType2MakernoteDirectory>();
 													TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 6, tiffHeaderOffset);
 												}
 												else
 												{
-													PushDirectory(typeof(CasioType1MakernoteDirectory));
+                                                    PushDirectory<CasioType1MakernoteDirectory>();
 													TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset, tiffHeaderOffset);
 												}
 											}
@@ -280,7 +280,7 @@ namespace Com.Drew.Metadata.Exif
 													// IFD, though the offset is relative to the start of the makernote, not the TIFF
 													// header (like everywhere else)
 													int ifdStart = makernoteOffset + reader.GetInt32(makernoteOffset + 8);
-													PushDirectory(typeof(FujifilmMakernoteDirectory));
+                                                    PushDirectory<FujifilmMakernoteDirectory>();
 													TiffReader.ProcessIfd(this, reader, processedIfdOffsets, ifdStart, makernoteOffset);
 												}
 												else
@@ -288,7 +288,7 @@ namespace Com.Drew.Metadata.Exif
 													if ("KYOCERA".Equals(firstSevenChars))
 													{
 														// http://www.ozhiker.com/electronics/pjmt/jpeg_info/kyocera_mn.html
-														PushDirectory(typeof(KyoceraMakernoteDirectory));
+                                                        PushDirectory<KyoceraMakernoteDirectory>();
 														TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 22, tiffHeaderOffset);
 													}
 													else
@@ -298,7 +298,7 @@ namespace Com.Drew.Metadata.Exif
 															reader.SetMotorolaByteOrder(false);
 															if ("Leica Camera AG".Equals(cameraMake))
 															{
-																PushDirectory(typeof(LeicaMakernoteDirectory));
+                                                                PushDirectory<LeicaMakernoteDirectory>();
 																TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 8, tiffHeaderOffset);
 															}
 															else
@@ -306,7 +306,7 @@ namespace Com.Drew.Metadata.Exif
 																if ("LEICA".Equals(cameraMake))
 																{
 																	// Some Leica cameras use Panasonic makernote tags
-																	PushDirectory(typeof(PanasonicMakernoteDirectory));
+                                                                    PushDirectory<PanasonicMakernoteDirectory>();
 																	TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 8, tiffHeaderOffset);
 																}
 																else
@@ -322,7 +322,7 @@ namespace Com.Drew.Metadata.Exif
 																// NON-Standard TIFF IFD Data using Panasonic Tags. There is no Next-IFD pointer after the IFD
 																// Offsets are relative to the start of the TIFF header at the beginning of the EXIF segment
 																// more information here: http://www.ozhiker.com/electronics/pjmt/jpeg_info/panasonic_mn.html
-																PushDirectory(typeof(PanasonicMakernoteDirectory));
+                                                                PushDirectory<PanasonicMakernoteDirectory>();
 																TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 12, tiffHeaderOffset);
 															}
 															else
@@ -334,7 +334,7 @@ namespace Com.Drew.Metadata.Exif
 																	// Offsets are relative to the start of the current IFD tag, not the TIFF header
 																	// Observed for:
 																	// - Pentax ist D
-																	PushDirectory(typeof(CasioType2MakernoteDirectory));
+                                                                    PushDirectory<CasioType2MakernoteDirectory>();
 																	TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 6, makernoteOffset);
 																}
 																else
@@ -347,7 +347,7 @@ namespace Com.Drew.Metadata.Exif
 																		// Observed for:
 																		// - PENTAX Optio 330
 																		// - PENTAX Optio 430
-																		PushDirectory(typeof(PentaxMakernoteDirectory));
+                                                                        PushDirectory<PentaxMakernoteDirectory>();
 																		TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset, makernoteOffset);
 																	}
 																	else
@@ -359,7 +359,7 @@ namespace Com.Drew.Metadata.Exif
 																		//            exifDirectory.addError("Unsupported Konica/Minolta data ignored.");
 																		if ("SANYO\x0\x1\x0".Equals(firstEightChars))
 																		{
-																			PushDirectory(typeof(SanyoMakernoteDirectory));
+                                                                            PushDirectory<SanyoMakernoteDirectory>();
 																			TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 8, makernoteOffset);
 																		}
 																		else
@@ -381,7 +381,7 @@ namespace Com.Drew.Metadata.Exif
 																					{
 																						// Always in Motorola byte order
 																						reader.SetMotorolaByteOrder(true);
-																						PushDirectory(typeof(RicohMakernoteDirectory));
+																						PushDirectory<RicohMakernoteDirectory>();
 																						TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 8, makernoteOffset);
 																					}
 																				}

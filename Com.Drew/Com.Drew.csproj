@@ -144,6 +144,7 @@
     <Compile Include="Com\Drew\Metadata\Iptc\IptcDescriptor.cs" />
     <Compile Include="Com\Drew\Metadata\Iptc\IptcDirectory.cs" />
     <Compile Include="Com\Drew\Metadata\Iptc\IptcReader.cs" />
+    <Compile Include="Com\Drew\Metadata\ITagDescriptor.cs" />
     <Compile Include="Com\Drew\Metadata\Jfif\JfifDescriptor.cs" />
     <Compile Include="Com\Drew\Metadata\Jfif\JfifDirectory.cs" />
     <Compile Include="Com\Drew\Metadata\Jfif\JfifReader.cs" />

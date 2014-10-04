@@ -3,7 +3,7 @@ namespace Sharpen
 	using System;
 	using System.IO;
 
-	internal class FileOutputStream : OutputStream
+	public class FileOutputStream : OutputStream
 	{
 		public FileOutputStream (FilePath file): this (file.GetPath (), false)
 		{

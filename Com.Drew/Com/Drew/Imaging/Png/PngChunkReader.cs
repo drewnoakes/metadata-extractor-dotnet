@@ -8,8 +8,8 @@ namespace Com.Drew.Imaging.Png
 	/// <author>Drew Noakes http://drewnoakes.com</author>
 	public class PngChunkReader
 	{
-		private static readonly sbyte[] PngSignatureBytes = new sbyte[] { unchecked((sbyte)unchecked((int)(0x89))), unchecked((int)(0x50)), unchecked((int)(0x4E)), unchecked((int)(0x47)), unchecked((int)(0x0D)), unchecked((int)(0x0A)), unchecked((int
-			)(0x1A)), unchecked((int)(0x0A)) };
+		private static readonly sbyte[] PngSignatureBytes = new sbyte[] { unchecked((sbyte)unchecked((int)(0x89))), unchecked((int)(0x50)), unchecked((int)(0x4E)), unchecked((int)(0x47)), unchecked((int)(0x0D)
+			), unchecked((int)(0x0A)), unchecked((int)(0x1A)), unchecked((int)(0x0A)) };
 
 		/// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
 		/// <exception cref="System.IO.IOException"/>
@@ -92,7 +92,7 @@ namespace Com.Drew.Imaging.Png
 				}
 				seenChunkTypes.Add(chunkType);
 			}
-			return chunks;
+			return chunks.AsIterable();
 		}
 	}
 }

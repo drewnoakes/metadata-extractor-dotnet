@@ -2,7 +2,7 @@ namespace Sharpen
 {
 	using System;
 
-	internal class CyclicBarrier
+	public class CyclicBarrier
 	{
 		private CountDownLatch counter;
 

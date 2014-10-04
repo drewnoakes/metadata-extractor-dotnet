@@ -3,7 +3,7 @@ namespace Sharpen
 	using System;
 	using System.Threading;
 
-	internal class AtomicLong
+	public class AtomicLong
 	{
 		private long val;
 

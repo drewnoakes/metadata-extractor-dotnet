@@ -3,7 +3,7 @@ namespace Sharpen
 	using System;
 	using System.Threading;
 
-	internal class CountDownLatch
+	public class CountDownLatch
 	{
 		private int count;
 		private ManualResetEvent done = new ManualResetEvent (false);

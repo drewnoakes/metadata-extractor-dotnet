@@ -30,9 +30,6 @@ namespace Com.Adobe.Xmp.Impl
 	{
 		private static readonly object XmpRdf = new object();
 
-		/// <summary>the DOM Parser Factory, options are set</summary>
-		private static DocumentBuilderFactory factory = CreateDocumentBuilderFactory();
-
 		/// <summary>Hidden constructor, initialises the SAX parser handler.</summary>
 		private XMPMetaParser()
 		{
@@ -119,7 +116,7 @@ namespace Com.Adobe.Xmp.Impl
 
 		/// <summary>
 		/// Parses XML from an
-		/// <see cref="System.IO.InputStream"/>
+		/// <see cref="InputStream"/>
 		/// ,
 		/// fixing the encoding (Latin-1 to UTF-8) and illegal control character optionally.
 		/// </summary>
@@ -230,27 +227,28 @@ namespace Com.Adobe.Xmp.Impl
 		/// <param name="source">an <code>InputSource</code></param>
 		/// <returns>Returns an XML DOM-Document.</returns>
 		/// <exception cref="Com.Adobe.Xmp.XMPException">Wraps parsing and I/O-exceptions into an XMPException.</exception>
-		private static XmlDocument ParseInputSource(InputSource source)
-		{
-			try
-			{
-				DocumentBuilder builder = factory.NewDocumentBuilder();
-				builder.SetErrorHandler(null);
-				return builder.Parse(source);
-			}
-			catch (SAXException e)
-			{
-				throw new XMPException("XML parsing failure", XMPErrorConstants.Badxml, e);
-			}
-			catch (ParserConfigurationException e)
-			{
-				throw new XMPException("XML Parser not correctly configured", XMPErrorConstants.Unknown, e);
-			}
-			catch (IOException e)
-			{
-				throw new XMPException("Error reading the XML-file", XMPErrorConstants.Badstream, e);
-			}
-		}
+        private static XmlDocument ParseInputSource(InputSource source)
+        {
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(source.GetStream());
+
+                return doc;
+            }
+            catch (XmlException e)
+            {
+                throw new XMPException("XML parsing failure", XMPErrorConstants.Badxml, e);
+            }
+            catch (IOException e)
+            {
+                throw new XMPException("Error reading the XML-file", XMPErrorConstants.Badstream, e);
+            }
+            catch (Exception e)
+            {
+                throw new XMPException("XML Parser not correctly configured", XMPErrorConstants.Unknown, e);
+            }
+        }
 
 		/// <summary>Find the XML node that is the root of the XMP data tree.</summary>
 		/// <remarks>
@@ -272,7 +270,7 @@ namespace Com.Adobe.Xmp.Impl
 		/// <param name="root">the root of the xml document</param>
 		/// <param name="xmpmetaRequired">
 		/// flag if the xmpmeta-tag is still required, might be set
-		/// initially to <code>true</code>, if the parse option "REQUIRE_XMP_META" is set
+		/// initially to <code>true</code>, if the parse option "RequireXMPMeta" is set
 		/// </param>
 		/// <param name="result">The result array that is filled during the recursive process.</param>
 		/// <returns>
@@ -342,30 +340,6 @@ namespace Com.Adobe.Xmp.Impl
 			}
 			// no appropriate node has been found
 			return null;
-		}
-
-		//     is extracted here in the C++ Toolkit		
-		/// <returns>
-		/// Creates, configures and returnes the document builder factory for
-		/// the Metadata Parser.
-		/// </returns>
-		private static DocumentBuilderFactory CreateDocumentBuilderFactory()
-		{
-			DocumentBuilderFactory factory = DocumentBuilderFactory.NewInstance();
-			factory.SetNamespaceAware(true);
-			factory.SetIgnoringComments(true);
-			try
-			{
-				// honor System parsing limits, e.g.
-				// System.setProperty("entityExpansionLimit", "10");
-				factory.SetFeature(XMLConstants.FeatureSecureProcessing, true);
-			}
-			catch (Exception)
-			{
-			}
-			// Ignore IllegalArgumentException and ParserConfigurationException
-			// in case the configured XML-Parser does not implement the feature.
-			return factory;
 		}
 	}
 }

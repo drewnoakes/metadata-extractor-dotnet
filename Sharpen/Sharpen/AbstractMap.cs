@@ -41,10 +41,7 @@ namespace Sharpen
 			return !EntrySet ().Any ();
 		}
 
-		public virtual U Put (T key, U value)
-		{
-			throw new NotSupportedException ();
-		}
+	    public abstract U Put(T key, U value);
 
 		public virtual U Remove (object key)
 		{

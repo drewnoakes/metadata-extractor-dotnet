@@ -54,13 +54,13 @@ namespace Com.Drew.Lang
 			}
 			if (bytesRequested < 0)
 			{
-				return Sharpen.Extensions.StringFormat("Number of requested bytes cannot be negative (%d)", bytesRequested);
+                return Sharpen.Extensions.StringFormat("Number of requested bytes cannot be negative (%d)", bytesRequested);
 			}
 			if ((long)index + (long)bytesRequested - 1L > (long)int.MaxValue)
 			{
-				return Sharpen.Extensions.StringFormat("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: %d, requested count: %d)", index, bytesRequested);
+                return Sharpen.Extensions.StringFormat("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: %d, requested count: %d)", index, bytesRequested);
 			}
-			return Sharpen.Extensions.StringFormat("Attempt to read from beyond end of underlying data source (requested index: %d, requested count: %d, max index: %d)", index, bytesRequested, bufferLength - 1);
+            return Sharpen.Extensions.StringFormat("Attempt to read from beyond end of underlying data source (requested index: %d, requested count: %d, max index: %d)", index, bytesRequested, bufferLength - 1);
 		}
 	}
 }

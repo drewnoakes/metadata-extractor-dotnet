@@ -1,6 +1,6 @@
 namespace Sharpen
 {
-	public class CharSequence
+	public abstract class CharSequence
 	{
 		public static implicit operator CharSequence (string str)
 		{
@@ -11,6 +11,16 @@ namespace Sharpen
 		{
 			return new StringCharSequence (str.ToString ());
 		}
+
+        public virtual int this[int index]
+        {
+            get { throw new System.NotImplementedException(); }
+        }
+
+	    public virtual int Length
+	    {
+	        get { throw new System.NotImplementedException(); }
+	    }
 	}
 	
 	class StringCharSequence: CharSequence
@@ -26,5 +36,15 @@ namespace Sharpen
 		{
 			return str;
 		}
+
+        public override int this[int index]
+        {
+            get { return str[index]; }
+        }
+
+        public override int Length
+        {
+            get { return str.Length; }
+        }
 	}
 }

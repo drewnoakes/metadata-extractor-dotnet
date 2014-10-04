@@ -3,16 +3,16 @@ namespace Sharpen
 	using System;
 	using System.IO;
 
-	internal class ByteArrayInputStream : InputStream
+    public class ByteArrayInputStream : InputStream
 	{
-		public ByteArrayInputStream (byte[] data)
+		public ByteArrayInputStream (sbyte[] data)
 		{
-			base.Wrapped = new MemoryStream (data);
+            base.Wrapped = new MemoryStream(Sharpen.Extensions.ConvertToByteArray(data));
 		}
 
-		public ByteArrayInputStream (byte[] data, int off, int len)
+		public ByteArrayInputStream (sbyte[] data, int off, int len)
 		{
-			base.Wrapped = new MemoryStream (data, off, len);
+			base.Wrapped = new MemoryStream (Sharpen.Extensions.ConvertToByteArray(data), off, len);
 		}
 		
 		public override int Available ()

@@ -183,12 +183,12 @@ namespace Com.Drew.Lang
 			if (_isMotorolaByteOrder)
 			{
 				// Motorola - MSB first
-				return (short)(((short)GetByte(index) << 8 & (short)unchecked((int)(0xFF00))) | ((short)GetByte(index + 1) & (short)unchecked((int)(0xFF))));
+				return (short)(((short)GetByte(index) << 8 & unchecked((int)(0xFF00))) | ((short)GetByte(index + 1) & (short)unchecked((int)(0xFF))));
 			}
 			else
 			{
 				// Intel ordering - LSB first
-				return (short)(((short)GetByte(index + 1) << 8 & (short)unchecked((int)(0xFF00))) | ((short)GetByte(index) & (short)unchecked((int)(0xFF))));
+				return (short)(((short)GetByte(index + 1) << 8 & unchecked((int)(0xFF00))) | ((short)GetByte(index) & (short)unchecked((int)(0xFF))));
 			}
 		}
 

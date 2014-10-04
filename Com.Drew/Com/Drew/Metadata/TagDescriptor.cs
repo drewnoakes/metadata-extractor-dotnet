@@ -35,7 +35,7 @@ namespace Com.Drew.Metadata
 	/// The directory is provided to the tag descriptor via its constructor.
 	/// </remarks>
 	/// <author>Drew Noakes http://drewnoakes.com</author>
-	public class TagDescriptor<T>
+	public class TagDescriptor<T> : ITagDescriptor
 		where T : Com.Drew.Metadata.Directory
 	{
 		[NotNull]
@@ -141,12 +141,12 @@ namespace Com.Drew.Metadata
 		[CanBeNull]
 		protected internal virtual string GetIndexedDescription(int tagType, int baseIndex, params string[] descriptions)
 		{
-			int index = _directory.GetInteger(tagType);
+			int? index = _directory.GetInteger(tagType);
 			if (index == null)
 			{
 				return null;
 			}
-			int arrayIndex = index - baseIndex;
+			int arrayIndex = index.Value - baseIndex;
 			if (arrayIndex >= 0 && arrayIndex < descriptions.Length)
 			{
 				string description = descriptions[arrayIndex];
@@ -194,7 +194,7 @@ namespace Com.Drew.Metadata
 		[CanBeNull]
 		protected internal virtual string GetFormattedInt(int tagType, string format)
 		{
-			int value = _directory.GetInteger(tagType);
+			int? value = _directory.GetInteger(tagType);
 			if (value == null)
 			{
 				return null;
@@ -205,7 +205,7 @@ namespace Com.Drew.Metadata
 		[CanBeNull]
 		protected internal virtual string GetFormattedFloat(int tagType, string format)
 		{
-			float value = _directory.GetFloatObject(tagType);
+			float? value = _directory.GetFloatObject(tagType);
 			if (value == null)
 			{
 				return null;
@@ -228,12 +228,12 @@ namespace Com.Drew.Metadata
 		protected internal virtual string GetEpochTimeDescription(int tagType)
 		{
 			// TODO have observed a byte[8] here which is likely some kind of date (ticks as long?)
-			long value = _directory.GetLongObject(tagType);
+			long? value = _directory.GetLongObject(tagType);
 			if (value == null)
 			{
 				return null;
 			}
-			return Sharpen.Extensions.CreateDate(value).ToString();
+			return Sharpen.Extensions.CreateDate(value.Value).ToString();
 		}
 
 		/// <summary>LSB first.</summary>
@@ -241,7 +241,7 @@ namespace Com.Drew.Metadata
 		[CanBeNull]
 		protected internal virtual string GetBitFlagDescription(int tagType, params object[] labels)
 		{
-			int value = _directory.GetInteger(tagType);
+			int? value = _directory.GetInteger(tagType);
 			if (value == null)
 			{
 				return null;
@@ -271,7 +271,7 @@ namespace Com.Drew.Metadata
 				value >>= 1;
 				bitIndex++;
 			}
-			return StringUtil.Join(parts.AsIterable(), ", ");
+            return string.Join(", ", parts);
 		}
 
 		[CanBeNull]

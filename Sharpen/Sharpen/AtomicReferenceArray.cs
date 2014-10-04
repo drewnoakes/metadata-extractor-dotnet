@@ -3,7 +3,7 @@ namespace Sharpen
 	using System;
 	using System.Threading;
 
-	internal class AtomicReferenceArray<T> where T : class
+	public class AtomicReferenceArray<T> where T : class
 	{
 		private T[] array;
 

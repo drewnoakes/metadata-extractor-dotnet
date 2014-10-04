@@ -4,12 +4,12 @@ using System.Threading;
 
 namespace Sharpen
 {
-	internal class PipedInputStream : InputStream
+	public class PipedInputStream : InputStream
 	{
-		private byte[] oneBuffer;
+		private sbyte[] oneBuffer;
 		public const int PIPE_SIZE = 1024;
 		
-		protected byte[] buffer;
+		protected sbyte[] buffer;
 		private bool closed;
 		private ManualResetEvent dataEvent;
 		private int end;
@@ -31,7 +31,7 @@ namespace Sharpen
 		{
 			thisLock = new object ();
 			dataEvent = new ManualResetEvent (false);
-			buffer = new byte[PIPE_SIZE + 1];
+			buffer = new sbyte[PIPE_SIZE + 1];
 		}
 
 		public PipedInputStream (PipedOutputStream os): this ()
@@ -60,13 +60,13 @@ namespace Sharpen
 		public override int Read ()
 		{
 			if (oneBuffer == null)
-				oneBuffer = new byte[1];
+				oneBuffer = new sbyte[1];
 			if (Read (oneBuffer, 0, 1) == -1)
 				return -1;
 			return oneBuffer[0];
 		}
 
-		public override int Read (byte[] b, int offset, int len)
+		public override int Read (sbyte[] b, int offset, int len)
 		{
 			int length = 0;
 			do {
@@ -128,7 +128,7 @@ namespace Sharpen
 				if (!allowGrow)
 					return free > 0 ? free - 1 : 0;
 				int sizeInc = (len - free) + 1;
-				byte[] destinationArray = new byte[buffer.Length + sizeInc];
+				sbyte[] destinationArray = new sbyte[buffer.Length + sizeInc];
 				if (start <= end) {
 					Array.Copy (buffer, start, destinationArray, start, end - start);
 				} else {
@@ -141,17 +141,17 @@ namespace Sharpen
 			return len;
 		}
 		
-		internal void Write (int b)
+		public void Write (int b)
 		{
 			lock (thisLock) {
 				Allocate (1);
-				buffer[end] = (byte)b;
+				buffer[end] = (sbyte)b;
 				end = (end + 1) % buffer.Length;
 				dataEvent.Set ();
 			}
 		}
 		
-		internal void Write (byte[] b, int offset, int len)
+		public void Write (sbyte[] b, int offset, int len)
 		{
 			do {
 				lock (thisLock) {

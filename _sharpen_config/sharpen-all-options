@@ -1,0 +1,259 @@
+-pascalCase+ 
+-organizeUsings
+-nativeTypeSystem
+-separateInterfaceConstants
+-maxColumns 200
+-configurationClass sharpen.core.MEConfiguration
+
+-typeMapping java.io.StringReader Sharpen.StringReader
+-methodMapping java.lang.Math.signum System.Math.Sign
+-methodMapping java.lang.Byte.toString System.Convert.ToString
+-methodMapping java.lang.Float.toString ToString
+-methodMapping java.lang.Float.parseFloat float.Parse
+-methodMapping java.lang.Float.intBitsToFloat Sharpen.Extensions.IntBitsToFloat
+-methodMapping java.lang.Double.toString ToString
+-methodMapping java.lang.Double.valueOf double.Parse
+-methodMapping java.lang.Double.parseDouble double.Parse
+-methodMapping java.lang.Double.compare Sharpen.Extensions.Compare
+-methodMapping java.lang.Double.doubleToLongBits Sharpen.Extensions.DoubleToLongBits
+-methodMapping java.lang.Double.longBitsToDouble Sharpen.Extensions.LongBitsToDouble
+-methodMapping java.lang.Boolean.getBoolean bool.Parse
+-methodMapping java.lang.Character.digit Sharpen.Extensions.Digit
+-methodMapping java.lang.String.trim Sharpen.Extensions.Trim
+-methodMapping java.lang.String.format Sharpen.Extensions.StringFormat
+-methodMapping java.lang.reflect.Array.getInt Sharpen.Runtime.GetInt
+-methodMapping java.lang.reflect.Array.getShort Sharpen.Runtime.GetShort
+-methodMapping java.lang.reflect.Array.getLong Sharpen.Runtime.GetLong
+-methodMapping java.lang.reflect.Array.getFloat Sharpen.Runtime.GetFloat
+-methodMapping java.lang.reflect.Array.getDouble Sharpen.Runtime.GetDouble
+-methodMapping java.lang.reflect.Array.getByte Sharpen.Runtime.GetByte
+-methodMapping java.util.Stack.empty IsEmpty
+-methodMapping java.util.Collections.EMPTY_LIST Sharpen.Collections.EmptyList()
+-namespaceMapping java.util.Calendar Sharpen.Calendar
+-propertyMapping java.util.Calendar.YEAR Sharpen.CalendarEnum.Year
+-propertyMapping java.util.Calendar.MONTH Sharpen.CalendarEnum.Month
+-propertyMapping java.util.Calendar.DAY_OF_MONTH Sharpen.CalendarEnum.DayOfMonth
+-propertyMapping java.util.Calendar.HOUR_OF_DAY Sharpen.CalendarEnum.HourOfDay
+-propertyMapping java.util.Calendar.MINUTE Sharpen.CalendarEnum.Minute
+-propertyMapping java.util.Calendar.SECOND Sharpen.CalendarEnum.Second
+-propertyMapping java.util.Calendar.MILLISECOND Sharpen.CalendarEnum.Millisecond
+-typeMapping java.util.GregorianCalendar Sharpen.GregorianCalendar
+-propertyMapping java.util.GregorianCalendar.JANUARY Sharpen.GregorianCalendarEnum.January
+-propertyMapping java.util.GregorianCalendar.JANUARY Sharpen.GregorianCalendarEnum.January
+-methodMapping org.junit.Assert.assertArrayEquals NUnit.Framework.CollectionAssert.AreEqual
+-methodMapping org.junit.Assert.assertNotEquals NUnit.Framework.Assert.AreNotEqual
+-methodMapping org.junit.Assert.assertFalse Sharpen.Tests.IsFalse
+-methodMapping org.junit.Assert.assertTrue Sharpen.Tests.IsTrue
+-methodMapping org.junit.Assert.assertEquals Sharpen.Tests.AreEqual
+-namespaceMapping org.w3c.dom.Document System.Xml.XmlDocument
+-namespaceMapping org.w3c.dom.Node System.Xml.XmlNode
+-propertyMapping org.w3c.dom.Node.getAttributes Attributes
+-propertyMapping org.w3c.dom.Node.getChildNodes ChildNodes
+-propertyMapping org.w3c.dom.Node.getNodeType NodeType
+-propertyMapping org.w3c.dom.Node.getNamespaceURI NamespaceURI
+-propertyMapping org.w3c.dom.Node.getLocalName LocalName
+-propertyMapping org.w3c.dom.Node.getPrefix Prefix
+-propertyMapping org.w3c.dom.Node.getNodeName Name
+-propertyMapping org.w3c.dom.Node.getNodeValue Value
+-propertyMapping org.w3c.dom.Node.hasChildNodes HasChildNodes
+-propertyMapping org.w3c.dom.Node.PROCESSING_INSTRUCTION_NODE System.Xml.XmlNodeType.ProcessingInstruction
+-propertyMapping org.w3c.dom.Node.TEXT_NODE System.Xml.XmlNodeType.Text
+-propertyMapping org.w3c.dom.Node.ELEMENT_NODE System.Xml.XmlNodeType.Element
+-namespaceMapping org.w3c.dom.NamedNodeMap System.Xml.XmlAttributeCollection
+-propertyMapping org.w3c.dom.NamedNodeMap.getLength Count
+-namespaceMapping org.w3c.dom.Attr System.Xml.XmlAttribute
+-propertyMapping org.w3c.dom.Attr.getOwnerElement OwnerElement
+-namespaceMapping org.w3c.dom.NodeList System.Xml.XmlNodeList
+-propertyMapping org.w3c.dom.NodeList.getLength Count
+-namespaceMapping org.w3c.dom.ProcessingInstruction System.Xml.XmlProcessingInstruction
+-propertyMapping org.w3c.dom.ProcessingInstruction.getTarget Target
+-propertyMapping org.w3c.dom.ProcessingInstruction.getData Data
+-namespaceMapping com.adobe.xmp.XMPMeta Com.Adobe.Xmp.XMPMeta
+-namespaceMapping javax.xml.parsers System.Xml
+-namespaceMapping javax.xml System.Xml
+-namespaceMapping org.xml.sax System.Xml    
+-namespaceMapping com.drew.lang.annotations JetBrains.Annotations
+-methodMapping com.drew.imaging.jpeg.JpegSegmentType.valueOf Sharpen.
+-fullyQualify Calendar
+-fullyQualify GregorianCalendar
+-fullyQualify StringReader
+-fullyQualify StreamReader
+-fullyQualify Directory
+
+-methodMapping System.out.println System.Console.WriteLine
+
+-methodMapping java.util.Iterator.hasNext HasNext
+-methodMapping java.util.Iterator.next Next
+
+-typeMapping com.db4o.ObjectSet Db4objects.Db4o.IObjectSet 
+-methodMapping com.db4o.ObjectSet.hasNext Db4objects.Db4o.IObjectSet.HasNext 
+-methodMapping com.db4o.ObjectSet.next Db4objects.Db4o.IObjectSet.Next  
+
+-typeMapping java.util.Comparator System.Collections.IEnumerator   
+-typeMapping java.util.ArrayList System.Collections.ArrayList 
+
+-methodMapping java.util.List.addAll AddRange 
+-methodMapping java.util.AbstractList.addAll AddRange 
+-methodMapping java.util.ArrayList.addAll AddRange      
+
+-fullyQualify File  
+-namespaceMapping java.lang.ref Sharpen
+-namespaceMapping java.lang Sharpen
+-namespaceMapping java.io System.IO
+-namespaceMapping java.util.concurrent.atomic Sharpen
+-namespaceMapping java.util.concurrent.locks Sharpen
+-namespaceMapping java.util.concurrent Sharpen
+-namespaceMapping java.util.zip Sharpen
+-namespaceMapping java.util.regex Sharpen
+-namespaceMapping java.util Sharpen
+-namespaceMapping java.nio.channels Sharpen
+-namespaceMapping java.nio.charset Sharpen
+-namespaceMapping java.nio Sharpen
+-namespaceMapping java.text Sharpen
+-namespaceMapping java.net Sharpen
+-namespaceMapping javax.crypto.interfaces Sharpen
+-namespaceMapping javax.crypto.spec Sharpen
+-namespaceMapping javax.crypto Sharpen
+-namespaceMapping java.security.interfaces Sharpen
+-namespaceMapping java.security.spec Sharpen
+-namespaceMapping java.security.cert Sharpen
+-namespaceMapping java.security Sharpen
+-namespaceMapping javax.net.ssl Sharpen
+-namespaceMapping org.ietf.jgss Sharpen
+-methodMapping java.lang.Object.memberwiseClone Clone
+-methodMapping java.nio.charset.Charset.forName Sharpen.Extensions.GetEncoding
+-methodMapping java.util.List<>.remove RemoveAt
+-methodMapping java.util.IList<>.remove RemoveAt
+-methodMapping java.util.ArrayList.remove RemoveAt
+-methodMapping java.lang.Integer.toOctalString Sharpen.Extensions.ToOctalString
+-methodMapping java.lang.Integer.toHexString Sharpen.Extensions.ToHexString
+-methodMapping java.lang.Integer.bitCount Sharpen.Extensions.BitCount
+-methodMapping java.lang.Integer.numberOfLeadingZeros Sharpen.Extensions.NumberOfLeadingZeros
+-methodMapping java.lang.Integer.numberOfTrailingZeros Sharpen.Extensions.NumberOfTrailingZeros
+-methodMapping java.lang.Integer.lowestOneBit Sharpen.Extensions.LowestOneBit
+-methodMapping java.lang.Boolean.valueOf Sharpen.Extensions.ValueOf
+-methodMapping java.lang.Boolean.parseBoolean System.Boolean.Parse
+-methodMapping java.lang.Integer.valueOf Sharpen.Extensions.ValueOf
+-methodMapping java.lang.Integer.toString Sharpen.Extensions.ToString
+-methodMapping java.lang.Long.valueOf Sharpen.Extensions.ValueOf
+-methodMapping java.lang.Long.parseLong System.Convert.ToInt64
+-methodMapping java.util.Random.nextInt Next
+-methodMapping java.util.Arrays.binarySearch System.Array.BinarySearch
+-methodMapping java.util.TimeZone.getTimeZone Sharpen.Extensions.GetTimeZone
+-methodMapping java.lang.Throwable.initCause Sharpen.Extensions.InitCause
+-methodMapping java.lang.Character.isSpaceChar System.Char.IsWhiteSpace
+-methodMapping java.lang.Character.isLowerCase System.Char.IsLower
+-methodMapping java.lang.Character.isUpperCase System.Char.IsUpper
+-methodMapping java.lang.Character.toLowerCase System.Char.ToLower
+-methodMapping java.lang.Character.toUpperCase System.Char.ToUpper
+-methodMapping java.util.HashMap<,>.containsKey ContainsKey
+-methodMapping java.lang.System.gc System.GC.Collect
+-methodMapping java.lang.System.runFinalization System.GC.WaitForPendingFinalizers
+-methodMapping java.lang.System.getenv(String) System.Environment.GetEnvironmentVariable
+-methodMapping java.lang.System.getenv() Sharpen.Runtime.GetEnv
+-methodMapping java.net.InetAddress.getLocalHost Sharpen.Runtime.GetLocalHost
+-methodMapping java.net.InetAddress.getCanonicalHostName ToString
+-methodMapping java.util.Locale.Locale(String,String,String) Sharpen.Extensions.CreateLocale
+-methodMapping java.util.zip.Deflater.end Finish
+-methodMapping java.util.zip.Inflater.end Finish
+-methodMapping java.io.PrintWriter.print Write
+-methodMapping java.io.PrintWriter.println WriteLine
+-methodMapping java.lang.ArrayIndexOutOfBoundsException.ArrayIndexOutOfBoundsException(int) Sharpen.Extensions.CreateIndexOutOfRangeException
+-methodMapping java.lang.Appendable.append(java.lang.CharSequence,int,int) AppendRange
+-methodMapping java.util.Date.Date(long) Sharpen.Extensions.CreateDate
+-methodMapping java.lang.Long.signum Sharpen.Extensions.Signum
+-methodMapping java.util.Collection.add Add
+-methodMapping java.util.ArrayList.removeElement Remove
+-methodMapping java.net.InetAddress.getByName Sharpen.Extensions.GetAddressByName
+-methodMapping java.net.ServerSocket.ServerSocket Sharpen.Extensions.CreateServerSocket
+-methodMapping java.net.Socket.Socket Sharpen.Extensions.CreateSocket
+-methodMapping java.net.Socket.bind Bind2
+-methodMapping java.net.InetAddress.getAddress GetAddressBytes
+-methodMapping java.math.BigInteger.toByteArray GetBytes
+-methodMapping java.util.Vector.remove RemoveElement
+-methodMapping java.util.concurrent.Semaphore.Semaphore Sharpen.Extensions.CreateSemaphore
+-methodMapping java.util.concurrent.Semaphore.acquire WaitOne
+-methodMapping java.lang.ProcessBuilder.command SetCommand
+-methodMapping java.io.IOException.IOException(java.lang.Throwable) Sharpen.Extensions.CreateIOException
+-fieldMapping java.util.Locale.US InvariantCulture
+-fieldMapping java.util.Locale.GERMAN Sharpen.Extensions.GetGermanCulture()
+-fieldMapping java.util.Locale.ENGLISH Sharpen.Extensions.GetEnglishCulture()
+-typeMapping java.lang.Comparable System.IComparable
+-typeMapping java.util.Comparator<> System.Collections.Generic.IComparer
+-typeMapping java.util.HashSet<> System.Collections.Generic.HashSet
+-typeMapping java.util.HashSet<> System.Collections.Generic.HashSet
+-typeMapping java.io.File Sharpen.FilePath
+-typeMapping java.lang.StringBuilder System.Text.StringBuilder
+-typeMapping java.nio.charset.Charset System.Text.Encoding
+-typeMapping java.util.Locale System.Globalization.CultureInfo
+-typeMapping java.io.Closeable System.IDisposable
+-typeMapping java.lang.Error Sharpen.Error
+-typeMapping java.lang.NumberFormatException System.FormatException
+-typeMapping java.util.Collections Sharpen.Collections
+-typeMapping java.util.LinkedList<> System.Collections.Generic.List
+-typeMapping java.net.URL System.Uri
+-typeMapping java.lang.IndexOutOfRangeException Sharpen.IndexOutOfRangeException
+-typeMapping java.lang.Process Sharpen.SystemProcess
+-typeMapping java.net.InetAddress System.Net.IPAddress
+-typeMapping java.util.TimeZone System.TimeZoneInfo
+-typeMapping java.util.ArrayList<> Sharpen.AList
+-typeMapping java.util.zip.Inflater ICSharpCode.SharpZipLib.Zip.Compression.Inflater
+-typeMapping java.util.zip.Deflater ICSharpCode.SharpZipLib.Zip.Compression.Deflater
+-typeMapping java.util.zip.ZipException ICSharpCode.SharpZipLib.SharpZipBaseException
+-typeMapping java.util.zip.DataFormatException ICSharpCode.SharpZipLib.SharpZipBaseException
+-typeMapping java.io.FileNotFoundException System.IO.FileNotFoundException
+-typeMapping java.io.Reader System.IO.StreamReader
+-typeMapping java.util.SortedSet<> System.Collections.Generic.ICollection
+-typeMapping java.lang.AssertionError System.Exception
+-typeMapping java.io.InterruptedIOException System.Threading.ThreadInterruptedException
+-typeMapping java.lang.RuntimeException Sharpen.RuntimeException
+-typeMapping java.net.MalformedURLException System.UriFormatException
+-typeMapping java.lang.Package System.Reflection.Assembly
+-typeMapping java.net.InetSocketAddress System.Net.IPEndPoint
+-typeMapping java.net.SocketAddress System.Net.EndPoint
+-typeMapping java.net.Socket System.Net.Sockets.Socket
+-typeMapping java.net.ServerSocket System.Net.Sockets.Socket
+-typeMapping java.math.BigInteger Mono.Math.BigInteger
+-typeMapping java.util.Properties Sharpen.Properties
+-typeMapping java.util.concurrent.Semaphore System.Threading.Semaphore
+-typeMapping java.util.Enumeration System.Collections.Generic.IEnumeration
+-typeMapping java.lang.ProcessBuilder System.Diagnostics.ProcessStartInfo
+-propertyMapping java.lang.Class.getSimpleName Name
+-propertyMapping java.nio.charset.Charset.defaultCharset Default
+-propertyMapping java.util.Locale.getDefault CurrentCulture
+-propertyMapping java.util.Locale.setDefault System.Threading.Thread.CurrentThread.CurrentCulture
+-propertyMapping java.net.URL.getProtocol Scheme
+-propertyMapping java.net.URL.getPort Port
+-propertyMapping java.net.URL.getPath AbsolutePath
+-propertyMapping java.util.TimeZone.getDefault System.TimeZoneInfo.Local
+-propertyMapping java.util.zip.Deflater.finished IsFinished
+-propertyMapping java.util.zip.Deflater.needsInput IsNeedingInput
+-propertyMapping java.util.zip.Inflater.finished IsFinished
+-propertyMapping java.util.zip.Inflater.needsInput IsNeedingInput
+-propertyMapping java.util.zip.Inflater.getBytesRead TotalIn
+-propertyMapping java.util.zip.Inflater.getRemaining RemainingInput
+-propertyMapping java.lang.reflect.Field.getType FieldType
+-propertyMapping java.lang.Class.getPackage Assembly
+-propertyMapping java.net.InetSocketAddress.getAddress Address
+-propertyMapping java.net.InetSocketAddress.getPort Port
+-propertyMapping java.net.Socket.getRemoteSocketAddress RemoteEndPoint
+-propertyMapping java.net.ServerSocket.getLocalSocketAddress LocalEndPoint
+-propertyMapping java.net.Socket.setSoTimeout ReceiveTimeout
+-propertyMapping java.net.Socket.getSoTimeout ReceiveTimeout
+-propertyMapping java.net.Socket.setTcpNoDelay NoDelay
+-propertyMapping java.net.Socket.isConnected Connected
+-propertyMapping java.lang.ProcessBuilder.environment EnvironmentVariables
+-propertyMapping java.lang.ProcessBuilder.directory WorkingDirectory
+-fullyQualify Thread
+-fullyQualify Pattern
+-fullyQualify SocketAddress
+-fullyQualify Cipher
+-fullyQualify DH
+-fullyQualify KeyPairGenDSA
+-fullyQualify KeyPairGenRSA
+-fullyQualify SignatureDSA
+-fullyQualify SignatureRSA
+-fullyQualify KeyPair
+-fullyQualify GSSContext
+-fullyQualify Test
+            

@@ -44,7 +44,7 @@ namespace Com.Drew.Metadata.Photoshop
 		[NotNull]
 		public virtual Iterable<JpegSegmentType> GetSegmentTypes()
 		{
-			return Arrays.AsList(JpegSegmentType.Appd);
+			return Arrays.AsList(JpegSegmentType.Appd).AsIterable();
 		}
 
 		public virtual bool CanProcess(sbyte[] segmentBytes, JpegSegmentType segmentType)

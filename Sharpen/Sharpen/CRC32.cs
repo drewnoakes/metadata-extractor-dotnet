@@ -2,7 +2,7 @@ namespace Sharpen
 {
 	using System;
 
-	internal class CRC32
+	public class CRC32
 	{
 		private uint _value;
 		private static readonly uint[] CrcTable = new uint[] { 0, 0x77073096, 0xee0e612c, 0x990951ba, 0x76dc419, 0x706af48f, 0xe963a535, 0x9e6495a3, 0xedb8832, 0x79dcb8a4,

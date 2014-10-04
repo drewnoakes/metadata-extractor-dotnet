@@ -107,6 +107,6 @@ namespace Com.Drew.Tools
 			}
 		}
 		//        if (processedCount > 0)
-		//            System.out.println(String.format("Processed %,d files (%,d bytes) with %,d exceptions and %,d file errors in %s", processedCount, byteCount, exceptionCount, errorCount, path));
+		//            System.out.println(Sharpen.Extensions.StringFormat("Processed %,d files (%,d bytes) with %,d exceptions and %,d file errors in %s", processedCount, byteCount, exceptionCount, errorCount, path));
 	}
 }

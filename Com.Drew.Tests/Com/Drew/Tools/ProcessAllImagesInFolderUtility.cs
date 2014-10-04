@@ -299,20 +299,15 @@ namespace Com.Drew.Tools
 
 				internal Com.Drew.Metadata.Metadata metadata;
 
-				[CanBeNull]
-				private string manufacturer;
+				[CanBeNull] internal string manufacturer;
 
-				[CanBeNull]
-				private string model;
+				[CanBeNull] internal string model;
 
-				[CanBeNull]
-				private string exifVersion;
+				[CanBeNull] internal string exifVersion;
 
-				[CanBeNull]
-				private string thumbnail;
+				[CanBeNull] internal string thumbnail;
 
-				[CanBeNull]
-				private string makernote;
+				[CanBeNull] internal string makernote;
 
 				internal Row(WikiTableOutputHandler _enclosing, FilePath file, Com.Drew.Metadata.Metadata metadata)
 				{
@@ -335,8 +330,8 @@ namespace Com.Drew.Tools
 					}
 					if (thumbDir != null)
 					{
-						int width = thumbDir.GetInteger(ExifThumbnailDirectory.TagThumbnailImageWidth);
-						int height = thumbDir.GetInteger(ExifThumbnailDirectory.TagThumbnailImageHeight);
+						int? width = thumbDir.GetInteger(ExifThumbnailDirectory.TagThumbnailImageWidth);
+						int? height = thumbDir.GetInteger(ExifThumbnailDirectory.TagThumbnailImageHeight);
 						this.thumbnail = width != null && height != null ? Sharpen.Extensions.StringFormat("Yes (%s x %s)", width, height) : "Yes";
 					}
 					foreach (Com.Drew.Metadata.Directory directory in metadata.GetDirectories())
@@ -422,7 +417,7 @@ namespace Com.Drew.Tools
 			/// <exception cref="System.IO.IOException"/>
 			private void WriteOutput(PrintStream stream)
 			{
-				Writer writer = new OutputStreamWriter(stream);
+				TextWriter writer = new OutputStreamWriter(stream);
 				writer.Write("#summary Tabular summary of metadata found in the image database\n\n");
 				writer.Write("= Image Database Summary =\n\n");
 				foreach (string extension in _rowListByExtension.Keys)

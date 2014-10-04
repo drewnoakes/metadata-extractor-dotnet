@@ -311,19 +311,19 @@ namespace Sharpen
 			return path;
 		}
 		
-		static internal string pathSeparator {
+		static public string pathSeparator {
 			get { return Path.PathSeparator.ToString (); }
 		}
 
-		static internal char pathSeparatorChar {
+		static public char pathSeparatorChar {
 			get { return Path.PathSeparator; }
 		}
 
-		static internal char separatorChar {
+		static public char separatorChar {
 			get { return Path.DirectorySeparatorChar; }
 		}
 
-		static internal string separator {
+		static public string separator {
 			get { return Path.DirectorySeparatorChar.ToString (); }
 		}
 	}

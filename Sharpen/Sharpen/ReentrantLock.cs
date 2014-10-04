@@ -3,7 +3,7 @@ namespace Sharpen
 	using System;
 	using System.Threading;
 
-	internal class ReentrantLock
+	public class ReentrantLock
 	{
 		public void Lock ()
 		{

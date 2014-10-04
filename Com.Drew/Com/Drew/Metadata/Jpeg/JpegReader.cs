@@ -43,7 +43,7 @@ namespace Com.Drew.Metadata.Jpeg
 		{
 			// NOTE that some SOFn values do not exist
 			return Arrays.AsList(JpegSegmentType.Sof0, JpegSegmentType.Sof1, JpegSegmentType.Sof2, JpegSegmentType.Sof3, JpegSegmentType.Sof5, JpegSegmentType.Sof6, JpegSegmentType.Sof7, JpegSegmentType.Sof8, JpegSegmentType.Sof9, JpegSegmentType.Sof10, 
-				JpegSegmentType.Sof11, JpegSegmentType.Sof13, JpegSegmentType.Sof14, JpegSegmentType.Sof15);
+				JpegSegmentType.Sof11, JpegSegmentType.Sof13, JpegSegmentType.Sof14, JpegSegmentType.Sof15).AsIterable();
 		}
 
 		//            JpegSegmentType.SOF4,
@@ -55,7 +55,7 @@ namespace Com.Drew.Metadata.Jpeg
 
 		public virtual void Extract(sbyte[] segmentBytes, Com.Drew.Metadata.Metadata metadata, JpegSegmentType segmentType)
 		{
-			if (metadata.ContainsDirectory(typeof(JpegDirectory)))
+            if (metadata.ContainsDirectory<JpegDirectory>())
 			{
 				// If this directory is already present, discontinue this operation.
 				// We only store metadata for the *first* matching SOFn segment.

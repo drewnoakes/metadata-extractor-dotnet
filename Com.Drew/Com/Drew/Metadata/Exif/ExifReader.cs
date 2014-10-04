@@ -111,7 +111,7 @@ namespace Com.Drew.Metadata.Exif
 		[NotNull]
 		public virtual Iterable<JpegSegmentType> GetSegmentTypes()
 		{
-			return Arrays.AsList(JpegSegmentType.App1);
+			return Arrays.AsList(JpegSegmentType.App1).AsIterable();
 		}
 
 		public virtual bool CanProcess(sbyte[] segmentBytes, JpegSegmentType segmentType)
@@ -246,13 +246,13 @@ namespace Com.Drew.Metadata.Exif
 			ExifThumbnailDirectory thumbnailDirectory = metadata.GetDirectory<ExifThumbnailDirectory>();
 			if (thumbnailDirectory != null && thumbnailDirectory.ContainsTag(ExifThumbnailDirectory.TagThumbnailCompression))
 			{
-				int offset = thumbnailDirectory.GetInteger(ExifThumbnailDirectory.TagThumbnailOffset);
-				int length = thumbnailDirectory.GetInteger(ExifThumbnailDirectory.TagThumbnailLength);
+				int? offset = thumbnailDirectory.GetInteger(ExifThumbnailDirectory.TagThumbnailOffset);
+				int? length = thumbnailDirectory.GetInteger(ExifThumbnailDirectory.TagThumbnailLength);
 				if (offset != null && length != null)
 				{
 					try
 					{
-						sbyte[] thumbnailData = reader.GetBytes(tiffHeaderOffset + offset, length);
+						sbyte[] thumbnailData = reader.GetBytes(tiffHeaderOffset + offset.Value, length.Value);
 						thumbnailDirectory.SetThumbnailData(thumbnailData);
 					}
 					catch (IOException ex)

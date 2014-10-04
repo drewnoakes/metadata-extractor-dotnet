@@ -5,7 +5,7 @@ namespace Sharpen
 	using System.Collections.Generic;
 	using System.Reflection;
 
-	internal class CopyOnWriteArrayList<T> : Iterable<T>, IEnumerable, ICollection<T>, IEnumerable<T>, IList<T>
+	public class CopyOnWriteArrayList<T> : Iterable<T>, IEnumerable, ICollection<T>, IEnumerable<T>, IList<T>
 	{
 		private List<T> list;
 
