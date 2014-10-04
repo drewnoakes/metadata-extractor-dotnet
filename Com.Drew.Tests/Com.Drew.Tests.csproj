@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{07AFC815-EDBB-4CF8-B555-86B6CADE7D0F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Com.Drew.Tests</RootNamespace>
+    <AssemblyName>Com.Drew.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Com\Drew\Imaging\Jpeg\JpegMetadataReaderTest.cs" />
+    <Compile Include="Com\Drew\Imaging\Jpeg\JpegSegmentDataTest.cs" />
+    <Compile Include="Com\Drew\Imaging\Jpeg\JpegSegmentReaderTest.cs" />
+    <Compile Include="Com\Drew\Imaging\Png\PngChunkReaderTest.cs" />
+    <Compile Include="Com\Drew\Imaging\Png\PngChunkTypeTest.cs" />
+    <Compile Include="Com\Drew\Imaging\Png\PngMetadataReaderTest.cs" />
+    <Compile Include="Com\Drew\Lang\ByteArrayReaderTest.cs" />
+    <Compile Include="Com\Drew\Lang\CompoundExceptionTest.cs" />
+    <Compile Include="Com\Drew\Lang\GeoLocationTest.cs" />
+    <Compile Include="Com\Drew\Lang\NullOutputStreamTest.cs" />
+    <Compile Include="Com\Drew\Lang\RandomAccessFileReaderTest.cs" />
+    <Compile Include="Com\Drew\Lang\RandomAccessStreamReaderTest.cs" />
+    <Compile Include="Com\Drew\Lang\RandomAccessTestBase.cs" />
+    <Compile Include="Com\Drew\Lang\RationalTest.cs" />
+    <Compile Include="Com\Drew\Lang\SequentialAccessTestBase.cs" />
+    <Compile Include="Com\Drew\Lang\SequentialByteArrayReaderTest.cs" />
+    <Compile Include="Com\Drew\Lang\StreamReaderTest.cs" />
+    <Compile Include="Com\Drew\Lang\StringUtilTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Adobe\AdobeJpegReaderTest.cs" />
+    <Compile Include="Com\Drew\Metadata\AgeTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Bmp\BmpReaderTest.cs" />
+    <Compile Include="Com\Drew\Metadata\DirectoryTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Exif\CanonMakernoteDescriptorTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Exif\ExifDirectoryTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Exif\ExifIFD0DescriptorTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Exif\ExifInteropDescriptorTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Exif\ExifReaderTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Exif\ExifSubIFDDescriptorTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Exif\ExifThumbnailDescriptorTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Exif\NikonType1MakernoteTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Exif\NikonType2MakernoteTest1.cs" />
+    <Compile Include="Com\Drew\Metadata\Exif\NikonType2MakernoteTest2.cs" />
+    <Compile Include="Com\Drew\Metadata\Exif\PanasonicMakernoteDescriptorTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Exif\SonyType1MakernoteTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Exif\SonyType6MakernoteTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Gif\GifReaderTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Icc\IccReaderTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Iptc\IptcReaderTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Jfif\JfifReaderTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Jpeg\JpegComponentTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Jpeg\JpegDescriptorTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Jpeg\JpegDirectoryTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Jpeg\JpegReaderTest.cs" />
+    <Compile Include="Com\Drew\Metadata\MetadataTest.cs" />
+    <Compile Include="Com\Drew\Metadata\MockDirectory.cs" />
+    <Compile Include="Com\Drew\Metadata\Photoshop\PsdReaderTest.cs" />
+    <Compile Include="Com\Drew\Metadata\Xmp\XmpReaderTest.cs" />
+    <Compile Include="Com\Drew\Testing\TestHelper.cs" />
+    <Compile Include="Com\Drew\Tools\ExtractJpegSegmentTool.cs" />
+    <Compile Include="Com\Drew\Tools\FileUtil.cs" />
+    <Compile Include="Com\Drew\Tools\ProcessAllImagesInFolderUtility.cs" />
+    <Compile Include="Com\Drew\Tools\ProcessUrlUtility.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Com.Adobe.Xmp\Com.Adobe.Xmp.csproj">
+      <Project>{5a1f2aff-7219-4543-97c4-364d4502c3c5}</Project>
+      <Name>Com.Adobe.Xmp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Com.Drew\Com.Drew.csproj">
+      <Project>{26e27564-a74f-423b-a986-e979988f259d}</Project>
+      <Name>Com.Drew</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sharpen\Sharpen.csproj">
+      <Project>{72944a6c-45ff-4ef8-b349-8c9cabf519d4}</Project>
+      <Name>Sharpen</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\10x12x16bit-CMYK.psd" />
+    <None Include="Data\8x4x8bit-Grayscale.psd" />
+    <None Include="Data\adobeJpeg1.jpg.app0" />
+    <None Include="Data\adobeJpeg1.jpg.app1.0" />
+    <None Include="Data\adobeJpeg1.jpg.app1.1" />
+    <None Include="Data\adobeJpeg1.jpg.app2" />
+    <None Include="Data\adobeJpeg1.jpg.appd" />
+    <None Include="Data\adobeJpeg1.jpg.appe" />
+    <None Include="Data\crash01.jpg.app1" />
+    <None Include="Data\iccDataInvalid1.jpg.app2" />
+    <None Include="Data\iptc1.jpg.appd" />
+    <None Include="Data\iptc2-photoshop6.jpg.appd" />
+    <None Include="Data\manuallyAddedThumbnail.jpg.app1" />
+    <None Include="Data\manuallyAddedThumbnail.jpg.com" />
+    <None Include="Data\nikonMakernoteType1.jpg.app0" />
+    <None Include="Data\nikonMakernoteType1.jpg.app1" />
+    <None Include="Data\nikonMakernoteType1.jpg.appd" />
+    <None Include="Data\nikonMakernoteType1.jpg.appe" />
+    <None Include="Data\nikonMakernoteType2a.jpg.app1" />
+    <None Include="Data\nikonMakernoteType2b.jpg.app1" />
+    <None Include="Data\nikonMakernoteType2b.jpg.appd" />
+    <None Include="Data\noExif.jpg.app0" />
+    <None Include="Data\noExif.jpg.com" />
+    <None Include="Data\recursiveDirectories.jpg.app1" />
+    <None Include="Data\repeatedOrientationTagWithDifferentValues.jpg.app1" />
+    <None Include="Data\simple.jpg.app1" />
+    <None Include="Data\simple.jpg.com" />
+    <None Include="Data\simple.jpg.sof0" />
+    <None Include="Data\sonyType1.jpg.app1" />
+    <None Include="Data\sonyType6.jpg.app1.0" />
+    <None Include="Data\sonyType6.jpg.app1.1" />
+    <None Include="Data\sonyType6.jpg.app4.0" />
+    <None Include="Data\sonyType6.jpg.app4.1" />
+    <None Include="Data\windowsXpFields.jpg.app0" />
+    <None Include="Data\windowsXpFields.jpg.app1" />
+    <None Include="Data\windowsXpFields.jpg.app2" />
+    <None Include="Data\windowsXpFields.jpg.appd" />
+    <None Include="Data\windowsXpFields.jpg.appe" />
+    <None Include="Data\withExif.jpg.app1" />
+    <None Include="Data\withExif.jpg.appd" />
+    <None Include="Data\withExifAndIptc.jpg.app0" />
+    <None Include="Data\withExifAndIptc.jpg.app1.0" />
+    <None Include="Data\withExifAndIptc.jpg.app1.1" />
+    <None Include="Data\withExifAndIptc.jpg.app2" />
+    <None Include="Data\withExifAndIptc.jpg.appd" />
+    <None Include="Data\withExifAndIptc.jpg.appe" />
+    <None Include="Data\withPanasonicFaces.jpg.app1" />
+    <None Include="Data\withUncompressedRGBThumbnail.jpg.app1" />
+    <None Include="Data\withUncompressedRGBThumbnail.jpg.com" />
+    <None Include="Data\withXmpAndIptc.jpg.app1.0" />
+    <None Include="Data\withXmpAndIptc.jpg.app1.1" />
+    <None Include="Data\withXmpAndIptc.jpg.app2" />
+    <None Include="Data\withXmpAndIptc.jpg.appd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\16color-10x10.bmp" />
+    <Content Include="Data\24bpp-10x10.bmp" />
+    <Content Include="Data\256color-10x10.bmp" />
+    <Content Include="Data\adobeJpeg1.jpg" />
+    <Content Include="Data\crash01.jpg" />
+    <Content Include="Data\dotnet-256x256-alpha-palette.png" />
+    <Content Include="Data\gimp-8x12-greyscale-alpha-time-background.png" />
+    <Content Include="Data\invalid-iCCP-missing-adler32-checksum.png" />
+    <Content Include="Data\manuallyAddedThumbnail.jpg" />
+    <Content Include="Data\mspaint-10x10.gif" />
+    <Content Include="Data\mspaint-8x10.png" />
+    <Content Include="Data\nikonMakernoteType1.jpg" />
+    <Content Include="Data\nikonMakernoteType2b.jpg" />
+    <Content Include="Data\noExif.jpg" />
+    <Content Include="Data\photoshop-8x12-16colorpalette.png" />
+    <Content Include="Data\photoshop-8x12-32colors-alpha.gif" />
+    <Content Include="Data\photoshop-8x12-rgb24-all-metadata.png" />
+    <Content Include="Data\photoshop-8x12-rgb24-interlaced.png" />
+    <Content Include="Data\photoshop-8x12-rgb24.png" />
+    <Content Include="Data\photoshop-8x12-rgba32-interlaced.png" />
+    <Content Include="Data\photoshop-8x12-rgba32.png" />
+    <Content Include="Data\simple.jpg" />
+    <Content Include="Data\windowsXpFields.jpg" />
+    <Content Include="Data\withExif.jpg" />
+    <Content Include="Data\withExifAndIptc.jpg" />
+    <Content Include="Data\withIptc.jpg" />
+    <Content Include="Data\withIptcExifGps.jpg" />
+    <Content Include="Data\withIptcPhotoshop6.jpg" />
+    <Content Include="Data\withPanasonicFaces.jpg" />
+    <Content Include="Data\withUncompressedRGBThumbnail.jpg" />
+    <Content Include="Data\withUncompressedYCbCrThumbnail.jpg" />
+    <Content Include="Data\withUncompressedYCbCrThumbnail2.jpg" />
+    <Content Include="Data\withUncompressedYCbCrThumbnail3.jpg" />
+    <Content Include="Data\withUncompressedYCbCrThumbnail4.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
