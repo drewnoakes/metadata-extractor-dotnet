@@ -300,12 +300,12 @@ namespace Com.Drew.Metadata
 		/// </remarks>
 		/// <exception cref="MetadataException">if no value exists for tagType or if it cannot be converted to an int.</exception>
 		/// <exception cref="Com.Drew.Metadata.MetadataException"/>
-		public virtual int GetInt(int tagType)
+		public virtual int? GetInt(int tagType)
 		{
 			int? integer = GetInteger(tagType);
 			if (integer != null)
 			{
-				return integer.Value;
+				return integer;
 			}
 			object o = GetObject(tagType);
 			if (o == null)

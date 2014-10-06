@@ -69,25 +69,25 @@ namespace Com.Drew.Metadata.Jfif
 		}
 
 		/// <exception cref="Com.Drew.Metadata.MetadataException"/>
-		public virtual int GetVersion()
+		public virtual int? GetVersion()
 		{
 			return GetInt(Com.Drew.Metadata.Jfif.JfifDirectory.TagVersion);
 		}
 
 		/// <exception cref="Com.Drew.Metadata.MetadataException"/>
-		public virtual int GetResUnits()
+		public virtual int? GetResUnits()
 		{
 			return GetInt(Com.Drew.Metadata.Jfif.JfifDirectory.TagUnits);
 		}
 
 		/// <exception cref="Com.Drew.Metadata.MetadataException"/>
-		public virtual int GetImageWidth()
+		public virtual int? GetImageWidth()
 		{
 			return GetInt(Com.Drew.Metadata.Jfif.JfifDirectory.TagResy);
 		}
 
 		/// <exception cref="Com.Drew.Metadata.MetadataException"/>
-		public virtual int GetImageHeight()
+		public virtual int? GetImageHeight()
 		{
 			return GetInt(Com.Drew.Metadata.Jfif.JfifDirectory.TagResx);
 		}

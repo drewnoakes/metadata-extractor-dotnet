@@ -124,19 +124,19 @@ namespace Com.Drew.Metadata.Jpeg
 		}
 
 		/// <exception cref="Com.Drew.Metadata.MetadataException"/>
-		public virtual int GetImageWidth()
+		public virtual int? GetImageWidth()
 		{
 			return GetInt(Com.Drew.Metadata.Jpeg.JpegDirectory.TagImageWidth);
 		}
 
 		/// <exception cref="Com.Drew.Metadata.MetadataException"/>
-		public virtual int GetImageHeight()
+		public virtual int? GetImageHeight()
 		{
 			return GetInt(Com.Drew.Metadata.Jpeg.JpegDirectory.TagImageHeight);
 		}
 
 		/// <exception cref="Com.Drew.Metadata.MetadataException"/>
-		public virtual int GetNumberOfComponents()
+		public virtual int? GetNumberOfComponents()
 		{
 			return GetInt(Com.Drew.Metadata.Jpeg.JpegDirectory.TagNumberOfComponents);
 		}

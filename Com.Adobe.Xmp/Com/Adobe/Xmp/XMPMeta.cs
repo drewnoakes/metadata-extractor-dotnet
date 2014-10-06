@@ -1144,9 +1144,9 @@ namespace Com.Adobe.Xmp
 		/// </returns>
 		string GetPacketHeader();
 
-		/// <summary>Clones the complete metadata tree.</summary>
-		/// <returns>Returns a deep copy of this instance.</returns>
-		object Clone();
+//		/// <summary>Clones the complete metadata tree.</summary>
+//		/// <returns>Returns a deep copy of this instance.</returns>
+//		object Clone();
 
 		/// <summary>
 		/// Sorts the complete datamodel according to the following rules:
