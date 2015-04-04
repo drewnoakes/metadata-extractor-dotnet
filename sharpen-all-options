@@ -1,17 +1,32 @@
 -pascalCase+ 
 -organizeUsings
+-mapByteToSbyte
+-disableMapIteratorToEnumerator
+-numberValueGetter
 -nativeTypeSystem
 -separateInterfaceConstants
--maxColumns 200
--configurationClass sharpen.core.MEConfiguration
+-maxColumns 240
 
 -typeMapping java.io.StringReader Sharpen.StringReader
+-typeMapping com.drew.lang.annotations.Nullable JetBrains.Annotations.CanBeNull
+-typeMapping java.lang.Double double?
+-typeMapping java.lang.Integer int?
+-typeMapping java.lang.Long long?
+-typeMapping java.lang.Float float?
+-typeMapping java.lang.Boolean bool?
 -methodMapping java.lang.Math.signum System.Math.Sign
--methodMapping java.lang.Byte.toString System.Convert.ToString
--methodMapping java.lang.Float.toString ToString
+-methodMapping java.lang.Math.round (long)System.Math.Round
+-methodMapping java.lang.Short.shortValue ""
+-methodMapping java.lang.Integer.intValue ""
+-methodMapping java.lang.Long.longValue ""
+-methodMapping java.lang.Byte.byteValue ""
+-methodMapping java.lang.Float.floatValue ""
+-methodMapping java.lang.Double.doubleValue ""
+-methodMapping java.lang.Byte.toString Sharpen.Extensions.ConvertToString
+-methodMapping java.lang.Float.toString Sharpen.Extensions.ConvertToString
 -methodMapping java.lang.Float.parseFloat float.Parse
 -methodMapping java.lang.Float.intBitsToFloat Sharpen.Extensions.IntBitsToFloat
--methodMapping java.lang.Double.toString ToString
+-methodMapping java.lang.Double.toString Sharpen.Extensions.ConvertToString
 -methodMapping java.lang.Double.valueOf double.Parse
 -methodMapping java.lang.Double.parseDouble double.Parse
 -methodMapping java.lang.Double.compare Sharpen.Extensions.Compare
@@ -73,7 +88,6 @@
 -namespaceMapping javax.xml System.Xml
 -namespaceMapping org.xml.sax System.Xml    
 -namespaceMapping com.drew.lang.annotations JetBrains.Annotations
--methodMapping com.drew.imaging.jpeg.JpegSegmentType.valueOf Sharpen.
 -fullyQualify Calendar
 -fullyQualify GregorianCalendar
 -fullyQualify StringReader
@@ -85,9 +99,7 @@
 -methodMapping java.util.Iterator.hasNext HasNext
 -methodMapping java.util.Iterator.next Next
 
--typeMapping com.db4o.ObjectSet Db4objects.Db4o.IObjectSet 
--methodMapping com.db4o.ObjectSet.hasNext Db4objects.Db4o.IObjectSet.HasNext 
--methodMapping com.db4o.ObjectSet.next Db4objects.Db4o.IObjectSet.Next  
+-methodMapping com.drew.imaging.png.PngChunk.getType GetChunkType
 
 -typeMapping java.util.Comparator System.Collections.IEnumerator   
 -typeMapping java.util.ArrayList System.Collections.ArrayList 
@@ -121,6 +133,7 @@
 -namespaceMapping javax.net.ssl Sharpen
 -namespaceMapping org.ietf.jgss Sharpen
 -methodMapping java.lang.Object.memberwiseClone Clone
+-methodMapping java.lang.Object.toString Sharpen.Extensions.ConvertToString
 -methodMapping java.nio.charset.Charset.forName Sharpen.Extensions.GetEncoding
 -methodMapping java.util.List<>.remove RemoveAt
 -methodMapping java.util.IList<>.remove RemoveAt
@@ -134,7 +147,7 @@
 -methodMapping java.lang.Boolean.valueOf Sharpen.Extensions.ValueOf
 -methodMapping java.lang.Boolean.parseBoolean System.Boolean.Parse
 -methodMapping java.lang.Integer.valueOf Sharpen.Extensions.ValueOf
--methodMapping java.lang.Integer.toString Sharpen.Extensions.ToString
+-methodMapping java.lang.Integer.toString Sharpen.Extensions.ConvertToString
 -methodMapping java.lang.Long.valueOf Sharpen.Extensions.ValueOf
 -methodMapping java.lang.Long.parseLong System.Convert.ToInt64
 -methodMapping java.util.Random.nextInt Next
@@ -153,7 +166,8 @@
 -methodMapping java.lang.System.getenv() Sharpen.Runtime.GetEnv
 -methodMapping java.net.InetAddress.getLocalHost Sharpen.Runtime.GetLocalHost
 -methodMapping java.net.InetAddress.getCanonicalHostName ToString
--methodMapping java.util.Locale.Locale(String,String,String) Sharpen.Extensions.CreateLocale
+-methodMapping java.util.Locale.Locale(java.lang.String,java.lang.String) Sharpen.Extensions.CreateLocale
+-methodMapping java.util.Locale.Locale(java.lang.String,java.lang.String,java.lang.String) Sharpen.Extensions.CreateLocale
 -methodMapping java.util.zip.Deflater.end Finish
 -methodMapping java.util.zip.Inflater.end Finish
 -methodMapping java.io.PrintWriter.print Write
@@ -180,7 +194,8 @@
 -fieldMapping java.util.Locale.ENGLISH Sharpen.Extensions.GetEnglishCulture()
 -typeMapping java.lang.Comparable System.IComparable
 -typeMapping java.util.Comparator<> System.Collections.Generic.IComparer
--typeMapping java.util.HashSet<> System.Collections.Generic.HashSet
+-typeMapping java.util.Set System.Collections.Generic.ICollection<object>
+-typeMapping java.util.HashSet System.Collections.Generic.HashSet<object>
 -typeMapping java.util.HashSet<> System.Collections.Generic.HashSet
 -typeMapping java.io.File Sharpen.FilePath
 -typeMapping java.lang.StringBuilder System.Text.StringBuilder
@@ -257,3 +272,13 @@
 -fullyQualify GSSContext
 -fullyQualify Test
             
+-removeTypeMapping java.io.Writer
+-removeTypeMapping java.io.PrintStream
+-removeMemberMapping java.io.PrintStream.print
+-removeMemberMapping java.io.PrintStream.println
+-removeMemberMapping java.lang.Object.clone
+-removeMemberMapping java.util.Dictionary.put
+-removeMemberMapping java.util.Map.get
+-removeMemberMapping java.util.Map.put
+-removeMemberMapping java.util.Map.containsKey
+-removeMemberMapping java.util.Map.entrySet
