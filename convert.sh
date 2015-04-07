@@ -3,7 +3,7 @@ sharpen_path="/home/user/Projects/Sharpen/sharpen_imazen/src/target/sharpencore-
 xmp_path="/home/user/Projects/Sharpen/xmp-core"
 xmp_jar="/home/user/Projects/Sharpen/metadata-extractor/Libraries/xmpcore-5.1.2.jar"
 me_path="/home/user/Projects/Sharpen/metadata-extractor"
-me_jar="/home/user/Projects/Sharpen/metadata-extractor/Output/maven/metadata-extractor-2.8.1-SNAPSHOT.jar"
+me_jar="/home/user/Projects/Sharpen/metadata-extractor/Output/maven/metadata-extractor-2.8.0.jar"
 nunit_jar="/home/user/Projects/Sharpen/metadata-extractor/Libraries/junit-4.11.jar"
 net_me_path="/home/user/Projects/Sharpen/n-metadata-extractor"
 
