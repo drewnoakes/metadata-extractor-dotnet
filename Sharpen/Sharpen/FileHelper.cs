@@ -35,7 +35,20 @@ namespace Sharpen
 			return false;
 		}
 
-		public virtual bool CanWrite (FilePath path)
+        public virtual bool CanRead(FilePath path)
+		{
+			try {
+                using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read)) 
+                {
+                    return true;
+                }
+            }
+            catch (IOException) {
+                return false;
+            }
+		}
+        
+        public virtual bool CanWrite (FilePath path)
 		{
 			return ((File.GetAttributes (path) & FileAttributes.ReadOnly) == 0);
 		}

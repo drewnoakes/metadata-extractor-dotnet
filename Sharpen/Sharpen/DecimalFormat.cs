@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace Sharpen
 {
@@ -35,6 +36,11 @@ namespace Sharpen
         private CultureInfo getFormatProvider()
         {
             return _symbols == null ? CultureInfo.CurrentCulture : _symbols.InternalCulture;
+        }
+
+        public string Format(int? number)
+        {
+            return Format((int)number);
         }
     }
 }

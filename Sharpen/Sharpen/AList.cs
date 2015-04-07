@@ -43,7 +43,12 @@ namespace Sharpen
 		{
 			AddRange (t);
 		}
-		
+
+        public static implicit operator Iterable<T>(AList<T> str)
+        {
+            return str.AsIterable();
+        }
+        
 		public override bool Equals (object obj)
 		{
 			if (obj == this)

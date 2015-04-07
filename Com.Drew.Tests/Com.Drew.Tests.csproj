@@ -42,58 +42,56 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Com\Drew\Imaging\Jpeg\JpegMetadataReaderTest.cs" />
-    <Compile Include="Com\Drew\Imaging\Jpeg\JpegSegmentDataTest.cs" />
-    <Compile Include="Com\Drew\Imaging\Jpeg\JpegSegmentReaderTest.cs" />
-    <Compile Include="Com\Drew\Imaging\Png\PngChunkReaderTest.cs" />
-    <Compile Include="Com\Drew\Imaging\Png\PngChunkTypeTest.cs" />
-    <Compile Include="Com\Drew\Imaging\Png\PngMetadataReaderTest.cs" />
-    <Compile Include="Com\Drew\Lang\ByteArrayReaderTest.cs" />
-    <Compile Include="Com\Drew\Lang\CompoundExceptionTest.cs" />
-    <Compile Include="Com\Drew\Lang\GeoLocationTest.cs" />
-    <Compile Include="Com\Drew\Lang\NullOutputStreamTest.cs" />
-    <Compile Include="Com\Drew\Lang\RandomAccessFileReaderTest.cs" />
-    <Compile Include="Com\Drew\Lang\RandomAccessStreamReaderTest.cs" />
-    <Compile Include="Com\Drew\Lang\RandomAccessTestBase.cs" />
-    <Compile Include="Com\Drew\Lang\RationalTest.cs" />
-    <Compile Include="Com\Drew\Lang\SequentialAccessTestBase.cs" />
-    <Compile Include="Com\Drew\Lang\SequentialByteArrayReaderTest.cs" />
-    <Compile Include="Com\Drew\Lang\StreamReaderTest.cs" />
-    <Compile Include="Com\Drew\Lang\StringUtilTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Adobe\AdobeJpegReaderTest.cs" />
-    <Compile Include="Com\Drew\Metadata\AgeTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Bmp\BmpReaderTest.cs" />
-    <Compile Include="Com\Drew\Metadata\DirectoryTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Exif\CanonMakernoteDescriptorTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Exif\ExifDirectoryTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Exif\ExifIFD0DescriptorTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Exif\ExifInteropDescriptorTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Exif\ExifReaderTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Exif\ExifSubIFDDescriptorTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Exif\ExifThumbnailDescriptorTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Exif\NikonType1MakernoteTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Exif\NikonType2MakernoteTest1.cs" />
-    <Compile Include="Com\Drew\Metadata\Exif\NikonType2MakernoteTest2.cs" />
-    <Compile Include="Com\Drew\Metadata\Exif\PanasonicMakernoteDescriptorTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Exif\SonyType1MakernoteTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Exif\SonyType6MakernoteTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Gif\GifReaderTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Icc\IccReaderTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Iptc\IptcReaderTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Jfif\JfifReaderTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Jpeg\JpegComponentTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Jpeg\JpegDescriptorTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Jpeg\JpegDirectoryTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Jpeg\JpegReaderTest.cs" />
-    <Compile Include="Com\Drew\Metadata\MetadataTest.cs" />
-    <Compile Include="Com\Drew\Metadata\MockDirectory.cs" />
-    <Compile Include="Com\Drew\Metadata\Photoshop\PsdReaderTest.cs" />
-    <Compile Include="Com\Drew\Metadata\Xmp\XmpReaderTest.cs" />
-    <Compile Include="Com\Drew\Testing\TestHelper.cs" />
-    <Compile Include="Com\Drew\Tools\ExtractJpegSegmentTool.cs" />
-    <Compile Include="Com\Drew\Tools\FileUtil.cs" />
-    <Compile Include="Com\Drew\Tools\ProcessAllImagesInFolderUtility.cs" />
-    <Compile Include="Com\Drew\Tools\ProcessUrlUtility.cs" />
+    <Compile Include="Com\drew\imaging\jpeg\JpegMetadataReaderTest.cs" />
+    <Compile Include="Com\drew\imaging\jpeg\JpegSegmentDataTest.cs" />
+    <Compile Include="Com\drew\imaging\jpeg\JpegSegmentReaderTest.cs" />
+    <Compile Include="Com\drew\imaging\png\PngChunkReaderTest.cs" />
+    <Compile Include="Com\drew\imaging\png\PngChunkTypeTest.cs" />
+    <Compile Include="Com\drew\imaging\png\PngMetadataReaderTest.cs" />
+    <Compile Include="Com\drew\lang\ByteArrayReaderTest.cs" />
+    <Compile Include="Com\drew\lang\ByteTrieTest.cs" />
+    <Compile Include="Com\drew\lang\CompoundExceptionTest.cs" />
+    <Compile Include="Com\drew\lang\GeoLocationTest.cs" />
+    <Compile Include="Com\drew\lang\NullOutputStreamTest.cs" />
+    <Compile Include="Com\drew\lang\RandomAccessFileReaderTest.cs" />
+    <Compile Include="Com\drew\lang\RandomAccessStreamReaderTest.cs" />
+    <Compile Include="Com\drew\lang\RandomAccessTestBase.cs" />
+    <Compile Include="Com\drew\lang\RationalTest.cs" />
+    <Compile Include="Com\drew\lang\SequentialAccessTestBase.cs" />
+    <Compile Include="Com\drew\lang\SequentialByteArrayReaderTest.cs" />
+    <Compile Include="Com\drew\lang\StreamReaderTest.cs" />
+    <Compile Include="Com\drew\lang\StringUtilTest.cs" />
+    <Compile Include="Com\drew\metadata\adobe\AdobeJpegReaderTest.cs" />
+    <Compile Include="Com\drew\metadata\AgeTest.cs" />
+    <Compile Include="Com\drew\metadata\bmp\BmpReaderTest.cs" />
+    <Compile Include="Com\drew\metadata\DirectoryTest.cs" />
+    <Compile Include="Com\drew\metadata\exif\CanonMakernoteDescriptorTest.cs" />
+    <Compile Include="Com\drew\metadata\exif\ExifDirectoryTest.cs" />
+    <Compile Include="Com\drew\metadata\exif\ExifIFD0DescriptorTest.cs" />
+    <Compile Include="Com\drew\metadata\exif\ExifInteropDescriptorTest.cs" />
+    <Compile Include="Com\drew\metadata\exif\ExifReaderTest.cs" />
+    <Compile Include="Com\drew\metadata\exif\ExifSubIFDDescriptorTest.cs" />
+    <Compile Include="Com\drew\metadata\exif\ExifThumbnailDescriptorTest.cs" />
+    <Compile Include="Com\drew\metadata\exif\NikonType1MakernoteTest.cs" />
+    <Compile Include="Com\drew\metadata\exif\NikonType2MakernoteTest1.cs" />
+    <Compile Include="Com\drew\metadata\exif\NikonType2MakernoteTest2.cs" />
+    <Compile Include="Com\drew\metadata\exif\PanasonicMakernoteDescriptorTest.cs" />
+    <Compile Include="Com\drew\metadata\exif\SonyType1MakernoteTest.cs" />
+    <Compile Include="Com\drew\metadata\exif\SonyType6MakernoteTest.cs" />
+    <Compile Include="Com\drew\metadata\gif\GifReaderTest.cs" />
+    <Compile Include="Com\drew\metadata\icc\IccReaderTest.cs" />
+    <Compile Include="Com\drew\metadata\iptc\IptcReaderTest.cs" />
+    <Compile Include="Com\drew\metadata\iptc\Iso2022ConverterTest.cs" />
+    <Compile Include="Com\drew\metadata\jfif\JfifReaderTest.cs" />
+    <Compile Include="Com\drew\metadata\jpeg\JpegComponentTest.cs" />
+    <Compile Include="Com\drew\metadata\jpeg\JpegDescriptorTest.cs" />
+    <Compile Include="Com\drew\metadata\jpeg\JpegDirectoryTest.cs" />
+    <Compile Include="Com\drew\metadata\jpeg\JpegReaderTest.cs" />
+    <Compile Include="Com\drew\metadata\MetadataTest.cs" />
+    <Compile Include="Com\drew\metadata\MockDirectory.cs" />
+    <Compile Include="Com\drew\metadata\photoshop\PsdReaderTest.cs" />
+    <Compile Include="Com\drew\metadata\xmp\XmpReaderTest.cs" />
+    <Compile Include="Com\drew\testing\TestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +105,10 @@
     <None Include="Data\adobeJpeg1.jpg.appe" />
     <None Include="Data\crash01.jpg.app1" />
     <None Include="Data\iccDataInvalid1.jpg.app2" />
+    <None Include="Data\iptc-encoding-defined-utf8.bytes" />
+    <None Include="Data\iptc-encoding-undefined-iso.bytes" />
+    <None Include="Data\iptc-encoding-unknown-2.bytes" />
+    <None Include="Data\iptc-encoding-unknown.bytes" />
     <None Include="Data\iptc1.jpg.appd" />
     <None Include="Data\iptc2-photoshop6.jpg.appd" />
     <None Include="Data\manuallyAddedThumbnail.jpg.app1" />
@@ -153,6 +155,20 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Com.Adobe.Xmp\Com.Adobe.Xmp.csproj">
+      <Project>{5a1f2aff-7219-4543-97c4-364d4502c3c5}</Project>
+      <Name>Com.Adobe.Xmp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Com.Drew\Com.Drew.csproj">
+      <Project>{26e27564-a74f-423b-a986-e979988f259d}</Project>
+      <Name>Com.Drew</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sharpen\Sharpen.csproj">
+      <Project>{72944a6c-45ff-4ef8-b349-8c9cabf519d4}</Project>
+      <Name>Sharpen</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Data\16color-10x10.bmp" />
     <Content Include="Data\24bpp-10x10.bmp" />
     <Content Include="Data\256color-10x10.bmp" />
@@ -175,7 +191,6 @@
     <Content Include="Data\photoshop-8x12-rgba32-interlaced.png" />
     <Content Include="Data\photoshop-8x12-rgba32.png" />
     <Content Include="Data\simple.jpg" />
-    <Content Include="Data\test.txt" />
     <Content Include="Data\windowsXpFields.jpg" />
     <Content Include="Data\withExif.jpg" />
     <Content Include="Data\withExifAndIptc.jpg" />
@@ -190,18 +205,7 @@
     <Content Include="Data\withUncompressedYCbCrThumbnail4.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Com.Adobe.Xmp\Com.Adobe.Xmp.csproj">
-      <Project>{5a1f2aff-7219-4543-97c4-364d4502c3c5}</Project>
-      <Name>Com.Adobe.Xmp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Com.Drew\Com.Drew.csproj">
-      <Project>{26e27564-a74f-423b-a986-e979988f259d}</Project>
-      <Name>Com.Drew</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sharpen\Sharpen.csproj">
-      <Project>{72944a6c-45ff-4ef8-b349-8c9cabf519d4}</Project>
-      <Name>Sharpen</Name>
-    </ProjectReference>
+    <Folder Include="Com\drew\Tools\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

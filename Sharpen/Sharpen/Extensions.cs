@@ -109,6 +109,16 @@ namespace Sharpen
             return new IndexOutOfRangeException("Index: " + index);
         }
 
+        public static CultureInfo CreateLocale(string language, string country)
+        {
+            if (string.IsNullOrEmpty(country))
+            {
+                return CultureInfo.GetCultureInfoByIetfLanguageTag(language);
+            }
+
+            return CultureInfo.GetCultureInfo(string.Format("{0}-{1}", language, country));
+        }
+
         public static CultureInfo CreateLocale(string language, string country, string variant)
         {
             return CultureInfo.GetCultureInfo("en-US");
@@ -691,6 +701,11 @@ namespace Sharpen
             return destination;
         }
 
+        public static CharSequence[] ToCharSequence(this IEnumerable<string> strArr)
+        {
+            return (from str in strArr select (CharSequence) str).ToArray();
+        }
+
         public static long ToMillisecondsSinceEpoch(this DateTime dateTime)
         {
             if (dateTime.Kind != DateTimeKind.Utc)
@@ -717,7 +732,38 @@ namespace Sharpen
             return Convert.ToString(val, 16);
         }
 
-        public static string ToString(object val)
+        public static string ConvertToString(int val)
+        {
+            return val.ToString();
+        }
+
+        public static string ConvertToString(int? val)
+        {
+            return ConvertToString(val.Value);
+        }
+
+        public static string ConvertToString(float val)
+        {
+            return val.ToString("0.0###########");
+        }
+
+        public static string ConvertToString(DateTime? val)
+        {
+            return ConvertToString(val.Value);
+        }
+
+        public static string ConvertToString(DateTime val)
+        {
+            //  EEE MMM dd HH:mm:ss zzz yyyy
+            return val.ToString("ddd MMM dd HH:mm:ss zzz yyyy");
+        }
+
+        public static string ConvertToString(float? val)
+        {
+            return ConvertToString(val.Value);
+        }
+
+        public static string ConvertToString(object val)
         {
             return val.ToString();
         }
@@ -957,23 +1003,23 @@ namespace Sharpen
             return SystemProcess.Start(si);
         }
 
-        public static Array GetEnumConstants(this Type type)
-        {
-            if (type.IsEnum)
-            {
-                throw new ArgumentException();
-            }
-
-            try
-            {
-                return Enum.GetValues(type);
-            }
-            catch
-            {
-                // just need to match java behaviour
-                return null;
-            }
-        }
+//        public static Array GetEnumConstants(this Type type)
+//        {
+//            if (type.IsEnum)
+//            {
+//                throw new ArgumentException();
+//            }
+//
+//            try
+//            {
+//                return Enum.GetValues(type);
+//            }
+//            catch
+//            {
+//                // just need to match java behaviour
+//                return null;
+//            }
+//        }
 
         /// <summary>
         /// Returns all public static fields values with specified type
@@ -1039,6 +1085,11 @@ namespace Sharpen
             }
 
             return Math.Sign(diff);
+        }
+
+        public static int CompareTo(this int? value, int? compareVal)
+        {
+            return value.Value.CompareTo(compareVal.Value);
         }
 
         public static long DoubleToLongBits(double value)
@@ -1131,10 +1182,15 @@ namespace Sharpen
                 sbuffer[i] = (sbyte) buffer[i];
             }
         }
-
+        
         public static sbyte ByteValue(this int value)
         {
             return (sbyte) value;
+        }
+
+        public static sbyte ByteValue(this int? value)
+        {
+            return (sbyte)value.Value;
         }
         
         public static int IntValue(this int value)
@@ -1168,6 +1224,12 @@ namespace Sharpen
         }
 
         public static void Printf(this TextWriter writer, string format, params object[] args)
+        {
+            //  same call in Java
+            Format(writer, format, args);
+        }
+
+        public static void Format(this TextWriter writer, string format, params object[] args)
         {
             writer.WriteLine(ConvertStringFormat(format), args);
         }

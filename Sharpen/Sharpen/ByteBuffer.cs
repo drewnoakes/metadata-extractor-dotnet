@@ -208,10 +208,15 @@ namespace Sharpen
 			return b;
 		}
 
-		public static ByteBuffer Wrap (byte[] buf)
+		public static ByteBuffer Wrap(byte[] buf)
 		{
 			return new ByteBuffer (buf, 0, buf.Length);
 		}
+
+        public static ByteBuffer Wrap(sbyte[] buf)
+        {
+            return Wrap(Extensions.ConvertToByteArray(buf));
+        }
 
 		public static ByteBuffer Wrap (byte[] buf, int start, int len)
 		{

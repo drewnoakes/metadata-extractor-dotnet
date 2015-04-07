@@ -264,11 +264,23 @@ namespace Sharpen
 		
 		public static Encoding GetEncoding (string name)
 		{
+		    try
+		    {
 //			Encoding e = Encoding.GetEncoding (name, EncoderFallback.ExceptionFallback, DecoderFallback.ExceptionFallback);
-			Encoding e = Encoding.GetEncoding (name.Replace ('_','-'));
-			if (e is UTF8Encoding)
-				return new UTF8Encoding (false, true);
-			return e;
+		        Encoding e = Encoding.GetEncoding(name.Replace('_', '-'));
+		        if (e is UTF8Encoding)
+		            return new UTF8Encoding(false, true);
+		        return e;
+		    }
+		    catch (ArgumentException ex)
+		    {
+		        if (ex.ParamName.Equals("name"))
+		        {
+                    throw new UnsupportedEncodingException();
+		        }
+
+		        throw;
+		    }
 		}
 
         public static int GetArrayLength(object array)

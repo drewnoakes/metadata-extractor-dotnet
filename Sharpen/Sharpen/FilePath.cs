@@ -64,6 +64,11 @@ namespace Sharpen
 			return path.GetHashCode ();
 		}
 
+        public bool CanRead()
+        {
+            return FileHelper.Instance.CanRead(this);
+        }
+
 		public bool CanWrite ()
 		{
 			return FileHelper.Instance.CanWrite (this);
