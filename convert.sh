@@ -25,6 +25,10 @@ function convert_source(){
   fi
 
   net_destination=$4
+  
+  if [ -z "$net_destination" ]; then    
+    return 2
+  fi
 
   if [ -d $net_destination ]; then
     rm -rf $net_destination
@@ -32,6 +36,9 @@ function convert_source(){
   fi
 
   mv -f $3 $net_destination
+  if ! [ $? -eq 0 ] ; then
+    return 3
+  fi
   echo -e "${yellow}New sources moved: $net_destination${NC}"
 }
 
@@ -46,6 +53,11 @@ function handle_error(){
   fi
 
   if [ $code -eq 2 ] ; then
+    echo -e "${red}$step moving error - please set destination path${NC}"
+    exit 1
+  fi
+  
+  if [ $code -eq 3 ] ; then
     echo -e "${red}$step moving error${NC}"
     exit 1
   fi
@@ -54,7 +66,7 @@ function handle_error(){
 if ! [ -f $me_jar ] || [ -z "$me_jar" ]; then
     echo -e "${yellow}Please build metadata extractor before conversion: ${red}mvn install${NC}"
     exit 1
-  fi
+fi
 
 # XMP core
 converted_source=$xmp_path/`basename $xmp_path`.net/com
@@ -70,3 +82,17 @@ handle_error $? "Metadata extractor"
 converted_source=$me_path/`basename $me_path`.net/com
 convert_source $me_path/Tests $net_me_path/sharpen-all-options $converted_source $net_me_path/Com.Drew.Tests/Com "-cp $xmp_jar -cp $me_jar -cp $nunit_jar"
 handle_error $? "Metadata extractor Tests"
+
+# ME Tests Data
+tests_data=$net_me_path/Com.Drew.Tests/Data
+if [ -d $tests_data ]; then
+    rm -rf $tests_data
+    echo -e "${yellow}Old tests data deleted${NC}"
+fi
+
+cp $me_path/Tests/Data/ $tests_data -R
+if ! [ $? -eq 0 ] ; then
+  echo -e "${red}Error copying tests data${NC}"
+  return 1
+fi
+echo -e "${yellow}Tests data copied${NC}"
