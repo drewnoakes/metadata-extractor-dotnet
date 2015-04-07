@@ -96,3 +96,15 @@ if ! [ $? -eq 0 ] ; then
   return 1
 fi
 echo -e "${yellow}Tests data copied${NC}"
+
+# Apache license update
+apache_files=`grep -ilr --include="*.cs" "Apache License" $net_me_path`
+for file in $apache_files
+do 
+  tmp_file=$file.tmp
+  awk '/Apache License/{print " *    Modified by Yakov Danilov <yakodani@gmail.com> for Imazen LLC (Ported from Java to C#)"}1' $file > $tmp_file  
+  mv $tmp_file $file
+  if [ $? -eq 0 ] ; then
+    echo "Apache License modified for: $file"    
+  fi
+done
