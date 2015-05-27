@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Com.Drew", "Com.Drew\Com.Drew.csproj", "{26E27564-A74F-423B-A986-E979988F259D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Com.Drew.Tests", "Com.Drew.Tests\Com.Drew.Tests.csproj", "{07AFC815-EDBB-4CF8-B555-86B6CADE7D0F}"
@@ -8,6 +10,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Com.Adobe.Xmp", "Com.Adobe.Xmp\Com.Adobe.Xmp.csproj", "{5A1F2AFF-7219-4543-97C4-364D4502C3C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpen", "Sharpen\Sharpen.csproj", "{72944A6C-45FF-4EF8-B349-8C9CABF519D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleReader", "SampleReader\SampleReader.csproj", "{D54F78E2-B04C-4341-9358-31125D953AF8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8CF154EA-6A2C-4BF4-B263-78758F834192}"
+	ProjectSection(SolutionItems) = preProject
+		HowToConvert.md = HowToConvert.md
+		LICENSE = LICENSE
+		README.md = README.md
+		SharpenBugsAndProblems.md = SharpenBugsAndProblems.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +43,10 @@ Global
 		{72944A6C-45FF-4EF8-B349-8C9CABF519D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72944A6C-45FF-4EF8-B349-8C9CABF519D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72944A6C-45FF-4EF8-B349-8C9CABF519D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D54F78E2-B04C-4341-9358-31125D953AF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D54F78E2-B04C-4341-9358-31125D953AF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D54F78E2-B04C-4341-9358-31125D953AF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D54F78E2-B04C-4341-9358-31125D953AF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
