@@ -30,11 +30,11 @@ namespace Com.Drew.Imaging
 	/// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
 	public class FileTypeDetector
 	{
-		private static readonly ByteTrie<FileType> _root;
+		private static readonly ByteTrie<FileType?> _root;
 
 		static FileTypeDetector()
 		{
-			_root = new ByteTrie<FileType>();
+			_root = new ByteTrie<FileType?>();
 			_root.SetDefaultValue(FileType.Unknown);
 			// https://en.wikipedia.org/wiki/List_of_file_signatures
 			_root.AddPath(FileType.Jpeg, new sbyte[] { unchecked((sbyte)0xff), unchecked((sbyte)0xd8) });
@@ -85,7 +85,7 @@ namespace Com.Drew.Imaging
 		/// </remarks>
 		/// <exception cref="System.IO.IOException">if an IO error occurred or the input stream ended unexpectedly.</exception>
 		[NotNull]
-		public static FileType DetectFileType([NotNull] BufferedInputStream inputStream)
+		public static FileType? DetectFileType([NotNull] BufferedInputStream inputStream)
 		{
 			int maxByteCount = _root.GetMaxDepth();
 			inputStream.Mark(maxByteCount);

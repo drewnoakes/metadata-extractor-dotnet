@@ -120,7 +120,7 @@ namespace Com.Drew.Imaging
 		public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
 		{
 			BufferedInputStream bufferedInputStream = inputStream is BufferedInputStream ? (BufferedInputStream)inputStream : new BufferedInputStream(inputStream);
-			FileType fileType = FileTypeDetector.DetectFileType(bufferedInputStream);
+			FileType fileType = FileTypeDetector.DetectFileType(bufferedInputStream) ?? FileType.Unknown;
 			if (fileType == FileType.Jpeg)
 			{
 				return JpegMetadataReader.ReadMetadata(bufferedInputStream);
