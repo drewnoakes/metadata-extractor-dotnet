@@ -610,12 +610,13 @@ namespace Sharpen
             return true;
         }
 
-        public static bool Contains<T>(this ICollection<T> col, object item)
+        // Conflicts with System.Linq.Enumerable.Contains<T>(System.Collections.Generic.IEnumerable<T>, T) 
+        /* public static bool Contains<T>(this ICollection<T> col, object item)
         {
             if (!(item is T))
                 return false;
             return col.Any(n => (object.ReferenceEquals(n, item)) || n.Equals(item));
-        }
+        }*/
 
         public static void Sort(this IList list)
         {
