@@ -90,10 +90,10 @@ namespace Sharpen
 				return ((WrappedSystemStream)Wrapped).InputStream.Read (b, off, len);
 			
 			if (Wrapped != null) {
-                byte[] buffer = new byte[b.Length];
-				int num = Wrapped.Read (buffer, off, len);
+                byte[] buffer = new byte[len];
+				int num = Wrapped.Read (buffer, 0, len);
                 if (num > 0)
-                    Extensions.Copy(buffer, b);
+                    Extensions.CopyCastBuffer(buffer, 0, len, b, off);
 				return ((num <= 0) ? -1 : num);
 			}
 			int totalRead = 0;

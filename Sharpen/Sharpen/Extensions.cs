@@ -154,7 +154,7 @@ namespace Sharpen
                 }
                 return e.GetString(chars, start, len);
             }
-            catch (DecoderFallbackException)
+            catch (DecoderFallbackException dfe)
             {
                 throw new CharacterCodingException();
             }
@@ -1183,7 +1183,28 @@ namespace Sharpen
                 sbuffer[i] = (sbyte) buffer[i];
             }
         }
-        
+
+        internal static void CopyCastBuffer(byte[] buffer, int offset, int len, sbyte[] target_buffer, int target_offset) 
+        {
+            if (offset < 0 || len < 0 || offset + len > buffer.Length || target_offset < 0 || target_offset + len > target_buffer.Length) throw new ArgumentOutOfRangeException();
+
+            for (int i = 0; i < len; i++)
+            {
+                target_buffer[i + target_offset] = (sbyte)buffer[offset + i];
+            }
+           
+        }
+
+        internal static void CopyCastBuffer(sbyte[] buffer, int offset, int len, byte[] target_buffer, int target_offset)
+        {
+            if (offset < 0 || len < 0 || offset + len > buffer.Length || target_offset < 0 || target_offset + len > target_buffer.Length) throw new ArgumentOutOfRangeException();
+
+            for (int i = 0; i < len; i++)
+            {
+                target_buffer[i + target_offset] = (byte)buffer[offset + i];
+            }
+
+        }
         public static sbyte ByteValue(this int value)
         {
             return (sbyte) value;
@@ -1434,5 +1455,7 @@ namespace Sharpen
                 return result + "}";
             }
         }
+
+
     }
 }
