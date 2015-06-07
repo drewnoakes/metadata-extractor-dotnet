@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		SharpenBugsAndProblems.md = SharpenBugsAndProblems.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileLabeller", "FileLabeller\FileLabeller.csproj", "{CEBF4390-E9B8-4EB1-9B33-C2C087C9DADA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{D54F78E2-B04C-4341-9358-31125D953AF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D54F78E2-B04C-4341-9358-31125D953AF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D54F78E2-B04C-4341-9358-31125D953AF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEBF4390-E9B8-4EB1-9B33-C2C087C9DADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEBF4390-E9B8-4EB1-9B33-C2C087C9DADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEBF4390-E9B8-4EB1-9B33-C2C087C9DADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEBF4390-E9B8-4EB1-9B33-C2C087C9DADA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
