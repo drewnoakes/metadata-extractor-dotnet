@@ -73,7 +73,16 @@ namespace Com.Drew.Metadata
 				int length = Sharpen.Runtime.GetArrayLength(@object);
 				if (length > 16)
 				{
-					string componentTypeName = @object.GetType().GetElementType().FullName;
+				    var componentType = @object.GetType().GetElementType();
+					var componentTypeName = componentType == typeof(sbyte)
+                        ? "byte"
+                        : componentType == typeof(short)
+                            ? "short"
+                            : componentType == typeof(int)
+                                ? "int"
+                                : componentType == typeof(long)
+                                    ? "long"
+                                    : componentType.Name;
 					return Sharpen.Extensions.StringFormat("[%d %s%s]", length, componentTypeName, length == 1 ? string.Empty : "s");
 				}
 			}

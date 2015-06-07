@@ -209,7 +209,7 @@ namespace Com.Drew.Metadata.Xmp
 			{
 				return null;
 			}
-			return "F" + SimpleDecimalFormatter.Format(value.DoubleValue());
+            return "f/" + value.DoubleValue().ToString("0.0");
 		}
 
 		/// <summary>This code is from ExifSubIFDDescriptor.java</summary>
@@ -235,7 +235,7 @@ namespace Com.Drew.Metadata.Xmp
 				return null;
 			}
 			double fStop = PhotographicConversions.ApertureToFStop((double)value);
-			return "F" + SimpleDecimalFormatter.Format(fStop);
+            return "f/" + fStop.ToString("0.0");
 		}
 	}
 }

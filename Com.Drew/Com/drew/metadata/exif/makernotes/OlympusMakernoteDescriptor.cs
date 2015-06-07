@@ -447,7 +447,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 				return null;
 			}
 			double fStop = Math.Pow(((double)value / 16d) - 0.5, 2);
-			return "F" + Sharpen.Extensions.ConvertToString(fStop);
+            return "f/" + fStop.ToString("0.0");
 		}
 
 		[CanBeNull]
@@ -561,7 +561,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 				return null;
 			}
 			double fStop = Math.Pow(((double)value / 16d) - 0.5, 2);
-			return "F" + fStop;
+            return "f/" + fStop.ToString("0.0");
 		}
 
 		[CanBeNull]

@@ -935,6 +935,14 @@ namespace Com.Drew.Metadata
 			{
 				return ((Rational)o).ToSimpleString(true);
 			}
+		    if (o is DateTime)
+		    {
+                return Sharpen.Extensions.ConvertToString((DateTime)o);
+		    }
+		    if (o is bool)
+		    {
+		        return (bool)o ? "true" : "false";
+		    }
 			if (o.GetType().IsArray)
 			{
 				// handle arrays of objects and primitives

@@ -902,7 +902,7 @@ namespace Com.Drew.Metadata.Exif
 				return null;
 			}
 			double fStop = PhotographicConversions.ApertureToFStop((double)aperture);
-			return "F" + SimpleDecimalFormatter.Format(fStop);
+			return "f/" + fStop.ToString("0.0");
 		}
 
 		[CanBeNull]
@@ -914,7 +914,7 @@ namespace Com.Drew.Metadata.Exif
 				return null;
 			}
 			double fStop = PhotographicConversions.ApertureToFStop((double)aperture);
-			return "F" + SimpleDecimalFormatter.Format(fStop);
+            return "f/" + fStop.ToString("0.0");
 		}
 
 		[CanBeNull]
@@ -1501,7 +1501,7 @@ namespace Com.Drew.Metadata.Exif
 			{
 				return null;
 			}
-			return "F" + SimpleDecimalFormatter.Format(value.DoubleValue());
+			return "f/" + value.DoubleValue().ToString("0.0");
 		}
 
 		[CanBeNull]
