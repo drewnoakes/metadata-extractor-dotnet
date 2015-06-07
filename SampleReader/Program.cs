@@ -96,7 +96,7 @@ namespace SampleReader
                     Console.ForegroundColor = ConsoleColor.Red;
                     foreach (string error in dir.GetErrors())
                     {
-                        Console.Error.WriteLine("\t[{0}] {1}\n", dir.GetName(), error);
+                        Console.Error.WriteLine("\t[{0}] {1}", dir.GetName(), error);
                     }
                 }
               
@@ -111,7 +111,7 @@ namespace SampleReader
 						description = description.Substring(0,1024)  + "...";
 					}
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("[{0}] {1} = {2}\n", directoryName, tagName, description);
+                    Console.WriteLine("[{0}] {1} = {2}", directoryName, tagName, description);
 				}
 
 			}
