@@ -15,13 +15,8 @@ namespace Com.Adobe.Xmp.Impl
 {
     /// <summary>Converts between ISO 8601 Strings and <code>Calendar</code> with millisecond resolution.</summary>
     /// <since>16.02.2006</since>
-    public sealed class ISO8601Converter
+    public static class ISO8601Converter
     {
-        /// <summary>Hides public constructor</summary>
-        private ISO8601Converter()
-        {
-        }
-
         // EMPTY
         /// <summary>Converts an ISO 8601 string to an <code>XMPDateTime</code>.</summary>
         /// <remarks>

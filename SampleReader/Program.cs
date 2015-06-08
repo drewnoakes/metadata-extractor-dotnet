@@ -9,7 +9,7 @@ using Directory = Com.Drew.Metadata.Directory;
 
 namespace SampleReader
 {
-    class Program
+    static class Program
     {
         static int Main(string[] args)
         {

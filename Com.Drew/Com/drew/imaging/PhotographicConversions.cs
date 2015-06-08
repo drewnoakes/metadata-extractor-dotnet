@@ -26,15 +26,9 @@ namespace Com.Drew.Imaging
 {
     /// <summary>Contains helper methods that perform photographic conversions.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class PhotographicConversions
+    public static class PhotographicConversions
     {
         public static readonly double RootTwo = Math.Sqrt(2);
-
-        /// <exception cref="System.Exception"/>
-        private PhotographicConversions()
-        {
-            throw new Exception("Not intended for instantiation.");
-        }
 
         /// <summary>Converts an aperture value to its corresponding F-stop number.</summary>
         /// <param name="aperture">the aperture value to convert</param>

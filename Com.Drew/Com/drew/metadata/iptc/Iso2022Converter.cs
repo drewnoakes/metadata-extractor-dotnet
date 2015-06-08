@@ -3,7 +3,7 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Iptc
 {
-    public sealed class Iso2022Converter
+    public static class Iso2022Converter
     {
         private const string Iso88591 = "ISO-8859-1";
 
@@ -75,10 +75,6 @@ namespace Com.Drew.Metadata.Iptc
             // fall through...
             // No encodings succeeded. Return null.
             return null;
-        }
-
-        private Iso2022Converter()
-        {
         }
     }
 }

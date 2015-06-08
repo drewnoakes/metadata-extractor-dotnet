@@ -28,7 +28,7 @@ using Sharpen;
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class StringUtil
+    public static class StringUtil
     {
         [NotNull]
         public static string Join<_T0>(Iterable<_T0> strings, [NotNull] string delimiter)

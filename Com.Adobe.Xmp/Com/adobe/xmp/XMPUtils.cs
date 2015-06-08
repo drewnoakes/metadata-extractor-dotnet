@@ -20,13 +20,8 @@ namespace Com.Adobe.Xmp
     /// Java default conversion utilities.
     /// </remarks>
     /// <since>21.02.2006</since>
-    public class XMPUtils
+    public static class XMPUtils
     {
-        /// <summary>Private constructor</summary>
-        private XMPUtils()
-        {
-        }
-
         // EMPTY
         /// <summary>Create a single edit string from an array of strings.</summary>
         /// <param name="xmp">The XMP object containing the array to be catenated.</param>

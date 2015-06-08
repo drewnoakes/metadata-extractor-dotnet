@@ -11,7 +11,7 @@ using Sharpen;
 namespace Com.Drew.Imaging.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PngMetadataReader
+    public static class PngMetadataReader
     {
         private static readonly ICollection<PngChunkType> _desiredChunkTypes;
 

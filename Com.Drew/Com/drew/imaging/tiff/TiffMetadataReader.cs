@@ -35,7 +35,7 @@ namespace Com.Drew.Imaging.Tiff
     /// </remarks>
     /// <author>Darren Salomons</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class TiffMetadataReader
+    public static class TiffMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="Com.Drew.Imaging.Tiff.TiffProcessingException"/>

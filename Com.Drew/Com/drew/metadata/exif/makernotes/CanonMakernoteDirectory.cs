@@ -169,7 +169,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public const int TagFilterInfoArray = unchecked((int)(0x4024));
 
-        public sealed class CameraSettings
+        public static class CameraSettings
         {
             internal const int Offset = unchecked((int)(0xC100));
 
@@ -386,7 +386,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
         }
 
-        public sealed class FocalLength
+        public static class FocalLength
         {
             internal const int Offset = unchecked((int)(0xC200));
 
@@ -436,7 +436,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
         }
 
-        public sealed class ShotInfo
+        public static class ShotInfo
         {
             internal const int Offset = unchecked((int)(0xC400));
 
@@ -498,7 +498,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
         }
 
-        public sealed class Panorama
+        public static class Panorama
         {
             internal const int Offset = unchecked((int)(0xC500));
 
@@ -508,7 +508,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
         }
 
-        public sealed class AFInfo
+        public static class AFInfo
         {
             internal const int Offset = unchecked((int)(0xD200));
 

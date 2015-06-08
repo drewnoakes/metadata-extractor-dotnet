@@ -31,7 +31,7 @@ namespace Com.Drew.Imaging.Webp
 {
     /// <summary>Obtains metadata from WebP files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class WebpMetadataReader
+    public static class WebpMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="Com.Drew.Imaging.Riff.RiffProcessingException"/>

@@ -14,13 +14,8 @@ namespace Com.Adobe.Xmp.Impl.Xpath
 {
     /// <summary>Parser for XMP XPaths.</summary>
     /// <since>01.03.2006</since>
-    public sealed class XMPPathParser
+    public static class XMPPathParser
     {
-        /// <summary>Private constructor</summary>
-        private XMPPathParser()
-        {
-        }
-
         // empty
         /// <summary>
         /// Split an XMPPath expression apart at the conceptual steps, adding the

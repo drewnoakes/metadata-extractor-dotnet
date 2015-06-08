@@ -30,7 +30,7 @@ namespace Com.Drew.Imaging.Pcx
 {
     /// <summary>Obtains metadata from PCX image files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PcxMetadataReader
+    public static class PcxMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]

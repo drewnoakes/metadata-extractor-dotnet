@@ -26,14 +26,9 @@ namespace Com.Adobe.Xmp.Impl
     /// are applied to the XMPTree.
     /// </remarks>
     /// <since>01.02.2006</since>
-    public class XMPMetaParser
+    public static class XMPMetaParser
     {
         private static readonly object XmpRdf = new object();
-
-        /// <summary>Hidden constructor, initialises the SAX parser handler.</summary>
-        private XMPMetaParser()
-        {
-        }
 
         // EMPTY
         /// <summary>

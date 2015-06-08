@@ -17,7 +17,7 @@ namespace Com.Adobe.Xmp.Impl
     /// <code>SerializeOptions</code>.
     /// </summary>
     /// <since>11.07.2006</since>
-    public class XMPSerializerHelper
+    public static class XMPSerializerHelper
     {
         /// <summary>Static method to serialize the metadata object.</summary>
         /// <remarks>

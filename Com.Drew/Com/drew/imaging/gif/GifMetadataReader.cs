@@ -30,7 +30,7 @@ namespace Com.Drew.Imaging.Gif
 {
     /// <summary>Obtains metadata from GIF files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class GifMetadataReader
+    public static class GifMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]

@@ -18,15 +18,10 @@ namespace Com.Adobe.Xmp
     /// ISO 8601 string or for the current time.
     /// </summary>
     /// <since>16.02.2006</since>
-    public sealed class XMPDateTimeFactory
+    public static class XMPDateTimeFactory
     {
         /// <summary>The UTC TimeZone</summary>
         private static readonly TimeZoneInfo Utc = Extensions.GetTimeZone("UTC");
-
-        /// <summary>Private constructor</summary>
-        private XMPDateTimeFactory()
-        {
-        }
 
         // EMPTY
         /// <summary>Creates an <code>XMPDateTime</code> from a <code>Calendar</code>-object.</summary>

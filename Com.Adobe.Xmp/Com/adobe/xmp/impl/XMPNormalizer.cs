@@ -16,7 +16,7 @@ using Sharpen;
 namespace Com.Adobe.Xmp.Impl
 {
     /// <since>Aug 18, 2006</since>
-    public class XMPNormalizer
+    public static class XMPNormalizer
     {
         /// <summary>caches the correct dc-property array forms</summary>
         private static IDictionary dcArrayForms;
@@ -24,11 +24,6 @@ namespace Com.Adobe.Xmp.Impl
         static XMPNormalizer()
         {
             InitDCArrays();
-        }
-
-        /// <summary>Hidden constructor</summary>
-        private XMPNormalizer()
-        {
         }
 
         // EMPTY

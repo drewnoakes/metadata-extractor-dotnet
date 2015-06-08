@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Sharpen
 {
-    public class Arrays
+    public static class Arrays
     {
         public static List<T> AsList<T> (params T[] array)
         {

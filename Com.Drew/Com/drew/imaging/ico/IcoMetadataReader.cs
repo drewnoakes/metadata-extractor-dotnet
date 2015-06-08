@@ -30,7 +30,7 @@ namespace Com.Drew.Imaging.Ico
 {
     /// <summary>Obtains metadata from ICO (Windows Icon) files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class IcoMetadataReader
+    public static class IcoMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]

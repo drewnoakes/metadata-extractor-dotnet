@@ -25,7 +25,7 @@ using System;
 namespace Com.Drew.Testing
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class TestHelper
+    public static class TestHelper
     {
         public static sbyte[] SkipBytes(sbyte[] input, int countToSkip)
         {

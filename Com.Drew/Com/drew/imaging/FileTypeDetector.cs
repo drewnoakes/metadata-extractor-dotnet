@@ -29,7 +29,7 @@ using Sharpen;
 namespace Com.Drew.Imaging
 {
     /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
-    public class FileTypeDetector
+    public static class FileTypeDetector
     {
         private static readonly ByteTrie<FileType?> _root;
 

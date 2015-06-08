@@ -32,7 +32,7 @@ namespace Com.Drew.Tools
     /// Use them in production code at your own risk!
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class FileUtil
+    public static class FileUtil
     {
         /// <summary>
         /// Saves the contents of a <code>byte[]</code> to the specified

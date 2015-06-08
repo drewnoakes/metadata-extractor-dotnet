@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 
 namespace Com.Drew.Metadata
 {
-    public class Schema
+    public static class Schema
     {
         /// <summary>XMP tag namespace.</summary>
         /// <remarks>

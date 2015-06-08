@@ -21,7 +21,7 @@ namespace Com.Adobe.Xmp.Impl
     /// in RFC-1521. See also RFC 1421.
     /// </remarks>
     /// <version>$Revision: 1.4 $</version>
-    public class Base64
+    public static class Base64
     {
         /// <summary>marker for invalid bytes</summary>
         private const sbyte Invalid = unchecked((sbyte)(-1));

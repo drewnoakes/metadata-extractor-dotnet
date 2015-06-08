@@ -42,7 +42,7 @@ namespace Com.Drew.Imaging.Jpeg
     /// object, from which the raw JPEG segment byte arrays may be accessed.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class JpegSegmentReader
+    public static class JpegSegmentReader
     {
         /// <summary>Private, because this segment crashes my algorithm, and searching for it doesn't work (yet).</summary>
         private const sbyte SegmentSos = unchecked((sbyte)0xDA);

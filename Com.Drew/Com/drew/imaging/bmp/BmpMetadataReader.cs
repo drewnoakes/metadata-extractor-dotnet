@@ -29,7 +29,7 @@ namespace Com.Drew.Imaging.Bmp
 {
     /// <summary>Obtains metadata from BMP files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class BmpMetadataReader
+    public static class BmpMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]

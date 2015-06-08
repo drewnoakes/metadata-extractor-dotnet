@@ -53,13 +53,8 @@ namespace Com.Adobe.Xmp
     /// path or array indices.
     /// </remarks>
     /// <since>25.01.2006</since>
-    public sealed class XMPPathFactory
+    public static class XMPPathFactory
     {
-        /// <summary>Private constructor</summary>
-        private XMPPathFactory()
-        {
-        }
-
         // EMPTY
         /// <summary>Compose the path expression for an item in an array.</summary>
         /// <param name="arrayName">

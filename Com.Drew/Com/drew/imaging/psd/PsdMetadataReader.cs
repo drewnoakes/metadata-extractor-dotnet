@@ -30,7 +30,7 @@ namespace Com.Drew.Imaging.Psd
 {
     /// <summary>Obtains metadata from Photoshop's PSD files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PsdMetadataReader
+    public static class PsdMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]

@@ -279,7 +279,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public const int TagRawInfo = unchecked((int)(0x3000));
 
-        public sealed class CameraSettings
+        public static class CameraSettings
         {
             internal const int Offset = unchecked((int)(0xF000));
 

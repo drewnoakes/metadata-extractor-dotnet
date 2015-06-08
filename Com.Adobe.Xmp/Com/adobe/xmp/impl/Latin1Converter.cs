@@ -12,16 +12,11 @@ using Sharpen;
 namespace Com.Adobe.Xmp.Impl
 {
     /// <since>12.10.2006</since>
-    public class Latin1Converter
+    public static class Latin1Converter
     {
         private const int StateStart = 0;
 
         private const int StateUtf8char = 11;
-
-        /// <summary>Private constructor</summary>
-        private Latin1Converter()
-        {
-        }
 
         // EMPTY
         /// <summary>A converter that processes a byte buffer containing a mix of UTF8 and Latin-1/Cp1252 chars.</summary>

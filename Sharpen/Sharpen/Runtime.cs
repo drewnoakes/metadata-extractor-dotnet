@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Sharpen
 {
-    public class Runtime
+    public static class Runtime
     {
         static Hashtable properties;
 
