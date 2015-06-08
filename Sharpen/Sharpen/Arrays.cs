@@ -21,7 +21,7 @@ namespace Sharpen
 
         public static void Sort (string[] array)
         {
-            Array.Sort (array, (s1,s2) => string.CompareOrdinal (s1,s2));
+            Array.Sort (array, string.CompareOrdinal);
         }
 
         public static void Sort<T> (T[] array)
