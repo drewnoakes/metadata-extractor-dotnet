@@ -32,10 +32,10 @@ namespace Com.Adobe.Xmp.Impl
         private string _baseNs;
 
         /// <summary>flag to indicate that skipSiblings() has been called.</summary>
-        private bool skipSiblings;
+        private bool _skipSiblings;
 
         /// <summary>flag to indicate that skipSiblings() has been called.</summary>
-        private bool skipSubtree;
+        private bool _skipSubtree;
 
         /// <summary>the node iterator doing the work</summary>
         private readonly IIterator _nodeIterator;
@@ -120,14 +120,14 @@ namespace Com.Adobe.Xmp.Impl
         /// <seealso cref="IXmpIterator.SkipSubtree()"/>
         public void SkipSubtree()
         {
-            skipSubtree = true;
+            _skipSubtree = true;
         }
 
         /// <seealso cref="IXmpIterator.SkipSiblings()"/>
         public void SkipSiblings()
         {
             SkipSubtree();
-            skipSiblings = true;
+            _skipSiblings = true;
         }
 
         /// <seealso cref="Sharpen.Iterator{E}.HasNext()"/>
@@ -282,10 +282,10 @@ namespace Com.Adobe.Xmp.Impl
             /// <returns>Returns if there are more elements available.</returns>
             private bool IterateChildrenMethod(IIterator iterator)
             {
-                if (_enclosing.skipSiblings)
+                if (_enclosing._skipSiblings)
                 {
                     // setSkipSiblings(false);
-                    _enclosing.skipSiblings = false;
+                    _enclosing._skipSiblings = false;
                     _subIterator = Collections.EmptyList().Iterator();
                 }
                 // create sub iterator for every child,
@@ -489,7 +489,7 @@ namespace Com.Adobe.Xmp.Impl
                     // hasNext has been called before
                     return true;
                 }
-                if (_enclosing.skipSiblings)
+                if (_enclosing._skipSiblings)
                 {
                     return false;
                 }
