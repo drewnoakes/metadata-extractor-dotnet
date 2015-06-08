@@ -67,12 +67,7 @@ namespace Com.Drew.Metadata
         /// <returns>the number of unique directory types set for this metadata collection</returns>
         public int GetDirectoryCount()
         {
-            int count = 0;
-            foreach (KeyValuePair<Type, ICollection<Directory>> pair in _directoryListByClass.EntrySet())
-            {
-                count += pair.Value.Count;
-            }
-            return count;
+            return _directoryListByClass.EntrySet().Sum(pair => pair.Value.Count);
         }
 
         /// <summary>Adds a directory to this metadata collection.</summary>
@@ -138,14 +133,7 @@ namespace Com.Drew.Metadata
         /// <returns>whether one of the contained directories has an error</returns>
         public bool HasErrors()
         {
-            foreach (Directory directory in GetDirectories())
-            {
-                if (directory.HasErrors())
-                {
-                    return true;
-                }
-            }
-            return false;
+            return GetDirectories().Any(directory => directory.HasErrors());
         }
 
         public override string ToString()

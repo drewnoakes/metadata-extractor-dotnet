@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using Sharpen;
@@ -58,12 +59,8 @@ namespace Com.Drew.Lang
         public static string Join<T>([NotNull] T[] strings, [NotNull] string delimiter)
             where T : CharSequence
         {
-            int capacity = 0;
             int delimLength = delimiter.Length;
-            foreach (T value in strings)
-            {
-                capacity += value.Length + delimLength;
-            }
+            int capacity = strings.Sum(value => value.Length + delimLength);
             StringBuilder buffer = new StringBuilder(capacity);
             bool first = true;
             foreach (T value_1 in strings)

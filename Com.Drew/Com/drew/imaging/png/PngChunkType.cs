@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -141,12 +142,9 @@ namespace Com.Drew.Imaging.Png
             {
                 throw new ArgumentException("PNG chunk type identifier must be four bytes in length");
             }
-            foreach (sbyte b in bytes)
+            if (bytes.Any(b => !IsValidByte(b)))
             {
-                if (!IsValidByte(b))
-                {
-                    throw new ArgumentException("PNG chunk type identifier may only contain alphabet characters");
-                }
+                throw new ArgumentException("PNG chunk type identifier may only contain alphabet characters");
             }
         }
 

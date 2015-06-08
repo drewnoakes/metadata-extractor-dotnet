@@ -16,12 +16,7 @@ namespace Sharpen
             if (a1.Length != a2.Length) {
                 return false;
             }
-            for (int i = 0; i < a1.Length; i++) {
-                if (!a1[i].Equals (a2[i])) {
-                    return false;
-                }
-            }
-            return true;
+            return !a1.Where((t, i) => !t.Equals(a2[i])).Any();
         }
 
         public static void Sort (string[] array)
@@ -50,11 +45,7 @@ namespace Sharpen
             if (a == null)
                 return 0;
 
-            int result = 1;
-            foreach (sbyte element in a)
-                result = 31*result + element;
-
-            return result;
+            return a.Aggregate(1, (current, element) => 31*current + element);
         }
     }
 }

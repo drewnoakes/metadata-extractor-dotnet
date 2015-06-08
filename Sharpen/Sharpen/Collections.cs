@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Sharpen
 {
@@ -95,14 +96,7 @@ namespace Sharpen
 
         private static IList<object> ConvertToGenericList(IList list)
         {
-            List<object> result = new List<object>();
-
-            foreach (object item in list)
-            {
-                result.Add(item);
-            }
-
-            return result;
+            return list.Cast<object>().ToList();
         }
     }
 }

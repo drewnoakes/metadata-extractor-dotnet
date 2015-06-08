@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -28,14 +29,7 @@ namespace Com.Drew.Imaging.Png
         public static PngColorType FromNumericValue(int numericValue)
         {
             PngColorType[] colorTypes = typeof(PngColorType).GetEnumConstants<PngColorType>();
-            foreach (PngColorType colorType in colorTypes)
-            {
-                if (colorType.GetNumericValue() == numericValue)
-                {
-                    return colorType;
-                }
-            }
-            return null;
+            return colorTypes.FirstOrDefault(colorType => colorType.GetNumericValue() == numericValue);
         }
 
         private readonly int _numericValue;

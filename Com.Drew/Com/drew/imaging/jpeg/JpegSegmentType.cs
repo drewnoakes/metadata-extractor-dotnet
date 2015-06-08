@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -167,14 +168,7 @@ namespace Com.Drew.Imaging.Jpeg
         [CanBeNull]
         public static JpegSegmentType FromByte(sbyte segmentTypeByte)
         {
-            foreach (JpegSegmentType segmentType in typeof(JpegSegmentType).GetEnumConstants<JpegSegmentType>())
-            {
-                if (segmentType.byteValue == segmentTypeByte)
-                {
-                    return segmentType;
-                }
-            }
-            return null;
+            return typeof (JpegSegmentType).GetEnumConstants<JpegSegmentType>().FirstOrDefault(segmentType => segmentType.byteValue == segmentTypeByte);
         }
 
         public static JpegSegmentType ValueOf(string segmentName)

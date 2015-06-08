@@ -9,10 +9,7 @@ namespace Com.Drew.Lang
         public static IList<E> ToList<E>(Iterable<E> iterable)
         {
             AList<E> list = new AList<E>();
-            foreach (E item in iterable)
-            {
-                list.Add(item);
-            }
+            list.AddRange(iterable);
             return list;
         }
     }

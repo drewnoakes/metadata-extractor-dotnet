@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 
 namespace Sharpen
@@ -150,12 +151,7 @@ namespace Sharpen
             try {
                 if (IsFile ())
                     return null;
-                List<string> list = new List<string> ();
-                foreach (string filePth in Directory.GetFileSystemEntries (path)) {
-                    string fileName = Path.GetFileName (filePth);
-                    list.Add (fileName);
-                }
-                return list.ToArray ();
+                return Directory.GetFileSystemEntries(path).Select(filePth => Path.GetFileName(filePth)).ToArray();
             } catch {
                 return null;
             }
