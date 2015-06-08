@@ -15,9 +15,9 @@ namespace Sharpen
 
         public PrintStream(OutputStream outputStream, bool append)
         {
-            _writer = new StreamWriter(outputStream);
-            if(append)
+            if (append)
                 throw new NotSupportedException();
+            _writer = new StreamWriter(outputStream);
         }
 
         public PrintStream(OutputStream outputStream)
