@@ -16,28 +16,23 @@ using Sharpen;
 namespace Com.Adobe.Xmp.Impl
 {
     /// <summary>
-    /// Implementation for <see cref="IXmpMeta"/>.
+    /// Implementation of <see cref="IXmpMeta"/>.
     /// </summary>
     /// <since>17.02.2006</since>
     public class XmpMeta : IXmpMeta
     {
-        /// <summary>Property values are Strings by default</summary>
-        private const int ValueString = 0;
-
-        private const int ValueBoolean = 1;
-
-        private const int ValueInteger = 2;
-
-        private const int ValueLong = 3;
-
-        private const int ValueDouble = 4;
-
-        private const int ValueDate = 5;
-
-        private const int ValueCalendar = 6;
-
-        private const int ValueBase64 = 7;
-
+        public enum ValueType
+        {
+            /// <summary>Property values are Strings by default</summary>
+            String = 0,
+            Boolean = 1,
+            Integer = 2,
+            Long = 3,
+            Double = 4,
+            Date = 5,
+            Calendar = 6,
+            Base64 = 7
+        }
         /// <summary>root of the metadata tree</summary>
         private readonly XmpNode _tree;
 
@@ -524,15 +519,12 @@ namespace Com.Adobe.Xmp.Impl
         /// <seealso cref="IXmpMeta.GetProperty(string, string)"/>
         public virtual IXmpProperty GetProperty(string schemaNs, string propName)
         {
-            return GetProperty(schemaNs, propName, ValueString);
+            return GetProperty(schemaNs, propName, ValueType.String);
         }
 
         /// <summary>Returns a property, but the result value can be requested.</summary>
         /// <remarks>
-        /// Returns a property, but the result value can be requested. It can be one of
-        /// <see cref="ValueString"/>, <see cref="ValueBoolean"/>, <see cref="ValueInteger"/>,
-        /// <see cref="ValueLong"/>, <see cref="ValueDouble"/>, <see cref="ValueDate"/>,
-        /// <see cref="ValueCalendar"/>, <see cref="ValueBase64"/>.
+        /// Returns a property, but the result value can be requested.
         /// </remarks>
         /// <seealso cref="IXmpMeta.GetProperty(string, string)"/>
         /// <param name="schemaNs">a schema namespace</param>
@@ -540,7 +532,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="valueType">the type of the value, see VALUE_...</param>
         /// <returns>Returns an <c>XMPProperty</c></returns>
         /// <exception cref="XmpException">Collects any exception that occurs.</exception>
-        protected internal virtual IXmpProperty GetProperty(string schemaNs, string propName, int valueType)
+        protected internal virtual IXmpProperty GetProperty(string schemaNs, string propName, ValueType valueType)
         {
             ParameterAsserts.AssertSchemaNs(schemaNs);
             ParameterAsserts.AssertPropName(propName);
@@ -548,7 +540,7 @@ namespace Com.Adobe.Xmp.Impl
             XmpNode propNode = XmpNodeUtils.FindNode(_tree, expPath, false, null);
             if (propNode != null)
             {
-                if (valueType != ValueString && propNode.GetOptions().IsCompositeProperty())
+                if (valueType != ValueType.String && propNode.GetOptions().IsCompositeProperty())
                 {
                     throw new XmpException("Property must be simple when a value type is requested", XmpErrorCode.Badxpath);
                 }
@@ -601,7 +593,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <c>valueType</c>.
         /// </returns>
         /// <exception cref="XmpException">Collects any exception that occurs.</exception>
-        protected internal virtual object GetPropertyObject(string schemaNs, string propName, int valueType)
+        protected internal virtual object GetPropertyObject(string schemaNs, string propName, ValueType valueType)
         {
             ParameterAsserts.AssertSchemaNs(schemaNs);
             ParameterAsserts.AssertPropName(propName);
@@ -609,7 +601,7 @@ namespace Com.Adobe.Xmp.Impl
             XmpNode propNode = XmpNodeUtils.FindNode(_tree, expPath, false, null);
             if (propNode != null)
             {
-                if (valueType != ValueString && propNode.GetOptions().IsCompositeProperty())
+                if (valueType != ValueType.String && propNode.GetOptions().IsCompositeProperty())
                 {
                     throw new XmpException("Property must be simple when a value type is requested", XmpErrorCode.Badxpath);
                 }
@@ -622,7 +614,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException"/>
         public virtual bool GetPropertyBoolean(string schemaNs, string propName)
         {
-            return (bool)GetPropertyObject(schemaNs, propName, ValueBoolean);
+            return (bool)GetPropertyObject(schemaNs, propName, ValueType.Boolean);
         }
 
         /// <exception cref="XmpException"/>
@@ -643,7 +635,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException"/>
         public virtual int GetPropertyInteger(string schemaNs, string propName)
         {
-            return (int)GetPropertyObject(schemaNs, propName, ValueInteger);
+            return (int)GetPropertyObject(schemaNs, propName, ValueType.Integer);
         }
 
         /// <seealso cref="IXmpMeta.SetPropertyInteger(string, string, int, Com.Adobe.Xmp.Options.PropertyOptions)"/>
@@ -664,7 +656,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException"/>
         public virtual long GetPropertyLong(string schemaNs, string propName)
         {
-            return (long)GetPropertyObject(schemaNs, propName, ValueLong);
+            return (long)GetPropertyObject(schemaNs, propName, ValueType.Long);
         }
 
         /// <seealso cref="IXmpMeta.SetPropertyLong(string, string, long, Com.Adobe.Xmp.Options.PropertyOptions)"/>
@@ -685,7 +677,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException"/>
         public virtual double GetPropertyDouble(string schemaNs, string propName)
         {
-            return (double)GetPropertyObject(schemaNs, propName, ValueDouble);
+            return (double)GetPropertyObject(schemaNs, propName, ValueType.Double);
         }
 
         /// <seealso cref="IXmpMeta.SetPropertyDouble(string, string, double, Com.Adobe.Xmp.Options.PropertyOptions)"/>
@@ -706,7 +698,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException"/>
         public virtual IXmpDateTime GetPropertyDate(string schemaNs, string propName)
         {
-            return (IXmpDateTime)GetPropertyObject(schemaNs, propName, ValueDate);
+            return (IXmpDateTime)GetPropertyObject(schemaNs, propName, ValueType.Date);
         }
 
         /// <seealso cref="IXmpMeta.SetPropertyDate(string, string, IXmpDateTime, Com.Adobe.Xmp.Options.PropertyOptions)"/>
@@ -727,7 +719,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException"/>
         public virtual Calendar GetPropertyCalendar(string schemaNs, string propName)
         {
-            return (Calendar)GetPropertyObject(schemaNs, propName, ValueCalendar);
+            return (Calendar)GetPropertyObject(schemaNs, propName, ValueType.Calendar);
         }
 
         /// <seealso cref="IXmpMeta.SetPropertyCalendar(string, string, Sharpen.Calendar, Com.Adobe.Xmp.Options.PropertyOptions)"/>
@@ -748,14 +740,14 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException"/>
         public virtual sbyte[] GetPropertyBase64(string schemaNs, string propName)
         {
-            return (sbyte[])GetPropertyObject(schemaNs, propName, ValueBase64);
+            return (sbyte[])GetPropertyObject(schemaNs, propName, ValueType.Base64);
         }
 
         /// <seealso cref="IXmpMeta.GetPropertyString(string, string)"/>
         /// <exception cref="XmpException"/>
         public virtual string GetPropertyString(string schemaNs, string propName)
         {
-            return (string)GetPropertyObject(schemaNs, propName, ValueString);
+            return (string)GetPropertyObject(schemaNs, propName, ValueType.String);
         }
 
         /// <seealso cref="IXmpMeta.SetPropertyBase64(string, string, sbyte[], Com.Adobe.Xmp.Options.PropertyOptions)"/>
@@ -1075,56 +1067,56 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="propNode">the node containing the value</param>
         /// <returns>Returns a literal value for the node.</returns>
         /// <exception cref="XmpException"/>
-        private static object EvaluateNodeValue(int valueType, XmpNode propNode)
+        private static object EvaluateNodeValue(ValueType valueType, XmpNode propNode)
         {
             object value;
             string rawValue = propNode.GetValue();
             switch (valueType)
             {
-                case ValueBoolean:
+                case ValueType.Boolean:
                 {
                     value = Xmp.XmpUtils.ConvertToBoolean(rawValue);
                     break;
                 }
 
-                case ValueInteger:
+                case ValueType.Integer:
                 {
                     value = Xmp.XmpUtils.ConvertToInteger(rawValue);
                     break;
                 }
 
-                case ValueLong:
+                case ValueType.Long:
                 {
                     value = Xmp.XmpUtils.ConvertToLong(rawValue);
                     break;
                 }
 
-                case ValueDouble:
+                case ValueType.Double:
                 {
                     value = Xmp.XmpUtils.ConvertToDouble(rawValue);
                     break;
                 }
 
-                case ValueDate:
+                case ValueType.Date:
                 {
                     value = Xmp.XmpUtils.ConvertToDate(rawValue);
                     break;
                 }
 
-                case ValueCalendar:
+                case ValueType.Calendar:
                 {
                     IXmpDateTime dt = Xmp.XmpUtils.ConvertToDate(rawValue);
                     value = dt.GetCalendar();
                     break;
                 }
 
-                case ValueBase64:
+                case ValueType.Base64:
                 {
                     value = Xmp.XmpUtils.DecodeBase64(rawValue);
                     break;
                 }
 
-                case ValueString:
+                case ValueType.String:
                 default:
                 {
                     // leaf values return empty string instead of null
