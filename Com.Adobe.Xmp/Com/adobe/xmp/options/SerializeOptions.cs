@@ -16,11 +16,11 @@ namespace Com.Adobe.Xmp.Options
     public sealed class SerializeOptions : Options
     {
         /// <summary>Omit the XML packet wrapper.</summary>
-        public const int OmitPacketWrapper = unchecked((int)(0x0010));
+        public const int OmitPacketWrapper = unchecked(0x0010);
 
         /// <summary>Mark packet as read-only.</summary>
         /// <remarks>Mark packet as read-only. Default is a writeable packet.</remarks>
-        public const int ReadonlyPacket = unchecked((int)(0x0020));
+        public const int ReadonlyPacket = unchecked(0x0020);
 
         /// <summary>Use a compact form of RDF.</summary>
         /// <remarks>
@@ -29,37 +29,37 @@ namespace Com.Adobe.Xmp.Options
         /// To serialize to the canonical form, set the flag USE_CANONICAL_FORMAT.
         /// If both flags &quot;compact&quot; and &quot;canonical&quot; are set, canonical is used.
         /// </remarks>
-        public const int UseCompactFormat = unchecked((int)(0x0040));
+        public const int UseCompactFormat = unchecked(0x0040);
 
         /// <summary>Use the canonical form of RDF if set.</summary>
         /// <remarks>Use the canonical form of RDF if set. By default the compact form is used</remarks>
-        public const int UseCanonicalFormat = unchecked((int)(0x0080));
+        public const int UseCanonicalFormat = unchecked(0x0080);
 
         /// <summary>Include a padding allowance for a thumbnail image.</summary>
         /// <remarks>
         /// Include a padding allowance for a thumbnail image. If no <tt>xmp:Thumbnails</tt> property
         /// is present, the typical space for a JPEG thumbnail is used.
         /// </remarks>
-        public const int IncludeThumbnailPad = unchecked((int)(0x0100));
+        public const int IncludeThumbnailPad = unchecked(0x0100);
 
         /// <summary>The padding parameter provides the overall packet length.</summary>
         /// <remarks>
         /// The padding parameter provides the overall packet length. The actual amount of padding is
         /// computed. An exception is thrown if the packet exceeds this length with no padding.
         /// </remarks>
-        public const int ExactPacketLength = unchecked((int)(0x0200));
+        public const int ExactPacketLength = unchecked(0x0200);
 
         /// <summary>Omit the &lt;x:xmpmeta&bt;-tag</summary>
-        public const int OmitXmpmetaElement = unchecked((int)(0x1000));
+        public const int OmitXmpmetaElement = unchecked(0x1000);
 
         /// <summary>Sort the struct properties and qualifier before serializing</summary>
-        public const int Sort = unchecked((int)(0x2000));
+        public const int Sort = unchecked(0x2000);
 
         /// <summary>Bit indicating little endian encoding, unset is big endian</summary>
-        private const int LittleendianBit = unchecked((int)(0x0001));
+        private const int LittleendianBit = unchecked(0x0001);
 
         /// <summary>Bit indication UTF16 encoding.</summary>
-        private const int Utf16Bit = unchecked((int)(0x0002));
+        private const int Utf16Bit = unchecked(0x0002);
 
         /// <summary>UTF8 encoding; this is the default</summary>
         public const int EncodeUtf8 = 0;

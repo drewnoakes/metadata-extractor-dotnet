@@ -24,13 +24,13 @@ namespace Com.Adobe.Xmp.Impl
     public static class Base64
     {
         /// <summary>marker for invalid bytes</summary>
-        private const sbyte Invalid = unchecked((sbyte)(-1));
+        private const sbyte Invalid = unchecked(-1);
 
         /// <summary>marker for accepted whitespace bytes</summary>
-        private const sbyte Whitespace = unchecked((sbyte)(-2));
+        private const sbyte Whitespace = unchecked(-2);
 
         /// <summary>marker for an equal symbol</summary>
-        private const sbyte Equal = unchecked((sbyte)(-3));
+        private const sbyte Equal = unchecked(-3);
 
         private static readonly sbyte[] base64 = new sbyte[] { unchecked((sbyte)(byte)('A')), unchecked((sbyte)(byte)('B')), unchecked((sbyte)(byte)('C')), unchecked((sbyte)(byte)('D')), unchecked((sbyte)(byte)('E')), unchecked((sbyte)(byte)('F')), unchecked(
             (sbyte)(byte)('G')), unchecked((sbyte)(byte)('H')), unchecked((sbyte)(byte)('I')), unchecked((sbyte)(byte)('J')), unchecked((sbyte)(byte)('K')), unchecked((sbyte)(byte)('L')), unchecked((sbyte)(byte)('M')), unchecked((sbyte)(byte)('N')), unchecked(
@@ -73,12 +73,12 @@ namespace Com.Adobe.Xmp.Impl
                 Ascii[base64[idx1]] = unchecked((sbyte)idx1);
             }
             // whitespaces
-            Ascii[unchecked((int)(0x09))] = Whitespace;
-            Ascii[unchecked((int)(0x0A))] = Whitespace;
-            Ascii[unchecked((int)(0x0D))] = Whitespace;
-            Ascii[unchecked((int)(0x20))] = Whitespace;
+            Ascii[unchecked(0x09)] = Whitespace;
+            Ascii[unchecked(0x0A)] = Whitespace;
+            Ascii[unchecked(0x0D)] = Whitespace;
+            Ascii[unchecked(0x20)] = Whitespace;
             // trailing equals
-            Ascii[unchecked((int)(0x3d))] = Equal;
+            Ascii[unchecked(0x3d)] = Equal;
         }
 
         /// <summary>Encode the given byte[].</summary>
@@ -113,32 +113,32 @@ namespace Com.Adobe.Xmp.Impl
             int lf = 0;
             while (sidx + 3 <= src.Length)
             {
-                bits24 = (src[sidx++] & unchecked((int)(0xFF))) << 16;
-                bits24 |= (src[sidx++] & unchecked((int)(0xFF))) << 8;
-                bits24 |= (src[sidx++] & unchecked((int)(0xFF))) << 0;
-                bits6 = (bits24 & unchecked((int)(0x00FC0000))) >> 18;
+                bits24 = (src[sidx++] & unchecked(0xFF)) << 16;
+                bits24 |= (src[sidx++] & unchecked(0xFF)) << 8;
+                bits24 |= (src[sidx++] & unchecked(0xFF)) << 0;
+                bits6 = (bits24 & unchecked(0x00FC0000)) >> 18;
                 dst[didx++] = base64[bits6];
-                bits6 = (bits24 & unchecked((int)(0x0003F000))) >> 12;
+                bits6 = (bits24 & unchecked(0x0003F000)) >> 12;
                 dst[didx++] = base64[bits6];
-                bits6 = (bits24 & unchecked((int)(0x00000FC0))) >> 6;
+                bits6 = (bits24 & unchecked(0x00000FC0)) >> 6;
                 dst[didx++] = base64[bits6];
-                bits6 = (bits24 & unchecked((int)(0x0000003F)));
+                bits6 = (bits24 & unchecked(0x0000003F));
                 dst[didx++] = base64[bits6];
                 lf += 4;
                 if (didx < codeLength && lineFeed > 0 && lf % lineFeed == 0)
                 {
-                    dst[didx++] = unchecked((int)(0x0A));
+                    dst[didx++] = unchecked(0x0A);
                 }
             }
             if (src.Length - sidx == 2)
             {
-                bits24 = (src[sidx] & unchecked((int)(0xFF))) << 16;
-                bits24 |= (src[sidx + 1] & unchecked((int)(0xFF))) << 8;
-                bits6 = (bits24 & unchecked((int)(0x00FC0000))) >> 18;
+                bits24 = (src[sidx] & unchecked(0xFF)) << 16;
+                bits24 |= (src[sidx + 1] & unchecked(0xFF)) << 8;
+                bits6 = (bits24 & unchecked(0x00FC0000)) >> 18;
                 dst[didx++] = base64[bits6];
-                bits6 = (bits24 & unchecked((int)(0x0003F000))) >> 12;
+                bits6 = (bits24 & unchecked(0x0003F000)) >> 12;
                 dst[didx++] = base64[bits6];
-                bits6 = (bits24 & unchecked((int)(0x00000FC0))) >> 6;
+                bits6 = (bits24 & unchecked(0x00000FC0)) >> 6;
                 dst[didx++] = base64[bits6];
                 dst[didx++] = unchecked((sbyte)(byte)('='));
             }
@@ -146,10 +146,10 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (src.Length - sidx == 1)
                 {
-                    bits24 = (src[sidx] & unchecked((int)(0xFF))) << 16;
-                    bits6 = (bits24 & unchecked((int)(0x00FC0000))) >> 18;
+                    bits24 = (src[sidx] & unchecked(0xFF)) << 16;
+                    bits6 = (bits24 & unchecked(0x00FC0000)) >> 18;
                     dst[didx++] = base64[bits6];
-                    bits6 = (bits24 & unchecked((int)(0x0003F000))) >> 12;
+                    bits6 = (bits24 & unchecked(0x0003F000)) >> 12;
                     dst[didx++] = base64[bits6];
                     dst[didx++] = unchecked((sbyte)(byte)('='));
                     dst[didx++] = unchecked((sbyte)(byte)('='));
@@ -209,17 +209,17 @@ namespace Com.Adobe.Xmp.Impl
             int didx;
             for (sidx = 0, didx = 0; didx < dst.Length - 2; sidx += 4, didx += 3)
             {
-                dst[didx] = unchecked((sbyte)(((src[sidx] << 2) & unchecked((int)(0xFF))) | ((src[sidx + 1] >> 4) & unchecked((int)(0x03)))));
-                dst[didx + 1] = unchecked((sbyte)(((src[sidx + 1] << 4) & unchecked((int)(0xFF))) | ((src[sidx + 2] >> 2) & unchecked((int)(0x0F)))));
-                dst[didx + 2] = unchecked((sbyte)(((src[sidx + 2] << 6) & unchecked((int)(0xFF))) | ((src[sidx + 3]) & unchecked((int)(0x3F)))));
+                dst[didx] = unchecked((sbyte)(((src[sidx] << 2) & unchecked(0xFF)) | ((src[sidx + 1] >> 4) & unchecked(0x03))));
+                dst[didx + 1] = unchecked((sbyte)(((src[sidx + 1] << 4) & unchecked(0xFF)) | ((src[sidx + 2] >> 2) & unchecked(0x0F))));
+                dst[didx + 2] = unchecked((sbyte)(((src[sidx + 2] << 6) & unchecked(0xFF)) | ((src[sidx + 3]) & unchecked(0x3F))));
             }
             if (didx < dst.Length)
             {
-                dst[didx] = unchecked((sbyte)(((src[sidx] << 2) & unchecked((int)(0xFF))) | ((src[sidx + 1] >> 4) & unchecked((int)(0x03)))));
+                dst[didx] = unchecked((sbyte)(((src[sidx] << 2) & unchecked(0xFF)) | ((src[sidx + 1] >> 4) & unchecked(0x03))));
             }
             if (++didx < dst.Length)
             {
-                dst[didx] = unchecked((sbyte)(((src[sidx + 1] << 4) & unchecked((int)(0xFF))) | ((src[sidx + 2] >> 2) & unchecked((int)(0x0F)))));
+                dst[didx] = unchecked((sbyte)(((src[sidx + 1] << 4) & unchecked(0xFF)) | ((src[sidx + 2] >> 2) & unchecked(0x0F))));
             }
             return dst;
         }

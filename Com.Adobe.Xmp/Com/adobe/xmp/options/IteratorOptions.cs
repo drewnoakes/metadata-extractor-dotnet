@@ -14,7 +14,7 @@ namespace Com.Adobe.Xmp.Options
     public sealed class IteratorOptions : Options
     {
         /// <summary>Just do the immediate children of the root, default is subtree.</summary>
-        public const int JustChildren = unchecked((int)(0x0100));
+        public const int JustChildren = unchecked(0x0100);
 
         /// <summary>Just do the leaf nodes, default is all nodes in the subtree.</summary>
         /// <remarks>
@@ -22,13 +22,13 @@ namespace Com.Adobe.Xmp.Options
         /// Bugfix #2658965: If this option is set the Iterator returns the namespace
         /// of the leaf instead of the namespace of the base property.
         /// </remarks>
-        public const int JustLeafnodes = unchecked((int)(0x0200));
+        public const int JustLeafnodes = unchecked(0x0200);
 
         /// <summary>Return just the leaf part of the path, default is the full path.</summary>
-        public const int JustLeafname = unchecked((int)(0x0400));
+        public const int JustLeafname = unchecked(0x0400);
 
         /// <summary>Omit all qualifiers.</summary>
-        public const int OmitQualifiers = unchecked((int)(0x1000));
+        public const int OmitQualifiers = unchecked(0x1000);
 
         //    /** Include aliases, default is just actual properties. <em>Note:</em> Not supported.
         //     *  @deprecated it is commonly preferred to work with the base properties */

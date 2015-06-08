@@ -16,32 +16,32 @@ namespace Com.Adobe.Xmp.Options
     /// <since>03.07.2006</since>
     public sealed class PropertyOptions : Options
     {
-        public const int NoOptions = unchecked((int)(0x00000000));
+        public const int NoOptions = unchecked(0x00000000);
 
-        public const int Uri = unchecked((int)(0x00000002));
+        public const int Uri = unchecked(0x00000002);
 
-        public const int HasQualifiers = unchecked((int)(0x00000010));
+        public const int HasQualifiers = unchecked(0x00000010);
 
-        public const int Qualifier = unchecked((int)(0x00000020));
+        public const int Qualifier = unchecked(0x00000020);
 
-        public const int HasLanguage = unchecked((int)(0x00000040));
+        public const int HasLanguage = unchecked(0x00000040);
 
-        public const int HasType = unchecked((int)(0x00000080));
+        public const int HasType = unchecked(0x00000080);
 
-        public const int Struct = unchecked((int)(0x00000100));
+        public const int Struct = unchecked(0x00000100);
 
-        public const int Array = unchecked((int)(0x00000200));
+        public const int Array = unchecked(0x00000200);
 
-        public const int ArrayOrdered = unchecked((int)(0x00000400));
+        public const int ArrayOrdered = unchecked(0x00000400);
 
-        public const int ArrayAlternate = unchecked((int)(0x00000800));
+        public const int ArrayAlternate = unchecked(0x00000800);
 
-        public const int ArrayAltText = unchecked((int)(0x00001000));
+        public const int ArrayAltText = unchecked(0x00001000);
 
         public const int SchemaNode = unchecked((int)(0x80000000));
 
         /// <summary>may be used in the future</summary>
-        public const int DeleteExisting = unchecked((int)(0x20000000));
+        public const int DeleteExisting = unchecked(0x20000000);
 
         /// <summary>Default constructor</summary>
         public PropertyOptions()

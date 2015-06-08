@@ -18,19 +18,19 @@ namespace Com.Adobe.Xmp.Options
     public sealed class ParseOptions : Options
     {
         /// <summary>Require a surrounding &quot;x:xmpmeta&quot; element in the xml-document.</summary>
-        public const int RequireXmpMeta = unchecked((int)(0x0001));
+        public const int RequireXmpMeta = unchecked(0x0001);
 
         /// <summary>Do not reconcile alias differences, throw an exception instead.</summary>
-        public const int StrictAliasing = unchecked((int)(0x0004));
+        public const int StrictAliasing = unchecked(0x0004);
 
         /// <summary>Convert ASCII control characters 0x01 - 0x1F (except tab, cr, and lf) to spaces.</summary>
-        public const int FixControlChars = unchecked((int)(0x0008));
+        public const int FixControlChars = unchecked(0x0008);
 
         /// <summary>If the input is not unicode, try to parse it as ISO-8859-1.</summary>
-        public const int AcceptLatin1 = unchecked((int)(0x0010));
+        public const int AcceptLatin1 = unchecked(0x0010);
 
         /// <summary>Do not carry run the XMPNormalizer on a packet, leave it as it is.</summary>
-        public const int OmitNormalization = unchecked((int)(0x0020));
+        public const int OmitNormalization = unchecked(0x0020);
 
         /// <summary>Sets the options to the default values.</summary>
         public ParseOptions()

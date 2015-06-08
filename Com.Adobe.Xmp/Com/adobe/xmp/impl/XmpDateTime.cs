@@ -239,11 +239,11 @@ namespace Com.Adobe.Xmp.Impl
             long d = GetCalendar().GetTimeInMillis() - ((IXmpDateTime)dt).GetCalendar().GetTimeInMillis();
             if (d != 0)
             {
-                return (int)Math.Sign(d);
+                return Math.Sign(d);
             }
             // if millis are equal, compare nanoseconds
             d = _nanoSeconds - ((IXmpDateTime)dt).GetNanoSecond();
-            return (int)Math.Sign(d);
+            return Math.Sign(d);
         }
 
         /// <seealso cref="IXmpDateTime.GetTimeZone()"/>

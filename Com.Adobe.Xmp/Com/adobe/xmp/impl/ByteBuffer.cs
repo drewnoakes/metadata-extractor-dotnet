@@ -126,7 +126,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (index < _length)
             {
-                return _buffer[index] & unchecked((int)(0xFF));
+                return _buffer[index] & unchecked(0xFF);
             }
             throw new IndexOutOfRangeException("The index exceeds the valid buffer area");
         }
@@ -195,7 +195,7 @@ namespace Com.Adobe.Xmp.Impl
                         }
                         else
                         {
-                            if ((_buffer[2] & unchecked((int)(0xFF))) == unchecked((int)(0xFE)) && (_buffer[3] & unchecked((int)(0xFF))) == unchecked((int)(0xFF)))
+                            if ((_buffer[2] & unchecked(0xFF)) == unchecked(0xFE) && (_buffer[3] & unchecked(0xFF)) == unchecked(0xFF))
                             {
                                 _encoding = "UTF-32BE";
                             }
@@ -207,7 +207,7 @@ namespace Com.Adobe.Xmp.Impl
                     }
                     else
                     {
-                        if ((_buffer[0] & unchecked((int)(0xFF))) < unchecked((int)(0x80)))
+                        if ((_buffer[0] & unchecked(0xFF)) < unchecked(0x80))
                         {
                             // These cases are:
                             //   nn mm -- -- - UTF-8, includes EF BB BF case
@@ -235,13 +235,13 @@ namespace Com.Adobe.Xmp.Impl
                             //   FE FF -- -- - Big endian UTF-16
                             //   FF FE 00 00 - Little endian UTF-32
                             //   FF FE -- -- - Little endian UTF-16
-                            if ((_buffer[0] & unchecked((int)(0xFF))) == unchecked((int)(0xEF)))
+                            if ((_buffer[0] & unchecked(0xFF)) == unchecked(0xEF))
                             {
                                 _encoding = "UTF-8";
                             }
                             else
                             {
-                                if ((_buffer[0] & unchecked((int)(0xFF))) == unchecked((int)(0xFE)))
+                                if ((_buffer[0] & unchecked(0xFF)) == unchecked(0xFE))
                                 {
                                     _encoding = "UTF-16";
                                 }
