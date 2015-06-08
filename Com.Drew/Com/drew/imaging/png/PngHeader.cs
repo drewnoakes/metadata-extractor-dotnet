@@ -7,20 +7,20 @@ namespace Com.Drew.Imaging.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class PngHeader
     {
-        private int _imageWidth;
+        private readonly int _imageWidth;
 
-        private int _imageHeight;
+        private readonly int _imageHeight;
 
-        private sbyte _bitsPerSample;
+        private readonly sbyte _bitsPerSample;
 
         [NotNull]
-        private PngColorType _colorType;
+        private readonly PngColorType _colorType;
 
-        private sbyte _compressionType;
+        private readonly sbyte _compressionType;
 
-        private sbyte _filterMethod;
+        private readonly sbyte _filterMethod;
 
-        private sbyte _interlaceMethod;
+        private readonly sbyte _interlaceMethod;
 
         /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
         public PngHeader([NotNull] sbyte[] bytes)

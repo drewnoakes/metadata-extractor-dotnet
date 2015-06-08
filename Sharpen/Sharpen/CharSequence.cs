@@ -28,7 +28,7 @@ namespace Sharpen
 
     class StringCharSequence: CharSequence
     {
-        string str;
+        readonly string str;
 
         public StringCharSequence (string str)
         {

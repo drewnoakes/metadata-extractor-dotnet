@@ -26,7 +26,7 @@ namespace Com.Adobe.Xmp.Impl
     public class XMPIteratorImpl : XMPIterator
     {
         /// <summary>stores the iterator options</summary>
-        private IteratorOptions options;
+        private readonly IteratorOptions options;
 
         /// <summary>the base namespace of the property path, will be changed during the iteration</summary>
         private string baseNS = null;
@@ -38,7 +38,7 @@ namespace Com.Adobe.Xmp.Impl
         protected internal bool skipSubtree = false;
 
         /// <summary>the node iterator doing the work</summary>
-        private Iterator nodeIterator = null;
+        private readonly Iterator nodeIterator = null;
 
         /// <summary>Constructor with optionsl initial values.</summary>
         /// <remarks>
@@ -187,10 +187,10 @@ namespace Com.Adobe.Xmp.Impl
             private int state = IterateNode;
 
             /// <summary>the currently visited node</summary>
-            private XMPNode visitedNode;
+            private readonly XMPNode visitedNode;
 
             /// <summary>the recursively accumulated path</summary>
-            private string path;
+            private readonly string path;
 
             /// <summary>the iterator that goes through the children and qualifier list</summary>
             private Iterator childrenIterator = null;
@@ -488,9 +488,9 @@ namespace Com.Adobe.Xmp.Impl
         /// <since>02.10.2006</since>
         private class NodeIteratorChildren : NodeIterator
         {
-            private string parentPath;
+            private readonly string parentPath;
 
-            private Iterator childrenIterator;
+            private readonly Iterator childrenIterator;
 
             private int index = 0;
 

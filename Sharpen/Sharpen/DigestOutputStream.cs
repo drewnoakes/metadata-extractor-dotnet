@@ -2,9 +2,9 @@ namespace Sharpen
 {
     public class DigestOutputStream : OutputStream
     {
-        private MessageDigest digest;
+        private readonly MessageDigest digest;
         private bool @on = true;
-        private OutputStream os;
+        private readonly OutputStream os;
 
         public DigestOutputStream (OutputStream os, MessageDigest md)
         {

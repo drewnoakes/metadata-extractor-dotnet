@@ -6,11 +6,11 @@ namespace Sharpen
 {
     public class Thread : Runnable
     {
-        private static ThreadGroup defaultGroup = new ThreadGroup ();
+        private static readonly ThreadGroup defaultGroup = new ThreadGroup ();
         private bool interrupted;
-        private Runnable runnable;
-        private ThreadGroup tgroup;
-        private System.Threading.Thread thread;
+        private readonly Runnable runnable;
+        private readonly ThreadGroup tgroup;
+        private readonly System.Threading.Thread thread;
 
         [ThreadStatic]
         private static Thread wrapperThread;
@@ -152,7 +152,7 @@ namespace Sharpen
 
     public class ThreadGroup
     {
-        private List<Thread> threads = new List<Thread> ();
+        private readonly List<Thread> threads = new List<Thread> ();
 
         public ThreadGroup()
         {

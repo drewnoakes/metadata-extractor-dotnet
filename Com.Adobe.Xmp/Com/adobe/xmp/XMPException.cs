@@ -17,7 +17,7 @@ namespace Com.Adobe.Xmp
     public class XMPException : Exception
     {
         /// <summary>the errorCode of the XMP toolkit</summary>
-        private int errorCode;
+        private readonly int errorCode;
 
         /// <summary>Constructs an exception with a message and an error code.</summary>
         /// <param name="message">the message</param>

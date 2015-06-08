@@ -6,7 +6,7 @@ namespace Sharpen
 {
     public class PrintWriter : TextWriter
     {
-        TextWriter writer;
+        readonly TextWriter writer;
 
         public PrintWriter (FilePath path)
         {

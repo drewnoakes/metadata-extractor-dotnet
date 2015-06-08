@@ -5,7 +5,7 @@ namespace Sharpen
     public class CountDownLatch
     {
         private int count;
-        private ManualResetEvent done = new ManualResetEvent (false);
+        private readonly ManualResetEvent done = new ManualResetEvent (false);
 
         public CountDownLatch (int count)
         {

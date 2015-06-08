@@ -17,7 +17,7 @@ namespace Sharpen
     public class Runtime
     {
         private static Runtime instance;
-        private List<ShutdownHook> shutdownHooks = new List<ShutdownHook> ();
+        private readonly List<ShutdownHook> shutdownHooks = new List<ShutdownHook> ();
 
         public void AddShutdownHook (Runnable r)
         {

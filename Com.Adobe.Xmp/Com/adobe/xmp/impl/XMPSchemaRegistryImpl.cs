@@ -23,20 +23,20 @@ namespace Com.Adobe.Xmp.Impl
     public sealed class XMPSchemaRegistryImpl : XMPSchemaRegistry, XMPConst
     {
         /// <summary>a map from a namespace URI to its registered prefix</summary>
-        private IDictionary namespaceToPrefixMap = new Hashtable();
+        private readonly IDictionary namespaceToPrefixMap = new Hashtable();
 
         /// <summary>a map from a prefix to the associated namespace URI</summary>
-        private IDictionary prefixToNamespaceMap = new Hashtable();
+        private readonly IDictionary prefixToNamespaceMap = new Hashtable();
 
         /// <summary>a map of all registered aliases.</summary>
         /// <remarks>
         /// a map of all registered aliases.
         /// The map is a relationship from a qname to an <code>XMPAliasInfo</code>-object.
         /// </remarks>
-        private IDictionary aliasMap = new Hashtable();
+        private readonly IDictionary aliasMap = new Hashtable();
 
         /// <summary>The pattern that must not be contained in simple properties</summary>
-        private Pattern p = Pattern.Compile("[/*?\\[\\]]");
+        private readonly Pattern p = Pattern.Compile("[/*?\\[\\]]");
 
         /// <summary>
         /// Performs the initialisation of the registry with the default namespaces, aliases and global

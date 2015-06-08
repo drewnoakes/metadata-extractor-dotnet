@@ -58,9 +58,9 @@ namespace Sharpen
         public const int HTTP_FORBIDDEN = 403;
         public const int HTTP_UNAUTHORIZED = 401;
 
-        HttpWebRequest request;
+        readonly HttpWebRequest request;
         HttpWebResponse reqResponse;
-        Uri url;
+        readonly Uri url;
 
         public HttpURLConnection (Uri uri)
         {

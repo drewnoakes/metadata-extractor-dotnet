@@ -173,7 +173,7 @@ namespace Sharpen
             return ByteBuffer.Wrap(e.GetBytes(str));
         }
 
-        private static UTF8Encoding UTF8Encoder = new UTF8Encoding(false, true);
+        private static readonly UTF8Encoding UTF8Encoder = new UTF8Encoding(false, true);
 
         public static Encoding GetEncoding(string name)
         {

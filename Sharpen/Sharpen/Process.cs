@@ -5,7 +5,7 @@ namespace Sharpen
 {
     public class SystemProcess
     {
-        Process proc;
+        readonly Process proc;
 
         public SystemProcess ()
         {

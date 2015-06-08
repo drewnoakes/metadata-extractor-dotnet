@@ -15,10 +15,10 @@ namespace Com.Adobe.Xmp.Impl
     public class QName
     {
         /// <summary>XML namespace prefix</summary>
-        private string prefix;
+        private readonly string prefix;
 
         /// <summary>XML localname</summary>
-        private string localName;
+        private readonly string localName;
 
         /// <summary>Splits a qname into prefix and localname.</summary>
         /// <param name="qname">a QName</param>

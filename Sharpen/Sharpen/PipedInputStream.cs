@@ -11,11 +11,11 @@ namespace Sharpen
 
         protected sbyte[] buffer;
         private bool closed;
-        private ManualResetEvent dataEvent;
+        private readonly ManualResetEvent dataEvent;
         private int end;
         private int start;
-        private object thisLock;
-        private bool allowGrow = false;
+        private readonly object thisLock;
+        private readonly bool allowGrow = false;
 
         public int @in {
             get { return start; }

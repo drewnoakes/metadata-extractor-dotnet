@@ -7,8 +7,8 @@ namespace Sharpen
 {
     public class SimpleTimeZone
     {
-        private int _rawOffset;
-        private string _ID;
+        private readonly int _rawOffset;
+        private readonly string _ID;
 
         public static explicit operator TimeZoneInfo(SimpleTimeZone tz)
         {

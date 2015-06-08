@@ -350,7 +350,7 @@ namespace Com.Adobe.Xmp.Impl
     /// <since>22.08.2006</since>
     internal class ParseState
     {
-        private string str;
+        private readonly string str;
 
         private int pos = 0;
 

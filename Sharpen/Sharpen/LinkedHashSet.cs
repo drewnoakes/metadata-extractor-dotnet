@@ -30,8 +30,8 @@ namespace Sharpen
 {
     public class LinkedHashSet<T>: AbstractSet<T>
     {
-        private List<T> list = new List<T> ();
-        private HashSet<T> table = new HashSet<T> ();
+        private readonly List<T> list = new List<T> ();
+        private readonly HashSet<T> table = new HashSet<T> ();
 
         public LinkedHashSet ()
         {

@@ -530,7 +530,7 @@ namespace Com.Drew.Tools
         /// <summary>Keeps track of unknown tags.</summary>
         internal class UnknownTagHandler : FileHandlerBase
         {
-            private Dictionary<string, Dictionary<int?, int?>> _occurrenceCountByTagByDirectory = new Dictionary<string, Dictionary<int?, int?>>();
+            private readonly Dictionary<string, Dictionary<int?, int?>> _occurrenceCountByTagByDirectory = new Dictionary<string, Dictionary<int?, int?>>();
 
             public override void OnExtracted([NotNull] FilePath file, [NotNull] Metadata.Metadata metadata, [NotNull] string relativePath)
             {

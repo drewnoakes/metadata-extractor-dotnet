@@ -5,7 +5,7 @@ namespace Sharpen
 {
     public class ObjectInputStream : InputStream
     {
-        private BinaryReader reader;
+        private readonly BinaryReader reader;
 
         public ObjectInputStream (InputStream s)
         {

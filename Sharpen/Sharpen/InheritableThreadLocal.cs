@@ -4,8 +4,8 @@ namespace Sharpen
 {
     public class InheritableThreadLocal<T> where T : class
     {
-        private static object nullMarker;
-        private LocalDataStoreSlot slot;
+        private static readonly object nullMarker;
+        private readonly LocalDataStoreSlot slot;
 
         static InheritableThreadLocal ()
         {

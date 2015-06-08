@@ -13,7 +13,7 @@ namespace Com.Drew.Imaging.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class PngMetadataReader
     {
-        private static ICollection<PngChunkType> _desiredChunkTypes;
+        private static readonly ICollection<PngChunkType> _desiredChunkTypes;
 
         static PngMetadataReader()
         {

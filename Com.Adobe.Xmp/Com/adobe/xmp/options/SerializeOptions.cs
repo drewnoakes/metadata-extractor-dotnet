@@ -109,7 +109,7 @@ namespace Com.Adobe.Xmp.Options
         private int baseIndent = 0;
 
         /// <summary>Omits the Toolkit version attribute, not published, only used for Unit tests.</summary>
-        private bool omitVersionAttribute = false;
+        private readonly bool omitVersionAttribute = false;
 
         /// <summary>Default constructor.</summary>
         public SerializeOptions()

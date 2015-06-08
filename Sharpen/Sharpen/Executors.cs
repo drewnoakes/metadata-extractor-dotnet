@@ -7,7 +7,7 @@ namespace Sharpen
 {
     public class Executors
     {
-        static ThreadFactory defaultThreadFactory = new ThreadFactory ();
+        static readonly ThreadFactory defaultThreadFactory = new ThreadFactory ();
 
         public static ExecutorService NewFixedThreadPool (int threads)
         {
@@ -22,7 +22,7 @@ namespace Sharpen
 
     public class FixedThreadPoolExecutorService: ExecutorService
     {
-        List<WaitHandle> tasks = new List<WaitHandle> ();
+        readonly List<WaitHandle> tasks = new List<WaitHandle> ();
         bool shuttingDown;
 
         #region ExecutorService implementation
@@ -88,12 +88,12 @@ namespace Sharpen
     {
         SThread t;
         T result;
-        ManualResetEvent doneEvent = new ManualResetEvent (false);
+        readonly ManualResetEvent doneEvent = new ManualResetEvent (false);
         Exception error;
         bool canceled;
         bool started;
         bool done;
-        FixedThreadPoolExecutorService service;
+        readonly FixedThreadPoolExecutorService service;
 
         public TaskFuture (FixedThreadPoolExecutorService service)
         {

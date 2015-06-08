@@ -7,13 +7,13 @@ namespace Sharpen
     public class ThreadPoolExecutor
     {
         ThreadFactory tf;
-        int corePoolSize;
+        readonly int corePoolSize;
         int maxPoolSize;
-        List<Thread> pool = new List<Thread> ();
+        readonly List<Thread> pool = new List<Thread> ();
         int runningThreads;
         int freeThreads;
         bool shutdown;
-        Queue<Runnable> pendingTasks = new Queue<Runnable> ();
+        readonly Queue<Runnable> pendingTasks = new Queue<Runnable> ();
 
         public ThreadPoolExecutor (int corePoolSize, ThreadFactory factory)
         {
@@ -150,7 +150,7 @@ namespace Sharpen
 
     class RunnableAction: Runnable
     {
-        Action action;
+        readonly Action action;
 
         public RunnableAction (Action a)
         {

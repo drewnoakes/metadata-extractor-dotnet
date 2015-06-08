@@ -4,7 +4,7 @@ namespace Sharpen
 {
     public class FileLock
     {
-        private FileStream s;
+        private readonly FileStream s;
 
         public FileLock (FileStream s)
         {

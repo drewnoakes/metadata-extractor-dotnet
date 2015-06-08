@@ -5,7 +5,7 @@ namespace Sharpen
 {
     public class SynchronizedList<T> : IEnumerable, ICollection<T>, IList<T>, IEnumerable<T>
     {
-        private IList<T> list;
+        private readonly IList<T> list;
 
         public SynchronizedList (IList<T> list)
         {

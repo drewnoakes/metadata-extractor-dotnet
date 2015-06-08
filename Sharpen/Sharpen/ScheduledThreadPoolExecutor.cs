@@ -15,7 +15,7 @@ namespace Sharpen
             Thread thread;
             bool canceled;
             bool completed;
-            ST.ManualResetEvent doneEvent = new ST.ManualResetEvent (false);
+            readonly ST.ManualResetEvent doneEvent = new ST.ManualResetEvent (false);
 
             public Runnable Action;
             public DateTime DueTime { get; set; }
@@ -146,9 +146,9 @@ namespace Sharpen
     {
         public static Scheduler Instance = new Scheduler ();
 
-        List<IScheduledITask> tasks = new List<IScheduledITask> ();
+        readonly List<IScheduledITask> tasks = new List<IScheduledITask> ();
         ST.Thread scheduler;
-        ST.AutoResetEvent newTask = new ST.AutoResetEvent (false);
+        readonly ST.AutoResetEvent newTask = new ST.AutoResetEvent (false);
 
         public void Shutdown (object owner, bool continueExistingPeriodicTasks, bool executeExistingDelayedTasks)
         {

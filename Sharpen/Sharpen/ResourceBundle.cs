@@ -9,7 +9,7 @@ namespace Sharpen
     public class ResourceBundle
     {
         private CultureInfo culture;
-        private Dictionary<string, string> strings = new Dictionary<string, string> ();
+        private readonly Dictionary<string, string> strings = new Dictionary<string, string> ();
 
         public static ResourceBundle GetBundle (string bundleClass, CultureInfo culture)
         {

@@ -5,7 +5,7 @@ namespace Sharpen
 {
     public class TreeSet<T> : AbstractSet<T>
     {
-        private SortedDictionary<T, int> dict;
+        private readonly SortedDictionary<T, int> dict;
 
         public TreeSet ()
         {

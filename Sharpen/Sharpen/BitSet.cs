@@ -30,7 +30,7 @@ namespace Sharpen
 {
     public class BitSet
     {
-        List<bool> bits;
+        readonly List<bool> bits;
 
         public BitSet ()
         {

@@ -4,7 +4,7 @@ namespace Sharpen
 {
     public class AtomicReferenceArray<T> where T : class
     {
-        private T[] array;
+        private readonly T[] array;
 
         public AtomicReferenceArray (int size)
         {

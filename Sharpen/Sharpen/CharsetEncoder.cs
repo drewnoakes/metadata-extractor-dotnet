@@ -4,7 +4,7 @@ namespace Sharpen
 {
     public class CharsetEncoder
     {
-        private Encoding enc;
+        private readonly Encoding enc;
 
         public CharsetEncoder (Encoding enc)
         {

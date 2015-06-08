@@ -5,7 +5,7 @@ namespace Sharpen
 {
     public class RandomAccessFile
     {
-        private FileStream stream;
+        private readonly FileStream stream;
 
         public RandomAccessFile (FilePath file, string mode) : this(file.GetPath (), mode)
         {

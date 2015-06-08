@@ -5,8 +5,8 @@ namespace Sharpen
 {
     public class WrappedSystemStream : Stream
     {
-        private InputStream ist;
-        private OutputStream ost;
+        private readonly InputStream ist;
+        private readonly OutputStream ost;
         int position;
         int markedPosition;
 

@@ -2,7 +2,7 @@ namespace Sharpen
 {
     public class SoftReference<T> : Reference<T>
     {
-        private ReferenceQueue<T> queue;
+        private readonly ReferenceQueue<T> queue;
         private T value;
 
         public SoftReference (T val)

@@ -5,7 +5,7 @@ namespace Sharpen
 {
     public class FileChannel
     {
-        private FileStream s;
+        private readonly FileStream s;
         byte[] buffer;
         bool isOpen;
 

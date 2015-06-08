@@ -2,7 +2,7 @@ namespace Sharpen
 {
     public class CyclicBarrier
     {
-        private CountDownLatch counter;
+        private readonly CountDownLatch counter;
 
         public CyclicBarrier (int parties)
         {

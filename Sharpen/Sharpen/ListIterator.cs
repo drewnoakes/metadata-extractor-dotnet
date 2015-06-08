@@ -5,7 +5,7 @@ namespace Sharpen
 {
     public class ListIterator : Iterator<object>
     {
-        private IList list;
+        private readonly IList list;
         private int pos;
 
         public ListIterator(IList list, int n)
@@ -54,7 +54,7 @@ namespace Sharpen
 
     public class ListIterator<T>
     {
-        private IList<T> list;
+        private readonly IList<T> list;
         private int pos;
 
         public ListIterator (IList<T> list, int n)

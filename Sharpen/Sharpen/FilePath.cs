@@ -7,7 +7,7 @@ namespace Sharpen
 {
     public class FilePath
     {
-        private string path;
+        private readonly string path;
         private static long tempCounter;
 
         public FilePath ()

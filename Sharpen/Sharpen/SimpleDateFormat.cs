@@ -13,7 +13,7 @@ namespace Sharpen
         private const string FIELD_MINUTE = "minute";
         private const string FIELD_SECOND = "second";
 
-        string format;
+        readonly string format;
 
         CultureInfo Culture {
             get; set;

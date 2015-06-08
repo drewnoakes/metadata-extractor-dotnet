@@ -42,7 +42,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         public const int StepRootProp = 1;
 
         /// <summary>stores the segments of an XMPPath</summary>
-        private IList segments = new ArrayList(5);
+        private readonly IList segments = new ArrayList(5);
 
         // Bits for XPathStepInfo options.
         //

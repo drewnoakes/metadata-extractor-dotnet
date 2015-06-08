@@ -8,9 +8,9 @@ namespace Sharpen
     /// </summary>
     public class PushbackReader : StreamReader
     {
-        private char[] buf;
+        private readonly char[] buf;
         private int pos;
-        private object _lock;
+        private readonly object _lock;
 
         public PushbackReader(StreamReader stream) : this(stream, 1)
         {

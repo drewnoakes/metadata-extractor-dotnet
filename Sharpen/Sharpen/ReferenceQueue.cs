@@ -4,7 +4,7 @@ namespace Sharpen
 {
     public class ReferenceQueue<T>
     {
-        private Queue<Reference<T>> queue;
+        private readonly Queue<Reference<T>> queue;
 
         public ReferenceQueue ()
         {

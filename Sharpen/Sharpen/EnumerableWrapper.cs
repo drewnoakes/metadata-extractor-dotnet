@@ -4,7 +4,7 @@ namespace Sharpen
 {
     public class EnumerableWrapper<T> : Iterable<T>
     {
-        private IEnumerable<T> e;
+        private readonly IEnumerable<T> e;
 
         public EnumerableWrapper (IEnumerable<T> e)
         {

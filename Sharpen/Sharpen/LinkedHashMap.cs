@@ -5,8 +5,8 @@ namespace Sharpen
 {
     public class LinkedHashMap<T, U> : AbstractMap<T, U>
     {
-        private List<KeyValuePair<T, U>> list;
-        private Dictionary<T, U> table;
+        private readonly List<KeyValuePair<T, U>> list;
+        private readonly Dictionary<T, U> table;
 
         public LinkedHashMap ()
         {

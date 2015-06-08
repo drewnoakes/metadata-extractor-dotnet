@@ -6,7 +6,7 @@ namespace Sharpen
 {
     public class EnumeratorWrapper<T> : Iterator<T>
     {
-        object collection;
+        readonly object collection;
         IEnumerator<T> e;
         T lastVal;
         bool more;
@@ -69,7 +69,7 @@ namespace Sharpen
 
     public class EnumeratorWrapper : Iterator
     {
-        object collection;
+        readonly object collection;
         IEnumerator e;
         object lastVal;
         bool more;

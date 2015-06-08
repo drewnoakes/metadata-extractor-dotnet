@@ -41,7 +41,7 @@ namespace Com.Adobe.Xmp.Impl
         private const int ValueBase64 = 7;
 
         /// <summary>root of the metadata tree</summary>
-        private XMPNode tree;
+        private readonly XMPNode tree;
 
         /// <summary>the xpacket processing instructions content</summary>
         private string packetHeader = null;

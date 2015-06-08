@@ -30,7 +30,7 @@ namespace Sharpen
 {
     public class BufferedWriter
     {
-        StreamWriter writer;
+        readonly StreamWriter writer;
 
         public BufferedWriter (StreamWriter w)
         {

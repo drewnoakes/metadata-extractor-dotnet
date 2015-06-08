@@ -135,7 +135,7 @@ namespace Sharpen
         private class SimpleIterator : Iterator<T>
         {
             private int current;
-            private AbstractList<T> list;
+            private readonly AbstractList<T> list;
 
             public SimpleIterator (AbstractList<T> list)
             {

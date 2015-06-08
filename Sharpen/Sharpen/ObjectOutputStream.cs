@@ -4,7 +4,7 @@ namespace Sharpen
 {
     public class ObjectOutputStream : OutputStream
     {
-        private BinaryWriter bw;
+        private readonly BinaryWriter bw;
 
         public ObjectOutputStream (OutputStream os)
         {

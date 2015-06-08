@@ -7,7 +7,7 @@ namespace Sharpen
         public const int CASE_INSENSITIVE = 1;
         public const int DOTALL = 2;
         public const int MULTILINE = 4;
-        private Regex regex;
+        private readonly Regex regex;
 
         private Pattern (Regex r)
         {

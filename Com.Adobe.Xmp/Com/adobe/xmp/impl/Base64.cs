@@ -32,7 +32,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>marker for an equal symbol</summary>
         private const sbyte Equal = unchecked((sbyte)(-3));
 
-        private static sbyte[] base64 = new sbyte[] { unchecked((sbyte)(byte)('A')), unchecked((sbyte)(byte)('B')), unchecked((sbyte)(byte)('C')), unchecked((sbyte)(byte)('D')), unchecked((sbyte)(byte)('E')), unchecked((sbyte)(byte)('F')), unchecked(
+        private static readonly sbyte[] base64 = new sbyte[] { unchecked((sbyte)(byte)('A')), unchecked((sbyte)(byte)('B')), unchecked((sbyte)(byte)('C')), unchecked((sbyte)(byte)('D')), unchecked((sbyte)(byte)('E')), unchecked((sbyte)(byte)('F')), unchecked(
             (sbyte)(byte)('G')), unchecked((sbyte)(byte)('H')), unchecked((sbyte)(byte)('I')), unchecked((sbyte)(byte)('J')), unchecked((sbyte)(byte)('K')), unchecked((sbyte)(byte)('L')), unchecked((sbyte)(byte)('M')), unchecked((sbyte)(byte)('N')), unchecked(
             (sbyte)(byte)('O')), unchecked((sbyte)(byte)('P')), unchecked((sbyte)(byte)('Q')), unchecked((sbyte)(byte)('R')), unchecked((sbyte)(byte)('S')), unchecked((sbyte)(byte)('T')), unchecked((sbyte)(byte)('U')), unchecked((sbyte)(byte)('V')), unchecked(
             (sbyte)(byte)('W')), unchecked((sbyte)(byte)('X')), unchecked((sbyte)(byte)('Y')), unchecked((sbyte)(byte)('Z')), unchecked((sbyte)(byte)('a')), unchecked((sbyte)(byte)('b')), unchecked((sbyte)(byte)('c')), unchecked((sbyte)(byte)('d')), unchecked(
@@ -42,7 +42,7 @@ namespace Com.Adobe.Xmp.Impl
             (sbyte)(byte)('2')), unchecked((sbyte)(byte)('3')), unchecked((sbyte)(byte)('4')), unchecked((sbyte)(byte)('5')), unchecked((sbyte)(byte)('6')), unchecked((sbyte)(byte)('7')), unchecked((sbyte)(byte)('8')), unchecked((sbyte)(byte)('9')), unchecked(
             (sbyte)(byte)('+')), unchecked((sbyte)(byte)('/')) };
 
-        private static sbyte[] ascii = new sbyte[255];
+        private static readonly sbyte[] ascii = new sbyte[255];
 
         static Base64()
         {

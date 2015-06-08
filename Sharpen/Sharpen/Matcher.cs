@@ -7,7 +7,7 @@ namespace Sharpen
     {
         private int current;
         private MatchCollection matches;
-        private Regex regex;
+        private readonly Regex regex;
         private string str;
 
         public Matcher (Regex regex, string str)
