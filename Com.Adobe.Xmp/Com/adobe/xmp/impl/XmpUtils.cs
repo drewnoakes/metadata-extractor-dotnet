@@ -442,11 +442,11 @@ namespace Com.Adobe.Xmp.Impl
             {
                 XmpNode sourceSchema = (XmpNode)it.Next();
                 // Make sure we have a destination schema node
-                XmpNode destSchema = XmpNodeUtils.FindSchemaNode(dest.GetRoot(), sourceSchema.GetName(), false);
+                XmpNode destSchema = XmpNodeUtils.FindSchemaNode(dest.GetRoot(), sourceSchema.Name, false);
                 bool createdSchema = false;
                 if (destSchema == null)
                 {
-                    destSchema = new XmpNode(sourceSchema.GetName(), sourceSchema.GetValue(), new PropertyOptions().SetSchemaNode(true));
+                    destSchema = new XmpNode(sourceSchema.Name, sourceSchema.GetValue(), new PropertyOptions().SetSchemaNode(true));
                     dest.GetRoot().AddChild(destSchema);
                     createdSchema = true;
                 }
@@ -454,7 +454,7 @@ namespace Com.Adobe.Xmp.Impl
                 for (IIterator ic = sourceSchema.IterateChildren(); ic.HasNext(); )
                 {
                     XmpNode sourceProp = (XmpNode)ic.Next();
-                    if (doAllProperties || !Utils.IsInternalProperty(sourceSchema.GetName(), sourceProp.GetName()))
+                    if (doAllProperties || !Utils.IsInternalProperty(sourceSchema.Name, sourceProp.Name))
                     {
                         AppendSubtree(dest, sourceProp, destSchema, replaceOldValues, deleteEmptyValues);
                     }
@@ -484,7 +484,7 @@ namespace Com.Adobe.Xmp.Impl
             for (IIterator it = schemaNode.IterateChildren(); it.HasNext(); )
             {
                 XmpNode currProp = (XmpNode)it.Next();
-                if (doAllProperties || !Utils.IsInternalProperty(schemaNode.GetName(), currProp.GetName()))
+                if (doAllProperties || !Utils.IsInternalProperty(schemaNode.Name, currProp.Name))
                 {
                     it.Remove();
                 }
@@ -504,7 +504,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException"/>
         private static void AppendSubtree(XmpMeta destXmp, XmpNode sourceNode, XmpNode destParent, bool replaceOldValues, bool deleteEmptyValues)
         {
-            XmpNode destNode = XmpNodeUtils.FindChildNode(destParent, sourceNode.GetName(), false);
+            XmpNode destNode = XmpNodeUtils.FindChildNode(destParent, sourceNode.Name, false);
             bool valueIsEmpty = false;
             if (deleteEmptyValues)
             {
@@ -569,7 +569,7 @@ namespace Com.Adobe.Xmp.Impl
                                 for (IIterator it = sourceNode.IterateChildren(); it.HasNext(); )
                                 {
                                     XmpNode sourceItem = (XmpNode)it.Next();
-                                    if (!sourceItem.HasQualifier() || !XmpConstConstants.XmlLang.Equals(sourceItem.GetQualifier(1).GetName()))
+                                    if (!sourceItem.HasQualifier() || !XmpConstConstants.XmlLang.Equals(sourceItem.GetQualifier(1).Name))
                                     {
                                         continue;
                                     }
@@ -596,7 +596,7 @@ namespace Com.Adobe.Xmp.Impl
                                             }
                                             else
                                             {
-                                                XmpNode destItem = new XmpNode(sourceItem.GetName(), sourceItem.GetValue(), sourceItem.GetOptions());
+                                                XmpNode destItem = new XmpNode(sourceItem.Name, sourceItem.GetValue(), sourceItem.GetOptions());
                                                 sourceItem.CloneSubtree(destItem);
                                                 destNode.AddChild(1, destItem);
                                             }
@@ -678,7 +678,7 @@ namespace Com.Adobe.Xmp.Impl
                     for (IIterator it = leftNode.IterateChildren(); it.HasNext(); )
                     {
                         XmpNode leftField = (XmpNode)it.Next();
-                        XmpNode rightField = XmpNodeUtils.FindChildNode(rightNode, leftField.GetName(), false);
+                        XmpNode rightField = XmpNodeUtils.FindChildNode(rightNode, leftField.Name, false);
                         if (rightField == null || !ItemValuesMatch(leftField, rightField))
                         {
                             return false;

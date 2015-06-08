@@ -308,7 +308,7 @@ namespace Com.Adobe.Xmp.Impl
         private void WriteTreeName()
         {
             Write('"');
-            string name = _xmp.GetRoot().GetName();
+            string name = _xmp.GetRoot().Name;
             if (name != null)
             {
                 AppendNodeValue(name, true);
@@ -385,7 +385,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     WriteNewline();
                     WriteIndent(indent);
-                    Write(prop.GetName());
+                    Write(prop.Name);
                     Write("=\"");
                     AppendNodeValue(prop.GetValue(), true);
                     Write('"');
@@ -456,7 +456,7 @@ namespace Com.Adobe.Xmp.Impl
                 // Determine the XML element name, write the name part of the start tag. Look over the
                 // qualifiers to decide on "normal" versus "rdf:value" form. Emit the attribute
                 // qualifiers at the same time.
-                string elemName = node.GetName();
+                string elemName = node.Name;
                 if (XmpConstConstants.ArrayItemName.Equals(elemName))
                 {
                     elemName = "rdf:li";
@@ -469,15 +469,15 @@ namespace Com.Adobe.Xmp.Impl
                 for (IIterator iq = node.IterateQualifier(); iq.HasNext(); )
                 {
                     XmpNode qualifier = (XmpNode)iq.Next();
-                    if (!RdfAttrQualifier.Contains(qualifier.GetName()))
+                    if (!RdfAttrQualifier.Contains(qualifier.Name))
                     {
                         hasGeneralQualifiers = true;
                     }
                     else
                     {
-                        hasRdfResourceQual = "rdf:resource".Equals(qualifier.GetName());
+                        hasRdfResourceQual = "rdf:resource".Equals(qualifier.Name);
                         Write(' ');
-                        Write(qualifier.GetName());
+                        Write(qualifier.Name);
                         Write("=\"");
                         AppendNodeValue(qualifier.GetValue(), true);
                         Write('"');
@@ -738,7 +738,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 // The schema node name is the URI, the value is the prefix.
                 string prefix = Runtime.Substring(node.GetValue(), 0, node.GetValue().Length - 1);
-                DeclareNamespace(prefix, node.GetName(), usedPrefixes, indent);
+                DeclareNamespace(prefix, node.Name, usedPrefixes, indent);
             }
             else
             {
@@ -747,7 +747,7 @@ namespace Com.Adobe.Xmp.Impl
                     for (IIterator it = node.IterateChildren(); it.HasNext(); )
                     {
                         XmpNode field = (XmpNode)it.Next();
-                        DeclareNamespace(field.GetName(), null, usedPrefixes, indent);
+                        DeclareNamespace(field.Name, null, usedPrefixes, indent);
                     }
                 }
             }
@@ -759,7 +759,7 @@ namespace Com.Adobe.Xmp.Impl
             for (IIterator it2 = node.IterateQualifier(); it2.HasNext(); )
             {
                 XmpNode qualifier = (XmpNode)it2.Next();
-                DeclareNamespace(qualifier.GetName(), null, usedPrefixes, indent);
+                DeclareNamespace(qualifier.Name, null, usedPrefixes, indent);
                 DeclareUsedNamespaces(qualifier, usedPrefixes, indent);
             }
         }
@@ -880,7 +880,7 @@ namespace Com.Adobe.Xmp.Impl
             bool indentEndTag = true;
             // Determine the XML element name. Open the start tag with the name and
             // attribute qualifiers.
-            string elemName = node.GetName();
+            string elemName = node.Name;
             if (emitAsRdfValue)
             {
                 elemName = "rdf:value";
@@ -900,17 +900,17 @@ namespace Com.Adobe.Xmp.Impl
             for (IIterator it = node.IterateQualifier(); it.HasNext(); )
             {
                 XmpNode qualifier = (XmpNode)it.Next();
-                if (!RdfAttrQualifier.Contains(qualifier.GetName()))
+                if (!RdfAttrQualifier.Contains(qualifier.Name))
                 {
                     hasGeneralQualifiers = true;
                 }
                 else
                 {
-                    hasRdfResourceQual = "rdf:resource".Equals(qualifier.GetName());
+                    hasRdfResourceQual = "rdf:resource".Equals(qualifier.Name);
                     if (!emitAsRdfValue)
                     {
                         Write(' ');
-                        Write(qualifier.GetName());
+                        Write(qualifier.Name);
                         Write("=\"");
                         AppendNodeValue(qualifier.GetValue(), true);
                         Write('"');
@@ -948,7 +948,7 @@ namespace Com.Adobe.Xmp.Impl
                 for (IIterator it1 = node.IterateQualifier(); it1.HasNext(); )
                 {
                     XmpNode qualifier = (XmpNode)it1.Next();
-                    if (!RdfAttrQualifier.Contains(qualifier.GetName()))
+                    if (!RdfAttrQualifier.Contains(qualifier.Name))
                     {
                         SerializeCanonicalRdfProperty(qualifier, useCanonicalRdf, false, indent + 1);
                     }
@@ -1079,7 +1079,7 @@ namespace Com.Adobe.Xmp.Impl
                                 WriteNewline();
                                 WriteIndent(indent + 1);
                                 Write(' ');
-                                Write(child.GetName());
+                                Write(child.Name);
                                 Write("=\"");
                                 AppendNodeValue(child.GetValue(), true);
                                 Write('"');
@@ -1176,7 +1176,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns true if the node serialized as RDF-Attribute</returns>
         private static bool CanBeRdfAttrProp(XmpNode node)
         {
-            return !node.HasQualifier() && !node.GetOptions().IsUri() && !node.GetOptions().IsCompositeProperty() && !XmpConstConstants.ArrayItemName.Equals(node.GetName());
+            return !node.HasQualifier() && !node.GetOptions().IsUri() && !node.GetOptions().IsCompositeProperty() && !XmpConstConstants.ArrayItemName.Equals(node.Name);
         }
 
         /// <summary>Writes indents and automatically includes the baseindend from the options.</summary>

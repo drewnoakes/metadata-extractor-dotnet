@@ -32,9 +32,6 @@ namespace Com.Adobe.Xmp.Impl
     /// <since>21.02.2006</since>
     public sealed class XmpNode : IComparable
     {
-        /// <summary>name of the node, contains different information depending of the node kind</summary>
-        private string _name;
-
         /// <summary>value of the node, contains different information depending of the node kind</summary>
         private string _value;
 
@@ -69,7 +66,7 @@ namespace Com.Adobe.Xmp.Impl
         public XmpNode(string name, string value, PropertyOptions options)
         {
             // internal processing options
-            _name = name;
+            Name = name;
             _value = value;
             _options = options;
         }
@@ -86,7 +83,7 @@ namespace Com.Adobe.Xmp.Impl
         public void Clear()
         {
             _options = null;
-            _name = null;
+            Name = null;
             _value = null;
             _children = null;
             _qualifier = null;
@@ -111,7 +108,7 @@ namespace Com.Adobe.Xmp.Impl
         public void AddChild(XmpNode node)
         {
             // check for duplicate properties
-            AssertChildNotExisting(node.GetName());
+            AssertChildNotExisting(node.Name);
             node.SetParent(this);
             GetChildren().Add(node);
         }
@@ -126,7 +123,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException"></exception>
         public void AddChild(int index, XmpNode node)
         {
-            AssertChildNotExisting(node.GetName());
+            AssertChildNotExisting(node.Name);
             node.SetParent(this);
             GetChildren().Add(index - 1, node);
         }
@@ -213,7 +210,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException"></exception>
         public void AddQualifier(XmpNode qualNode)
         {
-            AssertQualifierNotExisting(qualNode.GetName());
+            AssertQualifierNotExisting(qualNode.Name);
             qualNode.SetParent(this);
             qualNode.GetOptions().SetQualifier(true);
             GetOptions().SetHasQualifiers(true);
@@ -364,7 +361,7 @@ namespace Com.Adobe.Xmp.Impl
                 // cannot happen
                 newOptions = new PropertyOptions();
             }
-            XmpNode newNode = new XmpNode(_name, _value, newOptions);
+            XmpNode newNode = new XmpNode(Name, _value, newOptions);
             CloneSubtree(newNode);
             return newNode;
         }
@@ -413,20 +410,10 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return string.CompareOrdinal(_value, ((XmpNode)xmpNode).GetValue());
             }
-            return string.CompareOrdinal(_name, ((XmpNode)xmpNode).GetName());
+            return string.CompareOrdinal(Name, ((XmpNode)xmpNode).Name);
         }
 
-        /// <returns>Returns the name.</returns>
-        public string GetName()
-        {
-            return _name;
-        }
-
-        /// <param name="name">The name to set.</param>
-        public void SetName(string name)
-        {
-            _name = name;
-        }
+        public string Name { set; get; }
 
         /// <returns>Returns the value.</returns>
         public string GetValue()
@@ -530,7 +517,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 XmpNode[] quals = (XmpNode[])Collections.ToArray(GetQualifier(), new XmpNode[GetQualifierLength()]);
                 int sortFrom = 0;
-                while (quals.Length > sortFrom && (XmpConstConstants.XmlLang.Equals(quals[sortFrom].GetName()) || "rdf:type".Equals(quals[sortFrom].GetName())))
+                while (quals.Length > sortFrom && (XmpConstConstants.XmlLang.Equals(quals[sortFrom].Name) || "rdf:type".Equals(quals[sortFrom].Name)))
                 {
                     quals[sortFrom].Sort();
                     sortFrom++;
@@ -581,7 +568,7 @@ namespace Com.Adobe.Xmp.Impl
                 if (GetOptions().IsQualifier())
                 {
                     result.Append('?');
-                    result.Append(_name);
+                    result.Append(Name);
                 }
                 else
                 {
@@ -593,7 +580,7 @@ namespace Com.Adobe.Xmp.Impl
                     }
                     else
                     {
-                        result.Append(_name);
+                        result.Append(Name);
                     }
                 }
             }
@@ -601,11 +588,11 @@ namespace Com.Adobe.Xmp.Impl
             {
                 // applies only to the root node
                 result.Append("ROOT NODE");
-                if (!string.IsNullOrEmpty(_name))
+                if (!string.IsNullOrEmpty(Name))
                 {
                     // the "about" attribute
                     result.Append(" (");
-                    result.Append(_name);
+                    result.Append(Name);
                     result.Append(')');
                 }
             }
@@ -630,7 +617,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 XmpNode[] quals = (XmpNode[])Collections.ToArray(GetQualifier(), new XmpNode[GetQualifierLength()]);
                 int i1 = 0;
-                while (quals.Length > i1 && (XmpConstConstants.XmlLang.Equals(quals[i1].GetName()) || "rdf:type".Equals(quals[i1].GetName())))
+                while (quals.Length > i1 && (XmpConstConstants.XmlLang.Equals(quals[i1].Name) || "rdf:type".Equals(quals[i1].Name)))
                 {
                     i1++;
                 }
@@ -660,13 +647,13 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns whether this node is a language qualifier.</returns>
         private bool IsLanguageNode()
         {
-            return XmpConstConstants.XmlLang.Equals(_name);
+            return XmpConstConstants.XmlLang.Equals(Name);
         }
 
         /// <returns>Returns whether this node is a type qualifier.</returns>
         private bool IsTypeNode()
         {
-            return "rdf:type".Equals(_name);
+            return "rdf:type".Equals(Name);
         }
 
         /// <summary>
@@ -720,7 +707,7 @@ namespace Com.Adobe.Xmp.Impl
                 for (IIterator it = list.Iterator(); it.HasNext(); )
                 {
                     XmpNode child = (XmpNode)it.Next();
-                    if (child.GetName().Equals(expr))
+                    if (child.Name.Equals(expr))
                     {
                         return child;
                     }

@@ -217,16 +217,16 @@ namespace Com.Adobe.Xmp.Impl
                             // the XMP tree name if
                             // it doesn't have a name yet. Make sure this name matches
                             // the XMP tree name.
-                            if (xmpParent.GetName() != null && xmpParent.GetName().Length > 0)
+                            if (xmpParent.Name != null && xmpParent.Name.Length > 0)
                             {
-                                if (!xmpParent.GetName().Equals(attribute.Value))
+                                if (!xmpParent.Name.Equals(attribute.Value))
                                 {
                                     throw new XmpException("Mismatched top level rdf:about values", XmpErrorCode.BadXmp);
                                 }
                             }
                             else
                             {
-                                xmpParent.SetName(attribute.Value);
+                                xmpParent.Name = attribute.Value;
                             }
                         }
                         break;
@@ -1044,7 +1044,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     throw new XmpException("Misplaced rdf:li element", XmpErrorCode.BadRdf);
                 }
-                newChild.SetName(XmpConstConstants.ArrayItemName);
+                newChild.Name = XmpConstConstants.ArrayItemName;
             }
             return newChild;
         }
@@ -1082,7 +1082,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             Debug.Assert(xmpParent.GetOptions().IsStruct() && xmpParent.HasChildren());
             XmpNode valueNode = xmpParent.GetChild(1);
-            Debug.Assert("rdf:value".Equals(valueNode.GetName()));
+            Debug.Assert("rdf:value".Equals(valueNode.Name));
             // Move the qualifiers on the value node to the parent.
             // Make sure an xml:lang qualifier stays at the front.
             // Check for duplicate names between the value node's qualifiers and the parent's children.

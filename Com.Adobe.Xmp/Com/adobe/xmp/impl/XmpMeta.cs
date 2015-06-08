@@ -368,7 +368,7 @@ namespace Com.Adobe.Xmp.Impl
             for (IIterator it = arrayNode.IterateChildren(); it.HasNext(); )
             {
                 XmpNode currItem = (XmpNode)it.Next();
-                if (!currItem.HasQualifier() || !XmpConstConstants.XmlLang.Equals(currItem.GetQualifier(1).GetName()))
+                if (!currItem.HasQualifier() || !XmpConstConstants.XmlLang.Equals(currItem.GetQualifier(1).Name))
                 {
                     throw new XmpException("Language qualifier must be first", XmpErrorCode.BadXPath);
                 }
@@ -922,13 +922,13 @@ namespace Com.Adobe.Xmp.Impl
         /// <seealso cref="IXmpMeta.GetObjectName()"/>
         public string GetObjectName()
         {
-            return _tree.GetName() ?? string.Empty;
+            return _tree.Name ?? string.Empty;
         }
 
         /// <seealso cref="IXmpMeta.SetObjectName(string)"/>
         public void SetObjectName(string name)
         {
-            _tree.SetName(name);
+            _tree.Name = name;
         }
 
         /// <seealso cref="IXmpMeta.GetPacketHeader()"/>

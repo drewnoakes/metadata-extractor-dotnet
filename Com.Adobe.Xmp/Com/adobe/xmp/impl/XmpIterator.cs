@@ -221,7 +221,7 @@ namespace Com.Adobe.Xmp.Impl
                 _state = IterateNode;
                 if (visitedNode.GetOptions().IsSchemaNode())
                 {
-                    _enclosing.SetBaseNs(visitedNode.GetName());
+                    _enclosing.SetBaseNs(visitedNode.Name);
                 }
                 // for all but the root node and schema nodes
                 _path = AccumulatePath(visitedNode, parentPath, index);
@@ -348,7 +348,7 @@ namespace Com.Adobe.Xmp.Impl
                 else
                 {
                     separator = "/";
-                    segmentName = currNode.GetName();
+                    segmentName = currNode.Name;
                 }
                 if (string.IsNullOrEmpty(parentPath))
                 {
@@ -388,7 +388,7 @@ namespace Com.Adobe.Xmp.Impl
                     if (!_node.GetOptions().IsSchemaNode())
                     {
                         // determine namespace of leaf node
-                        QName qname = new QName(_node.GetName());
+                        QName qname = new QName(_node.Name);
                         return XmpMetaFactory.GetSchemaRegistry().GetNamespaceUri(qname.GetPrefix());
                     }
                     return _baseNs;
@@ -473,7 +473,7 @@ namespace Com.Adobe.Xmp.Impl
                 _enclosing = enclosing;
                 if (parentNode.GetOptions().IsSchemaNode())
                 {
-                    _enclosing.SetBaseNs(parentNode.GetName());
+                    _enclosing.SetBaseNs(parentNode.Name);
                 }
                 _parentPath = AccumulatePath(parentNode, parentPath, 1);
                 _childrenIterator = parentNode.IterateChildren();
@@ -499,7 +499,7 @@ namespace Com.Adobe.Xmp.Impl
                     string path = null;
                     if (child.GetOptions().IsSchemaNode())
                     {
-                        _enclosing.SetBaseNs(child.GetName());
+                        _enclosing.SetBaseNs(child.Name);
                     }
                     else
                     {

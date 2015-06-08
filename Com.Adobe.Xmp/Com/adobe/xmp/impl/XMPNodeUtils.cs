@@ -267,7 +267,7 @@ namespace Com.Adobe.Xmp.Impl
         internal static void SetNodeValue(XmpNode node, object value)
         {
             string strValue = SerializeNodeValue(value);
-            if (!(node.GetOptions().IsQualifier() && XmpConstConstants.XmlLang.Equals(node.GetName())))
+            if (!(node.GetOptions().IsQualifier() && XmpConstConstants.XmlLang.Equals(node.Name)))
             {
                 node.SetValue(strValue);
             }
@@ -560,7 +560,7 @@ namespace Com.Adobe.Xmp.Impl
                 for (int f = 1; f <= currItem.GetChildrenLength(); f++)
                 {
                     XmpNode currField = currItem.GetChild(f);
-                    if (!fieldName.Equals(currField.GetName()))
+                    if (!fieldName.Equals(currField.Name))
                     {
                         continue;
                     }
@@ -615,7 +615,7 @@ namespace Com.Adobe.Xmp.Impl
                 for (IIterator it = currItem.IterateQualifier(); it.HasNext(); )
                 {
                     XmpNode qualifier = (XmpNode)it.Next();
-                    if (qualName.Equals(qualifier.GetName()) && qualValue.Equals(qualifier.GetValue()))
+                    if (qualName.Equals(qualifier.Name) && qualValue.Equals(qualifier.GetValue()))
                     {
                         return index;
                     }
@@ -757,7 +757,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     throw new XmpException("Alt-text array item is not simple", XmpErrorCode.BadXPath);
                 }
-                if (!currItem.HasQualifier() || !XmpConstConstants.XmlLang.Equals(currItem.GetQualifier(1).GetName()))
+                if (!currItem.HasQualifier() || !XmpConstConstants.XmlLang.Equals(currItem.GetQualifier(1).Name))
                 {
                     throw new XmpException("Alt-text array item has no language qualifier", XmpErrorCode.BadXPath);
                 }
@@ -815,7 +815,7 @@ namespace Com.Adobe.Xmp.Impl
             for (int index = 1; index <= arrayNode.GetChildrenLength(); index++)
             {
                 XmpNode child = arrayNode.GetChild(index);
-                if (!child.HasQualifier() || !XmpConstConstants.XmlLang.Equals(child.GetQualifier(1).GetName()))
+                if (!child.HasQualifier() || !XmpConstConstants.XmlLang.Equals(child.GetQualifier(1).Name))
                 {
                     continue;
                 }
