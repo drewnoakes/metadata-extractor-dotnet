@@ -178,8 +178,8 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if (currProp.GetOptions().IsSimple())
                     {
-                        // create a new array and add the current property as child, 
-                        // if it was formerly simple 
+                        // create a new array and add the current property as child,
+                        // if it was formerly simple
                         XMPNode newArray = new XMPNode(currProp.GetName(), arrayForm);
                         currProp.SetName(XMPConstConstants.ArrayItemName);
                         newArray.AddChild(currProp);
@@ -306,7 +306,7 @@ namespace Com.Adobe.Xmp.Impl
                             }
                             else
                             {
-                                // An alias to an array item, 
+                                // An alias to an array item,
                                 // create the array and transplant the property.
                                 baseNode = new XMPNode(info.GetPrefix() + info.GetPropName(), info.GetAliasForm().ToPropertyOptions());
                                 baseSchema.AddChild(baseNode);
@@ -318,7 +318,7 @@ namespace Com.Adobe.Xmp.Impl
                             if (info.GetAliasForm().IsSimple())
                             {
                                 // The base node does exist and this is a top-to-top alias.
-                                // Check for conflicts if strict aliasing is on. 
+                                // Check for conflicts if strict aliasing is on.
                                 // Remove and delete the alias subtree.
                                 if (strictAliasing)
                                 {

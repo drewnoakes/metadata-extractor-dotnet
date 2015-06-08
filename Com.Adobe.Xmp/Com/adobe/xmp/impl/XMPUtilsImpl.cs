@@ -76,7 +76,7 @@ namespace Com.Adobe.Xmp.Impl
             XMPMetaImpl xmpImpl = (XMPMetaImpl)xmp;
             XMPNode arrayNode = null;
             XMPNode currItem = null;
-            // Return an empty result if the array does not exist, 
+            // Return an empty result if the array does not exist,
             // hurl if it isn't the right form.
             XMPPath arrayPath = XMPPathParser.ExpandXPath(schemaNS, arrayName);
             arrayNode = XMPNodeUtils.FindNode(xmpImpl.GetRoot(), arrayPath, false, null);
@@ -274,7 +274,7 @@ namespace Com.Adobe.Xmp.Impl
                         }
                     }
                 }
-                // Add the separated item to the array. 
+                // Add the separated item to the array.
                 // Keep a matching old value in case it had separators.
                 int foundIndex = -1;
                 for (int oldChild = 1; oldChild <= arrayNode.GetChildrenLength(); oldChild++)
@@ -465,7 +465,7 @@ namespace Com.Adobe.Xmp.Impl
                     dest.GetRoot().AddChild(destSchema);
                     createdSchema = true;
                 }
-                // Process the source schema's children.            
+                // Process the source schema's children.
                 for (Iterator ic = sourceSchema.IterateChildren(); ic.HasNext(); )
                 {
                     XMPNode sourceProp = (XMPNode)ic.Next();
@@ -562,7 +562,7 @@ namespace Com.Adobe.Xmp.Impl
                         if (sourceForm.IsStruct())
                         {
                             // To merge a struct process the fields recursively. E.g. add simple missing fields.
-                            // The recursive call to AppendSubtree will handle deletion for fields with empty 
+                            // The recursive call to AppendSubtree will handle deletion for fields with empty
                             // values.
                             for (Iterator it = sourceNode.IterateChildren(); it.HasNext(); )
                             {
@@ -578,8 +578,8 @@ namespace Com.Adobe.Xmp.Impl
                         {
                             if (sourceForm.IsArrayAltText())
                             {
-                                // Merge AltText arrays by the "xml:lang" qualifiers. Make sure x-default is first. 
-                                // Make a special check for deletion of empty values. Meaningful in AltText arrays 
+                                // Merge AltText arrays by the "xml:lang" qualifiers. Make sure x-default is first.
+                                // Make a special check for deletion of empty values. Meaningful in AltText arrays
                                 // because the "xml:lang" qualifier provides unambiguous source/dest correspondence.
                                 for (Iterator it = sourceNode.IterateChildren(); it.HasNext(); )
                                 {
@@ -604,7 +604,7 @@ namespace Com.Adobe.Xmp.Impl
                                     {
                                         if (destIndex == -1)
                                         {
-                                            // Not replacing, keep the existing item.                        
+                                            // Not replacing, keep the existing item.
                                             if (!XMPConstConstants.XDefault.Equals(sourceItem.GetQualifier(1).GetValue()) || !destNode.HasChildren())
                                             {
                                                 sourceItem.CloneSubtree(destNode);
@@ -623,8 +623,8 @@ namespace Com.Adobe.Xmp.Impl
                             {
                                 if (sourceForm.IsArray())
                                 {
-                                    // Merge other arrays by item values. Don't worry about order or duplicates. Source 
-                                    // items with empty values do not cause deletion, that conflicts horribly with 
+                                    // Merge other arrays by item values. Don't worry about order or duplicates. Source
+                                    // items with empty values do not cause deletion, that conflicts horribly with
                                     // merging.
                                     for (Iterator @is = sourceNode.IterateChildren(); @is.HasNext(); )
                                     {
@@ -865,7 +865,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     // ! U+0022 is both opening and closing.
                     //        Not interpreted as brackets anymore
-                    //        case 0x005B: 
+                    //        case 0x005B:
                     //            return 0x005D;
                     return (char)0x00BB;
                 }

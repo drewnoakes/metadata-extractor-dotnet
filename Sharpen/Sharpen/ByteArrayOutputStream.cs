@@ -24,17 +24,17 @@ namespace Sharpen
         {
             return Extensions.ConvertToByteArray(ToByteArrayInternal());
         }
-        
+
         private  byte[] ToByteArrayInternal()
         {
             return ((MemoryStream)base.Wrapped).ToArray ();
         }
-        
+
         public override void Close ()
         {
             // Closing a ByteArrayOutputStream has no effect.
         }
-        
+
         public override string ToString ()
         {
             return Encoding.UTF8.GetString(ToByteArrayInternal());

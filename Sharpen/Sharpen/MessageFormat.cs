@@ -13,7 +13,7 @@ namespace Sharpen
             bool inPlaceholder = false;
             int argStartPos = 0;
             List<string> placeholderArgs = new List<string> (3);
-            
+
             for (int n=0; n<message.Length; n++) {
                 char c = message[n];
                 if (c == '\'') {
@@ -46,7 +46,7 @@ namespace Sharpen
                 }
                 else if (inPlaceholder)
                     continue;
-                
+
                 sb.Append (c);
             }
             return sb.ToString ();
@@ -56,13 +56,13 @@ namespace Sharpen
         {
             if (placeholderArgs.Count > 3)
                 throw new ArgumentException ("Invalid format pattern: {" + string.Join (",", placeholderArgs.ToArray()) + "}");
-                
+
             int narg;
             if (!int.TryParse (placeholderArgs[0], out narg))
                 throw new ArgumentException ("Invalid argument index: " + placeholderArgs[0]);
             if (narg < 0 || narg >= args.Length)
                 throw new ArgumentException ("Invalid argument index: " + narg);
-            
+
             object arg = args [narg];
 
             // This is so we handle exception messages when we do a message format.
@@ -76,7 +76,7 @@ namespace Sharpen
             }
 
             sb.Append (arg);
-            
+
             // TODO: handle format types and styles
         }
     }

@@ -14,43 +14,43 @@ namespace Sharpen
         int freeThreads;
         bool shutdown;
         Queue<Runnable> pendingTasks = new Queue<Runnable> ();
-        
+
         public ThreadPoolExecutor (int corePoolSize, ThreadFactory factory)
         {
             this.corePoolSize = corePoolSize;
             maxPoolSize = corePoolSize;
             tf = factory;
         }
-        
+
         public void SetMaximumPoolSize (int size)
         {
             maxPoolSize = size;
         }
-        
+
         public bool IsShutdown ()
         {
             return shutdown;
         }
-        
+
         public virtual bool IsTerminated ()
         {
             lock (pendingTasks) {
                 return shutdown && pendingTasks.Count == 0;
             }
         }
-        
+
         public virtual bool IsTerminating ()
         {
             lock (pendingTasks) {
                 return shutdown && !IsTerminated ();
             }
         }
-        
+
         public int GetCorePoolSize ()
         {
             return corePoolSize;
         }
-        
+
         public void PrestartAllCoreThreads ()
         {
             lock (pendingTasks) {
@@ -58,17 +58,17 @@ namespace Sharpen
                     StartPoolThread ();
             }
         }
-        
+
         public void SetThreadFactory (ThreadFactory f)
         {
             tf = f;
         }
-        
+
         public void Execute (Runnable r)
         {
             InternalExecute (r, true);
         }
-        
+
         public void InternalExecute (Runnable r, bool checkShutdown)
         {
             lock (pendingTasks) {
@@ -87,13 +87,13 @@ namespace Sharpen
                 ST.Monitor.PulseAll (pendingTasks);
             }
         }
-        
+
         void StartPoolThread ()
         {
             runningThreads++;
             pool.Add (tf.NewThread (new RunnableAction (RunPoolThread)));
         }
-        
+
         public void RunPoolThread ()
         {
             while (!IsTerminated ()) {
@@ -120,7 +120,7 @@ namespace Sharpen
                 }
             }
         }
-        
+
         public virtual void Shutdown ()
         {
             lock (pendingTasks) {
@@ -128,7 +128,7 @@ namespace Sharpen
                 ST.Monitor.PulseAll (pendingTasks);
             }
         }
-        
+
         public virtual List<Runnable> ShutdownNow ()
         {
             lock (pendingTasks) {
@@ -147,16 +147,16 @@ namespace Sharpen
             }
         }
     }
-    
+
     class RunnableAction: Runnable
     {
         Action action;
-        
+
         public RunnableAction (Action a)
         {
             action = a;
         }
-        
+
         public void Run ()
         {
             action ();

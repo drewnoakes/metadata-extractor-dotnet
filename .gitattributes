@@ -1,0 +1,13 @@
+* text=auto
+
+*.cs text
+*.csproj text
+*.md text
+*.sln text
+
+*.bmp binary
+*.bytes binary
+*.gif binary
+*.jpg binary
+*.png binary
+*.psd binary

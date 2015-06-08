@@ -7,7 +7,7 @@ namespace Sharpen
         protected AbstractSet ()
         {
         }
-        
+
         public override bool Equals (object obj)
         {
             if (obj == this)
@@ -26,7 +26,7 @@ namespace Sharpen
             }
             return false;
         }
-        
+
         public override int GetHashCode ()
         {
             int t = 0;

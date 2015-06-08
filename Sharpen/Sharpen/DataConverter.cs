@@ -9,7 +9,7 @@
 //     MONO_DATACONVERTER_PUBLIC:
 //         Makes the class public instead of the default internal.
 //
-//     MONO_DATACONVERTER_STATIC_METHODS:     
+//     MONO_DATACONVERTER_STATIC_METHODS:
 //         Exposes the public static methods.
 //
 // TODO:
@@ -24,10 +24,10 @@
 // distribute, sublicense, and/or sell copies of the Software, and to
 // permit persons to whom the Software is furnished to do so, subject to
 // the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be
 // included in all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 // EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 // MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -58,7 +58,7 @@ namespace Sharpen {
         static DataConverter CopyConv = new CopyConverter ();
 
         public static readonly bool IsLittleEndian = BitConverter.IsLittleEndian;
-            
+
         public abstract double GetDouble (byte [] data, int index);
         public abstract float  GetFloat  (byte [] data, int index);
         public abstract long   GetInt64  (byte [] data, int index);
@@ -72,7 +72,7 @@ namespace Sharpen {
         public abstract ushort GetUInt16 (byte [] data, int index);
                 [CLSCompliant (false)]
         public abstract ulong  GetUInt64 (byte [] data, int index);
-        
+
         public abstract void PutBytes (byte [] dest, int destIdx, double value);
         public abstract void PutBytes (byte [] dest, int destIdx, float value);
         public abstract void PutBytes (byte [] dest, int destIdx, int value);
@@ -92,28 +92,28 @@ namespace Sharpen {
             PutBytes (ret, 0, value);
             return ret;
         }
-        
+
         public byte[] GetBytes (float value)
         {
             byte [] ret = new byte [4];
             PutBytes (ret, 0, value);
             return ret;
         }
-        
+
         public byte[] GetBytes (int value)
         {
             byte [] ret = new byte [4];
             PutBytes (ret, 0, value);
             return ret;
         }
-        
+
         public byte[] GetBytes (long value)
         {
             byte [] ret = new byte [8];
             PutBytes (ret, 0, value);
             return ret;
         }
-        
+
         public byte[] GetBytes (short value)
         {
             byte [] ret = new byte [2];
@@ -128,7 +128,7 @@ namespace Sharpen {
             PutBytes (ret, 0, value);
             return ret;
         }
-        
+
                 [CLSCompliant (false)]
         public byte[] GetBytes (uint value)
         {
@@ -136,7 +136,7 @@ namespace Sharpen {
             PutBytes (ret, 0, value);
             return ret;
         }
-        
+
                 [CLSCompliant (false)]
         public byte[] GetBytes (ulong value)
         {
@@ -144,7 +144,7 @@ namespace Sharpen {
             PutBytes (ret, 0, value);
             return ret;
         }
-        
+
         static public DataConverter LittleEndian {
             get {
                 return BitConverter.IsLittleEndian ? CopyConv : SwapConv;
@@ -167,7 +167,7 @@ namespace Sharpen {
         {
             return ((current + align - 1) / align) * align;
         }
-            
+
         class PackContext {
             // Buffer
             public byte [] buffer;
@@ -177,7 +177,7 @@ namespace Sharpen {
             public int i; // position in the description
             public DataConverter conv;
             public int repeat;
-            
+
             //
             // if align == -1, auto align to the size of the byte array
             // if align == 0, do not do alignment
@@ -189,7 +189,7 @@ namespace Sharpen {
             {
                 //Console.WriteLine ("Adding {0} bytes to {1} (next={2}", group.Length,
                 // buffer == null ? "null" : buffer.Length.ToString (), next);
-                
+
                 if (buffer == null){
                     buffer = group;
                     next = group.Length;
@@ -219,7 +219,7 @@ namespace Sharpen {
             {
                 if (buffer == null)
                     return new byte [0];
-                
+
                 if (buffer.Length != next){
                     byte [] b = new byte [next];
                     Array.Copy (buffer, b, next);
@@ -284,12 +284,12 @@ namespace Sharpen {
                 else {
                     if (b.repeat != 0)
                         break;
-                    
+
                     oarg = null;
                 }
 
                 int save = b.i;
-                
+
                 if (PackOne (b, oarg)){
                     argn++;
                     if (b.repeat > 0){
@@ -310,7 +310,7 @@ namespace Sharpen {
             PackContext b = new PackContext ();
             b.conv = CopyConv;
             b.description = description;
-            
+
             IEnumerator enumerator = args.GetEnumerator ();
             bool ok = enumerator.MoveNext ();
 
@@ -324,9 +324,9 @@ namespace Sharpen {
                         break;
                     oarg = null;
                 }
-                        
+
                 int save = b.i;
-                
+
                 if (PackOne (b, oarg)){
                     ok = enumerator.MoveNext ();
                     if (b.repeat > 0){
@@ -341,7 +341,7 @@ namespace Sharpen {
             }
             return b.Get ();
         }
-            
+
         //
         // Packs one datum `oarg' into the buffer `b', using the string format
         // in `description' at position `i'
@@ -351,7 +351,7 @@ namespace Sharpen {
         static bool PackOne (PackContext b, object oarg)
         {
             int n;
-            
+
             switch (b.description [b.i]){
             case '^':
                 b.conv = BigEndian;
@@ -366,44 +366,44 @@ namespace Sharpen {
             case '!':
                 b.align = -1;
                 return false;
-                
+
             case 'x':
                 b.Add (new byte [] { 0 });
                 return false;
-                
+
                 // Type Conversions
             case 'i':
                 b.Add (b.conv.GetBytes (Convert.ToInt32 (oarg)));
                 break;
-                
+
             case 'I':
                 b.Add (b.conv.GetBytes (Convert.ToUInt32 (oarg)));
                 break;
-                
+
             case 's':
                 b.Add (b.conv.GetBytes (Convert.ToInt16 (oarg)));
                 break;
-                
+
             case 'S':
                 b.Add (b.conv.GetBytes (Convert.ToUInt16 (oarg)));
                 break;
-                
+
             case 'l':
                 b.Add (b.conv.GetBytes (Convert.ToInt64 (oarg)));
                 break;
-                
+
             case 'L':
                 b.Add (b.conv.GetBytes (Convert.ToUInt64 (oarg)));
                 break;
-                
+
             case 'f':
                 b.Add (b.conv.GetBytes (Convert.ToSingle (oarg)));
                 break;
-                
+
             case 'd':
                 b.Add (b.conv.GetBytes (Convert.ToDouble (oarg)));
                 break;
-                
+
             case 'b':
                 b.Add (new byte [] { Convert.ToByte (oarg) });
                 break;
@@ -425,10 +425,10 @@ namespace Sharpen {
             case '*':
                 b.repeat = Int32.MaxValue;
                 return false;
-                
+
             case '[':
                 int count = -1, j;
-                
+
                 for (j = b.i+1; j < b.description.Length; j++){
                     if (b.description [j] == ']')
                         break;
@@ -445,7 +445,7 @@ namespace Sharpen {
                 b.i = j;
                 b.repeat = count;
                 return false;
-                
+
             case '$': case 'z':
                 bool add_null = b.description [b.i] == 'z';
                 b.i++;
@@ -453,7 +453,7 @@ namespace Sharpen {
                     throw new ArgumentException ("$ description needs a type specified", "description");
                 char d = b.description [b.i];
                 Encoding e;
-                
+
                 switch (d){
                 case '8':
                     e = Encoding.UTF8;
@@ -479,7 +479,7 @@ namespace Sharpen {
                     e = Encoding.GetEncoding (12001);
                     n = 4;
                     break;
-                    
+
                 default:
                     throw new ArgumentException ("Invalid format for $ specifier", "description");
                 }
@@ -508,7 +508,7 @@ namespace Sharpen {
             }
             return true;
         }
-        
+
         static public IList Unpack (string description, byte [] buffer, int startIndex)
         {
             DataConverter conv = CopyConv;
@@ -516,10 +516,10 @@ namespace Sharpen {
             int idx = startIndex;
             bool align = false;
             int repeat = 0, n;
-            
+
             for (int i = 0; i < description.Length && idx < buffer.Length; ){
                 int save = i;
-                
+
                 switch (description [i]){
                 case '^':
                     conv = BigEndian;
@@ -543,58 +543,58 @@ namespace Sharpen {
                     if (Prepare (buffer, ref idx, 4, ref align)){
                         result.Add (conv.GetInt32 (buffer, idx));
                         idx += 4;
-                    } 
+                    }
                     break;
-                
+
                 case 'I':
                     if (Prepare (buffer, ref idx, 4, ref align)){
                         result.Add (conv.GetUInt32 (buffer, idx));
                         idx += 4;
                     }
                     break;
-                
+
                 case 's':
                     if (Prepare (buffer, ref idx, 2, ref align)){
                         result.Add (conv.GetInt16 (buffer, idx));
                         idx += 2;
                     }
                     break;
-                
+
                 case 'S':
                     if (Prepare (buffer, ref idx, 2, ref align)){
                         result.Add (conv.GetUInt16 (buffer, idx));
                         idx += 2;
                     }
                     break;
-                
+
                 case 'l':
                     if (Prepare (buffer, ref idx, 8, ref align)){
                         result.Add (conv.GetInt64 (buffer, idx));
                         idx += 8;
                     }
                     break;
-                
+
                 case 'L':
                     if (Prepare (buffer, ref idx, 8, ref align)){
                         result.Add (conv.GetUInt64 (buffer, idx));
                         idx += 8;
                     }
                     break;
-                
+
                 case 'f':
                     if (Prepare (buffer, ref idx, 4, ref align)){
                         result.Add (conv.GetDouble (buffer, idx));
                         idx += 4;
                     }
                     break;
-                
+
                 case 'd':
                     if (Prepare (buffer, ref idx, 8, ref align)){
                         result.Add (conv.GetDouble (buffer, idx));
                         idx += 8;
                     }
                     break;
-                
+
                 case 'b':
                     if (Prepare (buffer, ref idx, 1, ref align)){
                         result.Add (buffer [idx]);
@@ -605,17 +605,17 @@ namespace Sharpen {
                 case 'c': case 'C':
                     if (Prepare (buffer, ref idx, 1, ref align)){
                         char c;
-                        
+
                         if (description [i] == 'c')
                             c = ((char) ((sbyte)buffer [idx]));
                         else
                             c = ((char) ((byte)buffer [idx]));
-                        
+
                         result.Add (c);
                         idx++;
                     }
                     break;
-                    
+
                     // Repeat acount;
                 case '1': case '2': case '3': case '4': case '5':
                 case '6': case '7': case '8': case '9':
@@ -626,10 +626,10 @@ namespace Sharpen {
                 case '*':
                     repeat = Int32.MaxValue;
                     break;
-                
+
                 case '[':
                     int count = -1, j;
-                
+
                     for (j = i+1; j < description.Length; j++){
                         if (description [j] == ']')
                             break;
@@ -647,7 +647,7 @@ namespace Sharpen {
                     save = i + 1;
                     repeat = count;
                     break;
-                
+
                 case '$': case 'z':
                     // bool with_null = description [i] == 'z';
                     i++;
@@ -661,7 +661,7 @@ namespace Sharpen {
                     }
                     if (idx >= buffer.Length)
                         break;
-                
+
                     switch (d){
                     case '8':
                         e = Encoding.UTF8;
@@ -687,7 +687,7 @@ namespace Sharpen {
                         e = Encoding.GetEncoding (12001);
                         n = 4;
                         break;
-                    
+
                     default:
                         throw new ArgumentException ("Invalid format for $ specifier", "description");
                     }
@@ -702,7 +702,7 @@ namespace Sharpen {
                         else
                             idx = k+1;
                         break;
-                        
+
                     case 2:
                         for (; k < buffer.Length; k++){
                             if (k+1 == buffer.Length){
@@ -718,7 +718,7 @@ namespace Sharpen {
                         else
                             idx = k+2;
                         break;
-                        
+
                     case 4:
                         for (; k < buffer.Length; k++){
                             if (k+3 >= buffer.Length){
@@ -757,7 +757,7 @@ namespace Sharpen {
             if (destIdx < 0 || destIdx > dest.Length - size)
                 throw new ArgumentException ("destIdx");
         }
-        
+
         class CopyConverter : DataConverter {
             public override double GetDouble (byte [] data, int index)
             {
@@ -811,7 +811,7 @@ namespace Sharpen {
 
                 return ret;
             }
-            
+
             public override float GetFloat  (byte [] data, int index)
             {
                 if (data == null)
@@ -829,7 +829,7 @@ namespace Sharpen {
 
                 return ret;
             }
-            
+
             public override int GetInt32  (byte [] data, int index)
             {
                 if (data == null)
@@ -847,7 +847,7 @@ namespace Sharpen {
 
                 return ret;
             }
-            
+
             public override uint GetUInt32 (byte [] data, int index)
             {
                 if (data == null)
@@ -865,7 +865,7 @@ namespace Sharpen {
 
                 return ret;
             }
-            
+
             public override short GetInt16 (byte [] data, int index)
             {
                 if (data == null)
@@ -883,7 +883,7 @@ namespace Sharpen {
 
                 return ret;
             }
-            
+
             public override ushort GetUInt16 (byte [] data, int index)
             {
                 if (data == null)
@@ -901,7 +901,7 @@ namespace Sharpen {
 
                 return ret;
             }
-            
+
             public override void PutBytes (byte [] dest, int destIdx, double value)
             {
                 Check (dest, destIdx, 8);
@@ -911,7 +911,7 @@ namespace Sharpen {
                     *((long *)target) = *source;
                 }
             }
-            
+
             public override void PutBytes (byte [] dest, int destIdx, float value)
             {
                 Check (dest, destIdx, 4);
@@ -921,7 +921,7 @@ namespace Sharpen {
                     *((uint *)target) = *source;
                 }
             }
-            
+
             public override void PutBytes (byte [] dest, int destIdx, int value)
             {
                 Check (dest, destIdx, 4);
@@ -941,7 +941,7 @@ namespace Sharpen {
                     *((uint *)target) = *source;
                 }
             }
-            
+
             public override void PutBytes (byte [] dest, int destIdx, long value)
             {
                 Check (dest, destIdx, 8);
@@ -951,7 +951,7 @@ namespace Sharpen {
                     *((long*)target) = *source;
                 }
             }
-            
+
             public override void PutBytes (byte [] dest, int destIdx, ulong value)
             {
                 Check (dest, destIdx, 8);
@@ -961,7 +961,7 @@ namespace Sharpen {
                     *((ulong *) target) = *source;
                 }
             }
-            
+
             public override void PutBytes (byte [] dest, int destIdx, short value)
             {
                 Check (dest, destIdx, 2);
@@ -971,7 +971,7 @@ namespace Sharpen {
                     *((ushort *)target) = *source;
                 }
             }
-            
+
             public override void PutBytes (byte [] dest, int destIdx, ushort value)
             {
                 Check (dest, destIdx, 2);
@@ -1037,7 +1037,7 @@ namespace Sharpen {
 
                 return ret;
             }
-            
+
             public override float GetFloat  (byte [] data, int index)
             {
                 if (data == null)
@@ -1055,7 +1055,7 @@ namespace Sharpen {
 
                 return ret;
             }
-            
+
             public override int GetInt32  (byte [] data, int index)
             {
                 if (data == null)
@@ -1073,7 +1073,7 @@ namespace Sharpen {
 
                 return ret;
             }
-            
+
             public override uint GetUInt32 (byte [] data, int index)
             {
                 if (data == null)
@@ -1091,7 +1091,7 @@ namespace Sharpen {
 
                 return ret;
             }
-            
+
             public override short GetInt16 (byte [] data, int index)
             {
                 if (data == null)
@@ -1109,7 +1109,7 @@ namespace Sharpen {
 
                 return ret;
             }
-            
+
             public override ushort GetUInt16 (byte [] data, int index)
             {
                 if (data == null)
@@ -1139,7 +1139,7 @@ namespace Sharpen {
                         target [i] = source [7-i];
                 }
             }
-            
+
             public override void PutBytes (byte [] dest, int destIdx, float value)
             {
                 Check (dest, destIdx, 4);
@@ -1151,7 +1151,7 @@ namespace Sharpen {
                         target [i] = source [3-i];
                 }
             }
-            
+
             public override void PutBytes (byte [] dest, int destIdx, int value)
             {
                 Check (dest, destIdx, 4);
@@ -1163,7 +1163,7 @@ namespace Sharpen {
                         target [i] = source [3-i];
                 }
             }
-            
+
             public override void PutBytes (byte [] dest, int destIdx, uint value)
             {
                 Check (dest, destIdx, 4);
@@ -1175,7 +1175,7 @@ namespace Sharpen {
                         target [i] = source [3-i];
                 }
             }
-            
+
             public override void PutBytes (byte [] dest, int destIdx, long value)
             {
                 Check (dest, destIdx, 8);
@@ -1187,7 +1187,7 @@ namespace Sharpen {
                         target [i] = source [7-i];
                 }
             }
-            
+
             public override void PutBytes (byte [] dest, int destIdx, ulong value)
             {
                 Check (dest, destIdx, 8);
@@ -1199,7 +1199,7 @@ namespace Sharpen {
                         target [i] = source [7-i];
                 }
             }
-            
+
             public override void PutBytes (byte [] dest, int destIdx, short value)
             {
                 Check (dest, destIdx, 2);
@@ -1211,7 +1211,7 @@ namespace Sharpen {
                         target [i] = source [1-i];
                 }
             }
-            
+
             public override void PutBytes (byte [] dest, int destIdx, ushort value)
             {
                 Check (dest, destIdx, 2);
@@ -1224,12 +1224,12 @@ namespace Sharpen {
                 }
             }
         }
-        
+
 #if MONO_DATACONVERTER_STATIC_METHODS
         static unsafe void PutBytesLE (byte *dest, byte *src, int count)
         {
             int i = 0;
-            
+
             if (BitConverter.IsLittleEndian){
                 for (; i < count; i++)
                     *dest++ = *src++;
@@ -1243,7 +1243,7 @@ namespace Sharpen {
         static unsafe void PutBytesBE (byte *dest, byte *src, int count)
         {
             int i = 0;
-            
+
             if (BitConverter.IsLittleEndian){
                 dest += count;
                 for (; i < count; i++)
@@ -1257,11 +1257,11 @@ namespace Sharpen {
         static unsafe void PutBytesNative (byte *dest, byte *src, int count)
         {
             int i = 0;
-            
+
             for (; i < count; i++)
                 dest [i-count] = *src++;
         }
-        
+
         static public unsafe double DoubleFromLE (byte[] data, int index)
         {
             if (data == null)
@@ -1270,7 +1270,7 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             double ret;
             fixed (byte *src = &data[index]){
                 PutBytesLE ((byte *) &ret, src, 8);
@@ -1286,7 +1286,7 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             float ret;
             fixed (byte *src = &data[index]){
                 PutBytesLE ((byte *) &ret, src, 4);
@@ -1302,14 +1302,14 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             long ret;
             fixed (byte *src = &data[index]){
                 PutBytesLE ((byte *) &ret, src, 8);
             }
             return ret;
         }
-        
+
         static public unsafe ulong UInt64FromLE (byte [] data, int index)
         {
             if (data == null)
@@ -1318,7 +1318,7 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             ulong ret;
             fixed (byte *src = &data[index]){
                 PutBytesLE ((byte *) &ret, src, 8);
@@ -1334,14 +1334,14 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             int ret;
             fixed (byte *src = &data[index]){
                 PutBytesLE ((byte *) &ret, src, 4);
             }
             return ret;
         }
-        
+
         static public unsafe uint UInt32FromLE (byte [] data, int index)
         {
             if (data == null)
@@ -1350,7 +1350,7 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             uint ret;
             fixed (byte *src = &data[index]){
                 PutBytesLE ((byte *) &ret, src, 4);
@@ -1373,7 +1373,7 @@ namespace Sharpen {
             }
             return ret;
         }
-        
+
         static public unsafe ushort UInt16FromLE (byte [] data, int index)
         {
             if (data == null)
@@ -1382,7 +1382,7 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             ushort ret;
             fixed (byte *src = &data[index]){
                 PutBytesLE ((byte *) &ret, src, 2);
@@ -1398,7 +1398,7 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             double ret;
             fixed (byte *src = &data[index]){
                 PutBytesBE ((byte *) &ret, src, 8);
@@ -1414,7 +1414,7 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             float ret;
             fixed (byte *src = &data[index]){
                 PutBytesBE ((byte *) &ret, src, 4);
@@ -1430,14 +1430,14 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             long ret;
             fixed (byte *src = &data[index]){
                 PutBytesBE ((byte *) &ret, src, 8);
             }
             return ret;
         }
-        
+
         static public unsafe ulong UInt64FromBE (byte [] data, int index)
         {
             if (data == null)
@@ -1446,7 +1446,7 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             ulong ret;
             fixed (byte *src = &data[index]){
                 PutBytesBE ((byte *) &ret, src, 8);
@@ -1462,14 +1462,14 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             int ret;
             fixed (byte *src = &data[index]){
                 PutBytesBE ((byte *) &ret, src, 4);
             }
             return ret;
         }
-        
+
         static public unsafe uint UInt32FromBE (byte [] data, int index)
         {
             if (data == null)
@@ -1478,7 +1478,7 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             uint ret;
             fixed (byte *src = &data[index]){
                 PutBytesBE ((byte *) &ret, src, 4);
@@ -1501,7 +1501,7 @@ namespace Sharpen {
             }
             return ret;
         }
-        
+
         static public unsafe ushort UInt16FromBE (byte [] data, int index)
         {
             if (data == null)
@@ -1510,7 +1510,7 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             ushort ret;
             fixed (byte *src = &data[index]){
                 PutBytesBE ((byte *) &ret, src, 2);
@@ -1526,7 +1526,7 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             double ret;
             fixed (byte *src = &data[index]){
                 PutBytesNative ((byte *) &ret, src, 8);
@@ -1542,7 +1542,7 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             float ret;
             fixed (byte *src = &data[index]){
                 PutBytesNative ((byte *) &ret, src, 4);
@@ -1558,14 +1558,14 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             long ret;
             fixed (byte *src = &data[index]){
                 PutBytesNative ((byte *) &ret, src, 8);
             }
             return ret;
         }
-        
+
         static public unsafe ulong UInt64FromNative (byte [] data, int index)
         {
             if (data == null)
@@ -1574,7 +1574,7 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             ulong ret;
             fixed (byte *src = &data[index]){
                 PutBytesNative ((byte *) &ret, src, 8);
@@ -1590,14 +1590,14 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             int ret;
             fixed (byte *src = &data[index]){
                 PutBytesNative ((byte *) &ret, src, 4);
             }
             return ret;
         }
-        
+
         static public unsafe uint UInt32FromNative (byte [] data, int index)
         {
             if (data == null)
@@ -1606,7 +1606,7 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             uint ret;
             fixed (byte *src = &data[index]){
                 PutBytesNative ((byte *) &ret, src, 4);
@@ -1629,7 +1629,7 @@ namespace Sharpen {
             }
             return ret;
         }
-        
+
         static public unsafe ushort UInt16FromNative (byte [] data, int index)
         {
             if (data == null)
@@ -1638,7 +1638,7 @@ namespace Sharpen {
                 throw new ArgumentException ("index");
             if (index < 0)
                 throw new ArgumentException ("index");
-            
+
             ushort ret;
             fixed (byte *src = &data[index]){
                 PutBytesNative ((byte *) &ret, src, 2);
@@ -1673,7 +1673,7 @@ namespace Sharpen {
             }
                         return ret;
                 }
-        
+
                 unsafe public static byte[] GetBytesNative (bool value)
                 {
                         return GetBytesPtr ((byte *) &value, 1);
@@ -1779,7 +1779,7 @@ namespace Sharpen {
                 {
             return GetBytesSwap (!BitConverter.IsLittleEndian, (byte *) &value, 8);
                 }
-        
+
                 unsafe public static byte[] GetBytesBE (bool value)
                 {
                         return GetBytesSwap (BitConverter.IsLittleEndian, (byte *) &value, 1);
@@ -1833,6 +1833,6 @@ namespace Sharpen {
             return GetBytesSwap (BitConverter.IsLittleEndian, (byte *) &value, 8);
                 }
 #endif
-        
+
     }
 }

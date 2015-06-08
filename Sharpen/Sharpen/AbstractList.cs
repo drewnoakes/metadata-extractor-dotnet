@@ -31,7 +31,7 @@ namespace Sharpen
         }
 
         public abstract T Get (int index);
-        
+
         public override Iterator<T> Iterator ()
         {
             return new SimpleIterator (this);
@@ -80,7 +80,7 @@ namespace Sharpen
         }
 
         public abstract T Set(int index, T element);
-        
+
         public override bool Equals (object obj)
         {
             if (obj == this)
@@ -96,7 +96,7 @@ namespace Sharpen
             }
             return true;
         }
-        
+
         public override int GetHashCode ()
         {
             int h = 0;

@@ -19,13 +19,13 @@ namespace Sharpen
             table.Clear ();
             list.Clear ();
         }
-        
+
         public override int Count {
             get {
                 return list.Count;
             }
         }
-        
+
         public override bool ContainsKey (object name)
         {
             return table.ContainsKey ((T)name);

@@ -253,7 +253,7 @@ namespace Com.Adobe.Xmp.Impl
                                 }
                                 else
                                 {
-                                    // in fact BE 
+                                    // in fact BE
                                     if (length < 4 || buffer[2] != 0)
                                     {
                                         encoding = "UTF-16";

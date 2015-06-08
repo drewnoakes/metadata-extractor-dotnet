@@ -9,7 +9,7 @@ namespace Sharpen
         {
             return new StringCharSequence (str);
         }
-        
+
         public static implicit operator CharSequence (StringBuilder str)
         {
             return new StringCharSequence (str.ToString ());
@@ -25,16 +25,16 @@ namespace Sharpen
             get { throw new NotImplementedException(); }
         }
     }
-    
+
     class StringCharSequence: CharSequence
     {
         string str;
-        
+
         public StringCharSequence (string str)
         {
             this.str = str;
         }
-        
+
         public override string ToString ()
         {
             return str;

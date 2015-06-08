@@ -20,7 +20,7 @@ function GetFiles($path = $pwd, [string[]]$exclude, [Array] $files)
     }
 
     return $files
-} 
+}
 
 function ExtractStrings([Array] $files)
 {

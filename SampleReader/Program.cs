@@ -47,9 +47,8 @@ namespace SampleReader
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.ReadKey();
             return exit_code;
-           
-
         }
+
         /// <summary>
         /// Parses the metadata, writing error information to the console if it failes.
         /// </summary>
@@ -87,7 +86,7 @@ namespace SampleReader
         }
 
         static bool PrintMetadata(Metadata metadata){
-            
+
             foreach (Directory dir in metadata.GetDirectories())
             {
                 if (dir.HasErrors())
@@ -98,12 +97,12 @@ namespace SampleReader
                         Console.Error.WriteLine("\t[{0}] {1}", dir.GetName(), error);
                     }
                 }
-              
+
                 foreach (Tag tag in dir.GetTags())
                 {
                     string tagName = tag.GetTagName();
                     string directoryName = dir.GetName();
-                    string description = tag.GetDescription(); 
+                    string description = tag.GetDescription();
                     // truncate the description if it's too long
                     if (description != null && description.Length > 1024)
                     {
@@ -114,7 +113,7 @@ namespace SampleReader
                 }
 
             }
-            
+
             return metadata.GetDirectories().Any(d => d.HasErrors()); //True if there are any metadata errors;
         }
 

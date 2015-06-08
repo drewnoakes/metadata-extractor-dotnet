@@ -84,9 +84,9 @@ namespace Sharpen
                 throw new UnknownHostException (ex);
             }
         }
-        
+
         static Hashtable properties;
-        
+
         public static Hashtable GetProperties ()
         {
             if (properties == null) {
@@ -110,7 +110,7 @@ namespace Sharpen
         {
             return ((string) GetProperties()[key]);
         }
-        
+
         public static void SetProperty (string key, string value)
         {
             GetProperties () [key] = value;
@@ -143,12 +143,12 @@ namespace Sharpen
                 this.Runnable.Run ();
             }
         }
-        
+
         public static void DeleteCharAt (StringBuilder sb, int index)
         {
             sb.Remove (index, 1);
         }
-        
+
         public static sbyte[] GetBytesForString (string str)
         {
             return Extensions.ConvertToByteArray(Encoding.UTF8.GetBytes (str));
@@ -198,7 +198,7 @@ namespace Sharpen
         {
             return Monitor.Wait (ob, (int)milis);
         }
-        
+
         public static Type GetType (string name)
         {
             foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies ()) {
@@ -208,22 +208,22 @@ namespace Sharpen
             }
             throw new InvalidOperationException ("Type not found: " + name);
         }
-        
+
         public static void SetCharAt (StringBuilder sb, int index, char c)
         {
             sb [index] = c;
         }
-        
+
         public static bool EqualsIgnoreCase (string s1, string s2)
         {
             return s1.Equals (s2, StringComparison.CurrentCultureIgnoreCase);
         }
-        
+
         public static long NanoTime ()
         {
             return Environment.TickCount * 1000 * 1000;
         }
-        
+
         public static int CompareOrdinal (string s1, string s2)
         {
             return string.CompareOrdinal (s1, s2);
@@ -263,7 +263,7 @@ namespace Sharpen
         {
             return GetEncoding (encoding).Decode (chars, start, len);
         }
-        
+
         public static Encoding GetEncoding (string name)
         {
             try
@@ -306,7 +306,7 @@ namespace Sharpen
                 {
                     return ((ICollection)array).Cast<T>().ElementAt(index);
                 }
-                
+
                 if (array is IEnumerable)
                 {
                     return ((IEnumerable)array).Cast<T>().ElementAt(index);
@@ -315,7 +315,7 @@ namespace Sharpen
 
             throw new NotSupportedException();
         }
-        
+
         public static object GetArrayValue(object array, int index)
         {
             return GetArrayValue<object>(array, index);

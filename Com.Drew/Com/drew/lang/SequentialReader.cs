@@ -185,7 +185,7 @@ namespace Com.Drew.Lang
             else
             {
                 // Intel ordering - LSB first
-                return ((long)GetByte() & unchecked((long)(0xFFL))) | ((long)GetByte() << 8 & unchecked((long)(0xFF00L))) | ((long)GetByte() << 16 & unchecked((long)(0xFF0000L))) | ((long)GetByte() << 24 & unchecked((long)(0xFF000000L))) | ((long)GetByte() 
+                return ((long)GetByte() & unchecked((long)(0xFFL))) | ((long)GetByte() << 8 & unchecked((long)(0xFF00L))) | ((long)GetByte() << 16 & unchecked((long)(0xFF0000L))) | ((long)GetByte() << 24 & unchecked((long)(0xFF000000L))) | ((long)GetByte()
                     << 32 & unchecked((long)(0xFF00000000L))) | ((long)GetByte() << 40 & unchecked((long)(0xFF0000000000L))) | ((long)GetByte() << 48 & unchecked((long)(0xFF000000000000L))) | ((long)GetByte() << 56 & unchecked((long)(0xFF00000000000000L)));
             }
         }

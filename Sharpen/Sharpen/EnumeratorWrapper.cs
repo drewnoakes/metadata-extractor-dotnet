@@ -66,7 +66,7 @@ namespace Sharpen
             return keys.Iterator();
         }
     }
-    
+
     public class EnumeratorWrapper : Iterator
     {
         object collection;
@@ -128,7 +128,7 @@ namespace Sharpen
                 ((IDictionary)col).Remove(lastVal);
                 return;
             }
-            
+
             if (col is IList)
             {
                 ((IList)col).Remove(lastVal);

@@ -36,7 +36,7 @@ namespace Sharpen
             m_culture = CultureInfo.CurrentCulture;
         }
 
-        public GregorianCalendar(int year, int month, int dayOfMonth, int hourOfDay, int minute, int second) 
+        public GregorianCalendar(int year, int month, int dayOfMonth, int hourOfDay, int minute, int second)
             : base(year, month, dayOfMonth, hourOfDay, minute, second)
         {
         }

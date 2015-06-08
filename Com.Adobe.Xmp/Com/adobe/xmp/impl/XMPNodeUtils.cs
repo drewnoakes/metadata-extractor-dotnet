@@ -171,7 +171,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 throw new XMPException("Empty XMPPath", XMPErrorConstants.Badxpath);
             }
-            // Root of implicitly created subtree to possible delete it later. 
+            // Root of implicitly created subtree to possible delete it later.
             // Valid only if leaf is new.
             XMPNode rootImplicitNode = null;
             XMPNode currNode = null;
@@ -212,7 +212,7 @@ namespace Com.Adobe.Xmp.Impl
                         {
                             // clear the implicit node flag
                             currNode.SetImplicit(false);
-                            // if node is an ALIAS (can be only in root step, auto-create array 
+                            // if node is an ALIAS (can be only in root step, auto-create array
                             // when the path has been resolved from a not simple alias type
                             if (i == 1 && xpath.GetSegment(i).IsAlias() && xpath.GetSegment(i).GetAliasForm() != 0)
                             {

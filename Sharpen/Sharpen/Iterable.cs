@@ -15,7 +15,7 @@ namespace Sharpen
         }
 
         public abstract Iterator<T> Iterator ();
-        
+
         IEnumerator IEnumerable.GetEnumerator ()
         {
             return this.Iterator ();

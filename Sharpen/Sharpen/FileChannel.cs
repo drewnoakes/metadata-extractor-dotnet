@@ -14,7 +14,7 @@ namespace Sharpen
             this.s = s;
             isOpen = true;
         }
-        
+
         public FileStream Stream {
             get { return s; }
         }
@@ -24,7 +24,7 @@ namespace Sharpen
             isOpen = false;
             s.Close ();
         }
-        
+
         public bool IsOpen ()
         {
             return isOpen;
@@ -87,7 +87,7 @@ namespace Sharpen
             buffer.Position (buffer.Position () + count);
             return count;
         }
-        
+
         public long TransferFrom (FileChannel src, long pos, long count)
         {
             if (buffer == null)

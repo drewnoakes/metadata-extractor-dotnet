@@ -18,7 +18,7 @@ namespace Sharpen
         CultureInfo Culture {
             get; set;
         }
-        
+
         public SimpleDateFormat (): this ("g")
         {
         }
@@ -58,7 +58,7 @@ namespace Sharpen
             date += GetTimeZone().BaseUtcOffset;
             return date.ToString (format);
         }
-        
+
         public string Format (long date)
         {
             return Extensions.MillisToDateTimeOffset (date, (int)GetTimeZone ().BaseUtcOffset.TotalMinutes).DateTime.ToString (format);
@@ -114,31 +114,31 @@ namespace Sharpen
                     pattern += string.Format("(?<{0}>\\d{{4}})", FIELD_YEAR);
                     continue;
                 }
-                
+
                 if (formatPart.Equals("MM"))
                 {
                     pattern += string.Format("(?<{0}>\\d{{2}})", FIELD_MONTH);
                     continue;
                 }
-                
+
                 if (formatPart.Equals("dd"))
                 {
                     pattern += string.Format("(?<{0}>\\d{{2}})", FIELD_DAY);
                     continue;
                 }
-                
+
                 if (formatPart.Equals("HH"))
                 {
                     pattern += string.Format("(?<{0}>\\d{{2}})", FIELD_HOUR);
                     continue;
                 }
-                
+
                 if (formatPart.Equals("mm"))
                 {
                     pattern += string.Format("(?<{0}>\\d{{2}})", FIELD_MINUTE);
                     continue;
                 }
-                
+
                 if (formatPart.Equals("ss"))
                 {
                     pattern += string.Format("(?<{0}>\\d{{2}})", FIELD_SECOND);
@@ -168,7 +168,7 @@ namespace Sharpen
             {
                 result.Set(CalendarEnum.Year, 1);
             }
-            
+
             if (data.Groups[FIELD_MONTH].Success)
             {
                 result.Set(CalendarEnum.MonthOneBased, int.Parse(data.Groups[FIELD_MONTH].Value));
@@ -177,7 +177,7 @@ namespace Sharpen
             {
                 result.Set(CalendarEnum.MonthOneBased, 1);
             }
-            
+
             if (data.Groups[FIELD_DAY].Success)
             {
                 result.Set(CalendarEnum.DayOfMonth, int.Parse(data.Groups[FIELD_DAY].Value));
@@ -186,7 +186,7 @@ namespace Sharpen
             {
                 result.Set(CalendarEnum.DayOfMonth, 0);
             }
-            
+
             if (data.Groups[FIELD_HOUR].Success)
             {
                 result.Set(CalendarEnum.HourOfDay, int.Parse(data.Groups[FIELD_HOUR].Value));
@@ -195,7 +195,7 @@ namespace Sharpen
             {
                 result.Set(CalendarEnum.HourOfDay, 0);
             }
-            
+
             if (data.Groups[FIELD_MINUTE].Success)
             {
                 result.Set(CalendarEnum.Minute, int.Parse(data.Groups[FIELD_MINUTE].Value));
@@ -204,7 +204,7 @@ namespace Sharpen
             {
                 result.Set(CalendarEnum.Minute, 0);
             }
-            
+
             if (data.Groups[FIELD_SECOND].Success)
             {
                 result.Set(CalendarEnum.Second, int.Parse(data.Groups[FIELD_SECOND].Value));

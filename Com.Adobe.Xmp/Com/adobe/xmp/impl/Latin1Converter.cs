@@ -57,7 +57,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             if ("UTF-8".Equals(buffer.GetEncoding()))
             {
-                // the buffer containing one UTF-8 char (up to 8 bytes) 
+                // the buffer containing one UTF-8 char (up to 8 bytes)
                 sbyte[] readAheadBuffer = new sbyte[8];
                 // the number of bytes read ahead.
                 int readAhead = 0;
@@ -119,8 +119,8 @@ namespace Com.Adobe.Xmp.Impl
                             }
                             else
                             {
-                                // invalid UTF8 char: 
-                                // 1. convert first of seq to UTF8 
+                                // invalid UTF8 char:
+                                // 1. convert first of seq to UTF8
                                 sbyte[] utf8 = ConvertToUTF8(readAheadBuffer[0]);
                                 @out.Append(utf8);
                                 // 2. continue processing at second byte of sequence
@@ -174,7 +174,7 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         return new sbyte[] { unchecked((int)(0x20)) };
                     }
-                    // space for undefined 
+                    // space for undefined
                     // interpret byte as Windows Cp1252 char
                     return Runtime.GetBytesForString(Runtime.GetStringForBytes(new sbyte[] { ch }, "cp1252"), "UTF-8");
                 }

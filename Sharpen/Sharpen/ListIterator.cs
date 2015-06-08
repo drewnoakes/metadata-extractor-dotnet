@@ -51,7 +51,7 @@ namespace Sharpen
             list[pos] = val;
         }
     }
-    
+
     public class ListIterator<T>
     {
         private IList<T> list;
@@ -62,7 +62,7 @@ namespace Sharpen
             this.list = list;
             this.pos = n;
         }
-        
+
         public ListIterator (IList<T> list) : this(list, -1)
         {
         }

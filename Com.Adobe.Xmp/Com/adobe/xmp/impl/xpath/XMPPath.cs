@@ -45,7 +45,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         private IList segments = new ArrayList(5);
 
         // Bits for XPathStepInfo options.
-        // 
+        //
         /// <summary>Append a path segment</summary>
         /// <param name="segment">the segment to add</param>
         public virtual void Add(XMPPathSegment segment)

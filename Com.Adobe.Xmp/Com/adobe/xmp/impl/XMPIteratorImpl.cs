@@ -298,7 +298,7 @@ namespace Com.Adobe.Xmp.Impl
                     this.subIterator = Collections.EmptyList().Iterator();
                 }
                 // create sub iterator for every child,
-                // if its the first child visited or the former child is finished 
+                // if its the first child visited or the former child is finished
                 if ((!this.subIterator.HasNext()) && iterator.HasNext())
                 {
                     XMPNode child = (XMPNode)iterator.Next();

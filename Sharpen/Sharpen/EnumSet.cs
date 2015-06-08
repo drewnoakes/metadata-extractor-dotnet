@@ -10,12 +10,12 @@ namespace Sharpen
             @set.AddItem (e);
             return @set;
         }
-        
+
         public static EnumSet<U> Of<U> (params U[] es)
         {
             return CopyOf (es);
         }
-        
+
         public static EnumSet<T> CopyOf<T> (ICollection<T> c)
         {
             EnumSet<T> @set = new EnumSet<T> ();
@@ -45,7 +45,7 @@ namespace Sharpen
         {
             this.hset.Clear ();
         }
-        
+
         public virtual EnumSet<T> Clone ()
         {
             EnumSet<T> @set = new EnumSet<T> ();

@@ -30,7 +30,7 @@ namespace Com.Adobe.Xmp.Options
         /// <summary>Omit all qualifiers.</summary>
         public const int OmitQualifiers = unchecked((int)(0x1000));
 
-        //    /** Include aliases, default is just actual properties. <em>Note:</em> Not supported. 
+        //    /** Include aliases, default is just actual properties. <em>Note:</em> Not supported.
         //     *  @deprecated it is commonly preferred to work with the base properties */
         //    public static final int INCLUDE_ALIASES = 0x0800;
         /// <returns>Returns whether the option is set.</returns>

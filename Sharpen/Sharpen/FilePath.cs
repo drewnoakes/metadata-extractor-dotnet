@@ -40,7 +40,7 @@ namespace Sharpen
                 this.path = Path.Combine (other, child);
             }
         }
-        
+
         public static implicit operator FilePath (string name)
         {
             return new FilePath (name);
@@ -50,7 +50,7 @@ namespace Sharpen
         {
             return filePath == null ? null : filePath.path;
         }
-        
+
         public override bool Equals (object obj)
         {
             FilePath other = obj as FilePath;
@@ -58,7 +58,7 @@ namespace Sharpen
                 return false;
             return GetCanonicalPath () == other.GetCanonicalPath ();
         }
-        
+
         public override int GetHashCode ()
         {
             return path.GetHashCode ();
@@ -107,7 +107,7 @@ namespace Sharpen
             do {
                 file = Path.Combine (str, prefix + Interlocked.Increment (ref tempCounter) + suffix);
             } while (File.Exists (file));
-            
+
             new FileOutputStream (file).Close ();
             return new FilePath (file);
         }
@@ -284,24 +284,24 @@ namespace Sharpen
         {
             return FileHelper.Instance.SetReadOnly (this);
         }
-        
+
         public Uri ToURI ()
         {
             return new Uri (path);
         }
-        
+
         // Don't change the case of this method, since ngit does reflection on it
         public bool canExecute ()
         {
             return FileHelper.Instance.CanExecute (this);
         }
-        
+
         // Don't change the case of this method, since ngit does reflection on it
         public bool setExecutable (bool exec)
         {
             return FileHelper.Instance.SetExecutable (this, exec);
         }
-        
+
         public string GetParent ()
         {
             string p = Path.GetDirectoryName (path);
@@ -315,7 +315,7 @@ namespace Sharpen
         {
             return path;
         }
-        
+
         static public string pathSeparator {
             get { return Path.PathSeparator.ToString (); }
         }

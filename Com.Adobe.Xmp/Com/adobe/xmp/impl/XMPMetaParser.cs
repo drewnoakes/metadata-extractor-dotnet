@@ -285,7 +285,7 @@ namespace Com.Adobe.Xmp.Impl
         private static object[] FindRootNode(XmlNode root, bool xmpmetaRequired, object[] result)
         {
             // Look among this parent's content for x:xapmeta or x:xmpmeta.
-            // The recursion for x:xmpmeta is broader than the strictly defined choice, 
+            // The recursion for x:xmpmeta is broader than the strictly defined choice,
             // but gives us smaller code.
             XmlNodeList children = root.ChildNodes;
             for (int i = 0; i < children.Count; i++)

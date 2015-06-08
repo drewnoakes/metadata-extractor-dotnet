@@ -20,7 +20,7 @@ namespace Sharpen
         {
             return array[n];
         }
-        
+
         public int Length ()
         {
             return array.Length;

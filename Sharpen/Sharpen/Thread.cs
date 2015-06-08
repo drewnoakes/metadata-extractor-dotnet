@@ -11,7 +11,7 @@ namespace Sharpen
         private Runnable runnable;
         private ThreadGroup tgroup;
         private System.Threading.Thread thread;
-        
+
         [ThreadStatic]
         private static Thread wrapperThread;
 
@@ -30,11 +30,11 @@ namespace Sharpen
         public Thread (Runnable runnable): this (runnable, null, null)
         {
         }
-        
+
         Thread (Runnable runnable, ThreadGroup grp, string name)
         {
             thread = new System.Threading.Thread (new ThreadStart (InternalRun));
-            
+
             this.runnable = runnable ?? this;
             tgroup = grp ?? defaultGroup;
             tgroup.Add (this);
@@ -78,7 +78,7 @@ namespace Sharpen
                 tgroup.Remove (this);
             }
         }
-        
+
         public static void Yield ()
         {
         }
@@ -142,22 +142,22 @@ namespace Sharpen
         {
             thread.Start ();
         }
-        
+
         public void Abort ()
         {
             thread.Abort ();
         }
-        
+
     }
 
     public class ThreadGroup
     {
         private List<Thread> threads = new List<Thread> ();
-        
+
         public ThreadGroup()
         {
         }
-        
+
         public ThreadGroup (string name)
         {
         }
@@ -168,7 +168,7 @@ namespace Sharpen
                 threads.Add (t);
             }
         }
-        
+
         public void Remove (Thread t)
         {
             lock (threads) {

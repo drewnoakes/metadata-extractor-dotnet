@@ -16,7 +16,7 @@ namespace Sharpen
         {
             return s.GetWrappedStream ();
         }
-        
+
         public virtual void Close ()
         {
             if (this.Wrapped != null) {

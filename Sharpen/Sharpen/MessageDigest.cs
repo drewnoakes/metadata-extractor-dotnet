@@ -9,7 +9,7 @@ namespace Sharpen
         protected MessageDigest ()
         {
         }
-        
+
         public void Digest (byte[] buffer, int o, int len)
         {
             byte[] d = Digest ();

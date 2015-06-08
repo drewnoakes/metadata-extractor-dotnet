@@ -6,22 +6,22 @@ namespace Sharpen
     public class SystemProcess
     {
         Process proc;
-        
+
         public SystemProcess ()
         {
         }
-        
+
         public SystemProcess (Process proc)
         {
             this.proc = proc;
         }
-        
+
         public static SystemProcess Start (ProcessStartInfo psi)
         {
             var p = Process.Start (psi);
             return new SystemProcess (p);
         }
-        
+
         public virtual InputStream GetInputStream()
         {
             return InputStream.Wrap (proc.StandardOutput.BaseStream);
@@ -41,7 +41,7 @@ namespace Sharpen
         {
             return proc.ExitCode;
         }
-        
+
         public virtual void Destroy()
         {
             if (!proc.HasExited) {

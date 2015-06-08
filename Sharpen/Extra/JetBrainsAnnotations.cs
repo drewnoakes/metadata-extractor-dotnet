@@ -1,5 +1,5 @@
 ﻿/*
- * Modified by Yakov Danilov <yakodani@gmail.com> for Imazen LLC (Ported from Java to C#) 
+ * Modified by Yakov Danilov <yakodani@gmail.com> for Imazen LLC (Ported from Java to C#)
  * Copyright 2007-2012 JetBrains s.r.o.
  *
  *    Modified by Yakov Danilov <yakodani@gmail.com> for Imazen LLC (Ported from Java to C#)
@@ -85,7 +85,7 @@ namespace JetBrains.Annotations
 
     /// <summary>
     /// Indicates that the marked method builds string by format
-    ///  pattern and (optional) arguments. 
+    ///  pattern and (optional) arguments.
     /// Parameter, which contains format string, should be given in constructor.
     /// The format string should be in <see cref="string.Format(IFormatProvider,string,object[])"/> -like form
     /// </summary>
@@ -197,7 +197,7 @@ namespace JetBrains.Annotations
     }
 
     /// <summary>
-    /// Indicates that the value of the marked element could be <c>null</c> sometimes, 
+    /// Indicates that the value of the marked element could be <c>null</c> sometimes,
     /// so the check for <c>null</c> is necessary before its usage.
     /// </summary>
     /// <example>
@@ -207,11 +207,11 @@ namespace JetBrains.Annotations
     /// {
     ///   return null;
     /// }
-    /// 
+    ///
     /// public void UseTest()
     /// {
-    ///   var p = Test(); 
-    ///   var s = p.ToString(); // Warning: Possible 'System.NullReferenceException' 
+    ///   var p = Test();
+    ///   var s = p.ToString(); // Warning: Possible 'System.NullReferenceException'
     /// }
     /// </code>
     /// </example>
@@ -227,7 +227,7 @@ namespace JetBrains.Annotations
     /// public object Foo()
     /// {
     ///   return null; // Warning: Possible 'null' assignment
-    /// } 
+    /// }
     /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Delegate | AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
@@ -267,7 +267,7 @@ namespace JetBrains.Annotations
     /// <item><code>
     /// // A method that returns null if the parameter is null, and not null if the parameter is not null
     /// [ContractAnnotation("null => null; notnull => notnull")]
-    /// public object Transform(object data) 
+    /// public object Transform(object data)
     /// </code></item>
     /// <item><code>
     /// [ContractAnnotation("s:null=>false; =>true,result:notnull; =>false, result:null")]
@@ -304,14 +304,14 @@ namespace JetBrains.Annotations
     /// class NoEquality
     /// {
     /// }
-    /// 
+    ///
     /// class UsesNoEquality
     /// {
     ///   public void Test()
     ///   {
     ///     var ca1 = new NoEquality();
     ///     var ca2 = new NoEquality();
-    /// 
+    ///
     ///     if (ca1 != null) // OK
     ///     {
     ///       bool condition = ca1 == ca2; // Warning
@@ -324,15 +324,15 @@ namespace JetBrains.Annotations
     public sealed class CannotApplyEqualityOperatorAttribute : Attribute { }
 
     /// <summary>
-    /// When applied to a target attribute, specifies a requirement for any type marked with 
+    /// When applied to a target attribute, specifies a requirement for any type marked with
     /// the target attribute to implement or inherit specific type or types.
     /// </summary>
     /// <example>
     /// <code>
     /// [BaseTypeRequired(typeof(IComponent)] // Specify requirement
-    /// public class ComponentAttribute : Attribute 
+    /// public class ComponentAttribute : Attribute
     /// {}
-    /// 
+    ///
     /// [Component] // ComponentAttribute requires implementing IComponent interface
     /// public class MyComponent : IComponent
     /// {}
@@ -490,7 +490,7 @@ namespace JetBrains.Annotations
     }
 
     /// <summary>
-    /// Tells code analysis engine if the parameter is completely handled when the invoked method is on stack. 
+    /// Tells code analysis engine if the parameter is completely handled when the invoked method is on stack.
     /// If the parameter is a delegate, indicates that delegate is executed while the method is executed.
     /// If the parameter is an enumerable, indicates that it is enumerated while the method is executed.
     /// </summary>
@@ -544,7 +544,7 @@ namespace JetBrains.Annotations
     /// <summary>
     /// ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter is an MVC action.
     /// If applied to a method, the MVC action name is calculated implicitly from the context.
-    /// Use this attribute for custom wrappers similar to 
+    /// Use this attribute for custom wrappers similar to
     /// <see cref="System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String)"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
@@ -563,7 +563,7 @@ namespace JetBrains.Annotations
 
     /// <summary>
     /// ASP.NET MVC attribute. Indicates that a parameter is an MVC araa.
-    /// Use this attribute for custom wrappers similar to 
+    /// Use this attribute for custom wrappers similar to
     /// <see cref="System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String)"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
@@ -584,8 +584,8 @@ namespace JetBrains.Annotations
     /// <summary>
     /// ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter is an MVC controller.
     /// If applied to a method, the MVC controller name is calculated implicitly from the context.
-    /// Use this attribute for custom wrappers similar to 
-    /// <see cref="System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String, String)"/> 
+    /// Use this attribute for custom wrappers similar to
+    /// <see cref="System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String, String)"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
     public sealed class AspMvcControllerAttribute : Attribute
@@ -603,7 +603,7 @@ namespace JetBrains.Annotations
 
     /// <summary>
     /// ASP.NET MVC attribute. Indicates that a parameter is an MVC Master.
-    /// Use this attribute for custom wrappers similar to 
+    /// Use this attribute for custom wrappers similar to
     /// <see cref="System.Web.Mvc.Controller.View(String, String)"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
@@ -611,7 +611,7 @@ namespace JetBrains.Annotations
 
     /// <summary>
     /// ASP.NET MVC attribute. Indicates that a parameter is an MVC model type.
-    /// Use this attribute for custom wrappers similar to 
+    /// Use this attribute for custom wrappers similar to
     /// <see cref="System.Web.Mvc.Controller.View(String, Object)"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
@@ -620,7 +620,7 @@ namespace JetBrains.Annotations
     /// <summary>
     /// ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter is an MVC partial view.
     /// If applied to a method, the MVC partial view name is calculated implicitly from the context.
-    /// Use this attribute for custom wrappers similar to 
+    /// Use this attribute for custom wrappers similar to
     /// <see cref="System.Web.Mvc.Html.RenderPartialExtensions.RenderPartial(HtmlHelper, String)"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
@@ -634,7 +634,7 @@ namespace JetBrains.Annotations
 
     /// <summary>
     /// ASP.NET MVC attribute. Indicates that a parameter is an MVC display template.
-    /// Use this attribute for custom wrappers similar to 
+    /// Use this attribute for custom wrappers similar to
     /// <see cref="System.Web.Mvc.Html.DisplayExtensions.DisplayForModel(HtmlHelper, String)"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
@@ -642,7 +642,7 @@ namespace JetBrains.Annotations
 
     /// <summary>
     /// ASP.NET MVC attribute. Indicates that a parameter is an MVC editor template.
-    /// Use this attribute for custom wrappers similar to 
+    /// Use this attribute for custom wrappers similar to
     /// <see cref="System.Web.Mvc.Html.EditorExtensions.EditorForModel(HtmlHelper, String)"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
@@ -651,7 +651,7 @@ namespace JetBrains.Annotations
     /// <summary>
     /// ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter is an MVC view.
     /// If applied to a method, the MVC view name is calculated implicitly from the context.
-    /// Use this attribute for custom wrappers similar to 
+    /// Use this attribute for custom wrappers similar to
     /// <see cref="System.Web.Mvc.Controller.View(Object)"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
@@ -678,7 +678,7 @@ namespace JetBrains.Annotations
 
     /// <summary>
     /// Razor attribute. Indicates that a parameter or a method is a Razor section.
-    /// Use this attribute for custom wrappers similar to 
+    /// Use this attribute for custom wrappers similar to
     /// <see cref="System.Web.WebPages.WebPageBase.RenderSection(String)"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method, Inherited = true)]

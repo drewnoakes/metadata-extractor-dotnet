@@ -13,7 +13,7 @@ namespace Sharpen
         {
             base.Wrapped = new MemoryStream (Extensions.ConvertToByteArray(data), off, len);
         }
-        
+
         public override int Available ()
         {
             MemoryStream ms = (MemoryStream) Wrapped;

@@ -8,7 +8,7 @@ namespace Sharpen
     {
         private sbyte[] oneBuffer;
         public const int PIPE_SIZE = 1024;
-        
+
         protected sbyte[] buffer;
         private bool closed;
         private ManualResetEvent dataEvent;
@@ -16,12 +16,12 @@ namespace Sharpen
         private int start;
         private object thisLock;
         private bool allowGrow = false;
-        
+
         public int @in {
             get { return start; }
             set { start = value; }
         }
-        
+
         public int @out {
             get { return end; }
             set { end = value; }
@@ -99,7 +99,7 @@ namespace Sharpen
             } while (length == 0);
             return length;
         }
-        
+
         private int Allocate (int len)
         {
             int alen;
@@ -115,7 +115,7 @@ namespace Sharpen
             }
             return alen;
         }
-        
+
         int TryAllocate (int len)
         {
             int free;
@@ -140,7 +140,7 @@ namespace Sharpen
             }
             return len;
         }
-        
+
         public void Write (int b)
         {
             lock (thisLock) {
@@ -150,7 +150,7 @@ namespace Sharpen
                 dataEvent.Set ();
             }
         }
-        
+
         public void Write (sbyte[] b, int offset, int len)
         {
             do {

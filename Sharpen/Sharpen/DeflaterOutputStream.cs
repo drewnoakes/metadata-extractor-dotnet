@@ -13,7 +13,7 @@ namespace Sharpen
         {
             base.Wrapped = new ICSharpCode.SharpZipLib.Zip.Compression.Streams.DeflaterOutputStream (s.GetWrappedStream (), d);
         }
-        
+
         public DeflaterOutputStream (OutputStream s, Deflater d, int bufferSize)
         {
             base.Wrapped = new ICSharpCode.SharpZipLib.Zip.Compression.Streams.DeflaterOutputStream (s.GetWrappedStream (), d, bufferSize);

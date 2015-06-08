@@ -19,7 +19,7 @@ namespace Sharpen
         {
             this.ost = ost;
         }
-        
+
         public InputStream InputStream {
             get { return ist; }
         }
@@ -106,23 +106,23 @@ namespace Sharpen
         }
 
         public override long Length {
-            get 
+            get
             {
                 if (ist != null)
                 {
                     return ist.GetNativeStream().Length;
                 }
-                
+
                 throw new NotSupportedException ();
             }
         }
-        
+
         public void OnMark (int nb)
         {
             markedPosition = position;
             ist.Mark (nb);
         }
-        
+
         public override long Position {
             get {
                 if (ist != null && ist.CanSeek ())

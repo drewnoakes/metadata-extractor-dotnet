@@ -19,7 +19,7 @@ namespace Sharpen
                 Digest.Update ((sbyte) read);
             return read;
         }
-        
+
         public override int Read (sbyte[] buf)
         {
             var read = this.@in.Read (buf);
@@ -27,7 +27,7 @@ namespace Sharpen
                 Digest.Update (buf, 0, read);
             return read;
         }
-        
+
         public override int Read (sbyte[] b, int off, int len)
         {
             var read = this.@in.Read (b, off, len);

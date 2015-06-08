@@ -10,7 +10,7 @@ namespace Sharpen
         public static IList<T> EMPTY_SET {
             get { return empty; }
         }
-        
+
     }
 
     public static class Collections
@@ -39,7 +39,7 @@ namespace Sharpen
             }
             return default(V);
         }
-        
+
         public static object Remove(IDictionary map, object toRemove)
         {
             object local = map[toRemove];
@@ -52,7 +52,7 @@ namespace Sharpen
         {
             return list.ToArray ();
         }
-        
+
         public static object[] ToArray (IList list, object[] result)
         {
             for (int i = 0; i < result.Length; i++)
@@ -74,16 +74,16 @@ namespace Sharpen
         {
             if (res.Length < list.Count)
                 res = new U [list.Count];
-            
+
             int n = 0;
             foreach (T t in list)
                 res [n++] = t;
-            
+
             if (res.Length > list.Count)
                 res [list.Count] = default (T);
             return res;
         }
-        
+
         public static IDictionary<K,V> EmptyMap<K,V> ()
         {
             return new Dictionary<K,V> ();
@@ -93,7 +93,7 @@ namespace Sharpen
         {
             return EMPTY_SET;
         }
-        
+
 //        public static IList<T> EmptyList<T> ()
 //        {
 //            return Collections<T>.EMPTY_SET;
@@ -164,12 +164,12 @@ namespace Sharpen
         {
             return list;
         }
-        
+
         public static IDictionary UnmodifiableMap(IDictionary dict)
         {
             return dict;
         }
-        
+
         public static IDictionary<K,V> UnmodifiableMap<K,V> (IDictionary<K,V> dict)
         {
             return dict;

@@ -409,8 +409,8 @@ namespace Com.Adobe.Xmp.Impl
             }
             else
             {
-                // Look through the attributes for one that isn't rdf:ID or xml:lang, 
-                // it will usually tell what we should be dealing with. 
+                // Look through the attributes for one that isn't rdf:ID or xml:lang,
+                // it will usually tell what we should be dealing with.
                 // The called routines must verify their specific syntax!
                 for (int i_1 = 0; i_1 < attributes.Count; i_1++)
                 {
@@ -459,7 +459,7 @@ namespace Com.Adobe.Xmp.Impl
                         return;
                     }
                 }
-                // Only rdf:ID and xml:lang, could be a resourcePropertyElt, a literalPropertyElt, 
+                // Only rdf:ID and xml:lang, could be a resourcePropertyElt, a literalPropertyElt,
                 // or an emptyPropertyElt. Look at the child XML nodes to decide which.
                 if (xmlNode.HasChildNodes)
                 {
@@ -913,9 +913,9 @@ namespace Com.Adobe.Xmp.Impl
                     }
                 }
             }
-            // Create the right kind of child node and visit the attributes again 
+            // Create the right kind of child node and visit the attributes again
             // to add the fields or qualifiers.
-            // ! Because of implementation vagaries, 
+            // ! Because of implementation vagaries,
             //   the xmpParent is the tree root for top level properties.
             // ! The schema is found, created if necessary, by addChildNode.
             XMPNode childNode = AddChildNode(xmp, xmpParent, xmlNode, string.Empty, isTopLevel);
@@ -1033,7 +1033,7 @@ namespace Com.Adobe.Xmp.Impl
                 // Clear the implicit node bit.
                 // need runtime check for proper 32 bit code.
                 xmpParent = schemaNode;
-                // If this is an alias set the alias flag in the node 
+                // If this is an alias set the alias flag in the node
                 // and the hasAliases flag in the tree.
                 if (registry.FindAlias(childName) != null)
                 {
@@ -1110,10 +1110,10 @@ namespace Com.Adobe.Xmp.Impl
             Debug.Assert(xmpParent.GetOptions().IsStruct() && xmpParent.HasChildren());
             XMPNode valueNode = xmpParent.GetChild(1);
             Debug.Assert("rdf:value".Equals(valueNode.GetName()));
-            // Move the qualifiers on the value node to the parent. 
+            // Move the qualifiers on the value node to the parent.
             // Make sure an xml:lang qualifier stays at the front.
-            // Check for duplicate names between the value node's qualifiers and the parent's children. 
-            // The parent's children are about to become qualifiers. Check here, between the groups. 
+            // Check for duplicate names between the value node's qualifiers and the parent's children.
+            // The parent's children are about to become qualifiers. Check here, between the groups.
             // Intra-group duplicates are caught by XMPNode#addChild(...).
             if (valueNode.GetOptions().GetHasLanguage())
             {
@@ -1125,20 +1125,20 @@ namespace Com.Adobe.Xmp.Impl
                 valueNode.RemoveQualifier(langQual);
                 xmpParent.AddQualifier(langQual);
             }
-            // Start the remaining copy after the xml:lang qualifier.        
+            // Start the remaining copy after the xml:lang qualifier.
             for (int i = 1; i <= valueNode.GetQualifierLength(); i++)
             {
                 XMPNode qualifier = valueNode.GetQualifier(i);
                 xmpParent.AddQualifier(qualifier);
             }
-            // Change the parent's other children into qualifiers. 
+            // Change the parent's other children into qualifiers.
             // This loop starts at 1, child 0 is the rdf:value node.
             for (int i_1 = 2; i_1 <= xmpParent.GetChildrenLength(); i_1++)
             {
                 XMPNode qualifier = xmpParent.GetChild(i_1);
                 xmpParent.AddQualifier(qualifier);
             }
-            // Move the options and value last, other checks need the parent's original options. 
+            // Move the options and value last, other checks need the parent's original options.
             // Move the value node's children to be the parent's children.
             Debug.Assert(xmpParent.GetOptions().IsStruct() || xmpParent.GetHasValueChild());
             xmpParent.SetHasValueChild(false);

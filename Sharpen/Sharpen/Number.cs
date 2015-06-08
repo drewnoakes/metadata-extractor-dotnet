@@ -10,7 +10,7 @@ namespace Sharpen
         {
             m_value = value;
         }
-        
+
         public Number()
         {
         }

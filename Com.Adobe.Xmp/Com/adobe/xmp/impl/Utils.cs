@@ -499,7 +499,7 @@ namespace Com.Adobe.Xmp.Impl
         private static bool IsNameStartChar(char ch)
         {
             return (ch <= unchecked((int)(0xFF)) && xmlNameStartChars[ch]) || (ch >= unchecked((int)(0x100)) && ch <= unchecked((int)(0x2FF))) || (ch >= unchecked((int)(0x370)) && ch <= unchecked((int)(0x37D))) || (ch >= unchecked((int)(0x37F)) && ch <=
-                 unchecked((int)(0x1FFF))) || (ch >= unchecked((int)(0x200C)) && ch <= unchecked((int)(0x200D))) || (ch >= unchecked((int)(0x2070)) && ch <= unchecked((int)(0x218F))) || (ch >= unchecked((int)(0x2C00)) && ch <= unchecked((int)(0x2FEF))) || 
+                 unchecked((int)(0x1FFF))) || (ch >= unchecked((int)(0x200C)) && ch <= unchecked((int)(0x200D))) || (ch >= unchecked((int)(0x2070)) && ch <= unchecked((int)(0x218F))) || (ch >= unchecked((int)(0x2C00)) && ch <= unchecked((int)(0x2FEF))) ||
                 (ch >= unchecked((int)(0x3001)) && ch <= unchecked((int)(0xD7FF))) || (ch >= unchecked((int)(0xF900)) && ch <= unchecked((int)(0xFDCF))) || (ch >= unchecked((int)(0xFDF0)) && ch <= unchecked((int)(0xFFFD))) || (ch >= unchecked((int)(0x10000
                 )) && ch <= unchecked((int)(0xEFFFF)));
         }

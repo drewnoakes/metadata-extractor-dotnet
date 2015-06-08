@@ -64,7 +64,7 @@ namespace Sharpen
                 Extensions.Copy(buffer, sbuffer);
                 return r;
             }
-            
+
             return -1;
         }
 
@@ -74,7 +74,7 @@ namespace Sharpen
             int r = stream.Read(buffer, 0, buffer.Length);
             return r > 0 ? buffer[0] : -1;
         }
-        
+
         public int Read (byte[] buffer, int start, int size)
         {
             return stream.Read (buffer, start, size);
@@ -106,7 +106,7 @@ namespace Sharpen
         {
             stream.Write (BitConverter.GetBytes (value), 0, 4);
         }
-        
+
         public void Write (byte[] buffer)
         {
             stream.Write (buffer, 0, buffer.Length);

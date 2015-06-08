@@ -8,23 +8,23 @@ namespace Sharpen
     public class Executors
     {
         static ThreadFactory defaultThreadFactory = new ThreadFactory ();
-        
+
         public static ExecutorService NewFixedThreadPool (int threads)
         {
             return new FixedThreadPoolExecutorService ();
         }
-        
+
         public static ThreadFactory DefaultThreadFactory ()
         {
             return defaultThreadFactory;
         }
     }
-    
+
     public class FixedThreadPoolExecutorService: ExecutorService
     {
         List<WaitHandle> tasks = new List<WaitHandle> ();
         bool shuttingDown;
-        
+
         #region ExecutorService implementation
         public bool AwaitTermination (long n, TimeUnit unit)
         {
@@ -36,7 +36,7 @@ namespace Sharpen
             }
             return WaitHandle.WaitAll (handles, (int) unit.Convert (n, TimeUnit.MILLISECONDS));
         }
-    
+
         public void ShutdownNow ()
         {
             Shutdown ();
@@ -48,7 +48,7 @@ namespace Sharpen
                 shuttingDown = true;
             }
         }
-    
+
         public Future<T> Submit<T> (Callable<T> c)
         {
             TaskFuture<T> future = new TaskFuture<T> (this);
@@ -62,16 +62,16 @@ namespace Sharpen
             }
             return future;
         }
-        
+
         public void RemoveTask (WaitHandle handle)
         {
             lock (tasks) {
                 tasks.Remove (handle);
             }
         }
-        
+
         #endregion
-    
+
         #region Executor implementation
         public void Execute (Runnable runnable)
         {
@@ -79,11 +79,11 @@ namespace Sharpen
         }
         #endregion
     }
-    
+
     public interface FutureBase
     {
     }
-    
+
     class TaskFuture<T>: Future<T>, FutureBase
     {
         SThread t;
@@ -94,16 +94,16 @@ namespace Sharpen
         bool started;
         bool done;
         FixedThreadPoolExecutorService service;
-        
+
         public TaskFuture (FixedThreadPoolExecutorService service)
         {
             this.service = service;
         }
-        
+
         public WaitHandle DoneEvent {
             get { return doneEvent; }
         }
-        
+
         public void Run (Callable<T> c)
         {
             try {
@@ -127,7 +127,7 @@ namespace Sharpen
                 doneEvent.Set ();
             }
         }
-        
+
         public bool Cancel (bool mayInterruptIfRunning)
         {
             lock (this) {
@@ -147,24 +147,24 @@ namespace Sharpen
                 return true;
             }
         }
-        
+
         public T Get ()
         {
             doneEvent.WaitOne ();
             if (canceled)
                 throw new CancellationException ();
-            
+
             if (error != null)
                 throw new ExecutionException (error);
             else
                 return result;
         }
     }
-    
+
     public class CancellationException: Exception
     {
     }
-    
+
     public class RejectedExecutionException: Exception
     {
     }

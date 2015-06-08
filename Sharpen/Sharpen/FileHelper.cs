@@ -9,7 +9,7 @@ namespace Sharpen
         public static FileHelper Instance {
             get; set;
         }
-        
+
         static FileHelper ()
         {
             if (Environment.OSVersion.Platform.ToString ().StartsWith ("Win"))
@@ -38,7 +38,7 @@ namespace Sharpen
         public virtual bool CanRead(FilePath path)
         {
             try {
-                using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read)) 
+                using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read))
                 {
                     return true;
                 }
@@ -47,12 +47,12 @@ namespace Sharpen
                 return false;
             }
         }
-        
+
         public virtual bool CanWrite (FilePath path)
         {
             return ((File.GetAttributes (path) & FileAttributes.ReadOnly) == 0);
         }
-        
+
         public virtual bool Delete (FilePath path)
         {
             if (Directory.Exists (path)) {
@@ -69,12 +69,12 @@ namespace Sharpen
             }
             return false;
         }
-        
+
         public virtual bool Exists (FilePath path)
         {
             return (File.Exists (path) || Directory.Exists (path));
         }
-        
+
         public virtual bool IsDirectory (FilePath path)
         {
             return Directory.Exists (path);

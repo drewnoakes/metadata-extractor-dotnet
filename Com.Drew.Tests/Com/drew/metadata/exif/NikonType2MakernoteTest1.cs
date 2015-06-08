@@ -66,12 +66,12 @@ namespace Com.Drew.Metadata.Exif
         [Nikon Makernote] Unknown 06 = 
         [Nikon Makernote] Unknown 07 = 1
         [Nikon Makernote] Unknown 20 = 0
-        [Nikon Makernote] Unknown 08 = @
+        [Nikon Makernote] Unknown 08 = @
         [Nikon Makernote] Colour Mode = MODE1
         [Nikon Makernote] Unknown 10 = NATURAL
-        [Nikon Makernote] Unknown 11 = 0100
-        
-        
+        [Nikon Makernote] Unknown 11 = 0100
+
+
         -
         [Nikon Makernote] Camera Hue = 0
         [Nikon Makernote] Noise Reduction = OFF

@@ -96,7 +96,7 @@ namespace Com.Adobe.Xmp.Impl
                 this.padding = options.GetPadding();
                 writer = new OutputStreamWriter(outputStream, options.GetEncoding());
                 CheckOptionsConsistence();
-                // serializes the whole packet, but don't write the tail yet 
+                // serializes the whole packet, but don't write the tail yet
                 // and flush to make sure that the written bytes are calculated correctly
                 string tailStr = SerializeAsRDF();
                 writer.Flush();

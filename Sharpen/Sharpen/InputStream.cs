@@ -18,7 +18,7 @@ namespace Sharpen
         {
             return s.GetWrappedStream ();
         }
-        
+
         public virtual int Available ()
         {
             if (Wrapped is WrappedSystemStream)
@@ -62,7 +62,7 @@ namespace Sharpen
                     this.mark = Wrapped.Position;
             }
         }
-        
+
         public virtual bool MarkSupported ()
         {
             if (Wrapped is WrappedSystemStream)
@@ -88,7 +88,7 @@ namespace Sharpen
         {
             if (Wrapped is WrappedSystemStream)
                 return ((WrappedSystemStream)Wrapped).InputStream.Read (b, off, len);
-            
+
             if (Wrapped != null) {
                 byte[] buffer = new byte[len];
                 int num = Wrapped.Read (buffer, 0, len);
@@ -122,7 +122,7 @@ namespace Sharpen
         {
             if (Wrapped is WrappedSystemStream)
                 return ((WrappedSystemStream)Wrapped).InputStream.Skip (cnt);
-            
+
             long n = cnt;
             while (n > 0) {
                 if (Read () == -1)
@@ -131,7 +131,7 @@ namespace Sharpen
             }
             return cnt - n;
         }
-        
+
         public bool CanSeek ()
         {
             if (Wrapped != null)
@@ -139,7 +139,7 @@ namespace Sharpen
             else
                 return false;
         }
-        
+
         public long Position {
             get {
                 if (Wrapped != null)

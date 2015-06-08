@@ -9,23 +9,23 @@ namespace Sharpen
     {
         bool continueExistingPeriodicTasksAfterShutdownPolicy;
         bool executeExistingDelayedTasksAfterShutdownPolicy = true;
-        
+
         class Task<T>: Runnable, Future<T>, IScheduledITask
         {
             Thread thread;
             bool canceled;
             bool completed;
             ST.ManualResetEvent doneEvent = new ST.ManualResetEvent (false);
-            
+
             public Runnable Action;
             public DateTime DueTime { get; set; }
-            
+
             public ScheduledThreadPoolExecutor Executor { get; set; }
-            
+
             public object Owner {
                 get { return Executor; }
             }
-            
+
             public void Start ()
             {
                 lock (this) {
@@ -34,7 +34,7 @@ namespace Sharpen
                     Executor.InternalExecute (this, false);
                 }
             }
-            
+
             public void Run ()
             {
                 lock (this) {
@@ -51,7 +51,7 @@ namespace Sharpen
                     }
                 }
             }
-            
+
             public bool Cancel (bool mayInterruptIfRunning)
             {
                 lock (this) {
@@ -68,18 +68,18 @@ namespace Sharpen
                     return true;
                 }
             }
-            
+
             public T Get ()
             {
                 doneEvent.WaitOne ();
                 return default(T);
             }
         }
-        
+
         public ScheduledThreadPoolExecutor (int corePoolSize, ThreadFactory factory): base (corePoolSize, factory)
         {
         }
-        
+
         public override List<Runnable> ShutdownNow ()
         {
             lock (this) {
@@ -87,7 +87,7 @@ namespace Sharpen
                 return base.ShutdownNow ();
             }
         }
-        
+
         public override void Shutdown ()
         {
             lock (this) {
@@ -96,27 +96,27 @@ namespace Sharpen
                 base.Shutdown ();
             }
         }
-        
+
         public override bool IsTerminated ()
         {
             return base.IsTerminated () && !Scheduler.Instance.HasTasks (this);
         }
-        
+
         public void SetContinueExistingPeriodicTasksAfterShutdownPolicy (bool cont)
         {
             continueExistingPeriodicTasksAfterShutdownPolicy = cont;
         }
-        
+
         public void SetExecuteExistingDelayedTasksAfterShutdownPolicy (bool exec)
         {
             executeExistingDelayedTasksAfterShutdownPolicy = exec;
         }
-        
+
         public Future<object> Schedule (Runnable r, long delay, TimeUnit unit)
         {
             return Schedule<object> (r, delay, unit);
         }
-        
+
         public Future<T> Schedule<T> (Runnable r, long delay, TimeUnit unit)
         {
             DateTime now = DateTime.Now;
@@ -133,7 +133,7 @@ namespace Sharpen
             }
         }
     }
-    
+
     interface IScheduledITask
     {
         void Start ();
@@ -141,15 +141,15 @@ namespace Sharpen
         object Owner { get; }
         bool Cancel (bool mayInterruptIfRunning);
     }
-        
+
     class Scheduler
     {
         public static Scheduler Instance = new Scheduler ();
-        
+
         List<IScheduledITask> tasks = new List<IScheduledITask> ();
         ST.Thread scheduler;
         ST.AutoResetEvent newTask = new ST.AutoResetEvent (false);
-        
+
         public void Shutdown (object owner, bool continueExistingPeriodicTasks, bool executeExistingDelayedTasks)
         {
             if (!executeExistingDelayedTasks) {
@@ -165,7 +165,7 @@ namespace Sharpen
                 }
             }
         }
-        
+
         public void AddTask (IScheduledITask t)
         {
             lock (tasks) {
@@ -177,7 +177,7 @@ namespace Sharpen
                 tasks.Insert (n, t);
                 if (n == 0)
                     newTask.Set ();
-                
+
                 if (scheduler == null) {
                     scheduler = new ST.Thread (SchedulerThread);
                     scheduler.IsBackground = true;
@@ -185,14 +185,14 @@ namespace Sharpen
                 }
             }
         }
-        
+
         public bool HasTasks (object owner)
         {
             lock (tasks) {
                 return tasks.Any (t => t.Owner == owner);
             }
         }
-        
+
         void SchedulerThread ()
         {
             int nextWait = ST.Timeout.Infinite;
