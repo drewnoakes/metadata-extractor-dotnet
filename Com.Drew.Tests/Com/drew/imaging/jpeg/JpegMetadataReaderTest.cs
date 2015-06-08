@@ -25,28 +25,28 @@ using Sharpen;
 
 namespace Com.Drew.Imaging.Jpeg
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class JpegMetadataReaderTest
-	{
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestExtractMetadata()
-		{
-			Validate(JpegMetadataReader.ReadMetadata(new FilePath("Tests/Data/withExif.jpg")));
-		}
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class JpegMetadataReaderTest
+    {
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestExtractMetadata()
+        {
+            Validate(JpegMetadataReader.ReadMetadata(new FilePath("Tests/Data/withExif.jpg")));
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestExtractMetadataUsingInputStream()
-		{
-			Validate(JpegMetadataReader.ReadMetadata(new FileInputStream((new FilePath("Tests/Data/withExif.jpg")))));
-		}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestExtractMetadataUsingInputStream()
+        {
+            Validate(JpegMetadataReader.ReadMetadata(new FileInputStream((new FilePath("Tests/Data/withExif.jpg")))));
+        }
 
-		private void Validate(Com.Drew.Metadata.Metadata metadata)
-		{
-			Com.Drew.Metadata.Directory directory = metadata.GetFirstDirectoryOfType<ExifSubIFDDirectory>();
-			NUnit.Framework.Assert.IsNotNull(directory);
-			Sharpen.Tests.AreEqual("80", directory.GetString(ExifSubIFDDirectory.TagIsoEquivalent));
-		}
-	}
+        private void Validate(Com.Drew.Metadata.Metadata metadata)
+        {
+            Com.Drew.Metadata.Directory directory = metadata.GetFirstDirectoryOfType<ExifSubIFDDirectory>();
+            NUnit.Framework.Assert.IsNotNull(directory);
+            Sharpen.Tests.AreEqual("80", directory.GetString(ExifSubIFDDirectory.TagIsoEquivalent));
+        }
+    }
 }

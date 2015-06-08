@@ -28,37 +28,37 @@ using Sharpen;
 
 namespace Com.Drew.Imaging.Webp
 {
-	/// <summary>Obtains metadata from WebP files.</summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class WebpMetadataReader
-	{
-		/// <exception cref="System.IO.IOException"/>
-		/// <exception cref="Com.Drew.Imaging.Riff.RiffProcessingException"/>
-		[NotNull]
-		public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] FilePath file)
-		{
-			InputStream inputStream = new FileInputStream(file);
-			Com.Drew.Metadata.Metadata metadata;
-			try
-			{
-				metadata = ReadMetadata(inputStream);
-			}
-			finally
-			{
-				inputStream.Close();
-			}
-			new FileMetadataReader().Read(file, metadata);
-			return metadata;
-		}
+    /// <summary>Obtains metadata from WebP files.</summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class WebpMetadataReader
+    {
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="Com.Drew.Imaging.Riff.RiffProcessingException"/>
+        [NotNull]
+        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] FilePath file)
+        {
+            InputStream inputStream = new FileInputStream(file);
+            Com.Drew.Metadata.Metadata metadata;
+            try
+            {
+                metadata = ReadMetadata(inputStream);
+            }
+            finally
+            {
+                inputStream.Close();
+            }
+            new FileMetadataReader().Read(file, metadata);
+            return metadata;
+        }
 
-		/// <exception cref="System.IO.IOException"/>
-		/// <exception cref="Com.Drew.Imaging.Riff.RiffProcessingException"/>
-		[NotNull]
-		public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
-		{
-			Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
-			new RiffReader().ProcessRiff(new Com.Drew.Lang.StreamReader(inputStream), new WebpRiffHandler(metadata));
-			return metadata;
-		}
-	}
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="Com.Drew.Imaging.Riff.RiffProcessingException"/>
+        [NotNull]
+        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
+        {
+            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            new RiffReader().ProcessRiff(new Com.Drew.Lang.StreamReader(inputStream), new WebpRiffHandler(metadata));
+            return metadata;
+        }
+    }
 }

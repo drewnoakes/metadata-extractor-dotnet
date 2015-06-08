@@ -24,18 +24,18 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class SonyType6MakernoteTest
-	{
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestSonyType6Makernote()
-		{
-			SonyType6MakernoteDirectory directory = ExifReaderTest.ProcessBytes<SonyType6MakernoteDirectory>("Tests/Data/sonyType6.jpg.app1.0");
-			NUnit.Framework.Assert.IsNotNull(directory);
-			Sharpen.Tests.IsFalse(directory.HasErrors());
-			SonyType6MakernoteDescriptor descriptor = new SonyType6MakernoteDescriptor(directory);
-			Sharpen.Tests.AreEqual("2.00", descriptor.GetMakernoteThumbVersionDescription());
-		}
-	}
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class SonyType6MakernoteTest
+    {
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestSonyType6Makernote()
+        {
+            SonyType6MakernoteDirectory directory = ExifReaderTest.ProcessBytes<SonyType6MakernoteDirectory>("Tests/Data/sonyType6.jpg.app1.0");
+            NUnit.Framework.Assert.IsNotNull(directory);
+            Sharpen.Tests.IsFalse(directory.HasErrors());
+            SonyType6MakernoteDescriptor descriptor = new SonyType6MakernoteDescriptor(directory);
+            Sharpen.Tests.AreEqual("2.00", descriptor.GetMakernoteThumbVersionDescription());
+        }
+    }
 }

@@ -28,12 +28,12 @@ using System.Web;
 
 namespace Sharpen
 {
-	public static class URLEncoder
-	{
-		public static string Encode (string str, string encoding)
-		{
-			return HttpUtility.UrlEncode (str, Extensions.GetEncoding (encoding));
-		}
-	}
+    public static class URLEncoder
+    {
+        public static string Encode (string str, string encoding)
+        {
+            return HttpUtility.UrlEncode (str, Extensions.GetEncoding (encoding));
+        }
+    }
 }
 

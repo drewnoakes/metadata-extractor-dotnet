@@ -26,26 +26,26 @@ using Sharpen;
 
 namespace Com.Drew.Imaging.Riff
 {
-	/// <summary>An exception class thrown upon unexpected and fatal conditions while processing a RIFF file.</summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	[System.Serializable]
-	public class RiffProcessingException : ImageProcessingException
-	{
-		private const long serialVersionUID = -1658134596321487960L;
+    /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a RIFF file.</summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    [System.Serializable]
+    public class RiffProcessingException : ImageProcessingException
+    {
+        private const long serialVersionUID = -1658134596321487960L;
 
-		public RiffProcessingException([CanBeNull] string message)
-			: base(message)
-		{
-		}
+        public RiffProcessingException([CanBeNull] string message)
+            : base(message)
+        {
+        }
 
-		public RiffProcessingException([CanBeNull] string message, [CanBeNull] Exception cause)
-			: base(message, cause)
-		{
-		}
+        public RiffProcessingException([CanBeNull] string message, [CanBeNull] Exception cause)
+            : base(message, cause)
+        {
+        }
 
-		public RiffProcessingException([CanBeNull] Exception cause)
-			: base(cause)
-		{
-		}
-	}
+        public RiffProcessingException([CanBeNull] Exception cause)
+            : base(cause)
+        {
+        }
+    }
 }

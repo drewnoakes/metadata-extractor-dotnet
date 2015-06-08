@@ -1,25 +1,25 @@
 namespace Sharpen
 {
-	using System;
-	using System.IO;
+    using System;
+    using System.IO;
 
-	public class ObjectInputStream : InputStream
-	{
-		private BinaryReader reader;
+    public class ObjectInputStream : InputStream
+    {
+        private BinaryReader reader;
 
-		public ObjectInputStream (InputStream s)
-		{
-			this.reader = new BinaryReader (s.GetWrappedStream ());
-		}
+        public ObjectInputStream (InputStream s)
+        {
+            this.reader = new BinaryReader (s.GetWrappedStream ());
+        }
 
-		public int ReadInt ()
-		{
-			return this.reader.ReadInt32 ();
-		}
+        public int ReadInt ()
+        {
+            return this.reader.ReadInt32 ();
+        }
 
-		public object ReadObject ()
-		{
-			throw new NotImplementedException ();
-		}
-	}
+        public object ReadObject ()
+        {
+            throw new NotImplementedException ();
+        }
+    }
 }

@@ -1,5 +1,5 @@
-﻿#	run: PowerShell.exe -File StringsExtractor.ps1
-#	rebuild project after new file generated
+﻿#    run: PowerShell.exe -File StringsExtractor.ps1
+#    rebuild project after new file generated
 
 function GetFiles($path = $pwd, [string[]]$exclude, [Array] $files)
 {
@@ -7,35 +7,35 @@ function GetFiles($path = $pwd, [string[]]$exclude, [Array] $files)
     {
         if ($exclude | Where {$item -like $_}) { continue }
 
-		if($item.Extension.Equals(".cs"))
-		{
-			$files += $item.FullName
-		}
+        if($item.Extension.Equals(".cs"))
+        {
+            $files += $item.FullName
+        }
 
         if (Test-Path $item.FullName -PathType Container)
         {
-			$emptyfiles = @()
+            $emptyfiles = @()
             $files += GetFiles $item.FullName $exclude $emptyfiles
         }
     }
 
-	return $files
+    return $files
 } 
 
 function ExtractStrings([Array] $files)
 {
-	foreach ($file in $files)
+    foreach ($file in $files)
     {
-		$content = Get-Content $file
-		$matches = [regex]::Matches($content, '(".*?")')
-		foreach($matche in $matches)
-		{
-			if($matche.Success -and $matche.Value.Contains("%"))
-			{
-				$matche.Value
-			}
-		}
-	}
+        $content = Get-Content $file
+        $matches = [regex]::Matches($content, '(".*?")')
+        foreach($matche in $matches)
+        {
+            if($matche.Success -and $matche.Value.Contains("%"))
+            {
+                $matche.Value
+            }
+        }
+    }
 }
 
 $files = @()

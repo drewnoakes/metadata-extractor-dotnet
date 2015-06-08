@@ -24,82 +24,82 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Jpeg
 {
-	/// <summary>
-	/// Stores information about a JPEG image component such as the component id, horiz/vert sampling factor and
-	/// quantization table number.
-	/// </summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	[System.Serializable]
-	public class JpegComponent
-	{
-		private const long serialVersionUID = 61121257899091914L;
+    /// <summary>
+    /// Stores information about a JPEG image component such as the component id, horiz/vert sampling factor and
+    /// quantization table number.
+    /// </summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    [System.Serializable]
+    public class JpegComponent
+    {
+        private const long serialVersionUID = 61121257899091914L;
 
-		private readonly int _componentId;
+        private readonly int _componentId;
 
-		private readonly int _samplingFactorByte;
+        private readonly int _samplingFactorByte;
 
-		private readonly int _quantizationTableNumber;
+        private readonly int _quantizationTableNumber;
 
-		public JpegComponent(int componentId, int samplingFactorByte, int quantizationTableNumber)
-		{
-			_componentId = componentId;
-			_samplingFactorByte = samplingFactorByte;
-			_quantizationTableNumber = quantizationTableNumber;
-		}
+        public JpegComponent(int componentId, int samplingFactorByte, int quantizationTableNumber)
+        {
+            _componentId = componentId;
+            _samplingFactorByte = samplingFactorByte;
+            _quantizationTableNumber = quantizationTableNumber;
+        }
 
-		public virtual int GetComponentId()
-		{
-			return _componentId;
-		}
+        public virtual int GetComponentId()
+        {
+            return _componentId;
+        }
 
-		/// <summary>Returns the component name (one of: Y, Cb, Cr, I, or Q)</summary>
-		/// <returns>the component name</returns>
-		[CanBeNull]
-		public virtual string GetComponentName()
-		{
-			switch (_componentId)
-			{
-				case 1:
-				{
-					return "Y";
-				}
+        /// <summary>Returns the component name (one of: Y, Cb, Cr, I, or Q)</summary>
+        /// <returns>the component name</returns>
+        [CanBeNull]
+        public virtual string GetComponentName()
+        {
+            switch (_componentId)
+            {
+                case 1:
+                {
+                    return "Y";
+                }
 
-				case 2:
-				{
-					return "Cb";
-				}
+                case 2:
+                {
+                    return "Cb";
+                }
 
-				case 3:
-				{
-					return "Cr";
-				}
+                case 3:
+                {
+                    return "Cr";
+                }
 
-				case 4:
-				{
-					return "I";
-				}
+                case 4:
+                {
+                    return "I";
+                }
 
-				case 5:
-				{
-					return "Q";
-				}
-			}
-			return null;
-		}
+                case 5:
+                {
+                    return "Q";
+                }
+            }
+            return null;
+        }
 
-		public virtual int GetQuantizationTableNumber()
-		{
-			return _quantizationTableNumber;
-		}
+        public virtual int GetQuantizationTableNumber()
+        {
+            return _quantizationTableNumber;
+        }
 
-		public virtual int GetHorizontalSamplingFactor()
-		{
-			return _samplingFactorByte & unchecked((int)(0x0F));
-		}
+        public virtual int GetHorizontalSamplingFactor()
+        {
+            return _samplingFactorByte & unchecked((int)(0x0F));
+        }
 
-		public virtual int GetVerticalSamplingFactor()
-		{
-			return (_samplingFactorByte >> 4) & unchecked((int)(0x0F));
-		}
-	}
+        public virtual int GetVerticalSamplingFactor()
+        {
+            return (_samplingFactorByte >> 4) & unchecked((int)(0x0F));
+        }
+    }
 }

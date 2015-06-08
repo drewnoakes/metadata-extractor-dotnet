@@ -24,17 +24,17 @@ using Sharpen;
 
 namespace Com.Drew.Lang
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class RandomAccessStreamReaderTest : RandomAccessTestBase
-	{
-		public virtual void TestConstructWithNullBufferThrows()
-		{
-			new RandomAccessStreamReader(null);
-		}
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class RandomAccessStreamReaderTest : RandomAccessTestBase
+    {
+        public virtual void TestConstructWithNullBufferThrows()
+        {
+            new RandomAccessStreamReader(null);
+        }
 
-		protected internal override RandomAccessReader CreateReader(sbyte[] bytes)
-		{
-			return new RandomAccessStreamReader(new ByteArrayInputStream(bytes));
-		}
-	}
+        protected internal override RandomAccessReader CreateReader(sbyte[] bytes)
+        {
+            return new RandomAccessStreamReader(new ByteArrayInputStream(bytes));
+        }
+    }
 }

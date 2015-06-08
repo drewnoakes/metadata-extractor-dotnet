@@ -1,20 +1,20 @@
 namespace Sharpen
 {
-	using System;
+    using System;
 
-	public class CyclicBarrier
-	{
-		private CountDownLatch counter;
+    public class CyclicBarrier
+    {
+        private CountDownLatch counter;
 
-		public CyclicBarrier (int parties)
-		{
-			this.counter = new CountDownLatch (parties);
-		}
+        public CyclicBarrier (int parties)
+        {
+            this.counter = new CountDownLatch (parties);
+        }
 
-		public void Await ()
-		{
-			this.counter.CountDown ();
-			this.counter.Await ();
-		}
-	}
+        public void Await ()
+        {
+            this.counter.CountDown ();
+            this.counter.Await ();
+        }
+    }
 }

@@ -28,60 +28,60 @@ using System.Collections.Generic;
 
 namespace Sharpen
 {
-	public class LinkedHashSet<T>: AbstractSet<T>
-	{
-		private List<T> list = new List<T> ();
-		private System.Collections.Generic.HashSet<T> table = new System.Collections.Generic.HashSet<T> ();
-		
-		public LinkedHashSet ()
-		{
-		}
-		
-		public LinkedHashSet (IEnumerable<T> items)
-		{
-			foreach (T t in items)
-				AddItem (t);
-		}
-		
-		public override bool AddItem (T element)
-		{
-			if (table.Add (element)) {
-				list.Add (element);
-				return true;
-			}
-			return false;
-		}
-		
-		public override void Clear ()
-		{
-			list.Clear ();
-			table.Clear ();
-		}
-		
-		public override bool Contains (object item)
-		{
-			return table.Contains ((T)item);
-		}
-		
-		public override bool Remove (object element)
-		{
-			if (table.Remove ((T)element)) {
-				list.Remove ((T)element);
-				return true;
-			}
-			return false;
-		}
-		
-		public override int Count {
-			get {
-				return table.Count;
-			}
-		}
-		
-		public override Iterator<T> Iterator ()
-		{
-			return list.AsIterable ().Iterator ();
-		}
-	}
+    public class LinkedHashSet<T>: AbstractSet<T>
+    {
+        private List<T> list = new List<T> ();
+        private System.Collections.Generic.HashSet<T> table = new System.Collections.Generic.HashSet<T> ();
+        
+        public LinkedHashSet ()
+        {
+        }
+        
+        public LinkedHashSet (IEnumerable<T> items)
+        {
+            foreach (T t in items)
+                AddItem (t);
+        }
+        
+        public override bool AddItem (T element)
+        {
+            if (table.Add (element)) {
+                list.Add (element);
+                return true;
+            }
+            return false;
+        }
+        
+        public override void Clear ()
+        {
+            list.Clear ();
+            table.Clear ();
+        }
+        
+        public override bool Contains (object item)
+        {
+            return table.Contains ((T)item);
+        }
+        
+        public override bool Remove (object element)
+        {
+            if (table.Remove ((T)element)) {
+                list.Remove ((T)element);
+                return true;
+            }
+            return false;
+        }
+        
+        public override int Count {
+            get {
+                return table.Count;
+            }
+        }
+        
+        public override Iterator<T> Iterator ()
+        {
+            return list.AsIterable ().Iterator ();
+        }
+    }
 }
 

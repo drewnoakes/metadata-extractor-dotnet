@@ -27,24 +27,24 @@ using System;
 
 namespace Sharpen
 {
-	class SSLContext
-	{
-		public static SSLContext GetInstance (string id)
-		{
-			// TODO
-			return new SSLContext();
-		}
-		
-		public void Init (object[] keyManager, TrustManager[] tm, object secureRandom)
-		{
-			// TODO
-		}
-		
-		public object GetSocketFactory ()
-		{
-			// TODO
-			return null;
-		}
-	}
+    class SSLContext
+    {
+        public static SSLContext GetInstance (string id)
+        {
+            // TODO
+            return new SSLContext();
+        }
+        
+        public void Init (object[] keyManager, TrustManager[] tm, object secureRandom)
+        {
+            // TODO
+        }
+        
+        public object GetSocketFactory ()
+        {
+            // TODO
+            return null;
+        }
+    }
 }
 

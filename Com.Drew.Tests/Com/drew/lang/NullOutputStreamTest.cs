@@ -24,22 +24,22 @@ using Sharpen;
 
 namespace Com.Drew.Lang
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class NullOutputStreamTest
-	{
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestCreateNullOutputStream()
-		{
-			OutputStream @out = new NullOutputStream();
-			try
-			{
-				@out.Write(1);
-			}
-			finally
-			{
-				@out.Close();
-			}
-		}
-	}
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class NullOutputStreamTest
+    {
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestCreateNullOutputStream()
+        {
+            OutputStream @out = new NullOutputStream();
+            try
+            {
+                @out.Write(1);
+            }
+            finally
+            {
+                @out.Close();
+            }
+        }
+    }
 }

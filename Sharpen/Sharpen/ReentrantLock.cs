@@ -1,23 +1,23 @@
 namespace Sharpen
 {
-	using System;
-	using System.Threading;
+    using System;
+    using System.Threading;
 
-	public class ReentrantLock
-	{
-		public void Lock ()
-		{
-			Monitor.Enter (this);
-		}
+    public class ReentrantLock
+    {
+        public void Lock ()
+        {
+            Monitor.Enter (this);
+        }
 
-		public bool TryLock ()
-		{
-			return Monitor.TryEnter (this);
-		}
+        public bool TryLock ()
+        {
+            return Monitor.TryEnter (this);
+        }
 
-		public void Unlock ()
-		{
-			Monitor.Exit (this);
-		}
-	}
+        public void Unlock ()
+        {
+            Monitor.Exit (this);
+        }
+    }
 }

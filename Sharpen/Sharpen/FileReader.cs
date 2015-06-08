@@ -1,11 +1,11 @@
 namespace Sharpen
 {
-	using System;
+    using System;
 
-	public class FileReader : InputStreamReader
-	{
-		public FileReader (FilePath f) : base(f.GetPath ())
-		{
-		}
-	}
+    public class FileReader : InputStreamReader
+    {
+        public FileReader (FilePath f) : base(f.GetPath ())
+        {
+        }
+    }
 }

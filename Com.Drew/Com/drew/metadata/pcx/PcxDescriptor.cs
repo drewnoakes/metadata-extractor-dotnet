@@ -25,59 +25,59 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Pcx
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class PcxDescriptor : TagDescriptor<PcxDirectory>
-	{
-		public PcxDescriptor([NotNull] PcxDirectory directory)
-			: base(directory)
-		{
-		}
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class PcxDescriptor : TagDescriptor<PcxDirectory>
+    {
+        public PcxDescriptor([NotNull] PcxDirectory directory)
+            : base(directory)
+        {
+        }
 
-		public override string GetDescription(int tagType)
-		{
-			switch (tagType)
-			{
-				case PcxDirectory.TagVersion:
-				{
-					return GetVersionDescription();
-				}
+        public override string GetDescription(int tagType)
+        {
+            switch (tagType)
+            {
+                case PcxDirectory.TagVersion:
+                {
+                    return GetVersionDescription();
+                }
 
-				case PcxDirectory.TagColorPlanes:
-				{
-					return GetColorPlanesDescription();
-				}
+                case PcxDirectory.TagColorPlanes:
+                {
+                    return GetColorPlanesDescription();
+                }
 
-				case PcxDirectory.TagPaletteType:
-				{
-					return GetPaletteTypeDescription();
-				}
+                case PcxDirectory.TagPaletteType:
+                {
+                    return GetPaletteTypeDescription();
+                }
 
-				default:
-				{
-					return base.GetDescription(tagType);
-				}
-			}
-		}
+                default:
+                {
+                    return base.GetDescription(tagType);
+                }
+            }
+        }
 
-		[CanBeNull]
-		public virtual string GetVersionDescription()
-		{
-			// Prior to v2.5 of PC Paintbrush, the PCX image file format was considered proprietary information
-			// by ZSoft Corporation
-			return GetIndexedDescription(PcxDirectory.TagVersion, "2.5 with fixed EGA palette information", null, "2.8 with modifiable EGA palette information", "2.8 without palette information (default palette)", "PC Paintbrush for Windows", "3.0 or better"
-				);
-		}
+        [CanBeNull]
+        public virtual string GetVersionDescription()
+        {
+            // Prior to v2.5 of PC Paintbrush, the PCX image file format was considered proprietary information
+            // by ZSoft Corporation
+            return GetIndexedDescription(PcxDirectory.TagVersion, "2.5 with fixed EGA palette information", null, "2.8 with modifiable EGA palette information", "2.8 without palette information (default palette)", "PC Paintbrush for Windows", "3.0 or better"
+                );
+        }
 
-		[CanBeNull]
-		public virtual string GetColorPlanesDescription()
-		{
-			return GetIndexedDescription(PcxDirectory.TagColorPlanes, 3, "24-bit color", "16 colors");
-		}
+        [CanBeNull]
+        public virtual string GetColorPlanesDescription()
+        {
+            return GetIndexedDescription(PcxDirectory.TagColorPlanes, 3, "24-bit color", "16 colors");
+        }
 
-		[CanBeNull]
-		public virtual string GetPaletteTypeDescription()
-		{
-			return GetIndexedDescription(PcxDirectory.TagPaletteType, 1, "Color or B&W", "Grayscale");
-		}
-	}
+        [CanBeNull]
+        public virtual string GetPaletteTypeDescription()
+        {
+            return GetIndexedDescription(PcxDirectory.TagPaletteType, 1, "Color or B&W", "Grayscale");
+        }
+    }
 }

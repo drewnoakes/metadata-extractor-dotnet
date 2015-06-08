@@ -1,12 +1,12 @@
 namespace Sharpen
 {
-	using System;
-	using System.IO;
+    using System;
+    using System.IO;
 
-	public class BufferedReader : StreamReader
-	{
-		public BufferedReader (InputStreamReader r) : base(r.BaseStream)
-		{
-		}
-	}
+    public class BufferedReader : StreamReader
+    {
+        public BufferedReader (InputStreamReader r) : base(r.BaseStream)
+        {
+        }
+    }
 }

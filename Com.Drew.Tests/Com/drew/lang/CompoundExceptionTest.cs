@@ -25,68 +25,68 @@ using Sharpen;
 
 namespace Com.Drew.Lang
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class CompoundExceptionTest
-	{
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestGetMessage_NonNested()
-		{
-			try
-			{
-				throw new CompoundException("message");
-			}
-			catch (CompoundException e)
-			{
-				Sharpen.Tests.AreEqual("message", e.Message);
-			}
-		}
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class CompoundExceptionTest
+    {
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestGetMessage_NonNested()
+        {
+            try
+            {
+                throw new CompoundException("message");
+            }
+            catch (CompoundException e)
+            {
+                Sharpen.Tests.AreEqual("message", e.Message);
+            }
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestGetMessage_Nested()
-		{
-			try
-			{
-				try
-				{
-					throw new IOException("io");
-				}
-				catch (IOException e)
-				{
-					throw new CompoundException("compound", e);
-				}
-			}
-			catch (CompoundException e)
-			{
-				Sharpen.Tests.AreEqual("compound", e.Message);
-				Exception innerException = e.GetInnerException();
-				NUnit.Framework.Assert.IsNotNull(innerException);
-				Sharpen.Tests.AreEqual("io", innerException.Message);
-			}
-		}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestGetMessage_Nested()
+        {
+            try
+            {
+                try
+                {
+                    throw new IOException("io");
+                }
+                catch (IOException e)
+                {
+                    throw new CompoundException("compound", e);
+                }
+            }
+            catch (CompoundException e)
+            {
+                Sharpen.Tests.AreEqual("compound", e.Message);
+                Exception innerException = e.GetInnerException();
+                NUnit.Framework.Assert.IsNotNull(innerException);
+                Sharpen.Tests.AreEqual("io", innerException.Message);
+            }
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestNoInnerException()
-		{
-			try
-			{
-				throw new CompoundException("message", null);
-			}
-			catch (CompoundException e)
-			{
-				try
-				{
-					PrintStream nullStream = new PrintStream(new NullOutputStream());
-					Sharpen.Runtime.PrintStackTrace(e, nullStream);
-					Sharpen.Runtime.PrintStackTrace(e, new PrintWriter(nullStream));
-				}
-				catch (Exception)
-				{
-					NUnit.Framework.Assert.Fail("Exception during printStackTrace for CompoundException with no inner exception");
-				}
-			}
-		}
-	}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestNoInnerException()
+        {
+            try
+            {
+                throw new CompoundException("message", null);
+            }
+            catch (CompoundException e)
+            {
+                try
+                {
+                    PrintStream nullStream = new PrintStream(new NullOutputStream());
+                    Sharpen.Runtime.PrintStackTrace(e, nullStream);
+                    Sharpen.Runtime.PrintStackTrace(e, new PrintWriter(nullStream));
+                }
+                catch (Exception)
+                {
+                    NUnit.Framework.Assert.Fail("Exception during printStackTrace for CompoundException with no inner exception");
+                }
+            }
+        }
+    }
 }

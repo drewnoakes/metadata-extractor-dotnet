@@ -1,20 +1,20 @@
 namespace Sharpen
 {
-	using System;
-	using System.IO;
+    using System;
+    using System.IO;
 
-	public class BufferedInputStream : InputStream
-	{
-		public BufferedInputStream (InputStream s)
-		{
-			BaseStream = s.GetWrappedStream ();
-			base.Wrapped = new BufferedStream (BaseStream);
-		}
+    public class BufferedInputStream : InputStream
+    {
+        public BufferedInputStream (InputStream s)
+        {
+            BaseStream = s.GetWrappedStream ();
+            base.Wrapped = new BufferedStream (BaseStream);
+        }
 
-		public BufferedInputStream (InputStream s, int bufferSize)
-		{
-			BaseStream = s.GetWrappedStream ();
-			base.Wrapped = new BufferedStream (BaseStream, bufferSize);
-		}
-	}
+        public BufferedInputStream (InputStream s, int bufferSize)
+        {
+            BaseStream = s.GetWrappedStream ();
+            base.Wrapped = new BufferedStream (BaseStream, bufferSize);
+        }
+    }
 }

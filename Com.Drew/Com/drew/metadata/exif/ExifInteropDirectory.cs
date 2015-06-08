@@ -25,33 +25,33 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
 {
-	/// <summary>Describes Exif interoperability tags.</summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class ExifInteropDirectory : ExifDirectoryBase
-	{
-		[NotNull]
-		protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+    /// <summary>Describes Exif interoperability tags.</summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class ExifInteropDirectory : ExifDirectoryBase
+    {
+        [NotNull]
+        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
 
-		static ExifInteropDirectory()
-		{
-			AddExifTagNames(_tagNameMap);
-		}
+        static ExifInteropDirectory()
+        {
+            AddExifTagNames(_tagNameMap);
+        }
 
-		public ExifInteropDirectory()
-		{
-			this.SetDescriptor(new ExifInteropDescriptor(this));
-		}
+        public ExifInteropDirectory()
+        {
+            this.SetDescriptor(new ExifInteropDescriptor(this));
+        }
 
-		[NotNull]
-		public override string GetName()
-		{
-			return "Interoperability";
-		}
+        [NotNull]
+        public override string GetName()
+        {
+            return "Interoperability";
+        }
 
-		[NotNull]
-		protected internal override Dictionary<int?, string> GetTagNameMap()
-		{
-			return _tagNameMap;
-		}
-	}
+        [NotNull]
+        protected internal override Dictionary<int?, string> GetTagNameMap()
+        {
+            return _tagNameMap;
+        }
+    }
 }

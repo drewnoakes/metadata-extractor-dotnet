@@ -28,90 +28,90 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
 {
-	/// <summary>
-	/// Decodes Exif binary data, populating a
-	/// <see cref="Com.Drew.Metadata.Metadata"/>
-	/// object with tag values in
-	/// <see cref="ExifSubIFDDirectory"/>
-	/// ,
-	/// <see cref="ExifThumbnailDirectory"/>
-	/// ,
-	/// <see cref="ExifInteropDirectory"/>
-	/// ,
-	/// <see cref="GpsDirectory"/>
-	/// and one of the many camera
-	/// makernote directories.
-	/// </summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class ExifReader : JpegSegmentMetadataReader
-	{
-		/// <summary>Exif data stored in JPEG files' APP1 segment are preceded by this six character preamble.</summary>
-		public const string JpegSegmentPreamble = "Exif\x0\x0";
+    /// <summary>
+    /// Decodes Exif binary data, populating a
+    /// <see cref="Com.Drew.Metadata.Metadata"/>
+    /// object with tag values in
+    /// <see cref="ExifSubIFDDirectory"/>
+    /// ,
+    /// <see cref="ExifThumbnailDirectory"/>
+    /// ,
+    /// <see cref="ExifInteropDirectory"/>
+    /// ,
+    /// <see cref="GpsDirectory"/>
+    /// and one of the many camera
+    /// makernote directories.
+    /// </summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class ExifReader : JpegSegmentMetadataReader
+    {
+        /// <summary>Exif data stored in JPEG files' APP1 segment are preceded by this six character preamble.</summary>
+        public const string JpegSegmentPreamble = "Exif\x0\x0";
 
-		private bool _storeThumbnailBytes = true;
+        private bool _storeThumbnailBytes = true;
 
-		public virtual bool IsStoreThumbnailBytes()
-		{
-			return _storeThumbnailBytes;
-		}
+        public virtual bool IsStoreThumbnailBytes()
+        {
+            return _storeThumbnailBytes;
+        }
 
-		public virtual void SetStoreThumbnailBytes(bool storeThumbnailBytes)
-		{
-			_storeThumbnailBytes = storeThumbnailBytes;
-		}
+        public virtual void SetStoreThumbnailBytes(bool storeThumbnailBytes)
+        {
+            _storeThumbnailBytes = storeThumbnailBytes;
+        }
 
-		[NotNull]
-		public virtual Iterable<JpegSegmentType> GetSegmentTypes()
-		{
-			return Arrays.AsList(JpegSegmentType.App1).AsIterable();
-		}
+        [NotNull]
+        public virtual Iterable<JpegSegmentType> GetSegmentTypes()
+        {
+            return Arrays.AsList(JpegSegmentType.App1).AsIterable();
+        }
 
-		public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType)
-		{
-			System.Diagnostics.Debug.Assert((segmentType == JpegSegmentType.App1));
-			foreach (sbyte[] segmentBytes in segments)
-			{
-				// Filter any segments containing unexpected preambles
-				if (segmentBytes.Length < JpegSegmentPreamble.Length || !Sharpen.Runtime.GetStringForBytes(segmentBytes, 0, JpegSegmentPreamble.Length).Equals(JpegSegmentPreamble))
-				{
-					continue;
-				}
-				Extract(new ByteArrayReader(segmentBytes), metadata, JpegSegmentPreamble.Length);
-			}
-		}
+        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        {
+            System.Diagnostics.Debug.Assert((segmentType == JpegSegmentType.App1));
+            foreach (sbyte[] segmentBytes in segments)
+            {
+                // Filter any segments containing unexpected preambles
+                if (segmentBytes.Length < JpegSegmentPreamble.Length || !Sharpen.Runtime.GetStringForBytes(segmentBytes, 0, JpegSegmentPreamble.Length).Equals(JpegSegmentPreamble))
+                {
+                    continue;
+                }
+                Extract(new ByteArrayReader(segmentBytes), metadata, JpegSegmentPreamble.Length);
+            }
+        }
 
-		/// <summary>
-		/// Reads TIFF formatted Exif data from start of the specified
-		/// <see cref="Com.Drew.Lang.RandomAccessReader"/>
-		/// .
-		/// </summary>
-		public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata)
-		{
-			Extract(reader, metadata, 0);
-		}
+        /// <summary>
+        /// Reads TIFF formatted Exif data from start of the specified
+        /// <see cref="Com.Drew.Lang.RandomAccessReader"/>
+        /// .
+        /// </summary>
+        public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata)
+        {
+            Extract(reader, metadata, 0);
+        }
 
-		/// <summary>
-		/// Reads TIFF formatted Exif data a specified offset within a
-		/// <see cref="Com.Drew.Lang.RandomAccessReader"/>
-		/// .
-		/// </summary>
-		public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata, int readerOffset)
-		{
-			try
-			{
-				// Read the TIFF-formatted Exif data
-				new TiffReader().ProcessTiff(reader, new ExifTiffHandler(metadata, _storeThumbnailBytes), readerOffset);
-			}
-			catch (TiffProcessingException e)
-			{
-				// TODO what do to with this error state?
-				Sharpen.Runtime.PrintStackTrace(e, System.Console.Error);
-			}
-			catch (IOException e)
-			{
-				// TODO what do to with this error state?
-				Sharpen.Runtime.PrintStackTrace(e, System.Console.Error);
-			}
-		}
-	}
+        /// <summary>
+        /// Reads TIFF formatted Exif data a specified offset within a
+        /// <see cref="Com.Drew.Lang.RandomAccessReader"/>
+        /// .
+        /// </summary>
+        public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata, int readerOffset)
+        {
+            try
+            {
+                // Read the TIFF-formatted Exif data
+                new TiffReader().ProcessTiff(reader, new ExifTiffHandler(metadata, _storeThumbnailBytes), readerOffset);
+            }
+            catch (TiffProcessingException e)
+            {
+                // TODO what do to with this error state?
+                Sharpen.Runtime.PrintStackTrace(e, System.Console.Error);
+            }
+            catch (IOException e)
+            {
+                // TODO what do to with this error state?
+                Sharpen.Runtime.PrintStackTrace(e, System.Console.Error);
+            }
+        }
+    }
 }

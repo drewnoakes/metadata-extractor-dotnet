@@ -25,40 +25,40 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Jpeg
 {
-	/// <summary>Describes tags used by a JPEG file comment.</summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class JpegCommentDirectory : Com.Drew.Metadata.Directory
-	{
-		/// <summary>This value does not apply to a particular standard.</summary>
-		/// <remarks>
-		/// This value does not apply to a particular standard. Rather, this value has been fabricated to maintain
-		/// consistency with other directory types.
-		/// </remarks>
-		public const int TagComment = 0;
+    /// <summary>Describes tags used by a JPEG file comment.</summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class JpegCommentDirectory : Com.Drew.Metadata.Directory
+    {
+        /// <summary>This value does not apply to a particular standard.</summary>
+        /// <remarks>
+        /// This value does not apply to a particular standard. Rather, this value has been fabricated to maintain
+        /// consistency with other directory types.
+        /// </remarks>
+        public const int TagComment = 0;
 
-		[NotNull]
-		protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        [NotNull]
+        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
 
-		static JpegCommentDirectory()
-		{
-			_tagNameMap.Put(TagComment, "JPEG Comment");
-		}
+        static JpegCommentDirectory()
+        {
+            _tagNameMap.Put(TagComment, "JPEG Comment");
+        }
 
-		public JpegCommentDirectory()
-		{
-			this.SetDescriptor(new JpegCommentDescriptor(this));
-		}
+        public JpegCommentDirectory()
+        {
+            this.SetDescriptor(new JpegCommentDescriptor(this));
+        }
 
-		[NotNull]
-		public override string GetName()
-		{
-			return "JpegComment";
-		}
+        [NotNull]
+        public override string GetName()
+        {
+            return "JpegComment";
+        }
 
-		[NotNull]
-		protected internal override Dictionary<int?, string> GetTagNameMap()
-		{
-			return _tagNameMap;
-		}
-	}
+        [NotNull]
+        protected internal override Dictionary<int?, string> GetTagNameMap()
+        {
+            return _tagNameMap;
+        }
+    }
 }

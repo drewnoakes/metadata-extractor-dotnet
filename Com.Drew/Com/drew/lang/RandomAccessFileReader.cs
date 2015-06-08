@@ -26,98 +26,98 @@ using Sharpen;
 
 namespace Com.Drew.Lang
 {
-	/// <summary>
-	/// Provides methods to read specific values from a
-	/// <see cref="System.IO.RandomAccessFile"/>
-	/// , with a consistent, checked exception structure for
-	/// issues.
-	/// </summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class RandomAccessFileReader : RandomAccessReader
-	{
-		[NotNull]
-		private readonly RandomAccessFile _file;
+    /// <summary>
+    /// Provides methods to read specific values from a
+    /// <see cref="System.IO.RandomAccessFile"/>
+    /// , with a consistent, checked exception structure for
+    /// issues.
+    /// </summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class RandomAccessFileReader : RandomAccessReader
+    {
+        [NotNull]
+        private readonly RandomAccessFile _file;
 
-		private readonly long _length;
+        private readonly long _length;
 
-		private int _currentIndex;
+        private int _currentIndex;
 
-		/// <exception cref="System.IO.IOException"/>
-		public RandomAccessFileReader([NotNull] RandomAccessFile file)
-		{
-			if (file == null)
-			{
-				throw new ArgumentNullException();
-			}
-			_file = file;
-			_length = _file.Length();
-		}
+        /// <exception cref="System.IO.IOException"/>
+        public RandomAccessFileReader([NotNull] RandomAccessFile file)
+        {
+            if (file == null)
+            {
+                throw new ArgumentNullException();
+            }
+            _file = file;
+            _length = _file.Length();
+        }
 
-		public override long GetLength()
-		{
-			return _length;
-		}
+        public override long GetLength()
+        {
+            return _length;
+        }
 
-		/// <exception cref="System.IO.IOException"/>
-		protected internal override sbyte GetByte(int index)
-		{
-			if (index != _currentIndex)
-			{
-				Seek(index);
-			}
-			int b = _file.Read();
-			if (b < 0)
-			{
-				throw new BufferBoundsException("Unexpected end of file encountered.");
-			}
-			System.Diagnostics.Debug.Assert((b <= unchecked((int)(0xff))));
-			_currentIndex++;
-			return unchecked((sbyte)b);
-		}
+        /// <exception cref="System.IO.IOException"/>
+        protected internal override sbyte GetByte(int index)
+        {
+            if (index != _currentIndex)
+            {
+                Seek(index);
+            }
+            int b = _file.Read();
+            if (b < 0)
+            {
+                throw new BufferBoundsException("Unexpected end of file encountered.");
+            }
+            System.Diagnostics.Debug.Assert((b <= unchecked((int)(0xff))));
+            _currentIndex++;
+            return unchecked((sbyte)b);
+        }
 
-		/// <exception cref="System.IO.IOException"/>
-		[NotNull]
-		public override sbyte[] GetBytes(int index, int count)
-		{
-			ValidateIndex(index, count);
-			if (index != _currentIndex)
-			{
-				Seek(index);
-			}
-			sbyte[] bytes = new sbyte[count];
-			int bytesRead = _file.Read(bytes);
-			_currentIndex += bytesRead;
-			if (bytesRead != count)
-			{
-				throw new BufferBoundsException("Unexpected end of file encountered.");
-			}
-			return bytes;
-		}
+        /// <exception cref="System.IO.IOException"/>
+        [NotNull]
+        public override sbyte[] GetBytes(int index, int count)
+        {
+            ValidateIndex(index, count);
+            if (index != _currentIndex)
+            {
+                Seek(index);
+            }
+            sbyte[] bytes = new sbyte[count];
+            int bytesRead = _file.Read(bytes);
+            _currentIndex += bytesRead;
+            if (bytesRead != count)
+            {
+                throw new BufferBoundsException("Unexpected end of file encountered.");
+            }
+            return bytes;
+        }
 
-		/// <exception cref="System.IO.IOException"/>
-		private void Seek(int index)
-		{
-			if (index == _currentIndex)
-			{
-				return;
-			}
-			_file.Seek(index);
-			_currentIndex = index;
-		}
+        /// <exception cref="System.IO.IOException"/>
+        private void Seek(int index)
+        {
+            if (index == _currentIndex)
+            {
+                return;
+            }
+            _file.Seek(index);
+            _currentIndex = index;
+        }
 
-		/// <exception cref="System.IO.IOException"/>
-		protected internal override bool IsValidIndex(int index, int bytesRequested)
-		{
-			return bytesRequested >= 0 && index >= 0 && (long)index + (long)bytesRequested - 1L < _length;
-		}
+        /// <exception cref="System.IO.IOException"/>
+        protected internal override bool IsValidIndex(int index, int bytesRequested)
+        {
+            return bytesRequested >= 0 && index >= 0 && (long)index + (long)bytesRequested - 1L < _length;
+        }
 
-		/// <exception cref="System.IO.IOException"/>
-		protected internal override void ValidateIndex(int index, int bytesRequested)
-		{
-			if (!IsValidIndex(index, bytesRequested))
-			{
-				throw new BufferBoundsException(index, bytesRequested, _length);
-			}
-		}
-	}
+        /// <exception cref="System.IO.IOException"/>
+        protected internal override void ValidateIndex(int index, int bytesRequested)
+        {
+            if (!IsValidIndex(index, bytesRequested))
+            {
+                throw new BufferBoundsException(index, bytesRequested, _length);
+            }
+        }
+    }
 }

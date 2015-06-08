@@ -25,24 +25,24 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Webp
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class WebpDescriptor : TagDescriptor<WebpDirectory>
-	{
-		public WebpDescriptor([NotNull] WebpDirectory directory)
-			: base(directory)
-		{
-		}
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class WebpDescriptor : TagDescriptor<WebpDirectory>
+    {
+        public WebpDescriptor([NotNull] WebpDirectory directory)
+            : base(directory)
+        {
+        }
 
-		[CanBeNull]
-		public override string GetDescription(int tagType)
-		{
-			switch (tagType)
-			{
-				default:
-				{
-					return base.GetDescription(tagType);
-				}
-			}
-		}
-	}
+        [CanBeNull]
+        public override string GetDescription(int tagType)
+        {
+            switch (tagType)
+            {
+                default:
+                {
+                    return base.GetDescription(tagType);
+                }
+            }
+        }
+    }
 }

@@ -27,51 +27,51 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Adobe
 {
-	/// <summary>Decodes Adobe formatted data stored in JPEG files, normally in the APPE (App14) segment.</summary>
-	/// <author>Philip</author>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class AdobeJpegReader : JpegSegmentMetadataReader
-	{
-		public const string Preamble = "Adobe";
+    /// <summary>Decodes Adobe formatted data stored in JPEG files, normally in the APPE (App14) segment.</summary>
+    /// <author>Philip</author>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class AdobeJpegReader : JpegSegmentMetadataReader
+    {
+        public const string Preamble = "Adobe";
 
-		[NotNull]
-		public virtual Iterable<JpegSegmentType> GetSegmentTypes()
-		{
-			return Arrays.AsList(JpegSegmentType.Appe).AsIterable();
-		}
+        [NotNull]
+        public virtual Iterable<JpegSegmentType> GetSegmentTypes()
+        {
+            return Arrays.AsList(JpegSegmentType.Appe).AsIterable();
+        }
 
-		public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType)
-		{
-			foreach (sbyte[] bytes in segments)
-			{
-				if (bytes.Length == 12 && Sharpen.Runtime.EqualsIgnoreCase(Preamble, Sharpen.Runtime.GetStringForBytes(bytes, 0, Preamble.Length)))
-				{
-					Extract(new SequentialByteArrayReader(bytes), metadata);
-				}
-			}
-		}
+        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        {
+            foreach (sbyte[] bytes in segments)
+            {
+                if (bytes.Length == 12 && Sharpen.Runtime.EqualsIgnoreCase(Preamble, Sharpen.Runtime.GetStringForBytes(bytes, 0, Preamble.Length)))
+                {
+                    Extract(new SequentialByteArrayReader(bytes), metadata);
+                }
+            }
+        }
 
-		public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata)
-		{
-			Com.Drew.Metadata.Directory directory = new AdobeJpegDirectory();
-			metadata.AddDirectory(directory);
-			try
-			{
-				reader.SetMotorolaByteOrder(false);
-				if (!reader.GetString(Preamble.Length).Equals(Preamble))
-				{
-					directory.AddError("Invalid Adobe JPEG data header.");
-					return;
-				}
-				directory.SetInt(AdobeJpegDirectory.TagDctEncodeVersion, reader.GetUInt16());
-				directory.SetInt(AdobeJpegDirectory.TagApp14Flags0, reader.GetUInt16());
-				directory.SetInt(AdobeJpegDirectory.TagApp14Flags1, reader.GetUInt16());
-				directory.SetInt(AdobeJpegDirectory.TagColorTransform, reader.GetInt8());
-			}
-			catch (IOException ex)
-			{
-				directory.AddError("IO exception processing data: " + ex.Message);
-			}
-		}
-	}
+        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata)
+        {
+            Com.Drew.Metadata.Directory directory = new AdobeJpegDirectory();
+            metadata.AddDirectory(directory);
+            try
+            {
+                reader.SetMotorolaByteOrder(false);
+                if (!reader.GetString(Preamble.Length).Equals(Preamble))
+                {
+                    directory.AddError("Invalid Adobe JPEG data header.");
+                    return;
+                }
+                directory.SetInt(AdobeJpegDirectory.TagDctEncodeVersion, reader.GetUInt16());
+                directory.SetInt(AdobeJpegDirectory.TagApp14Flags0, reader.GetUInt16());
+                directory.SetInt(AdobeJpegDirectory.TagApp14Flags1, reader.GetUInt16());
+                directory.SetInt(AdobeJpegDirectory.TagColorTransform, reader.GetInt8());
+            }
+            catch (IOException ex)
+            {
+                directory.AddError("IO exception processing data: " + ex.Message);
+            }
+        }
+    }
 }

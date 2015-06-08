@@ -26,79 +26,79 @@ using Sharpen;
 
 namespace Com.Drew.Imaging.Tiff
 {
-	/// <summary>
-	/// Interface of an class capable of handling events raised during the reading of a TIFF file
-	/// via
-	/// <see cref="TiffReader"/>
-	/// .
-	/// </summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public interface TiffHandler
-	{
-		/// <summary>Receives the 2-byte marker found in the TIFF header.</summary>
-		/// <remarks>
-		/// Receives the 2-byte marker found in the TIFF header.
-		/// <p>
-		/// Implementations are not obligated to use this information for any purpose, though it may be useful for
-		/// validation or perhaps differentiating the type of mapping to use for observed tags and IFDs.
-		/// </remarks>
-		/// <param name="marker">the 2-byte value found at position 2 of the TIFF header</param>
-		/// <exception cref="Com.Drew.Imaging.Tiff.TiffProcessingException"/>
-		void SetTiffMarker(int marker);
+    /// <summary>
+    /// Interface of an class capable of handling events raised during the reading of a TIFF file
+    /// via
+    /// <see cref="TiffReader"/>
+    /// .
+    /// </summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public interface TiffHandler
+    {
+        /// <summary>Receives the 2-byte marker found in the TIFF header.</summary>
+        /// <remarks>
+        /// Receives the 2-byte marker found in the TIFF header.
+        /// <p>
+        /// Implementations are not obligated to use this information for any purpose, though it may be useful for
+        /// validation or perhaps differentiating the type of mapping to use for observed tags and IFDs.
+        /// </remarks>
+        /// <param name="marker">the 2-byte value found at position 2 of the TIFF header</param>
+        /// <exception cref="Com.Drew.Imaging.Tiff.TiffProcessingException"/>
+        void SetTiffMarker(int marker);
 
-		bool IsTagIfdPointer(int tagType);
+        bool IsTagIfdPointer(int tagType);
 
-		bool HasFollowerIfd();
+        bool HasFollowerIfd();
 
-		void EndingIFD();
+        void EndingIFD();
 
-		void Completed([NotNull] RandomAccessReader reader, int tiffHeaderOffset);
+        void Completed([NotNull] RandomAccessReader reader, int tiffHeaderOffset);
 
-		/// <exception cref="System.IO.IOException"/>
-		bool CustomProcessTag(int tagOffset, [NotNull] ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, [NotNull] RandomAccessReader reader, int tagId, int byteCount);
+        /// <exception cref="System.IO.IOException"/>
+        bool CustomProcessTag(int tagOffset, [NotNull] ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, [NotNull] RandomAccessReader reader, int tagId, int byteCount);
 
-		void Warn([NotNull] string message);
+        void Warn([NotNull] string message);
 
-		void Error([NotNull] string message);
+        void Error([NotNull] string message);
 
-		void SetByteArray(int tagId, [NotNull] sbyte[] bytes);
+        void SetByteArray(int tagId, [NotNull] sbyte[] bytes);
 
-		void SetString(int tagId, [NotNull] string @string);
+        void SetString(int tagId, [NotNull] string @string);
 
-		void SetRational(int tagId, [NotNull] Rational rational);
+        void SetRational(int tagId, [NotNull] Rational rational);
 
-		void SetRationalArray(int tagId, [NotNull] Rational[] array);
+        void SetRationalArray(int tagId, [NotNull] Rational[] array);
 
-		void SetFloat(int tagId, float float32);
+        void SetFloat(int tagId, float float32);
 
-		void SetFloatArray(int tagId, [NotNull] float[] array);
+        void SetFloatArray(int tagId, [NotNull] float[] array);
 
-		void SetDouble(int tagId, double double64);
+        void SetDouble(int tagId, double double64);
 
-		void SetDoubleArray(int tagId, [NotNull] double[] array);
+        void SetDoubleArray(int tagId, [NotNull] double[] array);
 
-		void SetInt8s(int tagId, sbyte int8s);
+        void SetInt8s(int tagId, sbyte int8s);
 
-		void SetInt8sArray(int tagId, [NotNull] sbyte[] array);
+        void SetInt8sArray(int tagId, [NotNull] sbyte[] array);
 
-		void SetInt8u(int tagId, short int8u);
+        void SetInt8u(int tagId, short int8u);
 
-		void SetInt8uArray(int tagId, [NotNull] short[] array);
+        void SetInt8uArray(int tagId, [NotNull] short[] array);
 
-		void SetInt16s(int tagId, int int16s);
+        void SetInt16s(int tagId, int int16s);
 
-		void SetInt16sArray(int tagId, [NotNull] short[] array);
+        void SetInt16sArray(int tagId, [NotNull] short[] array);
 
-		void SetInt16u(int tagId, int int16u);
+        void SetInt16u(int tagId, int int16u);
 
-		void SetInt16uArray(int tagId, [NotNull] int[] array);
+        void SetInt16uArray(int tagId, [NotNull] int[] array);
 
-		void SetInt32s(int tagId, int int32s);
+        void SetInt32s(int tagId, int int32s);
 
-		void SetInt32sArray(int tagId, [NotNull] int[] array);
+        void SetInt32sArray(int tagId, [NotNull] int[] array);
 
-		void SetInt32u(int tagId, long int32u);
+        void SetInt32u(int tagId, long int32u);
 
-		void SetInt32uArray(int tagId, [NotNull] long[] array);
-	}
+        void SetInt32uArray(int tagId, [NotNull] long[] array);
+    }
 }

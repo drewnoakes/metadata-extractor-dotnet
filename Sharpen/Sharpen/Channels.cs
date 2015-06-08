@@ -27,12 +27,12 @@ using System;
 
 namespace Sharpen
 {
-	public static class Channels
-	{
-		public static OutputStream NewOutputStream (FileChannel c)
-		{
-			return c.Stream;
-		}
-	}
+    public static class Channels
+    {
+        public static OutputStream NewOutputStream (FileChannel c)
+        {
+            return c.Stream;
+        }
+    }
 }
 

@@ -25,40 +25,40 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.File
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class FileMetadataDirectory : Com.Drew.Metadata.Directory
-	{
-		public const int TagFileName = 1;
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class FileMetadataDirectory : Com.Drew.Metadata.Directory
+    {
+        public const int TagFileName = 1;
 
-		public const int TagFileSize = 2;
+        public const int TagFileSize = 2;
 
-		public const int TagFileModifiedDate = 3;
+        public const int TagFileModifiedDate = 3;
 
-		[NotNull]
-		protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        [NotNull]
+        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
 
-		static FileMetadataDirectory()
-		{
-			_tagNameMap.Put(TagFileName, "File Name");
-			_tagNameMap.Put(TagFileSize, "File Size");
-			_tagNameMap.Put(TagFileModifiedDate, "File Modified Date");
-		}
+        static FileMetadataDirectory()
+        {
+            _tagNameMap.Put(TagFileName, "File Name");
+            _tagNameMap.Put(TagFileSize, "File Size");
+            _tagNameMap.Put(TagFileModifiedDate, "File Modified Date");
+        }
 
-		public FileMetadataDirectory()
-		{
-			this.SetDescriptor(new FileMetadataDescriptor(this));
-		}
+        public FileMetadataDirectory()
+        {
+            this.SetDescriptor(new FileMetadataDescriptor(this));
+        }
 
-		[NotNull]
-		public override string GetName()
-		{
-			return "File";
-		}
+        [NotNull]
+        public override string GetName()
+        {
+            return "File";
+        }
 
-		[NotNull]
-		protected internal override Dictionary<int?, string> GetTagNameMap()
-		{
-			return _tagNameMap;
-		}
-	}
+        [NotNull]
+        protected internal override Dictionary<int?, string> GetTagNameMap()
+        {
+            return _tagNameMap;
+        }
+    }
 }

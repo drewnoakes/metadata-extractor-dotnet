@@ -27,89 +27,89 @@ using Sharpen;
 
 namespace Com.Drew.Lang
 {
-	/// <summary>
-	/// Represents a compound exception, as modelled in JDK 1.4, but
-	/// unavailable in previous versions.
-	/// </summary>
-	/// <remarks>
-	/// Represents a compound exception, as modelled in JDK 1.4, but
-	/// unavailable in previous versions.  This class allows support
-	/// of these previous JDK versions.
-	/// </remarks>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	[System.Serializable]
-	public class CompoundException : Exception
-	{
-		private const long serialVersionUID = -9207883813472069925L;
+    /// <summary>
+    /// Represents a compound exception, as modelled in JDK 1.4, but
+    /// unavailable in previous versions.
+    /// </summary>
+    /// <remarks>
+    /// Represents a compound exception, as modelled in JDK 1.4, but
+    /// unavailable in previous versions.  This class allows support
+    /// of these previous JDK versions.
+    /// </remarks>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    [System.Serializable]
+    public class CompoundException : Exception
+    {
+        private const long serialVersionUID = -9207883813472069925L;
 
-		[CanBeNull]
-		private readonly Exception _innerException;
+        [CanBeNull]
+        private readonly Exception _innerException;
 
-		public CompoundException([CanBeNull] string msg)
-			: this(msg, null)
-		{
-		}
+        public CompoundException([CanBeNull] string msg)
+            : this(msg, null)
+        {
+        }
 
-		public CompoundException([CanBeNull] Exception exception)
-			: this(null, exception)
-		{
-		}
+        public CompoundException([CanBeNull] Exception exception)
+            : this(null, exception)
+        {
+        }
 
-		public CompoundException([CanBeNull] string msg, [CanBeNull] Exception innerException)
-			: base(msg)
-		{
-			_innerException = innerException;
-		}
+        public CompoundException([CanBeNull] string msg, [CanBeNull] Exception innerException)
+            : base(msg)
+        {
+            _innerException = innerException;
+        }
 
-		[CanBeNull]
-		public virtual Exception GetInnerException()
-		{
-			return _innerException;
-		}
+        [CanBeNull]
+        public virtual Exception GetInnerException()
+        {
+            return _innerException;
+        }
 
-		[NotNull]
-		public override string ToString()
-		{
-			StringBuilder @string = new StringBuilder();
-			@string.Append(base.ToString());
-			if (_innerException != null)
-			{
-				@string.Append("\n");
-				@string.Append("--- inner exception ---");
-				@string.Append("\n");
-				@string.Append(Sharpen.Extensions.ConvertToString(_innerException));
-			}
-			return Sharpen.Extensions.ConvertToString(@string);
-		}
+        [NotNull]
+        public override string ToString()
+        {
+            StringBuilder @string = new StringBuilder();
+            @string.Append(base.ToString());
+            if (_innerException != null)
+            {
+                @string.Append("\n");
+                @string.Append("--- inner exception ---");
+                @string.Append("\n");
+                @string.Append(Sharpen.Extensions.ConvertToString(_innerException));
+            }
+            return Sharpen.Extensions.ConvertToString(@string);
+        }
 
-//		public override void PrintStackTrace([NotNull] PrintStream s)
-//		{
-//			base.Sharpen.Runtime.PrintStackTrace(s);
-//			if (_innerException != null)
-//			{
-//				s.Println("--- inner exception ---");
-//				Sharpen.Runtime.PrintStackTrace(_innerException, s);
-//			}
-//		}
+//        public override void PrintStackTrace([NotNull] PrintStream s)
+//        {
+//            base.Sharpen.Runtime.PrintStackTrace(s);
+//            if (_innerException != null)
+//            {
+//                s.Println("--- inner exception ---");
+//                Sharpen.Runtime.PrintStackTrace(_innerException, s);
+//            }
+//        }
 //
-//		public override void PrintStackTrace([NotNull] PrintWriter s)
-//		{
-//			base.Sharpen.Runtime.PrintStackTrace(s);
-//			if (_innerException != null)
-//			{
-//				s.WriteLine("--- inner exception ---");
-//				Sharpen.Runtime.PrintStackTrace(_innerException, s);
-//			}
-//		}
+//        public override void PrintStackTrace([NotNull] PrintWriter s)
+//        {
+//            base.Sharpen.Runtime.PrintStackTrace(s);
+//            if (_innerException != null)
+//            {
+//                s.WriteLine("--- inner exception ---");
+//                Sharpen.Runtime.PrintStackTrace(_innerException, s);
+//            }
+//        }
 //
-//		public override void PrintStackTrace()
-//		{
-//			base.Sharpen.Runtime.PrintStackTrace();
-//			if (_innerException != null)
-//			{
-//				System.Console.Error.Println("--- inner exception ---");
-//				Sharpen.Runtime.PrintStackTrace(_innerException);
-//			}
-//		}
-	}
+//        public override void PrintStackTrace()
+//        {
+//            base.Sharpen.Runtime.PrintStackTrace();
+//            if (_innerException != null)
+//            {
+//                System.Console.Error.Println("--- inner exception ---");
+//                Sharpen.Runtime.PrintStackTrace(_innerException);
+//            }
+//        }
+    }
 }

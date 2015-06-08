@@ -25,237 +25,237 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif.Makernotes
 {
-	/// <summary>
-	/// Provides human-readable string representations of tag values stored in a
-	/// <see cref="KodakMakernoteDirectory"/>
-	/// .
-	/// </summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class KodakMakernoteDescriptor : TagDescriptor<KodakMakernoteDirectory>
-	{
-		public KodakMakernoteDescriptor([NotNull] KodakMakernoteDirectory directory)
-			: base(directory)
-		{
-		}
+    /// <summary>
+    /// Provides human-readable string representations of tag values stored in a
+    /// <see cref="KodakMakernoteDirectory"/>
+    /// .
+    /// </summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class KodakMakernoteDescriptor : TagDescriptor<KodakMakernoteDirectory>
+    {
+        public KodakMakernoteDescriptor([NotNull] KodakMakernoteDirectory directory)
+            : base(directory)
+        {
+        }
 
-		[CanBeNull]
-		public override string GetDescription(int tagType)
-		{
-			switch (tagType)
-			{
-				case KodakMakernoteDirectory.TagQuality:
-				{
-					return GetQualityDescription();
-				}
+        [CanBeNull]
+        public override string GetDescription(int tagType)
+        {
+            switch (tagType)
+            {
+                case KodakMakernoteDirectory.TagQuality:
+                {
+                    return GetQualityDescription();
+                }
 
-				case KodakMakernoteDirectory.TagBurstMode:
-				{
-					return GetBurstModeDescription();
-				}
+                case KodakMakernoteDirectory.TagBurstMode:
+                {
+                    return GetBurstModeDescription();
+                }
 
-				case KodakMakernoteDirectory.TagShutterMode:
-				{
-					return GetShutterModeDescription();
-				}
+                case KodakMakernoteDirectory.TagShutterMode:
+                {
+                    return GetShutterModeDescription();
+                }
 
-				case KodakMakernoteDirectory.TagFocusMode:
-				{
-					return GetFocusModeDescription();
-				}
+                case KodakMakernoteDirectory.TagFocusMode:
+                {
+                    return GetFocusModeDescription();
+                }
 
-				case KodakMakernoteDirectory.TagWhiteBalance:
-				{
-					return GetWhiteBalanceDescription();
-				}
+                case KodakMakernoteDirectory.TagWhiteBalance:
+                {
+                    return GetWhiteBalanceDescription();
+                }
 
-				case KodakMakernoteDirectory.TagFlashMode:
-				{
-					return GetFlashModeDescription();
-				}
+                case KodakMakernoteDirectory.TagFlashMode:
+                {
+                    return GetFlashModeDescription();
+                }
 
-				case KodakMakernoteDirectory.TagFlashFired:
-				{
-					return GetFlashFiredDescription();
-				}
+                case KodakMakernoteDirectory.TagFlashFired:
+                {
+                    return GetFlashFiredDescription();
+                }
 
-				case KodakMakernoteDirectory.TagColorMode:
-				{
-					return GetColorModeDescription();
-				}
+                case KodakMakernoteDirectory.TagColorMode:
+                {
+                    return GetColorModeDescription();
+                }
 
-				case KodakMakernoteDirectory.TagSharpness:
-				{
-					return GetSharpnessDescription();
-				}
+                case KodakMakernoteDirectory.TagSharpness:
+                {
+                    return GetSharpnessDescription();
+                }
 
-				default:
-				{
-					return base.GetDescription(tagType);
-				}
-			}
-		}
+                default:
+                {
+                    return base.GetDescription(tagType);
+                }
+            }
+        }
 
-		[CanBeNull]
-		public virtual string GetSharpnessDescription()
-		{
-			return GetIndexedDescription(KodakMakernoteDirectory.TagSharpness, "Normal");
-		}
+        [CanBeNull]
+        public virtual string GetSharpnessDescription()
+        {
+            return GetIndexedDescription(KodakMakernoteDirectory.TagSharpness, "Normal");
+        }
 
-		[CanBeNull]
-		public virtual string GetColorModeDescription()
-		{
-			int? value = _directory.GetInteger(KodakMakernoteDirectory.TagColorMode);
-			if (value == null)
-			{
-				return null;
-			}
-			switch (value)
-			{
-				case unchecked((int)(0x001)):
-				case unchecked((int)(0x2000)):
-				{
-					return "B&W";
-				}
+        [CanBeNull]
+        public virtual string GetColorModeDescription()
+        {
+            int? value = _directory.GetInteger(KodakMakernoteDirectory.TagColorMode);
+            if (value == null)
+            {
+                return null;
+            }
+            switch (value)
+            {
+                case unchecked((int)(0x001)):
+                case unchecked((int)(0x2000)):
+                {
+                    return "B&W";
+                }
 
-				case unchecked((int)(0x002)):
-				case unchecked((int)(0x4000)):
-				{
-					return "Sepia";
-				}
+                case unchecked((int)(0x002)):
+                case unchecked((int)(0x4000)):
+                {
+                    return "Sepia";
+                }
 
-				case unchecked((int)(0x003)):
-				{
-					return "B&W Yellow Filter";
-				}
+                case unchecked((int)(0x003)):
+                {
+                    return "B&W Yellow Filter";
+                }
 
-				case unchecked((int)(0x004)):
-				{
-					return "B&W Red Filter";
-				}
+                case unchecked((int)(0x004)):
+                {
+                    return "B&W Red Filter";
+                }
 
-				case unchecked((int)(0x020)):
-				{
-					return "Saturated Color";
-				}
+                case unchecked((int)(0x020)):
+                {
+                    return "Saturated Color";
+                }
 
-				case unchecked((int)(0x040)):
-				case unchecked((int)(0x200)):
-				{
-					return "Neutral Color";
-				}
+                case unchecked((int)(0x040)):
+                case unchecked((int)(0x200)):
+                {
+                    return "Neutral Color";
+                }
 
-				case unchecked((int)(0x100)):
-				{
-					return "Saturated Color";
-				}
+                case unchecked((int)(0x100)):
+                {
+                    return "Saturated Color";
+                }
 
-				default:
-				{
-					return "Unknown (" + value + ")";
-				}
-			}
-		}
+                default:
+                {
+                    return "Unknown (" + value + ")";
+                }
+            }
+        }
 
-		[CanBeNull]
-		public virtual string GetFlashFiredDescription()
-		{
-			return GetIndexedDescription(KodakMakernoteDirectory.TagFlashFired, "No", "Yes");
-		}
+        [CanBeNull]
+        public virtual string GetFlashFiredDescription()
+        {
+            return GetIndexedDescription(KodakMakernoteDirectory.TagFlashFired, "No", "Yes");
+        }
 
-		[CanBeNull]
-		public virtual string GetFlashModeDescription()
-		{
-			int? value = _directory.GetInteger(KodakMakernoteDirectory.TagFlashMode);
-			if (value == null)
-			{
-				return null;
-			}
-			switch (value)
-			{
-				case unchecked((int)(0x00)):
-				{
-					return "Auto";
-				}
+        [CanBeNull]
+        public virtual string GetFlashModeDescription()
+        {
+            int? value = _directory.GetInteger(KodakMakernoteDirectory.TagFlashMode);
+            if (value == null)
+            {
+                return null;
+            }
+            switch (value)
+            {
+                case unchecked((int)(0x00)):
+                {
+                    return "Auto";
+                }
 
-				case unchecked((int)(0x10)):
-				case unchecked((int)(0x01)):
-				{
-					return "Fill Flash";
-				}
+                case unchecked((int)(0x10)):
+                case unchecked((int)(0x01)):
+                {
+                    return "Fill Flash";
+                }
 
-				case unchecked((int)(0x20)):
-				case unchecked((int)(0x02)):
-				{
-					return "Off";
-				}
+                case unchecked((int)(0x20)):
+                case unchecked((int)(0x02)):
+                {
+                    return "Off";
+                }
 
-				case unchecked((int)(0x40)):
-				case unchecked((int)(0x03)):
-				{
-					return "Red Eye";
-				}
+                case unchecked((int)(0x40)):
+                case unchecked((int)(0x03)):
+                {
+                    return "Red Eye";
+                }
 
-				default:
-				{
-					return "Unknown (" + value + ")";
-				}
-			}
-		}
+                default:
+                {
+                    return "Unknown (" + value + ")";
+                }
+            }
+        }
 
-		[CanBeNull]
-		public virtual string GetWhiteBalanceDescription()
-		{
-			return GetIndexedDescription(KodakMakernoteDirectory.TagWhiteBalance, "Auto", "Flash", "Tungsten", "Daylight");
-		}
+        [CanBeNull]
+        public virtual string GetWhiteBalanceDescription()
+        {
+            return GetIndexedDescription(KodakMakernoteDirectory.TagWhiteBalance, "Auto", "Flash", "Tungsten", "Daylight");
+        }
 
-		[CanBeNull]
-		public virtual string GetFocusModeDescription()
-		{
-			return GetIndexedDescription(KodakMakernoteDirectory.TagFocusMode, "Normal", null, "Macro");
-		}
+        [CanBeNull]
+        public virtual string GetFocusModeDescription()
+        {
+            return GetIndexedDescription(KodakMakernoteDirectory.TagFocusMode, "Normal", null, "Macro");
+        }
 
-		[CanBeNull]
-		public virtual string GetShutterModeDescription()
-		{
-			int? value = _directory.GetInteger(KodakMakernoteDirectory.TagShutterMode);
-			if (value == null)
-			{
-				return null;
-			}
-			switch (value)
-			{
-				case 0:
-				{
-					return "Auto";
-				}
+        [CanBeNull]
+        public virtual string GetShutterModeDescription()
+        {
+            int? value = _directory.GetInteger(KodakMakernoteDirectory.TagShutterMode);
+            if (value == null)
+            {
+                return null;
+            }
+            switch (value)
+            {
+                case 0:
+                {
+                    return "Auto";
+                }
 
-				case 8:
-				{
-					return "Aperture Priority";
-				}
+                case 8:
+                {
+                    return "Aperture Priority";
+                }
 
-				case 32:
-				{
-					return "Manual";
-				}
+                case 32:
+                {
+                    return "Manual";
+                }
 
-				default:
-				{
-					return "Unknown (" + value + ")";
-				}
-			}
-		}
+                default:
+                {
+                    return "Unknown (" + value + ")";
+                }
+            }
+        }
 
-		[CanBeNull]
-		public virtual string GetBurstModeDescription()
-		{
-			return GetIndexedDescription(KodakMakernoteDirectory.TagBurstMode, "Off", "On");
-		}
+        [CanBeNull]
+        public virtual string GetBurstModeDescription()
+        {
+            return GetIndexedDescription(KodakMakernoteDirectory.TagBurstMode, "Off", "On");
+        }
 
-		[CanBeNull]
-		public virtual string GetQualityDescription()
-		{
-			return GetIndexedDescription(KodakMakernoteDirectory.TagQuality, 1, "Fine", "Normal");
-		}
-	}
+        [CanBeNull]
+        public virtual string GetQualityDescription()
+        {
+            return GetIndexedDescription(KodakMakernoteDirectory.TagQuality, 1, "Fine", "Normal");
+        }
+    }
 }

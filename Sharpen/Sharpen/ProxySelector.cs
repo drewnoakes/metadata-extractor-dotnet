@@ -27,23 +27,23 @@ using System;
 
 namespace Sharpen
 {
-	public class ProxySelector
-	{
-		public ProxySelector ()
-		{
-		}
-		
-		public static ProxySelector GetDefault ()
-		{
-			// TODO
-			return new ProxySelector ();
-		}
-		
-		public Proxy[] Select (Uri uri)
-		{
-			// TODO
-			return new Proxy [] { new Proxy () };
-		}
-	}
+    public class ProxySelector
+    {
+        public ProxySelector ()
+        {
+        }
+        
+        public static ProxySelector GetDefault ()
+        {
+            // TODO
+            return new ProxySelector ();
+        }
+        
+        public Proxy[] Select (Uri uri)
+        {
+            // TODO
+            return new Proxy [] { new Proxy () };
+        }
+    }
 }
 

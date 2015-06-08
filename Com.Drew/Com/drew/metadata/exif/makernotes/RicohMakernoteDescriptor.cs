@@ -25,47 +25,47 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif.Makernotes
 {
-	/// <summary>
-	/// Provides human-readable string representations of tag values stored in a
-	/// <see cref="RicohMakernoteDescriptor"/>
-	/// .
-	/// <p>
-	/// Some information about this makernote taken from here:
-	/// http://www.ozhiker.com/electronics/pjmt/jpeg_info/ricoh_mn.html
-	/// </summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class RicohMakernoteDescriptor : TagDescriptor<RicohMakernoteDirectory>
-	{
-		public RicohMakernoteDescriptor([NotNull] RicohMakernoteDirectory directory)
-			: base(directory)
-		{
-		}
+    /// <summary>
+    /// Provides human-readable string representations of tag values stored in a
+    /// <see cref="RicohMakernoteDescriptor"/>
+    /// .
+    /// <p>
+    /// Some information about this makernote taken from here:
+    /// http://www.ozhiker.com/electronics/pjmt/jpeg_info/ricoh_mn.html
+    /// </summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class RicohMakernoteDescriptor : TagDescriptor<RicohMakernoteDirectory>
+    {
+        public RicohMakernoteDescriptor([NotNull] RicohMakernoteDirectory directory)
+            : base(directory)
+        {
+        }
 
-		[CanBeNull]
-		public override string GetDescription(int tagType)
-		{
-			switch (tagType)
-			{
-				default:
-				{
-					//            case TAG_PRINT_IMAGE_MATCHING_INFO:
-					//                return getPrintImageMatchingInfoDescription();
-					//            case TAG_PROPRIETARY_THUMBNAIL:
-					//                return getProprietaryThumbnailDataDescription();
-					return base.GetDescription(tagType);
-				}
-			}
-		}
-		//    @Nullable
-		//    public String getPrintImageMatchingInfoDescription()
-		//    {
-		//        return getByteLengthDescription(TAG_PRINT_IMAGE_MATCHING_INFO);
-		//    }
-		//
-		//    @Nullable
-		//    public String getProprietaryThumbnailDataDescription()
-		//    {
-		//        return getByteLengthDescription(TAG_PROPRIETARY_THUMBNAIL);
-		//    }
-	}
+        [CanBeNull]
+        public override string GetDescription(int tagType)
+        {
+            switch (tagType)
+            {
+                default:
+                {
+                    //            case TAG_PRINT_IMAGE_MATCHING_INFO:
+                    //                return getPrintImageMatchingInfoDescription();
+                    //            case TAG_PROPRIETARY_THUMBNAIL:
+                    //                return getProprietaryThumbnailDataDescription();
+                    return base.GetDescription(tagType);
+                }
+            }
+        }
+        //    @Nullable
+        //    public String getPrintImageMatchingInfoDescription()
+        //    {
+        //        return getByteLengthDescription(TAG_PRINT_IMAGE_MATCHING_INFO);
+        //    }
+        //
+        //    @Nullable
+        //    public String getProprietaryThumbnailDataDescription()
+        //    {
+        //        return getByteLengthDescription(TAG_PROPRIETARY_THUMBNAIL);
+        //    }
+    }
 }

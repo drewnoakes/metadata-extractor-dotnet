@@ -27,11 +27,11 @@ using System;
 
 namespace Sharpen
 {
-	public class X509Certificate
-	{
-		public X509Certificate ()
-		{
-		}
-	}
+    public class X509Certificate
+    {
+        public X509Certificate ()
+        {
+        }
+    }
 }
 

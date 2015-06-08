@@ -25,81 +25,81 @@ using Sharpen;
 
 namespace Com.Drew.Lang
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class RationalTest
-	{
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestCreateRational()
-		{
-			Rational rational = new Rational(1, 3);
-			Sharpen.Tests.AreEqual(1, rational.GetNumerator());
-			Sharpen.Tests.AreEqual(3, rational.GetDenominator());
-			Sharpen.Tests.AreEqual(1d / 3d, rational.DoubleValue(), 0.0001);
-		}
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class RationalTest
+    {
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestCreateRational()
+        {
+            Rational rational = new Rational(1, 3);
+            Sharpen.Tests.AreEqual(1, rational.GetNumerator());
+            Sharpen.Tests.AreEqual(3, rational.GetDenominator());
+            Sharpen.Tests.AreEqual(1d / 3d, rational.DoubleValue(), 0.0001);
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestToString()
-		{
-			Rational rational = new Rational(1, 3);
-			Sharpen.Tests.AreEqual("1/3", Sharpen.Extensions.ConvertToString(rational));
-		}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestToString()
+        {
+            Rational rational = new Rational(1, 3);
+            Sharpen.Tests.AreEqual("1/3", Sharpen.Extensions.ConvertToString(rational));
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test, SetCulture("en-GB")]
-		public virtual void TestToSimpleString()
-		{
-			Rational third1 = new Rational(1, 3);
-			Rational third2 = new Rational(2, 6);
-			Sharpen.Tests.AreEqual("1/3", third1.ToSimpleString(true));
-			Sharpen.Tests.AreEqual("1/3", third2.ToSimpleString(true));
-			Sharpen.Tests.AreEqual(third1, third2);
-			Rational twoThirds = new Rational(10, 15);
-			Sharpen.Tests.AreEqual("2/3", twoThirds.ToSimpleString(true));
-			Rational two = new Rational(10, 5);
-			Sharpen.Tests.IsTrue(two.IsInteger());
-			Sharpen.Tests.AreEqual("2", two.ToSimpleString(true));
-			Sharpen.Tests.AreEqual("2", two.ToSimpleString(false));
-			Rational twoFifths = new Rational(4, 10);
-			Sharpen.Tests.AreEqual("0.4", twoFifths.ToSimpleString(true));
-			Sharpen.Tests.AreEqual("2/5", twoFifths.ToSimpleString(false));
-			Rational threeEighths = new Rational(3, 8);
-			Sharpen.Tests.AreEqual("3/8", threeEighths.ToSimpleString(true));
-			Rational zero = new Rational(0, 8);
-			Sharpen.Tests.IsTrue(zero.IsInteger());
-			Sharpen.Tests.AreEqual("0", zero.ToSimpleString(true));
-			Sharpen.Tests.AreEqual("0", zero.ToSimpleString(false));
-			zero = new Rational(0, 0);
-			Sharpen.Tests.IsTrue(zero.IsInteger());
-			Sharpen.Tests.AreEqual("0", zero.ToSimpleString(true));
-			Sharpen.Tests.AreEqual("0", zero.ToSimpleString(false));
-		}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test, SetCulture("en-GB")]
+        public virtual void TestToSimpleString()
+        {
+            Rational third1 = new Rational(1, 3);
+            Rational third2 = new Rational(2, 6);
+            Sharpen.Tests.AreEqual("1/3", third1.ToSimpleString(true));
+            Sharpen.Tests.AreEqual("1/3", third2.ToSimpleString(true));
+            Sharpen.Tests.AreEqual(third1, third2);
+            Rational twoThirds = new Rational(10, 15);
+            Sharpen.Tests.AreEqual("2/3", twoThirds.ToSimpleString(true));
+            Rational two = new Rational(10, 5);
+            Sharpen.Tests.IsTrue(two.IsInteger());
+            Sharpen.Tests.AreEqual("2", two.ToSimpleString(true));
+            Sharpen.Tests.AreEqual("2", two.ToSimpleString(false));
+            Rational twoFifths = new Rational(4, 10);
+            Sharpen.Tests.AreEqual("0.4", twoFifths.ToSimpleString(true));
+            Sharpen.Tests.AreEqual("2/5", twoFifths.ToSimpleString(false));
+            Rational threeEighths = new Rational(3, 8);
+            Sharpen.Tests.AreEqual("3/8", threeEighths.ToSimpleString(true));
+            Rational zero = new Rational(0, 8);
+            Sharpen.Tests.IsTrue(zero.IsInteger());
+            Sharpen.Tests.AreEqual("0", zero.ToSimpleString(true));
+            Sharpen.Tests.AreEqual("0", zero.ToSimpleString(false));
+            zero = new Rational(0, 0);
+            Sharpen.Tests.IsTrue(zero.IsInteger());
+            Sharpen.Tests.AreEqual("0", zero.ToSimpleString(true));
+            Sharpen.Tests.AreEqual("0", zero.ToSimpleString(false));
+        }
 
-		// not sure this is a nice presentation of rationals.  won't implement it for now.
-		//        Rational twoAndAHalf = new Rational(10,4);
-		//        assertEquals("2 1/2", twoAndAHalf.toSimpleString());
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestGetReciprocal()
-		{
-			Rational rational = new Rational(1, 3);
-			Rational reciprocal = rational.GetReciprocal();
-			Sharpen.Tests.AreEqual("new rational should be reciprocal", new Rational(3, 1), reciprocal);
-			Sharpen.Tests.AreEqual("original reciprocal should remain unchanged", new Rational(1, 3), rational);
-		}
+        // not sure this is a nice presentation of rationals.  won't implement it for now.
+        //        Rational twoAndAHalf = new Rational(10,4);
+        //        assertEquals("2 1/2", twoAndAHalf.toSimpleString());
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestGetReciprocal()
+        {
+            Rational rational = new Rational(1, 3);
+            Rational reciprocal = rational.GetReciprocal();
+            Sharpen.Tests.AreEqual("new rational should be reciprocal", new Rational(3, 1), reciprocal);
+            Sharpen.Tests.AreEqual("original reciprocal should remain unchanged", new Rational(1, 3), rational);
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestZeroOverZero()
-		{
-			Sharpen.Tests.AreEqual(new Rational(0, 0), new Rational(0, 0).GetReciprocal());
-			Sharpen.Tests.AreEqual(0.0d, new Rational(0, 0).DoubleValue(), 0.000000001);
-			Sharpen.Tests.AreEqual(0, new Rational(0, 0).ByteValue());
-			Sharpen.Tests.AreEqual(0.0f, new Rational(0, 0).FloatValue(), 0.000000001f);
-			Sharpen.Tests.AreEqual(0, new Rational(0, 0).IntValue());
-			Sharpen.Tests.AreEqual(0L, new Rational(0, 0).LongValue());
-			Sharpen.Tests.IsTrue(new Rational(0, 0).IsInteger());
-		}
-	}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestZeroOverZero()
+        {
+            Sharpen.Tests.AreEqual(new Rational(0, 0), new Rational(0, 0).GetReciprocal());
+            Sharpen.Tests.AreEqual(0.0d, new Rational(0, 0).DoubleValue(), 0.000000001);
+            Sharpen.Tests.AreEqual(0, new Rational(0, 0).ByteValue());
+            Sharpen.Tests.AreEqual(0.0f, new Rational(0, 0).FloatValue(), 0.000000001f);
+            Sharpen.Tests.AreEqual(0, new Rational(0, 0).IntValue());
+            Sharpen.Tests.AreEqual(0L, new Rational(0, 0).LongValue());
+            Sharpen.Tests.IsTrue(new Rational(0, 0).IsInteger());
+        }
+    }
 }

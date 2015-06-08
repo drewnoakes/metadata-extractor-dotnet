@@ -27,34 +27,34 @@ using Sharpen;
 
 namespace Com.Drew.Imaging.Ico
 {
-	/// <summary>Obtains metadata from ICO (Windows Icon) files.</summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class IcoMetadataReader
-	{
-		/// <exception cref="System.IO.IOException"/>
-		[NotNull]
-		public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] FilePath file)
-		{
-			InputStream inputStream = new FileInputStream(file);
-			Com.Drew.Metadata.Metadata metadata;
-			try
-			{
-				metadata = ReadMetadata(inputStream);
-			}
-			finally
-			{
-				inputStream.Close();
-			}
-			new FileMetadataReader().Read(file, metadata);
-			return metadata;
-		}
+    /// <summary>Obtains metadata from ICO (Windows Icon) files.</summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class IcoMetadataReader
+    {
+        /// <exception cref="System.IO.IOException"/>
+        [NotNull]
+        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] FilePath file)
+        {
+            InputStream inputStream = new FileInputStream(file);
+            Com.Drew.Metadata.Metadata metadata;
+            try
+            {
+                metadata = ReadMetadata(inputStream);
+            }
+            finally
+            {
+                inputStream.Close();
+            }
+            new FileMetadataReader().Read(file, metadata);
+            return metadata;
+        }
 
-		[NotNull]
-		public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
-		{
-			Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
-			new IcoReader().Extract(new Com.Drew.Lang.StreamReader(inputStream), metadata);
-			return metadata;
-		}
-	}
+        [NotNull]
+        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
+        {
+            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            new IcoReader().Extract(new Com.Drew.Lang.StreamReader(inputStream), metadata);
+            return metadata;
+        }
+    }
 }

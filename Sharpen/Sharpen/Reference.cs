@@ -1,13 +1,13 @@
 namespace Sharpen
 {
-	using System;
+    using System;
 
-	public abstract class Reference<T>
-	{
-		protected Reference ()
-		{
-		}
+    public abstract class Reference<T>
+    {
+        protected Reference ()
+        {
+        }
 
-		public abstract T Get ();
-	}
+        public abstract T Get ();
+    }
 }

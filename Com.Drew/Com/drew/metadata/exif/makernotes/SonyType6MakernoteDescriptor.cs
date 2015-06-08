@@ -25,40 +25,40 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif.Makernotes
 {
-	/// <summary>
-	/// Provides human-readable string representations of tag values stored in a
-	/// <see cref="SonyType6MakernoteDirectory"/>
-	/// .
-	/// </summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class SonyType6MakernoteDescriptor : TagDescriptor<SonyType6MakernoteDirectory>
-	{
-		public SonyType6MakernoteDescriptor([NotNull] SonyType6MakernoteDirectory directory)
-			: base(directory)
-		{
-		}
+    /// <summary>
+    /// Provides human-readable string representations of tag values stored in a
+    /// <see cref="SonyType6MakernoteDirectory"/>
+    /// .
+    /// </summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class SonyType6MakernoteDescriptor : TagDescriptor<SonyType6MakernoteDirectory>
+    {
+        public SonyType6MakernoteDescriptor([NotNull] SonyType6MakernoteDirectory directory)
+            : base(directory)
+        {
+        }
 
-		[CanBeNull]
-		public override string GetDescription(int tagType)
-		{
-			switch (tagType)
-			{
-				case SonyType6MakernoteDirectory.TagMakernoteThumbVersion:
-				{
-					return GetMakernoteThumbVersionDescription();
-				}
+        [CanBeNull]
+        public override string GetDescription(int tagType)
+        {
+            switch (tagType)
+            {
+                case SonyType6MakernoteDirectory.TagMakernoteThumbVersion:
+                {
+                    return GetMakernoteThumbVersionDescription();
+                }
 
-				default:
-				{
-					return base.GetDescription(tagType);
-				}
-			}
-		}
+                default:
+                {
+                    return base.GetDescription(tagType);
+                }
+            }
+        }
 
-		[CanBeNull]
-		public virtual string GetMakernoteThumbVersionDescription()
-		{
-			return GetVersionBytesDescription(SonyType6MakernoteDirectory.TagMakernoteThumbVersion, 2);
-		}
-	}
+        [CanBeNull]
+        public virtual string GetMakernoteThumbVersionDescription()
+        {
+            return GetVersionBytesDescription(SonyType6MakernoteDirectory.TagMakernoteThumbVersion, 2);
+        }
+    }
 }

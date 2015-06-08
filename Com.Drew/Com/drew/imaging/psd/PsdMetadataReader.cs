@@ -27,34 +27,34 @@ using Sharpen;
 
 namespace Com.Drew.Imaging.Psd
 {
-	/// <summary>Obtains metadata from Photoshop's PSD files.</summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class PsdMetadataReader
-	{
-		/// <exception cref="System.IO.IOException"/>
-		[NotNull]
-		public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] FilePath file)
-		{
-			Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
-			InputStream stream = new FileInputStream(file);
-			try
-			{
-				new PsdReader().Extract(new Com.Drew.Lang.StreamReader(stream), metadata);
-			}
-			finally
-			{
-				stream.Close();
-			}
-			new FileMetadataReader().Read(file, metadata);
-			return metadata;
-		}
+    /// <summary>Obtains metadata from Photoshop's PSD files.</summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class PsdMetadataReader
+    {
+        /// <exception cref="System.IO.IOException"/>
+        [NotNull]
+        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] FilePath file)
+        {
+            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            InputStream stream = new FileInputStream(file);
+            try
+            {
+                new PsdReader().Extract(new Com.Drew.Lang.StreamReader(stream), metadata);
+            }
+            finally
+            {
+                stream.Close();
+            }
+            new FileMetadataReader().Read(file, metadata);
+            return metadata;
+        }
 
-		[NotNull]
-		public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
-		{
-			Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
-			new PsdReader().Extract(new Com.Drew.Lang.StreamReader(inputStream), metadata);
-			return metadata;
-		}
-	}
+        [NotNull]
+        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
+        {
+            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            new PsdReader().Extract(new Com.Drew.Lang.StreamReader(inputStream), metadata);
+            return metadata;
+        }
+    }
 }

@@ -1,12 +1,12 @@
 namespace Sharpen
 {
-	using System;
+    using System;
 
-	public class SingletonList
-	{
-		public SingletonList (string val)
-		{
-			throw new NotImplementedException ();
-		}
-	}
+    public class SingletonList
+    {
+        public SingletonList (string val)
+        {
+            throw new NotImplementedException ();
+        }
+    }
 }

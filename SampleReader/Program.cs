@@ -59,7 +59,7 @@ namespace SampleReader
         static Com.Drew.Metadata.Metadata  ParseMetadata(Stream data, string info){
 
             try
-			{
+            {
                 if (!data.CanSeek)
                 {
                     var ms = new MemoryStream(4096);//We have to guess at length, can't seek
@@ -68,29 +68,29 @@ namespace SampleReader
                     return ImageMetadataReader.ReadMetadata(InputStream.Wrap(ms));
                 }
                 return ImageMetadataReader.ReadMetadata(InputStream.Wrap(data));
-			}
-			catch (ImageProcessingException e)
-			{
+            }
+            catch (ImageProcessingException e)
+            {
                 Console.ForegroundColor = ConsoleColor.Red;
-				// this is an error in the Jpeg segment structure.  we're looking for bad handling of
-				// metadata segments.  in this case, we didn't even get a segment.
-				Console.Error.WriteLine("{0}: {1} [Error Extracting Metadata]\n\t{2}\n", e.GetType().FullName, info, e.Message);
-				return null;
-			}
-			catch (Exception t)
-			{
+                // this is an error in the Jpeg segment structure.  we're looking for bad handling of
+                // metadata segments.  in this case, we didn't even get a segment.
+                Console.Error.WriteLine("{0}: {1} [Error Extracting Metadata]\n\t{2}\n", e.GetType().FullName, info, e.Message);
+                return null;
+            }
+            catch (Exception t)
+            {
                 Console.ForegroundColor = ConsoleColor.Red;
-				// general, uncaught exception during processing of jpeg segments
-				Console.Error.WriteLine("{0}: {1} [Error Extracting Metadata]\n", t.GetType().FullName, info);
+                // general, uncaught exception during processing of jpeg segments
+                Console.Error.WriteLine("{0}: {1} [Error Extracting Metadata]\n", t.GetType().FullName, info);
                 Console.Error.WriteLine(t);
-				return null;
-			}
+                return null;
+            }
         }
 
         static bool PrintMetadata(Com.Drew.Metadata.Metadata metadata){
             
             foreach (Com.Drew.Metadata.Directory dir in metadata.GetDirectories())
-			{
+            {
                 if (dir.HasErrors())
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -100,21 +100,21 @@ namespace SampleReader
                     }
                 }
               
-				foreach (Com.Drew.Metadata.Tag tag in dir.GetTags())
-				{
-					string tagName = tag.GetTagName();
-					string directoryName = dir.GetName();
-					string description = tag.GetDescription(); 
-					// truncate the description if it's too long
-					if (description != null && description.Length > 1024)
-					{
-						description = description.Substring(0,1024)  + "...";
-					}
+                foreach (Com.Drew.Metadata.Tag tag in dir.GetTags())
+                {
+                    string tagName = tag.GetTagName();
+                    string directoryName = dir.GetName();
+                    string description = tag.GetDescription(); 
+                    // truncate the description if it's too long
+                    if (description != null && description.Length > 1024)
+                    {
+                        description = description.Substring(0,1024)  + "...";
+                    }
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("[{0}] {1} = {2}", directoryName, tagName, description);
-				}
+                }
 
-			}
+            }
             
             return metadata.GetDirectories().Any(d => d.HasErrors()); //True if there are any metadata errors;
         }

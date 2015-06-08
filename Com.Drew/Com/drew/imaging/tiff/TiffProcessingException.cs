@@ -26,27 +26,27 @@ using Sharpen;
 
 namespace Com.Drew.Imaging.Tiff
 {
-	/// <summary>An exception class thrown upon unexpected and fatal conditions while processing a TIFF file.</summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	/// <author>Darren Salomons</author>
-	[System.Serializable]
-	public class TiffProcessingException : ImageProcessingException
-	{
-		private const long serialVersionUID = -1658134119488001891L;
+    /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a TIFF file.</summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    /// <author>Darren Salomons</author>
+    [System.Serializable]
+    public class TiffProcessingException : ImageProcessingException
+    {
+        private const long serialVersionUID = -1658134119488001891L;
 
-		public TiffProcessingException([CanBeNull] string message)
-			: base(message)
-		{
-		}
+        public TiffProcessingException([CanBeNull] string message)
+            : base(message)
+        {
+        }
 
-		public TiffProcessingException([CanBeNull] string message, [CanBeNull] Exception cause)
-			: base(message, cause)
-		{
-		}
+        public TiffProcessingException([CanBeNull] string message, [CanBeNull] Exception cause)
+            : base(message, cause)
+        {
+        }
 
-		public TiffProcessingException([CanBeNull] Exception cause)
-			: base(cause)
-		{
-		}
-	}
+        public TiffProcessingException([CanBeNull] Exception cause)
+            : base(cause)
+        {
+        }
+    }
 }

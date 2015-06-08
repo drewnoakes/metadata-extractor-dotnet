@@ -24,17 +24,17 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
 {
-	/// <summary>
-	/// Provides human-readable string representations of tag values stored in a
-	/// <see cref="ExifInteropDirectory"/>
-	/// .
-	/// </summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class ExifInteropDescriptor : ExifDescriptorBase<ExifInteropDirectory>
-	{
-		public ExifInteropDescriptor([NotNull] ExifInteropDirectory directory)
-			: base(directory)
-		{
-		}
-	}
+    /// <summary>
+    /// Provides human-readable string representations of tag values stored in a
+    /// <see cref="ExifInteropDirectory"/>
+    /// .
+    /// </summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class ExifInteropDescriptor : ExifDescriptorBase<ExifInteropDirectory>
+    {
+        public ExifInteropDescriptor([NotNull] ExifInteropDirectory directory)
+            : base(directory)
+        {
+        }
+    }
 }

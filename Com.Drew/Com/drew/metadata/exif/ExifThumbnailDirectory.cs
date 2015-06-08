@@ -27,120 +27,120 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
 {
-	/// <summary>One of several Exif directories.</summary>
-	/// <remarks>One of several Exif directories.  Otherwise known as IFD1, this directory holds information about an embedded thumbnail image.</remarks>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class ExifThumbnailDirectory : ExifDirectoryBase
-	{
-		/// <summary>The offset to thumbnail image bytes.</summary>
-		public const int TagThumbnailOffset = unchecked((int)(0x0201));
+    /// <summary>One of several Exif directories.</summary>
+    /// <remarks>One of several Exif directories.  Otherwise known as IFD1, this directory holds information about an embedded thumbnail image.</remarks>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class ExifThumbnailDirectory : ExifDirectoryBase
+    {
+        /// <summary>The offset to thumbnail image bytes.</summary>
+        public const int TagThumbnailOffset = unchecked((int)(0x0201));
 
-		/// <summary>The size of the thumbnail image data in bytes.</summary>
-		public const int TagThumbnailLength = unchecked((int)(0x0202));
+        /// <summary>The size of the thumbnail image data in bytes.</summary>
+        public const int TagThumbnailLength = unchecked((int)(0x0202));
 
-		/// <summary>Shows compression method for Thumbnail.</summary>
-		/// <remarks>
-		/// Shows compression method for Thumbnail.
-		/// 1 = Uncompressed
-		/// 2 = CCITT 1D
-		/// 3 = T4/Group 3 Fax
-		/// 4 = T6/Group 4 Fax
-		/// 5 = LZW
-		/// 6 = JPEG (old-style)
-		/// 7 = JPEG
-		/// 8 = Adobe Deflate
-		/// 9 = JBIG B&amp;W
-		/// 10 = JBIG Color
-		/// 32766 = Next
-		/// 32771 = CCIRLEW
-		/// 32773 = PackBits
-		/// 32809 = Thunderscan
-		/// 32895 = IT8CTPAD
-		/// 32896 = IT8LW
-		/// 32897 = IT8MP
-		/// 32898 = IT8BL
-		/// 32908 = PixarFilm
-		/// 32909 = PixarLog
-		/// 32946 = Deflate
-		/// 32947 = DCS
-		/// 34661 = JBIG
-		/// 34676 = SGILog
-		/// 34677 = SGILog24
-		/// 34712 = JPEG 2000
-		/// 34713 = Nikon NEF Compressed
-		/// </remarks>
-		public const int TagThumbnailCompression = unchecked((int)(0x0103));
+        /// <summary>Shows compression method for Thumbnail.</summary>
+        /// <remarks>
+        /// Shows compression method for Thumbnail.
+        /// 1 = Uncompressed
+        /// 2 = CCITT 1D
+        /// 3 = T4/Group 3 Fax
+        /// 4 = T6/Group 4 Fax
+        /// 5 = LZW
+        /// 6 = JPEG (old-style)
+        /// 7 = JPEG
+        /// 8 = Adobe Deflate
+        /// 9 = JBIG B&amp;W
+        /// 10 = JBIG Color
+        /// 32766 = Next
+        /// 32771 = CCIRLEW
+        /// 32773 = PackBits
+        /// 32809 = Thunderscan
+        /// 32895 = IT8CTPAD
+        /// 32896 = IT8LW
+        /// 32897 = IT8MP
+        /// 32898 = IT8BL
+        /// 32908 = PixarFilm
+        /// 32909 = PixarLog
+        /// 32946 = Deflate
+        /// 32947 = DCS
+        /// 34661 = JBIG
+        /// 34676 = SGILog
+        /// 34677 = SGILog24
+        /// 34712 = JPEG 2000
+        /// 34713 = Nikon NEF Compressed
+        /// </remarks>
+        public const int TagThumbnailCompression = unchecked((int)(0x0103));
 
-		[NotNull]
-		protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        [NotNull]
+        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
 
-		static ExifThumbnailDirectory()
-		{
-			AddExifTagNames(_tagNameMap);
-			_tagNameMap.Put(TagThumbnailCompression, "Thumbnail Compression");
-			_tagNameMap.Put(TagThumbnailOffset, "Thumbnail Offset");
-			_tagNameMap.Put(TagThumbnailLength, "Thumbnail Length");
-		}
+        static ExifThumbnailDirectory()
+        {
+            AddExifTagNames(_tagNameMap);
+            _tagNameMap.Put(TagThumbnailCompression, "Thumbnail Compression");
+            _tagNameMap.Put(TagThumbnailOffset, "Thumbnail Offset");
+            _tagNameMap.Put(TagThumbnailLength, "Thumbnail Length");
+        }
 
-		[CanBeNull]
-		private sbyte[] _thumbnailData;
+        [CanBeNull]
+        private sbyte[] _thumbnailData;
 
-		public ExifThumbnailDirectory()
-		{
-			this.SetDescriptor(new ExifThumbnailDescriptor(this));
-		}
+        public ExifThumbnailDirectory()
+        {
+            this.SetDescriptor(new ExifThumbnailDescriptor(this));
+        }
 
-		[NotNull]
-		public override string GetName()
-		{
-			return "Exif Thumbnail";
-		}
+        [NotNull]
+        public override string GetName()
+        {
+            return "Exif Thumbnail";
+        }
 
-		[NotNull]
-		protected internal override Dictionary<int?, string> GetTagNameMap()
-		{
-			return _tagNameMap;
-		}
+        [NotNull]
+        protected internal override Dictionary<int?, string> GetTagNameMap()
+        {
+            return _tagNameMap;
+        }
 
-		public virtual bool HasThumbnailData()
-		{
-			return _thumbnailData != null;
-		}
+        public virtual bool HasThumbnailData()
+        {
+            return _thumbnailData != null;
+        }
 
-		[CanBeNull]
-		public virtual sbyte[] GetThumbnailData()
-		{
-			return _thumbnailData;
-		}
+        [CanBeNull]
+        public virtual sbyte[] GetThumbnailData()
+        {
+            return _thumbnailData;
+        }
 
-		public virtual void SetThumbnailData([CanBeNull] sbyte[] data)
-		{
-			_thumbnailData = data;
-		}
+        public virtual void SetThumbnailData([CanBeNull] sbyte[] data)
+        {
+            _thumbnailData = data;
+        }
 
-		/// <exception cref="Com.Drew.Metadata.MetadataException"/>
-		/// <exception cref="System.IO.IOException"/>
-		public virtual void WriteThumbnail([NotNull] string filename)
-		{
-			sbyte[] data = _thumbnailData;
-			if (data == null)
-			{
-				throw new MetadataException("No thumbnail data exists.");
-			}
-			FileOutputStream stream = null;
-			try
-			{
-				stream = new FileOutputStream(filename);
-				stream.Write(data);
-			}
-			finally
-			{
-				if (stream != null)
-				{
-					stream.Close();
-				}
-			}
-		}
+        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="System.IO.IOException"/>
+        public virtual void WriteThumbnail([NotNull] string filename)
+        {
+            sbyte[] data = _thumbnailData;
+            if (data == null)
+            {
+                throw new MetadataException("No thumbnail data exists.");
+            }
+            FileOutputStream stream = null;
+            try
+            {
+                stream = new FileOutputStream(filename);
+                stream.Write(data);
+            }
+            finally
+            {
+                if (stream != null)
+                {
+                    stream.Close();
+                }
+            }
+        }
 /*
     // This thumbnail extraction code is not complete, and is included to assist anyone who feels like looking into
     // it.  Please share any progress with the original author, and hence the community.  Thanks.
@@ -329,5 +329,5 @@ namespace Com.Drew.Metadata.Exif
         return image;
     }
 */
-	}
+    }
 }

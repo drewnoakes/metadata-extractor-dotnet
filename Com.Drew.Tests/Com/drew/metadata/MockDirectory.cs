@@ -25,27 +25,27 @@ using Sharpen;
 
 namespace Com.Drew.Metadata
 {
-	/// <summary>A mock implementation of Directory used in unit testing.</summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class MockDirectory : Com.Drew.Metadata.Directory
-	{
-		private readonly Dictionary<int?, string> _tagNameMap;
+    /// <summary>A mock implementation of Directory used in unit testing.</summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class MockDirectory : Com.Drew.Metadata.Directory
+    {
+        private readonly Dictionary<int?, string> _tagNameMap;
 
-		public MockDirectory()
-		{
-			this._tagNameMap = new Dictionary<int?, string>();
-		}
+        public MockDirectory()
+        {
+            this._tagNameMap = new Dictionary<int?, string>();
+        }
 
-		[NotNull]
-		public override string GetName()
-		{
-			return string.Empty;
-		}
+        [NotNull]
+        public override string GetName()
+        {
+            return string.Empty;
+        }
 
-		[NotNull]
-		protected override Dictionary<int?, string> GetTagNameMap()
-		{
-			return _tagNameMap;
-		}
-	}
+        [NotNull]
+        protected override Dictionary<int?, string> GetTagNameMap()
+        {
+            return _tagNameMap;
+        }
+    }
 }

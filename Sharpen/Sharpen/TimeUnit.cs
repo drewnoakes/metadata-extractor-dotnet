@@ -1,18 +1,18 @@
 namespace Sharpen
 {
-	using System;
+    using System;
 
-	public enum TimeUnit : long
-	{
-		MILLISECONDS = 1,
-		SECONDS = 1000
-	}
+    public enum TimeUnit : long
+    {
+        MILLISECONDS = 1,
+        SECONDS = 1000
+    }
 
-	public static class TimeUnitExtensions
-	{
-		public static long Convert (this TimeUnit thisUnit, long duration, TimeUnit targetUnit)
-		{
-			return ((duration * (long)targetUnit) / (long)thisUnit);
-		}
-	}
+    public static class TimeUnitExtensions
+    {
+        public static long Convert (this TimeUnit thisUnit, long duration, TimeUnit targetUnit)
+        {
+            return ((duration * (long)targetUnit) / (long)thisUnit);
+        }
+    }
 }

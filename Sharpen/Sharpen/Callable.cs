@@ -1,7 +1,7 @@
 namespace Sharpen
 {
-	public interface Callable<T>
-	{
-		T Call ();
-	}
+    public interface Callable<T>
+    {
+        T Call ();
+    }
 }

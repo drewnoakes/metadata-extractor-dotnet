@@ -28,61 +28,61 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Jfif
 {
-	/// <summary>Reader for JFIF data, found in the APP0 JPEG segment.</summary>
-	/// <remarks>
-	/// Reader for JFIF data, found in the APP0 JPEG segment.
-	/// <p>
-	/// More info at: http://en.wikipedia.org/wiki/JPEG_File_Interchange_Format
-	/// </remarks>
-	/// <author>Yuri Binev, Drew Noakes, Markus Meyer</author>
-	public class JfifReader : JpegSegmentMetadataReader, MetadataReader
-	{
-		public const string Preamble = "JFIF";
+    /// <summary>Reader for JFIF data, found in the APP0 JPEG segment.</summary>
+    /// <remarks>
+    /// Reader for JFIF data, found in the APP0 JPEG segment.
+    /// <p>
+    /// More info at: http://en.wikipedia.org/wiki/JPEG_File_Interchange_Format
+    /// </remarks>
+    /// <author>Yuri Binev, Drew Noakes, Markus Meyer</author>
+    public class JfifReader : JpegSegmentMetadataReader, MetadataReader
+    {
+        public const string Preamble = "JFIF";
 
-		[NotNull]
-		public virtual Iterable<JpegSegmentType> GetSegmentTypes()
-		{
-			return Arrays.AsList(JpegSegmentType.App0).AsIterable();
-		}
+        [NotNull]
+        public virtual Iterable<JpegSegmentType> GetSegmentTypes()
+        {
+            return Arrays.AsList(JpegSegmentType.App0).AsIterable();
+        }
 
-		public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType)
-		{
-			foreach (sbyte[] segmentBytes in segments)
-			{
-				// Skip segments not starting with the required header
-				if (segmentBytes.Length >= 4 && Preamble.Equals(Sharpen.Runtime.GetStringForBytes(segmentBytes, 0, Preamble.Length)))
-				{
-					Extract(new ByteArrayReader(segmentBytes), metadata);
-				}
-			}
-		}
+        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        {
+            foreach (sbyte[] segmentBytes in segments)
+            {
+                // Skip segments not starting with the required header
+                if (segmentBytes.Length >= 4 && Preamble.Equals(Sharpen.Runtime.GetStringForBytes(segmentBytes, 0, Preamble.Length)))
+                {
+                    Extract(new ByteArrayReader(segmentBytes), metadata);
+                }
+            }
+        }
 
-		/// <summary>
-		/// Performs the Jfif data extraction, adding found values to the specified
-		/// instance of
-		/// <see cref="Com.Drew.Metadata.Metadata"/>
-		/// .
-		/// </summary>
-		public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata)
-		{
-			JfifDirectory directory = new JfifDirectory();
-			metadata.AddDirectory(directory);
-			try
-			{
-				// For JFIF, the tag number is also the offset into the segment
-				int ver = reader.GetUInt16(JfifDirectory.TagVersion);
-				directory.SetInt(JfifDirectory.TagVersion, ver);
-				int units = reader.GetUInt8(JfifDirectory.TagUnits);
-				directory.SetInt(JfifDirectory.TagUnits, units);
-				int height = reader.GetUInt16(JfifDirectory.TagResx);
-				directory.SetInt(JfifDirectory.TagResx, height);
-				int width = reader.GetUInt16(JfifDirectory.TagResy);
-				directory.SetInt(JfifDirectory.TagResy, width);
-			}
-			catch (IOException me)
-			{
-				directory.AddError(me.Message);
-			}
-		}
-	}
+        /// <summary>
+        /// Performs the Jfif data extraction, adding found values to the specified
+        /// instance of
+        /// <see cref="Com.Drew.Metadata.Metadata"/>
+        /// .
+        /// </summary>
+        public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata)
+        {
+            JfifDirectory directory = new JfifDirectory();
+            metadata.AddDirectory(directory);
+            try
+            {
+                // For JFIF, the tag number is also the offset into the segment
+                int ver = reader.GetUInt16(JfifDirectory.TagVersion);
+                directory.SetInt(JfifDirectory.TagVersion, ver);
+                int units = reader.GetUInt8(JfifDirectory.TagUnits);
+                directory.SetInt(JfifDirectory.TagUnits, units);
+                int height = reader.GetUInt16(JfifDirectory.TagResx);
+                directory.SetInt(JfifDirectory.TagResx, height);
+                int width = reader.GetUInt16(JfifDirectory.TagResy);
+                directory.SetInt(JfifDirectory.TagResy, width);
+            }
+            catch (IOException me)
+            {
+                directory.AddError(me.Message);
+            }
+        }
+    }
 }

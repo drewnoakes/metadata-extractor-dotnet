@@ -25,72 +25,72 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Adobe
 {
-	/// <summary>Provides human-readable string versions of the tags stored in an AdobeJpegDirectory.</summary>
-	public class AdobeJpegDescriptor : TagDescriptor<AdobeJpegDirectory>
-	{
-		public AdobeJpegDescriptor(AdobeJpegDirectory directory)
-			: base(directory)
-		{
-		}
+    /// <summary>Provides human-readable string versions of the tags stored in an AdobeJpegDirectory.</summary>
+    public class AdobeJpegDescriptor : TagDescriptor<AdobeJpegDirectory>
+    {
+        public AdobeJpegDescriptor(AdobeJpegDirectory directory)
+            : base(directory)
+        {
+        }
 
-		public override string GetDescription(int tagType)
-		{
-			switch (tagType)
-			{
-				case AdobeJpegDirectory.TagColorTransform:
-				{
-					return GetColorTransformDescription();
-				}
+        public override string GetDescription(int tagType)
+        {
+            switch (tagType)
+            {
+                case AdobeJpegDirectory.TagColorTransform:
+                {
+                    return GetColorTransformDescription();
+                }
 
-				case AdobeJpegDirectory.TagDctEncodeVersion:
-				{
-					return GetDctEncodeVersionDescription();
-				}
+                case AdobeJpegDirectory.TagDctEncodeVersion:
+                {
+                    return GetDctEncodeVersionDescription();
+                }
 
-				default:
-				{
-					return base.GetDescription(tagType);
-				}
-			}
-		}
+                default:
+                {
+                    return base.GetDescription(tagType);
+                }
+            }
+        }
 
-		[CanBeNull]
-		private string GetDctEncodeVersionDescription()
-		{
-			int? value = _directory.GetInteger(AdobeJpegDirectory.TagColorTransform);
-			return value == null ? null : value == unchecked((int)(0x64)) ? "100" : Sharpen.Extensions.ConvertToString((int)value);
-		}
+        [CanBeNull]
+        private string GetDctEncodeVersionDescription()
+        {
+            int? value = _directory.GetInteger(AdobeJpegDirectory.TagColorTransform);
+            return value == null ? null : value == unchecked((int)(0x64)) ? "100" : Sharpen.Extensions.ConvertToString((int)value);
+        }
 
-		[CanBeNull]
-		private string GetColorTransformDescription()
-		{
-			int? value = _directory.GetInteger(AdobeJpegDirectory.TagColorTransform);
-			if (value == null)
-			{
-				return null;
-			}
-			switch (value)
-			{
-				case 0:
-				{
-					return "Unknown (RGB or CMYK)";
-				}
+        [CanBeNull]
+        private string GetColorTransformDescription()
+        {
+            int? value = _directory.GetInteger(AdobeJpegDirectory.TagColorTransform);
+            if (value == null)
+            {
+                return null;
+            }
+            switch (value)
+            {
+                case 0:
+                {
+                    return "Unknown (RGB or CMYK)";
+                }
 
-				case 1:
-				{
-					return "YCbCr";
-				}
+                case 1:
+                {
+                    return "YCbCr";
+                }
 
-				case 2:
-				{
-					return "YCCK";
-				}
+                case 2:
+                {
+                    return "YCCK";
+                }
 
-				default:
-				{
-					return Sharpen.Extensions.StringFormat("Unknown transform (%d)", value);
-				}
-			}
-		}
-	}
+                default:
+                {
+                    return Sharpen.Extensions.StringFormat("Unknown transform (%d)", value);
+                }
+            }
+        }
+    }
 }

@@ -1,20 +1,20 @@
 namespace Sharpen
 {
-	using System;
-	using System.IO;
+    using System;
+    using System.IO;
 
-	public class ObjectOutputStream : OutputStream
-	{
-		private BinaryWriter bw;
+    public class ObjectOutputStream : OutputStream
+    {
+        private BinaryWriter bw;
 
-		public ObjectOutputStream (OutputStream os)
-		{
-			this.bw = new BinaryWriter (os.GetWrappedStream ());
-		}
+        public ObjectOutputStream (OutputStream os)
+        {
+            this.bw = new BinaryWriter (os.GetWrappedStream ());
+        }
 
-		public virtual void WriteInt (int i)
-		{
-			this.bw.Write (i);
-		}
-	}
+        public virtual void WriteInt (int i)
+        {
+            this.bw.Write (i);
+        }
+    }
 }

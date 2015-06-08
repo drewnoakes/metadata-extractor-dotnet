@@ -25,36 +25,36 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
 {
-	/// <author>psandhaus, Drew Noakes</author>
-	public class PanasonicMakernoteDescriptorTest
-	{
-		private PanasonicMakernoteDirectory _panasonicDirectory;
+    /// <author>psandhaus, Drew Noakes</author>
+    public class PanasonicMakernoteDescriptorTest
+    {
+        private PanasonicMakernoteDirectory _panasonicDirectory;
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.SetUp]
-		public virtual void SetUp()
-		{
-			_panasonicDirectory = ExifReaderTest.ProcessBytes<PanasonicMakernoteDirectory>("Tests/Data/withPanasonicFaces.jpg.app1");
-		}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.SetUp]
+        public virtual void SetUp()
+        {
+            _panasonicDirectory = ExifReaderTest.ProcessBytes<PanasonicMakernoteDirectory>("Tests/Data/withPanasonicFaces.jpg.app1");
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestGetDetectedFaces()
-		{
-			Face expResult = new Face(142, 120, 76, 76, null, null);
-			Face[] result = _panasonicDirectory.GetDetectedFaces();
-			NUnit.Framework.Assert.IsNotNull(result);
-			Sharpen.Tests.AreEqual(expResult, result[0]);
-		}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestGetDetectedFaces()
+        {
+            Face expResult = new Face(142, 120, 76, 76, null, null);
+            Face[] result = _panasonicDirectory.GetDetectedFaces();
+            NUnit.Framework.Assert.IsNotNull(result);
+            Sharpen.Tests.AreEqual(expResult, result[0]);
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestGetRecognizedFaces()
-		{
-			Face expResult = new Face(142, 120, 76, 76, "NIELS", new Age(31, 7, 15, 0, 0, 0));
-			Face[] result = _panasonicDirectory.GetRecognizedFaces();
-			NUnit.Framework.Assert.IsNotNull(result);
-			Sharpen.Tests.AreEqual(expResult, result[0]);
-		}
-	}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestGetRecognizedFaces()
+        {
+            Face expResult = new Face(142, 120, 76, 76, "NIELS", new Age(31, 7, 15, 0, 0, 0));
+            Face[] result = _panasonicDirectory.GetRecognizedFaces();
+            NUnit.Framework.Assert.IsNotNull(result);
+            Sharpen.Tests.AreEqual(expResult, result[0]);
+        }
+    }
 }

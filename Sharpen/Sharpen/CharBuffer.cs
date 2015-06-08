@@ -1,21 +1,21 @@
 namespace Sharpen
 {
-	using System;
+    using System;
 
-	public class CharBuffer : CharSequence
-	{
-		public string Wrapped;
+    public class CharBuffer : CharSequence
+    {
+        public string Wrapped;
 
-		public override string ToString ()
-		{
-			return Wrapped;
-		}
+        public override string ToString ()
+        {
+            return Wrapped;
+        }
 
-		public static CharBuffer Wrap (string str)
-		{
-			CharBuffer buffer = new CharBuffer ();
-			buffer.Wrapped = str;
-			return buffer;
-		}
-	}
+        public static CharBuffer Wrap (string str)
+        {
+            CharBuffer buffer = new CharBuffer ();
+            buffer.Wrapped = str;
+            return buffer;
+        }
+    }
 }

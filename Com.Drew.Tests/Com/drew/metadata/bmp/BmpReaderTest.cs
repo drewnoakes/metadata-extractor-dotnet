@@ -25,56 +25,56 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Bmp
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class BmpReaderTest
-	{
-		/// <exception cref="System.Exception"/>
-		[NotNull]
-		public static BmpHeaderDirectory ProcessBytes([NotNull] string file)
-		{
-			Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
-			InputStream stream = new FileInputStream(file);
-			new BmpReader().Extract(new Com.Drew.Lang.StreamReader(stream), metadata);
-			stream.Close();
-			BmpHeaderDirectory directory = metadata.GetFirstDirectoryOfType<BmpHeaderDirectory>();
-			NUnit.Framework.Assert.IsNotNull(directory);
-			return directory;
-		}
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class BmpReaderTest
+    {
+        /// <exception cref="System.Exception"/>
+        [NotNull]
+        public static BmpHeaderDirectory ProcessBytes([NotNull] string file)
+        {
+            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            InputStream stream = new FileInputStream(file);
+            new BmpReader().Extract(new Com.Drew.Lang.StreamReader(stream), metadata);
+            stream.Close();
+            BmpHeaderDirectory directory = metadata.GetFirstDirectoryOfType<BmpHeaderDirectory>();
+            NUnit.Framework.Assert.IsNotNull(directory);
+            return directory;
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestMsPaint16color()
-		{
-			BmpHeaderDirectory directory = ProcessBytes("Tests/Data/16color-10x10.bmp");
-			Sharpen.Tests.IsFalse(directory.HasErrors());
-			Sharpen.Tests.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageWidth));
-			Sharpen.Tests.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageHeight));
-			Sharpen.Tests.AreEqual(4, directory.GetInt(BmpHeaderDirectory.TagBitsPerPixel));
-			Sharpen.Tests.AreEqual("None", directory.GetDescription(BmpHeaderDirectory.TagCompression));
-			Sharpen.Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagXPixelsPerMeter));
-			Sharpen.Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagYPixelsPerMeter));
-			Sharpen.Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagPaletteColourCount));
-			Sharpen.Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagImportantColourCount));
-			Sharpen.Tests.AreEqual(1, directory.GetInt(BmpHeaderDirectory.TagColourPlanes));
-			Sharpen.Tests.AreEqual(40, directory.GetInt(BmpHeaderDirectory.TagHeaderSize));
-		}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestMsPaint16color()
+        {
+            BmpHeaderDirectory directory = ProcessBytes("Tests/Data/16color-10x10.bmp");
+            Sharpen.Tests.IsFalse(directory.HasErrors());
+            Sharpen.Tests.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageWidth));
+            Sharpen.Tests.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageHeight));
+            Sharpen.Tests.AreEqual(4, directory.GetInt(BmpHeaderDirectory.TagBitsPerPixel));
+            Sharpen.Tests.AreEqual("None", directory.GetDescription(BmpHeaderDirectory.TagCompression));
+            Sharpen.Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagXPixelsPerMeter));
+            Sharpen.Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagYPixelsPerMeter));
+            Sharpen.Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagPaletteColourCount));
+            Sharpen.Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagImportantColourCount));
+            Sharpen.Tests.AreEqual(1, directory.GetInt(BmpHeaderDirectory.TagColourPlanes));
+            Sharpen.Tests.AreEqual(40, directory.GetInt(BmpHeaderDirectory.TagHeaderSize));
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestMsPaint24bpp()
-		{
-			BmpHeaderDirectory directory = ProcessBytes("Tests/Data/24bpp-10x10.bmp");
-			Sharpen.Tests.IsFalse(directory.HasErrors());
-			Sharpen.Tests.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageWidth));
-			Sharpen.Tests.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageHeight));
-			Sharpen.Tests.AreEqual(24, directory.GetInt(BmpHeaderDirectory.TagBitsPerPixel));
-			Sharpen.Tests.AreEqual("None", directory.GetDescription(BmpHeaderDirectory.TagCompression));
-			Sharpen.Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagXPixelsPerMeter));
-			Sharpen.Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagYPixelsPerMeter));
-			Sharpen.Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagPaletteColourCount));
-			Sharpen.Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagImportantColourCount));
-			Sharpen.Tests.AreEqual(1, directory.GetInt(BmpHeaderDirectory.TagColourPlanes));
-			Sharpen.Tests.AreEqual(40, directory.GetInt(BmpHeaderDirectory.TagHeaderSize));
-		}
-	}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestMsPaint24bpp()
+        {
+            BmpHeaderDirectory directory = ProcessBytes("Tests/Data/24bpp-10x10.bmp");
+            Sharpen.Tests.IsFalse(directory.HasErrors());
+            Sharpen.Tests.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageWidth));
+            Sharpen.Tests.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageHeight));
+            Sharpen.Tests.AreEqual(24, directory.GetInt(BmpHeaderDirectory.TagBitsPerPixel));
+            Sharpen.Tests.AreEqual("None", directory.GetDescription(BmpHeaderDirectory.TagCompression));
+            Sharpen.Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagXPixelsPerMeter));
+            Sharpen.Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagYPixelsPerMeter));
+            Sharpen.Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagPaletteColourCount));
+            Sharpen.Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagImportantColourCount));
+            Sharpen.Tests.AreEqual(1, directory.GetInt(BmpHeaderDirectory.TagColourPlanes));
+            Sharpen.Tests.AreEqual(40, directory.GetInt(BmpHeaderDirectory.TagHeaderSize));
+        }
+    }
 }

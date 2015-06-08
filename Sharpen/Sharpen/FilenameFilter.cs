@@ -1,9 +1,9 @@
 namespace Sharpen
 {
-	using System;
+    using System;
 
-	public interface FilenameFilter
-	{
-		bool Accept (FilePath dir, string name);
-	}
+    public interface FilenameFilter
+    {
+        bool Accept (FilePath dir, string name);
+    }
 }

@@ -1,30 +1,30 @@
 namespace Sharpen
 {
-	using System;
-	using System.Threading;
+    using System;
+    using System.Threading;
 
-	public class AtomicReferenceArray<T> where T : class
-	{
-		private T[] array;
+    public class AtomicReferenceArray<T> where T : class
+    {
+        private T[] array;
 
-		public AtomicReferenceArray (int size)
-		{
-			this.array = new T[size];
-		}
+        public AtomicReferenceArray (int size)
+        {
+            this.array = new T[size];
+        }
 
-		public bool CompareAndSet (int slot, T expect, T update)
-		{
-			return (Interlocked.CompareExchange<T> (ref array[slot], update, expect) == expect);
-		}
+        public bool CompareAndSet (int slot, T expect, T update)
+        {
+            return (Interlocked.CompareExchange<T> (ref array[slot], update, expect) == expect);
+        }
 
-		public T Get (int n)
-		{
-			return array[n];
-		}
-		
-		public int Length ()
-		{
-			return array.Length;
-		}
-	}
+        public T Get (int n)
+        {
+            return array[n];
+        }
+        
+        public int Length ()
+        {
+            return array.Length;
+        }
+    }
 }

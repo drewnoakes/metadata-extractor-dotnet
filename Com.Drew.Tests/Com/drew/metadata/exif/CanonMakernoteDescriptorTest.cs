@@ -25,36 +25,36 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class CanonMakernoteDescriptorTest
-	{
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test, SetCulture("en-GB")]
-		public virtual void TestGetFlashBiasDescription()
-		{
-			CanonMakernoteDirectory directory = new CanonMakernoteDirectory();
-			CanonMakernoteDescriptor descriptor = new CanonMakernoteDescriptor(directory);
-			// set and check values
-			directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0xFFC0)));
-			Sharpen.Tests.AreEqual("-2.0 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
-			directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0xffd4)));
-			Sharpen.Tests.AreEqual("-1.375 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
-			directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0000)));
-			Sharpen.Tests.AreEqual("0.0 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
-			directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x000c)));
-			Sharpen.Tests.AreEqual("0.375 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
-			directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0010)));
-			Sharpen.Tests.AreEqual("0.5 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
-			directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0014)));
-			Sharpen.Tests.AreEqual("0.625 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
-			directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0020)));
-			Sharpen.Tests.AreEqual("1.0 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
-			directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0030)));
-			Sharpen.Tests.AreEqual("1.5 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
-			directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0034)));
-			Sharpen.Tests.AreEqual("1.625 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
-			directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0040)));
-			Sharpen.Tests.AreEqual("2.0 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
-		}
-	}
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class CanonMakernoteDescriptorTest
+    {
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test, SetCulture("en-GB")]
+        public virtual void TestGetFlashBiasDescription()
+        {
+            CanonMakernoteDirectory directory = new CanonMakernoteDirectory();
+            CanonMakernoteDescriptor descriptor = new CanonMakernoteDescriptor(directory);
+            // set and check values
+            directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0xFFC0)));
+            Sharpen.Tests.AreEqual("-2.0 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0xffd4)));
+            Sharpen.Tests.AreEqual("-1.375 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0000)));
+            Sharpen.Tests.AreEqual("0.0 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x000c)));
+            Sharpen.Tests.AreEqual("0.375 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0010)));
+            Sharpen.Tests.AreEqual("0.5 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0014)));
+            Sharpen.Tests.AreEqual("0.625 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0020)));
+            Sharpen.Tests.AreEqual("1.0 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0030)));
+            Sharpen.Tests.AreEqual("1.5 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0034)));
+            Sharpen.Tests.AreEqual("1.625 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0040)));
+            Sharpen.Tests.AreEqual("2.0 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+        }
+    }
 }

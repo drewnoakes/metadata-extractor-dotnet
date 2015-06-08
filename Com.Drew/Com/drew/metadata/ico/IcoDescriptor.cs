@@ -25,82 +25,82 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Ico
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class IcoDescriptor : TagDescriptor<IcoDirectory>
-	{
-		public IcoDescriptor([NotNull] IcoDirectory directory)
-			: base(directory)
-		{
-		}
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class IcoDescriptor : TagDescriptor<IcoDirectory>
+    {
+        public IcoDescriptor([NotNull] IcoDirectory directory)
+            : base(directory)
+        {
+        }
 
-		public override string GetDescription(int tagType)
-		{
-			switch (tagType)
-			{
-				case IcoDirectory.TagImageType:
-				{
-					return GetImageTypeDescription();
-				}
+        public override string GetDescription(int tagType)
+        {
+            switch (tagType)
+            {
+                case IcoDirectory.TagImageType:
+                {
+                    return GetImageTypeDescription();
+                }
 
-				case IcoDirectory.TagImageWidth:
-				{
-					return GetImageWidthDescription();
-				}
+                case IcoDirectory.TagImageWidth:
+                {
+                    return GetImageWidthDescription();
+                }
 
-				case IcoDirectory.TagImageHeight:
-				{
-					return GetImageHeightDescription();
-				}
+                case IcoDirectory.TagImageHeight:
+                {
+                    return GetImageHeightDescription();
+                }
 
-				case IcoDirectory.TagColourPaletteSize:
-				{
-					return GetColourPaletteSizeDescription();
-				}
+                case IcoDirectory.TagColourPaletteSize:
+                {
+                    return GetColourPaletteSizeDescription();
+                }
 
-				default:
-				{
-					return base.GetDescription(tagType);
-				}
-			}
-		}
+                default:
+                {
+                    return base.GetDescription(tagType);
+                }
+            }
+        }
 
-		[CanBeNull]
-		public virtual string GetImageTypeDescription()
-		{
-			return GetIndexedDescription(IcoDirectory.TagImageType, 1, "Icon", "Cursor");
-		}
+        [CanBeNull]
+        public virtual string GetImageTypeDescription()
+        {
+            return GetIndexedDescription(IcoDirectory.TagImageType, 1, "Icon", "Cursor");
+        }
 
-		[CanBeNull]
-		public virtual string GetImageWidthDescription()
-		{
-			int? width = _directory.GetInteger(IcoDirectory.TagImageWidth);
-			if (width == null)
-			{
-				return null;
-			}
-			return (width == 0 ? 256 : width) + " pixels";
-		}
+        [CanBeNull]
+        public virtual string GetImageWidthDescription()
+        {
+            int? width = _directory.GetInteger(IcoDirectory.TagImageWidth);
+            if (width == null)
+            {
+                return null;
+            }
+            return (width == 0 ? 256 : width) + " pixels";
+        }
 
-		[CanBeNull]
-		public virtual string GetImageHeightDescription()
-		{
-			int? width = _directory.GetInteger(IcoDirectory.TagImageHeight);
-			if (width == null)
-			{
-				return null;
-			}
-			return (width == 0 ? 256 : width) + " pixels";
-		}
+        [CanBeNull]
+        public virtual string GetImageHeightDescription()
+        {
+            int? width = _directory.GetInteger(IcoDirectory.TagImageHeight);
+            if (width == null)
+            {
+                return null;
+            }
+            return (width == 0 ? 256 : width) + " pixels";
+        }
 
-		[CanBeNull]
-		public virtual string GetColourPaletteSizeDescription()
-		{
-			int? size = _directory.GetInteger(IcoDirectory.TagColourPaletteSize);
-			if (size == null)
-			{
-				return null;
-			}
-			return size == 0 ? "No palette" : size + " colour" + (size == 1 ? string.Empty : "s");
-		}
-	}
+        [CanBeNull]
+        public virtual string GetColourPaletteSizeDescription()
+        {
+            int? size = _directory.GetInteger(IcoDirectory.TagColourPaletteSize);
+            if (size == null)
+            {
+                return null;
+            }
+            return size == 0 ? "No palette" : size + " colour" + (size == 1 ? string.Empty : "s");
+        }
+    }
 }

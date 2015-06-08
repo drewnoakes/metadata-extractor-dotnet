@@ -23,25 +23,25 @@ using Sharpen;
 
 namespace Com.Drew.Imaging
 {
-	/// <summary>Enumeration of supported image file formats.</summary>
-	public enum FileType
-	{
-		Unknown,
-		Jpeg,
-		Tiff,
-		Psd,
-		Png,
-		Bmp,
-		Gif,
-		Ico,
-		Pcx,
-		Riff,
-		Arw,
-		Crw,
-		Cr2,
-		Nef,
-		Orf,
-		Raf,
-		Rw2
-	}
+    /// <summary>Enumeration of supported image file formats.</summary>
+    public enum FileType
+    {
+        Unknown,
+        Jpeg,
+        Tiff,
+        Psd,
+        Png,
+        Bmp,
+        Gif,
+        Ico,
+        Pcx,
+        Riff,
+        Arw,
+        Crw,
+        Cr2,
+        Nef,
+        Orf,
+        Raf,
+        Rw2
+    }
 }

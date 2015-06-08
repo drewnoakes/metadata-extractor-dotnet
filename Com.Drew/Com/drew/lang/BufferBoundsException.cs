@@ -24,44 +24,44 @@ using Sharpen;
 
 namespace Com.Drew.Lang
 {
-	/// <summary>
-	/// A checked replacement for
-	/// <see cref="System.IndexOutOfRangeException"/>
-	/// .  Used by
-	/// <see cref="RandomAccessReader"/>
-	/// .
-	/// </summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	[System.Serializable]
-	public sealed class BufferBoundsException : IOException
-	{
-		private const long serialVersionUID = 2911102837808946396L;
+    /// <summary>
+    /// A checked replacement for
+    /// <see cref="System.IndexOutOfRangeException"/>
+    /// .  Used by
+    /// <see cref="RandomAccessReader"/>
+    /// .
+    /// </summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    [System.Serializable]
+    public sealed class BufferBoundsException : IOException
+    {
+        private const long serialVersionUID = 2911102837808946396L;
 
-		public BufferBoundsException(int index, int bytesRequested, long bufferLength)
-			: base(GetMessage(index, bytesRequested, bufferLength))
-		{
-		}
+        public BufferBoundsException(int index, int bytesRequested, long bufferLength)
+            : base(GetMessage(index, bytesRequested, bufferLength))
+        {
+        }
 
-		public BufferBoundsException(string message)
-			: base(message)
-		{
-		}
+        public BufferBoundsException(string message)
+            : base(message)
+        {
+        }
 
-		private static string GetMessage(int index, int bytesRequested, long bufferLength)
-		{
-			if (index < 0)
-			{
-				return Sharpen.Extensions.StringFormat("Attempt to read from buffer using a negative index (%d)", index);
-			}
-			if (bytesRequested < 0)
-			{
-				return Sharpen.Extensions.StringFormat("Number of requested bytes cannot be negative (%d)", bytesRequested);
-			}
-			if ((long)index + (long)bytesRequested - 1L > (long)int.MaxValue)
-			{
-				return Sharpen.Extensions.StringFormat("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: %d, requested count: %d)", index, bytesRequested);
-			}
-			return Sharpen.Extensions.StringFormat("Attempt to read from beyond end of underlying data source (requested index: %d, requested count: %d, max index: %d)", index, bytesRequested, bufferLength - 1);
-		}
-	}
+        private static string GetMessage(int index, int bytesRequested, long bufferLength)
+        {
+            if (index < 0)
+            {
+                return Sharpen.Extensions.StringFormat("Attempt to read from buffer using a negative index (%d)", index);
+            }
+            if (bytesRequested < 0)
+            {
+                return Sharpen.Extensions.StringFormat("Number of requested bytes cannot be negative (%d)", bytesRequested);
+            }
+            if ((long)index + (long)bytesRequested - 1L > (long)int.MaxValue)
+            {
+                return Sharpen.Extensions.StringFormat("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: %d, requested count: %d)", index, bytesRequested);
+            }
+            return Sharpen.Extensions.StringFormat("Attempt to read from beyond end of underlying data source (requested index: %d, requested count: %d, max index: %d)", index, bytesRequested, bufferLength - 1);
+        }
+    }
 }

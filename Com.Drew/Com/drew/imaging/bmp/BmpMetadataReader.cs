@@ -26,35 +26,35 @@ using Sharpen;
 
 namespace Com.Drew.Imaging.Bmp
 {
-	/// <summary>Obtains metadata from BMP files.</summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class BmpMetadataReader
-	{
-		/// <exception cref="System.IO.IOException"/>
-		[NotNull]
-		public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] FilePath file)
-		{
-			FileInputStream stream = null;
-			try
-			{
-				stream = new FileInputStream(file);
-				return ReadMetadata(stream);
-			}
-			finally
-			{
-				if (stream != null)
-				{
-					stream.Close();
-				}
-			}
-		}
+    /// <summary>Obtains metadata from BMP files.</summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class BmpMetadataReader
+    {
+        /// <exception cref="System.IO.IOException"/>
+        [NotNull]
+        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] FilePath file)
+        {
+            FileInputStream stream = null;
+            try
+            {
+                stream = new FileInputStream(file);
+                return ReadMetadata(stream);
+            }
+            finally
+            {
+                if (stream != null)
+                {
+                    stream.Close();
+                }
+            }
+        }
 
-		[NotNull]
-		public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
-		{
-			Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
-			new BmpReader().Extract(new Com.Drew.Lang.StreamReader(inputStream), metadata);
-			return metadata;
-		}
-	}
+        [NotNull]
+        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
+        {
+            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            new BmpReader().Extract(new Com.Drew.Lang.StreamReader(inputStream), metadata);
+            return metadata;
+        }
+    }
 }

@@ -27,11 +27,11 @@ using System;
 
 namespace Sharpen
 {
-	interface X509TrustManager: TrustManager
-	{
-		X509Certificate[] GetAcceptedIssuers();
-		void CheckClientTrusted (X509Certificate[] certs, string authType);
-		void CheckServerTrusted (X509Certificate[] certs, string authType);
-	}
+    interface X509TrustManager: TrustManager
+    {
+        X509Certificate[] GetAcceptedIssuers();
+        void CheckClientTrusted (X509Certificate[] certs, string authType);
+        void CheckServerTrusted (X509Certificate[] certs, string authType);
+    }
 }
 

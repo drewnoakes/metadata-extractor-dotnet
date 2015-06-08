@@ -25,44 +25,44 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif.Makernotes
 {
-	/// <summary>Describes tags specific to Ricoh cameras.</summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class RicohMakernoteDirectory : Com.Drew.Metadata.Directory
-	{
-		public const int TagMakernoteDataType = unchecked((int)(0x0001));
+    /// <summary>Describes tags specific to Ricoh cameras.</summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class RicohMakernoteDirectory : Com.Drew.Metadata.Directory
+    {
+        public const int TagMakernoteDataType = unchecked((int)(0x0001));
 
-		public const int TagVersion = unchecked((int)(0x0002));
+        public const int TagVersion = unchecked((int)(0x0002));
 
-		public const int TagPrintImageMatchingInfo = unchecked((int)(0x0E00));
+        public const int TagPrintImageMatchingInfo = unchecked((int)(0x0E00));
 
-		public const int TagRicohCameraInfoMakernoteSubIfdPointer = unchecked((int)(0x2001));
+        public const int TagRicohCameraInfoMakernoteSubIfdPointer = unchecked((int)(0x2001));
 
-		[NotNull]
-		protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        [NotNull]
+        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
 
-		static RicohMakernoteDirectory()
-		{
-			_tagNameMap.Put(TagMakernoteDataType, "Makernote Data Type");
-			_tagNameMap.Put(TagVersion, "Version");
-			_tagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info");
-			_tagNameMap.Put(TagRicohCameraInfoMakernoteSubIfdPointer, "Ricoh Camera Info Makernote Sub-IFD");
-		}
+        static RicohMakernoteDirectory()
+        {
+            _tagNameMap.Put(TagMakernoteDataType, "Makernote Data Type");
+            _tagNameMap.Put(TagVersion, "Version");
+            _tagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info");
+            _tagNameMap.Put(TagRicohCameraInfoMakernoteSubIfdPointer, "Ricoh Camera Info Makernote Sub-IFD");
+        }
 
-		public RicohMakernoteDirectory()
-		{
-			this.SetDescriptor(new RicohMakernoteDescriptor(this));
-		}
+        public RicohMakernoteDirectory()
+        {
+            this.SetDescriptor(new RicohMakernoteDescriptor(this));
+        }
 
-		[NotNull]
-		public override string GetName()
-		{
-			return "Ricoh Makernote";
-		}
+        [NotNull]
+        public override string GetName()
+        {
+            return "Ricoh Makernote";
+        }
 
-		[NotNull]
-		protected internal override Dictionary<int?, string> GetTagNameMap()
-		{
-			return _tagNameMap;
-		}
-	}
+        [NotNull]
+        protected internal override Dictionary<int?, string> GetTagNameMap()
+        {
+            return _tagNameMap;
+        }
+    }
 }

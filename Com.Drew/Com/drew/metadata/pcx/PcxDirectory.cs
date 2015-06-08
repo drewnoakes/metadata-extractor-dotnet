@@ -25,73 +25,73 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Pcx
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class PcxDirectory : Com.Drew.Metadata.Directory
-	{
-		public const int TagVersion = 1;
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class PcxDirectory : Com.Drew.Metadata.Directory
+    {
+        public const int TagVersion = 1;
 
-		public const int TagBitsPerPixel = 2;
+        public const int TagBitsPerPixel = 2;
 
-		public const int TagXmin = 3;
+        public const int TagXmin = 3;
 
-		public const int TagYmin = 4;
+        public const int TagYmin = 4;
 
-		public const int TagXmax = 5;
+        public const int TagXmax = 5;
 
-		public const int TagYmax = 6;
+        public const int TagYmax = 6;
 
-		public const int TagHorizontalDpi = 7;
+        public const int TagHorizontalDpi = 7;
 
-		public const int TagVerticalDpi = 8;
+        public const int TagVerticalDpi = 8;
 
-		public const int TagPalette = 9;
+        public const int TagPalette = 9;
 
-		public const int TagColorPlanes = 10;
+        public const int TagColorPlanes = 10;
 
-		public const int TagBytesPerLine = 11;
+        public const int TagBytesPerLine = 11;
 
-		public const int TagPaletteType = 12;
+        public const int TagPaletteType = 12;
 
-		public const int TagHscrSize = 13;
+        public const int TagHscrSize = 13;
 
-		public const int TagVscrSize = 14;
+        public const int TagVscrSize = 14;
 
-		[NotNull]
-		protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        [NotNull]
+        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
 
-		static PcxDirectory()
-		{
-			_tagNameMap.Put(TagVersion, "Version");
-			_tagNameMap.Put(TagBitsPerPixel, "Bits Per Pixel");
-			_tagNameMap.Put(TagXmin, "X Min");
-			_tagNameMap.Put(TagYmin, "Y Min");
-			_tagNameMap.Put(TagXmax, "X Max");
-			_tagNameMap.Put(TagYmax, "Y Max");
-			_tagNameMap.Put(TagHorizontalDpi, "Horitzontal DPI");
-			_tagNameMap.Put(TagVerticalDpi, "Vertical DPI");
-			_tagNameMap.Put(TagPalette, "Palette");
-			_tagNameMap.Put(TagColorPlanes, "Color Planes");
-			_tagNameMap.Put(TagBytesPerLine, "Bytes Per Line");
-			_tagNameMap.Put(TagPaletteType, "Palette Type");
-			_tagNameMap.Put(TagHscrSize, "H Hcr Size");
-			_tagNameMap.Put(TagVscrSize, "V Scr Size");
-		}
+        static PcxDirectory()
+        {
+            _tagNameMap.Put(TagVersion, "Version");
+            _tagNameMap.Put(TagBitsPerPixel, "Bits Per Pixel");
+            _tagNameMap.Put(TagXmin, "X Min");
+            _tagNameMap.Put(TagYmin, "Y Min");
+            _tagNameMap.Put(TagXmax, "X Max");
+            _tagNameMap.Put(TagYmax, "Y Max");
+            _tagNameMap.Put(TagHorizontalDpi, "Horitzontal DPI");
+            _tagNameMap.Put(TagVerticalDpi, "Vertical DPI");
+            _tagNameMap.Put(TagPalette, "Palette");
+            _tagNameMap.Put(TagColorPlanes, "Color Planes");
+            _tagNameMap.Put(TagBytesPerLine, "Bytes Per Line");
+            _tagNameMap.Put(TagPaletteType, "Palette Type");
+            _tagNameMap.Put(TagHscrSize, "H Hcr Size");
+            _tagNameMap.Put(TagVscrSize, "V Scr Size");
+        }
 
-		public PcxDirectory()
-		{
-			this.SetDescriptor(new PcxDescriptor(this));
-		}
+        public PcxDirectory()
+        {
+            this.SetDescriptor(new PcxDescriptor(this));
+        }
 
-		[NotNull]
-		public override string GetName()
-		{
-			return "PCX";
-		}
+        [NotNull]
+        public override string GetName()
+        {
+            return "PCX";
+        }
 
-		[NotNull]
-		protected internal override Dictionary<int?, string> GetTagNameMap()
-		{
-			return _tagNameMap;
-		}
-	}
+        [NotNull]
+        protected internal override Dictionary<int?, string> GetTagNameMap()
+        {
+            return _tagNameMap;
+        }
+    }
 }

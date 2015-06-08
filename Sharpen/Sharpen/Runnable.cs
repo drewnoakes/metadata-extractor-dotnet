@@ -1,9 +1,9 @@
 namespace Sharpen
 {
-	using System;
+    using System;
 
-	public interface Runnable
-	{
-		void Run ();
-	}
+    public interface Runnable
+    {
+        void Run ();
+    }
 }

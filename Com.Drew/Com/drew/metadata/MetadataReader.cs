@@ -25,31 +25,31 @@ using Sharpen;
 
 namespace Com.Drew.Metadata
 {
-	/// <summary>
-	/// Defines an object capable of processing a particular type of metadata from a
-	/// <see cref="Com.Drew.Lang.RandomAccessReader"/>
-	/// .
-	/// <p>
-	/// Instances of this interface must be thread-safe and reusable.
-	/// </summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public interface MetadataReader
-	{
-		/// <summary>
-		/// Extracts metadata from <code>reader</code> and merges it into the specified
-		/// <see cref="Metadata"/>
-		/// object.
-		/// </summary>
-		/// <param name="reader">
-		/// The
-		/// <see cref="Com.Drew.Lang.RandomAccessReader"/>
-		/// from which the metadata should be extracted.
-		/// </param>
-		/// <param name="metadata">
-		/// The
-		/// <see cref="Metadata"/>
-		/// object into which extracted values should be merged.
-		/// </param>
-		void Extract([NotNull] RandomAccessReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata);
-	}
+    /// <summary>
+    /// Defines an object capable of processing a particular type of metadata from a
+    /// <see cref="Com.Drew.Lang.RandomAccessReader"/>
+    /// .
+    /// <p>
+    /// Instances of this interface must be thread-safe and reusable.
+    /// </summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public interface MetadataReader
+    {
+        /// <summary>
+        /// Extracts metadata from <code>reader</code> and merges it into the specified
+        /// <see cref="Metadata"/>
+        /// object.
+        /// </summary>
+        /// <param name="reader">
+        /// The
+        /// <see cref="Com.Drew.Lang.RandomAccessReader"/>
+        /// from which the metadata should be extracted.
+        /// </param>
+        /// <param name="metadata">
+        /// The
+        /// <see cref="Metadata"/>
+        /// object into which extracted values should be merged.
+        /// </param>
+        void Extract([NotNull] RandomAccessReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata);
+    }
 }

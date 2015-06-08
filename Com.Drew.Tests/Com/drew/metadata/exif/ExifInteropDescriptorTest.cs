@@ -23,34 +23,34 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
 {
-	/// <summary>
-	/// Unit tests for
-	/// <see cref="ExifInteropDescriptor"/>
-	/// .
-	/// </summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class ExifInteropDescriptorTest
-	{
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestGetInteropVersionDescription()
-		{
-			ExifInteropDirectory directory = new ExifInteropDirectory();
-			directory.SetIntArray(ExifInteropDirectory.TagInteropVersion, new int[] { 0, 1, 0, 0 });
-			ExifInteropDescriptor descriptor = new ExifInteropDescriptor(directory);
-			Sharpen.Tests.AreEqual("1.00", descriptor.GetDescription(ExifInteropDirectory.TagInteropVersion));
-			Sharpen.Tests.AreEqual("1.00", descriptor.GetInteropVersionDescription());
-		}
+    /// <summary>
+    /// Unit tests for
+    /// <see cref="ExifInteropDescriptor"/>
+    /// .
+    /// </summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class ExifInteropDescriptorTest
+    {
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestGetInteropVersionDescription()
+        {
+            ExifInteropDirectory directory = new ExifInteropDirectory();
+            directory.SetIntArray(ExifInteropDirectory.TagInteropVersion, new int[] { 0, 1, 0, 0 });
+            ExifInteropDescriptor descriptor = new ExifInteropDescriptor(directory);
+            Sharpen.Tests.AreEqual("1.00", descriptor.GetDescription(ExifInteropDirectory.TagInteropVersion));
+            Sharpen.Tests.AreEqual("1.00", descriptor.GetInteropVersionDescription());
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestGetInteropIndexDescription()
-		{
-			ExifInteropDirectory directory = new ExifInteropDirectory();
-			directory.SetString(ExifInteropDirectory.TagInteropIndex, "R98");
-			ExifInteropDescriptor descriptor = new ExifInteropDescriptor(directory);
-			Sharpen.Tests.AreEqual("Recommended Exif Interoperability Rules (ExifR98)", descriptor.GetDescription(ExifInteropDirectory.TagInteropIndex));
-			Sharpen.Tests.AreEqual("Recommended Exif Interoperability Rules (ExifR98)", descriptor.GetInteropIndexDescription());
-		}
-	}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestGetInteropIndexDescription()
+        {
+            ExifInteropDirectory directory = new ExifInteropDirectory();
+            directory.SetString(ExifInteropDirectory.TagInteropIndex, "R98");
+            ExifInteropDescriptor descriptor = new ExifInteropDescriptor(directory);
+            Sharpen.Tests.AreEqual("Recommended Exif Interoperability Rules (ExifR98)", descriptor.GetDescription(ExifInteropDirectory.TagInteropIndex));
+            Sharpen.Tests.AreEqual("Recommended Exif Interoperability Rules (ExifR98)", descriptor.GetInteropIndexDescription());
+        }
+    }
 }

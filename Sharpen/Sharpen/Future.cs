@@ -1,10 +1,10 @@
 namespace Sharpen
 {
-	using System;
+    using System;
 
-	public interface Future<T>
-	{
-		bool Cancel (bool mayInterruptIfRunning);
-		T Get ();
-	}
+    public interface Future<T>
+    {
+        bool Cancel (bool mayInterruptIfRunning);
+        T Get ();
+    }
 }

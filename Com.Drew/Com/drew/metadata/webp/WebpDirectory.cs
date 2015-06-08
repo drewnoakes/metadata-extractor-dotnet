@@ -25,43 +25,43 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Webp
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class WebpDirectory : Com.Drew.Metadata.Directory
-	{
-		public const int TagImageHeight = 1;
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class WebpDirectory : Com.Drew.Metadata.Directory
+    {
+        public const int TagImageHeight = 1;
 
-		public const int TagImageWidth = 2;
+        public const int TagImageWidth = 2;
 
-		public const int TagHasAlpha = 3;
+        public const int TagHasAlpha = 3;
 
-		public const int TagIsAnimation = 4;
+        public const int TagIsAnimation = 4;
 
-		[NotNull]
-		protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        [NotNull]
+        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
 
-		static WebpDirectory()
-		{
-			_tagNameMap.Put(TagImageHeight, "Image Height");
-			_tagNameMap.Put(TagImageWidth, "Image Width");
-			_tagNameMap.Put(TagHasAlpha, "Has Alpha");
-			_tagNameMap.Put(TagIsAnimation, "Is Animation");
-		}
+        static WebpDirectory()
+        {
+            _tagNameMap.Put(TagImageHeight, "Image Height");
+            _tagNameMap.Put(TagImageWidth, "Image Width");
+            _tagNameMap.Put(TagHasAlpha, "Has Alpha");
+            _tagNameMap.Put(TagIsAnimation, "Is Animation");
+        }
 
-		public WebpDirectory()
-		{
-			this.SetDescriptor(new WebpDescriptor(this));
-		}
+        public WebpDirectory()
+        {
+            this.SetDescriptor(new WebpDescriptor(this));
+        }
 
-		[NotNull]
-		public override string GetName()
-		{
-			return "WebP";
-		}
+        [NotNull]
+        public override string GetName()
+        {
+            return "WebP";
+        }
 
-		[NotNull]
-		protected internal override Dictionary<int?, string> GetTagNameMap()
-		{
-			return _tagNameMap;
-		}
-	}
+        [NotNull]
+        protected internal override Dictionary<int?, string> GetTagNameMap()
+        {
+            return _tagNameMap;
+        }
+    }
 }

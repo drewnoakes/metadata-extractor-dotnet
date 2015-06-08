@@ -25,40 +25,40 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.File
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class FileMetadataDescriptor : TagDescriptor<FileMetadataDirectory>
-	{
-		public FileMetadataDescriptor([NotNull] FileMetadataDirectory directory)
-			: base(directory)
-		{
-		}
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class FileMetadataDescriptor : TagDescriptor<FileMetadataDirectory>
+    {
+        public FileMetadataDescriptor([NotNull] FileMetadataDirectory directory)
+            : base(directory)
+        {
+        }
 
-		[CanBeNull]
-		public override string GetDescription(int tagType)
-		{
-			switch (tagType)
-			{
-				case FileMetadataDirectory.TagFileSize:
-				{
-					return GetFileSizeDescription();
-				}
+        [CanBeNull]
+        public override string GetDescription(int tagType)
+        {
+            switch (tagType)
+            {
+                case FileMetadataDirectory.TagFileSize:
+                {
+                    return GetFileSizeDescription();
+                }
 
-				default:
-				{
-					return base.GetDescription(tagType);
-				}
-			}
-		}
+                default:
+                {
+                    return base.GetDescription(tagType);
+                }
+            }
+        }
 
-		[CanBeNull]
-		private string GetFileSizeDescription()
-		{
-			long? size = _directory.GetLongObject(FileMetadataDirectory.TagFileSize);
-			if (size == null)
-			{
-				return null;
-			}
-			return System.Convert.ToString((long)size) + " bytes";
-		}
-	}
+        [CanBeNull]
+        private string GetFileSizeDescription()
+        {
+            long? size = _directory.GetLongObject(FileMetadataDirectory.TagFileSize);
+            if (size == null)
+            {
+                return null;
+            }
+            return System.Convert.ToString((long)size) + " bytes";
+        }
+    }
 }

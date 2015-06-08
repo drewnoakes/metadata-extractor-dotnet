@@ -2,11 +2,11 @@ using System.Text.RegularExpressions;
 
 namespace Sharpen
 {
-	using System;
-	using System.Globalization;
+    using System;
+    using System.Globalization;
 
-	public class SimpleDateFormat : DateFormat
-	{
+    public class SimpleDateFormat : DateFormat
+    {
         private const string FIELD_YEAR = "year";
         private const string FIELD_MONTH = "month";
         private const string FIELD_DAY = "day";
@@ -14,56 +14,56 @@ namespace Sharpen
         private const string FIELD_MINUTE = "minute";
         private const string FIELD_SECOND = "second";
 
-		string format;
+        string format;
 
-	    CultureInfo Culture {
-			get; set;
-		}
-		
-		public SimpleDateFormat (): this ("g")
-		{
-		}
+        CultureInfo Culture {
+            get; set;
+        }
+        
+        public SimpleDateFormat (): this ("g")
+        {
+        }
 
-		public SimpleDateFormat (string format): this (format, CultureInfo.CurrentCulture)
-		{
-		}
+        public SimpleDateFormat (string format): this (format, CultureInfo.CurrentCulture)
+        {
+        }
 
-		public SimpleDateFormat (string format, CultureInfo c)
-		{
-			Culture = c;
-			this.format = format.Replace ("EEE", "ddd");
-			this.format = this.format.Replace ("Z", "zzz");
-			SetTimeZone (TimeZoneInfo.Local);
-		}
+        public SimpleDateFormat (string format, CultureInfo c)
+        {
+            Culture = c;
+            this.format = format.Replace ("EEE", "ddd");
+            this.format = this.format.Replace ("Z", "zzz");
+            SetTimeZone (TimeZoneInfo.Local);
+        }
 
-		public override DateTime Parse (string value)
-		{
-		    DateTime? result;
-		    if (TryDateTimeParse(value, out result))
-		    {
-		        return result.Value;
-		    }
+        public override DateTime Parse (string value)
+        {
+            DateTime? result;
+            if (TryDateTimeParse(value, out result))
+            {
+                return result.Value;
+            }
 
-		    try
-		    {
-		        return DateTime.ParseExact(value, format, Culture);
-		    }
-		    catch (Exception ex)
-		    {
-		        throw new ParseException();
-		    }
-		}
+            try
+            {
+                return DateTime.ParseExact(value, format, Culture);
+            }
+            catch (Exception ex)
+            {
+                throw new ParseException();
+            }
+        }
 
-	    public override string Format (DateTime date)
-		{
-			date += GetTimeZone().BaseUtcOffset;
-			return date.ToString (format);
-		}
-		
-		public string Format (long date)
-		{
-			return Extensions.MillisToDateTimeOffset (date, (int)GetTimeZone ().BaseUtcOffset.TotalMinutes).DateTime.ToString (format);
-		}
+        public override string Format (DateTime date)
+        {
+            date += GetTimeZone().BaseUtcOffset;
+            return date.ToString (format);
+        }
+        
+        public string Format (long date)
+        {
+            return Extensions.MillisToDateTimeOffset (date, (int)GetTimeZone ().BaseUtcOffset.TotalMinutes).DateTime.ToString (format);
+        }
 
         private bool TryDateTimeParse(string value, out DateTime? result)
         {
@@ -93,11 +93,11 @@ namespace Sharpen
             return false;
         }
 
-	    private string[] GetParsedFormat()
-	    {
+        private string[] GetParsedFormat()
+        {
             var r = new Regex("(yyyy|MM|dd|HH|mm|ss)");
             return r.Split(format);
-	    }
+        }
 
         private Regex BuildDateTimeParser(string[] formatParts)
         {
@@ -219,5 +219,5 @@ namespace Sharpen
 
             return result.GetTime();
         }
-	}
+    }
 }

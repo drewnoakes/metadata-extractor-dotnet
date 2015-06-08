@@ -25,103 +25,103 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif.Makernotes
 {
-	/// <summary>
-	/// Provides human-readable string representations of tag values stored in a
-	/// <see cref="SigmaMakernoteDirectory"/>
-	/// .
-	/// </summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class SigmaMakernoteDescriptor : TagDescriptor<SigmaMakernoteDirectory>
-	{
-		public SigmaMakernoteDescriptor([NotNull] SigmaMakernoteDirectory directory)
-			: base(directory)
-		{
-		}
+    /// <summary>
+    /// Provides human-readable string representations of tag values stored in a
+    /// <see cref="SigmaMakernoteDirectory"/>
+    /// .
+    /// </summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class SigmaMakernoteDescriptor : TagDescriptor<SigmaMakernoteDirectory>
+    {
+        public SigmaMakernoteDescriptor([NotNull] SigmaMakernoteDirectory directory)
+            : base(directory)
+        {
+        }
 
-		public override string GetDescription(int tagType)
-		{
-			switch (tagType)
-			{
-				case SigmaMakernoteDirectory.TagExposureMode:
-				{
-					return GetExposureModeDescription();
-				}
+        public override string GetDescription(int tagType)
+        {
+            switch (tagType)
+            {
+                case SigmaMakernoteDirectory.TagExposureMode:
+                {
+                    return GetExposureModeDescription();
+                }
 
-				case SigmaMakernoteDirectory.TagMeteringMode:
-				{
-					return GetMeteringModeDescription();
-				}
-			}
-			return base.GetDescription(tagType);
-		}
+                case SigmaMakernoteDirectory.TagMeteringMode:
+                {
+                    return GetMeteringModeDescription();
+                }
+            }
+            return base.GetDescription(tagType);
+        }
 
-		[CanBeNull]
-		private string GetMeteringModeDescription()
-		{
-			string value = _directory.GetString(SigmaMakernoteDirectory.TagMeteringMode);
-			if (value == null || value.Length == 0)
-			{
-				return null;
-			}
-			switch (value[0])
-			{
-				case '8':
-				{
-					return "Multi Segment";
-				}
+        [CanBeNull]
+        private string GetMeteringModeDescription()
+        {
+            string value = _directory.GetString(SigmaMakernoteDirectory.TagMeteringMode);
+            if (value == null || value.Length == 0)
+            {
+                return null;
+            }
+            switch (value[0])
+            {
+                case '8':
+                {
+                    return "Multi Segment";
+                }
 
-				case 'A':
-				{
-					return "Average";
-				}
+                case 'A':
+                {
+                    return "Average";
+                }
 
-				case 'C':
-				{
-					return "Center Weighted Average";
-				}
+                case 'C':
+                {
+                    return "Center Weighted Average";
+                }
 
-				default:
-				{
-					return value;
-				}
-			}
-		}
+                default:
+                {
+                    return value;
+                }
+            }
+        }
 
-		[CanBeNull]
-		private string GetExposureModeDescription()
-		{
-			string value = _directory.GetString(SigmaMakernoteDirectory.TagExposureMode);
-			if (value == null || value.Length == 0)
-			{
-				return null;
-			}
-			switch (value[0])
-			{
-				case 'A':
-				{
-					return "Aperture Priority AE";
-				}
+        [CanBeNull]
+        private string GetExposureModeDescription()
+        {
+            string value = _directory.GetString(SigmaMakernoteDirectory.TagExposureMode);
+            if (value == null || value.Length == 0)
+            {
+                return null;
+            }
+            switch (value[0])
+            {
+                case 'A':
+                {
+                    return "Aperture Priority AE";
+                }
 
-				case 'M':
-				{
-					return "Manual";
-				}
+                case 'M':
+                {
+                    return "Manual";
+                }
 
-				case 'P':
-				{
-					return "Program AE";
-				}
+                case 'P':
+                {
+                    return "Program AE";
+                }
 
-				case 'S':
-				{
-					return "Shutter Speed Priority AE";
-				}
+                case 'S':
+                {
+                    return "Shutter Speed Priority AE";
+                }
 
-				default:
-				{
-					return value;
-				}
-			}
-		}
-	}
+                default:
+                {
+                    return value;
+                }
+            }
+        }
+    }
 }

@@ -26,11 +26,11 @@
 using System;
 namespace Sharpen
 {
-	public class Proxy
-	{
-		public Proxy ()
-		{
-		}
-	}
+    public class Proxy
+    {
+        public Proxy ()
+        {
+        }
+    }
 }
 

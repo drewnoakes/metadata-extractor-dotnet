@@ -23,24 +23,24 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Jpeg
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class JpegComponentTest
-	{
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestGetComponentCharacter()
-		{
-			JpegComponent component;
-			component = new JpegComponent(1, 2, 3);
-			Sharpen.Tests.AreEqual("Y", component.GetComponentName());
-			component = new JpegComponent(2, 2, 3);
-			Sharpen.Tests.AreEqual("Cb", component.GetComponentName());
-			component = new JpegComponent(3, 2, 3);
-			Sharpen.Tests.AreEqual("Cr", component.GetComponentName());
-			component = new JpegComponent(4, 2, 3);
-			Sharpen.Tests.AreEqual("I", component.GetComponentName());
-			component = new JpegComponent(5, 2, 3);
-			Sharpen.Tests.AreEqual("Q", component.GetComponentName());
-		}
-	}
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class JpegComponentTest
+    {
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestGetComponentCharacter()
+        {
+            JpegComponent component;
+            component = new JpegComponent(1, 2, 3);
+            Sharpen.Tests.AreEqual("Y", component.GetComponentName());
+            component = new JpegComponent(2, 2, 3);
+            Sharpen.Tests.AreEqual("Cb", component.GetComponentName());
+            component = new JpegComponent(3, 2, 3);
+            Sharpen.Tests.AreEqual("Cr", component.GetComponentName());
+            component = new JpegComponent(4, 2, 3);
+            Sharpen.Tests.AreEqual("I", component.GetComponentName());
+            component = new JpegComponent(5, 2, 3);
+            Sharpen.Tests.AreEqual("Q", component.GetComponentName());
+        }
+    }
 }

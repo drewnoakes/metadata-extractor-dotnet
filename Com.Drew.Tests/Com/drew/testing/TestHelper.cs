@@ -24,18 +24,18 @@ using Sharpen;
 
 namespace Com.Drew.Testing
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class TestHelper
-	{
-		public static sbyte[] SkipBytes(sbyte[] input, int countToSkip)
-		{
-			if (input.Length - countToSkip < 0)
-			{
-				throw new ArgumentException("Attempting to skip more bytes than exist in the array.");
-			}
-			sbyte[] output = new sbyte[input.Length - countToSkip];
-			System.Array.Copy(input, countToSkip, output, 0, input.Length - countToSkip);
-			return output;
-		}
-	}
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class TestHelper
+    {
+        public static sbyte[] SkipBytes(sbyte[] input, int countToSkip)
+        {
+            if (input.Length - countToSkip < 0)
+            {
+                throw new ArgumentException("Attempting to skip more bytes than exist in the array.");
+            }
+            sbyte[] output = new sbyte[input.Length - countToSkip];
+            System.Array.Copy(input, countToSkip, output, 0, input.Length - countToSkip);
+            return output;
+        }
+    }
 }

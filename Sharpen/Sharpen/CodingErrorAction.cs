@@ -1,9 +1,9 @@
 namespace Sharpen
 {
-	using System;
+    using System;
 
-	public enum CodingErrorAction
-	{
-		REPORT
-	}
+    public enum CodingErrorAction
+    {
+        REPORT
+    }
 }

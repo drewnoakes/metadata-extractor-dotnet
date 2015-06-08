@@ -25,23 +25,23 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Jpeg
 {
-	/// <summary>
-	/// Provides human-readable string representations of tag values stored in a
-	/// <see cref="JpegCommentDirectory"/>
-	/// .
-	/// </summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class JpegCommentDescriptor : TagDescriptor<JpegCommentDirectory>
-	{
-		public JpegCommentDescriptor([NotNull] JpegCommentDirectory directory)
-			: base(directory)
-		{
-		}
+    /// <summary>
+    /// Provides human-readable string representations of tag values stored in a
+    /// <see cref="JpegCommentDirectory"/>
+    /// .
+    /// </summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class JpegCommentDescriptor : TagDescriptor<JpegCommentDirectory>
+    {
+        public JpegCommentDescriptor([NotNull] JpegCommentDirectory directory)
+            : base(directory)
+        {
+        }
 
-		[CanBeNull]
-		public virtual string GetJpegCommentDescription()
-		{
-			return _directory.GetString(JpegCommentDirectory.TagComment);
-		}
-	}
+        [CanBeNull]
+        public virtual string GetJpegCommentDescription()
+        {
+            return _directory.GetString(JpegCommentDirectory.TagComment);
+        }
+    }
 }

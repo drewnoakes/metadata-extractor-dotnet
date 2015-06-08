@@ -26,26 +26,26 @@ using Sharpen;
 
 namespace Com.Drew.Imaging
 {
-	/// <summary>An exception class thrown upon an unexpected condition that was fatal for the processing of an image.</summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	[System.Serializable]
-	public class ImageProcessingException : CompoundException
-	{
-		private const long serialVersionUID = -9115669182209912676L;
+    /// <summary>An exception class thrown upon an unexpected condition that was fatal for the processing of an image.</summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    [System.Serializable]
+    public class ImageProcessingException : CompoundException
+    {
+        private const long serialVersionUID = -9115669182209912676L;
 
-		public ImageProcessingException([CanBeNull] string message)
-			: base(message)
-		{
-		}
+        public ImageProcessingException([CanBeNull] string message)
+            : base(message)
+        {
+        }
 
-		public ImageProcessingException([CanBeNull] string message, [CanBeNull] Exception cause)
-			: base(message, cause)
-		{
-		}
+        public ImageProcessingException([CanBeNull] string message, [CanBeNull] Exception cause)
+            : base(message, cause)
+        {
+        }
 
-		public ImageProcessingException([CanBeNull] Exception cause)
-			: base(cause)
-		{
-		}
-	}
+        public ImageProcessingException([CanBeNull] Exception cause)
+            : base(cause)
+        {
+        }
+    }
 }

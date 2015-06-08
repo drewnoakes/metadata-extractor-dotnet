@@ -25,71 +25,71 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Jfif
 {
-	/// <summary>Directory of tags and values for the SOF0 Jfif segment.</summary>
-	/// <remarks>Directory of tags and values for the SOF0 Jfif segment.  This segment holds basic metadata about the image.</remarks>
-	/// <author>Yuri Binev, Drew Noakes</author>
-	public class JfifDirectory : Com.Drew.Metadata.Directory
-	{
-		public const int TagVersion = 5;
+    /// <summary>Directory of tags and values for the SOF0 Jfif segment.</summary>
+    /// <remarks>Directory of tags and values for the SOF0 Jfif segment.  This segment holds basic metadata about the image.</remarks>
+    /// <author>Yuri Binev, Drew Noakes</author>
+    public class JfifDirectory : Com.Drew.Metadata.Directory
+    {
+        public const int TagVersion = 5;
 
-		/// <summary>Units for pixel density fields.</summary>
-		/// <remarks>Units for pixel density fields.  One of None, Pixels per Inch, Pixels per Centimetre.</remarks>
-		public const int TagUnits = 7;
+        /// <summary>Units for pixel density fields.</summary>
+        /// <remarks>Units for pixel density fields.  One of None, Pixels per Inch, Pixels per Centimetre.</remarks>
+        public const int TagUnits = 7;
 
-		public const int TagResx = 8;
+        public const int TagResx = 8;
 
-		public const int TagResy = 10;
+        public const int TagResy = 10;
 
-		[NotNull]
-		protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        [NotNull]
+        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
 
-		static JfifDirectory()
-		{
-			_tagNameMap.Put(TagVersion, "Version");
-			_tagNameMap.Put(TagUnits, "Resolution Units");
-			_tagNameMap.Put(TagResy, "Y Resolution");
-			_tagNameMap.Put(TagResx, "X Resolution");
-		}
+        static JfifDirectory()
+        {
+            _tagNameMap.Put(TagVersion, "Version");
+            _tagNameMap.Put(TagUnits, "Resolution Units");
+            _tagNameMap.Put(TagResy, "Y Resolution");
+            _tagNameMap.Put(TagResx, "X Resolution");
+        }
 
-		public JfifDirectory()
-		{
-			this.SetDescriptor(new JfifDescriptor(this));
-		}
+        public JfifDirectory()
+        {
+            this.SetDescriptor(new JfifDescriptor(this));
+        }
 
-		[NotNull]
-		public override string GetName()
-		{
-			return "JFIF";
-		}
+        [NotNull]
+        public override string GetName()
+        {
+            return "JFIF";
+        }
 
-		[NotNull]
-		protected internal override Dictionary<int?, string> GetTagNameMap()
-		{
-			return _tagNameMap;
-		}
+        [NotNull]
+        protected internal override Dictionary<int?, string> GetTagNameMap()
+        {
+            return _tagNameMap;
+        }
 
-		/// <exception cref="Com.Drew.Metadata.MetadataException"/>
-		public virtual int GetVersion()
-		{
-			return GetInt(Com.Drew.Metadata.Jfif.JfifDirectory.TagVersion);
-		}
+        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        public virtual int GetVersion()
+        {
+            return GetInt(Com.Drew.Metadata.Jfif.JfifDirectory.TagVersion);
+        }
 
-		/// <exception cref="Com.Drew.Metadata.MetadataException"/>
-		public virtual int GetResUnits()
-		{
-			return GetInt(Com.Drew.Metadata.Jfif.JfifDirectory.TagUnits);
-		}
+        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        public virtual int GetResUnits()
+        {
+            return GetInt(Com.Drew.Metadata.Jfif.JfifDirectory.TagUnits);
+        }
 
-		/// <exception cref="Com.Drew.Metadata.MetadataException"/>
-		public virtual int GetImageWidth()
-		{
-			return GetInt(Com.Drew.Metadata.Jfif.JfifDirectory.TagResy);
-		}
+        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        public virtual int GetImageWidth()
+        {
+            return GetInt(Com.Drew.Metadata.Jfif.JfifDirectory.TagResy);
+        }
 
-		/// <exception cref="Com.Drew.Metadata.MetadataException"/>
-		public virtual int GetImageHeight()
-		{
-			return GetInt(Com.Drew.Metadata.Jfif.JfifDirectory.TagResx);
-		}
-	}
+        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        public virtual int GetImageHeight()
+        {
+            return GetInt(Com.Drew.Metadata.Jfif.JfifDirectory.TagResx);
+        }
+    }
 }

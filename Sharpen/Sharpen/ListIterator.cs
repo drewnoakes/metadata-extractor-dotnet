@@ -2,8 +2,8 @@ using System.Collections;
 
 namespace Sharpen
 {
-	using System;
-	using System.Collections.Generic;
+    using System;
+    using System.Collections.Generic;
 
     public class ListIterator : Iterator<object>
     {
@@ -55,40 +55,40 @@ namespace Sharpen
     }
     
     public class ListIterator<T>
-	{
-		private IList<T> list;
-		private int pos;
+    {
+        private IList<T> list;
+        private int pos;
 
-		public ListIterator (IList<T> list, int n)
-		{
-			this.list = list;
-			this.pos = n;
-		}
+        public ListIterator (IList<T> list, int n)
+        {
+            this.list = list;
+            this.pos = n;
+        }
         
         public ListIterator (IList<T> list) : this(list, -1)
-		{
-		}
+        {
+        }
 
-		public bool HasPrevious ()
-		{
-			return (this.pos > 0);
-		}
+        public bool HasPrevious ()
+        {
+            return (this.pos > 0);
+        }
 
-		public T Previous ()
-		{
-			pos--;
-			return list[pos];
-		}
+        public T Previous ()
+        {
+            pos--;
+            return list[pos];
+        }
 
-	    public T Next()
-	    {
+        public T Next()
+        {
             pos++;
             return list[pos];
-	    }
+        }
 
         public void Set(T val)
-	    {
-	        list[pos] = val;
-	    }
-	}
+        {
+            list[pos] = val;
+        }
+    }
 }

@@ -26,26 +26,26 @@ using Sharpen;
 
 namespace Com.Drew.Metadata
 {
-	/// <summary>Base class for all metadata specific exceptions.</summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	[System.Serializable]
-	public class MetadataException : CompoundException
-	{
-		private const long serialVersionUID = 8612756143363919682L;
+    /// <summary>Base class for all metadata specific exceptions.</summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    [System.Serializable]
+    public class MetadataException : CompoundException
+    {
+        private const long serialVersionUID = 8612756143363919682L;
 
-		public MetadataException([CanBeNull] string msg)
-			: base(msg)
-		{
-		}
+        public MetadataException([CanBeNull] string msg)
+            : base(msg)
+        {
+        }
 
-		public MetadataException([CanBeNull] Exception exception)
-			: base(exception)
-		{
-		}
+        public MetadataException([CanBeNull] Exception exception)
+            : base(exception)
+        {
+        }
 
-		public MetadataException([CanBeNull] string msg, [CanBeNull] Exception innerException)
-			: base(msg, innerException)
-		{
-		}
-	}
+        public MetadataException([CanBeNull] string msg, [CanBeNull] Exception innerException)
+            : base(msg, innerException)
+        {
+        }
+    }
 }

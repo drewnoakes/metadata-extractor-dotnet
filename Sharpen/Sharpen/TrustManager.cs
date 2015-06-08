@@ -27,8 +27,8 @@ using System;
 
 namespace Sharpen
 {
-	interface TrustManager
-	{
-	}
+    interface TrustManager
+    {
+    }
 }
 

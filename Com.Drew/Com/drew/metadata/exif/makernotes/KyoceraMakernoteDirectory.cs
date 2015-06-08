@@ -25,38 +25,38 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif.Makernotes
 {
-	/// <summary>Describes tags specific to Kyocera and Contax cameras.</summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class KyoceraMakernoteDirectory : Com.Drew.Metadata.Directory
-	{
-		public const int TagProprietaryThumbnail = unchecked((int)(0x0001));
+    /// <summary>Describes tags specific to Kyocera and Contax cameras.</summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class KyoceraMakernoteDirectory : Com.Drew.Metadata.Directory
+    {
+        public const int TagProprietaryThumbnail = unchecked((int)(0x0001));
 
-		public const int TagPrintImageMatchingInfo = unchecked((int)(0x0E00));
+        public const int TagPrintImageMatchingInfo = unchecked((int)(0x0E00));
 
-		[NotNull]
-		protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        [NotNull]
+        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
 
-		static KyoceraMakernoteDirectory()
-		{
-			_tagNameMap.Put(TagProprietaryThumbnail, "Proprietary Thumbnail Format Data");
-			_tagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info");
-		}
+        static KyoceraMakernoteDirectory()
+        {
+            _tagNameMap.Put(TagProprietaryThumbnail, "Proprietary Thumbnail Format Data");
+            _tagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info");
+        }
 
-		public KyoceraMakernoteDirectory()
-		{
-			this.SetDescriptor(new KyoceraMakernoteDescriptor(this));
-		}
+        public KyoceraMakernoteDirectory()
+        {
+            this.SetDescriptor(new KyoceraMakernoteDescriptor(this));
+        }
 
-		[NotNull]
-		public override string GetName()
-		{
-			return "Kyocera/Contax Makernote";
-		}
+        [NotNull]
+        public override string GetName()
+        {
+            return "Kyocera/Contax Makernote";
+        }
 
-		[NotNull]
-		protected internal override Dictionary<int?, string> GetTagNameMap()
-		{
-			return _tagNameMap;
-		}
-	}
+        [NotNull]
+        protected internal override Dictionary<int?, string> GetTagNameMap()
+        {
+            return _tagNameMap;
+        }
+    }
 }

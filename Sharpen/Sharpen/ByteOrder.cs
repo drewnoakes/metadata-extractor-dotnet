@@ -1,10 +1,10 @@
 namespace Sharpen
 {
-	using System;
+    using System;
 
-	public enum ByteOrder
-	{
-		BIG_ENDIAN,
-		LITTLE_ENDIAN
-	}
+    public enum ByteOrder
+    {
+        BIG_ENDIAN,
+        LITTLE_ENDIAN
+    }
 }

@@ -25,201 +25,201 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Jpeg
 {
-	/// <summary>Provides human-readable string versions of the tags stored in a JpegDirectory.</summary>
-	/// <remarks>
-	/// Provides human-readable string versions of the tags stored in a JpegDirectory.
-	/// Thanks to Darrell Silver (www.darrellsilver.com) for the initial version of this class.
-	/// </remarks>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class JpegDescriptor : TagDescriptor<JpegDirectory>
-	{
-		public JpegDescriptor([NotNull] JpegDirectory directory)
-			: base(directory)
-		{
-		}
+    /// <summary>Provides human-readable string versions of the tags stored in a JpegDirectory.</summary>
+    /// <remarks>
+    /// Provides human-readable string versions of the tags stored in a JpegDirectory.
+    /// Thanks to Darrell Silver (www.darrellsilver.com) for the initial version of this class.
+    /// </remarks>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class JpegDescriptor : TagDescriptor<JpegDirectory>
+    {
+        public JpegDescriptor([NotNull] JpegDirectory directory)
+            : base(directory)
+        {
+        }
 
-		[CanBeNull]
-		public override string GetDescription(int tagType)
-		{
-			switch (tagType)
-			{
-				case JpegDirectory.TagCompressionType:
-				{
-					return GetImageCompressionTypeDescription();
-				}
+        [CanBeNull]
+        public override string GetDescription(int tagType)
+        {
+            switch (tagType)
+            {
+                case JpegDirectory.TagCompressionType:
+                {
+                    return GetImageCompressionTypeDescription();
+                }
 
-				case JpegDirectory.TagComponentData1:
-				{
-					return GetComponentDataDescription(0);
-				}
+                case JpegDirectory.TagComponentData1:
+                {
+                    return GetComponentDataDescription(0);
+                }
 
-				case JpegDirectory.TagComponentData2:
-				{
-					return GetComponentDataDescription(1);
-				}
+                case JpegDirectory.TagComponentData2:
+                {
+                    return GetComponentDataDescription(1);
+                }
 
-				case JpegDirectory.TagComponentData3:
-				{
-					return GetComponentDataDescription(2);
-				}
+                case JpegDirectory.TagComponentData3:
+                {
+                    return GetComponentDataDescription(2);
+                }
 
-				case JpegDirectory.TagComponentData4:
-				{
-					return GetComponentDataDescription(3);
-				}
+                case JpegDirectory.TagComponentData4:
+                {
+                    return GetComponentDataDescription(3);
+                }
 
-				case JpegDirectory.TagDataPrecision:
-				{
-					return GetDataPrecisionDescription();
-				}
+                case JpegDirectory.TagDataPrecision:
+                {
+                    return GetDataPrecisionDescription();
+                }
 
-				case JpegDirectory.TagImageHeight:
-				{
-					return GetImageHeightDescription();
-				}
+                case JpegDirectory.TagImageHeight:
+                {
+                    return GetImageHeightDescription();
+                }
 
-				case JpegDirectory.TagImageWidth:
-				{
-					return GetImageWidthDescription();
-				}
+                case JpegDirectory.TagImageWidth:
+                {
+                    return GetImageWidthDescription();
+                }
 
-				default:
-				{
-					return base.GetDescription(tagType);
-				}
-			}
-		}
+                default:
+                {
+                    return base.GetDescription(tagType);
+                }
+            }
+        }
 
-		[CanBeNull]
-		public virtual string GetImageCompressionTypeDescription()
-		{
-			int? value = _directory.GetInteger(JpegDirectory.TagCompressionType);
-			if (value == null)
-			{
-				return null;
-			}
-			switch (value)
-			{
-				case 0:
-				{
-					// Note there is no 2 or 12
-					return "Baseline";
-				}
+        [CanBeNull]
+        public virtual string GetImageCompressionTypeDescription()
+        {
+            int? value = _directory.GetInteger(JpegDirectory.TagCompressionType);
+            if (value == null)
+            {
+                return null;
+            }
+            switch (value)
+            {
+                case 0:
+                {
+                    // Note there is no 2 or 12
+                    return "Baseline";
+                }
 
-				case 1:
-				{
-					return "Extended sequential, Huffman";
-				}
+                case 1:
+                {
+                    return "Extended sequential, Huffman";
+                }
 
-				case 2:
-				{
-					return "Progressive, Huffman";
-				}
+                case 2:
+                {
+                    return "Progressive, Huffman";
+                }
 
-				case 3:
-				{
-					return "Lossless, Huffman";
-				}
+                case 3:
+                {
+                    return "Lossless, Huffman";
+                }
 
-				case 5:
-				{
-					return "Differential sequential, Huffman";
-				}
+                case 5:
+                {
+                    return "Differential sequential, Huffman";
+                }
 
-				case 6:
-				{
-					return "Differential progressive, Huffman";
-				}
+                case 6:
+                {
+                    return "Differential progressive, Huffman";
+                }
 
-				case 7:
-				{
-					return "Differential lossless, Huffman";
-				}
+                case 7:
+                {
+                    return "Differential lossless, Huffman";
+                }
 
-				case 8:
-				{
-					return "Reserved for JPEG extensions";
-				}
+                case 8:
+                {
+                    return "Reserved for JPEG extensions";
+                }
 
-				case 9:
-				{
-					return "Extended sequential, arithmetic";
-				}
+                case 9:
+                {
+                    return "Extended sequential, arithmetic";
+                }
 
-				case 10:
-				{
-					return "Progressive, arithmetic";
-				}
+                case 10:
+                {
+                    return "Progressive, arithmetic";
+                }
 
-				case 11:
-				{
-					return "Lossless, arithmetic";
-				}
+                case 11:
+                {
+                    return "Lossless, arithmetic";
+                }
 
-				case 13:
-				{
-					return "Differential sequential, arithmetic";
-				}
+                case 13:
+                {
+                    return "Differential sequential, arithmetic";
+                }
 
-				case 14:
-				{
-					return "Differential progressive, arithmetic";
-				}
+                case 14:
+                {
+                    return "Differential progressive, arithmetic";
+                }
 
-				case 15:
-				{
-					return "Differential lossless, arithmetic";
-				}
+                case 15:
+                {
+                    return "Differential lossless, arithmetic";
+                }
 
-				default:
-				{
-					return "Unknown type: " + value;
-				}
-			}
-		}
+                default:
+                {
+                    return "Unknown type: " + value;
+                }
+            }
+        }
 
-		[CanBeNull]
-		public virtual string GetImageWidthDescription()
-		{
-			string value = _directory.GetString(JpegDirectory.TagImageWidth);
-			if (value == null)
-			{
-				return null;
-			}
-			return value + " pixels";
-		}
+        [CanBeNull]
+        public virtual string GetImageWidthDescription()
+        {
+            string value = _directory.GetString(JpegDirectory.TagImageWidth);
+            if (value == null)
+            {
+                return null;
+            }
+            return value + " pixels";
+        }
 
-		[CanBeNull]
-		public virtual string GetImageHeightDescription()
-		{
-			string value = _directory.GetString(JpegDirectory.TagImageHeight);
-			if (value == null)
-			{
-				return null;
-			}
-			return value + " pixels";
-		}
+        [CanBeNull]
+        public virtual string GetImageHeightDescription()
+        {
+            string value = _directory.GetString(JpegDirectory.TagImageHeight);
+            if (value == null)
+            {
+                return null;
+            }
+            return value + " pixels";
+        }
 
-		[CanBeNull]
-		public virtual string GetDataPrecisionDescription()
-		{
-			string value = _directory.GetString(JpegDirectory.TagDataPrecision);
-			if (value == null)
-			{
-				return null;
-			}
-			return value + " bits";
-		}
+        [CanBeNull]
+        public virtual string GetDataPrecisionDescription()
+        {
+            string value = _directory.GetString(JpegDirectory.TagDataPrecision);
+            if (value == null)
+            {
+                return null;
+            }
+            return value + " bits";
+        }
 
-		[CanBeNull]
-		public virtual string GetComponentDataDescription(int componentNumber)
-		{
-			JpegComponent value = _directory.GetComponent(componentNumber);
-			if (value == null)
-			{
-				return null;
-			}
-			return value.GetComponentName() + " component: Quantization table " + value.GetQuantizationTableNumber() + ", Sampling factors " + value.GetHorizontalSamplingFactor() + " horiz/" + value.GetVerticalSamplingFactor() + " vert";
-		}
-	}
+        [CanBeNull]
+        public virtual string GetComponentDataDescription(int componentNumber)
+        {
+            JpegComponent value = _directory.GetComponent(componentNumber);
+            if (value == null)
+            {
+                return null;
+            }
+            return value.GetComponentName() + " component: Quantization table " + value.GetQuantizationTableNumber() + ", Sampling factors " + value.GetHorizontalSamplingFactor() + " horiz/" + value.GetVerticalSamplingFactor() + " vert";
+        }
+    }
 }

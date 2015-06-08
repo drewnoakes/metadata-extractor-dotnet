@@ -26,23 +26,23 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Icc
 {
-	public class IccReaderTest
-	{
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestExtract()
-		{
-			sbyte[] app2Bytes = FileUtil.ReadBytes("Tests/Data/iccDataInvalid1.jpg.app2");
-			// ICC data starts after a 14-byte preamble
-			sbyte[] icc = TestHelper.SkipBytes(app2Bytes, 14);
-			Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
-			new IccReader().Extract(new ByteArrayReader(icc), metadata);
-			IccDirectory directory = metadata.GetFirstDirectoryOfType<IccDirectory>();
-			NUnit.Framework.Assert.IsNotNull(directory);
-		}
-		// TODO validate expected values
-		//        for (Tag tag : directory.getTags()) {
-		//            System.out.println(tag);
-		//        }
-	}
+    public class IccReaderTest
+    {
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestExtract()
+        {
+            sbyte[] app2Bytes = FileUtil.ReadBytes("Tests/Data/iccDataInvalid1.jpg.app2");
+            // ICC data starts after a 14-byte preamble
+            sbyte[] icc = TestHelper.SkipBytes(app2Bytes, 14);
+            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            new IccReader().Extract(new ByteArrayReader(icc), metadata);
+            IccDirectory directory = metadata.GetFirstDirectoryOfType<IccDirectory>();
+            NUnit.Framework.Assert.IsNotNull(directory);
+        }
+        // TODO validate expected values
+        //        for (Tag tag : directory.getTags()) {
+        //            System.out.println(tag);
+        //        }
+    }
 }

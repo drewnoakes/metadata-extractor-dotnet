@@ -1,57 +1,57 @@
 namespace Sharpen
 {
-	using System;
-	using System.Collections;
-	using System.Collections.Generic;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
 
     public interface Iterator// : IEnumerator
-	{
-		bool HasNext ();
-		object Next ();
-		void Remove ();
-	}
+    {
+        bool HasNext ();
+        object Next ();
+        void Remove ();
+    }
     
     public abstract class Iterator<T> : IEnumerator, IDisposable, IEnumerator<T>, Iterator
-	{
-		private T lastValue;
+    {
+        private T lastValue;
 
-		protected Iterator ()
-		{
-		}
+        protected Iterator ()
+        {
+        }
 
-		object Iterator.Next ()
-		{
-			return Next ();
-		}
+        object Iterator.Next ()
+        {
+            return Next ();
+        }
 
-		public abstract bool HasNext ();
-		public abstract T Next ();
-		public abstract void Remove ();
+        public abstract bool HasNext ();
+        public abstract T Next ();
+        public abstract void Remove ();
 
-		bool IEnumerator.MoveNext ()
-		{
-			if (HasNext ()) {
-				lastValue = Next ();
-				return true;
-			}
-			return false;
-		}
+        bool IEnumerator.MoveNext ()
+        {
+            if (HasNext ()) {
+                lastValue = Next ();
+                return true;
+            }
+            return false;
+        }
 
-		void IEnumerator.Reset ()
-		{
-			throw new NotImplementedException ();
-		}
+        void IEnumerator.Reset ()
+        {
+            throw new NotImplementedException ();
+        }
 
-		void IDisposable.Dispose ()
-		{
-		}
+        void IDisposable.Dispose ()
+        {
+        }
 
-		T IEnumerator<T>.Current {
-			get { return lastValue; }
-		}
+        T IEnumerator<T>.Current {
+            get { return lastValue; }
+        }
 
-		object IEnumerator.Current {
-			get { return lastValue; }
-		}
-	}
+        object IEnumerator.Current {
+            get { return lastValue; }
+        }
+    }
 }

@@ -24,34 +24,34 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class SonyType1MakernoteTest
-	{
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestSonyType1Makernote()
-		{
-			SonyType1MakernoteDirectory directory = ExifReaderTest.ProcessBytes<SonyType1MakernoteDirectory>("Tests/Data/sonyType1.jpg.app1");
-			NUnit.Framework.Assert.IsNotNull(directory);
-			Sharpen.Tests.IsFalse(directory.HasErrors());
-			SonyType1MakernoteDescriptor descriptor = new SonyType1MakernoteDescriptor(directory);
-			NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagColorTemperature));
-			NUnit.Framework.Assert.IsNull(descriptor.GetColorTemperatureDescription());
-			NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagSceneMode));
-			NUnit.Framework.Assert.IsNull(descriptor.GetSceneModeDescription());
-			NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagZoneMatching));
-			NUnit.Framework.Assert.IsNull(descriptor.GetZoneMatchingDescription());
-			NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagDynamicRangeOptimiser));
-			NUnit.Framework.Assert.IsNull(descriptor.GetDynamicRangeOptimizerDescription());
-			NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagImageStabilisation));
-			NUnit.Framework.Assert.IsNull(descriptor.GetImageStabilizationDescription());
-			NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagColorMode));
-			NUnit.Framework.Assert.IsNull(descriptor.GetColorModeDescription());
-			Sharpen.Tests.AreEqual("On (Shooting)", descriptor.GetAntiBlurDescription());
-			Sharpen.Tests.AreEqual("Program", descriptor.GetExposureModeDescription());
-			Sharpen.Tests.AreEqual("Off", descriptor.GetLongExposureNoiseReductionDescription());
-			Sharpen.Tests.AreEqual("Off", descriptor.GetMacroDescription());
-			Sharpen.Tests.AreEqual("Normal", descriptor.GetJpegQualityDescription());
-		}
-	}
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class SonyType1MakernoteTest
+    {
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestSonyType1Makernote()
+        {
+            SonyType1MakernoteDirectory directory = ExifReaderTest.ProcessBytes<SonyType1MakernoteDirectory>("Tests/Data/sonyType1.jpg.app1");
+            NUnit.Framework.Assert.IsNotNull(directory);
+            Sharpen.Tests.IsFalse(directory.HasErrors());
+            SonyType1MakernoteDescriptor descriptor = new SonyType1MakernoteDescriptor(directory);
+            NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagColorTemperature));
+            NUnit.Framework.Assert.IsNull(descriptor.GetColorTemperatureDescription());
+            NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagSceneMode));
+            NUnit.Framework.Assert.IsNull(descriptor.GetSceneModeDescription());
+            NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagZoneMatching));
+            NUnit.Framework.Assert.IsNull(descriptor.GetZoneMatchingDescription());
+            NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagDynamicRangeOptimiser));
+            NUnit.Framework.Assert.IsNull(descriptor.GetDynamicRangeOptimizerDescription());
+            NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagImageStabilisation));
+            NUnit.Framework.Assert.IsNull(descriptor.GetImageStabilizationDescription());
+            NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagColorMode));
+            NUnit.Framework.Assert.IsNull(descriptor.GetColorModeDescription());
+            Sharpen.Tests.AreEqual("On (Shooting)", descriptor.GetAntiBlurDescription());
+            Sharpen.Tests.AreEqual("Program", descriptor.GetExposureModeDescription());
+            Sharpen.Tests.AreEqual("Off", descriptor.GetLongExposureNoiseReductionDescription());
+            Sharpen.Tests.AreEqual("Off", descriptor.GetMacroDescription());
+            Sharpen.Tests.AreEqual("Normal", descriptor.GetJpegQualityDescription());
+        }
+    }
 }

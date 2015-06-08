@@ -24,26 +24,26 @@ using Sharpen;
 
 namespace Com.Drew.Lang
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class StringUtilTest
-	{
-		[NUnit.Framework.Test]
-		public virtual void TestJoinIterable()
-		{
-			IList<string> strings = new AList<string>();
-			strings.Add("A");
-			strings.Add("B");
-			strings.Add("C");
-			Sharpen.Tests.AreEqual("A;B;C", StringUtil.Join(strings.ToCharSequence(), ";"));
-            Sharpen.Tests.AreEqual(string.Empty, StringUtil.Join(new AList<string>().ToCharSequence(), ";"));
-		}
-
-		[NUnit.Framework.Test]
-		public virtual void TestJoinArray()
-		{
-			string[] strings = new string[] { "A", "B", "C" };
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class StringUtilTest
+    {
+        [NUnit.Framework.Test]
+        public virtual void TestJoinIterable()
+        {
+            IList<string> strings = new AList<string>();
+            strings.Add("A");
+            strings.Add("B");
+            strings.Add("C");
             Sharpen.Tests.AreEqual("A;B;C", StringUtil.Join(strings.ToCharSequence(), ";"));
             Sharpen.Tests.AreEqual(string.Empty, StringUtil.Join(new AList<string>().ToCharSequence(), ";"));
-		}
-	}
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TestJoinArray()
+        {
+            string[] strings = new string[] { "A", "B", "C" };
+            Sharpen.Tests.AreEqual("A;B;C", StringUtil.Join(strings.ToCharSequence(), ";"));
+            Sharpen.Tests.AreEqual(string.Empty, StringUtil.Join(new AList<string>().ToCharSequence(), ";"));
+        }
+    }
 }

@@ -29,29 +29,29 @@ using System.IO;
 
 namespace Sharpen
 {
-	public class BufferedWriter
-	{
-		StreamWriter writer;
-		
-		public BufferedWriter (StreamWriter w)
-		{
-			writer = w;
-		}
-		
-		public void Write (string s)
-		{
-			writer.Write (s);
-		}
-		
-		public void NewLine ()
-		{
-			writer.WriteLine ();
-		}
-		
-		public void Close ()
-		{
-			writer.Close ();
-		}
-	}
+    public class BufferedWriter
+    {
+        StreamWriter writer;
+        
+        public BufferedWriter (StreamWriter w)
+        {
+            writer = w;
+        }
+        
+        public void Write (string s)
+        {
+            writer.Write (s);
+        }
+        
+        public void NewLine ()
+        {
+            writer.WriteLine ();
+        }
+        
+        public void Close ()
+        {
+            writer.Close ();
+        }
+    }
 }
 

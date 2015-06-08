@@ -25,55 +25,55 @@ using Sharpen;
 
 namespace Com.Drew.Lang
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class RandomAccessFileReaderTest : RandomAccessTestBase
-	{
-		private FilePath _tempFile;
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class RandomAccessFileReaderTest : RandomAccessTestBase
+    {
+        private FilePath _tempFile;
 
-		private RandomAccessFile _randomAccessFile;
+        private RandomAccessFile _randomAccessFile;
 
-		protected internal override RandomAccessReader CreateReader(sbyte[] bytes)
-		{
-			try
-			{
-				// Unit tests can create multiple readers in the same test, as long as they're used one after the other
-				DeleteTempFile();
-				_tempFile = FilePath.CreateTempFile("metadata-extractor-test-", ".tmp");
-				FileOutputStream stream = new FileOutputStream(_tempFile);
-				stream.Write(bytes);
-				stream.Close();
-				_randomAccessFile = new RandomAccessFile(_tempFile, "r");
-				return new RandomAccessFileReader(_randomAccessFile);
-			}
-			catch (IOException)
-			{
-				NUnit.Framework.Assert.Fail("Unable to create temp file");
-				return null;
-			}
-		}
+        protected internal override RandomAccessReader CreateReader(sbyte[] bytes)
+        {
+            try
+            {
+                // Unit tests can create multiple readers in the same test, as long as they're used one after the other
+                DeleteTempFile();
+                _tempFile = FilePath.CreateTempFile("metadata-extractor-test-", ".tmp");
+                FileOutputStream stream = new FileOutputStream(_tempFile);
+                stream.Write(bytes);
+                stream.Close();
+                _randomAccessFile = new RandomAccessFile(_tempFile, "r");
+                return new RandomAccessFileReader(_randomAccessFile);
+            }
+            catch (IOException)
+            {
+                NUnit.Framework.Assert.Fail("Unable to create temp file");
+                return null;
+            }
+        }
 
-		/// <exception cref="System.IO.IOException"/>
-		[TearDown]
-		public virtual void DeleteTempFile()
-		{
-			if (_randomAccessFile == null)
-			{
-				return;
-			}
-			_randomAccessFile.Close();
-			if (_tempFile == null)
-			{
-				return;
-			}
-			Sharpen.Tests.IsTrue("Unable to delete temp file used during unit test: " + _tempFile.GetAbsolutePath(), _tempFile.Delete());
-			_tempFile = null;
-			_randomAccessFile = null;
-		}
+        /// <exception cref="System.IO.IOException"/>
+        [TearDown]
+        public virtual void DeleteTempFile()
+        {
+            if (_randomAccessFile == null)
+            {
+                return;
+            }
+            _randomAccessFile.Close();
+            if (_tempFile == null)
+            {
+                return;
+            }
+            Sharpen.Tests.IsTrue("Unable to delete temp file used during unit test: " + _tempFile.GetAbsolutePath(), _tempFile.Delete());
+            _tempFile = null;
+            _randomAccessFile = null;
+        }
 
-		/// <exception cref="System.IO.IOException"/>
-		public virtual void TestConstructWithNullBufferThrows()
-		{
-			new RandomAccessFileReader(null);
-		}
-	}
+        /// <exception cref="System.IO.IOException"/>
+        public virtual void TestConstructWithNullBufferThrows()
+        {
+            new RandomAccessFileReader(null);
+        }
+    }
 }

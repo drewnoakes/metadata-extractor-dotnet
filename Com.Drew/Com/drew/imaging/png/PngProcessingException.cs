@@ -26,26 +26,26 @@ using Sharpen;
 
 namespace Com.Drew.Imaging.Png
 {
-	/// <summary>An exception class thrown upon unexpected and fatal conditions while processing a JPEG file.</summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	[System.Serializable]
-	public class PngProcessingException : ImageProcessingException
-	{
-		private const long serialVersionUID = -687991554932005033L;
+    /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a JPEG file.</summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    [System.Serializable]
+    public class PngProcessingException : ImageProcessingException
+    {
+        private const long serialVersionUID = -687991554932005033L;
 
-		public PngProcessingException([CanBeNull] string message)
-			: base(message)
-		{
-		}
+        public PngProcessingException([CanBeNull] string message)
+            : base(message)
+        {
+        }
 
-		public PngProcessingException([CanBeNull] string message, [CanBeNull] Exception cause)
-			: base(message, cause)
-		{
-		}
+        public PngProcessingException([CanBeNull] string message, [CanBeNull] Exception cause)
+            : base(message, cause)
+        {
+        }
 
-		public PngProcessingException([CanBeNull] Exception cause)
-			: base(cause)
-		{
-		}
-	}
+        public PngProcessingException([CanBeNull] Exception cause)
+            : base(cause)
+        {
+        }
+    }
 }

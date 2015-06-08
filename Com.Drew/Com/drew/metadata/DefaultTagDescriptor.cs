@@ -24,32 +24,32 @@ using Sharpen;
 
 namespace Com.Drew.Metadata
 {
-	/// <summary>A default implementation of the abstract TagDescriptor.</summary>
-	/// <remarks>
-	/// A default implementation of the abstract TagDescriptor.  As this class is not coded with awareness of any metadata
-	/// tags, it simply reports tag names using the format 'Unknown tag 0x00' (with the corresponding tag number in hex)
-	/// and gives descriptions using the default string representation of the value.
-	/// </remarks>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class DefaultTagDescriptor : TagDescriptor<Com.Drew.Metadata.Directory>
-	{
-		public DefaultTagDescriptor([NotNull] Com.Drew.Metadata.Directory directory)
-			: base(directory)
-		{
-		}
+    /// <summary>A default implementation of the abstract TagDescriptor.</summary>
+    /// <remarks>
+    /// A default implementation of the abstract TagDescriptor.  As this class is not coded with awareness of any metadata
+    /// tags, it simply reports tag names using the format 'Unknown tag 0x00' (with the corresponding tag number in hex)
+    /// and gives descriptions using the default string representation of the value.
+    /// </remarks>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class DefaultTagDescriptor : TagDescriptor<Com.Drew.Metadata.Directory>
+    {
+        public DefaultTagDescriptor([NotNull] Com.Drew.Metadata.Directory directory)
+            : base(directory)
+        {
+        }
 
-		/// <summary>Gets a best-effort tag name using the format 'Unknown tag 0x00' (with the corresponding tag type in hex).</summary>
-		/// <param name="tagType">the tag type identifier.</param>
-		/// <returns>a string representation of the tag name.</returns>
-		[NotNull]
-		public virtual string GetTagName(int tagType)
-		{
-			string hex = Sharpen.Extensions.ToHexString(tagType).ToUpper();
-			while (hex.Length < 4)
-			{
-				hex = "0" + hex;
-			}
-			return "Unknown tag 0x" + hex;
-		}
-	}
+        /// <summary>Gets a best-effort tag name using the format 'Unknown tag 0x00' (with the corresponding tag type in hex).</summary>
+        /// <param name="tagType">the tag type identifier.</param>
+        /// <returns>a string representation of the tag name.</returns>
+        [NotNull]
+        public virtual string GetTagName(int tagType)
+        {
+            string hex = Sharpen.Extensions.ToHexString(tagType).ToUpper();
+            while (hex.Length < 4)
+            {
+                hex = "0" + hex;
+            }
+            return "Unknown tag 0x" + hex;
+        }
+    }
 }

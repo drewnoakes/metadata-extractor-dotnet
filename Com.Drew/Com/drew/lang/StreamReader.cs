@@ -26,96 +26,96 @@ using Sharpen;
 
 namespace Com.Drew.Lang
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class StreamReader : SequentialReader
-	{
-		[NotNull]
-		private readonly InputStream _stream;
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class StreamReader : SequentialReader
+    {
+        [NotNull]
+        private readonly InputStream _stream;
 
-		public StreamReader([NotNull] InputStream stream)
-		{
-			if (stream == null)
-			{
-				throw new ArgumentNullException();
-			}
-			_stream = stream;
-		}
+        public StreamReader([NotNull] InputStream stream)
+        {
+            if (stream == null)
+            {
+                throw new ArgumentNullException();
+            }
+            _stream = stream;
+        }
 
-		/// <exception cref="System.IO.IOException"/>
-		protected internal override sbyte GetByte()
-		{
-			int value = _stream.Read();
-			if (value == -1)
-			{
-				throw new EOFException("End of data reached.");
-			}
-			return unchecked((sbyte)value);
-		}
+        /// <exception cref="System.IO.IOException"/>
+        protected internal override sbyte GetByte()
+        {
+            int value = _stream.Read();
+            if (value == -1)
+            {
+                throw new EOFException("End of data reached.");
+            }
+            return unchecked((sbyte)value);
+        }
 
-		/// <exception cref="System.IO.IOException"/>
-		[NotNull]
-		public override sbyte[] GetBytes(int count)
-		{
-			sbyte[] bytes = new sbyte[count];
-			int totalBytesRead = 0;
-			while (totalBytesRead != count)
-			{
-				int bytesRead = _stream.Read(bytes, totalBytesRead, count - totalBytesRead);
-				if (bytesRead == -1)
-				{
-					throw new EOFException("End of data reached.");
-				}
-				totalBytesRead += bytesRead;
-				System.Diagnostics.Debug.Assert((totalBytesRead <= count));
-			}
-			return bytes;
-		}
+        /// <exception cref="System.IO.IOException"/>
+        [NotNull]
+        public override sbyte[] GetBytes(int count)
+        {
+            sbyte[] bytes = new sbyte[count];
+            int totalBytesRead = 0;
+            while (totalBytesRead != count)
+            {
+                int bytesRead = _stream.Read(bytes, totalBytesRead, count - totalBytesRead);
+                if (bytesRead == -1)
+                {
+                    throw new EOFException("End of data reached.");
+                }
+                totalBytesRead += bytesRead;
+                System.Diagnostics.Debug.Assert((totalBytesRead <= count));
+            }
+            return bytes;
+        }
 
-		/// <exception cref="System.IO.IOException"/>
-		public override void Skip(long n)
-		{
-			if (n < 0)
-			{
-				throw new ArgumentException("n must be zero or greater.");
-			}
-			long skippedCount = SkipInternal(n);
-			if (skippedCount != n)
-			{
-				throw new EOFException(Sharpen.Extensions.StringFormat("Unable to skip. Requested %d bytes but skipped %d.", n, skippedCount));
-			}
-		}
+        /// <exception cref="System.IO.IOException"/>
+        public override void Skip(long n)
+        {
+            if (n < 0)
+            {
+                throw new ArgumentException("n must be zero or greater.");
+            }
+            long skippedCount = SkipInternal(n);
+            if (skippedCount != n)
+            {
+                throw new EOFException(Sharpen.Extensions.StringFormat("Unable to skip. Requested %d bytes but skipped %d.", n, skippedCount));
+            }
+        }
 
-		/// <exception cref="System.IO.IOException"/>
-		public override bool TrySkip(long n)
-		{
-			if (n < 0)
-			{
-				throw new ArgumentException("n must be zero or greater.");
-			}
-			return SkipInternal(n) == n;
-		}
+        /// <exception cref="System.IO.IOException"/>
+        public override bool TrySkip(long n)
+        {
+            if (n < 0)
+            {
+                throw new ArgumentException("n must be zero or greater.");
+            }
+            return SkipInternal(n) == n;
+        }
 
-		/// <exception cref="System.IO.IOException"/>
-		private long SkipInternal(long n)
-		{
-			// It seems that for some streams, such as BufferedInputStream, that skip can return
-			// some smaller number than was requested. So loop until we either skip enough, or
-			// InputStream.skip returns zero.
-			//
-			// See http://stackoverflow.com/questions/14057720/robust-skipping-of-data-in-a-java-io-inputstream-and-its-subtypes
-			//
-			long skippedTotal = 0;
-			while (skippedTotal != n)
-			{
-				long skipped = _stream.Skip(n - skippedTotal);
-				System.Diagnostics.Debug.Assert((skipped >= 0));
-				skippedTotal += skipped;
-				if (skipped == 0)
-				{
-					break;
-				}
-			}
-			return skippedTotal;
-		}
-	}
+        /// <exception cref="System.IO.IOException"/>
+        private long SkipInternal(long n)
+        {
+            // It seems that for some streams, such as BufferedInputStream, that skip can return
+            // some smaller number than was requested. So loop until we either skip enough, or
+            // InputStream.skip returns zero.
+            //
+            // See http://stackoverflow.com/questions/14057720/robust-skipping-of-data-in-a-java-io-inputstream-and-its-subtypes
+            //
+            long skippedTotal = 0;
+            while (skippedTotal != n)
+            {
+                long skipped = _stream.Skip(n - skippedTotal);
+                System.Diagnostics.Debug.Assert((skipped >= 0));
+                skippedTotal += skipped;
+                if (skipped == 0)
+                {
+                    break;
+                }
+            }
+            return skippedTotal;
+        }
+    }
 }

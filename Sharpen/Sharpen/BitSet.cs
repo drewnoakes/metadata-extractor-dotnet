@@ -28,34 +28,34 @@ using System.Collections.Generic;
 
 namespace Sharpen
 {
-	public class BitSet
-	{
-		List<bool> bits;
-		
-		public BitSet ()
-		{
-			bits = new List<bool> ();
-		}
-		
-		public BitSet (int size)
-		{
-			bits = new List<bool> (size);
-		}
-		
-		public void Set (int index)
-		{
-			while (index >= bits.Count)
-				bits.Add (false);
-			bits [index] = true;
-		}
-		
-		public bool Get (int index)
-		{
-			if (index >= bits.Count)
-				return false;
-			else
-				return bits [index];
-		}
-	}
+    public class BitSet
+    {
+        List<bool> bits;
+        
+        public BitSet ()
+        {
+            bits = new List<bool> ();
+        }
+        
+        public BitSet (int size)
+        {
+            bits = new List<bool> (size);
+        }
+        
+        public void Set (int index)
+        {
+            while (index >= bits.Count)
+                bits.Add (false);
+            bits [index] = true;
+        }
+        
+        public bool Get (int index)
+        {
+            if (index >= bits.Count)
+                return false;
+            else
+                return bits [index];
+        }
+    }
 }
 

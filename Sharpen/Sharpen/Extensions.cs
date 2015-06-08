@@ -179,7 +179,7 @@ namespace Sharpen
 
         public static Encoding GetEncoding(string name)
         {
-//			Encoding e = Encoding.GetEncoding (name, EncoderFallback.ExceptionFallback, DecoderFallback.ExceptionFallback);
+//            Encoding e = Encoding.GetEncoding (name, EncoderFallback.ExceptionFallback, DecoderFallback.ExceptionFallback);
             try
             {
                 Encoding e = Encoding.GetEncoding(name.Replace('_', '-'));

@@ -24,20 +24,20 @@ using Sharpen;
 
 namespace Com.Drew.Lang
 {
-	/// <summary>An implementation of OutputSteam that ignores write requests by doing nothing.</summary>
-	/// <remarks>An implementation of OutputSteam that ignores write requests by doing nothing.  This class may be useful in tests.</remarks>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class NullOutputStream : OutputStream
-	{
-		public NullOutputStream()
-			: base()
-		{
-		}
+    /// <summary>An implementation of OutputSteam that ignores write requests by doing nothing.</summary>
+    /// <remarks>An implementation of OutputSteam that ignores write requests by doing nothing.  This class may be useful in tests.</remarks>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class NullOutputStream : OutputStream
+    {
+        public NullOutputStream()
+            : base()
+        {
+        }
 
-		/// <exception cref="System.IO.IOException"/>
-		public override void Write(int b)
-		{
-		}
-		// do nothing
-	}
+        /// <exception cref="System.IO.IOException"/>
+        public override void Write(int b)
+        {
+        }
+        // do nothing
+    }
 }

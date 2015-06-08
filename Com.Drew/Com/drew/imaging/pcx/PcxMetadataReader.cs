@@ -27,34 +27,34 @@ using Sharpen;
 
 namespace Com.Drew.Imaging.Pcx
 {
-	/// <summary>Obtains metadata from PCX image files.</summary>
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class PcxMetadataReader
-	{
-		/// <exception cref="System.IO.IOException"/>
-		[NotNull]
-		public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] FilePath file)
-		{
-			InputStream inputStream = new FileInputStream(file);
-			Com.Drew.Metadata.Metadata metadata;
-			try
-			{
-				metadata = ReadMetadata(inputStream);
-			}
-			finally
-			{
-				inputStream.Close();
-			}
-			new FileMetadataReader().Read(file, metadata);
-			return metadata;
-		}
+    /// <summary>Obtains metadata from PCX image files.</summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class PcxMetadataReader
+    {
+        /// <exception cref="System.IO.IOException"/>
+        [NotNull]
+        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] FilePath file)
+        {
+            InputStream inputStream = new FileInputStream(file);
+            Com.Drew.Metadata.Metadata metadata;
+            try
+            {
+                metadata = ReadMetadata(inputStream);
+            }
+            finally
+            {
+                inputStream.Close();
+            }
+            new FileMetadataReader().Read(file, metadata);
+            return metadata;
+        }
 
-		[NotNull]
-		public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
-		{
-			Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
-			new PcxReader().Extract(new Com.Drew.Lang.StreamReader(inputStream), metadata);
-			return metadata;
-		}
-	}
+        [NotNull]
+        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
+        {
+            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            new PcxReader().Extract(new Com.Drew.Lang.StreamReader(inputStream), metadata);
+            return metadata;
+        }
+    }
 }

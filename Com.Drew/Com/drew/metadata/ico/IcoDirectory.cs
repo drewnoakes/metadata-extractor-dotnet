@@ -25,61 +25,61 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Ico
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class IcoDirectory : Com.Drew.Metadata.Directory
-	{
-		public const int TagImageType = 1;
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class IcoDirectory : Com.Drew.Metadata.Directory
+    {
+        public const int TagImageType = 1;
 
-		public const int TagImageWidth = 2;
+        public const int TagImageWidth = 2;
 
-		public const int TagImageHeight = 3;
+        public const int TagImageHeight = 3;
 
-		public const int TagColourPaletteSize = 4;
+        public const int TagColourPaletteSize = 4;
 
-		public const int TagColourPlanes = 5;
+        public const int TagColourPlanes = 5;
 
-		public const int TagCursorHotspotX = 6;
+        public const int TagCursorHotspotX = 6;
 
-		public const int TagBitsPerPixel = 7;
+        public const int TagBitsPerPixel = 7;
 
-		public const int TagCursorHotspotY = 8;
+        public const int TagCursorHotspotY = 8;
 
-		public const int TagImageSizeBytes = 9;
+        public const int TagImageSizeBytes = 9;
 
-		public const int TagImageOffsetBytes = 10;
+        public const int TagImageOffsetBytes = 10;
 
-		[NotNull]
-		protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        [NotNull]
+        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
 
-		static IcoDirectory()
-		{
-			_tagNameMap.Put(TagImageType, "Image Type");
-			_tagNameMap.Put(TagImageWidth, "Image Width");
-			_tagNameMap.Put(TagImageHeight, "Image Height");
-			_tagNameMap.Put(TagColourPaletteSize, "Colour Palette Size");
-			_tagNameMap.Put(TagColourPlanes, "Colour Planes");
-			_tagNameMap.Put(TagCursorHotspotX, "Hotspot X");
-			_tagNameMap.Put(TagBitsPerPixel, "Bits Per Pixel");
-			_tagNameMap.Put(TagCursorHotspotY, "Hotspot Y");
-			_tagNameMap.Put(TagImageSizeBytes, "Image Size Bytes");
-			_tagNameMap.Put(TagImageOffsetBytes, "Image Offset Bytes");
-		}
+        static IcoDirectory()
+        {
+            _tagNameMap.Put(TagImageType, "Image Type");
+            _tagNameMap.Put(TagImageWidth, "Image Width");
+            _tagNameMap.Put(TagImageHeight, "Image Height");
+            _tagNameMap.Put(TagColourPaletteSize, "Colour Palette Size");
+            _tagNameMap.Put(TagColourPlanes, "Colour Planes");
+            _tagNameMap.Put(TagCursorHotspotX, "Hotspot X");
+            _tagNameMap.Put(TagBitsPerPixel, "Bits Per Pixel");
+            _tagNameMap.Put(TagCursorHotspotY, "Hotspot Y");
+            _tagNameMap.Put(TagImageSizeBytes, "Image Size Bytes");
+            _tagNameMap.Put(TagImageOffsetBytes, "Image Offset Bytes");
+        }
 
-		public IcoDirectory()
-		{
-			this.SetDescriptor(new IcoDescriptor(this));
-		}
+        public IcoDirectory()
+        {
+            this.SetDescriptor(new IcoDescriptor(this));
+        }
 
-		[NotNull]
-		public override string GetName()
-		{
-			return "ICO";
-		}
+        [NotNull]
+        public override string GetName()
+        {
+            return "ICO";
+        }
 
-		[NotNull]
-		protected internal override Dictionary<int?, string> GetTagNameMap()
-		{
-			return _tagNameMap;
-		}
-	}
+        [NotNull]
+        protected internal override Dictionary<int?, string> GetTagNameMap()
+        {
+            return _tagNameMap;
+        }
+    }
 }

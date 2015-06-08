@@ -26,98 +26,98 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.Jpeg
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class JpegReaderTest
-	{
-		/// <exception cref="System.IO.IOException"/>
-		[NotNull]
-		public static JpegDirectory ProcessBytes(string filePath)
-		{
-			Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
-			new JpegReader().Extract(FileUtil.ReadBytes(filePath), metadata, JpegSegmentType.Sof0);
-			JpegDirectory directory = metadata.GetFirstDirectoryOfType<JpegDirectory>();
-			NUnit.Framework.Assert.IsNotNull(directory);
-			return directory;
-		}
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class JpegReaderTest
+    {
+        /// <exception cref="System.IO.IOException"/>
+        [NotNull]
+        public static JpegDirectory ProcessBytes(string filePath)
+        {
+            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            new JpegReader().Extract(FileUtil.ReadBytes(filePath), metadata, JpegSegmentType.Sof0);
+            JpegDirectory directory = metadata.GetFirstDirectoryOfType<JpegDirectory>();
+            NUnit.Framework.Assert.IsNotNull(directory);
+            return directory;
+        }
 
-		private JpegDirectory _directory;
+        private JpegDirectory _directory;
 
-		/// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
-		/// <exception cref="System.IO.IOException"/>
-		[NUnit.Framework.SetUp]
-		public virtual void SetUp()
-		{
-			_directory = ProcessBytes("Tests/Data/simple.jpg.sof0");
-		}
+        /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
+        /// <exception cref="System.IO.IOException"/>
+        [NUnit.Framework.SetUp]
+        public virtual void SetUp()
+        {
+            _directory = ProcessBytes("Tests/Data/simple.jpg.sof0");
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestExtract_Width()
-		{
-			Sharpen.Tests.AreEqual(800, _directory.GetInt(JpegDirectory.TagImageWidth));
-		}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestExtract_Width()
+        {
+            Sharpen.Tests.AreEqual(800, _directory.GetInt(JpegDirectory.TagImageWidth));
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestExtract_Height()
-		{
-			Sharpen.Tests.AreEqual(600, _directory.GetInt(JpegDirectory.TagImageHeight));
-		}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestExtract_Height()
+        {
+            Sharpen.Tests.AreEqual(600, _directory.GetInt(JpegDirectory.TagImageHeight));
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestExtract_DataPrecision()
-		{
-			Sharpen.Tests.AreEqual(8, _directory.GetInt(JpegDirectory.TagDataPrecision));
-		}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestExtract_DataPrecision()
+        {
+            Sharpen.Tests.AreEqual(8, _directory.GetInt(JpegDirectory.TagDataPrecision));
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestExtract_NumberOfComponents()
-		{
-			Sharpen.Tests.AreEqual(3, _directory.GetInt(JpegDirectory.TagNumberOfComponents));
-		}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestExtract_NumberOfComponents()
+        {
+            Sharpen.Tests.AreEqual(3, _directory.GetInt(JpegDirectory.TagNumberOfComponents));
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestComponentData1()
-		{
-			JpegComponent component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData1);
-			NUnit.Framework.Assert.IsNotNull(component);
-			Sharpen.Tests.AreEqual("Y", component.GetComponentName());
-			Sharpen.Tests.AreEqual(1, component.GetComponentId());
-			Sharpen.Tests.AreEqual(0, component.GetQuantizationTableNumber());
-			Sharpen.Tests.AreEqual(2, component.GetHorizontalSamplingFactor());
-			Sharpen.Tests.AreEqual(2, component.GetVerticalSamplingFactor());
-		}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestComponentData1()
+        {
+            JpegComponent component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData1);
+            NUnit.Framework.Assert.IsNotNull(component);
+            Sharpen.Tests.AreEqual("Y", component.GetComponentName());
+            Sharpen.Tests.AreEqual(1, component.GetComponentId());
+            Sharpen.Tests.AreEqual(0, component.GetQuantizationTableNumber());
+            Sharpen.Tests.AreEqual(2, component.GetHorizontalSamplingFactor());
+            Sharpen.Tests.AreEqual(2, component.GetVerticalSamplingFactor());
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestComponentData2()
-		{
-			JpegComponent component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData2);
-			NUnit.Framework.Assert.IsNotNull(component);
-			Sharpen.Tests.AreEqual("Cb", component.GetComponentName());
-			Sharpen.Tests.AreEqual(2, component.GetComponentId());
-			Sharpen.Tests.AreEqual(1, component.GetQuantizationTableNumber());
-			Sharpen.Tests.AreEqual(1, component.GetHorizontalSamplingFactor());
-			Sharpen.Tests.AreEqual(1, component.GetVerticalSamplingFactor());
-			Sharpen.Tests.AreEqual("Cb component: Quantization table 1, Sampling factors 1 horiz/1 vert", _directory.GetDescription(JpegDirectory.TagComponentData2));
-		}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestComponentData2()
+        {
+            JpegComponent component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData2);
+            NUnit.Framework.Assert.IsNotNull(component);
+            Sharpen.Tests.AreEqual("Cb", component.GetComponentName());
+            Sharpen.Tests.AreEqual(2, component.GetComponentId());
+            Sharpen.Tests.AreEqual(1, component.GetQuantizationTableNumber());
+            Sharpen.Tests.AreEqual(1, component.GetHorizontalSamplingFactor());
+            Sharpen.Tests.AreEqual(1, component.GetVerticalSamplingFactor());
+            Sharpen.Tests.AreEqual("Cb component: Quantization table 1, Sampling factors 1 horiz/1 vert", _directory.GetDescription(JpegDirectory.TagComponentData2));
+        }
 
-		/// <exception cref="System.Exception"/>
-		[NUnit.Framework.Test]
-		public virtual void TestComponentData3()
-		{
-			JpegComponent component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData3);
-			NUnit.Framework.Assert.IsNotNull(component);
-			Sharpen.Tests.AreEqual("Cr", component.GetComponentName());
-			Sharpen.Tests.AreEqual(3, component.GetComponentId());
-			Sharpen.Tests.AreEqual(1, component.GetQuantizationTableNumber());
-			Sharpen.Tests.AreEqual(1, component.GetHorizontalSamplingFactor());
-			Sharpen.Tests.AreEqual(1, component.GetVerticalSamplingFactor());
-			Sharpen.Tests.AreEqual("Cr component: Quantization table 1, Sampling factors 1 horiz/1 vert", _directory.GetDescription(JpegDirectory.TagComponentData3));
-		}
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TestComponentData3()
+        {
+            JpegComponent component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData3);
+            NUnit.Framework.Assert.IsNotNull(component);
+            Sharpen.Tests.AreEqual("Cr", component.GetComponentName());
+            Sharpen.Tests.AreEqual(3, component.GetComponentId());
+            Sharpen.Tests.AreEqual(1, component.GetQuantizationTableNumber());
+            Sharpen.Tests.AreEqual(1, component.GetHorizontalSamplingFactor());
+            Sharpen.Tests.AreEqual(1, component.GetVerticalSamplingFactor());
+            Sharpen.Tests.AreEqual("Cr component: Quantization table 1, Sampling factors 1 horiz/1 vert", _directory.GetDescription(JpegDirectory.TagComponentData3));
+        }
 /*
     // this test is part of an incomplete investigation into extracting audio from JPG files
     public void testJpegWithAudio() throws Exception
@@ -165,5 +165,5 @@ namespace Com.Drew.Metadata.Jpeg
         }
     }
 */
-	}
+    }
 }

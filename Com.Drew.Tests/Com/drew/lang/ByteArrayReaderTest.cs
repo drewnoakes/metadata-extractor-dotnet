@@ -23,17 +23,17 @@ using Sharpen;
 
 namespace Com.Drew.Lang
 {
-	/// <author>Drew Noakes https://drewnoakes.com</author>
-	public class ByteArrayReaderTest : RandomAccessTestBase
-	{
-		protected internal override RandomAccessReader CreateReader(sbyte[] bytes)
-		{
-			return new ByteArrayReader(bytes);
-		}
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    public class ByteArrayReaderTest : RandomAccessTestBase
+    {
+        protected internal override RandomAccessReader CreateReader(sbyte[] bytes)
+        {
+            return new ByteArrayReader(bytes);
+        }
 
-		public virtual void TestConstructWithNullBufferThrows()
-		{
-			new ByteArrayReader(null);
-		}
-	}
+        public virtual void TestConstructWithNullBufferThrows()
+        {
+            new ByteArrayReader(null);
+        }
+    }
 }

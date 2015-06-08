@@ -27,28 +27,28 @@ using System;
 
 namespace Sharpen
 {
-	public class AtomicBoolean
-	{
-		bool val;
-		
-		public AtomicBoolean ()
-		{
-		}
-		
-		public AtomicBoolean (bool val)
-		{
-			this.val = val;
-		}
-		
-		public bool Get ()
-		{
-			return val;
-		}
-		
-		public void Set (bool v)
-		{
-			val = v;
-		}
-	}
+    public class AtomicBoolean
+    {
+        bool val;
+        
+        public AtomicBoolean ()
+        {
+        }
+        
+        public AtomicBoolean (bool val)
+        {
+            this.val = val;
+        }
+        
+        public bool Get ()
+        {
+            return val;
+        }
+        
+        public void Set (bool v)
+        {
+            val = v;
+        }
+    }
 }
 

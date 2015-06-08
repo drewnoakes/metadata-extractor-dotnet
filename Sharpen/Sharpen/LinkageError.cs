@@ -1,11 +1,11 @@
 namespace Sharpen
 {
-	using System;
+    using System;
 
-	public class LinkageError : Exception
-	{
-		public LinkageError (string msg) : base(msg)
-		{
-		}
-	}
+    public class LinkageError : Exception
+    {
+        public LinkageError (string msg) : base(msg)
+        {
+        }
+    }
 }
