@@ -46,9 +46,9 @@ namespace Com.Drew.Imaging.Jpeg
 
         private static void Validate(Metadata.Metadata metadata)
         {
-            Directory directory = metadata.GetFirstDirectoryOfType<ExifSubIFDDirectory>();
+            Directory directory = metadata.GetFirstDirectoryOfType<ExifSubIfdDirectory>();
             Assert.IsNotNull(directory);
-            Assert.AreEqual("80", directory.GetString(ExifSubIFDDirectory.TagIsoEquivalent));
+            Assert.AreEqual("80", directory.GetString(ExifSubIfdDirectory.TagIsoEquivalent));
         }
     }
 }

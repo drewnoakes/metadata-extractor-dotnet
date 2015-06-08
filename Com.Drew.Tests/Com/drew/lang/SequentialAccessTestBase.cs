@@ -283,7 +283,7 @@ namespace Com.Drew.Lang
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetBytesEOF()
+        public virtual void TestGetBytesEof()
         {
             CreateReader(new sbyte[50]).GetBytes(50);
             SequentialReader reader = CreateReader(new sbyte[50]);
@@ -294,14 +294,14 @@ namespace Com.Drew.Lang
                 CreateReader(new sbyte[50]).GetBytes(51);
                 Assert.Fail("Expecting exception");
             }
-            catch (EOFException)
+            catch (EofException)
             {
             }
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetInt8EOF()
+        public virtual void TestGetInt8Eof()
         {
             CreateReader(new sbyte[1]).GetInt8();
             SequentialReader reader = CreateReader(new sbyte[2]);
@@ -314,14 +314,14 @@ namespace Com.Drew.Lang
                 reader.GetInt8();
                 Assert.Fail("Expecting exception");
             }
-            catch (EOFException)
+            catch (EofException)
             {
             }
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestSkipEOF()
+        public virtual void TestSkipEof()
         {
             CreateReader(new sbyte[1]).Skip(1);
             SequentialReader reader = CreateReader(new sbyte[2]);
@@ -334,14 +334,14 @@ namespace Com.Drew.Lang
                 reader.Skip(1);
                 Assert.Fail("Expecting exception");
             }
-            catch (EOFException)
+            catch (EofException)
             {
             }
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestTrySkipEOF()
+        public virtual void TestTrySkipEof()
         {
             Assert.IsTrue(CreateReader(new sbyte[1]).TrySkip(1));
             SequentialReader reader = CreateReader(new sbyte[2]);

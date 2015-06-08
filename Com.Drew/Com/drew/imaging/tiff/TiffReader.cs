@@ -29,7 +29,7 @@ namespace Com.Drew.Imaging.Tiff
 {
     /// <summary>
     /// Processes TIFF-formatted data, calling into client code via that
-    /// <see cref="TiffHandler"/>
+    /// <see cref="ITiffHandler"/>
     /// interface.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
@@ -43,7 +43,7 @@ namespace Com.Drew.Imaging.Tiff
         /// </param>
         /// <param name="handler">
         /// the
-        /// <see cref="TiffHandler"/>
+        /// <see cref="ITiffHandler"/>
         /// that will coordinate processing and accept read values
         /// </param>
         /// <param name="tiffHeaderOffset">the offset within <code>reader</code> at which the TIFF header starts</param>
@@ -53,7 +53,7 @@ namespace Com.Drew.Imaging.Tiff
         /// </exception>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
         /// <exception cref="Com.Drew.Imaging.Tiff.TiffProcessingException"/>
-        public virtual void ProcessTiff([NotNull] RandomAccessReader reader, [NotNull] TiffHandler handler, int tiffHeaderOffset)
+        public virtual void ProcessTiff([NotNull] RandomAccessReader reader, [NotNull] ITiffHandler handler, int tiffHeaderOffset)
         {
             // This must be either "MM" or "II".
             short byteOrderIdentifier = reader.GetInt16(tiffHeaderOffset);
@@ -108,7 +108,7 @@ namespace Com.Drew.Imaging.Tiff
         /// </remarks>
         /// <param name="handler">
         /// the
-        /// <see cref="TiffHandler"/>
+        /// <see cref="ITiffHandler"/>
         /// that will coordinate processing and accept read values
         /// </param>
         /// <param name="reader">
@@ -120,7 +120,7 @@ namespace Com.Drew.Imaging.Tiff
         /// <param name="ifdOffset">the offset within <code>reader</code> at which the IFD data starts</param>
         /// <param name="tiffHeaderOffset">the offset within <code>reader</code> at which the TIFF header starts</param>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
-        public static void ProcessIfd([NotNull] TiffHandler handler, [NotNull] RandomAccessReader reader, [NotNull] ICollection<int?> processedIfdOffsets, int ifdOffset, int tiffHeaderOffset)
+        public static void ProcessIfd([NotNull] ITiffHandler handler, [NotNull] RandomAccessReader reader, [NotNull] ICollection<int?> processedIfdOffsets, int ifdOffset, int tiffHeaderOffset)
         {
             try
             {
@@ -252,12 +252,12 @@ namespace Com.Drew.Imaging.Tiff
             }
             finally
             {
-                handler.EndingIFD();
+                handler.EndingIfd();
             }
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private static void ProcessTag([NotNull] TiffHandler handler, int tagId, int tagValueOffset, int componentCount, int formatCode, [NotNull] RandomAccessReader reader)
+        private static void ProcessTag([NotNull] ITiffHandler handler, int tagId, int tagValueOffset, int componentCount, int formatCode, [NotNull] RandomAccessReader reader)
         {
             switch (formatCode)
             {
@@ -356,7 +356,7 @@ namespace Com.Drew.Imaging.Tiff
                 {
                     if (componentCount == 1)
                     {
-                        handler.SetInt8s(tagId, reader.GetInt8(tagValueOffset));
+                        handler.SetInt8S(tagId, reader.GetInt8(tagValueOffset));
                     }
                     else
                     {
@@ -365,7 +365,7 @@ namespace Com.Drew.Imaging.Tiff
                         {
                             array[i] = reader.GetInt8(tagValueOffset + i);
                         }
-                        handler.SetInt8sArray(tagId, array);
+                        handler.SetInt8SArray(tagId, array);
                     }
                     break;
                 }
@@ -374,7 +374,7 @@ namespace Com.Drew.Imaging.Tiff
                 {
                     if (componentCount == 1)
                     {
-                        handler.SetInt8u(tagId, reader.GetUInt8(tagValueOffset));
+                        handler.SetInt8U(tagId, reader.GetUInt8(tagValueOffset));
                     }
                     else
                     {
@@ -383,7 +383,7 @@ namespace Com.Drew.Imaging.Tiff
                         {
                             array[i] = reader.GetUInt8(tagValueOffset + i);
                         }
-                        handler.SetInt8uArray(tagId, array);
+                        handler.SetInt8UArray(tagId, array);
                     }
                     break;
                 }
@@ -392,7 +392,7 @@ namespace Com.Drew.Imaging.Tiff
                 {
                     if (componentCount == 1)
                     {
-                        handler.SetInt16s(tagId, (int)reader.GetInt16(tagValueOffset));
+                        handler.SetInt16S(tagId, (int)reader.GetInt16(tagValueOffset));
                     }
                     else
                     {
@@ -401,7 +401,7 @@ namespace Com.Drew.Imaging.Tiff
                         {
                             array[i] = reader.GetInt16(tagValueOffset + (i * 2));
                         }
-                        handler.SetInt16sArray(tagId, array);
+                        handler.SetInt16SArray(tagId, array);
                     }
                     break;
                 }
@@ -410,7 +410,7 @@ namespace Com.Drew.Imaging.Tiff
                 {
                     if (componentCount == 1)
                     {
-                        handler.SetInt16u(tagId, reader.GetUInt16(tagValueOffset));
+                        handler.SetInt16U(tagId, reader.GetUInt16(tagValueOffset));
                     }
                     else
                     {
@@ -419,7 +419,7 @@ namespace Com.Drew.Imaging.Tiff
                         {
                             array[i] = reader.GetUInt16(tagValueOffset + (i * 2));
                         }
-                        handler.SetInt16uArray(tagId, array);
+                        handler.SetInt16UArray(tagId, array);
                     }
                     break;
                 }
@@ -429,7 +429,7 @@ namespace Com.Drew.Imaging.Tiff
                     // NOTE 'long' in this case means 32 bit, not 64
                     if (componentCount == 1)
                     {
-                        handler.SetInt32s(tagId, reader.GetInt32(tagValueOffset));
+                        handler.SetInt32S(tagId, reader.GetInt32(tagValueOffset));
                     }
                     else
                     {
@@ -438,7 +438,7 @@ namespace Com.Drew.Imaging.Tiff
                         {
                             array[i] = reader.GetInt32(tagValueOffset + (i * 4));
                         }
-                        handler.SetInt32sArray(tagId, array);
+                        handler.SetInt32SArray(tagId, array);
                     }
                     break;
                 }
@@ -448,7 +448,7 @@ namespace Com.Drew.Imaging.Tiff
                     // NOTE 'long' in this case means 32 bit, not 64
                     if (componentCount == 1)
                     {
-                        handler.SetInt32u(tagId, reader.GetUInt32(tagValueOffset));
+                        handler.SetInt32U(tagId, reader.GetUInt32(tagValueOffset));
                     }
                     else
                     {
@@ -457,7 +457,7 @@ namespace Com.Drew.Imaging.Tiff
                         {
                             array[i] = reader.GetUInt32(tagValueOffset + (i * 4));
                         }
-                        handler.SetInt32uArray(tagId, array);
+                        handler.SetInt32UArray(tagId, array);
                     }
                     break;
                 }

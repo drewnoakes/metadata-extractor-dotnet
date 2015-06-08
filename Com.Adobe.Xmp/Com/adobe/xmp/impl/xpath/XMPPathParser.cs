@@ -14,7 +14,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
 {
     /// <summary>Parser for XMP XPaths.</summary>
     /// <since>01.03.2006</since>
-    public static class XMPPathParser
+    public static class XmpPathParser
     {
         // empty
         /// <summary>
@@ -62,30 +62,30 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         /// non-ASCII Unicode characters. An XML qualified name is a pair of names
         /// separated by a colon.
         /// </remarks>
-        /// <param name="schemaNS">schema namespace</param>
+        /// <param name="schemaNs">schema namespace</param>
         /// <param name="path">property name</param>
         /// <returns>Returns the expandet XMPPath.</returns>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">Thrown if the format is not correct somehow.</exception>
-        public static XMPPath ExpandXPath(string schemaNS, string path)
+        /// <exception cref="XmpException">Thrown if the format is not correct somehow.</exception>
+        public static XmpPath ExpandXPath(string schemaNs, string path)
         {
-            if (schemaNS == null || path == null)
+            if (schemaNs == null || path == null)
             {
-                throw new XMPException("Parameter must not be null", XMPErrorConstants.Badparam);
+                throw new XmpException("Parameter must not be null", XmpErrorConstants.Badparam);
             }
-            XMPPath expandedXPath = new XMPPath();
+            XmpPath expandedXPath = new XmpPath();
             PathPosition pos = new PathPosition();
-            pos.path = path;
+            pos.Path = path;
             // Pull out the first component and do some special processing on it: add the schema
             // namespace prefix and and see if it is an alias. The start must be a "qualName".
-            ParseRootNode(schemaNS, pos, expandedXPath);
+            ParseRootNode(schemaNs, pos, expandedXPath);
             // Now continue to process the rest of the XMPPath string.
-            while (pos.stepEnd < path.Length)
+            while (pos.StepEnd < path.Length)
             {
-                pos.stepBegin = pos.stepEnd;
+                pos.StepBegin = pos.StepEnd;
                 SkipPathDelimiter(path, pos);
-                pos.stepEnd = pos.stepBegin;
-                XMPPathSegment segment;
-                if (path[pos.stepBegin] != '[')
+                pos.StepEnd = pos.StepBegin;
+                XmpPathSegment segment;
+                if (path[pos.StepBegin] != '[')
                 {
                     // A struct field or qualifier.
                     segment = ParseStructSegment(pos);
@@ -95,40 +95,40 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                     // One of the array forms.
                     segment = ParseIndexSegment(pos);
                 }
-                if (segment.GetKind() == XMPPath.StructFieldStep)
+                if (segment.GetKind() == XmpPath.StructFieldStep)
                 {
                     if (segment.GetName()[0] == '@')
                     {
                         segment.SetName("?" + Runtime.Substring(segment.GetName(), 1));
                         if (!"?xml:lang".Equals(segment.GetName()))
                         {
-                            throw new XMPException("Only xml:lang allowed with '@'", XMPErrorConstants.Badxpath);
+                            throw new XmpException("Only xml:lang allowed with '@'", XmpErrorConstants.Badxpath);
                         }
                     }
                     if (segment.GetName()[0] == '?')
                     {
-                        pos.nameStart++;
-                        segment.SetKind(XMPPath.QualifierStep);
+                        pos.NameStart++;
+                        segment.SetKind(XmpPath.QualifierStep);
                     }
-                    VerifyQualName(Runtime.Substring(pos.path, pos.nameStart, pos.nameEnd));
+                    VerifyQualName(Runtime.Substring(pos.Path, pos.NameStart, pos.NameEnd));
                 }
                 else
                 {
-                    if (segment.GetKind() == XMPPath.FieldSelectorStep)
+                    if (segment.GetKind() == XmpPath.FieldSelectorStep)
                     {
                         if (segment.GetName()[1] == '@')
                         {
                             segment.SetName("[?" + Runtime.Substring(segment.GetName(), 2));
                             if (!segment.GetName().StartsWith("[?xml:lang="))
                             {
-                                throw new XMPException("Only xml:lang allowed with '@'", XMPErrorConstants.Badxpath);
+                                throw new XmpException("Only xml:lang allowed with '@'", XmpErrorConstants.Badxpath);
                             }
                         }
                         if (segment.GetName()[1] == '?')
                         {
-                            pos.nameStart++;
-                            segment.SetKind(XMPPath.QualSelectorStep);
-                            VerifyQualName(Runtime.Substring(pos.path, pos.nameStart, pos.nameEnd));
+                            pos.NameStart++;
+                            segment.SetKind(XmpPath.QualSelectorStep);
+                            VerifyQualName(Runtime.Substring(pos.Path, pos.NameStart, pos.NameEnd));
                         }
                     }
                 }
@@ -139,26 +139,26 @@ namespace Com.Adobe.Xmp.Impl.Xpath
 
         /// <param name="path"/>
         /// <param name="pos"/>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
+        /// <exception cref="XmpException"/>
         private static void SkipPathDelimiter(string path, PathPosition pos)
         {
-            if (path[pos.stepBegin] == '/')
+            if (path[pos.StepBegin] == '/')
             {
                 // skip slash
-                pos.stepBegin++;
+                pos.StepBegin++;
                 // added for Java
-                if (pos.stepBegin >= path.Length)
+                if (pos.StepBegin >= path.Length)
                 {
-                    throw new XMPException("Empty XMPPath segment", XMPErrorConstants.Badxpath);
+                    throw new XmpException("Empty XMPPath segment", XmpErrorConstants.Badxpath);
                 }
             }
-            if (path[pos.stepBegin] == '*')
+            if (path[pos.StepBegin] == '*')
             {
                 // skip asterisk
-                pos.stepBegin++;
-                if (pos.stepBegin >= path.Length || path[pos.stepBegin] != '[')
+                pos.StepBegin++;
+                if (pos.StepBegin >= path.Length || path[pos.StepBegin] != '[')
                 {
-                    throw new XMPException("Missing '[' after '*'", XMPErrorConstants.Badxpath);
+                    throw new XmpException("Missing '[' after '*'", XmpErrorConstants.Badxpath);
                 }
             }
         }
@@ -166,103 +166,103 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         /// <summary>Parses a struct segment</summary>
         /// <param name="pos">the current position in the path</param>
         /// <returns>Retusn the segment or an errror</returns>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">If the sement is empty</exception>
-        private static XMPPathSegment ParseStructSegment(PathPosition pos)
+        /// <exception cref="XmpException">If the sement is empty</exception>
+        private static XmpPathSegment ParseStructSegment(PathPosition pos)
         {
-            pos.nameStart = pos.stepBegin;
-            while (pos.stepEnd < pos.path.Length && "/[*".IndexOf(pos.path[pos.stepEnd]) < 0)
+            pos.NameStart = pos.StepBegin;
+            while (pos.StepEnd < pos.Path.Length && "/[*".IndexOf(pos.Path[pos.StepEnd]) < 0)
             {
-                pos.stepEnd++;
+                pos.StepEnd++;
             }
-            pos.nameEnd = pos.stepEnd;
-            if (pos.stepEnd == pos.stepBegin)
+            pos.NameEnd = pos.StepEnd;
+            if (pos.StepEnd == pos.StepBegin)
             {
-                throw new XMPException("Empty XMPPath segment", XMPErrorConstants.Badxpath);
+                throw new XmpException("Empty XMPPath segment", XmpErrorConstants.Badxpath);
             }
             // ! Touch up later, also changing '@' to '?'.
-            XMPPathSegment segment = new XMPPathSegment(Runtime.Substring(pos.path, pos.stepBegin, pos.stepEnd), XMPPath.StructFieldStep);
+            XmpPathSegment segment = new XmpPathSegment(Runtime.Substring(pos.Path, pos.StepBegin, pos.StepEnd), XmpPath.StructFieldStep);
             return segment;
         }
 
         /// <summary>Parses an array index segment.</summary>
         /// <param name="pos">the xmp path</param>
         /// <returns>Returns the segment or an error</returns>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">thrown on xmp path errors</exception>
-        private static XMPPathSegment ParseIndexSegment(PathPosition pos)
+        /// <exception cref="XmpException">thrown on xmp path errors</exception>
+        private static XmpPathSegment ParseIndexSegment(PathPosition pos)
         {
-            XMPPathSegment segment;
-            pos.stepEnd++;
+            XmpPathSegment segment;
+            pos.StepEnd++;
             // Look at the character after the leading '['.
-            if ('0' <= pos.path[pos.stepEnd] && pos.path[pos.stepEnd] <= '9')
+            if ('0' <= pos.Path[pos.StepEnd] && pos.Path[pos.StepEnd] <= '9')
             {
                 // A numeric (decimal integer) array index.
-                while (pos.stepEnd < pos.path.Length && '0' <= pos.path[pos.stepEnd] && pos.path[pos.stepEnd] <= '9')
+                while (pos.StepEnd < pos.Path.Length && '0' <= pos.Path[pos.StepEnd] && pos.Path[pos.StepEnd] <= '9')
                 {
-                    pos.stepEnd++;
+                    pos.StepEnd++;
                 }
-                segment = new XMPPathSegment(null, XMPPath.ArrayIndexStep);
+                segment = new XmpPathSegment(null, XmpPath.ArrayIndexStep);
             }
             else
             {
                 // Could be "[last()]" or one of the selector forms. Find the ']' or '='.
-                while (pos.stepEnd < pos.path.Length && pos.path[pos.stepEnd] != ']' && pos.path[pos.stepEnd] != '=')
+                while (pos.StepEnd < pos.Path.Length && pos.Path[pos.StepEnd] != ']' && pos.Path[pos.StepEnd] != '=')
                 {
-                    pos.stepEnd++;
+                    pos.StepEnd++;
                 }
-                if (pos.stepEnd >= pos.path.Length)
+                if (pos.StepEnd >= pos.Path.Length)
                 {
-                    throw new XMPException("Missing ']' or '=' for array index", XMPErrorConstants.Badxpath);
+                    throw new XmpException("Missing ']' or '=' for array index", XmpErrorConstants.Badxpath);
                 }
-                if (pos.path[pos.stepEnd] == ']')
+                if (pos.Path[pos.StepEnd] == ']')
                 {
-                    if (!"[last()".Equals(Runtime.Substring(pos.path, pos.stepBegin, pos.stepEnd)))
+                    if (!"[last()".Equals(Runtime.Substring(pos.Path, pos.StepBegin, pos.StepEnd)))
                     {
-                        throw new XMPException("Invalid non-numeric array index", XMPErrorConstants.Badxpath);
+                        throw new XmpException("Invalid non-numeric array index", XmpErrorConstants.Badxpath);
                     }
-                    segment = new XMPPathSegment(null, XMPPath.ArrayLastStep);
+                    segment = new XmpPathSegment(null, XmpPath.ArrayLastStep);
                 }
                 else
                 {
-                    pos.nameStart = pos.stepBegin + 1;
-                    pos.nameEnd = pos.stepEnd;
-                    pos.stepEnd++;
+                    pos.NameStart = pos.StepBegin + 1;
+                    pos.NameEnd = pos.StepEnd;
+                    pos.StepEnd++;
                     // Absorb the '=', remember the quote.
-                    char quote = pos.path[pos.stepEnd];
+                    char quote = pos.Path[pos.StepEnd];
                     if (quote != '\'' && quote != '"')
                     {
-                        throw new XMPException("Invalid quote in array selector", XMPErrorConstants.Badxpath);
+                        throw new XmpException("Invalid quote in array selector", XmpErrorConstants.Badxpath);
                     }
-                    pos.stepEnd++;
+                    pos.StepEnd++;
                     // Absorb the leading quote.
-                    while (pos.stepEnd < pos.path.Length)
+                    while (pos.StepEnd < pos.Path.Length)
                     {
-                        if (pos.path[pos.stepEnd] == quote)
+                        if (pos.Path[pos.StepEnd] == quote)
                         {
                             // check for escaped quote
-                            if (pos.stepEnd + 1 >= pos.path.Length || pos.path[pos.stepEnd + 1] != quote)
+                            if (pos.StepEnd + 1 >= pos.Path.Length || pos.Path[pos.StepEnd + 1] != quote)
                             {
                                 break;
                             }
-                            pos.stepEnd++;
+                            pos.StepEnd++;
                         }
-                        pos.stepEnd++;
+                        pos.StepEnd++;
                     }
-                    if (pos.stepEnd >= pos.path.Length)
+                    if (pos.StepEnd >= pos.Path.Length)
                     {
-                        throw new XMPException("No terminating quote for array selector", XMPErrorConstants.Badxpath);
+                        throw new XmpException("No terminating quote for array selector", XmpErrorConstants.Badxpath);
                     }
-                    pos.stepEnd++;
+                    pos.StepEnd++;
                     // Absorb the trailing quote.
                     // ! Touch up later, also changing '@' to '?'.
-                    segment = new XMPPathSegment(null, XMPPath.FieldSelectorStep);
+                    segment = new XmpPathSegment(null, XmpPath.FieldSelectorStep);
                 }
             }
-            if (pos.stepEnd >= pos.path.Length || pos.path[pos.stepEnd] != ']')
+            if (pos.StepEnd >= pos.Path.Length || pos.Path[pos.StepEnd] != ']')
             {
-                throw new XMPException("Missing ']' for array index", XMPErrorConstants.Badxpath);
+                throw new XmpException("Missing ']' for array index", XmpErrorConstants.Badxpath);
             }
-            pos.stepEnd++;
-            segment.SetName(Runtime.Substring(pos.path, pos.stepBegin, pos.stepEnd));
+            pos.StepEnd++;
+            segment.SetName(Runtime.Substring(pos.Path, pos.StepBegin, pos.StepEnd));
             return segment;
         }
 
@@ -270,40 +270,40 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         /// Parses the root node of an XMP Path, checks if namespace and prefix fit together
         /// and resolve the property to the base property if it is an alias.
         /// </summary>
-        /// <param name="schemaNS">the root namespace</param>
+        /// <param name="schemaNs">the root namespace</param>
         /// <param name="pos">the parsing position helper</param>
         /// <param name="expandedXPath">the path to contribute to</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">If the path is not valid.</exception>
-        private static void ParseRootNode(string schemaNS, PathPosition pos, XMPPath expandedXPath)
+        /// <exception cref="XmpException">If the path is not valid.</exception>
+        private static void ParseRootNode(string schemaNs, PathPosition pos, XmpPath expandedXPath)
         {
-            while (pos.stepEnd < pos.path.Length && "/[*".IndexOf(pos.path[pos.stepEnd]) < 0)
+            while (pos.StepEnd < pos.Path.Length && "/[*".IndexOf(pos.Path[pos.StepEnd]) < 0)
             {
-                pos.stepEnd++;
+                pos.StepEnd++;
             }
-            if (pos.stepEnd == pos.stepBegin)
+            if (pos.StepEnd == pos.StepBegin)
             {
-                throw new XMPException("Empty initial XMPPath step", XMPErrorConstants.Badxpath);
+                throw new XmpException("Empty initial XMPPath step", XmpErrorConstants.Badxpath);
             }
-            string rootProp = VerifyXPathRoot(schemaNS, Runtime.Substring(pos.path, pos.stepBegin, pos.stepEnd));
-            XMPAliasInfo aliasInfo = XMPMetaFactory.GetSchemaRegistry().FindAlias(rootProp);
+            string rootProp = VerifyXPathRoot(schemaNs, Runtime.Substring(pos.Path, pos.StepBegin, pos.StepEnd));
+            IXmpAliasInfo aliasInfo = XmpMetaFactory.GetSchemaRegistry().FindAlias(rootProp);
             if (aliasInfo == null)
             {
                 // add schema xpath step
-                expandedXPath.Add(new XMPPathSegment(schemaNS, XMPPath.SchemaNode));
-                XMPPathSegment rootStep = new XMPPathSegment(rootProp, XMPPath.StructFieldStep);
+                expandedXPath.Add(new XmpPathSegment(schemaNs, XmpPath.SchemaNode));
+                XmpPathSegment rootStep = new XmpPathSegment(rootProp, XmpPath.StructFieldStep);
                 expandedXPath.Add(rootStep);
             }
             else
             {
                 // add schema xpath step and base step of alias
-                expandedXPath.Add(new XMPPathSegment(aliasInfo.GetNamespace(), XMPPath.SchemaNode));
-                XMPPathSegment rootStep = new XMPPathSegment(VerifyXPathRoot(aliasInfo.GetNamespace(), aliasInfo.GetPropName()), XMPPath.StructFieldStep);
+                expandedXPath.Add(new XmpPathSegment(aliasInfo.GetNamespace(), XmpPath.SchemaNode));
+                XmpPathSegment rootStep = new XmpPathSegment(VerifyXPathRoot(aliasInfo.GetNamespace(), aliasInfo.GetPropName()), XmpPath.StructFieldStep);
                 rootStep.SetAlias(true);
                 rootStep.SetAliasForm(aliasInfo.GetAliasForm().GetOptions());
                 expandedXPath.Add(rootStep);
                 if (aliasInfo.GetAliasForm().IsArrayAltText())
                 {
-                    XMPPathSegment qualSelectorStep = new XMPPathSegment("[?xml:lang='x-default']", XMPPath.QualSelectorStep);
+                    XmpPathSegment qualSelectorStep = new XmpPathSegment("[?xml:lang='x-default']", XmpPath.QualSelectorStep);
                     qualSelectorStep.SetAlias(true);
                     qualSelectorStep.SetAliasForm(aliasInfo.GetAliasForm().GetOptions());
                     expandedXPath.Add(qualSelectorStep);
@@ -312,7 +312,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                 {
                     if (aliasInfo.GetAliasForm().IsArray())
                     {
-                        XMPPathSegment indexStep = new XMPPathSegment("[1]", XMPPath.ArrayIndexStep);
+                        XmpPathSegment indexStep = new XmpPathSegment("[1]", XmpPath.ArrayIndexStep);
                         indexStep.SetAlias(true);
                         indexStep.SetAliasForm(aliasInfo.GetAliasForm().GetOptions());
                         expandedXPath.Add(indexStep);
@@ -326,34 +326,34 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         /// namespace prefix has not been registered.
         /// </summary>
         /// <param name="qualName">a qualifier name</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">If the name is not conformant</exception>
+        /// <exception cref="XmpException">If the name is not conformant</exception>
         private static void VerifyQualName(string qualName)
         {
             int colonPos = qualName.IndexOf(':');
             if (colonPos > 0)
             {
                 string prefix = Runtime.Substring(qualName, 0, colonPos);
-                if (Utils.IsXMLNameNS(prefix))
+                if (Utils.IsXmlNameNs(prefix))
                 {
-                    string regURI = XMPMetaFactory.GetSchemaRegistry().GetNamespaceURI(prefix);
-                    if (regURI != null)
+                    string regUri = XmpMetaFactory.GetSchemaRegistry().GetNamespaceUri(prefix);
+                    if (regUri != null)
                     {
                         return;
                     }
-                    throw new XMPException("Unknown namespace prefix for qualified name", XMPErrorConstants.Badxpath);
+                    throw new XmpException("Unknown namespace prefix for qualified name", XmpErrorConstants.Badxpath);
                 }
             }
-            throw new XMPException("Ill-formed qualified name", XMPErrorConstants.Badxpath);
+            throw new XmpException("Ill-formed qualified name", XmpErrorConstants.Badxpath);
         }
 
         /// <summary>Verify if an XML name is conformant.</summary>
         /// <param name="name">an XML name</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">When the name is not XML conformant</exception>
-        private static void VerifySimpleXMLName(string name)
+        /// <exception cref="XmpException">When the name is not XML conformant</exception>
+        private static void VerifySimpleXmlName(string name)
         {
-            if (!Utils.IsXMLName(name))
+            if (!Utils.IsXmlName(name))
             {
-                throw new XMPException("Bad XML name", XMPErrorConstants.Badxpath);
+                throw new XmpException("Bad XML name", XmpErrorConstants.Badxpath);
             }
         }
 
@@ -367,30 +367,30 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         /// <P>
         /// (Should someday check the full syntax:)
         /// </remarks>
-        /// <param name="schemaNS">schema namespace</param>
+        /// <param name="schemaNs">schema namespace</param>
         /// <param name="rootProp">the root xpath segment</param>
         /// <returns>Returns root QName.</returns>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">Thrown if the format is not correct somehow.</exception>
-        private static string VerifyXPathRoot(string schemaNS, string rootProp)
+        /// <exception cref="XmpException">Thrown if the format is not correct somehow.</exception>
+        private static string VerifyXPathRoot(string schemaNs, string rootProp)
         {
             // Do some basic checks on the URI and name. Try to lookup the URI. See if the name is
             // qualified.
-            if (schemaNS == null || schemaNS.Length == 0)
+            if (schemaNs == null || schemaNs.Length == 0)
             {
-                throw new XMPException("Schema namespace URI is required", XMPErrorConstants.Badschema);
+                throw new XmpException("Schema namespace URI is required", XmpErrorConstants.Badschema);
             }
             if ((rootProp[0] == '?') || (rootProp[0] == '@'))
             {
-                throw new XMPException("Top level name must not be a qualifier", XMPErrorConstants.Badxpath);
+                throw new XmpException("Top level name must not be a qualifier", XmpErrorConstants.Badxpath);
             }
             if (rootProp.IndexOf('/') >= 0 || rootProp.IndexOf('[') >= 0)
             {
-                throw new XMPException("Top level name must be simple", XMPErrorConstants.Badxpath);
+                throw new XmpException("Top level name must be simple", XmpErrorConstants.Badxpath);
             }
-            string prefix = XMPMetaFactory.GetSchemaRegistry().GetNamespacePrefix(schemaNS);
+            string prefix = XmpMetaFactory.GetSchemaRegistry().GetNamespacePrefix(schemaNs);
             if (prefix == null)
             {
-                throw new XMPException("Unregistered schema namespace URI", XMPErrorConstants.Badschema);
+                throw new XmpException("Unregistered schema namespace URI", XmpErrorConstants.Badschema);
             }
             // Verify the various URI and prefix combinations. Initialize the
             // expanded XMPPath.
@@ -399,7 +399,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
             {
                 // The propName is unqualified, use the schemaURI and associated
                 // prefix.
-                VerifySimpleXMLName(rootProp);
+                VerifySimpleXmlName(rootProp);
                 // Verify the part before any colon
                 return prefix + rootProp;
             }
@@ -408,17 +408,17 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                 // The propName is qualified. Make sure the prefix is legit. Use the associated URI and
                 // qualified name.
                 // Verify the part before any colon
-                VerifySimpleXMLName(Runtime.Substring(rootProp, 0, colonPos));
-                VerifySimpleXMLName(Runtime.Substring(rootProp, colonPos));
+                VerifySimpleXmlName(Runtime.Substring(rootProp, 0, colonPos));
+                VerifySimpleXmlName(Runtime.Substring(rootProp, colonPos));
                 prefix = Runtime.Substring(rootProp, 0, colonPos + 1);
-                string regPrefix = XMPMetaFactory.GetSchemaRegistry().GetNamespacePrefix(schemaNS);
+                string regPrefix = XmpMetaFactory.GetSchemaRegistry().GetNamespacePrefix(schemaNs);
                 if (regPrefix == null)
                 {
-                    throw new XMPException("Unknown schema namespace prefix", XMPErrorConstants.Badschema);
+                    throw new XmpException("Unknown schema namespace prefix", XmpErrorConstants.Badschema);
                 }
                 if (!prefix.Equals(regPrefix))
                 {
-                    throw new XMPException("Schema namespace URI and prefix mismatch", XMPErrorConstants.Badschema);
+                    throw new XmpException("Schema namespace URI and prefix mismatch", XmpErrorConstants.Badschema);
                 }
                 return rootProp;
             }
@@ -429,18 +429,18 @@ namespace Com.Adobe.Xmp.Impl.Xpath
     internal class PathPosition
     {
         /// <summary>the complete path</summary>
-        public string path = null;
+        public string Path = null;
 
         /// <summary>the start of a segment name</summary>
-        internal int nameStart = 0;
+        internal int NameStart = 0;
 
         /// <summary>the end of a segment name</summary>
-        internal int nameEnd = 0;
+        internal int NameEnd = 0;
 
         /// <summary>the begin of a step</summary>
-        internal int stepBegin = 0;
+        internal int StepBegin = 0;
 
         /// <summary>the end of a step</summary>
-        internal int stepEnd = 0;
+        internal int StepEnd = 0;
     }
 }

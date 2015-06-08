@@ -78,39 +78,39 @@ namespace Com.Drew.Metadata.Ico
                 return;
             }
             // Read each embedded image
-            IcoDirectory directory_1 = null;
+            IcoDirectory directory1 = null;
             try
             {
                 for (int imageIndex = 0; imageIndex < imageCount; imageIndex++)
                 {
-                    directory_1 = new IcoDirectory();
-                    metadata.AddDirectory(directory_1);
-                    directory_1.SetInt(IcoDirectory.TagImageType, type);
-                    directory_1.SetInt(IcoDirectory.TagImageWidth, reader.GetUInt8());
-                    directory_1.SetInt(IcoDirectory.TagImageHeight, reader.GetUInt8());
-                    directory_1.SetInt(IcoDirectory.TagColourPaletteSize, reader.GetUInt8());
+                    directory1 = new IcoDirectory();
+                    metadata.AddDirectory(directory1);
+                    directory1.SetInt(IcoDirectory.TagImageType, type);
+                    directory1.SetInt(IcoDirectory.TagImageWidth, reader.GetUInt8());
+                    directory1.SetInt(IcoDirectory.TagImageHeight, reader.GetUInt8());
+                    directory1.SetInt(IcoDirectory.TagColourPaletteSize, reader.GetUInt8());
                     // Ignore this byte (normally zero, though .NET's System.Drawing.Icon.Save method writes 255)
                     reader.GetUInt8();
                     if (type == 1)
                     {
                         // Icon
-                        directory_1.SetInt(IcoDirectory.TagColourPlanes, reader.GetUInt16());
-                        directory_1.SetInt(IcoDirectory.TagBitsPerPixel, reader.GetUInt16());
+                        directory1.SetInt(IcoDirectory.TagColourPlanes, reader.GetUInt16());
+                        directory1.SetInt(IcoDirectory.TagBitsPerPixel, reader.GetUInt16());
                     }
                     else
                     {
                         // Cursor
-                        directory_1.SetInt(IcoDirectory.TagCursorHotspotX, reader.GetUInt16());
-                        directory_1.SetInt(IcoDirectory.TagCursorHotspotY, reader.GetUInt16());
+                        directory1.SetInt(IcoDirectory.TagCursorHotspotX, reader.GetUInt16());
+                        directory1.SetInt(IcoDirectory.TagCursorHotspotY, reader.GetUInt16());
                     }
-                    directory_1.SetLong(IcoDirectory.TagImageSizeBytes, reader.GetUInt32());
-                    directory_1.SetLong(IcoDirectory.TagImageOffsetBytes, reader.GetUInt32());
+                    directory1.SetLong(IcoDirectory.TagImageSizeBytes, reader.GetUInt32());
+                    directory1.SetLong(IcoDirectory.TagImageOffsetBytes, reader.GetUInt32());
                 }
             }
             catch (IOException ex)
             {
-                Debug.Assert((directory_1 != null));
-                directory_1.AddError("Exception reading ICO file metadata: " + ex.Message);
+                Debug.Assert((directory1 != null));
+                directory1.AddError("Exception reading ICO file metadata: " + ex.Message);
             }
         }
     }

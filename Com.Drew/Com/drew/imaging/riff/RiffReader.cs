@@ -27,7 +27,7 @@ namespace Com.Drew.Imaging.Riff
 {
     /// <summary>
     /// Processes RIFF-formatted data, calling into client code via that
-    /// <see cref="RiffHandler"/>
+    /// <see cref="IRiffHandler"/>
     /// interface.
     /// <p></p>
     /// For information on this file format, see:
@@ -48,7 +48,7 @@ namespace Com.Drew.Imaging.Riff
         /// </param>
         /// <param name="handler">
         /// the
-        /// <see cref="RiffHandler"/>
+        /// <see cref="IRiffHandler"/>
         /// that will coordinate processing and accept read values
         /// </param>
         /// <exception cref="RiffProcessingException">
@@ -57,15 +57,15 @@ namespace Com.Drew.Imaging.Riff
         /// </exception>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
         /// <exception cref="Com.Drew.Imaging.Riff.RiffProcessingException"/>
-        public virtual void ProcessRiff([NotNull] SequentialReader reader, [NotNull] RiffHandler handler)
+        public virtual void ProcessRiff([NotNull] SequentialReader reader, [NotNull] IRiffHandler handler)
         {
             // RIFF files are always little-endian
             reader.SetMotorolaByteOrder(false);
             // PROCESS FILE HEADER
-            string fileFourCC = reader.GetString(4);
-            if (!fileFourCC.Equals("RIFF"))
+            string fileFourCc = reader.GetString(4);
+            if (!fileFourCc.Equals("RIFF"))
             {
-                throw new RiffProcessingException("Invalid RIFF header: " + fileFourCC);
+                throw new RiffProcessingException("Invalid RIFF header: " + fileFourCc);
             }
             // The total size of the chunks that follow plus 4 bytes for the 'WEBP' FourCC
             int fileSize = reader.GetInt32();
@@ -79,7 +79,7 @@ namespace Com.Drew.Imaging.Riff
             // PROCESS CHUNKS
             while (sizeLeft != 0)
             {
-                string chunkFourCC = reader.GetString(4);
+                string chunkFourCc = reader.GetString(4);
                 int chunkSize = reader.GetInt32();
                 sizeLeft -= 8;
                 // NOTE we fail a negative chunk size here (greater than 0x7FFFFFFF) as Java cannot
@@ -88,10 +88,10 @@ namespace Com.Drew.Imaging.Riff
                 {
                     throw new RiffProcessingException("Invalid RIFF chunk size");
                 }
-                if (handler.ShouldAcceptChunk(chunkFourCC))
+                if (handler.ShouldAcceptChunk(chunkFourCc))
                 {
                     // TODO is it feasible to avoid copying the chunk here, and to pass the sequential reader to the handler?
-                    handler.ProcessChunk(chunkFourCC, reader.GetBytes(chunkSize));
+                    handler.ProcessChunk(chunkFourCc, reader.GetBytes(chunkSize));
                 }
                 else
                 {

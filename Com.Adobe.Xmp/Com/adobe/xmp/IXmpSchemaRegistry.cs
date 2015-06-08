@@ -43,7 +43,7 @@ namespace Com.Adobe.Xmp
     /// first item of an array of structures.
     /// </remarks>
     /// <since>27.01.2006</since>
-    public interface XMPSchemaRegistry
+    public interface IXmpSchemaRegistry
     {
         // ---------------------------------------------------------------------------------------------
         // Namespace Functions
@@ -58,7 +58,7 @@ namespace Com.Adobe.Xmp
         /// <p>
         /// Note: No checking is presently done on either the URI or the prefix.
         /// </remarks>
-        /// <param name="namespaceURI">The URI for the namespace. Must be a valid XML URI.</param>
+        /// <param name="namespaceUri">The URI for the namespace. Must be a valid XML URI.</param>
         /// <param name="suggestedPrefix">
         /// The suggested prefix to be used if the URI is not yet
         /// registered. Must be a valid XML name.
@@ -68,9 +68,9 @@ namespace Com.Adobe.Xmp
         /// suggestedPrefix if the namespace hasn't been registered before,
         /// otherwise the existing prefix.
         /// </returns>
-        /// <exception cref="XMPException">If the parameters are not accordingly set</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        string RegisterNamespace(string namespaceURI, string suggestedPrefix);
+        /// <exception cref="XmpException">If the parameters are not accordingly set</exception>
+        /// <exception cref="XmpException"/>
+        string RegisterNamespace(string namespaceUri, string suggestedPrefix);
 
         /// <summary>Obtain the prefix for a registered namespace URI.</summary>
         /// <remarks>
@@ -78,12 +78,12 @@ namespace Com.Adobe.Xmp
         /// <p>
         /// It is not an error if the namespace URI is not registered.
         /// </remarks>
-        /// <param name="namespaceURI">
+        /// <param name="namespaceUri">
         /// The URI for the namespace. Must not be null or the empty
         /// string.
         /// </param>
         /// <returns>Returns the prefix registered for this namespace URI or null.</returns>
-        string GetNamespacePrefix(string namespaceURI);
+        string GetNamespacePrefix(string namespaceUri);
 
         /// <summary>Obtain the URI for a registered namespace prefix.</summary>
         /// <remarks>
@@ -96,7 +96,7 @@ namespace Com.Adobe.Xmp
         /// string.
         /// </param>
         /// <returns>Returns the URI registered for this prefix or null.</returns>
-        string GetNamespaceURI(string namespacePrefix);
+        string GetNamespaceUri(string namespacePrefix);
 
         /// <returns>
         /// Returns the registered prefix/namespace-pairs as map, where the keys are the
@@ -119,13 +119,13 @@ namespace Com.Adobe.Xmp
         /// <p>
         /// Note: Not yet implemented.
         /// </remarks>
-        /// <param name="namespaceURI">The URI for the namespace.</param>
-        void DeleteNamespace(string namespaceURI);
+        /// <param name="namespaceUri">The URI for the namespace.</param>
+        void DeleteNamespace(string namespaceUri);
 
         // ---------------------------------------------------------------------------------------------
         // Alias Functions
         /// <summary>Determines if a name is an alias, and what it is aliased to.</summary>
-        /// <param name="aliasNS">
+        /// <param name="aliasNs">
         /// The namespace URI of the alias. Must not be <code>null</code> or the empty
         /// string.
         /// </param>
@@ -137,16 +137,16 @@ namespace Com.Adobe.Xmp
         /// Returns the <code>XMPAliasInfo</code> for the given alias namespace and property or
         /// <code>null</code> if there is no such alias.
         /// </returns>
-        XMPAliasInfo ResolveAlias(string aliasNS, string aliasProp);
+        IXmpAliasInfo ResolveAlias(string aliasNs, string aliasProp);
 
         /// <summary>Collects all aliases that are contained in the provided namespace.</summary>
         /// <remarks>
         /// Collects all aliases that are contained in the provided namespace.
         /// If nothing is found, an empty array is returned.
         /// </remarks>
-        /// <param name="aliasNS">a schema namespace URI</param>
+        /// <param name="aliasNs">a schema namespace URI</param>
         /// <returns>Returns all alias infos from aliases that are contained in the provided namespace.</returns>
-        XMPAliasInfo[] FindAliases(string aliasNS);
+        IXmpAliasInfo[] FindAliases(string aliasNs);
 
         /// <summary>Searches for registered aliases.</summary>
         /// <param name="qname">an XML conform qname</param>
@@ -154,7 +154,7 @@ namespace Com.Adobe.Xmp
         /// Returns if an alias definition for the given qname to another
         /// schema and property is registered.
         /// </returns>
-        XMPAliasInfo FindAlias(string qname);
+        IXmpAliasInfo FindAlias(string qname);
 
         /// <returns>
         /// Returns the registered aliases as map, where the key is the "qname" (prefix and name)

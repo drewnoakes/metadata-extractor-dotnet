@@ -35,7 +35,7 @@ namespace Com.Adobe.Xmp.Options
         }
 
         /// <param name="options">the options to init with</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">If options are not consistant</exception>
+        /// <exception cref="XmpException">If options are not consistant</exception>
         public AliasOptions(int options)
             : base(options)
         {
@@ -109,7 +109,7 @@ namespace Com.Adobe.Xmp.Options
         /// <see cref="PropertyOptions"/>
         /// s object
         /// </returns>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">If the options are not consistant.</exception>
+        /// <exception cref="XmpException">If the options are not consistant.</exception>
         public PropertyOptions ToPropertyOptions()
         {
             return new PropertyOptions(GetOptions());

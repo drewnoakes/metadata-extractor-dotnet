@@ -76,30 +76,30 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public const int TagCcdSensitivity = unchecked((int)(0x0014));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static CasioType1MakernoteDirectory()
         {
-            _tagNameMap.Put(TagCcdSensitivity, "CCD Sensitivity");
-            _tagNameMap.Put(TagContrast, "Contrast");
-            _tagNameMap.Put(TagDigitalZoom, "Digital Zoom");
-            _tagNameMap.Put(TagFlashIntensity, "Flash Intensity");
-            _tagNameMap.Put(TagFlashMode, "Flash Mode");
-            _tagNameMap.Put(TagFocusingMode, "Focusing Mode");
-            _tagNameMap.Put(TagObjectDistance, "Object Distance");
-            _tagNameMap.Put(TagQuality, "Quality");
-            _tagNameMap.Put(TagRecordingMode, "Recording Mode");
-            _tagNameMap.Put(TagSaturation, "Saturation");
-            _tagNameMap.Put(TagSharpness, "Sharpness");
-            _tagNameMap.Put(TagUnknown1, "Makernote Unknown 1");
-            _tagNameMap.Put(TagUnknown2, "Makernote Unknown 2");
-            _tagNameMap.Put(TagUnknown3, "Makernote Unknown 3");
-            _tagNameMap.Put(TagUnknown4, "Makernote Unknown 4");
-            _tagNameMap.Put(TagUnknown5, "Makernote Unknown 5");
-            _tagNameMap.Put(TagUnknown6, "Makernote Unknown 6");
-            _tagNameMap.Put(TagUnknown7, "Makernote Unknown 7");
-            _tagNameMap.Put(TagUnknown8, "Makernote Unknown 8");
-            _tagNameMap.Put(TagWhiteBalance, "White Balance");
+            TagNameMap.Put(TagCcdSensitivity, "CCD Sensitivity");
+            TagNameMap.Put(TagContrast, "Contrast");
+            TagNameMap.Put(TagDigitalZoom, "Digital Zoom");
+            TagNameMap.Put(TagFlashIntensity, "Flash Intensity");
+            TagNameMap.Put(TagFlashMode, "Flash Mode");
+            TagNameMap.Put(TagFocusingMode, "Focusing Mode");
+            TagNameMap.Put(TagObjectDistance, "Object Distance");
+            TagNameMap.Put(TagQuality, "Quality");
+            TagNameMap.Put(TagRecordingMode, "Recording Mode");
+            TagNameMap.Put(TagSaturation, "Saturation");
+            TagNameMap.Put(TagSharpness, "Sharpness");
+            TagNameMap.Put(TagUnknown1, "Makernote Unknown 1");
+            TagNameMap.Put(TagUnknown2, "Makernote Unknown 2");
+            TagNameMap.Put(TagUnknown3, "Makernote Unknown 3");
+            TagNameMap.Put(TagUnknown4, "Makernote Unknown 4");
+            TagNameMap.Put(TagUnknown5, "Makernote Unknown 5");
+            TagNameMap.Put(TagUnknown6, "Makernote Unknown 6");
+            TagNameMap.Put(TagUnknown7, "Makernote Unknown 7");
+            TagNameMap.Put(TagUnknown8, "Makernote Unknown 8");
+            TagNameMap.Put(TagWhiteBalance, "White Balance");
         }
 
         public CasioType1MakernoteDirectory()
@@ -116,7 +116,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

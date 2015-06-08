@@ -120,54 +120,54 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public const int TagParallax = unchecked((int)(0xb211));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static FujifilmMakernoteDirectory()
         {
-            _tagNameMap.Put(TagMakernoteVersion, "Makernote Version");
-            _tagNameMap.Put(TagSerialNumber, "Serial Number");
-            _tagNameMap.Put(TagQuality, "Quality");
-            _tagNameMap.Put(TagSharpness, "Sharpness");
-            _tagNameMap.Put(TagWhiteBalance, "White Balance");
-            _tagNameMap.Put(TagColorSaturation, "Color Saturation");
-            _tagNameMap.Put(TagTone, "Tone (Contrast)");
-            _tagNameMap.Put(TagColorTemperature, "Color Temperature");
-            _tagNameMap.Put(TagContrast, "Contrast");
-            _tagNameMap.Put(TagWhiteBalanceFineTune, "White Balance Fine Tune");
-            _tagNameMap.Put(TagNoiseReduction, "Noise Reduction");
-            _tagNameMap.Put(TagHighIsoNoiseReduction, "High ISO Noise Reduction");
-            _tagNameMap.Put(TagFlashMode, "Flash Mode");
-            _tagNameMap.Put(TagFlashEv, "Flash Strength");
-            _tagNameMap.Put(TagMacro, "Macro");
-            _tagNameMap.Put(TagFocusMode, "Focus Mode");
-            _tagNameMap.Put(TagFocusPixel, "Focus Pixel");
-            _tagNameMap.Put(TagSlowSync, "Slow Sync");
-            _tagNameMap.Put(TagPictureMode, "Picture Mode");
-            _tagNameMap.Put(TagExrAuto, "EXR Auto");
-            _tagNameMap.Put(TagExrMode, "EXR Mode");
-            _tagNameMap.Put(TagAutoBracketing, "Auto Bracketing");
-            _tagNameMap.Put(TagSequenceNumber, "Sequence Number");
-            _tagNameMap.Put(TagFinePixColor, "FinePix Color Setting");
-            _tagNameMap.Put(TagBlurWarning, "Blur Warning");
-            _tagNameMap.Put(TagFocusWarning, "Focus Warning");
-            _tagNameMap.Put(TagAutoExposureWarning, "AE Warning");
-            _tagNameMap.Put(TagGeImageSize, "GE Image Size");
-            _tagNameMap.Put(TagDynamicRange, "Dynamic Range");
-            _tagNameMap.Put(TagFilmMode, "Film Mode");
-            _tagNameMap.Put(TagDynamicRangeSetting, "Dynamic Range Setting");
-            _tagNameMap.Put(TagDevelopmentDynamicRange, "Development Dynamic Range");
-            _tagNameMap.Put(TagMinFocalLength, "Minimum Focal Length");
-            _tagNameMap.Put(TagMaxFocalLength, "Maximum Focal Length");
-            _tagNameMap.Put(TagMaxApertureAtMinFocal, "Maximum Aperture at Minimum Focal Length");
-            _tagNameMap.Put(TagMaxApertureAtMaxFocal, "Maximum Aperture at Maximum Focal Length");
-            _tagNameMap.Put(TagAutoDynamicRange, "Auto Dynamic Range");
-            _tagNameMap.Put(TagFacesDetected, "Faces Detected");
-            _tagNameMap.Put(TagFacePositions, "Face Positions");
-            _tagNameMap.Put(TagFaceRecInfo, "Face Detection Data");
-            _tagNameMap.Put(TagFileSource, "File Source");
-            _tagNameMap.Put(TagOrderNumber, "Order Number");
-            _tagNameMap.Put(TagFrameNumber, "Frame Number");
-            _tagNameMap.Put(TagParallax, "Parallax");
+            TagNameMap.Put(TagMakernoteVersion, "Makernote Version");
+            TagNameMap.Put(TagSerialNumber, "Serial Number");
+            TagNameMap.Put(TagQuality, "Quality");
+            TagNameMap.Put(TagSharpness, "Sharpness");
+            TagNameMap.Put(TagWhiteBalance, "White Balance");
+            TagNameMap.Put(TagColorSaturation, "Color Saturation");
+            TagNameMap.Put(TagTone, "Tone (Contrast)");
+            TagNameMap.Put(TagColorTemperature, "Color Temperature");
+            TagNameMap.Put(TagContrast, "Contrast");
+            TagNameMap.Put(TagWhiteBalanceFineTune, "White Balance Fine Tune");
+            TagNameMap.Put(TagNoiseReduction, "Noise Reduction");
+            TagNameMap.Put(TagHighIsoNoiseReduction, "High ISO Noise Reduction");
+            TagNameMap.Put(TagFlashMode, "Flash Mode");
+            TagNameMap.Put(TagFlashEv, "Flash Strength");
+            TagNameMap.Put(TagMacro, "Macro");
+            TagNameMap.Put(TagFocusMode, "Focus Mode");
+            TagNameMap.Put(TagFocusPixel, "Focus Pixel");
+            TagNameMap.Put(TagSlowSync, "Slow Sync");
+            TagNameMap.Put(TagPictureMode, "Picture Mode");
+            TagNameMap.Put(TagExrAuto, "EXR Auto");
+            TagNameMap.Put(TagExrMode, "EXR Mode");
+            TagNameMap.Put(TagAutoBracketing, "Auto Bracketing");
+            TagNameMap.Put(TagSequenceNumber, "Sequence Number");
+            TagNameMap.Put(TagFinePixColor, "FinePix Color Setting");
+            TagNameMap.Put(TagBlurWarning, "Blur Warning");
+            TagNameMap.Put(TagFocusWarning, "Focus Warning");
+            TagNameMap.Put(TagAutoExposureWarning, "AE Warning");
+            TagNameMap.Put(TagGeImageSize, "GE Image Size");
+            TagNameMap.Put(TagDynamicRange, "Dynamic Range");
+            TagNameMap.Put(TagFilmMode, "Film Mode");
+            TagNameMap.Put(TagDynamicRangeSetting, "Dynamic Range Setting");
+            TagNameMap.Put(TagDevelopmentDynamicRange, "Development Dynamic Range");
+            TagNameMap.Put(TagMinFocalLength, "Minimum Focal Length");
+            TagNameMap.Put(TagMaxFocalLength, "Maximum Focal Length");
+            TagNameMap.Put(TagMaxApertureAtMinFocal, "Maximum Aperture at Minimum Focal Length");
+            TagNameMap.Put(TagMaxApertureAtMaxFocal, "Maximum Aperture at Maximum Focal Length");
+            TagNameMap.Put(TagAutoDynamicRange, "Auto Dynamic Range");
+            TagNameMap.Put(TagFacesDetected, "Faces Detected");
+            TagNameMap.Put(TagFacePositions, "Face Positions");
+            TagNameMap.Put(TagFaceRecInfo, "Face Detection Data");
+            TagNameMap.Put(TagFileSource, "File Source");
+            TagNameMap.Put(TagOrderNumber, "Order Number");
+            TagNameMap.Put(TagFrameNumber, "Frame Number");
+            TagNameMap.Put(TagParallax, "Parallax");
         }
 
         public FujifilmMakernoteDirectory()
@@ -184,7 +184,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Com.Drew.Metadata.Iptc
         /// <param name="bytes">string data encoded using ISO2022</param>
         /// <returns>the Java charset name as a string, or <code>null</code> if the conversion was not possible</returns>
         [CanBeNull]
-        public static string ConvertISO2022CharsetToJavaCharset([NotNull] sbyte[] bytes)
+        public static string ConvertIso2022CharsetToJavaCharset([NotNull] sbyte[] bytes)
         {
             if (bytes.Length > 2 && bytes[0] == Esc && bytes[1] == PercentSign && bytes[2] == LatinCapitalG)
             {

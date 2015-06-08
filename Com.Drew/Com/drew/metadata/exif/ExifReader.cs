@@ -35,7 +35,7 @@ namespace Com.Drew.Metadata.Exif
     /// Decodes Exif binary data, populating a
     /// <see cref="Com.Drew.Metadata.Metadata"/>
     /// object with tag values in
-    /// <see cref="ExifSubIFDDirectory"/>
+    /// <see cref="ExifSubIfdDirectory"/>
     /// ,
     /// <see cref="ExifThumbnailDirectory"/>
     /// ,
@@ -46,7 +46,7 @@ namespace Com.Drew.Metadata.Exif
     /// makernote directories.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ExifReader : JpegSegmentMetadataReader
+    public class ExifReader : IJpegSegmentMetadataReader
     {
         /// <summary>Exif data stored in JPEG files' APP1 segment are preceded by this six character preamble.</summary>
         public const string JpegSegmentPreamble = "Exif\x0\x0";

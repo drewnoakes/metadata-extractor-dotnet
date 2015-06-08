@@ -174,75 +174,75 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public const int TagNoPrint = unchecked((int)(0xFFFF));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static SonyType1MakernoteDirectory()
         {
-            _tagNameMap.Put(TagCameraInfo, "Camera Info");
-            _tagNameMap.Put(TagFocusInfo, "Focus Info");
-            _tagNameMap.Put(TagImageQuality, "Image Quality");
-            _tagNameMap.Put(TagFlashExposureComp, "Flash Exposure Compensation");
-            _tagNameMap.Put(TagTeleconverter, "Teleconverter Model");
-            _tagNameMap.Put(TagWhiteBalanceFineTune, "White Balance Fine Tune Value");
-            _tagNameMap.Put(TagCameraSettings, "Camera Settings");
-            _tagNameMap.Put(TagWhiteBalance, "White Balance");
-            _tagNameMap.Put(TagExtraInfo, "Extra Info");
-            _tagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching Info");
-            _tagNameMap.Put(TagMultiBurstMode, "Multi Burst Mode");
-            _tagNameMap.Put(TagMultiBurstImageWidth, "Multi Burst Image Width");
-            _tagNameMap.Put(TagMultiBurstImageHeight, "Multi Burst Image Height");
-            _tagNameMap.Put(TagPanorama, "Panorama");
-            _tagNameMap.Put(TagPreviewImage, "Preview Image");
-            _tagNameMap.Put(TagRating, "Rating");
-            _tagNameMap.Put(TagContrast, "Contrast");
-            _tagNameMap.Put(TagSaturation, "Saturation");
-            _tagNameMap.Put(TagSharpness, "Sharpness");
-            _tagNameMap.Put(TagBrightness, "Brightness");
-            _tagNameMap.Put(TagLongExposureNoiseReduction, "Long Exposure Noise Reduction");
-            _tagNameMap.Put(TagHighIsoNoiseReduction, "High ISO Noise Reduction");
-            _tagNameMap.Put(TagHdr, "HDR");
-            _tagNameMap.Put(TagMultiFrameNoiseReduction, "Multi Frame Noise Reduction");
-            _tagNameMap.Put(TagPictureEffect, "Picture Effect");
-            _tagNameMap.Put(TagSoftSkinEffect, "Soft Skin Effect");
-            _tagNameMap.Put(TagVignettingCorrection, "Vignetting Correction");
-            _tagNameMap.Put(TagLateralChromaticAberration, "Lateral Chromatic Aberration");
-            _tagNameMap.Put(TagDistortionCorrection, "Distortion Correction");
-            _tagNameMap.Put(TagWbShiftAmberMagenta, "WB Shift Amber/Magenta");
-            _tagNameMap.Put(TagAutoPortraitFramed, "Auto Portrait Framing");
-            _tagNameMap.Put(TagFocusMode, "Focus Mode");
-            _tagNameMap.Put(TagAfPointSelected, "AF Point Selected");
-            _tagNameMap.Put(TagShotInfo, "Shot Info");
-            _tagNameMap.Put(TagFileFormat, "File Format");
-            _tagNameMap.Put(TagSonyModelId, "Sony Model ID");
-            _tagNameMap.Put(TagColorModeSetting, "Color Mode Setting");
-            _tagNameMap.Put(TagColorTemperature, "Color Temperature");
-            _tagNameMap.Put(TagColorCompensationFilter, "Color Compensation Filter");
-            _tagNameMap.Put(TagSceneMode, "Scene Mode");
-            _tagNameMap.Put(TagZoneMatching, "Zone Matching");
-            _tagNameMap.Put(TagDynamicRangeOptimiser, "Dynamic Range Optimizer");
-            _tagNameMap.Put(TagImageStabilisation, "Image Stabilisation");
-            _tagNameMap.Put(TagLensId, "Lens ID");
-            _tagNameMap.Put(TagMinoltaMakernote, "Minolta Makernote");
-            _tagNameMap.Put(TagColorMode, "Color Mode");
-            _tagNameMap.Put(TagLensSpec, "Lens Spec");
-            _tagNameMap.Put(TagFullImageSize, "Full Image Size");
-            _tagNameMap.Put(TagPreviewImageSize, "Preview Image Size");
-            _tagNameMap.Put(TagMacro, "Macro");
-            _tagNameMap.Put(TagExposureMode, "Exposure Mode");
-            _tagNameMap.Put(TagFocusMode2, "Focus Mode");
-            _tagNameMap.Put(TagAfMode, "AF Mode");
-            _tagNameMap.Put(TagAfIlluminator, "AF Illuminator");
-            _tagNameMap.Put(TagJpegQuality, "Quality");
-            _tagNameMap.Put(TagFlashLevel, "Flash Level");
-            _tagNameMap.Put(TagReleaseMode, "Release Mode");
-            _tagNameMap.Put(TagSequenceNumber, "Sequence Number");
-            _tagNameMap.Put(TagAntiBlur, "Anti Blur");
-            _tagNameMap.Put(TagLongExposureNoiseReductionOrFocusMode, "Long Exposure Noise Reduction");
-            _tagNameMap.Put(TagDynamicRangeOptimizer, "Dynamic Range Optimizer");
-            _tagNameMap.Put(TagHighIsoNoiseReduction2, "High ISO Noise Reduction");
-            _tagNameMap.Put(TagIntelligentAuto, "Intelligent Auto");
-            _tagNameMap.Put(TagWhiteBalance2, "White Balance 2");
-            _tagNameMap.Put(TagNoPrint, "No Print");
+            TagNameMap.Put(TagCameraInfo, "Camera Info");
+            TagNameMap.Put(TagFocusInfo, "Focus Info");
+            TagNameMap.Put(TagImageQuality, "Image Quality");
+            TagNameMap.Put(TagFlashExposureComp, "Flash Exposure Compensation");
+            TagNameMap.Put(TagTeleconverter, "Teleconverter Model");
+            TagNameMap.Put(TagWhiteBalanceFineTune, "White Balance Fine Tune Value");
+            TagNameMap.Put(TagCameraSettings, "Camera Settings");
+            TagNameMap.Put(TagWhiteBalance, "White Balance");
+            TagNameMap.Put(TagExtraInfo, "Extra Info");
+            TagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching Info");
+            TagNameMap.Put(TagMultiBurstMode, "Multi Burst Mode");
+            TagNameMap.Put(TagMultiBurstImageWidth, "Multi Burst Image Width");
+            TagNameMap.Put(TagMultiBurstImageHeight, "Multi Burst Image Height");
+            TagNameMap.Put(TagPanorama, "Panorama");
+            TagNameMap.Put(TagPreviewImage, "Preview Image");
+            TagNameMap.Put(TagRating, "Rating");
+            TagNameMap.Put(TagContrast, "Contrast");
+            TagNameMap.Put(TagSaturation, "Saturation");
+            TagNameMap.Put(TagSharpness, "Sharpness");
+            TagNameMap.Put(TagBrightness, "Brightness");
+            TagNameMap.Put(TagLongExposureNoiseReduction, "Long Exposure Noise Reduction");
+            TagNameMap.Put(TagHighIsoNoiseReduction, "High ISO Noise Reduction");
+            TagNameMap.Put(TagHdr, "HDR");
+            TagNameMap.Put(TagMultiFrameNoiseReduction, "Multi Frame Noise Reduction");
+            TagNameMap.Put(TagPictureEffect, "Picture Effect");
+            TagNameMap.Put(TagSoftSkinEffect, "Soft Skin Effect");
+            TagNameMap.Put(TagVignettingCorrection, "Vignetting Correction");
+            TagNameMap.Put(TagLateralChromaticAberration, "Lateral Chromatic Aberration");
+            TagNameMap.Put(TagDistortionCorrection, "Distortion Correction");
+            TagNameMap.Put(TagWbShiftAmberMagenta, "WB Shift Amber/Magenta");
+            TagNameMap.Put(TagAutoPortraitFramed, "Auto Portrait Framing");
+            TagNameMap.Put(TagFocusMode, "Focus Mode");
+            TagNameMap.Put(TagAfPointSelected, "AF Point Selected");
+            TagNameMap.Put(TagShotInfo, "Shot Info");
+            TagNameMap.Put(TagFileFormat, "File Format");
+            TagNameMap.Put(TagSonyModelId, "Sony Model ID");
+            TagNameMap.Put(TagColorModeSetting, "Color Mode Setting");
+            TagNameMap.Put(TagColorTemperature, "Color Temperature");
+            TagNameMap.Put(TagColorCompensationFilter, "Color Compensation Filter");
+            TagNameMap.Put(TagSceneMode, "Scene Mode");
+            TagNameMap.Put(TagZoneMatching, "Zone Matching");
+            TagNameMap.Put(TagDynamicRangeOptimiser, "Dynamic Range Optimizer");
+            TagNameMap.Put(TagImageStabilisation, "Image Stabilisation");
+            TagNameMap.Put(TagLensId, "Lens ID");
+            TagNameMap.Put(TagMinoltaMakernote, "Minolta Makernote");
+            TagNameMap.Put(TagColorMode, "Color Mode");
+            TagNameMap.Put(TagLensSpec, "Lens Spec");
+            TagNameMap.Put(TagFullImageSize, "Full Image Size");
+            TagNameMap.Put(TagPreviewImageSize, "Preview Image Size");
+            TagNameMap.Put(TagMacro, "Macro");
+            TagNameMap.Put(TagExposureMode, "Exposure Mode");
+            TagNameMap.Put(TagFocusMode2, "Focus Mode");
+            TagNameMap.Put(TagAfMode, "AF Mode");
+            TagNameMap.Put(TagAfIlluminator, "AF Illuminator");
+            TagNameMap.Put(TagJpegQuality, "Quality");
+            TagNameMap.Put(TagFlashLevel, "Flash Level");
+            TagNameMap.Put(TagReleaseMode, "Release Mode");
+            TagNameMap.Put(TagSequenceNumber, "Sequence Number");
+            TagNameMap.Put(TagAntiBlur, "Anti Blur");
+            TagNameMap.Put(TagLongExposureNoiseReductionOrFocusMode, "Long Exposure Noise Reduction");
+            TagNameMap.Put(TagDynamicRangeOptimizer, "Dynamic Range Optimizer");
+            TagNameMap.Put(TagHighIsoNoiseReduction2, "High ISO Noise Reduction");
+            TagNameMap.Put(TagIntelligentAuto, "Intelligent Auto");
+            TagNameMap.Put(TagWhiteBalance2, "White Balance 2");
+            TagNameMap.Put(TagNoPrint, "No Print");
         }
 
         public SonyType1MakernoteDirectory()
@@ -259,7 +259,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

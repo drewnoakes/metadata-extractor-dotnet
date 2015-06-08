@@ -46,7 +46,7 @@ namespace Com.Drew.Tools
                 Environment.Exit(1);
             }
             IList<string> directories = new AList<string>();
-            FileHandler handler = null;
+            IFileHandler handler = null;
             foreach (string arg in args)
             {
                 if (Runtime.EqualsIgnoreCase(arg, "-text"))
@@ -91,7 +91,7 @@ namespace Com.Drew.Tools
             Console.Out.Println(Extensions.StringFormat("Completed in %d ms", (Runtime.NanoTime() - start) / 1000000));
         }
 
-        private static void ProcessDirectory([NotNull] FilePath path, [NotNull] FileHandler handler, [NotNull] string relativePath)
+        private static void ProcessDirectory([NotNull] FilePath path, [NotNull] IFileHandler handler, [NotNull] string relativePath)
         {
             string[] pathItems = path.List();
             if (pathItems == null)
@@ -129,7 +129,7 @@ namespace Com.Drew.Tools
             }
         }
 
-        internal interface FileHandler
+        internal interface IFileHandler
         {
             bool ShouldProcess([NotNull] FilePath file);
 
@@ -142,7 +142,7 @@ namespace Com.Drew.Tools
             void OnProcessingStarting([NotNull] FilePath file);
         }
 
-        internal abstract class FileHandlerBase : FileHandler
+        internal abstract class FileHandlerBase : IFileHandler
         {
             private readonly ICollection<string> _supportedExtensions = new HashSet<string>(Arrays.AsList("jpg", "jpeg", "png", "gif", "bmp", "ico", "webp", "pcx", "ai", "eps", "nef", "crw", "cr2", "orf", "arw", "raf", "srw", "x3f", "rw2", "rwl", "tif",
                 "tiff", "psd", "dng"));
@@ -248,34 +248,34 @@ namespace Com.Drew.Tools
                             directories.Add(directory);
                         }
                         // Sort them by name
-                        directories.Sort(new _IComparer_235());
+                        directories.Sort(new IComparer235());
                         // Write any errors
                         if (metadata.HasErrors())
                         {
-                            foreach (Directory directory_1 in directories)
+                            foreach (Directory directory1 in directories)
                             {
-                                if (!directory_1.HasErrors())
+                                if (!directory1.HasErrors())
                                 {
                                     continue;
                                 }
-                                foreach (string error in directory_1.GetErrors())
+                                foreach (string error in directory1.GetErrors())
                                 {
-                                    writer.Format("[ERROR: %s] %s\n", directory_1.GetName(), error);
+                                    writer.Format("[ERROR: %s] %s\n", directory1.GetName(), error);
                                 }
                             }
                             writer.Write("\n");
                         }
                         // Write tag values for each directory
-                        foreach (Directory directory_2 in directories)
+                        foreach (Directory directory2 in directories)
                         {
-                            string directoryName = directory_2.GetName();
-                            foreach (Tag tag in directory_2.GetTags())
+                            string directoryName = directory2.GetName();
+                            foreach (Tag tag in directory2.GetTags())
                             {
                                 string tagName = tag.GetTagName();
                                 string description = tag.GetDescription();
                                 writer.Format("[%s - %s] %s = %s%n", directoryName, tag.GetTagTypeHex(), tagName, description);
                             }
-                            if (directory_2.GetTagCount() != 0)
+                            if (directory2.GetTagCount() != 0)
                             {
                                 writer.Write('\n');
                             }
@@ -292,9 +292,9 @@ namespace Com.Drew.Tools
                 }
             }
 
-            private sealed class _IComparer_235 : IComparer<Directory>
+            private sealed class IComparer235 : IComparer<Directory>
             {
-                public _IComparer_235()
+                public IComparer235()
                 {
                 }
 
@@ -366,59 +366,59 @@ namespace Com.Drew.Tools
 
             internal class Row
             {
-                internal readonly FilePath file;
+                internal readonly FilePath File;
 
-                internal readonly Metadata.Metadata metadata;
+                internal readonly Metadata.Metadata Metadata;
 
                 [NotNull]
-                internal readonly string relativePath;
+                internal readonly string RelativePath;
 
-                [CanBeNull] internal string manufacturer;
+                [CanBeNull] internal string Manufacturer;
 
-                [CanBeNull] internal string model;
+                [CanBeNull] internal string Model;
 
-                [CanBeNull] internal string exifVersion;
+                [CanBeNull] internal string ExifVersion;
 
-                [CanBeNull] internal string thumbnail;
+                [CanBeNull] internal string Thumbnail;
 
-                [CanBeNull] internal string makernote;
+                [CanBeNull] internal string Makernote;
 
-                internal Row(MarkdownTableOutputHandler _enclosing, [NotNull] FilePath file, [NotNull] Metadata.Metadata metadata, [NotNull] string relativePath)
+                internal Row(MarkdownTableOutputHandler enclosing, [NotNull] FilePath file, [NotNull] Metadata.Metadata metadata, [NotNull] string relativePath)
                 {
-                    this._enclosing = _enclosing;
-                    this.file = file;
-                    this.metadata = metadata;
-                    this.relativePath = relativePath;
-                    ExifIFD0Directory ifd0Dir = metadata.GetFirstDirectoryOfType<ExifIFD0Directory>();
-                    ExifSubIFDDirectory subIfdDir = metadata.GetFirstDirectoryOfType<ExifSubIFDDirectory>();
+                    this._enclosing = enclosing;
+                    this.File = file;
+                    this.Metadata = metadata;
+                    this.RelativePath = relativePath;
+                    ExifIfd0Directory ifd0Dir = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
+                    ExifSubIfdDirectory subIfdDir = metadata.GetFirstDirectoryOfType<ExifSubIfdDirectory>();
                     ExifThumbnailDirectory thumbDir = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
                     if (ifd0Dir != null)
                     {
-                        this.manufacturer = ifd0Dir.GetDescription(ExifIFD0Directory.TagMake);
-                        this.model = ifd0Dir.GetDescription(ExifIFD0Directory.TagModel);
+                        this.Manufacturer = ifd0Dir.GetDescription(ExifIfd0Directory.TagMake);
+                        this.Model = ifd0Dir.GetDescription(ExifIfd0Directory.TagModel);
                     }
                     bool hasMakernoteData = false;
                     if (subIfdDir != null)
                     {
-                        this.exifVersion = subIfdDir.GetDescription(ExifSubIFDDirectory.TagExifVersion);
-                        hasMakernoteData = subIfdDir.ContainsTag(ExifSubIFDDirectory.TagMakernote);
+                        this.ExifVersion = subIfdDir.GetDescription(ExifSubIfdDirectory.TagExifVersion);
+                        hasMakernoteData = subIfdDir.ContainsTag(ExifSubIfdDirectory.TagMakernote);
                     }
                     if (thumbDir != null)
                     {
                         int? width = thumbDir.GetInteger(ExifThumbnailDirectory.TagImageWidth);
                         int? height = thumbDir.GetInteger(ExifThumbnailDirectory.TagImageHeight);
-                        this.thumbnail = width != null && height != null ? Extensions.StringFormat("Yes (%s x %s)", width, height) : "Yes";
+                        this.Thumbnail = width != null && height != null ? Extensions.StringFormat("Yes (%s x %s)", width, height) : "Yes";
                     }
                     foreach (Directory directory in metadata.GetDirectories())
                     {
                         if (directory.GetType().FullName.Contains("Makernote"))
                         {
-                            this.makernote = Extensions.Trim(directory.GetName().Replace("Makernote", string.Empty));
+                            this.Makernote = Extensions.Trim(directory.GetName().Replace("Makernote", string.Empty));
                         }
                     }
-                    if (this.makernote == null)
+                    if (this.Makernote == null)
                     {
-                        this.makernote = hasMakernoteData ? "(Unknown)" : "N/A";
+                        this.Makernote = hasMakernoteData ? "(Unknown)" : "N/A";
                     }
                 }
 
@@ -501,28 +501,28 @@ namespace Com.Drew.Tools
                     writer.Write("----|------------|-----|---------|-----|---------|---------|--------\n");
                     IList<Row> rows = _rowListByExtension.Get(extension);
                     // Order by manufacturer, then model
-                    rows.Sort(new _IComparer_441());
+                    rows.Sort(new IComparer441());
                     foreach (Row row in rows)
                     {
                         writer.Write(Extensions.StringFormat("[%s](https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/%s/%s)|%s|%s|%d|%s|%s|%s|[metadata](https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/%s/metadata/%s.txt)%n"
-                            , row.file.GetName(), row.relativePath, StringUtil.UrlEncode(row.file.GetName()), row.manufacturer == null ? string.Empty : row.manufacturer, row.model == null ? string.Empty : row.model, row.metadata.GetDirectoryCount(), row.exifVersion ==
-                             null ? string.Empty : row.exifVersion, row.makernote == null ? string.Empty : row.makernote, row.thumbnail == null ? string.Empty : row.thumbnail, row.relativePath, StringUtil.UrlEncode(row.file.GetName()).ToLower()));
+                            , row.File.GetName(), row.RelativePath, StringUtil.UrlEncode(row.File.GetName()), row.Manufacturer == null ? string.Empty : row.Manufacturer, row.Model == null ? string.Empty : row.Model, row.Metadata.GetDirectoryCount(), row.ExifVersion ==
+                             null ? string.Empty : row.ExifVersion, row.Makernote == null ? string.Empty : row.Makernote, row.Thumbnail == null ? string.Empty : row.Thumbnail, row.RelativePath, StringUtil.UrlEncode(row.File.GetName()).ToLower()));
                     }
                     writer.Write('\n');
                 }
                 writer.Flush();
             }
 
-            private sealed class _IComparer_441 : IComparer<Row>
+            private sealed class IComparer441 : IComparer<Row>
             {
-                public _IComparer_441()
+                public IComparer441()
                 {
                 }
 
                 public int Compare(Row o1, Row o2)
                 {
-                    int c1 = StringUtil.Compare(o1.manufacturer, o2.manufacturer);
-                    return c1 != 0 ? c1 : StringUtil.Compare(o1.model, o2.model);
+                    int c1 = StringUtil.Compare(o1.Manufacturer, o2.Manufacturer);
+                    return c1 != 0 ? c1 : StringUtil.Compare(o1.Model, o2.Model);
                 }
             }
         }
@@ -568,7 +568,7 @@ namespace Com.Drew.Tools
                 {
                     string directoryName = pair1.Key;
                     IList<KeyValuePair<int?, int?>> counts = new AList<KeyValuePair<int?, int?>>(pair1.Value.EntrySet());
-                    counts.Sort(new _IComparer_516());
+                    counts.Sort(new IComparer516());
                     foreach (KeyValuePair<int?, int?> pair2 in counts)
                     {
                         int? tagType = pair2.Key;
@@ -578,9 +578,9 @@ namespace Com.Drew.Tools
                 }
             }
 
-            private sealed class _IComparer_516 : IComparer<KeyValuePair<int?, int?>>
+            private sealed class IComparer516 : IComparer<KeyValuePair<int?, int?>>
             {
-                public _IComparer_516()
+                public IComparer516()
                 {
                 }
 

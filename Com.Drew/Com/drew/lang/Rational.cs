@@ -39,7 +39,7 @@ namespace Com.Drew.Lang
     [Serializable]
     public class Rational : Number
     {
-        private const long serialVersionUID = 510688928138848770L;
+        private const long SerialVersionUid = 510688928138848770L;
 
         /// <summary>Holds the numerator.</summary>
         private readonly long _numerator;

@@ -14,7 +14,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
 {
     /// <summary>Representates an XMP XMPPath with segment accessor methods.</summary>
     /// <since>28.02.2006</since>
-    public class XMPPath
+    public class XmpPath
     {
         /// <summary>Marks a struct field step , also for top level nodes (schema "fields").</summary>
         public const int StructFieldStep = unchecked((int)(0x01));
@@ -42,28 +42,28 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         public const int StepRootProp = 1;
 
         /// <summary>stores the segments of an XMPPath</summary>
-        private readonly IList segments = new ArrayList(5);
+        private readonly IList _segments = new ArrayList(5);
 
         // Bits for XPathStepInfo options.
         //
         /// <summary>Append a path segment</summary>
         /// <param name="segment">the segment to add</param>
-        public virtual void Add(XMPPathSegment segment)
+        public virtual void Add(XmpPathSegment segment)
         {
-            segments.Add(segment);
+            _segments.Add(segment);
         }
 
         /// <param name="index">the index of the segment to return</param>
         /// <returns>Returns a path segment.</returns>
-        public virtual XMPPathSegment GetSegment(int index)
+        public virtual XmpPathSegment GetSegment(int index)
         {
-            return (XMPPathSegment)segments[index];
+            return (XmpPathSegment)_segments[index];
         }
 
         /// <returns>Returns the size of the xmp path.</returns>
         public virtual int Size()
         {
-            return segments.Count;
+            return _segments.Count;
         }
 
         /// <summary>Serializes the normalized XMP-path.</summary>

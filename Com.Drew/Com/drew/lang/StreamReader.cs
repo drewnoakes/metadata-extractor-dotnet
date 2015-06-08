@@ -48,7 +48,7 @@ namespace Com.Drew.Lang
             int value = _stream.Read();
             if (value == -1)
             {
-                throw new EOFException("End of data reached.");
+                throw new EofException("End of data reached.");
             }
             return unchecked((sbyte)value);
         }
@@ -64,7 +64,7 @@ namespace Com.Drew.Lang
                 int bytesRead = _stream.Read(bytes, totalBytesRead, count - totalBytesRead);
                 if (bytesRead == -1)
                 {
-                    throw new EOFException("End of data reached.");
+                    throw new EofException("End of data reached.");
                 }
                 totalBytesRead += bytesRead;
                 Debug.Assert((totalBytesRead <= count));
@@ -82,7 +82,7 @@ namespace Com.Drew.Lang
             long skippedCount = SkipInternal(n);
             if (skippedCount != n)
             {
-                throw new EOFException(Extensions.StringFormat("Unable to skip. Requested %d bytes but skipped %d.", n, skippedCount));
+                throw new EofException(Extensions.StringFormat("Unable to skip. Requested %d bytes but skipped %d.", n, skippedCount));
             }
         }
 

@@ -5,51 +5,51 @@ namespace Sharpen
 {
     public class WrappedSystemStream : Stream
     {
-        private readonly InputStream ist;
-        private readonly OutputStream ost;
-        int position;
-        int markedPosition;
+        private readonly InputStream _ist;
+        private readonly OutputStream _ost;
+        int _position;
+        int _markedPosition;
 
         public WrappedSystemStream (InputStream ist)
         {
-            this.ist = ist;
+            this._ist = ist;
         }
 
         public WrappedSystemStream (OutputStream ost)
         {
-            this.ost = ost;
+            this._ost = ost;
         }
 
         public InputStream InputStream {
-            get { return ist; }
+            get { return _ist; }
         }
 
         public OutputStream OutputStream {
-            get { return ost; }
+            get { return _ost; }
         }
 
         public override void Close ()
         {
-            if (this.ist != null) {
-                this.ist.Close ();
+            if (this._ist != null) {
+                this._ist.Close ();
             }
-            if (this.ost != null) {
-                this.ost.Close ();
+            if (this._ost != null) {
+                this._ost.Close ();
             }
         }
 
         public override void Flush ()
         {
-            this.ost.Flush ();
+            this._ost.Flush ();
         }
 
         public override int Read (byte[] buffer, int offset, int count)
         {
             sbyte[] sbuffer = new sbyte[count];
-            int res = this.ist.Read(sbuffer, 0, count);
+            int res = this._ist.Read(sbuffer, 0, count);
             Extensions.CopyCastBuffer(sbuffer,0, count,  buffer, offset);
             if (res != -1) {
-                position += res;
+                _position += res;
                 return res;
             } else
                 return 0;
@@ -57,9 +57,9 @@ namespace Sharpen
 
         public override int ReadByte ()
         {
-            int res = this.ist.Read ();
+            int res = this._ist.Read ();
             if (res != -1)
-                position++;
+                _position++;
             return res;
         }
 
@@ -83,18 +83,18 @@ namespace Sharpen
         {
             sbyte[] sbuffer = new sbyte[count];
             Extensions.CopyCastBuffer(buffer, offset, count, sbuffer,0);
-            this.ost.Write (sbuffer, 0, count);
-            position += count;
+            this._ost.Write (sbuffer, 0, count);
+            _position += count;
         }
 
         public override void WriteByte (byte value)
         {
-            this.ost.Write (value);
-            position++;
+            this._ost.Write (value);
+            _position++;
         }
 
         public override bool CanRead {
-            get { return (this.ist != null); }
+            get { return (this._ist != null); }
         }
 
         public override bool CanSeek {
@@ -102,15 +102,15 @@ namespace Sharpen
         }
 
         public override bool CanWrite {
-            get { return (this.ost != null); }
+            get { return (this._ost != null); }
         }
 
         public override long Length {
             get
             {
-                if (ist != null)
+                if (_ist != null)
                 {
-                    return ist.GetNativeStream().Length;
+                    return _ist.GetNativeStream().Length;
                 }
 
                 throw new NotSupportedException ();
@@ -119,24 +119,24 @@ namespace Sharpen
 
         public void OnMark (int nb)
         {
-            markedPosition = position;
-            ist.Mark (nb);
+            _markedPosition = _position;
+            _ist.Mark (nb);
         }
 
         public override long Position {
             get {
-                if (ist != null && ist.CanSeek ())
-                    return ist.Position;
+                if (_ist != null && _ist.CanSeek ())
+                    return _ist.Position;
                 else
-                    return position;
+                    return _position;
             }
             set {
-                if (value == position)
+                if (value == _position)
                     return;
-                else if (value == markedPosition)
-                    ist.Reset ();
-                else if (ist != null && ist.CanSeek ()) {
-                    ist.Position = value;
+                else if (value == _markedPosition)
+                    _ist.Reset ();
+                else if (_ist != null && _ist.CanSeek ()) {
+                    _ist.Position = value;
                 }
                 else
                     throw new NotSupportedException ();

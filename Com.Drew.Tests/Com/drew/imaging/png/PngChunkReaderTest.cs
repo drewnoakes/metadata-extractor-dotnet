@@ -35,11 +35,11 @@ namespace Com.Drew.Imaging.Png
             Assert.AreEqual(6, chunks.Count);
             Assert.AreEqual(PngChunkType.Ihdr, chunks[0].GetChunkType());
             Assert.AreEqual(13, chunks[0].GetBytes().Length);
-            Assert.AreEqual(PngChunkType.sRGB, chunks[1].GetChunkType());
+            Assert.AreEqual(PngChunkType.SRgb, chunks[1].GetChunkType());
             Assert.AreEqual(1, chunks[1].GetBytes().Length);
-            Assert.AreEqual(PngChunkType.gAMA, chunks[2].GetChunkType());
+            Assert.AreEqual(PngChunkType.GAma, chunks[2].GetChunkType());
             Assert.AreEqual(4, chunks[2].GetBytes().Length);
-            Assert.AreEqual(PngChunkType.pHYs, chunks[3].GetChunkType());
+            Assert.AreEqual(PngChunkType.PHYs, chunks[3].GetChunkType());
             Assert.AreEqual(9, chunks[3].GetBytes().Length);
             Assert.AreEqual(PngChunkType.Idat, chunks[4].GetChunkType());
             Assert.AreEqual(17, chunks[4].GetBytes().Length);
@@ -55,9 +55,9 @@ namespace Com.Drew.Imaging.Png
             Assert.AreEqual(5, chunks.Count);
             Assert.AreEqual(PngChunkType.Ihdr, chunks[0].GetChunkType());
             Assert.AreEqual(13, chunks[0].GetBytes().Length);
-            Assert.AreEqual(PngChunkType.tEXt, chunks[1].GetChunkType());
+            Assert.AreEqual(PngChunkType.TEXt, chunks[1].GetChunkType());
             Assert.AreEqual(25, chunks[1].GetBytes().Length);
-            Assert.AreEqual(PngChunkType.iTXt, chunks[2].GetChunkType());
+            Assert.AreEqual(PngChunkType.ITXt, chunks[2].GetChunkType());
             Assert.AreEqual(802, chunks[2].GetBytes().Length);
             Assert.AreEqual(PngChunkType.Idat, chunks[3].GetChunkType());
             Assert.AreEqual(130, chunks[3].GetBytes().Length);

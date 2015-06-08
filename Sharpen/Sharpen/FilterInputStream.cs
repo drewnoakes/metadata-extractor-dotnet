@@ -2,56 +2,56 @@ namespace Sharpen
 {
     public class FilterInputStream : InputStream
     {
-        protected InputStream @in;
+        protected InputStream In;
 
         public FilterInputStream (InputStream s)
         {
-            this.@in = s;
+            this.In = s;
         }
 
         public override int Available ()
         {
-            return this.@in.Available ();
+            return this.In.Available ();
         }
 
         public override void Close ()
         {
-            this.@in.Close ();
+            this.In.Close ();
         }
 
         public override void Mark (int readlimit)
         {
-            this.@in.Mark (readlimit);
+            this.In.Mark (readlimit);
         }
 
         public override bool MarkSupported ()
         {
-            return this.@in.MarkSupported ();
+            return this.In.MarkSupported ();
         }
 
         public override int Read ()
         {
-            return this.@in.Read ();
+            return this.In.Read ();
         }
 
         public override int Read (sbyte[] buf)
         {
-            return this.@in.Read (buf);
+            return this.In.Read (buf);
         }
 
         public override int Read (sbyte[] b, int off, int len)
         {
-            return this.@in.Read (b, off, len);
+            return this.In.Read (b, off, len);
         }
 
         public override void Reset ()
         {
-            this.@in.Reset ();
+            this.In.Reset ();
         }
 
         public override long Skip (long cnt)
         {
-            return this.@in.Skip (cnt);
+            return this.In.Skip (cnt);
         }
     }
 }

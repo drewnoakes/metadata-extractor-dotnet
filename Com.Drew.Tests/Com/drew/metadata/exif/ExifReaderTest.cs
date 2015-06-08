@@ -73,8 +73,8 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public virtual void TestLoadFujifilmJpeg()
         {
-            ExifSubIFDDirectory directory = ProcessBytes<ExifSubIFDDirectory>("Tests/Data/withExif.jpg.app1");
-            string description = directory.GetDescription(ExifSubIFDDirectory.TagIsoEquivalent);
+            ExifSubIfdDirectory directory = ProcessBytes<ExifSubIfdDirectory>("Tests/Data/withExif.jpg.app1");
+            string description = directory.GetDescription(ExifSubIfdDirectory.TagIsoEquivalent);
             Assert.IsNotNull(description);
             Assert.AreEqual("80", description);
         }
@@ -101,7 +101,7 @@ namespace Com.Drew.Metadata.Exif
             // This image was created via a resize in ACDSee.
             // It seems to have a reference to an IFD starting outside the data segment.
             // I've noticed that ACDSee reports a Comment for this image, yet ExifReader doesn't report one.
-            ExifSubIFDDirectory directory = ProcessBytes<ExifSubIFDDirectory>("Tests/Data/crash01.jpg.app1");
+            ExifSubIfdDirectory directory = ProcessBytes<ExifSubIfdDirectory>("Tests/Data/crash01.jpg.app1");
             Assert.IsTrue(directory.GetTagCount() > 0);
         }
 
@@ -109,8 +109,8 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public virtual void TestDateTime()
         {
-            ExifIFD0Directory directory = ProcessBytes<ExifIFD0Directory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
-            Assert.AreEqual("2002:11:27 18:00:35", directory.GetString(ExifIFD0Directory.TagDatetime));
+            ExifIfd0Directory directory = ProcessBytes<ExifIfd0Directory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
+            Assert.AreEqual("2002:11:27 18:00:35", directory.GetString(ExifIfd0Directory.TagDatetime));
         }
 
         /// <exception cref="System.Exception"/>
@@ -190,11 +190,11 @@ namespace Com.Drew.Metadata.Exif
             // These values used to be merged into a single directory, causing errors.
             // This unit test demonstrates correct behaviour.
             Metadata metadata = ProcessBytes("Tests/Data/repeatedOrientationTagWithDifferentValues.jpg.app1");
-            ExifIFD0Directory ifd0Directory = metadata.GetFirstDirectoryOfType<ExifIFD0Directory>();
+            ExifIfd0Directory ifd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
             ExifThumbnailDirectory thumbnailDirectory = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
             Assert.IsNotNull(ifd0Directory);
             Assert.IsNotNull(thumbnailDirectory);
-            Assert.AreEqual(1, ifd0Directory.GetInt(ExifIFD0Directory.TagOrientation));
+            Assert.AreEqual(1, ifd0Directory.GetInt(ExifIfd0Directory.TagOrientation));
             Assert.AreEqual(8, thumbnailDirectory.GetInt(ExifThumbnailDirectory.TagOrientation));
         }
 /*

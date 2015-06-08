@@ -31,7 +31,7 @@ namespace Com.Drew.Metadata.Adobe
     /// <summary>Decodes Adobe formatted data stored in JPEG files, normally in the APPE (App14) segment.</summary>
     /// <author>Philip</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class AdobeJpegReader : JpegSegmentMetadataReader
+    public class AdobeJpegReader : IJpegSegmentMetadataReader
     {
         public const string Preamble = "Adobe";
 

@@ -5,7 +5,7 @@ namespace Sharpen
 {
     public class InputStream : IDisposable
     {
-        private long mark;
+        private long _mark;
         protected Stream Wrapped;
         protected Stream BaseStream;
 
@@ -59,7 +59,7 @@ namespace Sharpen
                 if (BaseStream is WrappedSystemStream)
                     ((WrappedSystemStream)BaseStream).OnMark (readlimit);
                 if (Wrapped != null)
-                    this.mark = Wrapped.Position;
+                    this._mark = Wrapped.Position;
             }
         }
 
@@ -114,7 +114,7 @@ namespace Sharpen
             else {
                 if (Wrapped == null)
                     throw new IOException ();
-                Wrapped.Position = mark;
+                Wrapped.Position = _mark;
             }
         }
 

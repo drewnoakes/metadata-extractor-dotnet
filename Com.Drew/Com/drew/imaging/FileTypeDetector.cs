@@ -31,40 +31,40 @@ namespace Com.Drew.Imaging
     /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
     public static class FileTypeDetector
     {
-        private static readonly ByteTrie<FileType?> _root;
+        private static readonly ByteTrie<FileType?> Root;
 
         static FileTypeDetector()
         {
-            _root = new ByteTrie<FileType?>();
-            _root.SetDefaultValue(FileType.Unknown);
+            Root = new ByteTrie<FileType?>();
+            Root.SetDefaultValue(FileType.Unknown);
             // https://en.wikipedia.org/wiki/List_of_file_signatures
-            _root.AddPath(FileType.Jpeg, new sbyte[] { unchecked((sbyte)0xff), unchecked((sbyte)0xd8) });
-            _root.AddPath(FileType.Tiff, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x2a)), unchecked((int)(0x00)) });
-            _root.AddPath(FileType.Tiff, Runtime.GetBytesForString("MM"), new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x2a)) });
-            _root.AddPath(FileType.Psd, Runtime.GetBytesForString("8BPS"));
-            _root.AddPath(FileType.Png, new sbyte[] { unchecked((sbyte)0x89), unchecked((int)(0x50)), unchecked((int)(0x4E)), unchecked((int)(0x47)), unchecked((int)(0x0D)), unchecked((int)(0x0A)), unchecked((int)(0x1A)), unchecked((int)(0x0A)), unchecked(
+            Root.AddPath(FileType.Jpeg, new sbyte[] { unchecked((sbyte)0xff), unchecked((sbyte)0xd8) });
+            Root.AddPath(FileType.Tiff, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x2a)), unchecked((int)(0x00)) });
+            Root.AddPath(FileType.Tiff, Runtime.GetBytesForString("MM"), new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x2a)) });
+            Root.AddPath(FileType.Psd, Runtime.GetBytesForString("8BPS"));
+            Root.AddPath(FileType.Png, new sbyte[] { unchecked((sbyte)0x89), unchecked((int)(0x50)), unchecked((int)(0x4E)), unchecked((int)(0x47)), unchecked((int)(0x0D)), unchecked((int)(0x0A)), unchecked((int)(0x1A)), unchecked((int)(0x0A)), unchecked(
                 (int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x0D)), unchecked((int)(0x49)), unchecked((int)(0x48)), unchecked((int)(0x44)), unchecked((int)(0x52)) });
-            _root.AddPath(FileType.Bmp, Runtime.GetBytesForString("BM"));
+            Root.AddPath(FileType.Bmp, Runtime.GetBytesForString("BM"));
             // TODO technically there are other very rare magic numbers for OS/2 BMP files...
-            _root.AddPath(FileType.Gif, Runtime.GetBytesForString("GIF87a"));
-            _root.AddPath(FileType.Gif, Runtime.GetBytesForString("GIF89a"));
-            _root.AddPath(FileType.Ico, new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((int)(0x00)) });
-            _root.AddPath(FileType.Pcx, new sbyte[] { unchecked((int)(0x0A)), unchecked((int)(0x00)), unchecked((int)(0x01)) });
+            Root.AddPath(FileType.Gif, Runtime.GetBytesForString("GIF87a"));
+            Root.AddPath(FileType.Gif, Runtime.GetBytesForString("GIF89a"));
+            Root.AddPath(FileType.Ico, new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((int)(0x00)) });
+            Root.AddPath(FileType.Pcx, new sbyte[] { unchecked((int)(0x0A)), unchecked((int)(0x00)), unchecked((int)(0x01)) });
             // multiple PCX versions, explicitly listed
-            _root.AddPath(FileType.Pcx, new sbyte[] { unchecked((int)(0x0A)), unchecked((int)(0x02)), unchecked((int)(0x01)) });
-            _root.AddPath(FileType.Pcx, new sbyte[] { unchecked((int)(0x0A)), unchecked((int)(0x03)), unchecked((int)(0x01)) });
-            _root.AddPath(FileType.Pcx, new sbyte[] { unchecked((int)(0x0A)), unchecked((int)(0x05)), unchecked((int)(0x01)) });
-            _root.AddPath(FileType.Riff, Runtime.GetBytesForString("RIFF"));
-            _root.AddPath(FileType.Arw, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x2a)), unchecked((int)(0x00)), unchecked((int)(0x08)), unchecked((int)(0x00)) });
-            _root.AddPath(FileType.Crw, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x1a)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)) }, Runtime.GetBytesForString("HEAPCCDR"));
-            _root.AddPath(FileType.Cr2, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x2a)), unchecked((int)(0x00)), unchecked((int)(0x10)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int
+            Root.AddPath(FileType.Pcx, new sbyte[] { unchecked((int)(0x0A)), unchecked((int)(0x02)), unchecked((int)(0x01)) });
+            Root.AddPath(FileType.Pcx, new sbyte[] { unchecked((int)(0x0A)), unchecked((int)(0x03)), unchecked((int)(0x01)) });
+            Root.AddPath(FileType.Pcx, new sbyte[] { unchecked((int)(0x0A)), unchecked((int)(0x05)), unchecked((int)(0x01)) });
+            Root.AddPath(FileType.Riff, Runtime.GetBytesForString("RIFF"));
+            Root.AddPath(FileType.Arw, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x2a)), unchecked((int)(0x00)), unchecked((int)(0x08)), unchecked((int)(0x00)) });
+            Root.AddPath(FileType.Crw, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x1a)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)) }, Runtime.GetBytesForString("HEAPCCDR"));
+            Root.AddPath(FileType.Cr2, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x2a)), unchecked((int)(0x00)), unchecked((int)(0x10)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int
                 )(0x43)), unchecked((int)(0x52)) });
-            _root.AddPath(FileType.Nef, Runtime.GetBytesForString("MM"), new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x2a)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((sbyte)0x80), unchecked((int
+            Root.AddPath(FileType.Nef, Runtime.GetBytesForString("MM"), new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x2a)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((sbyte)0x80), unchecked((int
                 )(0x00)) });
-            _root.AddPath(FileType.Orf, Runtime.GetBytesForString("IIRO"), new sbyte[] { unchecked((sbyte)0x08), unchecked((int)(0x00)) });
-            _root.AddPath(FileType.Orf, Runtime.GetBytesForString("IIRS"), new sbyte[] { unchecked((sbyte)0x08), unchecked((int)(0x00)) });
-            _root.AddPath(FileType.Raf, Runtime.GetBytesForString("FUJIFILMCCD-RAW"));
-            _root.AddPath(FileType.Rw2, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x55)), unchecked((int)(0x00)) });
+            Root.AddPath(FileType.Orf, Runtime.GetBytesForString("IIRO"), new sbyte[] { unchecked((sbyte)0x08), unchecked((int)(0x00)) });
+            Root.AddPath(FileType.Orf, Runtime.GetBytesForString("IIRS"), new sbyte[] { unchecked((sbyte)0x08), unchecked((int)(0x00)) });
+            Root.AddPath(FileType.Raf, Runtime.GetBytesForString("FUJIFILMCCD-RAW"));
+            Root.AddPath(FileType.Rw2, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x55)), unchecked((int)(0x00)) });
         }
 
         /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
@@ -82,7 +82,7 @@ namespace Com.Drew.Imaging
         [NotNull]
         public static FileType? DetectFileType([NotNull] BufferedInputStream inputStream)
         {
-            int maxByteCount = _root.GetMaxDepth();
+            int maxByteCount = Root.GetMaxDepth();
             inputStream.Mark(maxByteCount);
             sbyte[] bytes = new sbyte[maxByteCount];
             int bytesRead = inputStream.Read(bytes);
@@ -92,7 +92,7 @@ namespace Com.Drew.Imaging
             }
             inputStream.Reset();
             //noinspection ConstantConditions
-            return _root.Find(bytes);
+            return Root.Find(bytes);
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Com.Drew.Tools
         /// <exception cref="System.IO.IOException"/>
         private static void ProcessUrl(Uri url)
         {
-            URLConnection con = url.OpenConnection();
+            UrlConnection con = url.OpenConnection();
             //        con.setConnectTimeout(connectTimeout);
             //        con.setReadTimeout(readTimeout);
             InputStream @in = con.GetInputStream();
@@ -90,12 +90,12 @@ namespace Com.Drew.Tools
                 }
             }
             // Iterate through all values
-            foreach (Directory directory_1 in metadata.GetDirectories())
+            foreach (Directory directory1 in metadata.GetDirectories())
             {
-                foreach (Tag tag in directory_1.GetTags())
+                foreach (Tag tag in directory1.GetTags())
                 {
                     string tagName = tag.GetTagName();
-                    string directoryName = directory_1.GetName();
+                    string directoryName = directory1.GetName();
                     string description = tag.GetDescription();
                     // truncate the description if it's too long
                     if (description != null && description.Length > 1024)

@@ -166,7 +166,7 @@ namespace Com.Drew.Lang
         /// <c>-1° 23' 4.56", 54° 32' 1.92"</c>
         /// </returns>
         [NotNull]
-        public string ToDMSString()
+        public string ToDmsString()
         {
             return DecimalToDegreesMinutesSecondsString(_latitude) + ", " + DecimalToDegreesMinutesSecondsString(_longitude);
         }

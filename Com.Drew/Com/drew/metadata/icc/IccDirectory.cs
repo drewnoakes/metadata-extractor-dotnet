@@ -64,174 +64,174 @@ namespace Com.Drew.Metadata.Icc
 
         public const int TagTagCount = 128;
 
-        public const int TagTagA2b0 = unchecked((int)(0x41324230));
+        public const int TagTagA2B0 = unchecked((int)(0x41324230));
 
-        public const int TagTagA2b1 = unchecked((int)(0x41324231));
+        public const int TagTagA2B1 = unchecked((int)(0x41324231));
 
-        public const int TagTagA2b2 = unchecked((int)(0x41324232));
+        public const int TagTagA2B2 = unchecked((int)(0x41324232));
 
-        public const int TAG_TAG_bXYZ = unchecked((int)(0x6258595A));
+        public const int TagTag_BXyz = unchecked((int)(0x6258595A));
 
-        public const int TAG_TAG_bTRC = unchecked((int)(0x62545243));
+        public const int TagTag_BTrc = unchecked((int)(0x62545243));
 
-        public const int TagTagB2a0 = unchecked((int)(0x42324130));
+        public const int TagTagB2A0 = unchecked((int)(0x42324130));
 
-        public const int TagTagB2a1 = unchecked((int)(0x42324131));
+        public const int TagTagB2A1 = unchecked((int)(0x42324131));
 
-        public const int TagTagB2a2 = unchecked((int)(0x42324132));
+        public const int TagTagB2A2 = unchecked((int)(0x42324132));
 
-        public const int TAG_TAG_calt = unchecked((int)(0x63616C74));
+        public const int TagTagCalt = unchecked((int)(0x63616C74));
 
-        public const int TAG_TAG_targ = unchecked((int)(0x74617267));
+        public const int TagTagTarg = unchecked((int)(0x74617267));
 
-        public const int TAG_TAG_chad = unchecked((int)(0x63686164));
+        public const int TagTagChad = unchecked((int)(0x63686164));
 
-        public const int TAG_TAG_chrm = unchecked((int)(0x6368726D));
+        public const int TagTagChrm = unchecked((int)(0x6368726D));
 
-        public const int TAG_TAG_cprt = unchecked((int)(0x63707274));
+        public const int TagTagCprt = unchecked((int)(0x63707274));
 
-        public const int TAG_TAG_crdi = unchecked((int)(0x63726469));
+        public const int TagTagCrdi = unchecked((int)(0x63726469));
 
-        public const int TAG_TAG_dmnd = unchecked((int)(0x646D6E64));
+        public const int TagTagDmnd = unchecked((int)(0x646D6E64));
 
-        public const int TAG_TAG_dmdd = unchecked((int)(0x646D6464));
+        public const int TagTagDmdd = unchecked((int)(0x646D6464));
 
-        public const int TAG_TAG_devs = unchecked((int)(0x64657673));
+        public const int TagTagDevs = unchecked((int)(0x64657673));
 
-        public const int TAG_TAG_gamt = unchecked((int)(0x67616D74));
+        public const int TagTagGamt = unchecked((int)(0x67616D74));
 
-        public const int TAG_TAG_kTRC = unchecked((int)(0x6B545243));
+        public const int TagTag_KTrc = unchecked((int)(0x6B545243));
 
-        public const int TAG_TAG_gXYZ = unchecked((int)(0x6758595A));
+        public const int TagTag_GXyz = unchecked((int)(0x6758595A));
 
-        public const int TAG_TAG_gTRC = unchecked((int)(0x67545243));
+        public const int TagTag_GTrc = unchecked((int)(0x67545243));
 
-        public const int TAG_TAG_lumi = unchecked((int)(0x6C756D69));
+        public const int TagTagLumi = unchecked((int)(0x6C756D69));
 
-        public const int TAG_TAG_meas = unchecked((int)(0x6D656173));
+        public const int TagTagMeas = unchecked((int)(0x6D656173));
 
-        public const int TAG_TAG_bkpt = unchecked((int)(0x626B7074));
+        public const int TagTagBkpt = unchecked((int)(0x626B7074));
 
-        public const int TAG_TAG_wtpt = unchecked((int)(0x77747074));
+        public const int TagTagWtpt = unchecked((int)(0x77747074));
 
-        public const int TAG_TAG_ncol = unchecked((int)(0x6E636F6C));
+        public const int TagTagNcol = unchecked((int)(0x6E636F6C));
 
-        public const int TAG_TAG_ncl2 = unchecked((int)(0x6E636C32));
+        public const int TagTagNcl2 = unchecked((int)(0x6E636C32));
 
-        public const int TAG_TAG_resp = unchecked((int)(0x72657370));
+        public const int TagTagResp = unchecked((int)(0x72657370));
 
-        public const int TAG_TAG_pre0 = unchecked((int)(0x70726530));
+        public const int TagTagPre0 = unchecked((int)(0x70726530));
 
-        public const int TAG_TAG_pre1 = unchecked((int)(0x70726531));
+        public const int TagTagPre1 = unchecked((int)(0x70726531));
 
-        public const int TAG_TAG_pre2 = unchecked((int)(0x70726532));
+        public const int TagTagPre2 = unchecked((int)(0x70726532));
 
-        public const int TAG_TAG_desc = unchecked((int)(0x64657363));
+        public const int TagTagDesc = unchecked((int)(0x64657363));
 
-        public const int TAG_TAG_pseq = unchecked((int)(0x70736571));
+        public const int TagTagPseq = unchecked((int)(0x70736571));
 
-        public const int TAG_TAG_psd0 = unchecked((int)(0x70736430));
+        public const int TagTagPsd0 = unchecked((int)(0x70736430));
 
-        public const int TAG_TAG_psd1 = unchecked((int)(0x70736431));
+        public const int TagTagPsd1 = unchecked((int)(0x70736431));
 
-        public const int TAG_TAG_psd2 = unchecked((int)(0x70736432));
+        public const int TagTagPsd2 = unchecked((int)(0x70736432));
 
-        public const int TAG_TAG_psd3 = unchecked((int)(0x70736433));
+        public const int TagTagPsd3 = unchecked((int)(0x70736433));
 
-        public const int TAG_TAG_ps2s = unchecked((int)(0x70733273));
+        public const int TagTagPs2S = unchecked((int)(0x70733273));
 
-        public const int TAG_TAG_ps2i = unchecked((int)(0x70733269));
+        public const int TagTagPs2I = unchecked((int)(0x70733269));
 
-        public const int TAG_TAG_rXYZ = unchecked((int)(0x7258595A));
+        public const int TagTag_RXyz = unchecked((int)(0x7258595A));
 
-        public const int TAG_TAG_rTRC = unchecked((int)(0x72545243));
+        public const int TagTag_RTrc = unchecked((int)(0x72545243));
 
-        public const int TAG_TAG_scrd = unchecked((int)(0x73637264));
+        public const int TagTagScrd = unchecked((int)(0x73637264));
 
-        public const int TAG_TAG_scrn = unchecked((int)(0x7363726E));
+        public const int TagTagScrn = unchecked((int)(0x7363726E));
 
-        public const int TAG_TAG_tech = unchecked((int)(0x74656368));
+        public const int TagTagTech = unchecked((int)(0x74656368));
 
-        public const int TAG_TAG_bfd = unchecked((int)(0x62666420));
+        public const int TagTagBfd = unchecked((int)(0x62666420));
 
-        public const int TAG_TAG_vued = unchecked((int)(0x76756564));
+        public const int TagTagVued = unchecked((int)(0x76756564));
 
-        public const int TAG_TAG_view = unchecked((int)(0x76696577));
+        public const int TagTagView = unchecked((int)(0x76696577));
 
         public const int TagAppleMultiLanguageProfileName = unchecked((int)(0x6473636d));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static IccDirectory()
         {
             // These (smaller valued) tags have an integer value that's equal to their offset within the ICC data buffer.
             // These tag values
-            _tagNameMap.Put(TagProfileByteCount, "Profile Size");
-            _tagNameMap.Put(TagCmmType, "CMM Type");
-            _tagNameMap.Put(TagProfileVersion, "Version");
-            _tagNameMap.Put(TagProfileClass, "Class");
-            _tagNameMap.Put(TagColorSpace, "Color space");
-            _tagNameMap.Put(TagProfileConnectionSpace, "Profile Connection Space");
-            _tagNameMap.Put(TagProfileDatetime, "Profile Date/Time");
-            _tagNameMap.Put(TagSignature, "Signature");
-            _tagNameMap.Put(TagPlatform, "Primary Platform");
-            _tagNameMap.Put(TagCmmFlags, "CMM Flags");
-            _tagNameMap.Put(TagDeviceMake, "Device manufacturer");
-            _tagNameMap.Put(TagDeviceModel, "Device model");
-            _tagNameMap.Put(TagDeviceAttr, "Device attributes");
-            _tagNameMap.Put(TagRenderingIntent, "Rendering Intent");
-            _tagNameMap.Put(TagXyzValues, "XYZ values");
-            _tagNameMap.Put(TagProfileCreator, "Profile Creator");
-            _tagNameMap.Put(TagTagCount, "Tag Count");
-            _tagNameMap.Put(TagTagA2b0, "AToB 0");
-            _tagNameMap.Put(TagTagA2b1, "AToB 1");
-            _tagNameMap.Put(TagTagA2b2, "AToB 2");
-            _tagNameMap.Put(TAG_TAG_bXYZ, "Blue Colorant");
-            _tagNameMap.Put(TAG_TAG_bTRC, "Blue TRC");
-            _tagNameMap.Put(TagTagB2a0, "BToA 0");
-            _tagNameMap.Put(TagTagB2a1, "BToA 1");
-            _tagNameMap.Put(TagTagB2a2, "BToA 2");
-            _tagNameMap.Put(TAG_TAG_calt, "Calibration Date/Time");
-            _tagNameMap.Put(TAG_TAG_targ, "Char Target");
-            _tagNameMap.Put(TAG_TAG_chad, "Chromatic Adaptation");
-            _tagNameMap.Put(TAG_TAG_chrm, "Chromaticity");
-            _tagNameMap.Put(TAG_TAG_cprt, "Copyright");
-            _tagNameMap.Put(TAG_TAG_crdi, "CrdInfo");
-            _tagNameMap.Put(TAG_TAG_dmnd, "Device Mfg Description");
-            _tagNameMap.Put(TAG_TAG_dmdd, "Device Model Description");
-            _tagNameMap.Put(TAG_TAG_devs, "Device Settings");
-            _tagNameMap.Put(TAG_TAG_gamt, "Gamut");
-            _tagNameMap.Put(TAG_TAG_kTRC, "Gray TRC");
-            _tagNameMap.Put(TAG_TAG_gXYZ, "Green Colorant");
-            _tagNameMap.Put(TAG_TAG_gTRC, "Green TRC");
-            _tagNameMap.Put(TAG_TAG_lumi, "Luminance");
-            _tagNameMap.Put(TAG_TAG_meas, "Measurement");
-            _tagNameMap.Put(TAG_TAG_bkpt, "Media Black Point");
-            _tagNameMap.Put(TAG_TAG_wtpt, "Media White Point");
-            _tagNameMap.Put(TAG_TAG_ncol, "Named Color");
-            _tagNameMap.Put(TAG_TAG_ncl2, "Named Color 2");
-            _tagNameMap.Put(TAG_TAG_resp, "Output Response");
-            _tagNameMap.Put(TAG_TAG_pre0, "Preview 0");
-            _tagNameMap.Put(TAG_TAG_pre1, "Preview 1");
-            _tagNameMap.Put(TAG_TAG_pre2, "Preview 2");
-            _tagNameMap.Put(TAG_TAG_desc, "Profile Description");
-            _tagNameMap.Put(TAG_TAG_pseq, "Profile Sequence Description");
-            _tagNameMap.Put(TAG_TAG_psd0, "Ps2 CRD 0");
-            _tagNameMap.Put(TAG_TAG_psd1, "Ps2 CRD 1");
-            _tagNameMap.Put(TAG_TAG_psd2, "Ps2 CRD 2");
-            _tagNameMap.Put(TAG_TAG_psd3, "Ps2 CRD 3");
-            _tagNameMap.Put(TAG_TAG_ps2s, "Ps2 CSA");
-            _tagNameMap.Put(TAG_TAG_ps2i, "Ps2 Rendering Intent");
-            _tagNameMap.Put(TAG_TAG_rXYZ, "Red Colorant");
-            _tagNameMap.Put(TAG_TAG_rTRC, "Red TRC");
-            _tagNameMap.Put(TAG_TAG_scrd, "Screening Desc");
-            _tagNameMap.Put(TAG_TAG_scrn, "Screening");
-            _tagNameMap.Put(TAG_TAG_tech, "Technology");
-            _tagNameMap.Put(TAG_TAG_bfd, "Ucrbg");
-            _tagNameMap.Put(TAG_TAG_vued, "Viewing Conditions Description");
-            _tagNameMap.Put(TAG_TAG_view, "Viewing Conditions");
-            _tagNameMap.Put(TagAppleMultiLanguageProfileName, "Apple Multi-language Profile Name");
+            TagNameMap.Put(TagProfileByteCount, "Profile Size");
+            TagNameMap.Put(TagCmmType, "CMM Type");
+            TagNameMap.Put(TagProfileVersion, "Version");
+            TagNameMap.Put(TagProfileClass, "Class");
+            TagNameMap.Put(TagColorSpace, "Color space");
+            TagNameMap.Put(TagProfileConnectionSpace, "Profile Connection Space");
+            TagNameMap.Put(TagProfileDatetime, "Profile Date/Time");
+            TagNameMap.Put(TagSignature, "Signature");
+            TagNameMap.Put(TagPlatform, "Primary Platform");
+            TagNameMap.Put(TagCmmFlags, "CMM Flags");
+            TagNameMap.Put(TagDeviceMake, "Device manufacturer");
+            TagNameMap.Put(TagDeviceModel, "Device model");
+            TagNameMap.Put(TagDeviceAttr, "Device attributes");
+            TagNameMap.Put(TagRenderingIntent, "Rendering Intent");
+            TagNameMap.Put(TagXyzValues, "XYZ values");
+            TagNameMap.Put(TagProfileCreator, "Profile Creator");
+            TagNameMap.Put(TagTagCount, "Tag Count");
+            TagNameMap.Put(TagTagA2B0, "AToB 0");
+            TagNameMap.Put(TagTagA2B1, "AToB 1");
+            TagNameMap.Put(TagTagA2B2, "AToB 2");
+            TagNameMap.Put(TagTag_BXyz, "Blue Colorant");
+            TagNameMap.Put(TagTag_BTrc, "Blue TRC");
+            TagNameMap.Put(TagTagB2A0, "BToA 0");
+            TagNameMap.Put(TagTagB2A1, "BToA 1");
+            TagNameMap.Put(TagTagB2A2, "BToA 2");
+            TagNameMap.Put(TagTagCalt, "Calibration Date/Time");
+            TagNameMap.Put(TagTagTarg, "Char Target");
+            TagNameMap.Put(TagTagChad, "Chromatic Adaptation");
+            TagNameMap.Put(TagTagChrm, "Chromaticity");
+            TagNameMap.Put(TagTagCprt, "Copyright");
+            TagNameMap.Put(TagTagCrdi, "CrdInfo");
+            TagNameMap.Put(TagTagDmnd, "Device Mfg Description");
+            TagNameMap.Put(TagTagDmdd, "Device Model Description");
+            TagNameMap.Put(TagTagDevs, "Device Settings");
+            TagNameMap.Put(TagTagGamt, "Gamut");
+            TagNameMap.Put(TagTag_KTrc, "Gray TRC");
+            TagNameMap.Put(TagTag_GXyz, "Green Colorant");
+            TagNameMap.Put(TagTag_GTrc, "Green TRC");
+            TagNameMap.Put(TagTagLumi, "Luminance");
+            TagNameMap.Put(TagTagMeas, "Measurement");
+            TagNameMap.Put(TagTagBkpt, "Media Black Point");
+            TagNameMap.Put(TagTagWtpt, "Media White Point");
+            TagNameMap.Put(TagTagNcol, "Named Color");
+            TagNameMap.Put(TagTagNcl2, "Named Color 2");
+            TagNameMap.Put(TagTagResp, "Output Response");
+            TagNameMap.Put(TagTagPre0, "Preview 0");
+            TagNameMap.Put(TagTagPre1, "Preview 1");
+            TagNameMap.Put(TagTagPre2, "Preview 2");
+            TagNameMap.Put(TagTagDesc, "Profile Description");
+            TagNameMap.Put(TagTagPseq, "Profile Sequence Description");
+            TagNameMap.Put(TagTagPsd0, "Ps2 CRD 0");
+            TagNameMap.Put(TagTagPsd1, "Ps2 CRD 1");
+            TagNameMap.Put(TagTagPsd2, "Ps2 CRD 2");
+            TagNameMap.Put(TagTagPsd3, "Ps2 CRD 3");
+            TagNameMap.Put(TagTagPs2S, "Ps2 CSA");
+            TagNameMap.Put(TagTagPs2I, "Ps2 Rendering Intent");
+            TagNameMap.Put(TagTag_RXyz, "Red Colorant");
+            TagNameMap.Put(TagTag_RTrc, "Red TRC");
+            TagNameMap.Put(TagTagScrd, "Screening Desc");
+            TagNameMap.Put(TagTagScrn, "Screening");
+            TagNameMap.Put(TagTagTech, "Technology");
+            TagNameMap.Put(TagTagBfd, "Ucrbg");
+            TagNameMap.Put(TagTagVued, "Viewing Conditions Description");
+            TagNameMap.Put(TagTagView, "Viewing Conditions");
+            TagNameMap.Put(TagAppleMultiLanguageProfileName, "Apple Multi-language Profile Name");
         }
 
         public IccDirectory()
@@ -248,7 +248,7 @@ namespace Com.Drew.Metadata.Icc
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

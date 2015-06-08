@@ -8,25 +8,25 @@ namespace Sharpen
 {
     public static class Runtime
     {
-        static Hashtable properties;
+        static Hashtable _properties;
 
         public static Hashtable GetProperties ()
         {
-            if (properties == null) {
-                properties = new Hashtable ();
-                properties ["jgit.fs.debug"] = "false";
+            if (_properties == null) {
+                _properties = new Hashtable ();
+                _properties ["jgit.fs.debug"] = "false";
                 var home = Environment.GetFolderPath (Environment.SpecialFolder.UserProfile).Trim ();
                 if (string.IsNullOrEmpty (home))
                     home = Environment.GetFolderPath (Environment.SpecialFolder.Personal).Trim ();
-                properties ["user.home"] = home;
-                properties ["java.library.path"] = Environment.GetEnvironmentVariable ("PATH");
+                _properties ["user.home"] = home;
+                _properties ["java.library.path"] = Environment.GetEnvironmentVariable ("PATH");
                 if (Path.DirectorySeparatorChar != '\\')
-                    properties ["os.name"] = "Unix";
+                    _properties ["os.name"] = "Unix";
                 else
-                    properties ["os.name"] = "Windows";
-                properties["file.encoding"] = Encoding.UTF8.BodyName;
+                    _properties ["os.name"] = "Windows";
+                _properties["file.encoding"] = Encoding.UTF8.BodyName;
             }
-            return properties;
+            return _properties;
         }
 
         public static string GetProperty (string key)

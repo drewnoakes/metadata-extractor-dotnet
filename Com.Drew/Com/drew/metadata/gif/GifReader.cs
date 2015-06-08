@@ -7,9 +7,9 @@ namespace Com.Drew.Metadata.Gif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class GifReader
     {
-        private const string Gif87aVersionIdentifier = "87a";
+        private const string Gif87AVersionIdentifier = "87a";
 
-        private const string Gif89aVersionIdentifier = "89a";
+        private const string Gif89AVersionIdentifier = "89a";
 
         public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
         {
@@ -41,7 +41,7 @@ namespace Com.Drew.Metadata.Gif
                     return;
                 }
                 string version = reader.GetString(3);
-                if (!version.Equals(Gif87aVersionIdentifier) && !version.Equals(Gif89aVersionIdentifier))
+                if (!version.Equals(Gif87AVersionIdentifier) && !version.Equals(Gif89AVersionIdentifier))
                 {
                     directory.AddError("Unexpected GIF version");
                     return;
@@ -53,7 +53,7 @@ namespace Com.Drew.Metadata.Gif
                 // First three bits = (BPP - 1)
                 int colorTableSize = 1 << ((flags & 7) + 1);
                 directory.SetInt(GifHeaderDirectory.TagColorTableSize, colorTableSize);
-                if (version.Equals(Gif89aVersionIdentifier))
+                if (version.Equals(Gif89AVersionIdentifier))
                 {
                     bool isColorTableSorted = (flags & 8) != 0;
                     directory.SetBoolean(GifHeaderDirectory.TagIsColorTableSorted, isColorTableSorted);

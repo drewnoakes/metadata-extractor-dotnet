@@ -35,12 +35,12 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public const int TagPrintImageMatchingInfo = unchecked((int)(0x0E00));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static KyoceraMakernoteDirectory()
         {
-            _tagNameMap.Put(TagProprietaryThumbnail, "Proprietary Thumbnail Format Data");
-            _tagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info");
+            TagNameMap.Put(TagProprietaryThumbnail, "Proprietary Thumbnail Format Data");
+            TagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info");
         }
 
         public KyoceraMakernoteDirectory()
@@ -57,7 +57,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

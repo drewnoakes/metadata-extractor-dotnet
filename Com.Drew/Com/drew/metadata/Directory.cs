@@ -39,7 +39,7 @@ namespace Com.Drew.Metadata
     {
         /// <summary>Map of values hashed by type identifiers.</summary>
         [NotNull]
-        protected internal readonly IDictionary<int?, object> _tagMap = new Dictionary<int?, object>();
+        protected internal readonly IDictionary<int?, object> TagMap = new Dictionary<int?, object>();
 
         /// <summary>A convenient list holding tag values in the order in which they were stored.</summary>
         /// <remarks>
@@ -48,13 +48,13 @@ namespace Com.Drew.Metadata
         /// defined tags.
         /// </remarks>
         [NotNull]
-        protected internal readonly ICollection<Tag> _definedTagList = new AList<Tag>();
+        protected internal readonly ICollection<Tag> DefinedTagList = new AList<Tag>();
 
         [NotNull]
         private readonly ICollection<string> _errorList = new AList<string>(4);
 
         /// <summary>The descriptor used to interpret tag values.</summary>
-        protected internal ITagDescriptor _descriptor;
+        protected internal ITagDescriptor Descriptor;
 
         // ABSTRACT METHODS
         /// <summary>Provides the name of the directory, for display purposes.</summary>
@@ -76,7 +76,7 @@ namespace Com.Drew.Metadata
         /// <summary>Gets a value indicating whether the directory is empty, meaning it contains no errors and no tag values.</summary>
         public virtual bool IsEmpty()
         {
-            return _errorList.IsEmpty() && _definedTagList.IsEmpty();
+            return _errorList.IsEmpty() && DefinedTagList.IsEmpty();
         }
 
         /// <summary>Indicates whether the specified tag type has been set.</summary>
@@ -84,7 +84,7 @@ namespace Com.Drew.Metadata
         /// <returns>true if a value exists for the specified tag type, false if not</returns>
         public virtual bool ContainsTag(int tagType)
         {
-            return _tagMap.ContainsKey(Extensions.ValueOf(tagType));
+            return TagMap.ContainsKey(Extensions.ValueOf(tagType));
         }
 
         /// <summary>Returns an Iterator of Tag instances that have been set in this Directory.</summary>
@@ -92,14 +92,14 @@ namespace Com.Drew.Metadata
         [NotNull]
         public virtual ICollection<Tag> GetTags()
         {
-            return Collections.UnmodifiableCollection(_definedTagList);
+            return Collections.UnmodifiableCollection(DefinedTagList);
         }
 
         /// <summary>Returns the number of tags set in this Directory.</summary>
         /// <returns>the number of tags set in this Directory</returns>
         public virtual int GetTagCount()
         {
-            return _definedTagList.Count;
+            return DefinedTagList.Count;
         }
 
         /// <summary>Sets the descriptor used to interpret tag values.</summary>
@@ -110,7 +110,7 @@ namespace Com.Drew.Metadata
             {
                 throw new ArgumentNullException("cannot set a null descriptor");
             }
-            _descriptor = descriptor;
+            Descriptor = descriptor;
         }
 
         /// <summary>Registers an error message with this directory.</summary>
@@ -268,16 +268,16 @@ namespace Com.Drew.Metadata
             {
                 throw new ArgumentNullException("cannot set a null object");
             }
-            if (!_tagMap.ContainsKey(Extensions.ValueOf(tagType)))
+            if (!TagMap.ContainsKey(Extensions.ValueOf(tagType)))
             {
-                _definedTagList.Add(new Tag(tagType, this));
+                DefinedTagList.Add(new Tag(tagType, this));
             }
             //        else {
             //            final Object oldValue = _tagMap.get(tagType);
             //            if (!oldValue.equals(value))
             //                addError(String.format("Overwritten tag 0x%s (%s).  Old=%s, New=%s", Integer.toHexString(tagType), getTagName(tagType), oldValue, value));
             //        }
-            _tagMap.Put(tagType, value);
+            TagMap.Put(tagType, value);
         }
 
         /// <summary>Sets an array <code>Object</code> for the specified tag.</summary>
@@ -1046,7 +1046,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public virtual object GetObject(int tagType)
         {
-            return _tagMap.Get(Extensions.ValueOf(tagType));
+            return TagMap.Get(Extensions.ValueOf(tagType));
         }
 
         // OTHER METHODS
@@ -1086,13 +1086,13 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public virtual string GetDescription(int tagType)
         {
-            Debug.Assert((_descriptor != null));
-            return _descriptor.GetDescription(tagType);
+            Debug.Assert((Descriptor != null));
+            return Descriptor.GetDescription(tagType);
         }
 
         public override string ToString()
         {
-            return Extensions.StringFormat("%s Directory (%d %s)", GetName(), _tagMap.Count, _tagMap.Count == 1 ? "tag" : "tags");
+            return Extensions.StringFormat("%s Directory (%d %s)", GetName(), TagMap.Count, TagMap.Count == 1 ? "tag" : "tags");
         }
     }
 }

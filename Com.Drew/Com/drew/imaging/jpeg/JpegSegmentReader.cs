@@ -122,7 +122,7 @@ namespace Com.Drew.Imaging.Jpeg
                 segmentTypeBytes = new HashSet<sbyte>();
                 foreach (JpegSegmentType segmentType in segmentTypes)
                 {
-                    segmentTypeBytes.Add(segmentType.byteValue);
+                    segmentTypeBytes.Add(segmentType.ByteValue);
                 }
             }
             JpegSegmentData segmentData = new JpegSegmentData();

@@ -27,17 +27,17 @@ namespace Com.Drew.Metadata.Exif
 {
     /// <summary>JUnit test case for class ExifSubIFDDescriptor.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ExifSubIFDDescriptorTest
+    public class ExifSubIfdDescriptorTest
     {
         /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestUserCommentDescription_EmptyEncoding()
         {
             sbyte[] commentBytes = Runtime.GetBytesForString("\x0\x0\x0\x0\x0\x0\x0\x0This is a comment");
-            ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
-            directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
-            ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Assert.AreEqual("This is a comment", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
+            directory.SetByteArray(ExifSubIfdDirectory.TagUserComment, commentBytes);
+            ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);
+            Assert.AreEqual("This is a comment", descriptor.GetDescription(ExifSubIfdDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
@@ -45,10 +45,10 @@ namespace Com.Drew.Metadata.Exif
         public virtual void TestUserCommentDescription_AsciiHeaderAsciiEncoding()
         {
             sbyte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0This is a comment");
-            ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
-            directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
-            ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Assert.AreEqual("This is a comment", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
+            directory.SetByteArray(ExifSubIfdDirectory.TagUserComment, commentBytes);
+            ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);
+            Assert.AreEqual("This is a comment", descriptor.GetDescription(ExifSubIfdDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
@@ -56,10 +56,10 @@ namespace Com.Drew.Metadata.Exif
         public virtual void TestUserCommentDescription_BlankAscii()
         {
             sbyte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0\x0          ");
-            ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
-            directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
-            ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Assert.AreEqual(string.Empty, descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
+            directory.SetByteArray(ExifSubIfdDirectory.TagUserComment, commentBytes);
+            ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);
+            Assert.AreEqual(string.Empty, descriptor.GetDescription(ExifSubIfdDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
@@ -68,10 +68,10 @@ namespace Com.Drew.Metadata.Exif
         {
             // the 10-byte encoding region is only partially full
             sbyte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0\x0");
-            ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
-            directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
-            ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Assert.AreEqual("ASCII", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
+            directory.SetByteArray(ExifSubIfdDirectory.TagUserComment, commentBytes);
+            ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);
+            Assert.AreEqual("ASCII", descriptor.GetDescription(ExifSubIfdDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
@@ -80,10 +80,10 @@ namespace Com.Drew.Metadata.Exif
         {
             // fill the 10-byte encoding region
             sbyte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0\x0\x0\x0");
-            ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
-            directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
-            ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Assert.AreEqual(string.Empty, descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
+            directory.SetByteArray(ExifSubIfdDirectory.TagUserComment, commentBytes);
+            ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);
+            Assert.AreEqual(string.Empty, descriptor.GetDescription(ExifSubIfdDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
@@ -95,10 +95,10 @@ namespace Com.Drew.Metadata.Exif
                 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32
                 , 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32,
                 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0 };
-            ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
-            directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
-            ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Assert.AreEqual("This marmot is getting close...", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
+            directory.SetByteArray(ExifSubIfdDirectory.TagUserComment, commentBytes);
+            ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);
+            Assert.AreEqual("This marmot is getting close...", descriptor.GetDescription(ExifSubIfdDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
@@ -106,10 +106,10 @@ namespace Com.Drew.Metadata.Exif
         public virtual void TestUnicodeComment_Ascii()
         {
             sbyte[] commentBytes = new sbyte[] { 65, 83, 67, 73, 73, 0, 0, 0, 73, 32, 97, 109, 32, 97, 32, 99, 111, 109, 109, 101, 110, 116, 46, 32, 89, 101, 121, 46, 0 };
-            ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
-            directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
-            ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Assert.AreEqual("I am a comment. Yey.", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
+            directory.SetByteArray(ExifSubIfdDirectory.TagUserComment, commentBytes);
+            ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);
+            Assert.AreEqual("I am a comment. Yey.", descriptor.GetDescription(ExifSubIfdDirectory.TagUserComment));
         }
     }
 }

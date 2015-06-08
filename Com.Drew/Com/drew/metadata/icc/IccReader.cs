@@ -39,7 +39,7 @@ namespace Com.Drew.Metadata.Icc
     /// </remarks>
     /// <author>Yuri Binev</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class IccReader : JpegSegmentMetadataReader, MetadataReader
+    public class IccReader : IJpegSegmentMetadataReader, IMetadataReader
     {
         public const string JpegSegmentPreamble = "ICC_PROFILE";
 

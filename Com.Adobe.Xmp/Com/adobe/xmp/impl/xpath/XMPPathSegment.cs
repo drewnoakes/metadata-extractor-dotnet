@@ -11,107 +11,107 @@ namespace Com.Adobe.Xmp.Impl.Xpath
 {
     /// <summary>A segment of a parsed <code>XMPPath</code>.</summary>
     /// <since>23.06.2006</since>
-    public class XMPPathSegment
+    public class XmpPathSegment
     {
         /// <summary>name of the path segment</summary>
-        private string name;
+        private string _name;
 
         /// <summary>kind of the path segment</summary>
-        private int kind;
+        private int _kind;
 
         /// <summary>flag if segment is an alias</summary>
-        private bool alias;
+        private bool _alias;
 
         /// <summary>alias form if applicable</summary>
-        private int aliasForm;
+        private int _aliasForm;
 
         /// <summary>Constructor with initial values.</summary>
         /// <param name="name">the name of the segment</param>
-        public XMPPathSegment(string name)
+        public XmpPathSegment(string name)
         {
-            this.name = name;
+            this._name = name;
         }
 
         /// <summary>Constructor with initial values.</summary>
         /// <param name="name">the name of the segment</param>
         /// <param name="kind">the kind of the segment</param>
-        public XMPPathSegment(string name, int kind)
+        public XmpPathSegment(string name, int kind)
         {
-            this.name = name;
-            this.kind = kind;
+            this._name = name;
+            this._kind = kind;
         }
 
         /// <returns>Returns the kind.</returns>
         public virtual int GetKind()
         {
-            return kind;
+            return _kind;
         }
 
         /// <param name="kind">The kind to set.</param>
         public virtual void SetKind(int kind)
         {
-            this.kind = kind;
+            this._kind = kind;
         }
 
         /// <returns>Returns the name.</returns>
         public virtual string GetName()
         {
-            return name;
+            return _name;
         }
 
         /// <param name="name">The name to set.</param>
         public virtual void SetName(string name)
         {
-            this.name = name;
+            this._name = name;
         }
 
         /// <param name="alias">the flag to set</param>
         public virtual void SetAlias(bool alias)
         {
-            this.alias = alias;
+            this._alias = alias;
         }
 
         /// <returns>Returns the alias.</returns>
         public virtual bool IsAlias()
         {
-            return alias;
+            return _alias;
         }
 
         /// <returns>Returns the aliasForm if this segment has been created by an alias.</returns>
         public virtual int GetAliasForm()
         {
-            return aliasForm;
+            return _aliasForm;
         }
 
         /// <param name="aliasForm">the aliasForm to set</param>
         public virtual void SetAliasForm(int aliasForm)
         {
-            this.aliasForm = aliasForm;
+            this._aliasForm = aliasForm;
         }
 
         /// <seealso cref="object.ToString()"/>
         public override string ToString()
         {
-            switch (kind)
+            switch (_kind)
             {
-                case XMPPath.StructFieldStep:
-                case XMPPath.ArrayIndexStep:
-                case XMPPath.QualifierStep:
-                case XMPPath.ArrayLastStep:
+                case XmpPath.StructFieldStep:
+                case XmpPath.ArrayIndexStep:
+                case XmpPath.QualifierStep:
+                case XmpPath.ArrayLastStep:
                 {
-                    return name;
+                    return _name;
                 }
 
-                case XMPPath.QualSelectorStep:
-                case XMPPath.FieldSelectorStep:
+                case XmpPath.QualSelectorStep:
+                case XmpPath.FieldSelectorStep:
                 {
-                    return name;
+                    return _name;
                 }
 
                 default:
                 {
                     // no defined step
-                    return name;
+                    return _name;
                 }
             }
         }

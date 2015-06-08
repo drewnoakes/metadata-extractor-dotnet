@@ -4,18 +4,18 @@ using System.Collections.Generic;
 
 namespace Sharpen
 {
-    public interface Iterator
+    public interface IIterator
     {
         bool HasNext ();
         object Next ();
         void Remove ();
     }
 
-    public abstract class Iterator<T> : IEnumerator, IDisposable, IEnumerator<T>, Iterator
+    public abstract class Iterator<T> : IEnumerator, IDisposable, IEnumerator<T>, IIterator
     {
-        private T lastValue;
+        private T _lastValue;
 
-        object Iterator.Next ()
+        object IIterator.Next ()
         {
             return Next ();
         }
@@ -27,7 +27,7 @@ namespace Sharpen
         bool IEnumerator.MoveNext ()
         {
             if (HasNext ()) {
-                lastValue = Next ();
+                _lastValue = Next ();
                 return true;
             }
             return false;
@@ -43,11 +43,11 @@ namespace Sharpen
         }
 
         T IEnumerator<T>.Current {
-            get { return lastValue; }
+            get { return _lastValue; }
         }
 
         object IEnumerator.Current {
-            get { return lastValue; }
+            get { return _lastValue; }
         }
     }
 }

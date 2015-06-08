@@ -28,20 +28,20 @@ namespace Com.Drew.Metadata.Bmp
         public const int TagImportantColourCount = 9;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static BmpHeaderDirectory()
         {
-            _tagNameMap.Put(TagHeaderSize, "Header Size");
-            _tagNameMap.Put(TagImageHeight, "Image Height");
-            _tagNameMap.Put(TagImageWidth, "Image Width");
-            _tagNameMap.Put(TagColourPlanes, "Planes");
-            _tagNameMap.Put(TagBitsPerPixel, "Bits Per Pixel");
-            _tagNameMap.Put(TagCompression, "Compression");
-            _tagNameMap.Put(TagXPixelsPerMeter, "X Pixels per Meter");
-            _tagNameMap.Put(TagYPixelsPerMeter, "Y Pixels per Meter");
-            _tagNameMap.Put(TagPaletteColourCount, "Palette Colour Count");
-            _tagNameMap.Put(TagImportantColourCount, "Important Colour Count");
+            TagNameMap.Put(TagHeaderSize, "Header Size");
+            TagNameMap.Put(TagImageHeight, "Image Height");
+            TagNameMap.Put(TagImageWidth, "Image Width");
+            TagNameMap.Put(TagColourPlanes, "Planes");
+            TagNameMap.Put(TagBitsPerPixel, "Bits Per Pixel");
+            TagNameMap.Put(TagCompression, "Compression");
+            TagNameMap.Put(TagXPixelsPerMeter, "X Pixels per Meter");
+            TagNameMap.Put(TagYPixelsPerMeter, "Y Pixels per Meter");
+            TagNameMap.Put(TagPaletteColourCount, "Palette Colour Count");
+            TagNameMap.Put(TagImportantColourCount, "Important Colour Count");
         }
 
         public BmpHeaderDirectory()
@@ -58,7 +58,7 @@ namespace Com.Drew.Metadata.Bmp
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

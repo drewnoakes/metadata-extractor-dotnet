@@ -30,54 +30,54 @@ namespace Com.Adobe.Xmp.Impl
     /// 4. hasLanguage, hasType should be automatically maintained by XMPNode
     /// </remarks>
     /// <since>21.02.2006</since>
-    public class XMPNode : IComparable
+    public class XmpNode : IComparable
     {
         /// <summary>name of the node, contains different information depending of the node kind</summary>
-        private string name;
+        private string _name;
 
         /// <summary>value of the node, contains different information depending of the node kind</summary>
-        private string value;
+        private string _value;
 
         /// <summary>link to the parent node</summary>
-        private XMPNode parent;
+        private XmpNode _parent;
 
         /// <summary>list of child nodes, lazy initialized</summary>
-        private IList children = null;
+        private IList _children = null;
 
         /// <summary>list of qualifier of the node, lazy initialized</summary>
-        private IList qualifier = null;
+        private IList _qualifier = null;
 
         /// <summary>options describing the kind of the node</summary>
-        private PropertyOptions options = null;
+        private PropertyOptions _options = null;
 
         /// <summary>flag if the node is implicitly created</summary>
-        private bool @implicit;
+        private bool _implicit;
 
         /// <summary>flag if the node has aliases</summary>
-        private bool hasAliases;
+        private bool _hasAliases;
 
         /// <summary>flag if the node is an alias</summary>
-        private bool alias;
+        private bool _alias;
 
         /// <summary>flag if the node has an "rdf:value" child node.</summary>
-        private bool hasValueChild;
+        private bool _hasValueChild;
 
         /// <summary>Creates an <code>XMPNode</code> with initial values.</summary>
         /// <param name="name">the name of the node</param>
         /// <param name="value">the value of the node</param>
         /// <param name="options">the options of the node</param>
-        public XMPNode(string name, string value, PropertyOptions options)
+        public XmpNode(string name, string value, PropertyOptions options)
         {
             // internal processing options
-            this.name = name;
-            this.value = value;
-            this.options = options;
+            this._name = name;
+            this._value = value;
+            this._options = options;
         }
 
         /// <summary>Constructor for the node without value.</summary>
         /// <param name="name">the name of the node</param>
         /// <param name="options">the options of the node</param>
-        public XMPNode(string name, PropertyOptions options)
+        public XmpNode(string name, PropertyOptions options)
             : this(name, null, options)
         {
         }
@@ -85,30 +85,30 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>Resets the node.</summary>
         public virtual void Clear()
         {
-            options = null;
-            name = null;
-            value = null;
-            children = null;
-            qualifier = null;
+            _options = null;
+            _name = null;
+            _value = null;
+            _children = null;
+            _qualifier = null;
         }
 
         /// <returns>Returns the parent node.</returns>
-        public virtual XMPNode GetParent()
+        public virtual XmpNode GetParent()
         {
-            return parent;
+            return _parent;
         }
 
         /// <param name="index">an index [1..size]</param>
         /// <returns>Returns the child with the requested index.</returns>
-        public virtual XMPNode GetChild(int index)
+        public virtual XmpNode GetChild(int index)
         {
-            return (XMPNode)GetChildren()[index - 1];
+            return (XmpNode)GetChildren()[index - 1];
         }
 
         /// <summary>Adds a node as child to this node.</summary>
         /// <param name="node">an XMPNode</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"></exception>
-        public virtual void AddChild(XMPNode node)
+        /// <exception cref="XmpException"></exception>
+        public virtual void AddChild(XmpNode node)
         {
             // check for duplicate properties
             AssertChildNotExisting(node.GetName());
@@ -123,8 +123,8 @@ namespace Com.Adobe.Xmp.Impl
         /// An index of size + 1 appends a node.
         /// </param>
         /// <param name="node">an XMPNode</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"></exception>
-        public virtual void AddChild(int index, XMPNode node)
+        /// <exception cref="XmpException"></exception>
+        public virtual void AddChild(int index, XmpNode node)
         {
             AssertChildNotExisting(node.GetName());
             node.SetParent(this);
@@ -137,7 +137,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <em>Note:</em> The node children are indexed from [1..size]!
         /// </param>
         /// <param name="node">the replacement XMPNode</param>
-        public virtual void ReplaceChild(int index, XMPNode node)
+        public virtual void ReplaceChild(int index, XmpNode node)
         {
             node.SetParent(this);
             GetChildren().Set(index - 1, node);
@@ -157,7 +157,7 @@ namespace Com.Adobe.Xmp.Impl
         /// If its a schema node and doesn't have any children anymore, its deleted.
         /// </remarks>
         /// <param name="node">the child node to delete.</param>
-        public virtual void RemoveChild(XMPNode node)
+        public virtual void RemoveChild(XmpNode node)
         {
             GetChildren().Remove(node);
             CleanupChildren();
@@ -170,48 +170,48 @@ namespace Com.Adobe.Xmp.Impl
         /// </summary>
         protected internal virtual void CleanupChildren()
         {
-            if (children.IsEmpty())
+            if (_children.IsEmpty())
             {
-                children = null;
+                _children = null;
             }
         }
 
         /// <summary>Removes all children from the node.</summary>
         public virtual void RemoveChildren()
         {
-            children = null;
+            _children = null;
         }
 
         /// <returns>Returns the number of children without neccessarily creating a list.</returns>
         public virtual int GetChildrenLength()
         {
-            return children != null ? children.Count : 0;
+            return _children != null ? _children.Count : 0;
         }
 
         /// <param name="expr">child node name to look for</param>
         /// <returns>Returns an <code>XMPNode</code> if node has been found, <code>null</code> otherwise.</returns>
-        public virtual XMPNode FindChildByName(string expr)
+        public virtual XmpNode FindChildByName(string expr)
         {
             return Find(GetChildren(), expr);
         }
 
         /// <param name="index">an index [1..size]</param>
         /// <returns>Returns the qualifier with the requested index.</returns>
-        public virtual XMPNode GetQualifier(int index)
+        public virtual XmpNode GetQualifier(int index)
         {
-            return (XMPNode)GetQualifier()[index - 1];
+            return (XmpNode)GetQualifier()[index - 1];
         }
 
         /// <returns>Returns the number of qualifier without neccessarily creating a list.</returns>
         public virtual int GetQualifierLength()
         {
-            return qualifier != null ? qualifier.Count : 0;
+            return _qualifier != null ? _qualifier.Count : 0;
         }
 
         /// <summary>Appends a qualifier to the qualifier list and sets respective options.</summary>
         /// <param name="qualNode">a qualifier node.</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"></exception>
-        public virtual void AddQualifier(XMPNode qualNode)
+        /// <exception cref="XmpException"></exception>
+        public virtual void AddQualifier(XmpNode qualNode)
         {
             AssertQualifierNotExisting(qualNode.GetName());
             qualNode.SetParent(this);
@@ -221,7 +221,7 @@ namespace Com.Adobe.Xmp.Impl
             if (qualNode.IsLanguageNode())
             {
                 // "xml:lang" is always first and the option "hasLanguage" is set
-                options.SetHasLanguage(true);
+                _options.SetHasLanguage(true);
                 GetQualifier().Add(0, qualNode);
             }
             else
@@ -229,8 +229,8 @@ namespace Com.Adobe.Xmp.Impl
                 if (qualNode.IsTypeNode())
                 {
                     // "rdf:type" must be first or second after "xml:lang" and the option "hasType" is set
-                    options.SetHasType(true);
-                    GetQualifier().Add(!options.GetHasLanguage() ? 0 : 1, qualNode);
+                    _options.SetHasType(true);
+                    GetQualifier().Add(!_options.GetHasLanguage() ? 0 : 1, qualNode);
                 }
                 else
                 {
@@ -242,7 +242,7 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>Removes one qualifier node and fixes the options.</summary>
         /// <param name="qualNode">qualifier to remove</param>
-        public virtual void RemoveQualifier(XMPNode qualNode)
+        public virtual void RemoveQualifier(XmpNode qualNode)
         {
             PropertyOptions opts = GetOptions();
             if (qualNode.IsLanguageNode())
@@ -259,10 +259,10 @@ namespace Com.Adobe.Xmp.Impl
                 }
             }
             GetQualifier().Remove(qualNode);
-            if (qualifier.IsEmpty())
+            if (_qualifier.IsEmpty())
             {
                 opts.SetHasQualifiers(false);
-                qualifier = null;
+                _qualifier = null;
             }
         }
 
@@ -274,7 +274,7 @@ namespace Com.Adobe.Xmp.Impl
             opts.SetHasQualifiers(false);
             opts.SetHasLanguage(false);
             opts.SetHasType(false);
-            qualifier = null;
+            _qualifier = null;
         }
 
         /// <param name="expr">qualifier node name to look for</param>
@@ -282,24 +282,24 @@ namespace Com.Adobe.Xmp.Impl
         /// Returns a qualifier <code>XMPNode</code> if node has been found,
         /// <code>null</code> otherwise.
         /// </returns>
-        public virtual XMPNode FindQualifierByName(string expr)
+        public virtual XmpNode FindQualifierByName(string expr)
         {
-            return Find(qualifier, expr);
+            return Find(_qualifier, expr);
         }
 
         /// <returns>Returns whether the node has children.</returns>
         public virtual bool HasChildren()
         {
-            return children != null && children.Count > 0;
+            return _children != null && _children.Count > 0;
         }
 
         /// <returns>
         /// Returns an iterator for the children.
         /// <em>Note:</em> take care to use it.remove(), as the flag are not adjusted in that case.
         /// </returns>
-        public virtual Iterator IterateChildren()
+        public virtual IIterator IterateChildren()
         {
-            if (children != null)
+            if (_children != null)
             {
                 return GetChildren().Iterator();
             }
@@ -312,19 +312,19 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns whether the node has qualifier attached.</returns>
         public virtual bool HasQualifier()
         {
-            return qualifier != null && qualifier.Count > 0;
+            return _qualifier != null && _qualifier.Count > 0;
         }
 
         /// <returns>
         /// Returns an iterator for the qualifier.
         /// <em>Note:</em> take care to use it.remove(), as the flag are not adjusted in that case.
         /// </returns>
-        public virtual Iterator IterateQualifier()
+        public virtual IIterator IterateQualifier()
         {
-            if (qualifier != null)
+            if (_qualifier != null)
             {
-                Iterator it = GetQualifier().Iterator();
-                return new _Iterator_391(it);
+                IIterator it = GetQualifier().Iterator();
+                return new Iterator391(it);
             }
             else
             {
@@ -332,21 +332,21 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        private sealed class _Iterator_391 : Iterator
+        private sealed class Iterator391 : IIterator
         {
-            public _Iterator_391(Iterator it)
+            public Iterator391(IIterator it)
             {
-                this.it = it;
+                this._it = it;
             }
 
             public bool HasNext()
             {
-                return it.HasNext();
+                return _it.HasNext();
             }
 
             public object Next()
             {
-                return it.Next();
+                return _it.Next();
             }
 
             public void Remove()
@@ -354,7 +354,7 @@ namespace Com.Adobe.Xmp.Impl
                 throw new NotSupportedException("remove() is not allowed due to the internal contraints");
             }
 
-            private readonly Iterator it;
+            private readonly IIterator _it;
         }
 
         /// <summary>Performs a <b>deep clone</b> of the node and the complete subtree.</summary>
@@ -366,12 +366,12 @@ namespace Com.Adobe.Xmp.Impl
             {
                 newOptions = new PropertyOptions(GetOptions().GetOptions());
             }
-            catch (XMPException)
+            catch (XmpException)
             {
                 // cannot happen
                 newOptions = new PropertyOptions();
             }
-            XMPNode newNode = new XMPNode(name, value, newOptions);
+            XmpNode newNode = new XmpNode(_name, _value, newOptions);
             CloneSubtree(newNode);
             return newNode;
         }
@@ -381,22 +381,22 @@ namespace Com.Adobe.Xmp.Impl
         /// qualifier )into and add it to the destination node.
         /// </summary>
         /// <param name="destination">the node to add the cloned subtree</param>
-        public virtual void CloneSubtree(XMPNode destination)
+        public virtual void CloneSubtree(XmpNode destination)
         {
             try
             {
-                for (Iterator it = IterateChildren(); it.HasNext(); )
+                for (IIterator it = IterateChildren(); it.HasNext(); )
                 {
-                    XMPNode child = (XMPNode)it.Next();
-                    destination.AddChild((XMPNode)child.Clone());
+                    XmpNode child = (XmpNode)it.Next();
+                    destination.AddChild((XmpNode)child.Clone());
                 }
-                for (Iterator it_1 = IterateQualifier(); it_1.HasNext(); )
+                for (IIterator it1 = IterateQualifier(); it1.HasNext(); )
                 {
-                    XMPNode qualifier = (XMPNode)it_1.Next();
-                    destination.AddQualifier((XMPNode)qualifier.Clone());
+                    XmpNode qualifier = (XmpNode)it1.Next();
+                    destination.AddQualifier((XmpNode)qualifier.Clone());
                 }
             }
-            catch (XMPException)
+            catch (XmpException)
             {
                 // cannot happen (duplicate childs/quals do not exist in this node)
                 Debug.Assert(false);
@@ -418,101 +418,101 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (GetOptions().IsSchemaNode())
             {
-                return string.CompareOrdinal(this.value, ((XMPNode)xmpNode).GetValue());
+                return string.CompareOrdinal(this._value, ((XmpNode)xmpNode).GetValue());
             }
             else
             {
-                return string.CompareOrdinal(this.name, ((XMPNode)xmpNode).GetName());
+                return string.CompareOrdinal(this._name, ((XmpNode)xmpNode).GetName());
             }
         }
 
         /// <returns>Returns the name.</returns>
         public virtual string GetName()
         {
-            return name;
+            return _name;
         }
 
         /// <param name="name">The name to set.</param>
         public virtual void SetName(string name)
         {
-            this.name = name;
+            this._name = name;
         }
 
         /// <returns>Returns the value.</returns>
         public virtual string GetValue()
         {
-            return value;
+            return _value;
         }
 
         /// <param name="value">The value to set.</param>
         public virtual void SetValue(string value)
         {
-            this.value = value;
+            this._value = value;
         }
 
         /// <returns>Returns the options.</returns>
         public virtual PropertyOptions GetOptions()
         {
-            if (options == null)
+            if (_options == null)
             {
-                options = new PropertyOptions();
+                _options = new PropertyOptions();
             }
-            return options;
+            return _options;
         }
 
         /// <summary>Updates the options of the node.</summary>
         /// <param name="options">the options to set.</param>
         public virtual void SetOptions(PropertyOptions options)
         {
-            this.options = options;
+            this._options = options;
         }
 
         /// <returns>Returns the implicit flag</returns>
         public virtual bool IsImplicit()
         {
-            return @implicit;
+            return _implicit;
         }
 
         /// <param name="implicit">Sets the implicit node flag</param>
         public virtual void SetImplicit(bool @implicit)
         {
-            this.@implicit = @implicit;
+            this._implicit = @implicit;
         }
 
         /// <returns>Returns if the node contains aliases (applies only to schema nodes)</returns>
         public virtual bool GetHasAliases()
         {
-            return hasAliases;
+            return _hasAliases;
         }
 
         /// <param name="hasAliases">sets the flag that the node contains aliases</param>
         public virtual void SetHasAliases(bool hasAliases)
         {
-            this.hasAliases = hasAliases;
+            this._hasAliases = hasAliases;
         }
 
         /// <returns>Returns if the node contains aliases (applies only to schema nodes)</returns>
         public virtual bool IsAlias()
         {
-            return alias;
+            return _alias;
         }
 
         /// <param name="alias">sets the flag that the node is an alias</param>
         public virtual void SetAlias(bool alias)
         {
-            this.alias = alias;
+            this._alias = alias;
         }
 
         /// <returns>the hasValueChild</returns>
         public virtual bool GetHasValueChild()
         {
-            return hasValueChild;
+            return _hasValueChild;
         }
 
         /// <param name="hasValueChild">the hasValueChild to set</param>
         public virtual void SetHasValueChild(bool hasValueChild)
         {
-            this.hasValueChild = hasValueChild;
+            this._hasValueChild = hasValueChild;
         }
 
         /// <summary>
@@ -538,15 +538,15 @@ namespace Com.Adobe.Xmp.Impl
             // sort qualifier
             if (HasQualifier())
             {
-                XMPNode[] quals = (XMPNode[])Collections.ToArray(GetQualifier(), new XMPNode[GetQualifierLength()]);
+                XmpNode[] quals = (XmpNode[])Collections.ToArray(GetQualifier(), new XmpNode[GetQualifierLength()]);
                 int sortFrom = 0;
-                while (quals.Length > sortFrom && (XMPConstConstants.XmlLang.Equals(quals[sortFrom].GetName()) || "rdf:type".Equals(quals[sortFrom].GetName())))
+                while (quals.Length > sortFrom && (XmpConstConstants.XmlLang.Equals(quals[sortFrom].GetName()) || "rdf:type".Equals(quals[sortFrom].GetName())))
                 {
                     quals[sortFrom].Sort();
                     sortFrom++;
                 }
                 Arrays.Sort(quals, sortFrom, quals.Length);
-                ListIterator it = qualifier.ListIterator();
+                ListIterator it = _qualifier.ListIterator();
                 for (int j = 0; j < quals.Length; j++)
                 {
                     it.Next();
@@ -559,11 +559,11 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (!GetOptions().IsArray())
                 {
-                    children.Sort();
+                    _children.Sort();
                 }
-                for (Iterator it = IterateChildren(); it.HasNext(); )
+                for (IIterator it = IterateChildren(); it.HasNext(); )
                 {
-                    ((XMPNode)it.Next()).Sort();
+                    ((XmpNode)it.Next()).Sort();
                 }
             }
         }
@@ -586,12 +586,12 @@ namespace Com.Adobe.Xmp.Impl
                 result.Append('\t');
             }
             // render Node
-            if (parent != null)
+            if (_parent != null)
             {
                 if (GetOptions().IsQualifier())
                 {
                     result.Append('?');
-                    result.Append(name);
+                    result.Append(_name);
                 }
                 else
                 {
@@ -603,7 +603,7 @@ namespace Com.Adobe.Xmp.Impl
                     }
                     else
                     {
-                        result.Append(name);
+                        result.Append(_name);
                     }
                 }
             }
@@ -611,18 +611,18 @@ namespace Com.Adobe.Xmp.Impl
             {
                 // applies only to the root node
                 result.Append("ROOT NODE");
-                if (name != null && name.Length > 0)
+                if (_name != null && _name.Length > 0)
                 {
                     // the "about" attribute
                     result.Append(" (");
-                    result.Append(name);
+                    result.Append(_name);
                     result.Append(')');
                 }
             }
-            if (value != null && value.Length > 0)
+            if (_value != null && _value.Length > 0)
             {
                 result.Append(" = \"");
-                result.Append(value);
+                result.Append(_value);
                 result.Append('"');
             }
             // render options if at least one is set
@@ -638,31 +638,31 @@ namespace Com.Adobe.Xmp.Impl
             // render qualifier
             if (recursive && HasQualifier())
             {
-                XMPNode[] quals = (XMPNode[])Collections.ToArray(GetQualifier(), new XMPNode[GetQualifierLength()]);
-                int i_1 = 0;
-                while (quals.Length > i_1 && (XMPConstConstants.XmlLang.Equals(quals[i_1].GetName()) || "rdf:type".Equals(quals[i_1].GetName())))
+                XmpNode[] quals = (XmpNode[])Collections.ToArray(GetQualifier(), new XmpNode[GetQualifierLength()]);
+                int i1 = 0;
+                while (quals.Length > i1 && (XmpConstConstants.XmlLang.Equals(quals[i1].GetName()) || "rdf:type".Equals(quals[i1].GetName())))
                 {
-                    i_1++;
+                    i1++;
                 }
-                Arrays.Sort(quals, i_1, quals.Length);
-                for (i_1 = 0; i_1 < quals.Length; i_1++)
+                Arrays.Sort(quals, i1, quals.Length);
+                for (i1 = 0; i1 < quals.Length; i1++)
                 {
-                    XMPNode qualifier = quals[i_1];
-                    qualifier.DumpNode(result, recursive, indent + 2, i_1 + 1);
+                    XmpNode qualifier = quals[i1];
+                    qualifier.DumpNode(result, recursive, indent + 2, i1 + 1);
                 }
             }
             // render children
             if (recursive && HasChildren())
             {
-                XMPNode[] children = (XMPNode[])Collections.ToArray(GetChildren(), new XMPNode[GetChildrenLength()]);
+                XmpNode[] children = (XmpNode[])Collections.ToArray(GetChildren(), new XmpNode[GetChildrenLength()]);
                 if (!GetOptions().IsArray())
                 {
                     Arrays.Sort(children);
                 }
-                for (int i_1 = 0; i_1 < children.Length; i_1++)
+                for (int i1 = 0; i1 < children.Length; i1++)
                 {
-                    XMPNode child = children[i_1];
-                    child.DumpNode(result, recursive, indent + 1, i_1 + 1);
+                    XmpNode child = children[i1];
+                    child.DumpNode(result, recursive, indent + 1, i1 + 1);
                 }
             }
         }
@@ -670,13 +670,13 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns whether this node is a language qualifier.</returns>
         private bool IsLanguageNode()
         {
-            return XMPConstConstants.XmlLang.Equals(name);
+            return XmpConstConstants.XmlLang.Equals(_name);
         }
 
         /// <returns>Returns whether this node is a type qualifier.</returns>
         private bool IsTypeNode()
         {
-            return "rdf:type".Equals(name);
+            return "rdf:type".Equals(_name);
         }
 
         /// <summary>
@@ -686,11 +686,11 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns list of children that is lazy initialized.</returns>
         private IList GetChildren()
         {
-            if (children == null)
+            if (_children == null)
             {
-                children = new ArrayList(0);
+                _children = new ArrayList(0);
             }
-            return children;
+            return _children;
         }
 
         /// <returns>Returns a read-only copy of child nodes list.</returns>
@@ -702,11 +702,11 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns list of qualifier that is lazy initialized.</returns>
         private IList GetQualifier()
         {
-            if (qualifier == null)
+            if (_qualifier == null)
             {
-                qualifier = new ArrayList(0);
+                _qualifier = new ArrayList(0);
             }
-            return qualifier;
+            return _qualifier;
         }
 
         /// <summary>
@@ -714,22 +714,22 @@ namespace Com.Adobe.Xmp.Impl
         /// and <code>addQualifier()</code>.
         /// </summary>
         /// <param name="parent">Sets the parent node.</param>
-        protected internal virtual void SetParent(XMPNode parent)
+        protected internal virtual void SetParent(XmpNode parent)
         {
-            this.parent = parent;
+            this._parent = parent;
         }
 
         /// <summary>Internal find.</summary>
         /// <param name="list">the list to search in</param>
         /// <param name="expr">the search expression</param>
         /// <returns>Returns the found node or <code>nulls</code>.</returns>
-        private static XMPNode Find(IList list, string expr)
+        private static XmpNode Find(IList list, string expr)
         {
             if (list != null)
             {
-                for (Iterator it = list.Iterator(); it.HasNext(); )
+                for (IIterator it = list.Iterator(); it.HasNext(); )
                 {
-                    XMPNode child = (XMPNode)it.Next();
+                    XmpNode child = (XmpNode)it.Next();
                     if (child.GetName().Equals(expr))
                     {
                         return child;
@@ -741,23 +741,23 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>Checks that a node name is not existing on the same level, except for array items.</summary>
         /// <param name="childName">the node name to check</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">Thrown if a node with the same name is existing.</exception>
+        /// <exception cref="XmpException">Thrown if a node with the same name is existing.</exception>
         private void AssertChildNotExisting(string childName)
         {
-            if (!XMPConstConstants.ArrayItemName.Equals(childName) && FindChildByName(childName) != null)
+            if (!XmpConstConstants.ArrayItemName.Equals(childName) && FindChildByName(childName) != null)
             {
-                throw new XMPException("Duplicate property or field node '" + childName + "'", XMPErrorConstants.Badxmp);
+                throw new XmpException("Duplicate property or field node '" + childName + "'", XmpErrorConstants.Badxmp);
             }
         }
 
         /// <summary>Checks that a qualifier name is not existing on the same level.</summary>
         /// <param name="qualifierName">the new qualifier name</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">Thrown if a node with the same name is existing.</exception>
+        /// <exception cref="XmpException">Thrown if a node with the same name is existing.</exception>
         private void AssertQualifierNotExisting(string qualifierName)
         {
-            if (!XMPConstConstants.ArrayItemName.Equals(qualifierName) && FindQualifierByName(qualifierName) != null)
+            if (!XmpConstConstants.ArrayItemName.Equals(qualifierName) && FindQualifierByName(qualifierName) != null)
             {
-                throw new XMPException("Duplicate '" + qualifierName + "' qualifier", XMPErrorConstants.Badxmp);
+                throw new XmpException("Duplicate '" + qualifierName + "' qualifier", XmpErrorConstants.Badxmp);
             }
         }
     }

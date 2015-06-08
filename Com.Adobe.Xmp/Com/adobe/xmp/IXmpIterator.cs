@@ -64,7 +64,7 @@ namespace Com.Adobe.Xmp
     /// return.
     /// </remarks>
     /// <since>25.01.2006</since>
-    public interface XMPIterator : Iterator
+    public interface IXmpIterator : IIterator
     {
         /// <summary>
         /// Skip the subtree below the current node when <code>next()</code> is

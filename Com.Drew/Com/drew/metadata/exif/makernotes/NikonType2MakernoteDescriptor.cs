@@ -147,12 +147,12 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 case NikonType2MakernoteDirectory.TagNefCompression:
                 {
-                    return GetNEFCompressionDescription();
+                    return GetNefCompressionDescription();
                 }
 
                 case NikonType2MakernoteDirectory.TagHighIsoNoiseReduction:
                 {
-                    return GetHighISONoiseReductionDescription();
+                    return GetHighIsoNoiseReductionDescription();
                 }
 
                 case NikonType2MakernoteDirectory.TagPowerUpTime:
@@ -174,7 +174,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetHighISONoiseReductionDescription()
+        public virtual string GetHighIsoNoiseReductionDescription()
         {
             return GetIndexedDescription(NikonType2MakernoteDirectory.TagHighIsoNoiseReduction, "Off", "Minimal", "Low", null, "Normal", null, "High");
         }
@@ -186,7 +186,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetNEFCompressionDescription()
+        public virtual string GetNefCompressionDescription()
         {
             return GetIndexedDescription(NikonType2MakernoteDirectory.TagNefCompression, 1, "Lossy (Type 1)", null, "Uncompressed", null, null, null, "Lossless", "Lossy (Type 2)");
         }
@@ -214,7 +214,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetActiveDLightingDescription()
         {
-            int? value = _directory.GetInteger(NikonType2MakernoteDirectory.TagActiveDLighting);
+            int? value = Directory.GetInteger(NikonType2MakernoteDirectory.TagActiveDLighting);
             if (value == null)
             {
                 return null;
@@ -261,7 +261,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetVignetteControlDescription()
         {
-            int? value = _directory.GetInteger(NikonType2MakernoteDirectory.TagVignetteControl);
+            int? value = Directory.GetInteger(NikonType2MakernoteDirectory.TagVignetteControl);
             if (value == null)
             {
                 return null;
@@ -298,14 +298,14 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetAutoFocusPositionDescription()
         {
-            int[] values = _directory.GetIntArray(NikonType2MakernoteDirectory.TagAfFocusPosition);
+            int[] values = Directory.GetIntArray(NikonType2MakernoteDirectory.TagAfFocusPosition);
             if (values == null)
             {
                 return null;
             }
             if (values.Length != 4 || values[0] != 0 || values[2] != 0 || values[3] != 0)
             {
-                return "Unknown (" + _directory.GetString(NikonType2MakernoteDirectory.TagAfFocusPosition) + ")";
+                return "Unknown (" + Directory.GetString(NikonType2MakernoteDirectory.TagAfFocusPosition) + ")";
             }
             switch (values[1])
             {
@@ -344,7 +344,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetDigitalZoomDescription()
         {
-            Rational value = _directory.GetRational(NikonType2MakernoteDirectory.TagDigitalZoom);
+            Rational value = Directory.GetRational(NikonType2MakernoteDirectory.TagDigitalZoom);
             if (value == null)
             {
                 return null;
@@ -355,49 +355,49 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetProgramShiftDescription()
         {
-            return GetEVDescription(NikonType2MakernoteDirectory.TagProgramShift);
+            return GetEvDescription(NikonType2MakernoteDirectory.TagProgramShift);
         }
 
         [CanBeNull]
         public virtual string GetExposureDifferenceDescription()
         {
-            return GetEVDescription(NikonType2MakernoteDirectory.TagExposureDifference);
+            return GetEvDescription(NikonType2MakernoteDirectory.TagExposureDifference);
         }
 
         [CanBeNull]
         public virtual string GetAutoFlashCompensationDescription()
         {
-            return GetEVDescription(NikonType2MakernoteDirectory.TagAutoFlashCompensation);
+            return GetEvDescription(NikonType2MakernoteDirectory.TagAutoFlashCompensation);
         }
 
         [CanBeNull]
         public virtual string GetFlashExposureCompensationDescription()
         {
-            return GetEVDescription(NikonType2MakernoteDirectory.TagFlashExposureCompensation);
+            return GetEvDescription(NikonType2MakernoteDirectory.TagFlashExposureCompensation);
         }
 
         [CanBeNull]
         public virtual string GetFlashBracketCompensationDescription()
         {
-            return GetEVDescription(NikonType2MakernoteDirectory.TagFlashBracketCompensation);
+            return GetEvDescription(NikonType2MakernoteDirectory.TagFlashBracketCompensation);
         }
 
         [CanBeNull]
         public virtual string GetExposureTuningDescription()
         {
-            return GetEVDescription(NikonType2MakernoteDirectory.TagExposureTuning);
+            return GetEvDescription(NikonType2MakernoteDirectory.TagExposureTuning);
         }
 
         [CanBeNull]
         public virtual string GetLensStopsDescription()
         {
-            return GetEVDescription(NikonType2MakernoteDirectory.TagLensStops);
+            return GetEvDescription(NikonType2MakernoteDirectory.TagLensStops);
         }
 
         [CanBeNull]
-        private string GetEVDescription(int tagType)
+        private string GetEvDescription(int tagType)
         {
-            int[] values = _directory.GetIntArray(tagType);
+            int[] values = Directory.GetIntArray(tagType);
             if (values == null)
             {
                 return null;
@@ -414,14 +414,14 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetIsoSettingDescription()
         {
-            int[] values = _directory.GetIntArray(NikonType2MakernoteDirectory.TagIso1);
+            int[] values = Directory.GetIntArray(NikonType2MakernoteDirectory.TagIso1);
             if (values == null)
             {
                 return null;
             }
             if (values[0] != 0 || values[1] == 0)
             {
-                return "Unknown (" + _directory.GetString(NikonType2MakernoteDirectory.TagIso1) + ")";
+                return "Unknown (" + Directory.GetString(NikonType2MakernoteDirectory.TagIso1) + ")";
             }
             return "ISO " + values[1];
         }
@@ -429,8 +429,8 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetLensDescription()
         {
-            Rational[] values = _directory.GetRationalArray(NikonType2MakernoteDirectory.TagLens);
-            return values == null ? null : values.Length < 4 ? _directory.GetString(NikonType2MakernoteDirectory.TagLens) : Extensions.StringFormat("%d-%dmm f/%.1f-%.1f", values[0].IntValue(), values[1].IntValue(), values[2].FloatValue(), values
+            Rational[] values = Directory.GetRationalArray(NikonType2MakernoteDirectory.TagLens);
+            return values == null ? null : values.Length < 4 ? Directory.GetString(NikonType2MakernoteDirectory.TagLens) : Extensions.StringFormat("%d-%dmm f/%.1f-%.1f", values[0].IntValue(), values[1].IntValue(), values[2].FloatValue(), values
                 [3].FloatValue());
         }
 
@@ -443,7 +443,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetColorModeDescription()
         {
-            string value = _directory.GetString(NikonType2MakernoteDirectory.TagCameraColorMode);
+            string value = Directory.GetString(NikonType2MakernoteDirectory.TagCameraColorMode);
             return value == null ? null : value.StartsWith("MODE1") ? "Mode I (sRGB)" : value;
         }
 

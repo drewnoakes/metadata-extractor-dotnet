@@ -42,14 +42,14 @@ namespace Com.Drew.Metadata.Jfif
         public const int TagResy = 10;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static JfifDirectory()
         {
-            _tagNameMap.Put(TagVersion, "Version");
-            _tagNameMap.Put(TagUnits, "Resolution Units");
-            _tagNameMap.Put(TagResy, "Y Resolution");
-            _tagNameMap.Put(TagResx, "X Resolution");
+            TagNameMap.Put(TagVersion, "Version");
+            TagNameMap.Put(TagUnits, "Resolution Units");
+            TagNameMap.Put(TagResy, "Y Resolution");
+            TagNameMap.Put(TagResx, "X Resolution");
         }
 
         public JfifDirectory()
@@ -66,7 +66,7 @@ namespace Com.Drew.Metadata.Jfif
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>

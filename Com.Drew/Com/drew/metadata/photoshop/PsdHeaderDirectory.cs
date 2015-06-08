@@ -52,15 +52,15 @@ namespace Com.Drew.Metadata.Photoshop
         public const int TagColorMode = 5;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static PsdHeaderDirectory()
         {
-            _tagNameMap.Put(TagChannelCount, "Channel Count");
-            _tagNameMap.Put(TagImageHeight, "Image Height");
-            _tagNameMap.Put(TagImageWidth, "Image Width");
-            _tagNameMap.Put(TagBitsPerChannel, "Bits Per Channel");
-            _tagNameMap.Put(TagColorMode, "Color Mode");
+            TagNameMap.Put(TagChannelCount, "Channel Count");
+            TagNameMap.Put(TagImageHeight, "Image Height");
+            TagNameMap.Put(TagImageWidth, "Image Width");
+            TagNameMap.Put(TagBitsPerChannel, "Bits Per Channel");
+            TagNameMap.Put(TagColorMode, "Color Mode");
         }
 
         public PsdHeaderDirectory()
@@ -77,7 +77,7 @@ namespace Com.Drew.Metadata.Photoshop
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

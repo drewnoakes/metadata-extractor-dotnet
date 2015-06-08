@@ -32,9 +32,9 @@ namespace Com.Drew.Metadata.Exif
     {
         private NikonType1MakernoteDirectory _nikonDirectory;
 
-        private ExifIFD0Directory _exifIFD0Directory;
+        private ExifIfd0Directory _exifIfd0Directory;
 
-        private ExifSubIFDDirectory _exifSubIFDDirectory;
+        private ExifSubIfdDirectory _exifSubIfdDirectory;
 
         private ExifThumbnailDirectory _thumbDirectory;
 
@@ -55,8 +55,8 @@ namespace Com.Drew.Metadata.Exif
         {
             Metadata metadata = ExifReaderTest.ProcessBytes("Tests/Data/nikonMakernoteType1.jpg.app1");
             _nikonDirectory = metadata.GetFirstDirectoryOfType<NikonType1MakernoteDirectory>();
-            _exifSubIFDDirectory = metadata.GetFirstDirectoryOfType<ExifSubIFDDirectory>();
-            _exifIFD0Directory = metadata.GetFirstDirectoryOfType<ExifIFD0Directory>();
+            _exifSubIfdDirectory = metadata.GetFirstDirectoryOfType<ExifSubIfdDirectory>();
+            _exifIfd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
             _thumbDirectory = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
         }
 
@@ -141,39 +141,39 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public virtual void TestExifDirectory_MatchesKnownValues()
         {
-            Assert.AreEqual("          ", _exifIFD0Directory.GetString(ExifIFD0Directory.TagImageDescription));
-            Assert.AreEqual("NIKON", _exifIFD0Directory.GetString(ExifIFD0Directory.TagMake));
-            Assert.AreEqual("E950", _exifIFD0Directory.GetString(ExifIFD0Directory.TagModel));
-            Assert.AreEqual(1, _exifIFD0Directory.GetInt(ExifIFD0Directory.TagOrientation));
-            Assert.AreEqual(300, _exifIFD0Directory.GetDouble(ExifIFD0Directory.TagXResolution), 0.001);
-            Assert.AreEqual(300, _exifIFD0Directory.GetDouble(ExifIFD0Directory.TagYResolution), 0.001);
-            Assert.AreEqual(2, _exifIFD0Directory.GetInt(ExifIFD0Directory.TagResolutionUnit));
-            Assert.AreEqual("v981-79", _exifIFD0Directory.GetString(ExifIFD0Directory.TagSoftware));
-            Assert.AreEqual("2001:04:06 11:51:40", _exifIFD0Directory.GetString(ExifIFD0Directory.TagDatetime));
-            Assert.AreEqual(2, _exifIFD0Directory.GetInt(ExifIFD0Directory.TagYcbcrPositioning));
-            Assert.AreEqual(new Rational(1, 77), _exifSubIFDDirectory.GetRational(ExifSubIFDDirectory.TagExposureTime));
-            Assert.AreEqual(5.5, _exifSubIFDDirectory.GetDouble(ExifSubIFDDirectory.TagFnumber), 0.001);
-            Assert.AreEqual(2, _exifSubIFDDirectory.GetInt(ExifSubIFDDirectory.TagExposureProgram));
-            Assert.AreEqual(80, _exifSubIFDDirectory.GetInt(ExifSubIFDDirectory.TagIsoEquivalent));
-            Assert.AreEqual("48 50 49 48", _exifSubIFDDirectory.GetString(ExifSubIFDDirectory.TagExifVersion));
-            Assert.AreEqual("2001:04:06 11:51:40", _exifSubIFDDirectory.GetString(ExifSubIFDDirectory.TagDatetimeDigitized));
-            Assert.AreEqual("2001:04:06 11:51:40", _exifSubIFDDirectory.GetString(ExifSubIFDDirectory.TagDatetimeOriginal));
-            Assert.AreEqual("1 2 3 0", _exifSubIFDDirectory.GetString(ExifSubIFDDirectory.TagComponentsConfiguration));
-            Assert.AreEqual(4, _exifSubIFDDirectory.GetInt(ExifSubIFDDirectory.TagCompressedAverageBitsPerPixel));
-            Assert.AreEqual(0, _exifSubIFDDirectory.GetInt(ExifSubIFDDirectory.TagExposureBias));
+            Assert.AreEqual("          ", _exifIfd0Directory.GetString(ExifIfd0Directory.TagImageDescription));
+            Assert.AreEqual("NIKON", _exifIfd0Directory.GetString(ExifIfd0Directory.TagMake));
+            Assert.AreEqual("E950", _exifIfd0Directory.GetString(ExifIfd0Directory.TagModel));
+            Assert.AreEqual(1, _exifIfd0Directory.GetInt(ExifIfd0Directory.TagOrientation));
+            Assert.AreEqual(300, _exifIfd0Directory.GetDouble(ExifIfd0Directory.TagXResolution), 0.001);
+            Assert.AreEqual(300, _exifIfd0Directory.GetDouble(ExifIfd0Directory.TagYResolution), 0.001);
+            Assert.AreEqual(2, _exifIfd0Directory.GetInt(ExifIfd0Directory.TagResolutionUnit));
+            Assert.AreEqual("v981-79", _exifIfd0Directory.GetString(ExifIfd0Directory.TagSoftware));
+            Assert.AreEqual("2001:04:06 11:51:40", _exifIfd0Directory.GetString(ExifIfd0Directory.TagDatetime));
+            Assert.AreEqual(2, _exifIfd0Directory.GetInt(ExifIfd0Directory.TagYcbcrPositioning));
+            Assert.AreEqual(new Rational(1, 77), _exifSubIfdDirectory.GetRational(ExifSubIfdDirectory.TagExposureTime));
+            Assert.AreEqual(5.5, _exifSubIfdDirectory.GetDouble(ExifSubIfdDirectory.TagFnumber), 0.001);
+            Assert.AreEqual(2, _exifSubIfdDirectory.GetInt(ExifSubIfdDirectory.TagExposureProgram));
+            Assert.AreEqual(80, _exifSubIfdDirectory.GetInt(ExifSubIfdDirectory.TagIsoEquivalent));
+            Assert.AreEqual("48 50 49 48", _exifSubIfdDirectory.GetString(ExifSubIfdDirectory.TagExifVersion));
+            Assert.AreEqual("2001:04:06 11:51:40", _exifSubIfdDirectory.GetString(ExifSubIfdDirectory.TagDatetimeDigitized));
+            Assert.AreEqual("2001:04:06 11:51:40", _exifSubIfdDirectory.GetString(ExifSubIfdDirectory.TagDatetimeOriginal));
+            Assert.AreEqual("1 2 3 0", _exifSubIfdDirectory.GetString(ExifSubIfdDirectory.TagComponentsConfiguration));
+            Assert.AreEqual(4, _exifSubIfdDirectory.GetInt(ExifSubIfdDirectory.TagCompressedAverageBitsPerPixel));
+            Assert.AreEqual(0, _exifSubIfdDirectory.GetInt(ExifSubIfdDirectory.TagExposureBias));
             // this 2.6 *apex*, which is F2.5
-            Assert.AreEqual(2.6, _exifSubIFDDirectory.GetDouble(ExifSubIFDDirectory.TagMaxAperture), 0.001);
-            Assert.AreEqual(5, _exifSubIFDDirectory.GetInt(ExifSubIFDDirectory.TagMeteringMode));
-            Assert.AreEqual(0, _exifSubIFDDirectory.GetInt(ExifSubIFDDirectory.TagWhiteBalance));
-            Assert.AreEqual(0, _exifSubIFDDirectory.GetInt(ExifSubIFDDirectory.TagFlash));
-            Assert.AreEqual(12.8, _exifSubIFDDirectory.GetDouble(ExifSubIFDDirectory.TagFocalLength), 0.001);
-            Assert.AreEqual("0 0 0 0 0 0 0 0 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32", _exifSubIFDDirectory.GetString(ExifSubIFDDirectory.TagUserComment));
-            Assert.AreEqual("48 49 48 48", _exifSubIFDDirectory.GetString(ExifSubIFDDirectory.TagFlashpixVersion));
-            Assert.AreEqual(1, _exifSubIFDDirectory.GetInt(ExifSubIFDDirectory.TagColorSpace));
-            Assert.AreEqual(1600, _exifSubIFDDirectory.GetInt(ExifSubIFDDirectory.TagExifImageWidth));
-            Assert.AreEqual(1200, _exifSubIFDDirectory.GetInt(ExifSubIFDDirectory.TagExifImageHeight));
-            Assert.AreEqual(3, _exifSubIFDDirectory.GetInt(ExifSubIFDDirectory.TagFileSource));
-            Assert.AreEqual(1, _exifSubIFDDirectory.GetInt(ExifSubIFDDirectory.TagSceneType));
+            Assert.AreEqual(2.6, _exifSubIfdDirectory.GetDouble(ExifSubIfdDirectory.TagMaxAperture), 0.001);
+            Assert.AreEqual(5, _exifSubIfdDirectory.GetInt(ExifSubIfdDirectory.TagMeteringMode));
+            Assert.AreEqual(0, _exifSubIfdDirectory.GetInt(ExifSubIfdDirectory.TagWhiteBalance));
+            Assert.AreEqual(0, _exifSubIfdDirectory.GetInt(ExifSubIfdDirectory.TagFlash));
+            Assert.AreEqual(12.8, _exifSubIfdDirectory.GetDouble(ExifSubIfdDirectory.TagFocalLength), 0.001);
+            Assert.AreEqual("0 0 0 0 0 0 0 0 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32", _exifSubIfdDirectory.GetString(ExifSubIfdDirectory.TagUserComment));
+            Assert.AreEqual("48 49 48 48", _exifSubIfdDirectory.GetString(ExifSubIfdDirectory.TagFlashpixVersion));
+            Assert.AreEqual(1, _exifSubIfdDirectory.GetInt(ExifSubIfdDirectory.TagColorSpace));
+            Assert.AreEqual(1600, _exifSubIfdDirectory.GetInt(ExifSubIfdDirectory.TagExifImageWidth));
+            Assert.AreEqual(1200, _exifSubIfdDirectory.GetInt(ExifSubIfdDirectory.TagExifImageHeight));
+            Assert.AreEqual(3, _exifSubIfdDirectory.GetInt(ExifSubIfdDirectory.TagFileSource));
+            Assert.AreEqual(1, _exifSubIfdDirectory.GetInt(ExifSubIfdDirectory.TagSceneType));
             Assert.AreEqual(6, _thumbDirectory.GetInt(ExifThumbnailDirectory.TagThumbnailCompression));
             Assert.AreEqual(2036, _thumbDirectory.GetInt(ExifThumbnailDirectory.TagThumbnailOffset));
             Assert.AreEqual(4662, _thumbDirectory.GetInt(ExifThumbnailDirectory.TagThumbnailLength));

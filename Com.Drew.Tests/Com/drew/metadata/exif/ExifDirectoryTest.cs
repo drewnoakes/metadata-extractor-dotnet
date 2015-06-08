@@ -29,9 +29,9 @@ namespace Com.Drew.Metadata.Exif
 {
     /// <summary>
     /// Unit tests for
-    /// <see cref="ExifSubIFDDirectory"/>
+    /// <see cref="ExifSubIfdDirectory"/>
     /// ,
-    /// <see cref="ExifIFD0Directory"/>
+    /// <see cref="ExifIfd0Directory"/>
     /// ,
     /// <see cref="ExifThumbnailDirectory"/>
     /// .
@@ -43,14 +43,14 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public virtual void TestGetDirectoryName()
         {
-            Directory subIFDDirectory = new ExifSubIFDDirectory();
-            Directory ifd0Directory = new ExifIFD0Directory();
+            Directory subIfdDirectory = new ExifSubIfdDirectory();
+            Directory ifd0Directory = new ExifIfd0Directory();
             Directory thumbDirectory = new ExifThumbnailDirectory();
-            Assert.IsFalse(subIFDDirectory.HasErrors());
+            Assert.IsFalse(subIfdDirectory.HasErrors());
             Assert.IsFalse(ifd0Directory.HasErrors());
             Assert.IsFalse(thumbDirectory.HasErrors());
             Assert.AreEqual("Exif IFD0", ifd0Directory.GetName());
-            Assert.AreEqual("Exif SubIFD", subIFDDirectory.GetName());
+            Assert.AreEqual("Exif SubIFD", subIfdDirectory.GetName());
             Assert.AreEqual("Exif Thumbnail", thumbDirectory.GetName());
         }
 
@@ -116,9 +116,9 @@ namespace Com.Drew.Metadata.Exif
             ExifThumbnailDirectory thumbnailDirectory = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
             Assert.IsNotNull(thumbnailDirectory);
             Assert.AreEqual(72, thumbnailDirectory.GetInt(ExifThumbnailDirectory.TagXResolution));
-            ExifIFD0Directory exifIFD0Directory = metadata.GetFirstDirectoryOfType<ExifIFD0Directory>();
-            Assert.IsNotNull(exifIFD0Directory);
-            Assert.AreEqual(216, exifIFD0Directory.GetInt(ExifIFD0Directory.TagXResolution));
+            ExifIfd0Directory exifIfd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
+            Assert.IsNotNull(exifIfd0Directory);
+            Assert.AreEqual(216, exifIfd0Directory.GetInt(ExifIfd0Directory.TagXResolution));
         }
     }
 }

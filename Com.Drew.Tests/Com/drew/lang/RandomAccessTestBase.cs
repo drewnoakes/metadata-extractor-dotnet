@@ -308,7 +308,7 @@ namespace Com.Drew.Lang
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetBytesEOF()
+        public virtual void TestGetBytesEof()
         {
             CreateReader(new sbyte[50]).GetBytes(0, 50);
             RandomAccessReader reader = CreateReader(new sbyte[50]);
@@ -325,7 +325,7 @@ namespace Com.Drew.Lang
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetInt8EOF()
+        public virtual void TestGetInt8Eof()
         {
             CreateReader(new sbyte[1]).GetInt8(0);
             RandomAccessReader reader = CreateReader(new sbyte[2]);

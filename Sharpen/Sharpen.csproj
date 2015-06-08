@@ -82,7 +82,7 @@
     <Compile Include="Sharpen\FilterInputStream.cs" />
     <Compile Include="Sharpen\InputStream.cs" />
     <Compile Include="Sharpen\Iterable.cs" />
-    <Compile Include="Sharpen\Iterator.cs" />
+    <Compile Include="Sharpen\IIterator.cs" />
     <Compile Include="Sharpen\OutputStream.cs" />
     <Compile Include="Sharpen\HttpURLConnection.cs" />
     <Compile Include="Sharpen\DateFormat.cs" />

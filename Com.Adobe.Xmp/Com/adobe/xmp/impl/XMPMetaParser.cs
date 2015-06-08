@@ -26,7 +26,7 @@ namespace Com.Adobe.Xmp.Impl
     /// are applied to the XMPTree.
     /// </remarks>
     /// <since>01.02.2006</since>
-    public static class XMPMetaParser
+    public static class XmpMetaParser
     {
         private static readonly object XmpRdf = new object();
 
@@ -41,23 +41,23 @@ namespace Com.Adobe.Xmp.Impl
         /// </param>
         /// <param name="options">the parse options</param>
         /// <returns>Returns the resulting XMP metadata object</returns>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">Thrown if parsing or normalisation fails.</exception>
-        public static XMPMeta Parse(object input, ParseOptions options)
+        /// <exception cref="XmpException">Thrown if parsing or normalisation fails.</exception>
+        public static IXmpMeta Parse(object input, ParseOptions options)
         {
             ParameterAsserts.AssertNotNull(input);
             options = options != null ? options : new ParseOptions();
             XmlDocument document = ParseXml(input, options);
-            bool xmpmetaRequired = options.GetRequireXMPMeta();
+            bool xmpmetaRequired = options.GetRequireXmpMeta();
             object[] result = new object[3];
             result = FindRootNode(document, xmpmetaRequired, result);
             if (result != null && result[1] == XmpRdf)
             {
-                XMPMetaImpl xmp = ParseRDF.Parse((XmlNode)result[0]);
+                XmpMeta xmp = ParseRdf.Parse((XmlNode)result[0]);
                 xmp.SetPacketHeader((string)result[2]);
                 // Check if the XMP object shall be normalized
                 if (!options.GetOmitNormalization())
                 {
-                    return XMPNormalizer.Process(xmp, options);
+                    return XmpNormalizer.Process(xmp, options);
                 }
                 else
                 {
@@ -67,7 +67,7 @@ namespace Com.Adobe.Xmp.Impl
             else
             {
                 // no appropriate root node found, return empty metadata object
-                return new XMPMetaImpl();
+                return new XmpMeta();
             }
         }
 
@@ -89,7 +89,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </param>
         /// <param name="options">the parsing options</param>
         /// <returns>Returns the parsed XML document or an exception.</returns>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">Thrown if the parsing fails for different reasons</exception>
+        /// <exception cref="XmpException">Thrown if the parsing fails for different reasons</exception>
         private static XmlDocument ParseXml(object input, ParseOptions options)
         {
             if (input is InputStream)
@@ -118,7 +118,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="stream">an <code>InputStream</code></param>
         /// <param name="options">the parsing options</param>
         /// <returns>Returns an XML DOM-Document.</returns>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">Thrown when the parsing fails.</exception>
+        /// <exception cref="XmpException">Thrown when the parsing fails.</exception>
         private static XmlDocument ParseXmlFromInputStream(InputStream stream, ParseOptions options)
         {
             if (!options.GetAcceptLatin1() && !options.GetFixControlChars())
@@ -135,7 +135,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 catch (IOException e)
                 {
-                    throw new XMPException("Error reading the XML-file", XMPErrorConstants.Badstream, e);
+                    throw new XmpException("Error reading the XML-file", XmpErrorConstants.Badstream, e);
                 }
             }
         }
@@ -147,7 +147,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="buffer">a byte buffer containing the XMP packet</param>
         /// <param name="options">the parsing options</param>
         /// <returns>Returns an XML DOM-Document.</returns>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">Thrown when the parsing fails.</exception>
+        /// <exception cref="XmpException">Thrown when the parsing fails.</exception>
         private static XmlDocument ParseXmlFromBytebuffer(ByteBuffer buffer, ParseOptions options)
         {
             InputSource source = new InputSource(buffer.GetByteStream());
@@ -155,9 +155,9 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return ParseInputSource(source);
             }
-            catch (XMPException e)
+            catch (XmpException e)
             {
-                if (e.GetErrorCode() == XMPErrorConstants.Badxml || e.GetErrorCode() == XMPErrorConstants.Badstream)
+                if (e.GetErrorCode() == XmpErrorConstants.Badxml || e.GetErrorCode() == XmpErrorConstants.Badstream)
                 {
                     if (options.GetAcceptLatin1())
                     {
@@ -168,13 +168,13 @@ namespace Com.Adobe.Xmp.Impl
                         try
                         {
                             string encoding = buffer.GetEncoding();
-                            StreamReader fixReader = new FixASCIIControlsReader(new InputStreamReader(buffer.GetByteStream(), encoding));
+                            StreamReader fixReader = new FixAsciiControlsReader(new InputStreamReader(buffer.GetByteStream(), encoding));
                             return ParseInputSource(new InputSource(fixReader));
                         }
                         catch (UnsupportedEncodingException)
                         {
                             // can normally not happen as the encoding is provided by a util function
-                            throw new XMPException("Unsupported Encoding", XMPErrorConstants.Internalfailure, e);
+                            throw new XmpException("Unsupported Encoding", XmpErrorConstants.Internalfailure, e);
                         }
                     }
                     source = new InputSource(buffer.GetByteStream());
@@ -196,7 +196,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="input">a <code>String</code> containing the XMP packet</param>
         /// <param name="options">the parsing options</param>
         /// <returns>Returns an XML DOM-Document.</returns>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">Thrown when the parsing fails.</exception>
+        /// <exception cref="XmpException">Thrown when the parsing fails.</exception>
         private static XmlDocument ParseXmlFromString(string input, ParseOptions options)
         {
             InputSource source = new InputSource(new StringReader(input));
@@ -204,11 +204,11 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return ParseInputSource(source);
             }
-            catch (XMPException e)
+            catch (XmpException e)
             {
-                if (e.GetErrorCode() == XMPErrorConstants.Badxml && options.GetFixControlChars())
+                if (e.GetErrorCode() == XmpErrorConstants.Badxml && options.GetFixControlChars())
                 {
-                    source = new InputSource(new FixASCIIControlsReader(new StringReader(input)));
+                    source = new InputSource(new FixAsciiControlsReader(new StringReader(input)));
                     return ParseInputSource(source);
                 }
                 else
@@ -221,7 +221,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>Runs the XML-Parser.</summary>
         /// <param name="source">an <code>InputSource</code></param>
         /// <returns>Returns an XML DOM-Document.</returns>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">Wraps parsing and I/O-exceptions into an XMPException.</exception>
+        /// <exception cref="XmpException">Wraps parsing and I/O-exceptions into an XMPException.</exception>
         private static XmlDocument ParseInputSource(InputSource source)
         {
             try
@@ -233,15 +233,15 @@ namespace Com.Adobe.Xmp.Impl
             }
             catch (XmlException e)
             {
-                throw new XMPException("XML parsing failure", XMPErrorConstants.Badxml, e);
+                throw new XmpException("XML parsing failure", XmpErrorConstants.Badxml, e);
             }
             catch (IOException e)
             {
-                throw new XMPException("Error reading the XML-file", XMPErrorConstants.Badstream, e);
+                throw new XmpException("Error reading the XML-file", XmpErrorConstants.Badstream, e);
             }
             catch (Exception e)
             {
-                throw new XMPException("XML Parser not correctly configured", XMPErrorConstants.Unknown, e);
+                throw new XmpException("XML Parser not correctly configured", XmpErrorConstants.Unknown, e);
             }
         }
 
@@ -286,7 +286,7 @@ namespace Com.Adobe.Xmp.Impl
             for (int i = 0; i < children.Count; i++)
             {
                 root = children.Item(i);
-                if (XmlNodeType.ProcessingInstruction == root.NodeType && XMPConstConstants.XmpPi.Equals(((XmlProcessingInstruction)root).Target))
+                if (XmlNodeType.ProcessingInstruction == root.NodeType && XmpConstConstants.XmpPi.Equals(((XmlProcessingInstruction)root).Target))
                 {
                     // Store the processing instructions content
                     if (result != null)
@@ -298,16 +298,16 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if (XmlNodeType.Text != root.NodeType && XmlNodeType.ProcessingInstruction != root.NodeType)
                     {
-                        string rootNS = root.NamespaceURI;
+                        string rootNs = root.NamespaceURI;
                         string rootLocal = root.LocalName;
-                        if ((XMPConstConstants.TagXmpmeta.Equals(rootLocal) || XMPConstConstants.TagXapmeta.Equals(rootLocal)) && XMPConstConstants.NsX.Equals(rootNS))
+                        if ((XmpConstConstants.TagXmpmeta.Equals(rootLocal) || XmpConstConstants.TagXapmeta.Equals(rootLocal)) && XmpConstConstants.NsX.Equals(rootNs))
                         {
                             // by not passing the RequireXMPMeta-option, the rdf-Node will be valid
                             return FindRootNode(root, false, result);
                         }
                         else
                         {
-                            if (!xmpmetaRequired && "RDF".Equals(rootLocal) && XMPConstConstants.NsRdf.Equals(rootNS))
+                            if (!xmpmetaRequired && "RDF".Equals(rootLocal) && XmpConstConstants.NsRdf.Equals(rootNs))
                             {
                                 if (result != null)
                                 {

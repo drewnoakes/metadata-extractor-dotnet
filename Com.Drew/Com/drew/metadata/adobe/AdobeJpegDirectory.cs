@@ -50,14 +50,14 @@ namespace Com.Drew.Metadata.Adobe
 
         public const int TagColorTransform = 3;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static AdobeJpegDirectory()
         {
-            _tagNameMap.Put(TagDctEncodeVersion, "DCT Encode Version");
-            _tagNameMap.Put(TagApp14Flags0, "Flags 0");
-            _tagNameMap.Put(TagApp14Flags1, "Flags 1");
-            _tagNameMap.Put(TagColorTransform, "Color Transform");
+            TagNameMap.Put(TagDctEncodeVersion, "DCT Encode Version");
+            TagNameMap.Put(TagApp14Flags0, "Flags 0");
+            TagNameMap.Put(TagApp14Flags1, "Flags 1");
+            TagNameMap.Put(TagColorTransform, "Color Transform");
         }
 
         public AdobeJpegDirectory()
@@ -74,7 +74,7 @@ namespace Com.Drew.Metadata.Adobe
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

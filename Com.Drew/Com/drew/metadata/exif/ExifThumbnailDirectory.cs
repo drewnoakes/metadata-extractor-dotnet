@@ -71,14 +71,14 @@ namespace Com.Drew.Metadata.Exif
         public const int TagThumbnailCompression = unchecked((int)(0x0103));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static ExifThumbnailDirectory()
         {
-            AddExifTagNames(_tagNameMap);
-            _tagNameMap.Put(TagThumbnailCompression, "Thumbnail Compression");
-            _tagNameMap.Put(TagThumbnailOffset, "Thumbnail Offset");
-            _tagNameMap.Put(TagThumbnailLength, "Thumbnail Length");
+            AddExifTagNames(TagNameMap);
+            TagNameMap.Put(TagThumbnailCompression, "Thumbnail Compression");
+            TagNameMap.Put(TagThumbnailOffset, "Thumbnail Offset");
+            TagNameMap.Put(TagThumbnailLength, "Thumbnail Length");
         }
 
         [CanBeNull]
@@ -98,7 +98,7 @@ namespace Com.Drew.Metadata.Exif
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
 
         public virtual bool HasThumbnailData()

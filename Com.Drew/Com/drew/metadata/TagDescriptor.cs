@@ -40,11 +40,11 @@ namespace Com.Drew.Metadata
         where T : Directory
     {
         [NotNull]
-        protected internal readonly T _directory;
+        protected internal readonly T Directory;
 
         public TagDescriptor([NotNull] T directory)
         {
-            _directory = directory;
+            Directory = directory;
         }
 
         /// <summary>Returns a descriptive value of the specified tag for this image.</summary>
@@ -62,7 +62,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public virtual string GetDescription(int tagType)
         {
-            object @object = _directory.GetObject(tagType);
+            object @object = Directory.GetObject(tagType);
             if (@object == null)
             {
                 return null;
@@ -87,7 +87,7 @@ namespace Com.Drew.Metadata
                 }
             }
             // no special handling required, so use default conversion to a string
-            return _directory.GetString(tagType);
+            return Directory.GetString(tagType);
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected internal virtual string GetVersionBytesDescription(int tagType, int majorDigits)
         {
-            int[] values = _directory.GetIntArray(tagType);
+            int[] values = Directory.GetIntArray(tagType);
             return values == null ? null : ConvertBytesToVersionString(values, majorDigits);
         }
 
@@ -151,7 +151,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected internal virtual string GetIndexedDescription(int tagType, int baseIndex, [NotNull] params string[] descriptions)
         {
-            int? index = _directory.GetInteger(tagType);
+            int? index = Directory.GetInteger(tagType);
             if (index == null)
             {
                 return null;
@@ -171,7 +171,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected internal virtual string GetByteLengthDescription(int tagType)
         {
-            sbyte[] bytes = _directory.GetByteArray(tagType);
+            sbyte[] bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
             {
                 return null;
@@ -182,7 +182,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected internal virtual string GetSimpleRational(int tagType)
         {
-            Rational value = _directory.GetRational(tagType);
+            Rational value = Directory.GetRational(tagType);
             if (value == null)
             {
                 return null;
@@ -193,7 +193,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected internal virtual string GetDecimalRational(int tagType, int decimalPlaces)
         {
-            Rational value = _directory.GetRational(tagType);
+            Rational value = Directory.GetRational(tagType);
             if (value == null)
             {
                 return null;
@@ -204,7 +204,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected internal virtual string GetFormattedInt(int tagType, [NotNull] string format)
         {
-            int? value = _directory.GetInteger(tagType);
+            int? value = Directory.GetInteger(tagType);
             if (value == null)
             {
                 return null;
@@ -215,7 +215,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected internal virtual string GetFormattedFloat(int tagType, [NotNull] string format)
         {
-            float? value = _directory.GetFloatObject(tagType);
+            float? value = Directory.GetFloatObject(tagType);
             if (value == null)
             {
                 return null;
@@ -226,7 +226,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected internal virtual string GetFormattedString(int tagType, [NotNull] string format)
         {
-            string value = _directory.GetString(tagType);
+            string value = Directory.GetString(tagType);
             if (value == null)
             {
                 return null;
@@ -238,7 +238,7 @@ namespace Com.Drew.Metadata
         protected internal virtual string GetEpochTimeDescription(int tagType)
         {
             // TODO have observed a byte[8] here which is likely some kind of date (ticks as long?)
-            long? value = _directory.GetLongObject(tagType);
+            long? value = Directory.GetLongObject(tagType);
             if (value == null)
             {
                 return null;
@@ -251,7 +251,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected internal virtual string GetBitFlagDescription(int tagType, [NotNull] params object[] labels)
         {
-            int? value = _directory.GetInteger(tagType);
+            int? value = Directory.GetInteger(tagType);
             if (value == null)
             {
                 return null;
@@ -287,7 +287,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected internal virtual string Get7BitStringFromBytes(int tagType)
         {
-            sbyte[] bytes = _directory.GetByteArray(tagType);
+            sbyte[] bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
             {
                 return null;
@@ -308,7 +308,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected internal virtual string GetAsciiStringFromBytes(int tag)
         {
-            sbyte[] values = _directory.GetByteArray(tag);
+            sbyte[] values = Directory.GetByteArray(tag);
             if (values == null)
             {
                 return null;

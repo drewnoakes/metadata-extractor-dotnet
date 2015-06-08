@@ -33,7 +33,7 @@ namespace Com.Drew.Metadata
     /// Instances of this interface must be thread-safe and reusable.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public interface MetadataReader
+    public interface IMetadataReader
     {
         /// <summary>
         /// Extracts metadata from <code>reader</code> and merges it into the specified

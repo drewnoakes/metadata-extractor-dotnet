@@ -2,10 +2,10 @@ namespace Sharpen
 {
     public class ByteBuffer
     {
-        private readonly byte[] buffer;
-        private int index;
-        private int limit;
-        private int offset;
+        private readonly byte[] _buffer;
+        private int _index;
+        private int _limit;
+        private int _offset;
 
         public ByteBuffer ()
         {
@@ -13,30 +13,30 @@ namespace Sharpen
 
         private ByteBuffer (byte[] buf, int start, int len)
         {
-            this.buffer = buf;
-            this.offset = 0;
-            this.limit = start + len;
-            this.index = start;
+            this._buffer = buf;
+            this._offset = 0;
+            this._limit = start + len;
+            this._index = start;
         }
 
         public byte[] Array ()
         {
-            return buffer;
+            return _buffer;
         }
 
         public int ArrayOffset ()
         {
-            return offset;
+            return _offset;
         }
 
         public int Limit ()
         {
-            return (limit - offset);
+            return (_limit - _offset);
         }
 
         public int Position ()
         {
-            return (index - offset);
+            return (_index - _offset);
         }
 
         public static ByteBuffer Wrap(byte[] buf)

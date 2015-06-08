@@ -18,7 +18,7 @@ namespace Com.Adobe.Xmp
     /// ISO 8601 string or for the current time.
     /// </summary>
     /// <since>16.02.2006</since>
-    public static class XMPDateTimeFactory
+    public static class XmpDateTimeFactory
     {
         /// <summary>The UTC TimeZone</summary>
         private static readonly TimeZoneInfo Utc = Extensions.GetTimeZone("UTC");
@@ -27,16 +27,16 @@ namespace Com.Adobe.Xmp
         /// <summary>Creates an <code>XMPDateTime</code> from a <code>Calendar</code>-object.</summary>
         /// <param name="calendar">a <code>Calendar</code>-object.</param>
         /// <returns>An <code>XMPDateTime</code>-object.</returns>
-        public static XMPDateTime CreateFromCalendar(Calendar calendar)
+        public static IXmpDateTime CreateFromCalendar(Calendar calendar)
         {
-            return new XMPDateTimeImpl(calendar);
+            return new XmpDateTime(calendar);
         }
 
         /// <summary>Creates an empty <code>XMPDateTime</code>-object.</summary>
         /// <returns>Returns an <code>XMPDateTime</code>-object.</returns>
-        public static XMPDateTime Create()
+        public static IXmpDateTime Create()
         {
-            return new XMPDateTimeImpl();
+            return new XmpDateTime();
         }
 
         /// <summary>Creates an <code>XMPDateTime</code>-object from initial values.</summary>
@@ -49,9 +49,9 @@ namespace Com.Adobe.Xmp
         /// </param>
         /// <param name="day">days</param>
         /// <returns>Returns an <code>XMPDateTime</code>-object.</returns>
-        public static XMPDateTime Create(int year, int month, int day)
+        public static IXmpDateTime Create(int year, int month, int day)
         {
-            XMPDateTime dt = new XMPDateTimeImpl();
+            IXmpDateTime dt = new XmpDateTime();
             dt.SetYear(year);
             dt.SetMonth(month);
             dt.SetDay(day);
@@ -72,9 +72,9 @@ namespace Com.Adobe.Xmp
         /// <param name="second">seconds</param>
         /// <param name="nanoSecond">nanoseconds</param>
         /// <returns>Returns an <code>XMPDateTime</code>-object.</returns>
-        public static XMPDateTime Create(int year, int month, int day, int hour, int minute, int second, int nanoSecond)
+        public static IXmpDateTime Create(int year, int month, int day, int hour, int minute, int second, int nanoSecond)
         {
-            XMPDateTime dt = new XMPDateTimeImpl();
+            IXmpDateTime dt = new XmpDateTime();
             dt.SetYear(year);
             dt.SetMonth(month);
             dt.SetDay(day);
@@ -88,11 +88,11 @@ namespace Com.Adobe.Xmp
         /// <summary>Creates an <code>XMPDateTime</code> from an ISO 8601 string.</summary>
         /// <param name="strValue">The ISO 8601 string representation of the date/time.</param>
         /// <returns>An <code>XMPDateTime</code>-object.</returns>
-        /// <exception cref="XMPException">When the ISO 8601 string is non-conform</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static XMPDateTime CreateFromISO8601(string strValue)
+        /// <exception cref="XmpException">When the ISO 8601 string is non-conform</exception>
+        /// <exception cref="XmpException"/>
+        public static IXmpDateTime CreateFromIso8601(string strValue)
         {
-            return new XMPDateTimeImpl(strValue);
+            return new XmpDateTime(strValue);
         }
 
         /// <summary>Obtain the current date and time.</summary>
@@ -100,9 +100,9 @@ namespace Com.Adobe.Xmp
         /// Returns The returned time is UTC, properly adjusted for the local time zone. The
         /// resolution of the time is not guaranteed to be finer than seconds.
         /// </returns>
-        public static XMPDateTime GetCurrentDateTime()
+        public static IXmpDateTime GetCurrentDateTime()
         {
-            return new XMPDateTimeImpl(new GregorianCalendar());
+            return new XmpDateTime(new GregorianCalendar());
         }
 
         /// <summary>
@@ -111,11 +111,11 @@ namespace Com.Adobe.Xmp
         /// </summary>
         /// <param name="dateTime">the <code>XMPDateTime</code> variable containing the value to be modified.</param>
         /// <returns>Returns an updated <code>XMPDateTime</code>-object.</returns>
-        public static XMPDateTime SetLocalTimeZone(XMPDateTime dateTime)
+        public static IXmpDateTime SetLocalTimeZone(IXmpDateTime dateTime)
         {
             Calendar cal = dateTime.GetCalendar();
             cal.SetTimeZone(TimeZoneInfo.Local);
-            return new XMPDateTimeImpl(cal);
+            return new XmpDateTime(cal);
         }
 
         /// <summary>Make sure a time is UTC.</summary>
@@ -128,13 +128,13 @@ namespace Com.Adobe.Xmp
         /// be modified.
         /// </param>
         /// <returns>Returns an updated <code>XMPDateTime</code>-object.</returns>
-        public static XMPDateTime ConvertToUTCTime(XMPDateTime dateTime)
+        public static IXmpDateTime ConvertToUtcTime(IXmpDateTime dateTime)
         {
             long timeInMillis = dateTime.GetCalendar().GetTimeInMillis();
             GregorianCalendar cal = new GregorianCalendar(Utc);
             cal.SetGregorianChange(Extensions.CreateDate(long.MinValue));
             cal.SetTimeInMillis(timeInMillis);
-            return new XMPDateTimeImpl(cal);
+            return new XmpDateTime(cal);
         }
 
         /// <summary>Make sure a time is local.</summary>
@@ -144,13 +144,13 @@ namespace Com.Adobe.Xmp
         /// </remarks>
         /// <param name="dateTime">the <code>XMPDateTime</code> variable containing the time to be modified.</param>
         /// <returns>Returns an updated <code>XMPDateTime</code>-object.</returns>
-        public static XMPDateTime ConvertToLocalTime(XMPDateTime dateTime)
+        public static IXmpDateTime ConvertToLocalTime(IXmpDateTime dateTime)
         {
             long timeInMillis = dateTime.GetCalendar().GetTimeInMillis();
             // has automatically local timezone
             GregorianCalendar cal = new GregorianCalendar();
             cal.SetTimeInMillis(timeInMillis);
-            return new XMPDateTimeImpl(cal);
+            return new XmpDateTime(cal);
         }
     }
 }

@@ -77,33 +77,33 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public const int TagAutoBracket = unchecked((int)(0x19));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static SigmaMakernoteDirectory()
         {
-            _tagNameMap.Put(TagSerialNumber, "Serial Number");
-            _tagNameMap.Put(TagDriveMode, "Drive Mode");
-            _tagNameMap.Put(TagResolutionMode, "Resolution Mode");
-            _tagNameMap.Put(TagAutoFocusMode, "Auto Focus Mode");
-            _tagNameMap.Put(TagFocusSetting, "Focus Setting");
-            _tagNameMap.Put(TagWhiteBalance, "White Balance");
-            _tagNameMap.Put(TagExposureMode, "Exposure Mode");
-            _tagNameMap.Put(TagMeteringMode, "Metering Mode");
-            _tagNameMap.Put(TagLensRange, "Lens Range");
-            _tagNameMap.Put(TagColorSpace, "Color Space");
-            _tagNameMap.Put(TagExposure, "Exposure");
-            _tagNameMap.Put(TagContrast, "Contrast");
-            _tagNameMap.Put(TagShadow, "Shadow");
-            _tagNameMap.Put(TagHighlight, "Highlight");
-            _tagNameMap.Put(TagSaturation, "Saturation");
-            _tagNameMap.Put(TagSharpness, "Sharpness");
-            _tagNameMap.Put(TagFillLight, "Fill Light");
-            _tagNameMap.Put(TagColorAdjustment, "Color Adjustment");
-            _tagNameMap.Put(TagAdjustmentMode, "Adjustment Mode");
-            _tagNameMap.Put(TagQuality, "Quality");
-            _tagNameMap.Put(TagFirmware, "Firmware");
-            _tagNameMap.Put(TagSoftware, "Software");
-            _tagNameMap.Put(TagAutoBracket, "Auto Bracket");
+            TagNameMap.Put(TagSerialNumber, "Serial Number");
+            TagNameMap.Put(TagDriveMode, "Drive Mode");
+            TagNameMap.Put(TagResolutionMode, "Resolution Mode");
+            TagNameMap.Put(TagAutoFocusMode, "Auto Focus Mode");
+            TagNameMap.Put(TagFocusSetting, "Focus Setting");
+            TagNameMap.Put(TagWhiteBalance, "White Balance");
+            TagNameMap.Put(TagExposureMode, "Exposure Mode");
+            TagNameMap.Put(TagMeteringMode, "Metering Mode");
+            TagNameMap.Put(TagLensRange, "Lens Range");
+            TagNameMap.Put(TagColorSpace, "Color Space");
+            TagNameMap.Put(TagExposure, "Exposure");
+            TagNameMap.Put(TagContrast, "Contrast");
+            TagNameMap.Put(TagShadow, "Shadow");
+            TagNameMap.Put(TagHighlight, "Highlight");
+            TagNameMap.Put(TagSaturation, "Saturation");
+            TagNameMap.Put(TagSharpness, "Sharpness");
+            TagNameMap.Put(TagFillLight, "Fill Light");
+            TagNameMap.Put(TagColorAdjustment, "Color Adjustment");
+            TagNameMap.Put(TagAdjustmentMode, "Adjustment Mode");
+            TagNameMap.Put(TagQuality, "Quality");
+            TagNameMap.Put(TagFirmware, "Firmware");
+            TagNameMap.Put(TagSoftware, "Software");
+            TagNameMap.Put(TagAutoBracket, "Auto Bracket");
         }
 
         public SigmaMakernoteDirectory()
@@ -120,7 +120,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

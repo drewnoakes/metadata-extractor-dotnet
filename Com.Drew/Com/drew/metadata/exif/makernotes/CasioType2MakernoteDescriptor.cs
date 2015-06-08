@@ -212,13 +212,13 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetTimeZoneDescription()
         {
-            return _directory.GetString(CasioType2MakernoteDirectory.TagTimeZone);
+            return Directory.GetString(CasioType2MakernoteDirectory.TagTimeZone);
         }
 
         [CanBeNull]
         public virtual string GetFocusMode2Description()
         {
-            int? value = _directory.GetInteger(CasioType2MakernoteDirectory.TagFocusMode2);
+            int? value = Directory.GetInteger(CasioType2MakernoteDirectory.TagFocusMode2);
             if (value == null)
             {
                 return null;
@@ -269,7 +269,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetObjectDistanceDescription()
         {
-            int? value = _directory.GetInteger(CasioType2MakernoteDirectory.TagObjectDistance);
+            int? value = Directory.GetInteger(CasioType2MakernoteDirectory.TagObjectDistance);
             if (value == null)
             {
                 return null;
@@ -280,7 +280,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetWhiteBalance2Description()
         {
-            int? value = _directory.GetInteger(CasioType2MakernoteDirectory.TagWhiteBalance2);
+            int? value = Directory.GetInteger(CasioType2MakernoteDirectory.TagWhiteBalance2);
             if (value == null)
             {
                 return null;
@@ -319,13 +319,13 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetWhiteBalanceBiasDescription()
         {
-            return _directory.GetString(CasioType2MakernoteDirectory.TagWhiteBalanceBias);
+            return Directory.GetString(CasioType2MakernoteDirectory.TagWhiteBalanceBias);
         }
 
         [CanBeNull]
         public virtual string GetCasioPreviewThumbnailDescription()
         {
-            sbyte[] bytes = _directory.GetByteArray(CasioType2MakernoteDirectory.TagPreviewThumbnail);
+            sbyte[] bytes = Directory.GetByteArray(CasioType2MakernoteDirectory.TagPreviewThumbnail);
             if (bytes == null)
             {
                 return null;
@@ -337,7 +337,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public virtual string GetPrintImageMatchingInfoDescription()
         {
             // TODO research PIM specification http://www.ozhiker.com/electronics/pjmt/jpeg_info/pim.html
-            return _directory.GetString(CasioType2MakernoteDirectory.TagPrintImageMatchingInfo);
+            return Directory.GetString(CasioType2MakernoteDirectory.TagPrintImageMatchingInfo);
         }
 
         [CanBeNull]
@@ -361,7 +361,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetFocalLengthDescription()
         {
-            double? value = _directory.GetDoubleObject(CasioType2MakernoteDirectory.TagFocalLength);
+            double? value = Directory.GetDoubleObject(CasioType2MakernoteDirectory.TagFocalLength);
             if (value == null)
             {
                 return null;
@@ -378,7 +378,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetIsoSensitivityDescription()
         {
-            int? value = _directory.GetInteger(CasioType2MakernoteDirectory.TagIsoSensitivity);
+            int? value = Directory.GetInteger(CasioType2MakernoteDirectory.TagIsoSensitivity);
             if (value == null)
             {
                 return null;
@@ -421,7 +421,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetImageSizeDescription()
         {
-            int? value = _directory.GetInteger(CasioType2MakernoteDirectory.TagImageSize);
+            int? value = Directory.GetInteger(CasioType2MakernoteDirectory.TagImageSize);
             if (value == null)
             {
                 return null;
@@ -479,13 +479,13 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetThumbnailOffsetDescription()
         {
-            return _directory.GetString(CasioType2MakernoteDirectory.TagThumbnailOffset);
+            return Directory.GetString(CasioType2MakernoteDirectory.TagThumbnailOffset);
         }
 
         [CanBeNull]
         public virtual string GetThumbnailSizeDescription()
         {
-            int? value = _directory.GetInteger(CasioType2MakernoteDirectory.TagThumbnailSize);
+            int? value = Directory.GetInteger(CasioType2MakernoteDirectory.TagThumbnailSize);
             if (value == null)
             {
                 return null;
@@ -496,10 +496,10 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetThumbnailDimensionsDescription()
         {
-            int[] dimensions = _directory.GetIntArray(CasioType2MakernoteDirectory.TagThumbnailDimensions);
+            int[] dimensions = Directory.GetIntArray(CasioType2MakernoteDirectory.TagThumbnailDimensions);
             if (dimensions == null || dimensions.Length != 2)
             {
-                return _directory.GetString(CasioType2MakernoteDirectory.TagThumbnailDimensions);
+                return Directory.GetString(CasioType2MakernoteDirectory.TagThumbnailDimensions);
             }
             return dimensions[0] + " x " + dimensions[1] + " pixels";
         }

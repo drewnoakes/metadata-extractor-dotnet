@@ -39,7 +39,7 @@ namespace Com.Drew.Metadata.Xmp
     /// </remarks>
     /// <author>Torsten Skadell</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class XmpReader : JpegSegmentMetadataReader
+    public class XmpReader : IJpegSegmentMetadataReader
     {
         private const int FmtString = 1;
 
@@ -123,10 +123,10 @@ namespace Com.Drew.Metadata.Xmp
             XmpDirectory directory = new XmpDirectory();
             try
             {
-                XMPMeta xmpMeta = XMPMetaFactory.ParseFromBuffer(xmpBytes);
+                IXmpMeta xmpMeta = XmpMetaFactory.ParseFromBuffer(xmpBytes);
                 ProcessXmpTags(directory, xmpMeta);
             }
-            catch (XMPException e)
+            catch (XmpException e)
             {
                 directory.AddError("Error processing XMP data: " + e.Message);
             }
@@ -148,10 +148,10 @@ namespace Com.Drew.Metadata.Xmp
             XmpDirectory directory = new XmpDirectory();
             try
             {
-                XMPMeta xmpMeta = XMPMetaFactory.ParseFromString(xmpString);
+                IXmpMeta xmpMeta = XmpMetaFactory.ParseFromString(xmpString);
                 ProcessXmpTags(directory, xmpMeta);
             }
-            catch (XMPException e)
+            catch (XmpException e)
             {
                 directory.AddError("Error processing XMP data: " + e.Message);
             }
@@ -161,11 +161,11 @@ namespace Com.Drew.Metadata.Xmp
             }
         }
 
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        private static void ProcessXmpTags(XmpDirectory directory, XMPMeta xmpMeta)
+        /// <exception cref="XmpException"/>
+        private static void ProcessXmpTags(XmpDirectory directory, IXmpMeta xmpMeta)
         {
             // store the XMPMeta object on the directory in case others wish to use it
-            directory.SetXMPMeta(xmpMeta);
+            directory.SetXmpMeta(xmpMeta);
             // read all the tags and send them to the directory
             // I've added some popular tags, feel free to add more tags
             ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagLensInfo, FmtString);
@@ -208,9 +208,9 @@ namespace Com.Drew.Metadata.Xmp
             // processXmpTag(xmpMeta, directory, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES, "dc:accrualPeriodicity", XmpDirectory.TAG_ACCRUAL_PERIODICITY,
             // FMT_STRING);
             // processXmpTag(xmpMeta, directory, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES, "dc:accrualPolicy", XmpDirectory.TAG_ACCRUAL_POLICY, FMT_STRING);
-            for (XMPIterator iterator = xmpMeta.Iterator(); iterator.HasNext(); )
+            for (IXmpIterator iterator = xmpMeta.Iterator(); iterator.HasNext(); )
             {
-                XMPPropertyInfo propInfo = (XMPPropertyInfo)iterator.Next();
+                IXmpPropertyInfo propInfo = (IXmpPropertyInfo)iterator.Next();
                 string path = propInfo.GetPath();
                 string value = propInfo.GetValue();
                 if (path != null && value != null)
@@ -222,12 +222,12 @@ namespace Com.Drew.Metadata.Xmp
 
         /// <summary>Reads an property value with given namespace URI and property name.</summary>
         /// <remarks>Reads an property value with given namespace URI and property name. Add property value to directory if exists</remarks>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        private static void ProcessXmpTag([NotNull] XMPMeta meta, [NotNull] XmpDirectory directory, int tagType, int formatCode)
+        /// <exception cref="XmpException"/>
+        private static void ProcessXmpTag([NotNull] IXmpMeta meta, [NotNull] XmpDirectory directory, int tagType, int formatCode)
         {
-            string schemaNS = XmpDirectory._tagSchemaMap.Get(tagType);
-            string propName = XmpDirectory._tagPropNameMap.Get(tagType);
-            string property = meta.GetPropertyString(schemaNS, propName);
+            string schemaNs = XmpDirectory.TagSchemaMap.Get(tagType);
+            string propName = XmpDirectory.TagPropNameMap.Get(tagType);
+            string property = meta.GetPropertyString(schemaNs, propName);
             if (property == null)
             {
                 return;
@@ -291,11 +291,11 @@ namespace Com.Drew.Metadata.Xmp
                 case FmtStringArray:
                 {
                     //XMP iterators are 1-based
-                    int count = meta.CountArrayItems(schemaNS, propName);
+                    int count = meta.CountArrayItems(schemaNs, propName);
                     string[] array = new string[count];
                     for (int i = 1; i <= count; ++i)
                     {
-                        array[i - 1] = meta.GetArrayItem(schemaNS, propName, i).GetValue();
+                        array[i - 1] = meta.GetArrayItem(schemaNs, propName, i).GetValue();
                     }
                     directory.SetStringArray(tagType, array);
                     break;
@@ -309,12 +309,12 @@ namespace Com.Drew.Metadata.Xmp
             }
         }
 
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        private static void ProcessXmpDateTag([NotNull] XMPMeta meta, [NotNull] XmpDirectory directory, int tagType)
+        /// <exception cref="XmpException"/>
+        private static void ProcessXmpDateTag([NotNull] IXmpMeta meta, [NotNull] XmpDirectory directory, int tagType)
         {
-            string schemaNS = XmpDirectory._tagSchemaMap.Get(tagType);
-            string propName = XmpDirectory._tagPropNameMap.Get(tagType);
-            Calendar cal = meta.GetPropertyCalendar(schemaNS, propName);
+            string schemaNs = XmpDirectory.TagSchemaMap.Get(tagType);
+            string propName = XmpDirectory.TagPropNameMap.Get(tagType);
+            Calendar cal = meta.GetPropertyCalendar(schemaNs, propName);
             if (cal != null)
             {
                 directory.SetDate(tagType, cal.GetTime());

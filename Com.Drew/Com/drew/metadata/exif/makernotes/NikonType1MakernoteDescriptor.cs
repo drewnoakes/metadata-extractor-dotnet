@@ -110,14 +110,14 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetDigitalZoomDescription()
         {
-            Rational value = _directory.GetRational(NikonType1MakernoteDirectory.TagDigitalZoom);
+            Rational value = Directory.GetRational(NikonType1MakernoteDirectory.TagDigitalZoom);
             return value == null ? null : value.GetNumerator() == 0 ? "No digital zoom" : value.ToSimpleString(true) + "x digital zoom";
         }
 
         [CanBeNull]
         public virtual string GetFocusDescription()
         {
-            Rational value = _directory.GetRational(NikonType1MakernoteDirectory.TagFocus);
+            Rational value = Directory.GetRational(NikonType1MakernoteDirectory.TagFocus);
             return value == null ? null : value.GetNumerator() == 1 && value.GetDenominator() == 0 ? "Infinite" : value.ToSimpleString(true);
         }
 

@@ -85,37 +85,37 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public const int TagDataDump = unchecked((int)(0x0f00));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static SanyoMakernoteDirectory()
         {
-            _tagNameMap.Put(TagMakernoteOffset, "Makernote Offset");
-            _tagNameMap.Put(TagSanyoThumbnail, "Sanyo Thumbnail");
-            _tagNameMap.Put(TagSpecialMode, "Special Mode");
-            _tagNameMap.Put(TagSanyoQuality, "Sanyo Quality");
-            _tagNameMap.Put(TagMacro, "Macro");
-            _tagNameMap.Put(TagDigitalZoom, "Digital Zoom");
-            _tagNameMap.Put(TagSoftwareVersion, "Software Version");
-            _tagNameMap.Put(TagPictInfo, "Pict Info");
-            _tagNameMap.Put(TagCameraId, "Camera ID");
-            _tagNameMap.Put(TagSequentialShot, "Sequential Shot");
-            _tagNameMap.Put(TagWideRange, "Wide Range");
-            _tagNameMap.Put(TagColorAdjustmentMode, "Color Adjustment Node");
-            _tagNameMap.Put(TagQuickShot, "Quick Shot");
-            _tagNameMap.Put(TagSelfTimer, "Self Timer");
-            _tagNameMap.Put(TagVoiceMemo, "Voice Memo");
-            _tagNameMap.Put(TagRecordShutterRelease, "Record Shutter Release");
-            _tagNameMap.Put(TagFlickerReduce, "Flicker Reduce");
-            _tagNameMap.Put(TagOpticalZoomOn, "Optical Zoom On");
-            _tagNameMap.Put(TagDigitalZoomOn, "Digital Zoom On");
-            _tagNameMap.Put(TagLightSourceSpecial, "Light Source Special");
-            _tagNameMap.Put(TagResaved, "Resaved");
-            _tagNameMap.Put(TagSceneSelect, "Scene Select");
-            _tagNameMap.Put(TagManualFocusDistanceOrFaceInfo, "Manual Focus Distance or Face Info");
-            _tagNameMap.Put(TagSequenceShotInterval, "Sequence Shot Interval");
-            _tagNameMap.Put(TagFlashMode, "Flash Mode");
-            _tagNameMap.Put(TagPrintIm, "Print IM");
-            _tagNameMap.Put(TagDataDump, "Data Dump");
+            TagNameMap.Put(TagMakernoteOffset, "Makernote Offset");
+            TagNameMap.Put(TagSanyoThumbnail, "Sanyo Thumbnail");
+            TagNameMap.Put(TagSpecialMode, "Special Mode");
+            TagNameMap.Put(TagSanyoQuality, "Sanyo Quality");
+            TagNameMap.Put(TagMacro, "Macro");
+            TagNameMap.Put(TagDigitalZoom, "Digital Zoom");
+            TagNameMap.Put(TagSoftwareVersion, "Software Version");
+            TagNameMap.Put(TagPictInfo, "Pict Info");
+            TagNameMap.Put(TagCameraId, "Camera ID");
+            TagNameMap.Put(TagSequentialShot, "Sequential Shot");
+            TagNameMap.Put(TagWideRange, "Wide Range");
+            TagNameMap.Put(TagColorAdjustmentMode, "Color Adjustment Node");
+            TagNameMap.Put(TagQuickShot, "Quick Shot");
+            TagNameMap.Put(TagSelfTimer, "Self Timer");
+            TagNameMap.Put(TagVoiceMemo, "Voice Memo");
+            TagNameMap.Put(TagRecordShutterRelease, "Record Shutter Release");
+            TagNameMap.Put(TagFlickerReduce, "Flicker Reduce");
+            TagNameMap.Put(TagOpticalZoomOn, "Optical Zoom On");
+            TagNameMap.Put(TagDigitalZoomOn, "Digital Zoom On");
+            TagNameMap.Put(TagLightSourceSpecial, "Light Source Special");
+            TagNameMap.Put(TagResaved, "Resaved");
+            TagNameMap.Put(TagSceneSelect, "Scene Select");
+            TagNameMap.Put(TagManualFocusDistanceOrFaceInfo, "Manual Focus Distance or Face Info");
+            TagNameMap.Put(TagSequenceShotInterval, "Sequence Shot Interval");
+            TagNameMap.Put(TagFlashMode, "Flash Mode");
+            TagNameMap.Put(TagPrintIm, "Print IM");
+            TagNameMap.Put(TagDataDump, "Data Dump");
         }
 
         public SanyoMakernoteDirectory()
@@ -132,7 +132,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

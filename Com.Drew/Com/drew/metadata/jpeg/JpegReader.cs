@@ -37,7 +37,7 @@ namespace Com.Drew.Metadata.Jpeg
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Darrell Silver http://www.darrellsilver.com</author>
-    public class JpegReader : JpegSegmentMetadataReader
+    public class JpegReader : IJpegSegmentMetadataReader
     {
         [NotNull]
         public virtual Iterable<JpegSegmentType> GetSegmentTypes()
@@ -62,7 +62,7 @@ namespace Com.Drew.Metadata.Jpeg
             JpegDirectory directory = new JpegDirectory();
             metadata.AddDirectory(directory);
             // The value of TAG_COMPRESSION_TYPE is determined by the segment type found
-            directory.SetInt(JpegDirectory.TagCompressionType, segmentType.byteValue - JpegSegmentType.Sof0.byteValue);
+            directory.SetInt(JpegDirectory.TagCompressionType, segmentType.ByteValue - JpegSegmentType.Sof0.ByteValue);
             SequentialReader reader = new SequentialByteArrayReader(segmentBytes);
             try
             {

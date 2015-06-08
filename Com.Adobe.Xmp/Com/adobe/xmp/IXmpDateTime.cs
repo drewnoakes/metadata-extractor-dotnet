@@ -35,7 +35,7 @@ namespace Com.Adobe.Xmp
     /// without a time has zeros for all the time fields. A time without a date has zeros for all date
     /// fields (year, month, and day).
     /// </remarks>
-    public interface XMPDateTime : IComparable
+    public interface IXmpDateTime : IComparable
     {
         /// <returns>Returns the year, can be negative.</returns>
         int GetYear();
@@ -111,6 +111,6 @@ namespace Com.Adobe.Xmp
         Calendar GetCalendar();
 
         /// <returns>Returns the ISO 8601 string representation of the date and time.</returns>
-        string GetISO8601String();
+        string GetIso8601String();
     }
 }

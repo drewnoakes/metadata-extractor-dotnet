@@ -83,36 +83,36 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public const int TagSharpness = 107;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static KodakMakernoteDirectory()
         {
-            _tagNameMap.Put(TagKodakModel, "Kodak Model");
-            _tagNameMap.Put(TagQuality, "Quality");
-            _tagNameMap.Put(TagBurstMode, "Burst Mode");
-            _tagNameMap.Put(TagImageWidth, "Image Width");
-            _tagNameMap.Put(TagImageHeight, "Image Height");
-            _tagNameMap.Put(TagYearCreated, "Year Created");
-            _tagNameMap.Put(TagMonthDayCreated, "Month/Day Created");
-            _tagNameMap.Put(TagTimeCreated, "Time Created");
-            _tagNameMap.Put(TagBurstMode2, "Burst Mode 2");
-            _tagNameMap.Put(TagShutterMode, "Shutter Speed");
-            _tagNameMap.Put(TagMeteringMode, "Metering Mode");
-            _tagNameMap.Put(TagSequenceNumber, "Sequence Number");
-            _tagNameMap.Put(TagFNumber, "F Number");
-            _tagNameMap.Put(TagExposureTime, "Exposure Time");
-            _tagNameMap.Put(TagExposureCompensation, "Exposure Compensation");
-            _tagNameMap.Put(TagFocusMode, "Focus Mode");
-            _tagNameMap.Put(TagWhiteBalance, "White Balance");
-            _tagNameMap.Put(TagFlashMode, "Flash Mode");
-            _tagNameMap.Put(TagFlashFired, "Flash Fired");
-            _tagNameMap.Put(TagIsoSetting, "ISO Setting");
-            _tagNameMap.Put(TagIso, "ISO");
-            _tagNameMap.Put(TagTotalZoom, "Total Zoom");
-            _tagNameMap.Put(TagDateTimeStamp, "Date/Time Stamp");
-            _tagNameMap.Put(TagColorMode, "Color Mode");
-            _tagNameMap.Put(TagDigitalZoom, "Digital Zoom");
-            _tagNameMap.Put(TagSharpness, "Sharpness");
+            TagNameMap.Put(TagKodakModel, "Kodak Model");
+            TagNameMap.Put(TagQuality, "Quality");
+            TagNameMap.Put(TagBurstMode, "Burst Mode");
+            TagNameMap.Put(TagImageWidth, "Image Width");
+            TagNameMap.Put(TagImageHeight, "Image Height");
+            TagNameMap.Put(TagYearCreated, "Year Created");
+            TagNameMap.Put(TagMonthDayCreated, "Month/Day Created");
+            TagNameMap.Put(TagTimeCreated, "Time Created");
+            TagNameMap.Put(TagBurstMode2, "Burst Mode 2");
+            TagNameMap.Put(TagShutterMode, "Shutter Speed");
+            TagNameMap.Put(TagMeteringMode, "Metering Mode");
+            TagNameMap.Put(TagSequenceNumber, "Sequence Number");
+            TagNameMap.Put(TagFNumber, "F Number");
+            TagNameMap.Put(TagExposureTime, "Exposure Time");
+            TagNameMap.Put(TagExposureCompensation, "Exposure Compensation");
+            TagNameMap.Put(TagFocusMode, "Focus Mode");
+            TagNameMap.Put(TagWhiteBalance, "White Balance");
+            TagNameMap.Put(TagFlashMode, "Flash Mode");
+            TagNameMap.Put(TagFlashFired, "Flash Fired");
+            TagNameMap.Put(TagIsoSetting, "ISO Setting");
+            TagNameMap.Put(TagIso, "ISO");
+            TagNameMap.Put(TagTotalZoom, "Total Zoom");
+            TagNameMap.Put(TagDateTimeStamp, "Date/Time Stamp");
+            TagNameMap.Put(TagColorMode, "Color Mode");
+            TagNameMap.Put(TagDigitalZoom, "Digital Zoom");
+            TagNameMap.Put(TagSharpness, "Sharpness");
         }
 
         public KodakMakernoteDirectory()
@@ -129,7 +129,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

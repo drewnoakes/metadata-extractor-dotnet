@@ -167,39 +167,39 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public const int TagFilter = unchecked((int)(0x3017));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static CasioType2MakernoteDirectory()
         {
             // TODO add missing names
-            _tagNameMap.Put(TagThumbnailDimensions, "Thumbnail Dimensions");
-            _tagNameMap.Put(TagThumbnailSize, "Thumbnail Size");
-            _tagNameMap.Put(TagThumbnailOffset, "Thumbnail Offset");
-            _tagNameMap.Put(TagQualityMode, "Quality Mode");
-            _tagNameMap.Put(TagImageSize, "Image Size");
-            _tagNameMap.Put(TagFocusMode1, "Focus Mode");
-            _tagNameMap.Put(TagIsoSensitivity, "ISO Sensitivity");
-            _tagNameMap.Put(TagWhiteBalance1, "White Balance");
-            _tagNameMap.Put(TagFocalLength, "Focal Length");
-            _tagNameMap.Put(TagSaturation, "Saturation");
-            _tagNameMap.Put(TagContrast, "Contrast");
-            _tagNameMap.Put(TagSharpness, "Sharpness");
-            _tagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info");
-            _tagNameMap.Put(TagPreviewThumbnail, "Casio Preview Thumbnail");
-            _tagNameMap.Put(TagWhiteBalanceBias, "White Balance Bias");
-            _tagNameMap.Put(TagWhiteBalance2, "White Balance");
-            _tagNameMap.Put(TagObjectDistance, "Object Distance");
-            _tagNameMap.Put(TagFlashDistance, "Flash Distance");
-            _tagNameMap.Put(TagRecordMode, "Record Mode");
-            _tagNameMap.Put(TagSelfTimer, "Self Timer");
-            _tagNameMap.Put(TagQuality, "Quality");
-            _tagNameMap.Put(TagFocusMode2, "Focus Mode");
-            _tagNameMap.Put(TagTimeZone, "Time Zone");
-            _tagNameMap.Put(TagBestshotMode, "BestShot Mode");
-            _tagNameMap.Put(TagCcdIsoSensitivity, "CCD ISO Sensitivity");
-            _tagNameMap.Put(TagColourMode, "Colour Mode");
-            _tagNameMap.Put(TagEnhancement, "Enhancement");
-            _tagNameMap.Put(TagFilter, "Filter");
+            TagNameMap.Put(TagThumbnailDimensions, "Thumbnail Dimensions");
+            TagNameMap.Put(TagThumbnailSize, "Thumbnail Size");
+            TagNameMap.Put(TagThumbnailOffset, "Thumbnail Offset");
+            TagNameMap.Put(TagQualityMode, "Quality Mode");
+            TagNameMap.Put(TagImageSize, "Image Size");
+            TagNameMap.Put(TagFocusMode1, "Focus Mode");
+            TagNameMap.Put(TagIsoSensitivity, "ISO Sensitivity");
+            TagNameMap.Put(TagWhiteBalance1, "White Balance");
+            TagNameMap.Put(TagFocalLength, "Focal Length");
+            TagNameMap.Put(TagSaturation, "Saturation");
+            TagNameMap.Put(TagContrast, "Contrast");
+            TagNameMap.Put(TagSharpness, "Sharpness");
+            TagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info");
+            TagNameMap.Put(TagPreviewThumbnail, "Casio Preview Thumbnail");
+            TagNameMap.Put(TagWhiteBalanceBias, "White Balance Bias");
+            TagNameMap.Put(TagWhiteBalance2, "White Balance");
+            TagNameMap.Put(TagObjectDistance, "Object Distance");
+            TagNameMap.Put(TagFlashDistance, "Flash Distance");
+            TagNameMap.Put(TagRecordMode, "Record Mode");
+            TagNameMap.Put(TagSelfTimer, "Self Timer");
+            TagNameMap.Put(TagQuality, "Quality");
+            TagNameMap.Put(TagFocusMode2, "Focus Mode");
+            TagNameMap.Put(TagTimeZone, "Time Zone");
+            TagNameMap.Put(TagBestshotMode, "BestShot Mode");
+            TagNameMap.Put(TagCcdIsoSensitivity, "CCD ISO Sensitivity");
+            TagNameMap.Put(TagColourMode, "Colour Mode");
+            TagNameMap.Put(TagEnhancement, "Enhancement");
+            TagNameMap.Put(TagFilter, "Filter");
         }
 
         public CasioType2MakernoteDirectory()
@@ -216,7 +216,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

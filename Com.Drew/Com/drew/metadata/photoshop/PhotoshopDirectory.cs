@@ -195,7 +195,7 @@ namespace Com.Drew.Metadata.Photoshop
         public const int TagPrintFlagsInfo = unchecked((int)(0x2710));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static PhotoshopDirectory()
         {
@@ -206,87 +206,87 @@ namespace Com.Drew.Metadata.Photoshop
             // OBSOLETE                                                                     0x040E
             // CLIPPING PATHS                                                               0x07D0 -> 0x0BB6
             // PLUG IN RESOURCES                                                            0x0FA0 -> 0x1387
-            _tagNameMap.Put(TagChannelsRowsColumnsDepthMode, "Channels, Rows, Columns, Depth, Mode");
-            _tagNameMap.Put(TagMacPrintInfo, "Mac Print Info");
-            _tagNameMap.Put(TagXml, "XML Data");
-            _tagNameMap.Put(TagIndexedColorTable, "Indexed Color Table");
-            _tagNameMap.Put(TagResolutionInfo, "Resolution Info");
-            _tagNameMap.Put(TagAlphaChannels, "Alpha Channels");
-            _tagNameMap.Put(TagDisplayInfoObsolete, "Display Info (Obsolete)");
-            _tagNameMap.Put(TagCaption, "Caption");
-            _tagNameMap.Put(TagBorderInformation, "Border Information");
-            _tagNameMap.Put(TagBackgroundColor, "Background Color");
-            _tagNameMap.Put(TagPrintFlags, "Print Flags");
-            _tagNameMap.Put(TagGrayscaleAndMultichannelHalftoningInformation, "Grayscale and Multichannel Halftoning Information");
-            _tagNameMap.Put(TagColorHalftoningInformation, "Color Halftoning Information");
-            _tagNameMap.Put(TagDuotoneHalftoningInformation, "Duotone Halftoning Information");
-            _tagNameMap.Put(TagGrayscaleAndMultichannelTransferFunction, "Grayscale and Multichannel Transfer Function");
-            _tagNameMap.Put(TagColorTransferFunctions, "Color Transfer Functions");
-            _tagNameMap.Put(TagDuotoneTransferFunctions, "Duotone Transfer Functions");
-            _tagNameMap.Put(TagDuotoneImageInformation, "Duotone Image Information");
-            _tagNameMap.Put(TagEffectiveBlackAndWhiteValues, "Effective Black and White Values");
-            _tagNameMap.Put(TagEpsOptions, "EPS Options");
-            _tagNameMap.Put(TagQuickMaskInformation, "Quick Mask Information");
-            _tagNameMap.Put(TagLayerStateInformation, "Layer State Information");
-            _tagNameMap.Put(TagLayersGroupInformation, "Layers Group Information");
-            _tagNameMap.Put(TagIptc, "IPTC-NAA Record");
-            _tagNameMap.Put(TagImageModeForRawFormatFiles, "Image Mode for Raw Format Files");
-            _tagNameMap.Put(TagJpegQuality, "JPEG Quality");
-            _tagNameMap.Put(TagGridAndGuidesInformation, "Grid and Guides Information");
-            _tagNameMap.Put(TagThumbnailOld, "Photoshop 4.0 Thumbnail");
-            _tagNameMap.Put(TagCopyright, "Copyright Flag");
-            _tagNameMap.Put(TagUrl, "URL");
-            _tagNameMap.Put(TagThumbnail, "Thumbnail Data");
-            _tagNameMap.Put(TagGlobalAngle, "Global Angle");
-            _tagNameMap.Put(TagIccProfileBytes, "ICC Profile Bytes");
-            _tagNameMap.Put(TagWatermark, "Watermark");
-            _tagNameMap.Put(TagIccUntaggedProfile, "ICC Untagged Profile");
-            _tagNameMap.Put(TagEffectsVisible, "Effects Visible");
-            _tagNameMap.Put(TagSpotHalftone, "Spot Halftone");
-            _tagNameMap.Put(TagSeedNumber, "Seed Number");
-            _tagNameMap.Put(TagUnicodeAlphaNames, "Unicode Alpha Names");
-            _tagNameMap.Put(TagIndexedColorTableCount, "Indexed Color Table Count");
-            _tagNameMap.Put(TagTransparencyIndex, "Transparency Index");
-            _tagNameMap.Put(TagGlobalAltitude, "Global Altitude");
-            _tagNameMap.Put(TagSlices, "Slices");
-            _tagNameMap.Put(TagWorkflowUrl, "Workflow URL");
-            _tagNameMap.Put(TagJumpToXpep, "Jump To XPEP");
-            _tagNameMap.Put(TagAlphaIdentifiers, "Alpha Identifiers");
-            _tagNameMap.Put(TagUrlList, "URL List");
-            _tagNameMap.Put(TagVersion, "Version Info");
-            _tagNameMap.Put(TagExifData1, "EXIF Data 1");
-            _tagNameMap.Put(TagExifData3, "EXIF Data 3");
-            _tagNameMap.Put(TagXmpData, "XMP Data");
-            _tagNameMap.Put(TagCaptionDigest, "Caption Digest");
-            _tagNameMap.Put(TagPrintScale, "Print Scale");
-            _tagNameMap.Put(TagPixelAspectRatio, "Pixel Aspect Ratio");
-            _tagNameMap.Put(TagLayerComps, "Layer Comps");
-            _tagNameMap.Put(TagAlternateDuotoneColors, "Alternate Duotone Colors");
-            _tagNameMap.Put(TagAlternateSpotColors, "Alternate Spot Colors");
-            _tagNameMap.Put(TagLayerSelectionIds, "Layer Selection IDs");
-            _tagNameMap.Put(TagHdrToningInfo, "HDR Toning Info");
-            _tagNameMap.Put(TagPrintInfo, "Print Info");
-            _tagNameMap.Put(TagLayerGroupsEnabledId, "Layer Groups Enabled ID");
-            _tagNameMap.Put(TagColorSamplers, "Color Samplers");
-            _tagNameMap.Put(TagMeasurementScale, "Measurement Scale");
-            _tagNameMap.Put(TagTimelineInformation, "Timeline Information");
-            _tagNameMap.Put(TagSheetDisclosure, "Sheet Disclosure");
-            _tagNameMap.Put(TagDisplayInfo, "Display Info");
-            _tagNameMap.Put(TagOnionSkins, "Onion Skins");
-            _tagNameMap.Put(TagCountInformation, "Count information");
-            _tagNameMap.Put(TagPrintInfo2, "Print Info 2");
-            _tagNameMap.Put(TagPrintStyle, "Print Style");
-            _tagNameMap.Put(TagMacNsprintinfo, "Mac NSPrintInfo");
-            _tagNameMap.Put(TagWinDevmode, "Win DEVMODE");
-            _tagNameMap.Put(TagAutoSaveFilePath, "Auto Save File Path");
-            _tagNameMap.Put(TagAutoSaveFormat, "Auto Save Format");
-            _tagNameMap.Put(TagPathSelectionState, "Path Selection State");
-            _tagNameMap.Put(TagClippingPathName, "Clipping Path Name");
-            _tagNameMap.Put(TagOriginPathInfo, "Origin Path Info");
-            _tagNameMap.Put(TagImageReadyVariablesXml, "Image Ready Variables XML");
-            _tagNameMap.Put(TagImageReadyDataSets, "Image Ready Data Sets");
-            _tagNameMap.Put(TagLightroomWorkflow, "Lightroom Workflow");
-            _tagNameMap.Put(TagPrintFlagsInfo, "Print Flags Information");
+            TagNameMap.Put(TagChannelsRowsColumnsDepthMode, "Channels, Rows, Columns, Depth, Mode");
+            TagNameMap.Put(TagMacPrintInfo, "Mac Print Info");
+            TagNameMap.Put(TagXml, "XML Data");
+            TagNameMap.Put(TagIndexedColorTable, "Indexed Color Table");
+            TagNameMap.Put(TagResolutionInfo, "Resolution Info");
+            TagNameMap.Put(TagAlphaChannels, "Alpha Channels");
+            TagNameMap.Put(TagDisplayInfoObsolete, "Display Info (Obsolete)");
+            TagNameMap.Put(TagCaption, "Caption");
+            TagNameMap.Put(TagBorderInformation, "Border Information");
+            TagNameMap.Put(TagBackgroundColor, "Background Color");
+            TagNameMap.Put(TagPrintFlags, "Print Flags");
+            TagNameMap.Put(TagGrayscaleAndMultichannelHalftoningInformation, "Grayscale and Multichannel Halftoning Information");
+            TagNameMap.Put(TagColorHalftoningInformation, "Color Halftoning Information");
+            TagNameMap.Put(TagDuotoneHalftoningInformation, "Duotone Halftoning Information");
+            TagNameMap.Put(TagGrayscaleAndMultichannelTransferFunction, "Grayscale and Multichannel Transfer Function");
+            TagNameMap.Put(TagColorTransferFunctions, "Color Transfer Functions");
+            TagNameMap.Put(TagDuotoneTransferFunctions, "Duotone Transfer Functions");
+            TagNameMap.Put(TagDuotoneImageInformation, "Duotone Image Information");
+            TagNameMap.Put(TagEffectiveBlackAndWhiteValues, "Effective Black and White Values");
+            TagNameMap.Put(TagEpsOptions, "EPS Options");
+            TagNameMap.Put(TagQuickMaskInformation, "Quick Mask Information");
+            TagNameMap.Put(TagLayerStateInformation, "Layer State Information");
+            TagNameMap.Put(TagLayersGroupInformation, "Layers Group Information");
+            TagNameMap.Put(TagIptc, "IPTC-NAA Record");
+            TagNameMap.Put(TagImageModeForRawFormatFiles, "Image Mode for Raw Format Files");
+            TagNameMap.Put(TagJpegQuality, "JPEG Quality");
+            TagNameMap.Put(TagGridAndGuidesInformation, "Grid and Guides Information");
+            TagNameMap.Put(TagThumbnailOld, "Photoshop 4.0 Thumbnail");
+            TagNameMap.Put(TagCopyright, "Copyright Flag");
+            TagNameMap.Put(TagUrl, "URL");
+            TagNameMap.Put(TagThumbnail, "Thumbnail Data");
+            TagNameMap.Put(TagGlobalAngle, "Global Angle");
+            TagNameMap.Put(TagIccProfileBytes, "ICC Profile Bytes");
+            TagNameMap.Put(TagWatermark, "Watermark");
+            TagNameMap.Put(TagIccUntaggedProfile, "ICC Untagged Profile");
+            TagNameMap.Put(TagEffectsVisible, "Effects Visible");
+            TagNameMap.Put(TagSpotHalftone, "Spot Halftone");
+            TagNameMap.Put(TagSeedNumber, "Seed Number");
+            TagNameMap.Put(TagUnicodeAlphaNames, "Unicode Alpha Names");
+            TagNameMap.Put(TagIndexedColorTableCount, "Indexed Color Table Count");
+            TagNameMap.Put(TagTransparencyIndex, "Transparency Index");
+            TagNameMap.Put(TagGlobalAltitude, "Global Altitude");
+            TagNameMap.Put(TagSlices, "Slices");
+            TagNameMap.Put(TagWorkflowUrl, "Workflow URL");
+            TagNameMap.Put(TagJumpToXpep, "Jump To XPEP");
+            TagNameMap.Put(TagAlphaIdentifiers, "Alpha Identifiers");
+            TagNameMap.Put(TagUrlList, "URL List");
+            TagNameMap.Put(TagVersion, "Version Info");
+            TagNameMap.Put(TagExifData1, "EXIF Data 1");
+            TagNameMap.Put(TagExifData3, "EXIF Data 3");
+            TagNameMap.Put(TagXmpData, "XMP Data");
+            TagNameMap.Put(TagCaptionDigest, "Caption Digest");
+            TagNameMap.Put(TagPrintScale, "Print Scale");
+            TagNameMap.Put(TagPixelAspectRatio, "Pixel Aspect Ratio");
+            TagNameMap.Put(TagLayerComps, "Layer Comps");
+            TagNameMap.Put(TagAlternateDuotoneColors, "Alternate Duotone Colors");
+            TagNameMap.Put(TagAlternateSpotColors, "Alternate Spot Colors");
+            TagNameMap.Put(TagLayerSelectionIds, "Layer Selection IDs");
+            TagNameMap.Put(TagHdrToningInfo, "HDR Toning Info");
+            TagNameMap.Put(TagPrintInfo, "Print Info");
+            TagNameMap.Put(TagLayerGroupsEnabledId, "Layer Groups Enabled ID");
+            TagNameMap.Put(TagColorSamplers, "Color Samplers");
+            TagNameMap.Put(TagMeasurementScale, "Measurement Scale");
+            TagNameMap.Put(TagTimelineInformation, "Timeline Information");
+            TagNameMap.Put(TagSheetDisclosure, "Sheet Disclosure");
+            TagNameMap.Put(TagDisplayInfo, "Display Info");
+            TagNameMap.Put(TagOnionSkins, "Onion Skins");
+            TagNameMap.Put(TagCountInformation, "Count information");
+            TagNameMap.Put(TagPrintInfo2, "Print Info 2");
+            TagNameMap.Put(TagPrintStyle, "Print Style");
+            TagNameMap.Put(TagMacNsprintinfo, "Mac NSPrintInfo");
+            TagNameMap.Put(TagWinDevmode, "Win DEVMODE");
+            TagNameMap.Put(TagAutoSaveFilePath, "Auto Save File Path");
+            TagNameMap.Put(TagAutoSaveFormat, "Auto Save Format");
+            TagNameMap.Put(TagPathSelectionState, "Path Selection State");
+            TagNameMap.Put(TagClippingPathName, "Clipping Path Name");
+            TagNameMap.Put(TagOriginPathInfo, "Origin Path Info");
+            TagNameMap.Put(TagImageReadyVariablesXml, "Image Ready Variables XML");
+            TagNameMap.Put(TagImageReadyDataSets, "Image Ready Data Sets");
+            TagNameMap.Put(TagLightroomWorkflow, "Lightroom Workflow");
+            TagNameMap.Put(TagPrintFlagsInfo, "Print Flags Information");
         }
 
         public PhotoshopDirectory()
@@ -303,7 +303,7 @@ namespace Com.Drew.Metadata.Photoshop
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
 
         [CanBeNull]

@@ -49,7 +49,7 @@ namespace Com.Drew.Lang
         {
             if (_index >= _bytes.Length)
             {
-                throw new EOFException("End of data reached.");
+                throw new EofException("End of data reached.");
             }
             return _bytes[_index++];
         }
@@ -60,7 +60,7 @@ namespace Com.Drew.Lang
         {
             if (_index + count > _bytes.Length)
             {
-                throw new EOFException("End of data reached.");
+                throw new EofException("End of data reached.");
             }
             sbyte[] bytes = new sbyte[count];
             Array.Copy(_bytes, _index, bytes, 0, count);
@@ -77,7 +77,7 @@ namespace Com.Drew.Lang
             }
             if (_index + n > _bytes.Length)
             {
-                throw new EOFException("End of data reached.");
+                throw new EofException("End of data reached.");
             }
             _index += unchecked((int)(n));
         }

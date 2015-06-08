@@ -30,7 +30,7 @@ namespace Com.Drew.Imaging.Riff
     [Serializable]
     public class RiffProcessingException : ImageProcessingException
     {
-        private const long serialVersionUID = -1658134596321487960L;
+        private const long SerialVersionUid = -1658134596321487960L;
 
         public RiffProcessingException([CanBeNull] string message)
             : base(message)

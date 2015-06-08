@@ -64,21 +64,21 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public const int TagUnknown3 = unchecked((int)(0x0F00));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static NikonType1MakernoteDirectory()
         {
-            _tagNameMap.Put(TagCcdSensitivity, "CCD Sensitivity");
-            _tagNameMap.Put(TagColorMode, "Color Mode");
-            _tagNameMap.Put(TagDigitalZoom, "Digital Zoom");
-            _tagNameMap.Put(TagConverter, "Fisheye Converter");
-            _tagNameMap.Put(TagFocus, "Focus");
-            _tagNameMap.Put(TagImageAdjustment, "Image Adjustment");
-            _tagNameMap.Put(TagQuality, "Quality");
-            _tagNameMap.Put(TagUnknown1, "Makernote Unknown 1");
-            _tagNameMap.Put(TagUnknown2, "Makernote Unknown 2");
-            _tagNameMap.Put(TagUnknown3, "Makernote Unknown 3");
-            _tagNameMap.Put(TagWhiteBalance, "White Balance");
+            TagNameMap.Put(TagCcdSensitivity, "CCD Sensitivity");
+            TagNameMap.Put(TagColorMode, "Color Mode");
+            TagNameMap.Put(TagDigitalZoom, "Digital Zoom");
+            TagNameMap.Put(TagConverter, "Fisheye Converter");
+            TagNameMap.Put(TagFocus, "Focus");
+            TagNameMap.Put(TagImageAdjustment, "Image Adjustment");
+            TagNameMap.Put(TagQuality, "Quality");
+            TagNameMap.Put(TagUnknown1, "Makernote Unknown 1");
+            TagNameMap.Put(TagUnknown2, "Makernote Unknown 2");
+            TagNameMap.Put(TagUnknown3, "Makernote Unknown 3");
+            TagNameMap.Put(TagWhiteBalance, "White Balance");
         }
 
         public NikonType1MakernoteDirectory()
@@ -95,7 +95,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

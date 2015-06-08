@@ -75,7 +75,7 @@ namespace Com.Drew.Metadata.Photoshop
             try
             {
                 // Supported range is 1 to 56.
-                int? value = _directory.GetInteger(PsdHeaderDirectory.TagChannelCount);
+                int? value = Directory.GetInteger(PsdHeaderDirectory.TagChannelCount);
                 if (value == null)
                 {
                     return null;
@@ -94,7 +94,7 @@ namespace Com.Drew.Metadata.Photoshop
             try
             {
                 // Supported values are 1, 8, 16 and 32.
-                int? value = _directory.GetInteger(PsdHeaderDirectory.TagBitsPerChannel);
+                int? value = Directory.GetInteger(PsdHeaderDirectory.TagBitsPerChannel);
                 if (value == null)
                 {
                     return null;
@@ -113,7 +113,7 @@ namespace Com.Drew.Metadata.Photoshop
             // Bitmap = 0; Grayscale = 1; Indexed = 2; RGB = 3; CMYK = 4; Multichannel = 7; Duotone = 8; Lab = 9
             try
             {
-                int? value = _directory.GetInteger(PsdHeaderDirectory.TagColorMode);
+                int? value = Directory.GetInteger(PsdHeaderDirectory.TagColorMode);
                 if (value == null)
                 {
                     return null;
@@ -177,7 +177,7 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                int? value = _directory.GetInteger(PsdHeaderDirectory.TagImageHeight);
+                int? value = Directory.GetInteger(PsdHeaderDirectory.TagImageHeight);
                 if (value == null)
                 {
                     return null;
@@ -195,7 +195,7 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                int? value = _directory.GetInteger(PsdHeaderDirectory.TagImageWidth);
+                int? value = Directory.GetInteger(PsdHeaderDirectory.TagImageWidth);
                 if (value == null)
                 {
                     return null;

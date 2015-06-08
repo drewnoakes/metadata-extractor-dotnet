@@ -33,9 +33,9 @@ namespace Sharpen
     {
     }
 
-    public class EOFException : IOException
+    public class EofException : IOException
     {
-        public EOFException (string msg) : base(msg)
+        public EofException (string msg) : base(msg)
         {
         }
     }

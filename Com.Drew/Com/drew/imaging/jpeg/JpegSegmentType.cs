@@ -136,7 +136,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <summary>JPEG comment segment identifier.</summary>
         public static readonly JpegSegmentType Com = new JpegSegmentType(unchecked((sbyte)0xFE), true);
 
-        public static readonly ICollection<JpegSegmentType> canContainMetadataTypes;
+        public static readonly ICollection<JpegSegmentType> CanContainMetadataTypes;
 
         static JpegSegmentType()
         {
@@ -147,28 +147,28 @@ namespace Com.Drew.Imaging.Jpeg
             IList<JpegSegmentType> segmentTypes = new AList<JpegSegmentType>();
             foreach (JpegSegmentType segmentType in typeof(JpegSegmentType).GetEnumConstants<JpegSegmentType>())
             {
-                if (segmentType.canContainMetadata)
+                if (segmentType.CanContainMetadata)
                 {
                     segmentTypes.Add(segmentType);
                 }
             }
-            canContainMetadataTypes = segmentTypes;
+            CanContainMetadataTypes = segmentTypes;
         }
 
-        public readonly sbyte byteValue;
+        public readonly sbyte ByteValue;
 
-        public readonly bool canContainMetadata;
+        public readonly bool CanContainMetadata;
 
         internal JpegSegmentType(sbyte byteValue, bool canContainMetadata)
         {
-            this.byteValue = byteValue;
-            this.canContainMetadata = canContainMetadata;
+            this.ByteValue = byteValue;
+            this.CanContainMetadata = canContainMetadata;
         }
 
         [CanBeNull]
         public static JpegSegmentType FromByte(sbyte segmentTypeByte)
         {
-            return typeof (JpegSegmentType).GetEnumConstants<JpegSegmentType>().FirstOrDefault(segmentType => segmentType.byteValue == segmentTypeByte);
+            return typeof (JpegSegmentType).GetEnumConstants<JpegSegmentType>().FirstOrDefault(segmentType => segmentType.ByteValue == segmentTypeByte);
         }
 
         public static JpegSegmentType ValueOf(string segmentName)

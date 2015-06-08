@@ -30,11 +30,11 @@ namespace Com.Drew.Metadata.Exif
     public class ExifInteropDirectory : ExifDirectoryBase
     {
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static ExifInteropDirectory()
         {
-            AddExifTagNames(_tagNameMap);
+            AddExifTagNames(TagNameMap);
         }
 
         public ExifInteropDirectory()
@@ -51,7 +51,7 @@ namespace Com.Drew.Metadata.Exif
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

@@ -16,24 +16,24 @@ namespace Com.Adobe.Xmp.Impl
     /// <since>11.10.2006</since>
     public class ByteBuffer
     {
-        private sbyte[] buffer;
+        private sbyte[] _buffer;
 
-        private int length;
+        private int _length;
 
-        private string encoding = null;
+        private string _encoding = null;
 
         /// <param name="initialCapacity">the initial capacity for this buffer</param>
         public ByteBuffer(int initialCapacity)
         {
-            this.buffer = new sbyte[initialCapacity];
-            this.length = 0;
+            this._buffer = new sbyte[initialCapacity];
+            this._length = 0;
         }
 
         /// <param name="buffer">a byte array that will be wrapped with <code>ByteBuffer</code>.</param>
         public ByteBuffer(sbyte[] buffer)
         {
-            this.buffer = buffer;
-            this.length = buffer.Length;
+            this._buffer = buffer;
+            this._length = buffer.Length;
         }
 
         /// <param name="buffer">a byte array that will be wrapped with <code>ByteBuffer</code>.</param>
@@ -44,8 +44,8 @@ namespace Com.Adobe.Xmp.Impl
             {
                 throw new IndexOutOfRangeException("Valid length exceeds the buffer length.");
             }
-            this.buffer = buffer;
-            this.length = length;
+            this._buffer = buffer;
+            this._length = length;
         }
 
         /// <summary>Loads the stream into a buffer.</summary>
@@ -55,15 +55,15 @@ namespace Com.Adobe.Xmp.Impl
         {
             // load stream into buffer
             int chunk = 16384;
-            this.length = 0;
-            this.buffer = new sbyte[chunk];
+            this._length = 0;
+            this._buffer = new sbyte[chunk];
             int read;
-            while ((read = @in.Read(this.buffer, this.length, chunk)) > 0)
+            while ((read = @in.Read(this._buffer, this._length, chunk)) > 0)
             {
-                this.length += read;
+                this._length += read;
                 if (read == chunk)
                 {
-                    EnsureCapacity(length + chunk);
+                    EnsureCapacity(_length + chunk);
                 }
                 else
                 {
@@ -81,15 +81,15 @@ namespace Com.Adobe.Xmp.Impl
             {
                 throw new IndexOutOfRangeException("Valid length exceeds the buffer length.");
             }
-            this.buffer = new sbyte[length];
-            Array.Copy(buffer, offset, this.buffer, 0, length);
-            this.length = length;
+            this._buffer = new sbyte[length];
+            Array.Copy(buffer, offset, this._buffer, 0, length);
+            this._length = length;
         }
 
         /// <returns>Returns a byte stream that is limited to the valid amount of bytes.</returns>
         public virtual InputStream GetByteStream()
         {
-            return new ByteArrayInputStream(buffer, 0, length);
+            return new ByteArrayInputStream(_buffer, 0, _length);
         }
 
         /// <returns>
@@ -98,7 +98,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </returns>
         public virtual int Length()
         {
-            return length;
+            return _length;
         }
 
         //    /**
@@ -113,9 +113,9 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns a byte from the buffer</returns>
         public virtual sbyte ByteAt(int index)
         {
-            if (index < length)
+            if (index < _length)
             {
-                return buffer[index];
+                return _buffer[index];
             }
             else
             {
@@ -127,9 +127,9 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns a byte from the buffer</returns>
         public virtual int CharAt(int index)
         {
-            if (index < length)
+            if (index < _length)
             {
-                return buffer[index] & unchecked((int)(0xFF));
+                return _buffer[index] & unchecked((int)(0xFF));
             }
             else
             {
@@ -141,8 +141,8 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="b">a byte</param>
         public virtual void Append(sbyte b)
         {
-            EnsureCapacity(length + 1);
-            buffer[length++] = b;
+            EnsureCapacity(_length + 1);
+            _buffer[_length++] = b;
         }
 
         /// <summary>Appends a byte array or part of to the buffer.</summary>
@@ -151,9 +151,9 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="len"/>
         public virtual void Append(sbyte[] bytes, int offset, int len)
         {
-            EnsureCapacity(length + len);
-            Array.Copy(bytes, offset, buffer, length, len);
-            length += len;
+            EnsureCapacity(_length + len);
+            Array.Copy(bytes, offset, _buffer, _length, len);
+            _length += len;
         }
 
         /// <summary>Append a byte array to the buffer</summary>
@@ -167,7 +167,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="anotherBuffer">another <code>ByteBuffer</code></param>
         public virtual void Append(ByteBuffer anotherBuffer)
         {
-            Append(anotherBuffer.buffer, 0, anotherBuffer.length);
+            Append(anotherBuffer._buffer, 0, anotherBuffer._length);
         }
 
         /// <summary>Detects the encoding of the byte buffer, stores and returns it.</summary>
@@ -179,58 +179,58 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns the encoding string.</returns>
         public virtual string GetEncoding()
         {
-            if (encoding == null)
+            if (_encoding == null)
             {
                 // needs four byte at maximum to determine encoding
-                if (length < 2)
+                if (_length < 2)
                 {
                     // only one byte length must be UTF-8
-                    encoding = "UTF-8";
+                    _encoding = "UTF-8";
                 }
                 else
                 {
-                    if (buffer[0] == 0)
+                    if (_buffer[0] == 0)
                     {
                         // These cases are:
                         //   00 nn -- -- - Big endian UTF-16
                         //   00 00 00 nn - Big endian UTF-32
                         //   00 00 FE FF - Big endian UTF 32
-                        if (length < 4 || buffer[1] != 0)
+                        if (_length < 4 || _buffer[1] != 0)
                         {
-                            encoding = "UTF-16BE";
+                            _encoding = "UTF-16BE";
                         }
                         else
                         {
-                            if ((buffer[2] & unchecked((int)(0xFF))) == unchecked((int)(0xFE)) && (buffer[3] & unchecked((int)(0xFF))) == unchecked((int)(0xFF)))
+                            if ((_buffer[2] & unchecked((int)(0xFF))) == unchecked((int)(0xFE)) && (_buffer[3] & unchecked((int)(0xFF))) == unchecked((int)(0xFF)))
                             {
-                                encoding = "UTF-32BE";
+                                _encoding = "UTF-32BE";
                             }
                             else
                             {
-                                encoding = "UTF-32";
+                                _encoding = "UTF-32";
                             }
                         }
                     }
                     else
                     {
-                        if ((buffer[0] & unchecked((int)(0xFF))) < unchecked((int)(0x80)))
+                        if ((_buffer[0] & unchecked((int)(0xFF))) < unchecked((int)(0x80)))
                         {
                             // These cases are:
                             //   nn mm -- -- - UTF-8, includes EF BB BF case
                             //   nn 00 -- -- - Little endian UTF-16
-                            if (buffer[1] != 0)
+                            if (_buffer[1] != 0)
                             {
-                                encoding = "UTF-8";
+                                _encoding = "UTF-8";
                             }
                             else
                             {
-                                if (length < 4 || buffer[2] != 0)
+                                if (_length < 4 || _buffer[2] != 0)
                                 {
-                                    encoding = "UTF-16LE";
+                                    _encoding = "UTF-16LE";
                                 }
                                 else
                                 {
-                                    encoding = "UTF-32LE";
+                                    _encoding = "UTF-32LE";
                                 }
                             }
                         }
@@ -241,27 +241,27 @@ namespace Com.Adobe.Xmp.Impl
                             //   FE FF -- -- - Big endian UTF-16
                             //   FF FE 00 00 - Little endian UTF-32
                             //   FF FE -- -- - Little endian UTF-16
-                            if ((buffer[0] & unchecked((int)(0xFF))) == unchecked((int)(0xEF)))
+                            if ((_buffer[0] & unchecked((int)(0xFF))) == unchecked((int)(0xEF)))
                             {
-                                encoding = "UTF-8";
+                                _encoding = "UTF-8";
                             }
                             else
                             {
-                                if ((buffer[0] & unchecked((int)(0xFF))) == unchecked((int)(0xFE)))
+                                if ((_buffer[0] & unchecked((int)(0xFF))) == unchecked((int)(0xFE)))
                                 {
-                                    encoding = "UTF-16";
+                                    _encoding = "UTF-16";
                                 }
                                 else
                                 {
                                     // in fact BE
-                                    if (length < 4 || buffer[2] != 0)
+                                    if (_length < 4 || _buffer[2] != 0)
                                     {
-                                        encoding = "UTF-16";
+                                        _encoding = "UTF-16";
                                     }
                                     else
                                     {
                                         // in fact LE
-                                        encoding = "UTF-32";
+                                        _encoding = "UTF-32";
                                     }
                                 }
                             }
@@ -270,7 +270,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
             }
             // in fact LE
-            return encoding;
+            return _encoding;
         }
 
         /// <summary>
@@ -280,11 +280,11 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="requestedLength">requested new buffer length</param>
         private void EnsureCapacity(int requestedLength)
         {
-            if (requestedLength > buffer.Length)
+            if (requestedLength > _buffer.Length)
             {
-                sbyte[] oldBuf = buffer;
-                buffer = new sbyte[oldBuf.Length * 2];
-                Array.Copy(oldBuf, 0, buffer, 0, oldBuf.Length);
+                sbyte[] oldBuf = _buffer;
+                _buffer = new sbyte[oldBuf.Length * 2];
+                Array.Copy(oldBuf, 0, _buffer, 0, oldBuf.Length);
             }
         }
     }

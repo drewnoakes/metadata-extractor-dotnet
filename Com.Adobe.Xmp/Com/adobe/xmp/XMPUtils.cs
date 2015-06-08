@@ -20,12 +20,12 @@ namespace Com.Adobe.Xmp
     /// Java default conversion utilities.
     /// </remarks>
     /// <since>21.02.2006</since>
-    public static class XMPUtils
+    public static class XmpUtils
     {
         // EMPTY
         /// <summary>Create a single edit string from an array of strings.</summary>
         /// <param name="xmp">The XMP object containing the array to be catenated.</param>
-        /// <param name="schemaNS">
+        /// <param name="schemaNs">
         /// The schema namespace URI for the array. Must not be null or
         /// the empty string.
         /// </param>
@@ -45,16 +45,16 @@ namespace Com.Adobe.Xmp
         /// </param>
         /// <param name="allowCommas">Option flag to control the catenation.</param>
         /// <returns>Returns the string containing the catenated array items.</returns>
-        /// <exception cref="XMPException">Forwards the Exceptions from the metadata processing</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static string CatenateArrayItems(XMPMeta xmp, string schemaNS, string arrayName, string separator, string quotes, bool allowCommas)
+        /// <exception cref="XmpException">Forwards the Exceptions from the metadata processing</exception>
+        /// <exception cref="XmpException"/>
+        public static string CatenateArrayItems(IXmpMeta xmp, string schemaNs, string arrayName, string separator, string quotes, bool allowCommas)
         {
-            return XMPUtilsImpl.CatenateArrayItems(xmp, schemaNS, arrayName, separator, quotes, allowCommas);
+            return Impl.XmpUtils.CatenateArrayItems(xmp, schemaNs, arrayName, separator, quotes, allowCommas);
         }
 
         /// <summary>Separate a single edit string into an array of strings.</summary>
         /// <param name="xmp">The XMP object containing the array to be updated.</param>
-        /// <param name="schemaNS">
+        /// <param name="schemaNs">
         /// The schema namespace URI for the array. Must not be null or
         /// the empty string.
         /// </param>
@@ -66,11 +66,11 @@ namespace Com.Adobe.Xmp
         /// <param name="catedStr">The string to be separated into the array items.</param>
         /// <param name="arrayOptions">Option flags to control the separation.</param>
         /// <param name="preserveCommas">Flag if commas shall be preserved</param>
-        /// <exception cref="XMPException">Forwards the Exceptions from the metadata processing</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static void SeparateArrayItems(XMPMeta xmp, string schemaNS, string arrayName, string catedStr, PropertyOptions arrayOptions, bool preserveCommas)
+        /// <exception cref="XmpException">Forwards the Exceptions from the metadata processing</exception>
+        /// <exception cref="XmpException"/>
+        public static void SeparateArrayItems(IXmpMeta xmp, string schemaNs, string arrayName, string catedStr, PropertyOptions arrayOptions, bool preserveCommas)
         {
-            XMPUtilsImpl.SeparateArrayItems(xmp, schemaNS, arrayName, catedStr, arrayOptions, preserveCommas);
+            Impl.XmpUtils.SeparateArrayItems(xmp, schemaNs, arrayName, catedStr, arrayOptions, preserveCommas);
         }
 
         /// <summary>Remove multiple properties from an XMP object.</summary>
@@ -98,7 +98,7 @@ namespace Com.Adobe.Xmp
         /// It is an error to pass an empty <code>schemaNS</code> and non-empty <code>propName</code>.
         /// </remarks>
         /// <param name="xmp">The XMP object containing the properties to be removed.</param>
-        /// <param name="schemaNS">
+        /// <param name="schemaNs">
         /// Optional schema namespace URI for the properties to be
         /// removed.
         /// </param>
@@ -112,11 +112,11 @@ namespace Com.Adobe.Xmp
         /// Include aliases in the "named schema" case above.
         /// <em>Note:</em> Currently not supported.
         /// </param>
-        /// <exception cref="XMPException">Forwards the Exceptions from the metadata processing</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static void RemoveProperties(XMPMeta xmp, string schemaNS, string propName, bool doAllProperties, bool includeAliases)
+        /// <exception cref="XmpException">Forwards the Exceptions from the metadata processing</exception>
+        /// <exception cref="XmpException"/>
+        public static void RemoveProperties(IXmpMeta xmp, string schemaNs, string propName, bool doAllProperties, bool includeAliases)
         {
-            XMPUtilsImpl.RemoveProperties(xmp, schemaNS, propName, doAllProperties, includeAliases);
+            Impl.XmpUtils.RemoveProperties(xmp, schemaNs, propName, doAllProperties, includeAliases);
         }
 
         /// <summary><p>Append properties from one XMP object to another.</summary>
@@ -189,11 +189,11 @@ namespace Com.Adobe.Xmp
         /// <param name="doAllProperties">Do internal properties in addition to external properties.</param>
         /// <param name="replaceOldValues">Replace the values of existing properties.</param>
         /// <param name="deleteEmptyValues">Delete destination values if source property is empty.</param>
-        /// <exception cref="XMPException">Forwards the Exceptions from the metadata processing</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static void AppendProperties(XMPMeta source, XMPMeta dest, bool doAllProperties, bool replaceOldValues, bool deleteEmptyValues = false)
+        /// <exception cref="XmpException">Forwards the Exceptions from the metadata processing</exception>
+        /// <exception cref="XmpException"/>
+        public static void AppendProperties(IXmpMeta source, IXmpMeta dest, bool doAllProperties, bool replaceOldValues, bool deleteEmptyValues = false)
         {
-            XMPUtilsImpl.AppendProperties(source, dest, doAllProperties, replaceOldValues, deleteEmptyValues);
+            Impl.XmpUtils.AppendProperties(source, dest, doAllProperties, replaceOldValues, deleteEmptyValues);
         }
 
         /// <summary>Convert from string to Boolean.</summary>
@@ -212,13 +212,13 @@ namespace Com.Adobe.Xmp
         /// <li>&quot;value &lt;&gt; 0&quot; and &quot;value == 0&quot;
         /// </ul>
         /// </returns>
-        /// <exception cref="XMPException">If an empty string is passed.</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
+        /// <exception cref="XmpException">If an empty string is passed.</exception>
+        /// <exception cref="XmpException"/>
         public static bool ConvertToBoolean(string value)
         {
             if (value == null || value.Length == 0)
             {
-                throw new XMPException("Empty convert-string", XMPErrorConstants.Badvalue);
+                throw new XmpException("Empty convert-string", XmpErrorConstants.Badvalue);
             }
             value = value.ToLower();
             try
@@ -244,24 +244,24 @@ namespace Com.Adobe.Xmp
         /// </returns>
         public static string ConvertFromBoolean(bool value)
         {
-            return value ? XMPConstConstants.Truestr : XMPConstConstants.Falsestr;
+            return value ? XmpConstConstants.Truestr : XmpConstConstants.Falsestr;
         }
 
         /// <summary>Converts a string value to an <code>int</code>.</summary>
         /// <param name="rawValue">the string value</param>
         /// <returns>Returns an int.</returns>
-        /// <exception cref="XMPException">
+        /// <exception cref="XmpException">
         /// If the <code>rawValue</code> is <code>null</code> or empty or the
         /// conversion fails.
         /// </exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
+        /// <exception cref="XmpException"/>
         public static int ConvertToInteger(string rawValue)
         {
             try
             {
                 if (rawValue == null || rawValue.Length == 0)
                 {
-                    throw new XMPException("Empty convert-string", XMPErrorConstants.Badvalue);
+                    throw new XmpException("Empty convert-string", XmpErrorConstants.Badvalue);
                 }
                 if (rawValue.StartsWith("0x"))
                 {
@@ -274,7 +274,7 @@ namespace Com.Adobe.Xmp
             }
             catch (FormatException)
             {
-                throw new XMPException("Invalid integer string", XMPErrorConstants.Badvalue);
+                throw new XmpException("Invalid integer string", XmpErrorConstants.Badvalue);
             }
         }
 
@@ -289,18 +289,18 @@ namespace Com.Adobe.Xmp
         /// <summary>Converts a string value to a <code>long</code>.</summary>
         /// <param name="rawValue">the string value</param>
         /// <returns>Returns a long.</returns>
-        /// <exception cref="XMPException">
+        /// <exception cref="XmpException">
         /// If the <code>rawValue</code> is <code>null</code> or empty or the
         /// conversion fails.
         /// </exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
+        /// <exception cref="XmpException"/>
         public static long ConvertToLong(string rawValue)
         {
             try
             {
                 if (rawValue == null || rawValue.Length == 0)
                 {
-                    throw new XMPException("Empty convert-string", XMPErrorConstants.Badvalue);
+                    throw new XmpException("Empty convert-string", XmpErrorConstants.Badvalue);
                 }
                 if (rawValue.StartsWith("0x"))
                 {
@@ -313,7 +313,7 @@ namespace Com.Adobe.Xmp
             }
             catch (FormatException)
             {
-                throw new XMPException("Invalid long string", XMPErrorConstants.Badvalue);
+                throw new XmpException("Invalid long string", XmpErrorConstants.Badvalue);
             }
         }
 
@@ -328,18 +328,18 @@ namespace Com.Adobe.Xmp
         /// <summary>Converts a string value to a <code>double</code>.</summary>
         /// <param name="rawValue">the string value</param>
         /// <returns>Returns a double.</returns>
-        /// <exception cref="XMPException">
+        /// <exception cref="XmpException">
         /// If the <code>rawValue</code> is <code>null</code> or empty or the
         /// conversion fails.
         /// </exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
+        /// <exception cref="XmpException"/>
         public static double ConvertToDouble(string rawValue)
         {
             try
             {
                 if (rawValue == null || rawValue.Length == 0)
                 {
-                    throw new XMPException("Empty convert-string", XMPErrorConstants.Badvalue);
+                    throw new XmpException("Empty convert-string", XmpErrorConstants.Badvalue);
                 }
                 else
                 {
@@ -348,7 +348,7 @@ namespace Com.Adobe.Xmp
             }
             catch (FormatException)
             {
-                throw new XMPException("Invalid double string", XMPErrorConstants.Badvalue);
+                throw new XmpException("Invalid double string", XmpErrorConstants.Badvalue);
             }
         }
 
@@ -363,29 +363,29 @@ namespace Com.Adobe.Xmp
         /// <summary>Converts a string value to an <code>XMPDateTime</code>.</summary>
         /// <param name="rawValue">the string value</param>
         /// <returns>Returns an <code>XMPDateTime</code>-object.</returns>
-        /// <exception cref="XMPException">
+        /// <exception cref="XmpException">
         /// If the <code>rawValue</code> is <code>null</code> or empty or the
         /// conversion fails.
         /// </exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static XMPDateTime ConvertToDate(string rawValue)
+        /// <exception cref="XmpException"/>
+        public static IXmpDateTime ConvertToDate(string rawValue)
         {
             if (rawValue == null || rawValue.Length == 0)
             {
-                throw new XMPException("Empty convert-string", XMPErrorConstants.Badvalue);
+                throw new XmpException("Empty convert-string", XmpErrorConstants.Badvalue);
             }
             else
             {
-                return ISO8601Converter.Parse(rawValue);
+                return Iso8601Converter.Parse(rawValue);
             }
         }
 
         /// <summary>Convert from <code>XMPDateTime</code> to string.</summary>
         /// <param name="value">an <code>XMPDateTime</code></param>
         /// <returns>The string representation of the long.</returns>
-        public static string ConvertFromDate(XMPDateTime value)
+        public static string ConvertFromDate(IXmpDateTime value)
         {
-            return ISO8601Converter.Render(value);
+            return Iso8601Converter.Render(value);
         }
 
         /// <summary>Convert from a byte array to a base64 encoded string.</summary>
@@ -399,8 +399,8 @@ namespace Com.Adobe.Xmp
         /// <summary>Decode from Base64 encoded string to raw data.</summary>
         /// <param name="base64String">a base64 encoded string</param>
         /// <returns>Returns a byte array containg the decoded string.</returns>
-        /// <exception cref="XMPException">Thrown if the given string is not property base64 encoded</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
+        /// <exception cref="XmpException">Thrown if the given string is not property base64 encoded</exception>
+        /// <exception cref="XmpException"/>
         public static sbyte[] DecodeBase64(string base64String)
         {
             try
@@ -409,7 +409,7 @@ namespace Com.Adobe.Xmp
             }
             catch (Exception e)
             {
-                throw new XMPException("Invalid base64 string", XMPErrorConstants.Badvalue, e);
+                throw new XmpException("Invalid base64 string", XmpErrorConstants.Badvalue, e);
             }
         }
     }

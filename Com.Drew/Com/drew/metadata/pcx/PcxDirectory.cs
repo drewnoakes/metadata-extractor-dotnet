@@ -58,24 +58,24 @@ namespace Com.Drew.Metadata.Pcx
         public const int TagVscrSize = 14;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static PcxDirectory()
         {
-            _tagNameMap.Put(TagVersion, "Version");
-            _tagNameMap.Put(TagBitsPerPixel, "Bits Per Pixel");
-            _tagNameMap.Put(TagXmin, "X Min");
-            _tagNameMap.Put(TagYmin, "Y Min");
-            _tagNameMap.Put(TagXmax, "X Max");
-            _tagNameMap.Put(TagYmax, "Y Max");
-            _tagNameMap.Put(TagHorizontalDpi, "Horitzontal DPI");
-            _tagNameMap.Put(TagVerticalDpi, "Vertical DPI");
-            _tagNameMap.Put(TagPalette, "Palette");
-            _tagNameMap.Put(TagColorPlanes, "Color Planes");
-            _tagNameMap.Put(TagBytesPerLine, "Bytes Per Line");
-            _tagNameMap.Put(TagPaletteType, "Palette Type");
-            _tagNameMap.Put(TagHscrSize, "H Hcr Size");
-            _tagNameMap.Put(TagVscrSize, "V Scr Size");
+            TagNameMap.Put(TagVersion, "Version");
+            TagNameMap.Put(TagBitsPerPixel, "Bits Per Pixel");
+            TagNameMap.Put(TagXmin, "X Min");
+            TagNameMap.Put(TagYmin, "Y Min");
+            TagNameMap.Put(TagXmax, "X Max");
+            TagNameMap.Put(TagYmax, "Y Max");
+            TagNameMap.Put(TagHorizontalDpi, "Horitzontal DPI");
+            TagNameMap.Put(TagVerticalDpi, "Vertical DPI");
+            TagNameMap.Put(TagPalette, "Palette");
+            TagNameMap.Put(TagColorPlanes, "Color Planes");
+            TagNameMap.Put(TagBytesPerLine, "Bytes Per Line");
+            TagNameMap.Put(TagPaletteType, "Palette Type");
+            TagNameMap.Put(TagHscrSize, "H Hcr Size");
+            TagNameMap.Put(TagVscrSize, "V Scr Size");
         }
 
         public PcxDirectory()
@@ -92,7 +92,7 @@ namespace Com.Drew.Metadata.Pcx
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

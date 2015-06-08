@@ -31,7 +31,7 @@ namespace Com.Drew.Imaging.Riff
     /// .
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public interface RiffHandler
+    public interface IRiffHandler
     {
         /// <summary>Gets whether the specified RIFF identifier is of interest to this handler.</summary>
         /// <remarks>
@@ -52,13 +52,13 @@ namespace Com.Drew.Imaging.Riff
         /// , or <code>false</code> to avoid
         /// the copy and skip to the next chunk in the file, if any.
         /// </remarks>
-        /// <param name="fourCC">the four character code of this chunk</param>
+        /// <param name="fourCc">the four character code of this chunk</param>
         /// <returns>
         /// true if
         /// <see cref="ProcessChunk(string, sbyte[])"/>
         /// should be called, otherwise false
         /// </returns>
-        bool ShouldAcceptChunk([NotNull] string fourCC);
+        bool ShouldAcceptChunk([NotNull] string fourCc);
 
         /// <summary>
         /// Perform whatever processing is necessary for the type of chunk with its
@@ -71,8 +71,8 @@ namespace Com.Drew.Imaging.Riff
         /// <see cref="ShouldAcceptChunk(string)"/>
         /// with the same <code>fourCC</code> returned <code>true</code>.
         /// </remarks>
-        /// <param name="fourCC">the four character code of the chunk</param>
+        /// <param name="fourCc">the four character code of the chunk</param>
         /// <param name="payload">they payload of the chunk as a byte array</param>
-        void ProcessChunk([NotNull] string fourCC, [NotNull] sbyte[] payload);
+        void ProcessChunk([NotNull] string fourCc, [NotNull] sbyte[] payload);
     }
 }

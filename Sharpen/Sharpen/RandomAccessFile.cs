@@ -4,7 +4,7 @@ namespace Sharpen
 {
     public class RandomAccessFile
     {
-        private readonly FileStream stream;
+        private readonly FileStream _stream;
 
         public RandomAccessFile (FilePath file, string mode) : this(file.GetPath (), mode)
         {
@@ -13,19 +13,19 @@ namespace Sharpen
         public RandomAccessFile (string file, string mode)
         {
             if (mode.IndexOf ('w') != -1)
-                stream = new FileStream (file, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                _stream = new FileStream (file, FileMode.OpenOrCreate, FileAccess.ReadWrite);
             else
-                stream = new FileStream (file, FileMode.Open, FileAccess.Read);
+                _stream = new FileStream (file, FileMode.Open, FileAccess.Read);
         }
 
         public void Close ()
         {
-            stream.Close ();
+            _stream.Close ();
         }
 
         public long Length ()
         {
-            return stream.Length;
+            return _stream.Length;
         }
 
         public int Read(sbyte[] sbuffer)
@@ -36,7 +36,7 @@ namespace Sharpen
             }
 
             byte[] buffer = new byte[sbuffer.Length];
-            int r = stream.Read(buffer, 0, buffer.Length);
+            int r = _stream.Read(buffer, 0, buffer.Length);
             if (r > 0)
             {
                 Extensions.Copy(buffer, sbuffer);
@@ -49,13 +49,13 @@ namespace Sharpen
         public int Read ()
         {
             byte[] buffer = new byte[1];
-            int r = stream.Read(buffer, 0, buffer.Length);
+            int r = _stream.Read(buffer, 0, buffer.Length);
             return r > 0 ? buffer[0] : -1;
         }
 
         public void Seek (long pos)
         {
-            stream.Position = pos;
+            _stream.Position = pos;
         }
     }
 }

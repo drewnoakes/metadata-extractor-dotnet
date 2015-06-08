@@ -7,11 +7,11 @@ namespace Sharpen
 {
     public static class Collections
     {
-        static readonly IList empty = new object[0];
+        static readonly IList Empty = new object[0];
 
-        public static IList EMPTY_SET
+        public static IList EmptySet
         {
-            get { return empty; }
+            get { return Empty; }
         }
 
         public static bool AddAll<T> (ICollection<T> list, IEnumerable toAdd)
@@ -22,14 +22,14 @@ namespace Sharpen
         }
 
 //        public static V Remove<K, V> (IDictionary<K, V> map, K toRemove) where K : class
-        public static V Remove<K, V> (IDictionary<K, V> map, K toRemove)
+        public static TV Remove<TK, TV> (IDictionary<TK, TV> map, TK toRemove)
         {
-            V local;
+            TV local;
             if (map.TryGetValue (toRemove, out local)) {
                 map.Remove (toRemove);
                 return local;
             }
-            return default(V);
+            return default(TV);
         }
 
         public static object Remove(IDictionary map, object toRemove)
@@ -50,10 +50,10 @@ namespace Sharpen
             return result;
         }
 
-        public static U[] ToArray<T,U> (ICollection<T> list, U[] res) where T:U
+        public static TU[] ToArray<T,TU> (ICollection<T> list, TU[] res) where T:TU
         {
             if (res.Length < list.Count)
-                res = new U [list.Count];
+                res = new TU [list.Count];
 
             int n = 0;
             foreach (T t in list)
@@ -66,7 +66,7 @@ namespace Sharpen
 
         public static IList EmptyList()
         {
-            return EMPTY_SET;
+            return EmptySet;
         }
 
         public static ICollection<T> UnmodifiableCollection<T> (ICollection<T> list)
@@ -89,7 +89,7 @@ namespace Sharpen
             return dict;
         }
 
-        public static IDictionary<K,V> UnmodifiableMap<K,V> (IDictionary<K,V> dict)
+        public static IDictionary<TK,TV> UnmodifiableMap<TK,TV> (IDictionary<TK,TV> dict)
         {
             return dict;
         }

@@ -52,20 +52,20 @@ namespace Com.Drew.Imaging.Png
                 Assert.AreEqual(0, dirs[0].GetInt(PngDirectory.TagCompressionType));
                 Assert.AreEqual(0, dirs[0].GetInt(PngDirectory.TagFilterMethod));
                 Assert.AreEqual(0, dirs[0].GetInt(PngDirectory.TagInterlaceMethod));
-                Assert.AreEqual(PngChunkType.gAMA, dirs[1].GetPngChunkType());
+                Assert.AreEqual(PngChunkType.GAma, dirs[1].GetPngChunkType());
                 Assert.AreEqual(0.45455, dirs[1].GetDouble(PngDirectory.TagGamma), 0.00001);
-                Assert.AreEqual(PngChunkType.bKGD, dirs[2].GetPngChunkType());
+                Assert.AreEqual(PngChunkType.BKgd, dirs[2].GetPngChunkType());
                 CollectionAssert.AreEqual(new sbyte[] { 0, 52 }, dirs[2].GetByteArray(PngDirectory.TagBackgroundColor));
                 //noinspection ConstantConditions
-                Assert.AreEqual(PngChunkType.pHYs, dirs[3].GetPngChunkType());
+                Assert.AreEqual(PngChunkType.PHYs, dirs[3].GetPngChunkType());
                 Assert.AreEqual(1, dirs[3].GetInt(PngDirectory.TagUnitSpecifier));
                 Assert.AreEqual(2835, dirs[3].GetInt(PngDirectory.TagPixelsPerUnitX));
                 Assert.AreEqual(2835, dirs[3].GetInt(PngDirectory.TagPixelsPerUnitY));
-                Assert.AreEqual(PngChunkType.tIME, dirs[4].GetPngChunkType());
+                Assert.AreEqual(PngChunkType.TIme, dirs[4].GetPngChunkType());
                 //Sharpen.Tests.AreEqual("Tue Jan 01 04:08:30 GMT 2013", Sharpen.Extensions.ConvertToString(dirs[4].GetDate(PngDirectory.TagLastModificationTime)));
                 var testString = CreateTestString(2013, 00, 01, 04, 08, 30);
                 Assert.AreEqual(testString, Extensions.ConvertToString(dirs[4].GetDate(PngDirectory.TagLastModificationTime)));
-                Assert.AreEqual(PngChunkType.iTXt, dirs[5].GetPngChunkType());
+                Assert.AreEqual(PngChunkType.ITXt, dirs[5].GetPngChunkType());
                 IList<KeyValuePair> pairs = (IList<KeyValuePair>)dirs[5].GetObject(PngDirectory.TagTextualData);
                 Assert.IsNotNull(pairs);
                 Assert.AreEqual(1, pairs.Count);

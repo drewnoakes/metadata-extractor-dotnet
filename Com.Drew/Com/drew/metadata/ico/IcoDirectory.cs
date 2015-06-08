@@ -50,20 +50,20 @@ namespace Com.Drew.Metadata.Ico
         public const int TagImageOffsetBytes = 10;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static IcoDirectory()
         {
-            _tagNameMap.Put(TagImageType, "Image Type");
-            _tagNameMap.Put(TagImageWidth, "Image Width");
-            _tagNameMap.Put(TagImageHeight, "Image Height");
-            _tagNameMap.Put(TagColourPaletteSize, "Colour Palette Size");
-            _tagNameMap.Put(TagColourPlanes, "Colour Planes");
-            _tagNameMap.Put(TagCursorHotspotX, "Hotspot X");
-            _tagNameMap.Put(TagBitsPerPixel, "Bits Per Pixel");
-            _tagNameMap.Put(TagCursorHotspotY, "Hotspot Y");
-            _tagNameMap.Put(TagImageSizeBytes, "Image Size Bytes");
-            _tagNameMap.Put(TagImageOffsetBytes, "Image Offset Bytes");
+            TagNameMap.Put(TagImageType, "Image Type");
+            TagNameMap.Put(TagImageWidth, "Image Width");
+            TagNameMap.Put(TagImageHeight, "Image Height");
+            TagNameMap.Put(TagColourPaletteSize, "Colour Palette Size");
+            TagNameMap.Put(TagColourPlanes, "Colour Planes");
+            TagNameMap.Put(TagCursorHotspotX, "Hotspot X");
+            TagNameMap.Put(TagBitsPerPixel, "Bits Per Pixel");
+            TagNameMap.Put(TagCursorHotspotY, "Hotspot Y");
+            TagNameMap.Put(TagImageSizeBytes, "Image Size Bytes");
+            TagNameMap.Put(TagImageOffsetBytes, "Image Offset Bytes");
         }
 
         public IcoDirectory()
@@ -80,7 +80,7 @@ namespace Com.Drew.Metadata.Ico
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

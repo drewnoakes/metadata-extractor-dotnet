@@ -88,10 +88,10 @@ namespace Com.Drew.Metadata.Icc
         {
             try
             {
-                sbyte[] bytes = _directory.GetByteArray(tagType);
+                sbyte[] bytes = Directory.GetByteArray(tagType);
                 if (bytes == null)
                 {
-                    return _directory.GetString(tagType);
+                    return Directory.GetString(tagType);
                 }
                 RandomAccessReader reader = new ByteArrayReader(bytes);
                 int iccTagType = reader.GetInt32(0);
@@ -355,7 +355,7 @@ namespace Com.Drew.Metadata.Icc
         [CanBeNull]
         private string GetRenderingIntentDescription()
         {
-            int? value = _directory.GetInteger(IccDirectory.TagRenderingIntent);
+            int? value = Directory.GetInteger(IccDirectory.TagRenderingIntent);
             if (value == null)
             {
                 return null;
@@ -392,7 +392,7 @@ namespace Com.Drew.Metadata.Icc
         [CanBeNull]
         private string GetPlatformDescription()
         {
-            string str = _directory.GetString(IccDirectory.TagPlatform);
+            string str = Directory.GetString(IccDirectory.TagPlatform);
             if (str == null)
             {
                 return null;
@@ -447,7 +447,7 @@ namespace Com.Drew.Metadata.Icc
         [CanBeNull]
         private string GetProfileClassDescription()
         {
-            string str = _directory.GetString(IccDirectory.TagProfileClass);
+            string str = Directory.GetString(IccDirectory.TagProfileClass);
             if (str == null)
             {
                 return null;
@@ -511,7 +511,7 @@ namespace Com.Drew.Metadata.Icc
         [CanBeNull]
         private string GetProfileVersionDescription()
         {
-            int? value = _directory.GetInteger(IccDirectory.TagProfileVersion);
+            int? value = Directory.GetInteger(IccDirectory.TagProfileVersion);
             if (value == null)
             {
                 return null;

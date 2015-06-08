@@ -53,7 +53,7 @@ namespace Com.Adobe.Xmp
     /// path or array indices.
     /// </remarks>
     /// <since>25.01.2006</since>
-    public static class XMPPathFactory
+    public static class XmpPathFactory
     {
         // EMPTY
         /// <summary>Compose the path expression for an item in an array.</summary>
@@ -70,8 +70,8 @@ namespace Com.Adobe.Xmp
         /// <tt>ns:arrayName[i]</tt>, where &quot;ns&quot; is the prefix for schemaNS and
         /// &quot;i&quot; is the decimal representation of itemIndex.
         /// </returns>
-        /// <exception cref="XMPException">Throws exeption if index zero is used.</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
+        /// <exception cref="XmpException">Throws exeption if index zero is used.</exception>
+        /// <exception cref="XmpException"/>
         public static string ComposeArrayItemPath(string arrayName, int itemIndex)
         {
             if (itemIndex > 0)
@@ -80,13 +80,13 @@ namespace Com.Adobe.Xmp
             }
             else
             {
-                if (itemIndex == XMPConstConstants.ArrayLastItem)
+                if (itemIndex == XmpConstConstants.ArrayLastItem)
                 {
                     return arrayName + "[last()]";
                 }
                 else
                 {
-                    throw new XMPException("Array index must be larger than zero", XMPErrorConstants.Badindex);
+                    throw new XmpException("Array index must be larger than zero", XmpErrorConstants.Badindex);
                 }
             }
         }
@@ -96,7 +96,7 @@ namespace Com.Adobe.Xmp
         /// Compose the path expression for a field in a struct. The result can be added to the
         /// path of
         /// </remarks>
-        /// <param name="fieldNS">
+        /// <param name="fieldNs">
         /// The namespace URI for the field. Must not be <code>null</code> or the empty
         /// string.
         /// </param>
@@ -109,22 +109,22 @@ namespace Com.Adobe.Xmp
         /// <tt>ns:structName/fNS:fieldName</tt>, where &quot;ns&quot; is the prefix for
         /// schemaNS and &quot;fNS&quot; is the prefix for fieldNS.
         /// </returns>
-        /// <exception cref="XMPException">Thrown if the path to create is not valid.</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static string ComposeStructFieldPath(string fieldNS, string fieldName)
+        /// <exception cref="XmpException">Thrown if the path to create is not valid.</exception>
+        /// <exception cref="XmpException"/>
+        public static string ComposeStructFieldPath(string fieldNs, string fieldName)
         {
-            AssertFieldNS(fieldNS);
+            AssertFieldNs(fieldNs);
             AssertFieldName(fieldName);
-            XMPPath fieldPath = XMPPathParser.ExpandXPath(fieldNS, fieldName);
+            XmpPath fieldPath = XmpPathParser.ExpandXPath(fieldNs, fieldName);
             if (fieldPath.Size() != 2)
             {
-                throw new XMPException("The field name must be simple", XMPErrorConstants.Badxpath);
+                throw new XmpException("The field name must be simple", XmpErrorConstants.Badxpath);
             }
-            return '/' + fieldPath.GetSegment(XMPPath.StepRootProp).GetName();
+            return '/' + fieldPath.GetSegment(XmpPath.StepRootProp).GetName();
         }
 
         /// <summary>Compose the path expression for a qualifier.</summary>
-        /// <param name="qualNS">
+        /// <param name="qualNs">
         /// The namespace URI for the qualifier. May be <code>null</code> or the empty
         /// string if the qualifier is in the XML empty namespace.
         /// </param>
@@ -137,18 +137,18 @@ namespace Com.Adobe.Xmp
         /// <tt>ns:propName/?qNS:qualName</tt>, where &quot;ns&quot; is the prefix for
         /// schemaNS and &quot;qNS&quot; is the prefix for qualNS.
         /// </returns>
-        /// <exception cref="XMPException">Thrown if the path to create is not valid.</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static string ComposeQualifierPath(string qualNS, string qualName)
+        /// <exception cref="XmpException">Thrown if the path to create is not valid.</exception>
+        /// <exception cref="XmpException"/>
+        public static string ComposeQualifierPath(string qualNs, string qualName)
         {
-            AssertQualNS(qualNS);
+            AssertQualNs(qualNs);
             AssertQualName(qualName);
-            XMPPath qualPath = XMPPathParser.ExpandXPath(qualNS, qualName);
+            XmpPath qualPath = XmpPathParser.ExpandXPath(qualNs, qualName);
             if (qualPath.Size() != 2)
             {
-                throw new XMPException("The qualifier name must be simple", XMPErrorConstants.Badxpath);
+                throw new XmpException("The qualifier name must be simple", XmpErrorConstants.Badxpath);
             }
-            return "/?" + qualPath.GetSegment(XMPPath.StepRootProp).GetName();
+            return "/?" + qualPath.GetSegment(XmpPath.StepRootProp).GetName();
         }
 
         /// <summary>Compose the path expression to select an alternate item by language.</summary>
@@ -203,7 +203,7 @@ namespace Com.Adobe.Xmp
         /// The name of the array. May be a general path expression, must not be
         /// <code>null</code> or the empty string.
         /// </param>
-        /// <param name="fieldNS">
+        /// <param name="fieldNs">
         /// The namespace URI for the field used as the selector. Must not be
         /// <code>null</code> or the empty string.
         /// </param>
@@ -218,63 +218,63 @@ namespace Com.Adobe.Xmp
         /// <tt>ns:arrayName[fNS:fieldName='fieldValue']</tt>, where &quot;ns&quot; is the
         /// prefix for schemaNS and &quot;fNS&quot; is the prefix for fieldNS.
         /// </returns>
-        /// <exception cref="XMPException">Thrown if the path to create is not valid.</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static string ComposeFieldSelector(string arrayName, string fieldNS, string fieldName, string fieldValue)
+        /// <exception cref="XmpException">Thrown if the path to create is not valid.</exception>
+        /// <exception cref="XmpException"/>
+        public static string ComposeFieldSelector(string arrayName, string fieldNs, string fieldName, string fieldValue)
         {
-            XMPPath fieldPath = XMPPathParser.ExpandXPath(fieldNS, fieldName);
+            XmpPath fieldPath = XmpPathParser.ExpandXPath(fieldNs, fieldName);
             if (fieldPath.Size() != 2)
             {
-                throw new XMPException("The fieldName name must be simple", XMPErrorConstants.Badxpath);
+                throw new XmpException("The fieldName name must be simple", XmpErrorConstants.Badxpath);
             }
-            return arrayName + '[' + fieldPath.GetSegment(XMPPath.StepRootProp).GetName() + "=\"" + fieldValue + "\"]";
+            return arrayName + '[' + fieldPath.GetSegment(XmpPath.StepRootProp).GetName() + "=\"" + fieldValue + "\"]";
         }
 
         /// <summary>ParameterAsserts that a qualifier namespace is set.</summary>
-        /// <param name="qualNS">a qualifier namespace</param>
-        /// <exception cref="XMPException">Qualifier schema is null or empty</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        private static void AssertQualNS(string qualNS)
+        /// <param name="qualNs">a qualifier namespace</param>
+        /// <exception cref="XmpException">Qualifier schema is null or empty</exception>
+        /// <exception cref="XmpException"/>
+        private static void AssertQualNs(string qualNs)
         {
-            if (qualNS == null || qualNS.Length == 0)
+            if (qualNs == null || qualNs.Length == 0)
             {
-                throw new XMPException("Empty qualifier namespace URI", XMPErrorConstants.Badschema);
+                throw new XmpException("Empty qualifier namespace URI", XmpErrorConstants.Badschema);
             }
         }
 
         /// <summary>ParameterAsserts that a qualifier name is set.</summary>
         /// <param name="qualName">a qualifier name or path</param>
-        /// <exception cref="XMPException">Qualifier name is null or empty</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
+        /// <exception cref="XmpException">Qualifier name is null or empty</exception>
+        /// <exception cref="XmpException"/>
         private static void AssertQualName(string qualName)
         {
             if (qualName == null || qualName.Length == 0)
             {
-                throw new XMPException("Empty qualifier name", XMPErrorConstants.Badxpath);
+                throw new XmpException("Empty qualifier name", XmpErrorConstants.Badxpath);
             }
         }
 
         /// <summary>ParameterAsserts that a struct field namespace is set.</summary>
-        /// <param name="fieldNS">a struct field namespace</param>
-        /// <exception cref="XMPException">Struct field schema is null or empty</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        private static void AssertFieldNS(string fieldNS)
+        /// <param name="fieldNs">a struct field namespace</param>
+        /// <exception cref="XmpException">Struct field schema is null or empty</exception>
+        /// <exception cref="XmpException"/>
+        private static void AssertFieldNs(string fieldNs)
         {
-            if (fieldNS == null || fieldNS.Length == 0)
+            if (fieldNs == null || fieldNs.Length == 0)
             {
-                throw new XMPException("Empty field namespace URI", XMPErrorConstants.Badschema);
+                throw new XmpException("Empty field namespace URI", XmpErrorConstants.Badschema);
             }
         }
 
         /// <summary>ParameterAsserts that a struct field name is set.</summary>
         /// <param name="fieldName">a struct field name or path</param>
-        /// <exception cref="XMPException">Struct field name is null or empty</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
+        /// <exception cref="XmpException">Struct field name is null or empty</exception>
+        /// <exception cref="XmpException"/>
         private static void AssertFieldName(string fieldName)
         {
             if (fieldName == null || fieldName.Length == 0)
             {
-                throw new XMPException("Empty f name", XMPErrorConstants.Badxpath);
+                throw new XmpException("Empty f name", XmpErrorConstants.Badxpath);
             }
         }
     }

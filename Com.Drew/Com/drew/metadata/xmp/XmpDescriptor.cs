@@ -53,7 +53,7 @@ namespace Com.Drew.Metadata.Xmp
                 case XmpDirectory.TagMake:
                 case XmpDirectory.TagModel:
                 {
-                    return _directory.GetString(tagType);
+                    return Directory.GetString(tagType);
                 }
 
                 case XmpDirectory.TagExposureTime:
@@ -81,7 +81,7 @@ namespace Com.Drew.Metadata.Xmp
                 case XmpDirectory.TagCameraSerialNumber:
                 case XmpDirectory.TagFirmware:
                 {
-                    return _directory.GetString(tagType);
+                    return Directory.GetString(tagType);
                 }
 
                 case XmpDirectory.TagFocalLength:
@@ -105,7 +105,7 @@ namespace Com.Drew.Metadata.Xmp
         [CanBeNull]
         public virtual string GetExposureTimeDescription()
         {
-            string value = _directory.GetString(XmpDirectory.TagExposureTime);
+            string value = Directory.GetString(XmpDirectory.TagExposureTime);
             if (value == null)
             {
                 return null;
@@ -120,7 +120,7 @@ namespace Com.Drew.Metadata.Xmp
             // '1' means manual control, '2' program normal, '3' aperture priority,
             // '4' shutter priority, '5' program creative (slow program),
             // '6' program action(high-speed program), '7' portrait mode, '8' landscape mode.
-            int? value = _directory.GetInteger(XmpDirectory.TagExposureProgram);
+            int? value = Directory.GetInteger(XmpDirectory.TagExposureProgram);
             if (value == null)
             {
                 return null;
@@ -178,7 +178,7 @@ namespace Com.Drew.Metadata.Xmp
         [CanBeNull]
         public virtual string GetShutterSpeedDescription()
         {
-            float? value = _directory.GetFloatObject(XmpDirectory.TagShutterSpeed);
+            float? value = Directory.GetFloatObject(XmpDirectory.TagShutterSpeed);
             if (value == null)
             {
                 return null;
@@ -204,7 +204,7 @@ namespace Com.Drew.Metadata.Xmp
         [CanBeNull]
         public virtual string GetFNumberDescription()
         {
-            Rational value = _directory.GetRational(XmpDirectory.TagFNumber);
+            Rational value = Directory.GetRational(XmpDirectory.TagFNumber);
             if (value == null)
             {
                 return null;
@@ -216,7 +216,7 @@ namespace Com.Drew.Metadata.Xmp
         [CanBeNull]
         public virtual string GetFocalLengthDescription()
         {
-            Rational value = _directory.GetRational(XmpDirectory.TagFocalLength);
+            Rational value = Directory.GetRational(XmpDirectory.TagFocalLength);
             if (value == null)
             {
                 return null;
@@ -229,7 +229,7 @@ namespace Com.Drew.Metadata.Xmp
         [CanBeNull]
         public virtual string GetApertureValueDescription()
         {
-            double? value = _directory.GetDoubleObject(XmpDirectory.TagApertureValue);
+            double? value = Directory.GetDoubleObject(XmpDirectory.TagApertureValue);
             if (value == null)
             {
                 return null;

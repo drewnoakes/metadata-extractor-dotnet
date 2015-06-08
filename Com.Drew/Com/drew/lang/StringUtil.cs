@@ -31,12 +31,12 @@ namespace Com.Drew.Lang
     public static class StringUtil
     {
         [NotNull]
-        public static string Join<_T0>(Iterable<_T0> strings, [NotNull] string delimiter)
-            where _T0 : CharSequence
+        public static string Join<TT0>(Iterable<TT0> strings, [NotNull] string delimiter)
+            where TT0 : CharSequence
         {
             int capacity = 0;
             int delimLength = delimiter.Length;
-            Iterator<_T0> iter = strings.Iterator();
+            Iterator<TT0> iter = strings.Iterator();
             if (iter.HasNext())
             {
                 capacity += iter.Next().Length + delimLength;
@@ -63,7 +63,7 @@ namespace Com.Drew.Lang
             int capacity = strings.Sum(value => value.Length + delimLength);
             StringBuilder buffer = new StringBuilder(capacity);
             bool first = true;
-            foreach (T value_1 in strings)
+            foreach (T value1 in strings)
             {
                 if (!first)
                 {
@@ -73,7 +73,7 @@ namespace Com.Drew.Lang
                 {
                     first = false;
                 }
-                buffer.Append(value_1);
+                buffer.Append(value1);
             }
             return Extensions.ConvertToString(buffer);
         }

@@ -45,7 +45,7 @@ namespace Com.Drew.Metadata.Bmp
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestMsPaint16color()
+        public virtual void TestMsPaint16Color()
         {
             BmpHeaderDirectory directory = ProcessBytes("Tests/Data/16color-10x10.bmp");
             Assert.IsFalse(directory.HasErrors());
@@ -63,7 +63,7 @@ namespace Com.Drew.Metadata.Bmp
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestMsPaint24bpp()
+        public virtual void TestMsPaint24Bpp()
         {
             BmpHeaderDirectory directory = ProcessBytes("Tests/Data/24bpp-10x10.bmp");
             Assert.IsFalse(directory.HasErrors());

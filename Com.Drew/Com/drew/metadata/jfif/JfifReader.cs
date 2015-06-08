@@ -35,7 +35,7 @@ namespace Com.Drew.Metadata.Jfif
     /// More info at: http://en.wikipedia.org/wiki/JPEG_File_Interchange_Format
     /// </remarks>
     /// <author>Yuri Binev, Drew Noakes, Markus Meyer</author>
-    public class JfifReader : JpegSegmentMetadataReader, MetadataReader
+    public class JfifReader : IJpegSegmentMetadataReader, IMetadataReader
     {
         public const string Preamble = "JFIF";
 

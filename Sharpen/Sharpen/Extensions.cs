@@ -13,7 +13,7 @@ namespace Sharpen
 {
     public static class Extensions
     {
-        private static readonly long EPOCH_TICKS;
+        private static readonly long EpochTicks;
 
         //  The format specifiers which do not correspond to arguments have the following syntax:
         //  %[flags][width]conversion
@@ -21,13 +21,13 @@ namespace Sharpen
         private const string FlagRegexPattern = "[-\\#+\\s0,]*";
         private const string WidthRegexPattern = "\\d*\\.*\\d*";
         private const string ConversionRegexPattern = "(?i:[sdnfx]{1})";
-        private static readonly Regex _stringSplitter = new Regex("(%" + FlagRegexPattern + WidthRegexPattern + ConversionRegexPattern + ")", RegexOptions.Compiled);
-        private static readonly Regex _formatSplitter = new Regex("("+FlagRegexPattern+")("+WidthRegexPattern+")("+ConversionRegexPattern+")", RegexOptions.Compiled);
+        private static readonly Regex StringSplitter = new Regex("(%" + FlagRegexPattern + WidthRegexPattern + ConversionRegexPattern + ")", RegexOptions.Compiled);
+        private static readonly Regex FormatSplitter = new Regex("("+FlagRegexPattern+")("+WidthRegexPattern+")("+ConversionRegexPattern+")", RegexOptions.Compiled);
 
         static Extensions()
         {
             DateTime time = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            EPOCH_TICKS = time.Ticks;
+            EpochTicks = time.Ticks;
         }
 
         public static void Add(this IList list, int index, object item)
@@ -86,7 +86,7 @@ namespace Sharpen
             return e.Decode(buffer.Array(), buffer.ArrayOffset() + buffer.Position(), buffer.Limit() - buffer.Position());
         }
 
-        private static readonly UTF8Encoding UTF8Encoder = new UTF8Encoding(false, true);
+        private static readonly UTF8Encoding Utf8Encoder = new UTF8Encoding(false, true);
 
         public static Encoding GetEncoding(string name)
         {
@@ -95,7 +95,7 @@ namespace Sharpen
             {
                 Encoding e = Encoding.GetEncoding(name.Replace('_', '-'));
                 if (e is UTF8Encoding)
-                    return UTF8Encoder;
+                    return Utf8Encoder;
                 return e;
             }
             catch (ArgumentException)
@@ -104,7 +104,7 @@ namespace Sharpen
             }
         }
 
-        public static ICollection<KeyValuePair<T, U>> EntrySet<T, U>(this IDictionary<T, U> s)
+        public static ICollection<KeyValuePair<T, TU>> EntrySet<T, TU>(this IDictionary<T, TU> s)
         {
             return s;
         }
@@ -114,9 +114,9 @@ namespace Sharpen
             return d.Contains(key);
         }
 
-        public static U Get<T, U>(this IDictionary<T, U> d, T key)
+        public static TU Get<T, TU>(this IDictionary<T, TU> d, T key)
         {
-            U val;
+            TU val;
             d.TryGetValue(key, out val);
             return val;
         }
@@ -126,9 +126,9 @@ namespace Sharpen
             return d[key];
         }
 
-        public static U Put<T, U>(this IDictionary<T, U> d, T key, U value)
+        public static TU Put<T, TU>(this IDictionary<T, TU> d, T key, TU value)
         {
-            U old;
+            TU old;
             d.TryGetValue(key, out old);
             d[key] = value;
             return old;
@@ -222,7 +222,7 @@ namespace Sharpen
             return col.Count == 0;
         }
 
-        public static Iterator Iterator(this ICollection col)
+        public static IIterator Iterator(this ICollection col)
         {
             return new EnumeratorWrapper(col, col.GetEnumerator());
         }
@@ -239,14 +239,14 @@ namespace Sharpen
 
         public static DateTime CreateDate(long milliSecondsSinceEpoch)
         {
-            long num = EPOCH_TICKS + (milliSecondsSinceEpoch*10000);
+            long num = EpochTicks + (milliSecondsSinceEpoch*10000);
             return new DateTime(num);
         }
 
         public static DateTimeOffset MillisToDateTimeOffset(long milliSecondsSinceEpoch, long offsetMinutes)
         {
             TimeSpan offset = TimeSpan.FromMinutes((double) offsetMinutes);
-            long num = EPOCH_TICKS + (milliSecondsSinceEpoch*10000);
+            long num = EpochTicks + (milliSecondsSinceEpoch*10000);
             return new DateTimeOffset(num + offset.Ticks, offset);
         }
 
@@ -370,7 +370,7 @@ namespace Sharpen
 
         public static long ToMillisecondsSinceEpoch(this DateTimeOffset dateTimeOffset)
         {
-            return (((dateTimeOffset.Ticks - dateTimeOffset.Offset.Ticks) - EPOCH_TICKS)/TimeSpan.TicksPerMillisecond);
+            return (((dateTimeOffset.Ticks - dateTimeOffset.Offset.Ticks) - EpochTicks)/TimeSpan.TicksPerMillisecond);
         }
 
         public static string ToHexString(int val)
@@ -429,9 +429,9 @@ namespace Sharpen
             return asm.GetName().Version.ToString();
         }
 
-        public static HttpURLConnection OpenConnection(this Uri uri)
+        public static HttpUrlConnection OpenConnection(this Uri uri)
         {
-            return new HttpsURLConnection(uri);
+            return new HttpsUrlConnection(uri);
         }
 
 
@@ -589,24 +589,24 @@ namespace Sharpen
             }
         }
 
-        internal static void CopyCastBuffer(byte[] buffer, int offset, int len, sbyte[] target_buffer, int target_offset)
+        internal static void CopyCastBuffer(byte[] buffer, int offset, int len, sbyte[] targetBuffer, int targetOffset)
         {
-            if (offset < 0 || len < 0 || offset + len > buffer.Length || target_offset < 0 || target_offset + len > target_buffer.Length) throw new ArgumentOutOfRangeException();
+            if (offset < 0 || len < 0 || offset + len > buffer.Length || targetOffset < 0 || targetOffset + len > targetBuffer.Length) throw new ArgumentOutOfRangeException();
 
             for (int i = 0; i < len; i++)
             {
-                target_buffer[i + target_offset] = (sbyte)buffer[offset + i];
+                targetBuffer[i + targetOffset] = (sbyte)buffer[offset + i];
             }
 
         }
 
-        internal static void CopyCastBuffer(sbyte[] buffer, int offset, int len, byte[] target_buffer, int target_offset)
+        internal static void CopyCastBuffer(sbyte[] buffer, int offset, int len, byte[] targetBuffer, int targetOffset)
         {
-            if (offset < 0 || len < 0 || offset + len > buffer.Length || target_offset < 0 || target_offset + len > target_buffer.Length) throw new ArgumentOutOfRangeException();
+            if (offset < 0 || len < 0 || offset + len > buffer.Length || targetOffset < 0 || targetOffset + len > targetBuffer.Length) throw new ArgumentOutOfRangeException();
 
             for (int i = 0; i < len; i++)
             {
-                target_buffer[i + target_offset] = (byte)buffer[offset + i];
+                targetBuffer[i + targetOffset] = (byte)buffer[offset + i];
             }
 
         }
@@ -674,7 +674,7 @@ namespace Sharpen
         /// <returns>C# format string</returns>
         internal static string ConvertStringFormat(string format)
         {
-            if (string.IsNullOrEmpty(format) || !_stringSplitter.IsMatch(format))
+            if (string.IsNullOrEmpty(format) || !StringSplitter.IsMatch(format))
             {
                 return format;
             }
@@ -686,7 +686,7 @@ namespace Sharpen
 
         private static string[] GetFormatParts(string format)
         {
-            return _stringSplitter.Split(format);
+            return StringSplitter.Split(format);
         }
 
         private static void ConvertParts(string[] parts)
@@ -702,9 +702,9 @@ namespace Sharpen
                     continue;
                 }
 
-                if (_stringSplitter.Match(part).Success)
+                if (StringSplitter.Match(part).Success)
                 {
-                    var formatparts = _formatSplitter.Split(part);
+                    var formatparts = FormatSplitter.Split(part);
                     var flags = formatparts[1];
                     var width = formatparts[2];
                     var conversion = formatparts[3];

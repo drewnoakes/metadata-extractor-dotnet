@@ -11,7 +11,7 @@ namespace Com.Adobe.Xmp.Options
 {
     /// <summary>
     /// Options for
-    /// <see cref="Com.Adobe.Xmp.XMPMetaFactory.Parse(System.IO.InputStream, ParseOptions)"/>
+    /// <see cref="XmpMetaFactory.Parse(System.IO.InputStream, ParseOptions)"/>
     /// .
     /// </summary>
     /// <since>24.01.2006</since>
@@ -39,14 +39,14 @@ namespace Com.Adobe.Xmp.Options
         }
 
         /// <returns>Returns the requireXMPMeta.</returns>
-        public bool GetRequireXMPMeta()
+        public bool GetRequireXmpMeta()
         {
             return GetOption(RequireXmpMeta);
         }
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public ParseOptions SetRequireXMPMeta(bool value)
+        public ParseOptions SetRequireXmpMeta(bool value)
         {
             SetOption(RequireXmpMeta, value);
             return this;

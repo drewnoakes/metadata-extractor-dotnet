@@ -15,7 +15,7 @@ namespace SampleReader
         {
             var resource = "https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/jpg/Apple%20iPhone%206%20plus.jpg";
             var request = HttpWebRequest.Create(new Uri(resource));
-            var exit_code = 0;
+            var exitCode = 0;
 
             using (var response = request.GetResponse())
             using (var stream = response.GetResponseStream()){
@@ -28,11 +28,11 @@ namespace SampleReader
                         Console.ForegroundColor = ConsoleColor.Red;
                         //Some metadata bits might be corrupt
                         Console.Error.WriteLine("Some invalid metadata was detected.");
-                        exit_code = 2;
+                        exitCode = 2;
                     }
                     else
                     {
-                        exit_code = 0; //All peachy!
+                        exitCode = 0; //All peachy!
                     }
                 }
                 else
@@ -40,13 +40,13 @@ namespace SampleReader
                     Console.ForegroundColor = ConsoleColor.Red;
                     //This might not be an image, or it might be badly corrupted, or unsupported.
                     Console.WriteLine("This is not a valid image, or is not a type supported by MetadataExtractor");
-                    exit_code =  1;
+                    exitCode =  1;
                 }
 
             }
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.ReadKey();
-            return exit_code;
+            return exitCode;
         }
 
         /// <summary>

@@ -278,9 +278,9 @@ namespace Com.Drew.Imaging
                 {
                     string fileName = file.GetName();
                     string urlName = StringUtil.UrlEncode(filePath);
-                    ExifIFD0Directory exifIFD0Directory = metadata.GetFirstDirectoryOfType<ExifIFD0Directory>();
-                    string make = exifIFD0Directory == null ? string.Empty : exifIFD0Directory.GetString(ExifIFD0Directory.TagMake);
-                    string model = exifIFD0Directory == null ? string.Empty : exifIFD0Directory.GetString(ExifIFD0Directory.TagModel);
+                    ExifIfd0Directory exifIfd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
+                    string make = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifIfd0Directory.TagMake);
+                    string model = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifIfd0Directory.TagModel);
                     Console.Out.Println();
                     Console.Out.Println("---");
                     Console.Out.Println();
@@ -332,11 +332,11 @@ namespace Com.Drew.Imaging
                 }
                 if (args.Length > 1 && thumbRequested)
                 {
-                    ExifThumbnailDirectory directory_1 = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
-                    if (directory_1 != null && directory_1.HasThumbnailData())
+                    ExifThumbnailDirectory directory1 = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
+                    if (directory1 != null && directory1.HasThumbnailData())
                     {
                         Console.Out.Println("Writing thumbnail...");
-                        directory_1.WriteThumbnail(Extensions.Trim(args[0]) + ".thumb.jpg");
+                        directory1.WriteThumbnail(Extensions.Trim(args[0]) + ".thumb.jpg");
                     }
                     else
                     {

@@ -75,13 +75,13 @@ namespace Com.Drew.Metadata.Xmp
         public static int TagSubject = unchecked((int)(0x2001));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagSchemaMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagSchemaMap = new Dictionary<int?, string>();
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagPropNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagPropNameMap = new Dictionary<int?, string>();
 
         [NotNull]
         private readonly IDictionary<string, string> _propertyValueByPath = new Dictionary<string, string>();
@@ -113,26 +113,26 @@ namespace Com.Drew.Metadata.Xmp
             // public static int TAG_ACCRUAL_METHOD = 0x1012;
             // public static int TAG_ACCRUAL_PERIODICITY = 0x1013;
             // public static int TAG_ACCRUAL_POLICY = 0x1014;
-            _tagNameMap.Put(TagXmpValueCount, "XMP Value Count");
-            _tagNameMap.Put(TagMake, "Make");
-            _tagNameMap.Put(TagModel, "Model");
-            _tagNameMap.Put(TagExposureTime, "Exposure Time");
-            _tagNameMap.Put(TagShutterSpeed, "Shutter Speed Value");
-            _tagNameMap.Put(TagFNumber, "F-Number");
-            _tagNameMap.Put(TagLensInfo, "Lens Information");
-            _tagNameMap.Put(TagLens, "Lens");
-            _tagNameMap.Put(TagCameraSerialNumber, "Serial Number");
-            _tagNameMap.Put(TagFirmware, "Firmware");
-            _tagNameMap.Put(TagFocalLength, "Focal Length");
-            _tagNameMap.Put(TagApertureValue, "Aperture Value");
-            _tagNameMap.Put(TagExposureProgram, "Exposure Program");
-            _tagNameMap.Put(TagDatetimeOriginal, "Date/Time Original");
-            _tagNameMap.Put(TagDatetimeDigitized, "Date/Time Digitized");
-            _tagNameMap.Put(TagRating, "Rating");
-            _tagNameMap.Put(TagLabel, "Label");
+            TagNameMap.Put(TagXmpValueCount, "XMP Value Count");
+            TagNameMap.Put(TagMake, "Make");
+            TagNameMap.Put(TagModel, "Model");
+            TagNameMap.Put(TagExposureTime, "Exposure Time");
+            TagNameMap.Put(TagShutterSpeed, "Shutter Speed Value");
+            TagNameMap.Put(TagFNumber, "F-Number");
+            TagNameMap.Put(TagLensInfo, "Lens Information");
+            TagNameMap.Put(TagLens, "Lens");
+            TagNameMap.Put(TagCameraSerialNumber, "Serial Number");
+            TagNameMap.Put(TagFirmware, "Firmware");
+            TagNameMap.Put(TagFocalLength, "Focal Length");
+            TagNameMap.Put(TagApertureValue, "Aperture Value");
+            TagNameMap.Put(TagExposureProgram, "Exposure Program");
+            TagNameMap.Put(TagDatetimeOriginal, "Date/Time Original");
+            TagNameMap.Put(TagDatetimeDigitized, "Date/Time Digitized");
+            TagNameMap.Put(TagRating, "Rating");
+            TagNameMap.Put(TagLabel, "Label");
             // this requires further research
             // _tagNameMap.put(TAG_TITLE, "Title");
-            _tagNameMap.Put(TagSubject, "Subject");
+            TagNameMap.Put(TagSubject, "Subject");
             // _tagNameMap.put(TAG_DATE, "Date");
             // _tagNameMap.put(TAG_TYPE, "Type");
             // _tagNameMap.put(TAG_DESCRIPTION, "Description");
@@ -152,25 +152,25 @@ namespace Com.Drew.Metadata.Xmp
             // _tagNameMap.put(TAG_ACCRUAL_METHOD, "Accrual Method");
             // _tagNameMap.put(TAG_ACCRUAL_PERIODICITY, "Accrual Periodicity");
             // _tagNameMap.put(TAG_ACCRUAL_POLICY, "Accrual Policy");
-            _tagPropNameMap.Put(TagMake, "tiff:Make");
-            _tagPropNameMap.Put(TagModel, "tiff:Model");
-            _tagPropNameMap.Put(TagExposureTime, "exif:ExposureTime");
-            _tagPropNameMap.Put(TagShutterSpeed, "exif:ShutterSpeedValue");
-            _tagPropNameMap.Put(TagFNumber, "exif:FNumber");
-            _tagPropNameMap.Put(TagLensInfo, "aux:LensInfo");
-            _tagPropNameMap.Put(TagLens, "aux:Lens");
-            _tagPropNameMap.Put(TagCameraSerialNumber, "aux:SerialNumber");
-            _tagPropNameMap.Put(TagFirmware, "aux:Firmware");
-            _tagPropNameMap.Put(TagFocalLength, "exif:FocalLength");
-            _tagPropNameMap.Put(TagApertureValue, "exif:ApertureValue");
-            _tagPropNameMap.Put(TagExposureProgram, "exif:ExposureProgram");
-            _tagPropNameMap.Put(TagDatetimeOriginal, "exif:DateTimeOriginal");
-            _tagPropNameMap.Put(TagDatetimeDigitized, "exif:DateTimeDigitized");
-            _tagPropNameMap.Put(TagRating, "xmp:Rating");
-            _tagPropNameMap.Put(TagLabel, "xmp:Label");
+            TagPropNameMap.Put(TagMake, "tiff:Make");
+            TagPropNameMap.Put(TagModel, "tiff:Model");
+            TagPropNameMap.Put(TagExposureTime, "exif:ExposureTime");
+            TagPropNameMap.Put(TagShutterSpeed, "exif:ShutterSpeedValue");
+            TagPropNameMap.Put(TagFNumber, "exif:FNumber");
+            TagPropNameMap.Put(TagLensInfo, "aux:LensInfo");
+            TagPropNameMap.Put(TagLens, "aux:Lens");
+            TagPropNameMap.Put(TagCameraSerialNumber, "aux:SerialNumber");
+            TagPropNameMap.Put(TagFirmware, "aux:Firmware");
+            TagPropNameMap.Put(TagFocalLength, "exif:FocalLength");
+            TagPropNameMap.Put(TagApertureValue, "exif:ApertureValue");
+            TagPropNameMap.Put(TagExposureProgram, "exif:ExposureProgram");
+            TagPropNameMap.Put(TagDatetimeOriginal, "exif:DateTimeOriginal");
+            TagPropNameMap.Put(TagDatetimeDigitized, "exif:DateTimeDigitized");
+            TagPropNameMap.Put(TagRating, "xmp:Rating");
+            TagPropNameMap.Put(TagLabel, "xmp:Label");
             // this requires further research
             // _tagPropNameMap.put(TAG_TITLE, "dc:title");
-            _tagPropNameMap.Put(TagSubject, "dc:subject");
+            TagPropNameMap.Put(TagSubject, "dc:subject");
             // _tagPropNameMap.put(TAG_DATE, "dc:date");
             // _tagPropNameMap.put(TAG_TYPE, "dc:type");
             // _tagPropNameMap.put(TAG_DESCRIPTION, "dc:description");
@@ -190,29 +190,29 @@ namespace Com.Drew.Metadata.Xmp
             // _tagPropNameMap.put(TAG_ACCRUAL_METHOD, "dc:accrualMethod");
             // _tagPropNameMap.put(TAG_ACCRUAL_PERIODICITY, "dc:accrualPeriodicity");
             // _tagPropNameMap.put(TAG_ACCRUAL_POLICY, "dc:accrualPolicy");
-            _tagSchemaMap.Put(TagMake, Schema.ExifTiffProperties);
-            _tagSchemaMap.Put(TagModel, Schema.ExifTiffProperties);
-            _tagSchemaMap.Put(TagExposureTime, Schema.ExifSpecificProperties);
-            _tagSchemaMap.Put(TagShutterSpeed, Schema.ExifSpecificProperties);
-            _tagSchemaMap.Put(TagFNumber, Schema.ExifSpecificProperties);
-            _tagSchemaMap.Put(TagLensInfo, Schema.ExifAdditionalProperties);
-            _tagSchemaMap.Put(TagLens, Schema.ExifAdditionalProperties);
-            _tagSchemaMap.Put(TagCameraSerialNumber, Schema.ExifAdditionalProperties);
-            _tagSchemaMap.Put(TagFirmware, Schema.ExifAdditionalProperties);
-            _tagSchemaMap.Put(TagFocalLength, Schema.ExifSpecificProperties);
-            _tagSchemaMap.Put(TagApertureValue, Schema.ExifSpecificProperties);
-            _tagSchemaMap.Put(TagExposureProgram, Schema.ExifSpecificProperties);
-            _tagSchemaMap.Put(TagDatetimeOriginal, Schema.ExifSpecificProperties);
-            _tagSchemaMap.Put(TagDatetimeDigitized, Schema.ExifSpecificProperties);
-            _tagSchemaMap.Put(TagRating, Schema.XmpProperties);
-            _tagSchemaMap.Put(TagLabel, Schema.XmpProperties);
+            TagSchemaMap.Put(TagMake, Schema.ExifTiffProperties);
+            TagSchemaMap.Put(TagModel, Schema.ExifTiffProperties);
+            TagSchemaMap.Put(TagExposureTime, Schema.ExifSpecificProperties);
+            TagSchemaMap.Put(TagShutterSpeed, Schema.ExifSpecificProperties);
+            TagSchemaMap.Put(TagFNumber, Schema.ExifSpecificProperties);
+            TagSchemaMap.Put(TagLensInfo, Schema.ExifAdditionalProperties);
+            TagSchemaMap.Put(TagLens, Schema.ExifAdditionalProperties);
+            TagSchemaMap.Put(TagCameraSerialNumber, Schema.ExifAdditionalProperties);
+            TagSchemaMap.Put(TagFirmware, Schema.ExifAdditionalProperties);
+            TagSchemaMap.Put(TagFocalLength, Schema.ExifSpecificProperties);
+            TagSchemaMap.Put(TagApertureValue, Schema.ExifSpecificProperties);
+            TagSchemaMap.Put(TagExposureProgram, Schema.ExifSpecificProperties);
+            TagSchemaMap.Put(TagDatetimeOriginal, Schema.ExifSpecificProperties);
+            TagSchemaMap.Put(TagDatetimeDigitized, Schema.ExifSpecificProperties);
+            TagSchemaMap.Put(TagRating, Schema.XmpProperties);
+            TagSchemaMap.Put(TagLabel, Schema.XmpProperties);
             // this requires further research
             // _tagNameMap.put(TAG_TITLE, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            _tagSchemaMap.Put(TagSubject, Schema.DublinCoreSpecificProperties);
+            TagSchemaMap.Put(TagSubject, Schema.DublinCoreSpecificProperties);
         }
 
         [CanBeNull]
-        private XMPMeta _xmpMeta;
+        private IXmpMeta _xmpMeta;
 
         public XmpDirectory()
         {
@@ -247,7 +247,7 @@ namespace Com.Drew.Metadata.Xmp
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
 
         internal virtual void AddProperty([NotNull] string path, [NotNull] string value)
@@ -268,15 +268,15 @@ namespace Com.Drew.Metadata.Xmp
             return Collections.UnmodifiableMap(_propertyValueByPath);
         }
 
-        public virtual void SetXMPMeta([NotNull] XMPMeta xmpMeta)
+        public virtual void SetXmpMeta([NotNull] IXmpMeta xmpMeta)
         {
             _xmpMeta = xmpMeta;
             try
             {
                 int valueCount = 0;
-                for (Iterator i = _xmpMeta.Iterator(); i.HasNext(); )
+                for (IIterator i = _xmpMeta.Iterator(); i.HasNext(); )
                 {
-                    XMPPropertyInfo prop = (XMPPropertyInfo)i.Next();
+                    IXmpPropertyInfo prop = (IXmpPropertyInfo)i.Next();
                     if (prop.GetPath() != null)
                     {
                         //System.out.printf("%s = %s\n", prop.getPath(), prop.getValue());
@@ -285,7 +285,7 @@ namespace Com.Drew.Metadata.Xmp
                 }
                 SetInt(TagXmpValueCount, valueCount);
             }
-            catch (XMPException)
+            catch (XmpException)
             {
             }
         }
@@ -296,11 +296,11 @@ namespace Com.Drew.Metadata.Xmp
         /// created.
         /// </remarks>
         [CanBeNull]
-        public virtual XMPMeta GetXMPMeta()
+        public virtual IXmpMeta GetXmpMeta()
         {
             if (_xmpMeta == null)
             {
-                _xmpMeta = new XMPMetaImpl();
+                _xmpMeta = new XmpMeta();
             }
             return _xmpMeta;
         }
@@ -314,9 +314,9 @@ namespace Com.Drew.Metadata.Xmp
             base.SetInt(tagType, value);
             try
             {
-                GetXMPMeta().SetPropertyInteger(_tagSchemaMap.Get(tagType), _tagPropNameMap.Get(tagType), value);
+                GetXmpMeta().SetPropertyInteger(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
             }
-            catch (XMPException e)
+            catch (XmpException e)
             {
                 Runtime.PrintStackTrace(e);
             }
@@ -327,16 +327,16 @@ namespace Com.Drew.Metadata.Xmp
             base.SetIntArray(tagType, ints);
             try
             {
-                string schemaNS = _tagSchemaMap.Get(tagType);
-                string propName = _tagPropNameMap.Get(tagType);
-                GetXMPMeta().DeleteProperty(schemaNS, propName);
+                string schemaNs = TagSchemaMap.Get(tagType);
+                string propName = TagPropNameMap.Get(tagType);
+                GetXmpMeta().DeleteProperty(schemaNs, propName);
                 PropertyOptions po = new PropertyOptions().SetArray(true);
                 foreach (int item in ints)
                 {
-                    GetXMPMeta().AppendArrayItem(schemaNS, propName, po, item.ToString(), null);
+                    GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item.ToString(), null);
                 }
             }
-            catch (XMPException e)
+            catch (XmpException e)
             {
                 Runtime.PrintStackTrace(e);
             }
@@ -347,9 +347,9 @@ namespace Com.Drew.Metadata.Xmp
             base.SetFloat(tagType, value);
             try
             {
-                GetXMPMeta().SetPropertyDouble(_tagSchemaMap.Get(tagType), _tagPropNameMap.Get(tagType), value);
+                GetXmpMeta().SetPropertyDouble(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
             }
-            catch (XMPException e)
+            catch (XmpException e)
             {
                 Runtime.PrintStackTrace(e);
             }
@@ -360,16 +360,16 @@ namespace Com.Drew.Metadata.Xmp
             base.SetFloatArray(tagType, floats);
             try
             {
-                string schemaNS = _tagSchemaMap.Get(tagType);
-                string propName = _tagPropNameMap.Get(tagType);
-                GetXMPMeta().DeleteProperty(schemaNS, propName);
+                string schemaNs = TagSchemaMap.Get(tagType);
+                string propName = TagPropNameMap.Get(tagType);
+                GetXmpMeta().DeleteProperty(schemaNs, propName);
                 PropertyOptions po = new PropertyOptions().SetArray(true);
                 foreach (float item in floats)
                 {
-                    GetXMPMeta().AppendArrayItem(schemaNS, propName, po, item.ToString(), null);
+                    GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item.ToString(), null);
                 }
             }
-            catch (XMPException e)
+            catch (XmpException e)
             {
                 Runtime.PrintStackTrace(e);
             }
@@ -380,9 +380,9 @@ namespace Com.Drew.Metadata.Xmp
             base.SetDouble(tagType, value);
             try
             {
-                GetXMPMeta().SetPropertyDouble(_tagSchemaMap.Get(tagType), _tagPropNameMap.Get(tagType), value);
+                GetXmpMeta().SetPropertyDouble(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
             }
-            catch (XMPException e)
+            catch (XmpException e)
             {
                 Runtime.PrintStackTrace(e);
             }
@@ -393,16 +393,16 @@ namespace Com.Drew.Metadata.Xmp
             base.SetDoubleArray(tagType, doubles);
             try
             {
-                string schemaNS = _tagSchemaMap.Get(tagType);
-                string propName = _tagPropNameMap.Get(tagType);
-                GetXMPMeta().DeleteProperty(schemaNS, propName);
+                string schemaNs = TagSchemaMap.Get(tagType);
+                string propName = TagPropNameMap.Get(tagType);
+                GetXmpMeta().DeleteProperty(schemaNs, propName);
                 PropertyOptions po = new PropertyOptions().SetArray(true);
                 foreach (double item in doubles)
                 {
-                    GetXMPMeta().AppendArrayItem(schemaNS, propName, po, item.ToString(), null);
+                    GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item.ToString(), null);
                 }
             }
-            catch (XMPException e)
+            catch (XmpException e)
             {
                 Runtime.PrintStackTrace(e);
             }
@@ -413,9 +413,9 @@ namespace Com.Drew.Metadata.Xmp
             base.SetString(tagType, value);
             try
             {
-                GetXMPMeta().SetProperty(_tagSchemaMap.Get(tagType), _tagPropNameMap.Get(tagType), value);
+                GetXmpMeta().SetProperty(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
             }
-            catch (XMPException e)
+            catch (XmpException e)
             {
                 Runtime.PrintStackTrace(e);
             }
@@ -423,7 +423,7 @@ namespace Com.Drew.Metadata.Xmp
 
         public virtual void DeleteProperty(int tagType)
         {
-            GetXMPMeta().DeleteProperty(_tagSchemaMap.Get(tagType), _tagPropNameMap.Get(tagType));
+            GetXmpMeta().DeleteProperty(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType));
         }
 
         public virtual void UpdateStringArray(int tagType, string[] strings)
@@ -431,16 +431,16 @@ namespace Com.Drew.Metadata.Xmp
             base.SetStringArray(tagType, strings);
             try
             {
-                string schemaNS = _tagSchemaMap.Get(tagType);
-                string propName = _tagPropNameMap.Get(tagType);
-                GetXMPMeta().DeleteProperty(schemaNS, propName);
+                string schemaNs = TagSchemaMap.Get(tagType);
+                string propName = TagPropNameMap.Get(tagType);
+                GetXmpMeta().DeleteProperty(schemaNs, propName);
                 PropertyOptions po = new PropertyOptions().SetArray(true);
                 foreach (string item in strings)
                 {
-                    GetXMPMeta().AppendArrayItem(schemaNS, propName, po, item, null);
+                    GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item, null);
                 }
             }
-            catch (XMPException e)
+            catch (XmpException e)
             {
                 Runtime.PrintStackTrace(e);
             }
@@ -451,9 +451,9 @@ namespace Com.Drew.Metadata.Xmp
             base.SetBoolean(tagType, value);
             try
             {
-                GetXMPMeta().SetPropertyBoolean(_tagSchemaMap.Get(tagType), _tagPropNameMap.Get(tagType), value);
+                GetXmpMeta().SetPropertyBoolean(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
             }
-            catch (XMPException e)
+            catch (XmpException e)
             {
                 Runtime.PrintStackTrace(e);
             }
@@ -464,9 +464,9 @@ namespace Com.Drew.Metadata.Xmp
             base.SetLong(tagType, value);
             try
             {
-                GetXMPMeta().SetPropertyLong(_tagSchemaMap.Get(tagType), _tagPropNameMap.Get(tagType), value);
+                GetXmpMeta().SetPropertyLong(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
             }
-            catch (XMPException e)
+            catch (XmpException e)
             {
                 Runtime.PrintStackTrace(e);
             }
@@ -475,12 +475,12 @@ namespace Com.Drew.Metadata.Xmp
         public virtual void UpdateDate(int tagType, DateTime value)
         {
             base.SetDate(tagType, value);
-            XMPDateTime date = new XMPDateTimeImpl(value, TimeZoneInfo.Local);
+            IXmpDateTime date = new XmpDateTime(value, TimeZoneInfo.Local);
             try
             {
-                GetXMPMeta().SetPropertyDate(_tagSchemaMap.Get(tagType), _tagPropNameMap.Get(tagType), date);
+                GetXmpMeta().SetPropertyDate(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), date);
             }
-            catch (XMPException e)
+            catch (XmpException e)
             {
                 Runtime.PrintStackTrace(e);
             }

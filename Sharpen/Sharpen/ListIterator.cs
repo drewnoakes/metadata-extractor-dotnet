@@ -4,34 +4,34 @@ namespace Sharpen
 {
     public class ListIterator : Iterator<object>
     {
-        private readonly IList list;
-        private int pos;
+        private readonly IList _list;
+        private int _pos;
 
         public ListIterator(IList list, int n = -1)
         {
-            this.list = list;
-            this.pos = n;
+            this._list = list;
+            this._pos = n;
         }
 
         public override object Next()
         {
-            pos++;
-            return list[pos];
+            _pos++;
+            return _list[_pos];
         }
 
         public override void Remove()
         {
-            list.RemoveAt(pos);
+            _list.RemoveAt(_pos);
         }
 
         public override bool HasNext()
         {
-            return (this.pos < list.Count - 1);
+            return (this._pos < _list.Count - 1);
         }
 
         public void Set(object val)
         {
-            list[pos] = val;
+            _list[_pos] = val;
         }
     }
 }

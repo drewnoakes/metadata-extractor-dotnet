@@ -9,7 +9,7 @@
 
 namespace Com.Adobe.Xmp
 {
-    public static class XMPConstConstants
+    public static class XmpConstConstants
     {
         /// <summary>The XML namespace for XML.</summary>
         public const string NsXml = "http://www.w3.org/XML/1998/namespace";
@@ -93,7 +93,7 @@ namespace Com.Adobe.Xmp
 
         public const string NsJpeg = "http://ns.adobe.com/jpeg/1.0/";
 
-        public const string NsJp2k = "http://ns.adobe.com/jp2k/1.0/";
+        public const string NsJp2K = "http://ns.adobe.com/jp2k/1.0/";
 
         public const string NsCameraraw = "http://ns.adobe.com/camera-raw-settings/1.0/";
 

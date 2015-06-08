@@ -142,7 +142,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetSanyoQualityDescription()
         {
-            int? value = _directory.GetInteger(SanyoMakernoteDirectory.TagSanyoQuality);
+            int? value = Directory.GetInteger(SanyoMakernoteDirectory.TagSanyoQuality);
             if (value == null)
             {
                 return null;

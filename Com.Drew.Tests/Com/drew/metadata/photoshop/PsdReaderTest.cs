@@ -53,7 +53,7 @@ namespace Com.Drew.Metadata.Photoshop
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void Test8x8x8bitGrayscale()
+        public virtual void Test8X8X8BitGrayscale()
         {
             PsdHeaderDirectory directory = ProcessBytes("Tests/Data/8x4x8bit-Grayscale.psd");
             Assert.AreEqual(8, directory.GetInt(PsdHeaderDirectory.TagImageWidth));
@@ -66,7 +66,7 @@ namespace Com.Drew.Metadata.Photoshop
         // 1 = grayscale
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void Test10x12x16bitCMYK()
+        public virtual void Test10X12X16BitCmyk()
         {
             PsdHeaderDirectory directory = ProcessBytes("Tests/Data/10x12x16bit-CMYK.psd");
             Assert.AreEqual(10, directory.GetInt(PsdHeaderDirectory.TagImageWidth));

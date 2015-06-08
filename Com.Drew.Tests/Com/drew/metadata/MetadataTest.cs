@@ -33,14 +33,14 @@ namespace Com.Drew.Metadata
         [Test]
         public virtual void TestGetDirectoryWhenNotExists()
         {
-            Assert.IsNull(new Metadata().GetFirstDirectoryOfType<ExifSubIFDDirectory>());
+            Assert.IsNull(new Metadata().GetFirstDirectoryOfType<ExifSubIfdDirectory>());
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestHasErrors()
         {
-            ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
+            ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
             directory.AddError("Test Error 1");
             Metadata metadata = new Metadata();
             Assert.IsFalse(metadata.HasErrors());
@@ -53,9 +53,9 @@ namespace Com.Drew.Metadata
         {
             Metadata metadata = new Metadata();
             Assert.AreEqual("Metadata (0 directories)", Extensions.ConvertToString(metadata));
-            metadata.AddDirectory(new ExifIFD0Directory());
+            metadata.AddDirectory(new ExifIfd0Directory());
             Assert.AreEqual("Metadata (1 directory)", Extensions.ConvertToString(metadata));
-            metadata.AddDirectory(new ExifSubIFDDirectory());
+            metadata.AddDirectory(new ExifSubIfdDirectory());
             Assert.AreEqual("Metadata (2 directories)", Extensions.ConvertToString(metadata));
         }
     }

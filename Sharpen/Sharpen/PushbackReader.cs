@@ -8,8 +8,8 @@ namespace Sharpen
     /// </summary>
     public class PushbackReader : StreamReader
     {
-        private readonly char[] buf;
-        private int pos;
+        private readonly char[] _buf;
+        private int _pos;
         private readonly object _lock;
 
         public PushbackReader(StreamReader stream, int size)
@@ -20,8 +20,8 @@ namespace Sharpen
                 throw new ArgumentOutOfRangeException("size", "size <= 0");
             }
             _lock = this;
-            buf = new char[size];
-            pos = size;
+            _buf = new char[size];
+            _pos = size;
         }
 
         public override int Read()
@@ -29,8 +29,8 @@ namespace Sharpen
             lock (_lock)
             {
                 EnsureOpen();
-                if (pos < buf.Length)
-                    return buf[pos++];
+                if (_pos < _buf.Length)
+                    return _buf[_pos++];
 
                 return base.Read();
             }
@@ -55,13 +55,13 @@ namespace Sharpen
                         }
                         return 0;
                     }
-                    int avail = buf.Length - pos;
+                    int avail = _buf.Length - _pos;
                     if (avail > 0)
                     {
                         if (len < avail)
                             avail = len;
-                        Array.Copy(buf, pos, cbuf, off, avail);
-                        pos += avail;
+                        Array.Copy(_buf, _pos, cbuf, off, avail);
+                        _pos += avail;
                         off += avail;
                         len -= avail;
                     }
@@ -88,16 +88,16 @@ namespace Sharpen
             lock (_lock)
             {
                 EnsureOpen();
-                if (len > pos)
+                if (len > _pos)
                     throw new IOException("Pushback buffer overflow");
-                pos -= len;
-                Array.Copy(cbuf, off, buf, pos, len);
+                _pos -= len;
+                Array.Copy(cbuf, off, _buf, _pos, len);
             }
         }
 
         private void EnsureOpen()
         {
-            if (buf == null)
+            if (_buf == null)
                 throw new IOException("Stream closed");
         }
     }

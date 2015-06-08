@@ -122,42 +122,42 @@ namespace Com.Drew.Metadata.Exif
         public const int TagDifferential = unchecked((int)(0x001E));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static GpsDirectory()
         {
-            AddExifTagNames(_tagNameMap);
-            _tagNameMap.Put(TagVersionId, "GPS Version ID");
-            _tagNameMap.Put(TagLatitudeRef, "GPS Latitude Ref");
-            _tagNameMap.Put(TagLatitude, "GPS Latitude");
-            _tagNameMap.Put(TagLongitudeRef, "GPS Longitude Ref");
-            _tagNameMap.Put(TagLongitude, "GPS Longitude");
-            _tagNameMap.Put(TagAltitudeRef, "GPS Altitude Ref");
-            _tagNameMap.Put(TagAltitude, "GPS Altitude");
-            _tagNameMap.Put(TagTimeStamp, "GPS Time-Stamp");
-            _tagNameMap.Put(TagSatellites, "GPS Satellites");
-            _tagNameMap.Put(TagStatus, "GPS Status");
-            _tagNameMap.Put(TagMeasureMode, "GPS Measure Mode");
-            _tagNameMap.Put(TagDop, "GPS DOP");
-            _tagNameMap.Put(TagSpeedRef, "GPS Speed Ref");
-            _tagNameMap.Put(TagSpeed, "GPS Speed");
-            _tagNameMap.Put(TagTrackRef, "GPS Track Ref");
-            _tagNameMap.Put(TagTrack, "GPS Track");
-            _tagNameMap.Put(TagImgDirectionRef, "GPS Img Direction Ref");
-            _tagNameMap.Put(TagImgDirection, "GPS Img Direction");
-            _tagNameMap.Put(TagMapDatum, "GPS Map Datum");
-            _tagNameMap.Put(TagDestLatitudeRef, "GPS Dest Latitude Ref");
-            _tagNameMap.Put(TagDestLatitude, "GPS Dest Latitude");
-            _tagNameMap.Put(TagDestLongitudeRef, "GPS Dest Longitude Ref");
-            _tagNameMap.Put(TagDestLongitude, "GPS Dest Longitude");
-            _tagNameMap.Put(TagDestBearingRef, "GPS Dest Bearing Ref");
-            _tagNameMap.Put(TagDestBearing, "GPS Dest Bearing");
-            _tagNameMap.Put(TagDestDistanceRef, "GPS Dest Distance Ref");
-            _tagNameMap.Put(TagDestDistance, "GPS Dest Distance");
-            _tagNameMap.Put(TagProcessingMethod, "GPS Processing Method");
-            _tagNameMap.Put(TagAreaInformation, "GPS Area Information");
-            _tagNameMap.Put(TagDateStamp, "GPS Date Stamp");
-            _tagNameMap.Put(TagDifferential, "GPS Differential");
+            AddExifTagNames(TagNameMap);
+            TagNameMap.Put(TagVersionId, "GPS Version ID");
+            TagNameMap.Put(TagLatitudeRef, "GPS Latitude Ref");
+            TagNameMap.Put(TagLatitude, "GPS Latitude");
+            TagNameMap.Put(TagLongitudeRef, "GPS Longitude Ref");
+            TagNameMap.Put(TagLongitude, "GPS Longitude");
+            TagNameMap.Put(TagAltitudeRef, "GPS Altitude Ref");
+            TagNameMap.Put(TagAltitude, "GPS Altitude");
+            TagNameMap.Put(TagTimeStamp, "GPS Time-Stamp");
+            TagNameMap.Put(TagSatellites, "GPS Satellites");
+            TagNameMap.Put(TagStatus, "GPS Status");
+            TagNameMap.Put(TagMeasureMode, "GPS Measure Mode");
+            TagNameMap.Put(TagDop, "GPS DOP");
+            TagNameMap.Put(TagSpeedRef, "GPS Speed Ref");
+            TagNameMap.Put(TagSpeed, "GPS Speed");
+            TagNameMap.Put(TagTrackRef, "GPS Track Ref");
+            TagNameMap.Put(TagTrack, "GPS Track");
+            TagNameMap.Put(TagImgDirectionRef, "GPS Img Direction Ref");
+            TagNameMap.Put(TagImgDirection, "GPS Img Direction");
+            TagNameMap.Put(TagMapDatum, "GPS Map Datum");
+            TagNameMap.Put(TagDestLatitudeRef, "GPS Dest Latitude Ref");
+            TagNameMap.Put(TagDestLatitude, "GPS Dest Latitude");
+            TagNameMap.Put(TagDestLongitudeRef, "GPS Dest Longitude Ref");
+            TagNameMap.Put(TagDestLongitude, "GPS Dest Longitude");
+            TagNameMap.Put(TagDestBearingRef, "GPS Dest Bearing Ref");
+            TagNameMap.Put(TagDestBearing, "GPS Dest Bearing");
+            TagNameMap.Put(TagDestDistanceRef, "GPS Dest Distance Ref");
+            TagNameMap.Put(TagDestDistance, "GPS Dest Distance");
+            TagNameMap.Put(TagProcessingMethod, "GPS Processing Method");
+            TagNameMap.Put(TagAreaInformation, "GPS Area Information");
+            TagNameMap.Put(TagDateStamp, "GPS Date Stamp");
+            TagNameMap.Put(TagDifferential, "GPS Differential");
         }
 
         public GpsDirectory()
@@ -174,7 +174,7 @@ namespace Com.Drew.Metadata.Exif
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
 
         /// <summary>

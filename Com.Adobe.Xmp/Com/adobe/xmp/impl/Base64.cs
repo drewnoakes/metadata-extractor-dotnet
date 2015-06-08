@@ -42,7 +42,7 @@ namespace Com.Adobe.Xmp.Impl
             (sbyte)(byte)('2')), unchecked((sbyte)(byte)('3')), unchecked((sbyte)(byte)('4')), unchecked((sbyte)(byte)('5')), unchecked((sbyte)(byte)('6')), unchecked((sbyte)(byte)('7')), unchecked((sbyte)(byte)('8')), unchecked((sbyte)(byte)('9')), unchecked(
             (sbyte)(byte)('+')), unchecked((sbyte)(byte)('/')) };
 
-        private static readonly sbyte[] ascii = new sbyte[255];
+        private static readonly sbyte[] Ascii = new sbyte[255];
 
         static Base64()
         {
@@ -65,20 +65,20 @@ namespace Com.Adobe.Xmp.Impl
             // not valid bytes
             for (int idx = 0; idx < 255; idx++)
             {
-                ascii[idx] = Invalid;
+                Ascii[idx] = Invalid;
             }
             // valid bytes
-            for (int idx_1 = 0; idx_1 < base64.Length; idx_1++)
+            for (int idx1 = 0; idx1 < base64.Length; idx1++)
             {
-                ascii[base64[idx_1]] = unchecked((sbyte)idx_1);
+                Ascii[base64[idx1]] = unchecked((sbyte)idx1);
             }
             // whitespaces
-            ascii[unchecked((int)(0x09))] = Whitespace;
-            ascii[unchecked((int)(0x0A))] = Whitespace;
-            ascii[unchecked((int)(0x0D))] = Whitespace;
-            ascii[unchecked((int)(0x20))] = Whitespace;
+            Ascii[unchecked((int)(0x09))] = Whitespace;
+            Ascii[unchecked((int)(0x0A))] = Whitespace;
+            Ascii[unchecked((int)(0x0D))] = Whitespace;
+            Ascii[unchecked((int)(0x20))] = Whitespace;
             // trailing equals
-            ascii[unchecked((int)(0x3d))] = Equal;
+            Ascii[unchecked((int)(0x3d))] = Equal;
         }
 
         /// <summary>Encode the given byte[].</summary>
@@ -182,7 +182,7 @@ namespace Com.Adobe.Xmp.Impl
             int srcLen = 0;
             for (sidx = 0; sidx < src.Length; sidx++)
             {
-                sbyte val = ascii[src[sidx]];
+                sbyte val = Ascii[src[sidx]];
                 if (val >= 0)
                 {
                     src[srcLen++] = val;

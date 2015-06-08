@@ -29,47 +29,47 @@ using System.Net;
 
 namespace Sharpen
 {
-    public abstract class URLConnection
+    public abstract class UrlConnection
     {
         public abstract InputStream GetInputStream();
     }
 
-    public class HttpsURLConnection: HttpURLConnection
+    public class HttpsUrlConnection: HttpUrlConnection
     {
-        public HttpsURLConnection (Uri uri): base (uri)
+        public HttpsUrlConnection (Uri uri): base (uri)
         {
         }
     }
 
-    public class HttpURLConnection: URLConnection
+    public class HttpUrlConnection: UrlConnection
     {
-        readonly HttpWebRequest request;
-        HttpWebResponse reqResponse;
+        readonly HttpWebRequest _request;
+        HttpWebResponse _reqResponse;
 
-        public HttpURLConnection (Uri uri)
+        public HttpUrlConnection (Uri uri)
         {
-            request = (HttpWebRequest) HttpWebRequest.Create (uri);
+            _request = (HttpWebRequest) HttpWebRequest.Create (uri);
         }
 
         HttpWebResponse Response {
             get {
-                if (reqResponse == null)
+                if (_reqResponse == null)
                 {
                     try
                     {
-                        reqResponse = (HttpWebResponse) request.GetResponse ();
+                        _reqResponse = (HttpWebResponse) _request.GetResponse ();
                     }
                     catch (WebException ex)
                     {
-                        reqResponse = (HttpWebResponse) ex.Response;
-                        if (reqResponse == null) {
-                            if (this is HttpsURLConnection)
+                        _reqResponse = (HttpWebResponse) ex.Response;
+                        if (_reqResponse == null) {
+                            if (this is HttpsUrlConnection)
                                 throw new WebException ("A secure connection could not be established", ex);
                             throw;
                         }
                     }
                 }
-                return reqResponse;
+                return _reqResponse;
             }
         }
 

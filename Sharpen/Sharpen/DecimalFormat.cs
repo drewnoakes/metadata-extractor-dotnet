@@ -24,7 +24,7 @@ namespace Sharpen
 
         public string Format(int number)
         {
-            return ((decimal)number).ToString(_pattern, getFormatProvider());
+            return ((decimal)number).ToString(_pattern, GetFormatProvider());
         }
 
         public string Format(double number)
@@ -32,7 +32,7 @@ namespace Sharpen
             return ((decimal) number).ToString(_pattern);
         }
 
-        private CultureInfo getFormatProvider()
+        private CultureInfo GetFormatProvider()
         {
             return _symbols == null ? CultureInfo.CurrentCulture : _symbols.InternalCulture;
         }

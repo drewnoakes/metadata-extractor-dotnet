@@ -64,7 +64,7 @@ namespace Com.Drew.Tools
             for (int i = 1; i < args.Length; i++)
             {
                 JpegSegmentType segmentType = JpegSegmentType.ValueOf(args[i].ToUpper());
-                if (!segmentType.canContainMetadata)
+                if (!segmentType.CanContainMetadata)
                 {
                     Console.Error.Printf("WARNING: Segment type %s cannot contain metadata so it may not be necessary to extract it%n", segmentType);
                 }
@@ -73,7 +73,7 @@ namespace Com.Drew.Tools
             if (segmentTypes.Count == 0)
             {
                 // If none specified, use all that could reasonably contain metadata
-                Collections.AddAll(segmentTypes, JpegSegmentType.canContainMetadataTypes);
+                Collections.AddAll(segmentTypes, JpegSegmentType.CanContainMetadataTypes);
             }
             Console.Out.Println("Reading: " + filePath);
             JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new FilePath(filePath), segmentTypes.AsIterable());
@@ -115,7 +115,7 @@ namespace Com.Drew.Tools
             Console.Out.Print("Where <segment> is zero or more of:");
             foreach (JpegSegmentType segmentType in typeof(JpegSegmentType).GetEnumConstants<JpegSegmentType>())
             {
-                if (segmentType.canContainMetadata)
+                if (segmentType.CanContainMetadata)
                 {
                     Console.Out.Print(" " + Extensions.ConvertToString(segmentType));
                 }

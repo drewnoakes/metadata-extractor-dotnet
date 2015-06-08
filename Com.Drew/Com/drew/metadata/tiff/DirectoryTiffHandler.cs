@@ -31,7 +31,7 @@ namespace Com.Drew.Metadata.Tiff
 {
     /// <summary>
     /// Adapter between the
-    /// <see cref="Com.Drew.Imaging.Tiff.TiffHandler"/>
+    /// <see cref="ITiffHandler"/>
     /// interface and the
     /// <see cref="Com.Drew.Metadata.Metadata"/>
     /// /
@@ -39,20 +39,20 @@ namespace Com.Drew.Metadata.Tiff
     /// object model.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public abstract class DirectoryTiffHandler : TiffHandler
+    public abstract class DirectoryTiffHandler : ITiffHandler
     {
         private readonly Stack<Directory> _directoryStack = new Stack<Directory>();
 
-        protected internal Directory _currentDirectory;
+        protected internal Directory CurrentDirectory;
 
-        protected internal readonly Metadata _metadata;
+        protected internal readonly Metadata Metadata;
 
         protected internal DirectoryTiffHandler(Metadata metadata, Type initialDirectoryClass)
         {
-            _metadata = metadata;
+            Metadata = metadata;
             try
             {
-                _currentDirectory = (Directory)Activator.CreateInstance(initialDirectoryClass);
+                CurrentDirectory = (Directory)Activator.CreateInstance(initialDirectoryClass);
             }
             catch (InstantiationException e)
             {
@@ -62,20 +62,20 @@ namespace Com.Drew.Metadata.Tiff
             {
                 throw new RuntimeException(e);
             }
-            _metadata.AddDirectory(_currentDirectory);
+            Metadata.AddDirectory(CurrentDirectory);
         }
 
-        public virtual void EndingIFD()
+        public virtual void EndingIfd()
         {
-            _currentDirectory = _directoryStack.IsEmpty() ? null : _directoryStack.Pop();
+            CurrentDirectory = _directoryStack.IsEmpty() ? null : _directoryStack.Pop();
         }
 
         protected internal virtual void PushDirectory([NotNull] Type directoryClass)
         {
-            _directoryStack.Push(_currentDirectory);
+            _directoryStack.Push(CurrentDirectory);
             try
             {
-                _currentDirectory = (Directory)Activator.CreateInstance(directoryClass);
+                CurrentDirectory = (Directory)Activator.CreateInstance(directoryClass);
             }
             catch (InstantiationException e)
             {
@@ -85,126 +85,126 @@ namespace Com.Drew.Metadata.Tiff
             {
                 throw new RuntimeException(e);
             }
-            _metadata.AddDirectory(_currentDirectory);
+            Metadata.AddDirectory(CurrentDirectory);
         }
 
         public virtual void Warn([NotNull] string message)
         {
-            _currentDirectory.AddError(message);
+            CurrentDirectory.AddError(message);
         }
 
         public virtual void Error([NotNull] string message)
         {
-            _currentDirectory.AddError(message);
+            CurrentDirectory.AddError(message);
         }
 
         public virtual void SetByteArray(int tagId, [NotNull] sbyte[] bytes)
         {
-            _currentDirectory.SetByteArray(tagId, bytes);
+            CurrentDirectory.SetByteArray(tagId, bytes);
         }
 
         public virtual void SetString(int tagId, [NotNull] string @string)
         {
-            _currentDirectory.SetString(tagId, @string);
+            CurrentDirectory.SetString(tagId, @string);
         }
 
         public virtual void SetRational(int tagId, [NotNull] Rational rational)
         {
-            _currentDirectory.SetRational(tagId, rational);
+            CurrentDirectory.SetRational(tagId, rational);
         }
 
         public virtual void SetRationalArray(int tagId, [NotNull] Rational[] array)
         {
-            _currentDirectory.SetRationalArray(tagId, array);
+            CurrentDirectory.SetRationalArray(tagId, array);
         }
 
         public virtual void SetFloat(int tagId, float float32)
         {
-            _currentDirectory.SetFloat(tagId, float32);
+            CurrentDirectory.SetFloat(tagId, float32);
         }
 
         public virtual void SetFloatArray(int tagId, [NotNull] float[] array)
         {
-            _currentDirectory.SetFloatArray(tagId, array);
+            CurrentDirectory.SetFloatArray(tagId, array);
         }
 
         public virtual void SetDouble(int tagId, double double64)
         {
-            _currentDirectory.SetDouble(tagId, double64);
+            CurrentDirectory.SetDouble(tagId, double64);
         }
 
         public virtual void SetDoubleArray(int tagId, [NotNull] double[] array)
         {
-            _currentDirectory.SetDoubleArray(tagId, array);
+            CurrentDirectory.SetDoubleArray(tagId, array);
         }
 
-        public virtual void SetInt8s(int tagId, sbyte int8s)
+        public virtual void SetInt8S(int tagId, sbyte int8S)
         {
             // NOTE Directory stores all integral types as int32s, except for int32u and long
-            _currentDirectory.SetInt(tagId, int8s);
+            CurrentDirectory.SetInt(tagId, int8S);
         }
 
-        public virtual void SetInt8sArray(int tagId, [NotNull] sbyte[] array)
+        public virtual void SetInt8SArray(int tagId, [NotNull] sbyte[] array)
         {
             // NOTE Directory stores all integral types as int32s, except for int32u and long
-            _currentDirectory.SetByteArray(tagId, array);
+            CurrentDirectory.SetByteArray(tagId, array);
         }
 
-        public virtual void SetInt8u(int tagId, short int8u)
+        public virtual void SetInt8U(int tagId, short int8U)
         {
             // NOTE Directory stores all integral types as int32s, except for int32u and long
-            _currentDirectory.SetInt(tagId, int8u);
+            CurrentDirectory.SetInt(tagId, int8U);
         }
 
-        public virtual void SetInt8uArray(int tagId, [NotNull] short[] array)
+        public virtual void SetInt8UArray(int tagId, [NotNull] short[] array)
         {
             // TODO create and use a proper setter for short[]
-            _currentDirectory.SetObjectArray(tagId, array);
+            CurrentDirectory.SetObjectArray(tagId, array);
         }
 
-        public virtual void SetInt16s(int tagId, int int16s)
+        public virtual void SetInt16S(int tagId, int int16S)
         {
             // TODO create and use a proper setter for int16u?
-            _currentDirectory.SetInt(tagId, int16s);
+            CurrentDirectory.SetInt(tagId, int16S);
         }
 
-        public virtual void SetInt16sArray(int tagId, [NotNull] short[] array)
+        public virtual void SetInt16SArray(int tagId, [NotNull] short[] array)
         {
             // TODO create and use a proper setter for short[]
-            _currentDirectory.SetObjectArray(tagId, array);
+            CurrentDirectory.SetObjectArray(tagId, array);
         }
 
-        public virtual void SetInt16u(int tagId, int int16u)
+        public virtual void SetInt16U(int tagId, int int16U)
         {
             // TODO create and use a proper setter for
-            _currentDirectory.SetInt(tagId, int16u);
+            CurrentDirectory.SetInt(tagId, int16U);
         }
 
-        public virtual void SetInt16uArray(int tagId, [NotNull] int[] array)
+        public virtual void SetInt16UArray(int tagId, [NotNull] int[] array)
         {
             // TODO create and use a proper setter for short[]
-            _currentDirectory.SetObjectArray(tagId, array);
+            CurrentDirectory.SetObjectArray(tagId, array);
         }
 
-        public virtual void SetInt32s(int tagId, int int32s)
+        public virtual void SetInt32S(int tagId, int int32S)
         {
-            _currentDirectory.SetInt(tagId, int32s);
+            CurrentDirectory.SetInt(tagId, int32S);
         }
 
-        public virtual void SetInt32sArray(int tagId, [NotNull] int[] array)
+        public virtual void SetInt32SArray(int tagId, [NotNull] int[] array)
         {
-            _currentDirectory.SetIntArray(tagId, array);
+            CurrentDirectory.SetIntArray(tagId, array);
         }
 
-        public virtual void SetInt32u(int tagId, long int32u)
+        public virtual void SetInt32U(int tagId, long int32U)
         {
-            _currentDirectory.SetLong(tagId, int32u);
+            CurrentDirectory.SetLong(tagId, int32U);
         }
 
-        public virtual void SetInt32uArray(int tagId, [NotNull] long[] array)
+        public virtual void SetInt32UArray(int tagId, [NotNull] long[] array)
         {
             // TODO create and use a proper setter for short[]
-            _currentDirectory.SetObjectArray(tagId, array);
+            CurrentDirectory.SetObjectArray(tagId, array);
         }
 
         public abstract void Completed(RandomAccessReader arg1, int arg2);

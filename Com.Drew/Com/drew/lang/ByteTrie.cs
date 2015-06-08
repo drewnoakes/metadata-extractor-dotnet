@@ -36,17 +36,17 @@ namespace Com.Drew.Lang
         /// <remarks>A node in the trie. Has children and may have an associated value.</remarks>
         internal class ByteTrieNode<T>
         {
-            internal readonly IDictionary<sbyte, ByteTrieNode<T>> _children = new Dictionary<sbyte, ByteTrieNode<T>>();
+            internal readonly IDictionary<sbyte, ByteTrieNode<T>> Children = new Dictionary<sbyte, ByteTrieNode<T>>();
 
-            internal T _value = default(T);
+            internal T Value = default(T);
 
             public virtual void SetValue(T value)
             {
-                if (_value != null)
+                if (Value != null)
                 {
                     throw new RuntimeException("Value already set for this trie node");
                 }
-                _value = value;
+                Value = value;
             }
         }
 
@@ -66,18 +66,18 @@ namespace Com.Drew.Lang
         public virtual T Find(sbyte[] bytes)
         {
             ByteTrieNode<T> node = _root;
-            T value = node._value;
+            T value = node.Value;
             foreach (sbyte b in bytes)
             {
-                ByteTrieNode<T> child = Extensions.Get<sbyte, ByteTrieNode<T>>(node._children, b);
+                ByteTrieNode<T> child = Extensions.Get<sbyte, ByteTrieNode<T>>(node.Children, b);
                 if (child == null)
                 {
                     break;
                 }
                 node = child;
-                if (node._value != null)
+                if (node.Value != null)
                 {
-                    value = node._value;
+                    value = node.Value;
                 }
             }
             return value;
@@ -92,11 +92,11 @@ namespace Com.Drew.Lang
             {
                 foreach (sbyte b in part)
                 {
-                    ByteTrieNode<T> child = Extensions.Get<sbyte, ByteTrieNode<T>>(node._children, b);
+                    ByteTrieNode<T> child = Extensions.Get<sbyte, ByteTrieNode<T>>(node.Children, b);
                     if (child == null)
                     {
                         child = new ByteTrieNode<T>();
-                        Extensions.Put<sbyte, ByteTrieNode<T>>(node._children, b, child);
+                        Extensions.Put<sbyte, ByteTrieNode<T>>(node.Children, b, child);
                     }
                     node = child;
                     depth++;

@@ -69,29 +69,29 @@ namespace Com.Drew.Metadata.Png
         public const int TagSignificantBits = 19;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static PngDirectory()
         {
-            _tagNameMap.Put(TagImageHeight, "Image Height");
-            _tagNameMap.Put(TagImageWidth, "Image Width");
-            _tagNameMap.Put(TagBitsPerSample, "Bits Per Sample");
-            _tagNameMap.Put(TagColorType, "Color Type");
-            _tagNameMap.Put(TagCompressionType, "Compression Type");
-            _tagNameMap.Put(TagFilterMethod, "Filter Method");
-            _tagNameMap.Put(TagInterlaceMethod, "Interlace Method");
-            _tagNameMap.Put(TagPaletteSize, "Palette Size");
-            _tagNameMap.Put(TagPaletteHasTransparency, "Palette Has Transparency");
-            _tagNameMap.Put(TagSrgbRenderingIntent, "sRGB Rendering Intent");
-            _tagNameMap.Put(TagGamma, "Image Gamma");
-            _tagNameMap.Put(TagIccProfileName, "ICC Profile Name");
-            _tagNameMap.Put(TagTextualData, "Textual Data");
-            _tagNameMap.Put(TagLastModificationTime, "Last Modification Time");
-            _tagNameMap.Put(TagBackgroundColor, "Background Color");
-            _tagNameMap.Put(TagPixelsPerUnitX, "Pixels Per Unit X");
-            _tagNameMap.Put(TagPixelsPerUnitY, "Pixels Per Unit Y");
-            _tagNameMap.Put(TagUnitSpecifier, "Unit Specifier");
-            _tagNameMap.Put(TagSignificantBits, "Significant Bits");
+            TagNameMap.Put(TagImageHeight, "Image Height");
+            TagNameMap.Put(TagImageWidth, "Image Width");
+            TagNameMap.Put(TagBitsPerSample, "Bits Per Sample");
+            TagNameMap.Put(TagColorType, "Color Type");
+            TagNameMap.Put(TagCompressionType, "Compression Type");
+            TagNameMap.Put(TagFilterMethod, "Filter Method");
+            TagNameMap.Put(TagInterlaceMethod, "Interlace Method");
+            TagNameMap.Put(TagPaletteSize, "Palette Size");
+            TagNameMap.Put(TagPaletteHasTransparency, "Palette Has Transparency");
+            TagNameMap.Put(TagSrgbRenderingIntent, "sRGB Rendering Intent");
+            TagNameMap.Put(TagGamma, "Image Gamma");
+            TagNameMap.Put(TagIccProfileName, "ICC Profile Name");
+            TagNameMap.Put(TagTextualData, "Textual Data");
+            TagNameMap.Put(TagLastModificationTime, "Last Modification Time");
+            TagNameMap.Put(TagBackgroundColor, "Background Color");
+            TagNameMap.Put(TagPixelsPerUnitX, "Pixels Per Unit X");
+            TagNameMap.Put(TagPixelsPerUnitY, "Pixels Per Unit Y");
+            TagNameMap.Put(TagUnitSpecifier, "Unit Specifier");
+            TagNameMap.Put(TagSignificantBits, "Significant Bits");
         }
 
         private readonly PngChunkType _pngChunkType;
@@ -117,7 +117,7 @@ namespace Com.Drew.Metadata.Png
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

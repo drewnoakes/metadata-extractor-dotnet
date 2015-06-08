@@ -31,7 +31,7 @@ namespace Com.Drew.Imaging.Tiff
     [Serializable]
     public class TiffProcessingException : ImageProcessingException
     {
-        private const long serialVersionUID = -1658134119488001891L;
+        private const long SerialVersionUid = -1658134119488001891L;
 
         public TiffProcessingException([CanBeNull] string message)
             : base(message)

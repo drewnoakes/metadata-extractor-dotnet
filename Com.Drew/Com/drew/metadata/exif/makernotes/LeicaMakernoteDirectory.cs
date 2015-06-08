@@ -72,28 +72,28 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public const int TagImageIdNumber = unchecked((int)(0x0340));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static LeicaMakernoteDirectory()
         {
-            _tagNameMap.Put(TagQuality, "Quality");
-            _tagNameMap.Put(TagUserProfile, "User Profile");
-            _tagNameMap.Put(TagSerialNumber, "Serial Number");
-            _tagNameMap.Put(TagWhiteBalance, "White Balance");
-            _tagNameMap.Put(TagLensType, "Lens Type");
-            _tagNameMap.Put(TagExternalSensorBrightnessValue, "External Sensor Brightness Value");
-            _tagNameMap.Put(TagMeasuredLv, "Measured LV");
-            _tagNameMap.Put(TagApproximateFNumber, "Approximate F Number");
-            _tagNameMap.Put(TagCameraTemperature, "Camera Temperature");
-            _tagNameMap.Put(TagColorTemperature, "Color Temperature");
-            _tagNameMap.Put(TagWbRedLevel, "WB Red Level");
-            _tagNameMap.Put(TagWbGreenLevel, "WB Green Level");
-            _tagNameMap.Put(TagWbBlueLevel, "WB Blue Level");
-            _tagNameMap.Put(TagCcdVersion, "CCD Version");
-            _tagNameMap.Put(TagCcdBoardVersion, "CCD Board Version");
-            _tagNameMap.Put(TagControllerBoardVersion, "Controller Board Version");
-            _tagNameMap.Put(TagM16CVersion, "M16 C Version");
-            _tagNameMap.Put(TagImageIdNumber, "Image ID Number");
+            TagNameMap.Put(TagQuality, "Quality");
+            TagNameMap.Put(TagUserProfile, "User Profile");
+            TagNameMap.Put(TagSerialNumber, "Serial Number");
+            TagNameMap.Put(TagWhiteBalance, "White Balance");
+            TagNameMap.Put(TagLensType, "Lens Type");
+            TagNameMap.Put(TagExternalSensorBrightnessValue, "External Sensor Brightness Value");
+            TagNameMap.Put(TagMeasuredLv, "Measured LV");
+            TagNameMap.Put(TagApproximateFNumber, "Approximate F Number");
+            TagNameMap.Put(TagCameraTemperature, "Camera Temperature");
+            TagNameMap.Put(TagColorTemperature, "Color Temperature");
+            TagNameMap.Put(TagWbRedLevel, "WB Red Level");
+            TagNameMap.Put(TagWbGreenLevel, "WB Green Level");
+            TagNameMap.Put(TagWbBlueLevel, "WB Blue Level");
+            TagNameMap.Put(TagCcdVersion, "CCD Version");
+            TagNameMap.Put(TagCcdBoardVersion, "CCD Board Version");
+            TagNameMap.Put(TagControllerBoardVersion, "Controller Board Version");
+            TagNameMap.Put(TagM16CVersion, "M16 C Version");
+            TagNameMap.Put(TagImageIdNumber, "Image ID Number");
         }
 
         public LeicaMakernoteDirectory()
@@ -110,7 +110,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

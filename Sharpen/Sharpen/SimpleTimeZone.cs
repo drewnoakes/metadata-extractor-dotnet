@@ -8,15 +8,15 @@ namespace Sharpen
     public class SimpleTimeZone
     {
         private readonly int _rawOffset;
-        private readonly string _ID;
+        private readonly string _id;
 
         public static explicit operator TimeZoneInfo(SimpleTimeZone tz)
         {
             TimeZoneInfo result = null;
 
-            if (!string.IsNullOrEmpty(tz._ID))
+            if (!string.IsNullOrEmpty(tz._id))
             {
-                result = TimeZoneInfo.FindSystemTimeZoneById(tz._ID);
+                result = TimeZoneInfo.FindSystemTimeZoneById(tz._id);
             }
 
             if (result != null)
@@ -36,10 +36,10 @@ namespace Sharpen
             throw new NotSupportedException();
         }
 
-        public SimpleTimeZone(int rawOffset, string ID)
+        public SimpleTimeZone(int rawOffset, string id)
         {
             _rawOffset = rawOffset;
-            _ID = ID;
+            _id = id;
         }
     }
 }

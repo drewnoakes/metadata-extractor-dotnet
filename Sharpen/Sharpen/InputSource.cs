@@ -4,21 +4,21 @@ namespace Sharpen
 {
     public class InputSource
     {
-        private readonly StreamReader m_inputStream;
+        private readonly StreamReader _mInputStream;
 
         public InputSource(InputStream inputStream)
         {
-            m_inputStream = new InputStreamReader(inputStream);
+            _mInputStream = new InputStreamReader(inputStream);
         }
 
         public InputSource(StreamReader inputStream)
         {
-            m_inputStream = inputStream;
+            _mInputStream = inputStream;
         }
 
         public Stream GetStream()
         {
-            return m_inputStream.BaseStream;
+            return _mInputStream.BaseStream;
         }
     }
 }

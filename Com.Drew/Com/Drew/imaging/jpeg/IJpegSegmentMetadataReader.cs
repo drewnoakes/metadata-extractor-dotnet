@@ -4,7 +4,7 @@ using Sharpen;
 namespace Com.Drew.Imaging.Jpeg
 {
     /// <summary>Defines an object that extracts metadata from in JPEG segments.</summary>
-    public interface JpegSegmentMetadataReader
+    public interface IJpegSegmentMetadataReader
     {
         /// <summary>Gets the set of JPEG segment types that this reader is interested in.</summary>
         [NotNull]

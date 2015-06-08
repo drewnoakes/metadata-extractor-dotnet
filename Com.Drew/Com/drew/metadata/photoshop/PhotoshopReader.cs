@@ -45,7 +45,7 @@ namespace Com.Drew.Metadata.Photoshop
     /// </remarks>
     /// <author>Yuri Binev</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PhotoshopReader : JpegSegmentMetadataReader
+    public class PhotoshopReader : IJpegSegmentMetadataReader
     {
         [NotNull]
         private const string JpegSegmentPreamble = "Photoshop 3.0";
@@ -159,7 +159,7 @@ namespace Com.Drew.Metadata.Photoshop
                     }
                     if (tagType >= unchecked((int)(0x0fa0)) && tagType <= unchecked((int)(0x1387)))
                     {
-                        PhotoshopDirectory._tagNameMap.Put(tagType, Extensions.StringFormat("Plug-in %d Data", tagType - unchecked((int)(0x0fa0)) + 1));
+                        PhotoshopDirectory.TagNameMap.Put(tagType, Extensions.StringFormat("Plug-in %d Data", tagType - unchecked((int)(0x0fa0)) + 1));
                     }
                 }
                 catch (Exception ex)

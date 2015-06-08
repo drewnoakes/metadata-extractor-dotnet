@@ -92,7 +92,7 @@ namespace Com.Drew.Metadata.Jpeg
         [CanBeNull]
         public virtual string GetImageCompressionTypeDescription()
         {
-            int? value = _directory.GetInteger(JpegDirectory.TagCompressionType);
+            int? value = Directory.GetInteger(JpegDirectory.TagCompressionType);
             if (value == null)
             {
                 return null;
@@ -180,7 +180,7 @@ namespace Com.Drew.Metadata.Jpeg
         [CanBeNull]
         public virtual string GetImageWidthDescription()
         {
-            string value = _directory.GetString(JpegDirectory.TagImageWidth);
+            string value = Directory.GetString(JpegDirectory.TagImageWidth);
             if (value == null)
             {
                 return null;
@@ -191,7 +191,7 @@ namespace Com.Drew.Metadata.Jpeg
         [CanBeNull]
         public virtual string GetImageHeightDescription()
         {
-            string value = _directory.GetString(JpegDirectory.TagImageHeight);
+            string value = Directory.GetString(JpegDirectory.TagImageHeight);
             if (value == null)
             {
                 return null;
@@ -202,7 +202,7 @@ namespace Com.Drew.Metadata.Jpeg
         [CanBeNull]
         public virtual string GetDataPrecisionDescription()
         {
-            string value = _directory.GetString(JpegDirectory.TagDataPrecision);
+            string value = Directory.GetString(JpegDirectory.TagDataPrecision);
             if (value == null)
             {
                 return null;
@@ -213,7 +213,7 @@ namespace Com.Drew.Metadata.Jpeg
         [CanBeNull]
         public virtual string GetComponentDataDescription(int componentNumber)
         {
-            JpegComponent value = _directory.GetComponent(componentNumber);
+            JpegComponent value = Directory.GetComponent(componentNumber);
             if (value == null)
             {
                 return null;

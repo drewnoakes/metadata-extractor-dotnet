@@ -16,30 +16,30 @@ namespace Com.Adobe.Xmp
 {
     /// <summary>Creates <code>XMPMeta</code>-instances from an <code>InputStream</code></summary>
     /// <since>30.01.2006</since>
-    public sealed class XMPMetaFactory
+    public sealed class XmpMetaFactory
     {
         /// <summary>The singleton instance of the <code>XMPSchemaRegistry</code>.</summary>
-        private static XMPSchemaRegistry schema = new XMPSchemaRegistryImpl();
+        private static IXmpSchemaRegistry _schema = new XmpSchemaRegistry();
 
         /// <summary>cache for version info</summary>
-        private static XMPVersionInfo versionInfo = null;
+        private static IXmpVersionInfo _versionInfo = null;
 
         /// <summary>Hides public constructor</summary>
-        private XMPMetaFactory()
+        private XmpMetaFactory()
         {
         }
 
         // EMPTY
         /// <returns>Returns the singleton instance of the <code>XMPSchemaRegistry</code>.</returns>
-        public static XMPSchemaRegistry GetSchemaRegistry()
+        public static IXmpSchemaRegistry GetSchemaRegistry()
         {
-            return schema;
+            return _schema;
         }
 
         /// <returns>Returns an empty <code>XMPMeta</code>-object.</returns>
-        public static XMPMeta Create()
+        public static IXmpMeta Create()
         {
-            return new XMPMetaImpl();
+            return new XmpMeta();
         }
 
         /// <summary>
@@ -67,11 +67,11 @@ namespace Com.Adobe.Xmp
         /// <em>Note:</em>The XMP_STRICT_ALIASING option is not yet implemented.
         /// </param>
         /// <returns>Returns the <code>XMPMeta</code>-object created from the input.</returns>
-        /// <exception cref="XMPException">If the file is not well-formed XML or if the parsing fails.</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static XMPMeta Parse(InputStream @in, ParseOptions options = null)
+        /// <exception cref="XmpException">If the file is not well-formed XML or if the parsing fails.</exception>
+        /// <exception cref="XmpException"/>
+        public static IXmpMeta Parse(InputStream @in, ParseOptions options = null)
         {
-            return XMPMetaParser.Parse(@in, options);
+            return XmpMetaParser.Parse(@in, options);
         }
 
         /// <summary>Creates an <code>XMPMeta</code>-object from a string.</summary>
@@ -79,11 +79,11 @@ namespace Com.Adobe.Xmp
         /// <param name="packet">a String contain an XMP-file.</param>
         /// <param name="options">Options controlling the parsing.</param>
         /// <returns>Returns the <code>XMPMeta</code>-object created from the input.</returns>
-        /// <exception cref="XMPException">If the file is not well-formed XML or if the parsing fails.</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static XMPMeta ParseFromString(string packet, ParseOptions options = null)
+        /// <exception cref="XmpException">If the file is not well-formed XML or if the parsing fails.</exception>
+        /// <exception cref="XmpException"/>
+        public static IXmpMeta ParseFromString(string packet, ParseOptions options = null)
         {
-            return XMPMetaParser.Parse(packet, options);
+            return XmpMetaParser.Parse(packet, options);
         }
 
         /// <summary>Creates an <code>XMPMeta</code>-object from a byte-buffer.</summary>
@@ -91,11 +91,11 @@ namespace Com.Adobe.Xmp
         /// <param name="buffer">a String contain an XMP-file.</param>
         /// <param name="options">Options controlling the parsing.</param>
         /// <returns>Returns the <code>XMPMeta</code>-object created from the input.</returns>
-        /// <exception cref="XMPException">If the file is not well-formed XML or if the parsing fails.</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static XMPMeta ParseFromBuffer(sbyte[] buffer, ParseOptions options = null)
+        /// <exception cref="XmpException">If the file is not well-formed XML or if the parsing fails.</exception>
+        /// <exception cref="XmpException"/>
+        public static IXmpMeta ParseFromBuffer(sbyte[] buffer, ParseOptions options = null)
         {
-            return XMPMetaParser.Parse(buffer, options);
+            return XmpMetaParser.Parse(buffer, options);
         }
 
         /// <summary>Serializes an <code>XMPMeta</code>-object as RDF into an <code>OutputStream</code>.</summary>
@@ -106,12 +106,12 @@ namespace Com.Adobe.Xmp
         /// ).
         /// </param>
         /// <param name="out">an <code>OutputStream</code> to write the serialized RDF to.</param>
-        /// <exception cref="XMPException">on serializsation errors.</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static void Serialize(XMPMeta xmp, OutputStream @out, SerializeOptions options = null)
+        /// <exception cref="XmpException">on serializsation errors.</exception>
+        /// <exception cref="XmpException"/>
+        public static void Serialize(IXmpMeta xmp, OutputStream @out, SerializeOptions options = null)
         {
             AssertImplementation(xmp);
-            XMPSerializerHelper.Serialize((XMPMetaImpl)xmp, @out, options);
+            XmpSerializerHelper.Serialize((XmpMeta)xmp, @out, options);
         }
 
         /// <summary>Serializes an <code>XMPMeta</code>-object as RDF into a byte buffer.</summary>
@@ -122,12 +122,12 @@ namespace Com.Adobe.Xmp
         /// ).
         /// </param>
         /// <returns>Returns a byte buffer containing the serialized RDF.</returns>
-        /// <exception cref="XMPException">on serializsation errors.</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static sbyte[] SerializeToBuffer(XMPMeta xmp, SerializeOptions options)
+        /// <exception cref="XmpException">on serializsation errors.</exception>
+        /// <exception cref="XmpException"/>
+        public static sbyte[] SerializeToBuffer(IXmpMeta xmp, SerializeOptions options)
         {
             AssertImplementation(xmp);
-            return XMPSerializerHelper.SerializeToBuffer((XMPMetaImpl)xmp, options);
+            return XmpSerializerHelper.SerializeToBuffer((XmpMeta)xmp, options);
         }
 
         /// <summary>Serializes an <code>XMPMeta</code>-object as RDF into a string.</summary>
@@ -142,18 +142,18 @@ namespace Com.Adobe.Xmp
         /// ).
         /// </param>
         /// <returns>Returns a string containing the serialized RDF.</returns>
-        /// <exception cref="XMPException">on serializsation errors.</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static string SerializeToString(XMPMeta xmp, SerializeOptions options)
+        /// <exception cref="XmpException">on serializsation errors.</exception>
+        /// <exception cref="XmpException"/>
+        public static string SerializeToString(IXmpMeta xmp, SerializeOptions options)
         {
             AssertImplementation(xmp);
-            return XMPSerializerHelper.SerializeToString((XMPMetaImpl)xmp, options);
+            return XmpSerializerHelper.SerializeToString((XmpMeta)xmp, options);
         }
 
         /// <param name="xmp">Asserts that xmp is compatible to <code>XMPMetaImpl</code>.s</param>
-        private static void AssertImplementation(XMPMeta xmp)
+        private static void AssertImplementation(IXmpMeta xmp)
         {
-            if (!(xmp is XMPMetaImpl))
+            if (!(xmp is XmpMeta))
             {
                 throw new NotSupportedException("The serializing service works only" + "with the XMPMeta implementation of this library");
             }
@@ -167,7 +167,7 @@ namespace Com.Adobe.Xmp
         /// </remarks>
         public static void Reset()
         {
-            schema = new XMPSchemaRegistryImpl();
+            _schema = new XmpSchemaRegistry();
         }
 
         /// <summary>Obtain version information.</summary>
@@ -176,11 +176,11 @@ namespace Com.Adobe.Xmp
         /// its requested.
         /// </remarks>
         /// <returns>Returns the version information.</returns>
-        public static XMPVersionInfo GetVersionInfo()
+        public static IXmpVersionInfo GetVersionInfo()
         {
-            lock (typeof(XMPMetaFactory))
+            lock (typeof(XmpMetaFactory))
             {
-                if (versionInfo == null)
+                if (_versionInfo == null)
                 {
                     try
                     {
@@ -191,7 +191,7 @@ namespace Com.Adobe.Xmp
                         bool debug = false;
                         // Adobe XMP Core 5.0-jc001 DEBUG-<branch>.<changelist>, 2009 Jan 28 15:22:38-CET
                         string message = "Adobe XMP Core 5.1.0-jc003";
-                        versionInfo = new _XMPVersionInfo_274(major, minor, micro, debug, engBuild, message);
+                        _versionInfo = new XmpVersionInfo274(major, minor, micro, debug, engBuild, message);
                     }
                     catch (Exception e)
                     {
@@ -199,68 +199,68 @@ namespace Com.Adobe.Xmp
                         Console.Out.Println(e);
                     }
                 }
-                return versionInfo;
+                return _versionInfo;
             }
         }
 
-        private sealed class _XMPVersionInfo_274 : XMPVersionInfo
+        private sealed class XmpVersionInfo274 : IXmpVersionInfo
         {
-            public _XMPVersionInfo_274(int major, int minor, int micro, bool debug, int engBuild, string message)
+            public XmpVersionInfo274(int major, int minor, int micro, bool debug, int engBuild, string message)
             {
-                this.major = major;
-                this.minor = minor;
-                this.micro = micro;
-                this.debug = debug;
-                this.engBuild = engBuild;
-                this.message = message;
+                this._major = major;
+                this._minor = minor;
+                this._micro = micro;
+                this._debug = debug;
+                this._engBuild = engBuild;
+                this._message = message;
             }
 
             public int GetMajor()
             {
-                return major;
+                return _major;
             }
 
             public int GetMinor()
             {
-                return minor;
+                return _minor;
             }
 
             public int GetMicro()
             {
-                return micro;
+                return _micro;
             }
 
             public bool IsDebug()
             {
-                return debug;
+                return _debug;
             }
 
             public int GetBuild()
             {
-                return engBuild;
+                return _engBuild;
             }
 
             public string GetMessage()
             {
-                return message;
+                return _message;
             }
 
             public override string ToString()
             {
-                return message;
+                return _message;
             }
 
-            private readonly int major;
+            private readonly int _major;
 
-            private readonly int minor;
+            private readonly int _minor;
 
-            private readonly int micro;
+            private readonly int _micro;
 
-            private readonly bool debug;
+            private readonly bool _debug;
 
-            private readonly int engBuild;
+            private readonly int _engBuild;
 
-            private readonly string message;
+            private readonly string _message;
         }
     }
 }

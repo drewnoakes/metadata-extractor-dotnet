@@ -50,7 +50,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <summary>Intialization constructor</summary>
         /// <param name="options">the initialization options</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">If the options are not valid</exception>
+        /// <exception cref="XmpException">If the options are not valid</exception>
         public PropertyOptions(int options)
             : base(options)
         {
@@ -61,14 +61,14 @@ namespace Com.Adobe.Xmp.Options
         /// Return whether the property value is a URI. It is serialized to RDF using the
         /// <tt>rdf:resource</tt> attribute. Not mandatory for URIs, but considered RDF-savvy.
         /// </returns>
-        public bool IsURI()
+        public bool IsUri()
         {
             return GetOption(Uri);
         }
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns this to enable cascaded options.</returns>
-        public PropertyOptions SetURI(bool value)
+        public PropertyOptions SetUri(bool value)
         {
             SetOption(Uri, value);
             return this;
@@ -263,7 +263,7 @@ namespace Com.Adobe.Xmp.Options
         /// If the other options set is null, this objects stays the same.
         /// </remarks>
         /// <param name="options">other options</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">If illegal options are provided</exception>
+        /// <exception cref="XmpException">If illegal options are provided</exception>
         public void MergeWith(PropertyOptions options)
         {
             if (options != null)
@@ -356,18 +356,18 @@ namespace Com.Adobe.Xmp.Options
         /// and URI cannot be a struct.
         /// </summary>
         /// <param name="options">the bitmask to check.</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">Thrown if the options are not consistent.</exception>
+        /// <exception cref="XmpException">Thrown if the options are not consistent.</exception>
         protected internal override void AssertConsistency(int options)
         {
             if ((options & Struct) > 0 && (options & Array) > 0)
             {
-                throw new XMPException("IsStruct and IsArray options are mutually exclusive", XMPErrorConstants.Badoptions);
+                throw new XmpException("IsStruct and IsArray options are mutually exclusive", XmpErrorConstants.Badoptions);
             }
             else
             {
                 if ((options & Uri) > 0 && (options & (Array | Struct)) > 0)
                 {
-                    throw new XMPException("Structs and arrays can't have \"value\" options", XMPErrorConstants.Badoptions);
+                    throw new XmpException("Structs and arrays can't have \"value\" options", XmpErrorConstants.Badoptions);
                 }
             }
         }

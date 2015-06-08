@@ -39,12 +39,12 @@ namespace Com.Drew.Metadata.Bmp
             // 6 = Bit field
             try
             {
-                int? value = _directory.GetInteger(BmpHeaderDirectory.TagCompression);
+                int? value = Directory.GetInteger(BmpHeaderDirectory.TagCompression);
                 if (value == null)
                 {
                     return null;
                 }
-                int? headerSize = _directory.GetInteger(BmpHeaderDirectory.TagHeaderSize);
+                int? headerSize = Directory.GetInteger(BmpHeaderDirectory.TagHeaderSize);
                 if (headerSize == null)
                 {
                     return null;

@@ -16,16 +16,16 @@ namespace Com.Adobe.Xmp.Impl
     public sealed class CountOutputStream : OutputStream
     {
         /// <summary>the decorated output stream</summary>
-        private readonly OutputStream @out;
+        private readonly OutputStream _out;
 
         /// <summary>the byte counter</summary>
-        private int bytesWritten = 0;
+        private int _bytesWritten = 0;
 
         /// <summary>Constructor with providing the output stream to decorate.</summary>
         /// <param name="out">an <code>OutputStream</code></param>
         internal CountOutputStream(OutputStream @out)
         {
-            this.@out = @out;
+            this._out = @out;
         }
 
         /// <summary>Counts the written bytes.</summary>
@@ -33,8 +33,8 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="System.IO.IOException"/>
         public override void Write(sbyte[] buf, int off, int len)
         {
-            @out.Write(buf, off, len);
-            bytesWritten += len;
+            _out.Write(buf, off, len);
+            _bytesWritten += len;
         }
 
         /// <summary>Counts the written bytes.</summary>
@@ -42,8 +42,8 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="System.IO.IOException"/>
         public override void Write(sbyte[] buf)
         {
-            @out.Write(buf);
-            bytesWritten += buf.Length;
+            _out.Write(buf);
+            _bytesWritten += buf.Length;
         }
 
         /// <summary>Counts the written bytes.</summary>
@@ -51,14 +51,14 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="System.IO.IOException"/>
         public override void Write(int b)
         {
-            @out.Write(b);
-            bytesWritten++;
+            _out.Write(b);
+            _bytesWritten++;
         }
 
         /// <returns>the bytesWritten</returns>
         public int GetBytesWritten()
         {
-            return bytesWritten;
+            return _bytesWritten;
         }
     }
 }

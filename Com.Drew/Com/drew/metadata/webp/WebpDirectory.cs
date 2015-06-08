@@ -38,14 +38,14 @@ namespace Com.Drew.Metadata.Webp
         public const int TagIsAnimation = 4;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static WebpDirectory()
         {
-            _tagNameMap.Put(TagImageHeight, "Image Height");
-            _tagNameMap.Put(TagImageWidth, "Image Width");
-            _tagNameMap.Put(TagHasAlpha, "Has Alpha");
-            _tagNameMap.Put(TagIsAnimation, "Is Animation");
+            TagNameMap.Put(TagImageHeight, "Image Height");
+            TagNameMap.Put(TagImageWidth, "Image Width");
+            TagNameMap.Put(TagHasAlpha, "Has Alpha");
+            TagNameMap.Put(TagIsAnimation, "Is Animation");
         }
 
         public WebpDirectory()
@@ -62,7 +62,7 @@ namespace Com.Drew.Metadata.Webp
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

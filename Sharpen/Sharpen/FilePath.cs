@@ -8,8 +8,8 @@ namespace Sharpen
 {
     public class FilePath
     {
-        private readonly string path;
-        private static long tempCounter;
+        private readonly string _path;
+        private static long _tempCounter;
 
         public FilePath (string path)
             : this ((string) null, path)
@@ -26,7 +26,7 @@ namespace Sharpen
         public FilePath (string other, string child)
         {
             if (other == null) {
-                this.path = child;
+                this._path = child;
             } else {
                 while (child != null && child.Length > 0 && (child[0] == Path.DirectorySeparatorChar || child[0] == Path.AltDirectorySeparatorChar))
                     child = child.Substring (1);
@@ -34,7 +34,7 @@ namespace Sharpen
                 if (!string.IsNullOrEmpty(other) && other[other.Length - 1] == Path.VolumeSeparatorChar)
                     other += Path.DirectorySeparatorChar;
 
-                this.path = Path.Combine (other, child);
+                this._path = Path.Combine (other, child);
             }
         }
 
@@ -45,7 +45,7 @@ namespace Sharpen
 
         public static implicit operator string (FilePath filePath)
         {
-            return filePath == null ? null : filePath.path;
+            return filePath == null ? null : filePath._path;
         }
 
         public override bool Equals (object obj)
@@ -58,7 +58,7 @@ namespace Sharpen
 
         public override int GetHashCode ()
         {
-            return path.GetHashCode ();
+            return _path.GetHashCode ();
         }
 
         public bool CanRead()
@@ -77,7 +77,7 @@ namespace Sharpen
             }
             string str = (directory == null) ? Path.GetTempPath () : directory.GetPath ();
             do {
-                file = Path.Combine (str, prefix + Interlocked.Increment (ref tempCounter) + suffix);
+                file = Path.Combine (str, prefix + Interlocked.Increment (ref _tempCounter) + suffix);
             } while (File.Exists (file));
 
             new FileOutputStream (file).Close ();
@@ -101,24 +101,24 @@ namespace Sharpen
 
         public string GetAbsolutePath ()
         {
-            return Path.GetFullPath (path);
+            return Path.GetFullPath (_path);
         }
 
         public string GetCanonicalPath ()
         {
-            string p = Path.GetFullPath (path);
+            string p = Path.GetFullPath (_path);
             p.TrimEnd (Path.DirectorySeparatorChar);
             return p;
         }
 
         public string GetName ()
         {
-            return Path.GetFileName (path);
+            return Path.GetFileName (_path);
         }
 
         public string GetPath ()
         {
-            return path;
+            return _path;
         }
 
         public bool IsDirectory ()
@@ -146,7 +146,7 @@ namespace Sharpen
             try {
                 if (IsFile ())
                     return null;
-                return Directory.GetFileSystemEntries(path).Select(filePth => Path.GetFileName(filePth)).ToArray();
+                return Directory.GetFileSystemEntries(_path).Select(filePth => Path.GetFileName(filePth)).ToArray();
             } catch {
                 return null;
             }
@@ -155,9 +155,9 @@ namespace Sharpen
         public bool Mkdir ()
         {
             try {
-                if (Directory.Exists (path))
+                if (Directory.Exists (_path))
                     return false;
-                Directory.CreateDirectory (path);
+                Directory.CreateDirectory (_path);
                 return true;
             } catch (Exception) {
                 return false;
@@ -170,13 +170,13 @@ namespace Sharpen
 
         public string GetParent ()
         {
-            var p = Path.GetDirectoryName (path);
-            return string.IsNullOrEmpty(p) || p == path ? null : p;
+            var p = Path.GetDirectoryName (_path);
+            return string.IsNullOrEmpty(p) || p == _path ? null : p;
         }
 
         public override string ToString ()
         {
-            return path;
+            return _path;
         }
     }
 }

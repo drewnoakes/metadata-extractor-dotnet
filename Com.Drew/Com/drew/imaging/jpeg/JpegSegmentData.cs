@@ -88,7 +88,7 @@ namespace Com.Drew.Imaging.Jpeg
         [CanBeNull]
         public virtual sbyte[] GetSegment([NotNull] JpegSegmentType segmentType)
         {
-            return GetSegment(segmentType.byteValue, 0);
+            return GetSegment(segmentType.ByteValue, 0);
         }
 
         /// <summary>Gets segment data for a specific occurrence and type.</summary>
@@ -102,7 +102,7 @@ namespace Com.Drew.Imaging.Jpeg
         [CanBeNull]
         public virtual sbyte[] GetSegment([NotNull] JpegSegmentType segmentType, int occurrence)
         {
-            return GetSegment(segmentType.byteValue, occurrence);
+            return GetSegment(segmentType.ByteValue, occurrence);
         }
 
         /// <summary>Gets segment data for a specific occurrence and type.</summary>
@@ -127,7 +127,7 @@ namespace Com.Drew.Imaging.Jpeg
         [NotNull]
         public virtual Iterable<sbyte[]> GetSegments([NotNull] JpegSegmentType segmentType)
         {
-            return GetSegments(segmentType.byteValue);
+            return GetSegments(segmentType.ByteValue);
         }
 
         /// <summary>Returns all instances of a given JPEG segment.</summary>
@@ -168,7 +168,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <returns>the segment count (zero if no segments exist).</returns>
         public virtual int GetSegmentCount([NotNull] JpegSegmentType segmentType)
         {
-            return GetSegmentCount(segmentType.byteValue);
+            return GetSegmentCount(segmentType.ByteValue);
         }
 
         /// <summary>Returns the count of segment data byte arrays stored for a given segment type.</summary>
@@ -189,7 +189,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <param name="occurrence">the zero-based index of the segment occurrence to remove.</param>
         public virtual void RemoveSegmentOccurrence([NotNull] JpegSegmentType segmentType, int occurrence)
         {
-            RemoveSegmentOccurrence(segmentType.byteValue, occurrence);
+            RemoveSegmentOccurrence(segmentType.ByteValue, occurrence);
         }
 
         /// <summary>Removes a specified instance of a segment's data from the collection.</summary>
@@ -209,7 +209,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <param name="segmentType">identifies the required segment</param>
         public virtual void RemoveSegment([NotNull] JpegSegmentType segmentType)
         {
-            RemoveSegment(segmentType.byteValue);
+            RemoveSegment(segmentType.ByteValue);
         }
 
         /// <summary>Removes all segments from the collection having the specified type.</summary>
@@ -224,7 +224,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <returns>true if data exists, otherwise false</returns>
         public virtual bool ContainsSegment([NotNull] JpegSegmentType segmentType)
         {
-            return ContainsSegment(segmentType.byteValue);
+            return ContainsSegment(segmentType.ByteValue);
         }
 
         /// <summary>Determines whether data is present for a given segment type.</summary>

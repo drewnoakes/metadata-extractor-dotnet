@@ -11,7 +11,7 @@ namespace Com.Adobe.Xmp.Options
 {
     /// <summary>
     /// Options for
-    /// <see cref="Com.Adobe.Xmp.XMPMetaFactory.SerializeToBuffer(Com.Adobe.Xmp.XMPMeta, SerializeOptions)"/>
+    /// <see cref="XmpMetaFactory.SerializeToBuffer(IXmpMeta, SerializeOptions)"/>
     /// .
     /// </summary>
     /// <since>24.01.2006</since>
@@ -67,10 +67,10 @@ namespace Com.Adobe.Xmp.Options
         public const int EncodeUtf8 = 0;
 
         /// <summary>UTF16BE encoding</summary>
-        public const int EncodeUtf16be = Utf16Bit;
+        public const int EncodeUtf16Be = Utf16Bit;
 
         /// <summary>UTF16LE encoding</summary>
-        public const int EncodeUtf16le = Utf16Bit | LittleendianBit;
+        public const int EncodeUtf16Le = Utf16Bit | LittleendianBit;
 
         private const int EncodingMask = Utf16Bit | LittleendianBit;
 
@@ -79,14 +79,14 @@ namespace Com.Adobe.Xmp.Options
         /// The amount of padding to be added if a writeable XML packet is created. If zero is passed
         /// (the default) an appropriate amount of padding is computed.
         /// </remarks>
-        private int padding = 2048;
+        private int _padding = 2048;
 
         /// <summary>The string to be used as a line terminator.</summary>
         /// <remarks>
         /// The string to be used as a line terminator. If empty it defaults to; linefeed, U+000A, the
         /// standard XML newline.
         /// </remarks>
-        private string newline = "\n";
+        private string _newline = "\n";
 
         /// <summary>
         /// The string to be used for each level of indentation in the serialized
@@ -96,7 +96,7 @@ namespace Com.Adobe.Xmp.Options
         /// The string to be used for each level of indentation in the serialized
         /// RDF. If empty it defaults to two ASCII spaces, U+0020.
         /// </remarks>
-        private string indent = "  ";
+        private string _indent = "  ";
 
         /// <summary>
         /// The number of levels of indentation to be used for the outermost XML element in the
@@ -106,10 +106,10 @@ namespace Com.Adobe.Xmp.Options
         /// The number of levels of indentation to be used for the outermost XML element in the
         /// serialized RDF. This is convenient when embedding the RDF in other text, defaults to 0.
         /// </remarks>
-        private int baseIndent = 0;
+        private int _baseIndent = 0;
 
         /// <summary>Omits the Toolkit version attribute, not published, only used for Unit tests.</summary>
-        private readonly bool omitVersionAttribute = false;
+        private readonly bool _omitVersionAttribute = false;
 
         /// <summary>Default constructor.</summary>
         public SerializeOptions()
@@ -118,7 +118,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <summary>Constructor using inital options</summary>
         /// <param name="options">the inital options</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">Thrown if options are not consistant.</exception>
+        /// <exception cref="XmpException">Thrown if options are not consistant.</exception>
         public SerializeOptions(int options)
             : base(options)
         {
@@ -240,90 +240,90 @@ namespace Com.Adobe.Xmp.Options
         }
 
         /// <returns>Returns the option.</returns>
-        public bool GetEncodeUTF16BE()
+        public bool GetEncodeUtf16Be()
         {
-            return (GetOptions() & EncodingMask) == EncodeUtf16be;
+            return (GetOptions() & EncodingMask) == EncodeUtf16Be;
         }
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public SerializeOptions SetEncodeUTF16BE(bool value)
+        public SerializeOptions SetEncodeUtf16Be(bool value)
         {
             // clear unicode bits
             SetOption(Utf16Bit | LittleendianBit, false);
-            SetOption(EncodeUtf16be, value);
+            SetOption(EncodeUtf16Be, value);
             return this;
         }
 
         /// <returns>Returns the option.</returns>
-        public bool GetEncodeUTF16LE()
+        public bool GetEncodeUtf16Le()
         {
-            return (GetOptions() & EncodingMask) == EncodeUtf16le;
+            return (GetOptions() & EncodingMask) == EncodeUtf16Le;
         }
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public SerializeOptions SetEncodeUTF16LE(bool value)
+        public SerializeOptions SetEncodeUtf16Le(bool value)
         {
             // clear unicode bits
             SetOption(Utf16Bit | LittleendianBit, false);
-            SetOption(EncodeUtf16le, value);
+            SetOption(EncodeUtf16Le, value);
             return this;
         }
 
         /// <returns>Returns the baseIndent.</returns>
         public int GetBaseIndent()
         {
-            return baseIndent;
+            return _baseIndent;
         }
 
         /// <param name="baseIndent">The baseIndent to set.</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
         public SerializeOptions SetBaseIndent(int baseIndent)
         {
-            this.baseIndent = baseIndent;
+            this._baseIndent = baseIndent;
             return this;
         }
 
         /// <returns>Returns the indent.</returns>
         public string GetIndent()
         {
-            return indent;
+            return _indent;
         }
 
         /// <param name="indent">The indent to set.</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
         public SerializeOptions SetIndent(string indent)
         {
-            this.indent = indent;
+            this._indent = indent;
             return this;
         }
 
         /// <returns>Returns the newline.</returns>
         public string GetNewline()
         {
-            return newline;
+            return _newline;
         }
 
         /// <param name="newline">The newline to set.</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
         public SerializeOptions SetNewline(string newline)
         {
-            this.newline = newline;
+            this._newline = newline;
             return this;
         }
 
         /// <returns>Returns the padding.</returns>
         public int GetPadding()
         {
-            return padding;
+            return _padding;
         }
 
         /// <param name="padding">The padding to set.</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
         public SerializeOptions SetPadding(int padding)
         {
-            this.padding = padding;
+            this._padding = padding;
             return this;
         }
 
@@ -333,19 +333,19 @@ namespace Com.Adobe.Xmp.Options
         /// </returns>
         public bool GetOmitVersionAttribute()
         {
-            return omitVersionAttribute;
+            return _omitVersionAttribute;
         }
 
         /// <returns>Returns the encoding as Java encoding String.</returns>
         public string GetEncoding()
         {
-            if (GetEncodeUTF16BE())
+            if (GetEncodeUtf16Be())
             {
                 return "UTF-16BE";
             }
             else
             {
-                if (GetEncodeUTF16LE())
+                if (GetEncodeUtf16Le())
                 {
                     return "UTF-16LE";
                 }
@@ -364,13 +364,13 @@ namespace Com.Adobe.Xmp.Options
             try
             {
                 clone = new SerializeOptions(GetOptions());
-                clone.SetBaseIndent(baseIndent);
-                clone.SetIndent(indent);
-                clone.SetNewline(newline);
-                clone.SetPadding(padding);
+                clone.SetBaseIndent(_baseIndent);
+                clone.SetIndent(_indent);
+                clone.SetNewline(_newline);
+                clone.SetPadding(_padding);
                 return clone;
             }
-            catch (XMPException)
+            catch (XmpException)
             {
                 // This cannot happen, the options are already checked in "this" object.
                 return null;

@@ -15,7 +15,7 @@ namespace Com.Adobe.Xmp.Impl
 {
     /// <summary>Converts between ISO 8601 Strings and <code>Calendar</code> with millisecond resolution.</summary>
     /// <since>16.02.2006</since>
-    public static class ISO8601Converter
+    public static class Iso8601Converter
     {
         // EMPTY
         /// <summary>Converts an ISO 8601 string to an <code>XMPDateTime</code>.</summary>
@@ -54,21 +54,21 @@ namespace Com.Adobe.Xmp.Impl
         /// </remarks>
         /// <param name="iso8601String">a date string that is ISO 8601 conform.</param>
         /// <returns>Returns a <code>Calendar</code>.</returns>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">Is thrown when the string is non-conform.</exception>
-        public static XMPDateTime Parse(string iso8601String)
+        /// <exception cref="XmpException">Is thrown when the string is non-conform.</exception>
+        public static IXmpDateTime Parse(string iso8601String)
         {
-            return Parse(iso8601String, new XMPDateTimeImpl());
+            return Parse(iso8601String, new XmpDateTime());
         }
 
         /// <param name="iso8601String">a date string that is ISO 8601 conform.</param>
         /// <param name="binValue">an existing XMPDateTime to set with the parsed date</param>
         /// <returns>Returns an XMPDateTime-object containing the ISO8601-date.</returns>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">Is thrown when the string is non-conform.</exception>
-        public static XMPDateTime Parse(string iso8601String, XMPDateTime binValue)
+        /// <exception cref="XmpException">Is thrown when the string is non-conform.</exception>
+        public static IXmpDateTime Parse(string iso8601String, IXmpDateTime binValue)
         {
             if (iso8601String == null)
             {
-                throw new XMPException("Parameter must not be null", XMPErrorConstants.Badparam);
+                throw new XmpException("Parameter must not be null", XmpErrorConstants.Badparam);
             }
             else
             {
@@ -87,7 +87,7 @@ namespace Com.Adobe.Xmp.Impl
             value = input.GatherInt("Invalid year in date string", 9999);
             if (input.HasNext() && input.Ch() != '-')
             {
-                throw new XMPException("Invalid date string, after year", XMPErrorConstants.Badvalue);
+                throw new XmpException("Invalid date string, after year", XmpErrorConstants.Badvalue);
             }
             if (input.Ch(0) == '-')
             {
@@ -103,7 +103,7 @@ namespace Com.Adobe.Xmp.Impl
             value = input.GatherInt("Invalid month in date string", 12);
             if (input.HasNext() && input.Ch() != '-')
             {
-                throw new XMPException("Invalid date string, after month", XMPErrorConstants.Badvalue);
+                throw new XmpException("Invalid date string, after month", XmpErrorConstants.Badvalue);
             }
             binValue.SetMonth(value);
             if (!input.HasNext())
@@ -115,7 +115,7 @@ namespace Com.Adobe.Xmp.Impl
             value = input.GatherInt("Invalid day in date string", 31);
             if (input.HasNext() && input.Ch() != 'T')
             {
-                throw new XMPException("Invalid date string, after day", XMPErrorConstants.Badvalue);
+                throw new XmpException("Invalid date string, after day", XmpErrorConstants.Badvalue);
             }
             binValue.SetDay(value);
             if (!input.HasNext())
@@ -137,7 +137,7 @@ namespace Com.Adobe.Xmp.Impl
                 value = input.GatherInt("Invalid minute in date string", 59);
                 if (input.HasNext() && input.Ch() != ':' && input.Ch() != 'Z' && input.Ch() != '+' && input.Ch() != '-')
                 {
-                    throw new XMPException("Invalid date string, after minute", XMPErrorConstants.Badvalue);
+                    throw new XmpException("Invalid date string, after minute", XmpErrorConstants.Badvalue);
                 }
                 binValue.SetMinute(value);
             }
@@ -153,7 +153,7 @@ namespace Com.Adobe.Xmp.Impl
                     value = input.GatherInt("Invalid whole seconds in date string", 59);
                     if (input.HasNext() && input.Ch() != '.' && input.Ch() != 'Z' && input.Ch() != '+' && input.Ch() != '-')
                     {
-                        throw new XMPException("Invalid date string, after whole seconds", XMPErrorConstants.Badvalue);
+                        throw new XmpException("Invalid date string, after whole seconds", XmpErrorConstants.Badvalue);
                     }
                     binValue.SetSecond(value);
                     if (input.Ch() == '.')
@@ -163,7 +163,7 @@ namespace Com.Adobe.Xmp.Impl
                         value = input.GatherInt("Invalid fractional seconds in date string", 999999999);
                         if (input.HasNext() && (input.Ch() != 'Z' && input.Ch() != '+' && input.Ch() != '-'))
                         {
-                            throw new XMPException("Invalid date string, after fractional second", XMPErrorConstants.Badvalue);
+                            throw new XmpException("Invalid date string, after fractional second", XmpErrorConstants.Badvalue);
                         }
                         digits = input.Pos() - digits;
                         for (; digits > 9; --digits)
@@ -181,7 +181,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if (input.Ch() != 'Z' && input.Ch() != '+' && input.Ch() != '-')
                     {
-                        throw new XMPException("Invalid date string, after time", XMPErrorConstants.Badvalue);
+                        throw new XmpException("Invalid date string, after time", XmpErrorConstants.Badvalue);
                     }
                 }
             }
@@ -215,7 +215,7 @@ namespace Com.Adobe.Xmp.Impl
                             }
                             else
                             {
-                                throw new XMPException("Time zone must begin with 'Z', '+', or '-'", XMPErrorConstants.Badvalue);
+                                throw new XmpException("Time zone must begin with 'Z', '+', or '-'", XmpErrorConstants.Badvalue);
                             }
                         }
                         input.Skip();
@@ -231,7 +231,7 @@ namespace Com.Adobe.Xmp.Impl
                             }
                             else
                             {
-                                throw new XMPException("Invalid date string, after time zone hour", XMPErrorConstants.Badvalue);
+                                throw new XmpException("Invalid date string, after time zone hour", XmpErrorConstants.Badvalue);
                             }
                         }
                     }
@@ -242,7 +242,7 @@ namespace Com.Adobe.Xmp.Impl
             binValue.SetTimeZone((TimeZoneInfo)new SimpleTimeZone(offset, string.Empty));
             if (input.HasNext())
             {
-                throw new XMPException("Invalid date string, extra chars at end", XMPErrorConstants.Badvalue);
+                throw new XmpException("Invalid date string, extra chars at end", XmpErrorConstants.Badvalue);
             }
             return binValue;
         }
@@ -278,7 +278,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </remarks>
         /// <param name="dateTime">an XMPDateTime-object.</param>
         /// <returns>Returns an ISO 8601 string.</returns>
-        public static string Render(XMPDateTime dateTime)
+        public static string Render(IXmpDateTime dateTime)
         {
             StringBuilder buffer = new StringBuilder();
             if (dateTime.HasDate())
@@ -345,69 +345,69 @@ namespace Com.Adobe.Xmp.Impl
     /// <since>22.08.2006</since>
     internal class ParseState
     {
-        private readonly string str;
+        private readonly string _str;
 
-        private int pos = 0;
+        private int _pos = 0;
 
         /// <param name="str">initializes the parser container</param>
         public ParseState(string str)
         {
-            this.str = str;
+            this._str = str;
         }
 
         /// <returns>Returns the length of the input.</returns>
         public virtual int Length()
         {
-            return str.Length;
+            return _str.Length;
         }
 
         /// <returns>Returns whether there are more chars to come.</returns>
         public virtual bool HasNext()
         {
-            return pos < str.Length;
+            return _pos < _str.Length;
         }
 
         /// <param name="index">index of char</param>
         /// <returns>Returns char at a certain index.</returns>
         public virtual char Ch(int index)
         {
-            return index < str.Length ? str[index] : (char)0x0000;
+            return index < _str.Length ? _str[index] : (char)0x0000;
         }
 
         /// <returns>Returns the current char or 0x0000 if there are no more chars.</returns>
         public virtual char Ch()
         {
-            return pos < str.Length ? str[pos] : (char)0x0000;
+            return _pos < _str.Length ? _str[_pos] : (char)0x0000;
         }
 
         /// <summary>Skips the next char.</summary>
         public virtual void Skip()
         {
-            pos++;
+            _pos++;
         }
 
         /// <returns>Returns the current position.</returns>
         public virtual int Pos()
         {
-            return pos;
+            return _pos;
         }
 
         /// <summary>Parses a integer from the source and sets the pointer after it.</summary>
         /// <param name="errorMsg">Error message to put in the exception if no number can be found</param>
         /// <param name="maxValue">the max value of the number to return</param>
         /// <returns>Returns the parsed integer.</returns>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">Thrown if no integer can be found.</exception>
+        /// <exception cref="XmpException">Thrown if no integer can be found.</exception>
         public virtual int GatherInt(string errorMsg, int maxValue)
         {
             int value = 0;
             bool success = false;
-            char ch = Ch(pos);
+            char ch = Ch(_pos);
             while ('0' <= ch && ch <= '9')
             {
                 value = (value * 10) + (ch - '0');
                 success = true;
-                pos++;
-                ch = Ch(pos);
+                _pos++;
+                ch = Ch(_pos);
             }
             if (success)
             {
@@ -429,7 +429,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             else
             {
-                throw new XMPException(errorMsg, XMPErrorConstants.Badvalue);
+                throw new XmpException(errorMsg, XmpErrorConstants.Badvalue);
             }
         }
     }

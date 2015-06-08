@@ -31,7 +31,7 @@ namespace Com.Drew.Metadata
     [Serializable]
     public class MetadataException : CompoundException
     {
-        private const long serialVersionUID = 8612756143363919682L;
+        private const long SerialVersionUid = 8612756143363919682L;
 
         public MetadataException([CanBeNull] string msg)
             : base(msg)

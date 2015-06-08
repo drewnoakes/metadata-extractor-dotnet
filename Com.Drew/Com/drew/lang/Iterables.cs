@@ -6,9 +6,9 @@ namespace Com.Drew.Lang
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class Iterables
     {
-        public static IList<E> ToList<E>(Iterable<E> iterable)
+        public static IList<TE> ToList<TE>(Iterable<TE> iterable)
         {
-            AList<E> list = new AList<E>();
+            AList<TE> list = new AList<TE>();
             list.AddRange(iterable);
             return list;
         }

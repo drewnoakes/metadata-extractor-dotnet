@@ -34,7 +34,7 @@ namespace Com.Drew.Metadata.Exif
 {
     /// <summary>
     /// Implementation of
-    /// <see cref="Com.Drew.Imaging.Tiff.TiffHandler"/>
+    /// <see cref="ITiffHandler"/>
     /// used for handling TIFF tags according to the Exif
     /// standard.
     /// <p>
@@ -46,7 +46,7 @@ namespace Com.Drew.Metadata.Exif
         private readonly bool _storeThumbnailBytes;
 
         public ExifTiffHandler([NotNull] Metadata metadata, bool storeThumbnailBytes)
-            : base(metadata, typeof(ExifIFD0Directory))
+            : base(metadata, typeof(ExifIfd0Directory))
         {
             _storeThumbnailBytes = storeThumbnailBytes;
         }
@@ -69,21 +69,21 @@ namespace Com.Drew.Metadata.Exif
 
         public override bool IsTagIfdPointer(int tagType)
         {
-            if (tagType == ExifIFD0Directory.TagExifSubIfdOffset && _currentDirectory is ExifIFD0Directory)
+            if (tagType == ExifIfd0Directory.TagExifSubIfdOffset && CurrentDirectory is ExifIfd0Directory)
             {
-                PushDirectory(typeof(ExifSubIFDDirectory));
+                PushDirectory(typeof(ExifSubIfdDirectory));
                 return true;
             }
             else
             {
-                if (tagType == ExifIFD0Directory.TagGpsInfoOffset && _currentDirectory is ExifIFD0Directory)
+                if (tagType == ExifIfd0Directory.TagGpsInfoOffset && CurrentDirectory is ExifIfd0Directory)
                 {
                     PushDirectory(typeof(GpsDirectory));
                     return true;
                 }
                 else
                 {
-                    if (tagType == ExifSubIFDDirectory.TagInteropOffset && _currentDirectory is ExifSubIFDDirectory)
+                    if (tagType == ExifSubIfdDirectory.TagInteropOffset && CurrentDirectory is ExifSubIfdDirectory)
                     {
                         PushDirectory(typeof(ExifInteropDirectory));
                         return true;
@@ -96,13 +96,13 @@ namespace Com.Drew.Metadata.Exif
         public override bool HasFollowerIfd()
         {
             // In Exif, the only known 'follower' IFD is the thumbnail one, however this may not be the case.
-            if (_currentDirectory is ExifIFD0Directory)
+            if (CurrentDirectory is ExifIfd0Directory)
             {
                 PushDirectory(typeof(ExifThumbnailDirectory));
                 return true;
             }
             // The Canon EOS 7D (CR2) has three chained/following thumbnail IFDs
-            if (_currentDirectory is ExifThumbnailDirectory)
+            if (CurrentDirectory is ExifThumbnailDirectory)
             {
                 return true;
             }
@@ -115,18 +115,18 @@ namespace Com.Drew.Metadata.Exif
         public override bool CustomProcessTag(int tagOffset, [NotNull] ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, [NotNull] RandomAccessReader reader, int tagId, int byteCount)
         {
             // Custom processing for the Makernote tag
-            if (tagId == ExifSubIFDDirectory.TagMakernote && _currentDirectory is ExifSubIFDDirectory)
+            if (tagId == ExifSubIfdDirectory.TagMakernote && CurrentDirectory is ExifSubIfdDirectory)
             {
                 return ProcessMakernote(tagOffset, processedIfdOffsets, tiffHeaderOffset, reader);
             }
             // Custom processing for embedded IPTC data
-            if (tagId == ExifSubIFDDirectory.TagIptcNaa && _currentDirectory is ExifIFD0Directory)
+            if (tagId == ExifSubIfdDirectory.TagIptcNaa && CurrentDirectory is ExifIfd0Directory)
             {
                 // NOTE Adobe sets type 4 for IPTC instead of 7
                 if (reader.GetInt8(tagOffset) == unchecked((int)(0x1c)))
                 {
                     sbyte[] iptcBytes = reader.GetBytes(tagOffset, byteCount);
-                    new IptcReader().Extract(new SequentialByteArrayReader(iptcBytes), _metadata, iptcBytes.Length);
+                    new IptcReader().Extract(new SequentialByteArrayReader(iptcBytes), Metadata, iptcBytes.Length);
                     return true;
                 }
                 return false;
@@ -139,7 +139,7 @@ namespace Com.Drew.Metadata.Exif
             if (_storeThumbnailBytes)
             {
                 // after the extraction process, if we have the correct tags, we may be able to store thumbnail information
-                ExifThumbnailDirectory thumbnailDirectory = _metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
+                ExifThumbnailDirectory thumbnailDirectory = Metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
                 if (thumbnailDirectory != null && thumbnailDirectory.ContainsTag(ExifThumbnailDirectory.TagThumbnailCompression))
                 {
                     int? offset = thumbnailDirectory.GetInteger(ExifThumbnailDirectory.TagThumbnailOffset);
@@ -164,12 +164,12 @@ namespace Com.Drew.Metadata.Exif
         private bool ProcessMakernote(int makernoteOffset, [NotNull] ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, [NotNull] RandomAccessReader reader)
         {
             // Determine the camera model and makernote format.
-            Directory ifd0Directory = _metadata.GetFirstDirectoryOfType<ExifIFD0Directory>();
+            Directory ifd0Directory = Metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
             if (ifd0Directory == null)
             {
                 return false;
             }
-            string cameraMake = ifd0Directory.GetString(ExifIFD0Directory.TagMake);
+            string cameraMake = ifd0Directory.GetString(ExifIfd0Directory.TagMake);
             string firstTwoChars = reader.GetString(makernoteOffset, 2);
             string firstThreeChars = reader.GetString(makernoteOffset, 3);
             string firstFourChars = reader.GetString(makernoteOffset, 4);
@@ -269,7 +269,7 @@ namespace Com.Drew.Metadata.Exif
                                     {
                                         reader.SetMotorolaByteOrder(firstSevenChars.Equals("KDK INFO"));
                                         KodakMakernoteDirectory directory = new KodakMakernoteDirectory();
-                                        _metadata.AddDirectory(directory);
+                                        Metadata.AddDirectory(directory);
                                         ProcessKodakMakernote(directory, makernoteOffset, reader);
                                     }
                                     else

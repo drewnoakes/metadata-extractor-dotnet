@@ -379,7 +379,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         private string GetTransformDescription(int tag)
         {
-            sbyte[] values = _directory.GetByteArray(tag);
+            sbyte[] values = Directory.GetByteArray(tag);
             if (values == null)
             {
                 return null;
@@ -511,7 +511,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetUptimeDescription()
         {
-            int? value = _directory.GetInteger(PanasonicMakernoteDirectory.TagUptime);
+            int? value = Directory.GetInteger(PanasonicMakernoteDirectory.TagUptime);
             if (value == null)
             {
                 return null;
@@ -528,7 +528,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetContrastModeDescription()
         {
-            int? value = _directory.GetInteger(PanasonicMakernoteDirectory.TagContrastMode);
+            int? value = Directory.GetInteger(PanasonicMakernoteDirectory.TagContrastMode);
             if (value == null)
             {
                 return null;
@@ -597,7 +597,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetRotationDescription()
         {
-            int? value = _directory.GetInteger(PanasonicMakernoteDirectory.TagRotation);
+            int? value = Directory.GetInteger(PanasonicMakernoteDirectory.TagRotation);
             if (value == null)
             {
                 return null;
@@ -658,13 +658,13 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetDetectedFacesDescription()
         {
-            return BuildFacesDescription(_directory.GetDetectedFaces());
+            return BuildFacesDescription(Directory.GetDetectedFaces());
         }
 
         [CanBeNull]
         public virtual string GetRecognizedFacesDescription()
         {
-            return BuildFacesDescription(_directory.GetRecognizedFaces());
+            return BuildFacesDescription(Directory.GetRecognizedFaces());
         }
 
         [CanBeNull]
@@ -682,7 +682,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             return result.Length > 0 ? result.Substring(0, result.Length - 1) : null;
         }
 
-        private static readonly string[] _sceneModes = new string[] { "Normal", "Portrait", "Scenery", "Sports", "Night Portrait", "Program", "Aperture Priority", "Shutter Priority", "Macro", "Spot", "Manual", "Movie Preview", "Panning", "Simple", "Color Effects"
+        private static readonly string[] SceneModes = new string[] { "Normal", "Portrait", "Scenery", "Sports", "Night Portrait", "Program", "Aperture Priority", "Shutter Priority", "Macro", "Spot", "Manual", "Movie Preview", "Panning", "Simple", "Color Effects"
             , "Self Portrait", "Economy", "Fireworks", "Party", "Snow", "Night Scenery", "Food", "Baby", "Soft Skin", "Candlelight", "Starry Night", "High Sensitivity", "Panorama Assist", "Underwater", "Beach", "Aerial Photo", "Sunset", "Pet", "Intelligent ISO"
             , "Clipboard", "High Speed Continuous Shooting", "Intelligent Auto", null, "Multi-aspect", null, "Transform", "Flash Burst", "Pin Hole", "Film Grain", "My Color", "Photo Frame", null, null, null, null, "HDR" };
 
@@ -695,13 +695,13 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetRecordModeDescription()
         {
-            return GetIndexedDescription(PanasonicMakernoteDirectory.TagRecordMode, 1, _sceneModes);
+            return GetIndexedDescription(PanasonicMakernoteDirectory.TagRecordMode, 1, SceneModes);
         }
 
         [CanBeNull]
         public virtual string GetSceneModeDescription()
         {
-            return GetIndexedDescription(PanasonicMakernoteDirectory.TagSceneMode, 1, _sceneModes);
+            return GetIndexedDescription(PanasonicMakernoteDirectory.TagSceneMode, 1, SceneModes);
         }
 
         [CanBeNull]
@@ -713,7 +713,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetAfAreaModeDescription()
         {
-            int[] value = _directory.GetIntArray(PanasonicMakernoteDirectory.TagAfAreaMode);
+            int[] value = Directory.GetIntArray(PanasonicMakernoteDirectory.TagAfAreaMode);
             if (value == null || value.Length < 2)
             {
                 return null;
@@ -874,14 +874,14 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetBabyAgeDescription()
         {
-            Age age = _directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge);
+            Age age = Directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge);
             return age == null ? null : age.ToFriendlyString();
         }
 
         [CanBeNull]
         public virtual string GetBabyAge1Description()
         {
-            Age age = _directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge1);
+            Age age = Directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge1);
             return age == null ? null : age.ToFriendlyString();
         }
     }

@@ -39,7 +39,7 @@ namespace Com.Drew.Metadata.Iptc
     /// http://www.iptc.org/std/IIM/4.1/specification/IIMV4.1.pdf
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class IptcReader : JpegSegmentMetadataReader
+    public class IptcReader : IJpegSegmentMetadataReader
     {
         // TODO consider breaking the IPTC section up into multiple directories and providing segregation of each IPTC directory
 /*
@@ -167,7 +167,7 @@ namespace Com.Drew.Metadata.Iptc
                 case IptcDirectory.TagCodedCharacterSet:
                 {
                     sbyte[] bytes = reader.GetBytes(tagByteCount);
-                    string charset = Iso2022Converter.ConvertISO2022CharsetToJavaCharset(bytes);
+                    string charset = Iso2022Converter.ConvertIso2022CharsetToJavaCharset(bytes);
                     if (charset == null)
                     {
                         // Unable to determine the charset, so fall through and treat tag as a regular string
@@ -251,9 +251,9 @@ namespace Com.Drew.Metadata.Iptc
                 }
                 else
                 {
-                    sbyte[] bytes_1 = reader.GetBytes(tagByteCount);
-                    encoding = Iso2022Converter.GuessEncoding(bytes_1);
-                    @string = encoding != null ? Runtime.GetStringForBytes(bytes_1, encoding) : Runtime.GetStringForBytes(bytes_1);
+                    sbyte[] bytes1 = reader.GetBytes(tagByteCount);
+                    encoding = Iso2022Converter.GuessEncoding(bytes1);
+                    @string = encoding != null ? Runtime.GetStringForBytes(bytes1, encoding) : Runtime.GetStringForBytes(bytes1);
                 }
             }
             if (directory.ContainsTag(tagIdentifier))

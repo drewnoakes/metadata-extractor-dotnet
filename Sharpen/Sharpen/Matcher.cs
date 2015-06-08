@@ -4,24 +4,24 @@ namespace Sharpen
 {
     public class Matcher
     {
-        private int current;
-        private MatchCollection matches;
-        private readonly Regex regex;
-        private string str;
+        private int _current;
+        private MatchCollection _matches;
+        private readonly Regex _regex;
+        private string _str;
 
         public Matcher (Regex regex, string str)
         {
-            this.regex = regex;
-            this.str = str;
+            this._regex = regex;
+            this._str = str;
         }
 
         public bool Find ()
         {
-            if (matches == null) {
-                matches = regex.Matches (str);
-                current = 0;
+            if (_matches == null) {
+                _matches = _regex.Matches (_str);
+                _current = 0;
             }
-            return (current < matches.Count);
+            return (_current < _matches.Count);
         }
     }
 }

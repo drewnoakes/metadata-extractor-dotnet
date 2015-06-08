@@ -48,7 +48,7 @@
     <Compile Include="Com\drew\imaging\jpeg\JpegMetadataReader.cs" />
     <Compile Include="Com\drew\imaging\jpeg\JpegProcessingException.cs" />
     <Compile Include="Com\drew\imaging\jpeg\JpegSegmentData.cs" />
-    <Compile Include="Com\drew\imaging\jpeg\JpegSegmentMetadataReader.cs" />
+    <Compile Include="Com\drew\imaging\jpeg\IJpegSegmentMetadataReader.cs" />
     <Compile Include="Com\drew\imaging\jpeg\JpegSegmentReader.cs" />
     <Compile Include="Com\drew\imaging\jpeg\JpegSegmentType.cs" />
     <Compile Include="Com\drew\imaging\pcx\PcxMetadataReader.cs" />
@@ -62,11 +62,11 @@
     <Compile Include="Com\drew\imaging\png\PngMetadataReader.cs" />
     <Compile Include="Com\drew\imaging\png\PngProcessingException.cs" />
     <Compile Include="Com\drew\imaging\psd\PsdMetadataReader.cs" />
-    <Compile Include="Com\drew\imaging\riff\RiffHandler.cs" />
+    <Compile Include="Com\drew\imaging\riff\IRiffHandler.cs" />
     <Compile Include="Com\drew\imaging\riff\RiffProcessingException.cs" />
     <Compile Include="Com\drew\imaging\riff\RiffReader.cs" />
     <Compile Include="Com\drew\imaging\tiff\TiffDataFormat.cs" />
-    <Compile Include="Com\drew\imaging\tiff\TiffHandler.cs" />
+    <Compile Include="Com\drew\imaging\tiff\ITiffHandler.cs" />
     <Compile Include="Com\drew\imaging\tiff\TiffMetadataReader.cs" />
     <Compile Include="Com\drew\imaging\tiff\TiffProcessingException.cs" />
     <Compile Include="Com\drew\imaging\tiff\TiffReader.cs" />
@@ -174,7 +174,7 @@
     <Compile Include="Com\drew\metadata\jpeg\JpegReader.cs" />
     <Compile Include="Com\drew\metadata\Metadata.cs" />
     <Compile Include="Com\drew\metadata\MetadataException.cs" />
-    <Compile Include="Com\drew\metadata\MetadataReader.cs" />
+    <Compile Include="Com\drew\metadata\IMetadataReader.cs" />
     <Compile Include="Com\drew\metadata\pcx\PcxDescriptor.cs" />
     <Compile Include="Com\drew\metadata\pcx\PcxDirectory.cs" />
     <Compile Include="Com\drew\metadata\pcx\PcxReader.cs" />

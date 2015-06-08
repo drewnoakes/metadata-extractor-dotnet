@@ -36,13 +36,13 @@ namespace Com.Drew.Metadata.File
         public const int TagFileModifiedDate = 3;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static FileMetadataDirectory()
         {
-            _tagNameMap.Put(TagFileName, "File Name");
-            _tagNameMap.Put(TagFileSize, "File Size");
-            _tagNameMap.Put(TagFileModifiedDate, "File Modified Date");
+            TagNameMap.Put(TagFileName, "File Name");
+            TagNameMap.Put(TagFileSize, "File Size");
+            TagNameMap.Put(TagFileModifiedDate, "File Modified Date");
         }
 
         public FileMetadataDirectory()
@@ -59,7 +59,7 @@ namespace Com.Drew.Metadata.File
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

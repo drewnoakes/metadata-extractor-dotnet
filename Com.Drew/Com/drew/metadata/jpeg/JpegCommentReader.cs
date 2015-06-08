@@ -34,7 +34,7 @@ namespace Com.Drew.Metadata.Jpeg
     /// .
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class JpegCommentReader : JpegSegmentMetadataReader
+    public class JpegCommentReader : IJpegSegmentMetadataReader
     {
         [NotNull]
         public virtual Iterable<JpegSegmentType> GetSegmentTypes()

@@ -4,19 +4,19 @@ namespace Sharpen
 {
     public class CharsetDecoder
     {
-        private readonly Encoding enc;
-        readonly Decoder decoder;
+        private readonly Encoding _enc;
+        readonly Decoder _decoder;
 
         public CharsetDecoder (Encoding enc)
         {
-            this.enc = enc;
-            this.decoder = enc.GetDecoder ();
+            this._enc = enc;
+            this._decoder = enc.GetDecoder ();
         }
 
         public string Decode (ByteBuffer b)
         {
-            string res = enc.Decode (b);
-            if (res.IndexOf ('\uFFFD') != -1 && decoder.Fallback == DecoderFallback.ExceptionFallback)
+            string res = _enc.Decode (b);
+            if (res.IndexOf ('\uFFFD') != -1 && _decoder.Fallback == DecoderFallback.ExceptionFallback)
                 throw new CharacterCodingException ();
             return res;
         }

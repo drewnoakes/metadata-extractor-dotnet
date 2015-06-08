@@ -16,7 +16,7 @@ namespace Com.Adobe.Xmp.Impl
     {
         private const int StateStart = 0;
 
-        private const int StateUtf8char = 11;
+        private const int StateUtf8Char = 11;
 
         // EMPTY
         /// <summary>A converter that processes a byte buffer containing a mix of UTF8 and Latin-1/Cp1252 chars.</summary>
@@ -85,20 +85,20 @@ namespace Com.Adobe.Xmp.Impl
                                         expectedBytes++;
                                     }
                                     readAheadBuffer[readAhead++] = unchecked((sbyte)b);
-                                    state = StateUtf8char;
+                                    state = StateUtf8Char;
                                 }
                                 else
                                 {
                                     //  implicitly:  b >= 0x80  &&  b < 0xC0
                                     // invalid UTF8 start char, assume to be Latin-1
-                                    sbyte[] utf8 = ConvertToUTF8(unchecked((sbyte)b));
+                                    sbyte[] utf8 = ConvertToUtf8(unchecked((sbyte)b));
                                     @out.Append(utf8);
                                 }
                             }
                             break;
                         }
 
-                        case StateUtf8char:
+                        case StateUtf8Char:
                         {
                             if (expectedBytes > 0 && (b & unchecked((int)(0xC0))) == unchecked((int)(0x80)))
                             {
@@ -116,7 +116,7 @@ namespace Com.Adobe.Xmp.Impl
                             {
                                 // invalid UTF8 char:
                                 // 1. convert first of seq to UTF8
-                                sbyte[] utf8 = ConvertToUTF8(readAheadBuffer[0]);
+                                sbyte[] utf8 = ConvertToUtf8(readAheadBuffer[0]);
                                 @out.Append(utf8);
                                 // 2. continue processing at second byte of sequence
                                 i = i - readAhead;
@@ -128,12 +128,12 @@ namespace Com.Adobe.Xmp.Impl
                     }
                 }
                 // loop ends with "half" Utf8 char --> assume that the bytes are Latin-1
-                if (state == StateUtf8char)
+                if (state == StateUtf8Char)
                 {
                     for (int j = 0; j < readAhead; j++)
                     {
                         sbyte b = readAheadBuffer[j];
-                        sbyte[] utf8 = ConvertToUTF8(b);
+                        sbyte[] utf8 = ConvertToUtf8(b);
                         @out.Append(utf8);
                     }
                 }
@@ -158,7 +158,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </remarks>
         /// <param name="ch">an Cp1252 / Latin-1 byte</param>
         /// <returns>Returns a byte array containing a UTF-8 byte sequence.</returns>
-        private static sbyte[] ConvertToUTF8(sbyte ch)
+        private static sbyte[] ConvertToUtf8(sbyte ch)
         {
             int c = ch & unchecked((int)(0xFF));
             try

@@ -113,10 +113,10 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                sbyte[] b = _directory.GetByteArray(PhotoshopDirectory.TagJpegQuality);
+                sbyte[] b = Directory.GetByteArray(PhotoshopDirectory.TagJpegQuality);
                 if (b == null)
                 {
-                    return _directory.GetString(PhotoshopDirectory.TagJpegQuality);
+                    return Directory.GetString(PhotoshopDirectory.TagJpegQuality);
                 }
                 RandomAccessReader reader = new ByteArrayReader(b);
                 int q = reader.GetUInt16(0);
@@ -222,7 +222,7 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                sbyte[] bytes = _directory.GetByteArray(PhotoshopDirectory.TagPixelAspectRatio);
+                sbyte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagPixelAspectRatio);
                 if (bytes == null)
                 {
                     return null;
@@ -242,7 +242,7 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                sbyte[] bytes = _directory.GetByteArray(PhotoshopDirectory.TagPrintScale);
+                sbyte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagPrintScale);
                 if (bytes == null)
                 {
                     return null;
@@ -286,7 +286,7 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                sbyte[] bytes = _directory.GetByteArray(PhotoshopDirectory.TagResolutionInfo);
+                sbyte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagResolutionInfo);
                 if (bytes == null)
                 {
                     return null;
@@ -308,7 +308,7 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                sbyte[] bytes = _directory.GetByteArray(PhotoshopDirectory.TagVersion);
+                sbyte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagVersion);
                 if (bytes == null)
                 {
                     return null;
@@ -340,7 +340,7 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                sbyte[] bytes = _directory.GetByteArray(PhotoshopDirectory.TagSlices);
+                sbyte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagSlices);
                 if (bytes == null)
                 {
                     return null;
@@ -371,7 +371,7 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                sbyte[] v = _directory.GetByteArray(tagType);
+                sbyte[] v = Directory.GetByteArray(tagType);
                 if (v == null)
                 {
                     return null;
@@ -404,7 +404,7 @@ namespace Com.Drew.Metadata.Photoshop
         [CanBeNull]
         private string GetBooleanString(int tag)
         {
-            sbyte[] bytes = _directory.GetByteArray(tag);
+            sbyte[] bytes = Directory.GetByteArray(tag);
             if (bytes == null)
             {
                 return null;
@@ -415,7 +415,7 @@ namespace Com.Drew.Metadata.Photoshop
         [CanBeNull]
         private string Get32BitNumberString(int tag)
         {
-            sbyte[] bytes = _directory.GetByteArray(tag);
+            sbyte[] bytes = Directory.GetByteArray(tag);
             if (bytes == null)
             {
                 return null;
@@ -434,7 +434,7 @@ namespace Com.Drew.Metadata.Photoshop
         [CanBeNull]
         private string GetSimpleString(int tagType)
         {
-            sbyte[] bytes = _directory.GetByteArray(tagType);
+            sbyte[] bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
             {
                 return null;
@@ -445,7 +445,7 @@ namespace Com.Drew.Metadata.Photoshop
         [CanBeNull]
         private string GetBinaryDataString(int tagType)
         {
-            sbyte[] bytes = _directory.GetByteArray(tagType);
+            sbyte[] bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
             {
                 return null;

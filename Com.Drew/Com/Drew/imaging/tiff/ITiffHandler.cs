@@ -33,7 +33,7 @@ namespace Com.Drew.Imaging.Tiff
     /// .
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public interface TiffHandler
+    public interface ITiffHandler
     {
         /// <summary>Receives the 2-byte marker found in the TIFF header.</summary>
         /// <remarks>
@@ -50,7 +50,7 @@ namespace Com.Drew.Imaging.Tiff
 
         bool HasFollowerIfd();
 
-        void EndingIFD();
+        void EndingIfd();
 
         void Completed([NotNull] RandomAccessReader reader, int tiffHeaderOffset);
 
@@ -77,28 +77,28 @@ namespace Com.Drew.Imaging.Tiff
 
         void SetDoubleArray(int tagId, [NotNull] double[] array);
 
-        void SetInt8s(int tagId, sbyte int8s);
+        void SetInt8S(int tagId, sbyte int8S);
 
-        void SetInt8sArray(int tagId, [NotNull] sbyte[] array);
+        void SetInt8SArray(int tagId, [NotNull] sbyte[] array);
 
-        void SetInt8u(int tagId, short int8u);
+        void SetInt8U(int tagId, short int8U);
 
-        void SetInt8uArray(int tagId, [NotNull] short[] array);
+        void SetInt8UArray(int tagId, [NotNull] short[] array);
 
-        void SetInt16s(int tagId, int int16s);
+        void SetInt16S(int tagId, int int16S);
 
-        void SetInt16sArray(int tagId, [NotNull] short[] array);
+        void SetInt16SArray(int tagId, [NotNull] short[] array);
 
-        void SetInt16u(int tagId, int int16u);
+        void SetInt16U(int tagId, int int16U);
 
-        void SetInt16uArray(int tagId, [NotNull] int[] array);
+        void SetInt16UArray(int tagId, [NotNull] int[] array);
 
-        void SetInt32s(int tagId, int int32s);
+        void SetInt32S(int tagId, int int32S);
 
-        void SetInt32sArray(int tagId, [NotNull] int[] array);
+        void SetInt32SArray(int tagId, [NotNull] int[] array);
 
-        void SetInt32u(int tagId, long int32u);
+        void SetInt32U(int tagId, long int32U);
 
-        void SetInt32uArray(int tagId, [NotNull] long[] array);
+        void SetInt32UArray(int tagId, [NotNull] long[] array);
     }
 }

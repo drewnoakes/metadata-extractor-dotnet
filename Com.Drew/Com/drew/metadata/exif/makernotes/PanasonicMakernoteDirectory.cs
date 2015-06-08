@@ -467,80 +467,80 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public const int TagTransform1 = unchecked((int)(0x8012));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static PanasonicMakernoteDirectory()
         {
-            _tagNameMap.Put(TagQualityMode, "Quality Mode");
-            _tagNameMap.Put(TagFirmwareVersion, "Version");
-            _tagNameMap.Put(TagWhiteBalance, "White Balance");
-            _tagNameMap.Put(TagFocusMode, "Focus Mode");
-            _tagNameMap.Put(TagAfAreaMode, "AF Area Mode");
-            _tagNameMap.Put(TagImageStabilization, "Image Stabilization");
-            _tagNameMap.Put(TagMacroMode, "Macro Mode");
-            _tagNameMap.Put(TagRecordMode, "Record Mode");
-            _tagNameMap.Put(TagAudio, "Audio");
-            _tagNameMap.Put(TagInternalSerialNumber, "Internal Serial Number");
-            _tagNameMap.Put(TagUnknownDataDump, "Unknown Data Dump");
-            _tagNameMap.Put(TagEasyMode, "Easy Mode");
-            _tagNameMap.Put(TagWhiteBalanceBias, "White Balance Bias");
-            _tagNameMap.Put(TagFlashBias, "Flash Bias");
-            _tagNameMap.Put(TagExifVersion, "Exif Version");
-            _tagNameMap.Put(TagColorEffect, "Color Effect");
-            _tagNameMap.Put(TagUptime, "Camera Uptime");
-            _tagNameMap.Put(TagBurstMode, "Burst Mode");
-            _tagNameMap.Put(TagSequenceNumber, "Sequence Number");
-            _tagNameMap.Put(TagContrastMode, "Contrast Mode");
-            _tagNameMap.Put(TagNoiseReduction, "Noise Reduction");
-            _tagNameMap.Put(TagSelfTimer, "Self Timer");
-            _tagNameMap.Put(TagRotation, "Rotation");
-            _tagNameMap.Put(TagAfAssistLamp, "AF Assist Lamp");
-            _tagNameMap.Put(TagColorMode, "Color Mode");
-            _tagNameMap.Put(TagBabyAge, "Baby Age");
-            _tagNameMap.Put(TagOpticalZoomMode, "Optical Zoom Mode");
-            _tagNameMap.Put(TagConversionLens, "Conversion Lens");
-            _tagNameMap.Put(TagTravelDay, "Travel Day");
-            _tagNameMap.Put(TagContrast, "Contrast");
-            _tagNameMap.Put(TagWorldTimeLocation, "World Time Location");
-            _tagNameMap.Put(TagTextStamp, "Text Stamp");
-            _tagNameMap.Put(TagProgramIso, "Program ISO");
-            _tagNameMap.Put(TagAdvancedSceneMode, "Advanced Scene Mode");
-            _tagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info");
-            _tagNameMap.Put(TagFacesDetected, "Number of Detected Faces");
-            _tagNameMap.Put(TagSaturation, "Saturation");
-            _tagNameMap.Put(TagSharpness, "Sharpness");
-            _tagNameMap.Put(TagFilmMode, "Film Mode");
-            _tagNameMap.Put(TagWbAdjustAb, "White Balance Adjust (AB)");
-            _tagNameMap.Put(TagWbAdjustGm, "White Balance Adjust (GM)");
-            _tagNameMap.Put(TagAfPointPosition, "Af Point Position");
-            _tagNameMap.Put(TagFaceDetectionInfo, "Face Detection Info");
-            _tagNameMap.Put(TagLensType, "Lens Type");
-            _tagNameMap.Put(TagLensSerialNumber, "Lens Serial Number");
-            _tagNameMap.Put(TagAccessoryType, "Accessory Type");
-            _tagNameMap.Put(TagTransform, "Transform");
-            _tagNameMap.Put(TagIntelligentExposure, "Intelligent Exposure");
-            _tagNameMap.Put(TagFaceRecognitionInfo, "Face Recognition Info");
-            _tagNameMap.Put(TagFlashWarning, "Flash Warning");
-            _tagNameMap.Put(TagRecognizedFaceFlags, "Recognized Face Flags");
-            _tagNameMap.Put(TagTitle, "Title");
-            _tagNameMap.Put(TagBabyName, "Baby Name");
-            _tagNameMap.Put(TagLocation, "Location");
-            _tagNameMap.Put(TagCountry, "Country");
-            _tagNameMap.Put(TagState, "State");
-            _tagNameMap.Put(TagCity, "City");
-            _tagNameMap.Put(TagLandmark, "Landmark");
-            _tagNameMap.Put(TagIntelligentResolution, "Intelligent Resolution");
-            _tagNameMap.Put(TagMakernoteVersion, "Makernote Version");
-            _tagNameMap.Put(TagSceneMode, "Scene Mode");
-            _tagNameMap.Put(TagWbRedLevel, "White Balance (Red)");
-            _tagNameMap.Put(TagWbGreenLevel, "White Balance (Green)");
-            _tagNameMap.Put(TagWbBlueLevel, "White Balance (Blue)");
-            _tagNameMap.Put(TagFlashFired, "Flash Fired");
-            _tagNameMap.Put(TagTextStamp1, "Text Stamp 1");
-            _tagNameMap.Put(TagTextStamp2, "Text Stamp 2");
-            _tagNameMap.Put(TagTextStamp3, "Text Stamp 3");
-            _tagNameMap.Put(TagBabyAge1, "Baby Age 1");
-            _tagNameMap.Put(TagTransform1, "Transform 1");
+            TagNameMap.Put(TagQualityMode, "Quality Mode");
+            TagNameMap.Put(TagFirmwareVersion, "Version");
+            TagNameMap.Put(TagWhiteBalance, "White Balance");
+            TagNameMap.Put(TagFocusMode, "Focus Mode");
+            TagNameMap.Put(TagAfAreaMode, "AF Area Mode");
+            TagNameMap.Put(TagImageStabilization, "Image Stabilization");
+            TagNameMap.Put(TagMacroMode, "Macro Mode");
+            TagNameMap.Put(TagRecordMode, "Record Mode");
+            TagNameMap.Put(TagAudio, "Audio");
+            TagNameMap.Put(TagInternalSerialNumber, "Internal Serial Number");
+            TagNameMap.Put(TagUnknownDataDump, "Unknown Data Dump");
+            TagNameMap.Put(TagEasyMode, "Easy Mode");
+            TagNameMap.Put(TagWhiteBalanceBias, "White Balance Bias");
+            TagNameMap.Put(TagFlashBias, "Flash Bias");
+            TagNameMap.Put(TagExifVersion, "Exif Version");
+            TagNameMap.Put(TagColorEffect, "Color Effect");
+            TagNameMap.Put(TagUptime, "Camera Uptime");
+            TagNameMap.Put(TagBurstMode, "Burst Mode");
+            TagNameMap.Put(TagSequenceNumber, "Sequence Number");
+            TagNameMap.Put(TagContrastMode, "Contrast Mode");
+            TagNameMap.Put(TagNoiseReduction, "Noise Reduction");
+            TagNameMap.Put(TagSelfTimer, "Self Timer");
+            TagNameMap.Put(TagRotation, "Rotation");
+            TagNameMap.Put(TagAfAssistLamp, "AF Assist Lamp");
+            TagNameMap.Put(TagColorMode, "Color Mode");
+            TagNameMap.Put(TagBabyAge, "Baby Age");
+            TagNameMap.Put(TagOpticalZoomMode, "Optical Zoom Mode");
+            TagNameMap.Put(TagConversionLens, "Conversion Lens");
+            TagNameMap.Put(TagTravelDay, "Travel Day");
+            TagNameMap.Put(TagContrast, "Contrast");
+            TagNameMap.Put(TagWorldTimeLocation, "World Time Location");
+            TagNameMap.Put(TagTextStamp, "Text Stamp");
+            TagNameMap.Put(TagProgramIso, "Program ISO");
+            TagNameMap.Put(TagAdvancedSceneMode, "Advanced Scene Mode");
+            TagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info");
+            TagNameMap.Put(TagFacesDetected, "Number of Detected Faces");
+            TagNameMap.Put(TagSaturation, "Saturation");
+            TagNameMap.Put(TagSharpness, "Sharpness");
+            TagNameMap.Put(TagFilmMode, "Film Mode");
+            TagNameMap.Put(TagWbAdjustAb, "White Balance Adjust (AB)");
+            TagNameMap.Put(TagWbAdjustGm, "White Balance Adjust (GM)");
+            TagNameMap.Put(TagAfPointPosition, "Af Point Position");
+            TagNameMap.Put(TagFaceDetectionInfo, "Face Detection Info");
+            TagNameMap.Put(TagLensType, "Lens Type");
+            TagNameMap.Put(TagLensSerialNumber, "Lens Serial Number");
+            TagNameMap.Put(TagAccessoryType, "Accessory Type");
+            TagNameMap.Put(TagTransform, "Transform");
+            TagNameMap.Put(TagIntelligentExposure, "Intelligent Exposure");
+            TagNameMap.Put(TagFaceRecognitionInfo, "Face Recognition Info");
+            TagNameMap.Put(TagFlashWarning, "Flash Warning");
+            TagNameMap.Put(TagRecognizedFaceFlags, "Recognized Face Flags");
+            TagNameMap.Put(TagTitle, "Title");
+            TagNameMap.Put(TagBabyName, "Baby Name");
+            TagNameMap.Put(TagLocation, "Location");
+            TagNameMap.Put(TagCountry, "Country");
+            TagNameMap.Put(TagState, "State");
+            TagNameMap.Put(TagCity, "City");
+            TagNameMap.Put(TagLandmark, "Landmark");
+            TagNameMap.Put(TagIntelligentResolution, "Intelligent Resolution");
+            TagNameMap.Put(TagMakernoteVersion, "Makernote Version");
+            TagNameMap.Put(TagSceneMode, "Scene Mode");
+            TagNameMap.Put(TagWbRedLevel, "White Balance (Red)");
+            TagNameMap.Put(TagWbGreenLevel, "White Balance (Green)");
+            TagNameMap.Put(TagWbBlueLevel, "White Balance (Blue)");
+            TagNameMap.Put(TagFlashFired, "Flash Fired");
+            TagNameMap.Put(TagTextStamp1, "Text Stamp 1");
+            TagNameMap.Put(TagTextStamp2, "Text Stamp 2");
+            TagNameMap.Put(TagTextStamp3, "Text Stamp 3");
+            TagNameMap.Put(TagBabyAge1, "Baby Age 1");
+            TagNameMap.Put(TagTransform1, "Transform 1");
         }
 
         public PanasonicMakernoteDirectory()
@@ -557,7 +557,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
 
         [CanBeNull]

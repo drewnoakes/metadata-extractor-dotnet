@@ -79,20 +79,20 @@ namespace Com.Drew.Metadata.Jpeg
         public const int TagComponentData4 = 9;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static JpegDirectory()
         {
             // NOTE!  Component tag type int values must increment in steps of 1
-            _tagNameMap.Put(TagCompressionType, "Compression Type");
-            _tagNameMap.Put(TagDataPrecision, "Data Precision");
-            _tagNameMap.Put(TagImageWidth, "Image Width");
-            _tagNameMap.Put(TagImageHeight, "Image Height");
-            _tagNameMap.Put(TagNumberOfComponents, "Number of Components");
-            _tagNameMap.Put(TagComponentData1, "Component 1");
-            _tagNameMap.Put(TagComponentData2, "Component 2");
-            _tagNameMap.Put(TagComponentData3, "Component 3");
-            _tagNameMap.Put(TagComponentData4, "Component 4");
+            TagNameMap.Put(TagCompressionType, "Compression Type");
+            TagNameMap.Put(TagDataPrecision, "Data Precision");
+            TagNameMap.Put(TagImageWidth, "Image Width");
+            TagNameMap.Put(TagImageHeight, "Image Height");
+            TagNameMap.Put(TagNumberOfComponents, "Number of Components");
+            TagNameMap.Put(TagComponentData1, "Component 1");
+            TagNameMap.Put(TagComponentData2, "Component 2");
+            TagNameMap.Put(TagComponentData3, "Component 3");
+            TagNameMap.Put(TagComponentData4, "Component 4");
         }
 
         public JpegDirectory()
@@ -109,7 +109,7 @@ namespace Com.Drew.Metadata.Jpeg
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
 
         /// <param name="componentNumber">

@@ -17,7 +17,7 @@ namespace Com.Adobe.Xmp.Impl
     /// <code>SerializeOptions</code>.
     /// </summary>
     /// <since>11.07.2006</since>
-    public static class XMPSerializerHelper
+    public static class XmpSerializerHelper
     {
         /// <summary>Static method to serialize the metadata object.</summary>
         /// <remarks>
@@ -28,8 +28,8 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="xmp">a metadata implementation object</param>
         /// <param name="out">the output stream to serialize to</param>
         /// <param name="options">serialization options, can be <code>null</code> for default.</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static void Serialize(XMPMetaImpl xmp, OutputStream @out, SerializeOptions options)
+        /// <exception cref="XmpException"/>
+        public static void Serialize(XmpMeta xmp, OutputStream @out, SerializeOptions options)
         {
             options = options != null ? options : new SerializeOptions();
             // sort the internal data model on demand
@@ -37,7 +37,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 xmp.Sort();
             }
-            new XMPSerializerRDF().Serialize(xmp, @out, options);
+            new XmpSerializerRdf().Serialize(xmp, @out, options);
         }
 
         /// <summary>Serializes an <code>XMPMeta</code>-object as RDF into a string.</summary>
@@ -53,12 +53,12 @@ namespace Com.Adobe.Xmp.Impl
         /// ).
         /// </param>
         /// <returns>Returns a string containing the serialized RDF.</returns>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">on serializsation errors.</exception>
-        public static string SerializeToString(XMPMetaImpl xmp, SerializeOptions options)
+        /// <exception cref="XmpException">on serializsation errors.</exception>
+        public static string SerializeToString(XmpMeta xmp, SerializeOptions options)
         {
             // forces the encoding to be UTF-16 to get the correct string length
             options = options != null ? options : new SerializeOptions();
-            options.SetEncodeUTF16BE(true);
+            options.SetEncodeUtf16Be(true);
             ByteArrayOutputStream @out = new ByteArrayOutputStream(2048);
             Serialize(xmp, @out, options);
             try
@@ -81,8 +81,8 @@ namespace Com.Adobe.Xmp.Impl
         /// ).
         /// </param>
         /// <returns>Returns a byte buffer containing the serialized RDF.</returns>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">on serializsation errors.</exception>
-        public static sbyte[] SerializeToBuffer(XMPMetaImpl xmp, SerializeOptions options)
+        /// <exception cref="XmpException">on serializsation errors.</exception>
+        public static sbyte[] SerializeToBuffer(XmpMeta xmp, SerializeOptions options)
         {
             ByteArrayOutputStream @out = new ByteArrayOutputStream(2048);
             Serialize(xmp, @out, options);

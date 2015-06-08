@@ -33,7 +33,7 @@ namespace Com.Drew.Metadata.Jpeg
     [Serializable]
     public class JpegComponent
     {
-        private const long serialVersionUID = 61121257899091914L;
+        private const long SerialVersionUid = 61121257899091914L;
 
         private readonly int _componentId;
 

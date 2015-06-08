@@ -165,7 +165,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 case SonyType1MakernoteDirectory.TagAfPointSelected:
                 {
-                    return GetAFPointSelectedDescription();
+                    return GetAfPointSelectedDescription();
                 }
 
                 case SonyType1MakernoteDirectory.TagSonyModelId:
@@ -175,12 +175,12 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 case SonyType1MakernoteDirectory.TagAfMode:
                 {
-                    return GetAFModeDescription();
+                    return GetAfModeDescription();
                 }
 
                 case SonyType1MakernoteDirectory.TagAfIlluminator:
                 {
-                    return GetAFIlluminatorDescription();
+                    return GetAfIlluminatorDescription();
                 }
 
                 case SonyType1MakernoteDirectory.TagFlashLevel:
@@ -220,7 +220,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetTeleconverterDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagTeleconverter);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagTeleconverter);
             if (value == null)
             {
                 return null;
@@ -272,7 +272,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetWhiteBalanceDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagWhiteBalance);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagWhiteBalance);
             if (value == null)
             {
                 return null;
@@ -334,7 +334,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetColorTemperatureDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagColorTemperature);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagColorTemperature);
             if (value == null)
             {
                 return null;
@@ -356,7 +356,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetDynamicRangeOptimizerDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagDynamicRangeOptimiser);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagDynamicRangeOptimiser);
             if (value == null)
             {
                 return null;
@@ -443,7 +443,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetImageStabilizationDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagImageStabilisation);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagImageStabilisation);
             if (value == null)
             {
                 return null;
@@ -470,7 +470,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetColorModeDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagColorMode);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagColorMode);
             if (value == null)
             {
                 return null;
@@ -571,7 +571,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetMacroDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagMacro);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagMacro);
             if (value == null)
             {
                 return null;
@@ -608,7 +608,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetExposureModeDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagExposureMode);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagExposureMode);
             if (value == null)
             {
                 return null;
@@ -780,7 +780,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetJpegQualityDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagJpegQuality);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagJpegQuality);
             if (value == null)
             {
                 return null;
@@ -817,7 +817,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetAntiBlurDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagAntiBlur);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagAntiBlur);
             if (value == null)
             {
                 return null;
@@ -854,7 +854,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetLongExposureNoiseReductionDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagLongExposureNoiseReductionOrFocusMode);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagLongExposureNoiseReductionOrFocusMode);
             if (value == null)
             {
                 return null;
@@ -886,7 +886,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetHighIsoNoiseReductionDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagHighIsoNoiseReduction);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagHighIsoNoiseReduction);
             if (value == null)
             {
                 return null;
@@ -933,7 +933,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetPictureEffectDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagPictureEffect);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagPictureEffect);
             if (value == null)
             {
                 return null;
@@ -1164,7 +1164,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetAFPointSelectedDescription()
+        public virtual string GetAfPointSelectedDescription()
         {
             return GetIndexedDescription(SonyType1MakernoteDirectory.TagAfPointSelected, "Auto", "Center", "Top", "Upper-right", "Right", "Lower-right", "Bottom", "Lower-left", "Left", "Upper-left          ", "Far Right", "Far Left", "Upper-middle", "Near Right"
                 , "Lower-middle", "Near Left", "Upper Far Right", "Lower Far Right", "Lower Far Left", "Upper Far Left");
@@ -1193,7 +1193,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetSonyModelIdDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagSonyModelId);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagSonyModelId);
             if (value == null)
             {
                 return null;
@@ -1400,7 +1400,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetSceneModeDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagSceneMode);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagSceneMode);
             if (value == null)
             {
                 return null;
@@ -1530,9 +1530,9 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetAFModeDescription()
+        public virtual string GetAfModeDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagAfMode);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagAfMode);
             if (value == null)
             {
                 return null;
@@ -1592,9 +1592,9 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetAFIlluminatorDescription()
+        public virtual string GetAfIlluminatorDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagAfIlluminator);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagAfIlluminator);
             if (value == null)
             {
                 return null;
@@ -1626,7 +1626,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetFlashLevelDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagFlashLevel);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagFlashLevel);
             if (value == null)
             {
                 return null;
@@ -1693,7 +1693,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetReleaseModeDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagReleaseMode);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagReleaseMode);
             if (value == null)
             {
                 return null;
@@ -1735,7 +1735,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetSequenceNumberDescription()
         {
-            int? value = _directory.GetInteger(SonyType1MakernoteDirectory.TagReleaseMode);
+            int? value = Directory.GetInteger(SonyType1MakernoteDirectory.TagReleaseMode);
             if (value == null)
             {
                 return null;

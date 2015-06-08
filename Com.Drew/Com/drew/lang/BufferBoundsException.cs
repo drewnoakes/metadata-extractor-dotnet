@@ -37,7 +37,7 @@ namespace Com.Drew.Lang
     [Serializable]
     public sealed class BufferBoundsException : IOException
     {
-        private const long serialVersionUID = 2911102837808946396L;
+        private const long SerialVersionUid = 2911102837808946396L;
 
         public BufferBoundsException(int index, int bytesRequested, long bufferLength)
             : base(GetMessage(index, bytesRequested, bufferLength))

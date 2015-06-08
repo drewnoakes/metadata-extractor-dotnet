@@ -27,22 +27,22 @@ namespace Com.Drew.Metadata.Exif
 {
     /// <summary>Describes Exif tags from the SubIFD directory.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ExifSubIFDDirectory : ExifDirectoryBase
+    public class ExifSubIfdDirectory : ExifDirectoryBase
     {
         /// <summary>This tag is a pointer to the Exif Interop IFD.</summary>
         public const int TagInteropOffset = unchecked((int)(0xA005));
 
-        public ExifSubIFDDirectory()
+        public ExifSubIfdDirectory()
         {
-            this.SetDescriptor(new ExifSubIFDDescriptor(this));
+            this.SetDescriptor(new ExifSubIfdDescriptor(this));
         }
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
-        static ExifSubIFDDirectory()
+        static ExifSubIfdDirectory()
         {
-            AddExifTagNames(_tagNameMap);
+            AddExifTagNames(TagNameMap);
         }
 
         [NotNull]
@@ -54,7 +54,7 @@ namespace Com.Drew.Metadata.Exif
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

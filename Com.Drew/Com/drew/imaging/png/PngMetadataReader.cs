@@ -13,25 +13,25 @@ namespace Com.Drew.Imaging.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class PngMetadataReader
     {
-        private static readonly ICollection<PngChunkType> _desiredChunkTypes;
+        private static readonly ICollection<PngChunkType> DesiredChunkTypes;
 
         static PngMetadataReader()
         {
             ICollection<PngChunkType> desiredChunkTypes = new HashSet<PngChunkType>();
             desiredChunkTypes.Add(PngChunkType.Ihdr);
             desiredChunkTypes.Add(PngChunkType.Plte);
-            desiredChunkTypes.Add(PngChunkType.tRNS);
-            desiredChunkTypes.Add(PngChunkType.cHRM);
-            desiredChunkTypes.Add(PngChunkType.sRGB);
-            desiredChunkTypes.Add(PngChunkType.gAMA);
-            desiredChunkTypes.Add(PngChunkType.iCCP);
-            desiredChunkTypes.Add(PngChunkType.bKGD);
-            desiredChunkTypes.Add(PngChunkType.tEXt);
-            desiredChunkTypes.Add(PngChunkType.iTXt);
-            desiredChunkTypes.Add(PngChunkType.tIME);
-            desiredChunkTypes.Add(PngChunkType.pHYs);
-            desiredChunkTypes.Add(PngChunkType.sBIT);
-            _desiredChunkTypes = Collections.UnmodifiableSet(desiredChunkTypes);
+            desiredChunkTypes.Add(PngChunkType.TRns);
+            desiredChunkTypes.Add(PngChunkType.CHrm);
+            desiredChunkTypes.Add(PngChunkType.SRgb);
+            desiredChunkTypes.Add(PngChunkType.GAma);
+            desiredChunkTypes.Add(PngChunkType.ICcp);
+            desiredChunkTypes.Add(PngChunkType.BKgd);
+            desiredChunkTypes.Add(PngChunkType.TEXt);
+            desiredChunkTypes.Add(PngChunkType.ITXt);
+            desiredChunkTypes.Add(PngChunkType.TIme);
+            desiredChunkTypes.Add(PngChunkType.PHYs);
+            desiredChunkTypes.Add(PngChunkType.SBit);
+            DesiredChunkTypes = Collections.UnmodifiableSet(desiredChunkTypes);
         }
 
         /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
@@ -58,7 +58,7 @@ namespace Com.Drew.Imaging.Png
         [NotNull]
         public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
         {
-            Iterable<PngChunk> chunks = new PngChunkReader().Extract(new StreamReader(inputStream), _desiredChunkTypes);
+            Iterable<PngChunk> chunks = new PngChunkReader().Extract(new StreamReader(inputStream), DesiredChunkTypes);
             Metadata.Metadata metadata = new Metadata.Metadata();
             foreach (PngChunk chunk in chunks)
             {
@@ -103,24 +103,24 @@ namespace Com.Drew.Imaging.Png
                 }
                 else
                 {
-                    if (chunkType.Equals(PngChunkType.tRNS))
+                    if (chunkType.Equals(PngChunkType.TRns))
                     {
-                        PngDirectory directory = new PngDirectory(PngChunkType.tRNS);
+                        PngDirectory directory = new PngDirectory(PngChunkType.TRns);
                         directory.SetInt(PngDirectory.TagPaletteHasTransparency, 1);
                         metadata.AddDirectory(directory);
                     }
                     else
                     {
-                        if (chunkType.Equals(PngChunkType.sRGB))
+                        if (chunkType.Equals(PngChunkType.SRgb))
                         {
                             int srgbRenderingIntent = new SequentialByteArrayReader(bytes).GetInt8();
-                            PngDirectory directory = new PngDirectory(PngChunkType.sRGB);
+                            PngDirectory directory = new PngDirectory(PngChunkType.SRgb);
                             directory.SetInt(PngDirectory.TagSrgbRenderingIntent, srgbRenderingIntent);
                             metadata.AddDirectory(directory);
                         }
                         else
                         {
-                            if (chunkType.Equals(PngChunkType.cHRM))
+                            if (chunkType.Equals(PngChunkType.CHrm))
                             {
                                 PngChromaticities chromaticities = new PngChromaticities(bytes);
                                 PngChromaticitiesDirectory directory = new PngChromaticitiesDirectory();
@@ -136,20 +136,20 @@ namespace Com.Drew.Imaging.Png
                             }
                             else
                             {
-                                if (chunkType.Equals(PngChunkType.gAMA))
+                                if (chunkType.Equals(PngChunkType.GAma))
                                 {
                                     int gammaInt = new SequentialByteArrayReader(bytes).GetInt32();
-                                    PngDirectory directory = new PngDirectory(PngChunkType.gAMA);
+                                    PngDirectory directory = new PngDirectory(PngChunkType.GAma);
                                     directory.SetDouble(PngDirectory.TagGamma, gammaInt / 100000.0);
                                     metadata.AddDirectory(directory);
                                 }
                                 else
                                 {
-                                    if (chunkType.Equals(PngChunkType.iCCP))
+                                    if (chunkType.Equals(PngChunkType.ICcp))
                                     {
                                         SequentialReader reader = new SequentialByteArrayReader(bytes);
                                         string profileName = reader.GetNullTerminatedString(79);
-                                        PngDirectory directory = new PngDirectory(PngChunkType.iCCP);
+                                        PngDirectory directory = new PngDirectory(PngChunkType.ICcp);
                                         directory.SetString(PngDirectory.TagIccProfileName, profileName);
                                         sbyte compressionMethod = reader.GetInt8();
                                         if (compressionMethod == 0)
@@ -166,15 +166,15 @@ namespace Com.Drew.Imaging.Png
                                     }
                                     else
                                     {
-                                        if (chunkType.Equals(PngChunkType.bKGD))
+                                        if (chunkType.Equals(PngChunkType.BKgd))
                                         {
-                                            PngDirectory directory = new PngDirectory(PngChunkType.bKGD);
+                                            PngDirectory directory = new PngDirectory(PngChunkType.BKgd);
                                             directory.SetByteArray(PngDirectory.TagBackgroundColor, bytes);
                                             metadata.AddDirectory(directory);
                                         }
                                         else
                                         {
-                                            if (chunkType.Equals(PngChunkType.tEXt))
+                                            if (chunkType.Equals(PngChunkType.TEXt))
                                             {
                                                 SequentialReader reader = new SequentialByteArrayReader(bytes);
                                                 string keyword = reader.GetNullTerminatedString(79);
@@ -182,13 +182,13 @@ namespace Com.Drew.Imaging.Png
                                                 string value = reader.GetNullTerminatedString(bytesLeft);
                                                 IList<KeyValuePair> textPairs = new AList<KeyValuePair>();
                                                 textPairs.Add(new KeyValuePair(keyword, value));
-                                                PngDirectory directory = new PngDirectory(PngChunkType.iTXt);
+                                                PngDirectory directory = new PngDirectory(PngChunkType.ITXt);
                                                 directory.SetObject(PngDirectory.TagTextualData, textPairs);
                                                 metadata.AddDirectory(directory);
                                             }
                                             else
                                             {
-                                                if (chunkType.Equals(PngChunkType.iTXt))
+                                                if (chunkType.Equals(PngChunkType.ITXt))
                                                 {
                                                     SequentialReader reader = new SequentialByteArrayReader(bytes);
                                                     string keyword = reader.GetNullTerminatedString(79);
@@ -212,14 +212,14 @@ namespace Com.Drew.Imaging.Png
                                                             }
                                                             else
                                                             {
-                                                                PngDirectory directory = new PngDirectory(PngChunkType.iTXt);
+                                                                PngDirectory directory = new PngDirectory(PngChunkType.ITXt);
                                                                 directory.AddError("Invalid compression method value");
                                                                 metadata.AddDirectory(directory);
                                                             }
                                                         }
                                                         else
                                                         {
-                                                            PngDirectory directory = new PngDirectory(PngChunkType.iTXt);
+                                                            PngDirectory directory = new PngDirectory(PngChunkType.ITXt);
                                                             directory.AddError("Invalid compression flag value");
                                                             metadata.AddDirectory(directory);
                                                         }
@@ -235,7 +235,7 @@ namespace Com.Drew.Imaging.Png
                                                         {
                                                             IList<KeyValuePair> textPairs = new AList<KeyValuePair>();
                                                             textPairs.Add(new KeyValuePair(keyword, text));
-                                                            PngDirectory directory = new PngDirectory(PngChunkType.iTXt);
+                                                            PngDirectory directory = new PngDirectory(PngChunkType.ITXt);
                                                             directory.SetObject(PngDirectory.TagTextualData, textPairs);
                                                             metadata.AddDirectory(directory);
                                                         }
@@ -243,7 +243,7 @@ namespace Com.Drew.Imaging.Png
                                                 }
                                                 else
                                                 {
-                                                    if (chunkType.Equals(PngChunkType.tIME))
+                                                    if (chunkType.Equals(PngChunkType.TIme))
                                                     {
                                                         SequentialByteArrayReader reader = new SequentialByteArrayReader(bytes);
                                                         int year = reader.GetUInt16();
@@ -255,19 +255,19 @@ namespace Com.Drew.Imaging.Png
                                                         Calendar calendar = Calendar.GetInstance(Extensions.GetTimeZone("UTC"));
                                                         //noinspection MagicConstant
                                                         calendar.Set(year, month, day, hour, minute, second);
-                                                        PngDirectory directory = new PngDirectory(PngChunkType.tIME);
+                                                        PngDirectory directory = new PngDirectory(PngChunkType.TIme);
                                                         directory.SetDate(PngDirectory.TagLastModificationTime, calendar.GetTime());
                                                         metadata.AddDirectory(directory);
                                                     }
                                                     else
                                                     {
-                                                        if (chunkType.Equals(PngChunkType.pHYs))
+                                                        if (chunkType.Equals(PngChunkType.PHYs))
                                                         {
                                                             SequentialByteArrayReader reader = new SequentialByteArrayReader(bytes);
                                                             int pixelsPerUnitX = reader.GetInt32();
                                                             int pixelsPerUnitY = reader.GetInt32();
                                                             sbyte unitSpecifier = reader.GetInt8();
-                                                            PngDirectory directory = new PngDirectory(PngChunkType.pHYs);
+                                                            PngDirectory directory = new PngDirectory(PngChunkType.PHYs);
                                                             directory.SetInt(PngDirectory.TagPixelsPerUnitX, pixelsPerUnitX);
                                                             directory.SetInt(PngDirectory.TagPixelsPerUnitY, pixelsPerUnitY);
                                                             directory.SetInt(PngDirectory.TagUnitSpecifier, unitSpecifier);
@@ -275,9 +275,9 @@ namespace Com.Drew.Imaging.Png
                                                         }
                                                         else
                                                         {
-                                                            if (chunkType.Equals(PngChunkType.sBIT))
+                                                            if (chunkType.Equals(PngChunkType.SBit))
                                                             {
-                                                                PngDirectory directory = new PngDirectory(PngChunkType.sBIT);
+                                                                PngDirectory directory = new PngDirectory(PngChunkType.SBit);
                                                                 directory.SetByteArray(PngDirectory.TagSignificantBits, bytes);
                                                                 metadata.AddDirectory(directory);
                                                             }

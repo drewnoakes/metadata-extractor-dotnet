@@ -26,19 +26,19 @@ namespace Com.Drew.Metadata.Gif
         public const int TagPixelAspectRatio = 9;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static GifHeaderDirectory()
         {
-            _tagNameMap.Put(TagGifFormatVersion, "GIF Format Version");
-            _tagNameMap.Put(TagImageHeight, "Image Height");
-            _tagNameMap.Put(TagImageWidth, "Image Width");
-            _tagNameMap.Put(TagColorTableSize, "Color Table Size");
-            _tagNameMap.Put(TagIsColorTableSorted, "Is Color Table Sorted");
-            _tagNameMap.Put(TagBitsPerPixel, "Bits per Pixel");
-            _tagNameMap.Put(TagHasGlobalColorTable, "Has Global Color Table");
-            _tagNameMap.Put(TagTransparentColorIndex, "Transparent Color Index");
-            _tagNameMap.Put(TagPixelAspectRatio, "Pixel Aspect Ratio");
+            TagNameMap.Put(TagGifFormatVersion, "GIF Format Version");
+            TagNameMap.Put(TagImageHeight, "Image Height");
+            TagNameMap.Put(TagImageWidth, "Image Width");
+            TagNameMap.Put(TagColorTableSize, "Color Table Size");
+            TagNameMap.Put(TagIsColorTableSorted, "Is Color Table Sorted");
+            TagNameMap.Put(TagBitsPerPixel, "Bits per Pixel");
+            TagNameMap.Put(TagHasGlobalColorTable, "Has Global Color Table");
+            TagNameMap.Put(TagTransparentColorIndex, "Transparent Color Index");
+            TagNameMap.Put(TagPixelAspectRatio, "Pixel Aspect Ratio");
         }
 
         public GifHeaderDirectory()
@@ -55,7 +55,7 @@ namespace Com.Drew.Metadata.Gif
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

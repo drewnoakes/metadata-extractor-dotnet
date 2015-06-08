@@ -67,7 +67,7 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public override string GetCompressionDescription()
         {
-            int? value = _directory.GetInteger(ExifThumbnailDirectory.TagThumbnailCompression);
+            int? value = Directory.GetInteger(ExifThumbnailDirectory.TagThumbnailCompression);
             if (value == null)
             {
                 return null;
@@ -219,14 +219,14 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetThumbnailLengthDescription()
         {
-            string value = _directory.GetString(ExifThumbnailDirectory.TagThumbnailLength);
+            string value = Directory.GetString(ExifThumbnailDirectory.TagThumbnailLength);
             return value == null ? null : value + " bytes";
         }
 
         [CanBeNull]
         public virtual string GetThumbnailOffsetDescription()
         {
-            string value = _directory.GetString(ExifThumbnailDirectory.TagThumbnailOffset);
+            string value = Directory.GetString(ExifThumbnailDirectory.TagThumbnailOffset);
             return value == null ? null : value + " bytes";
         }
     }

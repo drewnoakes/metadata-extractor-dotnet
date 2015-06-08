@@ -9,7 +9,7 @@
 
 namespace Com.Adobe.Xmp
 {
-    public static class XMPErrorConstants
+    public static class XmpErrorConstants
     {
         public const int Unknown = 0;
 

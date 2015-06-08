@@ -46,18 +46,18 @@ namespace Com.Drew.Metadata.Png
         public const int TagBlueY = 8;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static PngChromaticitiesDirectory()
         {
-            _tagNameMap.Put(TagWhitePointX, "White Point X");
-            _tagNameMap.Put(TagWhitePointY, "White Point Y");
-            _tagNameMap.Put(TagRedX, "Red X");
-            _tagNameMap.Put(TagRedY, "Red Y");
-            _tagNameMap.Put(TagGreenX, "Green X");
-            _tagNameMap.Put(TagGreenY, "Green Y");
-            _tagNameMap.Put(TagBlueX, "Blue X");
-            _tagNameMap.Put(TagBlueY, "Blue Y");
+            TagNameMap.Put(TagWhitePointX, "White Point X");
+            TagNameMap.Put(TagWhitePointY, "White Point Y");
+            TagNameMap.Put(TagRedX, "Red X");
+            TagNameMap.Put(TagRedY, "Red Y");
+            TagNameMap.Put(TagGreenX, "Green X");
+            TagNameMap.Put(TagGreenY, "Green Y");
+            TagNameMap.Put(TagBlueX, "Blue X");
+            TagNameMap.Put(TagBlueY, "Blue Y");
         }
 
         public PngChromaticitiesDirectory()
@@ -74,7 +74,7 @@ namespace Com.Drew.Metadata.Png
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

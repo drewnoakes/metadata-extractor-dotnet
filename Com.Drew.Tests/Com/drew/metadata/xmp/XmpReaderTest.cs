@@ -83,7 +83,7 @@ namespace Com.Drew.Metadata.Xmp
         [Test]
         public virtual void TestExtract_HasXMPMeta()
         {
-            Assert.IsNotNull(_directory.GetXMPMeta());
+            Assert.IsNotNull(_directory.GetXmpMeta());
         }
 
         /// <exception cref="System.Exception"/>

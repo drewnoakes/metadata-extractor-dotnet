@@ -40,7 +40,7 @@ namespace Com.Drew.Metadata.Jpeg
         [CanBeNull]
         public virtual string GetJpegCommentDescription()
         {
-            return _directory.GetString(JpegCommentDirectory.TagComment);
+            return Directory.GetString(JpegCommentDirectory.TagComment);
         }
     }
 }

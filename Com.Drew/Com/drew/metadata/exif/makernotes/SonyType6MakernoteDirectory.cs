@@ -37,15 +37,15 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public const int TagMakernoteThumbVersion = unchecked((int)(0x2000));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static SonyType6MakernoteDirectory()
         {
             //    public static final int TAG_UNKNOWN_1 = 0x0515;
-            _tagNameMap.Put(TagMakernoteThumbOffset, "Makernote Thumb Offset");
-            _tagNameMap.Put(TagMakernoteThumbLength, "Makernote Thumb Length");
+            TagNameMap.Put(TagMakernoteThumbOffset, "Makernote Thumb Offset");
+            TagNameMap.Put(TagMakernoteThumbLength, "Makernote Thumb Length");
             //        _tagNameMap.put(TAG_UNKNOWN_1, "Sony-6-0x0203");
-            _tagNameMap.Put(TagMakernoteThumbVersion, "Makernote Thumb Version");
+            TagNameMap.Put(TagMakernoteThumbVersion, "Makernote Thumb Version");
         }
 
         public SonyType6MakernoteDirectory()
@@ -62,7 +62,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }

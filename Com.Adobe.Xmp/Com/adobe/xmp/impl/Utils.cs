@@ -24,10 +24,10 @@ namespace Com.Adobe.Xmp.Impl
         public const int UuidLength = 32 + UuidSegmentCount;
 
         /// <summary>table of XML name start chars (&lt;= 0xFF)</summary>
-        private static bool[] xmlNameStartChars;
+        private static bool[] _xmlNameStartChars;
 
         /// <summary>table of XML name chars (&lt;= 0xFF)</summary>
-        private static bool[] xmlNameChars;
+        private static bool[] _xmlNameChars;
 
         static Utils()
         {
@@ -55,7 +55,7 @@ namespace Com.Adobe.Xmp.Impl
         public static string NormalizeLangValue(string value)
         {
             // don't normalize x-default
-            if (XMPConstConstants.XDefault.Equals(value))
+            if (XmpConstConstants.XDefault.Equals(value))
             {
                 return value;
             }
@@ -161,7 +161,7 @@ namespace Com.Adobe.Xmp.Impl
         internal static bool IsInternalProperty(string schema, string prop)
         {
             bool isInternal = false;
-            if (XMPConstConstants.NsDc.Equals(schema))
+            if (XmpConstConstants.NsDc.Equals(schema))
             {
                 if ("dc:format".Equals(prop) || "dc:language".Equals(prop))
                 {
@@ -170,7 +170,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             else
             {
-                if (XMPConstConstants.NsXmp.Equals(schema))
+                if (XmpConstConstants.NsXmp.Equals(schema))
                 {
                     if ("xmp:BaseURL".Equals(prop) || "xmp:CreatorTool".Equals(prop) || "xmp:Format".Equals(prop) || "xmp:Locale".Equals(prop) || "xmp:MetadataDate".Equals(prop) || "xmp:ModifyDate".Equals(prop))
                     {
@@ -179,7 +179,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 else
                 {
-                    if (XMPConstConstants.NsPdf.Equals(schema))
+                    if (XmpConstConstants.NsPdf.Equals(schema))
                     {
                         if ("pdf:BaseURL".Equals(prop) || "pdf:Creator".Equals(prop) || "pdf:ModDate".Equals(prop) || "pdf:PDFVersion".Equals(prop) || "pdf:Producer".Equals(prop))
                         {
@@ -188,7 +188,7 @@ namespace Com.Adobe.Xmp.Impl
                     }
                     else
                     {
-                        if (XMPConstConstants.NsTiff.Equals(schema))
+                        if (XmpConstConstants.NsTiff.Equals(schema))
                         {
                             isInternal = true;
                             if ("tiff:ImageDescription".Equals(prop) || "tiff:Artist".Equals(prop) || "tiff:Copyright".Equals(prop))
@@ -198,7 +198,7 @@ namespace Com.Adobe.Xmp.Impl
                         }
                         else
                         {
-                            if (XMPConstConstants.NsExif.Equals(schema))
+                            if (XmpConstConstants.NsExif.Equals(schema))
                             {
                                 isInternal = true;
                                 if ("exif:UserComment".Equals(prop))
@@ -208,13 +208,13 @@ namespace Com.Adobe.Xmp.Impl
                             }
                             else
                             {
-                                if (XMPConstConstants.NsExifAux.Equals(schema))
+                                if (XmpConstConstants.NsExifAux.Equals(schema))
                                 {
                                     isInternal = true;
                                 }
                                 else
                                 {
-                                    if (XMPConstConstants.NsPhotoshop.Equals(schema))
+                                    if (XmpConstConstants.NsPhotoshop.Equals(schema))
                                     {
                                         if ("photoshop:ICCProfile".Equals(prop))
                                         {
@@ -223,7 +223,7 @@ namespace Com.Adobe.Xmp.Impl
                                     }
                                     else
                                     {
-                                        if (XMPConstConstants.NsCameraraw.Equals(schema))
+                                        if (XmpConstConstants.NsCameraraw.Equals(schema))
                                         {
                                             if ("crs:Version".Equals(prop) || "crs:RawFileName".Equals(prop) || "crs:ToneCurveName".Equals(prop))
                                             {
@@ -232,43 +232,43 @@ namespace Com.Adobe.Xmp.Impl
                                         }
                                         else
                                         {
-                                            if (XMPConstConstants.NsAdobestockphoto.Equals(schema))
+                                            if (XmpConstConstants.NsAdobestockphoto.Equals(schema))
                                             {
                                                 isInternal = true;
                                             }
                                             else
                                             {
-                                                if (XMPConstConstants.NsXmpMm.Equals(schema))
+                                                if (XmpConstConstants.NsXmpMm.Equals(schema))
                                                 {
                                                     isInternal = true;
                                                 }
                                                 else
                                                 {
-                                                    if (XMPConstConstants.TypeText.Equals(schema))
+                                                    if (XmpConstConstants.TypeText.Equals(schema))
                                                     {
                                                         isInternal = true;
                                                     }
                                                     else
                                                     {
-                                                        if (XMPConstConstants.TypePagedfile.Equals(schema))
+                                                        if (XmpConstConstants.TypePagedfile.Equals(schema))
                                                         {
                                                             isInternal = true;
                                                         }
                                                         else
                                                         {
-                                                            if (XMPConstConstants.TypeGraphics.Equals(schema))
+                                                            if (XmpConstConstants.TypeGraphics.Equals(schema))
                                                             {
                                                                 isInternal = true;
                                                             }
                                                             else
                                                             {
-                                                                if (XMPConstConstants.TypeImage.Equals(schema))
+                                                                if (XmpConstConstants.TypeImage.Equals(schema))
                                                                 {
                                                                     isInternal = true;
                                                                 }
                                                                 else
                                                                 {
-                                                                    if (XMPConstConstants.TypeFont.Equals(schema))
+                                                                    if (XmpConstConstants.TypeFont.Equals(schema))
                                                                     {
                                                                         isInternal = true;
                                                                     }
@@ -299,7 +299,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </summary>
         /// <param name="uuid">uuid to test</param>
         /// <returns>true - this is a well formed UUID, false - UUID has not the expected format</returns>
-        internal static bool CheckUUIDFormat(string uuid)
+        internal static bool CheckUuidFormat(string uuid)
         {
             bool result = true;
             int delimCnt = 0;
@@ -328,7 +328,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </remarks>
         /// <param name="name">an XML Name</param>
         /// <returns>Return <code>true</code> if the name is correct.</returns>
-        public static bool IsXMLName(string name)
+        public static bool IsXmlName(string name)
         {
             if (name.Length > 0 && !IsNameStartChar(name[0]))
             {
@@ -355,7 +355,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </remarks>
         /// <param name="name">the value to check</param>
         /// <returns>Returns true if the name is a valid "unqualified" XML name.</returns>
-        public static bool IsXMLNameNS(string name)
+        public static bool IsXmlNameNs(string name)
         {
             if (name.Length > 0 && (!IsNameStartChar(name[0]) || name[0] == ':'))
             {
@@ -391,7 +391,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="forAttribute">flag if string is attribute value (need to additional escape quotes)</param>
         /// <param name="escapeWhitespaces">Decides if LF, CR and TAB are escaped.</param>
         /// <returns>Returns the value ready for XML output.</returns>
-        public static string EscapeXML(string value, bool forAttribute, bool escapeWhitespaces)
+        public static string EscapeXml(string value, bool forAttribute, bool escapeWhitespaces)
         {
             // quick check if character are contained that need special treatment
             bool needsEscaping = false;
@@ -414,9 +414,9 @@ namespace Com.Adobe.Xmp.Impl
             {
                 // slow path with escaping
                 StringBuilder buffer = new StringBuilder(value.Length * 4 / 3);
-                for (int i_1 = 0; i_1 < value.Length; i_1++)
+                for (int i1 = 0; i1 < value.Length; i1++)
                 {
-                    char c = value[i_1];
+                    char c = value[i1];
                     if (!(escapeWhitespaces && (c == '\t' || c == '\n' || c == '\r')))
                     {
                         switch (c)
@@ -493,7 +493,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns true if the character is a valid first char of an XML name.</returns>
         private static bool IsNameStartChar(char ch)
         {
-            return (ch <= unchecked((int)(0xFF)) && xmlNameStartChars[ch]) || (ch >= unchecked((int)(0x100)) && ch <= unchecked((int)(0x2FF))) || (ch >= unchecked((int)(0x370)) && ch <= unchecked((int)(0x37D))) || (ch >= unchecked((int)(0x37F)) && ch <=
+            return (ch <= unchecked((int)(0xFF)) && _xmlNameStartChars[ch]) || (ch >= unchecked((int)(0x100)) && ch <= unchecked((int)(0x2FF))) || (ch >= unchecked((int)(0x370)) && ch <= unchecked((int)(0x37D))) || (ch >= unchecked((int)(0x37F)) && ch <=
                  unchecked((int)(0x1FFF))) || (ch >= unchecked((int)(0x200C)) && ch <= unchecked((int)(0x200D))) || (ch >= unchecked((int)(0x2070)) && ch <= unchecked((int)(0x218F))) || (ch >= unchecked((int)(0x2C00)) && ch <= unchecked((int)(0x2FEF))) ||
                 (ch >= unchecked((int)(0x3001)) && ch <= unchecked((int)(0xD7FF))) || (ch >= unchecked((int)(0xF900)) && ch <= unchecked((int)(0xFDCF))) || (ch >= unchecked((int)(0xFDF0)) && ch <= unchecked((int)(0xFFFD))) || (ch >= unchecked((int)(0x10000
                 )) && ch <= unchecked((int)(0xEFFFF)));
@@ -508,7 +508,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns true if the character is a valid char of an XML name.</returns>
         private static bool IsNameChar(char ch)
         {
-            return (ch <= unchecked((int)(0xFF)) && xmlNameChars[ch]) || IsNameStartChar(ch) || (ch >= unchecked((int)(0x300)) && ch <= unchecked((int)(0x36F))) || (ch >= unchecked((int)(0x203F)) && ch <= unchecked((int)(0x2040)));
+            return (ch <= unchecked((int)(0xFF)) && _xmlNameChars[ch]) || IsNameStartChar(ch) || (ch >= unchecked((int)(0x300)) && ch <= unchecked((int)(0x36F))) || (ch >= unchecked((int)(0x203F)) && ch <= unchecked((int)(0x2040)));
         }
 
         /// <summary>
@@ -518,13 +518,13 @@ namespace Com.Adobe.Xmp.Impl
         /// </summary>
         private static void InitCharTables()
         {
-            xmlNameChars = new bool[unchecked((int)(0x0100))];
-            xmlNameStartChars = new bool[unchecked((int)(0x0100))];
-            for (char ch = (char)0; ch < xmlNameChars.Length; ch++)
+            _xmlNameChars = new bool[unchecked((int)(0x0100))];
+            _xmlNameStartChars = new bool[unchecked((int)(0x0100))];
+            for (char ch = (char)0; ch < _xmlNameChars.Length; ch++)
             {
-                xmlNameStartChars[ch] = ch == ':' || ('A' <= ch && ch <= 'Z') || ch == '_' || ('a' <= ch && ch <= 'z') || (unchecked((int)(0xC0)) <= ch && ch <= unchecked((int)(0xD6))) || (unchecked((int)(0xD8)) <= ch && ch <= unchecked((int)(0xF6))) || (unchecked(
+                _xmlNameStartChars[ch] = ch == ':' || ('A' <= ch && ch <= 'Z') || ch == '_' || ('a' <= ch && ch <= 'z') || (unchecked((int)(0xC0)) <= ch && ch <= unchecked((int)(0xD6))) || (unchecked((int)(0xD8)) <= ch && ch <= unchecked((int)(0xF6))) || (unchecked(
                     (int)(0xF8)) <= ch && ch <= unchecked((int)(0xFF)));
-                xmlNameChars[ch] = xmlNameStartChars[ch] || ch == '-' || ch == '.' || ('0' <= ch && ch <= '9') || ch == unchecked((int)(0xB7));
+                _xmlNameChars[ch] = _xmlNameStartChars[ch] || ch == '-' || ch == '.' || ('0' <= ch && ch <= '9') || ch == unchecked((int)(0xB7));
             }
         }
     }

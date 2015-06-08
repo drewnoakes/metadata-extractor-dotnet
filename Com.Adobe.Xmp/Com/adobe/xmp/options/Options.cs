@@ -22,10 +22,10 @@ namespace Com.Adobe.Xmp.Options
     public abstract class Options
     {
         /// <summary>the internal int containing all options</summary>
-        private int options = 0;
+        private int _options = 0;
 
         /// <summary>a map containing the bit names</summary>
-        private IDictionary optionNames = null;
+        private IDictionary _optionNames = null;
 
         /// <summary>The default constructor.</summary>
         public Options()
@@ -34,7 +34,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <summary>Constructor with the options bit mask.</summary>
         /// <param name="options">the options bit mask</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">If the options are not correct</exception>
+        /// <exception cref="XmpException">If the options are not correct</exception>
         public Options(int options)
         {
             // EMTPY
@@ -45,7 +45,7 @@ namespace Com.Adobe.Xmp.Options
         /// <summary>Resets the options.</summary>
         public virtual void Clear()
         {
-            options = 0;
+            _options = 0;
         }
 
         /// <param name="optionBits">an option bitmask</param>
@@ -73,29 +73,29 @@ namespace Com.Adobe.Xmp.Options
         /// <returns>Returns if <emp>all</emp> of the requested bits are set or not.</returns>
         protected internal virtual bool GetOption(int optionBit)
         {
-            return (options & optionBit) != 0;
+            return (_options & optionBit) != 0;
         }
 
         /// <param name="optionBits">the binary bit or bits that shall be set to the given value</param>
         /// <param name="value">the boolean value to set</param>
         public virtual void SetOption(int optionBits, bool value)
         {
-            options = value ? options | optionBits : options & ~optionBits;
+            _options = value ? _options | optionBits : _options & ~optionBits;
         }
 
         /// <summary>Is friendly to access it during the tests.</summary>
         /// <returns>Returns the options.</returns>
         public virtual int GetOptions()
         {
-            return options;
+            return _options;
         }
 
         /// <param name="options">The options to set.</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"></exception>
+        /// <exception cref="XmpException"></exception>
         public virtual void SetOptions(int options)
         {
             AssertOptionsValid(options);
-            this.options = options;
+            this._options = options;
         }
 
         /// <seealso cref="object.Equals(object)"/>
@@ -121,10 +121,10 @@ namespace Com.Adobe.Xmp.Options
         /// </returns>
         public virtual string GetOptionsString()
         {
-            if (options != 0)
+            if (_options != 0)
             {
                 StringBuilder sb = new StringBuilder();
-                int theBits = options;
+                int theBits = _options;
                 while (theBits != 0)
                 {
                     int oneLessBit = theBits & (theBits - 1);
@@ -149,7 +149,7 @@ namespace Com.Adobe.Xmp.Options
         /// <returns>Returns the options as hex bitmask.</returns>
         public override string ToString()
         {
-            return "0x" + Extensions.ToHexString(options);
+            return "0x" + Extensions.ToHexString(_options);
         }
 
         /// <summary>To be implemeted by inheritants.</summary>
@@ -171,7 +171,7 @@ namespace Com.Adobe.Xmp.Options
         /// (it has to be made public therefore).
         /// </remarks>
         /// <param name="options">the bitmask to check.</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">Thrown if the options are not consistent.</exception>
+        /// <exception cref="XmpException">Thrown if the options are not consistent.</exception>
         protected internal virtual void AssertConsistency(int options)
         {
         }
@@ -186,7 +186,7 @@ namespace Com.Adobe.Xmp.Options
         /// -method is called.
         /// </remarks>
         /// <param name="options">the options to check</param>
-        /// <exception cref="Com.Adobe.Xmp.XMPException">Thrown if the options are invalid.</exception>
+        /// <exception cref="XmpException">Thrown if the options are invalid.</exception>
         private void AssertOptionsValid(int options)
         {
             int invalidOptions = options & ~GetValidOptions();
@@ -196,7 +196,7 @@ namespace Com.Adobe.Xmp.Options
             }
             else
             {
-                throw new XMPException("The option bit(s) 0x" + Extensions.ToHexString(invalidOptions) + " are invalid!", XMPErrorConstants.Badoptions);
+                throw new XmpException("The option bit(s) 0x" + Extensions.ToHexString(invalidOptions) + " are invalid!", XmpErrorConstants.Badoptions);
             }
         }
 
@@ -230,11 +230,11 @@ namespace Com.Adobe.Xmp.Options
         /// <returns>Returns the optionNames map and creates it if required.</returns>
         private IDictionary ProcureOptionNames()
         {
-            if (optionNames == null)
+            if (_optionNames == null)
             {
-                optionNames = new Hashtable();
+                _optionNames = new Hashtable();
             }
-            return optionNames;
+            return _optionNames;
         }
     }
 }

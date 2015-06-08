@@ -34,7 +34,7 @@ namespace Com.Drew.Metadata.Webp
 {
     /// <summary>
     /// Implementation of
-    /// <see cref="Com.Drew.Imaging.Riff.RiffHandler"/>
+    /// <see cref="IRiffHandler"/>
     /// specialising in WebP support.
     /// Extracts data from chunk types:
     /// <ul>
@@ -44,7 +44,7 @@ namespace Com.Drew.Metadata.Webp
     /// <li><code>"XMP "</code>: full XMP data</li>
     /// </ul>
     /// </summary>
-    public class WebpRiffHandler : RiffHandler
+    public class WebpRiffHandler : IRiffHandler
     {
         [NotNull]
         private readonly Metadata _metadata;
@@ -59,33 +59,33 @@ namespace Com.Drew.Metadata.Webp
             return identifier.Equals("WEBP");
         }
 
-        public virtual bool ShouldAcceptChunk([NotNull] string fourCC)
+        public virtual bool ShouldAcceptChunk([NotNull] string fourCc)
         {
-            return fourCC.Equals("VP8X") || fourCC.Equals("EXIF") || fourCC.Equals("ICCP") || fourCC.Equals("XMP ");
+            return fourCc.Equals("VP8X") || fourCc.Equals("EXIF") || fourCc.Equals("ICCP") || fourCc.Equals("XMP ");
         }
 
-        public virtual void ProcessChunk([NotNull] string fourCC, [NotNull] sbyte[] payload)
+        public virtual void ProcessChunk([NotNull] string fourCc, [NotNull] sbyte[] payload)
         {
             //        System.out.println("Chunk " + fourCC + " " + payload.length + " bytes");
-            if (fourCC.Equals("EXIF"))
+            if (fourCc.Equals("EXIF"))
             {
                 new ExifReader().Extract(new ByteArrayReader(payload), _metadata);
             }
             else
             {
-                if (fourCC.Equals("ICCP"))
+                if (fourCc.Equals("ICCP"))
                 {
                     new IccReader().Extract(new ByteArrayReader(payload), _metadata);
                 }
                 else
                 {
-                    if (fourCC.Equals("XMP "))
+                    if (fourCc.Equals("XMP "))
                     {
                         new XmpReader().Extract(payload, _metadata);
                     }
                     else
                     {
-                        if (fourCC.Equals("VP8X") && payload.Length == 10)
+                        if (fourCc.Equals("VP8X") && payload.Length == 10)
                         {
                             RandomAccessReader reader = new ByteArrayReader(payload);
                             reader.SetMotorolaByteOrder(false);

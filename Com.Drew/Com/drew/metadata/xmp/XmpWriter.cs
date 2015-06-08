@@ -17,13 +17,13 @@ namespace Com.Drew.Metadata.Xmp
             {
                 return false;
             }
-            XMPMeta meta = dir.GetXMPMeta();
+            IXmpMeta meta = dir.GetXmpMeta();
             try
             {
                 SerializeOptions so = new SerializeOptions().SetOmitPacketWrapper(true);
-                XMPMetaFactory.Serialize(meta, os, so);
+                XmpMetaFactory.Serialize(meta, os, so);
             }
-            catch (XMPException e)
+            catch (XmpException e)
             {
                 Runtime.PrintStackTrace(e);
                 return false;

@@ -37,9 +37,9 @@ namespace Com.Drew.Lang
             {
                 trie.AddPath(s, Runtime.GetBytesForString(s));
             }
-            foreach (string s_1 in strings)
+            foreach (string s1 in strings)
             {
-                Assert.AreSame(s_1, trie.Find(Runtime.GetBytesForString(s_1)));
+                Assert.AreSame(s1, trie.Find(Runtime.GetBytesForString(s1)));
             }
             Assert.IsNull(trie.Find(Runtime.GetBytesForString("Not Included")));
             Assert.IsNull(trie.Find(Runtime.GetBytesForString("HELL")));

@@ -10,7 +10,7 @@ namespace Com.Drew.Imaging.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class PngChunkType
     {
-        private static readonly ICollection<string> _identifiersAllowingMultiples = new HashSet<string>(Arrays.AsList("IDAT", "sPLT", "iTXt", "tEXt", "zTXt"));
+        private static readonly ICollection<string> IdentifiersAllowingMultiples = new HashSet<string>(Arrays.AsList("IDAT", "sPLT", "iTXt", "tEXt", "zTXt"));
 
         /// <summary>
         /// Denotes a critical
@@ -56,29 +56,29 @@ namespace Com.Drew.Imaging.Png
 
         public static readonly PngChunkType Iend = new PngChunkType("IEND");
 
-        public static readonly PngChunkType cHRM = new PngChunkType("cHRM");
+        public static readonly PngChunkType CHrm = new PngChunkType("cHRM");
 
-        public static readonly PngChunkType gAMA = new PngChunkType("gAMA");
+        public static readonly PngChunkType GAma = new PngChunkType("gAMA");
 
-        public static readonly PngChunkType iCCP = new PngChunkType("iCCP");
+        public static readonly PngChunkType ICcp = new PngChunkType("iCCP");
 
-        public static readonly PngChunkType sBIT = new PngChunkType("sBIT");
+        public static readonly PngChunkType SBit = new PngChunkType("sBIT");
 
-        public static readonly PngChunkType sRGB = new PngChunkType("sRGB");
+        public static readonly PngChunkType SRgb = new PngChunkType("sRGB");
 
-        public static readonly PngChunkType bKGD = new PngChunkType("bKGD");
+        public static readonly PngChunkType BKgd = new PngChunkType("bKGD");
 
-        public static readonly PngChunkType hIST = new PngChunkType("hIST");
+        public static readonly PngChunkType HIst = new PngChunkType("hIST");
 
-        public static readonly PngChunkType tRNS = new PngChunkType("tRNS");
+        public static readonly PngChunkType TRns = new PngChunkType("tRNS");
 
-        public static readonly PngChunkType pHYs = new PngChunkType("pHYs");
+        public static readonly PngChunkType PHYs = new PngChunkType("pHYs");
 
-        public static readonly PngChunkType sPLT = new PngChunkType("sPLT", true);
+        public static readonly PngChunkType SPlt = new PngChunkType("sPLT", true);
 
-        public static readonly PngChunkType tIME = new PngChunkType("tIME");
+        public static readonly PngChunkType TIme = new PngChunkType("tIME");
 
-        public static readonly PngChunkType iTXt = new PngChunkType("iTXt", true);
+        public static readonly PngChunkType ITXt = new PngChunkType("iTXt", true);
 
         /// <summary>
         /// Denotes an ancillary
@@ -95,9 +95,9 @@ namespace Com.Drew.Imaging.Png
         /// Text is interpreted according to the Latin-1 character set [ISO-8859-1].
         /// Newlines should be represented by a single linefeed character (0x9).
         /// </summary>
-        public static readonly PngChunkType tEXt = new PngChunkType("tEXt", true);
+        public static readonly PngChunkType TEXt = new PngChunkType("tEXt", true);
 
-        public static readonly PngChunkType zTXt = new PngChunkType("zTXt", true);
+        public static readonly PngChunkType ZTXt = new PngChunkType("zTXt", true);
 
         private readonly sbyte[] _bytes;
 
@@ -128,7 +128,7 @@ namespace Com.Drew.Imaging.Png
         {
             ValidateBytes(bytes);
             _bytes = bytes;
-            _multipleAllowed = _identifiersAllowingMultiples.Contains(GetIdentifier());
+            _multipleAllowed = IdentifiersAllowingMultiples.Contains(GetIdentifier());
         }
 
         private static void ValidateBytes(sbyte[] bytes)

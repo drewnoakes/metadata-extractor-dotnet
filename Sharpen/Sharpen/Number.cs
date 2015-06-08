@@ -4,11 +4,11 @@ namespace Sharpen
 {
     public class Number
     {
-        private readonly decimal m_value;
+        private readonly decimal _mValue;
 
         private Number(decimal value)
         {
-            m_value = value;
+            _mValue = value;
         }
 
         public Number()
@@ -17,32 +17,32 @@ namespace Sharpen
 
         public virtual double DoubleValue()
         {
-            return (double) m_value;
+            return (double) _mValue;
         }
 
         public virtual float FloatValue()
         {
-            return (float) m_value;
+            return (float) _mValue;
         }
 
         public virtual sbyte ByteValue()
         {
-            return (sbyte) m_value;
+            return (sbyte) _mValue;
         }
 
         public virtual int IntValue()
         {
-            return (int) m_value;
+            return (int) _mValue;
         }
 
         public virtual long LongValue()
         {
-            return (long) m_value;
+            return (long) _mValue;
         }
 
         public virtual short ShortValue()
         {
-            return (short) m_value;
+            return (short) _mValue;
         }
 
         public static Number GetInstance(object obj)

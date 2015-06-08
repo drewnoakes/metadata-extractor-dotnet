@@ -185,7 +185,7 @@ namespace Com.Drew.Metadata.Iptc
         public const int TagObjectPreviewData = unchecked((int)(0x02CA));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static IptcDirectory()
         {
@@ -268,83 +268,83 @@ namespace Com.Drew.Metadata.Iptc
             // 200
             // 201
             // 202
-            _tagNameMap.Put(TagEnvelopeRecordVersion, "Enveloped Record Version");
-            _tagNameMap.Put(TagDestination, "Destination");
-            _tagNameMap.Put(TagFileFormat, "File Format");
-            _tagNameMap.Put(TagFileVersion, "File Version");
-            _tagNameMap.Put(TagServiceId, "Service Identifier");
-            _tagNameMap.Put(TagEnvelopeNumber, "Envelope Number");
-            _tagNameMap.Put(TagProductId, "Product Identifier");
-            _tagNameMap.Put(TagEnvelopePriority, "Envelope Priority");
-            _tagNameMap.Put(TagDateSent, "Date Sent");
-            _tagNameMap.Put(TagTimeSent, "Time Sent");
-            _tagNameMap.Put(TagCodedCharacterSet, "Coded Character Set");
-            _tagNameMap.Put(TagUniqueObjectName, "Unique Object Name");
-            _tagNameMap.Put(TagArmIdentifier, "ARM Identifier");
-            _tagNameMap.Put(TagArmVersion, "ARM Version");
-            _tagNameMap.Put(TagApplicationRecordVersion, "Application Record Version");
-            _tagNameMap.Put(TagObjectTypeReference, "Object Type Reference");
-            _tagNameMap.Put(TagObjectAttributeReference, "Object Attribute Reference");
-            _tagNameMap.Put(TagObjectName, "Object Name");
-            _tagNameMap.Put(TagEditStatus, "Edit Status");
-            _tagNameMap.Put(TagEditorialUpdate, "Editorial Update");
-            _tagNameMap.Put(TagUrgency, "Urgency");
-            _tagNameMap.Put(TagSubjectReference, "Subject Reference");
-            _tagNameMap.Put(TagCategory, "Category");
-            _tagNameMap.Put(TagSupplementalCategories, "Supplemental Category(s)");
-            _tagNameMap.Put(TagFixtureId, "Fixture Identifier");
-            _tagNameMap.Put(TagKeywords, "Keywords");
-            _tagNameMap.Put(TagContentLocationCode, "Content Location Code");
-            _tagNameMap.Put(TagContentLocationName, "Content Location Name");
-            _tagNameMap.Put(TagReleaseDate, "Release Date");
-            _tagNameMap.Put(TagReleaseTime, "Release Time");
-            _tagNameMap.Put(TagExpirationDate, "Expiration Date");
-            _tagNameMap.Put(TagExpirationTime, "Expiration Time");
-            _tagNameMap.Put(TagSpecialInstructions, "Special Instructions");
-            _tagNameMap.Put(TagActionAdvised, "Action Advised");
-            _tagNameMap.Put(TagReferenceService, "Reference Service");
-            _tagNameMap.Put(TagReferenceDate, "Reference Date");
-            _tagNameMap.Put(TagReferenceNumber, "Reference Number");
-            _tagNameMap.Put(TagDateCreated, "Date Created");
-            _tagNameMap.Put(TagTimeCreated, "Time Created");
-            _tagNameMap.Put(TagDigitalDateCreated, "Digital Date Created");
-            _tagNameMap.Put(TagDigitalTimeCreated, "Digital Time Created");
-            _tagNameMap.Put(TagOriginatingProgram, "Originating Program");
-            _tagNameMap.Put(TagProgramVersion, "Program Version");
-            _tagNameMap.Put(TagObjectCycle, "Object Cycle");
-            _tagNameMap.Put(TagByLine, "By-line");
-            _tagNameMap.Put(TagByLineTitle, "By-line Title");
-            _tagNameMap.Put(TagCity, "City");
-            _tagNameMap.Put(TagSubLocation, "Sub-location");
-            _tagNameMap.Put(TagProvinceOrState, "Province/State");
-            _tagNameMap.Put(TagCountryOrPrimaryLocationCode, "Country/Primary Location Code");
-            _tagNameMap.Put(TagCountryOrPrimaryLocationName, "Country/Primary Location Name");
-            _tagNameMap.Put(TagOriginalTransmissionReference, "Original Transmission Reference");
-            _tagNameMap.Put(TagHeadline, "Headline");
-            _tagNameMap.Put(TagCredit, "Credit");
-            _tagNameMap.Put(TagSource, "Source");
-            _tagNameMap.Put(TagCopyrightNotice, "Copyright Notice");
-            _tagNameMap.Put(TagContact, "Contact");
-            _tagNameMap.Put(TagCaption, "Caption/Abstract");
-            _tagNameMap.Put(TagLocalCaption, "Local Caption");
-            _tagNameMap.Put(TagCaptionWriter, "Caption Writer/Editor");
-            _tagNameMap.Put(TagRasterizedCaption, "Rasterized Caption");
-            _tagNameMap.Put(TagImageType, "Image Type");
-            _tagNameMap.Put(TagImageOrientation, "Image Orientation");
-            _tagNameMap.Put(TagLanguageIdentifier, "Language Identifier");
-            _tagNameMap.Put(TagAudioType, "Audio Type");
-            _tagNameMap.Put(TagAudioSamplingRate, "Audio Sampling Rate");
-            _tagNameMap.Put(TagAudioSamplingResolution, "Audio Sampling Resolution");
-            _tagNameMap.Put(TagAudioDuration, "Audio Duration");
-            _tagNameMap.Put(TagAudioOutcue, "Audio Outcue");
-            _tagNameMap.Put(TagJobId, "Job Identifier");
-            _tagNameMap.Put(TagMasterDocumentId, "Master Document Identifier");
-            _tagNameMap.Put(TagShortDocumentId, "Short Document Identifier");
-            _tagNameMap.Put(TagUniqueDocumentId, "Unique Document Identifier");
-            _tagNameMap.Put(TagOwnerId, "Owner Identifier");
-            _tagNameMap.Put(TagObjectPreviewFileFormat, "Object Data Preview File Format");
-            _tagNameMap.Put(TagObjectPreviewFileFormatVersion, "Object Data Preview File Format Version");
-            _tagNameMap.Put(TagObjectPreviewData, "Object Data Preview Data");
+            TagNameMap.Put(TagEnvelopeRecordVersion, "Enveloped Record Version");
+            TagNameMap.Put(TagDestination, "Destination");
+            TagNameMap.Put(TagFileFormat, "File Format");
+            TagNameMap.Put(TagFileVersion, "File Version");
+            TagNameMap.Put(TagServiceId, "Service Identifier");
+            TagNameMap.Put(TagEnvelopeNumber, "Envelope Number");
+            TagNameMap.Put(TagProductId, "Product Identifier");
+            TagNameMap.Put(TagEnvelopePriority, "Envelope Priority");
+            TagNameMap.Put(TagDateSent, "Date Sent");
+            TagNameMap.Put(TagTimeSent, "Time Sent");
+            TagNameMap.Put(TagCodedCharacterSet, "Coded Character Set");
+            TagNameMap.Put(TagUniqueObjectName, "Unique Object Name");
+            TagNameMap.Put(TagArmIdentifier, "ARM Identifier");
+            TagNameMap.Put(TagArmVersion, "ARM Version");
+            TagNameMap.Put(TagApplicationRecordVersion, "Application Record Version");
+            TagNameMap.Put(TagObjectTypeReference, "Object Type Reference");
+            TagNameMap.Put(TagObjectAttributeReference, "Object Attribute Reference");
+            TagNameMap.Put(TagObjectName, "Object Name");
+            TagNameMap.Put(TagEditStatus, "Edit Status");
+            TagNameMap.Put(TagEditorialUpdate, "Editorial Update");
+            TagNameMap.Put(TagUrgency, "Urgency");
+            TagNameMap.Put(TagSubjectReference, "Subject Reference");
+            TagNameMap.Put(TagCategory, "Category");
+            TagNameMap.Put(TagSupplementalCategories, "Supplemental Category(s)");
+            TagNameMap.Put(TagFixtureId, "Fixture Identifier");
+            TagNameMap.Put(TagKeywords, "Keywords");
+            TagNameMap.Put(TagContentLocationCode, "Content Location Code");
+            TagNameMap.Put(TagContentLocationName, "Content Location Name");
+            TagNameMap.Put(TagReleaseDate, "Release Date");
+            TagNameMap.Put(TagReleaseTime, "Release Time");
+            TagNameMap.Put(TagExpirationDate, "Expiration Date");
+            TagNameMap.Put(TagExpirationTime, "Expiration Time");
+            TagNameMap.Put(TagSpecialInstructions, "Special Instructions");
+            TagNameMap.Put(TagActionAdvised, "Action Advised");
+            TagNameMap.Put(TagReferenceService, "Reference Service");
+            TagNameMap.Put(TagReferenceDate, "Reference Date");
+            TagNameMap.Put(TagReferenceNumber, "Reference Number");
+            TagNameMap.Put(TagDateCreated, "Date Created");
+            TagNameMap.Put(TagTimeCreated, "Time Created");
+            TagNameMap.Put(TagDigitalDateCreated, "Digital Date Created");
+            TagNameMap.Put(TagDigitalTimeCreated, "Digital Time Created");
+            TagNameMap.Put(TagOriginatingProgram, "Originating Program");
+            TagNameMap.Put(TagProgramVersion, "Program Version");
+            TagNameMap.Put(TagObjectCycle, "Object Cycle");
+            TagNameMap.Put(TagByLine, "By-line");
+            TagNameMap.Put(TagByLineTitle, "By-line Title");
+            TagNameMap.Put(TagCity, "City");
+            TagNameMap.Put(TagSubLocation, "Sub-location");
+            TagNameMap.Put(TagProvinceOrState, "Province/State");
+            TagNameMap.Put(TagCountryOrPrimaryLocationCode, "Country/Primary Location Code");
+            TagNameMap.Put(TagCountryOrPrimaryLocationName, "Country/Primary Location Name");
+            TagNameMap.Put(TagOriginalTransmissionReference, "Original Transmission Reference");
+            TagNameMap.Put(TagHeadline, "Headline");
+            TagNameMap.Put(TagCredit, "Credit");
+            TagNameMap.Put(TagSource, "Source");
+            TagNameMap.Put(TagCopyrightNotice, "Copyright Notice");
+            TagNameMap.Put(TagContact, "Contact");
+            TagNameMap.Put(TagCaption, "Caption/Abstract");
+            TagNameMap.Put(TagLocalCaption, "Local Caption");
+            TagNameMap.Put(TagCaptionWriter, "Caption Writer/Editor");
+            TagNameMap.Put(TagRasterizedCaption, "Rasterized Caption");
+            TagNameMap.Put(TagImageType, "Image Type");
+            TagNameMap.Put(TagImageOrientation, "Image Orientation");
+            TagNameMap.Put(TagLanguageIdentifier, "Language Identifier");
+            TagNameMap.Put(TagAudioType, "Audio Type");
+            TagNameMap.Put(TagAudioSamplingRate, "Audio Sampling Rate");
+            TagNameMap.Put(TagAudioSamplingResolution, "Audio Sampling Resolution");
+            TagNameMap.Put(TagAudioDuration, "Audio Duration");
+            TagNameMap.Put(TagAudioOutcue, "Audio Outcue");
+            TagNameMap.Put(TagJobId, "Job Identifier");
+            TagNameMap.Put(TagMasterDocumentId, "Master Document Identifier");
+            TagNameMap.Put(TagShortDocumentId, "Short Document Identifier");
+            TagNameMap.Put(TagUniqueDocumentId, "Unique Document Identifier");
+            TagNameMap.Put(TagOwnerId, "Owner Identifier");
+            TagNameMap.Put(TagObjectPreviewFileFormat, "Object Data Preview File Format");
+            TagNameMap.Put(TagObjectPreviewFileFormatVersion, "Object Data Preview File Format Version");
+            TagNameMap.Put(TagObjectPreviewData, "Object Data Preview Data");
         }
 
         public IptcDirectory()
@@ -361,7 +361,7 @@ namespace Com.Drew.Metadata.Iptc
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
 
         /// <summary>Returns any keywords contained in the IPTC data.</summary>

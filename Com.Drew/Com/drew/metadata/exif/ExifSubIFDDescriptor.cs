@@ -26,13 +26,13 @@ namespace Com.Drew.Metadata.Exif
 {
     /// <summary>
     /// Provides human-readable string representations of tag values stored in a
-    /// <see cref="ExifSubIFDDirectory"/>
+    /// <see cref="ExifSubIfdDirectory"/>
     /// .
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ExifSubIFDDescriptor : ExifDescriptorBase<ExifSubIFDDirectory>
+    public class ExifSubIfdDescriptor : ExifDescriptorBase<ExifSubIfdDirectory>
     {
-        public ExifSubIFDDescriptor([NotNull] ExifSubIFDDirectory directory)
+        public ExifSubIfdDescriptor([NotNull] ExifSubIfdDirectory directory)
             : base(directory)
         {
         }

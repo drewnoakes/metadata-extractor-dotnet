@@ -13,7 +13,7 @@ using Sharpen;
 namespace Com.Adobe.Xmp.Impl
 {
     /// <since>22.08.2006</since>
-    public class FixASCIIControlsReader : PushbackReader
+    public class FixAsciiControlsReader : PushbackReader
     {
         private const int StateStart = 0;
 
@@ -30,18 +30,18 @@ namespace Com.Adobe.Xmp.Impl
         private const int BufferSize = 8;
 
         /// <summary>the state of the automaton</summary>
-        private int state = StateStart;
+        private int _state = StateStart;
 
         /// <summary>the result of the escaping sequence</summary>
-        private int control = 0;
+        private int _control = 0;
 
         /// <summary>count the digits of the sequence</summary>
-        private int digits = 0;
+        private int _digits = 0;
 
         /// <summary>The look-ahead size is 6 at maximum (&amp;#xAB;)</summary>
         /// <seealso cref="System.IO.PushbackReader.PushbackReader(System.IO.StreamReader, int)"/>
         /// <param name="in">a Reader</param>
-        public FixASCIIControlsReader(StreamReader @in)
+        public FixAsciiControlsReader(StreamReader @in)
             : base(@in, BufferSize)
         {
         }
@@ -61,7 +61,7 @@ namespace Com.Adobe.Xmp.Impl
                 if (available)
                 {
                     char c = ProcessChar(readAheadBuffer[readAhead]);
-                    if (state == StateStart)
+                    if (_state == StateStart)
                     {
                         // replace control chars with space
                         if (Utils.IsControlChar(c))
@@ -74,7 +74,7 @@ namespace Com.Adobe.Xmp.Impl
                     }
                     else
                     {
-                        if (state == StateError)
+                        if (_state == StateError)
                         {
                             Unread(readAheadBuffer, 0, readAhead + 1);
                             readAhead = 0;
@@ -91,7 +91,7 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         // handles case when file ends within excaped sequence
                         Unread(readAheadBuffer, 0, readAhead);
-                        state = StateError;
+                        _state = StateError;
                         readAhead = 0;
                         available = true;
                     }
@@ -105,13 +105,13 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns the char directly or as replacement for the escaped sequence.</returns>
         private char ProcessChar(char ch)
         {
-            switch (state)
+            switch (_state)
             {
                 case StateStart:
                 {
                     if (ch == '&')
                     {
-                        state = StateAmp;
+                        _state = StateAmp;
                     }
                     return ch;
                 }
@@ -120,11 +120,11 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if (ch == '#')
                     {
-                        state = StateHash;
+                        _state = StateHash;
                     }
                     else
                     {
-                        state = StateError;
+                        _state = StateError;
                     }
                     return ch;
                 }
@@ -133,21 +133,21 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if (ch == 'x')
                     {
-                        control = 0;
-                        digits = 0;
-                        state = StateHex;
+                        _control = 0;
+                        _digits = 0;
+                        _state = StateHex;
                     }
                     else
                     {
                         if ('0' <= ch && ch <= '9')
                         {
-                            control = Extensions.Digit(ch, 10);
-                            digits = 1;
-                            state = StateDig1;
+                            _control = Extensions.Digit(ch, 10);
+                            _digits = 1;
+                            _state = StateDig1;
                         }
                         else
                         {
-                            state = StateError;
+                            _state = StateError;
                         }
                     }
                     return ch;
@@ -157,28 +157,28 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if ('0' <= ch && ch <= '9')
                     {
-                        control = control * 10 + Extensions.Digit(ch, 10);
-                        digits++;
-                        if (digits <= 5)
+                        _control = _control * 10 + Extensions.Digit(ch, 10);
+                        _digits++;
+                        if (_digits <= 5)
                         {
-                            state = StateDig1;
+                            _state = StateDig1;
                         }
                         else
                         {
-                            state = StateError;
+                            _state = StateError;
                         }
                     }
                     else
                     {
                         // sequence too long
-                        if (ch == ';' && Utils.IsControlChar((char)control))
+                        if (ch == ';' && Utils.IsControlChar((char)_control))
                         {
-                            state = StateStart;
-                            return (char)control;
+                            _state = StateStart;
+                            return (char)_control;
                         }
                         else
                         {
-                            state = StateError;
+                            _state = StateError;
                         }
                     }
                     return ch;
@@ -188,28 +188,28 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if (('0' <= ch && ch <= '9') || ('a' <= ch && ch <= 'f') || ('A' <= ch && ch <= 'F'))
                     {
-                        control = control * 16 + Extensions.Digit(ch, 16);
-                        digits++;
-                        if (digits <= 4)
+                        _control = _control * 16 + Extensions.Digit(ch, 16);
+                        _digits++;
+                        if (_digits <= 4)
                         {
-                            state = StateHex;
+                            _state = StateHex;
                         }
                         else
                         {
-                            state = StateError;
+                            _state = StateError;
                         }
                     }
                     else
                     {
                         // sequence too long
-                        if (ch == ';' && Utils.IsControlChar((char)control))
+                        if (ch == ';' && Utils.IsControlChar((char)_control))
                         {
-                            state = StateStart;
-                            return (char)control;
+                            _state = StateStart;
+                            return (char)_control;
                         }
                         else
                         {
-                            state = StateError;
+                            _state = StateError;
                         }
                     }
                     return ch;
@@ -217,7 +217,7 @@ namespace Com.Adobe.Xmp.Impl
 
                 case StateError:
                 {
-                    state = StateStart;
+                    _state = StateStart;
                     return ch;
                 }
 

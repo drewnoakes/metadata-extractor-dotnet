@@ -112,7 +112,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetCcdSensitivityDescription()
         {
-            int? value = _directory.GetInteger(CasioType1MakernoteDirectory.TagCcdSensitivity);
+            int? value = Directory.GetInteger(CasioType1MakernoteDirectory.TagCcdSensitivity);
             if (value == null)
             {
                 return null;
@@ -179,7 +179,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetDigitalZoomDescription()
         {
-            int? value = _directory.GetInteger(CasioType1MakernoteDirectory.TagDigitalZoom);
+            int? value = Directory.GetInteger(CasioType1MakernoteDirectory.TagDigitalZoom);
             if (value == null)
             {
                 return null;
@@ -216,7 +216,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetWhiteBalanceDescription()
         {
-            int? value = _directory.GetInteger(CasioType1MakernoteDirectory.TagWhiteBalance);
+            int? value = Directory.GetInteger(CasioType1MakernoteDirectory.TagWhiteBalance);
             if (value == null)
             {
                 return null;
@@ -263,7 +263,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetObjectDistanceDescription()
         {
-            int? value = _directory.GetInteger(CasioType1MakernoteDirectory.TagObjectDistance);
+            int? value = Directory.GetInteger(CasioType1MakernoteDirectory.TagObjectDistance);
             if (value == null)
             {
                 return null;
@@ -274,7 +274,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public virtual string GetFlashIntensityDescription()
         {
-            int? value = _directory.GetInteger(CasioType1MakernoteDirectory.TagFlashIntensity);
+            int? value = Directory.GetInteger(CasioType1MakernoteDirectory.TagFlashIntensity);
             if (value == null)
             {
                 return null;

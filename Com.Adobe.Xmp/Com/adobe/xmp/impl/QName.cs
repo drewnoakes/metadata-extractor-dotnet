@@ -15,10 +15,10 @@ namespace Com.Adobe.Xmp.Impl
     public class QName
     {
         /// <summary>XML namespace prefix</summary>
-        private readonly string prefix;
+        private readonly string _prefix;
 
         /// <summary>XML localname</summary>
-        private readonly string localName;
+        private readonly string _localName;
 
         /// <summary>Splits a qname into prefix and localname.</summary>
         /// <param name="qname">a QName</param>
@@ -27,13 +27,13 @@ namespace Com.Adobe.Xmp.Impl
             int colon = qname.IndexOf(':');
             if (colon >= 0)
             {
-                prefix = Runtime.Substring(qname, 0, colon);
-                localName = Runtime.Substring(qname, colon + 1);
+                _prefix = Runtime.Substring(qname, 0, colon);
+                _localName = Runtime.Substring(qname, colon + 1);
             }
             else
             {
-                prefix = string.Empty;
-                localName = qname;
+                _prefix = string.Empty;
+                _localName = qname;
             }
         }
 
@@ -42,26 +42,26 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="localName">the name</param>
         public QName(string prefix, string localName)
         {
-            this.prefix = prefix;
-            this.localName = localName;
+            this._prefix = prefix;
+            this._localName = localName;
         }
 
         /// <returns>Returns whether the QName has a prefix.</returns>
         public virtual bool HasPrefix()
         {
-            return prefix != null && prefix.Length > 0;
+            return _prefix != null && _prefix.Length > 0;
         }
 
         /// <returns>the localName</returns>
         public virtual string GetLocalName()
         {
-            return localName;
+            return _localName;
         }
 
         /// <returns>the prefix</returns>
         public virtual string GetPrefix()
         {
-            return prefix;
+            return _prefix;
         }
     }
 }

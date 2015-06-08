@@ -20,40 +20,40 @@ namespace Sharpen
     {
         private static readonly TimeZoneInfo DefaultTimeZone = TimeZoneInfo.Local;
 
-        private DateTime m_calendarDate;
-        private TimeZoneInfo m_tz;
+        private DateTime _mCalendarDate;
+        private TimeZoneInfo _mTz;
 
         protected Calendar(TimeZoneInfo value)
         {
-            m_tz = value;
-            m_calendarDate = TimeZoneInfo.ConvertTime(DateTime.Now, DefaultTimeZone, m_tz);
+            _mTz = value;
+            _mCalendarDate = TimeZoneInfo.ConvertTime(DateTime.Now, DefaultTimeZone, _mTz);
         }
 
         protected Calendar()
         {
-            m_tz = DefaultTimeZone;
-            m_calendarDate = new DateTime(DateTime.Now.Ticks, DateTimeKind.Unspecified);
+            _mTz = DefaultTimeZone;
+            _mCalendarDate = new DateTime(DateTime.Now.Ticks, DateTimeKind.Unspecified);
         }
 
         protected Calendar(int year, int month, int dayOfMonth)
         {
-            m_tz = DefaultTimeZone;
-            m_calendarDate = new DateTime(year, month + 1, dayOfMonth);
+            _mTz = DefaultTimeZone;
+            _mCalendarDate = new DateTime(year, month + 1, dayOfMonth);
         }
 
         protected Calendar(int year, int month, int dayOfMonth, int hourOfDay, int minute, int second)
         {
-            m_tz = DefaultTimeZone;
+            _mTz = DefaultTimeZone;
             bool addDay = false;
             if (hourOfDay == 24)
             {
                 hourOfDay = 0;
                 addDay = true;
             }
-            m_calendarDate = new DateTime(year, month + 1, dayOfMonth, hourOfDay, minute, second);
+            _mCalendarDate = new DateTime(year, month + 1, dayOfMonth, hourOfDay, minute, second);
             if (addDay)
             {
-                m_calendarDate = m_calendarDate.AddDays(1);
+                _mCalendarDate = _mCalendarDate.AddDays(1);
             }
         }
 
@@ -65,27 +65,27 @@ namespace Sharpen
         public void SetTimeInMillis(long millis)
         {
             var ticks = millis * TimeSpan.TicksPerMillisecond;
-            m_calendarDate = new DateTime(ticks, DateTimeKind.Unspecified);
+            _mCalendarDate = new DateTime(ticks, DateTimeKind.Unspecified);
         }
 
         public DateTime GetTime()
         {
-            return TimeZoneInfo.ConvertTime(m_calendarDate, m_tz, DefaultTimeZone);
+            return TimeZoneInfo.ConvertTime(_mCalendarDate, _mTz, DefaultTimeZone);
         }
 
         public void SetTime(DateTime date)
         {
-            m_calendarDate = date;
+            _mCalendarDate = date;
         }
 
         public TimeZoneInfo GetTimeZone()
         {
-            return m_tz;
+            return _mTz;
         }
 
         public void SetTimeZone(TimeZoneInfo value)
         {
-            m_tz = value;
+            _mTz = value;
         }
 
         public int Get(CalendarEnum field)
@@ -93,29 +93,29 @@ namespace Sharpen
             switch (field)
             {
                 case CalendarEnum.Year:
-                    return m_calendarDate.Year;
+                    return _mCalendarDate.Year;
 
                 case CalendarEnum.Month:
-                    return m_calendarDate.Month - 1;
+                    return _mCalendarDate.Month - 1;
 
                 case CalendarEnum.MonthOneBased:
-                    return m_calendarDate.Month;
+                    return _mCalendarDate.Month;
 
                 case CalendarEnum.DayOfMonth:
-                    return m_calendarDate.Day;
+                    return _mCalendarDate.Day;
 
                 case CalendarEnum.Hour:
                 case CalendarEnum.HourOfDay:
-                    return m_calendarDate.Hour;
+                    return _mCalendarDate.Hour;
 
                 case CalendarEnum.Minute:
-                    return m_calendarDate.Minute;
+                    return _mCalendarDate.Minute;
 
                 case CalendarEnum.Second:
-                    return m_calendarDate.Second;
+                    return _mCalendarDate.Second;
 
                 case CalendarEnum.Millisecond:
-                    return m_calendarDate.Millisecond;
+                    return _mCalendarDate.Millisecond;
             }
 
             throw new NotSupportedException();
@@ -131,23 +131,23 @@ namespace Sharpen
                 case CalendarEnum.Year:
                     //  to avoid exception which is absent in java Calendar
                     value = value % mod;
-                    m_calendarDate = m_calendarDate.AddYears(value - m_calendarDate.Year);
+                    _mCalendarDate = _mCalendarDate.AddYears(value - _mCalendarDate.Year);
                     return;
 
                 case CalendarEnum.Month:
-                    m_calendarDate = m_calendarDate.AddMonths((value + 1) - m_calendarDate.Month);
+                    _mCalendarDate = _mCalendarDate.AddMonths((value + 1) - _mCalendarDate.Month);
                     return;
 
                 case CalendarEnum.MonthOneBased:
-                    m_calendarDate = m_calendarDate.AddMonths(value - m_calendarDate.Month);
+                    _mCalendarDate = _mCalendarDate.AddMonths(value - _mCalendarDate.Month);
                     return;
 
                 case CalendarEnum.DayOfMonth:
-                    m_calendarDate = m_calendarDate.AddDays(value - m_calendarDate.Day);
+                    _mCalendarDate = _mCalendarDate.AddDays(value - _mCalendarDate.Day);
                     return;
 
                 case CalendarEnum.Hour:
-                    m_calendarDate = m_calendarDate.AddHours(value - m_calendarDate.Hour);
+                    _mCalendarDate = _mCalendarDate.AddHours(value - _mCalendarDate.Hour);
                     return;
 
                 case CalendarEnum.HourOfDay:
@@ -155,7 +155,7 @@ namespace Sharpen
                     if (value == 24)
                     {
                         Set(CalendarEnum.Hour, 0);
-                        m_calendarDate = m_calendarDate.AddDays(1);
+                        _mCalendarDate = _mCalendarDate.AddDays(1);
                     }
                     else
                     {
@@ -164,20 +164,20 @@ namespace Sharpen
                     return;
 
                 case CalendarEnum.Minute:
-                    m_calendarDate = m_calendarDate.AddMinutes(value - m_calendarDate.Minute);
+                    _mCalendarDate = _mCalendarDate.AddMinutes(value - _mCalendarDate.Minute);
                     return;
 
                 case CalendarEnum.Second:
-                    m_calendarDate = m_calendarDate.AddSeconds(value - m_calendarDate.Second);
+                    _mCalendarDate = _mCalendarDate.AddSeconds(value - _mCalendarDate.Second);
                     return;
 
                 case CalendarEnum.Millisecond:
                     //m_calendarDate = m_calendarDate.AddMilliseconds(value - m_calendarDate.Millisecond);
                     //  this not works right, because of miliseconds fraction, so we need to go another way here
-                    m_calendarDate = new DateTime(m_calendarDate.Year, m_calendarDate.Month, m_calendarDate.Day,
-                                                  m_calendarDate.Hour,
-                                                  m_calendarDate.Minute, m_calendarDate.Second, value,
-                                                  m_calendarDate.Kind);
+                    _mCalendarDate = new DateTime(_mCalendarDate.Year, _mCalendarDate.Month, _mCalendarDate.Day,
+                                                  _mCalendarDate.Hour,
+                                                  _mCalendarDate.Minute, _mCalendarDate.Second, value,
+                                                  _mCalendarDate.Kind);
                     return;
             }
 

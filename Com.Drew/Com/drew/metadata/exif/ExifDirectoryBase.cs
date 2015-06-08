@@ -582,7 +582,7 @@ namespace Com.Drew.Metadata.Exif
         /// Count = 1
         /// Default = none
         /// </remarks>
-        public const int Tag35mmFilmEquivFocalLength = unchecked((int)(0xA405));
+        public const int Tag35MmFilmEquivFocalLength = unchecked((int)(0xA405));
 
         /// <summary>This tag indicates the type of scene that was shot.</summary>
         /// <remarks>
@@ -889,7 +889,7 @@ namespace Com.Drew.Metadata.Exif
             map.Put(TagExposureMode, "Exposure Mode");
             map.Put(TagWhiteBalanceMode, "White Balance Mode");
             map.Put(TagDigitalZoomRatio, "Digital Zoom Ratio");
-            map.Put(Tag35mmFilmEquivFocalLength, "Focal Length 35");
+            map.Put(Tag35MmFilmEquivFocalLength, "Focal Length 35");
             map.Put(TagSceneCaptureType, "Scene Capture Type");
             map.Put(TagGainControl, "Gain Control");
             map.Put(TagContrast, "Contrast");

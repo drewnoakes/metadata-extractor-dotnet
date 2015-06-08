@@ -28,26 +28,26 @@ namespace Sharpen
 
     class StringCharSequence: CharSequence
     {
-        readonly string str;
+        readonly string _str;
 
         public StringCharSequence (string str)
         {
-            this.str = str;
+            this._str = str;
         }
 
         public override string ToString ()
         {
-            return str;
+            return _str;
         }
 
         public override int this[int index]
         {
-            get { return str[index]; }
+            get { return _str[index]; }
         }
 
         public override int Length
         {
-            get { return str.Length; }
+            get { return _str.Length; }
         }
     }
 }

@@ -122,24 +122,24 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public const int TagDaylightSavings = unchecked((int)(0x1001));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static PentaxMakernoteDirectory()
         {
-            _tagNameMap.Put(TagCaptureMode, "Capture Mode");
-            _tagNameMap.Put(TagQualityLevel, "Quality Level");
-            _tagNameMap.Put(TagFocusMode, "Focus Mode");
-            _tagNameMap.Put(TagFlashMode, "Flash Mode");
-            _tagNameMap.Put(TagWhiteBalance, "White Balance");
-            _tagNameMap.Put(TagDigitalZoom, "Digital Zoom");
-            _tagNameMap.Put(TagSharpness, "Sharpness");
-            _tagNameMap.Put(TagContrast, "Contrast");
-            _tagNameMap.Put(TagSaturation, "Saturation");
-            _tagNameMap.Put(TagIsoSpeed, "ISO Speed");
-            _tagNameMap.Put(TagColour, "Colour");
-            _tagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info");
-            _tagNameMap.Put(TagTimeZone, "Time Zone");
-            _tagNameMap.Put(TagDaylightSavings, "Daylight Savings");
+            TagNameMap.Put(TagCaptureMode, "Capture Mode");
+            TagNameMap.Put(TagQualityLevel, "Quality Level");
+            TagNameMap.Put(TagFocusMode, "Focus Mode");
+            TagNameMap.Put(TagFlashMode, "Flash Mode");
+            TagNameMap.Put(TagWhiteBalance, "White Balance");
+            TagNameMap.Put(TagDigitalZoom, "Digital Zoom");
+            TagNameMap.Put(TagSharpness, "Sharpness");
+            TagNameMap.Put(TagContrast, "Contrast");
+            TagNameMap.Put(TagSaturation, "Saturation");
+            TagNameMap.Put(TagIsoSpeed, "ISO Speed");
+            TagNameMap.Put(TagColour, "Colour");
+            TagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info");
+            TagNameMap.Put(TagTimeZone, "Time Zone");
+            TagNameMap.Put(TagDaylightSavings, "Daylight Savings");
         }
 
         public PentaxMakernoteDirectory()
@@ -156,7 +156,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [NotNull]
         protected internal override Dictionary<int?, string> GetTagNameMap()
         {
-            return _tagNameMap;
+            return TagNameMap;
         }
     }
 }
