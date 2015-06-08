@@ -29,7 +29,7 @@ namespace Com.Drew.Lang
 {
     /// <summary>
     /// Provides methods to read specific values from a
-    /// <see cref="System.IO.RandomAccessFile"/>
+    /// <see cref="RandomAccessFile"/>
     /// , with a consistent, checked exception structure for
     /// issues.
     /// </summary>

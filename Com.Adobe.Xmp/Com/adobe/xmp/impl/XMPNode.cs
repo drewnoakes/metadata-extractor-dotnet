@@ -358,7 +358,6 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <summary>Performs a <b>deep clone</b> of the node and the complete subtree.</summary>
-        /// <seealso cref="object.Clone()"/>
         public virtual object Clone()
         {
             PropertyOptions newOptions;

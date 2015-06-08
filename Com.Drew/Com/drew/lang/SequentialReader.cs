@@ -46,11 +46,11 @@ namespace Com.Drew.Lang
         /// <summary>Skips forward in the sequence.</summary>
         /// <remarks>
         /// Skips forward in the sequence. If the sequence ends, an
-        /// <see cref="System.IO.EOFException"/>
+        /// <see cref="EofException"/>
         /// is thrown.
         /// </remarks>
         /// <param name="n">the number of byte to skip. Must be zero or greater.</param>
-        /// <exception cref="System.IO.EOFException">the end of the sequence is reached.</exception>
+        /// <exception cref="EofException">the end of the sequence is reached.</exception>
         /// <exception cref="System.IO.IOException">an error occurred reading from the underlying source.</exception>
         public abstract void Skip(long n);
 

@@ -88,8 +88,7 @@ namespace Com.Drew.Metadata
         /// of the specified type contained within this metadata collection.
         /// If no instances of this type are present, <code>null</code> is returned.
         /// </summary>
-        /// <param name="type">the Directory type</param>
-        /// <?/>
+        /// <typeparam name="T">The Directory type</typeparam>
         /// <returns>the first Directory of type T in this metadata collection, or <code>null</code> if none exist</returns>
         [CanBeNull]
         public T GetFirstDirectoryOfType<T>()

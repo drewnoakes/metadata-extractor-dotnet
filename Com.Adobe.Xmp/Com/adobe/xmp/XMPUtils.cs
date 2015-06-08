@@ -203,9 +203,9 @@ namespace Com.Adobe.Xmp
         /// for <code>true</code> and <code>false</code> are:
         /// <ul>
         /// <li>
-        /// <see cref="XMPConst.Truestr"/>
+        /// <see cref="XmpConstConstants.Truestr"/>
         /// and
-        /// <see cref="XMPConst.Falsestr"/>
+        /// <see cref="XmpConstConstants.Falsestr"/>
         /// <li>&quot;t&quot; and &quot;f&quot;
         /// <li>&quot;on&quot; and &quot;off&quot;
         /// <li>&quot;yes&quot; and &quot;no&quot;
@@ -237,9 +237,9 @@ namespace Com.Adobe.Xmp
         /// <returns>
         /// The XMP string representation of the boolean. The values used are
         /// given by the constnts
-        /// <see cref="XMPConst.Truestr"/>
+        /// <see cref="XmpConstConstants.Truestr"/>
         /// and
-        /// <see cref="XMPConst.Falsestr"/>
+        /// <see cref="XmpConstConstants.Falsestr"/>
         /// .
         /// </returns>
         public static string ConvertFromBoolean(bool value)

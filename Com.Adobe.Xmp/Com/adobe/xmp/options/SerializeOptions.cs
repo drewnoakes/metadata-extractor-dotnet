@@ -357,7 +357,6 @@ namespace Com.Adobe.Xmp.Options
         }
 
         /// <returns>Returns clone of this SerializeOptions-object with the same options set.</returns>
-        /// <exception cref="Sharpen.CloneNotSupportedException">Cannot happen in this place.</exception>
         public object Clone()
         {
             SerializeOptions clone;

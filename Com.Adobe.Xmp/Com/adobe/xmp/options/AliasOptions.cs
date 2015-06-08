@@ -29,7 +29,7 @@ namespace Com.Adobe.Xmp.Options
         /// <summary>The actual is an alternate text array, the alias is to the 'x-default' element of the array.</summary>
         public const int PropArrayAltText = PropertyOptions.ArrayAltText;
 
-        /// <seealso cref="Options.Options()"/>
+        /// <seealso cref="Options()"/>
         public AliasOptions()
         {
         }

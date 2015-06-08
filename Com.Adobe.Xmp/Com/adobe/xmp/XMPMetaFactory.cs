@@ -87,7 +87,7 @@ namespace Com.Adobe.Xmp
         }
 
         /// <summary>Creates an <code>XMPMeta</code>-object from a byte-buffer.</summary>
-        /// <seealso cref="Parse(System.IO.InputStream, Com.Adobe.Xmp.Options.ParseOptions)"/>
+        /// <seealso cref="Parse(InputStream, Com.Adobe.Xmp.Options.ParseOptions)"/>
         /// <param name="buffer">a String contain an XMP-file.</param>
         /// <param name="options">Options controlling the parsing.</param>
         /// <returns>Returns the <code>XMPMeta</code>-object created from the input.</returns>

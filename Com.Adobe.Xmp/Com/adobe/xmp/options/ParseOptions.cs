@@ -7,11 +7,13 @@
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
 
+using Sharpen;
+
 namespace Com.Adobe.Xmp.Options
 {
     /// <summary>
     /// Options for
-    /// <see cref="XmpMetaFactory.Parse(System.IO.InputStream, ParseOptions)"/>
+    /// <see cref="XmpMetaFactory.Parse(InputStream, ParseOptions)"/>
     /// .
     /// </summary>
     /// <since>24.01.2006</since>

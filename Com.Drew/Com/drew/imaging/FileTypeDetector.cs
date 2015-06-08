@@ -72,7 +72,7 @@ namespace Com.Drew.Imaging
         /// Examines the a file's first bytes and estimates the file's type.
         /// <p>
         /// Requires a
-        /// <see cref="System.IO.BufferedInputStream"/>
+        /// <see cref="BufferedInputStream"/>
         /// in order to mark and reset the stream to the position
         /// at which it was provided to this method once completed.
         /// <p>

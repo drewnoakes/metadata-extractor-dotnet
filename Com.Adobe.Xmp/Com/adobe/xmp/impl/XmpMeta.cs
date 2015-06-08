@@ -991,7 +991,6 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <summary>Performs a deep clone of the XMPMeta-object</summary>
-        /// <seealso cref="object.Clone()"/>
         public virtual object Clone()
         {
             XmpNode clonedTree = (XmpNode)_tree.Clone();

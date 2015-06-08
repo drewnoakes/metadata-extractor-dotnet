@@ -113,7 +113,7 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>
         /// Parses XML from an
-        /// <see cref="System.IO.InputStream"/>
+        /// <see cref="InputStream"/>
         /// ,
         /// fixing the encoding (Latin-1 to UTF-8) and illegal control character optionally.
         /// </summary>
