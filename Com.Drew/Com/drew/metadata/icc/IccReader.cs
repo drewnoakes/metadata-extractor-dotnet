@@ -140,7 +140,7 @@ namespace Com.Drew.Metadata.Icc
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private void Set4ByteString([NotNull] Directory directory, int tagType, [NotNull] RandomAccessReader reader)
+        private static void Set4ByteString([NotNull] Directory directory, int tagType, [NotNull] RandomAccessReader reader)
         {
             int i = reader.GetInt32(tagType);
             if (i != 0)
@@ -150,7 +150,7 @@ namespace Com.Drew.Metadata.Icc
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private void SetInt32([NotNull] Directory directory, int tagType, [NotNull] RandomAccessReader reader)
+        private static void SetInt32([NotNull] Directory directory, int tagType, [NotNull] RandomAccessReader reader)
         {
             int i = reader.GetInt32(tagType);
             if (i != 0)
@@ -160,7 +160,7 @@ namespace Com.Drew.Metadata.Icc
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private void SetInt64([NotNull] Directory directory, int tagType, [NotNull] RandomAccessReader reader)
+        private static void SetInt64([NotNull] Directory directory, int tagType, [NotNull] RandomAccessReader reader)
         {
             long l = reader.GetInt64(tagType);
             if (l != 0)
@@ -170,7 +170,7 @@ namespace Com.Drew.Metadata.Icc
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private void SetDate([NotNull] IccDirectory directory, int tagType, [NotNull] RandomAccessReader reader)
+        private static void SetDate([NotNull] IccDirectory directory, int tagType, [NotNull] RandomAccessReader reader)
         {
             int y = reader.GetUInt16(tagType);
             int m = reader.GetUInt16(tagType + 2);

@@ -668,7 +668,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        private string BuildFacesDescription([CanBeNull] Face[] faces)
+        private static string BuildFacesDescription([CanBeNull] Face[] faces)
         {
             if (faces == null)
             {

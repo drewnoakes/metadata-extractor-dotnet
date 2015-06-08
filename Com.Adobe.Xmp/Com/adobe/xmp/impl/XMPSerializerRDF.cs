@@ -1174,7 +1174,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </summary>
         /// <param name="node">an XMPNode</param>
         /// <returns>Returns true if the node serialized as RDF-Attribute</returns>
-        private bool CanBeRDFAttrProp(XMPNode node)
+        private static bool CanBeRDFAttrProp(XMPNode node)
         {
             return !node.HasQualifier() && !node.GetOptions().IsURI() && !node.GetOptions().IsCompositeProperty() && !XMPConstConstants.ArrayItemName.Equals(node.GetName());
         }

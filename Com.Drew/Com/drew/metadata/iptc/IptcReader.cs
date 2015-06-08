@@ -149,7 +149,7 @@ namespace Com.Drew.Metadata.Iptc
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private void ProcessTag([NotNull] SequentialReader reader, [NotNull] Directory directory, int directoryType, int tagType, int tagByteCount)
+        private static void ProcessTag([NotNull] SequentialReader reader, [NotNull] Directory directory, int directoryType, int tagType, int tagByteCount)
         {
             int tagIdentifier = tagType | (directoryType << 8);
             // Some images have been seen that specify a zero byte tag, which cannot be of much use.

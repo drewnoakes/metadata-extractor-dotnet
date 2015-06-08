@@ -44,7 +44,7 @@ namespace Com.Drew.Imaging.Jpeg
             Validate(JpegMetadataReader.ReadMetadata(new FileInputStream((new FilePath("Tests/Data/withExif.jpg")))));
         }
 
-        private void Validate(Metadata.Metadata metadata)
+        private static void Validate(Metadata.Metadata metadata)
         {
             Directory directory = metadata.GetFirstDirectoryOfType<ExifSubIFDDirectory>();
             Assert.IsNotNull(directory);

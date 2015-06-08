@@ -723,7 +723,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="list">the list to search in</param>
         /// <param name="expr">the search expression</param>
         /// <returns>Returns the found node or <code>nulls</code>.</returns>
-        private XMPNode Find(IList list, string expr)
+        private static XMPNode Find(IList list, string expr)
         {
             if (list != null)
             {

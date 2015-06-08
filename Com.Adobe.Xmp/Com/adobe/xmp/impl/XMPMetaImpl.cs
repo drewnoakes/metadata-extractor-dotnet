@@ -1110,7 +1110,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="propNode">the node containing the value</param>
         /// <returns>Returns a literal value for the node.</returns>
         /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        private object EvaluateNodeValue(int valueType, XMPNode propNode)
+        private static object EvaluateNodeValue(int valueType, XMPNode propNode)
         {
             object value;
             string rawValue = propNode.GetValue();

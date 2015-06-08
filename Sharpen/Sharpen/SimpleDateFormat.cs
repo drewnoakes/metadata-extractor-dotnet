@@ -81,7 +81,7 @@ namespace Sharpen
             return r.Split(format);
         }
 
-        private Regex BuildDateTimeParser(string[] formatParts)
+        private static Regex BuildDateTimeParser(string[] formatParts)
         {
             string pattern = "";
 

@@ -77,7 +77,7 @@ namespace Com.Drew.Imaging.Png
             }
         }
 
-        private string CreateTestString(int year, int month, int day, int hourOfDay, int minute, int second)
+        private static string CreateTestString(int year, int month, int day, int hourOfDay, int minute, int second)
         {
             TimeZoneInfo gmt = Extensions.GetTimeZone("GMT");
             Calendar calendar = Calendar.GetInstance(gmt);
