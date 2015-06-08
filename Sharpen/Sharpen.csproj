@@ -46,7 +46,6 @@
     <Compile Include="Sharpen\DecimalFormatSymbols.cs" />
     <Compile Include="Sharpen\GregorianCalendar.cs" />
     <Compile Include="Sharpen\InputSource.cs" />
-    <Compile Include="Extra\JetBrainsAnnotations.cs" />
     <Compile Include="Sharpen\Number.cs" />
     <Compile Include="Sharpen\PrintStream.cs" />
     <Compile Include="Sharpen\SimpleTimeZone.cs" />
