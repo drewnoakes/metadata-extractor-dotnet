@@ -66,12 +66,7 @@ namespace Sharpen
             return FileHelper.Instance.CanRead(this);
         }
 
-        public static FilePath CreateTempFile (string prefix, string suffix)
-        {
-            return CreateTempFile (prefix, suffix, null);
-        }
-
-        public static FilePath CreateTempFile (string prefix, string suffix, FilePath directory)
+        public static FilePath CreateTempFile (string prefix, string suffix, FilePath directory = null)
         {
             string file;
             if (prefix == null) {

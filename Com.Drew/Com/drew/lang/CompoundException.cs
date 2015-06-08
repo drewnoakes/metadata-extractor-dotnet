@@ -45,17 +45,12 @@ namespace Com.Drew.Lang
         [CanBeNull]
         private readonly Exception _innerException;
 
-        public CompoundException([CanBeNull] string msg)
-            : this(msg, null)
-        {
-        }
-
         public CompoundException([CanBeNull] Exception exception)
             : this(null, exception)
         {
         }
 
-        public CompoundException([CanBeNull] string msg, [CanBeNull] Exception innerException)
+        public CompoundException([CanBeNull] string msg, [CanBeNull] Exception innerException = null)
             : base(msg)
         {
             _innerException = innerException;

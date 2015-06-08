@@ -34,12 +34,7 @@ namespace Com.Drew.Lang
 
         private int _index;
 
-        public SequentialByteArrayReader([NotNull] sbyte[] bytes)
-            : this(bytes, 0)
-        {
-        }
-
-        public SequentialByteArrayReader([NotNull] sbyte[] bytes, int baseIndex)
+        public SequentialByteArrayReader([NotNull] sbyte[] bytes, int baseIndex = 0)
         {
             if (bytes == null)
             {

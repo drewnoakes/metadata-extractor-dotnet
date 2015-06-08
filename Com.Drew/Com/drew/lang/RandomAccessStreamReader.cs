@@ -43,12 +43,7 @@ namespace Com.Drew.Lang
 
         private int _streamLength;
 
-        public RandomAccessStreamReader([NotNull] InputStream stream)
-            : this(stream, DefaultChunkLength)
-        {
-        }
-
-        public RandomAccessStreamReader([NotNull] InputStream stream, int chunkLength)
+        public RandomAccessStreamReader([NotNull] InputStream stream, int chunkLength = DefaultChunkLength)
         {
             if (stream == null)
             {

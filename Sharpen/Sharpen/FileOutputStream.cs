@@ -8,11 +8,7 @@ namespace Sharpen
         {
         }
 
-        public FileOutputStream (string file): this (file, false)
-        {
-        }
-
-        public FileOutputStream (string file, bool append)
+        public FileOutputStream (string file, bool append = false)
         {
             try {
                 if (append) {

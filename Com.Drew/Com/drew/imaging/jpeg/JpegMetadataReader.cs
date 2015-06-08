@@ -47,7 +47,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream, [CanBeNull] Iterable<JpegSegmentMetadataReader> readers)
+        public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream, [CanBeNull] Iterable<JpegSegmentMetadataReader> readers = null)
         {
             Metadata.Metadata metadata = new Metadata.Metadata();
             Process(metadata, inputStream, readers);
@@ -57,15 +57,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
-        {
-            return ReadMetadata(inputStream, null);
-        }
-
-        /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] FilePath file, [CanBeNull] Iterable<JpegSegmentMetadataReader> readers)
+        public static Metadata.Metadata ReadMetadata([NotNull] FilePath file, [CanBeNull] Iterable<JpegSegmentMetadataReader> readers = null)
         {
             InputStream inputStream = new FileInputStream(file);
             Metadata.Metadata metadata;
@@ -83,22 +75,7 @@ namespace Com.Drew.Imaging.Jpeg
 
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] FilePath file)
-        {
-            return ReadMetadata(file, null);
-        }
-
-        /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
-        public static void Process([NotNull] Metadata.Metadata metadata, [NotNull] InputStream inputStream)
-        {
-            Process(metadata, inputStream, null);
-        }
-
-        /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
-        public static void Process([NotNull] Metadata.Metadata metadata, [NotNull] InputStream inputStream, [CanBeNull] Iterable<JpegSegmentMetadataReader> readers)
+        public static void Process([NotNull] Metadata.Metadata metadata, [NotNull] InputStream inputStream, [CanBeNull] Iterable<JpegSegmentMetadataReader> readers = null)
         {
             if (readers == null)
             {

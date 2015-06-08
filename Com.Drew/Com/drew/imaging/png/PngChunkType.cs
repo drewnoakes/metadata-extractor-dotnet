@@ -103,12 +103,7 @@ namespace Com.Drew.Imaging.Png
 
         private readonly bool _multipleAllowed;
 
-        public PngChunkType([NotNull] string identifier)
-            : this(identifier, false)
-        {
-        }
-
-        public PngChunkType([NotNull] string identifier, bool multipleAllowed)
+        public PngChunkType([NotNull] string identifier, bool multipleAllowed = false)
         {
             //
             // Standard critical chunks

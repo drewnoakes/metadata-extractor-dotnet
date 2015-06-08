@@ -7,15 +7,10 @@ namespace Sharpen
         private readonly IList list;
         private int pos;
 
-        public ListIterator(IList list, int n)
+        public ListIterator(IList list, int n = -1)
         {
             this.list = list;
             this.pos = n;
-        }
-
-        public ListIterator(IList list)
-            : this(list, -1)
-        {
         }
 
         public override object Next()

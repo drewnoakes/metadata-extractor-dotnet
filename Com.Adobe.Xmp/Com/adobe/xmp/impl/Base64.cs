@@ -83,20 +83,12 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>Encode the given byte[].</summary>
         /// <param name="src">the source string.</param>
-        /// <returns>the base64-encoded data.</returns>
-        public static sbyte[] Encode(sbyte[] src)
-        {
-            return Encode(src, 0);
-        }
-
-        /// <summary>Encode the given byte[].</summary>
-        /// <param name="src">the source string.</param>
         /// <param name="lineFeed">
         /// a linefeed is added after <code>linefeed</code> characters;
         /// must be dividable by four; 0 means no linefeeds
         /// </param>
         /// <returns>the base64-encoded data.</returns>
-        public static sbyte[] Encode(sbyte[] src, int lineFeed)
+        public static sbyte[] Encode(sbyte[] src, int lineFeed = 0)
         {
             // linefeed must be dividable by 4
             lineFeed = lineFeed / 4 * 4;

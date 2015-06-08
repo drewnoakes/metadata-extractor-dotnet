@@ -42,17 +42,6 @@ namespace Com.Adobe.Xmp
             return new XMPMetaImpl();
         }
 
-        /// <summary>Parsing with default options.</summary>
-        /// <seealso cref="Parse(System.IO.InputStream, Com.Adobe.Xmp.Options.ParseOptions)"/>
-        /// <param name="in">an <code>InputStream</code></param>
-        /// <returns>Returns the <code>XMPMeta</code>-object created from the input.</returns>
-        /// <exception cref="XMPException">If the file is not well-formed XML or if the parsing fails.</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static XMPMeta Parse(InputStream @in)
-        {
-            return Parse(@in, null);
-        }
-
         /// <summary>
         /// These functions support parsing serialized RDF into an XMP object, and serailizing an XMP
         /// object into RDF.
@@ -80,20 +69,9 @@ namespace Com.Adobe.Xmp
         /// <returns>Returns the <code>XMPMeta</code>-object created from the input.</returns>
         /// <exception cref="XMPException">If the file is not well-formed XML or if the parsing fails.</exception>
         /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static XMPMeta Parse(InputStream @in, ParseOptions options)
+        public static XMPMeta Parse(InputStream @in, ParseOptions options = null)
         {
             return XMPMetaParser.Parse(@in, options);
-        }
-
-        /// <summary>Parsing with default options.</summary>
-        /// <seealso cref="Parse(System.IO.InputStream)"/>
-        /// <param name="packet">a String contain an XMP-file.</param>
-        /// <returns>Returns the <code>XMPMeta</code>-object created from the input.</returns>
-        /// <exception cref="XMPException">If the file is not well-formed XML or if the parsing fails.</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static XMPMeta ParseFromString(string packet)
-        {
-            return ParseFromString(packet, null);
         }
 
         /// <summary>Creates an <code>XMPMeta</code>-object from a string.</summary>
@@ -103,20 +81,9 @@ namespace Com.Adobe.Xmp
         /// <returns>Returns the <code>XMPMeta</code>-object created from the input.</returns>
         /// <exception cref="XMPException">If the file is not well-formed XML or if the parsing fails.</exception>
         /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static XMPMeta ParseFromString(string packet, ParseOptions options)
+        public static XMPMeta ParseFromString(string packet, ParseOptions options = null)
         {
             return XMPMetaParser.Parse(packet, options);
-        }
-
-        /// <summary>Parsing with default options.</summary>
-        /// <seealso cref="ParseFromBuffer(sbyte[], Com.Adobe.Xmp.Options.ParseOptions)"/>
-        /// <param name="buffer">a String contain an XMP-file.</param>
-        /// <returns>Returns the <code>XMPMeta</code>-object created from the input.</returns>
-        /// <exception cref="XMPException">If the file is not well-formed XML or if the parsing fails.</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static XMPMeta ParseFromBuffer(sbyte[] buffer)
-        {
-            return ParseFromBuffer(buffer, null);
         }
 
         /// <summary>Creates an <code>XMPMeta</code>-object from a byte-buffer.</summary>
@@ -126,22 +93,9 @@ namespace Com.Adobe.Xmp
         /// <returns>Returns the <code>XMPMeta</code>-object created from the input.</returns>
         /// <exception cref="XMPException">If the file is not well-formed XML or if the parsing fails.</exception>
         /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static XMPMeta ParseFromBuffer(sbyte[] buffer, ParseOptions options)
+        public static XMPMeta ParseFromBuffer(sbyte[] buffer, ParseOptions options = null)
         {
             return XMPMetaParser.Parse(buffer, options);
-        }
-
-        /// <summary>
-        /// Serializes an <code>XMPMeta</code>-object as RDF into an <code>OutputStream</code>
-        /// with default options.
-        /// </summary>
-        /// <param name="xmp">a metadata object</param>
-        /// <param name="out">an <code>OutputStream</code> to write the serialized RDF to.</param>
-        /// <exception cref="XMPException">on serializsation errors.</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static void Serialize(XMPMeta xmp, OutputStream @out)
-        {
-            Serialize(xmp, @out, null);
         }
 
         /// <summary>Serializes an <code>XMPMeta</code>-object as RDF into an <code>OutputStream</code>.</summary>
@@ -154,7 +108,7 @@ namespace Com.Adobe.Xmp
         /// <param name="out">an <code>OutputStream</code> to write the serialized RDF to.</param>
         /// <exception cref="XMPException">on serializsation errors.</exception>
         /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static void Serialize(XMPMeta xmp, OutputStream @out, SerializeOptions options)
+        public static void Serialize(XMPMeta xmp, OutputStream @out, SerializeOptions options = null)
         {
             AssertImplementation(xmp);
             XMPSerializerHelper.Serialize((XMPMetaImpl)xmp, @out, options);

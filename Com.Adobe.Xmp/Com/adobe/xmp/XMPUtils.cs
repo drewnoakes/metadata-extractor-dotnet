@@ -124,18 +124,6 @@ namespace Com.Adobe.Xmp
             XMPUtilsImpl.RemoveProperties(xmp, schemaNS, propName, doAllProperties, includeAliases);
         }
 
-        /// <summary>Alias without the new option <code>deleteEmptyValues</code>.</summary>
-        /// <param name="source">The source XMP object.</param>
-        /// <param name="dest">The destination XMP object.</param>
-        /// <param name="doAllProperties">Do internal properties in addition to external properties.</param>
-        /// <param name="replaceOldValues">Replace the values of existing properties.</param>
-        /// <exception cref="XMPException">Forwards the Exceptions from the metadata processing</exception>
-        /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static void AppendProperties(XMPMeta source, XMPMeta dest, bool doAllProperties, bool replaceOldValues)
-        {
-            AppendProperties(source, dest, doAllProperties, replaceOldValues, false);
-        }
-
         /// <summary><p>Append properties from one XMP object to another.</summary>
         /// <remarks>
         /// <p>Append properties from one XMP object to another.
@@ -208,7 +196,7 @@ namespace Com.Adobe.Xmp
         /// <param name="deleteEmptyValues">Delete destination values if source property is empty.</param>
         /// <exception cref="XMPException">Forwards the Exceptions from the metadata processing</exception>
         /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public static void AppendProperties(XMPMeta source, XMPMeta dest, bool doAllProperties, bool replaceOldValues, bool deleteEmptyValues)
+        public static void AppendProperties(XMPMeta source, XMPMeta dest, bool doAllProperties, bool replaceOldValues, bool deleteEmptyValues = false)
         {
             XMPUtilsImpl.AppendProperties(source, dest, doAllProperties, replaceOldValues, deleteEmptyValues);
         }
