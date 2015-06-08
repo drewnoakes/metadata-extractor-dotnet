@@ -34,7 +34,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>flag to indicate that skipSiblings() has been called.</summary>
         private bool _skipSiblings;
 
-        /// <summary>flag to indicate that skipSiblings() has been called.</summary>
+        /// <summary>flag to indicate that skipSubtree() has been called.</summary>
         private bool _skipSubtree;
 
         /// <summary>the node iterator doing the work</summary>
