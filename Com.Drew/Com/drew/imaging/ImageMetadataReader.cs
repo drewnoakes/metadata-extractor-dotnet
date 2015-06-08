@@ -118,7 +118,7 @@ namespace Com.Drew.Imaging
         public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
         {
             var stream = inputStream as BufferedInputStream;
-            BufferedInputStream bufferedInputStream = stream != null ? stream : new BufferedInputStream(inputStream);
+            BufferedInputStream bufferedInputStream = stream ?? new BufferedInputStream(inputStream);
             FileType fileType = FileTypeDetector.DetectFileType(bufferedInputStream) ?? FileType.Unknown;
             if (fileType == FileType.Jpeg)
             {
@@ -247,7 +247,8 @@ namespace Com.Drew.Imaging
                 string version = typeof(ImageMetadataReader).Assembly.GetImplementationVersion();
                 Console.Out.Println("metadata-extractor version " + version);
                 Console.Out.Println();
-                Console.Out.Println(Extensions.StringFormat("Usage: java -jar metadata-extractor-%s.jar <filename> [<filename>] [-thumb] [-markdown] [-hex]", version == null ? "a.b.c" : version));
+                Console.Out.Println(Extensions.StringFormat("Usage: java -jar metadata-extractor-%s.jar <filename> [<filename>] [-thumb] [-markdown] [-hex]",
+                    version ?? "a.b.c"));
                 Environment.Exit(1);
             }
             foreach (string filePath in argList)

@@ -985,7 +985,7 @@ namespace Com.Adobe.Xmp.Impl
                 string prefix = registry.GetNamespacePrefix(@namespace);
                 if (prefix == null)
                 {
-                    prefix = xmlNode.Prefix != null ? xmlNode.Prefix : DefaultPrefix;
+                    prefix = xmlNode.Prefix ?? DefaultPrefix;
                     prefix = registry.RegisterNamespace(@namespace, prefix);
                 }
                 childName = prefix + xmlNode.LocalName;

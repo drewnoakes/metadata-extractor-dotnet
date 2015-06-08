@@ -31,7 +31,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException"/>
         public static void Serialize(XmpMeta xmp, OutputStream @out, SerializeOptions options)
         {
-            options = options != null ? options : new SerializeOptions();
+            options = options ?? new SerializeOptions();
             // sort the internal data model on demand
             if (options.GetSort())
             {
@@ -57,7 +57,7 @@ namespace Com.Adobe.Xmp.Impl
         public static string SerializeToString(XmpMeta xmp, SerializeOptions options)
         {
             // forces the encoding to be UTF-16 to get the correct string length
-            options = options != null ? options : new SerializeOptions();
+            options = options ?? new SerializeOptions();
             options.SetEncodeUtf16Be(true);
             ByteArrayOutputStream @out = new ByteArrayOutputStream(2048);
             Serialize(xmp, @out, options);

@@ -56,7 +56,7 @@ namespace Com.Adobe.Xmp.Impl
         public XmpIterator(XmpMeta xmp, string schemaNs, string propPath, IteratorOptions options)
         {
             // make sure that options is defined at least with defaults
-            _options = options != null ? options : new IteratorOptions();
+            _options = options ?? new IteratorOptions();
             // the start node of the iteration depending on the schema and property filter
             XmpNode startNode = null;
             string initialPath = null;

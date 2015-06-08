@@ -926,7 +926,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <seealso cref="IXmpMeta.GetObjectName()"/>
         public string GetObjectName()
         {
-            return _tree.GetName() != null ? _tree.GetName() : string.Empty;
+            return _tree.GetName() ?? string.Empty;
         }
 
         /// <seealso cref="IXmpMeta.SetObjectName(string)"/>

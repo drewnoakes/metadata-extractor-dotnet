@@ -45,7 +45,7 @@ namespace Com.Adobe.Xmp.Impl
         public static IXmpMeta Parse(object input, ParseOptions options)
         {
             ParameterAsserts.AssertNotNull(input);
-            options = options != null ? options : new ParseOptions();
+            options = options ?? new ParseOptions();
             XmlDocument document = ParseXml(input, options);
             bool xmpmetaRequired = options.GetRequireXmpMeta();
             object[] result = new object[3];
