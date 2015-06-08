@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 
 namespace Sharpen
@@ -24,30 +23,9 @@ namespace Sharpen
             stream.Close ();
         }
 
-        public FileChannel GetChannel ()
-        {
-            return new FileChannel (this.stream);
-        }
-
-        public long GetFilePointer ()
-        {
-            return stream.Position;
-        }
-
         public long Length ()
         {
             return stream.Length;
-        }
-
-        public int Read (byte[] buffer)
-        {
-            if (buffer.Length == 0)
-            {
-                return 0;
-            }
-
-            int r = stream.Read (buffer, 0, buffer.Length);
-            return r > 0 ? r : -1;
         }
 
         public int Read(sbyte[] sbuffer)
@@ -75,46 +53,9 @@ namespace Sharpen
             return r > 0 ? buffer[0] : -1;
         }
 
-        public int Read (byte[] buffer, int start, int size)
-        {
-            return stream.Read (buffer, start, size);
-        }
-
-        public void ReadFully (byte[] buffer, int start, int size)
-        {
-            while (size > 0) {
-                int num = stream.Read (buffer, start, size);
-                if (num == 0) {
-                    throw new EOFException ();
-                }
-                size -= num;
-                start += num;
-            }
-        }
-
         public void Seek (long pos)
         {
             stream.Position = pos;
-        }
-
-        public void SetLength (long len)
-        {
-            stream.SetLength (len);
-        }
-
-        public void Write (int value)
-        {
-            stream.Write (BitConverter.GetBytes (value), 0, 4);
-        }
-
-        public void Write (byte[] buffer)
-        {
-            stream.Write (buffer, 0, buffer.Length);
-        }
-
-        public void Write (byte[] buffer, int start, int size)
-        {
-            stream.Write (buffer, start, size);
         }
     }
 }

@@ -8,21 +8,9 @@ namespace Sharpen
     {
         readonly TextWriter writer;
 
-        public PrintWriter (FilePath path)
-        {
-            writer = new StreamWriter (path);
-        }
-
         public PrintWriter (TextWriter other)
         {
             writer = other;
-        }
-
-        public PrintWriter(OutputStream outputStream, bool append)
-        {
-            writer = new StreamWriter(outputStream);
-            if(append)
-                throw new NotSupportedException();
         }
 
         public override Encoding Encoding {

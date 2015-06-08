@@ -16,9 +16,5 @@ namespace Sharpen
         public InputStreamReader (InputStream s, string encoding) : base(s.GetWrappedStream (), Encoding.GetEncoding (encoding))
         {
         }
-
-        public InputStreamReader (InputStream s, Encoding e) : base(s.GetWrappedStream (), e)
-        {
-        }
     }
 }

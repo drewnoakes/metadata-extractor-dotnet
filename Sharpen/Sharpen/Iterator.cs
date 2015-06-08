@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Sharpen
 {
-    public interface Iterator// : IEnumerator
+    public interface Iterator
     {
         bool HasNext ();
         object Next ();
@@ -14,10 +14,6 @@ namespace Sharpen
     public abstract class Iterator<T> : IEnumerator, IDisposable, IEnumerator<T>, Iterator
     {
         private T lastValue;
-
-        protected Iterator ()
-        {
-        }
 
         object Iterator.Next ()
         {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 
 namespace Sharpen
 {
@@ -12,28 +11,16 @@ namespace Sharpen
     {
         public const int January = (int) GregorianCalendarEnum.January;
 
-
-        private CultureInfo m_culture;
-        private DateTime m_gregorianChange;
-
         public GregorianCalendar()
         {
-            m_culture = CultureInfo.CurrentCulture;
-        }
-
-        public GregorianCalendar(CultureInfo culture)
-        {
-            m_culture = culture;
         }
 
         public GregorianCalendar(TimeZoneInfo timeZoneInfo) : base(timeZoneInfo)
         {
-            m_culture = CultureInfo.CurrentCulture;
         }
 
         public GregorianCalendar(int year, int month, int day) : base(year, month, day)
         {
-            m_culture = CultureInfo.CurrentCulture;
         }
 
         public GregorianCalendar(int year, int month, int dayOfMonth, int hourOfDay, int minute, int second)
@@ -43,7 +30,6 @@ namespace Sharpen
 
         public void SetGregorianChange(DateTime date)
         {
-            m_gregorianChange = date;
         }
 
         public override int GetMaximum(CalendarEnum field)

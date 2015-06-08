@@ -15,13 +15,7 @@ namespace Sharpen
 
         readonly string format;
 
-        CultureInfo Culture {
-            get; set;
-        }
-
-        public SimpleDateFormat (): this ("g")
-        {
-        }
+        CultureInfo Culture { get; set; }
 
         public SimpleDateFormat (string format): this (format, CultureInfo.CurrentCulture)
         {
@@ -51,17 +45,6 @@ namespace Sharpen
             {
                 throw new ParseException();
             }
-        }
-
-        public override string Format (DateTime date)
-        {
-            date += GetTimeZone().BaseUtcOffset;
-            return date.ToString (format);
-        }
-
-        public string Format (long date)
-        {
-            return Extensions.MillisToDateTimeOffset (date, (int)GetTimeZone ().BaseUtcOffset.TotalMinutes).DateTime.ToString (format);
         }
 
         private bool TryDateTimeParse(string value, out DateTime? result)

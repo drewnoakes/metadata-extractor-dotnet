@@ -199,7 +199,7 @@ namespace Sharpen
 
         public static Calendar GetInstance(CultureInfo culture)
         {
-            return new GregorianCalendar(culture);
+            return new GregorianCalendar();
         }
 
         public static Calendar GetInstance(TimeZoneInfo value)

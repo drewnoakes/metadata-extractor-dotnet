@@ -6,9 +6,7 @@ namespace Sharpen
 {
     class FileHelper
     {
-        public static FileHelper Instance {
-            get; set;
-        }
+        public static FileHelper Instance { get; private set; }
 
         static FileHelper ()
         {
@@ -30,15 +28,10 @@ namespace Sharpen
             }
         }
 
-        public virtual bool CanExecute (FilePath path)
-        {
-            return false;
-        }
-
         public virtual bool CanRead(FilePath path)
         {
             try {
-                using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read))
+                using (File.Open(path, FileMode.Open, FileAccess.Read))
                 {
                     return true;
                 }
@@ -46,11 +39,6 @@ namespace Sharpen
             catch (IOException) {
                 return false;
             }
-        }
-
-        public virtual bool CanWrite (FilePath path)
-        {
-            return ((File.GetAttributes (path) & FileAttributes.ReadOnly) == 0);
         }
 
         public virtual bool Delete (FilePath path)
@@ -121,51 +109,6 @@ namespace Sharpen
                 fileAttributes &= ~FileAttributes.ReadOnly;
                 File.SetAttributes (file, fileAttributes);
             }
-        }
-
-        public virtual bool RenameTo (FilePath path, string name)
-        {
-            try {
-                File.Move (path, name);
-                return true;
-            } catch {
-                return false;
-            }
-        }
-
-        public virtual bool SetExecutable (FilePath path, bool exec)
-        {
-            return false;
-        }
-
-        public virtual bool SetReadOnly (FilePath path)
-        {
-            try {
-                var fileAttributes = File.GetAttributes (path) | FileAttributes.ReadOnly;
-                File.SetAttributes (path, fileAttributes);
-                return true;
-            } catch {
-                return false;
-            }
-        }
-
-        public virtual bool SetLastModified(FilePath path, long milis)
-        {
-            try {
-                DateTime utcDateTime = Extensions.MillisToDateTimeOffset(milis, 0L).UtcDateTime;
-                if (IsFile(path)) {
-                    var info2 = new FileInfo(path);
-                    info2.LastWriteTimeUtc = utcDateTime;
-                    return true;
-                } else if (IsDirectory(path)) {
-                    var info = new DirectoryInfo(path);
-                    info.LastWriteTimeUtc = utcDateTime;
-                    return true;
-                }
-            } catch  {
-
-            }
-            return false;
         }
     }
 }

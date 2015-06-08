@@ -73,22 +73,6 @@ namespace Sharpen
                     n += o.GetHashCode ();
             return n;
         }
-
-        public void RemoveElement (T elem)
-        {
-            Remove (elem);
-        }
-
-        public void TrimToSize ()
-        {
-            Capacity = Count;
-        }
-
-        public void EnsureCapacity (int c)
-        {
-            if (c > Capacity && c > Count)
-                Capacity = c;
-        }
     }
 }
 

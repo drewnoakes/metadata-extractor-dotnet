@@ -15,15 +15,5 @@ namespace Com.Drew.Lang
             }
             return list;
         }
-
-        public static ICollection<E> ToSet<E>(Iterable<E> iterable)
-        {
-            HashSet<E> set = new HashSet<E>();
-            foreach (E item in iterable)
-            {
-                set.Add(item);
-            }
-            return set;
-        }
     }
 }

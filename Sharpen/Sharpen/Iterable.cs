@@ -5,10 +5,6 @@ namespace Sharpen
 {
     public abstract class Iterable<T> : IEnumerable, IEnumerable<T>
     {
-        protected Iterable ()
-        {
-        }
-
         public IEnumerator<T> GetEnumerator ()
         {
             return this.Iterator ();

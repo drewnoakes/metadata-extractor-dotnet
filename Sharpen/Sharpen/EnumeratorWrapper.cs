@@ -19,14 +19,6 @@ namespace Sharpen
             this.more = e.MoveNext();
         }
 
-        public EnumeratorWrapper(IList<T> list) : this(list, list.GetEnumerator())
-        {
-        }
-
-        public EnumeratorWrapper(IEnumerable<T> keys) : this(keys, GetEnumerator(keys))
-        {
-        }
-
         public override bool HasNext ()
         {
             return this.more;
@@ -60,11 +52,6 @@ namespace Sharpen
             }
             col.Remove (lastVal);
         }
-
-        private static IEnumerator<T> GetEnumerator(IEnumerable<T> keys)
-        {
-            return keys.Iterator();
-        }
     }
 
     public class EnumeratorWrapper : Iterator
@@ -81,14 +68,6 @@ namespace Sharpen
             this.e = e;
             this.collection = collection;
             this.more = e.MoveNext();
-        }
-
-        public EnumeratorWrapper(IList list) : this(list, list.GetEnumerator())
-        {
-        }
-
-        public EnumeratorWrapper(IEnumerable keys) : this(keys, GetEnumerator(keys))
-        {
         }
 
         public bool HasNext ()
@@ -136,31 +115,6 @@ namespace Sharpen
             }
 
             throw new NotSupportedException();
-        }
-
-        private static IEnumerator GetEnumerator(IEnumerable keys)
-        {
-            return keys.GetEnumerator();
-        }
-
-        public bool MoveNext()
-        {
-            if (HasNext())
-            {
-                lastValue = Next();
-                return true;
-            }
-            return false;
-        }
-
-        public void Reset()
-        {
-            throw new NotImplementedException();
-        }
-
-        public object Current
-        {
-            get { return lastValue; }
         }
     }
 }

@@ -10,10 +10,6 @@ namespace Sharpen
         private readonly string path;
         private static long tempCounter;
 
-        public FilePath ()
-        {
-        }
-
         public FilePath (string path)
             : this ((string) null, path)
         {
@@ -69,26 +65,6 @@ namespace Sharpen
             return FileHelper.Instance.CanRead(this);
         }
 
-        public bool CanWrite ()
-        {
-            return FileHelper.Instance.CanWrite (this);
-        }
-
-        public bool CreateNewFile ()
-        {
-            try {
-                File.Open (path, FileMode.CreateNew).Close ();
-                return true;
-            } catch {
-                return false;
-            }
-        }
-
-        public static FilePath CreateTempFile ()
-        {
-            return new FilePath (Path.GetTempFileName ());
-        }
-
         public static FilePath CreateTempFile (string prefix, string suffix)
         {
             return CreateTempFile (prefix, suffix, null);
@@ -122,28 +98,14 @@ namespace Sharpen
             }
         }
 
-        public void DeleteOnExit ()
-        {
-        }
-
         public bool Exists ()
         {
             return FileHelper.Instance.Exists (this);
         }
 
-        public FilePath GetAbsoluteFile ()
-        {
-            return new FilePath (Path.GetFullPath (path));
-        }
-
         public string GetAbsolutePath ()
         {
             return Path.GetFullPath (path);
-        }
-
-        public FilePath GetCanonicalFile ()
-        {
-            return new FilePath (GetCanonicalPath ());
         }
 
         public string GetCanonicalPath ()
@@ -158,19 +120,9 @@ namespace Sharpen
             return Path.GetFileName (path);
         }
 
-        public FilePath GetParentFile ()
-        {
-            return new FilePath (Path.GetDirectoryName (path));
-        }
-
         public string GetPath ()
         {
             return path;
-        }
-
-        public bool IsAbsolute ()
-        {
-            return Path.IsPathRooted (path);
         }
 
         public bool IsDirectory ()
@@ -195,50 +147,18 @@ namespace Sharpen
 
         public string[] List ()
         {
-            return List (null);
-        }
-
-        public string[] List (FilenameFilter filter)
-        {
             try {
                 if (IsFile ())
                     return null;
                 List<string> list = new List<string> ();
                 foreach (string filePth in Directory.GetFileSystemEntries (path)) {
                     string fileName = Path.GetFileName (filePth);
-                    if ((filter == null) || filter.Accept (this, fileName)) {
-                        list.Add (fileName);
-                    }
+                    list.Add (fileName);
                 }
                 return list.ToArray ();
             } catch {
                 return null;
             }
-        }
-
-        public FilePath[] ListFiles ()
-        {
-            try {
-                if (IsFile ())
-                    return null;
-                List<FilePath> list = new List<FilePath> ();
-                foreach (string filePath in Directory.GetFileSystemEntries (path)) {
-                    list.Add (new FilePath (filePath));
-                }
-                return list.ToArray ();
-            } catch {
-                return null;
-            }
-        }
-
-        static void MakeDirWritable (string dir)
-        {
-            FileHelper.Instance.MakeDirWritable (dir);
-        }
-
-        static void MakeFileWritable (string file)
-        {
-            FileHelper.Instance.MakeFileWritable (file);
         }
 
         public bool Mkdir ()
@@ -253,83 +173,19 @@ namespace Sharpen
             }
         }
 
-        public bool Mkdirs ()
-        {
-            try {
-                if (Directory.Exists (path))
-                    return false;
-                Directory.CreateDirectory (this.path);
-                return true;
-            } catch {
-                return false;
-            }
-        }
-
-        public bool RenameTo (FilePath file)
-        {
-            return RenameTo (file.path);
-        }
-
-        public bool RenameTo (string name)
-        {
-            return FileHelper.Instance.RenameTo (this, name);
-        }
-
-        public bool SetLastModified (long milis)
-        {
-            return FileHelper.Instance.SetLastModified(this, milis);
-        }
-
-        public bool SetReadOnly ()
-        {
-            return FileHelper.Instance.SetReadOnly (this);
-        }
-
-        public Uri ToURI ()
-        {
-            return new Uri (path);
-        }
+        // Don't change the case of this method, since ngit does reflection on it
 
         // Don't change the case of this method, since ngit does reflection on it
-        public bool canExecute ()
-        {
-            return FileHelper.Instance.CanExecute (this);
-        }
-
-        // Don't change the case of this method, since ngit does reflection on it
-        public bool setExecutable (bool exec)
-        {
-            return FileHelper.Instance.SetExecutable (this, exec);
-        }
 
         public string GetParent ()
         {
-            string p = Path.GetDirectoryName (path);
-            if (string.IsNullOrEmpty(p) || p == path)
-                return null;
-            else
-                return p;
+            var p = Path.GetDirectoryName (path);
+            return string.IsNullOrEmpty(p) || p == path ? null : p;
         }
 
         public override string ToString ()
         {
             return path;
-        }
-
-        static public string pathSeparator {
-            get { return Path.PathSeparator.ToString (); }
-        }
-
-        static public char pathSeparatorChar {
-            get { return Path.PathSeparator; }
-        }
-
-        static public char separatorChar {
-            get { return Path.DirectorySeparatorChar; }
-        }
-
-        static public string separator {
-            get { return Path.DirectorySeparatorChar.ToString (); }
         }
     }
 }

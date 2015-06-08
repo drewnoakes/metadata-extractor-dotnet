@@ -1,90 +1,13 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading;
 
 namespace Sharpen
 {
     public class Runtime
     {
-        private static Runtime instance;
-        private readonly List<ShutdownHook> shutdownHooks = new List<ShutdownHook> ();
-
-        public void AddShutdownHook (Runnable r)
-        {
-            ShutdownHook item = new ShutdownHook ();
-            item.Runnable = r;
-            this.shutdownHooks.Add (item);
-        }
-
-        public int AvailableProcessors ()
-        {
-            return Environment.ProcessorCount;
-        }
-
-        public static long CurrentTimeMillis ()
-        {
-            return DateTime.UtcNow.ToMillisecondsSinceEpoch ();
-        }
-
-        public SystemProcess Exec (string[] cmd, string[] envp, FilePath dir)
-        {
-            try {
-                ProcessStartInfo psi = new ProcessStartInfo ();
-                psi.FileName = cmd[0];
-                psi.Arguments = string.Join (" ", cmd, 1, cmd.Length - 1);
-                if (dir != null) {
-                    psi.WorkingDirectory = dir.GetPath ();
-                }
-                psi.UseShellExecute = false;
-                psi.RedirectStandardInput = true;
-                psi.RedirectStandardError = true;
-                psi.RedirectStandardOutput = true;
-                psi.CreateNoWindow = true;
-                if (envp != null) {
-                    foreach (string str in envp) {
-                        int index = str.IndexOf ('=');
-                        psi.EnvironmentVariables[str.Substring (0, index)] = str.Substring (index + 1);
-                    }
-                }
-                return SystemProcess.Start (psi);
-            } catch (Win32Exception ex) {
-                throw new IOException (ex.Message);
-            }
-        }
-
-        public static string Getenv (string var)
-        {
-            return Environment.GetEnvironmentVariable (var);
-        }
-
-        public static IDictionary<string, string> GetEnv ()
-        {
-            Dictionary<string, string> dictionary = new Dictionary<string, string> ();
-            foreach (DictionaryEntry v in Environment.GetEnvironmentVariables ()) {
-                dictionary[(string)v.Key] = (string)v.Value;
-            }
-            return dictionary;
-        }
-
-        public static IPAddress GetLocalHost ()
-        {
-            try {
-                return Dns.GetHostEntry (Dns.GetHostName ()).AddressList[0];
-            } catch (SocketException ex) {
-                throw new UnknownHostException (ex);
-            }
-        }
-
         static Hashtable properties;
 
         public static Hashtable GetProperties ()
@@ -111,44 +34,6 @@ namespace Sharpen
             return ((string) GetProperties()[key]);
         }
 
-        public static void SetProperty (string key, string value)
-        {
-            GetProperties () [key] = value;
-        }
-
-        public static Runtime GetRuntime ()
-        {
-            if (instance == null) {
-                instance = new Runtime ();
-            }
-            return instance;
-        }
-
-        public static int IdentityHashCode (object ob)
-        {
-            return RuntimeHelpers.GetHashCode (ob);
-        }
-
-        public long MaxMemory ()
-        {
-            return int.MaxValue;
-        }
-
-        private class ShutdownHook
-        {
-            public Runnable Runnable;
-
-            ~ShutdownHook ()
-            {
-                this.Runnable.Run ();
-            }
-        }
-
-        public static void DeleteCharAt (StringBuilder sb, int index)
-        {
-            sb.Remove (index, 1);
-        }
-
         public static sbyte[] GetBytesForString (string str)
         {
             return Extensions.ConvertToByteArray(Encoding.UTF8.GetBytes (str));
@@ -157,16 +42,6 @@ namespace Sharpen
         public static sbyte[] GetBytesForString (string str, string encoding)
         {
             return Extensions.ConvertToByteArray(Encoding.GetEncoding(encoding).GetBytes(str));
-        }
-
-        public static FieldInfo[] GetDeclaredFields (Type t)
-        {
-            return t.GetFields (BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-        }
-
-        public static void NotifyAll (object ob)
-        {
-            Monitor.PulseAll (ob);
         }
 
         public static void PrintStackTrace (Exception ex)
@@ -189,26 +64,6 @@ namespace Sharpen
             return str.Substring (index, endIndex - index);
         }
 
-        public static void Wait (object ob)
-        {
-            Monitor.Wait (ob);
-        }
-
-        public static bool Wait (object ob, long milis)
-        {
-            return Monitor.Wait (ob, (int)milis);
-        }
-
-        public static Type GetType (string name)
-        {
-            foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies ()) {
-                Type t = a.GetType (name);
-                if (t != null)
-                    return t;
-            }
-            throw new InvalidOperationException ("Type not found: " + name);
-        }
-
         public static void SetCharAt (StringBuilder sb, int index, char c)
         {
             sb [index] = c;
@@ -222,11 +77,6 @@ namespace Sharpen
         public static long NanoTime ()
         {
             return Environment.TickCount * 1000 * 1000;
-        }
-
-        public static int CompareOrdinal (string s1, string s2)
-        {
-            return string.CompareOrdinal (s1, s2);
         }
 
         public static string GetStringForBytes(sbyte[] sbytes, int start, int len)

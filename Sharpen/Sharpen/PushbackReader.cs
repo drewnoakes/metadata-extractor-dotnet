@@ -12,10 +12,6 @@ namespace Sharpen
         private int pos;
         private readonly object _lock;
 
-        public PushbackReader(StreamReader stream) : this(stream, 1)
-        {
-        }
-
         public PushbackReader(StreamReader stream, int size)
             : base(stream.BaseStream)
         {
@@ -87,17 +83,6 @@ namespace Sharpen
             }
         }
 
-        public void Unread(int c)
-        {
-            lock (_lock)
-            {
-                EnsureOpen();
-                if (pos == 0)
-                    throw new IOException("Pushback buffer overflow");
-                buf[--pos] = (char) c;
-            }
-        }
-
         public void Unread(char[] cbuf, int off, int len)
         {
             lock (_lock)
@@ -108,11 +93,6 @@ namespace Sharpen
                 pos -= len;
                 Array.Copy(cbuf, off, buf, pos, len);
             }
-        }
-
-        public void unread(char[] cbuf)
-        {
-            Unread(cbuf, 0, cbuf.Length);
         }
 
         private void EnsureOpen()

@@ -26,7 +26,6 @@
 
 using System;
 using System.Net;
-using System.Net.Cache;
 
 namespace Sharpen
 {
@@ -40,37 +39,15 @@ namespace Sharpen
         public HttpsURLConnection (Uri uri): base (uri)
         {
         }
-
-        public HttpsURLConnection (Uri uri, Proxy p): base (uri, p)
-        {
-        }
-
-        public void SetSSLSocketFactory (object factory)
-        {
-            // TODO
-        }
     }
 
     public class HttpURLConnection: URLConnection
     {
-        public const int HTTP_OK = 200;
-        public const int HTTP_NOT_FOUND = 404;
-        public const int HTTP_FORBIDDEN = 403;
-        public const int HTTP_UNAUTHORIZED = 401;
-
         readonly HttpWebRequest request;
         HttpWebResponse reqResponse;
-        readonly Uri url;
 
         public HttpURLConnection (Uri uri)
         {
-            url = uri;
-            request = (HttpWebRequest) HttpWebRequest.Create (uri);
-        }
-
-        public HttpURLConnection (Uri uri, Proxy p)
-        {
-            url = uri;
             request = (HttpWebRequest) HttpWebRequest.Create (uri);
         }
 
@@ -96,108 +73,9 @@ namespace Sharpen
             }
         }
 
-        public void SetUseCaches (bool u)
-        {
-            if (u)
-                request.CachePolicy = new RequestCachePolicy (RequestCacheLevel.Default);
-            else
-                request.CachePolicy = new RequestCachePolicy (RequestCacheLevel.BypassCache);
-        }
-
-        public void SetRequestMethod (string method)
-        {
-            request.Method = method;
-        }
-
-        public string GetRequestMethod ()
-        {
-            return request.Method;
-        }
-
-        public void SetInstanceFollowRedirects (bool redirects)
-        {
-            request.AllowAutoRedirect = redirects;
-        }
-
-        public void SetDoOutput (bool dooutput)
-        {
-            // Not required?
-        }
-
-        public void SetFixedLengthStreamingMode (int len)
-        {
-            request.SendChunked = false;
-        }
-
-        public void SetChunkedStreamingMode (int n)
-        {
-            request.SendChunked = true;
-        }
-
-        public void SetRequestProperty (string key, string value)
-        {
-            switch (key.ToLower ()) {
-            case "user-agent": request.UserAgent = value; break;
-            case "content-length": request.ContentLength = long.Parse (value); break;
-            case "content-type": request.ContentType = value; break;
-            case "expect": request.Expect = value; break;
-            case "referer": request.Referer = value; break;
-            case "transfer-encoding": request.TransferEncoding = value; break;
-            case "accept": request.Accept = value; break;
-            default: request.Headers.Set (key, value); break;
-            }
-        }
-
-        public string GetResponseMessage ()
-        {
-            return Response.StatusDescription;
-        }
-
-        public void SetConnectTimeout (int ms)
-        {
-            if (ms == 0)
-                ms = -1;
-            request.Timeout = ms;
-        }
-
-        public void SetReadTimeout (int ms)
-        {
-            // Not available
-        }
-
         public override InputStream GetInputStream ()
         {
             return Response.GetResponseStream ();
-        }
-
-        public OutputStream GetOutputStream ()
-        {
-            return request.GetRequestStream ();
-        }
-
-        public string GetHeaderField (string header)
-        {
-            return Response.GetResponseHeader (header);
-        }
-
-        public string GetContentType ()
-        {
-            return Response.ContentType;
-        }
-
-        public int GetContentLength ()
-        {
-            return (int) Response.ContentLength;
-        }
-
-        public int GetResponseCode ()
-        {
-            return (int) Response.StatusCode;
-        }
-
-        public Uri GetURL ()
-        {
-            return url;
         }
     }
 }

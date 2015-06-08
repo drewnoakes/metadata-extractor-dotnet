@@ -12,10 +12,6 @@ namespace Sharpen
         {
         }
 
-        public FileOutputStream (FilePath file, bool append) : this(file.GetPath (), append)
-        {
-        }
-
         public FileOutputStream (string file, bool append)
         {
             try {
@@ -27,11 +23,6 @@ namespace Sharpen
             } catch (DirectoryNotFoundException) {
                 throw new FileNotFoundException ("File not found: " + file);
             }
-        }
-
-        public FileChannel GetChannel ()
-        {
-            return new FileChannel ((FileStream)base.Wrapped);
         }
     }
 }

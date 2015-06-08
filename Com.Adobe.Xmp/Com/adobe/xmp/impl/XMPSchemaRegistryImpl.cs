@@ -8,6 +8,7 @@
 // =================================================================================================
 
 using System.Collections;
+using System.Text.RegularExpressions;
 using Com.Adobe.Xmp.Options;
 using Com.Adobe.Xmp.Properties;
 using Sharpen;
@@ -36,7 +37,7 @@ namespace Com.Adobe.Xmp.Impl
         private readonly IDictionary aliasMap = new Hashtable();
 
         /// <summary>The pattern that must not be contained in simple properties</summary>
-        private readonly Pattern p = Pattern.Compile("[/*?\\[\\]]");
+        private readonly Regex p = new Regex ("[/*?\\[\\]]", RegexOptions.Compiled);
 
         /// <summary>
         /// Performs the initialisation of the registry with the default namespaces, aliases and global
@@ -328,7 +329,7 @@ namespace Com.Adobe.Xmp.Impl
                 ParameterAsserts.AssertPropName(actualProp);
                 // Fix the alias options
                 AliasOptions aliasOpts = aliasForm != null ? new AliasOptions(XMPNodeUtils.VerifySetOptions(aliasForm.ToPropertyOptions(), null).GetOptions()) : new AliasOptions();
-                if (p.Matcher(aliasProp).Find() || p.Matcher(actualProp).Find())
+                if (new Matcher(p, aliasProp).Find() || new Matcher(p, actualProp).Find())
                 {
                     throw new XMPException("Alias and actual property names must be simple", XMPErrorConstants.Badxpath);
                 }

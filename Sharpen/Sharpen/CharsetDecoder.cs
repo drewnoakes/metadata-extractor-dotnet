@@ -20,21 +20,5 @@ namespace Sharpen
                 throw new CharacterCodingException ();
             return res;
         }
-
-        public void OnMalformedInput (CodingErrorAction action)
-        {
-            if (action == CodingErrorAction.REPORT)
-                decoder.Fallback = DecoderFallback.ExceptionFallback;
-            else
-                decoder.Fallback = DecoderFallback.ReplacementFallback;
-        }
-
-        public void OnUnmappableCharacter (CodingErrorAction action)
-        {
-            if (action == CodingErrorAction.REPORT)
-                decoder.Fallback = DecoderFallback.ExceptionFallback;
-            else
-                decoder.Fallback = DecoderFallback.ReplacementFallback;
-        }
     }
 }

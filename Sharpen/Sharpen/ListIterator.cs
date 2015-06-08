@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 
 namespace Sharpen
 {
@@ -19,17 +18,6 @@ namespace Sharpen
         {
         }
 
-        public bool HasPrevious()
-        {
-            return (this.pos > 0);
-        }
-
-        public object Previous()
-        {
-            pos--;
-            return list[pos];
-        }
-
         public override object Next()
         {
             pos++;
@@ -47,44 +35,6 @@ namespace Sharpen
         }
 
         public void Set(object val)
-        {
-            list[pos] = val;
-        }
-    }
-
-    public class ListIterator<T>
-    {
-        private readonly IList<T> list;
-        private int pos;
-
-        public ListIterator (IList<T> list, int n)
-        {
-            this.list = list;
-            this.pos = n;
-        }
-
-        public ListIterator (IList<T> list) : this(list, -1)
-        {
-        }
-
-        public bool HasPrevious ()
-        {
-            return (this.pos > 0);
-        }
-
-        public T Previous ()
-        {
-            pos--;
-            return list[pos];
-        }
-
-        public T Next()
-        {
-            pos++;
-            return list[pos];
-        }
-
-        public void Set(T val)
         {
             list[pos] = val;
         }
