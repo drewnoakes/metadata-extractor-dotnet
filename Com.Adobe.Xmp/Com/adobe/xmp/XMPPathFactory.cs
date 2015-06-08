@@ -82,7 +82,7 @@ namespace Com.Adobe.Xmp
             {
                 return arrayName + "[last()]";
             }
-            throw new XmpException("Array index must be larger than zero", XmpErrorConstants.Badindex);
+            throw new XmpException("Array index must be larger than zero", XmpErrorCode.Badindex);
         }
 
         /// <summary>Compose the path expression for a field in a struct.</summary>
@@ -112,7 +112,7 @@ namespace Com.Adobe.Xmp
             XmpPath fieldPath = XmpPathParser.ExpandXPath(fieldNs, fieldName);
             if (fieldPath.Size() != 2)
             {
-                throw new XmpException("The field name must be simple", XmpErrorConstants.Badxpath);
+                throw new XmpException("The field name must be simple", XmpErrorCode.Badxpath);
             }
             return '/' + fieldPath.GetSegment(XmpPath.StepRootProp).GetName();
         }
@@ -140,7 +140,7 @@ namespace Com.Adobe.Xmp
             XmpPath qualPath = XmpPathParser.ExpandXPath(qualNs, qualName);
             if (qualPath.Size() != 2)
             {
-                throw new XmpException("The qualifier name must be simple", XmpErrorConstants.Badxpath);
+                throw new XmpException("The qualifier name must be simple", XmpErrorCode.Badxpath);
             }
             return "/?" + qualPath.GetSegment(XmpPath.StepRootProp).GetName();
         }
@@ -219,7 +219,7 @@ namespace Com.Adobe.Xmp
             XmpPath fieldPath = XmpPathParser.ExpandXPath(fieldNs, fieldName);
             if (fieldPath.Size() != 2)
             {
-                throw new XmpException("The fieldName name must be simple", XmpErrorConstants.Badxpath);
+                throw new XmpException("The fieldName name must be simple", XmpErrorCode.Badxpath);
             }
             return arrayName + '[' + fieldPath.GetSegment(XmpPath.StepRootProp).GetName() + "=\"" + fieldValue + "\"]";
         }
@@ -232,7 +232,7 @@ namespace Com.Adobe.Xmp
         {
             if (string.IsNullOrEmpty(qualNs))
             {
-                throw new XmpException("Empty qualifier namespace URI", XmpErrorConstants.Badschema);
+                throw new XmpException("Empty qualifier namespace URI", XmpErrorCode.Badschema);
             }
         }
 
@@ -244,7 +244,7 @@ namespace Com.Adobe.Xmp
         {
             if (string.IsNullOrEmpty(qualName))
             {
-                throw new XmpException("Empty qualifier name", XmpErrorConstants.Badxpath);
+                throw new XmpException("Empty qualifier name", XmpErrorCode.Badxpath);
             }
         }
 
@@ -256,7 +256,7 @@ namespace Com.Adobe.Xmp
         {
             if (string.IsNullOrEmpty(fieldNs))
             {
-                throw new XmpException("Empty field namespace URI", XmpErrorConstants.Badschema);
+                throw new XmpException("Empty field namespace URI", XmpErrorCode.Badschema);
             }
         }
 
@@ -268,7 +268,7 @@ namespace Com.Adobe.Xmp
         {
             if (string.IsNullOrEmpty(fieldName))
             {
-                throw new XmpException("Empty f name", XmpErrorConstants.Badxpath);
+                throw new XmpException("Empty f name", XmpErrorCode.Badxpath);
             }
         }
     }

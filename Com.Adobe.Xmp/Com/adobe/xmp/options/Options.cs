@@ -193,7 +193,7 @@ namespace Com.Adobe.Xmp.Options
             }
             else
             {
-                throw new XmpException("The option bit(s) 0x" + Extensions.ToHexString(invalidOptions) + " are invalid!", XmpErrorConstants.Badoptions);
+                throw new XmpException("The option bit(s) 0x" + Extensions.ToHexString(invalidOptions) + " are invalid!", XmpErrorCode.Badoptions);
             }
         }
 

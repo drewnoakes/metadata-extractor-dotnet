@@ -83,7 +83,7 @@ namespace Com.Adobe.Xmp.Impl
                     }
                     else
                     {
-                        throw new XmpException("Failure creating xmpMM:InstanceID", XmpErrorConstants.Internalfailure);
+                        throw new XmpException("Failure creating xmpMM:InstanceID", XmpErrorCode.Internalfailure);
                     }
                 }
             }
@@ -370,7 +370,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (childNode.GetOptions().GetHasLanguage())
                 {
-                    throw new XmpException("Alias to x-default already has a language qualifier", XmpErrorConstants.Badxmp);
+                    throw new XmpException("Alias to x-default already has a language qualifier", XmpErrorCode.Badxmp);
                 }
                 XmpNode langQual = new XmpNode(XmpConstConstants.XmlLang, XmpConstConstants.XDefault, null);
                 childNode.AddQualifier(langQual);
@@ -451,11 +451,11 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (!aliasNode.GetValue().Equals(baseNode.GetValue()) || aliasNode.GetChildrenLength() != baseNode.GetChildrenLength())
             {
-                throw new XmpException("Mismatch between alias and base nodes", XmpErrorConstants.Badxmp);
+                throw new XmpException("Mismatch between alias and base nodes", XmpErrorCode.Badxmp);
             }
             if (!outerCall && (!aliasNode.GetName().Equals(baseNode.GetName()) || !aliasNode.GetOptions().Equals(baseNode.GetOptions()) || aliasNode.GetQualifierLength() != baseNode.GetQualifierLength()))
             {
-                throw new XmpException("Mismatch between alias and base nodes", XmpErrorConstants.Badxmp);
+                throw new XmpException("Mismatch between alias and base nodes", XmpErrorCode.Badxmp);
             }
             for (IIterator an = aliasNode.IterateChildren(), bn = baseNode.IterateChildren(); an.HasNext() && bn.HasNext(); )
             {

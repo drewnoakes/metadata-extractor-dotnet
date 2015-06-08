@@ -73,7 +73,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             if (!arrayOptions.IsOnlyArrayOptions())
             {
-                throw new XmpException("Only array form flags allowed for arrayOptions", XmpErrorConstants.Badoptions);
+                throw new XmpException("Only array form flags allowed for arrayOptions", XmpErrorCode.Badoptions);
             }
             // Check if array options are set correctly.
             arrayOptions = XmpNodeUtils.VerifySetOptions(arrayOptions, null);
@@ -89,7 +89,7 @@ namespace Com.Adobe.Xmp.Impl
                 // arrayForm means take what exists.
                 if (!arrayNode.GetOptions().IsArray())
                 {
-                    throw new XmpException("The named property is not an array", XmpErrorConstants.Badxpath);
+                    throw new XmpException("The named property is not an array", XmpErrorCode.Badxpath);
                 }
             }
             else
@@ -104,13 +104,13 @@ namespace Com.Adobe.Xmp.Impl
                     arrayNode = XmpNodeUtils.FindNode(_tree, arrayPath, true, arrayOptions);
                     if (arrayNode == null)
                     {
-                        throw new XmpException("Failure creating array node", XmpErrorConstants.Badxpath);
+                        throw new XmpException("Failure creating array node", XmpErrorCode.Badxpath);
                     }
                 }
                 else
                 {
                     // array options missing
-                    throw new XmpException("Explicit arrayOptions required to create new array", XmpErrorConstants.Badoptions);
+                    throw new XmpException("Explicit arrayOptions required to create new array", XmpErrorCode.Badoptions);
                 }
             }
             DoSetArrayItem(arrayNode, XmpConstConstants.ArrayLastItem, itemValue, itemOptions, true);
@@ -139,7 +139,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return arrayNode.GetChildrenLength();
             }
-            throw new XmpException("The named property is not an array", XmpErrorConstants.Badxpath);
+            throw new XmpException("The named property is not an array", XmpErrorCode.Badxpath);
         }
 
         /// <seealso cref="IXmpMeta.DeleteArrayItem(string, string, int)"/>
@@ -358,7 +358,7 @@ namespace Com.Adobe.Xmp.Impl
             XmpNode arrayNode = XmpNodeUtils.FindNode(_tree, arrayPath, true, new PropertyOptions(PropertyOptions.Array | PropertyOptions.ArrayOrdered | PropertyOptions.ArrayAlternate | PropertyOptions.ArrayAltText));
             if (arrayNode == null)
             {
-                throw new XmpException("Failed to find or create array node", XmpErrorConstants.Badxpath);
+                throw new XmpException("Failed to find or create array node", XmpErrorCode.Badxpath);
             }
             if (!arrayNode.GetOptions().IsArrayAltText())
             {
@@ -368,7 +368,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 else
                 {
-                    throw new XmpException("Specified property is no alt-text array", XmpErrorConstants.Badxpath);
+                    throw new XmpException("Specified property is no alt-text array", XmpErrorCode.Badxpath);
                 }
             }
             // Make sure the x-default item, if any, is first.
@@ -379,7 +379,7 @@ namespace Com.Adobe.Xmp.Impl
                 XmpNode currItem = (XmpNode)it.Next();
                 if (!currItem.HasQualifier() || !XmpConstConstants.XmlLang.Equals(currItem.GetQualifier(1).GetName()))
                 {
-                    throw new XmpException("Language qualifier must be first", XmpErrorConstants.Badxpath);
+                    throw new XmpException("Language qualifier must be first", XmpErrorCode.Badxpath);
                 }
                 if (XmpConstConstants.XDefault.Equals(currItem.GetQualifier(1).GetValue()))
                 {
@@ -503,7 +503,7 @@ namespace Com.Adobe.Xmp.Impl
                 default:
                 {
                     // does not happen under normal circumstances
-                    throw new XmpException("Unexpected result from ChooseLocalizedText", XmpErrorConstants.Internalfailure);
+                    throw new XmpException("Unexpected result from ChooseLocalizedText", XmpErrorCode.Internalfailure);
                 }
             }
             // Add an x-default at the front if needed.
@@ -550,7 +550,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (valueType != ValueString && propNode.GetOptions().IsCompositeProperty())
                 {
-                    throw new XmpException("Property must be simple when a value type is requested", XmpErrorConstants.Badxpath);
+                    throw new XmpException("Property must be simple when a value type is requested", XmpErrorCode.Badxpath);
                 }
                 object value = EvaluateNodeValue(valueType, propNode);
                 return new XmpProperty682(value, propNode);
@@ -611,7 +611,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (valueType != ValueString && propNode.GetOptions().IsCompositeProperty())
                 {
-                    throw new XmpException("Property must be simple when a value type is requested", XmpErrorConstants.Badxpath);
+                    throw new XmpException("Property must be simple when a value type is requested", XmpErrorCode.Badxpath);
                 }
                 return EvaluateNodeValue(valueType, propNode);
             }
@@ -830,7 +830,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             else
             {
-                throw new XmpException("Specified array does not exist", XmpErrorConstants.Badxpath);
+                throw new XmpException("Specified array does not exist", XmpErrorCode.Badxpath);
             }
         }
 
@@ -856,7 +856,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             else
             {
-                throw new XmpException("Specified array does not exist", XmpErrorConstants.Badxpath);
+                throw new XmpException("Specified array does not exist", XmpErrorCode.Badxpath);
             }
         }
 
@@ -882,7 +882,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             else
             {
-                throw new XmpException("Specified property does not exist", XmpErrorConstants.Badxpath);
+                throw new XmpException("Specified property does not exist", XmpErrorCode.Badxpath);
             }
         }
 
@@ -901,7 +901,7 @@ namespace Com.Adobe.Xmp.Impl
             ParameterAsserts.AssertPropName(propName);
             if (!DoesPropertyExist(schemaNs, propName))
             {
-                throw new XmpException("Specified property does not exist!", XmpErrorConstants.Badxpath);
+                throw new XmpException("Specified property does not exist!", XmpErrorCode.Badxpath);
             }
             string qualPath = propName + XmpPathFactory.ComposeQualifierPath(qualNs, qualName);
             SetProperty(schemaNs, qualPath, qualValue, options);
@@ -1031,7 +1031,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             else
             {
-                throw new XmpException("Array index out of bounds", XmpErrorConstants.Badindex);
+                throw new XmpException("Array index out of bounds", XmpErrorCode.Badindex);
             }
         }
 
@@ -1061,7 +1061,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (value != null && value.ToString().Length > 0)
                 {
-                    throw new XmpException("Composite nodes can't have values", XmpErrorConstants.Badxpath);
+                    throw new XmpException("Composite nodes can't have values", XmpErrorCode.Badxpath);
                 }
                 node.RemoveChildren();
             }

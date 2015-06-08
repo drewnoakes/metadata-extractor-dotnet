@@ -70,7 +70,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         {
             if (schemaNs == null || path == null)
             {
-                throw new XmpException("Parameter must not be null", XmpErrorConstants.Badparam);
+                throw new XmpException("Parameter must not be null", XmpErrorCode.Badparam);
             }
             XmpPath expandedXPath = new XmpPath();
             PathPosition pos = new PathPosition();
@@ -102,7 +102,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                         segment.SetName("?" + Runtime.Substring(segment.GetName(), 1));
                         if (!"?xml:lang".Equals(segment.GetName()))
                         {
-                            throw new XmpException("Only xml:lang allowed with '@'", XmpErrorConstants.Badxpath);
+                            throw new XmpException("Only xml:lang allowed with '@'", XmpErrorCode.Badxpath);
                         }
                     }
                     if (segment.GetName()[0] == '?')
@@ -121,7 +121,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                             segment.SetName("[?" + Runtime.Substring(segment.GetName(), 2));
                             if (!segment.GetName().StartsWith("[?xml:lang="))
                             {
-                                throw new XmpException("Only xml:lang allowed with '@'", XmpErrorConstants.Badxpath);
+                                throw new XmpException("Only xml:lang allowed with '@'", XmpErrorCode.Badxpath);
                             }
                         }
                         if (segment.GetName()[1] == '?')
@@ -149,7 +149,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                 // added for Java
                 if (pos.StepBegin >= path.Length)
                 {
-                    throw new XmpException("Empty XMPPath segment", XmpErrorConstants.Badxpath);
+                    throw new XmpException("Empty XMPPath segment", XmpErrorCode.Badxpath);
                 }
             }
             if (path[pos.StepBegin] == '*')
@@ -158,7 +158,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                 pos.StepBegin++;
                 if (pos.StepBegin >= path.Length || path[pos.StepBegin] != '[')
                 {
-                    throw new XmpException("Missing '[' after '*'", XmpErrorConstants.Badxpath);
+                    throw new XmpException("Missing '[' after '*'", XmpErrorCode.Badxpath);
                 }
             }
         }
@@ -177,7 +177,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
             pos.NameEnd = pos.StepEnd;
             if (pos.StepEnd == pos.StepBegin)
             {
-                throw new XmpException("Empty XMPPath segment", XmpErrorConstants.Badxpath);
+                throw new XmpException("Empty XMPPath segment", XmpErrorCode.Badxpath);
             }
             // ! Touch up later, also changing '@' to '?'.
             XmpPathSegment segment = new XmpPathSegment(Runtime.Substring(pos.Path, pos.StepBegin, pos.StepEnd), XmpPath.StructFieldStep);
@@ -211,13 +211,13 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                 }
                 if (pos.StepEnd >= pos.Path.Length)
                 {
-                    throw new XmpException("Missing ']' or '=' for array index", XmpErrorConstants.Badxpath);
+                    throw new XmpException("Missing ']' or '=' for array index", XmpErrorCode.Badxpath);
                 }
                 if (pos.Path[pos.StepEnd] == ']')
                 {
                     if (!"[last()".Equals(Runtime.Substring(pos.Path, pos.StepBegin, pos.StepEnd)))
                     {
-                        throw new XmpException("Invalid non-numeric array index", XmpErrorConstants.Badxpath);
+                        throw new XmpException("Invalid non-numeric array index", XmpErrorCode.Badxpath);
                     }
                     segment = new XmpPathSegment(null, XmpPath.ArrayLastStep);
                 }
@@ -230,7 +230,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                     char quote = pos.Path[pos.StepEnd];
                     if (quote != '\'' && quote != '"')
                     {
-                        throw new XmpException("Invalid quote in array selector", XmpErrorConstants.Badxpath);
+                        throw new XmpException("Invalid quote in array selector", XmpErrorCode.Badxpath);
                     }
                     pos.StepEnd++;
                     // Absorb the leading quote.
@@ -249,7 +249,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                     }
                     if (pos.StepEnd >= pos.Path.Length)
                     {
-                        throw new XmpException("No terminating quote for array selector", XmpErrorConstants.Badxpath);
+                        throw new XmpException("No terminating quote for array selector", XmpErrorCode.Badxpath);
                     }
                     pos.StepEnd++;
                     // Absorb the trailing quote.
@@ -259,7 +259,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
             }
             if (pos.StepEnd >= pos.Path.Length || pos.Path[pos.StepEnd] != ']')
             {
-                throw new XmpException("Missing ']' for array index", XmpErrorConstants.Badxpath);
+                throw new XmpException("Missing ']' for array index", XmpErrorCode.Badxpath);
             }
             pos.StepEnd++;
             segment.SetName(Runtime.Substring(pos.Path, pos.StepBegin, pos.StepEnd));
@@ -282,7 +282,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
             }
             if (pos.StepEnd == pos.StepBegin)
             {
-                throw new XmpException("Empty initial XMPPath step", XmpErrorConstants.Badxpath);
+                throw new XmpException("Empty initial XMPPath step", XmpErrorCode.Badxpath);
             }
             string rootProp = VerifyXPathRoot(schemaNs, Runtime.Substring(pos.Path, pos.StepBegin, pos.StepEnd));
             IXmpAliasInfo aliasInfo = XmpMetaFactory.GetSchemaRegistry().FindAlias(rootProp);
@@ -340,10 +340,10 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                     {
                         return;
                     }
-                    throw new XmpException("Unknown namespace prefix for qualified name", XmpErrorConstants.Badxpath);
+                    throw new XmpException("Unknown namespace prefix for qualified name", XmpErrorCode.Badxpath);
                 }
             }
-            throw new XmpException("Ill-formed qualified name", XmpErrorConstants.Badxpath);
+            throw new XmpException("Ill-formed qualified name", XmpErrorCode.Badxpath);
         }
 
         /// <summary>Verify if an XML name is conformant.</summary>
@@ -353,7 +353,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         {
             if (!Utils.IsXmlName(name))
             {
-                throw new XmpException("Bad XML name", XmpErrorConstants.Badxpath);
+                throw new XmpException("Bad XML name", XmpErrorCode.Badxpath);
             }
         }
 
@@ -377,20 +377,20 @@ namespace Com.Adobe.Xmp.Impl.Xpath
             // qualified.
             if (string.IsNullOrEmpty(schemaNs))
             {
-                throw new XmpException("Schema namespace URI is required", XmpErrorConstants.Badschema);
+                throw new XmpException("Schema namespace URI is required", XmpErrorCode.Badschema);
             }
             if ((rootProp[0] == '?') || (rootProp[0] == '@'))
             {
-                throw new XmpException("Top level name must not be a qualifier", XmpErrorConstants.Badxpath);
+                throw new XmpException("Top level name must not be a qualifier", XmpErrorCode.Badxpath);
             }
             if (rootProp.IndexOf('/') >= 0 || rootProp.IndexOf('[') >= 0)
             {
-                throw new XmpException("Top level name must be simple", XmpErrorConstants.Badxpath);
+                throw new XmpException("Top level name must be simple", XmpErrorCode.Badxpath);
             }
             string prefix = XmpMetaFactory.GetSchemaRegistry().GetNamespacePrefix(schemaNs);
             if (prefix == null)
             {
-                throw new XmpException("Unregistered schema namespace URI", XmpErrorConstants.Badschema);
+                throw new XmpException("Unregistered schema namespace URI", XmpErrorCode.Badschema);
             }
             // Verify the various URI and prefix combinations. Initialize the
             // expanded XMPPath.
@@ -412,11 +412,11 @@ namespace Com.Adobe.Xmp.Impl.Xpath
             string regPrefix = XmpMetaFactory.GetSchemaRegistry().GetNamespacePrefix(schemaNs);
             if (regPrefix == null)
             {
-                throw new XmpException("Unknown schema namespace prefix", XmpErrorConstants.Badschema);
+                throw new XmpException("Unknown schema namespace prefix", XmpErrorCode.Badschema);
             }
             if (!prefix.Equals(regPrefix))
             {
-                throw new XmpException("Schema namespace URI and prefix mismatch", XmpErrorConstants.Badschema);
+                throw new XmpException("Schema namespace URI and prefix mismatch", XmpErrorCode.Badschema);
             }
             return rootProp;
         }

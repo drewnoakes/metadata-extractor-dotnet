@@ -121,7 +121,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             catch (IOException e)
             {
-                throw new XmpException("Error reading the XML-file", XmpErrorConstants.Badstream, e);
+                throw new XmpException("Error reading the XML-file", XmpErrorCode.Badstream, e);
             }
         }
 
@@ -142,7 +142,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             catch (XmpException e)
             {
-                if (e.GetErrorCode() == XmpErrorConstants.Badxml || e.GetErrorCode() == XmpErrorConstants.Badstream)
+                if (e.GetErrorCode() == XmpErrorCode.Badxml || e.GetErrorCode() == XmpErrorCode.Badstream)
                 {
                     if (options.GetAcceptLatin1())
                     {
@@ -159,7 +159,7 @@ namespace Com.Adobe.Xmp.Impl
                         catch (UnsupportedEncodingException)
                         {
                             // can normally not happen as the encoding is provided by a util function
-                            throw new XmpException("Unsupported Encoding", XmpErrorConstants.Internalfailure, e);
+                            throw new XmpException("Unsupported Encoding", XmpErrorCode.Internalfailure, e);
                         }
                     }
                     source = new InputSource(buffer.GetByteStream());
@@ -185,7 +185,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             catch (XmpException e)
             {
-                if (e.GetErrorCode() == XmpErrorConstants.Badxml && options.GetFixControlChars())
+                if (e.GetErrorCode() == XmpErrorCode.Badxml && options.GetFixControlChars())
                 {
                     source = new InputSource(new FixAsciiControlsReader(new StringReader(input)));
                     return ParseInputSource(source);
@@ -209,15 +209,15 @@ namespace Com.Adobe.Xmp.Impl
             }
             catch (XmlException e)
             {
-                throw new XmpException("XML parsing failure", XmpErrorConstants.Badxml, e);
+                throw new XmpException("XML parsing failure", XmpErrorCode.Badxml, e);
             }
             catch (IOException e)
             {
-                throw new XmpException("Error reading the XML-file", XmpErrorConstants.Badstream, e);
+                throw new XmpException("Error reading the XML-file", XmpErrorCode.Badstream, e);
             }
             catch (Exception e)
             {
-                throw new XmpException("XML Parser not correctly configured", XmpErrorConstants.Unknown, e);
+                throw new XmpException("XML Parser not correctly configured", XmpErrorCode.Unknown, e);
             }
         }
 

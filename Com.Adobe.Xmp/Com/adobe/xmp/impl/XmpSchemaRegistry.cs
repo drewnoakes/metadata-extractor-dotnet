@@ -71,7 +71,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 if (!Utils.IsXmlNameNs(Runtime.Substring(suggestedPrefix, 0, suggestedPrefix.Length - 1)))
                 {
-                    throw new XmpException("The prefix is a bad XML name", XmpErrorConstants.Badxml);
+                    throw new XmpException("The prefix is a bad XML name", XmpErrorCode.Badxml);
                 }
                 string registeredPrefix = (string)_namespaceToPrefixMap.Get(namespaceUri);
                 string registeredNs = (string)_prefixToNamespaceMap.Get(suggestedPrefix);
@@ -319,28 +319,28 @@ namespace Com.Adobe.Xmp.Impl
                 AliasOptions aliasOpts = aliasForm != null ? new AliasOptions(XmpNodeUtils.VerifySetOptions(aliasForm.ToPropertyOptions(), null).GetOptions()) : new AliasOptions();
                 if (_p.IsMatch(aliasProp) || _p.IsMatch(actualProp))
                 {
-                    throw new XmpException("Alias and actual property names must be simple", XmpErrorConstants.Badxpath);
+                    throw new XmpException("Alias and actual property names must be simple", XmpErrorCode.Badxpath);
                 }
                 // check if both namespaces are registered
                 string aliasPrefix = GetNamespacePrefix(aliasNs);
                 string actualPrefix = GetNamespacePrefix(actualNs);
                 if (aliasPrefix == null)
                 {
-                    throw new XmpException("Alias namespace is not registered", XmpErrorConstants.Badschema);
+                    throw new XmpException("Alias namespace is not registered", XmpErrorCode.Badschema);
                 }
                 if (actualPrefix == null)
                 {
-                    throw new XmpException("Actual namespace is not registered", XmpErrorConstants.Badschema);
+                    throw new XmpException("Actual namespace is not registered", XmpErrorCode.Badschema);
                 }
                 string key = aliasPrefix + aliasProp;
                 // check if alias is already existing
                 if (_aliasMap.ContainsKey(key))
                 {
-                    throw new XmpException("Alias is already existing", XmpErrorConstants.Badparam);
+                    throw new XmpException("Alias is already existing", XmpErrorCode.Badparam);
                 }
                 if (_aliasMap.ContainsKey(actualPrefix + actualProp))
                 {
-                    throw new XmpException("Actual property is already an alias, use the base property", XmpErrorConstants.Badparam);
+                    throw new XmpException("Actual property is already an alias, use the base property", XmpErrorCode.Badparam);
                 }
                 IXmpAliasInfo aliasInfo = new XmpAliasInfo390(actualNs, actualPrefix, actualProp, aliasOpts);
                 _aliasMap.Put(key, aliasInfo);

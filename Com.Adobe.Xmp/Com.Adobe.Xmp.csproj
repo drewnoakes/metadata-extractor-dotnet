@@ -70,7 +70,7 @@
     <Compile Include="com\adobe\xmp\XMPConst.cs" />
     <Compile Include="com\adobe\xmp\IXmpDateTime.cs" />
     <Compile Include="com\adobe\xmp\XMPDateTimeFactory.cs" />
-    <Compile Include="com\adobe\xmp\XMPError.cs" />
+    <Compile Include="com\adobe\xmp\XmpErrorCode.cs" />
     <Compile Include="com\adobe\xmp\XMPException.cs" />
     <Compile Include="com\adobe\xmp\IXmpIterator.cs" />
     <Compile Include="com\adobe\xmp\IXmpMeta.cs" />

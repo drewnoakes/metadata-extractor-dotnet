@@ -20,7 +20,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (string.IsNullOrEmpty(arrayName))
             {
-                throw new XmpException("Empty array name", XmpErrorConstants.Badparam);
+                throw new XmpException("Empty array name", XmpErrorCode.Badparam);
             }
         }
 
@@ -31,7 +31,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (string.IsNullOrEmpty(propName))
             {
-                throw new XmpException("Empty property name", XmpErrorConstants.Badparam);
+                throw new XmpException("Empty property name", XmpErrorCode.Badparam);
             }
         }
 
@@ -42,7 +42,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (string.IsNullOrEmpty(schemaNs))
             {
-                throw new XmpException("Empty schema namespace URI", XmpErrorConstants.Badparam);
+                throw new XmpException("Empty schema namespace URI", XmpErrorCode.Badparam);
             }
         }
 
@@ -53,7 +53,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (string.IsNullOrEmpty(prefix))
             {
-                throw new XmpException("Empty prefix", XmpErrorConstants.Badparam);
+                throw new XmpException("Empty prefix", XmpErrorCode.Badparam);
             }
         }
 
@@ -64,7 +64,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (string.IsNullOrEmpty(specificLang))
             {
-                throw new XmpException("Empty specific language", XmpErrorConstants.Badparam);
+                throw new XmpException("Empty specific language", XmpErrorCode.Badparam);
             }
         }
 
@@ -75,7 +75,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (string.IsNullOrEmpty(structName))
             {
-                throw new XmpException("Empty array name", XmpErrorConstants.Badparam);
+                throw new XmpException("Empty array name", XmpErrorCode.Badparam);
             }
         }
 
@@ -86,12 +86,12 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (param == null)
             {
-                throw new XmpException("Parameter must not be null", XmpErrorConstants.Badparam);
+                throw new XmpException("Parameter must not be null", XmpErrorCode.Badparam);
             }
             var s = param as string;
             if (s != null && s.Length == 0)
             {
-                throw new XmpException("Parameter must not be null or empty", XmpErrorConstants.Badparam);
+                throw new XmpException("Parameter must not be null or empty", XmpErrorCode.Badparam);
             }
         }
 
@@ -107,11 +107,11 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (xmp == null)
             {
-                throw new XmpException("Parameter must not be null", XmpErrorConstants.Badparam);
+                throw new XmpException("Parameter must not be null", XmpErrorCode.Badparam);
             }
             if (!(xmp is XmpMeta))
             {
-                throw new XmpException("The XMPMeta-object is not compatible with this implementation", XmpErrorConstants.Badparam);
+                throw new XmpException("The XMPMeta-object is not compatible with this implementation", XmpErrorCode.Badparam);
             }
         }
     }
