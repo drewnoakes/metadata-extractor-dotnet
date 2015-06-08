@@ -180,7 +180,7 @@ namespace Com.Drew.Imaging.Png
 
         private static bool IsValidByte(sbyte b)
         {
-            return (b >= 65 && ((sbyte)b) <= 90) || (b >= 97 && ((sbyte)b) <= 122);
+            return (b >= 65 && b <= 90) || (b >= 97 && b <= 122);
         }
 
         public string GetIdentifier()

@@ -59,7 +59,7 @@ namespace Com.Drew.Metadata.Bmp
             try
             {
                 int magicNumber = reader.GetUInt16();
-                if (magicNumber != unchecked((int)(0x4D42)))
+                if (magicNumber != unchecked(0x4D42))
                 {
                     directory.AddError("Invalid BMP magic number");
                     return;

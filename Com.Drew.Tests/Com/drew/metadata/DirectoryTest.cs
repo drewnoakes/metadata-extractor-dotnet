@@ -68,8 +68,8 @@ namespace Com.Drew.Metadata
             _directory.SetInt(tagType, value);
             Assert.AreEqual(value, _directory.GetInt(tagType));
             Assert.AreEqual(Extensions.ValueOf(value), _directory.GetInteger(tagType));
-            Assert.AreEqual((float)value, _directory.GetFloat(tagType), 0.00001);
-            Assert.AreEqual((double)value, _directory.GetDouble(tagType), 0.00001);
+            Assert.AreEqual(value, _directory.GetFloat(tagType), 0.00001);
+            Assert.AreEqual(value, _directory.GetDouble(tagType), 0.00001);
             Assert.AreEqual((long)value, (object)_directory.GetLong(tagType));
             Assert.AreEqual(Extensions.ConvertToString(value), _directory.GetString(tagType));
             Assert.AreEqual(new Rational(value, 1), _directory.GetRational(tagType));
@@ -142,9 +142,9 @@ namespace Com.Drew.Metadata
         [Test]
         public void TestSetStringGetInt()
         {
-            sbyte[] bytes = new sbyte[] { unchecked((int)(0x01)), unchecked((int)(0x02)), unchecked((int)(0x03)) };
+            sbyte[] bytes = new sbyte[] { unchecked(0x01), unchecked(0x02), unchecked(0x03) };
             _directory.SetString(1, Runtime.GetStringForBytes(bytes));
-            Assert.AreEqual(unchecked((int)(0x010203)), _directory.GetInt(1));
+            Assert.AreEqual(unchecked(0x010203), _directory.GetInt(1));
         }
 
         /// <exception cref="System.Exception"/>

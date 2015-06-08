@@ -64,101 +64,101 @@ namespace Com.Drew.Metadata.Icc
 
         public const int TagTagCount = 128;
 
-        public const int TagTagA2B0 = unchecked((int)(0x41324230));
+        public const int TagTagA2B0 = unchecked(0x41324230);
 
-        public const int TagTagA2B1 = unchecked((int)(0x41324231));
+        public const int TagTagA2B1 = unchecked(0x41324231);
 
-        public const int TagTagA2B2 = unchecked((int)(0x41324232));
+        public const int TagTagA2B2 = unchecked(0x41324232);
 
-        public const int TagTag_BXyz = unchecked((int)(0x6258595A));
+        public const int TagTag_BXyz = unchecked(0x6258595A);
 
-        public const int TagTag_BTrc = unchecked((int)(0x62545243));
+        public const int TagTag_BTrc = unchecked(0x62545243);
 
-        public const int TagTagB2A0 = unchecked((int)(0x42324130));
+        public const int TagTagB2A0 = unchecked(0x42324130);
 
-        public const int TagTagB2A1 = unchecked((int)(0x42324131));
+        public const int TagTagB2A1 = unchecked(0x42324131);
 
-        public const int TagTagB2A2 = unchecked((int)(0x42324132));
+        public const int TagTagB2A2 = unchecked(0x42324132);
 
-        public const int TagTagCalt = unchecked((int)(0x63616C74));
+        public const int TagTagCalt = unchecked(0x63616C74);
 
-        public const int TagTagTarg = unchecked((int)(0x74617267));
+        public const int TagTagTarg = unchecked(0x74617267);
 
-        public const int TagTagChad = unchecked((int)(0x63686164));
+        public const int TagTagChad = unchecked(0x63686164);
 
-        public const int TagTagChrm = unchecked((int)(0x6368726D));
+        public const int TagTagChrm = unchecked(0x6368726D);
 
-        public const int TagTagCprt = unchecked((int)(0x63707274));
+        public const int TagTagCprt = unchecked(0x63707274);
 
-        public const int TagTagCrdi = unchecked((int)(0x63726469));
+        public const int TagTagCrdi = unchecked(0x63726469);
 
-        public const int TagTagDmnd = unchecked((int)(0x646D6E64));
+        public const int TagTagDmnd = unchecked(0x646D6E64);
 
-        public const int TagTagDmdd = unchecked((int)(0x646D6464));
+        public const int TagTagDmdd = unchecked(0x646D6464);
 
-        public const int TagTagDevs = unchecked((int)(0x64657673));
+        public const int TagTagDevs = unchecked(0x64657673);
 
-        public const int TagTagGamt = unchecked((int)(0x67616D74));
+        public const int TagTagGamt = unchecked(0x67616D74);
 
-        public const int TagTag_KTrc = unchecked((int)(0x6B545243));
+        public const int TagTag_KTrc = unchecked(0x6B545243);
 
-        public const int TagTag_GXyz = unchecked((int)(0x6758595A));
+        public const int TagTag_GXyz = unchecked(0x6758595A);
 
-        public const int TagTag_GTrc = unchecked((int)(0x67545243));
+        public const int TagTag_GTrc = unchecked(0x67545243);
 
-        public const int TagTagLumi = unchecked((int)(0x6C756D69));
+        public const int TagTagLumi = unchecked(0x6C756D69);
 
-        public const int TagTagMeas = unchecked((int)(0x6D656173));
+        public const int TagTagMeas = unchecked(0x6D656173);
 
-        public const int TagTagBkpt = unchecked((int)(0x626B7074));
+        public const int TagTagBkpt = unchecked(0x626B7074);
 
-        public const int TagTagWtpt = unchecked((int)(0x77747074));
+        public const int TagTagWtpt = unchecked(0x77747074);
 
-        public const int TagTagNcol = unchecked((int)(0x6E636F6C));
+        public const int TagTagNcol = unchecked(0x6E636F6C);
 
-        public const int TagTagNcl2 = unchecked((int)(0x6E636C32));
+        public const int TagTagNcl2 = unchecked(0x6E636C32);
 
-        public const int TagTagResp = unchecked((int)(0x72657370));
+        public const int TagTagResp = unchecked(0x72657370);
 
-        public const int TagTagPre0 = unchecked((int)(0x70726530));
+        public const int TagTagPre0 = unchecked(0x70726530);
 
-        public const int TagTagPre1 = unchecked((int)(0x70726531));
+        public const int TagTagPre1 = unchecked(0x70726531);
 
-        public const int TagTagPre2 = unchecked((int)(0x70726532));
+        public const int TagTagPre2 = unchecked(0x70726532);
 
-        public const int TagTagDesc = unchecked((int)(0x64657363));
+        public const int TagTagDesc = unchecked(0x64657363);
 
-        public const int TagTagPseq = unchecked((int)(0x70736571));
+        public const int TagTagPseq = unchecked(0x70736571);
 
-        public const int TagTagPsd0 = unchecked((int)(0x70736430));
+        public const int TagTagPsd0 = unchecked(0x70736430);
 
-        public const int TagTagPsd1 = unchecked((int)(0x70736431));
+        public const int TagTagPsd1 = unchecked(0x70736431);
 
-        public const int TagTagPsd2 = unchecked((int)(0x70736432));
+        public const int TagTagPsd2 = unchecked(0x70736432);
 
-        public const int TagTagPsd3 = unchecked((int)(0x70736433));
+        public const int TagTagPsd3 = unchecked(0x70736433);
 
-        public const int TagTagPs2S = unchecked((int)(0x70733273));
+        public const int TagTagPs2S = unchecked(0x70733273);
 
-        public const int TagTagPs2I = unchecked((int)(0x70733269));
+        public const int TagTagPs2I = unchecked(0x70733269);
 
-        public const int TagTag_RXyz = unchecked((int)(0x7258595A));
+        public const int TagTag_RXyz = unchecked(0x7258595A);
 
-        public const int TagTag_RTrc = unchecked((int)(0x72545243));
+        public const int TagTag_RTrc = unchecked(0x72545243);
 
-        public const int TagTagScrd = unchecked((int)(0x73637264));
+        public const int TagTagScrd = unchecked(0x73637264);
 
-        public const int TagTagScrn = unchecked((int)(0x7363726E));
+        public const int TagTagScrn = unchecked(0x7363726E);
 
-        public const int TagTagTech = unchecked((int)(0x74656368));
+        public const int TagTagTech = unchecked(0x74656368);
 
-        public const int TagTagBfd = unchecked((int)(0x62666420));
+        public const int TagTagBfd = unchecked(0x62666420);
 
-        public const int TagTagVued = unchecked((int)(0x76756564));
+        public const int TagTagVued = unchecked(0x76756564);
 
-        public const int TagTagView = unchecked((int)(0x76696577));
+        public const int TagTagView = unchecked(0x76696577);
 
-        public const int TagAppleMultiLanguageProfileName = unchecked((int)(0x6473636d));
+        public const int TagAppleMultiLanguageProfileName = unchecked(0x6473636d);
 
         [NotNull]
         protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();

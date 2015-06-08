@@ -66,7 +66,7 @@ namespace Com.Drew.Lang
         /// </returns>
         public override double DoubleValue()
         {
-            return _numerator == 0 ? 0.0 : (double)_numerator / (double)_denominator;
+            return _numerator == 0 ? 0.0 : _numerator / (double)_denominator;
         }
 
         /// <summary>Returns the value of the specified number as a <c>float</c>.</summary>
@@ -80,7 +80,7 @@ namespace Com.Drew.Lang
         /// </returns>
         public override float FloatValue()
         {
-            return _numerator == 0 ? 0.0f : (float)_numerator / (float)_denominator;
+            return _numerator == 0 ? 0.0f : _numerator / (float)_denominator;
         }
 
         /// <summary>Returns the value of the specified number as a <c>byte</c>.</summary>
@@ -229,7 +229,7 @@ namespace Com.Drew.Lang
         /// <returns>true if the simplification should be performed, otherwise false</returns>
         private bool TooComplexForSimplification()
         {
-            double maxPossibleCalculations = (((double)(Math.Min(_denominator, _numerator) - 1) / 5d) + 2);
+            double maxPossibleCalculations = (((Math.Min(_denominator, _numerator) - 1) / 5d) + 2);
             int maxSimplificationCalculations = 1000;
             return maxPossibleCalculations > maxSimplificationCalculations;
         }

@@ -35,41 +35,41 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class LeicaMakernoteDirectory : Directory
     {
-        public const int TagQuality = unchecked((int)(0x0300));
+        public const int TagQuality = unchecked(0x0300);
 
-        public const int TagUserProfile = unchecked((int)(0x0302));
+        public const int TagUserProfile = unchecked(0x0302);
 
-        public const int TagSerialNumber = unchecked((int)(0x0303));
+        public const int TagSerialNumber = unchecked(0x0303);
 
-        public const int TagWhiteBalance = unchecked((int)(0x0304));
+        public const int TagWhiteBalance = unchecked(0x0304);
 
-        public const int TagLensType = unchecked((int)(0x0310));
+        public const int TagLensType = unchecked(0x0310);
 
-        public const int TagExternalSensorBrightnessValue = unchecked((int)(0x0311));
+        public const int TagExternalSensorBrightnessValue = unchecked(0x0311);
 
-        public const int TagMeasuredLv = unchecked((int)(0x0312));
+        public const int TagMeasuredLv = unchecked(0x0312);
 
-        public const int TagApproximateFNumber = unchecked((int)(0x0313));
+        public const int TagApproximateFNumber = unchecked(0x0313);
 
-        public const int TagCameraTemperature = unchecked((int)(0x0320));
+        public const int TagCameraTemperature = unchecked(0x0320);
 
-        public const int TagColorTemperature = unchecked((int)(0x0321));
+        public const int TagColorTemperature = unchecked(0x0321);
 
-        public const int TagWbRedLevel = unchecked((int)(0x0322));
+        public const int TagWbRedLevel = unchecked(0x0322);
 
-        public const int TagWbGreenLevel = unchecked((int)(0x0323));
+        public const int TagWbGreenLevel = unchecked(0x0323);
 
-        public const int TagWbBlueLevel = unchecked((int)(0x0324));
+        public const int TagWbBlueLevel = unchecked(0x0324);
 
-        public const int TagCcdVersion = unchecked((int)(0x0330));
+        public const int TagCcdVersion = unchecked(0x0330);
 
-        public const int TagCcdBoardVersion = unchecked((int)(0x0331));
+        public const int TagCcdBoardVersion = unchecked(0x0331);
 
-        public const int TagControllerBoardVersion = unchecked((int)(0x0332));
+        public const int TagControllerBoardVersion = unchecked(0x0332);
 
-        public const int TagM16CVersion = unchecked((int)(0x0333));
+        public const int TagM16CVersion = unchecked(0x0333);
 
-        public const int TagImageIdNumber = unchecked((int)(0x0340));
+        public const int TagImageIdNumber = unchecked(0x0340);
 
         [NotNull]
         protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();

@@ -87,17 +87,17 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual("NORMAL      ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagFlashSyncMode));
             //        assertEquals(new Rational(4416,500), _nikonDirectory.getRational(NikonType3MakernoteDirectory.TAG_UNKNOWN_2));
             Assert.AreEqual("AUTO  ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagIsoMode));
-            Assert.AreEqual(1300, _nikonDirectory.GetInt(unchecked((int)(0x0011))));
+            Assert.AreEqual(1300, _nikonDirectory.GetInt(unchecked(0x0011)));
             Assert.AreEqual("AUTO         ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagImageAdjustment));
             Assert.AreEqual("OFF         ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagAdapter));
             Assert.AreEqual(0, _nikonDirectory.GetInt(NikonType2MakernoteDirectory.TagManualFocusDistance));
             Assert.AreEqual(1, _nikonDirectory.GetInt(NikonType2MakernoteDirectory.TagDigitalZoom));
-            Assert.AreEqual("                ", _nikonDirectory.GetString(unchecked((int)(0x008f))));
-            Assert.AreEqual(0, _nikonDirectory.GetInt(unchecked((int)(0x0094))));
-            Assert.AreEqual("FPNR", _nikonDirectory.GetString(unchecked((int)(0x0095))));
-            Assert.AreEqual("80 114 105 110 116 73 77 0 48 49 48 48 0 0 13 0 1 0 22 0 22 0 2 0 1 0 0 0 3 0 94 0 0 0 7 0 0 0 0 0 8 0 0 0 0 0 9 0 0 0 0 0 10 0 0 0 0 0 11 0 -90 0 0 0 12 0 0 0 0 0 13 0 0 0 0 0 14 0 -66 0 0 0 0 1 5 0 0 0 1 1 1 0 0 0 9 17 0 0 16 39 0 0 11 15 0 0 16 39 0 0 -105 5 0 0 16 39 0 0 -80 8 0 0 16 39 0 0 1 28 0 0 16 39 0 0 94 2 0 0 16 39 0 0 -117 0 0 0 16 39 0 0 -53 3 0 0 16 39 0 0 -27 27 0 0 16 39 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0", _nikonDirectory.GetString(unchecked((int)(0x0e00))));
+            Assert.AreEqual("                ", _nikonDirectory.GetString(unchecked(0x008f)));
+            Assert.AreEqual(0, _nikonDirectory.GetInt(unchecked(0x0094)));
+            Assert.AreEqual("FPNR", _nikonDirectory.GetString(unchecked(0x0095)));
+            Assert.AreEqual("80 114 105 110 116 73 77 0 48 49 48 48 0 0 13 0 1 0 22 0 22 0 2 0 1 0 0 0 3 0 94 0 0 0 7 0 0 0 0 0 8 0 0 0 0 0 9 0 0 0 0 0 10 0 0 0 0 0 11 0 -90 0 0 0 12 0 0 0 0 0 13 0 0 0 0 0 14 0 -66 0 0 0 0 1 5 0 0 0 1 1 1 0 0 0 9 17 0 0 16 39 0 0 11 15 0 0 16 39 0 0 -105 5 0 0 16 39 0 0 -80 8 0 0 16 39 0 0 1 28 0 0 16 39 0 0 94 2 0 0 16 39 0 0 -117 0 0 0 16 39 0 0 -53 3 0 0 16 39 0 0 -27 27 0 0 16 39 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0", _nikonDirectory.GetString(unchecked(0x0e00)));
             //        assertEquals("PrintIM", _nikonDirectory.getString(0x0e00));
-            Assert.AreEqual(1394, _nikonDirectory.GetInt(unchecked((int)(0x0e10))));
+            Assert.AreEqual(1394, _nikonDirectory.GetInt(unchecked(0x0e10)));
         }
 
     /*

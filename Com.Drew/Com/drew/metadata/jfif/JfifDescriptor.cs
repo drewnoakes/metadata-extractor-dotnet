@@ -78,7 +78,7 @@ namespace Com.Drew.Metadata.Jfif
             {
                 return null;
             }
-            return Extensions.StringFormat("%d.%d", ((int)value & unchecked((int)(0xFF00))) >> 8, (int)value & unchecked((int)(0xFF)));
+            return Extensions.StringFormat("%d.%d", ((int)value & unchecked(0xFF00)) >> 8, (int)value & unchecked(0xFF));
         }
 
         [CanBeNull]

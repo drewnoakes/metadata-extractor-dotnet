@@ -35,45 +35,45 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class CasioType1MakernoteDirectory : Directory
     {
-        public const int TagRecordingMode = unchecked((int)(0x0001));
+        public const int TagRecordingMode = unchecked(0x0001);
 
-        public const int TagQuality = unchecked((int)(0x0002));
+        public const int TagQuality = unchecked(0x0002);
 
-        public const int TagFocusingMode = unchecked((int)(0x0003));
+        public const int TagFocusingMode = unchecked(0x0003);
 
-        public const int TagFlashMode = unchecked((int)(0x0004));
+        public const int TagFlashMode = unchecked(0x0004);
 
-        public const int TagFlashIntensity = unchecked((int)(0x0005));
+        public const int TagFlashIntensity = unchecked(0x0005);
 
-        public const int TagObjectDistance = unchecked((int)(0x0006));
+        public const int TagObjectDistance = unchecked(0x0006);
 
-        public const int TagWhiteBalance = unchecked((int)(0x0007));
+        public const int TagWhiteBalance = unchecked(0x0007);
 
-        public const int TagUnknown1 = unchecked((int)(0x0008));
+        public const int TagUnknown1 = unchecked(0x0008);
 
-        public const int TagUnknown2 = unchecked((int)(0x0009));
+        public const int TagUnknown2 = unchecked(0x0009);
 
-        public const int TagDigitalZoom = unchecked((int)(0x000A));
+        public const int TagDigitalZoom = unchecked(0x000A);
 
-        public const int TagSharpness = unchecked((int)(0x000B));
+        public const int TagSharpness = unchecked(0x000B);
 
-        public const int TagContrast = unchecked((int)(0x000C));
+        public const int TagContrast = unchecked(0x000C);
 
-        public const int TagSaturation = unchecked((int)(0x000D));
+        public const int TagSaturation = unchecked(0x000D);
 
-        public const int TagUnknown3 = unchecked((int)(0x000E));
+        public const int TagUnknown3 = unchecked(0x000E);
 
-        public const int TagUnknown4 = unchecked((int)(0x000F));
+        public const int TagUnknown4 = unchecked(0x000F);
 
-        public const int TagUnknown5 = unchecked((int)(0x0010));
+        public const int TagUnknown5 = unchecked(0x0010);
 
-        public const int TagUnknown6 = unchecked((int)(0x0011));
+        public const int TagUnknown6 = unchecked(0x0011);
 
-        public const int TagUnknown7 = unchecked((int)(0x0012));
+        public const int TagUnknown7 = unchecked(0x0012);
 
-        public const int TagUnknown8 = unchecked((int)(0x0013));
+        public const int TagUnknown8 = unchecked(0x0013);
 
-        public const int TagCcdSensitivity = unchecked((int)(0x0014));
+        public const int TagCcdSensitivity = unchecked(0x0014);
 
         [NotNull]
         protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();

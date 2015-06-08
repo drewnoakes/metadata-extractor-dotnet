@@ -107,40 +107,40 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked((int)(0x001)):
-                case unchecked((int)(0x2000)):
+                case unchecked(0x001):
+                case unchecked(0x2000):
                 {
                     return "B&W";
                 }
 
-                case unchecked((int)(0x002)):
-                case unchecked((int)(0x4000)):
+                case unchecked(0x002):
+                case unchecked(0x4000):
                 {
                     return "Sepia";
                 }
 
-                case unchecked((int)(0x003)):
+                case unchecked(0x003):
                 {
                     return "B&W Yellow Filter";
                 }
 
-                case unchecked((int)(0x004)):
+                case unchecked(0x004):
                 {
                     return "B&W Red Filter";
                 }
 
-                case unchecked((int)(0x020)):
+                case unchecked(0x020):
                 {
                     return "Saturated Color";
                 }
 
-                case unchecked((int)(0x040)):
-                case unchecked((int)(0x200)):
+                case unchecked(0x040):
+                case unchecked(0x200):
                 {
                     return "Neutral Color";
                 }
 
-                case unchecked((int)(0x100)):
+                case unchecked(0x100):
                 {
                     return "Saturated Color";
                 }
@@ -168,25 +168,25 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked((int)(0x00)):
+                case unchecked(0x00):
                 {
                     return "Auto";
                 }
 
-                case unchecked((int)(0x10)):
-                case unchecked((int)(0x01)):
+                case unchecked(0x10):
+                case unchecked(0x01):
                 {
                     return "Fill Flash";
                 }
 
-                case unchecked((int)(0x20)):
-                case unchecked((int)(0x02)):
+                case unchecked(0x20):
+                case unchecked(0x02):
                 {
                     return "Off";
                 }
 
-                case unchecked((int)(0x40)):
-                case unchecked((int)(0x03)):
+                case unchecked(0x40):
+                case unchecked(0x03):
                 {
                     return "Red Eye";
                 }

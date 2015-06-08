@@ -54,7 +54,7 @@ namespace Com.Drew.Lang
             {
                 return Extensions.StringFormat("Number of requested bytes cannot be negative (%d)", bytesRequested);
             }
-            if ((long)index + (long)bytesRequested - 1L > (long)int.MaxValue)
+            if (index + (long)bytesRequested - 1L > int.MaxValue)
             {
                 return Extensions.StringFormat("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: %d, requested count: %d)", index, bytesRequested);
             }

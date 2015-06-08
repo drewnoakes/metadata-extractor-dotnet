@@ -30,13 +30,13 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class RicohMakernoteDirectory : Directory
     {
-        public const int TagMakernoteDataType = unchecked((int)(0x0001));
+        public const int TagMakernoteDataType = unchecked(0x0001);
 
-        public const int TagVersion = unchecked((int)(0x0002));
+        public const int TagVersion = unchecked(0x0002);
 
-        public const int TagPrintImageMatchingInfo = unchecked((int)(0x0E00));
+        public const int TagPrintImageMatchingInfo = unchecked(0x0E00);
 
-        public const int TagRicohCameraInfoMakernoteSubIfdPointer = unchecked((int)(0x2001));
+        public const int TagRicohCameraInfoMakernoteSubIfdPointer = unchecked(0x2001);
 
         [NotNull]
         protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();

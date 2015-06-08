@@ -44,7 +44,7 @@ namespace Com.Drew.Metadata.Jfif
             Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(4, tags.Length);
             Assert.AreEqual(JfifDirectory.TagVersion, tags[0].GetTagType());
-            Assert.AreEqual(unchecked((int)(0x0102)), directory.GetInt(tags[0].GetTagType()));
+            Assert.AreEqual(unchecked(0x0102), directory.GetInt(tags[0].GetTagType()));
             Assert.AreEqual(JfifDirectory.TagUnits, tags[1].GetTagType());
             Assert.AreEqual(1, directory.GetInt(tags[1].GetTagType()));
             Assert.AreEqual(JfifDirectory.TagResx, tags[2].GetTagType());

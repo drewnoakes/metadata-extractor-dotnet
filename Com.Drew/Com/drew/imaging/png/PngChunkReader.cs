@@ -8,8 +8,8 @@ namespace Com.Drew.Imaging.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunkReader
     {
-        private static readonly sbyte[] PngSignatureBytes = new sbyte[] { unchecked((sbyte)0x89), unchecked((int)(0x50)), unchecked((int)(0x4E)), unchecked((int)(0x47)), unchecked((int)(0x0D)), unchecked((int)(0x0A)), unchecked((int)(0x1A)), unchecked(
-            (int)(0x0A)) };
+        private static readonly sbyte[] PngSignatureBytes = new sbyte[] { unchecked((sbyte)0x89), unchecked(0x50), unchecked(0x4E), unchecked(0x47), unchecked(0x0D), unchecked(0x0A), unchecked(0x1A), unchecked(
+            0x0A) };
 
         /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>

@@ -9,15 +9,15 @@ namespace Com.Drew.Metadata.Iptc
 
         private const string Utf8 = "UTF-8";
 
-        private const sbyte LatinCapitalA = unchecked((int)(0x41));
+        private const sbyte LatinCapitalA = unchecked(0x41);
 
-        private const int Dot = unchecked((int)(0xe280a2));
+        private const int Dot = unchecked(0xe280a2);
 
-        private const sbyte LatinCapitalG = unchecked((int)(0x47));
+        private const sbyte LatinCapitalG = unchecked(0x47);
 
-        private const sbyte PercentSign = unchecked((int)(0x25));
+        private const sbyte PercentSign = unchecked(0x25);
 
-        private const sbyte Esc = unchecked((int)(0x1B));
+        private const sbyte Esc = unchecked(0x1B);
 
         /// <summary>Converts the given ISO2022 char set to a Java charset name.</summary>
         /// <param name="bytes">string data encoded using ISO2022</param>
@@ -29,7 +29,7 @@ namespace Com.Drew.Metadata.Iptc
             {
                 return Utf8;
             }
-            if (bytes.Length > 3 && bytes[0] == Esc && (bytes[3] & unchecked((int)(0xFF)) | ((bytes[2] & unchecked((int)(0xFF))) << 8) | ((bytes[1] & unchecked((int)(0xFF))) << 16)) == Dot && bytes[4] == LatinCapitalA)
+            if (bytes.Length > 3 && bytes[0] == Esc && (bytes[3] & unchecked(0xFF) | ((bytes[2] & unchecked(0xFF)) << 8) | ((bytes[1] & unchecked(0xFF)) << 16)) == Dot && bytes[4] == LatinCapitalA)
             {
                 return Iso88591;
             }

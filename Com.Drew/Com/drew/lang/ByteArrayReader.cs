@@ -74,7 +74,7 @@ namespace Com.Drew.Lang
         /// <exception cref="System.IO.IOException"/>
         protected override bool IsValidIndex(int index, int bytesRequested)
         {
-            return bytesRequested >= 0 && index >= 0 && (long)index + (long)bytesRequested - 1L < (long)_buffer.Length;
+            return bytesRequested >= 0 && index >= 0 && index + (long)bytesRequested - 1L < _buffer.Length;
         }
 
         /// <exception cref="System.IO.IOException"/>

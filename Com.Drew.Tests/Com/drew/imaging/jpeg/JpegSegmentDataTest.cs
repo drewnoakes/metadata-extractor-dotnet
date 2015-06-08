@@ -32,7 +32,7 @@ namespace Com.Drew.Imaging.Jpeg
         public void TestAddAndGetSegment()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
-            sbyte segmentMarker = unchecked((sbyte)12);
+            sbyte segmentMarker = unchecked(12);
             sbyte[] segmentBytes = new sbyte[] { 1, 2, 3 };
             segmentData.AddSegment(segmentMarker, segmentBytes);
             Assert.AreEqual(1, segmentData.GetSegmentCount(segmentMarker));
@@ -44,7 +44,7 @@ namespace Com.Drew.Imaging.Jpeg
         public void TestContainsSegment()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
-            sbyte segmentMarker = unchecked((sbyte)12);
+            sbyte segmentMarker = unchecked(12);
             sbyte[] segmentBytes = new sbyte[] { 1, 2, 3 };
             Assert.IsTrue(!segmentData.ContainsSegment(segmentMarker));
             segmentData.AddSegment(segmentMarker, segmentBytes);
@@ -56,8 +56,8 @@ namespace Com.Drew.Imaging.Jpeg
         public void TestAddingMultipleSegments()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
-            sbyte segmentMarker1 = unchecked((sbyte)12);
-            sbyte segmentMarker2 = unchecked((sbyte)21);
+            sbyte segmentMarker1 = unchecked(12);
+            sbyte segmentMarker2 = unchecked(21);
             sbyte[] segmentBytes1 = new sbyte[] { 1, 2, 3 };
             sbyte[] segmentBytes2 = new sbyte[] { 3, 2, 1 };
             segmentData.AddSegment(segmentMarker1, segmentBytes1);
@@ -73,7 +73,7 @@ namespace Com.Drew.Imaging.Jpeg
         public void TestSegmentWithMultipleOccurrences()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
-            sbyte segmentMarker = unchecked((sbyte)12);
+            sbyte segmentMarker = unchecked(12);
             sbyte[] segmentBytes1 = new sbyte[] { 1, 2, 3 };
             sbyte[] segmentBytes2 = new sbyte[] { 3, 2, 1 };
             segmentData.AddSegment(segmentMarker, segmentBytes1);
@@ -89,7 +89,7 @@ namespace Com.Drew.Imaging.Jpeg
         public void TestRemoveSegmentOccurrence()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
-            sbyte segmentMarker = unchecked((sbyte)12);
+            sbyte segmentMarker = unchecked(12);
             sbyte[] segmentBytes1 = new sbyte[] { 1, 2, 3 };
             sbyte[] segmentBytes2 = new sbyte[] { 3, 2, 1 };
             segmentData.AddSegment(segmentMarker, segmentBytes1);
@@ -105,7 +105,7 @@ namespace Com.Drew.Imaging.Jpeg
         public void TestRemoveSegment()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
-            sbyte segmentMarker = unchecked((sbyte)12);
+            sbyte segmentMarker = unchecked(12);
             sbyte[] segmentBytes1 = new sbyte[] { 1, 2, 3 };
             sbyte[] segmentBytes2 = new sbyte[] { 3, 2, 1 };
             segmentData.AddSegment(segmentMarker, segmentBytes1);

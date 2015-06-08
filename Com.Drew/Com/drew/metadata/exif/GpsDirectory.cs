@@ -32,94 +32,94 @@ namespace Com.Drew.Metadata.Exif
     public sealed class GpsDirectory : ExifDirectoryBase
     {
         /// <summary>GPS tag version GPSVersionID 0 0 BYTE 4</summary>
-        public const int TagVersionId = unchecked((int)(0x0000));
+        public const int TagVersionId = unchecked(0x0000);
 
         /// <summary>North or South Latitude GPSLatitudeRef 1 1 ASCII 2</summary>
-        public const int TagLatitudeRef = unchecked((int)(0x0001));
+        public const int TagLatitudeRef = unchecked(0x0001);
 
         /// <summary>Latitude GPSLatitude 2 2 RATIONAL 3</summary>
-        public const int TagLatitude = unchecked((int)(0x0002));
+        public const int TagLatitude = unchecked(0x0002);
 
         /// <summary>East or West Longitude GPSLongitudeRef 3 3 ASCII 2</summary>
-        public const int TagLongitudeRef = unchecked((int)(0x0003));
+        public const int TagLongitudeRef = unchecked(0x0003);
 
         /// <summary>Longitude GPSLongitude 4 4 RATIONAL 3</summary>
-        public const int TagLongitude = unchecked((int)(0x0004));
+        public const int TagLongitude = unchecked(0x0004);
 
         /// <summary>Altitude reference GPSAltitudeRef 5 5 BYTE 1</summary>
-        public const int TagAltitudeRef = unchecked((int)(0x0005));
+        public const int TagAltitudeRef = unchecked(0x0005);
 
         /// <summary>Altitude GPSAltitude 6 6 RATIONAL 1</summary>
-        public const int TagAltitude = unchecked((int)(0x0006));
+        public const int TagAltitude = unchecked(0x0006);
 
         /// <summary>GPS time (atomic clock) GPSTimeStamp 7 7 RATIONAL 3</summary>
-        public const int TagTimeStamp = unchecked((int)(0x0007));
+        public const int TagTimeStamp = unchecked(0x0007);
 
         /// <summary>GPS satellites used for measurement GPSSatellites 8 8 ASCII Any</summary>
-        public const int TagSatellites = unchecked((int)(0x0008));
+        public const int TagSatellites = unchecked(0x0008);
 
         /// <summary>GPS receiver status GPSStatus 9 9 ASCII 2</summary>
-        public const int TagStatus = unchecked((int)(0x0009));
+        public const int TagStatus = unchecked(0x0009);
 
         /// <summary>GPS measurement mode GPSMeasureMode 10 A ASCII 2</summary>
-        public const int TagMeasureMode = unchecked((int)(0x000A));
+        public const int TagMeasureMode = unchecked(0x000A);
 
         /// <summary>Measurement precision GPSDOP 11 B RATIONAL 1</summary>
-        public const int TagDop = unchecked((int)(0x000B));
+        public const int TagDop = unchecked(0x000B);
 
         /// <summary>Speed unit GPSSpeedRef 12 C ASCII 2</summary>
-        public const int TagSpeedRef = unchecked((int)(0x000C));
+        public const int TagSpeedRef = unchecked(0x000C);
 
         /// <summary>Speed of GPS receiver GPSSpeed 13 D RATIONAL 1</summary>
-        public const int TagSpeed = unchecked((int)(0x000D));
+        public const int TagSpeed = unchecked(0x000D);
 
         /// <summary>Reference for direction of movement GPSTrackRef 14 E ASCII 2</summary>
-        public const int TagTrackRef = unchecked((int)(0x000E));
+        public const int TagTrackRef = unchecked(0x000E);
 
         /// <summary>Direction of movement GPSTrack 15 F RATIONAL 1</summary>
-        public const int TagTrack = unchecked((int)(0x000F));
+        public const int TagTrack = unchecked(0x000F);
 
         /// <summary>Reference for direction of image GPSImgDirectionRef 16 10 ASCII 2</summary>
-        public const int TagImgDirectionRef = unchecked((int)(0x0010));
+        public const int TagImgDirectionRef = unchecked(0x0010);
 
         /// <summary>Direction of image GPSImgDirection 17 11 RATIONAL 1</summary>
-        public const int TagImgDirection = unchecked((int)(0x0011));
+        public const int TagImgDirection = unchecked(0x0011);
 
         /// <summary>Geodetic survey data used GPSMapDatum 18 12 ASCII Any</summary>
-        public const int TagMapDatum = unchecked((int)(0x0012));
+        public const int TagMapDatum = unchecked(0x0012);
 
         /// <summary>Reference for latitude of destination GPSDestLatitudeRef 19 13 ASCII 2</summary>
-        public const int TagDestLatitudeRef = unchecked((int)(0x0013));
+        public const int TagDestLatitudeRef = unchecked(0x0013);
 
         /// <summary>Latitude of destination GPSDestLatitude 20 14 RATIONAL 3</summary>
-        public const int TagDestLatitude = unchecked((int)(0x0014));
+        public const int TagDestLatitude = unchecked(0x0014);
 
         /// <summary>Reference for longitude of destination GPSDestLongitudeRef 21 15 ASCII 2</summary>
-        public const int TagDestLongitudeRef = unchecked((int)(0x0015));
+        public const int TagDestLongitudeRef = unchecked(0x0015);
 
         /// <summary>Longitude of destination GPSDestLongitude 22 16 RATIONAL 3</summary>
-        public const int TagDestLongitude = unchecked((int)(0x0016));
+        public const int TagDestLongitude = unchecked(0x0016);
 
         /// <summary>Reference for bearing of destination GPSDestBearingRef 23 17 ASCII 2</summary>
-        public const int TagDestBearingRef = unchecked((int)(0x0017));
+        public const int TagDestBearingRef = unchecked(0x0017);
 
         /// <summary>Bearing of destination GPSDestBearing 24 18 RATIONAL 1</summary>
-        public const int TagDestBearing = unchecked((int)(0x0018));
+        public const int TagDestBearing = unchecked(0x0018);
 
         /// <summary>Reference for distance to destination GPSDestDistanceRef 25 19 ASCII 2</summary>
-        public const int TagDestDistanceRef = unchecked((int)(0x0019));
+        public const int TagDestDistanceRef = unchecked(0x0019);
 
         /// <summary>Distance to destination GPSDestDistance 26 1A RATIONAL 1</summary>
-        public const int TagDestDistance = unchecked((int)(0x001A));
+        public const int TagDestDistance = unchecked(0x001A);
 
         /// <summary>Values of "GPS", "CELLID", "WLAN" or "MANUAL" by the EXIF spec.</summary>
-        public const int TagProcessingMethod = unchecked((int)(0x001B));
+        public const int TagProcessingMethod = unchecked(0x001B);
 
-        public const int TagAreaInformation = unchecked((int)(0x001C));
+        public const int TagAreaInformation = unchecked(0x001C);
 
-        public const int TagDateStamp = unchecked((int)(0x001D));
+        public const int TagDateStamp = unchecked(0x001D);
 
-        public const int TagDifferential = unchecked((int)(0x001E));
+        public const int TagDifferential = unchecked(0x001E);
 
         [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 

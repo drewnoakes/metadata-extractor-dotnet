@@ -1012,7 +1012,7 @@ namespace Com.Drew.Metadata.Exif
                 return null;
             }
             StringBuilder sb = new StringBuilder();
-            if (((int)value & unchecked((int)(0x1))) != 0)
+            if (((int)value & unchecked(0x1)) != 0)
             {
                 sb.Append("Flash fired");
             }
@@ -1021,9 +1021,9 @@ namespace Com.Drew.Metadata.Exif
                 sb.Append("Flash did not fire");
             }
             // check if we're able to detect a return, before we mention it
-            if (((int)value & unchecked((int)(0x4))) != 0)
+            if (((int)value & unchecked(0x4)) != 0)
             {
-                if (((int)value & unchecked((int)(0x2))) != 0)
+                if (((int)value & unchecked(0x2)) != 0)
                 {
                     sb.Append(", return detected");
                 }
@@ -1032,11 +1032,11 @@ namespace Com.Drew.Metadata.Exif
                     sb.Append(", return not detected");
                 }
             }
-            if (((int)value & unchecked((int)(0x10))) != 0)
+            if (((int)value & unchecked(0x10)) != 0)
             {
                 sb.Append(", auto");
             }
-            if (((int)value & unchecked((int)(0x40))) != 0)
+            if (((int)value & unchecked(0x40)) != 0)
             {
                 sb.Append(", red-eye reduction");
             }
@@ -1455,8 +1455,8 @@ namespace Com.Drew.Metadata.Exif
             if (apexValue <= 1)
             {
                 float apexPower = (float)(1 / (Math.Exp((double)apexValue * Math.Log(2))));
-                long apexPower10 = (long)Math.Round((double)apexPower * 10.0);
-                float fApexPower = (float)apexPower10 / 10.0f;
+                long apexPower10 = (long)Math.Round(apexPower * 10.0);
+                float fApexPower = apexPower10 / 10.0f;
                 return fApexPower + " sec";
             }
             else

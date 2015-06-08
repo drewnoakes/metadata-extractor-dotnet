@@ -41,9 +41,9 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 7 = Raw             <br />
         /// 9 = Motion Picture  <br />
         /// </summary>
-        public const int TagQualityMode = unchecked((int)(0x0001));
+        public const int TagQualityMode = unchecked(0x0001);
 
-        public const int TagFirmwareVersion = unchecked((int)(0x0002));
+        public const int TagFirmwareVersion = unchecked(0x0002);
 
         /// <summary>
         /// <br />
@@ -57,7 +57,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 11 = Manual         <br />
         /// 12 = Shade          <br />
         /// </summary>
-        public const int TagWhiteBalance = unchecked((int)(0x0003));
+        public const int TagWhiteBalance = unchecked(0x0003);
 
         /// <summary>
         /// <br />
@@ -66,7 +66,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 4 =  Auto, Focus Button <br />
         /// 5 = Auto, Continuous    <br />
         /// </summary>
-        public const int TagFocusMode = unchecked((int)(0x0007));
+        public const int TagFocusMode = unchecked(0x0007);
 
         /// <summary>
         /// <br />
@@ -88,7 +88,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// '32 3' = 3-area (right)?        <br />
         /// '64 0' = Face Detect            <br />
         /// </summary>
-        public const int TagAfAreaMode = unchecked((int)(0x000f));
+        public const int TagAfAreaMode = unchecked(0x000f);
 
         /// <summary>
         /// <br />
@@ -96,14 +96,14 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 3 = Off          <br />
         /// 4 = On, Mode 2   <br />
         /// </summary>
-        public const int TagImageStabilization = unchecked((int)(0x001a));
+        public const int TagImageStabilization = unchecked(0x001a);
 
         /// <summary>
         /// <br />
         /// 1 = On    <br />
         /// 2 = Off   <br />
         /// </summary>
-        public const int TagMacroMode = unchecked((int)(0x001C));
+        public const int TagMacroMode = unchecked(0x001C);
 
         /// <summary>
         /// <br />
@@ -153,31 +153,31 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 46= Photo Frame                       <br />
         /// 51= HDR                               <br />
         /// </summary>
-        public const int TagRecordMode = unchecked((int)(0x001F));
+        public const int TagRecordMode = unchecked(0x001F);
 
         /// <summary>
         /// 1 = Yes <br />
         /// 2 = No  <br />
         /// </summary>
-        public const int TagAudio = unchecked((int)(0x0020));
+        public const int TagAudio = unchecked(0x0020);
 
         /// <summary>No idea, what this is</summary>
-        public const int TagUnknownDataDump = unchecked((int)(0x0021));
+        public const int TagUnknownDataDump = unchecked(0x0021);
 
-        public const int TagEasyMode = unchecked((int)(0x0022));
+        public const int TagEasyMode = unchecked(0x0022);
 
-        public const int TagWhiteBalanceBias = unchecked((int)(0x0023));
+        public const int TagWhiteBalanceBias = unchecked(0x0023);
 
-        public const int TagFlashBias = unchecked((int)(0x0024));
+        public const int TagFlashBias = unchecked(0x0024);
 
         /// <summary>
         /// this number is unique, and contains the date of manufacture,
         /// but is not the same as the number printed on the camera body
         /// </summary>
-        public const int TagInternalSerialNumber = unchecked((int)(0x0025));
+        public const int TagInternalSerialNumber = unchecked(0x0025);
 
         /// <summary>Panasonic Exif Version</summary>
-        public const int TagExifVersion = unchecked((int)(0x0026));
+        public const int TagExifVersion = unchecked(0x0026);
 
         /// <summary>
         /// 1 = Off           <br />
@@ -186,14 +186,14 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 4 = Black &amp; White <br />
         /// 5 = Sepia         <br />
         /// </summary>
-        public const int TagColorEffect = unchecked((int)(0x0028));
+        public const int TagColorEffect = unchecked(0x0028);
 
         /// <summary>
         /// 4 Bytes <br />
         /// Time in 1/100 s from when the camera was powered on to when the
         /// image is written to memory card
         /// </summary>
-        public const int TagUptime = unchecked((int)(0x0029));
+        public const int TagUptime = unchecked(0x0029);
 
         /// <summary>
         /// 0 = Off        <br />
@@ -201,9 +201,9 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 2 = Infinite   <br />
         /// 4 = Unlimited  <br />
         /// </summary>
-        public const int TagBurstMode = unchecked((int)(0x002a));
+        public const int TagBurstMode = unchecked(0x002a);
 
-        public const int TagSequenceNumber = unchecked((int)(0x002b));
+        public const int TagSequenceNumber = unchecked(0x002b);
 
         /// <summary>
         /// (this decoding seems to work for some models such as the LC1, LX2, FZ7, FZ8, FZ18 and FZ50, but may not be correct for other models such as the FX10, G1, L1, L10 and LC80) <br />
@@ -232,7 +232,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 41 = Dynamic Art (My Color)                             <br />
         /// 42 = Retro (My Color)                                   <br />
         /// </summary>
-        public const int TagContrastMode = unchecked((int)(0x002c));
+        public const int TagContrastMode = unchecked(0x002c);
 
         /// <summary>
         /// 0 = Standard      <br />
@@ -241,14 +241,14 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 3 = Lowest (-2)   <br />
         /// 4 = Highest (+2)  <br />
         /// </summary>
-        public const int TagNoiseReduction = unchecked((int)(0x002d));
+        public const int TagNoiseReduction = unchecked(0x002d);
 
         /// <summary>
         /// 1 = Off   <br />
         /// 2 = 10 s  <br />
         /// 3 = 2 s   <br />
         /// </summary>
-        public const int TagSelfTimer = unchecked((int)(0x002e));
+        public const int TagSelfTimer = unchecked(0x002e);
 
         /// <summary>
         /// 1 = 0 DG    <br />
@@ -256,7 +256,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 6 =  90 DG  <br />
         /// 8 = 270 DG  <br />
         /// </summary>
-        public const int TagRotation = unchecked((int)(0x0030));
+        public const int TagRotation = unchecked(0x0030);
 
         /// <summary>
         /// 1 = Fired <br />
@@ -264,22 +264,22 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 3 = Disabled but required <br />
         /// 4 = Disabled and not required
         /// </summary>
-        public const int TagAfAssistLamp = unchecked((int)(0x0031));
+        public const int TagAfAssistLamp = unchecked(0x0031);
 
         /// <summary>
         /// 0 = Normal <br />
         /// 1 = Natural<br />
         /// 2 = Vivid
         /// </summary>
-        public const int TagColorMode = unchecked((int)(0x0032));
+        public const int TagColorMode = unchecked(0x0032);
 
-        public const int TagBabyAge = unchecked((int)(0x0033));
+        public const int TagBabyAge = unchecked(0x0033);
 
         /// <summary>
         /// 1 = Standard <br />
         /// 2 = Extended
         /// </summary>
-        public const int TagOpticalZoomMode = unchecked((int)(0x0034));
+        public const int TagOpticalZoomMode = unchecked(0x0034);
 
         /// <summary>
         /// 1 = Off <br />
@@ -287,27 +287,27 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 3 = Telephoto <br />
         /// 4 = Macro
         /// </summary>
-        public const int TagConversionLens = unchecked((int)(0x0035));
+        public const int TagConversionLens = unchecked(0x0035);
 
-        public const int TagTravelDay = unchecked((int)(0x0036));
+        public const int TagTravelDay = unchecked(0x0036);
 
         /// <summary>0 = Normal</summary>
-        public const int TagContrast = unchecked((int)(0x0039));
+        public const int TagContrast = unchecked(0x0039);
 
         /// <summary>
         /// <br />
         /// 1 = Home <br />
         /// 2 = Destination
         /// </summary>
-        public const int TagWorldTimeLocation = unchecked((int)(0x003a));
+        public const int TagWorldTimeLocation = unchecked(0x003a);
 
         /// <summary>
         /// 1 = Off   <br />
         /// 2 = On
         /// </summary>
-        public const int TagTextStamp = unchecked((int)(0x003b));
+        public const int TagTextStamp = unchecked(0x003b);
 
-        public const int TagProgramIso = unchecked((int)(0x003c));
+        public const int TagProgramIso = unchecked(0x003c);
 
         /// <summary>
         /// <br />
@@ -324,31 +324,31 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 13 = Dynamic Art                         <br />
         /// 14 = Silhouette                          <br />
         /// </summary>
-        public const int TagAdvancedSceneMode = unchecked((int)(0x003d));
+        public const int TagAdvancedSceneMode = unchecked(0x003d);
 
         /// <summary>
         /// 1 = Off   <br />
         /// 2 = On
         /// </summary>
-        public const int TagTextStamp1 = unchecked((int)(0x003e));
+        public const int TagTextStamp1 = unchecked(0x003e);
 
-        public const int TagFacesDetected = unchecked((int)(0x003f));
+        public const int TagFacesDetected = unchecked(0x003f);
 
-        public const int TagSaturation = unchecked((int)(0x0040));
+        public const int TagSaturation = unchecked(0x0040);
 
-        public const int TagSharpness = unchecked((int)(0x0041));
+        public const int TagSharpness = unchecked(0x0041);
 
-        public const int TagFilmMode = unchecked((int)(0x0042));
+        public const int TagFilmMode = unchecked(0x0042);
 
         /// <summary>WB adjust AB.</summary>
         /// <remarks>WB adjust AB. Positive is a shift toward blue.</remarks>
-        public const int TagWbAdjustAb = unchecked((int)(0x0046));
+        public const int TagWbAdjustAb = unchecked(0x0046);
 
         /// <summary>WB adjust GM.</summary>
         /// <remarks>WB adjust GM. Positive is a shift toward green.</remarks>
-        public const int TagWbAdjustGm = unchecked((int)(0x0047));
+        public const int TagWbAdjustGm = unchecked(0x0047);
 
-        public const int TagAfPointPosition = unchecked((int)(0x004d));
+        public const int TagAfPointPosition = unchecked(0x004d);
 
         /// <summary>
         /// <br />
@@ -362,13 +362,13 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// (XYWH)  X,Y Center of Face,  (W,H) Width and Height                  <br />
         /// All values are in respect to double the size of the thumbnail image  <br />
         /// </summary>
-        public const int TagFaceDetectionInfo = unchecked((int)(0x004e));
+        public const int TagFaceDetectionInfo = unchecked(0x004e);
 
-        public const int TagLensType = unchecked((int)(0x0051));
+        public const int TagLensType = unchecked(0x0051);
 
-        public const int TagLensSerialNumber = unchecked((int)(0x0052));
+        public const int TagLensSerialNumber = unchecked(0x0052);
 
-        public const int TagAccessoryType = unchecked((int)(0x0053));
+        public const int TagAccessoryType = unchecked(0x0053);
 
         /// <summary>
         /// (decoded as two 16-bit signed integers)
@@ -378,7 +378,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// '1 1' = Stretch Low
         /// '3 2' = Stretch High
         /// </summary>
-        public const int TagTransform = unchecked((int)(0x0059));
+        public const int TagTransform = unchecked(0x0059);
 
         /// <summary>
         /// 0 = Off <br />
@@ -386,10 +386,10 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 2 = Standard <br />
         /// 3 = High
         /// </summary>
-        public const int TagIntelligentExposure = unchecked((int)(0x005d));
+        public const int TagIntelligentExposure = unchecked(0x005d);
 
         /// <summary>Info at http://www.ozhiker.com/electronics/pjmt/jpeg_info/pim.html</summary>
-        public const int TagPrintImageMatchingInfo = unchecked((int)(0x0E00));
+        public const int TagPrintImageMatchingInfo = unchecked(0x0E00);
 
         /// <summary>
         /// Byte Indexes:                                                                       <br />
@@ -407,54 +407,54 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// (XYWH)  X,Y Center of Face,  (W,H) Width and Height                                 <br />
         /// All values are in respect to double the size of the thumbnail image                 <br />
         /// </summary>
-        public const int TagFaceRecognitionInfo = unchecked((int)(0x0061));
+        public const int TagFaceRecognitionInfo = unchecked(0x0061);
 
         /// <summary>
         /// 0 = No <br />
         /// 1 = Yes
         /// </summary>
-        public const int TagFlashWarning = unchecked((int)(0x0062));
+        public const int TagFlashWarning = unchecked(0x0062);
 
-        public const int TagRecognizedFaceFlags = unchecked((int)(0x0063));
+        public const int TagRecognizedFaceFlags = unchecked(0x0063);
 
-        public const int TagTitle = unchecked((int)(0x0065));
+        public const int TagTitle = unchecked(0x0065);
 
-        public const int TagBabyName = unchecked((int)(0x0066));
+        public const int TagBabyName = unchecked(0x0066);
 
-        public const int TagLocation = unchecked((int)(0x0067));
+        public const int TagLocation = unchecked(0x0067);
 
-        public const int TagCountry = unchecked((int)(0x0069));
+        public const int TagCountry = unchecked(0x0069);
 
-        public const int TagState = unchecked((int)(0x006b));
+        public const int TagState = unchecked(0x006b);
 
-        public const int TagCity = unchecked((int)(0x006d));
+        public const int TagCity = unchecked(0x006d);
 
-        public const int TagLandmark = unchecked((int)(0x006f));
+        public const int TagLandmark = unchecked(0x006f);
 
         /// <summary>
         /// 0 = Off <br />
         /// 2 = Auto <br />
         /// 3 = On
         /// </summary>
-        public const int TagIntelligentResolution = unchecked((int)(0x0070));
+        public const int TagIntelligentResolution = unchecked(0x0070);
 
-        public const int TagMakernoteVersion = unchecked((int)(0x8000));
+        public const int TagMakernoteVersion = unchecked(0x8000);
 
-        public const int TagSceneMode = unchecked((int)(0x8001));
+        public const int TagSceneMode = unchecked(0x8001);
 
-        public const int TagWbRedLevel = unchecked((int)(0x8004));
+        public const int TagWbRedLevel = unchecked(0x8004);
 
-        public const int TagWbGreenLevel = unchecked((int)(0x8005));
+        public const int TagWbGreenLevel = unchecked(0x8005);
 
-        public const int TagWbBlueLevel = unchecked((int)(0x8006));
+        public const int TagWbBlueLevel = unchecked(0x8006);
 
-        public const int TagFlashFired = unchecked((int)(0x8007));
+        public const int TagFlashFired = unchecked(0x8007);
 
-        public const int TagTextStamp2 = unchecked((int)(0x8008));
+        public const int TagTextStamp2 = unchecked(0x8008);
 
-        public const int TagTextStamp3 = unchecked((int)(0x8009));
+        public const int TagTextStamp3 = unchecked(0x8009);
 
-        public const int TagBabyAge1 = unchecked((int)(0x8010));
+        public const int TagBabyAge1 = unchecked(0x8010);
 
         /// <summary>
         /// (decoded as two 16-bit signed integers)
@@ -464,7 +464,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// '1 1' = Stretch Low
         /// '3 2' = Stretch High
         /// </summary>
-        public const int TagTransform1 = unchecked((int)(0x8012));
+        public const int TagTransform1 = unchecked(0x8012);
 
         [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 

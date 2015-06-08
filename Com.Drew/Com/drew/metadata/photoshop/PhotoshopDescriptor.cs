@@ -125,9 +125,9 @@ namespace Com.Drew.Metadata.Photoshop
                 // & 0xFFFF;
                 int s = reader.GetUInt16(4);
                 int q1;
-                if (q <= unchecked((int)(0xFFFF)) && q >= unchecked((int)(0xFFFD)))
+                if (q <= unchecked(0xFFFF) && q >= unchecked(0xFFFD))
                 {
-                    q1 = q - unchecked((int)(0xFFFC));
+                    q1 = q - unchecked(0xFFFC);
                 }
                 else
                 {
@@ -143,9 +143,9 @@ namespace Com.Drew.Metadata.Photoshop
                 string quality;
                 switch (q)
                 {
-                    case unchecked((int)(0xFFFD)):
-                    case unchecked((int)(0xFFFE)):
-                    case unchecked((int)(0xFFFF)):
+                    case unchecked(0xFFFD):
+                    case unchecked(0xFFFE):
+                    case unchecked(0xFFFF):
                     case 0:
                     {
                         quality = "Low";
@@ -184,19 +184,19 @@ namespace Com.Drew.Metadata.Photoshop
                 string format;
                 switch (f)
                 {
-                    case unchecked((int)(0x0000)):
+                    case unchecked(0x0000):
                     {
                         format = "Standard";
                         break;
                     }
 
-                    case unchecked((int)(0x0001)):
+                    case unchecked(0x0001):
                     {
                         format = "Optimised";
                         break;
                     }
 
-                    case unchecked((int)(0x0101)):
+                    case unchecked(0x0101):
                     {
                         format = "Progressive ";
                         break;

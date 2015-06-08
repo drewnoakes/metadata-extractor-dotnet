@@ -57,14 +57,14 @@ namespace Com.Drew.Imaging.Tiff
         {
             // This must be either "MM" or "II".
             short byteOrderIdentifier = reader.GetInt16(tiffHeaderOffset);
-            if (byteOrderIdentifier == unchecked((int)(0x4d4d)))
+            if (byteOrderIdentifier == unchecked(0x4d4d))
             {
                 // "MM"
                 reader.SetMotorolaByteOrder(true);
             }
             else
             {
-                if (byteOrderIdentifier == unchecked((int)(0x4949)))
+                if (byteOrderIdentifier == unchecked(0x4949))
                 {
                     // "II"
                     reader.SetMotorolaByteOrder(false);
@@ -392,7 +392,7 @@ namespace Com.Drew.Imaging.Tiff
                 {
                     if (componentCount == 1)
                     {
-                        handler.SetInt16S(tagId, (int)reader.GetInt16(tagValueOffset));
+                        handler.SetInt16S(tagId, reader.GetInt16(tagValueOffset));
                     }
                     else
                     {

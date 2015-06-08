@@ -183,22 +183,22 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked((int)(0x10000)):
+                case unchecked(0x10000):
                 {
                     return "No digital zoom";
                 }
 
-                case unchecked((int)(0x10001)):
+                case unchecked(0x10001):
                 {
                     return "2x digital zoom";
                 }
 
-                case unchecked((int)(0x20000)):
+                case unchecked(0x20000):
                 {
                     return "2x digital zoom";
                 }
 
-                case unchecked((int)(0x40000)):
+                case unchecked(0x40000):
                 {
                     return "4x digital zoom";
                 }

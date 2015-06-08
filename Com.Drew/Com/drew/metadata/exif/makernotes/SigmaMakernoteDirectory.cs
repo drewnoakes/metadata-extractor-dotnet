@@ -30,51 +30,51 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class SigmaMakernoteDirectory : Directory
     {
-        public const int TagSerialNumber = unchecked((int)(0x2));
+        public const int TagSerialNumber = unchecked(0x2);
 
-        public const int TagDriveMode = unchecked((int)(0x3));
+        public const int TagDriveMode = unchecked(0x3);
 
-        public const int TagResolutionMode = unchecked((int)(0x4));
+        public const int TagResolutionMode = unchecked(0x4);
 
-        public const int TagAutoFocusMode = unchecked((int)(0x5));
+        public const int TagAutoFocusMode = unchecked(0x5);
 
-        public const int TagFocusSetting = unchecked((int)(0x6));
+        public const int TagFocusSetting = unchecked(0x6);
 
-        public const int TagWhiteBalance = unchecked((int)(0x7));
+        public const int TagWhiteBalance = unchecked(0x7);
 
-        public const int TagExposureMode = unchecked((int)(0x8));
+        public const int TagExposureMode = unchecked(0x8);
 
-        public const int TagMeteringMode = unchecked((int)(0x9));
+        public const int TagMeteringMode = unchecked(0x9);
 
-        public const int TagLensRange = unchecked((int)(0xa));
+        public const int TagLensRange = unchecked(0xa);
 
-        public const int TagColorSpace = unchecked((int)(0xb));
+        public const int TagColorSpace = unchecked(0xb);
 
-        public const int TagExposure = unchecked((int)(0xc));
+        public const int TagExposure = unchecked(0xc);
 
-        public const int TagContrast = unchecked((int)(0xd));
+        public const int TagContrast = unchecked(0xd);
 
-        public const int TagShadow = unchecked((int)(0xe));
+        public const int TagShadow = unchecked(0xe);
 
-        public const int TagHighlight = unchecked((int)(0xf));
+        public const int TagHighlight = unchecked(0xf);
 
-        public const int TagSaturation = unchecked((int)(0x10));
+        public const int TagSaturation = unchecked(0x10);
 
-        public const int TagSharpness = unchecked((int)(0x11));
+        public const int TagSharpness = unchecked(0x11);
 
-        public const int TagFillLight = unchecked((int)(0x12));
+        public const int TagFillLight = unchecked(0x12);
 
-        public const int TagColorAdjustment = unchecked((int)(0x14));
+        public const int TagColorAdjustment = unchecked(0x14);
 
-        public const int TagAdjustmentMode = unchecked((int)(0x15));
+        public const int TagAdjustmentMode = unchecked(0x15);
 
-        public const int TagQuality = unchecked((int)(0x16));
+        public const int TagQuality = unchecked(0x16);
 
-        public const int TagFirmware = unchecked((int)(0x17));
+        public const int TagFirmware = unchecked(0x17);
 
-        public const int TagSoftware = unchecked((int)(0x18));
+        public const int TagSoftware = unchecked(0x18);
 
-        public const int TagAutoBracket = unchecked((int)(0x19));
+        public const int TagAutoBracket = unchecked(0x19);
 
         [NotNull]
         protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();

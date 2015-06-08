@@ -44,11 +44,11 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetInt8()
         {
-            sbyte[] buffer = new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((sbyte)0x7F), unchecked((sbyte)0xFF) };
+            sbyte[] buffer = new sbyte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked((sbyte)0xFF) };
             SequentialReader reader = CreateReader(buffer);
-            Assert.AreEqual(unchecked((sbyte)0), reader.GetInt8());
-            Assert.AreEqual(unchecked((sbyte)1), reader.GetInt8());
-            Assert.AreEqual(unchecked((sbyte)127), reader.GetInt8());
+            Assert.AreEqual(unchecked(0), reader.GetInt8());
+            Assert.AreEqual(unchecked(1), reader.GetInt8());
+            Assert.AreEqual(unchecked(127), reader.GetInt8());
             Assert.AreEqual(unchecked((sbyte)255), reader.GetInt8());
         }
 
@@ -56,7 +56,7 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetUInt8()
         {
-            sbyte[] buffer = new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((sbyte)0x7F), unchecked((sbyte)0xFF) };
+            sbyte[] buffer = new sbyte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked((sbyte)0xFF) };
             SequentialReader reader = CreateReader(buffer);
             Assert.AreEqual(0, reader.GetUInt8());
             Assert.AreEqual(1, reader.GetUInt8());
@@ -85,13 +85,13 @@ namespace Com.Drew.Lang
         public virtual void TestGetInt16()
         {
             Assert.AreEqual(-1, CreateReader(new sbyte[] { unchecked((sbyte)0xff), unchecked((sbyte)0xff) }).GetInt16());
-            sbyte[] buffer = new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((sbyte)0x7F), unchecked((sbyte)0xFF) };
+            sbyte[] buffer = new sbyte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked((sbyte)0xFF) };
             SequentialReader reader = CreateReader(buffer);
-            Assert.AreEqual((short)0x0001, reader.GetInt16());
-            Assert.AreEqual((short)0x7FFF, reader.GetInt16());
+            Assert.AreEqual(0x0001, reader.GetInt16());
+            Assert.AreEqual(0x7FFF, reader.GetInt16());
             reader = CreateReader(buffer);
             reader.SetMotorolaByteOrder(false);
-            Assert.AreEqual((short)0x0100, reader.GetInt16());
+            Assert.AreEqual(0x0100, reader.GetInt16());
             Assert.AreEqual(unchecked((short)(0xFF7F)), reader.GetInt16());
         }
 
@@ -99,14 +99,14 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetUInt16()
         {
-            sbyte[] buffer = new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((sbyte)0x7F), unchecked((sbyte)0xFF) };
+            sbyte[] buffer = new sbyte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked((sbyte)0xFF) };
             SequentialReader reader = CreateReader(buffer);
-            Assert.AreEqual(unchecked((int)(0x0001)), reader.GetUInt16());
-            Assert.AreEqual(unchecked((int)(0x7FFF)), reader.GetUInt16());
+            Assert.AreEqual(unchecked(0x0001), reader.GetUInt16());
+            Assert.AreEqual(unchecked(0x7FFF), reader.GetUInt16());
             reader = CreateReader(buffer);
             reader.SetMotorolaByteOrder(false);
-            Assert.AreEqual(unchecked((int)(0x0100)), reader.GetUInt16());
-            Assert.AreEqual(unchecked((int)(0xFF7F)), reader.GetUInt16());
+            Assert.AreEqual(unchecked(0x0100), reader.GetUInt16());
+            Assert.AreEqual(unchecked(0xFF7F), reader.GetUInt16());
         }
 
         [Test]
@@ -129,14 +129,14 @@ namespace Com.Drew.Lang
         public virtual void TestGetInt32()
         {
             Assert.AreEqual(-1, CreateReader(new sbyte[] { unchecked((sbyte)0xff), unchecked((sbyte)0xff), unchecked((sbyte)0xff), unchecked((sbyte)0xff) }).GetInt32());
-            sbyte[] buffer = new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((int)(0x02)), unchecked((int)(0x03)), unchecked((int)(0x04)), unchecked((int)(0x05)), unchecked((int)(0x06)), unchecked((int)(0x07)) };
+            sbyte[] buffer = new sbyte[] { unchecked(0x00), unchecked(0x01), unchecked(0x02), unchecked(0x03), unchecked(0x04), unchecked(0x05), unchecked(0x06), unchecked(0x07) };
             SequentialReader reader = CreateReader(buffer);
-            Assert.AreEqual(unchecked((int)(0x00010203)), reader.GetInt32());
-            Assert.AreEqual(unchecked((int)(0x04050607)), reader.GetInt32());
+            Assert.AreEqual(unchecked(0x00010203), reader.GetInt32());
+            Assert.AreEqual(unchecked(0x04050607), reader.GetInt32());
             reader = CreateReader(buffer);
             reader.SetMotorolaByteOrder(false);
-            Assert.AreEqual(unchecked((int)(0x03020100)), reader.GetInt32());
-            Assert.AreEqual(unchecked((int)(0x07060504)), reader.GetInt32());
+            Assert.AreEqual(unchecked(0x03020100), reader.GetInt32());
+            Assert.AreEqual(unchecked(0x07060504), reader.GetInt32());
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -144,15 +144,15 @@ namespace Com.Drew.Lang
         public virtual void TestGetUInt32()
         {
             Assert.AreEqual(4294967295L, (object)CreateReader(new sbyte[] { unchecked((sbyte)0xff), unchecked((sbyte)0xff), unchecked((sbyte)0xff), unchecked((sbyte)0xff) }).GetUInt32());
-            sbyte[] buffer = new sbyte[] { unchecked((sbyte)0xFF), unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((int)(0x02)), unchecked((int)(0x03)), unchecked((int)(0x04)), unchecked((int)(0x05)), unchecked((int)(0x06)) };
+            sbyte[] buffer = new sbyte[] { unchecked((sbyte)0xFF), unchecked(0x00), unchecked(0x01), unchecked(0x02), unchecked(0x03), unchecked(0x04), unchecked(0x05), unchecked(0x06) };
             SequentialReader reader = CreateReader(buffer);
-            Assert.AreEqual(unchecked((long)(0xFF000102L)), (object)reader.GetUInt32());
-            Assert.AreEqual(unchecked((long)(0x03040506L)), (object)reader.GetUInt32());
+            Assert.AreEqual(unchecked(0xFF000102L), (object)reader.GetUInt32());
+            Assert.AreEqual(unchecked(0x03040506L), (object)reader.GetUInt32());
             reader = CreateReader(buffer);
             reader.SetMotorolaByteOrder(false);
-            Assert.AreEqual(unchecked((long)(0x020100FFL)), (object)reader.GetUInt32());
+            Assert.AreEqual(unchecked(0x020100FFL), (object)reader.GetUInt32());
             // 0x0010200FF
-            Assert.AreEqual(unchecked((long)(0x06050403L)), (object)reader.GetUInt32());
+            Assert.AreEqual(unchecked(0x06050403L), (object)reader.GetUInt32());
         }
 
         [Test]
@@ -174,13 +174,12 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetInt64()
         {
-            sbyte[] buffer = new sbyte[] { unchecked((sbyte)0xFF), unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((int)(0x02)), unchecked((int)(0x03)), unchecked((int)(0x04)), unchecked((int)(0x05)), unchecked((int)(0x06)), unchecked((int)(0x07
-                )) };
+            sbyte[] buffer = new sbyte[] { unchecked((sbyte)0xFF), unchecked(0x00), unchecked(0x01), unchecked(0x02), unchecked(0x03), unchecked(0x04), unchecked(0x05), unchecked(0x06), unchecked(0x07) };
             SequentialReader reader = CreateReader(buffer);
             Assert.AreEqual(unchecked((long)(0xFF00010203040506L)), (object)reader.GetInt64());
             reader = CreateReader(buffer);
             reader.SetMotorolaByteOrder(false);
-            Assert.AreEqual(unchecked((long)(0x06050403020100FFL)), (object)reader.GetInt64());
+            Assert.AreEqual(unchecked(0x06050403020100FFL), (object)reader.GetInt64());
         }
 
         [Test]
@@ -202,9 +201,9 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetFloat32()
         {
-            int nanBits = unchecked((int)(0x7fc00000));
+            int nanBits = unchecked(0x7fc00000);
             Assert.IsTrue(float.IsNaN(Extensions.IntBitsToFloat(nanBits)));
-            sbyte[] buffer = new sbyte[] { unchecked((int)(0x7f)), unchecked((sbyte)0xc0), unchecked((int)(0x00)), unchecked((int)(0x00)) };
+            sbyte[] buffer = new sbyte[] { unchecked(0x7f), unchecked((sbyte)0xc0), unchecked(0x00), unchecked(0x00) };
             SequentialReader reader = CreateReader(buffer);
             Assert.IsTrue(float.IsNaN(reader.GetFloat32()));
         }
@@ -215,7 +214,7 @@ namespace Com.Drew.Lang
         {
             long nanBits = unchecked((long)(0xfff0000000000001L));
             Assert.IsTrue(double.IsNaN(Extensions.LongBitsToDouble(nanBits)));
-            sbyte[] buffer = new sbyte[] { unchecked((sbyte)0xff), unchecked((sbyte)0xf0), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x01)) };
+            sbyte[] buffer = new sbyte[] { unchecked((sbyte)0xff), unchecked((sbyte)0xf0), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked(0x01) };
             SequentialReader reader = CreateReader(buffer);
             Assert.IsTrue(double.IsNaN(reader.GetDouble64()));
         }
@@ -224,23 +223,23 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetNullTerminatedString()
         {
-            sbyte[] bytes = new sbyte[] { unchecked((int)(0x41)), unchecked((int)(0x42)), unchecked((int)(0x43)), unchecked((int)(0x44)), unchecked((int)(0x45)), unchecked((int)(0x46)), unchecked((int)(0x47)) };
+            sbyte[] bytes = new sbyte[] { unchecked(0x41), unchecked(0x42), unchecked(0x43), unchecked(0x44), unchecked(0x45), unchecked(0x46), unchecked(0x47) };
             // Test max length
             for (int i = 0; i < bytes.Length; i++)
             {
                 Assert.AreEqual(Runtime.Substring("ABCDEFG", 0, i), CreateReader(bytes).GetNullTerminatedString(i));
             }
             Assert.AreEqual(string.Empty, CreateReader(new sbyte[] { 0 }).GetNullTerminatedString(10));
-            Assert.AreEqual("A", CreateReader(new sbyte[] { unchecked((int)(0x41)), 0 }).GetNullTerminatedString(10));
-            Assert.AreEqual("AB", CreateReader(new sbyte[] { unchecked((int)(0x41)), unchecked((int)(0x42)), 0 }).GetNullTerminatedString(10));
-            Assert.AreEqual("AB", CreateReader(new sbyte[] { unchecked((int)(0x41)), unchecked((int)(0x42)), 0, unchecked((int)(0x43)) }).GetNullTerminatedString(10));
+            Assert.AreEqual("A", CreateReader(new sbyte[] { unchecked(0x41), 0 }).GetNullTerminatedString(10));
+            Assert.AreEqual("AB", CreateReader(new sbyte[] { unchecked(0x41), unchecked(0x42), 0 }).GetNullTerminatedString(10));
+            Assert.AreEqual("AB", CreateReader(new sbyte[] { unchecked(0x41), unchecked(0x42), 0, unchecked(0x43) }).GetNullTerminatedString(10));
         }
 
         /// <exception cref="System.IO.IOException"/>
         [Test]
         public virtual void TestGetString()
         {
-            sbyte[] bytes = new sbyte[] { unchecked((int)(0x41)), unchecked((int)(0x42)), unchecked((int)(0x43)), unchecked((int)(0x44)), unchecked((int)(0x45)), unchecked((int)(0x46)), unchecked((int)(0x47)) };
+            sbyte[] bytes = new sbyte[] { unchecked(0x41), unchecked(0x42), unchecked(0x43), unchecked(0x44), unchecked(0x45), unchecked(0x46), unchecked(0x47) };
             string expected = Runtime.GetStringForBytes(bytes);
             Assert.AreEqual(bytes.Length, expected.Length);
             for (int i = 0; i < bytes.Length; i++)

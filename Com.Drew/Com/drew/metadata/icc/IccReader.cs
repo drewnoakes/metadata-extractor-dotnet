@@ -106,7 +106,7 @@ namespace Com.Drew.Metadata.Icc
                 int temp = reader.GetInt32(IccDirectory.TagDeviceModel);
                 if (temp != 0)
                 {
-                    if (temp <= unchecked((int)(0x20202020)))
+                    if (temp <= unchecked(0x20202020))
                     {
                         directory.SetInt(IccDirectory.TagDeviceModel, temp);
                     }
@@ -189,8 +189,8 @@ namespace Com.Drew.Metadata.Icc
         public static string GetStringFromInt32(int d)
         {
             // MSB
-            sbyte[] b = new sbyte[] { unchecked((sbyte)((d & unchecked((int)(0xFF000000))) >> 24)), unchecked((sbyte)((d & unchecked((int)(0x00FF0000))) >> 16)), unchecked((sbyte)((d & unchecked((int)(0x0000FF00))) >> 8)), unchecked((sbyte)((d & unchecked(
-                (int)(0x000000FF))))) };
+            sbyte[] b = new sbyte[] { unchecked((sbyte)((d & unchecked((int)(0xFF000000))) >> 24)), unchecked((sbyte)((d & unchecked(0x00FF0000)) >> 16)), unchecked((sbyte)((d & unchecked(0x0000FF00)) >> 8)), unchecked((sbyte)((d & unchecked(
+                0x000000FF)))) };
             return Runtime.GetStringForBytes(b);
         }
     }

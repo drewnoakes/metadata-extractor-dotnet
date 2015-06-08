@@ -54,12 +54,12 @@ namespace Com.Drew.Metadata.Exif
         /// <exception cref="Com.Drew.Imaging.Tiff.TiffProcessingException"/>
         public override void SetTiffMarker(int marker)
         {
-            int standardTiffMarker = unchecked((int)(0x002A));
-            int olympusRawTiffMarker = unchecked((int)(0x4F52));
+            int standardTiffMarker = unchecked(0x002A);
+            int olympusRawTiffMarker = unchecked(0x4F52);
             // for ORF files
-            int olympusRawTiffMarker2 = unchecked((int)(0x5352));
+            int olympusRawTiffMarker2 = unchecked(0x5352);
             // for ORF files
-            int panasonicRawTiffMarker = unchecked((int)(0x0055));
+            int panasonicRawTiffMarker = unchecked(0x0055);
             // for RW2 files
             if (marker != standardTiffMarker && marker != olympusRawTiffMarker && marker != olympusRawTiffMarker2 && marker != panasonicRawTiffMarker)
             {
@@ -117,7 +117,7 @@ namespace Com.Drew.Metadata.Exif
             if (tagId == ExifDirectoryBase.TagIptcNaa && CurrentDirectory is ExifIfd0Directory)
             {
                 // NOTE Adobe sets type 4 for IPTC instead of 7
-                if (reader.GetInt8(tagOffset) == unchecked((int)(0x1c)))
+                if (reader.GetInt8(tagOffset) == unchecked(0x1c))
                 {
                     sbyte[] iptcBytes = reader.GetBytes(tagOffset, byteCount);
                     new IptcReader().Extract(new SequentialByteArrayReader(iptcBytes), Metadata, iptcBytes.Length);

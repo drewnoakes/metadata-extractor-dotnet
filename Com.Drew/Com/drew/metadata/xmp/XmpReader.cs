@@ -256,7 +256,7 @@ namespace Com.Drew.Metadata.Xmp
                 {
                     try
                     {
-                        directory.SetInt(tagType, (int)Extensions.ValueOf(property));
+                        directory.SetInt(tagType, Extensions.ValueOf(property));
                     }
                     catch (FormatException)
                     {
@@ -269,7 +269,7 @@ namespace Com.Drew.Metadata.Xmp
                 {
                     try
                     {
-                        directory.SetDouble(tagType, (double)double.Parse(property));
+                        directory.SetDouble(tagType, double.Parse(property));
                     }
                     catch (FormatException)
                     {

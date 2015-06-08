@@ -36,30 +36,30 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     public sealed class OlympusMakernoteDirectory : Directory
     {
         /// <summary>Used by Konica / Minolta cameras.</summary>
-        public const int TagMakernoteVersion = unchecked((int)(0x0000));
+        public const int TagMakernoteVersion = unchecked(0x0000);
 
         /// <summary>Used by Konica / Minolta cameras.</summary>
-        public const int TagCameraSettings1 = unchecked((int)(0x0001));
+        public const int TagCameraSettings1 = unchecked(0x0001);
 
         /// <summary>Alternate Camera Settings Tag.</summary>
         /// <remarks>Alternate Camera Settings Tag. Used by Konica / Minolta cameras.</remarks>
-        public const int TagCameraSettings2 = unchecked((int)(0x0003));
+        public const int TagCameraSettings2 = unchecked(0x0003);
 
         /// <summary>Used by Konica / Minolta cameras.</summary>
-        public const int TagCompressedImageSize = unchecked((int)(0x0040));
+        public const int TagCompressedImageSize = unchecked(0x0040);
 
         /// <summary>Used by Konica / Minolta cameras.</summary>
-        public const int TagMinoltaThumbnailOffset1 = unchecked((int)(0x0081));
+        public const int TagMinoltaThumbnailOffset1 = unchecked(0x0081);
 
         /// <summary>Alternate Thumbnail Offset.</summary>
         /// <remarks>Alternate Thumbnail Offset. Used by Konica / Minolta cameras.</remarks>
-        public const int TagMinoltaThumbnailOffset2 = unchecked((int)(0x0088));
+        public const int TagMinoltaThumbnailOffset2 = unchecked(0x0088);
 
         /// <summary>Length of thumbnail in bytes.</summary>
         /// <remarks>Length of thumbnail in bytes. Used by Konica / Minolta cameras.</remarks>
-        public const int TagMinoltaThumbnailLength = unchecked((int)(0x0089));
+        public const int TagMinoltaThumbnailLength = unchecked(0x0089);
 
-        public const int TagThumbnailImage = unchecked((int)(0x0100));
+        public const int TagThumbnailImage = unchecked(0x0100);
 
         /// <summary>
         /// Used by Konica / Minolta cameras
@@ -69,7 +69,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 3 = Solarization
         /// 4 = AdobeRGB
         /// </summary>
-        public const int TagColourMode = unchecked((int)(0x0101));
+        public const int TagColourMode = unchecked(0x0101);
 
         /// <summary>Used by Konica / Minolta cameras.</summary>
         /// <remarks>
@@ -80,7 +80,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 3 = Standard
         /// 4 = Extra Fine
         /// </remarks>
-        public const int TagImageQuality1 = unchecked((int)(0x0102));
+        public const int TagImageQuality1 = unchecked(0x0102);
 
         /// <summary>Not 100% sure about this tag.</summary>
         /// <remarks>
@@ -93,9 +93,9 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 3 = Standard
         /// 4 = Extra Fine
         /// </remarks>
-        public const int TagImageQuality2 = unchecked((int)(0x0103));
+        public const int TagImageQuality2 = unchecked(0x0103);
 
-        public const int TagBodyFirmwareVersion = unchecked((int)(0x0104));
+        public const int TagBodyFirmwareVersion = unchecked(0x0104);
 
         /// <summary>
         /// Three values:
@@ -106,182 +106,182 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// 3 = Panorama Direction: Bottom to Top
         /// 4 = Panorama Direction: Top to Bottom
         /// </summary>
-        public const int TagSpecialMode = unchecked((int)(0x0200));
+        public const int TagSpecialMode = unchecked(0x0200);
 
         /// <summary>
         /// 1 = Standard Quality
         /// 2 = High Quality
         /// 3 = Super High Quality
         /// </summary>
-        public const int TagJpegQuality = unchecked((int)(0x0201));
+        public const int TagJpegQuality = unchecked(0x0201);
 
         /// <summary>
         /// 0 = Normal (Not Macro)
         /// 1 = Macro
         /// </summary>
-        public const int TagMacroMode = unchecked((int)(0x0202));
+        public const int TagMacroMode = unchecked(0x0202);
 
         /// <summary>0 = Off, 1 = On</summary>
-        public const int TagBwMode = unchecked((int)(0x0203));
+        public const int TagBwMode = unchecked(0x0203);
 
         /// <summary>Zoom Factor (0 or 1 = normal)</summary>
-        public const int TagDigiZoomRatio = unchecked((int)(0x0204));
+        public const int TagDigiZoomRatio = unchecked(0x0204);
 
-        public const int TagFocalPlaneDiagonal = unchecked((int)(0x0205));
+        public const int TagFocalPlaneDiagonal = unchecked(0x0205);
 
-        public const int TagLensDistortionParameters = unchecked((int)(0x0206));
+        public const int TagLensDistortionParameters = unchecked(0x0206);
 
-        public const int TagFirmwareVersion = unchecked((int)(0x0207));
+        public const int TagFirmwareVersion = unchecked(0x0207);
 
-        public const int TagPictInfo = unchecked((int)(0x0208));
+        public const int TagPictInfo = unchecked(0x0208);
 
-        public const int TagCameraId = unchecked((int)(0x0209));
-
-        /// <summary>
-        /// Used by Epson cameras
-        /// Units = pixels
-        /// </summary>
-        public const int TagImageWidth = unchecked((int)(0x020B));
+        public const int TagCameraId = unchecked(0x0209);
 
         /// <summary>
         /// Used by Epson cameras
         /// Units = pixels
         /// </summary>
-        public const int TagImageHeight = unchecked((int)(0x020C));
+        public const int TagImageWidth = unchecked(0x020B);
+
+        /// <summary>
+        /// Used by Epson cameras
+        /// Units = pixels
+        /// </summary>
+        public const int TagImageHeight = unchecked(0x020C);
 
         /// <summary>A string.</summary>
         /// <remarks>A string. Used by Epson cameras.</remarks>
-        public const int TagOriginalManufacturerModel = unchecked((int)(0x020D));
+        public const int TagOriginalManufacturerModel = unchecked(0x020D);
 
-        public const int TagPreviewImage = unchecked((int)(0x0280));
+        public const int TagPreviewImage = unchecked(0x0280);
 
-        public const int TagPreCaptureFrames = unchecked((int)(0x0300));
+        public const int TagPreCaptureFrames = unchecked(0x0300);
 
-        public const int TagWhiteBoard = unchecked((int)(0x0301));
+        public const int TagWhiteBoard = unchecked(0x0301);
 
-        public const int TagOneTouchWb = unchecked((int)(0x0302));
+        public const int TagOneTouchWb = unchecked(0x0302);
 
-        public const int TagWhiteBalanceBracket = unchecked((int)(0x0303));
+        public const int TagWhiteBalanceBracket = unchecked(0x0303);
 
-        public const int TagWhiteBalanceBias = unchecked((int)(0x0304));
+        public const int TagWhiteBalanceBias = unchecked(0x0304);
 
-        public const int TagSceneMode = unchecked((int)(0x0403));
+        public const int TagSceneMode = unchecked(0x0403);
 
-        public const int TagFirmware = unchecked((int)(0x0404));
+        public const int TagFirmware = unchecked(0x0404);
 
         /// <summary>
         /// See the PIM specification here:
         /// http://www.ozhiker.com/electronics/pjmt/jpeg_info/pim.html
         /// </summary>
-        public const int TagPrintImageMatchingInfo = unchecked((int)(0x0E00));
+        public const int TagPrintImageMatchingInfo = unchecked(0x0E00);
 
-        public const int TagDataDump1 = unchecked((int)(0x0F00));
+        public const int TagDataDump1 = unchecked(0x0F00);
 
-        public const int TagDataDump2 = unchecked((int)(0x0F01));
+        public const int TagDataDump2 = unchecked(0x0F01);
 
-        public const int TagShutterSpeedValue = unchecked((int)(0x1000));
+        public const int TagShutterSpeedValue = unchecked(0x1000);
 
-        public const int TagIsoValue = unchecked((int)(0x1001));
+        public const int TagIsoValue = unchecked(0x1001);
 
-        public const int TagApertureValue = unchecked((int)(0x1002));
+        public const int TagApertureValue = unchecked(0x1002);
 
-        public const int TagBrightnessValue = unchecked((int)(0x1003));
+        public const int TagBrightnessValue = unchecked(0x1003);
 
-        public const int TagFlashMode = unchecked((int)(0x1004));
+        public const int TagFlashMode = unchecked(0x1004);
 
-        public const int TagFlashDevice = unchecked((int)(0x1005));
+        public const int TagFlashDevice = unchecked(0x1005);
 
-        public const int TagBracket = unchecked((int)(0x1006));
+        public const int TagBracket = unchecked(0x1006);
 
-        public const int TagSensorTemperature = unchecked((int)(0x1007));
+        public const int TagSensorTemperature = unchecked(0x1007);
 
-        public const int TagLensTemperature = unchecked((int)(0x1008));
+        public const int TagLensTemperature = unchecked(0x1008);
 
-        public const int TagLightCondition = unchecked((int)(0x1009));
+        public const int TagLightCondition = unchecked(0x1009);
 
-        public const int TagFocusRange = unchecked((int)(0x100A));
+        public const int TagFocusRange = unchecked(0x100A);
 
-        public const int TagFocusMode = unchecked((int)(0x100B));
+        public const int TagFocusMode = unchecked(0x100B);
 
-        public const int TagFocusDistance = unchecked((int)(0x100C));
+        public const int TagFocusDistance = unchecked(0x100C);
 
-        public const int TagZoom = unchecked((int)(0x100D));
+        public const int TagZoom = unchecked(0x100D);
 
-        public const int TagMacroFocus = unchecked((int)(0x100E));
+        public const int TagMacroFocus = unchecked(0x100E);
 
-        public const int TagSharpness = unchecked((int)(0x100F));
+        public const int TagSharpness = unchecked(0x100F);
 
-        public const int TagFlashChargeLevel = unchecked((int)(0x1010));
+        public const int TagFlashChargeLevel = unchecked(0x1010);
 
-        public const int TagColourMatrix = unchecked((int)(0x1011));
+        public const int TagColourMatrix = unchecked(0x1011);
 
-        public const int TagBlackLevel = unchecked((int)(0x1012));
+        public const int TagBlackLevel = unchecked(0x1012);
 
-        public const int TagWhiteBalance = unchecked((int)(0x1015));
+        public const int TagWhiteBalance = unchecked(0x1015);
 
-        public const int TagRedBias = unchecked((int)(0x1017));
+        public const int TagRedBias = unchecked(0x1017);
 
-        public const int TagBlueBias = unchecked((int)(0x1018));
+        public const int TagBlueBias = unchecked(0x1018);
 
-        public const int TagColorMatrixNumber = unchecked((int)(0x1019));
+        public const int TagColorMatrixNumber = unchecked(0x1019);
 
-        public const int TagSerialNumber = unchecked((int)(0x101A));
+        public const int TagSerialNumber = unchecked(0x101A);
 
-        public const int TagFlashBias = unchecked((int)(0x1023));
+        public const int TagFlashBias = unchecked(0x1023);
 
-        public const int TagExternalFlashBounce = unchecked((int)(0x1026));
+        public const int TagExternalFlashBounce = unchecked(0x1026);
 
-        public const int TagExternalFlashZoom = unchecked((int)(0x1027));
+        public const int TagExternalFlashZoom = unchecked(0x1027);
 
-        public const int TagExternalFlashMode = unchecked((int)(0x1028));
+        public const int TagExternalFlashMode = unchecked(0x1028);
 
-        public const int TagContrast = unchecked((int)(0x1029));
+        public const int TagContrast = unchecked(0x1029);
 
-        public const int TagSharpnessFactor = unchecked((int)(0x102A));
+        public const int TagSharpnessFactor = unchecked(0x102A);
 
-        public const int TagColourControl = unchecked((int)(0x102B));
+        public const int TagColourControl = unchecked(0x102B);
 
-        public const int TagValidBits = unchecked((int)(0x102C));
+        public const int TagValidBits = unchecked(0x102C);
 
-        public const int TagCoringFilter = unchecked((int)(0x102D));
+        public const int TagCoringFilter = unchecked(0x102D);
 
-        public const int TagFinalWidth = unchecked((int)(0x102E));
+        public const int TagFinalWidth = unchecked(0x102E);
 
-        public const int TagFinalHeight = unchecked((int)(0x102F));
+        public const int TagFinalHeight = unchecked(0x102F);
 
-        public const int TagCompressionRatio = unchecked((int)(0x1034));
+        public const int TagCompressionRatio = unchecked(0x1034);
 
-        public const int TagThumbnail = unchecked((int)(0x1035));
+        public const int TagThumbnail = unchecked(0x1035);
 
-        public const int TagThumbnailOffset = unchecked((int)(0x1036));
+        public const int TagThumbnailOffset = unchecked(0x1036);
 
-        public const int TagThumbnailLength = unchecked((int)(0x1037));
+        public const int TagThumbnailLength = unchecked(0x1037);
 
-        public const int TagCcdScanMode = unchecked((int)(0x1039));
+        public const int TagCcdScanMode = unchecked(0x1039);
 
-        public const int TagNoiseReduction = unchecked((int)(0x103A));
+        public const int TagNoiseReduction = unchecked(0x103A);
 
-        public const int TagInfinityLensStep = unchecked((int)(0x103B));
+        public const int TagInfinityLensStep = unchecked(0x103B);
 
-        public const int TagNearLensStep = unchecked((int)(0x103C));
+        public const int TagNearLensStep = unchecked(0x103C);
 
-        public const int TagEquipment = unchecked((int)(0x2010));
+        public const int TagEquipment = unchecked(0x2010);
 
-        public const int TagCameraSettings = unchecked((int)(0x2020));
+        public const int TagCameraSettings = unchecked(0x2020);
 
-        public const int TagRawDevelopment = unchecked((int)(0x2030));
+        public const int TagRawDevelopment = unchecked(0x2030);
 
-        public const int TagRawDevelopment2 = unchecked((int)(0x2031));
+        public const int TagRawDevelopment2 = unchecked(0x2031);
 
-        public const int TagImageProcessing = unchecked((int)(0x2040));
+        public const int TagImageProcessing = unchecked(0x2040);
 
-        public const int TagFocusInfo = unchecked((int)(0x2050));
+        public const int TagFocusInfo = unchecked(0x2050);
 
-        public const int TagRawInfo = unchecked((int)(0x3000));
+        public const int TagRawInfo = unchecked(0x3000);
 
         public static class CameraSettings
         {
-            internal const int Offset = unchecked((int)(0xF000));
+            internal const int Offset = unchecked(0xF000);
 
             public const int TagExposureMode = Offset + 2;
 

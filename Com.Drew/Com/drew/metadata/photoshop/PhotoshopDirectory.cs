@@ -32,167 +32,167 @@ namespace Com.Drew.Metadata.Photoshop
     /// <author>Yuri Binev</author>
     public sealed class PhotoshopDirectory : Directory
     {
-        public const int TagChannelsRowsColumnsDepthMode = unchecked((int)(0x03E8));
+        public const int TagChannelsRowsColumnsDepthMode = unchecked(0x03E8);
 
-        public const int TagMacPrintInfo = unchecked((int)(0x03E9));
+        public const int TagMacPrintInfo = unchecked(0x03E9);
 
-        public const int TagXml = unchecked((int)(0x03EA));
+        public const int TagXml = unchecked(0x03EA);
 
-        public const int TagIndexedColorTable = unchecked((int)(0x03EB));
+        public const int TagIndexedColorTable = unchecked(0x03EB);
 
-        public const int TagResolutionInfo = unchecked((int)(0x03ED));
+        public const int TagResolutionInfo = unchecked(0x03ED);
 
-        public const int TagAlphaChannels = unchecked((int)(0x03EE));
+        public const int TagAlphaChannels = unchecked(0x03EE);
 
-        public const int TagDisplayInfoObsolete = unchecked((int)(0x03EF));
+        public const int TagDisplayInfoObsolete = unchecked(0x03EF);
 
-        public const int TagCaption = unchecked((int)(0x03F0));
+        public const int TagCaption = unchecked(0x03F0);
 
-        public const int TagBorderInformation = unchecked((int)(0x03F1));
+        public const int TagBorderInformation = unchecked(0x03F1);
 
-        public const int TagBackgroundColor = unchecked((int)(0x03F2));
+        public const int TagBackgroundColor = unchecked(0x03F2);
 
-        public const int TagPrintFlags = unchecked((int)(0x03F3));
+        public const int TagPrintFlags = unchecked(0x03F3);
 
-        public const int TagGrayscaleAndMultichannelHalftoningInformation = unchecked((int)(0x03F4));
+        public const int TagGrayscaleAndMultichannelHalftoningInformation = unchecked(0x03F4);
 
-        public const int TagColorHalftoningInformation = unchecked((int)(0x03F5));
+        public const int TagColorHalftoningInformation = unchecked(0x03F5);
 
-        public const int TagDuotoneHalftoningInformation = unchecked((int)(0x03F6));
+        public const int TagDuotoneHalftoningInformation = unchecked(0x03F6);
 
-        public const int TagGrayscaleAndMultichannelTransferFunction = unchecked((int)(0x03F7));
+        public const int TagGrayscaleAndMultichannelTransferFunction = unchecked(0x03F7);
 
-        public const int TagColorTransferFunctions = unchecked((int)(0x03F8));
+        public const int TagColorTransferFunctions = unchecked(0x03F8);
 
-        public const int TagDuotoneTransferFunctions = unchecked((int)(0x03F9));
+        public const int TagDuotoneTransferFunctions = unchecked(0x03F9);
 
-        public const int TagDuotoneImageInformation = unchecked((int)(0x03FA));
+        public const int TagDuotoneImageInformation = unchecked(0x03FA);
 
-        public const int TagEffectiveBlackAndWhiteValues = unchecked((int)(0x03FB));
+        public const int TagEffectiveBlackAndWhiteValues = unchecked(0x03FB);
 
-        public const int TagEpsOptions = unchecked((int)(0x03FD));
+        public const int TagEpsOptions = unchecked(0x03FD);
 
-        public const int TagQuickMaskInformation = unchecked((int)(0x03FE));
+        public const int TagQuickMaskInformation = unchecked(0x03FE);
 
-        public const int TagLayerStateInformation = unchecked((int)(0x0400));
+        public const int TagLayerStateInformation = unchecked(0x0400);
 
-        public const int TagLayersGroupInformation = unchecked((int)(0x0402));
+        public const int TagLayersGroupInformation = unchecked(0x0402);
 
-        public const int TagIptc = unchecked((int)(0x0404));
+        public const int TagIptc = unchecked(0x0404);
 
-        public const int TagImageModeForRawFormatFiles = unchecked((int)(0x0405));
+        public const int TagImageModeForRawFormatFiles = unchecked(0x0405);
 
-        public const int TagJpegQuality = unchecked((int)(0x0406));
+        public const int TagJpegQuality = unchecked(0x0406);
 
-        public const int TagGridAndGuidesInformation = unchecked((int)(0x0408));
+        public const int TagGridAndGuidesInformation = unchecked(0x0408);
 
-        public const int TagThumbnailOld = unchecked((int)(0x0409));
+        public const int TagThumbnailOld = unchecked(0x0409);
 
-        public const int TagCopyright = unchecked((int)(0x040A));
+        public const int TagCopyright = unchecked(0x040A);
 
-        public const int TagUrl = unchecked((int)(0x040B));
+        public const int TagUrl = unchecked(0x040B);
 
-        public const int TagThumbnail = unchecked((int)(0x040C));
+        public const int TagThumbnail = unchecked(0x040C);
 
-        public const int TagGlobalAngle = unchecked((int)(0x040D));
+        public const int TagGlobalAngle = unchecked(0x040D);
 
-        public const int TagIccProfileBytes = unchecked((int)(0x040F));
+        public const int TagIccProfileBytes = unchecked(0x040F);
 
-        public const int TagWatermark = unchecked((int)(0x0410));
+        public const int TagWatermark = unchecked(0x0410);
 
-        public const int TagIccUntaggedProfile = unchecked((int)(0x0411));
+        public const int TagIccUntaggedProfile = unchecked(0x0411);
 
-        public const int TagEffectsVisible = unchecked((int)(0x0412));
+        public const int TagEffectsVisible = unchecked(0x0412);
 
-        public const int TagSpotHalftone = unchecked((int)(0x0413));
+        public const int TagSpotHalftone = unchecked(0x0413);
 
-        public const int TagSeedNumber = unchecked((int)(0x0414));
+        public const int TagSeedNumber = unchecked(0x0414);
 
-        public const int TagUnicodeAlphaNames = unchecked((int)(0x0415));
+        public const int TagUnicodeAlphaNames = unchecked(0x0415);
 
-        public const int TagIndexedColorTableCount = unchecked((int)(0x0416));
+        public const int TagIndexedColorTableCount = unchecked(0x0416);
 
-        public const int TagTransparencyIndex = unchecked((int)(0x0417));
+        public const int TagTransparencyIndex = unchecked(0x0417);
 
-        public const int TagGlobalAltitude = unchecked((int)(0x0419));
+        public const int TagGlobalAltitude = unchecked(0x0419);
 
-        public const int TagSlices = unchecked((int)(0x041A));
+        public const int TagSlices = unchecked(0x041A);
 
-        public const int TagWorkflowUrl = unchecked((int)(0x041B));
+        public const int TagWorkflowUrl = unchecked(0x041B);
 
-        public const int TagJumpToXpep = unchecked((int)(0x041C));
+        public const int TagJumpToXpep = unchecked(0x041C);
 
-        public const int TagAlphaIdentifiers = unchecked((int)(0x041D));
+        public const int TagAlphaIdentifiers = unchecked(0x041D);
 
-        public const int TagUrlList = unchecked((int)(0x041E));
+        public const int TagUrlList = unchecked(0x041E);
 
-        public const int TagVersion = unchecked((int)(0x0421));
+        public const int TagVersion = unchecked(0x0421);
 
-        public const int TagExifData1 = unchecked((int)(0x0422));
+        public const int TagExifData1 = unchecked(0x0422);
 
-        public const int TagExifData3 = unchecked((int)(0x0423));
+        public const int TagExifData3 = unchecked(0x0423);
 
-        public const int TagXmpData = unchecked((int)(0x0424));
+        public const int TagXmpData = unchecked(0x0424);
 
-        public const int TagCaptionDigest = unchecked((int)(0x0425));
+        public const int TagCaptionDigest = unchecked(0x0425);
 
-        public const int TagPrintScale = unchecked((int)(0x0426));
+        public const int TagPrintScale = unchecked(0x0426);
 
-        public const int TagPixelAspectRatio = unchecked((int)(0x0428));
+        public const int TagPixelAspectRatio = unchecked(0x0428);
 
-        public const int TagLayerComps = unchecked((int)(0x0429));
+        public const int TagLayerComps = unchecked(0x0429);
 
-        public const int TagAlternateDuotoneColors = unchecked((int)(0x042A));
+        public const int TagAlternateDuotoneColors = unchecked(0x042A);
 
-        public const int TagAlternateSpotColors = unchecked((int)(0x042B));
+        public const int TagAlternateSpotColors = unchecked(0x042B);
 
-        public const int TagLayerSelectionIds = unchecked((int)(0x042D));
+        public const int TagLayerSelectionIds = unchecked(0x042D);
 
-        public const int TagHdrToningInfo = unchecked((int)(0x042E));
+        public const int TagHdrToningInfo = unchecked(0x042E);
 
-        public const int TagPrintInfo = unchecked((int)(0x042F));
+        public const int TagPrintInfo = unchecked(0x042F);
 
-        public const int TagLayerGroupsEnabledId = unchecked((int)(0x0430));
+        public const int TagLayerGroupsEnabledId = unchecked(0x0430);
 
-        public const int TagColorSamplers = unchecked((int)(0x0431));
+        public const int TagColorSamplers = unchecked(0x0431);
 
-        public const int TagMeasurementScale = unchecked((int)(0x0432));
+        public const int TagMeasurementScale = unchecked(0x0432);
 
-        public const int TagTimelineInformation = unchecked((int)(0x0433));
+        public const int TagTimelineInformation = unchecked(0x0433);
 
-        public const int TagSheetDisclosure = unchecked((int)(0x0434));
+        public const int TagSheetDisclosure = unchecked(0x0434);
 
-        public const int TagDisplayInfo = unchecked((int)(0x0435));
+        public const int TagDisplayInfo = unchecked(0x0435);
 
-        public const int TagOnionSkins = unchecked((int)(0x0436));
+        public const int TagOnionSkins = unchecked(0x0436);
 
-        public const int TagCountInformation = unchecked((int)(0x0438));
+        public const int TagCountInformation = unchecked(0x0438);
 
-        public const int TagPrintInfo2 = unchecked((int)(0x043A));
+        public const int TagPrintInfo2 = unchecked(0x043A);
 
-        public const int TagPrintStyle = unchecked((int)(0x043B));
+        public const int TagPrintStyle = unchecked(0x043B);
 
-        public const int TagMacNsprintinfo = unchecked((int)(0x043C));
+        public const int TagMacNsprintinfo = unchecked(0x043C);
 
-        public const int TagWinDevmode = unchecked((int)(0x043D));
+        public const int TagWinDevmode = unchecked(0x043D);
 
-        public const int TagAutoSaveFilePath = unchecked((int)(0x043E));
+        public const int TagAutoSaveFilePath = unchecked(0x043E);
 
-        public const int TagAutoSaveFormat = unchecked((int)(0x043F));
+        public const int TagAutoSaveFormat = unchecked(0x043F);
 
-        public const int TagPathSelectionState = unchecked((int)(0x0440));
+        public const int TagPathSelectionState = unchecked(0x0440);
 
-        public const int TagClippingPathName = unchecked((int)(0x0BB7));
+        public const int TagClippingPathName = unchecked(0x0BB7);
 
-        public const int TagOriginPathInfo = unchecked((int)(0x0BB8));
+        public const int TagOriginPathInfo = unchecked(0x0BB8);
 
-        public const int TagImageReadyVariablesXml = unchecked((int)(0x1B58));
+        public const int TagImageReadyVariablesXml = unchecked(0x1B58);
 
-        public const int TagImageReadyDataSets = unchecked((int)(0x1B59));
+        public const int TagImageReadyDataSets = unchecked(0x1B59);
 
-        public const int TagLightroomWorkflow = unchecked((int)(0x1F40));
+        public const int TagLightroomWorkflow = unchecked(0x1F40);
 
-        public const int TagPrintFlagsInfo = unchecked((int)(0x2710));
+        public const int TagPrintFlagsInfo = unchecked(0x2710);
 
         [NotNull]
         internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();

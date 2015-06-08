@@ -58,9 +58,9 @@ namespace Com.Drew.Metadata.Gif
                     bool isColorTableSorted = (flags & 8) != 0;
                     directory.SetBoolean(GifHeaderDirectory.TagIsColorTableSorted, isColorTableSorted);
                 }
-                int bitsPerPixel = ((flags & unchecked((int)(0x70))) >> 4) + 1;
+                int bitsPerPixel = ((flags & unchecked(0x70)) >> 4) + 1;
                 directory.SetInt(GifHeaderDirectory.TagBitsPerPixel, bitsPerPixel);
-                bool hasGlobalColorTable = (flags & unchecked((int)(0xf))) != 0;
+                bool hasGlobalColorTable = (flags & unchecked(0xf)) != 0;
                 directory.SetBoolean(GifHeaderDirectory.TagHasGlobalColorTable, hasGlobalColorTable);
                 directory.SetInt(GifHeaderDirectory.TagTransparentColorIndex, reader.GetUInt8());
                 int aspectRatioByte = reader.GetUInt8();

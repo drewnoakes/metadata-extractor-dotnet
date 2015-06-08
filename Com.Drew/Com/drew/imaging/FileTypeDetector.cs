@@ -38,32 +38,30 @@ namespace Com.Drew.Imaging
             Root.SetDefaultValue(FileType.Unknown);
             // https://en.wikipedia.org/wiki/List_of_file_signatures
             Root.AddPath(FileType.Jpeg, new sbyte[] { unchecked((sbyte)0xff), unchecked((sbyte)0xd8) });
-            Root.AddPath(FileType.Tiff, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x2a)), unchecked((int)(0x00)) });
-            Root.AddPath(FileType.Tiff, Runtime.GetBytesForString("MM"), new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x2a)) });
+            Root.AddPath(FileType.Tiff, Runtime.GetBytesForString("II"), new sbyte[] { unchecked(0x2a), unchecked(0x00) });
+            Root.AddPath(FileType.Tiff, Runtime.GetBytesForString("MM"), new sbyte[] { unchecked(0x00), unchecked(0x2a) });
             Root.AddPath(FileType.Psd, Runtime.GetBytesForString("8BPS"));
-            Root.AddPath(FileType.Png, new sbyte[] { unchecked((sbyte)0x89), unchecked((int)(0x50)), unchecked((int)(0x4E)), unchecked((int)(0x47)), unchecked((int)(0x0D)), unchecked((int)(0x0A)), unchecked((int)(0x1A)), unchecked((int)(0x0A)), unchecked(
-                (int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x0D)), unchecked((int)(0x49)), unchecked((int)(0x48)), unchecked((int)(0x44)), unchecked((int)(0x52)) });
+            Root.AddPath(FileType.Png, new sbyte[] { unchecked((sbyte)0x89), unchecked(0x50), unchecked(0x4E), unchecked(0x47), unchecked(0x0D), unchecked(0x0A), unchecked(0x1A), unchecked(0x0A), unchecked(
+                0x00), unchecked(0x00), unchecked(0x00), unchecked(0x0D), unchecked(0x49), unchecked(0x48), unchecked(0x44), unchecked(0x52) });
             Root.AddPath(FileType.Bmp, Runtime.GetBytesForString("BM"));
             // TODO technically there are other very rare magic numbers for OS/2 BMP files...
             Root.AddPath(FileType.Gif, Runtime.GetBytesForString("GIF87a"));
             Root.AddPath(FileType.Gif, Runtime.GetBytesForString("GIF89a"));
-            Root.AddPath(FileType.Ico, new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((int)(0x00)) });
-            Root.AddPath(FileType.Pcx, new sbyte[] { unchecked((int)(0x0A)), unchecked((int)(0x00)), unchecked((int)(0x01)) });
+            Root.AddPath(FileType.Ico, new sbyte[] { unchecked(0x00), unchecked(0x00), unchecked(0x01), unchecked(0x00) });
+            Root.AddPath(FileType.Pcx, new sbyte[] { unchecked(0x0A), unchecked(0x00), unchecked(0x01) });
             // multiple PCX versions, explicitly listed
-            Root.AddPath(FileType.Pcx, new sbyte[] { unchecked((int)(0x0A)), unchecked((int)(0x02)), unchecked((int)(0x01)) });
-            Root.AddPath(FileType.Pcx, new sbyte[] { unchecked((int)(0x0A)), unchecked((int)(0x03)), unchecked((int)(0x01)) });
-            Root.AddPath(FileType.Pcx, new sbyte[] { unchecked((int)(0x0A)), unchecked((int)(0x05)), unchecked((int)(0x01)) });
+            Root.AddPath(FileType.Pcx, new sbyte[] { unchecked(0x0A), unchecked(0x02), unchecked(0x01) });
+            Root.AddPath(FileType.Pcx, new sbyte[] { unchecked(0x0A), unchecked(0x03), unchecked(0x01) });
+            Root.AddPath(FileType.Pcx, new sbyte[] { unchecked(0x0A), unchecked(0x05), unchecked(0x01) });
             Root.AddPath(FileType.Riff, Runtime.GetBytesForString("RIFF"));
-            Root.AddPath(FileType.Arw, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x2a)), unchecked((int)(0x00)), unchecked((int)(0x08)), unchecked((int)(0x00)) });
-            Root.AddPath(FileType.Crw, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x1a)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)) }, Runtime.GetBytesForString("HEAPCCDR"));
-            Root.AddPath(FileType.Cr2, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x2a)), unchecked((int)(0x00)), unchecked((int)(0x10)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int
-                )(0x43)), unchecked((int)(0x52)) });
-            Root.AddPath(FileType.Nef, Runtime.GetBytesForString("MM"), new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x2a)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((sbyte)0x80), unchecked((int
-                )(0x00)) });
-            Root.AddPath(FileType.Orf, Runtime.GetBytesForString("IIRO"), new sbyte[] { unchecked((sbyte)0x08), unchecked((int)(0x00)) });
-            Root.AddPath(FileType.Orf, Runtime.GetBytesForString("IIRS"), new sbyte[] { unchecked((sbyte)0x08), unchecked((int)(0x00)) });
+            Root.AddPath(FileType.Arw, Runtime.GetBytesForString("II"), new sbyte[] { unchecked(0x2a), unchecked(0x00), unchecked(0x08), unchecked(0x00) });
+            Root.AddPath(FileType.Crw, Runtime.GetBytesForString("II"), new sbyte[] { unchecked(0x1a), unchecked(0x00), unchecked(0x00), unchecked(0x00) }, Runtime.GetBytesForString("HEAPCCDR"));
+            Root.AddPath(FileType.Cr2, Runtime.GetBytesForString("II"), new sbyte[] { unchecked(0x2a), unchecked(0x00), unchecked(0x10), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked(0x43), unchecked(0x52) });
+            Root.AddPath(FileType.Nef, Runtime.GetBytesForString("MM"), new sbyte[] { unchecked(0x00), unchecked(0x2a), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked((sbyte)0x80), unchecked(0x00) });
+            Root.AddPath(FileType.Orf, Runtime.GetBytesForString("IIRO"), new sbyte[] { unchecked(0x08), unchecked(0x00) });
+            Root.AddPath(FileType.Orf, Runtime.GetBytesForString("IIRS"), new sbyte[] { unchecked(0x08), unchecked(0x00) });
             Root.AddPath(FileType.Raf, Runtime.GetBytesForString("FUJIFILMCCD-RAW"));
-            Root.AddPath(FileType.Rw2, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x55)), unchecked((int)(0x00)) });
+            Root.AddPath(FileType.Rw2, Runtime.GetBytesForString("II"), new sbyte[] { unchecked(0x55), unchecked(0x00) });
         }
 
         /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>

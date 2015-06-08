@@ -364,7 +364,7 @@ namespace Com.Drew.Metadata
                     foreach (sbyte aByte in bytes)
                     {
                         val = val << 8;
-                        val += (aByte & unchecked((int)(0xff)));
+                        val += (aByte & unchecked(0xff));
                     }
                     return (int)val;
                 }
@@ -384,7 +384,7 @@ namespace Com.Drew.Metadata
                 {
                     if (bytes.Length == 1)
                     {
-                        return (int)bytes[0];
+                        return bytes[0];
                     }
                 }
                 else

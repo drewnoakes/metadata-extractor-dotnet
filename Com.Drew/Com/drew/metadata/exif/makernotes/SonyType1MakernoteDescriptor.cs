@@ -224,37 +224,37 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked((int)(0x00)):
+                case unchecked(0x00):
                 {
                     return "None";
                 }
 
-                case unchecked((int)(0x48)):
+                case unchecked(0x48):
                 {
                     return "Minolta/Sony AF 2x APO (D)";
                 }
 
-                case unchecked((int)(0x50)):
+                case unchecked(0x50):
                 {
                     return "Minolta AF 2x APO II";
                 }
 
-                case unchecked((int)(0x60)):
+                case unchecked(0x60):
                 {
                     return "Minolta AF 2x APO";
                 }
 
-                case unchecked((int)(0x88)):
+                case unchecked(0x88):
                 {
                     return "Minolta/Sony AF 1.4x APO (D)";
                 }
 
-                case unchecked((int)(0x90)):
+                case unchecked(0x90):
                 {
                     return "Minolta AF 1.4x APO II";
                 }
 
-                case unchecked((int)(0xa0)):
+                case unchecked(0xa0):
                 {
                     return "Minolta AF 1.4x APO";
                 }
@@ -276,47 +276,47 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked((int)(0x00)):
+                case unchecked(0x00):
                 {
                     return "Auto";
                 }
 
-                case unchecked((int)(0x01)):
+                case unchecked(0x01):
                 {
                     return "Color Temperature/Color Filter";
                 }
 
-                case unchecked((int)(0x10)):
+                case unchecked(0x10):
                 {
                     return "Daylight";
                 }
 
-                case unchecked((int)(0x20)):
+                case unchecked(0x20):
                 {
                     return "Cloudy";
                 }
 
-                case unchecked((int)(0x30)):
+                case unchecked(0x30):
                 {
                     return "Shade";
                 }
 
-                case unchecked((int)(0x40)):
+                case unchecked(0x40):
                 {
                     return "Tungsten";
                 }
 
-                case unchecked((int)(0x50)):
+                case unchecked(0x50):
                 {
                     return "Flash";
                 }
 
-                case unchecked((int)(0x60)):
+                case unchecked(0x60):
                 {
                     return "Fluorescent";
                 }
 
-                case unchecked((int)(0x70)):
+                case unchecked(0x70):
                 {
                     return "Custom";
                 }
@@ -340,7 +340,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return "Auto";
             }
-            int kelvin = (((int)value & unchecked((int)(0x00FF0000))) >> 8) | (((int)value & unchecked((int)(0xFF000000))) >> 24);
+            int kelvin = (((int)value & unchecked(0x00FF0000)) >> 8) | (((int)value & unchecked((int)(0xFF000000))) >> 24);
             return Extensions.StringFormat("%d K", kelvin);
         }
 
@@ -590,7 +590,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                     return "Magnifying Glass/Super Macro";
                 }
 
-                case unchecked((int)(0xFFFF)):
+                case unchecked(0xFFFF):
                 {
                     return "N/A";
                 }
@@ -762,7 +762,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                     return "3D Image";
                 }
 
-                case unchecked((int)(0xFFFF)):
+                case unchecked(0xFFFF):
                 {
                     return "N/A";
                 }
@@ -799,7 +799,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                     return "Extra Fine";
                 }
 
-                case unchecked((int)(0xFFFF)):
+                case unchecked(0xFFFF):
                 {
                     return "N/A";
                 }
@@ -836,7 +836,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                     return "On (Shooting)";
                 }
 
-                case unchecked((int)(0xFFFF)):
+                case unchecked(0xFFFF):
                 {
                     return "N/A";
                 }
@@ -868,7 +868,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                     return "On";
                 }
 
-                case unchecked((int)(0xFFFF)):
+                case unchecked(0xFFFF):
                 {
                     return "N/A";
                 }
@@ -910,12 +910,12 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                     return "High";
                 }
 
-                case unchecked((int)(0x100)):
+                case unchecked(0x100):
                 {
                     return "Auto";
                 }
 
-                case unchecked((int)(0xffff)):
+                case unchecked(0xffff):
                 {
                     return "N/A";
                 }
@@ -1576,7 +1576,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                     return "Face Detected";
                 }
 
-                case unchecked((int)(0xffff)):
+                case unchecked(0xffff):
                 {
                     return "n/a";
                 }
@@ -1608,7 +1608,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                     return "Auto";
                 }
 
-                case unchecked((int)(0xffff)):
+                case unchecked(0xffff):
                 {
                     return "n/a";
                 }

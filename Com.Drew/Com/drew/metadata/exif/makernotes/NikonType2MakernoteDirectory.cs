@@ -52,14 +52,14 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// - 0200 (D70)
         /// - 0200 (D1X)
         /// </summary>
-        public const int TagFirmwareVersion = unchecked((int)(0x0001));
+        public const int TagFirmwareVersion = unchecked(0x0001);
 
         /// <summary>
         /// Values observed
         /// - 0 250
         /// - 0 400
         /// </summary>
-        public const int TagIso1 = unchecked((int)(0x0002));
+        public const int TagIso1 = unchecked(0x0002);
 
         /// <summary>The camera's color mode, as an uppercase string.</summary>
         /// <remarks>
@@ -72,7 +72,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>VIVID</c></item>
         /// </list>
         /// </remarks>
-        public const int TagColorMode = unchecked((int)(0x0003));
+        public const int TagColorMode = unchecked(0x0003);
 
         /// <summary>The camera's quality setting, as an uppercase string.</summary>
         /// <remarks>
@@ -85,7 +85,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>RAW2.7M</c></item>
         /// </list>
         /// </remarks>
-        public const int TagQualityAndFileFormat = unchecked((int)(0x0004));
+        public const int TagQualityAndFileFormat = unchecked(0x0004);
 
         /// <summary>The camera's white balance setting, as an uppercase string.</summary>
         /// <remarks>
@@ -108,7 +108,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>SHADE</c></item>
         /// </list>
         /// </remarks>
-        public const int TagCameraWhiteBalance = unchecked((int)(0x0005));
+        public const int TagCameraWhiteBalance = unchecked(0x0005);
 
         /// <summary>The camera's sharpening setting, as an uppercase string.</summary>
         /// <remarks>
@@ -123,7 +123,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>MED.L</c></item>
         /// </list>
         /// </remarks>
-        public const int TagCameraSharpening = unchecked((int)(0x0006));
+        public const int TagCameraSharpening = unchecked(0x0006);
 
         /// <summary>The camera's auto-focus mode, as an uppercase string.</summary>
         /// <remarks>
@@ -135,7 +135,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>AF-A</c></item>
         /// </list>
         /// </remarks>
-        public const int TagAfType = unchecked((int)(0x0007));
+        public const int TagAfType = unchecked(0x0007);
 
         /// <summary>The camera's flash setting, as an uppercase string.</summary>
         /// <remarks>
@@ -151,7 +151,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// </list>
         /// Note: when TAG_AUTO_FLASH_MODE is blank (whitespace), Nikon Browser displays "Flash Sync Mode: Not Attached"
         /// </remarks>
-        public const int TagFlashSyncMode = unchecked((int)(0x0008));
+        public const int TagFlashSyncMode = unchecked(0x0008);
 
         /// <summary>The type of flash used in the photograph, as a string.</summary>
         /// <remarks>
@@ -164,14 +164,14 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>Optional,TTL</c> with speedlight SB800, flash sync mode as "NORMAL"</item>
         /// </list>
         /// </remarks>
-        public const int TagAutoFlashMode = unchecked((int)(0x0009));
+        public const int TagAutoFlashMode = unchecked(0x0009);
 
         /// <summary>An unknown tag, as a rational.</summary>
         /// <remarks>
         /// An unknown tag, as a rational.  Several values given here:
         /// http://gvsoft.homedns.org/exif/makernote-nikon-type2.html#0x000b
         /// </remarks>
-        public const int TagUnknown34 = unchecked((int)(0x000A));
+        public const int TagUnknown34 = unchecked(0x000A);
 
         /// <summary>The camera's white balance bias setting, as an uint16 array having either one or two elements.</summary>
         /// <remarks>
@@ -187,7 +187,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>5,-5</c></item>
         /// </list>
         /// </remarks>
-        public const int TagCameraWhiteBalanceFine = unchecked((int)(0x000B));
+        public const int TagCameraWhiteBalanceFine = unchecked(0x000B);
 
         /// <summary>
         /// The first two numbers are coefficients to multiply red and blue channels according to white balance as set in the
@@ -201,7 +201,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// - 10242/1 34305/1 0/1 0/1
         /// - 234765625/100000000 1140625/1000000 1/1 1/1
         /// </remarks>
-        public const int TagCameraWhiteBalanceRbCoeff = unchecked((int)(0x000C));
+        public const int TagCameraWhiteBalanceRbCoeff = unchecked(0x000C);
 
         /// <summary>The camera's program shift setting, as an array of four integers.</summary>
         /// <remarks>
@@ -215,7 +215,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>2,1,6,0</c> = 0.33 EV</item>
         /// </list>
         /// </remarks>
-        public const int TagProgramShift = unchecked((int)(0x000D));
+        public const int TagProgramShift = unchecked(0x000D);
 
         /// <summary>The exposure difference, as an array of four integers.</summary>
         /// <remarks>
@@ -227,7 +227,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>-11,1,12,0</c> = -0.92 EV</item>
         /// </list>
         /// </remarks>
-        public const int TagExposureDifference = unchecked((int)(0x000E));
+        public const int TagExposureDifference = unchecked(0x000E);
 
         /// <summary>The camera's ISO mode, as an uppercase string.</summary>
         /// <remarks>
@@ -237,11 +237,11 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>MANUAL</c></item>
         /// </list>
         /// </remarks>
-        public const int TagIsoMode = unchecked((int)(0x000F));
+        public const int TagIsoMode = unchecked(0x000F);
 
         /// <summary>Added during merge of Type2 &amp; Type3.</summary>
         /// <remarks>Added during merge of Type2 &amp; Type3.  May apply to earlier models, such as E990 and D1.</remarks>
-        public const int TagDataDump = unchecked((int)(0x0010));
+        public const int TagDataDump = unchecked(0x0010);
 
         /// <summary>
         /// Preview to another IFD (?)
@@ -249,7 +249,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// Details here: http://gvsoft.homedns.org/exif/makernote-nikon-2-tag0x0011.html
         /// // TODO if this is another IFD, decode it
         /// </summary>
-        public const int TagPreviewIfd = unchecked((int)(0x0011));
+        public const int TagPreviewIfd = unchecked(0x0011);
 
         /// <summary>The flash compensation, as an array of four integers.</summary>
         /// <remarks>
@@ -261,7 +261,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>6,1,6,0</c> = 1 EV</item>
         /// </list>
         /// </remarks>
-        public const int TagAutoFlashCompensation = unchecked((int)(0x0012));
+        public const int TagAutoFlashCompensation = unchecked(0x0012);
 
         /// <summary>The requested ISO value, as an array of two integers.</summary>
         /// <remarks>
@@ -272,7 +272,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>1,2500</c></item>
         /// </list>
         /// </remarks>
-        public const int TagIsoRequested = unchecked((int)(0x0013));
+        public const int TagIsoRequested = unchecked(0x0013);
 
         /// <summary>Defines the photo corner coordinates, in 8 bytes.</summary>
         /// <remarks>
@@ -286,7 +286,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>0,0,4256,2832</c> The max resolution of the D3 camera</item>
         /// </list>
         /// </remarks>
-        public const int TagImageBoundary = unchecked((int)(0x0016));
+        public const int TagImageBoundary = unchecked(0x0016);
 
         /// <summary>The flash exposure compensation, as an array of four integers.</summary>
         /// <remarks>
@@ -298,7 +298,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>4,1,6,0</c> = 0.67 EV</item>
         /// </list>
         /// </remarks>
-        public const int TagFlashExposureCompensation = unchecked((int)(0x0017));
+        public const int TagFlashExposureCompensation = unchecked(0x0017);
 
         /// <summary>The flash bracket compensation, as an array of four integers.</summary>
         /// <remarks>
@@ -310,7 +310,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>4,1,6,0</c> = 0.67 EV</item>
         /// </list>
         /// </remarks>
-        public const int TagFlashBracketCompensation = unchecked((int)(0x0018));
+        public const int TagFlashBracketCompensation = unchecked(0x0018);
 
         /// <summary>The AE bracket compensation, as a rational number.</summary>
         /// <remarks>
@@ -323,7 +323,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>6/6</c></item>
         /// </list>
         /// </remarks>
-        public const int TagAeBracketCompensation = unchecked((int)(0x0019));
+        public const int TagAeBracketCompensation = unchecked(0x0019);
 
         /// <summary>Flash mode, as a string.</summary>
         /// <remarks>
@@ -335,18 +335,18 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>Distortion control</c></item>
         /// </list>
         /// </remarks>
-        public const int TagFlashMode = unchecked((int)(0x001a));
+        public const int TagFlashMode = unchecked(0x001a);
 
-        public const int TagCropHighSpeed = unchecked((int)(0x001b));
+        public const int TagCropHighSpeed = unchecked(0x001b);
 
-        public const int TagExposureTuning = unchecked((int)(0x001c));
+        public const int TagExposureTuning = unchecked(0x001c);
 
         /// <summary>The camera's serial number, as a string.</summary>
         /// <remarks>
         /// The camera's serial number, as a string.
         /// Note that D200 is always blank, and D50 is always <c>"D50"</c>.
         /// </remarks>
-        public const int TagCameraSerialNumber = unchecked((int)(0x001d));
+        public const int TagCameraSerialNumber = unchecked(0x001d);
 
         /// <summary>The camera's color space setting.</summary>
         /// <remarks>
@@ -356,13 +356,13 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>2</c> Adobe RGB</item>
         /// </list>
         /// </remarks>
-        public const int TagColorSpace = unchecked((int)(0x001e));
+        public const int TagColorSpace = unchecked(0x001e);
 
-        public const int TagVrInfo = unchecked((int)(0x001f));
+        public const int TagVrInfo = unchecked(0x001f);
 
-        public const int TagImageAuthentication = unchecked((int)(0x0020));
+        public const int TagImageAuthentication = unchecked(0x0020);
 
-        public const int TagUnknown35 = unchecked((int)(0x0021));
+        public const int TagUnknown35 = unchecked(0x0021);
 
         /// <summary>The active D-Lighting setting.</summary>
         /// <remarks>
@@ -376,21 +376,21 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>65535</c> Auto</item>
         /// </list>
         /// </remarks>
-        public const int TagActiveDLighting = unchecked((int)(0x0022));
+        public const int TagActiveDLighting = unchecked(0x0022);
 
-        public const int TagPictureControl = unchecked((int)(0x0023));
+        public const int TagPictureControl = unchecked(0x0023);
 
-        public const int TagWorldTime = unchecked((int)(0x0024));
+        public const int TagWorldTime = unchecked(0x0024);
 
-        public const int TagIsoInfo = unchecked((int)(0x0025));
+        public const int TagIsoInfo = unchecked(0x0025);
 
-        public const int TagUnknown36 = unchecked((int)(0x0026));
+        public const int TagUnknown36 = unchecked(0x0026);
 
-        public const int TagUnknown37 = unchecked((int)(0x0027));
+        public const int TagUnknown37 = unchecked(0x0027);
 
-        public const int TagUnknown38 = unchecked((int)(0x0028));
+        public const int TagUnknown38 = unchecked(0x0028);
 
-        public const int TagUnknown39 = unchecked((int)(0x0029));
+        public const int TagUnknown39 = unchecked(0x0029);
 
         /// <summary>The camera's vignette control setting.</summary>
         /// <remarks>
@@ -402,21 +402,21 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>5</c> High</item>
         /// </list>
         /// </remarks>
-        public const int TagVignetteControl = unchecked((int)(0x002a));
+        public const int TagVignetteControl = unchecked(0x002a);
 
-        public const int TagUnknown40 = unchecked((int)(0x002b));
+        public const int TagUnknown40 = unchecked(0x002b);
 
-        public const int TagUnknown41 = unchecked((int)(0x002c));
+        public const int TagUnknown41 = unchecked(0x002c);
 
-        public const int TagUnknown42 = unchecked((int)(0x002d));
+        public const int TagUnknown42 = unchecked(0x002d);
 
-        public const int TagUnknown43 = unchecked((int)(0x002e));
+        public const int TagUnknown43 = unchecked(0x002e);
 
-        public const int TagUnknown44 = unchecked((int)(0x002f));
+        public const int TagUnknown44 = unchecked(0x002f);
 
-        public const int TagUnknown45 = unchecked((int)(0x0030));
+        public const int TagUnknown45 = unchecked(0x0030);
 
-        public const int TagUnknown46 = unchecked((int)(0x0031));
+        public const int TagUnknown46 = unchecked(0x0031);
 
         /// <summary>The camera's image adjustment setting, as a string.</summary>
         /// <remarks>
@@ -432,7 +432,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>SEPIA</c></item>
         /// </list>
         /// </remarks>
-        public const int TagImageAdjustment = unchecked((int)(0x0080));
+        public const int TagImageAdjustment = unchecked(0x0080);
 
         /// <summary>The camera's tone compensation setting, as a string.</summary>
         /// <remarks>
@@ -446,7 +446,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>AUTO</c></item>
         /// </list>
         /// </remarks>
-        public const int TagCameraToneCompensation = unchecked((int)(0x0081));
+        public const int TagCameraToneCompensation = unchecked(0x0081);
 
         /// <summary>A description of any auxiliary lens, as a string.</summary>
         /// <remarks>
@@ -459,7 +459,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>WIDE ADAPTER</c></item>
         /// </list>
         /// </remarks>
-        public const int TagAdapter = unchecked((int)(0x0082));
+        public const int TagAdapter = unchecked(0x0082);
 
         /// <summary>The type of lens used, as a byte.</summary>
         /// <remarks>
@@ -474,7 +474,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>0x0e</c> VR, G, D</item>
         /// </list>
         /// </remarks>
-        public const int TagLensType = unchecked((int)(0x0083));
+        public const int TagLensType = unchecked(0x0083);
 
         /// <summary>A pair of focal/max-fstop values that describe the lens used.</summary>
         /// <remarks>
@@ -489,14 +489,14 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// is identical to metadata extractor, except for the "G".  This must
         /// be coming from another tag...
         /// </remarks>
-        public const int TagLens = unchecked((int)(0x0084));
+        public const int TagLens = unchecked(0x0084);
 
         /// <summary>Added during merge of Type2 &amp; Type3.</summary>
         /// <remarks>Added during merge of Type2 &amp; Type3.  May apply to earlier models, such as E990 and D1.</remarks>
-        public const int TagManualFocusDistance = unchecked((int)(0x0085));
+        public const int TagManualFocusDistance = unchecked(0x0085);
 
         /// <summary>The amount of digital zoom used.</summary>
-        public const int TagDigitalZoom = unchecked((int)(0x0086));
+        public const int TagDigitalZoom = unchecked(0x0086);
 
         /// <summary>Whether the flash was used in this image.</summary>
         /// <remarks>
@@ -510,10 +510,10 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>9</c> Fired, TTL Mode</item>
         /// </list>
         /// </remarks>
-        public const int TagFlashUsed = unchecked((int)(0x0087));
+        public const int TagFlashUsed = unchecked(0x0087);
 
         /// <summary>The position of the autofocus target.</summary>
-        public const int TagAfFocusPosition = unchecked((int)(0x0088));
+        public const int TagAfFocusPosition = unchecked(0x0088);
 
         /// <summary>The camera's shooting mode.</summary>
         /// <remarks>
@@ -531,9 +531,9 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>128</c> IR Control</item>
         /// </list>
         /// </remarks>
-        public const int TagShootingMode = unchecked((int)(0x0089));
+        public const int TagShootingMode = unchecked(0x0089);
 
-        public const int TagUnknown20 = unchecked((int)(0x008A));
+        public const int TagUnknown20 = unchecked(0x008A);
 
         /// <summary>Lens stops, as an array of four integers.</summary>
         /// <remarks>
@@ -544,9 +544,9 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>72,1,12,0</c> = 6 EV</item>
         /// </list>
         /// </remarks>
-        public const int TagLensStops = unchecked((int)(0x008B));
+        public const int TagLensStops = unchecked(0x008B);
 
-        public const int TagContrastCurve = unchecked((int)(0x008C));
+        public const int TagContrastCurve = unchecked(0x008C);
 
         /// <summary>The color space as set in the camera, as a string.</summary>
         /// <remarks>
@@ -560,9 +560,9 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>B &amp; W</c> = B &amp; W</item>
         /// </list>
         /// </remarks>
-        public const int TagCameraColorMode = unchecked((int)(0x008D));
+        public const int TagCameraColorMode = unchecked(0x008D);
 
-        public const int TagUnknown47 = unchecked((int)(0x008E));
+        public const int TagUnknown47 = unchecked(0x008E);
 
         /// <summary>The camera's scene mode, as a string.</summary>
         /// <remarks>
@@ -593,7 +593,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>SUNSET</c></item>
         /// </list>
         /// </remarks>
-        public const int TagSceneMode = unchecked((int)(0x008F));
+        public const int TagSceneMode = unchecked(0x008F);
 
         /// <summary>The lighting type, as a string.</summary>
         /// <remarks>
@@ -607,18 +607,18 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>NORMAL</c></item>
         /// </list>
         /// </remarks>
-        public const int TagLightSource = unchecked((int)(0x0090));
+        public const int TagLightSource = unchecked(0x0090);
 
         /// <summary>Advertised as ASCII, but actually isn't.</summary>
         /// <remarks>
         /// Advertised as ASCII, but actually isn't.  A variable number of bytes (eg. 18 to 533).  Actual number of bytes
         /// appears fixed for a given camera model.
         /// </remarks>
-        public const int TagShotInfo = unchecked((int)(0x0091));
+        public const int TagShotInfo = unchecked(0x0091);
 
         /// <summary>The hue adjustment as set in the camera.</summary>
         /// <remarks>The hue adjustment as set in the camera.  Values observed are either 0 or 3.</remarks>
-        public const int TagCameraHueAdjustment = unchecked((int)(0x0092));
+        public const int TagCameraHueAdjustment = unchecked(0x0092);
 
         /// <summary>The NEF (RAW) compression.</summary>
         /// <remarks>
@@ -630,7 +630,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>4</c> Lossy (Type 2)</item>
         /// </list>
         /// </remarks>
-        public const int TagNefCompression = unchecked((int)(0x0093));
+        public const int TagNefCompression = unchecked(0x0093);
 
         /// <summary>The saturation level, as a signed integer.</summary>
         /// <remarks>
@@ -645,7 +645,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>-3</c> (B&amp;W)</item>
         /// </list>
         /// </remarks>
-        public const int TagSaturation = unchecked((int)(0x0094));
+        public const int TagSaturation = unchecked(0x0094);
 
         /// <summary>The type of noise reduction, as a string.</summary>
         /// <remarks>
@@ -655,29 +655,29 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>FPNR</c></item>
         /// </list>
         /// </remarks>
-        public const int TagNoiseReduction = unchecked((int)(0x0095));
+        public const int TagNoiseReduction = unchecked(0x0095);
 
-        public const int TagLinearizationTable = unchecked((int)(0x0096));
+        public const int TagLinearizationTable = unchecked(0x0096);
 
-        public const int TagColorBalance = unchecked((int)(0x0097));
+        public const int TagColorBalance = unchecked(0x0097);
 
-        public const int TagLensData = unchecked((int)(0x0098));
+        public const int TagLensData = unchecked(0x0098);
 
         /// <summary>The NEF (RAW) thumbnail size, as an integer array with two items representing [width,height].</summary>
-        public const int TagNefThumbnailSize = unchecked((int)(0x0099));
+        public const int TagNefThumbnailSize = unchecked(0x0099);
 
         /// <summary>The sensor pixel size, as a pair of rational numbers.</summary>
-        public const int TagSensorPixelSize = unchecked((int)(0x009A));
+        public const int TagSensorPixelSize = unchecked(0x009A);
 
-        public const int TagUnknown10 = unchecked((int)(0x009B));
+        public const int TagUnknown10 = unchecked(0x009B);
 
-        public const int TagSceneAssist = unchecked((int)(0x009C));
+        public const int TagSceneAssist = unchecked(0x009C);
 
-        public const int TagUnknown11 = unchecked((int)(0x009D));
+        public const int TagUnknown11 = unchecked(0x009D);
 
-        public const int TagRetouchHistory = unchecked((int)(0x009E));
+        public const int TagRetouchHistory = unchecked(0x009E);
 
-        public const int TagUnknown12 = unchecked((int)(0x009F));
+        public const int TagUnknown12 = unchecked(0x009F);
 
         /// <summary>The camera serial number, as a string.</summary>
         /// <remarks>
@@ -693,23 +693,23 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>NO= 30045efe</c></item>
         /// </list>
         /// </remarks>
-        public const int TagCameraSerialNumber2 = unchecked((int)(0x00A0));
+        public const int TagCameraSerialNumber2 = unchecked(0x00A0);
 
-        public const int TagImageDataSize = unchecked((int)(0x00A2));
+        public const int TagImageDataSize = unchecked(0x00A2);
 
-        public const int TagUnknown27 = unchecked((int)(0x00A3));
+        public const int TagUnknown27 = unchecked(0x00A3);
 
-        public const int TagUnknown28 = unchecked((int)(0x00A4));
+        public const int TagUnknown28 = unchecked(0x00A4);
 
-        public const int TagImageCount = unchecked((int)(0x00A5));
+        public const int TagImageCount = unchecked(0x00A5);
 
-        public const int TagDeletedImageCount = unchecked((int)(0x00A6));
+        public const int TagDeletedImageCount = unchecked(0x00A6);
 
         /// <summary>The number of total shutter releases.</summary>
         /// <remarks>The number of total shutter releases.  This value increments for each exposure (observed on D70).</remarks>
-        public const int TagExposureSequenceNumber = unchecked((int)(0x00A7));
+        public const int TagExposureSequenceNumber = unchecked(0x00A7);
 
-        public const int TagFlashInfo = unchecked((int)(0x00A8));
+        public const int TagFlashInfo = unchecked(0x00A8);
 
         /// <summary>The camera's image optimisation, as a string.</summary>
         /// <remarks>
@@ -726,7 +726,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>VIVID</c></item>
         /// </list>
         /// </remarks>
-        public const int TagImageOptimisation = unchecked((int)(0x00A9));
+        public const int TagImageOptimisation = unchecked(0x00A9);
 
         /// <summary>The camera's saturation level, as a string.</summary>
         /// <remarks>
@@ -739,7 +739,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>MODERATE</c></item>
         /// </list>
         /// </remarks>
-        public const int TagSaturation2 = unchecked((int)(0x00AA));
+        public const int TagSaturation2 = unchecked(0x00AA);
 
         /// <summary>The camera's digital vari-program setting, as a string.</summary>
         /// <remarks>
@@ -755,7 +755,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>SPORT</c></item>
         /// </list>
         /// </remarks>
-        public const int TagDigitalVariProgram = unchecked((int)(0x00AB));
+        public const int TagDigitalVariProgram = unchecked(0x00AB);
 
         /// <summary>The camera's digital vari-program setting, as a string.</summary>
         /// <remarks>
@@ -768,7 +768,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>VR-ACTIVE</c></item>
         /// </list>
         /// </remarks>
-        public const int TagImageStabilisation = unchecked((int)(0x00AC));
+        public const int TagImageStabilisation = unchecked(0x00AC);
 
         /// <summary>The camera's digital vari-program setting, as a string.</summary>
         /// <remarks>
@@ -779,13 +779,13 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>STANDARD</c></item>
         /// </list>
         /// </remarks>
-        public const int TagAfResponse = unchecked((int)(0x00AD));
+        public const int TagAfResponse = unchecked(0x00AD);
 
-        public const int TagUnknown29 = unchecked((int)(0x00AE));
+        public const int TagUnknown29 = unchecked(0x00AE);
 
-        public const int TagUnknown30 = unchecked((int)(0x00AF));
+        public const int TagUnknown30 = unchecked(0x00AF);
 
-        public const int TagMultiExposure = unchecked((int)(0x00B0));
+        public const int TagMultiExposure = unchecked(0x00B0);
 
         /// <summary>The camera's high ISO noise reduction setting, as an integer.</summary>
         /// <remarks>
@@ -798,54 +798,54 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <item><c>6</c> High</item>
         /// </list>
         /// </remarks>
-        public const int TagHighIsoNoiseReduction = unchecked((int)(0x00B1));
+        public const int TagHighIsoNoiseReduction = unchecked(0x00B1);
 
-        public const int TagUnknown31 = unchecked((int)(0x00B2));
+        public const int TagUnknown31 = unchecked(0x00B2);
 
-        public const int TagUnknown32 = unchecked((int)(0x00B3));
+        public const int TagUnknown32 = unchecked(0x00B3);
 
-        public const int TagUnknown33 = unchecked((int)(0x00B4));
+        public const int TagUnknown33 = unchecked(0x00B4);
 
-        public const int TagUnknown48 = unchecked((int)(0x00B5));
+        public const int TagUnknown48 = unchecked(0x00B5);
 
-        public const int TagPowerUpTime = unchecked((int)(0x00B6));
+        public const int TagPowerUpTime = unchecked(0x00B6);
 
-        public const int TagAfInfo2 = unchecked((int)(0x00B7));
+        public const int TagAfInfo2 = unchecked(0x00B7);
 
-        public const int TagFileInfo = unchecked((int)(0x00B8));
+        public const int TagFileInfo = unchecked(0x00B8);
 
-        public const int TagAfTune = unchecked((int)(0x00B9));
+        public const int TagAfTune = unchecked(0x00B9);
 
-        public const int TagUnknown49 = unchecked((int)(0x00BB));
+        public const int TagUnknown49 = unchecked(0x00BB);
 
-        public const int TagUnknown50 = unchecked((int)(0x00BD));
+        public const int TagUnknown50 = unchecked(0x00BD);
 
-        public const int TagUnknown51 = unchecked((int)(0x0103));
+        public const int TagUnknown51 = unchecked(0x0103);
 
-        public const int TagPrintIm = unchecked((int)(0x0E00));
+        public const int TagPrintIm = unchecked(0x0E00);
 
         /// <summary>Data about changes set by Nikon Capture Editor.</summary>
         /// <remarks>
         /// Data about changes set by Nikon Capture Editor.
         /// Values observed
         /// </remarks>
-        public const int TagNikonCaptureData = unchecked((int)(0x0E01));
+        public const int TagNikonCaptureData = unchecked(0x0E01);
 
-        public const int TagUnknown52 = unchecked((int)(0x0E05));
+        public const int TagUnknown52 = unchecked(0x0E05);
 
-        public const int TagUnknown53 = unchecked((int)(0x0E08));
+        public const int TagUnknown53 = unchecked(0x0E08);
 
-        public const int TagNikonCaptureVersion = unchecked((int)(0x0E09));
+        public const int TagNikonCaptureVersion = unchecked(0x0E09);
 
-        public const int TagNikonCaptureOffsets = unchecked((int)(0x0E0E));
+        public const int TagNikonCaptureOffsets = unchecked(0x0E0E);
 
-        public const int TagNikonScan = unchecked((int)(0x0E10));
+        public const int TagNikonScan = unchecked(0x0E10);
 
-        public const int TagUnknown54 = unchecked((int)(0x0E19));
+        public const int TagUnknown54 = unchecked(0x0E19);
 
-        public const int TagNefBitDepth = unchecked((int)(0x0E22));
+        public const int TagNefBitDepth = unchecked(0x0E22);
 
-        public const int TagUnknown55 = unchecked((int)(0x0E23));
+        public const int TagUnknown55 = unchecked(0x0E23);
 
         [NotNull]
         protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();

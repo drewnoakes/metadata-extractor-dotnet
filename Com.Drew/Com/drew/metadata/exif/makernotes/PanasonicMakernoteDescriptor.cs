@@ -532,42 +532,42 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked((int)(0x0)):
+                case unchecked(0x0):
                 {
                     return "Normal";
                 }
 
-                case unchecked((int)(0x1)):
+                case unchecked(0x1):
                 {
                     return "Low";
                 }
 
-                case unchecked((int)(0x2)):
+                case unchecked(0x2):
                 {
                     return "High";
                 }
 
-                case unchecked((int)(0x6)):
+                case unchecked(0x6):
                 {
                     return "Medium Low";
                 }
 
-                case unchecked((int)(0x7)):
+                case unchecked(0x7):
                 {
                     return "Medium High";
                 }
 
-                case unchecked((int)(0x100)):
+                case unchecked(0x100):
                 {
                     return "Low";
                 }
 
-                case unchecked((int)(0x110)):
+                case unchecked(0x110):
                 {
                     return "Normal";
                 }
 
-                case unchecked((int)(0x120)):
+                case unchecked(0x120):
                 {
                     return "High";
                 }

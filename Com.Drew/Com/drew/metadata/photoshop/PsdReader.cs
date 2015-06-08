@@ -39,7 +39,7 @@ namespace Com.Drew.Metadata.Photoshop
             try
             {
                 int signature = reader.GetInt32();
-                if (signature != unchecked((int)(0x38425053)))
+                if (signature != unchecked(0x38425053))
                 {
                     // "8BPS"
                     directory.AddError("Invalid PSD file signature");

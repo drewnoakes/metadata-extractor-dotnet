@@ -93,12 +93,12 @@ namespace Com.Drew.Metadata.Jpeg
 
         public int GetHorizontalSamplingFactor()
         {
-            return _samplingFactorByte & unchecked((int)(0x0F));
+            return _samplingFactorByte & unchecked(0x0F);
         }
 
         public int GetVerticalSamplingFactor()
         {
-            return (_samplingFactorByte >> 4) & unchecked((int)(0x0F));
+            return (_samplingFactorByte >> 4) & unchecked(0x0F);
         }
     }
 }

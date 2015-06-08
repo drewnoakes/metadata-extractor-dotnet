@@ -30,7 +30,7 @@ namespace Com.Drew.Metadata.Exif
     public class ExifSubIfdDirectory : ExifDirectoryBase
     {
         /// <summary>This tag is a pointer to the Exif Interop IFD.</summary>
-        public const int TagInteropOffset = unchecked((int)(0xA005));
+        public const int TagInteropOffset = unchecked(0xA005);
 
         public ExifSubIfdDirectory()
         {

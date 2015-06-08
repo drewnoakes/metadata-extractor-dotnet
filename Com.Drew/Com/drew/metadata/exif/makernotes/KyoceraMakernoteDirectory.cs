@@ -30,9 +30,9 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class KyoceraMakernoteDirectory : Directory
     {
-        public const int TagProprietaryThumbnail = unchecked((int)(0x0001));
+        public const int TagProprietaryThumbnail = unchecked(0x0001);
 
-        public const int TagPrintImageMatchingInfo = unchecked((int)(0x0E00));
+        public const int TagPrintImageMatchingInfo = unchecked(0x0E00);
 
         [NotNull]
         protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();

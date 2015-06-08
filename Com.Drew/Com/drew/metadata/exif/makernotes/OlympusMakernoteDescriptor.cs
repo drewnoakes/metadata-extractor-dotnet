@@ -525,9 +525,9 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return null;
             }
-            long day = (long)value & unchecked((int)(0xFF));
-            long month = ((long)value >> 16) & unchecked((int)(0xFF));
-            long year = ((long)value >> 8) & unchecked((int)(0xFF));
+            long day = (long)value & unchecked(0xFF);
+            long month = ((long)value >> 16) & unchecked(0xFF);
+            long year = ((long)value >> 8) & unchecked(0xFF);
             return Extensions.ConvertToString(new GregorianCalendar((int)year + 1970, (int)month, (int)day).GetTime());
         }
 
@@ -542,9 +542,9 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return null;
             }
-            long hours = ((long)value >> 8) & unchecked((int)(0xFF));
-            long minutes = ((long)value >> 16) & unchecked((int)(0xFF));
-            long seconds = (long)value & unchecked((int)(0xFF));
+            long hours = ((long)value >> 8) & unchecked(0xFF);
+            long minutes = ((long)value >> 16) & unchecked(0xFF);
+            long seconds = (long)value & unchecked(0xFF);
             return Extensions.StringFormat("%02d:%02d:%02d", hours, minutes, seconds);
         }
 

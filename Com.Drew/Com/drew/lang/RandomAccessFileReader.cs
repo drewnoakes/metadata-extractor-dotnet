@@ -69,7 +69,7 @@ namespace Com.Drew.Lang
             {
                 throw new BufferBoundsException("Unexpected end of file encountered.");
             }
-            Debug.Assert((b <= unchecked((int)(0xff))));
+            Debug.Assert((b <= unchecked(0xff)));
             _currentIndex++;
             return unchecked((sbyte)b);
         }
@@ -106,7 +106,7 @@ namespace Com.Drew.Lang
         /// <exception cref="System.IO.IOException"/>
         protected override bool IsValidIndex(int index, int bytesRequested)
         {
-            return bytesRequested >= 0 && index >= 0 && (long)index + (long)bytesRequested - 1L < _length;
+            return bytesRequested >= 0 && index >= 0 && index + (long)bytesRequested - 1L < _length;
         }
 
         /// <exception cref="System.IO.IOException"/>

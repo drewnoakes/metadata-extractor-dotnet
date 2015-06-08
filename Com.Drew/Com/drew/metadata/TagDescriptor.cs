@@ -295,8 +295,8 @@ namespace Com.Drew.Metadata
             int length = bytes.Length;
             for (int index = 0; index < bytes.Length; index++)
             {
-                int i = bytes[index] & unchecked((int)(0xFF));
-                if (i == 0 || i > unchecked((int)(0x7F)))
+                int i = bytes[index] & unchecked(0xFF);
+                if (i == 0 || i > unchecked(0x7F))
                 {
                     length = index;
                     break;

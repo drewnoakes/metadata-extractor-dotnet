@@ -62,26 +62,26 @@ namespace Com.Drew.Metadata.Icc
                     return GetRenderingIntentDescription();
                 }
             }
-            if (tagType > unchecked((int)(0x20202020)) && tagType < unchecked((int)(0x7a7a7a7a)))
+            if (tagType > unchecked(0x20202020) && tagType < unchecked(0x7a7a7a7a))
             {
                 return GetTagDataString(tagType);
             }
             return base.GetDescription(tagType);
         }
 
-        private const int IccTagTypeText = unchecked((int)(0x74657874));
+        private const int IccTagTypeText = unchecked(0x74657874);
 
-        private const int IccTagTypeDesc = unchecked((int)(0x64657363));
+        private const int IccTagTypeDesc = unchecked(0x64657363);
 
-        private const int IccTagTypeSig = unchecked((int)(0x73696720));
+        private const int IccTagTypeSig = unchecked(0x73696720);
 
-        private const int IccTagTypeMeas = unchecked((int)(0x6D656173));
+        private const int IccTagTypeMeas = unchecked(0x6D656173);
 
-        private const int IccTagTypeXyzArray = unchecked((int)(0x58595A20));
+        private const int IccTagTypeXyzArray = unchecked(0x58595A20);
 
-        private const int IccTagTypeMluc = unchecked((int)(0x6d6c7563));
+        private const int IccTagTypeMluc = unchecked(0x6d6c7563);
 
-        private const int IccTagTypeCurv = unchecked((int)(0x63757276));
+        private const int IccTagTypeCurv = unchecked(0x63757276);
 
         [CanBeNull]
         private string GetTagDataString(int tagType)
@@ -305,7 +305,7 @@ namespace Com.Drew.Metadata.Icc
                             {
                                 res.Append(", ");
                             }
-                            res.Append(FormatDoubleAsString(((float)reader.GetUInt16(12 + i * 2)) / 65535.0, 7, false));
+                            res.Append(FormatDoubleAsString(reader.GetUInt16(12 + i * 2) / 65535.0, 7, false));
                         }
                         //res+=String.format("%1.7g",Math.round(((float)iccReader.getInt16(b,12+i*2))/0.065535)/1E7);
                         return Extensions.ConvertToString(res);
@@ -410,29 +410,29 @@ namespace Com.Drew.Metadata.Icc
             }
             switch (i)
             {
-                case unchecked((int)(0x4150504C)):
+                case unchecked(0x4150504C):
                 {
                     // "APPL"
                     return "Apple Computer, Inc.";
                 }
 
-                case unchecked((int)(0x4D534654)):
+                case unchecked(0x4D534654):
                 {
                     // "MSFT"
                     return "Microsoft Corporation";
                 }
 
-                case unchecked((int)(0x53474920)):
+                case unchecked(0x53474920):
                 {
                     return "Silicon Graphics, Inc.";
                 }
 
-                case unchecked((int)(0x53554E57)):
+                case unchecked(0x53554E57):
                 {
                     return "Sun Microsystems, Inc.";
                 }
 
-                case unchecked((int)(0x54474E54)):
+                case unchecked(0x54474E54):
                 {
                     return "Taligent, Inc.";
                 }
@@ -465,38 +465,38 @@ namespace Com.Drew.Metadata.Icc
             }
             switch (i)
             {
-                case unchecked((int)(0x73636E72)):
+                case unchecked(0x73636E72):
                 {
                     return "Input Device";
                 }
 
-                case unchecked((int)(0x6D6E7472)):
+                case unchecked(0x6D6E7472):
                 {
                     // mntr
                     return "Display Device";
                 }
 
-                case unchecked((int)(0x70727472)):
+                case unchecked(0x70727472):
                 {
                     return "Output Device";
                 }
 
-                case unchecked((int)(0x6C696E6B)):
+                case unchecked(0x6C696E6B):
                 {
                     return "DeviceLink";
                 }
 
-                case unchecked((int)(0x73706163)):
+                case unchecked(0x73706163):
                 {
                     return "ColorSpace Conversion";
                 }
 
-                case unchecked((int)(0x61627374)):
+                case unchecked(0x61627374):
                 {
                     return "Abstract";
                 }
 
-                case unchecked((int)(0x6E6D636C)):
+                case unchecked(0x6E6D636C):
                 {
                     return "Named Color";
                 }
@@ -517,8 +517,8 @@ namespace Com.Drew.Metadata.Icc
                 return null;
             }
             int m = ((int)value & unchecked((int)(0xFF000000))) >> 24;
-            int r = ((int)value & unchecked((int)(0x00F00000))) >> 20;
-            int R = ((int)value & unchecked((int)(0x000F0000))) >> 16;
+            int r = ((int)value & unchecked(0x00F00000)) >> 20;
+            int R = ((int)value & unchecked(0x000F0000)) >> 16;
             return Extensions.StringFormat("%d.%d.%d", m, r, R);
         }
 

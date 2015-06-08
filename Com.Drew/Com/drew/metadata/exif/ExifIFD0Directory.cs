@@ -30,10 +30,10 @@ namespace Com.Drew.Metadata.Exif
     public class ExifIfd0Directory : ExifDirectoryBase
     {
         /// <summary>This tag is a pointer to the Exif SubIFD.</summary>
-        public const int TagExifSubIfdOffset = unchecked((int)(0x8769));
+        public const int TagExifSubIfdOffset = unchecked(0x8769);
 
         /// <summary>This tag is a pointer to the Exif GPS IFD.</summary>
-        public const int TagGpsInfoOffset = unchecked((int)(0x8825));
+        public const int TagGpsInfoOffset = unchecked(0x8825);
 
         public ExifIfd0Directory()
         {

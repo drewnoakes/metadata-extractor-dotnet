@@ -111,7 +111,7 @@ namespace Com.Drew.Imaging.Jpeg
             Debug.Assert((reader.IsMotorolaByteOrder()));
             // first two bytes should be JPEG magic number
             int magicNumber = reader.GetUInt16();
-            if (magicNumber != unchecked((int)(0xFFD8)))
+            if (magicNumber != unchecked(0xFFD8))
             {
                 throw new JpegProcessingException("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x" + Extensions.ToHexString(magicNumber));
             }
@@ -131,7 +131,7 @@ namespace Com.Drew.Imaging.Jpeg
                 // by a 0xFF and then a byte not equal to 0x00 or 0xFF.
                 short segmentIdentifier = reader.GetUInt8();
                 // We must have at least one 0xFF byte
-                if (segmentIdentifier != unchecked((int)(0xFF)))
+                if (segmentIdentifier != unchecked(0xFF))
                 {
                     throw new JpegProcessingException("Expected JPEG segment start identifier 0xFF, not 0x" + Extensions.ToHexString(segmentIdentifier).ToUpper());
                 }

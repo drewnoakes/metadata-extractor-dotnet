@@ -218,7 +218,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return null;
             }
-            return Extensions.StringFormat("%04X%05d", ((int)value >> 8) & unchecked((int)(0xFF)), (int)value & unchecked((int)(0xFF)));
+            return Extensions.StringFormat("%04X%05d", ((int)value >> 8) & unchecked(0xFF), (int)value & unchecked(0xFF));
         }
 
 /*
@@ -408,10 +408,10 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 return null;
             }
             bool isNegative = false;
-            if (value > unchecked((int)(0xF000)))
+            if (value > unchecked(0xF000))
             {
                 isNegative = true;
-                value = unchecked((int)(0xFFFF)) - (int)value;
+                value = unchecked(0xFFFF) - (int)value;
                 value++;
             }
             // this tag is interesting in that the values returned are:
@@ -429,15 +429,15 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return null;
             }
-            if (((int)value & unchecked((int)(0x7))) == 0)
+            if (((int)value & unchecked(0x7)) == 0)
             {
                 return "Right";
             }
-            if (((int)value & unchecked((int)(0x7))) == 1)
+            if (((int)value & unchecked(0x7)) == 1)
             {
                 return "Centre";
             }
-            if (((int)value & unchecked((int)(0x7))) == 2)
+            if (((int)value & unchecked(0x7)) == 2)
             {
                 return "Left";
             }
@@ -531,7 +531,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetAfPointSelectedDescription()
         {
-            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagAfPointSelected, unchecked((int)(0x3000)), "None (MF)", "Auto selected", "Right", "Centre", "Left");
+            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagAfPointSelected, unchecked(0x3000), "None (MF)", "Auto selected", "Right", "Centre", "Left");
         }
 
         [CanBeNull]
@@ -549,7 +549,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 return null;
             }
             // Canon PowerShot S3 is special
-            int canonMask = unchecked((int)(0x4000));
+            int canonMask = unchecked(0x4000);
             if (((int)value & canonMask) > 0)
             {
                 return string.Empty + ((int)value & ~canonMask);
@@ -603,17 +603,17 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked((int)(0xFFFF)):
+                case unchecked(0xFFFF):
                 {
                     return "Low";
                 }
 
-                case unchecked((int)(0x000)):
+                case unchecked(0x000):
                 {
                     return "Normal";
                 }
 
-                case unchecked((int)(0x001)):
+                case unchecked(0x001):
                 {
                     return "High";
                 }
@@ -635,17 +635,17 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked((int)(0xFFFF)):
+                case unchecked(0xFFFF):
                 {
                     return "Low";
                 }
 
-                case unchecked((int)(0x000)):
+                case unchecked(0x000):
                 {
                     return "Normal";
                 }
 
-                case unchecked((int)(0x001)):
+                case unchecked(0x001):
                 {
                     return "High";
                 }
@@ -667,17 +667,17 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked((int)(0xFFFF)):
+                case unchecked(0xFFFF):
                 {
                     return "Low";
                 }
 
-                case unchecked((int)(0x000)):
+                case unchecked(0x000):
                 {
                     return "Normal";
                 }
 
-                case unchecked((int)(0x001)):
+                case unchecked(0x001):
                 {
                     return "High";
                 }
