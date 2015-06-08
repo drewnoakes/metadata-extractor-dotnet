@@ -7,8 +7,8 @@
     <ProjectGuid>{26E27564-A74F-423B-A986-E979988F259D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>metadata_extractor</RootNamespace>
-    <AssemblyName>metadata_extractor</AssemblyName>
+    <RootNamespace>MetadataExtractor</RootNamespace>
+    <AssemblyName>MetadataExtractor</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

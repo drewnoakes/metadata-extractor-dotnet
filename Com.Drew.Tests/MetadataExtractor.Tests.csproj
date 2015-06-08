@@ -7,8 +7,8 @@
     <ProjectGuid>{07AFC815-EDBB-4CF8-B555-86B6CADE7D0F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Com.Drew.Tests</RootNamespace>
-    <AssemblyName>Com.Drew.Tests</AssemblyName>
+    <RootNamespace>MetadataExtractor.Tests</RootNamespace>
+    <AssemblyName>MetadataExtractor.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -159,9 +159,9 @@
       <Project>{5a1f2aff-7219-4543-97c4-364d4502c3c5}</Project>
       <Name>Com.Adobe.Xmp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Com.Drew\Com.Drew.csproj">
+    <ProjectReference Include="..\Com.Drew\MetadataExtractor.csproj">
       <Project>{26e27564-a74f-423b-a986-e979988f259d}</Project>
-      <Name>Com.Drew</Name>
+      <Name>MetadataExtractor</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sharpen\Sharpen.csproj">
       <Project>{72944a6c-45ff-4ef8-b349-8c9cabf519d4}</Project>

@@ -113,7 +113,7 @@ namespace Com.Drew.Imaging.Jpeg
 		{
 			try
 			{
-                JpegSegmentReader.ReadSegments(new FilePath("Com.Drew.Tests.dll"), null);
+                JpegSegmentReader.ReadSegments(new FilePath("MetadataExtractor.Tests.dll"), null);
 				NUnit.Framework.Assert.Fail("shouldn't be able to construct JpegSegmentReader with non-JPEG file");
 			}
 			catch (JpegProcessingException)
