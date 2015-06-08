@@ -35,12 +35,12 @@ namespace Com.Drew.Tools
     /// Extracts JPEG segments and writes them to individual files.
     /// <p/>
     /// Extracting only the required segment(s) for use in unit testing has several benefits:
-    /// <ul>
-    /// <li>Helps reduce the repository size. For example a small JPEG image may still be 20kB+ in size, yet its
-    /// APPD (IPTC) segment may be as small as 200 bytes.</li>
-    /// <li>Makes unit tests run more rapidly.</li>
-    /// <li>Partially anonymises user-contributed data by removing image portions.</li>
-    /// </ul>
+    /// <list type="bullet">
+    /// <item>Helps reduce the repository size. For example a small JPEG image may still be 20kB+ in size, yet its
+    /// APPD (IPTC) segment may be as small as 200 bytes.</item>
+    /// <item>Makes unit tests run more rapidly.</item>
+    /// <item>Partially anonymises user-contributed data by removing image portions.</item>
+    /// </list>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class ExtractJpegSegmentTool

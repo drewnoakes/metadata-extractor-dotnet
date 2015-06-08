@@ -9,7 +9,7 @@
 
 namespace Com.Adobe.Xmp.Options
 {
-    /// <summary>Options for <code>XMPIterator</code> construction.</summary>
+    /// <summary>Options for <c>XMPIterator</c> construction.</summary>
     /// <since>24.01.2006</since>
     public sealed class IteratorOptions : Options
     {

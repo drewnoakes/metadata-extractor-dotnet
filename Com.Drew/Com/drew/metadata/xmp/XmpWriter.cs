@@ -6,7 +6,7 @@ namespace Com.Drew.Metadata.Xmp
 {
     public class XmpWriter
     {
-        /// <summary>Serializes the XmpDirectory component of <code>Metadata</code> into an <code>OutputStream</code></summary>
+        /// <summary>Serializes the XmpDirectory component of <c>Metadata</c> into an <c>OutputStream</c></summary>
         /// <param name="os">Destination for the xmp data</param>
         /// <param name="data">populated metadata</param>
         /// <returns>serialize success</returns>

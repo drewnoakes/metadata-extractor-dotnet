@@ -80,22 +80,22 @@ namespace Com.Adobe.Xmp
         /// button, and has been been generalized somewhat from those specific needs.
         /// It operates in one of three main modes depending on the schemaNS and
         /// propName parameters:
-        /// <ul>
-        /// <li> Non-empty <code>schemaNS</code> and <code>propName</code> - The named property is
+        /// <list type="bullet">
+        /// <item> Non-empty <c>schemaNS</c> and <c>propName</c> - The named property is
         /// removed if it is an external property, or if the
-        /// flag <code>doAllProperties</code> option is true. It does not matter whether the
+        /// flag <c>doAllProperties</c> option is true. It does not matter whether the
         /// named property is an actual property or an alias.
-        /// <li> Non-empty <code>schemaNS</code> and empty <code>propName</code> - The all external
+        /// <item> Non-empty <c>schemaNS</c> and empty <c>propName</c> - The all external
         /// properties in the named schema are removed. Internal properties are also
-        /// removed if the flag <code>doAllProperties</code> option is set. In addition,
-        /// aliases from the named schema will be removed if the flag <code>includeAliases</code>
+        /// removed if the flag <c>doAllProperties</c> option is set. In addition,
+        /// aliases from the named schema will be removed if the flag <c>includeAliases</c>
         /// option is set.
-        /// <li> Empty <code>schemaNS</code> and empty <code>propName</code> - All external properties in
+        /// <item> Empty <c>schemaNS</c> and empty <c>propName</c> - All external properties in
         /// all schema are removed. Internal properties are also removed if the
-        /// flag <code>doAllProperties</code> option is passed. Aliases are implicitly handled
+        /// flag <c>doAllProperties</c> option is passed. Aliases are implicitly handled
         /// because the associated actuals are internal if the alias is.
-        /// </ul>
-        /// It is an error to pass an empty <code>schemaNS</code> and non-empty <code>propName</code>.
+        /// </list>
+        /// It is an error to pass an empty <c>schemaNS</c> and non-empty <c>propName</c>.
         /// </remarks>
         /// <param name="xmp">The XMP object containing the properties to be removed.</param>
         /// <param name="schemaNs">
@@ -119,34 +119,34 @@ namespace Com.Adobe.Xmp
             Impl.XmpUtils.RemoveProperties(xmp, schemaNs, propName, doAllProperties, includeAliases);
         }
 
-        /// <summary><p>Append properties from one XMP object to another.</summary>
+        /// <summary><para>Append properties from one XMP object to another.</summary>
         /// <remarks>
-        /// <p>Append properties from one XMP object to another.
-        /// <p>XMPUtils#appendProperties was created to support the File Info dialog's Append button, and
+        /// <para>Append properties from one XMP object to another.
+        /// <para>XMPUtils#appendProperties was created to support the File Info dialog's Append button, and
         /// has been been generalized somewhat from those specific needs. It appends information from one
         /// XMP object (source) to another (dest). The default operation is to append only external
         /// properties that do not already exist in the destination. The flag
-        /// <code>doAllProperties</code> can be used to operate on all properties, external and internal.
-        /// The flag <code>replaceOldValues</code> option can be used to replace the values
+        /// <c>doAllProperties</c> can be used to operate on all properties, external and internal.
+        /// The flag <c>replaceOldValues</c> option can be used to replace the values
         /// of existing properties. The notion of external
         /// versus internal applies only to top level properties. The keep-or-replace-old notion applies
         /// within structs and arrays as described below.
-        /// <ul>
-        /// <li>If <code>replaceOldValues</code> is true then the processing is restricted to the top
+        /// <list type="bullet">
+        /// <item>If <c>replaceOldValues</c> is true then the processing is restricted to the top
         /// level properties. The processed properties from the source (according to
-        /// <code>doAllProperties</code>) are propagated to the destination,
+        /// <c>doAllProperties</c>) are propagated to the destination,
         /// replacing any existing values.Properties in the destination that are not in the source
         /// are left alone.
-        /// <li>If <code>replaceOldValues</code> is not passed then the processing is more complicated.
+        /// <item>If <c>replaceOldValues</c> is not passed then the processing is more complicated.
         /// Top level properties are added to the destination if they do not already exist.
         /// If they do exist but differ in form (simple/struct/array) then the destination is left alone.
         /// If the forms match, simple properties are left unchanged while structs and arrays are merged.
-        /// <li>If <code>deleteEmptyValues</code> is passed then an empty value in the source XMP causes
+        /// <item>If <c>deleteEmptyValues</c> is passed then an empty value in the source XMP causes
         /// the corresponding destination XMP property to be deleted. The default is to treat empty
         /// values the same as non-empty values. An empty value is any of a simple empty string, an array
         /// with no items, or a struct with no fields. Qualifiers are ignored.
-        /// </ul>
-        /// <p>The detailed behavior is defined by the following pseudo-code:
+        /// </list>
+        /// <para>The detailed behavior is defined by the following pseudo-code:
         /// <blockquote>
         /// <pre>
         /// appendProperties ( sourceXMP, destXMP, doAllProperties,
@@ -176,11 +176,11 @@ namespace Com.Adobe.Xmp
         /// copy new items by value into the destination, ignoring order and duplicates
         /// </pre>
         /// </blockquote>
-        /// <p><em>Note:</em> appendProperties can be expensive if replaceOldValues is not passed and
+        /// <para><em>Note:</em> appendProperties can be expensive if replaceOldValues is not passed and
         /// the XMP contains large arrays. The array item checking described above is n-squared.
         /// Each source item is checked to see if it already exists in the destination,
         /// without regard to order or duplicates.
-        /// <p>Simple items are compared by value and "xml:lang" qualifier, other qualifiers are ignored.
+        /// <para>Simple items are compared by value and "xml:lang" qualifier, other qualifiers are ignored.
         /// Structs are recursively compared by field names, without regard to field order. Arrays are
         /// compared by recursively comparing all items.
         /// </remarks>
@@ -200,17 +200,17 @@ namespace Com.Adobe.Xmp
         /// <param name="value">The string representation of the Boolean.</param>
         /// <returns>
         /// The appropriate boolean value for the string. The checked values
-        /// for <code>true</code> and <code>false</code> are:
-        /// <ul>
-        /// <li>
+        /// for <c>true</c> and <c>false</c> are:
+        /// <list type="bullet">
+        /// <item>
         /// <see cref="XmpConstConstants.Truestr"/>
         /// and
         /// <see cref="XmpConstConstants.Falsestr"/>
-        /// <li>&quot;t&quot; and &quot;f&quot;
-        /// <li>&quot;on&quot; and &quot;off&quot;
-        /// <li>&quot;yes&quot; and &quot;no&quot;
-        /// <li>&quot;value &lt;&gt; 0&quot; and &quot;value == 0&quot;
-        /// </ul>
+        /// <item>&quot;t&quot; and &quot;f&quot;
+        /// <item>&quot;on&quot; and &quot;off&quot;
+        /// <item>&quot;yes&quot; and &quot;no&quot;
+        /// <item>&quot;value &lt;&gt; 0&quot; and &quot;value == 0&quot;
+        /// </list>
         /// </returns>
         /// <exception cref="XmpException">If an empty string is passed.</exception>
         /// <exception cref="XmpException"/>
@@ -244,11 +244,11 @@ namespace Com.Adobe.Xmp
             return value ? XmpConstConstants.Truestr : XmpConstConstants.Falsestr;
         }
 
-        /// <summary>Converts a string value to an <code>int</code>.</summary>
+        /// <summary>Converts a string value to an <c>int</c>.</summary>
         /// <param name="rawValue">the string value</param>
         /// <returns>Returns an int.</returns>
         /// <exception cref="XmpException">
-        /// If the <code>rawValue</code> is <code>null</code> or empty or the
+        /// If the <c>rawValue</c> is <c>null</c> or empty or the
         /// conversion fails.
         /// </exception>
         /// <exception cref="XmpException"/>
@@ -280,11 +280,11 @@ namespace Com.Adobe.Xmp
             return value.ToString();
         }
 
-        /// <summary>Converts a string value to a <code>long</code>.</summary>
+        /// <summary>Converts a string value to a <c>long</c>.</summary>
         /// <param name="rawValue">the string value</param>
         /// <returns>Returns a long.</returns>
         /// <exception cref="XmpException">
-        /// If the <code>rawValue</code> is <code>null</code> or empty or the
+        /// If the <c>rawValue</c> is <c>null</c> or empty or the
         /// conversion fails.
         /// </exception>
         /// <exception cref="XmpException"/>
@@ -316,11 +316,11 @@ namespace Com.Adobe.Xmp
             return value.ToString();
         }
 
-        /// <summary>Converts a string value to a <code>double</code>.</summary>
+        /// <summary>Converts a string value to a <c>double</c>.</summary>
         /// <param name="rawValue">the string value</param>
         /// <returns>Returns a double.</returns>
         /// <exception cref="XmpException">
-        /// If the <code>rawValue</code> is <code>null</code> or empty or the
+        /// If the <c>rawValue</c> is <c>null</c> or empty or the
         /// conversion fails.
         /// </exception>
         /// <exception cref="XmpException"/>
@@ -348,11 +348,11 @@ namespace Com.Adobe.Xmp
             return value.ToString();
         }
 
-        /// <summary>Converts a string value to an <code>XMPDateTime</code>.</summary>
+        /// <summary>Converts a string value to an <c>XMPDateTime</c>.</summary>
         /// <param name="rawValue">the string value</param>
-        /// <returns>Returns an <code>XMPDateTime</code>-object.</returns>
+        /// <returns>Returns an <c>XMPDateTime</c>-object.</returns>
         /// <exception cref="XmpException">
-        /// If the <code>rawValue</code> is <code>null</code> or empty or the
+        /// If the <c>rawValue</c> is <c>null</c> or empty or the
         /// conversion fails.
         /// </exception>
         /// <exception cref="XmpException"/>
@@ -365,8 +365,8 @@ namespace Com.Adobe.Xmp
             return Iso8601Converter.Parse(rawValue);
         }
 
-        /// <summary>Convert from <code>XMPDateTime</code> to string.</summary>
-        /// <param name="value">an <code>XMPDateTime</code></param>
+        /// <summary>Convert from <c>XMPDateTime</c> to string.</summary>
+        /// <param name="value">an <c>XMPDateTime</c></param>
         /// <returns>The string representation of the long.</returns>
         public static string ConvertFromDate(IXmpDateTime value)
         {

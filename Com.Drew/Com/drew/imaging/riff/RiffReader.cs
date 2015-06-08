@@ -26,17 +26,16 @@ using JetBrains.Annotations;
 namespace Com.Drew.Imaging.Riff
 {
     /// <summary>
-    /// Processes RIFF-formatted data, calling into client code via that
-    /// <see cref="IRiffHandler"/>
-    /// interface.
-    /// <p></p>
-    /// For information on this file format, see:
-    /// <ul>
-    /// <li>http://en.wikipedia.org/wiki/Resource_Interchange_File_Format</li>
-    /// <li>https://developers.google.com/speed/webp/docs/riff_container</li>
-    /// <li>https://www.daubnet.com/en/file-format-riff</li>
-    /// </ul>
+    /// Processes RIFF-formatted data, calling into client code via that <see cref="IRiffHandler"/> interface.
     /// </summary>
+    /// <remarks>
+    /// For information on this file format, see:
+    /// <list type="bullet">
+    /// <item>http://en.wikipedia.org/wiki/Resource_Interchange_File_Format</item>
+    /// <item>https://developers.google.com/speed/webp/docs/riff_container</item>
+    /// <item>https://www.daubnet.com/en/file-format-riff</item>
+    /// </list>
+    /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class RiffReader
     {

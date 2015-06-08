@@ -16,7 +16,7 @@ namespace Com.Drew.Imaging.Png
         public static readonly PngColorType TrueColor = new PngColorType(2, "True Color", 8, 16);
 
         /// <summary>Each pixel is a palette index.</summary>
-        /// <remarks>Each pixel is a palette index. Seeing this value indicates that a <code>PLTE</code> chunk shall appear.</remarks>
+        /// <remarks>Each pixel is a palette index. Seeing this value indicates that a <c>PLTE</c> chunk shall appear.</remarks>
         public static readonly PngColorType IndexedColor = new PngColorType(3, "Indexed Color", 1, 2, 4, 8);
 
         /// <summary>Each pixel is a greyscale sample followed by an alpha sample.</summary>

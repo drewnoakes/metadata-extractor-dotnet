@@ -14,11 +14,11 @@ using Sharpen;
 
 namespace Com.Adobe.Xmp.Impl
 {
-    /// <summary>Serializes the <code>XMPMeta</code>-object using the standard RDF serialization format.</summary>
+    /// <summary>Serializes the <c>XMPMeta</c>-object using the standard RDF serialization format.</summary>
     /// <remarks>
-    /// Serializes the <code>XMPMeta</code>-object using the standard RDF serialization format.
-    /// The output is written to an <code>OutputStream</code>
-    /// according to the <code>SerializeOptions</code>.
+    /// Serializes the <c>XMPMeta</c>-object using the standard RDF serialization format.
+    /// The output is written to an <c>OutputStream</c>
+    /// according to the <c>SerializeOptions</c>.
     /// </remarks>
     /// <since>11.07.2006</since>
     public class XmpSerializerRdf
@@ -1147,7 +1147,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <remarks>
         /// Serializes the node value in XML encoding. Its used for tag bodies and
         /// attributes. <em>Note:</em> The attribute is always limited by quotes,
-        /// thats why <code>&amp;apos;</code> is never serialized. <em>Note:</em>
+        /// thats why <c>&amp;apos;</c> is never serialized. <em>Note:</em>
         /// Control chars are written unescaped, but if the user uses others than tab, LF
         /// and CR the resulting XML will become invalid.
         /// </remarks>
@@ -1165,12 +1165,12 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>
         /// A node can be serialized as RDF-Attribute, if it meets the following conditions:
-        /// <ul>
-        /// <li>is not array item
-        /// <li>don't has qualifier
-        /// <li>is no URI
-        /// <li>is no composite property
-        /// </ul>
+        /// <list type="bullet">
+        /// <item>is not array item
+        /// <item>don't has qualifier
+        /// <item>is no URI
+        /// <item>is no composite property
+        /// </list>
         /// </summary>
         /// <param name="node">an XMPNode</param>
         /// <returns>Returns true if the node serialized as RDF-Attribute</returns>

@@ -33,10 +33,10 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// starts from ASCII string "Nikon". Data format is the same as IFD, but it starts from
     /// offset 0x08. This is the same as Olympus except start string. Example of actual data
     /// structure is shown below.
-    /// <pre><code>
+    /// <pre><c>
     /// :0000: 4E 69 6B 6F 6E 00 01 00-05 00 02 00 02 00 06 00 Nikon...........
     /// :0010: 00 00 EC 02 00 00 03 00-03 00 01 00 00 00 06 00 ................
-    /// </code></pre>
+    /// </c></pre>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class NikonType1MakernoteDirectory : Directory

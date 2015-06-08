@@ -32,7 +32,7 @@ namespace Com.Drew.Metadata.Jfif
     /// <summary>Reader for JFIF data, found in the APP0 JPEG segment.</summary>
     /// <remarks>
     /// Reader for JFIF data, found in the APP0 JPEG segment.
-    /// <p>
+    /// <para>
     /// More info at: http://en.wikipedia.org/wiki/JPEG_File_Interchange_Format
     /// </remarks>
     /// <author>Yuri Binev, Drew Noakes, Markus Meyer</author>

@@ -32,11 +32,11 @@ namespace Com.Drew.Imaging.Jpeg
     /// <summary>Performs read functions of JPEG files, returning specific file segments.</summary>
     /// <remarks>
     /// Performs read functions of JPEG files, returning specific file segments.
-    /// <p>
+    /// <para>
     /// JPEG files are composed of a sequence of consecutive JPEG 'segments'. Each is identified by one of a set of byte
     /// values, modelled in the
     /// <see cref="JpegSegmentType"/>
-    /// enumeration. Use <code>readSegments</code> to read out the some
+    /// enumeration. Use <c>readSegments</c> to read out the some
     /// or all segments into a
     /// <see cref="JpegSegmentData"/>
     /// object, from which the raw JPEG segment byte arrays may be accessed.
@@ -54,7 +54,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// Processes the provided JPEG data, and extracts the specified JPEG segments into a
         /// <see cref="JpegSegmentData"/>
         /// object.
-        /// <p>
+        /// <para>
         /// Will not return SOS (start of scan) or EOI (end of image) segments.
         /// </summary>
         /// <param name="file">
@@ -63,7 +63,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// from which the JPEG data will be read.
         /// </param>
         /// <param name="segmentTypes">
-        /// the set of JPEG segments types that are to be returned. If this argument is <code>null</code>
+        /// the set of JPEG segments types that are to be returned. If this argument is <c>null</c>
         /// then all found segment types are returned.
         /// </param>
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
@@ -90,7 +90,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// Processes the provided JPEG data, and extracts the specified JPEG segments into a
         /// <see cref="JpegSegmentData"/>
         /// object.
-        /// <p>
+        /// <para>
         /// Will not return SOS (start of scan) or EOI (end of image) segments.
         /// </summary>
         /// <param name="reader">
@@ -100,7 +100,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// beginning of the JPEG data stream.
         /// </param>
         /// <param name="segmentTypes">
-        /// the set of JPEG segments types that are to be returned. If this argument is <code>null</code>
+        /// the set of JPEG segments types that are to be returned. If this argument is <c>null</c>
         /// then all found segment types are returned.
         /// </param>
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>

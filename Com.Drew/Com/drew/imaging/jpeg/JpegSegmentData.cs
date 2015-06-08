@@ -33,12 +33,12 @@ namespace Com.Drew.Imaging.Jpeg
     /// Holds a collection of JPEG data segments.  This need not necessarily be all segments
     /// within the JPEG. For example, it may be convenient to store only the non-image
     /// segments when analysing metadata.
-    /// <p>
+    /// <para>
     /// Segments are keyed via their <see cref="JpegSegmentType"/>. Where multiple segments use the
     /// same segment type, they will all be stored and available.
-    /// <p>
+    /// <para>
     /// Each segment type may contain multiple entries. Conceptually the model is:
-    /// <code>Map&lt;JpegSegmentType, Collection&lt;byte[]&gt;&gt;</code>. This class provides
+    /// <c>Map&lt;JpegSegmentType, Collection&lt;byte[]&gt;&gt;</c>. This class provides
     /// convenience methods around that structure.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>

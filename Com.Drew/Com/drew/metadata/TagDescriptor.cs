@@ -52,12 +52,12 @@ namespace Com.Drew.Metadata
         /// Returns a descriptive value of the specified tag for this image.
         /// Where possible, known values will be substituted here in place of the raw
         /// tokens actually kept in the metadata segment.  If no substitution is
-        /// available, the value provided by <code>getString(tagType)</code> will be returned.
+        /// available, the value provided by <c>getString(tagType)</c> will be returned.
         /// </remarks>
         /// <param name="tagType">the tag to find a description for</param>
         /// <returns>
         /// a description of the image's value for the specified tag, or
-        /// <code>null</code> if the tag hasn't been defined.
+        /// <c>null</c> if the tag hasn't been defined.
         /// </returns>
         [CanBeNull]
         public virtual string GetDescription(int tagType)
@@ -97,12 +97,12 @@ namespace Com.Drew.Metadata
         /// <remarks>
         /// Takes a series of 4 bytes from the specified offset, and converts these to a
         /// well-known version number, where possible.
-        /// <p>
+        /// <para>
         /// Two different formats are processed:
-        /// <ul>
-        /// <li>[30 32 31 30] -&gt; 2.10</li>
-        /// <li>[0 1 0 0] -&gt; 1.00</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item>[30 32 31 30] -&gt; 2.10</item>
+        /// <item>[0 1 0 0] -&gt; 1.00</item>
+        /// </list>
         /// </remarks>
         /// <param name="components">the four version values</param>
         /// <param name="majorDigits">the number of components to be</param>

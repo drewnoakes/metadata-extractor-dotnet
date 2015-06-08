@@ -258,7 +258,7 @@ namespace Com.Drew.Metadata.Xmp
         /// <summary>Gets a map of all XMP properties in this directory, not just the known ones.</summary>
         /// <remarks>
         /// Gets a map of all XMP properties in this directory, not just the known ones.
-        /// <p>
+        /// <para>
         /// This is required because XMP properties are represented as strings, whereas the rest of this library
         /// uses integers for keys.
         /// </remarks>

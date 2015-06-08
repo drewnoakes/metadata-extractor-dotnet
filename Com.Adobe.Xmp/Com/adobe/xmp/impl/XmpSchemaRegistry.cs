@@ -32,7 +32,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>a map of all registered aliases.</summary>
         /// <remarks>
         /// a map of all registered aliases.
-        /// The map is a relationship from a qname to an <code>XMPAliasInfo</code>-object.
+        /// The map is a relationship from a qname to an <c>XMPAliasInfo</c>-object.
         /// </remarks>
         private readonly IDictionary _aliasMap = new Hashtable();
 
@@ -268,7 +268,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>Associates an alias name with an actual name.</summary>
         /// <remarks>
         /// Associates an alias name with an actual name.
-        /// <p>
+        /// <para>
         /// Define a alias mapping from one namespace/property to another. Both
         /// property names must be simple names. An alias can be a direct mapping,
         /// where the alias and actual have the same data type. It is also possible
@@ -300,7 +300,7 @@ namespace Com.Adobe.Xmp.Impl
         /// Provides options for aliases for simple aliases to array
         /// items. This is needed to know what kind of array to create if
         /// set for the first time via the simple alias. Pass
-        /// <code>XMP_NoOptions</code>, the default value, for all
+        /// <c>XMP_NoOptions</c>, the default value, for all
         /// direct aliases regardless of whether the actual data type is
         /// an array or not (see
         /// <see cref="Com.Adobe.Xmp.Options.AliasOptions"/>

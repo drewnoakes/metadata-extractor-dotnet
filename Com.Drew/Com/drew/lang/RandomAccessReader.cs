@@ -28,35 +28,35 @@ namespace Com.Drew.Lang
     /// <summary>Base class for random access data reading operations of common data types.</summary>
     /// <remarks>
     /// Base class for random access data reading operations of common data types.
-    /// <p>
+    /// <para>
     /// By default, the reader operates with Motorola byte order (big endianness).  This can be changed by calling
     /// <see cref="SetMotorolaByteOrder(bool)"/>.
-    /// <p>
+    /// <para>
     /// Concrete implementations include:
-    /// <ul>
-    /// <li>
+    /// <list type="bullet">
+    /// <item>
     /// <see cref="ByteArrayReader"/>
-    /// </li>
-    /// <li>
+    /// </item>
+    /// <item>
     /// <see cref="RandomAccessStreamReader"/>
-    /// </li>
-    /// </ul>
+    /// </item>
+    /// </list>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class RandomAccessReader
     {
         private bool _isMotorolaByteOrder = true;
 
-        /// <summary>Gets the byte value at the specified byte <code>index</code>.</summary>
+        /// <summary>Gets the byte value at the specified byte <c>index</c>.</summary>
         /// <remarks>
-        /// Gets the byte value at the specified byte <code>index</code>.
-        /// <p>
+        /// Gets the byte value at the specified byte <c>index</c>.
+        /// <para>
         /// Implementations should not perform any bounds checking in this method. That should be performed
-        /// in <code>validateIndex</code> and <code>isValidIndex</code>.
+        /// in <c>validateIndex</c> and <c>isValidIndex</c>.
         /// </remarks>
         /// <param name="index">The index from which to read the byte</param>
         /// <returns>The read byte value</returns>
-        /// <exception cref="System.ArgumentException"><code>index</code> or <code>count</code> are negative</exception>
+        /// <exception cref="System.ArgumentException"><c>index</c> or <c>count</c> are negative</exception>
         /// <exception cref="BufferBoundsException">if the requested byte is beyond the end of the underlying data source</exception>
         /// <exception cref="System.IO.IOException">if the byte is unable to be read</exception>
         protected internal abstract sbyte GetByte(int index);
@@ -65,7 +65,7 @@ namespace Com.Drew.Lang
         /// <param name="index">The index from which the bytes begins in the underlying source</param>
         /// <param name="count">The number of bytes to be returned</param>
         /// <returns>The requested bytes</returns>
-        /// <exception cref="System.ArgumentException"><code>index</code> or <code>count</code> are negative</exception>
+        /// <exception cref="System.ArgumentException"><c>index</c> or <c>count</c> are negative</exception>
         /// <exception cref="BufferBoundsException">if the requested bytes extend beyond the end of the underlying data source</exception>
         /// <exception cref="System.IO.IOException">if the byte is unable to be read</exception>
         [NotNull]
@@ -75,7 +75,7 @@ namespace Com.Drew.Lang
         /// <remarks>
         /// Ensures that the buffered bytes extend to cover the specified index. If not, an attempt is made
         /// to read to that point.
-        /// <p>
+        /// <para>
         /// If the stream ends before the point is reached, a
         /// <see cref="BufferBoundsException"/>
         /// is raised.
@@ -91,13 +91,13 @@ namespace Com.Drew.Lang
         /// <summary>Returns the length of the data source in bytes.</summary>
         /// <remarks>
         /// Returns the length of the data source in bytes.
-        /// <p>
+        /// <para>
         /// This is a simple operation for implementations (such as
         /// <see cref="RandomAccessFileReader"/>
         /// and
         /// <see cref="ByteArrayReader"/>
         /// ) that have the entire data source available.
-        /// <p>
+        /// <para>
         /// Users of this method must be aware that sequentially accessed implementations such as
         /// <see cref="RandomAccessStreamReader"/>
         /// will have to read and buffer the entire data source in
@@ -110,12 +110,12 @@ namespace Com.Drew.Lang
         /// <summary>Sets the endianness of this reader.</summary>
         /// <remarks>
         /// Sets the endianness of this reader.
-        /// <ul>
-        /// <li><code>true</code> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</li>
-        /// <li><code>false</code> for Intel (or little) endianness, with LSB before MSB.</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>true</c> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</item>
+        /// <item><c>false</c> for Intel (or little) endianness, with LSB before MSB.</item>
+        /// </list>
         /// </remarks>
-        /// <param name="motorolaByteOrder"><code>true</code> for Motorola/big endian, <code>false</code> for Intel/little endian</param>
+        /// <param name="motorolaByteOrder"><c>true</c> for Motorola/big endian, <c>false</c> for Intel/little endian</param>
         public virtual void SetMotorolaByteOrder(bool motorolaByteOrder)
         {
             _isMotorolaByteOrder = motorolaByteOrder;
@@ -124,10 +124,10 @@ namespace Com.Drew.Lang
         /// <summary>Gets the endianness of this reader.</summary>
         /// <remarks>
         /// Gets the endianness of this reader.
-        /// <ul>
-        /// <li><code>true</code> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</li>
-        /// <li><code>false</code> for Intel (or little) endianness, with LSB before MSB.</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>true</c> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</item>
+        /// <item><c>false</c> for Intel (or little) endianness, with LSB before MSB.</item>
+        /// </list>
         /// </remarks>
         public virtual bool IsMotorolaByteOrder()
         {
@@ -272,7 +272,7 @@ namespace Com.Drew.Lang
         /// <summary>Gets a s15.16 fixed point float from the buffer.</summary>
         /// <remarks>
         /// Gets a s15.16 fixed point float from the buffer.
-        /// <p>
+        /// <para>
         /// This particular fixed point encoding has one sign bit, 15 numerator bits and 16 denominator bits.
         /// </remarks>
         /// <returns>the floating point value</returns>
@@ -331,7 +331,7 @@ namespace Com.Drew.Lang
 
         /// <summary>
         /// Creates a String from the _data buffer starting at the specified index,
-        /// and ending where <code>byte=='\0'</code> or where <code>length==maxLength</code>.
+        /// and ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.
         /// </summary>
         /// <param name="index">The index within the buffer at which to start reading the string.</param>
         /// <param name="maxLengthBytes">

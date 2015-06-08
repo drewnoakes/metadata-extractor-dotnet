@@ -30,7 +30,7 @@ namespace Com.Drew.Metadata
     /// <summary>Represents an age in years, months, days, hours, minutes and seconds.</summary>
     /// <remarks>
     /// Represents an age in years, months, days, hours, minutes and seconds.
-    /// <p>
+    /// <para>
     /// Used by certain Panasonic cameras which have face recognition features.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
@@ -50,9 +50,9 @@ namespace Com.Drew.Metadata
 
         /// <summary>
         /// Parses an age object from the string format used by Panasonic cameras:
-        /// <code>0031:07:15 00:00:00</code>
+        /// <c>0031:07:15 00:00:00</c>
         /// </summary>
-        /// <param name="s">The String in format <code>0031:07:15 00:00:00</code>.</param>
+        /// <param name="s">The String in format <c>0031:07:15 00:00:00</c>.</param>
         /// <returns>The parsed Age object, or null if the value could not be parsed</returns>
         [CanBeNull]
         public static Age FromPanasonicString([NotNull] string s)

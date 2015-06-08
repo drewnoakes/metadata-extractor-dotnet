@@ -8,7 +8,7 @@ namespace FileLabeller
     internal interface IFileHandler
     {
         /// <summary>
-        /// Called when the scan is about to start processing files in directory <code>path</code>.
+        /// Called when the scan is about to start processing files in directory <c>path</c>.
         /// </summary>
         void OnStartingDirectory([NotNull] string directoryPath);
 

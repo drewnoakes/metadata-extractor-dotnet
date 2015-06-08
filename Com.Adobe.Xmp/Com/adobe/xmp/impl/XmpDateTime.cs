@@ -15,11 +15,11 @@ using GregorianCalendar = Sharpen.GregorianCalendar;
 
 namespace Com.Adobe.Xmp.Impl
 {
-    /// <summary>The implementation of <code>XMPDateTime</code>.</summary>
+    /// <summary>The implementation of <c>XMPDateTime</c>.</summary>
     /// <remarks>
-    /// The implementation of <code>XMPDateTime</code>. Internally a <code>calendar</code> is used
-    /// plus an additional nano seconds field, because <code>Calendar</code> supports only milli
-    /// seconds. The <code>nanoSeconds</code> convers only the resolution beyond a milli second.
+    /// The implementation of <c>XMPDateTime</c>. Internally a <c>calendar</c> is used
+    /// plus an additional nano seconds field, because <c>Calendar</c> supports only milli
+    /// seconds. The <c>nanoSeconds</c> convers only the resolution beyond a milli second.
     /// </remarks>
     /// <since>16.02.2006</since>
     public class XmpDateTime : IXmpDateTime
@@ -49,15 +49,15 @@ namespace Com.Adobe.Xmp.Impl
         private bool _hasTimeZone;
 
         /// <summary>
-        /// Creates an <code>XMPDateTime</code>-instance with the current time in the default time
+        /// Creates an <c>XMPDateTime</c>-instance with the current time in the default time
         /// zone.
         /// </summary>
         public XmpDateTime()
         {
         }
 
-        /// <summary>Creates an <code>XMPDateTime</code>-instance from a calendar.</summary>
-        /// <param name="calendar">a <code>Calendar</code></param>
+        /// <summary>Creates an <c>XMPDateTime</c>-instance from a calendar.</summary>
+        /// <param name="calendar">a <c>Calendar</c></param>
         public XmpDateTime(Calendar calendar)
         {
             // EMPTY
@@ -84,8 +84,8 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <summary>
-        /// Creates an <code>XMPDateTime</code>-instance from
-        /// a <code>Date</code> and a <code>TimeZone</code>.
+        /// Creates an <c>XMPDateTime</c>-instance from
+        /// a <c>Date</c> and a <c>TimeZone</c>.
         /// </summary>
         /// <param name="date">a date describing an absolute point in time</param>
         /// <param name="timeZone">a TimeZone how to interpret the date</param>
@@ -106,7 +106,7 @@ namespace Com.Adobe.Xmp.Impl
             _hasDate = _hasTime = _hasTimeZone = true;
         }
 
-        /// <summary>Creates an <code>XMPDateTime</code>-instance from an ISO 8601 string.</summary>
+        /// <summary>Creates an <c>XMPDateTime</c>-instance from an ISO 8601 string.</summary>
         /// <param name="strValue">an ISO 8601 string</param>
         /// <exception cref="XmpException">If the string is a non-conform ISO 8601 string, an exception is thrown</exception>
         public XmpDateTime(string strValue)

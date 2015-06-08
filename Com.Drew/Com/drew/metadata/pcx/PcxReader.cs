@@ -30,11 +30,11 @@ namespace Com.Drew.Metadata.Pcx
     /// <summary>Reads PCX image file metadata.</summary>
     /// <remarks>
     /// Reads PCX image file metadata.
-    /// <ul>
-    /// <li>https://courses.engr.illinois.edu/ece390/books/labmanual/graphics-pcx.html</li>
-    /// <li>http://www.fileformat.info/format/pcx/egff.htm</li>
-    /// <li>http://fileformats.archiveteam.org/wiki/PCX</li>
-    /// </ul>
+    /// <list type="bullet">
+    /// <item>https://courses.engr.illinois.edu/ece390/books/labmanual/graphics-pcx.html</item>
+    /// <item>http://www.fileformat.info/format/pcx/egff.htm</item>
+    /// <item>http://fileformats.archiveteam.org/wiki/PCX</item>
+    /// </list>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class PcxReader

@@ -280,7 +280,7 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <summary>Utility to find or create the array used by <code>separateArrayItems()</code>.</summary>
+        /// <summary>Utility to find or create the array used by <c>separateArrayItems()</c>.</summary>
         /// <param name="schemaNs">a the namespace fo the array</param>
         /// <param name="arrayName">the name of the array</param>
         /// <param name="arrayOptions">the options for the array if newly created</param>
@@ -470,12 +470,12 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>
         /// Remove all schema children according to the flag
-        /// <code>doAllProperties</code>.
+        /// <c>doAllProperties</c>.
         /// </summary>
         /// <remarks>
         /// Remove all schema children according to the flag
-        /// <code>doAllProperties</code>. Empty schemas are automatically remove
-        /// by <code>XMPNode</code>
+        /// <c>doAllProperties</c>. Empty schemas are automatically remove
+        /// by <c>XMPNode</c>
         /// </remarks>
         /// <param name="schemaNode">a schema node</param>
         /// <param name="doAllProperties">flag if all properties or only externals shall be removed.</param>
@@ -639,8 +639,8 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <summary>Compares two nodes including its children and qualifier.</summary>
-        /// <param name="leftNode">an <code>XMPNode</code></param>
-        /// <param name="rightNode">an <code>XMPNode</code></param>
+        /// <param name="leftNode">an <c>XMPNode</c></param>
+        /// <param name="rightNode">an <c>XMPNode</c></param>
         /// <returns>Returns true if the nodes are equal, false otherwise.</returns>
         /// <exception cref="XmpException">Forwards exceptions to the calling method.</exception>
         private static bool ItemValuesMatch(XmpNode leftNode, XmpNode rightNode)

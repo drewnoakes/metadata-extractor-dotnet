@@ -31,7 +31,7 @@ namespace Com.Drew.Metadata
     /// <summary>A top-level object that holds the metadata values extracted from an image.</summary>
     /// <remarks>
     /// A top-level object that holds the metadata values extracted from an image.
-    /// <p>
+    /// <para>
     /// Metadata objects may contain zero or more
     /// <see cref="Directory"/>
     /// objects.  Each directory may contain zero or more tags
@@ -86,10 +86,10 @@ namespace Com.Drew.Metadata
         /// Gets the first
         /// <see cref="Directory"/>
         /// of the specified type contained within this metadata collection.
-        /// If no instances of this type are present, <code>null</code> is returned.
+        /// If no instances of this type are present, <c>null</c> is returned.
         /// </summary>
         /// <typeparam name="T">The Directory type</typeparam>
-        /// <returns>the first Directory of type T in this metadata collection, or <code>null</code> if none exist</returns>
+        /// <returns>the first Directory of type T in this metadata collection, or <c>null</c> if none exist</returns>
         [CanBeNull]
         public T GetFirstDirectoryOfType<T>()
             where T : Directory
@@ -112,9 +112,9 @@ namespace Com.Drew.Metadata
         /// type
         /// </param>
         /// <returns>
-        /// <code>true</code> if a
+        /// <c>true</c> if a
         /// <see cref="Directory"/>
-        /// of the specified type exists, otherwise <code>false</code>
+        /// of the specified type exists, otherwise <c>false</c>
         /// </returns>
         public bool ContainsDirectoryOfType(Type type)
         {

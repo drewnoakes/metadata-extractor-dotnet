@@ -26,10 +26,10 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 {
     /// <summary>
     /// Provides human-readable string representations of tag values stored in a <see cref="KyoceraMakernoteDirectory"/>.
-    /// <p>
+    /// <para>
     /// Some information about this makernote taken from here:
     /// http://www.ozhiker.com/electronics/pjmt/jpeg_info/kyocera_mn.html
-    /// <p>
+    /// <para>
     /// Most manufacturer's Makernote counts the "offset to data" from the first byte
     /// of TIFF header (same as the other IFD), but Kyocera (along with Fujifilm) counts
     /// it from the first byte of Makernote itself.

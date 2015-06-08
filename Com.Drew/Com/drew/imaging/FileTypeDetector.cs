@@ -70,12 +70,12 @@ namespace Com.Drew.Imaging
         /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
         /// <remarks>
         /// Examines the a file's first bytes and estimates the file's type.
-        /// <p>
+        /// <para>
         /// Requires a
         /// <see cref="BufferedInputStream"/>
         /// in order to mark and reset the stream to the position
         /// at which it was provided to this method once completed.
-        /// <p>
+        /// <para>
         /// Requires the stream to contain at least eight bytes.
         /// </remarks>
         /// <exception cref="System.IO.IOException">if an IO error occurred or the input stream ended unexpectedly.</exception>

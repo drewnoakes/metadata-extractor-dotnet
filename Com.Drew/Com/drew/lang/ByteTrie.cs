@@ -57,7 +57,7 @@ namespace Com.Drew.Lang
         /// <summary>Return the most specific value stored for this byte sequence.</summary>
         /// <remarks>
         /// Return the most specific value stored for this byte sequence.
-        /// If not found, returns <code>null</code> or a default values as specified by
+        /// If not found, returns <c>null</c> or a default values as specified by
         /// calling <see cref="SetDefaultValue"/>.
         /// </remarks>
         [CanBeNull]

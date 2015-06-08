@@ -13,8 +13,8 @@ using Sharpen;
 namespace Com.Adobe.Xmp.Impl
 {
     /// <summary>
-    /// Serializes the <code>XMPMeta</code>-object to an <code>OutputStream</code> according to the
-    /// <code>SerializeOptions</code>.
+    /// Serializes the <c>XMPMeta</c>-object to an <c>OutputStream</c> according to the
+    /// <c>SerializeOptions</c>.
     /// </summary>
     /// <since>11.07.2006</since>
     public static class XmpSerializerHelper
@@ -27,7 +27,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </remarks>
         /// <param name="xmp">a metadata implementation object</param>
         /// <param name="out">the output stream to serialize to</param>
-        /// <param name="options">serialization options, can be <code>null</code> for default.</param>
+        /// <param name="options">serialization options, can be <c>null</c> for default.</param>
         /// <exception cref="XmpException"/>
         public static void Serialize(XmpMeta xmp, OutputStream @out, SerializeOptions options)
         {
@@ -40,9 +40,9 @@ namespace Com.Adobe.Xmp.Impl
             new XmpSerializerRdf().Serialize(xmp, @out, options);
         }
 
-        /// <summary>Serializes an <code>XMPMeta</code>-object as RDF into a string.</summary>
+        /// <summary>Serializes an <c>XMPMeta</c>-object as RDF into a string.</summary>
         /// <remarks>
-        /// Serializes an <code>XMPMeta</code>-object as RDF into a string.
+        /// Serializes an <c>XMPMeta</c>-object as RDF into a string.
         /// <em>Note:</em> Encoding is forced to UTF-16 when serializing to a
         /// string to ensure the correctness of &quot;exact packet size&quot;.
         /// </remarks>
@@ -73,7 +73,7 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <summary>Serializes an <code>XMPMeta</code>-object as RDF into a byte buffer.</summary>
+        /// <summary>Serializes an <c>XMPMeta</c>-object as RDF into a byte buffer.</summary>
         /// <param name="xmp">a metadata implementation object</param>
         /// <param name="options">
         /// Options to control the serialization (see

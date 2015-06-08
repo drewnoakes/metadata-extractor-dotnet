@@ -44,31 +44,31 @@ namespace Com.Drew.Imaging
     /// Obtains
     /// <see cref="Com.Drew.Metadata.Metadata"/>
     /// from all supported file formats.
-    /// <p>
+    /// <para>
     /// This class a lightweight wrapper around specific file type processors:
-    /// <ul>
-    /// <li>
+    /// <list type="bullet">
+    /// <item>
     /// <see cref="Com.Drew.Imaging.Jpeg.JpegMetadataReader"/>
-    /// for JPEG files</li>
-    /// <li>
+    /// for JPEG files</item>
+    /// <item>
     /// <see cref="Com.Drew.Imaging.Tiff.TiffMetadataReader"/>
-    /// for TIFF and (most) RAW files</li>
-    /// <li>
+    /// for TIFF and (most) RAW files</item>
+    /// <item>
     /// <see cref="Com.Drew.Imaging.Psd.PsdMetadataReader"/>
-    /// for Photoshop files</li>
-    /// <li>
+    /// for Photoshop files</item>
+    /// <item>
     /// <see cref="Com.Drew.Imaging.Png.PngMetadataReader"/>
-    /// for BMP files</li>
-    /// <li>
+    /// for BMP files</item>
+    /// <item>
     /// <see cref="Com.Drew.Imaging.Bmp.BmpMetadataReader"/>
-    /// for BMP files</li>
-    /// <li>
+    /// for BMP files</item>
+    /// <item>
     /// <see cref="Com.Drew.Imaging.Gif.GifMetadataReader"/>
-    /// for GIF files</li>
-    /// </ul>
+    /// for GIF files</item>
+    /// </list>
     /// If you know the file type you're working with, you may use one of the above processors directly.
     /// For most scenarios it is simpler, more convenient and more robust to use this class.
-    /// <p>
+    /// <para>
     /// <see cref="FileTypeDetector"/>
     /// is used to determine the provided image's file type, and therefore
     /// the appropriate metadata reader to use.
@@ -78,29 +78,29 @@ namespace Com.Drew.Imaging
     {
         /// <summary>
         /// Reads metadata from an <see cref="InputStream"/>.
-        /// <p>
+        /// <para>
         /// The file type is determined by inspecting the leading bytes of the stream, and parsing of the file
         /// is delegated to one of:
-        /// <ul>
-        /// <li>
+        /// <list type="bullet">
+        /// <item>
         /// <see cref="Com.Drew.Imaging.Jpeg.JpegMetadataReader"/>
-        /// for JPEG files</li>
-        /// <li>
+        /// for JPEG files</item>
+        /// <item>
         /// <see cref="Com.Drew.Imaging.Tiff.TiffMetadataReader"/>
-        /// for TIFF and (most) RAW files</li>
-        /// <li>
+        /// for TIFF and (most) RAW files</item>
+        /// <item>
         /// <see cref="Com.Drew.Imaging.Psd.PsdMetadataReader"/>
-        /// for Photoshop files</li>
-        /// <li>
+        /// for Photoshop files</item>
+        /// <item>
         /// <see cref="Com.Drew.Imaging.Png.PngMetadataReader"/>
-        /// for PNG files</li>
-        /// <li>
+        /// for PNG files</item>
+        /// <item>
         /// <see cref="Com.Drew.Imaging.Bmp.BmpMetadataReader"/>
-        /// for BMP files</li>
-        /// <li>
+        /// for BMP files</item>
+        /// <item>
         /// <see cref="Com.Drew.Imaging.Gif.GifMetadataReader"/>
-        /// for GIF files</li>
-        /// </ul>
+        /// for GIF files</item>
+        /// </list>
         /// </summary>
         /// <param name="inputStream">
         /// a stream from which the file data may be read.  The stream must be positioned at the
@@ -165,29 +165,29 @@ namespace Com.Drew.Imaging
         /// from a
         /// <see cref="Sharpen.FilePath"/>
         /// object.
-        /// <p>
+        /// <para>
         /// The file type is determined by inspecting the leading bytes of the stream, and parsing of the file
         /// is delegated to one of:
-        /// <ul>
-        /// <li>
+        /// <list type="bullet">
+        /// <item>
         /// <see cref="Com.Drew.Imaging.Jpeg.JpegMetadataReader"/>
-        /// for JPEG files</li>
-        /// <li>
+        /// for JPEG files</item>
+        /// <item>
         /// <see cref="Com.Drew.Imaging.Tiff.TiffMetadataReader"/>
-        /// for TIFF and (most) RAW files</li>
-        /// <li>
+        /// for TIFF and (most) RAW files</item>
+        /// <item>
         /// <see cref="Com.Drew.Imaging.Psd.PsdMetadataReader"/>
-        /// for Photoshop files</li>
-        /// <li>
+        /// for Photoshop files</item>
+        /// <item>
         /// <see cref="Com.Drew.Imaging.Png.PngMetadataReader"/>
-        /// for PNG files</li>
-        /// <li>
+        /// for PNG files</item>
+        /// <item>
         /// <see cref="Com.Drew.Imaging.Bmp.BmpMetadataReader"/>
-        /// for BMP files</li>
-        /// <li>
+        /// for BMP files</item>
+        /// <item>
         /// <see cref="Com.Drew.Imaging.Gif.GifMetadataReader"/>
-        /// for GIF files</li>
-        /// </ul>
+        /// for GIF files</item>
+        /// </list>
         /// </summary>
         /// <param name="file">a file from which the image data may be read.</param>
         /// <returns>
@@ -224,14 +224,14 @@ namespace Com.Drew.Imaging
         /// <summary>An application entry point.</summary>
         /// <remarks>
         /// An application entry point.  Takes the name of one or more files as arguments and prints the contents of all
-        /// metadata directories to <code>System.out</code>.
-        /// <p>
-        /// If <code>-thumb</code> is passed, then any thumbnail data will be written to a file with name of the
-        /// input file having <code>.thumb.jpg</code> appended.
-        /// <p>
-        /// If <code>-markdown</code> is passed, then output will be in markdown format.
-        /// <p>
-        /// If <code>-hex</code> is passed, then the ID of each tag will be displayed in hexadecimal.
+        /// metadata directories to <c>System.out</c>.
+        /// <para>
+        /// If <c>-thumb</c> is passed, then any thumbnail data will be written to a file with name of the
+        /// input file having <c>.thumb.jpg</c> appended.
+        /// <para>
+        /// If <c>-markdown</c> is passed, then output will be in markdown format.
+        /// <para>
+        /// If <c>-hex</c> is passed, then the ID of each tag will be displayed in hexadecimal.
         /// </remarks>
         /// <param name="args">the command line arguments</param>
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>

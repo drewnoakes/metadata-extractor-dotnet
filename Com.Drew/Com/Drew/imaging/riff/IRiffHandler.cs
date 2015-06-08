@@ -34,7 +34,7 @@ namespace Com.Drew.Imaging.Riff
         /// <summary>Gets whether the specified RIFF identifier is of interest to this handler.</summary>
         /// <remarks>
         /// Gets whether the specified RIFF identifier is of interest to this handler.
-        /// Returning <code>false</code> causes processing to stop after reading only
+        /// Returning <c>false</c> causes processing to stop after reading only
         /// the first twelve bytes of data.
         /// </remarks>
         /// <param name="identifier">The four character code identifying the type of RIFF data</param>
@@ -44,8 +44,8 @@ namespace Com.Drew.Imaging.Riff
         /// <summary>Gets whether this handler is interested in the specific chunk type.</summary>
         /// <remarks>
         /// Gets whether this handler is interested in the specific chunk type.
-        /// Returns <code>true</code> if the data should be copied into an array and passed
-        /// to <see cref="ProcessChunk(string, sbyte[])"/>, or <code>false</code> to avoid
+        /// Returns <c>true</c> if the data should be copied into an array and passed
+        /// to <see cref="ProcessChunk(string, sbyte[])"/>, or <c>false</c> to avoid
         /// the copy and skip to the next chunk in the file, if any.
         /// </remarks>
         /// <param name="fourCc">the four character code of this chunk</param>
@@ -65,7 +65,7 @@ namespace Com.Drew.Imaging.Riff
         /// payload.
         /// This is only called if a previous call to
         /// <see cref="ShouldAcceptChunk(string)"/>
-        /// with the same <code>fourCC</code> returned <code>true</code>.
+        /// with the same <c>fourCC</c> returned <c>true</c>.
         /// </remarks>
         /// <param name="fourCc">the four character code of the chunk</param>
         /// <param name="payload">they payload of the chunk as a byte array</param>

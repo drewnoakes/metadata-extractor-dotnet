@@ -17,19 +17,19 @@ namespace Com.Drew.Imaging.Png
         /// <see cref="PngChunk"/>
         /// that contains basic information about the PNG image.
         /// This must be the first chunk in the data sequence, and may only occur once.
-        /// <p>
+        /// <para>
         /// The format is:
-        /// <ul>
-        /// <li><b>pixel width</b> 4 bytes, unsigned and greater than zero</li>
-        /// <li><b>pixel height</b> 4 bytes, unsigned and greater than zero</li>
-        /// <li><b>bit depth</b> 1 byte, number of bits per sample or per palette index (not per pixel)</li>
-        /// <li><b>color type</b> 1 byte, maps to
+        /// <list type="bullet">
+        /// <item><b>pixel width</b> 4 bytes, unsigned and greater than zero</item>
+        /// <item><b>pixel height</b> 4 bytes, unsigned and greater than zero</item>
+        /// <item><b>bit depth</b> 1 byte, number of bits per sample or per palette index (not per pixel)</item>
+        /// <item><b>color type</b> 1 byte, maps to
         /// <see cref="PngColorType"/>
-        /// enum</li>
-        /// <li><b>compression method</b> 1 byte, currently only a value of zero (deflate/inflate) is in the standard</li>
-        /// <li><b>filter method</b> 1 byte, currently only a value of zero (adaptive filtering with five basic filter types) is in the standard</li>
-        /// <li><b>interlace method</b> 1 byte, indicates the transmission order of image data, currently only 0 (no interlace) and 1 (Adam7 interlace) are in the standard</li>
-        /// </ul>
+        /// enum</item>
+        /// <item><b>compression method</b> 1 byte, currently only a value of zero (deflate/inflate) is in the standard</item>
+        /// <item><b>filter method</b> 1 byte, currently only a value of zero (adaptive filtering with five basic filter types) is in the standard</item>
+        /// <item><b>interlace method</b> 1 byte, indicates the transmission order of image data, currently only 0 (no interlace) and 1 (Adam7 interlace) are in the standard</item>
+        /// </list>
         /// </summary>
         public static readonly PngChunkType Ihdr = new PngChunkType("IHDR");
 
@@ -39,15 +39,15 @@ namespace Com.Drew.Imaging.Png
         /// that contains palette entries.
         /// This chunk should only appear for a
         /// <see cref="PngColorType"/>
-        /// of <code>IndexedColor</code>,
+        /// of <c>IndexedColor</c>,
         /// and may only occur once in the PNG data sequence.
-        /// <p>
+        /// <para>
         /// The chunk contains between one and 256 entries, each of three bytes:
-        /// <ul>
-        /// <li><b>red</b> 1 byte</li>
-        /// <li><b>green</b> 1 byte</li>
-        /// <li><b>blue</b> 1 byte</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><b>red</b> 1 byte</item>
+        /// <item><b>green</b> 1 byte</item>
+        /// <item><b>blue</b> 1 byte</item>
+        /// </list>
         /// The number of entries is determined by the chunk length. A chunk length indivisible by three is an error.
         /// </summary>
         public static readonly PngChunkType Plte = new PngChunkType("PLTE");
@@ -85,13 +85,13 @@ namespace Com.Drew.Imaging.Png
         /// <see cref="PngChunk"/>
         /// that contains textual data, having first a keyword and then a value.
         /// If multiple text data keywords are needed, then multiple chunks are included in the PNG data stream.
-        /// <p>
+        /// <para>
         /// The format is:
-        /// <ul>
-        /// <li><b>keyword</b> 1-79 bytes</li>
-        /// <li><b>null separator</b> 1 byte (\0)</li>
-        /// <li><b>text string</b> 0 or more bytes</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><b>keyword</b> 1-79 bytes</item>
+        /// <item><b>null separator</b> 1 byte (\0)</item>
+        /// <item><b>text string</b> 0 or more bytes</item>
+        /// </list>
         /// Text is interpreted according to the Latin-1 character set [ISO-8859-1].
         /// Newlines should be represented by a single linefeed character (0x9).
         /// </summary>

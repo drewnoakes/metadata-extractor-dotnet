@@ -29,14 +29,14 @@ namespace Com.Adobe.Xmp.Impl
             _length = 0;
         }
 
-        /// <param name="buffer">a byte array that will be wrapped with <code>ByteBuffer</code>.</param>
+        /// <param name="buffer">a byte array that will be wrapped with <c>ByteBuffer</c>.</param>
         public ByteBuffer(sbyte[] buffer)
         {
             _buffer = buffer;
             _length = buffer.Length;
         }
 
-        /// <param name="buffer">a byte array that will be wrapped with <code>ByteBuffer</code>.</param>
+        /// <param name="buffer">a byte array that will be wrapped with <c>ByteBuffer</c>.</param>
         /// <param name="length">the length of valid bytes in the array</param>
         public ByteBuffer(sbyte[] buffer, int length)
         {
@@ -72,7 +72,7 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <param name="buffer">a byte array that will be wrapped with <code>ByteBuffer</code>.</param>
+        /// <param name="buffer">a byte array that will be wrapped with <c>ByteBuffer</c>.</param>
         /// <param name="offset">the offset of the provided buffer.</param>
         /// <param name="length">the length of valid bytes in the array</param>
         public ByteBuffer(sbyte[] buffer, int offset, int length)
@@ -158,7 +158,7 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <summary>Append another buffer to this buffer.</summary>
-        /// <param name="anotherBuffer">another <code>ByteBuffer</code></param>
+        /// <param name="anotherBuffer">another <c>ByteBuffer</c></param>
         public virtual void Append(ByteBuffer anotherBuffer)
         {
             Append(anotherBuffer._buffer, 0, anotherBuffer._length);

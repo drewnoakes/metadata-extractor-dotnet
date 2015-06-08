@@ -784,16 +784,16 @@ namespace Com.Adobe.Xmp.Impl
         /// The XMP mapping for an emptyPropertyElt is a bit different from generic RDF, partly for
         /// design reasons and partly for historical reasons. The XMP mapping rules are:
         /// <ol>
-        /// <li> If there is an rdf:value attribute then this is a simple property
+        /// <item> If there is an rdf:value attribute then this is a simple property
         /// with a text value.
         /// All other attributes are qualifiers.
-        /// <li> If there is an rdf:resource attribute then this is a simple property
+        /// <item> If there is an rdf:resource attribute then this is a simple property
         /// with a URI value.
         /// All other attributes are qualifiers.
-        /// <li> If there are no attributes other than xml:lang, rdf:ID, or rdf:nodeID
+        /// <item> If there are no attributes other than xml:lang, rdf:ID, or rdf:nodeID
         /// then this is a simple
         /// property with an empty value.
-        /// <li> Otherwise this is a struct, the attributes other than xml:lang, rdf:ID,
+        /// <item> Otherwise this is a struct, the attributes other than xml:lang, rdf:ID,
         /// or rdf:nodeID are fields.
         /// </ol>
         /// </remarks>

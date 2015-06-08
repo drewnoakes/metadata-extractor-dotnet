@@ -33,10 +33,10 @@ namespace Com.Drew.Metadata.Icc
     /// <summary>Reads an ICC profile.</summary>
     /// <remarks>
     /// Reads an ICC profile.
-    /// <ul>
-    /// <li>http://en.wikipedia.org/wiki/ICC_profile</li>
-    /// <li>http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/ICC_Profile.html</li>
-    /// </ul>
+    /// <list type="bullet">
+    /// <item>http://en.wikipedia.org/wiki/ICC_profile</item>
+    /// <item>http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/ICC_Profile.html</item>
+    /// </list>
     /// </remarks>
     /// <author>Yuri Binev</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>

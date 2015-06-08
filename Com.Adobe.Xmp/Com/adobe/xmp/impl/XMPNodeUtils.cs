@@ -15,7 +15,7 @@ using Sharpen;
 
 namespace Com.Adobe.Xmp.Impl
 {
-    /// <summary>Utilities for <code>XMPNode</code>.</summary>
+    /// <summary>Utilities for <c>XMPNode</c>.</summary>
     /// <since>Aug 28, 2006</since>
     public static class XmpNodeUtils
     {
@@ -32,7 +32,7 @@ namespace Com.Adobe.Xmp.Impl
         internal const int CltFirstItem = 5;
 
         // EMPTY
-        /// <summary>Find or create a schema node if <code>createNodes</code> is false and</summary>
+        /// <summary>Find or create a schema node if <c>createNodes</c> is false and</summary>
         /// <param name="tree">the root of the xmp tree.</param>
         /// <param name="namespaceUri">a namespace</param>
         /// <param name="createNodes">
@@ -40,8 +40,8 @@ namespace Com.Adobe.Xmp.Impl
         /// <em>Note:</em> The namespace must be registered prior to this call.
         /// </param>
         /// <returns>
-        /// Returns the schema node if found, <code>null</code> otherwise.
-        /// Note: If <code>createNodes</code> is <code>true</code>, it is <b>always</b>
+        /// Returns the schema node if found, <c>null</c> otherwise.
+        /// Note: If <c>createNodes</c> is <c>true</c>, it is <b>always</b>
         /// returned a valid node.
         /// </returns>
         /// <exception cref="XmpException">
@@ -53,7 +53,7 @@ namespace Com.Adobe.Xmp.Impl
             return FindSchemaNode(tree, namespaceUri, null, createNodes);
         }
 
-        /// <summary>Find or create a schema node if <code>createNodes</code> is true.</summary>
+        /// <summary>Find or create a schema node if <c>createNodes</c> is true.</summary>
         /// <param name="tree">the root of the xmp tree.</param>
         /// <param name="namespaceUri">a namespace</param>
         /// <param name="suggestedPrefix">If a prefix is suggested, the namespace is allowed to be registered.</param>
@@ -62,8 +62,8 @@ namespace Com.Adobe.Xmp.Impl
         /// <em>Note:</em> The namespace must be registered prior to this call.
         /// </param>
         /// <returns>
-        /// Returns the schema node if found, <code>null</code> otherwise.
-        /// Note: If <code>createNodes</code> is <code>true</code>, it is <b>always</b>
+        /// Returns the schema node if found, <c>null</c> otherwise.
+        /// Note: If <c>createNodes</c> is <c>true</c>, it is <b>always</b>
         /// returned a valid node.
         /// </returns>
         /// <exception cref="XmpException">
@@ -106,7 +106,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="parent">the parent node</param>
         /// <param name="childName">the node name to find</param>
         /// <param name="createNodes">flag, if new nodes shall be created.</param>
-        /// <returns>Returns the found or created node or <code>null</code>.</returns>
+        /// <returns>Returns the found or created node or <c>null</c>.</returns>
         /// <exception cref="XmpException">Thrown if</exception>
         internal static XmpNode FindChildNode(XmpNode parent, string childName, bool createNodes)
         {
@@ -142,13 +142,13 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="xpath">the complete xpath</param>
         /// <param name="createNodes">
         /// flag if nodes shall be created
-        /// (when called by <code>setProperty()</code>)
+        /// (when called by <c>setProperty()</c>)
         /// </param>
         /// <param name="leafOptions">
         /// the options for the created leaf nodes (only when
-        /// <code>createNodes == true</code>).
+        /// <c>createNodes == true</c>).
         /// </param>
-        /// <returns>Returns the node if found or created or <code>null</code>.</returns>
+        /// <returns>Returns the node if found or created or <c>null</c>.</returns>
         /// <exception cref="XmpException">
         /// An exception is only thrown if an error occurred,
         /// not if a node was not found.
@@ -281,9 +281,9 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>Verifies the PropertyOptions for consistancy and updates them as needed.</summary>
         /// <remarks>
         /// Verifies the PropertyOptions for consistancy and updates them as needed.
-        /// If options are <code>null</code> they are created with default values.
+        /// If options are <c>null</c> they are created with default values.
         /// </remarks>
-        /// <param name="options">the <code>PropertyOptions</code></param>
+        /// <param name="options">the <c>PropertyOptions</c></param>
         /// <param name="itemValue">the node value to set</param>
         /// <returns>Returns the updated options.</returns>
         /// <exception cref="XmpException">If the options are not consistant.</exception>
@@ -390,19 +390,19 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>
         /// After processing by ExpandXPath, a step can be of these forms:
-        /// <ul>
-        /// <li>qualName - A top level property or struct field.
+        /// <list type="bullet">
+        /// <item>qualName - A top level property or struct field.
         /// </summary>
         /// <remarks>
         /// After processing by ExpandXPath, a step can be of these forms:
-        /// <ul>
-        /// <li>qualName - A top level property or struct field.
-        /// <li>[index] - An element of an array.
-        /// <li>[last()] - The last element of an array.
-        /// <li>[qualName="value"] - An element in an array of structs, chosen by a field value.
-        /// <li>[?qualName="value"] - An element in an array, chosen by a qualifier value.
-        /// <li>?qualName - A general qualifier.
-        /// </ul>
+        /// <list type="bullet">
+        /// <item>qualName - A top level property or struct field.
+        /// <item>[index] - An element of an array.
+        /// <item>[last()] - The last element of an array.
+        /// <item>[qualName="value"] - An element in an array of structs, chosen by a field value.
+        /// <item>[?qualName="value"] - An element in an array, chosen by a qualifier value.
+        /// <item>?qualName - A general qualifier.
+        /// </list>
         /// Find the appropriate child node, resolving aliases, and optionally creating nodes.
         /// </remarks>
         /// <param name="parentNode">the node to start to start from</param>
@@ -488,7 +488,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="parent">the parent XMPNode</param>
         /// <param name="qualName">the qualifier name</param>
         /// <param name="createNodes">flag if nodes shall be created</param>
-        /// <returns>Returns the qualifier node if found or created, <code>null</code> otherwise.</returns>
+        /// <returns>Returns the qualifier node if found or created, <c>null</c> otherwise.</returns>
         /// <exception cref="XmpException"></exception>
         private static XmpNode FindQualifierNode(XmpNode parent, string qualName, bool createNodes)
         {
@@ -716,14 +716,14 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>
         /// <ol>
-        /// <li>Look for an exact match with the specific language.
+        /// <item>Look for an exact match with the specific language.
         /// </summary>
         /// <remarks>
         /// <ol>
-        /// <li>Look for an exact match with the specific language.
-        /// <li>If a generic language is given, look for partial matches.
-        /// <li>Look for an "x-default"-item.
-        /// <li>Choose the first item.
+        /// <item>Look for an exact match with the specific language.
+        /// <item>If a generic language is given, look for partial matches.
+        /// <item>Look for an "x-default"-item.
+        /// <item>Choose the first item.
         /// </ol>
         /// </remarks>
         /// <param name="arrayNode">the alt text array node</param>

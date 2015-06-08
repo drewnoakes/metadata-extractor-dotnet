@@ -63,12 +63,12 @@ namespace Com.Drew.Lang
         /// <summary>Sets the endianness of this reader.</summary>
         /// <remarks>
         /// Sets the endianness of this reader.
-        /// <ul>
-        /// <li><code>true</code> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</li>
-        /// <li><code>false</code> for Intel (or little) endianness, with LSB before MSB.</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>true</c> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</item>
+        /// <item><c>false</c> for Intel (or little) endianness, with LSB before MSB.</item>
+        /// </list>
         /// </remarks>
-        /// <param name="motorolaByteOrder"><code>true</code> for Motorola/big endian, <code>false</code> for Intel/little endian</param>
+        /// <param name="motorolaByteOrder"><c>true</c> for Motorola/big endian, <c>false</c> for Intel/little endian</param>
         public virtual void SetMotorolaByteOrder(bool motorolaByteOrder)
         {
             _isMotorolaByteOrder = motorolaByteOrder;
@@ -77,10 +77,10 @@ namespace Com.Drew.Lang
         /// <summary>Gets the endianness of this reader.</summary>
         /// <remarks>
         /// Gets the endianness of this reader.
-        /// <ul>
-        /// <li><code>true</code> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</li>
-        /// <li><code>false</code> for Intel (or little) endianness, with LSB before MSB.</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>true</c> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</item>
+        /// <item><c>false</c> for Intel (or little) endianness, with LSB before MSB.</item>
+        /// </list>
         /// </remarks>
         public virtual bool IsMotorolaByteOrder()
         {
@@ -178,7 +178,7 @@ namespace Com.Drew.Lang
         /// <summary>Gets a s15.16 fixed point float from the buffer.</summary>
         /// <remarks>
         /// Gets a s15.16 fixed point float from the buffer.
-        /// <p>
+        /// <para>
         /// This particular fixed point encoding has one sign bit, 15 numerator bits and 16 denominator bits.
         /// </remarks>
         /// <returns>the floating point value</returns>
@@ -234,7 +234,7 @@ namespace Com.Drew.Lang
             }
         }
 
-        /// <summary>Creates a String from the stream, ending where <code>byte=='\0'</code> or where <code>length==maxLength</code>.</summary>
+        /// <summary>Creates a String from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.</summary>
         /// <param name="maxLengthBytes">
         /// The maximum number of bytes to read.  If a zero-byte is not reached within this limit,
         /// reading will stop and the string will be truncated to this length.

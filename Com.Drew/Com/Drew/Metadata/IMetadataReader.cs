@@ -27,14 +27,14 @@ namespace Com.Drew.Metadata
 {
     /// <summary>
     /// Defines an object capable of processing a particular type of metadata from a <see cref="Com.Drew.Lang.RandomAccessReader"/>.
-    /// <p>
+    /// <para>
     /// Instances of this interface must be thread-safe and reusable.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public interface IMetadataReader
     {
         /// <summary>
-        /// Extracts metadata from <code>reader</code> and merges it into the specified
+        /// Extracts metadata from <c>reader</c> and merges it into the specified
         /// <see cref="Metadata"/>
         /// object.
         /// </summary>

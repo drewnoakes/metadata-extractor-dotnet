@@ -365,7 +365,7 @@ namespace Com.Drew.Metadata.Iptc
         }
 
         /// <summary>Returns any keywords contained in the IPTC data.</summary>
-        /// <remarks>Returns any keywords contained in the IPTC data.  This value may be <code>null</code>.</remarks>
+        /// <remarks>Returns any keywords contained in the IPTC data.  This value may be <c>null</c>.</remarks>
         [CanBeNull]
         public virtual IList<string> GetKeywords()
         {

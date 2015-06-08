@@ -30,9 +30,9 @@ namespace Com.Drew.Metadata.Ico
     /// <summary>Reads ICO (Windows Icon) file metadata.</summary>
     /// <remarks>
     /// Reads ICO (Windows Icon) file metadata.
-    /// <ul>
-    /// <li>https://en.wikipedia.org/wiki/ICO_(file_format)</li>
-    /// </ul>
+    /// <list type="bullet">
+    /// <item>https://en.wikipedia.org/wiki/ICO_(file_format)</item>
+    /// </list>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class IcoReader

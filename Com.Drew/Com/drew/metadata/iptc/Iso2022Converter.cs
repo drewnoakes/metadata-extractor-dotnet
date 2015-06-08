@@ -21,7 +21,7 @@ namespace Com.Drew.Metadata.Iptc
 
         /// <summary>Converts the given ISO2022 char set to a Java charset name.</summary>
         /// <param name="bytes">string data encoded using ISO2022</param>
-        /// <returns>the Java charset name as a string, or <code>null</code> if the conversion was not possible</returns>
+        /// <returns>the Java charset name as a string, or <c>null</c> if the conversion was not possible</returns>
         [CanBeNull]
         public static string ConvertIso2022CharsetToJavaCharset([NotNull] sbyte[] bytes)
         {
@@ -41,11 +41,11 @@ namespace Com.Drew.Metadata.Iptc
         /// Attempts to guess the encoding of a string provided as a byte array.
         /// <p/>
         /// Encodings trialled are, in order:
-        /// <ul>
-        /// <li>UTF-8</li>
-        /// <li><code>System.getProperty("file.encoding")</code></li>
-        /// <li>ISO-8859-1</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item>UTF-8</item>
+        /// <item><c>System.getProperty("file.encoding")</c></item>
+        /// <item>ISO-8859-1</item>
+        /// </list>
         /// <p/>
         /// Its only purpose is to guess the encoding if and only if iptc tag coded character set is not set. If the
         /// encoding is not UTF-8, the tag should be set. Otherwise it is bad practice. This method tries to

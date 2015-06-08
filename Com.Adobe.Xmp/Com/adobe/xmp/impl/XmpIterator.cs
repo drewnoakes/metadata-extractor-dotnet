@@ -15,12 +15,12 @@ using Sharpen;
 
 namespace Com.Adobe.Xmp.Impl
 {
-    /// <summary>The <code>XMPIterator</code> implementation.</summary>
+    /// <summary>The <c>XMPIterator</c> implementation.</summary>
     /// <remarks>
-    /// The <code>XMPIterator</code> implementation.
+    /// The <c>XMPIterator</c> implementation.
     /// Iterates the XMP Tree according to a set of options.
     /// During the iteration the XMPMeta-object must not be changed.
-    /// Calls to <code>skipSubtree()</code> / <code>skipSiblings()</code> will affect the iteration.
+    /// Calls to <c>skipSubtree()</c> / <c>skipSiblings()</c> will affect the iteration.
     /// </remarks>
     /// <since>29.06.2006</since>
     public class XmpIterator : IXmpIterator
@@ -42,12 +42,12 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>Constructor with optionsl initial values.</summary>
         /// <remarks>
-        /// Constructor with optionsl initial values. If <code>propName</code> is provided,
-        /// <code>schemaNS</code> has also be provided.
+        /// Constructor with optionsl initial values. If <c>propName</c> is provided,
+        /// <c>schemaNS</c> has also be provided.
         /// </remarks>
         /// <param name="xmp">the iterated metadata object.</param>
         /// <param name="schemaNs">the iteration is reduced to this schema (optional)</param>
-        /// <param name="propPath">the iteration is redurce to this property within the <code>schemaNS</code></param>
+        /// <param name="propPath">the iteration is redurce to this property within the <c>schemaNS</c></param>
         /// <param name="options">
         /// advanced iteration options, see
         /// <see cref="Com.Adobe.Xmp.Options.IteratorOptions"/>
@@ -166,9 +166,9 @@ namespace Com.Adobe.Xmp.Impl
             _baseNs = baseNs;
         }
 
-        /// <summary>The <code>XMPIterator</code> implementation.</summary>
+        /// <summary>The <c>XMPIterator</c> implementation.</summary>
         /// <remarks>
-        /// The <code>XMPIterator</code> implementation.
+        /// The <c>XMPIterator</c> implementation.
         /// It first returns the node itself, then recursivly the children and qualifier of the node.
         /// </remarks>
         /// <since>29.06.2006</since>
@@ -201,7 +201,7 @@ namespace Com.Adobe.Xmp.Impl
             /// <summary>the iterator for each child</summary>
             private IIterator _subIterator = Collections.EmptyList().Iterator();
 
-            /// <summary>the cached <code>PropertyInfo</code> to return</summary>
+            /// <summary>the cached <c>PropertyInfo</c> to return</summary>
             private IXmpPropertyInfo _returnProperty;
 
             /// <summary>Default constructor</summary>
@@ -264,7 +264,7 @@ namespace Com.Adobe.Xmp.Impl
                 return IterateChildrenMethod(_childrenIterator);
             }
 
-            /// <summary>Sets the returnProperty as next item or recurses into <code>hasNext()</code>.</summary>
+            /// <summary>Sets the returnProperty as next item or recurses into <c>hasNext()</c>.</summary>
             /// <returns>Returns if there is a next item to return.</returns>
             protected internal virtual bool ReportNode()
             {
@@ -363,11 +363,11 @@ namespace Com.Adobe.Xmp.Impl
                 return parentPath + separator + segmentName;
             }
 
-            /// <summary>Creates a property info object from an <code>XMPNode</code>.</summary>
-            /// <param name="node">an <code>XMPNode</code></param>
+            /// <summary>Creates a property info object from an <c>XMPNode</c>.</summary>
+            /// <param name="node">an <c>XMPNode</c></param>
             /// <param name="baseNs">the base namespace to report</param>
             /// <param name="path">the full property path</param>
-            /// <returns>Returns a <code>XMPProperty</code>-object that serves representation of the node.</returns>
+            /// <returns>Returns a <c>XMPProperty</c>-object that serves representation of the node.</returns>
             protected internal virtual IXmpPropertyInfo CreatePropertyInfo(XmpNode node, string baseNs, string path)
             {
                 string value = node.GetOptions().IsSchemaNode() ? null : node.GetValue();
@@ -453,7 +453,7 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <summary>
-        /// This iterator is derived from the default <code>NodeIterator</code>,
+        /// This iterator is derived from the default <c>NodeIterator</c>,
         /// and is only used for the option <see cref="Com.Adobe.Xmp.Options.IteratorOptions.JustChildren"/>.
         /// </summary>
         /// <since>02.10.2006</since>

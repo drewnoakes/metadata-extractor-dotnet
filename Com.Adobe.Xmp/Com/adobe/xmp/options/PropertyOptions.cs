@@ -10,7 +10,7 @@
 namespace Com.Adobe.Xmp.Options
 {
     /// <summary>
-    /// The property flags are used when properties are fetched from the <code>XMPMeta</code>-object
+    /// The property flags are used when properties are fetched from the <c>XMPMeta</c>-object
     /// and provide more detailed information about the property.
     /// </summary>
     /// <since>03.07.2006</since>

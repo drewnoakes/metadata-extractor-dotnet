@@ -30,16 +30,16 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// <remarks>
     /// Describes tags specific to Nikon (type 2) cameras.  Type-2 applies to the E990 and D-series cameras such as the E990, D1,
     /// D70 and D100.
-    /// <p>
+    /// <para>
     /// Thanks to Fabrizio Giudici for publishing his reverse-engineering of the D100 makernote data.
     /// http://www.timelesswanderings.net/equipment/D100/NEF.html
-    /// <p>
+    /// <para>
     /// Note that the camera implements image protection (locking images) via the file's 'readonly' attribute.  Similarly
     /// image hiding uses the 'hidden' attribute (observed on the D70).  Consequently, these values are not available here.
-    /// <p>
+    /// <para>
     /// Additional sample images have been observed, and their tag values recorded in javadoc comments for each tag's field.
     /// New tags have subsequently been added since Fabrizio's observations.
-    /// <p>
+    /// <para>
     /// In earlier models (such as the E990 and D1), this directory begins at the first byte of the makernote IFD.  In
     /// later models, the IFD was given the standard prefix to indicate the camera models (most other manufacturers also
     /// provide this prefix to aid in software decoding).
@@ -64,91 +64,91 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>The camera's color mode, as an uppercase string.</summary>
         /// <remarks>
         /// The camera's color mode, as an uppercase string.  Examples include:
-        /// <ul>
-        /// <li><code>B &amp; W</code></li>
-        /// <li><code>COLOR</code></li>
-        /// <li><code>COOL</code></li>
-        /// <li><code>SEPIA</code></li>
-        /// <li><code>VIVID</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>B &amp; W</c></item>
+        /// <item><c>COLOR</c></item>
+        /// <item><c>COOL</c></item>
+        /// <item><c>SEPIA</c></item>
+        /// <item><c>VIVID</c></item>
+        /// </list>
         /// </remarks>
         public const int TagColorMode = unchecked((int)(0x0003));
 
         /// <summary>The camera's quality setting, as an uppercase string.</summary>
         /// <remarks>
         /// The camera's quality setting, as an uppercase string.  Examples include:
-        /// <ul>
-        /// <li><code>BASIC</code></li>
-        /// <li><code>FINE</code></li>
-        /// <li><code>NORMAL</code></li>
-        /// <li><code>RAW</code></li>
-        /// <li><code>RAW2.7M</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>BASIC</c></item>
+        /// <item><c>FINE</c></item>
+        /// <item><c>NORMAL</c></item>
+        /// <item><c>RAW</c></item>
+        /// <item><c>RAW2.7M</c></item>
+        /// </list>
         /// </remarks>
         public const int TagQualityAndFileFormat = unchecked((int)(0x0004));
 
         /// <summary>The camera's white balance setting, as an uppercase string.</summary>
         /// <remarks>
         /// The camera's white balance setting, as an uppercase string.  Examples include:
-        /// <ul>
-        /// <li><code>AUTO</code></li>
-        /// <li><code>CLOUDY</code></li>
-        /// <li><code>FLASH</code></li>
-        /// <li><code>FLUORESCENT</code></li>
-        /// <li><code>INCANDESCENT</code></li>
-        /// <li><code>PRESET</code></li>
-        /// <li><code>PRESET0</code></li>
-        /// <li><code>PRESET1</code></li>
-        /// <li><code>PRESET3</code></li>
-        /// <li><code>SUNNY</code></li>
-        /// <li><code>WHITE PRESET</code></li>
-        /// <li><code>4350K</code></li>
-        /// <li><code>5000K</code></li>
-        /// <li><code>DAY WHITE FL</code></li>
-        /// <li><code>SHADE</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>AUTO</c></item>
+        /// <item><c>CLOUDY</c></item>
+        /// <item><c>FLASH</c></item>
+        /// <item><c>FLUORESCENT</c></item>
+        /// <item><c>INCANDESCENT</c></item>
+        /// <item><c>PRESET</c></item>
+        /// <item><c>PRESET0</c></item>
+        /// <item><c>PRESET1</c></item>
+        /// <item><c>PRESET3</c></item>
+        /// <item><c>SUNNY</c></item>
+        /// <item><c>WHITE PRESET</c></item>
+        /// <item><c>4350K</c></item>
+        /// <item><c>5000K</c></item>
+        /// <item><c>DAY WHITE FL</c></item>
+        /// <item><c>SHADE</c></item>
+        /// </list>
         /// </remarks>
         public const int TagCameraWhiteBalance = unchecked((int)(0x0005));
 
         /// <summary>The camera's sharpening setting, as an uppercase string.</summary>
         /// <remarks>
         /// The camera's sharpening setting, as an uppercase string.  Examples include:
-        /// <ul>
-        /// <li><code>AUTO</code></li>
-        /// <li><code>HIGH</code></li>
-        /// <li><code>LOW</code></li>
-        /// <li><code>NONE</code></li>
-        /// <li><code>NORMAL</code></li>
-        /// <li><code>MED.H</code></li>
-        /// <li><code>MED.L</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>AUTO</c></item>
+        /// <item><c>HIGH</c></item>
+        /// <item><c>LOW</c></item>
+        /// <item><c>NONE</c></item>
+        /// <item><c>NORMAL</c></item>
+        /// <item><c>MED.H</c></item>
+        /// <item><c>MED.L</c></item>
+        /// </list>
         /// </remarks>
         public const int TagCameraSharpening = unchecked((int)(0x0006));
 
         /// <summary>The camera's auto-focus mode, as an uppercase string.</summary>
         /// <remarks>
         /// The camera's auto-focus mode, as an uppercase string.  Examples include:
-        /// <ul>
-        /// <li><code>AF-C</code></li>
-        /// <li><code>AF-S</code></li>
-        /// <li><code>MANUAL</code></li>
-        /// <li><code>AF-A</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>AF-C</c></item>
+        /// <item><c>AF-S</c></item>
+        /// <item><c>MANUAL</c></item>
+        /// <item><c>AF-A</c></item>
+        /// </list>
         /// </remarks>
         public const int TagAfType = unchecked((int)(0x0007));
 
         /// <summary>The camera's flash setting, as an uppercase string.</summary>
         /// <remarks>
         /// The camera's flash setting, as an uppercase string.  Examples include:
-        /// <ul>
-        /// <li><code></code></li>
-        /// <li><code>NORMAL</code></li>
-        /// <li><code>RED-EYE</code></li>
-        /// <li><code>SLOW</code></li>
-        /// <li><code>NEW_TTL</code></li>
-        /// <li><code>REAR</code></li>
-        /// <li><code>REAR SLOW</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c></c></item>
+        /// <item><c>NORMAL</c></item>
+        /// <item><c>RED-EYE</c></item>
+        /// <item><c>SLOW</c></item>
+        /// <item><c>NEW_TTL</c></item>
+        /// <item><c>REAR</c></item>
+        /// <item><c>REAR SLOW</c></item>
+        /// </list>
         /// Note: when TAG_AUTO_FLASH_MODE is blank (whitespace), Nikon Browser displays "Flash Sync Mode: Not Attached"
         /// </remarks>
         public const int TagFlashSyncMode = unchecked((int)(0x0008));
@@ -156,13 +156,13 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>The type of flash used in the photograph, as a string.</summary>
         /// <remarks>
         /// The type of flash used in the photograph, as a string.  Examples include:
-        /// <ul>
-        /// <li><code></code></li>
-        /// <li><code>Built-in,TTL</code></li>
-        /// <li><code>NEW_TTL</code> Nikon Browser interprets as "D-TTL"</li>
-        /// <li><code>Built-in,M</code></li>
-        /// <li><code>Optional,TTL</code> with speedlight SB800, flash sync mode as "NORMAL"</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c></c></item>
+        /// <item><c>Built-in,TTL</c></item>
+        /// <item><c>NEW_TTL</c> Nikon Browser interprets as "D-TTL"</item>
+        /// <item><c>Built-in,M</c></item>
+        /// <item><c>Optional,TTL</c> with speedlight SB800, flash sync mode as "NORMAL"</item>
+        /// </list>
         /// </remarks>
         public const int TagAutoFlashMode = unchecked((int)(0x0009));
 
@@ -176,16 +176,16 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>The camera's white balance bias setting, as an uint16 array having either one or two elements.</summary>
         /// <remarks>
         /// The camera's white balance bias setting, as an uint16 array having either one or two elements.
-        /// <ul>
-        /// <li><code>0</code></li>
-        /// <li><code>1</code></li>
-        /// <li><code>-3</code></li>
-        /// <li><code>-2</code></li>
-        /// <li><code>-1</code></li>
-        /// <li><code>0,0</code></li>
-        /// <li><code>1,0</code></li>
-        /// <li><code>5,-5</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>0</c></item>
+        /// <item><c>1</c></item>
+        /// <item><c>-3</c></item>
+        /// <item><c>-2</c></item>
+        /// <item><c>-1</c></item>
+        /// <item><c>0,0</c></item>
+        /// <item><c>1,0</c></item>
+        /// <item><c>5,-5</c></item>
+        /// </list>
         /// </remarks>
         public const int TagCameraWhiteBalanceFine = unchecked((int)(0x000B));
 
@@ -206,36 +206,36 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>The camera's program shift setting, as an array of four integers.</summary>
         /// <remarks>
         /// The camera's program shift setting, as an array of four integers.
-        /// The value, in EV, is calculated as <code>a*b/c</code>.
-        /// <ul>
-        /// <li><code>0,1,3,0</code> = 0 EV</li>
-        /// <li><code>1,1,3,0</code> = 0.33 EV</li>
-        /// <li><code>-3,1,3,0</code> = -1 EV</li>
-        /// <li><code>1,1,2,0</code> = 0.5 EV</li>
-        /// <li><code>2,1,6,0</code> = 0.33 EV</li>
-        /// </ul>
+        /// The value, in EV, is calculated as <c>a*b/c</c>.
+        /// <list type="bullet">
+        /// <item><c>0,1,3,0</c> = 0 EV</item>
+        /// <item><c>1,1,3,0</c> = 0.33 EV</item>
+        /// <item><c>-3,1,3,0</c> = -1 EV</item>
+        /// <item><c>1,1,2,0</c> = 0.5 EV</item>
+        /// <item><c>2,1,6,0</c> = 0.33 EV</item>
+        /// </list>
         /// </remarks>
         public const int TagProgramShift = unchecked((int)(0x000D));
 
         /// <summary>The exposure difference, as an array of four integers.</summary>
         /// <remarks>
         /// The exposure difference, as an array of four integers.
-        /// The value, in EV, is calculated as <code>a*b/c</code>.
-        /// <ul>
-        /// <li><code>-105,1,12,0</code> = -8.75 EV</li>
-        /// <li><code>-72,1,12,0</code> = -6.00 EV</li>
-        /// <li><code>-11,1,12,0</code> = -0.92 EV</li>
-        /// </ul>
+        /// The value, in EV, is calculated as <c>a*b/c</c>.
+        /// <list type="bullet">
+        /// <item><c>-105,1,12,0</c> = -8.75 EV</item>
+        /// <item><c>-72,1,12,0</c> = -6.00 EV</item>
+        /// <item><c>-11,1,12,0</c> = -0.92 EV</item>
+        /// </list>
         /// </remarks>
         public const int TagExposureDifference = unchecked((int)(0x000E));
 
         /// <summary>The camera's ISO mode, as an uppercase string.</summary>
         /// <remarks>
         /// The camera's ISO mode, as an uppercase string.
-        /// <ul>
-        /// <li><code>AUTO</code></li>
-        /// <li><code>MANUAL</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>AUTO</c></item>
+        /// <item><c>MANUAL</c></item>
+        /// </list>
         /// </remarks>
         public const int TagIsoMode = unchecked((int)(0x000F));
 
@@ -245,7 +245,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         /// <summary>
         /// Preview to another IFD (?)
-        /// <p>
+        /// <para>
         /// Details here: http://gvsoft.homedns.org/exif/makernote-nikon-2-tag0x0011.html
         /// // TODO if this is another IFD, decode it
         /// </summary>
@@ -254,23 +254,23 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>The flash compensation, as an array of four integers.</summary>
         /// <remarks>
         /// The flash compensation, as an array of four integers.
-        /// The value, in EV, is calculated as <code>a*b/c</code>.
-        /// <ul>
-        /// <li><code>-18,1,6,0</code> = -3 EV</li>
-        /// <li><code>4,1,6,0</code> = 0.67 EV</li>
-        /// <li><code>6,1,6,0</code> = 1 EV</li>
-        /// </ul>
+        /// The value, in EV, is calculated as <c>a*b/c</c>.
+        /// <list type="bullet">
+        /// <item><c>-18,1,6,0</c> = -3 EV</item>
+        /// <item><c>4,1,6,0</c> = 0.67 EV</item>
+        /// <item><c>6,1,6,0</c> = 1 EV</item>
+        /// </list>
         /// </remarks>
         public const int TagAutoFlashCompensation = unchecked((int)(0x0012));
 
         /// <summary>The requested ISO value, as an array of two integers.</summary>
         /// <remarks>
         /// The requested ISO value, as an array of two integers.
-        /// <ul>
-        /// <li><code>0,0</code></li>
-        /// <li><code>0,125</code></li>
-        /// <li><code>1,2500</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>0,0</c></item>
+        /// <item><c>0,125</c></item>
+        /// <item><c>1,2500</c></item>
+        /// </list>
         /// </remarks>
         public const int TagIsoRequested = unchecked((int)(0x0013));
 
@@ -280,60 +280,60 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// decode as: top-left (x,y); bot-right (x,y)
         /// - 0 0 49163 53255
         /// - 0 0 3008 2000 (the image dimensions were 3008x2000) (D70)
-        /// <ul>
-        /// <li><code>0,0,4288,2848</code> The max resolution of the D300 camera</li>
-        /// <li><code>0,0,3008,2000</code> The max resolution of the D70 camera</li>
-        /// <li><code>0,0,4256,2832</code> The max resolution of the D3 camera</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>0,0,4288,2848</c> The max resolution of the D300 camera</item>
+        /// <item><c>0,0,3008,2000</c> The max resolution of the D70 camera</item>
+        /// <item><c>0,0,4256,2832</c> The max resolution of the D3 camera</item>
+        /// </list>
         /// </remarks>
         public const int TagImageBoundary = unchecked((int)(0x0016));
 
         /// <summary>The flash exposure compensation, as an array of four integers.</summary>
         /// <remarks>
         /// The flash exposure compensation, as an array of four integers.
-        /// The value, in EV, is calculated as <code>a*b/c</code>.
-        /// <ul>
-        /// <li><code>0,0,0,0</code> = 0 EV</li>
-        /// <li><code>0,1,6,0</code> = 0 EV</li>
-        /// <li><code>4,1,6,0</code> = 0.67 EV</li>
-        /// </ul>
+        /// The value, in EV, is calculated as <c>a*b/c</c>.
+        /// <list type="bullet">
+        /// <item><c>0,0,0,0</c> = 0 EV</item>
+        /// <item><c>0,1,6,0</c> = 0 EV</item>
+        /// <item><c>4,1,6,0</c> = 0.67 EV</item>
+        /// </list>
         /// </remarks>
         public const int TagFlashExposureCompensation = unchecked((int)(0x0017));
 
         /// <summary>The flash bracket compensation, as an array of four integers.</summary>
         /// <remarks>
         /// The flash bracket compensation, as an array of four integers.
-        /// The value, in EV, is calculated as <code>a*b/c</code>.
-        /// <ul>
-        /// <li><code>0,0,0,0</code> = 0 EV</li>
-        /// <li><code>0,1,6,0</code> = 0 EV</li>
-        /// <li><code>4,1,6,0</code> = 0.67 EV</li>
-        /// </ul>
+        /// The value, in EV, is calculated as <c>a*b/c</c>.
+        /// <list type="bullet">
+        /// <item><c>0,0,0,0</c> = 0 EV</item>
+        /// <item><c>0,1,6,0</c> = 0 EV</item>
+        /// <item><c>4,1,6,0</c> = 0.67 EV</item>
+        /// </list>
         /// </remarks>
         public const int TagFlashBracketCompensation = unchecked((int)(0x0018));
 
         /// <summary>The AE bracket compensation, as a rational number.</summary>
         /// <remarks>
         /// The AE bracket compensation, as a rational number.
-        /// <ul>
-        /// <li><code>0/0</code></li>
-        /// <li><code>0/1</code></li>
-        /// <li><code>0/6</code></li>
-        /// <li><code>4/6</code></li>
-        /// <li><code>6/6</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>0/0</c></item>
+        /// <item><c>0/1</c></item>
+        /// <item><c>0/6</c></item>
+        /// <item><c>4/6</c></item>
+        /// <item><c>6/6</c></item>
+        /// </list>
         /// </remarks>
         public const int TagAeBracketCompensation = unchecked((int)(0x0019));
 
         /// <summary>Flash mode, as a string.</summary>
         /// <remarks>
         /// Flash mode, as a string.
-        /// <ul>
-        /// <li><code></code></li>
-        /// <li><code>Red Eye Reduction</code></li>
-        /// <li><code>D-Lighting</code></li>
-        /// <li><code>Distortion control</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c></c></item>
+        /// <item><c>Red Eye Reduction</c></item>
+        /// <item><c>D-Lighting</c></item>
+        /// <item><c>Distortion control</c></item>
+        /// </list>
         /// </remarks>
         public const int TagFlashMode = unchecked((int)(0x001a));
 
@@ -344,17 +344,17 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>The camera's serial number, as a string.</summary>
         /// <remarks>
         /// The camera's serial number, as a string.
-        /// Note that D200 is always blank, and D50 is always <code>"D50"</code>.
+        /// Note that D200 is always blank, and D50 is always <c>"D50"</c>.
         /// </remarks>
         public const int TagCameraSerialNumber = unchecked((int)(0x001d));
 
         /// <summary>The camera's color space setting.</summary>
         /// <remarks>
         /// The camera's color space setting.
-        /// <ul>
-        /// <li><code>1</code> sRGB</li>
-        /// <li><code>2</code> Adobe RGB</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>1</c> sRGB</item>
+        /// <item><c>2</c> Adobe RGB</item>
+        /// </list>
         /// </remarks>
         public const int TagColorSpace = unchecked((int)(0x001e));
 
@@ -367,14 +367,14 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>The active D-Lighting setting.</summary>
         /// <remarks>
         /// The active D-Lighting setting.
-        /// <ul>
-        /// <li><code>0</code> Off</li>
-        /// <li><code>1</code> Low</li>
-        /// <li><code>3</code> Normal</li>
-        /// <li><code>5</code> High</li>
-        /// <li><code>7</code> Extra High</li>
-        /// <li><code>65535</code> Auto</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>0</c> Off</item>
+        /// <item><c>1</c> Low</item>
+        /// <item><c>3</c> Normal</item>
+        /// <item><c>5</c> High</item>
+        /// <item><c>7</c> Extra High</item>
+        /// <item><c>65535</c> Auto</item>
+        /// </list>
         /// </remarks>
         public const int TagActiveDLighting = unchecked((int)(0x0022));
 
@@ -395,12 +395,12 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>The camera's vignette control setting.</summary>
         /// <remarks>
         /// The camera's vignette control setting.
-        /// <ul>
-        /// <li><code>0</code> Off</li>
-        /// <li><code>1</code> Low</li>
-        /// <li><code>3</code> Normal</li>
-        /// <li><code>5</code> High</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>0</c> Off</item>
+        /// <item><c>1</c> Low</item>
+        /// <item><c>3</c> Normal</item>
+        /// <item><c>5</c> High</item>
+        /// </list>
         /// </remarks>
         public const int TagVignetteControl = unchecked((int)(0x002a));
 
@@ -421,58 +421,58 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>The camera's image adjustment setting, as a string.</summary>
         /// <remarks>
         /// The camera's image adjustment setting, as a string.
-        /// <ul>
-        /// <li><code>AUTO</code></li>
-        /// <li><code>CONTRAST(+)</code></li>
-        /// <li><code>CONTRAST(-)</code></li>
-        /// <li><code>NORMAL</code></li>
-        /// <li><code>B &amp; W</code></li>
-        /// <li><code>BRIGHTNESS(+)</code></li>
-        /// <li><code>BRIGHTNESS(-)</code></li>
-        /// <li><code>SEPIA</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>AUTO</c></item>
+        /// <item><c>CONTRAST(+)</c></item>
+        /// <item><c>CONTRAST(-)</c></item>
+        /// <item><c>NORMAL</c></item>
+        /// <item><c>B &amp; W</c></item>
+        /// <item><c>BRIGHTNESS(+)</c></item>
+        /// <item><c>BRIGHTNESS(-)</c></item>
+        /// <item><c>SEPIA</c></item>
+        /// </list>
         /// </remarks>
         public const int TagImageAdjustment = unchecked((int)(0x0080));
 
         /// <summary>The camera's tone compensation setting, as a string.</summary>
         /// <remarks>
         /// The camera's tone compensation setting, as a string.
-        /// <ul>
-        /// <li><code>NORMAL</code></li>
-        /// <li><code>LOW</code></li>
-        /// <li><code>MED.L</code></li>
-        /// <li><code>MED.H</code></li>
-        /// <li><code>HIGH</code></li>
-        /// <li><code>AUTO</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>NORMAL</c></item>
+        /// <item><c>LOW</c></item>
+        /// <item><c>MED.L</c></item>
+        /// <item><c>MED.H</c></item>
+        /// <item><c>HIGH</c></item>
+        /// <item><c>AUTO</c></item>
+        /// </list>
         /// </remarks>
         public const int TagCameraToneCompensation = unchecked((int)(0x0081));
 
         /// <summary>A description of any auxiliary lens, as a string.</summary>
         /// <remarks>
         /// A description of any auxiliary lens, as a string.
-        /// <ul>
-        /// <li><code>OFF</code></li>
-        /// <li><code>FISHEYE 1</code></li>
-        /// <li><code>FISHEYE 2</code></li>
-        /// <li><code>TELEPHOTO 2</code></li>
-        /// <li><code>WIDE ADAPTER</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>OFF</c></item>
+        /// <item><c>FISHEYE 1</c></item>
+        /// <item><c>FISHEYE 2</c></item>
+        /// <item><c>TELEPHOTO 2</c></item>
+        /// <item><c>WIDE ADAPTER</c></item>
+        /// </list>
         /// </remarks>
         public const int TagAdapter = unchecked((int)(0x0082));
 
         /// <summary>The type of lens used, as a byte.</summary>
         /// <remarks>
         /// The type of lens used, as a byte.
-        /// <ul>
-        /// <li><code>0x00</code> AF</li>
-        /// <li><code>0x01</code> MF</li>
-        /// <li><code>0x02</code> D</li>
-        /// <li><code>0x06</code> G, D</li>
-        /// <li><code>0x08</code> VR</li>
-        /// <li><code>0x0a</code> VR, D</li>
-        /// <li><code>0x0e</code> VR, G, D</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>0x00</c> AF</item>
+        /// <item><c>0x01</c> MF</item>
+        /// <item><c>0x02</c> D</item>
+        /// <item><c>0x06</c> G, D</item>
+        /// <item><c>0x08</c> VR</item>
+        /// <item><c>0x0a</c> VR, D</item>
+        /// <item><c>0x0e</c> VR, G, D</item>
+        /// </list>
         /// </remarks>
         public const int TagLensType = unchecked((int)(0x0083));
 
@@ -501,14 +501,14 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>Whether the flash was used in this image.</summary>
         /// <remarks>
         /// Whether the flash was used in this image.
-        /// <ul>
-        /// <li><code>0</code> Flash Not Used</li>
-        /// <li><code>1</code> Manual Flash</li>
-        /// <li><code>3</code> Flash Not Ready</li>
-        /// <li><code>7</code> External Flash</li>
-        /// <li><code>8</code> Fired, Commander Mode</li>
-        /// <li><code>9</code> Fired, TTL Mode</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>0</c> Flash Not Used</item>
+        /// <item><c>1</c> Manual Flash</item>
+        /// <item><c>3</c> Flash Not Ready</item>
+        /// <item><c>7</c> External Flash</item>
+        /// <item><c>8</c> Fired, Commander Mode</item>
+        /// <item><c>9</c> Fired, TTL Mode</item>
+        /// </list>
         /// </remarks>
         public const int TagFlashUsed = unchecked((int)(0x0087));
 
@@ -518,18 +518,18 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>The camera's shooting mode.</summary>
         /// <remarks>
         /// The camera's shooting mode.
-        /// <p>
+        /// <para>
         /// A bit-array with:
-        /// <ul>
-        /// <li><code>0</code> Single Frame</li>
-        /// <li><code>1</code> Continuous</li>
-        /// <li><code>2</code> Delay</li>
-        /// <li><code>8</code> PC Control</li>
-        /// <li><code>16</code> Exposure Bracketing</li>
-        /// <li><code>32</code> Auto ISO</li>
-        /// <li><code>64</code> White-Balance Bracketing</li>
-        /// <li><code>128</code> IR Control</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>0</c> Single Frame</item>
+        /// <item><c>1</c> Continuous</item>
+        /// <item><c>2</c> Delay</item>
+        /// <item><c>8</c> PC Control</item>
+        /// <item><c>16</c> Exposure Bracketing</item>
+        /// <item><c>32</c> Auto ISO</item>
+        /// <item><c>64</c> White-Balance Bracketing</item>
+        /// <item><c>128</c> IR Control</item>
+        /// </list>
         /// </remarks>
         public const int TagShootingMode = unchecked((int)(0x0089));
 
@@ -538,11 +538,11 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>Lens stops, as an array of four integers.</summary>
         /// <remarks>
         /// Lens stops, as an array of four integers.
-        /// The value, in EV, is calculated as <code>a*b/c</code>.
-        /// <ul>
-        /// <li><code>64,1,12,0</code> = 5.33 EV</li>
-        /// <li><code>72,1,12,0</code> = 6 EV</li>
-        /// </ul>
+        /// The value, in EV, is calculated as <c>a*b/c</c>.
+        /// <list type="bullet">
+        /// <item><c>64,1,12,0</c> = 5.33 EV</item>
+        /// <item><c>72,1,12,0</c> = 6 EV</item>
+        /// </list>
         /// </remarks>
         public const int TagLensStops = unchecked((int)(0x008B));
 
@@ -551,14 +551,14 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>The color space as set in the camera, as a string.</summary>
         /// <remarks>
         /// The color space as set in the camera, as a string.
-        /// <ul>
-        /// <li><code>MODE1</code> = Mode 1 (sRGB)</li>
-        /// <li><code>MODE1a</code> = Mode 1 (sRGB)</li>
-        /// <li><code>MODE2</code> = Mode 2 (Adobe RGB)</li>
-        /// <li><code>MODE3</code> = Mode 2 (sRGB): Higher Saturation</li>
-        /// <li><code>MODE3a</code> = Mode 2 (sRGB): Higher Saturation</li>
-        /// <li><code>B &amp; W</code> = B &amp; W</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>MODE1</c> = Mode 1 (sRGB)</item>
+        /// <item><c>MODE1a</c> = Mode 1 (sRGB)</item>
+        /// <item><c>MODE2</c> = Mode 2 (Adobe RGB)</item>
+        /// <item><c>MODE3</c> = Mode 2 (sRGB): Higher Saturation</item>
+        /// <item><c>MODE3a</c> = Mode 2 (sRGB): Higher Saturation</item>
+        /// <item><c>B &amp; W</c> = B &amp; W</item>
+        /// </list>
         /// </remarks>
         public const int TagCameraColorMode = unchecked((int)(0x008D));
 
@@ -567,45 +567,45 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>The camera's scene mode, as a string.</summary>
         /// <remarks>
         /// The camera's scene mode, as a string.  Examples include:
-        /// <ul>
-        /// <li><code>BEACH/SNOW</code></li>
-        /// <li><code>CLOSE UP</code></li>
-        /// <li><code>NIGHT PORTRAIT</code></li>
-        /// <li><code>PORTRAIT</code></li>
-        /// <li><code>ANTI-SHAKE</code></li>
-        /// <li><code>BACK LIGHT</code></li>
-        /// <li><code>BEST FACE</code></li>
-        /// <li><code>BEST</code></li>
-        /// <li><code>COPY</code></li>
-        /// <li><code>DAWN/DUSK</code></li>
-        /// <li><code>FACE-PRIORITY</code></li>
-        /// <li><code>FIREWORKS</code></li>
-        /// <li><code>FOOD</code></li>
-        /// <li><code>HIGH SENS.</code></li>
-        /// <li><code>LAND SCAPE</code></li>
-        /// <li><code>MUSEUM</code></li>
-        /// <li><code>PANORAMA ASSIST</code></li>
-        /// <li><code>PARTY/INDOOR</code></li>
-        /// <li><code>SCENE AUTO</code></li>
-        /// <li><code>SMILE</code></li>
-        /// <li><code>SPORT</code></li>
-        /// <li><code>SPORT CONT.</code></li>
-        /// <li><code>SUNSET</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>BEACH/SNOW</c></item>
+        /// <item><c>CLOSE UP</c></item>
+        /// <item><c>NIGHT PORTRAIT</c></item>
+        /// <item><c>PORTRAIT</c></item>
+        /// <item><c>ANTI-SHAKE</c></item>
+        /// <item><c>BACK LIGHT</c></item>
+        /// <item><c>BEST FACE</c></item>
+        /// <item><c>BEST</c></item>
+        /// <item><c>COPY</c></item>
+        /// <item><c>DAWN/DUSK</c></item>
+        /// <item><c>FACE-PRIORITY</c></item>
+        /// <item><c>FIREWORKS</c></item>
+        /// <item><c>FOOD</c></item>
+        /// <item><c>HIGH SENS.</c></item>
+        /// <item><c>LAND SCAPE</c></item>
+        /// <item><c>MUSEUM</c></item>
+        /// <item><c>PANORAMA ASSIST</c></item>
+        /// <item><c>PARTY/INDOOR</c></item>
+        /// <item><c>SCENE AUTO</c></item>
+        /// <item><c>SMILE</c></item>
+        /// <item><c>SPORT</c></item>
+        /// <item><c>SPORT CONT.</c></item>
+        /// <item><c>SUNSET</c></item>
+        /// </list>
         /// </remarks>
         public const int TagSceneMode = unchecked((int)(0x008F));
 
         /// <summary>The lighting type, as a string.</summary>
         /// <remarks>
         /// The lighting type, as a string.  Examples include:
-        /// <ul>
-        /// <li><code></code></li>
-        /// <li><code>NATURAL</code></li>
-        /// <li><code>SPEEDLIGHT</code></li>
-        /// <li><code>COLORED</code></li>
-        /// <li><code>MIXED</code></li>
-        /// <li><code>NORMAL</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c></c></item>
+        /// <item><c>NATURAL</c></item>
+        /// <item><c>SPEEDLIGHT</c></item>
+        /// <item><c>COLORED</c></item>
+        /// <item><c>MIXED</c></item>
+        /// <item><c>NORMAL</c></item>
+        /// </list>
         /// </remarks>
         public const int TagLightSource = unchecked((int)(0x0090));
 
@@ -623,37 +623,37 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>The NEF (RAW) compression.</summary>
         /// <remarks>
         /// The NEF (RAW) compression.  Examples include:
-        /// <ul>
-        /// <li><code>1</code> Lossy (Type 1)</li>
-        /// <li><code>2</code> Uncompressed</li>
-        /// <li><code>3</code> Lossless</li>
-        /// <li><code>4</code> Lossy (Type 2)</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>1</c> Lossy (Type 1)</item>
+        /// <item><c>2</c> Uncompressed</item>
+        /// <item><c>3</c> Lossless</item>
+        /// <item><c>4</c> Lossy (Type 2)</item>
+        /// </list>
         /// </remarks>
         public const int TagNefCompression = unchecked((int)(0x0093));
 
         /// <summary>The saturation level, as a signed integer.</summary>
         /// <remarks>
         /// The saturation level, as a signed integer.  Examples include:
-        /// <ul>
-        /// <li><code>+3</code></li>
-        /// <li><code>+2</code></li>
-        /// <li><code>+1</code></li>
-        /// <li><code>0</code> Normal</li>
-        /// <li><code>-1</code></li>
-        /// <li><code>-2</code></li>
-        /// <li><code>-3</code> (B&amp;W)</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>+3</c></item>
+        /// <item><c>+2</c></item>
+        /// <item><c>+1</c></item>
+        /// <item><c>0</c> Normal</item>
+        /// <item><c>-1</c></item>
+        /// <item><c>-2</c></item>
+        /// <item><c>-3</c> (B&amp;W)</item>
+        /// </list>
         /// </remarks>
         public const int TagSaturation = unchecked((int)(0x0094));
 
         /// <summary>The type of noise reduction, as a string.</summary>
         /// <remarks>
         /// The type of noise reduction, as a string.  Examples include:
-        /// <ul>
-        /// <li><code>OFF</code></li>
-        /// <li><code>FPNR</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>OFF</c></item>
+        /// <item><c>FPNR</c></item>
+        /// </list>
         /// </remarks>
         public const int TagNoiseReduction = unchecked((int)(0x0095));
 
@@ -682,16 +682,16 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>The camera serial number, as a string.</summary>
         /// <remarks>
         /// The camera serial number, as a string.
-        /// <ul>
-        /// <li><code>NO= 00002539</code></li>
-        /// <li><code>NO= -1000d71</code></li>
-        /// <li><code>PKG597230621263</code></li>
-        /// <li><code>PKG5995671330625116</code></li>
-        /// <li><code>PKG49981281631130677</code></li>
-        /// <li><code>BU672230725063</code></li>
-        /// <li><code>NO= 200332c7</code></li>
-        /// <li><code>NO= 30045efe</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>NO= 00002539</c></item>
+        /// <item><c>NO= -1000d71</c></item>
+        /// <item><c>PKG597230621263</c></item>
+        /// <item><c>PKG5995671330625116</c></item>
+        /// <item><c>PKG49981281631130677</c></item>
+        /// <item><c>BU672230725063</c></item>
+        /// <item><c>NO= 200332c7</c></item>
+        /// <item><c>NO= 30045efe</c></item>
+        /// </list>
         /// </remarks>
         public const int TagCameraSerialNumber2 = unchecked((int)(0x00A0));
 
@@ -714,70 +714,70 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>The camera's image optimisation, as a string.</summary>
         /// <remarks>
         /// The camera's image optimisation, as a string.
-        /// <ul>
-        /// <li><code></code></li>
-        /// <li><code>NORMAL</code></li>
-        /// <li><code>CUSTOM</code></li>
-        /// <li><code>BLACK AND WHITE</code></li>
-        /// <li><code>LAND SCAPE</code></li>
-        /// <li><code>MORE VIVID</code></li>
-        /// <li><code>PORTRAIT</code></li>
-        /// <li><code>SOFT</code></li>
-        /// <li><code>VIVID</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c></c></item>
+        /// <item><c>NORMAL</c></item>
+        /// <item><c>CUSTOM</c></item>
+        /// <item><c>BLACK AND WHITE</c></item>
+        /// <item><c>LAND SCAPE</c></item>
+        /// <item><c>MORE VIVID</c></item>
+        /// <item><c>PORTRAIT</c></item>
+        /// <item><c>SOFT</c></item>
+        /// <item><c>VIVID</c></item>
+        /// </list>
         /// </remarks>
         public const int TagImageOptimisation = unchecked((int)(0x00A9));
 
         /// <summary>The camera's saturation level, as a string.</summary>
         /// <remarks>
         /// The camera's saturation level, as a string.
-        /// <ul>
-        /// <li><code></code></li>
-        /// <li><code>NORMAL</code></li>
-        /// <li><code>AUTO</code></li>
-        /// <li><code>ENHANCED</code></li>
-        /// <li><code>MODERATE</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c></c></item>
+        /// <item><c>NORMAL</c></item>
+        /// <item><c>AUTO</c></item>
+        /// <item><c>ENHANCED</c></item>
+        /// <item><c>MODERATE</c></item>
+        /// </list>
         /// </remarks>
         public const int TagSaturation2 = unchecked((int)(0x00AA));
 
         /// <summary>The camera's digital vari-program setting, as a string.</summary>
         /// <remarks>
         /// The camera's digital vari-program setting, as a string.
-        /// <ul>
-        /// <li><code></code></li>
-        /// <li><code>AUTO</code></li>
-        /// <li><code>AUTO(FLASH OFF)</code></li>
-        /// <li><code>CLOSE UP</code></li>
-        /// <li><code>LANDSCAPE</code></li>
-        /// <li><code>NIGHT PORTRAIT</code></li>
-        /// <li><code>PORTRAIT</code></li>
-        /// <li><code>SPORT</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c></c></item>
+        /// <item><c>AUTO</c></item>
+        /// <item><c>AUTO(FLASH OFF)</c></item>
+        /// <item><c>CLOSE UP</c></item>
+        /// <item><c>LANDSCAPE</c></item>
+        /// <item><c>NIGHT PORTRAIT</c></item>
+        /// <item><c>PORTRAIT</c></item>
+        /// <item><c>SPORT</c></item>
+        /// </list>
         /// </remarks>
         public const int TagDigitalVariProgram = unchecked((int)(0x00AB));
 
         /// <summary>The camera's digital vari-program setting, as a string.</summary>
         /// <remarks>
         /// The camera's digital vari-program setting, as a string.
-        /// <ul>
-        /// <li><code></code></li>
-        /// <li><code>VR-ON</code></li>
-        /// <li><code>VR-OFF</code></li>
-        /// <li><code>VR-HYBRID</code></li>
-        /// <li><code>VR-ACTIVE</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c></c></item>
+        /// <item><c>VR-ON</c></item>
+        /// <item><c>VR-OFF</c></item>
+        /// <item><c>VR-HYBRID</c></item>
+        /// <item><c>VR-ACTIVE</c></item>
+        /// </list>
         /// </remarks>
         public const int TagImageStabilisation = unchecked((int)(0x00AC));
 
         /// <summary>The camera's digital vari-program setting, as a string.</summary>
         /// <remarks>
         /// The camera's digital vari-program setting, as a string.
-        /// <ul>
-        /// <li><code></code></li>
-        /// <li><code>HYBRID</code></li>
-        /// <li><code>STANDARD</code></li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c></c></item>
+        /// <item><c>HYBRID</c></item>
+        /// <item><c>STANDARD</c></item>
+        /// </list>
         /// </remarks>
         public const int TagAfResponse = unchecked((int)(0x00AD));
 
@@ -790,13 +790,13 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>The camera's high ISO noise reduction setting, as an integer.</summary>
         /// <remarks>
         /// The camera's high ISO noise reduction setting, as an integer.
-        /// <ul>
-        /// <li><code>0</code> Off</li>
-        /// <li><code>1</code> Minimal</li>
-        /// <li><code>2</code> Low</li>
-        /// <li><code>4</code> Normal</li>
-        /// <li><code>6</code> High</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><c>0</c> Off</item>
+        /// <item><c>1</c> Minimal</item>
+        /// <item><c>2</c> Low</item>
+        /// <item><c>4</c> Normal</item>
+        /// <item><c>6</c> High</item>
+        /// </list>
         /// </remarks>
         public const int TagHighIsoNoiseReduction = unchecked((int)(0x00B1));
 

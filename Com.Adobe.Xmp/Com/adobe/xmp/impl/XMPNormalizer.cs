@@ -154,8 +154,8 @@ namespace Com.Adobe.Xmp.Impl
         /// Undo the denormalization performed by the XMP used in Acrobat 5.<br />
         /// If a Dublin Core array had only one item, it was serialized as a simple
         /// property. <br />
-        /// The <code>xml:lang</code> attribute was dropped from an
-        /// <code>alt-text</code> item if the language was <code>x-default</code>.
+        /// The <c>xml:lang</c> attribute was dropped from an
+        /// <c>alt-text</c> item if the language was <c>x-default</c>.
         /// </remarks>
         /// <param name="dcSchema">the DC schema node</param>
         /// <exception cref="XmpException">Thrown if normalization fails</exception>

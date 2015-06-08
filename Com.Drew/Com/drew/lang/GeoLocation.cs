@@ -29,9 +29,9 @@ namespace Com.Drew.Lang
     /// <summary>Represents a latitude and longitude pair, giving a position on earth in spherical coordinates.</summary>
     /// <remarks>
     /// Represents a latitude and longitude pair, giving a position on earth in spherical coordinates.
-    /// <p>
+    /// <para>
     /// Values of latitude and longitude are given in degrees.
-    /// <p>
+    /// <para>
     /// This type is immutable.
     /// </remarks>
     public sealed class GeoLocation

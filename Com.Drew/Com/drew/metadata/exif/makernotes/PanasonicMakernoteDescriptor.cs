@@ -30,12 +30,12 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 {
     /// <summary>
     /// Provides human-readable string representations of tag values stored in a <see cref="PanasonicMakernoteDirectory"/>.
-    /// <p>
+    /// <para>
     /// Some information about this makernote taken from here:
-    /// <ul>
-    /// <li><a href="http://www.ozhiker.com/electronics/pjmt/jpeg_info/panasonic_mn.html">http://www.ozhiker.com/electronics/pjmt/jpeg_info/panasonic_mn.html</a></li>
-    /// <li><a href="http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/Panasonic.html">http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/Panasonic.html</a></li>
-    /// </ul>
+    /// <list type="bullet">
+    /// <item><a href="http://www.ozhiker.com/electronics/pjmt/jpeg_info/panasonic_mn.html">http://www.ozhiker.com/electronics/pjmt/jpeg_info/panasonic_mn.html</a></item>
+    /// <item><a href="http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/Panasonic.html">http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/Panasonic.html</a></item>
+    /// </list>
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Philipp Sandhaus</author>

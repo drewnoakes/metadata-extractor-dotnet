@@ -62,7 +62,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>flag if the node has an "rdf:value" child node.</summary>
         private bool _hasValueChild;
 
-        /// <summary>Creates an <code>XMPNode</code> with initial values.</summary>
+        /// <summary>Creates an <c>XMPNode</c> with initial values.</summary>
         /// <param name="name">the name of the node</param>
         /// <param name="value">the value of the node</param>
         /// <param name="options">the options of the node</param>
@@ -189,7 +189,7 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <param name="expr">child node name to look for</param>
-        /// <returns>Returns an <code>XMPNode</code> if node has been found, <code>null</code> otherwise.</returns>
+        /// <returns>Returns an <c>XMPNode</c> if node has been found, <c>null</c> otherwise.</returns>
         public virtual XmpNode FindChildByName(string expr)
         {
             return Find(GetChildren(), expr);
@@ -279,8 +279,8 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <param name="expr">qualifier node name to look for</param>
         /// <returns>
-        /// Returns a qualifier <code>XMPNode</code> if node has been found,
-        /// <code>null</code> otherwise.
+        /// Returns a qualifier <c>XMPNode</c> if node has been found,
+        /// <c>null</c> otherwise.
         /// </returns>
         public virtual XmpNode FindQualifierByName(string expr)
         {
@@ -507,21 +507,21 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>
         /// Sorts the complete datamodel according to the following rules:
-        /// <ul>
-        /// <li>Nodes at one level are sorted by name, that is prefix + local name
-        /// <li>Starting at the root node the children and qualifier are sorted recursively,
+        /// <list type="bullet">
+        /// <item>Nodes at one level are sorted by name, that is prefix + local name
+        /// <item>Starting at the root node the children and qualifier are sorted recursively,
         /// which the following exceptions.
         /// </summary>
         /// <remarks>
         /// Sorts the complete datamodel according to the following rules:
-        /// <ul>
-        /// <li>Nodes at one level are sorted by name, that is prefix + local name
-        /// <li>Starting at the root node the children and qualifier are sorted recursively,
+        /// <list type="bullet">
+        /// <item>Nodes at one level are sorted by name, that is prefix + local name
+        /// <item>Starting at the root node the children and qualifier are sorted recursively,
         /// which the following exceptions.
-        /// <li>Sorting will not be used for arrays.
-        /// <li>Within qualifier "xml:lang" and/or "rdf:type" stay at the top in that order,
+        /// <item>Sorting will not be used for arrays.
+        /// <item>Within qualifier "xml:lang" and/or "rdf:type" stay at the top in that order,
         /// all others are sorted.
-        /// </ul>
+        /// </list>
         /// </remarks>
         public virtual void Sort()
         {
@@ -700,8 +700,8 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <summary>
-        /// Sets the parent node, this is solely done by <code>addChild(...)</code>
-        /// and <code>addQualifier()</code>.
+        /// Sets the parent node, this is solely done by <c>addChild(...)</c>
+        /// and <c>addQualifier()</c>.
         /// </summary>
         /// <param name="parent">Sets the parent node.</param>
         protected internal virtual void SetParent(XmpNode parent)
@@ -712,7 +712,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>Internal find.</summary>
         /// <param name="list">the list to search in</param>
         /// <param name="expr">the search expression</param>
-        /// <returns>Returns the found node or <code>nulls</code>.</returns>
+        /// <returns>Returns the found node or <c>nulls</c>.</returns>
         private static XmpNode Find(IList list, string expr)
         {
             if (list != null)

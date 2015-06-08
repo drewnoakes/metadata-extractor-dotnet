@@ -37,12 +37,12 @@ namespace Com.Drew.Metadata.Webp
     /// <see cref="IRiffHandler"/>
     /// specialising in WebP support.
     /// Extracts data from chunk types:
-    /// <ul>
-    /// <li><code>"VP8X"</code>: width, height, is animation, has alpha</li>
-    /// <li><code>"EXIF"</code>: full Exif data</li>
-    /// <li><code>"ICCP"</code>: full ICC profile</li>
-    /// <li><code>"XMP "</code>: full XMP data</li>
-    /// </ul>
+    /// <list type="bullet">
+    /// <item><c>"VP8X"</c>: width, height, is animation, has alpha</item>
+    /// <item><c>"EXIF"</c>: full Exif data</item>
+    /// <item><c>"ICCP"</c>: full ICC profile</item>
+    /// <item><c>"XMP "</c>: full XMP data</item>
+    /// </list>
     /// </summary>
     public class WebpRiffHandler : IRiffHandler
     {

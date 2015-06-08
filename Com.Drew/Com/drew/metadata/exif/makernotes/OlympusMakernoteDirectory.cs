@@ -85,7 +85,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <summary>Not 100% sure about this tag.</summary>
         /// <remarks>
         /// Not 100% sure about this tag.
-        /// <p>
+        /// <para>
         /// Used by Konica / Minolta cameras.
         /// 0 = Raw
         /// 1 = Super Fine

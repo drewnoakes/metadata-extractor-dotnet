@@ -58,7 +58,7 @@ namespace Com.Drew.Metadata
         /// </summary>
         /// <remarks>
         /// Gets the tag type in hex notation as a String with padded leading
-        /// zeroes if necessary (i.e. <code>0x100E</code>).
+        /// zeroes if necessary (i.e. <c>0x100E</c>).
         /// </remarks>
         /// <returns>the tag type as a string in hexadecimal notation</returns>
         [NotNull]
@@ -86,8 +86,8 @@ namespace Com.Drew.Metadata
         /// <summary>Get whether this tag has a name.</summary>
         /// <remarks>
         /// Get whether this tag has a name.
-        /// If <code>true</code>, it may be accessed via <see cref="GetTagName()"/>.
-        /// If <code>false</code>, <see cref="GetTagName()"/> will return a string resembling <code>"Unknown tag (0x1234)"</code>.
+        /// If <c>true</c>, it may be accessed via <see cref="GetTagName()"/>.
+        /// If <c>false</c>, <see cref="GetTagName()"/> will return a string resembling <c>"Unknown tag (0x1234)"</c>.
         /// </remarks>
         /// <returns>whether this tag has a name</returns>
         [NotNull]
@@ -97,8 +97,8 @@ namespace Com.Drew.Metadata
         }
 
         /// <summary>
-        /// Get the name of the tag, such as <code>Aperture</code>, or
-        /// <code>InteropVersion</code>.
+        /// Get the name of the tag, such as <c>Aperture</c>, or
+        /// <c>InteropVersion</c>.
         /// </summary>
         /// <returns>the tag's name</returns>
         [NotNull]
@@ -111,7 +111,7 @@ namespace Com.Drew.Metadata
         /// Get the name of the
         /// <see cref="Directory"/>
         /// in which the tag exists, such as
-        /// <code>Exif</code>, <code>GPS</code> or <code>Interoperability</code>.
+        /// <c>Exif</c>, <c>GPS</c> or <c>Interoperability</c>.
         /// </summary>
         /// <returns>
         /// name of the
@@ -125,7 +125,7 @@ namespace Com.Drew.Metadata
         }
 
         /// <summary>A basic representation of the tag's type and value.</summary>
-        /// <remarks>A basic representation of the tag's type and value.  EG: <code>[FNumber] F2.8</code>.</remarks>
+        /// <remarks>A basic representation of the tag's type and value.  EG: <c>[FNumber] F2.8</c>.</remarks>
         /// <returns>the tag's type and value</returns>
         [NotNull]
         public override string ToString()

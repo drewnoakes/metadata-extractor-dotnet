@@ -35,7 +35,7 @@ namespace Com.Drew.Tools
     public static class FileUtil
     {
         /// <summary>
-        /// Saves the contents of a <code>byte[]</code> to the specified <see cref="Sharpen.FilePath"/>.
+        /// Saves the contents of a <c>byte[]</c> to the specified <see cref="Sharpen.FilePath"/>.
         /// </summary>
         /// <exception cref="System.IO.IOException"/>
         public static void SaveBytes([NotNull] FilePath file, [NotNull] sbyte[] bytes)
@@ -58,7 +58,7 @@ namespace Com.Drew.Tools
         /// <summary>
         /// Reads the contents of a
         /// <see cref="Sharpen.FilePath"/>
-        /// into a <code>byte[]</code>. This relies upon
+        /// into a <c>byte[]</c>. This relies upon
         /// <see cref="Sharpen.FilePath.Length()"/>
         /// returning the correct value, which may not be the case when using a network file system. However this method is
         /// intended for unit test support, in which case the files should be on the local volume.
@@ -99,7 +99,7 @@ namespace Com.Drew.Tools
         /// <summary>
         /// Reads the contents of a
         /// <see cref="Sharpen.FilePath"/>
-        /// into a <code>byte[]</code>. This relies upon <code>File.length()</code>
+        /// into a <c>byte[]</c>. This relies upon <c>File.length()</c>
         /// returning the correct value, which may not be the case when using a network file system. However this method is
         /// intended for unit test support, in which case the files should be on the local volume.
         /// </summary>

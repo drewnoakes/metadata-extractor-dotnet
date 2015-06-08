@@ -14,7 +14,7 @@ using Sharpen;
 namespace Com.Adobe.Xmp
 {
     /// <summary>
-    /// A factory to create <code>XMPDateTime</code>-instances from a <code>Calendar</code> or an
+    /// A factory to create <c>XMPDateTime</c>-instances from a <c>Calendar</c> or an
     /// ISO 8601 string or for the current time.
     /// </summary>
     /// <since>16.02.2006</since>
@@ -24,22 +24,22 @@ namespace Com.Adobe.Xmp
         private static readonly TimeZoneInfo Utc = Extensions.GetTimeZone("UTC");
 
         // EMPTY
-        /// <summary>Creates an <code>XMPDateTime</code> from a <code>Calendar</code>-object.</summary>
-        /// <param name="calendar">a <code>Calendar</code>-object.</param>
-        /// <returns>An <code>XMPDateTime</code>-object.</returns>
+        /// <summary>Creates an <c>XMPDateTime</c> from a <c>Calendar</c>-object.</summary>
+        /// <param name="calendar">a <c>Calendar</c>-object.</param>
+        /// <returns>An <c>XMPDateTime</c>-object.</returns>
         public static IXmpDateTime CreateFromCalendar(Calendar calendar)
         {
             return new XmpDateTime(calendar);
         }
 
-        /// <summary>Creates an empty <code>XMPDateTime</code>-object.</summary>
-        /// <returns>Returns an <code>XMPDateTime</code>-object.</returns>
+        /// <summary>Creates an empty <c>XMPDateTime</c>-object.</summary>
+        /// <returns>Returns an <c>XMPDateTime</c>-object.</returns>
         public static IXmpDateTime Create()
         {
             return new XmpDateTime();
         }
 
-        /// <summary>Creates an <code>XMPDateTime</code>-object from initial values.</summary>
+        /// <summary>Creates an <c>XMPDateTime</c>-object from initial values.</summary>
         /// <param name="year">years</param>
         /// <param name="month">
         /// months from 1 to 12<br />
@@ -48,7 +48,7 @@ namespace Com.Adobe.Xmp
         /// is defined from 0 to 11.
         /// </param>
         /// <param name="day">days</param>
-        /// <returns>Returns an <code>XMPDateTime</code>-object.</returns>
+        /// <returns>Returns an <c>XMPDateTime</c>-object.</returns>
         public static IXmpDateTime Create(int year, int month, int day)
         {
             IXmpDateTime dt = new XmpDateTime();
@@ -58,7 +58,7 @@ namespace Com.Adobe.Xmp
             return dt;
         }
 
-        /// <summary>Creates an <code>XMPDateTime</code>-object from initial values.</summary>
+        /// <summary>Creates an <c>XMPDateTime</c>-object from initial values.</summary>
         /// <param name="year">years</param>
         /// <param name="month">
         /// months from 1 to 12<br />
@@ -71,7 +71,7 @@ namespace Com.Adobe.Xmp
         /// <param name="minute">minutes</param>
         /// <param name="second">seconds</param>
         /// <param name="nanoSecond">nanoseconds</param>
-        /// <returns>Returns an <code>XMPDateTime</code>-object.</returns>
+        /// <returns>Returns an <c>XMPDateTime</c>-object.</returns>
         public static IXmpDateTime Create(int year, int month, int day, int hour, int minute, int second, int nanoSecond)
         {
             IXmpDateTime dt = new XmpDateTime();
@@ -85,9 +85,9 @@ namespace Com.Adobe.Xmp
             return dt;
         }
 
-        /// <summary>Creates an <code>XMPDateTime</code> from an ISO 8601 string.</summary>
+        /// <summary>Creates an <c>XMPDateTime</c> from an ISO 8601 string.</summary>
         /// <param name="strValue">The ISO 8601 string representation of the date/time.</param>
-        /// <returns>An <code>XMPDateTime</code>-object.</returns>
+        /// <returns>An <c>XMPDateTime</c>-object.</returns>
         /// <exception cref="XmpException">When the ISO 8601 string is non-conform</exception>
         /// <exception cref="XmpException"/>
         public static IXmpDateTime CreateFromIso8601(string strValue)
@@ -109,8 +109,8 @@ namespace Com.Adobe.Xmp
         /// Sets the local time zone without touching any other Any existing time zone value is replaced,
         /// the other date/time fields are not adjusted in any way.
         /// </summary>
-        /// <param name="dateTime">the <code>XMPDateTime</code> variable containing the value to be modified.</param>
-        /// <returns>Returns an updated <code>XMPDateTime</code>-object.</returns>
+        /// <param name="dateTime">the <c>XMPDateTime</c> variable containing the value to be modified.</param>
+        /// <returns>Returns an updated <c>XMPDateTime</c>-object.</returns>
         public static IXmpDateTime SetLocalTimeZone(IXmpDateTime dateTime)
         {
             Calendar cal = dateTime.GetCalendar();
@@ -124,10 +124,10 @@ namespace Com.Adobe.Xmp
         /// adjusted and the time zone set to be UTC.
         /// </remarks>
         /// <param name="dateTime">
-        /// the <code>XMPDateTime</code> variable containing the time to
+        /// the <c>XMPDateTime</c> variable containing the time to
         /// be modified.
         /// </param>
-        /// <returns>Returns an updated <code>XMPDateTime</code>-object.</returns>
+        /// <returns>Returns an updated <c>XMPDateTime</c>-object.</returns>
         public static IXmpDateTime ConvertToUtcTime(IXmpDateTime dateTime)
         {
             long timeInMillis = dateTime.GetCalendar().GetTimeInMillis();
@@ -142,8 +142,8 @@ namespace Com.Adobe.Xmp
         /// Make sure a time is local. If the time zone is not the local zone, the time is adjusted and
         /// the time zone set to be local.
         /// </remarks>
-        /// <param name="dateTime">the <code>XMPDateTime</code> variable containing the time to be modified.</param>
-        /// <returns>Returns an updated <code>XMPDateTime</code>-object.</returns>
+        /// <param name="dateTime">the <c>XMPDateTime</c> variable containing the time to be modified.</param>
+        /// <returns>Returns an updated <c>XMPDateTime</c>-object.</returns>
         public static IXmpDateTime ConvertToLocalTime(IXmpDateTime dateTime)
         {
             long timeInMillis = dateTime.GetCalendar().GetTimeInMillis();

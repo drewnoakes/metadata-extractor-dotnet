@@ -29,9 +29,7 @@ namespace Com.Drew.Lang
     /// <summary>Immutable class for holding a rational number without loss of precision.</summary>
     /// <remarks>
     /// Immutable class for holding a rational number without loss of precision.  Provides
-    /// a familiar representation via
-    /// <see cref="Sharpen.Extensions.ConvertToString()"/>
-    /// in form <code>numerator/denominator</code>.
+    /// a familiar representation via <see cref="ToString"/> in form <c>numerator/denominator</c>.
     /// Note that any value with a numerator of zero will be treated as zero, even if the
     /// denominator is also zero.
     /// </remarks>
@@ -59,96 +57,96 @@ namespace Com.Drew.Lang
             _denominator = denominator;
         }
 
-        /// <summary>Returns the value of the specified number as a <code>double</code>.</summary>
+        /// <summary>Returns the value of the specified number as a <c>double</c>.</summary>
         /// <remarks>
-        /// Returns the value of the specified number as a <code>double</code>.
+        /// Returns the value of the specified number as a <c>double</c>.
         /// This may involve rounding.
         /// </remarks>
         /// <returns>
         /// the numeric value represented by this object after conversion
-        /// to type <code>double</code>.
+        /// to type <c>double</c>.
         /// </returns>
         public override double DoubleValue()
         {
             return _numerator == 0 ? 0.0 : (double)_numerator / (double)_denominator;
         }
 
-        /// <summary>Returns the value of the specified number as a <code>float</code>.</summary>
+        /// <summary>Returns the value of the specified number as a <c>float</c>.</summary>
         /// <remarks>
-        /// Returns the value of the specified number as a <code>float</code>.
+        /// Returns the value of the specified number as a <c>float</c>.
         /// This may involve rounding.
         /// </remarks>
         /// <returns>
         /// the numeric value represented by this object after conversion
-        /// to type <code>float</code>.
+        /// to type <c>float</c>.
         /// </returns>
         public override float FloatValue()
         {
             return _numerator == 0 ? 0.0f : (float)_numerator / (float)_denominator;
         }
 
-        /// <summary>Returns the value of the specified number as a <code>byte</code>.</summary>
+        /// <summary>Returns the value of the specified number as a <c>byte</c>.</summary>
         /// <remarks>
-        /// Returns the value of the specified number as a <code>byte</code>.
+        /// Returns the value of the specified number as a <c>byte</c>.
         /// This may involve rounding or truncation.  This implementation simply
         /// casts the result of
         /// <see cref="DoubleValue()"/>
-        /// to <code>byte</code>.
+        /// to <c>byte</c>.
         /// </remarks>
         /// <returns>
         /// the numeric value represented by this object after conversion
-        /// to type <code>byte</code>.
+        /// to type <c>byte</c>.
         /// </returns>
         public sealed override sbyte ByteValue()
         {
             return unchecked((sbyte)DoubleValue());
         }
 
-        /// <summary>Returns the value of the specified number as an <code>int</code>.</summary>
+        /// <summary>Returns the value of the specified number as an <c>int</c>.</summary>
         /// <remarks>
-        /// Returns the value of the specified number as an <code>int</code>.
+        /// Returns the value of the specified number as an <c>int</c>.
         /// This may involve rounding or truncation.  This implementation simply
         /// casts the result of
         /// <see cref="DoubleValue()"/>
-        /// to <code>int</code>.
+        /// to <c>int</c>.
         /// </remarks>
         /// <returns>
         /// the numeric value represented by this object after conversion
-        /// to type <code>int</code>.
+        /// to type <c>int</c>.
         /// </returns>
         public sealed override int IntValue()
         {
             return (int)DoubleValue();
         }
 
-        /// <summary>Returns the value of the specified number as a <code>long</code>.</summary>
+        /// <summary>Returns the value of the specified number as a <c>long</c>.</summary>
         /// <remarks>
-        /// Returns the value of the specified number as a <code>long</code>.
+        /// Returns the value of the specified number as a <c>long</c>.
         /// This may involve rounding or truncation.  This implementation simply
         /// casts the result of
         /// <see cref="DoubleValue()"/>
-        /// to <code>long</code>.
+        /// to <c>long</c>.
         /// </remarks>
         /// <returns>
         /// the numeric value represented by this object after conversion
-        /// to type <code>long</code>.
+        /// to type <c>long</c>.
         /// </returns>
         public sealed override long LongValue()
         {
             return (long)DoubleValue();
         }
 
-        /// <summary>Returns the value of the specified number as a <code>short</code>.</summary>
+        /// <summary>Returns the value of the specified number as a <c>short</c>.</summary>
         /// <remarks>
-        /// Returns the value of the specified number as a <code>short</code>.
+        /// Returns the value of the specified number as a <c>short</c>.
         /// This may involve rounding or truncation.  This implementation simply
         /// casts the result of
         /// <see cref="DoubleValue()"/>
-        /// to <code>short</code>.
+        /// to <c>short</c>.
         /// </remarks>
         /// <returns>
         /// the numeric value represented by this object after conversion
-        /// to type <code>short</code>.
+        /// to type <c>short</c>.
         /// </returns>
         public sealed override short ShortValue()
         {
@@ -185,7 +183,7 @@ namespace Com.Drew.Lang
             return _denominator == 1 || (_denominator != 0 && (_numerator % _denominator == 0)) || (_denominator == 0 && _numerator == 0);
         }
 
-        /// <summary>Returns a string representation of the object of form <code>numerator/denominator</code>.</summary>
+        /// <summary>Returns a string representation of the object of form <c>numerator/denominator</c>.</summary>
         /// <returns>a string representation of the object.</returns>
         [NotNull]
         public override string ToString()
@@ -252,7 +250,7 @@ namespace Com.Drew.Lang
         /// </param>
         /// <returns>
         /// true if instances are mathematically equivalent, otherwise false.  Will also
-        /// return false if <code>obj</code> is not an instance of <see cref="Rational"/>.
+        /// return false if <c>obj</c> is not an instance of <see cref="Rational"/>.
         /// </returns>
         public override bool Equals([CanBeNull] object obj)
         {
@@ -270,33 +268,30 @@ namespace Com.Drew.Lang
         }
 
         /// <summary>
-        /// <p>
-        /// Simplifies the
-        /// <see cref="Rational"/>
-        /// number.</p>
-        /// <p>
-        /// Prime number series: 1, 2, 3, 5, 7, 9, 11, 13, 17</p>
-        /// <p>
+        /// <para>Simplifies the <see cref="Rational"/> number.</para>
+        /// <para>
+        /// Prime number series: 1, 2, 3, 5, 7, 9, 11, 13, 17</para>
+        /// <para>
         /// To reduce a rational, need to see if both numerator and denominator are divisible
         /// by a common factor.  Using the prime number series in ascending order guarantees
-        /// the minimum number of checks required.</p>
-        /// <p>
+        /// the minimum number of checks required.</para>
+        /// <para>
         /// However, generating the prime number series seems to be a hefty task.  Perhaps
         /// it's simpler to check if both d &amp; n are divisible by all numbers from 2
         /// <literal>-&gt;</literal>
         /// (Math.min(denominator, numerator) / 2).  In doing this, one can check for 2
         /// and 5 once, then ignore all even numbers, and all numbers ending in 0 or 5.
-        /// This leaves four numbers from every ten to check.</p>
-        /// <p>
-        /// Therefore, the max number of pairs of modulus divisions required will be:</p>
-        /// <pre><code>
-        /// 4   Math.min(denominator, numerator) - 1
+        /// This leaves four numbers from every ten to check.</para>
+        /// <para>
+        /// Therefore, the max number of pairs of modulus divisions required will be:</para>
+        /// <pre><c>
+        ///  4   Math.min(denominator, numerator) - 1
         /// -- * ------------------------------------ + 2
         /// 10                    2
-        /// Math.min(denominator, numerator) - 1
-        /// = ------------------------------------ + 2
-        /// 5
-        /// </code></pre>
+        ///      Math.min(denominator, numerator) - 1
+        ///    = ------------------------------------ + 2
+        ///                       5
+        /// </c></pre>
         /// </summary>
         /// <returns>
         /// a simplified instance, or if the Rational could not be simplified,

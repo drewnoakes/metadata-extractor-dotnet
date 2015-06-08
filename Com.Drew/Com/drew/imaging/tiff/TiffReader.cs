@@ -46,7 +46,7 @@ namespace Com.Drew.Imaging.Tiff
         /// <see cref="ITiffHandler"/>
         /// that will coordinate processing and accept read values
         /// </param>
-        /// <param name="tiffHeaderOffset">the offset within <code>reader</code> at which the TIFF header starts</param>
+        /// <param name="tiffHeaderOffset">the offset within <c>reader</c> at which the TIFF header starts</param>
         /// <exception cref="TiffProcessingException">
         /// if an error occurred during the processing of TIFF data that could not be
         /// ignored or recovered from
@@ -95,16 +95,16 @@ namespace Com.Drew.Imaging.Tiff
         /// <remarks>
         /// Processes a TIFF IFD.
         /// IFD Header:
-        /// <ul>
-        /// <li><b>2 bytes</b> number of tags</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><b>2 bytes</b> number of tags</item>
+        /// </list>
         /// Tag structure:
-        /// <ul>
-        /// <li><b>2 bytes</b> tag type</li>
-        /// <li><b>2 bytes</b> format code (values 1 to 12, inclusive)</li>
-        /// <li><b>4 bytes</b> component count</li>
-        /// <li><b>4 bytes</b> inline value, or offset pointer if too large to fit in four bytes</li>
-        /// </ul>
+        /// <list type="bullet">
+        /// <item><b>2 bytes</b> tag type</item>
+        /// <item><b>2 bytes</b> format code (values 1 to 12, inclusive)</item>
+        /// <item><b>4 bytes</b> component count</item>
+        /// <item><b>4 bytes</b> inline value, or offset pointer if too large to fit in four bytes</item>
+        /// </list>
         /// </remarks>
         /// <param name="handler">
         /// the
@@ -117,8 +117,8 @@ namespace Com.Drew.Imaging.Tiff
         /// from which the data should be read
         /// </param>
         /// <param name="processedIfdOffsets">the set of visited IFD offsets, to avoid revisiting the same IFD in an endless loop</param>
-        /// <param name="ifdOffset">the offset within <code>reader</code> at which the IFD data starts</param>
-        /// <param name="tiffHeaderOffset">the offset within <code>reader</code> at which the TIFF header starts</param>
+        /// <param name="ifdOffset">the offset within <c>reader</c> at which the IFD data starts</param>
+        /// <param name="tiffHeaderOffset">the offset within <c>reader</c> at which the TIFF header starts</param>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
         public static void ProcessIfd([NotNull] ITiffHandler handler, [NotNull] RandomAccessReader reader, [NotNull] ICollection<int?> processedIfdOffsets, int ifdOffset, int tiffHeaderOffset)
         {

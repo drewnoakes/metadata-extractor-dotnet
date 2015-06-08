@@ -11,7 +11,7 @@ using Sharpen;
 
 namespace Com.Adobe.Xmp.Impl
 {
-    /// <summary>An <code>OutputStream</code> that counts the written bytes.</summary>
+    /// <summary>An <c>OutputStream</c> that counts the written bytes.</summary>
     /// <since>08.11.2006</since>
     public sealed class CountOutputStream : OutputStream
     {
@@ -22,7 +22,7 @@ namespace Com.Adobe.Xmp.Impl
         private int _bytesWritten;
 
         /// <summary>Constructor with providing the output stream to decorate.</summary>
-        /// <param name="out">an <code>OutputStream</code></param>
+        /// <param name="out">an <c>OutputStream</c></param>
         internal CountOutputStream(OutputStream @out)
         {
             _out = @out;

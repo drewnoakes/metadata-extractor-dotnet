@@ -54,7 +54,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>Constructor for a cloned metadata tree.</summary>
         /// <param name="tree">
         /// an prefilled metadata tree which fulfills all
-        /// <code>XMPNode</code> contracts.
+        /// <c>XMPNode</c> contracts.
         /// </param>
         public XmpMeta(XmpNode tree)
         {
@@ -538,7 +538,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="schemaNs">a schema namespace</param>
         /// <param name="propName">a property name or path</param>
         /// <param name="valueType">the type of the value, see VALUE_...</param>
-        /// <returns>Returns an <code>XMPProperty</code></returns>
+        /// <returns>Returns an <c>XMPProperty</c></returns>
         /// <exception cref="XmpException">Collects any exception that occurs.</exception>
         protected internal virtual IXmpProperty GetProperty(string schemaNs, string propName, int valueType)
         {
@@ -598,7 +598,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="valueType">the type of the value, see VALUE_...</param>
         /// <returns>
         /// Returns the node value as an object according to the
-        /// <code>valueType</code>.
+        /// <c>valueType</c>.
         /// </returns>
         /// <exception cref="XmpException">Collects any exception that occurs.</exception>
         protected internal virtual object GetPropertyObject(string schemaNs, string propName, int valueType)
@@ -1040,8 +1040,8 @@ namespace Com.Adobe.Xmp.Impl
         /// found or created.
         /// </summary>
         /// <param name="node">the newly created node</param>
-        /// <param name="value">the node value, can be <code>null</code></param>
-        /// <param name="newOptions">options for the new node, must not be <code>null</code>.</param>
+        /// <param name="value">the node value, can be <c>null</c></param>
+        /// <param name="newOptions">options for the new node, must not be <c>null</c>.</param>
         /// <param name="deleteExisting">flag if the existing value is to be overwritten</param>
         /// <exception cref="XmpException">thrown if options and value do not correspond</exception>
         internal virtual void SetNode(XmpNode node, object value, PropertyOptions newOptions, bool deleteExisting)
