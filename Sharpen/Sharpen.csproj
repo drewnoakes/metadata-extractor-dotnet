@@ -68,7 +68,6 @@
     <Compile Include="Sharpen\InflaterInputStream.cs" />
     <Compile Include="Sharpen\InputStreamReader.cs" />
     <Compile Include="Sharpen\ListIterator.cs" />
-    <Compile Include="Sharpen\Matcher.cs" />
     <Compile Include="Sharpen\OutputStreamWriter.cs" />
     <Compile Include="Sharpen\PrintWriter.cs" />
     <Compile Include="Sharpen\RandomAccessFile.cs" />

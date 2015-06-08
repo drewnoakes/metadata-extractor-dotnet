@@ -329,7 +329,7 @@ namespace Com.Adobe.Xmp.Impl
                 ParameterAsserts.AssertPropName(actualProp);
                 // Fix the alias options
                 AliasOptions aliasOpts = aliasForm != null ? new AliasOptions(XmpNodeUtils.VerifySetOptions(aliasForm.ToPropertyOptions(), null).GetOptions()) : new AliasOptions();
-                if (new Matcher(_p, aliasProp).Find() || new Matcher(_p, actualProp).Find())
+                if (_p.IsMatch(aliasProp) || _p.IsMatch(actualProp))
                 {
                     throw new XmpException("Alias and actual property names must be simple", XmpErrorConstants.Badxpath);
                 }
