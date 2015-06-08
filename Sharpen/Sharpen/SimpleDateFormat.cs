@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Sharpen
@@ -83,7 +84,7 @@ namespace Sharpen
 
         private static Regex BuildDateTimeParser(string[] formatParts)
         {
-            string pattern = "";
+            var pattern = new StringBuilder();
 
             foreach (var formatPart in formatParts)
             {
@@ -94,50 +95,50 @@ namespace Sharpen
 
                 if (formatPart.Equals("yyyy"))
                 {
-                    pattern += string.Format("(?<{0}>\\d{{4}})", FIELD_YEAR);
+                    pattern.AppendFormat("(?<{0}>\\d{{4}})", FIELD_YEAR);
                     continue;
                 }
 
                 if (formatPart.Equals("MM"))
                 {
-                    pattern += string.Format("(?<{0}>\\d{{2}})", FIELD_MONTH);
+                    pattern.AppendFormat("(?<{0}>\\d{{2}})", FIELD_MONTH);
                     continue;
                 }
 
                 if (formatPart.Equals("dd"))
                 {
-                    pattern += string.Format("(?<{0}>\\d{{2}})", FIELD_DAY);
+                    pattern.AppendFormat("(?<{0}>\\d{{2}})", FIELD_DAY);
                     continue;
                 }
 
                 if (formatPart.Equals("HH"))
                 {
-                    pattern += string.Format("(?<{0}>\\d{{2}})", FIELD_HOUR);
+                    pattern.AppendFormat("(?<{0}>\\d{{2}})", FIELD_HOUR);
                     continue;
                 }
 
                 if (formatPart.Equals("mm"))
                 {
-                    pattern += string.Format("(?<{0}>\\d{{2}})", FIELD_MINUTE);
+                    pattern.AppendFormat("(?<{0}>\\d{{2}})", FIELD_MINUTE);
                     continue;
                 }
 
                 if (formatPart.Equals("ss"))
                 {
-                    pattern += string.Format("(?<{0}>\\d{{2}})", FIELD_SECOND);
+                    pattern.AppendFormat("(?<{0}>\\d{{2}})", FIELD_SECOND);
                     continue;
                 }
 
                 if (string.IsNullOrWhiteSpace(formatPart))
                 {
-                    pattern += string.Format("\\s{{{0}}}", formatPart.Length);
+                    pattern.AppendFormat("\\s{{{0}}}", formatPart.Length);
                     continue;
                 }
 
-                pattern += formatPart;
+                pattern.Append(formatPart);
             }
 
-            return new Regex(pattern);
+            return new Regex(pattern.ToString());
         }
 
         private DateTime ConvertResult(Match data)
