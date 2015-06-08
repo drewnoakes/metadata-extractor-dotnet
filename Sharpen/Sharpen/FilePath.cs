@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -14,16 +13,14 @@ namespace Sharpen
         public FilePath (string path)
             : this ((string) null, path)
         {
-
         }
 
         public FilePath (FilePath other, string child)
             : this ((string) other, child)
         {
-
         }
 
-        public FilePath (string other, string child)
+        private FilePath (string other, string child)
         {
             if (other == null) {
                 _path = child;
