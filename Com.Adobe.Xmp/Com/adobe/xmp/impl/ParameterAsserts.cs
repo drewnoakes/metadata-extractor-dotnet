@@ -10,13 +10,8 @@
 namespace Com.Adobe.Xmp.Impl
 {
     /// <since>11.08.2006</since>
-    internal class ParameterAsserts : XMPConst
+    internal static class ParameterAsserts
     {
-        /// <summary>private constructor</summary>
-        private ParameterAsserts()
-        {
-        }
-
         // EMPTY
         /// <summary>Asserts that an array name is set.</summary>
         /// <param name="arrayName">an array name</param>

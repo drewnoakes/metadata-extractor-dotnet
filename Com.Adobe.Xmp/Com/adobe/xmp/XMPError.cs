@@ -9,11 +9,6 @@
 
 namespace Com.Adobe.Xmp
 {
-    /// <since>21.09.2006</since>
-    public interface XMPError
-    {
-    }
-
     public static class XMPErrorConstants
     {
         public const int Unknown = 0;

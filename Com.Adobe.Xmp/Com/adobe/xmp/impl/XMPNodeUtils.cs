@@ -17,7 +17,7 @@ namespace Com.Adobe.Xmp.Impl
 {
     /// <summary>Utilities for <code>XMPNode</code>.</summary>
     /// <since>Aug 28, 2006</since>
-    public class XMPNodeUtils : XMPConst
+    public static class XMPNodeUtils
     {
         internal const int CltNoValues = 0;
 
@@ -30,11 +30,6 @@ namespace Com.Adobe.Xmp.Impl
         internal const int CltXdefault = 4;
 
         internal const int CltFirstItem = 5;
-
-        /// <summary>Private Constructor</summary>
-        private XMPNodeUtils()
-        {
-        }
 
         // EMPTY
         /// <summary>Find or create a schema node if <code>createNodes</code> is false and</summary>

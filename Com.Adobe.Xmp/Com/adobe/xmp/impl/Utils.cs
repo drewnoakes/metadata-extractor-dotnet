@@ -15,7 +15,7 @@ namespace Com.Adobe.Xmp.Impl
 {
     /// <summary>Utility functions for the XMPToolkit implementation.</summary>
     /// <since>06.06.2006</since>
-    public class Utils : XMPConst
+    public static class Utils
     {
         /// <summary>segments of a UUID</summary>
         public const int UuidSegmentCount = 4;
@@ -32,11 +32,6 @@ namespace Com.Adobe.Xmp.Impl
         static Utils()
         {
             InitCharTables();
-        }
-
-        /// <summary>Private constructor</summary>
-        private Utils()
-        {
         }
 
         // EMPTY

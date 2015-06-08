@@ -17,7 +17,7 @@ using Sharpen;
 namespace Com.Adobe.Xmp.Impl
 {
     /// <since>11.08.2006</since>
-    public class XMPUtilsImpl : XMPConst
+    public static class XMPUtilsImpl
     {
         private const int UckNormal = 0;
 
@@ -30,11 +30,6 @@ namespace Com.Adobe.Xmp.Impl
         private const int UckQuote = 4;
 
         private const int UckControl = 5;
-
-        /// <summary>Private constructor, as</summary>
-        private XMPUtilsImpl()
-        {
-        }
 
         // EMPTY
         /// <seealso cref="Com.Adobe.Xmp.XMPUtils.CatenateArrayItems(Com.Adobe.Xmp.XMPMeta, string, string, string, string, bool)"/>

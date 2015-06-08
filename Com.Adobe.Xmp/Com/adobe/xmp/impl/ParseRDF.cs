@@ -17,7 +17,7 @@ namespace Com.Adobe.Xmp.Impl
 {
     /// <summary>Parser for "normal" XML serialisation of RDF.</summary>
     /// <since>14.07.2006</since>
-    public class ParseRDF : XMPError, XMPConst
+    public static class ParseRDF
     {
         public const int RdftermOther = 0;
 

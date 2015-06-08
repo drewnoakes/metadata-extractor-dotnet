@@ -9,20 +9,6 @@
 
 namespace Com.Adobe.Xmp
 {
-    /// <summary>Common constants for the XMP Toolkit.</summary>
-    /// <since>20.01.2006</since>
-    public interface XMPConst
-    {
-        // ---------------------------------------------------------------------------------------------
-        // Standard namespace URI constants
-        // Standard namespaces
-        // Adobe standard namespaces
-        // XMP namespaces that are Adobe private
-        // XML namespace constants for qualifiers and structured property fields.
-        // ---------------------------------------------------------------------------------------------
-        // Basic types and constants
-    }
-
     public static class XMPConstConstants
     {
         /// <summary>The XML namespace for XML.</summary>

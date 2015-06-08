@@ -21,7 +21,7 @@ namespace Com.Adobe.Xmp.Impl
     /// is only one single instance used by the toolkit.
     /// </remarks>
     /// <since>27.01.2006</since>
-    public sealed class XMPSchemaRegistryImpl : XMPSchemaRegistry, XMPConst
+    public sealed class XMPSchemaRegistryImpl : XMPSchemaRegistry
     {
         /// <summary>a map from a namespace URI to its registered prefix</summary>
         private readonly IDictionary namespaceToPrefixMap = new Hashtable();
