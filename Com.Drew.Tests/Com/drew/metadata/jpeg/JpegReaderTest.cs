@@ -29,7 +29,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Jpeg
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class JpegReaderTest
+    public sealed class JpegReaderTest
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
@@ -47,42 +47,42 @@ namespace Com.Drew.Metadata.Jpeg
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [SetUp]
-        public virtual void SetUp()
+        public void SetUp()
         {
             _directory = ProcessBytes("Tests/Data/simple.jpg.sof0");
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_Width()
+        public void TestExtract_Width()
         {
             Assert.AreEqual(800, _directory.GetInt(JpegDirectory.TagImageWidth));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_Height()
+        public void TestExtract_Height()
         {
             Assert.AreEqual(600, _directory.GetInt(JpegDirectory.TagImageHeight));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_DataPrecision()
+        public void TestExtract_DataPrecision()
         {
             Assert.AreEqual(8, _directory.GetInt(JpegDirectory.TagDataPrecision));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_NumberOfComponents()
+        public void TestExtract_NumberOfComponents()
         {
             Assert.AreEqual(3, _directory.GetInt(JpegDirectory.TagNumberOfComponents));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestComponentData1()
+        public void TestComponentData1()
         {
             JpegComponent component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData1);
             Assert.IsNotNull(component);
@@ -95,7 +95,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestComponentData2()
+        public void TestComponentData2()
         {
             JpegComponent component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData2);
             Assert.IsNotNull(component);
@@ -109,7 +109,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestComponentData3()
+        public void TestComponentData3()
         {
             JpegComponent component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData3);
             Assert.IsNotNull(component);

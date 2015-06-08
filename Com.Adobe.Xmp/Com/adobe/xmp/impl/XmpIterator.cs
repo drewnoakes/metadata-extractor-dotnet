@@ -23,7 +23,7 @@ namespace Com.Adobe.Xmp.Impl
     /// Calls to <c>skipSubtree()</c> / <c>skipSiblings()</c> will affect the iteration.
     /// </remarks>
     /// <since>29.06.2006</since>
-    public class XmpIterator : IXmpIterator
+    public sealed class XmpIterator : IXmpIterator
     {
         /// <summary>stores the iterator options</summary>
         private readonly IteratorOptions _options;
@@ -32,10 +32,10 @@ namespace Com.Adobe.Xmp.Impl
         private string _baseNs;
 
         /// <summary>flag to indicate that skipSiblings() has been called.</summary>
-        protected bool skipSiblings;
+        private bool skipSiblings;
 
         /// <summary>flag to indicate that skipSiblings() has been called.</summary>
-        protected bool skipSubtree;
+        private bool skipSubtree;
 
         /// <summary>the node iterator doing the work</summary>
         private readonly IIterator _nodeIterator;
@@ -118,50 +118,50 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <seealso cref="IXmpIterator.SkipSubtree()"/>
-        public virtual void SkipSubtree()
+        public void SkipSubtree()
         {
             skipSubtree = true;
         }
 
         /// <seealso cref="IXmpIterator.SkipSiblings()"/>
-        public virtual void SkipSiblings()
+        public void SkipSiblings()
         {
             SkipSubtree();
             skipSiblings = true;
         }
 
         /// <seealso cref="Sharpen.Iterator{E}.HasNext()"/>
-        public virtual bool HasNext()
+        public bool HasNext()
         {
             return _nodeIterator.HasNext();
         }
 
         /// <seealso cref="Sharpen.Iterator{E}.Next()"/>
-        public virtual object Next()
+        public object Next()
         {
             return _nodeIterator.Next();
         }
 
         /// <seealso cref="Sharpen.Iterator{E}.Remove()"/>
-        public virtual void Remove()
+        public void Remove()
         {
             throw new NotSupportedException("The XMPIterator does not support remove().");
         }
 
         /// <returns>Exposes the options for inner class.</returns>
-        protected virtual IteratorOptions GetOptions()
+        private IteratorOptions GetOptions()
         {
             return _options;
         }
 
         /// <returns>Exposes the options for inner class.</returns>
-        protected virtual string GetBaseNs()
+        private string GetBaseNs()
         {
             return _baseNs;
         }
 
         /// <param name="baseNs">sets the baseNS from the inner class.</param>
-        protected virtual void SetBaseNs(string baseNs)
+        private void SetBaseNs(string baseNs)
         {
             _baseNs = baseNs;
         }

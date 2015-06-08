@@ -31,13 +31,13 @@ using Sharpen;
 namespace Com.Drew.Metadata.Xmp
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class XmpReaderTest
+    public sealed class XmpReaderTest
     {
         private XmpDirectory _directory;
 
         /// <exception cref="System.Exception"/>
         [SetUp]
-        public virtual void SetUp()
+        public void SetUp()
         {
             Metadata metadata = new Metadata();
             IList<sbyte[]> jpegSegments = new AList<sbyte[]>();
@@ -68,7 +68,7 @@ namespace Com.Drew.Metadata.Xmp
     */
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_LensInformation()
+        public void TestExtract_LensInformation()
         {
             // Note that this tag really holds a rational array, but XmpReader doesn't parse arrays
             Assert.AreEqual("24/1 70/1 0/0 0/0", _directory.GetString(XmpDirectory.TagLensInfo));
@@ -81,14 +81,14 @@ namespace Com.Drew.Metadata.Xmp
         //        assertEquals(new Rational(0, 0), info[3]);
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_HasXMPMeta()
+        public void TestExtract_HasXMPMeta()
         {
             Assert.IsNotNull(_directory.GetXmpMeta());
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_Lens()
+        public void TestExtract_Lens()
         {
             Assert.AreEqual("EF24-70mm f/2.8L USM", _directory.GetString(XmpDirectory.TagLens));
         }
@@ -122,35 +122,35 @@ namespace Com.Drew.Metadata.Xmp
 */
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_SerialNumber()
+        public void TestExtract_SerialNumber()
         {
             Assert.AreEqual("380319450", _directory.GetString(XmpDirectory.TagCameraSerialNumber));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_Firmware()
+        public void TestExtract_Firmware()
         {
             Assert.AreEqual("1.2.1", _directory.GetString(XmpDirectory.TagFirmware));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_Maker()
+        public void TestExtract_Maker()
         {
             Assert.AreEqual("Canon", _directory.GetString(XmpDirectory.TagMake));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_Model()
+        public void TestExtract_Model()
         {
             Assert.AreEqual("Canon EOS 7D", _directory.GetString(XmpDirectory.TagModel));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_ExposureTime()
+        public void TestExtract_ExposureTime()
         {
             // Note XmpReader doesn't parse this as a rational even though it appears to be... need more examples
             Assert.AreEqual("1/125", _directory.GetString(XmpDirectory.TagExposureTime));
@@ -159,35 +159,35 @@ namespace Com.Drew.Metadata.Xmp
         //        assertEquals(new Rational(1, 125), _directory.getRational(XmpDirectory.TAG_EXPOSURE_TIME));
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_ExposureProgram()
+        public void TestExtract_ExposureProgram()
         {
             Assert.AreEqual(1, _directory.GetInt(XmpDirectory.TagExposureProgram));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_FNumber()
+        public void TestExtract_FNumber()
         {
             Assert.AreEqual(new Rational(11, 1), _directory.GetRational(XmpDirectory.TagFNumber));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_FocalLength()
+        public void TestExtract_FocalLength()
         {
             Assert.AreEqual(new Rational(57, 1), _directory.GetRational(XmpDirectory.TagFocalLength));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_ShutterSpeed()
+        public void TestExtract_ShutterSpeed()
         {
             Assert.AreEqual(new Rational(6965784, 1000000), _directory.GetRational(XmpDirectory.TagShutterSpeed));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_OriginalDateTime()
+        public void TestExtract_OriginalDateTime()
         {
             DateTime? actual = _directory.GetDate(XmpDirectory.TagDatetimeOriginal);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
@@ -200,7 +200,7 @@ namespace Com.Drew.Metadata.Xmp
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract_DigitizedDateTime()
+        public void TestExtract_DigitizedDateTime()
         {
             DateTime? actual = _directory.GetDate(XmpDirectory.TagDatetimeDigitized);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
@@ -213,7 +213,7 @@ namespace Com.Drew.Metadata.Xmp
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetXmpProperties()
+        public void TestGetXmpProperties()
         {
             IDictionary<string, string> propertyMap = _directory.GetXmpProperties();
             Assert.AreEqual(179, propertyMap.Count);

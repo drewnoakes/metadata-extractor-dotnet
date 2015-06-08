@@ -31,7 +31,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PngDescriptor : TagDescriptor<PngDirectory>
+    public sealed class PngDescriptor : TagDescriptor<PngDirectory>
     {
         public PngDescriptor([NotNull] PngDirectory directory)
             : base(directory)
@@ -96,7 +96,7 @@ namespace Com.Drew.Metadata.Png
         }
 
         [CanBeNull]
-        public virtual string GetColorTypeDescription()
+        public string GetColorTypeDescription()
         {
             int? value = Directory.GetInteger(PngDirectory.TagColorType);
             if (value == null)
@@ -112,43 +112,43 @@ namespace Com.Drew.Metadata.Png
         }
 
         [CanBeNull]
-        public virtual string GetCompressionTypeDescription()
+        public string GetCompressionTypeDescription()
         {
             return GetIndexedDescription(PngDirectory.TagCompressionType, "Deflate");
         }
 
         [CanBeNull]
-        public virtual string GetFilterMethodDescription()
+        public string GetFilterMethodDescription()
         {
             return GetIndexedDescription(PngDirectory.TagFilterMethod, "Adaptive");
         }
 
         [CanBeNull]
-        public virtual string GetInterlaceMethodDescription()
+        public string GetInterlaceMethodDescription()
         {
             return GetIndexedDescription(PngDirectory.TagInterlaceMethod, "No Interlace", "Adam7 Interlace");
         }
 
         [CanBeNull]
-        public virtual string GetPaletteHasTransparencyDescription()
+        public string GetPaletteHasTransparencyDescription()
         {
             return GetIndexedDescription(PngDirectory.TagPaletteHasTransparency, null, "Yes");
         }
 
         [CanBeNull]
-        public virtual string GetIsSrgbColorSpaceDescription()
+        public string GetIsSrgbColorSpaceDescription()
         {
             return GetIndexedDescription(PngDirectory.TagSrgbRenderingIntent, "Perceptual", "Relative Colorimetric", "Saturation", "Absolute Colorimetric");
         }
 
         [CanBeNull]
-        public virtual string GetUnitSpecifierDescription()
+        public string GetUnitSpecifierDescription()
         {
             return GetIndexedDescription(PngDirectory.TagUnitSpecifier, "Unspecified", "Metres");
         }
 
         [CanBeNull]
-        public virtual string GetTextualDataDescription()
+        public string GetTextualDataDescription()
         {
             object @object = Directory.GetObject(PngDirectory.TagTextualData);
             if (@object == null)
@@ -169,7 +169,7 @@ namespace Com.Drew.Metadata.Png
         }
 
         [CanBeNull]
-        public virtual string GetBackgroundColorDescription()
+        public string GetBackgroundColorDescription()
         {
             sbyte[] bytes = Directory.GetByteArray(PngDirectory.TagBackgroundColor);
             int? colorType = Directory.GetInteger(PngDirectory.TagColorType);

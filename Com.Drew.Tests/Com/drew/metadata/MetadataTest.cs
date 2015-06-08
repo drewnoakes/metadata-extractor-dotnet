@@ -28,17 +28,17 @@ namespace Com.Drew.Metadata
 {
     /// <summary>JUnit test case for class Metadata.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class MetadataTest
+    public sealed class MetadataTest
     {
         [Test]
-        public virtual void TestGetDirectoryWhenNotExists()
+        public void TestGetDirectoryWhenNotExists()
         {
             Assert.IsNull(new Metadata().GetFirstDirectoryOfType<ExifSubIfdDirectory>());
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestHasErrors()
+        public void TestHasErrors()
         {
             ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
             directory.AddError("Test Error 1");
@@ -49,7 +49,7 @@ namespace Com.Drew.Metadata
         }
 
         [Test]
-        public virtual void TestToString()
+        public void TestToString()
         {
             Metadata metadata = new Metadata();
             Assert.AreEqual("Metadata (0 directories)", Extensions.ConvertToString(metadata));

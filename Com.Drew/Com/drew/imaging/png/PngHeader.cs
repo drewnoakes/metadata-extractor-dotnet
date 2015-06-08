@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 namespace Com.Drew.Imaging.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PngHeader
+    public sealed class PngHeader
     {
         private readonly int _imageWidth;
 
@@ -53,38 +53,38 @@ namespace Com.Drew.Imaging.Png
             }
         }
 
-        public virtual int GetImageWidth()
+        public int GetImageWidth()
         {
             return _imageWidth;
         }
 
-        public virtual int GetImageHeight()
+        public int GetImageHeight()
         {
             return _imageHeight;
         }
 
-        public virtual sbyte GetBitsPerSample()
+        public sbyte GetBitsPerSample()
         {
             return _bitsPerSample;
         }
 
         [NotNull]
-        public virtual PngColorType GetColorType()
+        public PngColorType GetColorType()
         {
             return _colorType;
         }
 
-        public virtual sbyte GetCompressionType()
+        public sbyte GetCompressionType()
         {
             return _compressionType;
         }
 
-        public virtual sbyte GetFilterMethod()
+        public sbyte GetFilterMethod()
         {
             return _filterMethod;
         }
 
-        public virtual sbyte GetInterlaceMethod()
+        public sbyte GetInterlaceMethod()
         {
             return _interlaceMethod;
         }

@@ -32,7 +32,7 @@ namespace Com.Drew.Metadata.Exif
 {
     /// <summary>JUnit test case for class ExifReader.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ExifReaderTest
+    public sealed class ExifReaderTest
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
@@ -56,7 +56,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtractWithNullDataThrows()
+        public void TestExtractWithNullDataThrows()
         {
             try
             {
@@ -71,7 +71,7 @@ namespace Com.Drew.Metadata.Exif
         // passed
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestLoadFujifilmJpeg()
+        public void TestLoadFujifilmJpeg()
         {
             ExifSubIfdDirectory directory = ProcessBytes<ExifSubIfdDirectory>("Tests/Data/withExif.jpg.app1");
             string description = directory.GetDescription(ExifDirectoryBase.TagIsoEquivalent);
@@ -83,7 +83,7 @@ namespace Com.Drew.Metadata.Exif
         //      assertEquals("F9", directory.getDescription(ExifSubIFDDirectory.TAG_APERTURE));
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestReadJpegSegmentWithNoExifData()
+        public void TestReadJpegSegmentWithNoExifData()
         {
             sbyte[] badExifData = new sbyte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             Metadata metadata = new Metadata();
@@ -96,7 +96,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestCrashRegressionTest()
+        public void TestCrashRegressionTest()
         {
             // This image was created via a resize in ACDSee.
             // It seems to have a reference to an IFD starting outside the data segment.
@@ -107,7 +107,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestDateTime()
+        public void TestDateTime()
         {
             ExifIfd0Directory directory = ProcessBytes<ExifIfd0Directory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             Assert.AreEqual("2002:11:27 18:00:35", directory.GetString(ExifDirectoryBase.TagDatetime));
@@ -115,7 +115,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestThumbnailXResolution()
+        public void TestThumbnailXResolution()
         {
             ExifThumbnailDirectory directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             Rational rational = directory.GetRational(ExifDirectoryBase.TagXResolution);
@@ -126,7 +126,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestThumbnailYResolution()
+        public void TestThumbnailYResolution()
         {
             ExifThumbnailDirectory directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             Rational rational = directory.GetRational(ExifDirectoryBase.TagYResolution);
@@ -137,7 +137,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestThumbnailOffset()
+        public void TestThumbnailOffset()
         {
             ExifThumbnailDirectory directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             Assert.AreEqual(192, directory.GetInt(ExifThumbnailDirectory.TagThumbnailOffset));
@@ -145,7 +145,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestThumbnailLength()
+        public void TestThumbnailLength()
         {
             ExifThumbnailDirectory directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             Assert.AreEqual(2970, directory.GetInt(ExifThumbnailDirectory.TagThumbnailLength));
@@ -153,7 +153,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestThumbnailData()
+        public void TestThumbnailData()
         {
             ExifThumbnailDirectory directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             sbyte[] thumbnailData = directory.GetThumbnailData();
@@ -163,7 +163,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestThumbnailCompression()
+        public void TestThumbnailCompression()
         {
             ExifThumbnailDirectory directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             // 6 means JPEG compression
@@ -172,7 +172,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestStackOverflowOnRevisitationOfSameDirectory()
+        public void TestStackOverflowOnRevisitationOfSameDirectory()
         {
             // An error has been discovered in Exif data segments where a directory is referenced
             // repeatedly.  Thanks to Alistair Dickie for providing the sample data used in this
@@ -184,7 +184,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestDifferenceImageAndThumbnailOrientations()
+        public void TestDifferenceImageAndThumbnailOrientations()
         {
             // This metadata contains different orientations for the thumbnail and the main image.
             // These values used to be merged into a single directory, causing errors.

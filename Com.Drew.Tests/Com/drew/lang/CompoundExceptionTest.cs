@@ -28,11 +28,11 @@ using Sharpen;
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class CompoundExceptionTest
+    public sealed class CompoundExceptionTest
     {
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetMessage_NonNested()
+        public void TestGetMessage_NonNested()
         {
             try
             {
@@ -46,7 +46,7 @@ namespace Com.Drew.Lang
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetMessage_Nested()
+        public void TestGetMessage_Nested()
         {
             try
             {
@@ -70,7 +70,7 @@ namespace Com.Drew.Lang
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestNoInnerException()
+        public void TestNoInnerException()
         {
             try
             {

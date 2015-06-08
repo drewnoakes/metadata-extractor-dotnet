@@ -9,7 +9,7 @@ using Sharpen;
 namespace Com.Drew.Imaging.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PngMetadataReaderTest
+    public sealed class PngMetadataReaderTest
     {
         /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
@@ -33,7 +33,7 @@ namespace Com.Drew.Imaging.Png
 
         /// <exception cref="System.Exception"/>
         [Test, SetCulture("en-GB")]
-        public virtual void TestGimpGreyscaleWithManyChunks()
+        public void TestGimpGreyscaleWithManyChunks()
         {
             TimeZoneInfo timeZone = TimeZoneInfo.Local;
             try

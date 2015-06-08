@@ -26,7 +26,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Jpeg
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class JpegDescriptorTest
+    public sealed class JpegDescriptorTest
     {
         private JpegDirectory _directory;
 
@@ -34,7 +34,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         /// <exception cref="System.Exception"/>
         [SetUp]
-        public virtual void SetUp()
+        public void SetUp()
         {
             _directory = new JpegDirectory();
             _descriptor = new JpegDescriptor(_directory);
@@ -42,14 +42,14 @@ namespace Com.Drew.Metadata.Jpeg
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetComponentDataDescription_InvalidComponentNumber()
+        public void TestGetComponentDataDescription_InvalidComponentNumber()
         {
             Assert.IsNull(_descriptor.GetComponentDataDescription(1));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetImageWidthDescription()
+        public void TestGetImageWidthDescription()
         {
             _directory.SetInt(JpegDirectory.TagImageWidth, 123);
             Assert.AreEqual("123 pixels", _descriptor.GetImageWidthDescription());
@@ -58,7 +58,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetImageHeightDescription()
+        public void TestGetImageHeightDescription()
         {
             _directory.SetInt(JpegDirectory.TagImageHeight, 123);
             Assert.AreEqual("123 pixels", _descriptor.GetImageHeightDescription());
@@ -67,7 +67,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetDataPrecisionDescription()
+        public void TestGetDataPrecisionDescription()
         {
             _directory.SetInt(JpegDirectory.TagDataPrecision, 8);
             Assert.AreEqual("8 bits", _descriptor.GetDataPrecisionDescription());
@@ -76,7 +76,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
         [Test]
-        public virtual void TestGetComponentDescription()
+        public void TestGetComponentDescription()
         {
             JpegComponent component1 = new JpegComponent(1, unchecked((int)(0x22)), 0);
             _directory.SetObject(JpegDirectory.TagComponentData1, component1);

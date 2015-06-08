@@ -26,11 +26,11 @@ using Sharpen;
 namespace Com.Drew.Metadata.Jpeg
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class JpegComponentTest
+    public sealed class JpegComponentTest
     {
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetComponentCharacter()
+        public void TestGetComponentCharacter()
         {
             JpegComponent component;
             component = new JpegComponent(1, 2, 3);

@@ -30,11 +30,11 @@ namespace Com.Drew.Metadata.Exif
     /// Unit tests for <see cref="ExifIfd0Descriptor"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ExifIfd0DescriptorTest
+    public sealed class ExifIfd0DescriptorTest
     {
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestXResolutionDescription()
+        public void TestXResolutionDescription()
         {
             ExifIfd0Directory directory = new ExifIfd0Directory();
             directory.SetRational(ExifDirectoryBase.TagXResolution, new Rational(72, 1));
@@ -46,7 +46,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestYResolutionDescription()
+        public void TestYResolutionDescription()
         {
             ExifIfd0Directory directory = new ExifIfd0Directory();
             directory.SetRational(ExifDirectoryBase.TagYResolution, new Rational(50, 1));
@@ -58,7 +58,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestWindowsXpFields()
+        public void TestWindowsXpFields()
         {
             ExifIfd0Directory directory = ExifReaderTest.ProcessBytes<ExifIfd0Directory>("Tests/Data/windowsXpFields.jpg.app1");
             Assert.AreEqual("Testing artist\x0", directory.GetString(ExifDirectoryBase.TagWinAuthor, "UTF-16LE"));

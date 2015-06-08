@@ -32,11 +32,11 @@ namespace Com.Drew.Metadata.Exif
     /// Unit tests for <see cref="ExifSubIfdDirectory"/>, <see cref="ExifIfd0Directory"/>, <see cref="ExifThumbnailDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ExifDirectoryTest
+    public sealed class ExifDirectoryTest
     {
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetDirectoryName()
+        public void TestGetDirectoryName()
         {
             Directory subIfdDirectory = new ExifSubIfdDirectory();
             Directory ifd0Directory = new ExifIfd0Directory();
@@ -51,7 +51,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetThumbnailData()
+        public void TestGetThumbnailData()
         {
             ExifThumbnailDirectory directory = ExifReaderTest.ProcessBytes<ExifThumbnailDirectory>("Tests/Data/withExif.jpg.app1");
             sbyte[] thumbData = directory.GetThumbnailData();
@@ -69,7 +69,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestWriteThumbnail()
+        public void TestWriteThumbnail()
         {
             ExifThumbnailDirectory directory = ExifReaderTest.ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             Assert.IsTrue(directory.HasThumbnailData());
@@ -102,7 +102,7 @@ namespace Com.Drew.Metadata.Exif
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
         [Test]
-        public virtual void TestResolution()
+        public void TestResolution()
         {
             Metadata metadata = ExifReaderTest.ProcessBytes("Tests/Data/withUncompressedRGBThumbnail.jpg.app1");
             ExifThumbnailDirectory thumbnailDirectory = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();

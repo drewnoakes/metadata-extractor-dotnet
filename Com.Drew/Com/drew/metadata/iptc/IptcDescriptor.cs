@@ -32,7 +32,7 @@ namespace Com.Drew.Metadata.Iptc
     /// As the IPTC directory already stores values as strings, this class simply returns the tag's value.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class IptcDescriptor : TagDescriptor<IptcDirectory>
+    public sealed class IptcDescriptor : TagDescriptor<IptcDirectory>
     {
         public IptcDescriptor([NotNull] IptcDirectory directory)
             : base(directory)
@@ -72,7 +72,7 @@ namespace Com.Drew.Metadata.Iptc
         }
 
         [CanBeNull]
-        public virtual string GetFileFormatDescription()
+        public string GetFileFormatDescription()
         {
             int? value = Directory.GetInteger(IptcDirectory.TagFileFormat);
             if (value == null)
@@ -235,67 +235,67 @@ namespace Com.Drew.Metadata.Iptc
         }
 
         [CanBeNull]
-        public virtual string GetByLineDescription()
+        public string GetByLineDescription()
         {
             return Directory.GetString(IptcDirectory.TagByLine);
         }
 
         [CanBeNull]
-        public virtual string GetByLineTitleDescription()
+        public string GetByLineTitleDescription()
         {
             return Directory.GetString(IptcDirectory.TagByLineTitle);
         }
 
         [CanBeNull]
-        public virtual string GetCaptionDescription()
+        public string GetCaptionDescription()
         {
             return Directory.GetString(IptcDirectory.TagCaption);
         }
 
         [CanBeNull]
-        public virtual string GetCategoryDescription()
+        public string GetCategoryDescription()
         {
             return Directory.GetString(IptcDirectory.TagCategory);
         }
 
         [CanBeNull]
-        public virtual string GetCityDescription()
+        public string GetCityDescription()
         {
             return Directory.GetString(IptcDirectory.TagCity);
         }
 
         [CanBeNull]
-        public virtual string GetCopyrightNoticeDescription()
+        public string GetCopyrightNoticeDescription()
         {
             return Directory.GetString(IptcDirectory.TagCopyrightNotice);
         }
 
         [CanBeNull]
-        public virtual string GetCountryOrPrimaryLocationDescription()
+        public string GetCountryOrPrimaryLocationDescription()
         {
             return Directory.GetString(IptcDirectory.TagCountryOrPrimaryLocationName);
         }
 
         [CanBeNull]
-        public virtual string GetCreditDescription()
+        public string GetCreditDescription()
         {
             return Directory.GetString(IptcDirectory.TagCredit);
         }
 
         [CanBeNull]
-        public virtual string GetDateCreatedDescription()
+        public string GetDateCreatedDescription()
         {
             return Directory.GetString(IptcDirectory.TagDateCreated);
         }
 
         [CanBeNull]
-        public virtual string GetHeadlineDescription()
+        public string GetHeadlineDescription()
         {
             return Directory.GetString(IptcDirectory.TagHeadline);
         }
 
         [CanBeNull]
-        public virtual string GetKeywordsDescription()
+        public string GetKeywordsDescription()
         {
             string[] keywords = Directory.GetStringArray(IptcDirectory.TagKeywords);
             if (keywords == null)
@@ -306,67 +306,67 @@ namespace Com.Drew.Metadata.Iptc
         }
 
         [CanBeNull]
-        public virtual string GetObjectNameDescription()
+        public string GetObjectNameDescription()
         {
             return Directory.GetString(IptcDirectory.TagObjectName);
         }
 
         [CanBeNull]
-        public virtual string GetOriginalTransmissionReferenceDescription()
+        public string GetOriginalTransmissionReferenceDescription()
         {
             return Directory.GetString(IptcDirectory.TagOriginalTransmissionReference);
         }
 
         [CanBeNull]
-        public virtual string GetOriginatingProgramDescription()
+        public string GetOriginatingProgramDescription()
         {
             return Directory.GetString(IptcDirectory.TagOriginatingProgram);
         }
 
         [CanBeNull]
-        public virtual string GetProvinceOrStateDescription()
+        public string GetProvinceOrStateDescription()
         {
             return Directory.GetString(IptcDirectory.TagProvinceOrState);
         }
 
         [CanBeNull]
-        public virtual string GetRecordVersionDescription()
+        public string GetRecordVersionDescription()
         {
             return Directory.GetString(IptcDirectory.TagApplicationRecordVersion);
         }
 
         [CanBeNull]
-        public virtual string GetReleaseDateDescription()
+        public string GetReleaseDateDescription()
         {
             return Directory.GetString(IptcDirectory.TagReleaseDate);
         }
 
         [CanBeNull]
-        public virtual string GetReleaseTimeDescription()
+        public string GetReleaseTimeDescription()
         {
             return Directory.GetString(IptcDirectory.TagReleaseTime);
         }
 
         [CanBeNull]
-        public virtual string GetSourceDescription()
+        public string GetSourceDescription()
         {
             return Directory.GetString(IptcDirectory.TagSource);
         }
 
         [CanBeNull]
-        public virtual string GetSpecialInstructionsDescription()
+        public string GetSpecialInstructionsDescription()
         {
             return Directory.GetString(IptcDirectory.TagSpecialInstructions);
         }
 
         [CanBeNull]
-        public virtual string GetSupplementalCategoriesDescription()
+        public string GetSupplementalCategoriesDescription()
         {
             return Directory.GetString(IptcDirectory.TagSupplementalCategories);
         }
 
         [CanBeNull]
-        public virtual string GetTimeCreatedDescription()
+        public string GetTimeCreatedDescription()
         {
             string s = Directory.GetString(IptcDirectory.TagTimeCreated);
             if (s == null)
@@ -381,7 +381,7 @@ namespace Com.Drew.Metadata.Iptc
         }
 
         [CanBeNull]
-        public virtual string GetDigitalTimeCreatedDescription()
+        public string GetDigitalTimeCreatedDescription()
         {
             string s = Directory.GetString(IptcDirectory.TagDigitalTimeCreated);
             if (s == null)
@@ -396,13 +396,13 @@ namespace Com.Drew.Metadata.Iptc
         }
 
         [CanBeNull]
-        public virtual string GetUrgencyDescription()
+        public string GetUrgencyDescription()
         {
             return Directory.GetString(IptcDirectory.TagUrgency);
         }
 
         [CanBeNull]
-        public virtual string GetWriterDescription()
+        public string GetWriterDescription()
         {
             return Directory.GetString(IptcDirectory.TagCaptionWriter);
         }

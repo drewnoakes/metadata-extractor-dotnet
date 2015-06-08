@@ -7,7 +7,7 @@ using Sharpen;
 namespace Com.Drew.Imaging.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PngChunkReaderTest
+    public sealed class PngChunkReaderTest
     {
         /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
@@ -30,7 +30,7 @@ namespace Com.Drew.Imaging.Png
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtractMspaint()
+        public void TestExtractMspaint()
         {
             IList<PngChunk> chunks = ProcessFile("Tests/Data/mspaint-8x10.png");
             Assert.AreEqual(6, chunks.Count);
@@ -50,7 +50,7 @@ namespace Com.Drew.Imaging.Png
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtractPhotoshop()
+        public void TestExtractPhotoshop()
         {
             IList<PngChunk> chunks = ProcessFile("Tests/Data/photoshop-8x12-rgba32.png");
             Assert.AreEqual(5, chunks.Count);

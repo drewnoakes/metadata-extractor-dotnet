@@ -27,11 +27,11 @@ namespace Com.Drew.Metadata.Exif
 {
     /// <summary>JUnit test case for class ExifThumbnailDescriptor.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ExifThumbnailDescriptorTest
+    public sealed class ExifThumbnailDescriptorTest
     {
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetYCbCrSubsamplingDescription()
+        public void TestGetYCbCrSubsamplingDescription()
         {
             ExifThumbnailDirectory directory = new ExifThumbnailDirectory();
             directory.SetIntArray(ExifDirectoryBase.TagYcbcrSubsampling, new int[] { 2, 1 });

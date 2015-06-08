@@ -30,7 +30,7 @@ namespace Com.Drew.Metadata.Photoshop
     /// <summary>Holds the metadata found in the APPD segment of a JPEG file saved by Photoshop.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Yuri Binev</author>
-    public class PhotoshopDirectory : Directory
+    public sealed class PhotoshopDirectory : Directory
     {
         public const int TagChannelsRowsColumnsDepthMode = unchecked((int)(0x03E8));
 
@@ -307,7 +307,7 @@ namespace Com.Drew.Metadata.Photoshop
         }
 
         [CanBeNull]
-        public virtual sbyte[] GetThumbnailBytes()
+        public sbyte[] GetThumbnailBytes()
         {
             sbyte[] storedBytes = GetByteArray(TagThumbnail);
             if (storedBytes == null)

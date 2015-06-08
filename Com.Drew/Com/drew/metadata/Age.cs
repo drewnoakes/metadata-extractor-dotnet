@@ -34,7 +34,7 @@ namespace Com.Drew.Metadata
     /// Used by certain Panasonic cameras which have face recognition features.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class Age
+    public sealed class Age
     {
         private readonly int _years;
 
@@ -91,32 +91,32 @@ namespace Com.Drew.Metadata
             _seconds = seconds;
         }
 
-        public virtual int GetYears()
+        public int GetYears()
         {
             return _years;
         }
 
-        public virtual int GetMonths()
+        public int GetMonths()
         {
             return _months;
         }
 
-        public virtual int GetDays()
+        public int GetDays()
         {
             return _days;
         }
 
-        public virtual int GetHours()
+        public int GetHours()
         {
             return _hours;
         }
 
-        public virtual int GetMinutes()
+        public int GetMinutes()
         {
             return _minutes;
         }
 
-        public virtual int GetSeconds()
+        public int GetSeconds()
         {
             return _seconds;
         }
@@ -126,7 +126,7 @@ namespace Com.Drew.Metadata
             return Extensions.StringFormat("%04d:%02d:%02d %02d:%02d:%02d", _years, _months, _days, _hours, _minutes, _seconds);
         }
 
-        public virtual string ToFriendlyString()
+        public string ToFriendlyString()
         {
             StringBuilder result = new StringBuilder();
             AppendAgePart(result, _years, "year");

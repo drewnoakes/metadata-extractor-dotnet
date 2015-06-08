@@ -27,11 +27,11 @@ using Sharpen;
 namespace Com.Drew.Metadata.Exif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class SonyType1MakernoteTest
+    public sealed class SonyType1MakernoteTest
     {
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestSonyType1Makernote()
+        public void TestSonyType1Makernote()
         {
             SonyType1MakernoteDirectory directory = ExifReaderTest.ProcessBytes<SonyType1MakernoteDirectory>("Tests/Data/sonyType1.jpg.app1");
             Assert.IsNotNull(directory);

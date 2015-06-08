@@ -28,7 +28,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Gif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class GifReaderTest
+    public sealed class GifReaderTest
     {
         /// <exception cref="System.Exception"/>
         [NotNull]
@@ -45,7 +45,7 @@ namespace Com.Drew.Metadata.Gif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestMsPaintGif()
+        public void TestMsPaintGif()
         {
             GifHeaderDirectory directory = ProcessBytes("Tests/Data/mspaint-10x10.gif");
             Assert.IsFalse(directory.HasErrors());
@@ -61,7 +61,7 @@ namespace Com.Drew.Metadata.Gif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestPhotoshopGif()
+        public void TestPhotoshopGif()
         {
             GifHeaderDirectory directory = ProcessBytes("Tests/Data/photoshop-8x12-32colors-alpha.gif");
             Assert.IsFalse(directory.HasErrors());

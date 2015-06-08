@@ -26,11 +26,11 @@ using Sharpen;
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class NullOutputStreamTest
+    public sealed class NullOutputStreamTest
     {
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestCreateNullOutputStream()
+        public void TestCreateNullOutputStream()
         {
             OutputStream @out = new NullOutputStream();
             try

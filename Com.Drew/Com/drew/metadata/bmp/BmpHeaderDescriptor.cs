@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 namespace Com.Drew.Metadata.Bmp
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class BmpHeaderDescriptor : TagDescriptor<BmpHeaderDirectory>
+    public sealed class BmpHeaderDescriptor : TagDescriptor<BmpHeaderDirectory>
     {
         public BmpHeaderDescriptor([NotNull] BmpHeaderDirectory directory)
             : base(directory)
@@ -28,7 +28,7 @@ namespace Com.Drew.Metadata.Bmp
         }
 
         [CanBeNull]
-        public virtual string GetCompressionDescription()
+        public string GetCompressionDescription()
         {
             // 0 = None
             // 1 = RLE 8-bit/pixel

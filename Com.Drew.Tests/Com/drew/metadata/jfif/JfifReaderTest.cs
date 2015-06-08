@@ -27,11 +27,11 @@ using Sharpen;
 namespace Com.Drew.Metadata.Jfif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class JfifReaderTest
+    public sealed class JfifReaderTest
     {
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestRead()
+        public void TestRead()
         {
             sbyte[] jfifData = new sbyte[] { 74, 70, 73, 70, 0, 1, 2, 1, 0, 108, 0, 108, 0, 0 };
             Metadata metadata = new Metadata();

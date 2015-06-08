@@ -27,10 +27,10 @@ using Sharpen;
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class StringUtilTest
+    public sealed class StringUtilTest
     {
         [Test]
-        public virtual void TestJoinIterable()
+        public void TestJoinIterable()
         {
             IList<string> strings = new AList<string>();
             strings.Add("A");
@@ -41,7 +41,7 @@ namespace Com.Drew.Lang
         }
 
         [Test]
-        public virtual void TestJoinArray()
+        public void TestJoinArray()
         {
             string[] strings = new string[] { "A", "B", "C" };
             Assert.AreEqual("A;B;C", StringUtil.Join(strings.ToCharSequence(), ";"));

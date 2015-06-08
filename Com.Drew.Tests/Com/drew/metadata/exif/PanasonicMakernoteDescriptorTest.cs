@@ -27,20 +27,20 @@ using Sharpen;
 namespace Com.Drew.Metadata.Exif
 {
     /// <author>psandhaus, Drew Noakes</author>
-    public class PanasonicMakernoteDescriptorTest
+    public sealed class PanasonicMakernoteDescriptorTest
     {
         private PanasonicMakernoteDirectory _panasonicDirectory;
 
         /// <exception cref="System.Exception"/>
         [SetUp]
-        public virtual void SetUp()
+        public void SetUp()
         {
             _panasonicDirectory = ExifReaderTest.ProcessBytes<PanasonicMakernoteDirectory>("Tests/Data/withPanasonicFaces.jpg.app1");
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetDetectedFaces()
+        public void TestGetDetectedFaces()
         {
             Face expResult = new Face(142, 120, 76, 76, null, null);
             Face[] result = _panasonicDirectory.GetDetectedFaces();
@@ -50,7 +50,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetRecognizedFaces()
+        public void TestGetRecognizedFaces()
         {
             Face expResult = new Face(142, 120, 76, 76, "NIELS", new Age(31, 7, 15, 0, 0, 0));
             Face[] result = _panasonicDirectory.GetRecognizedFaces();

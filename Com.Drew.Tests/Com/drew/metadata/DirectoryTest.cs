@@ -29,20 +29,20 @@ using Sharpen;
 namespace Com.Drew.Metadata
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class DirectoryTest
+    public sealed class DirectoryTest
     {
         private Directory _directory;
 
         // TODO write tests to validate type conversions from all underlying types
         [SetUp]
-        public virtual void Setup()
+        public void Setup()
         {
             _directory = new MockDirectory();
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestSetAndGetMultipleTagsInSingleDirectory()
+        public void TestSetAndGetMultipleTagsInSingleDirectory()
         {
             _directory.SetString(ExifDirectoryBase.TagAperture, "TAG_APERTURE");
             _directory.SetString(ExifDirectoryBase.TagBatteryLevel, "TAG_BATTERY_LEVEL");
@@ -52,7 +52,7 @@ namespace Com.Drew.Metadata
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestSetSameTagMultipleTimesOverwritesValue()
+        public void TestSetSameTagMultipleTimesOverwritesValue()
         {
             _directory.SetInt(ExifDirectoryBase.TagAperture, 1);
             _directory.SetInt(ExifDirectoryBase.TagAperture, 2);
@@ -61,7 +61,7 @@ namespace Com.Drew.Metadata
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestUnderlyingInt()
+        public void TestUnderlyingInt()
         {
             int value = 123;
             int tagType = 321;
@@ -79,7 +79,7 @@ namespace Com.Drew.Metadata
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestSetAndGetIntArray()
+        public void TestSetAndGetIntArray()
         {
             int[] inputValues = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             int tagType = 123;
@@ -109,7 +109,7 @@ namespace Com.Drew.Metadata
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestSetStringAndGetDate()
+        public void TestSetStringAndGetDate()
         {
             string date1 = "2002:01:30 24:59:59";
             string date2 = "2002:01:30 24:59";
@@ -128,7 +128,7 @@ namespace Com.Drew.Metadata
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestSetIntArrayGetByteArray()
+        public void TestSetIntArrayGetByteArray()
         {
             int[] ints = new int[] { 1, 2, 3, 4, 5 };
             _directory.SetIntArray(1, ints);
@@ -140,7 +140,7 @@ namespace Com.Drew.Metadata
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestSetStringGetInt()
+        public void TestSetStringGetInt()
         {
             sbyte[] bytes = new sbyte[] { unchecked((int)(0x01)), unchecked((int)(0x02)), unchecked((int)(0x03)) };
             _directory.SetString(1, Runtime.GetStringForBytes(bytes));
@@ -149,7 +149,7 @@ namespace Com.Drew.Metadata
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestContainsTag()
+        public void TestContainsTag()
         {
             Assert.IsFalse(_directory.ContainsTag(ExifDirectoryBase.TagAperture));
             _directory.SetString(ExifDirectoryBase.TagAperture, "Tag Value");
@@ -158,7 +158,7 @@ namespace Com.Drew.Metadata
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetNonExistentTagIsNullForAllTypes()
+        public void TestGetNonExistentTagIsNullForAllTypes()
         {
             Assert.IsNull(_directory.GetString(ExifDirectoryBase.TagAperture));
             Assert.IsNull(_directory.GetInteger(ExifDirectoryBase.TagAperture));
@@ -175,7 +175,7 @@ namespace Com.Drew.Metadata
         }
 
         [Test]
-        public virtual void TestToString()
+        public void TestToString()
         {
             Directory directory = new ExifIfd0Directory();
             Assert.AreEqual("Exif IFD0 Directory (0 tags)", Extensions.ConvertToString(directory));

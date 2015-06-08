@@ -42,18 +42,18 @@ namespace Com.Drew.Metadata.Photoshop
     /// </remarks>
     /// <author>Yuri Binev</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PhotoshopReader : IJpegSegmentMetadataReader
+    public sealed class PhotoshopReader : IJpegSegmentMetadataReader
     {
         [NotNull]
         private const string JpegSegmentPreamble = "Photoshop 3.0";
 
         [NotNull]
-        public virtual IEnumerable<JpegSegmentType> GetSegmentTypes()
+        public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             return Arrays.AsList(JpegSegmentType.Appd);
         }
 
-        public virtual void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             int preambleLength = JpegSegmentPreamble.Length;
             foreach (sbyte[] segmentBytes in segments)
@@ -67,7 +67,7 @@ namespace Com.Drew.Metadata.Photoshop
             }
         }
 
-        public virtual void Extract([NotNull] SequentialReader reader, int length, [NotNull] Metadata metadata)
+        public void Extract([NotNull] SequentialReader reader, int length, [NotNull] Metadata metadata)
         {
             PhotoshopDirectory directory = new PhotoshopDirectory();
             metadata.AddDirectory(directory);

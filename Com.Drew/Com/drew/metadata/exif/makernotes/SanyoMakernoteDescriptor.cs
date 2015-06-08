@@ -28,7 +28,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="SonyType6MakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class SanyoMakernoteDescriptor : TagDescriptor<SanyoMakernoteDirectory>
+    public sealed class SanyoMakernoteDescriptor : TagDescriptor<SanyoMakernoteDirectory>
     {
         public SanyoMakernoteDescriptor([NotNull] SanyoMakernoteDirectory directory)
             : base(directory)
@@ -138,7 +138,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetSanyoQualityDescription()
+        public string GetSanyoQualityDescription()
         {
             int? value = Directory.GetInteger(SanyoMakernoteDirectory.TagSanyoQuality);
             if (value == null)

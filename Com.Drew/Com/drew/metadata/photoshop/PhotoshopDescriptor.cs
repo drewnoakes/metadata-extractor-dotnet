@@ -30,7 +30,7 @@ namespace Com.Drew.Metadata.Photoshop
 {
     /// <author>Yuri Binev</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PhotoshopDescriptor : TagDescriptor<PhotoshopDirectory>
+    public sealed class PhotoshopDescriptor : TagDescriptor<PhotoshopDirectory>
     {
         public PhotoshopDescriptor([NotNull] PhotoshopDirectory directory)
             : base(directory)
@@ -109,7 +109,7 @@ namespace Com.Drew.Metadata.Photoshop
         }
 
         [CanBeNull]
-        public virtual string GetJpegQualityString()
+        public string GetJpegQualityString()
         {
             try
             {
@@ -218,7 +218,7 @@ namespace Com.Drew.Metadata.Photoshop
         }
 
         [CanBeNull]
-        public virtual string GetPixelAspectRatioString()
+        public string GetPixelAspectRatioString()
         {
             try
             {
@@ -238,7 +238,7 @@ namespace Com.Drew.Metadata.Photoshop
         }
 
         [CanBeNull]
-        public virtual string GetPrintScaleDescription()
+        public string GetPrintScaleDescription()
         {
             try
             {
@@ -282,7 +282,7 @@ namespace Com.Drew.Metadata.Photoshop
         }
 
         [CanBeNull]
-        public virtual string GetResolutionInfoDescription()
+        public string GetResolutionInfoDescription()
         {
             try
             {
@@ -304,7 +304,7 @@ namespace Com.Drew.Metadata.Photoshop
         }
 
         [CanBeNull]
-        public virtual string GetVersionDescription()
+        public string GetVersionDescription()
         {
             try
             {
@@ -336,7 +336,7 @@ namespace Com.Drew.Metadata.Photoshop
         }
 
         [CanBeNull]
-        public virtual string GetSlicesDescription()
+        public string GetSlicesDescription()
         {
             try
             {
@@ -367,7 +367,7 @@ namespace Com.Drew.Metadata.Photoshop
         }
 
         [CanBeNull]
-        public virtual string GetThumbnailDescription(int tagType)
+        public string GetThumbnailDescription(int tagType)
         {
             try
             {

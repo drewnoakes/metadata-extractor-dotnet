@@ -32,7 +32,7 @@ namespace Com.Drew.Metadata.Jfif
     /// More info at: http://en.wikipedia.org/wiki/JPEG_File_Interchange_Format
     /// </remarks>
     /// <author>Yuri Binev, Drew Noakes</author>
-    public class JfifDescriptor : TagDescriptor<JfifDirectory>
+    public sealed class JfifDescriptor : TagDescriptor<JfifDirectory>
     {
         public JfifDescriptor([NotNull] JfifDirectory directory)
             : base(directory)
@@ -72,7 +72,7 @@ namespace Com.Drew.Metadata.Jfif
         }
 
         [CanBeNull]
-        public virtual string GetImageVersionDescription()
+        public string GetImageVersionDescription()
         {
             int? value = Directory.GetInteger(JfifDirectory.TagVersion);
             if (value == null)
@@ -83,7 +83,7 @@ namespace Com.Drew.Metadata.Jfif
         }
 
         [CanBeNull]
-        public virtual string GetImageResYDescription()
+        public string GetImageResYDescription()
         {
             int? value = Directory.GetInteger(JfifDirectory.TagResy);
             if (value == null)
@@ -94,7 +94,7 @@ namespace Com.Drew.Metadata.Jfif
         }
 
         [CanBeNull]
-        public virtual string GetImageResXDescription()
+        public string GetImageResXDescription()
         {
             int? value = Directory.GetInteger(JfifDirectory.TagResx);
             if (value == null)
@@ -105,7 +105,7 @@ namespace Com.Drew.Metadata.Jfif
         }
 
         [CanBeNull]
-        public virtual string GetImageResUnitsDescription()
+        public string GetImageResUnitsDescription()
         {
             int? value = Directory.GetInteger(JfifDirectory.TagUnits);
             if (value == null)

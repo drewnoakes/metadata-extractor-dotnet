@@ -32,7 +32,7 @@ namespace Com.Drew.Metadata.Iptc
     /// Unit tests for <see cref="IptcReader"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class IptcReaderTest
+    public sealed class IptcReaderTest
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
@@ -48,7 +48,7 @@ namespace Com.Drew.Metadata.Iptc
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestIptc1BytesFromFile()
+        public void TestIptc1BytesFromFile()
         {
             IptcDirectory directory = ProcessBytes("Tests/Data/iptc1.jpg.appd");
             Assert.IsFalse(directory.HasErrors(), Extensions.ConvertToString(directory.GetErrors()));
@@ -90,7 +90,7 @@ namespace Com.Drew.Metadata.Iptc
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestIptc2Photoshop6BytesFromFile()
+        public void TestIptc2Photoshop6BytesFromFile()
         {
             IptcDirectory directory = ProcessBytes("Tests/Data/iptc2-photoshop6.jpg.appd");
             Assert.IsFalse(directory.HasErrors(), Extensions.ConvertToString(directory.GetErrors()));
@@ -134,7 +134,7 @@ namespace Com.Drew.Metadata.Iptc
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestIptcEncodingUtf8()
+        public void TestIptcEncodingUtf8()
         {
             IptcDirectory directory = ProcessBytes("Tests/Data/iptc-encoding-defined-utf8.bytes");
             Assert.IsFalse(directory.HasErrors(), Extensions.ConvertToString(directory.GetErrors()));
@@ -152,7 +152,7 @@ namespace Com.Drew.Metadata.Iptc
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestIptcEncodingUndefinedIso()
+        public void TestIptcEncodingUndefinedIso()
         {
             IptcDirectory directory = ProcessBytes("Tests/Data/iptc-encoding-undefined-iso.bytes");
             Assert.IsFalse(directory.HasErrors(), Extensions.ConvertToString(directory.GetErrors()));
@@ -168,7 +168,7 @@ namespace Com.Drew.Metadata.Iptc
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestIptcEncodingUnknown()
+        public void TestIptcEncodingUnknown()
         {
             IptcDirectory directory = ProcessBytes("Tests/Data/iptc-encoding-unknown.bytes");
             Assert.IsFalse(directory.HasErrors(), Extensions.ConvertToString(directory.GetErrors()));
@@ -184,7 +184,7 @@ namespace Com.Drew.Metadata.Iptc
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestIptcEncodingUnknown2()
+        public void TestIptcEncodingUnknown2()
         {
             // This metadata has an encoding of three characters [ \ESC '%' '5' ]
             // It's not clear what to do with this, so it should be ignored.

@@ -28,7 +28,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="KodakMakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class KodakMakernoteDescriptor : TagDescriptor<KodakMakernoteDirectory>
+    public sealed class KodakMakernoteDescriptor : TagDescriptor<KodakMakernoteDirectory>
     {
         public KodakMakernoteDescriptor([NotNull] KodakMakernoteDirectory directory)
             : base(directory)
@@ -93,13 +93,13 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetSharpnessDescription()
+        public string GetSharpnessDescription()
         {
             return GetIndexedDescription(KodakMakernoteDirectory.TagSharpness, "Normal");
         }
 
         [CanBeNull]
-        public virtual string GetColorModeDescription()
+        public string GetColorModeDescription()
         {
             int? value = Directory.GetInteger(KodakMakernoteDirectory.TagColorMode);
             if (value == null)
@@ -154,13 +154,13 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetFlashFiredDescription()
+        public string GetFlashFiredDescription()
         {
             return GetIndexedDescription(KodakMakernoteDirectory.TagFlashFired, "No", "Yes");
         }
 
         [CanBeNull]
-        public virtual string GetFlashModeDescription()
+        public string GetFlashModeDescription()
         {
             int? value = Directory.GetInteger(KodakMakernoteDirectory.TagFlashMode);
             if (value == null)
@@ -200,19 +200,19 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetWhiteBalanceDescription()
+        public string GetWhiteBalanceDescription()
         {
             return GetIndexedDescription(KodakMakernoteDirectory.TagWhiteBalance, "Auto", "Flash", "Tungsten", "Daylight");
         }
 
         [CanBeNull]
-        public virtual string GetFocusModeDescription()
+        public string GetFocusModeDescription()
         {
             return GetIndexedDescription(KodakMakernoteDirectory.TagFocusMode, "Normal", null, "Macro");
         }
 
         [CanBeNull]
-        public virtual string GetShutterModeDescription()
+        public string GetShutterModeDescription()
         {
             int? value = Directory.GetInteger(KodakMakernoteDirectory.TagShutterMode);
             if (value == null)
@@ -244,13 +244,13 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetBurstModeDescription()
+        public string GetBurstModeDescription()
         {
             return GetIndexedDescription(KodakMakernoteDirectory.TagBurstMode, "Off", "On");
         }
 
         [CanBeNull]
-        public virtual string GetQualityDescription()
+        public string GetQualityDescription()
         {
             return GetIndexedDescription(KodakMakernoteDirectory.TagQuality, 1, "Fine", "Normal");
         }

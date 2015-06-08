@@ -32,21 +32,21 @@ namespace Com.Drew.Metadata.Jpeg
     /// <see cref="JpegCommentDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class JpegCommentReader : IJpegSegmentMetadataReader
+    public sealed class JpegCommentReader : IJpegSegmentMetadataReader
     {
         [NotNull]
-        public virtual IEnumerable<JpegSegmentType> GetSegmentTypes()
+        public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             return Arrays.AsList(JpegSegmentType.Com);
         }
 
-        public virtual bool CanProcess([NotNull] sbyte[] segmentBytes, [NotNull] JpegSegmentType segmentType)
+        public bool CanProcess([NotNull] sbyte[] segmentBytes, [NotNull] JpegSegmentType segmentType)
         {
             // The entire contents of the byte[] is the comment. There's nothing here to discriminate upon.
             return true;
         }
 
-        public virtual void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {

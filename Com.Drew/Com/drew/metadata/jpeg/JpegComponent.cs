@@ -31,7 +31,7 @@ namespace Com.Drew.Metadata.Jpeg
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [Serializable]
-    public class JpegComponent
+    public sealed class JpegComponent
     {
         private readonly int _componentId;
 
@@ -46,7 +46,7 @@ namespace Com.Drew.Metadata.Jpeg
             _quantizationTableNumber = quantizationTableNumber;
         }
 
-        public virtual int GetComponentId()
+        public int GetComponentId()
         {
             return _componentId;
         }
@@ -54,7 +54,7 @@ namespace Com.Drew.Metadata.Jpeg
         /// <summary>Returns the component name (one of: Y, Cb, Cr, I, or Q)</summary>
         /// <returns>the component name</returns>
         [CanBeNull]
-        public virtual string GetComponentName()
+        public string GetComponentName()
         {
             switch (_componentId)
             {
@@ -86,17 +86,17 @@ namespace Com.Drew.Metadata.Jpeg
             return null;
         }
 
-        public virtual int GetQuantizationTableNumber()
+        public int GetQuantizationTableNumber()
         {
             return _quantizationTableNumber;
         }
 
-        public virtual int GetHorizontalSamplingFactor()
+        public int GetHorizontalSamplingFactor()
         {
             return _samplingFactorByte & unchecked((int)(0x0F));
         }
 
-        public virtual int GetVerticalSamplingFactor()
+        public int GetVerticalSamplingFactor()
         {
             return (_samplingFactorByte >> 4) & unchecked((int)(0x0F));
         }

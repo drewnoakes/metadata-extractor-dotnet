@@ -29,7 +29,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="CanonMakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class CanonMakernoteDescriptor : TagDescriptor<CanonMakernoteDirectory>
+    public sealed class CanonMakernoteDescriptor : TagDescriptor<CanonMakernoteDirectory>
     {
         public CanonMakernoteDescriptor([NotNull] CanonMakernoteDirectory directory)
             : base(directory)
@@ -212,7 +212,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetSerialNumberDescription()
+        public string GetSerialNumberDescription()
         {
             int? value = Directory.GetInteger(CanonMakernoteDirectory.TagCanonSerialNumber);
             if (value == null)
@@ -401,7 +401,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     }
 */
         [CanBeNull]
-        public virtual string GetFlashBiasDescription()
+        public string GetFlashBiasDescription()
         {
             int? value = Directory.GetInteger(CanonMakernoteDirectory.FocalLength.TagFlashBias);
             if (value == null)
@@ -423,7 +423,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetAfPointUsedDescription()
+        public string GetAfPointUsedDescription()
         {
             int? value = Directory.GetInteger(CanonMakernoteDirectory.FocalLength.TagAfPointUsed);
             if (value == null)
@@ -446,19 +446,19 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetWhiteBalanceDescription()
+        public string GetWhiteBalanceDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.FocalLength.TagWhiteBalance, "Auto", "Sunny", "Cloudy", "Tungsten", "Florescent", "Flash", "Custom");
         }
 
         [CanBeNull]
-        public virtual string GetFocusMode2Description()
+        public string GetFocusMode2Description()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagFocusMode2, "Single", "Continuous");
         }
 
         [CanBeNull]
-        public virtual string GetFlashDetailsDescription()
+        public string GetFlashDetailsDescription()
         {
             int? value = Directory.GetInteger(CanonMakernoteDirectory.CameraSettings.TagFlashDetails);
             if (value == null)
@@ -485,7 +485,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetFocalUnitsPerMillimetreDescription()
+        public string GetFocalUnitsPerMillimetreDescription()
         {
             int? value = Directory.GetInteger(CanonMakernoteDirectory.CameraSettings.TagFocalUnitsPerMm);
             if (value == null)
@@ -500,7 +500,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetShortFocalLengthDescription()
+        public string GetShortFocalLengthDescription()
         {
             int? value = Directory.GetInteger(CanonMakernoteDirectory.CameraSettings.TagShortFocalLength);
             if (value == null)
@@ -512,7 +512,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetLongFocalLengthDescription()
+        public string GetLongFocalLengthDescription()
         {
             int? value = Directory.GetInteger(CanonMakernoteDirectory.CameraSettings.TagLongFocalLength);
             if (value == null)
@@ -524,25 +524,25 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetExposureModeDescription()
+        public string GetExposureModeDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagExposureMode, "Easy shooting", "Program", "Tv-priority", "Av-priority", "Manual", "A-DEP");
         }
 
         [CanBeNull]
-        public virtual string GetAfPointSelectedDescription()
+        public string GetAfPointSelectedDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagAfPointSelected, unchecked((int)(0x3000)), "None (MF)", "Auto selected", "Right", "Centre", "Left");
         }
 
         [CanBeNull]
-        public virtual string GetMeteringModeDescription()
+        public string GetMeteringModeDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagMeteringMode, 3, "Evaluative", "Partial", "Centre weighted");
         }
 
         [CanBeNull]
-        public virtual string GetIsoDescription()
+        public string GetIsoDescription()
         {
             int? value = Directory.GetInteger(CanonMakernoteDirectory.CameraSettings.TagIso);
             if (value == null)
@@ -595,7 +595,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetSharpnessDescription()
+        public string GetSharpnessDescription()
         {
             int? value = Directory.GetInteger(CanonMakernoteDirectory.CameraSettings.TagSharpness);
             if (value == null)
@@ -627,7 +627,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetSaturationDescription()
+        public string GetSaturationDescription()
         {
             int? value = Directory.GetInteger(CanonMakernoteDirectory.CameraSettings.TagSaturation);
             if (value == null)
@@ -659,7 +659,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetContrastDescription()
+        public string GetContrastDescription()
         {
             int? value = Directory.GetInteger(CanonMakernoteDirectory.CameraSettings.TagContrast);
             if (value == null)
@@ -691,26 +691,26 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetEasyShootingModeDescription()
+        public string GetEasyShootingModeDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagEasyShootingMode, "Full auto", "Manual", "Landscape", "Fast shutter", "Slow shutter", "Night", "B&W", "Sepia", "Portrait", "Sports", "Macro / Closeup", "Pan focus");
         }
 
         [CanBeNull]
-        public virtual string GetImageSizeDescription()
+        public string GetImageSizeDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagImageSize, "Large", "Medium", "Small");
         }
 
         [CanBeNull]
-        public virtual string GetFocusMode1Description()
+        public string GetFocusMode1Description()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagFocusMode1, "One-shot", "AI Servo", "AI Focus", "Manual Focus", "Single", "Continuous", "Manual Focus");
         }
 
         // TODO should check field 32 here (FOCUS_MODE_2)
         [CanBeNull]
-        public virtual string GetContinuousDriveModeDescription()
+        public string GetContinuousDriveModeDescription()
         {
             int? value = Directory.GetInteger(CanonMakernoteDirectory.CameraSettings.TagContinuousDriveMode);
             if (value == null)
@@ -738,7 +738,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetFlashModeDescription()
+        public string GetFlashModeDescription()
         {
             int? value = Directory.GetInteger(CanonMakernoteDirectory.CameraSettings.TagFlashMode);
             if (value == null)
@@ -796,7 +796,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetSelfTimerDelayDescription()
+        public string GetSelfTimerDelayDescription()
         {
             int? value = Directory.GetInteger(CanonMakernoteDirectory.CameraSettings.TagSelfTimerDelay);
             if (value == null)
@@ -812,25 +812,25 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetMacroModeDescription()
+        public string GetMacroModeDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagMacroMode, 1, "Macro", "Normal");
         }
 
         [CanBeNull]
-        public virtual string GetQualityDescription()
+        public string GetQualityDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagQuality, 2, "Normal", "Fine", null, "Superfine");
         }
 
         [CanBeNull]
-        public virtual string GetDigitalZoomDescription()
+        public string GetDigitalZoomDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagDigitalZoom, "No digital zoom", "2x", "4x");
         }
 
         [CanBeNull]
-        public virtual string GetFocusTypeDescription()
+        public string GetFocusTypeDescription()
         {
             int? value = Directory.GetInteger(CanonMakernoteDirectory.CameraSettings.TagFocusType);
             if (value == null)
@@ -867,7 +867,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetFlashActivityDescription()
+        public string GetFlashActivityDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagFlashActivity, "Flash did not fire", "Flash fired");
         }

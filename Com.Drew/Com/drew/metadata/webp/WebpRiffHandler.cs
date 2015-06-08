@@ -44,7 +44,7 @@ namespace Com.Drew.Metadata.Webp
     /// <item><c>"XMP "</c>: full XMP data</item>
     /// </list>
     /// </summary>
-    public class WebpRiffHandler : IRiffHandler
+    public sealed class WebpRiffHandler : IRiffHandler
     {
         [NotNull]
         private readonly Metadata _metadata;
@@ -54,17 +54,17 @@ namespace Com.Drew.Metadata.Webp
             _metadata = metadata;
         }
 
-        public virtual bool ShouldAcceptRiffIdentifier([NotNull] string identifier)
+        public bool ShouldAcceptRiffIdentifier([NotNull] string identifier)
         {
             return identifier.Equals("WEBP");
         }
 
-        public virtual bool ShouldAcceptChunk([NotNull] string fourCc)
+        public bool ShouldAcceptChunk([NotNull] string fourCc)
         {
             return fourCc.Equals("VP8X") || fourCc.Equals("EXIF") || fourCc.Equals("ICCP") || fourCc.Equals("XMP ");
         }
 
-        public virtual void ProcessChunk([NotNull] string fourCc, [NotNull] sbyte[] payload)
+        public void ProcessChunk([NotNull] string fourCc, [NotNull] sbyte[] payload)
         {
             //        System.out.println("Chunk " + fourCC + " " + payload.length + " bytes");
             if (fourCc.Equals("EXIF"))

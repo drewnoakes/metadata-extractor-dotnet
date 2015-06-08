@@ -14,7 +14,7 @@ namespace Com.Adobe.Xmp.Impl
 {
     /// <summary>Byte buffer container including length of valid data.</summary>
     /// <since>11.10.2006</since>
-    public class ByteBuffer
+    public sealed class ByteBuffer
     {
         private sbyte[] _buffer;
 
@@ -87,7 +87,7 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <returns>Returns a byte stream that is limited to the valid amount of bytes.</returns>
-        public virtual InputStream GetByteStream()
+        public InputStream GetByteStream()
         {
             return new ByteArrayInputStream(_buffer, 0, _length);
         }
@@ -96,7 +96,7 @@ namespace Com.Adobe.Xmp.Impl
         /// Returns the length, that means the number of valid bytes, of the buffer;
         /// the inner byte array might be bigger than that.
         /// </returns>
-        public virtual int Length()
+        public int Length()
         {
             return _length;
         }
@@ -111,7 +111,7 @@ namespace Com.Adobe.Xmp.Impl
         //    }
         /// <param name="index">the index to retrieve the byte from</param>
         /// <returns>Returns a byte from the buffer</returns>
-        public virtual sbyte ByteAt(int index)
+        public sbyte ByteAt(int index)
         {
             if (index < _length)
             {
@@ -122,7 +122,7 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <param name="index">the index to retrieve a byte as int or char.</param>
         /// <returns>Returns a byte from the buffer</returns>
-        public virtual int CharAt(int index)
+        public int CharAt(int index)
         {
             if (index < _length)
             {
@@ -133,7 +133,7 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>Appends a byte to the buffer.</summary>
         /// <param name="b">a byte</param>
-        public virtual void Append(sbyte b)
+        public void Append(sbyte b)
         {
             EnsureCapacity(_length + 1);
             _buffer[_length++] = b;
@@ -143,7 +143,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="bytes">a byte array</param>
         /// <param name="offset">an offset with</param>
         /// <param name="len"/>
-        public virtual void Append(sbyte[] bytes, int offset, int len)
+        public void Append(sbyte[] bytes, int offset, int len)
         {
             EnsureCapacity(_length + len);
             Array.Copy(bytes, offset, _buffer, _length, len);
@@ -152,14 +152,14 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>Append a byte array to the buffer</summary>
         /// <param name="bytes">a byte array</param>
-        public virtual void Append(sbyte[] bytes)
+        public void Append(sbyte[] bytes)
         {
             Append(bytes, 0, bytes.Length);
         }
 
         /// <summary>Append another buffer to this buffer.</summary>
         /// <param name="anotherBuffer">another <c>ByteBuffer</c></param>
-        public virtual void Append(ByteBuffer anotherBuffer)
+        public void Append(ByteBuffer anotherBuffer)
         {
             Append(anotherBuffer._buffer, 0, anotherBuffer._length);
         }
@@ -171,7 +171,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <em>Note:</em> UTF-32 flavors are not supported by Java, the XML-parser will complain.
         /// </remarks>
         /// <returns>Returns the encoding string.</returns>
-        public virtual string GetEncoding()
+        public string GetEncoding()
         {
             if (_encoding == null)
             {

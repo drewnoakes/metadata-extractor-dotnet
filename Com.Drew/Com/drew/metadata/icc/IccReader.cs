@@ -40,17 +40,17 @@ namespace Com.Drew.Metadata.Icc
     /// </remarks>
     /// <author>Yuri Binev</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class IccReader : IJpegSegmentMetadataReader, IMetadataReader
+    public sealed class IccReader : IJpegSegmentMetadataReader, IMetadataReader
     {
         public const string JpegSegmentPreamble = "ICC_PROFILE";
 
         [NotNull]
-        public virtual IEnumerable<JpegSegmentType> GetSegmentTypes()
+        public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             return Arrays.AsList(JpegSegmentType.App2);
         }
 
-        public virtual void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             int preambleLength = JpegSegmentPreamble.Length;
             // ICC data can be spread across multiple JPEG segments.
@@ -85,7 +85,7 @@ namespace Com.Drew.Metadata.Icc
             }
         }
 
-        public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata)
+        public void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata)
         {
             // TODO review whether the 'tagPtr' values below really do require RandomAccessReader or whether SequentialReader may be used instead
             IccDirectory directory = new IccDirectory();

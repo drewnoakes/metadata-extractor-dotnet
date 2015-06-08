@@ -40,7 +40,7 @@ namespace Com.Drew.Metadata.Xmp
     /// </remarks>
     /// <author>Torsten Skadell</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class XmpReader : IJpegSegmentMetadataReader
+    public sealed class XmpReader : IJpegSegmentMetadataReader
     {
         private const int FmtString = 1;
 
@@ -75,7 +75,7 @@ namespace Com.Drew.Metadata.Xmp
         //    @NotNull
         //    private static final String SCHEMA_DUBLIN_CORE_SPECIFIC_PROPERTIES = "http://purl.org/dc/elements/1.1/";
         [NotNull]
-        public virtual IEnumerable<JpegSegmentType> GetSegmentTypes()
+        public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             return Arrays.AsList(JpegSegmentType.App1);
         }
@@ -96,7 +96,7 @@ namespace Com.Drew.Metadata.Xmp
         /// <see cref="Com.Drew.Imaging.Jpeg.JpegSegmentType"/>
         /// being read.
         /// </param>
-        public virtual void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {
@@ -117,7 +117,7 @@ namespace Com.Drew.Metadata.Xmp
         /// <para>
         /// The extraction is done with Adobe's XMPCore library.
         /// </summary>
-        public virtual void Extract([NotNull] sbyte[] xmpBytes, [NotNull] Metadata metadata)
+        public void Extract([NotNull] sbyte[] xmpBytes, [NotNull] Metadata metadata)
         {
             XmpDirectory directory = new XmpDirectory();
             try
@@ -140,7 +140,7 @@ namespace Com.Drew.Metadata.Xmp
         /// <para>
         /// The extraction is done with Adobe's XMPCore library.
         /// </summary>
-        public virtual void Extract([NotNull] string xmpString, [NotNull] Metadata metadata)
+        public void Extract([NotNull] string xmpString, [NotNull] Metadata metadata)
         {
             XmpDirectory directory = new XmpDirectory();
             try

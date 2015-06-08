@@ -5,13 +5,13 @@ using JetBrains.Annotations;
 namespace Com.Drew.Metadata.Gif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class GifReader
+    public sealed class GifReader
     {
         private const string Gif87AVersionIdentifier = "87a";
 
         private const string Gif89AVersionIdentifier = "89a";
 
-        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
+        public void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
         {
             GifHeaderDirectory directory = new GifHeaderDirectory();
             metadata.AddDirectory(directory);

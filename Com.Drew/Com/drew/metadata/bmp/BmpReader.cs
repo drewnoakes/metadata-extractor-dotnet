@@ -5,9 +5,9 @@ using JetBrains.Annotations;
 namespace Com.Drew.Metadata.Bmp
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class BmpReader
+    public sealed class BmpReader
     {
-        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
+        public void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
         {
             BmpHeaderDirectory directory = new BmpHeaderDirectory();
             metadata.AddDirectory(directory);

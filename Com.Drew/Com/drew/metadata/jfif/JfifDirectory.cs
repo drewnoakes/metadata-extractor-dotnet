@@ -29,7 +29,7 @@ namespace Com.Drew.Metadata.Jfif
     /// <summary>Directory of tags and values for the SOF0 Jfif segment.</summary>
     /// <remarks>Directory of tags and values for the SOF0 Jfif segment.  This segment holds basic metadata about the image.</remarks>
     /// <author>Yuri Binev, Drew Noakes</author>
-    public class JfifDirectory : Directory
+    public sealed class JfifDirectory : Directory
     {
         public const int TagVersion = 5;
 
@@ -41,8 +41,7 @@ namespace Com.Drew.Metadata.Jfif
 
         public const int TagResy = 10;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static JfifDirectory()
         {
@@ -70,25 +69,25 @@ namespace Com.Drew.Metadata.Jfif
         }
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
-        public virtual int GetVersion()
+        public int GetVersion()
         {
             return GetInt(TagVersion);
         }
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
-        public virtual int GetResUnits()
+        public int GetResUnits()
         {
             return GetInt(TagUnits);
         }
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
-        public virtual int GetImageWidth()
+        public int GetImageWidth()
         {
             return GetInt(TagResy);
         }
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
-        public virtual int GetImageHeight()
+        public int GetImageHeight()
         {
             return GetInt(TagResx);
         }

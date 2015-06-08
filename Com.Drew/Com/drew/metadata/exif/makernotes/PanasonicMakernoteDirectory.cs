@@ -31,7 +31,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// <summary>Describes tags specific to Panasonic and Leica cameras.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Philipp Sandhaus</author>
-    public class PanasonicMakernoteDirectory : Directory
+    public sealed class PanasonicMakernoteDirectory : Directory
     {
         /// <summary>
         /// <br />
@@ -466,8 +466,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// </summary>
         public const int TagTransform1 = unchecked((int)(0x8012));
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static PanasonicMakernoteDirectory()
         {
@@ -561,7 +560,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual Face[] GetDetectedFaces()
+        public Face[] GetDetectedFaces()
         {
             sbyte[] bytes = GetByteArray(TagFaceDetectionInfo);
             if (bytes == null)
@@ -592,7 +591,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual Face[] GetRecognizedFaces()
+        public Face[] GetRecognizedFaces()
         {
             sbyte[] bytes = GetByteArray(TagFaceRecognitionInfo);
             if (bytes == null)
@@ -628,7 +627,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         /// <param name="tag">The tag identifier.</param>
         /// <returns>The parsed Age object, or null if the tag was empty of the value unable to be parsed.</returns>
         [CanBeNull]
-        public virtual Age GetAge(int tag)
+        public Age GetAge(int tag)
         {
             string ageString = GetString(tag);
             if (ageString == null)

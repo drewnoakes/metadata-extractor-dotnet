@@ -37,9 +37,9 @@ namespace Com.Drew.Metadata.Pcx
     /// </list>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PcxReader
+    public sealed class PcxReader
     {
-        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
+        public void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
         {
             reader.SetMotorolaByteOrder(false);
             PcxDirectory directory = new PcxDirectory();

@@ -36,17 +36,17 @@ namespace Com.Drew.Metadata.Jfif
     /// More info at: http://en.wikipedia.org/wiki/JPEG_File_Interchange_Format
     /// </remarks>
     /// <author>Yuri Binev, Drew Noakes, Markus Meyer</author>
-    public class JfifReader : IJpegSegmentMetadataReader, IMetadataReader
+    public sealed class JfifReader : IJpegSegmentMetadataReader, IMetadataReader
     {
         public const string Preamble = "JFIF";
 
         [NotNull]
-        public virtual IEnumerable<JpegSegmentType> GetSegmentTypes()
+        public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             return Arrays.AsList(JpegSegmentType.App0);
         }
 
-        public virtual void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {
@@ -61,7 +61,7 @@ namespace Com.Drew.Metadata.Jfif
         /// <summary>
         /// Performs the Jfif data extraction, adding found values to the specified instance of <see cref="Com.Drew.Metadata.Metadata"/>.
         /// </summary>
-        public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata)
+        public void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata)
         {
             JfifDirectory directory = new JfifDirectory();
             metadata.AddDirectory(directory);

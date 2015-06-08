@@ -29,11 +29,11 @@ namespace Com.Drew.Metadata.Exif
     /// Unit tests for <see cref="ExifInteropDescriptor"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ExifInteropDescriptorTest
+    public sealed class ExifInteropDescriptorTest
     {
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetInteropVersionDescription()
+        public void TestGetInteropVersionDescription()
         {
             ExifInteropDirectory directory = new ExifInteropDirectory();
             directory.SetIntArray(ExifDirectoryBase.TagInteropVersion, new int[] { 0, 1, 0, 0 });
@@ -44,7 +44,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetInteropIndexDescription()
+        public void TestGetInteropIndexDescription()
         {
             ExifInteropDirectory directory = new ExifInteropDirectory();
             directory.SetString(ExifDirectoryBase.TagInteropIndex, "R98");

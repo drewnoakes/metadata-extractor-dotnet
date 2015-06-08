@@ -28,7 +28,7 @@ using Thread = System.Threading.Thread;
 namespace Com.Drew.Metadata.Exif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class NikonType2MakernoteTest1
+    public sealed class NikonType2MakernoteTest1
     {
         private NikonType2MakernoteDirectory _nikonDirectory;
 
@@ -36,7 +36,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [SetUp]
-        public virtual void SetUp()
+        public void SetUp()
         {
             Thread.CurrentThread.CurrentCulture = Extensions.CreateLocale("en", "GB");
             _nikonDirectory = ExifReaderTest.ProcessBytes<NikonType2MakernoteDirectory>("Tests/Data/nikonMakernoteType2a.jpg.app1");
@@ -82,7 +82,7 @@ namespace Com.Drew.Metadata.Exif
     */
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestNikonMakernote_MatchesKnownValues()
+        public void TestNikonMakernote_MatchesKnownValues()
         {
             Assert.AreEqual("48 50 48 48", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagFirmwareVersion));
             Assert.AreEqual("0 320", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagIso1));
@@ -108,7 +108,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
         [Test]
-        public virtual void TestGetLensDescription()
+        public void TestGetLensDescription()
         {
             Assert.AreEqual("24-85mm f/3.5-4.5", _descriptor.GetDescription(NikonType2MakernoteDirectory.TagLens));
             Assert.AreEqual("24-85mm f/3.5-4.5", _descriptor.GetLensDescription());
@@ -116,7 +116,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
         [Test]
-        public virtual void TestGetHueAdjustmentDescription()
+        public void TestGetHueAdjustmentDescription()
         {
             Assert.AreEqual("0 degrees", _descriptor.GetDescription(NikonType2MakernoteDirectory.TagCameraHueAdjustment));
             Assert.AreEqual("0 degrees", _descriptor.GetHueAdjustmentDescription());
@@ -124,7 +124,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetColorModeDescription()
+        public void TestGetColorModeDescription()
         {
             Assert.AreEqual("Mode I (sRGB)", _descriptor.GetDescription(NikonType2MakernoteDirectory.TagCameraColorMode));
             Assert.AreEqual("Mode I (sRGB)", _descriptor.GetColorModeDescription());
@@ -132,7 +132,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetAutoFlashCompensationDescription()
+        public void TestGetAutoFlashCompensationDescription()
         {
             NikonType2MakernoteDirectory directory = new NikonType2MakernoteDirectory();
             NikonType2MakernoteDescriptor descriptor = new NikonType2MakernoteDescriptor(directory);

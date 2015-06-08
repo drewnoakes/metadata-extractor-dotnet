@@ -25,7 +25,7 @@ using JetBrains.Annotations;
 namespace Com.Drew.Metadata.Pcx
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PcxDescriptor : TagDescriptor<PcxDirectory>
+    public sealed class PcxDescriptor : TagDescriptor<PcxDirectory>
     {
         public PcxDescriptor([NotNull] PcxDirectory directory)
             : base(directory)
@@ -59,7 +59,7 @@ namespace Com.Drew.Metadata.Pcx
         }
 
         [CanBeNull]
-        public virtual string GetVersionDescription()
+        public string GetVersionDescription()
         {
             // Prior to v2.5 of PC Paintbrush, the PCX image file format was considered proprietary information
             // by ZSoft Corporation
@@ -68,13 +68,13 @@ namespace Com.Drew.Metadata.Pcx
         }
 
         [CanBeNull]
-        public virtual string GetColorPlanesDescription()
+        public string GetColorPlanesDescription()
         {
             return GetIndexedDescription(PcxDirectory.TagColorPlanes, 3, "24-bit color", "16 colors");
         }
 
         [CanBeNull]
-        public virtual string GetPaletteTypeDescription()
+        public string GetPaletteTypeDescription()
         {
             return GetIndexedDescription(PcxDirectory.TagPaletteType, 1, "Color or B&W", "Grayscale");
         }

@@ -28,18 +28,18 @@ using Sharpen;
 namespace Com.Drew.Imaging.Jpeg
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class JpegMetadataReaderTest
+    public sealed class JpegMetadataReaderTest
     {
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtractMetadata()
+        public void TestExtractMetadata()
         {
             Validate(JpegMetadataReader.ReadMetadata(new FilePath("Tests/Data/withExif.jpg")));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtractMetadataUsingInputStream()
+        public void TestExtractMetadataUsingInputStream()
         {
             Validate(JpegMetadataReader.ReadMetadata(new FileInputStream((new FilePath("Tests/Data/withExif.jpg")))));
         }

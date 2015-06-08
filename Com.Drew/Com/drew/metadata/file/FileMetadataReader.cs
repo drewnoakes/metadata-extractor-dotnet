@@ -4,10 +4,10 @@ using Sharpen;
 
 namespace Com.Drew.Metadata.File
 {
-    public class FileMetadataReader
+    public sealed class FileMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
-        public virtual void Read([NotNull] FilePath file, [NotNull] Metadata metadata)
+        public void Read([NotNull] FilePath file, [NotNull] Metadata metadata)
         {
             if (!file.IsFile())
             {

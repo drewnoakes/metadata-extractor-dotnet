@@ -28,7 +28,7 @@ namespace Com.Drew.Metadata.Iptc
 {
     /// <summary>Describes tags used by the International Press Telecommunications Council (IPTC) metadata format.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class IptcDirectory : Directory
+    public sealed class IptcDirectory : Directory
     {
         public const int TagEnvelopeRecordVersion = unchecked((int)(0x0100));
 
@@ -184,8 +184,7 @@ namespace Com.Drew.Metadata.Iptc
 
         public const int TagObjectPreviewData = unchecked((int)(0x02CA));
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static IptcDirectory()
         {
@@ -367,7 +366,7 @@ namespace Com.Drew.Metadata.Iptc
         /// <summary>Returns any keywords contained in the IPTC data.</summary>
         /// <remarks>Returns any keywords contained in the IPTC data.  This value may be <c>null</c>.</remarks>
         [CanBeNull]
-        public virtual IList<string> GetKeywords()
+        public IList<string> GetKeywords()
         {
             string[] array = GetStringArray(TagKeywords);
             if (array == null)

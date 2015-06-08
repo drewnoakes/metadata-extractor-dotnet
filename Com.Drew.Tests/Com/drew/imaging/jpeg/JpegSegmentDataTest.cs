@@ -26,11 +26,11 @@ using Sharpen;
 namespace Com.Drew.Imaging.Jpeg
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class JpegSegmentDataTest
+    public sealed class JpegSegmentDataTest
     {
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestAddAndGetSegment()
+        public void TestAddAndGetSegment()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
             sbyte segmentMarker = unchecked((sbyte)12);
@@ -42,7 +42,7 @@ namespace Com.Drew.Imaging.Jpeg
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestContainsSegment()
+        public void TestContainsSegment()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
             sbyte segmentMarker = unchecked((sbyte)12);
@@ -54,7 +54,7 @@ namespace Com.Drew.Imaging.Jpeg
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestAddingMultipleSegments()
+        public void TestAddingMultipleSegments()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
             sbyte segmentMarker1 = unchecked((sbyte)12);
@@ -71,7 +71,7 @@ namespace Com.Drew.Imaging.Jpeg
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestSegmentWithMultipleOccurrences()
+        public void TestSegmentWithMultipleOccurrences()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
             sbyte segmentMarker = unchecked((sbyte)12);
@@ -87,7 +87,7 @@ namespace Com.Drew.Imaging.Jpeg
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestRemoveSegmentOccurrence()
+        public void TestRemoveSegmentOccurrence()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
             sbyte segmentMarker = unchecked((sbyte)12);
@@ -103,7 +103,7 @@ namespace Com.Drew.Imaging.Jpeg
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestRemoveSegment()
+        public void TestRemoveSegment()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
             sbyte segmentMarker = unchecked((sbyte)12);

@@ -27,7 +27,7 @@ using Sharpen;
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class RandomAccessFileReaderTest : RandomAccessTestBase
+    public sealed class RandomAccessFileReaderTest : RandomAccessTestBase
     {
         private FilePath _tempFile;
 
@@ -55,7 +55,7 @@ namespace Com.Drew.Lang
 
         /// <exception cref="System.IO.IOException"/>
         [TearDown]
-        public virtual void DeleteTempFile()
+        public void DeleteTempFile()
         {
             if (_randomAccessFile == null)
             {
@@ -72,7 +72,7 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public virtual void TestConstructWithNullBufferThrows()
+        public void TestConstructWithNullBufferThrows()
         {
             new RandomAccessFileReader(null);
         }

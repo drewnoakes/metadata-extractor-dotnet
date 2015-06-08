@@ -32,7 +32,7 @@ namespace Com.Drew.Metadata
     /// Immutable.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class Tag
+    public sealed class Tag
     {
         private readonly int _tagType;
 
@@ -47,7 +47,7 @@ namespace Com.Drew.Metadata
 
         /// <summary>Gets the tag type as an int</summary>
         /// <returns>the tag type as an int</returns>
-        public virtual int GetTagType()
+        public int GetTagType()
         {
             return _tagType;
         }
@@ -62,7 +62,7 @@ namespace Com.Drew.Metadata
         /// </remarks>
         /// <returns>the tag type as a string in hexadecimal notation</returns>
         [NotNull]
-        public virtual string GetTagTypeHex()
+        public string GetTagTypeHex()
         {
             string hex = Extensions.ToHexString(_tagType);
             while (hex.Length < 4)
@@ -78,7 +78,7 @@ namespace Com.Drew.Metadata
         /// </summary>
         /// <returns>a description of the tag's value</returns>
         [CanBeNull]
-        public virtual string GetDescription()
+        public string GetDescription()
         {
             return _directory.GetDescription(_tagType);
         }
@@ -91,7 +91,7 @@ namespace Com.Drew.Metadata
         /// </remarks>
         /// <returns>whether this tag has a name</returns>
         [NotNull]
-        public virtual bool HasTagName()
+        public bool HasTagName()
         {
             return _directory.HasTagName(_tagType);
         }
@@ -102,7 +102,7 @@ namespace Com.Drew.Metadata
         /// </summary>
         /// <returns>the tag's name</returns>
         [NotNull]
-        public virtual string GetTagName()
+        public string GetTagName()
         {
             return _directory.GetTagName(_tagType);
         }
@@ -119,7 +119,7 @@ namespace Com.Drew.Metadata
         /// in which this tag exists
         /// </returns>
         [NotNull]
-        public virtual string GetDirectoryName()
+        public string GetDirectoryName()
         {
             return _directory.GetName();
         }

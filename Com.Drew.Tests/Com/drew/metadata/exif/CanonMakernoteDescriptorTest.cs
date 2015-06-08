@@ -27,11 +27,11 @@ using Sharpen;
 namespace Com.Drew.Metadata.Exif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class CanonMakernoteDescriptorTest
+    public sealed class CanonMakernoteDescriptorTest
     {
         /// <exception cref="System.Exception"/>
         [Test, SetCulture("en-GB")]
-        public virtual void TestGetFlashBiasDescription()
+        public void TestGetFlashBiasDescription()
         {
             CanonMakernoteDirectory directory = new CanonMakernoteDirectory();
             CanonMakernoteDescriptor descriptor = new CanonMakernoteDescriptor(directory);

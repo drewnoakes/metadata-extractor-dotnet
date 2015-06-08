@@ -26,7 +26,7 @@ namespace Com.Drew.Imaging.Tiff
 {
     /// <summary>An enumeration of data formats used by the TIFF specification.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class TiffDataFormat
+    public sealed class TiffDataFormat
     {
         public const int CodeInt8U = 1;
 
@@ -170,12 +170,12 @@ namespace Com.Drew.Imaging.Tiff
             _componentSizeBytes = componentSizeBytes;
         }
 
-        public virtual int GetComponentSizeBytes()
+        public int GetComponentSizeBytes()
         {
             return _componentSizeBytes;
         }
 
-        public virtual int GetTiffFormatCode()
+        public int GetTiffFormatCode()
         {
             return _tiffFormatCode;
         }

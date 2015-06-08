@@ -34,10 +34,10 @@ namespace Com.Drew.Metadata.Jpeg
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Darrell Silver http://www.darrellsilver.com</author>
-    public class JpegReader : IJpegSegmentMetadataReader
+    public sealed class JpegReader : IJpegSegmentMetadataReader
     {
         [NotNull]
-        public virtual IEnumerable<JpegSegmentType> GetSegmentTypes()
+        public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             // NOTE that some SOFn values do not exist
             return Arrays.AsList(JpegSegmentType.Sof0, JpegSegmentType.Sof1, JpegSegmentType.Sof2, JpegSegmentType.Sof3, JpegSegmentType.Sof5, JpegSegmentType.Sof6, JpegSegmentType.Sof7, JpegSegmentType.Sof8, JpegSegmentType.Sof9, JpegSegmentType.Sof10,
@@ -46,7 +46,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         //            JpegSegmentType.SOF4,
         //            JpegSegmentType.SOF12,
-        public virtual void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {
@@ -54,7 +54,7 @@ namespace Com.Drew.Metadata.Jpeg
             }
         }
 
-        public virtual void Extract(sbyte[] segmentBytes, Metadata metadata, JpegSegmentType segmentType)
+        public void Extract(sbyte[] segmentBytes, Metadata metadata, JpegSegmentType segmentType)
         {
             JpegDirectory directory = new JpegDirectory();
             metadata.AddDirectory(directory);

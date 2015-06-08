@@ -28,7 +28,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="SonyType6MakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class SonyType6MakernoteDescriptor : TagDescriptor<SonyType6MakernoteDirectory>
+    public sealed class SonyType6MakernoteDescriptor : TagDescriptor<SonyType6MakernoteDirectory>
     {
         public SonyType6MakernoteDescriptor([NotNull] SonyType6MakernoteDirectory directory)
             : base(directory)
@@ -53,7 +53,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetMakernoteThumbVersionDescription()
+        public string GetMakernoteThumbVersionDescription()
         {
             return GetVersionBytesDescription(SonyType6MakernoteDirectory.TagMakernoteThumbVersion, 2);
         }

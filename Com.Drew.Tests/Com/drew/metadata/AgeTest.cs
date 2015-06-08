@@ -26,10 +26,10 @@ using Sharpen;
 namespace Com.Drew.Metadata
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class AgeTest
+    public sealed class AgeTest
     {
         [Test]
-        public virtual void TestParse()
+        public void TestParse()
         {
             Age age = Age.FromPanasonicString("0031:07:15 00:00:00");
             Assert.IsNotNull(age);
@@ -44,7 +44,7 @@ namespace Com.Drew.Metadata
         }
 
         [Test]
-        public virtual void TestEqualsAndHashCode()
+        public void TestEqualsAndHashCode()
         {
             Age age1 = new Age(10, 11, 12, 13, 14, 15);
             Age age2 = new Age(10, 11, 12, 13, 14, 15);

@@ -334,7 +334,7 @@ namespace Com.Adobe.Xmp.Impl
     }
 
     /// <since>22.08.2006</since>
-    internal class ParseState
+    internal sealed class ParseState
     {
         private readonly string _str;
 
@@ -347,38 +347,38 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <returns>Returns the length of the input.</returns>
-        public virtual int Length()
+        public int Length()
         {
             return _str.Length;
         }
 
         /// <returns>Returns whether there are more chars to come.</returns>
-        public virtual bool HasNext()
+        public bool HasNext()
         {
             return _pos < _str.Length;
         }
 
         /// <param name="index">index of char</param>
         /// <returns>Returns char at a certain index.</returns>
-        public virtual char Ch(int index)
+        public char Ch(int index)
         {
             return index < _str.Length ? _str[index] : (char)0x0000;
         }
 
         /// <returns>Returns the current char or 0x0000 if there are no more chars.</returns>
-        public virtual char Ch()
+        public char Ch()
         {
             return _pos < _str.Length ? _str[_pos] : (char)0x0000;
         }
 
         /// <summary>Skips the next char.</summary>
-        public virtual void Skip()
+        public void Skip()
         {
             _pos++;
         }
 
         /// <returns>Returns the current position.</returns>
-        public virtual int Pos()
+        public int Pos()
         {
             return _pos;
         }
@@ -388,7 +388,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="maxValue">the max value of the number to return</param>
         /// <returns>Returns the parsed integer.</returns>
         /// <exception cref="XmpException">Thrown if no integer can be found.</exception>
-        public virtual int GatherInt(string errorMsg, int maxValue)
+        public int GatherInt(string errorMsg, int maxValue)
         {
             int value = 0;
             bool success = false;

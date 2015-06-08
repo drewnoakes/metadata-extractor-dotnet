@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 namespace Com.Drew.Imaging.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PngChromaticities
+    public sealed class PngChromaticities
     {
         private readonly int _whitePointX;
 
@@ -48,42 +48,42 @@ namespace Com.Drew.Imaging.Png
             }
         }
 
-        public virtual int GetWhitePointX()
+        public int GetWhitePointX()
         {
             return _whitePointX;
         }
 
-        public virtual int GetWhitePointY()
+        public int GetWhitePointY()
         {
             return _whitePointY;
         }
 
-        public virtual int GetRedX()
+        public int GetRedX()
         {
             return _redX;
         }
 
-        public virtual int GetRedY()
+        public int GetRedY()
         {
             return _redY;
         }
 
-        public virtual int GetGreenX()
+        public int GetGreenX()
         {
             return _greenX;
         }
 
-        public virtual int GetGreenY()
+        public int GetGreenY()
         {
             return _greenY;
         }
 
-        public virtual int GetBlueX()
+        public int GetBlueX()
         {
             return _blueX;
         }
 
-        public virtual int GetBlueY()
+        public int GetBlueY()
         {
             return _blueY;
         }

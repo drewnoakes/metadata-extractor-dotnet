@@ -28,7 +28,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Bmp
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class BmpReaderTest
+    public sealed class BmpReaderTest
     {
         /// <exception cref="System.Exception"/>
         [NotNull]
@@ -45,7 +45,7 @@ namespace Com.Drew.Metadata.Bmp
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestMsPaint16Color()
+        public void TestMsPaint16Color()
         {
             BmpHeaderDirectory directory = ProcessBytes("Tests/Data/16color-10x10.bmp");
             Assert.IsFalse(directory.HasErrors());
@@ -63,7 +63,7 @@ namespace Com.Drew.Metadata.Bmp
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestMsPaint24Bpp()
+        public void TestMsPaint24Bpp()
         {
             BmpHeaderDirectory directory = ProcessBytes("Tests/Data/24bpp-10x10.bmp");
             Assert.IsFalse(directory.HasErrors());

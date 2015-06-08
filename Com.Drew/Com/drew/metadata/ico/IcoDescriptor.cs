@@ -25,7 +25,7 @@ using JetBrains.Annotations;
 namespace Com.Drew.Metadata.Ico
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class IcoDescriptor : TagDescriptor<IcoDirectory>
+    public sealed class IcoDescriptor : TagDescriptor<IcoDirectory>
     {
         public IcoDescriptor([NotNull] IcoDirectory directory)
             : base(directory)
@@ -64,13 +64,13 @@ namespace Com.Drew.Metadata.Ico
         }
 
         [CanBeNull]
-        public virtual string GetImageTypeDescription()
+        public string GetImageTypeDescription()
         {
             return GetIndexedDescription(IcoDirectory.TagImageType, 1, "Icon", "Cursor");
         }
 
         [CanBeNull]
-        public virtual string GetImageWidthDescription()
+        public string GetImageWidthDescription()
         {
             int? width = Directory.GetInteger(IcoDirectory.TagImageWidth);
             if (width == null)
@@ -81,7 +81,7 @@ namespace Com.Drew.Metadata.Ico
         }
 
         [CanBeNull]
-        public virtual string GetImageHeightDescription()
+        public string GetImageHeightDescription()
         {
             int? width = Directory.GetInteger(IcoDirectory.TagImageHeight);
             if (width == null)
@@ -92,7 +92,7 @@ namespace Com.Drew.Metadata.Ico
         }
 
         [CanBeNull]
-        public virtual string GetColourPaletteSizeDescription()
+        public string GetColourPaletteSizeDescription()
         {
             int? size = Directory.GetInteger(IcoDirectory.TagColourPaletteSize);
             if (size == null)

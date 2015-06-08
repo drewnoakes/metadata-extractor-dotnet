@@ -26,7 +26,7 @@ using JetBrains.Annotations;
 namespace Com.Drew.Metadata.Photoshop
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PsdHeaderDescriptor : TagDescriptor<PsdHeaderDirectory>
+    public sealed class PsdHeaderDescriptor : TagDescriptor<PsdHeaderDirectory>
     {
         public PsdHeaderDescriptor([NotNull] PsdHeaderDirectory directory)
             : base(directory)
@@ -70,7 +70,7 @@ namespace Com.Drew.Metadata.Photoshop
         }
 
         [CanBeNull]
-        public virtual string GetChannelCountDescription()
+        public string GetChannelCountDescription()
         {
             try
             {
@@ -89,7 +89,7 @@ namespace Com.Drew.Metadata.Photoshop
         }
 
         [CanBeNull]
-        public virtual string GetBitsPerChannelDescription()
+        public string GetBitsPerChannelDescription()
         {
             try
             {
@@ -108,7 +108,7 @@ namespace Com.Drew.Metadata.Photoshop
         }
 
         [CanBeNull]
-        public virtual string GetColorModeDescription()
+        public string GetColorModeDescription()
         {
             // Bitmap = 0; Grayscale = 1; Indexed = 2; RGB = 3; CMYK = 4; Multichannel = 7; Duotone = 8; Lab = 9
             try
@@ -173,7 +173,7 @@ namespace Com.Drew.Metadata.Photoshop
         }
 
         [CanBeNull]
-        public virtual string GetImageHeightDescription()
+        public string GetImageHeightDescription()
         {
             try
             {
@@ -191,7 +191,7 @@ namespace Com.Drew.Metadata.Photoshop
         }
 
         [CanBeNull]
-        public virtual string GetImageWidthDescription()
+        public string GetImageWidthDescription()
         {
             try
             {

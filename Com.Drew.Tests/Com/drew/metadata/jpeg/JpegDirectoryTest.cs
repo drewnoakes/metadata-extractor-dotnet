@@ -26,26 +26,26 @@ using Sharpen;
 namespace Com.Drew.Metadata.Jpeg
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class JpegDirectoryTest
+    public sealed class JpegDirectoryTest
     {
         private JpegDirectory _directory;
 
         [SetUp]
-        public virtual void SetUp()
+        public void SetUp()
         {
             _directory = new JpegDirectory();
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestSetAndGetValue()
+        public void TestSetAndGetValue()
         {
             _directory.SetInt(123, 8);
             Assert.AreEqual(8, _directory.GetInt(123));
         }
 
         [Test]
-        public virtual void TestGetComponent_NotAdded()
+        public void TestGetComponent_NotAdded()
         {
             Assert.IsNull(_directory.GetComponent(1));
         }
@@ -53,7 +53,7 @@ namespace Com.Drew.Metadata.Jpeg
         // NOTE tests for individual tag values exist in JpegReaderTest.java
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetImageWidth()
+        public void TestGetImageWidth()
         {
             _directory.SetInt(JpegDirectory.TagImageWidth, 123);
             Assert.AreEqual(123, _directory.GetImageWidth());
@@ -61,7 +61,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetImageHeight()
+        public void TestGetImageHeight()
         {
             _directory.SetInt(JpegDirectory.TagImageHeight, 123);
             Assert.AreEqual(123, _directory.GetImageHeight());
@@ -69,7 +69,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetNumberOfComponents()
+        public void TestGetNumberOfComponents()
         {
             _directory.SetInt(JpegDirectory.TagNumberOfComponents, 3);
             Assert.AreEqual(3, _directory.GetNumberOfComponents());
@@ -78,7 +78,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetComponent()
+        public void TestGetComponent()
         {
             JpegComponent component1 = new JpegComponent(1, 2, 3);
             JpegComponent component2 = new JpegComponent(1, 2, 3);

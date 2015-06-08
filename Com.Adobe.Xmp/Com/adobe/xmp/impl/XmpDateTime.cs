@@ -22,7 +22,7 @@ namespace Com.Adobe.Xmp.Impl
     /// seconds. The <c>nanoSeconds</c> convers only the resolution beyond a milli second.
     /// </remarks>
     /// <since>16.02.2006</since>
-    public class XmpDateTime : IXmpDateTime
+    public sealed class XmpDateTime : IXmpDateTime
     {
         private int _year;
 
@@ -115,26 +115,26 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <seealso cref="IXmpDateTime.GetYear()"/>
-        public virtual int GetYear()
+        public int GetYear()
         {
             return _year;
         }
 
         /// <seealso cref="IXmpDateTime.SetYear(int)"/>
-        public virtual void SetYear(int year)
+        public void SetYear(int year)
         {
             _year = Math.Min(Math.Abs(year), 9999);
             _hasDate = true;
         }
 
         /// <seealso cref="IXmpDateTime.GetMonth()"/>
-        public virtual int GetMonth()
+        public int GetMonth()
         {
             return _month;
         }
 
         /// <seealso cref="IXmpDateTime.SetMonth(int)"/>
-        public virtual void SetMonth(int month)
+        public void SetMonth(int month)
         {
             if (month < 1)
             {
@@ -155,13 +155,13 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <seealso cref="IXmpDateTime.GetDay()"/>
-        public virtual int GetDay()
+        public int GetDay()
         {
             return _day;
         }
 
         /// <seealso cref="IXmpDateTime.SetDay(int)"/>
-        public virtual void SetDay(int day)
+        public void SetDay(int day)
         {
             if (day < 1)
             {
@@ -182,59 +182,59 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <seealso cref="IXmpDateTime.GetHour()"/>
-        public virtual int GetHour()
+        public int GetHour()
         {
             return _hour;
         }
 
         /// <seealso cref="IXmpDateTime.SetHour(int)"/>
-        public virtual void SetHour(int hour)
+        public void SetHour(int hour)
         {
             _hour = Math.Min(Math.Abs(hour), 23);
             _hasTime = true;
         }
 
         /// <seealso cref="IXmpDateTime.GetMinute()"/>
-        public virtual int GetMinute()
+        public int GetMinute()
         {
             return _minute;
         }
 
         /// <seealso cref="IXmpDateTime.SetMinute(int)"/>
-        public virtual void SetMinute(int minute)
+        public void SetMinute(int minute)
         {
             _minute = Math.Min(Math.Abs(minute), 59);
             _hasTime = true;
         }
 
         /// <seealso cref="IXmpDateTime.GetSecond()"/>
-        public virtual int GetSecond()
+        public int GetSecond()
         {
             return _second;
         }
 
         /// <seealso cref="IXmpDateTime.SetSecond(int)"/>
-        public virtual void SetSecond(int second)
+        public void SetSecond(int second)
         {
             _second = Math.Min(Math.Abs(second), 59);
             _hasTime = true;
         }
 
         /// <seealso cref="IXmpDateTime.GetNanoSecond()"/>
-        public virtual int GetNanoSecond()
+        public int GetNanoSecond()
         {
             return _nanoSeconds;
         }
 
         /// <seealso cref="IXmpDateTime.SetNanoSecond(int)"/>
-        public virtual void SetNanoSecond(int nanoSecond)
+        public void SetNanoSecond(int nanoSecond)
         {
             _nanoSeconds = nanoSecond;
             _hasTime = true;
         }
 
         /// <seealso cref="System.IComparable{T}.CompareTo(object)"/>
-        public virtual int CompareTo(object dt)
+        public int CompareTo(object dt)
         {
             long d = GetCalendar().GetTimeInMillis() - ((IXmpDateTime)dt).GetCalendar().GetTimeInMillis();
             if (d != 0)
@@ -247,13 +247,13 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <seealso cref="IXmpDateTime.GetTimeZone()"/>
-        public virtual TimeZoneInfo GetTimeZone()
+        public TimeZoneInfo GetTimeZone()
         {
             return _timeZone;
         }
 
         /// <seealso cref="IXmpDateTime.SetTimeZone(System.TimeZoneInfo)"/>
-        public virtual void SetTimeZone(TimeZoneInfo timeZone)
+        public void SetTimeZone(TimeZoneInfo timeZone)
         {
             _timeZone = timeZone;
             _hasTime = true;
@@ -261,25 +261,25 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <seealso cref="IXmpDateTime.HasDate()"/>
-        public virtual bool HasDate()
+        public bool HasDate()
         {
             return _hasDate;
         }
 
         /// <seealso cref="IXmpDateTime.HasTime()"/>
-        public virtual bool HasTime()
+        public bool HasTime()
         {
             return _hasTime;
         }
 
         /// <seealso cref="IXmpDateTime.HasTimeZone()"/>
-        public virtual bool HasTimeZone()
+        public bool HasTimeZone()
         {
             return _hasTimeZone;
         }
 
         /// <seealso cref="IXmpDateTime.GetCalendar()"/>
-        public virtual Calendar GetCalendar()
+        public Calendar GetCalendar()
         {
             GregorianCalendar calendar = (GregorianCalendar)Calendar.GetInstance(CultureInfo.InvariantCulture);
             calendar.SetGregorianChange(Extensions.CreateDate(long.MinValue));
@@ -298,7 +298,7 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <sIXmpDateTime.GetIso8601StringO8601String()"/>
-        public virtual string GetIso8601String()
+        public string GetIso8601String()
         {
             return Iso8601Converter.Render(this);
         }

@@ -36,7 +36,7 @@ namespace Com.Drew.Metadata.Iptc
     /// http://www.iptc.org/std/IIM/4.1/specification/IIMV4.1.pdf
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class IptcReader : IJpegSegmentMetadataReader
+    public sealed class IptcReader : IJpegSegmentMetadataReader
     {
         // TODO consider breaking the IPTC section up into multiple directories and providing segregation of each IPTC directory
 /*
@@ -53,12 +53,12 @@ namespace Com.Drew.Metadata.Iptc
     public static final int POST_DATA_RECORD = 9;
 */
         [NotNull]
-        public virtual IEnumerable<JpegSegmentType> GetSegmentTypes()
+        public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             return Arrays.AsList(JpegSegmentType.Appd);
         }
 
-        public virtual void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {
@@ -73,7 +73,7 @@ namespace Com.Drew.Metadata.Iptc
         /// <summary>
         /// Performs the IPTC data extraction, adding found values to the specified instance of <see cref="Com.Drew.Metadata.Metadata"/>.
         /// </summary>
-        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata, long length)
+        public void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata, long length)
         {
             IptcDirectory directory = new IptcDirectory();
             metadata.AddDirectory(directory);

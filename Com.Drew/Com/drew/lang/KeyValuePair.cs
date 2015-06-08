@@ -8,7 +8,7 @@ namespace Com.Drew.Lang
     /// objects.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class KeyValuePair
+    public sealed class KeyValuePair
     {
         private readonly string _key;
 
@@ -21,13 +21,13 @@ namespace Com.Drew.Lang
         }
 
         [NotNull]
-        public virtual string GetKey()
+        public string GetKey()
         {
             return _key;
         }
 
         [NotNull]
-        public virtual string GetValue()
+        public string GetValue()
         {
             return _value;
         }

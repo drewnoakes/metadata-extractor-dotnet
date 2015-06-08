@@ -26,11 +26,11 @@ using Sharpen;
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class RationalTest
+    public sealed class RationalTest
     {
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestCreateRational()
+        public void TestCreateRational()
         {
             Rational rational = new Rational(1, 3);
             Assert.AreEqual(1, (object)rational.GetNumerator());
@@ -40,7 +40,7 @@ namespace Com.Drew.Lang
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestToString()
+        public void TestToString()
         {
             Rational rational = new Rational(1, 3);
             Assert.AreEqual("1/3", Extensions.ConvertToString(rational));
@@ -48,7 +48,7 @@ namespace Com.Drew.Lang
 
         /// <exception cref="System.Exception"/>
         [Test, SetCulture("en-GB")]
-        public virtual void TestToSimpleString()
+        public void TestToSimpleString()
         {
             Rational third1 = new Rational(1, 3);
             Rational third2 = new Rational(2, 6);
@@ -81,7 +81,7 @@ namespace Com.Drew.Lang
         //        assertEquals("2 1/2", twoAndAHalf.toSimpleString());
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetReciprocal()
+        public void TestGetReciprocal()
         {
             Rational rational = new Rational(1, 3);
             Rational reciprocal = rational.GetReciprocal();
@@ -91,7 +91,7 @@ namespace Com.Drew.Lang
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestZeroOverZero()
+        public void TestZeroOverZero()
         {
             Assert.AreEqual(new Rational(0, 0), new Rational(0, 0).GetReciprocal());
             Assert.AreEqual(0.0d, new Rational(0, 0).DoubleValue(), 0.000000001);

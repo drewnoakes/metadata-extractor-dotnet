@@ -33,7 +33,7 @@ namespace Com.Drew.Metadata.Xmp
 {
     /// <author>Torsten Skadell</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class XmpDirectory : Directory
+    public sealed class XmpDirectory : Directory
     {
         public const int TagXmpValueCount = unchecked((int)(0xFFFF));
 
@@ -250,7 +250,7 @@ namespace Com.Drew.Metadata.Xmp
             return TagNameMap;
         }
 
-        internal virtual void AddProperty([NotNull] string path, [NotNull] string value)
+        internal void AddProperty([NotNull] string path, [NotNull] string value)
         {
             _propertyValueByPath.Put(path, value);
         }
@@ -263,12 +263,12 @@ namespace Com.Drew.Metadata.Xmp
         /// uses integers for keys.
         /// </remarks>
         [NotNull]
-        public virtual IDictionary<string, string> GetXmpProperties()
+        public IDictionary<string, string> GetXmpProperties()
         {
             return Collections.UnmodifiableMap(_propertyValueByPath);
         }
 
-        public virtual void SetXmpMeta([NotNull] IXmpMeta xmpMeta)
+        public void SetXmpMeta([NotNull] IXmpMeta xmpMeta)
         {
             _xmpMeta = xmpMeta;
             try
@@ -296,7 +296,7 @@ namespace Com.Drew.Metadata.Xmp
         /// created.
         /// </remarks>
         [CanBeNull]
-        public virtual IXmpMeta GetXmpMeta()
+        public IXmpMeta GetXmpMeta()
         {
             if (_xmpMeta == null)
             {
@@ -309,7 +309,7 @@ namespace Com.Drew.Metadata.Xmp
         // TODO: update[Type] avoids rewriting the whole _xmpMeta on processXmpTags(),
         // but with sets exposed this is still less than ideal...
         // At the very least document this carefully!
-        public virtual void UpdateInt(int tagType, int value)
+        public void UpdateInt(int tagType, int value)
         {
             SetInt(tagType, value);
             try
@@ -322,7 +322,7 @@ namespace Com.Drew.Metadata.Xmp
             }
         }
 
-        public virtual void UpdateIntArray(int tagType, int[] ints)
+        public void UpdateIntArray(int tagType, int[] ints)
         {
             SetIntArray(tagType, ints);
             try
@@ -342,7 +342,7 @@ namespace Com.Drew.Metadata.Xmp
             }
         }
 
-        public virtual void UpdateFloat(int tagType, float value)
+        public void UpdateFloat(int tagType, float value)
         {
             SetFloat(tagType, value);
             try
@@ -355,7 +355,7 @@ namespace Com.Drew.Metadata.Xmp
             }
         }
 
-        public virtual void UpdateFloatArray(int tagType, float[] floats)
+        public void UpdateFloatArray(int tagType, float[] floats)
         {
             SetFloatArray(tagType, floats);
             try
@@ -375,7 +375,7 @@ namespace Com.Drew.Metadata.Xmp
             }
         }
 
-        public virtual void UpdateDouble(int tagType, double value)
+        public void UpdateDouble(int tagType, double value)
         {
             SetDouble(tagType, value);
             try
@@ -388,7 +388,7 @@ namespace Com.Drew.Metadata.Xmp
             }
         }
 
-        public virtual void UpdateDoubleArray(int tagType, double[] doubles)
+        public void UpdateDoubleArray(int tagType, double[] doubles)
         {
             SetDoubleArray(tagType, doubles);
             try
@@ -408,7 +408,7 @@ namespace Com.Drew.Metadata.Xmp
             }
         }
 
-        public virtual void UpdateString(int tagType, string value)
+        public void UpdateString(int tagType, string value)
         {
             SetString(tagType, value);
             try
@@ -421,12 +421,12 @@ namespace Com.Drew.Metadata.Xmp
             }
         }
 
-        public virtual void DeleteProperty(int tagType)
+        public void DeleteProperty(int tagType)
         {
             GetXmpMeta().DeleteProperty(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType));
         }
 
-        public virtual void UpdateStringArray(int tagType, string[] strings)
+        public void UpdateStringArray(int tagType, string[] strings)
         {
             SetStringArray(tagType, strings);
             try
@@ -446,7 +446,7 @@ namespace Com.Drew.Metadata.Xmp
             }
         }
 
-        public virtual void UpdateBoolean(int tagType, bool value)
+        public void UpdateBoolean(int tagType, bool value)
         {
             SetBoolean(tagType, value);
             try
@@ -459,7 +459,7 @@ namespace Com.Drew.Metadata.Xmp
             }
         }
 
-        public virtual void UpdateLong(int tagType, long value)
+        public void UpdateLong(int tagType, long value)
         {
             SetLong(tagType, value);
             try
@@ -472,7 +472,7 @@ namespace Com.Drew.Metadata.Xmp
             }
         }
 
-        public virtual void UpdateDate(int tagType, DateTime value)
+        public void UpdateDate(int tagType, DateTime value)
         {
             SetDate(tagType, value);
             IXmpDateTime date = new XmpDateTime(value, TimeZoneInfo.Local);

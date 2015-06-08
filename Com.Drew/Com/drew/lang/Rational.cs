@@ -35,7 +35,7 @@ namespace Com.Drew.Lang
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [Serializable]
-    public class Rational : Number
+    public sealed class Rational : Number
     {
         /// <summary>Holds the numerator.</summary>
         private readonly long _numerator;
@@ -166,7 +166,7 @@ namespace Com.Drew.Lang
         /// <summary>Returns the reciprocal value of this object as a new Rational.</summary>
         /// <returns>the reciprocal in a new object</returns>
         [NotNull]
-        public virtual Rational GetReciprocal()
+        public Rational GetReciprocal()
         {
             return new Rational(_denominator, _numerator);
         }
@@ -176,7 +176,7 @@ namespace Com.Drew.Lang
         /// <see cref="Rational"/>
         /// number is an Integer, either positive or negative.
         /// </summary>
-        public virtual bool IsInteger()
+        public bool IsInteger()
         {
             return _denominator == 1 || (_denominator != 0 && (_numerator % _denominator == 0)) || (_denominator == 0 && _numerator == 0);
         }
@@ -195,7 +195,7 @@ namespace Com.Drew.Lang
         /// 's value possible.
         /// </summary>
         [NotNull]
-        public virtual string ToSimpleString(bool allowDecimal)
+        public string ToSimpleString(bool allowDecimal)
         {
             if (_denominator == 0 && _numerator != 0)
             {
@@ -296,7 +296,7 @@ namespace Com.Drew.Lang
         /// returns itself (unchanged)
         /// </returns>
         [NotNull]
-        public virtual Rational GetSimplifiedInstance()
+        public Rational GetSimplifiedInstance()
         {
             if (TooComplexForSimplification())
             {

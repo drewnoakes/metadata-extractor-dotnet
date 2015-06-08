@@ -8,7 +8,7 @@ using Sharpen;
 namespace Com.Drew.Imaging.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PngChunkType
+    public sealed class PngChunkType
     {
         private static readonly ICollection<string> IdentifiersAllowingMultiples = new HashSet<string>(Arrays.AsList("IDAT", "sPLT", "iTXt", "tEXt", "zTXt"));
 
@@ -143,27 +143,27 @@ namespace Com.Drew.Imaging.Png
             }
         }
 
-        public virtual bool IsCritical()
+        public bool IsCritical()
         {
             return IsUpperCase(_bytes[0]);
         }
 
-        public virtual bool IsAncillary()
+        public bool IsAncillary()
         {
             return !IsCritical();
         }
 
-        public virtual bool IsPrivate()
+        public bool IsPrivate()
         {
             return IsUpperCase(_bytes[1]);
         }
 
-        public virtual bool IsSafeToCopy()
+        public bool IsSafeToCopy()
         {
             return IsLowerCase(_bytes[3]);
         }
 
-        public virtual bool AreMultipleAllowed()
+        public bool AreMultipleAllowed()
         {
             return _multipleAllowed;
         }
@@ -183,7 +183,7 @@ namespace Com.Drew.Imaging.Png
             return (b >= 65 && ((sbyte)b) <= 90) || (b >= 97 && ((sbyte)b) <= 122);
         }
 
-        public virtual string GetIdentifier()
+        public string GetIdentifier()
         {
             try
             {

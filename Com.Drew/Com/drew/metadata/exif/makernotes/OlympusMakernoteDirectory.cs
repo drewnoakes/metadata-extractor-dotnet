@@ -33,7 +33,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// that appear specific to those manufacturers.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class OlympusMakernoteDirectory : Directory
+    public sealed class OlympusMakernoteDirectory : Directory
     {
         /// <summary>Used by Konica / Minolta cameras.</summary>
         public const int TagMakernoteVersion = unchecked((int)(0x0000));
@@ -582,7 +582,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             }
         }
 
-        public virtual bool IsIntervalMode()
+        public bool IsIntervalMode()
         {
             long? value = GetLongObject(CameraSettings.TagShootingMode);
             return value != null && value == 5;

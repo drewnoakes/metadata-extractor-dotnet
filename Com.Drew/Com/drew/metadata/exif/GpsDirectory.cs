@@ -29,7 +29,7 @@ namespace Com.Drew.Metadata.Exif
 {
     /// <summary>Describes Exif tags that contain Global Positioning System (GPS) data.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class GpsDirectory : ExifDirectoryBase
+    public sealed class GpsDirectory : ExifDirectoryBase
     {
         /// <summary>GPS tag version GPSVersionID 0 0 BYTE 4</summary>
         public const int TagVersionId = unchecked((int)(0x0000));
@@ -121,8 +121,7 @@ namespace Com.Drew.Metadata.Exif
 
         public const int TagDifferential = unchecked((int)(0x001E));
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static GpsDirectory()
         {
@@ -183,7 +182,7 @@ namespace Com.Drew.Metadata.Exif
         /// </summary>
         /// <returns>The geographical location of this image, if possible, otherwise null</returns>
         [CanBeNull]
-        public virtual GeoLocation GetGeoLocation()
+        public GeoLocation GetGeoLocation()
         {
             Rational[] latitudes = GetRationalArray(TagLatitude);
             Rational[] longitudes = GetRationalArray(TagLongitude);

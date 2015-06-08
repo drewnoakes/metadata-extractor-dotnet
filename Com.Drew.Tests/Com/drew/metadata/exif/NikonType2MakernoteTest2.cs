@@ -28,7 +28,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Exif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class NikonType2MakernoteTest2
+    public sealed class NikonType2MakernoteTest2
     {
         private NikonType2MakernoteDirectory _nikonDirectory;
 
@@ -40,7 +40,7 @@ namespace Com.Drew.Metadata.Exif
 
         /// <exception cref="System.Exception"/>
         [SetUp]
-        public virtual void SetUp()
+        public void SetUp()
         {
             Metadata metadata = ExifReaderTest.ProcessBytes("Tests/Data/nikonMakernoteType2b.jpg.app1");
             _nikonDirectory = metadata.GetFirstDirectoryOfType<NikonType2MakernoteDirectory>();
@@ -76,7 +76,7 @@ namespace Com.Drew.Metadata.Exif
     */
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestNikonMakernote_MatchesKnownValues()
+        public void TestNikonMakernote_MatchesKnownValues()
         {
             Assert.AreEqual("0 1 0 0", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagFirmwareVersion));
             Assert.AreEqual("0 0", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagIso1));
@@ -135,7 +135,7 @@ namespace Com.Drew.Metadata.Exif
     */
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExifDirectory_MatchesKnownValues()
+        public void TestExifDirectory_MatchesKnownValues()
         {
             Assert.AreEqual("          ", _exifIfd0Directory.GetString(ExifDirectoryBase.TagImageDescription));
             Assert.AreEqual("NIKON", _exifIfd0Directory.GetString(ExifDirectoryBase.TagMake));
@@ -179,7 +179,7 @@ namespace Com.Drew.Metadata.Exif
     */
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExifThumbnailDirectory_MatchesKnownValues()
+        public void TestExifThumbnailDirectory_MatchesKnownValues()
         {
             Assert.AreEqual(6, _thumbDirectory.GetInt(ExifThumbnailDirectory.TagThumbnailCompression));
             Assert.AreEqual(1494, _thumbDirectory.GetInt(ExifThumbnailDirectory.TagThumbnailOffset));

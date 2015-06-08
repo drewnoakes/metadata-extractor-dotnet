@@ -40,7 +40,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// </c></pre>
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class NikonType1MakernoteDescriptor : TagDescriptor<NikonType1MakernoteDirectory>
+    public sealed class NikonType1MakernoteDescriptor : TagDescriptor<NikonType1MakernoteDirectory>
     {
         public NikonType1MakernoteDescriptor([NotNull] NikonType1MakernoteDirectory directory)
             : base(directory)
@@ -100,51 +100,51 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetConverterDescription()
+        public string GetConverterDescription()
         {
             return GetIndexedDescription(NikonType1MakernoteDirectory.TagConverter, "None", "Fisheye converter");
         }
 
         [CanBeNull]
-        public virtual string GetDigitalZoomDescription()
+        public string GetDigitalZoomDescription()
         {
             Rational value = Directory.GetRational(NikonType1MakernoteDirectory.TagDigitalZoom);
             return value == null ? null : value.GetNumerator() == 0 ? "No digital zoom" : value.ToSimpleString(true) + "x digital zoom";
         }
 
         [CanBeNull]
-        public virtual string GetFocusDescription()
+        public string GetFocusDescription()
         {
             Rational value = Directory.GetRational(NikonType1MakernoteDirectory.TagFocus);
             return value == null ? null : value.GetNumerator() == 1 && value.GetDenominator() == 0 ? "Infinite" : value.ToSimpleString(true);
         }
 
         [CanBeNull]
-        public virtual string GetWhiteBalanceDescription()
+        public string GetWhiteBalanceDescription()
         {
             return GetIndexedDescription(NikonType1MakernoteDirectory.TagWhiteBalance, "Auto", "Preset", "Daylight", "Incandescence", "Florescence", "Cloudy", "SpeedLight");
         }
 
         [CanBeNull]
-        public virtual string GetCcdSensitivityDescription()
+        public string GetCcdSensitivityDescription()
         {
             return GetIndexedDescription(NikonType1MakernoteDirectory.TagCcdSensitivity, "ISO80", null, "ISO160", null, "ISO320", "ISO100");
         }
 
         [CanBeNull]
-        public virtual string GetImageAdjustmentDescription()
+        public string GetImageAdjustmentDescription()
         {
             return GetIndexedDescription(NikonType1MakernoteDirectory.TagImageAdjustment, "Normal", "Bright +", "Bright -", "Contrast +", "Contrast -");
         }
 
         [CanBeNull]
-        public virtual string GetColorModeDescription()
+        public string GetColorModeDescription()
         {
             return GetIndexedDescription(NikonType1MakernoteDirectory.TagColorMode, 1, "Color", "Monochrome");
         }
 
         [CanBeNull]
-        public virtual string GetQualityDescription()
+        public string GetQualityDescription()
         {
             return GetIndexedDescription(NikonType1MakernoteDirectory.TagQuality, 1, "VGA Basic", "VGA Normal", "VGA Fine", "SXGA Basic", "SXGA Normal", "SXGA Fine");
         }

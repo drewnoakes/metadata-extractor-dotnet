@@ -14,7 +14,7 @@ namespace Com.Adobe.Xmp
     /// <summary>This exception wraps all errors that occur in the XMP Toolkit.</summary>
     /// <since>16.02.2006</since>
     [Serializable]
-    public class XmpException : Exception
+    public sealed class XmpException : Exception
     {
         /// <summary>the errorCode of the XMP toolkit</summary>
         private readonly XmpErrorCode _errorCode;
@@ -39,7 +39,7 @@ namespace Com.Adobe.Xmp
         }
 
         /// <returns>Returns the error code.</returns>
-        public virtual XmpErrorCode GetErrorCode()
+        public XmpErrorCode GetErrorCode()
         {
             return _errorCode;
         }

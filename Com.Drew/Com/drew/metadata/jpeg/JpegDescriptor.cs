@@ -30,7 +30,7 @@ namespace Com.Drew.Metadata.Jpeg
     /// Thanks to Darrell Silver (www.darrellsilver.com) for the initial version of this class.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class JpegDescriptor : TagDescriptor<JpegDirectory>
+    public sealed class JpegDescriptor : TagDescriptor<JpegDirectory>
     {
         public JpegDescriptor([NotNull] JpegDirectory directory)
             : base(directory)
@@ -90,7 +90,7 @@ namespace Com.Drew.Metadata.Jpeg
         }
 
         [CanBeNull]
-        public virtual string GetImageCompressionTypeDescription()
+        public string GetImageCompressionTypeDescription()
         {
             int? value = Directory.GetInteger(JpegDirectory.TagCompressionType);
             if (value == null)
@@ -178,7 +178,7 @@ namespace Com.Drew.Metadata.Jpeg
         }
 
         [CanBeNull]
-        public virtual string GetImageWidthDescription()
+        public string GetImageWidthDescription()
         {
             string value = Directory.GetString(JpegDirectory.TagImageWidth);
             if (value == null)
@@ -189,7 +189,7 @@ namespace Com.Drew.Metadata.Jpeg
         }
 
         [CanBeNull]
-        public virtual string GetImageHeightDescription()
+        public string GetImageHeightDescription()
         {
             string value = Directory.GetString(JpegDirectory.TagImageHeight);
             if (value == null)
@@ -200,7 +200,7 @@ namespace Com.Drew.Metadata.Jpeg
         }
 
         [CanBeNull]
-        public virtual string GetDataPrecisionDescription()
+        public string GetDataPrecisionDescription()
         {
             string value = Directory.GetString(JpegDirectory.TagDataPrecision);
             if (value == null)
@@ -211,7 +211,7 @@ namespace Com.Drew.Metadata.Jpeg
         }
 
         [CanBeNull]
-        public virtual string GetComponentDataDescription(int componentNumber)
+        public string GetComponentDataDescription(int componentNumber)
         {
             JpegComponent value = Directory.GetComponent(componentNumber);
             if (value == null)

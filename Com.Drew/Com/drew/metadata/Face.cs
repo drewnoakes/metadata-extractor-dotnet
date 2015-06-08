@@ -35,7 +35,7 @@ namespace Com.Drew.Metadata
     /// both detected and identified as belonging to a known person.
     /// </remarks>
     /// <author>Philipp Sandhaus, Drew Noakes</author>
-    public class Face
+    public sealed class Face
     {
         private readonly int _x;
 
@@ -61,34 +61,34 @@ namespace Com.Drew.Metadata
             _age = age;
         }
 
-        public virtual int GetX()
+        public int GetX()
         {
             return _x;
         }
 
-        public virtual int GetY()
+        public int GetY()
         {
             return _y;
         }
 
-        public virtual int GetWidth()
+        public int GetWidth()
         {
             return _width;
         }
 
-        public virtual int GetHeight()
+        public int GetHeight()
         {
             return _height;
         }
 
         [CanBeNull]
-        public virtual string GetName()
+        public string GetName()
         {
             return _name;
         }
 
         [CanBeNull]
-        public virtual Age GetAge()
+        public Age GetAge()
         {
             return _age;
         }

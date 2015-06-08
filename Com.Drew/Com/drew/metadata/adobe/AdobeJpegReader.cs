@@ -32,17 +32,17 @@ namespace Com.Drew.Metadata.Adobe
     /// <summary>Decodes Adobe formatted data stored in JPEG files, normally in the APPE (App14) segment.</summary>
     /// <author>Philip</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class AdobeJpegReader : IJpegSegmentMetadataReader
+    public sealed class AdobeJpegReader : IJpegSegmentMetadataReader
     {
         public const string Preamble = "Adobe";
 
         [NotNull]
-        public virtual IEnumerable<JpegSegmentType> GetSegmentTypes()
+        public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             return Arrays.AsList(JpegSegmentType.Appe);
         }
 
-        public virtual void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             foreach (sbyte[] bytes in segments)
             {
@@ -53,7 +53,7 @@ namespace Com.Drew.Metadata.Adobe
             }
         }
 
-        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
+        public void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
         {
             Directory directory = new AdobeJpegDirectory();
             metadata.AddDirectory(directory);

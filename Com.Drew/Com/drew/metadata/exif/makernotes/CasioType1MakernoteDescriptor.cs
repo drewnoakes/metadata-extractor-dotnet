@@ -28,7 +28,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="CasioType1MakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class CasioType1MakernoteDescriptor : TagDescriptor<CasioType1MakernoteDirectory>
+    public sealed class CasioType1MakernoteDescriptor : TagDescriptor<CasioType1MakernoteDirectory>
     {
         public CasioType1MakernoteDescriptor([NotNull] CasioType1MakernoteDirectory directory)
             : base(directory)
@@ -108,7 +108,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetCcdSensitivityDescription()
+        public string GetCcdSensitivityDescription()
         {
             int? value = Directory.GetInteger(CasioType1MakernoteDirectory.TagCcdSensitivity);
             if (value == null)
@@ -157,25 +157,25 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetSaturationDescription()
+        public string GetSaturationDescription()
         {
             return GetIndexedDescription(CasioType1MakernoteDirectory.TagSaturation, "Normal", "Low", "High");
         }
 
         [CanBeNull]
-        public virtual string GetContrastDescription()
+        public string GetContrastDescription()
         {
             return GetIndexedDescription(CasioType1MakernoteDirectory.TagContrast, "Normal", "Low", "High");
         }
 
         [CanBeNull]
-        public virtual string GetSharpnessDescription()
+        public string GetSharpnessDescription()
         {
             return GetIndexedDescription(CasioType1MakernoteDirectory.TagSharpness, "Normal", "Soft", "Hard");
         }
 
         [CanBeNull]
-        public virtual string GetDigitalZoomDescription()
+        public string GetDigitalZoomDescription()
         {
             int? value = Directory.GetInteger(CasioType1MakernoteDirectory.TagDigitalZoom);
             if (value == null)
@@ -212,7 +212,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetWhiteBalanceDescription()
+        public string GetWhiteBalanceDescription()
         {
             int? value = Directory.GetInteger(CasioType1MakernoteDirectory.TagWhiteBalance);
             if (value == null)
@@ -259,7 +259,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetObjectDistanceDescription()
+        public string GetObjectDistanceDescription()
         {
             int? value = Directory.GetInteger(CasioType1MakernoteDirectory.TagObjectDistance);
             if (value == null)
@@ -270,7 +270,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetFlashIntensityDescription()
+        public string GetFlashIntensityDescription()
         {
             int? value = Directory.GetInteger(CasioType1MakernoteDirectory.TagFlashIntensity);
             if (value == null)
@@ -302,25 +302,25 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetFlashModeDescription()
+        public string GetFlashModeDescription()
         {
             return GetIndexedDescription(CasioType1MakernoteDirectory.TagFlashMode, 1, "Auto", "On", "Off", "Red eye reduction");
         }
 
         [CanBeNull]
-        public virtual string GetFocusingModeDescription()
+        public string GetFocusingModeDescription()
         {
             return GetIndexedDescription(CasioType1MakernoteDirectory.TagFocusingMode, 2, "Macro", "Auto focus", "Manual focus", "Infinity");
         }
 
         [CanBeNull]
-        public virtual string GetQualityDescription()
+        public string GetQualityDescription()
         {
             return GetIndexedDescription(CasioType1MakernoteDirectory.TagQuality, 1, "Economy", "Normal", "Fine");
         }
 
         [CanBeNull]
-        public virtual string GetRecordingModeDescription()
+        public string GetRecordingModeDescription()
         {
             return GetIndexedDescription(CasioType1MakernoteDirectory.TagRecordingMode, 1, "Single shutter", "Panorama", "Night scene", "Portrait", "Landscape");
         }

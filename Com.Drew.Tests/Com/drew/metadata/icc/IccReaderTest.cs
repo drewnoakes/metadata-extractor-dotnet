@@ -27,11 +27,11 @@ using NUnit.Framework;
 
 namespace Com.Drew.Metadata.Icc
 {
-    public class IccReaderTest
+    public sealed class IccReaderTest
     {
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExtract()
+        public void TestExtract()
         {
             sbyte[] app2Bytes = FileUtil.ReadBytes("Tests/Data/iccDataInvalid1.jpg.app2");
             // ICC data starts after a 14-byte preamble

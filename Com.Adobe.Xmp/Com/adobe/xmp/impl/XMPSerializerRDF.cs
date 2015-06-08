@@ -21,7 +21,7 @@ namespace Com.Adobe.Xmp.Impl
     /// according to the <c>SerializeOptions</c>.
     /// </remarks>
     /// <since>11.07.2006</since>
-    public class XmpSerializerRdf
+    public sealed class XmpSerializerRdf
     {
         /// <summary>default padding</summary>
         private const int DefaultPad = 2048;
@@ -85,7 +85,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="out">outputStream the output stream to serialize to</param>
         /// <param name="options">the serialization options</param>
         /// <exception cref="XmpException">If case of wrong options or any other serialization error.</exception>
-        public virtual void Serialize(IXmpMeta xmp, OutputStream @out, SerializeOptions options)
+        public void Serialize(IXmpMeta xmp, OutputStream @out, SerializeOptions options)
         {
             try
             {
@@ -154,7 +154,7 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>Checks if the supplied options are consistent.</summary>
         /// <exception cref="XmpException">Thrown if options are conflicting</exception>
-        protected virtual void CheckOptionsConsistence()
+        private void CheckOptionsConsistence()
         {
             if (_options.GetEncodeUtf16Be() | _options.GetEncodeUtf16Le())
             {

@@ -12,7 +12,7 @@ using Sharpen;
 namespace Com.Adobe.Xmp.Impl
 {
     /// <since>09.11.2006</since>
-    public class QName
+    public sealed class QName
     {
         /// <summary>XML namespace prefix</summary>
         private readonly string _prefix;
@@ -47,19 +47,19 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <returns>Returns whether the QName has a prefix.</returns>
-        public virtual bool HasPrefix()
+        public bool HasPrefix()
         {
             return !string.IsNullOrEmpty(_prefix);
         }
 
         /// <returns>the localName</returns>
-        public virtual string GetLocalName()
+        public string GetLocalName()
         {
             return _localName;
         }
 
         /// <returns>the prefix</returns>
-        public virtual string GetPrefix()
+        public string GetPrefix()
         {
             return _prefix;
         }

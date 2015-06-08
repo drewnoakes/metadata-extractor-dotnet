@@ -30,7 +30,7 @@ namespace Com.Drew.Metadata.Exif
     /// Provides human-readable string representations of tag values stored in a <see cref="GpsDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class GpsDescriptor : TagDescriptor<GpsDirectory>
+    public sealed class GpsDescriptor : TagDescriptor<GpsDirectory>
     {
         public GpsDescriptor([NotNull] GpsDirectory directory)
             : base(directory)
@@ -127,21 +127,21 @@ namespace Com.Drew.Metadata.Exif
         }
 
         [CanBeNull]
-        public virtual string GetGpsLatitudeDescription()
+        public string GetGpsLatitudeDescription()
         {
             GeoLocation location = Directory.GetGeoLocation();
             return location == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString(location.GetLatitude());
         }
 
         [CanBeNull]
-        public virtual string GetGpsLongitudeDescription()
+        public string GetGpsLongitudeDescription()
         {
             GeoLocation location = Directory.GetGeoLocation();
             return location == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString(location.GetLongitude());
         }
 
         [CanBeNull]
-        public virtual string GetGpsTimeStampDescription()
+        public string GetGpsTimeStampDescription()
         {
             // time in hour, min, sec
             Rational[] timeComponents = Directory.GetRationalArray(GpsDirectory.TagTimeStamp);
@@ -150,7 +150,7 @@ namespace Com.Drew.Metadata.Exif
         }
 
         [CanBeNull]
-        public virtual string GetGpsDestinationReferenceDescription()
+        public string GetGpsDestinationReferenceDescription()
         {
             string value = Directory.GetString(GpsDirectory.TagDestDistanceRef);
             if (value == null)
@@ -174,7 +174,7 @@ namespace Com.Drew.Metadata.Exif
         }
 
         [CanBeNull]
-        public virtual string GetGpsDirectionDescription(int tagType)
+        public string GetGpsDirectionDescription(int tagType)
         {
             Rational angle = Directory.GetRational(tagType);
             // provide a decimal version of rational numbers in the description, to avoid strings like "35334/199 degrees"
@@ -183,7 +183,7 @@ namespace Com.Drew.Metadata.Exif
         }
 
         [CanBeNull]
-        public virtual string GetGpsDirectionReferenceDescription(int tagType)
+        public string GetGpsDirectionReferenceDescription(int tagType)
         {
             string value = Directory.GetString(tagType);
             if (value == null)
@@ -203,7 +203,7 @@ namespace Com.Drew.Metadata.Exif
         }
 
         [CanBeNull]
-        public virtual string GetGpsSpeedRefDescription()
+        public string GetGpsSpeedRefDescription()
         {
             string value = Directory.GetString(GpsDirectory.TagSpeedRef);
             if (value == null)
@@ -227,7 +227,7 @@ namespace Com.Drew.Metadata.Exif
         }
 
         [CanBeNull]
-        public virtual string GetGpsMeasureModeDescription()
+        public string GetGpsMeasureModeDescription()
         {
             string value = Directory.GetString(GpsDirectory.TagMeasureMode);
             if (value == null)
@@ -247,7 +247,7 @@ namespace Com.Drew.Metadata.Exif
         }
 
         [CanBeNull]
-        public virtual string GetGpsStatusDescription()
+        public string GetGpsStatusDescription()
         {
             string value = Directory.GetString(GpsDirectory.TagStatus);
             if (value == null)
@@ -267,26 +267,26 @@ namespace Com.Drew.Metadata.Exif
         }
 
         [CanBeNull]
-        public virtual string GetGpsAltitudeRefDescription()
+        public string GetGpsAltitudeRefDescription()
         {
             return GetIndexedDescription(GpsDirectory.TagAltitudeRef, "Sea level", "Below sea level");
         }
 
         [CanBeNull]
-        public virtual string GetGpsAltitudeDescription()
+        public string GetGpsAltitudeDescription()
         {
             Rational value = Directory.GetRational(GpsDirectory.TagAltitude);
             return value == null ? null : value.IntValue() + " metres";
         }
 
         [CanBeNull]
-        public virtual string GetGpsDifferentialDescription()
+        public string GetGpsDifferentialDescription()
         {
             return GetIndexedDescription(GpsDirectory.TagDifferential, "No Correction", "Differential Corrected");
         }
 
         [CanBeNull]
-        public virtual string GetDegreesMinutesSecondsDescription()
+        public string GetDegreesMinutesSecondsDescription()
         {
             GeoLocation location = Directory.GetGeoLocation();
             return location == null ? null : location.ToDmsString();

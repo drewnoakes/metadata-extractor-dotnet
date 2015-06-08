@@ -26,10 +26,10 @@ using Sharpen;
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ByteTrieTest
+    public sealed class ByteTrieTest
     {
         [Test]
-        public virtual void TestBasics()
+        public void TestBasics()
         {
             ByteTrie<string> trie = new ByteTrie<string>();
             string[] strings = new string[] { "HELLO", "HELLO WORLD", "HERBERT" };

@@ -30,11 +30,11 @@ namespace Com.Drew.Imaging.Jpeg
     /// Unit tests for <see cref="JpegSegmentReader"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class JpegSegmentReaderTest
+    public sealed class JpegSegmentReaderTest
     {
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestReadAllSegments()
+        public void TestReadAllSegments()
         {
             JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new FilePath("Tests/Data/withExifAndIptc.jpg"), null);
             Assert.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.App0));
@@ -73,7 +73,7 @@ namespace Com.Drew.Imaging.Jpeg
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestReadSpecificSegments()
+        public void TestReadSpecificSegments()
         {
             JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new FilePath("Tests/Data/withExifAndIptc.jpg"), Arrays.AsList(JpegSegmentType.App0, JpegSegmentType.App2));
             Assert.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.App0));
@@ -101,7 +101,7 @@ namespace Com.Drew.Imaging.Jpeg
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestLoadJpegWithoutExifDataReturnsNull()
+        public void TestLoadJpegWithoutExifDataReturnsNull()
         {
             JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new FilePath("Tests/Data/noExif.jpg"), null);
             Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App1));
@@ -109,7 +109,7 @@ namespace Com.Drew.Imaging.Jpeg
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestWithNonJpegFile()
+        public void TestWithNonJpegFile()
         {
             try
             {

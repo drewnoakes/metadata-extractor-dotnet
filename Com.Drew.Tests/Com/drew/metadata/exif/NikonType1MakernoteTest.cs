@@ -28,7 +28,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Exif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class NikonType1MakernoteTest
+    public sealed class NikonType1MakernoteTest
     {
         private NikonType1MakernoteDirectory _nikonDirectory;
 
@@ -51,7 +51,7 @@ namespace Com.Drew.Metadata.Exif
     */
         /// <exception cref="System.Exception"/>
         [SetUp]
-        public virtual void SetUp()
+        public void SetUp()
         {
             Metadata metadata = ExifReaderTest.ProcessBytes("Tests/Data/nikonMakernoteType1.jpg.app1");
             _nikonDirectory = metadata.GetFirstDirectoryOfType<NikonType1MakernoteDirectory>();
@@ -75,7 +75,7 @@ namespace Com.Drew.Metadata.Exif
     */
         /// <exception cref="System.Exception"/>
         [Test, SetCulture("en-GB")]
-        public virtual void TestNikonMakernote_MatchesKnownValues()
+        public void TestNikonMakernote_MatchesKnownValues()
         {
             Assert.IsTrue(_nikonDirectory.GetTagCount() > 0);
             Assert.AreEqual(8, _nikonDirectory.GetDouble(NikonType1MakernoteDirectory.TagUnknown1), 0.0001);
@@ -139,7 +139,7 @@ namespace Com.Drew.Metadata.Exif
     */
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestExifDirectory_MatchesKnownValues()
+        public void TestExifDirectory_MatchesKnownValues()
         {
             Assert.AreEqual("          ", _exifIfd0Directory.GetString(ExifDirectoryBase.TagImageDescription));
             Assert.AreEqual("NIKON", _exifIfd0Directory.GetString(ExifDirectoryBase.TagMake));

@@ -35,7 +35,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// it from the first byte of Makernote itself.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class KyoceraMakernoteDescriptor : TagDescriptor<KyoceraMakernoteDirectory>
+    public sealed class KyoceraMakernoteDescriptor : TagDescriptor<KyoceraMakernoteDirectory>
     {
         public KyoceraMakernoteDescriptor([NotNull] KyoceraMakernoteDirectory directory)
             : base(directory)
@@ -65,13 +65,13 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [CanBeNull]
-        public virtual string GetPrintImageMatchingInfoDescription()
+        public string GetPrintImageMatchingInfoDescription()
         {
             return GetByteLengthDescription(KyoceraMakernoteDirectory.TagPrintImageMatchingInfo);
         }
 
         [CanBeNull]
-        public virtual string GetProprietaryThumbnailDataDescription()
+        public string GetProprietaryThumbnailDataDescription()
         {
             return GetByteLengthDescription(KyoceraMakernoteDirectory.TagProprietaryThumbnail);
         }

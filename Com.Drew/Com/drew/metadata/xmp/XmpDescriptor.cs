@@ -34,7 +34,7 @@ namespace Com.Drew.Metadata.Xmp
     /// this class to provide human-readable descriptions of tag values.
     /// </remarks>
     /// <author>Torsten Skadell, Drew Noakes https://drewnoakes.com</author>
-    public class XmpDescriptor : TagDescriptor<XmpDirectory>
+    public sealed class XmpDescriptor : TagDescriptor<XmpDirectory>
     {
         [NotNull]
         private static readonly DecimalFormat SimpleDecimalFormatter = new DecimalFormat("0.#");
@@ -103,7 +103,7 @@ namespace Com.Drew.Metadata.Xmp
 
         /// <summary>Do a simple formatting like ExifSubIFDDescriptor.java</summary>
         [CanBeNull]
-        public virtual string GetExposureTimeDescription()
+        public string GetExposureTimeDescription()
         {
             string value = Directory.GetString(XmpDirectory.TagExposureTime);
             if (value == null)
@@ -115,7 +115,7 @@ namespace Com.Drew.Metadata.Xmp
 
         /// <summary>This code is from ExifSubIFDDescriptor.java</summary>
         [CanBeNull]
-        public virtual string GetExposureProgramDescription()
+        public string GetExposureProgramDescription()
         {
             // '1' means manual control, '2' program normal, '3' aperture priority,
             // '4' shutter priority, '5' program creative (slow program),
@@ -176,7 +176,7 @@ namespace Com.Drew.Metadata.Xmp
 
         /// <summary>This code is from ExifSubIFDDescriptor.java</summary>
         [CanBeNull]
-        public virtual string GetShutterSpeedDescription()
+        public string GetShutterSpeedDescription()
         {
             float? value = Directory.GetFloatObject(XmpDirectory.TagShutterSpeed);
             if (value == null)
@@ -202,7 +202,7 @@ namespace Com.Drew.Metadata.Xmp
 
         /// <summary>Do a simple formatting like ExifSubIFDDescriptor.java</summary>
         [CanBeNull]
-        public virtual string GetFNumberDescription()
+        public string GetFNumberDescription()
         {
             Rational value = Directory.GetRational(XmpDirectory.TagFNumber);
             if (value == null)
@@ -214,7 +214,7 @@ namespace Com.Drew.Metadata.Xmp
 
         /// <summary>This code is from ExifSubIFDDescriptor.java</summary>
         [CanBeNull]
-        public virtual string GetFocalLengthDescription()
+        public string GetFocalLengthDescription()
         {
             Rational value = Directory.GetRational(XmpDirectory.TagFocalLength);
             if (value == null)
@@ -227,7 +227,7 @@ namespace Com.Drew.Metadata.Xmp
 
         /// <summary>This code is from ExifSubIFDDescriptor.java</summary>
         [CanBeNull]
-        public virtual string GetApertureValueDescription()
+        public string GetApertureValueDescription()
         {
             double? value = Directory.GetDoubleObject(XmpDirectory.TagApertureValue);
             if (value == null)

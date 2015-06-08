@@ -29,7 +29,7 @@ namespace Com.Drew.Metadata.Exif
     /// <summary>One of several Exif directories.</summary>
     /// <remarks>One of several Exif directories.  Otherwise known as IFD1, this directory holds information about an embedded thumbnail image.</remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ExifThumbnailDirectory : ExifDirectoryBase
+    public sealed class ExifThumbnailDirectory : ExifDirectoryBase
     {
         /// <summary>The offset to thumbnail image bytes.</summary>
         public const int TagThumbnailOffset = unchecked((int)(0x0201));
@@ -70,8 +70,7 @@ namespace Com.Drew.Metadata.Exif
         /// </remarks>
         public const int TagThumbnailCompression = unchecked((int)(0x0103));
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static ExifThumbnailDirectory()
         {
@@ -101,25 +100,25 @@ namespace Com.Drew.Metadata.Exif
             return TagNameMap;
         }
 
-        public virtual bool HasThumbnailData()
+        public bool HasThumbnailData()
         {
             return _thumbnailData != null;
         }
 
         [CanBeNull]
-        public virtual sbyte[] GetThumbnailData()
+        public sbyte[] GetThumbnailData()
         {
             return _thumbnailData;
         }
 
-        public virtual void SetThumbnailData([CanBeNull] sbyte[] data)
+        public void SetThumbnailData([CanBeNull] sbyte[] data)
         {
             _thumbnailData = data;
         }
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
         /// <exception cref="System.IO.IOException"/>
-        public virtual void WriteThumbnail([NotNull] string filename)
+        public void WriteThumbnail([NotNull] string filename)
         {
             sbyte[] data = _thumbnailData;
             if (data == null)

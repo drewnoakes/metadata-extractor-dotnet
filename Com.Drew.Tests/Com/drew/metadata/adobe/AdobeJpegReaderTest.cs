@@ -32,7 +32,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Adobe
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class AdobeJpegReaderTest
+    public sealed class AdobeJpegReaderTest
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
@@ -47,7 +47,7 @@ namespace Com.Drew.Metadata.Adobe
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestSegmentTypes()
+        public void TestSegmentTypes()
         {
             AdobeJpegReader reader = new AdobeJpegReader();
             Assert.AreEqual(1, ((IList<JpegSegmentType>)reader.GetSegmentTypes().ToList()).Count);
@@ -56,7 +56,7 @@ namespace Com.Drew.Metadata.Adobe
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestReadAdobeJpegMetadata1()
+        public void TestReadAdobeJpegMetadata1()
         {
             AdobeJpegDirectory directory = ProcessBytes("Tests/Data/adobeJpeg1.jpg.appe");
             Assert.IsFalse(directory.HasErrors(), Extensions.ConvertToString(directory.GetErrors()));

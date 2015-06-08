@@ -29,7 +29,7 @@ namespace Com.Drew.Metadata.Jpeg
     /// <summary>Directory of tags and values for the SOF0 JPEG segment.</summary>
     /// <remarks>Directory of tags and values for the SOF0 JPEG segment.  This segment holds basic metadata about the image.</remarks>
     /// <author>Darrell Silver http://www.darrellsilver.com and Drew Noakes https://drewnoakes.com</author>
-    public class JpegDirectory : Directory
+    public sealed class JpegDirectory : Directory
     {
         public const int TagCompressionType = -3;
 
@@ -78,8 +78,7 @@ namespace Com.Drew.Metadata.Jpeg
         /// <remarks>the fourth of a possible 4 color components.  Number of components specified in TAG_NUMBER_OF_COMPONENTS.</remarks>
         public const int TagComponentData4 = 9;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static JpegDirectory()
         {
@@ -118,26 +117,26 @@ namespace Com.Drew.Metadata.Jpeg
         /// </param>
         /// <returns>the JpegComponent having the specified number.</returns>
         [CanBeNull]
-        public virtual JpegComponent GetComponent(int componentNumber)
+        public JpegComponent GetComponent(int componentNumber)
         {
             int tagType = TagComponentData1 + componentNumber;
             return (JpegComponent)GetObject(tagType);
         }
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
-        public virtual int GetImageWidth()
+        public int GetImageWidth()
         {
             return GetInt(TagImageWidth);
         }
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
-        public virtual int GetImageHeight()
+        public int GetImageHeight()
         {
             return GetInt(TagImageHeight);
         }
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
-        public virtual int GetNumberOfComponents()
+        public int GetNumberOfComponents()
         {
             return GetInt(TagNumberOfComponents);
         }

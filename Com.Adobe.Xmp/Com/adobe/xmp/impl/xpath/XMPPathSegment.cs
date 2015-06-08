@@ -11,7 +11,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
 {
     /// <summary>A segment of a parsed <c>XMPPath</c>.</summary>
     /// <since>23.06.2006</since>
-    public class XmpPathSegment
+    public sealed class XmpPathSegment
     {
         /// <summary>name of the path segment</summary>
         private string _name;
@@ -42,49 +42,49 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         }
 
         /// <returns>Returns the kind.</returns>
-        public virtual int GetKind()
+        public int GetKind()
         {
             return _kind;
         }
 
         /// <param name="kind">The kind to set.</param>
-        public virtual void SetKind(int kind)
+        public void SetKind(int kind)
         {
             _kind = kind;
         }
 
         /// <returns>Returns the name.</returns>
-        public virtual string GetName()
+        public string GetName()
         {
             return _name;
         }
 
         /// <param name="name">The name to set.</param>
-        public virtual void SetName(string name)
+        public void SetName(string name)
         {
             _name = name;
         }
 
         /// <param name="alias">the flag to set</param>
-        public virtual void SetAlias(bool alias)
+        public void SetAlias(bool alias)
         {
             _alias = alias;
         }
 
         /// <returns>Returns the alias.</returns>
-        public virtual bool IsAlias()
+        public bool IsAlias()
         {
             return _alias;
         }
 
         /// <returns>Returns the aliasForm if this segment has been created by an alias.</returns>
-        public virtual int GetAliasForm()
+        public int GetAliasForm()
         {
             return _aliasForm;
         }
 
         /// <param name="aliasForm">the aliasForm to set</param>
-        public virtual void SetAliasForm(int aliasForm)
+        public void SetAliasForm(int aliasForm)
         {
             _aliasForm = aliasForm;
         }

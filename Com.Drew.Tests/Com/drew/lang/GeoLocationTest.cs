@@ -26,11 +26,11 @@ using Sharpen;
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class GeoLocationTest
+    public sealed class GeoLocationTest
     {
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestDecimalToDegreesMinutesSeconds()
+        public void TestDecimalToDegreesMinutesSeconds()
         {
             double[] dms = GeoLocation.DecimalToDegreesMinutesSeconds(1);
             Assert.AreEqual(1.0, dms[0], 0.0001);

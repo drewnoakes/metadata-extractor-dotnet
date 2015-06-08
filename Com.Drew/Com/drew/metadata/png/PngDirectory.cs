@@ -28,7 +28,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PngDirectory : Directory
+    public sealed class PngDirectory : Directory
     {
         public const int TagImageWidth = 1;
 
@@ -68,8 +68,7 @@ namespace Com.Drew.Metadata.Png
 
         public const int TagSignificantBits = 19;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static PngDirectory()
         {
@@ -103,7 +102,7 @@ namespace Com.Drew.Metadata.Png
         }
 
         [NotNull]
-        public virtual PngChunkType GetPngChunkType()
+        public PngChunkType GetPngChunkType()
         {
             return _pngChunkType;
         }

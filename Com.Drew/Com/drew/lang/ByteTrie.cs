@@ -30,17 +30,17 @@ namespace Com.Drew.Lang
     /// <summary>Stores values using a prefix tree (aka 'trie', i.e.</summary>
     /// <remarks>Stores values using a prefix tree (aka 'trie', i.e. reTRIEval data structure).</remarks>
     /// <?/>
-    public class ByteTrie<T>
+    public sealed class ByteTrie<T>
     {
         /// <summary>A node in the trie.</summary>
         /// <remarks>A node in the trie. Has children and may have an associated value.</remarks>
-        internal class ByteTrieNode<T>
+        internal sealed class ByteTrieNode<T>
         {
             internal readonly IDictionary<sbyte, ByteTrieNode<T>> Children = new Dictionary<sbyte, ByteTrieNode<T>>();
 
             internal T Value;
 
-            public virtual void SetValue(T value)
+            public void SetValue(T value)
             {
                 if (Value != null)
                 {
@@ -61,7 +61,7 @@ namespace Com.Drew.Lang
         /// calling <see cref="SetDefaultValue"/>.
         /// </remarks>
         [CanBeNull]
-        public virtual T Find(sbyte[] bytes)
+        public T Find(sbyte[] bytes)
         {
             ByteTrieNode<T> node = _root;
             T value = node.Value;
@@ -82,7 +82,7 @@ namespace Com.Drew.Lang
         }
 
         /// <summary>Store the given value at the specified path.</summary>
-        public virtual void AddPath(T value, params sbyte[][] parts)
+        public void AddPath(T value, params sbyte[][] parts)
         {
             int depth = 0;
             ByteTrieNode<T> node = _root;
@@ -109,13 +109,13 @@ namespace Com.Drew.Lang
         /// <see cref="ByteTrie{T}.Find(sbyte[])"/>
         /// when no path matches.
         /// </summary>
-        public virtual void SetDefaultValue(T defaultValue)
+        public void SetDefaultValue(T defaultValue)
         {
             _root.SetValue(defaultValue);
         }
 
         /// <summary>Gets the maximum depth stored in this trie.</summary>
-        public virtual int GetMaxDepth()
+        public int GetMaxDepth()
         {
             return _maxDepth;
         }

@@ -37,7 +37,7 @@ namespace Com.Drew.Imaging.Riff
     /// </list>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class RiffReader
+    public sealed class RiffReader
     {
         /// <summary>Processes a RIFF data sequence.</summary>
         /// <param name="reader">
@@ -56,7 +56,7 @@ namespace Com.Drew.Imaging.Riff
         /// </exception>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
         /// <exception cref="Com.Drew.Imaging.Riff.RiffProcessingException"/>
-        public virtual void ProcessRiff([NotNull] SequentialReader reader, [NotNull] IRiffHandler handler)
+        public void ProcessRiff([NotNull] SequentialReader reader, [NotNull] IRiffHandler handler)
         {
             // RIFF files are always little-endian
             reader.SetMotorolaByteOrder(false);

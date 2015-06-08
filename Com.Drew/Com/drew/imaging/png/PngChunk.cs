@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 namespace Com.Drew.Imaging.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PngChunk
+    public sealed class PngChunk
     {
         [NotNull]
         private readonly PngChunkType _chunkType;
@@ -18,13 +18,13 @@ namespace Com.Drew.Imaging.Png
         }
 
         [NotNull]
-        public virtual PngChunkType GetChunkType()
+        public PngChunkType GetChunkType()
         {
             return _chunkType;
         }
 
         [NotNull]
-        public virtual sbyte[] GetBytes()
+        public sbyte[] GetBytes()
         {
             return _bytes;
         }

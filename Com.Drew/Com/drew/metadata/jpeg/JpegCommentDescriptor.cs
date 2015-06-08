@@ -28,7 +28,7 @@ namespace Com.Drew.Metadata.Jpeg
     /// Provides human-readable string representations of tag values stored in a <see cref="JpegCommentDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class JpegCommentDescriptor : TagDescriptor<JpegCommentDirectory>
+    public sealed class JpegCommentDescriptor : TagDescriptor<JpegCommentDirectory>
     {
         public JpegCommentDescriptor([NotNull] JpegCommentDirectory directory)
             : base(directory)
@@ -36,7 +36,7 @@ namespace Com.Drew.Metadata.Jpeg
         }
 
         [CanBeNull]
-        public virtual string GetJpegCommentDescription()
+        public string GetJpegCommentDescription()
         {
             return Directory.GetString(JpegCommentDirectory.TagComment);
         }

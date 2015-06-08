@@ -38,30 +38,30 @@ namespace Com.Drew.Metadata.Exif
     /// <see cref="GpsDirectory"/> and one of the many camera makernote directories.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ExifReader : IJpegSegmentMetadataReader
+    public sealed class ExifReader : IJpegSegmentMetadataReader
     {
         /// <summary>Exif data stored in JPEG files' APP1 segment are preceded by this six character preamble.</summary>
         public const string JpegSegmentPreamble = "Exif\x0\x0";
 
         private bool _storeThumbnailBytes = true;
 
-        public virtual bool IsStoreThumbnailBytes()
+        public bool IsStoreThumbnailBytes()
         {
             return _storeThumbnailBytes;
         }
 
-        public virtual void SetStoreThumbnailBytes(bool storeThumbnailBytes)
+        public void SetStoreThumbnailBytes(bool storeThumbnailBytes)
         {
             _storeThumbnailBytes = storeThumbnailBytes;
         }
 
         [NotNull]
-        public virtual IEnumerable<JpegSegmentType> GetSegmentTypes()
+        public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             return Arrays.AsList(JpegSegmentType.App1);
         }
 
-        public virtual void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             Debug.Assert((segmentType == JpegSegmentType.App1));
             foreach (sbyte[] segmentBytes in segments)
@@ -78,7 +78,7 @@ namespace Com.Drew.Metadata.Exif
         /// <summary>
         /// Reads TIFF formatted Exif data from start of the specified <see cref="Com.Drew.Lang.RandomAccessReader"/>.
         /// </summary>
-        public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata)
+        public void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata)
         {
             Extract(reader, metadata, 0);
         }
@@ -86,7 +86,7 @@ namespace Com.Drew.Metadata.Exif
         /// <summary>
         /// Reads TIFF formatted Exif data a specified offset within a <see cref="Com.Drew.Lang.RandomAccessReader"/>.
         /// </summary>
-        public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata, int readerOffset)
+        public void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata, int readerOffset)
         {
             try
             {

@@ -28,7 +28,7 @@ namespace Com.Drew.Metadata.Exif
     /// Provides human-readable string representations of tag values stored in a <see cref="ExifThumbnailDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ExifThumbnailDescriptor : ExifDescriptorBase<ExifThumbnailDirectory>
+    public sealed class ExifThumbnailDescriptor : ExifDescriptorBase<ExifThumbnailDirectory>
     {
         public ExifThumbnailDescriptor([NotNull] ExifThumbnailDirectory directory)
             : base(directory)
@@ -215,14 +215,14 @@ namespace Com.Drew.Metadata.Exif
         }
 
         [CanBeNull]
-        public virtual string GetThumbnailLengthDescription()
+        public string GetThumbnailLengthDescription()
         {
             string value = Directory.GetString(ExifThumbnailDirectory.TagThumbnailLength);
             return value == null ? null : value + " bytes";
         }
 
         [CanBeNull]
-        public virtual string GetThumbnailOffsetDescription()
+        public string GetThumbnailOffsetDescription()
         {
             string value = Directory.GetString(ExifThumbnailDirectory.TagThumbnailOffset);
             return value == null ? null : value + " bytes";

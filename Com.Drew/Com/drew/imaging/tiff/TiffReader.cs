@@ -33,7 +33,7 @@ namespace Com.Drew.Imaging.Tiff
     /// interface.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class TiffReader
+    public sealed class TiffReader
     {
         /// <summary>Processes a TIFF data sequence.</summary>
         /// <param name="reader">
@@ -53,7 +53,7 @@ namespace Com.Drew.Imaging.Tiff
         /// </exception>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
         /// <exception cref="Com.Drew.Imaging.Tiff.TiffProcessingException"/>
-        public virtual void ProcessTiff([NotNull] RandomAccessReader reader, [NotNull] ITiffHandler handler, int tiffHeaderOffset)
+        public void ProcessTiff([NotNull] RandomAccessReader reader, [NotNull] ITiffHandler handler, int tiffHeaderOffset)
         {
             // This must be either "MM" or "II".
             short byteOrderIdentifier = reader.GetInt16(tiffHeaderOffset);

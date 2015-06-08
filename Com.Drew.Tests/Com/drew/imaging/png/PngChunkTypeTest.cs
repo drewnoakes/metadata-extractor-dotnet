@@ -5,11 +5,11 @@ using Sharpen;
 namespace Com.Drew.Imaging.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PngChunkTypeTest
+    public sealed class PngChunkTypeTest
     {
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestConstructorTooLong()
+        public void TestConstructorTooLong()
         {
             try
             {
@@ -24,7 +24,7 @@ namespace Com.Drew.Imaging.Png
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestConstructorTooShort()
+        public void TestConstructorTooShort()
         {
             try
             {
@@ -39,7 +39,7 @@ namespace Com.Drew.Imaging.Png
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestConstructorInvalidBytes()
+        public void TestConstructorInvalidBytes()
         {
             string[] invalidStrings = new string[] { "ABC1", "1234", "    ", "!£$%" };
             foreach (string invalidString in invalidStrings)
@@ -58,7 +58,7 @@ namespace Com.Drew.Imaging.Png
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestConstructorValidBytes()
+        public void TestConstructorValidBytes()
         {
             string[] validStrings = new string[] { "ABCD", "abcd", "wxyz", "WXYZ", "lkjh", "LKJH" };
             foreach (string validString in validStrings)
@@ -69,7 +69,7 @@ namespace Com.Drew.Imaging.Png
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestIsCritical()
+        public void TestIsCritical()
         {
             Assert.IsTrue(new PngChunkType("ABCD").IsCritical());
             Assert.IsFalse(new PngChunkType("aBCD").IsCritical());
@@ -77,7 +77,7 @@ namespace Com.Drew.Imaging.Png
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestIsAncillary()
+        public void TestIsAncillary()
         {
             Assert.IsFalse(new PngChunkType("ABCD").IsAncillary());
             Assert.IsTrue(new PngChunkType("aBCD").IsAncillary());
@@ -85,7 +85,7 @@ namespace Com.Drew.Imaging.Png
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestIsPrivate()
+        public void TestIsPrivate()
         {
             Assert.IsTrue(new PngChunkType("ABCD").IsPrivate());
             Assert.IsFalse(new PngChunkType("AbCD").IsPrivate());
@@ -93,7 +93,7 @@ namespace Com.Drew.Imaging.Png
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestIsSafeToCopy()
+        public void TestIsSafeToCopy()
         {
             Assert.IsFalse(new PngChunkType("ABCD").IsSafeToCopy());
             Assert.IsTrue(new PngChunkType("ABCd").IsSafeToCopy());
@@ -101,7 +101,7 @@ namespace Com.Drew.Imaging.Png
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestAreMultipleAllowed()
+        public void TestAreMultipleAllowed()
         {
             Assert.IsFalse(new PngChunkType("ABCD").AreMultipleAllowed());
             Assert.IsFalse(new PngChunkType("ABCD", false).AreMultipleAllowed());
@@ -110,7 +110,7 @@ namespace Com.Drew.Imaging.Png
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestEquality()
+        public void TestEquality()
         {
             Assert.AreEqual(new PngChunkType("ABCD"), new PngChunkType("ABCD"));
             Assert.AreEqual(new PngChunkType("ABCD", true), new PngChunkType("ABCD", true));
