@@ -30,8 +30,6 @@ namespace Com.Drew.Imaging.Png
     [Serializable]
     public class PngProcessingException : ImageProcessingException
     {
-        private const long SerialVersionUid = -687991554932005033L;
-
         public PngProcessingException([CanBeNull] string message)
             : base(message)
         {

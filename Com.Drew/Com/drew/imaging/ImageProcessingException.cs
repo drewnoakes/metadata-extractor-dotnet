@@ -31,8 +31,6 @@ namespace Com.Drew.Imaging
     [Serializable]
     public class ImageProcessingException : CompoundException
     {
-        private const long SerialVersionUid = -9115669182209912676L;
-
         public ImageProcessingException([CanBeNull] string message)
             : base(message)
         {

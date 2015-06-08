@@ -30,8 +30,6 @@ namespace Com.Drew.Imaging.Jpeg
     [Serializable]
     public class JpegProcessingException : ImageProcessingException
     {
-        private const long serialVersionUID = -7870179776125450158L;
-
         public JpegProcessingException([CanBeNull] string message)
             : base(message)
         {

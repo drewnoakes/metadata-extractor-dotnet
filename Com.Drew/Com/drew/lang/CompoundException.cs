@@ -40,8 +40,6 @@ namespace Com.Drew.Lang
     [Serializable]
     public class CompoundException : Exception
     {
-        private const long SerialVersionUid = -9207883813472069925L;
-
         [CanBeNull]
         private readonly Exception _innerException;
 
