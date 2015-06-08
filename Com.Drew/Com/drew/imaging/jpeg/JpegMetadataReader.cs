@@ -19,9 +19,10 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.Collections.Generic;
-using System.IO;
+using Com.Drew.Lang;
 using Com.Drew.Metadata.Adobe;
 using Com.Drew.Metadata.Exif;
 using Com.Drew.Metadata.File;
@@ -46,9 +47,9 @@ namespace Com.Drew.Imaging.Jpeg
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream, [CanBeNull] Iterable<JpegSegmentMetadataReader> readers)
+        public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream, [CanBeNull] Iterable<JpegSegmentMetadataReader> readers)
         {
-            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            Metadata.Metadata metadata = new Metadata.Metadata();
             Process(metadata, inputStream, readers);
             return metadata;
         }
@@ -56,7 +57,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
+        public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
         {
             return ReadMetadata(inputStream, null);
         }
@@ -64,10 +65,10 @@ namespace Com.Drew.Imaging.Jpeg
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] FilePath file, [CanBeNull] Iterable<JpegSegmentMetadataReader> readers)
+        public static Metadata.Metadata ReadMetadata([NotNull] FilePath file, [CanBeNull] Iterable<JpegSegmentMetadataReader> readers)
         {
             InputStream inputStream = new FileInputStream(file);
-            Com.Drew.Metadata.Metadata metadata;
+            Metadata.Metadata metadata;
             try
             {
                 metadata = ReadMetadata(inputStream, readers);
@@ -83,21 +84,21 @@ namespace Com.Drew.Imaging.Jpeg
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] FilePath file)
+        public static Metadata.Metadata ReadMetadata([NotNull] FilePath file)
         {
             return ReadMetadata(file, null);
         }
 
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        public static void Process([NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] InputStream inputStream)
+        public static void Process([NotNull] Metadata.Metadata metadata, [NotNull] InputStream inputStream)
         {
             Process(metadata, inputStream, null);
         }
 
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        public static void Process([NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] InputStream inputStream, [CanBeNull] Iterable<JpegSegmentMetadataReader> readers)
+        public static void Process([NotNull] Metadata.Metadata metadata, [NotNull] InputStream inputStream, [CanBeNull] Iterable<JpegSegmentMetadataReader> readers)
         {
             if (readers == null)
             {
@@ -111,11 +112,11 @@ namespace Com.Drew.Imaging.Jpeg
                     segmentTypes.Add(type);
                 }
             }
-            JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new Com.Drew.Lang.StreamReader(inputStream), segmentTypes.AsIterable());
+            JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new StreamReader(inputStream), segmentTypes.AsIterable());
             ProcessJpegSegmentData(metadata, readers, segmentData);
         }
 
-        public static void ProcessJpegSegmentData(Com.Drew.Metadata.Metadata metadata, Iterable<JpegSegmentMetadataReader> readers, JpegSegmentData segmentData)
+        public static void ProcessJpegSegmentData(Metadata.Metadata metadata, Iterable<JpegSegmentMetadataReader> readers, JpegSegmentData segmentData)
         {
             // Pass the appropriate byte arrays to each reader.
             foreach (JpegSegmentMetadataReader reader in readers)

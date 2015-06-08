@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -27,7 +28,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 {
     /// <summary>Describes tags specific to Sony cameras that use the Sony Type 6 makernote tags.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class SonyType6MakernoteDirectory : Com.Drew.Metadata.Directory
+    public class SonyType6MakernoteDirectory : Directory
     {
         public const int TagMakernoteThumbOffset = unchecked((int)(0x0513));
 

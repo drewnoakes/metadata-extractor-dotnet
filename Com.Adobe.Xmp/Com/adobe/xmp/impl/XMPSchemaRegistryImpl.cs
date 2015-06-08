@@ -6,8 +6,8 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System.Collections;
-using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Options;
 using Com.Adobe.Xmp.Properties;
 using Sharpen;
@@ -36,7 +36,7 @@ namespace Com.Adobe.Xmp.Impl
         private IDictionary aliasMap = new Hashtable();
 
         /// <summary>The pattern that must not be contained in simple properties</summary>
-        private Sharpen.Pattern p = Sharpen.Pattern.Compile("[/*?\\[\\]]");
+        private Pattern p = Pattern.Compile("[/*?\\[\\]]");
 
         /// <summary>
         /// Performs the initialisation of the registry with the default namespaces, aliases and global
@@ -69,7 +69,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     suggestedPrefix += ':';
                 }
-                if (!Utils.IsXMLNameNS(Sharpen.Runtime.Substring(suggestedPrefix, 0, suggestedPrefix.Length - 1)))
+                if (!Utils.IsXMLNameNS(Runtime.Substring(suggestedPrefix, 0, suggestedPrefix.Length - 1)))
                 {
                     throw new XMPException("The prefix is a bad XML name", XMPErrorConstants.Badxml);
                 }
@@ -89,7 +89,7 @@ namespace Com.Adobe.Xmp.Impl
                         string generatedPrefix = suggestedPrefix;
                         for (int i = 1; prefixToNamespaceMap.ContainsKey(generatedPrefix); i++)
                         {
-                            generatedPrefix = Sharpen.Runtime.Substring(suggestedPrefix, 0, suggestedPrefix.Length - 1) + "_" + i + "_:";
+                            generatedPrefix = Runtime.Substring(suggestedPrefix, 0, suggestedPrefix.Length - 1) + "_" + i + "_:";
                         }
                         suggestedPrefix = generatedPrefix;
                     }
@@ -109,8 +109,8 @@ namespace Com.Adobe.Xmp.Impl
                 string prefixToDelete = GetNamespacePrefix(namespaceURI);
                 if (prefixToDelete != null)
                 {
-                    Sharpen.Collections.Remove(namespaceToPrefixMap, namespaceURI);
-                    Sharpen.Collections.Remove(prefixToNamespaceMap, prefixToDelete);
+                    Collections.Remove(namespaceToPrefixMap, namespaceURI);
+                    Collections.Remove(prefixToNamespaceMap, prefixToDelete);
                 }
             }
         }
@@ -142,7 +142,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             lock (this)
             {
-                return Sharpen.Collections.UnmodifiableMap(new SortedList(namespaceToPrefixMap));
+                return Collections.UnmodifiableMap(new SortedList(namespaceToPrefixMap));
             }
         }
 
@@ -151,7 +151,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             lock (this)
             {
-                return Sharpen.Collections.UnmodifiableMap(new SortedList(prefixToNamespaceMap));
+                return Collections.UnmodifiableMap(new SortedList(prefixToNamespaceMap));
             }
         }
 
@@ -272,7 +272,7 @@ namespace Com.Adobe.Xmp.Impl
                         }
                     }
                 }
-                return (XMPAliasInfo[])Sharpen.Collections.ToArray(result, new XMPAliasInfo[result.Count]);
+                return (XMPAliasInfo[])Collections.ToArray(result, new XMPAliasInfo[result.Count]);
             }
         }
 
@@ -417,7 +417,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             lock (this)
             {
-                return Sharpen.Collections.UnmodifiableMap(new SortedList(aliasMap));
+                return Collections.UnmodifiableMap(new SortedList(aliasMap));
             }
         }
 

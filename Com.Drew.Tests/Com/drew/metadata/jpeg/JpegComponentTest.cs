@@ -19,6 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Metadata.Jpeg
@@ -27,20 +29,20 @@ namespace Com.Drew.Metadata.Jpeg
     public class JpegComponentTest
     {
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetComponentCharacter()
         {
             JpegComponent component;
             component = new JpegComponent(1, 2, 3);
-            Sharpen.Tests.AreEqual("Y", component.GetComponentName());
+            Tests.AreEqual("Y", component.GetComponentName());
             component = new JpegComponent(2, 2, 3);
-            Sharpen.Tests.AreEqual("Cb", component.GetComponentName());
+            Tests.AreEqual("Cb", component.GetComponentName());
             component = new JpegComponent(3, 2, 3);
-            Sharpen.Tests.AreEqual("Cr", component.GetComponentName());
+            Tests.AreEqual("Cr", component.GetComponentName());
             component = new JpegComponent(4, 2, 3);
-            Sharpen.Tests.AreEqual("I", component.GetComponentName());
+            Tests.AreEqual("I", component.GetComponentName());
             component = new JpegComponent(5, 2, 3);
-            Sharpen.Tests.AreEqual("Q", component.GetComponentName());
+            Tests.AreEqual("Q", component.GetComponentName());
         }
     }
 }

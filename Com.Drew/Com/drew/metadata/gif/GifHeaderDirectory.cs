@@ -5,7 +5,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Gif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class GifHeaderDirectory : Com.Drew.Metadata.Directory
+    public class GifHeaderDirectory : Directory
     {
         public const int TagGifFormatVersion = 1;
 

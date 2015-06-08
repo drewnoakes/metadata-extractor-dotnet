@@ -1,10 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Sharpen
 {
-    using System;
-    using System.Collections.Generic;
-
     public class ListIterator : Iterator<object>
     {
         private IList list;

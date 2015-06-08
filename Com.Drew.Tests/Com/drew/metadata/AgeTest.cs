@@ -19,6 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Metadata
@@ -26,38 +28,38 @@ namespace Com.Drew.Metadata
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class AgeTest
     {
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestParse()
         {
             Age age = Age.FromPanasonicString("0031:07:15 00:00:00");
-            NUnit.Framework.Assert.IsNotNull(age);
-            Sharpen.Tests.AreEqual(31, age.GetYears());
-            Sharpen.Tests.AreEqual(7, age.GetMonths());
-            Sharpen.Tests.AreEqual(15, age.GetDays());
-            Sharpen.Tests.AreEqual(0, age.GetHours());
-            Sharpen.Tests.AreEqual(0, age.GetMinutes());
-            Sharpen.Tests.AreEqual(0, age.GetSeconds());
-            Sharpen.Tests.AreEqual("0031:07:15 00:00:00", Sharpen.Extensions.ConvertToString(age));
-            Sharpen.Tests.AreEqual("31 years 7 months 15 days", age.ToFriendlyString());
+            Assert.IsNotNull(age);
+            Tests.AreEqual(31, age.GetYears());
+            Tests.AreEqual(7, age.GetMonths());
+            Tests.AreEqual(15, age.GetDays());
+            Tests.AreEqual(0, age.GetHours());
+            Tests.AreEqual(0, age.GetMinutes());
+            Tests.AreEqual(0, age.GetSeconds());
+            Tests.AreEqual("0031:07:15 00:00:00", Extensions.ConvertToString(age));
+            Tests.AreEqual("31 years 7 months 15 days", age.ToFriendlyString());
         }
 
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestEqualsAndHashCode()
         {
             Age age1 = new Age(10, 11, 12, 13, 14, 15);
             Age age2 = new Age(10, 11, 12, 13, 14, 15);
             Age age3 = new Age(0, 0, 0, 0, 0, 0);
-            Sharpen.Tests.AreEqual(age1, age1);
-            Sharpen.Tests.AreEqual(age1, age2);
-            Sharpen.Tests.AreEqual(age2, age1);
-            Sharpen.Tests.IsTrue(age1.Equals(age1));
-            Sharpen.Tests.IsTrue(age1.Equals(age2));
-            Sharpen.Tests.IsFalse(age1.Equals(age3));
-            Sharpen.Tests.IsFalse(age1.Equals(null));
-            Sharpen.Tests.IsFalse(age1.Equals("Hello"));
-            Sharpen.Tests.AreEqual(age1.GetHashCode(), age1.GetHashCode());
-            Sharpen.Tests.AreEqual(age1.GetHashCode(), age2.GetHashCode());
-            Sharpen.Tests.IsFalse(age1.GetHashCode() == age3.GetHashCode());
+            Tests.AreEqual(age1, age1);
+            Tests.AreEqual(age1, age2);
+            Tests.AreEqual(age2, age1);
+            Tests.IsTrue(age1.Equals(age1));
+            Tests.IsTrue(age1.Equals(age2));
+            Tests.IsFalse(age1.Equals(age3));
+            Tests.IsFalse(age1.Equals(null));
+            Tests.IsFalse(age1.Equals("Hello"));
+            Tests.AreEqual(age1.GetHashCode(), age1.GetHashCode());
+            Tests.AreEqual(age1.GetHashCode(), age2.GetHashCode());
+            Tests.IsFalse(age1.GetHashCode() == age3.GetHashCode());
         }
     }
 }

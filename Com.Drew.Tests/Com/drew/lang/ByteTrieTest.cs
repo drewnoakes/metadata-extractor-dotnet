@@ -19,6 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Lang
@@ -26,25 +28,25 @@ namespace Com.Drew.Lang
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class ByteTrieTest
     {
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestBasics()
         {
             ByteTrie<string> trie = new ByteTrie<string>();
             string[] strings = new string[] { "HELLO", "HELLO WORLD", "HERBERT" };
             foreach (string s in strings)
             {
-                trie.AddPath(s, Sharpen.Runtime.GetBytesForString(s));
+                trie.AddPath(s, Runtime.GetBytesForString(s));
             }
             foreach (string s_1 in strings)
             {
-                NUnit.Framework.Assert.AreSame(s_1, trie.Find(Sharpen.Runtime.GetBytesForString(s_1)));
+                Assert.AreSame(s_1, trie.Find(Runtime.GetBytesForString(s_1)));
             }
-            NUnit.Framework.Assert.IsNull(trie.Find(Sharpen.Runtime.GetBytesForString("Not Included")));
-            NUnit.Framework.Assert.IsNull(trie.Find(Sharpen.Runtime.GetBytesForString("HELL")));
-            Sharpen.Tests.AreEqual("HELLO", trie.Find(Sharpen.Runtime.GetBytesForString("HELLO MUM")));
-            Sharpen.Tests.AreEqual("HELLO WORLD".Length, trie.GetMaxDepth());
+            Assert.IsNull(trie.Find(Runtime.GetBytesForString("Not Included")));
+            Assert.IsNull(trie.Find(Runtime.GetBytesForString("HELL")));
+            Tests.AreEqual("HELLO", trie.Find(Runtime.GetBytesForString("HELLO MUM")));
+            Tests.AreEqual("HELLO WORLD".Length, trie.GetMaxDepth());
             trie.SetDefaultValue("DEFAULT");
-            Sharpen.Tests.AreEqual("DEFAULT", trie.Find(Sharpen.Runtime.GetBytesForString("Also Not Included")));
+            Tests.AreEqual("DEFAULT", trie.Find(Runtime.GetBytesForString("Also Not Included")));
         }
     }
 }

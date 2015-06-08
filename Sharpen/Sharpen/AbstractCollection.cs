@@ -1,9 +1,9 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
 namespace Sharpen
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-
     public abstract class AbstractCollection<T> : Iterable<T>, IEnumerable, ICollection<T>, IEnumerable<T>
     {
         protected AbstractCollection ()
@@ -27,7 +27,7 @@ namespace Sharpen
         public virtual bool Contains (object item)
         {
             foreach (var t in this) {
-                if (object.ReferenceEquals (t, item) || t.Equals (item))
+                if (ReferenceEquals (t, item) || t.Equals (item))
                     return true;
             }
             return false;

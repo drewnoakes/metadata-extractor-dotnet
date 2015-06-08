@@ -1,10 +1,9 @@
-using System.Text;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Sharpen
 {
-    using System;
-
     public class MessageFormat
     {
         public static string Format (string message, params object[] args)

@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using Com.Drew.Imaging;
 using Com.Drew.Imaging.Jpeg;
@@ -55,13 +56,13 @@ namespace Com.Drew.Metadata.Photoshop
             return Arrays.AsList(JpegSegmentType.Appd).AsIterable();
         }
 
-        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             int preambleLength = JpegSegmentPreamble.Length;
             foreach (sbyte[] segmentBytes in segments)
             {
                 // Ensure data starts with the necessary preamble
-                if (segmentBytes.Length < preambleLength + 1 || !JpegSegmentPreamble.Equals(Sharpen.Runtime.GetStringForBytes(segmentBytes, 0, preambleLength)))
+                if (segmentBytes.Length < preambleLength + 1 || !JpegSegmentPreamble.Equals(Runtime.GetStringForBytes(segmentBytes, 0, preambleLength)))
                 {
                     continue;
                 }
@@ -69,7 +70,7 @@ namespace Com.Drew.Metadata.Photoshop
             }
         }
 
-        public virtual void Extract([NotNull] SequentialReader reader, int length, [NotNull] Com.Drew.Metadata.Metadata metadata)
+        public virtual void Extract([NotNull] SequentialReader reader, int length, [NotNull] Metadata metadata)
         {
             PhotoshopDirectory directory = new PhotoshopDirectory();
             metadata.AddDirectory(directory);
@@ -158,7 +159,7 @@ namespace Com.Drew.Metadata.Photoshop
                     }
                     if (tagType >= unchecked((int)(0x0fa0)) && tagType <= unchecked((int)(0x1387)))
                     {
-                        PhotoshopDirectory._tagNameMap.Put(tagType, Sharpen.Extensions.StringFormat("Plug-in %d Data", tagType - unchecked((int)(0x0fa0)) + 1));
+                        PhotoshopDirectory._tagNameMap.Put(tagType, Extensions.StringFormat("Plug-in %d Data", tagType - unchecked((int)(0x0fa0)) + 1));
                     }
                 }
                 catch (Exception ex)

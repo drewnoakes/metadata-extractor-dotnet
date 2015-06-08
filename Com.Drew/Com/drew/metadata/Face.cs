@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Text;
 using JetBrains.Annotations;
 using Sharpen;
@@ -102,7 +103,7 @@ namespace Com.Drew.Metadata
             {
                 return false;
             }
-            Com.Drew.Metadata.Face face = (Com.Drew.Metadata.Face)o;
+            Face face = (Face)o;
             if (_height != face._height)
             {
                 return false;
@@ -157,7 +158,7 @@ namespace Com.Drew.Metadata
             {
                 result.Append(" age: ").Append(_age.ToFriendlyString());
             }
-            return Sharpen.Extensions.ConvertToString(result);
+            return Extensions.ConvertToString(result);
         }
     }
 }

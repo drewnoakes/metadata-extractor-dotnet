@@ -1,8 +1,7 @@
+using System.IO.Compression;
+
 namespace Sharpen
 {
-    using System;
-    using System.IO.Compression;
-
     public class GZIPOutputStream : OutputStream
     {
         public GZIPOutputStream (OutputStream os)

@@ -19,7 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-using System.IO;
+
+using Com.Drew.Lang;
 using Com.Drew.Metadata.File;
 using Com.Drew.Metadata.Ico;
 using JetBrains.Annotations;
@@ -33,10 +34,10 @@ namespace Com.Drew.Imaging.Ico
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] FilePath file)
+        public static Metadata.Metadata ReadMetadata([NotNull] FilePath file)
         {
             InputStream inputStream = new FileInputStream(file);
-            Com.Drew.Metadata.Metadata metadata;
+            Metadata.Metadata metadata;
             try
             {
                 metadata = ReadMetadata(inputStream);
@@ -50,10 +51,10 @@ namespace Com.Drew.Imaging.Ico
         }
 
         [NotNull]
-        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
+        public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
         {
-            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
-            new IcoReader().Extract(new Com.Drew.Lang.StreamReader(inputStream), metadata);
+            Metadata.Metadata metadata = new Metadata.Metadata();
+            new IcoReader().Extract(new StreamReader(inputStream), metadata);
             return metadata;
         }
     }

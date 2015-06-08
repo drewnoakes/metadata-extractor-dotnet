@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -32,7 +33,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// Makernote data begins after a 6-byte header: "QVC\x00\x00\x00"
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class CasioType2MakernoteDirectory : Com.Drew.Metadata.Directory
+    public class CasioType2MakernoteDirectory : Directory
     {
         /// <summary>2 values - x,y dimensions in pixels.</summary>
         public const int TagThumbnailDimensions = unchecked((int)(0x0002));

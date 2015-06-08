@@ -19,8 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
-using Sharpen;
 
 namespace Com.Drew.Testing
 {
@@ -34,7 +34,7 @@ namespace Com.Drew.Testing
                 throw new ArgumentException("Attempting to skip more bytes than exist in the array.");
             }
             sbyte[] output = new sbyte[input.Length - countToSkip];
-            System.Array.Copy(input, countToSkip, output, 0, input.Length - countToSkip);
+            Array.Copy(input, countToSkip, output, 0, input.Length - countToSkip);
             return output;
         }
     }

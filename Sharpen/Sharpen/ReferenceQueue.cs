@@ -1,8 +1,7 @@
+using System.Collections.Generic;
+
 namespace Sharpen
 {
-    using System;
-    using System.Collections.Generic;
-
     public class ReferenceQueue<T>
     {
         private Queue<Reference<T>> queue;

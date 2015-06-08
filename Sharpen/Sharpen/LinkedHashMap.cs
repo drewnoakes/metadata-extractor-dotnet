@@ -1,10 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
+
 namespace Sharpen
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Runtime.CompilerServices;
-
     public class LinkedHashMap<T, U> : AbstractMap<T, U>
     {
         private List<KeyValuePair<T, U>> list;

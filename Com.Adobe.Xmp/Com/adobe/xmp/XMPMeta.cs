@@ -6,6 +6,7 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System;
 using Com.Adobe.Xmp.Options;
 using Com.Adobe.Xmp.Properties;
@@ -864,7 +865,7 @@ namespace Com.Adobe.Xmp
         /// especially conversion errors.
         /// </exception>
         /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        Sharpen.Calendar GetPropertyCalendar(string schemaNS, string propName);
+        Calendar GetPropertyCalendar(string schemaNS, string propName);
 
         /// <summary>Convenience method to retrieve the literal value of a property.</summary>
         /// <param name="schemaNS">
@@ -1045,7 +1046,7 @@ namespace Com.Adobe.Xmp
         /// <param name="options">options of the property to set (optional).</param>
         /// <exception cref="XMPException">Wraps all exceptions that may occur.</exception>
         /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        void SetPropertyCalendar(string schemaNS, string propName, Sharpen.Calendar propValue, PropertyOptions options);
+        void SetPropertyCalendar(string schemaNS, string propName, Calendar propValue, PropertyOptions options);
 
         /// <seealso cref="SetPropertyCalendar(string, string, Sharpen.Calendar, Com.Adobe.Xmp.Options.PropertyOptions)"/>
         /// <param name="schemaNS">The namespace URI for the property</param>
@@ -1053,7 +1054,7 @@ namespace Com.Adobe.Xmp
         /// <param name="propValue">the property value as <code>Calendar</code></param>
         /// <exception cref="XMPException">Wraps all exceptions</exception>
         /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        void SetPropertyCalendar(string schemaNS, string propName, Sharpen.Calendar propValue);
+        void SetPropertyCalendar(string schemaNS, string propName, Calendar propValue);
 
         /// <summary>
         /// Convenience method to set a property from a binary <code>byte[]</code>-array,

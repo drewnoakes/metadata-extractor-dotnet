@@ -1,14 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Runtime.CompilerServices;
+using System.Net.Sockets;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
-using ProcessStartInfo = System.Diagnostics.ProcessStartInfo;
 
 namespace Sharpen
 {
@@ -55,7 +57,7 @@ namespace Sharpen
                     }
                 }
                 return SystemProcess.Start (psi);
-            } catch (System.ComponentModel.Win32Exception ex) {
+            } catch (Win32Exception ex) {
                 throw new IOException (ex.Message);
             }
         }
@@ -78,7 +80,7 @@ namespace Sharpen
         {
             try {
                 return Dns.GetHostEntry (Dns.GetHostName ()).AddressList[0];
-            } catch (System.Net.Sockets.SocketException ex) {
+            } catch (SocketException ex) {
                 throw new UnknownHostException (ex);
             }
         }
@@ -134,7 +136,7 @@ namespace Sharpen
 
         private class ShutdownHook
         {
-            public Sharpen.Runnable Runnable;
+            public Runnable Runnable;
 
             ~ShutdownHook ()
             {

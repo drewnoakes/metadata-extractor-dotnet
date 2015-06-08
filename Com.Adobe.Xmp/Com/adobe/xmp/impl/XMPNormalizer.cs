@@ -6,8 +6,8 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System.Collections;
-using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Impl.Xpath;
 using Com.Adobe.Xmp.Options;
 using Com.Adobe.Xmp.Properties;
@@ -70,7 +70,7 @@ namespace Com.Adobe.Xmp.Impl
                 string nameStr = tree.GetName().ToLower();
                 if (nameStr.StartsWith("uuid:"))
                 {
-                    nameStr = Sharpen.Runtime.Substring(nameStr, 5);
+                    nameStr = Runtime.Substring(nameStr, 5);
                 }
                 if (Utils.CheckUUIDFormat(nameStr))
                 {
@@ -415,10 +415,10 @@ namespace Com.Adobe.Xmp.Impl
                     otherDate = XMPNodeUtils.FindChildNode(exifSchema, "exif:DateTimeDigitized", false);
                 }
                 binOtherDate = XMPUtils.ConvertToDate(otherDate.GetValue());
-                Sharpen.Calendar cal = binGPSStamp.GetCalendar();
-                cal.Set(Sharpen.CalendarEnum.Year, binOtherDate.GetYear());
-                cal.Set(Sharpen.CalendarEnum.Month, binOtherDate.GetMonth());
-                cal.Set(Sharpen.CalendarEnum.DayOfMonth, binOtherDate.GetDay());
+                Calendar cal = binGPSStamp.GetCalendar();
+                cal.Set(CalendarEnum.Year, binOtherDate.GetYear());
+                cal.Set(CalendarEnum.Month, binOtherDate.GetMonth());
+                cal.Set(CalendarEnum.DayOfMonth, binOtherDate.GetDay());
                 binGPSStamp = new XMPDateTimeImpl(cal);
                 gpsDateTime.SetValue(XMPUtils.ConvertFromDate(binGPSStamp));
             }
@@ -547,10 +547,10 @@ namespace Com.Adobe.Xmp.Impl
                     else
                     {
                         // 3B. Has double LF, compare the tail.
-                        if (!Sharpen.Runtime.Substring(defaultValue, lfPos + 2).Equals(dmValue))
+                        if (!Runtime.Substring(defaultValue, lfPos + 2).Equals(dmValue))
                         {
                             // 3B2. Replace the x-default tail.
-                            defaultNode.SetValue(Sharpen.Runtime.Substring(defaultValue, 0, lfPos + 2) + dmValue);
+                            defaultNode.SetValue(Runtime.Substring(defaultValue, 0, lfPos + 2) + dmValue);
                         }
                     }
                 }

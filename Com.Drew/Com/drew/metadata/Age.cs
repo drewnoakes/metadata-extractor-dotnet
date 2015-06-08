@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.Text;
 using JetBrains.Annotations;
@@ -54,7 +55,7 @@ namespace Com.Drew.Metadata
         /// <param name="s">The String in format <code>0031:07:15 00:00:00</code>.</param>
         /// <returns>The parsed Age object, or null if the value could not be parsed</returns>
         [CanBeNull]
-        public static Com.Drew.Metadata.Age FromPanasonicString([NotNull] string s)
+        public static Age FromPanasonicString([NotNull] string s)
         {
             if (s == null)
             {
@@ -66,13 +67,13 @@ namespace Com.Drew.Metadata
             }
             try
             {
-                int years = System.Convert.ToInt32(Sharpen.Runtime.Substring(s, 0, 4));
-                int months = System.Convert.ToInt32(Sharpen.Runtime.Substring(s, 5, 7));
-                int days = System.Convert.ToInt32(Sharpen.Runtime.Substring(s, 8, 10));
-                int hours = System.Convert.ToInt32(Sharpen.Runtime.Substring(s, 11, 13));
-                int minutes = System.Convert.ToInt32(Sharpen.Runtime.Substring(s, 14, 16));
-                int seconds = System.Convert.ToInt32(Sharpen.Runtime.Substring(s, 17, 19));
-                return new Com.Drew.Metadata.Age(years, months, days, hours, minutes, seconds);
+                int years = Convert.ToInt32(Runtime.Substring(s, 0, 4));
+                int months = Convert.ToInt32(Runtime.Substring(s, 5, 7));
+                int days = Convert.ToInt32(Runtime.Substring(s, 8, 10));
+                int hours = Convert.ToInt32(Runtime.Substring(s, 11, 13));
+                int minutes = Convert.ToInt32(Runtime.Substring(s, 14, 16));
+                int seconds = Convert.ToInt32(Runtime.Substring(s, 17, 19));
+                return new Age(years, months, days, hours, minutes, seconds);
             }
             catch (FormatException)
             {
@@ -122,7 +123,7 @@ namespace Com.Drew.Metadata
 
         public override string ToString()
         {
-            return Sharpen.Extensions.StringFormat("%04d:%02d:%02d %02d:%02d:%02d", _years, _months, _days, _hours, _minutes, _seconds);
+            return Extensions.StringFormat("%04d:%02d:%02d %02d:%02d:%02d", _years, _months, _days, _hours, _minutes, _seconds);
         }
 
         public virtual string ToFriendlyString()
@@ -134,7 +135,7 @@ namespace Com.Drew.Metadata
             AppendAgePart(result, _hours, "hour");
             AppendAgePart(result, _minutes, "minute");
             AppendAgePart(result, _seconds, "second");
-            return Sharpen.Extensions.ConvertToString(result);
+            return Extensions.ConvertToString(result);
         }
 
         private static void AppendAgePart(StringBuilder result, int num, string singularName)
@@ -164,7 +165,7 @@ namespace Com.Drew.Metadata
             {
                 return false;
             }
-            Com.Drew.Metadata.Age age = (Com.Drew.Metadata.Age)o;
+            Age age = (Age)o;
             if (_days != age._days)
             {
                 return false;

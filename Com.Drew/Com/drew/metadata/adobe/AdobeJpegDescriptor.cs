@@ -19,7 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-using Com.Drew.Metadata;
+
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -58,7 +58,7 @@ namespace Com.Drew.Metadata.Adobe
         private string GetDctEncodeVersionDescription()
         {
             int? value = _directory.GetInteger(AdobeJpegDirectory.TagColorTransform);
-            return value == null ? null : value == unchecked((int)(0x64)) ? "100" : Sharpen.Extensions.ConvertToString((int)value);
+            return value == null ? null : value == unchecked((int)(0x64)) ? "100" : Extensions.ConvertToString((int)value);
         }
 
         [CanBeNull]
@@ -88,7 +88,7 @@ namespace Com.Drew.Metadata.Adobe
 
                 default:
                 {
-                    return Sharpen.Extensions.StringFormat("Unknown transform (%d)", value);
+                    return Extensions.StringFormat("Unknown transform (%d)", value);
                 }
             }
         }

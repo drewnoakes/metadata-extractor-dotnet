@@ -6,6 +6,7 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System.IO;
 using Sharpen;
 
@@ -40,7 +41,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>The look-ahead size is 6 at maximum (&amp;#xAB;)</summary>
         /// <seealso cref="System.IO.PushbackReader.PushbackReader(System.IO.StreamReader, int)"/>
         /// <param name="in">a Reader</param>
-        public FixASCIIControlsReader(System.IO.StreamReader @in)
+        public FixASCIIControlsReader(StreamReader @in)
             : base(@in, BufferSize)
         {
         }
@@ -140,7 +141,7 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         if ('0' <= ch && ch <= '9')
                         {
-                            control = Sharpen.Extensions.Digit(ch, 10);
+                            control = Extensions.Digit(ch, 10);
                             digits = 1;
                             state = StateDig1;
                         }
@@ -156,7 +157,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if ('0' <= ch && ch <= '9')
                     {
-                        control = control * 10 + Sharpen.Extensions.Digit(ch, 10);
+                        control = control * 10 + Extensions.Digit(ch, 10);
                         digits++;
                         if (digits <= 5)
                         {
@@ -187,7 +188,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if (('0' <= ch && ch <= '9') || ('a' <= ch && ch <= 'f') || ('A' <= ch && ch <= 'F'))
                     {
-                        control = control * 16 + Sharpen.Extensions.Digit(ch, 16);
+                        control = control * 16 + Extensions.Digit(ch, 16);
                         digits++;
                         if (digits <= 4)
                         {

@@ -1,6 +1,6 @@
 using System;
-using System.Threading;
 using System.Collections.Generic;
+using System.Threading;
 using SThread = System.Threading.Thread;
 
 namespace Sharpen
@@ -26,7 +26,7 @@ namespace Sharpen
         bool shuttingDown;
         
         #region ExecutorService implementation
-        public bool AwaitTermination (long n, Sharpen.TimeUnit unit)
+        public bool AwaitTermination (long n, TimeUnit unit)
         {
             WaitHandle[] handles;
             lock (tasks) {
@@ -49,7 +49,7 @@ namespace Sharpen
             }
         }
     
-        public Future<T> Submit<T> (Sharpen.Callable<T> c)
+        public Future<T> Submit<T> (Callable<T> c)
         {
             TaskFuture<T> future = new TaskFuture<T> (this);
             lock (tasks) {
@@ -73,9 +73,9 @@ namespace Sharpen
         #endregion
     
         #region Executor implementation
-        public void Execute (Sharpen.Runnable runnable)
+        public void Execute (Runnable runnable)
         {
-            throw new System.NotImplementedException ();
+            throw new NotImplementedException ();
         }
         #endregion
     }

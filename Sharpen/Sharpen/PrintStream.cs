@@ -40,7 +40,7 @@ namespace Sharpen
             writer.Flush();
         }
 
-        public override System.IFormatProvider FormatProvider
+        public override IFormatProvider FormatProvider
         {
             get
             {

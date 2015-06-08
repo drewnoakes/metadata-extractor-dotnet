@@ -19,10 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using Com.Drew.Lang;
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Exif.Makernotes
 {

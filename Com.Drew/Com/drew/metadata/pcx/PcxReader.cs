@@ -19,11 +19,11 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using Com.Drew.Imaging;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Pcx
 {
@@ -39,7 +39,7 @@ namespace Com.Drew.Metadata.Pcx
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class PcxReader
     {
-        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata)
+        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
         {
             reader.SetMotorolaByteOrder(false);
             PcxDirectory directory = new PcxDirectory();

@@ -19,10 +19,11 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
+using System.Diagnostics;
 using System.IO;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Photoshop
 {
@@ -30,7 +31,7 @@ namespace Com.Drew.Metadata.Photoshop
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class PsdReader
     {
-        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata)
+        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
         {
             PsdHeaderDirectory directory = new PsdHeaderDirectory();
             metadata.AddDirectory(directory);
@@ -95,7 +96,7 @@ namespace Com.Drew.Metadata.Photoshop
             try
             {
                 long sectionLength = reader.GetUInt32();
-                System.Diagnostics.Debug.Assert((sectionLength <= int.MaxValue));
+                Debug.Assert((sectionLength <= int.MaxValue));
                 new PhotoshopReader().Extract(reader, (int)sectionLength, metadata);
             }
             catch (IOException)

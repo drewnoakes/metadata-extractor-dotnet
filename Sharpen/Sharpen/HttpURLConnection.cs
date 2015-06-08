@@ -23,8 +23,10 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+
 using System;
 using System.Net;
+using System.Net.Cache;
 
 namespace Sharpen
 {
@@ -97,9 +99,9 @@ namespace Sharpen
         public void SetUseCaches (bool u)
         {
             if (u)
-                request.CachePolicy = new System.Net.Cache.RequestCachePolicy (System.Net.Cache.RequestCacheLevel.Default);
+                request.CachePolicy = new RequestCachePolicy (RequestCacheLevel.Default);
             else
-                request.CachePolicy = new System.Net.Cache.RequestCachePolicy (System.Net.Cache.RequestCacheLevel.BypassCache);
+                request.CachePolicy = new RequestCachePolicy (RequestCacheLevel.BypassCache);
         }
         
         public void SetRequestMethod (string method)

@@ -19,6 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
+using System;
 using System.IO;
 using Com.Drew.Imaging.Riff;
 using Com.Drew.Lang;
@@ -45,9 +47,9 @@ namespace Com.Drew.Metadata.Webp
     public class WebpRiffHandler : RiffHandler
     {
         [NotNull]
-        private readonly Com.Drew.Metadata.Metadata _metadata;
+        private readonly Metadata _metadata;
 
-        public WebpRiffHandler([NotNull] Com.Drew.Metadata.Metadata metadata)
+        public WebpRiffHandler([NotNull] Metadata metadata)
         {
             _metadata = metadata;
         }
@@ -108,7 +110,7 @@ namespace Com.Drew.Metadata.Webp
                             }
                             catch (IOException e)
                             {
-                                Sharpen.Runtime.PrintStackTrace(e, System.Console.Error);
+                                Runtime.PrintStackTrace(e, Console.Error);
                             }
                         }
                     }

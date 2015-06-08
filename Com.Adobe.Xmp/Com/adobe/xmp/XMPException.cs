@@ -6,14 +6,14 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System;
-using Sharpen;
 
 namespace Com.Adobe.Xmp
 {
     /// <summary>This exception wraps all errors that occur in the XMP Toolkit.</summary>
     /// <since>16.02.2006</since>
-    [System.Serializable]
+    [Serializable]
     public class XMPException : Exception
     {
         /// <summary>the errorCode of the XMP toolkit</summary>

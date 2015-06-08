@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
@@ -68,7 +69,7 @@ namespace Com.Drew.Lang
             T value = node._value;
             foreach (sbyte b in bytes)
             {
-                ByteTrieNode<T> child = node._children.Get(b);
+                ByteTrieNode<T> child = Extensions.Get<sbyte, ByteTrieNode<T>>(node._children, b);
                 if (child == null)
                 {
                     break;
@@ -91,11 +92,11 @@ namespace Com.Drew.Lang
             {
                 foreach (sbyte b in part)
                 {
-                    ByteTrieNode<T> child = node._children.Get(b);
+                    ByteTrieNode<T> child = Extensions.Get<sbyte, ByteTrieNode<T>>(node._children, b);
                     if (child == null)
                     {
                         child = new ByteTrieNode<T>();
-                        node._children.Put(b, child);
+                        Extensions.Put<sbyte, ByteTrieNode<T>>(node._children, b, child);
                     }
                     node = child;
                     depth++;

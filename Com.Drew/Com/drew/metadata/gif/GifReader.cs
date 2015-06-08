@@ -1,7 +1,6 @@
 using System.IO;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Gif
 {
@@ -12,7 +11,7 @@ namespace Com.Drew.Metadata.Gif
 
         private const string Gif89aVersionIdentifier = "89a";
 
-        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata)
+        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
         {
             GifHeaderDirectory directory = new GifHeaderDirectory();
             metadata.AddDirectory(directory);

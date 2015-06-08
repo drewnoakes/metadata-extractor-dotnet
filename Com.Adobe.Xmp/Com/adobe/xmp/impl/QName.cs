@@ -6,6 +6,7 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using Sharpen;
 
 namespace Com.Adobe.Xmp.Impl
@@ -26,8 +27,8 @@ namespace Com.Adobe.Xmp.Impl
             int colon = qname.IndexOf(':');
             if (colon >= 0)
             {
-                prefix = Sharpen.Runtime.Substring(qname, 0, colon);
-                localName = Sharpen.Runtime.Substring(qname, colon + 1);
+                prefix = Runtime.Substring(qname, 0, colon);
+                localName = Runtime.Substring(qname, colon + 1);
             }
             else
             {

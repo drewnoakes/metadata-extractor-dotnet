@@ -19,8 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using Com.Drew.Lang;
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -430,7 +430,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public virtual string GetLensDescription()
         {
             Rational[] values = _directory.GetRationalArray(NikonType2MakernoteDirectory.TagLens);
-            return values == null ? null : values.Length < 4 ? _directory.GetString(NikonType2MakernoteDirectory.TagLens) : Sharpen.Extensions.StringFormat("%d-%dmm f/%.1f-%.1f", values[0].IntValue(), values[1].IntValue(), values[2].FloatValue(), values
+            return values == null ? null : values.Length < 4 ? _directory.GetString(NikonType2MakernoteDirectory.TagLens) : Extensions.StringFormat("%d-%dmm f/%.1f-%.1f", values[0].IntValue(), values[1].IntValue(), values[2].FloatValue(), values
                 [3].FloatValue());
         }
 

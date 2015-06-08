@@ -19,7 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-using System.IO;
+
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -317,20 +317,20 @@ namespace Com.Drew.Lang
         /// <exception cref="System.IO.IOException"/>
         public virtual float GetFloat32(int index)
         {
-            return Sharpen.Extensions.IntBitsToFloat(GetInt32(index));
+            return Extensions.IntBitsToFloat(GetInt32(index));
         }
 
         /// <exception cref="System.IO.IOException"/>
         public virtual double GetDouble64(int index)
         {
-            return Sharpen.Extensions.LongBitsToDouble(GetInt64(index));
+            return Extensions.LongBitsToDouble(GetInt64(index));
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
         public virtual string GetString(int index, int bytesRequested)
         {
-            return Sharpen.Runtime.GetStringForBytes(GetBytes(index, bytesRequested));
+            return Runtime.GetStringForBytes(GetBytes(index, bytesRequested));
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -340,11 +340,11 @@ namespace Com.Drew.Lang
             sbyte[] bytes = GetBytes(index, bytesRequested);
             try
             {
-                return Sharpen.Runtime.GetStringForBytes(bytes, charset);
+                return Runtime.GetStringForBytes(bytes, charset);
             }
             catch (UnsupportedEncodingException)
             {
-                return Sharpen.Runtime.GetStringForBytes(bytes);
+                return Runtime.GetStringForBytes(bytes);
             }
         }
 
@@ -370,7 +370,7 @@ namespace Com.Drew.Lang
             {
                 length++;
             }
-            return Sharpen.Runtime.GetStringForBytes(bytes, 0, length);
+            return Runtime.GetStringForBytes(bytes, 0, length);
         }
     }
 }

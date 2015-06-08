@@ -6,6 +6,7 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System;
 using Com.Adobe.Xmp.Impl;
 using Com.Adobe.Xmp.Options;
@@ -240,7 +241,7 @@ namespace Com.Adobe.Xmp
             try
             {
                 // First try interpretation as Integer (anything not 0 is true)
-                return System.Convert.ToInt32(value) != 0;
+                return Convert.ToInt32(value) != 0;
             }
             catch (FormatException)
             {
@@ -281,11 +282,11 @@ namespace Com.Adobe.Xmp
                 }
                 if (rawValue.StartsWith("0x"))
                 {
-                    return System.Convert.ToInt32(Sharpen.Runtime.Substring(rawValue, 2), 16);
+                    return Convert.ToInt32(Runtime.Substring(rawValue, 2), 16);
                 }
                 else
                 {
-                    return System.Convert.ToInt32(rawValue);
+                    return Convert.ToInt32(rawValue);
                 }
             }
             catch (FormatException)
@@ -320,11 +321,11 @@ namespace Com.Adobe.Xmp
                 }
                 if (rawValue.StartsWith("0x"))
                 {
-                    return System.Convert.ToInt64(Sharpen.Runtime.Substring(rawValue, 2), 16);
+                    return Convert.ToInt64(Runtime.Substring(rawValue, 2), 16);
                 }
                 else
                 {
-                    return System.Convert.ToInt64(rawValue);
+                    return Convert.ToInt64(rawValue);
                 }
             }
             catch (FormatException)
@@ -409,7 +410,7 @@ namespace Com.Adobe.Xmp
         /// <returns>Returns the base64 string.</returns>
         public static string EncodeBase64(sbyte[] buffer)
         {
-            return Sharpen.Runtime.GetStringForBytes(Base64.Encode(buffer));
+            return Runtime.GetStringForBytes(Base64.Encode(buffer));
         }
 
         /// <summary>Decode from Base64 encoded string to raw data.</summary>
@@ -421,7 +422,7 @@ namespace Com.Adobe.Xmp
         {
             try
             {
-                return Base64.Decode(Sharpen.Runtime.GetBytesForString(base64String));
+                return Base64.Decode(Runtime.GetBytesForString(base64String));
             }
             catch (Exception e)
             {

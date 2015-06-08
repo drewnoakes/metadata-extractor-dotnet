@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.IO;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
@@ -48,7 +49,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         //            JpegSegmentType.SOF4,
         //            JpegSegmentType.SOF12,
-        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {
@@ -56,7 +57,7 @@ namespace Com.Drew.Metadata.Jpeg
             }
         }
 
-        public virtual void Extract(sbyte[] segmentBytes, Com.Drew.Metadata.Metadata metadata, JpegSegmentType segmentType)
+        public virtual void Extract(sbyte[] segmentBytes, Metadata metadata, JpegSegmentType segmentType)
         {
             JpegDirectory directory = new JpegDirectory();
             metadata.AddDirectory(directory);

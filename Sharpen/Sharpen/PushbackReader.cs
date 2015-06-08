@@ -64,7 +64,7 @@ namespace Sharpen
                     {
                         if (len < avail)
                             avail = len;
-                        System.Array.Copy(buf, pos, cbuf, off, avail);
+                        Array.Copy(buf, pos, cbuf, off, avail);
                         pos += avail;
                         off += avail;
                         len -= avail;
@@ -106,7 +106,7 @@ namespace Sharpen
                 if (len > pos)
                     throw new IOException("Pushback buffer overflow");
                 pos -= len;
-                System.Array.Copy(cbuf, off, buf, pos, len);
+                Array.Copy(cbuf, off, buf, pos, len);
             }
         }
 

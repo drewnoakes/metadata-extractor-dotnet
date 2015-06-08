@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.IO;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
@@ -40,20 +41,20 @@ namespace Com.Drew.Metadata.Adobe
             return Arrays.AsList(JpegSegmentType.Appe).AsIterable();
         }
 
-        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             foreach (sbyte[] bytes in segments)
             {
-                if (bytes.Length == 12 && Sharpen.Runtime.EqualsIgnoreCase(Preamble, Sharpen.Runtime.GetStringForBytes(bytes, 0, Preamble.Length)))
+                if (bytes.Length == 12 && Runtime.EqualsIgnoreCase(Preamble, Runtime.GetStringForBytes(bytes, 0, Preamble.Length)))
                 {
                     Extract(new SequentialByteArrayReader(bytes), metadata);
                 }
             }
         }
 
-        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata)
+        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
         {
-            Com.Drew.Metadata.Directory directory = new AdobeJpegDirectory();
+            Directory directory = new AdobeJpegDirectory();
             metadata.AddDirectory(directory);
             try
             {

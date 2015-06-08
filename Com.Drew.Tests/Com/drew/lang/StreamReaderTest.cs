@@ -1,4 +1,3 @@
-using System.IO;
 using Sharpen;
 
 namespace Com.Drew.Lang
@@ -8,12 +7,12 @@ namespace Com.Drew.Lang
     {
         public virtual void TestConstructWithNullStreamThrows()
         {
-            new Com.Drew.Lang.StreamReader(null);
+            new StreamReader(null);
         }
 
         protected internal override SequentialReader CreateReader(sbyte[] bytes)
         {
-            return new Com.Drew.Lang.StreamReader(new ByteArrayInputStream(bytes));
+            return new StreamReader(new ByteArrayInputStream(bytes));
         }
     }
 }

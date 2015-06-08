@@ -19,8 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-using Com.Drew.Metadata;
+
 using Com.Drew.Metadata.Exif.Makernotes;
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
@@ -31,30 +32,30 @@ namespace Com.Drew.Metadata.Exif
         private PanasonicMakernoteDirectory _panasonicDirectory;
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.SetUp]
+        [SetUp]
         public virtual void SetUp()
         {
             _panasonicDirectory = ExifReaderTest.ProcessBytes<PanasonicMakernoteDirectory>("Tests/Data/withPanasonicFaces.jpg.app1");
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetDetectedFaces()
         {
             Face expResult = new Face(142, 120, 76, 76, null, null);
             Face[] result = _panasonicDirectory.GetDetectedFaces();
-            NUnit.Framework.Assert.IsNotNull(result);
-            Sharpen.Tests.AreEqual(expResult, result[0]);
+            Assert.IsNotNull(result);
+            Tests.AreEqual(expResult, result[0]);
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetRecognizedFaces()
         {
             Face expResult = new Face(142, 120, 76, 76, "NIELS", new Age(31, 7, 15, 0, 0, 0));
             Face[] result = _panasonicDirectory.GetRecognizedFaces();
-            NUnit.Framework.Assert.IsNotNull(result);
-            Sharpen.Tests.AreEqual(expResult, result[0]);
+            Assert.IsNotNull(result);
+            Tests.AreEqual(expResult, result[0]);
         }
     }
 }

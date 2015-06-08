@@ -19,16 +19,16 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata
 {
     /// <summary>Base class for all metadata specific exceptions.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [System.Serializable]
+    [Serializable]
     public class MetadataException : CompoundException
     {
         private const long serialVersionUID = 8612756143363919682L;

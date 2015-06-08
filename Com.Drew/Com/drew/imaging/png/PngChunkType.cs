@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Diagnostics;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -30,7 +30,7 @@ namespace Com.Drew.Imaging.Png
         /// <li><b>interlace method</b> 1 byte, indicates the transmission order of image data, currently only 0 (no interlace) and 1 (Adam7 interlace) are in the standard</li>
         /// </ul>
         /// </summary>
-        public static readonly Com.Drew.Imaging.Png.PngChunkType Ihdr = new Com.Drew.Imaging.Png.PngChunkType("IHDR");
+        public static readonly PngChunkType Ihdr = new PngChunkType("IHDR");
 
         /// <summary>
         /// Denotes a critical
@@ -49,35 +49,35 @@ namespace Com.Drew.Imaging.Png
         /// </ul>
         /// The number of entries is determined by the chunk length. A chunk length indivisible by three is an error.
         /// </summary>
-        public static readonly Com.Drew.Imaging.Png.PngChunkType Plte = new Com.Drew.Imaging.Png.PngChunkType("PLTE");
+        public static readonly PngChunkType Plte = new PngChunkType("PLTE");
 
-        public static readonly Com.Drew.Imaging.Png.PngChunkType Idat = new Com.Drew.Imaging.Png.PngChunkType("IDAT", true);
+        public static readonly PngChunkType Idat = new PngChunkType("IDAT", true);
 
-        public static readonly Com.Drew.Imaging.Png.PngChunkType Iend = new Com.Drew.Imaging.Png.PngChunkType("IEND");
+        public static readonly PngChunkType Iend = new PngChunkType("IEND");
 
-        public static readonly Com.Drew.Imaging.Png.PngChunkType cHRM = new Com.Drew.Imaging.Png.PngChunkType("cHRM");
+        public static readonly PngChunkType cHRM = new PngChunkType("cHRM");
 
-        public static readonly Com.Drew.Imaging.Png.PngChunkType gAMA = new Com.Drew.Imaging.Png.PngChunkType("gAMA");
+        public static readonly PngChunkType gAMA = new PngChunkType("gAMA");
 
-        public static readonly Com.Drew.Imaging.Png.PngChunkType iCCP = new Com.Drew.Imaging.Png.PngChunkType("iCCP");
+        public static readonly PngChunkType iCCP = new PngChunkType("iCCP");
 
-        public static readonly Com.Drew.Imaging.Png.PngChunkType sBIT = new Com.Drew.Imaging.Png.PngChunkType("sBIT");
+        public static readonly PngChunkType sBIT = new PngChunkType("sBIT");
 
-        public static readonly Com.Drew.Imaging.Png.PngChunkType sRGB = new Com.Drew.Imaging.Png.PngChunkType("sRGB");
+        public static readonly PngChunkType sRGB = new PngChunkType("sRGB");
 
-        public static readonly Com.Drew.Imaging.Png.PngChunkType bKGD = new Com.Drew.Imaging.Png.PngChunkType("bKGD");
+        public static readonly PngChunkType bKGD = new PngChunkType("bKGD");
 
-        public static readonly Com.Drew.Imaging.Png.PngChunkType hIST = new Com.Drew.Imaging.Png.PngChunkType("hIST");
+        public static readonly PngChunkType hIST = new PngChunkType("hIST");
 
-        public static readonly Com.Drew.Imaging.Png.PngChunkType tRNS = new Com.Drew.Imaging.Png.PngChunkType("tRNS");
+        public static readonly PngChunkType tRNS = new PngChunkType("tRNS");
 
-        public static readonly Com.Drew.Imaging.Png.PngChunkType pHYs = new Com.Drew.Imaging.Png.PngChunkType("pHYs");
+        public static readonly PngChunkType pHYs = new PngChunkType("pHYs");
 
-        public static readonly Com.Drew.Imaging.Png.PngChunkType sPLT = new Com.Drew.Imaging.Png.PngChunkType("sPLT", true);
+        public static readonly PngChunkType sPLT = new PngChunkType("sPLT", true);
 
-        public static readonly Com.Drew.Imaging.Png.PngChunkType tIME = new Com.Drew.Imaging.Png.PngChunkType("tIME");
+        public static readonly PngChunkType tIME = new PngChunkType("tIME");
 
-        public static readonly Com.Drew.Imaging.Png.PngChunkType iTXt = new Com.Drew.Imaging.Png.PngChunkType("iTXt", true);
+        public static readonly PngChunkType iTXt = new PngChunkType("iTXt", true);
 
         /// <summary>
         /// Denotes an ancillary
@@ -94,9 +94,9 @@ namespace Com.Drew.Imaging.Png
         /// Text is interpreted according to the Latin-1 character set [ISO-8859-1].
         /// Newlines should be represented by a single linefeed character (0x9).
         /// </summary>
-        public static readonly Com.Drew.Imaging.Png.PngChunkType tEXt = new Com.Drew.Imaging.Png.PngChunkType("tEXt", true);
+        public static readonly PngChunkType tEXt = new PngChunkType("tEXt", true);
 
-        public static readonly Com.Drew.Imaging.Png.PngChunkType zTXt = new Com.Drew.Imaging.Png.PngChunkType("zTXt", true);
+        public static readonly PngChunkType zTXt = new PngChunkType("zTXt", true);
 
         private readonly sbyte[] _bytes;
 
@@ -118,7 +118,7 @@ namespace Com.Drew.Imaging.Png
             _multipleAllowed = multipleAllowed;
             try
             {
-                sbyte[] bytes = Sharpen.Runtime.GetBytesForString(identifier, "ASCII");
+                sbyte[] bytes = Runtime.GetBytesForString(identifier, "ASCII");
                 ValidateBytes(bytes);
                 _bytes = bytes;
             }
@@ -194,13 +194,13 @@ namespace Com.Drew.Imaging.Png
         {
             try
             {
-                return Sharpen.Runtime.GetStringForBytes(_bytes, "ASCII");
+                return Runtime.GetStringForBytes(_bytes, "ASCII");
             }
             catch (UnsupportedEncodingException)
             {
                 // The constructor should ensure that we're always able to encode the bytes in ASCII.
                 // noinspection ConstantConditions
-                System.Diagnostics.Debug.Assert((false));
+                Debug.Assert((false));
                 return "Invalid object instance";
             }
         }
@@ -220,7 +220,7 @@ namespace Com.Drew.Imaging.Png
             {
                 return false;
             }
-            Com.Drew.Imaging.Png.PngChunkType that = (Com.Drew.Imaging.Png.PngChunkType)o;
+            PngChunkType that = (PngChunkType)o;
             return Arrays.Equals(_bytes, that._bytes);
         }
 

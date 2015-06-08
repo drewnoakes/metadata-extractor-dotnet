@@ -1,7 +1,7 @@
+using System;
+
 namespace Sharpen
 {
-    using System;
-
     public class PasswordAuthentication
     {
         public PasswordAuthentication (string user, char[] password)

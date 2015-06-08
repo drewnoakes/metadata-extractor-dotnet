@@ -19,7 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using Com.Drew.Metadata.Exif;
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Metadata
@@ -28,33 +30,33 @@ namespace Com.Drew.Metadata
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class MetadataTest
     {
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetDirectoryWhenNotExists()
         {
-            NUnit.Framework.Assert.IsNull(new Com.Drew.Metadata.Metadata().GetFirstDirectoryOfType<ExifSubIFDDirectory>());
+            Assert.IsNull(new Metadata().GetFirstDirectoryOfType<ExifSubIFDDirectory>());
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestHasErrors()
         {
             ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
             directory.AddError("Test Error 1");
-            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
-            Sharpen.Tests.IsFalse(metadata.HasErrors());
+            Metadata metadata = new Metadata();
+            Tests.IsFalse(metadata.HasErrors());
             metadata.AddDirectory(directory);
-            Sharpen.Tests.IsTrue(metadata.HasErrors());
+            Tests.IsTrue(metadata.HasErrors());
         }
 
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestToString()
         {
-            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
-            Sharpen.Tests.AreEqual("Metadata (0 directories)", Sharpen.Extensions.ConvertToString(metadata));
+            Metadata metadata = new Metadata();
+            Tests.AreEqual("Metadata (0 directories)", Extensions.ConvertToString(metadata));
             metadata.AddDirectory(new ExifIFD0Directory());
-            Sharpen.Tests.AreEqual("Metadata (1 directory)", Sharpen.Extensions.ConvertToString(metadata));
+            Tests.AreEqual("Metadata (1 directory)", Extensions.ConvertToString(metadata));
             metadata.AddDirectory(new ExifSubIFDDirectory());
-            Sharpen.Tests.AreEqual("Metadata (2 directories)", Sharpen.Extensions.ConvertToString(metadata));
+            Tests.AreEqual("Metadata (2 directories)", Extensions.ConvertToString(metadata));
         }
     }
 }

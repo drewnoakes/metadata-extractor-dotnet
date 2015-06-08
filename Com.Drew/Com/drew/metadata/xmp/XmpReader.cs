@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Properties;
@@ -94,18 +95,18 @@ namespace Com.Drew.Metadata.Xmp
         /// <see cref="Com.Drew.Imaging.Jpeg.JpegSegmentType"/>
         /// being read.
         /// </param>
-        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {
                 // XMP in a JPEG file has an identifying preamble which is not valid XML
                 int preambleLength = XmpJpegPreamble.Length;
-                if (segmentBytes.Length < preambleLength || !Sharpen.Runtime.EqualsIgnoreCase(XmpJpegPreamble, Sharpen.Runtime.GetStringForBytes(segmentBytes, 0, preambleLength)))
+                if (segmentBytes.Length < preambleLength || !Runtime.EqualsIgnoreCase(XmpJpegPreamble, Runtime.GetStringForBytes(segmentBytes, 0, preambleLength)))
                 {
                     continue;
                 }
                 sbyte[] xmlBytes = new sbyte[segmentBytes.Length - preambleLength];
-                System.Array.Copy(segmentBytes, preambleLength, xmlBytes, 0, xmlBytes.Length);
+                Array.Copy(segmentBytes, preambleLength, xmlBytes, 0, xmlBytes.Length);
                 Extract(xmlBytes, metadata);
             }
         }
@@ -117,7 +118,7 @@ namespace Com.Drew.Metadata.Xmp
         /// <p>
         /// The extraction is done with Adobe's XMPCore library.
         /// </summary>
-        public virtual void Extract([NotNull] sbyte[] xmpBytes, [NotNull] Com.Drew.Metadata.Metadata metadata)
+        public virtual void Extract([NotNull] sbyte[] xmpBytes, [NotNull] Metadata metadata)
         {
             XmpDirectory directory = new XmpDirectory();
             try
@@ -142,7 +143,7 @@ namespace Com.Drew.Metadata.Xmp
         /// <p>
         /// The extraction is done with Adobe's XMPCore library.
         /// </summary>
-        public virtual void Extract([NotNull] string xmpString, [NotNull] Com.Drew.Metadata.Metadata metadata)
+        public virtual void Extract([NotNull] string xmpString, [NotNull] Metadata metadata)
         {
             XmpDirectory directory = new XmpDirectory();
             try
@@ -245,7 +246,7 @@ namespace Com.Drew.Metadata.Xmp
                         }
                         catch (FormatException)
                         {
-                            directory.AddError(Sharpen.Extensions.StringFormat("Unable to parse XMP property %s as a Rational.", propName));
+                            directory.AddError(Extensions.StringFormat("Unable to parse XMP property %s as a Rational.", propName));
                         }
                     }
                     else
@@ -259,11 +260,11 @@ namespace Com.Drew.Metadata.Xmp
                 {
                     try
                     {
-                        directory.SetInt(tagType, (int)Sharpen.Extensions.ValueOf(property));
+                        directory.SetInt(tagType, (int)Extensions.ValueOf(property));
                     }
                     catch (FormatException)
                     {
-                        directory.AddError(Sharpen.Extensions.StringFormat("Unable to parse XMP property %s as an int.", propName));
+                        directory.AddError(Extensions.StringFormat("Unable to parse XMP property %s as an int.", propName));
                     }
                     break;
                 }
@@ -276,7 +277,7 @@ namespace Com.Drew.Metadata.Xmp
                     }
                     catch (FormatException)
                     {
-                        directory.AddError(Sharpen.Extensions.StringFormat("Unable to parse XMP property %s as an double.", propName));
+                        directory.AddError(Extensions.StringFormat("Unable to parse XMP property %s as an double.", propName));
                     }
                     break;
                 }
@@ -302,7 +303,7 @@ namespace Com.Drew.Metadata.Xmp
 
                 default:
                 {
-                    directory.AddError(Sharpen.Extensions.StringFormat("Unknown format code %d for tag %d", formatCode, tagType));
+                    directory.AddError(Extensions.StringFormat("Unknown format code %d for tag %d", formatCode, tagType));
                     break;
                 }
             }
@@ -313,7 +314,7 @@ namespace Com.Drew.Metadata.Xmp
         {
             string schemaNS = XmpDirectory._tagSchemaMap.Get(tagType);
             string propName = XmpDirectory._tagPropNameMap.Get(tagType);
-            Sharpen.Calendar cal = meta.GetPropertyCalendar(schemaNS, propName);
+            Calendar cal = meta.GetPropertyCalendar(schemaNS, propName);
             if (cal != null)
             {
                 directory.SetDate(tagType, cal.GetTime());

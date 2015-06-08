@@ -1,8 +1,7 @@
+using System.IO;
+
 namespace Sharpen
 {
-    using System;
-    using System.IO;
-
     public class FileInputStream : InputStream
     {
         public FileInputStream (FilePath file) : this(file.GetPath ())

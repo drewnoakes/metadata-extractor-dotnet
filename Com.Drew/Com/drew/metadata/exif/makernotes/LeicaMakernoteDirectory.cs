@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -32,7 +33,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// Tag reference from: http://gvsoft.homedns.org/exif/makernote-leica-type1.html
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class LeicaMakernoteDirectory : Com.Drew.Metadata.Directory
+    public class LeicaMakernoteDirectory : Directory
     {
         public const int TagQuality = unchecked((int)(0x0300));
 

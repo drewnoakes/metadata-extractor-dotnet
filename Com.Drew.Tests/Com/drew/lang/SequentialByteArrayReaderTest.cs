@@ -1,5 +1,3 @@
-using Sharpen;
-
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>

@@ -19,9 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Lang
 {
@@ -83,7 +83,7 @@ namespace Com.Drew.Lang
         {
             ValidateIndex(index, count);
             sbyte[] bytes = new sbyte[count];
-            System.Array.Copy(_buffer, index, bytes, 0, count);
+            Array.Copy(_buffer, index, bytes, 0, count);
             return bytes;
         }
     }

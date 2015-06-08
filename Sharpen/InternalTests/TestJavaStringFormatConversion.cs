@@ -6,7 +6,7 @@ namespace Sharpen.InternalTests
     [TestFixture]
     public class TestJavaStringFormatConversion
     {
-        [NUnit.Framework.Test]
+        [Test]
         /// This function tests that all format strings exisiting in Com.Drew project is supported
         public void TestAllFormatStringsIsSupported()
         {

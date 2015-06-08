@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -32,7 +33,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// Many tag definitions explained here: http://www.ozhiker.com/electronics/pjmt/jpeg_info/canon_mn.html
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class CanonMakernoteDirectory : Com.Drew.Metadata.Directory
+    public class CanonMakernoteDirectory : Directory
     {
         private const int TagCameraSettingsArray = unchecked((int)(0x0001));
 
@@ -653,88 +654,88 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             _tagNameMap.Put(TagCanonCustomFunctionsArray, "Custom Functions");
             _tagNameMap.Put(TagModelId, "Canon Model ID");
             _tagNameMap.Put(TagMovieInfoArray, "Movie Info Array");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagAfPointSelected, "AF Point Selected");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagContinuousDriveMode, "Continuous Drive Mode");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagContrast, "Contrast");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagEasyShootingMode, "Easy Shooting Mode");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagExposureMode, "Exposure Mode");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagFlashDetails, "Flash Details");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagFlashMode, "Flash Mode");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagFocalUnitsPerMm, "Focal Units per mm");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagFocusMode1, "Focus Mode");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagFocusMode2, "Focus Mode");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagImageSize, "Image Size");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagIso, "Iso");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagLongFocalLength, "Long Focal Length");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagMacroMode, "Macro Mode");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagMeteringMode, "Metering Mode");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagSaturation, "Saturation");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagSelfTimerDelay, "Self Timer Delay");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagSharpness, "Sharpness");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagShortFocalLength, "Short Focal Length");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagQuality, "Quality");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagUnknown2, "Unknown Camera Setting 2");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagUnknown3, "Unknown Camera Setting 3");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagUnknown4, "Unknown Camera Setting 4");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagDigitalZoom, "Digital Zoom");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagFocusType, "Focus Type");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagUnknown7, "Unknown Camera Setting 7");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagUnknown8, "Unknown Camera Setting 8");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagUnknown9, "Unknown Camera Setting 9");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagUnknown10, "Unknown Camera Setting 10");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagFlashActivity, "Flash Activity");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagUnknown12, "Unknown Camera Setting 12");
-            _tagNameMap.Put(CanonMakernoteDirectory.CameraSettings.TagUnknown13, "Unknown Camera Setting 13");
-            _tagNameMap.Put(CanonMakernoteDirectory.FocalLength.TagWhiteBalance, "White Balance");
-            _tagNameMap.Put(CanonMakernoteDirectory.FocalLength.TagSequenceNumber, "Sequence Number");
-            _tagNameMap.Put(CanonMakernoteDirectory.FocalLength.TagAfPointUsed, "AF Point Used");
-            _tagNameMap.Put(CanonMakernoteDirectory.FocalLength.TagFlashBias, "Flash Bias");
-            _tagNameMap.Put(CanonMakernoteDirectory.FocalLength.TagAutoExposureBracketing, "Auto Exposure Bracketing");
-            _tagNameMap.Put(CanonMakernoteDirectory.FocalLength.TagAebBracketValue, "AEB Bracket Value");
-            _tagNameMap.Put(CanonMakernoteDirectory.FocalLength.TagSubjectDistance, "Subject Distance");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagAutoIso, "Auto ISO");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagBaseIso, "Base ISO");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagMeasuredEv, "Measured EV");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagTargetAperture, "Target Aperture");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagTargetExposureTime, "Target Exposure Time");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagExposureCompensation, "Exposure Compensation");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagWhiteBalance, "White Balance");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagSlowShutter, "Slow Shutter");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagSequenceNumber, "Sequence Number");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagOpticalZoomCode, "Optical Zoom Code");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagCameraTemperature, "Camera Temperature");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagFlashGuideNumber, "Flash Guide Number");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagAfPointsInFocus, "AF Points in Focus");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagFlashExposureBracketing, "Flash Exposure Compensation");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagAutoExposureBracketing, "Auto Exposure Bracketing");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagAebBracketValue, "AEB Bracket Value");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagControlMode, "Control Mode");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagFocusDistanceUpper, "Focus Distance Upper");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagFocusDistanceLower, "Focus Distance Lower");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagFNumber, "F Number");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagExposureTime, "Exposure Time");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagMeasuredEv2, "Measured EV 2");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagBulbDuration, "Bulb Duration");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagCameraType, "Camera Type");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagAutoRotate, "Auto Rotate");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagNdFilter, "ND Filter");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagSelfTimer2, "Self Timer 2");
-            _tagNameMap.Put(CanonMakernoteDirectory.ShotInfo.TagFlashOutput, "Flash Output");
-            _tagNameMap.Put(CanonMakernoteDirectory.Panorama.TagPanoramaFrameNumber, "Panorama Frame Number");
-            _tagNameMap.Put(CanonMakernoteDirectory.Panorama.TagPanoramaDirection, "Panorama Direction");
-            _tagNameMap.Put(CanonMakernoteDirectory.AFInfo.TagNumAfPoints, "AF Point Count");
-            _tagNameMap.Put(CanonMakernoteDirectory.AFInfo.TagValidAfPoints, "Valid AF Point Count");
-            _tagNameMap.Put(CanonMakernoteDirectory.AFInfo.TagImageWidth, "Image Width");
-            _tagNameMap.Put(CanonMakernoteDirectory.AFInfo.TagImageHeight, "Image Height");
-            _tagNameMap.Put(CanonMakernoteDirectory.AFInfo.TagAfImageWidth, "AF Image Width");
-            _tagNameMap.Put(CanonMakernoteDirectory.AFInfo.TagAfImageHeight, "AF Image Height");
-            _tagNameMap.Put(CanonMakernoteDirectory.AFInfo.TagAfAreaWidth, "AF Area Width");
-            _tagNameMap.Put(CanonMakernoteDirectory.AFInfo.TagAfAreaHeight, "AF Area Height");
-            _tagNameMap.Put(CanonMakernoteDirectory.AFInfo.TagAfAreaXPositions, "AF Area X Positions");
-            _tagNameMap.Put(CanonMakernoteDirectory.AFInfo.TagAfAreaYPositions, "AF Area Y Positions");
-            _tagNameMap.Put(CanonMakernoteDirectory.AFInfo.TagAfPointsInFocus, "AF Points in Focus Count");
-            _tagNameMap.Put(CanonMakernoteDirectory.AFInfo.TagPrimaryAfPoint1, "Primary AF Point 1");
-            _tagNameMap.Put(CanonMakernoteDirectory.AFInfo.TagPrimaryAfPoint2, "Primary AF Point 2");
+            _tagNameMap.Put(CameraSettings.TagAfPointSelected, "AF Point Selected");
+            _tagNameMap.Put(CameraSettings.TagContinuousDriveMode, "Continuous Drive Mode");
+            _tagNameMap.Put(CameraSettings.TagContrast, "Contrast");
+            _tagNameMap.Put(CameraSettings.TagEasyShootingMode, "Easy Shooting Mode");
+            _tagNameMap.Put(CameraSettings.TagExposureMode, "Exposure Mode");
+            _tagNameMap.Put(CameraSettings.TagFlashDetails, "Flash Details");
+            _tagNameMap.Put(CameraSettings.TagFlashMode, "Flash Mode");
+            _tagNameMap.Put(CameraSettings.TagFocalUnitsPerMm, "Focal Units per mm");
+            _tagNameMap.Put(CameraSettings.TagFocusMode1, "Focus Mode");
+            _tagNameMap.Put(CameraSettings.TagFocusMode2, "Focus Mode");
+            _tagNameMap.Put(CameraSettings.TagImageSize, "Image Size");
+            _tagNameMap.Put(CameraSettings.TagIso, "Iso");
+            _tagNameMap.Put(CameraSettings.TagLongFocalLength, "Long Focal Length");
+            _tagNameMap.Put(CameraSettings.TagMacroMode, "Macro Mode");
+            _tagNameMap.Put(CameraSettings.TagMeteringMode, "Metering Mode");
+            _tagNameMap.Put(CameraSettings.TagSaturation, "Saturation");
+            _tagNameMap.Put(CameraSettings.TagSelfTimerDelay, "Self Timer Delay");
+            _tagNameMap.Put(CameraSettings.TagSharpness, "Sharpness");
+            _tagNameMap.Put(CameraSettings.TagShortFocalLength, "Short Focal Length");
+            _tagNameMap.Put(CameraSettings.TagQuality, "Quality");
+            _tagNameMap.Put(CameraSettings.TagUnknown2, "Unknown Camera Setting 2");
+            _tagNameMap.Put(CameraSettings.TagUnknown3, "Unknown Camera Setting 3");
+            _tagNameMap.Put(CameraSettings.TagUnknown4, "Unknown Camera Setting 4");
+            _tagNameMap.Put(CameraSettings.TagDigitalZoom, "Digital Zoom");
+            _tagNameMap.Put(CameraSettings.TagFocusType, "Focus Type");
+            _tagNameMap.Put(CameraSettings.TagUnknown7, "Unknown Camera Setting 7");
+            _tagNameMap.Put(CameraSettings.TagUnknown8, "Unknown Camera Setting 8");
+            _tagNameMap.Put(CameraSettings.TagUnknown9, "Unknown Camera Setting 9");
+            _tagNameMap.Put(CameraSettings.TagUnknown10, "Unknown Camera Setting 10");
+            _tagNameMap.Put(CameraSettings.TagFlashActivity, "Flash Activity");
+            _tagNameMap.Put(CameraSettings.TagUnknown12, "Unknown Camera Setting 12");
+            _tagNameMap.Put(CameraSettings.TagUnknown13, "Unknown Camera Setting 13");
+            _tagNameMap.Put(FocalLength.TagWhiteBalance, "White Balance");
+            _tagNameMap.Put(FocalLength.TagSequenceNumber, "Sequence Number");
+            _tagNameMap.Put(FocalLength.TagAfPointUsed, "AF Point Used");
+            _tagNameMap.Put(FocalLength.TagFlashBias, "Flash Bias");
+            _tagNameMap.Put(FocalLength.TagAutoExposureBracketing, "Auto Exposure Bracketing");
+            _tagNameMap.Put(FocalLength.TagAebBracketValue, "AEB Bracket Value");
+            _tagNameMap.Put(FocalLength.TagSubjectDistance, "Subject Distance");
+            _tagNameMap.Put(ShotInfo.TagAutoIso, "Auto ISO");
+            _tagNameMap.Put(ShotInfo.TagBaseIso, "Base ISO");
+            _tagNameMap.Put(ShotInfo.TagMeasuredEv, "Measured EV");
+            _tagNameMap.Put(ShotInfo.TagTargetAperture, "Target Aperture");
+            _tagNameMap.Put(ShotInfo.TagTargetExposureTime, "Target Exposure Time");
+            _tagNameMap.Put(ShotInfo.TagExposureCompensation, "Exposure Compensation");
+            _tagNameMap.Put(ShotInfo.TagWhiteBalance, "White Balance");
+            _tagNameMap.Put(ShotInfo.TagSlowShutter, "Slow Shutter");
+            _tagNameMap.Put(ShotInfo.TagSequenceNumber, "Sequence Number");
+            _tagNameMap.Put(ShotInfo.TagOpticalZoomCode, "Optical Zoom Code");
+            _tagNameMap.Put(ShotInfo.TagCameraTemperature, "Camera Temperature");
+            _tagNameMap.Put(ShotInfo.TagFlashGuideNumber, "Flash Guide Number");
+            _tagNameMap.Put(ShotInfo.TagAfPointsInFocus, "AF Points in Focus");
+            _tagNameMap.Put(ShotInfo.TagFlashExposureBracketing, "Flash Exposure Compensation");
+            _tagNameMap.Put(ShotInfo.TagAutoExposureBracketing, "Auto Exposure Bracketing");
+            _tagNameMap.Put(ShotInfo.TagAebBracketValue, "AEB Bracket Value");
+            _tagNameMap.Put(ShotInfo.TagControlMode, "Control Mode");
+            _tagNameMap.Put(ShotInfo.TagFocusDistanceUpper, "Focus Distance Upper");
+            _tagNameMap.Put(ShotInfo.TagFocusDistanceLower, "Focus Distance Lower");
+            _tagNameMap.Put(ShotInfo.TagFNumber, "F Number");
+            _tagNameMap.Put(ShotInfo.TagExposureTime, "Exposure Time");
+            _tagNameMap.Put(ShotInfo.TagMeasuredEv2, "Measured EV 2");
+            _tagNameMap.Put(ShotInfo.TagBulbDuration, "Bulb Duration");
+            _tagNameMap.Put(ShotInfo.TagCameraType, "Camera Type");
+            _tagNameMap.Put(ShotInfo.TagAutoRotate, "Auto Rotate");
+            _tagNameMap.Put(ShotInfo.TagNdFilter, "ND Filter");
+            _tagNameMap.Put(ShotInfo.TagSelfTimer2, "Self Timer 2");
+            _tagNameMap.Put(ShotInfo.TagFlashOutput, "Flash Output");
+            _tagNameMap.Put(Panorama.TagPanoramaFrameNumber, "Panorama Frame Number");
+            _tagNameMap.Put(Panorama.TagPanoramaDirection, "Panorama Direction");
+            _tagNameMap.Put(AFInfo.TagNumAfPoints, "AF Point Count");
+            _tagNameMap.Put(AFInfo.TagValidAfPoints, "Valid AF Point Count");
+            _tagNameMap.Put(AFInfo.TagImageWidth, "Image Width");
+            _tagNameMap.Put(AFInfo.TagImageHeight, "Image Height");
+            _tagNameMap.Put(AFInfo.TagAfImageWidth, "AF Image Width");
+            _tagNameMap.Put(AFInfo.TagAfImageHeight, "AF Image Height");
+            _tagNameMap.Put(AFInfo.TagAfAreaWidth, "AF Area Width");
+            _tagNameMap.Put(AFInfo.TagAfAreaHeight, "AF Area Height");
+            _tagNameMap.Put(AFInfo.TagAfAreaXPositions, "AF Area X Positions");
+            _tagNameMap.Put(AFInfo.TagAfAreaYPositions, "AF Area Y Positions");
+            _tagNameMap.Put(AFInfo.TagAfPointsInFocus, "AF Points in Focus Count");
+            _tagNameMap.Put(AFInfo.TagPrimaryAfPoint1, "Primary AF Point 1");
+            _tagNameMap.Put(AFInfo.TagPrimaryAfPoint2, "Primary AF Point 2");
             //        _tagNameMap.put(TAG_CANON_CUSTOM_FUNCTION_LONG_EXPOSURE_NOISE_REDUCTION, "Long Exposure Noise Reduction");
             //        _tagNameMap.put(TAG_CANON_CUSTOM_FUNCTION_SHUTTER_AUTO_EXPOSURE_LOCK_BUTTONS, "Shutter/Auto Exposure-lock Buttons");
             //        _tagNameMap.put(TAG_CANON_CUSTOM_FUNCTION_MIRROR_LOCKUP, "Mirror Lockup");
@@ -833,7 +834,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                     int[] ints = (int[])array;
                     for (int i = 0; i < ints.Length; i++)
                     {
-                        SetInt(CanonMakernoteDirectory.CameraSettings.Offset + i, ints[i]);
+                        SetInt(CameraSettings.Offset + i, ints[i]);
                     }
                     break;
                 }
@@ -843,7 +844,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                     int[] ints = (int[])array;
                     for (int i = 0; i < ints.Length; i++)
                     {
-                        SetInt(CanonMakernoteDirectory.FocalLength.Offset + i, ints[i]);
+                        SetInt(FocalLength.Offset + i, ints[i]);
                     }
                     break;
                 }
@@ -853,7 +854,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                     int[] ints = (int[])array;
                     for (int i = 0; i < ints.Length; i++)
                     {
-                        SetInt(CanonMakernoteDirectory.ShotInfo.Offset + i, ints[i]);
+                        SetInt(ShotInfo.Offset + i, ints[i]);
                     }
                     break;
                 }
@@ -863,7 +864,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                     int[] ints = (int[])array;
                     for (int i = 0; i < ints.Length; i++)
                     {
-                        SetInt(CanonMakernoteDirectory.Panorama.Offset + i, ints[i]);
+                        SetInt(Panorama.Offset + i, ints[i]);
                     }
                     break;
                 }
@@ -880,7 +881,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                     int[] ints = (int[])array;
                     for (int i = 0; i < ints.Length; i++)
                     {
-                        SetInt(CanonMakernoteDirectory.AFInfo.Offset + i, ints[i]);
+                        SetInt(AFInfo.Offset + i, ints[i]);
                     }
                     break;
                 }

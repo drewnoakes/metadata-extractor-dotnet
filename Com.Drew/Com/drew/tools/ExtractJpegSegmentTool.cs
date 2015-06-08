@@ -19,6 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
+using System;
 using System.Collections.Generic;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
@@ -49,14 +51,14 @@ namespace Com.Drew.Tools
             if (args.Length < 1)
             {
                 PrintUsage();
-                System.Environment.Exit(1);
+                Environment.Exit(1);
             }
             string filePath = args[0];
             if (!new FilePath(filePath).Exists())
             {
-                System.Console.Error.Println("File does not exist");
+                Console.Error.Println("File does not exist");
                 PrintUsage();
-                System.Environment.Exit(1);
+                Environment.Exit(1);
             }
             ICollection<JpegSegmentType> segmentTypes = new HashSet<JpegSegmentType>();
             for (int i = 1; i < args.Length; i++)
@@ -64,16 +66,16 @@ namespace Com.Drew.Tools
                 JpegSegmentType segmentType = JpegSegmentType.ValueOf(args[i].ToUpper());
                 if (!segmentType.canContainMetadata)
                 {
-                    System.Console.Error.Printf("WARNING: Segment type %s cannot contain metadata so it may not be necessary to extract it%n", segmentType);
+                    Console.Error.Printf("WARNING: Segment type %s cannot contain metadata so it may not be necessary to extract it%n", segmentType);
                 }
                 segmentTypes.Add(segmentType);
             }
             if (segmentTypes.Count == 0)
             {
                 // If none specified, use all that could reasonably contain metadata
-                Sharpen.Collections.AddAll(segmentTypes, JpegSegmentType.canContainMetadataTypes);
+                Collections.AddAll(segmentTypes, JpegSegmentType.canContainMetadataTypes);
             }
-            System.Console.Out.Println("Reading: " + filePath);
+            Console.Out.Println("Reading: " + filePath);
             JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new FilePath(filePath), segmentTypes.AsIterable());
             SaveSegmentFiles(filePath, segmentData);
         }
@@ -92,15 +94,15 @@ namespace Com.Drew.Tools
                 {
                     for (int i = 0; i < segments.Count; i++)
                     {
-                        string outputFilePath = Sharpen.Extensions.StringFormat("%s.%s.%d", jpegFilePath, Sharpen.Extensions.ConvertToString(segmentType).ToLower(), i);
-                        System.Console.Out.Println("Writing: " + outputFilePath);
+                        string outputFilePath = Extensions.StringFormat("%s.%s.%d", jpegFilePath, Extensions.ConvertToString(segmentType).ToLower(), i);
+                        Console.Out.Println("Writing: " + outputFilePath);
                         FileUtil.SaveBytes(new FilePath(outputFilePath), segments[i]);
                     }
                 }
                 else
                 {
-                    string outputFilePath = Sharpen.Extensions.StringFormat("%s.%s", jpegFilePath, Sharpen.Extensions.ConvertToString(segmentType).ToLower());
-                    System.Console.Out.Println("Writing: " + outputFilePath);
+                    string outputFilePath = Extensions.StringFormat("%s.%s", jpegFilePath, Extensions.ConvertToString(segmentType).ToLower());
+                    Console.Out.Println("Writing: " + outputFilePath);
                     FileUtil.SaveBytes(new FilePath(outputFilePath), segments[0]);
                 }
             }
@@ -108,17 +110,17 @@ namespace Com.Drew.Tools
 
         private static void PrintUsage()
         {
-            System.Console.Out.Println("USAGE:\n");
-            System.Console.Out.Println("\tjava com.drew.tools.ExtractJpegSegmentTool <filename> [<segment> ...]\n");
-            System.Console.Out.Print("Where <segment> is zero or more of:");
+            Console.Out.Println("USAGE:\n");
+            Console.Out.Println("\tjava com.drew.tools.ExtractJpegSegmentTool <filename> [<segment> ...]\n");
+            Console.Out.Print("Where <segment> is zero or more of:");
             foreach (JpegSegmentType segmentType in typeof(JpegSegmentType).GetEnumConstants<JpegSegmentType>())
             {
                 if (segmentType.canContainMetadata)
                 {
-                    System.Console.Out.Print(" " + Sharpen.Extensions.ConvertToString(segmentType));
+                    Console.Out.Print(" " + Extensions.ConvertToString(segmentType));
                 }
             }
-            System.Console.Out.Println();
+            Console.Out.Println();
         }
     }
 }

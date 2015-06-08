@@ -19,11 +19,13 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
 using Com.Drew.Tools;
 using JetBrains.Annotations;
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
@@ -34,9 +36,9 @@ namespace Com.Drew.Metadata.Exif
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Com.Drew.Metadata.Metadata ProcessBytes([NotNull] string filePath)
+        public static Metadata ProcessBytes([NotNull] string filePath)
         {
-            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            Metadata metadata = new Metadata();
             sbyte[] bytes = FileUtil.ReadBytes(filePath);
             new ExifReader().Extract(new ByteArrayReader(bytes), metadata, ExifReader.JpegSegmentPreamble.Length);
             return metadata;
@@ -45,21 +47,21 @@ namespace Com.Drew.Metadata.Exif
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
         public static T ProcessBytes<T>([NotNull] string filePath)
-            where T : Com.Drew.Metadata.Directory
+            where T : Directory
         {
             T directory = ProcessBytes(filePath).GetFirstDirectoryOfType<T>();
-            NUnit.Framework.Assert.IsNotNull(directory);
+            Assert.IsNotNull(directory);
             return directory;
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestExtractWithNullDataThrows()
         {
             try
             {
-                new ExifReader().ReadJpegSegments(null, new Com.Drew.Metadata.Metadata(), JpegSegmentType.App1);
-                NUnit.Framework.Assert.Fail("Exception expected");
+                new ExifReader().ReadJpegSegments(null, new Metadata(), JpegSegmentType.App1);
+                Assert.Fail("Exception expected");
             }
             catch (NullReferenceException)
             {
@@ -68,132 +70,132 @@ namespace Com.Drew.Metadata.Exif
 
         // passed
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestLoadFujifilmJpeg()
         {
-            ExifSubIFDDirectory directory = ExifReaderTest.ProcessBytes<ExifSubIFDDirectory>("Tests/Data/withExif.jpg.app1");
+            ExifSubIFDDirectory directory = ProcessBytes<ExifSubIFDDirectory>("Tests/Data/withExif.jpg.app1");
             string description = directory.GetDescription(ExifSubIFDDirectory.TagIsoEquivalent);
-            NUnit.Framework.Assert.IsNotNull(description);
-            Sharpen.Tests.AreEqual("80", description);
+            Assert.IsNotNull(description);
+            Tests.AreEqual("80", description);
         }
 
         // TODO decide if this should still be returned -- it was being calculated upon setting of a related tag
         //      assertEquals("F9", directory.getDescription(ExifSubIFDDirectory.TAG_APERTURE));
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestReadJpegSegmentWithNoExifData()
         {
             sbyte[] badExifData = new sbyte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            Metadata metadata = new Metadata();
             AList<sbyte[]> segments = new AList<sbyte[]>();
             segments.Add(badExifData);
             new ExifReader().ReadJpegSegments(segments.AsIterable(), metadata, JpegSegmentType.App1);
-            Sharpen.Tests.AreEqual(0, metadata.GetDirectoryCount());
-            Sharpen.Tests.IsFalse(metadata.HasErrors());
+            Tests.AreEqual(0, metadata.GetDirectoryCount());
+            Tests.IsFalse(metadata.HasErrors());
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestCrashRegressionTest()
         {
             // This image was created via a resize in ACDSee.
             // It seems to have a reference to an IFD starting outside the data segment.
             // I've noticed that ACDSee reports a Comment for this image, yet ExifReader doesn't report one.
-            ExifSubIFDDirectory directory = ExifReaderTest.ProcessBytes<ExifSubIFDDirectory>("Tests/Data/crash01.jpg.app1");
-            Sharpen.Tests.IsTrue(directory.GetTagCount() > 0);
+            ExifSubIFDDirectory directory = ProcessBytes<ExifSubIFDDirectory>("Tests/Data/crash01.jpg.app1");
+            Tests.IsTrue(directory.GetTagCount() > 0);
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestDateTime()
         {
-            ExifIFD0Directory directory = ExifReaderTest.ProcessBytes<ExifIFD0Directory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
-            Sharpen.Tests.AreEqual("2002:11:27 18:00:35", directory.GetString(ExifIFD0Directory.TagDatetime));
+            ExifIFD0Directory directory = ProcessBytes<ExifIFD0Directory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
+            Tests.AreEqual("2002:11:27 18:00:35", directory.GetString(ExifIFD0Directory.TagDatetime));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestThumbnailXResolution()
         {
-            ExifThumbnailDirectory directory = ExifReaderTest.ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
+            ExifThumbnailDirectory directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             Rational rational = directory.GetRational(ExifThumbnailDirectory.TagXResolution);
-            NUnit.Framework.Assert.IsNotNull(rational);
-            Sharpen.Tests.AreEqual(72, rational.GetNumerator());
-            Sharpen.Tests.AreEqual(1, rational.GetDenominator());
+            Assert.IsNotNull(rational);
+            Tests.AreEqual(72, rational.GetNumerator());
+            Tests.AreEqual(1, rational.GetDenominator());
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestThumbnailYResolution()
         {
-            ExifThumbnailDirectory directory = ExifReaderTest.ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
+            ExifThumbnailDirectory directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             Rational rational = directory.GetRational(ExifThumbnailDirectory.TagYResolution);
-            NUnit.Framework.Assert.IsNotNull(rational);
-            Sharpen.Tests.AreEqual(72, rational.GetNumerator());
-            Sharpen.Tests.AreEqual(1, rational.GetDenominator());
+            Assert.IsNotNull(rational);
+            Tests.AreEqual(72, rational.GetNumerator());
+            Tests.AreEqual(1, rational.GetDenominator());
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestThumbnailOffset()
         {
-            ExifThumbnailDirectory directory = ExifReaderTest.ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
-            Sharpen.Tests.AreEqual(192, directory.GetInt(ExifThumbnailDirectory.TagThumbnailOffset));
+            ExifThumbnailDirectory directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
+            Tests.AreEqual(192, directory.GetInt(ExifThumbnailDirectory.TagThumbnailOffset));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestThumbnailLength()
         {
-            ExifThumbnailDirectory directory = ExifReaderTest.ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
-            Sharpen.Tests.AreEqual(2970, directory.GetInt(ExifThumbnailDirectory.TagThumbnailLength));
+            ExifThumbnailDirectory directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
+            Tests.AreEqual(2970, directory.GetInt(ExifThumbnailDirectory.TagThumbnailLength));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestThumbnailData()
         {
-            ExifThumbnailDirectory directory = ExifReaderTest.ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
+            ExifThumbnailDirectory directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             sbyte[] thumbnailData = directory.GetThumbnailData();
-            NUnit.Framework.Assert.IsNotNull(thumbnailData);
-            Sharpen.Tests.AreEqual(2970, thumbnailData.Length);
+            Assert.IsNotNull(thumbnailData);
+            Tests.AreEqual(2970, thumbnailData.Length);
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestThumbnailCompression()
         {
-            ExifThumbnailDirectory directory = ExifReaderTest.ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
+            ExifThumbnailDirectory directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             // 6 means JPEG compression
-            Sharpen.Tests.AreEqual(6, directory.GetInt(ExifThumbnailDirectory.TagThumbnailCompression));
+            Tests.AreEqual(6, directory.GetInt(ExifThumbnailDirectory.TagThumbnailCompression));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestStackOverflowOnRevisitationOfSameDirectory()
         {
             // An error has been discovered in Exif data segments where a directory is referenced
             // repeatedly.  Thanks to Alistair Dickie for providing the sample data used in this
             // unit test.
-            Com.Drew.Metadata.Metadata metadata = ProcessBytes("Tests/Data/recursiveDirectories.jpg.app1");
+            Metadata metadata = ProcessBytes("Tests/Data/recursiveDirectories.jpg.app1");
             // Mostly we're just happy at this point that we didn't get stuck in an infinite loop.
-            Sharpen.Tests.AreEqual(5, metadata.GetDirectoryCount());
+            Tests.AreEqual(5, metadata.GetDirectoryCount());
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestDifferenceImageAndThumbnailOrientations()
         {
             // This metadata contains different orientations for the thumbnail and the main image.
             // These values used to be merged into a single directory, causing errors.
             // This unit test demonstrates correct behaviour.
-            Com.Drew.Metadata.Metadata metadata = ProcessBytes("Tests/Data/repeatedOrientationTagWithDifferentValues.jpg.app1");
+            Metadata metadata = ProcessBytes("Tests/Data/repeatedOrientationTagWithDifferentValues.jpg.app1");
             ExifIFD0Directory ifd0Directory = metadata.GetFirstDirectoryOfType<ExifIFD0Directory>();
             ExifThumbnailDirectory thumbnailDirectory = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
-            NUnit.Framework.Assert.IsNotNull(ifd0Directory);
-            NUnit.Framework.Assert.IsNotNull(thumbnailDirectory);
-            Sharpen.Tests.AreEqual(1, ifd0Directory.GetInt(ExifIFD0Directory.TagOrientation));
-            Sharpen.Tests.AreEqual(8, thumbnailDirectory.GetInt(ExifThumbnailDirectory.TagOrientation));
+            Assert.IsNotNull(ifd0Directory);
+            Assert.IsNotNull(thumbnailDirectory);
+            Tests.AreEqual(1, ifd0Directory.GetInt(ExifIFD0Directory.TagOrientation));
+            Tests.AreEqual(8, thumbnailDirectory.GetInt(ExifThumbnailDirectory.TagOrientation));
         }
 /*
     public void testUncompressedYCbCrThumbnail() throws Exception

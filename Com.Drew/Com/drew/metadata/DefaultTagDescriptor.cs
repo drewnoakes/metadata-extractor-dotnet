@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -31,9 +32,9 @@ namespace Com.Drew.Metadata
     /// and gives descriptions using the default string representation of the value.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class DefaultTagDescriptor : TagDescriptor<Com.Drew.Metadata.Directory>
+    public class DefaultTagDescriptor : TagDescriptor<Directory>
     {
-        public DefaultTagDescriptor([NotNull] Com.Drew.Metadata.Directory directory)
+        public DefaultTagDescriptor([NotNull] Directory directory)
             : base(directory)
         {
         }
@@ -44,7 +45,7 @@ namespace Com.Drew.Metadata
         [NotNull]
         public virtual string GetTagName(int tagType)
         {
-            string hex = Sharpen.Extensions.ToHexString(tagType).ToUpper();
+            string hex = Extensions.ToHexString(tagType).ToUpper();
             while (hex.Length < 4)
             {
                 hex = "0" + hex;

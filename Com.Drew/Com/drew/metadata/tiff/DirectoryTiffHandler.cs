@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.Collections.Generic;
 using Com.Drew.Imaging.Tiff;
@@ -40,18 +41,18 @@ namespace Com.Drew.Metadata.Tiff
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class DirectoryTiffHandler : TiffHandler
     {
-        private readonly Stack<Com.Drew.Metadata.Directory> _directoryStack = new Stack<Com.Drew.Metadata.Directory>();
+        private readonly Stack<Directory> _directoryStack = new Stack<Directory>();
 
-        protected internal Com.Drew.Metadata.Directory _currentDirectory;
+        protected internal Directory _currentDirectory;
 
-        protected internal readonly Com.Drew.Metadata.Metadata _metadata;
+        protected internal readonly Metadata _metadata;
 
-        protected internal DirectoryTiffHandler(Com.Drew.Metadata.Metadata metadata, Type initialDirectoryClass)
+        protected internal DirectoryTiffHandler(Metadata metadata, Type initialDirectoryClass)
         {
             _metadata = metadata;
             try
             {
-                _currentDirectory = (Directory)System.Activator.CreateInstance(initialDirectoryClass);
+                _currentDirectory = (Directory)Activator.CreateInstance(initialDirectoryClass);
             }
             catch (InstantiationException e)
             {
@@ -74,7 +75,7 @@ namespace Com.Drew.Metadata.Tiff
             _directoryStack.Push(_currentDirectory);
             try
             {
-                _currentDirectory = (Directory)System.Activator.CreateInstance(directoryClass);
+                _currentDirectory = (Directory)Activator.CreateInstance(directoryClass);
             }
             catch (InstantiationException e)
             {

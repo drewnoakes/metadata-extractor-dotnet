@@ -19,7 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-using System.IO;
+
+using Com.Drew.Lang;
 using Com.Drew.Metadata.File;
 using Com.Drew.Metadata.Photoshop;
 using JetBrains.Annotations;
@@ -33,13 +34,13 @@ namespace Com.Drew.Imaging.Psd
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] FilePath file)
+        public static Metadata.Metadata ReadMetadata([NotNull] FilePath file)
         {
-            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            Metadata.Metadata metadata = new Metadata.Metadata();
             InputStream stream = new FileInputStream(file);
             try
             {
-                new PsdReader().Extract(new Com.Drew.Lang.StreamReader(stream), metadata);
+                new PsdReader().Extract(new StreamReader(stream), metadata);
             }
             finally
             {
@@ -50,10 +51,10 @@ namespace Com.Drew.Imaging.Psd
         }
 
         [NotNull]
-        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
+        public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
         {
-            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
-            new PsdReader().Extract(new Com.Drew.Lang.StreamReader(inputStream), metadata);
+            Metadata.Metadata metadata = new Metadata.Metadata();
+            new PsdReader().Extract(new StreamReader(inputStream), metadata);
             return metadata;
         }
     }

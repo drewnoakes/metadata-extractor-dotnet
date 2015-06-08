@@ -6,8 +6,8 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System;
-using System.IO;
 using Sharpen;
 
 namespace Com.Adobe.Xmp.Impl
@@ -82,7 +82,7 @@ namespace Com.Adobe.Xmp.Impl
                 throw new IndexOutOfRangeException("Valid length exceeds the buffer length.");
             }
             this.buffer = new sbyte[length];
-            System.Array.Copy(buffer, offset, this.buffer, 0, length);
+            Array.Copy(buffer, offset, this.buffer, 0, length);
             this.length = length;
         }
 
@@ -152,7 +152,7 @@ namespace Com.Adobe.Xmp.Impl
         public virtual void Append(sbyte[] bytes, int offset, int len)
         {
             EnsureCapacity(length + len);
-            System.Array.Copy(bytes, offset, buffer, length, len);
+            Array.Copy(bytes, offset, buffer, length, len);
             length += len;
         }
 
@@ -165,7 +165,7 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>Append another buffer to this buffer.</summary>
         /// <param name="anotherBuffer">another <code>ByteBuffer</code></param>
-        public virtual void Append(Com.Adobe.Xmp.Impl.ByteBuffer anotherBuffer)
+        public virtual void Append(ByteBuffer anotherBuffer)
         {
             Append(anotherBuffer.buffer, 0, anotherBuffer.length);
         }
@@ -284,7 +284,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 sbyte[] oldBuf = buffer;
                 buffer = new sbyte[oldBuf.Length * 2];
-                System.Array.Copy(oldBuf, 0, buffer, 0, oldBuf.Length);
+                Array.Copy(oldBuf, 0, buffer, 0, oldBuf.Length);
             }
         }
     }

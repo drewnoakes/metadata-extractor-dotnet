@@ -19,16 +19,16 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Imaging
 {
     /// <summary>An exception class thrown upon an unexpected condition that was fatal for the processing of an image.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [System.Serializable]
+    [Serializable]
     public class ImageProcessingException : CompoundException
     {
         private const long serialVersionUID = -9115669182209912676L;

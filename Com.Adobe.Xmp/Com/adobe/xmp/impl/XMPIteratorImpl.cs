@@ -6,8 +6,8 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System;
-using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Impl.Xpath;
 using Com.Adobe.Xmp.Options;
 using Com.Adobe.Xmp.Properties;
@@ -103,17 +103,17 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (!this.options.IsJustChildren())
                 {
-                    nodeIterator = new XMPIteratorImpl.NodeIterator(this, startNode, initialPath, 1);
+                    nodeIterator = new NodeIterator(this, startNode, initialPath, 1);
                 }
                 else
                 {
-                    nodeIterator = new XMPIteratorImpl.NodeIteratorChildren(this, startNode, initialPath);
+                    nodeIterator = new NodeIteratorChildren(this, startNode, initialPath);
                 }
             }
             else
             {
                 // create null iterator
-                nodeIterator = Sharpen.Collections.EmptyList().Iterator();
+                nodeIterator = Collections.EmptyList().Iterator();
             }
         }
 
@@ -184,7 +184,7 @@ namespace Com.Adobe.Xmp.Impl
             protected internal const int IterateQualifier = 2;
 
             /// <summary>the state of the iteration</summary>
-            private int state = XMPIteratorImpl.NodeIterator.IterateNode;
+            private int state = IterateNode;
 
             /// <summary>the currently visited node</summary>
             private XMPNode visitedNode;
@@ -199,7 +199,7 @@ namespace Com.Adobe.Xmp.Impl
             private int index = 0;
 
             /// <summary>the iterator for each child</summary>
-            private Iterator subIterator = Sharpen.Collections.EmptyList().Iterator();
+            private Iterator subIterator = Collections.EmptyList().Iterator();
 
             /// <summary>the cached <code>PropertyInfo</code> to return</summary>
             private XMPPropertyInfo returnProperty = null;
@@ -219,7 +219,7 @@ namespace Com.Adobe.Xmp.Impl
                 this._enclosing = _enclosing;
                 // EMPTY
                 this.visitedNode = visitedNode;
-                this.state = XMPIteratorImpl.NodeIterator.IterateNode;
+                this.state = IterateNode;
                 if (visitedNode.GetOptions().IsSchemaNode())
                 {
                     this._enclosing.SetBaseNS(visitedNode.GetName());
@@ -238,13 +238,13 @@ namespace Com.Adobe.Xmp.Impl
                     return true;
                 }
                 // find next node
-                if (this.state == XMPIteratorImpl.NodeIterator.IterateNode)
+                if (this.state == IterateNode)
                 {
                     return this.ReportNode();
                 }
                 else
                 {
-                    if (this.state == XMPIteratorImpl.NodeIterator.IterateChildren)
+                    if (this.state == IterateChildren)
                     {
                         if (this.childrenIterator == null)
                         {
@@ -253,7 +253,7 @@ namespace Com.Adobe.Xmp.Impl
                         bool hasNext = this.IterateChildrenMethod(this.childrenIterator);
                         if (!hasNext && this.visitedNode.HasQualifier() && !this._enclosing.GetOptions().IsOmitQualifiers())
                         {
-                            this.state = XMPIteratorImpl.NodeIterator.IterateQualifier;
+                            this.state = IterateQualifier;
                             this.childrenIterator = null;
                             hasNext = this.HasNext();
                         }
@@ -274,7 +274,7 @@ namespace Com.Adobe.Xmp.Impl
             /// <returns>Returns if there is a next item to return.</returns>
             protected internal virtual bool ReportNode()
             {
-                this.state = XMPIteratorImpl.NodeIterator.IterateChildren;
+                this.state = IterateChildren;
                 if (this.visitedNode.GetParent() != null && (!this._enclosing.GetOptions().IsJustLeafnodes() || !this.visitedNode.HasChildren()))
                 {
                     this.returnProperty = this.CreatePropertyInfo(this.visitedNode, this._enclosing.GetBaseNS(), this.path);
@@ -295,7 +295,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     // setSkipSiblings(false);
                     this._enclosing.skipSiblings = false;
-                    this.subIterator = Sharpen.Collections.EmptyList().Iterator();
+                    this.subIterator = Collections.EmptyList().Iterator();
                 }
                 // create sub iterator for every child,
                 // if its the first child visited or the former child is finished 
@@ -303,7 +303,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     XMPNode child = (XMPNode)iterator.Next();
                     this.index++;
-                    this.subIterator = new XMPIteratorImpl.NodeIterator(this._enclosing, child, this.path, this.index);
+                    this.subIterator = new NodeIterator(this._enclosing, child, this.path, this.index);
                 }
                 if (this.subIterator.HasNext())
                 {
@@ -377,7 +377,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if (this._enclosing.GetOptions().IsJustLeafname())
                     {
-                        return !segmentName.StartsWith("?") ? segmentName : Sharpen.Runtime.Substring(segmentName, 1);
+                        return !segmentName.StartsWith("?") ? segmentName : Runtime.Substring(segmentName, 1);
                     }
                     else
                     {
@@ -486,7 +486,7 @@ namespace Com.Adobe.Xmp.Impl
         /// .
         /// </summary>
         /// <since>02.10.2006</since>
-        private class NodeIteratorChildren : XMPIteratorImpl.NodeIterator
+        private class NodeIteratorChildren : NodeIterator
         {
             private string parentPath;
 

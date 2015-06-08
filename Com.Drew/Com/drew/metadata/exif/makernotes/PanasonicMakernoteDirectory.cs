@@ -19,10 +19,10 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using System.IO;
 using Com.Drew.Lang;
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -31,7 +31,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// <summary>Describes tags specific to Panasonic and Leica cameras.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Philipp Sandhaus</author>
-    public class PanasonicMakernoteDirectory : Com.Drew.Metadata.Directory
+    public class PanasonicMakernoteDirectory : Directory
     {
         /// <summary>
         /// <br />
@@ -612,8 +612,8 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 for (int i = 0; i < faceCount; i++)
                 {
                     int offset = 4 + i * 44;
-                    string name = Sharpen.Extensions.Trim(reader.GetString(offset, 20, "ASCII"));
-                    string age = Sharpen.Extensions.Trim(reader.GetString(offset + 28, 20, "ASCII"));
+                    string name = Extensions.Trim(reader.GetString(offset, 20, "ASCII"));
+                    string age = Extensions.Trim(reader.GetString(offset + 28, 20, "ASCII"));
                     faces[i] = new Face(reader.GetUInt16(offset + 20), reader.GetUInt16(offset + 22), reader.GetUInt16(offset + 24), reader.GetUInt16(offset + 26), name, Age.FromPanasonicString(age));
                 }
                 return faces;

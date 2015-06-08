@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2002-2015 Drew Noakes
  *
  *    Modified by Yakov Danilov <yakodani@gmail.com> for Imazen LLC (Ported from Java to C#)
@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using JetBrains.Annotations;
 using Sharpen;
@@ -80,7 +81,7 @@ namespace Com.Drew.Lang
         {
             double[] dms = DecimalToDegreesMinutesSeconds(@decimal);
             DecimalFormat format = new DecimalFormat("0.##");
-            return Sharpen.Extensions.StringFormat("%s° %s' %s\"", format.Format(dms[0]), format.Format(dms[1]), format.Format(dms[2]));
+            return Extensions.StringFormat("%s° %s' %s\"", format.Format(dms[0]), format.Format(dms[1]), format.Format(dms[2]));
         }
 
         /// <summary>
@@ -127,12 +128,12 @@ namespace Com.Drew.Lang
             {
                 return false;
             }
-            Com.Drew.Lang.GeoLocation that = (Com.Drew.Lang.GeoLocation)o;
-            if (Sharpen.Extensions.Compare(that._latitude, _latitude) != 0)
+            GeoLocation that = (GeoLocation)o;
+            if (Extensions.Compare(that._latitude, _latitude) != 0)
             {
                 return false;
             }
-            if (Sharpen.Extensions.Compare(that._longitude, _longitude) != 0)
+            if (Extensions.Compare(that._longitude, _longitude) != 0)
             {
                 return false;
             }
@@ -143,9 +144,9 @@ namespace Com.Drew.Lang
         {
             int result;
             long temp;
-            temp = _latitude != +0.0d ? Sharpen.Extensions.DoubleToLongBits(_latitude) : 0L;
+            temp = _latitude != +0.0d ? Extensions.DoubleToLongBits(_latitude) : 0L;
             result = (int)(temp ^ ((long)(((ulong)temp) >> 32)));
-            temp = _longitude != +0.0d ? Sharpen.Extensions.DoubleToLongBits(_longitude) : 0L;
+            temp = _longitude != +0.0d ? Extensions.DoubleToLongBits(_longitude) : 0L;
             result = 31 * result + (int)(temp ^ ((long)(((ulong)temp) >> 32)));
             return result;
         }

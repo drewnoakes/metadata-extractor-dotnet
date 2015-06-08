@@ -1,7 +1,5 @@
 namespace Sharpen
 {
-    using System;
-
     public class FilterOutputStream : OutputStream
     {
         protected OutputStream @out;

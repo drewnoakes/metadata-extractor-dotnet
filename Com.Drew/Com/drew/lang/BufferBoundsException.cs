@@ -19,6 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
+using System;
 using System.IO;
 using Sharpen;
 
@@ -32,7 +34,7 @@ namespace Com.Drew.Lang
     /// .
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [System.Serializable]
+    [Serializable]
     public sealed class BufferBoundsException : IOException
     {
         private const long serialVersionUID = 2911102837808946396L;
@@ -51,17 +53,17 @@ namespace Com.Drew.Lang
         {
             if (index < 0)
             {
-                return Sharpen.Extensions.StringFormat("Attempt to read from buffer using a negative index (%d)", index);
+                return Extensions.StringFormat("Attempt to read from buffer using a negative index (%d)", index);
             }
             if (bytesRequested < 0)
             {
-                return Sharpen.Extensions.StringFormat("Number of requested bytes cannot be negative (%d)", bytesRequested);
+                return Extensions.StringFormat("Number of requested bytes cannot be negative (%d)", bytesRequested);
             }
             if ((long)index + (long)bytesRequested - 1L > (long)int.MaxValue)
             {
-                return Sharpen.Extensions.StringFormat("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: %d, requested count: %d)", index, bytesRequested);
+                return Extensions.StringFormat("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: %d, requested count: %d)", index, bytesRequested);
             }
-            return Sharpen.Extensions.StringFormat("Attempt to read from beyond end of underlying data source (requested index: %d, requested count: %d, max index: %d)", index, bytesRequested, bufferLength - 1);
+            return Extensions.StringFormat("Attempt to read from beyond end of underlying data source (requested index: %d, requested count: %d, max index: %d)", index, bytesRequested, bufferLength - 1);
         }
     }
 }

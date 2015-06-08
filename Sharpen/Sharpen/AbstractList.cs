@@ -1,10 +1,9 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
 namespace Sharpen
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Reflection;
-
     public abstract class AbstractList<T> : AbstractCollection<T>, IEnumerable, ICollection<T>, IEnumerable<T>, IList<T>
     {
         protected AbstractList ()
@@ -45,7 +44,7 @@ namespace Sharpen
             }
             int num = 0;
             object item = null;
-            Sharpen.Iterator iterator = this.Iterator ();
+            Iterator iterator = this.Iterator ();
             while (num <= index) {
                 if (!iterator.HasNext ()) {
                     throw new IndexOutOfRangeException ();
@@ -60,7 +59,7 @@ namespace Sharpen
         public virtual void RemoveRange (int index, int toIndex)
         {
             int num = 0;
-            Sharpen.Iterator iterator = this.Iterator ();
+            Iterator iterator = this.Iterator ();
             while (num <= index) {
                 if (!iterator.HasNext ()) {
                     throw new IndexOutOfRangeException ();
@@ -92,7 +91,7 @@ namespace Sharpen
             if (list.Count != Count)
                 return false;
             for (int n=0; n<list.Count; n++) {
-                if (!object.Equals (Get(n), list[n]))
+                if (!Equals (Get(n), list[n]))
                     return false;
             }
             return true;
@@ -111,7 +110,7 @@ namespace Sharpen
         {
             int num = 0;
             foreach (T t in this) {
-                if (object.ReferenceEquals (t, item) || t.Equals (item))
+                if (ReferenceEquals (t, item) || t.Equals (item))
                     return num;
                 num++;
             }

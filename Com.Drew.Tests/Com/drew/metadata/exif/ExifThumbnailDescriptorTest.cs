@@ -19,6 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
@@ -28,17 +30,17 @@ namespace Com.Drew.Metadata.Exif
     public class ExifThumbnailDescriptorTest
     {
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetYCbCrSubsamplingDescription()
         {
             ExifThumbnailDirectory directory = new ExifThumbnailDirectory();
             directory.SetIntArray(ExifThumbnailDirectory.TagYcbcrSubsampling, new int[] { 2, 1 });
             ExifThumbnailDescriptor descriptor = new ExifThumbnailDescriptor(directory);
-            Sharpen.Tests.AreEqual("YCbCr4:2:2", descriptor.GetDescription(ExifThumbnailDirectory.TagYcbcrSubsampling));
-            Sharpen.Tests.AreEqual("YCbCr4:2:2", descriptor.GetYCbCrSubsamplingDescription());
+            Tests.AreEqual("YCbCr4:2:2", descriptor.GetDescription(ExifThumbnailDirectory.TagYcbcrSubsampling));
+            Tests.AreEqual("YCbCr4:2:2", descriptor.GetYCbCrSubsamplingDescription());
             directory.SetIntArray(ExifThumbnailDirectory.TagYcbcrSubsampling, new int[] { 2, 2 });
-            Sharpen.Tests.AreEqual("YCbCr4:2:0", descriptor.GetDescription(ExifThumbnailDirectory.TagYcbcrSubsampling));
-            Sharpen.Tests.AreEqual("YCbCr4:2:0", descriptor.GetYCbCrSubsamplingDescription());
+            Tests.AreEqual("YCbCr4:2:0", descriptor.GetDescription(ExifThumbnailDirectory.TagYcbcrSubsampling));
+            Tests.AreEqual("YCbCr4:2:0", descriptor.GetYCbCrSubsamplingDescription());
         }
     }
 }

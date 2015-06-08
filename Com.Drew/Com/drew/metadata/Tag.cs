@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -36,9 +37,9 @@ namespace Com.Drew.Metadata
         private readonly int _tagType;
 
         [NotNull]
-        private readonly Com.Drew.Metadata.Directory _directory;
+        private readonly Directory _directory;
 
-        public Tag(int tagType, [NotNull] Com.Drew.Metadata.Directory directory)
+        public Tag(int tagType, [NotNull] Directory directory)
         {
             _tagType = tagType;
             _directory = directory;
@@ -63,7 +64,7 @@ namespace Com.Drew.Metadata
         [NotNull]
         public virtual string GetTagTypeHex()
         {
-            string hex = Sharpen.Extensions.ToHexString(_tagType);
+            string hex = Extensions.ToHexString(_tagType);
             while (hex.Length < 4)
             {
                 hex = "0" + hex;

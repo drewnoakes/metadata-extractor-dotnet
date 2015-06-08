@@ -1,8 +1,8 @@
+using System;
+using System.IO;
+
 namespace Sharpen
 {
-    using System;
-    using System.IO;
-
     public class RandomAccessFile
     {
         private FileStream stream;
@@ -14,9 +14,9 @@ namespace Sharpen
         public RandomAccessFile (string file, string mode)
         {
             if (mode.IndexOf ('w') != -1)
-                stream = new FileStream (file, System.IO.FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                stream = new FileStream (file, FileMode.OpenOrCreate, FileAccess.ReadWrite);
             else
-                stream = new FileStream (file, System.IO.FileMode.Open, FileAccess.Read);
+                stream = new FileStream (file, FileMode.Open, FileAccess.Read);
         }
 
         public void Close ()

@@ -6,9 +6,9 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System.Collections;
 using System.Text;
-using Com.Adobe.Xmp;
 using Sharpen;
 
 namespace Com.Adobe.Xmp.Options
@@ -101,7 +101,7 @@ namespace Com.Adobe.Xmp.Options
         /// <seealso cref="object.Equals(object)"/>
         public override bool Equals(object obj)
         {
-            return GetOptions() == ((Com.Adobe.Xmp.Options.Options)obj).GetOptions();
+            return GetOptions() == ((Options)obj).GetOptions();
         }
 
         /// <seealso cref="object.GetHashCode()"/>
@@ -149,7 +149,7 @@ namespace Com.Adobe.Xmp.Options
         /// <returns>Returns the options as hex bitmask.</returns>
         public override string ToString()
         {
-            return "0x" + Sharpen.Extensions.ToHexString(options);
+            return "0x" + Extensions.ToHexString(options);
         }
 
         /// <summary>To be implemeted by inheritants.</summary>
@@ -196,7 +196,7 @@ namespace Com.Adobe.Xmp.Options
             }
             else
             {
-                throw new XMPException("The option bit(s) 0x" + Sharpen.Extensions.ToHexString(invalidOptions) + " are invalid!", XMPErrorConstants.Badoptions);
+                throw new XMPException("The option bit(s) 0x" + Extensions.ToHexString(invalidOptions) + " are invalid!", XMPErrorConstants.Badoptions);
             }
         }
 

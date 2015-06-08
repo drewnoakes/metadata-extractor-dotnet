@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -26,7 +27,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.File
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class FileMetadataDirectory : Com.Drew.Metadata.Directory
+    public class FileMetadataDirectory : Directory
     {
         public const int TagFileName = 1;
 

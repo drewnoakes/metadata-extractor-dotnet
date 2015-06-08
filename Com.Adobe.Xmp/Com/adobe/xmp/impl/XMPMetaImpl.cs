@@ -6,7 +6,8 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
-using Com.Adobe.Xmp;
+
+using System.Diagnostics;
 using Com.Adobe.Xmp.Impl.Xpath;
 using Com.Adobe.Xmp.Options;
 using Com.Adobe.Xmp.Properties;
@@ -384,7 +385,7 @@ namespace Com.Adobe.Xmp.Impl
             // Make sure the x-default item, if any, is first.
             bool haveXDefault = false;
             XMPNode xdItem = null;
-            for (Sharpen.Iterator it = arrayNode.IterateChildren(); it.HasNext(); )
+            for (Iterator it = arrayNode.IterateChildren(); it.HasNext(); )
             {
                 XMPNode currItem = (XMPNode)it.Next();
                 if (!currItem.HasQualifier() || !XMPConstConstants.XmlLang.Equals(currItem.GetQualifier(1).GetName()))
@@ -445,8 +446,8 @@ namespace Com.Adobe.Xmp.Impl
                     else
                     {
                         // Update all items whose values match the old x-default value.
-                        System.Diagnostics.Debug.Assert(haveXDefault && xdItem == itemNode);
-                        for (Sharpen.Iterator it_1 = arrayNode.IterateChildren(); it_1.HasNext(); )
+                        Debug.Assert(haveXDefault && xdItem == itemNode);
+                        for (Iterator it_1 = arrayNode.IterateChildren(); it_1.HasNext(); )
                         {
                             XMPNode currItem = (XMPNode)it_1.Next();
                             if (currItem == xdItem || !currItem.GetValue().Equals(xdItem != null ? xdItem.GetValue() : null))
@@ -758,21 +759,21 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <seealso cref="Com.Adobe.Xmp.XMPMeta.GetPropertyCalendar(string, string)"/>
         /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public virtual Sharpen.Calendar GetPropertyCalendar(string schemaNS, string propName)
+        public virtual Calendar GetPropertyCalendar(string schemaNS, string propName)
         {
-            return (Sharpen.Calendar)GetPropertyObject(schemaNS, propName, ValueCalendar);
+            return (Calendar)GetPropertyObject(schemaNS, propName, ValueCalendar);
         }
 
         /// <seealso cref="Com.Adobe.Xmp.XMPMeta.SetPropertyCalendar(string, string, Sharpen.Calendar, Com.Adobe.Xmp.Options.PropertyOptions)"/>
         /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public virtual void SetPropertyCalendar(string schemaNS, string propName, Sharpen.Calendar propValue, PropertyOptions options)
+        public virtual void SetPropertyCalendar(string schemaNS, string propName, Calendar propValue, PropertyOptions options)
         {
             SetProperty(schemaNS, propName, propValue, options);
         }
 
         /// <seealso cref="Com.Adobe.Xmp.XMPMeta.SetPropertyCalendar(string, string, Sharpen.Calendar)"/>
         /// <exception cref="Com.Adobe.Xmp.XMPException"/>
-        public virtual void SetPropertyCalendar(string schemaNS, string propName, Sharpen.Calendar propValue)
+        public virtual void SetPropertyCalendar(string schemaNS, string propName, Calendar propValue)
         {
             SetProperty(schemaNS, propName, propValue, null);
         }
@@ -994,7 +995,7 @@ namespace Com.Adobe.Xmp.Impl
         public virtual object Clone()
         {
             XMPNode clonedTree = (XMPNode)tree.Clone();
-            return new Com.Adobe.Xmp.Impl.XMPMetaImpl(clonedTree);
+            return new XMPMetaImpl(clonedTree);
         }
 
         /// <seealso cref="Com.Adobe.Xmp.XMPMeta.DumpObject()"/>

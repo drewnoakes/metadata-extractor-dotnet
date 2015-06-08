@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -27,7 +28,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 {
     /// <summary>Describes tags specific to Sanyo cameras.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class SanyoMakernoteDirectory : Com.Drew.Metadata.Directory
+    public class SanyoMakernoteDirectory : Directory
     {
         public const int TagMakernoteOffset = unchecked((int)(0x00ff));
 

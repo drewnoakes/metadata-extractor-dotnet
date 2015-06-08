@@ -19,9 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
 {

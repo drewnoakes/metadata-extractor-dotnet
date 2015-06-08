@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2002-2015 Drew Noakes
  *
  *    Modified by Yakov Danilov <yakodani@gmail.com> for Imazen LLC (Ported from Java to C#)
@@ -19,9 +19,10 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Diagnostics;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
 using Sharpen;
@@ -74,7 +75,7 @@ namespace Com.Drew.Imaging.Jpeg
             try
             {
                 stream = new FileInputStream(file);
-                return ReadSegments(new Com.Drew.Lang.StreamReader(stream), segmentTypes);
+                return ReadSegments(new StreamReader(stream), segmentTypes);
             }
             finally
             {
@@ -108,12 +109,12 @@ namespace Com.Drew.Imaging.Jpeg
         public static JpegSegmentData ReadSegments([NotNull] SequentialReader reader, [CanBeNull] Iterable<JpegSegmentType> segmentTypes)
         {
             // Must be big-endian
-            System.Diagnostics.Debug.Assert((reader.IsMotorolaByteOrder()));
+            Debug.Assert((reader.IsMotorolaByteOrder()));
             // first two bytes should be JPEG magic number
             int magicNumber = reader.GetUInt16();
             if (magicNumber != unchecked((int)(0xFFD8)))
             {
-                throw new JpegProcessingException("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x" + Sharpen.Extensions.ToHexString(magicNumber));
+                throw new JpegProcessingException("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x" + Extensions.ToHexString(magicNumber));
             }
             ICollection<sbyte> segmentTypeBytes = null;
             if (segmentTypes != null)
@@ -133,7 +134,7 @@ namespace Com.Drew.Imaging.Jpeg
                 // We must have at least one 0xFF byte
                 if (segmentIdentifier != unchecked((int)(0xFF)))
                 {
-                    throw new JpegProcessingException("Expected JPEG segment start identifier 0xFF, not 0x" + Sharpen.Extensions.ToHexString(segmentIdentifier).ToUpper());
+                    throw new JpegProcessingException("Expected JPEG segment start identifier 0xFF, not 0x" + Extensions.ToHexString(segmentIdentifier).ToUpper());
                 }
                 // Read until we have a non-0xFF byte. This identifies the segment type.
                 sbyte segmentType = reader.GetInt8();
@@ -169,7 +170,7 @@ namespace Com.Drew.Imaging.Jpeg
                 if (segmentTypeBytes == null || segmentTypeBytes.Contains(segmentType))
                 {
                     sbyte[] segmentBytes = reader.GetBytes(segmentLength);
-                    System.Diagnostics.Debug.Assert((segmentLength == segmentBytes.Length));
+                    Debug.Assert((segmentLength == segmentBytes.Length));
                     segmentData.AddSegment(segmentType, segmentBytes);
                 }
                 else

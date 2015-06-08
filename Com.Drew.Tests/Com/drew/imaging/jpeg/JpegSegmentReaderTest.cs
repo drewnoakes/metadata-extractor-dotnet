@@ -19,7 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using Com.Drew.Tools;
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Imaging.Jpeg
@@ -33,88 +35,88 @@ namespace Com.Drew.Imaging.Jpeg
     public class JpegSegmentReaderTest
     {
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestReadAllSegments()
         {
             JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new FilePath("Tests/Data/withExifAndIptc.jpg"), null);
-            Sharpen.Tests.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.App0));
-            NUnit.Framework.CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app0"), segmentData.GetSegment(JpegSegmentType.App0));
-            NUnit.Framework.Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App0, 1));
-            Sharpen.Tests.AreEqual(2, segmentData.GetSegmentCount(JpegSegmentType.App1));
-            NUnit.Framework.CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app1.0"), segmentData.GetSegment(JpegSegmentType.App1, 0));
-            NUnit.Framework.CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app1.1"), segmentData.GetSegment(JpegSegmentType.App1, 1));
-            NUnit.Framework.Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App1, 2));
-            Sharpen.Tests.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.App2));
-            NUnit.Framework.CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app2"), segmentData.GetSegment(JpegSegmentType.App2));
-            NUnit.Framework.Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App2, 1));
-            Sharpen.Tests.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.Appd));
-            NUnit.Framework.CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.appd"), segmentData.GetSegment(JpegSegmentType.Appd));
-            NUnit.Framework.Assert.IsNull(segmentData.GetSegment(JpegSegmentType.Appd, 1));
-            Sharpen.Tests.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.Appe));
-            NUnit.Framework.CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.appe"), segmentData.GetSegment(JpegSegmentType.Appe));
-            NUnit.Framework.Assert.IsNull(segmentData.GetSegment(JpegSegmentType.Appe, 1));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App3));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App4));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App5));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App6));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App7));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App8));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App9));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appa));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appb));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appc));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appf));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Com));
-            Sharpen.Tests.AreEqual(4, segmentData.GetSegmentCount(JpegSegmentType.Dht));
-            Sharpen.Tests.AreEqual(2, segmentData.GetSegmentCount(JpegSegmentType.Dqt));
-            Sharpen.Tests.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.Sof0));
-            NUnit.Framework.Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App3, 0));
+            Tests.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.App0));
+            CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app0"), segmentData.GetSegment(JpegSegmentType.App0));
+            Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App0, 1));
+            Tests.AreEqual(2, segmentData.GetSegmentCount(JpegSegmentType.App1));
+            CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app1.0"), segmentData.GetSegment(JpegSegmentType.App1, 0));
+            CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app1.1"), segmentData.GetSegment(JpegSegmentType.App1, 1));
+            Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App1, 2));
+            Tests.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.App2));
+            CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app2"), segmentData.GetSegment(JpegSegmentType.App2));
+            Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App2, 1));
+            Tests.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.Appd));
+            CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.appd"), segmentData.GetSegment(JpegSegmentType.Appd));
+            Assert.IsNull(segmentData.GetSegment(JpegSegmentType.Appd, 1));
+            Tests.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.Appe));
+            CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.appe"), segmentData.GetSegment(JpegSegmentType.Appe));
+            Assert.IsNull(segmentData.GetSegment(JpegSegmentType.Appe, 1));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App3));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App4));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App5));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App6));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App7));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App8));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App9));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appa));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appb));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appc));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appf));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Com));
+            Tests.AreEqual(4, segmentData.GetSegmentCount(JpegSegmentType.Dht));
+            Tests.AreEqual(2, segmentData.GetSegmentCount(JpegSegmentType.Dqt));
+            Tests.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.Sof0));
+            Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App3, 0));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestReadSpecificSegments()
         {
             JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new FilePath("Tests/Data/withExifAndIptc.jpg"), Arrays.AsList(JpegSegmentType.App0, JpegSegmentType.App2).AsIterable());
-            Sharpen.Tests.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.App0));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App1));
-            Sharpen.Tests.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.App2));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appd));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appe));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App3));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App4));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App5));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App6));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App7));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App8));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App9));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appa));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appb));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appc));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appf));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Com));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Dht));
-            Sharpen.Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Sof0));
-            NUnit.Framework.CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app0"), segmentData.GetSegment(JpegSegmentType.App0));
-            NUnit.Framework.CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app2"), segmentData.GetSegment(JpegSegmentType.App2));
+            Tests.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.App0));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App1));
+            Tests.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.App2));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appd));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appe));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App3));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App4));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App5));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App6));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App7));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App8));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App9));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appa));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appb));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appc));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Appf));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Com));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Dht));
+            Tests.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Sof0));
+            CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app0"), segmentData.GetSegment(JpegSegmentType.App0));
+            CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app2"), segmentData.GetSegment(JpegSegmentType.App2));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestLoadJpegWithoutExifDataReturnsNull()
         {
             JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new FilePath("Tests/Data/noExif.jpg"), null);
-            NUnit.Framework.Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App1));
+            Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App1));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestWithNonJpegFile()
         {
             try
             {
                 JpegSegmentReader.ReadSegments(new FilePath("MetadataExtractor.Tests.dll"), null);
-                NUnit.Framework.Assert.Fail("shouldn't be able to construct JpegSegmentReader with non-JPEG file");
+                Assert.Fail("shouldn't be able to construct JpegSegmentReader with non-JPEG file");
             }
             catch (JpegProcessingException)
             {

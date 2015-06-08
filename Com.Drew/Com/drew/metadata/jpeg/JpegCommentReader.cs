@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using Com.Drew.Imaging.Jpeg;
 using JetBrains.Annotations;
 using Sharpen;
@@ -47,14 +48,14 @@ namespace Com.Drew.Metadata.Jpeg
             return true;
         }
 
-        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {
                 JpegCommentDirectory directory = new JpegCommentDirectory();
                 metadata.AddDirectory(directory);
                 // The entire contents of the directory are the comment
-                directory.SetString(JpegCommentDirectory.TagComment, Sharpen.Runtime.GetStringForBytes(segmentBytes));
+                directory.SetString(JpegCommentDirectory.TagComment, Runtime.GetStringForBytes(segmentBytes));
             }
         }
     }

@@ -19,8 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
-using System.IO;
 using System.Text;
 using JetBrains.Annotations;
 using Sharpen;
@@ -37,7 +37,7 @@ namespace Com.Drew.Lang
     /// of these previous JDK versions.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [System.Serializable]
+    [Serializable]
     public class CompoundException : Exception
     {
         private const long serialVersionUID = -9207883813472069925L;
@@ -77,9 +77,9 @@ namespace Com.Drew.Lang
                 @string.Append("\n");
                 @string.Append("--- inner exception ---");
                 @string.Append("\n");
-                @string.Append(Sharpen.Extensions.ConvertToString(_innerException));
+                @string.Append(Extensions.ConvertToString(_innerException));
             }
-            return Sharpen.Extensions.ConvertToString(@string);
+            return Extensions.ConvertToString(@string);
         }
 
 //        public override void PrintStackTrace([NotNull] PrintStream s)

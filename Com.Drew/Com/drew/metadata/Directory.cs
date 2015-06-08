@@ -19,14 +19,14 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Diagnostics;
 using System.Text;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
 using Sharpen;
-using Sharpen.Reflect;
 
 namespace Com.Drew.Metadata
 {
@@ -84,7 +84,7 @@ namespace Com.Drew.Metadata
         /// <returns>true if a value exists for the specified tag type, false if not</returns>
         public virtual bool ContainsTag(int tagType)
         {
-            return _tagMap.ContainsKey(Sharpen.Extensions.ValueOf(tagType));
+            return _tagMap.ContainsKey(Extensions.ValueOf(tagType));
         }
 
         /// <summary>Returns an Iterator of Tag instances that have been set in this Directory.</summary>
@@ -92,7 +92,7 @@ namespace Com.Drew.Metadata
         [NotNull]
         public virtual ICollection<Tag> GetTags()
         {
-            return Sharpen.Collections.UnmodifiableCollection(_definedTagList);
+            return Collections.UnmodifiableCollection(_definedTagList);
         }
 
         /// <summary>Returns the number of tags set in this Directory.</summary>
@@ -132,7 +132,7 @@ namespace Com.Drew.Metadata
         [NotNull]
         public virtual Iterable<string> GetErrors()
         {
-            return Sharpen.Collections.UnmodifiableCollection(_errorList).AsIterable();
+            return Collections.UnmodifiableCollection(_errorList).AsIterable();
         }
 
         /// <summary>Returns the count of error messages in this directory.</summary>
@@ -268,7 +268,7 @@ namespace Com.Drew.Metadata
             {
                 throw new ArgumentNullException("cannot set a null object");
             }
-            if (!_tagMap.ContainsKey(Sharpen.Extensions.ValueOf(tagType)))
+            if (!_tagMap.ContainsKey(Extensions.ValueOf(tagType)))
             {
                 _definedTagList.Add(new Tag(tagType, this));
             }
@@ -354,13 +354,13 @@ namespace Com.Drew.Metadata
                 {
                     try
                     {
-                        return System.Convert.ToInt32((string)o);
+                        return Convert.ToInt32((string)o);
                     }
                     catch (FormatException)
                     {
                         // convert the char array to an int
                         string s = (string)o;
-                        sbyte[] bytes = Sharpen.Runtime.GetBytesForString(s);
+                        sbyte[] bytes = Runtime.GetBytesForString(s);
                         long val = 0;
                         foreach (sbyte aByte in bytes)
                         {
@@ -436,7 +436,7 @@ namespace Com.Drew.Metadata
                 string[] strings = new string[ints.Length];
                 for (int i = 0; i < strings.Length; i++)
                 {
-                    strings[i] = Sharpen.Extensions.ConvertToString(ints[i]);
+                    strings[i] = Extensions.ConvertToString(ints[i]);
                 }
                 return strings;
             }
@@ -448,7 +448,7 @@ namespace Com.Drew.Metadata
                     string[] strings = new string[bytes.Length];
                     for (int i = 0; i < strings.Length; i++)
                     {
-                        strings[i] = Sharpen.Extensions.ConvertToString(bytes[i]);
+                        strings[i] = Extensions.ConvertToString(bytes[i]);
                     }
                     return strings;
                 }
@@ -737,7 +737,7 @@ namespace Com.Drew.Metadata
             {
                 try
                 {
-                    return System.Convert.ToInt64((string)o);
+                    return Convert.ToInt64((string)o);
                 }
                 catch (FormatException)
                 {
@@ -937,7 +937,7 @@ namespace Com.Drew.Metadata
             }
             if (o is DateTime)
             {
-                return Sharpen.Extensions.ConvertToString((DateTime)o);
+                return Extensions.ConvertToString((DateTime)o);
             }
             if (o is bool)
             {
@@ -946,7 +946,7 @@ namespace Com.Drew.Metadata
             if (o.GetType().IsArray)
             {
                 // handle arrays of objects and primitives
-                int arrayLength = Sharpen.Runtime.GetArrayLength(o);
+                int arrayLength = Runtime.GetArrayLength(o);
                 Type componentType = o.GetType().GetElementType();
                 bool isObjectArray = typeof(object).IsAssignableFrom(componentType);
                 bool isFloatArray = componentType.FullName.Equals("float");
@@ -964,43 +964,43 @@ namespace Com.Drew.Metadata
                     }
                     if (isObjectArray)
                     {
-                        @string.Append(Sharpen.Extensions.ConvertToString(Sharpen.Runtime.GetArrayValue(o, i)));
+                        @string.Append(Extensions.ConvertToString(Runtime.GetArrayValue(o, i)));
                     }
                     else
                     {
                         if (isIntArray)
                         {
-                            @string.Append(Sharpen.Runtime.GetInt(o, i));
+                            @string.Append(Runtime.GetInt(o, i));
                         }
                         else
                         {
                             if (isShortArray)
                             {
-                                @string.Append(Sharpen.Runtime.GetShort(o, i));
+                                @string.Append(Runtime.GetShort(o, i));
                             }
                             else
                             {
                                 if (isLongArray)
                                 {
-                                    @string.Append(Sharpen.Runtime.GetLong(o, i));
+                                    @string.Append(Runtime.GetLong(o, i));
                                 }
                                 else
                                 {
                                     if (isFloatArray)
                                     {
-                                        @string.Append(Sharpen.Runtime.GetFloat(o, i));
+                                        @string.Append(Runtime.GetFloat(o, i));
                                     }
                                     else
                                     {
                                         if (isDoubleArray)
                                         {
-                                            @string.Append(Sharpen.Runtime.GetDouble(o, i));
+                                            @string.Append(Runtime.GetDouble(o, i));
                                         }
                                         else
                                         {
                                             if (isByteArray)
                                             {
-                                                @string.Append(Sharpen.Runtime.GetByte(o, i));
+                                                @string.Append(Runtime.GetByte(o, i));
                                             }
                                             else
                                             {
@@ -1013,13 +1013,13 @@ namespace Com.Drew.Metadata
                         }
                     }
                 }
-                return Sharpen.Extensions.ConvertToString(@string);
+                return Extensions.ConvertToString(@string);
             }
             // Note that several cameras leave trailing spaces (Olympus, Nikon) but this library is intended to show
             // the actual data within the file.  It is not inconceivable that whitespace may be significant here, so we
             // do not trim.  Also, if support is added for writing data back to files, this may cause issues.
             // We leave trimming to the presentation layer.
-            return Sharpen.Extensions.ConvertToString(o);
+            return Extensions.ConvertToString(o);
         }
 
         [CanBeNull]
@@ -1032,7 +1032,7 @@ namespace Com.Drew.Metadata
             }
             try
             {
-                return Sharpen.Runtime.GetStringForBytes(bytes, charset);
+                return Runtime.GetStringForBytes(bytes, charset);
             }
             catch (UnsupportedEncodingException)
             {
@@ -1046,7 +1046,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public virtual object GetObject(int tagType)
         {
-            return _tagMap.Get(Sharpen.Extensions.ValueOf(tagType));
+            return _tagMap.Get(Extensions.ValueOf(tagType));
         }
 
         // OTHER METHODS
@@ -1059,7 +1059,7 @@ namespace Com.Drew.Metadata
             Dictionary<int?, string> nameMap = GetTagNameMap();
             if (!nameMap.ContainsKey(tagType))
             {
-                string hex = Sharpen.Extensions.ToHexString(tagType);
+                string hex = Extensions.ToHexString(tagType);
                 while (hex.Length < 4)
                 {
                     hex = "0" + hex;
@@ -1086,13 +1086,13 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public virtual string GetDescription(int tagType)
         {
-            System.Diagnostics.Debug.Assert((_descriptor != null));
+            Debug.Assert((_descriptor != null));
             return _descriptor.GetDescription(tagType);
         }
 
         public override string ToString()
         {
-            return Sharpen.Extensions.StringFormat("%s Directory (%d %s)", GetName(), _tagMap.Count, _tagMap.Count == 1 ? "tag" : "tags");
+            return Extensions.StringFormat("%s Directory (%d %s)", GetName(), _tagMap.Count, _tagMap.Count == 1 ? "tag" : "tags");
         }
     }
 }

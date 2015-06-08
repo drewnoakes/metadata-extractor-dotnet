@@ -1,24 +1,22 @@
-using System.Reflection;
-using System.Net;
-using System.Linq;
-using System.Net.Sockets;
-using System.Threading;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Xml;
+using ICSharpCode.SharpZipLib.Zip.Compression;
 
 namespace Sharpen
 {
-    using ICSharpCode.SharpZipLib.Zip.Compression;
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Globalization;
-    using System.IO;
-    using System.Runtime.CompilerServices;
-    using System.Text;
-    using System.Text.RegularExpressions;
-
     public static class Extensions
     {
         private static readonly long EPOCH_TICKS;
@@ -398,22 +396,22 @@ namespace Sharpen
             return char.IsUpper(c);
         }
 
-        public static Sharpen.Iterator Iterator(this ICollection col)
+        public static Iterator Iterator(this ICollection col)
         {
             return new EnumeratorWrapper(col, col.GetEnumerator());
         }
         
-        public static Sharpen.Iterator<T> Iterator<T>(this ICollection<T> col)
+        public static Iterator<T> Iterator<T>(this ICollection<T> col)
         {
             return new EnumeratorWrapper<T>(col, col.GetEnumerator());
         }
 
-        public static Sharpen.Iterator Iterator(this IEnumerable col)
+        public static Iterator Iterator(this IEnumerable col)
         {
             return new EnumeratorWrapper(col, col.GetEnumerator());
         }
         
-        public static Sharpen.Iterator<T> Iterator<T>(this IEnumerable<T> col)
+        public static Iterator<T> Iterator<T>(this IEnumerable<T> col)
         {
             return new EnumeratorWrapper<T>(col, col.GetEnumerator());
         }
@@ -605,7 +603,7 @@ namespace Sharpen
         public static bool ContainsAll<T, U>(this ICollection<T> col, ICollection<U> items) where U : T
         {
             foreach (var u in items)
-                if (!col.Any(n => (object.ReferenceEquals(n, u)) || n.Equals(u)))
+                if (!col.Any(n => (ReferenceEquals(n, u)) || n.Equals(u)))
                     return false;
             return true;
         }
@@ -863,7 +861,7 @@ namespace Sharpen
             return Dns.GetHostAddresses(name).FirstOrDefault();
         }
 
-        public static string GetImplementationVersion(this System.Reflection.Assembly asm)
+        public static string GetImplementationVersion(this Assembly asm)
         {
             return asm.GetName().Version.ToString();
         }
@@ -905,12 +903,12 @@ namespace Sharpen
 
         public static InputStream GetInputStream(this Socket socket)
         {
-            return new System.Net.Sockets.NetworkStream(socket);
+            return new NetworkStream(socket);
         }
 
         public static OutputStream GetOutputStream(this Socket socket)
         {
-            return new System.Net.Sockets.NetworkStream(socket);
+            return new NetworkStream(socket);
         }
 
         public static int GetLocalPort(this Socket socket)
@@ -983,9 +981,9 @@ namespace Sharpen
             }
         }
 
-        public static System.Threading.Semaphore CreateSemaphore(int count)
+        public static Semaphore CreateSemaphore(int count)
         {
-            return new System.Threading.Semaphore(count, int.MaxValue);
+            return new Semaphore(count, int.MaxValue);
         }
 
         public static void SetCommand(this ProcessStartInfo si, IList<string> args)

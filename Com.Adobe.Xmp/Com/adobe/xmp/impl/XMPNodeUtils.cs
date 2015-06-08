@@ -6,8 +6,9 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System;
-using Com.Adobe.Xmp;
+using System.Diagnostics;
 using Com.Adobe.Xmp.Impl.Xpath;
 using Com.Adobe.Xmp.Options;
 using Sharpen;
@@ -76,7 +77,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </exception>
         internal static XMPNode FindSchemaNode(XMPNode tree, string namespaceURI, string suggestedPrefix, bool createNodes)
         {
-            System.Diagnostics.Debug.Assert(tree.GetParent() == null);
+            Debug.Assert(tree.GetParent() == null);
             // make sure that its the root
             XMPNode schemaNode = tree.FindChildByName(namespaceURI);
             if (schemaNode == null && createNodes)
@@ -143,7 +144,7 @@ namespace Com.Adobe.Xmp.Impl
                 childNode.SetImplicit(true);
                 parent.AddChild(childNode);
             }
-            System.Diagnostics.Debug.Assert(childNode != null || !createNodes);
+            Debug.Assert(childNode != null || !createNodes);
             return childNode;
         }
 
@@ -376,9 +377,9 @@ namespace Com.Adobe.Xmp.Impl
                                 }
                                 else
                                 {
-                                    if (value is Sharpen.GregorianCalendar)
+                                    if (value is GregorianCalendar)
                                     {
-                                        XMPDateTime dt = XMPDateTimeFactory.CreateFromCalendar((Sharpen.GregorianCalendar)value);
+                                        XMPDateTime dt = XMPDateTimeFactory.CreateFromCalendar((GregorianCalendar)value);
                                         strValue = XMPUtils.ConvertFromDate(dt);
                                     }
                                     else
@@ -436,7 +437,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (stepKind == XMPPath.QualifierStep)
                 {
-                    nextNode = FindQualifierNode(parentNode, Sharpen.Runtime.Substring(nextStep.GetName(), 1), createNodes);
+                    nextNode = FindQualifierNode(parentNode, Runtime.Substring(nextStep.GetName(), 1), createNodes);
                 }
                 else
                 {
@@ -505,7 +506,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="Com.Adobe.Xmp.XMPException"></exception>
         private static XMPNode FindQualifierNode(XMPNode parent, string qualName, bool createNodes)
         {
-            System.Diagnostics.Debug.Assert(!qualName.StartsWith("?"));
+            Debug.Assert(!qualName.StartsWith("?"));
             XMPNode qualNode = parent.FindQualifierByName(qualName);
             if (qualNode == null && createNodes)
             {
@@ -526,8 +527,8 @@ namespace Com.Adobe.Xmp.Impl
             int index = 0;
             try
             {
-                segment = Sharpen.Runtime.Substring(segment, 1, segment.Length - 1);
-                index = System.Convert.ToInt32(segment);
+                segment = Runtime.Substring(segment, 1, segment.Length - 1);
+                index = Convert.ToInt32(segment);
                 if (index < 1)
                 {
                     throw new XMPException("Array index must be larger than zero", XMPErrorConstants.Badxpath);
@@ -612,7 +613,7 @@ namespace Com.Adobe.Xmp.Impl
             if (XMPConstConstants.XmlLang.Equals(qualName))
             {
                 qualValue = Utils.NormalizeLangValue(qualValue);
-                int index = Com.Adobe.Xmp.Impl.XMPNodeUtils.LookupLanguageItem(arrayNode, qualValue);
+                int index = LookupLanguageItem(arrayNode, qualValue);
                 if (index < 0 && (aliasForm & AliasOptions.PropArrayAltText) > 0)
                 {
                     XMPNode langNode = new XMPNode(XMPConstConstants.ArrayItemName, null);
@@ -674,7 +675,7 @@ namespace Com.Adobe.Xmp.Impl
                     catch (XMPException)
                     {
                         // cannot occur, because same child is removed before
-                        System.Diagnostics.Debug.Assert(false);
+                        Debug.Assert(false);
                     }
                     if (i == 2)
                     {
@@ -765,7 +766,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (!arrayNode.HasChildren())
                 {
-                    return new object[] { Com.Adobe.Xmp.Impl.XMPNodeUtils.CltNoValues, null };
+                    return new object[] { CltNoValues, null };
                 }
             }
             int foundGenericMatches = 0;
@@ -791,7 +792,7 @@ namespace Com.Adobe.Xmp.Impl
                 // Look for an exact match with the specific language.
                 if (specificLang.Equals(currLang))
                 {
-                    return new object[] { Com.Adobe.Xmp.Impl.XMPNodeUtils.CltSpecificMatch, currItem };
+                    return new object[] { CltSpecificMatch, currItem };
                 }
                 else
                 {
@@ -816,24 +817,24 @@ namespace Com.Adobe.Xmp.Impl
             // evaluate loop
             if (foundGenericMatches == 1)
             {
-                return new object[] { Com.Adobe.Xmp.Impl.XMPNodeUtils.CltSingleGeneric, resultNode };
+                return new object[] { CltSingleGeneric, resultNode };
             }
             else
             {
                 if (foundGenericMatches > 1)
                 {
-                    return new object[] { Com.Adobe.Xmp.Impl.XMPNodeUtils.CltMultipleGeneric, resultNode };
+                    return new object[] { CltMultipleGeneric, resultNode };
                 }
                 else
                 {
                     if (xDefault != null)
                     {
-                        return new object[] { Com.Adobe.Xmp.Impl.XMPNodeUtils.CltXdefault, xDefault };
+                        return new object[] { CltXdefault, xDefault };
                     }
                     else
                     {
                         // Everything failed, choose the first item.
-                        return new object[] { Com.Adobe.Xmp.Impl.XMPNodeUtils.CltFirstItem, arrayNode.GetChild(1) };
+                        return new object[] { CltFirstItem, arrayNode.GetChild(1) };
                     }
                 }
             }

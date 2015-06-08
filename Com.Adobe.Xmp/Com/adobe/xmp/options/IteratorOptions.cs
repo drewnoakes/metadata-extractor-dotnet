@@ -6,13 +6,12 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
-using Sharpen;
 
 namespace Com.Adobe.Xmp.Options
 {
     /// <summary>Options for <code>XMPIterator</code> construction.</summary>
     /// <since>24.01.2006</since>
-    public sealed class IteratorOptions : Com.Adobe.Xmp.Options.Options
+    public sealed class IteratorOptions : Options
     {
         /// <summary>Just do the immediate children of the root, default is subtree.</summary>
         public const int JustChildren = unchecked((int)(0x0100));

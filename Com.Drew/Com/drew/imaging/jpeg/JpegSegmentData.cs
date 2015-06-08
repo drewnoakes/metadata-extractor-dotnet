@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
@@ -65,7 +66,7 @@ namespace Com.Drew.Imaging.Jpeg
                 JpegSegmentType segmentType = JpegSegmentType.FromByte(segmentTypeByte);
                 if (segmentType == null)
                 {
-                    throw new InvalidOperationException("Should not have a segmentTypeByte that is not in the enum: " + Sharpen.Extensions.ToHexString(segmentTypeByte));
+                    throw new InvalidOperationException("Should not have a segmentTypeByte that is not in the enum: " + Extensions.ToHexString(segmentTypeByte));
                 }
                 segmentTypes.Add(segmentType);
             }
@@ -215,7 +216,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <param name="segmentType">identifies the required segment</param>
         public virtual void RemoveSegment(sbyte segmentType)
         {
-            Sharpen.Collections.Remove(_segmentDataMap, segmentType);
+            Collections.Remove(_segmentDataMap, segmentType);
         }
 
         /// <summary>Determines whether data is present for a given segment type.</summary>

@@ -19,7 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-using System.IO;
+
 using System.Text;
 using JetBrains.Annotations;
 using Sharpen;
@@ -51,7 +51,7 @@ namespace Com.Drew.Lang
                     buffer.Append(iter.Next());
                 }
             }
-            return Sharpen.Extensions.ConvertToString(buffer);
+            return Extensions.ConvertToString(buffer);
         }
 
         [NotNull]
@@ -78,7 +78,7 @@ namespace Com.Drew.Lang
                 }
                 buffer.Append(value_1);
             }
-            return Sharpen.Extensions.ConvertToString(buffer);
+            return Extensions.ConvertToString(buffer);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -92,7 +92,7 @@ namespace Com.Drew.Lang
             {
                 sb.Append(line);
             }
-            return Sharpen.Extensions.ConvertToString(sb);
+            return Extensions.ConvertToString(sb);
         }
 
         public static int Compare([CanBeNull] string s1, [CanBeNull] string s2)

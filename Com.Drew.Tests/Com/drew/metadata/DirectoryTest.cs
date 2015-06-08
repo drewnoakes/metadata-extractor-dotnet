@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Text;
 using Com.Drew.Lang;
 using Com.Drew.Metadata.Exif;
@@ -30,7 +31,7 @@ namespace Com.Drew.Metadata
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class DirectoryTest
     {
-        private Com.Drew.Metadata.Directory _directory;
+        private Directory _directory;
 
         // TODO write tests to validate type conversions from all underlying types
         [SetUp]
@@ -40,59 +41,59 @@ namespace Com.Drew.Metadata
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestSetAndGetMultipleTagsInSingleDirectory()
         {
             _directory.SetString(ExifSubIFDDirectory.TagAperture, "TAG_APERTURE");
             _directory.SetString(ExifSubIFDDirectory.TagBatteryLevel, "TAG_BATTERY_LEVEL");
-            Sharpen.Tests.AreEqual("TAG_APERTURE", _directory.GetString(ExifSubIFDDirectory.TagAperture));
-            Sharpen.Tests.AreEqual("TAG_BATTERY_LEVEL", _directory.GetString(ExifSubIFDDirectory.TagBatteryLevel));
+            Tests.AreEqual("TAG_APERTURE", _directory.GetString(ExifSubIFDDirectory.TagAperture));
+            Tests.AreEqual("TAG_BATTERY_LEVEL", _directory.GetString(ExifSubIFDDirectory.TagBatteryLevel));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestSetSameTagMultipleTimesOverwritesValue()
         {
             _directory.SetInt(ExifSubIFDDirectory.TagAperture, 1);
             _directory.SetInt(ExifSubIFDDirectory.TagAperture, 2);
-            Sharpen.Tests.AreEqual(2, _directory.GetInt(ExifSubIFDDirectory.TagAperture));
+            Tests.AreEqual(2, _directory.GetInt(ExifSubIFDDirectory.TagAperture));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestUnderlyingInt()
         {
             int value = 123;
             int tagType = 321;
             _directory.SetInt(tagType, value);
-            Sharpen.Tests.AreEqual(value, _directory.GetInt(tagType));
-            Sharpen.Tests.AreEqual(Sharpen.Extensions.ValueOf(value), _directory.GetInteger(tagType));
-            Sharpen.Tests.AreEqual((float)value, _directory.GetFloat(tagType), 0.00001);
-            Sharpen.Tests.AreEqual((double)value, _directory.GetDouble(tagType), 0.00001);
-            Sharpen.Tests.AreEqual((long)value, _directory.GetLong(tagType));
-            Sharpen.Tests.AreEqual(Sharpen.Extensions.ConvertToString(value), _directory.GetString(tagType));
-            Sharpen.Tests.AreEqual(new Rational(value, 1), _directory.GetRational(tagType));
-            NUnit.Framework.CollectionAssert.AreEqual(new int[] { value }, _directory.GetIntArray(tagType));
-            NUnit.Framework.CollectionAssert.AreEqual(new sbyte[] { unchecked((sbyte)value) }, _directory.GetByteArray(tagType));
+            Tests.AreEqual(value, _directory.GetInt(tagType));
+            Tests.AreEqual(Extensions.ValueOf(value), _directory.GetInteger(tagType));
+            Tests.AreEqual((float)value, _directory.GetFloat(tagType), 0.00001);
+            Tests.AreEqual((double)value, _directory.GetDouble(tagType), 0.00001);
+            Tests.AreEqual((long)value, _directory.GetLong(tagType));
+            Tests.AreEqual(Extensions.ConvertToString(value), _directory.GetString(tagType));
+            Tests.AreEqual(new Rational(value, 1), _directory.GetRational(tagType));
+            CollectionAssert.AreEqual(new int[] { value }, _directory.GetIntArray(tagType));
+            CollectionAssert.AreEqual(new sbyte[] { unchecked((sbyte)value) }, _directory.GetByteArray(tagType));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestSetAndGetIntArray()
         {
             int[] inputValues = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             int tagType = 123;
             _directory.SetIntArray(tagType, inputValues);
             int[] outputValues = _directory.GetIntArray(tagType);
-            NUnit.Framework.Assert.IsNotNull(outputValues);
-            Sharpen.Tests.AreEqual(inputValues.Length, outputValues.Length);
+            Assert.IsNotNull(outputValues);
+            Tests.AreEqual(inputValues.Length, outputValues.Length);
             for (int i = 0; i < inputValues.Length; i++)
             {
                 int inputValue = inputValues[i];
                 int outputValue = outputValues[i];
-                Sharpen.Tests.AreEqual(inputValue, outputValue);
+                Tests.AreEqual(inputValue, outputValue);
             }
-            NUnit.Framework.CollectionAssert.AreEqual(inputValues, _directory.GetIntArray(tagType));
+            CollectionAssert.AreEqual(inputValues, _directory.GetIntArray(tagType));
             StringBuilder outputString = new StringBuilder();
             for (int i_1 = 0; i_1 < inputValues.Length; i_1++)
             {
@@ -103,11 +104,11 @@ namespace Com.Drew.Metadata
                 }
                 outputString.Append(inputValue);
             }
-            Sharpen.Tests.AreEqual(Sharpen.Extensions.ConvertToString(outputString), _directory.GetString(tagType));
+            Tests.AreEqual(Extensions.ConvertToString(outputString), _directory.GetString(tagType));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestSetStringAndGetDate()
         {
             string date1 = "2002:01:30 24:59:59";
@@ -118,70 +119,70 @@ namespace Com.Drew.Metadata
             _directory.SetString(2, date2);
             _directory.SetString(3, date3);
             _directory.SetString(4, date4);
-            Sharpen.Tests.AreEqual(date1, _directory.GetString(1));
-            Sharpen.Tests.AreEqual(new Sharpen.GregorianCalendar(2002, Sharpen.GregorianCalendar.January, 30, 24, 59, 59).GetTime(), _directory.GetDate(1));
-            Sharpen.Tests.AreEqual(new Sharpen.GregorianCalendar(2002, Sharpen.GregorianCalendar.January, 30, 24, 59, 0).GetTime(), _directory.GetDate(2));
-            Sharpen.Tests.AreEqual(new Sharpen.GregorianCalendar(2002, Sharpen.GregorianCalendar.January, 30, 24, 59, 59).GetTime(), _directory.GetDate(3));
-            Sharpen.Tests.AreEqual(new Sharpen.GregorianCalendar(2002, Sharpen.GregorianCalendar.January, 30, 24, 59, 0).GetTime(), _directory.GetDate(4));
+            Tests.AreEqual(date1, _directory.GetString(1));
+            Tests.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 59).GetTime(), _directory.GetDate(1));
+            Tests.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 0).GetTime(), _directory.GetDate(2));
+            Tests.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 59).GetTime(), _directory.GetDate(3));
+            Tests.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 0).GetTime(), _directory.GetDate(4));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestSetIntArrayGetByteArray()
         {
             int[] ints = new int[] { 1, 2, 3, 4, 5 };
             _directory.SetIntArray(1, ints);
             sbyte[] bytes = _directory.GetByteArray(1);
-            NUnit.Framework.Assert.IsNotNull(bytes);
-            Sharpen.Tests.AreEqual(ints.Length, bytes.Length);
-            Sharpen.Tests.AreEqual(1, bytes[0]);
+            Assert.IsNotNull(bytes);
+            Tests.AreEqual(ints.Length, bytes.Length);
+            Tests.AreEqual(1, bytes[0]);
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestSetStringGetInt()
         {
             sbyte[] bytes = new sbyte[] { unchecked((int)(0x01)), unchecked((int)(0x02)), unchecked((int)(0x03)) };
-            _directory.SetString(1, Sharpen.Runtime.GetStringForBytes(bytes));
-            Sharpen.Tests.AreEqual(unchecked((int)(0x010203)), _directory.GetInt(1));
+            _directory.SetString(1, Runtime.GetStringForBytes(bytes));
+            Tests.AreEqual(unchecked((int)(0x010203)), _directory.GetInt(1));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestContainsTag()
         {
-            Sharpen.Tests.IsFalse(_directory.ContainsTag(ExifSubIFDDirectory.TagAperture));
+            Tests.IsFalse(_directory.ContainsTag(ExifSubIFDDirectory.TagAperture));
             _directory.SetString(ExifSubIFDDirectory.TagAperture, "Tag Value");
-            Sharpen.Tests.IsTrue(_directory.ContainsTag(ExifSubIFDDirectory.TagAperture));
+            Tests.IsTrue(_directory.ContainsTag(ExifSubIFDDirectory.TagAperture));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetNonExistentTagIsNullForAllTypes()
         {
-            NUnit.Framework.Assert.IsNull(_directory.GetString(ExifSubIFDDirectory.TagAperture));
-            NUnit.Framework.Assert.IsNull(_directory.GetInteger(ExifSubIFDDirectory.TagAperture));
-            NUnit.Framework.Assert.IsNull(_directory.GetDoubleObject(ExifSubIFDDirectory.TagAperture));
-            NUnit.Framework.Assert.IsNull(_directory.GetFloatObject(ExifSubIFDDirectory.TagAperture));
-            NUnit.Framework.Assert.IsNull(_directory.GetByteArray(ExifSubIFDDirectory.TagAperture));
-            NUnit.Framework.Assert.IsNull(_directory.GetDate(ExifSubIFDDirectory.TagAperture));
-            NUnit.Framework.Assert.IsNull(_directory.GetIntArray(ExifSubIFDDirectory.TagAperture));
-            NUnit.Framework.Assert.IsNull(_directory.GetLongObject(ExifSubIFDDirectory.TagAperture));
-            NUnit.Framework.Assert.IsNull(_directory.GetObject(ExifSubIFDDirectory.TagAperture));
-            NUnit.Framework.Assert.IsNull(_directory.GetRational(ExifSubIFDDirectory.TagAperture));
-            NUnit.Framework.Assert.IsNull(_directory.GetRationalArray(ExifSubIFDDirectory.TagAperture));
-            NUnit.Framework.Assert.IsNull(_directory.GetStringArray(ExifSubIFDDirectory.TagAperture));
+            Assert.IsNull(_directory.GetString(ExifSubIFDDirectory.TagAperture));
+            Assert.IsNull(_directory.GetInteger(ExifSubIFDDirectory.TagAperture));
+            Assert.IsNull(_directory.GetDoubleObject(ExifSubIFDDirectory.TagAperture));
+            Assert.IsNull(_directory.GetFloatObject(ExifSubIFDDirectory.TagAperture));
+            Assert.IsNull(_directory.GetByteArray(ExifSubIFDDirectory.TagAperture));
+            Assert.IsNull(_directory.GetDate(ExifSubIFDDirectory.TagAperture));
+            Assert.IsNull(_directory.GetIntArray(ExifSubIFDDirectory.TagAperture));
+            Assert.IsNull(_directory.GetLongObject(ExifSubIFDDirectory.TagAperture));
+            Assert.IsNull(_directory.GetObject(ExifSubIFDDirectory.TagAperture));
+            Assert.IsNull(_directory.GetRational(ExifSubIFDDirectory.TagAperture));
+            Assert.IsNull(_directory.GetRationalArray(ExifSubIFDDirectory.TagAperture));
+            Assert.IsNull(_directory.GetStringArray(ExifSubIFDDirectory.TagAperture));
         }
 
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestToString()
         {
-            Com.Drew.Metadata.Directory directory = new ExifIFD0Directory();
-            Sharpen.Tests.AreEqual("Exif IFD0 Directory (0 tags)", Sharpen.Extensions.ConvertToString(directory));
+            Directory directory = new ExifIFD0Directory();
+            Tests.AreEqual("Exif IFD0 Directory (0 tags)", Extensions.ConvertToString(directory));
             directory.SetString(1, "Tag 1");
-            Sharpen.Tests.AreEqual("Exif IFD0 Directory (1 tag)", Sharpen.Extensions.ConvertToString(directory));
+            Tests.AreEqual("Exif IFD0 Directory (1 tag)", Extensions.ConvertToString(directory));
             directory.SetString(2, "Tag 2");
-            Sharpen.Tests.AreEqual("Exif IFD0 Directory (2 tags)", Sharpen.Extensions.ConvertToString(directory));
+            Tests.AreEqual("Exif IFD0 Directory (2 tags)", Extensions.ConvertToString(directory));
         }
     }
 }

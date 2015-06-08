@@ -1,7 +1,7 @@
+using System;
+
 namespace Sharpen
 {
-    using System;
-
     public class CRC32
     {
         private uint _value;

@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -32,7 +33,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// Makernote data begins immediately (no header).
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class CasioType1MakernoteDirectory : Com.Drew.Metadata.Directory
+    public class CasioType1MakernoteDirectory : Directory
     {
         public const int TagRecordingMode = unchecked((int)(0x0001));
 

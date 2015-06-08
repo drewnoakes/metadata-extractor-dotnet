@@ -2,8 +2,6 @@ using System.Collections.Generic;
 
 namespace Sharpen
 {
-    using System;
-
     public abstract class AbstractSet<T> : AbstractCollection<T>
     {
         protected AbstractSet ()

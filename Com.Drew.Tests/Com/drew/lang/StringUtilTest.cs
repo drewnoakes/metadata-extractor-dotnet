@@ -19,7 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Lang
@@ -27,23 +29,23 @@ namespace Com.Drew.Lang
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class StringUtilTest
     {
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestJoinIterable()
         {
             IList<string> strings = new AList<string>();
             strings.Add("A");
             strings.Add("B");
             strings.Add("C");
-            Sharpen.Tests.AreEqual("A;B;C", StringUtil.Join(strings.ToCharSequence(), ";"));
-            Sharpen.Tests.AreEqual(string.Empty, StringUtil.Join(new AList<string>().ToCharSequence(), ";"));
+            Tests.AreEqual("A;B;C", StringUtil.Join(strings.ToCharSequence(), ";"));
+            Tests.AreEqual(string.Empty, StringUtil.Join(new AList<string>().ToCharSequence(), ";"));
         }
 
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestJoinArray()
         {
             string[] strings = new string[] { "A", "B", "C" };
-            Sharpen.Tests.AreEqual("A;B;C", StringUtil.Join(strings.ToCharSequence(), ";"));
-            Sharpen.Tests.AreEqual(string.Empty, StringUtil.Join(new AList<string>().ToCharSequence(), ";"));
+            Tests.AreEqual("A;B;C", StringUtil.Join(strings.ToCharSequence(), ";"));
+            Tests.AreEqual(string.Empty, StringUtil.Join(new AList<string>().ToCharSequence(), ";"));
         }
     }
 }

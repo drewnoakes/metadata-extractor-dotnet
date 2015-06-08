@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using Sharpen;
 
@@ -26,7 +27,7 @@ namespace Com.Drew.Metadata.Exif
 {
     /// <summary>Base class for several Exif format tag directories.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public abstract class ExifDirectoryBase : Com.Drew.Metadata.Directory
+    public abstract class ExifDirectoryBase : Directory
     {
         public const int TagInteropIndex = unchecked((int)(0x0001));
 

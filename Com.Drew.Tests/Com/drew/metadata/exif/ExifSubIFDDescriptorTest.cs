@@ -19,6 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
@@ -28,64 +30,64 @@ namespace Com.Drew.Metadata.Exif
     public class ExifSubIFDDescriptorTest
     {
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestUserCommentDescription_EmptyEncoding()
         {
-            sbyte[] commentBytes = Sharpen.Runtime.GetBytesForString("\x0\x0\x0\x0\x0\x0\x0\x0This is a comment");
+            sbyte[] commentBytes = Runtime.GetBytesForString("\x0\x0\x0\x0\x0\x0\x0\x0This is a comment");
             ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
             directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
             ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Sharpen.Tests.AreEqual("This is a comment", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            Tests.AreEqual("This is a comment", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestUserCommentDescription_AsciiHeaderAsciiEncoding()
         {
-            sbyte[] commentBytes = Sharpen.Runtime.GetBytesForString("ASCII\x0\x0This is a comment");
+            sbyte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0This is a comment");
             ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
             directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
             ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Sharpen.Tests.AreEqual("This is a comment", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            Tests.AreEqual("This is a comment", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestUserCommentDescription_BlankAscii()
         {
-            sbyte[] commentBytes = Sharpen.Runtime.GetBytesForString("ASCII\x0\x0\x0          ");
+            sbyte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0\x0          ");
             ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
             directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
             ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Sharpen.Tests.AreEqual(string.Empty, descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            Tests.AreEqual(string.Empty, descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestUserCommentDescription_ZeroLengthAscii1()
         {
             // the 10-byte encoding region is only partially full
-            sbyte[] commentBytes = Sharpen.Runtime.GetBytesForString("ASCII\x0\x0\x0");
+            sbyte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0\x0");
             ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
             directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
             ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Sharpen.Tests.AreEqual("ASCII", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            Tests.AreEqual("ASCII", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestUserCommentDescription_ZeroLengthAscii2()
         {
             // fill the 10-byte encoding region
-            sbyte[] commentBytes = Sharpen.Runtime.GetBytesForString("ASCII\x0\x0\x0\x0\x0");
+            sbyte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0\x0\x0\x0");
             ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
             directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
             ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Sharpen.Tests.AreEqual(string.Empty, descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            Tests.AreEqual(string.Empty, descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestUnicodeComment_ActualBytes()
         {
             sbyte[] commentBytes = new sbyte[] { 85, 78, 73, 67, 79, 68, 69, 0, 84, 0, 104, 0, 105, 0, 115, 0, 32, 0, 109, 0, 97, 0, 114, 0, 109, 0, 111, 0, 116, 0, 32, 0, 105, 0, 115, 0, 32, 0, 103, 0, 101, 0, 116, 0, 116, 0, 105, 0, 110, 0, 103, 0, 32
@@ -96,18 +98,18 @@ namespace Com.Drew.Metadata.Exif
             ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
             directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
             ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Sharpen.Tests.AreEqual("This marmot is getting close...", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            Tests.AreEqual("This marmot is getting close...", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestUnicodeComment_Ascii()
         {
             sbyte[] commentBytes = new sbyte[] { 65, 83, 67, 73, 73, 0, 0, 0, 73, 32, 97, 109, 32, 97, 32, 99, 111, 109, 109, 101, 110, 116, 46, 32, 89, 101, 121, 46, 0 };
             ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
             directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
             ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Sharpen.Tests.AreEqual("I am a comment. Yey.", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            Tests.AreEqual("I am a comment. Yey.", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
         }
     }
 }

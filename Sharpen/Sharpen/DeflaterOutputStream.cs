@@ -1,9 +1,7 @@
+using ICSharpCode.SharpZipLib.Zip.Compression;
+
 namespace Sharpen
 {
-    using ICSharpCode.SharpZipLib.Zip.Compression;
-    using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
-    using System;
-
     public class DeflaterOutputStream : OutputStream
     {
         public DeflaterOutputStream (OutputStream s)

@@ -19,8 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
-using System.IO;
 using Com.Drew.Imaging;
 using Com.Drew.Metadata;
 using Sharpen;
@@ -37,14 +37,14 @@ namespace Com.Drew.Tools
         {
             if (args.Length == 0)
             {
-                System.Console.Error.Println("Expects one or more URLs as arguments.");
-                System.Environment.Exit(1);
+                Console.Error.Println("Expects one or more URLs as arguments.");
+                Environment.Exit(1);
             }
             foreach (string url in args)
             {
                 ProcessUrl(new Uri(url));
             }
-            System.Console.Out.Println("Completed.");
+            Console.Out.Println("Completed.");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -55,7 +55,7 @@ namespace Com.Drew.Tools
             //        con.setReadTimeout(readTimeout);
             InputStream @in = con.GetInputStream();
             // Read metadata
-            Com.Drew.Metadata.Metadata metadata;
+            Metadata.Metadata metadata;
             try
             {
                 metadata = ImageMetadataReader.ReadMetadata(@in);
@@ -64,20 +64,20 @@ namespace Com.Drew.Tools
             {
                 // this is an error in the Jpeg segment structure.  we're looking for bad handling of
                 // metadata segments.  in this case, we didn't even get a segment.
-                System.Console.Error.Printf("%s: %s [Error Extracting Metadata]\n\t%s%n", e.GetType().FullName, url, e.Message);
+                Console.Error.Printf("%s: %s [Error Extracting Metadata]\n\t%s%n", e.GetType().FullName, url, e.Message);
                 return;
             }
             catch (Exception t)
             {
                 // general, uncaught exception during processing of jpeg segments
-                System.Console.Error.Printf("%s: %s [Error Extracting Metadata]%n", t.GetType().FullName, url);
-                Sharpen.Runtime.PrintStackTrace(t, System.Console.Error);
+                Console.Error.Printf("%s: %s [Error Extracting Metadata]%n", t.GetType().FullName, url);
+                Runtime.PrintStackTrace(t, Console.Error);
                 return;
             }
             if (metadata.HasErrors())
             {
-                System.Console.Error.Println(url);
-                foreach (Com.Drew.Metadata.Directory directory in metadata.GetDirectories())
+                Console.Error.Println(url);
+                foreach (Directory directory in metadata.GetDirectories())
                 {
                     if (!directory.HasErrors())
                     {
@@ -85,12 +85,12 @@ namespace Com.Drew.Tools
                     }
                     foreach (string error in directory.GetErrors())
                     {
-                        System.Console.Error.Printf("\t[%s] %s%n", directory.GetName(), error);
+                        Console.Error.Printf("\t[%s] %s%n", directory.GetName(), error);
                     }
                 }
             }
             // Iterate through all values
-            foreach (Com.Drew.Metadata.Directory directory_1 in metadata.GetDirectories())
+            foreach (Directory directory_1 in metadata.GetDirectories())
             {
                 foreach (Tag tag in directory_1.GetTags())
                 {
@@ -100,9 +100,9 @@ namespace Com.Drew.Tools
                     // truncate the description if it's too long
                     if (description != null && description.Length > 1024)
                     {
-                        description = Sharpen.Runtime.Substring(description, 0, 1024) + "...";
+                        description = Runtime.Substring(description, 0, 1024) + "...";
                     }
-                    System.Console.Out.Printf("[%s] %s = %s%n", directoryName, tagName, description);
+                    Console.Out.Printf("[%s] %s = %s%n", directoryName, tagName, description);
                 }
             }
         }

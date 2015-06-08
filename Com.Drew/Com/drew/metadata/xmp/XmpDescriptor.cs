@@ -19,10 +19,10 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using Com.Drew.Imaging;
 using Com.Drew.Lang;
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -189,7 +189,7 @@ namespace Com.Drew.Metadata.Xmp
             if (value <= 1)
             {
                 float apexPower = (float)(1 / (Math.Exp((double)value * Math.Log(2))));
-                long apexPower10 = (long)System.Math.Round((double)apexPower * 10.0);
+                long apexPower10 = (long)Math.Round((double)apexPower * 10.0);
                 float fApexPower = (float)apexPower10 / 10.0f;
                 return fApexPower + " sec";
             }

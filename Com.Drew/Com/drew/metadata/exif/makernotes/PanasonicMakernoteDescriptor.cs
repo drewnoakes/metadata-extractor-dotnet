@@ -19,10 +19,10 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.IO;
 using System.Text;
 using Com.Drew.Lang;
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -677,7 +677,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             StringBuilder result = new StringBuilder();
             for (int i = 0; i < faces.Length; i++)
             {
-                result.Append("Face ").Append(i + 1).Append(": ").Append(Sharpen.Extensions.ConvertToString(faces[i])).Append("\n");
+                result.Append("Face ").Append(i + 1).Append(": ").Append(Extensions.ConvertToString(faces[i])).Append("\n");
             }
             return result.Length > 0 ? result.Substring(0, result.Length - 1) : null;
         }

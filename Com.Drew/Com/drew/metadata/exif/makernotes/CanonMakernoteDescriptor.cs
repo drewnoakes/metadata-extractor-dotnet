@@ -19,7 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-using Com.Drew.Metadata;
+
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -221,7 +221,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return null;
             }
-            return Sharpen.Extensions.StringFormat("%04X%05d", ((int)value >> 8) & unchecked((int)(0xFF)), (int)value & unchecked((int)(0xFF)));
+            return Extensions.StringFormat("%04X%05d", ((int)value >> 8) & unchecked((int)(0xFF)), (int)value & unchecked((int)(0xFF)));
         }
 
 /*
@@ -421,7 +421,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             //  0, 0.375, 0.5, 0.626, 1
             // not
             //  0, 0.33,  0.5, 0.66,  1
-            return ((isNegative) ? "-" : string.Empty) + Sharpen.Extensions.ConvertToString(value / 32f) + " EV";
+            return ((isNegative) ? "-" : string.Empty) + Extensions.ConvertToString(value / 32f) + " EV";
         }
 
         [CanBeNull]
@@ -505,7 +505,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             }
             if (value != 0)
             {
-                return Sharpen.Extensions.ConvertToString((int)value);
+                return Extensions.ConvertToString((int)value);
             }
             else
             {
@@ -522,7 +522,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 return null;
             }
             string units = GetFocalUnitsPerMillimetreDescription();
-            return Sharpen.Extensions.ConvertToString((int)value) + " " + units;
+            return Extensions.ConvertToString((int)value) + " " + units;
         }
 
         [CanBeNull]
@@ -534,7 +534,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 return null;
             }
             string units = GetFocalUnitsPerMillimetreDescription();
-            return Sharpen.Extensions.ConvertToString((int)value) + " " + units;
+            return Extensions.ConvertToString((int)value) + " " + units;
         }
 
         [CanBeNull]
@@ -824,7 +824,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             else
             {
                 // TODO find an image that tests this calculation
-                return Sharpen.Extensions.ConvertToString((double)value * 0.1d) + " sec";
+                return Extensions.ConvertToString((double)value * 0.1d) + " sec";
             }
         }
 

@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -27,7 +28,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 {
     /// <summary>Describes tags specific to Sigma / Foveon cameras.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class SigmaMakernoteDirectory : Com.Drew.Metadata.Directory
+    public class SigmaMakernoteDirectory : Directory
     {
         public const int TagSerialNumber = unchecked((int)(0x2));
 

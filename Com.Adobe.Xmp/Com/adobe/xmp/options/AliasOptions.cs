@@ -6,13 +6,12 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
-using Sharpen;
 
 namespace Com.Adobe.Xmp.Options
 {
     /// <summary>Options for XMPSchemaRegistryImpl#registerAlias.</summary>
     /// <since>20.02.2006</since>
-    public sealed class AliasOptions : Com.Adobe.Xmp.Options.Options
+    public sealed class AliasOptions : Options
     {
         /// <summary>This is a direct mapping.</summary>
         /// <remarks>This is a direct mapping. The actual data type does not matter.</remarks>
@@ -57,7 +56,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.AliasOptions SetArray(bool value)
+        public AliasOptions SetArray(bool value)
         {
             SetOption(PropArray, value);
             return this;
@@ -71,7 +70,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.AliasOptions SetArrayOrdered(bool value)
+        public AliasOptions SetArrayOrdered(bool value)
         {
             SetOption(PropArray | PropArrayOrdered, value);
             return this;
@@ -85,7 +84,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.AliasOptions SetArrayAlternate(bool value)
+        public AliasOptions SetArrayAlternate(bool value)
         {
             SetOption(PropArray | PropArrayOrdered | PropArrayAlternate, value);
             return this;
@@ -99,7 +98,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.AliasOptions SetArrayAltText(bool value)
+        public AliasOptions SetArrayAltText(bool value)
         {
             SetOption(PropArray | PropArrayOrdered | PropArrayAlternate | PropArrayAltText, value);
             return this;

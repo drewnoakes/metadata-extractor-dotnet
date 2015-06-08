@@ -19,8 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
+using System;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Jpeg
 {
@@ -29,7 +30,7 @@ namespace Com.Drew.Metadata.Jpeg
     /// quantization table number.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [System.Serializable]
+    [Serializable]
     public class JpegComponent
     {
         private const long serialVersionUID = 61121257899091914L;

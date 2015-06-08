@@ -19,10 +19,11 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
+using System.Diagnostics;
 using System.IO;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Ico
 {
@@ -36,7 +37,7 @@ namespace Com.Drew.Metadata.Ico
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class IcoReader
     {
-        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata)
+        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
         {
             reader.SetMotorolaByteOrder(false);
             int type;
@@ -108,7 +109,7 @@ namespace Com.Drew.Metadata.Ico
             }
             catch (IOException ex)
             {
-                System.Diagnostics.Debug.Assert((directory_1 != null));
+                Debug.Assert((directory_1 != null));
                 directory_1.AddError("Exception reading ICO file metadata: " + ex.Message);
             }
         }

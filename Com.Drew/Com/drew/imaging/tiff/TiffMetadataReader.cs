@@ -19,7 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-using System.IO;
+
 using Com.Drew.Lang;
 using Com.Drew.Metadata.Exif;
 using Com.Drew.Metadata.File;
@@ -40,9 +40,9 @@ namespace Com.Drew.Imaging.Tiff
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="Com.Drew.Imaging.Tiff.TiffProcessingException"/>
         [NotNull]
-        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] FilePath file)
+        public static Metadata.Metadata ReadMetadata([NotNull] FilePath file)
         {
-            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            Metadata.Metadata metadata = new Metadata.Metadata();
             RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
             try
             {
@@ -60,12 +60,12 @@ namespace Com.Drew.Imaging.Tiff
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="Com.Drew.Imaging.Tiff.TiffProcessingException"/>
         [NotNull]
-        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
+        public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
         {
             // TIFF processing requires random access, as directories can be scattered throughout the byte sequence.
             // InputStream does not support seeking backwards, so we wrap it with RandomAccessStreamReader, which
             // buffers data from the stream as we seek forward.
-            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            Metadata.Metadata metadata = new Metadata.Metadata();
             ExifTiffHandler handler = new ExifTiffHandler(metadata, false);
             new TiffReader().ProcessTiff(new RandomAccessStreamReader(inputStream), handler, 0);
             return metadata;

@@ -6,6 +6,7 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System;
 using Com.Adobe.Xmp.Impl;
 using Sharpen;
@@ -20,7 +21,7 @@ namespace Com.Adobe.Xmp
     public sealed class XMPDateTimeFactory
     {
         /// <summary>The UTC TimeZone</summary>
-        private static readonly TimeZoneInfo Utc = Sharpen.Extensions.GetTimeZone("UTC");
+        private static readonly TimeZoneInfo Utc = Extensions.GetTimeZone("UTC");
 
         /// <summary>Private constructor</summary>
         private XMPDateTimeFactory()
@@ -31,7 +32,7 @@ namespace Com.Adobe.Xmp
         /// <summary>Creates an <code>XMPDateTime</code> from a <code>Calendar</code>-object.</summary>
         /// <param name="calendar">a <code>Calendar</code>-object.</param>
         /// <returns>An <code>XMPDateTime</code>-object.</returns>
-        public static XMPDateTime CreateFromCalendar(Sharpen.Calendar calendar)
+        public static XMPDateTime CreateFromCalendar(Calendar calendar)
         {
             return new XMPDateTimeImpl(calendar);
         }
@@ -106,7 +107,7 @@ namespace Com.Adobe.Xmp
         /// </returns>
         public static XMPDateTime GetCurrentDateTime()
         {
-            return new XMPDateTimeImpl(new Sharpen.GregorianCalendar());
+            return new XMPDateTimeImpl(new GregorianCalendar());
         }
 
         /// <summary>
@@ -117,8 +118,8 @@ namespace Com.Adobe.Xmp
         /// <returns>Returns an updated <code>XMPDateTime</code>-object.</returns>
         public static XMPDateTime SetLocalTimeZone(XMPDateTime dateTime)
         {
-            Sharpen.Calendar cal = dateTime.GetCalendar();
-            cal.SetTimeZone(System.TimeZoneInfo.Local);
+            Calendar cal = dateTime.GetCalendar();
+            cal.SetTimeZone(TimeZoneInfo.Local);
             return new XMPDateTimeImpl(cal);
         }
 
@@ -135,8 +136,8 @@ namespace Com.Adobe.Xmp
         public static XMPDateTime ConvertToUTCTime(XMPDateTime dateTime)
         {
             long timeInMillis = dateTime.GetCalendar().GetTimeInMillis();
-            Sharpen.GregorianCalendar cal = new Sharpen.GregorianCalendar(Utc);
-            cal.SetGregorianChange(Sharpen.Extensions.CreateDate(long.MinValue));
+            GregorianCalendar cal = new GregorianCalendar(Utc);
+            cal.SetGregorianChange(Extensions.CreateDate(long.MinValue));
             cal.SetTimeInMillis(timeInMillis);
             return new XMPDateTimeImpl(cal);
         }
@@ -152,7 +153,7 @@ namespace Com.Adobe.Xmp
         {
             long timeInMillis = dateTime.GetCalendar().GetTimeInMillis();
             // has automatically local timezone
-            Sharpen.GregorianCalendar cal = new Sharpen.GregorianCalendar();
+            GregorianCalendar cal = new GregorianCalendar();
             cal.SetTimeInMillis(timeInMillis);
             return new XMPDateTimeImpl(cal);
         }

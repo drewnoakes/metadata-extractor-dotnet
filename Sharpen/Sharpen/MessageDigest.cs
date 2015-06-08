@@ -1,9 +1,9 @@
+using System;
+using System.IO;
+using System.Security.Cryptography;
+
 namespace Sharpen
 {
-    using System;
-    using System.IO;
-    using System.Security.Cryptography;
-
     public abstract class MessageDigest
     {
         protected MessageDigest ()

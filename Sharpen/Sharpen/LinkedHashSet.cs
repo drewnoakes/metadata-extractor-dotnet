@@ -23,7 +23,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
+
 using System.Collections.Generic;
 
 namespace Sharpen
@@ -31,7 +31,7 @@ namespace Sharpen
     public class LinkedHashSet<T>: AbstractSet<T>
     {
         private List<T> list = new List<T> ();
-        private System.Collections.Generic.HashSet<T> table = new System.Collections.Generic.HashSet<T> ();
+        private HashSet<T> table = new HashSet<T> ();
         
         public LinkedHashSet ()
         {

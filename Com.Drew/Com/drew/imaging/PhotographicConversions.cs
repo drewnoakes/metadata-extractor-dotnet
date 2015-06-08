@@ -19,8 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
-using Sharpen;
 
 namespace Com.Drew.Imaging
 {

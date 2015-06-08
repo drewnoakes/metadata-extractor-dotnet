@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.IO;
 using Com.Drew.Imaging.Jpeg;
@@ -60,7 +61,7 @@ namespace Com.Drew.Metadata.Iptc
             return Arrays.AsList(JpegSegmentType.Appd).AsIterable();
         }
 
-        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {
@@ -77,7 +78,7 @@ namespace Com.Drew.Metadata.Iptc
         /// <see cref="Com.Drew.Metadata.Metadata"/>
         /// .
         /// </summary>
-        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata, long length)
+        public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata, long length)
         {
             IptcDirectory directory = new IptcDirectory();
             metadata.AddDirectory(directory);
@@ -103,7 +104,7 @@ namespace Com.Drew.Metadata.Iptc
                     // offset==length at this point, which is not worth logging as an error.
                     if (offset != length)
                     {
-                        directory.AddError("Invalid IPTC tag marker at offset " + (offset - 1) + ". Expected '0x1c' but got '0x" + Sharpen.Extensions.ToHexString(startByte) + "'.");
+                        directory.AddError("Invalid IPTC tag marker at offset " + (offset - 1) + ". Expected '0x1c' but got '0x" + Extensions.ToHexString(startByte) + "'.");
                     }
                     return;
                 }
@@ -148,7 +149,7 @@ namespace Com.Drew.Metadata.Iptc
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private void ProcessTag([NotNull] SequentialReader reader, [NotNull] Com.Drew.Metadata.Directory directory, int directoryType, int tagType, int tagByteCount)
+        private void ProcessTag([NotNull] SequentialReader reader, [NotNull] Directory directory, int directoryType, int tagType, int tagByteCount)
         {
             int tagIdentifier = tagType | (directoryType << 8);
             // Some images have been seen that specify a zero byte tag, which cannot be of much use.
@@ -170,7 +171,7 @@ namespace Com.Drew.Metadata.Iptc
                     if (charset == null)
                     {
                         // Unable to determine the charset, so fall through and treat tag as a regular string
-                        @string = Sharpen.Runtime.GetStringForBytes(bytes);
+                        @string = Runtime.GetStringForBytes(bytes);
                         break;
                     }
                     directory.SetString(tagIdentifier, charset);
@@ -211,10 +212,10 @@ namespace Com.Drew.Metadata.Iptc
                         @string = reader.GetString(tagByteCount);
                         try
                         {
-                            int year = System.Convert.ToInt32(Sharpen.Runtime.Substring(@string, 0, 4));
-                            int month = System.Convert.ToInt32(Sharpen.Runtime.Substring(@string, 4, 6)) - 1;
-                            int day = System.Convert.ToInt32(Sharpen.Runtime.Substring(@string, 6, 8));
-                            DateTime date = new Sharpen.GregorianCalendar(year, month, day).GetTime();
+                            int year = Convert.ToInt32(Runtime.Substring(@string, 0, 4));
+                            int month = Convert.ToInt32(Runtime.Substring(@string, 4, 6)) - 1;
+                            int day = Convert.ToInt32(Runtime.Substring(@string, 6, 8));
+                            DateTime date = new GregorianCalendar(year, month, day).GetTime();
                             directory.SetDate(tagIdentifier, date);
                             return;
                         }
@@ -252,7 +253,7 @@ namespace Com.Drew.Metadata.Iptc
                 {
                     sbyte[] bytes_1 = reader.GetBytes(tagByteCount);
                     encoding = Iso2022Converter.GuessEncoding(bytes_1);
-                    @string = encoding != null ? Sharpen.Runtime.GetStringForBytes(bytes_1, encoding) : Sharpen.Runtime.GetStringForBytes(bytes_1);
+                    @string = encoding != null ? Runtime.GetStringForBytes(bytes_1, encoding) : Runtime.GetStringForBytes(bytes_1);
                 }
             }
             if (directory.ContainsTag(tagIdentifier))
@@ -267,7 +268,7 @@ namespace Com.Drew.Metadata.Iptc
                 else
                 {
                     newStrings = new string[oldStrings.Length + 1];
-                    System.Array.Copy(oldStrings, 0, newStrings, 0, oldStrings.Length);
+                    Array.Copy(oldStrings, 0, newStrings, 0, oldStrings.Length);
                 }
                 newStrings[newStrings.Length - 1] = @string;
                 directory.SetStringArray(tagIdentifier, newStrings);

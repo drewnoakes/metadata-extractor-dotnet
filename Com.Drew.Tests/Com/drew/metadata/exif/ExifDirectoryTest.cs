@@ -19,8 +19,10 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
@@ -38,27 +40,27 @@ namespace Com.Drew.Metadata.Exif
     public class ExifDirectoryTest
     {
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetDirectoryName()
         {
-            Com.Drew.Metadata.Directory subIFDDirectory = new ExifSubIFDDirectory();
-            Com.Drew.Metadata.Directory ifd0Directory = new ExifIFD0Directory();
-            Com.Drew.Metadata.Directory thumbDirectory = new ExifThumbnailDirectory();
-            Sharpen.Tests.IsFalse(subIFDDirectory.HasErrors());
-            Sharpen.Tests.IsFalse(ifd0Directory.HasErrors());
-            Sharpen.Tests.IsFalse(thumbDirectory.HasErrors());
-            Sharpen.Tests.AreEqual("Exif IFD0", ifd0Directory.GetName());
-            Sharpen.Tests.AreEqual("Exif SubIFD", subIFDDirectory.GetName());
-            Sharpen.Tests.AreEqual("Exif Thumbnail", thumbDirectory.GetName());
+            Directory subIFDDirectory = new ExifSubIFDDirectory();
+            Directory ifd0Directory = new ExifIFD0Directory();
+            Directory thumbDirectory = new ExifThumbnailDirectory();
+            Tests.IsFalse(subIFDDirectory.HasErrors());
+            Tests.IsFalse(ifd0Directory.HasErrors());
+            Tests.IsFalse(thumbDirectory.HasErrors());
+            Tests.AreEqual("Exif IFD0", ifd0Directory.GetName());
+            Tests.AreEqual("Exif SubIFD", subIFDDirectory.GetName());
+            Tests.AreEqual("Exif Thumbnail", thumbDirectory.GetName());
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetThumbnailData()
         {
             ExifThumbnailDirectory directory = ExifReaderTest.ProcessBytes<ExifThumbnailDirectory>("Tests/Data/withExif.jpg.app1");
             sbyte[] thumbData = directory.GetThumbnailData();
-            NUnit.Framework.Assert.IsNotNull(thumbData);
+            Assert.IsNotNull(thumbData);
             try
             {
                 // attempt to read the thumbnail -- it should be a legal Jpeg file
@@ -66,29 +68,29 @@ namespace Com.Drew.Metadata.Exif
             }
             catch (JpegProcessingException)
             {
-                NUnit.Framework.Assert.Fail("Unable to construct JpegSegmentReader from thumbnail data");
+                Assert.Fail("Unable to construct JpegSegmentReader from thumbnail data");
             }
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestWriteThumbnail()
         {
             ExifThumbnailDirectory directory = ExifReaderTest.ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
-            Sharpen.Tests.IsTrue(directory.HasThumbnailData());
+            Tests.IsTrue(directory.HasThumbnailData());
             FilePath thumbnailFile = FilePath.CreateTempFile("thumbnail", ".jpg");
             try
             {
                 directory.WriteThumbnail(thumbnailFile.GetAbsolutePath());
                 FilePath file = new FilePath(thumbnailFile.GetAbsolutePath());
-                Sharpen.Tests.AreEqual(2970, file.Length());
-                Sharpen.Tests.IsTrue(file.Exists());
+                Tests.AreEqual(2970, file.Length());
+                Tests.IsTrue(file.Exists());
             }
             finally
             {
                 if (!thumbnailFile.Delete())
                 {
-                    NUnit.Framework.Assert.Fail("Unable to delete temp thumbnail file.");
+                    Assert.Fail("Unable to delete temp thumbnail file.");
                 }
             }
         }
@@ -107,16 +109,16 @@ namespace Com.Drew.Metadata.Exif
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestResolution()
         {
-            Com.Drew.Metadata.Metadata metadata = ExifReaderTest.ProcessBytes("Tests/Data/withUncompressedRGBThumbnail.jpg.app1");
+            Metadata metadata = ExifReaderTest.ProcessBytes("Tests/Data/withUncompressedRGBThumbnail.jpg.app1");
             ExifThumbnailDirectory thumbnailDirectory = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
-            NUnit.Framework.Assert.IsNotNull(thumbnailDirectory);
-            Sharpen.Tests.AreEqual(72, thumbnailDirectory.GetInt(ExifThumbnailDirectory.TagXResolution));
+            Assert.IsNotNull(thumbnailDirectory);
+            Tests.AreEqual(72, thumbnailDirectory.GetInt(ExifThumbnailDirectory.TagXResolution));
             ExifIFD0Directory exifIFD0Directory = metadata.GetFirstDirectoryOfType<ExifIFD0Directory>();
-            NUnit.Framework.Assert.IsNotNull(exifIFD0Directory);
-            Sharpen.Tests.AreEqual(216, exifIFD0Directory.GetInt(ExifIFD0Directory.TagXResolution));
+            Assert.IsNotNull(exifIFD0Directory);
+            Tests.AreEqual(216, exifIFD0Directory.GetInt(ExifIFD0Directory.TagXResolution));
         }
     }
 }

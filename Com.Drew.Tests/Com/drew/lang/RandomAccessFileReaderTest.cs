@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.IO;
 using NUnit.Framework;
 using Sharpen;
@@ -47,7 +48,7 @@ namespace Com.Drew.Lang
             }
             catch (IOException)
             {
-                NUnit.Framework.Assert.Fail("Unable to create temp file");
+                Assert.Fail("Unable to create temp file");
                 return null;
             }
         }
@@ -65,7 +66,7 @@ namespace Com.Drew.Lang
             {
                 return;
             }
-            Sharpen.Tests.IsTrue("Unable to delete temp file used during unit test: " + _tempFile.GetAbsolutePath(), _tempFile.Delete());
+            Tests.IsTrue("Unable to delete temp file used during unit test: " + _tempFile.GetAbsolutePath(), _tempFile.Delete());
             _tempFile = null;
             _randomAccessFile = null;
         }

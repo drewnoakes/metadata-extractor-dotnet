@@ -6,9 +6,9 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System.Collections.Generic;
 using System.IO;
-using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Options;
 using Sharpen;
 
@@ -737,7 +737,7 @@ namespace Com.Adobe.Xmp.Impl
             if (node.GetOptions().IsSchemaNode())
             {
                 // The schema node name is the URI, the value is the prefix.
-                string prefix = Sharpen.Runtime.Substring(node.GetValue(), 0, node.GetValue().Length - 1);
+                string prefix = Runtime.Substring(node.GetValue(), 0, node.GetValue().Length - 1);
                 DeclareNamespace(prefix, node.GetName(), usedPrefixes, indent);
             }
             else

@@ -17,7 +17,6 @@
  */
 
 using System;
-using System.ComponentModel;
 
 namespace JetBrains.Annotations
 {

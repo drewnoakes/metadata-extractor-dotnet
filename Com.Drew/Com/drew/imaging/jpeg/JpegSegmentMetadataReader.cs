@@ -25,6 +25,6 @@ namespace Com.Drew.Imaging.Jpeg
         /// <see cref="JpegSegmentType"/>
         /// being read.
         /// </param>
-        void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType);
+        void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType);
     }
 }

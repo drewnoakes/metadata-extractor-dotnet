@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using System.IO;
 using Com.Drew.Lang;
@@ -32,7 +33,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// that appear specific to those manufacturers.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class OlympusMakernoteDirectory : Com.Drew.Metadata.Directory
+    public class OlympusMakernoteDirectory : Directory
     {
         /// <summary>Used by Konica / Minolta cameras.</summary>
         public const int TagMakernoteVersion = unchecked((int)(0x0000));
@@ -489,53 +490,53 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             _tagNameMap.Put(TagImageProcessing, "Image Processing");
             _tagNameMap.Put(TagFocusInfo, "Focus Info");
             _tagNameMap.Put(TagRawInfo, "Raw Info");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagExposureMode, "Exposure Mode");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagFlashMode, "Flash Mode");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagWhiteBalance, "White Balance");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagImageSize, "Image Size");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagImageQuality, "Image Quality");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagShootingMode, "Shooting Mode");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagMeteringMode, "Metering Mode");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagApexFilmSpeedValue, "Apex Film Speed Value");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagApexShutterSpeedTimeValue, "Apex Shutter Speed Time Value");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagApexApertureValue, "Apex Aperture Value");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagMacroMode, "Macro Mode");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagDigitalZoom, "Digital Zoom");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagExposureCompensation, "Exposure Compensation");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagBracketStep, "Bracket Step");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagIntervalLength, "Interval Length");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagIntervalNumber, "Interval Number");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagFocalLength, "Focal Length");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagFocusDistance, "Focus Distance");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagFlashFired, "Flash Fired");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagDate, "Date");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagTime, "Time");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagMaxApertureAtFocalLength, "Max Aperture at Focal Length");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagFileNumberMemory, "File Number Memory");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagLastFileNumber, "Last File Number");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceRed, "White Balance Red");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceGreen, "White Balance Green");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceBlue, "White Balance Blue");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagSaturation, "Saturation");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagContrast, "Contrast");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagSharpness, "Sharpness");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagSubjectProgram, "Subject Program");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagFlashCompensation, "Flash Compensation");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagIsoSetting, "ISO Setting");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagCameraModel, "Camera Model");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagIntervalMode, "Interval Mode");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagFolderName, "Folder Name");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagColorMode, "Color Mode");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagColorFilter, "Color Filter");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagBlackAndWhiteFilter, "Black and White Filter");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagInternalFlash, "Internal Flash");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagApexBrightnessValue, "Apex Brightness Value");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagSpotFocusPointXCoordinate, "Spot Focus Point X Coordinate");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagSpotFocusPointYCoordinate, "Spot Focus Point Y Coordinate");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagWideFocusZone, "Wide Focus Zone");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagFocusMode, "Focus Mode");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagFocusArea, "Focus Area");
-            _tagNameMap.Put(OlympusMakernoteDirectory.CameraSettings.TagDecSwitchPosition, "DEC Switch Position");
+            _tagNameMap.Put(CameraSettings.TagExposureMode, "Exposure Mode");
+            _tagNameMap.Put(CameraSettings.TagFlashMode, "Flash Mode");
+            _tagNameMap.Put(CameraSettings.TagWhiteBalance, "White Balance");
+            _tagNameMap.Put(CameraSettings.TagImageSize, "Image Size");
+            _tagNameMap.Put(CameraSettings.TagImageQuality, "Image Quality");
+            _tagNameMap.Put(CameraSettings.TagShootingMode, "Shooting Mode");
+            _tagNameMap.Put(CameraSettings.TagMeteringMode, "Metering Mode");
+            _tagNameMap.Put(CameraSettings.TagApexFilmSpeedValue, "Apex Film Speed Value");
+            _tagNameMap.Put(CameraSettings.TagApexShutterSpeedTimeValue, "Apex Shutter Speed Time Value");
+            _tagNameMap.Put(CameraSettings.TagApexApertureValue, "Apex Aperture Value");
+            _tagNameMap.Put(CameraSettings.TagMacroMode, "Macro Mode");
+            _tagNameMap.Put(CameraSettings.TagDigitalZoom, "Digital Zoom");
+            _tagNameMap.Put(CameraSettings.TagExposureCompensation, "Exposure Compensation");
+            _tagNameMap.Put(CameraSettings.TagBracketStep, "Bracket Step");
+            _tagNameMap.Put(CameraSettings.TagIntervalLength, "Interval Length");
+            _tagNameMap.Put(CameraSettings.TagIntervalNumber, "Interval Number");
+            _tagNameMap.Put(CameraSettings.TagFocalLength, "Focal Length");
+            _tagNameMap.Put(CameraSettings.TagFocusDistance, "Focus Distance");
+            _tagNameMap.Put(CameraSettings.TagFlashFired, "Flash Fired");
+            _tagNameMap.Put(CameraSettings.TagDate, "Date");
+            _tagNameMap.Put(CameraSettings.TagTime, "Time");
+            _tagNameMap.Put(CameraSettings.TagMaxApertureAtFocalLength, "Max Aperture at Focal Length");
+            _tagNameMap.Put(CameraSettings.TagFileNumberMemory, "File Number Memory");
+            _tagNameMap.Put(CameraSettings.TagLastFileNumber, "Last File Number");
+            _tagNameMap.Put(CameraSettings.TagWhiteBalanceRed, "White Balance Red");
+            _tagNameMap.Put(CameraSettings.TagWhiteBalanceGreen, "White Balance Green");
+            _tagNameMap.Put(CameraSettings.TagWhiteBalanceBlue, "White Balance Blue");
+            _tagNameMap.Put(CameraSettings.TagSaturation, "Saturation");
+            _tagNameMap.Put(CameraSettings.TagContrast, "Contrast");
+            _tagNameMap.Put(CameraSettings.TagSharpness, "Sharpness");
+            _tagNameMap.Put(CameraSettings.TagSubjectProgram, "Subject Program");
+            _tagNameMap.Put(CameraSettings.TagFlashCompensation, "Flash Compensation");
+            _tagNameMap.Put(CameraSettings.TagIsoSetting, "ISO Setting");
+            _tagNameMap.Put(CameraSettings.TagCameraModel, "Camera Model");
+            _tagNameMap.Put(CameraSettings.TagIntervalMode, "Interval Mode");
+            _tagNameMap.Put(CameraSettings.TagFolderName, "Folder Name");
+            _tagNameMap.Put(CameraSettings.TagColorMode, "Color Mode");
+            _tagNameMap.Put(CameraSettings.TagColorFilter, "Color Filter");
+            _tagNameMap.Put(CameraSettings.TagBlackAndWhiteFilter, "Black and White Filter");
+            _tagNameMap.Put(CameraSettings.TagInternalFlash, "Internal Flash");
+            _tagNameMap.Put(CameraSettings.TagApexBrightnessValue, "Apex Brightness Value");
+            _tagNameMap.Put(CameraSettings.TagSpotFocusPointXCoordinate, "Spot Focus Point X Coordinate");
+            _tagNameMap.Put(CameraSettings.TagSpotFocusPointYCoordinate, "Spot Focus Point Y Coordinate");
+            _tagNameMap.Put(CameraSettings.TagWideFocusZone, "Wide Focus Zone");
+            _tagNameMap.Put(CameraSettings.TagFocusMode, "Focus Mode");
+            _tagNameMap.Put(CameraSettings.TagFocusArea, "Focus Area");
+            _tagNameMap.Put(CameraSettings.TagDecSwitchPosition, "DEC Switch Position");
         }
 
         public OlympusMakernoteDirectory()
@@ -571,19 +572,19 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 for (int i = 0; i < count; i++)
                 {
                     int value = reader.GetInt32();
-                    SetInt(OlympusMakernoteDirectory.CameraSettings.Offset + i, value);
+                    SetInt(CameraSettings.Offset + i, value);
                 }
             }
             catch (IOException e)
             {
                 // Should never happen, given that we check the length of the bytes beforehand.
-                Sharpen.Runtime.PrintStackTrace(e);
+                Runtime.PrintStackTrace(e);
             }
         }
 
         public virtual bool IsIntervalMode()
         {
-            long? value = GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagShootingMode);
+            long? value = GetLongObject(CameraSettings.TagShootingMode);
             return value != null && value == 5;
         }
 

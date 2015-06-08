@@ -19,26 +19,27 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using Com.Drew.Lang;
 using Com.Drew.Testing;
 using Com.Drew.Tools;
-using Sharpen;
+using NUnit.Framework;
 
 namespace Com.Drew.Metadata.Icc
 {
     public class IccReaderTest
     {
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestExtract()
         {
             sbyte[] app2Bytes = FileUtil.ReadBytes("Tests/Data/iccDataInvalid1.jpg.app2");
             // ICC data starts after a 14-byte preamble
             sbyte[] icc = TestHelper.SkipBytes(app2Bytes, 14);
-            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            Metadata metadata = new Metadata();
             new IccReader().Extract(new ByteArrayReader(icc), metadata);
             IccDirectory directory = metadata.GetFirstDirectoryOfType<IccDirectory>();
-            NUnit.Framework.Assert.IsNotNull(directory);
+            Assert.IsNotNull(directory);
         }
         // TODO validate expected values
         //        for (Tag tag : directory.getTags()) {

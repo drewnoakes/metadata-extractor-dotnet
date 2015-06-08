@@ -6,12 +6,13 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System;
 using System.IO;
 using System.Xml;
-using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Options;
 using Sharpen;
+using StringReader = Sharpen.StringReader;
 
 namespace Com.Adobe.Xmp.Impl
 {
@@ -172,7 +173,7 @@ namespace Com.Adobe.Xmp.Impl
                         try
                         {
                             string encoding = buffer.GetEncoding();
-                            System.IO.StreamReader fixReader = new FixASCIIControlsReader(new InputStreamReader(buffer.GetByteStream(), encoding));
+                            StreamReader fixReader = new FixASCIIControlsReader(new InputStreamReader(buffer.GetByteStream(), encoding));
                             return ParseInputSource(new InputSource(fixReader));
                         }
                         catch (UnsupportedEncodingException)
@@ -203,7 +204,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="Com.Adobe.Xmp.XMPException">Thrown when the parsing fails.</exception>
         private static XmlDocument ParseXmlFromString(string input, ParseOptions options)
         {
-            InputSource source = new InputSource(new Sharpen.StringReader(input));
+            InputSource source = new InputSource(new StringReader(input));
             try
             {
                 return ParseInputSource(source);
@@ -212,7 +213,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (e.GetErrorCode() == XMPErrorConstants.Badxml && options.GetFixControlChars())
                 {
-                    source = new InputSource(new FixASCIIControlsReader(new Sharpen.StringReader(input)));
+                    source = new InputSource(new FixASCIIControlsReader(new StringReader(input)));
                     return ParseInputSource(source);
                 }
                 else
@@ -290,7 +291,7 @@ namespace Com.Adobe.Xmp.Impl
             for (int i = 0; i < children.Count; i++)
             {
                 root = children.Item(i);
-                if (System.Xml.XmlNodeType.ProcessingInstruction == root.NodeType && XMPConstConstants.XmpPi.Equals(((XmlProcessingInstruction)root).Target))
+                if (XmlNodeType.ProcessingInstruction == root.NodeType && XMPConstConstants.XmpPi.Equals(((XmlProcessingInstruction)root).Target))
                 {
                     // Store the processing instructions content
                     if (result != null)
@@ -300,7 +301,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 else
                 {
-                    if (System.Xml.XmlNodeType.Text != root.NodeType && System.Xml.XmlNodeType.ProcessingInstruction != root.NodeType)
+                    if (XmlNodeType.Text != root.NodeType && XmlNodeType.ProcessingInstruction != root.NodeType)
                     {
                         string rootNS = root.NamespaceURI;
                         string rootLocal = root.LocalName;

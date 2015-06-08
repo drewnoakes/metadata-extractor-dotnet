@@ -6,10 +6,12 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System;
 using System.Globalization;
-using Com.Adobe.Xmp;
 using Sharpen;
+using Calendar = Sharpen.Calendar;
+using GregorianCalendar = Sharpen.GregorianCalendar;
 
 namespace Com.Adobe.Xmp.Impl
 {
@@ -56,7 +58,7 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>Creates an <code>XMPDateTime</code>-instance from a calendar.</summary>
         /// <param name="calendar">a <code>Calendar</code></param>
-        public XMPDateTimeImpl(Sharpen.Calendar calendar)
+        public XMPDateTimeImpl(Calendar calendar)
         {
             // EMPTY
             // extract the date and timezone from the calendar provided
@@ -64,18 +66,18 @@ namespace Com.Adobe.Xmp.Impl
             TimeZoneInfo zone = calendar.GetTimeZone();
             // put that date into a calendar the pretty much represents ISO8601
             // I use US because it is close to the "locale" for the ISO8601 spec
-            Sharpen.GregorianCalendar intCalendar = (Sharpen.GregorianCalendar)Sharpen.Calendar.GetInstance(CultureInfo.InvariantCulture);
-            intCalendar.SetGregorianChange(Sharpen.Extensions.CreateDate(long.MinValue));
+            GregorianCalendar intCalendar = (GregorianCalendar)Calendar.GetInstance(CultureInfo.InvariantCulture);
+            intCalendar.SetGregorianChange(Extensions.CreateDate(long.MinValue));
             intCalendar.SetTimeZone(zone);
             intCalendar.SetTime(date);
-            this.year = intCalendar.Get(Sharpen.CalendarEnum.Year);
-            this.month = intCalendar.Get(Sharpen.CalendarEnum.Month) + 1;
+            this.year = intCalendar.Get(CalendarEnum.Year);
+            this.month = intCalendar.Get(CalendarEnum.Month) + 1;
             // cal is from 0..12
-            this.day = intCalendar.Get(Sharpen.CalendarEnum.DayOfMonth);
-            this.hour = intCalendar.Get(Sharpen.CalendarEnum.HourOfDay);
-            this.minute = intCalendar.Get(Sharpen.CalendarEnum.Minute);
-            this.second = intCalendar.Get(Sharpen.CalendarEnum.Second);
-            this.nanoSeconds = intCalendar.Get(Sharpen.CalendarEnum.Millisecond) * 1000000;
+            this.day = intCalendar.Get(CalendarEnum.DayOfMonth);
+            this.hour = intCalendar.Get(CalendarEnum.HourOfDay);
+            this.minute = intCalendar.Get(CalendarEnum.Minute);
+            this.second = intCalendar.Get(CalendarEnum.Second);
+            this.nanoSeconds = intCalendar.Get(CalendarEnum.Millisecond) * 1000000;
             this.timeZone = intCalendar.GetTimeZone();
             // object contains all date components
             hasDate = hasTime = hasTimeZone = true;
@@ -89,16 +91,16 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="timeZone">a TimeZone how to interpret the date</param>
         public XMPDateTimeImpl(DateTime date, TimeZoneInfo timeZone)
         {
-            Sharpen.GregorianCalendar calendar = new Sharpen.GregorianCalendar(timeZone);
+            GregorianCalendar calendar = new GregorianCalendar(timeZone);
             calendar.SetTime(date);
-            this.year = calendar.Get(Sharpen.CalendarEnum.Year);
-            this.month = calendar.Get(Sharpen.CalendarEnum.Month) + 1;
+            this.year = calendar.Get(CalendarEnum.Year);
+            this.month = calendar.Get(CalendarEnum.Month) + 1;
             // cal is from 0..12
-            this.day = calendar.Get(Sharpen.CalendarEnum.DayOfMonth);
-            this.hour = calendar.Get(Sharpen.CalendarEnum.HourOfDay);
-            this.minute = calendar.Get(Sharpen.CalendarEnum.Minute);
-            this.second = calendar.Get(Sharpen.CalendarEnum.Second);
-            this.nanoSeconds = calendar.Get(Sharpen.CalendarEnum.Millisecond) * 1000000;
+            this.day = calendar.Get(CalendarEnum.DayOfMonth);
+            this.hour = calendar.Get(CalendarEnum.HourOfDay);
+            this.minute = calendar.Get(CalendarEnum.Minute);
+            this.second = calendar.Get(CalendarEnum.Second);
+            this.nanoSeconds = calendar.Get(CalendarEnum.Millisecond) * 1000000;
             this.timeZone = timeZone;
             // object contains all date components
             hasDate = hasTime = hasTimeZone = true;
@@ -237,13 +239,13 @@ namespace Com.Adobe.Xmp.Impl
             long d = GetCalendar().GetTimeInMillis() - ((XMPDateTime)dt).GetCalendar().GetTimeInMillis();
             if (d != 0)
             {
-                return (int)System.Math.Sign(d);
+                return (int)Math.Sign(d);
             }
             else
             {
                 // if millis are equal, compare nanoseconds
                 d = nanoSeconds - ((XMPDateTime)dt).GetNanoSecond();
-                return (int)System.Math.Sign(d);
+                return (int)Math.Sign(d);
             }
         }
 
@@ -280,21 +282,21 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <seealso cref="Com.Adobe.Xmp.XMPDateTime.GetCalendar()"/>
-        public virtual Sharpen.Calendar GetCalendar()
+        public virtual Calendar GetCalendar()
         {
-            Sharpen.GregorianCalendar calendar = (Sharpen.GregorianCalendar)Sharpen.Calendar.GetInstance(CultureInfo.InvariantCulture);
-            calendar.SetGregorianChange(Sharpen.Extensions.CreateDate(long.MinValue));
+            GregorianCalendar calendar = (GregorianCalendar)Calendar.GetInstance(CultureInfo.InvariantCulture);
+            calendar.SetGregorianChange(Extensions.CreateDate(long.MinValue));
             if (hasTimeZone)
             {
                 calendar.SetTimeZone(timeZone);
             }
-            calendar.Set(Sharpen.CalendarEnum.Year, year);
-            calendar.Set(Sharpen.CalendarEnum.Month, month - 1);
-            calendar.Set(Sharpen.CalendarEnum.DayOfMonth, day);
-            calendar.Set(Sharpen.CalendarEnum.HourOfDay, hour);
-            calendar.Set(Sharpen.CalendarEnum.Minute, minute);
-            calendar.Set(Sharpen.CalendarEnum.Second, second);
-            calendar.Set(Sharpen.CalendarEnum.Millisecond, nanoSeconds / 1000000);
+            calendar.Set(CalendarEnum.Year, year);
+            calendar.Set(CalendarEnum.Month, month - 1);
+            calendar.Set(CalendarEnum.DayOfMonth, day);
+            calendar.Set(CalendarEnum.HourOfDay, hour);
+            calendar.Set(CalendarEnum.Minute, minute);
+            calendar.Set(CalendarEnum.Second, second);
+            calendar.Set(CalendarEnum.Millisecond, nanoSeconds / 1000000);
             return calendar;
         }
 

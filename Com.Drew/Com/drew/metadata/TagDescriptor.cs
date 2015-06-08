@@ -19,13 +19,13 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
-using System.IO;
+using System.Diagnostics;
 using System.Text;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
 using Sharpen;
-using Sharpen.Reflect;
 
 namespace Com.Drew.Metadata
 {
@@ -37,7 +37,7 @@ namespace Com.Drew.Metadata
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class TagDescriptor<T> : ITagDescriptor
-        where T : Com.Drew.Metadata.Directory
+        where T : Directory
     {
         [NotNull]
         protected internal readonly T _directory;
@@ -70,7 +70,7 @@ namespace Com.Drew.Metadata
             // special presentation for long arrays
             if (@object.GetType().IsArray)
             {
-                int length = Sharpen.Runtime.GetArrayLength(@object);
+                int length = Runtime.GetArrayLength(@object);
                 if (length > 16)
                 {
                     var componentType = @object.GetType().GetElementType();
@@ -83,7 +83,7 @@ namespace Com.Drew.Metadata
                                 : componentType == typeof(long)
                                     ? "long"
                                     : componentType.Name;
-                    return Sharpen.Extensions.StringFormat("[%d %s%s]", length, componentTypeName, length == 1 ? string.Empty : "s");
+                    return Extensions.StringFormat("[%d %s%s]", length, componentTypeName, length == 1 ? string.Empty : "s");
                 }
             }
             // no special handling required, so use default conversion to a string
@@ -132,7 +132,7 @@ namespace Com.Drew.Metadata
                 }
                 version.Append(c);
             }
-            return Sharpen.Extensions.ConvertToString(version);
+            return Extensions.ConvertToString(version);
         }
 
         [CanBeNull]
@@ -176,7 +176,7 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            return Sharpen.Extensions.StringFormat("(%d byte%s)", bytes.Length, bytes.Length == 1 ? string.Empty : "s");
+            return Extensions.StringFormat("(%d byte%s)", bytes.Length, bytes.Length == 1 ? string.Empty : "s");
         }
 
         [CanBeNull]
@@ -198,7 +198,7 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            return Sharpen.Extensions.StringFormat("%." + decimalPlaces + "f", value.DoubleValue());
+            return Extensions.StringFormat("%." + decimalPlaces + "f", value.DoubleValue());
         }
 
         [CanBeNull]
@@ -209,7 +209,7 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            return Sharpen.Extensions.StringFormat(format, value);
+            return Extensions.StringFormat(format, value);
         }
 
         [CanBeNull]
@@ -220,7 +220,7 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            return Sharpen.Extensions.StringFormat(format, value);
+            return Extensions.StringFormat(format, value);
         }
 
         [CanBeNull]
@@ -231,7 +231,7 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            return Sharpen.Extensions.StringFormat(format, value);
+            return Extensions.StringFormat(format, value);
         }
 
         [CanBeNull]
@@ -243,7 +243,7 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            return Sharpen.Extensions.ConvertToString(Sharpen.Extensions.CreateDate((long)value));
+            return Extensions.ConvertToString(Extensions.CreateDate((long)value));
         }
 
         /// <summary>LSB first.</summary>
@@ -267,7 +267,7 @@ namespace Com.Drew.Metadata
                     if (labelObj is string[])
                     {
                         string[] labelPair = (string[])labelObj;
-                        System.Diagnostics.Debug.Assert((labelPair.Length == 2));
+                        Debug.Assert((labelPair.Length == 2));
                         parts.Add(labelPair[isBitSet ? 1 : 0]);
                     }
                     else
@@ -302,7 +302,7 @@ namespace Com.Drew.Metadata
                     break;
                 }
             }
-            return Sharpen.Runtime.GetStringForBytes(bytes, 0, length);
+            return Runtime.GetStringForBytes(bytes, 0, length);
         }
 
         [CanBeNull]
@@ -315,7 +315,7 @@ namespace Com.Drew.Metadata
             }
             try
             {
-                return Sharpen.Extensions.Trim(Sharpen.Runtime.GetStringForBytes(values, "ASCII"));
+                return Extensions.Trim(Runtime.GetStringForBytes(values, "ASCII"));
             }
             catch (UnsupportedEncodingException)
             {

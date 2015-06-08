@@ -1,12 +1,11 @@
-﻿using Com.Drew.Imaging;
-using Sharpen;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using Com.Drew.Imaging;
+using Com.Drew.Metadata;
+using Sharpen;
+using Directory = Com.Drew.Metadata.Directory;
 
 namespace SampleReader
 {
@@ -56,7 +55,7 @@ namespace SampleReader
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        static Com.Drew.Metadata.Metadata  ParseMetadata(Stream data, string info){
+        static Metadata  ParseMetadata(Stream data, string info){
 
             try
             {
@@ -87,9 +86,9 @@ namespace SampleReader
             }
         }
 
-        static bool PrintMetadata(Com.Drew.Metadata.Metadata metadata){
+        static bool PrintMetadata(Metadata metadata){
             
-            foreach (Com.Drew.Metadata.Directory dir in metadata.GetDirectories())
+            foreach (Directory dir in metadata.GetDirectories())
             {
                 if (dir.HasErrors())
                 {
@@ -100,7 +99,7 @@ namespace SampleReader
                     }
                 }
               
-                foreach (Com.Drew.Metadata.Tag tag in dir.GetTags())
+                foreach (Tag tag in dir.GetTags())
                 {
                     string tagName = tag.GetTagName();
                     string directoryName = dir.GetName();

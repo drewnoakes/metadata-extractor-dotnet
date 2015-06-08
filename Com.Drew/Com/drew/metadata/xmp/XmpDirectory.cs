@@ -19,13 +19,13 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.Collections.Generic;
 using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Impl;
 using Com.Adobe.Xmp.Options;
 using Com.Adobe.Xmp.Properties;
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -33,7 +33,7 @@ namespace Com.Drew.Metadata.Xmp
 {
     /// <author>Torsten Skadell</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class XmpDirectory : Com.Drew.Metadata.Directory
+    public class XmpDirectory : Directory
     {
         public const int TagXmpValueCount = unchecked((int)(0xFFFF));
 
@@ -265,7 +265,7 @@ namespace Com.Drew.Metadata.Xmp
         [NotNull]
         public virtual IDictionary<string, string> GetXmpProperties()
         {
-            return Sharpen.Collections.UnmodifiableMap(_propertyValueByPath);
+            return Collections.UnmodifiableMap(_propertyValueByPath);
         }
 
         public virtual void SetXMPMeta([NotNull] XMPMeta xmpMeta)
@@ -318,7 +318,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XMPException e)
             {
-                Sharpen.Runtime.PrintStackTrace(e);
+                Runtime.PrintStackTrace(e);
             }
         }
 
@@ -338,7 +338,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XMPException e)
             {
-                Sharpen.Runtime.PrintStackTrace(e);
+                Runtime.PrintStackTrace(e);
             }
         }
 
@@ -351,7 +351,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XMPException e)
             {
-                Sharpen.Runtime.PrintStackTrace(e);
+                Runtime.PrintStackTrace(e);
             }
         }
 
@@ -371,7 +371,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XMPException e)
             {
-                Sharpen.Runtime.PrintStackTrace(e);
+                Runtime.PrintStackTrace(e);
             }
         }
 
@@ -384,7 +384,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XMPException e)
             {
-                Sharpen.Runtime.PrintStackTrace(e);
+                Runtime.PrintStackTrace(e);
             }
         }
 
@@ -404,7 +404,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XMPException e)
             {
-                Sharpen.Runtime.PrintStackTrace(e);
+                Runtime.PrintStackTrace(e);
             }
         }
 
@@ -417,7 +417,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XMPException e)
             {
-                Sharpen.Runtime.PrintStackTrace(e);
+                Runtime.PrintStackTrace(e);
             }
         }
 
@@ -442,7 +442,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XMPException e)
             {
-                Sharpen.Runtime.PrintStackTrace(e);
+                Runtime.PrintStackTrace(e);
             }
         }
 
@@ -455,7 +455,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XMPException e)
             {
-                Sharpen.Runtime.PrintStackTrace(e);
+                Runtime.PrintStackTrace(e);
             }
         }
 
@@ -468,21 +468,21 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XMPException e)
             {
-                Sharpen.Runtime.PrintStackTrace(e);
+                Runtime.PrintStackTrace(e);
             }
         }
 
         public virtual void UpdateDate(int tagType, DateTime value)
         {
             base.SetDate(tagType, value);
-            XMPDateTime date = new XMPDateTimeImpl(value, System.TimeZoneInfo.Local);
+            XMPDateTime date = new XMPDateTimeImpl(value, TimeZoneInfo.Local);
             try
             {
                 GetXMPMeta().SetPropertyDate(_tagSchemaMap.Get(tagType), _tagPropNameMap.Get(tagType), date);
             }
             catch (XMPException e)
             {
-                Sharpen.Runtime.PrintStackTrace(e);
+                Runtime.PrintStackTrace(e);
             }
         }
         // TODO: Ignoring rationals for now, not sure their relevance to XMP (rational/floating storage)

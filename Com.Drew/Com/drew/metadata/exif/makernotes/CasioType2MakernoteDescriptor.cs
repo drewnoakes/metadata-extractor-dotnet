@@ -19,7 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-using Com.Drew.Metadata;
+
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -274,7 +274,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return null;
             }
-            return Sharpen.Extensions.ConvertToString((int)value) + " mm";
+            return Extensions.ConvertToString((int)value) + " mm";
         }
 
         [CanBeNull]
@@ -366,7 +366,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return null;
             }
-            return Sharpen.Extensions.ConvertToString((double)value / 10d) + " mm";
+            return Extensions.ConvertToString((double)value / 10d) + " mm";
         }
 
         [CanBeNull]
@@ -490,7 +490,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return null;
             }
-            return Sharpen.Extensions.ConvertToString((int)value) + " bytes";
+            return Extensions.ConvertToString((int)value) + " bytes";
         }
 
         [CanBeNull]

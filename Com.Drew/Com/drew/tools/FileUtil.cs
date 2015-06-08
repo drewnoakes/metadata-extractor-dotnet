@@ -19,7 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-using System.IO;
+
+using System.Diagnostics;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -70,7 +71,7 @@ namespace Com.Drew.Tools
         {
             int length = (int)file.Length();
             // should only be zero if loading from a network or similar
-            System.Diagnostics.Debug.Assert((length != 0));
+            Debug.Assert((length != 0));
             sbyte[] bytes = new sbyte[length];
             int totalBytesRead = 0;
             FileInputStream inputStream = null;

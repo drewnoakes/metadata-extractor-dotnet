@@ -1,9 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Threading;
+
 namespace Sharpen
 {
-    using System;
-    using System.Threading;
-    using System.Collections.Generic;
-
     public class Thread : Runnable
     {
         private static ThreadGroup defaultGroup = new ThreadGroup ();
@@ -13,7 +13,7 @@ namespace Sharpen
         private System.Threading.Thread thread;
         
         [ThreadStatic]
-        private static Sharpen.Thread wrapperThread;
+        private static Thread wrapperThread;
 
         public Thread () : this(null, null, null)
         {
@@ -49,10 +49,10 @@ namespace Sharpen
             tgroup.Add (this);
         }
 
-        public static Sharpen.Thread CurrentThread ()
+        public static Thread CurrentThread ()
         {
             if (wrapperThread == null) {
-                wrapperThread = new Sharpen.Thread (System.Threading.Thread.CurrentThread);
+                wrapperThread = new Thread (System.Threading.Thread.CurrentThread);
             }
             return wrapperThread;
         }
@@ -93,13 +93,13 @@ namespace Sharpen
 
         public static bool Interrupted ()
         {
-            if (Sharpen.Thread.wrapperThread == null) {
+            if (Thread.wrapperThread == null) {
                 return false;
             }
-            Sharpen.Thread wrapperThread = Sharpen.Thread.wrapperThread;
+            Thread wrapperThread = Thread.wrapperThread;
             lock (wrapperThread) {
-                bool interrupted = Sharpen.Thread.wrapperThread.interrupted;
-                Sharpen.Thread.wrapperThread.interrupted = false;
+                bool interrupted = Thread.wrapperThread.interrupted;
+                Thread.wrapperThread.interrupted = false;
                 return interrupted;
             }
         }

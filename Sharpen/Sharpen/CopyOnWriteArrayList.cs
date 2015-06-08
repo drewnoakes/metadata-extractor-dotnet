@@ -1,10 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
+
 namespace Sharpen
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Reflection;
-
     public class CopyOnWriteArrayList<T> : Iterable<T>, IEnumerable, ICollection<T>, IEnumerable<T>, IList<T>
     {
         private List<T> list;
@@ -95,7 +93,7 @@ namespace Sharpen
         {
             int num = 0;
             foreach (T t in this) {
-                if (object.ReferenceEquals (t, item) || t.Equals (item))
+                if (ReferenceEquals (t, item) || t.Equals (item))
                     return num;
                 num++;
             }

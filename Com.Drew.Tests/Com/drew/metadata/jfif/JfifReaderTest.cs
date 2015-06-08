@@ -19,8 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using Com.Drew.Lang;
-using Com.Drew.Metadata;
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Metadata.Jfif
@@ -29,27 +30,27 @@ namespace Com.Drew.Metadata.Jfif
     public class JfifReaderTest
     {
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestRead()
         {
             sbyte[] jfifData = new sbyte[] { 74, 70, 73, 70, 0, 1, 2, 1, 0, 108, 0, 108, 0, 0 };
-            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            Metadata metadata = new Metadata();
             JfifReader reader = new JfifReader();
             reader.Extract(new ByteArrayReader(jfifData), metadata);
-            Sharpen.Tests.AreEqual(1, metadata.GetDirectoryCount());
+            Tests.AreEqual(1, metadata.GetDirectoryCount());
             JfifDirectory directory = metadata.GetFirstDirectoryOfType<JfifDirectory>();
-            NUnit.Framework.Assert.IsNotNull(directory);
-            Sharpen.Tests.IsFalse(Sharpen.Extensions.ConvertToString(directory.GetErrors()), directory.HasErrors());
-            Tag[] tags = Sharpen.Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
-            Sharpen.Tests.AreEqual(4, tags.Length);
-            Sharpen.Tests.AreEqual(JfifDirectory.TagVersion, tags[0].GetTagType());
-            Sharpen.Tests.AreEqual(unchecked((int)(0x0102)), directory.GetInt(tags[0].GetTagType()));
-            Sharpen.Tests.AreEqual(JfifDirectory.TagUnits, tags[1].GetTagType());
-            Sharpen.Tests.AreEqual(1, directory.GetInt(tags[1].GetTagType()));
-            Sharpen.Tests.AreEqual(JfifDirectory.TagResx, tags[2].GetTagType());
-            Sharpen.Tests.AreEqual(108, directory.GetInt(tags[2].GetTagType()));
-            Sharpen.Tests.AreEqual(JfifDirectory.TagResy, tags[3].GetTagType());
-            Sharpen.Tests.AreEqual(108, directory.GetInt(tags[3].GetTagType()));
+            Assert.IsNotNull(directory);
+            Tests.IsFalse(Extensions.ConvertToString(directory.GetErrors()), directory.HasErrors());
+            Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
+            Tests.AreEqual(4, tags.Length);
+            Tests.AreEqual(JfifDirectory.TagVersion, tags[0].GetTagType());
+            Tests.AreEqual(unchecked((int)(0x0102)), directory.GetInt(tags[0].GetTagType()));
+            Tests.AreEqual(JfifDirectory.TagUnits, tags[1].GetTagType());
+            Tests.AreEqual(1, directory.GetInt(tags[1].GetTagType()));
+            Tests.AreEqual(JfifDirectory.TagResx, tags[2].GetTagType());
+            Tests.AreEqual(108, directory.GetInt(tags[2].GetTagType()));
+            Tests.AreEqual(JfifDirectory.TagResy, tags[3].GetTagType());
+            Tests.AreEqual(108, directory.GetInt(tags[3].GetTagType()));
         }
     }
 }

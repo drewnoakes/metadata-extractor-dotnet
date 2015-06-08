@@ -1,3 +1,6 @@
+using System;
+using System.Text;
+
 namespace Sharpen
 {
     public abstract class CharSequence
@@ -7,19 +10,19 @@ namespace Sharpen
             return new StringCharSequence (str);
         }
         
-        public static implicit operator CharSequence (System.Text.StringBuilder str)
+        public static implicit operator CharSequence (StringBuilder str)
         {
             return new StringCharSequence (str.ToString ());
         }
 
         public virtual int this[int index]
         {
-            get { throw new System.NotImplementedException(); }
+            get { throw new NotImplementedException(); }
         }
 
         public virtual int Length
         {
-            get { throw new System.NotImplementedException(); }
+            get { throw new NotImplementedException(); }
         }
     }
     

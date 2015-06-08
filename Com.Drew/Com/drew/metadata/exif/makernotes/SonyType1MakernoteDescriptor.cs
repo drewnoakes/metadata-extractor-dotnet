@@ -19,7 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-using Com.Drew.Metadata;
+
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -344,7 +344,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 return "Auto";
             }
             int kelvin = (((int)value & unchecked((int)(0x00FF0000))) >> 8) | (((int)value & unchecked((int)(0xFF000000))) >> 24);
-            return Sharpen.Extensions.StringFormat("%d K", kelvin);
+            return Extensions.StringFormat("%d K", kelvin);
         }
 
         [CanBeNull]
@@ -435,7 +435,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 default:
                 {
-                    return Sharpen.Extensions.StringFormat("Unknown (%d)", value);
+                    return Extensions.StringFormat("Unknown (%d)", value);
                 }
             }
         }
@@ -563,7 +563,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 default:
                 {
-                    return Sharpen.Extensions.StringFormat("Unknown (%d)", value);
+                    return Extensions.StringFormat("Unknown (%d)", value);
                 }
             }
         }
@@ -600,7 +600,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 default:
                 {
-                    return Sharpen.Extensions.StringFormat("Unknown (%d)", value);
+                    return Extensions.StringFormat("Unknown (%d)", value);
                 }
             }
         }
@@ -772,7 +772,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 default:
                 {
-                    return Sharpen.Extensions.StringFormat("Unknown (%d)", value);
+                    return Extensions.StringFormat("Unknown (%d)", value);
                 }
             }
         }
@@ -809,7 +809,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 default:
                 {
-                    return Sharpen.Extensions.StringFormat("Unknown (%d)", value);
+                    return Extensions.StringFormat("Unknown (%d)", value);
                 }
             }
         }
@@ -846,7 +846,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 default:
                 {
-                    return Sharpen.Extensions.StringFormat("Unknown (%d)", value);
+                    return Extensions.StringFormat("Unknown (%d)", value);
                 }
             }
         }
@@ -878,7 +878,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 default:
                 {
-                    return Sharpen.Extensions.StringFormat("Unknown (%d)", value);
+                    return Extensions.StringFormat("Unknown (%d)", value);
                 }
             }
         }
@@ -925,7 +925,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 default:
                 {
-                    return Sharpen.Extensions.StringFormat("Unknown (%d)", value);
+                    return Extensions.StringFormat("Unknown (%d)", value);
                 }
             }
         }
@@ -1122,7 +1122,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 default:
                 {
-                    return Sharpen.Extensions.StringFormat("Unknown (%d)", value);
+                    return Extensions.StringFormat("Unknown (%d)", value);
                 }
             }
         }
@@ -1754,7 +1754,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 default:
                 {
-                    return Sharpen.Extensions.ConvertToString(value);
+                    return Extensions.ConvertToString(value);
                 }
             }
         }

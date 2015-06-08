@@ -1,10 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
+
 namespace Sharpen
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Threading;
-
     public class FilePath
     {
         private string path;

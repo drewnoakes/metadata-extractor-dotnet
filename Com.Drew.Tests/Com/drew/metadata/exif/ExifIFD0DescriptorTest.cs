@@ -19,7 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using Com.Drew.Lang;
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
@@ -33,7 +35,7 @@ namespace Com.Drew.Metadata.Exif
     public class ExifIFD0DescriptorTest
     {
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestXResolutionDescription()
         {
             ExifIFD0Directory directory = new ExifIFD0Directory();
@@ -41,11 +43,11 @@ namespace Com.Drew.Metadata.Exif
             // 2 is for 'Inch'
             directory.SetInt(ExifIFD0Directory.TagResolutionUnit, 2);
             ExifIFD0Descriptor descriptor = new ExifIFD0Descriptor(directory);
-            Sharpen.Tests.AreEqual("72 dots per inch", descriptor.GetDescription(ExifIFD0Directory.TagXResolution));
+            Tests.AreEqual("72 dots per inch", descriptor.GetDescription(ExifIFD0Directory.TagXResolution));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestYResolutionDescription()
         {
             ExifIFD0Directory directory = new ExifIFD0Directory();
@@ -53,25 +55,25 @@ namespace Com.Drew.Metadata.Exif
             // 3 is for 'cm'
             directory.SetInt(ExifIFD0Directory.TagResolutionUnit, 3);
             ExifIFD0Descriptor descriptor = new ExifIFD0Descriptor(directory);
-            Sharpen.Tests.AreEqual("50 dots per cm", descriptor.GetDescription(ExifIFD0Directory.TagYResolution));
+            Tests.AreEqual("50 dots per cm", descriptor.GetDescription(ExifIFD0Directory.TagYResolution));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestWindowsXpFields()
         {
             ExifIFD0Directory directory = ExifReaderTest.ProcessBytes<ExifIFD0Directory>("Tests/Data/windowsXpFields.jpg.app1");
-            Sharpen.Tests.AreEqual("Testing artist\x0", directory.GetString(ExifIFD0Directory.TagWinAuthor, "UTF-16LE"));
-            Sharpen.Tests.AreEqual("Testing comments\x0", directory.GetString(ExifIFD0Directory.TagWinComment, "UTF-16LE"));
-            Sharpen.Tests.AreEqual("Testing keywords\x0", directory.GetString(ExifIFD0Directory.TagWinKeywords, "UTF-16LE"));
-            Sharpen.Tests.AreEqual("Testing subject\x0", directory.GetString(ExifIFD0Directory.TagWinSubject, "UTF-16LE"));
-            Sharpen.Tests.AreEqual("Testing title\x0", directory.GetString(ExifIFD0Directory.TagWinTitle, "UTF-16LE"));
+            Tests.AreEqual("Testing artist\x0", directory.GetString(ExifIFD0Directory.TagWinAuthor, "UTF-16LE"));
+            Tests.AreEqual("Testing comments\x0", directory.GetString(ExifIFD0Directory.TagWinComment, "UTF-16LE"));
+            Tests.AreEqual("Testing keywords\x0", directory.GetString(ExifIFD0Directory.TagWinKeywords, "UTF-16LE"));
+            Tests.AreEqual("Testing subject\x0", directory.GetString(ExifIFD0Directory.TagWinSubject, "UTF-16LE"));
+            Tests.AreEqual("Testing title\x0", directory.GetString(ExifIFD0Directory.TagWinTitle, "UTF-16LE"));
             ExifIFD0Descriptor descriptor = new ExifIFD0Descriptor(directory);
-            Sharpen.Tests.AreEqual("Testing artist", descriptor.GetDescription(ExifIFD0Directory.TagWinAuthor));
-            Sharpen.Tests.AreEqual("Testing comments", descriptor.GetDescription(ExifIFD0Directory.TagWinComment));
-            Sharpen.Tests.AreEqual("Testing keywords", descriptor.GetDescription(ExifIFD0Directory.TagWinKeywords));
-            Sharpen.Tests.AreEqual("Testing subject", descriptor.GetDescription(ExifIFD0Directory.TagWinSubject));
-            Sharpen.Tests.AreEqual("Testing title", descriptor.GetDescription(ExifIFD0Directory.TagWinTitle));
+            Tests.AreEqual("Testing artist", descriptor.GetDescription(ExifIFD0Directory.TagWinAuthor));
+            Tests.AreEqual("Testing comments", descriptor.GetDescription(ExifIFD0Directory.TagWinComment));
+            Tests.AreEqual("Testing keywords", descriptor.GetDescription(ExifIFD0Directory.TagWinKeywords));
+            Tests.AreEqual("Testing subject", descriptor.GetDescription(ExifIFD0Directory.TagWinSubject));
+            Tests.AreEqual("Testing title", descriptor.GetDescription(ExifIFD0Directory.TagWinTitle));
         }
     }
 }

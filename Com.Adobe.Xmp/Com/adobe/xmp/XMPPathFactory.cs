@@ -6,9 +6,9 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using Com.Adobe.Xmp.Impl;
 using Com.Adobe.Xmp.Impl.Xpath;
-using Sharpen;
 
 namespace Com.Adobe.Xmp
 {

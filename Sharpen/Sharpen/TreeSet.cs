@@ -1,9 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
+
 namespace Sharpen
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
     public class TreeSet<T> : AbstractSet<T>
     {
         private SortedDictionary<T, int> dict;
@@ -63,7 +62,7 @@ namespace Sharpen
             return list;
         }
 
-        public override Sharpen.Iterator<T> Iterator ()
+        public override Iterator<T> Iterator ()
         {
             return new EnumeratorWrapper<T> (this.dict.Keys, this.dict.Keys.GetEnumerator ());
         }

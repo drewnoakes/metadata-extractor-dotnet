@@ -6,9 +6,10 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System.Collections;
+using System.Diagnostics;
 using System.Xml;
-using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Options;
 using Sharpen;
 
@@ -271,7 +272,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 else
                 {
-                    if (currChild.NodeType != System.Xml.XmlNodeType.Element)
+                    if (currChild.NodeType != XmlNodeType.Element)
                     {
                         throw new XMPException("Expected property element node not found", XMPErrorConstants.Badrdf);
                     }
@@ -465,7 +466,7 @@ namespace Com.Adobe.Xmp.Impl
                     for (int i_2 = 0; i_2 < xmlNode.ChildNodes.Count; i_2++)
                     {
                         XmlNode currChild = xmlNode.ChildNodes.Item(i_2);
-                        if (currChild.NodeType != System.Xml.XmlNodeType.Text)
+                        if (currChild.NodeType != XmlNodeType.Text)
                         {
                             Rdf_ResourcePropertyElement(xmp, xmpParent, xmlNode, isTopLevel);
                             return;
@@ -546,7 +547,7 @@ namespace Com.Adobe.Xmp.Impl
                 currChild = xmlNode.ChildNodes.Item(i_1);
                 if (!IsWhitespaceNode(currChild))
                 {
-                    if (currChild.NodeType == System.Xml.XmlNodeType.Element && !found)
+                    if (currChild.NodeType == XmlNodeType.Element && !found)
                     {
                         bool isRDF = XMPConstConstants.NsRdf.Equals(currChild.NamespaceURI);
                         string childLocal = currChild.LocalName;
@@ -663,7 +664,7 @@ namespace Com.Adobe.Xmp.Impl
             for (int i_1 = 0; i_1 < xmlNode.ChildNodes.Count; i_1++)
             {
                 XmlNode child = xmlNode.ChildNodes.Item(i_1);
-                if (child.NodeType == System.Xml.XmlNodeType.Text)
+                if (child.NodeType == XmlNodeType.Text)
                 {
                     textValue += child.Value;
                 }
@@ -1106,9 +1107,9 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="Com.Adobe.Xmp.XMPException">thown on parsing errors</exception>
         private static void FixupQualifiedNode(XMPNode xmpParent)
         {
-            System.Diagnostics.Debug.Assert(xmpParent.GetOptions().IsStruct() && xmpParent.HasChildren());
+            Debug.Assert(xmpParent.GetOptions().IsStruct() && xmpParent.HasChildren());
             XMPNode valueNode = xmpParent.GetChild(1);
-            System.Diagnostics.Debug.Assert("rdf:value".Equals(valueNode.GetName()));
+            Debug.Assert("rdf:value".Equals(valueNode.GetName()));
             // Move the qualifiers on the value node to the parent. 
             // Make sure an xml:lang qualifier stays at the front.
             // Check for duplicate names between the value node's qualifiers and the parent's children. 
@@ -1139,7 +1140,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             // Move the options and value last, other checks need the parent's original options. 
             // Move the value node's children to be the parent's children.
-            System.Diagnostics.Debug.Assert(xmpParent.GetOptions().IsStruct() || xmpParent.GetHasValueChild());
+            Debug.Assert(xmpParent.GetOptions().IsStruct() || xmpParent.GetHasValueChild());
             xmpParent.SetHasValueChild(false);
             xmpParent.GetOptions().SetStruct(false);
             xmpParent.GetOptions().MergeWith(valueNode.GetOptions());
@@ -1160,7 +1161,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </returns>
         private static bool IsWhitespaceNode(XmlNode node)
         {
-            if (node.NodeType != System.Xml.XmlNodeType.Text)
+            if (node.NodeType != XmlNodeType.Text)
             {
                 return false;
             }

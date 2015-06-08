@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -38,7 +39,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// </code></pre>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class NikonType1MakernoteDirectory : Com.Drew.Metadata.Directory
+    public class NikonType1MakernoteDirectory : Directory
     {
         public const int TagUnknown1 = unchecked((int)(0x0002));
 

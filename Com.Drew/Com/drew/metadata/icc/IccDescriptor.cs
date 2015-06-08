@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2002-2015 Drew Noakes
  *
  *    Modified by Yakov Danilov <yakodani@gmail.com> for Imazen LLC (Ported from Java to C#)
@@ -19,11 +19,11 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.IO;
 using System.Text;
 using Com.Drew.Lang;
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -101,11 +101,11 @@ namespace Com.Drew.Metadata.Icc
                     {
                         try
                         {
-                            return Sharpen.Runtime.GetStringForBytes(bytes, 8, bytes.Length - 8 - 1, "ASCII");
+                            return Runtime.GetStringForBytes(bytes, 8, bytes.Length - 8 - 1, "ASCII");
                         }
                         catch (UnsupportedEncodingException)
                         {
-                            return Sharpen.Runtime.GetStringForBytes(bytes, 8, bytes.Length - 8 - 1);
+                            return Runtime.GetStringForBytes(bytes, 8, bytes.Length - 8 - 1);
                         }
                         goto case IccTagTypeDesc;
                     }
@@ -113,7 +113,7 @@ namespace Com.Drew.Metadata.Icc
                     case IccTagTypeDesc:
                     {
                         int stringLength = reader.GetInt32(8);
-                        return Sharpen.Runtime.GetStringForBytes(bytes, 12, stringLength - 1);
+                        return Runtime.GetStringForBytes(bytes, 12, stringLength - 1);
                     }
 
                     case IccTagTypeSig:
@@ -153,7 +153,7 @@ namespace Com.Drew.Metadata.Icc
 
                             default:
                             {
-                                observerString = Sharpen.Extensions.StringFormat("Unknown %d", observerType);
+                                observerString = Extensions.StringFormat("Unknown %d", observerType);
                                 break;
                             }
                         }
@@ -180,7 +180,7 @@ namespace Com.Drew.Metadata.Icc
 
                             default:
                             {
-                                geometryString = Sharpen.Extensions.StringFormat("Unknown %d", observerType);
+                                geometryString = Extensions.StringFormat("Unknown %d", observerType);
                                 break;
                             }
                         }
@@ -243,11 +243,11 @@ namespace Com.Drew.Metadata.Icc
 
                             default:
                             {
-                                illuminantString = Sharpen.Extensions.StringFormat("Unknown %d", illuminantType);
+                                illuminantString = Extensions.StringFormat("Unknown %d", illuminantType);
                                 break;
                             }
                         }
-                        return Sharpen.Extensions.StringFormat("%s Observer, Backing (%s, %s, %s), Geometry %s, Flare %d%%, Illuminant %s", observerString, x, y, z, geometryString, (long)System.Math.Round(flare * 100), illuminantString);
+                        return Extensions.StringFormat("%s Observer, Backing (%s, %s, %s), Geometry %s, Flare %d%%, Illuminant %s", observerString, x, y, z, geometryString, (long)Math.Round(flare * 100), illuminantString);
                     }
 
                     case IccTagTypeXyzArray:
@@ -265,7 +265,7 @@ namespace Com.Drew.Metadata.Icc
                             }
                             res.Append("(").Append(x).Append(", ").Append(y).Append(", ").Append(z).Append(")");
                         }
-                        return Sharpen.Extensions.ConvertToString(res);
+                        return Extensions.ConvertToString(res);
                     }
 
                     case IccTagTypeMluc:
@@ -283,16 +283,16 @@ namespace Com.Drew.Metadata.Icc
                             string name;
                             try
                             {
-                                name = Sharpen.Runtime.GetStringForBytes(bytes, ofs, len, "UTF-16BE");
+                                name = Runtime.GetStringForBytes(bytes, ofs, len, "UTF-16BE");
                             }
                             catch (UnsupportedEncodingException)
                             {
-                                name = Sharpen.Runtime.GetStringForBytes(bytes, ofs, len);
+                                name = Runtime.GetStringForBytes(bytes, ofs, len);
                             }
                             res.Append(" ").Append(str).Append("(").Append(name).Append(")");
                         }
                         //System.err.format("% 3d: %s, len: %d, ofs: %d, \"%s\"\n", i, str, len,ofs,name);
-                        return Sharpen.Extensions.ConvertToString(res);
+                        return Extensions.ConvertToString(res);
                     }
 
                     case IccTagTypeCurv:
@@ -308,12 +308,12 @@ namespace Com.Drew.Metadata.Icc
                             res.Append(FormatDoubleAsString(((float)reader.GetUInt16(12 + i * 2)) / 65535.0, 7, false));
                         }
                         //res+=String.format("%1.7g",Math.round(((float)iccReader.getInt16(b,12+i*2))/0.065535)/1E7);
-                        return Sharpen.Extensions.ConvertToString(res);
+                        return Extensions.ConvertToString(res);
                     }
 
                     default:
                     {
-                        return Sharpen.Extensions.StringFormat("%s(0x%08X): %d bytes", IccReader.GetStringFromInt32(iccTagType), iccTagType, bytes.Length);
+                        return Extensions.StringFormat("%s(0x%08X): %d bytes", IccReader.GetStringFromInt32(iccTagType), iccTagType, bytes.Length);
                     }
                 }
             }
@@ -331,10 +331,10 @@ namespace Com.Drew.Metadata.Icc
         {
             if (precision < 1)
             {
-                return string.Empty + (long)System.Math.Round(value);
+                return string.Empty + (long)Math.Round(value);
             }
             long intPart = Math.Abs((long)value);
-            long rest = (int)(long)System.Math.Round((Math.Abs(value) - intPart) * Math.Pow(10, precision));
+            long rest = (int)(long)Math.Round((Math.Abs(value) - intPart) * Math.Pow(10, precision));
             long restKept = rest;
             string res = string.Empty;
             sbyte cour;
@@ -384,7 +384,7 @@ namespace Com.Drew.Metadata.Icc
 
                 default:
                 {
-                    return Sharpen.Extensions.StringFormat("Unknown (%d)", value);
+                    return Extensions.StringFormat("Unknown (%d)", value);
                 }
             }
         }
@@ -439,7 +439,7 @@ namespace Com.Drew.Metadata.Icc
 
                 default:
                 {
-                    return Sharpen.Extensions.StringFormat("Unknown (%s)", str);
+                    return Extensions.StringFormat("Unknown (%s)", str);
                 }
             }
         }
@@ -503,7 +503,7 @@ namespace Com.Drew.Metadata.Icc
 
                 default:
                 {
-                    return Sharpen.Extensions.StringFormat("Unknown (%s)", str);
+                    return Extensions.StringFormat("Unknown (%s)", str);
                 }
             }
         }
@@ -519,13 +519,13 @@ namespace Com.Drew.Metadata.Icc
             int m = ((int)value & unchecked((int)(0xFF000000))) >> 24;
             int r = ((int)value & unchecked((int)(0x00F00000))) >> 20;
             int R = ((int)value & unchecked((int)(0x000F0000))) >> 16;
-            return Sharpen.Extensions.StringFormat("%d.%d.%d", m, r, R);
+            return Extensions.StringFormat("%d.%d.%d", m, r, R);
         }
 
         /// <exception cref="System.IO.IOException"/>
         private static int GetInt32FromString([NotNull] string @string)
         {
-            sbyte[] bytes = Sharpen.Runtime.GetBytesForString(@string);
+            sbyte[] bytes = Runtime.GetBytesForString(@string);
             return new ByteArrayReader(bytes).GetInt32(0);
         }
     }

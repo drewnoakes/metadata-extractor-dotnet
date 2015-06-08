@@ -23,9 +23,9 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
-using System.Collections.Generic;
+
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Sharpen
 {
@@ -59,7 +59,7 @@ namespace Sharpen
             if (list.Count != Count)
                 return false;
             for (int n=0; n<list.Count; n++) {
-                if (!object.Equals (this[n], list[n]))
+                if (!Equals (this[n], list[n]))
                     return false;
             }
             return true;

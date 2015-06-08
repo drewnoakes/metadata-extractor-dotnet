@@ -19,10 +19,10 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.IO;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -45,12 +45,12 @@ namespace Com.Drew.Metadata.Jfif
             return Arrays.AsList(JpegSegmentType.App0).AsIterable();
         }
 
-        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {
                 // Skip segments not starting with the required header
-                if (segmentBytes.Length >= 4 && Preamble.Equals(Sharpen.Runtime.GetStringForBytes(segmentBytes, 0, Preamble.Length)))
+                if (segmentBytes.Length >= 4 && Preamble.Equals(Runtime.GetStringForBytes(segmentBytes, 0, Preamble.Length)))
                 {
                     Extract(new ByteArrayReader(segmentBytes), metadata);
                 }
@@ -63,7 +63,7 @@ namespace Com.Drew.Metadata.Jfif
         /// <see cref="Com.Drew.Metadata.Metadata"/>
         /// .
         /// </summary>
-        public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata)
+        public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata)
         {
             JfifDirectory directory = new JfifDirectory();
             metadata.AddDirectory(directory);

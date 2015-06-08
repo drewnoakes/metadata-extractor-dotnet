@@ -19,7 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.IO;
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Lang
@@ -34,249 +36,249 @@ namespace Com.Drew.Lang
     {
         protected internal abstract RandomAccessReader CreateReader(sbyte[] bytes);
 
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestDefaultEndianness()
         {
-            Sharpen.Tests.AreEqual(true, CreateReader(new sbyte[1]).IsMotorolaByteOrder());
+            Tests.AreEqual(true, CreateReader(new sbyte[1]).IsMotorolaByteOrder());
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetInt8()
         {
             sbyte[] buffer = new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((sbyte)0x7F), unchecked((sbyte)0xFF) };
             RandomAccessReader reader = CreateReader(buffer);
-            Sharpen.Tests.AreEqual(unchecked((sbyte)0), reader.GetInt8(0));
-            Sharpen.Tests.AreEqual(unchecked((sbyte)1), reader.GetInt8(1));
-            Sharpen.Tests.AreEqual(unchecked((sbyte)127), reader.GetInt8(2));
-            Sharpen.Tests.AreEqual(unchecked((sbyte)255), reader.GetInt8(3));
+            Tests.AreEqual(unchecked((sbyte)0), reader.GetInt8(0));
+            Tests.AreEqual(unchecked((sbyte)1), reader.GetInt8(1));
+            Tests.AreEqual(unchecked((sbyte)127), reader.GetInt8(2));
+            Tests.AreEqual(unchecked((sbyte)255), reader.GetInt8(3));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetUInt8()
         {
             sbyte[] buffer = new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((sbyte)0x7F), unchecked((sbyte)0xFF) };
             RandomAccessReader reader = CreateReader(buffer);
-            Sharpen.Tests.AreEqual(0, reader.GetUInt8(0));
-            Sharpen.Tests.AreEqual(1, reader.GetUInt8(1));
-            Sharpen.Tests.AreEqual(127, reader.GetUInt8(2));
-            Sharpen.Tests.AreEqual(255, reader.GetUInt8(3));
+            Tests.AreEqual(0, reader.GetUInt8(0));
+            Tests.AreEqual(1, reader.GetUInt8(1));
+            Tests.AreEqual(127, reader.GetUInt8(2));
+            Tests.AreEqual(255, reader.GetUInt8(3));
         }
 
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetUInt8_OutOfBounds()
         {
             try
             {
                 RandomAccessReader reader = CreateReader(new sbyte[2]);
                 reader.GetUInt8(2);
-                NUnit.Framework.Assert.Fail("Exception expected");
+                Assert.Fail("Exception expected");
             }
             catch (IOException ex)
             {
-                Sharpen.Tests.AreEqual("Attempt to read from beyond end of underlying data source (requested index: 2, requested count: 1, max index: 1)", ex.Message);
+                Tests.AreEqual("Attempt to read from beyond end of underlying data source (requested index: 2, requested count: 1, max index: 1)", ex.Message);
             }
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetInt16()
         {
-            Sharpen.Tests.AreEqual(-1, CreateReader(new sbyte[] { unchecked((sbyte)0xff), unchecked((sbyte)0xff) }).GetInt16(0));
+            Tests.AreEqual(-1, CreateReader(new sbyte[] { unchecked((sbyte)0xff), unchecked((sbyte)0xff) }).GetInt16(0));
             sbyte[] buffer = new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((sbyte)0x7F), unchecked((sbyte)0xFF) };
             RandomAccessReader reader = CreateReader(buffer);
-            Sharpen.Tests.AreEqual((short)0x0001, reader.GetInt16(0));
-            Sharpen.Tests.AreEqual((short)0x017F, reader.GetInt16(1));
-            Sharpen.Tests.AreEqual((short)0x7FFF, reader.GetInt16(2));
+            Tests.AreEqual((short)0x0001, reader.GetInt16(0));
+            Tests.AreEqual((short)0x017F, reader.GetInt16(1));
+            Tests.AreEqual((short)0x7FFF, reader.GetInt16(2));
             reader.SetMotorolaByteOrder(false);
-            Sharpen.Tests.AreEqual((short)0x0100, reader.GetInt16(0));
-            Sharpen.Tests.AreEqual((short)0x7F01, reader.GetInt16(1));
-            Sharpen.Tests.AreEqual(unchecked((short)(0xFF7F)), reader.GetInt16(2));
+            Tests.AreEqual((short)0x0100, reader.GetInt16(0));
+            Tests.AreEqual((short)0x7F01, reader.GetInt16(1));
+            Tests.AreEqual(unchecked((short)(0xFF7F)), reader.GetInt16(2));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetUInt16()
         {
             sbyte[] buffer = new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((sbyte)0x7F), unchecked((sbyte)0xFF) };
             RandomAccessReader reader = CreateReader(buffer);
-            Sharpen.Tests.AreEqual(unchecked((int)(0x0001)), reader.GetUInt16(0));
-            Sharpen.Tests.AreEqual(unchecked((int)(0x017F)), reader.GetUInt16(1));
-            Sharpen.Tests.AreEqual(unchecked((int)(0x7FFF)), reader.GetUInt16(2));
+            Tests.AreEqual(unchecked((int)(0x0001)), reader.GetUInt16(0));
+            Tests.AreEqual(unchecked((int)(0x017F)), reader.GetUInt16(1));
+            Tests.AreEqual(unchecked((int)(0x7FFF)), reader.GetUInt16(2));
             reader.SetMotorolaByteOrder(false);
-            Sharpen.Tests.AreEqual(unchecked((int)(0x0100)), reader.GetUInt16(0));
-            Sharpen.Tests.AreEqual(unchecked((int)(0x7F01)), reader.GetUInt16(1));
-            Sharpen.Tests.AreEqual(unchecked((int)(0xFF7F)), reader.GetUInt16(2));
+            Tests.AreEqual(unchecked((int)(0x0100)), reader.GetUInt16(0));
+            Tests.AreEqual(unchecked((int)(0x7F01)), reader.GetUInt16(1));
+            Tests.AreEqual(unchecked((int)(0xFF7F)), reader.GetUInt16(2));
         }
 
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetUInt16_OutOfBounds()
         {
             try
             {
                 RandomAccessReader reader = CreateReader(new sbyte[2]);
                 reader.GetUInt16(1);
-                NUnit.Framework.Assert.Fail("Exception expected");
+                Assert.Fail("Exception expected");
             }
             catch (IOException ex)
             {
-                Sharpen.Tests.AreEqual("Attempt to read from beyond end of underlying data source (requested index: 1, requested count: 2, max index: 1)", ex.Message);
+                Tests.AreEqual("Attempt to read from beyond end of underlying data source (requested index: 1, requested count: 2, max index: 1)", ex.Message);
             }
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetInt32()
         {
-            Sharpen.Tests.AreEqual(-1, CreateReader(new sbyte[] { unchecked((sbyte)0xff), unchecked((sbyte)0xff), unchecked((sbyte)0xff), unchecked((sbyte)0xff) }).GetInt32(0));
+            Tests.AreEqual(-1, CreateReader(new sbyte[] { unchecked((sbyte)0xff), unchecked((sbyte)0xff), unchecked((sbyte)0xff), unchecked((sbyte)0xff) }).GetInt32(0));
             sbyte[] buffer = new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((sbyte)0x7F), unchecked((sbyte)0xFF), unchecked((int)(0x02)), unchecked((int)(0x03)), unchecked((int)(0x04)) };
             RandomAccessReader reader = CreateReader(buffer);
-            Sharpen.Tests.AreEqual(unchecked((int)(0x00017FFF)), reader.GetInt32(0));
-            Sharpen.Tests.AreEqual(unchecked((int)(0x017FFF02)), reader.GetInt32(1));
-            Sharpen.Tests.AreEqual(unchecked((int)(0x7FFF0203)), reader.GetInt32(2));
-            Sharpen.Tests.AreEqual(unchecked((int)(0xFF020304)), reader.GetInt32(3));
+            Tests.AreEqual(unchecked((int)(0x00017FFF)), reader.GetInt32(0));
+            Tests.AreEqual(unchecked((int)(0x017FFF02)), reader.GetInt32(1));
+            Tests.AreEqual(unchecked((int)(0x7FFF0203)), reader.GetInt32(2));
+            Tests.AreEqual(unchecked((int)(0xFF020304)), reader.GetInt32(3));
             reader.SetMotorolaByteOrder(false);
-            Sharpen.Tests.AreEqual(unchecked((int)(0xFF7F0100)), reader.GetInt32(0));
-            Sharpen.Tests.AreEqual(unchecked((int)(0x02FF7F01)), reader.GetInt32(1));
-            Sharpen.Tests.AreEqual(unchecked((int)(0x0302FF7F)), reader.GetInt32(2));
-            Sharpen.Tests.AreEqual(unchecked((int)(0x040302FF)), reader.GetInt32(3));
+            Tests.AreEqual(unchecked((int)(0xFF7F0100)), reader.GetInt32(0));
+            Tests.AreEqual(unchecked((int)(0x02FF7F01)), reader.GetInt32(1));
+            Tests.AreEqual(unchecked((int)(0x0302FF7F)), reader.GetInt32(2));
+            Tests.AreEqual(unchecked((int)(0x040302FF)), reader.GetInt32(3));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetUInt32()
         {
-            Sharpen.Tests.AreEqual(4294967295L, CreateReader(new sbyte[] { unchecked((sbyte)0xff), unchecked((sbyte)0xff), unchecked((sbyte)0xff), unchecked((sbyte)0xff) }).GetUInt32(0));
+            Tests.AreEqual(4294967295L, CreateReader(new sbyte[] { unchecked((sbyte)0xff), unchecked((sbyte)0xff), unchecked((sbyte)0xff), unchecked((sbyte)0xff) }).GetUInt32(0));
             sbyte[] buffer = new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((sbyte)0x7F), unchecked((sbyte)0xFF), unchecked((int)(0x02)), unchecked((int)(0x03)), unchecked((int)(0x04)) };
             RandomAccessReader reader = CreateReader(buffer);
-            Sharpen.Tests.AreEqual(unchecked((long)(0x00017FFFL)), reader.GetUInt32(0));
-            Sharpen.Tests.AreEqual(unchecked((long)(0x017FFF02L)), reader.GetUInt32(1));
-            Sharpen.Tests.AreEqual(unchecked((long)(0x7FFF0203L)), reader.GetUInt32(2));
-            Sharpen.Tests.AreEqual(unchecked((long)(0xFF020304L)), reader.GetUInt32(3));
+            Tests.AreEqual(unchecked((long)(0x00017FFFL)), reader.GetUInt32(0));
+            Tests.AreEqual(unchecked((long)(0x017FFF02L)), reader.GetUInt32(1));
+            Tests.AreEqual(unchecked((long)(0x7FFF0203L)), reader.GetUInt32(2));
+            Tests.AreEqual(unchecked((long)(0xFF020304L)), reader.GetUInt32(3));
             reader.SetMotorolaByteOrder(false);
-            Sharpen.Tests.AreEqual(4286513408L, reader.GetUInt32(0));
-            Sharpen.Tests.AreEqual(unchecked((long)(0x02FF7F01L)), reader.GetUInt32(1));
-            Sharpen.Tests.AreEqual(unchecked((long)(0x0302FF7FL)), reader.GetUInt32(2));
-            Sharpen.Tests.AreEqual(unchecked((long)(0x040302FFL)), reader.GetInt32(3));
+            Tests.AreEqual(4286513408L, reader.GetUInt32(0));
+            Tests.AreEqual(unchecked((long)(0x02FF7F01L)), reader.GetUInt32(1));
+            Tests.AreEqual(unchecked((long)(0x0302FF7FL)), reader.GetUInt32(2));
+            Tests.AreEqual(unchecked((long)(0x040302FFL)), reader.GetInt32(3));
         }
 
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetInt32_OutOfBounds()
         {
             try
             {
                 RandomAccessReader reader = CreateReader(new sbyte[3]);
                 reader.GetInt32(0);
-                NUnit.Framework.Assert.Fail("Exception expected");
+                Assert.Fail("Exception expected");
             }
             catch (IOException ex)
             {
-                Sharpen.Tests.AreEqual("Attempt to read from beyond end of underlying data source (requested index: 0, requested count: 4, max index: 2)", ex.Message);
+                Tests.AreEqual("Attempt to read from beyond end of underlying data source (requested index: 0, requested count: 4, max index: 2)", ex.Message);
             }
         }
 
         /// <exception cref="System.IO.IOException"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetInt64()
         {
             sbyte[] buffer = new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((int)(0x02)), unchecked((int)(0x03)), unchecked((int)(0x04)), unchecked((int)(0x05)), unchecked((int)(0x06)), unchecked((int)(0x07)), unchecked((sbyte)0xFF
                 ) };
             RandomAccessReader reader = CreateReader(buffer);
-            Sharpen.Tests.AreEqual(unchecked((long)(0x0001020304050607L)), reader.GetInt64(0));
-            Sharpen.Tests.AreEqual(unchecked((long)(0x01020304050607FFL)), reader.GetInt64(1));
+            Tests.AreEqual(unchecked((long)(0x0001020304050607L)), reader.GetInt64(0));
+            Tests.AreEqual(unchecked((long)(0x01020304050607FFL)), reader.GetInt64(1));
             reader.SetMotorolaByteOrder(false);
-            Sharpen.Tests.AreEqual(unchecked((long)(0x0706050403020100L)), reader.GetInt64(0));
-            Sharpen.Tests.AreEqual(unchecked((long)(0xFF07060504030201L)), reader.GetInt64(1));
+            Tests.AreEqual(unchecked((long)(0x0706050403020100L)), reader.GetInt64(0));
+            Tests.AreEqual(unchecked((long)(0xFF07060504030201L)), reader.GetInt64(1));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetInt64_OutOfBounds()
         {
             try
             {
                 RandomAccessReader reader = CreateReader(new sbyte[7]);
                 reader.GetInt64(0);
-                NUnit.Framework.Assert.Fail("Exception expected");
+                Assert.Fail("Exception expected");
             }
             catch (IOException ex)
             {
-                Sharpen.Tests.AreEqual("Attempt to read from beyond end of underlying data source (requested index: 0, requested count: 8, max index: 6)", ex.Message);
+                Tests.AreEqual("Attempt to read from beyond end of underlying data source (requested index: 0, requested count: 8, max index: 6)", ex.Message);
             }
             try
             {
                 RandomAccessReader reader = CreateReader(new sbyte[7]);
                 reader.GetInt64(-1);
-                NUnit.Framework.Assert.Fail("Exception expected");
+                Assert.Fail("Exception expected");
             }
             catch (IOException ex)
             {
-                Sharpen.Tests.AreEqual("Attempt to read from buffer using a negative index (-1)", ex.Message);
+                Tests.AreEqual("Attempt to read from buffer using a negative index (-1)", ex.Message);
             }
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetFloat32()
         {
             int nanBits = unchecked((int)(0x7fc00000));
-            Sharpen.Tests.IsTrue(float.IsNaN(Sharpen.Extensions.IntBitsToFloat(nanBits)));
+            Tests.IsTrue(float.IsNaN(Extensions.IntBitsToFloat(nanBits)));
             sbyte[] buffer = new sbyte[] { unchecked((int)(0x7f)), unchecked((sbyte)0xc0), unchecked((int)(0x00)), unchecked((int)(0x00)) };
             RandomAccessReader reader = CreateReader(buffer);
-            Sharpen.Tests.IsTrue(float.IsNaN(reader.GetFloat32(0)));
+            Tests.IsTrue(float.IsNaN(reader.GetFloat32(0)));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetFloat64()
         {
             long nanBits = unchecked((long)(0xfff0000000000001L));
-            Sharpen.Tests.IsTrue(double.IsNaN(Sharpen.Extensions.LongBitsToDouble(nanBits)));
+            Tests.IsTrue(double.IsNaN(Extensions.LongBitsToDouble(nanBits)));
             sbyte[] buffer = new sbyte[] { unchecked((sbyte)0xff), unchecked((sbyte)0xf0), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x01)) };
             RandomAccessReader reader = CreateReader(buffer);
-            Sharpen.Tests.IsTrue(double.IsNaN(reader.GetDouble64(0)));
+            Tests.IsTrue(double.IsNaN(reader.GetDouble64(0)));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetNullTerminatedString()
         {
             sbyte[] bytes = new sbyte[] { unchecked((int)(0x41)), unchecked((int)(0x42)), unchecked((int)(0x43)), unchecked((int)(0x44)), unchecked((int)(0x00)), unchecked((int)(0x45)), unchecked((int)(0x46)), unchecked((int)(0x47)) };
             RandomAccessReader reader = CreateReader(bytes);
-            Sharpen.Tests.AreEqual(string.Empty, reader.GetNullTerminatedString(0, 0));
-            Sharpen.Tests.AreEqual("A", reader.GetNullTerminatedString(0, 1));
-            Sharpen.Tests.AreEqual("AB", reader.GetNullTerminatedString(0, 2));
-            Sharpen.Tests.AreEqual("ABC", reader.GetNullTerminatedString(0, 3));
-            Sharpen.Tests.AreEqual("ABCD", reader.GetNullTerminatedString(0, 4));
-            Sharpen.Tests.AreEqual("ABCD", reader.GetNullTerminatedString(0, 5));
-            Sharpen.Tests.AreEqual("ABCD", reader.GetNullTerminatedString(0, 6));
-            Sharpen.Tests.AreEqual("BCD", reader.GetNullTerminatedString(1, 3));
-            Sharpen.Tests.AreEqual("BCD", reader.GetNullTerminatedString(1, 4));
-            Sharpen.Tests.AreEqual("BCD", reader.GetNullTerminatedString(1, 5));
-            Sharpen.Tests.AreEqual(string.Empty, reader.GetNullTerminatedString(4, 3));
+            Tests.AreEqual(string.Empty, reader.GetNullTerminatedString(0, 0));
+            Tests.AreEqual("A", reader.GetNullTerminatedString(0, 1));
+            Tests.AreEqual("AB", reader.GetNullTerminatedString(0, 2));
+            Tests.AreEqual("ABC", reader.GetNullTerminatedString(0, 3));
+            Tests.AreEqual("ABCD", reader.GetNullTerminatedString(0, 4));
+            Tests.AreEqual("ABCD", reader.GetNullTerminatedString(0, 5));
+            Tests.AreEqual("ABCD", reader.GetNullTerminatedString(0, 6));
+            Tests.AreEqual("BCD", reader.GetNullTerminatedString(1, 3));
+            Tests.AreEqual("BCD", reader.GetNullTerminatedString(1, 4));
+            Tests.AreEqual("BCD", reader.GetNullTerminatedString(1, 5));
+            Tests.AreEqual(string.Empty, reader.GetNullTerminatedString(4, 3));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetString()
         {
             sbyte[] bytes = new sbyte[] { unchecked((int)(0x41)), unchecked((int)(0x42)), unchecked((int)(0x43)), unchecked((int)(0x44)), unchecked((int)(0x00)), unchecked((int)(0x45)), unchecked((int)(0x46)), unchecked((int)(0x47)) };
             RandomAccessReader reader = CreateReader(bytes);
-            Sharpen.Tests.AreEqual(string.Empty, reader.GetString(0, 0));
-            Sharpen.Tests.AreEqual("A", reader.GetString(0, 1));
-            Sharpen.Tests.AreEqual("AB", reader.GetString(0, 2));
-            Sharpen.Tests.AreEqual("ABC", reader.GetString(0, 3));
-            Sharpen.Tests.AreEqual("ABCD", reader.GetString(0, 4));
-            Sharpen.Tests.AreEqual("ABCD\x0", reader.GetString(0, 5));
-            Sharpen.Tests.AreEqual("ABCD\x0000E", reader.GetString(0, 6));
-            Sharpen.Tests.AreEqual("BCD", reader.GetString(1, 3));
-            Sharpen.Tests.AreEqual("BCD\x0", reader.GetString(1, 4));
-            Sharpen.Tests.AreEqual("BCD\x0000E", reader.GetString(1, 5));
-            Sharpen.Tests.AreEqual("\x0000EF", reader.GetString(4, 3));
+            Tests.AreEqual(string.Empty, reader.GetString(0, 0));
+            Tests.AreEqual("A", reader.GetString(0, 1));
+            Tests.AreEqual("AB", reader.GetString(0, 2));
+            Tests.AreEqual("ABC", reader.GetString(0, 3));
+            Tests.AreEqual("ABCD", reader.GetString(0, 4));
+            Tests.AreEqual("ABCD\x0", reader.GetString(0, 5));
+            Tests.AreEqual("ABCD\x0000E", reader.GetString(0, 6));
+            Tests.AreEqual("BCD", reader.GetString(1, 3));
+            Tests.AreEqual("BCD\x0", reader.GetString(1, 4));
+            Tests.AreEqual("BCD\x0000E", reader.GetString(1, 5));
+            Tests.AreEqual("\x0000EF", reader.GetString(4, 3));
         }
 
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestIndexPlusCountExceedsIntMaxValue()
         {
             RandomAccessReader reader = CreateReader(new sbyte[10]);
@@ -286,11 +288,11 @@ namespace Com.Drew.Lang
             }
             catch (IOException e)
             {
-                Sharpen.Tests.AreEqual("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: 1879048191, requested count: 1879048191)", e.Message);
+                Tests.AreEqual("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: 1879048191, requested count: 1879048191)", e.Message);
             }
         }
 
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestOverflowBoundsCalculation()
         {
             RandomAccessReader reader = CreateReader(new sbyte[10]);
@@ -300,12 +302,12 @@ namespace Com.Drew.Lang
             }
             catch (IOException e)
             {
-                Sharpen.Tests.AreEqual("Attempt to read from beyond end of underlying data source (requested index: 5, requested count: 10, max index: 9)", e.Message);
+                Tests.AreEqual("Attempt to read from beyond end of underlying data source (requested index: 5, requested count: 10, max index: 9)", e.Message);
             }
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetBytesEOF()
         {
             CreateReader(new sbyte[50]).GetBytes(0, 50);
@@ -314,7 +316,7 @@ namespace Com.Drew.Lang
             try
             {
                 CreateReader(new sbyte[50]).GetBytes(0, 51);
-                NUnit.Framework.Assert.Fail("Expecting exception");
+                Assert.Fail("Expecting exception");
             }
             catch (IOException)
             {
@@ -322,7 +324,7 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetInt8EOF()
         {
             CreateReader(new sbyte[1]).GetInt8(0);
@@ -334,7 +336,7 @@ namespace Com.Drew.Lang
                 reader = CreateReader(new sbyte[1]);
                 reader.GetInt8(0);
                 reader.GetInt8(1);
-                NUnit.Framework.Assert.Fail("Expecting exception");
+                Assert.Fail("Expecting exception");
             }
             catch (IOException)
             {

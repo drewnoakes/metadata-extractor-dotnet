@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -27,7 +28,7 @@ namespace Com.Drew.Metadata.Jpeg
 {
     /// <summary>Describes tags used by a JPEG file comment.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class JpegCommentDirectory : Com.Drew.Metadata.Directory
+    public class JpegCommentDirectory : Directory
     {
         /// <summary>This value does not apply to a particular standard.</summary>
         /// <remarks>

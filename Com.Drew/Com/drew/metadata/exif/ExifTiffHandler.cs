@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2002-2015 Drew Noakes
  *
  *    Modified by Yakov Danilov <yakodani@gmail.com> for Imazen LLC (Ported from Java to C#)
@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using System.IO;
 using Com.Drew.Imaging.Tiff;
@@ -44,7 +45,7 @@ namespace Com.Drew.Metadata.Exif
     {
         private readonly bool _storeThumbnailBytes;
 
-        public ExifTiffHandler([NotNull] Com.Drew.Metadata.Metadata metadata, bool storeThumbnailBytes)
+        public ExifTiffHandler([NotNull] Metadata metadata, bool storeThumbnailBytes)
             : base(metadata, typeof(ExifIFD0Directory))
         {
             _storeThumbnailBytes = storeThumbnailBytes;
@@ -62,7 +63,7 @@ namespace Com.Drew.Metadata.Exif
             // for RW2 files
             if (marker != standardTiffMarker && marker != olympusRawTiffMarker && marker != olympusRawTiffMarker2 && marker != panasonicRawTiffMarker)
             {
-                throw new TiffProcessingException("Unexpected TIFF marker: 0x" + Sharpen.Extensions.ToHexString(marker));
+                throw new TiffProcessingException("Unexpected TIFF marker: 0x" + Extensions.ToHexString(marker));
             }
         }
 
@@ -163,7 +164,7 @@ namespace Com.Drew.Metadata.Exif
         private bool ProcessMakernote(int makernoteOffset, [NotNull] ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, [NotNull] RandomAccessReader reader)
         {
             // Determine the camera model and makernote format.
-            Com.Drew.Metadata.Directory ifd0Directory = _metadata.GetFirstDirectoryOfType<ExifIFD0Directory>();
+            Directory ifd0Directory = _metadata.GetFirstDirectoryOfType<ExifIFD0Directory>();
             if (ifd0Directory == null)
             {
                 return false;
@@ -196,7 +197,7 @@ namespace Com.Drew.Metadata.Exif
                 }
                 else
                 {
-                    if (cameraMake != null && Sharpen.Extensions.Trim(cameraMake).ToUpper().StartsWith("NIKON"))
+                    if (cameraMake != null && Extensions.Trim(cameraMake).ToUpper().StartsWith("NIKON"))
                     {
                         if ("Nikon".Equals(firstFiveChars))
                         {
@@ -273,7 +274,7 @@ namespace Com.Drew.Metadata.Exif
                                     }
                                     else
                                     {
-                                        if (Sharpen.Runtime.EqualsIgnoreCase("Canon", cameraMake))
+                                        if (Runtime.EqualsIgnoreCase("Canon", cameraMake))
                                         {
                                             PushDirectory(typeof(CanonMakernoteDirectory));
                                             TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset, tiffHeaderOffset);
@@ -295,7 +296,7 @@ namespace Com.Drew.Metadata.Exif
                                             }
                                             else
                                             {
-                                                if ("FUJIFILM".Equals(firstEightChars) || Sharpen.Runtime.EqualsIgnoreCase("Fujifilm", cameraMake))
+                                                if ("FUJIFILM".Equals(firstEightChars) || Runtime.EqualsIgnoreCase("Fujifilm", cameraMake))
                                                 {
                                                     // Note that this also applies to certain Leica cameras, such as the Digilux-4.3
                                                     reader.SetMotorolaByteOrder(false);
@@ -400,7 +401,7 @@ namespace Com.Drew.Metadata.Exif
                                                                                 }
                                                                                 else
                                                                                 {
-                                                                                    if (Sharpen.Runtime.EqualsIgnoreCase(firstFiveChars, "Ricoh"))
+                                                                                    if (Runtime.EqualsIgnoreCase(firstFiveChars, "Ricoh"))
                                                                                     {
                                                                                         // Always in Motorola byte order
                                                                                         reader.SetMotorolaByteOrder(true);

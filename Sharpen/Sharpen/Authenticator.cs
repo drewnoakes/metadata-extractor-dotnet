@@ -1,7 +1,7 @@
+using System;
+
 namespace Sharpen
 {
-    using System;
-
     public class Authenticator
     {
         protected virtual PasswordAuthentication GetPasswordAuthentication ()

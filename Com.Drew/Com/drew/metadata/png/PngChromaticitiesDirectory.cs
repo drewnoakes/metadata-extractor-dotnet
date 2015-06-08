@@ -19,15 +19,15 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
 using Sharpen;
 
 namespace Com.Drew.Metadata.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PngChromaticitiesDirectory : Com.Drew.Metadata.Directory
+    public class PngChromaticitiesDirectory : Directory
     {
         public const int TagWhitePointX = 1;
 
@@ -62,7 +62,7 @@ namespace Com.Drew.Metadata.Png
 
         public PngChromaticitiesDirectory()
         {
-            this.SetDescriptor(new TagDescriptor<Com.Drew.Metadata.Png.PngChromaticitiesDirectory>(this));
+            this.SetDescriptor(new TagDescriptor<PngChromaticitiesDirectory>(this));
         }
 
         [NotNull]

@@ -19,6 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
+using System;
+using System.Diagnostics;
 using System.IO;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Imaging.Tiff;
@@ -66,13 +69,13 @@ namespace Com.Drew.Metadata.Exif
             return Arrays.AsList(JpegSegmentType.App1).AsIterable();
         }
 
-        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
-            System.Diagnostics.Debug.Assert((segmentType == JpegSegmentType.App1));
+            Debug.Assert((segmentType == JpegSegmentType.App1));
             foreach (sbyte[] segmentBytes in segments)
             {
                 // Filter any segments containing unexpected preambles
-                if (segmentBytes.Length < JpegSegmentPreamble.Length || !Sharpen.Runtime.GetStringForBytes(segmentBytes, 0, JpegSegmentPreamble.Length).Equals(JpegSegmentPreamble))
+                if (segmentBytes.Length < JpegSegmentPreamble.Length || !Runtime.GetStringForBytes(segmentBytes, 0, JpegSegmentPreamble.Length).Equals(JpegSegmentPreamble))
                 {
                     continue;
                 }
@@ -85,7 +88,7 @@ namespace Com.Drew.Metadata.Exif
         /// <see cref="Com.Drew.Lang.RandomAccessReader"/>
         /// .
         /// </summary>
-        public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata)
+        public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata)
         {
             Extract(reader, metadata, 0);
         }
@@ -95,7 +98,7 @@ namespace Com.Drew.Metadata.Exif
         /// <see cref="Com.Drew.Lang.RandomAccessReader"/>
         /// .
         /// </summary>
-        public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata, int readerOffset)
+        public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata, int readerOffset)
         {
             try
             {
@@ -105,12 +108,12 @@ namespace Com.Drew.Metadata.Exif
             catch (TiffProcessingException e)
             {
                 // TODO what do to with this error state?
-                Sharpen.Runtime.PrintStackTrace(e, System.Console.Error);
+                Runtime.PrintStackTrace(e, Console.Error);
             }
             catch (IOException e)
             {
                 // TODO what do to with this error state?
-                Sharpen.Runtime.PrintStackTrace(e, System.Console.Error);
+                Runtime.PrintStackTrace(e, Console.Error);
             }
         }
     }

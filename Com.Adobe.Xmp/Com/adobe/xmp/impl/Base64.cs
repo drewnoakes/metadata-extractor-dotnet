@@ -6,6 +6,7 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System;
 using Sharpen;
 
@@ -170,7 +171,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>the base64-encoded string.</returns>
         public static string Encode(string src)
         {
-            return Sharpen.Runtime.GetStringForBytes(Encode(Sharpen.Runtime.GetBytesForString(src)));
+            return Runtime.GetStringForBytes(Encode(Runtime.GetBytesForString(src)));
         }
 
         /// <summary>Decode the given byte[].</summary>
@@ -236,7 +237,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>the decoded string.</returns>
         public static string Decode(string src)
         {
-            return Sharpen.Runtime.GetStringForBytes(Decode(Sharpen.Runtime.GetBytesForString(src)));
+            return Runtime.GetStringForBytes(Decode(Runtime.GetBytesForString(src)));
         }
     }
 }

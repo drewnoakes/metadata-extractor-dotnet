@@ -1,9 +1,9 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
 namespace Sharpen
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-
     public interface Iterator// : IEnumerator
     {
         bool HasNext ();

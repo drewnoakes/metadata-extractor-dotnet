@@ -19,6 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Metadata.Jpeg
@@ -28,54 +30,54 @@ namespace Com.Drew.Metadata.Jpeg
     {
         private JpegDirectory _directory;
 
-        [NUnit.Framework.SetUp]
+        [SetUp]
         public virtual void SetUp()
         {
             _directory = new JpegDirectory();
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestSetAndGetValue()
         {
             _directory.SetInt(123, 8);
-            Sharpen.Tests.AreEqual(8, _directory.GetInt(123));
+            Tests.AreEqual(8, _directory.GetInt(123));
         }
 
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetComponent_NotAdded()
         {
-            NUnit.Framework.Assert.IsNull(_directory.GetComponent(1));
+            Assert.IsNull(_directory.GetComponent(1));
         }
 
         // NOTE tests for individual tag values exist in JpegReaderTest.java
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetImageWidth()
         {
             _directory.SetInt(JpegDirectory.TagImageWidth, 123);
-            Sharpen.Tests.AreEqual(123, _directory.GetImageWidth());
+            Tests.AreEqual(123, _directory.GetImageWidth());
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetImageHeight()
         {
             _directory.SetInt(JpegDirectory.TagImageHeight, 123);
-            Sharpen.Tests.AreEqual(123, _directory.GetImageHeight());
+            Tests.AreEqual(123, _directory.GetImageHeight());
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetNumberOfComponents()
         {
             _directory.SetInt(JpegDirectory.TagNumberOfComponents, 3);
-            Sharpen.Tests.AreEqual(3, _directory.GetNumberOfComponents());
-            Sharpen.Tests.AreEqual("3", _directory.GetDescription(JpegDirectory.TagNumberOfComponents));
+            Tests.AreEqual(3, _directory.GetNumberOfComponents());
+            Tests.AreEqual("3", _directory.GetDescription(JpegDirectory.TagNumberOfComponents));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetComponent()
         {
             JpegComponent component1 = new JpegComponent(1, 2, 3);
@@ -87,10 +89,10 @@ namespace Com.Drew.Metadata.Jpeg
             _directory.SetObject(JpegDirectory.TagComponentData3, component3);
             _directory.SetObject(JpegDirectory.TagComponentData4, component4);
             // component numbers are zero-indexed for this method
-            NUnit.Framework.Assert.AreSame(component1, _directory.GetComponent(0));
-            NUnit.Framework.Assert.AreSame(component2, _directory.GetComponent(1));
-            NUnit.Framework.Assert.AreSame(component3, _directory.GetComponent(2));
-            NUnit.Framework.Assert.AreSame(component4, _directory.GetComponent(3));
+            Assert.AreSame(component1, _directory.GetComponent(0));
+            Assert.AreSame(component2, _directory.GetComponent(1));
+            Assert.AreSame(component3, _directory.GetComponent(2));
+            Assert.AreSame(component4, _directory.GetComponent(3));
         }
     }
 }

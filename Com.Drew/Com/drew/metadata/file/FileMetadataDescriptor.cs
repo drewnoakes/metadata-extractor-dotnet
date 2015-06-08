@@ -19,9 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-using Com.Drew.Metadata;
+
+using System;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.File
 {
@@ -58,7 +58,7 @@ namespace Com.Drew.Metadata.File
             {
                 return null;
             }
-            return System.Convert.ToString((long)size) + " bytes";
+            return Convert.ToString((long)size) + " bytes";
         }
     }
 }

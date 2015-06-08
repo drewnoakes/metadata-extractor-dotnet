@@ -19,7 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-using Com.Drew.Metadata;
+
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -79,7 +79,7 @@ namespace Com.Drew.Metadata.Jfif
             {
                 return null;
             }
-            return Sharpen.Extensions.StringFormat("%d.%d", ((int)value & unchecked((int)(0xFF00))) >> 8, (int)value & unchecked((int)(0xFF)));
+            return Extensions.StringFormat("%d.%d", ((int)value & unchecked((int)(0xFF00))) >> 8, (int)value & unchecked((int)(0xFF)));
         }
 
         [CanBeNull]
@@ -90,7 +90,7 @@ namespace Com.Drew.Metadata.Jfif
             {
                 return null;
             }
-            return Sharpen.Extensions.StringFormat("%d dot%s", value, value == 1 ? string.Empty : "s");
+            return Extensions.StringFormat("%d dot%s", value, value == 1 ? string.Empty : "s");
         }
 
         [CanBeNull]
@@ -101,7 +101,7 @@ namespace Com.Drew.Metadata.Jfif
             {
                 return null;
             }
-            return Sharpen.Extensions.StringFormat("%d dot%s", value, value == 1 ? string.Empty : "s");
+            return Extensions.StringFormat("%d dot%s", value, value == 1 ? string.Empty : "s");
         }
 
         [CanBeNull]

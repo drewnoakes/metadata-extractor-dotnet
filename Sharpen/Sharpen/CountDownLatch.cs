@@ -1,8 +1,7 @@
+using System.Threading;
+
 namespace Sharpen
 {
-    using System;
-    using System.Threading;
-
     public class CountDownLatch
     {
         private int count;
@@ -21,7 +20,7 @@ namespace Sharpen
             done.WaitOne ();
         }
 
-        public bool Await (long timeout, Sharpen.TimeUnit unit)
+        public bool Await (long timeout, TimeUnit unit)
         {
             return done.WaitOne ((int) unit.Convert (timeout, TimeUnit.MILLISECONDS));
         }

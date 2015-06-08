@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -27,7 +28,7 @@ namespace Com.Drew.Metadata.Photoshop
 {
     /// <summary>Holds the basic metadata found in the header of a Photoshop PSD file.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PsdHeaderDirectory : Com.Drew.Metadata.Directory
+    public class PsdHeaderDirectory : Directory
     {
         /// <summary>The number of channels in the image, including any alpha channels.</summary>
         /// <remarks>The number of channels in the image, including any alpha channels. Supported range is 1 to 56.</remarks>

@@ -19,8 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
-using System.IO;
+using System.Diagnostics;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -66,7 +67,7 @@ namespace Com.Drew.Lang
                     throw new EOFException("End of data reached.");
                 }
                 totalBytesRead += bytesRead;
-                System.Diagnostics.Debug.Assert((totalBytesRead <= count));
+                Debug.Assert((totalBytesRead <= count));
             }
             return bytes;
         }
@@ -81,7 +82,7 @@ namespace Com.Drew.Lang
             long skippedCount = SkipInternal(n);
             if (skippedCount != n)
             {
-                throw new EOFException(Sharpen.Extensions.StringFormat("Unable to skip. Requested %d bytes but skipped %d.", n, skippedCount));
+                throw new EOFException(Extensions.StringFormat("Unable to skip. Requested %d bytes but skipped %d.", n, skippedCount));
             }
         }
 
@@ -108,7 +109,7 @@ namespace Com.Drew.Lang
             while (skippedTotal != n)
             {
                 long skipped = _stream.Skip(n - skippedTotal);
-                System.Diagnostics.Debug.Assert((skipped >= 0));
+                Debug.Assert((skipped >= 0));
                 skippedTotal += skipped;
                 if (skipped == 0)
                 {

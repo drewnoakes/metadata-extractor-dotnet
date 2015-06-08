@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using JetBrains.Annotations;
 using Sharpen;
@@ -35,7 +36,7 @@ namespace Com.Drew.Lang
     /// denominator is also zero.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [System.Serializable]
+    [Serializable]
     public class Rational : Number
     {
         private const long serialVersionUID = 510688928138848770L;
@@ -169,9 +170,9 @@ namespace Com.Drew.Lang
         /// <summary>Returns the reciprocal value of this object as a new Rational.</summary>
         /// <returns>the reciprocal in a new object</returns>
         [NotNull]
-        public virtual Com.Drew.Lang.Rational GetReciprocal()
+        public virtual Rational GetReciprocal()
         {
-            return new Com.Drew.Lang.Rational(this._denominator, this._numerator);
+            return new Rational(this._denominator, this._numerator);
         }
 
         /// <summary>
@@ -202,13 +203,13 @@ namespace Com.Drew.Lang
         {
             if (_denominator == 0 && _numerator != 0)
             {
-                return Sharpen.Extensions.ConvertToString(this);
+                return Extensions.ConvertToString(this);
             }
             else
             {
                 if (IsInteger())
                 {
-                    return Sharpen.Extensions.ConvertToString(IntValue());
+                    return Extensions.ConvertToString(IntValue());
                 }
                 else
                 {
@@ -216,20 +217,20 @@ namespace Com.Drew.Lang
                     {
                         // common factor between denominator and numerator
                         long newDenominator = _denominator / _numerator;
-                        return new Com.Drew.Lang.Rational(1, newDenominator).ToSimpleString(allowDecimal);
+                        return new Rational(1, newDenominator).ToSimpleString(allowDecimal);
                     }
                     else
                     {
-                        Com.Drew.Lang.Rational simplifiedInstance = GetSimplifiedInstance();
+                        Rational simplifiedInstance = GetSimplifiedInstance();
                         if (allowDecimal)
                         {
-                            string doubleString = Sharpen.Extensions.ConvertToString(simplifiedInstance.DoubleValue());
+                            string doubleString = Extensions.ConvertToString(simplifiedInstance.DoubleValue());
                             if (doubleString.Length < 5)
                             {
                                 return doubleString;
                             }
                         }
-                        return Sharpen.Extensions.ConvertToString(simplifiedInstance);
+                        return Extensions.ConvertToString(simplifiedInstance);
                     }
                 }
             }
@@ -266,11 +267,11 @@ namespace Com.Drew.Lang
         /// </returns>
         public override bool Equals([CanBeNull] object obj)
         {
-            if (obj == null || !(obj is Com.Drew.Lang.Rational))
+            if (obj == null || !(obj is Rational))
             {
                 return false;
             }
-            Com.Drew.Lang.Rational that = (Com.Drew.Lang.Rational)obj;
+            Rational that = (Rational)obj;
             return this.DoubleValue() == that.DoubleValue();
         }
 
@@ -313,7 +314,7 @@ namespace Com.Drew.Lang
         /// returns itself (unchanged)
         /// </returns>
         [NotNull]
-        public virtual Com.Drew.Lang.Rational GetSimplifiedInstance()
+        public virtual Rational GetSimplifiedInstance()
         {
             if (TooComplexForSimplification())
             {
@@ -328,7 +329,7 @@ namespace Com.Drew.Lang
                 if (_denominator % factor == 0 && _numerator % factor == 0)
                 {
                     // found a common factor
-                    return new Com.Drew.Lang.Rational(_numerator / factor, _denominator / factor);
+                    return new Rational(_numerator / factor, _denominator / factor);
                 }
             }
             return this;

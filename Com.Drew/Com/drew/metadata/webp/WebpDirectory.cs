@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -26,7 +27,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Webp
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class WebpDirectory : Com.Drew.Metadata.Directory
+    public class WebpDirectory : Directory
     {
         public const int TagImageHeight = 1;
 

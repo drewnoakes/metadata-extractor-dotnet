@@ -19,9 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.Text;
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -416,7 +416,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 return null;
             }
             double iso = Math.Pow(((double)value / 8d) - 1, 2) * 3.125;
-            return Sharpen.Extensions.ConvertToString(iso);
+            return Extensions.ConvertToString(iso);
         }
 
         [CanBeNull]
@@ -432,7 +432,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 return null;
             }
             double shutterSpeed = Math.Pow((49 - (long)value) / 8d, 2);
-            return Sharpen.Extensions.ConvertToString(shutterSpeed) + " sec";
+            return Extensions.ConvertToString(shutterSpeed) + " sec";
         }
 
         [CanBeNull]
@@ -494,14 +494,14 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 return "N/A";
             }
             long? value = _directory.GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagIntervalNumber);
-            return value == null ? null : System.Convert.ToString((long)value);
+            return value == null ? null : Convert.ToString((long)value);
         }
 
         [CanBeNull]
         public virtual string GetFocalLengthDescription()
         {
             long? value = _directory.GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagFocalLength);
-            return value == null ? null : Sharpen.Extensions.ConvertToString((double)value / 256d) + " mm";
+            return value == null ? null : Extensions.ConvertToString((double)value / 256d) + " mm";
         }
 
         [CanBeNull]
@@ -531,7 +531,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             long day = (long)value & unchecked((int)(0xFF));
             long month = ((long)value >> 16) & unchecked((int)(0xFF));
             long year = ((long)value >> 8) & unchecked((int)(0xFF));
-            return Sharpen.Extensions.ConvertToString(new Sharpen.GregorianCalendar((int)year + 1970, (int)month, (int)day).GetTime());
+            return Extensions.ConvertToString(new GregorianCalendar((int)year + 1970, (int)month, (int)day).GetTime());
         }
 
         [CanBeNull]
@@ -548,7 +548,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             long hours = ((long)value >> 8) & unchecked((int)(0xFF));
             long minutes = ((long)value >> 16) & unchecked((int)(0xFF));
             long seconds = (long)value & unchecked((int)(0xFF));
-            return Sharpen.Extensions.StringFormat("%02d:%02d:%02d", hours, minutes, seconds);
+            return Extensions.StringFormat("%02d:%02d:%02d", hours, minutes, seconds);
         }
 
         [CanBeNull]
@@ -574,42 +574,42 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public virtual string GetLastFileNumberDescription()
         {
             long? value = _directory.GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagLastFileNumber);
-            return value == null ? null : value == 0 ? "File Number Memory Off" : System.Convert.ToString((long)value);
+            return value == null ? null : value == 0 ? "File Number Memory Off" : Convert.ToString((long)value);
         }
 
         [CanBeNull]
         public virtual string GetWhiteBalanceRedDescription()
         {
             long? value = _directory.GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceRed);
-            return value == null ? null : Sharpen.Extensions.ConvertToString((double)value / 256d);
+            return value == null ? null : Extensions.ConvertToString((double)value / 256d);
         }
 
         [CanBeNull]
         public virtual string GetWhiteBalanceGreenDescription()
         {
             long? value = _directory.GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceGreen);
-            return value == null ? null : Sharpen.Extensions.ConvertToString((double)value / 256d);
+            return value == null ? null : Extensions.ConvertToString((double)value / 256d);
         }
 
         [CanBeNull]
         public virtual string GetWhiteBalanceBlueDescription()
         {
             long? value = _directory.GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceBlue);
-            return value == null ? null : Sharpen.Extensions.ConvertToString((double)value / 256d);
+            return value == null ? null : Extensions.ConvertToString((double)value / 256d);
         }
 
         [CanBeNull]
         public virtual string GetSaturationDescription()
         {
             long? value = _directory.GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagSaturation);
-            return value == null ? null : System.Convert.ToString((long)value - 3);
+            return value == null ? null : Convert.ToString((long)value - 3);
         }
 
         [CanBeNull]
         public virtual string GetContrastDescription()
         {
             long? value = _directory.GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagContrast);
-            return value == null ? null : System.Convert.ToString((long)value - 3);
+            return value == null ? null : Convert.ToString((long)value - 3);
         }
 
         [CanBeNull]
@@ -665,7 +665,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public virtual string GetColorFilterDescription()
         {
             long? value = _directory.GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagColorFilter);
-            return value == null ? null : System.Convert.ToString((long)value - 3);
+            return value == null ? null : Convert.ToString((long)value - 3);
         }
 
         [CanBeNull]
@@ -684,7 +684,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public virtual string GetApexBrightnessDescription()
         {
             long? value = _directory.GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagApexBrightnessValue);
-            return value == null ? null : Sharpen.Extensions.ConvertToString(((double)value / 8d) - 6);
+            return value == null ? null : Extensions.ConvertToString(((double)value / 8d) - 6);
         }
 
         [CanBeNull]
@@ -785,7 +785,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return null;
             }
-            return Sharpen.Runtime.GetStringForBytes(bytes);
+            return Runtime.GetStringForBytes(bytes);
         }
 
         [CanBeNull]
@@ -916,7 +916,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                     }
                 }
             }
-            return Sharpen.Extensions.ConvertToString(desc);
+            return Extensions.ConvertToString(desc);
         }
     }
 }

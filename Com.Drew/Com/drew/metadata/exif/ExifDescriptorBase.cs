@@ -19,13 +19,12 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using Com.Drew.Imaging;
 using Com.Drew.Lang;
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -34,7 +33,7 @@ namespace Com.Drew.Metadata.Exif
     /// <summary>Base class for several Exif format descriptor classes.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class ExifDescriptorBase<T> : TagDescriptor<T>
-        where T : Com.Drew.Metadata.Directory
+        where T : Directory
     {
         /// <summary>
         /// Dictates whether rational values will be represented in decimal format in instances
@@ -417,7 +416,7 @@ namespace Com.Drew.Metadata.Exif
             {
                 return null;
             }
-            return Sharpen.Runtime.EqualsIgnoreCase("R98", Sharpen.Extensions.Trim(value)) ? "Recommended Exif Interoperability Rules (ExifR98)" : "Unknown (" + value + ")";
+            return Runtime.EqualsIgnoreCase("R98", Extensions.Trim(value)) ? "Recommended Exif Interoperability Rules (ExifR98)" : "Unknown (" + value + ")";
         }
 
         [CanBeNull]
@@ -434,7 +433,7 @@ namespace Com.Drew.Metadata.Exif
             int whiteG = ints[3];
             int blackB = ints[4];
             int whiteB = ints[5];
-            return Sharpen.Extensions.StringFormat("[%d,%d,%d] [%d,%d,%d]", blackR, blackG, blackB, whiteR, whiteG, whiteB);
+            return Extensions.StringFormat("[%d,%d,%d] [%d,%d,%d]", blackR, blackG, blackB, whiteR, whiteG, whiteB);
         }
 
         [CanBeNull]
@@ -446,7 +445,7 @@ namespace Com.Drew.Metadata.Exif
                 return null;
             }
             string unit = GetResolutionDescription();
-            return Sharpen.Extensions.StringFormat("%s dots per %s", value.ToSimpleString(_allowDecimalRepresentationOfRationals), unit == null ? "unit" : unit.ToLower());
+            return Extensions.StringFormat("%s dots per %s", value.ToSimpleString(_allowDecimalRepresentationOfRationals), unit == null ? "unit" : unit.ToLower());
         }
 
         [CanBeNull]
@@ -458,7 +457,7 @@ namespace Com.Drew.Metadata.Exif
                 return null;
             }
             string unit = GetResolutionDescription();
-            return Sharpen.Extensions.StringFormat("%s dots per %s", value.ToSimpleString(_allowDecimalRepresentationOfRationals), unit == null ? "unit" : unit.ToLower());
+            return Extensions.StringFormat("%s dots per %s", value.ToSimpleString(_allowDecimalRepresentationOfRationals), unit == null ? "unit" : unit.ToLower());
         }
 
         [CanBeNull]
@@ -493,7 +492,7 @@ namespace Com.Drew.Metadata.Exif
             try
             {
                 // Decode the unicode string and trim the unicode zero "\0" from the end.
-                return Sharpen.Extensions.Trim(Sharpen.Runtime.GetStringForBytes(bytes, "UTF-16LE"));
+                return Extensions.Trim(Runtime.GetStringForBytes(bytes, "UTF-16LE"));
             }
             catch (UnsupportedEncodingException)
             {
@@ -818,7 +817,7 @@ namespace Com.Drew.Metadata.Exif
             {
                 if (commentBytes.Length >= 10)
                 {
-                    string firstTenBytesString = Sharpen.Runtime.GetStringForBytes(commentBytes, 0, 10);
+                    string firstTenBytesString = Runtime.GetStringForBytes(commentBytes, 0, 10);
                     // try each encoding name
                     foreach (KeyValuePair<string, string> pair in encodingMap.EntrySet())
                     {
@@ -832,15 +831,15 @@ namespace Com.Drew.Metadata.Exif
                                 sbyte b = commentBytes[j];
                                 if (b != '\0' && b != ' ')
                                 {
-                                    return Sharpen.Extensions.Trim(Sharpen.Runtime.GetStringForBytes(commentBytes, j, commentBytes.Length - j, charset));
+                                    return Extensions.Trim(Runtime.GetStringForBytes(commentBytes, j, commentBytes.Length - j, charset));
                                 }
                             }
-                            return Sharpen.Extensions.Trim(Sharpen.Runtime.GetStringForBytes(commentBytes, 10, commentBytes.Length - 10, charset));
+                            return Extensions.Trim(Runtime.GetStringForBytes(commentBytes, 10, commentBytes.Length - 10, charset));
                         }
                     }
                 }
                 // special handling fell through, return a plain string representation
-                return Sharpen.Extensions.Trim(Sharpen.Runtime.GetStringForBytes(commentBytes, Runtime.GetProperty("file.encoding")));
+                return Extensions.Trim(Runtime.GetStringForBytes(commentBytes, Runtime.GetProperty("file.encoding")));
             }
             catch (UnsupportedEncodingException)
             {
@@ -855,7 +854,7 @@ namespace Com.Drew.Metadata.Exif
             int? isoEquiv = _directory.GetInteger(ExifDirectoryBase.TagIsoEquivalent);
             // There used to be a check here that multiplied ISO values < 50 by 200.
             // Issue 36 shows a smart-phone image from a Samsung Galaxy S2 with ISO-40.
-            return isoEquiv != null ? Sharpen.Extensions.ConvertToString((int)isoEquiv) : null;
+            return isoEquiv != null ? Extensions.ConvertToString((int)isoEquiv) : null;
         }
 
         [CanBeNull]
@@ -1048,7 +1047,7 @@ namespace Com.Drew.Metadata.Exif
             {
                 sb.Append(", red-eye reduction");
             }
-            return Sharpen.Extensions.ConvertToString(sb);
+            return Extensions.ConvertToString(sb);
         }
 
         [CanBeNull]
@@ -1463,7 +1462,7 @@ namespace Com.Drew.Metadata.Exif
             if (apexValue <= 1)
             {
                 float apexPower = (float)(1 / (Math.Exp((double)apexValue * Math.Log(2))));
-                long apexPower10 = (long)System.Math.Round((double)apexPower * 10.0);
+                long apexPower10 = (long)Math.Round((double)apexPower * 10.0);
                 float fApexPower = (float)apexPower10 / 10.0f;
                 return fApexPower + " sec";
             }
@@ -1532,7 +1531,7 @@ namespace Com.Drew.Metadata.Exif
                     componentConfig.Append(componentStrings[j]);
                 }
             }
-            return Sharpen.Extensions.ConvertToString(componentConfig);
+            return Extensions.ConvertToString(componentConfig);
         }
 
         [CanBeNull]

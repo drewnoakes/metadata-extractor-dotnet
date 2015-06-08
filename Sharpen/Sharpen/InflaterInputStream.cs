@@ -1,9 +1,7 @@
+using ICSharpCode.SharpZipLib.Zip.Compression;
+
 namespace Sharpen
 {
-    using ICSharpCode.SharpZipLib.Zip.Compression;
-    using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
-    using System;
-
     public class InflaterInputStream : InputStream
     {
         protected InputStream @in;

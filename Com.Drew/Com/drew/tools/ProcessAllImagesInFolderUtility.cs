@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,6 +29,7 @@ using Com.Drew.Metadata;
 using Com.Drew.Metadata.Exif;
 using JetBrains.Annotations;
 using Sharpen;
+using Directory = Com.Drew.Metadata.Directory;
 
 namespace Com.Drew.Tools
 {
@@ -40,31 +42,31 @@ namespace Com.Drew.Tools
         {
             if (args.Length == 0)
             {
-                System.Console.Error.Println("Expects one or more directories as arguments.");
-                System.Environment.Exit(1);
+                Console.Error.Println("Expects one or more directories as arguments.");
+                Environment.Exit(1);
             }
             IList<string> directories = new AList<string>();
-            ProcessAllImagesInFolderUtility.FileHandler handler = null;
+            FileHandler handler = null;
             foreach (string arg in args)
             {
-                if (Sharpen.Runtime.EqualsIgnoreCase(arg, "-text"))
+                if (Runtime.EqualsIgnoreCase(arg, "-text"))
                 {
                     // If "-text" is specified, write the discovered metadata into a sub-folder relative to the image
-                    handler = new ProcessAllImagesInFolderUtility.TextFileOutputHandler();
+                    handler = new TextFileOutputHandler();
                 }
                 else
                 {
-                    if (Sharpen.Runtime.EqualsIgnoreCase(arg, "-markdown"))
+                    if (Runtime.EqualsIgnoreCase(arg, "-markdown"))
                     {
                         // If "-markdown" is specified, write a summary table in markdown format to standard out
-                        handler = new ProcessAllImagesInFolderUtility.MarkdownTableOutputHandler();
+                        handler = new MarkdownTableOutputHandler();
                     }
                     else
                     {
-                        if (Sharpen.Runtime.EqualsIgnoreCase(arg, "-unknown"))
+                        if (Runtime.EqualsIgnoreCase(arg, "-unknown"))
                         {
                             // If "-unknown" is specified, write CSV tallying unknown tag counts
-                            handler = new ProcessAllImagesInFolderUtility.UnknownTagHandler();
+                            handler = new UnknownTagHandler();
                         }
                         else
                         {
@@ -76,7 +78,7 @@ namespace Com.Drew.Tools
             }
             if (handler == null)
             {
-                handler = new ProcessAllImagesInFolderUtility.BasicFileHandler();
+                handler = new BasicFileHandler();
             }
             long start = Runtime.NanoTime();
             // Order alphabetically so that output is stable across invocations
@@ -86,10 +88,10 @@ namespace Com.Drew.Tools
                 ProcessDirectory(new FilePath(directory), handler, string.Empty);
             }
             handler.OnCompleted();
-            System.Console.Out.Println(Sharpen.Extensions.StringFormat("Completed in %d ms", (Runtime.NanoTime() - start) / 1000000));
+            Console.Out.Println(Extensions.StringFormat("Completed in %d ms", (Runtime.NanoTime() - start) / 1000000));
         }
 
-        private static void ProcessDirectory([NotNull] FilePath path, [NotNull] ProcessAllImagesInFolderUtility.FileHandler handler, [NotNull] string relativePath)
+        private static void ProcessDirectory([NotNull] FilePath path, [NotNull] FileHandler handler, [NotNull] string relativePath)
         {
             string[] pathItems = path.List();
             if (pathItems == null)
@@ -111,7 +113,7 @@ namespace Com.Drew.Tools
                     {
                         handler.OnProcessingStarting(file);
                         // Read metadata
-                        Com.Drew.Metadata.Metadata metadata;
+                        Metadata.Metadata metadata;
                         try
                         {
                             metadata = ImageMetadataReader.ReadMetadata(file);
@@ -133,14 +135,14 @@ namespace Com.Drew.Tools
 
             void OnException([NotNull] FilePath file, [NotNull] Exception throwable);
 
-            void OnExtracted([NotNull] FilePath file, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] string relativePath);
+            void OnExtracted([NotNull] FilePath file, [NotNull] Metadata.Metadata metadata, [NotNull] string relativePath);
 
             void OnCompleted();
 
             void OnProcessingStarting([NotNull] FilePath file);
         }
 
-        internal abstract class FileHandlerBase : ProcessAllImagesInFolderUtility.FileHandler
+        internal abstract class FileHandlerBase : FileHandler
         {
             private readonly ICollection<string> _supportedExtensions = new HashSet<string>(Arrays.AsList("jpg", "jpeg", "png", "gif", "bmp", "ico", "webp", "pcx", "ai", "eps", "nef", "crw", "cr2", "orf", "arw", "raf", "srw", "x3f", "rw2", "rwl", "tif", 
                 "tiff", "psd", "dng"));
@@ -172,22 +174,22 @@ namespace Com.Drew.Tools
                 {
                     // this is an error in the Jpeg segment structure.  we're looking for bad handling of
                     // metadata segments.  in this case, we didn't even get a segment.
-                    System.Console.Error.Printf("%s: %s [Error Extracting Metadata]\n\t%s%n", throwable.GetType().FullName, file, throwable.Message);
+                    Console.Error.Printf("%s: %s [Error Extracting Metadata]\n\t%s%n", throwable.GetType().FullName, file, throwable.Message);
                 }
                 else
                 {
                     // general, uncaught exception during processing of jpeg segments
-                    System.Console.Error.Printf("%s: %s [Error Extracting Metadata]%n", throwable.GetType().FullName, file);
-                    Sharpen.Runtime.PrintStackTrace(throwable, System.Console.Error);
+                    Console.Error.Printf("%s: %s [Error Extracting Metadata]%n", throwable.GetType().FullName, file);
+                    Runtime.PrintStackTrace(throwable, Console.Error);
                 }
             }
 
-            public virtual void OnExtracted([NotNull] FilePath file, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] string relativePath)
+            public virtual void OnExtracted([NotNull] FilePath file, [NotNull] Metadata.Metadata metadata, [NotNull] string relativePath)
             {
                 if (metadata.HasErrors())
                 {
-                    System.Console.Error.Println(file);
-                    foreach (Com.Drew.Metadata.Directory directory in metadata.GetDirectories())
+                    Console.Error.Println(file);
+                    foreach (Directory directory in metadata.GetDirectories())
                     {
                         if (!directory.HasErrors())
                         {
@@ -195,7 +197,7 @@ namespace Com.Drew.Tools
                         }
                         foreach (string error in directory.GetErrors())
                         {
-                            System.Console.Error.Printf("\t[%s] %s%n", directory.GetName(), error);
+                            Console.Error.Printf("\t[%s] %s%n", directory.GetName(), error);
                             _errorCount++;
                         }
                     }
@@ -206,7 +208,7 @@ namespace Com.Drew.Tools
             {
                 if (_processedFileCount > 0)
                 {
-                    System.Console.Out.Println(Sharpen.Extensions.StringFormat("Processed %,d files (%,d bytes) with %,d exceptions and %,d file errors", _processedFileCount, _processedByteCount, _exceptionCount, _errorCount));
+                    Console.Out.Println(Extensions.StringFormat("Processed %,d files (%,d bytes) with %,d exceptions and %,d file errors", _processedFileCount, _processedByteCount, _exceptionCount, _errorCount));
                 }
             }
 
@@ -223,14 +225,14 @@ namespace Com.Drew.Tools
                 {
                     return null;
                 }
-                return Sharpen.Runtime.Substring(fileName, i + 1);
+                return Runtime.Substring(fileName, i + 1);
             }
         }
 
         /// <summary>Writes a text file containing the extracted metadata for each input file.</summary>
-        internal class TextFileOutputHandler : ProcessAllImagesInFolderUtility.FileHandlerBase
+        internal class TextFileOutputHandler : FileHandlerBase
         {
-            public override void OnExtracted([NotNull] FilePath file, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] string relativePath)
+            public override void OnExtracted([NotNull] FilePath file, [NotNull] Metadata.Metadata metadata, [NotNull] string relativePath)
             {
                 base.OnExtracted(file, metadata, relativePath);
                 try
@@ -240,8 +242,8 @@ namespace Com.Drew.Tools
                     {
                         writer = OpenWriter(file);
                         // Build a list of all directories
-                        IList<Com.Drew.Metadata.Directory> directories = new AList<Com.Drew.Metadata.Directory>();
-                        foreach (Com.Drew.Metadata.Directory directory in metadata.GetDirectories())
+                        IList<Directory> directories = new AList<Directory>();
+                        foreach (Directory directory in metadata.GetDirectories())
                         {
                             directories.Add(directory);
                         }
@@ -250,7 +252,7 @@ namespace Com.Drew.Tools
                         // Write any errors
                         if (metadata.HasErrors())
                         {
-                            foreach (Com.Drew.Metadata.Directory directory_1 in directories)
+                            foreach (Directory directory_1 in directories)
                             {
                                 if (!directory_1.HasErrors())
                                 {
@@ -264,7 +266,7 @@ namespace Com.Drew.Tools
                             writer.Write("\n");
                         }
                         // Write tag values for each directory
-                        foreach (Com.Drew.Metadata.Directory directory_2 in directories)
+                        foreach (Directory directory_2 in directories)
                         {
                             string directoryName = directory_2.GetName();
                             foreach (Tag tag in directory_2.GetTags())
@@ -286,17 +288,17 @@ namespace Com.Drew.Tools
                 }
                 catch (IOException e)
                 {
-                    Sharpen.Runtime.PrintStackTrace(e);
+                    Runtime.PrintStackTrace(e);
                 }
             }
 
-            private sealed class _IComparer_235 : IComparer<Com.Drew.Metadata.Directory>
+            private sealed class _IComparer_235 : IComparer<Directory>
             {
                 public _IComparer_235()
                 {
                 }
 
-                public int Compare(Com.Drew.Metadata.Directory o1, Com.Drew.Metadata.Directory o2)
+                public int Compare(Directory o1, Directory o2)
                 {
                     return string.CompareOrdinal(o1.GetName(), o2.GetName());
                 }
@@ -311,7 +313,7 @@ namespace Com.Drew.Tools
                     try
                     {
                         writer = OpenWriter(file);
-                        Sharpen.Runtime.PrintStackTrace(throwable, writer);
+                        Runtime.PrintStackTrace(throwable, writer);
                         writer.Write('\n');
                     }
                     finally
@@ -321,7 +323,7 @@ namespace Com.Drew.Tools
                 }
                 catch (IOException e)
                 {
-                    System.Console.Error.Printf("IO exception writing metadata file: %s%n", e.Message);
+                    Console.Error.Printf("IO exception writing metadata file: %s%n", e.Message);
                 }
             }
 
@@ -330,12 +332,12 @@ namespace Com.Drew.Tools
             private static PrintWriter OpenWriter([NotNull] FilePath file)
             {
                 // Create the output directory if it doesn't exist
-                FilePath metadataDir = new FilePath(Sharpen.Extensions.StringFormat("%s/metadata", file.GetParent()));
+                FilePath metadataDir = new FilePath(Extensions.StringFormat("%s/metadata", file.GetParent()));
                 if (!metadataDir.Exists())
                 {
                     metadataDir.Mkdir();
                 }
-                string outputPath = Sharpen.Extensions.StringFormat("%s/metadata/%s.txt", file.GetParent(), file.GetName().ToLower());
+                string outputPath = Extensions.StringFormat("%s/metadata/%s.txt", file.GetParent(), file.GetName().ToLower());
                 FileWriter writer = new FileWriter(outputPath, false);
                 writer.Write("FILE: " + file.GetName() + "\n");
                 writer.Write('\n');
@@ -356,17 +358,17 @@ namespace Com.Drew.Tools
         }
 
         /// <summary>Creates a table describing sample images using Wiki markdown.</summary>
-        internal class MarkdownTableOutputHandler : ProcessAllImagesInFolderUtility.FileHandlerBase
+        internal class MarkdownTableOutputHandler : FileHandlerBase
         {
             private readonly IDictionary<string, string> _extensionEquivalence = new Dictionary<string, string>();
 
-            private readonly IDictionary<string, IList<ProcessAllImagesInFolderUtility.MarkdownTableOutputHandler.Row>> _rowListByExtension = new Dictionary<string, IList<ProcessAllImagesInFolderUtility.MarkdownTableOutputHandler.Row>>();
+            private readonly IDictionary<string, IList<Row>> _rowListByExtension = new Dictionary<string, IList<Row>>();
 
             internal class Row
             {
                 internal readonly FilePath file;
 
-                internal readonly Com.Drew.Metadata.Metadata metadata;
+                internal readonly Metadata.Metadata metadata;
 
                 [NotNull]
                 internal readonly string relativePath;
@@ -381,7 +383,7 @@ namespace Com.Drew.Tools
 
                 [CanBeNull] internal string makernote;
 
-                internal Row(MarkdownTableOutputHandler _enclosing, [NotNull] FilePath file, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] string relativePath)
+                internal Row(MarkdownTableOutputHandler _enclosing, [NotNull] FilePath file, [NotNull] Metadata.Metadata metadata, [NotNull] string relativePath)
                 {
                     this._enclosing = _enclosing;
                     this.file = file;
@@ -405,13 +407,13 @@ namespace Com.Drew.Tools
                     {
                         int? width = thumbDir.GetInteger(ExifThumbnailDirectory.TagImageWidth);
                         int? height = thumbDir.GetInteger(ExifThumbnailDirectory.TagImageHeight);
-                        this.thumbnail = width != null && height != null ? Sharpen.Extensions.StringFormat("Yes (%s x %s)", width, height) : "Yes";
+                        this.thumbnail = width != null && height != null ? Extensions.StringFormat("Yes (%s x %s)", width, height) : "Yes";
                     }
-                    foreach (Com.Drew.Metadata.Directory directory in metadata.GetDirectories())
+                    foreach (Directory directory in metadata.GetDirectories())
                     {
                         if (directory.GetType().FullName.Contains("Makernote"))
                         {
-                            this.makernote = Sharpen.Extensions.Trim(directory.GetName().Replace("Makernote", string.Empty));
+                            this.makernote = Extensions.Trim(directory.GetName().Replace("Makernote", string.Empty));
                         }
                     }
                     if (this.makernote == null)
@@ -428,7 +430,7 @@ namespace Com.Drew.Tools
                 _extensionEquivalence.Put("jpeg", "jpg");
             }
 
-            public override void OnExtracted([NotNull] FilePath file, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] string relativePath)
+            public override void OnExtracted([NotNull] FilePath file, [NotNull] Metadata.Metadata metadata, [NotNull] string relativePath)
             {
                 base.OnExtracted(file, metadata, relativePath);
                 string extension = GetExtension(file);
@@ -442,13 +444,13 @@ namespace Com.Drew.Tools
                 {
                     extension = _extensionEquivalence.Get(extension);
                 }
-                IList<ProcessAllImagesInFolderUtility.MarkdownTableOutputHandler.Row> list = _rowListByExtension.Get(extension);
+                IList<Row> list = _rowListByExtension.Get(extension);
                 if (list == null)
                 {
-                    list = new AList<ProcessAllImagesInFolderUtility.MarkdownTableOutputHandler.Row>();
+                    list = new AList<Row>();
                     _rowListByExtension.Put(extension, list);
                 }
-                list.Add(new ProcessAllImagesInFolderUtility.MarkdownTableOutputHandler.Row(this, file, metadata, relativePath));
+                list.Add(new Row(this, file, metadata, relativePath));
             }
 
             public override void OnCompleted()
@@ -465,7 +467,7 @@ namespace Com.Drew.Tools
                 }
                 catch (IOException e)
                 {
-                    Sharpen.Runtime.PrintStackTrace(e);
+                    Runtime.PrintStackTrace(e);
                 }
                 finally
                 {
@@ -481,7 +483,7 @@ namespace Com.Drew.Tools
                         }
                         catch (IOException e)
                         {
-                            Sharpen.Runtime.PrintStackTrace(e);
+                            Runtime.PrintStackTrace(e);
                         }
                     }
                 }
@@ -497,12 +499,12 @@ namespace Com.Drew.Tools
                     writer.Write("## " + extension.ToUpper() + " Files\n\n");
                     writer.Write("File|Manufacturer|Model|Dir Count|Exif?|Makernote|Thumbnail|All Data\n");
                     writer.Write("----|------------|-----|---------|-----|---------|---------|--------\n");
-                    IList<ProcessAllImagesInFolderUtility.MarkdownTableOutputHandler.Row> rows = _rowListByExtension.Get(extension);
+                    IList<Row> rows = _rowListByExtension.Get(extension);
                     // Order by manufacturer, then model
                     rows.Sort(new _IComparer_441());
-                    foreach (ProcessAllImagesInFolderUtility.MarkdownTableOutputHandler.Row row in rows)
+                    foreach (Row row in rows)
                     {
-                        writer.Write(Sharpen.Extensions.StringFormat("[%s](https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/%s/%s)|%s|%s|%d|%s|%s|%s|[metadata](https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/%s/metadata/%s.txt)%n"
+                        writer.Write(Extensions.StringFormat("[%s](https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/%s/%s)|%s|%s|%d|%s|%s|%s|[metadata](https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/%s/metadata/%s.txt)%n"
                             , row.file.GetName(), row.relativePath, StringUtil.UrlEncode(row.file.GetName()), row.manufacturer == null ? string.Empty : row.manufacturer, row.model == null ? string.Empty : row.model, row.metadata.GetDirectoryCount(), row.exifVersion ==
                              null ? string.Empty : row.exifVersion, row.makernote == null ? string.Empty : row.makernote, row.thumbnail == null ? string.Empty : row.thumbnail, row.relativePath, StringUtil.UrlEncode(row.file.GetName()).ToLower()));
                     }
@@ -511,13 +513,13 @@ namespace Com.Drew.Tools
                 writer.Flush();
             }
 
-            private sealed class _IComparer_441 : IComparer<ProcessAllImagesInFolderUtility.MarkdownTableOutputHandler.Row>
+            private sealed class _IComparer_441 : IComparer<Row>
             {
                 public _IComparer_441()
                 {
                 }
 
-                public int Compare(ProcessAllImagesInFolderUtility.MarkdownTableOutputHandler.Row o1, ProcessAllImagesInFolderUtility.MarkdownTableOutputHandler.Row o2)
+                public int Compare(Row o1, Row o2)
                 {
                     int c1 = StringUtil.Compare(o1.manufacturer, o2.manufacturer);
                     return c1 != 0 ? c1 : StringUtil.Compare(o1.model, o2.model);
@@ -526,14 +528,14 @@ namespace Com.Drew.Tools
         }
 
         /// <summary>Keeps track of unknown tags.</summary>
-        internal class UnknownTagHandler : ProcessAllImagesInFolderUtility.FileHandlerBase
+        internal class UnknownTagHandler : FileHandlerBase
         {
             private Dictionary<string, Dictionary<int?, int?>> _occurrenceCountByTagByDirectory = new Dictionary<string, Dictionary<int?, int?>>();
 
-            public override void OnExtracted([NotNull] FilePath file, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] string relativePath)
+            public override void OnExtracted([NotNull] FilePath file, [NotNull] Metadata.Metadata metadata, [NotNull] string relativePath)
             {
                 base.OnExtracted(file, metadata, relativePath);
-                foreach (Com.Drew.Metadata.Directory directory in metadata.GetDirectories())
+                foreach (Directory directory in metadata.GetDirectories())
                 {
                     foreach (Tag tag in directory.GetTags())
                     {
@@ -571,7 +573,7 @@ namespace Com.Drew.Tools
                     {
                         int? tagType = pair2.Key;
                         int? count = pair2.Value;
-                        System.Console.Out.Format("%s, 0x%04X, %d\n", directoryName, tagType, count);
+                        Console.Out.Format("%s, 0x%04X, %d\n", directoryName, tagType, count);
                     }
                 }
             }
@@ -594,13 +596,13 @@ namespace Com.Drew.Tools
         /// Does nothing with the output except enumerate it in memory and format descriptions. This is useful in order to
         /// flush out any potential exceptions raised during the formatting of extracted value descriptions.
         /// </remarks>
-        internal class BasicFileHandler : ProcessAllImagesInFolderUtility.FileHandlerBase
+        internal class BasicFileHandler : FileHandlerBase
         {
-            public override void OnExtracted([NotNull] FilePath file, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] string relativePath)
+            public override void OnExtracted([NotNull] FilePath file, [NotNull] Metadata.Metadata metadata, [NotNull] string relativePath)
             {
                 base.OnExtracted(file, metadata, relativePath);
                 // Iterate through all values, calling toString to flush out any formatting exceptions
-                foreach (Com.Drew.Metadata.Directory directory in metadata.GetDirectories())
+                foreach (Directory directory in metadata.GetDirectories())
                 {
                     directory.GetName();
                     foreach (Tag tag in directory.GetTags())

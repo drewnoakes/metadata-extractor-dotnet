@@ -1,4 +1,3 @@
-using System.Text;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -63,7 +62,7 @@ namespace Com.Drew.Metadata.Iptc
             string[] encodings = new string[] { Utf8, Runtime.GetProperty("file.encoding"), Iso88591 };
             foreach (string encoding in encodings)
             {
-                CharsetDecoder cs = Sharpen.Extensions.GetEncoding(encoding).NewDecoder();
+                CharsetDecoder cs = Extensions.GetEncoding(encoding).NewDecoder();
                 try
                 {
                     cs.Decode(ByteBuffer.Wrap(bytes));

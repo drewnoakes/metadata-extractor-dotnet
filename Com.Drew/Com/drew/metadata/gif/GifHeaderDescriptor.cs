@@ -1,6 +1,4 @@
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Gif
 {

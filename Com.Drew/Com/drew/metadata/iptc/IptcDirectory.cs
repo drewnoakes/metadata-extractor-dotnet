@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -27,7 +28,7 @@ namespace Com.Drew.Metadata.Iptc
 {
     /// <summary>Describes tags used by the International Press Telecommunications Council (IPTC) metadata format.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class IptcDirectory : Com.Drew.Metadata.Directory
+    public class IptcDirectory : Directory
     {
         public const int TagEnvelopeRecordVersion = unchecked((int)(0x0100));
 
@@ -368,7 +369,7 @@ namespace Com.Drew.Metadata.Iptc
         [CanBeNull]
         public virtual IList<string> GetKeywords()
         {
-            string[] array = GetStringArray(Com.Drew.Metadata.Iptc.IptcDirectory.TagKeywords);
+            string[] array = GetStringArray(TagKeywords);
             if (array == null)
             {
                 return null;

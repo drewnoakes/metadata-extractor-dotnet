@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -26,7 +27,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Adobe
 {
     /// <summary>Contains image encoding information for DCT filters, as stored by Adobe.</summary>
-    public class AdobeJpegDirectory : Com.Drew.Metadata.Directory
+    public class AdobeJpegDirectory : Directory
     {
         public const int TagDctEncodeVersion = 0;
 

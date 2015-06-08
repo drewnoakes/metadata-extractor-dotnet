@@ -36,6 +36,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
+
 using System;
 using System.Collections;
 using System.Text;
@@ -203,7 +204,7 @@ namespace Sharpen {
                 }
 
                 if (next + group.Length > buffer.Length){
-                    byte [] nb = new byte [System.Math.Max (next, 16) * 2 + group.Length];
+                    byte [] nb = new byte [Math.Max (next, 16) * 2 + group.Length];
                     Array.Copy (buffer, nb, buffer.Length);
                     Array.Copy (group, 0, nb, next, group.Length);
                     next = next + group.Length;

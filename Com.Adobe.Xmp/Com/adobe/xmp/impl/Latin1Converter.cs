@@ -1,4 +1,4 @@
-// =================================================================================================
+﻿// =================================================================================================
 // ADOBE SYSTEMS INCORPORATED
 // Copyright 2006 Adobe Systems Incorporated
 // All Rights Reserved
@@ -6,7 +6,7 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
-using System.IO;
+
 using Sharpen;
 
 namespace Com.Adobe.Xmp.Impl
@@ -176,7 +176,7 @@ namespace Com.Adobe.Xmp.Impl
                     }
                     // space for undefined 
                     // interpret byte as Windows Cp1252 char
-                    return Sharpen.Runtime.GetBytesForString(Sharpen.Runtime.GetStringForBytes(new sbyte[] { ch }, "cp1252"), "UTF-8");
+                    return Runtime.GetBytesForString(Runtime.GetStringForBytes(new sbyte[] { ch }, "cp1252"), "UTF-8");
                 }
             }
             catch (UnsupportedEncodingException)

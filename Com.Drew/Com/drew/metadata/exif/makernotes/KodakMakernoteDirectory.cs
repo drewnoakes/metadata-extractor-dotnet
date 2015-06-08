@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -27,7 +28,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 {
     /// <summary>Describes tags specific to Kodak cameras.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class KodakMakernoteDirectory : Com.Drew.Metadata.Directory
+    public class KodakMakernoteDirectory : Directory
     {
         public const int TagKodakModel = 0;
 

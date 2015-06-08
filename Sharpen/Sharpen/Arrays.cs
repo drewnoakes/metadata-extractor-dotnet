@@ -1,11 +1,9 @@
-using System.Collections;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Sharpen
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
     public class Arrays
     {
         public static List<T> AsList<T> (params T[] array)

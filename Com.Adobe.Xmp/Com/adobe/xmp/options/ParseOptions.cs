@@ -6,7 +6,6 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
-using Sharpen;
 
 namespace Com.Adobe.Xmp.Options
 {
@@ -16,7 +15,7 @@ namespace Com.Adobe.Xmp.Options
     /// .
     /// </summary>
     /// <since>24.01.2006</since>
-    public sealed class ParseOptions : Com.Adobe.Xmp.Options.Options
+    public sealed class ParseOptions : Options
     {
         /// <summary>Require a surrounding &quot;x:xmpmeta&quot; element in the xml-document.</summary>
         public const int RequireXmpMeta = unchecked((int)(0x0001));
@@ -47,7 +46,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.ParseOptions SetRequireXMPMeta(bool value)
+        public ParseOptions SetRequireXMPMeta(bool value)
         {
             SetOption(RequireXmpMeta, value);
             return this;
@@ -61,7 +60,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.ParseOptions SetStrictAliasing(bool value)
+        public ParseOptions SetStrictAliasing(bool value)
         {
             SetOption(StrictAliasing, value);
             return this;
@@ -75,7 +74,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.ParseOptions SetFixControlChars(bool value)
+        public ParseOptions SetFixControlChars(bool value)
         {
             SetOption(FixControlChars, value);
             return this;
@@ -89,7 +88,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.ParseOptions SetOmitNormalization(bool value)
+        public ParseOptions SetOmitNormalization(bool value)
         {
             SetOption(OmitNormalization, value);
             return this;
@@ -103,7 +102,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.ParseOptions SetAcceptLatin1(bool value)
+        public ParseOptions SetAcceptLatin1(bool value)
         {
             SetOption(AcceptLatin1, value);
             return this;

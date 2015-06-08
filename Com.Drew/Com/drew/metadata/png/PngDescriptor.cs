@@ -19,12 +19,12 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Com.Drew.Imaging.Png;
 using Com.Drew.Lang;
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -163,9 +163,9 @@ namespace Com.Drew.Metadata.Png
                 {
                     sb.Append('\n');
                 }
-                sb.Append(Sharpen.Extensions.StringFormat("%s: %s", keyValue.GetKey(), keyValue.GetValue()));
+                sb.Append(Extensions.StringFormat("%s: %s", keyValue.GetKey(), keyValue.GetValue()));
             }
-            return Sharpen.Extensions.ConvertToString(sb);
+            return Extensions.ConvertToString(sb);
         }
 
         [CanBeNull]
@@ -186,18 +186,18 @@ namespace Com.Drew.Metadata.Png
                     case 4:
                     {
                         // TODO do we need to normalise these based upon the bit depth?
-                        return Sharpen.Extensions.StringFormat("Greyscale Level %d", reader.GetUInt16());
+                        return Extensions.StringFormat("Greyscale Level %d", reader.GetUInt16());
                     }
 
                     case 2:
                     case 6:
                     {
-                        return Sharpen.Extensions.StringFormat("R %d, G %d, B %d", reader.GetUInt16(), reader.GetUInt16(), reader.GetUInt16());
+                        return Extensions.StringFormat("R %d, G %d, B %d", reader.GetUInt16(), reader.GetUInt16(), reader.GetUInt16());
                     }
 
                     case 3:
                     {
-                        return Sharpen.Extensions.StringFormat("Palette Index %d", reader.GetUInt8());
+                        return Extensions.StringFormat("Palette Index %d", reader.GetUInt8());
                     }
                 }
             }

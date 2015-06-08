@@ -19,15 +19,15 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata
 {
     /// <summary>A mock implementation of Directory used in unit testing.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class MockDirectory : Com.Drew.Metadata.Directory
+    public class MockDirectory : Directory
     {
         private readonly Dictionary<int?, string> _tagNameMap;
 

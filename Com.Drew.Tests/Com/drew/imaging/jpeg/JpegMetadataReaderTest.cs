@@ -19,8 +19,10 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-using System.IO;
+
+using Com.Drew.Metadata;
 using Com.Drew.Metadata.Exif;
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Imaging.Jpeg
@@ -29,24 +31,24 @@ namespace Com.Drew.Imaging.Jpeg
     public class JpegMetadataReaderTest
     {
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestExtractMetadata()
         {
             Validate(JpegMetadataReader.ReadMetadata(new FilePath("Tests/Data/withExif.jpg")));
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestExtractMetadataUsingInputStream()
         {
             Validate(JpegMetadataReader.ReadMetadata(new FileInputStream((new FilePath("Tests/Data/withExif.jpg")))));
         }
 
-        private void Validate(Com.Drew.Metadata.Metadata metadata)
+        private void Validate(Metadata.Metadata metadata)
         {
-            Com.Drew.Metadata.Directory directory = metadata.GetFirstDirectoryOfType<ExifSubIFDDirectory>();
-            NUnit.Framework.Assert.IsNotNull(directory);
-            Sharpen.Tests.AreEqual("80", directory.GetString(ExifSubIFDDirectory.TagIsoEquivalent));
+            Directory directory = metadata.GetFirstDirectoryOfType<ExifSubIFDDirectory>();
+            Assert.IsNotNull(directory);
+            Tests.AreEqual("80", directory.GetString(ExifSubIFDDirectory.TagIsoEquivalent));
         }
     }
 }

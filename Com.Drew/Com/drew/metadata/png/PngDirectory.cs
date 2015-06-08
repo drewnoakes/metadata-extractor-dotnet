@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using Com.Drew.Imaging.Png;
 using JetBrains.Annotations;
@@ -27,7 +28,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class PngDirectory : Com.Drew.Metadata.Directory
+    public class PngDirectory : Directory
     {
         public const int TagImageWidth = 1;
 

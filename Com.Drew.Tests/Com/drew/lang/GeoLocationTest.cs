@@ -19,6 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Lang
@@ -27,21 +29,21 @@ namespace Com.Drew.Lang
     public class GeoLocationTest
     {
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestDecimalToDegreesMinutesSeconds()
         {
             double[] dms = GeoLocation.DecimalToDegreesMinutesSeconds(1);
-            Sharpen.Tests.AreEqual(1.0, dms[0], 0.0001);
-            Sharpen.Tests.AreEqual(0.0, dms[1], 0.0001);
-            Sharpen.Tests.AreEqual(0.0, dms[2], 0.0001);
+            Tests.AreEqual(1.0, dms[0], 0.0001);
+            Tests.AreEqual(0.0, dms[1], 0.0001);
+            Tests.AreEqual(0.0, dms[2], 0.0001);
             dms = GeoLocation.DecimalToDegreesMinutesSeconds(-12.3216);
-            Sharpen.Tests.AreEqual(-12.0, dms[0], 0.0001);
-            Sharpen.Tests.AreEqual(19.0, dms[1], 0.0001);
-            Sharpen.Tests.AreEqual(17.76, dms[2], 0.0001);
+            Tests.AreEqual(-12.0, dms[0], 0.0001);
+            Tests.AreEqual(19.0, dms[1], 0.0001);
+            Tests.AreEqual(17.76, dms[2], 0.0001);
             dms = GeoLocation.DecimalToDegreesMinutesSeconds(32.698);
-            Sharpen.Tests.AreEqual(32.0, dms[0], 0.0001);
-            Sharpen.Tests.AreEqual(41.0, dms[1], 0.0001);
-            Sharpen.Tests.AreEqual(52.8, dms[2], 0.0001);
+            Tests.AreEqual(32.0, dms[0], 0.0001);
+            Tests.AreEqual(41.0, dms[1], 0.0001);
+            Tests.AreEqual(52.8, dms[2], 0.0001);
         }
     }
 }

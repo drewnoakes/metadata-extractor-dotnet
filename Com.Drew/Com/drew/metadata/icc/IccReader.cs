@@ -19,11 +19,11 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.IO;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -49,7 +49,7 @@ namespace Com.Drew.Metadata.Icc
             return Arrays.AsList(JpegSegmentType.App2).AsIterable();
         }
 
-        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             int preambleLength = JpegSegmentPreamble.Length;
             // ICC data can be spread across multiple JPEG segments.
@@ -58,7 +58,7 @@ namespace Com.Drew.Metadata.Icc
             foreach (sbyte[] segmentBytes in segments)
             {
                 // Skip any segments that do not contain the required preamble
-                if (segmentBytes.Length < preambleLength || !Sharpen.Runtime.EqualsIgnoreCase(JpegSegmentPreamble, Sharpen.Runtime.GetStringForBytes(segmentBytes, 0, preambleLength)))
+                if (segmentBytes.Length < preambleLength || !Runtime.EqualsIgnoreCase(JpegSegmentPreamble, Runtime.GetStringForBytes(segmentBytes, 0, preambleLength)))
                 {
                     continue;
                 }
@@ -68,13 +68,13 @@ namespace Com.Drew.Metadata.Icc
                 {
                     buffer = new sbyte[segmentBytes.Length - 14];
                     // skip the first 14 bytes
-                    System.Array.Copy(segmentBytes, 14, buffer, 0, segmentBytes.Length - 14);
+                    Array.Copy(segmentBytes, 14, buffer, 0, segmentBytes.Length - 14);
                 }
                 else
                 {
                     sbyte[] newBuffer = new sbyte[buffer.Length + segmentBytes.Length - 14];
-                    System.Array.Copy(buffer, 0, newBuffer, 0, buffer.Length);
-                    System.Array.Copy(segmentBytes, 14, newBuffer, buffer.Length, segmentBytes.Length - 14);
+                    Array.Copy(buffer, 0, newBuffer, 0, buffer.Length);
+                    Array.Copy(segmentBytes, 14, newBuffer, buffer.Length, segmentBytes.Length - 14);
                     buffer = newBuffer;
                 }
             }
@@ -84,7 +84,7 @@ namespace Com.Drew.Metadata.Icc
             }
         }
 
-        public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Com.Drew.Metadata.Metadata metadata)
+        public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata)
         {
             // TODO review whether the 'tagPtr' values below really do require RandomAccessReader or whether SequentialReader may be used instead
             IccDirectory directory = new IccDirectory();
@@ -140,7 +140,7 @@ namespace Com.Drew.Metadata.Icc
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private void Set4ByteString([NotNull] Com.Drew.Metadata.Directory directory, int tagType, [NotNull] RandomAccessReader reader)
+        private void Set4ByteString([NotNull] Directory directory, int tagType, [NotNull] RandomAccessReader reader)
         {
             int i = reader.GetInt32(tagType);
             if (i != 0)
@@ -150,7 +150,7 @@ namespace Com.Drew.Metadata.Icc
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private void SetInt32([NotNull] Com.Drew.Metadata.Directory directory, int tagType, [NotNull] RandomAccessReader reader)
+        private void SetInt32([NotNull] Directory directory, int tagType, [NotNull] RandomAccessReader reader)
         {
             int i = reader.GetInt32(tagType);
             if (i != 0)
@@ -160,7 +160,7 @@ namespace Com.Drew.Metadata.Icc
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private void SetInt64([NotNull] Com.Drew.Metadata.Directory directory, int tagType, [NotNull] RandomAccessReader reader)
+        private void SetInt64([NotNull] Directory directory, int tagType, [NotNull] RandomAccessReader reader)
         {
             long l = reader.GetInt64(tagType);
             if (l != 0)
@@ -179,7 +179,7 @@ namespace Com.Drew.Metadata.Icc
             int M = reader.GetUInt16(tagType + 8);
             int s = reader.GetUInt16(tagType + 10);
             //        final Date value = new Date(Date.UTC(y - 1900, m - 1, d, h, M, s));
-            Sharpen.Calendar calendar = Sharpen.Calendar.GetInstance(Sharpen.Extensions.GetTimeZone("UTC"));
+            Calendar calendar = Calendar.GetInstance(Extensions.GetTimeZone("UTC"));
             calendar.Set(y, m, d, h, M, s);
             DateTime value = calendar.GetTime();
             directory.SetDate(tagType, value);
@@ -191,7 +191,7 @@ namespace Com.Drew.Metadata.Icc
             // MSB
             sbyte[] b = new sbyte[] { unchecked((sbyte)((d & unchecked((int)(0xFF000000))) >> 24)), unchecked((sbyte)((d & unchecked((int)(0x00FF0000))) >> 16)), unchecked((sbyte)((d & unchecked((int)(0x0000FF00))) >> 8)), unchecked((sbyte)((d & unchecked(
                 (int)(0x000000FF))))) };
-            return Sharpen.Runtime.GetStringForBytes(b);
+            return Runtime.GetStringForBytes(b);
         }
     }
 }

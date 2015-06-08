@@ -19,9 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Com.Drew.Imaging.Bmp;
 using Com.Drew.Imaging.Gif;
 using Com.Drew.Imaging.Ico;
@@ -117,7 +117,7 @@ namespace Com.Drew.Imaging
         /// <exception cref="Com.Drew.Imaging.ImageProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
+        public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
         {
             BufferedInputStream bufferedInputStream = inputStream is BufferedInputStream ? (BufferedInputStream)inputStream : new BufferedInputStream(inputStream);
             FileType fileType = FileTypeDetector.DetectFileType(bufferedInputStream) ?? FileType.Unknown;
@@ -200,10 +200,10 @@ namespace Com.Drew.Imaging
         /// <exception cref="Com.Drew.Imaging.ImageProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] FilePath file)
+        public static Metadata.Metadata ReadMetadata([NotNull] FilePath file)
         {
             InputStream inputStream = new FileInputStream(file);
-            Com.Drew.Metadata.Metadata metadata;
+            Metadata.Metadata metadata;
             try
             {
                 metadata = ReadMetadata(inputStream);
@@ -245,11 +245,11 @@ namespace Com.Drew.Imaging
             bool showHex = argList.Remove("-hex");
             if (argList.Count < 1)
             {
-                string version = typeof(Com.Drew.Imaging.ImageMetadataReader).Assembly.GetImplementationVersion();
-                System.Console.Out.Println("metadata-extractor version " + version);
-                System.Console.Out.Println();
-                System.Console.Out.Println(Sharpen.Extensions.StringFormat("Usage: java -jar metadata-extractor-%s.jar <filename> [<filename>] [-thumb] [-markdown] [-hex]", version == null ? "a.b.c" : version));
-                System.Environment.Exit(1);
+                string version = typeof(ImageMetadataReader).Assembly.GetImplementationVersion();
+                Console.Out.Println("metadata-extractor version " + version);
+                Console.Out.Println();
+                Console.Out.Println(Extensions.StringFormat("Usage: java -jar metadata-extractor-%s.jar <filename> [<filename>] [-thumb] [-markdown] [-hex]", version == null ? "a.b.c" : version));
+                Environment.Exit(1);
             }
             foreach (string filePath in argList)
             {
@@ -257,22 +257,22 @@ namespace Com.Drew.Imaging
                 FilePath file = new FilePath(filePath);
                 if (!markdownFormat && argList.Count > 1)
                 {
-                    System.Console.Out.Printf("\n***** PROCESSING: %s\n%n", filePath);
+                    Console.Out.Printf("\n***** PROCESSING: %s\n%n", filePath);
                 }
-                Com.Drew.Metadata.Metadata metadata = null;
+                Metadata.Metadata metadata = null;
                 try
                 {
-                    metadata = Com.Drew.Imaging.ImageMetadataReader.ReadMetadata(file);
+                    metadata = ReadMetadata(file);
                 }
                 catch (Exception e)
                 {
-                    Sharpen.Runtime.PrintStackTrace(e, System.Console.Error);
-                    System.Environment.Exit(1);
+                    Runtime.PrintStackTrace(e, Console.Error);
+                    Environment.Exit(1);
                 }
                 long took = Runtime.NanoTime() - startTime;
                 if (!markdownFormat)
                 {
-                    System.Console.Out.Printf("Processed %.3f MB file in %.2f ms%n%n", file.Length() / (1024d * 1024), took / 1000000d);
+                    Console.Out.Printf("Processed %.3f MB file in %.2f ms%n%n", file.Length() / (1024d * 1024), took / 1000000d);
                 }
                 if (markdownFormat)
                 {
@@ -281,21 +281,21 @@ namespace Com.Drew.Imaging
                     ExifIFD0Directory exifIFD0Directory = metadata.GetFirstDirectoryOfType<ExifIFD0Directory>();
                     string make = exifIFD0Directory == null ? string.Empty : exifIFD0Directory.GetString(ExifIFD0Directory.TagMake);
                     string model = exifIFD0Directory == null ? string.Empty : exifIFD0Directory.GetString(ExifIFD0Directory.TagModel);
-                    System.Console.Out.Println();
-                    System.Console.Out.Println("---");
-                    System.Console.Out.Println();
-                    System.Console.Out.Printf("# %s - %s%n", make, model);
-                    System.Console.Out.Println();
-                    System.Console.Out.Printf("<a href=\"https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/%s\">%n", urlName);
-                    System.Console.Out.Printf("<img src=\"https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/%s\" width=\"300\"/><br/>%n", urlName);
-                    System.Console.Out.Println(fileName);
-                    System.Console.Out.Println("</a>");
-                    System.Console.Out.Println();
-                    System.Console.Out.Println("Directory | Tag Id | Tag Name | Extracted Value");
-                    System.Console.Out.Println(":--------:|-------:|----------|----------------");
+                    Console.Out.Println();
+                    Console.Out.Println("---");
+                    Console.Out.Println();
+                    Console.Out.Printf("# %s - %s%n", make, model);
+                    Console.Out.Println();
+                    Console.Out.Printf("<a href=\"https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/%s\">%n", urlName);
+                    Console.Out.Printf("<img src=\"https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/%s\" width=\"300\"/><br/>%n", urlName);
+                    Console.Out.Println(fileName);
+                    Console.Out.Println("</a>");
+                    Console.Out.Println();
+                    Console.Out.Println("Directory | Tag Id | Tag Name | Extracted Value");
+                    Console.Out.Println(":--------:|-------:|----------|----------------");
                 }
                 // iterate over the metadata and print to System.out
-                foreach (Com.Drew.Metadata.Directory directory in metadata.GetDirectories())
+                foreach (Directory directory in metadata.GetDirectories())
                 {
                     string directoryName = directory.GetName();
                     foreach (Tag tag in directory.GetTags())
@@ -305,29 +305,29 @@ namespace Com.Drew.Imaging
                         // truncate the description if it's too long
                         if (description != null && description.Length > 1024)
                         {
-                            description = Sharpen.Runtime.Substring(description, 0, 1024) + "...";
+                            description = Runtime.Substring(description, 0, 1024) + "...";
                         }
                         if (markdownFormat)
                         {
-                            System.Console.Out.Printf("%s|0x%s|%s|%s%n", directoryName, Sharpen.Extensions.ToHexString(tag.GetTagType()), tagName, description);
+                            Console.Out.Printf("%s|0x%s|%s|%s%n", directoryName, Extensions.ToHexString(tag.GetTagType()), tagName, description);
                         }
                         else
                         {
                             // simple formatting
                             if (showHex)
                             {
-                                System.Console.Out.Printf("[%s - %s] %s = %s%n", directoryName, tag.GetTagTypeHex(), tagName, description);
+                                Console.Out.Printf("[%s - %s] %s = %s%n", directoryName, tag.GetTagTypeHex(), tagName, description);
                             }
                             else
                             {
-                                System.Console.Out.Printf("[%s] %s = %s%n", directoryName, tagName, description);
+                                Console.Out.Printf("[%s] %s = %s%n", directoryName, tagName, description);
                             }
                         }
                     }
                     // print out any errors
                     foreach (string error in directory.GetErrors())
                     {
-                        System.Console.Error.Println("ERROR: " + error);
+                        Console.Error.Println("ERROR: " + error);
                     }
                 }
                 if (args.Length > 1 && thumbRequested)
@@ -335,12 +335,12 @@ namespace Com.Drew.Imaging
                     ExifThumbnailDirectory directory_1 = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
                     if (directory_1 != null && directory_1.HasThumbnailData())
                     {
-                        System.Console.Out.Println("Writing thumbnail...");
-                        directory_1.WriteThumbnail(Sharpen.Extensions.Trim(args[0]) + ".thumb.jpg");
+                        Console.Out.Println("Writing thumbnail...");
+                        directory_1.WriteThumbnail(Extensions.Trim(args[0]) + ".thumb.jpg");
                     }
                     else
                     {
-                        System.Console.Out.Println("No thumbnail data exists in this image");
+                        Console.Out.Println("No thumbnail data exists in this image");
                     }
                 }
             }

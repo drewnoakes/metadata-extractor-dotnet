@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -44,7 +45,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// provide this prefix to aid in software decoding).
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class NikonType2MakernoteDirectory : Com.Drew.Metadata.Directory
+    public class NikonType2MakernoteDirectory : Directory
     {
         /// <summary>
         /// Values observed

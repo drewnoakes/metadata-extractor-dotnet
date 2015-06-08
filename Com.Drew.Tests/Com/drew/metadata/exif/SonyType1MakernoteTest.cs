@@ -19,7 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using Com.Drew.Metadata.Exif.Makernotes;
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
@@ -28,30 +30,30 @@ namespace Com.Drew.Metadata.Exif
     public class SonyType1MakernoteTest
     {
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestSonyType1Makernote()
         {
             SonyType1MakernoteDirectory directory = ExifReaderTest.ProcessBytes<SonyType1MakernoteDirectory>("Tests/Data/sonyType1.jpg.app1");
-            NUnit.Framework.Assert.IsNotNull(directory);
-            Sharpen.Tests.IsFalse(directory.HasErrors());
+            Assert.IsNotNull(directory);
+            Tests.IsFalse(directory.HasErrors());
             SonyType1MakernoteDescriptor descriptor = new SonyType1MakernoteDescriptor(directory);
-            NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagColorTemperature));
-            NUnit.Framework.Assert.IsNull(descriptor.GetColorTemperatureDescription());
-            NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagSceneMode));
-            NUnit.Framework.Assert.IsNull(descriptor.GetSceneModeDescription());
-            NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagZoneMatching));
-            NUnit.Framework.Assert.IsNull(descriptor.GetZoneMatchingDescription());
-            NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagDynamicRangeOptimiser));
-            NUnit.Framework.Assert.IsNull(descriptor.GetDynamicRangeOptimizerDescription());
-            NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagImageStabilisation));
-            NUnit.Framework.Assert.IsNull(descriptor.GetImageStabilizationDescription());
-            NUnit.Framework.Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagColorMode));
-            NUnit.Framework.Assert.IsNull(descriptor.GetColorModeDescription());
-            Sharpen.Tests.AreEqual("On (Shooting)", descriptor.GetAntiBlurDescription());
-            Sharpen.Tests.AreEqual("Program", descriptor.GetExposureModeDescription());
-            Sharpen.Tests.AreEqual("Off", descriptor.GetLongExposureNoiseReductionDescription());
-            Sharpen.Tests.AreEqual("Off", descriptor.GetMacroDescription());
-            Sharpen.Tests.AreEqual("Normal", descriptor.GetJpegQualityDescription());
+            Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagColorTemperature));
+            Assert.IsNull(descriptor.GetColorTemperatureDescription());
+            Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagSceneMode));
+            Assert.IsNull(descriptor.GetSceneModeDescription());
+            Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagZoneMatching));
+            Assert.IsNull(descriptor.GetZoneMatchingDescription());
+            Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagDynamicRangeOptimiser));
+            Assert.IsNull(descriptor.GetDynamicRangeOptimizerDescription());
+            Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagImageStabilisation));
+            Assert.IsNull(descriptor.GetImageStabilizationDescription());
+            Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagColorMode));
+            Assert.IsNull(descriptor.GetColorModeDescription());
+            Tests.AreEqual("On (Shooting)", descriptor.GetAntiBlurDescription());
+            Tests.AreEqual("Program", descriptor.GetExposureModeDescription());
+            Tests.AreEqual("Off", descriptor.GetLongExposureNoiseReductionDescription());
+            Tests.AreEqual("Off", descriptor.GetMacroDescription());
+            Tests.AreEqual("Normal", descriptor.GetJpegQualityDescription());
         }
     }
 }

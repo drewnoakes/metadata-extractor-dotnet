@@ -6,8 +6,9 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
+using System;
 using System.Text;
-using Com.Adobe.Xmp;
 using Sharpen;
 
 namespace Com.Adobe.Xmp.Impl
@@ -89,11 +90,11 @@ namespace Com.Adobe.Xmp.Impl
                         // convert second subtag to uppercase, all other to lowercase
                         if (subTag != 2)
                         {
-                            buffer.Append(System.Char.ToLower(value[i]));
+                            buffer.Append(Char.ToLower(value[i]));
                         }
                         else
                         {
-                            buffer.Append(System.Char.ToUpper(value[i]));
+                            buffer.Append(Char.ToUpper(value[i]));
                         }
                         break;
                     }
@@ -135,7 +136,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 pos++;
             }
-            string name = Sharpen.Runtime.Substring(selector, pos, eq);
+            string name = Runtime.Substring(selector, pos, eq);
             // get the value
             pos = eq + 1;
             char quote = selector[pos];
@@ -463,7 +464,7 @@ namespace Com.Adobe.Xmp.Impl
                         // write control chars escaped,
                         // if there are others than tab, LF and CR the xml will become invalid.
                         buffer.Append("&#x");
-                        buffer.Append(Sharpen.Extensions.ToHexString(c).ToUpper());
+                        buffer.Append(Extensions.ToHexString(c).ToUpper());
                         buffer.Append(';');
                     }
                 }
@@ -481,7 +482,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (IsControlChar(buffer[i]))
                 {
-                    Sharpen.Runtime.SetCharAt(buffer, i, ' ');
+                    Runtime.SetCharAt(buffer, i, ' ');
                 }
             }
             return buffer.ToString();

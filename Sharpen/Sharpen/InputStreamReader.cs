@@ -1,9 +1,8 @@
+using System.IO;
+using System.Text;
+
 namespace Sharpen
 {
-    using System;
-    using System.IO;
-    using System.Text;
-
     public class InputStreamReader : StreamReader
     {
         protected InputStreamReader (string file) : base(file)

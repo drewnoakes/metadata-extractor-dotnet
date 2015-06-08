@@ -20,9 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using System.Linq;
 using Com.Drew.Lang;
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -235,7 +233,7 @@ namespace Com.Drew.Metadata.Iptc
                     return "Corel Draw [.CDR]";
                 }
             }
-            return Sharpen.Extensions.StringFormat("Unknown (%d)", value);
+            return Extensions.StringFormat("Unknown (%d)", value);
         }
 
         [CanBeNull]
@@ -379,7 +377,7 @@ namespace Com.Drew.Metadata.Iptc
             }
             if (s.Length == 6 || s.Length == 11)
             {
-                return Sharpen.Runtime.Substring(s, 0, 2) + ':' + Sharpen.Runtime.Substring(s, 2, 4) + ':' + Sharpen.Runtime.Substring(s, 4);
+                return Runtime.Substring(s, 0, 2) + ':' + Runtime.Substring(s, 2, 4) + ':' + Runtime.Substring(s, 4);
             }
             return s;
         }
@@ -394,7 +392,7 @@ namespace Com.Drew.Metadata.Iptc
             }
             if (s.Length == 6 || s.Length == 11)
             {
-                return Sharpen.Runtime.Substring(s, 0, 2) + ':' + Sharpen.Runtime.Substring(s, 2, 4) + ':' + Sharpen.Runtime.Substring(s, 4);
+                return Runtime.Substring(s, 0, 2) + ':' + Runtime.Substring(s, 2, 4) + ':' + Runtime.Substring(s, 4);
             }
             return s;
         }

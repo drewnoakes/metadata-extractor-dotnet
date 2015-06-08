@@ -1,9 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
+
 namespace Sharpen
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-
     public class HashMap<T, U> : AbstractMap<T, U>, IEnumerable, IDictionary<T, U>, IEnumerable<KeyValuePair<T, U>>, ICollection<KeyValuePair<T, U>>
     {
         private Dictionary<T, U> table;

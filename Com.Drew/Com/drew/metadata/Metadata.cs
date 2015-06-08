@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace Com.Drew.Metadata
     public sealed class Metadata
     {
         [NotNull]
-        private readonly IDictionary<Type, ICollection<Com.Drew.Metadata.Directory>> _directoryListByClass = new Dictionary<Type, ICollection<Com.Drew.Metadata.Directory>>();
+        private readonly IDictionary<Type, ICollection<Directory>> _directoryListByClass = new Dictionary<Type, ICollection<Directory>>();
 
         /// <summary>
         /// Returns an iterable set of the
@@ -49,16 +50,16 @@ namespace Com.Drew.Metadata
         /// </summary>
         /// <returns>an iterable set of directories</returns>
         [NotNull]
-        public Iterable<Com.Drew.Metadata.Directory> GetDirectories()
+        public Iterable<Directory> GetDirectories()
         {
-            return new Metadata.DirectoryIterable(_directoryListByClass);
+            return new DirectoryIterable(_directoryListByClass);
         }
 
         [CanBeNull]
         public ICollection<T> GetDirectoriesOfType<T>()
-            where T : Com.Drew.Metadata.Directory
+            where T : Directory
         {
-            System.Type type = typeof(T);
+            Type type = typeof(T);
             return (from item in _directoryListByClass.Get(type) select (T) item).ToList();
         }
 
@@ -67,7 +68,7 @@ namespace Com.Drew.Metadata
         public int GetDirectoryCount()
         {
             int count = 0;
-            foreach (KeyValuePair<Type, ICollection<Com.Drew.Metadata.Directory>> pair in _directoryListByClass.EntrySet())
+            foreach (KeyValuePair<Type, ICollection<Directory>> pair in _directoryListByClass.EntrySet())
             {
                 count += pair.Value.Count;
             }
@@ -81,7 +82,7 @@ namespace Com.Drew.Metadata
         /// to add into this metadata collection.
         /// </param>
         public void AddDirectory<T>([NotNull] T directory)
-            where T : Com.Drew.Metadata.Directory
+            where T : Directory
         {
             GetOrCreateDirectoryList(directory.GetType()).Add(directory);
         }
@@ -97,12 +98,12 @@ namespace Com.Drew.Metadata
         /// <returns>the first Directory of type T in this metadata collection, or <code>null</code> if none exist</returns>
         [CanBeNull]
         public T GetFirstDirectoryOfType<T>()
-            where T : Com.Drew.Metadata.Directory
+            where T : Directory
         {
-            System.Type type = typeof(T);
+            Type type = typeof(T);
             // We suppress the warning here as the code asserts a map signature of Class<T>,T.
             // So after get(Class<T>) it is for sure the result is from type T.
-            ICollection<Com.Drew.Metadata.Directory> list = GetDirectoryList(type);
+            ICollection<Directory> list = GetDirectoryList(type);
             if (list == null || list.IsEmpty())
             {
                 return null;
@@ -123,7 +124,7 @@ namespace Com.Drew.Metadata
         /// </returns>
         public bool ContainsDirectoryOfType(Type type)
         {
-            ICollection<Com.Drew.Metadata.Directory> list = GetDirectoryList(type);
+            ICollection<Directory> list = GetDirectoryList(type);
             return list != null && !list.IsEmpty();
         }
 
@@ -137,7 +138,7 @@ namespace Com.Drew.Metadata
         /// <returns>whether one of the contained directories has an error</returns>
         public bool HasErrors()
         {
-            foreach (Com.Drew.Metadata.Directory directory in GetDirectories())
+            foreach (Directory directory in GetDirectories())
             {
                 if (directory.HasErrors())
                 {
@@ -150,51 +151,51 @@ namespace Com.Drew.Metadata
         public override string ToString()
         {
             int count = GetDirectoryCount();
-            return Sharpen.Extensions.StringFormat("Metadata (%d %s)", count, count == 1 ? "directory" : "directories");
+            return Extensions.StringFormat("Metadata (%d %s)", count, count == 1 ? "directory" : "directories");
         }
 
         [CanBeNull]
-        private ICollection<Com.Drew.Metadata.Directory> GetDirectoryList(Type type)
+        private ICollection<Directory> GetDirectoryList(Type type)
         {
             return _directoryListByClass.Get(type);
         }
 
         [NotNull]
-        private ICollection<Com.Drew.Metadata.Directory> GetOrCreateDirectoryList(System.Type type)
+        private ICollection<Directory> GetOrCreateDirectoryList(Type type)
         {
-            ICollection<Com.Drew.Metadata.Directory> collection = GetDirectoryList(type);
+            ICollection<Directory> collection = GetDirectoryList(type);
             if (collection != null)
             {
                 return collection;
             }
-            collection = new AList<Com.Drew.Metadata.Directory>();
+            collection = new AList<Directory>();
             _directoryListByClass.Put(type, collection);
             return collection;
         }
 
-        private class DirectoryIterable : Iterable<Com.Drew.Metadata.Directory>
+        private class DirectoryIterable : Iterable<Directory>
         {
-            private readonly IDictionary<Type, ICollection<Com.Drew.Metadata.Directory>> _map;
+            private readonly IDictionary<Type, ICollection<Directory>> _map;
 
-            public DirectoryIterable(IDictionary<Type, ICollection<Com.Drew.Metadata.Directory>> map)
+            public DirectoryIterable(IDictionary<Type, ICollection<Directory>> map)
             {
                 _map = map;
             }
 
-            public override Sharpen.Iterator<Com.Drew.Metadata.Directory> Iterator()
+            public override Iterator<Directory> Iterator()
             {
-                return new Metadata.DirectoryIterable.DirectoryIterator(_map);
+                return new DirectoryIterator(_map);
             }
 
-            private class DirectoryIterator : Iterator<Com.Drew.Metadata.Directory>
+            private class DirectoryIterator : Iterator<Directory>
             {
                 [NotNull]
-                private readonly Iterator<KeyValuePair<Type, ICollection<Com.Drew.Metadata.Directory>>> _mapIterator;
+                private readonly Iterator<KeyValuePair<Type, ICollection<Directory>>> _mapIterator;
 
                 [CanBeNull]
-                private Iterator<Com.Drew.Metadata.Directory> _listIterator;
+                private Iterator<Directory> _listIterator;
 
-                public DirectoryIterator(IDictionary<Type, ICollection<Com.Drew.Metadata.Directory>> map)
+                public DirectoryIterator(IDictionary<Type, ICollection<Directory>> map)
                 {
                     _mapIterator = map.EntrySet().Iterator();
                     if (_mapIterator.HasNext())
@@ -208,7 +209,7 @@ namespace Com.Drew.Metadata
                     return _listIterator != null && (_listIterator.HasNext() || _mapIterator.HasNext());
                 }
 
-                public override Com.Drew.Metadata.Directory Next()
+                public override Directory Next()
                 {
                     if (_listIterator == null || (!_listIterator.HasNext() && !_mapIterator.HasNext()))
                     {

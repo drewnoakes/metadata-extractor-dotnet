@@ -6,8 +6,8 @@
 //NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 //of the Adobe license agreement accompanying it.
 //=================================================================================================
+
 using System;
-using System.IO;
 using Com.Adobe.Xmp.Impl;
 using Com.Adobe.Xmp.Options;
 using Sharpen;
@@ -242,7 +242,7 @@ namespace Com.Adobe.Xmp
                     catch (Exception e)
                     {
                         // EMTPY, severe error would be detected during the tests
-                        System.Console.Out.Println(e);
+                        Console.Out.Println(e);
                     }
                 }
                 return versionInfo;

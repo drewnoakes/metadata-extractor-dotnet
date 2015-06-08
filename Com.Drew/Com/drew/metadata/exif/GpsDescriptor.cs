@@ -19,8 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using Com.Drew.Lang;
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -148,7 +148,7 @@ namespace Com.Drew.Metadata.Exif
             // time in hour, min, sec
             Rational[] timeComponents = _directory.GetRationalArray(GpsDirectory.TagTimeStamp);
             DecimalFormat df = new DecimalFormat("00.00");
-            return timeComponents == null ? null : Sharpen.Extensions.StringFormat("%02d:%02d:%s UTC", timeComponents[0].IntValue(), timeComponents[1].IntValue(), df.Format(timeComponents[2].DoubleValue()));
+            return timeComponents == null ? null : Extensions.StringFormat("%02d:%02d:%s UTC", timeComponents[0].IntValue(), timeComponents[1].IntValue(), df.Format(timeComponents[2].DoubleValue()));
         }
 
         [CanBeNull]
@@ -159,20 +159,20 @@ namespace Com.Drew.Metadata.Exif
             {
                 return null;
             }
-            string distanceRef = Sharpen.Extensions.Trim(value);
-            if (Sharpen.Runtime.EqualsIgnoreCase("K", distanceRef))
+            string distanceRef = Extensions.Trim(value);
+            if (Runtime.EqualsIgnoreCase("K", distanceRef))
             {
                 return "kilometers";
             }
             else
             {
-                if (Sharpen.Runtime.EqualsIgnoreCase("M", distanceRef))
+                if (Runtime.EqualsIgnoreCase("M", distanceRef))
                 {
                     return "miles";
                 }
                 else
                 {
-                    if (Sharpen.Runtime.EqualsIgnoreCase("N", distanceRef))
+                    if (Runtime.EqualsIgnoreCase("N", distanceRef))
                     {
                         return "knots";
                     }
@@ -190,7 +190,7 @@ namespace Com.Drew.Metadata.Exif
             Rational angle = _directory.GetRational(tagType);
             // provide a decimal version of rational numbers in the description, to avoid strings like "35334/199 degrees"
             string value = angle != null ? new DecimalFormat("0.##").Format(angle.DoubleValue()) : _directory.GetString(tagType);
-            return value == null || Sharpen.Extensions.Trim(value).Length == 0 ? null : Sharpen.Extensions.Trim(value) + " degrees";
+            return value == null || Extensions.Trim(value).Length == 0 ? null : Extensions.Trim(value) + " degrees";
         }
 
         [CanBeNull]
@@ -201,14 +201,14 @@ namespace Com.Drew.Metadata.Exif
             {
                 return null;
             }
-            string gpsDistRef = Sharpen.Extensions.Trim(value);
-            if (Sharpen.Runtime.EqualsIgnoreCase("T", gpsDistRef))
+            string gpsDistRef = Extensions.Trim(value);
+            if (Runtime.EqualsIgnoreCase("T", gpsDistRef))
             {
                 return "True direction";
             }
             else
             {
-                if (Sharpen.Runtime.EqualsIgnoreCase("M", gpsDistRef))
+                if (Runtime.EqualsIgnoreCase("M", gpsDistRef))
                 {
                     return "Magnetic direction";
                 }
@@ -227,20 +227,20 @@ namespace Com.Drew.Metadata.Exif
             {
                 return null;
             }
-            string gpsSpeedRef = Sharpen.Extensions.Trim(value);
-            if (Sharpen.Runtime.EqualsIgnoreCase("K", gpsSpeedRef))
+            string gpsSpeedRef = Extensions.Trim(value);
+            if (Runtime.EqualsIgnoreCase("K", gpsSpeedRef))
             {
                 return "kph";
             }
             else
             {
-                if (Sharpen.Runtime.EqualsIgnoreCase("M", gpsSpeedRef))
+                if (Runtime.EqualsIgnoreCase("M", gpsSpeedRef))
                 {
                     return "mph";
                 }
                 else
                 {
-                    if (Sharpen.Runtime.EqualsIgnoreCase("N", gpsSpeedRef))
+                    if (Runtime.EqualsIgnoreCase("N", gpsSpeedRef))
                     {
                         return "knots";
                     }
@@ -260,14 +260,14 @@ namespace Com.Drew.Metadata.Exif
             {
                 return null;
             }
-            string gpsSpeedMeasureMode = Sharpen.Extensions.Trim(value);
-            if (Sharpen.Runtime.EqualsIgnoreCase("2", gpsSpeedMeasureMode))
+            string gpsSpeedMeasureMode = Extensions.Trim(value);
+            if (Runtime.EqualsIgnoreCase("2", gpsSpeedMeasureMode))
             {
                 return "2-dimensional measurement";
             }
             else
             {
-                if (Sharpen.Runtime.EqualsIgnoreCase("3", gpsSpeedMeasureMode))
+                if (Runtime.EqualsIgnoreCase("3", gpsSpeedMeasureMode))
                 {
                     return "3-dimensional measurement";
                 }
@@ -286,14 +286,14 @@ namespace Com.Drew.Metadata.Exif
             {
                 return null;
             }
-            string gpsStatus = Sharpen.Extensions.Trim(value);
-            if (Sharpen.Runtime.EqualsIgnoreCase("A", gpsStatus))
+            string gpsStatus = Extensions.Trim(value);
+            if (Runtime.EqualsIgnoreCase("A", gpsStatus))
             {
                 return "Active (Measurement in progress)";
             }
             else
             {
-                if (Sharpen.Runtime.EqualsIgnoreCase("V", gpsStatus))
+                if (Runtime.EqualsIgnoreCase("V", gpsStatus))
                 {
                     return "Void (Measurement Interoperability)";
                 }

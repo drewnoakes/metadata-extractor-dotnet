@@ -19,8 +19,10 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.IO;
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Lang
@@ -29,7 +31,7 @@ namespace Com.Drew.Lang
     public class CompoundExceptionTest
     {
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetMessage_NonNested()
         {
             try
@@ -38,12 +40,12 @@ namespace Com.Drew.Lang
             }
             catch (CompoundException e)
             {
-                Sharpen.Tests.AreEqual("message", e.Message);
+                Tests.AreEqual("message", e.Message);
             }
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestGetMessage_Nested()
         {
             try
@@ -59,15 +61,15 @@ namespace Com.Drew.Lang
             }
             catch (CompoundException e)
             {
-                Sharpen.Tests.AreEqual("compound", e.Message);
+                Tests.AreEqual("compound", e.Message);
                 Exception innerException = e.GetInnerException();
-                NUnit.Framework.Assert.IsNotNull(innerException);
-                Sharpen.Tests.AreEqual("io", innerException.Message);
+                Assert.IsNotNull(innerException);
+                Tests.AreEqual("io", innerException.Message);
             }
         }
 
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestNoInnerException()
         {
             try
@@ -79,12 +81,12 @@ namespace Com.Drew.Lang
                 try
                 {
                     PrintStream nullStream = new PrintStream(new NullOutputStream());
-                    Sharpen.Runtime.PrintStackTrace(e, nullStream);
-                    Sharpen.Runtime.PrintStackTrace(e, new PrintWriter(nullStream));
+                    Runtime.PrintStackTrace(e, nullStream);
+                    Runtime.PrintStackTrace(e, new PrintWriter(nullStream));
                 }
                 catch (Exception)
                 {
-                    NUnit.Framework.Assert.Fail("Exception during printStackTrace for CompoundException with no inner exception");
+                    Assert.Fail("Exception during printStackTrace for CompoundException with no inner exception");
                 }
             }
         }

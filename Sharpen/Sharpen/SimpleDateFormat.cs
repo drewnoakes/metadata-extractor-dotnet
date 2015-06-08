@@ -1,10 +1,9 @@
+using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace Sharpen
 {
-    using System;
-    using System.Globalization;
-
     public class SimpleDateFormat : DateFormat
     {
         private const string FIELD_YEAR = "year";

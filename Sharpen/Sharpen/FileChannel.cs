@@ -1,8 +1,8 @@
+using System;
+using System.IO;
+
 namespace Sharpen
 {
-    using System;
-    using System.IO;
-
     public class FileChannel
     {
         private FileStream s;

@@ -19,7 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using Com.Drew.Metadata.Exif.Makernotes;
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
@@ -28,14 +30,14 @@ namespace Com.Drew.Metadata.Exif
     public class SonyType6MakernoteTest
     {
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestSonyType6Makernote()
         {
             SonyType6MakernoteDirectory directory = ExifReaderTest.ProcessBytes<SonyType6MakernoteDirectory>("Tests/Data/sonyType6.jpg.app1.0");
-            NUnit.Framework.Assert.IsNotNull(directory);
-            Sharpen.Tests.IsFalse(directory.HasErrors());
+            Assert.IsNotNull(directory);
+            Tests.IsFalse(directory.HasErrors());
             SonyType6MakernoteDescriptor descriptor = new SonyType6MakernoteDescriptor(directory);
-            Sharpen.Tests.AreEqual("2.00", descriptor.GetMakernoteThumbVersionDescription());
+            Tests.AreEqual("2.00", descriptor.GetMakernoteThumbVersionDescription());
         }
     }
 }

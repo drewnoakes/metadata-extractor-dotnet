@@ -1,10 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
 namespace Sharpen
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    
     public static class Collections<T>
     {
         static readonly IList<T> empty = new T [0];
@@ -92,7 +91,7 @@ namespace Sharpen
 
         public static IList EmptyList()
         {
-            return Collections.EMPTY_SET;
+            return EMPTY_SET;
         }
         
 //        public static IList<T> EmptyList<T> ()
@@ -143,7 +142,7 @@ namespace Sharpen
 
         public static IList<T> SynchronizedList<T> (IList<T> list)
         {
-            return new Sharpen.SynchronizedList<T> (list);
+            return new SynchronizedList<T> (list);
         }
 
         public static ICollection<T> UnmodifiableCollection<T> (ICollection<T> list)

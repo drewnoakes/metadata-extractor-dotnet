@@ -1,8 +1,7 @@
+using System.Text;
+
 namespace Sharpen
 {
-    using System;
-    using System.Text;
-
     public class CharsetEncoder
     {
         private Encoding enc;

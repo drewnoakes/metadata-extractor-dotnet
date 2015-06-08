@@ -1,8 +1,8 @@
+using System.IO;
+using System.Text;
+
 namespace Sharpen
 {
-    using System;
-    using System.IO;
-
     public class ByteArrayOutputStream : OutputStream
     {
         public ByteArrayOutputStream ()
@@ -37,13 +37,13 @@ namespace Sharpen
         
         public override string ToString ()
         {
-            return System.Text.Encoding.UTF8.GetString(ToByteArrayInternal());
+            return Encoding.UTF8.GetString(ToByteArrayInternal());
         }
 
         public string ToString(string encoding)
         {
             //  TODO: check encoding
-            return System.Text.Encoding.GetEncoding(encoding).GetString(ToByteArrayInternal());
+            return Encoding.GetEncoding(encoding).GetString(ToByteArrayInternal());
         }
     }
 }

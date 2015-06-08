@@ -1,4 +1,3 @@
-using System.IO;
 using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Options;
 using Sharpen;
@@ -11,7 +10,7 @@ namespace Com.Drew.Metadata.Xmp
         /// <param name="os">Destination for the xmp data</param>
         /// <param name="data">populated metadata</param>
         /// <returns>serialize success</returns>
-        public static bool Write(OutputStream os, Com.Drew.Metadata.Metadata data)
+        public static bool Write(OutputStream os, Metadata data)
         {
             XmpDirectory dir = data.GetFirstDirectoryOfType<XmpDirectory>();
             if (dir == null)
@@ -26,7 +25,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XMPException e)
             {
-                Sharpen.Runtime.PrintStackTrace(e);
+                Runtime.PrintStackTrace(e);
                 return false;
             }
             return true;

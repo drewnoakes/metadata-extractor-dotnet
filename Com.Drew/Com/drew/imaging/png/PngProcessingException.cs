@@ -19,16 +19,15 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
-using Com.Drew.Imaging;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Imaging.Png
 {
     /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a JPEG file.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [System.Serializable]
+    [Serializable]
     public class PngProcessingException : ImageProcessingException
     {
         private const long serialVersionUID = -687991554932005033L;

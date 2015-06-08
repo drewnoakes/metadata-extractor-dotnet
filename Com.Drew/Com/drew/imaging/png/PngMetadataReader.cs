@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Com.Drew.Lang;
 using Com.Drew.Metadata.File;
 using Com.Drew.Metadata.Icc;
@@ -32,16 +31,16 @@ namespace Com.Drew.Imaging.Png
             desiredChunkTypes.Add(PngChunkType.tIME);
             desiredChunkTypes.Add(PngChunkType.pHYs);
             desiredChunkTypes.Add(PngChunkType.sBIT);
-            _desiredChunkTypes = Sharpen.Collections.UnmodifiableSet(desiredChunkTypes);
+            _desiredChunkTypes = Collections.UnmodifiableSet(desiredChunkTypes);
         }
 
         /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] FilePath file)
+        public static Metadata.Metadata ReadMetadata([NotNull] FilePath file)
         {
             InputStream inputStream = new FileInputStream(file);
-            Com.Drew.Metadata.Metadata metadata;
+            Metadata.Metadata metadata;
             try
             {
                 metadata = ReadMetadata(inputStream);
@@ -57,10 +56,10 @@ namespace Com.Drew.Imaging.Png
         /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Com.Drew.Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
+        public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
         {
-            Iterable<PngChunk> chunks = new PngChunkReader().Extract(new Com.Drew.Lang.StreamReader(inputStream), _desiredChunkTypes);
-            Com.Drew.Metadata.Metadata metadata = new Com.Drew.Metadata.Metadata();
+            Iterable<PngChunk> chunks = new PngChunkReader().Extract(new StreamReader(inputStream), _desiredChunkTypes);
+            Metadata.Metadata metadata = new Metadata.Metadata();
             foreach (PngChunk chunk in chunks)
             {
                 try
@@ -69,7 +68,7 @@ namespace Com.Drew.Imaging.Png
                 }
                 catch (Exception e)
                 {
-                    Sharpen.Runtime.PrintStackTrace(e, System.Console.Error);
+                    Runtime.PrintStackTrace(e, Console.Error);
                 }
             }
             return metadata;
@@ -77,7 +76,7 @@ namespace Com.Drew.Imaging.Png
 
         /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        private static void ProcessChunk([NotNull] Com.Drew.Metadata.Metadata metadata, [NotNull] PngChunk chunk)
+        private static void ProcessChunk([NotNull] Metadata.Metadata metadata, [NotNull] PngChunk chunk)
         {
             PngChunkType chunkType = chunk.GetChunkType();
             sbyte[] bytes = chunk.GetBytes();
@@ -253,7 +252,7 @@ namespace Com.Drew.Imaging.Png
                                                         int hour = reader.GetUInt8();
                                                         int minute = reader.GetUInt8();
                                                         int second = reader.GetUInt8();
-                                                        Sharpen.Calendar calendar = Sharpen.Calendar.GetInstance(Sharpen.Extensions.GetTimeZone("UTC"));
+                                                        Calendar calendar = Calendar.GetInstance(Extensions.GetTimeZone("UTC"));
                                                         //noinspection MagicConstant
                                                         calendar.Set(year, month, day, hour, minute, second);
                                                         PngDirectory directory = new PngDirectory(PngChunkType.tIME);

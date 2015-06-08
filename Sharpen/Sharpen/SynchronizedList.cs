@@ -1,10 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
+
 namespace Sharpen
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Reflection;
-
     public class SynchronizedList<T> : IEnumerable, ICollection<T>, IList<T>, IEnumerable<T>
     {
         private IList<T> list;

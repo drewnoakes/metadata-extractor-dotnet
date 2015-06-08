@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
 using System.IO;
 using Com.Drew.Lang;
@@ -38,32 +39,32 @@ namespace Com.Drew.Imaging
             _root.SetDefaultValue(FileType.Unknown);
             // https://en.wikipedia.org/wiki/List_of_file_signatures
             _root.AddPath(FileType.Jpeg, new sbyte[] { unchecked((sbyte)0xff), unchecked((sbyte)0xd8) });
-            _root.AddPath(FileType.Tiff, Sharpen.Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x2a)), unchecked((int)(0x00)) });
-            _root.AddPath(FileType.Tiff, Sharpen.Runtime.GetBytesForString("MM"), new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x2a)) });
-            _root.AddPath(FileType.Psd, Sharpen.Runtime.GetBytesForString("8BPS"));
+            _root.AddPath(FileType.Tiff, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x2a)), unchecked((int)(0x00)) });
+            _root.AddPath(FileType.Tiff, Runtime.GetBytesForString("MM"), new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x2a)) });
+            _root.AddPath(FileType.Psd, Runtime.GetBytesForString("8BPS"));
             _root.AddPath(FileType.Png, new sbyte[] { unchecked((sbyte)0x89), unchecked((int)(0x50)), unchecked((int)(0x4E)), unchecked((int)(0x47)), unchecked((int)(0x0D)), unchecked((int)(0x0A)), unchecked((int)(0x1A)), unchecked((int)(0x0A)), unchecked(
                 (int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x0D)), unchecked((int)(0x49)), unchecked((int)(0x48)), unchecked((int)(0x44)), unchecked((int)(0x52)) });
-            _root.AddPath(FileType.Bmp, Sharpen.Runtime.GetBytesForString("BM"));
+            _root.AddPath(FileType.Bmp, Runtime.GetBytesForString("BM"));
             // TODO technically there are other very rare magic numbers for OS/2 BMP files...
-            _root.AddPath(FileType.Gif, Sharpen.Runtime.GetBytesForString("GIF87a"));
-            _root.AddPath(FileType.Gif, Sharpen.Runtime.GetBytesForString("GIF89a"));
+            _root.AddPath(FileType.Gif, Runtime.GetBytesForString("GIF87a"));
+            _root.AddPath(FileType.Gif, Runtime.GetBytesForString("GIF89a"));
             _root.AddPath(FileType.Ico, new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x01)), unchecked((int)(0x00)) });
             _root.AddPath(FileType.Pcx, new sbyte[] { unchecked((int)(0x0A)), unchecked((int)(0x00)), unchecked((int)(0x01)) });
             // multiple PCX versions, explicitly listed
             _root.AddPath(FileType.Pcx, new sbyte[] { unchecked((int)(0x0A)), unchecked((int)(0x02)), unchecked((int)(0x01)) });
             _root.AddPath(FileType.Pcx, new sbyte[] { unchecked((int)(0x0A)), unchecked((int)(0x03)), unchecked((int)(0x01)) });
             _root.AddPath(FileType.Pcx, new sbyte[] { unchecked((int)(0x0A)), unchecked((int)(0x05)), unchecked((int)(0x01)) });
-            _root.AddPath(FileType.Riff, Sharpen.Runtime.GetBytesForString("RIFF"));
-            _root.AddPath(FileType.Arw, Sharpen.Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x2a)), unchecked((int)(0x00)), unchecked((int)(0x08)), unchecked((int)(0x00)) });
-            _root.AddPath(FileType.Crw, Sharpen.Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x1a)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)) }, Sharpen.Runtime.GetBytesForString("HEAPCCDR"));
-            _root.AddPath(FileType.Cr2, Sharpen.Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x2a)), unchecked((int)(0x00)), unchecked((int)(0x10)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int
+            _root.AddPath(FileType.Riff, Runtime.GetBytesForString("RIFF"));
+            _root.AddPath(FileType.Arw, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x2a)), unchecked((int)(0x00)), unchecked((int)(0x08)), unchecked((int)(0x00)) });
+            _root.AddPath(FileType.Crw, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x1a)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)) }, Runtime.GetBytesForString("HEAPCCDR"));
+            _root.AddPath(FileType.Cr2, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x2a)), unchecked((int)(0x00)), unchecked((int)(0x10)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int
                 )(0x43)), unchecked((int)(0x52)) });
-            _root.AddPath(FileType.Nef, Sharpen.Runtime.GetBytesForString("MM"), new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x2a)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((sbyte)0x80), unchecked((int
+            _root.AddPath(FileType.Nef, Runtime.GetBytesForString("MM"), new sbyte[] { unchecked((int)(0x00)), unchecked((int)(0x2a)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((int)(0x00)), unchecked((sbyte)0x80), unchecked((int
                 )(0x00)) });
-            _root.AddPath(FileType.Orf, Sharpen.Runtime.GetBytesForString("IIRO"), new sbyte[] { unchecked((sbyte)0x08), unchecked((int)(0x00)) });
-            _root.AddPath(FileType.Orf, Sharpen.Runtime.GetBytesForString("IIRS"), new sbyte[] { unchecked((sbyte)0x08), unchecked((int)(0x00)) });
-            _root.AddPath(FileType.Raf, Sharpen.Runtime.GetBytesForString("FUJIFILMCCD-RAW"));
-            _root.AddPath(FileType.Rw2, Sharpen.Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x55)), unchecked((int)(0x00)) });
+            _root.AddPath(FileType.Orf, Runtime.GetBytesForString("IIRO"), new sbyte[] { unchecked((sbyte)0x08), unchecked((int)(0x00)) });
+            _root.AddPath(FileType.Orf, Runtime.GetBytesForString("IIRS"), new sbyte[] { unchecked((sbyte)0x08), unchecked((int)(0x00)) });
+            _root.AddPath(FileType.Raf, Runtime.GetBytesForString("FUJIFILMCCD-RAW"));
+            _root.AddPath(FileType.Rw2, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x55)), unchecked((int)(0x00)) });
         }
 
         /// <exception cref="System.Exception"/>

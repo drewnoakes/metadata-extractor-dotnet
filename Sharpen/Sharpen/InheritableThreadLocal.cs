@@ -1,8 +1,7 @@
+using System;
+
 namespace Sharpen
 {
-    using System;
-    using System.Threading;
-
     public class InheritableThreadLocal<T> where T : class
     {
         private static object nullMarker;
@@ -10,7 +9,7 @@ namespace Sharpen
 
         static InheritableThreadLocal ()
         {
-            InheritableThreadLocal<T>.nullMarker = new object ();
+            nullMarker = new object ();
         }
 
         public InheritableThreadLocal ()

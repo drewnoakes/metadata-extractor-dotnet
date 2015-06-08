@@ -1,13 +1,10 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace Sharpen
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using System.Runtime.CompilerServices;
-    using System.Runtime.InteropServices;
-
     public abstract class AbstractMap<T, U> : IEnumerable, ICollection<KeyValuePair<T, U>>, IEnumerable<KeyValuePair<T, U>>, IDictionary<T, U>
     {
         protected AbstractMap ()
@@ -45,7 +42,7 @@ namespace Sharpen
 
         public virtual U Remove (object key)
         {
-            Sharpen.Iterator<U> iterator = EntrySet () as Sharpen.Iterator<U>;
+            Iterator<U> iterator = EntrySet () as Iterator<U>;
             if (iterator == null) {
                 throw new NotSupportedException ();
             }

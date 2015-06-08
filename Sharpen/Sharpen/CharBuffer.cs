@@ -1,7 +1,5 @@
 namespace Sharpen
 {
-    using System;
-
     public class CharBuffer : CharSequence
     {
         public string Wrapped;

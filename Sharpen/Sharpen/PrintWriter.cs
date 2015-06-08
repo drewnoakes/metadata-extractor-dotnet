@@ -1,9 +1,9 @@
+using System;
+using System.IO;
+using System.Text;
+
 namespace Sharpen
 {
-    using System;
-    using System.IO;
-    using System.Text;
-
     public class PrintWriter : TextWriter
     {
         TextWriter writer;
@@ -39,7 +39,7 @@ namespace Sharpen
             writer.Flush ();
         }
     
-        public override System.IFormatProvider FormatProvider {
+        public override IFormatProvider FormatProvider {
             get {
                 return writer.FormatProvider;
             }

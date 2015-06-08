@@ -6,9 +6,9 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System;
 using System.Text;
-using Com.Adobe.Xmp;
 using Sharpen;
 
 namespace Com.Adobe.Xmp.Impl
@@ -289,7 +289,7 @@ namespace Com.Adobe.Xmp.Impl
             if (dateTime.HasDate())
             {
                 // year is rendered in any case, even 0000
-                DecimalFormat df = new DecimalFormat("0000", new DecimalFormatSymbols(Sharpen.Extensions.GetEnglishCulture()));
+                DecimalFormat df = new DecimalFormat("0000", new DecimalFormatSymbols(Extensions.GetEnglishCulture()));
                 buffer.Append(df.Format(dateTime.GetYear()));
                 if (dateTime.GetMonth() == 0)
                 {

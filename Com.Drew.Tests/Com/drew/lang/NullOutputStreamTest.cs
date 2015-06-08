@@ -19,7 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-using System.IO;
+
+using NUnit.Framework;
 using Sharpen;
 
 namespace Com.Drew.Lang
@@ -28,7 +29,7 @@ namespace Com.Drew.Lang
     public class NullOutputStreamTest
     {
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
+        [Test]
         public virtual void TestCreateNullOutputStream()
         {
             OutputStream @out = new NullOutputStream();

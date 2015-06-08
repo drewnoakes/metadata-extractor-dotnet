@@ -19,8 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
-using System.IO;
+using System.Diagnostics;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -73,7 +74,7 @@ namespace Com.Drew.Lang
         public override long GetLength()
         {
             IsValidIndex(int.MaxValue, 1);
-            System.Diagnostics.Debug.Assert((_isStreamFinished));
+            Debug.Assert((_isStreamFinished));
             return _streamLength;
         }
 
@@ -94,7 +95,7 @@ namespace Com.Drew.Lang
         {
             if (index < 0)
             {
-                throw new BufferBoundsException(Sharpen.Extensions.StringFormat("Attempt to read from buffer using a negative index (%d)", index));
+                throw new BufferBoundsException(Extensions.StringFormat("Attempt to read from buffer using a negative index (%d)", index));
             }
             else
             {
@@ -106,13 +107,13 @@ namespace Com.Drew.Lang
                 {
                     if ((long)index + bytesRequested - 1 > int.MaxValue)
                     {
-                        throw new BufferBoundsException(Sharpen.Extensions.StringFormat("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: %d, requested count: %d)", index, bytesRequested));
+                        throw new BufferBoundsException(Extensions.StringFormat("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: %d, requested count: %d)", index, bytesRequested));
                     }
                 }
             }
             if (!IsValidIndex(index, bytesRequested))
             {
-                System.Diagnostics.Debug.Assert((_isStreamFinished));
+                Debug.Assert((_isStreamFinished));
                 // TODO test that can continue using an instance of this type after this exception
                 throw new BufferBoundsException(index, bytesRequested, _streamLength);
             }
@@ -139,7 +140,7 @@ namespace Com.Drew.Lang
             // TODO test loading several chunks for a single request
             while (chunkIndex >= _chunks.Count)
             {
-                System.Diagnostics.Debug.Assert((!_isStreamFinished));
+                Debug.Assert((!_isStreamFinished));
                 sbyte[] chunk = new sbyte[_chunkLength];
                 int totalBytesRead = 0;
                 while (!_isStreamFinished && totalBytesRead != _chunkLength)
@@ -170,7 +171,7 @@ namespace Com.Drew.Lang
         /// <exception cref="System.IO.IOException"/>
         protected internal override sbyte GetByte(int index)
         {
-            System.Diagnostics.Debug.Assert((index >= 0));
+            Debug.Assert((index >= 0));
             int chunkIndex = index / _chunkLength;
             int innerIndex = index % _chunkLength;
             sbyte[] chunk = _chunks[chunkIndex];
@@ -192,7 +193,7 @@ namespace Com.Drew.Lang
                 int fromInnerIndex = fromIndex % _chunkLength;
                 int length = Math.Min(remaining, _chunkLength - fromInnerIndex);
                 sbyte[] chunk = _chunks[fromChunkIndex];
-                System.Array.Copy(chunk, fromInnerIndex, bytes, toIndex, length);
+                Array.Copy(chunk, fromInnerIndex, bytes, toIndex, length);
                 remaining -= length;
                 fromIndex += length;
                 toIndex += length;

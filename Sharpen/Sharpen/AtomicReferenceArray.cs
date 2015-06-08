@@ -1,8 +1,7 @@
+using System.Threading;
+
 namespace Sharpen
 {
-    using System;
-    using System.Threading;
-
     public class AtomicReferenceArray<T> where T : class
     {
         private T[] array;

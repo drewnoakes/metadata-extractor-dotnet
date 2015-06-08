@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -28,7 +29,7 @@ namespace Com.Drew.Metadata.Jpeg
     /// <summary>Directory of tags and values for the SOF0 JPEG segment.</summary>
     /// <remarks>Directory of tags and values for the SOF0 JPEG segment.  This segment holds basic metadata about the image.</remarks>
     /// <author>Darrell Silver http://www.darrellsilver.com and Drew Noakes https://drewnoakes.com</author>
-    public class JpegDirectory : Com.Drew.Metadata.Directory
+    public class JpegDirectory : Directory
     {
         public const int TagCompressionType = -3;
 
@@ -119,26 +120,26 @@ namespace Com.Drew.Metadata.Jpeg
         [CanBeNull]
         public virtual JpegComponent GetComponent(int componentNumber)
         {
-            int tagType = Com.Drew.Metadata.Jpeg.JpegDirectory.TagComponentData1 + componentNumber;
+            int tagType = TagComponentData1 + componentNumber;
             return (JpegComponent)GetObject(tagType);
         }
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
         public virtual int GetImageWidth()
         {
-            return GetInt(Com.Drew.Metadata.Jpeg.JpegDirectory.TagImageWidth);
+            return GetInt(TagImageWidth);
         }
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
         public virtual int GetImageHeight()
         {
-            return GetInt(Com.Drew.Metadata.Jpeg.JpegDirectory.TagImageHeight);
+            return GetInt(TagImageHeight);
         }
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
         public virtual int GetNumberOfComponents()
         {
-            return GetInt(Com.Drew.Metadata.Jpeg.JpegDirectory.TagNumberOfComponents);
+            return GetInt(TagNumberOfComponents);
         }
     }
 }

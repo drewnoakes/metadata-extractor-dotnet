@@ -6,8 +6,6 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
-using Com.Adobe.Xmp;
-using Sharpen;
 
 namespace Com.Adobe.Xmp.Options
 {
@@ -17,7 +15,7 @@ namespace Com.Adobe.Xmp.Options
     /// .
     /// </summary>
     /// <since>24.01.2006</since>
-    public sealed class SerializeOptions : Com.Adobe.Xmp.Options.Options
+    public sealed class SerializeOptions : Options
     {
         /// <summary>Omit the XML packet wrapper.</summary>
         public const int OmitPacketWrapper = unchecked((int)(0x0010));
@@ -137,7 +135,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.SerializeOptions SetOmitPacketWrapper(bool value)
+        public SerializeOptions SetOmitPacketWrapper(bool value)
         {
             SetOption(OmitPacketWrapper, value);
             return this;
@@ -151,7 +149,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.SerializeOptions SetOmitXmpMetaElement(bool value)
+        public SerializeOptions SetOmitXmpMetaElement(bool value)
         {
             SetOption(OmitXmpmetaElement, value);
             return this;
@@ -165,7 +163,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.SerializeOptions SetReadOnlyPacket(bool value)
+        public SerializeOptions SetReadOnlyPacket(bool value)
         {
             SetOption(ReadonlyPacket, value);
             return this;
@@ -179,7 +177,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.SerializeOptions SetUseCompactFormat(bool value)
+        public SerializeOptions SetUseCompactFormat(bool value)
         {
             SetOption(UseCompactFormat, value);
             return this;
@@ -193,7 +191,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.SerializeOptions SetUseCanonicalFormat(bool value)
+        public SerializeOptions SetUseCanonicalFormat(bool value)
         {
             SetOption(UseCanonicalFormat, value);
             return this;
@@ -207,7 +205,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.SerializeOptions SetIncludeThumbnailPad(bool value)
+        public SerializeOptions SetIncludeThumbnailPad(bool value)
         {
             SetOption(IncludeThumbnailPad, value);
             return this;
@@ -221,7 +219,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.SerializeOptions SetExactPacketLength(bool value)
+        public SerializeOptions SetExactPacketLength(bool value)
         {
             SetOption(ExactPacketLength, value);
             return this;
@@ -235,7 +233,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.SerializeOptions SetSort(bool value)
+        public SerializeOptions SetSort(bool value)
         {
             SetOption(Sort, value);
             return this;
@@ -249,7 +247,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.SerializeOptions SetEncodeUTF16BE(bool value)
+        public SerializeOptions SetEncodeUTF16BE(bool value)
         {
             // clear unicode bits
             SetOption(Utf16Bit | LittleendianBit, false);
@@ -265,7 +263,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.SerializeOptions SetEncodeUTF16LE(bool value)
+        public SerializeOptions SetEncodeUTF16LE(bool value)
         {
             // clear unicode bits
             SetOption(Utf16Bit | LittleendianBit, false);
@@ -281,7 +279,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="baseIndent">The baseIndent to set.</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.SerializeOptions SetBaseIndent(int baseIndent)
+        public SerializeOptions SetBaseIndent(int baseIndent)
         {
             this.baseIndent = baseIndent;
             return this;
@@ -295,7 +293,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="indent">The indent to set.</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.SerializeOptions SetIndent(string indent)
+        public SerializeOptions SetIndent(string indent)
         {
             this.indent = indent;
             return this;
@@ -309,7 +307,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="newline">The newline to set.</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.SerializeOptions SetNewline(string newline)
+        public SerializeOptions SetNewline(string newline)
         {
             this.newline = newline;
             return this;
@@ -323,7 +321,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="padding">The padding to set.</param>
         /// <returns>Returns the instance to call more set-methods.</returns>
-        public Com.Adobe.Xmp.Options.SerializeOptions SetPadding(int padding)
+        public SerializeOptions SetPadding(int padding)
         {
             this.padding = padding;
             return this;
@@ -362,10 +360,10 @@ namespace Com.Adobe.Xmp.Options
         /// <exception cref="Sharpen.CloneNotSupportedException">Cannot happen in this place.</exception>
         public object Clone()
         {
-            Com.Adobe.Xmp.Options.SerializeOptions clone;
+            SerializeOptions clone;
             try
             {
-                clone = new Com.Adobe.Xmp.Options.SerializeOptions(GetOptions());
+                clone = new SerializeOptions(GetOptions());
                 clone.SetBaseIndent(baseIndent);
                 clone.SetIndent(indent);
                 clone.SetNewline(newline);

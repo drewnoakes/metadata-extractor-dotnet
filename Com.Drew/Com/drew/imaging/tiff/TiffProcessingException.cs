@@ -19,17 +19,16 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
-using Com.Drew.Imaging;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Imaging.Tiff
 {
     /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a TIFF file.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Darren Salomons</author>
-    [System.Serializable]
+    [Serializable]
     public class TiffProcessingException : ImageProcessingException
     {
         private const long serialVersionUID = -1658134119488001891L;

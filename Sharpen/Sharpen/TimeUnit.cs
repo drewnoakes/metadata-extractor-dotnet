@@ -1,7 +1,5 @@
 namespace Sharpen
 {
-    using System;
-
     public enum TimeUnit : long
     {
         MILLISECONDS = 1,

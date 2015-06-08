@@ -6,8 +6,6 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
-using Com.Adobe.Xmp;
-using Sharpen;
 
 namespace Com.Adobe.Xmp.Options
 {
@@ -16,7 +14,7 @@ namespace Com.Adobe.Xmp.Options
     /// and provide more detailed information about the property.
     /// </summary>
     /// <since>03.07.2006</since>
-    public sealed class PropertyOptions : Com.Adobe.Xmp.Options.Options
+    public sealed class PropertyOptions : Options
     {
         public const int NoOptions = unchecked((int)(0x00000000));
 
@@ -70,7 +68,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns this to enable cascaded options.</returns>
-        public Com.Adobe.Xmp.Options.PropertyOptions SetURI(bool value)
+        public PropertyOptions SetURI(bool value)
         {
             SetOption(Uri, value);
             return this;
@@ -88,7 +86,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns this to enable cascaded options.</returns>
-        public Com.Adobe.Xmp.Options.PropertyOptions SetHasQualifiers(bool value)
+        public PropertyOptions SetHasQualifiers(bool value)
         {
             SetOption(HasQualifiers, value);
             return this;
@@ -107,7 +105,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns this to enable cascaded options.</returns>
-        public Com.Adobe.Xmp.Options.PropertyOptions SetQualifier(bool value)
+        public PropertyOptions SetQualifier(bool value)
         {
             SetOption(Qualifier, value);
             return this;
@@ -121,7 +119,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns this to enable cascaded options.</returns>
-        public Com.Adobe.Xmp.Options.PropertyOptions SetHasLanguage(bool value)
+        public PropertyOptions SetHasLanguage(bool value)
         {
             SetOption(HasLanguage, value);
             return this;
@@ -135,7 +133,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns this to enable cascaded options.</returns>
-        public Com.Adobe.Xmp.Options.PropertyOptions SetHasType(bool value)
+        public PropertyOptions SetHasType(bool value)
         {
             SetOption(HasType, value);
             return this;
@@ -149,7 +147,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns this to enable cascaded options.</returns>
-        public Com.Adobe.Xmp.Options.PropertyOptions SetStruct(bool value)
+        public PropertyOptions SetStruct(bool value)
         {
             SetOption(Struct, value);
             return this;
@@ -166,7 +164,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns this to enable cascaded options.</returns>
-        public Com.Adobe.Xmp.Options.PropertyOptions SetArray(bool value)
+        public PropertyOptions SetArray(bool value)
         {
             SetOption(Array, value);
             return this;
@@ -183,7 +181,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns this to enable cascaded options.</returns>
-        public Com.Adobe.Xmp.Options.PropertyOptions SetArrayOrdered(bool value)
+        public PropertyOptions SetArrayOrdered(bool value)
         {
             SetOption(ArrayOrdered, value);
             return this;
@@ -200,7 +198,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns this to enable cascaded options.</returns>
-        public Com.Adobe.Xmp.Options.PropertyOptions SetArrayAlternate(bool value)
+        public PropertyOptions SetArrayAlternate(bool value)
         {
             SetOption(ArrayAlternate, value);
             return this;
@@ -218,7 +216,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the value to set</param>
         /// <returns>Returns this to enable cascaded options.</returns>
-        public Com.Adobe.Xmp.Options.PropertyOptions SetArrayAltText(bool value)
+        public PropertyOptions SetArrayAltText(bool value)
         {
             SetOption(ArrayAltText, value);
             return this;
@@ -232,7 +230,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="value">the option DELETE_EXISTING to set</param>
         /// <returns>Returns this to enable cascaded options.</returns>
-        public Com.Adobe.Xmp.Options.PropertyOptions SetSchemaNode(bool value)
+        public PropertyOptions SetSchemaNode(bool value)
         {
             SetOption(SchemaNode, value);
             return this;
@@ -254,7 +252,7 @@ namespace Com.Adobe.Xmp.Options
         /// <summary>Compares two options set for array compatibility.</summary>
         /// <param name="options">other options</param>
         /// <returns>Returns true if the array options of the sets are equal.</returns>
-        public bool EqualArrayTypes(Com.Adobe.Xmp.Options.PropertyOptions options)
+        public bool EqualArrayTypes(PropertyOptions options)
         {
             return IsArray() == options.IsArray() && IsArrayOrdered() == options.IsArrayOrdered() && IsArrayAlternate() == options.IsArrayAlternate() && IsArrayAltText() == options.IsArrayAltText();
         }
@@ -266,7 +264,7 @@ namespace Com.Adobe.Xmp.Options
         /// </remarks>
         /// <param name="options">other options</param>
         /// <exception cref="Com.Adobe.Xmp.XMPException">If illegal options are provided</exception>
-        public void MergeWith(Com.Adobe.Xmp.Options.PropertyOptions options)
+        public void MergeWith(PropertyOptions options)
         {
             if (options != null)
             {

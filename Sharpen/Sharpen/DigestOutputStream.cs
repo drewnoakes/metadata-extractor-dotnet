@@ -1,7 +1,5 @@
 namespace Sharpen
 {
-    using System;
-
     public class DigestOutputStream : OutputStream
     {
         private MessageDigest digest;

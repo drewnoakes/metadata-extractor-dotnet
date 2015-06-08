@@ -1,8 +1,8 @@
+using System;
+using System.Text.RegularExpressions;
+
 namespace Sharpen
 {
-    using System;
-    using System.Text.RegularExpressions;
-
     public class Matcher
     {
         private int current;

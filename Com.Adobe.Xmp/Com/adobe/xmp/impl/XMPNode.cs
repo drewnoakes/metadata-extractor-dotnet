@@ -6,10 +6,11 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
 using System;
 using System.Collections;
+using System.Diagnostics;
 using System.Text;
-using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Options;
 using Sharpen;
 
@@ -38,7 +39,7 @@ namespace Com.Adobe.Xmp.Impl
         private string value;
 
         /// <summary>link to the parent node</summary>
-        private Com.Adobe.Xmp.Impl.XMPNode parent;
+        private XMPNode parent;
 
         /// <summary>list of child nodes, lazy initialized</summary>
         private IList children = null;
@@ -92,22 +93,22 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <returns>Returns the parent node.</returns>
-        public virtual Com.Adobe.Xmp.Impl.XMPNode GetParent()
+        public virtual XMPNode GetParent()
         {
             return parent;
         }
 
         /// <param name="index">an index [1..size]</param>
         /// <returns>Returns the child with the requested index.</returns>
-        public virtual Com.Adobe.Xmp.Impl.XMPNode GetChild(int index)
+        public virtual XMPNode GetChild(int index)
         {
-            return (Com.Adobe.Xmp.Impl.XMPNode)GetChildren()[index - 1];
+            return (XMPNode)GetChildren()[index - 1];
         }
 
         /// <summary>Adds a node as child to this node.</summary>
         /// <param name="node">an XMPNode</param>
         /// <exception cref="Com.Adobe.Xmp.XMPException"></exception>
-        public virtual void AddChild(Com.Adobe.Xmp.Impl.XMPNode node)
+        public virtual void AddChild(XMPNode node)
         {
             // check for duplicate properties
             AssertChildNotExisting(node.GetName());
@@ -123,7 +124,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </param>
         /// <param name="node">an XMPNode</param>
         /// <exception cref="Com.Adobe.Xmp.XMPException"></exception>
-        public virtual void AddChild(int index, Com.Adobe.Xmp.Impl.XMPNode node)
+        public virtual void AddChild(int index, XMPNode node)
         {
             AssertChildNotExisting(node.GetName());
             node.SetParent(this);
@@ -136,7 +137,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <em>Note:</em> The node children are indexed from [1..size]!
         /// </param>
         /// <param name="node">the replacement XMPNode</param>
-        public virtual void ReplaceChild(int index, Com.Adobe.Xmp.Impl.XMPNode node)
+        public virtual void ReplaceChild(int index, XMPNode node)
         {
             node.SetParent(this);
             GetChildren().Set(index - 1, node);
@@ -156,7 +157,7 @@ namespace Com.Adobe.Xmp.Impl
         /// If its a schema node and doesn't have any children anymore, its deleted.
         /// </remarks>
         /// <param name="node">the child node to delete.</param>
-        public virtual void RemoveChild(Com.Adobe.Xmp.Impl.XMPNode node)
+        public virtual void RemoveChild(XMPNode node)
         {
             GetChildren().Remove(node);
             CleanupChildren();
@@ -189,16 +190,16 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <param name="expr">child node name to look for</param>
         /// <returns>Returns an <code>XMPNode</code> if node has been found, <code>null</code> otherwise.</returns>
-        public virtual Com.Adobe.Xmp.Impl.XMPNode FindChildByName(string expr)
+        public virtual XMPNode FindChildByName(string expr)
         {
             return Find(GetChildren(), expr);
         }
 
         /// <param name="index">an index [1..size]</param>
         /// <returns>Returns the qualifier with the requested index.</returns>
-        public virtual Com.Adobe.Xmp.Impl.XMPNode GetQualifier(int index)
+        public virtual XMPNode GetQualifier(int index)
         {
-            return (Com.Adobe.Xmp.Impl.XMPNode)GetQualifier()[index - 1];
+            return (XMPNode)GetQualifier()[index - 1];
         }
 
         /// <returns>Returns the number of qualifier without neccessarily creating a list.</returns>
@@ -210,7 +211,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>Appends a qualifier to the qualifier list and sets respective options.</summary>
         /// <param name="qualNode">a qualifier node.</param>
         /// <exception cref="Com.Adobe.Xmp.XMPException"></exception>
-        public virtual void AddQualifier(Com.Adobe.Xmp.Impl.XMPNode qualNode)
+        public virtual void AddQualifier(XMPNode qualNode)
         {
             AssertQualifierNotExisting(qualNode.GetName());
             qualNode.SetParent(this);
@@ -241,7 +242,7 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>Removes one qualifier node and fixes the options.</summary>
         /// <param name="qualNode">qualifier to remove</param>
-        public virtual void RemoveQualifier(Com.Adobe.Xmp.Impl.XMPNode qualNode)
+        public virtual void RemoveQualifier(XMPNode qualNode)
         {
             PropertyOptions opts = GetOptions();
             if (qualNode.IsLanguageNode())
@@ -281,7 +282,7 @@ namespace Com.Adobe.Xmp.Impl
         /// Returns a qualifier <code>XMPNode</code> if node has been found,
         /// <code>null</code> otherwise.
         /// </returns>
-        public virtual Com.Adobe.Xmp.Impl.XMPNode FindQualifierByName(string expr)
+        public virtual XMPNode FindQualifierByName(string expr)
         {
             return Find(qualifier, expr);
         }
@@ -304,7 +305,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             else
             {
-                return Sharpen.Collections.EmptyList().ListIterator();
+                return Collections.EmptyList().ListIterator();
             }
         }
 
@@ -327,7 +328,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             else
             {
-                return Sharpen.Collections.EmptyList().Iterator();
+                return Collections.EmptyList().Iterator();
             }
         }
 
@@ -370,7 +371,7 @@ namespace Com.Adobe.Xmp.Impl
                 // cannot happen
                 newOptions = new PropertyOptions();
             }
-            Com.Adobe.Xmp.Impl.XMPNode newNode = new Com.Adobe.Xmp.Impl.XMPNode(name, value, newOptions);
+            XMPNode newNode = new XMPNode(name, value, newOptions);
             CloneSubtree(newNode);
             return newNode;
         }
@@ -380,25 +381,25 @@ namespace Com.Adobe.Xmp.Impl
         /// qualifier )into and add it to the destination node.
         /// </summary>
         /// <param name="destination">the node to add the cloned subtree</param>
-        public virtual void CloneSubtree(Com.Adobe.Xmp.Impl.XMPNode destination)
+        public virtual void CloneSubtree(XMPNode destination)
         {
             try
             {
                 for (Iterator it = IterateChildren(); it.HasNext(); )
                 {
-                    Com.Adobe.Xmp.Impl.XMPNode child = (Com.Adobe.Xmp.Impl.XMPNode)it.Next();
-                    destination.AddChild((Com.Adobe.Xmp.Impl.XMPNode)child.Clone());
+                    XMPNode child = (XMPNode)it.Next();
+                    destination.AddChild((XMPNode)child.Clone());
                 }
                 for (Iterator it_1 = IterateQualifier(); it_1.HasNext(); )
                 {
-                    Com.Adobe.Xmp.Impl.XMPNode qualifier = (Com.Adobe.Xmp.Impl.XMPNode)it_1.Next();
-                    destination.AddQualifier((Com.Adobe.Xmp.Impl.XMPNode)qualifier.Clone());
+                    XMPNode qualifier = (XMPNode)it_1.Next();
+                    destination.AddQualifier((XMPNode)qualifier.Clone());
                 }
             }
             catch (XMPException)
             {
                 // cannot happen (duplicate childs/quals do not exist in this node)
-                System.Diagnostics.Debug.Assert(false);
+                Debug.Assert(false);
             }
         }
 
@@ -417,11 +418,11 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (GetOptions().IsSchemaNode())
             {
-                return string.CompareOrdinal(this.value, ((Com.Adobe.Xmp.Impl.XMPNode)xmpNode).GetValue());
+                return string.CompareOrdinal(this.value, ((XMPNode)xmpNode).GetValue());
             }
             else
             {
-                return string.CompareOrdinal(this.name, ((Com.Adobe.Xmp.Impl.XMPNode)xmpNode).GetName());
+                return string.CompareOrdinal(this.name, ((XMPNode)xmpNode).GetName());
             }
         }
 
@@ -537,7 +538,7 @@ namespace Com.Adobe.Xmp.Impl
             // sort qualifier
             if (HasQualifier())
             {
-                Com.Adobe.Xmp.Impl.XMPNode[] quals = (Com.Adobe.Xmp.Impl.XMPNode[])Sharpen.Collections.ToArray(GetQualifier(), new Com.Adobe.Xmp.Impl.XMPNode[GetQualifierLength()]);
+                XMPNode[] quals = (XMPNode[])Collections.ToArray(GetQualifier(), new XMPNode[GetQualifierLength()]);
                 int sortFrom = 0;
                 while (quals.Length > sortFrom && (XMPConstConstants.XmlLang.Equals(quals[sortFrom].GetName()) || "rdf:type".Equals(quals[sortFrom].GetName())))
                 {
@@ -562,7 +563,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 for (Iterator it = IterateChildren(); it.HasNext(); )
                 {
-                    ((Com.Adobe.Xmp.Impl.XMPNode)it.Next()).Sort();
+                    ((XMPNode)it.Next()).Sort();
                 }
             }
         }
@@ -637,7 +638,7 @@ namespace Com.Adobe.Xmp.Impl
             // render qualifier
             if (recursive && HasQualifier())
             {
-                Com.Adobe.Xmp.Impl.XMPNode[] quals = (Com.Adobe.Xmp.Impl.XMPNode[])Sharpen.Collections.ToArray(GetQualifier(), new Com.Adobe.Xmp.Impl.XMPNode[GetQualifierLength()]);
+                XMPNode[] quals = (XMPNode[])Collections.ToArray(GetQualifier(), new XMPNode[GetQualifierLength()]);
                 int i_1 = 0;
                 while (quals.Length > i_1 && (XMPConstConstants.XmlLang.Equals(quals[i_1].GetName()) || "rdf:type".Equals(quals[i_1].GetName())))
                 {
@@ -646,21 +647,21 @@ namespace Com.Adobe.Xmp.Impl
                 Arrays.Sort(quals, i_1, quals.Length);
                 for (i_1 = 0; i_1 < quals.Length; i_1++)
                 {
-                    Com.Adobe.Xmp.Impl.XMPNode qualifier = quals[i_1];
+                    XMPNode qualifier = quals[i_1];
                     qualifier.DumpNode(result, recursive, indent + 2, i_1 + 1);
                 }
             }
             // render children
             if (recursive && HasChildren())
             {
-                Com.Adobe.Xmp.Impl.XMPNode[] children = (Com.Adobe.Xmp.Impl.XMPNode[])Sharpen.Collections.ToArray(GetChildren(), new Com.Adobe.Xmp.Impl.XMPNode[GetChildrenLength()]);
+                XMPNode[] children = (XMPNode[])Collections.ToArray(GetChildren(), new XMPNode[GetChildrenLength()]);
                 if (!GetOptions().IsArray())
                 {
                     Arrays.Sort(children);
                 }
                 for (int i_1 = 0; i_1 < children.Length; i_1++)
                 {
-                    Com.Adobe.Xmp.Impl.XMPNode child = children[i_1];
+                    XMPNode child = children[i_1];
                     child.DumpNode(result, recursive, indent + 1, i_1 + 1);
                 }
             }
@@ -695,7 +696,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns a read-only copy of child nodes list.</returns>
         public virtual IList GetUnmodifiableChildren()
         {
-            return Sharpen.Collections.UnmodifiableList(new ArrayList(GetChildren()));
+            return Collections.UnmodifiableList(new ArrayList(GetChildren()));
         }
 
         /// <returns>Returns list of qualifier that is lazy initialized.</returns>
@@ -713,7 +714,7 @@ namespace Com.Adobe.Xmp.Impl
         /// and <code>addQualifier()</code>.
         /// </summary>
         /// <param name="parent">Sets the parent node.</param>
-        protected internal virtual void SetParent(Com.Adobe.Xmp.Impl.XMPNode parent)
+        protected internal virtual void SetParent(XMPNode parent)
         {
             this.parent = parent;
         }
@@ -722,13 +723,13 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="list">the list to search in</param>
         /// <param name="expr">the search expression</param>
         /// <returns>Returns the found node or <code>nulls</code>.</returns>
-        private Com.Adobe.Xmp.Impl.XMPNode Find(IList list, string expr)
+        private XMPNode Find(IList list, string expr)
         {
             if (list != null)
             {
                 for (Iterator it = list.Iterator(); it.HasNext(); )
                 {
-                    Com.Adobe.Xmp.Impl.XMPNode child = (Com.Adobe.Xmp.Impl.XMPNode)it.Next();
+                    XMPNode child = (XMPNode)it.Next();
                     if (child.GetName().Equals(expr))
                     {
                         return child;

@@ -1,8 +1,7 @@
+using System.Text.RegularExpressions;
+
 namespace Sharpen
 {
-    using System;
-    using System.Text.RegularExpressions;
-
     public class Pattern
     {
         public const int CASE_INSENSITIVE = 1;
@@ -35,9 +34,9 @@ namespace Sharpen
             return new Pattern (new Regex (pattern, compiled));
         }
 
-        public Sharpen.Matcher Matcher (string txt)
+        public Matcher Matcher (string txt)
         {
-            return new Sharpen.Matcher (this.regex, txt);
+            return new Matcher (this.regex, txt);
         }
     }
 }

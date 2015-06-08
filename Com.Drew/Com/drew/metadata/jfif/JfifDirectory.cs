@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
@@ -28,7 +29,7 @@ namespace Com.Drew.Metadata.Jfif
     /// <summary>Directory of tags and values for the SOF0 Jfif segment.</summary>
     /// <remarks>Directory of tags and values for the SOF0 Jfif segment.  This segment holds basic metadata about the image.</remarks>
     /// <author>Yuri Binev, Drew Noakes</author>
-    public class JfifDirectory : Com.Drew.Metadata.Directory
+    public class JfifDirectory : Directory
     {
         public const int TagVersion = 5;
 
@@ -71,25 +72,25 @@ namespace Com.Drew.Metadata.Jfif
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
         public virtual int GetVersion()
         {
-            return GetInt(Com.Drew.Metadata.Jfif.JfifDirectory.TagVersion);
+            return GetInt(TagVersion);
         }
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
         public virtual int GetResUnits()
         {
-            return GetInt(Com.Drew.Metadata.Jfif.JfifDirectory.TagUnits);
+            return GetInt(TagUnits);
         }
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
         public virtual int GetImageWidth()
         {
-            return GetInt(Com.Drew.Metadata.Jfif.JfifDirectory.TagResy);
+            return GetInt(TagResy);
         }
 
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
         public virtual int GetImageHeight()
         {
-            return GetInt(Com.Drew.Metadata.Jfif.JfifDirectory.TagResx);
+            return GetInt(TagResx);
         }
     }
 }

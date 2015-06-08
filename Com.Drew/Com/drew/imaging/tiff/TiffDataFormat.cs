@@ -19,8 +19,8 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Imaging.Tiff
 {
@@ -53,40 +53,40 @@ namespace Com.Drew.Imaging.Tiff
         public const int CodeDouble = 12;
 
         [NotNull]
-        public static readonly Com.Drew.Imaging.Tiff.TiffDataFormat Int8U = new Com.Drew.Imaging.Tiff.TiffDataFormat("BYTE", CodeInt8U, 1);
+        public static readonly TiffDataFormat Int8U = new TiffDataFormat("BYTE", CodeInt8U, 1);
 
         [NotNull]
-        public static readonly Com.Drew.Imaging.Tiff.TiffDataFormat String = new Com.Drew.Imaging.Tiff.TiffDataFormat("STRING", CodeString, 1);
+        public static readonly TiffDataFormat String = new TiffDataFormat("STRING", CodeString, 1);
 
         [NotNull]
-        public static readonly Com.Drew.Imaging.Tiff.TiffDataFormat Int16U = new Com.Drew.Imaging.Tiff.TiffDataFormat("USHORT", CodeInt16U, 2);
+        public static readonly TiffDataFormat Int16U = new TiffDataFormat("USHORT", CodeInt16U, 2);
 
         [NotNull]
-        public static readonly Com.Drew.Imaging.Tiff.TiffDataFormat Int32U = new Com.Drew.Imaging.Tiff.TiffDataFormat("ULONG", CodeInt32U, 4);
+        public static readonly TiffDataFormat Int32U = new TiffDataFormat("ULONG", CodeInt32U, 4);
 
         [NotNull]
-        public static readonly Com.Drew.Imaging.Tiff.TiffDataFormat RationalU = new Com.Drew.Imaging.Tiff.TiffDataFormat("URATIONAL", CodeRationalU, 8);
+        public static readonly TiffDataFormat RationalU = new TiffDataFormat("URATIONAL", CodeRationalU, 8);
 
         [NotNull]
-        public static readonly Com.Drew.Imaging.Tiff.TiffDataFormat Int8S = new Com.Drew.Imaging.Tiff.TiffDataFormat("SBYTE", CodeInt8S, 1);
+        public static readonly TiffDataFormat Int8S = new TiffDataFormat("SBYTE", CodeInt8S, 1);
 
         [NotNull]
-        public static readonly Com.Drew.Imaging.Tiff.TiffDataFormat Undefined = new Com.Drew.Imaging.Tiff.TiffDataFormat("UNDEFINED", CodeUndefined, 1);
+        public static readonly TiffDataFormat Undefined = new TiffDataFormat("UNDEFINED", CodeUndefined, 1);
 
         [NotNull]
-        public static readonly Com.Drew.Imaging.Tiff.TiffDataFormat Int16S = new Com.Drew.Imaging.Tiff.TiffDataFormat("SSHORT", CodeInt16S, 2);
+        public static readonly TiffDataFormat Int16S = new TiffDataFormat("SSHORT", CodeInt16S, 2);
 
         [NotNull]
-        public static readonly Com.Drew.Imaging.Tiff.TiffDataFormat Int32S = new Com.Drew.Imaging.Tiff.TiffDataFormat("SLONG", CodeInt32S, 4);
+        public static readonly TiffDataFormat Int32S = new TiffDataFormat("SLONG", CodeInt32S, 4);
 
         [NotNull]
-        public static readonly Com.Drew.Imaging.Tiff.TiffDataFormat RationalS = new Com.Drew.Imaging.Tiff.TiffDataFormat("SRATIONAL", CodeRationalS, 8);
+        public static readonly TiffDataFormat RationalS = new TiffDataFormat("SRATIONAL", CodeRationalS, 8);
 
         [NotNull]
-        public static readonly Com.Drew.Imaging.Tiff.TiffDataFormat Single = new Com.Drew.Imaging.Tiff.TiffDataFormat("SINGLE", CodeSingle, 4);
+        public static readonly TiffDataFormat Single = new TiffDataFormat("SINGLE", CodeSingle, 4);
 
         [NotNull]
-        public static readonly Com.Drew.Imaging.Tiff.TiffDataFormat Double = new Com.Drew.Imaging.Tiff.TiffDataFormat("DOUBLE", CodeDouble, 8);
+        public static readonly TiffDataFormat Double = new TiffDataFormat("DOUBLE", CodeDouble, 8);
 
         [NotNull]
         private readonly string _name;
@@ -96,7 +96,7 @@ namespace Com.Drew.Imaging.Tiff
         private readonly int _componentSizeBytes;
 
         [CanBeNull]
-        public static Com.Drew.Imaging.Tiff.TiffDataFormat FromTiffFormatCode(int tiffFormatCode)
+        public static TiffDataFormat FromTiffFormatCode(int tiffFormatCode)
         {
             switch (tiffFormatCode)
             {

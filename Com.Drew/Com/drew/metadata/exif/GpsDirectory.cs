@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
@@ -184,10 +185,10 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual GeoLocation GetGeoLocation()
         {
-            Rational[] latitudes = GetRationalArray(Com.Drew.Metadata.Exif.GpsDirectory.TagLatitude);
-            Rational[] longitudes = GetRationalArray(Com.Drew.Metadata.Exif.GpsDirectory.TagLongitude);
-            string latitudeRef = GetString(Com.Drew.Metadata.Exif.GpsDirectory.TagLatitudeRef);
-            string longitudeRef = GetString(Com.Drew.Metadata.Exif.GpsDirectory.TagLongitudeRef);
+            Rational[] latitudes = GetRationalArray(TagLatitude);
+            Rational[] longitudes = GetRationalArray(TagLongitude);
+            string latitudeRef = GetString(TagLatitudeRef);
+            string longitudeRef = GetString(TagLongitudeRef);
             // Make sure we have the required values
             if (latitudes == null || latitudes.Length != 3)
             {
@@ -201,8 +202,8 @@ namespace Com.Drew.Metadata.Exif
             {
                 return null;
             }
-            double? lat = GeoLocation.DegreesMinutesSecondsToDecimal(latitudes[0], latitudes[1], latitudes[2], Sharpen.Runtime.EqualsIgnoreCase(latitudeRef, "S"));
-            double? lon = GeoLocation.DegreesMinutesSecondsToDecimal(longitudes[0], longitudes[1], longitudes[2], Sharpen.Runtime.EqualsIgnoreCase(longitudeRef, "W"));
+            double? lat = GeoLocation.DegreesMinutesSecondsToDecimal(latitudes[0], latitudes[1], latitudes[2], Runtime.EqualsIgnoreCase(latitudeRef, "S"));
+            double? lon = GeoLocation.DegreesMinutesSecondsToDecimal(longitudes[0], longitudes[1], longitudes[2], Runtime.EqualsIgnoreCase(longitudeRef, "W"));
             // This can return null, in cases where the conversion was not possible
             if (lat == null || lon == null)
             {

@@ -6,8 +6,9 @@
 // NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance with the terms
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
+
+using System.Diagnostics;
 using System.Text;
-using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Impl.Xpath;
 using Com.Adobe.Xmp.Options;
 using Com.Adobe.Xmp.Properties;
@@ -208,7 +209,7 @@ namespace Com.Adobe.Xmp.Impl
                     }
                     // Have multiple spaces, or a space followed by a
                     // separator.
-                    itemValue = Sharpen.Runtime.Substring(catedStr, itemStart, itemEnd);
+                    itemValue = Runtime.Substring(catedStr, itemStart, itemEnd);
                 }
                 else
                 {
@@ -705,7 +706,7 @@ namespace Com.Adobe.Xmp.Impl
                     // "rightNode", ignoring order, duplicates,
                     // and extra values in the rightNode-> The rightNode is the
                     // destination for AppendProperties.
-                    System.Diagnostics.Debug.Assert(leftForm.IsArray());
+                    Debug.Assert(leftForm.IsArray());
                     for (Iterator il = leftNode.IterateChildren(); il.HasNext(); )
                     {
                         XMPNode leftItem = (XMPNode)il.Next();
@@ -1017,7 +1018,7 @@ namespace Com.Adobe.Xmp.Impl
                     }
                 }
                 // Copy the leading "normal" portion.
-                newItem.Append(openQuote).Append(Sharpen.Runtime.Substring(item, 0, splitPoint));
+                newItem.Append(openQuote).Append(Runtime.Substring(item, 0, splitPoint));
                 for (charOffset = splitPoint; charOffset < item.Length; charOffset++)
                 {
                     newItem.Append(item[charOffset]);

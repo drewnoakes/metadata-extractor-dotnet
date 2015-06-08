@@ -1,8 +1,7 @@
+using System.IO;
+
 namespace Sharpen
 {
-    using System;
-    using System.IO;
-
     public class FileOutputStream : OutputStream
     {
         public FileOutputStream (FilePath file): this (file.GetPath (), false)
@@ -21,9 +20,9 @@ namespace Sharpen
         {
             try {
                 if (append) {
-                    base.Wrapped = File.Open (file, System.IO.FileMode.Append, FileAccess.Write);
+                    base.Wrapped = File.Open (file, FileMode.Append, FileAccess.Write);
                 } else {
-                    base.Wrapped = File.Open (file, System.IO.FileMode.Create, FileAccess.Write);
+                    base.Wrapped = File.Open (file, FileMode.Create, FileAccess.Write);
                 }
             } catch (DirectoryNotFoundException) {
                 throw new FileNotFoundException ("File not found: " + file);

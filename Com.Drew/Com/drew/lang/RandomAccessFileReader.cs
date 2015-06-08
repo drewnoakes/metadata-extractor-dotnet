@@ -19,8 +19,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System;
-using System.IO;
+using System.Diagnostics;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -70,7 +71,7 @@ namespace Com.Drew.Lang
             {
                 throw new BufferBoundsException("Unexpected end of file encountered.");
             }
-            System.Diagnostics.Debug.Assert((b <= unchecked((int)(0xff))));
+            Debug.Assert((b <= unchecked((int)(0xff))));
             _currentIndex++;
             return unchecked((sbyte)b);
         }

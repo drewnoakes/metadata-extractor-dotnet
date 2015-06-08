@@ -1,33 +1,34 @@
+using System;
 using JetBrains.Annotations;
 using Sharpen;
 
 namespace Com.Drew.Imaging.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [System.Serializable]
+    [Serializable]
     public sealed class PngColorType
     {
         /// <summary>Each pixel is a greyscale sample.</summary>
-        public static readonly Com.Drew.Imaging.Png.PngColorType Greyscale = new Com.Drew.Imaging.Png.PngColorType(0, "Greyscale", 1, 2, 4, 8, 16);
+        public static readonly PngColorType Greyscale = new PngColorType(0, "Greyscale", 1, 2, 4, 8, 16);
 
         /// <summary>Each pixel is an R,G,B triple.</summary>
-        public static readonly Com.Drew.Imaging.Png.PngColorType TrueColor = new Com.Drew.Imaging.Png.PngColorType(2, "True Color", 8, 16);
+        public static readonly PngColorType TrueColor = new PngColorType(2, "True Color", 8, 16);
 
         /// <summary>Each pixel is a palette index.</summary>
         /// <remarks>Each pixel is a palette index. Seeing this value indicates that a <code>PLTE</code> chunk shall appear.</remarks>
-        public static readonly Com.Drew.Imaging.Png.PngColorType IndexedColor = new Com.Drew.Imaging.Png.PngColorType(3, "Indexed Color", 1, 2, 4, 8);
+        public static readonly PngColorType IndexedColor = new PngColorType(3, "Indexed Color", 1, 2, 4, 8);
 
         /// <summary>Each pixel is a greyscale sample followed by an alpha sample.</summary>
-        public static readonly Com.Drew.Imaging.Png.PngColorType GreyscaleWithAlpha = new Com.Drew.Imaging.Png.PngColorType(4, "Greyscale with Alpha", 8, 16);
+        public static readonly PngColorType GreyscaleWithAlpha = new PngColorType(4, "Greyscale with Alpha", 8, 16);
 
         /// <summary>Each pixel is an R,G,B triple followed by an alpha sample.</summary>
-        public static readonly Com.Drew.Imaging.Png.PngColorType TrueColorWithAlpha = new Com.Drew.Imaging.Png.PngColorType(6, "True Color with Alpha", 8, 16);
+        public static readonly PngColorType TrueColorWithAlpha = new PngColorType(6, "True Color with Alpha", 8, 16);
 
         [CanBeNull]
-        public static Com.Drew.Imaging.Png.PngColorType FromNumericValue(int numericValue)
+        public static PngColorType FromNumericValue(int numericValue)
         {
-            Com.Drew.Imaging.Png.PngColorType[] colorTypes = typeof(Com.Drew.Imaging.Png.PngColorType).GetEnumConstants<PngColorType>();
-            foreach (Com.Drew.Imaging.Png.PngColorType colorType in colorTypes)
+            PngColorType[] colorTypes = typeof(PngColorType).GetEnumConstants<PngColorType>();
+            foreach (PngColorType colorType in colorTypes)
             {
                 if (colorType.GetNumericValue() == numericValue)
                 {

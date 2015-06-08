@@ -19,6 +19,7 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+
 using System.Collections.Generic;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
@@ -124,7 +125,7 @@ namespace Com.Drew.Imaging.Tiff
             try
             {
                 // check for directories we've already visited to avoid stack overflows when recursive/cyclic directory structures exist
-                if (processedIfdOffsets.Contains(Sharpen.Extensions.ValueOf(ifdOffset)))
+                if (processedIfdOffsets.Contains(Extensions.ValueOf(ifdOffset)))
                 {
                     return;
                 }
@@ -463,7 +464,7 @@ namespace Com.Drew.Imaging.Tiff
 
                 default:
                 {
-                    handler.Error(Sharpen.Extensions.StringFormat("Unknown format code %d for tag %d", formatCode, tagId));
+                    handler.Error(Extensions.StringFormat("Unknown format code %d for tag %d", formatCode, tagId));
                     break;
                 }
             }
