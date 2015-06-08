@@ -42,7 +42,7 @@ namespace Com.Drew.Metadata.Jfif
         public const int TagResy = 10;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static JfifDirectory()
         {
@@ -64,7 +64,7 @@ namespace Com.Drew.Metadata.Jfif
         }
 
         [NotNull]
-        protected internal override Dictionary<int?, string> GetTagNameMap()
+        protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

@@ -28,7 +28,7 @@ namespace Com.Drew.Metadata.Bmp
         public const int TagImportantColourCount = 9;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static BmpHeaderDirectory()
         {
@@ -56,7 +56,7 @@ namespace Com.Drew.Metadata.Bmp
         }
 
         [NotNull]
-        protected internal override Dictionary<int?, string> GetTagNameMap()
+        protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

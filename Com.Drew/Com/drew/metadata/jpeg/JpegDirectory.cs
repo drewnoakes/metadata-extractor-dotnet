@@ -79,7 +79,7 @@ namespace Com.Drew.Metadata.Jpeg
         public const int TagComponentData4 = 9;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static JpegDirectory()
         {
@@ -107,7 +107,7 @@ namespace Com.Drew.Metadata.Jpeg
         }
 
         [NotNull]
-        protected internal override Dictionary<int?, string> GetTagNameMap()
+        protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

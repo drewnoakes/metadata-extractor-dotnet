@@ -32,7 +32,7 @@ namespace Com.Drew.Lang
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class SequentialAccessTestBase
     {
-        protected internal abstract SequentialReader CreateReader(sbyte[] bytes);
+        protected abstract SequentialReader CreateReader(sbyte[] bytes);
 
         [Test]
         public virtual void TestDefaultEndianness()

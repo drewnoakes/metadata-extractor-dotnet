@@ -35,7 +35,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public const int TagPrintImageMatchingInfo = unchecked((int)(0x0E00));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static KyoceraMakernoteDirectory()
         {
@@ -55,7 +55,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         }
 
         [NotNull]
-        protected internal override Dictionary<int?, string> GetTagNameMap()
+        protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

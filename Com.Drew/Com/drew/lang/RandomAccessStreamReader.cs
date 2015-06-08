@@ -85,7 +85,7 @@ namespace Com.Drew.Lang
         /// <param name="bytesRequested">the number of bytes which are required</param>
         /// <exception cref="BufferBoundsException">if the stream ends before the required number of bytes are acquired</exception>
         /// <exception cref="System.IO.IOException"/>
-        protected internal override void ValidateIndex(int index, int bytesRequested)
+        protected override void ValidateIndex(int index, int bytesRequested)
         {
             if (index < 0)
             {
@@ -108,7 +108,7 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        protected internal override bool IsValidIndex(int index, int bytesRequested)
+        protected override bool IsValidIndex(int index, int bytesRequested)
         {
             if (index < 0 || bytesRequested < 0)
             {
@@ -157,7 +157,7 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        protected internal override sbyte GetByte(int index)
+        protected override sbyte GetByte(int index)
         {
             Debug.Assert((index >= 0));
             int chunkIndex = index / _chunkLength;

@@ -39,7 +39,7 @@ namespace Com.Drew.Metadata
     {
         /// <summary>Map of values hashed by type identifiers.</summary>
         [NotNull]
-        protected internal readonly IDictionary<int?, object> TagMap = new Dictionary<int?, object>();
+        protected readonly IDictionary<int?, object> TagMap = new Dictionary<int?, object>();
 
         /// <summary>A convenient list holding tag values in the order in which they were stored.</summary>
         /// <remarks>
@@ -48,13 +48,13 @@ namespace Com.Drew.Metadata
         /// defined tags.
         /// </remarks>
         [NotNull]
-        protected internal readonly ICollection<Tag> DefinedTagList = new AList<Tag>();
+        protected readonly ICollection<Tag> DefinedTagList = new AList<Tag>();
 
         [NotNull]
         private readonly ICollection<string> _errorList = new AList<string>(4);
 
         /// <summary>The descriptor used to interpret tag values.</summary>
-        protected internal ITagDescriptor Descriptor;
+        protected ITagDescriptor Descriptor;
 
         // ABSTRACT METHODS
         /// <summary>Provides the name of the directory, for display purposes.</summary>
@@ -66,9 +66,9 @@ namespace Com.Drew.Metadata
         /// <summary>Provides the map of tag names, hashed by tag type identifier.</summary>
         /// <returns>the map of tag names</returns>
         [NotNull]
-        protected internal abstract Dictionary<int?, string> GetTagNameMap();
+        protected abstract Dictionary<int?, string> GetTagNameMap();
 
-        protected internal Directory()
+        protected Directory()
         {
         }
 

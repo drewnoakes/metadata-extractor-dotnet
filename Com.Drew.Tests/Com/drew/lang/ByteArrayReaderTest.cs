@@ -25,7 +25,7 @@ namespace Com.Drew.Lang
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class ByteArrayReaderTest : RandomAccessTestBase
     {
-        protected internal override RandomAccessReader CreateReader(sbyte[] bytes)
+        protected override RandomAccessReader CreateReader(sbyte[] bytes)
         {
             return new ByteArrayReader(bytes);
         }

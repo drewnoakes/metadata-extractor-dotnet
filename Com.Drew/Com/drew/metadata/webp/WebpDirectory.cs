@@ -38,7 +38,7 @@ namespace Com.Drew.Metadata.Webp
         public const int TagIsAnimation = 4;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static WebpDirectory()
         {
@@ -60,7 +60,7 @@ namespace Com.Drew.Metadata.Webp
         }
 
         [NotNull]
-        protected internal override Dictionary<int?, string> GetTagNameMap()
+        protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

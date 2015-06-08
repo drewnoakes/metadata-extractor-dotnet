@@ -46,7 +46,7 @@ namespace Com.Drew.Metadata.Png
         public const int TagBlueY = 8;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static PngChromaticitiesDirectory()
         {
@@ -72,7 +72,7 @@ namespace Com.Drew.Metadata.Png
         }
 
         [NotNull]
-        protected internal override Dictionary<int?, string> GetTagNameMap()
+        protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

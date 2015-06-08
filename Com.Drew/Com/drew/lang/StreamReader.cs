@@ -43,7 +43,7 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        protected internal override sbyte GetByte()
+        protected override sbyte GetByte()
         {
             int value = _stream.Read();
             if (value == -1)

@@ -279,13 +279,13 @@ namespace Com.Adobe.Xmp.Options
         }
 
         /// <seealso cref="Options.GetValidOptions()"/>
-        protected internal override int GetValidOptions()
+        protected override int GetValidOptions()
         {
             return Uri | HasQualifiers | Qualifier | HasLanguage | HasType | Struct | Array | ArrayOrdered | ArrayAlternate | ArrayAltText | SchemaNode;
         }
 
         /// <seealso cref="Options.DefineOptionName(int)"/>
-        protected internal override string DefineOptionName(int option)
+        protected override string DefineOptionName(int option)
         {
             switch (option)
             {
@@ -357,7 +357,7 @@ namespace Com.Adobe.Xmp.Options
         /// </summary>
         /// <param name="options">the bitmask to check.</param>
         /// <exception cref="XmpException">Thrown if the options are not consistent.</exception>
-        protected internal override void AssertConsistency(int options)
+        internal override void AssertConsistency(int options)
         {
             if ((options & Struct) > 0 && (options & Array) > 0)
             {

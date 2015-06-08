@@ -71,7 +71,7 @@ namespace Com.Adobe.Xmp.Options
 
         /// <param name="optionBit">the binary bit or bits that are requested</param>
         /// <returns>Returns if <emp>all</emp> of the requested bits are set or not.</returns>
-        protected internal virtual bool GetOption(int optionBit)
+        protected virtual bool GetOption(int optionBit)
         {
             return (_options & optionBit) != 0;
         }
@@ -151,12 +151,12 @@ namespace Com.Adobe.Xmp.Options
 
         /// <summary>To be implemeted by inheritants.</summary>
         /// <returns>Returns a bit mask where all valid option bits are set.</returns>
-        protected internal abstract int GetValidOptions();
+        protected abstract int GetValidOptions();
 
         /// <summary>To be implemeted by inheritants.</summary>
         /// <param name="option">a single, valid option bit.</param>
         /// <returns>Returns a human readable name for an option bit.</returns>
-        protected internal abstract string DefineOptionName(int option);
+        protected abstract string DefineOptionName(int option);
 
         /// <summary>The inheriting option class can do additional checks on the options.</summary>
         /// <remarks>
@@ -169,7 +169,7 @@ namespace Com.Adobe.Xmp.Options
         /// </remarks>
         /// <param name="options">the bitmask to check.</param>
         /// <exception cref="XmpException">Thrown if the options are not consistent.</exception>
-        protected internal virtual void AssertConsistency(int options)
+        internal virtual void AssertConsistency(int options)
         {
         }
 

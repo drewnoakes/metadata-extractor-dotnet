@@ -8,7 +8,7 @@ namespace Com.Drew.Lang
             new SequentialByteArrayReader(null);
         }
 
-        protected internal override SequentialReader CreateReader(sbyte[] bytes)
+        protected override SequentialReader CreateReader(sbyte[] bytes)
         {
             return new SequentialByteArrayReader(bytes);
         }

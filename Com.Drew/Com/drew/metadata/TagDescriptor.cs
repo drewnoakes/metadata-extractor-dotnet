@@ -40,7 +40,7 @@ namespace Com.Drew.Metadata
         where T : Directory
     {
         [NotNull]
-        protected internal readonly T Directory;
+        protected readonly T Directory;
 
         public TagDescriptor([NotNull] T directory)
         {
@@ -136,20 +136,20 @@ namespace Com.Drew.Metadata
         }
 
         [CanBeNull]
-        protected internal virtual string GetVersionBytesDescription(int tagType, int majorDigits)
+        protected virtual string GetVersionBytesDescription(int tagType, int majorDigits)
         {
             int[] values = Directory.GetIntArray(tagType);
             return values == null ? null : ConvertBytesToVersionString(values, majorDigits);
         }
 
         [CanBeNull]
-        protected internal virtual string GetIndexedDescription(int tagType, [NotNull] params string[] descriptions)
+        protected virtual string GetIndexedDescription(int tagType, [NotNull] params string[] descriptions)
         {
             return GetIndexedDescription(tagType, 0, descriptions);
         }
 
         [CanBeNull]
-        protected internal virtual string GetIndexedDescription(int tagType, int baseIndex, [NotNull] params string[] descriptions)
+        protected virtual string GetIndexedDescription(int tagType, int baseIndex, [NotNull] params string[] descriptions)
         {
             int? index = Directory.GetInteger(tagType);
             if (index == null)
@@ -169,7 +169,7 @@ namespace Com.Drew.Metadata
         }
 
         [CanBeNull]
-        protected internal virtual string GetByteLengthDescription(int tagType)
+        protected virtual string GetByteLengthDescription(int tagType)
         {
             sbyte[] bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
@@ -180,7 +180,7 @@ namespace Com.Drew.Metadata
         }
 
         [CanBeNull]
-        protected internal virtual string GetSimpleRational(int tagType)
+        protected virtual string GetSimpleRational(int tagType)
         {
             Rational value = Directory.GetRational(tagType);
             if (value == null)
@@ -191,7 +191,7 @@ namespace Com.Drew.Metadata
         }
 
         [CanBeNull]
-        protected internal virtual string GetDecimalRational(int tagType, int decimalPlaces)
+        protected virtual string GetDecimalRational(int tagType, int decimalPlaces)
         {
             Rational value = Directory.GetRational(tagType);
             if (value == null)
@@ -202,7 +202,7 @@ namespace Com.Drew.Metadata
         }
 
         [CanBeNull]
-        protected internal virtual string GetFormattedInt(int tagType, [NotNull] string format)
+        protected virtual string GetFormattedInt(int tagType, [NotNull] string format)
         {
             int? value = Directory.GetInteger(tagType);
             if (value == null)
@@ -213,7 +213,7 @@ namespace Com.Drew.Metadata
         }
 
         [CanBeNull]
-        protected internal virtual string GetFormattedFloat(int tagType, [NotNull] string format)
+        protected virtual string GetFormattedFloat(int tagType, [NotNull] string format)
         {
             float? value = Directory.GetFloatObject(tagType);
             if (value == null)
@@ -224,7 +224,7 @@ namespace Com.Drew.Metadata
         }
 
         [CanBeNull]
-        protected internal virtual string GetFormattedString(int tagType, [NotNull] string format)
+        protected virtual string GetFormattedString(int tagType, [NotNull] string format)
         {
             string value = Directory.GetString(tagType);
             if (value == null)
@@ -235,7 +235,7 @@ namespace Com.Drew.Metadata
         }
 
         [CanBeNull]
-        protected internal virtual string GetEpochTimeDescription(int tagType)
+        protected virtual string GetEpochTimeDescription(int tagType)
         {
             // TODO have observed a byte[8] here which is likely some kind of date (ticks as long?)
             long? value = Directory.GetLongObject(tagType);
@@ -249,7 +249,7 @@ namespace Com.Drew.Metadata
         /// <summary>LSB first.</summary>
         /// <remarks>LSB first. Labels may be null, a String, or a String[2] with (low label,high label) values.</remarks>
         [CanBeNull]
-        protected internal virtual string GetBitFlagDescription(int tagType, [NotNull] params object[] labels)
+        protected virtual string GetBitFlagDescription(int tagType, [NotNull] params object[] labels)
         {
             int? value = Directory.GetInteger(tagType);
             if (value == null)
@@ -286,7 +286,7 @@ namespace Com.Drew.Metadata
         }
 
         [CanBeNull]
-        protected internal virtual string Get7BitStringFromBytes(int tagType)
+        protected virtual string Get7BitStringFromBytes(int tagType)
         {
             sbyte[] bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
@@ -307,7 +307,7 @@ namespace Com.Drew.Metadata
         }
 
         [CanBeNull]
-        protected internal virtual string GetAsciiStringFromBytes(int tag)
+        protected virtual string GetAsciiStringFromBytes(int tag)
         {
             sbyte[] values = Directory.GetByteArray(tag);
             if (values == null)

@@ -759,7 +759,7 @@ namespace Com.Drew.Metadata.Exif
 
         // TODO duplicate tag
         // TODO duplicate tag
-        protected internal static void AddExifTagNames(Dictionary<int?, string> map)
+        protected static void AddExifTagNames(Dictionary<int?, string> map)
         {
             map.Put(TagInteropIndex, "Interoperability Index");
             map.Put(TagInteropVersion, "Interoperability Version");

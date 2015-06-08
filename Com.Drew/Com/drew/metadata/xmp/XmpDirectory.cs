@@ -75,13 +75,13 @@ namespace Com.Drew.Metadata.Xmp
         public static int TagSubject = unchecked((int)(0x2001));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> TagSchemaMap = new Dictionary<int?, string>();
+        internal static readonly Dictionary<int?, string> TagSchemaMap = new Dictionary<int?, string>();
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> TagPropNameMap = new Dictionary<int?, string>();
+        internal static readonly Dictionary<int?, string> TagPropNameMap = new Dictionary<int?, string>();
 
         [NotNull]
         private readonly IDictionary<string, string> _propertyValueByPath = new Dictionary<string, string>();
@@ -245,7 +245,7 @@ namespace Com.Drew.Metadata.Xmp
         }
 
         [NotNull]
-        protected internal override Dictionary<int?, string> GetTagNameMap()
+        protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

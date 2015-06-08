@@ -50,7 +50,7 @@ namespace Com.Drew.Metadata.Ico
         public const int TagImageOffsetBytes = 10;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static IcoDirectory()
         {
@@ -78,7 +78,7 @@ namespace Com.Drew.Metadata.Ico
         }
 
         [NotNull]
-        protected internal override Dictionary<int?, string> GetTagNameMap()
+        protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

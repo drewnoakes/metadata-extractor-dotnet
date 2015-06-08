@@ -33,7 +33,7 @@ namespace Com.Drew.Lang
 
         private RandomAccessFile _randomAccessFile;
 
-        protected internal override RandomAccessReader CreateReader(sbyte[] bytes)
+        protected override RandomAccessReader CreateReader(sbyte[] bytes)
         {
             try
             {

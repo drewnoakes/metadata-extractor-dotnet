@@ -154,7 +154,7 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>Checks if the supplied options are consistent.</summary>
         /// <exception cref="XmpException">Thrown if options are conflicting</exception>
-        protected internal virtual void CheckOptionsConsistence()
+        protected virtual void CheckOptionsConsistence()
         {
             if (_options.GetEncodeUtf16Be() | _options.GetEncodeUtf16Le())
             {

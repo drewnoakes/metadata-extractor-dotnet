@@ -122,7 +122,7 @@ namespace Com.Drew.Metadata.Exif
         public const int TagDifferential = unchecked((int)(0x001E));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static GpsDirectory()
         {
@@ -172,7 +172,7 @@ namespace Com.Drew.Metadata.Exif
         }
 
         [NotNull]
-        protected internal override Dictionary<int?, string> GetTagNameMap()
+        protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

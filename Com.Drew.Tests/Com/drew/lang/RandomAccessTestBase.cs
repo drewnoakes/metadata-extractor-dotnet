@@ -32,7 +32,7 @@ namespace Com.Drew.Lang
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class RandomAccessTestBase
     {
-        protected internal abstract RandomAccessReader CreateReader(sbyte[] bytes);
+        protected abstract RandomAccessReader CreateReader(sbyte[] bytes);
 
         [Test]
         public virtual void TestDefaultEndianness()

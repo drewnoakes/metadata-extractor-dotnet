@@ -72,7 +72,7 @@ namespace Com.Drew.Metadata.Adobe
         }
 
         [NotNull]
-        protected internal override Dictionary<int?, string> GetTagNameMap()
+        protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

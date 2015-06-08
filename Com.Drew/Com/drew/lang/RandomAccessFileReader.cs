@@ -58,7 +58,7 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        protected internal override sbyte GetByte(int index)
+        protected override sbyte GetByte(int index)
         {
             if (index != _currentIndex)
             {
@@ -105,13 +105,13 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        protected internal override bool IsValidIndex(int index, int bytesRequested)
+        protected override bool IsValidIndex(int index, int bytesRequested)
         {
             return bytesRequested >= 0 && index >= 0 && (long)index + (long)bytesRequested - 1L < _length;
         }
 
         /// <exception cref="System.IO.IOException"/>
-        protected internal override void ValidateIndex(int index, int bytesRequested)
+        protected override void ValidateIndex(int index, int bytesRequested)
         {
             if (!IsValidIndex(index, bytesRequested))
             {

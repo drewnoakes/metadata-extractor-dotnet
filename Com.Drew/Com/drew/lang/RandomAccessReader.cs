@@ -59,7 +59,7 @@ namespace Com.Drew.Lang
         /// <exception cref="System.ArgumentException"><c>index</c> or <c>count</c> are negative</exception>
         /// <exception cref="BufferBoundsException">if the requested byte is beyond the end of the underlying data source</exception>
         /// <exception cref="System.IO.IOException">if the byte is unable to be read</exception>
-        protected internal abstract sbyte GetByte(int index);
+        protected abstract sbyte GetByte(int index);
 
         /// <summary>Returns the required number of bytes from the specified index from the underlying source.</summary>
         /// <param name="index">The index from which the bytes begins in the underlying source</param>
@@ -83,10 +83,10 @@ namespace Com.Drew.Lang
         /// <param name="index">the index from which the required bytes start</param>
         /// <param name="bytesRequested">the number of bytes which are required</param>
         /// <exception cref="System.IO.IOException">if the stream ends before the required number of bytes are acquired</exception>
-        protected internal abstract void ValidateIndex(int index, int bytesRequested);
+        protected abstract void ValidateIndex(int index, int bytesRequested);
 
         /// <exception cref="System.IO.IOException"/>
-        protected internal abstract bool IsValidIndex(int index, int bytesRequested);
+        protected abstract bool IsValidIndex(int index, int bytesRequested);
 
         /// <summary>Returns the length of the data source in bytes.</summary>
         /// <remarks>

@@ -71,7 +71,7 @@ namespace Com.Drew.Metadata.Exif
         public const int TagThumbnailCompression = unchecked((int)(0x0103));
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static ExifThumbnailDirectory()
         {
@@ -96,7 +96,7 @@ namespace Com.Drew.Metadata.Exif
         }
 
         [NotNull]
-        protected internal override Dictionary<int?, string> GetTagNameMap()
+        protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

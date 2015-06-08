@@ -168,7 +168,7 @@ namespace Com.Adobe.Xmp.Impl
         /// checks if the provided node is a schema node and doesn't have any children anymore,
         /// its deleted.
         /// </summary>
-        protected internal virtual void CleanupChildren()
+        protected virtual void CleanupChildren()
         {
             if (_children.IsEmpty())
             {
@@ -704,7 +704,7 @@ namespace Com.Adobe.Xmp.Impl
         /// and <c>addQualifier()</c>.
         /// </summary>
         /// <param name="parent">Sets the parent node.</param>
-        protected internal virtual void SetParent(XmpNode parent)
+        protected virtual void SetParent(XmpNode parent)
         {
             _parent = parent;
         }

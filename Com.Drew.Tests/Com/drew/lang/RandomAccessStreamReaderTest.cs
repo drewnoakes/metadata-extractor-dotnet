@@ -32,7 +32,7 @@ namespace Com.Drew.Lang
             new RandomAccessStreamReader(null);
         }
 
-        protected internal override RandomAccessReader CreateReader(sbyte[] bytes)
+        protected override RandomAccessReader CreateReader(sbyte[] bytes)
         {
             return new RandomAccessStreamReader(new ByteArrayInputStream(bytes));
         }

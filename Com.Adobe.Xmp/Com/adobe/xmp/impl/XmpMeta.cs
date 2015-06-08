@@ -532,7 +532,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="valueType">the type of the value, see VALUE_...</param>
         /// <returns>Returns an <c>XMPProperty</c></returns>
         /// <exception cref="XmpException">Collects any exception that occurs.</exception>
-        protected internal virtual IXmpProperty GetProperty(string schemaNs, string propName, ValueType valueType)
+        protected virtual IXmpProperty GetProperty(string schemaNs, string propName, ValueType valueType)
         {
             ParameterAsserts.AssertSchemaNs(schemaNs);
             ParameterAsserts.AssertPropName(propName);
@@ -593,7 +593,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <c>valueType</c>.
         /// </returns>
         /// <exception cref="XmpException">Collects any exception that occurs.</exception>
-        protected internal virtual object GetPropertyObject(string schemaNs, string propName, ValueType valueType)
+        protected virtual object GetPropertyObject(string schemaNs, string propName, ValueType valueType)
         {
             ParameterAsserts.AssertSchemaNs(schemaNs);
             ParameterAsserts.AssertPropName(propName);

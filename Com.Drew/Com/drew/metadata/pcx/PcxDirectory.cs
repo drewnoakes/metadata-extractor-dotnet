@@ -58,7 +58,7 @@ namespace Com.Drew.Metadata.Pcx
         public const int TagVscrSize = 14;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static PcxDirectory()
         {
@@ -90,7 +90,7 @@ namespace Com.Drew.Metadata.Pcx
         }
 
         [NotNull]
-        protected internal override Dictionary<int?, string> GetTagNameMap()
+        protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

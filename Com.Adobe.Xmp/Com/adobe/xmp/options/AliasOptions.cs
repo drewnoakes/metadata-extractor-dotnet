@@ -116,7 +116,7 @@ namespace Com.Adobe.Xmp.Options
         }
 
         /// <seealso cref="Options.DefineOptionName(int)"/>
-        protected internal override string DefineOptionName(int option)
+        protected override string DefineOptionName(int option)
         {
             switch (option)
             {
@@ -153,7 +153,7 @@ namespace Com.Adobe.Xmp.Options
         }
 
         /// <seealso cref="Options.GetValidOptions()"/>
-        protected internal override int GetValidOptions()
+        protected override int GetValidOptions()
         {
             return PropDirect | PropArray | PropArrayOrdered | PropArrayAlternate | PropArrayAltText;
         }

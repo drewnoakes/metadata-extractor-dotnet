@@ -34,7 +34,7 @@ namespace Com.Drew.Lang
         /// <summary>Gets the next byte in the sequence.</summary>
         /// <returns>The read byte value</returns>
         /// <exception cref="System.IO.IOException"/>
-        protected internal abstract sbyte GetByte();
+        protected abstract sbyte GetByte();
 
         /// <summary>Returns the required number of bytes from the sequence.</summary>
         /// <param name="count">The number of bytes to be returned</param>

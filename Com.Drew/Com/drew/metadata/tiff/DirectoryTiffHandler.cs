@@ -43,11 +43,11 @@ namespace Com.Drew.Metadata.Tiff
     {
         private readonly Stack<Directory> _directoryStack = new Stack<Directory>();
 
-        protected internal Directory CurrentDirectory;
+        protected Directory CurrentDirectory;
 
-        protected internal readonly Metadata Metadata;
+        protected readonly Metadata Metadata;
 
-        protected internal DirectoryTiffHandler(Metadata metadata, Type initialDirectoryClass)
+        protected DirectoryTiffHandler(Metadata metadata, Type initialDirectoryClass)
         {
             Metadata = metadata;
             try
@@ -70,7 +70,7 @@ namespace Com.Drew.Metadata.Tiff
             CurrentDirectory = _directoryStack.IsEmpty() ? null : _directoryStack.Pop();
         }
 
-        protected internal virtual void PushDirectory([NotNull] Type directoryClass)
+        protected virtual void PushDirectory([NotNull] Type directoryClass)
         {
             _directoryStack.Push(CurrentDirectory);
             try

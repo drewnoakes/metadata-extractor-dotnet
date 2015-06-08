@@ -36,7 +36,7 @@ namespace Com.Drew.Metadata.File
         public const int TagFileModifiedDate = 3;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static FileMetadataDirectory()
         {
@@ -57,7 +57,7 @@ namespace Com.Drew.Metadata.File
         }
 
         [NotNull]
-        protected internal override Dictionary<int?, string> GetTagNameMap()
+        protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

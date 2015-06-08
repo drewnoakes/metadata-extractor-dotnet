@@ -45,7 +45,7 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        protected internal override sbyte GetByte()
+        protected override sbyte GetByte()
         {
             if (_index >= _bytes.Length)
             {

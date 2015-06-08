@@ -26,7 +26,7 @@ namespace Com.Drew.Metadata.Gif
         public const int TagPixelAspectRatio = 9;
 
         [NotNull]
-        protected internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static GifHeaderDirectory()
         {
@@ -53,7 +53,7 @@ namespace Com.Drew.Metadata.Gif
         }
 
         [NotNull]
-        protected internal override Dictionary<int?, string> GetTagNameMap()
+        protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

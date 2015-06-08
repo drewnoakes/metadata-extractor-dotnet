@@ -32,10 +32,10 @@ namespace Com.Adobe.Xmp.Impl
         private string _baseNs;
 
         /// <summary>flag to indicate that skipSiblings() has been called.</summary>
-        protected internal bool skipSiblings;
+        protected bool skipSiblings;
 
         /// <summary>flag to indicate that skipSiblings() has been called.</summary>
-        protected internal bool skipSubtree;
+        protected bool skipSubtree;
 
         /// <summary>the node iterator doing the work</summary>
         private readonly IIterator _nodeIterator;
@@ -149,19 +149,19 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <returns>Exposes the options for inner class.</returns>
-        protected internal virtual IteratorOptions GetOptions()
+        protected virtual IteratorOptions GetOptions()
         {
             return _options;
         }
 
         /// <returns>Exposes the options for inner class.</returns>
-        protected internal virtual string GetBaseNs()
+        protected virtual string GetBaseNs()
         {
             return _baseNs;
         }
 
         /// <param name="baseNs">sets the baseNS from the inner class.</param>
-        protected internal virtual void SetBaseNs(string baseNs)
+        protected virtual void SetBaseNs(string baseNs)
         {
             _baseNs = baseNs;
         }
@@ -175,13 +175,13 @@ namespace Com.Adobe.Xmp.Impl
         private class NodeIterator : IIterator
         {
             /// <summary>iteration state</summary>
-            protected internal const int IterateNode = 0;
+            protected const int IterateNode = 0;
 
             /// <summary>iteration state</summary>
-            protected internal const int IterateChildren = 1;
+            protected const int IterateChildren = 1;
 
             /// <summary>iteration state</summary>
-            protected internal const int IterateQualifier = 2;
+            protected const int IterateQualifier = 2;
 
             /// <summary>the state of the iteration</summary>
             private int _state = IterateNode;
@@ -266,7 +266,7 @@ namespace Com.Adobe.Xmp.Impl
 
             /// <summary>Sets the returnProperty as next item or recurses into <c>hasNext()</c>.</summary>
             /// <returns>Returns if there is a next item to return.</returns>
-            protected internal virtual bool ReportNode()
+            protected virtual bool ReportNode()
             {
                 _state = IterateChildren;
                 if (_visitedNode.GetParent() != null && (!_enclosing.GetOptions().IsJustLeafnodes() || !_visitedNode.HasChildren()))
@@ -333,7 +333,7 @@ namespace Com.Adobe.Xmp.Impl
             /// <param name="parentPath">the path up to this node.</param>
             /// <param name="currentIndex">the current array index if an arrey is traversed</param>
             /// <returns>Returns the updated path.</returns>
-            protected internal virtual string AccumulatePath(XmpNode currNode, string parentPath, int currentIndex)
+            protected virtual string AccumulatePath(XmpNode currNode, string parentPath, int currentIndex)
             {
                 string separator;
                 string segmentName;
@@ -368,7 +368,7 @@ namespace Com.Adobe.Xmp.Impl
             /// <param name="baseNs">the base namespace to report</param>
             /// <param name="path">the full property path</param>
             /// <returns>Returns a <c>XMPProperty</c>-object that serves representation of the node.</returns>
-            protected internal virtual IXmpPropertyInfo CreatePropertyInfo(XmpNode node, string baseNs, string path)
+            protected virtual IXmpPropertyInfo CreatePropertyInfo(XmpNode node, string baseNs, string path)
             {
                 string value = node.GetOptions().IsSchemaNode() ? null : node.GetValue();
                 return new XmpPropertyInfo450(node, baseNs, path, value);
@@ -426,25 +426,25 @@ namespace Com.Adobe.Xmp.Impl
             }
 
             /// <returns>the childrenIterator</returns>
-            protected internal virtual IIterator GetChildrenIterator()
+            protected virtual IIterator GetChildrenIterator()
             {
                 return _childrenIterator;
             }
 
             /// <param name="childrenIterator">the childrenIterator to set</param>
-            protected internal virtual void SetChildrenIterator(IIterator childrenIterator)
+            protected virtual void SetChildrenIterator(IIterator childrenIterator)
             {
                 _childrenIterator = childrenIterator;
             }
 
             /// <returns>Returns the returnProperty.</returns>
-            protected internal virtual IXmpPropertyInfo GetReturnProperty()
+            protected virtual IXmpPropertyInfo GetReturnProperty()
             {
                 return _returnProperty;
             }
 
             /// <param name="returnProperty">the returnProperty to set</param>
-            protected internal virtual void SetReturnProperty(IXmpPropertyInfo returnProperty)
+            protected virtual void SetReturnProperty(IXmpPropertyInfo returnProperty)
             {
                 _returnProperty = returnProperty;
             }
