@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Collections.Generic;
 using System.IO;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
@@ -36,16 +37,16 @@ namespace Com.Drew.Metadata.Jpeg
     public class JpegReader : IJpegSegmentMetadataReader
     {
         [NotNull]
-        public virtual Iterable<JpegSegmentType> GetSegmentTypes()
+        public virtual IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             // NOTE that some SOFn values do not exist
             return Arrays.AsList(JpegSegmentType.Sof0, JpegSegmentType.Sof1, JpegSegmentType.Sof2, JpegSegmentType.Sof3, JpegSegmentType.Sof5, JpegSegmentType.Sof6, JpegSegmentType.Sof7, JpegSegmentType.Sof8, JpegSegmentType.Sof9, JpegSegmentType.Sof10,
-                JpegSegmentType.Sof11, JpegSegmentType.Sof13, JpegSegmentType.Sof14, JpegSegmentType.Sof15).AsIterable();
+                JpegSegmentType.Sof11, JpegSegmentType.Sof13, JpegSegmentType.Sof14, JpegSegmentType.Sof15);
         }
 
         //            JpegSegmentType.SOF4,
         //            JpegSegmentType.SOF12,
-        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public virtual void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {

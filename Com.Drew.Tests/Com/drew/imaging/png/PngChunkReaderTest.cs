@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Com.Drew.Lang;
 using NUnit.Framework;
 using Sharpen;
@@ -16,7 +17,7 @@ namespace Com.Drew.Imaging.Png
             try
             {
                 inputStream = new FileInputStream(filePath);
-                return Iterables.ToList(new PngChunkReader().Extract(new StreamReader(inputStream), null));
+                return new PngChunkReader().Extract(new StreamReader(inputStream), null).ToList();
             }
             finally
             {

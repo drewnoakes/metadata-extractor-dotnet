@@ -282,7 +282,7 @@ namespace Com.Drew.Metadata
                 value >>= 1;
                 bitIndex++;
             }
-            return StringUtil.Join(parts.AsIterable(), ", ");
+            return StringUtil.Join(parts, ", ");
         }
 
         [CanBeNull]

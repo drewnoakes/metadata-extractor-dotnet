@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using Com.Drew.Imaging.Jpeg;
@@ -55,12 +56,12 @@ namespace Com.Drew.Metadata.Exif
         }
 
         [NotNull]
-        public virtual Iterable<JpegSegmentType> GetSegmentTypes()
+        public virtual IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
-            return Arrays.AsList(JpegSegmentType.App1).AsIterable();
+            return Arrays.AsList(JpegSegmentType.App1);
         }
 
-        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public virtual void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             Debug.Assert((segmentType == JpegSegmentType.App1));
             foreach (sbyte[] segmentBytes in segments)

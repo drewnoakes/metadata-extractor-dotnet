@@ -75,7 +75,7 @@ namespace Com.Drew.Imaging.Jpeg
         [Test]
         public virtual void TestReadSpecificSegments()
         {
-            JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new FilePath("Tests/Data/withExifAndIptc.jpg"), Arrays.AsList(JpegSegmentType.App0, JpegSegmentType.App2).AsIterable());
+            JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new FilePath("Tests/Data/withExifAndIptc.jpg"), Arrays.AsList(JpegSegmentType.App0, JpegSegmentType.App2));
             Assert.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.App0));
             Assert.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App1));
             Assert.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.App2));

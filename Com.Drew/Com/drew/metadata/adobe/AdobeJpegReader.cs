@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Collections.Generic;
 using System.IO;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
@@ -36,12 +37,12 @@ namespace Com.Drew.Metadata.Adobe
         public const string Preamble = "Adobe";
 
         [NotNull]
-        public virtual Iterable<JpegSegmentType> GetSegmentTypes()
+        public virtual IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
-            return Arrays.AsList(JpegSegmentType.Appe).AsIterable();
+            return Arrays.AsList(JpegSegmentType.Appe);
         }
 
-        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public virtual void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             foreach (sbyte[] bytes in segments)
             {

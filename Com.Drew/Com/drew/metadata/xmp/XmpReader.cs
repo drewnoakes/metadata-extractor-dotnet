@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Properties;
 using Com.Drew.Imaging.Jpeg;
@@ -74,9 +75,9 @@ namespace Com.Drew.Metadata.Xmp
         //    @NotNull
         //    private static final String SCHEMA_DUBLIN_CORE_SPECIFIC_PROPERTIES = "http://purl.org/dc/elements/1.1/";
         [NotNull]
-        public virtual Iterable<JpegSegmentType> GetSegmentTypes()
+        public virtual IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
-            return Arrays.AsList(JpegSegmentType.App1).AsIterable();
+            return Arrays.AsList(JpegSegmentType.App1);
         }
 
         /// <summary>Version specifically for dealing with XMP found in JPEG segments.</summary>
@@ -95,7 +96,7 @@ namespace Com.Drew.Metadata.Xmp
         /// <see cref="Com.Drew.Imaging.Jpeg.JpegSegmentType"/>
         /// being read.
         /// </param>
-        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public virtual void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {

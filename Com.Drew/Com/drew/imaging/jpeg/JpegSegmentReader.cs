@@ -69,7 +69,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static JpegSegmentData ReadSegments([NotNull] FilePath file, [CanBeNull] Iterable<JpegSegmentType> segmentTypes)
+        public static JpegSegmentData ReadSegments([NotNull] FilePath file, [CanBeNull] IEnumerable<JpegSegmentType> segmentTypes)
         {
             FileInputStream stream = null;
             try
@@ -106,7 +106,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static JpegSegmentData ReadSegments([NotNull] SequentialReader reader, [CanBeNull] Iterable<JpegSegmentType> segmentTypes)
+        public static JpegSegmentData ReadSegments([NotNull] SequentialReader reader, [CanBeNull] IEnumerable<JpegSegmentType> segmentTypes)
         {
             // Must be big-endian
             Debug.Assert((reader.IsMotorolaByteOrder()));

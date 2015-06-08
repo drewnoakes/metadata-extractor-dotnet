@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using Com.Drew.Imaging;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
@@ -47,12 +48,12 @@ namespace Com.Drew.Metadata.Photoshop
         private const string JpegSegmentPreamble = "Photoshop 3.0";
 
         [NotNull]
-        public virtual Iterable<JpegSegmentType> GetSegmentTypes()
+        public virtual IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
-            return Arrays.AsList(JpegSegmentType.Appd).AsIterable();
+            return Arrays.AsList(JpegSegmentType.Appd);
         }
 
-        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public virtual void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             int preambleLength = JpegSegmentPreamble.Length;
             foreach (sbyte[] segmentBytes in segments)

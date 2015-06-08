@@ -35,11 +35,6 @@ namespace Sharpen
             list.Insert(index, item);
         }
 
-        public static Iterable<T> AsIterable<T>(this IEnumerable<T> s)
-        {
-            return new EnumerableWrapper<T>(s);
-        }
-
         public static CultureInfo CreateLocale(string language, string country)
         {
             if (string.IsNullOrEmpty(country))

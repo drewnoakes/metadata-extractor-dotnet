@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Collections.Generic;
 using System.IO;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
@@ -40,12 +41,12 @@ namespace Com.Drew.Metadata.Jfif
         public const string Preamble = "JFIF";
 
         [NotNull]
-        public virtual Iterable<JpegSegmentType> GetSegmentTypes()
+        public virtual IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
-            return Arrays.AsList(JpegSegmentType.App0).AsIterable();
+            return Arrays.AsList(JpegSegmentType.App0);
         }
 
-        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public virtual void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {

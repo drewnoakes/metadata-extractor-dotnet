@@ -20,6 +20,8 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Collections.Generic;
+using System.Linq;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
 using Com.Drew.Tools;
@@ -48,8 +50,8 @@ namespace Com.Drew.Metadata.Adobe
         public virtual void TestSegmentTypes()
         {
             AdobeJpegReader reader = new AdobeJpegReader();
-            Assert.AreEqual(1, Iterables.ToList(reader.GetSegmentTypes()).Count);
-            Assert.AreEqual(JpegSegmentType.Appe, Iterables.ToList(reader.GetSegmentTypes())[0]);
+            Assert.AreEqual(1, ((IList<JpegSegmentType>)reader.GetSegmentTypes().ToList()).Count);
+            Assert.AreEqual(JpegSegmentType.Appe, ((IList<JpegSegmentType>)reader.GetSegmentTypes().ToList())[0]);
         }
 
         /// <exception cref="System.Exception"/>

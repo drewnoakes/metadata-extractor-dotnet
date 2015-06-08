@@ -58,7 +58,7 @@ namespace Com.Drew.Imaging.Png
         [NotNull]
         public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
         {
-            Iterable<PngChunk> chunks = new PngChunkReader().Extract(new StreamReader(inputStream), DesiredChunkTypes);
+            IEnumerable<PngChunk> chunks = new PngChunkReader().Extract(new StreamReader(inputStream), DesiredChunkTypes);
             Metadata.Metadata metadata = new Metadata.Metadata();
             foreach (PngChunk chunk in chunks)
             {

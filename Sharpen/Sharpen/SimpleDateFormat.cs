@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -82,7 +83,7 @@ namespace Sharpen
             return r.Split(_format);
         }
 
-        private static Regex BuildDateTimeParser(string[] formatParts)
+        private static Regex BuildDateTimeParser(IEnumerable<string> formatParts)
         {
             var pattern = new StringBuilder();
 

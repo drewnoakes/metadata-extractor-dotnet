@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -56,7 +57,7 @@ namespace Com.Drew.Imaging.Jpeg
         }
 
         /// <summary>Gets the set of JPEG segment type identifiers.</summary>
-        public virtual Iterable<JpegSegmentType> GetSegmentTypes()
+        public virtual IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             ICollection<JpegSegmentType> segmentTypes = new HashSet<JpegSegmentType>();
             foreach (sbyte segmentTypeByte in _segmentDataMap.Keys)
@@ -68,7 +69,7 @@ namespace Com.Drew.Imaging.Jpeg
                 }
                 segmentTypes.Add(segmentType);
             }
-            return segmentTypes.AsIterable();
+            return segmentTypes;
         }
 
         /// <summary>Gets the first JPEG segment data for the specified type.</summary>
@@ -123,7 +124,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <param name="segmentType">a number which identifies the type of JPEG segment being queried</param>
         /// <returns>zero or more byte arrays, each holding the data of a JPEG segment</returns>
         [NotNull]
-        public virtual Iterable<sbyte[]> GetSegments([NotNull] JpegSegmentType segmentType)
+        public virtual IEnumerable<sbyte[]> GetSegments([NotNull] JpegSegmentType segmentType)
         {
             return GetSegments(segmentType.ByteValue);
         }
@@ -133,10 +134,9 @@ namespace Com.Drew.Imaging.Jpeg
         /// <param name="segmentType">a number which identifies the type of JPEG segment being queried</param>
         /// <returns>zero or more byte arrays, each holding the data of a JPEG segment</returns>
         [NotNull]
-        public virtual Iterable<sbyte[]> GetSegments(sbyte segmentType)
+        public virtual IEnumerable<sbyte[]> GetSegments(sbyte segmentType)
         {
-            IList<sbyte[]> segmentList = GetSegmentList(segmentType);
-            return segmentList == null ? new AList<sbyte[]>() : segmentList.AsIterable().AsIterable();
+            return GetSegmentList(segmentType) ?? Enumerable.Empty<sbyte[]>();
         }
 
         [CanBeNull]

@@ -130,9 +130,9 @@ namespace Com.Drew.Metadata
         /// <summary>Used to iterate over any error messages contained in this directory.</summary>
         /// <returns>an iterable collection of error message strings.</returns>
         [NotNull]
-        public virtual Iterable<string> GetErrors()
+        public virtual IEnumerable<string> GetErrors()
         {
-            return Collections.UnmodifiableCollection(_errorList).AsIterable();
+            return Collections.UnmodifiableCollection(_errorList);
         }
 
         /// <summary>Returns the count of error messages in this directory.</summary>

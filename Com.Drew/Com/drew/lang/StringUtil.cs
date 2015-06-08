@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
@@ -31,51 +32,17 @@ namespace Com.Drew.Lang
     public static class StringUtil
     {
         [NotNull]
-        public static string Join<TT0>(Iterable<TT0> strings, [NotNull] string delimiter)
+        public static string Join<TT0>(IEnumerable<TT0> strings, [NotNull] string delimiter)
             where TT0 : CharSequence
         {
-            int capacity = 0;
-            int delimLength = delimiter.Length;
-            Iterator<TT0> iter = strings.Iterator();
-            if (iter.HasNext())
-            {
-                capacity += iter.Next().Length + delimLength;
-            }
-            StringBuilder buffer = new StringBuilder(capacity);
-            iter = strings.Iterator();
-            if (iter.HasNext())
-            {
-                buffer.Append(iter.Next());
-                while (iter.HasNext())
-                {
-                    buffer.Append(delimiter);
-                    buffer.Append(iter.Next());
-                }
-            }
-            return Extensions.ConvertToString(buffer);
+            return string.Join(delimiter, strings.Select(s => s.ToString()));
         }
 
         [NotNull]
         public static string Join<T>([NotNull] T[] strings, [NotNull] string delimiter)
             where T : CharSequence
         {
-            int delimLength = delimiter.Length;
-            int capacity = strings.Sum(value => value.Length + delimLength);
-            StringBuilder buffer = new StringBuilder(capacity);
-            bool first = true;
-            foreach (T value1 in strings)
-            {
-                if (!first)
-                {
-                    buffer.Append(delimiter);
-                }
-                else
-                {
-                    first = false;
-                }
-                buffer.Append(value1);
-            }
-            return Extensions.ConvertToString(buffer);
+            return string.Join(delimiter, strings.Select(s => s.ToString()));
         }
 
         /// <exception cref="System.IO.IOException"/>

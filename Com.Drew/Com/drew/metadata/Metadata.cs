@@ -50,9 +50,9 @@ namespace Com.Drew.Metadata
         /// </summary>
         /// <returns>an iterable set of directories</returns>
         [NotNull]
-        public Iterable<Directory> GetDirectories()
+        public IEnumerable<Directory> GetDirectories()
         {
-            return new DirectoryIterable(_directoryListByClass);
+            return _directoryListByClass.SelectMany(pair => pair.Value);
         }
 
         [CanBeNull]
@@ -158,62 +158,6 @@ namespace Com.Drew.Metadata
             collection = new AList<Directory>();
             _directoryListByClass.Put(type, collection);
             return collection;
-        }
-
-        private class DirectoryIterable : Iterable<Directory>
-        {
-            private readonly IDictionary<Type, ICollection<Directory>> _map;
-
-            public DirectoryIterable(IDictionary<Type, ICollection<Directory>> map)
-            {
-                _map = map;
-            }
-
-            public override Iterator<Directory> Iterator()
-            {
-                return new DirectoryIterator(_map);
-            }
-
-            private class DirectoryIterator : Iterator<Directory>
-            {
-                [NotNull]
-                private readonly Iterator<KeyValuePair<Type, ICollection<Directory>>> _mapIterator;
-
-                [CanBeNull]
-                private Iterator<Directory> _listIterator;
-
-                public DirectoryIterator(IDictionary<Type, ICollection<Directory>> map)
-                {
-                    _mapIterator = map.EntrySet().Iterator();
-                    if (_mapIterator.HasNext())
-                    {
-                        _listIterator = _mapIterator.Next().Value.Iterator();
-                    }
-                }
-
-                public override bool HasNext()
-                {
-                    return _listIterator != null && (_listIterator.HasNext() || _mapIterator.HasNext());
-                }
-
-                public override Directory Next()
-                {
-                    if (_listIterator == null || (!_listIterator.HasNext() && !_mapIterator.HasNext()))
-                    {
-                        throw new NoSuchElementException();
-                    }
-                    while (!_listIterator.HasNext())
-                    {
-                        _listIterator = _mapIterator.Next().Value.Iterator();
-                    }
-                    return _listIterator.Next();
-                }
-
-                public override void Remove()
-                {
-                    throw new NotSupportedException();
-                }
-            }
         }
     }
 }

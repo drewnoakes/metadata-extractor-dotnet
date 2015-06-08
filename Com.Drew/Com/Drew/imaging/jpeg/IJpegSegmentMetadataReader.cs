@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Imaging.Jpeg
 {
@@ -8,7 +8,7 @@ namespace Com.Drew.Imaging.Jpeg
     {
         /// <summary>Gets the set of JPEG segment types that this reader is interested in.</summary>
         [NotNull]
-        Iterable<JpegSegmentType> GetSegmentTypes();
+        IEnumerable<JpegSegmentType> GetSegmentTypes();
 
         /// <summary>Extracts metadata from all instances of a particular JPEG segment type.</summary>
         /// <param name="segments">
@@ -18,6 +18,6 @@ namespace Com.Drew.Imaging.Jpeg
         /// <param name="metadata">The <see cref="Com.Drew.Metadata.Metadata"/> object into which extracted values should be merged.</param>
         /// <param name="segmentType">The <see cref="JpegSegmentType"/> being read.
         /// </param>
-        void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType);
+        void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType);
     }
 }

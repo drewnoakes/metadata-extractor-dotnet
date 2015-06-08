@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
@@ -76,7 +77,7 @@ namespace Com.Drew.Tools
                 Collections.AddAll(segmentTypes, JpegSegmentType.CanContainMetadataTypes);
             }
             Console.Out.Println("Reading: " + filePath);
-            JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new FilePath(filePath), segmentTypes.AsIterable());
+            JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new FilePath(filePath), segmentTypes);
             SaveSegmentFiles(filePath, segmentData);
         }
 
@@ -85,7 +86,7 @@ namespace Com.Drew.Tools
         {
             foreach (JpegSegmentType segmentType in segmentData.GetSegmentTypes())
             {
-                IList<sbyte[]> segments = Iterables.ToList(segmentData.GetSegments(segmentType));
+                IList<sbyte[]> segments = segmentData.GetSegments(segmentType).ToList();
                 if (segments.Count == 0)
                 {
                     continue;

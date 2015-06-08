@@ -59,7 +59,6 @@
     <Compile Include="Sharpen\ByteArrayOutputStream.cs" />
     <Compile Include="Sharpen\CharsetDecoder.cs" />
     <Compile Include="Sharpen\Collections.cs" />
-    <Compile Include="Sharpen\EnumerableWrapper.cs" />
     <Compile Include="Sharpen\EnumeratorWrapper.cs" />
     <Compile Include="Sharpen\Extensions.cs" />
     <Compile Include="Sharpen\FileInputStream.cs" />
@@ -80,7 +79,6 @@
     <Compile Include="Sharpen\FilePath.cs" />
     <Compile Include="Sharpen\FilterInputStream.cs" />
     <Compile Include="Sharpen\InputStream.cs" />
-    <Compile Include="Sharpen\Iterable.cs" />
     <Compile Include="Sharpen\IIterator.cs" />
     <Compile Include="Sharpen\OutputStream.cs" />
     <Compile Include="Sharpen\HttpURLConnection.cs" />

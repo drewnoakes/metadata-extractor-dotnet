@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Collections.Generic;
 using Com.Drew.Imaging.Jpeg;
 using JetBrains.Annotations;
 using Sharpen;
@@ -34,9 +35,9 @@ namespace Com.Drew.Metadata.Jpeg
     public class JpegCommentReader : IJpegSegmentMetadataReader
     {
         [NotNull]
-        public virtual Iterable<JpegSegmentType> GetSegmentTypes()
+        public virtual IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
-            return Arrays.AsList(JpegSegmentType.Com).AsIterable();
+            return Arrays.AsList(JpegSegmentType.Com);
         }
 
         public virtual bool CanProcess([NotNull] sbyte[] segmentBytes, [NotNull] JpegSegmentType segmentType)
@@ -45,7 +46,7 @@ namespace Com.Drew.Metadata.Jpeg
             return true;
         }
 
-        public virtual void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public virtual void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {
