@@ -68,7 +68,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (iso8601String == null)
             {
-                throw new XmpException("Parameter must not be null", XmpErrorCode.Badparam);
+                throw new XmpException("Parameter must not be null", XmpErrorCode.BadParam);
             }
             if (iso8601String.Length == 0)
             {
@@ -84,7 +84,7 @@ namespace Com.Adobe.Xmp.Impl
             value = input.GatherInt("Invalid year in date string", 9999);
             if (input.HasNext() && input.Ch() != '-')
             {
-                throw new XmpException("Invalid date string, after year", XmpErrorCode.Badvalue);
+                throw new XmpException("Invalid date string, after year", XmpErrorCode.BadValue);
             }
             if (input.Ch(0) == '-')
             {
@@ -100,7 +100,7 @@ namespace Com.Adobe.Xmp.Impl
             value = input.GatherInt("Invalid month in date string", 12);
             if (input.HasNext() && input.Ch() != '-')
             {
-                throw new XmpException("Invalid date string, after month", XmpErrorCode.Badvalue);
+                throw new XmpException("Invalid date string, after month", XmpErrorCode.BadValue);
             }
             binValue.SetMonth(value);
             if (!input.HasNext())
@@ -112,7 +112,7 @@ namespace Com.Adobe.Xmp.Impl
             value = input.GatherInt("Invalid day in date string", 31);
             if (input.HasNext() && input.Ch() != 'T')
             {
-                throw new XmpException("Invalid date string, after day", XmpErrorCode.Badvalue);
+                throw new XmpException("Invalid date string, after day", XmpErrorCode.BadValue);
             }
             binValue.SetDay(value);
             if (!input.HasNext())
@@ -134,7 +134,7 @@ namespace Com.Adobe.Xmp.Impl
                 value = input.GatherInt("Invalid minute in date string", 59);
                 if (input.HasNext() && input.Ch() != ':' && input.Ch() != 'Z' && input.Ch() != '+' && input.Ch() != '-')
                 {
-                    throw new XmpException("Invalid date string, after minute", XmpErrorCode.Badvalue);
+                    throw new XmpException("Invalid date string, after minute", XmpErrorCode.BadValue);
                 }
                 binValue.SetMinute(value);
             }
@@ -148,7 +148,7 @@ namespace Com.Adobe.Xmp.Impl
                 value = input.GatherInt("Invalid whole seconds in date string", 59);
                 if (input.HasNext() && input.Ch() != '.' && input.Ch() != 'Z' && input.Ch() != '+' && input.Ch() != '-')
                 {
-                    throw new XmpException("Invalid date string, after whole seconds", XmpErrorCode.Badvalue);
+                    throw new XmpException("Invalid date string, after whole seconds", XmpErrorCode.BadValue);
                 }
                 binValue.SetSecond(value);
                 if (input.Ch() == '.')
@@ -158,7 +158,7 @@ namespace Com.Adobe.Xmp.Impl
                     value = input.GatherInt("Invalid fractional seconds in date string", 999999999);
                     if (input.HasNext() && (input.Ch() != 'Z' && input.Ch() != '+' && input.Ch() != '-'))
                     {
-                        throw new XmpException("Invalid date string, after fractional second", XmpErrorCode.Badvalue);
+                        throw new XmpException("Invalid date string, after fractional second", XmpErrorCode.BadValue);
                     }
                     digits = input.Pos() - digits;
                     for (; digits > 9; --digits)
@@ -176,7 +176,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (input.Ch() != 'Z' && input.Ch() != '+' && input.Ch() != '-')
                 {
-                    throw new XmpException("Invalid date string, after time", XmpErrorCode.Badvalue);
+                    throw new XmpException("Invalid date string, after time", XmpErrorCode.BadValue);
                 }
             }
             int tzSign = 0;
@@ -207,7 +207,7 @@ namespace Com.Adobe.Xmp.Impl
                         }
                         else
                         {
-                            throw new XmpException("Time zone must begin with 'Z', '+', or '-'", XmpErrorCode.Badvalue);
+                            throw new XmpException("Time zone must begin with 'Z', '+', or '-'", XmpErrorCode.BadValue);
                         }
                     }
                     input.Skip();
@@ -223,7 +223,7 @@ namespace Com.Adobe.Xmp.Impl
                         }
                         else
                         {
-                            throw new XmpException("Invalid date string, after time zone hour", XmpErrorCode.Badvalue);
+                            throw new XmpException("Invalid date string, after time zone hour", XmpErrorCode.BadValue);
                         }
                     }
                 }
@@ -233,7 +233,7 @@ namespace Com.Adobe.Xmp.Impl
             binValue.SetTimeZone((TimeZoneInfo)new SimpleTimeZone(offset, string.Empty));
             if (input.HasNext())
             {
-                throw new XmpException("Invalid date string, extra chars at end", XmpErrorCode.Badvalue);
+                throw new XmpException("Invalid date string, extra chars at end", XmpErrorCode.BadValue);
             }
             return binValue;
         }
@@ -412,7 +412,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 return value;
             }
-            throw new XmpException(errorMsg, XmpErrorCode.Badvalue);
+            throw new XmpException(errorMsg, XmpErrorCode.BadValue);
         }
     }
 }

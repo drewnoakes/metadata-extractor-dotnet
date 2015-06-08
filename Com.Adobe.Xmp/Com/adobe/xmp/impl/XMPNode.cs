@@ -736,7 +736,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (!XmpConstConstants.ArrayItemName.Equals(childName) && FindChildByName(childName) != null)
             {
-                throw new XmpException("Duplicate property or field node '" + childName + "'", XmpErrorCode.Badxmp);
+                throw new XmpException("Duplicate property or field node '" + childName + "'", XmpErrorCode.BadXmp);
             }
         }
 
@@ -747,7 +747,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (!XmpConstConstants.ArrayItemName.Equals(qualifierName) && FindQualifierByName(qualifierName) != null)
             {
-                throw new XmpException("Duplicate '" + qualifierName + "' qualifier", XmpErrorCode.Badxmp);
+                throw new XmpException("Duplicate '" + qualifierName + "' qualifier", XmpErrorCode.BadXmp);
             }
         }
     }

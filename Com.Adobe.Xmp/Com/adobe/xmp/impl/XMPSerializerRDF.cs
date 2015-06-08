@@ -125,7 +125,7 @@ namespace Com.Adobe.Xmp.Impl
                 int minSize = _outputStream.GetBytesWritten() + tailLength * _unicodeSize;
                 if (minSize > _padding)
                 {
-                    throw new XmpException("Can't fit into specified packet size", XmpErrorCode.Badserialize);
+                    throw new XmpException("Can't fit into specified packet size", XmpErrorCode.BadSerialize);
                 }
                 _padding -= minSize;
             }
@@ -164,11 +164,11 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (_options.GetOmitPacketWrapper() | _options.GetIncludeThumbnailPad())
                 {
-                    throw new XmpException("Inconsistent options for exact size serialize", XmpErrorCode.Badoptions);
+                    throw new XmpException("Inconsistent options for exact size serialize", XmpErrorCode.BadOptions);
                 }
                 if ((_options.GetPadding() & (_unicodeSize - 1)) != 0)
                 {
-                    throw new XmpException("Exact size must be a multiple of the Unicode element", XmpErrorCode.Badoptions);
+                    throw new XmpException("Exact size must be a multiple of the Unicode element", XmpErrorCode.BadOptions);
                 }
             }
             else
@@ -177,7 +177,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if (_options.GetOmitPacketWrapper() | _options.GetIncludeThumbnailPad())
                     {
-                        throw new XmpException("Inconsistent options for read-only packet", XmpErrorCode.Badoptions);
+                        throw new XmpException("Inconsistent options for read-only packet", XmpErrorCode.BadOptions);
                     }
                     _padding = 0;
                 }
@@ -187,7 +187,7 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         if (_options.GetIncludeThumbnailPad())
                         {
-                            throw new XmpException("Inconsistent options for non-packet serialize", XmpErrorCode.Badoptions);
+                            throw new XmpException("Inconsistent options for non-packet serialize", XmpErrorCode.BadOptions);
                         }
                         _padding = 0;
                     }
@@ -610,7 +610,7 @@ namespace Com.Adobe.Xmp.Impl
             // No sense looking further.
             if (hasRdfResourceQual && hasElemFields)
             {
-                throw new XmpException("Can't mix rdf:resource qualifier and element fields", XmpErrorCode.Badrdf);
+                throw new XmpException("Can't mix rdf:resource qualifier and element fields", XmpErrorCode.BadRdf);
             }
             if (!node.HasChildren())
             {
@@ -926,7 +926,7 @@ namespace Com.Adobe.Xmp.Impl
                 // emitAsRDFValue set.
                 if (hasRdfResourceQual)
                 {
-                    throw new XmpException("Can't mix rdf:resource and general qualifiers", XmpErrorCode.Badrdf);
+                    throw new XmpException("Can't mix rdf:resource and general qualifiers", XmpErrorCode.BadRdf);
                 }
                 // Change serialization to canonical format with inner rdf:Description-tag
                 // depending on option
@@ -1074,7 +1074,7 @@ namespace Com.Adobe.Xmp.Impl
                                 XmpNode child = (XmpNode)it1.Next();
                                 if (!CanBeRdfAttrProp(child))
                                 {
-                                    throw new XmpException("Can't mix rdf:resource and complex fields", XmpErrorCode.Badrdf);
+                                    throw new XmpException("Can't mix rdf:resource and complex fields", XmpErrorCode.BadRdf);
                                 }
                                 WriteNewline();
                                 WriteIndent(indent + 1);

@@ -89,7 +89,7 @@ namespace Com.Adobe.Xmp.Impl
                     }
                     else
                     {
-                        throw new XmpException("Unregistered schema namespace URI", XmpErrorCode.Badschema);
+                        throw new XmpException("Unregistered schema namespace URI", XmpErrorCode.BadSchema);
                     }
                 }
                 schemaNode.SetValue(prefix);
@@ -114,11 +114,11 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (!parent.IsImplicit())
                 {
-                    throw new XmpException("Named children only allowed for schemas and structs", XmpErrorCode.Badxpath);
+                    throw new XmpException("Named children only allowed for schemas and structs", XmpErrorCode.BadXPath);
                 }
                 if (parent.GetOptions().IsArray())
                 {
-                    throw new XmpException("Named children not allowed for arrays", XmpErrorCode.Badxpath);
+                    throw new XmpException("Named children not allowed for arrays", XmpErrorCode.BadXPath);
                 }
                 if (createNodes)
                 {
@@ -158,7 +158,7 @@ namespace Com.Adobe.Xmp.Impl
             // check if xpath is set.
             if (xpath == null || xpath.Size() == 0)
             {
-                throw new XmpException("Empty XMPPath", XmpErrorCode.Badxpath);
+                throw new XmpException("Empty XMPPath", XmpErrorCode.BadXPath);
             }
             // Root of implicitly created subtree to possible delete it later.
             // Valid only if leaf is new.
@@ -309,7 +309,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             if (options.IsCompositeProperty() && itemValue != null && itemValue.ToString().Length > 0)
             {
-                throw new XmpException("Structs and arrays can't have values", XmpErrorCode.Badoptions);
+                throw new XmpException("Structs and arrays can't have values", XmpErrorCode.BadOptions);
             }
             options.AssertConsistency(options.GetOptions());
             return options;
@@ -430,7 +430,7 @@ namespace Com.Adobe.Xmp.Impl
                     // This is an array indexing step. First get the index, then get the node.
                     if (!parentNode.GetOptions().IsArray())
                     {
-                        throw new XmpException("Indexing applied to non-array", XmpErrorCode.Badxpath);
+                        throw new XmpException("Indexing applied to non-array", XmpErrorCode.BadXPath);
                     }
                     if (stepKind == XmpPath.ArrayIndexStep)
                     {
@@ -462,7 +462,7 @@ namespace Com.Adobe.Xmp.Impl
                                 }
                                 else
                                 {
-                                    throw new XmpException("Unknown array indexing step in FollowXPathStep", XmpErrorCode.Internalfailure);
+                                    throw new XmpException("Unknown array indexing step in FollowXPathStep", XmpErrorCode.InternalFailure);
                                 }
                             }
                         }
@@ -517,12 +517,12 @@ namespace Com.Adobe.Xmp.Impl
                 index = Convert.ToInt32(segment);
                 if (index < 1)
                 {
-                    throw new XmpException("Array index must be larger than zero", XmpErrorCode.Badxpath);
+                    throw new XmpException("Array index must be larger than zero", XmpErrorCode.BadXPath);
                 }
             }
             catch (FormatException)
             {
-                throw new XmpException("Array index not digits.", XmpErrorCode.Badxpath);
+                throw new XmpException("Array index not digits.", XmpErrorCode.BadXPath);
             }
             if (createNodes && index == arrayNode.GetChildrenLength() + 1)
             {
@@ -556,7 +556,7 @@ namespace Com.Adobe.Xmp.Impl
                 XmpNode currItem = arrayNode.GetChild(index);
                 if (!currItem.GetOptions().IsStruct())
                 {
-                    throw new XmpException("Field selector must be used on array of struct", XmpErrorCode.Badxpath);
+                    throw new XmpException("Field selector must be used on array of struct", XmpErrorCode.BadXPath);
                 }
                 for (int f = 1; f <= currItem.GetChildrenLength(); f++)
                 {
@@ -740,7 +740,7 @@ namespace Com.Adobe.Xmp.Impl
             // that is what parsing returns.
             if (!arrayNode.GetOptions().IsArrayAltText())
             {
-                throw new XmpException("Localized text array is not alt-text", XmpErrorCode.Badxpath);
+                throw new XmpException("Localized text array is not alt-text", XmpErrorCode.BadXPath);
             }
             if (!arrayNode.HasChildren())
             {
@@ -756,11 +756,11 @@ namespace Com.Adobe.Xmp.Impl
                 // perform some checks on the current item
                 if (currItem.GetOptions().IsCompositeProperty())
                 {
-                    throw new XmpException("Alt-text array item is not simple", XmpErrorCode.Badxpath);
+                    throw new XmpException("Alt-text array item is not simple", XmpErrorCode.BadXPath);
                 }
                 if (!currItem.HasQualifier() || !XmpConstConstants.XmlLang.Equals(currItem.GetQualifier(1).GetName()))
                 {
-                    throw new XmpException("Alt-text array item has no language qualifier", XmpErrorCode.Badxpath);
+                    throw new XmpException("Alt-text array item has no language qualifier", XmpErrorCode.BadXPath);
                 }
                 string currLang = currItem.GetQualifier(1).GetValue();
                 // Look for an exact match with the specific language.
@@ -811,7 +811,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (!arrayNode.GetOptions().IsArray())
             {
-                throw new XmpException("Language item must be used on array", XmpErrorCode.Badxpath);
+                throw new XmpException("Language item must be used on array", XmpErrorCode.BadXPath);
             }
             for (int index = 1; index <= arrayNode.GetChildrenLength(); index++)
             {

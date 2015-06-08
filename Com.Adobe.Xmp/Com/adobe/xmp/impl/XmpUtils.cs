@@ -81,7 +81,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             if (!arrayNode.GetOptions().IsArray() || arrayNode.GetOptions().IsArrayAlternate())
             {
-                throw new XmpException("Named property must be non-alternate array", XmpErrorCode.Badparam);
+                throw new XmpException("Named property must be non-alternate array", XmpErrorCode.BadParam);
             }
             // Make sure the separator is OK.
             CheckSeparator(separator);
@@ -96,7 +96,7 @@ namespace Com.Adobe.Xmp.Impl
                 currItem = (XmpNode)it.Next();
                 if (currItem.GetOptions().IsCompositeProperty())
                 {
-                    throw new XmpException("Array items must be simple", XmpErrorCode.Badparam);
+                    throw new XmpException("Array items must be simple", XmpErrorCode.BadParam);
                 }
                 string str = ApplyQuotes(currItem.GetValue(), openQuote, closeQuote, allowCommas);
                 catinatedString.Append(str);
@@ -132,7 +132,7 @@ namespace Com.Adobe.Xmp.Impl
             ParameterAsserts.AssertArrayName(arrayName);
             if (catedStr == null)
             {
-                throw new XmpException("Parameter must not be null", XmpErrorCode.Badparam);
+                throw new XmpException("Parameter must not be null", XmpErrorCode.BadParam);
             }
             ParameterAsserts.AssertImplementation(xmp);
             XmpMeta xmpImpl = (XmpMeta)xmp;
@@ -292,7 +292,7 @@ namespace Com.Adobe.Xmp.Impl
             arrayOptions = XmpNodeUtils.VerifySetOptions(arrayOptions, null);
             if (!arrayOptions.IsOnlyArrayOptions())
             {
-                throw new XmpException("Options can only provide array form", XmpErrorCode.Badoptions);
+                throw new XmpException("Options can only provide array form", XmpErrorCode.BadOptions);
             }
             // Find the array node, make sure it is OK. Move the current children
             // aside, to be readded later if kept.
@@ -305,11 +305,11 @@ namespace Com.Adobe.Xmp.Impl
                 PropertyOptions arrayForm = arrayNode.GetOptions();
                 if (!arrayForm.IsArray() || arrayForm.IsArrayAlternate())
                 {
-                    throw new XmpException("Named property must be non-alternate array", XmpErrorCode.Badxpath);
+                    throw new XmpException("Named property must be non-alternate array", XmpErrorCode.BadXPath);
                 }
                 if (arrayOptions.EqualArrayTypes(arrayForm))
                 {
-                    throw new XmpException("Mismatch of specified and existing array form", XmpErrorCode.Badxpath);
+                    throw new XmpException("Mismatch of specified and existing array form", XmpErrorCode.BadXPath);
                 }
             }
             else
@@ -320,7 +320,7 @@ namespace Com.Adobe.Xmp.Impl
                 arrayNode = XmpNodeUtils.FindNode(xmp.GetRoot(), arrayPath, true, arrayOptions.SetArray(true));
                 if (arrayNode == null)
                 {
-                    throw new XmpException("Failed to create named array", XmpErrorCode.Badxpath);
+                    throw new XmpException("Failed to create named array", XmpErrorCode.BadXPath);
                 }
             }
             return arrayNode;
@@ -353,7 +353,7 @@ namespace Com.Adobe.Xmp.Impl
                 // schema node.
                 if (string.IsNullOrEmpty(schemaNs))
                 {
-                    throw new XmpException("Property name requires schema namespace", XmpErrorCode.Badparam);
+                    throw new XmpException("Property name requires schema namespace", XmpErrorCode.BadParam);
                 }
                 XmpPath expPath = XmpPathParser.ExpandXPath(schemaNs, propName);
                 XmpNode propNode = XmpNodeUtils.FindNode(xmpImpl.GetRoot(), expPath, false, null);
@@ -735,7 +735,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if (haveSemicolon)
                     {
-                        throw new XmpException("Separator can have only one semicolon", XmpErrorCode.Badparam);
+                        throw new XmpException("Separator can have only one semicolon", XmpErrorCode.BadParam);
                     }
                     haveSemicolon = true;
                 }
@@ -743,13 +743,13 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if (charKind != UckSpace)
                     {
-                        throw new XmpException("Separator can have only spaces and one semicolon", XmpErrorCode.Badparam);
+                        throw new XmpException("Separator can have only spaces and one semicolon", XmpErrorCode.BadParam);
                     }
                 }
             }
             if (!haveSemicolon)
             {
-                throw new XmpException("Separator must have one semicolon", XmpErrorCode.Badparam);
+                throw new XmpException("Separator must have one semicolon", XmpErrorCode.BadParam);
             }
         }
 
@@ -767,7 +767,7 @@ namespace Com.Adobe.Xmp.Impl
             int charKind = ClassifyCharacter(openQuote);
             if (charKind != UckQuote)
             {
-                throw new XmpException("Invalid quoting character", XmpErrorCode.Badparam);
+                throw new XmpException("Invalid quoting character", XmpErrorCode.BadParam);
             }
             if (quotes.Length == 1)
             {
@@ -779,12 +779,12 @@ namespace Com.Adobe.Xmp.Impl
                 charKind = ClassifyCharacter(closeQuote);
                 if (charKind != UckQuote)
                 {
-                    throw new XmpException("Invalid quoting character", XmpErrorCode.Badparam);
+                    throw new XmpException("Invalid quoting character", XmpErrorCode.BadParam);
                 }
             }
             if (closeQuote != GetClosingQuote(openQuote))
             {
-                throw new XmpException("Mismatched quote pair", XmpErrorCode.Badparam);
+                throw new XmpException("Mismatched quote pair", XmpErrorCode.BadParam);
             }
             return closeQuote;
         }

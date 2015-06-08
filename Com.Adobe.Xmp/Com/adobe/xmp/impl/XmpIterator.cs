@@ -94,7 +94,7 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         // !baseSchema  &&  baseProperty
                         // No schema but property provided -> error
-                        throw new XmpException("Schema namespace URI is required", XmpErrorCode.Badschema);
+                        throw new XmpException("Schema namespace URI is required", XmpErrorCode.BadSchema);
                     }
                 }
             }

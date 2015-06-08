@@ -121,7 +121,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             catch (IOException e)
             {
-                throw new XmpException("Error reading the XML-file", XmpErrorCode.Badstream, e);
+                throw new XmpException("Error reading the XML-file", XmpErrorCode.BadStream, e);
             }
         }
 
@@ -142,7 +142,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             catch (XmpException e)
             {
-                if (e.GetErrorCode() == XmpErrorCode.Badxml || e.GetErrorCode() == XmpErrorCode.Badstream)
+                if (e.GetErrorCode() == XmpErrorCode.BadXml || e.GetErrorCode() == XmpErrorCode.BadStream)
                 {
                     if (options.GetAcceptLatin1())
                     {
@@ -159,7 +159,7 @@ namespace Com.Adobe.Xmp.Impl
                         catch (UnsupportedEncodingException)
                         {
                             // can normally not happen as the encoding is provided by a util function
-                            throw new XmpException("Unsupported Encoding", XmpErrorCode.Internalfailure, e);
+                            throw new XmpException("Unsupported Encoding", XmpErrorCode.InternalFailure, e);
                         }
                     }
                     source = new InputSource(buffer.GetByteStream());
@@ -185,7 +185,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             catch (XmpException e)
             {
-                if (e.GetErrorCode() == XmpErrorCode.Badxml && options.GetFixControlChars())
+                if (e.GetErrorCode() == XmpErrorCode.BadXml && options.GetFixControlChars())
                 {
                     source = new InputSource(new FixAsciiControlsReader(new StringReader(input)));
                     return ParseInputSource(source);
@@ -209,11 +209,11 @@ namespace Com.Adobe.Xmp.Impl
             }
             catch (XmlException e)
             {
-                throw new XmpException("XML parsing failure", XmpErrorCode.Badxml, e);
+                throw new XmpException("XML parsing failure", XmpErrorCode.BadXml, e);
             }
             catch (IOException e)
             {
-                throw new XmpException("Error reading the XML-file", XmpErrorCode.Badstream, e);
+                throw new XmpException("Error reading the XML-file", XmpErrorCode.BadStream, e);
             }
             catch (Exception e)
             {

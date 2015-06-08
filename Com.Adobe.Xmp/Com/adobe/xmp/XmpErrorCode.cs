@@ -13,29 +13,29 @@ namespace Com.Adobe.Xmp
     {
         Unknown = 0,
 
-        Badparam = 4,
+        BadParam = 4,
 
-        Badvalue = 5,
+        BadValue = 5,
 
-        Internalfailure = 9,
+        InternalFailure = 9,
 
-        Badschema = 101,
+        BadSchema = 101,
 
-        Badxpath = 102,
+        BadXPath = 102,
 
-        Badoptions = 103,
+        BadOptions = 103,
 
-        Badindex = 104,
+        BadIndex = 104,
 
-        Badserialize = 107,
+        BadSerialize = 107,
 
-        Badxml = 201,
+        BadXml = 201,
 
-        Badrdf = 202,
+        BadRdf = 202,
 
-        Badxmp = 203,
+        BadXmp = 203,
 
         /// <summary>This code is introduced by Java.</summary>
-        Badstream = 204
+        BadStream = 204
     }
 }

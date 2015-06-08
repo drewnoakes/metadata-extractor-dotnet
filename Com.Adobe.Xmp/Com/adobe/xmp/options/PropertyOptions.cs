@@ -361,11 +361,11 @@ namespace Com.Adobe.Xmp.Options
         {
             if ((options & Struct) > 0 && (options & Array) > 0)
             {
-                throw new XmpException("IsStruct and IsArray options are mutually exclusive", XmpErrorCode.Badoptions);
+                throw new XmpException("IsStruct and IsArray options are mutually exclusive", XmpErrorCode.BadOptions);
             }
             if ((options & Uri) > 0 && (options & (Array | Struct)) > 0)
             {
-                throw new XmpException("Structs and arrays can't have \"value\" options", XmpErrorCode.Badoptions);
+                throw new XmpException("Structs and arrays can't have \"value\" options", XmpErrorCode.BadOptions);
             }
         }
     }

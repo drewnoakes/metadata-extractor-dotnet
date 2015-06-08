@@ -218,7 +218,7 @@ namespace Com.Adobe.Xmp
         {
             if (string.IsNullOrEmpty(value))
             {
-                throw new XmpException("Empty convert-string", XmpErrorCode.Badvalue);
+                throw new XmpException("Empty convert-string", XmpErrorCode.BadValue);
             }
             value = value.ToLower();
             try
@@ -258,7 +258,7 @@ namespace Com.Adobe.Xmp
             {
                 if (string.IsNullOrEmpty(rawValue))
                 {
-                    throw new XmpException("Empty convert-string", XmpErrorCode.Badvalue);
+                    throw new XmpException("Empty convert-string", XmpErrorCode.BadValue);
                 }
                 if (rawValue.StartsWith("0x"))
                 {
@@ -268,7 +268,7 @@ namespace Com.Adobe.Xmp
             }
             catch (FormatException)
             {
-                throw new XmpException("Invalid integer string", XmpErrorCode.Badvalue);
+                throw new XmpException("Invalid integer string", XmpErrorCode.BadValue);
             }
         }
 
@@ -294,7 +294,7 @@ namespace Com.Adobe.Xmp
             {
                 if (string.IsNullOrEmpty(rawValue))
                 {
-                    throw new XmpException("Empty convert-string", XmpErrorCode.Badvalue);
+                    throw new XmpException("Empty convert-string", XmpErrorCode.BadValue);
                 }
                 if (rawValue.StartsWith("0x"))
                 {
@@ -304,7 +304,7 @@ namespace Com.Adobe.Xmp
             }
             catch (FormatException)
             {
-                throw new XmpException("Invalid long string", XmpErrorCode.Badvalue);
+                throw new XmpException("Invalid long string", XmpErrorCode.BadValue);
             }
         }
 
@@ -330,13 +330,13 @@ namespace Com.Adobe.Xmp
             {
                 if (string.IsNullOrEmpty(rawValue))
                 {
-                    throw new XmpException("Empty convert-string", XmpErrorCode.Badvalue);
+                    throw new XmpException("Empty convert-string", XmpErrorCode.BadValue);
                 }
                 return double.Parse(rawValue);
             }
             catch (FormatException)
             {
-                throw new XmpException("Invalid double string", XmpErrorCode.Badvalue);
+                throw new XmpException("Invalid double string", XmpErrorCode.BadValue);
             }
         }
 
@@ -360,7 +360,7 @@ namespace Com.Adobe.Xmp
         {
             if (string.IsNullOrEmpty(rawValue))
             {
-                throw new XmpException("Empty convert-string", XmpErrorCode.Badvalue);
+                throw new XmpException("Empty convert-string", XmpErrorCode.BadValue);
             }
             return Iso8601Converter.Parse(rawValue);
         }
@@ -394,7 +394,7 @@ namespace Com.Adobe.Xmp
             }
             catch (Exception e)
             {
-                throw new XmpException("Invalid base64 string", XmpErrorCode.Badvalue, e);
+                throw new XmpException("Invalid base64 string", XmpErrorCode.BadValue, e);
             }
         }
     }
