@@ -21,7 +21,6 @@
  */
 
 using NUnit.Framework;
-using Sharpen;
 
 namespace Com.Drew.Imaging.Jpeg
 {

@@ -21,7 +21,6 @@
  */
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace Com.Drew.Metadata
 {

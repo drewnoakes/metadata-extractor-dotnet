@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Iptc
 {

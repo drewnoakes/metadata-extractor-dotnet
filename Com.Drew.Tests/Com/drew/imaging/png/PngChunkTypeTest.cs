@@ -1,6 +1,5 @@
 ﻿using System;
 using NUnit.Framework;
-using Sharpen;
 
 namespace Com.Drew.Imaging.Png
 {

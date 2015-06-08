@@ -20,7 +20,6 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Com.Drew.Lang;

@@ -20,10 +20,10 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Threading;
 using Com.Drew.Metadata.Exif.Makernotes;
 using NUnit.Framework;
 using Sharpen;
-using Thread = System.Threading.Thread;
 
 namespace Com.Drew.Metadata.Exif
 {

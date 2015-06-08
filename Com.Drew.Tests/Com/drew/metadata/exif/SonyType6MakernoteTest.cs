@@ -22,7 +22,6 @@
 
 using Com.Drew.Metadata.Exif.Makernotes;
 using NUnit.Framework;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
 {

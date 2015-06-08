@@ -24,7 +24,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Com.Drew.Imaging.Jpeg;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
 using Sharpen;
 
