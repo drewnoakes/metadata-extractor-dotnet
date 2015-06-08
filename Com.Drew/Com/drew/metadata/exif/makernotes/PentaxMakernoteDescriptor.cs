@@ -26,9 +26,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Exif.Makernotes
 {
     /// <summary>
-    /// Provides human-readable string representations of tag values stored in a
-    /// <see cref="PentaxMakernoteDirectory"/>
-    /// .
+    /// Provides human-readable string representations of tag values stored in a <see cref="PentaxMakernoteDirectory"/>.
     /// <p>
     /// Some information about this makernote taken from here:
     /// http://www.ozhiker.com/electronics/pjmt/jpeg_info/pentax_mn.html

@@ -25,9 +25,7 @@ using JetBrains.Annotations;
 namespace Com.Drew.Metadata.Exif
 {
     /// <summary>
-    /// Provides human-readable string representations of tag values stored in a
-    /// <see cref="ExifIfd0Directory"/>
-    /// .
+    /// Provides human-readable string representations of tag values stored in a <see cref="ExifIfd0Directory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class ExifIfd0Descriptor : ExifDescriptorBase<ExifIfd0Directory>

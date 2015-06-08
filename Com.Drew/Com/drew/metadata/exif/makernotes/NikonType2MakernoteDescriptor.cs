@@ -27,9 +27,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Exif.Makernotes
 {
     /// <summary>
-    /// Provides human-readable string representations of tag values stored in a
-    /// <see cref="NikonType2MakernoteDirectory"/>
-    /// .
+    /// Provides human-readable string representations of tag values stored in a <see cref="NikonType2MakernoteDirectory"/>.
     /// Type-2 applies to the E990 and D-series cameras such as the D1, D70 and D100.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

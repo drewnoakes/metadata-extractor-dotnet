@@ -35,9 +35,7 @@ namespace Com.Drew.Tools
     public static class FileUtil
     {
         /// <summary>
-        /// Saves the contents of a <code>byte[]</code> to the specified
-        /// <see cref="Sharpen.FilePath"/>
-        /// .
+        /// Saves the contents of a <code>byte[]</code> to the specified <see cref="Sharpen.FilePath"/>.
         /// </summary>
         /// <exception cref="System.IO.IOException"/>
         public static void SaveBytes([NotNull] FilePath file, [NotNull] sbyte[] bytes)

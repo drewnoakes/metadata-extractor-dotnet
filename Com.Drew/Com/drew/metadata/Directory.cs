@@ -818,13 +818,8 @@ namespace Com.Drew.Metadata
         /// <remarks>
         /// Returns the specified tag's value as a java.util.Date.  If the value is unset or cannot be converted, <code>null</code> is returned.
         /// <p>
-        /// If the underlying value is a
-        /// <see cref="string"/>
-        /// , then attempts will be made to parse the string as though it is in
-        /// the current
-        /// <see cref="System.TimeZoneInfo"/>
-        /// .  If the
-        /// <see cref="System.TimeZoneInfo"/>
+        /// If the underlying value is a <see cref="string"/>, then attempts will be made to parse the string as though it is in
+        /// the current <see cref="System.TimeZoneInfo"/>.  If the <see cref="System.TimeZoneInfo"/>
         /// is known, call the overload that accepts one as an argument.
         /// </remarks>
         [CanBeNull]
@@ -837,14 +832,8 @@ namespace Com.Drew.Metadata
         /// <remarks>
         /// Returns the specified tag's value as a java.util.Date.  If the value is unset or cannot be converted, <code>null</code> is returned.
         /// <p>
-        /// If the underlying value is a
-        /// <see cref="string"/>
-        /// , then attempts will be made to parse the string as though it is in
-        /// the
-        /// <see cref="System.TimeZoneInfo"/>
-        /// represented by the
-        /// <paramref name="timeZone"/>
-        /// parameter (if it is non-null).  Note that this parameter
+        /// If the underlying value is a <see cref="string"/>, then attempts will be made to parse the string as though it is in
+        /// the <see cref="System.TimeZoneInfo"/> represented by the <paramref name="timeZone"/> parameter (if it is non-null).  Note that this parameter
         /// is only considered if the underlying value is a string and parsing occurs, otherwise it has no effect.
         /// </remarks>
         [CanBeNull]

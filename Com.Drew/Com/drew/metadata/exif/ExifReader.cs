@@ -32,18 +32,9 @@ using Sharpen;
 namespace Com.Drew.Metadata.Exif
 {
     /// <summary>
-    /// Decodes Exif binary data, populating a
-    /// <see cref="Com.Drew.Metadata.Metadata"/>
-    /// object with tag values in
-    /// <see cref="ExifSubIfdDirectory"/>
-    /// ,
-    /// <see cref="ExifThumbnailDirectory"/>
-    /// ,
-    /// <see cref="ExifInteropDirectory"/>
-    /// ,
-    /// <see cref="GpsDirectory"/>
-    /// and one of the many camera
-    /// makernote directories.
+    /// Decodes Exif binary data, populating a <see cref="Com.Drew.Metadata.Metadata"/> object with tag values in
+    /// <see cref="ExifSubIfdDirectory"/>, <see cref="ExifThumbnailDirectory"/>, <see cref="ExifInteropDirectory"/>,
+    /// <see cref="GpsDirectory"/> and one of the many camera makernote directories.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class ExifReader : IJpegSegmentMetadataReader
@@ -84,9 +75,7 @@ namespace Com.Drew.Metadata.Exif
         }
 
         /// <summary>
-        /// Reads TIFF formatted Exif data from start of the specified
-        /// <see cref="Com.Drew.Lang.RandomAccessReader"/>
-        /// .
+        /// Reads TIFF formatted Exif data from start of the specified <see cref="Com.Drew.Lang.RandomAccessReader"/>.
         /// </summary>
         public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata)
         {
@@ -94,9 +83,7 @@ namespace Com.Drew.Metadata.Exif
         }
 
         /// <summary>
-        /// Reads TIFF formatted Exif data a specified offset within a
-        /// <see cref="Com.Drew.Lang.RandomAccessReader"/>
-        /// .
+        /// Reads TIFF formatted Exif data a specified offset within a <see cref="Com.Drew.Lang.RandomAccessReader"/>.
         /// </summary>
         public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata, int readerOffset)
         {

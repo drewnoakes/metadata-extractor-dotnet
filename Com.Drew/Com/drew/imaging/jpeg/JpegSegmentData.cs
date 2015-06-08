@@ -33,9 +33,7 @@ namespace Com.Drew.Imaging.Jpeg
     /// within the JPEG. For example, it may be convenient to store only the non-image
     /// segments when analysing metadata.
     /// <p>
-    /// Segments are keyed via their
-    /// <see cref="JpegSegmentType"/>
-    /// . Where multiple segments use the
+    /// Segments are keyed via their <see cref="JpegSegmentType"/>. Where multiple segments use the
     /// same segment type, they will all be stored and available.
     /// <p>
     /// Each segment type may contain multiple entries. Conceptually the model is:

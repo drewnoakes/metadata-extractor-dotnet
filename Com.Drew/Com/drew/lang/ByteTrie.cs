@@ -58,9 +58,7 @@ namespace Com.Drew.Lang
         /// <remarks>
         /// Return the most specific value stored for this byte sequence.
         /// If not found, returns <code>null</code> or a default values as specified by
-        /// calling
-        /// <see cref="ByteTrie{T}.SetDefaultValue(object)"/>
-        /// .
+        /// calling <see cref="SetDefaultValue"/>.
         /// </remarks>
         [CanBeNull]
         public virtual T Find(sbyte[] bytes)

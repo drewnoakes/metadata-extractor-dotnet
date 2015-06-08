@@ -29,11 +29,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Jpeg
 {
     /// <summary>
-    /// Decodes JPEG SOFn data, populating a
-    /// <see cref="Com.Drew.Metadata.Metadata"/>
-    /// object with tag values in a
-    /// <see cref="JpegDirectory"/>
-    /// .
+    /// Decodes JPEG SOFn data, populating a <see cref="Com.Drew.Metadata.Metadata"/> object with tag values in a <see cref="JpegDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Darrell Silver http://www.darrellsilver.com</author>

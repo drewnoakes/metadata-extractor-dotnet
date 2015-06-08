@@ -25,9 +25,7 @@ using JetBrains.Annotations;
 namespace Com.Drew.Metadata.Exif.Makernotes
 {
     /// <summary>
-    /// Provides human-readable string representations of tag values stored in a
-    /// <see cref="LeicaMakernoteDirectory"/>
-    /// .
+    /// Provides human-readable string representations of tag values stored in a <see cref="LeicaMakernoteDirectory"/>.
     /// <p>
     /// Tag reference from: http://gvsoft.homedns.org/exif/makernote-leica-type1.html
     /// </summary>

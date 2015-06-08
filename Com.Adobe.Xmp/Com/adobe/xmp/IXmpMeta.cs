@@ -206,9 +206,7 @@ namespace Com.Adobe.Xmp
         /// for detailed information about the options.
         /// <p>
         /// This is the simplest property setter, mainly for top level simple properties or after using
-        /// the path composition functions in
-        /// <see cref="XmpPathFactory"/>
-        /// .
+        /// the path composition functions in <see cref="XmpPathFactory"/>.
         /// </remarks>
         /// <param name="schemaNs">The namespace URI for the property. Has the same usage as in getProperty.</param>
         /// <param name="propName">
@@ -325,22 +323,17 @@ namespace Com.Adobe.Xmp
         /// Option flags describing the array form. The only valid options are
         /// <ul>
         /// <li>
-        /// <see cref="Com.Adobe.Xmp.Options.PropertyOptions.Array"/>
-        /// ,
+        /// <see cref="Com.Adobe.Xmp.Options.PropertyOptions.Array"/>,
         /// <li>
-        /// <see cref="Com.Adobe.Xmp.Options.PropertyOptions.ArrayOrdered"/>
-        /// ,
+        /// <see cref="Com.Adobe.Xmp.Options.PropertyOptions.ArrayOrdered"/>,
         /// <li>
-        /// <see cref="Com.Adobe.Xmp.Options.PropertyOptions.ArrayAlternate"/>
-        /// or
+        /// <see cref="Com.Adobe.Xmp.Options.PropertyOptions.ArrayAlternate"/> or
         /// <li>
-        /// <see cref="Com.Adobe.Xmp.Options.PropertyOptions.ArrayAltText"/>
-        /// .
+        /// <see cref="Com.Adobe.Xmp.Options.PropertyOptions.ArrayAltText"/>.
         /// </ul>
         /// <em>Note:</em> the array options only need to be provided if the array is not
         /// already existing, otherwise you can set them to <code>null</code> or use
-        /// <see cref="AppendArrayItem(string, string, string)"/>
-        /// .
+        /// <see cref="AppendArrayItem(string, string, string)"/>.
         /// </param>
         /// <param name="itemValue">the value of the array item. Has the same usage as propValue in getProperty.</param>
         /// <param name="itemOptions">

@@ -28,9 +28,7 @@ namespace Com.Drew.Imaging.Tiff
 {
     /// <summary>
     /// Interface of an class capable of handling events raised during the reading of a TIFF file
-    /// via
-    /// <see cref="TiffReader"/>
-    /// .
+    /// via <see cref="TiffReader"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public interface ITiffHandler

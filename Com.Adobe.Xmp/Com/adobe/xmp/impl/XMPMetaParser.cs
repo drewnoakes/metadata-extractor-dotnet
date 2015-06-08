@@ -112,9 +112,7 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <summary>
-        /// Parses XML from an
-        /// <see cref="InputStream"/>
-        /// ,
+        /// Parses XML from an <see cref="InputStream"/>,
         /// fixing the encoding (Latin-1 to UTF-8) and illegal control character optionally.
         /// </summary>
         /// <param name="stream">an <code>InputStream</code></param>
@@ -190,10 +188,7 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <summary>
-        /// Parses XML from a
-        /// <see cref="string"/>
-        /// ,
-        /// fixing the illegal control character optionally.
+        /// Parses XML from a <see cref="string"/>, fixing the illegal control character optionally.
         /// </summary>
         /// <param name="input">a <code>String</code> containing the XMP packet</param>
         /// <param name="options">the parsing options</param>

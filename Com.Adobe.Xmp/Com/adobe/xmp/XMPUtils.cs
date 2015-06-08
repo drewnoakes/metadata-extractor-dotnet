@@ -236,11 +236,8 @@ namespace Com.Adobe.Xmp
         /// <param name="value">a boolean value</param>
         /// <returns>
         /// The XMP string representation of the boolean. The values used are
-        /// given by the constnts
-        /// <see cref="XmpConstConstants.Truestr"/>
-        /// and
-        /// <see cref="XmpConstConstants.Falsestr"/>
-        /// .
+        /// given by the constants <see cref="XmpConstConstants.Truestr"/> and
+        /// <see cref="XmpConstConstants.Falsestr"/>.
         /// </returns>
         public static string ConvertFromBoolean(bool value)
         {

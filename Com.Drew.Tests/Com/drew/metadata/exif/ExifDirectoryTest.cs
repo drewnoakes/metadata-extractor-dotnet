@@ -28,13 +28,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Exif
 {
     /// <summary>
-    /// Unit tests for
-    /// <see cref="ExifSubIfdDirectory"/>
-    /// ,
-    /// <see cref="ExifIfd0Directory"/>
-    /// ,
-    /// <see cref="ExifThumbnailDirectory"/>
-    /// .
+    /// Unit tests for <see cref="ExifSubIfdDirectory"/>, <see cref="ExifIfd0Directory"/>, <see cref="ExifThumbnailDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class ExifDirectoryTest

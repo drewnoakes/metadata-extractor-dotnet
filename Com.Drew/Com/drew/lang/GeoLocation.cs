@@ -41,9 +41,7 @@ namespace Com.Drew.Lang
         private readonly double _longitude;
 
         /// <summary>
-        /// Instantiates a new instance of
-        /// <see cref="GeoLocation"/>
-        /// .
+        /// Instantiates a new instance of <see cref="GeoLocation"/>.
         /// </summary>
         /// <param name="latitude">the latitude, in degrees</param>
         /// <param name="longitude">the longitude, in degrees</param>
@@ -99,9 +97,8 @@ namespace Com.Drew.Lang
 
         /// <summary>
         /// Converts DMS (degrees-minutes-seconds) rational values, as given in
-        /// <see cref="Com.Drew.Metadata.Exif.GpsDirectory"/>
-        /// ,
-        /// into a single value in degrees, as a double.
+        /// <see cref="Com.Drew.Metadata.Exif.GpsDirectory"/>, into a single value in degrees,
+        /// as a double.
         /// </summary>
         [CanBeNull]
         public static double? DegreesMinutesSecondsToDecimal([NotNull] Rational degs, [NotNull] Rational mins, [NotNull] Rational secs, bool isNegative)

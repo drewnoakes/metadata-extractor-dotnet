@@ -28,10 +28,8 @@ using Sharpen;
 namespace Com.Drew.Lang
 {
     /// <summary>
-    /// Provides methods to read specific values from a
-    /// <see cref="RandomAccessFile"/>
-    /// , with a consistent, checked exception structure for
-    /// issues.
+    /// Provides methods to read specific values from a <see cref="RandomAccessFile"/>,
+    /// with a consistent, checked exception structure for issues.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class RandomAccessFileReader : RandomAccessReader

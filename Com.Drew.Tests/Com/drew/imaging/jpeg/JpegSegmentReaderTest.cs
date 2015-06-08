@@ -27,9 +27,7 @@ using Sharpen;
 namespace Com.Drew.Imaging.Jpeg
 {
     /// <summary>
-    /// Unit tests for
-    /// <see cref="JpegSegmentReader"/>
-    /// .
+    /// Unit tests for <see cref="JpegSegmentReader"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class JpegSegmentReaderTest

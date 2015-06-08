@@ -58,10 +58,7 @@ namespace Com.Drew.Metadata.Jfif
         }
 
         /// <summary>
-        /// Performs the Jfif data extraction, adding found values to the specified
-        /// instance of
-        /// <see cref="Com.Drew.Metadata.Metadata"/>
-        /// .
+        /// Performs the Jfif data extraction, adding found values to the specified instance of <see cref="Com.Drew.Metadata.Metadata"/>.
         /// </summary>
         public virtual void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata)
         {

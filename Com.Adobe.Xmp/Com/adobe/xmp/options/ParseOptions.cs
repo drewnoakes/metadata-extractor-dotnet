@@ -12,9 +12,7 @@ using Sharpen;
 namespace Com.Adobe.Xmp.Options
 {
     /// <summary>
-    /// Options for
-    /// <see cref="XmpMetaFactory.Parse(InputStream, ParseOptions)"/>
-    /// .
+    /// Options for <see cref="XmpMetaFactory.Parse(InputStream, ParseOptions)"/>.
     /// </summary>
     /// <since>24.01.2006</since>
     public sealed class ParseOptions : Options

@@ -61,8 +61,7 @@ namespace Com.Drew.Lang
         /// <remarks>
         /// Reads to the end of the stream, in order to determine the total number of bytes.
         /// In general, this is not a good idea for this implementation of
-        /// <see cref="RandomAccessReader"/>
-        /// .
+        /// <see cref="RandomAccessReader"/>.
         /// </remarks>
         /// <returns>the length of the data source, in bytes.</returns>
         /// <exception cref="System.IO.IOException"/>

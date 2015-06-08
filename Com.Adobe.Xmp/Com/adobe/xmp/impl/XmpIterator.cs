@@ -481,9 +481,7 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>
         /// This iterator is derived from the default <code>NodeIterator</code>,
-        /// and is only used for the option
-        /// <see cref="Com.Adobe.Xmp.Options.IteratorOptions.JustChildren"/>
-        /// .
+        /// and is only used for the option <see cref="Com.Adobe.Xmp.Options.IteratorOptions.JustChildren"/>.
         /// </summary>
         /// <since>02.10.2006</since>
         private class NodeIteratorChildren : NodeIterator

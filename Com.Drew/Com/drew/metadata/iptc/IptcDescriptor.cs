@@ -27,9 +27,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Iptc
 {
     /// <summary>
-    /// Provides human-readable string representations of tag values stored in a
-    /// <see cref="IptcDirectory"/>
-    /// .
+    /// Provides human-readable string representations of tag values stored in a <see cref="IptcDirectory"/>.
     /// <p>
     /// As the IPTC directory already stores values as strings, this class simply returns the tag's value.
     /// </summary>

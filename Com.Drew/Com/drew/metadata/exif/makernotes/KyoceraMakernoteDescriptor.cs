@@ -25,9 +25,7 @@ using JetBrains.Annotations;
 namespace Com.Drew.Metadata.Exif.Makernotes
 {
     /// <summary>
-    /// Provides human-readable string representations of tag values stored in a
-    /// <see cref="KyoceraMakernoteDirectory"/>
-    /// .
+    /// Provides human-readable string representations of tag values stored in a <see cref="KyoceraMakernoteDirectory"/>.
     /// <p>
     /// Some information about this makernote taken from here:
     /// http://www.ozhiker.com/electronics/pjmt/jpeg_info/kyocera_mn.html

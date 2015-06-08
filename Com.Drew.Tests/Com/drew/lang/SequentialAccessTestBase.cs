@@ -27,9 +27,7 @@ using Sharpen;
 namespace Com.Drew.Lang
 {
     /// <summary>
-    /// Base class for testing implementations of
-    /// <see cref="SequentialReader"/>
-    /// .
+    /// Base class for testing implementations of <see cref="SequentialReader"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class SequentialAccessTestBase

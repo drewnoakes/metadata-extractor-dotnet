@@ -27,9 +27,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Exif
 {
     /// <summary>
-    /// Provides human-readable string representations of tag values stored in a
-    /// <see cref="GpsDirectory"/>
-    /// .
+    /// Provides human-readable string representations of tag values stored in a <see cref="GpsDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class GpsDescriptor : TagDescriptor<GpsDirectory>

@@ -112,9 +112,7 @@ namespace Com.Drew.Metadata.Xmp
         }
 
         /// <summary>
-        /// Performs the XMP data extraction, adding found values to the specified instance of
-        /// <see cref="Com.Drew.Metadata.Metadata"/>
-        /// .
+        /// Performs the XMP data extraction, adding found values to the specified instance of <see cref="Com.Drew.Metadata.Metadata"/>.
         /// <p>
         /// The extraction is done with Adobe's XMPCore library.
         /// </summary>
@@ -137,9 +135,7 @@ namespace Com.Drew.Metadata.Xmp
         }
 
         /// <summary>
-        /// Performs the XMP data extraction, adding found values to the specified instance of
-        /// <see cref="Com.Drew.Metadata.Metadata"/>
-        /// .
+        /// Performs the XMP data extraction, adding found values to the specified instance of <see cref="Com.Drew.Metadata.Metadata"/>.
         /// <p>
         /// The extraction is done with Adobe's XMPCore library.
         /// </summary>

@@ -26,9 +26,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Exif.Makernotes
 {
     /// <summary>
-    /// Provides human-readable string representations of tag values stored in a
-    /// <see cref="SonyType1MakernoteDirectory"/>
-    /// .
+    /// Provides human-readable string representations of tag values stored in a <see cref="SonyType1MakernoteDirectory"/>.
     /// Thanks to David Carson for the initial version of this class.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

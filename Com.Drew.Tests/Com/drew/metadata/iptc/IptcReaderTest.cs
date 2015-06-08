@@ -29,9 +29,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Iptc
 {
     /// <summary>
-    /// Unit tests for
-    /// <see cref="IptcReader"/>
-    /// .
+    /// Unit tests for <see cref="IptcReader"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class IptcReaderTest

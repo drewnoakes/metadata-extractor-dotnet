@@ -27,11 +27,8 @@ using Sharpen;
 namespace Com.Drew.Lang
 {
     /// <summary>
-    /// A checked replacement for
-    /// <see cref="System.IndexOutOfRangeException"/>
-    /// .  Used by
-    /// <see cref="RandomAccessReader"/>
-    /// .
+    /// A checked replacement for <see cref="System.IndexOutOfRangeException"/>.  Used by
+    /// <see cref="RandomAccessReader"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [Serializable]

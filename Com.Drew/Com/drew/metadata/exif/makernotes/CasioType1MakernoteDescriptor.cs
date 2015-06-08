@@ -25,9 +25,7 @@ using JetBrains.Annotations;
 namespace Com.Drew.Metadata.Exif.Makernotes
 {
     /// <summary>
-    /// Provides human-readable string representations of tag values stored in a
-    /// <see cref="CasioType1MakernoteDirectory"/>
-    /// .
+    /// Provides human-readable string representations of tag values stored in a <see cref="CasioType1MakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class CasioType1MakernoteDescriptor : TagDescriptor<CasioType1MakernoteDirectory>

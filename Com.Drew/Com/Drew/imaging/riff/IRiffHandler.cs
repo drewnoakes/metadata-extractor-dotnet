@@ -26,9 +26,7 @@ namespace Com.Drew.Imaging.Riff
 {
     /// <summary>
     /// Interface of an class capable of handling events raised during the reading of a RIFF file
-    /// via
-    /// <see cref="RiffReader"/>
-    /// .
+    /// via <see cref="RiffReader"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public interface IRiffHandler
@@ -47,9 +45,7 @@ namespace Com.Drew.Imaging.Riff
         /// <remarks>
         /// Gets whether this handler is interested in the specific chunk type.
         /// Returns <code>true</code> if the data should be copied into an array and passed
-        /// to
-        /// <see cref="ProcessChunk(string, sbyte[])"/>
-        /// , or <code>false</code> to avoid
+        /// to <see cref="ProcessChunk(string, sbyte[])"/>, or <code>false</code> to avoid
         /// the copy and skip to the next chunk in the file, if any.
         /// </remarks>
         /// <param name="fourCc">the four character code of this chunk</param>

@@ -30,11 +30,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Iptc
 {
     /// <summary>
-    /// Decodes IPTC binary data, populating a
-    /// <see cref="Com.Drew.Metadata.Metadata"/>
-    /// object with tag values in an
-    /// <see cref="IptcDirectory"/>
-    /// .
+    /// Decodes IPTC binary data, populating a <see cref="Com.Drew.Metadata.Metadata"/> object with tag values in an <see cref="IptcDirectory"/>.
     /// <p>
     /// http://www.iptc.org/std/IIM/4.1/specification/IIMV4.1.pdf
     /// </summary>
@@ -74,9 +70,7 @@ namespace Com.Drew.Metadata.Iptc
         }
 
         /// <summary>
-        /// Performs the IPTC data extraction, adding found values to the specified instance of
-        /// <see cref="Com.Drew.Metadata.Metadata"/>
-        /// .
+        /// Performs the IPTC data extraction, adding found values to the specified instance of <see cref="Com.Drew.Metadata.Metadata"/>.
         /// </summary>
         public virtual void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata, long length)
         {

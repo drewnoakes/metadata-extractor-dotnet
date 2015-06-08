@@ -26,9 +26,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Exif
 {
     /// <summary>
-    /// Unit tests for
-    /// <see cref="ExifInteropDescriptor"/>
-    /// .
+    /// Unit tests for <see cref="ExifInteropDescriptor"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class ExifInteropDescriptorTest

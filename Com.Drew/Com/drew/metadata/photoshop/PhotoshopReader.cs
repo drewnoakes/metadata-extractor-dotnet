@@ -37,11 +37,7 @@ namespace Com.Drew.Metadata.Photoshop
     /// <remarks>
     /// Reads metadata created by Photoshop and stored in the APPD segment of JPEG files.
     /// Note that IPTC data may be stored within this segment, in which case this reader will
-    /// create both a
-    /// <see cref="PhotoshopDirectory"/>
-    /// and a
-    /// <see cref="Com.Drew.Metadata.Iptc.IptcDirectory"/>
-    /// .
+    /// create both a <see cref="PhotoshopDirectory"/> and a <see cref="Com.Drew.Metadata.Iptc.IptcDirectory"/>.
     /// </remarks>
     /// <author>Yuri Binev</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>

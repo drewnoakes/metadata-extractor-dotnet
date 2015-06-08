@@ -86,12 +86,8 @@ namespace Com.Drew.Metadata
         /// <summary>Get whether this tag has a name.</summary>
         /// <remarks>
         /// Get whether this tag has a name.
-        /// If <code>true</code>, it may be accessed via
-        /// <see cref="GetTagName()"/>
-        /// .
-        /// If <code>false</code>,
-        /// <see cref="GetTagName()"/>
-        /// will return a string resembling <code>"Unknown tag (0x1234)"</code>.
+        /// If <code>true</code>, it may be accessed via <see cref="GetTagName()"/>.
+        /// If <code>false</code>, <see cref="GetTagName()"/> will return a string resembling <code>"Unknown tag (0x1234)"</code>.
         /// </remarks>
         /// <returns>whether this tag has a name</returns>
         [NotNull]

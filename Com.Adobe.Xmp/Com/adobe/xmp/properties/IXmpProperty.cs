@@ -22,9 +22,7 @@ namespace Com.Adobe.Xmp.Properties
         PropertyOptions GetOptions();
 
         /// <summary>
-        /// Only set by
-        /// <see cref="IXmpMeta.GetLocalizedText(string, string, string, string)"/>
-        /// .
+        /// Only set by <see cref="IXmpMeta.GetLocalizedText(string, string, string, string)"/>.
         /// </summary>
         /// <returns>Returns the language of the alt-text item.</returns>
         string GetLanguage();

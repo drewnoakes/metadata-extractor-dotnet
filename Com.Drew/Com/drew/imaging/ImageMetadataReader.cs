@@ -77,9 +77,7 @@ namespace Com.Drew.Imaging
     public class ImageMetadataReader
     {
         /// <summary>
-        /// Reads metadata from an
-        /// <see cref="InputStream"/>
-        /// .
+        /// Reads metadata from an <see cref="InputStream"/>.
         /// <p>
         /// The file type is determined by inspecting the leading bytes of the stream, and parsing of the file
         /// is delegated to one of:

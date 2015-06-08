@@ -16,9 +16,7 @@ using Sharpen;
 namespace Com.Adobe.Xmp.Impl
 {
     /// <summary>
-    /// Implementation for
-    /// <see cref="IXmpMeta"/>
-    /// .
+    /// Implementation for <see cref="IXmpMeta"/>.
     /// </summary>
     /// <since>17.02.2006</since>
     public class XmpMeta : IXmpMeta
@@ -543,24 +541,10 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>Returns a property, but the result value can be requested.</summary>
         /// <remarks>
-        /// Returns a property, but the result value can be requested. It can be one
-        /// of
-        /// <see cref="ValueString"/>
-        /// ,
-        /// <see cref="ValueBoolean"/>
-        /// ,
-        /// <see cref="ValueInteger"/>
-        /// ,
-        /// <see cref="ValueLong"/>
-        /// ,
-        /// <see cref="ValueDouble"/>
-        /// ,
-        /// <see cref="ValueDate"/>
-        /// ,
-        /// <see cref="ValueCalendar"/>
-        /// ,
-        /// <see cref="ValueBase64"/>
-        /// .
+        /// Returns a property, but the result value can be requested. It can be one of
+        /// <see cref="ValueString"/>, <see cref="ValueBoolean"/>, <see cref="ValueInteger"/>,
+        /// <see cref="ValueLong"/>, <see cref="ValueDouble"/>, <see cref="ValueDate"/>,
+        /// <see cref="ValueCalendar"/>, <see cref="ValueBase64"/>.
         /// </remarks>
         /// <seealso cref="IXmpMeta.GetProperty(string, string)"/>
         /// <param name="schemaNs">a schema namespace</param>

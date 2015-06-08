@@ -261,9 +261,7 @@ namespace Com.Drew.Lang
         /// </param>
         /// <returns>
         /// true if instances are mathematically equivalent, otherwise false.  Will also
-        /// return false if <code>obj</code> is not an instance of
-        /// <see cref="Rational"/>
-        /// .
+        /// return false if <code>obj</code> is not an instance of <see cref="Rational"/>.
         /// </returns>
         public override bool Equals([CanBeNull] object obj)
         {

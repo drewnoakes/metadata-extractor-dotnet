@@ -30,8 +30,7 @@ namespace Com.Drew.Lang
     /// Base class for random access data reading operations of common data types.
     /// <p>
     /// By default, the reader operates with Motorola byte order (big endianness).  This can be changed by calling
-    /// <see cref="SetMotorolaByteOrder(bool)"/>
-    /// .
+    /// <see cref="SetMotorolaByteOrder(bool)"/>.
     /// <p>
     /// Concrete implementations include:
     /// <ul>

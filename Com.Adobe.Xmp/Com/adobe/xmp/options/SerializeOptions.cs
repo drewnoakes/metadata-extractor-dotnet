@@ -10,9 +10,7 @@
 namespace Com.Adobe.Xmp.Options
 {
     /// <summary>
-    /// Options for
-    /// <see cref="XmpMetaFactory.SerializeToBuffer(IXmpMeta, SerializeOptions)"/>
-    /// .
+    /// Options for <see cref="XmpMetaFactory.SerializeToBuffer(IXmpMeta, SerializeOptions)"/>.
     /// </summary>
     /// <since>24.01.2006</since>
     public sealed class SerializeOptions : Options

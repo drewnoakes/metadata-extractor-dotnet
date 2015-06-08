@@ -26,9 +26,7 @@ using JetBrains.Annotations;
 namespace Com.Drew.Metadata
 {
     /// <summary>
-    /// Defines an object capable of processing a particular type of metadata from a
-    /// <see cref="Com.Drew.Lang.RandomAccessReader"/>
-    /// .
+    /// Defines an object capable of processing a particular type of metadata from a <see cref="Com.Drew.Lang.RandomAccessReader"/>.
     /// <p>
     /// Instances of this interface must be thread-safe and reusable.
     /// </summary>

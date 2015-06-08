@@ -560,9 +560,7 @@ namespace Com.Adobe.Xmp.Impl
         // Don't let failures (like a bad dc:rights form) stop other
         // cleanup.
         /// <summary>
-        /// Initializes the map that contains the known arrays, that are fixed by
-        /// <see cref="NormalizeDcArrays"/>
-        /// .
+        /// Initializes the map that contains the known arrays, that are fixed by <see cref="NormalizeDcArrays"/>.
         /// </summary>
         private static void InitDcArrays()
         {

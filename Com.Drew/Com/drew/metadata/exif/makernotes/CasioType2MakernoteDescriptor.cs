@@ -26,9 +26,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Exif.Makernotes
 {
     /// <summary>
-    /// Provides human-readable string representations of tag values stored in a
-    /// <see cref="CasioType2MakernoteDirectory"/>
-    /// .
+    /// Provides human-readable string representations of tag values stored in a <see cref="CasioType2MakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class CasioType2MakernoteDescriptor : TagDescriptor<CasioType2MakernoteDirectory>

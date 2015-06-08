@@ -25,9 +25,7 @@ using JetBrains.Annotations;
 namespace Com.Drew.Metadata.Jpeg
 {
     /// <summary>
-    /// Provides human-readable string representations of tag values stored in a
-    /// <see cref="JpegCommentDirectory"/>
-    /// .
+    /// Provides human-readable string representations of tag values stored in a <see cref="JpegCommentDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class JpegCommentDescriptor : TagDescriptor<JpegCommentDirectory>
