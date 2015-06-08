@@ -8,12 +8,12 @@ namespace Sharpen
 
         public EnumerableWrapper (IEnumerable<T> e)
         {
-            this._e = e;
+            _e = e;
         }
 
         public override Iterator<T> Iterator ()
         {
-            return new EnumeratorWrapper<T> (this._e, this._e.GetEnumerator ());
+            return new EnumeratorWrapper<T> (_e, _e.GetEnumerator ());
         }
     }
 }

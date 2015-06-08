@@ -11,8 +11,8 @@ namespace Sharpen
 
         public Matcher (Regex regex, string str)
         {
-            this._regex = regex;
-            this._str = str;
+            _regex = regex;
+            _str = str;
         }
 
         public bool Find ()

@@ -349,7 +349,7 @@ namespace Com.Drew.Metadata.Iptc
 
         public IptcDirectory()
         {
-            this.SetDescriptor(new IptcDescriptor(this));
+            SetDescriptor(new IptcDescriptor(this));
         }
 
         [NotNull]

@@ -352,7 +352,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="str">initializes the parser container</param>
         public ParseState(string str)
         {
-            this._str = str;
+            _str = str;
         }
 
         /// <returns>Returns the length of the input.</returns>

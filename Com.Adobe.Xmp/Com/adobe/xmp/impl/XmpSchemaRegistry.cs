@@ -369,10 +369,10 @@ namespace Com.Adobe.Xmp.Impl
         {
             public XmpAliasInfo390(string actualNs, string actualPrefix, string actualProp, AliasOptions aliasOpts)
             {
-                this._actualNs = actualNs;
-                this._actualPrefix = actualPrefix;
-                this._actualProp = actualProp;
-                this._aliasOpts = aliasOpts;
+                _actualNs = actualNs;
+                _actualPrefix = actualPrefix;
+                _actualProp = actualProp;
+                _aliasOpts = aliasOpts;
             }
 
             /// <seealso cref="IXmpAliasInfo.GetNamespace()"/>
@@ -401,7 +401,7 @@ namespace Com.Adobe.Xmp.Impl
 
             public override string ToString()
             {
-                return _actualPrefix + _actualProp + " NS(" + _actualNs + "), FORM (" + this.GetAliasForm() + ")";
+                return _actualPrefix + _actualProp + " NS(" + _actualNs + "), FORM (" + GetAliasForm() + ")";
             }
 
             private readonly string _actualNs;

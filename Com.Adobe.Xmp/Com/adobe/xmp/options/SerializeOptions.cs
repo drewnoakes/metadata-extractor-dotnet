@@ -279,7 +279,7 @@ namespace Com.Adobe.Xmp.Options
         /// <returns>Returns the instance to call more set-methods.</returns>
         public SerializeOptions SetBaseIndent(int baseIndent)
         {
-            this._baseIndent = baseIndent;
+            _baseIndent = baseIndent;
             return this;
         }
 
@@ -293,7 +293,7 @@ namespace Com.Adobe.Xmp.Options
         /// <returns>Returns the instance to call more set-methods.</returns>
         public SerializeOptions SetIndent(string indent)
         {
-            this._indent = indent;
+            _indent = indent;
             return this;
         }
 
@@ -307,7 +307,7 @@ namespace Com.Adobe.Xmp.Options
         /// <returns>Returns the instance to call more set-methods.</returns>
         public SerializeOptions SetNewline(string newline)
         {
-            this._newline = newline;
+            _newline = newline;
             return this;
         }
 
@@ -321,7 +321,7 @@ namespace Com.Adobe.Xmp.Options
         /// <returns>Returns the instance to call more set-methods.</returns>
         public SerializeOptions SetPadding(int padding)
         {
-            this._padding = padding;
+            _padding = padding;
             return this;
         }
 

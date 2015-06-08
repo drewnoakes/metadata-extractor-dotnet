@@ -6,52 +6,52 @@ namespace Sharpen
 
         public FilterInputStream (InputStream s)
         {
-            this.In = s;
+            In = s;
         }
 
         public override int Available ()
         {
-            return this.In.Available ();
+            return In.Available ();
         }
 
         public override void Close ()
         {
-            this.In.Close ();
+            In.Close ();
         }
 
         public override void Mark (int readlimit)
         {
-            this.In.Mark (readlimit);
+            In.Mark (readlimit);
         }
 
         public override bool MarkSupported ()
         {
-            return this.In.MarkSupported ();
+            return In.MarkSupported ();
         }
 
         public override int Read ()
         {
-            return this.In.Read ();
+            return In.Read ();
         }
 
         public override int Read (sbyte[] buf)
         {
-            return this.In.Read (buf);
+            return In.Read (buf);
         }
 
         public override int Read (sbyte[] b, int off, int len)
         {
-            return this.In.Read (b, off, len);
+            return In.Read (b, off, len);
         }
 
         public override void Reset ()
         {
-            this.In.Reset ();
+            In.Reset ();
         }
 
         public override long Skip (long cnt)
         {
-            return this.In.Skip (cnt);
+            return In.Skip (cnt);
         }
     }
 }

@@ -14,14 +14,14 @@ namespace Sharpen
 
         public EnumeratorWrapper (object collection, IEnumerator<T> e)
         {
-            this._e = e;
-            this._collection = collection;
-            this._more = e.MoveNext();
+            _e = e;
+            _collection = collection;
+            _more = e.MoveNext();
         }
 
         public override bool HasNext ()
         {
-            return this._more;
+            return _more;
         }
 
         public override T Next ()
@@ -35,7 +35,7 @@ namespace Sharpen
 
         public override void Remove ()
         {
-            ICollection<T> col = this._collection as ICollection<T>;
+            ICollection<T> col = _collection as ICollection<T>;
             if (col == null) {
                 throw new NotSupportedException ();
             }
@@ -65,14 +65,14 @@ namespace Sharpen
 
         public EnumeratorWrapper (object collection, IEnumerator e)
         {
-            this._e = e;
-            this._collection = collection;
-            this._more = e.MoveNext();
+            _e = e;
+            _collection = collection;
+            _more = e.MoveNext();
         }
 
         public bool HasNext ()
         {
-            return this._more;
+            return _more;
         }
 
         public object Next ()
@@ -86,7 +86,7 @@ namespace Sharpen
 
         public void Remove ()
         {
-            ICollection col = this._collection as ICollection;
+            ICollection col = _collection as ICollection;
             if (col == null) {
                 throw new NotSupportedException ();
             }

@@ -42,8 +42,8 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="localName">the name</param>
         public QName(string prefix, string localName)
         {
-            this._prefix = prefix;
-            this._localName = localName;
+            _prefix = prefix;
+            _localName = localName;
         }
 
         /// <returns>Returns whether the QName has a prefix.</returns>

@@ -25,8 +25,8 @@ namespace Sharpen
         public SimpleDateFormat (string format, CultureInfo c)
         {
             Culture = c;
-            this._format = format.Replace ("EEE", "ddd");
-            this._format = this._format.Replace ("Z", "zzz");
+            _format = format.Replace ("EEE", "ddd");
+            _format = _format.Replace ("Z", "zzz");
             SetTimeZone (TimeZoneInfo.Local);
         }
 

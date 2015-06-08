@@ -207,12 +207,12 @@ namespace Com.Adobe.Xmp
         {
             public XmpVersionInfo274(int major, int minor, int micro, bool debug, int engBuild, string message)
             {
-                this._major = major;
-                this._minor = minor;
-                this._micro = micro;
-                this._debug = debug;
-                this._engBuild = engBuild;
-                this._message = message;
+                _major = major;
+                _minor = minor;
+                _micro = micro;
+                _debug = debug;
+                _engBuild = engBuild;
+                _message = message;
             }
 
             public int GetMajor()

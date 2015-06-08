@@ -117,7 +117,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public KodakMakernoteDirectory()
         {
-            this.SetDescriptor(new KodakMakernoteDescriptor(this));
+            SetDescriptor(new KodakMakernoteDescriptor(this));
         }
 
         [NotNull]

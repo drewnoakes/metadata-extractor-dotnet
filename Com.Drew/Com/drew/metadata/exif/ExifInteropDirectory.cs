@@ -39,7 +39,7 @@ namespace Com.Drew.Metadata.Exif
 
         public ExifInteropDirectory()
         {
-            this.SetDescriptor(new ExifInteropDescriptor(this));
+            SetDescriptor(new ExifInteropDescriptor(this));
         }
 
         [NotNull]

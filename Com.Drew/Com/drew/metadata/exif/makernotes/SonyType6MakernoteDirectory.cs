@@ -50,7 +50,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public SonyType6MakernoteDirectory()
         {
-            this.SetDescriptor(new SonyType6MakernoteDescriptor(this));
+            SetDescriptor(new SonyType6MakernoteDescriptor(this));
         }
 
         [NotNull]

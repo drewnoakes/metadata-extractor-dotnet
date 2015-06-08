@@ -108,7 +108,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public SigmaMakernoteDirectory()
         {
-            this.SetDescriptor(new SigmaMakernoteDescriptor(this));
+            SetDescriptor(new SigmaMakernoteDescriptor(this));
         }
 
         [NotNull]

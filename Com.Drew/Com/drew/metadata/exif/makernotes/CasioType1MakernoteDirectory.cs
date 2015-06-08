@@ -104,7 +104,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public CasioType1MakernoteDirectory()
         {
-            this.SetDescriptor(new CasioType1MakernoteDescriptor(this));
+            SetDescriptor(new CasioType1MakernoteDescriptor(this));
         }
 
         [NotNull]

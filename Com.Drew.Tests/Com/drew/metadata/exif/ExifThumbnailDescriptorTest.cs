@@ -34,12 +34,12 @@ namespace Com.Drew.Metadata.Exif
         public virtual void TestGetYCbCrSubsamplingDescription()
         {
             ExifThumbnailDirectory directory = new ExifThumbnailDirectory();
-            directory.SetIntArray(ExifThumbnailDirectory.TagYcbcrSubsampling, new int[] { 2, 1 });
+            directory.SetIntArray(ExifDirectoryBase.TagYcbcrSubsampling, new int[] { 2, 1 });
             ExifThumbnailDescriptor descriptor = new ExifThumbnailDescriptor(directory);
-            Assert.AreEqual("YCbCr4:2:2", descriptor.GetDescription(ExifThumbnailDirectory.TagYcbcrSubsampling));
+            Assert.AreEqual("YCbCr4:2:2", descriptor.GetDescription(ExifDirectoryBase.TagYcbcrSubsampling));
             Assert.AreEqual("YCbCr4:2:2", descriptor.GetYCbCrSubsamplingDescription());
-            directory.SetIntArray(ExifThumbnailDirectory.TagYcbcrSubsampling, new int[] { 2, 2 });
-            Assert.AreEqual("YCbCr4:2:0", descriptor.GetDescription(ExifThumbnailDirectory.TagYcbcrSubsampling));
+            directory.SetIntArray(ExifDirectoryBase.TagYcbcrSubsampling, new int[] { 2, 2 });
+            Assert.AreEqual("YCbCr4:2:0", descriptor.GetDescription(ExifDirectoryBase.TagYcbcrSubsampling));
             Assert.AreEqual("YCbCr4:2:0", descriptor.GetYCbCrSubsamplingDescription());
         }
     }

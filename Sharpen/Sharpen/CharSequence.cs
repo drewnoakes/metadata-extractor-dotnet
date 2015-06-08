@@ -32,7 +32,7 @@ namespace Sharpen
 
         public StringCharSequence (string str)
         {
-            this._str = str;
+            _str = str;
         }
 
         public override string ToString ()

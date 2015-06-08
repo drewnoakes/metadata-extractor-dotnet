@@ -95,7 +95,7 @@ namespace Com.Adobe.Xmp.Options
         public virtual void SetOptions(int options)
         {
             AssertOptionsValid(options);
-            this._options = options;
+            _options = options;
         }
 
         /// <seealso cref="object.Equals(object)"/>

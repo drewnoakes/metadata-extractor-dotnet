@@ -34,7 +34,7 @@ namespace Com.Drew.Metadata.Exif
 
         public ExifSubIfdDirectory()
         {
-            this.SetDescriptor(new ExifSubIfdDescriptor(this));
+            SetDescriptor(new ExifSubIfdDescriptor(this));
         }
 
         [NotNull]

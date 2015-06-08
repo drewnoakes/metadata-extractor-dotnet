@@ -13,10 +13,10 @@ namespace Sharpen
 
         private ByteBuffer (byte[] buf, int start, int len)
         {
-            this._buffer = buf;
-            this._offset = 0;
-            this._limit = start + len;
-            this._index = start;
+            _buffer = buf;
+            _offset = 0;
+            _limit = start + len;
+            _index = start;
         }
 
         public byte[] Array ()

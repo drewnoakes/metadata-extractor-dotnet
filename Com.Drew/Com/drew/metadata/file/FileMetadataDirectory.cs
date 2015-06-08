@@ -47,7 +47,7 @@ namespace Com.Drew.Metadata.File
 
         public FileMetadataDirectory()
         {
-            this.SetDescriptor(new FileMetadataDescriptor(this));
+            SetDescriptor(new FileMetadataDescriptor(this));
         }
 
         [NotNull]

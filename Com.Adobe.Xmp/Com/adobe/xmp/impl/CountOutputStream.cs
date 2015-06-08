@@ -25,7 +25,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="out">an <code>OutputStream</code></param>
         internal CountOutputStream(OutputStream @out)
         {
-            this._out = @out;
+            _out = @out;
         }
 
         /// <summary>Counts the written bytes.</summary>

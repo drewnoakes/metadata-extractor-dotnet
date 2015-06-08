@@ -25,15 +25,15 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="initialCapacity">the initial capacity for this buffer</param>
         public ByteBuffer(int initialCapacity)
         {
-            this._buffer = new sbyte[initialCapacity];
-            this._length = 0;
+            _buffer = new sbyte[initialCapacity];
+            _length = 0;
         }
 
         /// <param name="buffer">a byte array that will be wrapped with <code>ByteBuffer</code>.</param>
         public ByteBuffer(sbyte[] buffer)
         {
-            this._buffer = buffer;
-            this._length = buffer.Length;
+            _buffer = buffer;
+            _length = buffer.Length;
         }
 
         /// <param name="buffer">a byte array that will be wrapped with <code>ByteBuffer</code>.</param>
@@ -44,8 +44,8 @@ namespace Com.Adobe.Xmp.Impl
             {
                 throw new IndexOutOfRangeException("Valid length exceeds the buffer length.");
             }
-            this._buffer = buffer;
-            this._length = length;
+            _buffer = buffer;
+            _length = length;
         }
 
         /// <summary>Loads the stream into a buffer.</summary>
@@ -55,12 +55,12 @@ namespace Com.Adobe.Xmp.Impl
         {
             // load stream into buffer
             int chunk = 16384;
-            this._length = 0;
-            this._buffer = new sbyte[chunk];
+            _length = 0;
+            _buffer = new sbyte[chunk];
             int read;
-            while ((read = @in.Read(this._buffer, this._length, chunk)) > 0)
+            while ((read = @in.Read(_buffer, _length, chunk)) > 0)
             {
-                this._length += read;
+                _length += read;
                 if (read == chunk)
                 {
                     EnsureCapacity(_length + chunk);
@@ -81,9 +81,9 @@ namespace Com.Adobe.Xmp.Impl
             {
                 throw new IndexOutOfRangeException("Valid length exceeds the buffer length.");
             }
-            this._buffer = new sbyte[length];
-            Array.Copy(buffer, offset, this._buffer, 0, length);
-            this._length = length;
+            _buffer = new sbyte[length];
+            Array.Copy(buffer, offset, _buffer, 0, length);
+            _length = length;
         }
 
         /// <returns>Returns a byte stream that is limited to the valid amount of bytes.</returns>

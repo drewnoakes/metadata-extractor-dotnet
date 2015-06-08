@@ -68,7 +68,7 @@ namespace Com.Drew.Metadata.Ico
 
         public IcoDirectory()
         {
-            this.SetDescriptor(new IcoDescriptor(this));
+            SetDescriptor(new IcoDescriptor(this));
         }
 
         [NotNull]

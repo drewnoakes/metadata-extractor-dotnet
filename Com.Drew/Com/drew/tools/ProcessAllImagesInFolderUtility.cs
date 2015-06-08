@@ -385,40 +385,40 @@ namespace Com.Drew.Tools
 
                 internal Row(MarkdownTableOutputHandler enclosing, [NotNull] FilePath file, [NotNull] Metadata.Metadata metadata, [NotNull] string relativePath)
                 {
-                    this._enclosing = enclosing;
-                    this.File = file;
-                    this.Metadata = metadata;
-                    this.RelativePath = relativePath;
+                    _enclosing = enclosing;
+                    File = file;
+                    Metadata = metadata;
+                    RelativePath = relativePath;
                     ExifIfd0Directory ifd0Dir = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
                     ExifSubIfdDirectory subIfdDir = metadata.GetFirstDirectoryOfType<ExifSubIfdDirectory>();
                     ExifThumbnailDirectory thumbDir = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
                     if (ifd0Dir != null)
                     {
-                        this.Manufacturer = ifd0Dir.GetDescription(ExifIfd0Directory.TagMake);
-                        this.Model = ifd0Dir.GetDescription(ExifIfd0Directory.TagModel);
+                        Manufacturer = ifd0Dir.GetDescription(ExifDirectoryBase.TagMake);
+                        Model = ifd0Dir.GetDescription(ExifDirectoryBase.TagModel);
                     }
                     bool hasMakernoteData = false;
                     if (subIfdDir != null)
                     {
-                        this.ExifVersion = subIfdDir.GetDescription(ExifSubIfdDirectory.TagExifVersion);
-                        hasMakernoteData = subIfdDir.ContainsTag(ExifSubIfdDirectory.TagMakernote);
+                        ExifVersion = subIfdDir.GetDescription(ExifDirectoryBase.TagExifVersion);
+                        hasMakernoteData = subIfdDir.ContainsTag(ExifDirectoryBase.TagMakernote);
                     }
                     if (thumbDir != null)
                     {
-                        int? width = thumbDir.GetInteger(ExifThumbnailDirectory.TagImageWidth);
-                        int? height = thumbDir.GetInteger(ExifThumbnailDirectory.TagImageHeight);
-                        this.Thumbnail = width != null && height != null ? Extensions.StringFormat("Yes (%s x %s)", width, height) : "Yes";
+                        int? width = thumbDir.GetInteger(ExifDirectoryBase.TagImageWidth);
+                        int? height = thumbDir.GetInteger(ExifDirectoryBase.TagImageHeight);
+                        Thumbnail = width != null && height != null ? Extensions.StringFormat("Yes (%s x %s)", width, height) : "Yes";
                     }
                     foreach (Directory directory in metadata.GetDirectories())
                     {
                         if (directory.GetType().FullName.Contains("Makernote"))
                         {
-                            this.Makernote = Extensions.Trim(directory.GetName().Replace("Makernote", string.Empty));
+                            Makernote = Extensions.Trim(directory.GetName().Replace("Makernote", string.Empty));
                         }
                     }
-                    if (this.Makernote == null)
+                    if (Makernote == null)
                     {
-                        this.Makernote = hasMakernoteData ? "(Unknown)" : "N/A";
+                        Makernote = hasMakernoteData ? "(Unknown)" : "N/A";
                     }
                 }
 

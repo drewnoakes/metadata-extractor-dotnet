@@ -56,7 +56,7 @@ namespace Com.Adobe.Xmp.Impl
         public XmpIterator(XmpMeta xmp, string schemaNs, string propPath, IteratorOptions options)
         {
             // make sure that options is defined at least with defaults
-            this._options = options != null ? options : new IteratorOptions();
+            _options = options != null ? options : new IteratorOptions();
             // the start node of the iteration depending on the schema and property filter
             XmpNode startNode = null;
             string initialPath = null;
@@ -101,7 +101,7 @@ namespace Com.Adobe.Xmp.Impl
             // create iterator
             if (startNode != null)
             {
-                if (!this._options.IsJustChildren())
+                if (!_options.IsJustChildren())
                 {
                     _nodeIterator = new NodeIterator(this, startNode, initialPath, 1);
                 }
@@ -120,14 +120,14 @@ namespace Com.Adobe.Xmp.Impl
         /// <seealso cref="IXmpIterator.SkipSubtree()"/>
         public virtual void SkipSubtree()
         {
-            this.skipSubtree = true;
+            skipSubtree = true;
         }
 
         /// <seealso cref="IXmpIterator.SkipSiblings()"/>
         public virtual void SkipSiblings()
         {
             SkipSubtree();
-            this.skipSiblings = true;
+            skipSiblings = true;
         }
 
         /// <seealso cref="Sharpen.Iterator{E}.HasNext()"/>
@@ -163,7 +163,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="baseNs">sets the baseNS from the inner class.</param>
         protected internal virtual void SetBaseNs(string baseNs)
         {
-            this._baseNs = baseNs;
+            _baseNs = baseNs;
         }
 
         /// <summary>The <code>XMPIterator</code> implementation.</summary>
@@ -207,7 +207,7 @@ namespace Com.Adobe.Xmp.Impl
             /// <summary>Default constructor</summary>
             public NodeIterator(XmpIterator enclosing)
             {
-                this._enclosing = enclosing;
+                _enclosing = enclosing;
             }
 
             /// <summary>Constructor for the node iterator.</summary>
@@ -216,56 +216,56 @@ namespace Com.Adobe.Xmp.Impl
             /// <param name="index">the index within the parent node (only for arrays)</param>
             public NodeIterator(XmpIterator enclosing, XmpNode visitedNode, string parentPath, int index)
             {
-                this._enclosing = enclosing;
+                _enclosing = enclosing;
                 // EMPTY
-                this._visitedNode = visitedNode;
-                this._state = IterateNode;
+                _visitedNode = visitedNode;
+                _state = IterateNode;
                 if (visitedNode.GetOptions().IsSchemaNode())
                 {
-                    this._enclosing.SetBaseNs(visitedNode.GetName());
+                    _enclosing.SetBaseNs(visitedNode.GetName());
                 }
                 // for all but the root node and schema nodes
-                this._path = this.AccumulatePath(visitedNode, parentPath, index);
+                _path = AccumulatePath(visitedNode, parentPath, index);
             }
 
             /// <summary>Prepares the next node to return if not already done.</summary>
             /// <seealso cref="Sharpen.Iterator{E}.HasNext()"/>
             public virtual bool HasNext()
             {
-                if (this._returnProperty != null)
+                if (_returnProperty != null)
                 {
                     // hasNext has been called before
                     return true;
                 }
                 // find next node
-                if (this._state == IterateNode)
+                if (_state == IterateNode)
                 {
-                    return this.ReportNode();
+                    return ReportNode();
                 }
                 else
                 {
-                    if (this._state == IterateChildren)
+                    if (_state == IterateChildren)
                     {
-                        if (this._childrenIterator == null)
+                        if (_childrenIterator == null)
                         {
-                            this._childrenIterator = this._visitedNode.IterateChildren();
+                            _childrenIterator = _visitedNode.IterateChildren();
                         }
-                        bool hasNext = this.IterateChildrenMethod(this._childrenIterator);
-                        if (!hasNext && this._visitedNode.HasQualifier() && !this._enclosing.GetOptions().IsOmitQualifiers())
+                        bool hasNext = IterateChildrenMethod(_childrenIterator);
+                        if (!hasNext && _visitedNode.HasQualifier() && !_enclosing.GetOptions().IsOmitQualifiers())
                         {
-                            this._state = IterateQualifier;
-                            this._childrenIterator = null;
-                            hasNext = this.HasNext();
+                            _state = IterateQualifier;
+                            _childrenIterator = null;
+                            hasNext = HasNext();
                         }
                         return hasNext;
                     }
                     else
                     {
-                        if (this._childrenIterator == null)
+                        if (_childrenIterator == null)
                         {
-                            this._childrenIterator = this._visitedNode.IterateQualifier();
+                            _childrenIterator = _visitedNode.IterateQualifier();
                         }
-                        return this.IterateChildrenMethod(this._childrenIterator);
+                        return IterateChildrenMethod(_childrenIterator);
                     }
                 }
             }
@@ -274,15 +274,15 @@ namespace Com.Adobe.Xmp.Impl
             /// <returns>Returns if there is a next item to return.</returns>
             protected internal virtual bool ReportNode()
             {
-                this._state = IterateChildren;
-                if (this._visitedNode.GetParent() != null && (!this._enclosing.GetOptions().IsJustLeafnodes() || !this._visitedNode.HasChildren()))
+                _state = IterateChildren;
+                if (_visitedNode.GetParent() != null && (!_enclosing.GetOptions().IsJustLeafnodes() || !_visitedNode.HasChildren()))
                 {
-                    this._returnProperty = this.CreatePropertyInfo(this._visitedNode, this._enclosing.GetBaseNs(), this._path);
+                    _returnProperty = CreatePropertyInfo(_visitedNode, _enclosing.GetBaseNs(), _path);
                     return true;
                 }
                 else
                 {
-                    return this.HasNext();
+                    return HasNext();
                 }
             }
 
@@ -291,23 +291,23 @@ namespace Com.Adobe.Xmp.Impl
             /// <returns>Returns if there are more elements available.</returns>
             private bool IterateChildrenMethod(IIterator iterator)
             {
-                if (this._enclosing.skipSiblings)
+                if (_enclosing.skipSiblings)
                 {
                     // setSkipSiblings(false);
-                    this._enclosing.skipSiblings = false;
-                    this._subIterator = Collections.EmptyList().Iterator();
+                    _enclosing.skipSiblings = false;
+                    _subIterator = Collections.EmptyList().Iterator();
                 }
                 // create sub iterator for every child,
                 // if its the first child visited or the former child is finished
-                if ((!this._subIterator.HasNext()) && iterator.HasNext())
+                if ((!_subIterator.HasNext()) && iterator.HasNext())
                 {
                     XmpNode child = (XmpNode)iterator.Next();
-                    this._index++;
-                    this._subIterator = new NodeIterator(this._enclosing, child, this._path, this._index);
+                    _index++;
+                    _subIterator = new NodeIterator(_enclosing, child, _path, _index);
                 }
-                if (this._subIterator.HasNext())
+                if (_subIterator.HasNext())
                 {
-                    this._returnProperty = (IXmpPropertyInfo)this._subIterator.Next();
+                    _returnProperty = (IXmpPropertyInfo)_subIterator.Next();
                     return true;
                 }
                 else
@@ -325,10 +325,10 @@ namespace Com.Adobe.Xmp.Impl
             /// <seealso cref="Sharpen.Iterator{E}.Next()"/>
             public virtual object Next()
             {
-                if (this.HasNext())
+                if (HasNext())
                 {
-                    IXmpPropertyInfo result = this._returnProperty;
-                    this._returnProperty = null;
+                    IXmpPropertyInfo result = _returnProperty;
+                    _returnProperty = null;
                     return result;
                 }
                 else
@@ -375,7 +375,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 else
                 {
-                    if (this._enclosing.GetOptions().IsJustLeafname())
+                    if (_enclosing.GetOptions().IsJustLeafname())
                     {
                         return !segmentName.StartsWith("?") ? segmentName : Runtime.Substring(segmentName, 1);
                     }
@@ -402,10 +402,10 @@ namespace Com.Adobe.Xmp.Impl
             {
                 public XmpPropertyInfo450(XmpNode node, string baseNs, string path, string value)
                 {
-                    this._node = node;
-                    this._baseNs = baseNs;
-                    this._path = path;
-                    this._value = value;
+                    _node = node;
+                    _baseNs = baseNs;
+                    _path = path;
+                    _value = value;
                 }
 
                 public string GetNamespace()
@@ -455,25 +455,25 @@ namespace Com.Adobe.Xmp.Impl
             /// <returns>the childrenIterator</returns>
             protected internal virtual IIterator GetChildrenIterator()
             {
-                return this._childrenIterator;
+                return _childrenIterator;
             }
 
             /// <param name="childrenIterator">the childrenIterator to set</param>
             protected internal virtual void SetChildrenIterator(IIterator childrenIterator)
             {
-                this._childrenIterator = childrenIterator;
+                _childrenIterator = childrenIterator;
             }
 
             /// <returns>Returns the returnProperty.</returns>
             protected internal virtual IXmpPropertyInfo GetReturnProperty()
             {
-                return this._returnProperty;
+                return _returnProperty;
             }
 
             /// <param name="returnProperty">the returnProperty to set</param>
             protected internal virtual void SetReturnProperty(IXmpPropertyInfo returnProperty)
             {
-                this._returnProperty = returnProperty;
+                _returnProperty = returnProperty;
             }
 
             private readonly XmpIterator _enclosing;
@@ -498,58 +498,58 @@ namespace Com.Adobe.Xmp.Impl
             public NodeIteratorChildren(XmpIterator enclosing, XmpNode parentNode, string parentPath)
                 : base(enclosing)
             {
-                this._enclosing = enclosing;
+                _enclosing = enclosing;
                 if (parentNode.GetOptions().IsSchemaNode())
                 {
-                    this._enclosing.SetBaseNs(parentNode.GetName());
+                    _enclosing.SetBaseNs(parentNode.GetName());
                 }
-                this._parentPath = this.AccumulatePath(parentNode, parentPath, 1);
-                this._childrenIterator = parentNode.IterateChildren();
+                _parentPath = AccumulatePath(parentNode, parentPath, 1);
+                _childrenIterator = parentNode.IterateChildren();
             }
 
             /// <summary>Prepares the next node to return if not already done.</summary>
             /// <seealso cref="Sharpen.Iterator{E}.HasNext()"/>
             public override bool HasNext()
             {
-                if (this.GetReturnProperty() != null)
+                if (GetReturnProperty() != null)
                 {
                     // hasNext has been called before
                     return true;
                 }
                 else
                 {
-                    if (this._enclosing.skipSiblings)
+                    if (_enclosing.skipSiblings)
                     {
                         return false;
                     }
                     else
                     {
-                        if (this._childrenIterator.HasNext())
+                        if (_childrenIterator.HasNext())
                         {
-                            XmpNode child = (XmpNode)this._childrenIterator.Next();
-                            this._index++;
+                            XmpNode child = (XmpNode)_childrenIterator.Next();
+                            _index++;
                             string path = null;
                             if (child.GetOptions().IsSchemaNode())
                             {
-                                this._enclosing.SetBaseNs(child.GetName());
+                                _enclosing.SetBaseNs(child.GetName());
                             }
                             else
                             {
                                 if (child.GetParent() != null)
                                 {
                                     // for all but the root node and schema nodes
-                                    path = this.AccumulatePath(child, this._parentPath, this._index);
+                                    path = AccumulatePath(child, _parentPath, _index);
                                 }
                             }
                             // report next property, skip not-leaf nodes in case options is set
-                            if (!this._enclosing.GetOptions().IsJustLeafnodes() || !child.HasChildren())
+                            if (!_enclosing.GetOptions().IsJustLeafnodes() || !child.HasChildren())
                             {
-                                this.SetReturnProperty(this.CreatePropertyInfo(child, this._enclosing.GetBaseNs(), path));
+                                SetReturnProperty(CreatePropertyInfo(child, _enclosing.GetBaseNs(), path));
                                 return true;
                             }
                             else
                             {
-                                return this.HasNext();
+                                return HasNext();
                             }
                         }
                         else

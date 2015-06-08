@@ -9,8 +9,8 @@ namespace Sharpen
 
         public CharsetDecoder (Encoding enc)
         {
-            this._enc = enc;
-            this._decoder = enc.GetDecoder ();
+            _enc = enc;
+            _decoder = enc.GetDecoder ();
         }
 
         public string Decode (ByteBuffer b)

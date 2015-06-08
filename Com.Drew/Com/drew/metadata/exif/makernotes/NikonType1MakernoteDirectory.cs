@@ -83,7 +83,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public NikonType1MakernoteDirectory()
         {
-            this.SetDescriptor(new NikonType1MakernoteDescriptor(this));
+            SetDescriptor(new NikonType1MakernoteDescriptor(this));
         }
 
         [NotNull]

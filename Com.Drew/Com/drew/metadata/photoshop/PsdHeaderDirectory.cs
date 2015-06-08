@@ -65,7 +65,7 @@ namespace Com.Drew.Metadata.Photoshop
 
         public PsdHeaderDirectory()
         {
-            this.SetDescriptor(new PsdHeaderDescriptor(this));
+            SetDescriptor(new PsdHeaderDescriptor(this));
         }
 
         [NotNull]

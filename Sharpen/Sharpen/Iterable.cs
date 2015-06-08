@@ -7,14 +7,14 @@ namespace Sharpen
     {
         public IEnumerator<T> GetEnumerator ()
         {
-            return this.Iterator ();
+            return Iterator ();
         }
 
         public abstract Iterator<T> Iterator ();
 
         IEnumerator IEnumerable.GetEnumerator ()
         {
-            return this.Iterator ();
+            return Iterator ();
         }
     }
 }

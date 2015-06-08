@@ -86,7 +86,7 @@ namespace Com.Drew.Metadata.Exif
 
         public ExifThumbnailDirectory()
         {
-            this.SetDescriptor(new ExifThumbnailDescriptor(this));
+            SetDescriptor(new ExifThumbnailDescriptor(this));
         }
 
         [NotNull]

@@ -172,7 +172,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public FujifilmMakernoteDirectory()
         {
-            this.SetDescriptor(new FujifilmMakernoteDescriptor(this));
+            SetDescriptor(new FujifilmMakernoteDescriptor(this));
         }
 
         [NotNull]

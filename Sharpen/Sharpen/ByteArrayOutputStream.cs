@@ -7,7 +7,7 @@ namespace Sharpen
     {
         public ByteArrayOutputStream (int bufferSize)
         {
-            base.Wrapped = new MemoryStream (bufferSize);
+            Wrapped = new MemoryStream (bufferSize);
         }
 
         public sbyte[] ToByteArray ()
@@ -17,7 +17,7 @@ namespace Sharpen
 
         private  byte[] ToByteArrayInternal()
         {
-            return ((MemoryStream)base.Wrapped).ToArray ();
+            return ((MemoryStream)Wrapped).ToArray ();
         }
 
         public override void Close ()

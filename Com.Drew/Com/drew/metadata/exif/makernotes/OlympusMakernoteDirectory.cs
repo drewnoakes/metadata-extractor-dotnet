@@ -541,7 +541,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public OlympusMakernoteDirectory()
         {
-            this.SetDescriptor(new OlympusMakernoteDescriptor(this));
+            SetDescriptor(new OlympusMakernoteDescriptor(this));
         }
 
         [NotNull]

@@ -26,7 +26,7 @@ namespace Sharpen
         public FilePath (string other, string child)
         {
             if (other == null) {
-                this._path = child;
+                _path = child;
             } else {
                 while (child != null && child.Length > 0 && (child[0] == Path.DirectorySeparatorChar || child[0] == Path.AltDirectorySeparatorChar))
                     child = child.Substring (1);
@@ -34,7 +34,7 @@ namespace Sharpen
                 if (!string.IsNullOrEmpty(other) && other[other.Length - 1] == Path.VolumeSeparatorChar)
                     other += Path.DirectorySeparatorChar;
 
-                this._path = Path.Combine (other, child);
+                _path = Path.Combine (other, child);
             }
         }
 

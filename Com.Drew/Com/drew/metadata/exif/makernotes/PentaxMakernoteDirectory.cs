@@ -144,7 +144,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public PentaxMakernoteDirectory()
         {
-            this.SetDescriptor(new PentaxMakernoteDescriptor(this));
+            SetDescriptor(new PentaxMakernoteDescriptor(this));
         }
 
         [NotNull]

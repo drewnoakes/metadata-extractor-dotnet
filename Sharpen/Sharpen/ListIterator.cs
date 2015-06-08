@@ -9,8 +9,8 @@ namespace Sharpen
 
         public ListIterator(IList list, int n = -1)
         {
-            this._list = list;
-            this._pos = n;
+            _list = list;
+            _pos = n;
         }
 
         public override object Next()
@@ -26,7 +26,7 @@ namespace Sharpen
 
         public override bool HasNext()
         {
-            return (this._pos < _list.Count - 1);
+            return (_pos < _list.Count - 1);
         }
 
         public void Set(object val)

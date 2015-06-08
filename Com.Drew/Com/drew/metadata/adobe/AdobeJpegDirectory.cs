@@ -62,7 +62,7 @@ namespace Com.Drew.Metadata.Adobe
 
         public AdobeJpegDirectory()
         {
-            this.SetDescriptor(new AdobeJpegDescriptor(this));
+            SetDescriptor(new AdobeJpegDescriptor(this));
         }
 
         [NotNull]

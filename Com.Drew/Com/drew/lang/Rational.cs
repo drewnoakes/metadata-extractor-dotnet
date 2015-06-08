@@ -158,13 +158,13 @@ namespace Com.Drew.Lang
         /// <summary>Returns the denominator.</summary>
         public long GetDenominator()
         {
-            return this._denominator;
+            return _denominator;
         }
 
         /// <summary>Returns the numerator.</summary>
         public long GetNumerator()
         {
-            return this._numerator;
+            return _numerator;
         }
 
         /// <summary>Returns the reciprocal value of this object as a new Rational.</summary>
@@ -172,7 +172,7 @@ namespace Com.Drew.Lang
         [NotNull]
         public virtual Rational GetReciprocal()
         {
-            return new Rational(this._denominator, this._numerator);
+            return new Rational(_denominator, _numerator);
         }
 
         /// <summary>
@@ -270,7 +270,7 @@ namespace Com.Drew.Lang
                 return false;
             }
             Rational that = (Rational)obj;
-            return this.DoubleValue() == that.DoubleValue();
+            return DoubleValue() == that.DoubleValue();
         }
 
         public override int GetHashCode()

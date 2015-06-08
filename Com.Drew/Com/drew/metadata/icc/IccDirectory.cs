@@ -236,7 +236,7 @@ namespace Com.Drew.Metadata.Icc
 
         public IccDirectory()
         {
-            this.SetDescriptor(new IccDescriptor(this));
+            SetDescriptor(new IccDescriptor(this));
         }
 
         [NotNull]

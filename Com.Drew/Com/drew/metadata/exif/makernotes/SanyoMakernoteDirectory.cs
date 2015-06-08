@@ -120,7 +120,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public SanyoMakernoteDirectory()
         {
-            this.SetDescriptor(new SanyoMakernoteDescriptor(this));
+            SetDescriptor(new SanyoMakernoteDescriptor(this));
         }
 
         [NotNull]

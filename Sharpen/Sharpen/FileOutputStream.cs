@@ -12,9 +12,9 @@ namespace Sharpen
         {
             try {
                 if (append) {
-                    base.Wrapped = File.Open (file, FileMode.Append, FileAccess.Write);
+                    Wrapped = File.Open (file, FileMode.Append, FileAccess.Write);
                 } else {
-                    base.Wrapped = File.Open (file, FileMode.Create, FileAccess.Write);
+                    Wrapped = File.Open (file, FileMode.Create, FileAccess.Write);
                 }
             } catch (DirectoryNotFoundException) {
                 throw new FileNotFoundException ("File not found: " + file);

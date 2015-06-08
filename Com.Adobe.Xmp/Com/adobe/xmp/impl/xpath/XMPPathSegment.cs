@@ -29,7 +29,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         /// <param name="name">the name of the segment</param>
         public XmpPathSegment(string name)
         {
-            this._name = name;
+            _name = name;
         }
 
         /// <summary>Constructor with initial values.</summary>
@@ -37,8 +37,8 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         /// <param name="kind">the kind of the segment</param>
         public XmpPathSegment(string name, int kind)
         {
-            this._name = name;
-            this._kind = kind;
+            _name = name;
+            _kind = kind;
         }
 
         /// <returns>Returns the kind.</returns>
@@ -50,7 +50,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         /// <param name="kind">The kind to set.</param>
         public virtual void SetKind(int kind)
         {
-            this._kind = kind;
+            _kind = kind;
         }
 
         /// <returns>Returns the name.</returns>
@@ -62,13 +62,13 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         /// <param name="name">The name to set.</param>
         public virtual void SetName(string name)
         {
-            this._name = name;
+            _name = name;
         }
 
         /// <param name="alias">the flag to set</param>
         public virtual void SetAlias(bool alias)
         {
-            this._alias = alias;
+            _alias = alias;
         }
 
         /// <returns>Returns the alias.</returns>
@@ -86,7 +86,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         /// <param name="aliasForm">the aliasForm to set</param>
         public virtual void SetAliasForm(int aliasForm)
         {
-            this._aliasForm = aliasForm;
+            _aliasForm = aliasForm;
         }
 
         /// <seealso cref="object.ToString()"/>

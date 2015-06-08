@@ -97,7 +97,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         public JpegDirectory()
         {
-            this.SetDescriptor(new JpegDescriptor(this));
+            SetDescriptor(new JpegDescriptor(this));
         }
 
         [NotNull]

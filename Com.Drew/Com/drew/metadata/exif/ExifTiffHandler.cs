@@ -115,12 +115,12 @@ namespace Com.Drew.Metadata.Exif
         public override bool CustomProcessTag(int tagOffset, [NotNull] ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, [NotNull] RandomAccessReader reader, int tagId, int byteCount)
         {
             // Custom processing for the Makernote tag
-            if (tagId == ExifSubIfdDirectory.TagMakernote && CurrentDirectory is ExifSubIfdDirectory)
+            if (tagId == ExifDirectoryBase.TagMakernote && CurrentDirectory is ExifSubIfdDirectory)
             {
                 return ProcessMakernote(tagOffset, processedIfdOffsets, tiffHeaderOffset, reader);
             }
             // Custom processing for embedded IPTC data
-            if (tagId == ExifSubIfdDirectory.TagIptcNaa && CurrentDirectory is ExifIfd0Directory)
+            if (tagId == ExifDirectoryBase.TagIptcNaa && CurrentDirectory is ExifIfd0Directory)
             {
                 // NOTE Adobe sets type 4 for IPTC instead of 7
                 if (reader.GetInt8(tagOffset) == unchecked((int)(0x1c)))
@@ -169,7 +169,7 @@ namespace Com.Drew.Metadata.Exif
             {
                 return false;
             }
-            string cameraMake = ifd0Directory.GetString(ExifIfd0Directory.TagMake);
+            string cameraMake = ifd0Directory.GetString(ExifDirectoryBase.TagMake);
             string firstTwoChars = reader.GetString(makernoteOffset, 2);
             string firstThreeChars = reader.GetString(makernoteOffset, 3);
             string firstFourChars = reader.GetString(makernoteOffset, 4);

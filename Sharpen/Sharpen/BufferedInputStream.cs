@@ -7,7 +7,7 @@ namespace Sharpen
         public BufferedInputStream (InputStream s)
         {
             BaseStream = s.GetWrappedStream ();
-            base.Wrapped = new BufferedStream (BaseStream);
+            Wrapped = new BufferedStream (BaseStream);
         }
     }
 }

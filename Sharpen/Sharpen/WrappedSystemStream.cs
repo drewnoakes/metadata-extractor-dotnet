@@ -12,12 +12,12 @@ namespace Sharpen
 
         public WrappedSystemStream (InputStream ist)
         {
-            this._ist = ist;
+            _ist = ist;
         }
 
         public WrappedSystemStream (OutputStream ost)
         {
-            this._ost = ost;
+            _ost = ost;
         }
 
         public InputStream InputStream {
@@ -30,23 +30,23 @@ namespace Sharpen
 
         public override void Close ()
         {
-            if (this._ist != null) {
-                this._ist.Close ();
+            if (_ist != null) {
+                _ist.Close ();
             }
-            if (this._ost != null) {
-                this._ost.Close ();
+            if (_ost != null) {
+                _ost.Close ();
             }
         }
 
         public override void Flush ()
         {
-            this._ost.Flush ();
+            _ost.Flush ();
         }
 
         public override int Read (byte[] buffer, int offset, int count)
         {
             sbyte[] sbuffer = new sbyte[count];
-            int res = this._ist.Read(sbuffer, 0, count);
+            int res = _ist.Read(sbuffer, 0, count);
             Extensions.CopyCastBuffer(sbuffer,0, count,  buffer, offset);
             if (res != -1) {
                 _position += res;
@@ -57,7 +57,7 @@ namespace Sharpen
 
         public override int ReadByte ()
         {
-            int res = this._ist.Read ();
+            int res = _ist.Read ();
             if (res != -1)
                 _position++;
             return res;
@@ -83,18 +83,18 @@ namespace Sharpen
         {
             sbyte[] sbuffer = new sbyte[count];
             Extensions.CopyCastBuffer(buffer, offset, count, sbuffer,0);
-            this._ost.Write (sbuffer, 0, count);
+            _ost.Write (sbuffer, 0, count);
             _position += count;
         }
 
         public override void WriteByte (byte value)
         {
-            this._ost.Write (value);
+            _ost.Write (value);
             _position++;
         }
 
         public override bool CanRead {
-            get { return (this._ist != null); }
+            get { return (_ist != null); }
         }
 
         public override bool CanSeek {
@@ -102,7 +102,7 @@ namespace Sharpen
         }
 
         public override bool CanWrite {
-            get { return (this._ost != null); }
+            get { return (_ost != null); }
         }
 
         public override long Length {

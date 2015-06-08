@@ -74,7 +74,7 @@ namespace Com.Drew.Metadata.Exif
         public virtual void TestLoadFujifilmJpeg()
         {
             ExifSubIfdDirectory directory = ProcessBytes<ExifSubIfdDirectory>("Tests/Data/withExif.jpg.app1");
-            string description = directory.GetDescription(ExifSubIfdDirectory.TagIsoEquivalent);
+            string description = directory.GetDescription(ExifDirectoryBase.TagIsoEquivalent);
             Assert.IsNotNull(description);
             Assert.AreEqual("80", description);
         }
@@ -110,7 +110,7 @@ namespace Com.Drew.Metadata.Exif
         public virtual void TestDateTime()
         {
             ExifIfd0Directory directory = ProcessBytes<ExifIfd0Directory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
-            Assert.AreEqual("2002:11:27 18:00:35", directory.GetString(ExifIfd0Directory.TagDatetime));
+            Assert.AreEqual("2002:11:27 18:00:35", directory.GetString(ExifDirectoryBase.TagDatetime));
         }
 
         /// <exception cref="System.Exception"/>
@@ -118,7 +118,7 @@ namespace Com.Drew.Metadata.Exif
         public virtual void TestThumbnailXResolution()
         {
             ExifThumbnailDirectory directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
-            Rational rational = directory.GetRational(ExifThumbnailDirectory.TagXResolution);
+            Rational rational = directory.GetRational(ExifDirectoryBase.TagXResolution);
             Assert.IsNotNull(rational);
             Assert.AreEqual(72, (object)rational.GetNumerator());
             Assert.AreEqual(1, (object)rational.GetDenominator());
@@ -129,7 +129,7 @@ namespace Com.Drew.Metadata.Exif
         public virtual void TestThumbnailYResolution()
         {
             ExifThumbnailDirectory directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
-            Rational rational = directory.GetRational(ExifThumbnailDirectory.TagYResolution);
+            Rational rational = directory.GetRational(ExifDirectoryBase.TagYResolution);
             Assert.IsNotNull(rational);
             Assert.AreEqual(72, (object)rational.GetNumerator());
             Assert.AreEqual(1, (object)rational.GetDenominator());
@@ -194,8 +194,8 @@ namespace Com.Drew.Metadata.Exif
             ExifThumbnailDirectory thumbnailDirectory = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
             Assert.IsNotNull(ifd0Directory);
             Assert.IsNotNull(thumbnailDirectory);
-            Assert.AreEqual(1, ifd0Directory.GetInt(ExifIfd0Directory.TagOrientation));
-            Assert.AreEqual(8, thumbnailDirectory.GetInt(ExifThumbnailDirectory.TagOrientation));
+            Assert.AreEqual(1, ifd0Directory.GetInt(ExifDirectoryBase.TagOrientation));
+            Assert.AreEqual(8, thumbnailDirectory.GetInt(ExifDirectoryBase.TagOrientation));
         }
 /*
     public void testUncompressedYCbCrThumbnail() throws Exception

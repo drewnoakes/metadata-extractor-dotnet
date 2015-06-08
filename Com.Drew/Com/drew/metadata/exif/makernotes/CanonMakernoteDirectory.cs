@@ -805,7 +805,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public CanonMakernoteDirectory()
         {
-            this.SetDescriptor(new CanonMakernoteDescriptor(this));
+            SetDescriptor(new CanonMakernoteDescriptor(this));
         }
 
         [NotNull]

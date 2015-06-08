@@ -162,7 +162,7 @@ namespace Com.Drew.Metadata.Exif
 
         public GpsDirectory()
         {
-            this.SetDescriptor(new GpsDescriptor(this));
+            SetDescriptor(new GpsDescriptor(this));
         }
 
         [NotNull]

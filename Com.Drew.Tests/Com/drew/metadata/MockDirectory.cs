@@ -33,7 +33,7 @@ namespace Com.Drew.Metadata
 
         public MockDirectory()
         {
-            this._tagNameMap = new Dictionary<int?, string>();
+            _tagNameMap = new Dictionary<int?, string>();
         }
 
         [NotNull]

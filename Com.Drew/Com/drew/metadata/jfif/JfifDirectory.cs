@@ -54,7 +54,7 @@ namespace Com.Drew.Metadata.Jfif
 
         public JfifDirectory()
         {
-            this.SetDescriptor(new JfifDescriptor(this));
+            SetDescriptor(new JfifDescriptor(this));
         }
 
         [NotNull]

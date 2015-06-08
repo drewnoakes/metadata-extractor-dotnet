@@ -545,7 +545,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public PanasonicMakernoteDirectory()
         {
-            this.SetDescriptor(new PanasonicMakernoteDescriptor(this));
+            SetDescriptor(new PanasonicMakernoteDescriptor(this));
         }
 
         [NotNull]

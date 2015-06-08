@@ -46,7 +46,7 @@ namespace Com.Drew.Metadata.Bmp
 
         public BmpHeaderDirectory()
         {
-            this.SetDescriptor(new BmpHeaderDescriptor(this));
+            SetDescriptor(new BmpHeaderDescriptor(this));
         }
 
         [NotNull]

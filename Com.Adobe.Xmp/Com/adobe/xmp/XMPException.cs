@@ -25,7 +25,7 @@ namespace Com.Adobe.Xmp
         public XmpException(string message, int errorCode)
             : base(message)
         {
-            this._errorCode = errorCode;
+            _errorCode = errorCode;
         }
 
         /// <summary>Constructs an exception with a message, an error code and a <code>Throwable</code></summary>
@@ -35,7 +35,7 @@ namespace Com.Adobe.Xmp
         public XmpException(string message, int errorCode, Exception t)
             : base(message, t)
         {
-            this._errorCode = errorCode;
+            _errorCode = errorCode;
         }
 
         /// <returns>Returns the errorCode.</returns>

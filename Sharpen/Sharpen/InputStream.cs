@@ -59,7 +59,7 @@ namespace Sharpen
                 if (stream != null)
                     stream.OnMark (readlimit);
                 if (Wrapped != null)
-                    this._mark = Wrapped.Position;
+                    _mark = Wrapped.Position;
             }
         }
 

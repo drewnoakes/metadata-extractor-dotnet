@@ -48,7 +48,7 @@ namespace Sharpen
 
         public HttpUrlConnection (Uri uri)
         {
-            _request = (HttpWebRequest) HttpWebRequest.Create (uri);
+            _request = (HttpWebRequest) WebRequest.Create (uri);
         }
 
         HttpWebResponse Response {

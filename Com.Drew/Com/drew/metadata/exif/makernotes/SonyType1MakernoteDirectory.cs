@@ -247,7 +247,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public SonyType1MakernoteDirectory()
         {
-            this.SetDescriptor(new SonyType1MakernoteDescriptor(this));
+            SetDescriptor(new SonyType1MakernoteDescriptor(this));
         }
 
         [NotNull]

@@ -43,7 +43,7 @@ namespace Com.Drew.Metadata.Gif
 
         public GifHeaderDirectory()
         {
-            this.SetDescriptor(new GifHeaderDescriptor(this));
+            SetDescriptor(new GifHeaderDescriptor(this));
         }
 
         [NotNull]

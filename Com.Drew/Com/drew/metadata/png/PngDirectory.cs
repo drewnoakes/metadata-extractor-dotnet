@@ -99,7 +99,7 @@ namespace Com.Drew.Metadata.Png
         public PngDirectory([NotNull] PngChunkType pngChunkType)
         {
             _pngChunkType = pngChunkType;
-            this.SetDescriptor(new PngDescriptor(this));
+            SetDescriptor(new PngDescriptor(this));
         }
 
         [NotNull]

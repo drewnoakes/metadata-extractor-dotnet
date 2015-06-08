@@ -14,7 +14,7 @@ namespace SampleReader
         static int Main(string[] args)
         {
             var resource = "https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/jpg/Apple%20iPhone%206%20plus.jpg";
-            var request = HttpWebRequest.Create(new Uri(resource));
+            var request = WebRequest.Create(new Uri(resource));
             var exitCode = 0;
 
             using (var response = request.GetResponse())

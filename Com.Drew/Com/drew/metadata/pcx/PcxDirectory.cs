@@ -80,7 +80,7 @@ namespace Com.Drew.Metadata.Pcx
 
         public PcxDirectory()
         {
-            this.SetDescriptor(new PcxDescriptor(this));
+            SetDescriptor(new PcxDescriptor(this));
         }
 
         [NotNull]

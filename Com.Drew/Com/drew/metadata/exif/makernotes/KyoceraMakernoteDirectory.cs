@@ -45,7 +45,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public KyoceraMakernoteDirectory()
         {
-            this.SetDescriptor(new KyoceraMakernoteDescriptor(this));
+            SetDescriptor(new KyoceraMakernoteDescriptor(this));
         }
 
         [NotNull]

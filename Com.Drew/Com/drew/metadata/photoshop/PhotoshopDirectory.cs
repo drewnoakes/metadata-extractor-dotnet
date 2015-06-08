@@ -291,7 +291,7 @@ namespace Com.Drew.Metadata.Photoshop
 
         public PhotoshopDirectory()
         {
-            this.SetDescriptor(new PhotoshopDescriptor(this));
+            SetDescriptor(new PhotoshopDescriptor(this));
         }
 
         [NotNull]

@@ -44,19 +44,19 @@ namespace Com.Drew.Metadata
         [Test]
         public virtual void TestSetAndGetMultipleTagsInSingleDirectory()
         {
-            _directory.SetString(ExifSubIfdDirectory.TagAperture, "TAG_APERTURE");
-            _directory.SetString(ExifSubIfdDirectory.TagBatteryLevel, "TAG_BATTERY_LEVEL");
-            Assert.AreEqual("TAG_APERTURE", _directory.GetString(ExifSubIfdDirectory.TagAperture));
-            Assert.AreEqual("TAG_BATTERY_LEVEL", _directory.GetString(ExifSubIfdDirectory.TagBatteryLevel));
+            _directory.SetString(ExifDirectoryBase.TagAperture, "TAG_APERTURE");
+            _directory.SetString(ExifDirectoryBase.TagBatteryLevel, "TAG_BATTERY_LEVEL");
+            Assert.AreEqual("TAG_APERTURE", _directory.GetString(ExifDirectoryBase.TagAperture));
+            Assert.AreEqual("TAG_BATTERY_LEVEL", _directory.GetString(ExifDirectoryBase.TagBatteryLevel));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestSetSameTagMultipleTimesOverwritesValue()
         {
-            _directory.SetInt(ExifSubIfdDirectory.TagAperture, 1);
-            _directory.SetInt(ExifSubIfdDirectory.TagAperture, 2);
-            Assert.AreEqual(2, _directory.GetInt(ExifSubIfdDirectory.TagAperture));
+            _directory.SetInt(ExifDirectoryBase.TagAperture, 1);
+            _directory.SetInt(ExifDirectoryBase.TagAperture, 2);
+            Assert.AreEqual(2, _directory.GetInt(ExifDirectoryBase.TagAperture));
         }
 
         /// <exception cref="System.Exception"/>
@@ -151,27 +151,27 @@ namespace Com.Drew.Metadata
         [Test]
         public virtual void TestContainsTag()
         {
-            Assert.IsFalse(_directory.ContainsTag(ExifSubIfdDirectory.TagAperture));
-            _directory.SetString(ExifSubIfdDirectory.TagAperture, "Tag Value");
-            Assert.IsTrue(_directory.ContainsTag(ExifSubIfdDirectory.TagAperture));
+            Assert.IsFalse(_directory.ContainsTag(ExifDirectoryBase.TagAperture));
+            _directory.SetString(ExifDirectoryBase.TagAperture, "Tag Value");
+            Assert.IsTrue(_directory.ContainsTag(ExifDirectoryBase.TagAperture));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestGetNonExistentTagIsNullForAllTypes()
         {
-            Assert.IsNull(_directory.GetString(ExifSubIfdDirectory.TagAperture));
-            Assert.IsNull(_directory.GetInteger(ExifSubIfdDirectory.TagAperture));
-            Assert.IsNull(_directory.GetDoubleObject(ExifSubIfdDirectory.TagAperture));
-            Assert.IsNull(_directory.GetFloatObject(ExifSubIfdDirectory.TagAperture));
-            Assert.IsNull(_directory.GetByteArray(ExifSubIfdDirectory.TagAperture));
-            Assert.IsNull(_directory.GetDate(ExifSubIfdDirectory.TagAperture));
-            Assert.IsNull(_directory.GetIntArray(ExifSubIfdDirectory.TagAperture));
-            Assert.IsNull(_directory.GetLongObject(ExifSubIfdDirectory.TagAperture));
-            Assert.IsNull(_directory.GetObject(ExifSubIfdDirectory.TagAperture));
-            Assert.IsNull(_directory.GetRational(ExifSubIfdDirectory.TagAperture));
-            Assert.IsNull(_directory.GetRationalArray(ExifSubIfdDirectory.TagAperture));
-            Assert.IsNull(_directory.GetStringArray(ExifSubIfdDirectory.TagAperture));
+            Assert.IsNull(_directory.GetString(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetInteger(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetDoubleObject(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetFloatObject(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetByteArray(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetDate(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetIntArray(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetLongObject(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetObject(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetRational(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetRationalArray(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetStringArray(ExifDirectoryBase.TagAperture));
         }
 
         [Test]

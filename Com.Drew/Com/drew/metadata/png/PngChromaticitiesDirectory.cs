@@ -62,7 +62,7 @@ namespace Com.Drew.Metadata.Png
 
         public PngChromaticitiesDirectory()
         {
-            this.SetDescriptor(new TagDescriptor<PngChromaticitiesDirectory>(this));
+            SetDescriptor(new TagDescriptor<PngChromaticitiesDirectory>(this));
         }
 
         [NotNull]

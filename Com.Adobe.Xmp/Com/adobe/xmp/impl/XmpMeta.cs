@@ -58,7 +58,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </param>
         public XmpMeta(XmpNode tree)
         {
-            this._tree = tree;
+            _tree = tree;
         }
 
         /// <seealso cref="IXmpMeta.AppendArrayItem(string, string, Com.Adobe.Xmp.Options.PropertyOptions, string, Com.Adobe.Xmp.Options.PropertyOptions)"/>
@@ -324,7 +324,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             public XmpProperty407(XmpNode itemNode)
             {
-                this._itemNode = itemNode;
+                _itemNode = itemNode;
             }
 
             public string GetValue()
@@ -577,8 +577,8 @@ namespace Com.Adobe.Xmp.Impl
         {
             public XmpProperty682(object value, XmpNode propNode)
             {
-                this._value = value;
-                this._propNode = propNode;
+                _value = value;
+                _propNode = propNode;
             }
 
             public string GetValue()
@@ -971,7 +971,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="packetHeader">the processing instruction content</param>
         public virtual void SetPacketHeader(string packetHeader)
         {
-            this._packetHeader = packetHeader;
+            _packetHeader = packetHeader;
         }
 
         /// <summary>Performs a deep clone of the XMPMeta-object</summary>
@@ -991,7 +991,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <seealso cref="IXmpMeta.Sort()"/>
         public virtual void Sort()
         {
-            this._tree.Sort();
+            _tree.Sort();
         }
 
         /// <seealso cref="IXmpMeta.Normalize(Com.Adobe.Xmp.Options.ParseOptions)"/>

@@ -235,7 +235,7 @@ namespace Com.Drew.Metadata.Xmp
             // _tagNameMap.put(TAG_ACCRUAL_METHOD, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
             // _tagNameMap.put(TAG_ACCRUAL_PERIODICITY, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
             // _tagNameMap.put(TAG_ACCRUAL_POLICY, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            this.SetDescriptor(new XmpDescriptor(this));
+            SetDescriptor(new XmpDescriptor(this));
         }
 
         [NotNull]
@@ -311,7 +311,7 @@ namespace Com.Drew.Metadata.Xmp
         // At the very least document this carefully!
         public virtual void UpdateInt(int tagType, int value)
         {
-            base.SetInt(tagType, value);
+            SetInt(tagType, value);
             try
             {
                 GetXmpMeta().SetPropertyInteger(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
@@ -324,7 +324,7 @@ namespace Com.Drew.Metadata.Xmp
 
         public virtual void UpdateIntArray(int tagType, int[] ints)
         {
-            base.SetIntArray(tagType, ints);
+            SetIntArray(tagType, ints);
             try
             {
                 string schemaNs = TagSchemaMap.Get(tagType);
@@ -344,7 +344,7 @@ namespace Com.Drew.Metadata.Xmp
 
         public virtual void UpdateFloat(int tagType, float value)
         {
-            base.SetFloat(tagType, value);
+            SetFloat(tagType, value);
             try
             {
                 GetXmpMeta().SetPropertyDouble(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
@@ -357,7 +357,7 @@ namespace Com.Drew.Metadata.Xmp
 
         public virtual void UpdateFloatArray(int tagType, float[] floats)
         {
-            base.SetFloatArray(tagType, floats);
+            SetFloatArray(tagType, floats);
             try
             {
                 string schemaNs = TagSchemaMap.Get(tagType);
@@ -377,7 +377,7 @@ namespace Com.Drew.Metadata.Xmp
 
         public virtual void UpdateDouble(int tagType, double value)
         {
-            base.SetDouble(tagType, value);
+            SetDouble(tagType, value);
             try
             {
                 GetXmpMeta().SetPropertyDouble(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
@@ -390,7 +390,7 @@ namespace Com.Drew.Metadata.Xmp
 
         public virtual void UpdateDoubleArray(int tagType, double[] doubles)
         {
-            base.SetDoubleArray(tagType, doubles);
+            SetDoubleArray(tagType, doubles);
             try
             {
                 string schemaNs = TagSchemaMap.Get(tagType);
@@ -410,7 +410,7 @@ namespace Com.Drew.Metadata.Xmp
 
         public virtual void UpdateString(int tagType, string value)
         {
-            base.SetString(tagType, value);
+            SetString(tagType, value);
             try
             {
                 GetXmpMeta().SetProperty(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
@@ -428,7 +428,7 @@ namespace Com.Drew.Metadata.Xmp
 
         public virtual void UpdateStringArray(int tagType, string[] strings)
         {
-            base.SetStringArray(tagType, strings);
+            SetStringArray(tagType, strings);
             try
             {
                 string schemaNs = TagSchemaMap.Get(tagType);
@@ -448,7 +448,7 @@ namespace Com.Drew.Metadata.Xmp
 
         public virtual void UpdateBoolean(int tagType, bool value)
         {
-            base.SetBoolean(tagType, value);
+            SetBoolean(tagType, value);
             try
             {
                 GetXmpMeta().SetPropertyBoolean(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
@@ -461,7 +461,7 @@ namespace Com.Drew.Metadata.Xmp
 
         public virtual void UpdateLong(int tagType, long value)
         {
-            base.SetLong(tagType, value);
+            SetLong(tagType, value);
             try
             {
                 GetXmpMeta().SetPropertyLong(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
@@ -474,7 +474,7 @@ namespace Com.Drew.Metadata.Xmp
 
         public virtual void UpdateDate(int tagType, DateTime value)
         {
-            base.SetDate(tagType, value);
+            SetDate(tagType, value);
             IXmpDateTime date = new XmpDateTime(value, TimeZoneInfo.Local);
             try
             {

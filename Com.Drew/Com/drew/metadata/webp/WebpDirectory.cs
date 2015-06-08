@@ -50,7 +50,7 @@ namespace Com.Drew.Metadata.Webp
 
         public WebpDirectory()
         {
-            this.SetDescriptor(new WebpDescriptor(this));
+            SetDescriptor(new WebpDescriptor(this));
         }
 
         [NotNull]

@@ -278,8 +278,8 @@ namespace Com.Drew.Imaging
                     string fileName = file.GetName();
                     string urlName = StringUtil.UrlEncode(filePath);
                     ExifIfd0Directory exifIfd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
-                    string make = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifIfd0Directory.TagMake);
-                    string model = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifIfd0Directory.TagModel);
+                    string make = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifDirectoryBase.TagMake);
+                    string model = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifDirectoryBase.TagModel);
                     Console.Out.Println();
                     Console.Out.Println("---");
                     Console.Out.Println();

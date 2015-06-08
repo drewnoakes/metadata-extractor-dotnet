@@ -69,9 +69,9 @@ namespace Com.Adobe.Xmp.Impl
         public XmpNode(string name, string value, PropertyOptions options)
         {
             // internal processing options
-            this._name = name;
-            this._value = value;
-            this._options = options;
+            _name = name;
+            _value = value;
+            _options = options;
         }
 
         /// <summary>Constructor for the node without value.</summary>
@@ -336,7 +336,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             public Iterator391(IIterator it)
             {
-                this._it = it;
+                _it = it;
             }
 
             public bool HasNext()
@@ -408,7 +408,7 @@ namespace Com.Adobe.Xmp.Impl
         public virtual string DumpNode(bool recursive)
         {
             StringBuilder result = new StringBuilder(512);
-            this.DumpNode(result, recursive, 0, 0);
+            DumpNode(result, recursive, 0, 0);
             return result.ToString();
         }
 
@@ -417,11 +417,11 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (GetOptions().IsSchemaNode())
             {
-                return string.CompareOrdinal(this._value, ((XmpNode)xmpNode).GetValue());
+                return string.CompareOrdinal(_value, ((XmpNode)xmpNode).GetValue());
             }
             else
             {
-                return string.CompareOrdinal(this._name, ((XmpNode)xmpNode).GetName());
+                return string.CompareOrdinal(_name, ((XmpNode)xmpNode).GetName());
             }
         }
 
@@ -434,7 +434,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="name">The name to set.</param>
         public virtual void SetName(string name)
         {
-            this._name = name;
+            _name = name;
         }
 
         /// <returns>Returns the value.</returns>
@@ -446,7 +446,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="value">The value to set.</param>
         public virtual void SetValue(string value)
         {
-            this._value = value;
+            _value = value;
         }
 
         /// <returns>Returns the options.</returns>
@@ -463,7 +463,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="options">the options to set.</param>
         public virtual void SetOptions(PropertyOptions options)
         {
-            this._options = options;
+            _options = options;
         }
 
         /// <returns>Returns the implicit flag</returns>
@@ -475,7 +475,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="implicit">Sets the implicit node flag</param>
         public virtual void SetImplicit(bool @implicit)
         {
-            this._implicit = @implicit;
+            _implicit = @implicit;
         }
 
         /// <returns>Returns if the node contains aliases (applies only to schema nodes)</returns>
@@ -487,7 +487,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="hasAliases">sets the flag that the node contains aliases</param>
         public virtual void SetHasAliases(bool hasAliases)
         {
-            this._hasAliases = hasAliases;
+            _hasAliases = hasAliases;
         }
 
         /// <returns>Returns if the node contains aliases (applies only to schema nodes)</returns>
@@ -499,7 +499,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="alias">sets the flag that the node is an alias</param>
         public virtual void SetAlias(bool alias)
         {
-            this._alias = alias;
+            _alias = alias;
         }
 
         /// <returns>the hasValueChild</returns>
@@ -511,7 +511,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="hasValueChild">the hasValueChild to set</param>
         public virtual void SetHasValueChild(bool hasValueChild)
         {
-            this._hasValueChild = hasValueChild;
+            _hasValueChild = hasValueChild;
         }
 
         /// <summary>
@@ -715,7 +715,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="parent">Sets the parent node.</param>
         protected internal virtual void SetParent(XmpNode parent)
         {
-            this._parent = parent;
+            _parent = parent;
         }
 
         /// <summary>Internal find.</summary>

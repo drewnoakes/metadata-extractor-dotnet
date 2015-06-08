@@ -972,7 +972,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public NikonType2MakernoteDirectory()
         {
-            this.SetDescriptor(new NikonType2MakernoteDescriptor(this));
+            SetDescriptor(new NikonType2MakernoteDescriptor(this));
         }
 
         [NotNull]

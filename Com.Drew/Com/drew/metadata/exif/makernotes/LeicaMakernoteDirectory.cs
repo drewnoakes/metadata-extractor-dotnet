@@ -98,7 +98,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public LeicaMakernoteDirectory()
         {
-            this.SetDescriptor(new LeicaMakernoteDescriptor(this));
+            SetDescriptor(new LeicaMakernoteDescriptor(this));
         }
 
         [NotNull]

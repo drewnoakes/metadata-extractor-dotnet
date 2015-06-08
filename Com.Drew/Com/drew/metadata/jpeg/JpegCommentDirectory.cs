@@ -47,7 +47,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         public JpegCommentDirectory()
         {
-            this.SetDescriptor(new JpegCommentDescriptor(this));
+            SetDescriptor(new JpegCommentDescriptor(this));
         }
 
         [NotNull]

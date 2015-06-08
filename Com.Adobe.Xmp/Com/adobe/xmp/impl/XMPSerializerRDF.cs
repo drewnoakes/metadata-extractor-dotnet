@@ -91,9 +91,9 @@ namespace Com.Adobe.Xmp.Impl
             {
                 _outputStream = new CountOutputStream(@out);
                 _writer = new OutputStreamWriter(_outputStream, options.GetEncoding());
-                this._xmp = (XmpMeta)xmp;
-                this._options = options;
-                this._padding = options.GetPadding();
+                _xmp = (XmpMeta)xmp;
+                _options = options;
+                _padding = options.GetPadding();
                 _writer = new OutputStreamWriter(_outputStream, options.GetEncoding());
                 CheckOptionsConsistence();
                 // serializes the whole packet, but don't write the tail yet

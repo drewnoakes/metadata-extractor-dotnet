@@ -6,12 +6,12 @@ namespace Sharpen
     {
         public ByteArrayInputStream (sbyte[] data)
         {
-            base.Wrapped = new MemoryStream(Extensions.ConvertToByteArray(data));
+            Wrapped = new MemoryStream(Extensions.ConvertToByteArray(data));
         }
 
         public ByteArrayInputStream (sbyte[] data, int off, int len)
         {
-            base.Wrapped = new MemoryStream (Extensions.ConvertToByteArray(data), off, len);
+            Wrapped = new MemoryStream (Extensions.ConvertToByteArray(data), off, len);
         }
 
         public override int Available ()

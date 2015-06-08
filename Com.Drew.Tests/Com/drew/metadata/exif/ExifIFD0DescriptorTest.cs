@@ -37,11 +37,11 @@ namespace Com.Drew.Metadata.Exif
         public virtual void TestXResolutionDescription()
         {
             ExifIfd0Directory directory = new ExifIfd0Directory();
-            directory.SetRational(ExifIfd0Directory.TagXResolution, new Rational(72, 1));
+            directory.SetRational(ExifDirectoryBase.TagXResolution, new Rational(72, 1));
             // 2 is for 'Inch'
-            directory.SetInt(ExifIfd0Directory.TagResolutionUnit, 2);
+            directory.SetInt(ExifDirectoryBase.TagResolutionUnit, 2);
             ExifIfd0Descriptor descriptor = new ExifIfd0Descriptor(directory);
-            Assert.AreEqual("72 dots per inch", descriptor.GetDescription(ExifIfd0Directory.TagXResolution));
+            Assert.AreEqual("72 dots per inch", descriptor.GetDescription(ExifDirectoryBase.TagXResolution));
         }
 
         /// <exception cref="System.Exception"/>
@@ -49,11 +49,11 @@ namespace Com.Drew.Metadata.Exif
         public virtual void TestYResolutionDescription()
         {
             ExifIfd0Directory directory = new ExifIfd0Directory();
-            directory.SetRational(ExifIfd0Directory.TagYResolution, new Rational(50, 1));
+            directory.SetRational(ExifDirectoryBase.TagYResolution, new Rational(50, 1));
             // 3 is for 'cm'
-            directory.SetInt(ExifIfd0Directory.TagResolutionUnit, 3);
+            directory.SetInt(ExifDirectoryBase.TagResolutionUnit, 3);
             ExifIfd0Descriptor descriptor = new ExifIfd0Descriptor(directory);
-            Assert.AreEqual("50 dots per cm", descriptor.GetDescription(ExifIfd0Directory.TagYResolution));
+            Assert.AreEqual("50 dots per cm", descriptor.GetDescription(ExifDirectoryBase.TagYResolution));
         }
 
         /// <exception cref="System.Exception"/>
@@ -61,17 +61,17 @@ namespace Com.Drew.Metadata.Exif
         public virtual void TestWindowsXpFields()
         {
             ExifIfd0Directory directory = ExifReaderTest.ProcessBytes<ExifIfd0Directory>("Tests/Data/windowsXpFields.jpg.app1");
-            Assert.AreEqual("Testing artist\x0", directory.GetString(ExifIfd0Directory.TagWinAuthor, "UTF-16LE"));
-            Assert.AreEqual("Testing comments\x0", directory.GetString(ExifIfd0Directory.TagWinComment, "UTF-16LE"));
-            Assert.AreEqual("Testing keywords\x0", directory.GetString(ExifIfd0Directory.TagWinKeywords, "UTF-16LE"));
-            Assert.AreEqual("Testing subject\x0", directory.GetString(ExifIfd0Directory.TagWinSubject, "UTF-16LE"));
-            Assert.AreEqual("Testing title\x0", directory.GetString(ExifIfd0Directory.TagWinTitle, "UTF-16LE"));
+            Assert.AreEqual("Testing artist\x0", directory.GetString(ExifDirectoryBase.TagWinAuthor, "UTF-16LE"));
+            Assert.AreEqual("Testing comments\x0", directory.GetString(ExifDirectoryBase.TagWinComment, "UTF-16LE"));
+            Assert.AreEqual("Testing keywords\x0", directory.GetString(ExifDirectoryBase.TagWinKeywords, "UTF-16LE"));
+            Assert.AreEqual("Testing subject\x0", directory.GetString(ExifDirectoryBase.TagWinSubject, "UTF-16LE"));
+            Assert.AreEqual("Testing title\x0", directory.GetString(ExifDirectoryBase.TagWinTitle, "UTF-16LE"));
             ExifIfd0Descriptor descriptor = new ExifIfd0Descriptor(directory);
-            Assert.AreEqual("Testing artist", descriptor.GetDescription(ExifIfd0Directory.TagWinAuthor));
-            Assert.AreEqual("Testing comments", descriptor.GetDescription(ExifIfd0Directory.TagWinComment));
-            Assert.AreEqual("Testing keywords", descriptor.GetDescription(ExifIfd0Directory.TagWinKeywords));
-            Assert.AreEqual("Testing subject", descriptor.GetDescription(ExifIfd0Directory.TagWinSubject));
-            Assert.AreEqual("Testing title", descriptor.GetDescription(ExifIfd0Directory.TagWinTitle));
+            Assert.AreEqual("Testing artist", descriptor.GetDescription(ExifDirectoryBase.TagWinAuthor));
+            Assert.AreEqual("Testing comments", descriptor.GetDescription(ExifDirectoryBase.TagWinComment));
+            Assert.AreEqual("Testing keywords", descriptor.GetDescription(ExifDirectoryBase.TagWinKeywords));
+            Assert.AreEqual("Testing subject", descriptor.GetDescription(ExifDirectoryBase.TagWinSubject));
+            Assert.AreEqual("Testing title", descriptor.GetDescription(ExifDirectoryBase.TagWinTitle));
         }
     }
 }

@@ -51,7 +51,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public RicohMakernoteDirectory()
         {
-            this.SetDescriptor(new RicohMakernoteDescriptor(this));
+            SetDescriptor(new RicohMakernoteDescriptor(this));
         }
 
         [NotNull]

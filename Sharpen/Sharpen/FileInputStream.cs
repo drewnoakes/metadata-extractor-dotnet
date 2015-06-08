@@ -13,7 +13,7 @@ namespace Sharpen
             if (!File.Exists (file)) {
                 throw new FileNotFoundException ("File not found", file);
             }
-            base.Wrapped = new FileStream (file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            Wrapped = new FileStream (file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
         }
     }
 }
