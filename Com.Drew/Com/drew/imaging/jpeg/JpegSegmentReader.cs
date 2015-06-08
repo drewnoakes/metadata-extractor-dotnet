@@ -184,11 +184,5 @@ namespace Com.Drew.Imaging.Jpeg
             }
             while (true);
         }
-
-        /// <exception cref="System.Exception"/>
-        private JpegSegmentReader()
-        {
-            throw new Exception("Not intended for instantiation.");
-        }
     }
 }

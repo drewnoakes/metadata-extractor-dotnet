@@ -104,11 +104,5 @@ namespace Com.Drew.Imaging.Jpeg
                 }
             }
         }
-
-        /// <exception cref="System.Exception"/>
-        private JpegMetadataReader()
-        {
-            throw new Exception("Not intended for instantiation");
-        }
     }
 }

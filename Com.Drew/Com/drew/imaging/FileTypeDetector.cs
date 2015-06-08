@@ -67,12 +67,6 @@ namespace Com.Drew.Imaging
             _root.AddPath(FileType.Rw2, Runtime.GetBytesForString("II"), new sbyte[] { unchecked((int)(0x55)), unchecked((int)(0x00)) });
         }
 
-        /// <exception cref="System.Exception"/>
-        private FileTypeDetector()
-        {
-            throw new Exception("Not intended for instantiation");
-        }
-
         /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
         /// <remarks>
         /// Examines the a file's first bytes and estimates the file's type.
