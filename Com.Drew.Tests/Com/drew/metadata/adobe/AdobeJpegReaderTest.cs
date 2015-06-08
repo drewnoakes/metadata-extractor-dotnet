@@ -48,8 +48,8 @@ namespace Com.Drew.Metadata.Adobe
         public virtual void TestSegmentTypes()
         {
             AdobeJpegReader reader = new AdobeJpegReader();
-            Tests.AreEqual(1, Iterables.ToList(reader.GetSegmentTypes()).Count);
-            Tests.AreEqual(JpegSegmentType.Appe, Iterables.ToList(reader.GetSegmentTypes())[0]);
+            Assert.AreEqual(1, Iterables.ToList(reader.GetSegmentTypes()).Count);
+            Assert.AreEqual(JpegSegmentType.Appe, Iterables.ToList(reader.GetSegmentTypes())[0]);
         }
 
         /// <exception cref="System.Exception"/>
@@ -57,12 +57,12 @@ namespace Com.Drew.Metadata.Adobe
         public virtual void TestReadAdobeJpegMetadata1()
         {
             AdobeJpegDirectory directory = ProcessBytes("Tests/Data/adobeJpeg1.jpg.appe");
-            Tests.IsFalse(Extensions.ConvertToString(directory.GetErrors()), directory.HasErrors());
-            Tests.AreEqual(4, directory.GetTagCount());
-            Tests.AreEqual(1, directory.GetInt(AdobeJpegDirectory.TagColorTransform));
-            Tests.AreEqual(25600, directory.GetInt(AdobeJpegDirectory.TagDctEncodeVersion));
-            Tests.AreEqual(128, directory.GetInt(AdobeJpegDirectory.TagApp14Flags0));
-            Tests.AreEqual(0, directory.GetInt(AdobeJpegDirectory.TagApp14Flags1));
+            Assert.IsFalse(directory.HasErrors(), Extensions.ConvertToString(directory.GetErrors()));
+            Assert.AreEqual(4, directory.GetTagCount());
+            Assert.AreEqual(1, directory.GetInt(AdobeJpegDirectory.TagColorTransform));
+            Assert.AreEqual(25600, directory.GetInt(AdobeJpegDirectory.TagDctEncodeVersion));
+            Assert.AreEqual(128, directory.GetInt(AdobeJpegDirectory.TagApp14Flags0));
+            Assert.AreEqual(0, directory.GetInt(AdobeJpegDirectory.TagApp14Flags1));
         }
     }
 }

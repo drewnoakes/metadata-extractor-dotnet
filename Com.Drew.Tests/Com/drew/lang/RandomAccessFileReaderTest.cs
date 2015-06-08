@@ -66,7 +66,7 @@ namespace Com.Drew.Lang
             {
                 return;
             }
-            Tests.IsTrue("Unable to delete temp file used during unit test: " + _tempFile.GetAbsolutePath(), _tempFile.Delete());
+            Assert.IsTrue(_tempFile.Delete(), "Unable to delete temp file used during unit test: " + _tempFile.GetAbsolutePath());
             _tempFile = null;
             _randomAccessFile = null;
         }

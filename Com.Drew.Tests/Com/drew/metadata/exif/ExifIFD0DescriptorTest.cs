@@ -43,7 +43,7 @@ namespace Com.Drew.Metadata.Exif
             // 2 is for 'Inch'
             directory.SetInt(ExifIFD0Directory.TagResolutionUnit, 2);
             ExifIFD0Descriptor descriptor = new ExifIFD0Descriptor(directory);
-            Tests.AreEqual("72 dots per inch", descriptor.GetDescription(ExifIFD0Directory.TagXResolution));
+            Assert.AreEqual("72 dots per inch", descriptor.GetDescription(ExifIFD0Directory.TagXResolution));
         }
 
         /// <exception cref="System.Exception"/>
@@ -55,7 +55,7 @@ namespace Com.Drew.Metadata.Exif
             // 3 is for 'cm'
             directory.SetInt(ExifIFD0Directory.TagResolutionUnit, 3);
             ExifIFD0Descriptor descriptor = new ExifIFD0Descriptor(directory);
-            Tests.AreEqual("50 dots per cm", descriptor.GetDescription(ExifIFD0Directory.TagYResolution));
+            Assert.AreEqual("50 dots per cm", descriptor.GetDescription(ExifIFD0Directory.TagYResolution));
         }
 
         /// <exception cref="System.Exception"/>
@@ -63,17 +63,17 @@ namespace Com.Drew.Metadata.Exif
         public virtual void TestWindowsXpFields()
         {
             ExifIFD0Directory directory = ExifReaderTest.ProcessBytes<ExifIFD0Directory>("Tests/Data/windowsXpFields.jpg.app1");
-            Tests.AreEqual("Testing artist\x0", directory.GetString(ExifIFD0Directory.TagWinAuthor, "UTF-16LE"));
-            Tests.AreEqual("Testing comments\x0", directory.GetString(ExifIFD0Directory.TagWinComment, "UTF-16LE"));
-            Tests.AreEqual("Testing keywords\x0", directory.GetString(ExifIFD0Directory.TagWinKeywords, "UTF-16LE"));
-            Tests.AreEqual("Testing subject\x0", directory.GetString(ExifIFD0Directory.TagWinSubject, "UTF-16LE"));
-            Tests.AreEqual("Testing title\x0", directory.GetString(ExifIFD0Directory.TagWinTitle, "UTF-16LE"));
+            Assert.AreEqual("Testing artist\x0", directory.GetString(ExifIFD0Directory.TagWinAuthor, "UTF-16LE"));
+            Assert.AreEqual("Testing comments\x0", directory.GetString(ExifIFD0Directory.TagWinComment, "UTF-16LE"));
+            Assert.AreEqual("Testing keywords\x0", directory.GetString(ExifIFD0Directory.TagWinKeywords, "UTF-16LE"));
+            Assert.AreEqual("Testing subject\x0", directory.GetString(ExifIFD0Directory.TagWinSubject, "UTF-16LE"));
+            Assert.AreEqual("Testing title\x0", directory.GetString(ExifIFD0Directory.TagWinTitle, "UTF-16LE"));
             ExifIFD0Descriptor descriptor = new ExifIFD0Descriptor(directory);
-            Tests.AreEqual("Testing artist", descriptor.GetDescription(ExifIFD0Directory.TagWinAuthor));
-            Tests.AreEqual("Testing comments", descriptor.GetDescription(ExifIFD0Directory.TagWinComment));
-            Tests.AreEqual("Testing keywords", descriptor.GetDescription(ExifIFD0Directory.TagWinKeywords));
-            Tests.AreEqual("Testing subject", descriptor.GetDescription(ExifIFD0Directory.TagWinSubject));
-            Tests.AreEqual("Testing title", descriptor.GetDescription(ExifIFD0Directory.TagWinTitle));
+            Assert.AreEqual("Testing artist", descriptor.GetDescription(ExifIFD0Directory.TagWinAuthor));
+            Assert.AreEqual("Testing comments", descriptor.GetDescription(ExifIFD0Directory.TagWinComment));
+            Assert.AreEqual("Testing keywords", descriptor.GetDescription(ExifIFD0Directory.TagWinKeywords));
+            Assert.AreEqual("Testing subject", descriptor.GetDescription(ExifIFD0Directory.TagWinSubject));
+            Assert.AreEqual("Testing title", descriptor.GetDescription(ExifIFD0Directory.TagWinTitle));
         }
     }
 }

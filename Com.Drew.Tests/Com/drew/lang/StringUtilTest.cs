@@ -36,16 +36,16 @@ namespace Com.Drew.Lang
             strings.Add("A");
             strings.Add("B");
             strings.Add("C");
-            Tests.AreEqual("A;B;C", StringUtil.Join(strings.ToCharSequence(), ";"));
-            Tests.AreEqual(string.Empty, StringUtil.Join(new AList<string>().ToCharSequence(), ";"));
+            Assert.AreEqual("A;B;C", StringUtil.Join(strings.ToCharSequence(), ";"));
+            Assert.AreEqual(string.Empty, StringUtil.Join(new AList<string>().ToCharSequence(), ";"));
         }
 
         [Test]
         public virtual void TestJoinArray()
         {
             string[] strings = new string[] { "A", "B", "C" };
-            Tests.AreEqual("A;B;C", StringUtil.Join(strings.ToCharSequence(), ";"));
-            Tests.AreEqual(string.Empty, StringUtil.Join(new AList<string>().ToCharSequence(), ";"));
+            Assert.AreEqual("A;B;C", StringUtil.Join(strings.ToCharSequence(), ";"));
+            Assert.AreEqual(string.Empty, StringUtil.Join(new AList<string>().ToCharSequence(), ";"));
         }
     }
 }

@@ -48,17 +48,17 @@ namespace Com.Drew.Metadata.Bmp
         public virtual void TestMsPaint16color()
         {
             BmpHeaderDirectory directory = ProcessBytes("Tests/Data/16color-10x10.bmp");
-            Tests.IsFalse(directory.HasErrors());
-            Tests.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageWidth));
-            Tests.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageHeight));
-            Tests.AreEqual(4, directory.GetInt(BmpHeaderDirectory.TagBitsPerPixel));
-            Tests.AreEqual("None", directory.GetDescription(BmpHeaderDirectory.TagCompression));
-            Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagXPixelsPerMeter));
-            Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagYPixelsPerMeter));
-            Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagPaletteColourCount));
-            Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagImportantColourCount));
-            Tests.AreEqual(1, directory.GetInt(BmpHeaderDirectory.TagColourPlanes));
-            Tests.AreEqual(40, directory.GetInt(BmpHeaderDirectory.TagHeaderSize));
+            Assert.IsFalse(directory.HasErrors());
+            Assert.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageWidth));
+            Assert.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageHeight));
+            Assert.AreEqual(4, directory.GetInt(BmpHeaderDirectory.TagBitsPerPixel));
+            Assert.AreEqual("None", directory.GetDescription(BmpHeaderDirectory.TagCompression));
+            Assert.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagXPixelsPerMeter));
+            Assert.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagYPixelsPerMeter));
+            Assert.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagPaletteColourCount));
+            Assert.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagImportantColourCount));
+            Assert.AreEqual(1, directory.GetInt(BmpHeaderDirectory.TagColourPlanes));
+            Assert.AreEqual(40, directory.GetInt(BmpHeaderDirectory.TagHeaderSize));
         }
 
         /// <exception cref="System.Exception"/>
@@ -66,17 +66,17 @@ namespace Com.Drew.Metadata.Bmp
         public virtual void TestMsPaint24bpp()
         {
             BmpHeaderDirectory directory = ProcessBytes("Tests/Data/24bpp-10x10.bmp");
-            Tests.IsFalse(directory.HasErrors());
-            Tests.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageWidth));
-            Tests.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageHeight));
-            Tests.AreEqual(24, directory.GetInt(BmpHeaderDirectory.TagBitsPerPixel));
-            Tests.AreEqual("None", directory.GetDescription(BmpHeaderDirectory.TagCompression));
-            Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagXPixelsPerMeter));
-            Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagYPixelsPerMeter));
-            Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagPaletteColourCount));
-            Tests.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagImportantColourCount));
-            Tests.AreEqual(1, directory.GetInt(BmpHeaderDirectory.TagColourPlanes));
-            Tests.AreEqual(40, directory.GetInt(BmpHeaderDirectory.TagHeaderSize));
+            Assert.IsFalse(directory.HasErrors());
+            Assert.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageWidth));
+            Assert.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageHeight));
+            Assert.AreEqual(24, directory.GetInt(BmpHeaderDirectory.TagBitsPerPixel));
+            Assert.AreEqual("None", directory.GetDescription(BmpHeaderDirectory.TagCompression));
+            Assert.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagXPixelsPerMeter));
+            Assert.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagYPixelsPerMeter));
+            Assert.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagPaletteColourCount));
+            Assert.AreEqual(0, directory.GetInt(BmpHeaderDirectory.TagImportantColourCount));
+            Assert.AreEqual(1, directory.GetInt(BmpHeaderDirectory.TagColourPlanes));
+            Assert.AreEqual(40, directory.GetInt(BmpHeaderDirectory.TagHeaderSize));
         }
     }
 }

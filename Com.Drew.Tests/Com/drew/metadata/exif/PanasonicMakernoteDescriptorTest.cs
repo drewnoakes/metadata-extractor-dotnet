@@ -45,7 +45,7 @@ namespace Com.Drew.Metadata.Exif
             Face expResult = new Face(142, 120, 76, 76, null, null);
             Face[] result = _panasonicDirectory.GetDetectedFaces();
             Assert.IsNotNull(result);
-            Tests.AreEqual(expResult, result[0]);
+            Assert.AreEqual(expResult, result[0]);
         }
 
         /// <exception cref="System.Exception"/>
@@ -55,7 +55,7 @@ namespace Com.Drew.Metadata.Exif
             Face expResult = new Face(142, 120, 76, 76, "NIELS", new Age(31, 7, 15, 0, 0, 0));
             Face[] result = _panasonicDirectory.GetRecognizedFaces();
             Assert.IsNotNull(result);
-            Tests.AreEqual(expResult, result[0]);
+            Assert.AreEqual(expResult, result[0]);
         }
     }
 }

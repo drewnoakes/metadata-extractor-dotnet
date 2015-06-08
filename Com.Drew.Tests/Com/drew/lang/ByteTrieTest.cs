@@ -43,10 +43,10 @@ namespace Com.Drew.Lang
             }
             Assert.IsNull(trie.Find(Runtime.GetBytesForString("Not Included")));
             Assert.IsNull(trie.Find(Runtime.GetBytesForString("HELL")));
-            Tests.AreEqual("HELLO", trie.Find(Runtime.GetBytesForString("HELLO MUM")));
-            Tests.AreEqual("HELLO WORLD".Length, trie.GetMaxDepth());
+            Assert.AreEqual("HELLO", trie.Find(Runtime.GetBytesForString("HELLO MUM")));
+            Assert.AreEqual("HELLO WORLD".Length, trie.GetMaxDepth());
             trie.SetDefaultValue("DEFAULT");
-            Tests.AreEqual("DEFAULT", trie.Find(Runtime.GetBytesForString("Also Not Included")));
+            Assert.AreEqual("DEFAULT", trie.Find(Runtime.GetBytesForString("Also Not Included")));
         }
     }
 }

@@ -46,12 +46,12 @@ namespace Com.Drew.Metadata.Exif
             Directory subIFDDirectory = new ExifSubIFDDirectory();
             Directory ifd0Directory = new ExifIFD0Directory();
             Directory thumbDirectory = new ExifThumbnailDirectory();
-            Tests.IsFalse(subIFDDirectory.HasErrors());
-            Tests.IsFalse(ifd0Directory.HasErrors());
-            Tests.IsFalse(thumbDirectory.HasErrors());
-            Tests.AreEqual("Exif IFD0", ifd0Directory.GetName());
-            Tests.AreEqual("Exif SubIFD", subIFDDirectory.GetName());
-            Tests.AreEqual("Exif Thumbnail", thumbDirectory.GetName());
+            Assert.IsFalse(subIFDDirectory.HasErrors());
+            Assert.IsFalse(ifd0Directory.HasErrors());
+            Assert.IsFalse(thumbDirectory.HasErrors());
+            Assert.AreEqual("Exif IFD0", ifd0Directory.GetName());
+            Assert.AreEqual("Exif SubIFD", subIFDDirectory.GetName());
+            Assert.AreEqual("Exif Thumbnail", thumbDirectory.GetName());
         }
 
         /// <exception cref="System.Exception"/>
@@ -77,14 +77,14 @@ namespace Com.Drew.Metadata.Exif
         public virtual void TestWriteThumbnail()
         {
             ExifThumbnailDirectory directory = ExifReaderTest.ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
-            Tests.IsTrue(directory.HasThumbnailData());
+            Assert.IsTrue(directory.HasThumbnailData());
             FilePath thumbnailFile = FilePath.CreateTempFile("thumbnail", ".jpg");
             try
             {
                 directory.WriteThumbnail(thumbnailFile.GetAbsolutePath());
                 FilePath file = new FilePath(thumbnailFile.GetAbsolutePath());
-                Tests.AreEqual(2970, file.Length());
-                Tests.IsTrue(file.Exists());
+                Assert.AreEqual(2970, (object)file.Length());
+                Assert.IsTrue(file.Exists());
             }
             finally
             {
@@ -115,10 +115,10 @@ namespace Com.Drew.Metadata.Exif
             Metadata metadata = ExifReaderTest.ProcessBytes("Tests/Data/withUncompressedRGBThumbnail.jpg.app1");
             ExifThumbnailDirectory thumbnailDirectory = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
             Assert.IsNotNull(thumbnailDirectory);
-            Tests.AreEqual(72, thumbnailDirectory.GetInt(ExifThumbnailDirectory.TagXResolution));
+            Assert.AreEqual(72, thumbnailDirectory.GetInt(ExifThumbnailDirectory.TagXResolution));
             ExifIFD0Directory exifIFD0Directory = metadata.GetFirstDirectoryOfType<ExifIFD0Directory>();
             Assert.IsNotNull(exifIFD0Directory);
-            Tests.AreEqual(216, exifIFD0Directory.GetInt(ExifIFD0Directory.TagXResolution));
+            Assert.AreEqual(216, exifIFD0Directory.GetInt(ExifIFD0Directory.TagXResolution));
         }
     }
 }

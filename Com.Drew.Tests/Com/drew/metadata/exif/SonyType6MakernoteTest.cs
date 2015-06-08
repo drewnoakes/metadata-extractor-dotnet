@@ -35,9 +35,9 @@ namespace Com.Drew.Metadata.Exif
         {
             SonyType6MakernoteDirectory directory = ExifReaderTest.ProcessBytes<SonyType6MakernoteDirectory>("Tests/Data/sonyType6.jpg.app1.0");
             Assert.IsNotNull(directory);
-            Tests.IsFalse(directory.HasErrors());
+            Assert.IsFalse(directory.HasErrors());
             SonyType6MakernoteDescriptor descriptor = new SonyType6MakernoteDescriptor(directory);
-            Tests.AreEqual("2.00", descriptor.GetMakernoteThumbVersionDescription());
+            Assert.AreEqual("2.00", descriptor.GetMakernoteThumbVersionDescription());
         }
     }
 }

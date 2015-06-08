@@ -34,15 +34,15 @@ namespace Com.Drew.Metadata.Jpeg
         {
             JpegComponent component;
             component = new JpegComponent(1, 2, 3);
-            Tests.AreEqual("Y", component.GetComponentName());
+            Assert.AreEqual("Y", component.GetComponentName());
             component = new JpegComponent(2, 2, 3);
-            Tests.AreEqual("Cb", component.GetComponentName());
+            Assert.AreEqual("Cb", component.GetComponentName());
             component = new JpegComponent(3, 2, 3);
-            Tests.AreEqual("Cr", component.GetComponentName());
+            Assert.AreEqual("Cr", component.GetComponentName());
             component = new JpegComponent(4, 2, 3);
-            Tests.AreEqual("I", component.GetComponentName());
+            Assert.AreEqual("I", component.GetComponentName());
             component = new JpegComponent(5, 2, 3);
-            Tests.AreEqual("Q", component.GetComponentName());
+            Assert.AreEqual("Q", component.GetComponentName());
         }
     }
 }

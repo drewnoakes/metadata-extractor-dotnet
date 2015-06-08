@@ -40,8 +40,8 @@ namespace Com.Drew.Metadata.Exif
             ExifInteropDirectory directory = new ExifInteropDirectory();
             directory.SetIntArray(ExifInteropDirectory.TagInteropVersion, new int[] { 0, 1, 0, 0 });
             ExifInteropDescriptor descriptor = new ExifInteropDescriptor(directory);
-            Tests.AreEqual("1.00", descriptor.GetDescription(ExifInteropDirectory.TagInteropVersion));
-            Tests.AreEqual("1.00", descriptor.GetInteropVersionDescription());
+            Assert.AreEqual("1.00", descriptor.GetDescription(ExifInteropDirectory.TagInteropVersion));
+            Assert.AreEqual("1.00", descriptor.GetInteropVersionDescription());
         }
 
         /// <exception cref="System.Exception"/>
@@ -51,8 +51,8 @@ namespace Com.Drew.Metadata.Exif
             ExifInteropDirectory directory = new ExifInteropDirectory();
             directory.SetString(ExifInteropDirectory.TagInteropIndex, "R98");
             ExifInteropDescriptor descriptor = new ExifInteropDescriptor(directory);
-            Tests.AreEqual("Recommended Exif Interoperability Rules (ExifR98)", descriptor.GetDescription(ExifInteropDirectory.TagInteropIndex));
-            Tests.AreEqual("Recommended Exif Interoperability Rules (ExifR98)", descriptor.GetInteropIndexDescription());
+            Assert.AreEqual("Recommended Exif Interoperability Rules (ExifR98)", descriptor.GetDescription(ExifInteropDirectory.TagInteropIndex));
+            Assert.AreEqual("Recommended Exif Interoperability Rules (ExifR98)", descriptor.GetInteropIndexDescription());
         }
     }
 }

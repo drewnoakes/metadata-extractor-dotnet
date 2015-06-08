@@ -37,25 +37,25 @@ namespace Com.Drew.Metadata.Exif
             CanonMakernoteDescriptor descriptor = new CanonMakernoteDescriptor(directory);
             // set and check values
             directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0xFFC0)));
-            Tests.AreEqual("-2.0 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            Assert.AreEqual("-2.0 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
             directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0xffd4)));
-            Tests.AreEqual("-1.375 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            Assert.AreEqual("-1.375 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
             directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0000)));
-            Tests.AreEqual("0.0 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            Assert.AreEqual("0.0 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
             directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x000c)));
-            Tests.AreEqual("0.375 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            Assert.AreEqual("0.375 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
             directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0010)));
-            Tests.AreEqual("0.5 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            Assert.AreEqual("0.5 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
             directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0014)));
-            Tests.AreEqual("0.625 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            Assert.AreEqual("0.625 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
             directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0020)));
-            Tests.AreEqual("1.0 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            Assert.AreEqual("1.0 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
             directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0030)));
-            Tests.AreEqual("1.5 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            Assert.AreEqual("1.5 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
             directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0034)));
-            Tests.AreEqual("1.625 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            Assert.AreEqual("1.625 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
             directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked((int)(0x0040)));
-            Tests.AreEqual("2.0 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
+            Assert.AreEqual("2.0 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));
         }
     }
 }

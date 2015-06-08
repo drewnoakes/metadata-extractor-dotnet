@@ -123,7 +123,6 @@
     <Compile Include="Sharpen\SingletonList.cs" />
     <Compile Include="Sharpen\SoftReference.cs" />
     <Compile Include="Sharpen\SynchronizedList.cs" />
-    <Compile Include="Sharpen\Tests.cs" />
     <Compile Include="Sharpen\Thread.cs" />
     <Compile Include="Sharpen\TimeUnit.cs" />
     <Compile Include="Sharpen\WrappedSystemStream.cs" />

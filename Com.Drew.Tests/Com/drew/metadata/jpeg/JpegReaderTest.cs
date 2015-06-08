@@ -56,28 +56,28 @@ namespace Com.Drew.Metadata.Jpeg
         [Test]
         public virtual void TestExtract_Width()
         {
-            Tests.AreEqual(800, _directory.GetInt(JpegDirectory.TagImageWidth));
+            Assert.AreEqual(800, _directory.GetInt(JpegDirectory.TagImageWidth));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestExtract_Height()
         {
-            Tests.AreEqual(600, _directory.GetInt(JpegDirectory.TagImageHeight));
+            Assert.AreEqual(600, _directory.GetInt(JpegDirectory.TagImageHeight));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestExtract_DataPrecision()
         {
-            Tests.AreEqual(8, _directory.GetInt(JpegDirectory.TagDataPrecision));
+            Assert.AreEqual(8, _directory.GetInt(JpegDirectory.TagDataPrecision));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestExtract_NumberOfComponents()
         {
-            Tests.AreEqual(3, _directory.GetInt(JpegDirectory.TagNumberOfComponents));
+            Assert.AreEqual(3, _directory.GetInt(JpegDirectory.TagNumberOfComponents));
         }
 
         /// <exception cref="System.Exception"/>
@@ -86,11 +86,11 @@ namespace Com.Drew.Metadata.Jpeg
         {
             JpegComponent component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData1);
             Assert.IsNotNull(component);
-            Tests.AreEqual("Y", component.GetComponentName());
-            Tests.AreEqual(1, component.GetComponentId());
-            Tests.AreEqual(0, component.GetQuantizationTableNumber());
-            Tests.AreEqual(2, component.GetHorizontalSamplingFactor());
-            Tests.AreEqual(2, component.GetVerticalSamplingFactor());
+            Assert.AreEqual("Y", component.GetComponentName());
+            Assert.AreEqual(1, component.GetComponentId());
+            Assert.AreEqual(0, component.GetQuantizationTableNumber());
+            Assert.AreEqual(2, component.GetHorizontalSamplingFactor());
+            Assert.AreEqual(2, component.GetVerticalSamplingFactor());
         }
 
         /// <exception cref="System.Exception"/>
@@ -99,12 +99,12 @@ namespace Com.Drew.Metadata.Jpeg
         {
             JpegComponent component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData2);
             Assert.IsNotNull(component);
-            Tests.AreEqual("Cb", component.GetComponentName());
-            Tests.AreEqual(2, component.GetComponentId());
-            Tests.AreEqual(1, component.GetQuantizationTableNumber());
-            Tests.AreEqual(1, component.GetHorizontalSamplingFactor());
-            Tests.AreEqual(1, component.GetVerticalSamplingFactor());
-            Tests.AreEqual("Cb component: Quantization table 1, Sampling factors 1 horiz/1 vert", _directory.GetDescription(JpegDirectory.TagComponentData2));
+            Assert.AreEqual("Cb", component.GetComponentName());
+            Assert.AreEqual(2, component.GetComponentId());
+            Assert.AreEqual(1, component.GetQuantizationTableNumber());
+            Assert.AreEqual(1, component.GetHorizontalSamplingFactor());
+            Assert.AreEqual(1, component.GetVerticalSamplingFactor());
+            Assert.AreEqual("Cb component: Quantization table 1, Sampling factors 1 horiz/1 vert", _directory.GetDescription(JpegDirectory.TagComponentData2));
         }
 
         /// <exception cref="System.Exception"/>
@@ -113,12 +113,12 @@ namespace Com.Drew.Metadata.Jpeg
         {
             JpegComponent component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData3);
             Assert.IsNotNull(component);
-            Tests.AreEqual("Cr", component.GetComponentName());
-            Tests.AreEqual(3, component.GetComponentId());
-            Tests.AreEqual(1, component.GetQuantizationTableNumber());
-            Tests.AreEqual(1, component.GetHorizontalSamplingFactor());
-            Tests.AreEqual(1, component.GetVerticalSamplingFactor());
-            Tests.AreEqual("Cr component: Quantization table 1, Sampling factors 1 horiz/1 vert", _directory.GetDescription(JpegDirectory.TagComponentData3));
+            Assert.AreEqual("Cr", component.GetComponentName());
+            Assert.AreEqual(3, component.GetComponentId());
+            Assert.AreEqual(1, component.GetQuantizationTableNumber());
+            Assert.AreEqual(1, component.GetHorizontalSamplingFactor());
+            Assert.AreEqual(1, component.GetVerticalSamplingFactor());
+            Assert.AreEqual("Cr component: Quantization table 1, Sampling factors 1 horiz/1 vert", _directory.GetDescription(JpegDirectory.TagComponentData3));
         }
 /*
     // this test is part of an incomplete investigation into extracting audio from JPG files

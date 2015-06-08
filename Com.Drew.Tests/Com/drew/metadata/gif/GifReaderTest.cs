@@ -48,15 +48,15 @@ namespace Com.Drew.Metadata.Gif
         public virtual void TestMsPaintGif()
         {
             GifHeaderDirectory directory = ProcessBytes("Tests/Data/mspaint-10x10.gif");
-            Tests.IsFalse(directory.HasErrors());
-            Tests.AreEqual("89a", directory.GetString(GifHeaderDirectory.TagGifFormatVersion));
-            Tests.AreEqual(10, directory.GetInt(GifHeaderDirectory.TagImageWidth));
-            Tests.AreEqual(10, directory.GetInt(GifHeaderDirectory.TagImageHeight));
-            Tests.AreEqual(256, directory.GetInt(GifHeaderDirectory.TagColorTableSize));
-            Tests.IsFalse(directory.GetBoolean(GifHeaderDirectory.TagIsColorTableSorted));
-            Tests.AreEqual(8, directory.GetInt(GifHeaderDirectory.TagBitsPerPixel));
-            Tests.IsTrue(directory.GetBoolean(GifHeaderDirectory.TagHasGlobalColorTable));
-            Tests.AreEqual(0, directory.GetInt(GifHeaderDirectory.TagTransparentColorIndex));
+            Assert.IsFalse(directory.HasErrors());
+            Assert.AreEqual("89a", directory.GetString(GifHeaderDirectory.TagGifFormatVersion));
+            Assert.AreEqual(10, directory.GetInt(GifHeaderDirectory.TagImageWidth));
+            Assert.AreEqual(10, directory.GetInt(GifHeaderDirectory.TagImageHeight));
+            Assert.AreEqual(256, directory.GetInt(GifHeaderDirectory.TagColorTableSize));
+            Assert.IsFalse(directory.GetBoolean(GifHeaderDirectory.TagIsColorTableSorted));
+            Assert.AreEqual(8, directory.GetInt(GifHeaderDirectory.TagBitsPerPixel));
+            Assert.IsTrue(directory.GetBoolean(GifHeaderDirectory.TagHasGlobalColorTable));
+            Assert.AreEqual(0, directory.GetInt(GifHeaderDirectory.TagTransparentColorIndex));
         }
 
         /// <exception cref="System.Exception"/>
@@ -64,15 +64,15 @@ namespace Com.Drew.Metadata.Gif
         public virtual void TestPhotoshopGif()
         {
             GifHeaderDirectory directory = ProcessBytes("Tests/Data/photoshop-8x12-32colors-alpha.gif");
-            Tests.IsFalse(directory.HasErrors());
-            Tests.AreEqual("89a", directory.GetString(GifHeaderDirectory.TagGifFormatVersion));
-            Tests.AreEqual(8, directory.GetInt(GifHeaderDirectory.TagImageWidth));
-            Tests.AreEqual(12, directory.GetInt(GifHeaderDirectory.TagImageHeight));
-            Tests.AreEqual(32, directory.GetInt(GifHeaderDirectory.TagColorTableSize));
-            Tests.IsFalse(directory.GetBoolean(GifHeaderDirectory.TagIsColorTableSorted));
-            Tests.AreEqual(5, directory.GetInt(GifHeaderDirectory.TagBitsPerPixel));
-            Tests.IsTrue(directory.GetBoolean(GifHeaderDirectory.TagHasGlobalColorTable));
-            Tests.AreEqual(8, directory.GetInt(GifHeaderDirectory.TagTransparentColorIndex));
+            Assert.IsFalse(directory.HasErrors());
+            Assert.AreEqual("89a", directory.GetString(GifHeaderDirectory.TagGifFormatVersion));
+            Assert.AreEqual(8, directory.GetInt(GifHeaderDirectory.TagImageWidth));
+            Assert.AreEqual(12, directory.GetInt(GifHeaderDirectory.TagImageHeight));
+            Assert.AreEqual(32, directory.GetInt(GifHeaderDirectory.TagColorTableSize));
+            Assert.IsFalse(directory.GetBoolean(GifHeaderDirectory.TagIsColorTableSorted));
+            Assert.AreEqual(5, directory.GetInt(GifHeaderDirectory.TagBitsPerPixel));
+            Assert.IsTrue(directory.GetBoolean(GifHeaderDirectory.TagHasGlobalColorTable));
+            Assert.AreEqual(8, directory.GetInt(GifHeaderDirectory.TagTransparentColorIndex));
         }
     }
 }

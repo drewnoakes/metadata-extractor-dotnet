@@ -46,8 +46,8 @@ namespace Com.Drew.Metadata
         {
             _directory.SetString(ExifSubIFDDirectory.TagAperture, "TAG_APERTURE");
             _directory.SetString(ExifSubIFDDirectory.TagBatteryLevel, "TAG_BATTERY_LEVEL");
-            Tests.AreEqual("TAG_APERTURE", _directory.GetString(ExifSubIFDDirectory.TagAperture));
-            Tests.AreEqual("TAG_BATTERY_LEVEL", _directory.GetString(ExifSubIFDDirectory.TagBatteryLevel));
+            Assert.AreEqual("TAG_APERTURE", _directory.GetString(ExifSubIFDDirectory.TagAperture));
+            Assert.AreEqual("TAG_BATTERY_LEVEL", _directory.GetString(ExifSubIFDDirectory.TagBatteryLevel));
         }
 
         /// <exception cref="System.Exception"/>
@@ -56,7 +56,7 @@ namespace Com.Drew.Metadata
         {
             _directory.SetInt(ExifSubIFDDirectory.TagAperture, 1);
             _directory.SetInt(ExifSubIFDDirectory.TagAperture, 2);
-            Tests.AreEqual(2, _directory.GetInt(ExifSubIFDDirectory.TagAperture));
+            Assert.AreEqual(2, _directory.GetInt(ExifSubIFDDirectory.TagAperture));
         }
 
         /// <exception cref="System.Exception"/>
@@ -66,13 +66,13 @@ namespace Com.Drew.Metadata
             int value = 123;
             int tagType = 321;
             _directory.SetInt(tagType, value);
-            Tests.AreEqual(value, _directory.GetInt(tagType));
-            Tests.AreEqual(Extensions.ValueOf(value), _directory.GetInteger(tagType));
-            Tests.AreEqual((float)value, _directory.GetFloat(tagType), 0.00001);
-            Tests.AreEqual((double)value, _directory.GetDouble(tagType), 0.00001);
-            Tests.AreEqual((long)value, _directory.GetLong(tagType));
-            Tests.AreEqual(Extensions.ConvertToString(value), _directory.GetString(tagType));
-            Tests.AreEqual(new Rational(value, 1), _directory.GetRational(tagType));
+            Assert.AreEqual(value, _directory.GetInt(tagType));
+            Assert.AreEqual(Extensions.ValueOf(value), _directory.GetInteger(tagType));
+            Assert.AreEqual((float)value, _directory.GetFloat(tagType), 0.00001);
+            Assert.AreEqual((double)value, _directory.GetDouble(tagType), 0.00001);
+            Assert.AreEqual((long)value, (object)_directory.GetLong(tagType));
+            Assert.AreEqual(Extensions.ConvertToString(value), _directory.GetString(tagType));
+            Assert.AreEqual(new Rational(value, 1), _directory.GetRational(tagType));
             CollectionAssert.AreEqual(new int[] { value }, _directory.GetIntArray(tagType));
             CollectionAssert.AreEqual(new sbyte[] { unchecked((sbyte)value) }, _directory.GetByteArray(tagType));
         }
@@ -86,12 +86,12 @@ namespace Com.Drew.Metadata
             _directory.SetIntArray(tagType, inputValues);
             int[] outputValues = _directory.GetIntArray(tagType);
             Assert.IsNotNull(outputValues);
-            Tests.AreEqual(inputValues.Length, outputValues.Length);
+            Assert.AreEqual(inputValues.Length, outputValues.Length);
             for (int i = 0; i < inputValues.Length; i++)
             {
                 int inputValue = inputValues[i];
                 int outputValue = outputValues[i];
-                Tests.AreEqual(inputValue, outputValue);
+                Assert.AreEqual(inputValue, outputValue);
             }
             CollectionAssert.AreEqual(inputValues, _directory.GetIntArray(tagType));
             StringBuilder outputString = new StringBuilder();
@@ -104,7 +104,7 @@ namespace Com.Drew.Metadata
                 }
                 outputString.Append(inputValue);
             }
-            Tests.AreEqual(Extensions.ConvertToString(outputString), _directory.GetString(tagType));
+            Assert.AreEqual(Extensions.ConvertToString(outputString), _directory.GetString(tagType));
         }
 
         /// <exception cref="System.Exception"/>
@@ -119,11 +119,11 @@ namespace Com.Drew.Metadata
             _directory.SetString(2, date2);
             _directory.SetString(3, date3);
             _directory.SetString(4, date4);
-            Tests.AreEqual(date1, _directory.GetString(1));
-            Tests.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 59).GetTime(), _directory.GetDate(1));
-            Tests.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 0).GetTime(), _directory.GetDate(2));
-            Tests.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 59).GetTime(), _directory.GetDate(3));
-            Tests.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 0).GetTime(), _directory.GetDate(4));
+            Assert.AreEqual(date1, _directory.GetString(1));
+            Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 59).GetTime(), _directory.GetDate(1));
+            Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 0).GetTime(), _directory.GetDate(2));
+            Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 59).GetTime(), _directory.GetDate(3));
+            Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 0).GetTime(), _directory.GetDate(4));
         }
 
         /// <exception cref="System.Exception"/>
@@ -134,8 +134,8 @@ namespace Com.Drew.Metadata
             _directory.SetIntArray(1, ints);
             sbyte[] bytes = _directory.GetByteArray(1);
             Assert.IsNotNull(bytes);
-            Tests.AreEqual(ints.Length, bytes.Length);
-            Tests.AreEqual(1, bytes[0]);
+            Assert.AreEqual(ints.Length, bytes.Length);
+            Assert.AreEqual(1, bytes[0]);
         }
 
         /// <exception cref="System.Exception"/>
@@ -144,16 +144,16 @@ namespace Com.Drew.Metadata
         {
             sbyte[] bytes = new sbyte[] { unchecked((int)(0x01)), unchecked((int)(0x02)), unchecked((int)(0x03)) };
             _directory.SetString(1, Runtime.GetStringForBytes(bytes));
-            Tests.AreEqual(unchecked((int)(0x010203)), _directory.GetInt(1));
+            Assert.AreEqual(unchecked((int)(0x010203)), _directory.GetInt(1));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestContainsTag()
         {
-            Tests.IsFalse(_directory.ContainsTag(ExifSubIFDDirectory.TagAperture));
+            Assert.IsFalse(_directory.ContainsTag(ExifSubIFDDirectory.TagAperture));
             _directory.SetString(ExifSubIFDDirectory.TagAperture, "Tag Value");
-            Tests.IsTrue(_directory.ContainsTag(ExifSubIFDDirectory.TagAperture));
+            Assert.IsTrue(_directory.ContainsTag(ExifSubIFDDirectory.TagAperture));
         }
 
         /// <exception cref="System.Exception"/>
@@ -178,11 +178,11 @@ namespace Com.Drew.Metadata
         public virtual void TestToString()
         {
             Directory directory = new ExifIFD0Directory();
-            Tests.AreEqual("Exif IFD0 Directory (0 tags)", Extensions.ConvertToString(directory));
+            Assert.AreEqual("Exif IFD0 Directory (0 tags)", Extensions.ConvertToString(directory));
             directory.SetString(1, "Tag 1");
-            Tests.AreEqual("Exif IFD0 Directory (1 tag)", Extensions.ConvertToString(directory));
+            Assert.AreEqual("Exif IFD0 Directory (1 tag)", Extensions.ConvertToString(directory));
             directory.SetString(2, "Tag 2");
-            Tests.AreEqual("Exif IFD0 Directory (2 tags)", Extensions.ConvertToString(directory));
+            Assert.AreEqual("Exif IFD0 Directory (2 tags)", Extensions.ConvertToString(directory));
         }
     }
 }

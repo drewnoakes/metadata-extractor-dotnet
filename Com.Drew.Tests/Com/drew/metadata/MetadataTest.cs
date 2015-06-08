@@ -43,20 +43,20 @@ namespace Com.Drew.Metadata
             ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
             directory.AddError("Test Error 1");
             Metadata metadata = new Metadata();
-            Tests.IsFalse(metadata.HasErrors());
+            Assert.IsFalse(metadata.HasErrors());
             metadata.AddDirectory(directory);
-            Tests.IsTrue(metadata.HasErrors());
+            Assert.IsTrue(metadata.HasErrors());
         }
 
         [Test]
         public virtual void TestToString()
         {
             Metadata metadata = new Metadata();
-            Tests.AreEqual("Metadata (0 directories)", Extensions.ConvertToString(metadata));
+            Assert.AreEqual("Metadata (0 directories)", Extensions.ConvertToString(metadata));
             metadata.AddDirectory(new ExifIFD0Directory());
-            Tests.AreEqual("Metadata (1 directory)", Extensions.ConvertToString(metadata));
+            Assert.AreEqual("Metadata (1 directory)", Extensions.ConvertToString(metadata));
             metadata.AddDirectory(new ExifSubIFDDirectory());
-            Tests.AreEqual("Metadata (2 directories)", Extensions.ConvertToString(metadata));
+            Assert.AreEqual("Metadata (2 directories)", Extensions.ConvertToString(metadata));
         }
     }
 }

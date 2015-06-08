@@ -37,7 +37,7 @@ namespace Com.Drew.Metadata.Exif
             ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
             directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
             ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Tests.AreEqual("This is a comment", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            Assert.AreEqual("This is a comment", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
@@ -48,7 +48,7 @@ namespace Com.Drew.Metadata.Exif
             ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
             directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
             ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Tests.AreEqual("This is a comment", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            Assert.AreEqual("This is a comment", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
@@ -59,7 +59,7 @@ namespace Com.Drew.Metadata.Exif
             ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
             directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
             ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Tests.AreEqual(string.Empty, descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            Assert.AreEqual(string.Empty, descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
@@ -71,7 +71,7 @@ namespace Com.Drew.Metadata.Exif
             ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
             directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
             ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Tests.AreEqual("ASCII", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            Assert.AreEqual("ASCII", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
@@ -83,7 +83,7 @@ namespace Com.Drew.Metadata.Exif
             ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
             directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
             ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Tests.AreEqual(string.Empty, descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            Assert.AreEqual(string.Empty, descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
@@ -98,7 +98,7 @@ namespace Com.Drew.Metadata.Exif
             ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
             directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
             ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Tests.AreEqual("This marmot is getting close...", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            Assert.AreEqual("This marmot is getting close...", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
         }
 
         /// <exception cref="System.Exception"/>
@@ -109,7 +109,7 @@ namespace Com.Drew.Metadata.Exif
             ExifSubIFDDirectory directory = new ExifSubIFDDirectory();
             directory.SetByteArray(ExifSubIFDDirectory.TagUserComment, commentBytes);
             ExifSubIFDDescriptor descriptor = new ExifSubIFDDescriptor(directory);
-            Tests.AreEqual("I am a comment. Yey.", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
+            Assert.AreEqual("I am a comment. Yey.", descriptor.GetDescription(ExifSubIFDDirectory.TagUserComment));
         }
     }
 }

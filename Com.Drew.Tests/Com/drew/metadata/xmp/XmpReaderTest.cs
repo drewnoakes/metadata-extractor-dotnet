@@ -45,9 +45,9 @@ namespace Com.Drew.Metadata.Xmp
             new XmpReader().ReadJpegSegments(jpegSegments.AsIterable(), metadata, JpegSegmentType.App1);
             ICollection<XmpDirectory> xmpDirectories = metadata.GetDirectoriesOfType<XmpDirectory>();
             Assert.IsNotNull(xmpDirectories);
-            Tests.AreEqual(1, xmpDirectories.Count);
+            Assert.AreEqual(1, xmpDirectories.Count);
             _directory = xmpDirectories.Iterator().Next();
-            Tests.IsFalse(_directory.HasErrors());
+            Assert.IsFalse(_directory.HasErrors());
         }
 
     /*
@@ -71,7 +71,7 @@ namespace Com.Drew.Metadata.Xmp
         public virtual void TestExtract_LensInformation()
         {
             // Note that this tag really holds a rational array, but XmpReader doesn't parse arrays
-            Tests.AreEqual("24/1 70/1 0/0 0/0", _directory.GetString(XmpDirectory.TagLensInfo));
+            Assert.AreEqual("24/1 70/1 0/0 0/0", _directory.GetString(XmpDirectory.TagLensInfo));
         }
 
         //        Rational[] info = _directory.getRationalArray(XmpDirectory.TAG_LENS_INFO);
@@ -90,7 +90,7 @@ namespace Com.Drew.Metadata.Xmp
         [Test]
         public virtual void TestExtract_Lens()
         {
-            Tests.AreEqual("EF24-70mm f/2.8L USM", _directory.GetString(XmpDirectory.TagLens));
+            Assert.AreEqual("EF24-70mm f/2.8L USM", _directory.GetString(XmpDirectory.TagLens));
         }
 
 /*
@@ -124,28 +124,28 @@ namespace Com.Drew.Metadata.Xmp
         [Test]
         public virtual void TestExtract_SerialNumber()
         {
-            Tests.AreEqual("380319450", _directory.GetString(XmpDirectory.TagCameraSerialNumber));
+            Assert.AreEqual("380319450", _directory.GetString(XmpDirectory.TagCameraSerialNumber));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestExtract_Firmware()
         {
-            Tests.AreEqual("1.2.1", _directory.GetString(XmpDirectory.TagFirmware));
+            Assert.AreEqual("1.2.1", _directory.GetString(XmpDirectory.TagFirmware));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestExtract_Maker()
         {
-            Tests.AreEqual("Canon", _directory.GetString(XmpDirectory.TagMake));
+            Assert.AreEqual("Canon", _directory.GetString(XmpDirectory.TagMake));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestExtract_Model()
         {
-            Tests.AreEqual("Canon EOS 7D", _directory.GetString(XmpDirectory.TagModel));
+            Assert.AreEqual("Canon EOS 7D", _directory.GetString(XmpDirectory.TagModel));
         }
 
         /// <exception cref="System.Exception"/>
@@ -153,7 +153,7 @@ namespace Com.Drew.Metadata.Xmp
         public virtual void TestExtract_ExposureTime()
         {
             // Note XmpReader doesn't parse this as a rational even though it appears to be... need more examples
-            Tests.AreEqual("1/125", _directory.GetString(XmpDirectory.TagExposureTime));
+            Assert.AreEqual("1/125", _directory.GetString(XmpDirectory.TagExposureTime));
         }
 
         //        assertEquals(new Rational(1, 125), _directory.getRational(XmpDirectory.TAG_EXPOSURE_TIME));
@@ -161,28 +161,28 @@ namespace Com.Drew.Metadata.Xmp
         [Test]
         public virtual void TestExtract_ExposureProgram()
         {
-            Tests.AreEqual(1, _directory.GetInt(XmpDirectory.TagExposureProgram));
+            Assert.AreEqual(1, _directory.GetInt(XmpDirectory.TagExposureProgram));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestExtract_FNumber()
         {
-            Tests.AreEqual(new Rational(11, 1), _directory.GetRational(XmpDirectory.TagFNumber));
+            Assert.AreEqual(new Rational(11, 1), _directory.GetRational(XmpDirectory.TagFNumber));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestExtract_FocalLength()
         {
-            Tests.AreEqual(new Rational(57, 1), _directory.GetRational(XmpDirectory.TagFocalLength));
+            Assert.AreEqual(new Rational(57, 1), _directory.GetRational(XmpDirectory.TagFocalLength));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestExtract_ShutterSpeed()
         {
-            Tests.AreEqual(new Rational(6965784, 1000000), _directory.GetRational(XmpDirectory.TagShutterSpeed));
+            Assert.AreEqual(new Rational(6965784, 1000000), _directory.GetRational(XmpDirectory.TagShutterSpeed));
         }
 
         /// <exception cref="System.Exception"/>
@@ -191,11 +191,11 @@ namespace Com.Drew.Metadata.Xmp
         {
             DateTime? actual = _directory.GetDate(XmpDirectory.TagDatetimeOriginal);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
-            Tests.AreEqual(new SimpleDateFormat("hh:mm:ss dd MM yyyy Z").Parse("11:41:35 12 12 2010 +0000"), actual);
+            Assert.AreEqual(new SimpleDateFormat("hh:mm:ss dd MM yyyy Z").Parse("11:41:35 12 12 2010 +0000"), actual);
             //        assertEquals(new SimpleDateFormat("HH:mm:ss dd MMM yyyy Z").parse("12:41:35 12 Dec 2010 +0100"), actual);
             Calendar calendar = new GregorianCalendar(2010, 12 - 1, 12, 11, 41, 35);
             calendar.SetTimeZone(Extensions.GetTimeZone("GMT"));
-            Tests.AreEqual(calendar.GetTime(), actual.Value);
+            Assert.AreEqual(calendar.GetTime(), actual.Value);
         }
 
         /// <exception cref="System.Exception"/>
@@ -204,11 +204,11 @@ namespace Com.Drew.Metadata.Xmp
         {
             DateTime? actual = _directory.GetDate(XmpDirectory.TagDatetimeDigitized);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
-            Tests.AreEqual(new SimpleDateFormat("hh:mm:ss dd MM yyyy Z").Parse("11:41:35 12 12 2010 +0000"), actual);
+            Assert.AreEqual(new SimpleDateFormat("hh:mm:ss dd MM yyyy Z").Parse("11:41:35 12 12 2010 +0000"), actual);
             //        assertEquals(new SimpleDateFormat("HH:mm:ss dd MMM yyyy Z").parse("12:41:35 12 Dec 2010 +0100"), actual);
             Calendar calendar = new GregorianCalendar(2010, 12 - 1, 12, 11, 41, 35);
             calendar.SetTimeZone(Extensions.GetTimeZone("GMT"));
-            Tests.AreEqual(calendar.GetTime(), actual.Value);
+            Assert.AreEqual(calendar.GetTime(), actual.Value);
         }
 
         /// <exception cref="System.Exception"/>
@@ -216,11 +216,11 @@ namespace Com.Drew.Metadata.Xmp
         public virtual void TestGetXmpProperties()
         {
             IDictionary<string, string> propertyMap = _directory.GetXmpProperties();
-            Tests.AreEqual(179, propertyMap.Count);
-            Tests.IsTrue(propertyMap.ContainsKey("photoshop:Country"));
-            Tests.AreEqual("Deutschland", propertyMap.Get("photoshop:Country"));
-            Tests.IsTrue(propertyMap.ContainsKey("tiff:ImageLength"));
-            Tests.AreEqual("900", propertyMap.Get("tiff:ImageLength"));
+            Assert.AreEqual(179, propertyMap.Count);
+            Assert.IsTrue(propertyMap.ContainsKey("photoshop:Country"));
+            Assert.AreEqual("Deutschland", propertyMap.Get("photoshop:Country"));
+            Assert.IsTrue(propertyMap.ContainsKey("tiff:ImageLength"));
+            Assert.AreEqual("900", propertyMap.Get("tiff:ImageLength"));
         }
     }
 }

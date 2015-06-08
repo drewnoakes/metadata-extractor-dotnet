@@ -37,20 +37,20 @@ namespace Com.Drew.Metadata.Jfif
             Metadata metadata = new Metadata();
             JfifReader reader = new JfifReader();
             reader.Extract(new ByteArrayReader(jfifData), metadata);
-            Tests.AreEqual(1, metadata.GetDirectoryCount());
+            Assert.AreEqual(1, metadata.GetDirectoryCount());
             JfifDirectory directory = metadata.GetFirstDirectoryOfType<JfifDirectory>();
             Assert.IsNotNull(directory);
-            Tests.IsFalse(Extensions.ConvertToString(directory.GetErrors()), directory.HasErrors());
+            Assert.IsFalse(directory.HasErrors(), Extensions.ConvertToString(directory.GetErrors()));
             Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
-            Tests.AreEqual(4, tags.Length);
-            Tests.AreEqual(JfifDirectory.TagVersion, tags[0].GetTagType());
-            Tests.AreEqual(unchecked((int)(0x0102)), directory.GetInt(tags[0].GetTagType()));
-            Tests.AreEqual(JfifDirectory.TagUnits, tags[1].GetTagType());
-            Tests.AreEqual(1, directory.GetInt(tags[1].GetTagType()));
-            Tests.AreEqual(JfifDirectory.TagResx, tags[2].GetTagType());
-            Tests.AreEqual(108, directory.GetInt(tags[2].GetTagType()));
-            Tests.AreEqual(JfifDirectory.TagResy, tags[3].GetTagType());
-            Tests.AreEqual(108, directory.GetInt(tags[3].GetTagType()));
+            Assert.AreEqual(4, tags.Length);
+            Assert.AreEqual(JfifDirectory.TagVersion, tags[0].GetTagType());
+            Assert.AreEqual(unchecked((int)(0x0102)), directory.GetInt(tags[0].GetTagType()));
+            Assert.AreEqual(JfifDirectory.TagUnits, tags[1].GetTagType());
+            Assert.AreEqual(1, directory.GetInt(tags[1].GetTagType()));
+            Assert.AreEqual(JfifDirectory.TagResx, tags[2].GetTagType());
+            Assert.AreEqual(108, directory.GetInt(tags[2].GetTagType()));
+            Assert.AreEqual(JfifDirectory.TagResy, tags[3].GetTagType());
+            Assert.AreEqual(108, directory.GetInt(tags[3].GetTagType()));
         }
     }
 }

@@ -33,14 +33,14 @@ namespace Com.Drew.Metadata
         {
             Age age = Age.FromPanasonicString("0031:07:15 00:00:00");
             Assert.IsNotNull(age);
-            Tests.AreEqual(31, age.GetYears());
-            Tests.AreEqual(7, age.GetMonths());
-            Tests.AreEqual(15, age.GetDays());
-            Tests.AreEqual(0, age.GetHours());
-            Tests.AreEqual(0, age.GetMinutes());
-            Tests.AreEqual(0, age.GetSeconds());
-            Tests.AreEqual("0031:07:15 00:00:00", Extensions.ConvertToString(age));
-            Tests.AreEqual("31 years 7 months 15 days", age.ToFriendlyString());
+            Assert.AreEqual(31, age.GetYears());
+            Assert.AreEqual(7, age.GetMonths());
+            Assert.AreEqual(15, age.GetDays());
+            Assert.AreEqual(0, age.GetHours());
+            Assert.AreEqual(0, age.GetMinutes());
+            Assert.AreEqual(0, age.GetSeconds());
+            Assert.AreEqual("0031:07:15 00:00:00", Extensions.ConvertToString(age));
+            Assert.AreEqual("31 years 7 months 15 days", age.ToFriendlyString());
         }
 
         [Test]
@@ -49,17 +49,17 @@ namespace Com.Drew.Metadata
             Age age1 = new Age(10, 11, 12, 13, 14, 15);
             Age age2 = new Age(10, 11, 12, 13, 14, 15);
             Age age3 = new Age(0, 0, 0, 0, 0, 0);
-            Tests.AreEqual(age1, age1);
-            Tests.AreEqual(age1, age2);
-            Tests.AreEqual(age2, age1);
-            Tests.IsTrue(age1.Equals(age1));
-            Tests.IsTrue(age1.Equals(age2));
-            Tests.IsFalse(age1.Equals(age3));
-            Tests.IsFalse(age1.Equals(null));
-            Tests.IsFalse(age1.Equals("Hello"));
-            Tests.AreEqual(age1.GetHashCode(), age1.GetHashCode());
-            Tests.AreEqual(age1.GetHashCode(), age2.GetHashCode());
-            Tests.IsFalse(age1.GetHashCode() == age3.GetHashCode());
+            Assert.AreEqual(age1, age1);
+            Assert.AreEqual(age1, age2);
+            Assert.AreEqual(age2, age1);
+            Assert.IsTrue(age1.Equals(age1));
+            Assert.IsTrue(age1.Equals(age2));
+            Assert.IsFalse(age1.Equals(age3));
+            Assert.IsFalse(age1.Equals(null));
+            Assert.IsFalse(age1.Equals("Hello"));
+            Assert.AreEqual(age1.GetHashCode(), age1.GetHashCode());
+            Assert.AreEqual(age1.GetHashCode(), age2.GetHashCode());
+            Assert.IsFalse(age1.GetHashCode() == age3.GetHashCode());
         }
     }
 }

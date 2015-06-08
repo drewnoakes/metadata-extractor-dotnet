@@ -36,11 +36,11 @@ namespace Com.Drew.Metadata.Exif
             ExifThumbnailDirectory directory = new ExifThumbnailDirectory();
             directory.SetIntArray(ExifThumbnailDirectory.TagYcbcrSubsampling, new int[] { 2, 1 });
             ExifThumbnailDescriptor descriptor = new ExifThumbnailDescriptor(directory);
-            Tests.AreEqual("YCbCr4:2:2", descriptor.GetDescription(ExifThumbnailDirectory.TagYcbcrSubsampling));
-            Tests.AreEqual("YCbCr4:2:2", descriptor.GetYCbCrSubsamplingDescription());
+            Assert.AreEqual("YCbCr4:2:2", descriptor.GetDescription(ExifThumbnailDirectory.TagYcbcrSubsampling));
+            Assert.AreEqual("YCbCr4:2:2", descriptor.GetYCbCrSubsamplingDescription());
             directory.SetIntArray(ExifThumbnailDirectory.TagYcbcrSubsampling, new int[] { 2, 2 });
-            Tests.AreEqual("YCbCr4:2:0", descriptor.GetDescription(ExifThumbnailDirectory.TagYcbcrSubsampling));
-            Tests.AreEqual("YCbCr4:2:0", descriptor.GetYCbCrSubsamplingDescription());
+            Assert.AreEqual("YCbCr4:2:0", descriptor.GetDescription(ExifThumbnailDirectory.TagYcbcrSubsampling));
+            Assert.AreEqual("YCbCr4:2:0", descriptor.GetYCbCrSubsamplingDescription());
         }
     }
 }

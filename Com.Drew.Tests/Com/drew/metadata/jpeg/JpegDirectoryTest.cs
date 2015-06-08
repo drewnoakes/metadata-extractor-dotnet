@@ -41,7 +41,7 @@ namespace Com.Drew.Metadata.Jpeg
         public virtual void TestSetAndGetValue()
         {
             _directory.SetInt(123, 8);
-            Tests.AreEqual(8, _directory.GetInt(123));
+            Assert.AreEqual(8, _directory.GetInt(123));
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace Com.Drew.Metadata.Jpeg
         public virtual void TestGetImageWidth()
         {
             _directory.SetInt(JpegDirectory.TagImageWidth, 123);
-            Tests.AreEqual(123, _directory.GetImageWidth());
+            Assert.AreEqual(123, _directory.GetImageWidth());
         }
 
         /// <exception cref="System.Exception"/>
@@ -64,7 +64,7 @@ namespace Com.Drew.Metadata.Jpeg
         public virtual void TestGetImageHeight()
         {
             _directory.SetInt(JpegDirectory.TagImageHeight, 123);
-            Tests.AreEqual(123, _directory.GetImageHeight());
+            Assert.AreEqual(123, _directory.GetImageHeight());
         }
 
         /// <exception cref="System.Exception"/>
@@ -72,8 +72,8 @@ namespace Com.Drew.Metadata.Jpeg
         public virtual void TestGetNumberOfComponents()
         {
             _directory.SetInt(JpegDirectory.TagNumberOfComponents, 3);
-            Tests.AreEqual(3, _directory.GetNumberOfComponents());
-            Tests.AreEqual("3", _directory.GetDescription(JpegDirectory.TagNumberOfComponents));
+            Assert.AreEqual(3, _directory.GetNumberOfComponents());
+            Assert.AreEqual("3", _directory.GetDescription(JpegDirectory.TagNumberOfComponents));
         }
 
         /// <exception cref="System.Exception"/>

@@ -40,7 +40,7 @@ namespace Com.Drew.Lang
             }
             catch (CompoundException e)
             {
-                Tests.AreEqual("message", e.Message);
+                Assert.AreEqual("message", e.Message);
             }
         }
 
@@ -61,10 +61,10 @@ namespace Com.Drew.Lang
             }
             catch (CompoundException e)
             {
-                Tests.AreEqual("compound", e.Message);
+                Assert.AreEqual("compound", e.Message);
                 Exception innerException = e.GetInnerException();
                 Assert.IsNotNull(innerException);
-                Tests.AreEqual("io", innerException.Message);
+                Assert.AreEqual("io", innerException.Message);
             }
         }
 

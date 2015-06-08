@@ -35,7 +35,7 @@ namespace Com.Drew.Metadata.Exif
         {
             SonyType1MakernoteDirectory directory = ExifReaderTest.ProcessBytes<SonyType1MakernoteDirectory>("Tests/Data/sonyType1.jpg.app1");
             Assert.IsNotNull(directory);
-            Tests.IsFalse(directory.HasErrors());
+            Assert.IsFalse(directory.HasErrors());
             SonyType1MakernoteDescriptor descriptor = new SonyType1MakernoteDescriptor(directory);
             Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagColorTemperature));
             Assert.IsNull(descriptor.GetColorTemperatureDescription());
@@ -49,11 +49,11 @@ namespace Com.Drew.Metadata.Exif
             Assert.IsNull(descriptor.GetImageStabilizationDescription());
             Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagColorMode));
             Assert.IsNull(descriptor.GetColorModeDescription());
-            Tests.AreEqual("On (Shooting)", descriptor.GetAntiBlurDescription());
-            Tests.AreEqual("Program", descriptor.GetExposureModeDescription());
-            Tests.AreEqual("Off", descriptor.GetLongExposureNoiseReductionDescription());
-            Tests.AreEqual("Off", descriptor.GetMacroDescription());
-            Tests.AreEqual("Normal", descriptor.GetJpegQualityDescription());
+            Assert.AreEqual("On (Shooting)", descriptor.GetAntiBlurDescription());
+            Assert.AreEqual("Program", descriptor.GetExposureModeDescription());
+            Assert.AreEqual("Off", descriptor.GetLongExposureNoiseReductionDescription());
+            Assert.AreEqual("Off", descriptor.GetMacroDescription());
+            Assert.AreEqual("Normal", descriptor.GetJpegQualityDescription());
         }
     }
 }
