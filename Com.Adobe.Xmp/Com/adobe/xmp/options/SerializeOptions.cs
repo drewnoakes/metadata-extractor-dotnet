@@ -341,17 +341,11 @@ namespace Com.Adobe.Xmp.Options
             {
                 return "UTF-16BE";
             }
-            else
+            if (GetEncodeUtf16Le())
             {
-                if (GetEncodeUtf16Le())
-                {
-                    return "UTF-16LE";
-                }
-                else
-                {
-                    return "UTF-8";
-                }
+                return "UTF-16LE";
             }
+            return "UTF-8";
         }
 
         /// <returns>Returns clone of this SerializeOptions-object with the same options set.</returns>

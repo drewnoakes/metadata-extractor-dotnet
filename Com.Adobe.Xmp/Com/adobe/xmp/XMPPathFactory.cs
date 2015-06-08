@@ -78,17 +78,11 @@ namespace Com.Adobe.Xmp
             {
                 return arrayName + '[' + itemIndex + ']';
             }
-            else
+            if (itemIndex == XmpConstConstants.ArrayLastItem)
             {
-                if (itemIndex == XmpConstConstants.ArrayLastItem)
-                {
-                    return arrayName + "[last()]";
-                }
-                else
-                {
-                    throw new XmpException("Array index must be larger than zero", XmpErrorConstants.Badindex);
-                }
+                return arrayName + "[last()]";
             }
+            throw new XmpException("Array index must be larger than zero", XmpErrorConstants.Badindex);
         }
 
         /// <summary>Compose the path expression for a field in a struct.</summary>

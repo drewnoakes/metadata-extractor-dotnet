@@ -81,24 +81,21 @@ namespace Com.Adobe.Xmp.Impl
                     // Return the actual prefix
                     return registeredPrefix;
                 }
-                else
+                if (registeredNs != null)
                 {
-                    if (registeredNs != null)
+                    // the namespace is new, but the prefix is already engaged,
+                    // we generate a new prefix out of the suggested
+                    string generatedPrefix = suggestedPrefix;
+                    for (int i = 1; _prefixToNamespaceMap.ContainsKey(generatedPrefix); i++)
                     {
-                        // the namespace is new, but the prefix is already engaged,
-                        // we generate a new prefix out of the suggested
-                        string generatedPrefix = suggestedPrefix;
-                        for (int i = 1; _prefixToNamespaceMap.ContainsKey(generatedPrefix); i++)
-                        {
-                            generatedPrefix = Runtime.Substring(suggestedPrefix, 0, suggestedPrefix.Length - 1) + "_" + i + "_:";
-                        }
-                        suggestedPrefix = generatedPrefix;
+                        generatedPrefix = Runtime.Substring(suggestedPrefix, 0, suggestedPrefix.Length - 1) + "_" + i + "_:";
                     }
-                    _prefixToNamespaceMap.Put(suggestedPrefix, namespaceUri);
-                    _namespaceToPrefixMap.Put(namespaceUri, suggestedPrefix);
-                    // Return the suggested prefix
-                    return suggestedPrefix;
+                    suggestedPrefix = generatedPrefix;
                 }
+                _prefixToNamespaceMap.Put(suggestedPrefix, namespaceUri);
+                _namespaceToPrefixMap.Put(namespaceUri, suggestedPrefix);
+                // Return the suggested prefix
+                return suggestedPrefix;
             }
         }
 
@@ -340,12 +337,9 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     throw new XmpException("Alias namespace is not registered", XmpErrorConstants.Badschema);
                 }
-                else
+                if (actualPrefix == null)
                 {
-                    if (actualPrefix == null)
-                    {
-                        throw new XmpException("Actual namespace is not registered", XmpErrorConstants.Badschema);
-                    }
+                    throw new XmpException("Actual namespace is not registered", XmpErrorConstants.Badschema);
                 }
                 string key = aliasPrefix + aliasProp;
                 // check if alias is already existing
@@ -353,12 +347,9 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     throw new XmpException("Alias is already existing", XmpErrorConstants.Badparam);
                 }
-                else
+                if (_aliasMap.ContainsKey(actualPrefix + actualProp))
                 {
-                    if (_aliasMap.ContainsKey(actualPrefix + actualProp))
-                    {
-                        throw new XmpException("Actual property is already an alias, use the base property", XmpErrorConstants.Badparam);
-                    }
+                    throw new XmpException("Actual property is already an alias, use the base property", XmpErrorConstants.Badparam);
                 }
                 IXmpAliasInfo aliasInfo = new XmpAliasInfo390(actualNs, actualPrefix, actualProp, aliasOpts);
                 _aliasMap.Put(key, aliasInfo);

@@ -100,24 +100,15 @@ namespace Com.Drew.Lang
             {
                 return 0;
             }
-            else
+            if (null1)
             {
-                if (null1)
-                {
-                    return -1;
-                }
-                else
-                {
-                    if (null2)
-                    {
-                        return 1;
-                    }
-                    else
-                    {
-                        return string.CompareOrdinal(s1, s2);
-                    }
-                }
+                return -1;
             }
+            if (null2)
+            {
+                return 1;
+            }
+            return string.CompareOrdinal(s1, s2);
         }
 
         [NotNull]

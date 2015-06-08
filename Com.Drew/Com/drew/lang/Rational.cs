@@ -205,35 +205,26 @@ namespace Com.Drew.Lang
             {
                 return Extensions.ConvertToString(this);
             }
-            else
+            if (IsInteger())
             {
-                if (IsInteger())
+                return Extensions.ConvertToString(IntValue());
+            }
+            if (_numerator != 1 && _denominator % _numerator == 0)
+            {
+                // common factor between denominator and numerator
+                long newDenominator = _denominator / _numerator;
+                return new Rational(1, newDenominator).ToSimpleString(allowDecimal);
+            }
+            Rational simplifiedInstance = GetSimplifiedInstance();
+            if (allowDecimal)
+            {
+                string doubleString = Extensions.ConvertToString(simplifiedInstance.DoubleValue());
+                if (doubleString.Length < 5)
                 {
-                    return Extensions.ConvertToString(IntValue());
-                }
-                else
-                {
-                    if (_numerator != 1 && _denominator % _numerator == 0)
-                    {
-                        // common factor between denominator and numerator
-                        long newDenominator = _denominator / _numerator;
-                        return new Rational(1, newDenominator).ToSimpleString(allowDecimal);
-                    }
-                    else
-                    {
-                        Rational simplifiedInstance = GetSimplifiedInstance();
-                        if (allowDecimal)
-                        {
-                            string doubleString = Extensions.ConvertToString(simplifiedInstance.DoubleValue());
-                            if (doubleString.Length < 5)
-                            {
-                                return doubleString;
-                            }
-                        }
-                        return Extensions.ConvertToString(simplifiedInstance);
-                    }
+                    return doubleString;
                 }
             }
+            return Extensions.ConvertToString(simplifiedInstance);
         }
 
         /// <summary>

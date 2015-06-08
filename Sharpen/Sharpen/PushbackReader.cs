@@ -49,7 +49,7 @@ namespace Sharpen
                         {
                             throw new ArgumentException();
                         }
-                        else if ((off < 0) || (off > cbuf.Length))
+                        if ((off < 0) || (off > cbuf.Length))
                         {
                             throw new ArgumentException();
                         }

@@ -50,7 +50,7 @@ namespace Sharpen
                 Directory.Delete (path, true);
                 return true;
             }
-            else if (File.Exists(path)) {
+            if (File.Exists(path)) {
                 MakeFileWritable (path);
                 File.Delete (path);
                 return true;
@@ -78,7 +78,8 @@ namespace Sharpen
             if (IsFile(path)) {
                 var info2 = new FileInfo(path);
                 return info2.Exists ? info2.LastWriteTimeUtc.ToMillisecondsSinceEpoch() : 0;
-            } else if (IsDirectory (path)) {
+            }
+            if (IsDirectory (path)) {
                 var info = new DirectoryInfo(path);
                 return info.Exists ? info.LastWriteTimeUtc.ToMillisecondsSinceEpoch() : 0;
             }

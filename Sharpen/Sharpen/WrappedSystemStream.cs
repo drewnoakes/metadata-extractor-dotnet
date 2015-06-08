@@ -51,8 +51,8 @@ namespace Sharpen
             if (res != -1) {
                 _position += res;
                 return res;
-            } else
-                return 0;
+            }
+            return 0;
         }
 
         public override int ReadByte ()
@@ -124,16 +124,17 @@ namespace Sharpen
         }
 
         public override long Position {
-            get {
+            get
+            {
                 if (_ist != null && _ist.CanSeek ())
                     return _ist.Position;
-                else
-                    return _position;
+                return _position;
             }
-            set {
+            set
+            {
                 if (value == _position)
                     return;
-                else if (value == _markedPosition)
+                if (value == _markedPosition)
                     _ist.Reset ();
                 else if (_ist != null && _ist.CanSeek ()) {
                     _ist.Position = value;

@@ -242,32 +242,26 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     return ReportNode();
                 }
-                else
+                if (_state == IterateChildren)
                 {
-                    if (_state == IterateChildren)
+                    if (_childrenIterator == null)
                     {
-                        if (_childrenIterator == null)
-                        {
-                            _childrenIterator = _visitedNode.IterateChildren();
-                        }
-                        bool hasNext = IterateChildrenMethod(_childrenIterator);
-                        if (!hasNext && _visitedNode.HasQualifier() && !_enclosing.GetOptions().IsOmitQualifiers())
-                        {
-                            _state = IterateQualifier;
-                            _childrenIterator = null;
-                            hasNext = HasNext();
-                        }
-                        return hasNext;
+                        _childrenIterator = _visitedNode.IterateChildren();
                     }
-                    else
+                    bool hasNext = IterateChildrenMethod(_childrenIterator);
+                    if (!hasNext && _visitedNode.HasQualifier() && !_enclosing.GetOptions().IsOmitQualifiers())
                     {
-                        if (_childrenIterator == null)
-                        {
-                            _childrenIterator = _visitedNode.IterateQualifier();
-                        }
-                        return IterateChildrenMethod(_childrenIterator);
+                        _state = IterateQualifier;
+                        _childrenIterator = null;
+                        hasNext = HasNext();
                     }
+                    return hasNext;
                 }
+                if (_childrenIterator == null)
+                {
+                    _childrenIterator = _visitedNode.IterateQualifier();
+                }
+                return IterateChildrenMethod(_childrenIterator);
             }
 
             /// <summary>Sets the returnProperty as next item or recurses into <code>hasNext()</code>.</summary>
@@ -280,10 +274,7 @@ namespace Com.Adobe.Xmp.Impl
                     _returnProperty = CreatePropertyInfo(_visitedNode, _enclosing.GetBaseNs(), _path);
                     return true;
                 }
-                else
-                {
-                    return HasNext();
-                }
+                return HasNext();
             }
 
             /// <summary>Handles the iteration of the children or qualfier</summary>
@@ -310,10 +301,7 @@ namespace Com.Adobe.Xmp.Impl
                     _returnProperty = (IXmpPropertyInfo)_subIterator.Next();
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
 
             /// <summary>Calls hasNext() and returnes the prepared node.</summary>
@@ -331,10 +319,7 @@ namespace Com.Adobe.Xmp.Impl
                     _returnProperty = null;
                     return result;
                 }
-                else
-                {
-                    throw new NoSuchElementException("There are no more nodes to return");
-                }
+                throw new NoSuchElementException("There are no more nodes to return");
             }
 
             /// <summary>Not supported.</summary>
@@ -356,35 +341,26 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     return null;
                 }
+                if (currNode.GetParent().GetOptions().IsArray())
+                {
+                    separator = string.Empty;
+                    segmentName = "[" + currentIndex.ToString() + "]";
+                }
                 else
                 {
-                    if (currNode.GetParent().GetOptions().IsArray())
-                    {
-                        separator = string.Empty;
-                        segmentName = "[" + currentIndex.ToString() + "]";
-                    }
-                    else
-                    {
-                        separator = "/";
-                        segmentName = currNode.GetName();
-                    }
+                    separator = "/";
+                    segmentName = currNode.GetName();
                 }
                 if (parentPath == null || parentPath.Length == 0)
                 {
                     return segmentName;
                 }
-                else
+                if (_enclosing.GetOptions().IsJustLeafname())
                 {
-                    if (_enclosing.GetOptions().IsJustLeafname())
-                    {
-                        return !segmentName.StartsWith("?") ? segmentName : Runtime.Substring(segmentName, 1);
-                    }
-                    else
-                    {
-                        // qualifier
-                        return parentPath + separator + segmentName;
-                    }
+                    return !segmentName.StartsWith("?") ? segmentName : Runtime.Substring(segmentName, 1);
                 }
+                // qualifier
+                return parentPath + separator + segmentName;
             }
 
             /// <summary>Creates a property info object from an <code>XMPNode</code>.</summary>
@@ -416,10 +392,7 @@ namespace Com.Adobe.Xmp.Impl
                         QName qname = new QName(_node.GetName());
                         return XmpMetaFactory.GetSchemaRegistry().GetNamespaceUri(qname.GetPrefix());
                     }
-                    else
-                    {
-                        return _baseNs;
-                    }
+                    return _baseNs;
                 }
 
                 public string GetPath()
@@ -516,48 +489,36 @@ namespace Com.Adobe.Xmp.Impl
                     // hasNext has been called before
                     return true;
                 }
-                else
+                if (_enclosing.skipSiblings)
                 {
-                    if (_enclosing.skipSiblings)
+                    return false;
+                }
+                if (_childrenIterator.HasNext())
+                {
+                    XmpNode child = (XmpNode)_childrenIterator.Next();
+                    _index++;
+                    string path = null;
+                    if (child.GetOptions().IsSchemaNode())
                     {
-                        return false;
+                        _enclosing.SetBaseNs(child.GetName());
                     }
                     else
                     {
-                        if (_childrenIterator.HasNext())
+                        if (child.GetParent() != null)
                         {
-                            XmpNode child = (XmpNode)_childrenIterator.Next();
-                            _index++;
-                            string path = null;
-                            if (child.GetOptions().IsSchemaNode())
-                            {
-                                _enclosing.SetBaseNs(child.GetName());
-                            }
-                            else
-                            {
-                                if (child.GetParent() != null)
-                                {
-                                    // for all but the root node and schema nodes
-                                    path = AccumulatePath(child, _parentPath, _index);
-                                }
-                            }
-                            // report next property, skip not-leaf nodes in case options is set
-                            if (!_enclosing.GetOptions().IsJustLeafnodes() || !child.HasChildren())
-                            {
-                                SetReturnProperty(CreatePropertyInfo(child, _enclosing.GetBaseNs(), path));
-                                return true;
-                            }
-                            else
-                            {
-                                return HasNext();
-                            }
-                        }
-                        else
-                        {
-                            return false;
+                            // for all but the root node and schema nodes
+                            path = AccumulatePath(child, _parentPath, _index);
                         }
                     }
+                    // report next property, skip not-leaf nodes in case options is set
+                    if (!_enclosing.GetOptions().IsJustLeafnodes() || !child.HasChildren())
+                    {
+                        SetReturnProperty(CreatePropertyInfo(child, _enclosing.GetBaseNs(), path));
+                        return true;
+                    }
+                    return HasNext();
                 }
+                return false;
             }
 
             private readonly XmpIterator _enclosing;

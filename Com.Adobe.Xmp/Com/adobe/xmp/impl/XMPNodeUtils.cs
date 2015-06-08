@@ -116,19 +116,13 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     throw new XmpException("Named children only allowed for schemas and structs", XmpErrorConstants.Badxpath);
                 }
-                else
+                if (parent.GetOptions().IsArray())
                 {
-                    if (parent.GetOptions().IsArray())
-                    {
-                        throw new XmpException("Named children not allowed for arrays", XmpErrorConstants.Badxpath);
-                    }
-                    else
-                    {
-                        if (createNodes)
-                        {
-                            parent.GetOptions().SetStruct(true);
-                        }
-                    }
+                    throw new XmpException("Named children not allowed for arrays", XmpErrorConstants.Badxpath);
+                }
+                if (createNodes)
+                {
+                    parent.GetOptions().SetStruct(true);
                 }
             }
             XmpNode childNode = parent.FindChildByName(childName);
@@ -176,14 +170,11 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return null;
             }
-            else
+            if (currNode.IsImplicit())
             {
-                if (currNode.IsImplicit())
-                {
-                    currNode.SetImplicit(false);
-                    // Clear the implicit node bit.
-                    rootImplicitNode = currNode;
-                }
+                currNode.SetImplicit(false);
+                // Clear the implicit node bit.
+                rootImplicitNode = currNode;
             }
             // Save the top most implicit node.
             // Now follow the remaining steps of the original XMPPath.
@@ -201,30 +192,27 @@ namespace Com.Adobe.Xmp.Impl
                         }
                         return null;
                     }
-                    else
+                    if (currNode.IsImplicit())
                     {
-                        if (currNode.IsImplicit())
+                        // clear the implicit node flag
+                        currNode.SetImplicit(false);
+                        // if node is an ALIAS (can be only in root step, auto-create array
+                        // when the path has been resolved from a not simple alias type
+                        if (i == 1 && xpath.GetSegment(i).IsAlias() && xpath.GetSegment(i).GetAliasForm() != 0)
                         {
-                            // clear the implicit node flag
-                            currNode.SetImplicit(false);
-                            // if node is an ALIAS (can be only in root step, auto-create array
-                            // when the path has been resolved from a not simple alias type
-                            if (i == 1 && xpath.GetSegment(i).IsAlias() && xpath.GetSegment(i).GetAliasForm() != 0)
+                            currNode.GetOptions().SetOption(xpath.GetSegment(i).GetAliasForm(), true);
+                        }
+                        else
+                        {
+                            // "CheckImplicitStruct" in C++
+                            if (i < xpath.Size() - 1 && xpath.GetSegment(i).GetKind() == XmpPath.StructFieldStep && !currNode.GetOptions().IsCompositeProperty())
                             {
-                                currNode.GetOptions().SetOption(xpath.GetSegment(i).GetAliasForm(), true);
+                                currNode.GetOptions().SetStruct(true);
                             }
-                            else
-                            {
-                                // "CheckImplicitStruct" in C++
-                                if (i < xpath.Size() - 1 && xpath.GetSegment(i).GetKind() == XmpPath.StructFieldStep && !currNode.GetOptions().IsCompositeProperty())
-                                {
-                                    currNode.GetOptions().SetStruct(true);
-                                }
-                            }
-                            if (rootImplicitNode == null)
-                            {
-                                rootImplicitNode = currNode;
-                            }
+                        }
+                        if (rootImplicitNode == null)
+                        {
+                            rootImplicitNode = currNode;
                         }
                     }
                 }
@@ -620,27 +608,21 @@ namespace Com.Adobe.Xmp.Impl
                     arrayNode.AddChild(1, langNode);
                     return 1;
                 }
-                else
-                {
-                    return index;
-                }
+                return index;
             }
-            else
+            for (int index = 1; index < arrayNode.GetChildrenLength(); index++)
             {
-                for (int index = 1; index < arrayNode.GetChildrenLength(); index++)
+                XmpNode currItem = arrayNode.GetChild(index);
+                for (IIterator it = currItem.IterateQualifier(); it.HasNext(); )
                 {
-                    XmpNode currItem = arrayNode.GetChild(index);
-                    for (IIterator it = currItem.IterateQualifier(); it.HasNext(); )
+                    XmpNode qualifier = (XmpNode)it.Next();
+                    if (qualName.Equals(qualifier.GetName()) && qualValue.Equals(qualifier.GetValue()))
                     {
-                        XmpNode qualifier = (XmpNode)it.Next();
-                        if (qualName.Equals(qualifier.GetName()) && qualValue.Equals(qualifier.GetValue()))
-                        {
-                            return index;
-                        }
+                        return index;
                     }
                 }
-                return -1;
             }
+            return -1;
         }
 
         /// <summary>Make sure the x-default item is first.</summary>
@@ -760,12 +742,9 @@ namespace Com.Adobe.Xmp.Impl
             {
                 throw new XmpException("Localized text array is not alt-text", XmpErrorConstants.Badxpath);
             }
-            else
+            if (!arrayNode.HasChildren())
             {
-                if (!arrayNode.HasChildren())
-                {
-                    return new object[] { CltNoValues, null };
-                }
+                return new object[] { CltNoValues, null };
             }
             int foundGenericMatches = 0;
             XmpNode resultNode = null;
@@ -779,12 +758,9 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     throw new XmpException("Alt-text array item is not simple", XmpErrorConstants.Badxpath);
                 }
-                else
+                if (!currItem.HasQualifier() || !XmpConstConstants.XmlLang.Equals(currItem.GetQualifier(1).GetName()))
                 {
-                    if (!currItem.HasQualifier() || !XmpConstConstants.XmlLang.Equals(currItem.GetQualifier(1).GetName()))
-                    {
-                        throw new XmpException("Alt-text array item has no language qualifier", XmpErrorConstants.Badxpath);
-                    }
+                    throw new XmpException("Alt-text array item has no language qualifier", XmpErrorConstants.Badxpath);
                 }
                 string currLang = currItem.GetQualifier(1).GetValue();
                 // Look for an exact match with the specific language.
@@ -792,23 +768,20 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     return new object[] { CltSpecificMatch, currItem };
                 }
+                if (genericLang != null && currLang.StartsWith(genericLang))
+                {
+                    if (resultNode == null)
+                    {
+                        resultNode = currItem;
+                    }
+                    // ! Don't return/break, need to look for other matches.
+                    foundGenericMatches++;
+                }
                 else
                 {
-                    if (genericLang != null && currLang.StartsWith(genericLang))
+                    if (XmpConstConstants.XDefault.Equals(currLang))
                     {
-                        if (resultNode == null)
-                        {
-                            resultNode = currItem;
-                        }
-                        // ! Don't return/break, need to look for other matches.
-                        foundGenericMatches++;
-                    }
-                    else
-                    {
-                        if (XmpConstConstants.XDefault.Equals(currLang))
-                        {
-                            xDefault = currItem;
-                        }
+                        xDefault = currItem;
                     }
                 }
             }
@@ -817,25 +790,16 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return new object[] { CltSingleGeneric, resultNode };
             }
-            else
+            if (foundGenericMatches > 1)
             {
-                if (foundGenericMatches > 1)
-                {
-                    return new object[] { CltMultipleGeneric, resultNode };
-                }
-                else
-                {
-                    if (xDefault != null)
-                    {
-                        return new object[] { CltXdefault, xDefault };
-                    }
-                    else
-                    {
-                        // Everything failed, choose the first item.
-                        return new object[] { CltFirstItem, arrayNode.GetChild(1) };
-                    }
-                }
+                return new object[] { CltMultipleGeneric, resultNode };
             }
+            if (xDefault != null)
+            {
+                return new object[] { CltXdefault, xDefault };
+            }
+            // Everything failed, choose the first item.
+            return new object[] { CltFirstItem, arrayNode.GetChild(1) };
         }
 
         /// <summary>Looks for the appropriate language item in a text alternative array.item</summary>
@@ -856,12 +820,9 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     continue;
                 }
-                else
+                if (language.Equals(child.GetQualifier(1).GetValue()))
                 {
-                    if (language.Equals(child.GetQualifier(1).GetValue()))
-                    {
-                        return index;
-                    }
+                    return index;
                 }
             }
             return -1;

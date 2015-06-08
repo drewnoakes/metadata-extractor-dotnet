@@ -88,13 +88,10 @@ namespace Com.Adobe.Xmp.Impl
             {
                 throw new XmpException("Parameter must not be null", XmpErrorConstants.Badparam);
             }
-            else
+            var s = param as string;
+            if (s != null && s.Length == 0)
             {
-                var s = param as string;
-                if (s != null && s.Length == 0)
-                {
-                    throw new XmpException("Parameter must not be null or empty", XmpErrorConstants.Badparam);
-                }
+                throw new XmpException("Parameter must not be null or empty", XmpErrorConstants.Badparam);
             }
         }
 
@@ -112,12 +109,9 @@ namespace Com.Adobe.Xmp.Impl
             {
                 throw new XmpException("Parameter must not be null", XmpErrorConstants.Badparam);
             }
-            else
+            if (!(xmp is XmpMeta))
             {
-                if (!(xmp is XmpMeta))
-                {
-                    throw new XmpException("The XMPMeta-object is not compatible with this implementation", XmpErrorConstants.Badparam);
-                }
+                throw new XmpException("The XMPMeta-object is not compatible with this implementation", XmpErrorConstants.Badparam);
             }
         }
     }

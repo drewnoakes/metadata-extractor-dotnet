@@ -169,33 +169,30 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     continue;
                 }
+                if (currProp.GetOptions().IsSimple())
+                {
+                    // create a new array and add the current property as child,
+                    // if it was formerly simple
+                    XmpNode newArray = new XmpNode(currProp.GetName(), arrayForm);
+                    currProp.SetName(XmpConstConstants.ArrayItemName);
+                    newArray.AddChild(currProp);
+                    dcSchema.ReplaceChild(i, newArray);
+                    // fix language alternatives
+                    if (arrayForm.IsArrayAltText() && !currProp.GetOptions().GetHasLanguage())
+                    {
+                        XmpNode newLang = new XmpNode(XmpConstConstants.XmlLang, XmpConstConstants.XDefault, null);
+                        currProp.AddQualifier(newLang);
+                    }
+                }
                 else
                 {
-                    if (currProp.GetOptions().IsSimple())
+                    // clear array options and add corrected array form if it has been an array before
+                    currProp.GetOptions().SetOption(PropertyOptions.Array | PropertyOptions.ArrayOrdered | PropertyOptions.ArrayAlternate | PropertyOptions.ArrayAltText, false);
+                    currProp.GetOptions().MergeWith(arrayForm);
+                    if (arrayForm.IsArrayAltText())
                     {
-                        // create a new array and add the current property as child,
-                        // if it was formerly simple
-                        XmpNode newArray = new XmpNode(currProp.GetName(), arrayForm);
-                        currProp.SetName(XmpConstConstants.ArrayItemName);
-                        newArray.AddChild(currProp);
-                        dcSchema.ReplaceChild(i, newArray);
-                        // fix language alternatives
-                        if (arrayForm.IsArrayAltText() && !currProp.GetOptions().GetHasLanguage())
-                        {
-                            XmpNode newLang = new XmpNode(XmpConstConstants.XmlLang, XmpConstConstants.XDefault, null);
-                            currProp.AddQualifier(newLang);
-                        }
-                    }
-                    else
-                    {
-                        // clear array options and add corrected array form if it has been an array before
-                        currProp.GetOptions().SetOption(PropertyOptions.Array | PropertyOptions.ArrayOrdered | PropertyOptions.ArrayAlternate | PropertyOptions.ArrayAltText, false);
-                        currProp.GetOptions().MergeWith(arrayForm);
-                        if (arrayForm.IsArrayAltText())
-                        {
-                            // applying for "dc:description", "dc:rights", "dc:title"
-                            RepairAltText(currProp);
-                        }
+                        // applying for "dc:description", "dc:rights", "dc:title"
+                        RepairAltText(currProp);
                     }
                 }
             }

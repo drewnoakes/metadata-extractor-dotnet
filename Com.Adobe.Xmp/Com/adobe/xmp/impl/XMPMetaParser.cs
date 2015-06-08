@@ -59,16 +59,10 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     return XmpNormalizer.Process(xmp, options);
                 }
-                else
-                {
-                    return xmp;
-                }
+                return xmp;
             }
-            else
-            {
-                // no appropriate root node found, return empty metadata object
-                return new XmpMeta();
-            }
+            // no appropriate root node found, return empty metadata object
+            return new XmpMeta();
         }
 
         /// <summary>Parses the raw XML metadata packet considering the parsing options.</summary>
@@ -97,18 +91,12 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return ParseXmlFromInputStream(stream, options);
             }
-            else
+            var sbytes = input as sbyte[];
+            if (sbytes != null)
             {
-                var sbytes = input as sbyte[];
-                if (sbytes != null)
-                {
-                    return ParseXmlFromBytebuffer(new ByteBuffer(sbytes), options);
-                }
-                else
-                {
-                    return ParseXmlFromString((string)input, options);
-                }
+                return ParseXmlFromBytebuffer(new ByteBuffer(sbytes), options);
             }
+            return ParseXmlFromString((string)input, options);
         }
 
         /// <summary>
@@ -125,18 +113,15 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return ParseInputSource(new InputSource(stream));
             }
-            else
+            // load stream into bytebuffer
+            try
             {
-                // load stream into bytebuffer
-                try
-                {
-                    ByteBuffer buffer = new ByteBuffer(stream);
-                    return ParseXmlFromBytebuffer(buffer, options);
-                }
-                catch (IOException e)
-                {
-                    throw new XmpException("Error reading the XML-file", XmpErrorConstants.Badstream, e);
-                }
+                ByteBuffer buffer = new ByteBuffer(stream);
+                return ParseXmlFromBytebuffer(buffer, options);
+            }
+            catch (IOException e)
+            {
+                throw new XmpException("Error reading the XML-file", XmpErrorConstants.Badstream, e);
             }
         }
 
@@ -180,10 +165,7 @@ namespace Com.Adobe.Xmp.Impl
                     source = new InputSource(buffer.GetByteStream());
                     return ParseInputSource(source);
                 }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
         }
 
@@ -208,10 +190,7 @@ namespace Com.Adobe.Xmp.Impl
                     source = new InputSource(new FixAsciiControlsReader(new StringReader(input)));
                     return ParseInputSource(source);
                 }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
         }
 
@@ -302,31 +281,22 @@ namespace Com.Adobe.Xmp.Impl
                             // by not passing the RequireXMPMeta-option, the rdf-Node will be valid
                             return FindRootNode(root, false, result);
                         }
-                        else
+                        if (!xmpmetaRequired && "RDF".Equals(rootLocal) && XmpConstConstants.NsRdf.Equals(rootNs))
                         {
-                            if (!xmpmetaRequired && "RDF".Equals(rootLocal) && XmpConstConstants.NsRdf.Equals(rootNs))
+                            if (result != null)
                             {
-                                if (result != null)
-                                {
-                                    result[0] = root;
-                                    result[1] = XmpRdf;
-                                }
-                                return result;
+                                result[0] = root;
+                                result[1] = XmpRdf;
                             }
-                            else
-                            {
-                                // continue searching
-                                object[] newResult = FindRootNode(root, xmpmetaRequired, result);
-                                if (newResult != null)
-                                {
-                                    return newResult;
-                                }
-                                else
-                                {
-                                    continue;
-                                }
-                            }
+                            return result;
                         }
+                        // continue searching
+                        object[] newResult = FindRootNode(root, xmpmetaRequired, result);
+                        if (newResult != null)
+                        {
+                            return newResult;
+                        }
+                        continue;
                     }
                 }
             }

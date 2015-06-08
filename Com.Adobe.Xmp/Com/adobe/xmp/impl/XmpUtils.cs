@@ -79,12 +79,9 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return string.Empty;
             }
-            else
+            if (!arrayNode.GetOptions().IsArray() || arrayNode.GetOptions().IsArrayAlternate())
             {
-                if (!arrayNode.GetOptions().IsArray() || arrayNode.GetOptions().IsArrayAlternate())
-                {
-                    throw new XmpException("Named property must be non-alternate array", XmpErrorConstants.Badparam);
-                }
+                throw new XmpException("Named property must be non-alternate array", XmpErrorConstants.Badparam);
             }
             // Make sure the separator is OK.
             CheckSeparator(separator);
@@ -180,23 +177,17 @@ namespace Com.Adobe.Xmp.Impl
                         {
                             continue;
                         }
-                        else
+                        if (charKind != UckSpace)
                         {
-                            if (charKind != UckSpace)
+                            break;
+                        }
+                        if ((itemEnd + 1) < endPos)
+                        {
+                            ch = catedStr[itemEnd + 1];
+                            nextKind = ClassifyCharacter(ch);
+                            if (nextKind == UckNormal || nextKind == UckQuote || (nextKind == UckComma && preserveCommas))
                             {
-                                break;
-                            }
-                            else
-                            {
-                                if ((itemEnd + 1) < endPos)
-                                {
-                                    ch = catedStr[itemEnd + 1];
-                                    nextKind = ClassifyCharacter(ch);
-                                    if (nextKind == UckNormal || nextKind == UckQuote || (nextKind == UckComma && preserveCommas))
-                                    {
-                                        continue;
-                                    }
-                                }
+                                continue;
                             }
                         }
                         // Anything left?
@@ -810,39 +801,24 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return UckSpace;
             }
-            else
+            if (Commas.IndexOf(ch) >= 0)
             {
-                if (Commas.IndexOf(ch) >= 0)
-                {
-                    return UckComma;
-                }
-                else
-                {
-                    if (Semicola.IndexOf(ch) >= 0)
-                    {
-                        return UckSemicolon;
-                    }
-                    else
-                    {
-                        if (Quotes.IndexOf(ch) >= 0 || (unchecked((int)(0x3008)) <= ch && ch <= unchecked((int)(0x300F))) || (unchecked((int)(0x2018)) <= ch && ch <= unchecked((int)(0x201F))))
-                        {
-                            return UckQuote;
-                        }
-                        else
-                        {
-                            if (ch < unchecked((int)(0x0020)) || Controls.IndexOf(ch) >= 0)
-                            {
-                                return UckControl;
-                            }
-                            else
-                            {
-                                // Assume typical case.
-                                return UckNormal;
-                            }
-                        }
-                    }
-                }
+                return UckComma;
             }
+            if (Semicola.IndexOf(ch) >= 0)
+            {
+                return UckSemicolon;
+            }
+            if (Quotes.IndexOf(ch) >= 0 || (unchecked((int)(0x3008)) <= ch && ch <= unchecked((int)(0x300F))) || (unchecked((int)(0x2018)) <= ch && ch <= unchecked((int)(0x201F))))
+            {
+                return UckQuote;
+            }
+            if (ch < unchecked((int)(0x0020)) || Controls.IndexOf(ch) >= 0)
+            {
+                return UckControl;
+            }
+            // Assume typical case.
+            return UckNormal;
         }
 
         /// <param name="openQuote">the open quote char</param>

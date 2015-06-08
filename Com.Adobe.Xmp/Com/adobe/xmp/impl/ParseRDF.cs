@@ -151,18 +151,12 @@ namespace Com.Adobe.Xmp.Impl
             {
                 throw new XmpException("Node element must be rdf:Description or typed node", XmpErrorConstants.Badrdf);
             }
-            else
+            if (isTopLevel && nodeTerm == RdftermOther)
             {
-                if (isTopLevel && nodeTerm == RdftermOther)
-                {
-                    throw new XmpException("Top level typed node not allowed", XmpErrorConstants.Badxmp);
-                }
-                else
-                {
-                    Rdf_NodeElementAttrs(xmp, xmpParent, xmlNode, isTopLevel);
-                    Rdf_PropertyElementList(xmp, xmpParent, xmlNode, isTopLevel);
-                }
+                throw new XmpException("Top level typed node not allowed", XmpErrorConstants.Badxmp);
             }
+            Rdf_NodeElementAttrs(xmp, xmpParent, xmlNode, isTopLevel);
+            Rdf_PropertyElementList(xmp, xmpParent, xmlNode, isTopLevel);
         }
 
         /// <summary>
@@ -270,17 +264,11 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     continue;
                 }
-                else
+                if (currChild.NodeType != XmlNodeType.Element)
                 {
-                    if (currChild.NodeType != XmlNodeType.Element)
-                    {
-                        throw new XmpException("Expected property element node not found", XmpErrorConstants.Badrdf);
-                    }
-                    else
-                    {
-                        Rdf_PropertyElement(xmp, xmpParent, currChild, isTopLevel);
-                    }
+                    throw new XmpException("Expected property element node not found", XmpErrorConstants.Badrdf);
                 }
+                Rdf_PropertyElement(xmp, xmpParent, currChild, isTopLevel);
             }
         }
 
@@ -531,11 +519,8 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         continue;
                     }
-                    else
-                    {
-                        // Ignore all rdf:ID attributes.
-                        throw new XmpException("Invalid attribute for resource property element", XmpErrorConstants.Badrdf);
-                    }
+                    // Ignore all rdf:ID attributes.
+                    throw new XmpException("Invalid attribute for resource property element", XmpErrorConstants.Badrdf);
                 }
             }
             // walk through the children
@@ -604,10 +589,7 @@ namespace Com.Adobe.Xmp.Impl
                             // found second child element
                             throw new XmpException("Invalid child of resource property element", XmpErrorConstants.Badrdf);
                         }
-                        else
-                        {
-                            throw new XmpException("Children of resource property element must be XML elements", XmpErrorConstants.Badrdf);
-                        }
+                        throw new XmpException("Children of resource property element must be XML elements", XmpErrorConstants.Badrdf);
                     }
                 }
             }
@@ -653,11 +635,8 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         continue;
                     }
-                    else
-                    {
-                        // Ignore all rdf:ID and rdf:datatype attributes.
-                        throw new XmpException("Invalid attribute for literal property element", XmpErrorConstants.Badrdf);
-                    }
+                    // Ignore all rdf:ID and rdf:datatype attributes.
+                    throw new XmpException("Invalid attribute for literal property element", XmpErrorConstants.Badrdf);
                 }
             }
             string textValue = string.Empty;
@@ -734,12 +713,9 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         continue;
                     }
-                    else
-                    {
-                        // The caller ensured the value is "Resource".
-                        // Ignore all rdf:ID attributes.
-                        throw new XmpException("Invalid attribute for ParseTypeResource property element", XmpErrorConstants.Badrdf);
-                    }
+                    // The caller ensured the value is "Resource".
+                    // Ignore all rdf:ID attributes.
+                    throw new XmpException("Invalid attribute for ParseTypeResource property element", XmpErrorConstants.Badrdf);
                 }
             }
             Rdf_PropertyElementList(xmp, newStruct, xmlNode, false);
@@ -861,12 +837,9 @@ namespace Com.Adobe.Xmp.Impl
                         {
                             throw new XmpException("Empty property element can't have both rdf:resource and rdf:nodeID", XmpErrorConstants.Badrdf);
                         }
-                        else
+                        if (hasValueAttr)
                         {
-                            if (hasValueAttr)
-                            {
-                                throw new XmpException("Empty property element can't have both rdf:value and rdf:resource", XmpErrorConstants.Badxmp);
-                            }
+                            throw new XmpException("Empty property element can't have both rdf:value and rdf:resource", XmpErrorConstants.Badxmp);
                         }
                         hasResourceAttr = true;
                         if (!hasValueAttr)
@@ -1188,10 +1161,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return false;
             }
-            else
-            {
-                return (!IsCoreSyntaxTerm(term));
-            }
+            return (!IsCoreSyntaxTerm(term));
         }
 
         /// <summary>
@@ -1238,82 +1208,49 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     return RdftermLi;
                 }
-                else
+                if ("parseType".Equals(localName))
                 {
-                    if ("parseType".Equals(localName))
-                    {
-                        return RdftermParseType;
-                    }
-                    else
-                    {
-                        if ("Description".Equals(localName))
-                        {
-                            return RdftermDescription;
-                        }
-                        else
-                        {
-                            if ("about".Equals(localName))
-                            {
-                                return RdftermAbout;
-                            }
-                            else
-                            {
-                                if ("resource".Equals(localName))
-                                {
-                                    return RdftermResource;
-                                }
-                                else
-                                {
-                                    if ("RDF".Equals(localName))
-                                    {
-                                        return RdftermRdf;
-                                    }
-                                    else
-                                    {
-                                        if ("ID".Equals(localName))
-                                        {
-                                            return RdftermId;
-                                        }
-                                        else
-                                        {
-                                            if ("nodeID".Equals(localName))
-                                            {
-                                                return RdftermNodeId;
-                                            }
-                                            else
-                                            {
-                                                if ("datatype".Equals(localName))
-                                                {
-                                                    return RdftermDatatype;
-                                                }
-                                                else
-                                                {
-                                                    if ("aboutEach".Equals(localName))
-                                                    {
-                                                        return RdftermAboutEach;
-                                                    }
-                                                    else
-                                                    {
-                                                        if ("aboutEachPrefix".Equals(localName))
-                                                        {
-                                                            return RdftermAboutEachPrefix;
-                                                        }
-                                                        else
-                                                        {
-                                                            if ("bagID".Equals(localName))
-                                                            {
-                                                                return RdftermBagId;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    return RdftermParseType;
+                }
+                if ("Description".Equals(localName))
+                {
+                    return RdftermDescription;
+                }
+                if ("about".Equals(localName))
+                {
+                    return RdftermAbout;
+                }
+                if ("resource".Equals(localName))
+                {
+                    return RdftermResource;
+                }
+                if ("RDF".Equals(localName))
+                {
+                    return RdftermRdf;
+                }
+                if ("ID".Equals(localName))
+                {
+                    return RdftermId;
+                }
+                if ("nodeID".Equals(localName))
+                {
+                    return RdftermNodeId;
+                }
+                if ("datatype".Equals(localName))
+                {
+                    return RdftermDatatype;
+                }
+                if ("aboutEach".Equals(localName))
+                {
+                    return RdftermAboutEach;
+                }
+                if ("aboutEachPrefix".Equals(localName))
+                {
+                    return RdftermAboutEachPrefix;
+                }
+                if ("bagID".Equals(localName))
+                {
+                    return RdftermBagId;
                 }
             }
             return RdftermOther;

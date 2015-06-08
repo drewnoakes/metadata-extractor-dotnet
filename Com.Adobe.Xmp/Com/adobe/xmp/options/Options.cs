@@ -140,10 +140,7 @@ namespace Com.Adobe.Xmp.Options
                 }
                 return sb.ToString();
             }
-            else
-            {
-                return "<none>";
-            }
+            return "<none>";
         }
 
         /// <returns>Returns the options as hex bitmask.</returns>

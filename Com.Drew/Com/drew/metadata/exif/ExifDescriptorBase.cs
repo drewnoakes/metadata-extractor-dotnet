@@ -542,17 +542,11 @@ namespace Com.Drew.Metadata.Exif
             {
                 return "YCbCr4:2:2";
             }
-            else
+            if (positions[0] == 2 && positions[1] == 2)
             {
-                if (positions[0] == 2 && positions[1] == 2)
-                {
-                    return "YCbCr4:2:0";
-                }
-                else
-                {
-                    return "(Unknown)";
-                }
+                return "YCbCr4:2:0";
             }
+            return "(Unknown)";
         }
 
         [CanBeNull]

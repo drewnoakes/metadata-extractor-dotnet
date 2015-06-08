@@ -241,12 +241,9 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return (int)Math.Sign(d);
             }
-            else
-            {
-                // if millis are equal, compare nanoseconds
-                d = _nanoSeconds - ((IXmpDateTime)dt).GetNanoSecond();
-                return (int)Math.Sign(d);
-            }
+            // if millis are equal, compare nanoseconds
+            d = _nanoSeconds - ((IXmpDateTime)dt).GetNanoSecond();
+            return (int)Math.Sign(d);
         }
 
         /// <seealso cref="IXmpDateTime.GetTimeZone()"/>

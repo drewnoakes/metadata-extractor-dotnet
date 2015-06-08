@@ -74,21 +74,15 @@ namespace Com.Drew.Metadata.Exif
                 PushDirectory(typeof(ExifSubIfdDirectory));
                 return true;
             }
-            else
+            if (tagType == ExifIfd0Directory.TagGpsInfoOffset && CurrentDirectory is ExifIfd0Directory)
             {
-                if (tagType == ExifIfd0Directory.TagGpsInfoOffset && CurrentDirectory is ExifIfd0Directory)
-                {
-                    PushDirectory(typeof(GpsDirectory));
-                    return true;
-                }
-                else
-                {
-                    if (tagType == ExifSubIfdDirectory.TagInteropOffset && CurrentDirectory is ExifSubIfdDirectory)
-                    {
-                        PushDirectory(typeof(ExifInteropDirectory));
-                        return true;
-                    }
-                }
+                PushDirectory(typeof(GpsDirectory));
+                return true;
+            }
+            if (tagType == ExifSubIfdDirectory.TagInteropOffset && CurrentDirectory is ExifSubIfdDirectory)
+            {
+                PushDirectory(typeof(ExifInteropDirectory));
+                return true;
             }
             return false;
         }
@@ -399,15 +393,12 @@ namespace Com.Drew.Metadata.Exif
                                                                                     // This format is currently unsupported
                                                                                     return false;
                                                                                 }
-                                                                                else
+                                                                                if (Runtime.EqualsIgnoreCase(firstFiveChars, "Ricoh"))
                                                                                 {
-                                                                                    if (Runtime.EqualsIgnoreCase(firstFiveChars, "Ricoh"))
-                                                                                    {
-                                                                                        // Always in Motorola byte order
-                                                                                        reader.SetMotorolaByteOrder(true);
-                                                                                        PushDirectory(typeof(RicohMakernoteDirectory));
-                                                                                        TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 8, makernoteOffset);
-                                                                                    }
+                                                                                    // Always in Motorola byte order
+                                                                                    reader.SetMotorolaByteOrder(true);
+                                                                                    PushDirectory(typeof(RicohMakernoteDirectory));
+                                                                                    TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 8, makernoteOffset);
                                                                                 }
                                                                             }
                                                                             else

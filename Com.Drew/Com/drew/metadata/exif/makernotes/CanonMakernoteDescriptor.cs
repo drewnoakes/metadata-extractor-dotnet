@@ -434,24 +434,15 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return "Right";
             }
-            else
+            if (((int)value & unchecked((int)(0x7))) == 1)
             {
-                if (((int)value & unchecked((int)(0x7))) == 1)
-                {
-                    return "Centre";
-                }
-                else
-                {
-                    if (((int)value & unchecked((int)(0x7))) == 2)
-                    {
-                        return "Left";
-                    }
-                    else
-                    {
-                        return "Unknown (" + value + ")";
-                    }
-                }
+                return "Centre";
             }
+            if (((int)value & unchecked((int)(0x7))) == 2)
+            {
+                return "Left";
+            }
+            return "Unknown (" + value + ")";
         }
 
         [CanBeNull]
@@ -505,10 +496,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return Extensions.ConvertToString((int)value);
             }
-            else
-            {
-                return string.Empty;
-            }
+            return string.Empty;
         }
 
         [CanBeNull]
@@ -819,11 +807,8 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return "Self timer not used";
             }
-            else
-            {
-                // TODO find an image that tests this calculation
-                return Extensions.ConvertToString((double)value * 0.1d) + " sec";
-            }
+            // TODO find an image that tests this calculation
+            return Extensions.ConvertToString((double)value * 0.1d) + " sec";
         }
 
         [CanBeNull]

@@ -403,25 +403,22 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                 // Verify the part before any colon
                 return prefix + rootProp;
             }
-            else
+            // The propName is qualified. Make sure the prefix is legit. Use the associated URI and
+            // qualified name.
+            // Verify the part before any colon
+            VerifySimpleXmlName(Runtime.Substring(rootProp, 0, colonPos));
+            VerifySimpleXmlName(Runtime.Substring(rootProp, colonPos));
+            prefix = Runtime.Substring(rootProp, 0, colonPos + 1);
+            string regPrefix = XmpMetaFactory.GetSchemaRegistry().GetNamespacePrefix(schemaNs);
+            if (regPrefix == null)
             {
-                // The propName is qualified. Make sure the prefix is legit. Use the associated URI and
-                // qualified name.
-                // Verify the part before any colon
-                VerifySimpleXmlName(Runtime.Substring(rootProp, 0, colonPos));
-                VerifySimpleXmlName(Runtime.Substring(rootProp, colonPos));
-                prefix = Runtime.Substring(rootProp, 0, colonPos + 1);
-                string regPrefix = XmpMetaFactory.GetSchemaRegistry().GetNamespacePrefix(schemaNs);
-                if (regPrefix == null)
-                {
-                    throw new XmpException("Unknown schema namespace prefix", XmpErrorConstants.Badschema);
-                }
-                if (!prefix.Equals(regPrefix))
-                {
-                    throw new XmpException("Schema namespace URI and prefix mismatch", XmpErrorConstants.Badschema);
-                }
-                return rootProp;
+                throw new XmpException("Unknown schema namespace prefix", XmpErrorConstants.Badschema);
             }
+            if (!prefix.Equals(regPrefix))
+            {
+                throw new XmpException("Schema namespace URI and prefix mismatch", XmpErrorConstants.Badschema);
+            }
+            return rootProp;
         }
     }
 

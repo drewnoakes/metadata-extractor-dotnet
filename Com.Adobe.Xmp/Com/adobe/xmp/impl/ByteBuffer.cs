@@ -117,10 +117,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return _buffer[index];
             }
-            else
-            {
-                throw new IndexOutOfRangeException("The index exceeds the valid buffer area");
-            }
+            throw new IndexOutOfRangeException("The index exceeds the valid buffer area");
         }
 
         /// <param name="index">the index to retrieve a byte as int or char.</param>
@@ -131,10 +128,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return _buffer[index] & unchecked((int)(0xFF));
             }
-            else
-            {
-                throw new IndexOutOfRangeException("The index exceeds the valid buffer area");
-            }
+            throw new IndexOutOfRangeException("The index exceeds the valid buffer area");
         }
 
         /// <summary>Appends a byte to the buffer.</summary>

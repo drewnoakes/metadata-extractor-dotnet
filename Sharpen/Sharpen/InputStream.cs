@@ -68,8 +68,7 @@ namespace Sharpen
             var stream = Wrapped as WrappedSystemStream;
             if (stream != null)
                 return stream.InputStream.MarkSupported ();
-            else
-                return ((Wrapped != null) && Wrapped.CanSeek);
+            return ((Wrapped != null) && Wrapped.CanSeek);
         }
 
         public virtual int Read ()
@@ -140,16 +139,15 @@ namespace Sharpen
         {
             if (Wrapped != null)
                 return Wrapped.CanSeek;
-            else
-                return false;
+            return false;
         }
 
         public long Position {
-            get {
+            get
+            {
                 if (Wrapped != null)
                     return Wrapped.Position;
-                else
-                    throw new NotSupportedException ();
+                throw new NotSupportedException ();
             }
             set {
                 if (Wrapped != null)

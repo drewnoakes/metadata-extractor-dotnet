@@ -139,11 +139,8 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 return @out;
             }
-            else
-            {
-                // Latin-1 fixing applies only to UTF-8
-                return buffer;
-            }
+            // Latin-1 fixing applies only to UTF-8
+            return buffer;
         }
 
         /// <summary>

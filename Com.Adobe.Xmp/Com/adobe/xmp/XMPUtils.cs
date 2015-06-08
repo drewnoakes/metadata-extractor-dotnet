@@ -264,10 +264,7 @@ namespace Com.Adobe.Xmp
                 {
                     return Convert.ToInt32(Runtime.Substring(rawValue, 2), 16);
                 }
-                else
-                {
-                    return Convert.ToInt32(rawValue);
-                }
+                return Convert.ToInt32(rawValue);
             }
             catch (FormatException)
             {
@@ -303,10 +300,7 @@ namespace Com.Adobe.Xmp
                 {
                     return Convert.ToInt64(Runtime.Substring(rawValue, 2), 16);
                 }
-                else
-                {
-                    return Convert.ToInt64(rawValue);
-                }
+                return Convert.ToInt64(rawValue);
             }
             catch (FormatException)
             {
@@ -338,10 +332,7 @@ namespace Com.Adobe.Xmp
                 {
                     throw new XmpException("Empty convert-string", XmpErrorConstants.Badvalue);
                 }
-                else
-                {
-                    return double.Parse(rawValue);
-                }
+                return double.Parse(rawValue);
             }
             catch (FormatException)
             {
@@ -371,10 +362,7 @@ namespace Com.Adobe.Xmp
             {
                 throw new XmpException("Empty convert-string", XmpErrorConstants.Badvalue);
             }
-            else
-            {
-                return Iso8601Converter.Parse(rawValue);
-            }
+            return Iso8601Converter.Parse(rawValue);
         }
 
         /// <summary>Convert from <code>XMPDateTime</code> to string.</summary>

@@ -139,10 +139,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return arrayNode.GetChildrenLength();
             }
-            else
-            {
-                throw new XmpException("The named property is not an array", XmpErrorConstants.Badxpath);
-            }
+            throw new XmpException("The named property is not an array", XmpErrorConstants.Badxpath);
         }
 
         /// <seealso cref="IXmpMeta.DeleteArrayItem(string, string, int)"/>
@@ -314,10 +311,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return new XmpProperty407(itemNode);
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         private sealed class XmpProperty407 : IXmpProperty
@@ -366,18 +360,15 @@ namespace Com.Adobe.Xmp.Impl
             {
                 throw new XmpException("Failed to find or create array node", XmpErrorConstants.Badxpath);
             }
-            else
+            if (!arrayNode.GetOptions().IsArrayAltText())
             {
-                if (!arrayNode.GetOptions().IsArrayAltText())
+                if (!arrayNode.HasChildren() && arrayNode.GetOptions().IsArrayAlternate())
                 {
-                    if (!arrayNode.HasChildren() && arrayNode.GetOptions().IsArrayAlternate())
-                    {
-                        arrayNode.GetOptions().SetArrayAltText(true);
-                    }
-                    else
-                    {
-                        throw new XmpException("Specified property is no alt-text array", XmpErrorConstants.Badxpath);
-                    }
+                    arrayNode.GetOptions().SetArrayAltText(true);
+                }
+                else
+                {
+                    throw new XmpException("Specified property is no alt-text array", XmpErrorConstants.Badxpath);
                 }
             }
             // Make sure the x-default item, if any, is first.
@@ -390,14 +381,11 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     throw new XmpException("Language qualifier must be first", XmpErrorConstants.Badxpath);
                 }
-                else
+                if (XmpConstConstants.XDefault.Equals(currItem.GetQualifier(1).GetValue()))
                 {
-                    if (XmpConstConstants.XDefault.Equals(currItem.GetQualifier(1).GetValue()))
-                    {
-                        xdItem = currItem;
-                        haveXDefault = true;
-                        break;
-                    }
+                    xdItem = currItem;
+                    haveXDefault = true;
+                    break;
                 }
             }
             // Moves x-default to the beginning of the array
@@ -567,10 +555,7 @@ namespace Com.Adobe.Xmp.Impl
                 object value = EvaluateNodeValue(valueType, propNode);
                 return new XmpProperty682(value, propNode);
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         private sealed class XmpProperty682 : IXmpProperty
@@ -630,10 +615,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 return EvaluateNodeValue(valueType, propNode);
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         /// <seealso cref="IXmpMeta.GetPropertyBoolean(string, string)"/>

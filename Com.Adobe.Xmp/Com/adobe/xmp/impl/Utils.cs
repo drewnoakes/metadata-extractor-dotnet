@@ -410,61 +410,55 @@ namespace Com.Adobe.Xmp.Impl
                 // fast path
                 return value;
             }
-            else
+            // slow path with escaping
+            StringBuilder buffer = new StringBuilder(value.Length * 4 / 3);
+            for (int i1 = 0; i1 < value.Length; i1++)
             {
-                // slow path with escaping
-                StringBuilder buffer = new StringBuilder(value.Length * 4 / 3);
-                for (int i1 = 0; i1 < value.Length; i1++)
+                char c = value[i1];
+                if (!(escapeWhitespaces && (c == '\t' || c == '\n' || c == '\r')))
                 {
-                    char c = value[i1];
-                    if (!(escapeWhitespaces && (c == '\t' || c == '\n' || c == '\r')))
+                    switch (c)
                     {
-                        switch (c)
+                        case '<':
                         {
-                            case '<':
-                            {
-                                // we do what "Canonical XML" expects
-                                // AUDIT: &apos; not serialized as only outer qoutes are used
-                                buffer.Append("&lt;");
-                                continue;
-                            }
+                            // we do what "Canonical XML" expects
+                            // AUDIT: &apos; not serialized as only outer qoutes are used
+                            buffer.Append("&lt;");
+                            continue;
+                        }
 
-                            case '>':
-                            {
-                                buffer.Append("&gt;");
-                                continue;
-                            }
+                        case '>':
+                        {
+                            buffer.Append("&gt;");
+                            continue;
+                        }
 
-                            case '&':
-                            {
-                                buffer.Append("&amp;");
-                                continue;
-                            }
+                        case '&':
+                        {
+                            buffer.Append("&amp;");
+                            continue;
+                        }
 
-                            case '"':
-                            {
-                                buffer.Append(forAttribute ? "&quot;" : "\"");
-                                continue;
-                            }
+                        case '"':
+                        {
+                            buffer.Append(forAttribute ? "&quot;" : "\"");
+                            continue;
+                        }
 
-                            default:
-                            {
-                                buffer.Append(c);
-                                continue;
-                            }
+                        default:
+                        {
+                            buffer.Append(c);
+                            continue;
                         }
                     }
-                    else
-                    {
-                        // write control chars escaped,
-                        // if there are others than tab, LF and CR the xml will become invalid.
-                        buffer.Append("&#x");
-                        buffer.Append(Extensions.ToHexString(c).ToUpper());
-                        buffer.Append(';');
-                    }
                 }
-                return buffer.ToString();
+                // write control chars escaped,
+                // if there are others than tab, LF and CR the xml will become invalid.
+                buffer.Append("&#x");
+                buffer.Append(Extensions.ToHexString(c).ToUpper());
+                buffer.Append(';');
             }
+            return buffer.ToString();
         }
 
         /// <summary>Replaces the ASCII control chars with a space.</summary>

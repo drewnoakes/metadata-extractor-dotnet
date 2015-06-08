@@ -176,10 +176,7 @@ namespace Com.Adobe.Xmp.Impl
                             _state = StateStart;
                             return (char)_control;
                         }
-                        else
-                        {
-                            _state = StateError;
-                        }
+                        _state = StateError;
                     }
                     return ch;
                 }
@@ -207,10 +204,7 @@ namespace Com.Adobe.Xmp.Impl
                             _state = StateStart;
                             return (char)_control;
                         }
-                        else
-                        {
-                            _state = StateError;
-                        }
+                        _state = StateError;
                     }
                     return ch;
                 }

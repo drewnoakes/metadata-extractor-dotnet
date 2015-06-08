@@ -162,24 +162,15 @@ namespace Com.Drew.Metadata.Exif
             {
                 return "kilometers";
             }
-            else
+            if (Runtime.EqualsIgnoreCase("M", distanceRef))
             {
-                if (Runtime.EqualsIgnoreCase("M", distanceRef))
-                {
-                    return "miles";
-                }
-                else
-                {
-                    if (Runtime.EqualsIgnoreCase("N", distanceRef))
-                    {
-                        return "knots";
-                    }
-                    else
-                    {
-                        return "Unknown (" + distanceRef + ")";
-                    }
-                }
+                return "miles";
             }
+            if (Runtime.EqualsIgnoreCase("N", distanceRef))
+            {
+                return "knots";
+            }
+            return "Unknown (" + distanceRef + ")";
         }
 
         [CanBeNull]
@@ -204,17 +195,11 @@ namespace Com.Drew.Metadata.Exif
             {
                 return "True direction";
             }
-            else
+            if (Runtime.EqualsIgnoreCase("M", gpsDistRef))
             {
-                if (Runtime.EqualsIgnoreCase("M", gpsDistRef))
-                {
-                    return "Magnetic direction";
-                }
-                else
-                {
-                    return "Unknown (" + gpsDistRef + ")";
-                }
+                return "Magnetic direction";
             }
+            return "Unknown (" + gpsDistRef + ")";
         }
 
         [CanBeNull]
@@ -230,24 +215,15 @@ namespace Com.Drew.Metadata.Exif
             {
                 return "kph";
             }
-            else
+            if (Runtime.EqualsIgnoreCase("M", gpsSpeedRef))
             {
-                if (Runtime.EqualsIgnoreCase("M", gpsSpeedRef))
-                {
-                    return "mph";
-                }
-                else
-                {
-                    if (Runtime.EqualsIgnoreCase("N", gpsSpeedRef))
-                    {
-                        return "knots";
-                    }
-                    else
-                    {
-                        return "Unknown (" + gpsSpeedRef + ")";
-                    }
-                }
+                return "mph";
             }
+            if (Runtime.EqualsIgnoreCase("N", gpsSpeedRef))
+            {
+                return "knots";
+            }
+            return "Unknown (" + gpsSpeedRef + ")";
         }
 
         [CanBeNull]
@@ -263,17 +239,11 @@ namespace Com.Drew.Metadata.Exif
             {
                 return "2-dimensional measurement";
             }
-            else
+            if (Runtime.EqualsIgnoreCase("3", gpsSpeedMeasureMode))
             {
-                if (Runtime.EqualsIgnoreCase("3", gpsSpeedMeasureMode))
-                {
-                    return "3-dimensional measurement";
-                }
-                else
-                {
-                    return "Unknown (" + gpsSpeedMeasureMode + ")";
-                }
+                return "3-dimensional measurement";
             }
+            return "Unknown (" + gpsSpeedMeasureMode + ")";
         }
 
         [CanBeNull]
@@ -289,17 +259,11 @@ namespace Com.Drew.Metadata.Exif
             {
                 return "Active (Measurement in progress)";
             }
-            else
+            if (Runtime.EqualsIgnoreCase("V", gpsStatus))
             {
-                if (Runtime.EqualsIgnoreCase("V", gpsStatus))
-                {
-                    return "Void (Measurement Interoperability)";
-                }
-                else
-                {
-                    return "Unknown (" + gpsStatus + ")";
-                }
+                return "Void (Measurement Interoperability)";
             }
+            return "Unknown (" + gpsStatus + ")";
         }
 
         [CanBeNull]

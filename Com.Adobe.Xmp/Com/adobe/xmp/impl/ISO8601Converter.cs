@@ -70,12 +70,9 @@ namespace Com.Adobe.Xmp.Impl
             {
                 throw new XmpException("Parameter must not be null", XmpErrorConstants.Badparam);
             }
-            else
+            if (iso8601String.Length == 0)
             {
-                if (iso8601String.Length == 0)
-                {
-                    return binValue;
-                }
+                return binValue;
             }
             ParseState input = new ParseState(iso8601String);
             int value;
@@ -145,44 +142,41 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return binValue;
             }
-            else
+            if (input.HasNext() && input.Ch() == ':')
             {
-                if (input.HasNext() && input.Ch() == ':')
+                input.Skip();
+                value = input.GatherInt("Invalid whole seconds in date string", 59);
+                if (input.HasNext() && input.Ch() != '.' && input.Ch() != 'Z' && input.Ch() != '+' && input.Ch() != '-')
+                {
+                    throw new XmpException("Invalid date string, after whole seconds", XmpErrorConstants.Badvalue);
+                }
+                binValue.SetSecond(value);
+                if (input.Ch() == '.')
                 {
                     input.Skip();
-                    value = input.GatherInt("Invalid whole seconds in date string", 59);
-                    if (input.HasNext() && input.Ch() != '.' && input.Ch() != 'Z' && input.Ch() != '+' && input.Ch() != '-')
+                    int digits = input.Pos();
+                    value = input.GatherInt("Invalid fractional seconds in date string", 999999999);
+                    if (input.HasNext() && (input.Ch() != 'Z' && input.Ch() != '+' && input.Ch() != '-'))
                     {
-                        throw new XmpException("Invalid date string, after whole seconds", XmpErrorConstants.Badvalue);
+                        throw new XmpException("Invalid date string, after fractional second", XmpErrorConstants.Badvalue);
                     }
-                    binValue.SetSecond(value);
-                    if (input.Ch() == '.')
+                    digits = input.Pos() - digits;
+                    for (; digits > 9; --digits)
                     {
-                        input.Skip();
-                        int digits = input.Pos();
-                        value = input.GatherInt("Invalid fractional seconds in date string", 999999999);
-                        if (input.HasNext() && (input.Ch() != 'Z' && input.Ch() != '+' && input.Ch() != '-'))
-                        {
-                            throw new XmpException("Invalid date string, after fractional second", XmpErrorConstants.Badvalue);
-                        }
-                        digits = input.Pos() - digits;
-                        for (; digits > 9; --digits)
-                        {
-                            value = value / 10;
-                        }
-                        for (; digits < 9; ++digits)
-                        {
-                            value = value * 10;
-                        }
-                        binValue.SetNanoSecond(value);
+                        value = value / 10;
                     }
+                    for (; digits < 9; ++digits)
+                    {
+                        value = value * 10;
+                    }
+                    binValue.SetNanoSecond(value);
                 }
-                else
+            }
+            else
+            {
+                if (input.Ch() != 'Z' && input.Ch() != '+' && input.Ch() != '-')
                 {
-                    if (input.Ch() != 'Z' && input.Ch() != '+' && input.Ch() != '-')
-                    {
-                        throw new XmpException("Invalid date string, after time", XmpErrorConstants.Badvalue);
-                    }
+                    throw new XmpException("Invalid date string, after time", XmpErrorConstants.Badvalue);
                 }
             }
             int tzSign = 0;
@@ -193,46 +187,43 @@ namespace Com.Adobe.Xmp.Impl
                 // no Timezone at all
                 return binValue;
             }
+            if (input.Ch() == 'Z')
+            {
+                input.Skip();
+            }
             else
             {
-                if (input.Ch() == 'Z')
+                if (input.HasNext())
                 {
-                    input.Skip();
-                }
-                else
-                {
-                    if (input.HasNext())
+                    if (input.Ch() == '+')
                     {
-                        if (input.Ch() == '+')
+                        tzSign = 1;
+                    }
+                    else
+                    {
+                        if (input.Ch() == '-')
                         {
-                            tzSign = 1;
+                            tzSign = -1;
                         }
                         else
                         {
-                            if (input.Ch() == '-')
-                            {
-                                tzSign = -1;
-                            }
-                            else
-                            {
-                                throw new XmpException("Time zone must begin with 'Z', '+', or '-'", XmpErrorConstants.Badvalue);
-                            }
+                            throw new XmpException("Time zone must begin with 'Z', '+', or '-'", XmpErrorConstants.Badvalue);
                         }
-                        input.Skip();
-                        // Extract the time zone hour.
-                        tzHour = input.GatherInt("Invalid time zone hour in date string", 23);
-                        if (input.HasNext())
+                    }
+                    input.Skip();
+                    // Extract the time zone hour.
+                    tzHour = input.GatherInt("Invalid time zone hour in date string", 23);
+                    if (input.HasNext())
+                    {
+                        if (input.Ch() == ':')
                         {
-                            if (input.Ch() == ':')
-                            {
-                                input.Skip();
-                                // Extract the time zone minute.
-                                tzMinute = input.GatherInt("Invalid time zone minute in date string", 59);
-                            }
-                            else
-                            {
-                                throw new XmpException("Invalid date string, after time zone hour", XmpErrorConstants.Badvalue);
-                            }
+                            input.Skip();
+                            // Extract the time zone minute.
+                            tzMinute = input.GatherInt("Invalid time zone minute in date string", 59);
+                        }
+                        else
+                        {
+                            throw new XmpException("Invalid date string, after time zone hour", XmpErrorConstants.Badvalue);
                         }
                     }
                 }
@@ -415,22 +406,13 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     return maxValue;
                 }
-                else
+                if (value < 0)
                 {
-                    if (value < 0)
-                    {
-                        return 0;
-                    }
-                    else
-                    {
-                        return value;
-                    }
+                    return 0;
                 }
+                return value;
             }
-            else
-            {
-                throw new XmpException(errorMsg, XmpErrorConstants.Badvalue);
-            }
+            throw new XmpException(errorMsg, XmpErrorConstants.Badvalue);
         }
     }
 }

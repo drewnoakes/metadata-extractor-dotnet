@@ -303,10 +303,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return GetChildren().Iterator();
             }
-            else
-            {
-                return Collections.EmptyList().ListIterator();
-            }
+            return Collections.EmptyList().ListIterator();
         }
 
         /// <returns>Returns whether the node has qualifier attached.</returns>
@@ -326,10 +323,7 @@ namespace Com.Adobe.Xmp.Impl
                 IIterator it = GetQualifier().Iterator();
                 return new Iterator391(it);
             }
-            else
-            {
-                return Collections.EmptyList().Iterator();
-            }
+            return Collections.EmptyList().Iterator();
         }
 
         private sealed class Iterator391 : IIterator
@@ -419,10 +413,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return string.CompareOrdinal(_value, ((XmpNode)xmpNode).GetValue());
             }
-            else
-            {
-                return string.CompareOrdinal(_name, ((XmpNode)xmpNode).GetName());
-            }
+            return string.CompareOrdinal(_name, ((XmpNode)xmpNode).GetName());
         }
 
         /// <returns>Returns the name.</returns>

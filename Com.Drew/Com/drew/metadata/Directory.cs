@@ -348,59 +348,53 @@ namespace Com.Drew.Metadata
             {
                 return Number.GetInstance(o).IntValue();
             }
+            var value = o as string;
+            if (value != null)
+            {
+                try
+                {
+                    return Convert.ToInt32(value);
+                }
+                catch (FormatException)
+                {
+                    // convert the char array to an int
+                    string s = value;
+                    sbyte[] bytes = Runtime.GetBytesForString(s);
+                    long val = 0;
+                    foreach (sbyte aByte in bytes)
+                    {
+                        val = val << 8;
+                        val += (aByte & unchecked((int)(0xff)));
+                    }
+                    return (int)val;
+                }
+            }
+            var rationals = o as Rational[];
+            if (rationals != null)
+            {
+                if (rationals.Length == 1)
+                {
+                    return rationals[0].IntValue();
+                }
+            }
             else
             {
-                var value = o as string;
-                if (value != null)
+                var bytes = o as sbyte[];
+                if (bytes != null)
                 {
-                    try
+                    if (bytes.Length == 1)
                     {
-                        return Convert.ToInt32(value);
-                    }
-                    catch (FormatException)
-                    {
-                        // convert the char array to an int
-                        string s = value;
-                        sbyte[] bytes = Runtime.GetBytesForString(s);
-                        long val = 0;
-                        foreach (sbyte aByte in bytes)
-                        {
-                            val = val << 8;
-                            val += (aByte & unchecked((int)(0xff)));
-                        }
-                        return (int)val;
+                        return (int)bytes[0];
                     }
                 }
                 else
                 {
-                    var rationals = o as Rational[];
-                    if (rationals != null)
+                    var ints = o as int[];
+                    if (ints != null)
                     {
-                        if (rationals.Length == 1)
+                        if (ints.Length == 1)
                         {
-                            return rationals[0].IntValue();
-                        }
-                    }
-                    else
-                    {
-                        var bytes = o as sbyte[];
-                        if (bytes != null)
-                        {
-                            if (bytes.Length == 1)
-                            {
-                                return (int)bytes[0];
-                            }
-                        }
-                        else
-                        {
-                            var ints = o as int[];
-                            if (ints != null)
-                            {
-                                if (ints.Length == 1)
-                                {
-                                    return ints[0];
-                                }
-                            }
+                            return ints[0];
                         }
                     }
                 }
@@ -443,31 +437,25 @@ namespace Com.Drew.Metadata
                 }
                 return strings;
             }
-            else
+            var bytes = o as sbyte[];
+            if (bytes != null)
             {
-                var bytes = o as sbyte[];
-                if (bytes != null)
+                strings = new string[bytes.Length];
+                for (int i = 0; i < strings.Length; i++)
                 {
-                    strings = new string[bytes.Length];
-                    for (int i = 0; i < strings.Length; i++)
-                    {
-                        strings[i] = Extensions.ConvertToString(bytes[i]);
-                    }
-                    return strings;
+                    strings[i] = Extensions.ConvertToString(bytes[i]);
                 }
-                else
+                return strings;
+            }
+            var rationals = o as Rational[];
+            if (rationals != null)
+            {
+                strings = new string[rationals.Length];
+                for (int i = 0; i < strings.Length; i++)
                 {
-                    var rationals = o as Rational[];
-                    if (rationals != null)
-                    {
-                        strings = new string[rationals.Length];
-                        for (int i = 0; i < strings.Length; i++)
-                        {
-                            strings[i] = rationals[i].ToSimpleString(false);
-                        }
-                        return strings;
-                    }
+                    strings[i] = rationals[i].ToSimpleString(false);
                 }
+                return strings;
             }
             return null;
         }
@@ -555,67 +543,52 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            else
-            {
-                sbyte[] bytes;
+            sbyte[] bytes;
 
-                var rationals = o as Rational[];
-                if (rationals != null)
+            var rationals = o as Rational[];
+            if (rationals != null)
+            {
+                bytes = new sbyte[rationals.Length];
+                for (int i = 0; i < bytes.Length; i++)
                 {
-                    bytes = new sbyte[rationals.Length];
-                    for (int i = 0; i < bytes.Length; i++)
-                    {
-                        bytes[i] = rationals[i].ByteValue();
-                    }
-                    return bytes;
+                    bytes[i] = rationals[i].ByteValue();
                 }
-                else
+                return bytes;
+            }
+            bytes = o as sbyte[];
+            if (bytes != null)
+            {
+                return bytes;
+            }
+            var ints = o as int[];
+            if (ints != null)
+            {
+                bytes = new sbyte[ints.Length];
+                for (int i = 0; i < ints.Length; i++)
                 {
-                    bytes = o as sbyte[];
-                    if (bytes != null)
-                    {
-                        return bytes;
-                    }
-                    else
-                    {
-                        var ints = o as int[];
-                        if (ints != null)
-                        {
-                            bytes = new sbyte[ints.Length];
-                            for (int i = 0; i < ints.Length; i++)
-                            {
-                                bytes[i] = unchecked((sbyte)ints[i]);
-                            }
-                            return bytes;
-                        }
-                        else
-                        {
-                            var shorts = o as short[];
-                            if (shorts != null)
-                            {
-                                bytes = new sbyte[shorts.Length];
-                                for (int i = 0; i < shorts.Length; i++)
-                                {
-                                    bytes[i] = unchecked((sbyte)shorts[i]);
-                                }
-                                return bytes;
-                            }
-                            else
-                            {
-                                var str = o as CharSequence;
-                                if (str != null)
-                                {
-                                    bytes = new sbyte[str.Length];
-                                    for (int i = 0; i < str.Length; i++)
-                                    {
-                                        bytes[i] = unchecked((sbyte)str[i]);
-                                    }
-                                    return bytes;
-                                }
-                            }
-                        }
-                    }
+                    bytes[i] = unchecked((sbyte)ints[i]);
                 }
+                return bytes;
+            }
+            var shorts = o as short[];
+            if (shorts != null)
+            {
+                bytes = new sbyte[shorts.Length];
+                for (int i = 0; i < shorts.Length; i++)
+                {
+                    bytes[i] = unchecked((sbyte)shorts[i]);
+                }
+                return bytes;
+            }
+            var str = o as CharSequence;
+            if (str != null)
+            {
+                bytes = new sbyte[str.Length];
+                for (int i = 0; i < str.Length; i++)
+                {
+                    bytes[i] = unchecked((sbyte)str[i]);
+                }
+                return bytes;
             }
             var nullableInt = o as int?;
             if (nullableInt != null)
