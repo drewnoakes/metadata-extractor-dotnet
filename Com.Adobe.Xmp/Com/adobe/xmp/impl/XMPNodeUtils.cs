@@ -31,7 +31,6 @@ namespace Com.Adobe.Xmp.Impl
 
         internal const int CltFirstItem = 5;
 
-        // EMPTY
         /// <summary>Find or create a schema node if <c>createNodes</c> is false and</summary>
         /// <param name="tree">the root of the xmp tree.</param>
         /// <param name="namespaceUri">a namespace</param>

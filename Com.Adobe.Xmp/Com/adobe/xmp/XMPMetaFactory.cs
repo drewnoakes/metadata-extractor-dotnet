@@ -29,7 +29,6 @@ namespace Com.Adobe.Xmp
         {
         }
 
-        // EMPTY
         /// <returns>Returns the singleton instance of the <c>XMPSchemaRegistry</c>.</returns>
         public static IXmpSchemaRegistry GetSchemaRegistry()
         {

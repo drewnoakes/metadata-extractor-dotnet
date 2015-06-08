@@ -60,7 +60,6 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="calendar">a <c>Calendar</c></param>
         public XmpDateTime(Calendar calendar)
         {
-            // EMPTY
             // extract the date and timezone from the calendar provided
             DateTime date = calendar.GetTime();
             TimeZoneInfo zone = calendar.GetTimeZone();

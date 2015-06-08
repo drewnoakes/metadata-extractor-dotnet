@@ -152,7 +152,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        // EMPTY, exceptions are ignored within delete
         /// <seealso cref="IXmpMeta.DeleteProperty(string, string)"/>
         public void DeleteProperty(string schemaNs, string propName)
         {
@@ -172,7 +171,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        // EMPTY, exceptions are ignored within delete
         /// <seealso cref="IXmpMeta.DeleteQualifier(string, string, string, string)"/>
         public void DeleteQualifier(string schemaNs, string propName, string qualNs, string qualName)
         {
@@ -189,7 +187,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        // EMPTY, exceptions within delete are ignored
         /// <seealso cref="IXmpMeta.DeleteStructField(string, string, string, string)"/>
         public void DeleteStructField(string schemaNs, string structName, string fieldNs, string fieldName)
         {
@@ -206,7 +203,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        // EMPTY, exceptions within delete are ignored
         /// <seealso cref="IXmpMeta.DoesPropertyExist(string, string)"/>
         public bool DoesPropertyExist(string schemaNs, string propName)
         {

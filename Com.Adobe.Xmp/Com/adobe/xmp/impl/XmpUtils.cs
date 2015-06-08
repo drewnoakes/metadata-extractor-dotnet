@@ -31,7 +31,6 @@ namespace Com.Adobe.Xmp.Impl
 
         private const int UckControl = 5;
 
-        // EMPTY
         /// <seealso cref="Xmp.XmpUtils.CatenateArrayItems(IXmpMeta, string, string, string, string, bool)"/>
         /// <param name="xmp">The XMP object containing the array to be catenated.</param>
         /// <param name="schemaNs">

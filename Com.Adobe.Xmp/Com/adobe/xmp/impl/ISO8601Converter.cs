@@ -17,7 +17,6 @@ namespace Com.Adobe.Xmp.Impl
     /// <since>16.02.2006</since>
     public static class Iso8601Converter
     {
-        // EMPTY
         /// <summary>Converts an ISO 8601 string to an <c>XMPDateTime</c>.</summary>
         /// <remarks>
         /// Converts an ISO 8601 string to an <c>XMPDateTime</c>.

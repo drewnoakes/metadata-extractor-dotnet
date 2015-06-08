@@ -34,7 +34,6 @@ namespace Com.Adobe.Xmp.Impl
             InitCharTables();
         }
 
-        // EMPTY
         /// <summary>
         /// Normalize an xml:lang value so that comparisons are effectively case
         /// insensitive as required by RFC 3066 (which superceeds RFC 1766).

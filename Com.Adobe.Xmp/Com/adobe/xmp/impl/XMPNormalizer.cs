@@ -26,7 +26,6 @@ namespace Com.Adobe.Xmp.Impl
             InitDcArrays();
         }
 
-        // EMPTY
         /// <summary>Normalizes a raw parsed XMPMeta-Object</summary>
         /// <param name="xmp">the raw metadata object</param>
         /// <param name="options">the parsing options</param>

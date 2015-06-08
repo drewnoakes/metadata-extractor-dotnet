@@ -22,7 +22,6 @@ namespace Com.Adobe.Xmp
     /// <since>21.02.2006</since>
     public static class XmpUtils
     {
-        // EMPTY
         /// <summary>Create a single edit string from an array of strings.</summary>
         /// <param name="xmp">The XMP object containing the array to be catenated.</param>
         /// <param name="schemaNs">

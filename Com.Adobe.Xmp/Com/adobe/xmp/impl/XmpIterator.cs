@@ -217,7 +217,6 @@ namespace Com.Adobe.Xmp.Impl
             public NodeIterator(XmpIterator enclosing, XmpNode visitedNode, string parentPath, int index)
             {
                 _enclosing = enclosing;
-                // EMPTY
                 _visitedNode = visitedNode;
                 _state = IterateNode;
                 if (visitedNode.GetOptions().IsSchemaNode())

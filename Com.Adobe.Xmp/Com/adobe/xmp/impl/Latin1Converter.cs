@@ -18,7 +18,6 @@ namespace Com.Adobe.Xmp.Impl
 
         private const int StateUtf8Char = 11;
 
-        // EMPTY
         /// <summary>A converter that processes a byte buffer containing a mix of UTF8 and Latin-1/Cp1252 chars.</summary>
         /// <remarks>
         /// A converter that processes a byte buffer containing a mix of UTF8 and Latin-1/Cp1252 chars.
@@ -174,7 +173,6 @@ namespace Com.Adobe.Xmp.Impl
             catch (UnsupportedEncodingException)
             {
             }
-            // EMPTY
             return new sbyte[] { ch };
         }
     }

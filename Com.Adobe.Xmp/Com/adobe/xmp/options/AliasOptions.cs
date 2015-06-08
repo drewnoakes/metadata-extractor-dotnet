@@ -41,7 +41,6 @@ namespace Com.Adobe.Xmp.Options
         {
         }
 
-        // EMPTY
         /// <returns>Returns if the alias is of the simple form.</returns>
         public bool IsSimple()
         {

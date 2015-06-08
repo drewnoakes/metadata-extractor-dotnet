@@ -55,7 +55,6 @@ namespace Com.Adobe.Xmp
     /// <since>25.01.2006</since>
     public static class XmpPathFactory
     {
-        // EMPTY
         /// <summary>Compose the path expression for an item in an array.</summary>
         /// <param name="arrayName">
         /// The name of the array. May be a general path expression, must not be

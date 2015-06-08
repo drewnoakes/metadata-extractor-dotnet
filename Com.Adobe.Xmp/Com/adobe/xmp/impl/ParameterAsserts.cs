@@ -12,7 +12,6 @@ namespace Com.Adobe.Xmp.Impl
     /// <since>11.08.2006</since>
     internal static class ParameterAsserts
     {
-        // EMPTY
         /// <summary>Asserts that an array name is set.</summary>
         /// <param name="arrayName">an array name</param>
         /// <exception cref="XmpException">Array name is null or empty</exception>

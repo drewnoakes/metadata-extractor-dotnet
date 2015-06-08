@@ -23,7 +23,6 @@ namespace Com.Adobe.Xmp
         /// <summary>The UTC TimeZone</summary>
         private static readonly TimeZoneInfo Utc = Extensions.GetTimeZone("UTC");
 
-        // EMPTY
         /// <summary>Creates an <c>XMPDateTime</c> from a <c>Calendar</c>-object.</summary>
         /// <param name="calendar">a <c>Calendar</c>-object.</param>
         /// <returns>An <c>XMPDateTime</c>-object.</returns>

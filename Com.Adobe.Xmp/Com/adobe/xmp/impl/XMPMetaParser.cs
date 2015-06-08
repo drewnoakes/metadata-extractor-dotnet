@@ -30,7 +30,6 @@ namespace Com.Adobe.Xmp.Impl
     {
         private static readonly object XmpRdf = new object();
 
-        // EMPTY
         /// <summary>
         /// Parses the input source into an XMP metadata object, including
         /// de-aliasing and normalisation.
