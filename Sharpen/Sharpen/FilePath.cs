@@ -8,7 +8,6 @@ namespace Sharpen
     public class FilePath
     {
         private readonly string _path;
-        private static long _tempCounter;
 
         public FilePath (string path)
             : this ((string) null, path)
@@ -61,24 +60,6 @@ namespace Sharpen
         public bool CanRead()
         {
             return FileHelper.CanRead(this);
-        }
-
-        public static FilePath CreateTempFile (string prefix, string suffix, FilePath directory = null)
-        {
-            string file;
-            if (prefix == null) {
-                throw new ArgumentNullException ("prefix");
-            }
-            if (prefix.Length < 3) {
-                throw new ArgumentException ("prefix must have at least 3 characters");
-            }
-            string str = (directory == null) ? Path.GetTempPath () : directory.GetPath ();
-            do {
-                file = Path.Combine (str, prefix + Interlocked.Increment (ref _tempCounter) + suffix);
-            } while (File.Exists (file));
-
-            new FileOutputStream (file).Close ();
-            return new FilePath (file);
         }
 
         public bool Delete ()

@@ -39,7 +39,7 @@ namespace Com.Drew.Lang
             {
                 // Unit tests can create multiple readers in the same test, as long as they're used one after the other
                 DeleteTempFile();
-                _tempFile = FilePath.CreateTempFile("metadata-extractor-test-", ".tmp");
+                _tempFile = new FilePath(Path.GetTempFileName());
                 FileOutputStream stream = new FileOutputStream(_tempFile);
                 stream.Write(bytes);
                 stream.Close();

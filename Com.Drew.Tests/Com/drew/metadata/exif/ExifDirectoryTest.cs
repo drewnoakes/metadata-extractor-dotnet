@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.IO;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
 using NUnit.Framework;
@@ -72,20 +73,17 @@ namespace Com.Drew.Metadata.Exif
         {
             ExifThumbnailDirectory directory = ExifReaderTest.ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             Assert.IsTrue(directory.HasThumbnailData());
-            FilePath thumbnailFile = FilePath.CreateTempFile("thumbnail", ".jpg");
+            string thumbnailFile = Path.GetTempFileName();
             try
             {
-                directory.WriteThumbnail(thumbnailFile.GetAbsolutePath());
-                FilePath file = new FilePath(thumbnailFile.GetAbsolutePath());
+                directory.WriteThumbnail(thumbnailFile);
+                FilePath file = new FilePath(thumbnailFile);
                 Assert.AreEqual(2970, (object)file.Length());
                 Assert.IsTrue(file.Exists());
             }
             finally
             {
-                if (!thumbnailFile.Delete())
-                {
-                    Assert.Fail("Unable to delete temp thumbnail file.");
-                }
+                System.IO.File.Delete(thumbnailFile);
             }
         }
 
