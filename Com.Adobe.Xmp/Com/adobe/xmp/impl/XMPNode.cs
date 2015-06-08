@@ -619,7 +619,7 @@ namespace Com.Adobe.Xmp.Impl
             if (GetOptions().ContainsOneOf(unchecked((int)(0xffffffff))))
             {
                 result.Append("\t(");
-                result.Append(GetOptions().ToString());
+                result.Append(GetOptions());
                 result.Append(" : ");
                 result.Append(GetOptions().GetOptionsString());
                 result.Append(')');

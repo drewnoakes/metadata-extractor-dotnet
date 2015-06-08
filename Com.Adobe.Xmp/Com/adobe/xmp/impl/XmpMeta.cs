@@ -333,7 +333,7 @@ namespace Com.Adobe.Xmp.Impl
 
             public override string ToString()
             {
-                return _itemNode.GetValue().ToString();
+                return _itemNode.GetValue();
             }
 
             private readonly XmpNode _itemNode;

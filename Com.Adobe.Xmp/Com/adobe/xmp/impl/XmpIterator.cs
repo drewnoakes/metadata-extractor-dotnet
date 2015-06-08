@@ -344,7 +344,7 @@ namespace Com.Adobe.Xmp.Impl
                 if (currNode.GetParent().GetOptions().IsArray())
                 {
                     separator = string.Empty;
-                    segmentName = "[" + currentIndex.ToString() + "]";
+                    segmentName = "[" + currentIndex + "]";
                 }
                 else
                 {
