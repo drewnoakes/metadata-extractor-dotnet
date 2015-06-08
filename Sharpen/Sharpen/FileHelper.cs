@@ -1,34 +1,10 @@
-using System;
 using System.IO;
-using System.Reflection;
 
 namespace Sharpen
 {
-    class FileHelper
+    internal static class FileHelper
     {
-        public static FileHelper Instance { get; private set; }
-
-        static FileHelper ()
-        {
-            if (Environment.OSVersion.Platform.ToString ().StartsWith ("Win"))
-                Instance = new FileHelper ();
-            else {
-                var ufh = Type.GetType("Sharpen.Unix.UnixFileHelper");
-                if (ufh == null) {
-                    ufh = Type.GetType("Sharpen.Unix.UnixFileHelper, Sharpen.Unix");
-                }
-                if (ufh == null) {
-                    var path = ((FilePath) typeof (FileHelper).Assembly.Location).GetParent();
-                    var assembly = Assembly.LoadFile(Path.Combine(path, "Sharpen.Unix.dll"));
-                    if (assembly == null)
-                        throw new Exception("Sharpen.Unix.dll is required when running on a Unix based system");
-                    ufh = assembly.GetType("Sharpen.Unix.UnixFileHelper");
-                }
-                Instance = (FileHelper)Activator.CreateInstance (ufh);
-            }
-        }
-
-        public virtual bool CanRead(FilePath path)
+        public static bool CanRead(FilePath path)
         {
             try {
                 using (File.Open(path, FileMode.Open, FileAccess.Read))
@@ -41,7 +17,7 @@ namespace Sharpen
             }
         }
 
-        public virtual bool Delete (FilePath path)
+        public static bool Delete (FilePath path)
         {
             if (Directory.Exists (path)) {
                 if (Directory.GetFileSystemEntries (path).Length != 0)
@@ -58,22 +34,22 @@ namespace Sharpen
             return false;
         }
 
-        public virtual bool Exists (FilePath path)
+        public static bool Exists (FilePath path)
         {
             return (File.Exists (path) || Directory.Exists (path));
         }
 
-        public virtual bool IsDirectory (FilePath path)
+        public static bool IsDirectory (FilePath path)
         {
             return Directory.Exists (path);
         }
 
-        public virtual bool IsFile (FilePath path)
+        public static bool IsFile (FilePath path)
         {
             return File.Exists (path);
         }
 
-        public virtual long LastModified (FilePath path)
+        public static long LastModified (FilePath path)
         {
             if (IsFile(path)) {
                 var info2 = new FileInfo(path);
@@ -86,14 +62,14 @@ namespace Sharpen
             return 0;
         }
 
-        public virtual long Length (FilePath path)
+        public static long Length (FilePath path)
         {
             // If you call .Length on a file that doesn't exist, an exception is thrown
             var info2 = new FileInfo (path);
             return info2.Exists ? info2.Length : 0;
         }
 
-        public virtual void MakeDirWritable (FilePath path)
+        public static void MakeDirWritable (FilePath path)
         {
             foreach (string file in Directory.GetFiles (path)) {
                 MakeFileWritable (file);
@@ -103,7 +79,7 @@ namespace Sharpen
             }
         }
 
-        public virtual void MakeFileWritable (FilePath file)
+        public static void MakeFileWritable (FilePath file)
         {
             FileAttributes fileAttributes = File.GetAttributes (file);
             if ((fileAttributes & FileAttributes.ReadOnly) != 0) {

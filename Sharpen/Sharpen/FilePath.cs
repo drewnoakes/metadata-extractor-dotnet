@@ -60,7 +60,7 @@ namespace Sharpen
 
         public bool CanRead()
         {
-            return FileHelper.Instance.CanRead(this);
+            return FileHelper.CanRead(this);
         }
 
         public static FilePath CreateTempFile (string prefix, string suffix, FilePath directory = null)
@@ -84,7 +84,7 @@ namespace Sharpen
         public bool Delete ()
         {
             try {
-                return FileHelper.Instance.Delete (this);
+                return FileHelper.Delete (this);
             } catch (Exception exception) {
                 Console.WriteLine (exception);
                 return false;
@@ -93,7 +93,7 @@ namespace Sharpen
 
         public bool Exists ()
         {
-            return FileHelper.Instance.Exists (this);
+            return FileHelper.Exists (this);
         }
 
         public string GetAbsolutePath ()
@@ -120,22 +120,22 @@ namespace Sharpen
 
         public bool IsDirectory ()
         {
-            return FileHelper.Instance.IsDirectory (this);
+            return FileHelper.IsDirectory (this);
         }
 
         public bool IsFile ()
         {
-            return FileHelper.Instance.IsFile (this);
+            return FileHelper.IsFile (this);
         }
 
         public long LastModified ()
         {
-            return FileHelper.Instance.LastModified (this);
+            return FileHelper.LastModified (this);
         }
 
         public long Length ()
         {
-            return FileHelper.Instance.Length (this);
+            return FileHelper.Length (this);
         }
 
         public string[] List ()
