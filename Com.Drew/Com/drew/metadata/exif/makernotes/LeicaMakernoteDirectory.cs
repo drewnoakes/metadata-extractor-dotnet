@@ -101,13 +101,11 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             SetDescriptor(new LeicaMakernoteDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Leica Makernote";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

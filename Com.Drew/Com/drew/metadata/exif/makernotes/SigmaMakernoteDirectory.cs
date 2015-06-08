@@ -111,13 +111,11 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             SetDescriptor(new SigmaMakernoteDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Sigma Makernote";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

@@ -32,7 +32,6 @@ namespace Com.Drew.Metadata.Webp
         {
         }
 
-        [CanBeNull]
         public override string GetDescription(int tagType)
         {
             switch (tagType)

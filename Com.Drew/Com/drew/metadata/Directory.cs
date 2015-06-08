@@ -229,7 +229,7 @@ namespace Com.Drew.Metadata
         /// <summary>Sets a <c>java.util.Date</c> value for the specified tag.</summary>
         /// <param name="tagType">the tag's value as an int</param>
         /// <param name="value">the value for the specified tag as a java.util.Date</param>
-        public virtual void SetDate(int tagType, [NotNull] DateTime value)
+        public virtual void SetDate(int tagType, DateTime value)
         {
             SetObject(tagType, value);
         }

@@ -83,13 +83,11 @@ namespace Com.Drew.Metadata.Pcx
             SetDescriptor(new PcxDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "PCX";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

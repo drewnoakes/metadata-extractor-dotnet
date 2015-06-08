@@ -50,13 +50,11 @@ namespace Com.Drew.Metadata.File
             SetDescriptor(new FileMetadataDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "File";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

@@ -48,13 +48,11 @@ namespace Com.Drew.Metadata.Exif
             AddExifTagNames(TagNameMap);
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Exif IFD0";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

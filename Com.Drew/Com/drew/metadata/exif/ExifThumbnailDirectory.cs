@@ -88,13 +88,11 @@ namespace Com.Drew.Metadata.Exif
             SetDescriptor(new ExifThumbnailDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Exif Thumbnail";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

@@ -54,7 +54,6 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
         public override sbyte[] GetBytes(int count)
         {
             sbyte[] bytes = new sbyte[count];

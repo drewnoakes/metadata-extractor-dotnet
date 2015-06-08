@@ -294,13 +294,11 @@ namespace Com.Drew.Metadata.Photoshop
             SetDescriptor(new PhotoshopDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Photoshop";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

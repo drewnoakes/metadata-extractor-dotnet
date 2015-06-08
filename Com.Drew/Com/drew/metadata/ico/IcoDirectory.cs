@@ -71,13 +71,11 @@ namespace Com.Drew.Metadata.Ico
             SetDescriptor(new IcoDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "ICO";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

@@ -40,13 +40,12 @@ namespace Com.Drew.Metadata.Jfif
     {
         public const string Preamble = "JFIF";
 
-        [NotNull]
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             return Arrays.AsList(JpegSegmentType.App0);
         }
 
-        public void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {
@@ -61,7 +60,7 @@ namespace Com.Drew.Metadata.Jfif
         /// <summary>
         /// Performs the Jfif data extraction, adding found values to the specified instance of <see cref="Com.Drew.Metadata.Metadata"/>.
         /// </summary>
-        public void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata)
+        public void Extract(RandomAccessReader reader, Metadata metadata)
         {
             JfifDirectory directory = new JfifDirectory();
             metadata.AddDirectory(directory);

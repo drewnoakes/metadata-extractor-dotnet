@@ -46,13 +46,11 @@ namespace Com.Drew.Metadata.Gif
             SetDescriptor(new GifHeaderDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "GIF Header";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

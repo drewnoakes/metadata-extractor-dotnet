@@ -142,7 +142,6 @@ namespace Com.Drew.Metadata
             return result;
         }
 
-        [NotNull]
         public override string ToString()
         {
             StringBuilder result = new StringBuilder();

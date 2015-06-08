@@ -36,13 +36,11 @@ namespace Com.Drew.Metadata
             _tagNameMap = new Dictionary<int?, string>();
         }
 
-        [NotNull]
         public override string GetName()
         {
             return string.Empty;
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return _tagNameMap;

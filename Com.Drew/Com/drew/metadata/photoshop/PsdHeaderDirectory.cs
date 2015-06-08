@@ -68,13 +68,11 @@ namespace Com.Drew.Metadata.Photoshop
             SetDescriptor(new PsdHeaderDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "PSD Header";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

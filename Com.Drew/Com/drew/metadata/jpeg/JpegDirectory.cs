@@ -99,13 +99,11 @@ namespace Com.Drew.Metadata.Jpeg
             SetDescriptor(new JpegDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "JPEG";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

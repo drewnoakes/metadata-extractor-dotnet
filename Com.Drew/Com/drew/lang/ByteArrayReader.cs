@@ -78,7 +78,6 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
         public override sbyte[] GetBytes(int index, int count)
         {
             ValidateIndex(index, count);

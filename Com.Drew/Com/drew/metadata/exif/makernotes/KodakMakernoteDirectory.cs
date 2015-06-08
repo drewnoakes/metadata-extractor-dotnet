@@ -120,13 +120,11 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             SetDescriptor(new KodakMakernoteDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Kodak Makernote";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

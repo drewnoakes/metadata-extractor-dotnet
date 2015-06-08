@@ -544,13 +544,12 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             SetDescriptor(new OlympusMakernoteDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Olympus Makernote";
         }
 
-        public override void SetByteArray(int tagType, [NotNull] sbyte[] bytes)
+        public override void SetByteArray(int tagType, sbyte[] bytes)
         {
             if (tagType == TagCameraSettings1 || tagType == TagCameraSettings2)
             {
@@ -588,7 +587,6 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             return value != null && value == 5;
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

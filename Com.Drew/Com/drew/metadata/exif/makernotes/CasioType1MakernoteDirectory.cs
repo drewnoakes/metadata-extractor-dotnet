@@ -107,13 +107,11 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             SetDescriptor(new CasioType1MakernoteDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Casio Makernote";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

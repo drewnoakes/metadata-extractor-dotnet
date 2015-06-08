@@ -107,13 +107,11 @@ namespace Com.Drew.Metadata.Png
             return _pngChunkType;
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "PNG-" + _pngChunkType.GetIdentifier();
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

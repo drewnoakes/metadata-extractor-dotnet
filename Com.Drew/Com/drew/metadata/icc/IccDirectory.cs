@@ -239,13 +239,11 @@ namespace Com.Drew.Metadata.Icc
             SetDescriptor(new IccDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "ICC Profile";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

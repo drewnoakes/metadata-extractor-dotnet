@@ -53,13 +53,11 @@ namespace Com.Drew.Metadata.Webp
             SetDescriptor(new WebpDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "WebP";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

@@ -38,7 +38,6 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         {
         }
 
-        [CanBeNull]
         public override string GetDescription(int tagType)
         {
             switch (tagType)

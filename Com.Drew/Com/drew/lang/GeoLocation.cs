@@ -152,7 +152,6 @@ namespace Com.Drew.Lang
         /// a string representation of this location, of format:
         /// <c>1.23, 4.56</c>
         /// </returns>
-        [NotNull]
         public override string ToString()
         {
             return _latitude + ", " + _longitude;

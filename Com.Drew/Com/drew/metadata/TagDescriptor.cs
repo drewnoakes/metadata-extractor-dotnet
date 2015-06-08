@@ -59,7 +59,6 @@ namespace Com.Drew.Metadata
         /// a description of the image's value for the specified tag, or
         /// <c>null</c> if the tag hasn't been defined.
         /// </returns>
-        [CanBeNull]
         public virtual string GetDescription(int tagType)
         {
             object @object = Directory.GetObject(tagType);

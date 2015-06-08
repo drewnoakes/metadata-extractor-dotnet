@@ -175,13 +175,11 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             SetDescriptor(new FujifilmMakernoteDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Fujifilm Makernote";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

@@ -90,7 +90,6 @@ namespace Com.Drew.Metadata
         /// If <c>false</c>, <see cref="GetTagName()"/> will return a string resembling <c>"Unknown tag (0x1234)"</c>.
         /// </remarks>
         /// <returns>whether this tag has a name</returns>
-        [NotNull]
         public bool HasTagName()
         {
             return _directory.HasTagName(_tagType);
@@ -127,7 +126,6 @@ namespace Com.Drew.Metadata
         /// <summary>A basic representation of the tag's type and value.</summary>
         /// <remarks>A basic representation of the tag's type and value.  EG: <c>[FNumber] F2.8</c>.</remarks>
         /// <returns>the tag's type and value</returns>
-        [NotNull]
         public override string ToString()
         {
             string description = GetDescription();

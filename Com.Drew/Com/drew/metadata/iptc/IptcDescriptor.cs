@@ -39,7 +39,6 @@ namespace Com.Drew.Metadata.Iptc
         {
         }
 
-        [CanBeNull]
         public override string GetDescription(int tagType)
         {
             switch (tagType)

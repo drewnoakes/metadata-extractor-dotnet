@@ -55,13 +55,12 @@ namespace Com.Drew.Metadata.Exif
             _storeThumbnailBytes = storeThumbnailBytes;
         }
 
-        [NotNull]
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             return Arrays.AsList(JpegSegmentType.App1);
         }
 
-        public void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
             Debug.Assert((segmentType == JpegSegmentType.App1));
             foreach (sbyte[] segmentBytes in segments)

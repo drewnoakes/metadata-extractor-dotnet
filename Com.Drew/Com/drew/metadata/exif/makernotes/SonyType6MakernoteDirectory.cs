@@ -53,13 +53,11 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             SetDescriptor(new SonyType6MakernoteDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Sony Makernote";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

@@ -975,13 +975,11 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             SetDescriptor(new NikonType2MakernoteDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Nikon Makernote";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

@@ -35,7 +35,6 @@ namespace Com.Drew.Metadata.Exif
         {
         }
 
-        [CanBeNull]
         public override string GetDescription(int tagType)
         {
             switch (tagType)
@@ -62,7 +61,6 @@ namespace Com.Drew.Metadata.Exif
             }
         }
 
-        [CanBeNull]
         public override string GetCompressionDescription()
         {
             int? value = Directory.GetInteger(ExifThumbnailDirectory.TagThumbnailCompression);

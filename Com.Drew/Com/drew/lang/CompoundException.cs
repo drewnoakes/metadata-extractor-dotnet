@@ -60,7 +60,6 @@ namespace Com.Drew.Lang
             return _innerException;
         }
 
-        [NotNull]
         public override string ToString()
         {
             StringBuilder @string = new StringBuilder();

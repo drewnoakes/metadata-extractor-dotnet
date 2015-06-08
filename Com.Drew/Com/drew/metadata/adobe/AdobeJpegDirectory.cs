@@ -65,13 +65,11 @@ namespace Com.Drew.Metadata.Adobe
             SetDescriptor(new AdobeJpegDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Adobe JPEG";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

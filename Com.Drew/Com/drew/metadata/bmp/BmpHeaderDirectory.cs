@@ -49,13 +49,11 @@ namespace Com.Drew.Metadata.Bmp
             SetDescriptor(new BmpHeaderDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "BMP Header";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

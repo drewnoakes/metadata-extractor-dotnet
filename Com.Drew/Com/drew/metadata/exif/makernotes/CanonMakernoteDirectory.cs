@@ -808,19 +808,17 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             SetDescriptor(new CanonMakernoteDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Canon Makernote";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }
 
-        public override void SetObjectArray(int tagType, [NotNull] object array)
+        public override void SetObjectArray(int tagType, object array)
         {
             switch (tagType)
             {

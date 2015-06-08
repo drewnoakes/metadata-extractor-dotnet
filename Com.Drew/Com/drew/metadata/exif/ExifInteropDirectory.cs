@@ -42,13 +42,11 @@ namespace Com.Drew.Metadata.Exif
             SetDescriptor(new ExifInteropDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Interoperability";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

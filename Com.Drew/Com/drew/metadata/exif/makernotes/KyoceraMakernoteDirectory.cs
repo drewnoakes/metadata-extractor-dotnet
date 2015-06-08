@@ -48,13 +48,11 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             SetDescriptor(new KyoceraMakernoteDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Kyocera/Contax Makernote";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

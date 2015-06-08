@@ -183,7 +183,6 @@ namespace Com.Drew.Lang
 
         /// <summary>Returns a string representation of the object of form <c>numerator/denominator</c>.</summary>
         /// <returns>a string representation of the object.</returns>
-        [NotNull]
         public override string ToString()
         {
             return _numerator + "/" + _denominator;

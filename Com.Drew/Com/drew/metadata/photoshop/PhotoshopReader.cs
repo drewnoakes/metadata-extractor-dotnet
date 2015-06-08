@@ -47,13 +47,12 @@ namespace Com.Drew.Metadata.Photoshop
         [NotNull]
         private const string JpegSegmentPreamble = "Photoshop 3.0";
 
-        [NotNull]
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             return Arrays.AsList(JpegSegmentType.Appd);
         }
 
-        public void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
             int preambleLength = JpegSegmentPreamble.Length;
             foreach (sbyte[] segmentBytes in segments)

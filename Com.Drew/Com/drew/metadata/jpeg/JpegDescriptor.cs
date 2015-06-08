@@ -37,7 +37,6 @@ namespace Com.Drew.Metadata.Jpeg
         {
         }
 
-        [CanBeNull]
         public override string GetDescription(int tagType)
         {
             switch (tagType)

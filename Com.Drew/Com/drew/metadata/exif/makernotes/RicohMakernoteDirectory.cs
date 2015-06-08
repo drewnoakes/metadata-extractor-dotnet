@@ -54,13 +54,11 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             SetDescriptor(new RicohMakernoteDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Ricoh Makernote";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

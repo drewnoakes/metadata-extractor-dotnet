@@ -65,13 +65,11 @@ namespace Com.Drew.Metadata.Png
             SetDescriptor(new TagDescriptor<PngChromaticitiesDirectory>(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "PNG Chromaticities";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

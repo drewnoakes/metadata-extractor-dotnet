@@ -147,13 +147,11 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             SetDescriptor(new PentaxMakernoteDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Pentax Makernote";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

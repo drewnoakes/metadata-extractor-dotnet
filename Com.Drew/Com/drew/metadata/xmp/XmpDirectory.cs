@@ -238,13 +238,11 @@ namespace Com.Drew.Metadata.Xmp
             SetDescriptor(new XmpDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Xmp";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

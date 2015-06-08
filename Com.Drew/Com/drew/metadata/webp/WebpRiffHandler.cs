@@ -54,17 +54,17 @@ namespace Com.Drew.Metadata.Webp
             _metadata = metadata;
         }
 
-        public bool ShouldAcceptRiffIdentifier([NotNull] string identifier)
+        public bool ShouldAcceptRiffIdentifier(string identifier)
         {
             return identifier.Equals("WEBP");
         }
 
-        public bool ShouldAcceptChunk([NotNull] string fourCc)
+        public bool ShouldAcceptChunk(string fourCc)
         {
             return fourCc.Equals("VP8X") || fourCc.Equals("EXIF") || fourCc.Equals("ICCP") || fourCc.Equals("XMP ");
         }
 
-        public void ProcessChunk([NotNull] string fourCc, [NotNull] sbyte[] payload)
+        public void ProcessChunk(string fourCc, sbyte[] payload)
         {
             //        System.out.println("Chunk " + fourCC + " " + payload.length + " bytes");
             if (fourCc.Equals("EXIF"))

@@ -74,7 +74,6 @@ namespace Com.Drew.Metadata.Xmp
 
         //    @NotNull
         //    private static final String SCHEMA_DUBLIN_CORE_SPECIFIC_PROPERTIES = "http://purl.org/dc/elements/1.1/";
-        [NotNull]
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             return Arrays.AsList(JpegSegmentType.App1);
@@ -96,7 +95,7 @@ namespace Com.Drew.Metadata.Xmp
         /// <see cref="Com.Drew.Imaging.Jpeg.JpegSegmentType"/>
         /// being read.
         /// </param>
-        public void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {

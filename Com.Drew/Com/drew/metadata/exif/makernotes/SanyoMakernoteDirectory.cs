@@ -123,13 +123,11 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             SetDescriptor(new SanyoMakernoteDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Sanyo Makernote";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

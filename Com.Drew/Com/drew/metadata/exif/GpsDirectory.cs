@@ -164,13 +164,11 @@ namespace Com.Drew.Metadata.Exif
             SetDescriptor(new GpsDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "GPS";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

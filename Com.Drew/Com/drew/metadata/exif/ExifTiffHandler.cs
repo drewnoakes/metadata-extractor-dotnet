@@ -106,7 +106,7 @@ namespace Com.Drew.Metadata.Exif
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public override bool CustomProcessTag(int tagOffset, [NotNull] ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, [NotNull] RandomAccessReader reader, int tagId, int byteCount)
+        public override bool CustomProcessTag(int tagOffset, ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, RandomAccessReader reader, int tagId, int byteCount)
         {
             // Custom processing for the Makernote tag
             if (tagId == ExifDirectoryBase.TagMakernote && CurrentDirectory is ExifSubIfdDirectory)
@@ -128,7 +128,7 @@ namespace Com.Drew.Metadata.Exif
             return false;
         }
 
-        public override void Completed([NotNull] RandomAccessReader reader, int tiffHeaderOffset)
+        public override void Completed(RandomAccessReader reader, int tiffHeaderOffset)
         {
             if (_storeThumbnailBytes)
             {

@@ -36,13 +36,12 @@ namespace Com.Drew.Metadata.Adobe
     {
         public const string Preamble = "Adobe";
 
-        [NotNull]
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             return Arrays.AsList(JpegSegmentType.Appe);
         }
 
-        public void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
             foreach (sbyte[] bytes in segments)
             {

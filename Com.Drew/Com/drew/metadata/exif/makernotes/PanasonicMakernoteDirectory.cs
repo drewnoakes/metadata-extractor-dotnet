@@ -547,13 +547,11 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             SetDescriptor(new PanasonicMakernoteDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "Panasonic Makernote";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

@@ -55,7 +55,6 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
         public override sbyte[] GetBytes(int count)
         {
             if (_index + count > _bytes.Length)

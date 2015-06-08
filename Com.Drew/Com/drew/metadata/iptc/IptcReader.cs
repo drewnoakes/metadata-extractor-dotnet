@@ -52,13 +52,13 @@ namespace Com.Drew.Metadata.Iptc
     public static final int DATA_RECORD = 8;
     public static final int POST_DATA_RECORD = 9;
 */
-        [NotNull]
+
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             return Arrays.AsList(JpegSegmentType.Appd);
         }
 
-        public void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {

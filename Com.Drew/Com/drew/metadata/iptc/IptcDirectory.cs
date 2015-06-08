@@ -351,13 +351,11 @@ namespace Com.Drew.Metadata.Iptc
             SetDescriptor(new IptcDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "IPTC";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

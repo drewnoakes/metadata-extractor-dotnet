@@ -50,13 +50,11 @@ namespace Com.Drew.Metadata.Jpeg
             SetDescriptor(new JpegCommentDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "JpegComment";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

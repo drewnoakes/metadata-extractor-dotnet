@@ -56,13 +56,11 @@ namespace Com.Drew.Metadata.Jfif
             SetDescriptor(new JfifDescriptor(this));
         }
 
-        [NotNull]
         public override string GetName()
         {
             return "JFIF";
         }
 
-        [NotNull]
         protected override Dictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;

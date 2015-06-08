@@ -36,7 +36,6 @@ namespace Com.Drew.Metadata.Jpeg
     /// <author>Darrell Silver http://www.darrellsilver.com</author>
     public sealed class JpegReader : IJpegSegmentMetadataReader
     {
-        [NotNull]
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             // NOTE that some SOFn values do not exist
@@ -46,7 +45,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         //            JpegSegmentType.SOF4,
         //            JpegSegmentType.SOF12,
-        public void ReadJpegSegments([NotNull] IEnumerable<sbyte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType)
+        public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
             foreach (sbyte[] segmentBytes in segments)
             {

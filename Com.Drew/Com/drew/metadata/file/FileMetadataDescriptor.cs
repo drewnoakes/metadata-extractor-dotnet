@@ -33,7 +33,6 @@ namespace Com.Drew.Metadata.File
         {
         }
 
-        [CanBeNull]
         public override string GetDescription(int tagType)
         {
             switch (tagType)

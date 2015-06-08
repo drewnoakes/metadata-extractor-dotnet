@@ -39,7 +39,6 @@ namespace Com.Drew.Metadata.Jfif
         {
         }
 
-        [CanBeNull]
         public override string GetDescription(int tagType)
         {
             switch (tagType)

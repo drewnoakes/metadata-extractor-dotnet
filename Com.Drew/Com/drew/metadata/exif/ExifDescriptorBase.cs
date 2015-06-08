@@ -54,7 +54,6 @@ namespace Com.Drew.Metadata.Exif
         // you must add SensitivityValue(Sv).
         // Ev=BV+Sv   Sv=log2(ISOSpeedRating/3.125)
         // ISO100:Sv=5, ISO200:Sv=6, ISO400:Sv=7, ISO125:Sv=5.32.
-        [CanBeNull]
         public override string GetDescription(int tagType)
         {
             switch (tagType)

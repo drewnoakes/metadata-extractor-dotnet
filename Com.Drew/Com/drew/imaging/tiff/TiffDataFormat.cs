@@ -180,7 +180,6 @@ namespace Com.Drew.Imaging.Tiff
             return _tiffFormatCode;
         }
 
-        [NotNull]
         public override string ToString()
         {
             return _name;
