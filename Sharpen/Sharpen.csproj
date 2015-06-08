@@ -34,9 +34,6 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -174,16 +171,12 @@
     <Compile Include="Sharpen\StackOverflowError.cs" />
     <Compile Include="Sharpen\FileHelper.cs" />
     <Compile Include="Sharpen\JavaCalendar.cs" />
-    <Compile Include="InternalTests\TestJavaStringFormatConversion.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Content Include="InternalTests\TestStrings.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="InternalTests\StringsExtractor.ps1" />
-    <None Include="packages.config" />
+    <Folder Include="InternalTests\" />
   </ItemGroup>
 </Project>

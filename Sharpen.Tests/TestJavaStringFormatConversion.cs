@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using NUnit.Framework;
 
-namespace Sharpen.InternalTests
+namespace Sharpen.Tests
 {
     [TestFixture]
     public class TestJavaStringFormatConversion
@@ -10,7 +10,7 @@ namespace Sharpen.InternalTests
         /// This function tests that all format strings exisiting in Com.Drew project is supported
         public void TestAllFormatStringsIsSupported()
         {
-            var stringsReader = new StreamReader("InternalTests\\TestStrings.txt");
+            var stringsReader = new StreamReader("TestStrings.txt");
             while (!stringsReader.EndOfStream)
             {
                 Extensions.ConvertStringFormat(stringsReader.ReadLine().Trim('"'));

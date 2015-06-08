@@ -50,6 +50,7 @@ using System.Runtime.CompilerServices;
 [assembly:InternalsVisibleTo ("NSch")]
 [assembly:InternalsVisibleTo ("Sharpen.Unix")]
 [assembly:InternalsVisibleTo ("Sharpen.Test")]
+[assembly:InternalsVisibleTo ("Sharpen.Tests")]
 
 // The following attributes are used to specify the signing key for the assembly, 
 // if desired. See the Mono documentation for more information about signing.
