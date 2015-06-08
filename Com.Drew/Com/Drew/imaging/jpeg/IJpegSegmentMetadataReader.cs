@@ -15,15 +15,8 @@ namespace Com.Drew.Imaging.Jpeg
         /// A sequence of byte arrays from which the metadata should be extracted. These are in the order
         /// encountered in the original file.
         /// </param>
-        /// <param name="metadata">
-        /// The
-        /// <see cref="Com.Drew.Metadata.Metadata"/>
-        /// object into which extracted values should be merged.
-        /// </param>
-        /// <param name="segmentType">
-        /// The
-        /// <see cref="JpegSegmentType"/>
-        /// being read.
+        /// <param name="metadata">The <see cref="Com.Drew.Metadata.Metadata"/> object into which extracted values should be merged.</param>
+        /// <param name="segmentType">The <see cref="JpegSegmentType"/> being read.
         /// </param>
         void ReadJpegSegments([NotNull] Iterable<sbyte[]> segments, [NotNull] Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType);
     }
