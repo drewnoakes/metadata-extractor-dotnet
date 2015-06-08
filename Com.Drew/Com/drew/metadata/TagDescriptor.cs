@@ -264,9 +264,10 @@ namespace Com.Drew.Metadata
                 if (labelObj != null)
                 {
                     bool isBitSet = ((int)value & 1) == 1;
-                    if (labelObj is string[])
+                    var obj = labelObj as string[];
+                    if (obj != null)
                     {
-                        string[] labelPair = (string[])labelObj;
+                        string[] labelPair = obj;
                         Debug.Assert((labelPair.Length == 2));
                         parts.Add(labelPair[isBitSet ? 1 : 0]);
                     }

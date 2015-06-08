@@ -52,8 +52,9 @@ namespace Sharpen
 
         public virtual void Write (int b)
         {
-            if (Wrapped is WrappedSystemStream)
-                ((WrappedSystemStream)Wrapped).OutputStream.Write (b);
+            var stream = Wrapped as WrappedSystemStream;
+            if (stream != null)
+                stream.OutputStream.Write (b);
             else {
                 if (this.Wrapped == null)
                     throw new NotImplementedException ();
@@ -68,8 +69,9 @@ namespace Sharpen
 
         public virtual void Write (sbyte[] b, int offset, int len)
         {
-            if (Wrapped is WrappedSystemStream)
-                ((WrappedSystemStream)Wrapped).OutputStream.Write (b, offset, len);
+            var stream = Wrapped as WrappedSystemStream;
+            if (stream != null)
+                stream.OutputStream.Write (b, offset, len);
             else {
                 if (this.Wrapped != null) {
                     this.Wrapped.Write (Extensions.ConvertToByteArray(b), offset, len);

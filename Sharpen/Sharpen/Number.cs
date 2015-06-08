@@ -47,9 +47,10 @@ namespace Sharpen
 
         public static Number GetInstance(object obj)
         {
-            if (obj is Number)
+            var number = obj as Number;
+            if (number != null)
             {
-                return (Number)obj;
+                return number;
             }
 
             if (!IsNumberType(obj))

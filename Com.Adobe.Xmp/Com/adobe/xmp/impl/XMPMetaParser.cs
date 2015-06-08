@@ -92,15 +92,17 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">Thrown if the parsing fails for different reasons</exception>
         private static XmlDocument ParseXml(object input, ParseOptions options)
         {
-            if (input is InputStream)
+            var stream = input as InputStream;
+            if (stream != null)
             {
-                return ParseXmlFromInputStream((InputStream)input, options);
+                return ParseXmlFromInputStream(stream, options);
             }
             else
             {
-                if (input is sbyte[])
+                var sbytes = input as sbyte[];
+                if (sbytes != null)
                 {
-                    return ParseXmlFromBytebuffer(new ByteBuffer((sbyte[])input), options);
+                    return ParseXmlFromBytebuffer(new ByteBuffer(sbytes), options);
                 }
                 else
                 {

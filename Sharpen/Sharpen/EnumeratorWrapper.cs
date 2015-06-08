@@ -102,15 +102,17 @@ namespace Sharpen
                 _copied = true;
             }
 
-            if (col is IDictionary)
+            var dictionary = col as IDictionary;
+            if (dictionary != null)
             {
-                ((IDictionary)col).Remove(_lastVal);
+                dictionary.Remove(_lastVal);
                 return;
             }
 
-            if (col is IList)
+            var list = col as IList;
+            if (list != null)
             {
-                ((IList)col).Remove(_lastVal);
+                list.Remove(_lastVal);
                 return;
             }
 

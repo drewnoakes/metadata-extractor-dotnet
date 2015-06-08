@@ -139,9 +139,10 @@ namespace Sharpen
         {
             if (array.GetType().IsArray)
             {
-                if (array is ICollection)
+                var collection = array as ICollection;
+                if (collection != null)
                 {
-                    return ((ICollection)array).Count;
+                    return collection.Count;
                 }
             }
 
@@ -152,14 +153,16 @@ namespace Sharpen
         {
             if (array.GetType().IsArray)
             {
-                if (array is ICollection)
+                var collection = array as ICollection;
+                if (collection != null)
                 {
-                    return ((ICollection)array).Cast<T>().ElementAt(index);
+                    return collection.Cast<T>().ElementAt(index);
                 }
 
-                if (array is IEnumerable)
+                var enumerable = array as IEnumerable;
+                if (enumerable != null)
                 {
-                    return ((IEnumerable)array).Cast<T>().ElementAt(index);
+                    return enumerable.Cast<T>().ElementAt(index);
                 }
             }
 

@@ -21,10 +21,8 @@ namespace Sharpen
 
         public virtual int Available ()
         {
-            if (Wrapped is WrappedSystemStream)
-                return ((WrappedSystemStream)Wrapped).InputStream.Available();
-            else
-                return 0;
+            var stream = Wrapped as WrappedSystemStream;
+            return stream != null ? stream.InputStream.Available() : 0;
         }
 
         public virtual void Close ()
@@ -53,11 +51,13 @@ namespace Sharpen
 
         public virtual void Mark (int readlimit)
         {
-            if (Wrapped is WrappedSystemStream)
-                ((WrappedSystemStream)Wrapped).InputStream.Mark (readlimit);
+            var stream = Wrapped as WrappedSystemStream;
+            if (stream != null)
+                stream.InputStream.Mark (readlimit);
             else {
-                if (BaseStream is WrappedSystemStream)
-                    ((WrappedSystemStream)BaseStream).OnMark (readlimit);
+                stream = BaseStream as WrappedSystemStream;
+                if (stream != null)
+                    stream.OnMark (readlimit);
                 if (Wrapped != null)
                     this._mark = Wrapped.Position;
             }
@@ -65,8 +65,9 @@ namespace Sharpen
 
         public virtual bool MarkSupported ()
         {
-            if (Wrapped is WrappedSystemStream)
-                return ((WrappedSystemStream)Wrapped).InputStream.MarkSupported ();
+            var stream = Wrapped as WrappedSystemStream;
+            if (stream != null)
+                return stream.InputStream.MarkSupported ();
             else
                 return ((Wrapped != null) && Wrapped.CanSeek);
         }
@@ -86,8 +87,9 @@ namespace Sharpen
 
         public virtual int Read (sbyte[] b, int off, int len)
         {
-            if (Wrapped is WrappedSystemStream)
-                return ((WrappedSystemStream)Wrapped).InputStream.Read (b, off, len);
+            var stream = Wrapped as WrappedSystemStream;
+            if (stream != null)
+                return stream.InputStream.Read (b, off, len);
 
             if (Wrapped != null) {
                 byte[] buffer = new byte[len];
@@ -109,8 +111,9 @@ namespace Sharpen
 
         public virtual void Reset ()
         {
-            if (Wrapped is WrappedSystemStream)
-                ((WrappedSystemStream)Wrapped).InputStream.Reset ();
+            var stream = Wrapped as WrappedSystemStream;
+            if (stream != null)
+                stream.InputStream.Reset ();
             else {
                 if (Wrapped == null)
                     throw new IOException ();
@@ -120,8 +123,9 @@ namespace Sharpen
 
         public virtual long Skip (long cnt)
         {
-            if (Wrapped is WrappedSystemStream)
-                return ((WrappedSystemStream)Wrapped).InputStream.Skip (cnt);
+            var stream = Wrapped as WrappedSystemStream;
+            if (stream != null)
+                return stream.InputStream.Skip (cnt);
 
             long n = cnt;
             while (n > 0) {

@@ -366,22 +366,25 @@ namespace Com.Adobe.Xmp.Impl
                             }
                             else
                             {
-                                if (value is IXmpDateTime)
+                                var dateTime = value as IXmpDateTime;
+                                if (dateTime != null)
                                 {
-                                    strValue = Xmp.XmpUtils.ConvertFromDate((IXmpDateTime)value);
+                                    strValue = Xmp.XmpUtils.ConvertFromDate(dateTime);
                                 }
                                 else
                                 {
-                                    if (value is GregorianCalendar)
+                                    var calendar = value as GregorianCalendar;
+                                    if (calendar != null)
                                     {
-                                        IXmpDateTime dt = XmpDateTimeFactory.CreateFromCalendar((GregorianCalendar)value);
+                                        IXmpDateTime dt = XmpDateTimeFactory.CreateFromCalendar(calendar);
                                         strValue = Xmp.XmpUtils.ConvertFromDate(dt);
                                     }
                                     else
                                     {
-                                        if (value is sbyte[])
+                                        var sbytes = value as sbyte[];
+                                        if (sbytes != null)
                                         {
-                                            strValue = Xmp.XmpUtils.EncodeBase64((sbyte[])value);
+                                            strValue = Xmp.XmpUtils.EncodeBase64(sbytes);
                                         }
                                         else
                                         {

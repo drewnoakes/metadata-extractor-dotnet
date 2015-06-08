@@ -350,16 +350,17 @@ namespace Com.Drew.Metadata
             }
             else
             {
-                if (o is string)
+                var value = o as string;
+                if (value != null)
                 {
                     try
                     {
-                        return Convert.ToInt32((string)o);
+                        return Convert.ToInt32(value);
                     }
                     catch (FormatException)
                     {
                         // convert the char array to an int
-                        string s = (string)o;
+                        string s = value;
                         sbyte[] bytes = Runtime.GetBytesForString(s);
                         long val = 0;
                         foreach (sbyte aByte in bytes)
@@ -372,9 +373,9 @@ namespace Com.Drew.Metadata
                 }
                 else
                 {
-                    if (o is Rational[])
+                    var rationals = o as Rational[];
+                    if (rationals != null)
                     {
-                        Rational[] rationals = (Rational[])o;
                         if (rationals.Length == 1)
                         {
                             return rationals[0].IntValue();
@@ -382,9 +383,9 @@ namespace Com.Drew.Metadata
                     }
                     else
                     {
-                        if (o is sbyte[])
+                        var bytes = o as sbyte[];
+                        if (bytes != null)
                         {
-                            sbyte[] bytes = (sbyte[])o;
                             if (bytes.Length == 1)
                             {
                                 return (int)bytes[0];
@@ -392,9 +393,9 @@ namespace Com.Drew.Metadata
                         }
                         else
                         {
-                            if (o is int[])
+                            var ints = o as int[];
+                            if (ints != null)
                             {
-                                int[] ints = (int[])o;
                                 if (ints.Length == 1)
                                 {
                                     return ints[0];
@@ -422,18 +423,20 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            if (o is string[])
+            var strings = o as string[];
+            if (strings != null)
             {
-                return (string[])o;
+                return strings;
             }
-            if (o is string)
+            var s = o as string;
+            if (s != null)
             {
-                return new string[] { (string)o };
+                return new string[] { s };
             }
-            if (o is int[])
+            var ints = o as int[];
+            if (ints != null)
             {
-                int[] ints = (int[])o;
-                string[] strings = new string[ints.Length];
+                strings = new string[ints.Length];
                 for (int i = 0; i < strings.Length; i++)
                 {
                     strings[i] = Extensions.ConvertToString(ints[i]);
@@ -442,10 +445,10 @@ namespace Com.Drew.Metadata
             }
             else
             {
-                if (o is sbyte[])
+                var bytes = o as sbyte[];
+                if (bytes != null)
                 {
-                    sbyte[] bytes = (sbyte[])o;
-                    string[] strings = new string[bytes.Length];
+                    strings = new string[bytes.Length];
                     for (int i = 0; i < strings.Length; i++)
                     {
                         strings[i] = Extensions.ConvertToString(bytes[i]);
@@ -454,10 +457,10 @@ namespace Com.Drew.Metadata
                 }
                 else
                 {
-                    if (o is Rational[])
+                    var rationals = o as Rational[];
+                    if (rationals != null)
                     {
-                        Rational[] rationals = (Rational[])o;
-                        string[] strings = new string[rationals.Length];
+                        strings = new string[rationals.Length];
                         for (int i = 0; i < strings.Length; i++)
                         {
                             strings[i] = rationals[i].ToSimpleString(false);
@@ -484,51 +487,53 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            if (o is int[])
+            var ints = o as int[];
+            if (ints != null)
             {
-                return (int[])o;
+                return ints;
             }
-            if (o is Rational[])
+            var rationals = o as Rational[];
+            if (rationals != null)
             {
-                Rational[] rationals = (Rational[])o;
-                int[] ints = new int[rationals.Length];
+                ints = new int[rationals.Length];
                 for (int i = 0; i < ints.Length; i++)
                 {
                     ints[i] = rationals[i].IntValue();
                 }
                 return ints;
             }
-            if (o is short[])
+            var shorts = o as short[];
+            if (shorts != null)
             {
-                short[] shorts = (short[])o;
-                int[] ints = new int[shorts.Length];
+                ints = new int[shorts.Length];
                 for (int i = 0; i < shorts.Length; i++)
                 {
                     ints[i] = shorts[i];
                 }
                 return ints;
             }
-            if (o is sbyte[])
+            var bytes = o as sbyte[];
+            if (bytes != null)
             {
-                sbyte[] bytes = (sbyte[])o;
-                int[] ints = new int[bytes.Length];
+                ints = new int[bytes.Length];
                 for (int i = 0; i < bytes.Length; i++)
                 {
                     ints[i] = bytes[i];
                 }
                 return ints;
             }
-            if (o is CharSequence)
+            var str = o as CharSequence;
+            if (str != null)
             {
-                CharSequence str = (CharSequence)o;
-                int[] ints = new int[str.Length];
+                ints = new int[str.Length];
                 for (int i = 0; i < str.Length; i++)
                 {
                     ints[i] = str[i];
                 }
                 return ints;
             }
-            if (o is int?)
+            var nullableInt = o as int?;
+            if (nullableInt != null)
             {
                 return new int[] { (int)o };
             }
@@ -552,10 +557,12 @@ namespace Com.Drew.Metadata
             }
             else
             {
-                if (o is Rational[])
+                sbyte[] bytes;
+
+                var rationals = o as Rational[];
+                if (rationals != null)
                 {
-                    Rational[] rationals = (Rational[])o;
-                    sbyte[] bytes = new sbyte[rationals.Length];
+                    bytes = new sbyte[rationals.Length];
                     for (int i = 0; i < bytes.Length; i++)
                     {
                         bytes[i] = rationals[i].ByteValue();
@@ -564,16 +571,17 @@ namespace Com.Drew.Metadata
                 }
                 else
                 {
-                    if (o is sbyte[])
+                    bytes = o as sbyte[];
+                    if (bytes != null)
                     {
-                        return (sbyte[])o;
+                        return bytes;
                     }
                     else
                     {
-                        if (o is int[])
+                        var ints = o as int[];
+                        if (ints != null)
                         {
-                            int[] ints = (int[])o;
-                            sbyte[] bytes = new sbyte[ints.Length];
+                            bytes = new sbyte[ints.Length];
                             for (int i = 0; i < ints.Length; i++)
                             {
                                 bytes[i] = unchecked((sbyte)ints[i]);
@@ -582,10 +590,10 @@ namespace Com.Drew.Metadata
                         }
                         else
                         {
-                            if (o is short[])
+                            var shorts = o as short[];
+                            if (shorts != null)
                             {
-                                short[] shorts = (short[])o;
-                                sbyte[] bytes = new sbyte[shorts.Length];
+                                bytes = new sbyte[shorts.Length];
                                 for (int i = 0; i < shorts.Length; i++)
                                 {
                                     bytes[i] = unchecked((sbyte)shorts[i]);
@@ -594,10 +602,10 @@ namespace Com.Drew.Metadata
                             }
                             else
                             {
-                                if (o is CharSequence)
+                                var str = o as CharSequence;
+                                if (str != null)
                                 {
-                                    CharSequence str = (CharSequence)o;
-                                    sbyte[] bytes = new sbyte[str.Length];
+                                    bytes = new sbyte[str.Length];
                                     for (int i = 0; i < str.Length; i++)
                                     {
                                         bytes[i] = unchecked((sbyte)str[i]);
@@ -609,9 +617,10 @@ namespace Com.Drew.Metadata
                     }
                 }
             }
-            if (o is int?)
+            var nullableInt = o as int?;
+            if (nullableInt != null)
             {
-                return new sbyte[] { ((int?)o).ByteValue() };
+                return new sbyte[] { nullableInt.ByteValue() };
             }
             return null;
         }
@@ -643,11 +652,12 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            if (o is string)
+            var s = o as string;
+            if (s != null)
             {
                 try
                 {
-                    return double.Parse((string)o);
+                    return double.Parse(s);
                 }
                 catch (FormatException)
                 {
@@ -688,11 +698,12 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            if (o is string)
+            var s = o as string;
+            if (s != null)
             {
                 try
                 {
-                    return float.Parse((string)o);
+                    return float.Parse(s);
                 }
                 catch (FormatException)
                 {
@@ -733,11 +744,12 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            if (o is string)
+            var s = o as string;
+            if (s != null)
             {
                 try
                 {
-                    return Convert.ToInt64((string)o);
+                    return Convert.ToInt64(s);
                 }
                 catch (FormatException)
                 {
@@ -778,15 +790,17 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            if (o is bool?)
+            var b = o as bool?;
+            if (b != null)
             {
-                return (bool?)o;
+                return b;
             }
-            if (o is string)
+            var s = o as string;
+            if (s != null)
             {
                 try
                 {
-                    return bool.Parse((string)o);
+                    return bool.Parse(s);
                 }
                 catch (FormatException)
                 {
@@ -845,12 +859,13 @@ namespace Com.Drew.Metadata
             {
                 return (DateTime)o;
             }
-            if (o is string)
+            var s = o as string;
+            if (s != null)
             {
                 // This seems to cover all known Exif date strings
                 // Note that "    :  :     :  :  " is a valid date string according to the Exif spec (which means 'unknown date'): http://www.awaresystems.be/imaging/tiff/tifftags/privateifd/exif/datetimeoriginal.html
                 string[] datePatterns = new string[] { "yyyy:MM:dd HH:mm:ss", "yyyy:MM:dd HH:mm", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm" };
-                string dateString = (string)o;
+                string dateString = s;
                 foreach (string datePattern in datePatterns)
                 {
                     try
@@ -881,9 +896,10 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            if (o is Rational)
+            var rational = o as Rational;
+            if (rational != null)
             {
-                return (Rational)o;
+                return rational;
             }
             if (o is int?)
             {
@@ -907,9 +923,10 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            if (o is Rational[])
+            var rationals = o as Rational[];
+            if (rationals != null)
             {
-                return (Rational[])o;
+                return rationals;
             }
             return null;
         }
@@ -931,9 +948,10 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            if (o is Rational)
+            var rational = o as Rational;
+            if (rational != null)
             {
-                return ((Rational)o).ToSimpleString(true);
+                return rational.ToSimpleString(true);
             }
             if (o is DateTime)
             {
