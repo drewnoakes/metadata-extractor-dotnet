@@ -29,16 +29,16 @@ namespace Com.Adobe.Xmp.Impl
         private readonly IteratorOptions _options;
 
         /// <summary>the base namespace of the property path, will be changed during the iteration</summary>
-        private string _baseNs = null;
+        private string _baseNs;
 
         /// <summary>flag to indicate that skipSiblings() has been called.</summary>
-        protected internal bool skipSiblings = false;
+        protected internal bool skipSiblings;
 
         /// <summary>flag to indicate that skipSiblings() has been called.</summary>
-        protected internal bool skipSubtree = false;
+        protected internal bool skipSubtree;
 
         /// <summary>the node iterator doing the work</summary>
-        private readonly IIterator _nodeIterator = null;
+        private readonly IIterator _nodeIterator;
 
         /// <summary>Constructor with optionsl initial values.</summary>
         /// <remarks>
@@ -193,16 +193,16 @@ namespace Com.Adobe.Xmp.Impl
             private readonly string _path;
 
             /// <summary>the iterator that goes through the children and qualifier list</summary>
-            private IIterator _childrenIterator = null;
+            private IIterator _childrenIterator;
 
             /// <summary>index of node with parent, only interesting for arrays</summary>
-            private int _index = 0;
+            private int _index;
 
             /// <summary>the iterator for each child</summary>
             private IIterator _subIterator = Collections.EmptyList().Iterator();
 
             /// <summary>the cached <code>PropertyInfo</code> to return</summary>
-            private IXmpPropertyInfo _returnProperty = null;
+            private IXmpPropertyInfo _returnProperty;
 
             /// <summary>Default constructor</summary>
             public NodeIterator(XmpIterator enclosing)
@@ -490,7 +490,7 @@ namespace Com.Adobe.Xmp.Impl
 
             private readonly IIterator _childrenIterator;
 
-            private int _index = 0;
+            private int _index;
 
             /// <summary>Constructor</summary>
             /// <param name="parentNode">the node which children shall be iterated.</param>

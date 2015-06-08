@@ -22,7 +22,7 @@ namespace Com.Adobe.Xmp
         private static IXmpSchemaRegistry _schema = new XmpSchemaRegistry();
 
         /// <summary>cache for version info</summary>
-        private static IXmpVersionInfo _versionInfo = null;
+        private static IXmpVersionInfo _versionInfo;
 
         /// <summary>Hides public constructor</summary>
         private XmpMetaFactory()

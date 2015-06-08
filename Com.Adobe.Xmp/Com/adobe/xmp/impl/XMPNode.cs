@@ -42,13 +42,13 @@ namespace Com.Adobe.Xmp.Impl
         private XmpNode _parent;
 
         /// <summary>list of child nodes, lazy initialized</summary>
-        private IList _children = null;
+        private IList _children;
 
         /// <summary>list of qualifier of the node, lazy initialized</summary>
-        private IList _qualifier = null;
+        private IList _qualifier;
 
         /// <summary>options describing the kind of the node</summary>
-        private PropertyOptions _options = null;
+        private PropertyOptions _options;
 
         /// <summary>flag if the node is implicitly created</summary>
         private bool _implicit;

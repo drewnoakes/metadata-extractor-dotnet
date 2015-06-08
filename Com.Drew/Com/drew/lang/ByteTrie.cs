@@ -38,7 +38,7 @@ namespace Com.Drew.Lang
         {
             internal readonly IDictionary<sbyte, ByteTrieNode<T>> Children = new Dictionary<sbyte, ByteTrieNode<T>>();
 
-            internal T Value = default(T);
+            internal T Value;
 
             public virtual void SetValue(T value)
             {

@@ -42,7 +42,7 @@ namespace Com.Adobe.Xmp.Impl
         private readonly XmpNode _tree;
 
         /// <summary>the xpacket processing instructions content</summary>
-        private string _packetHeader = null;
+        private string _packetHeader;
 
         /// <summary>Constructor for an empty metadata object.</summary>
         public XmpMeta()

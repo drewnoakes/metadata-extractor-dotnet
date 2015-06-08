@@ -104,7 +104,7 @@ namespace Com.Adobe.Xmp.Options
         /// The number of levels of indentation to be used for the outermost XML element in the
         /// serialized RDF. This is convenient when embedding the RDF in other text, defaults to 0.
         /// </remarks>
-        private int _baseIndent = 0;
+        private int _baseIndent;
 
         /// <summary>Omits the Toolkit version attribute, not published, only used for Unit tests.</summary>
         private readonly bool _omitVersionAttribute = false;

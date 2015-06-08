@@ -33,10 +33,10 @@ namespace Com.Adobe.Xmp.Impl
         private int _state = StateStart;
 
         /// <summary>the result of the escaping sequence</summary>
-        private int _control = 0;
+        private int _control;
 
         /// <summary>count the digits of the sequence</summary>
-        private int _digits = 0;
+        private int _digits;
 
         /// <summary>The look-ahead size is 6 at maximum (&amp;#xAB;)</summary>
         /// <seealso cref="PushbackReader(System.IO.StreamReader, int)"/>

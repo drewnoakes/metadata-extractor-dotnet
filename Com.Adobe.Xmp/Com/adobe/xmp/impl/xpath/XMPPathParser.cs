@@ -429,18 +429,18 @@ namespace Com.Adobe.Xmp.Impl.Xpath
     internal class PathPosition
     {
         /// <summary>the complete path</summary>
-        public string Path = null;
+        public string Path;
 
         /// <summary>the start of a segment name</summary>
-        internal int NameStart = 0;
+        internal int NameStart;
 
         /// <summary>the end of a segment name</summary>
-        internal int NameEnd = 0;
+        internal int NameEnd;
 
         /// <summary>the begin of a step</summary>
-        internal int StepBegin = 0;
+        internal int StepBegin;
 
         /// <summary>the end of a step</summary>
-        internal int StepEnd = 0;
+        internal int StepEnd;
     }
 }

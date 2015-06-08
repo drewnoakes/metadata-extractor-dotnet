@@ -20,7 +20,7 @@ namespace Com.Adobe.Xmp.Impl
 
         private int _length;
 
-        private string _encoding = null;
+        private string _encoding;
 
         /// <param name="initialCapacity">the initial capacity for this buffer</param>
         public ByteBuffer(int initialCapacity)

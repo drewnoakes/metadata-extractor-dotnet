@@ -19,7 +19,7 @@ namespace Com.Adobe.Xmp.Impl
         private readonly OutputStream _out;
 
         /// <summary>the byte counter</summary>
-        private int _bytesWritten = 0;
+        private int _bytesWritten;
 
         /// <summary>Constructor with providing the output stream to decorate.</summary>
         /// <param name="out">an <code>OutputStream</code></param>

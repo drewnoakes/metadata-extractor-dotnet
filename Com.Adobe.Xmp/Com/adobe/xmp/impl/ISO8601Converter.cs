@@ -347,7 +347,7 @@ namespace Com.Adobe.Xmp.Impl
     {
         private readonly string _str;
 
-        private int _pos = 0;
+        private int _pos;
 
         /// <param name="str">initializes the parser container</param>
         public ParseState(string str)

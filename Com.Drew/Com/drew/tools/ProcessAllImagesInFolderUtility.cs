@@ -147,13 +147,13 @@ namespace Com.Drew.Tools
             private readonly ICollection<string> _supportedExtensions = new HashSet<string>(Arrays.AsList("jpg", "jpeg", "png", "gif", "bmp", "ico", "webp", "pcx", "ai", "eps", "nef", "crw", "cr2", "orf", "arw", "raf", "srw", "x3f", "rw2", "rwl", "tif",
                 "tiff", "psd", "dng"));
 
-            private int _processedFileCount = 0;
+            private int _processedFileCount;
 
-            private int _exceptionCount = 0;
+            private int _exceptionCount;
 
-            private int _errorCount = 0;
+            private int _errorCount;
 
-            private long _processedByteCount = 0;
+            private long _processedByteCount;
 
             public virtual bool ShouldProcess([NotNull] FilePath file)
             {

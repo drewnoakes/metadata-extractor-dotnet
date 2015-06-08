@@ -22,10 +22,10 @@ namespace Com.Adobe.Xmp.Options
     public abstract class Options
     {
         /// <summary>the internal int containing all options</summary>
-        private int _options = 0;
+        private int _options;
 
         /// <summary>a map containing the bit names</summary>
-        private IDictionary _optionNames = null;
+        private IDictionary _optionNames;
 
         /// <summary>The default constructor.</summary>
         public Options()

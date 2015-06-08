@@ -24,29 +24,29 @@ namespace Com.Adobe.Xmp.Impl
     /// <since>16.02.2006</since>
     public class XmpDateTime : IXmpDateTime
     {
-        private int _year = 0;
+        private int _year;
 
-        private int _month = 0;
+        private int _month;
 
-        private int _day = 0;
+        private int _day;
 
-        private int _hour = 0;
+        private int _hour;
 
-        private int _minute = 0;
+        private int _minute;
 
-        private int _second = 0;
+        private int _second;
 
         /// <summary>Use NO time zone as default</summary>
-        private TimeZoneInfo _timeZone = null;
+        private TimeZoneInfo _timeZone;
 
         /// <summary>The nano seconds take micro and nano seconds, while the milli seconds are in the calendar.</summary>
         private int _nanoSeconds;
 
-        private bool _hasDate = false;
+        private bool _hasDate;
 
-        private bool _hasTime = false;
+        private bool _hasTime;
 
-        private bool _hasTimeZone = false;
+        private bool _hasTimeZone;
 
         /// <summary>
         /// Creates an <code>XMPDateTime</code>-instance with the current time in the default time
