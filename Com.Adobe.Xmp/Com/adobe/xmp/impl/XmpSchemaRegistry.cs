@@ -58,7 +58,6 @@ namespace Com.Adobe.Xmp.Impl
 
         // ---------------------------------------------------------------------------------------------
         // Namespace Functions
-        /// <seealso cref="IXmpSchemaRegistry.RegisterNamespace(string, string)"/>
         /// <exception cref="XmpException"/>
         public string RegisterNamespace(string namespaceUri, string suggestedPrefix)
         {
@@ -99,7 +98,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpSchemaRegistry.DeleteNamespace(string)"/>
         public void DeleteNamespace(string namespaceUri)
         {
             lock (this)
@@ -113,7 +111,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpSchemaRegistry.GetNamespacePrefix(string)"/>
         public string GetNamespacePrefix(string namespaceUri)
         {
             lock (this)
@@ -122,7 +119,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <sIXmpSchemaRegistry.GetNamespaceUriceURI(string)"/>
         public string GetNamespaceUri(string namespacePrefix)
         {
             lock (this)
@@ -135,7 +131,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpSchemaRegistry.GetNamespaces()"/>
         public IDictionary GetNamespaces()
         {
             lock (this)
@@ -144,7 +139,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpSchemaRegistry.GetPrefixes()"/>
         public IDictionary GetPrefixes()
         {
             lock (this)
@@ -229,7 +223,6 @@ namespace Com.Adobe.Xmp.Impl
 
         // ---------------------------------------------------------------------------------------------
         // Alias Functions
-        /// <seealso cref="IXmpSchemaRegistry.ResolveAlias(string, string)"/>
         public IXmpAliasInfo ResolveAlias(string aliasNs, string aliasProp)
         {
             lock (this)
@@ -243,7 +236,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpSchemaRegistry.FindAlias(string)"/>
         public IXmpAliasInfo FindAlias(string qname)
         {
             lock (this)
@@ -252,7 +244,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpSchemaRegistry.FindAliases(string)"/>
         public IXmpAliasInfo[] FindAliases(string aliasNs)
         {
             lock (this)
@@ -366,25 +357,21 @@ namespace Com.Adobe.Xmp.Impl
                 _aliasOpts = aliasOpts;
             }
 
-            /// <seealso cref="IXmpAliasInfo.GetNamespace()"/>
             public string GetNamespace()
             {
                 return _actualNs;
             }
 
-            /// <seealso cref="IXmpAliasInfo.GetPrefix()"/>
             public string GetPrefix()
             {
                 return _actualPrefix;
             }
 
-            /// <seealso cref="IXmpAliasInfo.GetPropName()"/>
             public string GetPropName()
             {
                 return _actualProp;
             }
 
-            /// <seealso cref="IXmpAliasInfo.GetAliasForm()"/>
             public AliasOptions GetAliasForm()
             {
                 return _aliasOpts;
@@ -396,15 +383,11 @@ namespace Com.Adobe.Xmp.Impl
             }
 
             private readonly string _actualNs;
-
             private readonly string _actualPrefix;
-
             private readonly string _actualProp;
-
             private readonly AliasOptions _aliasOpts;
         }
 
-        /// <seealso cref="IXmpSchemaRegistry.GetAliases()"/>
         public IDictionary GetAliases()
         {
             lock (this)
