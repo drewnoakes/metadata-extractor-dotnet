@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -66,12 +67,10 @@ namespace Com.Drew.Lang
             T value = node.Value;
             foreach (sbyte b in bytes)
             {
-                ByteTrieNode<T> child = Extensions.Get<sbyte, ByteTrieNode<T>>(node.Children, b);
-                if (child == null)
+                if (!node.Children.TryGetValue(b, out node))
                 {
                     break;
                 }
-                node = child;
                 if (node.Value != null)
                 {
                     value = node.Value;
@@ -89,11 +88,11 @@ namespace Com.Drew.Lang
             {
                 foreach (sbyte b in part)
                 {
-                    ByteTrieNode<T> child = Extensions.Get<sbyte, ByteTrieNode<T>>(node.Children, b);
-                    if (child == null)
+                    ByteTrieNode<T> child;
+                    if (!node.Children.TryGetValue(b, out child))
                     {
                         child = new ByteTrieNode<T>();
-                        Extensions.Put<sbyte, ByteTrieNode<T>>(node.Children, b, child);
+                        node.Children[b] = child;
                     }
                     node = child;
                     depth++;
