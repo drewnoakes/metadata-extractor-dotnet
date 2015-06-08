@@ -91,7 +91,7 @@ namespace Com.Adobe.Xmp.Impl
             var s = param as string;
             if (s != null && s.Length == 0)
             {
-                throw new XmpException("Parameter must not be null or empty", XmpErrorCode.Badparam);
+                throw new XmpException("Parameter must not be an empty string", XmpErrorCode.Badparam);
             }
         }
 
