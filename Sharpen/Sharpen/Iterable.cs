@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Sharpen
 {
-    public abstract class Iterable<T> : IEnumerable, IEnumerable<T>
+    public abstract class Iterable<T> : IEnumerable<T>
     {
         public IEnumerator<T> GetEnumerator ()
         {

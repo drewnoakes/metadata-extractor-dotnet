@@ -11,7 +11,7 @@ namespace Sharpen
         void Remove ();
     }
 
-    public abstract class Iterator<T> : IEnumerator, IDisposable, IEnumerator<T>, IIterator
+    public abstract class Iterator<T> : IEnumerator<T>, IIterator
     {
         private T _lastValue;
 
