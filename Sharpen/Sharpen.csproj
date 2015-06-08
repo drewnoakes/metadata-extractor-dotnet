@@ -77,7 +77,6 @@
     <Compile Include="Sharpen\CharSequence.cs" />
     <Compile Include="Sharpen\Exceptions.cs" />
     <Compile Include="Sharpen\FilePath.cs" />
-    <Compile Include="Sharpen\FilterInputStream.cs" />
     <Compile Include="Sharpen\InputStream.cs" />
     <Compile Include="Sharpen\IIterator.cs" />
     <Compile Include="Sharpen\OutputStream.cs" />
