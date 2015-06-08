@@ -49,7 +49,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns whether the QName has a prefix.</returns>
         public virtual bool HasPrefix()
         {
-            return _prefix != null && _prefix.Length > 0;
+            return !string.IsNullOrEmpty(_prefix);
         }
 
         /// <returns>the localName</returns>

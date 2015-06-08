@@ -18,7 +18,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">Array name is null or empty</exception>
         public static void AssertArrayName(string arrayName)
         {
-            if (arrayName == null || arrayName.Length == 0)
+            if (string.IsNullOrEmpty(arrayName))
             {
                 throw new XmpException("Empty array name", XmpErrorConstants.Badparam);
             }
@@ -29,7 +29,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">Property name is null or empty</exception>
         public static void AssertPropName(string propName)
         {
-            if (propName == null || propName.Length == 0)
+            if (string.IsNullOrEmpty(propName))
             {
                 throw new XmpException("Empty property name", XmpErrorConstants.Badparam);
             }
@@ -40,7 +40,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">Schema is null or empty</exception>
         public static void AssertSchemaNs(string schemaNs)
         {
-            if (schemaNs == null || schemaNs.Length == 0)
+            if (string.IsNullOrEmpty(schemaNs))
             {
                 throw new XmpException("Empty schema namespace URI", XmpErrorConstants.Badparam);
             }
@@ -51,7 +51,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">Prefix is null or empty</exception>
         public static void AssertPrefix(string prefix)
         {
-            if (prefix == null || prefix.Length == 0)
+            if (string.IsNullOrEmpty(prefix))
             {
                 throw new XmpException("Empty prefix", XmpErrorConstants.Badparam);
             }
@@ -62,7 +62,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">Specific language is null or empty</exception>
         public static void AssertSpecificLang(string specificLang)
         {
-            if (specificLang == null || specificLang.Length == 0)
+            if (string.IsNullOrEmpty(specificLang))
             {
                 throw new XmpException("Empty specific language", XmpErrorConstants.Badparam);
             }
@@ -73,7 +73,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">Struct name is null or empty</exception>
         public static void AssertStructName(string structName)
         {
-            if (structName == null || structName.Length == 0)
+            if (string.IsNullOrEmpty(structName))
             {
                 throw new XmpException("Empty array name", XmpErrorConstants.Badparam);
             }

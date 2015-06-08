@@ -601,7 +601,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 // applies only to the root node
                 result.Append("ROOT NODE");
-                if (_name != null && _name.Length > 0)
+                if (!string.IsNullOrEmpty(_name))
                 {
                     // the "about" attribute
                     result.Append(" (");
@@ -609,7 +609,7 @@ namespace Com.Adobe.Xmp.Impl
                     result.Append(')');
                 }
             }
-            if (_value != null && _value.Length > 0)
+            if (!string.IsNullOrEmpty(_value))
             {
                 result.Append(" = \"");
                 result.Append(_value);

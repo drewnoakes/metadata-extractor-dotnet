@@ -60,8 +60,8 @@ namespace Com.Adobe.Xmp.Impl
             // the start node of the iteration depending on the schema and property filter
             XmpNode startNode = null;
             string initialPath = null;
-            bool baseSchema = schemaNs != null && schemaNs.Length > 0;
-            bool baseProperty = propPath != null && propPath.Length > 0;
+            bool baseSchema = !string.IsNullOrEmpty(schemaNs);
+            bool baseProperty = !string.IsNullOrEmpty(propPath);
             if (!baseSchema && !baseProperty)
             {
                 // complete tree will be iterated
@@ -351,7 +351,7 @@ namespace Com.Adobe.Xmp.Impl
                     separator = "/";
                     segmentName = currNode.GetName();
                 }
-                if (parentPath == null || parentPath.Length == 0)
+                if (string.IsNullOrEmpty(parentPath))
                 {
                     return segmentName;
                 }

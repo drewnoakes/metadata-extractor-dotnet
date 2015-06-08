@@ -56,7 +56,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         private string GetMeteringModeDescription()
         {
             string value = Directory.GetString(SigmaMakernoteDirectory.TagMeteringMode);
-            if (value == null || value.Length == 0)
+            if (string.IsNullOrEmpty(value))
             {
                 return null;
             }
@@ -88,7 +88,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         private string GetExposureModeDescription()
         {
             string value = Directory.GetString(SigmaMakernoteDirectory.TagExposureMode);
-            if (value == null || value.Length == 0)
+            if (string.IsNullOrEmpty(value))
             {
                 return null;
             }

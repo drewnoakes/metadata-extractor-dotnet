@@ -216,7 +216,7 @@ namespace Com.Adobe.Xmp
         /// <exception cref="XmpException"/>
         public static bool ConvertToBoolean(string value)
         {
-            if (value == null || value.Length == 0)
+            if (string.IsNullOrEmpty(value))
             {
                 throw new XmpException("Empty convert-string", XmpErrorConstants.Badvalue);
             }
@@ -256,7 +256,7 @@ namespace Com.Adobe.Xmp
         {
             try
             {
-                if (rawValue == null || rawValue.Length == 0)
+                if (string.IsNullOrEmpty(rawValue))
                 {
                     throw new XmpException("Empty convert-string", XmpErrorConstants.Badvalue);
                 }
@@ -292,7 +292,7 @@ namespace Com.Adobe.Xmp
         {
             try
             {
-                if (rawValue == null || rawValue.Length == 0)
+                if (string.IsNullOrEmpty(rawValue))
                 {
                     throw new XmpException("Empty convert-string", XmpErrorConstants.Badvalue);
                 }
@@ -328,7 +328,7 @@ namespace Com.Adobe.Xmp
         {
             try
             {
-                if (rawValue == null || rawValue.Length == 0)
+                if (string.IsNullOrEmpty(rawValue))
                 {
                     throw new XmpException("Empty convert-string", XmpErrorConstants.Badvalue);
                 }
@@ -358,7 +358,7 @@ namespace Com.Adobe.Xmp
         /// <exception cref="XmpException"/>
         public static IXmpDateTime ConvertToDate(string rawValue)
         {
-            if (rawValue == null || rawValue.Length == 0)
+            if (string.IsNullOrEmpty(rawValue))
             {
                 throw new XmpException("Empty convert-string", XmpErrorConstants.Badvalue);
             }

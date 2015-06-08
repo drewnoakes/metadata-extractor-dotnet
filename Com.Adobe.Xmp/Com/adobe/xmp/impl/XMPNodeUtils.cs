@@ -83,7 +83,7 @@ namespace Com.Adobe.Xmp.Impl
                 string prefix = XmpMetaFactory.GetSchemaRegistry().GetNamespacePrefix(namespaceUri);
                 if (prefix == null)
                 {
-                    if (suggestedPrefix != null && suggestedPrefix.Length != 0)
+                    if (!string.IsNullOrEmpty(suggestedPrefix))
                     {
                         prefix = XmpMetaFactory.GetSchemaRegistry().RegisterNamespace(namespaceUri, suggestedPrefix);
                     }

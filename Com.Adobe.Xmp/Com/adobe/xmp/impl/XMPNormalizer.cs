@@ -228,7 +228,7 @@ namespace Com.Adobe.Xmp.Impl
                     if (!currChild.GetOptions().GetHasLanguage())
                     {
                         string childValue = currChild.GetValue();
-                        if (childValue == null || childValue.Length == 0)
+                        if (string.IsNullOrEmpty(childValue))
                         {
                             // Delete empty valued children that have no xml:lang.
                             it.Remove();

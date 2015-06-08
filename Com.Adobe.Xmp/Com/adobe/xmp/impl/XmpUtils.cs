@@ -60,11 +60,11 @@ namespace Com.Adobe.Xmp.Impl
             ParameterAsserts.AssertSchemaNs(schemaNs);
             ParameterAsserts.AssertArrayName(arrayName);
             ParameterAsserts.AssertImplementation(xmp);
-            if (separator == null || separator.Length == 0)
+            if (string.IsNullOrEmpty(separator))
             {
                 separator = "; ";
             }
-            if (quotes == null || quotes.Length == 0)
+            if (string.IsNullOrEmpty(quotes))
             {
                 quotes = "\"";
             }
@@ -346,12 +346,12 @@ namespace Com.Adobe.Xmp.Impl
         {
             ParameterAsserts.AssertImplementation(xmp);
             XmpMeta xmpImpl = (XmpMeta)xmp;
-            if (propName != null && propName.Length > 0)
+            if (!string.IsNullOrEmpty(propName))
             {
                 // Remove just the one indicated property. This might be an alias,
                 // the named schema might not actually exist. So don't lookup the
                 // schema node.
-                if (schemaNs == null || schemaNs.Length == 0)
+                if (string.IsNullOrEmpty(schemaNs))
                 {
                     throw new XmpException("Property name requires schema namespace", XmpErrorConstants.Badparam);
                 }
@@ -373,7 +373,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             else
             {
-                if (schemaNs != null && schemaNs.Length > 0)
+                if (!string.IsNullOrEmpty(schemaNs))
                 {
                     // Remove all properties from the named schema. Optionally include
                     // aliases, in which case

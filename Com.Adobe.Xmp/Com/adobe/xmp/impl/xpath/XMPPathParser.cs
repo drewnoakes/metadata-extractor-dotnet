@@ -375,7 +375,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         {
             // Do some basic checks on the URI and name. Try to lookup the URI. See if the name is
             // qualified.
-            if (schemaNs == null || schemaNs.Length == 0)
+            if (string.IsNullOrEmpty(schemaNs))
             {
                 throw new XmpException("Schema namespace URI is required", XmpErrorConstants.Badschema);
             }

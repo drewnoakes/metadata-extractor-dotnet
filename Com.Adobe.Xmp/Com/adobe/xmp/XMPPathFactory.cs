@@ -230,7 +230,7 @@ namespace Com.Adobe.Xmp
         /// <exception cref="XmpException"/>
         private static void AssertQualNs(string qualNs)
         {
-            if (qualNs == null || qualNs.Length == 0)
+            if (string.IsNullOrEmpty(qualNs))
             {
                 throw new XmpException("Empty qualifier namespace URI", XmpErrorConstants.Badschema);
             }
@@ -242,7 +242,7 @@ namespace Com.Adobe.Xmp
         /// <exception cref="XmpException"/>
         private static void AssertQualName(string qualName)
         {
-            if (qualName == null || qualName.Length == 0)
+            if (string.IsNullOrEmpty(qualName))
             {
                 throw new XmpException("Empty qualifier name", XmpErrorConstants.Badxpath);
             }
@@ -254,7 +254,7 @@ namespace Com.Adobe.Xmp
         /// <exception cref="XmpException"/>
         private static void AssertFieldNs(string fieldNs)
         {
-            if (fieldNs == null || fieldNs.Length == 0)
+            if (string.IsNullOrEmpty(fieldNs))
             {
                 throw new XmpException("Empty field namespace URI", XmpErrorConstants.Badschema);
             }
@@ -266,7 +266,7 @@ namespace Com.Adobe.Xmp
         /// <exception cref="XmpException"/>
         private static void AssertFieldName(string fieldName)
         {
-            if (fieldName == null || fieldName.Length == 0)
+            if (string.IsNullOrEmpty(fieldName))
             {
                 throw new XmpException("Empty f name", XmpErrorConstants.Badxpath);
             }
