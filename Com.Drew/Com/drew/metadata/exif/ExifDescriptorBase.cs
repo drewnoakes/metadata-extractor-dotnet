@@ -814,7 +814,7 @@ namespace Com.Drew.Metadata.Exif
                 {
                     string firstTenBytesString = Encoding.UTF8.GetString(commentBytes, 0, 10);
                     // try each encoding name
-                    foreach (var pair in encodingMap.EntrySet())
+                    foreach (var pair in encodingMap)
                     {
                         string encodingName = pair.Key;
                         Encoding encoding = pair.Value;

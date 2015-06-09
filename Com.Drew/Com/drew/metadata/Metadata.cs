@@ -67,7 +67,7 @@ namespace Com.Drew.Metadata
         /// <returns>the number of unique directory types set for this metadata collection</returns>
         public int GetDirectoryCount()
         {
-            return _directoryListByClass.EntrySet().Sum(pair => pair.Value.Count);
+            return _directoryListByClass.Sum(pair => pair.Value.Count);
         }
 
         /// <summary>Adds a directory to this metadata collection.</summary>

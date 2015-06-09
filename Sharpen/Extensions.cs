@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -89,11 +88,6 @@ namespace Sharpen
             if (e is UTF8Encoding)
                 return new UTF8Encoding(false, true);
             return e;
-        }
-
-        public static ICollection<KeyValuePair<T, TU>> EntrySet<T, TU>(this IDictionary<T, TU> s)
-        {
-            return s;
         }
 
         [CanBeNull]
