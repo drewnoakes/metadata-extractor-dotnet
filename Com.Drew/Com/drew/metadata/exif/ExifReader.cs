@@ -43,17 +43,12 @@ namespace Com.Drew.Metadata.Exif
         /// <summary>Exif data stored in JPEG files' APP1 segment are preceded by this six character preamble.</summary>
         public const string JpegSegmentPreamble = "Exif\x0\x0";
 
-        private bool _storeThumbnailBytes = true;
-
-        public bool IsStoreThumbnailBytes()
+        public ExifReader()
         {
-            return _storeThumbnailBytes;
+            StoreThumbnailBytes = true;
         }
 
-        public void SetStoreThumbnailBytes(bool storeThumbnailBytes)
-        {
-            _storeThumbnailBytes = storeThumbnailBytes;
-        }
+        public bool StoreThumbnailBytes { get; set; }
 
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
@@ -82,7 +77,7 @@ namespace Com.Drew.Metadata.Exif
             try
             {
                 // Read the TIFF-formatted Exif data
-                new TiffReader().ProcessTiff(reader, new ExifTiffHandler(metadata, _storeThumbnailBytes), readerOffset);
+                new TiffReader().ProcessTiff(reader, new ExifTiffHandler(metadata, StoreThumbnailBytes), readerOffset);
             }
             catch (TiffProcessingException e)
             {
