@@ -27,13 +27,13 @@ namespace Com.Drew.Testing
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class TestHelper
     {
-        public static sbyte[] SkipBytes(sbyte[] input, int countToSkip)
+        public static byte[] SkipBytes(byte[] input, int countToSkip)
         {
             if (input.Length - countToSkip < 0)
             {
                 throw new ArgumentException("Attempting to skip more bytes than exist in the array.");
             }
-            sbyte[] output = new sbyte[input.Length - countToSkip];
+            byte[] output = new byte[input.Length - countToSkip];
             Array.Copy(input, countToSkip, output, 0, input.Length - countToSkip);
             return output;
         }

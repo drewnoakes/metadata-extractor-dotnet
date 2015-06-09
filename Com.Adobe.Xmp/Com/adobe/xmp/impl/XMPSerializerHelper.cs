@@ -82,7 +82,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </param>
         /// <returns>Returns a byte buffer containing the serialized RDF.</returns>
         /// <exception cref="XmpException">on serializsation errors.</exception>
-        public static sbyte[] SerializeToBuffer(XmpMeta xmp, SerializeOptions options)
+        public static byte[] SerializeToBuffer(XmpMeta xmp, SerializeOptions options)
         {
             ByteArrayOutputStream @out = new ByteArrayOutputStream(2048);
             Serialize(xmp, @out, options);

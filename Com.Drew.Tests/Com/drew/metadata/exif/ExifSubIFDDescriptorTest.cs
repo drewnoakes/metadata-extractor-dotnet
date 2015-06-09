@@ -33,7 +33,7 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestUserCommentDescription_EmptyEncoding()
         {
-            sbyte[] commentBytes = Runtime.GetBytesForString("\x0\x0\x0\x0\x0\x0\x0\x0This is a comment");
+            byte[] commentBytes = Runtime.GetBytesForString("\x0\x0\x0\x0\x0\x0\x0\x0This is a comment");
             ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
             directory.SetByteArray(ExifDirectoryBase.TagUserComment, commentBytes);
             ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);
@@ -44,7 +44,7 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestUserCommentDescription_AsciiHeaderAsciiEncoding()
         {
-            sbyte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0This is a comment");
+            byte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0This is a comment");
             ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
             directory.SetByteArray(ExifDirectoryBase.TagUserComment, commentBytes);
             ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);
@@ -55,7 +55,7 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestUserCommentDescription_BlankAscii()
         {
-            sbyte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0\x0          ");
+            byte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0\x0          ");
             ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
             directory.SetByteArray(ExifDirectoryBase.TagUserComment, commentBytes);
             ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);
@@ -67,7 +67,7 @@ namespace Com.Drew.Metadata.Exif
         public void TestUserCommentDescription_ZeroLengthAscii1()
         {
             // the 10-byte encoding region is only partially full
-            sbyte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0\x0");
+            byte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0\x0");
             ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
             directory.SetByteArray(ExifDirectoryBase.TagUserComment, commentBytes);
             ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);
@@ -79,7 +79,7 @@ namespace Com.Drew.Metadata.Exif
         public void TestUserCommentDescription_ZeroLengthAscii2()
         {
             // fill the 10-byte encoding region
-            sbyte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0\x0\x0\x0");
+            byte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0\x0\x0\x0");
             ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
             directory.SetByteArray(ExifDirectoryBase.TagUserComment, commentBytes);
             ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);
@@ -90,7 +90,7 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestUnicodeComment_ActualBytes()
         {
-            sbyte[] commentBytes = new sbyte[] { 85, 78, 73, 67, 79, 68, 69, 0, 84, 0, 104, 0, 105, 0, 115, 0, 32, 0, 109, 0, 97, 0, 114, 0, 109, 0, 111, 0, 116, 0, 32, 0, 105, 0, 115, 0, 32, 0, 103, 0, 101, 0, 116, 0, 116, 0, 105, 0, 110, 0, 103, 0, 32
+            byte[] commentBytes = new byte[] { 85, 78, 73, 67, 79, 68, 69, 0, 84, 0, 104, 0, 105, 0, 115, 0, 32, 0, 109, 0, 97, 0, 114, 0, 109, 0, 111, 0, 116, 0, 32, 0, 105, 0, 115, 0, 32, 0, 103, 0, 101, 0, 116, 0, 116, 0, 105, 0, 110, 0, 103, 0, 32
                 , 0, 99, 0, 108, 0, 111, 0, 115, 0, 101, 0, 46, 0, 46, 0, 46, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0,
                 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32
                 , 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32,
@@ -105,7 +105,7 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestUnicodeComment_Ascii()
         {
-            sbyte[] commentBytes = new sbyte[] { 65, 83, 67, 73, 73, 0, 0, 0, 73, 32, 97, 109, 32, 97, 32, 99, 111, 109, 109, 101, 110, 116, 46, 32, 89, 101, 121, 46, 0 };
+            byte[] commentBytes = new byte[] { 65, 83, 67, 73, 73, 0, 0, 0, 73, 32, 97, 109, 32, 97, 32, 99, 111, 109, 109, 101, 110, 116, 46, 32, 89, 101, 121, 46, 0 };
             ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
             directory.SetByteArray(ExifDirectoryBase.TagUserComment, commentBytes);
             ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);

@@ -81,7 +81,7 @@ namespace Com.Drew.Metadata.Exif
         }
 
         [CanBeNull]
-        private sbyte[] _thumbnailData;
+        private byte[] _thumbnailData;
 
         public ExifThumbnailDirectory()
         {
@@ -104,12 +104,12 @@ namespace Com.Drew.Metadata.Exif
         }
 
         [CanBeNull]
-        public sbyte[] GetThumbnailData()
+        public byte[] GetThumbnailData()
         {
             return _thumbnailData;
         }
 
-        public void SetThumbnailData([CanBeNull] sbyte[] data)
+        public void SetThumbnailData([CanBeNull] byte[] data)
         {
             _thumbnailData = data;
         }
@@ -118,7 +118,7 @@ namespace Com.Drew.Metadata.Exif
         /// <exception cref="System.IO.IOException"/>
         public void WriteThumbnail([NotNull] string filename)
         {
-            sbyte[] data = _thumbnailData;
+            byte[] data = _thumbnailData;
             if (data == null)
             {
                 throw new MetadataException("No thumbnail data exists.");

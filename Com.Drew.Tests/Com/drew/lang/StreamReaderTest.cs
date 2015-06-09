@@ -10,7 +10,7 @@ namespace Com.Drew.Lang
             new StreamReader(null);
         }
 
-        protected override SequentialReader CreateReader(sbyte[] bytes)
+        protected override SequentialReader CreateReader(byte[] bytes)
         {
             return new StreamReader(new ByteArrayInputStream(bytes));
         }

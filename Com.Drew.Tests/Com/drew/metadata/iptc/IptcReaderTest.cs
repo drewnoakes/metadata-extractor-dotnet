@@ -39,7 +39,7 @@ namespace Com.Drew.Metadata.Iptc
         public static IptcDirectory ProcessBytes([NotNull] string filePath)
         {
             Metadata metadata = new Metadata();
-            sbyte[] bytes = FileUtil.ReadBytes(filePath);
+            byte[] bytes = FileUtil.ReadBytes(filePath);
             new IptcReader().Extract(new SequentialByteArrayReader(bytes), metadata, bytes.Length);
             IptcDirectory directory = metadata.GetFirstDirectoryOfType<IptcDirectory>();
             Assert.IsNotNull(directory);

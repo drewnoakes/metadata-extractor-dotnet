@@ -59,7 +59,7 @@ namespace Com.Drew.Lang
         /// <exception cref="System.ArgumentException"><c>index</c> or <c>count</c> are negative</exception>
         /// <exception cref="BufferBoundsException">if the requested byte is beyond the end of the underlying data source</exception>
         /// <exception cref="System.IO.IOException">if the byte is unable to be read</exception>
-        protected abstract sbyte GetByte(int index);
+        protected abstract byte GetByte(int index);
 
         /// <summary>Returns the required number of bytes from the specified index from the underlying source.</summary>
         /// <param name="index">The index from which the bytes begins in the underlying source</param>
@@ -69,7 +69,7 @@ namespace Com.Drew.Lang
         /// <exception cref="BufferBoundsException">if the requested bytes extend beyond the end of the underlying data source</exception>
         /// <exception cref="System.IO.IOException">if the byte is unable to be read</exception>
         [NotNull]
-        public abstract sbyte[] GetBytes(int index, int count);
+        public abstract byte[] GetBytes(int index, int count);
 
         /// <summary>Ensures that the buffered bytes extend to cover the specified index.</summary>
         /// <remarks>
@@ -143,7 +143,7 @@ namespace Com.Drew.Lang
             int byteIndex = index / 8;
             int bitIndex = index % 8;
             ValidateIndex(byteIndex, 1);
-            sbyte b = GetByte(byteIndex);
+            byte b = GetByte(byteIndex);
             return ((b >> bitIndex) & 1) == 1;
         }
 
@@ -161,7 +161,7 @@ namespace Com.Drew.Lang
         /// <param name="index">position within the data buffer to read byte</param>
         /// <returns>the 8 bit int value, between 0x00 and 0xFF</returns>
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
-        public virtual sbyte GetInt8(int index)
+        public virtual byte GetInt8(int index)
         {
             ValidateIndex(index, 1);
             return GetByte(index);
@@ -316,7 +316,7 @@ namespace Com.Drew.Lang
         [NotNull]
         public virtual string GetString(int index, int bytesRequested, string charset)
         {
-            sbyte[] bytes = GetBytes(index, bytesRequested);
+            byte[] bytes = GetBytes(index, bytesRequested);
             try
             {
                 return Runtime.GetStringForBytes(bytes, charset);
@@ -342,7 +342,7 @@ namespace Com.Drew.Lang
         public virtual string GetNullTerminatedString(int index, int maxLengthBytes)
         {
             // NOTE currently only really suited to single-byte character strings
-            sbyte[] bytes = GetBytes(index, maxLengthBytes);
+            byte[] bytes = GetBytes(index, maxLengthBytes);
             // Count the number of non-null bytes
             int length = 0;
             while (length < bytes.Length && bytes[length] != '\0')

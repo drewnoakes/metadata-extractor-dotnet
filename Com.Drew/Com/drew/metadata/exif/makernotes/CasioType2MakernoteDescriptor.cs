@@ -322,7 +322,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetCasioPreviewThumbnailDescription()
         {
-            sbyte[] bytes = Directory.GetByteArray(CasioType2MakernoteDirectory.TagPreviewThumbnail);
+            byte[] bytes = Directory.GetByteArray(CasioType2MakernoteDirectory.TagPreviewThumbnail);
             if (bytes == null)
             {
                 return null;

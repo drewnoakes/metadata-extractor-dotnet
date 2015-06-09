@@ -11,19 +11,19 @@ namespace Com.Drew.Imaging.Png
 
         private readonly int _imageHeight;
 
-        private readonly sbyte _bitsPerSample;
+        private readonly byte _bitsPerSample;
 
         [NotNull]
         private readonly PngColorType _colorType;
 
-        private readonly sbyte _compressionType;
+        private readonly byte _compressionType;
 
-        private readonly sbyte _filterMethod;
+        private readonly byte _filterMethod;
 
-        private readonly sbyte _interlaceMethod;
+        private readonly byte _interlaceMethod;
 
         /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
-        public PngHeader([NotNull] sbyte[] bytes)
+        public PngHeader([NotNull] byte[] bytes)
         {
             if (bytes.Length != 13)
             {
@@ -35,7 +35,7 @@ namespace Com.Drew.Imaging.Png
                 _imageWidth = reader.GetInt32();
                 _imageHeight = reader.GetInt32();
                 _bitsPerSample = reader.GetInt8();
-                sbyte colorTypeNumber = reader.GetInt8();
+                byte colorTypeNumber = reader.GetInt8();
                 PngColorType colorType = PngColorType.FromNumericValue(colorTypeNumber);
                 if (colorType == null)
                 {
@@ -63,7 +63,7 @@ namespace Com.Drew.Imaging.Png
             return _imageHeight;
         }
 
-        public sbyte GetBitsPerSample()
+        public byte GetBitsPerSample()
         {
             return _bitsPerSample;
         }
@@ -74,17 +74,17 @@ namespace Com.Drew.Imaging.Png
             return _colorType;
         }
 
-        public sbyte GetCompressionType()
+        public byte GetCompressionType()
         {
             return _compressionType;
         }
 
-        public sbyte GetFilterMethod()
+        public byte GetFilterMethod()
         {
             return _filterMethod;
         }
 
-        public sbyte GetInterlaceMethod()
+        public byte GetInterlaceMethod()
         {
             return _interlaceMethod;
         }

@@ -34,12 +34,12 @@ namespace Sharpen
             return ((string) GetProperties()[key]);
         }
 
-        public static sbyte[] GetBytesForString (string str)
+        public static byte[] GetBytesForString (string str)
         {
             return Extensions.ConvertToByteArray(Encoding.UTF8.GetBytes (str));
         }
 
-        public static sbyte[] GetBytesForString (string str, string encoding)
+        public static byte[] GetBytesForString (string str, string encoding)
         {
             return Extensions.ConvertToByteArray(Encoding.GetEncoding(encoding).GetBytes(str));
         }
@@ -79,22 +79,7 @@ namespace Sharpen
             return Environment.TickCount * 1000 * 1000;
         }
 
-        public static string GetStringForBytes(sbyte[] sbytes, int start, int len)
-        {
-            return GetStringForBytes(Extensions.ConvertToByteArray(sbytes), start, len);
-        }
-
-        public static string GetStringForBytes(sbyte[] sbytes, string encoding)
-        {
-            return GetStringForBytes(Extensions.ConvertToByteArray(sbytes), encoding);
-        }
-
-        public static string GetStringForBytes(sbyte[] sbytes, int start, int len, string encoding)
-        {
-            return GetStringForBytes(Extensions.ConvertToByteArray(sbytes), start, len, encoding);
-        }
-
-        public static string GetStringForBytes (sbyte[] chars)
+        public static string GetStringForBytes (byte[] chars)
         {
             return Encoding.UTF8.GetString(Extensions.ConvertToByteArray(chars));
         }

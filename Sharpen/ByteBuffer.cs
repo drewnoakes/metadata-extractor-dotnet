@@ -43,10 +43,5 @@ namespace Sharpen
         {
             return new ByteBuffer (buf, 0, buf.Length);
         }
-
-        public static ByteBuffer Wrap(sbyte[] buf)
-        {
-            return Wrap(Extensions.ConvertToByteArray(buf));
-        }
     }
 }

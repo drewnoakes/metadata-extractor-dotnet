@@ -90,7 +90,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return ParseXmlFromInputStream(stream, options);
             }
-            var sbytes = input as sbyte[];
+            var sbytes = input as byte[];
             if (sbytes != null)
             {
                 return ParseXmlFromBytebuffer(new ByteBuffer(sbytes), options);

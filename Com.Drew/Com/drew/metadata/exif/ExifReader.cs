@@ -60,10 +60,10 @@ namespace Com.Drew.Metadata.Exif
             yield return JpegSegmentType.App1;
         }
 
-        public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)
+        public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
             Debug.Assert((segmentType == JpegSegmentType.App1));
-            foreach (sbyte[] segmentBytes in segments)
+            foreach (byte[] segmentBytes in segments)
             {
                 // Filter any segments containing unexpected preambles
                 if (segmentBytes.Length < JpegSegmentPreamble.Length || !Runtime.GetStringForBytes(segmentBytes, 0, JpegSegmentPreamble.Length).Equals(JpegSegmentPreamble))

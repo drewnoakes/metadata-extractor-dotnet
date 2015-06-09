@@ -549,7 +549,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             return "Olympus Makernote";
         }
 
-        public override void SetByteArray(int tagType, sbyte[] bytes)
+        public override void SetByteArray(int tagType, byte[] bytes)
         {
             if (tagType == TagCameraSettings1 || tagType == TagCameraSettings2)
             {
@@ -561,7 +561,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             }
         }
 
-        private void ProcessCameraSettings(sbyte[] bytes)
+        private void ProcessCameraSettings(byte[] bytes)
         {
             SequentialByteArrayReader reader = new SequentialByteArrayReader(bytes);
             reader.SetMotorolaByteOrder(true);

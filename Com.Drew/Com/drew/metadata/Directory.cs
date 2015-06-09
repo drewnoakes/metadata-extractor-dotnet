@@ -253,7 +253,7 @@ namespace Com.Drew.Metadata
         /// <summary>Sets a <c>byte[]</c> (array) for the specified tag.</summary>
         /// <param name="tagType">the tag identifier</param>
         /// <param name="bytes">the byte array to store</param>
-        public virtual void SetByteArray(int tagType, [NotNull] sbyte[] bytes)
+        public virtual void SetByteArray(int tagType, [NotNull] byte[] bytes)
         {
             SetObjectArray(tagType, bytes);
         }
@@ -359,9 +359,9 @@ namespace Com.Drew.Metadata
                 {
                     // convert the char array to an int
                     string s = value;
-                    sbyte[] bytes = Runtime.GetBytesForString(s);
+                    byte[] bytes = Runtime.GetBytesForString(s);
                     long val = 0;
-                    foreach (sbyte aByte in bytes)
+                    foreach (byte aByte in bytes)
                     {
                         val = val << 8;
                         val += (aByte & unchecked(0xff));
@@ -379,7 +379,7 @@ namespace Com.Drew.Metadata
             }
             else
             {
-                var bytes = o as sbyte[];
+                var bytes = o as byte[];
                 if (bytes != null)
                 {
                     if (bytes.Length == 1)
@@ -437,7 +437,7 @@ namespace Com.Drew.Metadata
                 }
                 return strings;
             }
-            var bytes = o as sbyte[];
+            var bytes = o as byte[];
             if (bytes != null)
             {
                 strings = new string[bytes.Length];
@@ -500,7 +500,7 @@ namespace Com.Drew.Metadata
                 }
                 return ints;
             }
-            var bytes = o as sbyte[];
+            var bytes = o as byte[];
             if (bytes != null)
             {
                 ints = new int[bytes.Length];
@@ -536,26 +536,26 @@ namespace Com.Drew.Metadata
         /// <param name="tagType">the tag identifier</param>
         /// <returns>the tag's value as a byte array</returns>
         [CanBeNull]
-        public virtual sbyte[] GetByteArray(int tagType)
+        public virtual byte[] GetByteArray(int tagType)
         {
             object o = GetObject(tagType);
             if (o == null)
             {
                 return null;
             }
-            sbyte[] bytes;
+            byte[] bytes;
 
             var rationals = o as Rational[];
             if (rationals != null)
             {
-                bytes = new sbyte[rationals.Length];
+                bytes = new byte[rationals.Length];
                 for (int i = 0; i < bytes.Length; i++)
                 {
                     bytes[i] = rationals[i].ByteValue();
                 }
                 return bytes;
             }
-            bytes = o as sbyte[];
+            bytes = o as byte[];
             if (bytes != null)
             {
                 return bytes;
@@ -563,37 +563,37 @@ namespace Com.Drew.Metadata
             var ints = o as int[];
             if (ints != null)
             {
-                bytes = new sbyte[ints.Length];
+                bytes = new byte[ints.Length];
                 for (int i = 0; i < ints.Length; i++)
                 {
-                    bytes[i] = unchecked((sbyte)ints[i]);
+                    bytes[i] = unchecked((byte)ints[i]);
                 }
                 return bytes;
             }
             var shorts = o as short[];
             if (shorts != null)
             {
-                bytes = new sbyte[shorts.Length];
+                bytes = new byte[shorts.Length];
                 for (int i = 0; i < shorts.Length; i++)
                 {
-                    bytes[i] = unchecked((sbyte)shorts[i]);
+                    bytes[i] = unchecked((byte)shorts[i]);
                 }
                 return bytes;
             }
             var str = o as CharSequence;
             if (str != null)
             {
-                bytes = new sbyte[str.Length];
+                bytes = new byte[str.Length];
                 for (int i = 0; i < str.Length; i++)
                 {
-                    bytes[i] = unchecked((sbyte)str[i]);
+                    bytes[i] = unchecked((byte)str[i]);
                 }
                 return bytes;
             }
             var nullableInt = o as int?;
             if (nullableInt != null)
             {
-                return new sbyte[] { nullableInt.ByteValue() };
+                return new byte[] { nullableInt.ByteValue() };
             }
             return null;
         }
@@ -1005,7 +1005,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public virtual string GetString(int tagType, string charset)
         {
-            sbyte[] bytes = GetByteArray(tagType);
+            byte[] bytes = GetByteArray(tagType);
             if (bytes == null)
             {
                 return null;

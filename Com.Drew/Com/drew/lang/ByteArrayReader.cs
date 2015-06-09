@@ -40,9 +40,9 @@ namespace Com.Drew.Lang
     public class ByteArrayReader : RandomAccessReader
     {
         [NotNull]
-        private readonly sbyte[] _buffer;
+        private readonly byte[] _buffer;
 
-        public ByteArrayReader([NotNull] sbyte[] buffer)
+        public ByteArrayReader([NotNull] byte[] buffer)
         {
             if (buffer == null)
             {
@@ -57,7 +57,7 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        protected override sbyte GetByte(int index)
+        protected override byte GetByte(int index)
         {
             return _buffer[index];
         }
@@ -78,10 +78,10 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public override sbyte[] GetBytes(int index, int count)
+        public override byte[] GetBytes(int index, int count)
         {
             ValidateIndex(index, count);
-            sbyte[] bytes = new sbyte[count];
+            byte[] bytes = new byte[count];
             Array.Copy(_buffer, index, bytes, 0, count);
             return bytes;
         }

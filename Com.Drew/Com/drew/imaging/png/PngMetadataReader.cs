@@ -79,7 +79,7 @@ namespace Com.Drew.Imaging.Png
         private static void ProcessChunk([NotNull] Metadata.Metadata metadata, [NotNull] PngChunk chunk)
         {
             PngChunkType chunkType = chunk.GetChunkType();
-            sbyte[] bytes = chunk.GetBytes();
+            byte[] bytes = chunk.GetBytes();
             if (chunkType.Equals(PngChunkType.Ihdr))
             {
                 PngHeader header = new PngHeader(bytes);
@@ -151,13 +151,13 @@ namespace Com.Drew.Imaging.Png
                                         string profileName = reader.GetNullTerminatedString(79);
                                         PngDirectory directory = new PngDirectory(PngChunkType.ICcp);
                                         directory.SetString(PngDirectory.TagIccProfileName, profileName);
-                                        sbyte compressionMethod = reader.GetInt8();
+                                        byte compressionMethod = reader.GetInt8();
                                         if (compressionMethod == 0)
                                         {
                                             // Only compression method allowed by the spec is zero: deflate
                                             // This assumes 1-byte-per-char, which it is by spec.
                                             int bytesLeft = bytes.Length - profileName.Length - 2;
-                                            sbyte[] compressedProfile = reader.GetBytes(bytesLeft);
+                                            byte[] compressedProfile = reader.GetBytes(bytesLeft);
                                             InflaterInputStream inflateStream = new InflaterInputStream(new ByteArrayInputStream(compressedProfile));
                                             new IccReader().Extract(new RandomAccessStreamReader(inflateStream), metadata);
                                             inflateStream.Close();
@@ -192,8 +192,8 @@ namespace Com.Drew.Imaging.Png
                                                 {
                                                     SequentialReader reader = new SequentialByteArrayReader(bytes);
                                                     string keyword = reader.GetNullTerminatedString(79);
-                                                    sbyte compressionFlag = reader.GetInt8();
-                                                    sbyte compressionMethod = reader.GetInt8();
+                                                    byte compressionFlag = reader.GetInt8();
+                                                    byte compressionMethod = reader.GetInt8();
                                                     string languageTag = reader.GetNullTerminatedString(bytes.Length);
                                                     string translatedKeyword = reader.GetNullTerminatedString(bytes.Length);
                                                     int bytesLeft = bytes.Length - keyword.Length - 1 - 1 - 1 - languageTag.Length - 1 - translatedKeyword.Length - 1;
@@ -266,7 +266,7 @@ namespace Com.Drew.Imaging.Png
                                                             SequentialByteArrayReader reader = new SequentialByteArrayReader(bytes);
                                                             int pixelsPerUnitX = reader.GetInt32();
                                                             int pixelsPerUnitY = reader.GetInt32();
-                                                            sbyte unitSpecifier = reader.GetInt8();
+                                                            byte unitSpecifier = reader.GetInt8();
                                                             PngDirectory directory = new PngDirectory(PngChunkType.PHYs);
                                                             directory.SetInt(PngDirectory.TagPixelsPerUnitX, pixelsPerUnitX);
                                                             directory.SetInt(PngDirectory.TagPixelsPerUnitY, pixelsPerUnitY);

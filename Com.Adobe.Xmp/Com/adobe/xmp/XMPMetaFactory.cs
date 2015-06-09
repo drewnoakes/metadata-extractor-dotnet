@@ -92,7 +92,7 @@ namespace Com.Adobe.Xmp
         /// <returns>Returns the <c>XMPMeta</c>-object created from the input.</returns>
         /// <exception cref="XmpException">If the file is not well-formed XML or if the parsing fails.</exception>
         /// <exception cref="XmpException"/>
-        public static IXmpMeta ParseFromBuffer(sbyte[] buffer, ParseOptions options = null)
+        public static IXmpMeta ParseFromBuffer(byte[] buffer, ParseOptions options = null)
         {
             return XmpMetaParser.Parse(buffer, options);
         }
@@ -123,7 +123,7 @@ namespace Com.Adobe.Xmp
         /// <returns>Returns a byte buffer containing the serialized RDF.</returns>
         /// <exception cref="XmpException">on serializsation errors.</exception>
         /// <exception cref="XmpException"/>
-        public static sbyte[] SerializeToBuffer(IXmpMeta xmp, SerializeOptions options)
+        public static byte[] SerializeToBuffer(IXmpMeta xmp, SerializeOptions options)
         {
             AssertImplementation(xmp);
             return XmpSerializerHelper.SerializeToBuffer((XmpMeta)xmp, options);

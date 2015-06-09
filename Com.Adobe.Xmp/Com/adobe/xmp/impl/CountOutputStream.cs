@@ -29,18 +29,18 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <summary>Counts the written bytes.</summary>
-        /// <seealso cref="OutputStream.Write(sbyte[], int, int)"/>
+        /// <seealso cref="OutputStream.Write(byte[], int, int)"/>
         /// <exception cref="System.IO.IOException"/>
-        public override void Write(sbyte[] buf, int off, int len)
+        public override void Write(byte[] buf, int off, int len)
         {
             _out.Write(buf, off, len);
             _bytesWritten += len;
         }
 
         /// <summary>Counts the written bytes.</summary>
-        /// <seealso cref="OutputStream.Write(sbyte[])"/>
+        /// <seealso cref="OutputStream.Write(byte[])"/>
         /// <exception cref="System.IO.IOException"/>
-        public override void Write(sbyte[] buf)
+        public override void Write(byte[] buf)
         {
             _out.Write(buf);
             _bytesWritten += buf.Length;

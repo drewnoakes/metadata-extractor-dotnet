@@ -24,7 +24,7 @@ namespace Com.Drew.Imaging.Png
         private readonly int _blueY;
 
         /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
-        public PngChromaticities([NotNull] sbyte[] bytes)
+        public PngChromaticities([NotNull] byte[] bytes)
         {
             if (bytes.Length != 8 * 4)
             {

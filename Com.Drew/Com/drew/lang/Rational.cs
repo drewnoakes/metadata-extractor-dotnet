@@ -95,9 +95,9 @@ namespace Com.Drew.Lang
         /// the numeric value represented by this object after conversion
         /// to type <c>byte</c>.
         /// </returns>
-        public sealed override sbyte ByteValue()
+        public sealed override byte ByteValue()
         {
-            return unchecked((sbyte)DoubleValue());
+            return unchecked((byte)DoubleValue());
         }
 
         /// <summary>Returns the value of the specified number as an <c>int</c>.</summary>

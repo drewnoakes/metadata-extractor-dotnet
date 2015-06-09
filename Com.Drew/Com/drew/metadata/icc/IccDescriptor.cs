@@ -88,7 +88,7 @@ namespace Com.Drew.Metadata.Icc
         {
             try
             {
-                sbyte[] bytes = Directory.GetByteArray(tagType);
+                byte[] bytes = Directory.GetByteArray(tagType);
                 if (bytes == null)
                 {
                     return Directory.GetString(tagType);
@@ -337,10 +337,10 @@ namespace Com.Drew.Metadata.Icc
             long rest = (int)(long)Math.Round((Math.Abs(value) - intPart) * Math.Pow(10, precision));
             long restKept = rest;
             string res = string.Empty;
-            sbyte cour;
+            byte cour;
             for (int i = precision; i > 0; i--)
             {
-                cour = unchecked((sbyte)(Math.Abs(rest % 10)));
+                cour = unchecked((byte)(Math.Abs(rest % 10)));
                 rest /= 10;
                 if (res.Length > 0 || zeroes || cour != 0 || i == 1)
                 {
@@ -525,7 +525,7 @@ namespace Com.Drew.Metadata.Icc
         /// <exception cref="System.IO.IOException"/>
         private static int GetInt32FromString([NotNull] string @string)
         {
-            sbyte[] bytes = Runtime.GetBytesForString(@string);
+            byte[] bytes = Runtime.GetBytesForString(@string);
             return new ByteArrayReader(bytes).GetInt32(0);
         }
     }

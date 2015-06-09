@@ -39,7 +39,7 @@ namespace Com.Drew.Metadata.Exif
         public static Metadata ProcessBytes([NotNull] string filePath)
         {
             Metadata metadata = new Metadata();
-            sbyte[] bytes = FileUtil.ReadBytes(filePath);
+            byte[] bytes = FileUtil.ReadBytes(filePath);
             new ExifReader().Extract(new ByteArrayReader(bytes), metadata, ExifReader.JpegSegmentPreamble.Length);
             return metadata;
         }
@@ -85,9 +85,9 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestReadJpegSegmentWithNoExifData()
         {
-            sbyte[] badExifData = new sbyte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            byte[] badExifData = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             Metadata metadata = new Metadata();
-            AList<sbyte[]> segments = new AList<sbyte[]>();
+            AList<byte[]> segments = new AList<byte[]>();
             segments.Add(badExifData);
             new ExifReader().ReadJpegSegments(segments, metadata, JpegSegmentType.App1);
             Assert.AreEqual(0, metadata.GetDirectoryCount());
@@ -156,7 +156,7 @@ namespace Com.Drew.Metadata.Exif
         public void TestThumbnailData()
         {
             ExifThumbnailDirectory directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
-            sbyte[] thumbnailData = directory.GetThumbnailData();
+            byte[] thumbnailData = directory.GetThumbnailData();
             Assert.IsNotNull(thumbnailData);
             Assert.AreEqual(2970, thumbnailData.Length);
         }

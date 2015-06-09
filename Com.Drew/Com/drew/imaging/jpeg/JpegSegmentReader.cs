@@ -44,10 +44,10 @@ namespace Com.Drew.Imaging.Jpeg
     public static class JpegSegmentReader
     {
         /// <summary>Private, because this segment crashes my algorithm, and searching for it doesn't work (yet).</summary>
-        private const sbyte SegmentSos = unchecked((sbyte)0xDA);
+        private const byte SegmentSos = unchecked((byte)0xDA);
 
         /// <summary>Private, because one wouldn't search for it.</summary>
-        private const sbyte MarkerEoi = unchecked((sbyte)0xD9);
+        private const byte MarkerEoi = unchecked((byte)0xD9);
 
         /// <summary>
         /// Processes the provided JPEG data, and extracts the specified JPEG segments into a
@@ -115,10 +115,10 @@ namespace Com.Drew.Imaging.Jpeg
             {
                 throw new JpegProcessingException("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x" + Extensions.ToHexString(magicNumber));
             }
-            ICollection<sbyte> segmentTypeBytes = null;
+            ICollection<byte> segmentTypeBytes = null;
             if (segmentTypes != null)
             {
-                segmentTypeBytes = new HashSet<sbyte>();
+                segmentTypeBytes = new HashSet<byte>();
                 foreach (JpegSegmentType segmentType in segmentTypes)
                 {
                     segmentTypeBytes.Add(segmentType.ByteValue);
@@ -136,8 +136,8 @@ namespace Com.Drew.Imaging.Jpeg
                     throw new JpegProcessingException("Expected JPEG segment start identifier 0xFF, not 0x" + Extensions.ToHexString(segmentIdentifier).ToUpper());
                 }
                 // Read until we have a non-0xFF byte. This identifies the segment type.
-                sbyte segmentType = reader.GetInt8();
-                while (segmentType == unchecked((sbyte)0xFF))
+                byte segmentType = reader.GetInt8();
+                while (segmentType == unchecked((byte)0xFF))
                 {
                     segmentType = reader.GetInt8();
                 }
@@ -168,7 +168,7 @@ namespace Com.Drew.Imaging.Jpeg
                 // Check whether we are interested in this segment
                 if (segmentTypeBytes == null || segmentTypeBytes.Contains(segmentType))
                 {
-                    sbyte[] segmentBytes = reader.GetBytes(segmentLength);
+                    byte[] segmentBytes = reader.GetBytes(segmentLength);
                     Debug.Assert((segmentLength == segmentBytes.Length));
                     segmentData.AddSegment(segmentType, segmentBytes);
                 }

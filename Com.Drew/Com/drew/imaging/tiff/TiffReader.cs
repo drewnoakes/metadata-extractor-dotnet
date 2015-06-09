@@ -360,7 +360,7 @@ namespace Com.Drew.Imaging.Tiff
                     }
                     else
                     {
-                        sbyte[] array = new sbyte[componentCount];
+                        byte[] array = new byte[componentCount];
                         for (int i = 0; i < componentCount; i++)
                         {
                             array[i] = reader.GetInt8(tagValueOffset + i);

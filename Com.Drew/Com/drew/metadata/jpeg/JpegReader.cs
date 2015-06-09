@@ -49,15 +49,15 @@ namespace Com.Drew.Metadata.Jpeg
 
         //            JpegSegmentType.SOF4,
         //            JpegSegmentType.SOF12,
-        public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)
+        public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
-            foreach (sbyte[] segmentBytes in segments)
+            foreach (byte[] segmentBytes in segments)
             {
                 Extract(segmentBytes, metadata, segmentType);
             }
         }
 
-        public void Extract(sbyte[] segmentBytes, Metadata metadata, JpegSegmentType segmentType)
+        public void Extract(byte[] segmentBytes, Metadata metadata, JpegSegmentType segmentType)
         {
             JpegDirectory directory = new JpegDirectory();
             metadata.AddDirectory(directory);

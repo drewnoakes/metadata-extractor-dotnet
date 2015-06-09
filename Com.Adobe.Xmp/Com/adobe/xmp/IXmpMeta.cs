@@ -878,7 +878,7 @@ namespace Com.Adobe.Xmp
         /// especially conversion errors.
         /// </exception>
         /// <exception cref="XmpException"/>
-        sbyte[] GetPropertyBase64(string schemaNs, string propName);
+        byte[] GetPropertyBase64(string schemaNs, string propName);
 
         /// <summary>Convenience method to retrieve the literal value of a property.</summary>
         /// <remarks>
@@ -1065,15 +1065,15 @@ namespace Com.Adobe.Xmp
         /// <param name="options">options of the property to set (optional).</param>
         /// <exception cref="XmpException">Wraps all exceptions that may occur.</exception>
         /// <exception cref="XmpException"/>
-        void SetPropertyBase64(string schemaNs, string propName, sbyte[] propValue, PropertyOptions options);
+        void SetPropertyBase64(string schemaNs, string propName, byte[] propValue, PropertyOptions options);
 
-        /// <seealso cref="SetPropertyBase64(string, string, sbyte[], Com.Adobe.Xmp.Options.PropertyOptions)"/>
+        /// <seealso cref="SetPropertyBase64(string, string, byte[], Com.Adobe.Xmp.Options.PropertyOptions)"/>
         /// <param name="schemaNs">The namespace URI for the property</param>
         /// <param name="propName">The name of the property</param>
         /// <param name="propValue">the literal property value as byte array</param>
         /// <exception cref="XmpException">Wraps all exceptions</exception>
         /// <exception cref="XmpException"/>
-        void SetPropertyBase64(string schemaNs, string propName, sbyte[] propValue);
+        void SetPropertyBase64(string schemaNs, string propName, byte[] propValue);
 
         /// <summary>Constructs an iterator for the properties within this XMP object.</summary>
         /// <returns>Returns an <c>XMPIterator</c>.</returns>

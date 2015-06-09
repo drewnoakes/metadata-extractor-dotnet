@@ -99,7 +99,7 @@ namespace Com.Drew.Imaging.Png
 
         public static readonly PngChunkType ZTXt = new PngChunkType("zTXt", true);
 
-        private readonly sbyte[] _bytes;
+        private readonly byte[] _bytes;
 
         private readonly bool _multipleAllowed;
 
@@ -114,7 +114,7 @@ namespace Com.Drew.Imaging.Png
             _multipleAllowed = multipleAllowed;
             try
             {
-                sbyte[] bytes = Runtime.GetBytesForString(identifier, "ASCII");
+                byte[] bytes = Runtime.GetBytesForString(identifier, "ASCII");
                 ValidateBytes(bytes);
                 _bytes = bytes;
             }
@@ -124,14 +124,14 @@ namespace Com.Drew.Imaging.Png
             }
         }
 
-        public PngChunkType([NotNull] sbyte[] bytes)
+        public PngChunkType([NotNull] byte[] bytes)
         {
             ValidateBytes(bytes);
             _bytes = bytes;
             _multipleAllowed = IdentifiersAllowingMultiples.Contains(GetIdentifier());
         }
 
-        private static void ValidateBytes(sbyte[] bytes)
+        private static void ValidateBytes(byte[] bytes)
         {
             if (bytes.Length != 4)
             {
@@ -168,17 +168,17 @@ namespace Com.Drew.Imaging.Png
             return _multipleAllowed;
         }
 
-        private static bool IsLowerCase(sbyte b)
+        private static bool IsLowerCase(byte b)
         {
             return (b & (1 << 5)) != 0;
         }
 
-        private static bool IsUpperCase(sbyte b)
+        private static bool IsUpperCase(byte b)
         {
             return (b & (1 << 5)) == 0;
         }
 
-        private static bool IsValidByte(sbyte b)
+        private static bool IsValidByte(byte b)
         {
             return (b >= 65 && b <= 90) || (b >= 97 && b <= 122);
         }

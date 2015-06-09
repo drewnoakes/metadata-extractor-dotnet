@@ -44,9 +44,9 @@ namespace Com.Drew.Metadata.Jfif
             yield return JpegSegmentType.App0;
         }
 
-        public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)
+        public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
-            foreach (sbyte[] segmentBytes in segments)
+            foreach (byte[] segmentBytes in segments)
             {
                 // Skip segments not starting with the required header
                 if (segmentBytes.Length >= 4 && Preamble.Equals(Runtime.GetStringForBytes(segmentBytes, 0, Preamble.Length)))

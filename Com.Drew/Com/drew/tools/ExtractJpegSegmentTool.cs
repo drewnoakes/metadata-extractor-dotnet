@@ -85,7 +85,7 @@ namespace Com.Drew.Tools
         {
             foreach (JpegSegmentType segmentType in segmentData.GetSegmentTypes())
             {
-                IList<sbyte[]> segments = segmentData.GetSegments(segmentType).ToList();
+                IList<byte[]> segments = segmentData.GetSegments(segmentType).ToList();
                 if (segments.Count == 0)
                 {
                     continue;

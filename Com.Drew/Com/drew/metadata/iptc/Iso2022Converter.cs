@@ -9,21 +9,21 @@ namespace Com.Drew.Metadata.Iptc
 
         private const string Utf8 = "UTF-8";
 
-        private const sbyte LatinCapitalA = unchecked(0x41);
+        private const byte LatinCapitalA = unchecked(0x41);
 
         private const int Dot = unchecked(0xe280a2);
 
-        private const sbyte LatinCapitalG = unchecked(0x47);
+        private const byte LatinCapitalG = unchecked(0x47);
 
-        private const sbyte PercentSign = unchecked(0x25);
+        private const byte PercentSign = unchecked(0x25);
 
-        private const sbyte Esc = unchecked(0x1B);
+        private const byte Esc = unchecked(0x1B);
 
         /// <summary>Converts the given ISO2022 char set to a Java charset name.</summary>
         /// <param name="bytes">string data encoded using ISO2022</param>
         /// <returns>the Java charset name as a string, or <c>null</c> if the conversion was not possible</returns>
         [CanBeNull]
-        public static string ConvertIso2022CharsetToJavaCharset([NotNull] sbyte[] bytes)
+        public static string ConvertIso2022CharsetToJavaCharset([NotNull] byte[] bytes)
         {
             if (bytes.Length > 2 && bytes[0] == Esc && bytes[1] == PercentSign && bytes[2] == LatinCapitalG)
             {
@@ -57,7 +57,7 @@ namespace Com.Drew.Metadata.Iptc
         /// <param name="bytes">some text as bytes</param>
         /// <returns>the name of the encoding or null if none could be guessed</returns>
         [CanBeNull]
-        internal static string GuessEncoding([NotNull] sbyte[] bytes)
+        internal static string GuessEncoding([NotNull] byte[] bytes)
         {
             string[] encodings = new string[] { Utf8, Runtime.GetProperty("file.encoding"), Iso88591 };
             foreach (string encoding in encodings)

@@ -9,7 +9,7 @@ namespace Com.Drew.Imaging.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunkReader
     {
-        private static readonly sbyte[] PngSignatureBytes = new sbyte[] { unchecked((sbyte)0x89), unchecked(0x50), unchecked(0x4E), unchecked(0x47), unchecked(0x0D), unchecked(0x0A), unchecked(0x1A), unchecked(
+        private static readonly byte[] PngSignatureBytes = new byte[] { unchecked((byte)0x89), unchecked(0x50), unchecked(0x4E), unchecked(0x47), unchecked(0x0D), unchecked(0x0A), unchecked(0x1A), unchecked(
             0x0A) };
 
         /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
@@ -65,7 +65,7 @@ namespace Com.Drew.Imaging.Png
                 int chunkDataLength = reader.GetInt32();
                 PngChunkType chunkType = new PngChunkType(reader.GetBytes(4));
                 bool willStoreChunk = desiredChunkTypes == null || desiredChunkTypes.Contains(chunkType);
-                sbyte[] chunkData = reader.GetBytes(chunkDataLength);
+                byte[] chunkData = reader.GetBytes(chunkDataLength);
                 // Skip the CRC bytes at the end of the chunk
                 // TODO consider verifying the CRC value to determine if we're processing bad data
                 reader.Skip(4);

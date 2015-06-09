@@ -73,7 +73,7 @@ namespace Com.Drew.Metadata
                 if (length > 16)
                 {
                     var componentType = @object.GetType().GetElementType();
-                    var componentTypeName = componentType == typeof(sbyte)
+                    var componentTypeName = componentType == typeof(byte)
                         ? "byte"
                         : componentType == typeof(short)
                             ? "short"
@@ -170,7 +170,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected virtual string GetByteLengthDescription(int tagType)
         {
-            sbyte[] bytes = Directory.GetByteArray(tagType);
+            byte[] bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
             {
                 return null;
@@ -287,7 +287,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected virtual string Get7BitStringFromBytes(int tagType)
         {
-            sbyte[] bytes = Directory.GetByteArray(tagType);
+            byte[] bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
             {
                 return null;
@@ -308,7 +308,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected virtual string GetAsciiStringFromBytes(int tag)
         {
-            sbyte[] values = Directory.GetByteArray(tag);
+            byte[] values = Directory.GetByteArray(tag);
             if (values == null)
             {
                 return null;

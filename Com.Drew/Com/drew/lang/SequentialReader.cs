@@ -34,14 +34,14 @@ namespace Com.Drew.Lang
         /// <summary>Gets the next byte in the sequence.</summary>
         /// <returns>The read byte value</returns>
         /// <exception cref="System.IO.IOException"/>
-        protected abstract sbyte GetByte();
+        protected abstract byte GetByte();
 
         /// <summary>Returns the required number of bytes from the sequence.</summary>
         /// <param name="count">The number of bytes to be returned</param>
         /// <returns>The requested bytes</returns>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public abstract sbyte[] GetBytes(int count);
+        public abstract byte[] GetBytes(int count);
 
         /// <summary>Skips forward in the sequence.</summary>
         /// <remarks>
@@ -98,7 +98,7 @@ namespace Com.Drew.Lang
         /// <summary>Returns a signed 8-bit int calculated from the next byte the sequence.</summary>
         /// <returns>the 8 bit int value, between 0x00 and 0xFF</returns>
         /// <exception cref="System.IO.IOException"/>
-        public virtual sbyte GetInt8()
+        public virtual byte GetInt8()
         {
             return GetByte();
         }
@@ -222,7 +222,7 @@ namespace Com.Drew.Lang
         [NotNull]
         public virtual string GetString(int bytesRequested, string charset)
         {
-            sbyte[] bytes = GetBytes(bytesRequested);
+            byte[] bytes = GetBytes(bytesRequested);
             try
             {
                 return Runtime.GetStringForBytes(bytes, charset);
@@ -244,7 +244,7 @@ namespace Com.Drew.Lang
         public virtual string GetNullTerminatedString(int maxLengthBytes)
         {
             // NOTE currently only really suited to single-byte character strings
-            sbyte[] bytes = new sbyte[maxLengthBytes];
+            byte[] bytes = new byte[maxLengthBytes];
             // Count the number of non-null bytes
             int length = 0;
             while (length < bytes.Length && (bytes[length] = GetByte()) != '\0')

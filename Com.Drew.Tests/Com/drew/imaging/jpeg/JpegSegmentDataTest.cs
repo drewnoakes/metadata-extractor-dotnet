@@ -32,8 +32,8 @@ namespace Com.Drew.Imaging.Jpeg
         public void TestAddAndGetSegment()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
-            sbyte segmentMarker = unchecked(12);
-            sbyte[] segmentBytes = new sbyte[] { 1, 2, 3 };
+            byte segmentMarker = unchecked(12);
+            byte[] segmentBytes = new byte[] { 1, 2, 3 };
             segmentData.AddSegment(segmentMarker, segmentBytes);
             Assert.AreEqual(1, segmentData.GetSegmentCount(segmentMarker));
             CollectionAssert.AreEqual(segmentBytes, segmentData.GetSegment(segmentMarker));
@@ -44,8 +44,8 @@ namespace Com.Drew.Imaging.Jpeg
         public void TestContainsSegment()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
-            sbyte segmentMarker = unchecked(12);
-            sbyte[] segmentBytes = new sbyte[] { 1, 2, 3 };
+            byte segmentMarker = unchecked(12);
+            byte[] segmentBytes = new byte[] { 1, 2, 3 };
             Assert.IsTrue(!segmentData.ContainsSegment(segmentMarker));
             segmentData.AddSegment(segmentMarker, segmentBytes);
             Assert.IsTrue(segmentData.ContainsSegment(segmentMarker));
@@ -56,10 +56,10 @@ namespace Com.Drew.Imaging.Jpeg
         public void TestAddingMultipleSegments()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
-            sbyte segmentMarker1 = unchecked(12);
-            sbyte segmentMarker2 = unchecked(21);
-            sbyte[] segmentBytes1 = new sbyte[] { 1, 2, 3 };
-            sbyte[] segmentBytes2 = new sbyte[] { 3, 2, 1 };
+            byte segmentMarker1 = unchecked(12);
+            byte segmentMarker2 = unchecked(21);
+            byte[] segmentBytes1 = new byte[] { 1, 2, 3 };
+            byte[] segmentBytes2 = new byte[] { 3, 2, 1 };
             segmentData.AddSegment(segmentMarker1, segmentBytes1);
             segmentData.AddSegment(segmentMarker2, segmentBytes2);
             Assert.AreEqual(1, segmentData.GetSegmentCount(segmentMarker1));
@@ -73,9 +73,9 @@ namespace Com.Drew.Imaging.Jpeg
         public void TestSegmentWithMultipleOccurrences()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
-            sbyte segmentMarker = unchecked(12);
-            sbyte[] segmentBytes1 = new sbyte[] { 1, 2, 3 };
-            sbyte[] segmentBytes2 = new sbyte[] { 3, 2, 1 };
+            byte segmentMarker = unchecked(12);
+            byte[] segmentBytes1 = new byte[] { 1, 2, 3 };
+            byte[] segmentBytes2 = new byte[] { 3, 2, 1 };
             segmentData.AddSegment(segmentMarker, segmentBytes1);
             segmentData.AddSegment(segmentMarker, segmentBytes2);
             Assert.AreEqual(2, segmentData.GetSegmentCount(segmentMarker));
@@ -89,9 +89,9 @@ namespace Com.Drew.Imaging.Jpeg
         public void TestRemoveSegmentOccurrence()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
-            sbyte segmentMarker = unchecked(12);
-            sbyte[] segmentBytes1 = new sbyte[] { 1, 2, 3 };
-            sbyte[] segmentBytes2 = new sbyte[] { 3, 2, 1 };
+            byte segmentMarker = unchecked(12);
+            byte[] segmentBytes1 = new byte[] { 1, 2, 3 };
+            byte[] segmentBytes2 = new byte[] { 3, 2, 1 };
             segmentData.AddSegment(segmentMarker, segmentBytes1);
             segmentData.AddSegment(segmentMarker, segmentBytes2);
             Assert.AreEqual(2, segmentData.GetSegmentCount(segmentMarker));
@@ -105,9 +105,9 @@ namespace Com.Drew.Imaging.Jpeg
         public void TestRemoveSegment()
         {
             JpegSegmentData segmentData = new JpegSegmentData();
-            sbyte segmentMarker = unchecked(12);
-            sbyte[] segmentBytes1 = new sbyte[] { 1, 2, 3 };
-            sbyte[] segmentBytes2 = new sbyte[] { 3, 2, 1 };
+            byte segmentMarker = unchecked(12);
+            byte[] segmentBytes1 = new byte[] { 1, 2, 3 };
+            byte[] segmentBytes2 = new byte[] { 3, 2, 1 };
             segmentData.AddSegment(segmentMarker, segmentBytes1);
             segmentData.AddSegment(segmentMarker, segmentBytes2);
             Assert.AreEqual(2, segmentData.GetSegmentCount(segmentMarker));

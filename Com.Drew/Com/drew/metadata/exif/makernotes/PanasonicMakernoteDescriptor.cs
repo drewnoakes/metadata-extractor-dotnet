@@ -376,7 +376,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         private string GetTransformDescription(int tag)
         {
-            sbyte[] values = Directory.GetByteArray(tag);
+            byte[] values = Directory.GetByteArray(tag);
             if (values == null)
             {
                 return null;

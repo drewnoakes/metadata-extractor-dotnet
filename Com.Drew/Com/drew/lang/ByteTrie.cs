@@ -36,7 +36,7 @@ namespace Com.Drew.Lang
         /// <remarks>A node in the trie. Has children and may have an associated value.</remarks>
         internal sealed class ByteTrieNode<T>
         {
-            internal readonly IDictionary<sbyte, ByteTrieNode<T>> Children = new Dictionary<sbyte, ByteTrieNode<T>>();
+            internal readonly IDictionary<byte, ByteTrieNode<T>> Children = new Dictionary<byte, ByteTrieNode<T>>();
 
             internal T Value;
 
@@ -61,11 +61,11 @@ namespace Com.Drew.Lang
         /// calling <see cref="SetDefaultValue"/>.
         /// </remarks>
         [CanBeNull]
-        public T Find(sbyte[] bytes)
+        public T Find(byte[] bytes)
         {
             ByteTrieNode<T> node = _root;
             T value = node.Value;
-            foreach (sbyte b in bytes)
+            foreach (byte b in bytes)
             {
                 if (!node.Children.TryGetValue(b, out node))
                 {
@@ -80,13 +80,13 @@ namespace Com.Drew.Lang
         }
 
         /// <summary>Store the given value at the specified path.</summary>
-        public void AddPath(T value, params sbyte[][] parts)
+        public void AddPath(T value, params byte[][] parts)
         {
             int depth = 0;
             ByteTrieNode<T> node = _root;
-            foreach (sbyte[] part in parts)
+            foreach (byte[] part in parts)
             {
-                foreach (sbyte b in part)
+                foreach (byte b in part)
                 {
                     ByteTrieNode<T> child;
                     if (!node.Children.TryGetValue(b, out child))
@@ -104,7 +104,7 @@ namespace Com.Drew.Lang
 
         /// <summary>
         /// Sets the default value to use in
-        /// <see cref="ByteTrie{T}.Find(sbyte[])"/>
+        /// <see cref="ByteTrie{T}.Find(byte[])"/>
         /// when no path matches.
         /// </summary>
         public void SetDefaultValue(T defaultValue)

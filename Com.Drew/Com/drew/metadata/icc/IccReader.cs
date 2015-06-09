@@ -49,13 +49,13 @@ namespace Com.Drew.Metadata.Icc
             yield return JpegSegmentType.App2;
         }
 
-        public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)
+        public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
             int preambleLength = JpegSegmentPreamble.Length;
             // ICC data can be spread across multiple JPEG segments.
             // We concat them together in this buffer for later processing.
-            sbyte[] buffer = null;
-            foreach (sbyte[] segmentBytes in segments)
+            byte[] buffer = null;
+            foreach (byte[] segmentBytes in segments)
             {
                 // Skip any segments that do not contain the required preamble
                 if (segmentBytes.Length < preambleLength || !Runtime.EqualsIgnoreCase(JpegSegmentPreamble, Runtime.GetStringForBytes(segmentBytes, 0, preambleLength)))
@@ -66,13 +66,13 @@ namespace Com.Drew.Metadata.Icc
                 // Grow the buffer
                 if (buffer == null)
                 {
-                    buffer = new sbyte[segmentBytes.Length - 14];
+                    buffer = new byte[segmentBytes.Length - 14];
                     // skip the first 14 bytes
                     Array.Copy(segmentBytes, 14, buffer, 0, segmentBytes.Length - 14);
                 }
                 else
                 {
-                    sbyte[] newBuffer = new sbyte[buffer.Length + segmentBytes.Length - 14];
+                    byte[] newBuffer = new byte[buffer.Length + segmentBytes.Length - 14];
                     Array.Copy(buffer, 0, newBuffer, 0, buffer.Length);
                     Array.Copy(segmentBytes, 14, newBuffer, buffer.Length, segmentBytes.Length - 14);
                     buffer = newBuffer;
@@ -128,7 +128,7 @@ namespace Com.Drew.Metadata.Icc
                     int tagType = reader.GetInt32(pos);
                     int tagPtr = reader.GetInt32(pos + 4);
                     int tagLen = reader.GetInt32(pos + 8);
-                    sbyte[] b = reader.GetBytes(tagPtr, tagLen);
+                    byte[] b = reader.GetBytes(tagPtr, tagLen);
                     directory.SetByteArray(tagType, b);
                 }
             }
@@ -189,7 +189,7 @@ namespace Com.Drew.Metadata.Icc
         public static string GetStringFromInt32(int d)
         {
             // MSB
-            sbyte[] b = new sbyte[] { unchecked((sbyte)((d & unchecked((int)(0xFF000000))) >> 24)), unchecked((sbyte)((d & unchecked(0x00FF0000)) >> 16)), unchecked((sbyte)((d & unchecked(0x0000FF00)) >> 8)), unchecked((sbyte)((d & unchecked(
+            byte[] b = new byte[] { unchecked((byte)((d & unchecked((int)(0xFF000000))) >> 24)), unchecked((byte)((d & unchecked(0x00FF0000)) >> 16)), unchecked((byte)((d & unchecked(0x0000FF00)) >> 8)), unchecked((byte)((d & unchecked(
                 0x000000FF)))) };
             return Runtime.GetStringForBytes(b);
         }

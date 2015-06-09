@@ -33,9 +33,9 @@ namespace Com.Drew.Metadata.Icc
         [Test]
         public void TestExtract()
         {
-            sbyte[] app2Bytes = FileUtil.ReadBytes("Tests/Data/iccDataInvalid1.jpg.app2");
+            byte[] app2Bytes = FileUtil.ReadBytes("Tests/Data/iccDataInvalid1.jpg.app2");
             // ICC data starts after a 14-byte preamble
-            sbyte[] icc = TestHelper.SkipBytes(app2Bytes, 14);
+            byte[] icc = TestHelper.SkipBytes(app2Bytes, 14);
             Metadata metadata = new Metadata();
             new IccReader().Extract(new ByteArrayReader(icc), metadata);
             IccDirectory directory = metadata.GetFirstDirectoryOfType<IccDirectory>();

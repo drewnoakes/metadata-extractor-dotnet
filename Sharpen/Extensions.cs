@@ -566,36 +566,20 @@ namespace Sharpen
             return ((st > 0) || (len < str.Length)) ? str.Substring(st, len - st) : str;
         }
 
-        public static byte[] ConvertToByteArray(sbyte[] sbytes)
+        public static byte[] ConvertToByteArray(byte[] bytes)
         {
-            return Array.ConvertAll(sbytes, sb => (byte)sb);
+            return Array.ConvertAll(bytes, b => (byte)b);
         }
 
-        public static sbyte[] ConvertToByteArray(byte[] bytes)
-        {
-            return Array.ConvertAll(bytes, b => (sbyte)b);
-        }
-
-        public static void Copy(byte[] buffer, sbyte[] sbuffer)
+        public static void Copy(byte[] buffer, byte[] sbuffer)
         {
             for (int i = 0; i < buffer.Length; i++)
             {
-                sbuffer[i] = (sbyte) buffer[i];
+                sbuffer[i] = (byte) buffer[i];
             }
         }
 
-        internal static void CopyCastBuffer(byte[] buffer, int offset, int len, sbyte[] targetBuffer, int targetOffset)
-        {
-            if (offset < 0 || len < 0 || offset + len > buffer.Length || targetOffset < 0 || targetOffset + len > targetBuffer.Length) throw new ArgumentOutOfRangeException();
-
-            for (int i = 0; i < len; i++)
-            {
-                targetBuffer[i + targetOffset] = (sbyte)buffer[offset + i];
-            }
-
-        }
-
-        internal static void CopyCastBuffer(sbyte[] buffer, int offset, int len, byte[] targetBuffer, int targetOffset)
+        internal static void CopyCastBuffer(byte[] buffer, int offset, int len, byte[] targetBuffer, int targetOffset)
         {
             if (offset < 0 || len < 0 || offset + len > buffer.Length || targetOffset < 0 || targetOffset + len > targetBuffer.Length) throw new ArgumentOutOfRangeException();
 
@@ -603,12 +587,11 @@ namespace Sharpen
             {
                 targetBuffer[i + targetOffset] = (byte)buffer[offset + i];
             }
-
         }
 
-        public static sbyte ByteValue(this int? value)
+        public static byte ByteValue(this int? value)
         {
-            return (sbyte)value.Value;
+            return (byte)value.Value;
         }
 
         public static int IntValue(this int value)

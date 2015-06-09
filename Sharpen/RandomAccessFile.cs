@@ -28,7 +28,7 @@ namespace Sharpen
             return _stream.Length;
         }
 
-        public int Read(sbyte[] sbuffer)
+        public int Read(byte[] sbuffer)
         {
             if (sbuffer.Length == 0)
             {

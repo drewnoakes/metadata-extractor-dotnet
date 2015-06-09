@@ -79,12 +79,12 @@ namespace Sharpen
             return Wrapped.ReadByte ();
         }
 
-        public virtual int Read (sbyte[] buf)
+        public virtual int Read (byte[] buf)
         {
             return Read (buf, 0, buf.Length);
         }
 
-        public virtual int Read (sbyte[] b, int off, int len)
+        public virtual int Read (byte[] b, int off, int len)
         {
             var stream = Wrapped as WrappedSystemStream;
             if (stream != null)
@@ -102,7 +102,7 @@ namespace Sharpen
                 int nr = Read ();
                 if (nr == -1)
                     return -1;
-                b[off + totalRead] = (sbyte)nr;
+                b[off + totalRead] = (byte)nr;
                 totalRead++;
             }
             return totalRead;

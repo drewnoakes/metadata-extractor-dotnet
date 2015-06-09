@@ -52,10 +52,10 @@ namespace Com.Drew.Metadata.Photoshop
             yield return JpegSegmentType.Appd;
         }
 
-        public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)
+        public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
             int preambleLength = JpegSegmentPreamble.Length;
-            foreach (sbyte[] segmentBytes in segments)
+            foreach (byte[] segmentBytes in segments)
             {
                 // Ensure data starts with the necessary preamble
                 if (segmentBytes.Length < preambleLength + 1 || !JpegSegmentPreamble.Equals(Runtime.GetStringForBytes(segmentBytes, 0, preambleLength)))
@@ -116,7 +116,7 @@ namespace Com.Drew.Metadata.Photoshop
                     int byteCount = reader.GetInt32();
                     pos += 4;
                     // The resource data.
-                    sbyte[] tagBytes = reader.GetBytes(byteCount);
+                    byte[] tagBytes = reader.GetBytes(byteCount);
                     pos += byteCount;
                     // The number of bytes is padded with a trailing zero, if needed, to make the size even.
                     if (pos % 2 != 0)

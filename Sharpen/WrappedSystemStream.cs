@@ -45,7 +45,7 @@ namespace Sharpen
 
         public override int Read (byte[] buffer, int offset, int count)
         {
-            sbyte[] sbuffer = new sbyte[count];
+            byte[] sbuffer = new byte[count];
             int res = _ist.Read(sbuffer, 0, count);
             Extensions.CopyCastBuffer(sbuffer,0, count,  buffer, offset);
             if (res != -1) {
@@ -81,7 +81,7 @@ namespace Sharpen
 
         public override void Write (byte[] buffer, int offset, int count)
         {
-            sbyte[] sbuffer = new sbyte[count];
+            byte[] sbuffer = new byte[count];
             Extensions.CopyCastBuffer(buffer, offset, count, sbuffer,0);
             _ost.Write (sbuffer, 0, count);
             _position += count;

@@ -777,7 +777,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetCameraIdDescription()
         {
-            sbyte[] bytes = Directory.GetByteArray(OlympusMakernoteDirectory.TagCameraId);
+            byte[] bytes = Directory.GetByteArray(OlympusMakernoteDirectory.TagCameraId);
             if (bytes == null)
             {
                 return null;

@@ -45,13 +45,13 @@ namespace Com.Drew.Imaging.Jpeg
     public sealed class JpegSegmentData
     {
         [NotNull]
-        private readonly Dictionary<sbyte, IList<sbyte[]>> _segmentDataMap = new Dictionary<sbyte, IList<sbyte[]>>(10);
+        private readonly Dictionary<byte, IList<byte[]>> _segmentDataMap = new Dictionary<byte, IList<byte[]>>(10);
 
         // TODO key this on JpegSegmentType rather than Byte, and hopefully lose much of the use of 'byte' with this class
         /// <summary>Adds segment bytes to the collection.</summary>
         /// <param name="segmentType">the type of the segment being added</param>
         /// <param name="segmentBytes">the byte array holding data for the segment being added</param>
-        public void AddSegment(sbyte segmentType, [NotNull] sbyte[] segmentBytes)
+        public void AddSegment(byte segmentType, [NotNull] byte[] segmentBytes)
         {
             GetOrCreateSegmentList(segmentType).Add(segmentBytes);
         }
@@ -60,7 +60,7 @@ namespace Com.Drew.Imaging.Jpeg
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             ICollection<JpegSegmentType> segmentTypes = new HashSet<JpegSegmentType>();
-            foreach (sbyte segmentTypeByte in _segmentDataMap.Keys)
+            foreach (byte segmentTypeByte in _segmentDataMap.Keys)
             {
                 JpegSegmentType segmentType = JpegSegmentType.FromByte(segmentTypeByte);
                 if (segmentType == null)
@@ -76,7 +76,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <param name="segmentType">the JpegSegmentType for the desired segment</param>
         /// <returns>a byte[] containing segment data or null if no data exists for that segment</returns>
         [CanBeNull]
-        public sbyte[] GetSegment(sbyte segmentType)
+        public byte[] GetSegment(byte segmentType)
         {
             return GetSegment(segmentType, 0);
         }
@@ -85,7 +85,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <param name="segmentType">the JpegSegmentType for the desired segment</param>
         /// <returns>a byte[] containing segment data or null if no data exists for that segment</returns>
         [CanBeNull]
-        public sbyte[] GetSegment([NotNull] JpegSegmentType segmentType)
+        public byte[] GetSegment([NotNull] JpegSegmentType segmentType)
         {
             return GetSegment(segmentType.ByteValue, 0);
         }
@@ -99,7 +99,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <param name="occurrence">the zero-based index of the occurrence</param>
         /// <returns>the segment data as a byte[], or null if no segment exists for the type &amp; occurrence</returns>
         [CanBeNull]
-        public sbyte[] GetSegment([NotNull] JpegSegmentType segmentType, int occurrence)
+        public byte[] GetSegment([NotNull] JpegSegmentType segmentType, int occurrence)
         {
             return GetSegment(segmentType.ByteValue, occurrence);
         }
@@ -113,9 +113,9 @@ namespace Com.Drew.Imaging.Jpeg
         /// <param name="occurrence">the zero-based index of the occurrence</param>
         /// <returns>the segment data as a byte[], or null if no segment exists for the type &amp; occurrence</returns>
         [CanBeNull]
-        public sbyte[] GetSegment(sbyte segmentType, int occurrence)
+        public byte[] GetSegment(byte segmentType, int occurrence)
         {
-            IList<sbyte[]> segmentList = GetSegmentList(segmentType);
+            IList<byte[]> segmentList = GetSegmentList(segmentType);
             return segmentList != null && segmentList.Count > occurrence ? segmentList[occurrence] : null;
         }
 
@@ -124,7 +124,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <param name="segmentType">a number which identifies the type of JPEG segment being queried</param>
         /// <returns>zero or more byte arrays, each holding the data of a JPEG segment</returns>
         [NotNull]
-        public IEnumerable<sbyte[]> GetSegments([NotNull] JpegSegmentType segmentType)
+        public IEnumerable<byte[]> GetSegments([NotNull] JpegSegmentType segmentType)
         {
             return GetSegments(segmentType.ByteValue);
         }
@@ -134,28 +134,28 @@ namespace Com.Drew.Imaging.Jpeg
         /// <param name="segmentType">a number which identifies the type of JPEG segment being queried</param>
         /// <returns>zero or more byte arrays, each holding the data of a JPEG segment</returns>
         [NotNull]
-        public IEnumerable<sbyte[]> GetSegments(sbyte segmentType)
+        public IEnumerable<byte[]> GetSegments(byte segmentType)
         {
-            return GetSegmentList(segmentType) ?? Enumerable.Empty<sbyte[]>();
+            return GetSegmentList(segmentType) ?? Enumerable.Empty<byte[]>();
         }
 
         [CanBeNull]
-        private IList<sbyte[]> GetSegmentList(sbyte segmentType)
+        private IList<byte[]> GetSegmentList(byte segmentType)
         {
             return _segmentDataMap.Get(segmentType);
         }
 
         [NotNull]
-        private IList<sbyte[]> GetOrCreateSegmentList(sbyte segmentType)
+        private IList<byte[]> GetOrCreateSegmentList(byte segmentType)
         {
-            IList<sbyte[]> segmentList;
+            IList<byte[]> segmentList;
             if (_segmentDataMap.ContainsKey(segmentType))
             {
                 segmentList = _segmentDataMap.Get(segmentType);
             }
             else
             {
-                segmentList = new AList<sbyte[]>();
+                segmentList = new AList<byte[]>();
                 _segmentDataMap.Put(segmentType, segmentList);
             }
             return segmentList;
@@ -172,9 +172,9 @@ namespace Com.Drew.Imaging.Jpeg
         /// <summary>Returns the count of segment data byte arrays stored for a given segment type.</summary>
         /// <param name="segmentType">identifies the required segment</param>
         /// <returns>the segment count (zero if no segments exist).</returns>
-        public int GetSegmentCount(sbyte segmentType)
+        public int GetSegmentCount(byte segmentType)
         {
-            IList<sbyte[]> segmentList = GetSegmentList(segmentType);
+            IList<byte[]> segmentList = GetSegmentList(segmentType);
             return segmentList == null ? 0 : segmentList.Count;
         }
 
@@ -197,9 +197,9 @@ namespace Com.Drew.Imaging.Jpeg
         /// </remarks>
         /// <param name="segmentType">identifies the required segment</param>
         /// <param name="occurrence">the zero-based index of the segment occurrence to remove.</param>
-        public void RemoveSegmentOccurrence(sbyte segmentType, int occurrence)
+        public void RemoveSegmentOccurrence(byte segmentType, int occurrence)
         {
-            IList<sbyte[]> segmentList = _segmentDataMap.Get(segmentType);
+            IList<byte[]> segmentList = _segmentDataMap.Get(segmentType);
             segmentList.Remove(occurrence);
         }
 
@@ -212,7 +212,7 @@ namespace Com.Drew.Imaging.Jpeg
 
         /// <summary>Removes all segments from the collection having the specified type.</summary>
         /// <param name="segmentType">identifies the required segment</param>
-        public void RemoveSegment(sbyte segmentType)
+        public void RemoveSegment(byte segmentType)
         {
             Collections.Remove(_segmentDataMap, segmentType);
         }
@@ -228,7 +228,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <summary>Determines whether data is present for a given segment type.</summary>
         /// <param name="segmentType">identifies the required segment</param>
         /// <returns>true if data exists, otherwise false</returns>
-        public bool ContainsSegment(sbyte segmentType)
+        public bool ContainsSegment(byte segmentType)
         {
             return _segmentDataMap.ContainsKey(segmentType);
         }

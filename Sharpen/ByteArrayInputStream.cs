@@ -4,12 +4,12 @@ namespace Sharpen
 {
     public class ByteArrayInputStream : InputStream
     {
-        public ByteArrayInputStream (sbyte[] data)
+        public ByteArrayInputStream (byte[] data)
         {
             Wrapped = new MemoryStream(Extensions.ConvertToByteArray(data));
         }
 
-        public ByteArrayInputStream (sbyte[] data, int off, int len)
+        public ByteArrayInputStream (byte[] data, int off, int len)
         {
             Wrapped = new MemoryStream (Extensions.ConvertToByteArray(data), off, len);
         }

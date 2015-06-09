@@ -62,12 +62,12 @@ namespace Sharpen
             }
         }
 
-        public virtual void Write (sbyte[] b)
+        public virtual void Write (byte[] b)
         {
             Write (b, 0, b.Length);
         }
 
-        public virtual void Write (sbyte[] b, int offset, int len)
+        public virtual void Write (byte[] b, int offset, int len)
         {
             var stream = Wrapped as WrappedSystemStream;
             if (stream != null)

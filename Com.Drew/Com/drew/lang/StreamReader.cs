@@ -43,20 +43,20 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        protected override sbyte GetByte()
+        protected override byte GetByte()
         {
             int value = _stream.Read();
             if (value == -1)
             {
                 throw new EofException("End of data reached.");
             }
-            return unchecked((sbyte)value);
+            return unchecked((byte)value);
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public override sbyte[] GetBytes(int count)
+        public override byte[] GetBytes(int count)
         {
-            sbyte[] bytes = new sbyte[count];
+            byte[] bytes = new byte[count];
             int totalBytesRead = 0;
             while (totalBytesRead != count)
             {

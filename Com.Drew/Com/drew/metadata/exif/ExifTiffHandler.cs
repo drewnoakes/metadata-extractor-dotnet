@@ -119,7 +119,7 @@ namespace Com.Drew.Metadata.Exif
                 // NOTE Adobe sets type 4 for IPTC instead of 7
                 if (reader.GetInt8(tagOffset) == unchecked(0x1c))
                 {
-                    sbyte[] iptcBytes = reader.GetBytes(tagOffset, byteCount);
+                    byte[] iptcBytes = reader.GetBytes(tagOffset, byteCount);
                     new IptcReader().Extract(new SequentialByteArrayReader(iptcBytes), Metadata, iptcBytes.Length);
                     return true;
                 }
@@ -142,7 +142,7 @@ namespace Com.Drew.Metadata.Exif
                     {
                         try
                         {
-                            sbyte[] thumbnailData = reader.GetBytes(tiffHeaderOffset + (int)offset, (int)length);
+                            byte[] thumbnailData = reader.GetBytes(tiffHeaderOffset + (int)offset, (int)length);
                             thumbnailDirectory.SetThumbnailData(thumbnailData);
                         }
                         catch (IOException ex)

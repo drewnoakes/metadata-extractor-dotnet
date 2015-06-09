@@ -41,9 +41,9 @@ namespace Com.Drew.Metadata.Adobe
             yield return JpegSegmentType.Appe;
         }
 
-        public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)
+        public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
-            foreach (sbyte[] bytes in segments)
+            foreach (byte[] bytes in segments)
             {
                 if (bytes.Length == 12 && Runtime.EqualsIgnoreCase(Preamble, Runtime.GetStringForBytes(bytes, 0, Preamble.Length)))
                 {

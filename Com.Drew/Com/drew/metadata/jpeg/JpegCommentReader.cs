@@ -39,15 +39,15 @@ namespace Com.Drew.Metadata.Jpeg
             yield return JpegSegmentType.Com;
         }
 
-        public bool CanProcess([NotNull] sbyte[] segmentBytes, [NotNull] JpegSegmentType segmentType)
+        public bool CanProcess([NotNull] byte[] segmentBytes, [NotNull] JpegSegmentType segmentType)
         {
             // The entire contents of the byte[] is the comment. There's nothing here to discriminate upon.
             return true;
         }
 
-        public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)
+        public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
-            foreach (sbyte[] segmentBytes in segments)
+            foreach (byte[] segmentBytes in segments)
             {
                 JpegCommentDirectory directory = new JpegCommentDirectory();
                 metadata.AddDirectory(directory);

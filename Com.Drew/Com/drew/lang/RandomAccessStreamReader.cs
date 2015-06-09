@@ -37,7 +37,7 @@ namespace Com.Drew.Lang
 
         private readonly int _chunkLength;
 
-        private readonly AList<sbyte[]> _chunks = new AList<sbyte[]>();
+        private readonly AList<byte[]> _chunks = new AList<byte[]>();
 
         private bool _isStreamFinished;
 
@@ -129,7 +129,7 @@ namespace Com.Drew.Lang
             while (chunkIndex >= _chunks.Count)
             {
                 Debug.Assert((!_isStreamFinished));
-                sbyte[] chunk = new sbyte[_chunkLength];
+                byte[] chunk = new byte[_chunkLength];
                 int totalBytesRead = 0;
                 while (!_isStreamFinished && totalBytesRead != _chunkLength)
                 {
@@ -157,20 +157,20 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        protected override sbyte GetByte(int index)
+        protected override byte GetByte(int index)
         {
             Debug.Assert((index >= 0));
             int chunkIndex = index / _chunkLength;
             int innerIndex = index % _chunkLength;
-            sbyte[] chunk = _chunks[chunkIndex];
+            byte[] chunk = _chunks[chunkIndex];
             return chunk[innerIndex];
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public override sbyte[] GetBytes(int index, int count)
+        public override byte[] GetBytes(int index, int count)
         {
             ValidateIndex(index, count);
-            sbyte[] bytes = new sbyte[count];
+            byte[] bytes = new byte[count];
             int remaining = count;
             int fromIndex = index;
             int toIndex = 0;
@@ -179,7 +179,7 @@ namespace Com.Drew.Lang
                 int fromChunkIndex = fromIndex / _chunkLength;
                 int fromInnerIndex = fromIndex % _chunkLength;
                 int length = Math.Min(remaining, _chunkLength - fromInnerIndex);
-                sbyte[] chunk = _chunks[fromChunkIndex];
+                byte[] chunk = _chunks[fromChunkIndex];
                 Array.Copy(chunk, fromInnerIndex, bytes, toIndex, length);
                 remaining -= length;
                 fromIndex += length;

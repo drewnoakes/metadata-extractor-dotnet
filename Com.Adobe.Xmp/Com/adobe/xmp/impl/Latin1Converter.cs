@@ -52,7 +52,7 @@ namespace Com.Adobe.Xmp.Impl
             if ("UTF-8".Equals(buffer.GetEncoding()))
             {
                 // the buffer containing one UTF-8 char (up to 8 bytes)
-                sbyte[] readAheadBuffer = new sbyte[8];
+                byte[] readAheadBuffer = new byte[8];
                 // the number of bytes read ahead.
                 int readAhead = 0;
                 // expected UTF8 bytesto come
@@ -70,7 +70,7 @@ namespace Com.Adobe.Xmp.Impl
                         {
                             if (b < unchecked(0x7F))
                             {
-                                @out.Append(unchecked((sbyte)b));
+                                @out.Append(unchecked((byte)b));
                             }
                             else
                             {
@@ -83,14 +83,14 @@ namespace Com.Adobe.Xmp.Impl
                                     {
                                         expectedBytes++;
                                     }
-                                    readAheadBuffer[readAhead++] = unchecked((sbyte)b);
+                                    readAheadBuffer[readAhead++] = unchecked((byte)b);
                                     state = StateUtf8Char;
                                 }
                                 else
                                 {
                                     //  implicitly:  b >= 0x80  &&  b < 0xC0
                                     // invalid UTF8 start char, assume to be Latin-1
-                                    sbyte[] utf8 = ConvertToUtf8(unchecked((sbyte)b));
+                                    byte[] utf8 = ConvertToUtf8(unchecked((byte)b));
                                     @out.Append(utf8);
                                 }
                             }
@@ -102,7 +102,7 @@ namespace Com.Adobe.Xmp.Impl
                             if (expectedBytes > 0 && (b & unchecked(0xC0)) == unchecked(0x80))
                             {
                                 // valid UTF8 char, add to readAheadBuffer
-                                readAheadBuffer[readAhead++] = unchecked((sbyte)b);
+                                readAheadBuffer[readAhead++] = unchecked((byte)b);
                                 expectedBytes--;
                                 if (expectedBytes == 0)
                                 {
@@ -115,7 +115,7 @@ namespace Com.Adobe.Xmp.Impl
                             {
                                 // invalid UTF8 char:
                                 // 1. convert first of seq to UTF8
-                                sbyte[] utf8 = ConvertToUtf8(readAheadBuffer[0]);
+                                byte[] utf8 = ConvertToUtf8(readAheadBuffer[0]);
                                 @out.Append(utf8);
                                 // 2. continue processing at second byte of sequence
                                 i = i - readAhead;
@@ -131,8 +131,8 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     for (int j = 0; j < readAhead; j++)
                     {
-                        sbyte b = readAheadBuffer[j];
-                        sbyte[] utf8 = ConvertToUtf8(b);
+                        byte b = readAheadBuffer[j];
+                        byte[] utf8 = ConvertToUtf8(b);
                         @out.Append(utf8);
                     }
                 }
@@ -154,7 +154,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </remarks>
         /// <param name="ch">an Cp1252 / Latin-1 byte</param>
         /// <returns>Returns a byte array containing a UTF-8 byte sequence.</returns>
-        private static sbyte[] ConvertToUtf8(sbyte ch)
+        private static byte[] ConvertToUtf8(byte ch)
         {
             int c = ch & unchecked(0xFF);
             try
@@ -163,17 +163,17 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if (c == unchecked(0x81) || c == unchecked(0x8D) || c == unchecked(0x8F) || c == unchecked(0x90) || c == unchecked(0x9D))
                     {
-                        return new sbyte[] { unchecked(0x20) };
+                        return new byte[] { unchecked(0x20) };
                     }
                     // space for undefined
                     // interpret byte as Windows Cp1252 char
-                    return Runtime.GetBytesForString(Runtime.GetStringForBytes(new sbyte[] { ch }, "cp1252"), "UTF-8");
+                    return Runtime.GetBytesForString(Runtime.GetStringForBytes(new byte[] { ch }, "cp1252"), "UTF-8");
                 }
             }
             catch (UnsupportedEncodingException)
             {
             }
-            return new sbyte[] { ch };
+            return new byte[] { ch };
         }
     }
 }

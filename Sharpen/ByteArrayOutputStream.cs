@@ -10,7 +10,7 @@ namespace Sharpen
             Wrapped = new MemoryStream (bufferSize);
         }
 
-        public sbyte[] ToByteArray ()
+        public byte[] ToByteArray ()
         {
             return Extensions.ConvertToByteArray(ToByteArrayInternal());
         }

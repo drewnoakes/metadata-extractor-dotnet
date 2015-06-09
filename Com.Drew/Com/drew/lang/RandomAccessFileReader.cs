@@ -58,7 +58,7 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        protected override sbyte GetByte(int index)
+        protected override byte GetByte(int index)
         {
             if (index != _currentIndex)
             {
@@ -71,18 +71,18 @@ namespace Com.Drew.Lang
             }
             Debug.Assert((b <= unchecked(0xff)));
             _currentIndex++;
-            return unchecked((sbyte)b);
+            return unchecked((byte)b);
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public override sbyte[] GetBytes(int index, int count)
+        public override byte[] GetBytes(int index, int count)
         {
             ValidateIndex(index, count);
             if (index != _currentIndex)
             {
                 Seek(index);
             }
-            sbyte[] bytes = new sbyte[count];
+            byte[] bytes = new byte[count];
             int bytesRead = _file.Read(bytes);
             _currentIndex += bytesRead;
             if (bytesRead != count)

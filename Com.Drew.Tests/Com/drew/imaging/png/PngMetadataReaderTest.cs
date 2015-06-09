@@ -55,7 +55,7 @@ namespace Com.Drew.Imaging.Png
                 Assert.AreEqual(PngChunkType.GAma, dirs[1].GetPngChunkType());
                 Assert.AreEqual(0.45455, dirs[1].GetDouble(PngDirectory.TagGamma), 0.00001);
                 Assert.AreEqual(PngChunkType.BKgd, dirs[2].GetPngChunkType());
-                CollectionAssert.AreEqual(new sbyte[] { 0, 52 }, dirs[2].GetByteArray(PngDirectory.TagBackgroundColor));
+                CollectionAssert.AreEqual(new byte[] { 0, 52 }, dirs[2].GetByteArray(PngDirectory.TagBackgroundColor));
                 //noinspection ConstantConditions
                 Assert.AreEqual(PngChunkType.PHYs, dirs[3].GetPngChunkType());
                 Assert.AreEqual(1, dirs[3].GetInt(PngDirectory.TagUnitSpecifier));

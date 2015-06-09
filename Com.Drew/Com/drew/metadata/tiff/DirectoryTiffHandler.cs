@@ -98,7 +98,7 @@ namespace Com.Drew.Metadata.Tiff
             CurrentDirectory.AddError(message);
         }
 
-        public virtual void SetByteArray(int tagId, sbyte[] bytes)
+        public virtual void SetByteArray(int tagId, byte[] bytes)
         {
             CurrentDirectory.SetByteArray(tagId, bytes);
         }
@@ -138,13 +138,13 @@ namespace Com.Drew.Metadata.Tiff
             CurrentDirectory.SetDoubleArray(tagId, array);
         }
 
-        public virtual void SetInt8S(int tagId, sbyte int8S)
+        public virtual void SetInt8S(int tagId, byte int8S)
         {
             // NOTE Directory stores all integral types as int32s, except for int32u and long
             CurrentDirectory.SetInt(tagId, int8S);
         }
 
-        public virtual void SetInt8SArray(int tagId, sbyte[] array)
+        public virtual void SetInt8SArray(int tagId, byte[] array)
         {
             // NOTE Directory stores all integral types as int32s, except for int32u and long
             CurrentDirectory.SetByteArray(tagId, array);

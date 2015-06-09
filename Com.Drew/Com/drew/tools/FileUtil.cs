@@ -38,7 +38,7 @@ namespace Com.Drew.Tools
         /// Saves the contents of a <c>byte[]</c> to the specified <see cref="Sharpen.FilePath"/>.
         /// </summary>
         /// <exception cref="System.IO.IOException"/>
-        public static void SaveBytes([NotNull] FilePath file, [NotNull] sbyte[] bytes)
+        public static void SaveBytes([NotNull] FilePath file, [NotNull] byte[] bytes)
         {
             FileOutputStream stream = null;
             try
@@ -65,12 +65,12 @@ namespace Com.Drew.Tools
         /// </summary>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static sbyte[] ReadBytes([NotNull] FilePath file)
+        public static byte[] ReadBytes([NotNull] FilePath file)
         {
             int length = (int)file.Length();
             // should only be zero if loading from a network or similar
             Debug.Assert((length != 0));
-            sbyte[] bytes = new sbyte[length];
+            byte[] bytes = new byte[length];
             int totalBytesRead = 0;
             FileInputStream inputStream = null;
             try
@@ -105,7 +105,7 @@ namespace Com.Drew.Tools
         /// </summary>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static sbyte[] ReadBytes([NotNull] string filePath)
+        public static byte[] ReadBytes([NotNull] string filePath)
         {
             return ReadBytes(new FilePath(filePath));
         }

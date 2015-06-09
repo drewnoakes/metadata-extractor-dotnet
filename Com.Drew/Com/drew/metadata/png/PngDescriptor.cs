@@ -170,7 +170,7 @@ namespace Com.Drew.Metadata.Png
         [CanBeNull]
         public string GetBackgroundColorDescription()
         {
-            sbyte[] bytes = Directory.GetByteArray(PngDirectory.TagBackgroundColor);
+            byte[] bytes = Directory.GetByteArray(PngDirectory.TagBackgroundColor);
             int? colorType = Directory.GetInteger(PngDirectory.TagColorType);
             if (bytes == null || colorType == null)
             {

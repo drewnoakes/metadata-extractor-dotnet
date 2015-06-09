@@ -483,7 +483,7 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         private string GetUnicodeDescription(int tag)
         {
-            sbyte[] bytes = Directory.GetByteArray(tag);
+            byte[] bytes = Directory.GetByteArray(tag);
             if (bytes == null)
             {
                 return null;
@@ -791,7 +791,7 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetUserCommentDescription()
         {
-            sbyte[] commentBytes = Directory.GetByteArray(ExifDirectoryBase.TagUserComment);
+            byte[] commentBytes = Directory.GetByteArray(ExifDirectoryBase.TagUserComment);
             if (commentBytes == null)
             {
                 return null;
@@ -821,7 +821,7 @@ namespace Com.Drew.Metadata.Exif
                             // skip any null or blank characters commonly present after the encoding name, up to a limit of 10 from the start
                             for (int j = encodingName.Length; j < 10; j++)
                             {
-                                sbyte b = commentBytes[j];
+                                byte b = commentBytes[j];
                                 if (b != '\0' && b != ' ')
                                 {
                                     return Extensions.Trim(Runtime.GetStringForBytes(commentBytes, j, commentBytes.Length - j, charset));

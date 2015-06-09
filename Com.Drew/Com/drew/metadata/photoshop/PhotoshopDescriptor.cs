@@ -113,7 +113,7 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                sbyte[] b = Directory.GetByteArray(PhotoshopDirectory.TagJpegQuality);
+                byte[] b = Directory.GetByteArray(PhotoshopDirectory.TagJpegQuality);
                 if (b == null)
                 {
                     return Directory.GetString(PhotoshopDirectory.TagJpegQuality);
@@ -222,7 +222,7 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                sbyte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagPixelAspectRatio);
+                byte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagPixelAspectRatio);
                 if (bytes == null)
                 {
                     return null;
@@ -242,7 +242,7 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                sbyte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagPrintScale);
+                byte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagPrintScale);
                 if (bytes == null)
                 {
                     return null;
@@ -286,7 +286,7 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                sbyte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagResolutionInfo);
+                byte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagResolutionInfo);
                 if (bytes == null)
                 {
                     return null;
@@ -308,7 +308,7 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                sbyte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagVersion);
+                byte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagVersion);
                 if (bytes == null)
                 {
                     return null;
@@ -340,7 +340,7 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                sbyte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagSlices);
+                byte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagSlices);
                 if (bytes == null)
                 {
                     return null;
@@ -371,7 +371,7 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                sbyte[] v = Directory.GetByteArray(tagType);
+                byte[] v = Directory.GetByteArray(tagType);
                 if (v == null)
                 {
                     return null;
@@ -404,7 +404,7 @@ namespace Com.Drew.Metadata.Photoshop
         [CanBeNull]
         private string GetBooleanString(int tag)
         {
-            sbyte[] bytes = Directory.GetByteArray(tag);
+            byte[] bytes = Directory.GetByteArray(tag);
             if (bytes == null)
             {
                 return null;
@@ -415,7 +415,7 @@ namespace Com.Drew.Metadata.Photoshop
         [CanBeNull]
         private string Get32BitNumberString(int tag)
         {
-            sbyte[] bytes = Directory.GetByteArray(tag);
+            byte[] bytes = Directory.GetByteArray(tag);
             if (bytes == null)
             {
                 return null;
@@ -434,7 +434,7 @@ namespace Com.Drew.Metadata.Photoshop
         [CanBeNull]
         private string GetSimpleString(int tagType)
         {
-            sbyte[] bytes = Directory.GetByteArray(tagType);
+            byte[] bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
             {
                 return null;
@@ -445,7 +445,7 @@ namespace Com.Drew.Metadata.Photoshop
         [CanBeNull]
         private string GetBinaryDataString(int tagType)
         {
-            sbyte[] bytes = Directory.GetByteArray(tagType);
+            byte[] bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
             {
                 return null;

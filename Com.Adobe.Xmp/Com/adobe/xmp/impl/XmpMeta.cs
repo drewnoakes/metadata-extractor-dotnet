@@ -734,9 +734,9 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <seealso cref="IXmpMeta.GetPropertyBase64(string, string)"/>
         /// <exception cref="XmpException"/>
-        public sbyte[] GetPropertyBase64(string schemaNs, string propName)
+        public byte[] GetPropertyBase64(string schemaNs, string propName)
         {
-            return (sbyte[])GetPropertyObject(schemaNs, propName, ValueType.Base64);
+            return (byte[])GetPropertyObject(schemaNs, propName, ValueType.Base64);
         }
 
         /// <seealso cref="IXmpMeta.GetPropertyString(string, string)"/>
@@ -746,16 +746,16 @@ namespace Com.Adobe.Xmp.Impl
             return (string)GetPropertyObject(schemaNs, propName, ValueType.String);
         }
 
-        /// <seealso cref="IXmpMeta.SetPropertyBase64(string, string, sbyte[], Com.Adobe.Xmp.Options.PropertyOptions)"/>
+        /// <seealso cref="IXmpMeta.SetPropertyBase64(string, string, byte[], Com.Adobe.Xmp.Options.PropertyOptions)"/>
         /// <exception cref="XmpException"/>
-        public void SetPropertyBase64(string schemaNs, string propName, sbyte[] propValue, PropertyOptions options)
+        public void SetPropertyBase64(string schemaNs, string propName, byte[] propValue, PropertyOptions options)
         {
             SetProperty(schemaNs, propName, propValue, options);
         }
 
-        /// <seealso cref="IXmpMeta.SetPropertyBase64(string, string, sbyte[])"/>
+        /// <seealso cref="IXmpMeta.SetPropertyBase64(string, string, byte[])"/>
         /// <exception cref="XmpException"/>
-        public void SetPropertyBase64(string schemaNs, string propName, sbyte[] propValue)
+        public void SetPropertyBase64(string schemaNs, string propName, byte[] propValue)
         {
             SetProperty(schemaNs, propName, propValue, null);
         }

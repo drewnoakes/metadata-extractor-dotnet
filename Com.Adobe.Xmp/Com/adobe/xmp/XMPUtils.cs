@@ -375,7 +375,7 @@ namespace Com.Adobe.Xmp
         /// <summary>Convert from a byte array to a base64 encoded string.</summary>
         /// <param name="buffer">the byte array to be converted</param>
         /// <returns>Returns the base64 string.</returns>
-        public static string EncodeBase64(sbyte[] buffer)
+        public static string EncodeBase64(byte[] buffer)
         {
             return Runtime.GetStringForBytes(Base64.Encode(buffer));
         }
@@ -385,7 +385,7 @@ namespace Com.Adobe.Xmp
         /// <returns>Returns a byte array containg the decoded string.</returns>
         /// <exception cref="XmpException">Thrown if the given string is not property base64 encoded</exception>
         /// <exception cref="XmpException"/>
-        public static sbyte[] DecodeBase64(string base64String)
+        public static byte[] DecodeBase64(string base64String)
         {
             try
             {

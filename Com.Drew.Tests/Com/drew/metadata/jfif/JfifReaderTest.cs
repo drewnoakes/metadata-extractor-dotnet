@@ -33,7 +33,7 @@ namespace Com.Drew.Metadata.Jfif
         [Test]
         public void TestRead()
         {
-            sbyte[] jfifData = new sbyte[] { 74, 70, 73, 70, 0, 1, 2, 1, 0, 108, 0, 108, 0, 0 };
+            byte[] jfifData = new byte[] { 74, 70, 73, 70, 0, 1, 2, 1, 0, 108, 0, 108, 0, 0 };
             Metadata metadata = new Metadata();
             JfifReader reader = new JfifReader();
             reader.Extract(new ByteArrayReader(jfifData), metadata);

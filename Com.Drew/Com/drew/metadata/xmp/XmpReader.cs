@@ -96,9 +96,9 @@ namespace Com.Drew.Metadata.Xmp
         /// <see cref="Com.Drew.Imaging.Jpeg.JpegSegmentType"/>
         /// being read.
         /// </param>
-        public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)
+        public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
-            foreach (sbyte[] segmentBytes in segments)
+            foreach (byte[] segmentBytes in segments)
             {
                 // XMP in a JPEG file has an identifying preamble which is not valid XML
                 int preambleLength = XmpJpegPreamble.Length;
@@ -106,7 +106,7 @@ namespace Com.Drew.Metadata.Xmp
                 {
                     continue;
                 }
-                sbyte[] xmlBytes = new sbyte[segmentBytes.Length - preambleLength];
+                byte[] xmlBytes = new byte[segmentBytes.Length - preambleLength];
                 Array.Copy(segmentBytes, preambleLength, xmlBytes, 0, xmlBytes.Length);
                 Extract(xmlBytes, metadata);
             }
@@ -117,7 +117,7 @@ namespace Com.Drew.Metadata.Xmp
         /// <para>
         /// The extraction is done with Adobe's XMPCore library.
         /// </summary>
-        public void Extract([NotNull] sbyte[] xmpBytes, [NotNull] Metadata metadata)
+        public void Extract([NotNull] byte[] xmpBytes, [NotNull] Metadata metadata)
         {
             XmpDirectory directory = new XmpDirectory();
             try

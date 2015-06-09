@@ -30,11 +30,11 @@ namespace Com.Drew.Lang
     public class SequentialByteArrayReader : SequentialReader
     {
         [NotNull]
-        private readonly sbyte[] _bytes;
+        private readonly byte[] _bytes;
 
         private int _index;
 
-        public SequentialByteArrayReader([NotNull] sbyte[] bytes, int baseIndex = 0)
+        public SequentialByteArrayReader([NotNull] byte[] bytes, int baseIndex = 0)
         {
             if (bytes == null)
             {
@@ -45,7 +45,7 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        protected override sbyte GetByte()
+        protected override byte GetByte()
         {
             if (_index >= _bytes.Length)
             {
@@ -55,13 +55,13 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public override sbyte[] GetBytes(int count)
+        public override byte[] GetBytes(int count)
         {
             if (_index + count > _bytes.Length)
             {
                 throw new EofException("End of data reached.");
             }
-            sbyte[] bytes = new sbyte[count];
+            byte[] bytes = new byte[count];
             Array.Copy(_bytes, _index, bytes, 0, count);
             _index += count;
             return bytes;

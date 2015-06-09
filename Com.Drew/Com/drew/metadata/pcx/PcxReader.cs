@@ -46,13 +46,13 @@ namespace Com.Drew.Metadata.Pcx
             metadata.AddDirectory(directory);
             try
             {
-                sbyte identifier = reader.GetInt8();
+                byte identifier = reader.GetInt8();
                 if (identifier != unchecked(0x0A))
                 {
                     throw new ImageProcessingException("Invalid PCX identifier byte");
                 }
                 directory.SetInt(PcxDirectory.TagVersion, reader.GetInt8());
-                sbyte encoding = reader.GetInt8();
+                byte encoding = reader.GetInt8();
                 if (encoding != unchecked(0x01))
                 {
                     throw new ImageProcessingException("Invalid PCX encoding byte");

@@ -16,7 +16,7 @@ namespace Com.Adobe.Xmp.Impl
     /// <since>11.10.2006</since>
     public sealed class ByteBuffer
     {
-        private sbyte[] _buffer;
+        private byte[] _buffer;
 
         private int _length;
 
@@ -25,12 +25,12 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="initialCapacity">the initial capacity for this buffer</param>
         public ByteBuffer(int initialCapacity)
         {
-            _buffer = new sbyte[initialCapacity];
+            _buffer = new byte[initialCapacity];
             _length = 0;
         }
 
         /// <param name="buffer">a byte array that will be wrapped with <c>ByteBuffer</c>.</param>
-        public ByteBuffer(sbyte[] buffer)
+        public ByteBuffer(byte[] buffer)
         {
             _buffer = buffer;
             _length = buffer.Length;
@@ -38,7 +38,7 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <param name="buffer">a byte array that will be wrapped with <c>ByteBuffer</c>.</param>
         /// <param name="length">the length of valid bytes in the array</param>
-        public ByteBuffer(sbyte[] buffer, int length)
+        public ByteBuffer(byte[] buffer, int length)
         {
             if (length > buffer.Length)
             {
@@ -56,7 +56,7 @@ namespace Com.Adobe.Xmp.Impl
             // load stream into buffer
             int chunk = 16384;
             _length = 0;
-            _buffer = new sbyte[chunk];
+            _buffer = new byte[chunk];
             int read;
             while ((read = @in.Read(_buffer, _length, chunk)) > 0)
             {
@@ -75,13 +75,13 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="buffer">a byte array that will be wrapped with <c>ByteBuffer</c>.</param>
         /// <param name="offset">the offset of the provided buffer.</param>
         /// <param name="length">the length of valid bytes in the array</param>
-        public ByteBuffer(sbyte[] buffer, int offset, int length)
+        public ByteBuffer(byte[] buffer, int offset, int length)
         {
             if (length > buffer.Length - offset)
             {
                 throw new IndexOutOfRangeException("Valid length exceeds the buffer length.");
             }
-            _buffer = new sbyte[length];
+            _buffer = new byte[length];
             Array.Copy(buffer, offset, _buffer, 0, length);
             _length = length;
         }
@@ -111,7 +111,7 @@ namespace Com.Adobe.Xmp.Impl
         //    }
         /// <param name="index">the index to retrieve the byte from</param>
         /// <returns>Returns a byte from the buffer</returns>
-        public sbyte ByteAt(int index)
+        public byte ByteAt(int index)
         {
             if (index < _length)
             {
@@ -133,7 +133,7 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>Appends a byte to the buffer.</summary>
         /// <param name="b">a byte</param>
-        public void Append(sbyte b)
+        public void Append(byte b)
         {
             EnsureCapacity(_length + 1);
             _buffer[_length++] = b;
@@ -143,7 +143,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="bytes">a byte array</param>
         /// <param name="offset">an offset with</param>
         /// <param name="len"/>
-        public void Append(sbyte[] bytes, int offset, int len)
+        public void Append(byte[] bytes, int offset, int len)
         {
             EnsureCapacity(_length + len);
             Array.Copy(bytes, offset, _buffer, _length, len);
@@ -152,7 +152,7 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>Append a byte array to the buffer</summary>
         /// <param name="bytes">a byte array</param>
-        public void Append(sbyte[] bytes)
+        public void Append(byte[] bytes)
         {
             Append(bytes, 0, bytes.Length);
         }
@@ -276,8 +276,8 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (requestedLength > _buffer.Length)
             {
-                sbyte[] oldBuf = _buffer;
-                _buffer = new sbyte[oldBuf.Length * 2];
+                byte[] oldBuf = _buffer;
+                _buffer = new byte[oldBuf.Length * 2];
                 Array.Copy(oldBuf, 0, _buffer, 0, oldBuf.Length);
             }
         }

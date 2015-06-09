@@ -74,7 +74,7 @@ namespace Com.Drew.Metadata
             Assert.AreEqual(Extensions.ConvertToString(value), _directory.GetString(tagType));
             Assert.AreEqual(new Rational(value, 1), _directory.GetRational(tagType));
             CollectionAssert.AreEqual(new int[] { value }, _directory.GetIntArray(tagType));
-            CollectionAssert.AreEqual(new sbyte[] { unchecked((sbyte)value) }, _directory.GetByteArray(tagType));
+            CollectionAssert.AreEqual(new byte[] { unchecked((byte)value) }, _directory.GetByteArray(tagType));
         }
 
         /// <exception cref="System.Exception"/>
@@ -132,7 +132,7 @@ namespace Com.Drew.Metadata
         {
             int[] ints = new int[] { 1, 2, 3, 4, 5 };
             _directory.SetIntArray(1, ints);
-            sbyte[] bytes = _directory.GetByteArray(1);
+            byte[] bytes = _directory.GetByteArray(1);
             Assert.IsNotNull(bytes);
             Assert.AreEqual(ints.Length, bytes.Length);
             Assert.AreEqual(1, bytes[0]);
@@ -142,7 +142,7 @@ namespace Com.Drew.Metadata
         [Test]
         public void TestSetStringGetInt()
         {
-            sbyte[] bytes = new sbyte[] { unchecked(0x01), unchecked(0x02), unchecked(0x03) };
+            byte[] bytes = new byte[] { unchecked(0x01), unchecked(0x02), unchecked(0x03) };
             _directory.SetString(1, Runtime.GetStringForBytes(bytes));
             Assert.AreEqual(unchecked(0x010203), _directory.GetInt(1));
         }

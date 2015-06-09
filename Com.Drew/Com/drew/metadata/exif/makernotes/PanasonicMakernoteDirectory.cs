@@ -560,7 +560,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public Face[] GetDetectedFaces()
         {
-            sbyte[] bytes = GetByteArray(TagFaceDetectionInfo);
+            byte[] bytes = GetByteArray(TagFaceDetectionInfo);
             if (bytes == null)
             {
                 return null;
@@ -591,7 +591,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public Face[] GetRecognizedFaces()
         {
-            sbyte[] bytes = GetByteArray(TagFaceRecognitionInfo);
+            byte[] bytes = GetByteArray(TagFaceRecognitionInfo);
             if (bytes == null)
             {
                 return null;

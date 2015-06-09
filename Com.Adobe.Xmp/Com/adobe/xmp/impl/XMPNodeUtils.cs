@@ -370,7 +370,7 @@ namespace Com.Adobe.Xmp.Impl
                                     }
                                     else
                                     {
-                                        var sbytes = value as sbyte[];
+                                        var sbytes = value as byte[];
                                         if (sbytes != null)
                                         {
                                             strValue = Xmp.XmpUtils.EncodeBase64(sbytes);

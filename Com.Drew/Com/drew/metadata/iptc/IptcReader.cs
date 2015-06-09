@@ -58,9 +58,9 @@ namespace Com.Drew.Metadata.Iptc
             yield return JpegSegmentType.Appd;
         }
 
-        public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)
+        public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
-            foreach (sbyte[] segmentBytes in segments)
+            foreach (byte[] segmentBytes in segments)
             {
                 // Ensure data starts with the IPTC marker byte
                 if (segmentBytes.Length != 0 && segmentBytes[0] == unchecked(0x1c))
@@ -161,7 +161,7 @@ namespace Com.Drew.Metadata.Iptc
             {
                 case IptcDirectory.TagCodedCharacterSet:
                 {
-                    sbyte[] bytes = reader.GetBytes(tagByteCount);
+                    byte[] bytes = reader.GetBytes(tagByteCount);
                     string charset = Iso2022Converter.ConvertIso2022CharsetToJavaCharset(bytes);
                     if (charset == null)
                     {
@@ -246,7 +246,7 @@ namespace Com.Drew.Metadata.Iptc
                 }
                 else
                 {
-                    sbyte[] bytes1 = reader.GetBytes(tagByteCount);
+                    byte[] bytes1 = reader.GetBytes(tagByteCount);
                     encoding = Iso2022Converter.GuessEncoding(bytes1);
                     @string = encoding != null ? Runtime.GetStringForBytes(bytes1, encoding) : Runtime.GetStringForBytes(bytes1);
                 }

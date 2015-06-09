@@ -25,9 +25,9 @@ namespace Sharpen
             return (float) _mValue;
         }
 
-        public virtual sbyte ByteValue()
+        public virtual byte ByteValue()
         {
-            return (sbyte) _mValue;
+            return (byte) _mValue;
         }
 
         public virtual int IntValue()
@@ -63,7 +63,7 @@ namespace Sharpen
 
         private static bool IsNumberType(object obj)
         {
-            return obj is sbyte
+            return obj is byte
                 || obj is byte
                 || obj is short
                 || obj is ushort

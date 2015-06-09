@@ -54,7 +54,7 @@ namespace Com.Drew.Metadata.Exif
         public void TestGetThumbnailData()
         {
             ExifThumbnailDirectory directory = ExifReaderTest.ProcessBytes<ExifThumbnailDirectory>("Tests/Data/withExif.jpg.app1");
-            sbyte[] thumbData = directory.GetThumbnailData();
+            byte[] thumbData = directory.GetThumbnailData();
             Assert.IsNotNull(thumbData);
             try
             {

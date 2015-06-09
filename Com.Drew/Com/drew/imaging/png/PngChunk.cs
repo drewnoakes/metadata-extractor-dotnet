@@ -9,9 +9,9 @@ namespace Com.Drew.Imaging.Png
         private readonly PngChunkType _chunkType;
 
         [NotNull]
-        private readonly sbyte[] _bytes;
+        private readonly byte[] _bytes;
 
-        public PngChunk([NotNull] PngChunkType chunkType, [NotNull] sbyte[] bytes)
+        public PngChunk([NotNull] PngChunkType chunkType, [NotNull] byte[] bytes)
         {
             _chunkType = chunkType;
             _bytes = bytes;
@@ -24,7 +24,7 @@ namespace Com.Drew.Imaging.Png
         }
 
         [NotNull]
-        public sbyte[] GetBytes()
+        public byte[] GetBytes()
         {
             return _bytes;
         }

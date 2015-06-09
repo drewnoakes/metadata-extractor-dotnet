@@ -64,7 +64,7 @@ namespace Com.Drew.Metadata.Webp
             return fourCc.Equals("VP8X") || fourCc.Equals("EXIF") || fourCc.Equals("ICCP") || fourCc.Equals("XMP ");
         }
 
-        public void ProcessChunk(string fourCc, sbyte[] payload)
+        public void ProcessChunk(string fourCc, byte[] payload)
         {
             //        System.out.println("Chunk " + fourCC + " " + payload.length + " bytes");
             if (fourCc.Equals("EXIF"))

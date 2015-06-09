@@ -45,13 +45,13 @@ namespace Com.Drew.Imaging.Riff
         /// <remarks>
         /// Gets whether this handler is interested in the specific chunk type.
         /// Returns <c>true</c> if the data should be copied into an array and passed
-        /// to <see cref="ProcessChunk(string, sbyte[])"/>, or <c>false</c> to avoid
+        /// to <see cref="ProcessChunk(string, byte[])"/>, or <c>false</c> to avoid
         /// the copy and skip to the next chunk in the file, if any.
         /// </remarks>
         /// <param name="fourCc">the four character code of this chunk</param>
         /// <returns>
         /// true if
-        /// <see cref="ProcessChunk(string, sbyte[])"/>
+        /// <see cref="ProcessChunk(string, byte[])"/>
         /// should be called, otherwise false
         /// </returns>
         bool ShouldAcceptChunk([NotNull] string fourCc);
@@ -69,6 +69,6 @@ namespace Com.Drew.Imaging.Riff
         /// </remarks>
         /// <param name="fourCc">the four character code of the chunk</param>
         /// <param name="payload">they payload of the chunk as a byte array</param>
-        void ProcessChunk([NotNull] string fourCc, [NotNull] sbyte[] payload);
+        void ProcessChunk([NotNull] string fourCc, [NotNull] byte[] payload);
     }
 }
