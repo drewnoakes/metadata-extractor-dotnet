@@ -69,11 +69,12 @@ namespace Com.Drew.Metadata.Xmp
         [NotNull]
         private const string SchemaExifTiffProperties = "http://ns.adobe.com/tiff/1.0/";
 
+//      [NotNull]
+//      private const string SchemaDublinCoreSpecificProperties = "http://purl.org/dc/elements/1.1/";
+
         [NotNull]
         public const string XmpJpegPreamble = "http://ns.adobe.com/xap/1.0/\x0";
 
-        //    @NotNull
-        //    private static final String SCHEMA_DUBLIN_CORE_SPECIFIC_PROPERTIES = "http://purl.org/dc/elements/1.1/";
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             yield return JpegSegmentType.App1;
