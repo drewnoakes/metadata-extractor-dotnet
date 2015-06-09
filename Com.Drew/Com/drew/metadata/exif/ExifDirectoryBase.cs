@@ -234,9 +234,9 @@ namespace Com.Drew.Metadata.Exif
         /// <summary>Indicates the Opto-Electric Conversion Function (OECF) specified in ISO 14524.</summary>
         /// <remarks>
         /// Indicates the Opto-Electric Conversion Function (OECF) specified in ISO 14524.
-        /// <para>
+        /// <para />
         /// OECF is the relationship between the camera optical input and the image values.
-        /// <para>
+        /// <para />
         /// The values are:
         /// <list type="bullet">
         /// <item>Two shorts, indicating respectively number of columns, and number of rows.</item>
@@ -435,7 +435,7 @@ namespace Com.Drew.Metadata.Exif
         /// This tag holds the Exif Makernote. Makernotes are free to be in any format, though they are often IFDs.
         /// To determine the format, we consider the starting bytes of the makernote itself and sometimes the
         /// camera model and make.
-        /// <para>
+        /// <para />
         /// The component count for this tag includes all of the bytes needed for the makernote.
         /// </remarks>
         public const int TagMakernote = unchecked(0x927C);

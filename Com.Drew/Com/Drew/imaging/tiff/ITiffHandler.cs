@@ -36,7 +36,7 @@ namespace Com.Drew.Imaging.Tiff
         /// <summary>Receives the 2-byte marker found in the TIFF header.</summary>
         /// <remarks>
         /// Receives the 2-byte marker found in the TIFF header.
-        /// <para>
+        /// <para />
         /// Implementations are not obligated to use this information for any purpose, though it may be useful for
         /// validation or perhaps differentiating the type of mapping to use for observed tags and IFDs.
         /// </remarks>

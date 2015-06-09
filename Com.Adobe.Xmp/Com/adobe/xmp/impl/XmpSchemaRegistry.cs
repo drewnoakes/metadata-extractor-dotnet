@@ -268,7 +268,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>Associates an alias name with an actual name.</summary>
         /// <remarks>
         /// Associates an alias name with an actual name.
-        /// <para>
+        /// <para />
         /// Define a alias mapping from one namespace/property to another. Both
         /// property names must be simple names. An alias can be a direct mapping,
         /// where the alias and actual have the same data type. It is also possible

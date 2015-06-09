@@ -26,7 +26,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 {
     /// <summary>
     /// Provides human-readable string representations of tag values stored in a <see cref="LeicaMakernoteDirectory"/>.
-    /// <para>
+    /// <para />
     /// Tag reference from: http://gvsoft.homedns.org/exif/makernote-leica-type1.html
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

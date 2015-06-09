@@ -27,7 +27,7 @@ namespace Com.Drew.Metadata
 {
     /// <summary>
     /// Defines an object capable of processing a particular type of metadata from a <see cref="IndexedReader"/>.
-    /// <para>
+    /// <para />
     /// Instances of this interface must be thread-safe and reusable.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

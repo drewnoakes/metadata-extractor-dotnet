@@ -27,7 +27,7 @@ namespace Com.Drew.Metadata.Jfif
     /// <summary>Provides human-readable string versions of the tags stored in a JfifDirectory.</summary>
     /// <remarks>
     /// Provides human-readable string versions of the tags stored in a JfifDirectory.
-    /// <para>
+    /// <para />
     /// More info at: http://en.wikipedia.org/wiki/JPEG_File_Interchange_Format
     /// </remarks>
     /// <author>Yuri Binev, Drew Noakes</author>

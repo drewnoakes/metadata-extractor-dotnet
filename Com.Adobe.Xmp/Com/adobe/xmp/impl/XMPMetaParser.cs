@@ -223,10 +223,10 @@ namespace Com.Adobe.Xmp.Impl
         /// is parsed (e.g. SVG). The XML parser counted all rdf:RDF and
         /// pxmp:XMP_Packet nodes, and kept a pointer to the last one. If there is
         /// more than one possible root use PickBestRoot to choose among them.
-        /// <para>
+        /// <para />
         /// If there is a root node, try to extract the version of the previous XMP
         /// toolkit.
-        /// <para>
+        /// <para />
         /// Pick the first x:xmpmeta among multiple root candidates. If there aren't
         /// any, pick the first bare rdf:RDF if that is allowed. The returned root is
         /// the rdf:RDF child if an x:xmpmeta element was chosen. The search is

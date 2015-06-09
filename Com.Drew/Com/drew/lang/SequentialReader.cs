@@ -179,7 +179,7 @@ namespace Com.Drew.Lang
         /// <summary>Gets a s15.16 fixed point float from the buffer.</summary>
         /// <remarks>
         /// Gets a s15.16 fixed point float from the buffer.
-        /// <para>
+        /// <para />
         /// This particular fixed point encoding has one sign bit, 15 numerator bits and 16 denominator bits.
         /// </remarks>
         /// <returns>the floating point value</returns>

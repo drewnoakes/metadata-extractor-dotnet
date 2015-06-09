@@ -35,16 +35,16 @@ namespace Com.Adobe.Xmp
         /// are always the top level namespace URI (the &quot;schema&quot; namespace) and the basic name
         /// of the property being referenced. See the introductory discussion of path expression usage
         /// for more information.
-        /// <para>
+        /// <para />
         /// All of the functions return an object inherited from <c>PropertyBase</c> or
         /// <c>null</c> if the property does not exists. The result object contains the value of
         /// the property and option flags describing the property. Arrays and the non-leaf levels of
         /// nodes do not have values.
-        /// <para>
+        /// <para />
         /// See
         /// <see cref="Com.Adobe.Xmp.Options.PropertyOptions"/>
         /// for detailed information about the options.
-        /// <para>
+        /// <para />
         /// This is the simplest property getter, mainly for top level simple properties or after using
         /// the path composition functions in XMPPathFactory.
         /// </remarks>
@@ -111,7 +111,7 @@ namespace Com.Adobe.Xmp
         /// <remarks>
         /// Provides access to fields within a nested structure. The namespace for the field is passed as
         /// a URI, you need not worry about the path string syntax.
-        /// <para>
+        /// <para />
         /// The names of fields should be XML qualified names, that is within an XML namespace. The path
         /// syntax for a qualified name uses the namespace prefix. This is unreliable since the prefix is
         /// never guaranteed. The URI is the formal name, the prefix is just a local shorthand in a given
@@ -147,12 +147,12 @@ namespace Com.Adobe.Xmp
         /// passed as a URI, you need not worry about the path string syntax. In many regards qualifiers
         /// are like struct fields. See the introductory discussion of qualified properties for more
         /// information.
-        /// <para>
+        /// <para />
         /// The names of qualifiers should be XML qualified names, that is within an XML namespace. The
         /// path syntax for a qualified name uses the namespace prefix. This is unreliable since the
         /// prefix is never guaranteed. The URI is the formal name, the prefix is just a local shorthand
         /// in a given sequence of XML text.
-        /// <para>
+        /// <para />
         /// <em>Note:</em> Qualifiers are only supported for simple leaf properties at this time.
         /// </remarks>
         /// <param name="schemaNs">The namespace URI for the struct. Has the same usage as in getProperty.</param>
@@ -175,7 +175,7 @@ namespace Com.Adobe.Xmp
         /// qualifier or <c>null</c> if the property does not exist. The name of the
         /// qualifier must be a single XML name, must not be <c>null</c> or the empty
         /// string. Has the same namespace prefix usage as the propName parameter.
-        /// <para>
+        /// <para />
         /// The value of the qualifier is only set if it has one (Arrays and non-leaf levels of
         /// structs do not have values).
         /// </returns>
@@ -194,17 +194,17 @@ namespace Com.Adobe.Xmp
         /// differences are in the form of this. The first two parameters are always the top level
         /// namespace URI (the <c>schema</c> namespace) and the basic name of the property being
         /// referenced. See the introductory discussion of path expression usage for more information.
-        /// <para>
+        /// <para />
         /// All of the functions take a string value for the property and option flags describing the
         /// property. The value must be Unicode in UTF-8 encoding. Arrays and non-leaf levels of structs
         /// do not have values. Empty arrays and structs may be created using appropriate option flags.
         /// All levels of structs that is assigned implicitly are created if necessary. appendArayItem
         /// implicitly creates the named array if necessary.
-        /// <para>
+        /// <para />
         /// See
         /// <see cref="Com.Adobe.Xmp.Options.PropertyOptions"/>
         /// for detailed information about the options.
-        /// <para>
+        /// <para />
         /// This is the simplest property setter, mainly for top level simple properties or after using
         /// the path composition functions in <see cref="XmpPathFactory"/>.
         /// </remarks>
@@ -617,7 +617,7 @@ namespace Com.Adobe.Xmp
         /// generic language. Passing "i" or "x" as the generic language is also considered poor practice
         /// but allowed. Advice from the W3C about the use of RFC 3066 language tags can be found at:
         /// http://www.w3.org/International/articles/language-tags/
-        /// <para>
+        /// <para />
         /// <em>Note:</em> RFC 3066 language tags must be treated in a case insensitive manner. The XMP
         /// Toolkit does this by normalizing their capitalization:
         /// <list type="bullet">

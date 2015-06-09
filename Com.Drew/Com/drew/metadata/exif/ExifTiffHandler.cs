@@ -37,7 +37,7 @@ namespace Com.Drew.Metadata.Exif
     /// <see cref="ITiffHandler"/>
     /// used for handling TIFF tags according to the Exif
     /// standard.
-    /// <para>
+    /// <para />
     /// Includes support for camera manufacturer makernotes.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

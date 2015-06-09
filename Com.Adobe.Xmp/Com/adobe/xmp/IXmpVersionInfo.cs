@@ -12,7 +12,7 @@ namespace Com.Adobe.Xmp
     /// <summary>XMP Toolkit Version Information.</summary>
     /// <remarks>
     /// XMP Toolkit Version Information.
-    /// <para>
+    /// <para />
     /// Version information for the XMP toolkit is stored in the jar-library and available through a
     /// runtime call, <see cref="XmpMetaFactory.GetVersionInfo()"/>, addition static version numbers are
     /// defined in "version.properties".

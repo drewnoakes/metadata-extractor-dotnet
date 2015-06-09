@@ -33,7 +33,7 @@ namespace Com.Drew.Metadata.Adobe
         /// <remarks>
         /// The convention for TAG_APP14_FLAGS0 and TAG_APP14_FLAGS1 is that 0 bits are benign.
         /// 1 bits in TAG_APP14_FLAGS0 pass information that is possibly useful but not essential for decoding.
-        /// <para>
+        /// <para />
         /// 0x8000 bit: Encoder used Blend=1 downsampling
         /// </remarks>
         public const int TagApp14Flags0 = 1;

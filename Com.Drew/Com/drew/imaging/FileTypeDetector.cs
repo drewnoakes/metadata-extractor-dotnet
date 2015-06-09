@@ -67,7 +67,7 @@ namespace Com.Drew.Imaging
         /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
         /// <remarks>
         /// Examines the a file's first bytes and estimates the file's type.
-        /// <para>
+        /// <para />
         /// Stream must be seekable and contain enough bytes for the most complexat least eight bytes.
         /// </remarks>
         /// <exception cref="System.IO.IOException">if an IO error occurred or the input stream ended unexpectedly.</exception>

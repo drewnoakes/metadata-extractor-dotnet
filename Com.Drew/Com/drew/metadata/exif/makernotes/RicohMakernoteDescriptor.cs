@@ -26,7 +26,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 {
     /// <summary>
     /// Provides human-readable string representations of tag values stored in a <see cref="RicohMakernoteDescriptor"/>.
-    /// <para>
+    /// <para />
     /// Some information about this makernote taken from here:
     /// http://www.ozhiker.com/electronics/pjmt/jpeg_info/ricoh_mn.html
     /// </summary>

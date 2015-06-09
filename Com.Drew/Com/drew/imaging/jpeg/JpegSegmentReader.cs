@@ -31,7 +31,7 @@ namespace Com.Drew.Imaging.Jpeg
     /// <summary>Performs read functions of JPEG files, returning specific file segments.</summary>
     /// <remarks>
     /// Performs read functions of JPEG files, returning specific file segments.
-    /// <para>
+    /// <para />
     /// JPEG files are composed of a sequence of consecutive JPEG 'segments'. Each is identified by one of a set of byte
     /// values, modelled in the
     /// <see cref="JpegSegmentType"/>
@@ -53,7 +53,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// Processes the provided JPEG data, and extracts the specified JPEG segments into a
         /// <see cref="JpegSegmentData"/>
         /// object.
-        /// <para>
+        /// <para />
         /// Will not return SOS (start of scan) or EOI (end of image) segments.
         /// </summary>
         /// <param name="filePath">a file from which the JPEG data will be read.</param>
@@ -74,7 +74,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// Processes the provided JPEG data, and extracts the specified JPEG segments into a
         /// <see cref="JpegSegmentData"/>
         /// object.
-        /// <para>
+        /// <para />
         /// Will not return SOS (start of scan) or EOI (end of image) segments.
         /// </summary>
         /// <param name="reader">

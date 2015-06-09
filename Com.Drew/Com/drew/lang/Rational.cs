@@ -265,31 +265,32 @@ namespace Com.Drew.Lang
         }
 
         /// <summary>
-        /// <para>Simplifies the <see cref="Rational"/> number.</para>
-        /// <para>
-        /// Prime number series: 1, 2, 3, 5, 7, 9, 11, 13, 17</para>
-        /// <para>
+        /// Simplifies the <see cref="Rational"/> number.
+        /// </summary>
+        /// <remarks>
+        /// Prime number series: 1, 2, 3, 5, 7, 9, 11, 13, 17
+        /// <para />
         /// To reduce a rational, need to see if both numerator and denominator are divisible
         /// by a common factor.  Using the prime number series in ascending order guarantees
-        /// the minimum number of checks required.</para>
-        /// <para>
+        /// the minimum number of checks required.
+        /// <para />
         /// However, generating the prime number series seems to be a hefty task.  Perhaps
         /// it's simpler to check if both d &amp; n are divisible by all numbers from 2
         /// <literal>-&gt;</literal>
         /// (Math.min(denominator, numerator) / 2).  In doing this, one can check for 2
         /// and 5 once, then ignore all even numbers, and all numbers ending in 0 or 5.
-        /// This leaves four numbers from every ten to check.</para>
-        /// <para>
-        /// Therefore, the max number of pairs of modulus divisions required will be:</para>
-        /// <pre><c>
+        /// This leaves four numbers from every ten to check.
+        /// <para />
+        /// Therefore, the max number of pairs of modulus divisions required will be:
+        /// <code>
         ///  4   Math.min(denominator, numerator) - 1
         /// -- * ------------------------------------ + 2
         /// 10                    2
         ///      Math.min(denominator, numerator) - 1
         ///    = ------------------------------------ + 2
         ///                       5
-        /// </c></pre>
-        /// </summary>
+        /// </code>
+        /// </remarks>
         /// <returns>
         /// a simplified instance, or if the Rational could not be simplified,
         /// returns itself (unchanged)

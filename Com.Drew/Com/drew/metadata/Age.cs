@@ -29,7 +29,7 @@ namespace Com.Drew.Metadata
     /// <summary>Represents an age in years, months, days, hours, minutes and seconds.</summary>
     /// <remarks>
     /// Represents an age in years, months, days, hours, minutes and seconds.
-    /// <para>
+    /// <para />
     /// Used by certain Panasonic cameras which have face recognition features.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>

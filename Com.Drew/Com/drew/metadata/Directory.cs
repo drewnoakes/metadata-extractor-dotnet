@@ -812,7 +812,7 @@ namespace Com.Drew.Metadata
         /// <summary>Returns the specified tag's value as a java.util.Date.</summary>
         /// <remarks>
         /// Returns the specified tag's value as a java.util.Date.  If the value is unset or cannot be converted, <c>null</c> is returned.
-        /// <para>
+        /// <para />
         /// If the underlying value is a <see cref="string"/>, then attempts will be made to parse the string as though it is in
         /// the <see cref="System.TimeZoneInfo"/> represented by the <paramref name="timeZone"/> parameter (if it is non-null).  Note that this parameter
         /// is only considered if the underlying value is a string and parsing occurs, otherwise it has no effect.

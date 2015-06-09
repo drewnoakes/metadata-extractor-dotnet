@@ -117,10 +117,10 @@ namespace Com.Adobe.Xmp
             Impl.XmpUtils.RemoveProperties(xmp, schemaNs, propName, doAllProperties, includeAliases);
         }
 
-        /// <summary><para>Append properties from one XMP object to another.</summary>
+        /// <summary>Append properties from one XMP object to another.</summary>
         /// <remarks>
-        /// <para>Append properties from one XMP object to another.
-        /// <para>XMPUtils#appendProperties was created to support the File Info dialog's Append button, and
+        /// Append properties from one XMP object to another.
+        /// <para />XMPUtils#appendProperties was created to support the File Info dialog's Append button, and
         /// has been been generalized somewhat from those specific needs. It appends information from one
         /// XMP object (source) to another (dest). The default operation is to append only external
         /// properties that do not already exist in the destination. The flag
@@ -144,7 +144,7 @@ namespace Com.Adobe.Xmp
         /// values the same as non-empty values. An empty value is any of a simple empty string, an array
         /// with no items, or a struct with no fields. Qualifiers are ignored.
         /// </list>
-        /// <para>The detailed behavior is defined by the following pseudo-code:
+        /// <para />The detailed behavior is defined by the following pseudo-code:
         /// <blockquote>
         /// <pre>
         /// appendProperties ( sourceXMP, destXMP, doAllProperties,
@@ -174,11 +174,11 @@ namespace Com.Adobe.Xmp
         /// copy new items by value into the destination, ignoring order and duplicates
         /// </pre>
         /// </blockquote>
-        /// <para><em>Note:</em> appendProperties can be expensive if replaceOldValues is not passed and
+        /// <para /><em>Note:</em> appendProperties can be expensive if replaceOldValues is not passed and
         /// the XMP contains large arrays. The array item checking described above is n-squared.
         /// Each source item is checked to see if it already exists in the destination,
         /// without regard to order or duplicates.
-        /// <para>Simple items are compared by value and "xml:lang" qualifier, other qualifiers are ignored.
+        /// <para />Simple items are compared by value and "xml:lang" qualifier, other qualifiers are ignored.
         /// Structs are recursively compared by field names, without regard to field order. Arrays are
         /// compared by recursively comparing all items.
         /// </remarks>

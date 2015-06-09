@@ -57,7 +57,7 @@ namespace Com.Drew.Lang
         /// <summary>Gets the byte value at the specified byte <c>index</c>.</summary>
         /// <remarks>
         /// Gets the byte value at the specified byte <c>index</c>.
-        /// <para>
+        /// <para />
         /// Implementations should not perform any bounds checking in this method. That should be performed
         /// in <c>validateIndex</c> and <c>isValidIndex</c>.
         /// </remarks>
@@ -82,7 +82,7 @@ namespace Com.Drew.Lang
         /// <remarks>
         /// Ensures that the buffered bytes extend to cover the specified index. If not, an attempt is made
         /// to read to that point.
-        /// <para>
+        /// <para />
         /// If the stream ends before the point is reached, a
         /// <see cref="BufferBoundsException"/>
         /// is raised.
@@ -98,13 +98,13 @@ namespace Com.Drew.Lang
         /// <summary>Returns the length of the data source in bytes.</summary>
         /// <remarks>
         /// Returns the length of the data source in bytes.
-        /// <para>
+        /// <para />
         /// This is a simple operation for implementations (such as
         /// <see cref="IndexedSeekingReader"/>
         /// and
         /// <see cref="ByteArrayReader"/>
         /// ) that have the entire data source available.
-        /// <para>
+        /// <para />
         /// Users of this method must be aware that sequentially accessed implementations such as
         /// <see cref="IndexedCapturingReader"/>
         /// will have to read and buffer the entire data source in
@@ -292,7 +292,7 @@ namespace Com.Drew.Lang
         /// <summary>Gets a s15.16 fixed point float from the buffer.</summary>
         /// <remarks>
         /// Gets a s15.16 fixed point float from the buffer.
-        /// <para>
+        /// <para />
         /// This particular fixed point encoding has one sign bit, 15 numerator bits and 16 denominator bits.
         /// </remarks>
         /// <returns>the floating point value</returns>

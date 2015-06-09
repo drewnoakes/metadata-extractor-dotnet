@@ -26,7 +26,7 @@ namespace Com.Drew.Metadata.Iptc
 {
     /// <summary>
     /// Provides human-readable string representations of tag values stored in a <see cref="IptcDirectory"/>.
-    /// <para>
+    /// <para />
     /// As the IPTC directory already stores values as strings, this class simply returns the tag's value.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

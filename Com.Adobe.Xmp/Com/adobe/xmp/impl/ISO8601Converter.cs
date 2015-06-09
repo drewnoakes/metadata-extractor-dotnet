@@ -44,7 +44,7 @@ namespace Com.Adobe.Xmp.Impl
         /// Note that ISO 8601 does not seem to allow years less than 1000 or greater
         /// than 9999. We allow any year, even negative ones. The year is formatted
         /// as "%.4d".
-        /// <para>
+        /// <para />
         /// <em>Note:</em> Tolerate missing TZD, assume is UTC. Photoshop 8 writes
         /// dates like this for exif:GPSTimeStamp.<br />
         /// <em>Note:</em> DOES NOT APPLY ANYMORE.
@@ -260,9 +260,10 @@ namespace Com.Adobe.Xmp.Impl
         /// <item>s     = one or more digits representing a decimal fraction of a second
         /// <item>TZD     = time zone designator (Z or +hh:mm or -hh:mm)
         /// </list>
-        /// <para>
+        /// <para />
         /// <em>Note:</em> ISO 8601 does not seem to allow years less than 1000 or greater than 9999.
-        /// We allow any year, even negative ones. The year is formatted as "%.4d".<para>
+        /// We allow any year, even negative ones. The year is formatted as "%.4d".
+        /// <para />
         /// <em>Note:</em> Fix for bug 1269463 (silently fix out of range values) included in parsing.
         /// The quasi-bogus "time only" values from Photoshop CS are not supported.
         /// </remarks>

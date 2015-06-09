@@ -97,7 +97,7 @@ namespace Com.Drew.Metadata
         /// <remarks>
         /// Takes a series of 4 bytes from the specified offset, and converts these to a
         /// well-known version number, where possible.
-        /// <para>
+        /// <para />
         /// Two different formats are processed:
         /// <list type="bullet">
         /// <item>[30 32 31 30] -&gt; 2.10</item>

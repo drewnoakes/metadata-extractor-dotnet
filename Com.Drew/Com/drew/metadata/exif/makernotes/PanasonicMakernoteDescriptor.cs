@@ -29,7 +29,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 {
     /// <summary>
     /// Provides human-readable string representations of tag values stored in a <see cref="PanasonicMakernoteDirectory"/>.
-    /// <para>
+    /// <para />
     /// Some information about this makernote taken from here:
     /// <list type="bullet">
     /// <item><a href="http://www.ozhiker.com/electronics/pjmt/jpeg_info/panasonic_mn.html">http://www.ozhiker.com/electronics/pjmt/jpeg_info/panasonic_mn.html</a></item>

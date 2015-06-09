@@ -28,7 +28,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// <summary>Describes tags specific to certain Leica cameras.</summary>
     /// <remarks>
     /// Describes tags specific to certain Leica cameras.
-    /// <para>
+    /// <para />
     /// Tag reference from: http://gvsoft.homedns.org/exif/makernote-leica-type1.html
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>

@@ -35,7 +35,7 @@ namespace Com.Drew.Metadata.Xmp
     /// <summary>Extracts XMP data from a JPEG header segment.</summary>
     /// <remarks>
     /// Extracts XMP data from a JPEG header segment.
-    /// <para>
+    /// <para />
     /// The extraction is done with Adobe's XmpCore-Library (XMP-Toolkit)
     /// Copyright (c) 1999 - 2007, Adobe Systems Incorporated All rights reserved.
     /// </remarks>
@@ -115,7 +115,7 @@ namespace Com.Drew.Metadata.Xmp
 
         /// <summary>
         /// Performs the XMP data extraction, adding found values to the specified instance of <see cref="Com.Drew.Metadata.Metadata"/>.
-        /// <para>
+        /// <para />
         /// The extraction is done with Adobe's XMPCore library.
         /// </summary>
         public void Extract([NotNull] byte[] xmpBytes, [NotNull] Metadata metadata)
@@ -138,7 +138,7 @@ namespace Com.Drew.Metadata.Xmp
 
         /// <summary>
         /// Performs the XMP data extraction, adding found values to the specified instance of <see cref="Com.Drew.Metadata.Metadata"/>.
-        /// <para>
+        /// <para />
         /// The extraction is done with Adobe's XMPCore library.
         /// </summary>
         public void Extract([NotNull] string xmpString, [NotNull] Metadata metadata)

@@ -16,7 +16,7 @@ namespace Com.Drew.Imaging.Png
         /// <see cref="PngChunk"/>
         /// that contains basic information about the PNG image.
         /// This must be the first chunk in the data sequence, and may only occur once.
-        /// <para>
+        /// <para />
         /// The format is:
         /// <list type="bullet">
         /// <item><b>pixel width</b> 4 bytes, unsigned and greater than zero</item>
@@ -40,7 +40,7 @@ namespace Com.Drew.Imaging.Png
         /// <see cref="PngColorType"/>
         /// of <c>IndexedColor</c>,
         /// and may only occur once in the PNG data sequence.
-        /// <para>
+        /// <para />
         /// The chunk contains between one and 256 entries, each of three bytes:
         /// <list type="bullet">
         /// <item><b>red</b> 1 byte</item>
@@ -84,7 +84,7 @@ namespace Com.Drew.Imaging.Png
         /// <see cref="PngChunk"/>
         /// that contains textual data, having first a keyword and then a value.
         /// If multiple text data keywords are needed, then multiple chunks are included in the PNG data stream.
-        /// <para>
+        /// <para />
         /// The format is:
         /// <list type="bullet">
         /// <item><b>keyword</b> 1-79 bytes</item>

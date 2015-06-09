@@ -26,14 +26,14 @@ namespace Com.Adobe.Xmp
     /// namespace URI should always end in an XML name separator such as '/' or '#'.
     /// This is because some forms of RDF shorthand catenate a namespace URI with an
     /// element name to form a new URI.
-    /// <para>
+    /// <para />
     /// <b>Aliases</b> in XMP serve the same purpose as Windows file shortcuts,
     /// Macintosh file aliases, or UNIX file symbolic links. The aliases are simply
     /// multiple names for the same property. One distinction of XMP aliases is that
     /// they are ordered, there is an alias name pointing to an actual name. The
     /// primary significance of the actual name is that it is the preferred name for
     /// output, generally the most widely recognized name.
-    /// <para>
+    /// <para />
     /// The names that can be aliased in XMP are restricted. The alias must be a top
     /// level property name, not a field within a structure or an element within an
     /// array. The actual may be a top level property name, the first element within
@@ -55,7 +55,7 @@ namespace Com.Adobe.Xmp
         /// created from the suggested one. The actual registeed prefix is always
         /// returned. The function result tells if the registered prefix is the
         /// suggested one.
-        /// <para>
+        /// <para />
         /// Note: No checking is presently done on either the URI or the prefix.
         /// </remarks>
         /// <param name="namespaceUri">The URI for the namespace. Must be a valid XML URI.</param>
@@ -75,7 +75,7 @@ namespace Com.Adobe.Xmp
         /// <summary>Obtain the prefix for a registered namespace URI.</summary>
         /// <remarks>
         /// Obtain the prefix for a registered namespace URI.
-        /// <para>
+        /// <para />
         /// It is not an error if the namespace URI is not registered.
         /// </remarks>
         /// <param name="namespaceUri">
@@ -88,7 +88,7 @@ namespace Com.Adobe.Xmp
         /// <summary>Obtain the URI for a registered namespace prefix.</summary>
         /// <remarks>
         /// Obtain the URI for a registered namespace prefix.
-        /// <para>
+        /// <para />
         /// It is not an error if the namespace prefix is not registered.
         /// </remarks>
         /// <param name="namespacePrefix">
@@ -113,10 +113,10 @@ namespace Com.Adobe.Xmp
         /// <summary>Deletes a namespace from the registry.</summary>
         /// <remarks>
         /// Deletes a namespace from the registry.
-        /// <para>
+        /// <para />
         /// Does nothing if the URI is not registered, or if the namespaceURI
         /// parameter is null or the empty string.
-        /// <para>
+        /// <para />
         /// Note: Not yet implemented.
         /// </remarks>
         /// <param name="namespaceUri">The URI for the namespace.</param>

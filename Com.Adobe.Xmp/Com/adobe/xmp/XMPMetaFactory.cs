@@ -50,7 +50,7 @@ namespace Com.Adobe.Xmp
         /// object into RDF. The input for parsing may be any valid Unicode
         /// encoding. ISO Latin-1 is also recognized, but its use is strongly discouraged. Serialization
         /// is always as UTF-8.
-        /// <para>
+        /// <para />
         /// <c>parseFromBuffer()</c> parses RDF from an <c>Stream</c>. The encoding
         /// is recognized automatically.
         /// </remarks>
@@ -59,9 +59,8 @@ namespace Com.Adobe.Xmp
         /// Options controlling the parsing.<br />
         /// The available options are:
         /// <list type="bullet">
-        /// <item> XMP_REQUIRE_XMPMETA - The &lt;x:xmpmeta&gt; XML element is required around
-        /// <tt>&lt;rdf:RDF&gt;</tt>.
-        /// <item> XMP_STRICT_ALIASING - Do not reconcile alias differences, throw an exception.
+        ///   <item>XMP_REQUIRE_XMPMETA - The &lt;x:xmpmeta&gt; XML element is required around <tt>&lt;rdf:RDF&gt;</tt>.</item>
+        ///   <item>XMP_STRICT_ALIASING - Do not reconcile alias differences, throw an exception.</item>
         /// </list>
         /// <em>Note:</em>The XMP_STRICT_ALIASING option is not yet implemented.
         /// </param>
