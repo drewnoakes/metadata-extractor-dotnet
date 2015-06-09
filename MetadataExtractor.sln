@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpen", "Sharpen\Sharpen.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleReader", "SampleReader\SampleReader.csproj", "{D54F78E2-B04C-4341-9358-31125D953AF8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8CF154EA-6A2C-4BF4-B263-78758F834192}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{8CF154EA-6A2C-4BF4-B263-78758F834192}"
 	ProjectSection(SolutionItems) = preProject
 		HowToConvert.md = HowToConvert.md
 		LICENSE = LICENSE
@@ -24,6 +24,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileLabeller", "FileLabeller\FileLabeller.csproj", "{CEBF4390-E9B8-4EB1-9B33-C2C087C9DADA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpen.Tests", "Sharpen.Tests\Sharpen.Tests.csproj", "{94FD0861-1BAA-4488-8898-DA77875B2264}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{FA64D44E-5E0C-4CD4-89D8-53BCFEBD18BE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5F8EBA76-F7AC-4575-B1B2-2123F9148481}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,5 +66,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{07AFC815-EDBB-4CF8-B555-86B6CADE7D0F} = {5F8EBA76-F7AC-4575-B1B2-2123F9148481}
+		{D54F78E2-B04C-4341-9358-31125D953AF8} = {FA64D44E-5E0C-4CD4-89D8-53BCFEBD18BE}
+		{CEBF4390-E9B8-4EB1-9B33-C2C087C9DADA} = {FA64D44E-5E0C-4CD4-89D8-53BCFEBD18BE}
+		{94FD0861-1BAA-4488-8898-DA77875B2264} = {5F8EBA76-F7AC-4575-B1B2-2123F9148481}
 	EndGlobalSection
 EndGlobal
