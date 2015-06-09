@@ -100,7 +100,7 @@ namespace Com.Drew.Metadata.Iptc
                     // offset==length at this point, which is not worth logging as an error.
                     if (offset != length)
                     {
-                        directory.AddError("Invalid IPTC tag marker at offset " + (offset - 1) + ". Expected '0x1c' but got '0x" + Extensions.ToHexString(startByte) + "'.");
+                        directory.AddError(string.Format("Invalid IPTC tag marker at offset {0}. Expected '0x1c' but got '0x{1:X}'.", offset - 1, startByte));
                     }
                     return;
                 }

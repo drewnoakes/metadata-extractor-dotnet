@@ -336,11 +336,6 @@ namespace Sharpen
             return (((dateTimeOffset.Ticks - dateTimeOffset.Offset.Ticks) - EpochTicks)/TimeSpan.TicksPerMillisecond);
         }
 
-        public static string ToHexString(int val)
-        {
-            return Convert.ToString(val, 16);
-        }
-
         public static string ConvertToString(int val)
         {
             return val.ToString();

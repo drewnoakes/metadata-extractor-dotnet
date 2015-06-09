@@ -54,22 +54,13 @@ namespace Com.Drew.Metadata
 
         /// <summary>
         /// Gets the tag type in hex notation as a String with padded leading
-        /// zeroes if necessary (i.e.
-        /// </summary>
-        /// <remarks>
-        /// Gets the tag type in hex notation as a String with padded leading
         /// zeroes if necessary (i.e. <c>0x100E</c>).
-        /// </remarks>
+        /// </summary>
         /// <returns>the tag type as a string in hexadecimal notation</returns>
         [NotNull]
         public string GetTagTypeHex()
         {
-            string hex = Extensions.ToHexString(_tagType);
-            while (hex.Length < 4)
-            {
-                hex = "0" + hex;
-            }
-            return "0x" + hex;
+            return _tagType.ToString("X4");
         }
 
         /// <summary>

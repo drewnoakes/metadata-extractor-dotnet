@@ -63,7 +63,7 @@ namespace Com.Drew.Metadata.Exif
             // for RW2 files
             if (marker != standardTiffMarker && marker != olympusRawTiffMarker && marker != olympusRawTiffMarker2 && marker != panasonicRawTiffMarker)
             {
-                throw new TiffProcessingException("Unexpected TIFF marker: 0x" + Extensions.ToHexString(marker));
+                throw new TiffProcessingException(string.Format("Unexpected TIFF marker: 0x{0:X}", marker));
             }
         }
 

@@ -21,7 +21,6 @@
  */
 
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata
 {
@@ -45,12 +44,7 @@ namespace Com.Drew.Metadata
         [NotNull]
         public virtual string GetTagName(int tagType)
         {
-            string hex = Extensions.ToHexString(tagType).ToUpper();
-            while (hex.Length < 4)
-            {
-                hex = "0" + hex;
-            }
-            return "Unknown tag 0x" + hex;
+            return string.Format("Unknown tag 0x{0:X4}", tagType);
         }
     }
 }

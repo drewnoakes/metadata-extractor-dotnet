@@ -228,14 +228,14 @@ namespace Com.Drew.Imaging
                         }
                         if (markdownFormat)
                         {
-                            Console.Out.WriteLine("{0}|0x{1}|{2}|{3}", directoryName, Extensions.ToHexString(tag.GetTagType()), tagName, description);
+                            Console.Out.WriteLine("{0}|0x{1:X}|{2}|{3}", directoryName, tag.GetTagType(), tagName, description);
                         }
                         else
                         {
                             // simple formatting
                             if (showHex)
                             {
-                                Console.Out.WriteLine("[{0} - {1}] {2} = {3}", directoryName, tag.GetTagTypeHex(), tagName, description);
+                                Console.Out.WriteLine("[{0} - {1:X4}] {2} = {3}", directoryName, tag.GetTagType(), tagName, description);
                             }
                             else
                             {

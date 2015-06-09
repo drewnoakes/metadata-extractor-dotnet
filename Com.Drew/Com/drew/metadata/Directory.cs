@@ -1045,10 +1045,7 @@ namespace Com.Drew.Metadata
             string value;
             if (nameMap.TryGetValue(tagType, out value))
                 return value;
-            string hex = Extensions.ToHexString(tagType);
-            while (hex.Length < 4)
-                hex = "0" + hex;
-            return "Unknown tag (0x" + hex + ")";
+            return string.Format("Unknown tag (0x{0:X4})", tagType);
         }
 
         /// <summary>Gets whether the specified tag is known by the directory and has a name.</summary>

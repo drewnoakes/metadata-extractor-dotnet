@@ -146,7 +146,7 @@ namespace Com.Adobe.Xmp.Options
         /// <returns>Returns the options as hex bitmask.</returns>
         public override string ToString()
         {
-            return "0x" + Extensions.ToHexString(_options);
+            return string.Format("0x{0:X}", _options);
         }
 
         /// <summary>To be implemeted by inheritants.</summary>
@@ -193,7 +193,7 @@ namespace Com.Adobe.Xmp.Options
             }
             else
             {
-                throw new XmpException("The option bit(s) 0x" + Extensions.ToHexString(invalidOptions) + " are invalid!", XmpErrorCode.BadOptions);
+                throw new XmpException(string.Format("The option bit(s) 0x{0:X} are invalid!", invalidOptions), XmpErrorCode.BadOptions);
             }
         }
 

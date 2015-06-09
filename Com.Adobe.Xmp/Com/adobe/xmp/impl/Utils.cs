@@ -453,9 +453,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 // write control chars escaped,
                 // if there are others than tab, LF and CR the xml will become invalid.
-                buffer.Append("&#x");
-                buffer.Append(Extensions.ToHexString(c).ToUpper());
-                buffer.Append(';');
+                buffer.AppendFormat("&#x{0:X};", (int)c);
             }
             return buffer.ToString();
         }

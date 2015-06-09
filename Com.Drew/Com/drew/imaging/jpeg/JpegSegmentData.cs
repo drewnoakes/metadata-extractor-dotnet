@@ -65,7 +65,7 @@ namespace Com.Drew.Imaging.Jpeg
                 JpegSegmentType segmentType = JpegSegmentType.FromByte(segmentTypeByte);
                 if (segmentType == null)
                 {
-                    throw new InvalidOperationException("Should not have a segmentTypeByte that is not in the enum: " + Extensions.ToHexString(segmentTypeByte));
+                    throw new InvalidOperationException(string.Format("Should not have a segmentTypeByte that is not in the enum: 0x{0:X}", segmentTypeByte));
                 }
                 segmentTypes.Add(segmentType);
             }

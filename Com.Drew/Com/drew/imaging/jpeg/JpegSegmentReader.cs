@@ -99,7 +99,7 @@ namespace Com.Drew.Imaging.Jpeg
             int magicNumber = reader.GetUInt16();
             if (magicNumber != unchecked(0xFFD8))
             {
-                throw new JpegProcessingException("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x" + Extensions.ToHexString(magicNumber));
+                throw new JpegProcessingException(string.Format("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x{0:X}", magicNumber));
             }
             ICollection<byte> segmentTypeBytes = null;
             if (segmentTypes != null)
@@ -119,7 +119,7 @@ namespace Com.Drew.Imaging.Jpeg
                 // We must have at least one 0xFF byte
                 if (segmentIdentifier != unchecked(0xFF))
                 {
-                    throw new JpegProcessingException("Expected JPEG segment start identifier 0xFF, not 0x" + Extensions.ToHexString(segmentIdentifier).ToUpper());
+                    throw new JpegProcessingException(string.Format("Expected JPEG segment start identifier 0xFF, not 0x{0:X}", segmentIdentifier));
                 }
                 // Read until we have a non-0xFF byte. This identifies the segment type.
                 byte segmentType = reader.GetInt8();
