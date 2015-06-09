@@ -45,11 +45,6 @@ namespace Sharpen
             }
         }
 
-        public static string Decode(this Encoding e, ByteBuffer buffer)
-        {
-            return e.Decode(buffer.Array(), buffer.ArrayOffset() + buffer.Position(), buffer.Limit() - buffer.Position());
-        }
-
         [CanBeNull]
         public static TU GetOrNull<T, TU>(this IDictionary<T, TU> d, T key) where TU : class
         {
