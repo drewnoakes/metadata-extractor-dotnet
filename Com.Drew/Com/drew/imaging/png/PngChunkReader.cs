@@ -71,7 +71,7 @@ namespace Com.Drew.Imaging.Png
                 reader.Skip(4);
                 if (willStoreChunk && seenChunkTypes.Contains(chunkType) && !chunkType.AreMultipleAllowed())
                 {
-                    throw new PngProcessingException(Extensions.StringFormat("Observed multiple instances of PNG chunk '%s', for which multiples are not allowed", chunkType));
+                    throw new PngProcessingException(string.Format("Observed multiple instances of PNG chunk '{0}', for which multiples are not allowed", chunkType));
                 }
                 if (chunkType.Equals(PngChunkType.Ihdr))
                 {
@@ -81,7 +81,7 @@ namespace Com.Drew.Imaging.Png
                 {
                     if (!seenImageHeader)
                     {
-                        throw new PngProcessingException(Extensions.StringFormat("First chunk should be '%s', but '%s' was observed", PngChunkType.Ihdr, chunkType));
+                        throw new PngProcessingException(string.Format("First chunk should be '{0}', but '{1}' was observed", PngChunkType.Ihdr, chunkType));
                     }
                 }
                 if (chunkType.Equals(PngChunkType.Iend))

@@ -30,10 +30,9 @@ namespace Sharpen
             return Encoding.UTF8.GetString(ToByteArrayInternal());
         }
 
-        public string ToString(string encoding)
+        public string ToString(Encoding encoding)
         {
-            //  TODO: check encoding
-            return Encoding.GetEncoding(encoding).GetString(ToByteArrayInternal());
+            return encoding.GetString(ToByteArrayInternal());
         }
     }
 }

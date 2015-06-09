@@ -71,9 +71,6 @@
     <Compile Include="ListIterator.cs" />
     <Compile Include="Number.cs" />
     <Compile Include="OutputStream.cs" />
-    <Compile Include="OutputStreamWriter.cs" />
-    <Compile Include="PrintStream.cs" />
-    <Compile Include="PrintWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PushbackReader.cs" />
     <Compile Include="RandomAccessFile.cs" />

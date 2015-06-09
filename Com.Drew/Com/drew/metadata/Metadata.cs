@@ -138,7 +138,7 @@ namespace Com.Drew.Metadata
         public override string ToString()
         {
             int count = GetDirectoryCount();
-            return Extensions.StringFormat("Metadata (%d %s)", count, count == 1 ? "directory" : "directories");
+            return string.Format("Metadata ({0} {1})", count, count == 1 ? "directory" : "directories");
         }
 
         [CanBeNull]

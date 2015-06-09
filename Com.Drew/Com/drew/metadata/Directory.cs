@@ -1098,7 +1098,7 @@ namespace Com.Drew.Metadata
 
         public override string ToString()
         {
-            return Extensions.StringFormat("%s Directory (%d %s)", GetName(), TagMap.Count, TagMap.Count == 1 ? "tag" : "tags");
+            return string.Format("{0} Directory ({1} {2})", GetName(), TagMap.Count, TagMap.Count == 1 ? "tag" : "tags");
         }
     }
 }

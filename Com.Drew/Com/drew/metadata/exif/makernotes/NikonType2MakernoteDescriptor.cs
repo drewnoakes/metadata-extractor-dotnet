@@ -427,14 +427,21 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public string GetLensDescription()
         {
             Rational[] values = Directory.GetRationalArray(NikonType2MakernoteDirectory.TagLens);
-            return values == null ? null : values.Length < 4 ? Directory.GetString(NikonType2MakernoteDirectory.TagLens) : Extensions.StringFormat("%d-%dmm f/%.1f-%.1f", values[0].IntValue(), values[1].IntValue(), values[2].FloatValue(), values
-                [3].FloatValue());
+            return values == null
+                ? null
+                : values.Length < 4
+                    ? Directory.GetString(NikonType2MakernoteDirectory.TagLens)
+                    : string.Format("{0}-{1}mm f/{2:0.#}-{3:0.#}",
+                        values[0].IntValue(),
+                        values[1].IntValue(),
+                        values[2].FloatValue(),
+                        values[3].FloatValue());
         }
 
         [CanBeNull]
         public string GetHueAdjustmentDescription()
         {
-            return GetFormattedString(NikonType2MakernoteDirectory.TagCameraHueAdjustment, "%s degrees");
+            return GetFormattedString(NikonType2MakernoteDirectory.TagCameraHueAdjustment, "{0} degrees");
         }
 
         [CanBeNull]

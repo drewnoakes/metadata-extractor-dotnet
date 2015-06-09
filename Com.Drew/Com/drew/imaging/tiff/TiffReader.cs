@@ -464,7 +464,7 @@ namespace Com.Drew.Imaging.Tiff
 
                 default:
                 {
-                    handler.Error(Extensions.StringFormat("Unknown format code %d for tag %d", formatCode, tagId));
+                    handler.Error(string.Format("Unknown format code {0} for tag {1}", formatCode, tagId));
                     break;
                 }
             }

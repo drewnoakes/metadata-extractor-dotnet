@@ -81,7 +81,7 @@ namespace Com.Drew.Lang
             long skippedCount = SkipInternal(n);
             if (skippedCount != n)
             {
-                throw new EofException(Extensions.StringFormat("Unable to skip. Requested %d bytes but skipped %d.", n, skippedCount));
+                throw new EofException(string.Format("Unable to skip. Requested {0} bytes but skipped {1}.", n, skippedCount));
             }
         }
 

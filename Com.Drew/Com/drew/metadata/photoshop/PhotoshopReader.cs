@@ -155,7 +155,7 @@ namespace Com.Drew.Metadata.Photoshop
                     }
                     if (tagType >= unchecked(0x0fa0) && tagType <= unchecked(0x1387))
                     {
-                        PhotoshopDirectory.TagNameMap.Put(tagType, Extensions.StringFormat("Plug-in %d Data", tagType - unchecked(0x0fa0) + 1));
+                        PhotoshopDirectory.TagNameMap.Put(tagType, string.Format("Plug-in {0} Data", tagType - unchecked(0x0fa0) + 1));
                     }
                 }
                 catch (Exception ex)

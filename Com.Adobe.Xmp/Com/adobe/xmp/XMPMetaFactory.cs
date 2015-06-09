@@ -195,7 +195,7 @@ namespace Com.Adobe.Xmp
                     catch (Exception e)
                     {
                         // EMTPY, severe error would be detected during the tests
-                        Console.Out.Println(e);
+                        Console.Out.WriteLine(e);
                     }
                 }
                 return _versionInfo;

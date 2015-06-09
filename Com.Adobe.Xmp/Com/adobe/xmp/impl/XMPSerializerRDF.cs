@@ -61,7 +61,7 @@ namespace Com.Adobe.Xmp.Impl
         private CountOutputStream _outputStream;
 
         /// <summary>this writer is used to do the actual serialization</summary>
-        private OutputStreamWriter _writer;
+        private StreamWriter _writer;
 
         /// <summary>the stored serialization options</summary>
         private SerializeOptions _options;
@@ -90,11 +90,11 @@ namespace Com.Adobe.Xmp.Impl
             try
             {
                 _outputStream = new CountOutputStream(@out);
-                _writer = new OutputStreamWriter(_outputStream, options.GetEncoding());
+                _writer = new StreamWriter(_outputStream, options.GetEncoding());
                 _xmp = (XmpMeta)xmp;
                 _options = options;
                 _padding = options.Padding;
-                _writer = new OutputStreamWriter(_outputStream, options.GetEncoding());
+                _writer = new StreamWriter(_outputStream, options.GetEncoding());
                 CheckOptionsConsistence();
                 // serializes the whole packet, but don't write the tail yet
                 // and flush to make sure that the written bytes are calculated correctly

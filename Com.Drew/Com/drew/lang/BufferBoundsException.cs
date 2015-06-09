@@ -48,17 +48,17 @@ namespace Com.Drew.Lang
         {
             if (index < 0)
             {
-                return Extensions.StringFormat("Attempt to read from buffer using a negative index (%d)", index);
+                return string.Format("Attempt to read from buffer using a negative index ({0})", index);
             }
             if (bytesRequested < 0)
             {
-                return Extensions.StringFormat("Number of requested bytes cannot be negative (%d)", bytesRequested);
+                return string.Format("Number of requested bytes cannot be negative ({0})", bytesRequested);
             }
             if (index + (long)bytesRequested - 1L > int.MaxValue)
             {
-                return Extensions.StringFormat("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: %d, requested count: %d)", index, bytesRequested);
+                return string.Format("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: {0}, requested count: {1})", index, bytesRequested);
             }
-            return Extensions.StringFormat("Attempt to read from beyond end of underlying data source (requested index: %d, requested count: %d, max index: %d)", index, bytesRequested, bufferLength - 1);
+            return string.Format("Attempt to read from beyond end of underlying data source (requested index: {0}, requested count: {1}, max index: {2})", index, bytesRequested, bufferLength - 1);
         }
     }
 }

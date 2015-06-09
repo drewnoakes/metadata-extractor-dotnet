@@ -145,7 +145,7 @@ namespace Com.Drew.Metadata.Exif
             // time in hour, min, sec
             Rational[] timeComponents = Directory.GetRationalArray(GpsDirectory.TagTimeStamp);
             DecimalFormat df = new DecimalFormat("00.00");
-            return timeComponents == null ? null : Extensions.StringFormat("%02d:%02d:%s UTC", timeComponents[0].IntValue(), timeComponents[1].IntValue(), df.Format(timeComponents[2].DoubleValue()));
+            return timeComponents == null ? null : string.Format("{0:D2}:{1:D2}:{2} UTC", timeComponents[0].IntValue(), timeComponents[1].IntValue(), df.Format(timeComponents[2].DoubleValue()));
         }
 
         [CanBeNull]

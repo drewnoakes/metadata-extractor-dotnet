@@ -88,7 +88,7 @@ namespace Com.Drew.Metadata.Adobe
 
                 default:
                 {
-                    return Extensions.StringFormat("Unknown transform (%d)", value);
+                    return string.Format("Unknown transform ({0})", value);
                 }
             }
         }

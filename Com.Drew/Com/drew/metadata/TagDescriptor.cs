@@ -82,7 +82,7 @@ namespace Com.Drew.Metadata
                                 : componentType == typeof(long)
                                     ? "long"
                                     : componentType.Name;
-                    return Extensions.StringFormat("[%d %s%s]", length, componentTypeName, length == 1 ? string.Empty : "s");
+                    return string.Format("[{0} {1}{2}]", length, componentTypeName, length == 1 ? string.Empty : "s");
                 }
             }
             // no special handling required, so use default conversion to a string
@@ -175,7 +175,7 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            return Extensions.StringFormat("(%d byte%s)", bytes.Length, bytes.Length == 1 ? string.Empty : "s");
+            return string.Format("({0} byte{1})", bytes.Length, bytes.Length == 1 ? string.Empty : "s");
         }
 
         [CanBeNull]
@@ -197,7 +197,7 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            return Extensions.StringFormat("%." + decimalPlaces + "f", value.DoubleValue());
+            return string.Format("%." + decimalPlaces + "f", value.DoubleValue());
         }
 
         [CanBeNull]
@@ -208,7 +208,7 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            return Extensions.StringFormat(format, value);
+            return string.Format(format, value);
         }
 
         [CanBeNull]
@@ -219,7 +219,7 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            return Extensions.StringFormat(format, value);
+            return string.Format(format, value);
         }
 
         [CanBeNull]
@@ -230,7 +230,7 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            return Extensions.StringFormat(format, value);
+            return string.Format(format, value);
         }
 
         [CanBeNull]

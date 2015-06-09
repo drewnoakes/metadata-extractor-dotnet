@@ -230,7 +230,7 @@ namespace Com.Drew.Metadata.Iptc
                     return "Corel Draw [.CDR]";
                 }
             }
-            return Extensions.StringFormat("Unknown (%d)", value);
+            return string.Format("Unknown ({0})", value);
         }
 
         [CanBeNull]

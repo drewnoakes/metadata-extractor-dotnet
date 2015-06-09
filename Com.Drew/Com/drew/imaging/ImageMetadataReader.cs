@@ -172,9 +172,9 @@ namespace Com.Drew.Imaging
             if (argList.Count < 1)
             {
                 string version = typeof(ImageMetadataReader).Assembly.GetImplementationVersion();
-                Console.Out.Println("metadata-extractor version " + version);
-                Console.Out.Println();
-                Console.Out.Println(Extensions.StringFormat("Usage: java -jar metadata-extractor-%s.jar <filename> [<filename>] [-thumb] [-markdown] [-hex]",
+                Console.Out.WriteLine((object)("metadata-extractor version " + version));
+                Console.Out.WriteLine();
+                Console.Out.WriteLine((object)string.Format("Usage: java -jar metadata-extractor-{0}.jar <filename> [<filename>] [-thumb] [-markdown] [-hex]",
                     version ?? "a.b.c"));
                 Environment.Exit(1);
             }
@@ -184,7 +184,7 @@ namespace Com.Drew.Imaging
                 FilePath file = new FilePath(filePath);
                 if (!markdownFormat && argList.Count > 1)
                 {
-                    Console.Out.Printf("\n***** PROCESSING: %s\n%n", filePath);
+                    Console.Out.WriteLine("\n***** PROCESSING: {0}", filePath);
                 }
                 Metadata.Metadata metadata = null;
                 try
@@ -199,7 +199,7 @@ namespace Com.Drew.Imaging
                 long took = Runtime.NanoTime() - startTime;
                 if (!markdownFormat)
                 {
-                    Console.Out.Printf("Processed %.3f MB file in %.2f ms%n%n", file.Length() / (1024d * 1024), took / 1000000d);
+                    Console.Out.WriteLine("Processed {0:#,##0.##} MB file in {1:#,##0.##} ms\n", file.Length() / (1024d * 1024), took / 1000000d);
                 }
                 if (markdownFormat)
                 {
@@ -208,18 +208,18 @@ namespace Com.Drew.Imaging
                     ExifIfd0Directory exifIfd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
                     string make = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifDirectoryBase.TagMake);
                     string model = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifDirectoryBase.TagModel);
-                    Console.Out.Println();
-                    Console.Out.Println("---");
-                    Console.Out.Println();
-                    Console.Out.Printf("# %s - %s%n", make, model);
-                    Console.Out.Println();
-                    Console.Out.Printf("<a href=\"https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/%s\">%n", urlName);
-                    Console.Out.Printf("<img src=\"https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/%s\" width=\"300\"/><br/>%n", urlName);
-                    Console.Out.Println(fileName);
-                    Console.Out.Println("</a>");
-                    Console.Out.Println();
-                    Console.Out.Println("Directory | Tag Id | Tag Name | Extracted Value");
-                    Console.Out.Println(":--------:|-------:|----------|----------------");
+                    Console.Out.WriteLine();
+                    Console.Out.WriteLine("---");
+                    Console.Out.WriteLine();
+                    Console.Out.WriteLine("# {0} - {1}", make, model);
+                    Console.Out.WriteLine();
+                    Console.Out.WriteLine("<a href=\"https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/{0}\">", urlName);
+                    Console.Out.WriteLine("<img src=\"https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/{0}\" width=\"300\"/><br/>", urlName);
+                    Console.Out.WriteLine(fileName);
+                    Console.Out.WriteLine("</a>");
+                    Console.Out.WriteLine();
+                    Console.Out.WriteLine("Directory | Tag Id | Tag Name | Extracted Value");
+                    Console.Out.WriteLine(":--------:|-------:|----------|----------------");
                 }
                 // iterate over the metadata and print to System.out
                 foreach (Directory directory in metadata.GetDirectories())
@@ -236,25 +236,25 @@ namespace Com.Drew.Imaging
                         }
                         if (markdownFormat)
                         {
-                            Console.Out.Printf("%s|0x%s|%s|%s%n", directoryName, Extensions.ToHexString(tag.GetTagType()), tagName, description);
+                            Console.Out.WriteLine("{0}|0x{1}|{2}|{3}", directoryName, Extensions.ToHexString(tag.GetTagType()), tagName, description);
                         }
                         else
                         {
                             // simple formatting
                             if (showHex)
                             {
-                                Console.Out.Printf("[%s - %s] %s = %s%n", directoryName, tag.GetTagTypeHex(), tagName, description);
+                                Console.Out.WriteLine("[{0} - {1}] {2} = {3}", directoryName, tag.GetTagTypeHex(), tagName, description);
                             }
                             else
                             {
-                                Console.Out.Printf("[%s] %s = %s%n", directoryName, tagName, description);
+                                Console.Out.WriteLine("[{0}] {1} = {2}", directoryName, tagName, description);
                             }
                         }
                     }
                     // print out any errors
                     foreach (string error in directory.GetErrors())
                     {
-                        Console.Error.Println("ERROR: " + error);
+                        Console.Error.WriteLine((object)("ERROR: " + error));
                     }
                 }
                 if (args.Length > 1 && thumbRequested)
@@ -262,12 +262,12 @@ namespace Com.Drew.Imaging
                     ExifThumbnailDirectory directory1 = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
                     if (directory1 != null && directory1.HasThumbnailData())
                     {
-                        Console.Out.Println("Writing thumbnail...");
+                        Console.Out.WriteLine((object)"Writing thumbnail...");
                         directory1.WriteThumbnail(Extensions.Trim(args[0]) + ".thumb.jpg");
                     }
                     else
                     {
-                        Console.Out.Println("No thumbnail data exists in this image");
+                        Console.Out.WriteLine((object)"No thumbnail data exists in this image");
                     }
                 }
             }

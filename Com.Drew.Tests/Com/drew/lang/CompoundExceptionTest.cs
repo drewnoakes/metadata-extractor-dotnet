@@ -74,19 +74,18 @@ namespace Com.Drew.Lang
         {
             try
             {
-                throw new CompoundException("message", null);
+                throw new CompoundException("message");
             }
             catch (CompoundException e)
             {
                 try
                 {
-                    PrintStream nullStream = new PrintStream(new NullOutputStream());
-                    Runtime.PrintStackTrace(e, nullStream);
-                    Runtime.PrintStackTrace(e, new PrintWriter(nullStream));
+                    // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                    e.ToString();
                 }
                 catch (Exception)
                 {
-                    Assert.Fail("Exception during printStackTrace for CompoundException with no inner exception");
+                    Assert.Fail("Exception during CompoundException.ToString when no inner exception exists");
                 }
             }
         }

@@ -7,6 +7,8 @@
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
 
+using System.Text;
+
 namespace Com.Adobe.Xmp.Options
 {
     /// <summary>
@@ -189,18 +191,18 @@ namespace Com.Adobe.Xmp.Options
         /// </remarks>
         public int Padding { get; set; }
 
-        /// <returns>Returns the encoding as Java encoding String.</returns>
-        public string GetEncoding()
+        /// <returns>Returns the text encoding to use.</returns>
+        public Encoding GetEncoding()
         {
             if (EncodeUtf16Be)
             {
-                return "UTF-16BE";
+                return Encoding.BigEndianUnicode;
             }
             if (EncodeUtf16Le)
             {
-                return "UTF-16LE";
+                return Encoding.Unicode;
             }
-            return "UTF-8";
+            return Encoding.UTF8;
         }
 
         /// <returns>Returns clone of this SerializeOptions-object with the same options set.</returns>

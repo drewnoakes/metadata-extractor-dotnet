@@ -218,7 +218,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return null;
             }
-            return Extensions.StringFormat("%04X%05d", ((int)value >> 8) & unchecked(0xFF), (int)value & unchecked(0xFF));
+            return string.Format("{0:X4}{1:D4}", ((int)value >> 8) & unchecked(0xFF), (int)value & unchecked(0xFF));
         }
 
 /*

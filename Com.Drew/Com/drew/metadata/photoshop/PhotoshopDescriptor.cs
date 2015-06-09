@@ -204,12 +204,12 @@ namespace Com.Drew.Metadata.Photoshop
 
                     default:
                     {
-                        format = Extensions.StringFormat("Unknown 0x%04X", f);
+                        format = string.Format("Unknown (0x{0:X4})", f);
                         break;
                     }
                 }
-                string scans = s >= 1 && s <= 3 ? Extensions.StringFormat("%d", s + 2) : Extensions.StringFormat("Unknown 0x%04X", s);
-                return Extensions.StringFormat("%d (%s), %s format, %s scans", q1, quality, format, scans);
+                string scans = s >= 1 && s <= 3 ? (s + 2).ToString() : string.Format("Unknown (0x{0:X4})", s);
+                return string.Format("{0} ({1}), {2} format, {3} scans", q1, quality, format, scans);
             }
             catch (IOException)
             {
@@ -266,12 +266,12 @@ namespace Com.Drew.Metadata.Photoshop
 
                     case 2:
                     {
-                        return Extensions.StringFormat("User defined, X:%s Y:%s, Scale:%s", locX, locY, scale);
+                        return string.Format("User defined, X:{0} Y:{1}, Scale:{2}", locX, locY, scale);
                     }
 
                     default:
                     {
-                        return Extensions.StringFormat("Unknown %04X, X:%s Y:%s, Scale:%s", style, locX, locY, scale);
+                        return string.Format("Unknown {0:X4}, X:{1} Y:{2}, Scale:{3}", style, locX, locY, scale);
                     }
                 }
             }
@@ -327,7 +327,7 @@ namespace Com.Drew.Metadata.Photoshop
                 string writerStr = reader.GetString(pos, writerLength * 2, "UTF-16");
                 pos += writerLength * 2;
                 int fileVersion = reader.GetInt32(pos);
-                return Extensions.StringFormat("%d (%s, %s) %d", ver, readerStr, writerStr, fileVersion);
+                return string.Format("{0} ({1}, {2}) {3}", ver, readerStr, writerStr, fileVersion);
             }
             catch (IOException)
             {
@@ -351,7 +351,7 @@ namespace Com.Drew.Metadata.Photoshop
                 int pos = 24 + nameLength * 2;
                 int sliceCount = reader.GetInt32(pos);
                 //pos += 4;
-                return Extensions.StringFormat("%s (%d,%d,%d,%d) %d Slices", name, reader.GetInt32(4), reader.GetInt32(8), reader.GetInt32(12), reader.GetInt32(16), sliceCount);
+                return string.Format("{0} ({1},{2},{3},{4}) {5} Slices", name, reader.GetInt32(4), reader.GetInt32(8), reader.GetInt32(12), reader.GetInt32(16), sliceCount);
             }
             catch (IOException)
             {
@@ -393,7 +393,7 @@ namespace Com.Drew.Metadata.Photoshop
                 //pos+=2;
                 //pos+=2; //skip Number of planes
                 //int thumbSize=v.length-pos;
-                return Extensions.StringFormat("%s, %dx%d, Decomp %d bytes, %d bpp, %d bytes", format == 1 ? "JpegRGB" : "RawRGB", width, height, totalSize, bpp, compSize);
+                return string.Format("{0}, {1}x{2}, Decomp {3} bytes, {4} bpp, {5} bytes", format == 1 ? "JpegRGB" : "RawRGB", width, height, totalSize, bpp, compSize);
             }
             catch (IOException)
             {
@@ -423,7 +423,7 @@ namespace Com.Drew.Metadata.Photoshop
             RandomAccessReader reader = new ByteArrayReader(bytes);
             try
             {
-                return Extensions.StringFormat("%d", reader.GetInt32(0));
+                return string.Format("{0}", reader.GetInt32(0));
             }
             catch (IOException)
             {
@@ -450,7 +450,7 @@ namespace Com.Drew.Metadata.Photoshop
             {
                 return null;
             }
-            return Extensions.StringFormat("%d bytes binary data", bytes.Length);
+            return string.Format("{0} bytes binary data", bytes.Length);
         }
     }
 }

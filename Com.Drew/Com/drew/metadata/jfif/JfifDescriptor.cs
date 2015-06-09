@@ -78,7 +78,9 @@ namespace Com.Drew.Metadata.Jfif
             {
                 return null;
             }
-            return Extensions.StringFormat("%d.%d", ((int)value & unchecked(0xFF00)) >> 8, (int)value & unchecked(0xFF));
+            return string.Format("{0}.{1}",
+                ((int)value & unchecked(0xFF00)) >> 8,
+                 (int)value & unchecked(0x00FF));
         }
 
         [CanBeNull]
@@ -89,7 +91,7 @@ namespace Com.Drew.Metadata.Jfif
             {
                 return null;
             }
-            return Extensions.StringFormat("%d dot%s", value, value == 1 ? string.Empty : "s");
+            return string.Format("{0} dot{1}", value, value == 1 ? string.Empty : "s");
         }
 
         [CanBeNull]
@@ -100,7 +102,7 @@ namespace Com.Drew.Metadata.Jfif
             {
                 return null;
             }
-            return Extensions.StringFormat("%d dot%s", value, value == 1 ? string.Empty : "s");
+            return string.Format("{0} dot{1}", value, value == 1 ? string.Empty : "s");
         }
 
         [CanBeNull]

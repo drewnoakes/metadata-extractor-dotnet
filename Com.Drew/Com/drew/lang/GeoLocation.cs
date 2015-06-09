@@ -79,7 +79,7 @@ namespace Com.Drew.Lang
         {
             double[] dms = DecimalToDegreesMinutesSeconds(@decimal);
             DecimalFormat format = new DecimalFormat("0.##");
-            return Extensions.StringFormat("%s° %s' %s\"", format.Format(dms[0]), format.Format(dms[1]), format.Format(dms[2]));
+            return string.Format("{0}° {1}' {2}\"", format.Format(dms[0]), format.Format(dms[1]), format.Format(dms[2]));
         }
 
         /// <summary>

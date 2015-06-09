@@ -89,7 +89,7 @@ namespace Com.Drew.Lang
         {
             if (index < 0)
             {
-                throw new BufferBoundsException(Extensions.StringFormat("Attempt to read from buffer using a negative index (%d)", index));
+                throw new BufferBoundsException(string.Format("Attempt to read from buffer using a negative index ({0})", index));
             }
             if (bytesRequested < 0)
             {
@@ -97,7 +97,7 @@ namespace Com.Drew.Lang
             }
             if ((long)index + bytesRequested - 1 > int.MaxValue)
             {
-                throw new BufferBoundsException(Extensions.StringFormat("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: %d, requested count: %d)", index, bytesRequested));
+                throw new BufferBoundsException(string.Format("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: {0}, requested count: {1})", index, bytesRequested));
             }
             if (!IsValidIndex(index, bytesRequested))
             {

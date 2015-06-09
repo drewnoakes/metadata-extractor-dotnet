@@ -545,7 +545,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             long hours = ((long)value >> 8) & unchecked(0xFF);
             long minutes = ((long)value >> 16) & unchecked(0xFF);
             long seconds = (long)value & unchecked(0xFF);
-            return Extensions.StringFormat("%02d:%02d:%02d", hours, minutes, seconds);
+            return string.Format("{0:D2}:{1:D2}:{2:D2}", hours, minutes, seconds);
         }
 
         [CanBeNull]

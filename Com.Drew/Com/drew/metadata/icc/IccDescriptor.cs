@@ -153,7 +153,7 @@ namespace Com.Drew.Metadata.Icc
 
                             default:
                             {
-                                observerString = Extensions.StringFormat("Unknown %d", observerType);
+                                observerString = string.Format("Unknown ({0})", observerType);
                                 break;
                             }
                         }
@@ -180,7 +180,7 @@ namespace Com.Drew.Metadata.Icc
 
                             default:
                             {
-                                geometryString = Extensions.StringFormat("Unknown %d", observerType);
+                                geometryString = string.Format("Unknown ({0})", observerType);
                                 break;
                             }
                         }
@@ -243,11 +243,11 @@ namespace Com.Drew.Metadata.Icc
 
                             default:
                             {
-                                illuminantString = Extensions.StringFormat("Unknown %d", illuminantType);
+                                illuminantString = string.Format("Unknown ({0})", illuminantType);
                                 break;
                             }
                         }
-                        return Extensions.StringFormat("%s Observer, Backing (%s, %s, %s), Geometry %s, Flare %d%%, Illuminant %s", observerString, x, y, z, geometryString, (long)Math.Round(flare * 100), illuminantString);
+                        return string.Format("{0} Observer, Backing ({1}, {2}, {3}), Geometry {4}, Flare {5}%, Illuminant {6}", observerString, x, y, z, geometryString, (long)Math.Round(flare * 100), illuminantString);
                     }
 
                     case IccTagTypeXyzArray:
@@ -274,7 +274,7 @@ namespace Com.Drew.Metadata.Icc
                         StringBuilder res = new StringBuilder();
                         res.Append(int1);
                         //int int2 = reader.getInt32(12);
-                        //System.err.format("int1: %d, int2: %d\n", int1, int2);
+                        //Console.Error.WriteLine("int1: {0}, int2: {1}", int1, int2);
                         for (int i = 0; i < int1; i++)
                         {
                             string str = IccReader.GetStringFromInt32(reader.GetInt32(16 + i * 12));
@@ -313,7 +313,7 @@ namespace Com.Drew.Metadata.Icc
 
                     default:
                     {
-                        return Extensions.StringFormat("%s(0x%08X): %d bytes", IccReader.GetStringFromInt32(iccTagType), iccTagType, bytes.Length);
+                        return string.Format("{0} (0x{1:X8}): {2} bytes", IccReader.GetStringFromInt32(iccTagType), iccTagType, bytes.Length);
                     }
                 }
             }
@@ -384,7 +384,7 @@ namespace Com.Drew.Metadata.Icc
 
                 default:
                 {
-                    return Extensions.StringFormat("Unknown (%d)", value);
+                    return string.Format("Unknown ({0})", value);
                 }
             }
         }
@@ -439,7 +439,7 @@ namespace Com.Drew.Metadata.Icc
 
                 default:
                 {
-                    return Extensions.StringFormat("Unknown (%s)", str);
+                    return string.Format("Unknown ({0})", str);
                 }
             }
         }
@@ -503,7 +503,7 @@ namespace Com.Drew.Metadata.Icc
 
                 default:
                 {
-                    return Extensions.StringFormat("Unknown (%s)", str);
+                    return string.Format("Unknown ({0})", str);
                 }
             }
         }
@@ -519,7 +519,7 @@ namespace Com.Drew.Metadata.Icc
             int m = ((int)value & unchecked((int)(0xFF000000))) >> 24;
             int r = ((int)value & unchecked(0x00F00000)) >> 20;
             int R = ((int)value & unchecked(0x000F0000)) >> 16;
-            return Extensions.StringFormat("%d.%d.%d", m, r, R);
+            return string.Format("{0}.{1}.{2}", m, r, R);
         }
 
         /// <exception cref="System.IO.IOException"/>

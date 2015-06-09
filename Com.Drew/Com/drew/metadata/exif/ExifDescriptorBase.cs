@@ -432,7 +432,9 @@ namespace Com.Drew.Metadata.Exif
             int whiteG = ints[3];
             int blackB = ints[4];
             int whiteB = ints[5];
-            return Extensions.StringFormat("[%d,%d,%d] [%d,%d,%d]", blackR, blackG, blackB, whiteR, whiteG, whiteB);
+            return string.Format("[{0},{1},{2}] [{3},{4},{5}]",
+                blackR, blackG, blackB,
+                whiteR, whiteG, whiteB);
         }
 
         [CanBeNull]
@@ -444,7 +446,7 @@ namespace Com.Drew.Metadata.Exif
                 return null;
             }
             string unit = GetResolutionDescription();
-            return Extensions.StringFormat("%s dots per %s", value.ToSimpleString(_allowDecimalRepresentationOfRationals), unit == null ? "unit" : unit.ToLower());
+            return string.Format("{0} dots per {1}", value.ToSimpleString(_allowDecimalRepresentationOfRationals), unit == null ? "unit" : unit.ToLower());
         }
 
         [CanBeNull]
@@ -456,7 +458,7 @@ namespace Com.Drew.Metadata.Exif
                 return null;
             }
             string unit = GetResolutionDescription();
-            return Extensions.StringFormat("%s dots per %s", value.ToSimpleString(_allowDecimalRepresentationOfRationals), unit == null ? "unit" : unit.ToLower());
+            return string.Format("{0} dots per {1}", value.ToSimpleString(_allowDecimalRepresentationOfRationals), unit == null ? "unit" : unit.ToLower());
         }
 
         [CanBeNull]

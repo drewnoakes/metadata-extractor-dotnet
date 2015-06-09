@@ -95,7 +95,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         private string GetCameraTemperatureDescription()
         {
-            return GetFormattedInt(LeicaMakernoteDirectory.TagCameraTemperature, "%d C");
+            return GetFormattedInt(LeicaMakernoteDirectory.TagCameraTemperature, "{0} C");
         }
 
         [CanBeNull]

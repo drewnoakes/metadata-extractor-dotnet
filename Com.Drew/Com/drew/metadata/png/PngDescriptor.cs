@@ -162,7 +162,7 @@ namespace Com.Drew.Metadata.Png
                 {
                     sb.Append('\n');
                 }
-                sb.Append(Extensions.StringFormat("%s: %s", keyValue.GetKey(), keyValue.GetValue()));
+                sb.Append(string.Format("{0}: {1}", keyValue.GetKey(), keyValue.GetValue()));
             }
             return Extensions.ConvertToString(sb);
         }
@@ -185,18 +185,18 @@ namespace Com.Drew.Metadata.Png
                     case 4:
                     {
                         // TODO do we need to normalise these based upon the bit depth?
-                        return Extensions.StringFormat("Greyscale Level %d", reader.GetUInt16());
+                        return string.Format("Greyscale Level {0}", reader.GetUInt16());
                     }
 
                     case 2:
                     case 6:
                     {
-                        return Extensions.StringFormat("R %d, G %d, B %d", reader.GetUInt16(), reader.GetUInt16(), reader.GetUInt16());
+                        return string.Format("R {0}, G {1}, B {2}", reader.GetUInt16(), reader.GetUInt16(), reader.GetUInt16());
                     }
 
                     case 3:
                     {
-                        return Extensions.StringFormat("Palette Index %d", reader.GetUInt8());
+                        return string.Format("Palette Index {0}", reader.GetUInt8());
                     }
                 }
             }

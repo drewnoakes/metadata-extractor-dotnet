@@ -243,7 +243,7 @@ namespace Com.Drew.Metadata.Xmp
                         }
                         catch (FormatException)
                         {
-                            directory.AddError(Extensions.StringFormat("Unable to parse XMP property %s as a Rational.", propName));
+                            directory.AddError(string.Format("Unable to parse XMP property {0} as a Rational.", propName));
                         }
                     }
                     else
@@ -261,7 +261,7 @@ namespace Com.Drew.Metadata.Xmp
                     }
                     catch (FormatException)
                     {
-                        directory.AddError(Extensions.StringFormat("Unable to parse XMP property %s as an int.", propName));
+                        directory.AddError(string.Format("Unable to parse XMP property {0} as an int.", propName));
                     }
                     break;
                 }
@@ -274,7 +274,7 @@ namespace Com.Drew.Metadata.Xmp
                     }
                     catch (FormatException)
                     {
-                        directory.AddError(Extensions.StringFormat("Unable to parse XMP property %s as an double.", propName));
+                        directory.AddError(string.Format("Unable to parse XMP property {0} as an double.", propName));
                     }
                     break;
                 }
@@ -300,7 +300,7 @@ namespace Com.Drew.Metadata.Xmp
 
                 default:
                 {
-                    directory.AddError(Extensions.StringFormat("Unknown format code %d for tag %d", formatCode, tagType));
+                    directory.AddError(string.Format("Unknown format code {0} for tag {1}", formatCode, tagType));
                     break;
                 }
             }
