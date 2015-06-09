@@ -43,7 +43,6 @@
     <Compile Include="AList.cs" />
     <Compile Include="BufferedInputStream.cs" />
     <Compile Include="BufferedReader.cs" />
-    <Compile Include="ByteArrayOutputStream.cs" />
     <Compile Include="ByteBuffer.cs" />
     <Compile Include="Calendar.cs" />
     <Compile Include="CharSequence.cs" />

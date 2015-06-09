@@ -7,6 +7,7 @@
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
 
+using System.IO;
 using Com.Adobe.Xmp.Options;
 using Sharpen;
 
@@ -59,11 +60,11 @@ namespace Com.Adobe.Xmp.Impl
             // forces the encoding to be UTF-16 to get the correct string length
             options = options ?? new SerializeOptions();
             options.EncodeUtf16Be = true;
-            ByteArrayOutputStream @out = new ByteArrayOutputStream(2048);
+            MemoryStream @out = new MemoryStream(2048);
             Serialize(xmp, @out, options);
             try
             {
-                return @out.ToString(options.GetEncoding());
+                return options.GetEncoding().GetString(@out.GetBuffer(), 0, (int)@out.Length);
             }
             catch (UnsupportedEncodingException)
             {
@@ -84,9 +85,9 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">on serializsation errors.</exception>
         public static byte[] SerializeToBuffer(XmpMeta xmp, SerializeOptions options)
         {
-            ByteArrayOutputStream @out = new ByteArrayOutputStream(2048);
+            MemoryStream @out = new MemoryStream(2048);
             Serialize(xmp, @out, options);
-            return @out.ToByteArray();
+            return @out.ToArray();
         }
     }
 }
