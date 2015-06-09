@@ -73,15 +73,15 @@ namespace Com.Drew.Metadata
             Assert.AreEqual((long)value, (object)_directory.GetLong(tagType));
             Assert.AreEqual(value.ToString(), _directory.GetString(tagType));
             Assert.AreEqual(new Rational(value, 1), _directory.GetRational(tagType));
-            CollectionAssert.AreEqual(new int[] { value }, _directory.GetIntArray(tagType));
-            CollectionAssert.AreEqual(new byte[] { unchecked((byte)value) }, _directory.GetByteArray(tagType));
+            CollectionAssert.AreEqual(new[] { value }, _directory.GetIntArray(tagType));
+            CollectionAssert.AreEqual(new[] { unchecked((byte)value) }, _directory.GetByteArray(tagType));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
         public void TestSetAndGetIntArray()
         {
-            int[] inputValues = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            int[] inputValues = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             int tagType = 123;
             _directory.SetIntArray(tagType, inputValues);
             int[] outputValues = _directory.GetIntArray(tagType);
@@ -130,7 +130,7 @@ namespace Com.Drew.Metadata
         [Test]
         public void TestSetIntArrayGetByteArray()
         {
-            int[] ints = new int[] { 1, 2, 3, 4, 5 };
+            int[] ints = new[] { 1, 2, 3, 4, 5 };
             _directory.SetIntArray(1, ints);
             byte[] bytes = _directory.GetByteArray(1);
             Assert.IsNotNull(bytes);

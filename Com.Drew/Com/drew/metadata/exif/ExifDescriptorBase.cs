@@ -1516,7 +1516,7 @@ namespace Com.Drew.Metadata.Exif
             {
                 return null;
             }
-            string[] componentStrings = new string[] { string.Empty, "Y", "Cb", "Cr", "R", "G", "B" };
+            string[] componentStrings = new[] { string.Empty, "Y", "Cb", "Cr", "R", "G", "B" };
             StringBuilder componentConfig = new StringBuilder();
             for (int i = 0; i < Math.Min(4, components.Length); i++)
             {

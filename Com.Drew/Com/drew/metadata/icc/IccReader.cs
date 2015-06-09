@@ -118,7 +118,7 @@ namespace Com.Drew.Metadata.Icc
                 }
                 SetInt32(directory, IccDirectory.TagRenderingIntent, reader);
                 SetInt64(directory, IccDirectory.TagDeviceAttr, reader);
-                float[] xyz = new float[] { reader.GetS15Fixed16(IccDirectory.TagXyzValues), reader.GetS15Fixed16(IccDirectory.TagXyzValues + 4), reader.GetS15Fixed16(IccDirectory.TagXyzValues + 8) };
+                float[] xyz = new[] { reader.GetS15Fixed16(IccDirectory.TagXyzValues), reader.GetS15Fixed16(IccDirectory.TagXyzValues + 4), reader.GetS15Fixed16(IccDirectory.TagXyzValues + 8) };
                 directory.SetObject(IccDirectory.TagXyzValues, xyz);
                 // Process 'ICC tags'
                 int tagCount = reader.GetInt32(IccDirectory.TagTagCount);
@@ -190,7 +190,7 @@ namespace Com.Drew.Metadata.Icc
         public static string GetStringFromInt32(int d)
         {
             // MSB
-            byte[] b = new byte[] { unchecked((byte)((d & unchecked((int)(0xFF000000))) >> 24)), unchecked((byte)((d & unchecked(0x00FF0000)) >> 16)), unchecked((byte)((d & unchecked(0x0000FF00)) >> 8)), unchecked((byte)((d & unchecked(
+            byte[] b = new[] { unchecked((byte)((d & unchecked((int)(0xFF000000))) >> 24)), unchecked((byte)((d & unchecked(0x00FF0000)) >> 16)), unchecked((byte)((d & unchecked(0x0000FF00)) >> 8)), unchecked((byte)((d & unchecked(
                 0x000000FF)))) };
             return Encoding.UTF8.GetString(b);
         }

@@ -147,7 +147,7 @@ namespace Com.Adobe.Xmp.Impl
                     pos++;
                 }
             }
-            return new string[] { name, value.ToString() };
+            return new[] { name, value.ToString() };
         }
 
         /// <param name="schema">a schema namespace</param>

@@ -437,7 +437,7 @@ namespace Com.Drew.Metadata
             var s = o as string;
             if (s != null)
             {
-                return new string[] { s };
+                return new[] { s };
             }
             var ints = o as int[];
             if (ints != null)
@@ -545,7 +545,7 @@ namespace Com.Drew.Metadata
             var nullableInt = o as int?;
             if (nullableInt != null)
             {
-                return new int[] { (int)o };
+                return new[] { (int)o };
             }
             return null;
         }
@@ -615,7 +615,7 @@ namespace Com.Drew.Metadata
             var nullableInt = o as int?;
             if (nullableInt != null)
             {
-                return new byte[] { (byte)nullableInt.Value };
+                return new[] { (byte)nullableInt.Value };
             }
             return null;
         }
@@ -834,7 +834,7 @@ namespace Com.Drew.Metadata
             {
                 // This seems to cover all known Exif date strings
                 // Note that "    :  :     :  :  " is a valid date string according to the Exif spec (which means 'unknown date'): http://www.awaresystems.be/imaging/tiff/tifftags/privateifd/exif/datetimeoriginal.html
-                string[] datePatterns = new string[] { "yyyy:MM:dd HH:mm:ss", "yyyy:MM:dd HH:mm", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm" };
+                string[] datePatterns = new[] { "yyyy:MM:dd HH:mm:ss", "yyyy:MM:dd HH:mm", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm" };
                 string dateString = s;
                 foreach (string datePattern in datePatterns)
                 {

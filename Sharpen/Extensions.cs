@@ -62,7 +62,7 @@ namespace Sharpen
                     }
                 }
             }
-            char[] separator = new char[] {':'};
+            char[] separator = new[] {':'};
             string[] strArray = tzone.Substring(4).Split(separator);
             int hours, minutes;
             if (strArray.Length == 1 && strArray[0].Length > 2)

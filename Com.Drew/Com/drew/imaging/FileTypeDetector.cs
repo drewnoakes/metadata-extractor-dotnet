@@ -37,7 +37,7 @@ namespace Com.Drew.Imaging
             Root = new ByteTrie<FileType?>();
             Root.SetDefaultValue(FileType.Unknown);
             // https://en.wikipedia.org/wiki/List_of_file_signatures
-            Root.AddPath(FileType.Jpeg, new byte[] { unchecked((byte)0xff), unchecked((byte)0xd8) });
+            Root.AddPath(FileType.Jpeg, new[] { unchecked((byte)0xff), unchecked((byte)0xd8) });
             Root.AddPath(FileType.Tiff, Encoding.UTF8.GetBytes("II"), new byte[] { unchecked(0x2a), unchecked(0x00) });
             Root.AddPath(FileType.Tiff, Encoding.UTF8.GetBytes("MM"), new byte[] { unchecked(0x00), unchecked(0x2a) });
             Root.AddPath(FileType.Psd, Encoding.UTF8.GetBytes("8BPS"));

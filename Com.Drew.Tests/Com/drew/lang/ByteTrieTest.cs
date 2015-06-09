@@ -32,7 +32,7 @@ namespace Com.Drew.Lang
         public void TestBasics()
         {
             ByteTrie<string> trie = new ByteTrie<string>();
-            string[] strings = new string[] { "HELLO", "HELLO WORLD", "HERBERT" };
+            string[] strings = new[] { "HELLO", "HELLO WORLD", "HERBERT" };
             foreach (string s in strings)
             {
                 trie.AddPath(s, Encoding.UTF8.GetBytes(s));

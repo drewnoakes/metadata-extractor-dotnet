@@ -54,7 +54,7 @@ namespace Com.Drew.Metadata.Iptc
             Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(16, tags.Length);
             Assert.AreEqual(IptcDirectory.TagCategory, tags[0].GetTagType());
-            CollectionAssert.AreEqual(new string[] { "Supl. Category2", "Supl. Category1", "Cat" }, directory.GetStringArray(tags[0].GetTagType()));
+            CollectionAssert.AreEqual(new[] { "Supl. Category2", "Supl. Category1", "Cat" }, directory.GetStringArray(tags[0].GetTagType()));
             Assert.AreEqual(IptcDirectory.TagCopyrightNotice, tags[1].GetTagType());
             Assert.AreEqual("Copyright", directory.GetObject(tags[1].GetTagType()));
             Assert.AreEqual(IptcDirectory.TagSpecialInstructions, tags[2].GetTagType());
@@ -126,7 +126,7 @@ namespace Com.Drew.Metadata.Iptc
             Assert.AreEqual(IptcDirectory.TagCategory, tags[14].GetTagType());
             Assert.AreEqual("Cat", directory.GetObject(tags[14].GetTagType()));
             Assert.AreEqual(IptcDirectory.TagSupplementalCategories, tags[15].GetTagType());
-            CollectionAssert.AreEqual(new string[] { "Supl. Category1", "Supl. Category2" }, directory.GetStringArray(tags[15].GetTagType()));
+            CollectionAssert.AreEqual(new[] { "Supl. Category1", "Supl. Category2" }, directory.GetStringArray(tags[15].GetTagType()));
             Assert.AreEqual(IptcDirectory.TagCopyrightNotice, tags[16].GetTagType());
             Assert.AreEqual("Copyright", directory.GetObject(tags[16].GetTagType()));
         }
@@ -178,7 +178,7 @@ namespace Com.Drew.Metadata.Iptc
             Assert.AreEqual(IptcDirectory.TagCaption, tags[1].GetTagType());
             Assert.AreEqual("Das Encoding dieser Metadaten ist nicht deklariert und lässt sich nur schwer erkennen.", directory.GetObject(tags[1].GetTagType()));
             Assert.AreEqual(IptcDirectory.TagKeywords, tags[2].GetTagType());
-            CollectionAssert.AreEqual(new string[] { "häufig", "üblich", "Lösung", "Spaß" }, directory.GetStringArray(tags[2].GetTagType()));
+            CollectionAssert.AreEqual(new[] { "häufig", "üblich", "Lösung", "Spaß" }, directory.GetStringArray(tags[2].GetTagType()));
         }
 
         /// <exception cref="System.Exception"/>

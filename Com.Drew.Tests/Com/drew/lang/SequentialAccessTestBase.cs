@@ -86,7 +86,7 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetInt16()
         {
-            Assert.AreEqual(-1, CreateReader(new byte[] { unchecked((byte)0xff), unchecked((byte)0xff) }).GetInt16());
+            Assert.AreEqual(-1, CreateReader(new[] { unchecked((byte)0xff), unchecked((byte)0xff) }).GetInt16());
             byte[] buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked((byte)0xFF) };
             SequentialReader reader = CreateReader(buffer);
             Assert.AreEqual(0x0001, reader.GetInt16());
@@ -130,7 +130,7 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetInt32()
         {
-            Assert.AreEqual(-1, CreateReader(new byte[] { unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff) }).GetInt32());
+            Assert.AreEqual(-1, CreateReader(new[] { unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff) }).GetInt32());
             byte[] buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x02), unchecked(0x03), unchecked(0x04), unchecked(0x05), unchecked(0x06), unchecked(0x07) };
             SequentialReader reader = CreateReader(buffer);
             Assert.AreEqual(unchecked(0x00010203), reader.GetInt32());
@@ -145,7 +145,7 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetUInt32()
         {
-            Assert.AreEqual(4294967295L, (object)CreateReader(new byte[] { unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff) }).GetUInt32());
+            Assert.AreEqual(4294967295L, (object)CreateReader(new[] { unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff) }).GetUInt32());
             byte[] buffer = new byte[] { unchecked((byte)0xFF), unchecked(0x00), unchecked(0x01), unchecked(0x02), unchecked(0x03), unchecked(0x04), unchecked(0x05), unchecked(0x06) };
             SequentialReader reader = CreateReader(buffer);
             Assert.AreEqual(unchecked(0xFF000102L), (object)reader.GetUInt32());

@@ -191,14 +191,14 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetShootingModeDescription()
         {
-            return GetBitFlagDescription(NikonType2MakernoteDirectory.TagShootingMode, new string[] { "Single Frame", "Continuous" }, "Delay", null, "PC Control", "Exposure Bracketing", "Auto ISO", "White-Balance Bracketing", "IR Control");
+            return GetBitFlagDescription(NikonType2MakernoteDirectory.TagShootingMode, new[] { "Single Frame", "Continuous" }, "Delay", null, "PC Control", "Exposure Bracketing", "Auto ISO", "White-Balance Bracketing", "IR Control");
         }
 
         // LSB [low label, high label]
         [CanBeNull]
         public string GetLensTypeDescription()
         {
-            return GetBitFlagDescription(NikonType2MakernoteDirectory.TagLensType, new string[] { "AF", "MF" }, "D", "G", "VR");
+            return GetBitFlagDescription(NikonType2MakernoteDirectory.TagLensType, new[] { "AF", "MF" }, "D", "G", "VR");
         }
 
         // LSB [low label, high label]

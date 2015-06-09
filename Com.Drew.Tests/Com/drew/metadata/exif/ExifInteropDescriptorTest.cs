@@ -35,7 +35,7 @@ namespace Com.Drew.Metadata.Exif
         public void TestGetInteropVersionDescription()
         {
             ExifInteropDirectory directory = new ExifInteropDirectory();
-            directory.SetIntArray(ExifDirectoryBase.TagInteropVersion, new int[] { 0, 1, 0, 0 });
+            directory.SetIntArray(ExifDirectoryBase.TagInteropVersion, new[] { 0, 1, 0, 0 });
             ExifInteropDescriptor descriptor = new ExifInteropDescriptor(directory);
             Assert.AreEqual("1.00", descriptor.GetDescription(ExifDirectoryBase.TagInteropVersion));
             Assert.AreEqual("1.00", descriptor.GetInteropVersionDescription());

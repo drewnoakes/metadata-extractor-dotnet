@@ -167,7 +167,7 @@ namespace Com.Adobe.Xmp.Impl
                 // interpret byte as Windows Cp1252 char
                 return Encoding.UTF8.GetBytes(Encoding.GetEncoding(1252).GetString(new[] { ch }));
             }
-            return new byte[] { ch };
+            return new[] { ch };
         }
     }
 }

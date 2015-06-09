@@ -92,7 +92,7 @@ namespace Com.Drew.Lang
             int d = (int)@decimal;
             double m = Math.Abs((@decimal % 1) * 60);
             double s = (m % 1) * 60;
-            return new double[] { d, (int)m, s };
+            return new[] { d, (int)m, s };
         }
 
         /// <summary>
