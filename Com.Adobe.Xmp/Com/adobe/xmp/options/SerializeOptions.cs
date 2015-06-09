@@ -208,21 +208,13 @@ namespace Com.Adobe.Xmp.Options
         /// <returns>Returns clone of this SerializeOptions-object with the same options set.</returns>
         public object Clone()
         {
-            SerializeOptions clone;
-            try
+            return new SerializeOptions(GetOptions())
             {
-                clone = new SerializeOptions(GetOptions());
-                clone.BaseIndent = BaseIndent;
-                clone.Indent = Indent;
-                clone.Newline = Newline;
-                clone.Padding = Padding;
-                return clone;
-            }
-            catch (XmpException)
-            {
-                // This cannot happen, the options are already checked in "this" object.
-                return null;
-            }
+                BaseIndent = BaseIndent,
+                Indent = Indent,
+                Newline = Newline,
+                Padding = Padding
+            };
         }
 
         /// <seealso cref="Options.DefineOptionName(int)"/>
