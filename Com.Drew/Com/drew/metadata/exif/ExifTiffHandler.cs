@@ -245,7 +245,7 @@ namespace Com.Drew.Metadata.Exif
                             if ("SEMC MS\u0000\u0000\u0000\u0000\u0000".Equals(firstTwelveChars))
                             {
                                 // force MM for this directory
-                                reader.SetMotorolaByteOrder(true);
+                                reader.IsMotorolaByteOrder = true;
                                 // skip 12 byte header + 2 for "MM" + 6
                                 PushDirectory(typeof(SonyType6MakernoteDirectory));
                                 TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 20, tiffHeaderOffset);
@@ -261,7 +261,7 @@ namespace Com.Drew.Metadata.Exif
                                 {
                                     if ("KDK".Equals(firstThreeChars))
                                     {
-                                        reader.SetMotorolaByteOrder(firstSevenChars.Equals("KDK INFO"));
+                                        reader.IsMotorolaByteOrder = firstSevenChars.Equals("KDK INFO");
                                         KodakMakernoteDirectory directory = new KodakMakernoteDirectory();
                                         Metadata.AddDirectory(directory);
                                         ProcessKodakMakernote(directory, makernoteOffset, reader);
@@ -293,7 +293,7 @@ namespace Com.Drew.Metadata.Exif
                                                 if ("FUJIFILM".Equals(firstEightChars) || Runtime.EqualsIgnoreCase("Fujifilm", cameraMake))
                                                 {
                                                     // Note that this also applies to certain Leica cameras, such as the Digilux-4.3
-                                                    reader.SetMotorolaByteOrder(false);
+                                                    reader.IsMotorolaByteOrder = false;
                                                     // the 4 bytes after "FUJIFILM" in the makernote point to the start of the makernote
                                                     // IFD, though the offset is relative to the start of the makernote, not the TIFF
                                                     // header (like everywhere else)
@@ -313,7 +313,7 @@ namespace Com.Drew.Metadata.Exif
                                                     {
                                                         if ("LEICA".Equals(firstFiveChars))
                                                         {
-                                                            reader.SetMotorolaByteOrder(false);
+                                                            reader.IsMotorolaByteOrder = false;
                                                             if ("Leica Camera AG".Equals(cameraMake))
                                                             {
                                                                 PushDirectory(typeof(LeicaMakernoteDirectory));
@@ -396,7 +396,7 @@ namespace Com.Drew.Metadata.Exif
                                                                                 if (Runtime.EqualsIgnoreCase(firstFiveChars, "Ricoh"))
                                                                                 {
                                                                                     // Always in Motorola byte order
-                                                                                    reader.SetMotorolaByteOrder(true);
+                                                                                    reader.IsMotorolaByteOrder = true;
                                                                                     PushDirectory(typeof(RicohMakernoteDirectory));
                                                                                     TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 8, makernoteOffset);
                                                                                 }
@@ -423,7 +423,7 @@ namespace Com.Drew.Metadata.Exif
                     }
                 }
             }
-            reader.SetMotorolaByteOrder(byteOrderBefore);
+            reader.IsMotorolaByteOrder = byteOrderBefore;
             return true;
         }
 

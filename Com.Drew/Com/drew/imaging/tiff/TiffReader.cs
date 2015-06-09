@@ -60,14 +60,14 @@ namespace Com.Drew.Imaging.Tiff
             if (byteOrderIdentifier == unchecked(0x4d4d))
             {
                 // "MM"
-                reader.SetMotorolaByteOrder(true);
+                reader.IsMotorolaByteOrder = true;
             }
             else
             {
                 if (byteOrderIdentifier == unchecked(0x4949))
                 {
                     // "II"
-                    reader.SetMotorolaByteOrder(false);
+                    reader.IsMotorolaByteOrder = false;
                 }
                 else
                 {

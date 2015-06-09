@@ -566,7 +566,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 return null;
             }
             RandomAccessReader reader = new ByteArrayReader(bytes);
-            reader.SetMotorolaByteOrder(false);
+            reader.IsMotorolaByteOrder = false;
             try
             {
                 int faceCount = reader.GetUInt16(0);
@@ -597,7 +597,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 return null;
             }
             RandomAccessReader reader = new ByteArrayReader(bytes);
-            reader.SetMotorolaByteOrder(false);
+            reader.IsMotorolaByteOrder = false;
             try
             {
                 int faceCount = reader.GetUInt16(0);

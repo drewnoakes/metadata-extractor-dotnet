@@ -89,7 +89,7 @@ namespace Com.Drew.Lang
             Assert.AreEqual(0x0001, reader.GetInt16(0));
             Assert.AreEqual(0x017F, reader.GetInt16(1));
             Assert.AreEqual(0x7FFF, reader.GetInt16(2));
-            reader.SetMotorolaByteOrder(false);
+            reader.IsMotorolaByteOrder = false;
             Assert.AreEqual(0x0100, reader.GetInt16(0));
             Assert.AreEqual(0x7F01, reader.GetInt16(1));
             Assert.AreEqual(unchecked((short)(0xFF7F)), reader.GetInt16(2));
@@ -104,7 +104,7 @@ namespace Com.Drew.Lang
             Assert.AreEqual(unchecked(0x0001), reader.GetUInt16(0));
             Assert.AreEqual(unchecked(0x017F), reader.GetUInt16(1));
             Assert.AreEqual(unchecked(0x7FFF), reader.GetUInt16(2));
-            reader.SetMotorolaByteOrder(false);
+            reader.IsMotorolaByteOrder = false;
             Assert.AreEqual(unchecked(0x0100), reader.GetUInt16(0));
             Assert.AreEqual(unchecked(0x7F01), reader.GetUInt16(1));
             Assert.AreEqual(unchecked(0xFF7F), reader.GetUInt16(2));
@@ -136,7 +136,7 @@ namespace Com.Drew.Lang
             Assert.AreEqual(unchecked(0x017FFF02), reader.GetInt32(1));
             Assert.AreEqual(unchecked(0x7FFF0203), reader.GetInt32(2));
             Assert.AreEqual(unchecked((int)(0xFF020304)), reader.GetInt32(3));
-            reader.SetMotorolaByteOrder(false);
+            reader.IsMotorolaByteOrder = false;
             Assert.AreEqual(unchecked((int)(0xFF7F0100)), reader.GetInt32(0));
             Assert.AreEqual(unchecked(0x02FF7F01), reader.GetInt32(1));
             Assert.AreEqual(unchecked(0x0302FF7F), reader.GetInt32(2));
@@ -154,7 +154,7 @@ namespace Com.Drew.Lang
             Assert.AreEqual(unchecked(0x017FFF02L), (object)reader.GetUInt32(1));
             Assert.AreEqual(unchecked(0x7FFF0203L), (object)reader.GetUInt32(2));
             Assert.AreEqual(unchecked(0xFF020304L), (object)reader.GetUInt32(3));
-            reader.SetMotorolaByteOrder(false);
+            reader.IsMotorolaByteOrder = false;
             Assert.AreEqual(4286513408L, (object)reader.GetUInt32(0));
             Assert.AreEqual(unchecked(0x02FF7F01L), (object)reader.GetUInt32(1));
             Assert.AreEqual(unchecked(0x0302FF7FL), (object)reader.GetUInt32(2));
@@ -185,7 +185,7 @@ namespace Com.Drew.Lang
             RandomAccessReader reader = CreateReader(buffer);
             Assert.AreEqual(unchecked(0x0001020304050607L), (object)reader.GetInt64(0));
             Assert.AreEqual(unchecked(0x01020304050607FFL), (object)reader.GetInt64(1));
-            reader.SetMotorolaByteOrder(false);
+            reader.IsMotorolaByteOrder = false;
             Assert.AreEqual(unchecked(0x0706050403020100L), (object)reader.GetInt64(0));
             Assert.AreEqual(unchecked((long)(0xFF07060504030201L)), (object)reader.GetInt64(1));
         }

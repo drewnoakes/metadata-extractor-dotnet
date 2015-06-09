@@ -88,7 +88,7 @@ namespace Com.Drew.Metadata.Webp
                         if (fourCc.Equals("VP8X") && payload.Length == 10)
                         {
                             RandomAccessReader reader = new ByteArrayReader(payload);
-                            reader.SetMotorolaByteOrder(false);
+                            reader.IsMotorolaByteOrder = false;
                             try
                             {
                                 // Flags
