@@ -13,10 +13,7 @@ namespace Sharpen
 
         public static bool Equals<T> (T[] a1, T[] a2)
         {
-            if (a1.Length != a2.Length) {
-                return false;
-            }
-            return !a1.Where((t, i) => !t.Equals(a2[i])).Any();
+            return a1.SequenceEqual(a2);
         }
 
         public static void Sort (string[] array)
