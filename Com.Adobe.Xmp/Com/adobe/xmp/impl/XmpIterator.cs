@@ -211,6 +211,7 @@ namespace Com.Adobe.Xmp.Impl
             }
 
             /// <summary>Constructor for the node iterator.</summary>
+            /// <param name="enclosing"></param>
             /// <param name="visitedNode">the currently visited node</param>
             /// <param name="parentPath">the accumulated path of the node</param>
             /// <param name="index">the index within the parent node (only for arrays)</param>
@@ -465,6 +466,7 @@ namespace Com.Adobe.Xmp.Impl
             private int _index;
 
             /// <summary>Constructor</summary>
+            /// <param name="enclosing"></param>
             /// <param name="parentNode">the node which children shall be iterated.</param>
             /// <param name="parentPath">the full path of the former node without the leaf node.</param>
             public NodeIteratorChildren(XmpIterator enclosing, XmpNode parentNode, string parentPath)

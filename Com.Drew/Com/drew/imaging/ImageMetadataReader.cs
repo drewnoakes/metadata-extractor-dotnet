@@ -75,7 +75,7 @@ namespace Com.Drew.Imaging
         /// <summary>
         /// Reads metadata from an <see cref="Stream"/>.
         /// </summary>
-        /// <param name="inputStream">a stream from which the file data may be read.  The stream must be positioned at the beginning of the file's data.</param>
+        /// <param name="stream">a stream from which the file data may be read.  The stream must be positioned at the beginning of the file's data.</param>
         /// <returns>a populated <see cref="Com.Drew.Metadata.Metadata"/> object containing directories of tags with values and any processing errors.</returns>
         /// <exception cref="ImageProcessingException">if the file type is unknown, or for general processing errors.</exception>
         /// <exception cref="Com.Drew.Imaging.ImageProcessingException"/>

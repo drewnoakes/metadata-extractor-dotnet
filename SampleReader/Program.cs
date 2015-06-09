@@ -51,8 +51,6 @@ namespace SampleReader
         /// <summary>
         /// Parses the metadata, writing error information to the console if it failes.
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
         static Metadata  ParseMetadata(Stream data, string info){
 
             try
