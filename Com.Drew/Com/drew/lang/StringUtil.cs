@@ -20,11 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Lang
 {
@@ -32,42 +28,10 @@ namespace Com.Drew.Lang
     public static class StringUtil
     {
         [NotNull]
-        public static string Join<TT0>(IEnumerable<TT0> strings, [NotNull] string delimiter)
-            where TT0 : CharSequence
-        {
-            return string.Join(delimiter, strings.Select(s => s.ToString()));
-        }
-
-        [NotNull]
-        public static string Join<T>([NotNull] T[] strings, [NotNull] string delimiter)
-            where T : CharSequence
-        {
-            return string.Join(delimiter, strings.Select(s => s.ToString()));
-        }
-
-        public static int Compare([CanBeNull] string s1, [CanBeNull] string s2)
-        {
-            bool null1 = s1 == null;
-            bool null2 = s2 == null;
-            if (null1 && null2)
-            {
-                return 0;
-            }
-            if (null1)
-            {
-                return -1;
-            }
-            if (null2)
-            {
-                return 1;
-            }
-            return string.CompareOrdinal(s1, s2);
-        }
-
-        [NotNull]
         public static string UrlEncode([NotNull] string name)
         {
             // Sufficient for now, it seems
+            // TODO review http://stackoverflow.com/questions/3840762/how-do-you-urlencode-without-using-system-web
             return name.Replace(" ", "%20");
         }
     }

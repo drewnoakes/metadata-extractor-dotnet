@@ -255,7 +255,7 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            IList<CharSequence> parts = new AList<CharSequence>();
+            IList<string> parts = new List<string>();
             int bitIndex = 0;
             while (labels.Length > bitIndex)
             {
@@ -281,7 +281,7 @@ namespace Com.Drew.Metadata
                 value >>= 1;
                 bitIndex++;
             }
-            return StringUtil.Join(parts, ", ");
+            return string.Join(", ", parts);
         }
 
         [CanBeNull]

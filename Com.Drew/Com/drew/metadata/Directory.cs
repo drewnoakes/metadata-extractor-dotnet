@@ -536,7 +536,7 @@ namespace Com.Drew.Metadata
                 }
                 return ints;
             }
-            var str = o as CharSequence;
+            var str = o as string;
             if (str != null)
             {
                 ints = new int[str.Length];
@@ -606,7 +606,7 @@ namespace Com.Drew.Metadata
                 }
                 return bytes;
             }
-            var str = o as CharSequence;
+            var str = o as string;
             if (str != null)
             {
                 bytes = new byte[str.Length];

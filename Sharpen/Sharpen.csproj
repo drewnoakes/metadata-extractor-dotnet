@@ -47,7 +47,6 @@
     <Compile Include="AList.cs" />
     <Compile Include="ByteBuffer.cs" />
     <Compile Include="Calendar.cs" />
-    <Compile Include="CharSequence.cs" />
     <Compile Include="CharsetDecoder.cs" />
     <Compile Include="Collections.cs" />
     <Compile Include="DateFormat.cs" />

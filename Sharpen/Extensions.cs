@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -313,11 +312,6 @@ namespace Sharpen
                 list.RemoveRange(count + 1, (list.Count - count) - 1);
             }
             return list.ToArray();
-        }
-
-        public static CharSequence[] ToCharSequence(this IEnumerable<string> strArr)
-        {
-            return (from str in strArr select (CharSequence) str).ToArray();
         }
 
         public static long ToMillisecondsSinceEpoch(this DateTime dateTime)

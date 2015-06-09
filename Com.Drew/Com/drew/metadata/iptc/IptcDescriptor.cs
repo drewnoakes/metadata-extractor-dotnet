@@ -301,7 +301,7 @@ namespace Com.Drew.Metadata.Iptc
             {
                 return null;
             }
-            return StringUtil.Join(keywords.ToCharSequence(), ";");
+            return string.Join(";", keywords);
         }
 
         [CanBeNull]

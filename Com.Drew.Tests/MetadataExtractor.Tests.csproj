@@ -58,7 +58,6 @@
     <Compile Include="Com\drew\lang\SequentialAccessTestBase.cs" />
     <Compile Include="Com\drew\lang\SequentialByteArrayReaderTest.cs" />
     <Compile Include="Com\drew\lang\StreamReaderTest.cs" />
-    <Compile Include="Com\drew\lang\StringUtilTest.cs" />
     <Compile Include="Com\drew\metadata\adobe\AdobeJpegReaderTest.cs" />
     <Compile Include="Com\drew\metadata\AgeTest.cs" />
     <Compile Include="Com\drew\metadata\bmp\BmpReaderTest.cs" />
