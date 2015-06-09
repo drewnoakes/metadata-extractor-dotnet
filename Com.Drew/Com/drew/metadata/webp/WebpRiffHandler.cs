@@ -110,7 +110,7 @@ namespace Com.Drew.Metadata.Webp
                             }
                             catch (IOException e)
                             {
-                                Runtime.PrintStackTrace(e, Console.Error);
+                                Console.Error.WriteLine (e);
                             }
                         }
                     }

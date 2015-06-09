@@ -194,7 +194,7 @@ namespace Com.Adobe.Xmp.Impl
                     }
                     // Have multiple spaces, or a space followed by a
                     // separator.
-                    itemValue = Runtime.Substring(catedStr, itemStart, itemEnd);
+                    itemValue = catedStr.Substring (itemStart, itemEnd - itemStart);
                 }
                 else
                 {
@@ -989,7 +989,7 @@ namespace Com.Adobe.Xmp.Impl
                     }
                 }
                 // Copy the leading "normal" portion.
-                newItem.Append(openQuote).Append(Runtime.Substring(item, 0, splitPoint));
+                newItem.Append(openQuote).Append(item.Substring (0, splitPoint - 0));
                 for (charOffset = splitPoint; charOffset < item.Length; charOffset++)
                 {
                     newItem.Append(item[charOffset]);

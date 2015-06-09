@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Options;
@@ -27,7 +28,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XmpException e)
             {
-                Runtime.PrintStackTrace(e);
+                Console.WriteLine (e);
                 return false;
             }
             return true;

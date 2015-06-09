@@ -228,7 +228,7 @@ namespace Com.Drew.Lang
             // Test max length
             for (int i = 0; i < bytes.Length; i++)
             {
-                Assert.AreEqual(Runtime.Substring("ABCDEFG", 0, i), CreateReader(bytes).GetNullTerminatedString(i));
+                Assert.AreEqual("ABCDEFG".Substring (0, i - 0), CreateReader(bytes).GetNullTerminatedString(i));
             }
             Assert.AreEqual(string.Empty, CreateReader(new byte[] { 0 }).GetNullTerminatedString(10));
             Assert.AreEqual("A", CreateReader(new byte[] { unchecked(0x41), 0 }).GetNullTerminatedString(10));
@@ -245,7 +245,7 @@ namespace Com.Drew.Lang
             Assert.AreEqual(bytes.Length, expected.Length);
             for (int i = 0; i < bytes.Length; i++)
             {
-                Assert.AreEqual(Runtime.Substring("ABCDEFG", 0, i), CreateReader(bytes).GetString(i));
+                Assert.AreEqual("ABCDEFG".Substring (0, i - 0), CreateReader(bytes).GetString(i));
             }
         }
 

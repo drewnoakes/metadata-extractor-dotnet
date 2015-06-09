@@ -69,7 +69,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     suggestedPrefix += ':';
                 }
-                if (!Utils.IsXmlNameNs(Runtime.Substring(suggestedPrefix, 0, suggestedPrefix.Length - 1)))
+                if (!Utils.IsXmlNameNs(suggestedPrefix.Substring (0, suggestedPrefix.Length - 1 - 0)))
                 {
                     throw new XmpException("The prefix is a bad XML name", XmpErrorCode.BadXml);
                 }
@@ -87,7 +87,7 @@ namespace Com.Adobe.Xmp.Impl
                     string generatedPrefix = suggestedPrefix;
                     for (int i = 1; _prefixToNamespaceMap.Contains(generatedPrefix); i++)
                     {
-                        generatedPrefix = Runtime.Substring(suggestedPrefix, 0, suggestedPrefix.Length - 1) + "_" + i + "_:";
+                        generatedPrefix = suggestedPrefix.Substring (0, suggestedPrefix.Length - 1 - 0) + "_" + i + "_:";
                     }
                     suggestedPrefix = generatedPrefix;
                 }

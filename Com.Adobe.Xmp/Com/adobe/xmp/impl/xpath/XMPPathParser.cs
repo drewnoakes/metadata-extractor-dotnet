@@ -99,7 +99,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                 {
                     if (segment.GetName()[0] == '@')
                     {
-                        segment.SetName("?" + Runtime.Substring(segment.GetName(), 1));
+                        segment.SetName("?" + segment.GetName().Substring (1));
                         if (!"?xml:lang".Equals(segment.GetName()))
                         {
                             throw new XmpException("Only xml:lang allowed with '@'", XmpErrorCode.BadXPath);
@@ -110,7 +110,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                         pos.NameStart++;
                         segment.SetKind(XmpPath.QualifierStep);
                     }
-                    VerifyQualName(Runtime.Substring(pos.Path, pos.NameStart, pos.NameEnd));
+                    VerifyQualName(pos.Path.Substring (pos.NameStart, pos.NameEnd - pos.NameStart));
                 }
                 else
                 {
@@ -118,7 +118,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                     {
                         if (segment.GetName()[1] == '@')
                         {
-                            segment.SetName("[?" + Runtime.Substring(segment.GetName(), 2));
+                            segment.SetName("[?" + segment.GetName().Substring (2));
                             if (!segment.GetName().StartsWith("[?xml:lang="))
                             {
                                 throw new XmpException("Only xml:lang allowed with '@'", XmpErrorCode.BadXPath);
@@ -128,7 +128,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                         {
                             pos.NameStart++;
                             segment.SetKind(XmpPath.QualSelectorStep);
-                            VerifyQualName(Runtime.Substring(pos.Path, pos.NameStart, pos.NameEnd));
+                            VerifyQualName(pos.Path.Substring (pos.NameStart, pos.NameEnd - pos.NameStart));
                         }
                     }
                 }
@@ -180,7 +180,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                 throw new XmpException("Empty XMPPath segment", XmpErrorCode.BadXPath);
             }
             // ! Touch up later, also changing '@' to '?'.
-            XmpPathSegment segment = new XmpPathSegment(Runtime.Substring(pos.Path, pos.StepBegin, pos.StepEnd), XmpPath.StructFieldStep);
+            XmpPathSegment segment = new XmpPathSegment(pos.Path.Substring (pos.StepBegin, pos.StepEnd - pos.StepBegin), XmpPath.StructFieldStep);
             return segment;
         }
 
@@ -215,7 +215,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                 }
                 if (pos.Path[pos.StepEnd] == ']')
                 {
-                    if (!"[last()".Equals(Runtime.Substring(pos.Path, pos.StepBegin, pos.StepEnd)))
+                    if (!"[last()".Equals(pos.Path.Substring (pos.StepBegin, pos.StepEnd - pos.StepBegin)))
                     {
                         throw new XmpException("Invalid non-numeric array index", XmpErrorCode.BadXPath);
                     }
@@ -262,7 +262,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                 throw new XmpException("Missing ']' for array index", XmpErrorCode.BadXPath);
             }
             pos.StepEnd++;
-            segment.SetName(Runtime.Substring(pos.Path, pos.StepBegin, pos.StepEnd));
+            segment.SetName(pos.Path.Substring (pos.StepBegin, pos.StepEnd - pos.StepBegin));
             return segment;
         }
 
@@ -284,7 +284,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
             {
                 throw new XmpException("Empty initial XMPPath step", XmpErrorCode.BadXPath);
             }
-            string rootProp = VerifyXPathRoot(schemaNs, Runtime.Substring(pos.Path, pos.StepBegin, pos.StepEnd));
+            string rootProp = VerifyXPathRoot(schemaNs, pos.Path.Substring (pos.StepBegin, pos.StepEnd - pos.StepBegin));
             IXmpAliasInfo aliasInfo = XmpMetaFactory.GetSchemaRegistry().FindAlias(rootProp);
             if (aliasInfo == null)
             {
@@ -332,7 +332,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
             int colonPos = qualName.IndexOf(':');
             if (colonPos > 0)
             {
-                string prefix = Runtime.Substring(qualName, 0, colonPos);
+                string prefix = qualName.Substring (0, colonPos - 0);
                 if (Utils.IsXmlNameNs(prefix))
                 {
                     string regUri = XmpMetaFactory.GetSchemaRegistry().GetNamespaceUri(prefix);
@@ -406,9 +406,9 @@ namespace Com.Adobe.Xmp.Impl.Xpath
             // The propName is qualified. Make sure the prefix is legit. Use the associated URI and
             // qualified name.
             // Verify the part before any colon
-            VerifySimpleXmlName(Runtime.Substring(rootProp, 0, colonPos));
-            VerifySimpleXmlName(Runtime.Substring(rootProp, colonPos));
-            prefix = Runtime.Substring(rootProp, 0, colonPos + 1);
+            VerifySimpleXmlName(rootProp.Substring (0, colonPos - 0));
+            VerifySimpleXmlName(rootProp.Substring (colonPos));
+            prefix = rootProp.Substring (0, colonPos + 1 - 0);
             string regPrefix = XmpMetaFactory.GetSchemaRegistry().GetNamespacePrefix(schemaNs);
             if (regPrefix == null)
             {

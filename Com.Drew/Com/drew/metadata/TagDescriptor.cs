@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
@@ -69,7 +70,7 @@ namespace Com.Drew.Metadata
             // special presentation for long arrays
             if (@object.GetType().IsArray)
             {
-                int length = Runtime.GetArrayLength(@object);
+                int length = ((Array)@object).Length;
                 if (length > 16)
                 {
                     var componentType = @object.GetType().GetElementType();

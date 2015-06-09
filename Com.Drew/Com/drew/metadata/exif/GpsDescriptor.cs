@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
 using Sharpen;
@@ -157,15 +158,15 @@ namespace Com.Drew.Metadata.Exif
                 return null;
             }
             string distanceRef = value.Trim();
-            if (Runtime.EqualsIgnoreCase("K", distanceRef))
+            if ("K".Equals (distanceRef, StringComparison.CurrentCultureIgnoreCase))
             {
                 return "kilometers";
             }
-            if (Runtime.EqualsIgnoreCase("M", distanceRef))
+            if ("M".Equals (distanceRef, StringComparison.CurrentCultureIgnoreCase))
             {
                 return "miles";
             }
-            if (Runtime.EqualsIgnoreCase("N", distanceRef))
+            if ("N".Equals (distanceRef, StringComparison.CurrentCultureIgnoreCase))
             {
                 return "knots";
             }
@@ -190,11 +191,11 @@ namespace Com.Drew.Metadata.Exif
                 return null;
             }
             string gpsDistRef = value.Trim();
-            if (Runtime.EqualsIgnoreCase("T", gpsDistRef))
+            if ("T".Equals (gpsDistRef, StringComparison.CurrentCultureIgnoreCase))
             {
                 return "True direction";
             }
-            if (Runtime.EqualsIgnoreCase("M", gpsDistRef))
+            if ("M".Equals (gpsDistRef, StringComparison.CurrentCultureIgnoreCase))
             {
                 return "Magnetic direction";
             }
@@ -210,15 +211,15 @@ namespace Com.Drew.Metadata.Exif
                 return null;
             }
             string gpsSpeedRef = value.Trim();
-            if (Runtime.EqualsIgnoreCase("K", gpsSpeedRef))
+            if ("K".Equals (gpsSpeedRef, StringComparison.CurrentCultureIgnoreCase))
             {
                 return "kph";
             }
-            if (Runtime.EqualsIgnoreCase("M", gpsSpeedRef))
+            if ("M".Equals (gpsSpeedRef, StringComparison.CurrentCultureIgnoreCase))
             {
                 return "mph";
             }
-            if (Runtime.EqualsIgnoreCase("N", gpsSpeedRef))
+            if ("N".Equals (gpsSpeedRef, StringComparison.CurrentCultureIgnoreCase))
             {
                 return "knots";
             }
@@ -234,11 +235,11 @@ namespace Com.Drew.Metadata.Exif
                 return null;
             }
             string gpsSpeedMeasureMode = value.Trim();
-            if (Runtime.EqualsIgnoreCase("2", gpsSpeedMeasureMode))
+            if ("2".Equals (gpsSpeedMeasureMode, StringComparison.CurrentCultureIgnoreCase))
             {
                 return "2-dimensional measurement";
             }
-            if (Runtime.EqualsIgnoreCase("3", gpsSpeedMeasureMode))
+            if ("3".Equals (gpsSpeedMeasureMode, StringComparison.CurrentCultureIgnoreCase))
             {
                 return "3-dimensional measurement";
             }
@@ -254,11 +255,11 @@ namespace Com.Drew.Metadata.Exif
                 return null;
             }
             string gpsStatus = value.Trim();
-            if (Runtime.EqualsIgnoreCase("A", gpsStatus))
+            if ("A".Equals (gpsStatus, StringComparison.CurrentCultureIgnoreCase))
             {
                 return "Active (Measurement in progress)";
             }
-            if (Runtime.EqualsIgnoreCase("V", gpsStatus))
+            if ("V".Equals (gpsStatus, StringComparison.CurrentCultureIgnoreCase))
             {
                 return "Void (Measurement Interoperability)";
             }

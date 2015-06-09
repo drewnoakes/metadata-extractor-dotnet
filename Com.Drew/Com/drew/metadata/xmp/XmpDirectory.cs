@@ -316,7 +316,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XmpException e)
             {
-                Runtime.PrintStackTrace(e);
+                Console.WriteLine (e);
             }
         }
 
@@ -337,7 +337,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XmpException e)
             {
-                Runtime.PrintStackTrace(e);
+                Console.WriteLine (e);
             }
         }
 
@@ -350,7 +350,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XmpException e)
             {
-                Runtime.PrintStackTrace(e);
+                Console.WriteLine (e);
             }
         }
 
@@ -371,7 +371,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XmpException e)
             {
-                Runtime.PrintStackTrace(e);
+                Console.WriteLine (e);
             }
         }
 
@@ -384,7 +384,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XmpException e)
             {
-                Runtime.PrintStackTrace(e);
+                Console.WriteLine (e);
             }
         }
 
@@ -405,7 +405,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XmpException e)
             {
-                Runtime.PrintStackTrace(e);
+                Console.WriteLine (e);
             }
         }
 
@@ -418,7 +418,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XmpException e)
             {
-                Runtime.PrintStackTrace(e);
+                Console.WriteLine (e);
             }
         }
 
@@ -444,7 +444,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XmpException e)
             {
-                Runtime.PrintStackTrace(e);
+                Console.WriteLine (e);
             }
         }
 
@@ -457,7 +457,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XmpException e)
             {
-                Runtime.PrintStackTrace(e);
+                Console.WriteLine (e);
             }
         }
 
@@ -470,7 +470,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XmpException e)
             {
-                Runtime.PrintStackTrace(e);
+                Console.WriteLine (e);
             }
         }
 
@@ -484,7 +484,7 @@ namespace Com.Drew.Metadata.Xmp
             }
             catch (XmpException e)
             {
-                Runtime.PrintStackTrace(e);
+                Console.WriteLine (e);
             }
         }
         // TODO: Ignoring rationals for now, not sure their relevance to XMP (rational/floating storage)

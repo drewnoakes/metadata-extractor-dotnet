@@ -59,7 +59,7 @@ namespace Com.Drew.Metadata.Icc
             foreach (byte[] segmentBytes in segments)
             {
                 // Skip any segments that do not contain the required preamble
-                if (segmentBytes.Length < preambleLength || !Runtime.EqualsIgnoreCase(JpegSegmentPreamble, Encoding.UTF8.GetString(segmentBytes, 0, preambleLength)))
+                if (segmentBytes.Length < preambleLength || !JpegSegmentPreamble.Equals (Encoding.UTF8.GetString(segmentBytes, 0, preambleLength), StringComparison.CurrentCultureIgnoreCase))
                 {
                     continue;
                 }

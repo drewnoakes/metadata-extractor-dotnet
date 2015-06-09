@@ -64,7 +64,7 @@ namespace Com.Adobe.Xmp.Impl
                 string nameStr = tree.Name.ToLower();
                 if (nameStr.StartsWith("uuid:"))
                 {
-                    nameStr = Runtime.Substring(nameStr, 5);
+                    nameStr = nameStr.Substring (5);
                 }
                 if (Utils.CheckUuidFormat(nameStr))
                 {
@@ -540,10 +540,10 @@ namespace Com.Adobe.Xmp.Impl
                     else
                     {
                         // 3B. Has double LF, compare the tail.
-                        if (!Runtime.Substring(defaultValue, lfPos + 2).Equals(dmValue))
+                        if (!defaultValue.Substring (lfPos + 2).Equals(dmValue))
                         {
                             // 3B2. Replace the x-default tail.
-                            defaultNode.Value = Runtime.Substring(defaultValue, 0, lfPos + 2) + dmValue;
+                            defaultNode.Value = defaultValue.Substring (0, lfPos + 2 - 0) + dmValue;
                         }
                     }
                 }

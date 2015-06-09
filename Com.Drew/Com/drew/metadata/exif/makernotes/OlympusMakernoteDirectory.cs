@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Com.Drew.Lang;
@@ -577,7 +578,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             catch (IOException e)
             {
                 // Should never happen, given that we check the length of the bytes beforehand.
-                Runtime.PrintStackTrace(e);
+                Console.WriteLine (e);
             }
         }
 

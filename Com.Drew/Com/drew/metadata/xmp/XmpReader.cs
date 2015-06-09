@@ -103,7 +103,7 @@ namespace Com.Drew.Metadata.Xmp
             {
                 // XMP in a JPEG file has an identifying preamble which is not valid XML
                 int preambleLength = XmpJpegPreamble.Length;
-                if (segmentBytes.Length < preambleLength || !Runtime.EqualsIgnoreCase(XmpJpegPreamble, Encoding.UTF8.GetString(segmentBytes, 0, preambleLength)))
+                if (segmentBytes.Length < preambleLength || !XmpJpegPreamble.Equals (Encoding.UTF8.GetString(segmentBytes, 0, preambleLength), StringComparison.CurrentCultureIgnoreCase))
                 {
                     continue;
                 }

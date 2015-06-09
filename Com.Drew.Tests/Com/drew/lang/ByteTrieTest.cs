@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Text;
 using NUnit.Framework;
 using Sharpen;
 
@@ -35,18 +36,18 @@ namespace Com.Drew.Lang
             string[] strings = new string[] { "HELLO", "HELLO WORLD", "HERBERT" };
             foreach (string s in strings)
             {
-                trie.AddPath(s, Runtime.GetBytesForString(s));
+                trie.AddPath(s, Encoding.UTF8.GetBytes(s));
             }
             foreach (string s1 in strings)
             {
-                Assert.AreSame(s1, trie.Find(Runtime.GetBytesForString(s1)));
+                Assert.AreSame(s1, trie.Find(Encoding.UTF8.GetBytes(s1)));
             }
-            Assert.IsNull(trie.Find(Runtime.GetBytesForString("Not Included")));
-            Assert.IsNull(trie.Find(Runtime.GetBytesForString("HELL")));
-            Assert.AreEqual("HELLO", trie.Find(Runtime.GetBytesForString("HELLO MUM")));
+            Assert.IsNull(trie.Find(Encoding.UTF8.GetBytes("Not Included")));
+            Assert.IsNull(trie.Find(Encoding.UTF8.GetBytes("HELL")));
+            Assert.AreEqual("HELLO", trie.Find(Encoding.UTF8.GetBytes("HELLO MUM")));
             Assert.AreEqual("HELLO WORLD".Length, trie.GetMaxDepth());
             trie.SetDefaultValue("DEFAULT");
-            Assert.AreEqual("DEFAULT", trie.Find(Runtime.GetBytesForString("Also Not Included")));
+            Assert.AreEqual("DEFAULT", trie.Find(Encoding.UTF8.GetBytes("Also Not Included")));
         }
     }
 }

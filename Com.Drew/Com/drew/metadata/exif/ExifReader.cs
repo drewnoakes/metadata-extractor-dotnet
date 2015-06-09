@@ -83,12 +83,12 @@ namespace Com.Drew.Metadata.Exif
             catch (TiffProcessingException e)
             {
                 // TODO what do to with this error state?
-                Runtime.PrintStackTrace(e, Console.Error);
+                Console.Error.WriteLine (e);
             }
             catch (IOException e)
             {
                 // TODO what do to with this error state?
-                Runtime.PrintStackTrace(e, Console.Error);
+                Console.Error.WriteLine (e);
             }
         }
     }

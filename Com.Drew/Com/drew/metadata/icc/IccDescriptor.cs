@@ -524,7 +524,7 @@ namespace Com.Drew.Metadata.Icc
         /// <exception cref="System.IO.IOException"/>
         private static int GetInt32FromString([NotNull] string @string)
         {
-            byte[] bytes = Runtime.GetBytesForString(@string);
+            byte[] bytes = Encoding.UTF8.GetBytes(@string);
             return new ByteArrayReader(bytes).GetInt32(0);
         }
     }

@@ -63,7 +63,7 @@ namespace Com.Drew.Imaging.Png
                 }
                 catch (Exception e)
                 {
-                    Runtime.PrintStackTrace(e, Console.Error);
+                    Console.Error.WriteLine (e);
                 }
             }
             return metadata;

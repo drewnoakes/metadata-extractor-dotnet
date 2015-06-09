@@ -261,7 +261,7 @@ namespace Com.Adobe.Xmp
                 }
                 if (rawValue.StartsWith("0x"))
                 {
-                    return Convert.ToInt32(Runtime.Substring(rawValue, 2), 16);
+                    return Convert.ToInt32(rawValue.Substring (2), 16);
                 }
                 return Convert.ToInt32(rawValue);
             }
@@ -297,7 +297,7 @@ namespace Com.Adobe.Xmp
                 }
                 if (rawValue.StartsWith("0x"))
                 {
-                    return Convert.ToInt64(Runtime.Substring(rawValue, 2), 16);
+                    return Convert.ToInt64(rawValue.Substring (2), 16);
                 }
                 return Convert.ToInt64(rawValue);
             }

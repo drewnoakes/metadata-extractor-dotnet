@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System;
 using System.Collections.Generic;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
@@ -199,8 +200,8 @@ namespace Com.Drew.Metadata.Exif
             {
                 return null;
             }
-            double? lat = GeoLocation.DegreesMinutesSecondsToDecimal(latitudes[0], latitudes[1], latitudes[2], Runtime.EqualsIgnoreCase(latitudeRef, "S"));
-            double? lon = GeoLocation.DegreesMinutesSecondsToDecimal(longitudes[0], longitudes[1], longitudes[2], Runtime.EqualsIgnoreCase(longitudeRef, "W"));
+            double? lat = GeoLocation.DegreesMinutesSecondsToDecimal(latitudes[0], latitudes[1], latitudes[2], latitudeRef.Equals ("S", StringComparison.CurrentCultureIgnoreCase));
+            double? lon = GeoLocation.DegreesMinutesSecondsToDecimal(longitudes[0], longitudes[1], longitudes[2], longitudeRef.Equals ("W", StringComparison.CurrentCultureIgnoreCase));
             // This can return null, in cases where the conversion was not possible
             if (lat == null || lon == null)
             {

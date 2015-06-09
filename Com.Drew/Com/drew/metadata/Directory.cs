@@ -367,7 +367,7 @@ namespace Com.Drew.Metadata
                 {
                     // convert the char array to an int
                     string s = value;
-                    byte[] bytes = Runtime.GetBytesForString(s);
+                    byte[] bytes = Encoding.UTF8.GetBytes(s);
                     long val = 0;
                     foreach (byte aByte in bytes)
                     {
@@ -938,7 +938,7 @@ namespace Com.Drew.Metadata
             if (o.GetType().IsArray)
             {
                 // handle arrays of objects and primitives
-                int arrayLength = Runtime.GetArrayLength(o);
+                int arrayLength = ((Array)o).Length;
                 Type componentType = o.GetType().GetElementType();
                 bool isObjectArray = typeof(object).IsAssignableFrom(componentType);
                 bool isFloatArray = componentType.FullName.Equals("float");

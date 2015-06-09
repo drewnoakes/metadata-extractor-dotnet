@@ -736,7 +736,7 @@ namespace Com.Adobe.Xmp.Impl
             if (node.Options.IsSchemaNode)
             {
                 // The schema node name is the URI, the value is the prefix.
-                string prefix = Runtime.Substring(node.Value, 0, node.Value.Length - 1);
+                string prefix = node.Value.Substring (0, node.Value.Length - 1 - 0);
                 DeclareNamespace(prefix, node.Name, usedPrefixes, indent);
             }
             else

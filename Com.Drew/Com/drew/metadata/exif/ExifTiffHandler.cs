@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Com.Drew.Imaging.Tiff;
@@ -268,7 +269,7 @@ namespace Com.Drew.Metadata.Exif
                                     }
                                     else
                                     {
-                                        if (Runtime.EqualsIgnoreCase("Canon", cameraMake))
+                                        if ("Canon".Equals (cameraMake, StringComparison.CurrentCultureIgnoreCase))
                                         {
                                             PushDirectory(typeof(CanonMakernoteDirectory));
                                             TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset, tiffHeaderOffset);
@@ -290,7 +291,7 @@ namespace Com.Drew.Metadata.Exif
                                             }
                                             else
                                             {
-                                                if ("FUJIFILM".Equals(firstEightChars) || Runtime.EqualsIgnoreCase("Fujifilm", cameraMake))
+                                                if ("FUJIFILM".Equals(firstEightChars) || "Fujifilm".Equals (cameraMake, StringComparison.CurrentCultureIgnoreCase))
                                                 {
                                                     // Note that this also applies to certain Leica cameras, such as the Digilux-4.3
                                                     reader.IsMotorolaByteOrder = false;
@@ -393,7 +394,7 @@ namespace Com.Drew.Metadata.Exif
                                                                                     // This format is currently unsupported
                                                                                     return false;
                                                                                 }
-                                                                                if (Runtime.EqualsIgnoreCase(firstFiveChars, "Ricoh"))
+                                                                                if (firstFiveChars.Equals ("Ricoh", StringComparison.CurrentCultureIgnoreCase))
                                                                                 {
                                                                                     // Always in Motorola byte order
                                                                                     reader.IsMotorolaByteOrder = true;

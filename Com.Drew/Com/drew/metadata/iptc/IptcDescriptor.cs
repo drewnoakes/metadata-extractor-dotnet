@@ -374,7 +374,7 @@ namespace Com.Drew.Metadata.Iptc
             }
             if (s.Length == 6 || s.Length == 11)
             {
-                return Runtime.Substring(s, 0, 2) + ':' + Runtime.Substring(s, 2, 4) + ':' + Runtime.Substring(s, 4);
+                return s.Substring (0, 2 - 0) + ':' + s.Substring (2, 4 - 2) + ':' + s.Substring (4);
             }
             return s;
         }
@@ -389,7 +389,7 @@ namespace Com.Drew.Metadata.Iptc
             }
             if (s.Length == 6 || s.Length == 11)
             {
-                return Runtime.Substring(s, 0, 2) + ':' + Runtime.Substring(s, 2, 4) + ':' + Runtime.Substring(s, 4);
+                return s.Substring (0, 2 - 0) + ':' + s.Substring (2, 4 - 2) + ':' + s.Substring (4);
             }
             return s;
         }

@@ -415,7 +415,7 @@ namespace Com.Drew.Metadata.Exif
             {
                 return null;
             }
-            return Runtime.EqualsIgnoreCase("R98", value.Trim()) ? "Recommended Exif Interoperability Rules (ExifR98)" : "Unknown (" + value + ")";
+            return "R98".Equals (value.Trim(), StringComparison.CurrentCultureIgnoreCase) ? "Recommended Exif Interoperability Rules (ExifR98)" : "Unknown (" + value + ")";
         }
 
         [CanBeNull]

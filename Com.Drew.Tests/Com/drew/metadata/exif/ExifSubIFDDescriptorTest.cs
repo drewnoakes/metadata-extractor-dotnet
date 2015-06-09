@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Text;
 using NUnit.Framework;
 using Sharpen;
 
@@ -33,7 +34,7 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestUserCommentDescription_EmptyEncoding()
         {
-            byte[] commentBytes = Runtime.GetBytesForString("\x0\x0\x0\x0\x0\x0\x0\x0This is a comment");
+            byte[] commentBytes = Encoding.UTF8.GetBytes("\x0\x0\x0\x0\x0\x0\x0\x0This is a comment");
             ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
             directory.SetByteArray(ExifDirectoryBase.TagUserComment, commentBytes);
             ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);
@@ -44,7 +45,7 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestUserCommentDescription_AsciiHeaderAsciiEncoding()
         {
-            byte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0This is a comment");
+            byte[] commentBytes = Encoding.UTF8.GetBytes("ASCII\x0\x0This is a comment");
             ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
             directory.SetByteArray(ExifDirectoryBase.TagUserComment, commentBytes);
             ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);
@@ -55,7 +56,7 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestUserCommentDescription_BlankAscii()
         {
-            byte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0\x0          ");
+            byte[] commentBytes = Encoding.UTF8.GetBytes("ASCII\x0\x0\x0          ");
             ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
             directory.SetByteArray(ExifDirectoryBase.TagUserComment, commentBytes);
             ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);
@@ -67,7 +68,7 @@ namespace Com.Drew.Metadata.Exif
         public void TestUserCommentDescription_ZeroLengthAscii1()
         {
             // the 10-byte encoding region is only partially full
-            byte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0\x0");
+            byte[] commentBytes = Encoding.UTF8.GetBytes("ASCII\x0\x0\x0");
             ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
             directory.SetByteArray(ExifDirectoryBase.TagUserComment, commentBytes);
             ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);
@@ -79,7 +80,7 @@ namespace Com.Drew.Metadata.Exif
         public void TestUserCommentDescription_ZeroLengthAscii2()
         {
             // fill the 10-byte encoding region
-            byte[] commentBytes = Runtime.GetBytesForString("ASCII\x0\x0\x0\x0\x0");
+            byte[] commentBytes = Encoding.UTF8.GetBytes("ASCII\x0\x0\x0\x0\x0");
             ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
             directory.SetByteArray(ExifDirectoryBase.TagUserComment, commentBytes);
             ExifSubIfdDescriptor descriptor = new ExifSubIfdDescriptor(directory);

@@ -186,7 +186,7 @@ namespace Com.Drew.Imaging
                 }
                 catch (Exception e)
                 {
-                    Runtime.PrintStackTrace(e, Console.Error);
+                    Console.Error.WriteLine (e);
                     Environment.Exit(1);
                 }
                 if (!markdownFormat)
@@ -224,7 +224,7 @@ namespace Com.Drew.Imaging
                         // truncate the description if it's too long
                         if (description != null && description.Length > 1024)
                         {
-                            description = Runtime.Substring(description, 0, 1024) + "...";
+                            description = description.Substring (0, 1024 - 0) + "...";
                         }
                         if (markdownFormat)
                         {

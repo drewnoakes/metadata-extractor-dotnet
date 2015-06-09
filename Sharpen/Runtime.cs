@@ -1,62 +1,11 @@
 using System;
 using System.Collections;
-using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Sharpen
 {
     public static class Runtime
     {
-        public static byte[] GetBytesForString (string str)
-        {
-            return Encoding.UTF8.GetBytes(str);
-        }
-
-        public static void PrintStackTrace (Exception ex)
-        {
-            Console.WriteLine (ex);
-        }
-
-        public static void PrintStackTrace (Exception ex, TextWriter tw)
-        {
-            tw.WriteLine (ex);
-        }
-
-        public static string Substring (string str, int index)
-        {
-            return str.Substring (index);
-        }
-
-        public static string Substring(string str, int index, int endIndex)
-        {
-            return str.Substring (index, endIndex - index);
-        }
-
-        public static void SetCharAt (StringBuilder sb, int index, char c)
-        {
-            sb [index] = c;
-        }
-
-        public static bool EqualsIgnoreCase (string s1, string s2)
-        {
-            return s1.Equals (s2, StringComparison.CurrentCultureIgnoreCase);
-        }
-
-        public static int GetArrayLength(object array)
-        {
-            if (array.GetType().IsArray)
-            {
-                var collection = array as ICollection;
-                if (collection != null)
-                {
-                    return collection.Count;
-                }
-            }
-
-            throw new NotSupportedException();
-        }
-
         private static T GetArrayValue<T>(object array, int index)
         {
             if (array.GetType().IsArray)

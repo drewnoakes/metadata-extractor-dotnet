@@ -67,12 +67,12 @@ namespace Com.Drew.Metadata
             }
             try
             {
-                int years = Convert.ToInt32(Runtime.Substring(s, 0, 4));
-                int months = Convert.ToInt32(Runtime.Substring(s, 5, 7));
-                int days = Convert.ToInt32(Runtime.Substring(s, 8, 10));
-                int hours = Convert.ToInt32(Runtime.Substring(s, 11, 13));
-                int minutes = Convert.ToInt32(Runtime.Substring(s, 14, 16));
-                int seconds = Convert.ToInt32(Runtime.Substring(s, 17, 19));
+                int years = Convert.ToInt32(s.Substring (0, 4 - 0));
+                int months = Convert.ToInt32(s.Substring (5, 7 - 5));
+                int days = Convert.ToInt32(s.Substring (8, 10 - 8));
+                int hours = Convert.ToInt32(s.Substring (11, 13 - 11));
+                int minutes = Convert.ToInt32(s.Substring (14, 16 - 14));
+                int seconds = Convert.ToInt32(s.Substring (17, 19 - 17));
                 return new Age(years, months, days, hours, minutes, seconds);
             }
             catch (FormatException)

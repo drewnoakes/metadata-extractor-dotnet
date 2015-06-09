@@ -208,9 +208,9 @@ namespace Com.Drew.Metadata.Iptc
                         @string = reader.GetString(tagByteCount);
                         try
                         {
-                            int year = Convert.ToInt32(Runtime.Substring(@string, 0, 4));
-                            int month = Convert.ToInt32(Runtime.Substring(@string, 4, 6)) - 1;
-                            int day = Convert.ToInt32(Runtime.Substring(@string, 6, 8));
+                            int year = Convert.ToInt32(@string.Substring (0, 4 - 0));
+                            int month = Convert.ToInt32(@string.Substring (4, 6 - 4)) - 1;
+                            int day = Convert.ToInt32(@string.Substring (6, 8 - 6));
                             DateTime date = new GregorianCalendar(year, month, day).GetTime();
                             directory.SetDate(tagIdentifier, date);
                             return;

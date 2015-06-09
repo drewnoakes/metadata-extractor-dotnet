@@ -356,7 +356,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 if (_enclosing.GetOptions().IsJustLeafname)
                 {
-                    return !segmentName.StartsWith("?") ? segmentName : Runtime.Substring(segmentName, 1);
+                    return !segmentName.StartsWith("?") ? segmentName : segmentName.Substring (1);
                 }
                 // qualifier
                 return parentPath + separator + segmentName;

@@ -424,7 +424,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (stepKind == XmpPath.QualifierStep)
                 {
-                    nextNode = FindQualifierNode(parentNode, Runtime.Substring(nextStep.GetName(), 1), createNodes);
+                    nextNode = FindQualifierNode(parentNode, nextStep.GetName().Substring (1), createNodes);
                 }
                 else
                 {
@@ -514,7 +514,7 @@ namespace Com.Adobe.Xmp.Impl
             int index = 0;
             try
             {
-                segment = Runtime.Substring(segment, 1, segment.Length - 1);
+                segment = segment.Substring (1, segment.Length - 1 - 1);
                 index = Convert.ToInt32(segment);
                 if (index < 1)
                 {

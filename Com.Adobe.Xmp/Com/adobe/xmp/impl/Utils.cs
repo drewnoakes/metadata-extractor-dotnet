@@ -130,7 +130,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 pos++;
             }
-            string name = Runtime.Substring(selector, pos, eq);
+            string name = selector.Substring (pos, eq - pos);
             // get the value
             pos = eq + 1;
             char quote = selector[pos];
@@ -468,7 +468,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (IsControlChar(buffer[i]))
                 {
-                    Runtime.SetCharAt(buffer, i, ' ');
+                    buffer[i] = ' ';
                 }
             }
             return buffer.ToString();

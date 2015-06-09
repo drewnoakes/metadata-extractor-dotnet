@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -46,7 +47,7 @@ namespace Com.Drew.Metadata.Adobe
         {
             foreach (byte[] bytes in segments)
             {
-                if (bytes.Length == 12 && Runtime.EqualsIgnoreCase(Preamble, Encoding.ASCII.GetString(bytes, 0, Preamble.Length)))
+                if (bytes.Length == 12 && Preamble.Equals (Encoding.ASCII.GetString(bytes, 0, Preamble.Length), StringComparison.CurrentCultureIgnoreCase))
                 {
                     Extract(new SequentialByteArrayReader(bytes), metadata);
                 }
