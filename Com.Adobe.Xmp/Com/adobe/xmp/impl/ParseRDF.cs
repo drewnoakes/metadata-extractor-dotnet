@@ -786,19 +786,19 @@ namespace Com.Adobe.Xmp.Impl
         /// verbose form written using a literalPropertyElt.
         /// The XMP mapping for an emptyPropertyElt is a bit different from generic RDF, partly for
         /// design reasons and partly for historical reasons. The XMP mapping rules are:
-        /// <ol>
+        /// <list type="bullet">
         /// <item> If there is an rdf:value attribute then this is a simple property
         /// with a text value.
-        /// All other attributes are qualifiers.
+        /// All other attributes are qualifiers.</item>
         /// <item> If there is an rdf:resource attribute then this is a simple property
         /// with a URI value.
-        /// All other attributes are qualifiers.
+        /// All other attributes are qualifiers.</item>
         /// <item> If there are no attributes other than xml:lang, rdf:ID, or rdf:nodeID
         /// then this is a simple
-        /// property with an empty value.
+        /// property with an empty value.</item>
         /// <item> Otherwise this is a struct, the attributes other than xml:lang, rdf:ID,
-        /// or rdf:nodeID are fields.
-        /// </ol>
+        /// or rdf:nodeID are fields.</item>
+        /// </list>
         /// </remarks>
         /// <param name="xmp">the xmp metadata object that is generated</param>
         /// <param name="xmpParent">the parent xmp node</param>

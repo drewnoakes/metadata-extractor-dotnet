@@ -1165,10 +1165,10 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>
         /// A node can be serialized as RDF-Attribute, if it meets the following conditions:
         /// <list type="bullet">
-        /// <item>is not array item
-        /// <item>don't has qualifier
-        /// <item>is no URI
-        /// <item>is no composite property
+        /// <item>is not array item</item>
+        /// <item>don't has qualifier</item>
+        /// <item>is no URI</item>
+        /// <item>is no composite property</item>
         /// </list>
         /// </summary>
         /// <param name="node">an XMPNode</param>

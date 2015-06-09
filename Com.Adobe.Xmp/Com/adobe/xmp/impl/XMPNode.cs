@@ -433,20 +433,15 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>
         /// Sorts the complete datamodel according to the following rules:
-        /// <list type="bullet">
-        /// <item>Nodes at one level are sorted by name, that is prefix + local name
-        /// <item>Starting at the root node the children and qualifier are sorted recursively,
-        /// which the following exceptions.
         /// </summary>
         /// <remarks>
-        /// Sorts the complete datamodel according to the following rules:
         /// <list type="bullet">
-        /// <item>Nodes at one level are sorted by name, that is prefix + local name
+        /// <item>Nodes at one level are sorted by name, that is prefix + local name</item>
         /// <item>Starting at the root node the children and qualifier are sorted recursively,
-        /// which the following exceptions.
-        /// <item>Sorting will not be used for arrays.
+        /// which the following exceptions.</item>
+        /// <item>Sorting will not be used for arrays.</item>
         /// <item>Within qualifier "xml:lang" and/or "rdf:type" stay at the top in that order,
-        /// all others are sorted.
+        /// all others are sorted.</item>
         /// </list>
         /// </remarks>
         public void Sort()

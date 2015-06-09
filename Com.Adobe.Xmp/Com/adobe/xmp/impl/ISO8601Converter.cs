@@ -23,23 +23,23 @@ namespace Com.Adobe.Xmp.Impl
         /// Parse a date according to ISO 8601 and
         /// http://www.w3.org/TR/NOTE-datetime:
         /// <list type="bullet">
-        /// <item>YYYY
-        /// <item>YYYY-MM
-        /// <item>YYYY-MM-DD
-        /// <item>YYYY-MM-DDThh:mmTZD
-        /// <item>YYYY-MM-DDThh:mm:ssTZD
-        /// <item>YYYY-MM-DDThh:mm:ss.sTZD
+        /// <item>YYYY</item>
+        /// <item>YYYY-MM</item>
+        /// <item>YYYY-MM-DD</item>
+        /// <item>YYYY-MM-DDThh:mmTZD</item>
+        /// <item>YYYY-MM-DDThh:mm:ssTZD</item>
+        /// <item>YYYY-MM-DDThh:mm:ss.sTZD</item>
         /// </list>
         /// Data fields:
         /// <list type="bullet">
-        /// <item>YYYY = four-digit year
-        /// <item>MM = two-digit month (01=January, etc.)
-        /// <item>DD = two-digit day of month (01 through 31)
-        /// <item>hh = two digits of hour (00 through 23)
-        /// <item>mm = two digits of minute (00 through 59)
-        /// <item>ss = two digits of second (00 through 59)
-        /// <item>s = one or more digits representing a decimal fraction of a second
-        /// <item>TZD = time zone designator (Z or +hh:mm or -hh:mm)
+        /// <item>YYYY = four-digit year</item>
+        /// <item>MM = two-digit month (01=January, etc.)</item>
+        /// <item>DD = two-digit day of month (01 through 31)</item>
+        /// <item>hh = two digits of hour (00 through 23)</item>
+        /// <item>mm = two digits of minute (00 through 59)</item>
+        /// <item>ss = two digits of second (00 through 59)</item>
+        /// <item>s = one or more digits representing a decimal fraction of a second</item>
+        /// <item>TZD = time zone designator (Z or +hh:mm or -hh:mm)</item>
         /// </list>
         /// Note that ISO 8601 does not seem to allow years less than 1000 or greater
         /// than 9999. We allow any year, even negative ones. The year is formatted
@@ -242,23 +242,23 @@ namespace Com.Adobe.Xmp.Impl
         /// Converts a <c>Calendar</c> into an ISO 8601 string.
         /// Format a date according to ISO 8601 and http://www.w3.org/TR/NOTE-datetime:
         /// <list type="bullet">
-        /// <item>YYYY
-        /// <item>YYYY-MM
-        /// <item>YYYY-MM-DD
-        /// <item>YYYY-MM-DDThh:mmTZD
-        /// <item>YYYY-MM-DDThh:mm:ssTZD
-        /// <item>YYYY-MM-DDThh:mm:ss.sTZD
+        /// <item>YYYY</item>
+        /// <item>YYYY-MM</item>
+        /// <item>YYYY-MM-DD</item>
+        /// <item>YYYY-MM-DDThh:mmTZD</item>
+        /// <item>YYYY-MM-DDThh:mm:ssTZD</item>
+        /// <item>YYYY-MM-DDThh:mm:ss.sTZD</item>
         /// </list>
         /// Data fields:
         /// <list type="bullet">
-        /// <item>YYYY = four-digit year
-        /// <item>MM     = two-digit month (01=January, etc.)
-        /// <item>DD     = two-digit day of month (01 through 31)
-        /// <item>hh     = two digits of hour (00 through 23)
-        /// <item>mm     = two digits of minute (00 through 59)
-        /// <item>ss     = two digits of second (00 through 59)
-        /// <item>s     = one or more digits representing a decimal fraction of a second
-        /// <item>TZD     = time zone designator (Z or +hh:mm or -hh:mm)
+        /// <item>YYYY = four-digit year</item>
+        /// <item>MM     = two-digit month (01=January, etc.)</item>
+        /// <item>DD     = two-digit day of month (01 through 31)</item>
+        /// <item>hh     = two digits of hour (00 through 23)</item>
+        /// <item>mm     = two digits of minute (00 through 59)</item>
+        /// <item>ss     = two digits of second (00 through 59)</item>
+        /// <item>s     = one or more digits representing a decimal fraction of a second</item>
+        /// <item>TZD     = time zone designator (Z or +hh:mm or -hh:mm)</item>
         /// </list>
         /// <para />
         /// <em>Note:</em> ISO 8601 does not seem to allow years less than 1000 or greater than 9999.

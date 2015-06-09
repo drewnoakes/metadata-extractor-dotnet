@@ -322,14 +322,10 @@ namespace Com.Adobe.Xmp
         /// <param name="arrayOptions">
         /// Option flags describing the array form. The only valid options are
         /// <list type="bullet">
-        /// <item>
-        /// <see cref="PropertyOptions.ArrayFlag"/>,
-        /// <item>
-        /// <see cref="PropertyOptions.ArrayOrderedFlag"/>,
-        /// <item>
-        /// <see cref="PropertyOptions.ArrayAlternateFlag"/> or
-        /// <item>
-        /// <see cref="PropertyOptions.ArrayAltTextFlag"/>.
+        /// <item><see cref="PropertyOptions.ArrayFlag"/>,</item>
+        /// <item><see cref="PropertyOptions.ArrayOrderedFlag"/>,</item>
+        /// <item><see cref="PropertyOptions.ArrayAlternateFlag"/> or</item>
+        /// <item><see cref="PropertyOptions.ArrayAltTextFlag"/>.</item>
         /// </list>
         /// <em>Note:</em> the array options only need to be provided if the array is not
         /// already existing, otherwise you can set them to <c>null</c> or use
@@ -621,20 +617,20 @@ namespace Com.Adobe.Xmp
         /// <em>Note:</em> RFC 3066 language tags must be treated in a case insensitive manner. The XMP
         /// Toolkit does this by normalizing their capitalization:
         /// <list type="bullet">
-        /// <item> The primary subtag is lower case, the suggested practice of ISO 639.
-        /// <item> All 2 letter secondary subtags are upper case, the suggested practice of ISO 3166.
-        /// <item> All other subtags are lower case. The XMP specification defines an artificial language,
-        /// <item>"x-default", that is used to explicitly denote a default item in an alt-text array.
+        /// <item> The primary subtag is lower case, the suggested practice of ISO 639.</item>
+        /// <item> All 2 letter secondary subtags are upper case, the suggested practice of ISO 3166.</item>
+        /// <item> All other subtags are lower case. The XMP specification defines an artificial language,</item>
+        /// <item>"x-default", that is used to explicitly denote a default item in an alt-text array.</item>
         /// </list>
         /// The XMP toolkit normalizes alt-text arrays such that the x-default item is the first item.
         /// The SetLocalizedText function has several special features related to the x-default item, see
         /// its description for details. The selection of the array item is the same for GetLocalizedText
         /// and SetLocalizedText:
         /// <list type="bullet">
-        /// <item> Look for an exact match with the specific language.
-        /// <item> If a generic language is given, look for a partial match.
-        /// <item> Look for an x-default item.
-        /// <item> Choose the first item.
+        /// <item> Look for an exact match with the specific language.</item>
+        /// <item> If a generic language is given, look for a partial match.</item>
+        /// <item> Look for an x-default item.</item>
+        /// <item> Choose the first item.</item>
         /// </list>
         /// A partial match with the generic language is where the start of the item's language matches
         /// the generic string and the next character is '-'. An exact match is also recognized as a
@@ -1142,19 +1138,16 @@ namespace Com.Adobe.Xmp
         object Clone();
 
         /// <summary>
-        /// Sorts the complete datamodel according to the following rules:
-        /// <list type="bullet">
-        /// <item>Schema nodes are sorted by prefix.
         /// </summary>
         /// <remarks>
         /// Sorts the complete datamodel according to the following rules:
         /// <list type="bullet">
-        /// <item>Schema nodes are sorted by prefix.
+        /// <item>Schema nodes are sorted by prefix.</item>
         /// <item>Properties at top level and within structs are sorted by full name, that is
-        /// prefix + local name.
-        /// <item>Array items are not sorted, even if they have no certain order such as bags.
+        /// prefix + local name.</item>
+        /// <item>Array items are not sorted, even if they have no certain order such as bags.</item>
         /// <item>Qualifier are sorted, with the exception of "xml:lang" and/or "rdf:type"
-        /// that stay at the top of the list in that order.
+        /// that stay at the top of the list in that order.</item>
         /// </list>
         /// </remarks>
         void Sort();

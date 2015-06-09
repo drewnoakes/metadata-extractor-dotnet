@@ -82,16 +82,16 @@ namespace Com.Adobe.Xmp
         /// <item> Non-empty <c>schemaNS</c> and <c>propName</c> - The named property is
         /// removed if it is an external property, or if the
         /// flag <c>doAllProperties</c> option is true. It does not matter whether the
-        /// named property is an actual property or an alias.
+        /// named property is an actual property or an alias.</item>
         /// <item> Non-empty <c>schemaNS</c> and empty <c>propName</c> - The all external
         /// properties in the named schema are removed. Internal properties are also
         /// removed if the flag <c>doAllProperties</c> option is set. In addition,
         /// aliases from the named schema will be removed if the flag <c>includeAliases</c>
-        /// option is set.
+        /// option is set.</item>
         /// <item> Empty <c>schemaNS</c> and empty <c>propName</c> - All external properties in
         /// all schema are removed. Internal properties are also removed if the
         /// flag <c>doAllProperties</c> option is passed. Aliases are implicitly handled
-        /// because the associated actuals are internal if the alias is.
+        /// because the associated actuals are internal if the alias is.</item>
         /// </list>
         /// It is an error to pass an empty <c>schemaNS</c> and non-empty <c>propName</c>.
         /// </remarks>
@@ -134,15 +134,15 @@ namespace Com.Adobe.Xmp
         /// level properties. The processed properties from the source (according to
         /// <c>doAllProperties</c>) are propagated to the destination,
         /// replacing any existing values.Properties in the destination that are not in the source
-        /// are left alone.
+        /// are left alone.</item>
         /// <item>If <c>replaceOldValues</c> is not passed then the processing is more complicated.
         /// Top level properties are added to the destination if they do not already exist.
         /// If they do exist but differ in form (simple/struct/array) then the destination is left alone.
-        /// If the forms match, simple properties are left unchanged while structs and arrays are merged.
+        /// If the forms match, simple properties are left unchanged while structs and arrays are merged.</item>
         /// <item>If <c>deleteEmptyValues</c> is passed then an empty value in the source XMP causes
         /// the corresponding destination XMP property to be deleted. The default is to treat empty
         /// values the same as non-empty values. An empty value is any of a simple empty string, an array
-        /// with no items, or a struct with no fields. Qualifiers are ignored.
+        /// with no items, or a struct with no fields. Qualifiers are ignored.</item>
         /// </list>
         /// <para />The detailed behavior is defined by the following pseudo-code:
         /// <blockquote>
@@ -200,14 +200,11 @@ namespace Com.Adobe.Xmp
         /// The appropriate boolean value for the string. The checked values
         /// for <c>true</c> and <c>false</c> are:
         /// <list type="bullet">
-        /// <item>
-        /// <see cref="XmpConstConstants.Truestr"/>
-        /// and
-        /// <see cref="XmpConstConstants.Falsestr"/>
-        /// <item>&quot;t&quot; and &quot;f&quot;
-        /// <item>&quot;on&quot; and &quot;off&quot;
-        /// <item>&quot;yes&quot; and &quot;no&quot;
-        /// <item>&quot;value &lt;&gt; 0&quot; and &quot;value == 0&quot;
+        /// <item><see cref="XmpConstConstants.Truestr"/> and <see cref="XmpConstConstants.Falsestr"/></item>
+        /// <item>&quot;t&quot; and &quot;f&quot;</item>
+        /// <item>&quot;on&quot; and &quot;off&quot;</item>
+        /// <item>&quot;yes&quot; and &quot;no&quot;</item>
+        /// <item>&quot;value &lt;&gt; 0&quot; and &quot;value == 0&quot;</item>
         /// </list>
         /// </returns>
         /// <exception cref="XmpException">If an empty string is passed.</exception>

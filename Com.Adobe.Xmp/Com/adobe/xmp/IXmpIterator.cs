@@ -49,14 +49,14 @@ namespace Com.Adobe.Xmp
     /// <item>JUST_CHILDREN - Visit just the immediate children of the root. Skip
     /// the root itself and all nodes below the immediate children. This omits the
     /// qualifiers of the immediate children, the qualifier nodes being below what
-    /// they qualify, default is to visit the complete subtree.
+    /// they qualify, default is to visit the complete subtree.</item>
     /// <item>JUST_LEAFNODES - Visit just the leaf property nodes and their
-    /// qualifiers.
+    /// qualifiers.</item>
     /// <item>JUST_LEAFNAME - Return just the leaf component of the node names.
-    /// The default is to return the full xmp path.
-    /// <item>OMIT_QUALIFIERS - Do not visit the qualifiers.
+    /// The default is to return the full xmp path.</item>
+    /// <item>OMIT_QUALIFIERS - Do not visit the qualifiers.</item>
     /// <item>INCLUDE_ALIASES - Adds known alias properties to the properties in the iteration.
-    /// <em>Note:</em> Not supported in Java XMPCore!
+    /// <em>Note:</em> Not supported in Java XMPCore!</item>
     /// </list>
     /// <para />
     /// <c>next()</c> returns <c>XMPPropertyInfo</c>-objects and throws

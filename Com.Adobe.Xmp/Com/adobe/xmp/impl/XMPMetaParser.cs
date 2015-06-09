@@ -243,9 +243,9 @@ namespace Com.Adobe.Xmp.Impl
         /// Returns an array that contains the result or <c>null</c>.
         /// The array contains:
         /// <list type="bullet">
-        /// <item>[0] - the rdf:RDF-node
-        /// <item>[1] - an object that is either XMP_RDF or XMP_PLAIN (the latter is decrecated)
-        /// <item>[2] - the body text of the xpacket-instruction.
+        /// <item>[0] - the rdf:RDF-node</item>
+        /// <item>[1] - an object that is either XMP_RDF or XMP_PLAIN (the latter is decrecated)</item>
+        /// <item>[2] - the body text of the xpacket-instruction.</item>
         /// </list>
         /// </returns>
         private static bool FindRootNode(XmlNode root, bool xmpmetaRequired, out object[] result)

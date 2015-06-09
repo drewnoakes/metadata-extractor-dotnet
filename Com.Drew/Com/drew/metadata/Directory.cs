@@ -299,13 +299,13 @@ namespace Com.Drew.Metadata
         /// Returns the specified tag's value as an int, if possible.  Every attempt to represent the tag's value as an int
         /// is taken.  Here is a list of the action taken depending upon the tag's original type:
         /// <list type="bullet">
-        /// <item> int - Return unchanged.
-        /// <item> Number - Return an int value (real numbers are truncated).
-        /// <item> Rational - Truncate any fractional part and returns remaining int.
-        /// <item> String - Attempt to parse string as an int.  If this fails, convert the char[] to an int (using shifts and OR).
-        /// <item> Rational[] - Return int value of first item in array.
-        /// <item> byte[] - Return int value of first item in array.
-        /// <item> int[] - Return int value of first item in array.
+        /// <item> int - Return unchanged.</item>
+        /// <item> Number - Return an int value (real numbers are truncated).</item>
+        /// <item> Rational - Truncate any fractional part and returns remaining int.</item>
+        /// <item> String - Attempt to parse string as an int.  If this fails, convert the char[] to an int (using shifts and OR).</item>
+        /// <item> Rational[] - Return int value of first item in array.</item>
+        /// <item> byte[] - Return int value of first item in array.</item>
+        /// <item> int[] - Return int value of first item in array.</item>
         /// </list>
         /// </remarks>
         /// <exception cref="MetadataException">if no value exists for tagType or if it cannot be converted to an int.</exception>
@@ -330,13 +330,13 @@ namespace Com.Drew.Metadata
         /// Returns the specified tag's value as an Integer, if possible.  Every attempt to represent the tag's value as an
         /// Integer is taken.  Here is a list of the action taken depending upon the tag's original type:
         /// <list type="bullet">
-        /// <item> int - Return unchanged
-        /// <item> Number - Return an int value (real numbers are truncated)
-        /// <item> Rational - Truncate any fractional part and returns remaining int
-        /// <item> String - Attempt to parse string as an int.  If this fails, convert the char[] to an int (using shifts and OR)
-        /// <item> Rational[] - Return int value of first item in array if length &gt; 0
-        /// <item> byte[] - Return int value of first item in array if length &gt; 0
-        /// <item> int[] - Return int value of first item in array if length &gt; 0
+        /// <item> int - Return unchanged</item>
+        /// <item> Number - Return an int value (real numbers are truncated)</item>
+        /// <item> Rational - Truncate any fractional part and returns remaining int</item>
+        /// <item> String - Attempt to parse string as an int.  If this fails, convert the char[] to an int (using shifts and OR)</item>
+        /// <item> Rational[] - Return int value of first item in array if length &gt; 0</item>
+        /// <item> byte[] - Return int value of first item in array if length &gt; 0</item>
+        /// <item> int[] - Return int value of first item in array if length &gt; 0</item>
         /// </list>
         /// If the value is not found or cannot be converted to int, <c>null</c> is returned.
         /// </remarks>

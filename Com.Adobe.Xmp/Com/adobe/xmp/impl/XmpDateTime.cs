@@ -296,7 +296,6 @@ namespace Com.Adobe.Xmp.Impl
             return calendar;
         }
 
-        /// <sIXmpDateTime.GetIso8601StringO8601String()"/>
         public string GetIso8601String()
         {
             return Iso8601Converter.Render(this);

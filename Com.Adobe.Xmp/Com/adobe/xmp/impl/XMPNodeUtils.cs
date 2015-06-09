@@ -391,18 +391,16 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>
         /// After processing by ExpandXPath, a step can be of these forms:
-        /// <list type="bullet">
-        /// <item>qualName - A top level property or struct field.
         /// </summary>
         /// <remarks>
         /// After processing by ExpandXPath, a step can be of these forms:
         /// <list type="bullet">
-        /// <item>qualName - A top level property or struct field.
-        /// <item>[index] - An element of an array.
-        /// <item>[last()] - The last element of an array.
-        /// <item>[qualName="value"] - An element in an array of structs, chosen by a field value.
-        /// <item>[?qualName="value"] - An element in an array, chosen by a qualifier value.
-        /// <item>?qualName - A general qualifier.
+        /// <item>qualName - A top level property or struct field.</item>
+        /// <item>[index] - An element of an array.</item>
+        /// <item>[last()] - The last element of an array.</item>
+        /// <item>[qualName="value"] - An element in an array of structs, chosen by a field value.</item>
+        /// <item>[?qualName="value"] - An element in an array, chosen by a qualifier value.</item>
+        /// <item>?qualName - A general qualifier.</item>
         /// </list>
         /// Find the appropriate child node, resolving aliases, and optionally creating nodes.
         /// </remarks>
@@ -716,16 +714,14 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <summary>
-        /// <ol>
-        /// <item>Look for an exact match with the specific language.
         /// </summary>
         /// <remarks>
-        /// <ol>
-        /// <item>Look for an exact match with the specific language.
-        /// <item>If a generic language is given, look for partial matches.
-        /// <item>Look for an "x-default"-item.
-        /// <item>Choose the first item.
-        /// </ol>
+        /// <list>
+        /// <item>Look for an exact match with the specific language.</item>
+        /// <item>If a generic language is given, look for partial matches.</item>
+        /// <item>Look for an "x-default"-item.</item>
+        /// <item>Choose the first item.</item>
+        /// </list>
         /// </remarks>
         /// <param name="arrayNode">the alt text array node</param>
         /// <param name="genericLang">the generic language</param>

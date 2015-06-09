@@ -29,7 +29,6 @@ namespace Com.Drew.Lang
 {
     /// <summary>Stores values using a prefix tree (aka 'trie', i.e.</summary>
     /// <remarks>Stores values using a prefix tree (aka 'trie', i.e. reTRIEval data structure).</remarks>
-    /// <?/>
     public sealed class ByteTrie<T>
     {
         /// <summary>A node in the trie.</summary>

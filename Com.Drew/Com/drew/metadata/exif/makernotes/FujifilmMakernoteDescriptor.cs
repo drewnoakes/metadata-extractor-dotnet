@@ -31,10 +31,10 @@ namespace Com.Drew.Metadata.Exif.Makernotes
     /// Fujifilm added their Makernote tag from the Year 2000's models (e.g.Finepix1400,
     /// Finepix4700). It uses IFD format and start from ASCII character 'FUJIFILM', and next 4
     /// bytes (value 0x000c) points the offset to first IFD entry.
-    /// <pre><c>
+    /// <code>
     /// :0000: 46 55 4A 49 46 49 4C 4D-0C 00 00 00 0F 00 00 00 :0000: FUJIFILM........
     /// :0010: 07 00 04 00 00 00 30 31-33 30 00 10 02 00 08 00 :0010: ......0130......
-    /// </c></pre>
+    /// </code>
     /// There are two big differences to the other manufacturers.
     /// <list type="bullet">
     /// <item>Fujifilm's Exif data uses Motorola align, but Makernote ignores it and uses Intel align.</item>

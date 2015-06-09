@@ -363,7 +363,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         /// processing. If allowUnknownSchemaNS is true and the schema namespace is not registered, false
         /// is returned. If allowUnknownSchemaNS is false and the schema namespace is not registered, an
         /// exception is thrown
-        /// <P>
+        /// <para />
         /// (Should someday check the full syntax:)
         /// </remarks>
         /// <param name="schemaNs">schema namespace</param>

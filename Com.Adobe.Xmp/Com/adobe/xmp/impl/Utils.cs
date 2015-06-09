@@ -42,10 +42,10 @@ namespace Com.Adobe.Xmp.Impl
         /// insensitive as required by RFC 3066 (which superceeds RFC 1766). The
         /// normalization rules:
         /// <list type="bullet">
-        /// <item> The primary subtag is lower case, the suggested practice of ISO 639.
+        /// <item> The primary subtag is lower case, the suggested practice of ISO 639.</item>
         /// <item> All 2 letter secondary subtags are upper case, the suggested
-        /// practice of ISO 3166.
-        /// <item> All other subtags are lower case.
+        /// practice of ISO 3166.</item>
+        /// <item> All other subtags are lower case.</item>
         /// </list>
         /// </remarks>
         /// <param name="value">raw value</param>
@@ -98,17 +98,12 @@ namespace Com.Adobe.Xmp.Impl
 
         /// <summary>
         /// Split the name and value parts for field and qualifier selectors:
-        /// <list type="bullet">
-        /// <item>[qualName="value"] - An element in an array of structs, chosen by a
-        /// field value.
         /// </summary>
         /// <remarks>
         /// Split the name and value parts for field and qualifier selectors:
         /// <list type="bullet">
-        /// <item>[qualName="value"] - An element in an array of structs, chosen by a
-        /// field value.
-        /// <item>[?qualName="value"] - An element in an array, chosen by a qualifier
-        /// value.
+        /// <item>[qualName="value"] - An element in an array of structs, chosen by a field value.</item>
+        /// <item>[?qualName="value"] - An element in an array, chosen by a qualifier value.</item>
         /// </list>
         /// The value portion is a string quoted by ''' or '"'. The value may contain
         /// any character including a doubled quoting character. The value may be
