@@ -68,7 +68,7 @@ namespace Com.Drew.Imaging
     /// the appropriate metadata reader to use.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ImageMetadataReader
+    public static class ImageMetadataReader
     {
         /// <summary>
         /// Reads metadata from an <see cref="InputStream"/>.
@@ -146,12 +146,6 @@ namespace Com.Drew.Imaging
             }
             new FileMetadataReader().Read(file, metadata);
             return metadata;
-        }
-
-        /// <exception cref="System.Exception"/>
-        private ImageMetadataReader()
-        {
-            throw new Exception("Not intended for instantiation");
         }
 
         /// <summary>An application entry point.</summary>
