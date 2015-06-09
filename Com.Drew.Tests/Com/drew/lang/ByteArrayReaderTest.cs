@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ByteArrayReaderTest : RandomAccessTestBase
+    public sealed class ByteArrayReaderTest : RandomAccessTestBase
     {
         protected override RandomAccessReader CreateReader(byte[] bytes)
         {
@@ -34,7 +34,7 @@ namespace Com.Drew.Lang
         }
 
         [Test, ExpectedException(typeof(ArgumentNullException))]
-        public virtual void TestConstructWithNullBufferThrows()
+        public void TestConstructWithNullBufferThrows()
         {
             new ByteArrayReader(null);
         }

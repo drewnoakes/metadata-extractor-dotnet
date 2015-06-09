@@ -5,10 +5,10 @@ using NUnit.Framework;
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class StreamReaderTest : SequentialAccessTestBase
+    public sealed class StreamReaderTest : SequentialAccessTestBase
     {
         [Test, ExpectedException(typeof(ArgumentNullException))]
-        public virtual void TestConstructWithNullStreamThrows()
+        public void TestConstructWithNullStreamThrows()
         {
             new StreamReader(null);
         }
