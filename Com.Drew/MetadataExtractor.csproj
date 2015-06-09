@@ -76,7 +76,6 @@
     <Compile Include="Com\drew\lang\ByteTrie.cs" />
     <Compile Include="Com\drew\lang\CompoundException.cs" />
     <Compile Include="Com\drew\lang\GeoLocation.cs" />
-    <Compile Include="Com\drew\lang\Iterables.cs" />
     <Compile Include="Com\drew\lang\KeyValuePair.cs" />
     <Compile Include="Com\drew\lang\IndexedSeekingReader.cs" />
     <Compile Include="Com\drew\lang\IndexedReader.cs" />

@@ -48,10 +48,10 @@ namespace Com.Drew.Metadata
         /// defined tags.
         /// </remarks>
         [NotNull]
-        protected readonly ICollection<Tag> DefinedTagList = new AList<Tag>();
+        protected readonly ICollection<Tag> DefinedTagList = new List<Tag>();
 
         [NotNull]
-        private readonly ICollection<string> _errorList = new AList<string>(4);
+        private readonly ICollection<string> _errorList = new List<string>(4);
 
         /// <summary>The descriptor used to interpret tag values.</summary>
         protected ITagDescriptor Descriptor;

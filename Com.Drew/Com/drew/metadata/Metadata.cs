@@ -155,7 +155,7 @@ namespace Com.Drew.Metadata
             {
                 return collection;
             }
-            collection = new AList<Directory>();
+            collection = new List<Directory>();
             _directoryListByClass[type] = collection;
             return collection;
         }

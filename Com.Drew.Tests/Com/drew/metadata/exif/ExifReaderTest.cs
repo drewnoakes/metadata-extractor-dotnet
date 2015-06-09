@@ -21,11 +21,11 @@
  */
 
 using System;
+using System.Collections.Generic;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
 using NUnit.Framework;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
 {
@@ -86,7 +86,7 @@ namespace Com.Drew.Metadata.Exif
         {
             byte[] badExifData = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             Metadata metadata = new Metadata();
-            AList<byte[]> segments = new AList<byte[]>();
+            List<byte[]> segments = new List<byte[]>();
             segments.Add(badExifData);
             new ExifReader().ReadJpegSegments(segments, metadata, JpegSegmentType.App1);
             Assert.AreEqual(0, metadata.GetDirectoryCount());

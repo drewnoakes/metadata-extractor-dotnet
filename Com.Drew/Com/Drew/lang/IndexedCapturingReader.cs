@@ -21,10 +21,10 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Lang
 {
@@ -38,7 +38,7 @@ namespace Com.Drew.Lang
 
         private readonly int _chunkLength;
 
-        private readonly AList<byte[]> _chunks = new AList<byte[]>();
+        private readonly List<byte[]> _chunks = new List<byte[]>();
 
         private bool _isStreamFinished;
 

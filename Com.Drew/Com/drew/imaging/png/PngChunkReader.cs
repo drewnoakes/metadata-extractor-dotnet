@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Imaging.Png
 {
@@ -57,7 +56,7 @@ namespace Com.Drew.Imaging.Png
             }
             bool seenImageHeader = false;
             bool seenImageTrailer = false;
-            IList<PngChunk> chunks = new AList<PngChunk>();
+            IList<PngChunk> chunks = new List<PngChunk>();
             ICollection<PngChunkType> seenChunkTypes = new HashSet<PngChunkType>();
             while (!seenImageTrailer)
             {

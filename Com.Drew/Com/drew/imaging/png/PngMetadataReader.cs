@@ -174,7 +174,7 @@ namespace Com.Drew.Imaging.Png
                                                 string keyword = reader.GetNullTerminatedString(79);
                                                 int bytesLeft = bytes.Length - keyword.Length - 1;
                                                 string value = reader.GetNullTerminatedString(bytesLeft);
-                                                IList<KeyValuePair> textPairs = new AList<KeyValuePair>();
+                                                IList<KeyValuePair> textPairs = new List<KeyValuePair>();
                                                 textPairs.Add(new KeyValuePair(keyword, value));
                                                 PngDirectory directory = new PngDirectory(PngChunkType.ITXt);
                                                 directory.SetObject(PngDirectory.TagTextualData, textPairs);
@@ -228,7 +228,7 @@ namespace Com.Drew.Imaging.Png
                                                         }
                                                         else
                                                         {
-                                                            IList<KeyValuePair> textPairs = new AList<KeyValuePair>();
+                                                            IList<KeyValuePair> textPairs = new List<KeyValuePair>();
                                                             textPairs.Add(new KeyValuePair(keyword, text));
                                                             PngDirectory directory = new PngDirectory(PngChunkType.ITXt);
                                                             directory.SetObject(PngDirectory.TagTextualData, textPairs);

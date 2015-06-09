@@ -143,7 +143,7 @@ namespace Com.Drew.Imaging.Jpeg
             IList<byte[]> segmentList;
             if (!_segmentDataMap.TryGetValue(segmentType, out segmentList))
             {
-                segmentList = new AList<byte[]>();
+                segmentList = new List<byte[]>();
                 _segmentDataMap[segmentType] = segmentList;
             }
             return segmentList;
