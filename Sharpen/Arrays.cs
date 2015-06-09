@@ -8,7 +8,7 @@ namespace Sharpen
     {
         public static List<T> AsList<T> (params T[] array)
         {
-            return array.ToList<T> ();
+            return array.ToList ();
         }
 
         public static bool Equals<T> (T[] a1, T[] a2)
@@ -26,12 +26,12 @@ namespace Sharpen
 
         public static void Sort<T> (T[] array)
         {
-            Array.Sort<T> (array);
+            Array.Sort (array);
         }
 
         public static void Sort<T> (T[] array, int start, int count)
         {
-            Array.Sort<T> (array, start, count);
+            Array.Sort (array, start, count);
         }
 
         /// <summary>
