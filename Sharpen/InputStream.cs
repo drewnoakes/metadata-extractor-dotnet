@@ -19,12 +19,6 @@ namespace Sharpen
             return s.GetWrappedStream ();
         }
 
-        public virtual int Available ()
-        {
-            var stream = Wrapped as WrappedSystemStream;
-            return stream != null ? stream.InputStream.Available() : 0;
-        }
-
         public virtual void Close ()
         {
             if (Wrapped != null) {

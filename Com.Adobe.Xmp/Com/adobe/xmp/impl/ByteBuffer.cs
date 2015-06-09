@@ -8,6 +8,7 @@
 // =================================================================================================
 
 using System;
+using System.IO;
 using Sharpen;
 
 namespace Com.Adobe.Xmp.Impl
@@ -87,9 +88,9 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <returns>Returns a byte stream that is limited to the valid amount of bytes.</returns>
-        public InputStream GetByteStream()
+        public Stream GetByteStream()
         {
-            return new ByteArrayInputStream(_buffer, 0, _length);
+            return new MemoryStream(_buffer, 0, _length);
         }
 
         /// <returns>

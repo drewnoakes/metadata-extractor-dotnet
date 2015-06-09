@@ -1,5 +1,5 @@
-using Sharpen;
 using System;
+using System.IO;
 using NUnit.Framework;
 
 namespace Com.Drew.Lang
@@ -15,7 +15,7 @@ namespace Com.Drew.Lang
 
         protected override SequentialReader CreateReader(byte[] bytes)
         {
-            return new StreamReader(new ByteArrayInputStream(bytes));
+            return new StreamReader(new MemoryStream(bytes));
         }
     }
 }

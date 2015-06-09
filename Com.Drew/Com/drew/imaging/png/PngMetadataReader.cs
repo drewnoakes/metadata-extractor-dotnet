@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Com.Drew.Lang;
 using Com.Drew.Metadata.File;
 using Com.Drew.Metadata.Icc;
@@ -7,6 +8,7 @@ using Com.Drew.Metadata.Png;
 using Com.Drew.Metadata.Xmp;
 using JetBrains.Annotations;
 using Sharpen;
+using StreamReader = Com.Drew.Lang.StreamReader;
 
 namespace Com.Drew.Imaging.Png
 {
@@ -158,7 +160,7 @@ namespace Com.Drew.Imaging.Png
                                             // This assumes 1-byte-per-char, which it is by spec.
                                             int bytesLeft = bytes.Length - profileName.Length - 2;
                                             byte[] compressedProfile = reader.GetBytes(bytesLeft);
-                                            InflaterInputStream inflateStream = new InflaterInputStream(new ByteArrayInputStream(compressedProfile));
+                                            InflaterInputStream inflateStream = new InflaterInputStream(new MemoryStream(compressedProfile));
                                             new IccReader().Extract(new RandomAccessStreamReader(inflateStream), metadata);
                                             inflateStream.Close();
                                         }
@@ -208,7 +210,7 @@ namespace Com.Drew.Imaging.Png
                                                         {
                                                             if (compressionMethod == 0)
                                                             {
-                                                                text = StringUtil.FromStream(new InflaterInputStream(new ByteArrayInputStream(bytes, bytes.Length - bytesLeft, bytesLeft)));
+                                                                text = StringUtil.FromStream(new InflaterInputStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft)));
                                                             }
                                                             else
                                                             {

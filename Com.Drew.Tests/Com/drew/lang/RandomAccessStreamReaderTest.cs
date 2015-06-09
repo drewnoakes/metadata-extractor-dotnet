@@ -20,8 +20,8 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using Sharpen;
 using System;
+using System.IO;
 using NUnit.Framework;
 
 namespace Com.Drew.Lang
@@ -37,7 +37,7 @@ namespace Com.Drew.Lang
 
         protected override RandomAccessReader CreateReader(byte[] bytes)
         {
-            return new RandomAccessStreamReader(new ByteArrayInputStream(bytes));
+            return new RandomAccessStreamReader(new MemoryStream(bytes));
         }
     }
 }
