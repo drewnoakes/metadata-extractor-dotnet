@@ -68,10 +68,6 @@ namespace Com.Drew.Metadata
         [NotNull]
         protected abstract Dictionary<int?, string> GetTagNameMap();
 
-        protected Directory()
-        {
-        }
-
         // VARIOUS METHODS
         /// <summary>Gets a value indicating whether the directory is empty, meaning it contains no errors and no tag values.</summary>
         public bool IsEmpty()

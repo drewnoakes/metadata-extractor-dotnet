@@ -31,10 +31,8 @@ namespace Com.Drew.Metadata
     /// <summary>A top-level object that holds the metadata values extracted from an image.</summary>
     /// <remarks>
     /// A top-level object that holds the metadata values extracted from an image.
-    /// <para>
-    /// Metadata objects may contain zero or more
-    /// <see cref="Directory"/>
-    /// objects.  Each directory may contain zero or more tags
+    /// <para />
+    /// Metadata objects may contain zero or more <see cref="Directory"/> objects.  Each directory may contain zero or more tags
     /// with corresponding values.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
@@ -119,7 +117,7 @@ namespace Com.Drew.Metadata
         public bool ContainsDirectoryOfType(Type type)
         {
             ICollection<Directory> list = GetDirectoryList(type);
-            return list != null && !(list.Count == 0);
+            return list != null && list.Count != 0;
         }
 
         /// <summary>Indicates whether any errors were reported during the reading of metadata values.</summary>
