@@ -7,8 +7,6 @@
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
 
-using Sharpen;
-
 namespace Com.Adobe.Xmp.Options
 {
     /// <summary>

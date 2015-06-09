@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Com.Drew.Lang;
 using Com.Drew.Metadata.Png;
 using JetBrains.Annotations;
 using NUnit.Framework;
-using System.IO;
 using Sharpen;
 
 namespace Com.Drew.Imaging.Png

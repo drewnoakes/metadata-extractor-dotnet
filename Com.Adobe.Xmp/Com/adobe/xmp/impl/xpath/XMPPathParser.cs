@@ -8,7 +8,6 @@
 // =================================================================================================
 
 using Com.Adobe.Xmp.Properties;
-using Sharpen;
 
 namespace Com.Adobe.Xmp.Impl.Xpath
 {

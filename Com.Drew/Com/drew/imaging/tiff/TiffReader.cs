@@ -23,7 +23,6 @@
 using System.Collections.Generic;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Imaging.Tiff
 {

@@ -39,7 +39,6 @@ using Com.Drew.Metadata;
 using Com.Drew.Metadata.Exif;
 using Com.Drew.Metadata.File;
 using JetBrains.Annotations;
-using Sharpen;
 using Directory = Com.Drew.Metadata.Directory;
 
 namespace Com.Drew.Imaging

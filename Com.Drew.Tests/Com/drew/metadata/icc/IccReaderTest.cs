@@ -22,7 +22,6 @@
 
 using Com.Drew.Lang;
 using Com.Drew.Testing;
-using Com.Drew.Tools;
 using NUnit.Framework;
 
 namespace Com.Drew.Metadata.Icc

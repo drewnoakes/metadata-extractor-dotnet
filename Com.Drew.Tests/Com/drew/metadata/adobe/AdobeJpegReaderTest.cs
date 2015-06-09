@@ -26,7 +26,6 @@ using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
 using NUnit.Framework;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Adobe
 {

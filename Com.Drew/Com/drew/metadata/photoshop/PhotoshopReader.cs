@@ -31,7 +31,6 @@ using Com.Drew.Metadata.Icc;
 using Com.Drew.Metadata.Iptc;
 using Com.Drew.Metadata.Xmp;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Photoshop
 {

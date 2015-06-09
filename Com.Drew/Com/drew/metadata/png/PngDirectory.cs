@@ -23,7 +23,6 @@
 using System.Collections.Generic;
 using Com.Drew.Imaging.Png;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Png
 {

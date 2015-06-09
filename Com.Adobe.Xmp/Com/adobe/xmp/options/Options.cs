@@ -9,7 +9,6 @@
 
 using System.Collections;
 using System.Text;
-using Sharpen;
 
 namespace Com.Adobe.Xmp.Options
 {

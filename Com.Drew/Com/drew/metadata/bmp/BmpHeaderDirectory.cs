@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Bmp
 {

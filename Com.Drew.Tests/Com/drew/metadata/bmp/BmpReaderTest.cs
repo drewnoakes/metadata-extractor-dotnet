@@ -24,7 +24,6 @@ using System.IO;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
 using NUnit.Framework;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Bmp
 {

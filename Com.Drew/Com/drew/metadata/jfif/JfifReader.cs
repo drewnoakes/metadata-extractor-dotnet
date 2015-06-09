@@ -25,7 +25,6 @@ using System.IO;
 using System.Text;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Jfif
 {

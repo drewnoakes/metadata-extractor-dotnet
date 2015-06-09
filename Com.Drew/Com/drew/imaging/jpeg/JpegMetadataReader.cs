@@ -33,7 +33,6 @@ using Com.Drew.Metadata.Jpeg;
 using Com.Drew.Metadata.Photoshop;
 using Com.Drew.Metadata.Xmp;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Imaging.Jpeg
 {

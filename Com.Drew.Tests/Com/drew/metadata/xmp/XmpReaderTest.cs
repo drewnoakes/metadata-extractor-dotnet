@@ -24,7 +24,6 @@ using System;
 using System.Collections.Generic;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
-using Com.Drew.Tools;
 using NUnit.Framework;
 using Sharpen;
 

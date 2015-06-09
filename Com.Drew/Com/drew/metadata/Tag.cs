@@ -21,7 +21,6 @@
  */
 
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata
 {

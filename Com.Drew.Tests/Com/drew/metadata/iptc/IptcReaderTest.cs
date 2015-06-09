@@ -21,7 +21,6 @@
  */
 
 using Com.Drew.Lang;
-using Com.Drew.Tools;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using Sharpen;

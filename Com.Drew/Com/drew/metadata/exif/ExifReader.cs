@@ -29,7 +29,6 @@ using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Imaging.Tiff;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
 {

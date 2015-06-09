@@ -12,7 +12,6 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using Com.Adobe.Xmp.Options;
-using Sharpen;
 using StringReader = Sharpen.StringReader;
 
 namespace Com.Adobe.Xmp.Impl

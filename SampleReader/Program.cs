@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using Com.Drew.Imaging;
 using Com.Drew.Metadata;
-using Sharpen;
 using Directory = Com.Drew.Metadata.Directory;
 
 namespace SampleReader

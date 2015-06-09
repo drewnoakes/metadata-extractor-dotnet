@@ -23,7 +23,6 @@
 using System;
 using System.IO;
 using NUnit.Framework;
-using Sharpen;
 
 namespace Com.Drew.Lang
 {

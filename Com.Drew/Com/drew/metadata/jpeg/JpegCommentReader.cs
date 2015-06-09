@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Text;
 using Com.Drew.Imaging.Jpeg;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Jpeg
 {

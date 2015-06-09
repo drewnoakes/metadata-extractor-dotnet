@@ -22,7 +22,6 @@
 
 using System.Text;
 using NUnit.Framework;
-using Sharpen;
 
 namespace Com.Drew.Lang
 {

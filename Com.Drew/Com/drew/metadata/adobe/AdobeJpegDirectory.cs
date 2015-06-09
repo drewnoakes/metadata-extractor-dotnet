@@ -21,7 +21,6 @@
  */
 
 using System.Collections.Generic;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Adobe
 {

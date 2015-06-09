@@ -26,7 +26,6 @@ using System.Text;
 using Com.Drew.Imaging.Png;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Png
 {

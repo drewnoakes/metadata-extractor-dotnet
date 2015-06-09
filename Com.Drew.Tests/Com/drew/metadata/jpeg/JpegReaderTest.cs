@@ -21,7 +21,6 @@
  */
 
 using Com.Drew.Imaging.Jpeg;
-using Com.Drew.Tools;
 using JetBrains.Annotations;
 using NUnit.Framework;
 

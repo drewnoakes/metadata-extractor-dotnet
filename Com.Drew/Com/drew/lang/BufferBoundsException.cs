@@ -22,7 +22,6 @@
 
 using System;
 using System.IO;
-using Sharpen;
 
 namespace Com.Drew.Lang
 {

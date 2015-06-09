@@ -25,7 +25,6 @@ using System.Collections.Generic;
 using System.IO;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Exif.Makernotes
 {

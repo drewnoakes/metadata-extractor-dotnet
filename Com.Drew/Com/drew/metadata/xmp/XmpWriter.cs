@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Options;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Xmp
 {

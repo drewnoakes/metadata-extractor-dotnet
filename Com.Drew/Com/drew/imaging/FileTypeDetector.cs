@@ -24,7 +24,6 @@ using System.IO;
 using System.Text;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Imaging
 {

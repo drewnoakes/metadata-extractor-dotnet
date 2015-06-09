@@ -7,8 +7,6 @@
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
 
-using Sharpen;
-
 namespace Com.Adobe.Xmp.Impl
 {
     /// <since>09.11.2006</since>

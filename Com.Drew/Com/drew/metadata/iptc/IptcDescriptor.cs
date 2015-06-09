@@ -20,9 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using Com.Drew.Lang;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Iptc
 {

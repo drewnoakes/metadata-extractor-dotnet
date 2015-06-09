@@ -20,12 +20,10 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using System;
 using System.IO;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
 using NUnit.Framework;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Photoshop
 {

@@ -10,7 +10,6 @@
 using System;
 using Com.Adobe.Xmp.Impl;
 using Com.Adobe.Xmp.Options;
-using Sharpen;
 
 namespace Com.Adobe.Xmp
 {

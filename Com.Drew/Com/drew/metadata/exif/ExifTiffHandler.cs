@@ -29,7 +29,6 @@ using Com.Drew.Metadata.Exif.Makernotes;
 using Com.Drew.Metadata.Iptc;
 using Com.Drew.Metadata.Tiff;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Exif
 {
