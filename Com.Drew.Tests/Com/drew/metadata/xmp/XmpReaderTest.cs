@@ -41,7 +41,7 @@ namespace Com.Drew.Metadata.Xmp
         {
             Metadata metadata = new Metadata();
             IList<byte[]> jpegSegments = new AList<byte[]>();
-            jpegSegments.Add(FileUtil.ReadBytes("Tests/Data/withXmpAndIptc.jpg.app1.1"));
+            jpegSegments.Add(System.IO.File.ReadAllBytes("Tests/Data/withXmpAndIptc.jpg.app1.1"));
             new XmpReader().ReadJpegSegments(jpegSegments, metadata, JpegSegmentType.App1);
             ICollection<XmpDirectory> xmpDirectories = metadata.GetDirectoriesOfType<XmpDirectory>();
             Assert.IsNotNull(xmpDirectories);

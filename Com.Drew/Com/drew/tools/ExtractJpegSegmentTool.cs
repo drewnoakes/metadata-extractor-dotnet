@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Com.Drew.Imaging.Jpeg;
 using JetBrains.Annotations;
@@ -96,14 +97,14 @@ namespace Com.Drew.Tools
                     {
                         string outputFilePath = string.Format("{0}.{1}.{2}", jpegFilePath, Extensions.ConvertToString(segmentType).ToLower(), i);
                         Console.Out.WriteLine((object)("Writing: " + outputFilePath));
-                        FileUtil.SaveBytes(new FilePath(outputFilePath), segments[i]);
+                        File.WriteAllBytes(outputFilePath, segments[i]);
                     }
                 }
                 else
                 {
                     string outputFilePath = string.Format("{0}.{1}", jpegFilePath, Extensions.ConvertToString(segmentType).ToLower());
                     Console.Out.WriteLine((object)("Writing: " + outputFilePath));
-                    FileUtil.SaveBytes(new FilePath(outputFilePath), segments[0]);
+                    File.WriteAllBytes(outputFilePath, segments[0]);
                 }
             }
         }

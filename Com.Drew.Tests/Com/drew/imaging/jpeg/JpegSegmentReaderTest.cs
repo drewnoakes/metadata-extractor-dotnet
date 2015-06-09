@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.IO;
 using Com.Drew.Tools;
 using NUnit.Framework;
 using Sharpen;
@@ -38,20 +39,20 @@ namespace Com.Drew.Imaging.Jpeg
         {
             JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new FilePath("Tests/Data/withExifAndIptc.jpg"), null);
             Assert.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.App0));
-            CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app0"), segmentData.GetSegment(JpegSegmentType.App0));
+            CollectionAssert.AreEqual(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app0"), segmentData.GetSegment(JpegSegmentType.App0));
             Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App0, 1));
             Assert.AreEqual(2, segmentData.GetSegmentCount(JpegSegmentType.App1));
-            CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app1.0"), segmentData.GetSegment(JpegSegmentType.App1, 0));
-            CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app1.1"), segmentData.GetSegment(JpegSegmentType.App1, 1));
+            CollectionAssert.AreEqual(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app1.0"), segmentData.GetSegment(JpegSegmentType.App1, 0));
+            CollectionAssert.AreEqual(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app1.1"), segmentData.GetSegment(JpegSegmentType.App1, 1));
             Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App1, 2));
             Assert.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.App2));
-            CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app2"), segmentData.GetSegment(JpegSegmentType.App2));
+            CollectionAssert.AreEqual(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app2"), segmentData.GetSegment(JpegSegmentType.App2));
             Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App2, 1));
             Assert.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.Appd));
-            CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.appd"), segmentData.GetSegment(JpegSegmentType.Appd));
+            CollectionAssert.AreEqual(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.appd"), segmentData.GetSegment(JpegSegmentType.Appd));
             Assert.IsNull(segmentData.GetSegment(JpegSegmentType.Appd, 1));
             Assert.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.Appe));
-            CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.appe"), segmentData.GetSegment(JpegSegmentType.Appe));
+            CollectionAssert.AreEqual(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.appe"), segmentData.GetSegment(JpegSegmentType.Appe));
             Assert.IsNull(segmentData.GetSegment(JpegSegmentType.Appe, 1));
             Assert.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App3));
             Assert.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App4));
@@ -95,8 +96,8 @@ namespace Com.Drew.Imaging.Jpeg
             Assert.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Com));
             Assert.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Dht));
             Assert.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.Sof0));
-            CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app0"), segmentData.GetSegment(JpegSegmentType.App0));
-            CollectionAssert.AreEqual(FileUtil.ReadBytes("Tests/Data/withExifAndIptc.jpg.app2"), segmentData.GetSegment(JpegSegmentType.App2));
+            CollectionAssert.AreEqual(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app0"), segmentData.GetSegment(JpegSegmentType.App0));
+            CollectionAssert.AreEqual(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app2"), segmentData.GetSegment(JpegSegmentType.App2));
         }
 
         /// <exception cref="System.Exception"/>

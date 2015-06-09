@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
-using Com.Drew.Tools;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using Sharpen;
@@ -39,7 +38,7 @@ namespace Com.Drew.Metadata.Adobe
         public static AdobeJpegDirectory ProcessBytes([NotNull] string filePath)
         {
             Metadata metadata = new Metadata();
-            new AdobeJpegReader().Extract(new SequentialByteArrayReader(FileUtil.ReadBytes(filePath)), metadata);
+            new AdobeJpegReader().Extract(new SequentialByteArrayReader(System.IO.File.ReadAllBytes(filePath)), metadata);
             AdobeJpegDirectory directory = metadata.GetFirstDirectoryOfType<AdobeJpegDirectory>();
             Assert.IsNotNull(directory);
             return directory;

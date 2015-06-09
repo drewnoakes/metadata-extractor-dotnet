@@ -39,7 +39,7 @@ namespace Com.Drew.Metadata.Exif
         public static Metadata ProcessBytes([NotNull] string filePath)
         {
             Metadata metadata = new Metadata();
-            byte[] bytes = FileUtil.ReadBytes(filePath);
+            byte[] bytes = System.IO.File.ReadAllBytes(filePath);
             new ExifReader().Extract(new ByteArrayReader(bytes), metadata, ExifReader.JpegSegmentPreamble.Length);
             return metadata;
         }

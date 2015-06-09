@@ -33,7 +33,7 @@ namespace Com.Drew.Metadata.Icc
         [Test]
         public void TestExtract()
         {
-            byte[] app2Bytes = FileUtil.ReadBytes("Tests/Data/iccDataInvalid1.jpg.app2");
+            byte[] app2Bytes = System.IO.File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2");
             // ICC data starts after a 14-byte preamble
             byte[] icc = TestHelper.SkipBytes(app2Bytes, 14);
             Metadata metadata = new Metadata();

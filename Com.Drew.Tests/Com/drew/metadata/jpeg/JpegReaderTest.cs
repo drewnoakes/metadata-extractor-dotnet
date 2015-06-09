@@ -35,7 +35,7 @@ namespace Com.Drew.Metadata.Jpeg
         public static JpegDirectory ProcessBytes(string filePath)
         {
             Metadata metadata = new Metadata();
-            new JpegReader().Extract(FileUtil.ReadBytes(filePath), metadata, JpegSegmentType.Sof0);
+            new JpegReader().Extract(System.IO.File.ReadAllBytes(filePath), metadata, JpegSegmentType.Sof0);
             JpegDirectory directory = metadata.GetFirstDirectoryOfType<JpegDirectory>();
             Assert.IsNotNull(directory);
             return directory;

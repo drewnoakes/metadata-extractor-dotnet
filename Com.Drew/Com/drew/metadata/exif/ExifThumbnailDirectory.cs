@@ -118,24 +118,10 @@ namespace Com.Drew.Metadata.Exif
         /// <exception cref="System.IO.IOException"/>
         public void WriteThumbnail([NotNull] string filename)
         {
-            byte[] data = _thumbnailData;
-            if (data == null)
-            {
+            if (_thumbnailData == null)
                 throw new MetadataException("No thumbnail data exists.");
-            }
-            FileOutputStream stream = null;
-            try
-            {
-                stream = new FileOutputStream(filename);
-                stream.Write(data);
-            }
-            finally
-            {
-                if (stream != null)
-                {
-                    stream.Close();
-                }
-            }
+
+            System.IO.File.WriteAllBytes(filename, _thumbnailData);
         }
 /*
     // This thumbnail extraction code is not complete, and is included to assist anyone who feels like looking into
