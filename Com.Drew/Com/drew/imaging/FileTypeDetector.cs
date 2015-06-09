@@ -71,7 +71,6 @@ namespace Com.Drew.Imaging
         /// Stream must be seekable and contain enough bytes for the most complexat least eight bytes.
         /// </remarks>
         /// <exception cref="System.IO.IOException">if an IO error occurred or the input stream ended unexpectedly.</exception>
-        [NotNull]
         public static FileType? DetectFileType([NotNull] Stream stream)
         {
             int maxByteCount = Root.GetMaxDepth();
