@@ -919,99 +919,137 @@ namespace Com.Drew.Metadata
         {
             object o = GetObject(tagType);
             if (o == null)
-            {
                 return null;
-            }
+
             var rational = o as Rational;
             if (rational != null)
-            {
                 return rational.ToSimpleString(true);
-            }
+
             if (o is DateTime)
-            {
                 return Extensions.ConvertToString((DateTime)o);
-            }
+
             if (o is bool)
-            {
                 return (bool)o ? "true" : "false";
-            }
-            if (o.GetType().IsArray)
+
+            // handle arrays of objects and primitives
+            var array = o as Array;
+            if (array != null)
             {
-                // handle arrays of objects and primitives
-                int arrayLength = ((Array)o).Length;
-                Type componentType = o.GetType().GetElementType();
-                bool isObjectArray = typeof(object).IsAssignableFrom(componentType);
-                bool isFloatArray = componentType.FullName.Equals("float");
-                bool isDoubleArray = componentType.FullName.Equals("double");
-                bool isIntArray = componentType.FullName.Equals("int");
-                bool isLongArray = componentType.FullName.Equals("long");
-                bool isByteArray = componentType.FullName.Equals("byte");
-                bool isShortArray = componentType.FullName.Equals("short");
-                StringBuilder @string = new StringBuilder();
-                for (int i = 0; i < arrayLength; i++)
+                var componentType = array.GetType().GetElementType();
+                var str = new StringBuilder();
+
+                if (componentType == typeof(float))
                 {
-                    if (i != 0)
+                    var vals = (float[])array;
+                    for (int i = 0; i < vals.Length; i++)
                     {
-                        @string.Append(' ');
-                    }
-                    if (isObjectArray)
-                    {
-                        @string.Append(Extensions.ConvertToString(Runtime.GetArrayValue(o, i)));
-                    }
-                    else
-                    {
-                        if (isIntArray)
-                        {
-                            @string.Append(Runtime.GetInt(o, i));
-                        }
-                        else
-                        {
-                            if (isShortArray)
-                            {
-                                @string.Append(Runtime.GetShort(o, i));
-                            }
-                            else
-                            {
-                                if (isLongArray)
-                                {
-                                    @string.Append(Runtime.GetLong(o, i));
-                                }
-                                else
-                                {
-                                    if (isFloatArray)
-                                    {
-                                        @string.Append(Runtime.GetFloat(o, i));
-                                    }
-                                    else
-                                    {
-                                        if (isDoubleArray)
-                                        {
-                                            @string.Append(Runtime.GetDouble(o, i));
-                                        }
-                                        else
-                                        {
-                                            if (isByteArray)
-                                            {
-                                                @string.Append(Runtime.GetByte(o, i));
-                                            }
-                                            else
-                                            {
-                                                AddError("Unexpected array component type: " + componentType.FullName);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        if (i != 0)
+                            str.Append(' ');
+                        str.Append(vals[i]);
                     }
                 }
-                return Extensions.ConvertToString(@string);
+                else if (componentType == typeof(double))
+                {
+                    var vals = (double[])array;
+                    for (int i = 0; i < vals.Length; i++)
+                    {
+                        if (i != 0)
+                            str.Append(' ');
+                        str.Append(vals[i]);
+                    }
+                }
+                else if (componentType == typeof(int))
+                {
+                    var vals = (int[])array;
+                    for (int i = 0; i < vals.Length; i++)
+                    {
+                        if (i != 0)
+                            str.Append(' ');
+                        str.Append(vals[i]);
+                    }
+                }
+                else if (componentType == typeof(uint))
+                {
+                    var vals = (uint[])array;
+                    for (int i = 0; i < vals.Length; i++)
+                    {
+                        if (i != 0)
+                            str.Append(' ');
+                        str.Append(vals[i]);
+                    }
+                }
+                else if (componentType == typeof(short))
+                {
+                    var vals = (short[])array;
+                    for (int i = 0; i < vals.Length; i++)
+                    {
+                        if (i != 0)
+                            str.Append(' ');
+                        str.Append(vals[i]);
+                    }
+                }
+                else if (componentType == typeof(ushort))
+                {
+                    var vals = (ushort[])array;
+                    for (int i = 0; i < vals.Length; i++)
+                    {
+                        if (i != 0)
+                            str.Append(' ');
+                        str.Append(vals[i]);
+                    }
+                }
+                else if (componentType == typeof(byte))
+                {
+                    var vals = (byte[])array;
+                    for (int i = 0; i < vals.Length; i++)
+                    {
+                        if (i != 0)
+                            str.Append(' ');
+                        str.Append(vals[i]);
+                    }
+                }
+                else if (componentType == typeof(sbyte))
+                {
+                    var vals = (sbyte[])array;
+                    for (int i = 0; i < vals.Length; i++)
+                    {
+                        if (i != 0)
+                            str.Append(' ');
+                        str.Append(vals[i]);
+                    }
+                }
+                else if (componentType == typeof(string))
+                {
+                    var vals = (string[])array;
+                    for (int i = 0; i < vals.Length; i++)
+                    {
+                        if (i != 0)
+                            str.Append(' ');
+                        str.Append(vals[i]);
+                    }
+                }
+                else if (componentType.IsByRef)
+                {
+                    var vals = (object[])array;
+                    for (int i = 0; i < vals.Length; i++)
+                    {
+                        if (i != 0)
+                            str.Append(' ');
+                        str.Append(vals[i]);
+                    }
+                }
+                else
+                {
+                    AddError("Unexpected array component type: " + componentType.FullName);
+                }
+
+                return str.ToString();
             }
             // Note that several cameras leave trailing spaces (Olympus, Nikon) but this library is intended to show
             // the actual data within the file.  It is not inconceivable that whitespace may be significant here, so we
             // do not trim.  Also, if support is added for writing data back to files, this may cause issues.
             // We leave trimming to the presentation layer.
-            return Extensions.ConvertToString(o);
+            return o.ToString();
         }
 
         [CanBeNull]
