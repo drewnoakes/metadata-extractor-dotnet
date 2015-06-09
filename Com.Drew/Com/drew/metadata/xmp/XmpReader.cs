@@ -76,7 +76,7 @@ namespace Com.Drew.Metadata.Xmp
         //    private static final String SCHEMA_DUBLIN_CORE_SPECIFIC_PROPERTIES = "http://purl.org/dc/elements/1.1/";
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
-            return Arrays.AsList(JpegSegmentType.App1);
+            yield return JpegSegmentType.App1;
         }
 
         /// <summary>Version specifically for dealing with XMP found in JPEG segments.</summary>

@@ -57,7 +57,7 @@ namespace Com.Drew.Metadata.Exif
 
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
-            return Arrays.AsList(JpegSegmentType.App1);
+            yield return JpegSegmentType.App1;
         }
 
         public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)

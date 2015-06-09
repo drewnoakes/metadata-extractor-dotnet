@@ -10,7 +10,7 @@ namespace Com.Drew.Imaging.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunkType
     {
-        private static readonly ICollection<string> IdentifiersAllowingMultiples = new HashSet<string>(Arrays.AsList("IDAT", "sPLT", "iTXt", "tEXt", "zTXt"));
+        private static readonly ICollection<string> IdentifiersAllowingMultiples = new HashSet<string> { "IDAT", "sPLT", "iTXt", "tEXt", "zTXt" };
 
         /// <summary>
         /// Denotes a critical

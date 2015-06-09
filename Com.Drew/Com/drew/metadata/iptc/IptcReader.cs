@@ -55,7 +55,7 @@ namespace Com.Drew.Metadata.Iptc
 
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
-            return Arrays.AsList(JpegSegmentType.Appd);
+            yield return JpegSegmentType.Appd;
         }
 
         public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)

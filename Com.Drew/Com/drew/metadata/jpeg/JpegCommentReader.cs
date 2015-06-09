@@ -36,7 +36,7 @@ namespace Com.Drew.Metadata.Jpeg
     {
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
-            return Arrays.AsList(JpegSegmentType.Com);
+            yield return JpegSegmentType.Com;
         }
 
         public bool CanProcess([NotNull] sbyte[] segmentBytes, [NotNull] JpegSegmentType segmentType)

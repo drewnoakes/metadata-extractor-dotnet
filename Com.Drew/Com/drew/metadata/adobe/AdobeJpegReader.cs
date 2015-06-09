@@ -38,7 +38,7 @@ namespace Com.Drew.Metadata.Adobe
 
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
-            return Arrays.AsList(JpegSegmentType.Appe);
+            yield return JpegSegmentType.Appe;
         }
 
         public void ReadJpegSegments(IEnumerable<sbyte[]> segments, Metadata metadata, JpegSegmentType segmentType)

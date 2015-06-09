@@ -21,6 +21,7 @@
  */
 
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -371,7 +372,7 @@ namespace Com.Drew.Metadata.Iptc
             {
                 return null;
             }
-            return Arrays.AsList(array);
+            return array.ToList();
         }
     }
 }

@@ -1,16 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Sharpen
 {
     public static class Arrays
     {
-        public static List<T> AsList<T> (params T[] array)
-        {
-            return array.ToList ();
-        }
-
         public static bool Equals<T> (T[] a1, T[] a2)
         {
             return a1.SequenceEqual(a2);

@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Com.Drew.Imaging.Bmp;
 using Com.Drew.Imaging.Gif;
 using Com.Drew.Imaging.Ico;
@@ -238,7 +239,7 @@ namespace Com.Drew.Imaging
         /// <exception cref="System.IO.IOException"/>
         public static void Main([NotNull] string[] args)
         {
-            ICollection<string> argList = new AList<string>(Arrays.AsList(args));
+            ICollection<string> argList = args.ToList();
             bool thumbRequested = argList.Remove("-thumb");
             bool markdownFormat = argList.Remove("-markdown");
             bool showHex = argList.Remove("-hex");
