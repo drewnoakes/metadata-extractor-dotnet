@@ -98,7 +98,7 @@ namespace FileLabeller
             var entries = Directory.GetFileSystemEntries(path);
 
             // Order alphabetically so that output is stable across invocations
-            Arrays.Sort(entries);
+            Array.Sort(entries, string.CompareOrdinal);
 
             foreach (var entry in entries)
             {

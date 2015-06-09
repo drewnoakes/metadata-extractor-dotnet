@@ -461,7 +461,7 @@ namespace Com.Adobe.Xmp.Impl
                     quals[sortFrom].Sort();
                     sortFrom++;
                 }
-                Arrays.Sort(quals, sortFrom, quals.Length);
+                Array.Sort (quals, sortFrom, quals.Length);
                 ListIterator it = _qualifier.ListIterator();
                 for (int j = 0; j < quals.Length; j++)
                 {
@@ -560,7 +560,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     i1++;
                 }
-                Arrays.Sort(quals, i1, quals.Length);
+                Array.Sort (quals, i1, quals.Length);
                 for (i1 = 0; i1 < quals.Length; i1++)
                 {
                     XmpNode qualifier = quals[i1];
@@ -573,7 +573,7 @@ namespace Com.Adobe.Xmp.Impl
                 XmpNode[] children = (XmpNode[])Collections.ToArray(GetChildren(), new XmpNode[GetChildrenLength()]);
                 if (!Options.IsArray)
                 {
-                    Arrays.Sort(children);
+                    Array.Sort(children);
                 }
                 for (int i1 = 0; i1 < children.Length; i1++)
                 {

@@ -1,25 +1,9 @@
-using System;
 using System.Linq;
 
 namespace Sharpen
 {
     public static class Arrays
     {
-        public static void Sort (string[] array)
-        {
-            Array.Sort (array, string.CompareOrdinal);
-        }
-
-        public static void Sort<T> (T[] array)
-        {
-            Array.Sort (array);
-        }
-
-        public static void Sort<T> (T[] array, int start, int count)
-        {
-            Array.Sort (array, start, count);
-        }
-
         /// <summary>
         /// Counts array hash code
         /// </summary>
