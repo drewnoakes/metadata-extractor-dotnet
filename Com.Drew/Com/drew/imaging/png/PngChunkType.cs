@@ -219,7 +219,7 @@ namespace Com.Drew.Imaging.Png
 
         public override int GetHashCode()
         {
-            return Arrays.HashCode(_bytes);
+            return _bytes == null ? 0 : _bytes.Aggregate(1, (current, element) => 31*current + element);
         }
     }
 }
