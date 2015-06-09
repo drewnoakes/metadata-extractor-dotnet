@@ -78,7 +78,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return string.Empty;
             }
-            if (!arrayNode.GetOptions().IsArray() || arrayNode.GetOptions().IsArrayAlternate())
+            if (!arrayNode.Options.IsArray || arrayNode.Options.IsArrayAlternate)
             {
                 throw new XmpException("Named property must be non-alternate array", XmpErrorCode.BadParam);
             }
@@ -93,11 +93,11 @@ namespace Com.Adobe.Xmp.Impl
             for (IIterator it = arrayNode.IterateChildren(); it.HasNext(); )
             {
                 currItem = (XmpNode)it.Next();
-                if (currItem.GetOptions().IsCompositeProperty())
+                if (currItem.Options.IsCompositeProperty)
                 {
                     throw new XmpException("Array items must be simple", XmpErrorCode.BadParam);
                 }
-                string str = ApplyQuotes(currItem.GetValue(), openQuote, closeQuote, allowCommas);
+                string str = ApplyQuotes(currItem.Value, openQuote, closeQuote, allowCommas);
                 catinatedString.Append(str);
                 if (it.HasNext())
                 {
@@ -264,7 +264,7 @@ namespace Com.Adobe.Xmp.Impl
                 int foundIndex = -1;
                 for (int oldChild = 1; oldChild <= arrayNode.GetChildrenLength(); oldChild++)
                 {
-                    if (itemValue.Equals(arrayNode.GetChild(oldChild).GetValue()))
+                    if (itemValue.Equals(arrayNode.GetChild(oldChild).Value))
                     {
                         foundIndex = oldChild;
                         break;
@@ -289,7 +289,7 @@ namespace Com.Adobe.Xmp.Impl
         private static XmpNode SeparateFindCreateArray(string schemaNs, string arrayName, PropertyOptions arrayOptions, XmpMeta xmp)
         {
             arrayOptions = XmpNodeUtils.VerifySetOptions(arrayOptions, null);
-            if (!arrayOptions.IsOnlyArrayOptions())
+            if (!arrayOptions.IsOnlyArrayOptions)
             {
                 throw new XmpException("Options can only provide array form", XmpErrorCode.BadOptions);
             }
@@ -301,8 +301,8 @@ namespace Com.Adobe.Xmp.Impl
             {
                 // The array exists, make sure the form is compatible. Zero
                 // arrayForm means take what exists.
-                PropertyOptions arrayForm = arrayNode.GetOptions();
-                if (!arrayForm.IsArray() || arrayForm.IsArrayAlternate())
+                PropertyOptions arrayForm = arrayNode.Options;
+                if (!arrayForm.IsArray || arrayForm.IsArrayAlternate)
                 {
                     throw new XmpException("Named property must be non-alternate array", XmpErrorCode.BadXPath);
                 }
@@ -316,7 +316,8 @@ namespace Com.Adobe.Xmp.Impl
                 // *** Right error?
                 // The array does not exist, try to create it.
                 // don't modify the options handed into the method
-                arrayNode = XmpNodeUtils.FindNode(xmp.GetRoot(), arrayPath, true, arrayOptions.SetArray(true));
+                arrayOptions.IsArray = true;
+                arrayNode = XmpNodeUtils.FindNode(xmp.GetRoot(), arrayPath, true, arrayOptions);
                 if (arrayNode == null)
                 {
                     throw new XmpException("Failed to create named array", XmpErrorCode.BadXPath);
@@ -360,12 +361,12 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if (doAllProperties || !Utils.IsInternalProperty(expPath.GetSegment(XmpPath.StepSchema).GetName(), expPath.GetSegment(XmpPath.StepRootProp).GetName()))
                     {
-                        XmpNode parent = propNode.GetParent();
+                        XmpNode parent = propNode.Parent;
                         parent.RemoveChild(propNode);
-                        if (parent.GetOptions().IsSchemaNode() && !parent.HasChildren())
+                        if (parent.Options.IsSchemaNode && !parent.HasChildren)
                         {
                             // remove empty schema node
-                            parent.GetParent().RemoveChild(parent);
+                            parent.Parent.RemoveChild(parent);
                         }
                     }
                 }
@@ -401,7 +402,7 @@ namespace Com.Adobe.Xmp.Impl
                             XmpNode actualProp = XmpNodeUtils.FindNode(xmpImpl.GetRoot(), path, false, null);
                             if (actualProp != null)
                             {
-                                XmpNode parent = actualProp.GetParent();
+                                XmpNode parent = actualProp.Parent;
                                 parent.RemoveChild(actualProp);
                             }
                         }
@@ -446,7 +447,7 @@ namespace Com.Adobe.Xmp.Impl
                 bool createdSchema = false;
                 if (destSchema == null)
                 {
-                    destSchema = new XmpNode(sourceSchema.Name, sourceSchema.GetValue(), new PropertyOptions().SetSchemaNode(true));
+                    destSchema = new XmpNode(sourceSchema.Name, sourceSchema.Value, new PropertyOptions { IsSchemaNode = true });
                     dest.GetRoot().AddChild(destSchema);
                     createdSchema = true;
                 }
@@ -459,7 +460,7 @@ namespace Com.Adobe.Xmp.Impl
                         AppendSubtree(dest, sourceProp, destSchema, replaceOldValues, deleteEmptyValues);
                     }
                 }
-                if (!destSchema.HasChildren() && (createdSchema || deleteEmptyValues))
+                if (!destSchema.HasChildren && (createdSchema || deleteEmptyValues))
                 {
                     // Don't create an empty schema / remove empty schema.
                     dest.GetRoot().RemoveChild(destSchema);
@@ -489,7 +490,7 @@ namespace Com.Adobe.Xmp.Impl
                     it.Remove();
                 }
             }
-            return !schemaNode.HasChildren();
+            return !schemaNode.HasChildren;
         }
 
         /// <seealso cref="AppendProperties(IXmpMeta, IXmpMeta, bool, bool, bool)"/>
@@ -508,7 +509,7 @@ namespace Com.Adobe.Xmp.Impl
             bool valueIsEmpty = false;
             if (deleteEmptyValues)
             {
-                valueIsEmpty = sourceNode.GetOptions().IsSimple() ? sourceNode.GetValue() == null || sourceNode.GetValue().Length == 0 : !sourceNode.HasChildren();
+                valueIsEmpty = sourceNode.Options.IsSimple ? sourceNode.Value == null || sourceNode.Value.Length == 0 : !sourceNode.HasChildren;
             }
             if (deleteEmptyValues && valueIsEmpty)
             {
@@ -529,7 +530,7 @@ namespace Com.Adobe.Xmp.Impl
                     if (replaceOldValues)
                     {
                         // The destination exists and should be replaced.
-                        destXmp.SetNode(destNode, sourceNode.GetValue(), sourceNode.GetOptions(), true);
+                        destXmp.SetNode(destNode, sourceNode.Value, sourceNode.Options, true);
                         destParent.RemoveChild(destNode);
                         destNode = (XmpNode)sourceNode.Clone();
                         destParent.AddChild(destNode);
@@ -538,13 +539,13 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         // The destination exists and is not totally replaced. Structs and
                         // arrays are merged.
-                        PropertyOptions sourceForm = sourceNode.GetOptions();
-                        PropertyOptions destForm = destNode.GetOptions();
+                        PropertyOptions sourceForm = sourceNode.Options;
+                        PropertyOptions destForm = destNode.Options;
                         if (sourceForm != destForm)
                         {
                             return;
                         }
-                        if (sourceForm.IsStruct())
+                        if (sourceForm.IsStruct)
                         {
                             // To merge a struct process the fields recursively. E.g. add simple missing fields.
                             // The recursive call to AppendSubtree will handle deletion for fields with empty
@@ -553,7 +554,7 @@ namespace Com.Adobe.Xmp.Impl
                             {
                                 XmpNode sourceField = (XmpNode)it.Next();
                                 AppendSubtree(destXmp, sourceField, destNode, replaceOldValues, deleteEmptyValues);
-                                if (deleteEmptyValues && !destNode.HasChildren())
+                                if (deleteEmptyValues && !destNode.HasChildren)
                                 {
                                     destParent.RemoveChild(destNode);
                                 }
@@ -561,7 +562,7 @@ namespace Com.Adobe.Xmp.Impl
                         }
                         else
                         {
-                            if (sourceForm.IsArrayAltText())
+                            if (sourceForm.IsArrayAltText)
                             {
                                 // Merge AltText arrays by the "xml:lang" qualifiers. Make sure x-default is first.
                                 // Make a special check for deletion of empty values. Meaningful in AltText arrays
@@ -569,17 +570,17 @@ namespace Com.Adobe.Xmp.Impl
                                 for (IIterator it = sourceNode.IterateChildren(); it.HasNext(); )
                                 {
                                     XmpNode sourceItem = (XmpNode)it.Next();
-                                    if (!sourceItem.HasQualifier() || !XmpConstConstants.XmlLang.Equals(sourceItem.GetQualifier(1).Name))
+                                    if (!sourceItem.HasQualifier || !XmpConstConstants.XmlLang.Equals(sourceItem.GetQualifier(1).Name))
                                     {
                                         continue;
                                     }
-                                    int destIndex = XmpNodeUtils.LookupLanguageItem(destNode, sourceItem.GetQualifier(1).GetValue());
-                                    if (deleteEmptyValues && (sourceItem.GetValue() == null || sourceItem.GetValue().Length == 0))
+                                    int destIndex = XmpNodeUtils.LookupLanguageItem(destNode, sourceItem.GetQualifier(1).Value);
+                                    if (deleteEmptyValues && (sourceItem.Value == null || sourceItem.Value.Length == 0))
                                     {
                                         if (destIndex != -1)
                                         {
                                             destNode.RemoveChild(destIndex);
-                                            if (!destNode.HasChildren())
+                                            if (!destNode.HasChildren)
                                             {
                                                 destParent.RemoveChild(destNode);
                                             }
@@ -590,13 +591,13 @@ namespace Com.Adobe.Xmp.Impl
                                         if (destIndex == -1)
                                         {
                                             // Not replacing, keep the existing item.
-                                            if (!XmpConstConstants.XDefault.Equals(sourceItem.GetQualifier(1).GetValue()) || !destNode.HasChildren())
+                                            if (!XmpConstConstants.XDefault.Equals(sourceItem.GetQualifier(1).Value) || !destNode.HasChildren)
                                             {
                                                 sourceItem.CloneSubtree(destNode);
                                             }
                                             else
                                             {
-                                                XmpNode destItem = new XmpNode(sourceItem.Name, sourceItem.GetValue(), sourceItem.GetOptions());
+                                                XmpNode destItem = new XmpNode(sourceItem.Name, sourceItem.Value, sourceItem.Options);
                                                 sourceItem.CloneSubtree(destItem);
                                                 destNode.AddChild(1, destItem);
                                             }
@@ -606,7 +607,7 @@ namespace Com.Adobe.Xmp.Impl
                             }
                             else
                             {
-                                if (sourceForm.IsArray())
+                                if (sourceForm.IsArray)
                                 {
                                     // Merge other arrays by item values. Don't worry about order or duplicates. Source
                                     // items with empty values do not cause deletion, that conflicts horribly with
@@ -644,8 +645,8 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">Forwards exceptions to the calling method.</exception>
         private static bool ItemValuesMatch(XmpNode leftNode, XmpNode rightNode)
         {
-            PropertyOptions leftForm = leftNode.GetOptions();
-            PropertyOptions rightForm = rightNode.GetOptions();
+            PropertyOptions leftForm = leftNode.Options;
+            PropertyOptions rightForm = rightNode.Options;
             if (leftForm.Equals(rightForm))
             {
                 return false;
@@ -653,22 +654,22 @@ namespace Com.Adobe.Xmp.Impl
             if (leftForm.GetOptions() == 0)
             {
                 // Simple nodes, check the values and xml:lang qualifiers.
-                if (!leftNode.GetValue().Equals(rightNode.GetValue()))
+                if (!leftNode.Value.Equals(rightNode.Value))
                 {
                     return false;
                 }
-                if (leftNode.GetOptions().GetHasLanguage() != rightNode.GetOptions().GetHasLanguage())
+                if (leftNode.Options.HasLanguage != rightNode.Options.HasLanguage)
                 {
                     return false;
                 }
-                if (leftNode.GetOptions().GetHasLanguage() && !leftNode.GetQualifier(1).GetValue().Equals(rightNode.GetQualifier(1).GetValue()))
+                if (leftNode.Options.HasLanguage && !leftNode.GetQualifier(1).Value.Equals(rightNode.GetQualifier(1).Value))
                 {
                     return false;
                 }
             }
             else
             {
-                if (leftForm.IsStruct())
+                if (leftForm.IsStruct)
                 {
                     // Struct nodes, see if all fields match, ignoring order.
                     if (leftNode.GetChildrenLength() != rightNode.GetChildrenLength())
@@ -691,7 +692,7 @@ namespace Com.Adobe.Xmp.Impl
                     // "rightNode", ignoring order, duplicates,
                     // and extra values in the rightNode-> The rightNode is the
                     // destination for AppendProperties.
-                    Debug.Assert(leftForm.IsArray());
+                    Debug.Assert(leftForm.IsArray);
                     for (IIterator il = leftNode.IterateChildren(); il.HasNext(); )
                     {
                         XmpNode leftItem = (XmpNode)il.Next();

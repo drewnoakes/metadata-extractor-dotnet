@@ -328,7 +328,8 @@ namespace Com.Drew.Metadata.Xmp
                 string schemaNs = TagSchemaMap.Get(tagType);
                 string propName = TagPropNameMap.Get(tagType);
                 GetXmpMeta().DeleteProperty(schemaNs, propName);
-                PropertyOptions po = new PropertyOptions().SetArray(true);
+                PropertyOptions po = new PropertyOptions();
+                po.IsArray = true;
                 foreach (int item in ints)
                 {
                     GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item.ToString(), null);
@@ -361,7 +362,8 @@ namespace Com.Drew.Metadata.Xmp
                 string schemaNs = TagSchemaMap.Get(tagType);
                 string propName = TagPropNameMap.Get(tagType);
                 GetXmpMeta().DeleteProperty(schemaNs, propName);
-                PropertyOptions po = new PropertyOptions().SetArray(true);
+                PropertyOptions po = new PropertyOptions();
+                po.IsArray = true;
                 foreach (float item in floats)
                 {
                     GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item.ToString(), null);
@@ -394,7 +396,8 @@ namespace Com.Drew.Metadata.Xmp
                 string schemaNs = TagSchemaMap.Get(tagType);
                 string propName = TagPropNameMap.Get(tagType);
                 GetXmpMeta().DeleteProperty(schemaNs, propName);
-                PropertyOptions po = new PropertyOptions().SetArray(true);
+                PropertyOptions po = new PropertyOptions();
+                po.IsArray = true;
                 foreach (double item in doubles)
                 {
                     GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item.ToString(), null);
@@ -432,7 +435,8 @@ namespace Com.Drew.Metadata.Xmp
                 string schemaNs = TagSchemaMap.Get(tagType);
                 string propName = TagPropNameMap.Get(tagType);
                 GetXmpMeta().DeleteProperty(schemaNs, propName);
-                PropertyOptions po = new PropertyOptions().SetArray(true);
+                PropertyOptions po = new PropertyOptions();
+                po.IsArray = true;
                 foreach (string item in strings)
                 {
                     GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item, null);

@@ -323,13 +323,13 @@ namespace Com.Adobe.Xmp
         /// Option flags describing the array form. The only valid options are
         /// <list type="bullet">
         /// <item>
-        /// <see cref="Com.Adobe.Xmp.Options.PropertyOptions.Array"/>,
+        /// <see cref="PropertyOptions.ArrayFlag"/>,
         /// <item>
-        /// <see cref="Com.Adobe.Xmp.Options.PropertyOptions.ArrayOrdered"/>,
+        /// <see cref="PropertyOptions.ArrayOrderedFlag"/>,
         /// <item>
-        /// <see cref="Com.Adobe.Xmp.Options.PropertyOptions.ArrayAlternate"/> or
+        /// <see cref="PropertyOptions.ArrayAlternateFlag"/> or
         /// <item>
-        /// <see cref="Com.Adobe.Xmp.Options.PropertyOptions.ArrayAltText"/>.
+        /// <see cref="PropertyOptions.ArrayAltTextFlag"/>.
         /// </list>
         /// <em>Note:</em> the array options only need to be provided if the array is not
         /// already existing, otherwise you can set them to <c>null</c> or use

@@ -18,16 +18,16 @@ namespace Com.Adobe.Xmp.Options
         public const int PropDirect = 0;
 
         /// <summary>The actual is an unordered array, the alias is to the first element of the array.</summary>
-        public const int PropArray = PropertyOptions.Array;
+        public const int PropArray = PropertyOptions.ArrayFlag;
 
         /// <summary>The actual is an ordered array, the alias is to the first element of the array.</summary>
-        public const int PropArrayOrdered = PropertyOptions.ArrayOrdered;
+        public const int PropArrayOrdered = PropertyOptions.ArrayOrderedFlag;
 
         /// <summary>The actual is an alternate array, the alias is to the first element of the array.</summary>
-        public const int PropArrayAlternate = PropertyOptions.ArrayAlternate;
+        public const int PropArrayAlternate = PropertyOptions.ArrayAlternateFlag;
 
         /// <summary>The actual is an alternate text array, the alias is to the 'x-default' element of the array.</summary>
-        public const int PropArrayAltText = PropertyOptions.ArrayAltText;
+        public const int PropArrayAltText = PropertyOptions.ArrayAltTextFlag;
 
         /// <seealso cref="Options()"/>
         public AliasOptions()
@@ -47,66 +47,32 @@ namespace Com.Adobe.Xmp.Options
             return GetOptions() == PropDirect;
         }
 
-        /// <returns>Returns the option.</returns>
-        public bool IsArray()
+        public bool IsArray
         {
-            return GetOption(PropArray);
+            get { return GetOption(PropArray); }
+            set { SetOption(PropArray, value); }
         }
 
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public AliasOptions SetArray(bool value)
+        public bool IsArrayOrdered
         {
-            SetOption(PropArray, value);
-            return this;
+            get { return GetOption(PropArrayOrdered); }
+            set { SetOption(PropArray | PropArrayOrdered, value); }
         }
 
-        /// <returns>Returns the option.</returns>
-        public bool IsArrayOrdered()
+        public bool IsArrayAlternate
         {
-            return GetOption(PropArrayOrdered);
+            get { return GetOption(PropArrayAlternate); }
+            set { SetOption(PropArray | PropArrayOrdered | PropArrayAlternate, value); }
         }
 
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public AliasOptions SetArrayOrdered(bool value)
+        public bool IsArrayAltText
         {
-            SetOption(PropArray | PropArrayOrdered, value);
-            return this;
-        }
-
-        /// <returns>Returns the option.</returns>
-        public bool IsArrayAlternate()
-        {
-            return GetOption(PropArrayAlternate);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public AliasOptions SetArrayAlternate(bool value)
-        {
-            SetOption(PropArray | PropArrayOrdered | PropArrayAlternate, value);
-            return this;
-        }
-
-        /// <returns>Returns the option.</returns>
-        public bool IsArrayAltText()
-        {
-            return GetOption(PropArrayAltText);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public AliasOptions SetArrayAltText(bool value)
-        {
-            SetOption(PropArray | PropArrayOrdered | PropArrayAlternate | PropArrayAltText, value);
-            return this;
+            get { return GetOption(PropArrayAltText); }
+            set { SetOption(PropArray | PropArrayOrdered | PropArrayAlternate | PropArrayAltText, value); }
         }
 
         /// <returns>
-        /// returns a
-        /// <see cref="PropertyOptions"/>
-        /// s object
+        /// Returns a <see cref="PropertyOptions"/> object
         /// </returns>
         /// <exception cref="XmpException">If the options are not consistant.</exception>
         public PropertyOptions ToPropertyOptions()
@@ -120,34 +86,17 @@ namespace Com.Adobe.Xmp.Options
             switch (option)
             {
                 case PropDirect:
-                {
                     return "PROP_DIRECT";
-                }
-
                 case PropArray:
-                {
                     return "ARRAY";
-                }
-
                 case PropArrayOrdered:
-                {
                     return "ARRAY_ORDERED";
-                }
-
                 case PropArrayAlternate:
-                {
                     return "ARRAY_ALTERNATE";
-                }
-
                 case PropArrayAltText:
-                {
                     return "ARRAY_ALT_TEXT";
-                }
-
                 default:
-                {
                     return null;
-                }
             }
         }
 

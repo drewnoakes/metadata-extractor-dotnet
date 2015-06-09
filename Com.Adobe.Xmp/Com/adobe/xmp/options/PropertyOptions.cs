@@ -16,32 +16,20 @@ namespace Com.Adobe.Xmp.Options
     /// <since>03.07.2006</since>
     public sealed class PropertyOptions : Options
     {
-        public const int NoOptions = unchecked(0x00000000);
-
-        public const int Uri = unchecked(0x00000002);
-
-        public const int HasQualifiers = unchecked(0x00000010);
-
-        public const int Qualifier = unchecked(0x00000020);
-
-        public const int HasLanguage = unchecked(0x00000040);
-
-        public const int HasType = unchecked(0x00000080);
-
-        public const int Struct = unchecked(0x00000100);
-
-        public const int Array = unchecked(0x00000200);
-
-        public const int ArrayOrdered = unchecked(0x00000400);
-
-        public const int ArrayAlternate = unchecked(0x00000800);
-
-        public const int ArrayAltText = unchecked(0x00001000);
-
-        public const int SchemaNode = unchecked((int)(0x80000000));
+        internal const int IsUriFlag = unchecked(0x00000002);
+        internal const int HasQualifiersFlag = unchecked(0x00000010);
+        internal const int QualifierFlag = unchecked(0x00000020);
+        internal const int HasLanguageFlag = unchecked(0x00000040);
+        internal const int HasTypeFlag = unchecked(0x00000080);
+        internal const int StructFlag = unchecked(0x00000100);
+        internal const int ArrayFlag = unchecked(0x00000200);
+        internal const int ArrayOrderedFlag = unchecked(0x00000400);
+        internal const int ArrayAlternateFlag = unchecked(0x00000800);
+        internal const int ArrayAltTextFlag = unchecked(0x00001000);
+        internal const int SchemaNodeFlag = unchecked((int)(0x80000000));
 
         /// <summary>may be used in the future</summary>
-        public const int DeleteExisting = unchecked(0x20000000);
+        internal const int DeleteExisting = unchecked(0x20000000);
 
         /// <summary>Default constructor</summary>
         public PropertyOptions()
@@ -57,196 +45,121 @@ namespace Com.Adobe.Xmp.Options
         }
 
         // reveal default constructor
-        /// <returns>
-        /// Return whether the property value is a URI. It is serialized to RDF using the
-        /// <tt>rdf:resource</tt> attribute. Not mandatory for URIs, but considered RDF-savvy.
-        /// </returns>
-        public bool IsUri()
+
+        /// <summary>
+        /// Get and set whether the property value is a URI. It is serialized to RDF using the
+        /// <c>rdf:resource</c> attribute. Not mandatory for URIs, but considered RDF-savvy.
+        /// </summary>
+        public bool IsUri
         {
-            return GetOption(Uri);
+            get { return GetOption(IsUriFlag); }
+            set { SetOption(IsUriFlag, value); }
         }
 
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns this to enable cascaded options.</returns>
-        public PropertyOptions SetUri(bool value)
+        /// <value>
+        ///   Return whether the property has qualifiers. These could be an <tt>xml:lang</tt>
+        ///   attribute, an <tt>rdf:type</tt> property, or a general qualifier. See the
+        ///   introductory discussion of qualified properties for more information.
+        /// </value>
+        public bool HasQualifiers
         {
-            SetOption(Uri, value);
-            return this;
+            get { return GetOption(HasQualifiersFlag); }
+            set { SetOption(HasQualifiersFlag, value); }
         }
 
-        /// <returns>
-        /// Return whether the property has qualifiers. These could be an <tt>xml:lang</tt>
-        /// attribute, an <tt>rdf:type</tt> property, or a general qualifier. See the
-        /// introductory discussion of qualified properties for more information.
-        /// </returns>
-        public bool GetHasQualifiers()
+        /// <value>
+        ///   Return whether this property is a qualifier for some other property. Note that if the
+        ///   qualifier itself has a structured value, this flag is only set for the top node of
+        ///   the qualifier's subtree. Qualifiers may have arbitrary structure, and may even have
+        ///   qualifiers.
+        /// </value>
+        public bool IsQualifier
         {
-            return GetOption(HasQualifiers);
+            get { return GetOption(QualifierFlag); }
+            set { SetOption(QualifierFlag, value); }
         }
 
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns this to enable cascaded options.</returns>
-        public PropertyOptions SetHasQualifiers(bool value)
+        /// <value>Return whether this property has an <tt>xml:lang</tt> qualifier.</value>
+        public bool HasLanguage
         {
-            SetOption(HasQualifiers, value);
-            return this;
+            get { return GetOption(HasLanguageFlag); }
+            set { SetOption(HasLanguageFlag, value); }
         }
 
-        /// <returns>
-        /// Return whether this property is a qualifier for some other property. Note that if the
-        /// qualifier itself has a structured value, this flag is only set for the top node of
-        /// the qualifier's subtree. Qualifiers may have arbitrary structure, and may even have
-        /// qualifiers.
-        /// </returns>
-        public bool IsQualifier()
+        /// <value>Return whether this property has an <tt>rdf:type</tt> qualifier.</value>
+        public bool HasType
         {
-            return GetOption(Qualifier);
+            get { return GetOption(HasTypeFlag); }
+            set { SetOption(HasTypeFlag, value); }
         }
 
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns this to enable cascaded options.</returns>
-        public PropertyOptions SetQualifier(bool value)
+        /// <value>Return whether this property contains nested fields.</value>
+        public bool IsStruct
         {
-            SetOption(Qualifier, value);
-            return this;
+            get { return GetOption(StructFlag); }
+            set { SetOption(StructFlag, value); }
         }
 
-        /// <returns>Return whether this property has an <tt>xml:lang</tt> qualifier.</returns>
-        public bool GetHasLanguage()
+        /// <value>
+        ///   Return whether this property is an array. By itself this indicates a general
+        ///   unordered array. It is serialized using an <tt>rdf:Bag</tt> container.
+        /// </value>
+        public bool IsArray
         {
-            return GetOption(HasLanguage);
+            get { return GetOption(ArrayFlag); }
+            set { SetOption(ArrayFlag, value); }
         }
 
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns this to enable cascaded options.</returns>
-        public PropertyOptions SetHasLanguage(bool value)
+        /// <value>
+        ///   Return whether this property is an ordered array. Appears in conjunction with
+        ///   getPropValueIsArray(). It is serialized using an <tt>rdf:Seq</tt> container.
+        /// </value>
+        public bool IsArrayOrdered
         {
-            SetOption(HasLanguage, value);
-            return this;
+            get { return GetOption(ArrayOrderedFlag); }
+            set { SetOption(ArrayOrderedFlag, value); }
         }
 
-        /// <returns>Return whether this property has an <tt>rdf:type</tt> qualifier.</returns>
-        public bool GetHasType()
+        /// <value>
+        ///   Return whether this property is an alternative array. Appears in conjunction with
+        ///   getPropValueIsArray(). It is serialized using an <tt>rdf:Alt</tt> container.
+        /// </value>
+        public bool IsArrayAlternate
         {
-            return GetOption(HasType);
+            get { return GetOption(ArrayAlternateFlag); }
+            set { SetOption(ArrayAlternateFlag, value); }
         }
 
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns this to enable cascaded options.</returns>
-        public PropertyOptions SetHasType(bool value)
+        /// <value>
+        ///   Return whether this property is an alt-text array. Appears in conjunction with
+        ///   getPropArrayIsAlternate(). It is serialized using an <tt>rdf:Alt</tt> container.
+        ///   Each array element is a simple property with an <tt>xml:lang</tt> attribute.
+        /// </value>
+        public bool IsArrayAltText
         {
-            SetOption(HasType, value);
-            return this;
+            get { return GetOption(ArrayAltTextFlag); }
+            set { SetOption(ArrayAltTextFlag, value); }
         }
 
-        /// <returns>Return whether this property contains nested fields.</returns>
-        public bool IsStruct()
+        /// <value>Returns whether the SCHEMA_NODE option is set.</value>
+        public bool IsSchemaNode
         {
-            return GetOption(Struct);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns this to enable cascaded options.</returns>
-        public PropertyOptions SetStruct(bool value)
-        {
-            SetOption(Struct, value);
-            return this;
-        }
-
-        /// <returns>
-        /// Return whether this property is an array. By itself this indicates a general
-        /// unordered array. It is serialized using an <tt>rdf:Bag</tt> container.
-        /// </returns>
-        public bool IsArray()
-        {
-            return GetOption(Array);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns this to enable cascaded options.</returns>
-        public PropertyOptions SetArray(bool value)
-        {
-            SetOption(Array, value);
-            return this;
-        }
-
-        /// <returns>
-        /// Return whether this property is an ordered array. Appears in conjunction with
-        /// getPropValueIsArray(). It is serialized using an <tt>rdf:Seq</tt> container.
-        /// </returns>
-        public bool IsArrayOrdered()
-        {
-            return GetOption(ArrayOrdered);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns this to enable cascaded options.</returns>
-        public PropertyOptions SetArrayOrdered(bool value)
-        {
-            SetOption(ArrayOrdered, value);
-            return this;
-        }
-
-        /// <returns>
-        /// Return whether this property is an alternative array. Appears in conjunction with
-        /// getPropValueIsArray(). It is serialized using an <tt>rdf:Alt</tt> container.
-        /// </returns>
-        public bool IsArrayAlternate()
-        {
-            return GetOption(ArrayAlternate);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns this to enable cascaded options.</returns>
-        public PropertyOptions SetArrayAlternate(bool value)
-        {
-            SetOption(ArrayAlternate, value);
-            return this;
-        }
-
-        /// <returns>
-        /// Return whether this property is an alt-text array. Appears in conjunction with
-        /// getPropArrayIsAlternate(). It is serialized using an <tt>rdf:Alt</tt> container.
-        /// Each array element is a simple property with an <tt>xml:lang</tt> attribute.
-        /// </returns>
-        public bool IsArrayAltText()
-        {
-            return GetOption(ArrayAltText);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns this to enable cascaded options.</returns>
-        public PropertyOptions SetArrayAltText(bool value)
-        {
-            SetOption(ArrayAltText, value);
-            return this;
-        }
-
-        /// <returns>Returns whether the SCHEMA_NODE option is set.</returns>
-        public bool IsSchemaNode()
-        {
-            return GetOption(SchemaNode);
-        }
-
-        /// <param name="value">the option DELETE_EXISTING to set</param>
-        /// <returns>Returns this to enable cascaded options.</returns>
-        public PropertyOptions SetSchemaNode(bool value)
-        {
-            SetOption(SchemaNode, value);
-            return this;
+            get { return GetOption(SchemaNodeFlag); }
+            set { SetOption(SchemaNodeFlag, value); }
         }
 
         //-------------------------------------------------------------------------- convenience methods
-        /// <returns>Returns whether the property is of composite type - an array or a struct.</returns>
-        public bool IsCompositeProperty()
+
+        /// <value>Returns whether the property is of composite type - an array or a struct.</value>
+        public bool IsCompositeProperty
         {
-            return (GetOptions() & (Array | Struct)) > 0;
+            get { return (GetOptions() & (ArrayFlag | StructFlag)) > 0; }
         }
 
-        /// <returns>Returns whether the property is of composite type - an array or a struct.</returns>
-        public bool IsSimple()
+        /// <value>Returns whether the property is of composite type - an array or a struct.</value>
+        public bool IsSimple
         {
-            return (GetOptions() & (Array | Struct)) == 0;
+            get { return !IsCompositeProperty; }
         }
 
         /// <summary>Compares two options set for array compatibility.</summary>
@@ -254,7 +167,7 @@ namespace Com.Adobe.Xmp.Options
         /// <returns>Returns true if the array options of the sets are equal.</returns>
         public bool EqualArrayTypes(PropertyOptions options)
         {
-            return IsArray() == options.IsArray() && IsArrayOrdered() == options.IsArrayOrdered() && IsArrayAlternate() == options.IsArrayAlternate() && IsArrayAltText() == options.IsArrayAltText();
+            return IsArray == options.IsArray && IsArrayOrdered == options.IsArrayOrdered && IsArrayAlternate == options.IsArrayAlternate && IsArrayAltText == options.IsArrayAltText;
         }
 
         /// <summary>Merges the set options of a another options object with this.</summary>
@@ -272,16 +185,16 @@ namespace Com.Adobe.Xmp.Options
             }
         }
 
-        /// <returns>Returns true if only array options are set.</returns>
-        public bool IsOnlyArrayOptions()
+        /// <value>Returns true if only array options are set.</value>
+        public bool IsOnlyArrayOptions
         {
-            return (GetOptions() & ~(Array | ArrayOrdered | ArrayAlternate | ArrayAltText)) == 0;
+            get { return (GetOptions() & ~(ArrayFlag | ArrayOrderedFlag | ArrayAlternateFlag | ArrayAltTextFlag)) == 0; }
         }
 
         /// <seealso cref="Options.GetValidOptions()"/>
         protected override int GetValidOptions()
         {
-            return Uri | HasQualifiers | Qualifier | HasLanguage | HasType | Struct | Array | ArrayOrdered | ArrayAlternate | ArrayAltText | SchemaNode;
+            return IsUriFlag | HasQualifiersFlag | QualifierFlag | HasLanguageFlag | HasTypeFlag | StructFlag | ArrayFlag | ArrayOrderedFlag | ArrayAlternateFlag | ArrayAltTextFlag | SchemaNodeFlag;
         }
 
         /// <seealso cref="Options.DefineOptionName(int)"/>
@@ -289,65 +202,30 @@ namespace Com.Adobe.Xmp.Options
         {
             switch (option)
             {
-                case Uri:
-                {
+                case IsUriFlag:
                     return "URI";
-                }
-
-                case HasQualifiers:
-                {
+                case HasQualifiersFlag:
                     return "HAS_QUALIFIER";
-                }
-
-                case Qualifier:
-                {
+                case QualifierFlag:
                     return "QUALIFIER";
-                }
-
-                case HasLanguage:
-                {
+                case HasLanguageFlag:
                     return "HAS_LANGUAGE";
-                }
-
-                case HasType:
-                {
+                case HasTypeFlag:
                     return "HAS_TYPE";
-                }
-
-                case Struct:
-                {
+                case StructFlag:
                     return "STRUCT";
-                }
-
-                case Array:
-                {
+                case ArrayFlag:
                     return "ARRAY";
-                }
-
-                case ArrayOrdered:
-                {
+                case ArrayOrderedFlag:
                     return "ARRAY_ORDERED";
-                }
-
-                case ArrayAlternate:
-                {
+                case ArrayAlternateFlag:
                     return "ARRAY_ALTERNATE";
-                }
-
-                case ArrayAltText:
-                {
+                case ArrayAltTextFlag:
                     return "ARRAY_ALT_TEXT";
-                }
-
-                case SchemaNode:
-                {
+                case SchemaNodeFlag:
                     return "SCHEMA_NODE";
-                }
-
                 default:
-                {
                     return null;
-                }
             }
         }
 
@@ -359,11 +237,11 @@ namespace Com.Adobe.Xmp.Options
         /// <exception cref="XmpException">Thrown if the options are not consistent.</exception>
         internal override void AssertConsistency(int options)
         {
-            if ((options & Struct) > 0 && (options & Array) > 0)
+            if ((options & StructFlag) > 0 && (options & ArrayFlag) > 0)
             {
                 throw new XmpException("IsStruct and IsArray options are mutually exclusive", XmpErrorCode.BadOptions);
             }
-            if ((options & Uri) > 0 && (options & (Array | Struct)) > 0)
+            if ((options & IsUriFlag) > 0 && (options & (ArrayFlag | StructFlag)) > 0)
             {
                 throw new XmpException("Structs and arrays can't have \"value\" options", XmpErrorCode.BadOptions);
             }

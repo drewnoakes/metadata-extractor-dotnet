@@ -20,7 +20,8 @@ namespace Com.Drew.Metadata.Xmp
             IXmpMeta meta = dir.GetXmpMeta();
             try
             {
-                SerializeOptions so = new SerializeOptions().SetOmitPacketWrapper(true);
+                SerializeOptions so = new SerializeOptions();
+                so.OmitPacketWrapper = true;
                 XmpMetaFactory.Serialize(meta, os, so);
             }
             catch (XmpException e)

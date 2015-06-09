@@ -538,23 +538,26 @@ namespace Com.Adobe.Xmp.Impl
                         string childLocal = currChild.LocalName;
                         if (isRdf && "Bag".Equals(childLocal))
                         {
-                            newCompound.GetOptions().SetArray(true);
+                            newCompound.Options.IsArray = true;
                         }
                         else
                         {
                             if (isRdf && "Seq".Equals(childLocal))
                             {
-                                newCompound.GetOptions().SetArray(true).SetArrayOrdered(true);
+                                newCompound.Options.IsArray = true;
+                                newCompound.Options.IsArrayOrdered = true;
                             }
                             else
                             {
                                 if (isRdf && "Alt".Equals(childLocal))
                                 {
-                                    newCompound.GetOptions().SetArray(true).SetArrayOrdered(true).SetArrayAlternate(true);
+                                    newCompound.Options.IsArray = true;
+                                    newCompound.Options.IsArrayOrdered = true;
+                                    newCompound.Options.IsArrayAlternate = true;
                                 }
                                 else
                                 {
-                                    newCompound.GetOptions().SetStruct(true);
+                                    newCompound.Options.IsStruct = true;
                                     if (!isRdf && !"Description".Equals(childLocal))
                                     {
                                         string typeName = currChild.NamespaceURI;
@@ -569,13 +572,13 @@ namespace Com.Adobe.Xmp.Impl
                             }
                         }
                         Rdf_NodeElement(xmp, newCompound, currChild, false);
-                        if (newCompound.GetHasValueChild())
+                        if (newCompound.HasValueChild)
                         {
                             FixupQualifiedNode(newCompound);
                         }
                         else
                         {
-                            if (newCompound.GetOptions().IsArrayAlternate())
+                            if (newCompound.Options.IsArrayAlternate)
                             {
                                 XmpNodeUtils.DetectAltText(newCompound);
                             }
@@ -652,7 +655,7 @@ namespace Com.Adobe.Xmp.Impl
                     throw new XmpException("Invalid child of literal property element", XmpErrorCode.BadRdf);
                 }
             }
-            newChild.SetValue(textValue);
+            newChild.Value = textValue;
         }
 
         /// <summary>
@@ -693,7 +696,7 @@ namespace Com.Adobe.Xmp.Impl
         private static void Rdf_ParseTypeResourcePropertyElement(XmpMeta xmp, XmpNode xmpParent, XmlNode xmlNode, bool isTopLevel)
         {
             XmpNode newStruct = AddChildNode(xmp, xmpParent, xmlNode, string.Empty, isTopLevel);
-            newStruct.GetOptions().SetStruct(true);
+            newStruct.Options.IsStruct = true;
             for (int i = 0; i < xmlNode.Attributes.Count; i++)
             {
                 XmlNode attribute = xmlNode.Attributes.Item(i);
@@ -719,7 +722,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
             }
             Rdf_PropertyElementList(xmp, newStruct, xmlNode, false);
-            if (newStruct.GetHasValueChild())
+            if (newStruct.HasValueChild)
             {
                 FixupQualifiedNode(newStruct);
             }
@@ -895,18 +898,18 @@ namespace Com.Adobe.Xmp.Impl
             bool childIsStruct = false;
             if (hasValueAttr || hasResourceAttr)
             {
-                childNode.SetValue(valueNode != null ? valueNode.Value : string.Empty);
+                childNode.Value = valueNode != null ? valueNode.Value : string.Empty;
                 if (!hasValueAttr)
                 {
                     // ! Might have both rdf:value and rdf:resource.
-                    childNode.GetOptions().SetUri(true);
+                    childNode.Options.IsUri = true;
                 }
             }
             else
             {
                 if (hasPropertyAttrs)
                 {
-                    childNode.GetOptions().SetStruct(true);
+                    childNode.Options.IsStruct = true;
                     childIsStruct = true;
                 }
             }
@@ -1002,7 +1005,7 @@ namespace Com.Adobe.Xmp.Impl
                 // Lookup the schema node, adjust the XMP parent pointer.
                 // Incoming parent must be the tree root.
                 XmpNode schemaNode = XmpNodeUtils.FindSchemaNode(xmp.GetRoot(), @namespace, DefaultPrefix, true);
-                schemaNode.SetImplicit(false);
+                schemaNode.IsImplicit = false;
                 // Clear the implicit node bit.
                 // need runtime check for proper 32 bit code.
                 xmpParent = schemaNode;
@@ -1011,8 +1014,8 @@ namespace Com.Adobe.Xmp.Impl
                 if (registry.FindAlias(childName) != null)
                 {
                     isAlias = true;
-                    xmp.GetRoot().SetHasAliases(true);
-                    schemaNode.SetHasAliases(true);
+                    xmp.GetRoot().HasAliases = true;
+                    schemaNode.HasAliases = true;
                 }
             }
             // Make sure that this is not a duplicate of a named node.
@@ -1020,7 +1023,7 @@ namespace Com.Adobe.Xmp.Impl
             bool isValueNode = "rdf:value".Equals(childName);
             // Create XMP node and so some checks
             XmpNode newChild = new XmpNode(childName, value, childOptions);
-            newChild.SetAlias(isAlias);
+            newChild.IsAlias = isAlias;
             // Add the new child to the XMP parent node, a value node first.
             if (!isValueNode)
             {
@@ -1032,15 +1035,15 @@ namespace Com.Adobe.Xmp.Impl
             }
             if (isValueNode)
             {
-                if (isTopLevel || !xmpParent.GetOptions().IsStruct())
+                if (isTopLevel || !xmpParent.Options.IsStruct)
                 {
                     throw new XmpException("Misplaced rdf:value element", XmpErrorCode.BadRdf);
                 }
-                xmpParent.SetHasValueChild(true);
+                xmpParent.HasValueChild = true;
             }
             if (isArrayItem)
             {
-                if (!xmpParent.GetOptions().IsArray())
+                if (!xmpParent.Options.IsArray)
                 {
                     throw new XmpException("Misplaced rdf:li element", XmpErrorCode.BadRdf);
                 }
@@ -1080,7 +1083,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">thown on parsing errors</exception>
         private static void FixupQualifiedNode(XmpNode xmpParent)
         {
-            Debug.Assert(xmpParent.GetOptions().IsStruct() && xmpParent.HasChildren());
+            Debug.Assert(xmpParent.Options.IsStruct && xmpParent.HasChildren);
             XmpNode valueNode = xmpParent.GetChild(1);
             Debug.Assert("rdf:value".Equals(valueNode.Name));
             // Move the qualifiers on the value node to the parent.
@@ -1088,9 +1091,9 @@ namespace Com.Adobe.Xmp.Impl
             // Check for duplicate names between the value node's qualifiers and the parent's children.
             // The parent's children are about to become qualifiers. Check here, between the groups.
             // Intra-group duplicates are caught by XMPNode#addChild(...).
-            if (valueNode.GetOptions().GetHasLanguage())
+            if (valueNode.Options.HasLanguage)
             {
-                if (xmpParent.GetOptions().GetHasLanguage())
+                if (xmpParent.Options.HasLanguage)
                 {
                     throw new XmpException("Redundant xml:lang for rdf:value element", XmpErrorCode.BadXmp);
                 }
@@ -1113,11 +1116,11 @@ namespace Com.Adobe.Xmp.Impl
             }
             // Move the options and value last, other checks need the parent's original options.
             // Move the value node's children to be the parent's children.
-            Debug.Assert(xmpParent.GetOptions().IsStruct() || xmpParent.GetHasValueChild());
-            xmpParent.SetHasValueChild(false);
-            xmpParent.GetOptions().SetStruct(false);
-            xmpParent.GetOptions().MergeWith(valueNode.GetOptions());
-            xmpParent.SetValue(valueNode.GetValue());
+            Debug.Assert(xmpParent.Options.IsStruct || xmpParent.HasValueChild);
+            xmpParent.HasValueChild = false;
+            xmpParent.Options.IsStruct = false;
+            xmpParent.Options.MergeWith(valueNode.Options);
+            xmpParent.Value = valueNode.Value;
             xmpParent.RemoveChildren();
             for (IIterator it = valueNode.IterateChildren(); it.HasNext(); )
             {

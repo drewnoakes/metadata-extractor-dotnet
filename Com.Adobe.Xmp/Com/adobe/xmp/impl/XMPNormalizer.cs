@@ -73,9 +73,9 @@ namespace Com.Adobe.Xmp.Impl
                     XmpNode idNode = XmpNodeUtils.FindNode(tree, path, true, null);
                     if (idNode != null)
                     {
-                        idNode.SetOptions(null);
+                        idNode.Options = null;
                         // Clobber any existing xmpMM:InstanceID.
-                        idNode.SetValue("uuid:" + nameStr);
+                        idNode.Value = "uuid:" + nameStr;
                         idNode.RemoveChildren();
                         idNode.RemoveQualifiers();
                         tree.Name = null;
@@ -168,7 +168,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     continue;
                 }
-                if (currProp.GetOptions().IsSimple())
+                if (currProp.Options.IsSimple)
                 {
                     // create a new array and add the current property as child,
                     // if it was formerly simple
@@ -177,7 +177,7 @@ namespace Com.Adobe.Xmp.Impl
                     newArray.AddChild(currProp);
                     dcSchema.ReplaceChild(i, newArray);
                     // fix language alternatives
-                    if (arrayForm.IsArrayAltText() && !currProp.GetOptions().GetHasLanguage())
+                    if (arrayForm.IsArrayAltText && !currProp.Options.HasLanguage)
                     {
                         XmpNode newLang = new XmpNode(XmpConstConstants.XmlLang, XmpConstConstants.XDefault, null);
                         currProp.AddQualifier(newLang);
@@ -186,9 +186,9 @@ namespace Com.Adobe.Xmp.Impl
                 else
                 {
                     // clear array options and add corrected array form if it has been an array before
-                    currProp.GetOptions().SetOption(PropertyOptions.Array | PropertyOptions.ArrayOrdered | PropertyOptions.ArrayAlternate | PropertyOptions.ArrayAltText, false);
-                    currProp.GetOptions().MergeWith(arrayForm);
-                    if (arrayForm.IsArrayAltText())
+                    currProp.Options.SetOption(PropertyOptions.ArrayFlag | PropertyOptions.ArrayOrderedFlag | PropertyOptions.ArrayAlternateFlag | PropertyOptions.ArrayAltTextFlag, false);
+                    currProp.Options.MergeWith(arrayForm);
+                    if (arrayForm.IsArrayAltText)
                     {
                         // applying for "dc:description", "dc:rights", "dc:title"
                         RepairAltText(currProp);
@@ -207,26 +207,28 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">Forwards unexpected exceptions.</exception>
         private static void RepairAltText(XmpNode arrayNode)
         {
-            if (arrayNode == null || !arrayNode.GetOptions().IsArray())
+            if (arrayNode == null || !arrayNode.Options.IsArray)
             {
                 // Already OK or not even an array.
                 return;
             }
             // fix options
-            arrayNode.GetOptions().SetArrayOrdered(true).SetArrayAlternate(true).SetArrayAltText(true);
+            arrayNode.Options.IsArrayOrdered = true;
+            arrayNode.Options.IsArrayAlternate = true;
+            arrayNode.Options.IsArrayAltText = true;
             for (IIterator it = arrayNode.IterateChildren(); it.HasNext(); )
             {
                 XmpNode currChild = (XmpNode)it.Next();
-                if (currChild.GetOptions().IsCompositeProperty())
+                if (currChild.Options.IsCompositeProperty)
                 {
                     // Delete non-simple children.
                     it.Remove();
                 }
                 else
                 {
-                    if (!currChild.GetOptions().GetHasLanguage())
+                    if (!currChild.Options.HasLanguage)
                     {
-                        string childValue = currChild.GetValue();
+                        string childValue = currChild.Value;
                         if (string.IsNullOrEmpty(childValue))
                         {
                             // Delete empty valued children that have no xml:lang.
@@ -254,34 +256,34 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">Forwards XMP errors</exception>
         private static void MoveExplicitAliases(XmpNode tree, ParseOptions options)
         {
-            if (!tree.GetHasAliases())
+            if (!tree.HasAliases)
             {
                 return;
             }
-            tree.SetHasAliases(false);
-            bool strictAliasing = options.GetStrictAliasing();
+            tree.HasAliases = false;
+            bool strictAliasing = options.StrictAliasing;
             for (IIterator schemaIt = tree.GetUnmodifiableChildren().Iterator(); schemaIt.HasNext(); )
             {
                 XmpNode currSchema = (XmpNode)schemaIt.Next();
-                if (!currSchema.GetHasAliases())
+                if (!currSchema.HasAliases)
                 {
                     continue;
                 }
                 for (IIterator propertyIt = currSchema.IterateChildren(); propertyIt.HasNext(); )
                 {
                     XmpNode currProp = (XmpNode)propertyIt.Next();
-                    if (!currProp.IsAlias())
+                    if (!currProp.IsAlias)
                     {
                         continue;
                     }
-                    currProp.SetAlias(false);
+                    currProp.IsAlias = false;
                     // Find the base path, look for the base schema and root node.
                     IXmpAliasInfo info = XmpMetaFactory.GetSchemaRegistry().FindAlias(currProp.Name);
                     if (info != null)
                     {
                         // find or create schema
                         XmpNode baseSchema = XmpNodeUtils.FindSchemaNode(tree, info.GetNamespace(), null, true);
-                        baseSchema.SetImplicit(false);
+                        baseSchema.IsImplicit = false;
                         XmpNode baseNode = XmpNodeUtils.FindChildNode(baseSchema, info.GetPrefix() + info.GetPropName(), false);
                         if (baseNode == null)
                         {
@@ -323,7 +325,7 @@ namespace Com.Adobe.Xmp.Impl
                                 // Look for the aliased item.
                                 // Then transplant or check & delete as appropriate.
                                 XmpNode itemNode = null;
-                                if (info.GetAliasForm().IsArrayAltText())
+                                if (info.GetAliasForm().IsArrayAltText)
                                 {
                                     int xdIndex = XmpNodeUtils.LookupLanguageItem(baseNode, XmpConstConstants.XDefault);
                                     if (xdIndex != -1)
@@ -333,7 +335,7 @@ namespace Com.Adobe.Xmp.Impl
                                 }
                                 else
                                 {
-                                    if (baseNode.HasChildren())
+                                    if (baseNode.HasChildren)
                                     {
                                         itemNode = baseNode.GetChild(1);
                                     }
@@ -354,7 +356,7 @@ namespace Com.Adobe.Xmp.Impl
                         }
                     }
                 }
-                currSchema.SetHasAliases(false);
+                currSchema.HasAliases = false;
             }
         }
 
@@ -365,9 +367,9 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">Forwards XMP errors</exception>
         private static void TransplantArrayItemAlias(IIterator propertyIt, XmpNode childNode, XmpNode baseArray)
         {
-            if (baseArray.GetOptions().IsArrayAltText())
+            if (baseArray.Options.IsArrayAltText)
             {
-                if (childNode.GetOptions().GetHasLanguage())
+                if (childNode.Options.HasLanguage)
                 {
                     throw new XmpException("Alias to x-default already has a language qualifier", XmpErrorCode.BadXmp);
                 }
@@ -395,7 +397,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 IXmpDateTime binGpsStamp;
                 IXmpDateTime binOtherDate;
-                binGpsStamp = Xmp.XmpUtils.ConvertToDate(gpsDateTime.GetValue());
+                binGpsStamp = Xmp.XmpUtils.ConvertToDate(gpsDateTime.Value);
                 if (binGpsStamp.GetYear() != 0 || binGpsStamp.GetMonth() != 0 || binGpsStamp.GetDay() != 0)
                 {
                     return;
@@ -405,13 +407,13 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     otherDate = XmpNodeUtils.FindChildNode(exifSchema, "exif:DateTimeDigitized", false);
                 }
-                binOtherDate = Xmp.XmpUtils.ConvertToDate(otherDate.GetValue());
+                binOtherDate = Xmp.XmpUtils.ConvertToDate(otherDate.Value);
                 Calendar cal = binGpsStamp.GetCalendar();
                 cal.Set(CalendarEnum.Year, binOtherDate.GetYear());
                 cal.Set(CalendarEnum.Month, binOtherDate.GetMonth());
                 cal.Set(CalendarEnum.DayOfMonth, binOtherDate.GetDay());
                 binGpsStamp = new XmpDateTime(cal);
-                gpsDateTime.SetValue(Xmp.XmpUtils.ConvertFromDate(binGpsStamp));
+                gpsDateTime.Value = Xmp.XmpUtils.ConvertFromDate(binGpsStamp);
             }
             catch (XmpException)
             {
@@ -429,7 +431,7 @@ namespace Com.Adobe.Xmp.Impl
             for (IIterator it = tree.IterateChildren(); it.HasNext(); )
             {
                 XmpNode schema = (XmpNode)it.Next();
-                if (!schema.HasChildren())
+                if (!schema.HasChildren)
                 {
                     it.Remove();
                 }
@@ -448,11 +450,11 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">Forwards XMP errors</exception>
         private static void CompareAliasedSubtrees(XmpNode aliasNode, XmpNode baseNode, bool outerCall)
         {
-            if (!aliasNode.GetValue().Equals(baseNode.GetValue()) || aliasNode.GetChildrenLength() != baseNode.GetChildrenLength())
+            if (!aliasNode.Value.Equals(baseNode.Value) || aliasNode.GetChildrenLength() != baseNode.GetChildrenLength())
             {
                 throw new XmpException("Mismatch between alias and base nodes", XmpErrorCode.BadXmp);
             }
-            if (!outerCall && (!aliasNode.Name.Equals(baseNode.Name) || !aliasNode.GetOptions().Equals(baseNode.GetOptions()) || aliasNode.GetQualifierLength() != baseNode.GetQualifierLength()))
+            if (!outerCall && (!aliasNode.Name.Equals(baseNode.Name) || !aliasNode.Options.Equals(baseNode.Options) || aliasNode.GetQualifierLength() != baseNode.GetQualifierLength()))
             {
                 throw new XmpException("Mismatch between alias and base nodes", XmpErrorCode.BadXmp);
             }
@@ -502,10 +504,10 @@ namespace Com.Adobe.Xmp.Impl
             try
             {
                 XmpNode dcSchema = XmpNodeUtils.FindSchemaNode(((XmpMeta)xmp).GetRoot(), XmpConstConstants.NsDc, true);
-                string dmValue = dmCopyright.GetValue();
+                string dmValue = dmCopyright.Value;
                 string doubleLf = "\n\n";
                 XmpNode dcRightsArray = XmpNodeUtils.FindChildNode(dcSchema, "dc:rights", false);
-                if (dcRightsArray == null || !dcRightsArray.HasChildren())
+                if (dcRightsArray == null || !dcRightsArray.HasChildren)
                 {
                     // 1. No dc:rights array, create from double linefeed and xmpDM:copyright.
                     dmValue = doubleLf + dmValue;
@@ -517,13 +519,13 @@ namespace Com.Adobe.Xmp.Impl
                     if (xdIndex < 0)
                     {
                         // 2. No x-default item, create from the first item.
-                        string firstValue = dcRightsArray.GetChild(1).GetValue();
+                        string firstValue = dcRightsArray.GetChild(1).Value;
                         xmp.SetLocalizedText(XmpConstConstants.NsDc, "rights", string.Empty, XmpConstConstants.XDefault, firstValue, null);
                         xdIndex = XmpNodeUtils.LookupLanguageItem(dcRightsArray, XmpConstConstants.XDefault);
                     }
                     // 3. Look for a double linefeed in the x-default value.
                     XmpNode defaultNode = dcRightsArray.GetChild(xdIndex);
-                    string defaultValue = defaultNode.GetValue();
+                    string defaultValue = defaultNode.Value;
                     int lfPos = defaultValue.IndexOf(doubleLf);
                     if (lfPos < 0)
                     {
@@ -532,7 +534,7 @@ namespace Com.Adobe.Xmp.Impl
                         {
                             // 3A2. Append the xmpDM:copyright to the x-default
                             // item.
-                            defaultNode.SetValue(defaultValue + doubleLf + dmValue);
+                            defaultNode.Value = defaultValue + doubleLf + dmValue;
                         }
                     }
                     else
@@ -541,12 +543,12 @@ namespace Com.Adobe.Xmp.Impl
                         if (!Runtime.Substring(defaultValue, lfPos + 2).Equals(dmValue))
                         {
                             // 3B2. Replace the x-default tail.
-                            defaultNode.SetValue(Runtime.Substring(defaultValue, 0, lfPos + 2) + dmValue);
+                            defaultNode.Value = Runtime.Substring(defaultValue, 0, lfPos + 2) + dmValue;
                         }
                     }
                 }
                 // 4. Get rid of the xmpDM:copyright.
-                dmCopyright.GetParent().RemoveChild(dmCopyright);
+                dmCopyright.Parent.RemoveChild(dmCopyright);
             }
             catch (XmpException)
             {
@@ -563,7 +565,7 @@ namespace Com.Adobe.Xmp.Impl
             _dcArrayForms = new Hashtable();
             // Properties supposed to be a "Bag".
             PropertyOptions bagForm = new PropertyOptions();
-            bagForm.SetArray(true);
+            bagForm.IsArray = true;
             _dcArrayForms.Put("dc:contributor", bagForm);
             _dcArrayForms.Put("dc:language", bagForm);
             _dcArrayForms.Put("dc:publisher", bagForm);
@@ -572,16 +574,16 @@ namespace Com.Adobe.Xmp.Impl
             _dcArrayForms.Put("dc:type", bagForm);
             // Properties supposed to be a "Seq".
             PropertyOptions seqForm = new PropertyOptions();
-            seqForm.SetArray(true);
-            seqForm.SetArrayOrdered(true);
+            seqForm.IsArray = true;
+            seqForm.IsArrayOrdered = true;
             _dcArrayForms.Put("dc:creator", seqForm);
             _dcArrayForms.Put("dc:date", seqForm);
             // Properties supposed to be an "Alt" in alternative-text form.
             PropertyOptions altTextForm = new PropertyOptions();
-            altTextForm.SetArray(true);
-            altTextForm.SetArrayOrdered(true);
-            altTextForm.SetArrayAlternate(true);
-            altTextForm.SetArrayAltText(true);
+            altTextForm.IsArray = true;
+            altTextForm.IsArrayOrdered = true;
+            altTextForm.IsArrayAlternate = true;
+            altTextForm.IsArrayAltText = true;
             _dcArrayForms.Put("dc:description", altTextForm);
             _dcArrayForms.Put("dc:rights", altTextForm);
             _dcArrayForms.Put("dc:title", altTextForm);

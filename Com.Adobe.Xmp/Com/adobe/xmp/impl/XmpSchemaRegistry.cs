@@ -404,8 +404,8 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">If the registrations of at least one alias fails.</exception>
         private void RegisterStandardAliases()
         {
-            AliasOptions aliasToArrayOrdered = new AliasOptions().SetArrayOrdered(true);
-            AliasOptions aliasToArrayAltText = new AliasOptions().SetArrayAltText(true);
+            AliasOptions aliasToArrayOrdered = new AliasOptions { IsArrayOrdered = true };
+            AliasOptions aliasToArrayAltText = new AliasOptions { IsArrayAltText = true };
             // Aliases from XMP to DC.
             RegisterAlias(XmpConstConstants.NsXmp, "Author", XmpConstConstants.NsDc, "creator", aliasToArrayOrdered);
             RegisterAlias(XmpConstConstants.NsXmp, "Authors", XmpConstConstants.NsDc, "creator", null);

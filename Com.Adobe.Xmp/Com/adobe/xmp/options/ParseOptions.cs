@@ -18,94 +18,54 @@ namespace Com.Adobe.Xmp.Options
     public sealed class ParseOptions : Options
     {
         /// <summary>Require a surrounding &quot;x:xmpmeta&quot; element in the xml-document.</summary>
-        public const int RequireXmpMeta = unchecked(0x0001);
+        private const int RequireXmpMetaFlag = unchecked(0x0001);
 
         /// <summary>Do not reconcile alias differences, throw an exception instead.</summary>
-        public const int StrictAliasing = unchecked(0x0004);
+        private const int StrictAliasingFlag = unchecked(0x0004);
 
         /// <summary>Convert ASCII control characters 0x01 - 0x1F (except tab, cr, and lf) to spaces.</summary>
-        public const int FixControlChars = unchecked(0x0008);
+        private const int FixControlCharsFlag = unchecked(0x0008);
 
         /// <summary>If the input is not unicode, try to parse it as ISO-8859-1.</summary>
-        public const int AcceptLatin1 = unchecked(0x0010);
+        private const int AcceptLatin1Flag = unchecked(0x0010);
 
         /// <summary>Do not carry run the XMPNormalizer on a packet, leave it as it is.</summary>
-        public const int OmitNormalization = unchecked(0x0020);
+        private const int OmitNormalizationFlag = unchecked(0x0020);
 
         /// <summary>Sets the options to the default values.</summary>
         public ParseOptions()
         {
-            SetOption(FixControlChars | AcceptLatin1, true);
+            SetOption(FixControlCharsFlag | AcceptLatin1Flag, true);
         }
 
-        /// <returns>Returns the requireXMPMeta.</returns>
-        public bool GetRequireXmpMeta()
+        public bool RequireXmpMeta
         {
-            return GetOption(RequireXmpMeta);
+            get { return GetOption(RequireXmpMetaFlag); }
+            set { SetOption(RequireXmpMetaFlag, value); }
         }
 
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public ParseOptions SetRequireXmpMeta(bool value)
+        public bool StrictAliasing
         {
-            SetOption(RequireXmpMeta, value);
-            return this;
+            get { return GetOption(StrictAliasingFlag); }
+            set { SetOption(StrictAliasingFlag, value); }
         }
 
-        /// <returns>Returns the strictAliasing.</returns>
-        public bool GetStrictAliasing()
+        public bool FixControlChars
         {
-            return GetOption(StrictAliasing);
+            get { return GetOption(FixControlCharsFlag); }
+            set { SetOption(FixControlCharsFlag, value); }
         }
 
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public ParseOptions SetStrictAliasing(bool value)
+        public bool AcceptLatin1
         {
-            SetOption(StrictAliasing, value);
-            return this;
+            get { return GetOption(AcceptLatin1Flag); }
+            set { SetOption(AcceptLatin1Flag, value); }
         }
 
-        /// <returns>Returns the strictAliasing.</returns>
-        public bool GetFixControlChars()
+        public bool OmitNormalization
         {
-            return GetOption(FixControlChars);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public ParseOptions SetFixControlChars(bool value)
-        {
-            SetOption(FixControlChars, value);
-            return this;
-        }
-
-        /// <returns>Returns the strictAliasing.</returns>
-        public bool GetAcceptLatin1()
-        {
-            return GetOption(AcceptLatin1);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public ParseOptions SetOmitNormalization(bool value)
-        {
-            SetOption(OmitNormalization, value);
-            return this;
-        }
-
-        /// <returns>Returns the option "omit normalization".</returns>
-        public bool GetOmitNormalization()
-        {
-            return GetOption(OmitNormalization);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public ParseOptions SetAcceptLatin1(bool value)
-        {
-            SetOption(AcceptLatin1, value);
-            return this;
+            set { SetOption(OmitNormalizationFlag, value); }
+            get { return GetOption(OmitNormalizationFlag); }
         }
 
         /// <seealso cref="Options.DefineOptionName(int)"/>
@@ -113,42 +73,25 @@ namespace Com.Adobe.Xmp.Options
         {
             switch (option)
             {
-                case RequireXmpMeta:
-                {
+                case RequireXmpMetaFlag:
                     return "REQUIRE_XMP_META";
-                }
-
-                case StrictAliasing:
-                {
+                case StrictAliasingFlag:
                     return "STRICT_ALIASING";
-                }
-
-                case FixControlChars:
-                {
+                case FixControlCharsFlag:
                     return "FIX_CONTROL_CHARS";
-                }
-
-                case AcceptLatin1:
-                {
+                case AcceptLatin1Flag:
                     return "ACCEPT_LATIN_1";
-                }
-
-                case OmitNormalization:
-                {
+                case OmitNormalizationFlag:
                     return "OMIT_NORMALIZATION";
-                }
-
                 default:
-                {
                     return null;
-                }
             }
         }
 
         /// <seealso cref="Options.GetValidOptions()"/>
         protected override int GetValidOptions()
         {
-            return RequireXmpMeta | StrictAliasing | FixControlChars | AcceptLatin1 | OmitNormalization;
+            return RequireXmpMetaFlag | StrictAliasingFlag | FixControlCharsFlag | AcceptLatin1Flag | OmitNormalizationFlag;
         }
     }
 }

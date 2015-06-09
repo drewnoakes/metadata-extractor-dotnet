@@ -301,7 +301,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                 rootStep.SetAlias(true);
                 rootStep.SetAliasForm(aliasInfo.GetAliasForm().GetOptions());
                 expandedXPath.Add(rootStep);
-                if (aliasInfo.GetAliasForm().IsArrayAltText())
+                if (aliasInfo.GetAliasForm().IsArrayAltText)
                 {
                     XmpPathSegment qualSelectorStep = new XmpPathSegment("[?xml:lang='x-default']", XmpPath.QualSelectorStep);
                     qualSelectorStep.SetAlias(true);
@@ -310,7 +310,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                 }
                 else
                 {
-                    if (aliasInfo.GetAliasForm().IsArray())
+                    if (aliasInfo.GetAliasForm().IsArray)
                     {
                         XmpPathSegment indexStep = new XmpPathSegment("[1]", XmpPath.ArrayIndexStep);
                         indexStep.SetAlias(true);

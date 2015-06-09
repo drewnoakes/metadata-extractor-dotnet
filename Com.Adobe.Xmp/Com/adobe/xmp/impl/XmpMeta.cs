@@ -66,7 +66,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 arrayOptions = new PropertyOptions();
             }
-            if (!arrayOptions.IsOnlyArrayOptions())
+            if (!arrayOptions.IsOnlyArrayOptions)
             {
                 throw new XmpException("Only array form flags allowed for arrayOptions", XmpErrorCode.BadOptions);
             }
@@ -82,7 +82,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 // The array exists, make sure the form is compatible. Zero
                 // arrayForm means take what exists.
-                if (!arrayNode.GetOptions().IsArray())
+                if (!arrayNode.Options.IsArray)
                 {
                     throw new XmpException("The named property is not an array", XmpErrorCode.BadXPath);
                 }
@@ -94,7 +94,7 @@ namespace Com.Adobe.Xmp.Impl
                 // throw new XMPException("Mismatch of existing and specified array form", BADOPTIONS);
                 // }
                 // The array does not exist, try to create it.
-                if (arrayOptions.IsArray())
+                if (arrayOptions.IsArray)
                 {
                     arrayNode = XmpNodeUtils.FindNode(_tree, arrayPath, true, arrayOptions);
                     if (arrayNode == null)
@@ -130,7 +130,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return 0;
             }
-            if (arrayNode.GetOptions().IsArray())
+            if (arrayNode.Options.IsArray)
             {
                 return arrayNode.GetChildrenLength();
             }
@@ -314,22 +314,22 @@ namespace Com.Adobe.Xmp.Impl
 
             public string GetValue()
             {
-                return _itemNode.GetValue();
+                return _itemNode.Value;
             }
 
             public PropertyOptions GetOptions()
             {
-                return _itemNode.GetOptions();
+                return _itemNode.Options;
             }
 
             public string GetLanguage()
             {
-                return _itemNode.GetQualifier(1).GetValue();
+                return _itemNode.GetQualifier(1).Value;
             }
 
             public override string ToString()
             {
-                return _itemNode.GetValue();
+                return _itemNode.Value;
             }
 
             private readonly XmpNode _itemNode;
@@ -346,16 +346,16 @@ namespace Com.Adobe.Xmp.Impl
             specificLang = Utils.NormalizeLangValue(specificLang);
             XmpPath arrayPath = XmpPathParser.ExpandXPath(schemaNs, altTextName);
             // Find the array node and set the options if it was just created.
-            XmpNode arrayNode = XmpNodeUtils.FindNode(_tree, arrayPath, true, new PropertyOptions(PropertyOptions.Array | PropertyOptions.ArrayOrdered | PropertyOptions.ArrayAlternate | PropertyOptions.ArrayAltText));
+            XmpNode arrayNode = XmpNodeUtils.FindNode(_tree, arrayPath, true, new PropertyOptions(PropertyOptions.ArrayFlag | PropertyOptions.ArrayOrderedFlag | PropertyOptions.ArrayAlternateFlag | PropertyOptions.ArrayAltTextFlag));
             if (arrayNode == null)
             {
                 throw new XmpException("Failed to find or create array node", XmpErrorCode.BadXPath);
             }
-            if (!arrayNode.GetOptions().IsArrayAltText())
+            if (!arrayNode.Options.IsArrayAltText)
             {
-                if (!arrayNode.HasChildren() && arrayNode.GetOptions().IsArrayAlternate())
+                if (!arrayNode.HasChildren && arrayNode.Options.IsArrayAlternate)
                 {
-                    arrayNode.GetOptions().SetArrayAltText(true);
+                    arrayNode.Options.IsArrayAltText = true;
                 }
                 else
                 {
@@ -368,11 +368,11 @@ namespace Com.Adobe.Xmp.Impl
             for (IIterator it = arrayNode.IterateChildren(); it.HasNext(); )
             {
                 XmpNode currItem = (XmpNode)it.Next();
-                if (!currItem.HasQualifier() || !XmpConstConstants.XmlLang.Equals(currItem.GetQualifier(1).Name))
+                if (!currItem.HasQualifier || !XmpConstConstants.XmlLang.Equals(currItem.GetQualifier(1).Name))
                 {
                     throw new XmpException("Language qualifier must be first", XmpErrorCode.BadXPath);
                 }
-                if (XmpConstConstants.XDefault.Equals(currItem.GetQualifier(1).GetValue()))
+                if (XmpConstConstants.XDefault.Equals(currItem.GetQualifier(1).Value))
                 {
                     xdItem = currItem;
                     haveXDefault = true;
@@ -413,12 +413,12 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         // Update the specific item, update x-default if it matches the
                         // old value.
-                        if (haveXDefault && xdItem != itemNode && xdItem != null && xdItem.GetValue().Equals(itemNode.GetValue()))
+                        if (haveXDefault && xdItem != itemNode && xdItem != null && xdItem.Value.Equals(itemNode.Value))
                         {
-                            xdItem.SetValue(itemValue);
+                            xdItem.Value = itemValue;
                         }
                         // ! Do this after the x-default check!
-                        itemNode.SetValue(itemValue);
+                        itemNode.Value = itemValue;
                     }
                     else
                     {
@@ -427,16 +427,16 @@ namespace Com.Adobe.Xmp.Impl
                         for (IIterator it1 = arrayNode.IterateChildren(); it1.HasNext(); )
                         {
                             XmpNode currItem = (XmpNode)it1.Next();
-                            if (currItem == xdItem || !currItem.GetValue().Equals(xdItem != null ? xdItem.GetValue() : null))
+                            if (currItem == xdItem || !currItem.Value.Equals(xdItem != null ? xdItem.Value : null))
                             {
                                 continue;
                             }
-                            currItem.SetValue(itemValue);
+                            currItem.Value = itemValue;
                         }
                         // And finally do the x-default item.
                         if (xdItem != null)
                         {
-                            xdItem.SetValue(itemValue);
+                            xdItem.Value = itemValue;
                         }
                     }
                     break;
@@ -446,11 +446,11 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     // Update the generic item, update x-default if it matches the old
                     // value.
-                    if (haveXDefault && xdItem != itemNode && xdItem != null && xdItem.GetValue().Equals(itemNode.GetValue()))
+                    if (haveXDefault && xdItem != itemNode && xdItem != null && xdItem.Value.Equals(itemNode.Value))
                     {
-                        xdItem.SetValue(itemValue);
+                        xdItem.Value = itemValue;
                     }
-                    itemNode.SetValue(itemValue);
+                    itemNode.Value = itemValue;
                     // ! Do this after
                     // the x-default
                     // check!
@@ -474,7 +474,7 @@ namespace Com.Adobe.Xmp.Impl
                     // item.
                     if (xdItem != null && arrayNode.GetChildrenLength() == 1)
                     {
-                        xdItem.SetValue(itemValue);
+                        xdItem.Value = itemValue;
                     }
                     XmpNodeUtils.AppendLangItem(arrayNode, specificLang, itemValue);
                     break;
@@ -536,7 +536,7 @@ namespace Com.Adobe.Xmp.Impl
             XmpNode propNode = XmpNodeUtils.FindNode(_tree, expPath, false, null);
             if (propNode != null)
             {
-                if (valueType != ValueType.String && propNode.GetOptions().IsCompositeProperty())
+                if (valueType != ValueType.String && propNode.Options.IsCompositeProperty)
                 {
                     throw new XmpException("Property must be simple when a value type is requested", XmpErrorCode.BadXPath);
                 }
@@ -561,7 +561,7 @@ namespace Com.Adobe.Xmp.Impl
 
             public PropertyOptions GetOptions()
             {
-                return _propNode.GetOptions();
+                return _propNode.Options;
             }
 
             public string GetLanguage()
@@ -597,7 +597,7 @@ namespace Com.Adobe.Xmp.Impl
             XmpNode propNode = XmpNodeUtils.FindNode(_tree, expPath, false, null);
             if (propNode != null)
             {
-                if (valueType != ValueType.String && propNode.GetOptions().IsCompositeProperty())
+                if (valueType != ValueType.String && propNode.Options.IsCompositeProperty)
                 {
                     throw new XmpException("Property must be simple when a value type is requested", XmpErrorCode.BadXPath);
                 }
@@ -1039,8 +1039,8 @@ namespace Com.Adobe.Xmp.Impl
                 node.Clear();
             }
             // its checked by setOptions(), if the merged result is a valid options set
-            node.GetOptions().MergeWith(newOptions);
-            if (!node.GetOptions().IsCompositeProperty())
+            node.Options.MergeWith(newOptions);
+            if (!node.Options.IsCompositeProperty)
             {
                 // This is setting the value of a leaf node.
                 XmpNodeUtils.SetNodeValue(node, value);
@@ -1066,7 +1066,7 @@ namespace Com.Adobe.Xmp.Impl
         private static object EvaluateNodeValue(ValueType valueType, XmpNode propNode)
         {
             object value;
-            string rawValue = propNode.GetValue();
+            string rawValue = propNode.Value;
             switch (valueType)
             {
                 case ValueType.Boolean:
@@ -1119,7 +1119,7 @@ namespace Com.Adobe.Xmp.Impl
                     // for the other cases the converter methods provides a "null"
                     // value.
                     // a default value can only occur if this method is made public.
-                    value = rawValue != null || propNode.GetOptions().IsCompositeProperty() ? rawValue : string.Empty;
+                    value = rawValue != null || propNode.Options.IsCompositeProperty ? rawValue : string.Empty;
                     break;
                 }
             }

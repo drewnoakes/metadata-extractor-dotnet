@@ -33,7 +33,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             options = options ?? new SerializeOptions();
             // sort the internal data model on demand
-            if (options.GetSort())
+            if (options.Sort)
             {
                 xmp.Sort();
             }
@@ -58,7 +58,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             // forces the encoding to be UTF-16 to get the correct string length
             options = options ?? new SerializeOptions();
-            options.SetEncodeUtf16Be(true);
+            options.EncodeUtf16Be = true;
             ByteArrayOutputStream @out = new ByteArrayOutputStream(2048);
             Serialize(xmp, @out, options);
             try

@@ -30,67 +30,32 @@ namespace Com.Adobe.Xmp.Options
         /// <summary>Omit all qualifiers.</summary>
         public const int OmitQualifiers = unchecked(0x1000);
 
-        //    /** Include aliases, default is just actual properties. <em>Note:</em> Not supported.
-        //     *  @deprecated it is commonly preferred to work with the base properties */
-        //    public static final int INCLUDE_ALIASES = 0x0800;
-        /// <returns>Returns whether the option is set.</returns>
-        public bool IsJustChildren()
+//      /** Include aliases, default is just actual properties. <em>Note:</em> Not supported.
+//        *  @deprecated it is commonly preferred to work with the base properties */
+//      public static final int INCLUDE_ALIASES = 0x0800;
+
+        public bool IsJustChildren
         {
-            return GetOption(JustChildren);
+            get { return GetOption(JustChildren); }
+            set { SetOption(JustChildren, value); }
         }
 
-        /// <returns>Returns whether the option is set.</returns>
-        public bool IsJustLeafname()
+        public bool IsJustLeafname
         {
-            return GetOption(JustLeafname);
+            get { return GetOption(JustLeafname); }
+            set { SetOption(JustLeafname, value); }
         }
 
-        /// <returns>Returns whether the option is set.</returns>
-        public bool IsJustLeafnodes()
+        public bool IsJustLeafnodes
         {
-            return GetOption(JustLeafnodes);
+            get { return GetOption(JustLeafnodes); }
+            set { SetOption(JustLeafnodes, value); }
         }
 
-        /// <returns>Returns whether the option is set.</returns>
-        public bool IsOmitQualifiers()
+        public bool IsOmitQualifiers
         {
-            return GetOption(OmitQualifiers);
-        }
-
-        /// <summary>Sets the option and returns the instance.</summary>
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public IteratorOptions SetJustChildren(bool value)
-        {
-            SetOption(JustChildren, value);
-            return this;
-        }
-
-        /// <summary>Sets the option and returns the instance.</summary>
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public IteratorOptions SetJustLeafname(bool value)
-        {
-            SetOption(JustLeafname, value);
-            return this;
-        }
-
-        /// <summary>Sets the option and returns the instance.</summary>
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public IteratorOptions SetJustLeafnodes(bool value)
-        {
-            SetOption(JustLeafnodes, value);
-            return this;
-        }
-
-        /// <summary>Sets the option and returns the instance.</summary>
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public IteratorOptions SetOmitQualifiers(bool value)
-        {
-            SetOption(OmitQualifiers, value);
-            return this;
+            get { return GetOption(OmitQualifiers); }
+            set { SetOption(OmitQualifiers, value); }
         }
 
         /// <seealso cref="Options.DefineOptionName(int)"/>
@@ -99,29 +64,15 @@ namespace Com.Adobe.Xmp.Options
             switch (option)
             {
                 case JustChildren:
-                {
                     return "JUST_CHILDREN";
-                }
-
                 case JustLeafnodes:
-                {
                     return "JUST_LEAFNODES";
-                }
-
                 case JustLeafname:
-                {
                     return "JUST_LEAFNAME";
-                }
-
                 case OmitQualifiers:
-                {
                     return "OMIT_QUALIFIERS";
-                }
-
                 default:
-                {
                     return null;
-                }
             }
         }
 

@@ -46,7 +46,7 @@ namespace Com.Adobe.Xmp.Impl
             ParameterAsserts.AssertNotNull(input);
             options = options ?? new ParseOptions();
             XmlDocument document = ParseXml(input, options);
-            bool xmpmetaRequired = options.GetRequireXmpMeta();
+            bool xmpmetaRequired = options.RequireXmpMeta;
             object[] result = new object[3];
             result = FindRootNode(document, xmpmetaRequired, result);
             if (result != null && result[1] == XmpRdf)
@@ -54,7 +54,7 @@ namespace Com.Adobe.Xmp.Impl
                 XmpMeta xmp = ParseRdf.Parse((XmlNode)result[0]);
                 xmp.SetPacketHeader((string)result[2]);
                 // Check if the XMP object shall be normalized
-                if (!options.GetOmitNormalization())
+                if (!options.OmitNormalization)
                 {
                     return XmpNormalizer.Process(xmp, options);
                 }
@@ -108,7 +108,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">Thrown when the parsing fails.</exception>
         private static XmlDocument ParseXmlFromInputStream(InputStream stream, ParseOptions options)
         {
-            if (!options.GetAcceptLatin1() && !options.GetFixControlChars())
+            if (!options.AcceptLatin1 && !options.FixControlChars)
             {
                 return ParseInputSource(new InputSource(stream));
             }
@@ -143,11 +143,11 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (e.GetErrorCode() == XmpErrorCode.BadXml || e.GetErrorCode() == XmpErrorCode.BadStream)
                 {
-                    if (options.GetAcceptLatin1())
+                    if (options.AcceptLatin1)
                     {
                         buffer = Latin1Converter.Convert(buffer);
                     }
-                    if (options.GetFixControlChars())
+                    if (options.FixControlChars)
                     {
                         try
                         {
@@ -184,7 +184,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             catch (XmpException e)
             {
-                if (e.GetErrorCode() == XmpErrorCode.BadXml && options.GetFixControlChars())
+                if (e.GetErrorCode() == XmpErrorCode.BadXml && options.FixControlChars)
                 {
                     source = new InputSource(new FixAsciiControlsReader(new StringReader(input)));
                     return ParseInputSource(source);

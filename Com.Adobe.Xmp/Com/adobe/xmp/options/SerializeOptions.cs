@@ -15,12 +15,70 @@ namespace Com.Adobe.Xmp.Options
     /// <since>24.01.2006</since>
     public sealed class SerializeOptions : Options
     {
+        private const int OmitPacketWrapperFlag = unchecked(0x0010);
+        private const int ReadonlyPacketFlag = unchecked(0x0020);
+        private const int UseCompactFormatFlag = unchecked(0x0040);
+        private const int UseCanonicalFormatFlag = unchecked(0x0080);
+        private const int IncludeThumbnailPadFlag = unchecked(0x0100);
+        private const int ExactPacketLengthFlag = unchecked(0x0200);
+        private const int OmitXmpmetaElementFlag = unchecked(0x1000);
+        private const int SortFlag = unchecked(0x2000);
+
+        /// <summary>Bit indicating little endian encoding, unset is big endian</summary>
+        private const int LittleendianBit = unchecked(0x0001);
+        /// <summary>Bit indication UTF16 encoding.</summary>
+        private const int Utf16Bit = unchecked(0x0002);
+        /// <summary>UTF8 encoding; this is the default</summary>
+        public const int EncodeUtf8 = 0;
+        public const int EncodeUtf16BeFlag = Utf16Bit;
+        public const int EncodeUtf16LeFlag = Utf16Bit | LittleendianBit;
+        private const int EncodingMask = Utf16Bit | LittleendianBit;
+
+        /// <summary>Default constructor.</summary>
+        public SerializeOptions()
+        {
+            Padding = 2048;
+            Newline = "\n";
+            Indent = "  ";
+        }
+
+        /// <summary>Constructor using inital options</summary>
+        /// <param name="options">the inital options</param>
+        /// <exception cref="XmpException">Thrown if options are not consistant.</exception>
+        public SerializeOptions(int options)
+            : base(options)
+        {
+            Padding = 2048;
+            Newline = "\n";
+            Indent = "  ";
+        }
+
+        // ---------------------------------------------------------------------------------------------
+        // encoding bit constants
+
+        // reveal default constructor
+
         /// <summary>Omit the XML packet wrapper.</summary>
-        public const int OmitPacketWrapper = unchecked(0x0010);
+        public bool OmitPacketWrapper
+        {
+            get { return GetOption(OmitPacketWrapperFlag); }
+            set { SetOption(OmitPacketWrapperFlag, value); }
+        }
+
+        /// <summary>Omit the &lt;x:xmpmeta&gt; tag.</summary>
+        public bool OmitXmpMetaElement
+        {
+            get { return GetOption(OmitXmpmetaElementFlag); }
+            set { SetOption(OmitXmpmetaElementFlag, value); }
+        }
 
         /// <summary>Mark packet as read-only.</summary>
-        /// <remarks>Mark packet as read-only. Default is a writeable packet.</remarks>
-        public const int ReadonlyPacket = unchecked(0x0020);
+        /// <remarks>Default is a writeable packet.</remarks>
+        public bool ReadOnlyPacket
+        {
+            get { return GetOption(ReadonlyPacketFlag); }
+            set { SetOption(ReadonlyPacketFlag, value); }
+        }
 
         /// <summary>Use a compact form of RDF.</summary>
         /// <remarks>
@@ -29,72 +87,73 @@ namespace Com.Adobe.Xmp.Options
         /// To serialize to the canonical form, set the flag USE_CANONICAL_FORMAT.
         /// If both flags &quot;compact&quot; and &quot;canonical&quot; are set, canonical is used.
         /// </remarks>
-        public const int UseCompactFormat = unchecked(0x0040);
+        public bool UseCompactFormat
+        {
+            get { return GetOption(UseCompactFormatFlag); }
+            set { SetOption(UseCompactFormatFlag, value); }
+        }
 
         /// <summary>Use the canonical form of RDF if set.</summary>
-        /// <remarks>Use the canonical form of RDF if set. By default the compact form is used</remarks>
-        public const int UseCanonicalFormat = unchecked(0x0080);
+        /// <remarks>By default the compact form is used.</remarks>
+        public bool UseCanonicalFormat
+        {
+            get { return GetOption(UseCanonicalFormatFlag); }
+            set { SetOption(UseCanonicalFormatFlag, value); }
+        }
 
         /// <summary>Include a padding allowance for a thumbnail image.</summary>
         /// <remarks>
         /// Include a padding allowance for a thumbnail image. If no <tt>xmp:Thumbnails</tt> property
         /// is present, the typical space for a JPEG thumbnail is used.
         /// </remarks>
-        public const int IncludeThumbnailPad = unchecked(0x0100);
+        public bool IncludeThumbnailPad
+        {
+            get { return GetOption(IncludeThumbnailPadFlag); }
+            set { SetOption(IncludeThumbnailPadFlag, value); }
+        }
 
         /// <summary>The padding parameter provides the overall packet length.</summary>
         /// <remarks>
         /// The padding parameter provides the overall packet length. The actual amount of padding is
         /// computed. An exception is thrown if the packet exceeds this length with no padding.
         /// </remarks>
-        public const int ExactPacketLength = unchecked(0x0200);
-
-        /// <summary>Omit the &lt;x:xmpmeta&bt;-tag</summary>
-        public const int OmitXmpmetaElement = unchecked(0x1000);
+        public bool ExactPacketLength
+        {
+            get { return GetOption(ExactPacketLengthFlag); }
+            set { SetOption(ExactPacketLengthFlag, value); }
+        }
 
         /// <summary>Sort the struct properties and qualifier before serializing</summary>
-        public const int Sort = unchecked(0x2000);
+        public bool Sort
+        {
+            get { return GetOption(SortFlag); }
+            set { SetOption(SortFlag, value); }
+        }
 
-        /// <summary>Bit indicating little endian encoding, unset is big endian</summary>
-        private const int LittleendianBit = unchecked(0x0001);
-
-        /// <summary>Bit indication UTF16 encoding.</summary>
-        private const int Utf16Bit = unchecked(0x0002);
-
-        /// <summary>UTF8 encoding; this is the default</summary>
-        public const int EncodeUtf8 = 0;
 
         /// <summary>UTF16BE encoding</summary>
-        public const int EncodeUtf16Be = Utf16Bit;
+        public bool EncodeUtf16Be
+        {
+            get { return (GetOptions() & EncodingMask) == EncodeUtf16BeFlag; }
+            set
+            {
+                // clear unicode bits
+                SetOption(Utf16Bit | LittleendianBit, false);
+                SetOption(EncodeUtf16BeFlag, value);
+            }
+        }
 
         /// <summary>UTF16LE encoding</summary>
-        public const int EncodeUtf16Le = Utf16Bit | LittleendianBit;
-
-        private const int EncodingMask = Utf16Bit | LittleendianBit;
-
-        /// <summary>The amount of padding to be added if a writeable XML packet is created.</summary>
-        /// <remarks>
-        /// The amount of padding to be added if a writeable XML packet is created. If zero is passed
-        /// (the default) an appropriate amount of padding is computed.
-        /// </remarks>
-        private int _padding = 2048;
-
-        /// <summary>The string to be used as a line terminator.</summary>
-        /// <remarks>
-        /// The string to be used as a line terminator. If empty it defaults to; linefeed, U+000A, the
-        /// standard XML newline.
-        /// </remarks>
-        private string _newline = "\n";
-
-        /// <summary>
-        /// The string to be used for each level of indentation in the serialized
-        /// RDF.
-        /// </summary>
-        /// <remarks>
-        /// The string to be used for each level of indentation in the serialized
-        /// RDF. If empty it defaults to two ASCII spaces, U+0020.
-        /// </remarks>
-        private string _indent = "  ";
+        public bool EncodeUtf16Le
+        {
+            get { return (GetOptions() & EncodingMask) == EncodeUtf16LeFlag; }
+            set
+            {
+                // clear unicode bits
+                SetOption(Utf16Bit | LittleendianBit, false);
+                SetOption(EncodeUtf16LeFlag, value);
+            }
+        }
 
         /// <summary>
         /// The number of levels of indentation to be used for the outermost XML element in the
@@ -104,244 +163,40 @@ namespace Com.Adobe.Xmp.Options
         /// The number of levels of indentation to be used for the outermost XML element in the
         /// serialized RDF. This is convenient when embedding the RDF in other text, defaults to 0.
         /// </remarks>
-        private int _baseIndent;
+        public int BaseIndent { set; get; }
 
-        /// <summary>Omits the Toolkit version attribute, not published, only used for Unit tests.</summary>
-        private readonly bool _omitVersionAttribute = false;
+        /// <summary>
+        /// The string to be used for each level of indentation in the serialized
+        /// RDF.
+        /// </summary>
+        /// <remarks>
+        /// The string to be used for each level of indentation in the serialized
+        /// RDF. If empty it defaults to two ASCII spaces, U+0020.
+        /// </remarks>
+        public string Indent { set; get; }
 
-        /// <summary>Default constructor.</summary>
-        public SerializeOptions()
-        {
-        }
+        /// <summary>The string to be used as a line terminator.</summary>
+        /// <remarks>
+        /// The string to be used as a line terminator. If empty it defaults to; linefeed, U+000A, the
+        /// standard XML newline.
+        /// </remarks>
+        public string Newline { get; set; }
 
-        /// <summary>Constructor using inital options</summary>
-        /// <param name="options">the inital options</param>
-        /// <exception cref="XmpException">Thrown if options are not consistant.</exception>
-        public SerializeOptions(int options)
-            : base(options)
-        {
-        }
-
-        // ---------------------------------------------------------------------------------------------
-        // encoding bit constants
-        // reveal default constructor
-        /// <returns>Returns the option.</returns>
-        public bool GetOmitPacketWrapper()
-        {
-            return GetOption(OmitPacketWrapper);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public SerializeOptions SetOmitPacketWrapper(bool value)
-        {
-            SetOption(OmitPacketWrapper, value);
-            return this;
-        }
-
-        /// <returns>Returns the option.</returns>
-        public bool GetOmitXmpMetaElement()
-        {
-            return GetOption(OmitXmpmetaElement);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public SerializeOptions SetOmitXmpMetaElement(bool value)
-        {
-            SetOption(OmitXmpmetaElement, value);
-            return this;
-        }
-
-        /// <returns>Returns the option.</returns>
-        public bool GetReadOnlyPacket()
-        {
-            return GetOption(ReadonlyPacket);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public SerializeOptions SetReadOnlyPacket(bool value)
-        {
-            SetOption(ReadonlyPacket, value);
-            return this;
-        }
-
-        /// <returns>Returns the option.</returns>
-        public bool GetUseCompactFormat()
-        {
-            return GetOption(UseCompactFormat);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public SerializeOptions SetUseCompactFormat(bool value)
-        {
-            SetOption(UseCompactFormat, value);
-            return this;
-        }
-
-        /// <returns>Returns the option.</returns>
-        public bool GetUseCanonicalFormat()
-        {
-            return GetOption(UseCanonicalFormat);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public SerializeOptions SetUseCanonicalFormat(bool value)
-        {
-            SetOption(UseCanonicalFormat, value);
-            return this;
-        }
-
-        /// <returns>Returns the option.</returns>
-        public bool GetIncludeThumbnailPad()
-        {
-            return GetOption(IncludeThumbnailPad);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public SerializeOptions SetIncludeThumbnailPad(bool value)
-        {
-            SetOption(IncludeThumbnailPad, value);
-            return this;
-        }
-
-        /// <returns>Returns the option.</returns>
-        public bool GetExactPacketLength()
-        {
-            return GetOption(ExactPacketLength);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public SerializeOptions SetExactPacketLength(bool value)
-        {
-            SetOption(ExactPacketLength, value);
-            return this;
-        }
-
-        /// <returns>Returns the option.</returns>
-        public bool GetSort()
-        {
-            return GetOption(Sort);
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public SerializeOptions SetSort(bool value)
-        {
-            SetOption(Sort, value);
-            return this;
-        }
-
-        /// <returns>Returns the option.</returns>
-        public bool GetEncodeUtf16Be()
-        {
-            return (GetOptions() & EncodingMask) == EncodeUtf16Be;
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public SerializeOptions SetEncodeUtf16Be(bool value)
-        {
-            // clear unicode bits
-            SetOption(Utf16Bit | LittleendianBit, false);
-            SetOption(EncodeUtf16Be, value);
-            return this;
-        }
-
-        /// <returns>Returns the option.</returns>
-        public bool GetEncodeUtf16Le()
-        {
-            return (GetOptions() & EncodingMask) == EncodeUtf16Le;
-        }
-
-        /// <param name="value">the value to set</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public SerializeOptions SetEncodeUtf16Le(bool value)
-        {
-            // clear unicode bits
-            SetOption(Utf16Bit | LittleendianBit, false);
-            SetOption(EncodeUtf16Le, value);
-            return this;
-        }
-
-        /// <returns>Returns the baseIndent.</returns>
-        public int GetBaseIndent()
-        {
-            return _baseIndent;
-        }
-
-        /// <param name="baseIndent">The baseIndent to set.</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public SerializeOptions SetBaseIndent(int baseIndent)
-        {
-            _baseIndent = baseIndent;
-            return this;
-        }
-
-        /// <returns>Returns the indent.</returns>
-        public string GetIndent()
-        {
-            return _indent;
-        }
-
-        /// <param name="indent">The indent to set.</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public SerializeOptions SetIndent(string indent)
-        {
-            _indent = indent;
-            return this;
-        }
-
-        /// <returns>Returns the newline.</returns>
-        public string GetNewline()
-        {
-            return _newline;
-        }
-
-        /// <param name="newline">The newline to set.</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public SerializeOptions SetNewline(string newline)
-        {
-            _newline = newline;
-            return this;
-        }
-
-        /// <returns>Returns the padding.</returns>
-        public int GetPadding()
-        {
-            return _padding;
-        }
-
-        /// <param name="padding">The padding to set.</param>
-        /// <returns>Returns the instance to call more set-methods.</returns>
-        public SerializeOptions SetPadding(int padding)
-        {
-            _padding = padding;
-            return this;
-        }
-
-        /// <returns>
-        /// Returns whether the Toolkit version attribute shall be omitted.
-        /// <em>Note:</em> This options can only be set by unit tests.
-        /// </returns>
-        public bool GetOmitVersionAttribute()
-        {
-            return _omitVersionAttribute;
-        }
+        /// <summary>The amount of padding to be added if a writeable XML packet is created.</summary>
+        /// <remarks>
+        /// The amount of padding to be added if a writeable XML packet is created. If zero is passed
+        /// (the default) an appropriate amount of padding is computed.
+        /// </remarks>
+        public int Padding { get; set; }
 
         /// <returns>Returns the encoding as Java encoding String.</returns>
         public string GetEncoding()
         {
-            if (GetEncodeUtf16Be())
+            if (EncodeUtf16Be)
             {
                 return "UTF-16BE";
             }
-            if (GetEncodeUtf16Le())
+            if (EncodeUtf16Le)
             {
                 return "UTF-16LE";
             }
@@ -355,10 +210,10 @@ namespace Com.Adobe.Xmp.Options
             try
             {
                 clone = new SerializeOptions(GetOptions());
-                clone.SetBaseIndent(_baseIndent);
-                clone.SetIndent(_indent);
-                clone.SetNewline(_newline);
-                clone.SetPadding(_padding);
+                clone.BaseIndent = BaseIndent;
+                clone.Indent = Indent;
+                clone.Newline = Newline;
+                clone.Padding = Padding;
                 return clone;
             }
             catch (XmpException)
@@ -373,54 +228,31 @@ namespace Com.Adobe.Xmp.Options
         {
             switch (option)
             {
-                case OmitPacketWrapper:
-                {
+                case OmitPacketWrapperFlag:
                     return "OMIT_PACKET_WRAPPER";
-                }
-
-                case ReadonlyPacket:
-                {
+                case ReadonlyPacketFlag:
                     return "READONLY_PACKET";
-                }
-
-                case UseCompactFormat:
-                {
+                case UseCompactFormatFlag:
                     return "USE_COMPACT_FORMAT";
-                }
-
-                case IncludeThumbnailPad:
-                {
-                    //            case USE_CANONICAL_FORMAT :        return "USE_CANONICAL_FORMAT";
+                case IncludeThumbnailPadFlag:
                     return "INCLUDE_THUMBNAIL_PAD";
-                }
-
-                case ExactPacketLength:
-                {
+//              case USE_CANONICAL_FORMAT:        return "USE_CANONICAL_FORMAT";
+                case ExactPacketLengthFlag:
                     return "EXACT_PACKET_LENGTH";
-                }
-
-                case OmitXmpmetaElement:
-                {
+                case OmitXmpmetaElementFlag:
                     return "OMIT_XMPMETA_ELEMENT";
-                }
-
-                case Sort:
-                {
+                case SortFlag:
                     return "NORMALIZED";
-                }
-
                 default:
-                {
                     return null;
-                }
             }
         }
 
         /// <seealso cref="Options.GetValidOptions()"/>
         protected override int GetValidOptions()
         {
-            return OmitPacketWrapper | ReadonlyPacket | UseCompactFormat | IncludeThumbnailPad | OmitXmpmetaElement | ExactPacketLength | Sort;
+            return OmitPacketWrapperFlag | ReadonlyPacketFlag | UseCompactFormatFlag | IncludeThumbnailPadFlag | OmitXmpmetaElementFlag | ExactPacketLengthFlag | SortFlag;
+            //        USE_CANONICAL_FORMAT |
         }
-        //        USE_CANONICAL_FORMAT |
     }
 }
