@@ -377,7 +377,7 @@ namespace Com.Adobe.Xmp
         /// <returns>Returns the base64 string.</returns>
         public static string EncodeBase64(byte[] buffer)
         {
-            return Runtime.GetStringForBytes(Base64.Encode(buffer));
+            return Convert.ToBase64String(buffer);
         }
 
         /// <summary>Decode from Base64 encoded string to raw data.</summary>
@@ -389,7 +389,7 @@ namespace Com.Adobe.Xmp
         {
             try
             {
-                return Base64.Decode(Runtime.GetBytesForString(base64String));
+                return Convert.FromBase64String(base64String);
             }
             catch (Exception e)
             {

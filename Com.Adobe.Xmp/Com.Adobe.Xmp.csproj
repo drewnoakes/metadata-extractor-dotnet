@@ -34,7 +34,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="com\adobe\xmp\impl\Base64.cs" />
     <Compile Include="com\adobe\xmp\impl\ByteBuffer.cs" />
     <Compile Include="com\adobe\xmp\impl\CountOutputStream.cs" />
     <Compile Include="com\adobe\xmp\impl\FixASCIIControlsReader.cs" />
