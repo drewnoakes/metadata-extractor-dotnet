@@ -74,7 +74,7 @@ namespace Com.Drew.Metadata
 
         // VARIOUS METHODS
         /// <summary>Gets a value indicating whether the directory is empty, meaning it contains no errors and no tag values.</summary>
-        public virtual bool IsEmpty()
+        public bool IsEmpty()
         {
             return _errorList.IsEmpty() && DefinedTagList.IsEmpty();
         }
@@ -82,7 +82,7 @@ namespace Com.Drew.Metadata
         /// <summary>Indicates whether the specified tag type has been set.</summary>
         /// <param name="tagType">the tag type to check for</param>
         /// <returns>true if a value exists for the specified tag type, false if not</returns>
-        public virtual bool ContainsTag(int tagType)
+        public bool ContainsTag(int tagType)
         {
             return TagMap.ContainsKey(Extensions.ValueOf(tagType));
         }
@@ -90,21 +90,21 @@ namespace Com.Drew.Metadata
         /// <summary>Returns an Iterator of Tag instances that have been set in this Directory.</summary>
         /// <returns>an Iterator of Tag instances</returns>
         [NotNull]
-        public virtual ICollection<Tag> GetTags()
+        public ICollection<Tag> GetTags()
         {
             return Collections.UnmodifiableCollection(DefinedTagList);
         }
 
         /// <summary>Returns the number of tags set in this Directory.</summary>
         /// <returns>the number of tags set in this Directory</returns>
-        public virtual int GetTagCount()
+        public int GetTagCount()
         {
             return DefinedTagList.Count;
         }
 
         /// <summary>Sets the descriptor used to interpret tag values.</summary>
         /// <param name="descriptor">the descriptor used to interpret tag values</param>
-        public virtual void SetDescriptor([NotNull] ITagDescriptor descriptor)
+        public void SetDescriptor([NotNull] ITagDescriptor descriptor)
         {
             if (descriptor == null)
             {
@@ -115,14 +115,14 @@ namespace Com.Drew.Metadata
 
         /// <summary>Registers an error message with this directory.</summary>
         /// <param name="message">an error message.</param>
-        public virtual void AddError([NotNull] string message)
+        public void AddError([NotNull] string message)
         {
             _errorList.Add(message);
         }
 
         /// <summary>Gets a value indicating whether this directory has any error messages.</summary>
         /// <returns>true if the directory contains errors, otherwise false</returns>
-        public virtual bool HasErrors()
+        public bool HasErrors()
         {
             return _errorList.Count > 0;
         }
@@ -130,13 +130,13 @@ namespace Com.Drew.Metadata
         /// <summary>Used to iterate over any error messages contained in this directory.</summary>
         /// <returns>an iterable collection of error message strings.</returns>
         [NotNull]
-        public virtual IEnumerable<string> GetErrors()
+        public IEnumerable<string> GetErrors()
         {
             return Collections.UnmodifiableCollection(_errorList);
         }
 
         /// <summary>Returns the count of error messages in this directory.</summary>
-        public virtual int GetErrorCount()
+        public int GetErrorCount()
         {
             return _errorList.Count;
         }
@@ -145,7 +145,7 @@ namespace Com.Drew.Metadata
         /// <summary>Sets an <c>int</c> value for the specified tag.</summary>
         /// <param name="tagType">the tag's value as an int</param>
         /// <param name="value">the value for the specified tag as an int</param>
-        public virtual void SetInt(int tagType, int value)
+        public void SetInt(int tagType, int value)
         {
             SetObject(tagType, value);
         }
@@ -153,7 +153,7 @@ namespace Com.Drew.Metadata
         /// <summary>Sets an <c>int[]</c> (array) for the specified tag.</summary>
         /// <param name="tagType">the tag identifier</param>
         /// <param name="ints">the int array to store</param>
-        public virtual void SetIntArray(int tagType, [NotNull] int[] ints)
+        public void SetIntArray(int tagType, [NotNull] int[] ints)
         {
             SetObjectArray(tagType, ints);
         }
@@ -161,7 +161,7 @@ namespace Com.Drew.Metadata
         /// <summary>Sets a <c>float</c> value for the specified tag.</summary>
         /// <param name="tagType">the tag's value as an int</param>
         /// <param name="value">the value for the specified tag as a float</param>
-        public virtual void SetFloat(int tagType, float value)
+        public void SetFloat(int tagType, float value)
         {
             SetObject(tagType, value);
         }
@@ -169,7 +169,7 @@ namespace Com.Drew.Metadata
         /// <summary>Sets a <c>float[]</c> (array) for the specified tag.</summary>
         /// <param name="tagType">the tag identifier</param>
         /// <param name="floats">the float array to store</param>
-        public virtual void SetFloatArray(int tagType, [NotNull] float[] floats)
+        public void SetFloatArray(int tagType, [NotNull] float[] floats)
         {
             SetObjectArray(tagType, floats);
         }
@@ -177,7 +177,7 @@ namespace Com.Drew.Metadata
         /// <summary>Sets a <c>double</c> value for the specified tag.</summary>
         /// <param name="tagType">the tag's value as an int</param>
         /// <param name="value">the value for the specified tag as a double</param>
-        public virtual void SetDouble(int tagType, double value)
+        public void SetDouble(int tagType, double value)
         {
             SetObject(tagType, value);
         }
@@ -185,7 +185,7 @@ namespace Com.Drew.Metadata
         /// <summary>Sets a <c>double[]</c> (array) for the specified tag.</summary>
         /// <param name="tagType">the tag identifier</param>
         /// <param name="doubles">the double array to store</param>
-        public virtual void SetDoubleArray(int tagType, [NotNull] double[] doubles)
+        public void SetDoubleArray(int tagType, [NotNull] double[] doubles)
         {
             SetObjectArray(tagType, doubles);
         }
@@ -193,7 +193,7 @@ namespace Com.Drew.Metadata
         /// <summary>Sets a <c>String</c> value for the specified tag.</summary>
         /// <param name="tagType">the tag's value as an int</param>
         /// <param name="value">the value for the specified tag as a String</param>
-        public virtual void SetString(int tagType, [NotNull] string value)
+        public void SetString(int tagType, [NotNull] string value)
         {
             if (value == null)
             {
@@ -205,7 +205,7 @@ namespace Com.Drew.Metadata
         /// <summary>Sets a <c>String[]</c> (array) for the specified tag.</summary>
         /// <param name="tagType">the tag identifier</param>
         /// <param name="strings">the String array to store</param>
-        public virtual void SetStringArray(int tagType, [NotNull] string[] strings)
+        public void SetStringArray(int tagType, [NotNull] string[] strings)
         {
             SetObjectArray(tagType, strings);
         }
@@ -213,7 +213,7 @@ namespace Com.Drew.Metadata
         /// <summary>Sets a <c>boolean</c> value for the specified tag.</summary>
         /// <param name="tagType">the tag's value as an int</param>
         /// <param name="value">the value for the specified tag as a boolean</param>
-        public virtual void SetBoolean(int tagType, bool value)
+        public void SetBoolean(int tagType, bool value)
         {
             SetObject(tagType, value);
         }
@@ -221,7 +221,7 @@ namespace Com.Drew.Metadata
         /// <summary>Sets a <c>long</c> value for the specified tag.</summary>
         /// <param name="tagType">the tag's value as an int</param>
         /// <param name="value">the value for the specified tag as a long</param>
-        public virtual void SetLong(int tagType, long value)
+        public void SetLong(int tagType, long value)
         {
             SetObject(tagType, value);
         }
@@ -229,7 +229,7 @@ namespace Com.Drew.Metadata
         /// <summary>Sets a <c>java.util.Date</c> value for the specified tag.</summary>
         /// <param name="tagType">the tag's value as an int</param>
         /// <param name="value">the value for the specified tag as a java.util.Date</param>
-        public virtual void SetDate(int tagType, DateTime value)
+        public void SetDate(int tagType, DateTime value)
         {
             SetObject(tagType, value);
         }
@@ -237,7 +237,7 @@ namespace Com.Drew.Metadata
         /// <summary>Sets a <c>Rational</c> value for the specified tag.</summary>
         /// <param name="tagType">the tag's value as an int</param>
         /// <param name="rational">rational number</param>
-        public virtual void SetRational(int tagType, [NotNull] Rational rational)
+        public void SetRational(int tagType, [NotNull] Rational rational)
         {
             SetObject(tagType, rational);
         }
@@ -245,7 +245,7 @@ namespace Com.Drew.Metadata
         /// <summary>Sets a <c>Rational[]</c> (array) for the specified tag.</summary>
         /// <param name="tagType">the tag identifier</param>
         /// <param name="rationals">the Rational array to store</param>
-        public virtual void SetRationalArray(int tagType, [NotNull] Rational[] rationals)
+        public void SetRationalArray(int tagType, [NotNull] Rational[] rationals)
         {
             SetObjectArray(tagType, rationals);
         }
@@ -261,7 +261,7 @@ namespace Com.Drew.Metadata
         /// <summary>Sets a <c>sbyte[]</c> (array) for the specified tag.</summary>
         /// <param name="tagType">the tag identifier</param>
         /// <param name="bytes">the signed byte array to store</param>
-        public virtual void SetSByteArray(int tagType, [NotNull] sbyte[] bytes)
+        public void SetSByteArray(int tagType, [NotNull] sbyte[] bytes)
         {
             SetObjectArray(tagType, bytes);
         }
@@ -270,7 +270,7 @@ namespace Com.Drew.Metadata
         /// <param name="tagType">the tag's value as an int</param>
         /// <param name="value">the value for the specified tag</param>
         /// <exception cref="System.ArgumentNullException">if value is <c>null</c></exception>
-        public virtual void SetObject(int tagType, [NotNull] object value)
+        public void SetObject(int tagType, [NotNull] object value)
         {
             if (value == null)
             {
@@ -314,7 +314,7 @@ namespace Com.Drew.Metadata
         /// </remarks>
         /// <exception cref="MetadataException">if no value exists for tagType or if it cannot be converted to an int.</exception>
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
-        public virtual int GetInt(int tagType)
+        public int GetInt(int tagType)
         {
             int? integer = GetInteger(tagType);
             if (integer != null)
@@ -345,7 +345,7 @@ namespace Com.Drew.Metadata
         /// If the value is not found or cannot be converted to int, <c>null</c> is returned.
         /// </remarks>
         [CanBeNull]
-        public virtual int? GetInteger(int tagType)
+        public int? GetInteger(int tagType)
         {
             object o = GetObject(tagType);
             if (o == null)
@@ -426,7 +426,7 @@ namespace Com.Drew.Metadata
         /// <param name="tagType">the tag identifier</param>
         /// <returns>the tag's value as an array of Strings. If the value is unset or cannot be converted, <c>null</c> is returned.</returns>
         [CanBeNull]
-        public virtual string[] GetStringArray(int tagType)
+        public string[] GetStringArray(int tagType)
         {
             object o = GetObject(tagType);
             if (o == null)
@@ -484,7 +484,7 @@ namespace Com.Drew.Metadata
         /// <param name="tagType">the tag identifier</param>
         /// <returns>the tag's value as an int array</returns>
         [CanBeNull]
-        public virtual int[] GetIntArray(int tagType)
+        public int[] GetIntArray(int tagType)
         {
             object o = GetObject(tagType);
             if (o == null)
@@ -562,7 +562,7 @@ namespace Com.Drew.Metadata
         /// <param name="tagType">the tag identifier</param>
         /// <returns>the tag's value as a byte array</returns>
         [CanBeNull]
-        public virtual byte[] GetByteArray(int tagType)
+        public byte[] GetByteArray(int tagType)
         {
             object o = GetObject(tagType);
             if (o == null)
@@ -626,7 +626,7 @@ namespace Com.Drew.Metadata
 
         /// <summary>Returns the specified tag's value as a double, if possible.</summary>
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
-        public virtual double GetDouble(int tagType)
+        public double GetDouble(int tagType)
         {
             double? value = GetDoubleObject(tagType);
             if (value != null)
@@ -644,7 +644,7 @@ namespace Com.Drew.Metadata
         /// <summary>Returns the specified tag's value as a Double.</summary>
         /// <remarks>Returns the specified tag's value as a Double.  If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
-        public virtual double? GetDoubleObject(int tagType)
+        public double? GetDoubleObject(int tagType)
         {
             object o = GetObject(tagType);
             if (o == null)
@@ -672,7 +672,7 @@ namespace Com.Drew.Metadata
 
         /// <summary>Returns the specified tag's value as a float, if possible.</summary>
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
-        public virtual float GetFloat(int tagType)
+        public float GetFloat(int tagType)
         {
             float? value = GetFloatObject(tagType);
             if (value != null)
@@ -690,7 +690,7 @@ namespace Com.Drew.Metadata
         /// <summary>Returns the specified tag's value as a float.</summary>
         /// <remarks>Returns the specified tag's value as a float.  If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
-        public virtual float? GetFloatObject(int tagType)
+        public float? GetFloatObject(int tagType)
         {
             object o = GetObject(tagType);
             if (o == null)
@@ -718,7 +718,7 @@ namespace Com.Drew.Metadata
 
         /// <summary>Returns the specified tag's value as a long, if possible.</summary>
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
-        public virtual long GetLong(int tagType)
+        public long GetLong(int tagType)
         {
             long? value = GetLongObject(tagType);
             if (value != null)
@@ -736,7 +736,7 @@ namespace Com.Drew.Metadata
         /// <summary>Returns the specified tag's value as a long.</summary>
         /// <remarks>Returns the specified tag's value as a long.  If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
-        public virtual long? GetLongObject(int tagType)
+        public long? GetLongObject(int tagType)
         {
             object o = GetObject(tagType);
             if (o == null)
@@ -764,7 +764,7 @@ namespace Com.Drew.Metadata
 
         /// <summary>Returns the specified tag's value as a boolean, if possible.</summary>
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
-        public virtual bool GetBoolean(int tagType)
+        public bool GetBoolean(int tagType)
         {
             bool? value = GetBooleanObject(tagType);
             if (value != null)
@@ -782,7 +782,7 @@ namespace Com.Drew.Metadata
         /// <summary>Returns the specified tag's value as a boolean.</summary>
         /// <remarks>Returns the specified tag's value as a boolean.  If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
-        public virtual bool? GetBooleanObject(int tagType)
+        public bool? GetBooleanObject(int tagType)
         {
             object o = GetObject(tagType);
             if (o == null)
@@ -822,7 +822,7 @@ namespace Com.Drew.Metadata
         /// is known, call the overload that accepts one as an argument.
         /// </remarks>
         [CanBeNull]
-        public virtual DateTime? GetDate(int tagType)
+        public DateTime? GetDate(int tagType)
         {
             return GetDate(tagType, null);
         }
@@ -836,7 +836,7 @@ namespace Com.Drew.Metadata
         /// is only considered if the underlying value is a string and parsing occurs, otherwise it has no effect.
         /// </remarks>
         [CanBeNull]
-        public virtual DateTime? GetDate(int tagType, [CanBeNull] TimeZoneInfo timeZone)
+        public DateTime? GetDate(int tagType, [CanBeNull] TimeZoneInfo timeZone)
         {
             object o = GetObject(tagType);
             if (o == null)
@@ -877,7 +877,7 @@ namespace Com.Drew.Metadata
         /// <summary>Returns the specified tag's value as a Rational.</summary>
         /// <remarks>Returns the specified tag's value as a Rational.  If the value is unset or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
-        public virtual Rational GetRational(int tagType)
+        public Rational GetRational(int tagType)
         {
             object o = GetObject(tagType);
             if (o == null)
@@ -904,7 +904,7 @@ namespace Com.Drew.Metadata
         /// <summary>Returns the specified tag's value as an array of Rational.</summary>
         /// <remarks>Returns the specified tag's value as an array of Rational.  If the value is unset or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
-        public virtual Rational[] GetRationalArray(int tagType)
+        public Rational[] GetRationalArray(int tagType)
         {
             object o = GetObject(tagType);
             if (o == null)
@@ -929,7 +929,7 @@ namespace Com.Drew.Metadata
         /// <c>null</c> if the tag hasn't been defined.
         /// </returns>
         [CanBeNull]
-        public virtual string GetString(int tagType)
+        public string GetString(int tagType)
         {
             object o = GetObject(tagType);
             if (o == null)
@@ -1029,7 +1029,7 @@ namespace Com.Drew.Metadata
         }
 
         [CanBeNull]
-        public virtual string GetString(int tagType, string charset)
+        public string GetString(int tagType, string charset)
         {
             byte[] bytes = GetByteArray(tagType);
             if (bytes == null)
@@ -1050,7 +1050,7 @@ namespace Com.Drew.Metadata
         /// <param name="tagType">the tag type identifier</param>
         /// <returns>the tag's value as an Object if available, else <c>null</c></returns>
         [CanBeNull]
-        public virtual object GetObject(int tagType)
+        public object GetObject(int tagType)
         {
             return TagMap.Get(Extensions.ValueOf(tagType));
         }
@@ -1060,7 +1060,7 @@ namespace Com.Drew.Metadata
         /// <param name="tagType">the tag type identifier</param>
         /// <returns>the tag's name as a String</returns>
         [NotNull]
-        public virtual string GetTagName(int tagType)
+        public string GetTagName(int tagType)
         {
             Dictionary<int?, string> nameMap = GetTagNameMap();
             if (!nameMap.ContainsKey(tagType))
@@ -1078,7 +1078,7 @@ namespace Com.Drew.Metadata
         /// <summary>Gets whether the specified tag is known by the directory and has a name.</summary>
         /// <param name="tagType">the tag type identifier</param>
         /// <returns>whether this directory has a name for the specified tag</returns>
-        public virtual bool HasTagName(int tagType)
+        public bool HasTagName(int tagType)
         {
             return GetTagNameMap().ContainsKey(tagType);
         }
@@ -1090,7 +1090,7 @@ namespace Com.Drew.Metadata
         /// <param name="tagType">the tag type identifier</param>
         /// <returns>the tag value's description as a String</returns>
         [CanBeNull]
-        public virtual string GetDescription(int tagType)
+        public string GetDescription(int tagType)
         {
             Debug.Assert((Descriptor != null));
             return Descriptor.GetDescription(tagType);
