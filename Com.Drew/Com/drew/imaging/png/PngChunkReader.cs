@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
 using Sharpen;
@@ -50,7 +51,7 @@ namespace Com.Drew.Imaging.Png
             //
             reader.SetMotorolaByteOrder(true);
             // network byte order
-            if (!Arrays.Equals(PngSignatureBytes, reader.GetBytes(PngSignatureBytes.Length)))
+            if (!PngSignatureBytes.SequenceEqual(reader.GetBytes(PngSignatureBytes.Length)))
             {
                 throw new PngProcessingException("PNG signature mismatch");
             }

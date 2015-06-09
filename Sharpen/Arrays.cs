@@ -5,11 +5,6 @@ namespace Sharpen
 {
     public static class Arrays
     {
-        public static bool Equals<T> (T[] a1, T[] a2)
-        {
-            return a1.SequenceEqual(a2);
-        }
-
         public static void Sort (string[] array)
         {
             Array.Sort (array, string.CompareOrdinal);

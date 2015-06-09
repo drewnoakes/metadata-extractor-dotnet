@@ -214,7 +214,7 @@ namespace Com.Drew.Imaging.Png
                 return false;
             }
             PngChunkType that = (PngChunkType)o;
-            return Arrays.Equals(_bytes, that._bytes);
+            return _bytes.SequenceEqual(that._bytes);
         }
 
         public override int GetHashCode()
