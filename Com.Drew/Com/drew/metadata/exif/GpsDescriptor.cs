@@ -156,7 +156,7 @@ namespace Com.Drew.Metadata.Exif
             {
                 return null;
             }
-            string distanceRef = Extensions.Trim(value);
+            string distanceRef = value.Trim();
             if (Runtime.EqualsIgnoreCase("K", distanceRef))
             {
                 return "kilometers";
@@ -178,7 +178,7 @@ namespace Com.Drew.Metadata.Exif
             Rational angle = Directory.GetRational(tagType);
             // provide a decimal version of rational numbers in the description, to avoid strings like "35334/199 degrees"
             string value = angle != null ? new DecimalFormat("0.##").Format(angle.DoubleValue()) : Directory.GetString(tagType);
-            return value == null || Extensions.Trim(value).Length == 0 ? null : Extensions.Trim(value) + " degrees";
+            return value == null || value.Trim().Length == 0 ? null : value.Trim() + " degrees";
         }
 
         [CanBeNull]
@@ -189,7 +189,7 @@ namespace Com.Drew.Metadata.Exif
             {
                 return null;
             }
-            string gpsDistRef = Extensions.Trim(value);
+            string gpsDistRef = value.Trim();
             if (Runtime.EqualsIgnoreCase("T", gpsDistRef))
             {
                 return "True direction";
@@ -209,7 +209,7 @@ namespace Com.Drew.Metadata.Exif
             {
                 return null;
             }
-            string gpsSpeedRef = Extensions.Trim(value);
+            string gpsSpeedRef = value.Trim();
             if (Runtime.EqualsIgnoreCase("K", gpsSpeedRef))
             {
                 return "kph";
@@ -233,7 +233,7 @@ namespace Com.Drew.Metadata.Exif
             {
                 return null;
             }
-            string gpsSpeedMeasureMode = Extensions.Trim(value);
+            string gpsSpeedMeasureMode = value.Trim();
             if (Runtime.EqualsIgnoreCase("2", gpsSpeedMeasureMode))
             {
                 return "2-dimensional measurement";
@@ -253,7 +253,7 @@ namespace Com.Drew.Metadata.Exif
             {
                 return null;
             }
-            string gpsStatus = Extensions.Trim(value);
+            string gpsStatus = value.Trim();
             if (Runtime.EqualsIgnoreCase("A", gpsStatus))
             {
                 return "Active (Measurement in progress)";

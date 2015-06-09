@@ -315,7 +315,7 @@ namespace Com.Drew.Metadata
             }
             try
             {
-                return Extensions.Trim(Runtime.GetStringForBytes(values, "ASCII"));
+                return Runtime.GetStringForBytes(values, "ASCII").Trim();
             }
             catch (UnsupportedEncodingException)
             {

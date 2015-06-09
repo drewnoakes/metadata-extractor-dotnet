@@ -263,7 +263,7 @@ namespace Com.Drew.Imaging
                     if (directory1 != null && directory1.HasThumbnailData())
                     {
                         Console.Out.WriteLine((object)"Writing thumbnail...");
-                        directory1.WriteThumbnail(Extensions.Trim(args[0]) + ".thumb.jpg");
+                        directory1.WriteThumbnail(args[0].Trim() + ".thumb.jpg");
                     }
                     else
                     {

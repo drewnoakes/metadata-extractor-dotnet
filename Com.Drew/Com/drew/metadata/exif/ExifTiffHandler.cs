@@ -191,7 +191,7 @@ namespace Com.Drew.Metadata.Exif
                 }
                 else
                 {
-                    if (cameraMake != null && Extensions.Trim(cameraMake).ToUpper().StartsWith("NIKON"))
+                    if (cameraMake != null && cameraMake.Trim().ToUpper().StartsWith("NIKON"))
                     {
                         if ("Nikon".Equals(firstFiveChars))
                         {

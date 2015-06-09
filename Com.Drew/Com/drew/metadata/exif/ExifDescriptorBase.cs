@@ -415,7 +415,7 @@ namespace Com.Drew.Metadata.Exif
             {
                 return null;
             }
-            return Runtime.EqualsIgnoreCase("R98", Extensions.Trim(value)) ? "Recommended Exif Interoperability Rules (ExifR98)" : "Unknown (" + value + ")";
+            return Runtime.EqualsIgnoreCase("R98", value.Trim()) ? "Recommended Exif Interoperability Rules (ExifR98)" : "Unknown (" + value + ")";
         }
 
         [CanBeNull]
@@ -493,7 +493,7 @@ namespace Com.Drew.Metadata.Exif
             try
             {
                 // Decode the unicode string and trim the unicode zero "\0" from the end.
-                return Extensions.Trim(Runtime.GetStringForBytes(bytes, "UTF-16LE"));
+                return Runtime.GetStringForBytes(bytes, "UTF-16LE").Trim();
             }
             catch (UnsupportedEncodingException)
             {
@@ -826,15 +826,15 @@ namespace Com.Drew.Metadata.Exif
                                 byte b = commentBytes[j];
                                 if (b != '\0' && b != ' ')
                                 {
-                                    return Extensions.Trim(Runtime.GetStringForBytes(commentBytes, j, commentBytes.Length - j, charset));
+                                    return Runtime.GetStringForBytes(commentBytes, j, commentBytes.Length - j, charset).Trim();
                                 }
                             }
-                            return Extensions.Trim(Runtime.GetStringForBytes(commentBytes, 10, commentBytes.Length - 10, charset));
+                            return Runtime.GetStringForBytes(commentBytes, 10, commentBytes.Length - 10, charset).Trim();
                         }
                     }
                 }
                 // special handling fell through, return a plain string representation
-                return Extensions.Trim(Runtime.GetStringForBytes(commentBytes, Runtime.GetProperty("file.encoding")));
+                return Runtime.GetStringForBytes(commentBytes, Runtime.GetProperty("file.encoding")).Trim();
             }
             catch (UnsupportedEncodingException)
             {

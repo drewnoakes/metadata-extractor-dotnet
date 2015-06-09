@@ -535,37 +535,6 @@ namespace Sharpen
             return node.Attributes != null && node.Attributes.Count > 0;
         }
 
-        /// <summary>
-        /// Call this trim method instead of standard .Net string.Trim(),
-        /// becase .Net string.Trim() method removes only spaces and the Java String.Trim()
-        /// removes all chars less than space ' '
-        /// </summary>
-        /// <remarks>Implementation ported from openjdk source</remarks>
-        /// <param name="str">Source string</param>
-        /// <returns>Trimmed string</returns>
-        public static string Trim(this string str)
-        {
-            if (string.IsNullOrEmpty(str))
-            {
-                return str;
-            }
-
-            int len = str.Length;
-            int st = 0;
-
-            while ((st < len) && (str[st] <= ' '))
-            {
-                st++;
-            }
-
-            while ((st < len) && (str[len - 1] <= ' '))
-            {
-                len--;
-            }
-
-            return ((st > 0) || (len < str.Length)) ? str.Substring(st, len - st) : str;
-        }
-
         public static byte[] ConvertToByteArray(byte[] bytes)
         {
             return Array.ConvertAll(bytes, b => (byte)b);
