@@ -67,7 +67,7 @@ namespace Com.Drew.Metadata.Tiff
 
         public virtual void EndingIfd()
         {
-            CurrentDirectory = _directoryStack.IsEmpty() ? null : _directoryStack.Pop();
+            CurrentDirectory = _directoryStack.Count == 0 ? null : _directoryStack.Pop();
         }
 
         protected virtual void PushDirectory([NotNull] Type directoryClass)

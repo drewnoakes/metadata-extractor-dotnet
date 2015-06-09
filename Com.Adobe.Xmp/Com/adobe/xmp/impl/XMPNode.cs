@@ -148,7 +148,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </summary>
         private void CleanupChildren()
         {
-            if (_children.IsEmpty())
+            if (_children.Count == 0)
             {
                 _children = null;
             }
@@ -237,7 +237,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
             }
             GetQualifier().Remove(qualNode);
-            if (_qualifier.IsEmpty())
+            if (_qualifier.Count == 0)
             {
                 opts.HasQualifiers = false;
                 _qualifier = null;

@@ -76,7 +76,7 @@ namespace Com.Drew.Metadata
         /// <summary>Gets a value indicating whether the directory is empty, meaning it contains no errors and no tag values.</summary>
         public bool IsEmpty()
         {
-            return _errorList.IsEmpty() && DefinedTagList.IsEmpty();
+            return _errorList.Count == 0 && DefinedTagList.Count == 0;
         }
 
         /// <summary>Indicates whether the specified tag type has been set.</summary>

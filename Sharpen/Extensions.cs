@@ -163,21 +163,6 @@ namespace Sharpen
             return TimeZoneInfo.CreateCustomTimeZone(tzone, t, tzone, tzone);
         }
 
-        public static bool IsEmpty(this ICollection col)
-        {
-            return col.Count == 0;
-        }
-
-        public static bool IsEmpty<T>(this ICollection<T> col)
-        {
-            return col.Count == 0;
-        }
-
-        public static bool IsEmpty<T>(this Stack<T> col)
-        {
-            return col.Count == 0;
-        }
-
         public static IIterator Iterator(this ICollection col)
         {
             return new EnumeratorWrapper(col, col.GetEnumerator());

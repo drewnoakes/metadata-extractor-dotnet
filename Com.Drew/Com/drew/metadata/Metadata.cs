@@ -98,7 +98,7 @@ namespace Com.Drew.Metadata
             // We suppress the warning here as the code asserts a map signature of Class<T>,T.
             // So after get(Class<T>) it is for sure the result is from type T.
             ICollection<Directory> list = GetDirectoryList(type);
-            if (list == null || list.IsEmpty())
+            if (list == null || list.Count == 0)
             {
                 return null;
             }
@@ -119,7 +119,7 @@ namespace Com.Drew.Metadata
         public bool ContainsDirectoryOfType(Type type)
         {
             ICollection<Directory> list = GetDirectoryList(type);
-            return list != null && !list.IsEmpty();
+            return list != null && !(list.Count == 0);
         }
 
         /// <summary>Indicates whether any errors were reported during the reading of metadata values.</summary>
