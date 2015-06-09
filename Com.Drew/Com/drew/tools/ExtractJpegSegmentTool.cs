@@ -57,7 +57,7 @@ namespace Com.Drew.Tools
             string filePath = args[0];
             if (!new FilePath(filePath).Exists())
             {
-                Console.Error.WriteLine((object)"File does not exist");
+                Console.Error.WriteLine("File does not exist");
                 PrintUsage();
                 Environment.Exit(1);
             }
@@ -76,7 +76,7 @@ namespace Com.Drew.Tools
                 // If none specified, use all that could reasonably contain metadata
                 Collections.AddAll(segmentTypes, JpegSegmentType.CanContainMetadataTypes);
             }
-            Console.Out.WriteLine((object)("Reading: " + filePath));
+            Console.Out.WriteLine("Reading: {0}", filePath);
             JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new FilePath(filePath), segmentTypes);
             SaveSegmentFiles(filePath, segmentData);
         }
@@ -112,13 +112,13 @@ namespace Com.Drew.Tools
         private static void PrintUsage()
         {
             Console.Out.WriteLine("USAGE:\n");
-            Console.Out.WriteLine((object)"\tjava com.drew.tools.ExtractJpegSegmentTool <filename> [<segment> ...]\n");
-            Console.Out.Write((object)"Where <segment> is zero or more of:");
+            Console.Out.WriteLine("\tjava com.drew.tools.ExtractJpegSegmentTool <filename> [<segment> ...]\n");
+            Console.Out.Write("Where <segment> is zero or more of:");
             foreach (JpegSegmentType segmentType in typeof(JpegSegmentType).GetEnumConstants<JpegSegmentType>())
             {
                 if (segmentType.CanContainMetadata)
                 {
-                    Console.Out.Write((object)(" " + Extensions.ConvertToString(segmentType)));
+                    Console.Out.Write(" " + Extensions.ConvertToString(segmentType));
                 }
             }
             Console.Out.WriteLine();

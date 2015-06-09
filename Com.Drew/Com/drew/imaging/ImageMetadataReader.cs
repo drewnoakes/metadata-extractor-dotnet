@@ -262,12 +262,12 @@ namespace Com.Drew.Imaging
                     ExifThumbnailDirectory directory1 = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
                     if (directory1 != null && directory1.HasThumbnailData())
                     {
-                        Console.Out.WriteLine((object)"Writing thumbnail...");
+                        Console.Out.WriteLine("Writing thumbnail...");
                         directory1.WriteThumbnail(args[0].Trim() + ".thumb.jpg");
                     }
                     else
                     {
-                        Console.Out.WriteLine((object)"No thumbnail data exists in this image");
+                        Console.Out.WriteLine("No thumbnail data exists in this image");
                     }
                 }
             }
