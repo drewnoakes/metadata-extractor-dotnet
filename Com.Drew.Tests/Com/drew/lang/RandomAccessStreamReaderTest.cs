@@ -21,12 +21,15 @@
  */
 
 using Sharpen;
+using System;
+using NUnit.Framework;
 
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class RandomAccessStreamReaderTest : RandomAccessTestBase
     {
+        [Test, ExpectedException(typeof(ArgumentNullException))]
         public virtual void TestConstructWithNullBufferThrows()
         {
             new RandomAccessStreamReader(null);

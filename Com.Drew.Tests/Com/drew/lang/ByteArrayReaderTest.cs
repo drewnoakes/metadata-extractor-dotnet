@@ -20,6 +20,9 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System;
+using NUnit.Framework;
+
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
@@ -30,6 +33,7 @@ namespace Com.Drew.Lang
             return new ByteArrayReader(bytes);
         }
 
+        [Test, ExpectedException(typeof(ArgumentNullException))]
         public virtual void TestConstructWithNullBufferThrows()
         {
             new ByteArrayReader(null);

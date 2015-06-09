@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System;
 using System.IO;
 using NUnit.Framework;
 using Sharpen;
@@ -72,6 +73,7 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
+        [Test, ExpectedException(typeof(ArgumentNullException))]
         public void TestConstructWithNullBufferThrows()
         {
             new RandomAccessFileReader(null);
