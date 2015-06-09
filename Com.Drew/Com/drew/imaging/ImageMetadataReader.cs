@@ -84,41 +84,31 @@ namespace Com.Drew.Imaging
         public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
         {
             FileType fileType = FileTypeDetector.DetectFileType(stream) ?? FileType.Unknown;
-            if (fileType == FileType.Jpeg)
+            switch (fileType)
             {
-                return JpegMetadataReader.ReadMetadata(stream);
-            }
-            if (fileType == FileType.Tiff || fileType == FileType.Arw || fileType == FileType.Cr2 || fileType == FileType.Nef || fileType == FileType.Orf || fileType == FileType.Rw2)
-            {
-                return TiffMetadataReader.ReadMetadata(stream);
-            }
-            if (fileType == FileType.Psd)
-            {
-                return PsdMetadataReader.ReadMetadata(stream);
-            }
-            if (fileType == FileType.Png)
-            {
-                return PngMetadataReader.ReadMetadata(stream);
-            }
-            if (fileType == FileType.Bmp)
-            {
-                return BmpMetadataReader.ReadMetadata(stream);
-            }
-            if (fileType == FileType.Gif)
-            {
-                return GifMetadataReader.ReadMetadata(stream);
-            }
-            if (fileType == FileType.Ico)
-            {
-                return IcoMetadataReader.ReadMetadata(stream);
-            }
-            if (fileType == FileType.Pcx)
-            {
-                return PcxMetadataReader.ReadMetadata(stream);
-            }
-            if (fileType == FileType.Riff)
-            {
-                return WebpMetadataReader.ReadMetadata(stream);
+                case FileType.Jpeg:
+                    return JpegMetadataReader.ReadMetadata(stream);
+                case FileType.Tiff:
+                case FileType.Arw:
+                case FileType.Cr2:
+                case FileType.Nef:
+                case FileType.Orf:
+                case FileType.Rw2:
+                    return TiffMetadataReader.ReadMetadata(stream);
+                case FileType.Psd:
+                    return PsdMetadataReader.ReadMetadata(stream);
+                case FileType.Png:
+                    return PngMetadataReader.ReadMetadata(stream);
+                case FileType.Bmp:
+                    return BmpMetadataReader.ReadMetadata(stream);
+                case FileType.Gif:
+                    return GifMetadataReader.ReadMetadata(stream);
+                case FileType.Ico:
+                    return IcoMetadataReader.ReadMetadata(stream);
+                case FileType.Pcx:
+                    return PcxMetadataReader.ReadMetadata(stream);
+                case FileType.Riff:
+                    return WebpMetadataReader.ReadMetadata(stream);
             }
             throw new ImageProcessingException("File format is not supported");
         }
