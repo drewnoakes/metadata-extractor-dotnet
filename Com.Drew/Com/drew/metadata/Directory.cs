@@ -258,6 +258,14 @@ namespace Com.Drew.Metadata
             SetObjectArray(tagType, bytes);
         }
 
+        /// <summary>Sets a <c>sbyte[]</c> (array) for the specified tag.</summary>
+        /// <param name="tagType">the tag identifier</param>
+        /// <param name="bytes">the signed byte array to store</param>
+        public virtual void SetSByteArray(int tagType, [NotNull] sbyte[] bytes)
+        {
+            SetObjectArray(tagType, bytes);
+        }
+
         /// <summary>Sets a <c>Object</c> for the specified tag.</summary>
         /// <param name="tagType">the tag's value as an int</param>
         /// <param name="value">the value for the specified tag</param>
@@ -379,9 +387,17 @@ namespace Com.Drew.Metadata
             }
             else
             {
-                var bytes = o as byte[];
-                if (bytes != null)
+                if (o.GetType() == typeof(byte[]))
                 {
+                    var bytes = (byte[])o;
+                    if (bytes.Length == 1)
+                    {
+                        return bytes[0];
+                    }
+                }
+                else if (o.GetType() == typeof(sbyte[]))
+                {
+                    var bytes = (sbyte[])o;
                     if (bytes.Length == 1)
                     {
                         return bytes[0];
@@ -500,9 +516,19 @@ namespace Com.Drew.Metadata
                 }
                 return ints;
             }
-            var bytes = o as byte[];
-            if (bytes != null)
+            if (o.GetType() == typeof(sbyte[]))
             {
+                var bytes = (sbyte[])o;
+                ints = new int[bytes.Length];
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    ints[i] = bytes[i];
+                }
+                return ints;
+            }
+            if (o.GetType() == typeof(byte[]))
+            {
+                var bytes = (byte[])o;
                 ints = new int[bytes.Length];
                 for (int i = 0; i < bytes.Length; i++)
                 {

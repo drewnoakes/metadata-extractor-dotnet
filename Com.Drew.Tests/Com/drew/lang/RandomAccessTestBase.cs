@@ -46,10 +46,10 @@ namespace Com.Drew.Lang
         {
             byte[] buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked((byte)0xFF) };
             RandomAccessReader reader = CreateReader(buffer);
-            Assert.AreEqual(unchecked(0), reader.GetInt8(0));
-            Assert.AreEqual(unchecked(1), reader.GetInt8(1));
-            Assert.AreEqual(unchecked(127), reader.GetInt8(2));
-            Assert.AreEqual(unchecked((byte)255), reader.GetInt8(3));
+            Assert.AreEqual(0, reader.GetInt8(0));
+            Assert.AreEqual(1, reader.GetInt8(1));
+            Assert.AreEqual(127, reader.GetInt8(2));
+            Assert.AreEqual(-1, reader.GetInt8(3));
         }
 
         /// <exception cref="System.Exception"/>

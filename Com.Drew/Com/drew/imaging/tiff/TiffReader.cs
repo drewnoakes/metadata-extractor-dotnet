@@ -360,7 +360,7 @@ namespace Com.Drew.Imaging.Tiff
                     }
                     else
                     {
-                        byte[] array = new byte[componentCount];
+                        sbyte[] array = new sbyte[componentCount];
                         for (int i = 0; i < componentCount; i++)
                         {
                             array[i] = reader.GetInt8(tagValueOffset + i);
@@ -378,7 +378,7 @@ namespace Com.Drew.Imaging.Tiff
                     }
                     else
                     {
-                        short[] array = new short[componentCount];
+                        byte[] array = new byte[componentCount];
                         for (int i = 0; i < componentCount; i++)
                         {
                             array[i] = reader.GetUInt8(tagValueOffset + i);
@@ -414,7 +414,7 @@ namespace Com.Drew.Imaging.Tiff
                     }
                     else
                     {
-                        int[] array = new int[componentCount];
+                        ushort[] array = new ushort[componentCount];
                         for (int i = 0; i < componentCount; i++)
                         {
                             array[i] = reader.GetUInt16(tagValueOffset + (i * 2));
@@ -452,7 +452,7 @@ namespace Com.Drew.Imaging.Tiff
                     }
                     else
                     {
-                        long[] array = new long[componentCount];
+                        uint[] array = new uint[componentCount];
                         for (int i = 0; i < componentCount; i++)
                         {
                             array[i] = reader.GetUInt32(tagValueOffset + (i * 4));

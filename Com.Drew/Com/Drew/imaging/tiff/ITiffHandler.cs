@@ -59,7 +59,7 @@ namespace Com.Drew.Imaging.Tiff
 
         void Error([NotNull] string message);
 
-        void SetByteArray(int tagId, [NotNull] sbyte[] bytes);
+        void SetByteArray(int tagId, [NotNull] byte[] bytes);
 
         void SetString(int tagId, [NotNull] string @string);
 
@@ -79,24 +79,24 @@ namespace Com.Drew.Imaging.Tiff
 
         void SetInt8SArray(int tagId, [NotNull] sbyte[] array);
 
-        void SetInt8U(int tagId, short int8U);
+        void SetInt8U(int tagId, byte int8U);
 
-        void SetInt8UArray(int tagId, [NotNull] short[] array);
+        void SetInt8UArray(int tagId, [NotNull] byte[] array);
 
-        void SetInt16S(int tagId, int int16S);
+        void SetInt16S(int tagId, short int16S);
 
         void SetInt16SArray(int tagId, [NotNull] short[] array);
 
-        void SetInt16U(int tagId, int int16U);
+        void SetInt16U(int tagId, ushort int16U);
 
-        void SetInt16UArray(int tagId, [NotNull] int[] array);
+        void SetInt16UArray(int tagId, [NotNull] ushort[] array);
 
         void SetInt32S(int tagId, int int32S);
 
         void SetInt32SArray(int tagId, [NotNull] int[] array);
 
-        void SetInt32U(int tagId, long int32U);
+        void SetInt32U(int tagId, uint int32U);
 
-        void SetInt32UArray(int tagId, [NotNull] long[] array);
+        void SetInt32UArray(int tagId, [NotNull] uint[] array);
     }
 }

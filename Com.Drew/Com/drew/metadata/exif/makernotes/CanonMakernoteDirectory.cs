@@ -829,60 +829,61 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                     // index in the array has its own meaning and decoding.
                     // Pick those tags out here and throw away the original array.
                     // Otherwise just add as usual.
-                    int[] ints = (int[])array;
-                    for (int i = 0; i < ints.Length; i++)
+                    ushort[] values = (ushort[])array;
+                    for (int i = 0; i < values.Length; i++)
                     {
-                        SetInt(CameraSettings.Offset + i, ints[i]);
+                        SetInt(CameraSettings.Offset + i, values[i]);
                     }
                     break;
                 }
 
                 case TagFocalLengthArray:
                 {
-                    int[] ints = (int[])array;
-                    for (int i = 0; i < ints.Length; i++)
+                    ushort[] values = (ushort[])array;
+                    for (int i = 0; i < values.Length; i++)
                     {
-                        SetInt(FocalLength.Offset + i, ints[i]);
+                        SetInt(FocalLength.Offset + i, values[i]);
                     }
                     break;
                 }
 
                 case TagShotInfoArray:
                 {
-                    int[] ints = (int[])array;
-                    for (int i = 0; i < ints.Length; i++)
+                    ushort[] values = (ushort[])array;
+                    for (int i = 0; i < values.Length; i++)
                     {
-                        SetInt(ShotInfo.Offset + i, ints[i]);
+                        SetInt(ShotInfo.Offset + i, values[i]);
                     }
                     break;
                 }
 
                 case TagPanoramaArray:
                 {
-                    int[] ints = (int[])array;
-                    for (int i = 0; i < ints.Length; i++)
+                    ushort[] values = (ushort[])array;
+                    for (int i = 0; i < values.Length; i++)
                     {
-                        SetInt(Panorama.Offset + i, ints[i]);
+                        SetInt(Panorama.Offset + i, values[i]);
                     }
                     break;
                 }
 
                 case TagAfInfoArray:
                 {
-                    // TODO the interpretation of the custom functions tag depends upon the camera model
-                    //            case TAG_CANON_CUSTOM_FUNCTIONS_ARRAY:
-                    //                int subTagTypeBase = 0xC300;
-                    //                // we intentionally skip the first array member
-                    //                for (int i = 1; i < ints.length; i++)
-                    //                    setInt(subTagTypeBase + i + 1, ints[i] & 0x0F);
-                    //                break;
-                    int[] ints = (int[])array;
-                    for (int i = 0; i < ints.Length; i++)
+                    ushort[] values = (ushort[])array;
+                    for (int i = 0; i < values.Length; i++)
                     {
-                        SetInt(AfInfo.Offset + i, ints[i]);
+                        SetInt(AfInfo.Offset + i, values[i]);
                     }
                     break;
                 }
+
+                // TODO the interpretation of the custom functions tag depends upon the camera model
+//                case TAG_CANON_CUSTOM_FUNCTIONS_ARRAY:
+//                    int subTagTypeBase = 0xC300;
+//                    // we intentionally skip the first array member
+//                    for (int i = 1; i < ints.length; i++)
+//                        setInt(subTagTypeBase + i + 1, ints[i] & 0x0F);
+//                    break;
 
                 default:
                 {
