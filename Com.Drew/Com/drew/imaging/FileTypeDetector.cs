@@ -37,31 +37,30 @@ namespace Com.Drew.Imaging
             Root = new ByteTrie<FileType?>();
             Root.SetDefaultValue(FileType.Unknown);
             // https://en.wikipedia.org/wiki/List_of_file_signatures
-            Root.AddPath(FileType.Jpeg, new[] { unchecked((byte)0xff), unchecked((byte)0xd8) });
-            Root.AddPath(FileType.Tiff, Encoding.UTF8.GetBytes("II"), new byte[] { unchecked(0x2a), unchecked(0x00) });
-            Root.AddPath(FileType.Tiff, Encoding.UTF8.GetBytes("MM"), new byte[] { unchecked(0x00), unchecked(0x2a) });
+            Root.AddPath(FileType.Jpeg, new[] { (byte)0xff, (byte)0xd8 });
+            Root.AddPath(FileType.Tiff, Encoding.UTF8.GetBytes("II"), new byte[] { 0x2a, 0x00 });
+            Root.AddPath(FileType.Tiff, Encoding.UTF8.GetBytes("MM"), new byte[] { 0x00, 0x2a });
             Root.AddPath(FileType.Psd, Encoding.UTF8.GetBytes("8BPS"));
-            Root.AddPath(FileType.Png, new byte[] { unchecked((byte)0x89), unchecked(0x50), unchecked(0x4E), unchecked(0x47), unchecked(0x0D), unchecked(0x0A), unchecked(0x1A), unchecked(0x0A), unchecked(
-                0x00), unchecked(0x00), unchecked(0x00), unchecked(0x0D), unchecked(0x49), unchecked(0x48), unchecked(0x44), unchecked(0x52) });
+            Root.AddPath(FileType.Png, new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52 });
             Root.AddPath(FileType.Bmp, Encoding.UTF8.GetBytes("BM"));
             // TODO technically there are other very rare magic numbers for OS/2 BMP files...
             Root.AddPath(FileType.Gif, Encoding.UTF8.GetBytes("GIF87a"));
             Root.AddPath(FileType.Gif, Encoding.UTF8.GetBytes("GIF89a"));
-            Root.AddPath(FileType.Ico, new byte[] { unchecked(0x00), unchecked(0x00), unchecked(0x01), unchecked(0x00) });
-            Root.AddPath(FileType.Pcx, new byte[] { unchecked(0x0A), unchecked(0x00), unchecked(0x01) });
+            Root.AddPath(FileType.Ico, new byte[] { 0x00, 0x00, 0x01, 0x00 });
+            Root.AddPath(FileType.Pcx, new byte[] { 0x0A, 0x00, 0x01 });
             // multiple PCX versions, explicitly listed
-            Root.AddPath(FileType.Pcx, new byte[] { unchecked(0x0A), unchecked(0x02), unchecked(0x01) });
-            Root.AddPath(FileType.Pcx, new byte[] { unchecked(0x0A), unchecked(0x03), unchecked(0x01) });
-            Root.AddPath(FileType.Pcx, new byte[] { unchecked(0x0A), unchecked(0x05), unchecked(0x01) });
+            Root.AddPath(FileType.Pcx, new byte[] { 0x0A, 0x02, 0x01 });
+            Root.AddPath(FileType.Pcx, new byte[] { 0x0A, 0x03, 0x01 });
+            Root.AddPath(FileType.Pcx, new byte[] { 0x0A, 0x05, 0x01 });
             Root.AddPath(FileType.Riff, Encoding.UTF8.GetBytes("RIFF"));
-            Root.AddPath(FileType.Arw, Encoding.UTF8.GetBytes("II"), new byte[] { unchecked(0x2a), unchecked(0x00), unchecked(0x08), unchecked(0x00) });
-            Root.AddPath(FileType.Crw, Encoding.UTF8.GetBytes("II"), new byte[] { unchecked(0x1a), unchecked(0x00), unchecked(0x00), unchecked(0x00) }, Encoding.UTF8.GetBytes("HEAPCCDR"));
-            Root.AddPath(FileType.Cr2, Encoding.UTF8.GetBytes("II"), new byte[] { unchecked(0x2a), unchecked(0x00), unchecked(0x10), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked(0x43), unchecked(0x52) });
-            Root.AddPath(FileType.Nef, Encoding.UTF8.GetBytes("MM"), new byte[] { unchecked(0x00), unchecked(0x2a), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked((byte)0x80), unchecked(0x00) });
-            Root.AddPath(FileType.Orf, Encoding.UTF8.GetBytes("IIRO"), new byte[] { unchecked(0x08), unchecked(0x00) });
-            Root.AddPath(FileType.Orf, Encoding.UTF8.GetBytes("IIRS"), new byte[] { unchecked(0x08), unchecked(0x00) });
+            Root.AddPath(FileType.Arw, Encoding.UTF8.GetBytes("II"), new byte[] { 0x2a, 0x00, 0x08, 0x00 });
+            Root.AddPath(FileType.Crw, Encoding.UTF8.GetBytes("II"), new byte[] { 0x1a, 0x00, 0x00, 0x00 }, Encoding.UTF8.GetBytes("HEAPCCDR"));
+            Root.AddPath(FileType.Cr2, Encoding.UTF8.GetBytes("II"), new byte[] { 0x2a, 0x00, 0x10, 0x00, 0x00, 0x00, 0x43, 0x52 });
+            Root.AddPath(FileType.Nef, Encoding.UTF8.GetBytes("MM"), new byte[] { 0x00, 0x2a, 0x00, 0x00, 0x00, 0x80, 0x00 });
+            Root.AddPath(FileType.Orf, Encoding.UTF8.GetBytes("IIRO"), new byte[] { 0x08, 0x00 });
+            Root.AddPath(FileType.Orf, Encoding.UTF8.GetBytes("IIRS"), new byte[] { 0x08, 0x00 });
             Root.AddPath(FileType.Raf, Encoding.UTF8.GetBytes("FUJIFILMCCD-RAW"));
-            Root.AddPath(FileType.Rw2, Encoding.UTF8.GetBytes("II"), new byte[] { unchecked(0x55), unchecked(0x00) });
+            Root.AddPath(FileType.Rw2, Encoding.UTF8.GetBytes("II"), new byte[] { 0x55, 0x00 });
         }
 
         /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
