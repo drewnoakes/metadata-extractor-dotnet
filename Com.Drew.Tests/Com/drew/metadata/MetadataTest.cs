@@ -52,11 +52,11 @@ namespace Com.Drew.Metadata
         public void TestToString()
         {
             Metadata metadata = new Metadata();
-            Assert.AreEqual("Metadata (0 directories)", Extensions.ConvertToString(metadata));
+            Assert.AreEqual("Metadata (0 directories)", metadata.ToString());
             metadata.AddDirectory(new ExifIfd0Directory());
-            Assert.AreEqual("Metadata (1 directory)", Extensions.ConvertToString(metadata));
+            Assert.AreEqual("Metadata (1 directory)", metadata.ToString());
             metadata.AddDirectory(new ExifSubIfdDirectory());
-            Assert.AreEqual("Metadata (2 directories)", Extensions.ConvertToString(metadata));
+            Assert.AreEqual("Metadata (2 directories)", metadata.ToString());
         }
     }
 }

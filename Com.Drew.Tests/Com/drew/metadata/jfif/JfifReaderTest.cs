@@ -40,7 +40,7 @@ namespace Com.Drew.Metadata.Jfif
             Assert.AreEqual(1, metadata.GetDirectoryCount());
             JfifDirectory directory = metadata.GetFirstDirectoryOfType<JfifDirectory>();
             Assert.IsNotNull(directory);
-            Assert.IsFalse(directory.HasErrors(), Extensions.ConvertToString(directory.GetErrors()));
+            Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
             Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(4, tags.Length);
             Assert.AreEqual(JfifDirectory.TagVersion, tags[0].GetTagType());

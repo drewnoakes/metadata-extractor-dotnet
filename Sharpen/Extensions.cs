@@ -12,39 +12,9 @@ namespace Sharpen
 {
     public static class Extensions
     {
-        private static readonly long EpochTicks;
+        private static readonly long EpochTicks = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).Ticks;
 
-        //  The format specifiers which do not correspond to arguments have the following syntax:
-        //  %[flags][width]conversion
-        //  http://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html
-        private const string FlagRegexPattern = "[-\\#+\\s0,]*";
-        private const string WidthRegexPattern = "\\d*\\.*\\d*";
-        private const string ConversionRegexPattern = "(?i:[sdnfx]{1})";
-        private static readonly Regex StringSplitter = new Regex("(%" + FlagRegexPattern + WidthRegexPattern + ConversionRegexPattern + ")", RegexOptions.Compiled);
-        private static readonly Regex FormatSplitter = new Regex("("+FlagRegexPattern+")("+WidthRegexPattern+")("+ConversionRegexPattern+")", RegexOptions.Compiled);
-
-        static Extensions()
-        {
-            DateTime time = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            EpochTicks = time.Ticks;
-        }
-
-        public static void Add(this IList list, int index, object item)
-        {
-            list.Insert(index, item);
-        }
-
-        public static CultureInfo CreateLocale(string language, string country)
-        {
-            if (string.IsNullOrEmpty(country))
-            {
-                return CultureInfo.GetCultureInfoByIetfLanguageTag(language);
-            }
-
-            return CultureInfo.GetCultureInfo(string.Format("{0}-{1}", language, country));
-        }
-
-        public static string Decode(this Encoding e, byte[] chars, int start, int len)
+        private static string Decode(this Encoding e, byte[] chars, int start, int len)
         {
             try
             {
@@ -80,16 +50,6 @@ namespace Sharpen
             return e.Decode(buffer.Array(), buffer.ArrayOffset() + buffer.Position(), buffer.Limit() - buffer.Position());
         }
 
-
-        public static Encoding GetEncoding(string name)
-        {
-//            Encoding e = Encoding.GetEncoding(name.Replace('_', '-'), EncoderFallback.ExceptionFallback, DecoderFallback.ExceptionFallback);
-            Encoding e = Encoding.GetEncoding(name.Replace('_', '-'));
-            if (e is UTF8Encoding)
-                return new UTF8Encoding(false, true);
-            return e;
-        }
-
         [CanBeNull]
         public static TU GetOrNull<T, TU>(this IDictionary<T, TU> d, T key) where TU : class
         {
@@ -100,11 +60,6 @@ namespace Sharpen
         public static CultureInfo GetEnglishCulture()
         {
             return CultureInfo.GetCultureInfo("en-US");
-        }
-
-        public static int GetOffset(this TimeZoneInfo tzone, long date)
-        {
-            return (int) tzone.GetUtcOffset(MillisToDateTimeOffset(date, 0).DateTime).TotalMilliseconds;
         }
 
         public static TimeZoneInfo GetTimeZone(string tzone)
@@ -191,41 +146,6 @@ namespace Sharpen
             return new DateTimeOffset(num + offset.Ticks, offset);
         }
 
-        public static CharsetDecoder NewDecoder(this Encoding enc)
-        {
-            return new CharsetDecoder(enc);
-        }
-
-        public static T Remove<T>(this IList<T> list, int i)
-        {
-            T old;
-            try
-            {
-                old = list[i];
-                list.RemoveAt(i);
-            }
-            catch (IndexOutOfRangeException)
-            {
-                throw new NoSuchElementException();
-            }
-            return old;
-        }
-
-        public static object Set(this IList list, int index, object item)
-        {
-            object old = list[index];
-            list[index] = item;
-            return old;
-        }
-
-        // Conflicts with System.Linq.Enumerable.Contains<T>(System.Collections.Generic.IEnumerable<T>, T)
-        /* public static bool Contains<T>(this ICollection<T> col, object item)
-        {
-            if (!(item is T))
-                return false;
-            return col.Any(n => (object.ReferenceEquals(n, item)) || n.Equals(item));
-        }*/
-
         public static void Sort(this IList list)
         {
             IList sorted = new ArrayList(list);
@@ -234,31 +154,6 @@ namespace Sharpen
             {
                 list[i] = sorted[i];
             }
-        }
-
-        public static void Sort<T>(this IList<T> list)
-        {
-            List<T> sorted = new List<T>(list);
-            sorted.Sort();
-            for (int i = 0; i < list.Count; i++)
-            {
-                list[i] = sorted[i];
-            }
-        }
-
-        public static void Sort<T>(this IList<T> list, IComparer<T> comparer)
-        {
-            List<T> sorted = new List<T>(list);
-            sorted.Sort(comparer);
-            for (int i = 0; i < list.Count; i++)
-            {
-                list[i] = sorted[i];
-            }
-        }
-
-        public static string[] Split(this string str, string regex)
-        {
-            return str.Split(regex, 0);
         }
 
         public static string[] Split(this string str, string regex, int limit)
@@ -293,71 +188,10 @@ namespace Sharpen
             return list.ToArray();
         }
 
-        public static long ToMillisecondsSinceEpoch(this DateTime dateTime)
-        {
-            if (dateTime.Kind != DateTimeKind.Utc)
-            {
-                throw new ArgumentException("dateTime is expected to be expressed as a UTC DateTime", "dateTime");
-            }
-            return
-                new DateTimeOffset(DateTime.SpecifyKind(dateTime, DateTimeKind.Utc), TimeSpan.Zero)
-                    .ToMillisecondsSinceEpoch();
-        }
-
-        public static long ToMillisecondsSinceEpoch(this DateTimeOffset dateTimeOffset)
-        {
-            return (((dateTimeOffset.Ticks - dateTimeOffset.Offset.Ticks) - EpochTicks)/TimeSpan.TicksPerMillisecond);
-        }
-
-        public static string ConvertToString(int val)
-        {
-            return val.ToString();
-        }
-
-        public static string ConvertToString(int? val)
-        {
-            return ConvertToString(val.Value);
-        }
-
-        public static string ConvertToString(float val)
-        {
-            return val.ToString("0.0###########");
-        }
-
-        public static string ConvertToString(DateTime? val)
-        {
-            return ConvertToString(val.Value);
-        }
-
         public static string ConvertToString(DateTime val)
         {
             //  EEE MMM dd HH:mm:ss zzz yyyy
             return val.ToString("ddd MMM dd HH:mm:ss zzz yyyy");
-        }
-
-        public static string ConvertToString(float? val)
-        {
-            return ConvertToString(val.Value);
-        }
-
-        public static string ConvertToString(object val)
-        {
-            return val.ToString();
-        }
-
-        public static T ValueOf<T>(T val)
-        {
-            return val;
-        }
-
-        public static int ValueOf(string val)
-        {
-            return Convert.ToInt32(val);
-        }
-
-        public static string GetImplementationVersion(this Assembly asm)
-        {
-            return asm.GetName().Version.ToString();
         }
 
         /// <summary>
@@ -426,27 +260,6 @@ namespace Sharpen
             return Math.Sign(diff);
         }
 
-        public static int CompareTo(this int? value, int? compareVal)
-        {
-            return value.Value.CompareTo(compareVal.Value);
-        }
-
-        public static long DoubleToLongBits(double value)
-        {
-            return BitConverter.DoubleToInt64Bits(value);
-        }
-
-        public static double LongBitsToDouble(long value)
-        {
-            return BitConverter.Int64BitsToDouble(value);
-        }
-
-        public static float IntBitsToFloat(int value)
-        {
-            byte[] bytes = BitConverter.GetBytes(value);
-            return BitConverter.ToSingle(bytes, 0);
-        }
-
         public static bool IsNumber(this object value)
         {
             try
@@ -465,47 +278,15 @@ namespace Sharpen
             return node.Attributes != null && node.Attributes.Count > 0;
         }
 
-        public static void Copy(byte[] buffer, byte[] sbuffer)
-        {
-            for (int i = 0; i < buffer.Length; i++)
-            {
-                sbuffer[i] = (byte) buffer[i];
-            }
-        }
-
         internal static void CopyCastBuffer(byte[] buffer, int offset, int len, byte[] targetBuffer, int targetOffset)
         {
-            if (offset < 0 || len < 0 || offset + len > buffer.Length || targetOffset < 0 || targetOffset + len > targetBuffer.Length) throw new ArgumentOutOfRangeException();
+            if (offset < 0 || len < 0 || offset + len > buffer.Length || targetOffset < 0 || targetOffset + len > targetBuffer.Length)
+                throw new ArgumentOutOfRangeException();
 
             for (int i = 0; i < len; i++)
             {
                 targetBuffer[i + targetOffset] = (byte)buffer[offset + i];
             }
-        }
-
-        public static byte ByteValue(this int? value)
-        {
-            return (byte)value.Value;
-        }
-
-        public static int IntValue(this int value)
-        {
-            return value;
-        }
-
-        public static long LongValue(this long value)
-        {
-            return value;
-        }
-
-        public static double DoubleValue(this double value)
-        {
-            return value;
-        }
-
-        public static string Substring(this StringBuilder sb, int start, int end)
-        {
-            return sb.ToString().Substring(start, end - start + 1);
         }
     }
 }

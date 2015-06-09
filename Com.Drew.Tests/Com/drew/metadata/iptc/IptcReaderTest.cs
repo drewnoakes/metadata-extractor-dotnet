@@ -51,7 +51,7 @@ namespace Com.Drew.Metadata.Iptc
         public void TestIptc1BytesFromFile()
         {
             IptcDirectory directory = ProcessBytes("Tests/Data/iptc1.jpg.appd");
-            Assert.IsFalse(directory.HasErrors(), Extensions.ConvertToString(directory.GetErrors()));
+            Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
             Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(16, tags.Length);
             Assert.AreEqual(IptcDirectory.TagCategory, tags[0].GetTagType());
@@ -93,7 +93,7 @@ namespace Com.Drew.Metadata.Iptc
         public void TestIptc2Photoshop6BytesFromFile()
         {
             IptcDirectory directory = ProcessBytes("Tests/Data/iptc2-photoshop6.jpg.appd");
-            Assert.IsFalse(directory.HasErrors(), Extensions.ConvertToString(directory.GetErrors()));
+            Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
             Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(17, tags.Length);
             Assert.AreEqual(IptcDirectory.TagApplicationRecordVersion, tags[0].GetTagType());
@@ -137,7 +137,7 @@ namespace Com.Drew.Metadata.Iptc
         public void TestIptcEncodingUtf8()
         {
             IptcDirectory directory = ProcessBytes("Tests/Data/iptc-encoding-defined-utf8.bytes");
-            Assert.IsFalse(directory.HasErrors(), Extensions.ConvertToString(directory.GetErrors()));
+            Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
             Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(4, tags.Length);
             Assert.AreEqual(IptcDirectory.TagEnvelopeRecordVersion, tags[0].GetTagType());
@@ -155,7 +155,7 @@ namespace Com.Drew.Metadata.Iptc
         public void TestIptcEncodingUndefinedIso()
         {
             IptcDirectory directory = ProcessBytes("Tests/Data/iptc-encoding-undefined-iso.bytes");
-            Assert.IsFalse(directory.HasErrors(), Extensions.ConvertToString(directory.GetErrors()));
+            Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
             Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(3, tags.Length);
             Assert.AreEqual(IptcDirectory.TagEnvelopeRecordVersion, tags[0].GetTagType());
@@ -171,7 +171,7 @@ namespace Com.Drew.Metadata.Iptc
         public void TestIptcEncodingUnknown()
         {
             IptcDirectory directory = ProcessBytes("Tests/Data/iptc-encoding-unknown.bytes");
-            Assert.IsFalse(directory.HasErrors(), Extensions.ConvertToString(directory.GetErrors()));
+            Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
             Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(3, tags.Length);
             Assert.AreEqual(IptcDirectory.TagApplicationRecordVersion, tags[0].GetTagType());
@@ -190,7 +190,7 @@ namespace Com.Drew.Metadata.Iptc
             // It's not clear what to do with this, so it should be ignored.
             // Version 2.7.0 tripped up on this and threw an exception.
             IptcDirectory directory = ProcessBytes("Tests/Data/iptc-encoding-unknown-2.bytes");
-            Assert.IsFalse(directory.HasErrors(), Extensions.ConvertToString(directory.GetErrors()));
+            Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
             Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(37, tags.Length);
             Assert.AreEqual("MEDWAS,MEDLON,MEDTOR,RONL,ASIA,AONL,APC,USA,CAN,SAM,BIZ", directory.GetString(IptcDirectory.TagDestination));

@@ -135,7 +135,7 @@ namespace Com.Drew.Metadata
             AppendAgePart(result, _hours, "hour");
             AppendAgePart(result, _minutes, "minute");
             AppendAgePart(result, _seconds, "second");
-            return Extensions.ConvertToString(result);
+            return result.ToString();
         }
 
         private static void AppendAgePart(StringBuilder result, int num, string singularName)

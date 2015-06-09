@@ -141,9 +141,9 @@ namespace Com.Drew.Lang
         {
             int result;
             long temp;
-            temp = _latitude != +0.0d ? Extensions.DoubleToLongBits(_latitude) : 0L;
+            temp = _latitude != +0.0d ? BitConverter.DoubleToInt64Bits(_latitude) : 0L;
             result = (int)(temp ^ ((long)(((ulong)temp) >> 32)));
-            temp = _longitude != +0.0d ? Extensions.DoubleToLongBits(_longitude) : 0L;
+            temp = _longitude != +0.0d ? BitConverter.DoubleToInt64Bits(_longitude) : 0L;
             result = 31 * result + (int)(temp ^ ((long)(((ulong)temp) >> 32)));
             return result;
         }

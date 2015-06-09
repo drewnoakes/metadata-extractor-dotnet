@@ -27,7 +27,7 @@ namespace Sharpen
         public override T Next ()
         {
             if (!_more)
-                throw new NoSuchElementException ();
+                throw new InvalidOperationException();
             _lastVal = _e.Current;
             _more = _e.MoveNext ();
             return _lastVal;
@@ -61,7 +61,6 @@ namespace Sharpen
         object _lastVal;
         bool _more;
         bool _copied;
-        private object _lastValue;
 
         public EnumeratorWrapper (object collection, IEnumerator e)
         {
@@ -78,7 +77,7 @@ namespace Sharpen
         public object Next ()
         {
             if (!_more)
-                throw new NoSuchElementException ();
+                throw new InvalidOperationException();
             _lastVal = _e.Current;
             _more = _e.MoveNext ();
             return _lastVal;

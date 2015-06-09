@@ -189,7 +189,9 @@ namespace Com.Drew.Imaging.Jpeg
         {
             IList<byte[]> segmentList;
             if (_segmentDataMap.TryGetValue(segmentType, out segmentList))
-                segmentList.Remove(occurrence);
+            {
+                segmentList.RemoveAt(occurrence);
+            }
         }
 
         /// <summary>Removes all segments from the collection having the specified type.</summary>

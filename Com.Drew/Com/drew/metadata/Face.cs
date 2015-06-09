@@ -157,7 +157,7 @@ namespace Com.Drew.Metadata
             {
                 result.Append(" age: ").Append(_age.ToFriendlyString());
             }
-            return Extensions.ConvertToString(result);
+            return result.ToString();
         }
     }
 }

@@ -132,7 +132,7 @@ namespace Com.Drew.Metadata
                 }
                 version.Append(c);
             }
-            return Extensions.ConvertToString(version);
+            return version.ToString();
         }
 
         [CanBeNull]

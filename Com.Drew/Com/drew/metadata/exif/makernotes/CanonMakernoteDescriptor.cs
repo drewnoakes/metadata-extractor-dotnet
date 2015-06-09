@@ -418,7 +418,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             //  0, 0.375, 0.5, 0.626, 1
             // not
             //  0, 0.33,  0.5, 0.66,  1
-            return ((isNegative) ? "-" : string.Empty) + Extensions.ConvertToString(value / 32f) + " EV";
+            return ((isNegative) ? "-" : string.Empty) + (value / 32f).Value.ToString("0.0###########") + " EV";
         }
 
         [CanBeNull]
@@ -493,7 +493,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             }
             if (value != 0)
             {
-                return Extensions.ConvertToString((int)value);
+                return ((int)value).ToString();
             }
             return string.Empty;
         }
@@ -507,7 +507,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 return null;
             }
             string units = GetFocalUnitsPerMillimetreDescription();
-            return Extensions.ConvertToString((int)value) + " " + units;
+            return ((int)value).ToString() + " " + units;
         }
 
         [CanBeNull]
@@ -519,7 +519,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 return null;
             }
             string units = GetFocalUnitsPerMillimetreDescription();
-            return Extensions.ConvertToString((int)value) + " " + units;
+            return ((int)value).ToString() + " " + units;
         }
 
         [CanBeNull]
@@ -807,7 +807,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 return "Self timer not used";
             }
             // TODO find an image that tests this calculation
-            return Extensions.ConvertToString((double)value * 0.1d) + " sec";
+            return ((object)((double)value * 0.1d)).ToString() + " sec";
         }
 
         [CanBeNull]

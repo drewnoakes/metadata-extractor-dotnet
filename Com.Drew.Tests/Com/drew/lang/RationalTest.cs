@@ -43,7 +43,7 @@ namespace Com.Drew.Lang
         public void TestToString()
         {
             Rational rational = new Rational(1, 3);
-            Assert.AreEqual("1/3", Extensions.ConvertToString(rational));
+            Assert.AreEqual("1/3", rational.ToString());
         }
 
         /// <exception cref="System.Exception"/>

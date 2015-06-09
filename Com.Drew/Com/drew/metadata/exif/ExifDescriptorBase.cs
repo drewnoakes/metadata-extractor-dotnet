@@ -849,7 +849,7 @@ namespace Com.Drew.Metadata.Exif
             int? isoEquiv = Directory.GetInteger(ExifDirectoryBase.TagIsoEquivalent);
             // There used to be a check here that multiplied ISO values < 50 by 200.
             // Issue 36 shows a smart-phone image from a Samsung Galaxy S2 with ISO-40.
-            return isoEquiv != null ? Extensions.ConvertToString((int)isoEquiv) : null;
+            return isoEquiv != null ? ((int)isoEquiv).ToString() : null;
         }
 
         [CanBeNull]
@@ -1042,7 +1042,7 @@ namespace Com.Drew.Metadata.Exif
             {
                 sb.Append(", red-eye reduction");
             }
-            return Extensions.ConvertToString(sb);
+            return sb.ToString();
         }
 
         [CanBeNull]
@@ -1526,7 +1526,7 @@ namespace Com.Drew.Metadata.Exif
                     componentConfig.Append(componentStrings[j]);
                 }
             }
-            return Extensions.ConvertToString(componentConfig);
+            return componentConfig.ToString();
         }
 
         [CanBeNull]

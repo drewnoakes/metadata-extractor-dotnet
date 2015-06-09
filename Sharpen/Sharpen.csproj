@@ -47,7 +47,6 @@
     <Compile Include="AList.cs" />
     <Compile Include="ByteBuffer.cs" />
     <Compile Include="Calendar.cs" />
-    <Compile Include="CharsetDecoder.cs" />
     <Compile Include="Collections.cs" />
     <Compile Include="DateFormat.cs" />
     <Compile Include="DecimalFormat.cs" />
@@ -55,7 +54,6 @@
     <Compile Include="EnumeratorWrapper.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="FileHelper.cs" />
     <Compile Include="FileWriter.cs" />
     <Compile Include="GregorianCalendar.cs" />
     <Compile Include="IIterator.cs" />

@@ -339,19 +339,19 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if (value is int)
                     {
-                        strValue = Xmp.XmpUtils.ConvertFromInteger(((int)value).IntValue());
+                        strValue = Xmp.XmpUtils.ConvertFromInteger((int)value);
                     }
                     else
                     {
                         if (value is long)
                         {
-                            strValue = Xmp.XmpUtils.ConvertFromLong(((long)value).LongValue());
+                            strValue = Xmp.XmpUtils.ConvertFromLong((long)value);
                         }
                         else
                         {
                             if (value is double)
                             {
-                                strValue = Xmp.XmpUtils.ConvertFromDouble(((double)value).DoubleValue());
+                                strValue = Xmp.XmpUtils.ConvertFromDouble((double)value);
                             }
                             else
                             {

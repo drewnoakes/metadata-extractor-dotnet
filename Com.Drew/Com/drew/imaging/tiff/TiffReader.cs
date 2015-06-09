@@ -125,7 +125,7 @@ namespace Com.Drew.Imaging.Tiff
             try
             {
                 // check for directories we've already visited to avoid stack overflows when recursive/cyclic directory structures exist
-                if (processedIfdOffsets.Contains(Extensions.ValueOf(ifdOffset)))
+                if (processedIfdOffsets.Contains(ifdOffset))
                 {
                     return;
                 }

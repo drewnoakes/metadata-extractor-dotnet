@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System;
 using System.IO;
 using System.Text;
 using NUnit.Framework;
@@ -203,7 +204,7 @@ namespace Com.Drew.Lang
         public virtual void TestGetFloat32()
         {
             int nanBits = unchecked(0x7fc00000);
-            Assert.IsTrue(float.IsNaN(Extensions.IntBitsToFloat(nanBits)));
+            Assert.IsTrue(float.IsNaN(BitConverter.ToSingle(BitConverter.GetBytes(nanBits), 0)));
             byte[] buffer = new byte[] { unchecked(0x7f), unchecked((byte)0xc0), unchecked(0x00), unchecked(0x00) };
             SequentialReader reader = CreateReader(buffer);
             Assert.IsTrue(float.IsNaN(reader.GetFloat32()));
@@ -214,7 +215,7 @@ namespace Com.Drew.Lang
         public virtual void TestGetFloat64()
         {
             long nanBits = unchecked((long)(0xfff0000000000001L));
-            Assert.IsTrue(double.IsNaN(Extensions.LongBitsToDouble(nanBits)));
+            Assert.IsTrue(double.IsNaN(BitConverter.Int64BitsToDouble(nanBits)));
             byte[] buffer = new byte[] { unchecked((byte)0xff), unchecked((byte)0xf0), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked(0x01) };
             SequentialReader reader = CreateReader(buffer);
             Assert.IsTrue(double.IsNaN(reader.GetDouble64()));

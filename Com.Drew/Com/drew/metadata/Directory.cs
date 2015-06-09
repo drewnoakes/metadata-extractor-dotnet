@@ -84,7 +84,7 @@ namespace Com.Drew.Metadata
         /// <returns>true if a value exists for the specified tag type, false if not</returns>
         public bool ContainsTag(int tagType)
         {
-            return TagMap.ContainsKey(Extensions.ValueOf(tagType));
+            return TagMap.ContainsKey(tagType);
         }
 
         /// <summary>Returns an Iterator of Tag instances that have been set in this Directory.</summary>
@@ -276,7 +276,7 @@ namespace Com.Drew.Metadata
             {
                 throw new ArgumentNullException("cannot set a null object");
             }
-            if (!TagMap.ContainsKey(Extensions.ValueOf(tagType)))
+            if (!TagMap.ContainsKey(tagType))
             {
                 DefinedTagList.Add(new Tag(tagType, this));
             }
@@ -449,7 +449,7 @@ namespace Com.Drew.Metadata
                 strings = new string[ints.Length];
                 for (int i = 0; i < strings.Length; i++)
                 {
-                    strings[i] = Extensions.ConvertToString(ints[i]);
+                    strings[i] = ints[i].ToString();
                 }
                 return strings;
             }
@@ -459,7 +459,7 @@ namespace Com.Drew.Metadata
                 strings = new string[bytes.Length];
                 for (int i = 0; i < strings.Length; i++)
                 {
-                    strings[i] = Extensions.ConvertToString(bytes[i]);
+                    strings[i] = ((int)bytes[i]).ToString();
                 }
                 return strings;
             }
@@ -619,7 +619,7 @@ namespace Com.Drew.Metadata
             var nullableInt = o as int?;
             if (nullableInt != null)
             {
-                return new byte[] { nullableInt.ByteValue() };
+                return new byte[] { (byte)nullableInt.Value };
             }
             return null;
         }
@@ -1069,7 +1069,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public object GetObject(int tagType)
         {
-            return TagMap.GetOrNull(Extensions.ValueOf(tagType));
+            return TagMap.GetOrNull(tagType);
         }
 
         // OTHER METHODS

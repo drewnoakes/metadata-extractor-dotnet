@@ -39,7 +39,7 @@ namespace Com.Drew.Metadata
             Assert.AreEqual(0, age.GetHours());
             Assert.AreEqual(0, age.GetMinutes());
             Assert.AreEqual(0, age.GetSeconds());
-            Assert.AreEqual("0031:07:15 00:00:00", Extensions.ConvertToString(age));
+            Assert.AreEqual("0031:07:15 00:00:00", age.ToString());
             Assert.AreEqual("31 years 7 months 15 days", age.ToFriendlyString());
         }
 

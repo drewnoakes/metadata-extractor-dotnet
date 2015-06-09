@@ -296,7 +296,7 @@ namespace Com.Adobe.Xmp.Impl
                 return null;
             }
             object[] result = XmpNodeUtils.ChooseLocalizedText(arrayNode, genericLang, specificLang);
-            int match = ((int)result[0]).IntValue();
+            int match = (int)result[0];
             XmpNode itemNode = (XmpNode)result[1];
             if (match != XmpNodeUtils.CltNoValues)
             {
@@ -389,7 +389,7 @@ namespace Com.Adobe.Xmp.Impl
             // chooseLocalizedText will make sure the array is a language
             // alternative.
             object[] result = XmpNodeUtils.ChooseLocalizedText(arrayNode, genericLang, specificLang);
-            int match = ((int)result[0]).IntValue();
+            int match = (int)result[0];
             XmpNode itemNode = (XmpNode)result[1];
             bool specificXDefault = XmpConstConstants.XDefault.Equals(specificLang);
             switch (match)

@@ -198,11 +198,11 @@ namespace Com.Drew.Lang
         {
             if (_denominator == 0 && _numerator != 0)
             {
-                return Extensions.ConvertToString(this);
+                return this.ToString();
             }
             if (IsInteger())
             {
-                return Extensions.ConvertToString(IntValue());
+                return IntValue().ToString();
             }
             if (_numerator != 1 && _denominator % _numerator == 0)
             {
@@ -213,13 +213,13 @@ namespace Com.Drew.Lang
             Rational simplifiedInstance = GetSimplifiedInstance();
             if (allowDecimal)
             {
-                string doubleString = Extensions.ConvertToString(simplifiedInstance.DoubleValue());
+                string doubleString = ((object)simplifiedInstance.DoubleValue()).ToString();
                 if (doubleString.Length < 5)
                 {
                     return doubleString;
                 }
             }
-            return Extensions.ConvertToString(simplifiedInstance);
+            return simplifiedInstance.ToString();
         }
 
         /// <summary>

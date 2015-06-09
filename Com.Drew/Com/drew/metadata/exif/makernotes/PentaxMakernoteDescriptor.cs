@@ -179,7 +179,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return "Off";
             }
-            return Extensions.ConvertToString((float)value);
+            return ((float)value).ToString("0.0###########");
         }
 
         [CanBeNull]

@@ -1751,7 +1751,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 default:
                 {
-                    return Extensions.ConvertToString(value);
+                    return value.Value.ToString();
                 }
             }
         }

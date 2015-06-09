@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Globalization;
 using System.Threading;
 using Com.Drew.Metadata.Exif.Makernotes;
 using NUnit.Framework;
@@ -38,7 +39,7 @@ namespace Com.Drew.Metadata.Exif
         [SetUp]
         public void SetUp()
         {
-            Thread.CurrentThread.CurrentCulture = Extensions.CreateLocale("en", "GB");
+            Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-GB");
             _nikonDirectory = ExifReaderTest.ProcessBytes<NikonType2MakernoteDirectory>("Tests/Data/nikonMakernoteType2a.jpg.app1");
             Assert.IsNotNull(_nikonDirectory);
             _descriptor = new NikonType2MakernoteDescriptor(_nikonDirectory);

@@ -95,14 +95,14 @@ namespace Com.Drew.Tools
                 {
                     for (int i = 0; i < segments.Count; i++)
                     {
-                        string outputFilePath = string.Format("{0}.{1}.{2}", jpegFilePath, Extensions.ConvertToString(segmentType).ToLower(), i);
+                        string outputFilePath = string.Format("{0}.{1}.{2}", jpegFilePath, segmentType.ToString().ToLower(), i);
                         Console.Out.WriteLine((object)("Writing: " + outputFilePath));
                         File.WriteAllBytes(outputFilePath, segments[i]);
                     }
                 }
                 else
                 {
-                    string outputFilePath = string.Format("{0}.{1}", jpegFilePath, Extensions.ConvertToString(segmentType).ToLower());
+                    string outputFilePath = string.Format("{0}.{1}", jpegFilePath, segmentType.ToString().ToLower());
                     Console.Out.WriteLine((object)("Writing: " + outputFilePath));
                     File.WriteAllBytes(outputFilePath, segments[0]);
                 }
@@ -118,7 +118,7 @@ namespace Com.Drew.Tools
             {
                 if (segmentType.CanContainMetadata)
                 {
-                    Console.Out.Write(" " + Extensions.ConvertToString(segmentType));
+                    Console.Out.Write(" " + segmentType.ToString());
                 }
             }
             Console.Out.WriteLine();

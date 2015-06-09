@@ -310,7 +310,7 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         // used to calculate the time zone offset incl. Daylight Savings
                         long timeInMillis = dateTime.GetCalendar().GetTimeInMillis();
-                        int offset = dateTime.GetTimeZone().GetOffset(timeInMillis);
+                        int offset = (int) dateTime.GetTimeZone().GetUtcOffset(Extensions.MillisToDateTimeOffset(timeInMillis, 0).DateTime).TotalMilliseconds;
                         if (offset == 0)
                         {
                             // UTC

@@ -165,7 +165,7 @@ namespace Com.Drew.Imaging
             bool showHex = argList.Remove("-hex");
             if (argList.Count < 1)
             {
-                string version = typeof(ImageMetadataReader).Assembly.GetImplementationVersion();
+                string version = typeof(ImageMetadataReader).Assembly.GetName().Version.ToString();
                 Console.Out.WriteLine((object)("metadata-extractor version " + version));
                 Console.Out.WriteLine();
                 Console.Out.WriteLine((object)string.Format("Usage: java -jar metadata-extractor-{0}.jar <filename> [<filename>] [-thumb] [-markdown] [-hex]",

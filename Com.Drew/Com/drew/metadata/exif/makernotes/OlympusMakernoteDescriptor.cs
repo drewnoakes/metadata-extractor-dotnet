@@ -413,7 +413,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 return null;
             }
             double iso = Math.Pow(((double)value / 8d) - 1, 2) * 3.125;
-            return Extensions.ConvertToString(iso);
+            return ((object)iso).ToString();
         }
 
         [CanBeNull]
@@ -429,7 +429,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 return null;
             }
             double shutterSpeed = Math.Pow((49 - (long)value) / 8d, 2);
-            return Extensions.ConvertToString(shutterSpeed) + " sec";
+            return ((object)shutterSpeed).ToString() + " sec";
         }
 
         [CanBeNull]
@@ -498,7 +498,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public string GetFocalLengthDescription()
         {
             long? value = Directory.GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagFocalLength);
-            return value == null ? null : Extensions.ConvertToString((double)value / 256d) + " mm";
+            return value == null ? null : ((object)((double)value / 256d)).ToString() + " mm";
         }
 
         [CanBeNull]
@@ -528,7 +528,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             long day = (long)value & unchecked(0xFF);
             long month = ((long)value >> 16) & unchecked(0xFF);
             long year = ((long)value >> 8) & unchecked(0xFF);
-            return Extensions.ConvertToString(new GregorianCalendar((int)year + 1970, (int)month, (int)day).GetTime());
+            return new GregorianCalendar((int)year + 1970, (int)month, (int)day).GetTime().ToString("ddd MMM dd HH:mm:ss zzz yyyy");
         }
 
         [CanBeNull]
@@ -578,21 +578,21 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public string GetWhiteBalanceRedDescription()
         {
             long? value = Directory.GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceRed);
-            return value == null ? null : Extensions.ConvertToString((double)value / 256d);
+            return value == null ? null : ((object)((double)value / 256d)).ToString();
         }
 
         [CanBeNull]
         public string GetWhiteBalanceGreenDescription()
         {
             long? value = Directory.GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceGreen);
-            return value == null ? null : Extensions.ConvertToString((double)value / 256d);
+            return value == null ? null : ((object)((double)value / 256d)).ToString();
         }
 
         [CanBeNull]
         public string GetWhiteBalanceBlueDescription()
         {
             long? value = Directory.GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceBlue);
-            return value == null ? null : Extensions.ConvertToString((double)value / 256d);
+            return value == null ? null : ((object)((double)value / 256d)).ToString();
         }
 
         [CanBeNull]
@@ -681,7 +681,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         public string GetApexBrightnessDescription()
         {
             long? value = Directory.GetLongObject(OlympusMakernoteDirectory.CameraSettings.TagApexBrightnessValue);
-            return value == null ? null : Extensions.ConvertToString(((double)value / 8d) - 6);
+            return value == null ? null : ((object)(((double)value / 8d) - 6)).ToString();
         }
 
         [CanBeNull]
@@ -913,7 +913,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                     }
                 }
             }
-            return Extensions.ConvertToString(desc);
+            return desc.ToString();
         }
     }
 }

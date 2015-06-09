@@ -264,7 +264,7 @@ namespace Com.Drew.Metadata.Icc
                             }
                             res.Append("(").Append(x).Append(", ").Append(y).Append(", ").Append(z).Append(")");
                         }
-                        return Extensions.ConvertToString(res);
+                        return res.ToString();
                     }
 
                     case IccTagTypeMluc:
@@ -291,7 +291,7 @@ namespace Com.Drew.Metadata.Icc
                             res.Append(" ").Append(str).Append("(").Append(name).Append(")");
                         }
                         //System.err.format("% 3d: %s, len: %d, ofs: %d, \"%s\"\n", i, str, len,ofs,name);
-                        return Extensions.ConvertToString(res);
+                        return res.ToString();
                     }
 
                     case IccTagTypeCurv:
@@ -307,7 +307,7 @@ namespace Com.Drew.Metadata.Icc
                             res.Append(FormatDoubleAsString(reader.GetUInt16(12 + i * 2) / 65535.0, 7, false));
                         }
                         //res+=String.format("%1.7g",Math.round(((float)iccReader.getInt16(b,12+i*2))/0.065535)/1E7);
-                        return Extensions.ConvertToString(res);
+                        return res.ToString();
                     }
 
                     default:

@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System;
 using System.Text;
 using JetBrains.Annotations;
 using Sharpen;
@@ -203,13 +204,13 @@ namespace Com.Drew.Lang
         /// <exception cref="System.IO.IOException"/>
         public virtual float GetFloat32()
         {
-            return Extensions.IntBitsToFloat(GetInt32());
+            return BitConverter.ToSingle(BitConverter.GetBytes(GetInt32()), 0);
         }
 
         /// <exception cref="System.IO.IOException"/>
         public virtual double GetDouble64()
         {
-            return Extensions.LongBitsToDouble(GetInt64());
+            return BitConverter.Int64BitsToDouble(GetInt64());
         }
 
         /// <exception cref="System.IO.IOException"/>

@@ -230,7 +230,7 @@ namespace Com.Drew.Metadata.Photoshop
                 }
                 IndexedReader reader = new ByteArrayReader(bytes);
                 double d = reader.GetDouble64(4);
-                return Extensions.ConvertToString(d);
+                return ((object)d).ToString();
             }
             catch (Exception)
             {

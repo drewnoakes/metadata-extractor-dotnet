@@ -69,9 +69,9 @@ namespace Com.Drew.Lang
                 @string.Append("\n");
                 @string.Append("--- inner exception ---");
                 @string.Append("\n");
-                @string.Append(Extensions.ConvertToString(_innerException));
+                @string.Append(_innerException.ToString());
             }
-            return Extensions.ConvertToString(@string);
+            return @string.ToString();
         }
     }
 }

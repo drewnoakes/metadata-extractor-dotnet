@@ -67,11 +67,11 @@ namespace Com.Drew.Metadata
             int tagType = 321;
             _directory.SetInt(tagType, value);
             Assert.AreEqual(value, _directory.GetInt(tagType));
-            Assert.AreEqual(Extensions.ValueOf(value), _directory.GetInteger(tagType));
+            Assert.AreEqual(value, _directory.GetInteger(tagType));
             Assert.AreEqual(value, _directory.GetFloat(tagType), 0.00001);
             Assert.AreEqual(value, _directory.GetDouble(tagType), 0.00001);
             Assert.AreEqual((long)value, (object)_directory.GetLong(tagType));
-            Assert.AreEqual(Extensions.ConvertToString(value), _directory.GetString(tagType));
+            Assert.AreEqual(value.ToString(), _directory.GetString(tagType));
             Assert.AreEqual(new Rational(value, 1), _directory.GetRational(tagType));
             CollectionAssert.AreEqual(new int[] { value }, _directory.GetIntArray(tagType));
             CollectionAssert.AreEqual(new byte[] { unchecked((byte)value) }, _directory.GetByteArray(tagType));
@@ -104,7 +104,7 @@ namespace Com.Drew.Metadata
                 }
                 outputString.Append(inputValue);
             }
-            Assert.AreEqual(Extensions.ConvertToString(outputString), _directory.GetString(tagType));
+            Assert.AreEqual(outputString.ToString(), _directory.GetString(tagType));
         }
 
         /// <exception cref="System.Exception"/>
@@ -178,11 +178,11 @@ namespace Com.Drew.Metadata
         public void TestToString()
         {
             Directory directory = new ExifIfd0Directory();
-            Assert.AreEqual("Exif IFD0 Directory (0 tags)", Extensions.ConvertToString(directory));
+            Assert.AreEqual("Exif IFD0 Directory (0 tags)", directory.ToString());
             directory.SetString(1, "Tag 1");
-            Assert.AreEqual("Exif IFD0 Directory (1 tag)", Extensions.ConvertToString(directory));
+            Assert.AreEqual("Exif IFD0 Directory (1 tag)", directory.ToString());
             directory.SetString(2, "Tag 2");
-            Assert.AreEqual("Exif IFD0 Directory (2 tags)", Extensions.ConvertToString(directory));
+            Assert.AreEqual("Exif IFD0 Directory (2 tags)", directory.ToString());
         }
     }
 }

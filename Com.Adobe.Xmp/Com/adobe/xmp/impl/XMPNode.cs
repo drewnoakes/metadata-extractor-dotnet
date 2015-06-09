@@ -106,7 +106,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             AssertChildNotExisting(node.Name);
             node.Parent = this;
-            GetChildren().Add(index - 1, node);
+            GetChildren().Insert(index - 1, node);
         }
 
         /// <summary>Replaces a node with another one.</summary>
@@ -118,7 +118,7 @@ namespace Com.Adobe.Xmp.Impl
         public void ReplaceChild(int index, XmpNode node)
         {
             node.Parent = this;
-            GetChildren().Set(index - 1, node);
+            GetChildren()[index - 1] = node;
         }
 
         /// <summary>Removes a child at the requested index.</summary>
@@ -200,7 +200,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 // "xml:lang" is always first and the option "hasLanguage" is set
                 _options.HasLanguage = true;
-                GetQualifier().Add(0, qualNode);
+                GetQualifier().Insert(0, qualNode);
             }
             else
             {
@@ -208,7 +208,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     // "rdf:type" must be first or second after "xml:lang" and the option "hasType" is set
                     _options.HasType = true;
-                    GetQualifier().Add(!_options.HasLanguage ? 0 : 1, qualNode);
+                    GetQualifier().Insert(!_options.HasLanguage ? 0 : 1, qualNode);
                 }
                 else
                 {

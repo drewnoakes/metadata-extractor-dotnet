@@ -318,7 +318,7 @@ namespace Com.Adobe.Xmp.Impl
                     _returnProperty = null;
                     return result;
                 }
-                throw new NoSuchElementException("There are no more nodes to return");
+                throw new InvalidOperationException("There are no more nodes to return");
             }
 
             /// <summary>Not supported.</summary>
