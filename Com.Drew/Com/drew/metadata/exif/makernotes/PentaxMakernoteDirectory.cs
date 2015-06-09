@@ -126,20 +126,20 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         static PentaxMakernoteDirectory()
         {
-            TagNameMap.Put(TagCaptureMode, "Capture Mode");
-            TagNameMap.Put(TagQualityLevel, "Quality Level");
-            TagNameMap.Put(TagFocusMode, "Focus Mode");
-            TagNameMap.Put(TagFlashMode, "Flash Mode");
-            TagNameMap.Put(TagWhiteBalance, "White Balance");
-            TagNameMap.Put(TagDigitalZoom, "Digital Zoom");
-            TagNameMap.Put(TagSharpness, "Sharpness");
-            TagNameMap.Put(TagContrast, "Contrast");
-            TagNameMap.Put(TagSaturation, "Saturation");
-            TagNameMap.Put(TagIsoSpeed, "ISO Speed");
-            TagNameMap.Put(TagColour, "Colour");
-            TagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info");
-            TagNameMap.Put(TagTimeZone, "Time Zone");
-            TagNameMap.Put(TagDaylightSavings, "Daylight Savings");
+            TagNameMap[TagCaptureMode] = "Capture Mode";
+            TagNameMap[TagQualityLevel] = "Quality Level";
+            TagNameMap[TagFocusMode] = "Focus Mode";
+            TagNameMap[TagFlashMode] = "Flash Mode";
+            TagNameMap[TagWhiteBalance] = "White Balance";
+            TagNameMap[TagDigitalZoom] = "Digital Zoom";
+            TagNameMap[TagSharpness] = "Sharpness";
+            TagNameMap[TagContrast] = "Contrast";
+            TagNameMap[TagSaturation] = "Saturation";
+            TagNameMap[TagIsoSpeed] = "ISO Speed";
+            TagNameMap[TagColour] = "Colour";
+            TagNameMap[TagPrintImageMatchingInfo] = "Print Image Matching (PIM) Info";
+            TagNameMap[TagTimeZone] = "Time Zone";
+            TagNameMap[TagDaylightSavings] = "Daylight Savings";
         }
 
         public PentaxMakernoteDirectory()

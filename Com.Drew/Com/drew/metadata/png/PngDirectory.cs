@@ -72,25 +72,25 @@ namespace Com.Drew.Metadata.Png
 
         static PngDirectory()
         {
-            TagNameMap.Put(TagImageHeight, "Image Height");
-            TagNameMap.Put(TagImageWidth, "Image Width");
-            TagNameMap.Put(TagBitsPerSample, "Bits Per Sample");
-            TagNameMap.Put(TagColorType, "Color Type");
-            TagNameMap.Put(TagCompressionType, "Compression Type");
-            TagNameMap.Put(TagFilterMethod, "Filter Method");
-            TagNameMap.Put(TagInterlaceMethod, "Interlace Method");
-            TagNameMap.Put(TagPaletteSize, "Palette Size");
-            TagNameMap.Put(TagPaletteHasTransparency, "Palette Has Transparency");
-            TagNameMap.Put(TagSrgbRenderingIntent, "sRGB Rendering Intent");
-            TagNameMap.Put(TagGamma, "Image Gamma");
-            TagNameMap.Put(TagIccProfileName, "ICC Profile Name");
-            TagNameMap.Put(TagTextualData, "Textual Data");
-            TagNameMap.Put(TagLastModificationTime, "Last Modification Time");
-            TagNameMap.Put(TagBackgroundColor, "Background Color");
-            TagNameMap.Put(TagPixelsPerUnitX, "Pixels Per Unit X");
-            TagNameMap.Put(TagPixelsPerUnitY, "Pixels Per Unit Y");
-            TagNameMap.Put(TagUnitSpecifier, "Unit Specifier");
-            TagNameMap.Put(TagSignificantBits, "Significant Bits");
+            TagNameMap[TagImageHeight] = "Image Height";
+            TagNameMap[TagImageWidth] = "Image Width";
+            TagNameMap[TagBitsPerSample] = "Bits Per Sample";
+            TagNameMap[TagColorType] = "Color Type";
+            TagNameMap[TagCompressionType] = "Compression Type";
+            TagNameMap[TagFilterMethod] = "Filter Method";
+            TagNameMap[TagInterlaceMethod] = "Interlace Method";
+            TagNameMap[TagPaletteSize] = "Palette Size";
+            TagNameMap[TagPaletteHasTransparency] = "Palette Has Transparency";
+            TagNameMap[TagSrgbRenderingIntent] = "sRGB Rendering Intent";
+            TagNameMap[TagGamma] = "Image Gamma";
+            TagNameMap[TagIccProfileName] = "ICC Profile Name";
+            TagNameMap[TagTextualData] = "Textual Data";
+            TagNameMap[TagLastModificationTime] = "Last Modification Time";
+            TagNameMap[TagBackgroundColor] = "Background Color";
+            TagNameMap[TagPixelsPerUnitX] = "Pixels Per Unit X";
+            TagNameMap[TagPixelsPerUnitY] = "Pixels Per Unit Y";
+            TagNameMap[TagUnitSpecifier] = "Unit Specifier";
+            TagNameMap[TagSignificantBits] = "Significant Bits";
         }
 
         private readonly PngChunkType _pngChunkType;

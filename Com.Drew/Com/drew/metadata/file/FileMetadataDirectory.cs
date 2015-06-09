@@ -40,9 +40,9 @@ namespace Com.Drew.Metadata.File
 
         static FileMetadataDirectory()
         {
-            TagNameMap.Put(TagFileName, "File Name");
-            TagNameMap.Put(TagFileSize, "File Size");
-            TagNameMap.Put(TagFileModifiedDate, "File Modified Date");
+            TagNameMap[TagFileName] = "File Name";
+            TagNameMap[TagFileSize] = "File Size";
+            TagNameMap[TagFileModifiedDate] = "File Modified Date";
         }
 
         public FileMetadataDirectory()

@@ -803,10 +803,10 @@ namespace Com.Drew.Metadata.Exif
                 return string.Empty;
             }
             IDictionary<string, Encoding> encodingMap = new Dictionary<string, Encoding>();
-            encodingMap.Put("ASCII", Encoding.ASCII);
+            encodingMap["ASCII"] = Encoding.ASCII;
             // Someone suggested "ISO-8859-1".
-            encodingMap.Put("UNICODE", Encoding.Unicode);
-            encodingMap.Put("JIS", Encoding.GetEncoding("Shift-JIS"));
+            encodingMap["UNICODE"] = Encoding.Unicode;
+            encodingMap["JIS"] = Encoding.GetEncoding("Shift-JIS");
             // We assume this charset for now.  Another suggestion is "JIS".
             try
             {

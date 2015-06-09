@@ -285,7 +285,7 @@ namespace Com.Drew.Metadata
             //            if (!oldValue.equals(value))
             //                addError(String.format("Overwritten tag 0x%s (%s).  Old=%s, New=%s", Integer.toHexString(tagType), getTagName(tagType), oldValue, value));
             //        }
-            TagMap.Put(tagType, value);
+            TagMap[tagType] = value;
         }
 
         /// <summary>Sets an array <c>Object</c> for the specified tag.</summary>

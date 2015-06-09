@@ -89,33 +89,33 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         static SanyoMakernoteDirectory()
         {
-            TagNameMap.Put(TagMakernoteOffset, "Makernote Offset");
-            TagNameMap.Put(TagSanyoThumbnail, "Sanyo Thumbnail");
-            TagNameMap.Put(TagSpecialMode, "Special Mode");
-            TagNameMap.Put(TagSanyoQuality, "Sanyo Quality");
-            TagNameMap.Put(TagMacro, "Macro");
-            TagNameMap.Put(TagDigitalZoom, "Digital Zoom");
-            TagNameMap.Put(TagSoftwareVersion, "Software Version");
-            TagNameMap.Put(TagPictInfo, "Pict Info");
-            TagNameMap.Put(TagCameraId, "Camera ID");
-            TagNameMap.Put(TagSequentialShot, "Sequential Shot");
-            TagNameMap.Put(TagWideRange, "Wide Range");
-            TagNameMap.Put(TagColorAdjustmentMode, "Color Adjustment Node");
-            TagNameMap.Put(TagQuickShot, "Quick Shot");
-            TagNameMap.Put(TagSelfTimer, "Self Timer");
-            TagNameMap.Put(TagVoiceMemo, "Voice Memo");
-            TagNameMap.Put(TagRecordShutterRelease, "Record Shutter Release");
-            TagNameMap.Put(TagFlickerReduce, "Flicker Reduce");
-            TagNameMap.Put(TagOpticalZoomOn, "Optical Zoom On");
-            TagNameMap.Put(TagDigitalZoomOn, "Digital Zoom On");
-            TagNameMap.Put(TagLightSourceSpecial, "Light Source Special");
-            TagNameMap.Put(TagResaved, "Resaved");
-            TagNameMap.Put(TagSceneSelect, "Scene Select");
-            TagNameMap.Put(TagManualFocusDistanceOrFaceInfo, "Manual Focus Distance or Face Info");
-            TagNameMap.Put(TagSequenceShotInterval, "Sequence Shot Interval");
-            TagNameMap.Put(TagFlashMode, "Flash Mode");
-            TagNameMap.Put(TagPrintIm, "Print IM");
-            TagNameMap.Put(TagDataDump, "Data Dump");
+            TagNameMap[TagMakernoteOffset] = "Makernote Offset";
+            TagNameMap[TagSanyoThumbnail] = "Sanyo Thumbnail";
+            TagNameMap[TagSpecialMode] = "Special Mode";
+            TagNameMap[TagSanyoQuality] = "Sanyo Quality";
+            TagNameMap[TagMacro] = "Macro";
+            TagNameMap[TagDigitalZoom] = "Digital Zoom";
+            TagNameMap[TagSoftwareVersion] = "Software Version";
+            TagNameMap[TagPictInfo] = "Pict Info";
+            TagNameMap[TagCameraId] = "Camera ID";
+            TagNameMap[TagSequentialShot] = "Sequential Shot";
+            TagNameMap[TagWideRange] = "Wide Range";
+            TagNameMap[TagColorAdjustmentMode] = "Color Adjustment Node";
+            TagNameMap[TagQuickShot] = "Quick Shot";
+            TagNameMap[TagSelfTimer] = "Self Timer";
+            TagNameMap[TagVoiceMemo] = "Voice Memo";
+            TagNameMap[TagRecordShutterRelease] = "Record Shutter Release";
+            TagNameMap[TagFlickerReduce] = "Flicker Reduce";
+            TagNameMap[TagOpticalZoomOn] = "Optical Zoom On";
+            TagNameMap[TagDigitalZoomOn] = "Digital Zoom On";
+            TagNameMap[TagLightSourceSpecial] = "Light Source Special";
+            TagNameMap[TagResaved] = "Resaved";
+            TagNameMap[TagSceneSelect] = "Scene Select";
+            TagNameMap[TagManualFocusDistanceOrFaceInfo] = "Manual Focus Distance or Face Info";
+            TagNameMap[TagSequenceShotInterval] = "Sequence Shot Interval";
+            TagNameMap[TagFlashMode] = "Flash Mode";
+            TagNameMap[TagPrintIm] = "Print IM";
+            TagNameMap[TagDataDump] = "Data Dump";
         }
 
         public SanyoMakernoteDirectory()

@@ -80,26 +80,26 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         static CasioType1MakernoteDirectory()
         {
-            TagNameMap.Put(TagCcdSensitivity, "CCD Sensitivity");
-            TagNameMap.Put(TagContrast, "Contrast");
-            TagNameMap.Put(TagDigitalZoom, "Digital Zoom");
-            TagNameMap.Put(TagFlashIntensity, "Flash Intensity");
-            TagNameMap.Put(TagFlashMode, "Flash Mode");
-            TagNameMap.Put(TagFocusingMode, "Focusing Mode");
-            TagNameMap.Put(TagObjectDistance, "Object Distance");
-            TagNameMap.Put(TagQuality, "Quality");
-            TagNameMap.Put(TagRecordingMode, "Recording Mode");
-            TagNameMap.Put(TagSaturation, "Saturation");
-            TagNameMap.Put(TagSharpness, "Sharpness");
-            TagNameMap.Put(TagUnknown1, "Makernote Unknown 1");
-            TagNameMap.Put(TagUnknown2, "Makernote Unknown 2");
-            TagNameMap.Put(TagUnknown3, "Makernote Unknown 3");
-            TagNameMap.Put(TagUnknown4, "Makernote Unknown 4");
-            TagNameMap.Put(TagUnknown5, "Makernote Unknown 5");
-            TagNameMap.Put(TagUnknown6, "Makernote Unknown 6");
-            TagNameMap.Put(TagUnknown7, "Makernote Unknown 7");
-            TagNameMap.Put(TagUnknown8, "Makernote Unknown 8");
-            TagNameMap.Put(TagWhiteBalance, "White Balance");
+            TagNameMap[TagCcdSensitivity] = "CCD Sensitivity";
+            TagNameMap[TagContrast] = "Contrast";
+            TagNameMap[TagDigitalZoom] = "Digital Zoom";
+            TagNameMap[TagFlashIntensity] = "Flash Intensity";
+            TagNameMap[TagFlashMode] = "Flash Mode";
+            TagNameMap[TagFocusingMode] = "Focusing Mode";
+            TagNameMap[TagObjectDistance] = "Object Distance";
+            TagNameMap[TagQuality] = "Quality";
+            TagNameMap[TagRecordingMode] = "Recording Mode";
+            TagNameMap[TagSaturation] = "Saturation";
+            TagNameMap[TagSharpness] = "Sharpness";
+            TagNameMap[TagUnknown1] = "Makernote Unknown 1";
+            TagNameMap[TagUnknown2] = "Makernote Unknown 2";
+            TagNameMap[TagUnknown3] = "Makernote Unknown 3";
+            TagNameMap[TagUnknown4] = "Makernote Unknown 4";
+            TagNameMap[TagUnknown5] = "Makernote Unknown 5";
+            TagNameMap[TagUnknown6] = "Makernote Unknown 6";
+            TagNameMap[TagUnknown7] = "Makernote Unknown 7";
+            TagNameMap[TagUnknown8] = "Makernote Unknown 8";
+            TagNameMap[TagWhiteBalance] = "White Balance";
         }
 
         public CasioType1MakernoteDirectory()

@@ -27,7 +27,7 @@ using Sharpen;
 namespace Com.Drew.Metadata.Ico
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class IcoDirectory : Directory
+    public sealed class IcoDirectory : Directory
     {
         public const int TagImageType = 1;
 
@@ -49,21 +49,20 @@ namespace Com.Drew.Metadata.Ico
 
         public const int TagImageOffsetBytes = 10;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static IcoDirectory()
         {
-            TagNameMap.Put(TagImageType, "Image Type");
-            TagNameMap.Put(TagImageWidth, "Image Width");
-            TagNameMap.Put(TagImageHeight, "Image Height");
-            TagNameMap.Put(TagColourPaletteSize, "Colour Palette Size");
-            TagNameMap.Put(TagColourPlanes, "Colour Planes");
-            TagNameMap.Put(TagCursorHotspotX, "Hotspot X");
-            TagNameMap.Put(TagBitsPerPixel, "Bits Per Pixel");
-            TagNameMap.Put(TagCursorHotspotY, "Hotspot Y");
-            TagNameMap.Put(TagImageSizeBytes, "Image Size Bytes");
-            TagNameMap.Put(TagImageOffsetBytes, "Image Offset Bytes");
+            TagNameMap[TagImageType] = "Image Type";
+            TagNameMap[TagImageWidth] = "Image Width";
+            TagNameMap[TagImageHeight] = "Image Height";
+            TagNameMap[TagColourPaletteSize] = "Colour Palette Size";
+            TagNameMap[TagColourPlanes] = "Colour Planes";
+            TagNameMap[TagCursorHotspotX] = "Hotspot X";
+            TagNameMap[TagBitsPerPixel] = "Bits Per Pixel";
+            TagNameMap[TagCursorHotspotY] = "Hotspot Y";
+            TagNameMap[TagImageSizeBytes] = "Image Size Bytes";
+            TagNameMap[TagImageOffsetBytes] = "Image Offset Bytes";
         }
 
         public IcoDirectory()

@@ -147,7 +147,7 @@ namespace Com.Drew.Imaging.Jpeg
             else
             {
                 segmentList = new AList<byte[]>();
-                _segmentDataMap.Put(segmentType, segmentList);
+                _segmentDataMap[segmentType] = segmentList;
             }
             return segmentList;
         }

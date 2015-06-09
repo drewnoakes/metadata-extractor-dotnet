@@ -56,11 +56,11 @@ namespace Com.Drew.Metadata.Photoshop
 
         static PsdHeaderDirectory()
         {
-            TagNameMap.Put(TagChannelCount, "Channel Count");
-            TagNameMap.Put(TagImageHeight, "Image Height");
-            TagNameMap.Put(TagImageWidth, "Image Width");
-            TagNameMap.Put(TagBitsPerChannel, "Bits Per Channel");
-            TagNameMap.Put(TagColorMode, "Color Mode");
+            TagNameMap[TagChannelCount] = "Channel Count";
+            TagNameMap[TagImageHeight] = "Image Height";
+            TagNameMap[TagImageWidth] = "Image Width";
+            TagNameMap[TagBitsPerChannel] = "Bits Per Channel";
+            TagNameMap[TagColorMode] = "Color Mode";
         }
 
         public PsdHeaderDirectory()

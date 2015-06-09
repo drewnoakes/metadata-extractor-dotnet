@@ -172,34 +172,34 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         static CasioType2MakernoteDirectory()
         {
             // TODO add missing names
-            TagNameMap.Put(TagThumbnailDimensions, "Thumbnail Dimensions");
-            TagNameMap.Put(TagThumbnailSize, "Thumbnail Size");
-            TagNameMap.Put(TagThumbnailOffset, "Thumbnail Offset");
-            TagNameMap.Put(TagQualityMode, "Quality Mode");
-            TagNameMap.Put(TagImageSize, "Image Size");
-            TagNameMap.Put(TagFocusMode1, "Focus Mode");
-            TagNameMap.Put(TagIsoSensitivity, "ISO Sensitivity");
-            TagNameMap.Put(TagWhiteBalance1, "White Balance");
-            TagNameMap.Put(TagFocalLength, "Focal Length");
-            TagNameMap.Put(TagSaturation, "Saturation");
-            TagNameMap.Put(TagContrast, "Contrast");
-            TagNameMap.Put(TagSharpness, "Sharpness");
-            TagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info");
-            TagNameMap.Put(TagPreviewThumbnail, "Casio Preview Thumbnail");
-            TagNameMap.Put(TagWhiteBalanceBias, "White Balance Bias");
-            TagNameMap.Put(TagWhiteBalance2, "White Balance");
-            TagNameMap.Put(TagObjectDistance, "Object Distance");
-            TagNameMap.Put(TagFlashDistance, "Flash Distance");
-            TagNameMap.Put(TagRecordMode, "Record Mode");
-            TagNameMap.Put(TagSelfTimer, "Self Timer");
-            TagNameMap.Put(TagQuality, "Quality");
-            TagNameMap.Put(TagFocusMode2, "Focus Mode");
-            TagNameMap.Put(TagTimeZone, "Time Zone");
-            TagNameMap.Put(TagBestshotMode, "BestShot Mode");
-            TagNameMap.Put(TagCcdIsoSensitivity, "CCD ISO Sensitivity");
-            TagNameMap.Put(TagColourMode, "Colour Mode");
-            TagNameMap.Put(TagEnhancement, "Enhancement");
-            TagNameMap.Put(TagFilter, "Filter");
+            TagNameMap[TagThumbnailDimensions] = "Thumbnail Dimensions";
+            TagNameMap[TagThumbnailSize] = "Thumbnail Size";
+            TagNameMap[TagThumbnailOffset] = "Thumbnail Offset";
+            TagNameMap[TagQualityMode] = "Quality Mode";
+            TagNameMap[TagImageSize] = "Image Size";
+            TagNameMap[TagFocusMode1] = "Focus Mode";
+            TagNameMap[TagIsoSensitivity] = "ISO Sensitivity";
+            TagNameMap[TagWhiteBalance1] = "White Balance";
+            TagNameMap[TagFocalLength] = "Focal Length";
+            TagNameMap[TagSaturation] = "Saturation";
+            TagNameMap[TagContrast] = "Contrast";
+            TagNameMap[TagSharpness] = "Sharpness";
+            TagNameMap[TagPrintImageMatchingInfo] = "Print Image Matching (PIM) Info";
+            TagNameMap[TagPreviewThumbnail] = "Casio Preview Thumbnail";
+            TagNameMap[TagWhiteBalanceBias] = "White Balance Bias";
+            TagNameMap[TagWhiteBalance2] = "White Balance";
+            TagNameMap[TagObjectDistance] = "Object Distance";
+            TagNameMap[TagFlashDistance] = "Flash Distance";
+            TagNameMap[TagRecordMode] = "Record Mode";
+            TagNameMap[TagSelfTimer] = "Self Timer";
+            TagNameMap[TagQuality] = "Quality";
+            TagNameMap[TagFocusMode2] = "Focus Mode";
+            TagNameMap[TagTimeZone] = "Time Zone";
+            TagNameMap[TagBestshotMode] = "BestShot Mode";
+            TagNameMap[TagCcdIsoSensitivity] = "CCD ISO Sensitivity";
+            TagNameMap[TagColourMode] = "Colour Mode";
+            TagNameMap[TagEnhancement] = "Enhancement";
+            TagNameMap[TagFilter] = "Filter";
         }
 
         public CasioType2MakernoteDirectory()

@@ -42,7 +42,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         static JpegCommentDirectory()
         {
-            TagNameMap.Put(TagComment, "JPEG Comment");
+            TagNameMap[TagComment] = "JPEG Comment";
         }
 
         public JpegCommentDirectory()

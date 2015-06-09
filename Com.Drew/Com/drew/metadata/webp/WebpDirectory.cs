@@ -42,10 +42,10 @@ namespace Com.Drew.Metadata.Webp
 
         static WebpDirectory()
         {
-            TagNameMap.Put(TagImageHeight, "Image Height");
-            TagNameMap.Put(TagImageWidth, "Image Width");
-            TagNameMap.Put(TagHasAlpha, "Has Alpha");
-            TagNameMap.Put(TagIsAnimation, "Is Animation");
+            TagNameMap[TagImageHeight] = "Image Height";
+            TagNameMap[TagImageWidth] = "Image Width";
+            TagNameMap[TagHasAlpha] = "Has Alpha";
+            TagNameMap[TagIsAnimation] = "Is Animation";
         }
 
         public WebpDirectory()

@@ -39,8 +39,8 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         static KyoceraMakernoteDirectory()
         {
-            TagNameMap.Put(TagProprietaryThumbnail, "Proprietary Thumbnail Format Data");
-            TagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info");
+            TagNameMap[TagProprietaryThumbnail] = "Proprietary Thumbnail Format Data";
+            TagNameMap[TagPrintImageMatchingInfo] = "Print Image Matching (PIM) Info";
         }
 
         public KyoceraMakernoteDirectory()

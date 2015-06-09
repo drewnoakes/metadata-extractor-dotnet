@@ -75,9 +75,9 @@ namespace Com.Drew.Metadata.Exif
         static ExifThumbnailDirectory()
         {
             AddExifTagNames(TagNameMap);
-            TagNameMap.Put(TagThumbnailCompression, "Thumbnail Compression");
-            TagNameMap.Put(TagThumbnailOffset, "Thumbnail Offset");
-            TagNameMap.Put(TagThumbnailLength, "Thumbnail Length");
+            TagNameMap[TagThumbnailCompression] = "Thumbnail Compression";
+            TagNameMap[TagThumbnailOffset] = "Thumbnail Offset";
+            TagNameMap[TagThumbnailLength] = "Thumbnail Length";
         }
 
         [CanBeNull]

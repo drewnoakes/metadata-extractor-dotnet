@@ -53,10 +53,10 @@ namespace Com.Drew.Metadata.Adobe
 
         static AdobeJpegDirectory()
         {
-            TagNameMap.Put(TagDctEncodeVersion, "DCT Encode Version");
-            TagNameMap.Put(TagApp14Flags0, "Flags 0");
-            TagNameMap.Put(TagApp14Flags1, "Flags 1");
-            TagNameMap.Put(TagColorTransform, "Color Transform");
+            TagNameMap[TagDctEncodeVersion] = "DCT Encode Version";
+            TagNameMap[TagApp14Flags0] = "Flags 0";
+            TagNameMap[TagApp14Flags1] = "Flags 1";
+            TagNameMap[TagColorTransform] = "Color Transform";
         }
 
         public AdobeJpegDirectory()

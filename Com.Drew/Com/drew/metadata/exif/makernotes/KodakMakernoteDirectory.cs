@@ -87,32 +87,32 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         static KodakMakernoteDirectory()
         {
-            TagNameMap.Put(TagKodakModel, "Kodak Model");
-            TagNameMap.Put(TagQuality, "Quality");
-            TagNameMap.Put(TagBurstMode, "Burst Mode");
-            TagNameMap.Put(TagImageWidth, "Image Width");
-            TagNameMap.Put(TagImageHeight, "Image Height");
-            TagNameMap.Put(TagYearCreated, "Year Created");
-            TagNameMap.Put(TagMonthDayCreated, "Month/Day Created");
-            TagNameMap.Put(TagTimeCreated, "Time Created");
-            TagNameMap.Put(TagBurstMode2, "Burst Mode 2");
-            TagNameMap.Put(TagShutterMode, "Shutter Speed");
-            TagNameMap.Put(TagMeteringMode, "Metering Mode");
-            TagNameMap.Put(TagSequenceNumber, "Sequence Number");
-            TagNameMap.Put(TagFNumber, "F Number");
-            TagNameMap.Put(TagExposureTime, "Exposure Time");
-            TagNameMap.Put(TagExposureCompensation, "Exposure Compensation");
-            TagNameMap.Put(TagFocusMode, "Focus Mode");
-            TagNameMap.Put(TagWhiteBalance, "White Balance");
-            TagNameMap.Put(TagFlashMode, "Flash Mode");
-            TagNameMap.Put(TagFlashFired, "Flash Fired");
-            TagNameMap.Put(TagIsoSetting, "ISO Setting");
-            TagNameMap.Put(TagIso, "ISO");
-            TagNameMap.Put(TagTotalZoom, "Total Zoom");
-            TagNameMap.Put(TagDateTimeStamp, "Date/Time Stamp");
-            TagNameMap.Put(TagColorMode, "Color Mode");
-            TagNameMap.Put(TagDigitalZoom, "Digital Zoom");
-            TagNameMap.Put(TagSharpness, "Sharpness");
+            TagNameMap[TagKodakModel] = "Kodak Model";
+            TagNameMap[TagQuality] = "Quality";
+            TagNameMap[TagBurstMode] = "Burst Mode";
+            TagNameMap[TagImageWidth] = "Image Width";
+            TagNameMap[TagImageHeight] = "Image Height";
+            TagNameMap[TagYearCreated] = "Year Created";
+            TagNameMap[TagMonthDayCreated] = "Month/Day Created";
+            TagNameMap[TagTimeCreated] = "Time Created";
+            TagNameMap[TagBurstMode2] = "Burst Mode 2";
+            TagNameMap[TagShutterMode] = "Shutter Speed";
+            TagNameMap[TagMeteringMode] = "Metering Mode";
+            TagNameMap[TagSequenceNumber] = "Sequence Number";
+            TagNameMap[TagFNumber] = "F Number";
+            TagNameMap[TagExposureTime] = "Exposure Time";
+            TagNameMap[TagExposureCompensation] = "Exposure Compensation";
+            TagNameMap[TagFocusMode] = "Focus Mode";
+            TagNameMap[TagWhiteBalance] = "White Balance";
+            TagNameMap[TagFlashMode] = "Flash Mode";
+            TagNameMap[TagFlashFired] = "Flash Fired";
+            TagNameMap[TagIsoSetting] = "ISO Setting";
+            TagNameMap[TagIso] = "ISO";
+            TagNameMap[TagTotalZoom] = "Total Zoom";
+            TagNameMap[TagDateTimeStamp] = "Date/Time Stamp";
+            TagNameMap[TagColorMode] = "Color Mode";
+            TagNameMap[TagDigitalZoom] = "Digital Zoom";
+            TagNameMap[TagSharpness] = "Sharpness";
         }
 
         public KodakMakernoteDirectory()

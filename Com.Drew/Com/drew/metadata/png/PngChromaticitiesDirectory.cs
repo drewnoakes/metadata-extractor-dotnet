@@ -50,14 +50,14 @@ namespace Com.Drew.Metadata.Png
 
         static PngChromaticitiesDirectory()
         {
-            TagNameMap.Put(TagWhitePointX, "White Point X");
-            TagNameMap.Put(TagWhitePointY, "White Point Y");
-            TagNameMap.Put(TagRedX, "Red X");
-            TagNameMap.Put(TagRedY, "Red Y");
-            TagNameMap.Put(TagGreenX, "Green X");
-            TagNameMap.Put(TagGreenY, "Green Y");
-            TagNameMap.Put(TagBlueX, "Blue X");
-            TagNameMap.Put(TagBlueY, "Blue Y");
+            TagNameMap[TagWhitePointX] = "White Point X";
+            TagNameMap[TagWhitePointY] = "White Point Y";
+            TagNameMap[TagRedX] = "Red X";
+            TagNameMap[TagRedY] = "Red Y";
+            TagNameMap[TagGreenX] = "Green X";
+            TagNameMap[TagGreenY] = "Green Y";
+            TagNameMap[TagBlueX] = "Blue X";
+            TagNameMap[TagBlueY] = "Blue Y";
         }
 
         public PngChromaticitiesDirectory()

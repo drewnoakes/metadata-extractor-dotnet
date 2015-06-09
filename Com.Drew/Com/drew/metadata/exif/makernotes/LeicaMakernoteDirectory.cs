@@ -76,24 +76,24 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         static LeicaMakernoteDirectory()
         {
-            TagNameMap.Put(TagQuality, "Quality");
-            TagNameMap.Put(TagUserProfile, "User Profile");
-            TagNameMap.Put(TagSerialNumber, "Serial Number");
-            TagNameMap.Put(TagWhiteBalance, "White Balance");
-            TagNameMap.Put(TagLensType, "Lens Type");
-            TagNameMap.Put(TagExternalSensorBrightnessValue, "External Sensor Brightness Value");
-            TagNameMap.Put(TagMeasuredLv, "Measured LV");
-            TagNameMap.Put(TagApproximateFNumber, "Approximate F Number");
-            TagNameMap.Put(TagCameraTemperature, "Camera Temperature");
-            TagNameMap.Put(TagColorTemperature, "Color Temperature");
-            TagNameMap.Put(TagWbRedLevel, "WB Red Level");
-            TagNameMap.Put(TagWbGreenLevel, "WB Green Level");
-            TagNameMap.Put(TagWbBlueLevel, "WB Blue Level");
-            TagNameMap.Put(TagCcdVersion, "CCD Version");
-            TagNameMap.Put(TagCcdBoardVersion, "CCD Board Version");
-            TagNameMap.Put(TagControllerBoardVersion, "Controller Board Version");
-            TagNameMap.Put(TagM16CVersion, "M16 C Version");
-            TagNameMap.Put(TagImageIdNumber, "Image ID Number");
+            TagNameMap[TagQuality] = "Quality";
+            TagNameMap[TagUserProfile] = "User Profile";
+            TagNameMap[TagSerialNumber] = "Serial Number";
+            TagNameMap[TagWhiteBalance] = "White Balance";
+            TagNameMap[TagLensType] = "Lens Type";
+            TagNameMap[TagExternalSensorBrightnessValue] = "External Sensor Brightness Value";
+            TagNameMap[TagMeasuredLv] = "Measured LV";
+            TagNameMap[TagApproximateFNumber] = "Approximate F Number";
+            TagNameMap[TagCameraTemperature] = "Camera Temperature";
+            TagNameMap[TagColorTemperature] = "Color Temperature";
+            TagNameMap[TagWbRedLevel] = "WB Red Level";
+            TagNameMap[TagWbGreenLevel] = "WB Green Level";
+            TagNameMap[TagWbBlueLevel] = "WB Blue Level";
+            TagNameMap[TagCcdVersion] = "CCD Version";
+            TagNameMap[TagCcdBoardVersion] = "CCD Board Version";
+            TagNameMap[TagControllerBoardVersion] = "Controller Board Version";
+            TagNameMap[TagM16CVersion] = "M16 C Version";
+            TagNameMap[TagImageIdNumber] = "Image ID Number";
         }
 
         public LeicaMakernoteDirectory()

@@ -30,15 +30,15 @@ namespace Com.Drew.Metadata.Gif
 
         static GifHeaderDirectory()
         {
-            TagNameMap.Put(TagGifFormatVersion, "GIF Format Version");
-            TagNameMap.Put(TagImageHeight, "Image Height");
-            TagNameMap.Put(TagImageWidth, "Image Width");
-            TagNameMap.Put(TagColorTableSize, "Color Table Size");
-            TagNameMap.Put(TagIsColorTableSorted, "Is Color Table Sorted");
-            TagNameMap.Put(TagBitsPerPixel, "Bits per Pixel");
-            TagNameMap.Put(TagHasGlobalColorTable, "Has Global Color Table");
-            TagNameMap.Put(TagTransparentColorIndex, "Transparent Color Index");
-            TagNameMap.Put(TagPixelAspectRatio, "Pixel Aspect Ratio");
+            TagNameMap[TagGifFormatVersion] = "GIF Format Version";
+            TagNameMap[TagImageHeight] = "Image Height";
+            TagNameMap[TagImageWidth] = "Image Width";
+            TagNameMap[TagColorTableSize] = "Color Table Size";
+            TagNameMap[TagIsColorTableSorted] = "Is Color Table Sorted";
+            TagNameMap[TagBitsPerPixel] = "Bits per Pixel";
+            TagNameMap[TagHasGlobalColorTable] = "Has Global Color Table";
+            TagNameMap[TagTransparentColorIndex] = "Transparent Color Index";
+            TagNameMap[TagPixelAspectRatio] = "Pixel Aspect Ratio";
         }
 
         public GifHeaderDirectory()

@@ -163,7 +163,7 @@ namespace Com.Adobe.Xmp.Impl
             for (int i = 1; i <= dcSchema.GetChildrenLength(); i++)
             {
                 XmpNode currProp = dcSchema.GetChild(i);
-                PropertyOptions arrayForm = (PropertyOptions)_dcArrayForms.Get(currProp.Name);
+                PropertyOptions arrayForm = (PropertyOptions)_dcArrayForms[currProp.Name];
                 if (arrayForm == null)
                 {
                     continue;
@@ -566,27 +566,27 @@ namespace Com.Adobe.Xmp.Impl
             // Properties supposed to be a "Bag".
             PropertyOptions bagForm = new PropertyOptions();
             bagForm.IsArray = true;
-            _dcArrayForms.Put("dc:contributor", bagForm);
-            _dcArrayForms.Put("dc:language", bagForm);
-            _dcArrayForms.Put("dc:publisher", bagForm);
-            _dcArrayForms.Put("dc:relation", bagForm);
-            _dcArrayForms.Put("dc:subject", bagForm);
-            _dcArrayForms.Put("dc:type", bagForm);
+            _dcArrayForms["dc:contributor"] = bagForm;
+            _dcArrayForms["dc:language"] = bagForm;
+            _dcArrayForms["dc:publisher"] = bagForm;
+            _dcArrayForms["dc:relation"] = bagForm;
+            _dcArrayForms["dc:subject"] = bagForm;
+            _dcArrayForms["dc:type"] = bagForm;
             // Properties supposed to be a "Seq".
             PropertyOptions seqForm = new PropertyOptions();
             seqForm.IsArray = true;
             seqForm.IsArrayOrdered = true;
-            _dcArrayForms.Put("dc:creator", seqForm);
-            _dcArrayForms.Put("dc:date", seqForm);
+            _dcArrayForms["dc:creator"] = seqForm;
+            _dcArrayForms["dc:date"] = seqForm;
             // Properties supposed to be an "Alt" in alternative-text form.
             PropertyOptions altTextForm = new PropertyOptions();
             altTextForm.IsArray = true;
             altTextForm.IsArrayOrdered = true;
             altTextForm.IsArrayAlternate = true;
             altTextForm.IsArrayAltText = true;
-            _dcArrayForms.Put("dc:description", altTextForm);
-            _dcArrayForms.Put("dc:rights", altTextForm);
-            _dcArrayForms.Put("dc:title", altTextForm);
+            _dcArrayForms["dc:description"] = altTextForm;
+            _dcArrayForms["dc:rights"] = altTextForm;
+            _dcArrayForms["dc:title"] = altTextForm;
         }
     }
 }

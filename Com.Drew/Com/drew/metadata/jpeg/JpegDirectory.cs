@@ -83,15 +83,15 @@ namespace Com.Drew.Metadata.Jpeg
         static JpegDirectory()
         {
             // NOTE!  Component tag type int values must increment in steps of 1
-            TagNameMap.Put(TagCompressionType, "Compression Type");
-            TagNameMap.Put(TagDataPrecision, "Data Precision");
-            TagNameMap.Put(TagImageWidth, "Image Width");
-            TagNameMap.Put(TagImageHeight, "Image Height");
-            TagNameMap.Put(TagNumberOfComponents, "Number of Components");
-            TagNameMap.Put(TagComponentData1, "Component 1");
-            TagNameMap.Put(TagComponentData2, "Component 2");
-            TagNameMap.Put(TagComponentData3, "Component 3");
-            TagNameMap.Put(TagComponentData4, "Component 4");
+            TagNameMap[TagCompressionType] = "Compression Type";
+            TagNameMap[TagDataPrecision] = "Data Precision";
+            TagNameMap[TagImageWidth] = "Image Width";
+            TagNameMap[TagImageHeight] = "Image Height";
+            TagNameMap[TagNumberOfComponents] = "Number of Components";
+            TagNameMap[TagComponentData1] = "Component 1";
+            TagNameMap[TagComponentData2] = "Component 2";
+            TagNameMap[TagComponentData3] = "Component 3";
+            TagNameMap[TagComponentData4] = "Component 4";
         }
 
         public JpegDirectory()

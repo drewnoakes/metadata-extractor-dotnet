@@ -32,16 +32,16 @@ namespace Com.Drew.Metadata.Bmp
 
         static BmpHeaderDirectory()
         {
-            TagNameMap.Put(TagHeaderSize, "Header Size");
-            TagNameMap.Put(TagImageHeight, "Image Height");
-            TagNameMap.Put(TagImageWidth, "Image Width");
-            TagNameMap.Put(TagColourPlanes, "Planes");
-            TagNameMap.Put(TagBitsPerPixel, "Bits Per Pixel");
-            TagNameMap.Put(TagCompression, "Compression");
-            TagNameMap.Put(TagXPixelsPerMeter, "X Pixels per Meter");
-            TagNameMap.Put(TagYPixelsPerMeter, "Y Pixels per Meter");
-            TagNameMap.Put(TagPaletteColourCount, "Palette Colour Count");
-            TagNameMap.Put(TagImportantColourCount, "Important Colour Count");
+            TagNameMap[TagHeaderSize] = "Header Size";
+            TagNameMap[TagImageHeight] = "Image Height";
+            TagNameMap[TagImageWidth] = "Image Width";
+            TagNameMap[TagColourPlanes] = "Planes";
+            TagNameMap[TagBitsPerPixel] = "Bits Per Pixel";
+            TagNameMap[TagCompression] = "Compression";
+            TagNameMap[TagXPixelsPerMeter] = "X Pixels per Meter";
+            TagNameMap[TagYPixelsPerMeter] = "Y Pixels per Meter";
+            TagNameMap[TagPaletteColourCount] = "Palette Colour Count";
+            TagNameMap[TagImportantColourCount] = "Important Colour Count";
         }
 
         public BmpHeaderDirectory()

@@ -208,13 +208,13 @@ namespace Com.Adobe.Xmp.Options
         {
             IDictionary optionsNames = ProcureOptionNames();
             int key = option;
-            string result = (string)optionsNames.Get(key);
+            string result = (string)optionsNames[key];
             if (result == null)
             {
                 result = DefineOptionName(option);
                 if (result != null)
                 {
-                    optionsNames.Put(key, result);
+                    optionsNames[key] = result;
                 }
                 else
                 {

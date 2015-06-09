@@ -45,10 +45,10 @@ namespace Com.Drew.Metadata.Jfif
 
         static JfifDirectory()
         {
-            TagNameMap.Put(TagVersion, "Version");
-            TagNameMap.Put(TagUnits, "Resolution Units");
-            TagNameMap.Put(TagResy, "Y Resolution");
-            TagNameMap.Put(TagResx, "X Resolution");
+            TagNameMap[TagVersion] = "Version";
+            TagNameMap[TagUnits] = "Resolution Units";
+            TagNameMap[TagResy] = "Y Resolution";
+            TagNameMap[TagResx] = "X Resolution";
         }
 
         public JfifDirectory()

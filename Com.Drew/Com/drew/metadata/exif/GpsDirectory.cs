@@ -126,37 +126,37 @@ namespace Com.Drew.Metadata.Exif
         static GpsDirectory()
         {
             AddExifTagNames(TagNameMap);
-            TagNameMap.Put(TagVersionId, "GPS Version ID");
-            TagNameMap.Put(TagLatitudeRef, "GPS Latitude Ref");
-            TagNameMap.Put(TagLatitude, "GPS Latitude");
-            TagNameMap.Put(TagLongitudeRef, "GPS Longitude Ref");
-            TagNameMap.Put(TagLongitude, "GPS Longitude");
-            TagNameMap.Put(TagAltitudeRef, "GPS Altitude Ref");
-            TagNameMap.Put(TagAltitude, "GPS Altitude");
-            TagNameMap.Put(TagTimeStamp, "GPS Time-Stamp");
-            TagNameMap.Put(TagSatellites, "GPS Satellites");
-            TagNameMap.Put(TagStatus, "GPS Status");
-            TagNameMap.Put(TagMeasureMode, "GPS Measure Mode");
-            TagNameMap.Put(TagDop, "GPS DOP");
-            TagNameMap.Put(TagSpeedRef, "GPS Speed Ref");
-            TagNameMap.Put(TagSpeed, "GPS Speed");
-            TagNameMap.Put(TagTrackRef, "GPS Track Ref");
-            TagNameMap.Put(TagTrack, "GPS Track");
-            TagNameMap.Put(TagImgDirectionRef, "GPS Img Direction Ref");
-            TagNameMap.Put(TagImgDirection, "GPS Img Direction");
-            TagNameMap.Put(TagMapDatum, "GPS Map Datum");
-            TagNameMap.Put(TagDestLatitudeRef, "GPS Dest Latitude Ref");
-            TagNameMap.Put(TagDestLatitude, "GPS Dest Latitude");
-            TagNameMap.Put(TagDestLongitudeRef, "GPS Dest Longitude Ref");
-            TagNameMap.Put(TagDestLongitude, "GPS Dest Longitude");
-            TagNameMap.Put(TagDestBearingRef, "GPS Dest Bearing Ref");
-            TagNameMap.Put(TagDestBearing, "GPS Dest Bearing");
-            TagNameMap.Put(TagDestDistanceRef, "GPS Dest Distance Ref");
-            TagNameMap.Put(TagDestDistance, "GPS Dest Distance");
-            TagNameMap.Put(TagProcessingMethod, "GPS Processing Method");
-            TagNameMap.Put(TagAreaInformation, "GPS Area Information");
-            TagNameMap.Put(TagDateStamp, "GPS Date Stamp");
-            TagNameMap.Put(TagDifferential, "GPS Differential");
+            TagNameMap[TagVersionId] = "GPS Version ID";
+            TagNameMap[TagLatitudeRef] = "GPS Latitude Ref";
+            TagNameMap[TagLatitude] = "GPS Latitude";
+            TagNameMap[TagLongitudeRef] = "GPS Longitude Ref";
+            TagNameMap[TagLongitude] = "GPS Longitude";
+            TagNameMap[TagAltitudeRef] = "GPS Altitude Ref";
+            TagNameMap[TagAltitude] = "GPS Altitude";
+            TagNameMap[TagTimeStamp] = "GPS Time-Stamp";
+            TagNameMap[TagSatellites] = "GPS Satellites";
+            TagNameMap[TagStatus] = "GPS Status";
+            TagNameMap[TagMeasureMode] = "GPS Measure Mode";
+            TagNameMap[TagDop] = "GPS DOP";
+            TagNameMap[TagSpeedRef] = "GPS Speed Ref";
+            TagNameMap[TagSpeed] = "GPS Speed";
+            TagNameMap[TagTrackRef] = "GPS Track Ref";
+            TagNameMap[TagTrack] = "GPS Track";
+            TagNameMap[TagImgDirectionRef] = "GPS Img Direction Ref";
+            TagNameMap[TagImgDirection] = "GPS Img Direction";
+            TagNameMap[TagMapDatum] = "GPS Map Datum";
+            TagNameMap[TagDestLatitudeRef] = "GPS Dest Latitude Ref";
+            TagNameMap[TagDestLatitude] = "GPS Dest Latitude";
+            TagNameMap[TagDestLongitudeRef] = "GPS Dest Longitude Ref";
+            TagNameMap[TagDestLongitude] = "GPS Dest Longitude";
+            TagNameMap[TagDestBearingRef] = "GPS Dest Bearing Ref";
+            TagNameMap[TagDestBearing] = "GPS Dest Bearing";
+            TagNameMap[TagDestDistanceRef] = "GPS Dest Distance Ref";
+            TagNameMap[TagDestDistance] = "GPS Dest Distance";
+            TagNameMap[TagProcessingMethod] = "GPS Processing Method";
+            TagNameMap[TagAreaInformation] = "GPS Area Information";
+            TagNameMap[TagDateStamp] = "GPS Date Stamp";
+            TagNameMap[TagDifferential] = "GPS Differential";
         }
 
         public GpsDirectory()

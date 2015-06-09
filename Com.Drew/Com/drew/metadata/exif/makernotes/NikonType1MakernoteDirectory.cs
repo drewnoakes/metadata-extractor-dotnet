@@ -68,17 +68,17 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         static NikonType1MakernoteDirectory()
         {
-            TagNameMap.Put(TagCcdSensitivity, "CCD Sensitivity");
-            TagNameMap.Put(TagColorMode, "Color Mode");
-            TagNameMap.Put(TagDigitalZoom, "Digital Zoom");
-            TagNameMap.Put(TagConverter, "Fisheye Converter");
-            TagNameMap.Put(TagFocus, "Focus");
-            TagNameMap.Put(TagImageAdjustment, "Image Adjustment");
-            TagNameMap.Put(TagQuality, "Quality");
-            TagNameMap.Put(TagUnknown1, "Makernote Unknown 1");
-            TagNameMap.Put(TagUnknown2, "Makernote Unknown 2");
-            TagNameMap.Put(TagUnknown3, "Makernote Unknown 3");
-            TagNameMap.Put(TagWhiteBalance, "White Balance");
+            TagNameMap[TagCcdSensitivity] = "CCD Sensitivity";
+            TagNameMap[TagColorMode] = "Color Mode";
+            TagNameMap[TagDigitalZoom] = "Digital Zoom";
+            TagNameMap[TagConverter] = "Fisheye Converter";
+            TagNameMap[TagFocus] = "Focus";
+            TagNameMap[TagImageAdjustment] = "Image Adjustment";
+            TagNameMap[TagQuality] = "Quality";
+            TagNameMap[TagUnknown1] = "Makernote Unknown 1";
+            TagNameMap[TagUnknown2] = "Makernote Unknown 2";
+            TagNameMap[TagUnknown3] = "Makernote Unknown 3";
+            TagNameMap[TagWhiteBalance] = "White Balance";
         }
 
         public NikonType1MakernoteDirectory()

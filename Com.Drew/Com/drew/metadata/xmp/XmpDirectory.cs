@@ -113,26 +113,26 @@ namespace Com.Drew.Metadata.Xmp
             // public static int TAG_ACCRUAL_METHOD = 0x1012;
             // public static int TAG_ACCRUAL_PERIODICITY = 0x1013;
             // public static int TAG_ACCRUAL_POLICY = 0x1014;
-            TagNameMap.Put(TagXmpValueCount, "XMP Value Count");
-            TagNameMap.Put(TagMake, "Make");
-            TagNameMap.Put(TagModel, "Model");
-            TagNameMap.Put(TagExposureTime, "Exposure Time");
-            TagNameMap.Put(TagShutterSpeed, "Shutter Speed Value");
-            TagNameMap.Put(TagFNumber, "F-Number");
-            TagNameMap.Put(TagLensInfo, "Lens Information");
-            TagNameMap.Put(TagLens, "Lens");
-            TagNameMap.Put(TagCameraSerialNumber, "Serial Number");
-            TagNameMap.Put(TagFirmware, "Firmware");
-            TagNameMap.Put(TagFocalLength, "Focal Length");
-            TagNameMap.Put(TagApertureValue, "Aperture Value");
-            TagNameMap.Put(TagExposureProgram, "Exposure Program");
-            TagNameMap.Put(TagDatetimeOriginal, "Date/Time Original");
-            TagNameMap.Put(TagDatetimeDigitized, "Date/Time Digitized");
-            TagNameMap.Put(TagRating, "Rating");
-            TagNameMap.Put(TagLabel, "Label");
+            TagNameMap[TagXmpValueCount] = "XMP Value Count";
+            TagNameMap[TagMake] = "Make";
+            TagNameMap[TagModel] = "Model";
+            TagNameMap[TagExposureTime] = "Exposure Time";
+            TagNameMap[TagShutterSpeed] = "Shutter Speed Value";
+            TagNameMap[TagFNumber] = "F-Number";
+            TagNameMap[TagLensInfo] = "Lens Information";
+            TagNameMap[TagLens] = "Lens";
+            TagNameMap[TagCameraSerialNumber] = "Serial Number";
+            TagNameMap[TagFirmware] = "Firmware";
+            TagNameMap[TagFocalLength] = "Focal Length";
+            TagNameMap[TagApertureValue] = "Aperture Value";
+            TagNameMap[TagExposureProgram] = "Exposure Program";
+            TagNameMap[TagDatetimeOriginal] = "Date/Time Original";
+            TagNameMap[TagDatetimeDigitized] = "Date/Time Digitized";
+            TagNameMap[TagRating] = "Rating";
+            TagNameMap[TagLabel] = "Label";
             // this requires further research
             // _tagNameMap.put(TAG_TITLE, "Title");
-            TagNameMap.Put(TagSubject, "Subject");
+            TagNameMap[TagSubject] = "Subject";
             // _tagNameMap.put(TAG_DATE, "Date");
             // _tagNameMap.put(TAG_TYPE, "Type");
             // _tagNameMap.put(TAG_DESCRIPTION, "Description");
@@ -152,25 +152,25 @@ namespace Com.Drew.Metadata.Xmp
             // _tagNameMap.put(TAG_ACCRUAL_METHOD, "Accrual Method");
             // _tagNameMap.put(TAG_ACCRUAL_PERIODICITY, "Accrual Periodicity");
             // _tagNameMap.put(TAG_ACCRUAL_POLICY, "Accrual Policy");
-            TagPropNameMap.Put(TagMake, "tiff:Make");
-            TagPropNameMap.Put(TagModel, "tiff:Model");
-            TagPropNameMap.Put(TagExposureTime, "exif:ExposureTime");
-            TagPropNameMap.Put(TagShutterSpeed, "exif:ShutterSpeedValue");
-            TagPropNameMap.Put(TagFNumber, "exif:FNumber");
-            TagPropNameMap.Put(TagLensInfo, "aux:LensInfo");
-            TagPropNameMap.Put(TagLens, "aux:Lens");
-            TagPropNameMap.Put(TagCameraSerialNumber, "aux:SerialNumber");
-            TagPropNameMap.Put(TagFirmware, "aux:Firmware");
-            TagPropNameMap.Put(TagFocalLength, "exif:FocalLength");
-            TagPropNameMap.Put(TagApertureValue, "exif:ApertureValue");
-            TagPropNameMap.Put(TagExposureProgram, "exif:ExposureProgram");
-            TagPropNameMap.Put(TagDatetimeOriginal, "exif:DateTimeOriginal");
-            TagPropNameMap.Put(TagDatetimeDigitized, "exif:DateTimeDigitized");
-            TagPropNameMap.Put(TagRating, "xmp:Rating");
-            TagPropNameMap.Put(TagLabel, "xmp:Label");
+            TagPropNameMap[TagMake] = "tiff:Make";
+            TagPropNameMap[TagModel] = "tiff:Model";
+            TagPropNameMap[TagExposureTime] = "exif:ExposureTime";
+            TagPropNameMap[TagShutterSpeed] = "exif:ShutterSpeedValue";
+            TagPropNameMap[TagFNumber] = "exif:FNumber";
+            TagPropNameMap[TagLensInfo] = "aux:LensInfo";
+            TagPropNameMap[TagLens] = "aux:Lens";
+            TagPropNameMap[TagCameraSerialNumber] = "aux:SerialNumber";
+            TagPropNameMap[TagFirmware] = "aux:Firmware";
+            TagPropNameMap[TagFocalLength] = "exif:FocalLength";
+            TagPropNameMap[TagApertureValue] = "exif:ApertureValue";
+            TagPropNameMap[TagExposureProgram] = "exif:ExposureProgram";
+            TagPropNameMap[TagDatetimeOriginal] = "exif:DateTimeOriginal";
+            TagPropNameMap[TagDatetimeDigitized] = "exif:DateTimeDigitized";
+            TagPropNameMap[TagRating] = "xmp:Rating";
+            TagPropNameMap[TagLabel] = "xmp:Label";
             // this requires further research
             // _tagPropNameMap.put(TAG_TITLE, "dc:title");
-            TagPropNameMap.Put(TagSubject, "dc:subject");
+            TagPropNameMap[TagSubject] = "dc:subject";
             // _tagPropNameMap.put(TAG_DATE, "dc:date");
             // _tagPropNameMap.put(TAG_TYPE, "dc:type");
             // _tagPropNameMap.put(TAG_DESCRIPTION, "dc:description");
@@ -190,25 +190,25 @@ namespace Com.Drew.Metadata.Xmp
             // _tagPropNameMap.put(TAG_ACCRUAL_METHOD, "dc:accrualMethod");
             // _tagPropNameMap.put(TAG_ACCRUAL_PERIODICITY, "dc:accrualPeriodicity");
             // _tagPropNameMap.put(TAG_ACCRUAL_POLICY, "dc:accrualPolicy");
-            TagSchemaMap.Put(TagMake, Schema.ExifTiffProperties);
-            TagSchemaMap.Put(TagModel, Schema.ExifTiffProperties);
-            TagSchemaMap.Put(TagExposureTime, Schema.ExifSpecificProperties);
-            TagSchemaMap.Put(TagShutterSpeed, Schema.ExifSpecificProperties);
-            TagSchemaMap.Put(TagFNumber, Schema.ExifSpecificProperties);
-            TagSchemaMap.Put(TagLensInfo, Schema.ExifAdditionalProperties);
-            TagSchemaMap.Put(TagLens, Schema.ExifAdditionalProperties);
-            TagSchemaMap.Put(TagCameraSerialNumber, Schema.ExifAdditionalProperties);
-            TagSchemaMap.Put(TagFirmware, Schema.ExifAdditionalProperties);
-            TagSchemaMap.Put(TagFocalLength, Schema.ExifSpecificProperties);
-            TagSchemaMap.Put(TagApertureValue, Schema.ExifSpecificProperties);
-            TagSchemaMap.Put(TagExposureProgram, Schema.ExifSpecificProperties);
-            TagSchemaMap.Put(TagDatetimeOriginal, Schema.ExifSpecificProperties);
-            TagSchemaMap.Put(TagDatetimeDigitized, Schema.ExifSpecificProperties);
-            TagSchemaMap.Put(TagRating, Schema.XmpProperties);
-            TagSchemaMap.Put(TagLabel, Schema.XmpProperties);
+            TagSchemaMap[TagMake] = Schema.ExifTiffProperties;
+            TagSchemaMap[TagModel] = Schema.ExifTiffProperties;
+            TagSchemaMap[TagExposureTime] = Schema.ExifSpecificProperties;
+            TagSchemaMap[TagShutterSpeed] = Schema.ExifSpecificProperties;
+            TagSchemaMap[TagFNumber] = Schema.ExifSpecificProperties;
+            TagSchemaMap[TagLensInfo] = Schema.ExifAdditionalProperties;
+            TagSchemaMap[TagLens] = Schema.ExifAdditionalProperties;
+            TagSchemaMap[TagCameraSerialNumber] = Schema.ExifAdditionalProperties;
+            TagSchemaMap[TagFirmware] = Schema.ExifAdditionalProperties;
+            TagSchemaMap[TagFocalLength] = Schema.ExifSpecificProperties;
+            TagSchemaMap[TagApertureValue] = Schema.ExifSpecificProperties;
+            TagSchemaMap[TagExposureProgram] = Schema.ExifSpecificProperties;
+            TagSchemaMap[TagDatetimeOriginal] = Schema.ExifSpecificProperties;
+            TagSchemaMap[TagDatetimeDigitized] = Schema.ExifSpecificProperties;
+            TagSchemaMap[TagRating] = Schema.XmpProperties;
+            TagSchemaMap[TagLabel] = Schema.XmpProperties;
             // this requires further research
             // _tagNameMap.put(TAG_TITLE, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            TagSchemaMap.Put(TagSubject, Schema.DublinCoreSpecificProperties);
+            TagSchemaMap[TagSubject] = Schema.DublinCoreSpecificProperties;
         }
 
         [CanBeNull]
@@ -250,7 +250,7 @@ namespace Com.Drew.Metadata.Xmp
 
         internal void AddProperty([NotNull] string path, [NotNull] string value)
         {
-            _propertyValueByPath.Put(path, value);
+            _propertyValueByPath[path] = value;
         }
 
         /// <summary>Gets a map of all XMP properties in this directory, not just the known ones.</summary>

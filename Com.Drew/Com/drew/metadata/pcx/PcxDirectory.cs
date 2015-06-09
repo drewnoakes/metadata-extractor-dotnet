@@ -62,20 +62,20 @@ namespace Com.Drew.Metadata.Pcx
 
         static PcxDirectory()
         {
-            TagNameMap.Put(TagVersion, "Version");
-            TagNameMap.Put(TagBitsPerPixel, "Bits Per Pixel");
-            TagNameMap.Put(TagXmin, "X Min");
-            TagNameMap.Put(TagYmin, "Y Min");
-            TagNameMap.Put(TagXmax, "X Max");
-            TagNameMap.Put(TagYmax, "Y Max");
-            TagNameMap.Put(TagHorizontalDpi, "Horitzontal DPI");
-            TagNameMap.Put(TagVerticalDpi, "Vertical DPI");
-            TagNameMap.Put(TagPalette, "Palette");
-            TagNameMap.Put(TagColorPlanes, "Color Planes");
-            TagNameMap.Put(TagBytesPerLine, "Bytes Per Line");
-            TagNameMap.Put(TagPaletteType, "Palette Type");
-            TagNameMap.Put(TagHscrSize, "H Hcr Size");
-            TagNameMap.Put(TagVscrSize, "V Scr Size");
+            TagNameMap[TagVersion] = "Version";
+            TagNameMap[TagBitsPerPixel] = "Bits Per Pixel";
+            TagNameMap[TagXmin] = "X Min";
+            TagNameMap[TagYmin] = "Y Min";
+            TagNameMap[TagXmax] = "X Max";
+            TagNameMap[TagYmax] = "Y Max";
+            TagNameMap[TagHorizontalDpi] = "Horitzontal DPI";
+            TagNameMap[TagVerticalDpi] = "Vertical DPI";
+            TagNameMap[TagPalette] = "Palette";
+            TagNameMap[TagColorPlanes] = "Color Planes";
+            TagNameMap[TagBytesPerLine] = "Bytes Per Line";
+            TagNameMap[TagPaletteType] = "Palette Type";
+            TagNameMap[TagHscrSize] = "H Hcr Size";
+            TagNameMap[TagVscrSize] = "V Scr Size";
         }
 
         public PcxDirectory()

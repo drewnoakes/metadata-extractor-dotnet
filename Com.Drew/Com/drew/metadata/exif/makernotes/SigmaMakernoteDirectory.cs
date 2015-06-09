@@ -81,29 +81,29 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         static SigmaMakernoteDirectory()
         {
-            TagNameMap.Put(TagSerialNumber, "Serial Number");
-            TagNameMap.Put(TagDriveMode, "Drive Mode");
-            TagNameMap.Put(TagResolutionMode, "Resolution Mode");
-            TagNameMap.Put(TagAutoFocusMode, "Auto Focus Mode");
-            TagNameMap.Put(TagFocusSetting, "Focus Setting");
-            TagNameMap.Put(TagWhiteBalance, "White Balance");
-            TagNameMap.Put(TagExposureMode, "Exposure Mode");
-            TagNameMap.Put(TagMeteringMode, "Metering Mode");
-            TagNameMap.Put(TagLensRange, "Lens Range");
-            TagNameMap.Put(TagColorSpace, "Color Space");
-            TagNameMap.Put(TagExposure, "Exposure");
-            TagNameMap.Put(TagContrast, "Contrast");
-            TagNameMap.Put(TagShadow, "Shadow");
-            TagNameMap.Put(TagHighlight, "Highlight");
-            TagNameMap.Put(TagSaturation, "Saturation");
-            TagNameMap.Put(TagSharpness, "Sharpness");
-            TagNameMap.Put(TagFillLight, "Fill Light");
-            TagNameMap.Put(TagColorAdjustment, "Color Adjustment");
-            TagNameMap.Put(TagAdjustmentMode, "Adjustment Mode");
-            TagNameMap.Put(TagQuality, "Quality");
-            TagNameMap.Put(TagFirmware, "Firmware");
-            TagNameMap.Put(TagSoftware, "Software");
-            TagNameMap.Put(TagAutoBracket, "Auto Bracket");
+            TagNameMap[TagSerialNumber] = "Serial Number";
+            TagNameMap[TagDriveMode] = "Drive Mode";
+            TagNameMap[TagResolutionMode] = "Resolution Mode";
+            TagNameMap[TagAutoFocusMode] = "Auto Focus Mode";
+            TagNameMap[TagFocusSetting] = "Focus Setting";
+            TagNameMap[TagWhiteBalance] = "White Balance";
+            TagNameMap[TagExposureMode] = "Exposure Mode";
+            TagNameMap[TagMeteringMode] = "Metering Mode";
+            TagNameMap[TagLensRange] = "Lens Range";
+            TagNameMap[TagColorSpace] = "Color Space";
+            TagNameMap[TagExposure] = "Exposure";
+            TagNameMap[TagContrast] = "Contrast";
+            TagNameMap[TagShadow] = "Shadow";
+            TagNameMap[TagHighlight] = "Highlight";
+            TagNameMap[TagSaturation] = "Saturation";
+            TagNameMap[TagSharpness] = "Sharpness";
+            TagNameMap[TagFillLight] = "Fill Light";
+            TagNameMap[TagColorAdjustment] = "Color Adjustment";
+            TagNameMap[TagAdjustmentMode] = "Adjustment Mode";
+            TagNameMap[TagQuality] = "Quality";
+            TagNameMap[TagFirmware] = "Firmware";
+            TagNameMap[TagSoftware] = "Software";
+            TagNameMap[TagAutoBracket] = "Auto Bracket";
         }
 
         public SigmaMakernoteDirectory()

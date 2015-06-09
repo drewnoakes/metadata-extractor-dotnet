@@ -42,10 +42,10 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         static SonyType6MakernoteDirectory()
         {
             //    public static final int TAG_UNKNOWN_1 = 0x0515;
-            TagNameMap.Put(TagMakernoteThumbOffset, "Makernote Thumb Offset");
-            TagNameMap.Put(TagMakernoteThumbLength, "Makernote Thumb Length");
+            TagNameMap[TagMakernoteThumbOffset] = "Makernote Thumb Offset";
+            TagNameMap[TagMakernoteThumbLength] = "Makernote Thumb Length";
             //        _tagNameMap.put(TAG_UNKNOWN_1, "Sony-6-0x0203");
-            TagNameMap.Put(TagMakernoteThumbVersion, "Makernote Thumb Version");
+            TagNameMap[TagMakernoteThumbVersion] = "Makernote Thumb Version";
         }
 
         public SonyType6MakernoteDirectory()

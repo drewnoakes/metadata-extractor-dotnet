@@ -96,36 +96,11 @@ namespace Sharpen
             return s;
         }
 
-        public static bool ContainsKey(this IDictionary d, object key)
-        {
-            return d.Contains(key);
-        }
-
         public static TU Get<T, TU>(this IDictionary<T, TU> d, T key)
         {
             TU val;
             d.TryGetValue(key, out val);
             return val;
-        }
-
-        public static object Get(this IDictionary d, object key)
-        {
-            return d[key];
-        }
-
-        public static TU Put<T, TU>(this IDictionary<T, TU> d, T key, TU value)
-        {
-            TU old;
-            d.TryGetValue(key, out old);
-            d[key] = value;
-            return old;
-        }
-
-        public static object Put(this IDictionary d, object key, object value)
-        {
-            object old = d[key];
-            d[key] = value;
-            return old;
         }
 
         public static CultureInfo GetEnglishCulture()

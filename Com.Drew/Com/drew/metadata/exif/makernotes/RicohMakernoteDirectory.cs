@@ -43,10 +43,10 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         static RicohMakernoteDirectory()
         {
-            TagNameMap.Put(TagMakernoteDataType, "Makernote Data Type");
-            TagNameMap.Put(TagVersion, "Version");
-            TagNameMap.Put(TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info");
-            TagNameMap.Put(TagRicohCameraInfoMakernoteSubIfdPointer, "Ricoh Camera Info Makernote Sub-IFD");
+            TagNameMap[TagMakernoteDataType] = "Makernote Data Type";
+            TagNameMap[TagVersion] = "Version";
+            TagNameMap[TagPrintImageMatchingInfo] = "Print Image Matching (PIM) Info";
+            TagNameMap[TagRicohCameraInfoMakernoteSubIfdPointer] = "Ricoh Camera Info Makernote Sub-IFD";
         }
 
         public RicohMakernoteDirectory()

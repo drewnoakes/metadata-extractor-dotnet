@@ -73,8 +73,8 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     throw new XmpException("The prefix is a bad XML name", XmpErrorCode.BadXml);
                 }
-                string registeredPrefix = (string)_namespaceToPrefixMap.Get(namespaceUri);
-                string registeredNs = (string)_prefixToNamespaceMap.Get(suggestedPrefix);
+                string registeredPrefix = (string)_namespaceToPrefixMap[namespaceUri];
+                string registeredNs = (string)_prefixToNamespaceMap[suggestedPrefix];
                 if (registeredPrefix != null)
                 {
                     // Return the actual prefix
@@ -85,14 +85,14 @@ namespace Com.Adobe.Xmp.Impl
                     // the namespace is new, but the prefix is already engaged,
                     // we generate a new prefix out of the suggested
                     string generatedPrefix = suggestedPrefix;
-                    for (int i = 1; _prefixToNamespaceMap.ContainsKey(generatedPrefix); i++)
+                    for (int i = 1; _prefixToNamespaceMap.Contains(generatedPrefix); i++)
                     {
                         generatedPrefix = Runtime.Substring(suggestedPrefix, 0, suggestedPrefix.Length - 1) + "_" + i + "_:";
                     }
                     suggestedPrefix = generatedPrefix;
                 }
-                _prefixToNamespaceMap.Put(suggestedPrefix, namespaceUri);
-                _namespaceToPrefixMap.Put(namespaceUri, suggestedPrefix);
+                _prefixToNamespaceMap[suggestedPrefix] = namespaceUri;
+                _namespaceToPrefixMap[namespaceUri] = suggestedPrefix;
                 // Return the suggested prefix
                 return suggestedPrefix;
             }
@@ -115,7 +115,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             lock (this)
             {
-                return (string)_namespaceToPrefixMap.Get(namespaceUri);
+                return (string)_namespaceToPrefixMap[namespaceUri];
             }
         }
 
@@ -127,7 +127,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     namespacePrefix += ":";
                 }
-                return (string)_prefixToNamespaceMap.Get(namespacePrefix);
+                return (string)_prefixToNamespaceMap[namespacePrefix];
             }
         }
 
@@ -232,7 +232,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     return null;
                 }
-                return (IXmpAliasInfo)_aliasMap.Get(aliasPrefix + aliasProp);
+                return (IXmpAliasInfo)_aliasMap[aliasPrefix + aliasProp];
             }
         }
 
@@ -240,7 +240,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             lock (this)
             {
-                return (IXmpAliasInfo)_aliasMap.Get(qname);
+                return (IXmpAliasInfo)_aliasMap[qname];
             }
         }
 
@@ -334,16 +334,16 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 string key = aliasPrefix + aliasProp;
                 // check if alias is already existing
-                if (_aliasMap.ContainsKey(key))
+                if (_aliasMap.Contains(key))
                 {
                     throw new XmpException("Alias is already existing", XmpErrorCode.BadParam);
                 }
-                if (_aliasMap.ContainsKey(actualPrefix + actualProp))
+                if (_aliasMap.Contains(actualPrefix + actualProp))
                 {
                     throw new XmpException("Actual property is already an alias, use the base property", XmpErrorCode.BadParam);
                 }
                 IXmpAliasInfo aliasInfo = new XmpAliasInfo390(actualNs, actualPrefix, actualProp, aliasOpts);
-                _aliasMap.Put(key, aliasInfo);
+                _aliasMap[key] = aliasInfo;
             }
         }
 
