@@ -74,7 +74,7 @@ namespace Com.Drew.Imaging.Jpeg
             try
             {
                 stream = new FileInputStream(file);
-                return ReadSegments(new StreamReader(stream), segmentTypes);
+                return ReadSegments(new SequentialStreamReader(stream), segmentTypes);
             }
             finally
             {

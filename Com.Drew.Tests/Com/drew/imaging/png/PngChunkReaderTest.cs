@@ -17,7 +17,7 @@ namespace Com.Drew.Imaging.Png
             try
             {
                 inputStream = new FileInputStream(filePath);
-                return new PngChunkReader().Extract(new StreamReader(inputStream), null).ToList();
+                return new PngChunkReader().Extract(new SequentialStreamReader(inputStream), null).ToList();
             }
             finally
             {

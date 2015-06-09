@@ -54,7 +54,7 @@ namespace Com.Drew.Imaging.Gif
         public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
         {
             Metadata.Metadata metadata = new Metadata.Metadata();
-            new GifReader().Extract(new StreamReader(inputStream), metadata);
+            new GifReader().Extract(new SequentialStreamReader(inputStream), metadata);
             return metadata;
         }
     }

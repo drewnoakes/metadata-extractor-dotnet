@@ -54,7 +54,7 @@ namespace Com.Drew.Imaging.Bmp
         public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
         {
             Metadata.Metadata metadata = new Metadata.Metadata();
-            new BmpReader().Extract(new StreamReader(inputStream), metadata);
+            new BmpReader().Extract(new SequentialStreamReader(inputStream), metadata);
             return metadata;
         }
     }

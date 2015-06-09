@@ -8,7 +8,6 @@ using Com.Drew.Metadata.Png;
 using Com.Drew.Metadata.Xmp;
 using JetBrains.Annotations;
 using Sharpen;
-using StreamReader = Com.Drew.Lang.StreamReader;
 
 namespace Com.Drew.Imaging.Png
 {
@@ -60,7 +59,7 @@ namespace Com.Drew.Imaging.Png
         [NotNull]
         public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
         {
-            IEnumerable<PngChunk> chunks = new PngChunkReader().Extract(new StreamReader(inputStream), DesiredChunkTypes);
+            IEnumerable<PngChunk> chunks = new PngChunkReader().Extract(new SequentialStreamReader(inputStream), DesiredChunkTypes);
             Metadata.Metadata metadata = new Metadata.Metadata();
             foreach (PngChunk chunk in chunks)
             {

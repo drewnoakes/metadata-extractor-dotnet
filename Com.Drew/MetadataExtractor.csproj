@@ -85,7 +85,7 @@
     <Compile Include="Com\drew\lang\Rational.cs" />
     <Compile Include="Com\drew\lang\SequentialByteArrayReader.cs" />
     <Compile Include="Com\drew\lang\SequentialReader.cs" />
-    <Compile Include="Com\drew\lang\StreamReader.cs" />
+    <Compile Include="Com\drew\lang\SequentialStreamReader.cs" />
     <Compile Include="Com\drew\lang\StringUtil.cs" />
     <Compile Include="Com\drew\metadata\adobe\AdobeJpegDescriptor.cs" />
     <Compile Include="Com\drew\metadata\adobe\AdobeJpegDirectory.cs" />

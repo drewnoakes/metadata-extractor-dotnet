@@ -10,12 +10,12 @@ namespace Com.Drew.Lang
         [Test, ExpectedException(typeof(ArgumentNullException))]
         public void TestConstructWithNullStreamThrows()
         {
-            new StreamReader(null);
+            new SequentialStreamReader(null);
         }
 
         protected override SequentialReader CreateReader(byte[] bytes)
         {
-            return new StreamReader(new MemoryStream(bytes));
+            return new SequentialStreamReader(new MemoryStream(bytes));
         }
     }
 }

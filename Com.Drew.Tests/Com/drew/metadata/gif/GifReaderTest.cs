@@ -36,7 +36,7 @@ namespace Com.Drew.Metadata.Gif
         {
             Metadata metadata = new Metadata();
             InputStream stream = new FileInputStream(file);
-            new GifReader().Extract(new StreamReader(stream), metadata);
+            new GifReader().Extract(new SequentialStreamReader(stream), metadata);
             stream.Close();
             GifHeaderDirectory directory = metadata.GetFirstDirectoryOfType<GifHeaderDirectory>();
             Assert.IsNotNull(directory);

@@ -58,7 +58,7 @@ namespace Com.Drew.Imaging.Webp
         public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
         {
             Metadata.Metadata metadata = new Metadata.Metadata();
-            new RiffReader().ProcessRiff(new StreamReader(inputStream), new WebpRiffHandler(metadata));
+            new RiffReader().ProcessRiff(new SequentialStreamReader(inputStream), new WebpRiffHandler(metadata));
             return metadata;
         }
     }

@@ -36,7 +36,7 @@ namespace Com.Drew.Metadata.Bmp
         {
             Metadata metadata = new Metadata();
             InputStream stream = new FileInputStream(file);
-            new BmpReader().Extract(new StreamReader(stream), metadata);
+            new BmpReader().Extract(new SequentialStreamReader(stream), metadata);
             stream.Close();
             BmpHeaderDirectory directory = metadata.GetFirstDirectoryOfType<BmpHeaderDirectory>();
             Assert.IsNotNull(directory);

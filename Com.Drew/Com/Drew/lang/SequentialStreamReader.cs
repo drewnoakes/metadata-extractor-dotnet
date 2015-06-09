@@ -28,12 +28,12 @@ using Sharpen;
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class StreamReader : SequentialReader
+    public class SequentialStreamReader : SequentialReader
     {
         [NotNull]
         private readonly InputStream _stream;
 
-        public StreamReader([NotNull] InputStream stream)
+        public SequentialStreamReader([NotNull] InputStream stream)
         {
             if (stream == null)
             {

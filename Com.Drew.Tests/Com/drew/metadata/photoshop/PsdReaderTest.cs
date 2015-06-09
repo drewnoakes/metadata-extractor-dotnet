@@ -39,7 +39,7 @@ namespace Com.Drew.Metadata.Photoshop
             InputStream stream = new FileInputStream(new FilePath(file));
             try
             {
-                new PsdReader().Extract(new StreamReader(stream), metadata);
+                new PsdReader().Extract(new SequentialStreamReader(stream), metadata);
             }
             catch (Exception e)
             {

@@ -40,7 +40,7 @@ namespace Com.Drew.Imaging.Psd
             InputStream stream = new FileInputStream(file);
             try
             {
-                new PsdReader().Extract(new StreamReader(stream), metadata);
+                new PsdReader().Extract(new SequentialStreamReader(stream), metadata);
             }
             finally
             {
@@ -54,7 +54,7 @@ namespace Com.Drew.Imaging.Psd
         public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
         {
             Metadata.Metadata metadata = new Metadata.Metadata();
-            new PsdReader().Extract(new StreamReader(inputStream), metadata);
+            new PsdReader().Extract(new SequentialStreamReader(inputStream), metadata);
             return metadata;
         }
     }

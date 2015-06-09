@@ -98,7 +98,7 @@ namespace Com.Drew.Imaging.Jpeg
                     segmentTypes.Add(type);
                 }
             }
-            JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new StreamReader(inputStream), segmentTypes);
+            JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new SequentialStreamReader(inputStream), segmentTypes);
             ProcessJpegSegmentData(metadata, readers, segmentData);
         }
 

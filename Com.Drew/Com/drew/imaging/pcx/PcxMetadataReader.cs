@@ -54,7 +54,7 @@ namespace Com.Drew.Imaging.Pcx
         public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
         {
             Metadata.Metadata metadata = new Metadata.Metadata();
-            new PcxReader().Extract(new StreamReader(inputStream), metadata);
+            new PcxReader().Extract(new SequentialStreamReader(inputStream), metadata);
             return metadata;
         }
     }
