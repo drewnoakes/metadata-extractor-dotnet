@@ -818,25 +818,11 @@ namespace Com.Drew.Metadata
         /// Returns the specified tag's value as a java.util.Date.  If the value is unset or cannot be converted, <c>null</c> is returned.
         /// <para>
         /// If the underlying value is a <see cref="string"/>, then attempts will be made to parse the string as though it is in
-        /// the current <see cref="System.TimeZoneInfo"/>.  If the <see cref="System.TimeZoneInfo"/>
-        /// is known, call the overload that accepts one as an argument.
-        /// </remarks>
-        [CanBeNull]
-        public DateTime? GetDate(int tagType)
-        {
-            return GetDate(tagType, null);
-        }
-
-        /// <summary>Returns the specified tag's value as a java.util.Date.</summary>
-        /// <remarks>
-        /// Returns the specified tag's value as a java.util.Date.  If the value is unset or cannot be converted, <c>null</c> is returned.
-        /// <para>
-        /// If the underlying value is a <see cref="string"/>, then attempts will be made to parse the string as though it is in
         /// the <see cref="System.TimeZoneInfo"/> represented by the <paramref name="timeZone"/> parameter (if it is non-null).  Note that this parameter
         /// is only considered if the underlying value is a string and parsing occurs, otherwise it has no effect.
         /// </remarks>
         [CanBeNull]
-        public DateTime? GetDate(int tagType, [CanBeNull] TimeZoneInfo timeZone)
+        public DateTime? GetDate(int tagType, [CanBeNull] TimeZoneInfo timeZone = null)
         {
             object o = GetObject(tagType);
             if (o == null)

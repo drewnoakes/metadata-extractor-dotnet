@@ -76,18 +76,9 @@ namespace Com.Drew.Imaging.Jpeg
         /// <param name="segmentType">the JpegSegmentType for the desired segment</param>
         /// <returns>a byte[] containing segment data or null if no data exists for that segment</returns>
         [CanBeNull]
-        public byte[] GetSegment(byte segmentType)
-        {
-            return GetSegment(segmentType, 0);
-        }
-
-        /// <summary>Gets the first JPEG segment data for the specified type.</summary>
-        /// <param name="segmentType">the JpegSegmentType for the desired segment</param>
-        /// <returns>a byte[] containing segment data or null if no data exists for that segment</returns>
-        [CanBeNull]
         public byte[] GetSegment([NotNull] JpegSegmentType segmentType)
         {
-            return GetSegment(segmentType.ByteValue, 0);
+            return GetSegment(segmentType.ByteValue);
         }
 
         /// <summary>Gets segment data for a specific occurrence and type.</summary>
@@ -113,7 +104,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <param name="occurrence">the zero-based index of the occurrence</param>
         /// <returns>the segment data as a byte[], or null if no segment exists for the type &amp; occurrence</returns>
         [CanBeNull]
-        public byte[] GetSegment(byte segmentType, int occurrence)
+        public byte[] GetSegment(byte segmentType, int occurrence = 0)
         {
             IList<byte[]> segmentList = GetSegmentList(segmentType);
             return segmentList != null && segmentList.Count > occurrence ? segmentList[occurrence] : null;

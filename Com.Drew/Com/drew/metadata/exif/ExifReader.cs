@@ -75,17 +75,9 @@ namespace Com.Drew.Metadata.Exif
         }
 
         /// <summary>
-        /// Reads TIFF formatted Exif data from start of the specified <see cref="Com.Drew.Lang.RandomAccessReader"/>.
-        /// </summary>
-        public void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata)
-        {
-            Extract(reader, metadata, 0);
-        }
-
-        /// <summary>
         /// Reads TIFF formatted Exif data a specified offset within a <see cref="Com.Drew.Lang.RandomAccessReader"/>.
         /// </summary>
-        public void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata, int readerOffset)
+        public void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata, int readerOffset = 0)
         {
             try
             {
