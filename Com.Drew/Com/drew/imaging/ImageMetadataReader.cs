@@ -42,76 +42,39 @@ using Sharpen;
 namespace Com.Drew.Imaging
 {
     /// <summary>
-    /// Obtains
-    /// <see cref="Com.Drew.Metadata.Metadata"/>
-    /// from all supported file formats.
-    /// <para>
-    /// This class a lightweight wrapper around specific file type processors:
+    /// Obtains <see cref="Com.Drew.Metadata.Metadata"/> from all supported file formats.
+    /// </summary>
+    /// <remarks>
+    /// This class a lightweight wrapper around other, specific metadata processors.
+    /// During extraction, the file type is determined from the first few bytes of the file.
+    /// Parsing is then delegated to one of:
+    ///
     /// <list type="bullet">
-    /// <item>
-    /// <see cref="Com.Drew.Imaging.Jpeg.JpegMetadataReader"/>
-    /// for JPEG files</item>
-    /// <item>
-    /// <see cref="Com.Drew.Imaging.Tiff.TiffMetadataReader"/>
-    /// for TIFF and (most) RAW files</item>
-    /// <item>
-    /// <see cref="Com.Drew.Imaging.Psd.PsdMetadataReader"/>
-    /// for Photoshop files</item>
-    /// <item>
-    /// <see cref="Com.Drew.Imaging.Png.PngMetadataReader"/>
-    /// for BMP files</item>
-    /// <item>
-    /// <see cref="Com.Drew.Imaging.Bmp.BmpMetadataReader"/>
-    /// for BMP files</item>
-    /// <item>
-    /// <see cref="Com.Drew.Imaging.Gif.GifMetadataReader"/>
-    /// for GIF files</item>
+    ///   <item><see cref="JpegMetadataReader"/> for JPEG files</item>
+    ///   <item><see cref="TiffMetadataReader"/> for TIFF and (most) RAW files</item>
+    ///   <item><see cref="PsdMetadataReader"/> for Photoshop files</item>
+    ///   <item><see cref="PngMetadataReader"/> for BMP files</item>
+    ///   <item><see cref="BmpMetadataReader"/> for BMP files</item>
+    ///   <item><see cref="GifMetadataReader"/> for GIF files</item>
+    ///   <item><see cref="IcoMetadataReader"/> for GIF files</item>
+    ///   <item><see cref="PcxMetadataReader"/> for GIF files</item>
+    ///   <item><see cref="WebpMetadataReader"/> for GIF files</item>
     /// </list>
+    ///
     /// If you know the file type you're working with, you may use one of the above processors directly.
     /// For most scenarios it is simpler, more convenient and more robust to use this class.
-    /// <para>
-    /// <see cref="FileTypeDetector"/>
-    /// is used to determine the provided image's file type, and therefore
+    /// <para />
+    /// <see cref="FileTypeDetector"/> is used to determine the provided image's file type, and therefore
     /// the appropriate metadata reader to use.
-    /// </summary>
+    /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class ImageMetadataReader
     {
         /// <summary>
         /// Reads metadata from an <see cref="InputStream"/>.
-        /// <para>
-        /// The file type is determined by inspecting the leading bytes of the stream, and parsing of the file
-        /// is delegated to one of:
-        /// <list type="bullet">
-        /// <item>
-        /// <see cref="Com.Drew.Imaging.Jpeg.JpegMetadataReader"/>
-        /// for JPEG files</item>
-        /// <item>
-        /// <see cref="Com.Drew.Imaging.Tiff.TiffMetadataReader"/>
-        /// for TIFF and (most) RAW files</item>
-        /// <item>
-        /// <see cref="Com.Drew.Imaging.Psd.PsdMetadataReader"/>
-        /// for Photoshop files</item>
-        /// <item>
-        /// <see cref="Com.Drew.Imaging.Png.PngMetadataReader"/>
-        /// for PNG files</item>
-        /// <item>
-        /// <see cref="Com.Drew.Imaging.Bmp.BmpMetadataReader"/>
-        /// for BMP files</item>
-        /// <item>
-        /// <see cref="Com.Drew.Imaging.Gif.GifMetadataReader"/>
-        /// for GIF files</item>
-        /// </list>
         /// </summary>
-        /// <param name="inputStream">
-        /// a stream from which the file data may be read.  The stream must be positioned at the
-        /// beginning of the file's data.
-        /// </param>
-        /// <returns>
-        /// a populated
-        /// <see cref="Com.Drew.Metadata.Metadata"/>
-        /// object containing directories of tags with values and any processing errors.
-        /// </returns>
+        /// <param name="inputStream">a stream from which the file data may be read.  The stream must be positioned at the beginning of the file's data.</param>
+        /// <returns>a populated <see cref="Com.Drew.Metadata.Metadata"/> object containing directories of tags with values and any processing errors.</returns>
         /// <exception cref="ImageProcessingException">if the file type is unknown, or for general processing errors.</exception>
         /// <exception cref="Com.Drew.Imaging.ImageProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
@@ -161,41 +124,10 @@ namespace Com.Drew.Imaging
         }
 
         /// <summary>
-        /// Reads
-        /// <see cref="Com.Drew.Metadata.Metadata"/>
-        /// from a
-        /// <see cref="Sharpen.FilePath"/>
-        /// object.
-        /// <para>
-        /// The file type is determined by inspecting the leading bytes of the stream, and parsing of the file
-        /// is delegated to one of:
-        /// <list type="bullet">
-        /// <item>
-        /// <see cref="Com.Drew.Imaging.Jpeg.JpegMetadataReader"/>
-        /// for JPEG files</item>
-        /// <item>
-        /// <see cref="Com.Drew.Imaging.Tiff.TiffMetadataReader"/>
-        /// for TIFF and (most) RAW files</item>
-        /// <item>
-        /// <see cref="Com.Drew.Imaging.Psd.PsdMetadataReader"/>
-        /// for Photoshop files</item>
-        /// <item>
-        /// <see cref="Com.Drew.Imaging.Png.PngMetadataReader"/>
-        /// for PNG files</item>
-        /// <item>
-        /// <see cref="Com.Drew.Imaging.Bmp.BmpMetadataReader"/>
-        /// for BMP files</item>
-        /// <item>
-        /// <see cref="Com.Drew.Imaging.Gif.GifMetadataReader"/>
-        /// for GIF files</item>
-        /// </list>
+        /// Reads <see cref="Com.Drew.Metadata.Metadata"/> from a <see cref="Sharpen.FilePath"/> object.
         /// </summary>
         /// <param name="file">a file from which the image data may be read.</param>
-        /// <returns>
-        /// a populated
-        /// <see cref="Com.Drew.Metadata.Metadata"/>
-        /// object containing directories of tags with values and any processing errors.
-        /// </returns>
+        /// <returns>a populated <see cref="Com.Drew.Metadata.Metadata"/> object containing directories of tags with values and any processing errors.</returns>
         /// <exception cref="ImageProcessingException">for general processing errors.</exception>
         /// <exception cref="Com.Drew.Imaging.ImageProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
@@ -226,12 +158,12 @@ namespace Com.Drew.Imaging
         /// <remarks>
         /// An application entry point.  Takes the name of one or more files as arguments and prints the contents of all
         /// metadata directories to <c>System.out</c>.
-        /// <para>
+        /// <para />
         /// If <c>-thumb</c> is passed, then any thumbnail data will be written to a file with name of the
         /// input file having <c>.thumb.jpg</c> appended.
-        /// <para>
+        /// <para />
         /// If <c>-markdown</c> is passed, then output will be in markdown format.
-        /// <para>
+        /// <para />
         /// If <c>-hex</c> is passed, then the ID of each tag will be displayed in hexadecimal.
         /// </remarks>
         /// <param name="args">the command line arguments</param>
