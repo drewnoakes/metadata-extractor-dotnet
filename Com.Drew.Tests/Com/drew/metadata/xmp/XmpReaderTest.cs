@@ -218,9 +218,9 @@ namespace Com.Drew.Metadata.Xmp
             IDictionary<string, string> propertyMap = _directory.GetXmpProperties();
             Assert.AreEqual(179, propertyMap.Count);
             Assert.IsTrue(propertyMap.ContainsKey("photoshop:Country"));
-            Assert.AreEqual("Deutschland", propertyMap.Get("photoshop:Country"));
+            Assert.AreEqual("Deutschland", propertyMap["photoshop:Country"]);
             Assert.IsTrue(propertyMap.ContainsKey("tiff:ImageLength"));
-            Assert.AreEqual("900", propertyMap.Get("tiff:ImageLength"));
+            Assert.AreEqual("900", propertyMap["tiff:ImageLength"]);
         }
     }
 }

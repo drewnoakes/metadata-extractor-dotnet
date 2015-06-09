@@ -133,18 +133,15 @@ namespace Com.Drew.Imaging.Jpeg
         [CanBeNull]
         private IList<byte[]> GetSegmentList(byte segmentType)
         {
-            return _segmentDataMap.Get(segmentType);
+            IList<byte[]> list;
+            return _segmentDataMap.TryGetValue(segmentType, out list) ? list : null;
         }
 
         [NotNull]
         private IList<byte[]> GetOrCreateSegmentList(byte segmentType)
         {
             IList<byte[]> segmentList;
-            if (_segmentDataMap.ContainsKey(segmentType))
-            {
-                segmentList = _segmentDataMap.Get(segmentType);
-            }
-            else
+            if (!_segmentDataMap.TryGetValue(segmentType, out segmentList))
             {
                 segmentList = new AList<byte[]>();
                 _segmentDataMap[segmentType] = segmentList;
@@ -190,8 +187,9 @@ namespace Com.Drew.Imaging.Jpeg
         /// <param name="occurrence">the zero-based index of the segment occurrence to remove.</param>
         public void RemoveSegmentOccurrence(byte segmentType, int occurrence)
         {
-            IList<byte[]> segmentList = _segmentDataMap.Get(segmentType);
-            segmentList.Remove(occurrence);
+            IList<byte[]> segmentList;
+            if (_segmentDataMap.TryGetValue(segmentType, out segmentList))
+                segmentList.Remove(occurrence);
         }
 
         /// <summary>Removes all segments from the collection having the specified type.</summary>

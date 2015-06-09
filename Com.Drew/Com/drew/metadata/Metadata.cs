@@ -60,7 +60,7 @@ namespace Com.Drew.Metadata
             where T : Directory
         {
             Type type = typeof(T);
-            return (from item in _directoryListByClass.Get(type) select (T) item).ToList();
+            return _directoryListByClass.GetOrNull(type).Select(item => (T)item).ToList();
         }
 
         /// <summary>Returns the count of directories in this metadata collection.</summary>
@@ -144,7 +144,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         private ICollection<Directory> GetDirectoryList(Type type)
         {
-            return _directoryListByClass.Get(type);
+            return _directoryListByClass.GetOrNull(type);
         }
 
         [NotNull]

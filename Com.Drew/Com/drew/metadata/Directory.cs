@@ -1031,7 +1031,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public object GetObject(int tagType)
         {
-            return TagMap.Get(Extensions.ValueOf(tagType));
+            return TagMap.GetOrNull(Extensions.ValueOf(tagType));
         }
 
         // OTHER METHODS
@@ -1042,16 +1042,13 @@ namespace Com.Drew.Metadata
         public string GetTagName(int tagType)
         {
             Dictionary<int?, string> nameMap = GetTagNameMap();
-            if (!nameMap.ContainsKey(tagType))
-            {
-                string hex = Extensions.ToHexString(tagType);
-                while (hex.Length < 4)
-                {
-                    hex = "0" + hex;
-                }
-                return "Unknown tag (0x" + hex + ")";
-            }
-            return nameMap.Get(tagType);
+            string value;
+            if (nameMap.TryGetValue(tagType, out value))
+                return value;
+            string hex = Extensions.ToHexString(tagType);
+            while (hex.Length < 4)
+                hex = "0" + hex;
+            return "Unknown tag (0x" + hex + ")";
         }
 
         /// <summary>Gets whether the specified tag is known by the directory and has a name.</summary>

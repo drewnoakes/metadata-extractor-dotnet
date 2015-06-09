@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using JetBrains.Annotations;
 
 namespace Sharpen
 {
@@ -96,11 +97,11 @@ namespace Sharpen
             return s;
         }
 
-        public static TU Get<T, TU>(this IDictionary<T, TU> d, T key)
+        [CanBeNull]
+        public static TU GetOrNull<T, TU>(this IDictionary<T, TU> d, T key) where TU : class
         {
             TU val;
-            d.TryGetValue(key, out val);
-            return val;
+            return d.TryGetValue(key, out val) ? val : null;
         }
 
         public static CultureInfo GetEnglishCulture()

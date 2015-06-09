@@ -312,7 +312,7 @@ namespace Com.Drew.Metadata.Xmp
             SetInt(tagType, value);
             try
             {
-                GetXmpMeta().SetPropertyInteger(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
+                GetXmpMeta().SetPropertyInteger(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
             }
             catch (XmpException e)
             {
@@ -325,8 +325,8 @@ namespace Com.Drew.Metadata.Xmp
             SetIntArray(tagType, ints);
             try
             {
-                string schemaNs = TagSchemaMap.Get(tagType);
-                string propName = TagPropNameMap.Get(tagType);
+                string schemaNs = TagSchemaMap.GetOrNull(tagType);
+                string propName = TagPropNameMap.GetOrNull(tagType);
                 GetXmpMeta().DeleteProperty(schemaNs, propName);
                 PropertyOptions po = new PropertyOptions();
                 po.IsArray = true;
@@ -346,7 +346,7 @@ namespace Com.Drew.Metadata.Xmp
             SetFloat(tagType, value);
             try
             {
-                GetXmpMeta().SetPropertyDouble(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
+                GetXmpMeta().SetPropertyDouble(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
             }
             catch (XmpException e)
             {
@@ -359,8 +359,8 @@ namespace Com.Drew.Metadata.Xmp
             SetFloatArray(tagType, floats);
             try
             {
-                string schemaNs = TagSchemaMap.Get(tagType);
-                string propName = TagPropNameMap.Get(tagType);
+                string schemaNs = TagSchemaMap.GetOrNull(tagType);
+                string propName = TagPropNameMap.GetOrNull(tagType);
                 GetXmpMeta().DeleteProperty(schemaNs, propName);
                 PropertyOptions po = new PropertyOptions();
                 po.IsArray = true;
@@ -380,7 +380,7 @@ namespace Com.Drew.Metadata.Xmp
             SetDouble(tagType, value);
             try
             {
-                GetXmpMeta().SetPropertyDouble(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
+                GetXmpMeta().SetPropertyDouble(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
             }
             catch (XmpException e)
             {
@@ -393,8 +393,8 @@ namespace Com.Drew.Metadata.Xmp
             SetDoubleArray(tagType, doubles);
             try
             {
-                string schemaNs = TagSchemaMap.Get(tagType);
-                string propName = TagPropNameMap.Get(tagType);
+                string schemaNs = TagSchemaMap.GetOrNull(tagType);
+                string propName = TagPropNameMap.GetOrNull(tagType);
                 GetXmpMeta().DeleteProperty(schemaNs, propName);
                 PropertyOptions po = new PropertyOptions();
                 po.IsArray = true;
@@ -414,7 +414,7 @@ namespace Com.Drew.Metadata.Xmp
             SetString(tagType, value);
             try
             {
-                GetXmpMeta().SetProperty(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
+                GetXmpMeta().SetProperty(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
             }
             catch (XmpException e)
             {
@@ -424,7 +424,7 @@ namespace Com.Drew.Metadata.Xmp
 
         public void DeleteProperty(int tagType)
         {
-            GetXmpMeta().DeleteProperty(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType));
+            GetXmpMeta().DeleteProperty(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType));
         }
 
         public void UpdateStringArray(int tagType, string[] strings)
@@ -432,8 +432,8 @@ namespace Com.Drew.Metadata.Xmp
             SetStringArray(tagType, strings);
             try
             {
-                string schemaNs = TagSchemaMap.Get(tagType);
-                string propName = TagPropNameMap.Get(tagType);
+                string schemaNs = TagSchemaMap.GetOrNull(tagType);
+                string propName = TagPropNameMap.GetOrNull(tagType);
                 GetXmpMeta().DeleteProperty(schemaNs, propName);
                 PropertyOptions po = new PropertyOptions();
                 po.IsArray = true;
@@ -453,7 +453,7 @@ namespace Com.Drew.Metadata.Xmp
             SetBoolean(tagType, value);
             try
             {
-                GetXmpMeta().SetPropertyBoolean(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
+                GetXmpMeta().SetPropertyBoolean(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
             }
             catch (XmpException e)
             {
@@ -466,7 +466,7 @@ namespace Com.Drew.Metadata.Xmp
             SetLong(tagType, value);
             try
             {
-                GetXmpMeta().SetPropertyLong(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), value);
+                GetXmpMeta().SetPropertyLong(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
             }
             catch (XmpException e)
             {
@@ -480,7 +480,7 @@ namespace Com.Drew.Metadata.Xmp
             IXmpDateTime date = new XmpDateTime(value, TimeZoneInfo.Local);
             try
             {
-                GetXmpMeta().SetPropertyDate(TagSchemaMap.Get(tagType), TagPropNameMap.Get(tagType), date);
+                GetXmpMeta().SetPropertyDate(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), date);
             }
             catch (XmpException e)
             {

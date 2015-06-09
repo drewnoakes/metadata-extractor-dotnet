@@ -223,8 +223,8 @@ namespace Com.Drew.Metadata.Xmp
         /// <exception cref="XmpException"/>
         private static void ProcessXmpTag([NotNull] IXmpMeta meta, [NotNull] XmpDirectory directory, int tagType, int formatCode)
         {
-            string schemaNs = XmpDirectory.TagSchemaMap.Get(tagType);
-            string propName = XmpDirectory.TagPropNameMap.Get(tagType);
+            string schemaNs = XmpDirectory.TagSchemaMap.GetOrNull(tagType);
+            string propName = XmpDirectory.TagPropNameMap.GetOrNull(tagType);
             string property = meta.GetPropertyString(schemaNs, propName);
             if (property == null)
             {
@@ -310,8 +310,8 @@ namespace Com.Drew.Metadata.Xmp
         /// <exception cref="XmpException"/>
         private static void ProcessXmpDateTag([NotNull] IXmpMeta meta, [NotNull] XmpDirectory directory, int tagType)
         {
-            string schemaNs = XmpDirectory.TagSchemaMap.Get(tagType);
-            string propName = XmpDirectory.TagPropNameMap.Get(tagType);
+            string schemaNs = XmpDirectory.TagSchemaMap.GetOrNull(tagType);
+            string propName = XmpDirectory.TagPropNameMap.GetOrNull(tagType);
             Calendar cal = meta.GetPropertyCalendar(schemaNs, propName);
             if (cal != null)
             {
