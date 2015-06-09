@@ -26,9 +26,9 @@ using NUnit.Framework;
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class ByteArrayReaderTest : RandomAccessTestBase
+    public sealed class ByteArrayReaderTest : IndexedReaderTestBase
     {
-        protected override RandomAccessReader CreateReader(byte[] bytes)
+        protected override IndexedReader CreateReader(byte[] bytes)
         {
             return new ByteArrayReader(bytes);
         }

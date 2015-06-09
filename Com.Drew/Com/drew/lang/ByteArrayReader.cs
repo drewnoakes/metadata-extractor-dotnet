@@ -37,7 +37,7 @@ namespace Com.Drew.Lang
     /// <c>setMotorolaByteOrder(boolean)</c>.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ByteArrayReader : RandomAccessReader
+    public class ByteArrayReader : IndexedReader
     {
         [NotNull]
         private readonly byte[] _buffer;

@@ -9,7 +9,7 @@
 
 using System;
 using System.IO;
-using Sharpen;
+using System.Text;
 
 namespace Com.Adobe.Xmp.Impl
 {
@@ -21,7 +21,7 @@ namespace Com.Adobe.Xmp.Impl
 
         private int _length;
 
-        private string _encoding;
+        private Encoding _encoding;
 
         /// <param name="initialCapacity">the initial capacity for this buffer</param>
         public ByteBuffer(int initialCapacity)
@@ -50,16 +50,16 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <summary>Loads the stream into a buffer.</summary>
-        /// <param name="in">an InputStream</param>
+        /// <param name="stream">an Stream</param>
         /// <exception cref="System.IO.IOException">If the stream cannot be read.</exception>
-        public ByteBuffer(InputStream @in)
+        public ByteBuffer(Stream stream)
         {
             // load stream into buffer
             int chunk = 16384;
             _length = 0;
             _buffer = new byte[chunk];
             int read;
-            while ((read = @in.Read(_buffer, _length, chunk)) > 0)
+            while ((read = stream.Read(_buffer, _length, chunk)) > 0)
             {
                 _length += read;
                 if (read == chunk)
@@ -169,10 +169,9 @@ namespace Com.Adobe.Xmp.Impl
         /// <remarks>
         /// Detects the encoding of the byte buffer, stores and returns it.
         /// Only UTF-8, UTF-16LE/BE and UTF-32LE/BE are recognized.
-        /// <em>Note:</em> UTF-32 flavors are not supported by Java, the XML-parser will complain.
         /// </remarks>
         /// <returns>Returns the encoding string.</returns>
-        public string GetEncoding()
+        public Encoding GetEncoding()
         {
             if (_encoding == null)
             {
@@ -180,7 +179,7 @@ namespace Com.Adobe.Xmp.Impl
                 if (_length < 2)
                 {
                     // only one byte length must be UTF-8
-                    _encoding = "UTF-8";
+                    _encoding = Encoding.UTF8;
                 }
                 else
                 {
@@ -192,18 +191,13 @@ namespace Com.Adobe.Xmp.Impl
                         //   00 00 FE FF - Big endian UTF 32
                         if (_length < 4 || _buffer[1] != 0)
                         {
-                            _encoding = "UTF-16BE";
+                            _encoding = Encoding.BigEndianUnicode;
                         }
                         else
                         {
                             if ((_buffer[2] & unchecked(0xFF)) == unchecked(0xFE) && (_buffer[3] & unchecked(0xFF)) == unchecked(0xFF))
-                            {
-                                _encoding = "UTF-32BE";
-                            }
-                            else
-                            {
-                                _encoding = "UTF-32";
-                            }
+                                throw new NotSupportedException("UTF-32BE is not a supported encoding.");
+                            throw new NotSupportedException("UTF-32 is not a supported encoding.");
                         }
                     }
                     else
@@ -215,17 +209,17 @@ namespace Com.Adobe.Xmp.Impl
                             //   nn 00 -- -- - Little endian UTF-16
                             if (_buffer[1] != 0)
                             {
-                                _encoding = "UTF-8";
+                                _encoding = Encoding.UTF8;
                             }
                             else
                             {
                                 if (_length < 4 || _buffer[2] != 0)
                                 {
-                                    _encoding = "UTF-16LE";
+                                    _encoding = Encoding.Unicode;
                                 }
                                 else
                                 {
-                                    _encoding = "UTF-32LE";
+                                    throw new NotSupportedException("UTF-32LE is not a supported encoding.");
                                 }
                             }
                         }
@@ -238,25 +232,25 @@ namespace Com.Adobe.Xmp.Impl
                             //   FF FE -- -- - Little endian UTF-16
                             if ((_buffer[0] & unchecked(0xFF)) == unchecked(0xEF))
                             {
-                                _encoding = "UTF-8";
+                                _encoding = Encoding.UTF8;
                             }
                             else
                             {
                                 if ((_buffer[0] & unchecked(0xFF)) == unchecked(0xFE))
                                 {
-                                    _encoding = "UTF-16";
+                                    _encoding = Encoding.BigEndianUnicode;
                                 }
                                 else
                                 {
                                     // in fact BE
                                     if (_length < 4 || _buffer[2] != 0)
                                     {
-                                        _encoding = "UTF-16";
+                                        throw new NotSupportedException("UTF-16 is not a supported encoding.");
                                     }
                                     else
                                     {
                                         // in fact LE
-                                        _encoding = "UTF-32";
+                                        throw new NotSupportedException("UTF-32 is not a supported encoding.");
                                     }
                                 }
                             }

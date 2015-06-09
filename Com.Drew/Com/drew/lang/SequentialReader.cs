@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Text;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -30,7 +31,7 @@ namespace Com.Drew.Lang
     {
         private bool _isMotorolaByteOrder = true;
 
-        // TODO review whether the masks are needed (in both this and RandomAccessReader)
+        // TODO review whether the masks are needed (in both this and IndexedReader)
         /// <summary>Gets the next byte in the sequence.</summary>
         /// <returns>The read byte value</returns>
         /// <exception cref="System.IO.IOException"/>
@@ -215,22 +216,14 @@ namespace Com.Drew.Lang
         [NotNull]
         public virtual string GetString(int bytesRequested)
         {
-            return Runtime.GetStringForBytes(GetBytes(bytesRequested));
+            return GetString(bytesRequested, Encoding.UTF8);
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public virtual string GetString(int bytesRequested, string charset)
+        public virtual string GetString(int bytesRequested, Encoding encoding)
         {
-            byte[] bytes = GetBytes(bytesRequested);
-            try
-            {
-                return Runtime.GetStringForBytes(bytes, charset);
-            }
-            catch (UnsupportedEncodingException)
-            {
-                return Runtime.GetStringForBytes(bytes);
-            }
+            return encoding.GetString(GetBytes(bytesRequested));
         }
 
         /// <summary>Creates a String from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.</summary>
@@ -251,7 +244,7 @@ namespace Com.Drew.Lang
             {
                 length++;
             }
-            return Runtime.GetStringForBytes(bytes, 0, length);
+            return Encoding.UTF8.GetString(bytes, 0, length);
         }
     }
 }

@@ -20,10 +20,10 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.IO;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
 using NUnit.Framework;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Gif
 {
@@ -35,9 +35,8 @@ namespace Com.Drew.Metadata.Gif
         public static GifHeaderDirectory ProcessBytes([NotNull] string file)
         {
             Metadata metadata = new Metadata();
-            InputStream stream = new FileInputStream(file);
-            new GifReader().Extract(new SequentialStreamReader(stream), metadata);
-            stream.Close();
+            using (Stream stream = new FileStream(file, FileMode.Open))
+                new GifReader().Extract(new SequentialStreamReader(stream), metadata);
             GifHeaderDirectory directory = metadata.GetFirstDirectoryOfType<GifHeaderDirectory>();
             Assert.IsNotNull(directory);
             return directory;

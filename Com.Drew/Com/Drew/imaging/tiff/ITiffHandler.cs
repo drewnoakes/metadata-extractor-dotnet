@@ -50,10 +50,10 @@ namespace Com.Drew.Imaging.Tiff
 
         void EndingIfd();
 
-        void Completed([NotNull] RandomAccessReader reader, int tiffHeaderOffset);
+        void Completed([NotNull] IndexedReader reader, int tiffHeaderOffset);
 
         /// <exception cref="System.IO.IOException"/>
-        bool CustomProcessTag(int tagOffset, [NotNull] ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, [NotNull] RandomAccessReader reader, int tagId, int byteCount);
+        bool CustomProcessTag(int tagOffset, [NotNull] ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, [NotNull] IndexedReader reader, int tagId, int byteCount);
 
         void Warn([NotNull] string message);
 

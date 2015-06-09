@@ -51,10 +51,9 @@
     <Compile Include="Com\drew\lang\ByteTrieTest.cs" />
     <Compile Include="Com\drew\lang\CompoundExceptionTest.cs" />
     <Compile Include="Com\drew\lang\GeoLocationTest.cs" />
-    <Compile Include="Com\drew\lang\NullOutputStreamTest.cs" />
-    <Compile Include="Com\drew\lang\RandomAccessFileReaderTest.cs" />
+    <Compile Include="Com\drew\lang\IndexedSeekingReaderTest.cs" />
     <Compile Include="Com\drew\lang\RandomAccessStreamReaderTest.cs" />
-    <Compile Include="Com\drew\lang\RandomAccessTestBase.cs" />
+    <Compile Include="Com\drew\lang\IndexedReaderTestBase.cs" />
     <Compile Include="Com\drew\lang\RationalTest.cs" />
     <Compile Include="Com\drew\lang\SequentialAccessTestBase.cs" />
     <Compile Include="Com\drew\lang\SequentialByteArrayReaderTest.cs" />

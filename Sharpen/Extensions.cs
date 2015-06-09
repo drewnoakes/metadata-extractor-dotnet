@@ -81,22 +81,14 @@ namespace Sharpen
             return e.Decode(buffer.Array(), buffer.ArrayOffset() + buffer.Position(), buffer.Limit() - buffer.Position());
         }
 
-        private static readonly UTF8Encoding Utf8Encoder = new UTF8Encoding(false, true);
 
         public static Encoding GetEncoding(string name)
         {
-//            Encoding e = Encoding.GetEncoding (name, EncoderFallback.ExceptionFallback, DecoderFallback.ExceptionFallback);
-            try
-            {
-                Encoding e = Encoding.GetEncoding(name.Replace('_', '-'));
-                if (e is UTF8Encoding)
-                    return Utf8Encoder;
-                return e;
-            }
-            catch (ArgumentException)
-            {
-                throw new UnsupportedCharsetException(name);
-            }
+//            Encoding e = Encoding.GetEncoding(name.Replace('_', '-'), EncoderFallback.ExceptionFallback, DecoderFallback.ExceptionFallback);
+            Encoding e = Encoding.GetEncoding(name.Replace('_', '-'));
+            if (e is UTF8Encoding)
+                return new UTF8Encoding(false, true);
+            return e;
         }
 
         public static ICollection<KeyValuePair<T, TU>> EntrySet<T, TU>(this IDictionary<T, TU> s)
@@ -424,12 +416,6 @@ namespace Sharpen
             return asm.GetName().Version.ToString();
         }
 
-        public static HttpUrlConnection OpenConnection(this Uri uri)
-        {
-            return new HttpsUrlConnection(uri);
-        }
-
-
         /// <summary>
         /// Returns all public static fields values with specified type
         /// </summary>
@@ -533,11 +519,6 @@ namespace Sharpen
         public static bool HasAttributes(this XmlNode node)
         {
             return node.Attributes != null && node.Attributes.Count > 0;
-        }
-
-        public static byte[] ConvertToByteArray(byte[] bytes)
-        {
-            return Array.ConvertAll(bytes, b => (byte)b);
         }
 
         public static void Copy(byte[] buffer, byte[] sbuffer)

@@ -55,7 +55,7 @@ namespace Com.Drew.Tools
                 Environment.Exit(1);
             }
             string filePath = args[0];
-            if (!new FilePath(filePath).Exists())
+            if (!File.Exists(filePath))
             {
                 Console.Error.WriteLine("File does not exist");
                 PrintUsage();
@@ -77,7 +77,7 @@ namespace Com.Drew.Tools
                 Collections.AddAll(segmentTypes, JpegSegmentType.CanContainMetadataTypes);
             }
             Console.Out.WriteLine("Reading: {0}", filePath);
-            JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new FilePath(filePath), segmentTypes);
+            JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(filePath, segmentTypes);
             SaveSegmentFiles(filePath, segmentData);
         }
 

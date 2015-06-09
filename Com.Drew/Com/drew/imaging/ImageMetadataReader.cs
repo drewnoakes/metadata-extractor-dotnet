@@ -22,6 +22,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using Com.Drew.Imaging.Bmp;
 using Com.Drew.Imaging.Gif;
@@ -38,6 +40,7 @@ using Com.Drew.Metadata.Exif;
 using Com.Drew.Metadata.File;
 using JetBrains.Annotations;
 using Sharpen;
+using Directory = Com.Drew.Metadata.Directory;
 
 namespace Com.Drew.Imaging
 {
@@ -71,7 +74,7 @@ namespace Com.Drew.Imaging
     public static class ImageMetadataReader
     {
         /// <summary>
-        /// Reads metadata from an <see cref="InputStream"/>.
+        /// Reads metadata from an <see cref="Stream"/>.
         /// </summary>
         /// <param name="inputStream">a stream from which the file data may be read.  The stream must be positioned at the beginning of the file's data.</param>
         /// <returns>a populated <see cref="Com.Drew.Metadata.Metadata"/> object containing directories of tags with values and any processing errors.</returns>
@@ -79,72 +82,63 @@ namespace Com.Drew.Imaging
         /// <exception cref="Com.Drew.Imaging.ImageProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
+        public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
         {
-            var stream = inputStream as BufferedInputStream;
-            BufferedInputStream bufferedInputStream = stream ?? new BufferedInputStream(inputStream);
-            FileType fileType = FileTypeDetector.DetectFileType(bufferedInputStream) ?? FileType.Unknown;
+            FileType fileType = FileTypeDetector.DetectFileType(stream) ?? FileType.Unknown;
             if (fileType == FileType.Jpeg)
             {
-                return JpegMetadataReader.ReadMetadata(bufferedInputStream);
+                return JpegMetadataReader.ReadMetadata(stream);
             }
             if (fileType == FileType.Tiff || fileType == FileType.Arw || fileType == FileType.Cr2 || fileType == FileType.Nef || fileType == FileType.Orf || fileType == FileType.Rw2)
             {
-                return TiffMetadataReader.ReadMetadata(bufferedInputStream);
+                return TiffMetadataReader.ReadMetadata(stream);
             }
             if (fileType == FileType.Psd)
             {
-                return PsdMetadataReader.ReadMetadata(bufferedInputStream);
+                return PsdMetadataReader.ReadMetadata(stream);
             }
             if (fileType == FileType.Png)
             {
-                return PngMetadataReader.ReadMetadata(bufferedInputStream);
+                return PngMetadataReader.ReadMetadata(stream);
             }
             if (fileType == FileType.Bmp)
             {
-                return BmpMetadataReader.ReadMetadata(bufferedInputStream);
+                return BmpMetadataReader.ReadMetadata(stream);
             }
             if (fileType == FileType.Gif)
             {
-                return GifMetadataReader.ReadMetadata(bufferedInputStream);
+                return GifMetadataReader.ReadMetadata(stream);
             }
             if (fileType == FileType.Ico)
             {
-                return IcoMetadataReader.ReadMetadata(bufferedInputStream);
+                return IcoMetadataReader.ReadMetadata(stream);
             }
             if (fileType == FileType.Pcx)
             {
-                return PcxMetadataReader.ReadMetadata(bufferedInputStream);
+                return PcxMetadataReader.ReadMetadata(stream);
             }
             if (fileType == FileType.Riff)
             {
-                return WebpMetadataReader.ReadMetadata(bufferedInputStream);
+                return WebpMetadataReader.ReadMetadata(stream);
             }
             throw new ImageProcessingException("File format is not supported");
         }
 
         /// <summary>
-        /// Reads <see cref="Com.Drew.Metadata.Metadata"/> from a <see cref="Sharpen.FilePath"/> object.
+        /// Reads <see cref="Com.Drew.Metadata.Metadata"/> from a file.
         /// </summary>
-        /// <param name="file">a file from which the image data may be read.</param>
+        /// <param name="filePath">a file from which the image data may be read.</param>
         /// <returns>a populated <see cref="Com.Drew.Metadata.Metadata"/> object containing directories of tags with values and any processing errors.</returns>
         /// <exception cref="ImageProcessingException">for general processing errors.</exception>
         /// <exception cref="Com.Drew.Imaging.ImageProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] FilePath file)
+        public static Metadata.Metadata ReadMetadata([NotNull] string filePath)
         {
-            InputStream inputStream = new FileInputStream(file);
             Metadata.Metadata metadata;
-            try
-            {
+            using (Stream inputStream = new FileStream(filePath, FileMode.Open))
                 metadata = ReadMetadata(inputStream);
-            }
-            finally
-            {
-                inputStream.Close();
-            }
-            new FileMetadataReader().Read(file, metadata);
+            new FileMetadataReader().Read(filePath, metadata);
             return metadata;
         }
 
@@ -180,8 +174,7 @@ namespace Com.Drew.Imaging
             }
             foreach (string filePath in argList)
             {
-                long startTime = Runtime.NanoTime();
-                FilePath file = new FilePath(filePath);
+                var stopwatch = Stopwatch.StartNew();
                 if (!markdownFormat && argList.Count > 1)
                 {
                     Console.Out.WriteLine("\n***** PROCESSING: {0}", filePath);
@@ -189,21 +182,20 @@ namespace Com.Drew.Imaging
                 Metadata.Metadata metadata = null;
                 try
                 {
-                    metadata = ReadMetadata(file);
+                    metadata = ReadMetadata(filePath);
                 }
                 catch (Exception e)
                 {
                     Runtime.PrintStackTrace(e, Console.Error);
                     Environment.Exit(1);
                 }
-                long took = Runtime.NanoTime() - startTime;
                 if (!markdownFormat)
                 {
-                    Console.Out.WriteLine("Processed {0:#,##0.##} MB file in {1:#,##0.##} ms\n", file.Length() / (1024d * 1024), took / 1000000d);
+                    Console.Out.WriteLine("Processed {0:#,##0.##} MB file in {1:#,##0.##} ms\n", new FileInfo(filePath).Length / (1024d * 1024), stopwatch.Elapsed.TotalMilliseconds);
                 }
                 if (markdownFormat)
                 {
-                    string fileName = file.GetName();
+                    string fileName = Path.GetFileName(filePath);
                     string urlName = StringUtil.UrlEncode(filePath);
                     ExifIfd0Directory exifIfd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
                     string make = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifDirectoryBase.TagMake);

@@ -7,7 +7,7 @@
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
 
-using Sharpen;
+using System.Text;
 
 namespace Com.Adobe.Xmp.Impl
 {
@@ -49,7 +49,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns a new buffer containing valid UTF-8</returns>
         public static ByteBuffer Convert(ByteBuffer buffer)
         {
-            if ("UTF-8".Equals(buffer.GetEncoding()))
+            if (ReferenceEquals(buffer.GetEncoding(), Encoding.UTF8))
             {
                 // the buffer containing one UTF-8 char (up to 8 bytes)
                 byte[] readAheadBuffer = new byte[8];
@@ -157,21 +157,15 @@ namespace Com.Adobe.Xmp.Impl
         private static byte[] ConvertToUtf8(byte ch)
         {
             int c = ch & unchecked(0xFF);
-            try
+            if (c >= unchecked(0x80))
             {
-                if (c >= unchecked(0x80))
+                if (c == unchecked(0x81) || c == unchecked(0x8D) || c == unchecked(0x8F) || c == unchecked(0x90) || c == unchecked(0x9D))
                 {
-                    if (c == unchecked(0x81) || c == unchecked(0x8D) || c == unchecked(0x8F) || c == unchecked(0x90) || c == unchecked(0x9D))
-                    {
-                        return new byte[] { unchecked(0x20) };
-                    }
-                    // space for undefined
-                    // interpret byte as Windows Cp1252 char
-                    return Runtime.GetBytesForString(Runtime.GetStringForBytes(new byte[] { ch }, "cp1252"), "UTF-8");
+                    return new byte[] { unchecked(0x20) };
                 }
-            }
-            catch (UnsupportedEncodingException)
-            {
+                // space for undefined
+                // interpret byte as Windows Cp1252 char
+                return Encoding.UTF8.GetBytes(Encoding.GetEncoding(1252).GetString(new[] { ch }));
             }
             return new byte[] { ch };
         }

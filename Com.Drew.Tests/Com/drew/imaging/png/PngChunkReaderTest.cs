@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Com.Drew.Lang;
 using NUnit.Framework;
-using Sharpen;
 
 namespace Com.Drew.Imaging.Png
 {
@@ -13,19 +13,8 @@ namespace Com.Drew.Imaging.Png
         /// <exception cref="System.IO.IOException"/>
         public static IList<PngChunk> ProcessFile(string filePath)
         {
-            FileInputStream inputStream = null;
-            try
-            {
-                inputStream = new FileInputStream(filePath);
-                return new PngChunkReader().Extract(new SequentialStreamReader(inputStream), null).ToList();
-            }
-            finally
-            {
-                if (inputStream != null)
-                {
-                    inputStream.Close();
-                }
-            }
+            using (Stream stream = new FileStream(filePath, FileMode.Open))
+                return new PngChunkReader().Extract(new SequentialStreamReader(stream), null).ToList();
         }
 
         /// <exception cref="System.Exception"/>

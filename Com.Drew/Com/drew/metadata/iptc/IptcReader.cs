@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
@@ -166,7 +167,7 @@ namespace Com.Drew.Metadata.Iptc
                     if (charset == null)
                     {
                         // Unable to determine the charset, so fall through and treat tag as a regular string
-                        @string = Runtime.GetStringForBytes(bytes);
+                        @string = Encoding.UTF8.GetString(bytes);
                         break;
                     }
                     directory.SetString(tagIdentifier, charset);
@@ -239,16 +240,17 @@ namespace Com.Drew.Metadata.Iptc
             // NOTE that there's a chance we've already loaded the value as a string above, but failed to parse the value
             if (@string == null)
             {
-                string encoding = directory.GetString(IptcDirectory.TagCodedCharacterSet);
-                if (encoding != null)
+                string encodingName = directory.GetString(IptcDirectory.TagCodedCharacterSet);
+                if (encodingName != null)
                 {
+                    var encoding = Encoding.GetEncoding(encodingName);
                     @string = reader.GetString(tagByteCount, encoding);
                 }
                 else
                 {
                     byte[] bytes1 = reader.GetBytes(tagByteCount);
-                    encoding = Iso2022Converter.GuessEncoding(bytes1);
-                    @string = encoding != null ? Runtime.GetStringForBytes(bytes1, encoding) : Runtime.GetStringForBytes(bytes1);
+                    var encoding = Iso2022Converter.GuessEncoding(bytes1);
+                    @string = encoding != null ? encoding.GetString(bytes1) : Encoding.UTF8.GetString(bytes1);
                 }
             }
             if (directory.ContainsTag(tagIdentifier))

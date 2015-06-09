@@ -22,6 +22,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
 using Sharpen;
@@ -118,7 +119,7 @@ namespace Com.Drew.Metadata.Photoshop
                 {
                     return Directory.GetString(PhotoshopDirectory.TagJpegQuality);
                 }
-                RandomAccessReader reader = new ByteArrayReader(b);
+                IndexedReader reader = new ByteArrayReader(b);
                 int q = reader.GetUInt16(0);
                 // & 0xFFFF;
                 int f = reader.GetUInt16(2);
@@ -227,7 +228,7 @@ namespace Com.Drew.Metadata.Photoshop
                 {
                     return null;
                 }
-                RandomAccessReader reader = new ByteArrayReader(bytes);
+                IndexedReader reader = new ByteArrayReader(bytes);
                 double d = reader.GetDouble64(4);
                 return Extensions.ConvertToString(d);
             }
@@ -247,7 +248,7 @@ namespace Com.Drew.Metadata.Photoshop
                 {
                     return null;
                 }
-                RandomAccessReader reader = new ByteArrayReader(bytes);
+                IndexedReader reader = new ByteArrayReader(bytes);
                 int style = reader.GetInt32(0);
                 float locX = reader.GetFloat32(2);
                 float locY = reader.GetFloat32(6);
@@ -291,7 +292,7 @@ namespace Com.Drew.Metadata.Photoshop
                 {
                     return null;
                 }
-                RandomAccessReader reader = new ByteArrayReader(bytes);
+                IndexedReader reader = new ByteArrayReader(bytes);
                 float resX = reader.GetS15Fixed16(0);
                 float resY = reader.GetS15Fixed16(8);
                 // is this the correct offset? it's only reading 4 bytes each time
@@ -313,18 +314,18 @@ namespace Com.Drew.Metadata.Photoshop
                 {
                     return null;
                 }
-                RandomAccessReader reader = new ByteArrayReader(bytes);
+                IndexedReader reader = new ByteArrayReader(bytes);
                 int pos = 0;
                 int ver = reader.GetInt32(0);
                 pos += 4;
                 pos++;
                 int readerLength = reader.GetInt32(5);
                 pos += 4;
-                string readerStr = reader.GetString(9, readerLength * 2, "UTF-16");
+                string readerStr = reader.GetString(9, readerLength * 2, Encoding.Unicode);
                 pos += readerLength * 2;
                 int writerLength = reader.GetInt32(pos);
                 pos += 4;
-                string writerStr = reader.GetString(pos, writerLength * 2, "UTF-16");
+                string writerStr = reader.GetString(pos, writerLength * 2, Encoding.Unicode);
                 pos += writerLength * 2;
                 int fileVersion = reader.GetInt32(pos);
                 return string.Format("{0} ({1}, {2}) {3}", ver, readerStr, writerStr, fileVersion);
@@ -345,9 +346,9 @@ namespace Com.Drew.Metadata.Photoshop
                 {
                     return null;
                 }
-                RandomAccessReader reader = new ByteArrayReader(bytes);
+                IndexedReader reader = new ByteArrayReader(bytes);
                 int nameLength = reader.GetInt32(20);
-                string name = reader.GetString(24, nameLength * 2, "UTF-16");
+                string name = reader.GetString(24, nameLength * 2, Encoding.Unicode);
                 int pos = 24 + nameLength * 2;
                 int sliceCount = reader.GetInt32(pos);
                 //pos += 4;
@@ -376,7 +377,7 @@ namespace Com.Drew.Metadata.Photoshop
                 {
                     return null;
                 }
-                RandomAccessReader reader = new ByteArrayReader(v);
+                IndexedReader reader = new ByteArrayReader(v);
                 //int pos = 0;
                 int format = reader.GetInt32(0);
                 //pos += 4;
@@ -420,7 +421,7 @@ namespace Com.Drew.Metadata.Photoshop
             {
                 return null;
             }
-            RandomAccessReader reader = new ByteArrayReader(bytes);
+            IndexedReader reader = new ByteArrayReader(bytes);
             try
             {
                 return string.Format("{0}", reader.GetInt32(0));
@@ -439,7 +440,7 @@ namespace Com.Drew.Metadata.Photoshop
             {
                 return null;
             }
-            return Runtime.GetStringForBytes(bytes);
+            return Encoding.UTF8.GetString(bytes);
         }
 
         [CanBeNull]

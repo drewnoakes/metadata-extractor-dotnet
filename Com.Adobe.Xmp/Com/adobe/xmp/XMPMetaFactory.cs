@@ -8,13 +8,14 @@
 //=================================================================================================
 
 using System;
+using System.IO;
 using Com.Adobe.Xmp.Impl;
 using Com.Adobe.Xmp.Options;
 using Sharpen;
 
 namespace Com.Adobe.Xmp
 {
-    /// <summary>Creates <c>XMPMeta</c>-instances from an <c>InputStream</c></summary>
+    /// <summary>Creates <c>XMPMeta</c>-instances from an <c>Stream</c></summary>
     /// <since>30.01.2006</since>
     public sealed class XmpMetaFactory
     {
@@ -51,10 +52,10 @@ namespace Com.Adobe.Xmp
         /// encoding. ISO Latin-1 is also recognized, but its use is strongly discouraged. Serialization
         /// is always as UTF-8.
         /// <para>
-        /// <c>parseFromBuffer()</c> parses RDF from an <c>InputStream</c>. The encoding
+        /// <c>parseFromBuffer()</c> parses RDF from an <c>Stream</c>. The encoding
         /// is recognized automatically.
         /// </remarks>
-        /// <param name="in">an <c>InputStream</c></param>
+        /// <param name="in">an <c>Stream</c></param>
         /// <param name="options">
         /// Options controlling the parsing.<br />
         /// The available options are:
@@ -68,7 +69,7 @@ namespace Com.Adobe.Xmp
         /// <returns>Returns the <c>XMPMeta</c>-object created from the input.</returns>
         /// <exception cref="XmpException">If the file is not well-formed XML or if the parsing fails.</exception>
         /// <exception cref="XmpException"/>
-        public static IXmpMeta Parse(InputStream @in, ParseOptions options = null)
+        public static IXmpMeta Parse(Stream @in, ParseOptions options = null)
         {
             return XmpMetaParser.Parse(@in, options);
         }
@@ -86,7 +87,7 @@ namespace Com.Adobe.Xmp
         }
 
         /// <summary>Creates an <c>XMPMeta</c>-object from a byte-buffer.</summary>
-        /// <seealso cref="Parse(InputStream, Com.Adobe.Xmp.Options.ParseOptions)"/>
+        /// <seealso cref="Parse(Stream, Com.Adobe.Xmp.Options.ParseOptions)"/>
         /// <param name="buffer">a String contain an XMP-file.</param>
         /// <param name="options">Options controlling the parsing.</param>
         /// <returns>Returns the <c>XMPMeta</c>-object created from the input.</returns>
@@ -104,13 +105,13 @@ namespace Com.Adobe.Xmp
         /// <see cref="Com.Adobe.Xmp.Options.SerializeOptions"/>
         /// ).
         /// </param>
-        /// <param name="out">an <c>OutputStream</c> to write the serialized RDF to.</param>
+        /// <param name="stream">an <c>OutputStream</c> to write the serialized RDF to.</param>
         /// <exception cref="XmpException">on serializsation errors.</exception>
         /// <exception cref="XmpException"/>
-        public static void Serialize(IXmpMeta xmp, OutputStream @out, SerializeOptions options = null)
+        public static void Serialize(IXmpMeta xmp, Stream stream, SerializeOptions options = null)
         {
             AssertImplementation(xmp);
-            XmpSerializerHelper.Serialize((XmpMeta)xmp, @out, options);
+            XmpSerializerHelper.Serialize((XmpMeta)xmp, stream, options);
         }
 
         /// <summary>Serializes an <c>XMPMeta</c>-object as RDF into a byte buffer.</summary>

@@ -20,11 +20,11 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.IO;
 using Com.Drew.Lang;
 using Com.Drew.Metadata.File;
 using Com.Drew.Metadata.Pcx;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Imaging.Pcx
 {
@@ -34,27 +34,20 @@ namespace Com.Drew.Imaging.Pcx
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] FilePath file)
+        public static Metadata.Metadata ReadMetadata([NotNull] string filePath)
         {
-            InputStream inputStream = new FileInputStream(file);
             Metadata.Metadata metadata;
-            try
-            {
+            using (Stream inputStream = new FileStream(filePath, FileMode.Open))
                 metadata = ReadMetadata(inputStream);
-            }
-            finally
-            {
-                inputStream.Close();
-            }
-            new FileMetadataReader().Read(file, metadata);
+            new FileMetadataReader().Read(filePath, metadata);
             return metadata;
         }
 
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
+        public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
         {
             Metadata.Metadata metadata = new Metadata.Metadata();
-            new PcxReader().Extract(new SequentialStreamReader(inputStream), metadata);
+            new PcxReader().Extract(new SequentialStreamReader(stream), metadata);
             return metadata;
         }
     }

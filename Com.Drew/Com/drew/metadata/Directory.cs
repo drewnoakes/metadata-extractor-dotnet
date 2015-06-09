@@ -1015,21 +1015,14 @@ namespace Com.Drew.Metadata
         }
 
         [CanBeNull]
-        public string GetString(int tagType, string charset)
+        public string GetString(int tagType, Encoding encoding)
         {
             byte[] bytes = GetByteArray(tagType);
             if (bytes == null)
             {
                 return null;
             }
-            try
-            {
-                return Runtime.GetStringForBytes(bytes, charset);
-            }
-            catch (UnsupportedEncodingException)
-            {
-                return null;
-            }
+            return encoding.GetString(bytes);
         }
 
         /// <summary>Returns the object hashed for the particular tag type specified, if available.</summary>

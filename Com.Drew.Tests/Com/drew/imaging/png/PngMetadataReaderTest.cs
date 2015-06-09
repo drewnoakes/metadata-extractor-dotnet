@@ -4,6 +4,7 @@ using Com.Drew.Lang;
 using Com.Drew.Metadata.Png;
 using JetBrains.Annotations;
 using NUnit.Framework;
+using System.IO;
 using Sharpen;
 
 namespace Com.Drew.Imaging.Png
@@ -16,19 +17,8 @@ namespace Com.Drew.Imaging.Png
         [NotNull]
         private static Metadata.Metadata ProcessFile([NotNull] string filePath)
         {
-            FileInputStream inputStream = null;
-            try
-            {
-                inputStream = new FileInputStream(filePath);
-                return PngMetadataReader.ReadMetadata(inputStream);
-            }
-            finally
-            {
-                if (inputStream != null)
-                {
-                    inputStream.Close();
-                }
-            }
+            using (Stream stream = new FileStream(filePath, FileMode.Open))
+                return PngMetadataReader.ReadMetadata(stream);
         }
 
         /// <exception cref="System.Exception"/>

@@ -77,9 +77,9 @@ namespace Com.Drew.Metadata.Exif
             try
             {
                 directory.WriteThumbnail(thumbnailFile);
-                FilePath file = new FilePath(thumbnailFile);
-                Assert.AreEqual(2970, (object)file.Length());
-                Assert.IsTrue(file.Exists());
+                FileInfo filePath = new FileInfo(thumbnailFile);
+                Assert.AreEqual(2970L, filePath.Length);
+                Assert.IsTrue(filePath.Exists);
             }
             finally
             {

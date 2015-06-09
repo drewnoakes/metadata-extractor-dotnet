@@ -22,6 +22,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
 using Sharpen;
@@ -565,7 +566,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return null;
             }
-            RandomAccessReader reader = new ByteArrayReader(bytes);
+            IndexedReader reader = new ByteArrayReader(bytes);
             reader.IsMotorolaByteOrder = false;
             try
             {
@@ -596,7 +597,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return null;
             }
-            RandomAccessReader reader = new ByteArrayReader(bytes);
+            IndexedReader reader = new ByteArrayReader(bytes);
             reader.IsMotorolaByteOrder = false;
             try
             {
@@ -609,8 +610,8 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 for (int i = 0; i < faceCount; i++)
                 {
                     int offset = 4 + i * 44;
-                    string name = reader.GetString(offset, 20, "ASCII").Trim();
-                    string age = reader.GetString(offset + 28, 20, "ASCII").Trim();
+                    string name = reader.GetString(offset, 20, Encoding.ASCII).Trim();
+                    string age = reader.GetString(offset + 28, 20, Encoding.ASCII).Trim();
                     faces[i] = new Face(reader.GetUInt16(offset + 20), reader.GetUInt16(offset + 22), reader.GetUInt16(offset + 24), reader.GetUInt16(offset + 26), name, Age.FromPanasonicString(age));
                 }
                 return faces;

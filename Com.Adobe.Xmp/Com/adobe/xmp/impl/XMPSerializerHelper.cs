@@ -30,7 +30,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="out">the output stream to serialize to</param>
         /// <param name="options">serialization options, can be <c>null</c> for default.</param>
         /// <exception cref="XmpException"/>
-        public static void Serialize(XmpMeta xmp, OutputStream @out, SerializeOptions options)
+        public static void Serialize(XmpMeta xmp, Stream @out, SerializeOptions options)
         {
             options = options ?? new SerializeOptions();
             // sort the internal data model on demand
@@ -66,7 +66,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return options.GetEncoding().GetString(@out.GetBuffer(), 0, (int)@out.Length);
             }
-            catch (UnsupportedEncodingException)
+            catch
             {
                 // cannot happen as UTF-8/16LE/BE is required to be implemented in
                 // Java

@@ -26,7 +26,7 @@ using JetBrains.Annotations;
 namespace Com.Drew.Metadata
 {
     /// <summary>
-    /// Defines an object capable of processing a particular type of metadata from a <see cref="Com.Drew.Lang.RandomAccessReader"/>.
+    /// Defines an object capable of processing a particular type of metadata from a <see cref="IndexedReader"/>.
     /// <para>
     /// Instances of this interface must be thread-safe and reusable.
     /// </summary>
@@ -40,7 +40,7 @@ namespace Com.Drew.Metadata
         /// </summary>
         /// <param name="reader">
         /// The
-        /// <see cref="Com.Drew.Lang.RandomAccessReader"/>
+        /// <see cref="IndexedReader"/>
         /// from which the metadata should be extracted.
         /// </param>
         /// <param name="metadata">
@@ -48,6 +48,6 @@ namespace Com.Drew.Metadata
         /// <see cref="Metadata"/>
         /// object into which extracted values should be merged.
         /// </param>
-        void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata);
+        void Extract([NotNull] IndexedReader reader, [NotNull] Metadata metadata);
     }
 }

@@ -58,7 +58,7 @@ namespace Com.Adobe.Xmp.Impl
         private XmpMeta _xmp;
 
         /// <summary>the output stream to serialize to</summary>
-        private CountOutputStream _outputStream;
+        private Stream _stream;
 
         /// <summary>this writer is used to do the actual serialization</summary>
         private StreamWriter _writer;
@@ -79,22 +79,25 @@ namespace Com.Adobe.Xmp.Impl
         /// </summary>
         private int _padding;
 
+        private long _startPos;
+
         // UTF-8
         /// <summary>The actual serialization.</summary>
         /// <param name="xmp">the metadata object to be serialized</param>
-        /// <param name="out">outputStream the output stream to serialize to</param>
+        /// <param name="stream">outputStream the output stream to serialize to</param>
         /// <param name="options">the serialization options</param>
         /// <exception cref="XmpException">If case of wrong options or any other serialization error.</exception>
-        public void Serialize(IXmpMeta xmp, OutputStream @out, SerializeOptions options)
+        public void Serialize(IXmpMeta xmp, Stream stream, SerializeOptions options)
         {
             try
             {
-                _outputStream = new CountOutputStream(@out);
-                _writer = new StreamWriter(_outputStream, options.GetEncoding());
+                _stream = stream;
+                _startPos = _stream.Position;
+                _writer = new StreamWriter(_stream, options.GetEncoding());
                 _xmp = (XmpMeta)xmp;
                 _options = options;
                 _padding = options.Padding;
-                _writer = new StreamWriter(_outputStream, options.GetEncoding());
+                _writer = new StreamWriter(_stream, options.GetEncoding());
                 CheckOptionsConsistence();
                 // serializes the whole packet, but don't write the tail yet
                 // and flush to make sure that the written bytes are calculated correctly
@@ -105,7 +108,7 @@ namespace Com.Adobe.Xmp.Impl
                 // writes the tail
                 Write(tailStr);
                 _writer.Flush();
-                _outputStream.Close();
+                _stream.Close();
             }
             catch (IOException)
             {
@@ -122,7 +125,7 @@ namespace Com.Adobe.Xmp.Impl
             if (_options.ExactPacketLength)
             {
                 // the string length is equal to the length of the UTF-8 encoding
-                int minSize = _outputStream.GetBytesWritten() + tailLength * _unicodeSize;
+                int minSize = checked((int)(_stream.Position - _startPos)) + tailLength * _unicodeSize;
                 if (minSize > _padding)
                 {
                     throw new XmpException("Can't fit into specified packet size", XmpErrorCode.BadSerialize);

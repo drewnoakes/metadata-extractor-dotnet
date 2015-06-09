@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Properties;
 using Com.Drew.Imaging.Jpeg;
@@ -102,7 +103,7 @@ namespace Com.Drew.Metadata.Xmp
             {
                 // XMP in a JPEG file has an identifying preamble which is not valid XML
                 int preambleLength = XmpJpegPreamble.Length;
-                if (segmentBytes.Length < preambleLength || !Runtime.EqualsIgnoreCase(XmpJpegPreamble, Runtime.GetStringForBytes(segmentBytes, 0, preambleLength)))
+                if (segmentBytes.Length < preambleLength || !Runtime.EqualsIgnoreCase(XmpJpegPreamble, Encoding.UTF8.GetString(segmentBytes, 0, preambleLength)))
                 {
                     continue;
                 }

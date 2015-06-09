@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Text;
 using Com.Drew.Lang;
 using NUnit.Framework;
 
@@ -60,11 +61,11 @@ namespace Com.Drew.Metadata.Exif
         public void TestWindowsXpFields()
         {
             ExifIfd0Directory directory = ExifReaderTest.ProcessBytes<ExifIfd0Directory>("Tests/Data/windowsXpFields.jpg.app1");
-            Assert.AreEqual("Testing artist\x0", directory.GetString(ExifDirectoryBase.TagWinAuthor, "UTF-16LE"));
-            Assert.AreEqual("Testing comments\x0", directory.GetString(ExifDirectoryBase.TagWinComment, "UTF-16LE"));
-            Assert.AreEqual("Testing keywords\x0", directory.GetString(ExifDirectoryBase.TagWinKeywords, "UTF-16LE"));
-            Assert.AreEqual("Testing subject\x0", directory.GetString(ExifDirectoryBase.TagWinSubject, "UTF-16LE"));
-            Assert.AreEqual("Testing title\x0", directory.GetString(ExifDirectoryBase.TagWinTitle, "UTF-16LE"));
+            Assert.AreEqual("Testing artist\x0", directory.GetString(ExifDirectoryBase.TagWinAuthor, Encoding.Unicode));
+            Assert.AreEqual("Testing comments\x0", directory.GetString(ExifDirectoryBase.TagWinComment, Encoding.Unicode));
+            Assert.AreEqual("Testing keywords\x0", directory.GetString(ExifDirectoryBase.TagWinKeywords, Encoding.Unicode));
+            Assert.AreEqual("Testing subject\x0", directory.GetString(ExifDirectoryBase.TagWinSubject, Encoding.Unicode));
+            Assert.AreEqual("Testing title\x0", directory.GetString(ExifDirectoryBase.TagWinTitle, Encoding.Unicode));
             ExifIfd0Descriptor descriptor = new ExifIfd0Descriptor(directory);
             Assert.AreEqual("Testing artist", descriptor.GetDescription(ExifDirectoryBase.TagWinAuthor));
             Assert.AreEqual("Testing comments", descriptor.GetDescription(ExifDirectoryBase.TagWinComment));

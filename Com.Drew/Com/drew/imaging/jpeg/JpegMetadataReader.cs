@@ -21,6 +21,7 @@
  */
 
 using System.Collections.Generic;
+using System.IO;
 using Com.Drew.Lang;
 using Com.Drew.Metadata.Adobe;
 using Com.Drew.Metadata.Exif;
@@ -56,35 +57,28 @@ namespace Com.Drew.Imaging.Jpeg
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
+        public static Metadata.Metadata ReadMetadata([NotNull] Stream stream, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
         {
             Metadata.Metadata metadata = new Metadata.Metadata();
-            Process(metadata, inputStream, readers);
+            Process(metadata, stream, readers);
             return metadata;
         }
 
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] FilePath file, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
+        public static Metadata.Metadata ReadMetadata([NotNull] string filePath, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
         {
-            InputStream inputStream = new FileInputStream(file);
             Metadata.Metadata metadata;
-            try
-            {
+            using (Stream inputStream = new FileStream(filePath, FileMode.Open))
                 metadata = ReadMetadata(inputStream, readers);
-            }
-            finally
-            {
-                inputStream.Close();
-            }
-            new FileMetadataReader().Read(file, metadata);
+            new FileMetadataReader().Read(filePath, metadata);
             return metadata;
         }
 
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        public static void Process([NotNull] Metadata.Metadata metadata, [NotNull] InputStream inputStream, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
+        public static void Process([NotNull] Metadata.Metadata metadata, [NotNull] Stream inputStream, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
         {
             if (readers == null)
             {

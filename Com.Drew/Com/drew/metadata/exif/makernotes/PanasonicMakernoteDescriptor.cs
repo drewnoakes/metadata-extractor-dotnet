@@ -381,7 +381,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return null;
             }
-            RandomAccessReader reader = new ByteArrayReader(values);
+            IndexedReader reader = new ByteArrayReader(values);
             try
             {
                 int val1 = reader.GetUInt16(0);

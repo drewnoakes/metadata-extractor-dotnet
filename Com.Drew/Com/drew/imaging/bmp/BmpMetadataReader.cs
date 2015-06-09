@@ -20,10 +20,10 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.IO;
 using Com.Drew.Lang;
 using Com.Drew.Metadata.Bmp;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Imaging.Bmp
 {
@@ -33,28 +33,17 @@ namespace Com.Drew.Imaging.Bmp
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] FilePath file)
+        public static Metadata.Metadata ReadMetadata([NotNull] string filePath)
         {
-            FileInputStream stream = null;
-            try
-            {
-                stream = new FileInputStream(file);
+            using (Stream stream = new FileStream(filePath, FileMode.Open))
                 return ReadMetadata(stream);
-            }
-            finally
-            {
-                if (stream != null)
-                {
-                    stream.Close();
-                }
-            }
         }
 
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
+        public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
         {
             Metadata.Metadata metadata = new Metadata.Metadata();
-            new BmpReader().Extract(new SequentialStreamReader(inputStream), metadata);
+            new BmpReader().Extract(new SequentialStreamReader(stream), metadata);
             return metadata;
         }
     }

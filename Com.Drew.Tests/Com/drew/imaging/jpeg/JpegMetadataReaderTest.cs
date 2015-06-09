@@ -20,10 +20,10 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using Com.Drew.Metadata;
+using System.IO;
 using Com.Drew.Metadata.Exif;
 using NUnit.Framework;
-using Sharpen;
+using Directory = Com.Drew.Metadata.Directory;
 
 namespace Com.Drew.Imaging.Jpeg
 {
@@ -34,14 +34,14 @@ namespace Com.Drew.Imaging.Jpeg
         [Test]
         public void TestExtractMetadata()
         {
-            Validate(JpegMetadataReader.ReadMetadata(new FilePath("Tests/Data/withExif.jpg")));
+            Validate(JpegMetadataReader.ReadMetadata("Tests/Data/withExif.jpg"));
         }
 
         /// <exception cref="System.Exception"/>
         [Test]
         public void TestExtractMetadataUsingInputStream()
         {
-            Validate(JpegMetadataReader.ReadMetadata(new FileInputStream((new FilePath("Tests/Data/withExif.jpg")))));
+            Validate(JpegMetadataReader.ReadMetadata(new FileStream("Tests/Data/withExif.jpg", FileMode.Open)));
         }
 
         private static void Validate(Metadata.Metadata metadata)

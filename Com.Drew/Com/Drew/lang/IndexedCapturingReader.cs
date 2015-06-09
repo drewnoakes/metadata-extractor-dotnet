@@ -22,18 +22,19 @@
 
 using System;
 using System.Diagnostics;
+using System.IO;
 using JetBrains.Annotations;
 using Sharpen;
 
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class RandomAccessStreamReader : RandomAccessReader
+    public sealed class IndexedCapturingReader : IndexedReader
     {
         private const int DefaultChunkLength = 2 * 1024;
 
         [NotNull]
-        private readonly InputStream _stream;
+        private readonly Stream _stream;
 
         private readonly int _chunkLength;
 
@@ -43,7 +44,7 @@ namespace Com.Drew.Lang
 
         private int _streamLength;
 
-        public RandomAccessStreamReader([NotNull] InputStream stream, int chunkLength = DefaultChunkLength)
+        public IndexedCapturingReader([NotNull] Stream stream, int chunkLength = DefaultChunkLength)
         {
             if (stream == null)
             {
@@ -61,7 +62,7 @@ namespace Com.Drew.Lang
         /// <remarks>
         /// Reads to the end of the stream, in order to determine the total number of bytes.
         /// In general, this is not a good idea for this implementation of
-        /// <see cref="RandomAccessReader"/>.
+        /// <see cref="IndexedReader"/>.
         /// </remarks>
         /// <returns>the length of the data source, in bytes.</returns>
         /// <exception cref="System.IO.IOException"/>
@@ -134,7 +135,7 @@ namespace Com.Drew.Lang
                 while (!_isStreamFinished && totalBytesRead != _chunkLength)
                 {
                     int bytesRead = _stream.Read(chunk, totalBytesRead, _chunkLength - totalBytesRead);
-                    if (bytesRead == -1)
+                    if (bytesRead == 0)
                     {
                         // the stream has ended, which may be ok
                         _isStreamFinished = true;

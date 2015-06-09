@@ -38,7 +38,7 @@ namespace Com.Drew.Imaging.Tiff
         /// <summary>Processes a TIFF data sequence.</summary>
         /// <param name="reader">
         /// the
-        /// <see cref="Com.Drew.Lang.RandomAccessReader"/>
+        /// <see cref="IndexedReader"/>
         /// from which the data should be read
         /// </param>
         /// <param name="handler">
@@ -53,7 +53,7 @@ namespace Com.Drew.Imaging.Tiff
         /// </exception>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
         /// <exception cref="Com.Drew.Imaging.Tiff.TiffProcessingException"/>
-        public void ProcessTiff([NotNull] RandomAccessReader reader, [NotNull] ITiffHandler handler, int tiffHeaderOffset)
+        public void ProcessTiff([NotNull] IndexedReader reader, [NotNull] ITiffHandler handler, int tiffHeaderOffset)
         {
             // This must be either "MM" or "II".
             short byteOrderIdentifier = reader.GetInt16(tiffHeaderOffset);
@@ -79,7 +79,7 @@ namespace Com.Drew.Imaging.Tiff
             handler.SetTiffMarker(tiffMarker);
             int firstIfdOffset = reader.GetInt32(4 + tiffHeaderOffset) + tiffHeaderOffset;
             // David Ekholm sent a digital camera image that has this problem
-            // TODO getLength should be avoided as it causes RandomAccessStreamReader to read to the end of the stream
+            // TODO getLength should be avoided as it causes IndexedCapturingReader to read to the end of the stream
             if (firstIfdOffset >= reader.GetLength() - 1)
             {
                 handler.Warn("First IFD offset is beyond the end of the TIFF data segment -- trying default offset");
@@ -113,14 +113,14 @@ namespace Com.Drew.Imaging.Tiff
         /// </param>
         /// <param name="reader">
         /// the
-        /// <see cref="Com.Drew.Lang.RandomAccessReader"/>
+        /// <see cref="IndexedReader"/>
         /// from which the data should be read
         /// </param>
         /// <param name="processedIfdOffsets">the set of visited IFD offsets, to avoid revisiting the same IFD in an endless loop</param>
         /// <param name="ifdOffset">the offset within <c>reader</c> at which the IFD data starts</param>
         /// <param name="tiffHeaderOffset">the offset within <c>reader</c> at which the TIFF header starts</param>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
-        public static void ProcessIfd([NotNull] ITiffHandler handler, [NotNull] RandomAccessReader reader, [NotNull] ICollection<int?> processedIfdOffsets, int ifdOffset, int tiffHeaderOffset)
+        public static void ProcessIfd([NotNull] ITiffHandler handler, [NotNull] IndexedReader reader, [NotNull] ICollection<int?> processedIfdOffsets, int ifdOffset, int tiffHeaderOffset)
         {
             try
             {
@@ -257,7 +257,7 @@ namespace Com.Drew.Imaging.Tiff
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private static void ProcessTag([NotNull] ITiffHandler handler, int tagId, int tagValueOffset, int componentCount, int formatCode, [NotNull] RandomAccessReader reader)
+        private static void ProcessTag([NotNull] ITiffHandler handler, int tagId, int tagValueOffset, int componentCount, int formatCode, [NotNull] IndexedReader reader)
         {
             switch (formatCode)
             {

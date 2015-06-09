@@ -27,17 +27,17 @@ using NUnit.Framework;
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class RandomAccessStreamReaderTest : RandomAccessTestBase
+    public sealed class RandomAccessStreamReaderTest : IndexedReaderTestBase
     {
         [Test, ExpectedException(typeof(ArgumentNullException))]
         public void TestConstructWithNullBufferThrows()
         {
-            new RandomAccessStreamReader(null);
+            new IndexedCapturingReader(null);
         }
 
-        protected override RandomAccessReader CreateReader(byte[] bytes)
+        protected override IndexedReader CreateReader(byte[] bytes)
         {
-            return new RandomAccessStreamReader(new MemoryStream(bytes));
+            return new IndexedCapturingReader(new MemoryStream(bytes));
         }
     }
 }

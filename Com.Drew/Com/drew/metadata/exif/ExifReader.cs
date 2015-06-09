@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Imaging.Tiff;
 using Com.Drew.Lang;
@@ -61,7 +62,7 @@ namespace Com.Drew.Metadata.Exif
             foreach (byte[] segmentBytes in segments)
             {
                 // Filter any segments containing unexpected preambles
-                if (segmentBytes.Length < JpegSegmentPreamble.Length || !Runtime.GetStringForBytes(segmentBytes, 0, JpegSegmentPreamble.Length).Equals(JpegSegmentPreamble))
+                if (segmentBytes.Length < JpegSegmentPreamble.Length || Encoding.UTF8.GetString(segmentBytes, 0, JpegSegmentPreamble.Length) != JpegSegmentPreamble)
                 {
                     continue;
                 }
@@ -70,9 +71,9 @@ namespace Com.Drew.Metadata.Exif
         }
 
         /// <summary>
-        /// Reads TIFF formatted Exif data a specified offset within a <see cref="Com.Drew.Lang.RandomAccessReader"/>.
+        /// Reads TIFF formatted Exif data a specified offset within a <see cref="IndexedReader"/>.
         /// </summary>
-        public void Extract([NotNull] RandomAccessReader reader, [NotNull] Metadata metadata, int readerOffset = 0)
+        public void Extract([NotNull] IndexedReader reader, [NotNull] Metadata metadata, int readerOffset = 0)
         {
             try
             {

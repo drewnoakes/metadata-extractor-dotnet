@@ -21,6 +21,7 @@
  */
 
 using System.IO;
+using System.Text;
 using NUnit.Framework;
 using Sharpen;
 
@@ -240,7 +241,7 @@ namespace Com.Drew.Lang
         public virtual void TestGetString()
         {
             byte[] bytes = new byte[] { unchecked(0x41), unchecked(0x42), unchecked(0x43), unchecked(0x44), unchecked(0x45), unchecked(0x46), unchecked(0x47) };
-            string expected = Runtime.GetStringForBytes(bytes);
+            string expected = Encoding.UTF8.GetString(bytes);
             Assert.AreEqual(bytes.Length, expected.Length);
             for (int i = 0; i < bytes.Length; i++)
             {
@@ -304,10 +305,10 @@ namespace Com.Drew.Lang
             SequentialReader reader = CreateReader(new byte[2]);
             reader.GetInt8();
             reader.GetInt8();
+            reader = CreateReader(new byte[1]);
+            reader.GetInt8();
             try
             {
-                reader = CreateReader(new byte[1]);
-                reader.GetInt8();
                 reader.GetInt8();
                 Assert.Fail("Expecting exception");
             }
@@ -324,10 +325,10 @@ namespace Com.Drew.Lang
             SequentialReader reader = CreateReader(new byte[2]);
             reader.Skip(1);
             reader.Skip(1);
+            reader = CreateReader(new byte[1]);
+            reader.Skip(1);
             try
             {
-                reader = CreateReader(new byte[1]);
-                reader.Skip(1);
                 reader.Skip(1);
                 Assert.Fail("Expecting exception");
             }

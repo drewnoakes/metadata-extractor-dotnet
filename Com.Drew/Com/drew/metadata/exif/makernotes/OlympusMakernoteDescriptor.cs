@@ -782,7 +782,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return null;
             }
-            return Runtime.GetStringForBytes(bytes);
+            return Encoding.UTF8.GetString(bytes);
         }
 
         [CanBeNull]

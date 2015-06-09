@@ -302,7 +302,7 @@ namespace Com.Drew.Metadata
                     break;
                 }
             }
-            return Runtime.GetStringForBytes(bytes, 0, length);
+            return Encoding.UTF8.GetString(bytes, 0, length);
         }
 
         [CanBeNull]
@@ -315,9 +315,9 @@ namespace Com.Drew.Metadata
             }
             try
             {
-                return Runtime.GetStringForBytes(values, "ASCII").Trim();
+                return Encoding.ASCII.GetString(values).Trim();
             }
-            catch (UnsupportedEncodingException)
+            catch
             {
                 return null;
             }

@@ -28,24 +28,21 @@ using Sharpen;
 namespace Com.Drew.Lang
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class RandomAccessFileReaderTest : RandomAccessTestBase
+    public sealed class IndexedSeekingReaderTest : IndexedReaderTestBase
     {
-        private FilePath _tempFile;
+        private string _tempFile;
+        private Stream _stream;
 
-        private RandomAccessFile _randomAccessFile;
-
-        protected override RandomAccessReader CreateReader(byte[] bytes)
+        protected override IndexedReader CreateReader(byte[] bytes)
         {
             try
             {
                 // Unit tests can create multiple readers in the same test, as long as they're used one after the other
                 DeleteTempFile();
-                _tempFile = new FilePath(Path.GetTempFileName());
-                FileOutputStream stream = new FileOutputStream(_tempFile);
-                stream.Write(bytes);
-                stream.Close();
-                _randomAccessFile = new RandomAccessFile(_tempFile, "r");
-                return new RandomAccessFileReader(_randomAccessFile);
+                _tempFile = Path.GetTempFileName();
+                File.WriteAllBytes(_tempFile, bytes);
+                _stream = new FileStream(_tempFile, FileMode.Open, FileAccess.Read);
+                return new IndexedSeekingReader(_stream);
             }
             catch (IOException)
             {
@@ -58,25 +55,25 @@ namespace Com.Drew.Lang
         [TearDown]
         public void DeleteTempFile()
         {
-            if (_randomAccessFile == null)
+            if (_stream != null)
             {
-                return;
+                _stream.Close();
+                _stream = null;
             }
-            _randomAccessFile.Close();
-            if (_tempFile == null)
+
+            if (_tempFile != null)
             {
-                return;
+                if (File.Exists(_tempFile))
+                    File.Delete(_tempFile);
+                _tempFile = null;
             }
-            Assert.IsTrue(_tempFile.Delete(), "Unable to delete temp file used during unit test: " + _tempFile.GetAbsolutePath());
-            _tempFile = null;
-            _randomAccessFile = null;
         }
 
         /// <exception cref="System.IO.IOException"/>
         [Test, ExpectedException(typeof(ArgumentNullException))]
         public void TestConstructWithNullBufferThrows()
         {
-            new RandomAccessFileReader(null);
+            new IndexedSeekingReader(null);
         }
     }
 }

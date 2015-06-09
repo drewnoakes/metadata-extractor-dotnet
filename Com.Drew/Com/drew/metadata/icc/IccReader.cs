@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
@@ -58,7 +59,7 @@ namespace Com.Drew.Metadata.Icc
             foreach (byte[] segmentBytes in segments)
             {
                 // Skip any segments that do not contain the required preamble
-                if (segmentBytes.Length < preambleLength || !Runtime.EqualsIgnoreCase(JpegSegmentPreamble, Runtime.GetStringForBytes(segmentBytes, 0, preambleLength)))
+                if (segmentBytes.Length < preambleLength || !Runtime.EqualsIgnoreCase(JpegSegmentPreamble, Encoding.UTF8.GetString(segmentBytes, 0, preambleLength)))
                 {
                     continue;
                 }
@@ -84,9 +85,9 @@ namespace Com.Drew.Metadata.Icc
             }
         }
 
-        public void Extract(RandomAccessReader reader, Metadata metadata)
+        public void Extract(IndexedReader reader, Metadata metadata)
         {
-            // TODO review whether the 'tagPtr' values below really do require RandomAccessReader or whether SequentialReader may be used instead
+            // TODO review whether the 'tagPtr' values below really do require IndexedReader or whether SequentialReader may be used instead
             IccDirectory directory = new IccDirectory();
             try
             {
@@ -140,7 +141,7 @@ namespace Com.Drew.Metadata.Icc
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private static void Set4ByteString([NotNull] Directory directory, int tagType, [NotNull] RandomAccessReader reader)
+        private static void Set4ByteString([NotNull] Directory directory, int tagType, [NotNull] IndexedReader reader)
         {
             int i = reader.GetInt32(tagType);
             if (i != 0)
@@ -150,7 +151,7 @@ namespace Com.Drew.Metadata.Icc
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private static void SetInt32([NotNull] Directory directory, int tagType, [NotNull] RandomAccessReader reader)
+        private static void SetInt32([NotNull] Directory directory, int tagType, [NotNull] IndexedReader reader)
         {
             int i = reader.GetInt32(tagType);
             if (i != 0)
@@ -160,7 +161,7 @@ namespace Com.Drew.Metadata.Icc
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private static void SetInt64([NotNull] Directory directory, int tagType, [NotNull] RandomAccessReader reader)
+        private static void SetInt64([NotNull] Directory directory, int tagType, [NotNull] IndexedReader reader)
         {
             long l = reader.GetInt64(tagType);
             if (l != 0)
@@ -170,7 +171,7 @@ namespace Com.Drew.Metadata.Icc
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private static void SetDate([NotNull] IccDirectory directory, int tagType, [NotNull] RandomAccessReader reader)
+        private static void SetDate([NotNull] IccDirectory directory, int tagType, [NotNull] IndexedReader reader)
         {
             int y = reader.GetUInt16(tagType);
             int m = reader.GetUInt16(tagType + 2);
@@ -191,7 +192,7 @@ namespace Com.Drew.Metadata.Icc
             // MSB
             byte[] b = new byte[] { unchecked((byte)((d & unchecked((int)(0xFF000000))) >> 24)), unchecked((byte)((d & unchecked(0x00FF0000)) >> 16)), unchecked((byte)((d & unchecked(0x0000FF00)) >> 8)), unchecked((byte)((d & unchecked(
                 0x000000FF)))) };
-            return Runtime.GetStringForBytes(b);
+            return Encoding.UTF8.GetString(b);
         }
     }
 }

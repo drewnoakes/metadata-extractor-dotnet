@@ -493,9 +493,9 @@ namespace Com.Drew.Metadata.Exif
             try
             {
                 // Decode the unicode string and trim the unicode zero "\0" from the end.
-                return Runtime.GetStringForBytes(bytes, "UTF-16LE").Trim();
+                return Encoding.Unicode.GetString(bytes).TrimEnd('\0');
             }
-            catch (UnsupportedEncodingException)
+            catch
             {
                 return null;
             }
@@ -802,22 +802,22 @@ namespace Com.Drew.Metadata.Exif
             {
                 return string.Empty;
             }
-            IDictionary<string, string> encodingMap = new Dictionary<string, string>();
-            encodingMap.Put("ASCII", Runtime.GetProperty("file.encoding"));
+            IDictionary<string, Encoding> encodingMap = new Dictionary<string, Encoding>();
+            encodingMap.Put("ASCII", Encoding.ASCII);
             // Someone suggested "ISO-8859-1".
-            encodingMap.Put("UNICODE", "UTF-16LE");
-            encodingMap.Put("JIS", "Shift-JIS");
+            encodingMap.Put("UNICODE", Encoding.Unicode);
+            encodingMap.Put("JIS", Encoding.GetEncoding("Shift-JIS"));
             // We assume this charset for now.  Another suggestion is "JIS".
             try
             {
                 if (commentBytes.Length >= 10)
                 {
-                    string firstTenBytesString = Runtime.GetStringForBytes(commentBytes, 0, 10);
+                    string firstTenBytesString = Encoding.UTF8.GetString(commentBytes, 0, 10);
                     // try each encoding name
-                    foreach (KeyValuePair<string, string> pair in encodingMap.EntrySet())
+                    foreach (var pair in encodingMap.EntrySet())
                     {
                         string encodingName = pair.Key;
-                        string charset = pair.Value;
+                        Encoding encoding = pair.Value;
                         if (firstTenBytesString.StartsWith(encodingName))
                         {
                             // skip any null or blank characters commonly present after the encoding name, up to a limit of 10 from the start
@@ -826,17 +826,17 @@ namespace Com.Drew.Metadata.Exif
                                 byte b = commentBytes[j];
                                 if (b != '\0' && b != ' ')
                                 {
-                                    return Runtime.GetStringForBytes(commentBytes, j, commentBytes.Length - j, charset).Trim();
+                                    return encoding.GetString(commentBytes, j, commentBytes.Length - j).Trim('\0', ' ');
                                 }
                             }
-                            return Runtime.GetStringForBytes(commentBytes, 10, commentBytes.Length - 10, charset).Trim();
+                            return encoding.GetString(commentBytes, 10, commentBytes.Length - 10).Trim('\0', ' ');
                         }
                     }
                 }
                 // special handling fell through, return a plain string representation
-                return Runtime.GetStringForBytes(commentBytes, Runtime.GetProperty("file.encoding")).Trim();
+                return Encoding.UTF8.GetString(commentBytes).Trim('\0', ' ');
             }
-            catch (UnsupportedEncodingException)
+            catch
             {
                 return null;
             }

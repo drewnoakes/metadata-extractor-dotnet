@@ -41,8 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AList.cs" />
-    <Compile Include="BufferedInputStream.cs" />
-    <Compile Include="BufferedReader.cs" />
     <Compile Include="ByteBuffer.cs" />
     <Compile Include="Calendar.cs" />
     <Compile Include="CharSequence.cs" />
@@ -55,28 +53,17 @@
     <Compile Include="Exceptions.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FileHelper.cs" />
-    <Compile Include="FileInputStream.cs" />
-    <Compile Include="FileOutputStream.cs" />
-    <Compile Include="FilePath.cs" />
     <Compile Include="FileWriter.cs" />
     <Compile Include="GregorianCalendar.cs" />
-    <Compile Include="HttpURLConnection.cs" />
     <Compile Include="IIterator.cs" />
-    <Compile Include="InflaterInputStream.cs" />
-    <Compile Include="InputSource.cs" />
-    <Compile Include="InputStream.cs" />
-    <Compile Include="InputStreamReader.cs" />
     <Compile Include="ListIterator.cs" />
     <Compile Include="Number.cs" />
-    <Compile Include="OutputStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PushbackReader.cs" />
-    <Compile Include="RandomAccessFile.cs" />
     <Compile Include="Runtime.cs" />
     <Compile Include="SimpleDateFormat.cs" />
     <Compile Include="SimpleTimeZone.cs" />
     <Compile Include="StringReader.cs" />
-    <Compile Include="WrappedSystemStream.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

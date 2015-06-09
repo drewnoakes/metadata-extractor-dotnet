@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.IO;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
 using NUnit.Framework;
@@ -35,9 +36,10 @@ namespace Com.Drew.Metadata.Bmp
         public static BmpHeaderDirectory ProcessBytes([NotNull] string file)
         {
             Metadata metadata = new Metadata();
-            InputStream stream = new FileInputStream(file);
-            new BmpReader().Extract(new SequentialStreamReader(stream), metadata);
-            stream.Close();
+            using (Stream stream = new FileStream(file, FileMode.Open))
+            {
+                new BmpReader().Extract(new SequentialStreamReader(stream), metadata);
+            }
             BmpHeaderDirectory directory = metadata.GetFirstDirectoryOfType<BmpHeaderDirectory>();
             Assert.IsNotNull(directory);
             return directory;

@@ -22,6 +22,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
 using Sharpen;
@@ -49,7 +50,7 @@ namespace Com.Drew.Metadata.Jfif
             foreach (byte[] segmentBytes in segments)
             {
                 // Skip segments not starting with the required header
-                if (segmentBytes.Length >= 4 && Preamble.Equals(Runtime.GetStringForBytes(segmentBytes, 0, Preamble.Length)))
+                if (segmentBytes.Length >= 4 && Preamble.Equals(Encoding.UTF8.GetString(segmentBytes, 0, Preamble.Length)))
                 {
                     Extract(new ByteArrayReader(segmentBytes), metadata);
                 }
@@ -59,7 +60,7 @@ namespace Com.Drew.Metadata.Jfif
         /// <summary>
         /// Performs the Jfif data extraction, adding found values to the specified instance of <see cref="Com.Drew.Metadata.Metadata"/>.
         /// </summary>
-        public void Extract(RandomAccessReader reader, Metadata metadata)
+        public void Extract(IndexedReader reader, Metadata metadata)
         {
             JfifDirectory directory = new JfifDirectory();
             metadata.AddDirectory(directory);

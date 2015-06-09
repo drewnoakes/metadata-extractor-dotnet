@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using Com.Drew.Lang;
 using Com.Drew.Metadata.File;
 using Com.Drew.Metadata.Icc;
@@ -38,28 +39,21 @@ namespace Com.Drew.Imaging.Png
         /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] FilePath file)
+        public static Metadata.Metadata ReadMetadata([NotNull] string filePath)
         {
-            InputStream inputStream = new FileInputStream(file);
             Metadata.Metadata metadata;
-            try
-            {
-                metadata = ReadMetadata(inputStream);
-            }
-            finally
-            {
-                inputStream.Close();
-            }
-            new FileMetadataReader().Read(file, metadata);
+            using (Stream stream = new FileStream(filePath, FileMode.Open))
+                metadata = ReadMetadata(stream);
+            new FileMetadataReader().Read(filePath, metadata);
             return metadata;
         }
 
         /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
+        public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
         {
-            IEnumerable<PngChunk> chunks = new PngChunkReader().Extract(new SequentialStreamReader(inputStream), DesiredChunkTypes);
+            IEnumerable<PngChunk> chunks = new PngChunkReader().Extract(new SequentialStreamReader(stream), DesiredChunkTypes);
             Metadata.Metadata metadata = new Metadata.Metadata();
             foreach (PngChunk chunk in chunks)
             {
@@ -159,9 +153,8 @@ namespace Com.Drew.Imaging.Png
                                             // This assumes 1-byte-per-char, which it is by spec.
                                             int bytesLeft = bytes.Length - profileName.Length - 2;
                                             byte[] compressedProfile = reader.GetBytes(bytesLeft);
-                                            InflaterInputStream inflateStream = new InflaterInputStream(new MemoryStream(compressedProfile));
-                                            new IccReader().Extract(new RandomAccessStreamReader(inflateStream), metadata);
-                                            inflateStream.Close();
+                                            using (var inflaterStream = new DeflateStream(new MemoryStream(compressedProfile), CompressionMode.Decompress))
+                                                new IccReader().Extract(new IndexedCapturingReader(inflaterStream), metadata);
                                         }
                                         metadata.AddDirectory(directory);
                                     }
@@ -209,7 +202,8 @@ namespace Com.Drew.Imaging.Png
                                                         {
                                                             if (compressionMethod == 0)
                                                             {
-                                                                text = StringUtil.FromStream(new InflaterInputStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft)));
+                                                                using (var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress))
+                                                                    text = new StreamReader(inflaterStream).ReadToEnd();
                                                             }
                                                             else
                                                             {

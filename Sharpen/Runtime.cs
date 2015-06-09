@@ -8,40 +8,9 @@ namespace Sharpen
 {
     public static class Runtime
     {
-        static Hashtable _properties;
-
-        public static Hashtable GetProperties ()
-        {
-            if (_properties == null) {
-                _properties = new Hashtable ();
-                _properties ["jgit.fs.debug"] = "false";
-                var home = Environment.GetFolderPath (Environment.SpecialFolder.UserProfile).Trim ();
-                if (string.IsNullOrEmpty (home))
-                    home = Environment.GetFolderPath (Environment.SpecialFolder.Personal).Trim ();
-                _properties ["user.home"] = home;
-                _properties ["java.library.path"] = Environment.GetEnvironmentVariable ("PATH");
-                if (Path.DirectorySeparatorChar != '\\')
-                    _properties ["os.name"] = "Unix";
-                else
-                    _properties ["os.name"] = "Windows";
-                _properties["file.encoding"] = Encoding.UTF8.BodyName;
-            }
-            return _properties;
-        }
-
-        public static string GetProperty (string key)
-        {
-            return ((string) GetProperties()[key]);
-        }
-
         public static byte[] GetBytesForString (string str)
         {
-            return Extensions.ConvertToByteArray(Encoding.UTF8.GetBytes (str));
-        }
-
-        public static byte[] GetBytesForString (string str, string encoding)
-        {
-            return Extensions.ConvertToByteArray(Encoding.GetEncoding(encoding).GetBytes(str));
+            return Encoding.UTF8.GetBytes(str);
         }
 
         public static void PrintStackTrace (Exception ex)
@@ -72,52 +41,6 @@ namespace Sharpen
         public static bool EqualsIgnoreCase (string s1, string s2)
         {
             return s1.Equals (s2, StringComparison.CurrentCultureIgnoreCase);
-        }
-
-        public static long NanoTime ()
-        {
-            return Environment.TickCount * 1000 * 1000;
-        }
-
-        public static string GetStringForBytes (byte[] chars)
-        {
-            return Encoding.UTF8.GetString(Extensions.ConvertToByteArray(chars));
-        }
-
-        public static string GetStringForBytes (byte[] chars, string encoding)
-        {
-            return GetEncoding (encoding).GetString (chars);
-        }
-
-        public static string GetStringForBytes (byte[] chars, int start, int len)
-        {
-            return Encoding.UTF8.GetString (chars, start, len);
-        }
-
-        public static string GetStringForBytes (byte[] chars, int start, int len, string encoding)
-        {
-            return GetEncoding (encoding).Decode (chars, start, len);
-        }
-
-        public static Encoding GetEncoding (string name)
-        {
-            try
-            {
-//            Encoding e = Encoding.GetEncoding (name, EncoderFallback.ExceptionFallback, DecoderFallback.ExceptionFallback);
-                Encoding e = Encoding.GetEncoding(name.Replace('_', '-'));
-                if (e is UTF8Encoding)
-                    return new UTF8Encoding(false, true);
-                return e;
-            }
-            catch (ArgumentException ex)
-            {
-                if (ex.ParamName.Equals("name"))
-                {
-                    throw new UnsupportedEncodingException();
-                }
-
-                throw;
-            }
         }
 
         public static int GetArrayLength(object array)

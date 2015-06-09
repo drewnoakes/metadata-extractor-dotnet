@@ -1,5 +1,5 @@
+using System.Text;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Iptc
 {
@@ -43,7 +43,7 @@ namespace Com.Drew.Metadata.Iptc
         /// Encodings trialled are, in order:
         /// <list type="bullet">
         /// <item>UTF-8</item>
-        /// <item><c>System.getProperty("file.encoding")</c></item>
+        /// <item>ASCII</item>
         /// <item>ISO-8859-1</item>
         /// </list>
         /// <p/>
@@ -57,18 +57,18 @@ namespace Com.Drew.Metadata.Iptc
         /// <param name="bytes">some text as bytes</param>
         /// <returns>the name of the encoding or null if none could be guessed</returns>
         [CanBeNull]
-        internal static string GuessEncoding([NotNull] byte[] bytes)
+        internal static Encoding GuessEncoding([NotNull] byte[] bytes)
         {
-            string[] encodings = new string[] { Utf8, Runtime.GetProperty("file.encoding"), Iso88591 };
-            foreach (string encoding in encodings)
+            Encoding[] encodings = { Encoding.UTF8, Encoding.ASCII, Encoding.GetEncoding("iso-8859-1") };
+            foreach (Encoding encoding in encodings)
             {
-                CharsetDecoder cs = Extensions.GetEncoding(encoding).NewDecoder();
                 try
                 {
-                    cs.Decode(ByteBuffer.Wrap(bytes));
+                    // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                    encoding.GetString(bytes);
                     return encoding;
                 }
-                catch (CharacterCodingException)
+                catch
                 {
                 }
             }

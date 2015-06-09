@@ -21,8 +21,8 @@
  */
 
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -43,20 +43,6 @@ namespace Com.Drew.Lang
             where T : CharSequence
         {
             return string.Join(delimiter, strings.Select(s => s.ToString()));
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public static string FromStream([NotNull] InputStream stream)
-        {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-            StringBuilder sb = new StringBuilder();
-            string line;
-            while ((line = reader.ReadLine()) != null)
-            {
-                sb.Append(line);
-            }
-            return Extensions.ConvertToString(sb);
         }
 
         public static int Compare([CanBeNull] string s1, [CanBeNull] string s2)

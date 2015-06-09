@@ -207,9 +207,9 @@ namespace Com.Drew.Metadata.Tiff
             CurrentDirectory.SetObjectArray(tagId, array);
         }
 
-        public abstract void Completed(RandomAccessReader arg1, int arg2);
+        public abstract void Completed(IndexedReader arg1, int arg2);
 
-        public abstract bool CustomProcessTag(int arg1, ICollection<int?> arg2, int arg3, RandomAccessReader arg4, int arg5, int arg6);
+        public abstract bool CustomProcessTag(int arg1, ICollection<int?> arg2, int arg3, IndexedReader arg4, int arg5, int arg6);
 
         public abstract bool HasFollowerIfd();
 

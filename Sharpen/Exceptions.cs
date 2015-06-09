@@ -85,16 +85,5 @@ namespace Sharpen
         {
         }
     }
-
-    public class UnsupportedEncodingException : Exception
-    {
-    }
-
-    class UnsupportedCharsetException: Exception
-    {
-        public UnsupportedCharsetException (string msg): base (msg)
-        {
-        }
-    }
 }
 

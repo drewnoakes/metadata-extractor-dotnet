@@ -1,30 +1,25 @@
 using System.IO;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Metadata.File
 {
     public sealed class FileMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
-        public void Read([NotNull] FilePath file, [NotNull] Metadata metadata)
+        public void Read([NotNull] string file, [NotNull] Metadata metadata)
         {
-            if (!file.IsFile())
-            {
+            var attr = System.IO.File.GetAttributes(file);
+            if (attr.HasFlag(FileAttributes.Directory))
                 throw new IOException("File object must reference a file");
-            }
-            if (!file.Exists())
-            {
+
+            var fileInfo = new FileInfo(file);
+            if (!fileInfo.Exists)
                 throw new IOException("File does not exist");
-            }
-            if (!file.CanRead())
-            {
-                throw new IOException("File is not readable");
-            }
+
             FileMetadataDirectory directory = new FileMetadataDirectory();
-            directory.SetString(FileMetadataDirectory.TagFileName, file.GetName());
-            directory.SetLong(FileMetadataDirectory.TagFileSize, file.Length());
-            directory.SetDate(FileMetadataDirectory.TagFileModifiedDate, Extensions.CreateDate(file.LastModified()));
+            directory.SetString(FileMetadataDirectory.TagFileName, Path.GetFileName(file));
+            directory.SetLong(FileMetadataDirectory.TagFileSize, fileInfo.Length);
+            directory.SetDate(FileMetadataDirectory.TagFileModifiedDate, fileInfo.LastWriteTime);
             metadata.AddDirectory(directory);
         }
     }

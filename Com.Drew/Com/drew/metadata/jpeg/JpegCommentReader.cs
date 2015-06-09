@@ -21,6 +21,7 @@
  */
 
 using System.Collections.Generic;
+using System.Text;
 using Com.Drew.Imaging.Jpeg;
 using JetBrains.Annotations;
 using Sharpen;
@@ -52,7 +53,7 @@ namespace Com.Drew.Metadata.Jpeg
                 JpegCommentDirectory directory = new JpegCommentDirectory();
                 metadata.AddDirectory(directory);
                 // The entire contents of the directory are the comment
-                directory.SetString(JpegCommentDirectory.TagComment, Runtime.GetStringForBytes(segmentBytes));
+                directory.SetString(JpegCommentDirectory.TagComment, Encoding.UTF8.GetString(segmentBytes));
             }
         }
     }

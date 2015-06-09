@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.IO;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
 using NUnit.Framework;
@@ -33,19 +34,11 @@ namespace Com.Drew.Metadata.Photoshop
     {
         /// <exception cref="System.Exception"/>
         [NotNull]
-        public static PsdHeaderDirectory ProcessBytes([NotNull] string file)
+        public static PsdHeaderDirectory ProcessBytes([NotNull] string filePath)
         {
             Metadata metadata = new Metadata();
-            InputStream stream = new FileInputStream(new FilePath(file));
-            try
-            {
+            using (Stream stream = new FileStream(filePath, FileMode.Open))
                 new PsdReader().Extract(new SequentialStreamReader(stream), metadata);
-            }
-            catch (Exception e)
-            {
-                stream.Close();
-                throw;
-            }
             PsdHeaderDirectory directory = metadata.GetFirstDirectoryOfType<PsdHeaderDirectory>();
             Assert.IsNotNull(directory);
             return directory;

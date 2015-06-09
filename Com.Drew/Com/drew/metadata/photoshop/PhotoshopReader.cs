@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Com.Drew.Imaging;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
@@ -58,7 +59,7 @@ namespace Com.Drew.Metadata.Photoshop
             foreach (byte[] segmentBytes in segments)
             {
                 // Ensure data starts with the necessary preamble
-                if (segmentBytes.Length < preambleLength + 1 || !JpegSegmentPreamble.Equals(Runtime.GetStringForBytes(segmentBytes, 0, preambleLength)))
+                if (segmentBytes.Length < preambleLength + 1 || !JpegSegmentPreamble.Equals(Encoding.UTF8.GetString(segmentBytes, 0, preambleLength)))
                 {
                     continue;
                 }

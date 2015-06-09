@@ -106,7 +106,7 @@ namespace Com.Drew.Metadata.Exif
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public override bool CustomProcessTag(int tagOffset, ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, RandomAccessReader reader, int tagId, int byteCount)
+        public override bool CustomProcessTag(int tagOffset, ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, IndexedReader reader, int tagId, int byteCount)
         {
             // Custom processing for the Makernote tag
             if (tagId == ExifDirectoryBase.TagMakernote && CurrentDirectory is ExifSubIfdDirectory)
@@ -128,7 +128,7 @@ namespace Com.Drew.Metadata.Exif
             return false;
         }
 
-        public override void Completed(RandomAccessReader reader, int tiffHeaderOffset)
+        public override void Completed(IndexedReader reader, int tiffHeaderOffset)
         {
             if (_storeThumbnailBytes)
             {
@@ -155,7 +155,7 @@ namespace Com.Drew.Metadata.Exif
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private bool ProcessMakernote(int makernoteOffset, [NotNull] ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, [NotNull] RandomAccessReader reader)
+        private bool ProcessMakernote(int makernoteOffset, [NotNull] ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, [NotNull] IndexedReader reader)
         {
             // Determine the camera model and makernote format.
             Directory ifd0Directory = Metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
@@ -172,7 +172,7 @@ namespace Com.Drew.Metadata.Exif
             string firstSevenChars = reader.GetString(makernoteOffset, 7);
             string firstEightChars = reader.GetString(makernoteOffset, 8);
             string firstTwelveChars = reader.GetString(makernoteOffset, 12);
-            bool byteOrderBefore = reader.IsMotorolaByteOrder();
+            bool byteOrderBefore = reader.IsMotorolaByteOrder;
             if ("OLYMP".Equals(firstFiveChars) || "EPSON".Equals(firstFiveChars) || "AGFA".Equals(firstFourChars))
             {
                 // Olympus Makernote
@@ -427,7 +427,7 @@ namespace Com.Drew.Metadata.Exif
             return true;
         }
 
-        private static void ProcessKodakMakernote([NotNull] KodakMakernoteDirectory directory, int tagValueOffset, [NotNull] RandomAccessReader reader)
+        private static void ProcessKodakMakernote([NotNull] KodakMakernoteDirectory directory, int tagValueOffset, [NotNull] IndexedReader reader)
         {
             // Kodak's makernote is not in IFD format. It has values at fixed offsets.
             int dataOffset = tagValueOffset + 8;

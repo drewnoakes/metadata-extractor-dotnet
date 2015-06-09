@@ -20,12 +20,12 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.IO;
 using Com.Drew.Imaging.Riff;
 using Com.Drew.Lang;
 using Com.Drew.Metadata.File;
 using Com.Drew.Metadata.Webp;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Imaging.Webp
 {
@@ -36,29 +36,22 @@ namespace Com.Drew.Imaging.Webp
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="Com.Drew.Imaging.Riff.RiffProcessingException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] FilePath file)
+        public static Metadata.Metadata ReadMetadata([NotNull] string filePath)
         {
-            InputStream inputStream = new FileInputStream(file);
             Metadata.Metadata metadata;
-            try
-            {
-                metadata = ReadMetadata(inputStream);
-            }
-            finally
-            {
-                inputStream.Close();
-            }
-            new FileMetadataReader().Read(file, metadata);
+            using (Stream stream = new FileStream(filePath, FileMode.Open))
+                metadata = ReadMetadata(stream);
+            new FileMetadataReader().Read(filePath, metadata);
             return metadata;
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="Com.Drew.Imaging.Riff.RiffProcessingException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
+        public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
         {
             Metadata.Metadata metadata = new Metadata.Metadata();
-            new RiffReader().ProcessRiff(new SequentialStreamReader(inputStream), new WebpRiffHandler(metadata));
+            new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new WebpRiffHandler(metadata));
             return metadata;
         }
     }

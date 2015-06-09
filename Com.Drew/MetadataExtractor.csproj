@@ -78,10 +78,9 @@
     <Compile Include="Com\drew\lang\GeoLocation.cs" />
     <Compile Include="Com\drew\lang\Iterables.cs" />
     <Compile Include="Com\drew\lang\KeyValuePair.cs" />
-    <Compile Include="Com\drew\lang\NullOutputStream.cs" />
-    <Compile Include="Com\drew\lang\RandomAccessFileReader.cs" />
-    <Compile Include="Com\drew\lang\RandomAccessReader.cs" />
-    <Compile Include="Com\drew\lang\RandomAccessStreamReader.cs" />
+    <Compile Include="Com\drew\lang\IndexedSeekingReader.cs" />
+    <Compile Include="Com\drew\lang\IndexedReader.cs" />
+    <Compile Include="Com\drew\lang\IndexedCapturingReader.cs" />
     <Compile Include="Com\drew\lang\Rational.cs" />
     <Compile Include="Com\drew\lang\SequentialByteArrayReader.cs" />
     <Compile Include="Com\drew\lang\SequentialReader.cs" />

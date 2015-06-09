@@ -22,6 +22,7 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
 using Sharpen;
@@ -56,11 +57,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <para>
         /// Will not return SOS (start of scan) or EOI (end of image) segments.
         /// </summary>
-        /// <param name="file">
-        /// a
-        /// <see cref="Sharpen.FilePath"/>
-        /// from which the JPEG data will be read.
-        /// </param>
+        /// <param name="filePath">a file from which the JPEG data will be read.</param>
         /// <param name="segmentTypes">
         /// the set of JPEG segments types that are to be returned. If this argument is <c>null</c>
         /// then all found segment types are returned.
@@ -68,21 +65,10 @@ namespace Com.Drew.Imaging.Jpeg
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static JpegSegmentData ReadSegments([NotNull] FilePath file, [CanBeNull] IEnumerable<JpegSegmentType> segmentTypes)
+        public static JpegSegmentData ReadSegments([NotNull] string filePath, [CanBeNull] IEnumerable<JpegSegmentType> segmentTypes)
         {
-            FileInputStream stream = null;
-            try
-            {
-                stream = new FileInputStream(file);
+            using (var stream = new FileStream(filePath, FileMode.Open))
                 return ReadSegments(new SequentialStreamReader(stream), segmentTypes);
-            }
-            finally
-            {
-                if (stream != null)
-                {
-                    stream.Close();
-                }
-            }
         }
 
         /// <summary>

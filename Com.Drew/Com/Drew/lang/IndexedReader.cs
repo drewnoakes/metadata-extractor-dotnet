@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Text;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -27,25 +28,31 @@ namespace Com.Drew.Lang
 {
     /// <summary>Base class for random access data reading operations of common data types.</summary>
     /// <remarks>
-    /// Base class for random access data reading operations of common data types.
-    /// <para>
-    /// By default, the reader operates with Motorola byte order (big endianness).  This can be changed by calling
-    /// <see cref="SetMotorolaByteOrder(bool)"/>.
-    /// <para>
     /// Concrete implementations include:
     /// <list type="bullet">
-    /// <item>
-    /// <see cref="ByteArrayReader"/>
-    /// </item>
-    /// <item>
-    /// <see cref="RandomAccessStreamReader"/>
-    /// </item>
+    ///   <item><see cref="ByteArrayReader"/></item>
+    ///   <item><see cref="IndexedSeekingReader"/></item>
+    ///   <item><see cref="IndexedCapturingReader"/></item>
     /// </list>
+    /// By default, the reader operates with Motorola byte order (big endianness).  This can be changed by via
+    /// <see cref="IsMotorolaByteOrder"/>.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public abstract class RandomAccessReader
+    public abstract class IndexedReader
     {
-        private bool _isMotorolaByteOrder = true;
+        /// <summary>Get and set the byte order of this reader.</summary>
+        /// <remarks>
+        /// <list type="bullet">
+        ///   <item><c>true</c> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</item>
+        ///   <item><c>false</c> for Intel (or little) endianness, with LSB before MSB.</item>
+        /// </list>
+        /// </remarks>
+        public bool IsMotorolaByteOrder { set; get; }
+
+        public IndexedReader()
+        {
+            IsMotorolaByteOrder = true;
+        }
 
         /// <summary>Gets the byte value at the specified byte <c>index</c>.</summary>
         /// <remarks>
@@ -93,13 +100,13 @@ namespace Com.Drew.Lang
         /// Returns the length of the data source in bytes.
         /// <para>
         /// This is a simple operation for implementations (such as
-        /// <see cref="RandomAccessFileReader"/>
+        /// <see cref="IndexedSeekingReader"/>
         /// and
         /// <see cref="ByteArrayReader"/>
         /// ) that have the entire data source available.
         /// <para>
         /// Users of this method must be aware that sequentially accessed implementations such as
-        /// <see cref="RandomAccessStreamReader"/>
+        /// <see cref="IndexedCapturingReader"/>
         /// will have to read and buffer the entire data source in
         /// order to determine the length.
         /// </remarks>
@@ -107,38 +114,11 @@ namespace Com.Drew.Lang
         /// <exception cref="System.IO.IOException"/>
         public abstract long GetLength();
 
-        /// <summary>Sets the endianness of this reader.</summary>
-        /// <remarks>
-        /// Sets the endianness of this reader.
-        /// <list type="bullet">
-        /// <item><c>true</c> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</item>
-        /// <item><c>false</c> for Intel (or little) endianness, with LSB before MSB.</item>
-        /// </list>
-        /// </remarks>
-        /// <param name="motorolaByteOrder"><c>true</c> for Motorola/big endian, <c>false</c> for Intel/little endian</param>
-        public virtual void SetMotorolaByteOrder(bool motorolaByteOrder)
-        {
-            _isMotorolaByteOrder = motorolaByteOrder;
-        }
-
-        /// <summary>Gets the endianness of this reader.</summary>
-        /// <remarks>
-        /// Gets the endianness of this reader.
-        /// <list type="bullet">
-        /// <item><c>true</c> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</item>
-        /// <item><c>false</c> for Intel (or little) endianness, with LSB before MSB.</item>
-        /// </list>
-        /// </remarks>
-        public virtual bool IsMotorolaByteOrder()
-        {
-            return _isMotorolaByteOrder;
-        }
-
         /// <summary>Gets whether a bit at a specific index is set or not.</summary>
         /// <param name="index">the number of bits at which to test</param>
         /// <returns>true if the bit is set, otherwise false</returns>
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
-        public virtual bool GetBit(int index)
+        public bool GetBit(int index)
         {
             int byteIndex = index / 8;
             int bitIndex = index % 8;
@@ -151,7 +131,7 @@ namespace Com.Drew.Lang
         /// <param name="index">position within the data buffer to read byte</param>
         /// <returns>the 8 bit int value, between 0 and 255</returns>
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
-        public virtual byte GetUInt8(int index)
+        public byte GetUInt8(int index)
         {
             ValidateIndex(index, 1);
             return (byte)(GetByte(index) & 0xFF);
@@ -161,7 +141,7 @@ namespace Com.Drew.Lang
         /// <param name="index">position within the data buffer to read byte</param>
         /// <returns>the 8 bit signed byte value</returns>
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
-        public virtual sbyte GetInt8(int index)
+        public sbyte GetInt8(int index)
         {
             ValidateIndex(index, 1);
             return (sbyte)GetByte(index);
@@ -171,10 +151,10 @@ namespace Com.Drew.Lang
         /// <param name="index">position within the data buffer to read first byte</param>
         /// <returns>the 16 bit int value, between 0x0000 and 0xFFFF</returns>
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
-        public virtual ushort GetUInt16(int index)
+        public ushort GetUInt16(int index)
         {
             ValidateIndex(index, 2);
-            if (_isMotorolaByteOrder)
+            if (IsMotorolaByteOrder)
             {
                 // Motorola - MSB first
                 return (ushort)
@@ -191,10 +171,10 @@ namespace Com.Drew.Lang
         /// <param name="index">position within the data buffer to read first byte</param>
         /// <returns>the 16 bit int value, between 0x0000 and 0xFFFF</returns>
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
-        public virtual short GetInt16(int index)
+        public short GetInt16(int index)
         {
             ValidateIndex(index, 2);
-            if (_isMotorolaByteOrder)
+            if (IsMotorolaByteOrder)
             {
                 // Motorola - MSB first
                 return (short)
@@ -211,10 +191,10 @@ namespace Com.Drew.Lang
         /// <param name="index">position within the data buffer to read first byte</param>
         /// <returns>the unsigned 24-bit int value as a long, between 0x00000000 and 0x00FFFFFF</returns>
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
-        public virtual int GetInt24(int index)
+        public int GetInt24(int index)
         {
             ValidateIndex(index, 3);
-            if (_isMotorolaByteOrder)
+            if (IsMotorolaByteOrder)
             {
                 // Motorola - MSB first (big endian)
                 return
@@ -233,10 +213,10 @@ namespace Com.Drew.Lang
         /// <param name="index">position within the data buffer to read first byte</param>
         /// <returns>the unsigned 32-bit int value as a long, between 0x00000000 and 0xFFFFFFFF</returns>
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
-        public virtual uint GetUInt32(int index)
+        public uint GetUInt32(int index)
         {
             ValidateIndex(index, 4);
-            if (_isMotorolaByteOrder)
+            if (IsMotorolaByteOrder)
             {
                 // Motorola - MSB first (big endian)
                 return (uint)
@@ -257,10 +237,10 @@ namespace Com.Drew.Lang
         /// <param name="index">position within the data buffer to read first byte</param>
         /// <returns>the signed 32 bit int value, between 0x00000000 and 0xFFFFFFFF</returns>
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
-        public virtual int GetInt32(int index)
+        public int GetInt32(int index)
         {
             ValidateIndex(index, 4);
-            if (_isMotorolaByteOrder)
+            if (IsMotorolaByteOrder)
             {
                 // Motorola - MSB first (big endian)
                 return
@@ -281,10 +261,10 @@ namespace Com.Drew.Lang
         /// <param name="index">position within the data buffer to read first byte</param>
         /// <returns>the 64 bit int value, between 0x0000000000000000 and 0xFFFFFFFFFFFFFFFF</returns>
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
-        public virtual long GetInt64(int index)
+        public long GetInt64(int index)
         {
             ValidateIndex(index, 8);
-            if (_isMotorolaByteOrder)
+            if (IsMotorolaByteOrder)
             {
                 // Motorola - MSB first
                 return
@@ -317,10 +297,10 @@ namespace Com.Drew.Lang
         /// </remarks>
         /// <returns>the floating point value</returns>
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
-        public virtual float GetS15Fixed16(int index)
+        public float GetS15Fixed16(int index)
         {
             ValidateIndex(index, 4);
-            if (_isMotorolaByteOrder)
+            if (IsMotorolaByteOrder)
             {
                 float res = (GetByte(index) & unchecked(0xFF)) << 8 | (GetByte(index + 1) & unchecked(0xFF));
                 int d = (GetByte(index + 2) & unchecked(0xFF)) << 8 | (GetByte(index + 3) & unchecked(0xFF));
@@ -336,37 +316,29 @@ namespace Com.Drew.Lang
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public virtual float GetFloat32(int index)
+        public float GetFloat32(int index)
         {
             return Extensions.IntBitsToFloat(GetInt32(index));
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public virtual double GetDouble64(int index)
+        public double GetDouble64(int index)
         {
             return Extensions.LongBitsToDouble(GetInt64(index));
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public virtual string GetString(int index, int bytesRequested)
+        public string GetString(int index, int bytesRequested)
         {
-            return Runtime.GetStringForBytes(GetBytes(index, bytesRequested));
+            return GetString(index, bytesRequested, Encoding.UTF8);
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public virtual string GetString(int index, int bytesRequested, string charset)
+        public string GetString(int index, int bytesRequested, Encoding encoding)
         {
-            byte[] bytes = GetBytes(index, bytesRequested);
-            try
-            {
-                return Runtime.GetStringForBytes(bytes, charset);
-            }
-            catch (UnsupportedEncodingException)
-            {
-                return Runtime.GetStringForBytes(bytes);
-            }
+            return encoding.GetString(GetBytes(index, bytesRequested));
         }
 
         /// <summary>
@@ -381,17 +353,15 @@ namespace Com.Drew.Lang
         /// <returns>The read string.</returns>
         /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
         [NotNull]
-        public virtual string GetNullTerminatedString(int index, int maxLengthBytes)
+        public string GetNullTerminatedString(int index, int maxLengthBytes)
         {
             // NOTE currently only really suited to single-byte character strings
             byte[] bytes = GetBytes(index, maxLengthBytes);
             // Count the number of non-null bytes
             int length = 0;
             while (length < bytes.Length && bytes[length] != '\0')
-            {
                 length++;
-            }
-            return Runtime.GetStringForBytes(bytes, 0, length);
+            return Encoding.UTF8.GetString(bytes, 0, length);
         }
     }
 }

@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Imaging.Png
 {
@@ -112,16 +111,9 @@ namespace Com.Drew.Imaging.Png
             // Standard ancillary chunks
             //
             _multipleAllowed = multipleAllowed;
-            try
-            {
-                byte[] bytes = Runtime.GetBytesForString(identifier, "ASCII");
-                ValidateBytes(bytes);
-                _bytes = bytes;
-            }
-            catch (UnsupportedEncodingException)
-            {
-                throw new ArgumentException("Unable to convert string code to bytes.");
-            }
+            byte[] bytes = Encoding.ASCII.GetBytes(identifier);
+            ValidateBytes(bytes);
+            _bytes = bytes;
         }
 
         public PngChunkType([NotNull] byte[] bytes)
@@ -185,17 +177,7 @@ namespace Com.Drew.Imaging.Png
 
         public string GetIdentifier()
         {
-            try
-            {
-                return Runtime.GetStringForBytes(_bytes, "ASCII");
-            }
-            catch (UnsupportedEncodingException)
-            {
-                // The constructor should ensure that we're always able to encode the bytes in ASCII.
-                // noinspection ConstantConditions
-                Debug.Assert((false));
-                return "Invalid object instance";
-            }
+            return Encoding.ASCII.GetString(_bytes);
         }
 
         public override string ToString()

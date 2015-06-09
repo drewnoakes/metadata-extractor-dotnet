@@ -68,26 +68,18 @@ namespace Com.Drew.Imaging
         /// <remarks>
         /// Examines the a file's first bytes and estimates the file's type.
         /// <para>
-        /// Requires a
-        /// <see cref="BufferedInputStream"/>
-        /// in order to mark and reset the stream to the position
-        /// at which it was provided to this method once completed.
-        /// <para>
-        /// Requires the stream to contain at least eight bytes.
+        /// Stream must be seekable and contain enough bytes for the most complexat least eight bytes.
         /// </remarks>
         /// <exception cref="System.IO.IOException">if an IO error occurred or the input stream ended unexpectedly.</exception>
         [NotNull]
-        public static FileType? DetectFileType([NotNull] BufferedInputStream inputStream)
+        public static FileType? DetectFileType([NotNull] Stream stream)
         {
             int maxByteCount = Root.GetMaxDepth();
-            inputStream.Mark(maxByteCount);
             byte[] bytes = new byte[maxByteCount];
-            int bytesRead = inputStream.Read(bytes);
-            if (bytesRead == -1)
-            {
-                throw new IOException("Stream ended before file's magic number could be determined.");
-            }
-            inputStream.Reset();
+            int bytesRead = stream.Read(bytes, 0, bytes.Length);
+            if (bytesRead == 0)
+                return null;
+            stream.Seek(-bytesRead, SeekOrigin.Current);
             //noinspection ConstantConditions
             return Root.Find(bytes);
         }

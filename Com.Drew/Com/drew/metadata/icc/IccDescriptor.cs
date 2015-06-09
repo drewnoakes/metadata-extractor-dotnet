@@ -93,7 +93,7 @@ namespace Com.Drew.Metadata.Icc
                 {
                     return Directory.GetString(tagType);
                 }
-                RandomAccessReader reader = new ByteArrayReader(bytes);
+                IndexedReader reader = new ByteArrayReader(bytes);
                 int iccTagType = reader.GetInt32(0);
                 switch (iccTagType)
                 {
@@ -101,19 +101,18 @@ namespace Com.Drew.Metadata.Icc
                     {
                         try
                         {
-                            return Runtime.GetStringForBytes(bytes, 8, bytes.Length - 8 - 1, "ASCII");
+                            return Encoding.ASCII.GetString(bytes, 8, bytes.Length - 8 - 1);
                         }
-                        catch (UnsupportedEncodingException)
+                        catch
                         {
-                            return Runtime.GetStringForBytes(bytes, 8, bytes.Length - 8 - 1);
+                            return Encoding.UTF8.GetString(bytes, 8, bytes.Length - 8 - 1);
                         }
-                        goto case IccTagTypeDesc;
                     }
 
                     case IccTagTypeDesc:
                     {
                         int stringLength = reader.GetInt32(8);
-                        return Runtime.GetStringForBytes(bytes, 12, stringLength - 1);
+                        return Encoding.UTF8.GetString(bytes, 12, stringLength - 1);
                     }
 
                     case IccTagTypeSig:
@@ -283,11 +282,11 @@ namespace Com.Drew.Metadata.Icc
                             string name;
                             try
                             {
-                                name = Runtime.GetStringForBytes(bytes, ofs, len, "UTF-16BE");
+                                name = Encoding.BigEndianUnicode.GetString(bytes, ofs, len);
                             }
-                            catch (UnsupportedEncodingException)
+                            catch
                             {
-                                name = Runtime.GetStringForBytes(bytes, ofs, len);
+                                name = Encoding.UTF8.GetString(bytes, ofs, len);
                             }
                             res.Append(" ").Append(str).Append("(").Append(name).Append(")");
                         }

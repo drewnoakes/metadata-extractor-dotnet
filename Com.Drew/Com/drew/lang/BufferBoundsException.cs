@@ -28,7 +28,7 @@ namespace Com.Drew.Lang
 {
     /// <summary>
     /// A checked replacement for <see cref="System.IndexOutOfRangeException"/>.  Used by
-    /// <see cref="RandomAccessReader"/>.
+    /// <see cref="IndexedReader"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [Serializable]

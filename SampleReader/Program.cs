@@ -63,9 +63,9 @@ namespace SampleReader
                     var ms = new MemoryStream(4096);//We have to guess at length, can't seek
                     data.CopyTo(ms);
                     ms.Seek(0, SeekOrigin.Begin);
-                    return ImageMetadataReader.ReadMetadata(InputStream.Wrap(ms));
+                    return ImageMetadataReader.ReadMetadata(ms);
                 }
-                return ImageMetadataReader.ReadMetadata(InputStream.Wrap(data));
+                return ImageMetadataReader.ReadMetadata(data);
             }
             catch (ImageProcessingException e)
             {

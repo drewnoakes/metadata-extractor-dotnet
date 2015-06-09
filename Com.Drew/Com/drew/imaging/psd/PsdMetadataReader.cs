@@ -3,7 +3,7 @@
  *
  *    Modified by Yakov Danilov <yakodani@gmail.com> for Imazen LLC (Ported from Java to C#)
  *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
+ *    you may not use this filePath except in compliance with the License.
  *    You may obtain a copy of the License at
  *
  *        http://www.apache.org/licenses/LICENSE-2.0
@@ -20,11 +20,11 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.IO;
 using Com.Drew.Lang;
 using Com.Drew.Metadata.File;
 using Com.Drew.Metadata.Photoshop;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Imaging.Psd
 {
@@ -34,27 +34,20 @@ namespace Com.Drew.Imaging.Psd
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] FilePath file)
+        public static Metadata.Metadata ReadMetadata([NotNull] string filePath)
         {
             Metadata.Metadata metadata = new Metadata.Metadata();
-            InputStream stream = new FileInputStream(file);
-            try
-            {
+            using (Stream stream = new FileStream(filePath, FileMode.Open))
                 new PsdReader().Extract(new SequentialStreamReader(stream), metadata);
-            }
-            finally
-            {
-                stream.Close();
-            }
-            new FileMetadataReader().Read(file, metadata);
+            new FileMetadataReader().Read(filePath, metadata);
             return metadata;
         }
 
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] InputStream inputStream)
+        public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
         {
             Metadata.Metadata metadata = new Metadata.Metadata();
-            new PsdReader().Extract(new SequentialStreamReader(inputStream), metadata);
+            new PsdReader().Extract(new SequentialStreamReader(stream), metadata);
             return metadata;
         }
     }

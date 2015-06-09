@@ -143,7 +143,7 @@ namespace Com.Drew.Metadata
         public void TestSetStringGetInt()
         {
             byte[] bytes = new byte[] { unchecked(0x01), unchecked(0x02), unchecked(0x03) };
-            _directory.SetString(1, Runtime.GetStringForBytes(bytes));
+            _directory.SetString(1, Encoding.UTF8.GetString(bytes));
             Assert.AreEqual(unchecked(0x010203), _directory.GetInt(1));
         }
 

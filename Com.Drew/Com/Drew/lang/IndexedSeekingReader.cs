@@ -22,34 +22,36 @@
 
 using System;
 using System.Diagnostics;
+using System.IO;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Lang
 {
     /// <summary>
-    /// Provides methods to read specific values from a <see cref="RandomAccessFile"/>,
-    /// with a consistent, checked exception structure for issues.
+    /// Provides methods to read data types from a <see cref="Stream"/> by indexing into the data.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class RandomAccessFileReader : RandomAccessReader
+    public class IndexedSeekingReader : IndexedReader
     {
         [NotNull]
-        private readonly RandomAccessFile _file;
+        private readonly Stream _stream;
 
         private readonly long _length;
 
         private int _currentIndex;
 
-        /// <exception cref="System.IO.IOException"/>
-        public RandomAccessFileReader([NotNull] RandomAccessFile file)
+        public IndexedSeekingReader([NotNull] Stream stream)
         {
-            if (file == null)
+            if (stream == null)
             {
                 throw new ArgumentNullException();
             }
-            _file = file;
-            _length = _file.Length();
+            if (!stream.CanSeek)
+            {
+                throw new ArgumentException("Must be capable of seeking.", "stream");
+            }
+            _stream = stream;
+            _length = _stream.Length;
         }
 
         public override long GetLength()
@@ -64,7 +66,7 @@ namespace Com.Drew.Lang
             {
                 Seek(index);
             }
-            int b = _file.Read();
+            int b = _stream.ReadByte();
             if (b < 0)
             {
                 throw new BufferBoundsException("Unexpected end of file encountered.");
@@ -83,7 +85,7 @@ namespace Com.Drew.Lang
                 Seek(index);
             }
             byte[] bytes = new byte[count];
-            int bytesRead = _file.Read(bytes);
+            int bytesRead = _stream.Read(bytes, 0, count);
             _currentIndex += bytesRead;
             if (bytesRead != count)
             {
@@ -99,7 +101,7 @@ namespace Com.Drew.Lang
             {
                 return;
             }
-            _file.Seek(index);
+            _stream.Seek(index, SeekOrigin.Begin);
             _currentIndex = index;
         }
 

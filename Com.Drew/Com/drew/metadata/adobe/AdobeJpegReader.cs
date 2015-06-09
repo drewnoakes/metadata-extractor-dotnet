@@ -22,6 +22,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Com.Drew.Imaging.Jpeg;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
@@ -45,7 +46,7 @@ namespace Com.Drew.Metadata.Adobe
         {
             foreach (byte[] bytes in segments)
             {
-                if (bytes.Length == 12 && Runtime.EqualsIgnoreCase(Preamble, Runtime.GetStringForBytes(bytes, 0, Preamble.Length)))
+                if (bytes.Length == 12 && Runtime.EqualsIgnoreCase(Preamble, Encoding.ASCII.GetString(bytes, 0, Preamble.Length)))
                 {
                     Extract(new SequentialByteArrayReader(bytes), metadata);
                 }
