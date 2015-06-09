@@ -56,8 +56,8 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        // ---------------------------------------------------------------------------------------------
-        // Namespace Functions
+        #region Namespaces
+
         /// <exception cref="XmpException"/>
         public string RegisterNamespace(string namespaceUri, string suggestedPrefix)
         {
@@ -69,7 +69,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     suggestedPrefix += ':';
                 }
-                if (!Utils.IsXmlNameNs(suggestedPrefix.Substring (0, suggestedPrefix.Length - 1 - 0)))
+                if (!Utils.IsXmlNameNs(suggestedPrefix.Substring(0, suggestedPrefix.Length - 1 - 0)))
                 {
                     throw new XmpException("The prefix is a bad XML name", XmpErrorCode.BadXml);
                 }
@@ -87,7 +87,7 @@ namespace Com.Adobe.Xmp.Impl
                     string generatedPrefix = suggestedPrefix;
                     for (int i = 1; _prefixToNamespaceMap.Contains(generatedPrefix); i++)
                     {
-                        generatedPrefix = suggestedPrefix.Substring (0, suggestedPrefix.Length - 1 - 0) + "_" + i + "_:";
+                        generatedPrefix = suggestedPrefix.Substring(0, suggestedPrefix.Length - 1 - 0) + "_" + i + "_:";
                     }
                     suggestedPrefix = generatedPrefix;
                 }
@@ -221,8 +221,10 @@ namespace Com.Adobe.Xmp.Impl
             RegisterNamespace(XmpConstConstants.TypeIdentifierqual, "xmpidq");
         }
 
-        // ---------------------------------------------------------------------------------------------
-        // Alias Functions
+        #endregion
+
+        #region Aliases
+
         public IXmpAliasInfo ResolveAlias(string aliasNs, string aliasProp)
         {
             lock (this)
@@ -252,7 +254,7 @@ namespace Com.Adobe.Xmp.Impl
                 IList result = new ArrayList();
                 if (prefix != null)
                 {
-                    for (IIterator it = _aliasMap.Keys.Iterator(); it.HasNext(); )
+                    for (IIterator it = _aliasMap.Keys.Iterator(); it.HasNext();)
                     {
                         string qname = (string)it.Next();
                         if (qname.StartsWith(prefix))
@@ -446,5 +448,7 @@ namespace Com.Adobe.Xmp.Impl
             RegisterAlias(XmpConstConstants.NsPng, "Software", XmpConstConstants.NsXmp, "CreatorTool", null);
             RegisterAlias(XmpConstConstants.NsPng, "Title", XmpConstConstants.NsDc, "title", aliasToArrayAltText);
         }
+
+        #endregion
     }
 }

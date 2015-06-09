@@ -479,7 +479,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        //------------------------------------------------------------------------------ private methods
         /// <summary>Dumps this node and its qualifier and children recursively.</summary>
         /// <remarks>
         /// Dumps this node and its qualifier and children recursively.

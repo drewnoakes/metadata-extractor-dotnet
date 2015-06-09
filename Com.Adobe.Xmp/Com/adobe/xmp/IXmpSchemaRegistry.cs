@@ -45,8 +45,8 @@ namespace Com.Adobe.Xmp
     /// <since>27.01.2006</since>
     public interface IXmpSchemaRegistry
     {
-        // ---------------------------------------------------------------------------------------------
-        // Namespace Functions
+        #region Namespaces
+
         /// <summary>Register a namespace URI with a suggested prefix.</summary>
         /// <remarks>
         /// Register a namespace URI with a suggested prefix. It is not an error if
@@ -122,8 +122,10 @@ namespace Com.Adobe.Xmp
         /// <param name="namespaceUri">The URI for the namespace.</param>
         void DeleteNamespace(string namespaceUri);
 
-        // ---------------------------------------------------------------------------------------------
-        // Alias Functions
+        #endregion
+
+        #region Aliases
+
         /// <summary>Determines if a name is an alias, and what it is aliased to.</summary>
         /// <param name="aliasNs">
         /// The namespace URI of the alias. Must not be <c>null</c> or the empty
@@ -161,5 +163,8 @@ namespace Com.Adobe.Xmp
         /// and the value an <c>XMPAliasInfo</c>-object.
         /// </returns>
         IDictionary GetAliases();
+
+        #endregion
+
     }
 }

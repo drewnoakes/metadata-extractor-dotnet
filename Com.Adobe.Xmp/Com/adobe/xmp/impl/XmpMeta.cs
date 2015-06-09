@@ -981,8 +981,6 @@ namespace Com.Adobe.Xmp.Impl
             return _tree;
         }
 
-        // -------------------------------------------------------------------------------------
-        // private
         /// <summary>Locate or create the item node and set the value.</summary>
         /// <remarks>
         /// Locate or create the item node and set the value. Note the index

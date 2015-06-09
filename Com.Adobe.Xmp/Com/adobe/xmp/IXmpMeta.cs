@@ -23,8 +23,6 @@ namespace Com.Adobe.Xmp
     /// <since>20.01.2006</since>
     public interface IXmpMeta : ICloneable
     {
-        // ---------------------------------------------------------------------------------------------
-        // Basic property manipulation functions
         /// <summary>
         /// The property value getter-methods all take a property specification: the first two parameters
         /// are always the top level namespace URI (the &quot;schema&quot; namespace) and the basic name
@@ -183,8 +181,6 @@ namespace Com.Adobe.Xmp
         /// <exception cref="XmpException"/>
         IXmpProperty GetQualifier(string schemaNs, string propName, string qualNs, string qualName);
 
-        // ---------------------------------------------------------------------------------------------
-        // Functions for setting property values
         /// <summary>
         /// The property value <c>setters</c> all take a property specification, their
         /// differences are in the form of this.
@@ -434,9 +430,6 @@ namespace Com.Adobe.Xmp
         /// <exception cref="XmpException"/>
         void SetQualifier(string schemaNs, string propName, string qualNs, string qualName, string qualValue);
 
-        // ---------------------------------------------------------------------------------------------
-        // Functions for deleting and detecting properties. These should be obvious from the
-        // descriptions of the getters and setters.
         /// <summary>Deletes the given XMP subtree rooted at the given property.</summary>
         /// <remarks>
         /// Deletes the given XMP subtree rooted at the given property. It is not an error if the
@@ -589,8 +582,6 @@ namespace Com.Adobe.Xmp
         /// <returns>Returns true if the qualifier exists.</returns>
         bool DoesQualifierExist(string schemaNs, string propName, string qualNs, string qualName);
 
-        // ---------------------------------------------------------------------------------------------
-        // Specialized Get and Set functions
         /// <summary>
         /// These functions provide convenient support for localized text properties, including a number
         /// of special and obscure aspects.
@@ -725,8 +716,6 @@ namespace Com.Adobe.Xmp
         /// <exception cref="XmpException"/>
         void SetLocalizedText(string schemaNs, string altTextName, string genericLang, string specificLang, string itemValue);
 
-        // ---------------------------------------------------------------------------------------------
-        // Functions accessing properties as binary values.
         /// <summary>
         /// These are very similar to <c>getProperty()</c> and <c>SetProperty()</c> above,
         /// but the value is returned or provided in a literal form instead of as a UTF-8 string.

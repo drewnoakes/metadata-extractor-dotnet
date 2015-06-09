@@ -55,11 +55,6 @@ namespace Com.Adobe.Xmp.Options
             Indent = "  ";
         }
 
-        // ---------------------------------------------------------------------------------------------
-        // encoding bit constants
-
-        // reveal default constructor
-
         /// <summary>Omit the XML packet wrapper.</summary>
         public bool OmitPacketWrapper
         {

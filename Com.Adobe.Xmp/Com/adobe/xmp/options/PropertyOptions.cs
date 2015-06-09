@@ -148,8 +148,6 @@ namespace Com.Adobe.Xmp.Options
             set { SetOption(SchemaNodeFlag, value); }
         }
 
-        //-------------------------------------------------------------------------- convenience methods
-
         /// <value>Returns whether the property is of composite type - an array or a struct.</value>
         public bool IsCompositeProperty
         {
