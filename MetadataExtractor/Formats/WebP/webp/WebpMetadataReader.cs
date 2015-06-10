@@ -30,7 +30,7 @@ namespace MetadataExtractor.Formats.WebP.webp
 {
     /// <summary>Obtains metadata from WebP files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public static class WebpMetadataReader
+    public static class WebPMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="RiffProcessingException"/>

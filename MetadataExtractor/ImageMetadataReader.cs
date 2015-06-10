@@ -58,7 +58,7 @@ namespace MetadataExtractor
     ///   <item><see cref="GifMetadataReader"/> for GIF files</item>
     ///   <item><see cref="IcoMetadataReader"/> for GIF files</item>
     ///   <item><see cref="PcxMetadataReader"/> for GIF files</item>
-    ///   <item><see cref="WebpMetadataReader"/> for GIF files</item>
+    ///   <item><see cref="WebPMetadataReader"/> for WebP files</item>
     /// </list>
     ///
     /// If you know the file type you're working with, you may use one of the above processors directly.
@@ -106,7 +106,7 @@ namespace MetadataExtractor
                 case FileType.Pcx:
                     return PcxMetadataReader.ReadMetadata(stream);
                 case FileType.Riff:
-                    return WebpMetadataReader.ReadMetadata(stream);
+                    return WebPMetadataReader.ReadMetadata(stream);
             }
             throw new ImageProcessingException("File format is not supported");
         }
