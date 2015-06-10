@@ -200,7 +200,7 @@ namespace Com.Adobe.Xmp.Impl
             private IXmpPropertyInfo _returnProperty;
 
             /// <summary>Default constructor</summary>
-            public NodeIterator(XmpIterator enclosing)
+            protected NodeIterator(XmpIterator enclosing)
             {
                 _enclosing = enclosing;
             }
