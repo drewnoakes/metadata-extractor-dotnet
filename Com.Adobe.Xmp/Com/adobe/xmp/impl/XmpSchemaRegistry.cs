@@ -7,6 +7,7 @@
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -51,9 +52,9 @@ namespace Com.Adobe.Xmp.Impl
                 RegisterStandardNamespaces();
                 RegisterStandardAliases();
             }
-            catch (XmpException)
+            catch (XmpException e)
             {
-                throw new RuntimeException("The XMPSchemaRegistry cannot be initialized!");
+                throw new Exception("The XMPSchemaRegistry cannot be initialized!", e);
             }
         }
 

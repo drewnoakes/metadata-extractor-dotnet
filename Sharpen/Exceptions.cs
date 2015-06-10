@@ -36,23 +36,8 @@ namespace Sharpen
         }
     }
 
-    public class InstantiationException : Exception
-    {
-    }
-
     public class ParseException : Exception
     {
-    }
-
-    public class RuntimeException : Exception
-    {
-        public RuntimeException (Exception ex) : base("Runtime Exception", ex)
-        {
-        }
-
-        public RuntimeException (string msg) : base(msg)
-        {
-        }
     }
 }
 

@@ -50,18 +50,7 @@ namespace MetadataExtractor.Formats.Tiff
         protected DirectoryTiffHandler(Metadata metadata, Type initialDirectoryClass)
         {
             Metadata = metadata;
-            try
-            {
-                CurrentDirectory = (Directory)Activator.CreateInstance(initialDirectoryClass);
-            }
-            catch (InstantiationException e)
-            {
-                throw new RuntimeException(e);
-            }
-            catch (MemberAccessException e)
-            {
-                throw new RuntimeException(e);
-            }
+            CurrentDirectory = (Directory)Activator.CreateInstance(initialDirectoryClass);
             Metadata.AddDirectory(CurrentDirectory);
         }
 
@@ -70,21 +59,10 @@ namespace MetadataExtractor.Formats.Tiff
             CurrentDirectory = _directoryStack.Count == 0 ? null : _directoryStack.Pop();
         }
 
-        protected virtual void PushDirectory([NotNull] Type directoryClass)
+        protected void PushDirectory([NotNull] Type directoryClass)
         {
             _directoryStack.Push(CurrentDirectory);
-            try
-            {
-                CurrentDirectory = (Directory)Activator.CreateInstance(directoryClass);
-            }
-            catch (InstantiationException e)
-            {
-                throw new RuntimeException(e);
-            }
-            catch (MemberAccessException e)
-            {
-                throw new RuntimeException(e);
-            }
+            CurrentDirectory = (Directory)Activator.CreateInstance(directoryClass);
             Metadata.AddDirectory(CurrentDirectory);
         }
 

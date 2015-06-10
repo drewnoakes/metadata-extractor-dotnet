@@ -41,7 +41,7 @@ namespace MetadataExtractor.Util
             public void SetValue(T value)
             {
                 if (Value != null)
-                    throw new RuntimeException("Value already set for this trie node");
+                    throw new InvalidOperationException("Value already set for this trie node");
                 Value = value;
             }
         }
