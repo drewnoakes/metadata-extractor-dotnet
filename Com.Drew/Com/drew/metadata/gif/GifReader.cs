@@ -31,7 +31,7 @@ namespace Com.Drew.Metadata.Gif
             //       7    Global color table flag
             // 1 - background color index
             // 1 - pixel aspect ratio
-            reader.SetMotorolaByteOrder(false);
+            reader.IsMotorolaByteOrder = false;
             try
             {
                 var signature = reader.GetString(3);

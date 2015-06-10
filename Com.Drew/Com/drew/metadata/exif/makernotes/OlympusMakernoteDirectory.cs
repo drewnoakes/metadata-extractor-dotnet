@@ -564,7 +564,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         private void ProcessCameraSettings(byte[] bytes)
         {
             var reader = new SequentialByteArrayReader(bytes);
-            reader.SetMotorolaByteOrder(true);
+            reader.IsMotorolaByteOrder = true;
             var count = bytes.Length / 4;
             try
             {

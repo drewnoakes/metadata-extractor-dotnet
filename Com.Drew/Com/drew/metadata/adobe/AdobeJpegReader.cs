@@ -59,7 +59,7 @@ namespace Com.Drew.Metadata.Adobe
             metadata.AddDirectory(directory);
             try
             {
-                reader.SetMotorolaByteOrder(false);
+                reader.IsMotorolaByteOrder = false;
                 if (!reader.GetString(Preamble.Length).Equals(Preamble))
                 {
                     directory.AddError("Invalid Adobe JPEG data header.");

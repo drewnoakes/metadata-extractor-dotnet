@@ -41,7 +41,7 @@ namespace Com.Drew.Metadata.Pcx
     {
         public void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
         {
-            reader.SetMotorolaByteOrder(false);
+            reader.IsMotorolaByteOrder = false;
             var directory = new PcxDirectory();
             metadata.AddDirectory(directory);
             try

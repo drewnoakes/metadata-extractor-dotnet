@@ -59,7 +59,7 @@ namespace Com.Drew.Imaging.Riff
         public void ProcessRiff([NotNull] SequentialReader reader, [NotNull] IRiffHandler handler)
         {
             // RIFF files are always little-endian
-            reader.SetMotorolaByteOrder(false);
+            reader.IsMotorolaByteOrder = false;
             // PROCESS FILE HEADER
             var fileFourCc = reader.GetString(4);
             if (!fileFourCc.Equals("RIFF"))

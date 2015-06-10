@@ -40,9 +40,22 @@ namespace Com.Drew.Lang
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class SequentialReader
     {
-        private bool _isMotorolaByteOrder = true;
-
         // TODO review whether the masks are needed (in both this and IndexedReader)
+
+        /// <summary>Get and set the byte order of this reader. <c>true</c> by default.</summary>
+        /// <remarks>
+        /// <list type="bullet">
+        ///   <item><c>true</c> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</item>
+        ///   <item><c>false</c> for Intel (or little) endianness, with LSB before MSB.</item>
+        /// </list>
+        /// </remarks>
+        /// <value><c>true</c> for Motorola/big endian, <c>false</c> for Intel/little endian</value>
+        public bool IsMotorolaByteOrder { set; get; }
+
+        protected SequentialReader()
+        {
+            IsMotorolaByteOrder = true;
+        }
 
         /// <summary>Gets the next byte in the sequence.</summary>
         /// <returns>The read byte value</returns>
@@ -73,33 +86,6 @@ namespace Com.Drew.Lang
         /// <exception cref="System.IO.IOException">an error occurred reading from the underlying source.</exception>
         public abstract bool TrySkip(long n);
 
-        /// <summary>Sets the endianness of this reader.</summary>
-        /// <remarks>
-        /// Sets the endianness of this reader.
-        /// <list type="bullet">
-        /// <item><c>true</c> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</item>
-        /// <item><c>false</c> for Intel (or little) endianness, with LSB before MSB.</item>
-        /// </list>
-        /// </remarks>
-        /// <param name="motorolaByteOrder"><c>true</c> for Motorola/big endian, <c>false</c> for Intel/little endian</param>
-        public void SetMotorolaByteOrder(bool motorolaByteOrder)
-        {
-            _isMotorolaByteOrder = motorolaByteOrder;
-        }
-
-        /// <summary>Gets the endianness of this reader.</summary>
-        /// <remarks>
-        /// Gets the endianness of this reader.
-        /// <list type="bullet">
-        /// <item><c>true</c> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</item>
-        /// <item><c>false</c> for Intel (or little) endianness, with LSB before MSB.</item>
-        /// </list>
-        /// </remarks>
-        public bool IsMotorolaByteOrder()
-        {
-            return _isMotorolaByteOrder;
-        }
-
         /// <summary>Returns an unsigned 8-bit int calculated from the next byte of the sequence.</summary>
         /// <returns>the 8 bit int value, between 0 and 255</returns>
         /// <exception cref="System.IO.IOException"/>
@@ -121,7 +107,7 @@ namespace Com.Drew.Lang
         /// <exception cref="System.IO.IOException"/>
         public ushort GetUInt16()
         {
-            if (_isMotorolaByteOrder)
+            if (IsMotorolaByteOrder)
             {
                 // Motorola - MSB first
                 return (ushort)
@@ -139,7 +125,7 @@ namespace Com.Drew.Lang
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request</exception>
         public short GetInt16()
         {
-            if (_isMotorolaByteOrder)
+            if (IsMotorolaByteOrder)
             {
                 // Motorola - MSB first
                 return (short)
@@ -157,7 +143,7 @@ namespace Com.Drew.Lang
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request</exception>
         public uint GetUInt32()
         {
-            if (_isMotorolaByteOrder)
+            if (IsMotorolaByteOrder)
             {
                 // Motorola - MSB first (big endian)
                 return (uint)
@@ -179,7 +165,7 @@ namespace Com.Drew.Lang
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request</exception>
         public int GetInt32()
         {
-            if (_isMotorolaByteOrder)
+            if (IsMotorolaByteOrder)
             {
                 // Motorola - MSB first (big endian)
                 return
@@ -201,7 +187,7 @@ namespace Com.Drew.Lang
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request</exception>
         public long GetInt64()
         {
-            if (_isMotorolaByteOrder)
+            if (IsMotorolaByteOrder)
             {
                 // Motorola - MSB first
                 return
@@ -236,7 +222,7 @@ namespace Com.Drew.Lang
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request</exception>
         public float GetS15Fixed16()
         {
-            if (_isMotorolaByteOrder)
+            if (IsMotorolaByteOrder)
             {
                 float res = (GetByte() & unchecked(0xFF)) << 8 | (GetByte() & unchecked(0xFF));
                 var d = (GetByte() & unchecked(0xFF)) << 8 | (GetByte() & unchecked(0xFF));

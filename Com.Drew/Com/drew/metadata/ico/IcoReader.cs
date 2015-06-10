@@ -39,7 +39,7 @@ namespace Com.Drew.Metadata.Ico
     {
         public void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
         {
-            reader.SetMotorolaByteOrder(false);
+            reader.IsMotorolaByteOrder = false;
             int type;
             int imageCount;
             // Read header (ICONDIR structure)

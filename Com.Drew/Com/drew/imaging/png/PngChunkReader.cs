@@ -48,7 +48,7 @@ namespace Com.Drew.Imaging.Png
             //     Miscellaneous information: bKGD, hIST, pHYs, sPLT
             //     Time information:          tIME
             //
-            reader.SetMotorolaByteOrder(true);
+            reader.IsMotorolaByteOrder = true;
             // network byte order
             if (!PngSignatureBytes.SequenceEqual(reader.GetBytes(PngSignatureBytes.Length)))
             {

@@ -55,7 +55,7 @@ namespace Com.Drew.Metadata.Bmp
             // 4 = JPEG (or RLE-24 if BITMAPCOREHEADER2 (size 64))
             // 5 = PNG
             // 6 = Bit field
-            reader.SetMotorolaByteOrder(false);
+            reader.IsMotorolaByteOrder = false;
             try
             {
                 var magicNumber = reader.GetUInt16();

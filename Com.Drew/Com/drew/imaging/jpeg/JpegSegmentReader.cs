@@ -87,7 +87,7 @@ namespace Com.Drew.Imaging.Jpeg
         public static JpegSegmentData ReadSegments([NotNull] SequentialReader reader, [CanBeNull] ICollection<JpegSegmentType> segmentTypes = null)
         {
             // Must be big-endian
-            Debug.Assert(reader.IsMotorolaByteOrder());
+            Debug.Assert(reader.IsMotorolaByteOrder);
 
             // first two bytes should be JPEG magic number
             var magicNumber = reader.GetUInt16();
