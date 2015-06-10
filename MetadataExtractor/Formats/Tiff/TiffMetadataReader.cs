@@ -46,7 +46,7 @@ namespace MetadataExtractor.Formats.Tiff
             using (Stream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.RandomAccess))
             {
                 var handler = new ExifTiffHandler(metadata, storeThumbnailBytes: false);
-                new TiffReader().ProcessTiff(new IndexedSeekingReader(stream), handler, 0);
+                TiffReader.ProcessTiff(new IndexedSeekingReader(stream), handler, 0);
             }
             new FileMetadataReader().Read(filePath, metadata);
             return metadata;
@@ -62,7 +62,7 @@ namespace MetadataExtractor.Formats.Tiff
             // buffers data from the stream as we seek forward.
             var metadata = new Metadata();
             var handler = new ExifTiffHandler(metadata, false);
-            new TiffReader().ProcessTiff(new IndexedCapturingReader(stream), handler, 0);
+            TiffReader.ProcessTiff(new IndexedCapturingReader(stream), handler, 0);
             return metadata;
         }
     }

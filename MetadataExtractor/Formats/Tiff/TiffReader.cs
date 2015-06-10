@@ -32,7 +32,7 @@ namespace MetadataExtractor.Formats.Tiff
     /// interface.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class TiffReader
+    public static class TiffReader
     {
         /// <summary>Processes a TIFF data sequence.</summary>
         /// <param name="reader">
@@ -52,7 +52,7 @@ namespace MetadataExtractor.Formats.Tiff
         /// </exception>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
         /// <exception cref="TiffProcessingException"/>
-        public void ProcessTiff([NotNull] IndexedReader reader, [NotNull] ITiffHandler handler, int tiffHeaderOffset)
+        public static void ProcessTiff([NotNull] IndexedReader reader, [NotNull] ITiffHandler handler, int tiffHeaderOffset)
         {
             // This must be either "MM" or "II".
             var byteOrderIdentifier = reader.GetInt16(tiffHeaderOffset);

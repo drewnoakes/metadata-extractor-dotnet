@@ -77,7 +77,7 @@ namespace MetadataExtractor.Formats.Exif
             try
             {
                 // Read the TIFF-formatted Exif data
-                new TiffReader().ProcessTiff(reader, new ExifTiffHandler(metadata, StoreThumbnailBytes), readerOffset);
+                TiffReader.ProcessTiff(reader, new ExifTiffHandler(metadata, StoreThumbnailBytes), readerOffset);
             }
             catch (TiffProcessingException e)
             {
