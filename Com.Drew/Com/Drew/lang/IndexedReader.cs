@@ -51,7 +51,7 @@ namespace Com.Drew.Lang
         /// </remarks>
         public bool IsMotorolaByteOrder { set; get; }
 
-        public IndexedReader()
+        protected IndexedReader()
         {
             IsMotorolaByteOrder = true;
         }
