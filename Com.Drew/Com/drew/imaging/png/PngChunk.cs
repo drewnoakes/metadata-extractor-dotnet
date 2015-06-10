@@ -5,28 +5,16 @@ namespace Com.Drew.Imaging.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunk
     {
-        [NotNull]
-        private readonly PngChunkType _chunkType;
-
-        [NotNull]
-        private readonly byte[] _bytes;
-
         public PngChunk([NotNull] PngChunkType chunkType, [NotNull] byte[] bytes)
         {
-            _chunkType = chunkType;
-            _bytes = bytes;
+            ChunkType = chunkType;
+            Bytes = bytes;
         }
 
         [NotNull]
-        public PngChunkType GetChunkType()
-        {
-            return _chunkType;
-        }
+        public PngChunkType ChunkType { get; private set; }
 
         [NotNull]
-        public byte[] GetBytes()
-        {
-            return _bytes;
-        }
+        public byte[] Bytes { get; private set; }
     }
 }

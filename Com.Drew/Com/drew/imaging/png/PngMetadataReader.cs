@@ -73,8 +73,8 @@ namespace Com.Drew.Imaging.Png
         /// <exception cref="System.IO.IOException"/>
         private static void ProcessChunk([NotNull] Metadata.Metadata metadata, [NotNull] PngChunk chunk)
         {
-            PngChunkType chunkType = chunk.GetChunkType();
-            byte[] bytes = chunk.GetBytes();
+            PngChunkType chunkType = chunk.ChunkType;
+            var bytes = chunk.Bytes;
             if (chunkType.Equals(PngChunkType.Ihdr))
             {
                 PngHeader header = new PngHeader(bytes);
