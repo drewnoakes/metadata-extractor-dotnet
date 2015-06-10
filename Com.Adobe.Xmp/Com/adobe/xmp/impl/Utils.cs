@@ -478,9 +478,18 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns true if the character is a valid first char of an XML name.</returns>
         private static bool IsNameStartChar(char ch)
         {
-            return (ch <= unchecked(0xFF) && _xmlNameStartChars[ch]) || (ch >= unchecked(0x100) && ch <= unchecked(0x2FF)) || (ch >= unchecked(0x370) && ch <= unchecked(0x37D)) || (ch >= unchecked(0x37F) && ch <=
-                 unchecked(0x1FFF)) || (ch >= unchecked(0x200C) && ch <= unchecked(0x200D)) || (ch >= unchecked(0x2070) && ch <= unchecked(0x218F)) || (ch >= unchecked(0x2C00) && ch <= unchecked(0x2FEF)) ||
-                (ch >= unchecked(0x3001) && ch <= unchecked(0xD7FF)) || (ch >= unchecked(0xF900) && ch <= unchecked(0xFDCF)) || (ch >= unchecked(0xFDF0) && ch <= unchecked(0xFFFD)) || (ch >= unchecked(0x10000) && ch <= unchecked(0xEFFFF));
+            return
+                (ch <= unchecked(0xFF) && _xmlNameStartChars[ch]) ||
+                (ch >= unchecked(0x100) && ch <= unchecked(0x2FF)) ||
+                (ch >= unchecked(0x370) && ch <= unchecked(0x37D)) ||
+                (ch >= unchecked(0x37F) && ch <= unchecked(0x1FFF)) ||
+                (ch >= unchecked(0x200C) && ch <= unchecked(0x200D)) ||
+                (ch >= unchecked(0x2070) && ch <= unchecked(0x218F)) ||
+                (ch >= unchecked(0x2C00) && ch <= unchecked(0x2FEF)) ||
+                (ch >= unchecked(0x3001) && ch <= unchecked(0xD7FF)) ||
+                (ch >= unchecked(0xF900) && ch <= unchecked(0xFDCF)) ||
+                (ch >= unchecked(0xFDF0) && ch <= unchecked(0xFFFD)) ||
+                (ch >= unchecked(0x10000) && ch <= unchecked(0xEFFFF));
         }
 
         /// <summary>
@@ -492,7 +501,11 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns true if the character is a valid char of an XML name.</returns>
         private static bool IsNameChar(char ch)
         {
-            return (ch <= unchecked(0xFF) && _xmlNameChars[ch]) || IsNameStartChar(ch) || (ch >= unchecked(0x300) && ch <= unchecked(0x36F)) || (ch >= unchecked(0x203F) && ch <= unchecked(0x2040));
+            return
+                (ch <= unchecked(0xFF) && _xmlNameChars[ch]) ||
+                IsNameStartChar(ch) ||
+                (ch >= unchecked(0x300) && ch <= unchecked(0x36F)) ||
+                (ch >= unchecked(0x203F) && ch <= unchecked(0x2040));
         }
 
         /// <summary>
@@ -504,11 +517,25 @@ namespace Com.Adobe.Xmp.Impl
         {
             _xmlNameChars = new bool[unchecked(0x0100)];
             _xmlNameStartChars = new bool[unchecked(0x0100)];
+
             for (var ch = (char)0; ch < _xmlNameChars.Length; ch++)
             {
-                _xmlNameStartChars[ch] = ch == ':' || ('A' <= ch && ch <= 'Z') || ch == '_' || ('a' <= ch && ch <= 'z') || (unchecked(0xC0) <= ch && ch <= unchecked(0xD6)) || (unchecked(0xD8) <= ch && ch <= unchecked(0xF6)) || (unchecked(
-                    0xF8) <= ch && ch <= unchecked(0xFF));
-                _xmlNameChars[ch] = _xmlNameStartChars[ch] || ch == '-' || ch == '.' || ('0' <= ch && ch <= '9') || ch == unchecked(0xB7);
+                var isNameStartChar =
+                    ch == ':' ||
+                    ('A' <= ch && ch <= 'Z') ||
+                    ch == '_' ||
+                    ('a' <= ch && ch <= 'z') ||
+                    (unchecked(0xC0) <= ch && ch <= unchecked(0xD6)) ||
+                    (unchecked(0xD8) <= ch && ch <= unchecked(0xF6)) ||
+                    (unchecked(0xF8) <= ch && ch <= unchecked(0xFF));
+
+                _xmlNameStartChars[ch] = isNameStartChar;
+                _xmlNameChars[ch] =
+                    isNameStartChar ||
+                    ch == '-' ||
+                    ch == '.' ||
+                    ('0' <= ch && ch <= '9') ||
+                    ch == unchecked(0xB7);
             }
         }
     }
