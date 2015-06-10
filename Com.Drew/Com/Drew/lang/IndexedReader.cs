@@ -58,8 +58,6 @@ namespace Com.Drew.Lang
 
         /// <summary>Gets the byte value at the specified byte <c>index</c>.</summary>
         /// <remarks>
-        /// Gets the byte value at the specified byte <c>index</c>.
-        /// <para />
         /// Implementations should not perform any bounds checking in this method. That should be performed
         /// in <c>validateIndex</c> and <c>isValidIndex</c>.
         /// </remarks>
@@ -80,14 +78,12 @@ namespace Com.Drew.Lang
         [NotNull]
         public abstract byte[] GetBytes(int index, int count);
 
-        /// <summary>Ensures that the buffered bytes extend to cover the specified index.</summary>
-        /// <remarks>
+        /// <summary>
         /// Ensures that the buffered bytes extend to cover the specified index. If not, an attempt is made
         /// to read to that point.
-        /// <para />
-        /// If the stream ends before the point is reached, a
-        /// <see cref="BufferBoundsException"/>
-        /// is raised.
+        /// </summary>
+        /// <remarks>
+        /// If the stream ends before the point is reached, a <see cref="BufferBoundsException"/> is raised.
         /// </remarks>
         /// <param name="index">the index from which the required bytes start</param>
         /// <param name="bytesRequested">the number of bytes which are required</param>
@@ -293,8 +289,6 @@ namespace Com.Drew.Lang
 
         /// <summary>Gets a s15.16 fixed point float from the buffer.</summary>
         /// <remarks>
-        /// Gets a s15.16 fixed point float from the buffer.
-        /// <para />
         /// This particular fixed point encoding has one sign bit, 15 numerator bits and 16 denominator bits.
         /// </remarks>
         /// <returns>the floating point value</returns>
@@ -344,8 +338,8 @@ namespace Com.Drew.Lang
         }
 
         /// <summary>
-        /// Creates a String from the _data buffer starting at the specified index,
-        /// and ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.
+        /// Creates a string starting at the specified index, and ending where either <c>byte=='\0'</c> or
+        /// <c>length==maxLength</c>.
         /// </summary>
         /// <param name="index">The index within the buffer at which to start reading the string.</param>
         /// <param name="maxLengthBytes">

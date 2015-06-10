@@ -27,6 +27,16 @@ using Sharpen;
 
 namespace Com.Drew.Lang
 {
+    /// <summary>Base class for reading sequentially through a sequence of data encoded in a byte stream.</summary>
+    /// <remarks>
+    /// Concrete implementations include:
+    /// <list type="bullet">
+    ///   <item><see cref="SequentialByteArrayReader"/></item>
+    ///   <item><see cref="SequentialStreamReader"/></item>
+    /// </list>
+    /// By default, the reader operates with Motorola byte order (big endianness).  This can be changed by via
+    /// <see cref="IsMotorolaByteOrder"/>.
+    /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class SequentialReader
     {
