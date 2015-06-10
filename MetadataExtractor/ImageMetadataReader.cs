@@ -20,14 +20,9 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Bmp;
-using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Gif;
 using MetadataExtractor.Formats.Ico.ico;
@@ -127,128 +122,6 @@ namespace MetadataExtractor
                 metadata = ReadMetadata(inputStream);
             new FileMetadataReader().Read(filePath, metadata);
             return metadata;
-        }
-
-        /// <summary>An application entry point.</summary>
-        /// <remarks>
-        /// An application entry point.  Takes the name of one or more files as arguments and prints the contents of all
-        /// metadata directories to <c>System.out</c>.
-        /// <para />
-        /// If <c>-thumb</c> is passed, then any thumbnail data will be written to a file with name of the
-        /// input file having <c>.thumb.jpg</c> appended.
-        /// <para />
-        /// If <c>-markdown</c> is passed, then output will be in markdown format.
-        /// <para />
-        /// If <c>-hex</c> is passed, then the ID of each tag will be displayed in hexadecimal.
-        /// </remarks>
-        /// <param name="args">the command line arguments</param>
-        /// <exception cref="MetadataException"/>
-        /// <exception cref="System.IO.IOException"/>
-        public static void Main([NotNull] string[] args)
-        {
-            ICollection<string> argList = args.ToList();
-            var thumbRequested = argList.Remove("-thumb");
-            var markdownFormat = argList.Remove("-markdown");
-            var showHex = argList.Remove("-hex");
-            if (argList.Count < 1)
-            {
-                var version = typeof(ImageMetadataReader).Assembly.GetName().Version.ToString();
-                Console.Out.WriteLine("metadata-extractor version " + version);
-                Console.Out.WriteLine();
-                Console.Out.WriteLine("Usage: java -jar metadata-extractor-{0}.jar <filename> [<filename>] [-thumb] [-markdown] [-hex]", version ?? "a.b.c");
-                Environment.Exit(1);
-            }
-            foreach (var filePath in argList)
-            {
-                var stopwatch = Stopwatch.StartNew();
-                if (!markdownFormat && argList.Count > 1)
-                {
-                    Console.Out.WriteLine("\n***** PROCESSING: {0}", filePath);
-                }
-                Metadata metadata = null;
-                try
-                {
-                    metadata = ReadMetadata(filePath);
-                }
-                catch (Exception e)
-                {
-                    Console.Error.WriteLine (e);
-                    Environment.Exit(1);
-                }
-                if (!markdownFormat)
-                {
-                    Console.Out.WriteLine("Processed {0:#,##0.##} MB file in {1:#,##0.##} ms\n", new FileInfo(filePath).Length / (1024d * 1024), stopwatch.Elapsed.TotalMilliseconds);
-                }
-                if (markdownFormat)
-                {
-                    var fileName = Path.GetFileName(filePath);
-                    var urlName = StringUtil.UrlEncode(filePath);
-                    var exifIfd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
-                    var make = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifDirectoryBase.TagMake);
-                    var model = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifDirectoryBase.TagModel);
-                    Console.Out.WriteLine();
-                    Console.Out.WriteLine("---");
-                    Console.Out.WriteLine();
-                    Console.Out.WriteLine("# {0} - {1}", make, model);
-                    Console.Out.WriteLine();
-                    Console.Out.WriteLine("<a href=\"https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/{0}\">", urlName);
-                    Console.Out.WriteLine("<img src=\"https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/{0}\" width=\"300\"/><br/>", urlName);
-                    Console.Out.WriteLine(fileName);
-                    Console.Out.WriteLine("</a>");
-                    Console.Out.WriteLine();
-                    Console.Out.WriteLine("Directory | Tag Id | Tag Name | Extracted Value");
-                    Console.Out.WriteLine(":--------:|-------:|----------|----------------");
-                }
-                // iterate over the metadata and print to System.out
-                foreach (var directory in metadata.GetDirectories())
-                {
-                    var directoryName = directory.GetName();
-                    foreach (var tag in directory.GetTags())
-                    {
-                        var tagName = tag.TagName;
-                        var description = tag.Description;
-                        // truncate the description if it's too long
-                        if (description != null && description.Length > 1024)
-                        {
-                            description = description.Substring (0, 1024 - 0) + "...";
-                        }
-                        if (markdownFormat)
-                        {
-                            Console.Out.WriteLine("{0}|0x{1:X}|{2}|{3}", directoryName, tag.TagType, tagName, description);
-                        }
-                        else
-                        {
-                            // simple formatting
-                            if (showHex)
-                            {
-                                Console.Out.WriteLine("[{0} - {1:X4}] {2} = {3}", directoryName, tag.TagType, tagName, description);
-                            }
-                            else
-                            {
-                                Console.Out.WriteLine("[{0}] {1} = {2}", directoryName, tagName, description);
-                            }
-                        }
-                    }
-                    // print out any errors
-                    foreach (var error in directory.GetErrors())
-                    {
-                        Console.Error.WriteLine((object)("ERROR: " + error));
-                    }
-                }
-                if (args.Length > 1 && thumbRequested)
-                {
-                    var directory1 = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
-                    if (directory1 != null && directory1.HasThumbnailData())
-                    {
-                        Console.Out.WriteLine("Writing thumbnail...");
-                        directory1.WriteThumbnail(args[0].Trim() + ".thumb.jpg");
-                    }
-                    else
-                    {
-                        Console.Out.WriteLine("No thumbnail data exists in this image");
-                    }
-                }
-            }
         }
     }
 }

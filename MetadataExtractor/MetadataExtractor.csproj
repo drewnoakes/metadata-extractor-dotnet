@@ -61,7 +61,6 @@
     <Compile Include="IO\SequentialByteArrayReader.cs" />
     <Compile Include="IO\SequentialReader.cs" />
     <Compile Include="IO\SequentialStreamReader.cs" />
-    <Compile Include="Util\StringUtil.cs" />
     <Compile Include="Age.cs" />
     <Compile Include="DefaultTagDescriptor.cs" />
     <Compile Include="Directory.cs" />
