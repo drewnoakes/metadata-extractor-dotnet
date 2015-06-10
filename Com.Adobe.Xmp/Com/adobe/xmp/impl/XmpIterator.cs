@@ -151,13 +151,13 @@ namespace Com.Adobe.Xmp.Impl
         private class NodeIterator : IIterator
         {
             /// <summary>iteration state</summary>
-            protected const int IterateNode = 0;
+            private const int IterateNode = 0;
 
             /// <summary>iteration state</summary>
-            protected const int IterateChildren = 1;
+            private const int IterateChildren = 1;
 
             /// <summary>iteration state</summary>
-            protected const int IterateQualifier = 2;
+            private const int IterateQualifier = 2;
 
             /// <summary>the state of the iteration</summary>
             private int _state = IterateNode;
@@ -241,7 +241,7 @@ namespace Com.Adobe.Xmp.Impl
 
             /// <summary>Sets the returnProperty as next item or recurses into <c>hasNext()</c>.</summary>
             /// <returns>Returns if there is a next item to return.</returns>
-            protected virtual bool ReportNode()
+            private bool ReportNode()
             {
                 _state = IterateChildren;
                 if (_visitedNode.Parent != null && (!_enclosing.Options.IsJustLeafnodes || !_visitedNode.HasChildren))
@@ -304,9 +304,9 @@ namespace Com.Adobe.Xmp.Impl
 
             /// <param name="currNode">the node that will be added to the path.</param>
             /// <param name="parentPath">the path up to this node.</param>
-            /// <param name="currentIndex">the current array index if an arrey is traversed</param>
+            /// <param name="currentIndex">the current array index if an array is traversed</param>
             /// <returns>Returns the updated path.</returns>
-            protected virtual string AccumulatePath(XmpNode currNode, string parentPath, int currentIndex)
+            protected string AccumulatePath(XmpNode currNode, string parentPath, int currentIndex)
             {
                 string separator;
                 string segmentName;
@@ -341,7 +341,7 @@ namespace Com.Adobe.Xmp.Impl
             /// <param name="baseNs">the base namespace to report</param>
             /// <param name="path">the full property path</param>
             /// <returns>Returns a <c>XMPProperty</c>-object that serves representation of the node.</returns>
-            protected virtual IXmpPropertyInfo CreatePropertyInfo(XmpNode node, string baseNs, string path)
+            protected static IXmpPropertyInfo CreatePropertyInfo(XmpNode node, string baseNs, string path)
             {
                 var value = node.Options.IsSchemaNode ? null : node.Value;
                 return new XmpPropertyInfo450(node, baseNs, path, value);
@@ -405,13 +405,13 @@ namespace Com.Adobe.Xmp.Impl
             }
 
             /// <returns>Returns the returnProperty.</returns>
-            protected virtual IXmpPropertyInfo GetReturnProperty()
+            protected IXmpPropertyInfo GetReturnProperty()
             {
                 return _returnProperty;
             }
 
             /// <param name="returnProperty">the returnProperty to set</param>
-            protected virtual void SetReturnProperty(IXmpPropertyInfo returnProperty)
+            protected void SetReturnProperty(IXmpPropertyInfo returnProperty)
             {
                 _returnProperty = returnProperty;
             }
@@ -424,7 +424,7 @@ namespace Com.Adobe.Xmp.Impl
         /// and is only used for the option <see cref="Com.Adobe.Xmp.Options.IteratorOptions.JustChildren"/>.
         /// </summary>
         /// <since>02.10.2006</since>
-        private class NodeIteratorChildren : NodeIterator
+        private sealed class NodeIteratorChildren : NodeIterator
         {
             private readonly string _parentPath;
 
