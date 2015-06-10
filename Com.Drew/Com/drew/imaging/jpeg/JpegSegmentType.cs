@@ -153,7 +153,7 @@ namespace Com.Drew.Imaging.Jpeg
 
         public readonly bool CanContainMetadata;
 
-        internal JpegSegmentType(byte byteValue, bool canContainMetadata)
+        private JpegSegmentType(byte byteValue, bool canContainMetadata)
         {
             ByteValue = byteValue;
             CanContainMetadata = canContainMetadata;
