@@ -29,22 +29,18 @@ namespace MetadataExtractor.Formats.WebP
     public class WebPDirectory : Directory
     {
         public const int TagImageHeight = 1;
-
         public const int TagImageWidth = 2;
-
         public const int TagHasAlpha = 3;
-
         public const int TagIsAnimation = 4;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        [NotNull] private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
 
         static WebPDirectory()
         {
-            TagNameMap[TagImageHeight] = "Image Height";
-            TagNameMap[TagImageWidth] = "Image Width";
-            TagNameMap[TagHasAlpha] = "Has Alpha";
-            TagNameMap[TagIsAnimation] = "Is Animation";
+            _tagNameMap[TagImageHeight] = "Image Height";
+            _tagNameMap[TagImageWidth] = "Image Width";
+            _tagNameMap[TagHasAlpha] = "Has Alpha";
+            _tagNameMap[TagIsAnimation] = "Is Animation";
         }
 
         public WebPDirectory()
@@ -59,7 +55,7 @@ namespace MetadataExtractor.Formats.WebP
 
         protected override Dictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }
