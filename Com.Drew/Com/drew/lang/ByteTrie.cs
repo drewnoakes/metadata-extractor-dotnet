@@ -36,7 +36,7 @@ namespace Com.Drew.Lang
         {
             internal readonly IDictionary<byte, ByteTrieNode> Children = new Dictionary<byte, ByteTrieNode>();
 
-            internal T Value;
+            public T Value { get; private set; }
 
             public void SetValue(T value)
             {
@@ -50,7 +50,8 @@ namespace Com.Drew.Lang
 
         private readonly ByteTrieNode _root = new ByteTrieNode();
 
-        private int _maxDepth;
+        /// <summary>Gets the maximum depth stored in this trie.</summary>
+        public int MaxDepth { get; private set; }
 
         /// <summary>Return the most specific value stored for this byte sequence.</summary>
         /// <remarks>
@@ -97,7 +98,7 @@ namespace Com.Drew.Lang
                 }
             }
             node.SetValue(value);
-            _maxDepth = Math.Max(_maxDepth, depth);
+            MaxDepth = Math.Max(MaxDepth, depth);
         }
 
         /// <summary>
@@ -106,12 +107,6 @@ namespace Com.Drew.Lang
         public void SetDefaultValue(T defaultValue)
         {
             _root.SetValue(defaultValue);
-        }
-
-        /// <summary>Gets the maximum depth stored in this trie.</summary>
-        public int GetMaxDepth()
-        {
-            return _maxDepth;
         }
     }
 }
