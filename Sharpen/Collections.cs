@@ -14,11 +14,10 @@ namespace Sharpen
             get { return Empty; }
         }
 
-        public static bool AddAll<T> (ICollection<T> list, IEnumerable toAdd)
+        public static void AddAll<T> (ICollection<T> list, IEnumerable toAdd)
         {
             foreach (T t in toAdd)
                 list.Add (t);
-            return true;
         }
 
         public static object[] ToArray (IList list, object[] result)
