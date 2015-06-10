@@ -43,7 +43,7 @@ namespace Sharpen
             {
                 return DateTime.ParseExact(value, _format, Culture);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw new ParseException();
             }

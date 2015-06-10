@@ -218,7 +218,7 @@ namespace Com.Adobe.Xmp.Impl
                     }
                 }
             }
-            catch (XmpException e)
+            catch (XmpException)
             {
                 // Save the top most implicit node.
                 // if new notes have been created prior to the error, delete them
