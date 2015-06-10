@@ -20,22 +20,22 @@ namespace Com.Adobe.Xmp
     /// <since>23.01.2006</since>
     public interface IXmpVersionInfo
     {
-        /// <returns>Returns the primary release number, the "1" in version "1.2.3".</returns>
-        int GetMajor();
+        /// <value>Returns the primary release number, the "1" in version "1.2.3".</value>
+        int Major { get; }
 
-        /// <returns>Returns the secondary release number, the "2" in version "1.2.3".</returns>
-        int GetMinor();
+        /// <value>Returns the secondary release number, the "2" in version "1.2.3".</value>
+        int Minor { get; }
 
-        /// <returns>Returns the tertiary release number, the "3" in version "1.2.3".</returns>
-        int GetMicro();
+        /// <value>Returns the tertiary release number, the "3" in version "1.2.3".</value>
+        int Micro { get; }
 
-        /// <returns>Returns a rolling build number, monotonically increasing in a release.</returns>
-        int GetBuild();
+        /// <value>Returns a rolling build number, monotonically increasing in a release.</value>
+        int Build { get; }
 
-        /// <returns>Returns true if this is a debug build.</returns>
-        bool IsDebug();
+        /// <value>Returns true if this is a debug build.</value>
+        bool IsDebug { get; }
 
-        /// <returns>Returns a comprehensive version information string.</returns>
-        string GetMessage();
+        /// <value>Returns a comprehensive version information string.</value>
+        string Message { get; }
     }
 }

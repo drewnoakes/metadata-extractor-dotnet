@@ -230,7 +230,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 WriteIndent(level);
                 Write(RdfXmpmetaStart);
-                Write(XmpMetaFactory.GetVersionInfo().GetMessage());
+                Write(XmpMetaFactory.GetVersionInfo().Message);
                 Write("\">");
                 WriteNewline();
                 level++;

@@ -184,7 +184,7 @@ namespace Com.Adobe.Xmp
                         var debug = false;
                         // Adobe XMP Core 5.0-jc001 DEBUG-<branch>.<changelist>, 2009 Jan 28 15:22:38-CET
                         var message = "Adobe XMP Core 5.1.0-jc003";
-                        _versionInfo = new XmpVersionInfo274(major, minor, micro, debug, engBuild, message);
+                        _versionInfo = new XmpVersionInfo(major, minor, micro, debug, engBuild, message);
                     }
                     catch (Exception e)
                     {
@@ -196,64 +196,29 @@ namespace Com.Adobe.Xmp
             }
         }
 
-        private sealed class XmpVersionInfo274 : IXmpVersionInfo
+        private sealed class XmpVersionInfo : IXmpVersionInfo
         {
-            public XmpVersionInfo274(int major, int minor, int micro, bool debug, int engBuild, string message)
-            {
-                _major = major;
-                _minor = minor;
-                _micro = micro;
-                _debug = debug;
-                _engBuild = engBuild;
-                _message = message;
-            }
+            public int Major { get; private set; }
+            public int Minor { get; private set; }
+            public int Micro { get; private set; }
+            public bool IsDebug { get; private set; }
+            public int Build { get; private set; }
+            public string Message { get; private set; }
 
-            public int GetMajor()
+            public XmpVersionInfo(int major, int minor, int micro, bool debug, int engBuild, string message)
             {
-                return _major;
-            }
-
-            public int GetMinor()
-            {
-                return _minor;
-            }
-
-            public int GetMicro()
-            {
-                return _micro;
-            }
-
-            public bool IsDebug()
-            {
-                return _debug;
-            }
-
-            public int GetBuild()
-            {
-                return _engBuild;
-            }
-
-            public string GetMessage()
-            {
-                return _message;
+                Major = major;
+                Minor = minor;
+                Micro = micro;
+                IsDebug = debug;
+                Build = engBuild;
+                Message = message;
             }
 
             public override string ToString()
             {
-                return _message;
+                return Message;
             }
-
-            private readonly int _major;
-
-            private readonly int _minor;
-
-            private readonly int _micro;
-
-            private readonly bool _debug;
-
-            private readonly int _engBuild;
-
-            private readonly string _message;
         }
     }
 }
