@@ -1,6 +1,48 @@
 NMetadataExtractor
 ====================
 
+    using MetadataExtractor;
+
+    Metadata metadata = new ImageMetadataExtractor().Extract(filePath);
+
+MetadataExtractor.Formats.Png
+MetadataExtractor.Formats.Bpm
+MetadataExtractor.Formats.Exif
+MetadataExtractor.Util (PhotographicConversions, FileType, FileTypeDetector)
+
+class StreamCapabilities
+{
+    bool AcceptsStream(Stream stream);
+    
+    /// <summary>Returns a stream that has the capabilities required for this reader.</summary>
+    /// <remarks>Note that the returned stream need not be disposed, but the source stream still does.</summary>
+    Stream Decorate(Stream source);
+}
+
+interface IMetadataReader
+{
+    StreamCapabilities StreamRequirements { get; }
+
+    IEnumerable<Directory> Read(Stream stream);
+}
+
+interface IFileMetadataReader
+{
+    IEnumerable<byte[]> MagicNumbers { get; }
+}
+
+
+
+public static class MetadataReaderExtension
+{
+    public static IEnumerable<Directory> Read(this IMetadataReader reader, string filePath)
+    {
+        using (var stream = new FileStream(filePath, FileMode.Open))
+             return reader.Read(reader.StreamRequirements.Decorate(stream));
+    }
+}
+
+
 master: [![Build status](https://ci.appveyor.com/api/projects/status/12bkj9y5wcydqak7/branch/master?svg=true)](https://ci.appveyor.com/project/imazen/n-metadata-extractor/branch/master) most recent commit: [![Build status](https://ci.appveyor.com/api/projects/status/12bkj9y5wcydqak7?svg=true)](https://ci.appveyor.com/project/imazen/n-metadata-extractor) [Download documentation archive](https://ci.appveyor.com/project/imazen/n-metadata-extractor/build/artifacts)
 
 
