@@ -34,19 +34,13 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>the node iterator doing the work</summary>
         private readonly IIterator _nodeIterator;
 
-        /// <summary>Constructor with optionsl initial values.</summary>
-        /// <remarks>
-        /// Constructor with optionsl initial values. If <c>propName</c> is provided,
-        /// <c>schemaNS</c> has also be provided.
-        /// </remarks>
+        /// <summary>Constructor with optional initial values.</summary>
+        /// <remarks>If <c>propName</c> is provided, <c>schemaNS</c> has also be provided.</remarks>
         /// <param name="xmp">the iterated metadata object.</param>
         /// <param name="schemaNs">the iteration is reduced to this schema (optional)</param>
-        /// <param name="propPath">the iteration is redurce to this property within the <c>schemaNS</c></param>
-        /// <param name="options">
-        /// advanced iteration options, see
-        /// <see cref="Com.Adobe.Xmp.Options.IteratorOptions"/>
-        /// </param>
-        /// <exception cref="XmpException">If the node defined by the paramters is not existing.</exception>
+        /// <param name="propPath">the iteration is reduced to this property within the <c>schemaNS</c></param>
+        /// <param name="options">advanced iteration options, see <see cref="Com.Adobe.Xmp.Options.IteratorOptions"/></param>
+        /// <exception cref="XmpException">If the node defined by the parameters is not existing.</exception>
         public XmpIterator(XmpMeta xmp, string schemaNs, string propPath, IteratorOptions options)
         {
             // make sure that options is defined at least with defaults
@@ -145,7 +139,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>The <c>XMPIterator</c> implementation.</summary>
         /// <remarks>
         /// The <c>XMPIterator</c> implementation.
-        /// It first returns the node itself, then recursivly the children and qualifier of the node.
+        /// It first returns the node itself, then recursively the children and qualifier of the node.
         /// </remarks>
         /// <since>29.06.2006</since>
         private class NodeIterator : IIterator
@@ -279,11 +273,11 @@ namespace Com.Adobe.Xmp.Impl
                 return false;
             }
 
-            /// <summary>Calls hasNext() and returnes the prepared node.</summary>
+            /// <summary>Calls hasNext() and returns the prepared node.</summary>
             /// <remarks>
-            /// Calls hasNext() and returnes the prepared node. Afterwards its set to null.
-            /// The existance of returnProperty indicates if there is a next node, otherwise
-            /// an exceptio is thrown.
+            /// Calls hasNext() and returns the prepared node. Afterward it's set to null.
+            /// The existence of returnProperty indicates if there is a next node, otherwise
+            /// an exception is thrown.
             /// </remarks>
             public virtual object Next()
             {
