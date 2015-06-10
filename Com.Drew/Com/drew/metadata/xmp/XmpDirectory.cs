@@ -275,7 +275,7 @@ namespace Com.Drew.Metadata.Xmp
                 for (IIterator i = _xmpMeta.Iterator(); i.HasNext(); )
                 {
                     var prop = (IXmpPropertyInfo)i.Next();
-                    if (prop.GetPath() != null)
+                    if (prop.Path != null)
                     {
                         //System.out.printf("%s = %s\n", prop.getPath(), prop.getValue());
                         valueCount++;

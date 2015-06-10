@@ -299,19 +299,19 @@ namespace Com.Adobe.Xmp.Impl
                 _itemNode = itemNode;
             }
 
-            public string GetValue()
+            public string Value
             {
-                return _itemNode.Value;
+                get { return _itemNode.Value; }
             }
 
-            public PropertyOptions GetOptions()
+            public PropertyOptions Options
             {
-                return _itemNode.Options;
+                get { return _itemNode.Options; }
             }
 
-            public string GetLanguage()
+            public string Language
             {
-                return _itemNode.GetQualifier(1).Value;
+                get { return _itemNode.GetQualifier(1).Value; }
             }
 
             public override string ToString()
@@ -537,19 +537,19 @@ namespace Com.Adobe.Xmp.Impl
                 _propNode = propNode;
             }
 
-            public string GetValue()
+            public string Value
             {
-                return _value != null ? _value.ToString() : null;
+                get { return _value != null ? _value.ToString() : null; }
             }
 
-            public PropertyOptions GetOptions()
+            public PropertyOptions Options
             {
-                return _propNode.Options;
+                get { return _propNode.Options; }
             }
 
-            public string GetLanguage()
+            public string Language
             {
-                return null;
+                get { return null; }
             }
 
             public override string ToString()

@@ -7,8 +7,6 @@
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
 
-using Com.Adobe.Xmp.Options;
-
 namespace Com.Adobe.Xmp.Properties
 {
     /// <summary>This interface is used to return a property together with its path and namespace.</summary>
@@ -19,16 +17,10 @@ namespace Com.Adobe.Xmp.Properties
     /// <since>06.07.2006</since>
     public interface IXmpPropertyInfo : IXmpProperty
     {
-        /// <returns>Returns the namespace of the property</returns>
-        string GetNamespace();
+        /// <value>Returns the namespace of the property</value>
+        string Namespace { get; }
 
-        /// <returns>Returns the path of the property, but only if returned by the iterator.</returns>
-        string GetPath();
-
-        /// <returns>Returns the value of the property.</returns>
-        string GetValue();
-
-        /// <returns>Returns the options of the property.</returns>
-        PropertyOptions GetOptions();
+        /// <value>Returns the path of the property, but only if returned by the iterator.</value>
+        string Path { get; }
     }
 }

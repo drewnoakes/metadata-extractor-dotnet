@@ -15,16 +15,16 @@ namespace Com.Adobe.Xmp.Properties
     /// <since>23.01.2006</since>
     public interface IXmpProperty
     {
-        /// <returns>Returns the value of the property.</returns>
-        string GetValue();
+        /// <value>Returns the value of the property.</value>
+        string Value { get; }
 
-        /// <returns>Returns the options of the property.</returns>
-        PropertyOptions GetOptions();
+        /// <value>Returns the options of the property.</value>
+        PropertyOptions Options { get; }
 
         /// <summary>
         /// Only set by <see cref="IXmpMeta.GetLocalizedText(string, string, string, string)"/>.
         /// </summary>
-        /// <returns>Returns the language of the alt-text item.</returns>
-        string GetLanguage();
+        /// <value>Returns the language of the alt-text item.</value>
+        string Language { get; }
     }
 }

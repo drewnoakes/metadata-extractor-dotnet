@@ -25,12 +25,6 @@ namespace Com.Adobe.Xmp.Impl
     /// <since>29.06.2006</since>
     public sealed class XmpIterator : IXmpIterator
     {
-        /// <summary>stores the iterator options</summary>
-        private readonly IteratorOptions _options;
-
-        /// <summary>the base namespace of the property path, will be changed during the iteration</summary>
-        private string _baseNs;
-
         /// <summary>flag to indicate that skipSiblings() has been called.</summary>
         private bool _skipSiblings;
 
@@ -56,7 +50,7 @@ namespace Com.Adobe.Xmp.Impl
         public XmpIterator(XmpMeta xmp, string schemaNs, string propPath, IteratorOptions options)
         {
             // make sure that options is defined at least with defaults
-            _options = options ?? new IteratorOptions();
+            Options = options ?? new IteratorOptions();
             // the start node of the iteration depending on the schema and property filter
             XmpNode startNode = null;
             string initialPath = null;
@@ -80,7 +74,7 @@ namespace Com.Adobe.Xmp.Impl
                         basePath.Add(path.GetSegment(i));
                     }
                     startNode = XmpNodeUtils.FindNode(xmp.GetRoot(), path, false, null);
-                    _baseNs = schemaNs;
+                    BaseNamespace = schemaNs;
                     initialPath = basePath.ToString();
                 }
                 else
@@ -101,7 +95,7 @@ namespace Com.Adobe.Xmp.Impl
             // create iterator
             if (startNode != null)
             {
-                if (!_options.IsJustChildren)
+                if (!Options.IsJustChildren)
                 {
                     _nodeIterator = new NodeIterator(this, startNode, initialPath, 1);
                 }
@@ -143,23 +137,10 @@ namespace Com.Adobe.Xmp.Impl
             throw new NotSupportedException("The XMPIterator does not support remove().");
         }
 
-        /// <returns>Exposes the options for inner class.</returns>
-        private IteratorOptions GetOptions()
-        {
-            return _options;
-        }
+        private IteratorOptions Options { get; set; }
 
-        /// <returns>Exposes the options for inner class.</returns>
-        private string GetBaseNs()
-        {
-            return _baseNs;
-        }
-
-        /// <param name="baseNs">sets the baseNS from the inner class.</param>
-        private void SetBaseNs(string baseNs)
-        {
-            _baseNs = baseNs;
-        }
+        /// <summary>the base namespace of the property path, will be changed during the iteration</summary>
+        private string BaseNamespace { get; set; }
 
         /// <summary>The <c>XMPIterator</c> implementation.</summary>
         /// <remarks>
@@ -217,7 +198,7 @@ namespace Com.Adobe.Xmp.Impl
                 _state = IterateNode;
                 if (visitedNode.Options.IsSchemaNode)
                 {
-                    _enclosing.SetBaseNs(visitedNode.Name);
+                    _enclosing.BaseNamespace = visitedNode.Name;
                 }
                 // for all but the root node and schema nodes
                 _path = AccumulatePath(visitedNode, parentPath, index);
@@ -243,7 +224,7 @@ namespace Com.Adobe.Xmp.Impl
                         _childrenIterator = _visitedNode.IterateChildren();
                     }
                     var hasNext = IterateChildrenMethod(_childrenIterator);
-                    if (!hasNext && _visitedNode.HasQualifier && !_enclosing.GetOptions().IsOmitQualifiers)
+                    if (!hasNext && _visitedNode.HasQualifier && !_enclosing.Options.IsOmitQualifiers)
                     {
                         _state = IterateQualifier;
                         _childrenIterator = null;
@@ -263,9 +244,9 @@ namespace Com.Adobe.Xmp.Impl
             protected virtual bool ReportNode()
             {
                 _state = IterateChildren;
-                if (_visitedNode.Parent != null && (!_enclosing.GetOptions().IsJustLeafnodes || !_visitedNode.HasChildren))
+                if (_visitedNode.Parent != null && (!_enclosing.Options.IsJustLeafnodes || !_visitedNode.HasChildren))
                 {
-                    _returnProperty = CreatePropertyInfo(_visitedNode, _enclosing.GetBaseNs(), _path);
+                    _returnProperty = CreatePropertyInfo(_visitedNode, _enclosing.BaseNamespace, _path);
                     return true;
                 }
                 return HasNext();
@@ -347,7 +328,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     return segmentName;
                 }
-                if (_enclosing.GetOptions().IsJustLeafname)
+                if (_enclosing.Options.IsJustLeafname)
                 {
                     return !segmentName.StartsWith("?") ? segmentName : segmentName.Substring (1);
                 }
@@ -368,53 +349,47 @@ namespace Com.Adobe.Xmp.Impl
 
             private sealed class XmpPropertyInfo450 : IXmpPropertyInfo
             {
+                private readonly XmpNode _node;
+                private readonly string _baseNs;
+
+                public string Path { get; private set; }
+                public string Value { get; private set; }
+
                 public XmpPropertyInfo450(XmpNode node, string baseNs, string path, string value)
                 {
                     _node = node;
                     _baseNs = baseNs;
-                    _path = path;
-                    _value = value;
+                    Path = path;
+                    Value = value;
                 }
 
-                public string GetNamespace()
+                public string Namespace
                 {
-                    if (!_node.Options.IsSchemaNode)
+                    get
                     {
-                        // determine namespace of leaf node
-                        var qname = new QName(_node.Name);
-                        return XmpMetaFactory.GetSchemaRegistry().GetNamespaceUri(qname.GetPrefix());
+                        if (!_node.Options.IsSchemaNode)
+                        {
+                            // determine namespace of leaf node
+                            var qname = new QName(_node.Name);
+                            return XmpMetaFactory.GetSchemaRegistry().GetNamespaceUri(qname.GetPrefix());
+                        }
+                        return _baseNs;
                     }
-                    return _baseNs;
                 }
 
-                public string GetPath()
+                public PropertyOptions Options
                 {
-                    return _path;
+                    get { return _node.Options; }
                 }
 
-                public string GetValue()
+                public string Language
                 {
-                    return _value;
+                    get
+                    {
+                        // the language is not reported
+                        return null;
+                    }
                 }
-
-                public PropertyOptions GetOptions()
-                {
-                    return _node.Options;
-                }
-
-                public string GetLanguage()
-                {
-                    // the language is not reported
-                    return null;
-                }
-
-                private readonly XmpNode _node;
-
-                private readonly string _baseNs;
-
-                private readonly string _path;
-
-                private readonly string _value;
             }
 
             /// <returns>the childrenIterator</returns>
@@ -467,7 +442,7 @@ namespace Com.Adobe.Xmp.Impl
                 _enclosing = enclosing;
                 if (parentNode.Options.IsSchemaNode)
                 {
-                    _enclosing.SetBaseNs(parentNode.Name);
+                    _enclosing.BaseNamespace = parentNode.Name;
                 }
                 _parentPath = AccumulatePath(parentNode, parentPath, 1);
                 _childrenIterator = parentNode.IterateChildren();
@@ -492,7 +467,7 @@ namespace Com.Adobe.Xmp.Impl
                     string path = null;
                     if (child.Options.IsSchemaNode)
                     {
-                        _enclosing.SetBaseNs(child.Name);
+                        _enclosing.BaseNamespace = child.Name;
                     }
                     else
                     {
@@ -503,9 +478,9 @@ namespace Com.Adobe.Xmp.Impl
                         }
                     }
                     // report next property, skip not-leaf nodes in case options is set
-                    if (!_enclosing.GetOptions().IsJustLeafnodes || !child.HasChildren)
+                    if (!_enclosing.Options.IsJustLeafnodes || !child.HasChildren)
                     {
-                        SetReturnProperty(CreatePropertyInfo(child, _enclosing.GetBaseNs(), path));
+                        SetReturnProperty(CreatePropertyInfo(child, _enclosing.BaseNamespace, path));
                         return true;
                     }
                     return HasNext();

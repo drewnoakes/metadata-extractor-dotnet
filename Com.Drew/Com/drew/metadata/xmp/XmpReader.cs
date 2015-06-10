@@ -209,8 +209,8 @@ namespace Com.Drew.Metadata.Xmp
             for (var iterator = xmpMeta.Iterator(); iterator.HasNext(); )
             {
                 var propInfo = (IXmpPropertyInfo)iterator.Next();
-                var path = propInfo.GetPath();
-                var value = propInfo.GetValue();
+                var path = propInfo.Path;
+                var value = propInfo.Value;
                 if (path != null && value != null)
                 {
                     directory.AddProperty(path, value);
@@ -293,7 +293,7 @@ namespace Com.Drew.Metadata.Xmp
                     var array = new string[count];
                     for (var i = 1; i <= count; ++i)
                     {
-                        array[i - 1] = meta.GetArrayItem(schemaNs, propName, i).GetValue();
+                        array[i - 1] = meta.GetArrayItem(schemaNs, propName, i).Value;
                     }
                     directory.SetStringArray(tagType, array);
                     break;
