@@ -157,7 +157,7 @@ namespace Com.Drew.Metadata.Iptc
                 directory.SetString(tagIdentifier, string.Empty);
                 return;
             }
-            string @string = null;
+            string str = null;
             switch (tagIdentifier)
             {
                 case IptcDirectory.TagCodedCharacterSet:
@@ -167,7 +167,7 @@ namespace Com.Drew.Metadata.Iptc
                     if (charset == null)
                     {
                         // Unable to determine the charset, so fall through and treat tag as a regular string
-                        @string = Encoding.UTF8.GetString(bytes);
+                        str = Encoding.UTF8.GetString(bytes);
                         break;
                     }
                     directory.SetString(tagIdentifier, charset);
@@ -205,12 +205,12 @@ namespace Com.Drew.Metadata.Iptc
                     // Date object
                     if (tagByteCount >= 8)
                     {
-                        @string = reader.GetString(tagByteCount);
+                        str = reader.GetString(tagByteCount);
                         try
                         {
-                            var year = Convert.ToInt32(@string.Substring (0, 4 - 0));
-                            var month = Convert.ToInt32(@string.Substring (4, 6 - 4)) - 1;
-                            var day = Convert.ToInt32(@string.Substring (6, 8 - 6));
+                            var year = Convert.ToInt32(str.Substring (0, 4 - 0));
+                            var month = Convert.ToInt32(str.Substring (4, 6 - 4)) - 1;
+                            var day = Convert.ToInt32(str.Substring (6, 8 - 6));
                             var date = new GregorianCalendar(year, month, day).GetTime();
                             directory.SetDate(tagIdentifier, date);
                             return;
@@ -231,19 +231,19 @@ namespace Com.Drew.Metadata.Iptc
             // fall through
             // If we haven't returned yet, treat it as a string
             // NOTE that there's a chance we've already loaded the value as a string above, but failed to parse the value
-            if (@string == null)
+            if (str == null)
             {
                 var encodingName = directory.GetString(IptcDirectory.TagCodedCharacterSet);
                 if (encodingName != null)
                 {
                     var encoding = Encoding.GetEncoding(encodingName);
-                    @string = reader.GetString(tagByteCount, encoding);
+                    str = reader.GetString(tagByteCount, encoding);
                 }
                 else
                 {
                     var bytes1 = reader.GetBytes(tagByteCount);
                     var encoding = Iso2022Converter.GuessEncoding(bytes1);
-                    @string = encoding != null ? encoding.GetString(bytes1) : Encoding.UTF8.GetString(bytes1);
+                    str = encoding != null ? encoding.GetString(bytes1) : Encoding.UTF8.GetString(bytes1);
                 }
             }
             if (directory.ContainsTag(tagIdentifier))
@@ -260,12 +260,12 @@ namespace Com.Drew.Metadata.Iptc
                     newStrings = new string[oldStrings.Length + 1];
                     Array.Copy(oldStrings, 0, newStrings, 0, oldStrings.Length);
                 }
-                newStrings[newStrings.Length - 1] = @string;
+                newStrings[newStrings.Length - 1] = str;
                 directory.SetStringArray(tagIdentifier, newStrings);
             }
             else
             {
-                directory.SetString(tagIdentifier, @string);
+                directory.SetString(tagIdentifier, str);
             }
         }
     }
