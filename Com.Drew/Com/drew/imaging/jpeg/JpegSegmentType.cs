@@ -146,15 +146,7 @@ namespace Com.Drew.Imaging.Jpeg
 
         static JpegSegmentType()
         {
-            IList<JpegSegmentType> segmentTypes = new List<JpegSegmentType>();
-            foreach (var segmentType in typeof(JpegSegmentType).GetEnumConstants<JpegSegmentType>())
-            {
-                if (segmentType.CanContainMetadata)
-                {
-                    segmentTypes.Add(segmentType);
-                }
-            }
-            CanContainMetadataTypes = segmentTypes;
+            CanContainMetadataTypes = typeof (JpegSegmentType).GetEnumConstants<JpegSegmentType>().Where(segmentType => segmentType.CanContainMetadata).ToList();
         }
 
         public readonly byte ByteValue;
