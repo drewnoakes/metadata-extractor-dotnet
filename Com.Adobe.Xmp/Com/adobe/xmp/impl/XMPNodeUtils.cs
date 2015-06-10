@@ -371,14 +371,7 @@ namespace Com.Adobe.Xmp.Impl
                                     else
                                     {
                                         var sbytes = value as byte[];
-                                        if (sbytes != null)
-                                        {
-                                            strValue = Xmp.XmpUtils.EncodeBase64(sbytes);
-                                        }
-                                        else
-                                        {
-                                            strValue = value.ToString();
-                                        }
+                                        strValue = sbytes != null ? Xmp.XmpUtils.EncodeBase64(sbytes) : value.ToString();
                                     }
                                 }
                             }

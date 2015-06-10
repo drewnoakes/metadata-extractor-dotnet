@@ -1114,21 +1114,16 @@ namespace Com.Adobe.Xmp.Impl
             {
                 WriteIndent(indent);
                 Write(isStartTag ? "<rdf:" : "</rdf:");
+
                 if (arrayNode.Options.IsArrayAlternate)
                 {
                     Write("Alt");
                 }
                 else
                 {
-                    if (arrayNode.Options.IsArrayOrdered)
-                    {
-                        Write("Seq");
-                    }
-                    else
-                    {
-                        Write("Bag");
-                    }
+                    Write(arrayNode.Options.IsArrayOrdered ? "Seq" : "Bag");
                 }
+
                 if (isStartTag && !arrayNode.HasChildren)
                 {
                     Write("/>");

@@ -1009,38 +1009,17 @@ namespace MetadataExtractor.Formats.Exif
          */
             var value = Directory.GetInteger(ExifDirectoryBase.TagFlash);
             if (value == null)
-            {
                 return null;
-            }
+
             var sb = new StringBuilder();
-            if (((int)value & unchecked(0x1)) != 0)
-            {
-                sb.Append("Flash fired");
-            }
-            else
-            {
-                sb.Append("Flash did not fire");
-            }
+            sb.Append((value & 0x1) != 0 ? "Flash fired" : "Flash did not fire");
             // check if we're able to detect a return, before we mention it
-            if (((int)value & unchecked(0x4)) != 0)
-            {
-                if (((int)value & unchecked(0x2)) != 0)
-                {
-                    sb.Append(", return detected");
-                }
-                else
-                {
-                    sb.Append(", return not detected");
-                }
-            }
-            if (((int)value & unchecked(0x10)) != 0)
-            {
+            if ((value & 0x4) != 0)
+                sb.Append((value.Value & 0x2) != 0 ? ", return detected" : ", return not detected");
+            if ((value & 0x10) != 0)
                 sb.Append(", auto");
-            }
-            if (((int)value & unchecked(0x40)) != 0)
-            {
+            if ((value & 0x40) != 0)
                 sb.Append(", red-eye reduction");
-            }
             return sb.ToString();
         }
 

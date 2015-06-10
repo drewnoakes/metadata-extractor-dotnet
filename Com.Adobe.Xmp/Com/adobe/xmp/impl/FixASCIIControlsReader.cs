@@ -117,14 +117,7 @@ namespace Com.Adobe.Xmp.Impl
 
                 case StateAmp:
                 {
-                    if (ch == '#')
-                    {
-                        _state = StateHash;
-                    }
-                    else
-                    {
-                        _state = StateError;
-                    }
+                    _state = ch == '#' ? StateHash : StateError;
                     return ch;
                 }
 
@@ -158,14 +151,7 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         _control = _control * 10 + Extensions.Digit(ch, 10);
                         _digits++;
-                        if (_digits <= 5)
-                        {
-                            _state = StateDig1;
-                        }
-                        else
-                        {
-                            _state = StateError;
-                        }
+                        _state = _digits <= 5 ? StateDig1 : StateError;
                     }
                     else
                     {
@@ -186,14 +172,7 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         _control = _control * 16 + Extensions.Digit(ch, 16);
                         _digits++;
-                        if (_digits <= 4)
-                        {
-                            _state = StateHex;
-                        }
-                        else
-                        {
-                            _state = StateError;
-                        }
+                        _state = _digits <= 4 ? StateHex : StateError;
                     }
                     else
                     {

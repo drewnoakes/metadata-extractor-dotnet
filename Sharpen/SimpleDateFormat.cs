@@ -145,61 +145,14 @@ namespace Sharpen
         private DateTime ConvertResult(Match data)
         {
             var result = Calendar.GetInstance(Culture);
-            if (data.Groups[FieldYear].Success)
-            {
-                result.Set(CalendarEnum.Year, int.Parse(data.Groups[FieldYear].Value));
-            }
-            else
-            {
-                result.Set(CalendarEnum.Year, 1);
-            }
 
-            if (data.Groups[FieldMonth].Success)
-            {
-                result.Set(CalendarEnum.MonthOneBased, int.Parse(data.Groups[FieldMonth].Value));
-            }
-            else
-            {
-                result.Set(CalendarEnum.MonthOneBased, 1);
-            }
-
-            if (data.Groups[FieldDay].Success)
-            {
-                result.Set(CalendarEnum.DayOfMonth, int.Parse(data.Groups[FieldDay].Value));
-            }
-            else
-            {
-                result.Set(CalendarEnum.DayOfMonth, 0);
-            }
-
-            if (data.Groups[FieldHour].Success)
-            {
-                result.Set(CalendarEnum.HourOfDay, int.Parse(data.Groups[FieldHour].Value));
-            }
-            else
-            {
-                result.Set(CalendarEnum.HourOfDay, 0);
-            }
-
-            if (data.Groups[FieldMinute].Success)
-            {
-                result.Set(CalendarEnum.Minute, int.Parse(data.Groups[FieldMinute].Value));
-            }
-            else
-            {
-                result.Set(CalendarEnum.Minute, 0);
-            }
-
-            if (data.Groups[FieldSecond].Success)
-            {
-                result.Set(CalendarEnum.Second, int.Parse(data.Groups[FieldSecond].Value));
-            }
-            else
-            {
-                result.Set(CalendarEnum.Second, 0);
-            }
-
-            result.Set(CalendarEnum.Millisecond, 0);
+            result.Set(CalendarEnum.Year,          data.Groups[FieldYear].Success   ? int.Parse(data.Groups[FieldYear].Value)   : 1);
+            result.Set(CalendarEnum.MonthOneBased, data.Groups[FieldMonth].Success  ? int.Parse(data.Groups[FieldMonth].Value)  : 1);
+            result.Set(CalendarEnum.DayOfMonth,    data.Groups[FieldDay].Success    ? int.Parse(data.Groups[FieldDay].Value)    : 0);
+            result.Set(CalendarEnum.HourOfDay,     data.Groups[FieldHour].Success   ? int.Parse(data.Groups[FieldHour].Value)   : 0);
+            result.Set(CalendarEnum.Minute,        data.Groups[FieldMinute].Success ? int.Parse(data.Groups[FieldMinute].Value) : 0);
+            result.Set(CalendarEnum.Second,        data.Groups[FieldSecond].Success ? int.Parse(data.Groups[FieldSecond].Value) : 0);
+            result.Set(CalendarEnum.Millisecond,   0);
 
             return result.GetTime();
         }

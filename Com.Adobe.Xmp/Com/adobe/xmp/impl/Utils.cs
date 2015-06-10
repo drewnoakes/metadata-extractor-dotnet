@@ -81,14 +81,7 @@ namespace Com.Adobe.Xmp.Impl
                     default:
                     {
                         // convert second subtag to uppercase, all other to lowercase
-                        if (subTag != 2)
-                        {
-                            buffer.Append(Char.ToLower(value[i]));
-                        }
-                        else
-                        {
-                            buffer.Append(Char.ToUpper(value[i]));
-                        }
+                        buffer.Append(subTag != 2 ? Char.ToLower(value[i]) : Char.ToUpper(value[i]));
                         break;
                     }
                 }

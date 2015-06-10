@@ -85,22 +85,11 @@ namespace Com.Adobe.Xmp.Impl
                 }
             }
             // create iterator
-            if (startNode != null)
-            {
-                if (!Options.IsJustChildren)
-                {
-                    _nodeIterator = new NodeIterator(this, startNode, initialPath, 1);
-                }
-                else
-                {
-                    _nodeIterator = new NodeIteratorChildren(this, startNode, initialPath);
-                }
-            }
-            else
-            {
-                // create null iterator
-                _nodeIterator = Enumerable.Empty<object>().Iterator();
-            }
+            _nodeIterator = startNode != null
+                ? (IIterator)(!Options.IsJustChildren
+                    ? new NodeIterator(this, startNode, initialPath, 1)
+                    : new NodeIteratorChildren(this, startNode, initialPath))
+                : Enumerable.Empty<object>().Iterator();
         }
 
         public void SkipSubtree()

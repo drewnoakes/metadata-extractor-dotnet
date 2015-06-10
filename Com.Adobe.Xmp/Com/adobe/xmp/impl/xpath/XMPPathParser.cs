@@ -81,17 +81,9 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                 pos.StepBegin = pos.StepEnd;
                 SkipPathDelimiter(path, pos);
                 pos.StepEnd = pos.StepBegin;
-                XmpPathSegment segment;
-                if (path[pos.StepBegin] != '[')
-                {
-                    // A struct field or qualifier.
-                    segment = ParseStructSegment(pos);
-                }
-                else
-                {
-                    // One of the array forms.
-                    segment = ParseIndexSegment(pos);
-                }
+                var segment = path[pos.StepBegin] != '['
+                    ? ParseStructSegment(pos)
+                    : ParseIndexSegment(pos);
                 if (segment.GetKind() == XmpPath.StructFieldStep)
                 {
                     if (segment.GetName()[0] == '@')

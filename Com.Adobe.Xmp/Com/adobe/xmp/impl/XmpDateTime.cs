@@ -131,21 +131,11 @@ namespace Com.Adobe.Xmp.Impl
 
         public void SetMonth(int month)
         {
-            if (month < 1)
-            {
-                _month = 1;
-            }
-            else
-            {
-                if (month > 12)
-                {
-                    _month = 12;
-                }
-                else
-                {
-                    _month = month;
-                }
-            }
+            _month = month < 1
+                ? 1
+                : month > 12
+                    ? 12
+                    : month;
             _hasDate = true;
         }
 
@@ -156,21 +146,11 @@ namespace Com.Adobe.Xmp.Impl
 
         public void SetDay(int day)
         {
-            if (day < 1)
-            {
-                _day = 1;
-            }
-            else
-            {
-                if (day > 31)
-                {
-                    _day = 31;
-                }
-                else
-                {
-                    _day = day;
-                }
-            }
+            _day = day < 1
+                ? 1
+                : day > 31
+                    ? 31
+                    : day;
             _hasDate = true;
         }
 
