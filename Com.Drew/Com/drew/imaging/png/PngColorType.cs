@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Imaging.Png
 {
@@ -28,40 +27,23 @@ namespace Com.Drew.Imaging.Png
         [CanBeNull]
         public static PngColorType FromNumericValue(int numericValue)
         {
-            var colorTypes = typeof(PngColorType).GetEnumConstants<PngColorType>();
-            return colorTypes.FirstOrDefault(colorType => colorType.GetNumericValue() == numericValue);
+            var colorTypes = new[] { Greyscale, TrueColor, IndexedColor, GreyscaleWithAlpha, TrueColorWithAlpha };
+            return colorTypes.FirstOrDefault(colorType => colorType.NumericValue == numericValue);
         }
 
-        private readonly int _numericValue;
+        public int NumericValue { get; private set; }
 
         [NotNull]
-        private readonly string _description;
+        public string Description { get; private set; }
 
         [NotNull]
-        private readonly int[] _allowedBitDepths;
+        public int[] AllowedBitDepths { get; private set; }
 
         private PngColorType(int numericValue, [NotNull] string description, [NotNull] params int[] allowedBitDepths)
         {
-            _numericValue = numericValue;
-            _description = description;
-            _allowedBitDepths = allowedBitDepths;
-        }
-
-        public int GetNumericValue()
-        {
-            return _numericValue;
-        }
-
-        [NotNull]
-        public string GetDescription()
-        {
-            return _description;
-        }
-
-        [NotNull]
-        public int[] GetAllowedBitDepths()
-        {
-            return _allowedBitDepths;
+            NumericValue = numericValue;
+            Description = description;
+            AllowedBitDepths = allowedBitDepths;
         }
     }
 }

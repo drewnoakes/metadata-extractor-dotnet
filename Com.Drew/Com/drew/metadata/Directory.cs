@@ -921,7 +921,7 @@ namespace Com.Drew.Metadata
                 return rational.ToSimpleString(true);
 
             if (o is DateTime)
-                return Extensions.ConvertToString((DateTime)o);
+                return ((DateTime)o).ToString("ddd MMM dd HH:mm:ss zzz yyyy");
 
             if (o is bool)
                 return (bool)o ? "true" : "false";

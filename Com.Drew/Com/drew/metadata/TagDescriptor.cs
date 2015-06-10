@@ -243,7 +243,7 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            return Extensions.ConvertToString(Extensions.CreateDate((long)value));
+            return Extensions.CreateDate((long)value).ToString("ddd MMM dd HH:mm:ss zzz yyyy");
         }
 
         /// <summary>LSB first.</summary>

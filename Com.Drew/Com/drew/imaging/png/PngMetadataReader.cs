@@ -83,7 +83,7 @@ namespace Com.Drew.Imaging.Png
                 directory.SetInt(PngDirectory.TagImageWidth, header.ImageWidth);
                 directory.SetInt(PngDirectory.TagImageHeight, header.ImageHeight);
                 directory.SetInt(PngDirectory.TagBitsPerSample, header.BitsPerSample);
-                directory.SetInt(PngDirectory.TagColorType, header.ColorType.GetNumericValue());
+                directory.SetInt(PngDirectory.TagColorType, header.ColorType.NumericValue);
                 directory.SetInt(PngDirectory.TagCompressionType, header.CompressionType);
                 directory.SetInt(PngDirectory.TagFilterMethod, header.FilterMethod);
                 directory.SetInt(PngDirectory.TagInterlaceMethod, header.InterlaceMethod);

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -91,11 +92,6 @@ namespace Sharpen
             return new EnumeratorWrapper<T>(col, col.GetEnumerator());
         }
 
-        public static ListIterator ListIterator(this IList col)
-        {
-            return new ListIterator(col);
-        }
-
         public static DateTime CreateDate(long milliSecondsSinceEpoch)
         {
             var num = EpochTicks + (milliSecondsSinceEpoch*10000);
@@ -141,12 +137,6 @@ namespace Sharpen
             return list.ToArray();
         }
 
-        public static string ConvertToString(DateTime val)
-        {
-            //  EEE MMM dd HH:mm:ss zzz yyyy
-            return val.ToString("ddd MMM dd HH:mm:ss zzz yyyy");
-        }
-
         /// <summary>
         /// Returns all public static fields values with specified type
         /// </summary>
@@ -155,19 +145,9 @@ namespace Sharpen
         /// <returns></returns>
         public static T[] GetEnumConstants<T>(this Type type)
         {
-            var result = new List<T>();
-
             var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static);
 
-            foreach (var field in fields)
-            {
-                if (field.FieldType == typeof (T))
-                {
-                    result.Add((T) field.GetValue(null));
-                }
-            }
-
-            return result.ToArray();
+            return fields.Where(field => field.FieldType == typeof(T)).Select(field => (T)field.GetValue(null)).ToArray();
         }
 
         public static int Digit(char ch, int radix)

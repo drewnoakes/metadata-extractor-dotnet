@@ -52,7 +52,7 @@ namespace Com.Drew.Imaging.Png
                 Assert.AreEqual(PngChunkType.TIme, directories[4].GetPngChunkType());
                 //Sharpen.Tests.AreEqual("Tue Jan 01 04:08:30 GMT 2013", Sharpen.Extensions.ConvertToString(dirs[4].GetDate(PngDirectory.TagLastModificationTime)));
                 var testString = CreateTestString(2013, 00, 01, 04, 08, 30);
-                Assert.AreEqual(testString, Extensions.ConvertToString(directories[4].GetDate(PngDirectory.TagLastModificationTime).Value));
+                Assert.AreEqual(testString, directories[4].GetDate(PngDirectory.TagLastModificationTime).Value.ToString("ddd MMM dd HH:mm:ss zzz yyyy"));
                 Assert.AreEqual(PngChunkType.ITXt, directories[5].GetPngChunkType());
                 var pairs = (IList<KeyValuePair>)directories[5].GetObject(PngDirectory.TagTextualData);
                 Assert.IsNotNull(pairs);

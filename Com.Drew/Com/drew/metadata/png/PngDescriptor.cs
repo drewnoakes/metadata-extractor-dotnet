@@ -106,7 +106,7 @@ namespace Com.Drew.Metadata.Png
             {
                 return null;
             }
-            return colorType.GetDescription();
+            return colorType.Description;
         }
 
         [CanBeNull]

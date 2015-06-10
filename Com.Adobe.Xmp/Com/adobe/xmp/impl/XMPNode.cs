@@ -458,7 +458,7 @@ namespace Com.Adobe.Xmp.Impl
                     sortFrom++;
                 }
                 Array.Sort(quals, sortFrom, quals.Length);
-                var it = _qualifier.ListIterator();
+                var it = new ListIterator(_qualifier);
                 for (var j = 0; j < quals.Length; j++)
                 {
                     it.Next();
