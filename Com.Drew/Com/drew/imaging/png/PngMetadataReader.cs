@@ -15,25 +15,26 @@ namespace Com.Drew.Imaging.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class PngMetadataReader
     {
-        private static readonly ICollection<PngChunkType> DesiredChunkTypes;
+        private static readonly HashSet<PngChunkType> _desiredChunkTypes;
 
         static PngMetadataReader()
         {
-            ICollection<PngChunkType> desiredChunkTypes = new HashSet<PngChunkType>();
-            desiredChunkTypes.Add(PngChunkType.Ihdr);
-            desiredChunkTypes.Add(PngChunkType.Plte);
-            desiredChunkTypes.Add(PngChunkType.TRns);
-            desiredChunkTypes.Add(PngChunkType.CHrm);
-            desiredChunkTypes.Add(PngChunkType.SRgb);
-            desiredChunkTypes.Add(PngChunkType.GAma);
-            desiredChunkTypes.Add(PngChunkType.ICcp);
-            desiredChunkTypes.Add(PngChunkType.BKgd);
-            desiredChunkTypes.Add(PngChunkType.TEXt);
-            desiredChunkTypes.Add(PngChunkType.ITXt);
-            desiredChunkTypes.Add(PngChunkType.TIme);
-            desiredChunkTypes.Add(PngChunkType.PHYs);
-            desiredChunkTypes.Add(PngChunkType.SBit);
-            DesiredChunkTypes = Collections.UnmodifiableSet(desiredChunkTypes);
+            _desiredChunkTypes = new HashSet<PngChunkType>
+            {
+                PngChunkType.Ihdr,
+                PngChunkType.Plte,
+                PngChunkType.TRns,
+                PngChunkType.CHrm,
+                PngChunkType.SRgb,
+                PngChunkType.GAma,
+                PngChunkType.ICcp,
+                PngChunkType.BKgd,
+                PngChunkType.TEXt,
+                PngChunkType.ITXt,
+                PngChunkType.TIme,
+                PngChunkType.PHYs,
+                PngChunkType.SBit
+            };
         }
 
         /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
@@ -53,7 +54,7 @@ namespace Com.Drew.Imaging.Png
         [NotNull]
         public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
         {
-            var chunks = new PngChunkReader().Extract(new SequentialStreamReader(stream), DesiredChunkTypes);
+            var chunks = new PngChunkReader().Extract(new SequentialStreamReader(stream), _desiredChunkTypes);
             var metadata = new Metadata.Metadata();
             foreach (var chunk in chunks)
             {
