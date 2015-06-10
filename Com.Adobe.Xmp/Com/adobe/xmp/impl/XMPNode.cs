@@ -222,7 +222,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="qualNode">qualifier to remove</param>
         public void RemoveQualifier(XmpNode qualNode)
         {
-            PropertyOptions opts = Options;
+            var opts = Options;
             if (qualNode.IsLanguageNode)
             {
                 // if "xml:lang" is removed, remove hasLanguage-flag too
@@ -247,7 +247,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>Removes all qualifiers from the node and sets the options appropriate.</summary>
         public void RemoveQualifiers()
         {
-            PropertyOptions opts = Options;
+            var opts = Options;
             // clear qualifier related options
             opts.HasQualifiers = false;
             opts.HasLanguage = false;
@@ -302,7 +302,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (_qualifier != null)
             {
-                IIterator it = GetQualifier().Iterator();
+                var it = GetQualifier().Iterator();
                 return new Iterator391(it);
             }
             return Collections.EmptyList().Iterator();
@@ -349,7 +349,7 @@ namespace Com.Adobe.Xmp.Impl
                 // cannot happen
                 newOptions = new PropertyOptions();
             }
-            XmpNode newNode = new XmpNode(Name, Value, newOptions);
+            var newNode = new XmpNode(Name, Value, newOptions);
             CloneSubtree(newNode);
             return newNode;
         }
@@ -363,14 +363,14 @@ namespace Com.Adobe.Xmp.Impl
         {
             try
             {
-                for (IIterator it = IterateChildren(); it.HasNext(); )
+                for (var it = IterateChildren(); it.HasNext(); )
                 {
-                    XmpNode child = (XmpNode)it.Next();
+                    var child = (XmpNode)it.Next();
                     destination.AddChild((XmpNode)child.Clone());
                 }
-                for (IIterator it1 = IterateQualifier(); it1.HasNext(); )
+                for (var it1 = IterateQualifier(); it1.HasNext(); )
                 {
-                    XmpNode qualifier = (XmpNode)it1.Next();
+                    var qualifier = (XmpNode)it1.Next();
                     destination.AddQualifier((XmpNode)qualifier.Clone());
                 }
             }
@@ -386,7 +386,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns a multiline string containing the dump.</returns>
         public string DumpNode(bool recursive)
         {
-            StringBuilder result = new StringBuilder(512);
+            var result = new StringBuilder(512);
             DumpNode(result, recursive, 0, 0);
             return result.ToString();
         }
@@ -448,16 +448,16 @@ namespace Com.Adobe.Xmp.Impl
             // sort qualifier
             if (HasQualifier)
             {
-                XmpNode[] quals = (XmpNode[])Collections.ToArray(GetQualifier(), new XmpNode[GetQualifierLength()]);
-                int sortFrom = 0;
+                var quals = (XmpNode[])Collections.ToArray(GetQualifier(), new XmpNode[GetQualifierLength()]);
+                var sortFrom = 0;
                 while (quals.Length > sortFrom && (XmpConstConstants.XmlLang.Equals(quals[sortFrom].Name) || "rdf:type".Equals(quals[sortFrom].Name)))
                 {
                     quals[sortFrom].Sort();
                     sortFrom++;
                 }
                 Array.Sort (quals, sortFrom, quals.Length);
-                ListIterator it = _qualifier.ListIterator();
-                for (int j = 0; j < quals.Length; j++)
+                var it = _qualifier.ListIterator();
+                for (var j = 0; j < quals.Length; j++)
                 {
                     it.Next();
                     it.Set(quals[j]);
@@ -471,7 +471,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     _children.Sort();
                 }
-                for (IIterator it = IterateChildren(); it.HasNext(); )
+                for (var it = IterateChildren(); it.HasNext(); )
                 {
                     ((XmpNode)it.Next()).Sort();
                 }
@@ -490,7 +490,7 @@ namespace Com.Adobe.Xmp.Impl
         private void DumpNode(StringBuilder result, bool recursive, int indent, int index)
         {
             // write indent
-            for (int i = 0; i < indent; i++)
+            for (var i = 0; i < indent; i++)
             {
                 result.Append('\t');
             }
@@ -547,8 +547,8 @@ namespace Com.Adobe.Xmp.Impl
             // render qualifier
             if (recursive && HasQualifier)
             {
-                XmpNode[] quals = (XmpNode[])Collections.ToArray(GetQualifier(), new XmpNode[GetQualifierLength()]);
-                int i1 = 0;
+                var quals = (XmpNode[])Collections.ToArray(GetQualifier(), new XmpNode[GetQualifierLength()]);
+                var i1 = 0;
                 while (quals.Length > i1 && (XmpConstConstants.XmlLang.Equals(quals[i1].Name) || "rdf:type".Equals(quals[i1].Name)))
                 {
                     i1++;
@@ -556,21 +556,21 @@ namespace Com.Adobe.Xmp.Impl
                 Array.Sort (quals, i1, quals.Length);
                 for (i1 = 0; i1 < quals.Length; i1++)
                 {
-                    XmpNode qualifier = quals[i1];
+                    var qualifier = quals[i1];
                     qualifier.DumpNode(result, recursive, indent + 2, i1 + 1);
                 }
             }
             // render children
             if (recursive && HasChildren)
             {
-                XmpNode[] children = (XmpNode[])Collections.ToArray(GetChildren(), new XmpNode[GetChildrenLength()]);
+                var children = (XmpNode[])Collections.ToArray(GetChildren(), new XmpNode[GetChildrenLength()]);
                 if (!Options.IsArray)
                 {
                     Array.Sort(children);
                 }
-                for (int i1 = 0; i1 < children.Length; i1++)
+                for (var i1 = 0; i1 < children.Length; i1++)
                 {
-                    XmpNode child = children[i1];
+                    var child = children[i1];
                     child.DumpNode(result, recursive, indent + 1, i1 + 1);
                 }
             }
@@ -630,9 +630,9 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (list != null)
             {
-                for (IIterator it = list.Iterator(); it.HasNext(); )
+                for (var it = list.Iterator(); it.HasNext(); )
                 {
-                    XmpNode child = (XmpNode)it.Next();
+                    var child = (XmpNode)it.Next();
                     if (child.Name.Equals(expr))
                     {
                         return child;

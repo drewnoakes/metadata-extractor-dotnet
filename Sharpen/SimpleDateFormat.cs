@@ -144,7 +144,7 @@ namespace Sharpen
 
         private DateTime ConvertResult(Match data)
         {
-            Calendar result = Calendar.GetInstance(Culture);
+            var result = Calendar.GetInstance(Culture);
             if (data.Groups[FieldYear].Success)
             {
                 result.Set(CalendarEnum.Year, int.Parse(data.Groups[FieldYear].Value));

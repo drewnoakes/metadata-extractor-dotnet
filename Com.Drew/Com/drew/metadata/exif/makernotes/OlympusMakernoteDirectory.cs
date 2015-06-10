@@ -563,14 +563,14 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         private void ProcessCameraSettings(byte[] bytes)
         {
-            SequentialByteArrayReader reader = new SequentialByteArrayReader(bytes);
+            var reader = new SequentialByteArrayReader(bytes);
             reader.SetMotorolaByteOrder(true);
-            int count = bytes.Length / 4;
+            var count = bytes.Length / 4;
             try
             {
-                for (int i = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
-                    int value = reader.GetInt32();
+                    var value = reader.GetInt32();
                     SetInt(CameraSettings.Offset + i, value);
                 }
             }
@@ -583,7 +583,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
         public bool IsIntervalMode()
         {
-            long? value = GetLongObject(CameraSettings.TagShootingMode);
+            var value = GetLongObject(CameraSettings.TagShootingMode);
             return value != null && value == 5;
         }
 

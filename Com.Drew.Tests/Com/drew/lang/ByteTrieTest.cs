@@ -31,13 +31,13 @@ namespace Com.Drew.Lang
         [Test]
         public void TestBasics()
         {
-            ByteTrie<string> trie = new ByteTrie<string>();
-            string[] strings = new[] { "HELLO", "HELLO WORLD", "HERBERT" };
-            foreach (string s in strings)
+            var trie = new ByteTrie<string>();
+            var strings = new[] { "HELLO", "HELLO WORLD", "HERBERT" };
+            foreach (var s in strings)
             {
                 trie.AddPath(s, Encoding.UTF8.GetBytes(s));
             }
-            foreach (string s1 in strings)
+            foreach (var s1 in strings)
             {
                 Assert.AreSame(s1, trie.Find(Encoding.UTF8.GetBytes(s1)));
             }

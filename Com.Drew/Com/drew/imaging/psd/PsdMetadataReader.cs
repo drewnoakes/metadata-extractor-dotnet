@@ -36,7 +36,7 @@ namespace Com.Drew.Imaging.Psd
         [NotNull]
         public static Metadata.Metadata ReadMetadata([NotNull] string filePath)
         {
-            Metadata.Metadata metadata = new Metadata.Metadata();
+            var metadata = new Metadata.Metadata();
             using (Stream stream = new FileStream(filePath, FileMode.Open))
                 new PsdReader().Extract(new SequentialStreamReader(stream), metadata);
             new FileMetadataReader().Read(filePath, metadata);
@@ -46,7 +46,7 @@ namespace Com.Drew.Imaging.Psd
         [NotNull]
         public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
         {
-            Metadata.Metadata metadata = new Metadata.Metadata();
+            var metadata = new Metadata.Metadata();
             new PsdReader().Extract(new SequentialStreamReader(stream), metadata);
             return metadata;
         }

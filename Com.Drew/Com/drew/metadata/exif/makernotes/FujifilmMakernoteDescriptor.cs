@@ -192,7 +192,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetSharpnessDescription()
         {
-            int? value = Directory.GetInteger(FujifilmMakernoteDirectory.TagSharpness);
+            var value = Directory.GetInteger(FujifilmMakernoteDirectory.TagSharpness);
             if (value == null)
             {
                 return null;
@@ -254,7 +254,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetWhiteBalanceDescription()
         {
-            int? value = Directory.GetInteger(FujifilmMakernoteDirectory.TagWhiteBalance);
+            var value = Directory.GetInteger(FujifilmMakernoteDirectory.TagWhiteBalance);
             if (value == null)
             {
                 return null;
@@ -351,7 +351,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetColorSaturationDescription()
         {
-            int? value = Directory.GetInteger(FujifilmMakernoteDirectory.TagColorSaturation);
+            var value = Directory.GetInteger(FujifilmMakernoteDirectory.TagColorSaturation);
             if (value == null)
             {
                 return null;
@@ -423,7 +423,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetToneDescription()
         {
-            int? value = Directory.GetInteger(FujifilmMakernoteDirectory.TagTone);
+            var value = Directory.GetInteger(FujifilmMakernoteDirectory.TagTone);
             if (value == null)
             {
                 return null;
@@ -475,7 +475,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetContrastDescription()
         {
-            int? value = Directory.GetInteger(FujifilmMakernoteDirectory.TagContrast);
+            var value = Directory.GetInteger(FujifilmMakernoteDirectory.TagContrast);
             if (value == null)
             {
                 return null;
@@ -507,7 +507,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetNoiseReductionDescription()
         {
-            int? value = Directory.GetInteger(FujifilmMakernoteDirectory.TagNoiseReduction);
+            var value = Directory.GetInteger(FujifilmMakernoteDirectory.TagNoiseReduction);
             if (value == null)
             {
                 return null;
@@ -539,7 +539,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetHighIsoNoiseReductionDescription()
         {
-            int? value = Directory.GetInteger(FujifilmMakernoteDirectory.TagHighIsoNoiseReduction);
+            var value = Directory.GetInteger(FujifilmMakernoteDirectory.TagHighIsoNoiseReduction);
             if (value == null)
             {
                 return null;
@@ -577,7 +577,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetFlashExposureValueDescription()
         {
-            Rational value = Directory.GetRational(FujifilmMakernoteDirectory.TagFlashEv);
+            var value = Directory.GetRational(FujifilmMakernoteDirectory.TagFlashEv);
             return value == null ? null : value.ToSimpleString(false) + " EV (Apex)";
         }
 
@@ -602,7 +602,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetPictureModeDescription()
         {
-            int? value = Directory.GetInteger(FujifilmMakernoteDirectory.TagPictureMode);
+            var value = Directory.GetInteger(FujifilmMakernoteDirectory.TagPictureMode);
             if (value == null)
             {
                 return null;
@@ -777,7 +777,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetExrModeDescription()
         {
-            int? value = Directory.GetInteger(FujifilmMakernoteDirectory.TagExrMode);
+            var value = Directory.GetInteger(FujifilmMakernoteDirectory.TagExrMode);
             if (value == null)
             {
                 return null;
@@ -815,7 +815,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetFinePixColorDescription()
         {
-            int? value = Directory.GetInteger(FujifilmMakernoteDirectory.TagFinePixColor);
+            var value = Directory.GetInteger(FujifilmMakernoteDirectory.TagFinePixColor);
             if (value == null)
             {
                 return null;
@@ -871,7 +871,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetFilmModeDescription()
         {
-            int? value = Directory.GetInteger(FujifilmMakernoteDirectory.TagFilmMode);
+            var value = Directory.GetInteger(FujifilmMakernoteDirectory.TagFilmMode);
             if (value == null)
             {
                 return null;
@@ -938,7 +938,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetDynamicRangeSettingDescription()
         {
-            int? value = Directory.GetInteger(FujifilmMakernoteDirectory.TagDynamicRangeSetting);
+            var value = Directory.GetInteger(FujifilmMakernoteDirectory.TagDynamicRangeSetting);
             if (value == null)
             {
                 return null;

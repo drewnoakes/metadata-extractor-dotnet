@@ -134,8 +134,8 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestGetAutoFlashCompensationDescription()
         {
-            NikonType2MakernoteDirectory directory = new NikonType2MakernoteDirectory();
-            NikonType2MakernoteDescriptor descriptor = new NikonType2MakernoteDescriptor(directory);
+            var directory = new NikonType2MakernoteDirectory();
+            var descriptor = new NikonType2MakernoteDescriptor(directory);
             // no entry exists
             Assert.IsNull(descriptor.GetAutoFlashCompensationDescription());
             directory.SetSByteArray(NikonType2MakernoteDirectory.TagAutoFlashCompensation, new sbyte[] { unchecked(0x06), unchecked(0x01), unchecked(0x06) });

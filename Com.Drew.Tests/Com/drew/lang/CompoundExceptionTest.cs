@@ -61,7 +61,7 @@ namespace Com.Drew.Lang
             catch (CompoundException e)
             {
                 Assert.AreEqual("compound", e.Message);
-                Exception innerException = e.GetInnerException();
+                var innerException = e.GetInnerException();
                 Assert.IsNotNull(innerException);
                 Assert.AreEqual("io", innerException.Message);
             }

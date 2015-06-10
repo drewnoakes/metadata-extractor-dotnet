@@ -40,8 +40,8 @@ namespace Com.Drew.Imaging.Png
         [Test]
         public void TestConstructorInvalidBytes()
         {
-            string[] invalidStrings = new[] { "ABC1", "1234", "    ", "!£$%" };
-            foreach (string invalidString in invalidStrings)
+            var invalidStrings = new[] { "ABC1", "1234", "    ", "!£$%" };
+            foreach (var invalidString in invalidStrings)
             {
                 try
                 {
@@ -59,8 +59,8 @@ namespace Com.Drew.Imaging.Png
         [Test]
         public void TestConstructorValidBytes()
         {
-            string[] validStrings = new[] { "ABCD", "abcd", "wxyz", "WXYZ", "lkjh", "LKJH" };
-            foreach (string validString in validStrings)
+            var validStrings = new[] { "ABCD", "abcd", "wxyz", "WXYZ", "lkjh", "LKJH" };
+            foreach (var validString in validStrings)
             {
                 new PngChunkType(validString);
             }

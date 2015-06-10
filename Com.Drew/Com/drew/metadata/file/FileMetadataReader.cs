@@ -16,7 +16,7 @@ namespace Com.Drew.Metadata.File
             if (!fileInfo.Exists)
                 throw new IOException("File does not exist");
 
-            FileMetadataDirectory directory = new FileMetadataDirectory();
+            var directory = new FileMetadataDirectory();
             directory.SetString(FileMetadataDirectory.TagFileName, Path.GetFileName(file));
             directory.SetLong(FileMetadataDirectory.TagFileSize, fileInfo.Length);
             directory.SetDate(FileMetadataDirectory.TagFileModifiedDate, fileInfo.LastWriteTime);

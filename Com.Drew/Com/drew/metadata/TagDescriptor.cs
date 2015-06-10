@@ -62,7 +62,7 @@ namespace Com.Drew.Metadata
         /// </returns>
         public virtual string GetDescription(int tagType)
         {
-            object @object = Directory.GetObject(tagType);
+            var @object = Directory.GetObject(tagType);
             if (@object == null)
             {
                 return null;
@@ -70,7 +70,7 @@ namespace Com.Drew.Metadata
             // special presentation for long arrays
             if (@object.GetType().IsArray)
             {
-                int length = ((Array)@object).Length;
+                var length = ((Array)@object).Length;
                 if (length > 16)
                 {
                     var componentType = @object.GetType().GetElementType();
@@ -114,14 +114,14 @@ namespace Com.Drew.Metadata
             {
                 return null;
             }
-            StringBuilder version = new StringBuilder();
-            for (int i = 0; i < 4 && i < components.Length; i++)
+            var version = new StringBuilder();
+            for (var i = 0; i < 4 && i < components.Length; i++)
             {
                 if (i == majorDigits)
                 {
                     version.Append('.');
                 }
-                char c = (char)components[i];
+                var c = (char)components[i];
                 if (c < '0')
                 {
                     c += '0';
@@ -138,7 +138,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected virtual string GetVersionBytesDescription(int tagType, int majorDigits)
         {
-            int[] values = Directory.GetIntArray(tagType);
+            var values = Directory.GetIntArray(tagType);
             return values == null ? null : ConvertBytesToVersionString(values, majorDigits);
         }
 
@@ -151,15 +151,15 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected virtual string GetIndexedDescription(int tagType, int baseIndex, [NotNull] params string[] descriptions)
         {
-            int? index = Directory.GetInteger(tagType);
+            var index = Directory.GetInteger(tagType);
             if (index == null)
             {
                 return null;
             }
-            int arrayIndex = (int)index - baseIndex;
+            var arrayIndex = (int)index - baseIndex;
             if (arrayIndex >= 0 && arrayIndex < descriptions.Length)
             {
-                string description = descriptions[arrayIndex];
+                var description = descriptions[arrayIndex];
                 if (description != null)
                 {
                     return description;
@@ -171,7 +171,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected virtual string GetByteLengthDescription(int tagType)
         {
-            byte[] bytes = Directory.GetByteArray(tagType);
+            var bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
             {
                 return null;
@@ -182,7 +182,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected virtual string GetSimpleRational(int tagType)
         {
-            Rational value = Directory.GetRational(tagType);
+            var value = Directory.GetRational(tagType);
             if (value == null)
             {
                 return null;
@@ -193,7 +193,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected virtual string GetDecimalRational(int tagType, int decimalPlaces)
         {
-            Rational value = Directory.GetRational(tagType);
+            var value = Directory.GetRational(tagType);
             if (value == null)
             {
                 return null;
@@ -204,7 +204,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected virtual string GetFormattedInt(int tagType, [NotNull] string format)
         {
-            int? value = Directory.GetInteger(tagType);
+            var value = Directory.GetInteger(tagType);
             if (value == null)
             {
                 return null;
@@ -215,7 +215,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected virtual string GetFormattedFloat(int tagType, [NotNull] string format)
         {
-            float? value = Directory.GetFloatObject(tagType);
+            var value = Directory.GetFloatObject(tagType);
             if (value == null)
             {
                 return null;
@@ -226,7 +226,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected virtual string GetFormattedString(int tagType, [NotNull] string format)
         {
-            string value = Directory.GetString(tagType);
+            var value = Directory.GetString(tagType);
             if (value == null)
             {
                 return null;
@@ -238,7 +238,7 @@ namespace Com.Drew.Metadata
         protected virtual string GetEpochTimeDescription(int tagType)
         {
             // TODO have observed a byte[8] here which is likely some kind of date (ticks as long?)
-            long? value = Directory.GetLongObject(tagType);
+            var value = Directory.GetLongObject(tagType);
             if (value == null)
             {
                 return null;
@@ -251,23 +251,23 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected virtual string GetBitFlagDescription(int tagType, [NotNull] params object[] labels)
         {
-            int? value = Directory.GetInteger(tagType);
+            var value = Directory.GetInteger(tagType);
             if (value == null)
             {
                 return null;
             }
             IList<string> parts = new List<string>();
-            int bitIndex = 0;
+            var bitIndex = 0;
             while (labels.Length > bitIndex)
             {
-                object labelObj = labels[bitIndex];
+                var labelObj = labels[bitIndex];
                 if (labelObj != null)
                 {
-                    bool isBitSet = ((int)value & 1) == 1;
+                    var isBitSet = ((int)value & 1) == 1;
                     var obj = labelObj as string[];
                     if (obj != null)
                     {
-                        string[] labelPair = obj;
+                        var labelPair = obj;
                         Debug.Assert((labelPair.Length == 2));
                         parts.Add(labelPair[isBitSet ? 1 : 0]);
                     }
@@ -288,15 +288,15 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected virtual string Get7BitStringFromBytes(int tagType)
         {
-            byte[] bytes = Directory.GetByteArray(tagType);
+            var bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
             {
                 return null;
             }
-            int length = bytes.Length;
-            for (int index = 0; index < bytes.Length; index++)
+            var length = bytes.Length;
+            for (var index = 0; index < bytes.Length; index++)
             {
-                int i = bytes[index] & unchecked(0xFF);
+                var i = bytes[index] & unchecked(0xFF);
                 if (i == 0 || i > unchecked(0x7F))
                 {
                     length = index;
@@ -309,7 +309,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         protected virtual string GetAsciiStringFromBytes(int tag)
         {
-            byte[] values = Directory.GetByteArray(tag);
+            var values = Directory.GetByteArray(tag);
             if (values == null)
             {
                 return null;

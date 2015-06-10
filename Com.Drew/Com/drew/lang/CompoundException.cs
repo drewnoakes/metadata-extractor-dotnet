@@ -61,7 +61,7 @@ namespace Com.Drew.Lang
 
         public override string ToString()
         {
-            StringBuilder @string = new StringBuilder();
+            var @string = new StringBuilder();
             @string.Append(base.ToString());
             if (_innerException != null)
             {

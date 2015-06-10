@@ -96,12 +96,12 @@ namespace Com.Drew.Metadata.Png
         [CanBeNull]
         public string GetColorTypeDescription()
         {
-            int? value = Directory.GetInteger(PngDirectory.TagColorType);
+            var value = Directory.GetInteger(PngDirectory.TagColorType);
             if (value == null)
             {
                 return null;
             }
-            PngColorType colorType = PngColorType.FromNumericValue((int)value);
+            var colorType = PngColorType.FromNumericValue((int)value);
             if (colorType == null)
             {
                 return null;
@@ -148,14 +148,14 @@ namespace Com.Drew.Metadata.Png
         [CanBeNull]
         public string GetTextualDataDescription()
         {
-            object @object = Directory.GetObject(PngDirectory.TagTextualData);
+            var @object = Directory.GetObject(PngDirectory.TagTextualData);
             if (@object == null)
             {
                 return null;
             }
-            IList<KeyValuePair> keyValues = (IList<KeyValuePair>)@object;
-            StringBuilder sb = new StringBuilder();
-            foreach (KeyValuePair keyValue in keyValues)
+            var keyValues = (IList<KeyValuePair>)@object;
+            var sb = new StringBuilder();
+            foreach (var keyValue in keyValues)
             {
                 if (sb.Length != 0)
                 {
@@ -169,8 +169,8 @@ namespace Com.Drew.Metadata.Png
         [CanBeNull]
         public string GetBackgroundColorDescription()
         {
-            byte[] bytes = Directory.GetByteArray(PngDirectory.TagBackgroundColor);
-            int? colorType = Directory.GetInteger(PngDirectory.TagColorType);
+            var bytes = Directory.GetByteArray(PngDirectory.TagBackgroundColor);
+            var colorType = Directory.GetInteger(PngDirectory.TagColorType);
             if (bytes == null || colorType == null)
             {
                 return null;

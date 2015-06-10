@@ -41,8 +41,8 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestGetDetectedFaces()
         {
-            Face expResult = new Face(142, 120, 76, 76, null, null);
-            Face[] result = _panasonicDirectory.GetDetectedFaces();
+            var expResult = new Face(142, 120, 76, 76, null, null);
+            var result = _panasonicDirectory.GetDetectedFaces();
             Assert.IsNotNull(result);
             Assert.AreEqual(expResult, result[0]);
         }
@@ -51,8 +51,8 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestGetRecognizedFaces()
         {
-            Face expected = new Face(142, 120, 76, 76, "NIELS", new Age(31, 7, 15, 0, 0, 0));
-            Face[] result = _panasonicDirectory.GetRecognizedFaces();
+            var expected = new Face(142, 120, 76, 76, "NIELS", new Age(31, 7, 15, 0, 0, 0));
+            var result = _panasonicDirectory.GetRecognizedFaces();
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Length);
             Assert.AreEqual(expected, result[0]);

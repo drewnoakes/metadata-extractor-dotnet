@@ -52,11 +52,11 @@ namespace Com.Drew.Metadata.Icc
 
         public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
-            int preambleLength = JpegSegmentPreamble.Length;
+            var preambleLength = JpegSegmentPreamble.Length;
             // ICC data can be spread across multiple JPEG segments.
             // We concat them together in this buffer for later processing.
             byte[] buffer = null;
-            foreach (byte[] segmentBytes in segments)
+            foreach (var segmentBytes in segments)
             {
                 // Skip any segments that do not contain the required preamble
                 if (segmentBytes.Length < preambleLength || !JpegSegmentPreamble.Equals (Encoding.UTF8.GetString(segmentBytes, 0, preambleLength), StringComparison.CurrentCultureIgnoreCase))
@@ -73,7 +73,7 @@ namespace Com.Drew.Metadata.Icc
                 }
                 else
                 {
-                    byte[] newBuffer = new byte[buffer.Length + segmentBytes.Length - 14];
+                    var newBuffer = new byte[buffer.Length + segmentBytes.Length - 14];
                     Array.Copy(buffer, 0, newBuffer, 0, buffer.Length);
                     Array.Copy(segmentBytes, 14, newBuffer, buffer.Length, segmentBytes.Length - 14);
                     buffer = newBuffer;
@@ -88,10 +88,10 @@ namespace Com.Drew.Metadata.Icc
         public void Extract(IndexedReader reader, Metadata metadata)
         {
             // TODO review whether the 'tagPtr' values below really do require IndexedReader or whether SequentialReader may be used instead
-            IccDirectory directory = new IccDirectory();
+            var directory = new IccDirectory();
             try
             {
-                int profileByteCount = reader.GetInt32(IccDirectory.TagProfileByteCount);
+                var profileByteCount = reader.GetInt32(IccDirectory.TagProfileByteCount);
                 directory.SetInt(IccDirectory.TagProfileByteCount, profileByteCount);
                 // For these tags, the int value of the tag is in fact it's offset within the buffer.
                 Set4ByteString(directory, IccDirectory.TagCmmType, reader);
@@ -104,7 +104,7 @@ namespace Com.Drew.Metadata.Icc
                 Set4ByteString(directory, IccDirectory.TagPlatform, reader);
                 SetInt32(directory, IccDirectory.TagCmmFlags, reader);
                 Set4ByteString(directory, IccDirectory.TagDeviceMake, reader);
-                int temp = reader.GetInt32(IccDirectory.TagDeviceModel);
+                var temp = reader.GetInt32(IccDirectory.TagDeviceModel);
                 if (temp != 0)
                 {
                     if (temp <= unchecked(0x20202020))
@@ -118,18 +118,18 @@ namespace Com.Drew.Metadata.Icc
                 }
                 SetInt32(directory, IccDirectory.TagRenderingIntent, reader);
                 SetInt64(directory, IccDirectory.TagDeviceAttr, reader);
-                float[] xyz = new[] { reader.GetS15Fixed16(IccDirectory.TagXyzValues), reader.GetS15Fixed16(IccDirectory.TagXyzValues + 4), reader.GetS15Fixed16(IccDirectory.TagXyzValues + 8) };
+                var xyz = new[] { reader.GetS15Fixed16(IccDirectory.TagXyzValues), reader.GetS15Fixed16(IccDirectory.TagXyzValues + 4), reader.GetS15Fixed16(IccDirectory.TagXyzValues + 8) };
                 directory.SetObject(IccDirectory.TagXyzValues, xyz);
                 // Process 'ICC tags'
-                int tagCount = reader.GetInt32(IccDirectory.TagTagCount);
+                var tagCount = reader.GetInt32(IccDirectory.TagTagCount);
                 directory.SetInt(IccDirectory.TagTagCount, tagCount);
-                for (int i = 0; i < tagCount; i++)
+                for (var i = 0; i < tagCount; i++)
                 {
-                    int pos = IccDirectory.TagTagCount + 4 + i * 12;
-                    int tagType = reader.GetInt32(pos);
-                    int tagPtr = reader.GetInt32(pos + 4);
-                    int tagLen = reader.GetInt32(pos + 8);
-                    byte[] b = reader.GetBytes(tagPtr, tagLen);
+                    var pos = IccDirectory.TagTagCount + 4 + i * 12;
+                    var tagType = reader.GetInt32(pos);
+                    var tagPtr = reader.GetInt32(pos + 4);
+                    var tagLen = reader.GetInt32(pos + 8);
+                    var b = reader.GetBytes(tagPtr, tagLen);
                     directory.SetByteArray(tagType, b);
                 }
             }
@@ -143,7 +143,7 @@ namespace Com.Drew.Metadata.Icc
         /// <exception cref="System.IO.IOException"/>
         private static void Set4ByteString([NotNull] Directory directory, int tagType, [NotNull] IndexedReader reader)
         {
-            int i = reader.GetInt32(tagType);
+            var i = reader.GetInt32(tagType);
             if (i != 0)
             {
                 directory.SetString(tagType, GetStringFromInt32(i));
@@ -153,7 +153,7 @@ namespace Com.Drew.Metadata.Icc
         /// <exception cref="System.IO.IOException"/>
         private static void SetInt32([NotNull] Directory directory, int tagType, [NotNull] IndexedReader reader)
         {
-            int i = reader.GetInt32(tagType);
+            var i = reader.GetInt32(tagType);
             if (i != 0)
             {
                 directory.SetInt(tagType, i);
@@ -163,7 +163,7 @@ namespace Com.Drew.Metadata.Icc
         /// <exception cref="System.IO.IOException"/>
         private static void SetInt64([NotNull] Directory directory, int tagType, [NotNull] IndexedReader reader)
         {
-            long l = reader.GetInt64(tagType);
+            var l = reader.GetInt64(tagType);
             if (l != 0)
             {
                 directory.SetLong(tagType, l);
@@ -180,9 +180,9 @@ namespace Com.Drew.Metadata.Icc
             int M = reader.GetUInt16(tagType + 8);
             int s = reader.GetUInt16(tagType + 10);
             //        final Date value = new Date(Date.UTC(y - 1900, m - 1, d, h, M, s));
-            Calendar calendar = Calendar.GetInstance(Extensions.GetTimeZone("UTC"));
+            var calendar = Calendar.GetInstance(Extensions.GetTimeZone("UTC"));
             calendar.Set(y, m, d, h, M, s);
-            DateTime value = calendar.GetTime();
+            var value = calendar.GetTime();
             directory.SetDate(tagType, value);
         }
 
@@ -190,7 +190,7 @@ namespace Com.Drew.Metadata.Icc
         public static string GetStringFromInt32(int d)
         {
             // MSB
-            byte[] b = new[] { unchecked((byte)((d & unchecked((int)(0xFF000000))) >> 24)), unchecked((byte)((d & unchecked(0x00FF0000)) >> 16)), unchecked((byte)((d & unchecked(0x0000FF00)) >> 8)), unchecked((byte)((d & unchecked(
+            var b = new[] { unchecked((byte)((d & unchecked((int)(0xFF000000))) >> 24)), unchecked((byte)((d & unchecked(0x00FF0000)) >> 16)), unchecked((byte)((d & unchecked(0x0000FF00)) >> 8)), unchecked((byte)((d & unchecked(
                 0x000000FF)))) };
             return Encoding.UTF8.GetString(b);
         }

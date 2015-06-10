@@ -73,8 +73,8 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     throw new XmpException("The prefix is a bad XML name", XmpErrorCode.BadXml);
                 }
-                string registeredPrefix = (string)_namespaceToPrefixMap[namespaceUri];
-                string registeredNs = (string)_prefixToNamespaceMap[suggestedPrefix];
+                var registeredPrefix = (string)_namespaceToPrefixMap[namespaceUri];
+                var registeredNs = (string)_prefixToNamespaceMap[suggestedPrefix];
                 if (registeredPrefix != null)
                 {
                     // Return the actual prefix
@@ -84,8 +84,8 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     // the namespace is new, but the prefix is already engaged,
                     // we generate a new prefix out of the suggested
-                    string generatedPrefix = suggestedPrefix;
-                    for (int i = 1; _prefixToNamespaceMap.Contains(generatedPrefix); i++)
+                    var generatedPrefix = suggestedPrefix;
+                    for (var i = 1; _prefixToNamespaceMap.Contains(generatedPrefix); i++)
                     {
                         generatedPrefix = suggestedPrefix.Substring(0, suggestedPrefix.Length - 1 - 0) + "_" + i + "_:";
                     }
@@ -102,7 +102,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             lock (this)
             {
-                string prefixToDelete = GetNamespacePrefix(namespaceUri);
+                var prefixToDelete = GetNamespacePrefix(namespaceUri);
                 if (prefixToDelete != null)
                 {
                     Collections.Remove(_namespaceToPrefixMap, namespaceUri);
@@ -229,7 +229,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             lock (this)
             {
-                string aliasPrefix = GetNamespacePrefix(aliasNs);
+                var aliasPrefix = GetNamespacePrefix(aliasNs);
                 if (aliasPrefix == null)
                 {
                     return null;
@@ -250,13 +250,13 @@ namespace Com.Adobe.Xmp.Impl
         {
             lock (this)
             {
-                string prefix = GetNamespacePrefix(aliasNs);
+                var prefix = GetNamespacePrefix(aliasNs);
                 IList result = new ArrayList();
                 if (prefix != null)
                 {
-                    for (IIterator it = _aliasMap.Keys.Iterator(); it.HasNext();)
+                    for (var it = _aliasMap.Keys.Iterator(); it.HasNext();)
                     {
-                        string qname = (string)it.Next();
+                        var qname = (string)it.Next();
                         if (qname.StartsWith(prefix))
                         {
                             result.Add(FindAlias(qname));
@@ -318,14 +318,14 @@ namespace Com.Adobe.Xmp.Impl
                 ParameterAsserts.AssertSchemaNs(actualNs);
                 ParameterAsserts.AssertPropName(actualProp);
                 // Fix the alias options
-                AliasOptions aliasOpts = aliasForm != null ? new AliasOptions(XmpNodeUtils.VerifySetOptions(aliasForm.ToPropertyOptions(), null).GetOptions()) : new AliasOptions();
+                var aliasOpts = aliasForm != null ? new AliasOptions(XmpNodeUtils.VerifySetOptions(aliasForm.ToPropertyOptions(), null).GetOptions()) : new AliasOptions();
                 if (_p.IsMatch(aliasProp) || _p.IsMatch(actualProp))
                 {
                     throw new XmpException("Alias and actual property names must be simple", XmpErrorCode.BadXPath);
                 }
                 // check if both namespaces are registered
-                string aliasPrefix = GetNamespacePrefix(aliasNs);
-                string actualPrefix = GetNamespacePrefix(actualNs);
+                var aliasPrefix = GetNamespacePrefix(aliasNs);
+                var actualPrefix = GetNamespacePrefix(actualNs);
                 if (aliasPrefix == null)
                 {
                     throw new XmpException("Alias namespace is not registered", XmpErrorCode.BadSchema);
@@ -334,7 +334,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     throw new XmpException("Actual namespace is not registered", XmpErrorCode.BadSchema);
                 }
-                string key = aliasPrefix + aliasProp;
+                var key = aliasPrefix + aliasProp;
                 // check if alias is already existing
                 if (_aliasMap.Contains(key))
                 {
@@ -406,8 +406,8 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">If the registrations of at least one alias fails.</exception>
         private void RegisterStandardAliases()
         {
-            AliasOptions aliasToArrayOrdered = new AliasOptions { IsArrayOrdered = true };
-            AliasOptions aliasToArrayAltText = new AliasOptions { IsArrayAltText = true };
+            var aliasToArrayOrdered = new AliasOptions { IsArrayOrdered = true };
+            var aliasToArrayAltText = new AliasOptions { IsArrayAltText = true };
             // Aliases from XMP to DC.
             RegisterAlias(XmpConstConstants.NsXmp, "Author", XmpConstConstants.NsDc, "creator", aliasToArrayOrdered);
             RegisterAlias(XmpConstConstants.NsXmp, "Authors", XmpConstConstants.NsDc, "creator", null);

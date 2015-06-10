@@ -37,10 +37,10 @@ namespace Com.Drew.Metadata.Iptc
         [NotNull]
         public static IptcDirectory ProcessBytes([NotNull] string filePath)
         {
-            Metadata metadata = new Metadata();
-            byte[] bytes = System.IO.File.ReadAllBytes(filePath);
+            var metadata = new Metadata();
+            var bytes = System.IO.File.ReadAllBytes(filePath);
             new IptcReader().Extract(new SequentialByteArrayReader(bytes), metadata, bytes.Length);
-            IptcDirectory directory = metadata.GetFirstDirectoryOfType<IptcDirectory>();
+            var directory = metadata.GetFirstDirectoryOfType<IptcDirectory>();
             Assert.IsNotNull(directory);
             return directory;
         }
@@ -49,9 +49,9 @@ namespace Com.Drew.Metadata.Iptc
         [Test]
         public void TestIptc1BytesFromFile()
         {
-            IptcDirectory directory = ProcessBytes("Tests/Data/iptc1.jpg.appd");
+            var directory = ProcessBytes("Tests/Data/iptc1.jpg.appd");
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
+            var tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(16, tags.Length);
             Assert.AreEqual(IptcDirectory.TagCategory, tags[0].TagType);
             CollectionAssert.AreEqual(new[] { "Supl. Category2", "Supl. Category1", "Cat" }, directory.GetStringArray(tags[0].TagType));
@@ -91,9 +91,9 @@ namespace Com.Drew.Metadata.Iptc
         [Test]
         public void TestIptc2Photoshop6BytesFromFile()
         {
-            IptcDirectory directory = ProcessBytes("Tests/Data/iptc2-photoshop6.jpg.appd");
+            var directory = ProcessBytes("Tests/Data/iptc2-photoshop6.jpg.appd");
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
+            var tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(17, tags.Length);
             Assert.AreEqual(IptcDirectory.TagApplicationRecordVersion, tags[0].TagType);
             Assert.AreEqual(2, directory.GetObject(tags[0].TagType));
@@ -135,9 +135,9 @@ namespace Com.Drew.Metadata.Iptc
         [Test]
         public void TestIptcEncodingUtf8()
         {
-            IptcDirectory directory = ProcessBytes("Tests/Data/iptc-encoding-defined-utf8.bytes");
+            var directory = ProcessBytes("Tests/Data/iptc-encoding-defined-utf8.bytes");
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
+            var tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(4, tags.Length);
             Assert.AreEqual(IptcDirectory.TagEnvelopeRecordVersion, tags[0].TagType);
             Assert.AreEqual(2, directory.GetObject(tags[0].TagType));
@@ -153,9 +153,9 @@ namespace Com.Drew.Metadata.Iptc
         [Test]
         public void TestIptcEncodingUndefinedIso()
         {
-            IptcDirectory directory = ProcessBytes("Tests/Data/iptc-encoding-undefined-iso.bytes");
+            var directory = ProcessBytes("Tests/Data/iptc-encoding-undefined-iso.bytes");
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
+            var tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(3, tags.Length);
             Assert.AreEqual(IptcDirectory.TagEnvelopeRecordVersion, tags[0].TagType);
             Assert.AreEqual(2, directory.GetObject(tags[0].TagType));
@@ -169,9 +169,9 @@ namespace Com.Drew.Metadata.Iptc
         [Test]
         public void TestIptcEncodingUnknown()
         {
-            IptcDirectory directory = ProcessBytes("Tests/Data/iptc-encoding-unknown.bytes");
+            var directory = ProcessBytes("Tests/Data/iptc-encoding-unknown.bytes");
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
+            var tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(3, tags.Length);
             Assert.AreEqual(IptcDirectory.TagApplicationRecordVersion, tags[0].TagType);
             Assert.AreEqual(2, directory.GetObject(tags[0].TagType));
@@ -188,9 +188,9 @@ namespace Com.Drew.Metadata.Iptc
             // This metadata has an encoding of three characters [ \ESC '%' '5' ]
             // It's not clear what to do with this, so it should be ignored.
             // Version 2.7.0 tripped up on this and threw an exception.
-            IptcDirectory directory = ProcessBytes("Tests/Data/iptc-encoding-unknown-2.bytes");
+            var directory = ProcessBytes("Tests/Data/iptc-encoding-unknown-2.bytes");
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
+            var tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(37, tags.Length);
             Assert.AreEqual("MEDWAS,MEDLON,MEDTOR,RONL,ASIA,AONL,APC,USA,CAN,SAM,BIZ", directory.GetString(IptcDirectory.TagDestination));
         }

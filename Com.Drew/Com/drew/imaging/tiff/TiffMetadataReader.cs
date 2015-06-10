@@ -42,10 +42,10 @@ namespace Com.Drew.Imaging.Tiff
         [NotNull]
         public static Metadata.Metadata ReadMetadata([NotNull] string filePath)
         {
-            Metadata.Metadata metadata = new Metadata.Metadata();
+            var metadata = new Metadata.Metadata();
             using (Stream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.RandomAccess))
             {
-                ExifTiffHandler handler = new ExifTiffHandler(metadata, storeThumbnailBytes: false);
+                var handler = new ExifTiffHandler(metadata, storeThumbnailBytes: false);
                 new TiffReader().ProcessTiff(new IndexedSeekingReader(stream), handler, 0);
             }
             new FileMetadataReader().Read(filePath, metadata);
@@ -60,8 +60,8 @@ namespace Com.Drew.Imaging.Tiff
             // TIFF processing requires random access, as directories can be scattered throughout the byte sequence.
             // Stream does not support seeking backwards, so we wrap it with IndexedCapturingReader, which
             // buffers data from the stream as we seek forward.
-            Metadata.Metadata metadata = new Metadata.Metadata();
-            ExifTiffHandler handler = new ExifTiffHandler(metadata, false);
+            var metadata = new Metadata.Metadata();
+            var handler = new ExifTiffHandler(metadata, false);
             new TiffReader().ProcessTiff(new IndexedCapturingReader(stream), handler, 0);
             return metadata;
         }

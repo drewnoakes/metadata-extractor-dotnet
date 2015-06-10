@@ -100,7 +100,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetColorModeDescription()
         {
-            int? value = Directory.GetInteger(KodakMakernoteDirectory.TagColorMode);
+            var value = Directory.GetInteger(KodakMakernoteDirectory.TagColorMode);
             if (value == null)
             {
                 return null;
@@ -161,7 +161,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetFlashModeDescription()
         {
-            int? value = Directory.GetInteger(KodakMakernoteDirectory.TagFlashMode);
+            var value = Directory.GetInteger(KodakMakernoteDirectory.TagFlashMode);
             if (value == null)
             {
                 return null;
@@ -213,7 +213,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetShutterModeDescription()
         {
-            int? value = Directory.GetInteger(KodakMakernoteDirectory.TagShutterMode);
+            var value = Directory.GetInteger(KodakMakernoteDirectory.TagShutterMode);
             if (value == null)
             {
                 return null;

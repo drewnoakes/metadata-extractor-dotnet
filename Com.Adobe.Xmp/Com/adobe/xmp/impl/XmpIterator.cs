@@ -60,8 +60,8 @@ namespace Com.Adobe.Xmp.Impl
             // the start node of the iteration depending on the schema and property filter
             XmpNode startNode = null;
             string initialPath = null;
-            bool baseSchema = !string.IsNullOrEmpty(schemaNs);
-            bool baseProperty = !string.IsNullOrEmpty(propPath);
+            var baseSchema = !string.IsNullOrEmpty(schemaNs);
+            var baseProperty = !string.IsNullOrEmpty(propPath);
             if (!baseSchema && !baseProperty)
             {
                 // complete tree will be iterated
@@ -72,10 +72,10 @@ namespace Com.Adobe.Xmp.Impl
                 if (baseSchema && baseProperty)
                 {
                     // Schema and property node provided
-                    XmpPath path = XmpPathParser.ExpandXPath(schemaNs, propPath);
+                    var path = XmpPathParser.ExpandXPath(schemaNs, propPath);
                     // base path is the prop path without the property leaf
-                    XmpPath basePath = new XmpPath();
-                    for (int i = 0; i < path.Size() - 1; i++)
+                    var basePath = new XmpPath();
+                    for (var i = 0; i < path.Size() - 1; i++)
                     {
                         basePath.Add(path.GetSegment(i));
                     }
@@ -242,7 +242,7 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         _childrenIterator = _visitedNode.IterateChildren();
                     }
-                    bool hasNext = IterateChildrenMethod(_childrenIterator);
+                    var hasNext = IterateChildrenMethod(_childrenIterator);
                     if (!hasNext && _visitedNode.HasQualifier && !_enclosing.GetOptions().IsOmitQualifiers)
                     {
                         _state = IterateQualifier;
@@ -286,7 +286,7 @@ namespace Com.Adobe.Xmp.Impl
                 // if its the first child visited or the former child is finished
                 if ((!_subIterator.HasNext()) && iterator.HasNext())
                 {
-                    XmpNode child = (XmpNode)iterator.Next();
+                    var child = (XmpNode)iterator.Next();
                     _index++;
                     _subIterator = new NodeIterator(_enclosing, child, _path, _index);
                 }
@@ -308,7 +308,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 if (HasNext())
                 {
-                    IXmpPropertyInfo result = _returnProperty;
+                    var result = _returnProperty;
                     _returnProperty = null;
                     return result;
                 }
@@ -362,7 +362,7 @@ namespace Com.Adobe.Xmp.Impl
             /// <returns>Returns a <c>XMPProperty</c>-object that serves representation of the node.</returns>
             protected virtual IXmpPropertyInfo CreatePropertyInfo(XmpNode node, string baseNs, string path)
             {
-                string value = node.Options.IsSchemaNode ? null : node.Value;
+                var value = node.Options.IsSchemaNode ? null : node.Value;
                 return new XmpPropertyInfo450(node, baseNs, path, value);
             }
 
@@ -381,7 +381,7 @@ namespace Com.Adobe.Xmp.Impl
                     if (!_node.Options.IsSchemaNode)
                     {
                         // determine namespace of leaf node
-                        QName qname = new QName(_node.Name);
+                        var qname = new QName(_node.Name);
                         return XmpMetaFactory.GetSchemaRegistry().GetNamespaceUri(qname.GetPrefix());
                     }
                     return _baseNs;
@@ -487,7 +487,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 if (_childrenIterator.HasNext())
                 {
-                    XmpNode child = (XmpNode)_childrenIterator.Next();
+                    var child = (XmpNode)_childrenIterator.Next();
                     _index++;
                     string path = null;
                     if (child.Options.IsSchemaNode)

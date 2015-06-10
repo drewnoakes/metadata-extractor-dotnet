@@ -90,7 +90,7 @@ namespace Com.Drew.Metadata
         /// <returns>the tag's type and value</returns>
         public override string ToString()
         {
-            string description = Description;
+            var description = Description;
             if (description == null)
             {
                 description = _directory.GetString(TagType) + " (unable to formulate description)";

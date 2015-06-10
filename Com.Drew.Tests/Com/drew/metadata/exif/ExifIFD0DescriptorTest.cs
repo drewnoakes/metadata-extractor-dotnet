@@ -36,11 +36,11 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestXResolutionDescription()
         {
-            ExifIfd0Directory directory = new ExifIfd0Directory();
+            var directory = new ExifIfd0Directory();
             directory.SetRational(ExifDirectoryBase.TagXResolution, new Rational(72, 1));
             // 2 is for 'Inch'
             directory.SetInt(ExifDirectoryBase.TagResolutionUnit, 2);
-            ExifIfd0Descriptor descriptor = new ExifIfd0Descriptor(directory);
+            var descriptor = new ExifIfd0Descriptor(directory);
             Assert.AreEqual("72 dots per inch", descriptor.GetDescription(ExifDirectoryBase.TagXResolution));
         }
 
@@ -48,11 +48,11 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestYResolutionDescription()
         {
-            ExifIfd0Directory directory = new ExifIfd0Directory();
+            var directory = new ExifIfd0Directory();
             directory.SetRational(ExifDirectoryBase.TagYResolution, new Rational(50, 1));
             // 3 is for 'cm'
             directory.SetInt(ExifDirectoryBase.TagResolutionUnit, 3);
-            ExifIfd0Descriptor descriptor = new ExifIfd0Descriptor(directory);
+            var descriptor = new ExifIfd0Descriptor(directory);
             Assert.AreEqual("50 dots per cm", descriptor.GetDescription(ExifDirectoryBase.TagYResolution));
         }
 
@@ -60,13 +60,13 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestWindowsXpFields()
         {
-            ExifIfd0Directory directory = ExifReaderTest.ProcessBytes<ExifIfd0Directory>("Tests/Data/windowsXpFields.jpg.app1");
+            var directory = ExifReaderTest.ProcessBytes<ExifIfd0Directory>("Tests/Data/windowsXpFields.jpg.app1");
             Assert.AreEqual("Testing artist\x0", directory.GetString(ExifDirectoryBase.TagWinAuthor, Encoding.Unicode));
             Assert.AreEqual("Testing comments\x0", directory.GetString(ExifDirectoryBase.TagWinComment, Encoding.Unicode));
             Assert.AreEqual("Testing keywords\x0", directory.GetString(ExifDirectoryBase.TagWinKeywords, Encoding.Unicode));
             Assert.AreEqual("Testing subject\x0", directory.GetString(ExifDirectoryBase.TagWinSubject, Encoding.Unicode));
             Assert.AreEqual("Testing title\x0", directory.GetString(ExifDirectoryBase.TagWinTitle, Encoding.Unicode));
-            ExifIfd0Descriptor descriptor = new ExifIfd0Descriptor(directory);
+            var descriptor = new ExifIfd0Descriptor(directory);
             Assert.AreEqual("Testing artist", descriptor.GetDescription(ExifDirectoryBase.TagWinAuthor));
             Assert.AreEqual("Testing comments", descriptor.GetDescription(ExifDirectoryBase.TagWinComment));
             Assert.AreEqual("Testing keywords", descriptor.GetDescription(ExifDirectoryBase.TagWinKeywords));

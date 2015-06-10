@@ -54,7 +54,7 @@ namespace Com.Drew.Tools
                 PrintUsage();
                 Environment.Exit(1);
             }
-            string filePath = args[0];
+            var filePath = args[0];
             if (!File.Exists(filePath))
             {
                 Console.Error.WriteLine("File does not exist");
@@ -62,9 +62,9 @@ namespace Com.Drew.Tools
                 Environment.Exit(1);
             }
             ICollection<JpegSegmentType> segmentTypes = new HashSet<JpegSegmentType>();
-            for (int i = 1; i < args.Length; i++)
+            for (var i = 1; i < args.Length; i++)
             {
-                JpegSegmentType segmentType = JpegSegmentType.ValueOf(args[i].ToUpper());
+                var segmentType = JpegSegmentType.ValueOf(args[i].ToUpper());
                 if (!segmentType.CanContainMetadata)
                 {
                     Console.Error.WriteLine("WARNING: Segment type {0} cannot contain metadata so it may not be necessary to extract it", segmentType);
@@ -77,14 +77,14 @@ namespace Com.Drew.Tools
                 Collections.AddAll(segmentTypes, JpegSegmentType.CanContainMetadataTypes);
             }
             Console.Out.WriteLine("Reading: {0}", filePath);
-            JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(filePath, segmentTypes);
+            var segmentData = JpegSegmentReader.ReadSegments(filePath, segmentTypes);
             SaveSegmentFiles(filePath, segmentData);
         }
 
         /// <exception cref="System.IO.IOException"/>
         public static void SaveSegmentFiles([NotNull] string jpegFilePath, [NotNull] JpegSegmentData segmentData)
         {
-            foreach (JpegSegmentType segmentType in segmentData.GetSegmentTypes())
+            foreach (var segmentType in segmentData.GetSegmentTypes())
             {
                 IList<byte[]> segments = segmentData.GetSegments(segmentType).ToList();
                 if (segments.Count == 0)
@@ -93,16 +93,16 @@ namespace Com.Drew.Tools
                 }
                 if (segments.Count > 1)
                 {
-                    for (int i = 0; i < segments.Count; i++)
+                    for (var i = 0; i < segments.Count; i++)
                     {
-                        string outputFilePath = string.Format("{0}.{1}.{2}", jpegFilePath, segmentType.ToString().ToLower(), i);
+                        var outputFilePath = string.Format("{0}.{1}.{2}", jpegFilePath, segmentType.ToString().ToLower(), i);
                         Console.Out.WriteLine((object)("Writing: " + outputFilePath));
                         File.WriteAllBytes(outputFilePath, segments[i]);
                     }
                 }
                 else
                 {
-                    string outputFilePath = string.Format("{0}.{1}", jpegFilePath, segmentType.ToString().ToLower());
+                    var outputFilePath = string.Format("{0}.{1}", jpegFilePath, segmentType.ToString().ToLower());
                     Console.Out.WriteLine((object)("Writing: " + outputFilePath));
                     File.WriteAllBytes(outputFilePath, segments[0]);
                 }
@@ -114,7 +114,7 @@ namespace Com.Drew.Tools
             Console.Out.WriteLine("USAGE:\n");
             Console.Out.WriteLine("\tjava com.drew.tools.ExtractJpegSegmentTool <filename> [<segment> ...]\n");
             Console.Out.Write("Where <segment> is zero or more of:");
-            foreach (JpegSegmentType segmentType in typeof(JpegSegmentType).GetEnumConstants<JpegSegmentType>())
+            foreach (var segmentType in typeof(JpegSegmentType).GetEnumConstants<JpegSegmentType>())
             {
                 if (segmentType.CanContainMetadata)
                 {

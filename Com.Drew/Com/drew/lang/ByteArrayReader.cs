@@ -81,7 +81,7 @@ namespace Com.Drew.Lang
         public override byte[] GetBytes(int index, int count)
         {
             ValidateIndex(index, count);
-            byte[] bytes = new byte[count];
+            var bytes = new byte[count];
             Array.Copy(_buffer, index, bytes, 0, count);
             return bytes;
         }

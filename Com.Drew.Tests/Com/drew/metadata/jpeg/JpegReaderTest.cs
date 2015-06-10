@@ -33,9 +33,9 @@ namespace Com.Drew.Metadata.Jpeg
         [NotNull]
         public static JpegDirectory ProcessBytes(string filePath)
         {
-            Metadata metadata = new Metadata();
+            var metadata = new Metadata();
             new JpegReader().Extract(System.IO.File.ReadAllBytes(filePath), metadata, JpegSegmentType.Sof0);
-            JpegDirectory directory = metadata.GetFirstDirectoryOfType<JpegDirectory>();
+            var directory = metadata.GetFirstDirectoryOfType<JpegDirectory>();
             Assert.IsNotNull(directory);
             return directory;
         }
@@ -82,7 +82,7 @@ namespace Com.Drew.Metadata.Jpeg
         [Test]
         public void TestComponentData1()
         {
-            JpegComponent component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData1);
+            var component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData1);
             Assert.IsNotNull(component);
             Assert.AreEqual("Y", component.GetComponentName());
             Assert.AreEqual(1, component.GetComponentId());
@@ -95,7 +95,7 @@ namespace Com.Drew.Metadata.Jpeg
         [Test]
         public void TestComponentData2()
         {
-            JpegComponent component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData2);
+            var component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData2);
             Assert.IsNotNull(component);
             Assert.AreEqual("Cb", component.GetComponentName());
             Assert.AreEqual(2, component.GetComponentId());
@@ -109,7 +109,7 @@ namespace Com.Drew.Metadata.Jpeg
         [Test]
         public void TestComponentData3()
         {
-            JpegComponent component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData3);
+            var component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData3);
             Assert.IsNotNull(component);
             Assert.AreEqual("Cr", component.GetComponentName());
             Assert.AreEqual(3, component.GetComponentId());

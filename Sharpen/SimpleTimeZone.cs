@@ -24,7 +24,7 @@ namespace Sharpen
                 return result;
             }
 
-            ReadOnlyCollection<TimeZoneInfo> tz1 = TimeZoneInfo.GetSystemTimeZones();
+            var tz1 = TimeZoneInfo.GetSystemTimeZones();
 
             result = (from t in tz1 where t.BaseUtcOffset.TotalMilliseconds == tz._rawOffset select t).FirstOrDefault();
 

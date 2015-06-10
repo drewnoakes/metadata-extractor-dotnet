@@ -55,7 +55,7 @@ namespace Sharpen
                         }
                         return 0;
                     }
-                    int avail = _buf.Length - _pos;
+                    var avail = _buf.Length - _pos;
                     if (avail > 0)
                     {
                         if (len < avail)

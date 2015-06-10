@@ -33,15 +33,15 @@ namespace Com.Drew.Metadata.Jfif
         [Test]
         public void TestRead()
         {
-            byte[] jfifData = new byte[] { 74, 70, 73, 70, 0, 1, 2, 1, 0, 108, 0, 108, 0, 0 };
-            Metadata metadata = new Metadata();
-            JfifReader reader = new JfifReader();
+            var jfifData = new byte[] { 74, 70, 73, 70, 0, 1, 2, 1, 0, 108, 0, 108, 0, 0 };
+            var metadata = new Metadata();
+            var reader = new JfifReader();
             reader.Extract(new ByteArrayReader(jfifData), metadata);
             Assert.AreEqual(1, metadata.GetDirectoryCount());
-            JfifDirectory directory = metadata.GetFirstDirectoryOfType<JfifDirectory>();
+            var directory = metadata.GetFirstDirectoryOfType<JfifDirectory>();
             Assert.IsNotNull(directory);
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
+            var tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(4, tags.Length);
             Assert.AreEqual(JfifDirectory.TagVersion, tags[0].TagType);
             Assert.AreEqual(unchecked(0x0102), directory.GetInt(tags[0].TagType));

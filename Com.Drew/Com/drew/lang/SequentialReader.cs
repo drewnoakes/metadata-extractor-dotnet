@@ -189,13 +189,13 @@ namespace Com.Drew.Lang
             if (_isMotorolaByteOrder)
             {
                 float res = (GetByte() & unchecked(0xFF)) << 8 | (GetByte() & unchecked(0xFF));
-                int d = (GetByte() & unchecked(0xFF)) << 8 | (GetByte() & unchecked(0xFF));
+                var d = (GetByte() & unchecked(0xFF)) << 8 | (GetByte() & unchecked(0xFF));
                 return (float)(res + d / 65536.0);
             }
             else
             {
                 // this particular branch is untested
-                int d = (GetByte() & unchecked(0xFF)) | (GetByte() & unchecked(0xFF)) << 8;
+                var d = (GetByte() & unchecked(0xFF)) | (GetByte() & unchecked(0xFF)) << 8;
                 float res = (GetByte() & unchecked(0xFF)) | (GetByte() & unchecked(0xFF)) << 8;
                 return (float)(res + d / 65536.0);
             }
@@ -238,9 +238,9 @@ namespace Com.Drew.Lang
         public virtual string GetNullTerminatedString(int maxLengthBytes)
         {
             // NOTE currently only really suited to single-byte character strings
-            byte[] bytes = new byte[maxLengthBytes];
+            var bytes = new byte[maxLengthBytes];
             // Count the number of non-null bytes
-            int length = 0;
+            var length = 0;
             while (length < bytes.Length && (bytes[length] = GetByte()) != '\0')
             {
                 length++;

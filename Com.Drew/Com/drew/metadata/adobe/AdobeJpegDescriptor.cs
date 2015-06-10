@@ -56,14 +56,14 @@ namespace Com.Drew.Metadata.Adobe
         [CanBeNull]
         private string GetDctEncodeVersionDescription()
         {
-            int? value = Directory.GetInteger(AdobeJpegDirectory.TagColorTransform);
+            var value = Directory.GetInteger(AdobeJpegDirectory.TagColorTransform);
             return value == null ? null : value == unchecked(0x64) ? "100" : ((int)value).ToString();
         }
 
         [CanBeNull]
         private string GetColorTransformDescription()
         {
-            int? value = Directory.GetInteger(AdobeJpegDirectory.TagColorTransform);
+            var value = Directory.GetInteger(AdobeJpegDirectory.TagColorTransform);
             if (value == null)
             {
                 return null;

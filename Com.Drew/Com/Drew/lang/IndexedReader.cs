@@ -120,10 +120,10 @@ namespace Com.Drew.Lang
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public bool GetBit(int index)
         {
-            int byteIndex = index / 8;
-            int bitIndex = index % 8;
+            var byteIndex = index / 8;
+            var bitIndex = index % 8;
             ValidateIndex(byteIndex, 1);
-            byte b = GetByte(byteIndex);
+            var b = GetByte(byteIndex);
             return ((b >> bitIndex) & 1) == 1;
         }
 
@@ -303,14 +303,14 @@ namespace Com.Drew.Lang
             if (IsMotorolaByteOrder)
             {
                 float res = (GetByte(index) & unchecked(0xFF)) << 8 | (GetByte(index + 1) & unchecked(0xFF));
-                int d = (GetByte(index + 2) & unchecked(0xFF)) << 8 | (GetByte(index + 3) & unchecked(0xFF));
+                var d = (GetByte(index + 2) & unchecked(0xFF)) << 8 | (GetByte(index + 3) & unchecked(0xFF));
                 return (float)(res + d / 65536.0);
             }
             else
             {
                 // this particular branch is untested
                 float res = (GetByte(index + 3) & unchecked(0xFF)) << 8 | (GetByte(index + 2) & unchecked(0xFF));
-                int d = (GetByte(index + 1) & unchecked(0xFF)) << 8 | (GetByte(index) & unchecked(0xFF));
+                var d = (GetByte(index + 1) & unchecked(0xFF)) << 8 | (GetByte(index) & unchecked(0xFF));
                 return (float)(res + d / 65536.0);
             }
         }
@@ -356,9 +356,9 @@ namespace Com.Drew.Lang
         public string GetNullTerminatedString(int index, int maxLengthBytes)
         {
             // NOTE currently only really suited to single-byte character strings
-            byte[] bytes = GetBytes(index, maxLengthBytes);
+            var bytes = GetBytes(index, maxLengthBytes);
             // Count the number of non-null bytes
-            int length = 0;
+            var length = 0;
             while (length < bytes.Length && bytes[length] != '\0')
                 length++;
             return Encoding.UTF8.GetString(bytes, 0, length);

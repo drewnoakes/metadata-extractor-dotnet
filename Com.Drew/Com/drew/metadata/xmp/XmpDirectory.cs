@@ -271,10 +271,10 @@ namespace Com.Drew.Metadata.Xmp
             _xmpMeta = xmpMeta;
             try
             {
-                int valueCount = 0;
+                var valueCount = 0;
                 for (IIterator i = _xmpMeta.Iterator(); i.HasNext(); )
                 {
-                    IXmpPropertyInfo prop = (IXmpPropertyInfo)i.Next();
+                    var prop = (IXmpPropertyInfo)i.Next();
                     if (prop.GetPath() != null)
                     {
                         //System.out.printf("%s = %s\n", prop.getPath(), prop.getValue());
@@ -325,12 +325,12 @@ namespace Com.Drew.Metadata.Xmp
             SetIntArray(tagType, ints);
             try
             {
-                string schemaNs = TagSchemaMap.GetOrNull(tagType);
-                string propName = TagPropNameMap.GetOrNull(tagType);
+                var schemaNs = TagSchemaMap.GetOrNull(tagType);
+                var propName = TagPropNameMap.GetOrNull(tagType);
                 GetXmpMeta().DeleteProperty(schemaNs, propName);
-                PropertyOptions po = new PropertyOptions();
+                var po = new PropertyOptions();
                 po.IsArray = true;
-                foreach (int item in ints)
+                foreach (var item in ints)
                 {
                     GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item.ToString(), null);
                 }
@@ -359,12 +359,12 @@ namespace Com.Drew.Metadata.Xmp
             SetFloatArray(tagType, floats);
             try
             {
-                string schemaNs = TagSchemaMap.GetOrNull(tagType);
-                string propName = TagPropNameMap.GetOrNull(tagType);
+                var schemaNs = TagSchemaMap.GetOrNull(tagType);
+                var propName = TagPropNameMap.GetOrNull(tagType);
                 GetXmpMeta().DeleteProperty(schemaNs, propName);
-                PropertyOptions po = new PropertyOptions();
+                var po = new PropertyOptions();
                 po.IsArray = true;
-                foreach (float item in floats)
+                foreach (var item in floats)
                 {
                     GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item.ToString(), null);
                 }
@@ -393,12 +393,12 @@ namespace Com.Drew.Metadata.Xmp
             SetDoubleArray(tagType, doubles);
             try
             {
-                string schemaNs = TagSchemaMap.GetOrNull(tagType);
-                string propName = TagPropNameMap.GetOrNull(tagType);
+                var schemaNs = TagSchemaMap.GetOrNull(tagType);
+                var propName = TagPropNameMap.GetOrNull(tagType);
                 GetXmpMeta().DeleteProperty(schemaNs, propName);
-                PropertyOptions po = new PropertyOptions();
+                var po = new PropertyOptions();
                 po.IsArray = true;
-                foreach (double item in doubles)
+                foreach (var item in doubles)
                 {
                     GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item.ToString(), null);
                 }
@@ -432,12 +432,12 @@ namespace Com.Drew.Metadata.Xmp
             SetStringArray(tagType, strings);
             try
             {
-                string schemaNs = TagSchemaMap.GetOrNull(tagType);
-                string propName = TagPropNameMap.GetOrNull(tagType);
+                var schemaNs = TagSchemaMap.GetOrNull(tagType);
+                var propName = TagPropNameMap.GetOrNull(tagType);
                 GetXmpMeta().DeleteProperty(schemaNs, propName);
-                PropertyOptions po = new PropertyOptions();
+                var po = new PropertyOptions();
                 po.IsArray = true;
-                foreach (string item in strings)
+                foreach (var item in strings)
                 {
                     GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item, null);
                 }

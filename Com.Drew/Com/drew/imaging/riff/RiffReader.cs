@@ -61,15 +61,15 @@ namespace Com.Drew.Imaging.Riff
             // RIFF files are always little-endian
             reader.SetMotorolaByteOrder(false);
             // PROCESS FILE HEADER
-            string fileFourCc = reader.GetString(4);
+            var fileFourCc = reader.GetString(4);
             if (!fileFourCc.Equals("RIFF"))
             {
                 throw new RiffProcessingException("Invalid RIFF header: " + fileFourCc);
             }
             // The total size of the chunks that follow plus 4 bytes for the 'WEBP' FourCC
-            int fileSize = reader.GetInt32();
-            int sizeLeft = fileSize;
-            string identifier = reader.GetString(4);
+            var fileSize = reader.GetInt32();
+            var sizeLeft = fileSize;
+            var identifier = reader.GetString(4);
             sizeLeft -= 4;
             if (!handler.ShouldAcceptRiffIdentifier(identifier))
             {
@@ -78,8 +78,8 @@ namespace Com.Drew.Imaging.Riff
             // PROCESS CHUNKS
             while (sizeLeft != 0)
             {
-                string chunkFourCc = reader.GetString(4);
-                int chunkSize = reader.GetInt32();
+                var chunkFourCc = reader.GetString(4);
+                var chunkSize = reader.GetInt32();
                 sizeLeft -= 8;
                 // NOTE we fail a negative chunk size here (greater than 0x7FFFFFFF) as Java cannot
                 // allocate arrays larger than this.

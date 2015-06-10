@@ -145,7 +145,7 @@ namespace Com.Drew.Imaging.Jpeg
             //    /** Start-of-Frame (12) segment identifier. */
             //    SOF12((byte)0xCC, true),
             IList<JpegSegmentType> segmentTypes = new List<JpegSegmentType>();
-            foreach (JpegSegmentType segmentType in typeof(JpegSegmentType).GetEnumConstants<JpegSegmentType>())
+            foreach (var segmentType in typeof(JpegSegmentType).GetEnumConstants<JpegSegmentType>())
             {
                 if (segmentType.CanContainMetadata)
                 {

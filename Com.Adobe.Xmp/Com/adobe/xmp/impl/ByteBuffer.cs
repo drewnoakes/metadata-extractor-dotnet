@@ -55,7 +55,7 @@ namespace Com.Adobe.Xmp.Impl
         public ByteBuffer(Stream stream)
         {
             // load stream into buffer
-            int chunk = 16384;
+            var chunk = 16384;
             _length = 0;
             _buffer = new byte[chunk];
             int read;
@@ -271,7 +271,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (requestedLength > _buffer.Length)
             {
-                byte[] oldBuf = _buffer;
+                var oldBuf = _buffer;
                 _buffer = new byte[oldBuf.Length * 2];
                 Array.Copy(oldBuf, 0, _buffer, 0, oldBuf.Length);
             }

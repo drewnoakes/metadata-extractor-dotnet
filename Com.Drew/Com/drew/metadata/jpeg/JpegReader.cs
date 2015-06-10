@@ -50,7 +50,7 @@ namespace Com.Drew.Metadata.Jpeg
         //            JpegSegmentType.SOF12,
         public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
-            foreach (byte[] segmentBytes in segments)
+            foreach (var segmentBytes in segments)
             {
                 Extract(segmentBytes, metadata, segmentType);
             }
@@ -58,7 +58,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         public void Extract(byte[] segmentBytes, Metadata metadata, JpegSegmentType segmentType)
         {
-            JpegDirectory directory = new JpegDirectory();
+            var directory = new JpegDirectory();
             metadata.AddDirectory(directory);
             // The value of TAG_COMPRESSION_TYPE is determined by the segment type found
             directory.SetInt(JpegDirectory.TagCompressionType, segmentType.ByteValue - JpegSegmentType.Sof0.ByteValue);
@@ -68,18 +68,18 @@ namespace Com.Drew.Metadata.Jpeg
                 directory.SetInt(JpegDirectory.TagDataPrecision, reader.GetUInt8());
                 directory.SetInt(JpegDirectory.TagImageHeight, reader.GetUInt16());
                 directory.SetInt(JpegDirectory.TagImageWidth, reader.GetUInt16());
-                short componentCount = reader.GetUInt8();
+                var componentCount = reader.GetUInt8();
                 directory.SetInt(JpegDirectory.TagNumberOfComponents, componentCount);
                 // for each component, there are three bytes of data:
                 // 1 - Component ID: 1 = Y, 2 = Cb, 3 = Cr, 4 = I, 5 = Q
                 // 2 - Sampling factors: bit 0-3 vertical, 4-7 horizontal
                 // 3 - Quantization table number
-                for (int i = 0; i < (int)componentCount; i++)
+                for (var i = 0; i < (int)componentCount; i++)
                 {
                     int componentId = reader.GetUInt8();
                     int samplingFactorByte = reader.GetUInt8();
                     int quantizationTableNumber = reader.GetUInt8();
-                    JpegComponent component = new JpegComponent(componentId, samplingFactorByte, quantizationTableNumber);
+                    var component = new JpegComponent(componentId, samplingFactorByte, quantizationTableNumber);
                     directory.SetObject(JpegDirectory.TagComponentData1 + i, component);
                 }
             }

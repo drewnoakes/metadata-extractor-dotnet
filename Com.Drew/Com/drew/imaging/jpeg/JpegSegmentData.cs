@@ -60,9 +60,9 @@ namespace Com.Drew.Imaging.Jpeg
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             ICollection<JpegSegmentType> segmentTypes = new HashSet<JpegSegmentType>();
-            foreach (byte segmentTypeByte in _segmentDataMap.Keys)
+            foreach (var segmentTypeByte in _segmentDataMap.Keys)
             {
-                JpegSegmentType segmentType = JpegSegmentType.FromByte(segmentTypeByte);
+                var segmentType = JpegSegmentType.FromByte(segmentTypeByte);
                 if (segmentType == null)
                 {
                     throw new InvalidOperationException(string.Format("Should not have a segmentTypeByte that is not in the enum: 0x{0:X}", segmentTypeByte));
@@ -106,7 +106,7 @@ namespace Com.Drew.Imaging.Jpeg
         [CanBeNull]
         public byte[] GetSegment(byte segmentType, int occurrence = 0)
         {
-            IList<byte[]> segmentList = GetSegmentList(segmentType);
+            var segmentList = GetSegmentList(segmentType);
             return segmentList != null && segmentList.Count > occurrence ? segmentList[occurrence] : null;
         }
 
@@ -162,7 +162,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <returns>the segment count (zero if no segments exist).</returns>
         public int GetSegmentCount(byte segmentType)
         {
-            IList<byte[]> segmentList = GetSegmentList(segmentType);
+            var segmentList = GetSegmentList(segmentType);
             return segmentList == null ? 0 : segmentList.Count;
         }
 

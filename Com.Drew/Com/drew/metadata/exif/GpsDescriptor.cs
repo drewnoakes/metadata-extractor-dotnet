@@ -129,14 +129,14 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public string GetGpsLatitudeDescription()
         {
-            GeoLocation location = Directory.GetGeoLocation();
+            var location = Directory.GetGeoLocation();
             return location == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString(location.GetLatitude());
         }
 
         [CanBeNull]
         public string GetGpsLongitudeDescription()
         {
-            GeoLocation location = Directory.GetGeoLocation();
+            var location = Directory.GetGeoLocation();
             return location == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString(location.GetLongitude());
         }
 
@@ -144,20 +144,20 @@ namespace Com.Drew.Metadata.Exif
         public string GetGpsTimeStampDescription()
         {
             // time in hour, min, sec
-            Rational[] timeComponents = Directory.GetRationalArray(GpsDirectory.TagTimeStamp);
-            DecimalFormat df = new DecimalFormat("00.00");
+            var timeComponents = Directory.GetRationalArray(GpsDirectory.TagTimeStamp);
+            var df = new DecimalFormat("00.00");
             return timeComponents == null ? null : string.Format("{0:D2}:{1:D2}:{2} UTC", timeComponents[0].IntValue(), timeComponents[1].IntValue(), df.Format(timeComponents[2].DoubleValue()));
         }
 
         [CanBeNull]
         public string GetGpsDestinationReferenceDescription()
         {
-            string value = Directory.GetString(GpsDirectory.TagDestDistanceRef);
+            var value = Directory.GetString(GpsDirectory.TagDestDistanceRef);
             if (value == null)
             {
                 return null;
             }
-            string distanceRef = value.Trim();
+            var distanceRef = value.Trim();
             if ("K".Equals (distanceRef, StringComparison.CurrentCultureIgnoreCase))
             {
                 return "kilometers";
@@ -176,21 +176,21 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public string GetGpsDirectionDescription(int tagType)
         {
-            Rational angle = Directory.GetRational(tagType);
+            var angle = Directory.GetRational(tagType);
             // provide a decimal version of rational numbers in the description, to avoid strings like "35334/199 degrees"
-            string value = angle != null ? new DecimalFormat("0.##").Format(angle.DoubleValue()) : Directory.GetString(tagType);
+            var value = angle != null ? new DecimalFormat("0.##").Format(angle.DoubleValue()) : Directory.GetString(tagType);
             return value == null || value.Trim().Length == 0 ? null : value.Trim() + " degrees";
         }
 
         [CanBeNull]
         public string GetGpsDirectionReferenceDescription(int tagType)
         {
-            string value = Directory.GetString(tagType);
+            var value = Directory.GetString(tagType);
             if (value == null)
             {
                 return null;
             }
-            string gpsDistRef = value.Trim();
+            var gpsDistRef = value.Trim();
             if ("T".Equals (gpsDistRef, StringComparison.CurrentCultureIgnoreCase))
             {
                 return "True direction";
@@ -205,12 +205,12 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public string GetGpsSpeedRefDescription()
         {
-            string value = Directory.GetString(GpsDirectory.TagSpeedRef);
+            var value = Directory.GetString(GpsDirectory.TagSpeedRef);
             if (value == null)
             {
                 return null;
             }
-            string gpsSpeedRef = value.Trim();
+            var gpsSpeedRef = value.Trim();
             if ("K".Equals (gpsSpeedRef, StringComparison.CurrentCultureIgnoreCase))
             {
                 return "kph";
@@ -229,12 +229,12 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public string GetGpsMeasureModeDescription()
         {
-            string value = Directory.GetString(GpsDirectory.TagMeasureMode);
+            var value = Directory.GetString(GpsDirectory.TagMeasureMode);
             if (value == null)
             {
                 return null;
             }
-            string gpsSpeedMeasureMode = value.Trim();
+            var gpsSpeedMeasureMode = value.Trim();
             if ("2".Equals (gpsSpeedMeasureMode, StringComparison.CurrentCultureIgnoreCase))
             {
                 return "2-dimensional measurement";
@@ -249,12 +249,12 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public string GetGpsStatusDescription()
         {
-            string value = Directory.GetString(GpsDirectory.TagStatus);
+            var value = Directory.GetString(GpsDirectory.TagStatus);
             if (value == null)
             {
                 return null;
             }
-            string gpsStatus = value.Trim();
+            var gpsStatus = value.Trim();
             if ("A".Equals (gpsStatus, StringComparison.CurrentCultureIgnoreCase))
             {
                 return "Active (Measurement in progress)";
@@ -275,7 +275,7 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public string GetGpsAltitudeDescription()
         {
-            Rational value = Directory.GetRational(GpsDirectory.TagAltitude);
+            var value = Directory.GetRational(GpsDirectory.TagAltitude);
             return value == null ? null : value.IntValue() + " metres";
         }
 
@@ -288,7 +288,7 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public string GetDegreesMinutesSecondsDescription()
         {
-            GeoLocation location = Directory.GetGeoLocation();
+            var location = Directory.GetGeoLocation();
             return location == null ? null : location.ToDmsString();
         }
     }

@@ -73,7 +73,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return binValue;
             }
-            ParseState input = new ParseState(iso8601String);
+            var input = new ParseState(iso8601String);
             int value;
             if (input.Ch(0) == '-')
             {
@@ -153,7 +153,7 @@ namespace Com.Adobe.Xmp.Impl
                 if (input.Ch() == '.')
                 {
                     input.Skip();
-                    int digits = input.Pos();
+                    var digits = input.Pos();
                     value = input.GatherInt("Invalid fractional seconds in date string", 999999999);
                     if (input.HasNext() && (input.Ch() != 'Z' && input.Ch() != '+' && input.Ch() != '-'))
                     {
@@ -178,9 +178,9 @@ namespace Com.Adobe.Xmp.Impl
                     throw new XmpException("Invalid date string, after time", XmpErrorCode.BadValue);
                 }
             }
-            int tzSign = 0;
-            int tzHour = 0;
-            int tzMinute = 0;
+            var tzSign = 0;
+            var tzHour = 0;
+            var tzMinute = 0;
             if (!input.HasNext())
             {
                 // no Timezone at all
@@ -228,7 +228,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
             }
             // create a corresponding TZ and set it time zone
-            int offset = (tzHour * 3600 * 1000 + tzMinute * 60 * 1000) * tzSign;
+            var offset = (tzHour * 3600 * 1000 + tzMinute * 60 * 1000) * tzSign;
             binValue.SetTimeZone((TimeZoneInfo)new SimpleTimeZone(offset, string.Empty));
             if (input.HasNext())
             {
@@ -271,11 +271,11 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns an ISO 8601 string.</returns>
         public static string Render(IXmpDateTime dateTime)
         {
-            StringBuilder buffer = new StringBuilder();
+            var buffer = new StringBuilder();
             if (dateTime.HasDate())
             {
                 // year is rendered in any case, even 0000
-                DecimalFormat df = new DecimalFormat("0000", new DecimalFormatSymbols(Extensions.GetEnglishCulture()));
+                var df = new DecimalFormat("0000", new DecimalFormatSymbols(Extensions.GetEnglishCulture()));
                 buffer.Append(df.Format(dateTime.GetYear()));
                 if (dateTime.GetMonth() == 0)
                 {
@@ -302,7 +302,7 @@ namespace Com.Adobe.Xmp.Impl
                     // seconds and nanoseconds
                     if (dateTime.GetSecond() != 0 || dateTime.GetNanoSecond() != 0)
                     {
-                        double seconds = dateTime.GetSecond() + dateTime.GetNanoSecond() / 1e9d;
+                        var seconds = dateTime.GetSecond() + dateTime.GetNanoSecond() / 1e9d;
                         df.ApplyPattern(":00.#########");
                         buffer.Append(df.Format(seconds));
                     }
@@ -310,8 +310,8 @@ namespace Com.Adobe.Xmp.Impl
                     if (dateTime.HasTimeZone())
                     {
                         // used to calculate the time zone offset incl. Daylight Savings
-                        long timeInMillis = dateTime.GetCalendar().GetTimeInMillis();
-                        int offset = (int) dateTime.GetTimeZone().GetUtcOffset(Extensions.MillisToDateTimeOffset(timeInMillis, 0).DateTime).TotalMilliseconds;
+                        var timeInMillis = dateTime.GetCalendar().GetTimeInMillis();
+                        var offset = (int) dateTime.GetTimeZone().GetUtcOffset(Extensions.MillisToDateTimeOffset(timeInMillis, 0).DateTime).TotalMilliseconds;
                         if (offset == 0)
                         {
                             // UTC
@@ -319,8 +319,8 @@ namespace Com.Adobe.Xmp.Impl
                         }
                         else
                         {
-                            int thours = offset / 3600000;
-                            int tminutes = Math.Abs(offset % 3600000 / 60000);
+                            var thours = offset / 3600000;
+                            var tminutes = Math.Abs(offset % 3600000 / 60000);
                             df.ApplyPattern("+00;-00");
                             buffer.Append(df.Format(thours));
                             df.ApplyPattern(":00");
@@ -390,9 +390,9 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">Thrown if no integer can be found.</exception>
         public int GatherInt(string errorMsg, int maxValue)
         {
-            int value = 0;
-            bool success = false;
-            char ch = Ch(_pos);
+            var value = 0;
+            var success = false;
+            var ch = Ch(_pos);
             while ('0' <= ch && ch <= '9')
             {
                 value = (value * 10) + (ch - '0');

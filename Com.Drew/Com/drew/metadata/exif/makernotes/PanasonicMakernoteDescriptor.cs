@@ -375,7 +375,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         private string GetTransformDescription(int tag)
         {
-            byte[] values = Directory.GetByteArray(tag);
+            var values = Directory.GetByteArray(tag);
             if (values == null)
             {
                 return null;
@@ -507,7 +507,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetUptimeDescription()
         {
-            int? value = Directory.GetInteger(PanasonicMakernoteDirectory.TagUptime);
+            var value = Directory.GetInteger(PanasonicMakernoteDirectory.TagUptime);
             if (value == null)
             {
                 return null;
@@ -524,7 +524,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetContrastModeDescription()
         {
-            int? value = Directory.GetInteger(PanasonicMakernoteDirectory.TagContrastMode);
+            var value = Directory.GetInteger(PanasonicMakernoteDirectory.TagContrastMode);
             if (value == null)
             {
                 return null;
@@ -593,7 +593,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetRotationDescription()
         {
-            int? value = Directory.GetInteger(PanasonicMakernoteDirectory.TagRotation);
+            var value = Directory.GetInteger(PanasonicMakernoteDirectory.TagRotation);
             if (value == null)
             {
                 return null;
@@ -670,8 +670,8 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return null;
             }
-            StringBuilder result = new StringBuilder();
-            for (int i = 0; i < faces.Length; i++)
+            var result = new StringBuilder();
+            for (var i = 0; i < faces.Length; i++)
             {
                 result.Append("Face ").Append(i + 1).Append(": ").Append(faces[i].ToString()).Append("\n");
             }
@@ -709,7 +709,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetAfAreaModeDescription()
         {
-            int[] value = Directory.GetIntArray(PanasonicMakernoteDirectory.TagAfAreaMode);
+            var value = Directory.GetIntArray(PanasonicMakernoteDirectory.TagAfAreaMode);
             if (value == null || value.Length < 2)
             {
                 return null;
@@ -870,14 +870,14 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetBabyAgeDescription()
         {
-            Age age = Directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge);
+            var age = Directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge);
             return age == null ? null : age.ToFriendlyString();
         }
 
         [CanBeNull]
         public string GetBabyAge1Description()
         {
-            Age age = Directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge1);
+            var age = Directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge1);
             return age == null ? null : age.ToFriendlyString();
         }
     }

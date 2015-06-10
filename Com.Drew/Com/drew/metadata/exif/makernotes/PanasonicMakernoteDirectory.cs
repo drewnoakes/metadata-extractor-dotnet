@@ -560,7 +560,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public Face[] GetDetectedFaces()
         {
-            byte[] bytes = GetByteArray(TagFaceDetectionInfo);
+            var bytes = GetByteArray(TagFaceDetectionInfo);
             if (bytes == null)
             {
                 return null;
@@ -574,10 +574,10 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 {
                     return null;
                 }
-                Face[] faces = new Face[faceCount];
-                for (int i = 0; i < faceCount; i++)
+                var faces = new Face[faceCount];
+                for (var i = 0; i < faceCount; i++)
                 {
-                    int offset = 2 + i * 8;
+                    var offset = 2 + i * 8;
                     faces[i] = new Face(reader.GetUInt16(offset), reader.GetUInt16(offset + 2), reader.GetUInt16(offset + 4), reader.GetUInt16(offset + 6), null, null);
                 }
                 return faces;
@@ -591,7 +591,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public Face[] GetRecognizedFaces()
         {
-            byte[] bytes = GetByteArray(TagFaceRecognitionInfo);
+            var bytes = GetByteArray(TagFaceRecognitionInfo);
             if (bytes == null)
             {
                 return null;
@@ -605,12 +605,12 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                 {
                     return null;
                 }
-                Face[] faces = new Face[faceCount];
-                for (int i = 0; i < faceCount; i++)
+                var faces = new Face[faceCount];
+                for (var i = 0; i < faceCount; i++)
                 {
-                    int offset = 4 + i * 44;
-                    string name = reader.GetString(offset, 20, Encoding.ASCII).Trim();
-                    string age = reader.GetString(offset + 28, 20, Encoding.ASCII).Trim();
+                    var offset = 4 + i * 44;
+                    var name = reader.GetString(offset, 20, Encoding.ASCII).Trim();
+                    var age = reader.GetString(offset + 28, 20, Encoding.ASCII).Trim();
                     faces[i] = new Face(reader.GetUInt16(offset + 20), reader.GetUInt16(offset + 22), reader.GetUInt16(offset + 24), reader.GetUInt16(offset + 26), name, Age.FromPanasonicString(age));
                 }
                 return faces;
@@ -627,7 +627,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public Age GetAge(int tag)
         {
-            string ageString = GetString(tag);
+            var ageString = GetString(tag);
             if (ageString == null)
             {
                 return null;

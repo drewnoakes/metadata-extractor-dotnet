@@ -92,15 +92,15 @@ namespace Com.Drew.Metadata.Webp
                             {
                                 // Flags
                                 //                boolean hasFragments = reader.getBit(0);
-                                bool isAnimation = reader.GetBit(1);
+                                var isAnimation = reader.GetBit(1);
                                 //                boolean hasXmp = reader.getBit(2);
                                 //                boolean hasExif = reader.getBit(3);
-                                bool hasAlpha = reader.GetBit(4);
+                                var hasAlpha = reader.GetBit(4);
                                 //                boolean hasIcc = reader.getBit(5);
                                 // Image size
-                                int widthMinusOne = reader.GetInt24(4);
-                                int heightMinusOne = reader.GetInt24(7);
-                                WebpDirectory directory = new WebpDirectory();
+                                var widthMinusOne = reader.GetInt24(4);
+                                var heightMinusOne = reader.GetInt24(7);
+                                var directory = new WebpDirectory();
                                 directory.SetInt(WebpDirectory.TagImageWidth, widthMinusOne + 1);
                                 directory.SetInt(WebpDirectory.TagImageHeight, heightMinusOne + 1);
                                 directory.SetBoolean(WebpDirectory.TagHasAlpha, hasAlpha);

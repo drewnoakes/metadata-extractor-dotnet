@@ -46,7 +46,7 @@ namespace Com.Drew.Metadata.Jfif
 
         public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
-            foreach (byte[] segmentBytes in segments)
+            foreach (var segmentBytes in segments)
             {
                 // Skip segments not starting with the required header
                 if (segmentBytes.Length >= 4 && Preamble.Equals(Encoding.UTF8.GetString(segmentBytes, 0, Preamble.Length)))
@@ -61,7 +61,7 @@ namespace Com.Drew.Metadata.Jfif
         /// </summary>
         public void Extract(IndexedReader reader, Metadata metadata)
         {
-            JfifDirectory directory = new JfifDirectory();
+            var directory = new JfifDirectory();
             metadata.AddDirectory(directory);
             try
             {

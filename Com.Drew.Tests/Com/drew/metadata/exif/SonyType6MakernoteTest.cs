@@ -32,10 +32,10 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestSonyType6Makernote()
         {
-            SonyType6MakernoteDirectory directory = ExifReaderTest.ProcessBytes<SonyType6MakernoteDirectory>("Tests/Data/sonyType6.jpg.app1.0");
+            var directory = ExifReaderTest.ProcessBytes<SonyType6MakernoteDirectory>("Tests/Data/sonyType6.jpg.app1.0");
             Assert.IsNotNull(directory);
             Assert.IsFalse(directory.HasErrors());
-            SonyType6MakernoteDescriptor descriptor = new SonyType6MakernoteDescriptor(directory);
+            var descriptor = new SonyType6MakernoteDescriptor(directory);
             Assert.AreEqual("2.00", descriptor.GetMakernoteThumbVersionDescription());
         }
     }

@@ -102,7 +102,7 @@ namespace Com.Drew.Metadata
             {
                 return false;
             }
-            Face face = (Face)o;
+            var face = (Face)o;
             if (_height != face._height)
             {
                 return false;
@@ -132,7 +132,7 @@ namespace Com.Drew.Metadata
 
         public override int GetHashCode()
         {
-            int result = _x;
+            var result = _x;
             result = 31 * result + _y;
             result = 31 * result + _width;
             result = 31 * result + _height;
@@ -143,7 +143,7 @@ namespace Com.Drew.Metadata
 
         public override string ToString()
         {
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
             result.Append("x: ").Append(_x);
             result.Append(" y: ").Append(_y);
             result.Append(" width: ").Append(_width);

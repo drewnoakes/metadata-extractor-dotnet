@@ -108,7 +108,7 @@ namespace Com.Adobe.Xmp
         {
             AssertFieldNs(fieldNs);
             AssertFieldName(fieldName);
-            XmpPath fieldPath = XmpPathParser.ExpandXPath(fieldNs, fieldName);
+            var fieldPath = XmpPathParser.ExpandXPath(fieldNs, fieldName);
             if (fieldPath.Size() != 2)
             {
                 throw new XmpException("The field name must be simple", XmpErrorCode.BadXPath);
@@ -136,7 +136,7 @@ namespace Com.Adobe.Xmp
         {
             AssertQualNs(qualNs);
             AssertQualName(qualName);
-            XmpPath qualPath = XmpPathParser.ExpandXPath(qualNs, qualName);
+            var qualPath = XmpPathParser.ExpandXPath(qualNs, qualName);
             if (qualPath.Size() != 2)
             {
                 throw new XmpException("The qualifier name must be simple", XmpErrorCode.BadXPath);
@@ -215,7 +215,7 @@ namespace Com.Adobe.Xmp
         /// <exception cref="XmpException"/>
         public static string ComposeFieldSelector(string arrayName, string fieldNs, string fieldName, string fieldValue)
         {
-            XmpPath fieldPath = XmpPathParser.ExpandXPath(fieldNs, fieldName);
+            var fieldPath = XmpPathParser.ExpandXPath(fieldNs, fieldName);
             if (fieldPath.Size() != 2)
             {
                 throw new XmpException("The fieldName name must be simple", XmpErrorCode.BadXPath);

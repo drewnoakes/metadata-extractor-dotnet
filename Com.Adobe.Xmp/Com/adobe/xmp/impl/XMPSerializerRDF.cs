@@ -101,7 +101,7 @@ namespace Com.Adobe.Xmp.Impl
                 CheckOptionsConsistence();
                 // serializes the whole packet, but don't write the tail yet
                 // and flush to make sure that the written bytes are calculated correctly
-                string tailStr = SerializeAsRdf();
+                var tailStr = SerializeAsRdf();
                 _writer.Flush();
                 // adds padding
                 AddPadding(tailStr.Length);
@@ -125,7 +125,7 @@ namespace Com.Adobe.Xmp.Impl
             if (_options.ExactPacketLength)
             {
                 // the string length is equal to the length of the UTF-8 encoding
-                int minSize = checked((int)(_stream.Position - _startPos)) + tailLength * _unicodeSize;
+                var minSize = checked((int)(_stream.Position - _startPos)) + tailLength * _unicodeSize;
                 if (minSize > _padding)
                 {
                     throw new XmpException("Can't fit into specified packet size", XmpErrorCode.BadSerialize);
@@ -135,7 +135,7 @@ namespace Com.Adobe.Xmp.Impl
             // Now the actual amount of padding to add.
             // fix rest of the padding according to Unicode unit size.
             _padding /= _unicodeSize;
-            int newlineLen = _options.Newline.Length;
+            var newlineLen = _options.Newline.Length;
             if (_padding >= newlineLen)
             {
                 _padding -= newlineLen;
@@ -218,7 +218,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException"></exception>
         private string SerializeAsRdf()
         {
-            int level = 0;
+            var level = 0;
             // Write the packet header PI.
             if (!_options.OmitPacketWrapper)
             {
@@ -262,7 +262,7 @@ namespace Com.Adobe.Xmp.Impl
                 WriteNewline();
             }
             // Write the packet trailer PI into the tail string as UTF-8.
-            string tailStr = string.Empty;
+            var tailStr = string.Empty;
             if (!_options.OmitPacketWrapper)
             {
                 for (level = _options.BaseIndent; level > 0; level--)
@@ -285,9 +285,9 @@ namespace Com.Adobe.Xmp.Impl
             if (_xmp.GetRoot().GetChildrenLength() > 0)
             {
                 StartOuterRdfDescription(_xmp.GetRoot(), level);
-                for (IIterator it = _xmp.GetRoot().IterateChildren(); it.HasNext(); )
+                for (var it = _xmp.GetRoot().IterateChildren(); it.HasNext(); )
                 {
-                    XmpNode currSchema = (XmpNode)it.Next();
+                    var currSchema = (XmpNode)it.Next();
                     SerializeCanonicalRdfSchema(currSchema, level);
                 }
                 EndOuterRdfDescription(level);
@@ -307,7 +307,7 @@ namespace Com.Adobe.Xmp.Impl
         private void WriteTreeName()
         {
             Write('"');
-            string name = _xmp.GetRoot().Name;
+            var name = _xmp.GetRoot().Name;
             if (name != null)
             {
                 AppendNodeValue(name, true);
@@ -329,16 +329,16 @@ namespace Com.Adobe.Xmp.Impl
             ICollection<object> usedPrefixes = new HashSet<object>();
             usedPrefixes.Add("xml");
             usedPrefixes.Add("rdf");
-            for (IIterator it = _xmp.GetRoot().IterateChildren(); it.HasNext(); )
+            for (var it = _xmp.GetRoot().IterateChildren(); it.HasNext(); )
             {
-                XmpNode schema = (XmpNode)it.Next();
+                var schema = (XmpNode)it.Next();
                 DeclareUsedNamespaces(schema, usedPrefixes, level + 3);
             }
             // Write the top level "attrProps" and close the rdf:Description start tag.
-            bool allAreAttrs = true;
-            for (IIterator it1 = _xmp.GetRoot().IterateChildren(); it1.HasNext(); )
+            var allAreAttrs = true;
+            for (var it1 = _xmp.GetRoot().IterateChildren(); it1.HasNext(); )
             {
-                XmpNode schema = (XmpNode)it1.Next();
+                var schema = (XmpNode)it1.Next();
                 allAreAttrs &= SerializeCompactRdfAttrProps(schema, level + 2);
             }
             if (!allAreAttrs)
@@ -354,9 +354,9 @@ namespace Com.Adobe.Xmp.Impl
             }
             // ! Done if all properties in all schema are written as attributes.
             // Write the remaining properties for each schema.
-            for (IIterator it2 = _xmp.GetRoot().IterateChildren(); it2.HasNext(); )
+            for (var it2 = _xmp.GetRoot().IterateChildren(); it2.HasNext(); )
             {
-                XmpNode schema = (XmpNode)it2.Next();
+                var schema = (XmpNode)it2.Next();
                 SerializeCompactRdfElementProps(schema, level + 2);
             }
             // Write the rdf:Description end tag.
@@ -376,10 +376,10 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="System.IO.IOException"/>
         private bool SerializeCompactRdfAttrProps(XmpNode parentNode, int indent)
         {
-            bool allAreAttrs = true;
-            for (IIterator it = parentNode.IterateChildren(); it.HasNext(); )
+            var allAreAttrs = true;
+            for (var it = parentNode.IterateChildren(); it.HasNext(); )
             {
-                XmpNode prop = (XmpNode)it.Next();
+                var prop = (XmpNode)it.Next();
                 if (CanBeRdfAttrProp(prop))
                 {
                     WriteNewline();
@@ -443,19 +443,19 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">If qualifier and element fields are mixed.</exception>
         private void SerializeCompactRdfElementProps(XmpNode parentNode, int indent)
         {
-            for (IIterator it = parentNode.IterateChildren(); it.HasNext(); )
+            for (var it = parentNode.IterateChildren(); it.HasNext(); )
             {
-                XmpNode node = (XmpNode)it.Next();
+                var node = (XmpNode)it.Next();
                 if (CanBeRdfAttrProp(node))
                 {
                     continue;
                 }
-                bool emitEndTag = true;
-                bool indentEndTag = true;
+                var emitEndTag = true;
+                var indentEndTag = true;
                 // Determine the XML element name, write the name part of the start tag. Look over the
                 // qualifiers to decide on "normal" versus "rdf:value" form. Emit the attribute
                 // qualifiers at the same time.
-                string elemName = node.Name;
+                var elemName = node.Name;
                 if (XmpConstConstants.ArrayItemName.Equals(elemName))
                 {
                     elemName = "rdf:li";
@@ -463,11 +463,11 @@ namespace Com.Adobe.Xmp.Impl
                 WriteIndent(indent);
                 Write('<');
                 Write(elemName);
-                bool hasGeneralQualifiers = false;
-                bool hasRdfResourceQual = false;
-                for (IIterator iq = node.IterateQualifier(); iq.HasNext(); )
+                var hasGeneralQualifiers = false;
+                var hasRdfResourceQual = false;
+                for (var iq = node.IterateQualifier(); iq.HasNext(); )
                 {
-                    XmpNode qualifier = (XmpNode)iq.Next();
+                    var qualifier = (XmpNode)iq.Next();
                     if (!RdfAttrQualifier.Contains(qualifier.Name))
                     {
                         hasGeneralQualifiers = true;
@@ -492,7 +492,7 @@ namespace Com.Adobe.Xmp.Impl
                     // This node has only attribute qualifiers. Emit as a property element.
                     if (!node.Options.IsCompositeProperty)
                     {
-                        object[] result = SerializeCompactRdfSimpleProp(node);
+                        var result = SerializeCompactRdfSimpleProp(node);
                         emitEndTag = ((bool)result[0]);
                         indentEndTag = ((bool)result[1]);
                     }
@@ -530,8 +530,8 @@ namespace Com.Adobe.Xmp.Impl
         private object[] SerializeCompactRdfSimpleProp(XmpNode node)
         {
             // This is a simple property.
-            bool emitEndTag = true;
-            bool indentEndTag = true;
+            var emitEndTag = true;
+            var indentEndTag = true;
             if (node.Options.IsUri)
             {
                 Write(" rdf:resource=\"");
@@ -587,12 +587,12 @@ namespace Com.Adobe.Xmp.Impl
         private bool SerializeCompactRdfStructProp(XmpNode node, int indent, bool hasRdfResourceQual)
         {
             // This must be a struct.
-            bool hasAttrFields = false;
-            bool hasElemFields = false;
-            bool emitEndTag = true;
-            for (IIterator ic = node.IterateChildren(); ic.HasNext(); )
+            var hasAttrFields = false;
+            var hasElemFields = false;
+            var emitEndTag = true;
+            for (var ic = node.IterateChildren(); ic.HasNext(); )
             {
-                XmpNode field = (XmpNode)ic.Next();
+                var field = (XmpNode)ic.Next();
                 if (CanBeRdfAttrProp(field))
                 {
                     hasAttrFields = true;
@@ -677,9 +677,9 @@ namespace Com.Adobe.Xmp.Impl
             Write(" rdf:parseType=\"Resource\">");
             WriteNewline();
             SerializeCanonicalRdfProperty(node, false, true, indent + 1);
-            for (IIterator iq = node.IterateQualifier(); iq.HasNext(); )
+            for (var iq = node.IterateQualifier(); iq.HasNext(); )
             {
-                XmpNode qualifier = (XmpNode)iq.Next();
+                var qualifier = (XmpNode)iq.Next();
                 SerializeCanonicalRdfProperty(qualifier, false, false, indent + 1);
             }
         }
@@ -715,9 +715,9 @@ namespace Com.Adobe.Xmp.Impl
         private void SerializeCanonicalRdfSchema(XmpNode schemaNode, int level)
         {
             // Write each of the schema's actual properties.
-            for (IIterator it = schemaNode.IterateChildren(); it.HasNext(); )
+            for (var it = schemaNode.IterateChildren(); it.HasNext(); )
             {
-                XmpNode propNode = (XmpNode)it.Next();
+                var propNode = (XmpNode)it.Next();
                 SerializeCanonicalRdfProperty(propNode, _options.UseCanonicalFormat, false, level + 2);
             }
         }
@@ -736,28 +736,28 @@ namespace Com.Adobe.Xmp.Impl
             if (node.Options.IsSchemaNode)
             {
                 // The schema node name is the URI, the value is the prefix.
-                string prefix = node.Value.Substring (0, node.Value.Length - 1 - 0);
+                var prefix = node.Value.Substring (0, node.Value.Length - 1 - 0);
                 DeclareNamespace(prefix, node.Name, usedPrefixes, indent);
             }
             else
             {
                 if (node.Options.IsStruct)
                 {
-                    for (IIterator it = node.IterateChildren(); it.HasNext(); )
+                    for (var it = node.IterateChildren(); it.HasNext(); )
                     {
-                        XmpNode field = (XmpNode)it.Next();
+                        var field = (XmpNode)it.Next();
                         DeclareNamespace(field.Name, null, usedPrefixes, indent);
                     }
                 }
             }
-            for (IIterator it1 = node.IterateChildren(); it1.HasNext(); )
+            for (var it1 = node.IterateChildren(); it1.HasNext(); )
             {
-                XmpNode child = (XmpNode)it1.Next();
+                var child = (XmpNode)it1.Next();
                 DeclareUsedNamespaces(child, usedPrefixes, indent);
             }
-            for (IIterator it2 = node.IterateQualifier(); it2.HasNext(); )
+            for (var it2 = node.IterateQualifier(); it2.HasNext(); )
             {
-                XmpNode qualifier = (XmpNode)it2.Next();
+                var qualifier = (XmpNode)it2.Next();
                 DeclareNamespace(qualifier.Name, null, usedPrefixes, indent);
                 DeclareUsedNamespaces(qualifier, usedPrefixes, indent);
             }
@@ -774,7 +774,7 @@ namespace Com.Adobe.Xmp.Impl
             if (@namespace == null)
             {
                 // prefix contains qname, extract prefix and lookup namespace with prefix
-                QName qname = new QName(prefix);
+                var qname = new QName(prefix);
                 if (qname.HasPrefix())
                 {
                     prefix = qname.GetPrefix();
@@ -875,11 +875,11 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">If &quot;rdf:resource&quot; and general qualifiers are mixed.</exception>
         private void SerializeCanonicalRdfProperty(XmpNode node, bool useCanonicalRdf, bool emitAsRdfValue, int indent)
         {
-            bool emitEndTag = true;
-            bool indentEndTag = true;
+            var emitEndTag = true;
+            var indentEndTag = true;
             // Determine the XML element name. Open the start tag with the name and
             // attribute qualifiers.
-            string elemName = node.Name;
+            var elemName = node.Name;
             if (emitAsRdfValue)
             {
                 elemName = "rdf:value";
@@ -894,11 +894,11 @@ namespace Com.Adobe.Xmp.Impl
             WriteIndent(indent);
             Write('<');
             Write(elemName);
-            bool hasGeneralQualifiers = false;
-            bool hasRdfResourceQual = false;
-            for (IIterator it = node.IterateQualifier(); it.HasNext(); )
+            var hasGeneralQualifiers = false;
+            var hasRdfResourceQual = false;
+            for (var it = node.IterateQualifier(); it.HasNext(); )
             {
-                XmpNode qualifier = (XmpNode)it.Next();
+                var qualifier = (XmpNode)it.Next();
                 if (!RdfAttrQualifier.Contains(qualifier.Name))
                 {
                     hasGeneralQualifiers = true;
@@ -944,9 +944,9 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 WriteNewline();
                 SerializeCanonicalRdfProperty(node, useCanonicalRdf, true, indent + 1);
-                for (IIterator it1 = node.IterateQualifier(); it1.HasNext(); )
+                for (var it1 = node.IterateQualifier(); it1.HasNext(); )
                 {
-                    XmpNode qualifier = (XmpNode)it1.Next();
+                    var qualifier = (XmpNode)it1.Next();
                     if (!RdfAttrQualifier.Contains(qualifier.Name))
                     {
                         SerializeCanonicalRdfProperty(qualifier, useCanonicalRdf, false, indent + 1);
@@ -1002,9 +1002,9 @@ namespace Com.Adobe.Xmp.Impl
                         {
                             XmpNodeUtils.NormalizeLangArray(node);
                         }
-                        for (IIterator it1 = node.IterateChildren(); it1.HasNext(); )
+                        for (var it1 = node.IterateChildren(); it1.HasNext(); )
                         {
-                            XmpNode child = (XmpNode)it1.Next();
+                            var child = (XmpNode)it1.Next();
                             SerializeCanonicalRdfProperty(child, useCanonicalRdf, false, indent + 2);
                         }
                         EmitRdfArrayTag(node, false, indent + 1);
@@ -1050,9 +1050,9 @@ namespace Com.Adobe.Xmp.Impl
                                     Write(" rdf:parseType=\"Resource\">");
                                 }
                                 WriteNewline();
-                                for (IIterator it1 = node.IterateChildren(); it1.HasNext(); )
+                                for (var it1 = node.IterateChildren(); it1.HasNext(); )
                                 {
-                                    XmpNode child = (XmpNode)it1.Next();
+                                    var child = (XmpNode)it1.Next();
                                     SerializeCanonicalRdfProperty(child, useCanonicalRdf, false, indent + 1);
                                 }
                                 if (useCanonicalRdf)
@@ -1068,9 +1068,9 @@ namespace Com.Adobe.Xmp.Impl
                         {
                             // This is a struct with an rdf:resource attribute, use the
                             // "empty property element" form.
-                            for (IIterator it1 = node.IterateChildren(); it1.HasNext(); )
+                            for (var it1 = node.IterateChildren(); it1.HasNext(); )
                             {
-                                XmpNode child = (XmpNode)it1.Next();
+                                var child = (XmpNode)it1.Next();
                                 if (!CanBeRdfAttrProp(child))
                                 {
                                     throw new XmpException("Can't mix rdf:resource and complex fields", XmpErrorCode.BadRdf);
@@ -1183,7 +1183,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="System.IO.IOException">forwards exception</exception>
         private void WriteIndent(int times)
         {
-            for (int i = _options.BaseIndent + times; i > 0; i--)
+            for (var i = _options.BaseIndent + times; i > 0; i--)
             {
                 _writer.Write(_options.Indent);
             }

@@ -59,7 +59,7 @@ namespace Com.Adobe.Xmp.Impl
             // forces the encoding to be UTF-16 to get the correct string length
             options = options ?? new SerializeOptions();
             options.EncodeUtf16Be = true;
-            MemoryStream @out = new MemoryStream(2048);
+            var @out = new MemoryStream(2048);
             Serialize(xmp, @out, options);
             try
             {
@@ -84,7 +84,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">on serializsation errors.</exception>
         public static byte[] SerializeToBuffer(XmpMeta xmp, SerializeOptions options)
         {
-            MemoryStream @out = new MemoryStream(2048);
+            var @out = new MemoryStream(2048);
             Serialize(xmp, @out, options);
             return @out.ToArray();
         }

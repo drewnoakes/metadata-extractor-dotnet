@@ -32,10 +32,10 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestSonyType1Makernote()
         {
-            SonyType1MakernoteDirectory directory = ExifReaderTest.ProcessBytes<SonyType1MakernoteDirectory>("Tests/Data/sonyType1.jpg.app1");
+            var directory = ExifReaderTest.ProcessBytes<SonyType1MakernoteDirectory>("Tests/Data/sonyType1.jpg.app1");
             Assert.IsNotNull(directory);
             Assert.IsFalse(directory.HasErrors());
-            SonyType1MakernoteDescriptor descriptor = new SonyType1MakernoteDescriptor(directory);
+            var descriptor = new SonyType1MakernoteDescriptor(directory);
             Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagColorTemperature));
             Assert.IsNull(descriptor.GetColorTemperatureDescription());
             Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagSceneMode));

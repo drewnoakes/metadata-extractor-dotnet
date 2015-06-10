@@ -58,7 +58,7 @@ namespace Com.Drew.Metadata.Exif
         public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
             Debug.Assert((segmentType == JpegSegmentType.App1));
-            foreach (byte[] segmentBytes in segments)
+            foreach (var segmentBytes in segments)
             {
                 // Filter any segments containing unexpected preambles
                 if (segmentBytes.Length < JpegSegmentPreamble.Length || Encoding.UTF8.GetString(segmentBytes, 0, JpegSegmentPreamble.Length) != JpegSegmentPreamble)

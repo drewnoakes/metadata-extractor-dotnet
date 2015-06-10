@@ -182,13 +182,13 @@ namespace Com.Adobe.Xmp
                 {
                     try
                     {
-                        int major = 5;
-                        int minor = 1;
-                        int micro = 0;
-                        int engBuild = 3;
-                        bool debug = false;
+                        var major = 5;
+                        var minor = 1;
+                        var micro = 0;
+                        var engBuild = 3;
+                        var debug = false;
                         // Adobe XMP Core 5.0-jc001 DEBUG-<branch>.<changelist>, 2009 Jan 28 15:22:38-CET
-                        string message = "Adobe XMP Core 5.1.0-jc003";
+                        var message = "Adobe XMP Core 5.1.0-jc003";
                         _versionInfo = new XmpVersionInfo274(major, minor, micro, debug, engBuild, message);
                     }
                     catch (Exception e)

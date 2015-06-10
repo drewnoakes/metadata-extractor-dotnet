@@ -73,7 +73,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             Debug.Assert(tree.Parent == null);
             // make sure that its the root
-            XmpNode schemaNode = tree.FindChildByName(namespaceUri);
+            var schemaNode = tree.FindChildByName(namespaceUri);
             if (schemaNode == null && createNodes)
             {
                 var po = new PropertyOptions();
@@ -81,7 +81,7 @@ namespace Com.Adobe.Xmp.Impl
                 schemaNode = new XmpNode(namespaceUri, po);
                 schemaNode.IsImplicit = true;
                 // only previously registered schema namespaces are allowed in the XMP tree.
-                string prefix = XmpMetaFactory.GetSchemaRegistry().GetNamespacePrefix(namespaceUri);
+                var prefix = XmpMetaFactory.GetSchemaRegistry().GetNamespacePrefix(namespaceUri);
                 if (prefix == null)
                 {
                     if (!string.IsNullOrEmpty(suggestedPrefix))
@@ -126,10 +126,10 @@ namespace Com.Adobe.Xmp.Impl
                     parent.Options.IsStruct = true;
                 }
             }
-            XmpNode childNode = parent.FindChildByName(childName);
+            var childNode = parent.FindChildByName(childName);
             if (childNode == null && createNodes)
             {
-                PropertyOptions options = new PropertyOptions();
+                var options = new PropertyOptions();
                 childNode = new XmpNode(childName, options);
                 childNode.IsImplicit = true;
                 parent.AddChild(childNode);
@@ -181,7 +181,7 @@ namespace Com.Adobe.Xmp.Impl
             // Now follow the remaining steps of the original XMPPath.
             try
             {
-                for (int i = 1; i < xpath.Size(); i++)
+                for (var i = 1; i < xpath.Size(); i++)
                 {
                     currNode = FollowXPathStep(currNode, xpath.GetSegment(i), createNodes);
                     if (currNode == null)
@@ -245,7 +245,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="node">the top-most node to delete.</param>
         internal static void DeleteNode(XmpNode node)
         {
-            XmpNode parent = node.Parent;
+            var parent = node.Parent;
             if (node.Options.IsQualifier)
             {
                 // root is qualifier
@@ -268,7 +268,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="value">a value</param>
         internal static void SetNodeValue(XmpNode node, object value)
         {
-            string strValue = SerializeNodeValue(value);
+            var strValue = SerializeNodeValue(value);
             if (!(node.Options.IsQualifier && XmpConstConstants.XmlLang.Equals(node.Name)))
             {
                 node.Value = strValue;
@@ -365,7 +365,7 @@ namespace Com.Adobe.Xmp.Impl
                                     var calendar = value as GregorianCalendar;
                                     if (calendar != null)
                                     {
-                                        IXmpDateTime dt = XmpDateTimeFactory.CreateFromCalendar(calendar);
+                                        var dt = XmpDateTimeFactory.CreateFromCalendar(calendar);
                                         strValue = Xmp.XmpUtils.ConvertFromDate(dt);
                                     }
                                     else
@@ -412,8 +412,8 @@ namespace Com.Adobe.Xmp.Impl
         private static XmpNode FollowXPathStep(XmpNode parentNode, XmpPathSegment nextStep, bool createNodes)
         {
             XmpNode nextNode = null;
-            int index = 0;
-            int stepKind = nextStep.GetKind();
+            var index = 0;
+            var stepKind = nextStep.GetKind();
             if (stepKind == XmpPath.StructFieldStep)
             {
                 nextNode = FindChildNode(parentNode, nextStep.GetName(), createNodes);
@@ -445,18 +445,18 @@ namespace Com.Adobe.Xmp.Impl
                         {
                             if (stepKind == XmpPath.FieldSelectorStep)
                             {
-                                string[] result = Utils.SplitNameAndValue(nextStep.GetName());
-                                string fieldName = result[0];
-                                string fieldValue = result[1];
+                                var result = Utils.SplitNameAndValue(nextStep.GetName());
+                                var fieldName = result[0];
+                                var fieldValue = result[1];
                                 index = LookupFieldSelector(parentNode, fieldName, fieldValue);
                             }
                             else
                             {
                                 if (stepKind == XmpPath.QualSelectorStep)
                                 {
-                                    string[] result = Utils.SplitNameAndValue(nextStep.GetName());
-                                    string qualName = result[0];
-                                    string qualValue = result[1];
+                                    var result = Utils.SplitNameAndValue(nextStep.GetName());
+                                    var qualName = result[0];
+                                    var qualValue = result[1];
                                     index = LookupQualSelector(parentNode, qualName, qualValue, nextStep.GetAliasForm());
                                 }
                                 else
@@ -492,7 +492,7 @@ namespace Com.Adobe.Xmp.Impl
         private static XmpNode FindQualifierNode(XmpNode parent, string qualName, bool createNodes)
         {
             Debug.Assert(!qualName.StartsWith("?"));
-            XmpNode qualNode = parent.FindQualifierByName(qualName);
+            var qualNode = parent.FindQualifierByName(qualName);
             if (qualNode == null && createNodes)
             {
                 qualNode = new XmpNode(qualName, null);
@@ -509,7 +509,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">Throws Exceptions</exception>
         private static int FindIndexedItem(XmpNode arrayNode, string segment, bool createNodes)
         {
-            int index = 0;
+            var index = 0;
             try
             {
                 segment = segment.Substring (1, segment.Length - 1 - 1);
@@ -526,7 +526,7 @@ namespace Com.Adobe.Xmp.Impl
             if (createNodes && index == arrayNode.GetChildrenLength() + 1)
             {
                 // Append a new last + 1 node.
-                XmpNode newItem = new XmpNode(XmpConstConstants.ArrayItemName, null);
+                var newItem = new XmpNode(XmpConstConstants.ArrayItemName, null);
                 newItem.IsImplicit = true;
                 arrayNode.AddChild(newItem);
             }
@@ -549,17 +549,17 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException"></exception>
         private static int LookupFieldSelector(XmpNode arrayNode, string fieldName, string fieldValue)
         {
-            int result = -1;
-            for (int index = 1; index <= arrayNode.GetChildrenLength() && result < 0; index++)
+            var result = -1;
+            for (var index = 1; index <= arrayNode.GetChildrenLength() && result < 0; index++)
             {
-                XmpNode currItem = arrayNode.GetChild(index);
+                var currItem = arrayNode.GetChild(index);
                 if (!currItem.Options.IsStruct)
                 {
                     throw new XmpException("Field selector must be used on array of struct", XmpErrorCode.BadXPath);
                 }
-                for (int f = 1; f <= currItem.GetChildrenLength(); f++)
+                for (var f = 1; f <= currItem.GetChildrenLength(); f++)
                 {
-                    XmpNode currField = currItem.GetChild(f);
+                    var currField = currItem.GetChild(f);
                     if (!fieldName.Equals(currField.Name))
                     {
                         continue;
@@ -598,23 +598,23 @@ namespace Com.Adobe.Xmp.Impl
             if (XmpConstConstants.XmlLang.Equals(qualName))
             {
                 qualValue = Utils.NormalizeLangValue(qualValue);
-                int index = LookupLanguageItem(arrayNode, qualValue);
+                var index = LookupLanguageItem(arrayNode, qualValue);
                 if (index < 0 && (aliasForm & AliasOptions.PropArrayAltText) > 0)
                 {
-                    XmpNode langNode = new XmpNode(XmpConstConstants.ArrayItemName, null);
-                    XmpNode xdefault = new XmpNode(XmpConstConstants.XmlLang, XmpConstConstants.XDefault, null);
+                    var langNode = new XmpNode(XmpConstConstants.ArrayItemName, null);
+                    var xdefault = new XmpNode(XmpConstConstants.XmlLang, XmpConstConstants.XDefault, null);
                     langNode.AddQualifier(xdefault);
                     arrayNode.AddChild(1, langNode);
                     return 1;
                 }
                 return index;
             }
-            for (int index = 1; index < arrayNode.GetChildrenLength(); index++)
+            for (var index = 1; index < arrayNode.GetChildrenLength(); index++)
             {
-                XmpNode currItem = arrayNode.GetChild(index);
-                for (IIterator it = currItem.IterateQualifier(); it.HasNext(); )
+                var currItem = arrayNode.GetChild(index);
+                for (var it = currItem.IterateQualifier(); it.HasNext(); )
                 {
-                    XmpNode qualifier = (XmpNode)it.Next();
+                    var qualifier = (XmpNode)it.Next();
                     if (qualName.Equals(qualifier.Name) && qualValue.Equals(qualifier.Value))
                     {
                         return index;
@@ -640,9 +640,9 @@ namespace Com.Adobe.Xmp.Impl
                 return;
             }
             // check if node with x-default qual is first place
-            for (int i = 2; i <= arrayNode.GetChildrenLength(); i++)
+            for (var i = 2; i <= arrayNode.GetChildrenLength(); i++)
             {
-                XmpNode child = arrayNode.GetChild(i);
+                var child = arrayNode.GetChild(i);
                 if (child.HasQualifier && XmpConstConstants.XDefault.Equals(child.GetQualifier(1).Value))
                 {
                     // move node to first place
@@ -675,10 +675,10 @@ namespace Com.Adobe.Xmp.Impl
         {
             if (arrayNode.Options.IsArrayAlternate && arrayNode.HasChildren)
             {
-                bool isAltText = false;
-                for (IIterator it = arrayNode.IterateChildren(); it.HasNext(); )
+                var isAltText = false;
+                for (var it = arrayNode.IterateChildren(); it.HasNext(); )
                 {
-                    XmpNode child = (XmpNode)it.Next();
+                    var child = (XmpNode)it.Next();
                     if (child.Options.HasLanguage)
                     {
                         isAltText = true;
@@ -700,8 +700,8 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">Thrown if a duplicate property is added</exception>
         internal static void AppendLangItem(XmpNode arrayNode, string itemLang, string itemValue)
         {
-            XmpNode newItem = new XmpNode(XmpConstConstants.ArrayItemName, itemValue, null);
-            XmpNode langQual = new XmpNode(XmpConstConstants.XmlLang, itemLang, null);
+            var newItem = new XmpNode(XmpConstConstants.ArrayItemName, itemValue, null);
+            var langQual = new XmpNode(XmpConstConstants.XmlLang, itemLang, null);
             newItem.AddQualifier(langQual);
             if (!XmpConstConstants.XDefault.Equals(langQual.Value))
             {
@@ -743,13 +743,13 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return new object[] { CltNoValues, null };
             }
-            int foundGenericMatches = 0;
+            var foundGenericMatches = 0;
             XmpNode resultNode = null;
             XmpNode xDefault = null;
             // Look for the first partial match with the generic language.
-            for (IIterator it = arrayNode.IterateChildren(); it.HasNext(); )
+            for (var it = arrayNode.IterateChildren(); it.HasNext(); )
             {
-                XmpNode currItem = (XmpNode)it.Next();
+                var currItem = (XmpNode)it.Next();
                 // perform some checks on the current item
                 if (currItem.Options.IsCompositeProperty)
                 {
@@ -759,7 +759,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     throw new XmpException("Alt-text array item has no language qualifier", XmpErrorCode.BadXPath);
                 }
-                string currLang = currItem.GetQualifier(1).Value;
+                var currLang = currItem.GetQualifier(1).Value;
                 // Look for an exact match with the specific language.
                 if (specificLang.Equals(currLang))
                 {
@@ -810,9 +810,9 @@ namespace Com.Adobe.Xmp.Impl
             {
                 throw new XmpException("Language item must be used on array", XmpErrorCode.BadXPath);
             }
-            for (int index = 1; index <= arrayNode.GetChildrenLength(); index++)
+            for (var index = 1; index <= arrayNode.GetChildrenLength(); index++)
             {
-                XmpNode child = arrayNode.GetChild(index);
+                var child = arrayNode.GetChild(index);
                 if (!child.HasQualifier || !XmpConstConstants.XmlLang.Equals(child.GetQualifier(1).Name))
                 {
                     continue;

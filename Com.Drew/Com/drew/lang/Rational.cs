@@ -207,13 +207,13 @@ namespace Com.Drew.Lang
             if (_numerator != 1 && _denominator % _numerator == 0)
             {
                 // common factor between denominator and numerator
-                long newDenominator = _denominator / _numerator;
+                var newDenominator = _denominator / _numerator;
                 return new Rational(1, newDenominator).ToSimpleString(allowDecimal);
             }
-            Rational simplifiedInstance = GetSimplifiedInstance();
+            var simplifiedInstance = GetSimplifiedInstance();
             if (allowDecimal)
             {
-                string doubleString = ((object)simplifiedInstance.DoubleValue()).ToString();
+                var doubleString = ((object)simplifiedInstance.DoubleValue()).ToString();
                 if (doubleString.Length < 5)
                 {
                     return doubleString;
@@ -229,8 +229,8 @@ namespace Com.Drew.Lang
         /// <returns>true if the simplification should be performed, otherwise false</returns>
         private bool TooComplexForSimplification()
         {
-            double maxPossibleCalculations = (((Math.Min(_denominator, _numerator) - 1) / 5d) + 2);
-            int maxSimplificationCalculations = 1000;
+            var maxPossibleCalculations = (((Math.Min(_denominator, _numerator) - 1) / 5d) + 2);
+            var maxSimplificationCalculations = 1000;
             return maxPossibleCalculations > maxSimplificationCalculations;
         }
 
@@ -255,7 +255,7 @@ namespace Com.Drew.Lang
             {
                 return false;
             }
-            Rational that = (Rational)obj;
+            var that = (Rational)obj;
             return DoubleValue() == that.DoubleValue();
         }
 
@@ -302,7 +302,7 @@ namespace Com.Drew.Lang
             {
                 return this;
             }
-            for (int factor = 2; factor <= Math.Min(_denominator, _numerator); factor++)
+            for (var factor = 2; factor <= Math.Min(_denominator, _numerator); factor++)
             {
                 if ((factor % 2 == 0 && factor > 2) || (factor % 5 == 0 && factor > 5))
                 {

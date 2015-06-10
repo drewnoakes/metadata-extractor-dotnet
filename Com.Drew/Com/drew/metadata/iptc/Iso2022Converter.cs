@@ -60,7 +60,7 @@ namespace Com.Drew.Metadata.Iptc
         internal static Encoding GuessEncoding([NotNull] byte[] bytes)
         {
             Encoding[] encodings = { Encoding.UTF8, Encoding.ASCII, Encoding.GetEncoding("iso-8859-1") };
-            foreach (Encoding encoding in encodings)
+            foreach (var encoding in encodings)
             {
                 try
                 {

@@ -36,9 +36,9 @@ namespace Com.Drew.Metadata.Adobe
         [NotNull]
         public static AdobeJpegDirectory ProcessBytes([NotNull] string filePath)
         {
-            Metadata metadata = new Metadata();
+            var metadata = new Metadata();
             new AdobeJpegReader().Extract(new SequentialByteArrayReader(System.IO.File.ReadAllBytes(filePath)), metadata);
-            AdobeJpegDirectory directory = metadata.GetFirstDirectoryOfType<AdobeJpegDirectory>();
+            var directory = metadata.GetFirstDirectoryOfType<AdobeJpegDirectory>();
             Assert.IsNotNull(directory);
             return directory;
         }
@@ -47,7 +47,7 @@ namespace Com.Drew.Metadata.Adobe
         [Test]
         public void TestSegmentTypes()
         {
-            AdobeJpegReader reader = new AdobeJpegReader();
+            var reader = new AdobeJpegReader();
             Assert.AreEqual(1, ((IList<JpegSegmentType>)reader.GetSegmentTypes().ToList()).Count);
             Assert.AreEqual(JpegSegmentType.Appe, ((IList<JpegSegmentType>)reader.GetSegmentTypes().ToList())[0]);
         }
@@ -56,7 +56,7 @@ namespace Com.Drew.Metadata.Adobe
         [Test]
         public void TestReadAdobeJpegMetadata1()
         {
-            AdobeJpegDirectory directory = ProcessBytes("Tests/Data/adobeJpeg1.jpg.appe");
+            var directory = ProcessBytes("Tests/Data/adobeJpeg1.jpg.appe");
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
             Assert.AreEqual(4, directory.GetTagCount());
             Assert.AreEqual(1, directory.GetInt(AdobeJpegDirectory.TagColorTransform));

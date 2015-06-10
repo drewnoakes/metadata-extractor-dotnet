@@ -72,7 +72,7 @@ namespace Com.Drew.Metadata.Ico
         [CanBeNull]
         public string GetImageWidthDescription()
         {
-            int? width = Directory.GetInteger(IcoDirectory.TagImageWidth);
+            var width = Directory.GetInteger(IcoDirectory.TagImageWidth);
             if (width == null)
             {
                 return null;
@@ -83,7 +83,7 @@ namespace Com.Drew.Metadata.Ico
         [CanBeNull]
         public string GetImageHeightDescription()
         {
-            int? width = Directory.GetInteger(IcoDirectory.TagImageHeight);
+            var width = Directory.GetInteger(IcoDirectory.TagImageHeight);
             if (width == null)
             {
                 return null;
@@ -94,7 +94,7 @@ namespace Com.Drew.Metadata.Ico
         [CanBeNull]
         public string GetColourPaletteSizeDescription()
         {
-            int? size = Directory.GetInteger(IcoDirectory.TagColourPaletteSize);
+            var size = Directory.GetInteger(IcoDirectory.TagColourPaletteSize);
             if (size == null)
             {
                 return null;

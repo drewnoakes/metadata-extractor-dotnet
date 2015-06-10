@@ -87,13 +87,13 @@ namespace Com.Drew.Metadata.Icc
         {
             try
             {
-                byte[] bytes = Directory.GetByteArray(tagType);
+                var bytes = Directory.GetByteArray(tagType);
                 if (bytes == null)
                 {
                     return Directory.GetString(tagType);
                 }
                 IndexedReader reader = new ByteArrayReader(bytes);
-                int iccTagType = reader.GetInt32(0);
+                var iccTagType = reader.GetInt32(0);
                 switch (iccTagType)
                 {
                     case IccTagTypeText:
@@ -110,7 +110,7 @@ namespace Com.Drew.Metadata.Icc
 
                     case IccTagTypeDesc:
                     {
-                        int stringLength = reader.GetInt32(8);
+                        var stringLength = reader.GetInt32(8);
                         return Encoding.UTF8.GetString(bytes, 12, stringLength - 1);
                     }
 
@@ -121,13 +121,13 @@ namespace Com.Drew.Metadata.Icc
 
                     case IccTagTypeMeas:
                     {
-                        int observerType = reader.GetInt32(8);
-                        float x = reader.GetS15Fixed16(12);
-                        float y = reader.GetS15Fixed16(16);
-                        float z = reader.GetS15Fixed16(20);
-                        int geometryType = reader.GetInt32(24);
-                        float flare = reader.GetS15Fixed16(28);
-                        int illuminantType = reader.GetInt32(32);
+                        var observerType = reader.GetInt32(8);
+                        var x = reader.GetS15Fixed16(12);
+                        var y = reader.GetS15Fixed16(16);
+                        var z = reader.GetS15Fixed16(20);
+                        var geometryType = reader.GetInt32(24);
+                        var flare = reader.GetS15Fixed16(28);
+                        var illuminantType = reader.GetInt32(32);
                         string observerString;
                         switch (observerType)
                         {
@@ -250,13 +250,13 @@ namespace Com.Drew.Metadata.Icc
 
                     case IccTagTypeXyzArray:
                     {
-                        StringBuilder res = new StringBuilder();
-                        int count = (bytes.Length - 8) / 12;
-                        for (int i = 0; i < count; i++)
+                        var res = new StringBuilder();
+                        var count = (bytes.Length - 8) / 12;
+                        for (var i = 0; i < count; i++)
                         {
-                            float x = reader.GetS15Fixed16(8 + i * 12);
-                            float y = reader.GetS15Fixed16(8 + i * 12 + 4);
-                            float z = reader.GetS15Fixed16(8 + i * 12 + 8);
+                            var x = reader.GetS15Fixed16(8 + i * 12);
+                            var y = reader.GetS15Fixed16(8 + i * 12 + 4);
+                            var z = reader.GetS15Fixed16(8 + i * 12 + 8);
                             if (i > 0)
                             {
                                 res.Append(", ");
@@ -268,16 +268,16 @@ namespace Com.Drew.Metadata.Icc
 
                     case IccTagTypeMluc:
                     {
-                        int int1 = reader.GetInt32(8);
-                        StringBuilder res = new StringBuilder();
+                        var int1 = reader.GetInt32(8);
+                        var res = new StringBuilder();
                         res.Append(int1);
                         //int int2 = reader.getInt32(12);
                         //Console.Error.WriteLine("int1: {0}, int2: {1}", int1, int2);
-                        for (int i = 0; i < int1; i++)
+                        for (var i = 0; i < int1; i++)
                         {
-                            string str = IccReader.GetStringFromInt32(reader.GetInt32(16 + i * 12));
-                            int len = reader.GetInt32(16 + i * 12 + 4);
-                            int ofs = reader.GetInt32(16 + i * 12 + 8);
+                            var str = IccReader.GetStringFromInt32(reader.GetInt32(16 + i * 12));
+                            var len = reader.GetInt32(16 + i * 12 + 4);
+                            var ofs = reader.GetInt32(16 + i * 12 + 8);
                             string name;
                             try
                             {
@@ -295,9 +295,9 @@ namespace Com.Drew.Metadata.Icc
 
                     case IccTagTypeCurv:
                     {
-                        int num = reader.GetInt32(8);
-                        StringBuilder res = new StringBuilder();
-                        for (int i = 0; i < num; i++)
+                        var num = reader.GetInt32(8);
+                        var res = new StringBuilder();
+                        for (var i = 0; i < num; i++)
                         {
                             if (i != 0)
                             {
@@ -331,12 +331,12 @@ namespace Com.Drew.Metadata.Icc
             {
                 return string.Empty + (long)Math.Round(value);
             }
-            long intPart = Math.Abs((long)value);
+            var intPart = Math.Abs((long)value);
             long rest = (int)(long)Math.Round((Math.Abs(value) - intPart) * Math.Pow(10, precision));
-            long restKept = rest;
-            string res = string.Empty;
+            var restKept = rest;
+            var res = string.Empty;
             byte cour;
-            for (int i = precision; i > 0; i--)
+            for (var i = precision; i > 0; i--)
             {
                 cour = unchecked((byte)(Math.Abs(rest % 10)));
                 rest /= 10;
@@ -346,14 +346,14 @@ namespace Com.Drew.Metadata.Icc
                 }
             }
             intPart += rest;
-            bool isNegative = ((value < 0) && (intPart != 0 || restKept != 0));
+            var isNegative = ((value < 0) && (intPart != 0 || restKept != 0));
             return (isNegative ? "-" : string.Empty) + intPart + "." + res;
         }
 
         [CanBeNull]
         private string GetRenderingIntentDescription()
         {
-            int? value = Directory.GetInteger(IccDirectory.TagRenderingIntent);
+            var value = Directory.GetInteger(IccDirectory.TagRenderingIntent);
             if (value == null)
             {
                 return null;
@@ -390,7 +390,7 @@ namespace Com.Drew.Metadata.Icc
         [CanBeNull]
         private string GetPlatformDescription()
         {
-            string str = Directory.GetString(IccDirectory.TagPlatform);
+            var str = Directory.GetString(IccDirectory.TagPlatform);
             if (str == null)
             {
                 return null;
@@ -445,7 +445,7 @@ namespace Com.Drew.Metadata.Icc
         [CanBeNull]
         private string GetProfileClassDescription()
         {
-            string str = Directory.GetString(IccDirectory.TagProfileClass);
+            var str = Directory.GetString(IccDirectory.TagProfileClass);
             if (str == null)
             {
                 return null;
@@ -509,21 +509,21 @@ namespace Com.Drew.Metadata.Icc
         [CanBeNull]
         private string GetProfileVersionDescription()
         {
-            int? value = Directory.GetInteger(IccDirectory.TagProfileVersion);
+            var value = Directory.GetInteger(IccDirectory.TagProfileVersion);
             if (value == null)
             {
                 return null;
             }
-            int m = ((int)value & unchecked((int)(0xFF000000))) >> 24;
-            int r = ((int)value & unchecked(0x00F00000)) >> 20;
-            int R = ((int)value & unchecked(0x000F0000)) >> 16;
+            var m = ((int)value & unchecked((int)(0xFF000000))) >> 24;
+            var r = ((int)value & unchecked(0x00F00000)) >> 20;
+            var R = ((int)value & unchecked(0x000F0000)) >> 16;
             return string.Format("{0}.{1}.{2}", m, r, R);
         }
 
         /// <exception cref="System.IO.IOException"/>
         private static int GetInt32FromString([NotNull] string @string)
         {
-            byte[] bytes = Encoding.UTF8.GetBytes(@string);
+            var bytes = Encoding.UTF8.GetBytes(@string);
             return new ByteArrayReader(bytes).GetInt32(0);
         }
     }

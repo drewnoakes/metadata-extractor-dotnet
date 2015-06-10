@@ -91,7 +91,7 @@ namespace Com.Drew.Metadata.Jpeg
         [CanBeNull]
         public string GetImageCompressionTypeDescription()
         {
-            int? value = Directory.GetInteger(JpegDirectory.TagCompressionType);
+            var value = Directory.GetInteger(JpegDirectory.TagCompressionType);
             if (value == null)
             {
                 return null;
@@ -179,7 +179,7 @@ namespace Com.Drew.Metadata.Jpeg
         [CanBeNull]
         public string GetImageWidthDescription()
         {
-            string value = Directory.GetString(JpegDirectory.TagImageWidth);
+            var value = Directory.GetString(JpegDirectory.TagImageWidth);
             if (value == null)
             {
                 return null;
@@ -190,7 +190,7 @@ namespace Com.Drew.Metadata.Jpeg
         [CanBeNull]
         public string GetImageHeightDescription()
         {
-            string value = Directory.GetString(JpegDirectory.TagImageHeight);
+            var value = Directory.GetString(JpegDirectory.TagImageHeight);
             if (value == null)
             {
                 return null;
@@ -201,7 +201,7 @@ namespace Com.Drew.Metadata.Jpeg
         [CanBeNull]
         public string GetDataPrecisionDescription()
         {
-            string value = Directory.GetString(JpegDirectory.TagDataPrecision);
+            var value = Directory.GetString(JpegDirectory.TagDataPrecision);
             if (value == null)
             {
                 return null;
@@ -212,7 +212,7 @@ namespace Com.Drew.Metadata.Jpeg
         [CanBeNull]
         public string GetComponentDataDescription(int componentNumber)
         {
-            JpegComponent value = Directory.GetComponent(componentNumber);
+            var value = Directory.GetComponent(componentNumber);
             if (value == null)
             {
                 return null;

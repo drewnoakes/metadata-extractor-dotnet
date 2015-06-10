@@ -120,14 +120,14 @@ namespace Com.Adobe.Xmp.Options
         {
             if (_options != 0)
             {
-                StringBuilder sb = new StringBuilder();
-                int theBits = _options;
+                var sb = new StringBuilder();
+                var theBits = _options;
                 while (theBits != 0)
                 {
-                    int oneLessBit = theBits & (theBits - 1);
+                    var oneLessBit = theBits & (theBits - 1);
                     // clear rightmost one bit
-                    int singleBit = theBits ^ oneLessBit;
-                    string bitName = GetOptionName(singleBit);
+                    var singleBit = theBits ^ oneLessBit;
+                    var bitName = GetOptionName(singleBit);
                     sb.Append(bitName);
                     if (oneLessBit != 0)
                     {
@@ -183,7 +183,7 @@ namespace Com.Adobe.Xmp.Options
         /// <exception cref="XmpException">Thrown if the options are invalid.</exception>
         private void AssertOptionsValid(int options)
         {
-            int invalidOptions = options & ~GetValidOptions();
+            var invalidOptions = options & ~GetValidOptions();
             if (invalidOptions == 0)
             {
                 AssertConsistency(options);
@@ -203,9 +203,9 @@ namespace Com.Adobe.Xmp.Options
         /// <returns>Returns the option name or undefined.</returns>
         private string GetOptionName(int option)
         {
-            IDictionary optionsNames = ProcureOptionNames();
-            int key = option;
-            string result = (string)optionsNames[key];
+            var optionsNames = ProcureOptionNames();
+            var key = option;
+            var result = (string)optionsNames[key];
             if (result == null)
             {
                 result = DefineOptionName(option);

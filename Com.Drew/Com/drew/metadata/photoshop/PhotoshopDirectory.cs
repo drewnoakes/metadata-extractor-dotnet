@@ -306,7 +306,7 @@ namespace Com.Drew.Metadata.Photoshop
         [CanBeNull]
         public byte[] GetThumbnailBytes()
         {
-            byte[] storedBytes = GetByteArray(TagThumbnail);
+            var storedBytes = GetByteArray(TagThumbnail);
             if (storedBytes == null)
             {
                 storedBytes = GetByteArray(TagThumbnailOld);
@@ -315,8 +315,8 @@ namespace Com.Drew.Metadata.Photoshop
             {
                 return null;
             }
-            int thumbSize = storedBytes.Length - 28;
-            byte[] thumbBytes = new byte[thumbSize];
+            var thumbSize = storedBytes.Length - 28;
+            var thumbBytes = new byte[thumbSize];
             Array.Copy(storedBytes, 28, thumbBytes, 0, thumbSize);
             return thumbBytes;
         }

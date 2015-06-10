@@ -21,7 +21,7 @@ namespace Com.Drew.Imaging.Png
         [Test]
         public void TestExtractMspaint()
         {
-            IList<PngChunk> chunks = ProcessFile("Tests/Data/mspaint-8x10.png");
+            var chunks = ProcessFile("Tests/Data/mspaint-8x10.png");
             Assert.AreEqual(6, chunks.Count);
             Assert.AreEqual(PngChunkType.Ihdr, chunks[0].ChunkType);
             Assert.AreEqual(13, chunks[0].Bytes.Length);
@@ -41,7 +41,7 @@ namespace Com.Drew.Imaging.Png
         [Test]
         public void TestExtractPhotoshop()
         {
-            IList<PngChunk> chunks = ProcessFile("Tests/Data/photoshop-8x12-rgba32.png");
+            var chunks = ProcessFile("Tests/Data/photoshop-8x12-rgba32.png");
             Assert.AreEqual(5, chunks.Count);
             Assert.AreEqual(PngChunkType.Ihdr, chunks[0].ChunkType);
             Assert.AreEqual(13, chunks[0].Bytes.Length);

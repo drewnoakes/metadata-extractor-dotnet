@@ -54,8 +54,8 @@ namespace Com.Drew.Metadata.Photoshop
 
         public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
-            int preambleLength = JpegSegmentPreamble.Length;
-            foreach (byte[] segmentBytes in segments)
+            var preambleLength = JpegSegmentPreamble.Length;
+            foreach (var segmentBytes in segments)
             {
                 // Ensure data starts with the necessary preamble
                 if (segmentBytes.Length < preambleLength + 1 || !JpegSegmentPreamble.Equals(Encoding.UTF8.GetString(segmentBytes, 0, preambleLength)))
@@ -68,7 +68,7 @@ namespace Com.Drew.Metadata.Photoshop
 
         public void Extract([NotNull] SequentialReader reader, int length, [NotNull] Metadata metadata)
         {
-            PhotoshopDirectory directory = new PhotoshopDirectory();
+            var directory = new PhotoshopDirectory();
             metadata.AddDirectory(directory);
             // Data contains a sequence of Image Resource Blocks (IRBs):
             //
@@ -79,24 +79,24 @@ namespace Com.Drew.Metadata.Photoshop
             // Data    - The resource data, padded to make size even
             //
             // http://www.adobe.com/devnet-apps/photoshop/fileformatashtml/#50577409_pgfId-1037504
-            int pos = 0;
+            var pos = 0;
             while (pos < length)
             {
                 try
                 {
                     // 4 bytes for the signature.  Should always be "8BIM".
-                    string signature = reader.GetString(4);
+                    var signature = reader.GetString(4);
                     if (!signature.Equals("8BIM"))
                     {
                         throw new ImageProcessingException("Expecting 8BIM marker");
                     }
                     pos += 4;
                     // 2 bytes for the resource identifier (tag type).
-                    int tagType = reader.GetUInt16();
+                    var tagType = reader.GetUInt16();
                     // segment type
                     pos += 2;
                     // A variable number of bytes holding a pascal string (two leading bytes for length).
-                    short descriptionLength = reader.GetUInt8();
+                    var descriptionLength = reader.GetUInt8();
                     pos += 1;
                     // Some basic bounds checking
                     if (descriptionLength < 0 || descriptionLength + pos > length)
@@ -113,10 +113,10 @@ namespace Com.Drew.Metadata.Photoshop
                         pos++;
                     }
                     // 4 bytes for the size of the resource data that follows.
-                    int byteCount = reader.GetInt32();
+                    var byteCount = reader.GetInt32();
                     pos += 4;
                     // The resource data.
-                    byte[] tagBytes = reader.GetBytes(byteCount);
+                    var tagBytes = reader.GetBytes(byteCount);
                     pos += byteCount;
                     // The number of bytes is padded with a trailing zero, if needed, to make the size even.
                     if (pos % 2 != 0)

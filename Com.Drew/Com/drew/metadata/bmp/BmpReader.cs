@@ -9,7 +9,7 @@ namespace Com.Drew.Metadata.Bmp
     {
         public void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
         {
-            BmpHeaderDirectory directory = new BmpHeaderDirectory();
+            var directory = new BmpHeaderDirectory();
             metadata.AddDirectory(directory);
             // FILE HEADER
             //
@@ -58,7 +58,7 @@ namespace Com.Drew.Metadata.Bmp
             reader.SetMotorolaByteOrder(false);
             try
             {
-                int magicNumber = reader.GetUInt16();
+                var magicNumber = reader.GetUInt16();
                 if (magicNumber != unchecked(0x4D42))
                 {
                     directory.AddError("Invalid BMP magic number");
@@ -66,7 +66,7 @@ namespace Com.Drew.Metadata.Bmp
                 }
                 // skip past the rest of the file header
                 reader.Skip(4 + 2 + 2 + 4);
-                int headerSize = reader.GetInt32();
+                var headerSize = reader.GetInt32();
                 directory.SetInt(BmpHeaderDirectory.TagHeaderSize, headerSize);
                 // We expect the header size to be either 40 (BITMAPINFOHEADER) or 12 (BITMAPCOREHEADER)
                 if (headerSize == 40)

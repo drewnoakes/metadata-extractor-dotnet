@@ -63,8 +63,8 @@ namespace Com.Drew.Metadata
         [Test]
         public void TestUnderlyingInt()
         {
-            int value = 123;
-            int tagType = 321;
+            var value = 123;
+            var tagType = 321;
             _directory.SetInt(tagType, value);
             Assert.AreEqual(value, _directory.GetInt(tagType));
             Assert.AreEqual(value, _directory.GetInteger(tagType));
@@ -81,23 +81,23 @@ namespace Com.Drew.Metadata
         [Test]
         public void TestSetAndGetIntArray()
         {
-            int[] inputValues = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            int tagType = 123;
+            var inputValues = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            var tagType = 123;
             _directory.SetIntArray(tagType, inputValues);
-            int[] outputValues = _directory.GetIntArray(tagType);
+            var outputValues = _directory.GetIntArray(tagType);
             Assert.IsNotNull(outputValues);
             Assert.AreEqual(inputValues.Length, outputValues.Length);
-            for (int i = 0; i < inputValues.Length; i++)
+            for (var i = 0; i < inputValues.Length; i++)
             {
-                int inputValue = inputValues[i];
-                int outputValue = outputValues[i];
+                var inputValue = inputValues[i];
+                var outputValue = outputValues[i];
                 Assert.AreEqual(inputValue, outputValue);
             }
             CollectionAssert.AreEqual(inputValues, _directory.GetIntArray(tagType));
-            StringBuilder outputString = new StringBuilder();
-            for (int i1 = 0; i1 < inputValues.Length; i1++)
+            var outputString = new StringBuilder();
+            for (var i1 = 0; i1 < inputValues.Length; i1++)
             {
-                int inputValue = inputValues[i1];
+                var inputValue = inputValues[i1];
                 if (i1 > 0)
                 {
                     outputString.Append(' ');
@@ -111,10 +111,10 @@ namespace Com.Drew.Metadata
         [Test]
         public void TestSetStringAndGetDate()
         {
-            string date1 = "2002:01:30 24:59:59";
-            string date2 = "2002:01:30 24:59";
-            string date3 = "2002-01-30 24:59:59";
-            string date4 = "2002-01-30 24:59";
+            var date1 = "2002:01:30 24:59:59";
+            var date2 = "2002:01:30 24:59";
+            var date3 = "2002-01-30 24:59:59";
+            var date4 = "2002-01-30 24:59";
             _directory.SetString(1, date1);
             _directory.SetString(2, date2);
             _directory.SetString(3, date3);
@@ -130,9 +130,9 @@ namespace Com.Drew.Metadata
         [Test]
         public void TestSetIntArrayGetByteArray()
         {
-            int[] ints = new[] { 1, 2, 3, 4, 5 };
+            var ints = new[] { 1, 2, 3, 4, 5 };
             _directory.SetIntArray(1, ints);
-            byte[] bytes = _directory.GetByteArray(1);
+            var bytes = _directory.GetByteArray(1);
             Assert.IsNotNull(bytes);
             Assert.AreEqual(ints.Length, bytes.Length);
             Assert.AreEqual(1, bytes[0]);
@@ -142,7 +142,7 @@ namespace Com.Drew.Metadata
         [Test]
         public void TestSetStringGetInt()
         {
-            byte[] bytes = new byte[] { unchecked(0x01), unchecked(0x02), unchecked(0x03) };
+            var bytes = new byte[] { unchecked(0x01), unchecked(0x02), unchecked(0x03) };
             _directory.SetString(1, Encoding.UTF8.GetString(bytes));
             Assert.AreEqual(unchecked(0x010203), _directory.GetInt(1));
         }

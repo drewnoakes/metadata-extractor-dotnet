@@ -54,12 +54,12 @@ namespace Com.Drew.Metadata.Exif
         /// <exception cref="Com.Drew.Imaging.Tiff.TiffProcessingException"/>
         public override void SetTiffMarker(int marker)
         {
-            int standardTiffMarker = unchecked(0x002A);
-            int olympusRawTiffMarker = unchecked(0x4F52);
+            var standardTiffMarker = unchecked(0x002A);
+            var olympusRawTiffMarker = unchecked(0x4F52);
             // for ORF files
-            int olympusRawTiffMarker2 = unchecked(0x5352);
+            var olympusRawTiffMarker2 = unchecked(0x5352);
             // for ORF files
-            int panasonicRawTiffMarker = unchecked(0x0055);
+            var panasonicRawTiffMarker = unchecked(0x0055);
             // for RW2 files
             if (marker != standardTiffMarker && marker != olympusRawTiffMarker && marker != olympusRawTiffMarker2 && marker != panasonicRawTiffMarker)
             {
@@ -119,7 +119,7 @@ namespace Com.Drew.Metadata.Exif
                 // NOTE Adobe sets type 4 for IPTC instead of 7
                 if (reader.GetInt8(tagOffset) == unchecked(0x1c))
                 {
-                    byte[] iptcBytes = reader.GetBytes(tagOffset, byteCount);
+                    var iptcBytes = reader.GetBytes(tagOffset, byteCount);
                     new IptcReader().Extract(new SequentialByteArrayReader(iptcBytes), Metadata, iptcBytes.Length);
                     return true;
                 }
@@ -133,16 +133,16 @@ namespace Com.Drew.Metadata.Exif
             if (_storeThumbnailBytes)
             {
                 // after the extraction process, if we have the correct tags, we may be able to store thumbnail information
-                ExifThumbnailDirectory thumbnailDirectory = Metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
+                var thumbnailDirectory = Metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
                 if (thumbnailDirectory != null && thumbnailDirectory.ContainsTag(ExifThumbnailDirectory.TagThumbnailCompression))
                 {
-                    int? offset = thumbnailDirectory.GetInteger(ExifThumbnailDirectory.TagThumbnailOffset);
-                    int? length = thumbnailDirectory.GetInteger(ExifThumbnailDirectory.TagThumbnailLength);
+                    var offset = thumbnailDirectory.GetInteger(ExifThumbnailDirectory.TagThumbnailOffset);
+                    var length = thumbnailDirectory.GetInteger(ExifThumbnailDirectory.TagThumbnailLength);
                     if (offset != null && length != null)
                     {
                         try
                         {
-                            byte[] thumbnailData = reader.GetBytes(tiffHeaderOffset + (int)offset, (int)length);
+                            var thumbnailData = reader.GetBytes(tiffHeaderOffset + (int)offset, (int)length);
                             thumbnailDirectory.SetThumbnailData(thumbnailData);
                         }
                         catch (IOException ex)
@@ -163,16 +163,16 @@ namespace Com.Drew.Metadata.Exif
             {
                 return false;
             }
-            string cameraMake = ifd0Directory.GetString(ExifDirectoryBase.TagMake);
-            string firstTwoChars = reader.GetString(makernoteOffset, 2);
-            string firstThreeChars = reader.GetString(makernoteOffset, 3);
-            string firstFourChars = reader.GetString(makernoteOffset, 4);
-            string firstFiveChars = reader.GetString(makernoteOffset, 5);
-            string firstSixChars = reader.GetString(makernoteOffset, 6);
-            string firstSevenChars = reader.GetString(makernoteOffset, 7);
-            string firstEightChars = reader.GetString(makernoteOffset, 8);
-            string firstTwelveChars = reader.GetString(makernoteOffset, 12);
-            bool byteOrderBefore = reader.IsMotorolaByteOrder;
+            var cameraMake = ifd0Directory.GetString(ExifDirectoryBase.TagMake);
+            var firstTwoChars = reader.GetString(makernoteOffset, 2);
+            var firstThreeChars = reader.GetString(makernoteOffset, 3);
+            var firstFourChars = reader.GetString(makernoteOffset, 4);
+            var firstFiveChars = reader.GetString(makernoteOffset, 5);
+            var firstSixChars = reader.GetString(makernoteOffset, 6);
+            var firstSevenChars = reader.GetString(makernoteOffset, 7);
+            var firstEightChars = reader.GetString(makernoteOffset, 8);
+            var firstTwelveChars = reader.GetString(makernoteOffset, 12);
+            var byteOrderBefore = reader.IsMotorolaByteOrder;
             if ("OLYMP".Equals(firstFiveChars) || "EPSON".Equals(firstFiveChars) || "AGFA".Equals(firstFourChars))
             {
                 // Olympus Makernote
@@ -262,7 +262,7 @@ namespace Com.Drew.Metadata.Exif
                                     if ("KDK".Equals(firstThreeChars))
                                     {
                                         reader.IsMotorolaByteOrder = firstSevenChars.Equals("KDK INFO");
-                                        KodakMakernoteDirectory directory = new KodakMakernoteDirectory();
+                                        var directory = new KodakMakernoteDirectory();
                                         Metadata.AddDirectory(directory);
                                         ProcessKodakMakernote(directory, makernoteOffset, reader);
                                     }
@@ -297,7 +297,7 @@ namespace Com.Drew.Metadata.Exif
                                                     // the 4 bytes after "FUJIFILM" in the makernote point to the start of the makernote
                                                     // IFD, though the offset is relative to the start of the makernote, not the TIFF
                                                     // header (like everywhere else)
-                                                    int ifdStart = makernoteOffset + reader.GetInt32(makernoteOffset + 8);
+                                                    var ifdStart = makernoteOffset + reader.GetInt32(makernoteOffset + 8);
                                                     PushDirectory(typeof(FujifilmMakernoteDirectory));
                                                     TiffReader.ProcessIfd(this, reader, processedIfdOffsets, ifdStart, makernoteOffset);
                                                 }
@@ -430,7 +430,7 @@ namespace Com.Drew.Metadata.Exif
         private static void ProcessKodakMakernote([NotNull] KodakMakernoteDirectory directory, int tagValueOffset, [NotNull] IndexedReader reader)
         {
             // Kodak's makernote is not in IFD format. It has values at fixed offsets.
-            int dataOffset = tagValueOffset + 8;
+            var dataOffset = tagValueOffset + 8;
             try
             {
                 directory.SetString(KodakMakernoteDirectory.TagKodakModel, reader.GetString(dataOffset, 8));

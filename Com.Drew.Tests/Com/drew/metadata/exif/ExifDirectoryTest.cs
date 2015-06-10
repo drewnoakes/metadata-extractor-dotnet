@@ -52,8 +52,8 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestGetThumbnailData()
         {
-            ExifThumbnailDirectory directory = ExifReaderTest.ProcessBytes<ExifThumbnailDirectory>("Tests/Data/withExif.jpg.app1");
-            byte[] thumbData = directory.GetThumbnailData();
+            var directory = ExifReaderTest.ProcessBytes<ExifThumbnailDirectory>("Tests/Data/withExif.jpg.app1");
+            var thumbData = directory.GetThumbnailData();
             Assert.IsNotNull(thumbData);
             try
             {
@@ -70,13 +70,13 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestWriteThumbnail()
         {
-            ExifThumbnailDirectory directory = ExifReaderTest.ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
+            var directory = ExifReaderTest.ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             Assert.IsTrue(directory.HasThumbnailData());
-            string thumbnailFile = Path.GetTempFileName();
+            var thumbnailFile = Path.GetTempFileName();
             try
             {
                 directory.WriteThumbnail(thumbnailFile);
-                FileInfo filePath = new FileInfo(thumbnailFile);
+                var filePath = new FileInfo(thumbnailFile);
                 Assert.AreEqual(2970L, filePath.Length);
                 Assert.IsTrue(filePath.Exists);
             }
@@ -103,11 +103,11 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestResolution()
         {
-            Metadata metadata = ExifReaderTest.ProcessBytes("Tests/Data/withUncompressedRGBThumbnail.jpg.app1");
-            ExifThumbnailDirectory thumbnailDirectory = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
+            var metadata = ExifReaderTest.ProcessBytes("Tests/Data/withUncompressedRGBThumbnail.jpg.app1");
+            var thumbnailDirectory = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
             Assert.IsNotNull(thumbnailDirectory);
             Assert.AreEqual(72, thumbnailDirectory.GetInt(ExifDirectoryBase.TagXResolution));
-            ExifIfd0Directory exifIfd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
+            var exifIfd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
             Assert.IsNotNull(exifIfd0Directory);
             Assert.AreEqual(216, exifIfd0Directory.GetInt(ExifDirectoryBase.TagXResolution));
         }

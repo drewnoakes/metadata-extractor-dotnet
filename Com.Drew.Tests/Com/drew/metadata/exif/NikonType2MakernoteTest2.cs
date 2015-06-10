@@ -41,7 +41,7 @@ namespace Com.Drew.Metadata.Exif
         [SetUp]
         public void SetUp()
         {
-            Metadata metadata = ExifReaderTest.ProcessBytes("Tests/Data/nikonMakernoteType2b.jpg.app1");
+            var metadata = ExifReaderTest.ProcessBytes("Tests/Data/nikonMakernoteType2b.jpg.app1");
             _nikonDirectory = metadata.GetFirstDirectoryOfType<NikonType2MakernoteDirectory>();
             _exifIfd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
             _exifSubIfdDirectory = metadata.GetFirstDirectoryOfType<ExifSubIfdDirectory>();

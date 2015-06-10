@@ -55,7 +55,7 @@ namespace Com.Drew.Metadata
         public ICollection<T> GetDirectoriesOfType<T>()
             where T : Directory
         {
-            Type type = typeof(T);
+            var type = typeof(T);
             return _directoryListByClass.GetOrNull(type).Select(item => (T)item).ToList();
         }
 
@@ -90,10 +90,10 @@ namespace Com.Drew.Metadata
         public T GetFirstDirectoryOfType<T>()
             where T : Directory
         {
-            Type type = typeof(T);
+            var type = typeof(T);
             // We suppress the warning here as the code asserts a map signature of Class<T>,T.
             // So after get(Class<T>) it is for sure the result is from type T.
-            ICollection<Directory> list = GetDirectoryList(type);
+            var list = GetDirectoryList(type);
             if (list == null || list.Count == 0)
             {
                 return null;
@@ -114,7 +114,7 @@ namespace Com.Drew.Metadata
         /// </returns>
         public bool ContainsDirectoryOfType(Type type)
         {
-            ICollection<Directory> list = GetDirectoryList(type);
+            var list = GetDirectoryList(type);
             return list != null && list.Count != 0;
         }
 
@@ -133,7 +133,7 @@ namespace Com.Drew.Metadata
 
         public override string ToString()
         {
-            int count = GetDirectoryCount();
+            var count = GetDirectoryCount();
             return string.Format("Metadata ({0} {1})", count, count == 1 ? "directory" : "directories");
         }
 
@@ -146,7 +146,7 @@ namespace Com.Drew.Metadata
         [NotNull]
         private ICollection<Directory> GetOrCreateDirectoryList(Type type)
         {
-            ICollection<Directory> collection = GetDirectoryList(type);
+            var collection = GetDirectoryList(type);
             if (collection != null)
             {
                 return collection;

@@ -42,17 +42,17 @@ namespace Com.Drew.Metadata.Pcx
         public void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
         {
             reader.SetMotorolaByteOrder(false);
-            PcxDirectory directory = new PcxDirectory();
+            var directory = new PcxDirectory();
             metadata.AddDirectory(directory);
             try
             {
-                byte identifier = reader.GetInt8();
+                var identifier = reader.GetInt8();
                 if (identifier != unchecked(0x0A))
                 {
                     throw new ImageProcessingException("Invalid PCX identifier byte");
                 }
                 directory.SetInt(PcxDirectory.TagVersion, reader.GetInt8());
-                byte encoding = reader.GetInt8();
+                var encoding = reader.GetInt8();
                 if (encoding != unchecked(0x01))
                 {
                     throw new ImageProcessingException("Invalid PCX encoding byte");
@@ -68,17 +68,17 @@ namespace Com.Drew.Metadata.Pcx
                 reader.Skip(1);
                 directory.SetInt(PcxDirectory.TagColorPlanes, reader.GetUInt8());
                 directory.SetInt(PcxDirectory.TagBytesPerLine, reader.GetUInt16());
-                int paletteType = reader.GetUInt16();
+                var paletteType = reader.GetUInt16();
                 if (paletteType != 0)
                 {
                     directory.SetInt(PcxDirectory.TagPaletteType, paletteType);
                 }
-                int hScrSize = reader.GetUInt16();
+                var hScrSize = reader.GetUInt16();
                 if (hScrSize != 0)
                 {
                     directory.SetInt(PcxDirectory.TagHscrSize, hScrSize);
                 }
-                int vScrSize = reader.GetUInt16();
+                var vScrSize = reader.GetUInt16();
                 if (vScrSize != 0)
                 {
                     directory.SetInt(PcxDirectory.TagVscrSize, vScrSize);

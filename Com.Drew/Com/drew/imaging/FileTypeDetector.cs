@@ -72,9 +72,9 @@ namespace Com.Drew.Imaging
         /// <exception cref="System.IO.IOException">if an IO error occurred or the input stream ended unexpectedly.</exception>
         public static FileType? DetectFileType([NotNull] Stream stream)
         {
-            int maxByteCount = Root.GetMaxDepth();
-            byte[] bytes = new byte[maxByteCount];
-            int bytesRead = stream.Read(bytes, 0, bytes.Length);
+            var maxByteCount = Root.GetMaxDepth();
+            var bytes = new byte[maxByteCount];
+            var bytesRead = stream.Read(bytes, 0, bytes.Length);
             if (bytesRead == 0)
                 return null;
             stream.Seek(-bytesRead, SeekOrigin.Current);

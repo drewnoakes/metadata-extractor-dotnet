@@ -109,7 +109,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetCcdSensitivityDescription()
         {
-            int? value = Directory.GetInteger(CasioType1MakernoteDirectory.TagCcdSensitivity);
+            var value = Directory.GetInteger(CasioType1MakernoteDirectory.TagCcdSensitivity);
             if (value == null)
             {
                 return null;
@@ -176,7 +176,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetDigitalZoomDescription()
         {
-            int? value = Directory.GetInteger(CasioType1MakernoteDirectory.TagDigitalZoom);
+            var value = Directory.GetInteger(CasioType1MakernoteDirectory.TagDigitalZoom);
             if (value == null)
             {
                 return null;
@@ -213,7 +213,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetWhiteBalanceDescription()
         {
-            int? value = Directory.GetInteger(CasioType1MakernoteDirectory.TagWhiteBalance);
+            var value = Directory.GetInteger(CasioType1MakernoteDirectory.TagWhiteBalance);
             if (value == null)
             {
                 return null;
@@ -260,7 +260,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetObjectDistanceDescription()
         {
-            int? value = Directory.GetInteger(CasioType1MakernoteDirectory.TagObjectDistance);
+            var value = Directory.GetInteger(CasioType1MakernoteDirectory.TagObjectDistance);
             if (value == null)
             {
                 return null;
@@ -271,7 +271,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetFlashIntensityDescription()
         {
-            int? value = Directory.GetInteger(CasioType1MakernoteDirectory.TagFlashIntensity);
+            var value = Directory.GetInteger(CasioType1MakernoteDirectory.TagFlashIntensity);
             if (value == null)
             {
                 return null;

@@ -32,8 +32,8 @@ namespace Com.Drew.Metadata.Exif
         [Test, SetCulture("en-GB")]
         public void TestGetFlashBiasDescription()
         {
-            CanonMakernoteDirectory directory = new CanonMakernoteDirectory();
-            CanonMakernoteDescriptor descriptor = new CanonMakernoteDescriptor(directory);
+            var directory = new CanonMakernoteDirectory();
+            var descriptor = new CanonMakernoteDescriptor(directory);
             // set and check values
             directory.SetInt(CanonMakernoteDirectory.FocalLength.TagFlashBias, unchecked(0xFFC0));
             Assert.AreEqual("-2.0 EV", descriptor.GetDescription(CanonMakernoteDirectory.FocalLength.TagFlashBias));

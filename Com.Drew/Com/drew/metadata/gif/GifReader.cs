@@ -13,7 +13,7 @@ namespace Com.Drew.Metadata.Gif
 
         public void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
         {
-            GifHeaderDirectory directory = new GifHeaderDirectory();
+            var directory = new GifHeaderDirectory();
             metadata.AddDirectory(directory);
             // FILE HEADER
             //
@@ -34,13 +34,13 @@ namespace Com.Drew.Metadata.Gif
             reader.SetMotorolaByteOrder(false);
             try
             {
-                string signature = reader.GetString(3);
+                var signature = reader.GetString(3);
                 if (!signature.Equals("GIF"))
                 {
                     directory.AddError("Invalid GIF file signature");
                     return;
                 }
-                string version = reader.GetString(3);
+                var version = reader.GetString(3);
                 if (!version.Equals(Gif87AVersionIdentifier) && !version.Equals(Gif89AVersionIdentifier))
                 {
                     directory.AddError("Unexpected GIF version");
@@ -49,24 +49,24 @@ namespace Com.Drew.Metadata.Gif
                 directory.SetString(GifHeaderDirectory.TagGifFormatVersion, version);
                 directory.SetInt(GifHeaderDirectory.TagImageWidth, reader.GetUInt16());
                 directory.SetInt(GifHeaderDirectory.TagImageHeight, reader.GetUInt16());
-                short flags = reader.GetUInt8();
+                var flags = reader.GetUInt8();
                 // First three bits = (BPP - 1)
-                int colorTableSize = 1 << ((flags & 7) + 1);
+                var colorTableSize = 1 << ((flags & 7) + 1);
                 directory.SetInt(GifHeaderDirectory.TagColorTableSize, colorTableSize);
                 if (version.Equals(Gif89AVersionIdentifier))
                 {
-                    bool isColorTableSorted = (flags & 8) != 0;
+                    var isColorTableSorted = (flags & 8) != 0;
                     directory.SetBoolean(GifHeaderDirectory.TagIsColorTableSorted, isColorTableSorted);
                 }
-                int bitsPerPixel = ((flags & unchecked(0x70)) >> 4) + 1;
+                var bitsPerPixel = ((flags & unchecked(0x70)) >> 4) + 1;
                 directory.SetInt(GifHeaderDirectory.TagBitsPerPixel, bitsPerPixel);
-                bool hasGlobalColorTable = (flags & unchecked(0xf)) != 0;
+                var hasGlobalColorTable = (flags & unchecked(0xf)) != 0;
                 directory.SetBoolean(GifHeaderDirectory.TagHasGlobalColorTable, hasGlobalColorTable);
                 directory.SetInt(GifHeaderDirectory.TagTransparentColorIndex, reader.GetUInt8());
                 int aspectRatioByte = reader.GetUInt8();
                 if (aspectRatioByte != 0)
                 {
-                    float pixelAspectRatio = (float)((aspectRatioByte + 15d) / 64d);
+                    var pixelAspectRatio = (float)((aspectRatioByte + 15d) / 64d);
                     directory.SetFloat(GifHeaderDirectory.TagPixelAspectRatio, pixelAspectRatio);
                 }
             }

@@ -35,8 +35,8 @@ namespace Com.Drew.Imaging.Png
                 _imageWidth = reader.GetInt32();
                 _imageHeight = reader.GetInt32();
                 _bitsPerSample = reader.GetInt8();
-                byte colorTypeNumber = reader.GetInt8();
-                PngColorType colorType = PngColorType.FromNumericValue(colorTypeNumber);
+                var colorTypeNumber = reader.GetInt8();
+                var colorType = PngColorType.FromNumericValue(colorTypeNumber);
                 if (colorType == null)
                 {
                     throw new PngProcessingException("Unexpected PNG color type: " + colorTypeNumber);

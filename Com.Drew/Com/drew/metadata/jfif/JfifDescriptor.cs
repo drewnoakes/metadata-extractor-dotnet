@@ -72,7 +72,7 @@ namespace Com.Drew.Metadata.Jfif
         [CanBeNull]
         public string GetImageVersionDescription()
         {
-            int? value = Directory.GetInteger(JfifDirectory.TagVersion);
+            var value = Directory.GetInteger(JfifDirectory.TagVersion);
             if (value == null)
             {
                 return null;
@@ -85,7 +85,7 @@ namespace Com.Drew.Metadata.Jfif
         [CanBeNull]
         public string GetImageResYDescription()
         {
-            int? value = Directory.GetInteger(JfifDirectory.TagResy);
+            var value = Directory.GetInteger(JfifDirectory.TagResy);
             if (value == null)
             {
                 return null;
@@ -96,7 +96,7 @@ namespace Com.Drew.Metadata.Jfif
         [CanBeNull]
         public string GetImageResXDescription()
         {
-            int? value = Directory.GetInteger(JfifDirectory.TagResx);
+            var value = Directory.GetInteger(JfifDirectory.TagResx);
             if (value == null)
             {
                 return null;
@@ -107,7 +107,7 @@ namespace Com.Drew.Metadata.Jfif
         [CanBeNull]
         public string GetImageResUnitsDescription()
         {
-            int? value = Directory.GetInteger(JfifDirectory.TagUnits);
+            var value = Directory.GetInteger(JfifDirectory.TagUnits);
             if (value == null)
             {
                 return null;

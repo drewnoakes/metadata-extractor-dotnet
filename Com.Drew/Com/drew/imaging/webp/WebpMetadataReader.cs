@@ -50,7 +50,7 @@ namespace Com.Drew.Imaging.Webp
         [NotNull]
         public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
         {
-            Metadata.Metadata metadata = new Metadata.Metadata();
+            var metadata = new Metadata.Metadata();
             new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new WebpRiffHandler(metadata));
             return metadata;
         }

@@ -22,7 +22,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="qname">a QName</param>
         public QName(string qname)
         {
-            int colon = qname.IndexOf(':');
+            var colon = qname.IndexOf(':');
             if (colon >= 0)
             {
                 _prefix = qname.Substring (0, colon - 0);

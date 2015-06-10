@@ -47,9 +47,9 @@ namespace Com.Drew.Metadata.Jpeg
 
         public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
-            foreach (byte[] segmentBytes in segments)
+            foreach (var segmentBytes in segments)
             {
-                JpegCommentDirectory directory = new JpegCommentDirectory();
+                var directory = new JpegCommentDirectory();
                 metadata.AddDirectory(directory);
                 // The entire contents of the directory are the comment
                 directory.SetString(JpegCommentDirectory.TagComment, Encoding.UTF8.GetString(segmentBytes));

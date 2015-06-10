@@ -34,10 +34,10 @@ namespace Com.Drew.Metadata.Photoshop
         [NotNull]
         public static PsdHeaderDirectory ProcessBytes([NotNull] string filePath)
         {
-            Metadata metadata = new Metadata();
+            var metadata = new Metadata();
             using (Stream stream = new FileStream(filePath, FileMode.Open))
                 new PsdReader().Extract(new SequentialStreamReader(stream), metadata);
-            PsdHeaderDirectory directory = metadata.GetFirstDirectoryOfType<PsdHeaderDirectory>();
+            var directory = metadata.GetFirstDirectoryOfType<PsdHeaderDirectory>();
             Assert.IsNotNull(directory);
             return directory;
         }
@@ -46,7 +46,7 @@ namespace Com.Drew.Metadata.Photoshop
         [Test]
         public void Test8X8X8BitGrayscale()
         {
-            PsdHeaderDirectory directory = ProcessBytes("Tests/Data/8x4x8bit-Grayscale.psd");
+            var directory = ProcessBytes("Tests/Data/8x4x8bit-Grayscale.psd");
             Assert.AreEqual(8, directory.GetInt(PsdHeaderDirectory.TagImageWidth));
             Assert.AreEqual(4, directory.GetInt(PsdHeaderDirectory.TagImageHeight));
             Assert.AreEqual(8, directory.GetInt(PsdHeaderDirectory.TagBitsPerChannel));
@@ -59,7 +59,7 @@ namespace Com.Drew.Metadata.Photoshop
         [Test]
         public void Test10X12X16BitCmyk()
         {
-            PsdHeaderDirectory directory = ProcessBytes("Tests/Data/10x12x16bit-CMYK.psd");
+            var directory = ProcessBytes("Tests/Data/10x12x16bit-CMYK.psd");
             Assert.AreEqual(10, directory.GetInt(PsdHeaderDirectory.TagImageWidth));
             Assert.AreEqual(12, directory.GetInt(PsdHeaderDirectory.TagImageHeight));
             Assert.AreEqual(16, directory.GetInt(PsdHeaderDirectory.TagBitsPerChannel));

@@ -13,15 +13,15 @@ namespace Com.Drew.Metadata.Xmp
         /// <returns>serialize success</returns>
         public static bool Write(Stream stream, Metadata data)
         {
-            XmpDirectory dir = data.GetFirstDirectoryOfType<XmpDirectory>();
+            var dir = data.GetFirstDirectoryOfType<XmpDirectory>();
             if (dir == null)
             {
                 return false;
             }
-            IXmpMeta meta = dir.GetXmpMeta();
+            var meta = dir.GetXmpMeta();
             try
             {
-                SerializeOptions so = new SerializeOptions();
+                var so = new SerializeOptions();
                 so.OmitPacketWrapper = true;
                 XmpMetaFactory.Serialize(meta, stream, so);
             }

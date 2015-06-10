@@ -35,14 +35,14 @@ namespace Sharpen
 
         public override void Remove ()
         {
-            ICollection<T> col = _collection as ICollection<T>;
+            var col = _collection as ICollection<T>;
             if (col == null) {
                 throw new NotSupportedException ();
             }
             if (_more && !_copied) {
                 // Read the remaining elements, since the current enumerator
                 // will be invalid after removing the element
-                List<T> remaining = new List<T> ();
+                var remaining = new List<T> ();
                 do {
                     remaining.Add (_e.Current);
                 } while (_e.MoveNext ());
@@ -85,7 +85,7 @@ namespace Sharpen
 
         public void Remove ()
         {
-            ICollection col = _collection as ICollection;
+            var col = _collection as ICollection;
             if (col == null) {
                 throw new NotSupportedException ();
             }

@@ -366,7 +366,7 @@ namespace Com.Drew.Metadata.Iptc
         [CanBeNull]
         public IList<string> GetKeywords()
         {
-            string[] array = GetStringArray(TagKeywords);
+            var array = GetStringArray(TagKeywords);
             if (array == null)
             {
                 return null;

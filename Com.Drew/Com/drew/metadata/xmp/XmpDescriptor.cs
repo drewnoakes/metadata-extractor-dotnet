@@ -105,7 +105,7 @@ namespace Com.Drew.Metadata.Xmp
         [CanBeNull]
         public string GetExposureTimeDescription()
         {
-            string value = Directory.GetString(XmpDirectory.TagExposureTime);
+            var value = Directory.GetString(XmpDirectory.TagExposureTime);
             if (value == null)
             {
                 return null;
@@ -120,7 +120,7 @@ namespace Com.Drew.Metadata.Xmp
             // '1' means manual control, '2' program normal, '3' aperture priority,
             // '4' shutter priority, '5' program creative (slow program),
             // '6' program action(high-speed program), '7' portrait mode, '8' landscape mode.
-            int? value = Directory.GetInteger(XmpDirectory.TagExposureProgram);
+            var value = Directory.GetInteger(XmpDirectory.TagExposureProgram);
             if (value == null)
             {
                 return null;
@@ -178,7 +178,7 @@ namespace Com.Drew.Metadata.Xmp
         [CanBeNull]
         public string GetShutterSpeedDescription()
         {
-            float? value = Directory.GetFloatObject(XmpDirectory.TagShutterSpeed);
+            var value = Directory.GetFloatObject(XmpDirectory.TagShutterSpeed);
             if (value == null)
             {
                 return null;
@@ -188,14 +188,14 @@ namespace Com.Drew.Metadata.Xmp
             // thanks also to Gli Blr for spotting this bug
             if (value <= 1)
             {
-                float apexPower = (float)(1 / (Math.Exp((double)value * Math.Log(2))));
-                long apexPower10 = (long)Math.Round(apexPower * 10.0);
-                float fApexPower = apexPower10 / 10.0f;
+                var apexPower = (float)(1 / (Math.Exp((double)value * Math.Log(2))));
+                var apexPower10 = (long)Math.Round(apexPower * 10.0);
+                var fApexPower = apexPower10 / 10.0f;
                 return fApexPower + " sec";
             }
             else
             {
-                int apexPower = (int)((Math.Exp((double)value * Math.Log(2))));
+                var apexPower = (int)((Math.Exp((double)value * Math.Log(2))));
                 return "1/" + apexPower + " sec";
             }
         }
@@ -204,7 +204,7 @@ namespace Com.Drew.Metadata.Xmp
         [CanBeNull]
         public string GetFNumberDescription()
         {
-            Rational value = Directory.GetRational(XmpDirectory.TagFNumber);
+            var value = Directory.GetRational(XmpDirectory.TagFNumber);
             if (value == null)
             {
                 return null;
@@ -216,12 +216,12 @@ namespace Com.Drew.Metadata.Xmp
         [CanBeNull]
         public string GetFocalLengthDescription()
         {
-            Rational value = Directory.GetRational(XmpDirectory.TagFocalLength);
+            var value = Directory.GetRational(XmpDirectory.TagFocalLength);
             if (value == null)
             {
                 return null;
             }
-            DecimalFormat formatter = new DecimalFormat("0.0##");
+            var formatter = new DecimalFormat("0.0##");
             return formatter.Format(value.DoubleValue()) + " mm";
         }
 
@@ -229,12 +229,12 @@ namespace Com.Drew.Metadata.Xmp
         [CanBeNull]
         public string GetApertureValueDescription()
         {
-            double? value = Directory.GetDoubleObject(XmpDirectory.TagApertureValue);
+            var value = Directory.GetDoubleObject(XmpDirectory.TagApertureValue);
             if (value == null)
             {
                 return null;
             }
-            double fStop = PhotographicConversions.ApertureToFStop((double)value);
+            var fStop = PhotographicConversions.ApertureToFStop((double)value);
             return "f/" + fStop.ToString("0.0");
         }
     }

@@ -57,9 +57,9 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return value;
             }
-            int subTag = 1;
-            StringBuilder buffer = new StringBuilder();
-            for (int i = 0; i < value.Length; i++)
+            var subTag = 1;
+            var buffer = new StringBuilder();
+            for (var i = 0; i < value.Length; i++)
             {
                 switch (value[i])
                 {
@@ -118,20 +118,20 @@ namespace Com.Adobe.Xmp.Impl
         internal static string[] SplitNameAndValue(string selector)
         {
             // get the name
-            int eq = selector.IndexOf('=');
-            int pos = 1;
+            var eq = selector.IndexOf('=');
+            var pos = 1;
             if (selector[pos] == '?')
             {
                 pos++;
             }
-            string name = selector.Substring (pos, eq - pos);
+            var name = selector.Substring (pos, eq - pos);
             // get the value
             pos = eq + 1;
-            char quote = selector[pos];
+            var quote = selector[pos];
             pos++;
-            int end = selector.Length - 2;
+            var end = selector.Length - 2;
             // quote and ]
-            StringBuilder value = new StringBuilder(end - eq);
+            var value = new StringBuilder(end - eq);
             while (pos < end)
             {
                 value.Append(selector[pos]);
@@ -153,7 +153,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </returns>
         internal static bool IsInternalProperty(string schema, string prop)
         {
-            bool isInternal = false;
+            var isInternal = false;
             if (XmpConstConstants.NsDc.Equals(schema))
             {
                 if ("dc:format".Equals(prop) || "dc:language".Equals(prop))
@@ -294,9 +294,9 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>true - this is a well formed UUID, false - UUID has not the expected format</returns>
         internal static bool CheckUuidFormat(string uuid)
         {
-            bool result = true;
-            int delimCnt = 0;
-            int delimPos = 0;
+            var result = true;
+            var delimCnt = 0;
+            var delimPos = 0;
             if (uuid == null)
             {
                 return false;
@@ -327,7 +327,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return false;
             }
-            for (int i = 1; i < name.Length; i++)
+            for (var i = 1; i < name.Length; i++)
             {
                 if (!IsNameChar(name[i]))
                 {
@@ -354,7 +354,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return false;
             }
-            for (int i = 1; i < name.Length; i++)
+            for (var i = 1; i < name.Length; i++)
             {
                 if (!IsNameChar(name[i]) || name[i] == ':')
                 {
@@ -387,10 +387,10 @@ namespace Com.Adobe.Xmp.Impl
         public static string EscapeXml(string value, bool forAttribute, bool escapeWhitespaces)
         {
             // quick check if character are contained that need special treatment
-            bool needsEscaping = false;
-            for (int i = 0; i < value.Length; i++)
+            var needsEscaping = false;
+            for (var i = 0; i < value.Length; i++)
             {
-                char c = value[i];
+                var c = value[i];
                 if (c == '<' || c == '>' || c == '&' || (escapeWhitespaces && (c == '\t' || c == '\n' || c == '\r')) || (forAttribute && c == '"'))
                 {
                     // XML chars
@@ -404,10 +404,10 @@ namespace Com.Adobe.Xmp.Impl
                 return value;
             }
             // slow path with escaping
-            StringBuilder buffer = new StringBuilder(value.Length * 4 / 3);
-            for (int i1 = 0; i1 < value.Length; i1++)
+            var buffer = new StringBuilder(value.Length * 4 / 3);
+            for (var i1 = 0; i1 < value.Length; i1++)
             {
-                char c = value[i1];
+                var c = value[i1];
                 if (!(escapeWhitespaces && (c == '\t' || c == '\n' || c == '\r')))
                 {
                     switch (c)
@@ -457,8 +457,8 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns the cleaned up value</returns>
         internal static string RemoveControlChars(string value)
         {
-            StringBuilder buffer = new StringBuilder(value);
-            for (int i = 0; i < buffer.Length; i++)
+            var buffer = new StringBuilder(value);
+            for (var i = 0; i < buffer.Length; i++)
             {
                 if (IsControlChar(buffer[i]))
                 {
@@ -504,7 +504,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             _xmlNameChars = new bool[unchecked(0x0100)];
             _xmlNameStartChars = new bool[unchecked(0x0100)];
-            for (char ch = (char)0; ch < _xmlNameChars.Length; ch++)
+            for (var ch = (char)0; ch < _xmlNameChars.Length; ch++)
             {
                 _xmlNameStartChars[ch] = ch == ':' || ('A' <= ch && ch <= 'Z') || ch == '_' || ('a' <= ch && ch <= 'z') || (unchecked(0xC0) <= ch && ch <= unchecked(0xD6)) || (unchecked(0xD8) <= ch && ch <= unchecked(0xF6)) || (unchecked(
                     0xF8) <= ch && ch <= unchecked(0xFF));

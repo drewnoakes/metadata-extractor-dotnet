@@ -84,22 +84,22 @@ namespace SampleReader
 
         static bool PrintMetadata(Metadata metadata){
 
-            foreach (Directory dir in metadata.GetDirectories())
+            foreach (var dir in metadata.GetDirectories())
             {
                 if (dir.HasErrors())
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    foreach (string error in dir.GetErrors())
+                    foreach (var error in dir.GetErrors())
                     {
                         Console.Error.WriteLine("\t[{0}] {1}", dir.GetName(), error);
                     }
                 }
 
-                foreach (Tag tag in dir.GetTags())
+                foreach (var tag in dir.GetTags())
                 {
-                    string tagName = tag.TagName;
-                    string directoryName = dir.GetName();
-                    string description = tag.Description;
+                    var tagName = tag.TagName;
+                    var directoryName = dir.GetName();
+                    var description = tag.Description;
                     // truncate the description if it's too long
                     if (description != null && description.Length > 1024)
                     {

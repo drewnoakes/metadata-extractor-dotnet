@@ -61,7 +61,7 @@ namespace Com.Drew.Metadata.Iptc
 
         public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
-            foreach (byte[] segmentBytes in segments)
+            foreach (var segmentBytes in segments)
             {
                 // Ensure data starts with the IPTC marker byte
                 if (segmentBytes.Length != 0 && segmentBytes[0] == unchecked(0x1c))
@@ -76,9 +76,9 @@ namespace Com.Drew.Metadata.Iptc
         /// </summary>
         public void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata, long length)
         {
-            IptcDirectory directory = new IptcDirectory();
+            var directory = new IptcDirectory();
             metadata.AddDirectory(directory);
-            int offset = 0;
+            var offset = 0;
             // for each tag
             while (offset < length)
             {
@@ -147,7 +147,7 @@ namespace Com.Drew.Metadata.Iptc
         /// <exception cref="System.IO.IOException"/>
         private static void ProcessTag([NotNull] SequentialReader reader, [NotNull] Directory directory, int directoryType, int tagType, int tagByteCount)
         {
-            int tagIdentifier = tagType | (directoryType << 8);
+            var tagIdentifier = tagType | (directoryType << 8);
             // Some images have been seen that specify a zero byte tag, which cannot be of much use.
             // We elect here to completely ignore the tag. The IPTC specification doesn't mention
             // anything about the interpretation of this situation.
@@ -162,8 +162,8 @@ namespace Com.Drew.Metadata.Iptc
             {
                 case IptcDirectory.TagCodedCharacterSet:
                 {
-                    byte[] bytes = reader.GetBytes(tagByteCount);
-                    string charset = Iso2022Converter.ConvertIso2022CharsetToJavaCharset(bytes);
+                    var bytes = reader.GetBytes(tagByteCount);
+                    var charset = Iso2022Converter.ConvertIso2022CharsetToJavaCharset(bytes);
                     if (charset == null)
                     {
                         // Unable to determine the charset, so fall through and treat tag as a regular string
@@ -183,7 +183,7 @@ namespace Com.Drew.Metadata.Iptc
                     // short
                     if (tagByteCount >= 2)
                     {
-                        int shortValue = reader.GetUInt16();
+                        var shortValue = reader.GetUInt16();
                         reader.Skip(tagByteCount - 2);
                         directory.SetInt(tagIdentifier, shortValue);
                         return;
@@ -208,10 +208,10 @@ namespace Com.Drew.Metadata.Iptc
                         @string = reader.GetString(tagByteCount);
                         try
                         {
-                            int year = Convert.ToInt32(@string.Substring (0, 4 - 0));
-                            int month = Convert.ToInt32(@string.Substring (4, 6 - 4)) - 1;
-                            int day = Convert.ToInt32(@string.Substring (6, 8 - 6));
-                            DateTime date = new GregorianCalendar(year, month, day).GetTime();
+                            var year = Convert.ToInt32(@string.Substring (0, 4 - 0));
+                            var month = Convert.ToInt32(@string.Substring (4, 6 - 4)) - 1;
+                            var day = Convert.ToInt32(@string.Substring (6, 8 - 6));
+                            var date = new GregorianCalendar(year, month, day).GetTime();
                             directory.SetDate(tagIdentifier, date);
                             return;
                         }
@@ -240,7 +240,7 @@ namespace Com.Drew.Metadata.Iptc
             // NOTE that there's a chance we've already loaded the value as a string above, but failed to parse the value
             if (@string == null)
             {
-                string encodingName = directory.GetString(IptcDirectory.TagCodedCharacterSet);
+                var encodingName = directory.GetString(IptcDirectory.TagCodedCharacterSet);
                 if (encodingName != null)
                 {
                     var encoding = Encoding.GetEncoding(encodingName);
@@ -248,7 +248,7 @@ namespace Com.Drew.Metadata.Iptc
                 }
                 else
                 {
-                    byte[] bytes1 = reader.GetBytes(tagByteCount);
+                    var bytes1 = reader.GetBytes(tagByteCount);
                     var encoding = Iso2022Converter.GuessEncoding(bytes1);
                     @string = encoding != null ? encoding.GetString(bytes1) : Encoding.UTF8.GetString(bytes1);
                 }
@@ -256,7 +256,7 @@ namespace Com.Drew.Metadata.Iptc
             if (directory.ContainsTag(tagIdentifier))
             {
                 // this fancy string[] business avoids using an ArrayList for performance reasons
-                string[] oldStrings = directory.GetStringArray(tagIdentifier);
+                var oldStrings = directory.GetStringArray(tagIdentifier);
                 string[] newStrings;
                 if (oldStrings == null)
                 {

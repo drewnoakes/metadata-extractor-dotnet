@@ -62,9 +62,9 @@ namespace Com.Drew.Lang
         [CanBeNull]
         public T Find(byte[] bytes)
         {
-            ByteTrieNode<T> node = _root;
-            T value = node.Value;
-            foreach (byte b in bytes)
+            var node = _root;
+            var value = node.Value;
+            foreach (var b in bytes)
             {
                 if (!node.Children.TryGetValue(b, out node))
                 {
@@ -81,11 +81,11 @@ namespace Com.Drew.Lang
         /// <summary>Store the given value at the specified path.</summary>
         public void AddPath(T value, params byte[][] parts)
         {
-            int depth = 0;
-            ByteTrieNode<T> node = _root;
-            foreach (byte[] part in parts)
+            var depth = 0;
+            var node = _root;
+            foreach (var part in parts)
             {
-                foreach (byte b in part)
+                foreach (var b in part)
                 {
                     ByteTrieNode<T> child;
                     if (!node.Children.TryGetValue(b, out child))

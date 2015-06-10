@@ -71,7 +71,7 @@ namespace Com.Adobe.Xmp.Impl
             object[] result;
             if (FindRootNode(document, options.RequireXmpMeta, out result) && result[1] == XmpRdf)
             {
-                XmpMeta xmp = ParseRdf.Parse((XmlNode)result[0]);
+                var xmp = ParseRdf.Parse((XmlNode)result[0]);
                 xmp.SetPacketHeader((string)result[2]);
                 // Check if the XMP object shall be normalized
                 if (!options.OmitNormalization)
@@ -101,7 +101,7 @@ namespace Com.Adobe.Xmp.Impl
             // load stream into bytebuffer
             try
             {
-                ByteBuffer buffer = new ByteBuffer(stream);
+                var buffer = new ByteBuffer(stream);
                 return ParseXmlFromBytebuffer(buffer, options);
             }
             catch (IOException e)
@@ -176,7 +176,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             try
             {
-                XmlDocument doc = new XmlDocument();
+                var doc = new XmlDocument();
                 doc.Load(stream);
                 return doc;
             }
@@ -198,7 +198,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             try
             {
-                XmlDocument doc = new XmlDocument();
+                var doc = new XmlDocument();
                 doc.Load(reader);
                 return doc;
             }
@@ -255,8 +255,8 @@ namespace Com.Adobe.Xmp.Impl
             // Look among this parent's content for x:xapmeta or x:xmpmeta.
             // The recursion for x:xmpmeta is broader than the strictly defined choice,
             // but gives us smaller code.
-            XmlNodeList children = root.ChildNodes;
-            for (int i = 0; i < children.Count; i++)
+            var children = root.ChildNodes;
+            for (var i = 0; i < children.Count; i++)
             {
                 root = children.Item(i);
                 if (XmlNodeType.ProcessingInstruction == root.NodeType && XmpConstConstants.XmpPi.Equals(((XmlProcessingInstruction)root).Target))
@@ -268,8 +268,8 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if (XmlNodeType.Text != root.NodeType && XmlNodeType.ProcessingInstruction != root.NodeType)
                     {
-                        string rootNs = root.NamespaceURI;
-                        string rootLocal = root.LocalName;
+                        var rootNs = root.NamespaceURI;
+                        var rootLocal = root.LocalName;
                         if ((XmpConstConstants.TagXmpmeta.Equals(rootLocal) || XmpConstConstants.TagXapmeta.Equals(rootLocal)) && XmpConstConstants.NsX.Equals(rootNs))
                         {
                             // by not passing the RequireXMPMeta-option, the rdf-Node will be valid

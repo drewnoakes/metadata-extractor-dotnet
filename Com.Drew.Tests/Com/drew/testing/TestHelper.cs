@@ -33,7 +33,7 @@ namespace Com.Drew.Testing
             {
                 throw new ArgumentException("Attempting to skip more bytes than exist in the array.");
             }
-            byte[] output = new byte[input.Length - countToSkip];
+            var output = new byte[input.Length - countToSkip];
             Array.Copy(input, countToSkip, output, 0, input.Length - countToSkip);
             return output;
         }

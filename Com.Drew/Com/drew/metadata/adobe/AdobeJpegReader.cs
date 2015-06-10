@@ -44,7 +44,7 @@ namespace Com.Drew.Metadata.Adobe
 
         public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
-            foreach (byte[] bytes in segments)
+            foreach (var bytes in segments)
             {
                 if (bytes.Length == 12 && Preamble.Equals (Encoding.ASCII.GetString(bytes, 0, Preamble.Length), StringComparison.CurrentCultureIgnoreCase))
                 {

@@ -69,14 +69,14 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         /// <summary>Serializes the normalized XMP-path.</summary>
         public override string ToString()
         {
-            StringBuilder result = new StringBuilder();
-            int index = 1;
+            var result = new StringBuilder();
+            var index = 1;
             while (index < Size())
             {
                 result.Append(GetSegment(index));
                 if (index < Size() - 1)
                 {
-                    int kind = GetSegment(index + 1).GetKind();
+                    var kind = GetSegment(index + 1).GetKind();
                     if (kind == StructFieldStep || kind == QualifierStep)
                     {
                         // all but last and array indices

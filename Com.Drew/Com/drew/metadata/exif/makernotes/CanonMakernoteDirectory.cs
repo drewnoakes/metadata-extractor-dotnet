@@ -828,8 +828,8 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                     // index in the array has its own meaning and decoding.
                     // Pick those tags out here and throw away the original array.
                     // Otherwise just add as usual.
-                    ushort[] values = (ushort[])array;
-                    for (int i = 0; i < values.Length; i++)
+                    var values = (ushort[])array;
+                    for (var i = 0; i < values.Length; i++)
                     {
                         SetInt(CameraSettings.Offset + i, values[i]);
                     }
@@ -838,8 +838,8 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 case TagFocalLengthArray:
                 {
-                    ushort[] values = (ushort[])array;
-                    for (int i = 0; i < values.Length; i++)
+                    var values = (ushort[])array;
+                    for (var i = 0; i < values.Length; i++)
                     {
                         SetInt(FocalLength.Offset + i, values[i]);
                     }
@@ -848,8 +848,8 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 case TagShotInfoArray:
                 {
-                    ushort[] values = (ushort[])array;
-                    for (int i = 0; i < values.Length; i++)
+                    var values = (ushort[])array;
+                    for (var i = 0; i < values.Length; i++)
                     {
                         SetInt(ShotInfo.Offset + i, values[i]);
                     }
@@ -858,8 +858,8 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 case TagPanoramaArray:
                 {
-                    ushort[] values = (ushort[])array;
-                    for (int i = 0; i < values.Length; i++)
+                    var values = (ushort[])array;
+                    for (var i = 0; i < values.Length; i++)
                     {
                         SetInt(Panorama.Offset + i, values[i]);
                     }
@@ -868,8 +868,8 @@ namespace Com.Drew.Metadata.Exif.Makernotes
 
                 case TagAfInfoArray:
                 {
-                    ushort[] values = (ushort[])array;
-                    for (int i = 0; i < values.Length; i++)
+                    var values = (ushort[])array;
+                    for (var i = 0; i < values.Length; i++)
                     {
                         SetInt(AfInfo.Offset + i, values[i]);
                     }

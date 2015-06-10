@@ -112,7 +112,7 @@ namespace Com.Adobe.Xmp
         /// <returns>Returns an updated <c>XMPDateTime</c>-object.</returns>
         public static IXmpDateTime SetLocalTimeZone(IXmpDateTime dateTime)
         {
-            Calendar cal = dateTime.GetCalendar();
+            var cal = dateTime.GetCalendar();
             cal.SetTimeZone(TimeZoneInfo.Local);
             return new XmpDateTime(cal);
         }
@@ -129,8 +129,8 @@ namespace Com.Adobe.Xmp
         /// <returns>Returns an updated <c>XMPDateTime</c>-object.</returns>
         public static IXmpDateTime ConvertToUtcTime(IXmpDateTime dateTime)
         {
-            long timeInMillis = dateTime.GetCalendar().GetTimeInMillis();
-            GregorianCalendar cal = new GregorianCalendar(Utc);
+            var timeInMillis = dateTime.GetCalendar().GetTimeInMillis();
+            var cal = new GregorianCalendar(Utc);
             cal.SetGregorianChange(Extensions.CreateDate(long.MinValue));
             cal.SetTimeInMillis(timeInMillis);
             return new XmpDateTime(cal);
@@ -145,9 +145,9 @@ namespace Com.Adobe.Xmp
         /// <returns>Returns an updated <c>XMPDateTime</c>-object.</returns>
         public static IXmpDateTime ConvertToLocalTime(IXmpDateTime dateTime)
         {
-            long timeInMillis = dateTime.GetCalendar().GetTimeInMillis();
+            var timeInMillis = dateTime.GetCalendar().GetTimeInMillis();
             // has automatically local timezone
-            GregorianCalendar cal = new GregorianCalendar();
+            var cal = new GregorianCalendar();
             cal.SetTimeInMillis(timeInMillis);
             return new XmpDateTime(cal);
         }

@@ -25,14 +25,14 @@ namespace Com.Drew.Imaging.Png
         [Test, SetCulture("en-GB")]
         public void TestGimpGreyscaleWithManyChunks()
         {
-            TimeZoneInfo timeZone = TimeZoneInfo.Local;
+            var timeZone = TimeZoneInfo.Local;
             try
             {
-                Metadata.Metadata metadata = ProcessFile("Tests/Data/gimp-8x12-greyscale-alpha-time-background.png");
-                ICollection<PngDirectory> directories = metadata.GetDirectoriesOfType<PngDirectory>();
+                var metadata = ProcessFile("Tests/Data/gimp-8x12-greyscale-alpha-time-background.png");
+                var directories = metadata.GetDirectoriesOfType<PngDirectory>();
                 Assert.IsNotNull(directories);
                 Assert.AreEqual(6, directories.Count);
-                PngDirectory[] dirs = new PngDirectory[directories.Count];
+                var dirs = new PngDirectory[directories.Count];
                 Collections.ToArray(directories, dirs);
                 Assert.AreEqual(PngChunkType.Ihdr, dirs[0].GetPngChunkType());
                 Assert.AreEqual(8, dirs[0].GetInt(PngDirectory.TagImageWidth));
@@ -56,7 +56,7 @@ namespace Com.Drew.Imaging.Png
                 var testString = CreateTestString(2013, 00, 01, 04, 08, 30);
                 Assert.AreEqual(testString, Extensions.ConvertToString(dirs[4].GetDate(PngDirectory.TagLastModificationTime).Value));
                 Assert.AreEqual(PngChunkType.ITXt, dirs[5].GetPngChunkType());
-                IList<KeyValuePair> pairs = (IList<KeyValuePair>)dirs[5].GetObject(PngDirectory.TagTextualData);
+                var pairs = (IList<KeyValuePair>)dirs[5].GetObject(PngDirectory.TagTextualData);
                 Assert.IsNotNull(pairs);
                 Assert.AreEqual(1, pairs.Count);
                 Assert.AreEqual("Comment", pairs[0].Key);
@@ -69,8 +69,8 @@ namespace Com.Drew.Imaging.Png
 
         private static string CreateTestString(int year, int month, int day, int hourOfDay, int minute, int second)
         {
-            TimeZoneInfo gmt = Extensions.GetTimeZone("GMT");
-            Calendar calendar = Calendar.GetInstance(gmt);
+            var gmt = Extensions.GetTimeZone("GMT");
+            var calendar = Calendar.GetInstance(gmt);
             calendar.Set(year, month, day, hourOfDay, minute, second);
 
             return calendar.GetTime().ToString("ddd MMM dd HH:mm:ss zzz yyyy");

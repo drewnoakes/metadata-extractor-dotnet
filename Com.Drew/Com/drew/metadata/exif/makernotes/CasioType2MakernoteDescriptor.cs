@@ -214,7 +214,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetFocusMode2Description()
         {
-            int? value = Directory.GetInteger(CasioType2MakernoteDirectory.TagFocusMode2);
+            var value = Directory.GetInteger(CasioType2MakernoteDirectory.TagFocusMode2);
             if (value == null)
             {
                 return null;
@@ -265,7 +265,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetObjectDistanceDescription()
         {
-            int? value = Directory.GetInteger(CasioType2MakernoteDirectory.TagObjectDistance);
+            var value = Directory.GetInteger(CasioType2MakernoteDirectory.TagObjectDistance);
             if (value == null)
             {
                 return null;
@@ -276,7 +276,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetWhiteBalance2Description()
         {
-            int? value = Directory.GetInteger(CasioType2MakernoteDirectory.TagWhiteBalance2);
+            var value = Directory.GetInteger(CasioType2MakernoteDirectory.TagWhiteBalance2);
             if (value == null)
             {
                 return null;
@@ -321,7 +321,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetCasioPreviewThumbnailDescription()
         {
-            byte[] bytes = Directory.GetByteArray(CasioType2MakernoteDirectory.TagPreviewThumbnail);
+            var bytes = Directory.GetByteArray(CasioType2MakernoteDirectory.TagPreviewThumbnail);
             if (bytes == null)
             {
                 return null;
@@ -357,7 +357,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetFocalLengthDescription()
         {
-            double? value = Directory.GetDoubleObject(CasioType2MakernoteDirectory.TagFocalLength);
+            var value = Directory.GetDoubleObject(CasioType2MakernoteDirectory.TagFocalLength);
             if (value == null)
             {
                 return null;
@@ -374,7 +374,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetIsoSensitivityDescription()
         {
-            int? value = Directory.GetInteger(CasioType2MakernoteDirectory.TagIsoSensitivity);
+            var value = Directory.GetInteger(CasioType2MakernoteDirectory.TagIsoSensitivity);
             if (value == null)
             {
                 return null;
@@ -417,7 +417,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetImageSizeDescription()
         {
-            int? value = Directory.GetInteger(CasioType2MakernoteDirectory.TagImageSize);
+            var value = Directory.GetInteger(CasioType2MakernoteDirectory.TagImageSize);
             if (value == null)
             {
                 return null;
@@ -481,7 +481,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetThumbnailSizeDescription()
         {
-            int? value = Directory.GetInteger(CasioType2MakernoteDirectory.TagThumbnailSize);
+            var value = Directory.GetInteger(CasioType2MakernoteDirectory.TagThumbnailSize);
             if (value == null)
             {
                 return null;
@@ -492,7 +492,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetThumbnailDimensionsDescription()
         {
-            int[] dimensions = Directory.GetIntArray(CasioType2MakernoteDirectory.TagThumbnailDimensions);
+            var dimensions = Directory.GetIntArray(CasioType2MakernoteDirectory.TagThumbnailDimensions);
             if (dimensions == null || dimensions.Length != 2)
             {
                 return Directory.GetString(CasioType2MakernoteDirectory.TagThumbnailDimensions);

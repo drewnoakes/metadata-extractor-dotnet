@@ -34,7 +34,7 @@ namespace Sharpen
 
         public static object Remove(IDictionary map, object toRemove)
         {
-            object local = map[toRemove];
+            var local = map[toRemove];
             map.Remove (toRemove);
             //return default(V);
             return local;
@@ -42,7 +42,7 @@ namespace Sharpen
 
         public static object[] ToArray (IList list, object[] result)
         {
-            for (int i = 0; i < result.Length; i++)
+            for (var i = 0; i < result.Length; i++)
             {
                 result[i] = list[i];
             }
@@ -55,8 +55,8 @@ namespace Sharpen
             if (res.Length < list.Count)
                 res = new TU [list.Count];
 
-            int n = 0;
-            foreach (T t in list)
+            var n = 0;
+            foreach (var t in list)
                 res [n++] = t;
 
             if (res.Length > list.Count)

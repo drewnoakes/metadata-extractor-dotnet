@@ -49,17 +49,17 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="System.IO.IOException"/>
         public override int Read(char[] cbuf, int off, int len)
         {
-            int readAhead = 0;
-            int read = 0;
-            int pos = off;
-            char[] readAheadBuffer = new char[BufferSize];
-            bool available = true;
+            var readAhead = 0;
+            var read = 0;
+            var pos = off;
+            var readAheadBuffer = new char[BufferSize];
+            var available = true;
             while (available && read < len)
             {
                 available = base.Read(readAheadBuffer, readAhead, 1) == 1;
                 if (available)
                 {
-                    char c = ProcessChar(readAheadBuffer[readAhead]);
+                    var c = ProcessChar(readAheadBuffer[readAhead]);
                     if (_state == StateStart)
                     {
                         // replace control chars with space

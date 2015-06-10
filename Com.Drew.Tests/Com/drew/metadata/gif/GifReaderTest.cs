@@ -34,10 +34,10 @@ namespace Com.Drew.Metadata.Gif
         [NotNull]
         public static GifHeaderDirectory ProcessBytes([NotNull] string file)
         {
-            Metadata metadata = new Metadata();
+            var metadata = new Metadata();
             using (Stream stream = new FileStream(file, FileMode.Open))
                 new GifReader().Extract(new SequentialStreamReader(stream), metadata);
-            GifHeaderDirectory directory = metadata.GetFirstDirectoryOfType<GifHeaderDirectory>();
+            var directory = metadata.GetFirstDirectoryOfType<GifHeaderDirectory>();
             Assert.IsNotNull(directory);
             return directory;
         }
@@ -46,7 +46,7 @@ namespace Com.Drew.Metadata.Gif
         [Test]
         public void TestMsPaintGif()
         {
-            GifHeaderDirectory directory = ProcessBytes("Tests/Data/mspaint-10x10.gif");
+            var directory = ProcessBytes("Tests/Data/mspaint-10x10.gif");
             Assert.IsFalse(directory.HasErrors());
             Assert.AreEqual("89a", directory.GetString(GifHeaderDirectory.TagGifFormatVersion));
             Assert.AreEqual(10, directory.GetInt(GifHeaderDirectory.TagImageWidth));
@@ -62,7 +62,7 @@ namespace Com.Drew.Metadata.Gif
         [Test]
         public void TestPhotoshopGif()
         {
-            GifHeaderDirectory directory = ProcessBytes("Tests/Data/photoshop-8x12-32colors-alpha.gif");
+            var directory = ProcessBytes("Tests/Data/photoshop-8x12-32colors-alpha.gif");
             Assert.IsFalse(directory.HasErrors());
             Assert.AreEqual("89a", directory.GetString(GifHeaderDirectory.TagGifFormatVersion));
             Assert.AreEqual(8, directory.GetInt(GifHeaderDirectory.TagImageWidth));

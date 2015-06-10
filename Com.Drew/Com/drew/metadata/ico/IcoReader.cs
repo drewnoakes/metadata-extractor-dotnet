@@ -45,10 +45,10 @@ namespace Com.Drew.Metadata.Ico
             // Read header (ICONDIR structure)
             try
             {
-                int reserved = reader.GetUInt16();
+                var reserved = reader.GetUInt16();
                 if (reserved != 0)
                 {
-                    IcoDirectory directory = new IcoDirectory();
+                    var directory = new IcoDirectory();
                     directory.AddError("Invalid header bytes");
                     metadata.AddDirectory(directory);
                     return;
@@ -56,7 +56,7 @@ namespace Com.Drew.Metadata.Ico
                 type = reader.GetUInt16();
                 if (type != 1 && type != 2)
                 {
-                    IcoDirectory directory = new IcoDirectory();
+                    var directory = new IcoDirectory();
                     directory.AddError("Invalid type " + type + " -- expecting 1 or 2");
                     metadata.AddDirectory(directory);
                     return;
@@ -64,7 +64,7 @@ namespace Com.Drew.Metadata.Ico
                 imageCount = reader.GetUInt16();
                 if (imageCount == 0)
                 {
-                    IcoDirectory directory = new IcoDirectory();
+                    var directory = new IcoDirectory();
                     directory.AddError("Image count cannot be zero");
                     metadata.AddDirectory(directory);
                     return;
@@ -72,7 +72,7 @@ namespace Com.Drew.Metadata.Ico
             }
             catch (IOException ex)
             {
-                IcoDirectory directory = new IcoDirectory();
+                var directory = new IcoDirectory();
                 directory.AddError("Exception reading ICO file metadata: " + ex.Message);
                 metadata.AddDirectory(directory);
                 return;
@@ -81,7 +81,7 @@ namespace Com.Drew.Metadata.Ico
             IcoDirectory directory1 = null;
             try
             {
-                for (int imageIndex = 0; imageIndex < imageCount; imageIndex++)
+                for (var imageIndex = 0; imageIndex < imageCount; imageIndex++)
                 {
                     directory1 = new IcoDirectory();
                     metadata.AddDirectory(directory1);

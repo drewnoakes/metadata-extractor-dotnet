@@ -46,7 +46,7 @@ namespace Com.Drew.Imaging.Ico
         [NotNull]
         public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
         {
-            Metadata.Metadata metadata = new Metadata.Metadata();
+            var metadata = new Metadata.Metadata();
             new IcoReader().Extract(new SequentialStreamReader(stream), metadata);
             return metadata;
         }

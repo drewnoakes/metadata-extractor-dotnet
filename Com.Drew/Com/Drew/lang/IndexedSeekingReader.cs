@@ -66,7 +66,7 @@ namespace Com.Drew.Lang
             {
                 Seek(index);
             }
-            int b = _stream.ReadByte();
+            var b = _stream.ReadByte();
             if (b < 0)
             {
                 throw new BufferBoundsException("Unexpected end of file encountered.");
@@ -84,8 +84,8 @@ namespace Com.Drew.Lang
             {
                 Seek(index);
             }
-            byte[] bytes = new byte[count];
-            int bytesRead = _stream.Read(bytes, 0, count);
+            var bytes = new byte[count];
+            var bytesRead = _stream.Read(bytes, 0, count);
             _currentIndex += bytesRead;
             if (bytesRead != count)
             {

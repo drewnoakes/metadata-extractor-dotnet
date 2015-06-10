@@ -116,7 +116,7 @@ namespace Com.Drew.Metadata.Jpeg
         [CanBeNull]
         public JpegComponent GetComponent(int componentNumber)
         {
-            int tagType = TagComponentData1 + componentNumber;
+            var tagType = TagComponentData1 + componentNumber;
             return (JpegComponent)GetObject(tagType);
         }
 

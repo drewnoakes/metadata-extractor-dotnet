@@ -99,15 +99,15 @@ namespace Com.Drew.Metadata.Xmp
         /// </param>
         public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
         {
-            foreach (byte[] segmentBytes in segments)
+            foreach (var segmentBytes in segments)
             {
                 // XMP in a JPEG file has an identifying preamble which is not valid XML
-                int preambleLength = XmpJpegPreamble.Length;
+                var preambleLength = XmpJpegPreamble.Length;
                 if (segmentBytes.Length < preambleLength || !XmpJpegPreamble.Equals (Encoding.UTF8.GetString(segmentBytes, 0, preambleLength), StringComparison.CurrentCultureIgnoreCase))
                 {
                     continue;
                 }
-                byte[] xmlBytes = new byte[segmentBytes.Length - preambleLength];
+                var xmlBytes = new byte[segmentBytes.Length - preambleLength];
                 Array.Copy(segmentBytes, preambleLength, xmlBytes, 0, xmlBytes.Length);
                 Extract(xmlBytes, metadata);
             }
@@ -120,10 +120,10 @@ namespace Com.Drew.Metadata.Xmp
         /// </summary>
         public void Extract([NotNull] byte[] xmpBytes, [NotNull] Metadata metadata)
         {
-            XmpDirectory directory = new XmpDirectory();
+            var directory = new XmpDirectory();
             try
             {
-                IXmpMeta xmpMeta = XmpMetaFactory.ParseFromBuffer(xmpBytes);
+                var xmpMeta = XmpMetaFactory.ParseFromBuffer(xmpBytes);
                 ProcessXmpTags(directory, xmpMeta);
             }
             catch (XmpException e)
@@ -143,10 +143,10 @@ namespace Com.Drew.Metadata.Xmp
         /// </summary>
         public void Extract([NotNull] string xmpString, [NotNull] Metadata metadata)
         {
-            XmpDirectory directory = new XmpDirectory();
+            var directory = new XmpDirectory();
             try
             {
-                IXmpMeta xmpMeta = XmpMetaFactory.ParseFromString(xmpString);
+                var xmpMeta = XmpMetaFactory.ParseFromString(xmpString);
                 ProcessXmpTags(directory, xmpMeta);
             }
             catch (XmpException e)
@@ -206,11 +206,11 @@ namespace Com.Drew.Metadata.Xmp
             // processXmpTag(xmpMeta, directory, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES, "dc:accrualPeriodicity", XmpDirectory.TAG_ACCRUAL_PERIODICITY,
             // FMT_STRING);
             // processXmpTag(xmpMeta, directory, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES, "dc:accrualPolicy", XmpDirectory.TAG_ACCRUAL_POLICY, FMT_STRING);
-            for (IXmpIterator iterator = xmpMeta.Iterator(); iterator.HasNext(); )
+            for (var iterator = xmpMeta.Iterator(); iterator.HasNext(); )
             {
-                IXmpPropertyInfo propInfo = (IXmpPropertyInfo)iterator.Next();
-                string path = propInfo.GetPath();
-                string value = propInfo.GetValue();
+                var propInfo = (IXmpPropertyInfo)iterator.Next();
+                var path = propInfo.GetPath();
+                var value = propInfo.GetValue();
                 if (path != null && value != null)
                 {
                     directory.AddProperty(path, value);
@@ -223,9 +223,9 @@ namespace Com.Drew.Metadata.Xmp
         /// <exception cref="XmpException"/>
         private static void ProcessXmpTag([NotNull] IXmpMeta meta, [NotNull] XmpDirectory directory, int tagType, int formatCode)
         {
-            string schemaNs = XmpDirectory.TagSchemaMap.GetOrNull(tagType);
-            string propName = XmpDirectory.TagPropNameMap.GetOrNull(tagType);
-            string property = meta.GetPropertyString(schemaNs, propName);
+            var schemaNs = XmpDirectory.TagSchemaMap.GetOrNull(tagType);
+            var propName = XmpDirectory.TagPropNameMap.GetOrNull(tagType);
+            var property = meta.GetPropertyString(schemaNs, propName);
             if (property == null)
             {
                 return;
@@ -234,12 +234,12 @@ namespace Com.Drew.Metadata.Xmp
             {
                 case FmtRational:
                 {
-                    string[] rationalParts = property.Split("/", 2);
+                    var rationalParts = property.Split("/", 2);
                     if (rationalParts.Length == 2)
                     {
                         try
                         {
-                            Rational rational = new Rational((long)float.Parse(rationalParts[0]), (long)float.Parse(rationalParts[1]));
+                            var rational = new Rational((long)float.Parse(rationalParts[0]), (long)float.Parse(rationalParts[1]));
                             directory.SetRational(tagType, rational);
                         }
                         catch (FormatException)
@@ -289,9 +289,9 @@ namespace Com.Drew.Metadata.Xmp
                 case FmtStringArray:
                 {
                     //XMP iterators are 1-based
-                    int count = meta.CountArrayItems(schemaNs, propName);
-                    string[] array = new string[count];
-                    for (int i = 1; i <= count; ++i)
+                    var count = meta.CountArrayItems(schemaNs, propName);
+                    var array = new string[count];
+                    for (var i = 1; i <= count; ++i)
                     {
                         array[i - 1] = meta.GetArrayItem(schemaNs, propName, i).GetValue();
                     }
@@ -310,9 +310,9 @@ namespace Com.Drew.Metadata.Xmp
         /// <exception cref="XmpException"/>
         private static void ProcessXmpDateTag([NotNull] IXmpMeta meta, [NotNull] XmpDirectory directory, int tagType)
         {
-            string schemaNs = XmpDirectory.TagSchemaMap.GetOrNull(tagType);
-            string propName = XmpDirectory.TagPropNameMap.GetOrNull(tagType);
-            Calendar cal = meta.GetPropertyCalendar(schemaNs, propName);
+            var schemaNs = XmpDirectory.TagSchemaMap.GetOrNull(tagType);
+            var propName = XmpDirectory.TagPropNameMap.GetOrNull(tagType);
+            var cal = meta.GetPropertyCalendar(schemaNs, propName);
             if (cal != null)
             {
                 directory.SetDate(tagType, cal.GetTime());

@@ -58,7 +58,7 @@ namespace Com.Drew.Imaging.Jpeg
         [NotNull]
         public static Metadata.Metadata ReadMetadata([NotNull] Stream stream, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
         {
-            Metadata.Metadata metadata = new Metadata.Metadata();
+            var metadata = new Metadata.Metadata();
             Process(metadata, stream, readers);
             return metadata;
         }
@@ -84,23 +84,23 @@ namespace Com.Drew.Imaging.Jpeg
                 readers = AllReaders;
             }
             ICollection<JpegSegmentType> segmentTypes = new HashSet<JpegSegmentType>();
-            foreach (IJpegSegmentMetadataReader reader in readers)
+            foreach (var reader in readers)
             {
-                foreach (JpegSegmentType type in reader.GetSegmentTypes())
+                foreach (var type in reader.GetSegmentTypes())
                 {
                     segmentTypes.Add(type);
                 }
             }
-            JpegSegmentData segmentData = JpegSegmentReader.ReadSegments(new SequentialStreamReader(inputStream), segmentTypes);
+            var segmentData = JpegSegmentReader.ReadSegments(new SequentialStreamReader(inputStream), segmentTypes);
             ProcessJpegSegmentData(metadata, readers, segmentData);
         }
 
         public static void ProcessJpegSegmentData(Metadata.Metadata metadata, IEnumerable<IJpegSegmentMetadataReader> readers, JpegSegmentData segmentData)
         {
             // Pass the appropriate byte arrays to each reader.
-            foreach (IJpegSegmentMetadataReader reader in readers)
+            foreach (var reader in readers)
             {
-                foreach (JpegSegmentType segmentType in reader.GetSegmentTypes())
+                foreach (var segmentType in reader.GetSegmentTypes())
                 {
                     reader.ReadJpegSegments(segmentData.GetSegments(segmentType), metadata, segmentType);
                 }

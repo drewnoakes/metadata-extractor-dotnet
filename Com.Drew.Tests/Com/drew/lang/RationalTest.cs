@@ -31,7 +31,7 @@ namespace Com.Drew.Lang
         [Test]
         public void TestCreateRational()
         {
-            Rational rational = new Rational(1, 3);
+            var rational = new Rational(1, 3);
             Assert.AreEqual(1, (object)rational.GetNumerator());
             Assert.AreEqual(3, (object)rational.GetDenominator());
             Assert.AreEqual(1d / 3d, rational.DoubleValue(), 0.0001);
@@ -41,7 +41,7 @@ namespace Com.Drew.Lang
         [Test]
         public void TestToString()
         {
-            Rational rational = new Rational(1, 3);
+            var rational = new Rational(1, 3);
             Assert.AreEqual("1/3", rational.ToString());
         }
 
@@ -49,23 +49,23 @@ namespace Com.Drew.Lang
         [Test, SetCulture("en-GB")]
         public void TestToSimpleString()
         {
-            Rational third1 = new Rational(1, 3);
-            Rational third2 = new Rational(2, 6);
+            var third1 = new Rational(1, 3);
+            var third2 = new Rational(2, 6);
             Assert.AreEqual("1/3", third1.ToSimpleString(true));
             Assert.AreEqual("1/3", third2.ToSimpleString(true));
             Assert.AreEqual(third1, third2);
-            Rational twoThirds = new Rational(10, 15);
+            var twoThirds = new Rational(10, 15);
             Assert.AreEqual("2/3", twoThirds.ToSimpleString(true));
-            Rational two = new Rational(10, 5);
+            var two = new Rational(10, 5);
             Assert.IsTrue(two.IsInteger());
             Assert.AreEqual("2", two.ToSimpleString(true));
             Assert.AreEqual("2", two.ToSimpleString(false));
-            Rational twoFifths = new Rational(4, 10);
+            var twoFifths = new Rational(4, 10);
             Assert.AreEqual("0.4", twoFifths.ToSimpleString(true));
             Assert.AreEqual("2/5", twoFifths.ToSimpleString(false));
-            Rational threeEighths = new Rational(3, 8);
+            var threeEighths = new Rational(3, 8);
             Assert.AreEqual("3/8", threeEighths.ToSimpleString(true));
-            Rational zero = new Rational(0, 8);
+            var zero = new Rational(0, 8);
             Assert.IsTrue(zero.IsInteger());
             Assert.AreEqual("0", zero.ToSimpleString(true));
             Assert.AreEqual("0", zero.ToSimpleString(false));
@@ -82,8 +82,8 @@ namespace Com.Drew.Lang
         [Test]
         public void TestGetReciprocal()
         {
-            Rational rational = new Rational(1, 3);
-            Rational reciprocal = rational.GetReciprocal();
+            var rational = new Rational(1, 3);
+            var reciprocal = rational.GetReciprocal();
             Assert.AreEqual(new Rational(3, 1), reciprocal, "new rational should be reciprocal");
             Assert.AreEqual(new Rational(1, 3), rational, "original reciprocal should remain unchanged");
         }

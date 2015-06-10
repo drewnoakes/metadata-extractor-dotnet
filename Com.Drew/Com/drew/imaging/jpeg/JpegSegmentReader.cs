@@ -95,7 +95,7 @@ namespace Com.Drew.Imaging.Jpeg
             // Must be big-endian
             Debug.Assert((reader.IsMotorolaByteOrder()));
             // first two bytes should be JPEG magic number
-            int magicNumber = reader.GetUInt16();
+            var magicNumber = reader.GetUInt16();
             if (magicNumber != unchecked(0xFFD8))
             {
                 throw new JpegProcessingException(string.Format("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x{0:X}", magicNumber));
@@ -104,24 +104,24 @@ namespace Com.Drew.Imaging.Jpeg
             if (segmentTypes != null)
             {
                 segmentTypeBytes = new HashSet<byte>();
-                foreach (JpegSegmentType segmentType in segmentTypes)
+                foreach (var segmentType in segmentTypes)
                 {
                     segmentTypeBytes.Add(segmentType.ByteValue);
                 }
             }
-            JpegSegmentData segmentData = new JpegSegmentData();
+            var segmentData = new JpegSegmentData();
             do
             {
                 // Find the segment marker. Markers are zero or more 0xFF bytes, followed
                 // by a 0xFF and then a byte not equal to 0x00 or 0xFF.
-                short segmentIdentifier = reader.GetUInt8();
+                var segmentIdentifier = reader.GetUInt8();
                 // We must have at least one 0xFF byte
                 if (segmentIdentifier != unchecked(0xFF))
                 {
                     throw new JpegProcessingException(string.Format("Expected JPEG segment start identifier 0xFF, not 0x{0:X}", segmentIdentifier));
                 }
                 // Read until we have a non-0xFF byte. This identifies the segment type.
-                byte segmentType = reader.GetInt8();
+                var segmentType = reader.GetInt8();
                 while (segmentType == unchecked((byte)0xFF))
                 {
                     segmentType = reader.GetInt8();
@@ -143,7 +143,7 @@ namespace Com.Drew.Imaging.Jpeg
                     return segmentData;
                 }
                 // next 2-bytes are <segment-size>: [high-byte] [low-byte]
-                int segmentLength = reader.GetUInt16();
+                var segmentLength = reader.GetUInt16();
                 // segment length includes size bytes, so subtract two
                 segmentLength -= 2;
                 if (segmentLength < 0)
@@ -153,7 +153,7 @@ namespace Com.Drew.Imaging.Jpeg
                 // Check whether we are interested in this segment
                 if (segmentTypeBytes == null || segmentTypeBytes.Contains(segmentType))
                 {
-                    byte[] segmentBytes = reader.GetBytes(segmentLength);
+                    var segmentBytes = reader.GetBytes(segmentLength);
                     Debug.Assert((segmentLength == segmentBytes.Length));
                     segmentData.AddSegment(segmentType, segmentBytes);
                 }

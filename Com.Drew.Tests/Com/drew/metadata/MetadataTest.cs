@@ -39,9 +39,9 @@ namespace Com.Drew.Metadata
         [Test]
         public void TestHasErrors()
         {
-            ExifSubIfdDirectory directory = new ExifSubIfdDirectory();
+            var directory = new ExifSubIfdDirectory();
             directory.AddError("Test Error 1");
-            Metadata metadata = new Metadata();
+            var metadata = new Metadata();
             Assert.IsFalse(metadata.HasErrors());
             metadata.AddDirectory(directory);
             Assert.IsTrue(metadata.HasErrors());
@@ -50,7 +50,7 @@ namespace Com.Drew.Metadata
         [Test]
         public void TestToString()
         {
-            Metadata metadata = new Metadata();
+            var metadata = new Metadata();
             Assert.AreEqual("Metadata (0 directories)", metadata.ToString());
             metadata.AddDirectory(new ExifIfd0Directory());
             Assert.AreEqual("Metadata (1 directory)", metadata.ToString());

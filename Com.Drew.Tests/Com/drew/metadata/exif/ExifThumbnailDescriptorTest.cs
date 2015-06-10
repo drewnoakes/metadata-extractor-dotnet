@@ -32,9 +32,9 @@ namespace Com.Drew.Metadata.Exif
         [Test]
         public void TestGetYCbCrSubsamplingDescription()
         {
-            ExifThumbnailDirectory directory = new ExifThumbnailDirectory();
+            var directory = new ExifThumbnailDirectory();
             directory.SetIntArray(ExifDirectoryBase.TagYcbcrSubsampling, new[] { 2, 1 });
-            ExifThumbnailDescriptor descriptor = new ExifThumbnailDescriptor(directory);
+            var descriptor = new ExifThumbnailDescriptor(directory);
             Assert.AreEqual("YCbCr4:2:2", descriptor.GetDescription(ExifDirectoryBase.TagYcbcrSubsampling));
             Assert.AreEqual("YCbCr4:2:2", descriptor.GetYCbCrSubsamplingDescription());
             directory.SetIntArray(ExifDirectoryBase.TagYcbcrSubsampling, new[] { 2, 2 });

@@ -71,8 +71,8 @@ namespace Com.Adobe.Xmp.Impl.Xpath
             {
                 throw new XmpException("Parameter must not be null", XmpErrorCode.BadParam);
             }
-            XmpPath expandedXPath = new XmpPath();
-            PathPosition pos = new PathPosition();
+            var expandedXPath = new XmpPath();
+            var pos = new PathPosition();
             pos.Path = path;
             // Pull out the first component and do some special processing on it: add the schema
             // namespace prefix and and see if it is an alias. The start must be a "qualName".
@@ -179,7 +179,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                 throw new XmpException("Empty XMPPath segment", XmpErrorCode.BadXPath);
             }
             // ! Touch up later, also changing '@' to '?'.
-            XmpPathSegment segment = new XmpPathSegment(pos.Path.Substring (pos.StepBegin, pos.StepEnd - pos.StepBegin), XmpPath.StructFieldStep);
+            var segment = new XmpPathSegment(pos.Path.Substring (pos.StepBegin, pos.StepEnd - pos.StepBegin), XmpPath.StructFieldStep);
             return segment;
         }
 
@@ -226,7 +226,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                     pos.NameEnd = pos.StepEnd;
                     pos.StepEnd++;
                     // Absorb the '=', remember the quote.
-                    char quote = pos.Path[pos.StepEnd];
+                    var quote = pos.Path[pos.StepEnd];
                     if (quote != '\'' && quote != '"')
                     {
                         throw new XmpException("Invalid quote in array selector", XmpErrorCode.BadXPath);
@@ -283,26 +283,26 @@ namespace Com.Adobe.Xmp.Impl.Xpath
             {
                 throw new XmpException("Empty initial XMPPath step", XmpErrorCode.BadXPath);
             }
-            string rootProp = VerifyXPathRoot(schemaNs, pos.Path.Substring (pos.StepBegin, pos.StepEnd - pos.StepBegin));
-            IXmpAliasInfo aliasInfo = XmpMetaFactory.GetSchemaRegistry().FindAlias(rootProp);
+            var rootProp = VerifyXPathRoot(schemaNs, pos.Path.Substring (pos.StepBegin, pos.StepEnd - pos.StepBegin));
+            var aliasInfo = XmpMetaFactory.GetSchemaRegistry().FindAlias(rootProp);
             if (aliasInfo == null)
             {
                 // add schema xpath step
                 expandedXPath.Add(new XmpPathSegment(schemaNs, XmpPath.SchemaNode));
-                XmpPathSegment rootStep = new XmpPathSegment(rootProp, XmpPath.StructFieldStep);
+                var rootStep = new XmpPathSegment(rootProp, XmpPath.StructFieldStep);
                 expandedXPath.Add(rootStep);
             }
             else
             {
                 // add schema xpath step and base step of alias
                 expandedXPath.Add(new XmpPathSegment(aliasInfo.GetNamespace(), XmpPath.SchemaNode));
-                XmpPathSegment rootStep = new XmpPathSegment(VerifyXPathRoot(aliasInfo.GetNamespace(), aliasInfo.GetPropName()), XmpPath.StructFieldStep);
+                var rootStep = new XmpPathSegment(VerifyXPathRoot(aliasInfo.GetNamespace(), aliasInfo.GetPropName()), XmpPath.StructFieldStep);
                 rootStep.SetAlias(true);
                 rootStep.SetAliasForm(aliasInfo.GetAliasForm().GetOptions());
                 expandedXPath.Add(rootStep);
                 if (aliasInfo.GetAliasForm().IsArrayAltText)
                 {
-                    XmpPathSegment qualSelectorStep = new XmpPathSegment("[?xml:lang='x-default']", XmpPath.QualSelectorStep);
+                    var qualSelectorStep = new XmpPathSegment("[?xml:lang='x-default']", XmpPath.QualSelectorStep);
                     qualSelectorStep.SetAlias(true);
                     qualSelectorStep.SetAliasForm(aliasInfo.GetAliasForm().GetOptions());
                     expandedXPath.Add(qualSelectorStep);
@@ -311,7 +311,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                 {
                     if (aliasInfo.GetAliasForm().IsArray)
                     {
-                        XmpPathSegment indexStep = new XmpPathSegment("[1]", XmpPath.ArrayIndexStep);
+                        var indexStep = new XmpPathSegment("[1]", XmpPath.ArrayIndexStep);
                         indexStep.SetAlias(true);
                         indexStep.SetAliasForm(aliasInfo.GetAliasForm().GetOptions());
                         expandedXPath.Add(indexStep);
@@ -328,13 +328,13 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         /// <exception cref="XmpException">If the name is not conformant</exception>
         private static void VerifyQualName(string qualName)
         {
-            int colonPos = qualName.IndexOf(':');
+            var colonPos = qualName.IndexOf(':');
             if (colonPos > 0)
             {
-                string prefix = qualName.Substring (0, colonPos - 0);
+                var prefix = qualName.Substring (0, colonPos - 0);
                 if (Utils.IsXmlNameNs(prefix))
                 {
-                    string regUri = XmpMetaFactory.GetSchemaRegistry().GetNamespaceUri(prefix);
+                    var regUri = XmpMetaFactory.GetSchemaRegistry().GetNamespaceUri(prefix);
                     if (regUri != null)
                     {
                         return;
@@ -386,14 +386,14 @@ namespace Com.Adobe.Xmp.Impl.Xpath
             {
                 throw new XmpException("Top level name must be simple", XmpErrorCode.BadXPath);
             }
-            string prefix = XmpMetaFactory.GetSchemaRegistry().GetNamespacePrefix(schemaNs);
+            var prefix = XmpMetaFactory.GetSchemaRegistry().GetNamespacePrefix(schemaNs);
             if (prefix == null)
             {
                 throw new XmpException("Unregistered schema namespace URI", XmpErrorCode.BadSchema);
             }
             // Verify the various URI and prefix combinations. Initialize the
             // expanded XMPPath.
-            int colonPos = rootProp.IndexOf(':');
+            var colonPos = rootProp.IndexOf(':');
             if (colonPos < 0)
             {
                 // The propName is unqualified, use the schemaURI and associated
@@ -408,7 +408,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
             VerifySimpleXmlName(rootProp.Substring (0, colonPos - 0));
             VerifySimpleXmlName(rootProp.Substring (colonPos));
             prefix = rootProp.Substring (0, colonPos + 1 - 0);
-            string regPrefix = XmpMetaFactory.GetSchemaRegistry().GetNamespacePrefix(schemaNs);
+            var regPrefix = XmpMetaFactory.GetSchemaRegistry().GetNamespacePrefix(schemaNs);
             if (regPrefix == null)
             {
                 throw new XmpException("Unknown schema namespace prefix", XmpErrorCode.BadSchema);

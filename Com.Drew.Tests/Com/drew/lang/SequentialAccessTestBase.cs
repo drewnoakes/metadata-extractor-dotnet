@@ -46,8 +46,8 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetInt8()
         {
-            byte[] buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked((byte)0xFF) };
-            SequentialReader reader = CreateReader(buffer);
+            var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked((byte)0xFF) };
+            var reader = CreateReader(buffer);
             Assert.AreEqual(unchecked(0), reader.GetInt8());
             Assert.AreEqual(unchecked(1), reader.GetInt8());
             Assert.AreEqual(unchecked(127), reader.GetInt8());
@@ -58,8 +58,8 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetUInt8()
         {
-            byte[] buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked((byte)0xFF) };
-            SequentialReader reader = CreateReader(buffer);
+            var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked((byte)0xFF) };
+            var reader = CreateReader(buffer);
             Assert.AreEqual(0, reader.GetUInt8());
             Assert.AreEqual(1, reader.GetUInt8());
             Assert.AreEqual(127, reader.GetUInt8());
@@ -71,7 +71,7 @@ namespace Com.Drew.Lang
         {
             try
             {
-                SequentialReader reader = CreateReader(new byte[1]);
+                var reader = CreateReader(new byte[1]);
                 reader.GetUInt8();
                 reader.GetUInt8();
                 Assert.Fail("Exception expected");
@@ -87,8 +87,8 @@ namespace Com.Drew.Lang
         public virtual void TestGetInt16()
         {
             Assert.AreEqual(-1, CreateReader(new[] { unchecked((byte)0xff), unchecked((byte)0xff) }).GetInt16());
-            byte[] buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked((byte)0xFF) };
-            SequentialReader reader = CreateReader(buffer);
+            var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked((byte)0xFF) };
+            var reader = CreateReader(buffer);
             Assert.AreEqual(0x0001, reader.GetInt16());
             Assert.AreEqual(0x7FFF, reader.GetInt16());
             reader = CreateReader(buffer);
@@ -101,8 +101,8 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetUInt16()
         {
-            byte[] buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked((byte)0xFF) };
-            SequentialReader reader = CreateReader(buffer);
+            var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked((byte)0xFF) };
+            var reader = CreateReader(buffer);
             Assert.AreEqual(unchecked(0x0001), reader.GetUInt16());
             Assert.AreEqual(unchecked(0x7FFF), reader.GetUInt16());
             reader = CreateReader(buffer);
@@ -116,7 +116,7 @@ namespace Com.Drew.Lang
         {
             try
             {
-                SequentialReader reader = CreateReader(new byte[1]);
+                var reader = CreateReader(new byte[1]);
                 reader.GetUInt16();
                 Assert.Fail("Exception expected");
             }
@@ -131,8 +131,8 @@ namespace Com.Drew.Lang
         public virtual void TestGetInt32()
         {
             Assert.AreEqual(-1, CreateReader(new[] { unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff) }).GetInt32());
-            byte[] buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x02), unchecked(0x03), unchecked(0x04), unchecked(0x05), unchecked(0x06), unchecked(0x07) };
-            SequentialReader reader = CreateReader(buffer);
+            var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x02), unchecked(0x03), unchecked(0x04), unchecked(0x05), unchecked(0x06), unchecked(0x07) };
+            var reader = CreateReader(buffer);
             Assert.AreEqual(unchecked(0x00010203), reader.GetInt32());
             Assert.AreEqual(unchecked(0x04050607), reader.GetInt32());
             reader = CreateReader(buffer);
@@ -146,8 +146,8 @@ namespace Com.Drew.Lang
         public virtual void TestGetUInt32()
         {
             Assert.AreEqual(4294967295L, (object)CreateReader(new[] { unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff) }).GetUInt32());
-            byte[] buffer = new byte[] { unchecked((byte)0xFF), unchecked(0x00), unchecked(0x01), unchecked(0x02), unchecked(0x03), unchecked(0x04), unchecked(0x05), unchecked(0x06) };
-            SequentialReader reader = CreateReader(buffer);
+            var buffer = new byte[] { unchecked((byte)0xFF), unchecked(0x00), unchecked(0x01), unchecked(0x02), unchecked(0x03), unchecked(0x04), unchecked(0x05), unchecked(0x06) };
+            var reader = CreateReader(buffer);
             Assert.AreEqual(unchecked(0xFF000102L), (object)reader.GetUInt32());
             Assert.AreEqual(unchecked(0x03040506L), (object)reader.GetUInt32());
             reader = CreateReader(buffer);
@@ -162,7 +162,7 @@ namespace Com.Drew.Lang
         {
             try
             {
-                SequentialReader reader = CreateReader(new byte[3]);
+                var reader = CreateReader(new byte[3]);
                 reader.GetInt32();
                 Assert.Fail("Exception expected");
             }
@@ -176,8 +176,8 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetInt64()
         {
-            byte[] buffer = new byte[] { unchecked((byte)0xFF), unchecked(0x00), unchecked(0x01), unchecked(0x02), unchecked(0x03), unchecked(0x04), unchecked(0x05), unchecked(0x06), unchecked(0x07) };
-            SequentialReader reader = CreateReader(buffer);
+            var buffer = new byte[] { unchecked((byte)0xFF), unchecked(0x00), unchecked(0x01), unchecked(0x02), unchecked(0x03), unchecked(0x04), unchecked(0x05), unchecked(0x06), unchecked(0x07) };
+            var reader = CreateReader(buffer);
             Assert.AreEqual(unchecked((long)(0xFF00010203040506L)), (object)reader.GetInt64());
             reader = CreateReader(buffer);
             reader.SetMotorolaByteOrder(false);
@@ -189,7 +189,7 @@ namespace Com.Drew.Lang
         {
             try
             {
-                SequentialReader reader = CreateReader(new byte[7]);
+                var reader = CreateReader(new byte[7]);
                 reader.GetInt64();
                 Assert.Fail("Exception expected");
             }
@@ -203,10 +203,10 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetFloat32()
         {
-            int nanBits = unchecked(0x7fc00000);
+            var nanBits = unchecked(0x7fc00000);
             Assert.IsTrue(float.IsNaN(BitConverter.ToSingle(BitConverter.GetBytes(nanBits), 0)));
-            byte[] buffer = new byte[] { unchecked(0x7f), unchecked((byte)0xc0), unchecked(0x00), unchecked(0x00) };
-            SequentialReader reader = CreateReader(buffer);
+            var buffer = new byte[] { unchecked(0x7f), unchecked((byte)0xc0), unchecked(0x00), unchecked(0x00) };
+            var reader = CreateReader(buffer);
             Assert.IsTrue(float.IsNaN(reader.GetFloat32()));
         }
 
@@ -214,10 +214,10 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetFloat64()
         {
-            long nanBits = unchecked((long)(0xfff0000000000001L));
+            var nanBits = unchecked((long)(0xfff0000000000001L));
             Assert.IsTrue(double.IsNaN(BitConverter.Int64BitsToDouble(nanBits)));
-            byte[] buffer = new byte[] { unchecked((byte)0xff), unchecked((byte)0xf0), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked(0x01) };
-            SequentialReader reader = CreateReader(buffer);
+            var buffer = new byte[] { unchecked((byte)0xff), unchecked((byte)0xf0), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked(0x01) };
+            var reader = CreateReader(buffer);
             Assert.IsTrue(double.IsNaN(reader.GetDouble64()));
         }
 
@@ -225,9 +225,9 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetNullTerminatedString()
         {
-            byte[] bytes = new byte[] { unchecked(0x41), unchecked(0x42), unchecked(0x43), unchecked(0x44), unchecked(0x45), unchecked(0x46), unchecked(0x47) };
+            var bytes = new byte[] { unchecked(0x41), unchecked(0x42), unchecked(0x43), unchecked(0x44), unchecked(0x45), unchecked(0x46), unchecked(0x47) };
             // Test max length
-            for (int i = 0; i < bytes.Length; i++)
+            for (var i = 0; i < bytes.Length; i++)
             {
                 Assert.AreEqual("ABCDEFG".Substring (0, i - 0), CreateReader(bytes).GetNullTerminatedString(i));
             }
@@ -241,10 +241,10 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetString()
         {
-            byte[] bytes = new byte[] { unchecked(0x41), unchecked(0x42), unchecked(0x43), unchecked(0x44), unchecked(0x45), unchecked(0x46), unchecked(0x47) };
-            string expected = Encoding.UTF8.GetString(bytes);
+            var bytes = new byte[] { unchecked(0x41), unchecked(0x42), unchecked(0x43), unchecked(0x44), unchecked(0x45), unchecked(0x46), unchecked(0x47) };
+            var expected = Encoding.UTF8.GetString(bytes);
             Assert.AreEqual(bytes.Length, expected.Length);
-            for (int i = 0; i < bytes.Length; i++)
+            for (var i = 0; i < bytes.Length; i++)
             {
                 Assert.AreEqual("ABCDEFG".Substring (0, i - 0), CreateReader(bytes).GetString(i));
             }
@@ -254,12 +254,12 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestGetBytes()
         {
-            byte[] bytes = new byte[] { 0, 1, 2, 3, 4, 5 };
-            for (int i = 0; i < bytes.Length; i++)
+            var bytes = new byte[] { 0, 1, 2, 3, 4, 5 };
+            for (var i = 0; i < bytes.Length; i++)
             {
-                SequentialReader reader = CreateReader(bytes);
-                byte[] readBytes = reader.GetBytes(i);
-                for (int j = 0; j < i; j++)
+                var reader = CreateReader(bytes);
+                var readBytes = reader.GetBytes(i);
+                for (var j = 0; j < i; j++)
                 {
                     Assert.AreEqual(bytes[j], readBytes[j]);
                 }
@@ -269,7 +269,7 @@ namespace Com.Drew.Lang
         [Test]
         public virtual void TestOverflowBoundsCalculation()
         {
-            SequentialReader reader = CreateReader(new byte[10]);
+            var reader = CreateReader(new byte[10]);
             try
             {
                 reader.GetBytes(15);
@@ -285,7 +285,7 @@ namespace Com.Drew.Lang
         public virtual void TestGetBytesEof()
         {
             CreateReader(new byte[50]).GetBytes(50);
-            SequentialReader reader = CreateReader(new byte[50]);
+            var reader = CreateReader(new byte[50]);
             reader.GetBytes(25);
             reader.GetBytes(25);
             try
@@ -303,7 +303,7 @@ namespace Com.Drew.Lang
         public virtual void TestGetInt8Eof()
         {
             CreateReader(new byte[1]).GetInt8();
-            SequentialReader reader = CreateReader(new byte[2]);
+            var reader = CreateReader(new byte[2]);
             reader.GetInt8();
             reader.GetInt8();
             reader = CreateReader(new byte[1]);
@@ -323,7 +323,7 @@ namespace Com.Drew.Lang
         public virtual void TestSkipEof()
         {
             CreateReader(new byte[1]).Skip(1);
-            SequentialReader reader = CreateReader(new byte[2]);
+            var reader = CreateReader(new byte[2]);
             reader.Skip(1);
             reader.Skip(1);
             reader = CreateReader(new byte[1]);
@@ -343,7 +343,7 @@ namespace Com.Drew.Lang
         public virtual void TestTrySkipEof()
         {
             Assert.IsTrue(CreateReader(new byte[1]).TrySkip(1));
-            SequentialReader reader = CreateReader(new byte[2]);
+            var reader = CreateReader(new byte[2]);
             Assert.IsTrue(reader.TrySkip(1));
             Assert.IsTrue(reader.TrySkip(1));
             Assert.IsFalse(reader.TrySkip(1));

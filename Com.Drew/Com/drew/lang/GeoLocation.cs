@@ -77,8 +77,8 @@ namespace Com.Drew.Lang
         [NotNull]
         public static string DecimalToDegreesMinutesSecondsString(double @decimal)
         {
-            double[] dms = DecimalToDegreesMinutesSeconds(@decimal);
-            DecimalFormat format = new DecimalFormat("0.##");
+            var dms = DecimalToDegreesMinutesSeconds(@decimal);
+            var format = new DecimalFormat("0.##");
             return string.Format("{0}° {1}' {2}\"", format.Format(dms[0]), format.Format(dms[1]), format.Format(dms[2]));
         }
 
@@ -89,9 +89,9 @@ namespace Com.Drew.Lang
         [NotNull]
         public static double[] DecimalToDegreesMinutesSeconds(double @decimal)
         {
-            int d = (int)@decimal;
-            double m = Math.Abs((@decimal % 1) * 60);
-            double s = (m % 1) * 60;
+            var d = (int)@decimal;
+            var m = Math.Abs((@decimal % 1) * 60);
+            var s = (m % 1) * 60;
             return new[] { d, (int)m, s };
         }
 
@@ -103,7 +103,7 @@ namespace Com.Drew.Lang
         [CanBeNull]
         public static double? DegreesMinutesSecondsToDecimal([NotNull] Rational degs, [NotNull] Rational mins, [NotNull] Rational secs, bool isNegative)
         {
-            double @decimal = Math.Abs(degs.DoubleValue()) + mins.DoubleValue() / 60.0d + secs.DoubleValue() / 3600.0d;
+            var @decimal = Math.Abs(degs.DoubleValue()) + mins.DoubleValue() / 60.0d + secs.DoubleValue() / 3600.0d;
             if (double.IsNaN(@decimal))
             {
                 return null;
@@ -125,7 +125,7 @@ namespace Com.Drew.Lang
             {
                 return false;
             }
-            GeoLocation that = (GeoLocation)o;
+            var that = (GeoLocation)o;
             if (Extensions.Compare(that._latitude, _latitude) != 0)
             {
                 return false;

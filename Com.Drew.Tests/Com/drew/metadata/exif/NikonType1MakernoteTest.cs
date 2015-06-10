@@ -52,7 +52,7 @@ namespace Com.Drew.Metadata.Exif
         [SetUp]
         public void SetUp()
         {
-            Metadata metadata = ExifReaderTest.ProcessBytes("Tests/Data/nikonMakernoteType1.jpg.app1");
+            var metadata = ExifReaderTest.ProcessBytes("Tests/Data/nikonMakernoteType1.jpg.app1");
             _nikonDirectory = metadata.GetFirstDirectoryOfType<NikonType1MakernoteDirectory>();
             _exifSubIfdDirectory = metadata.GetFirstDirectoryOfType<ExifSubIfdDirectory>();
             _exifIfd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
@@ -87,12 +87,12 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual(string.Empty, _nikonDirectory.GetString(NikonType1MakernoteDirectory.TagUnknown2));
             Assert.AreEqual(0, _nikonDirectory.GetDouble(NikonType1MakernoteDirectory.TagDigitalZoom), 0.0001);
             Assert.AreEqual(0, _nikonDirectory.GetInt(NikonType1MakernoteDirectory.TagConverter));
-            uint[] unknown3 = (uint[])_nikonDirectory.GetObject(NikonType1MakernoteDirectory.TagUnknown3);
-            uint[] expected = new uint[] { 0, 0, 16777216, 0, 2685774096, 0, 34833, 6931, 16178, 4372, 4372, 3322676767, 3373084416, 15112, 0, 0, 1151495, 252903424, 17, 0, 0, 844038208, 55184128, 218129428, 1476410198, 370540566, 4044363286, 16711749
+            var unknown3 = (uint[])_nikonDirectory.GetObject(NikonType1MakernoteDirectory.TagUnknown3);
+            var expected = new uint[] { 0, 0, 16777216, 0, 2685774096, 0, 34833, 6931, 16178, 4372, 4372, 3322676767, 3373084416, 15112, 0, 0, 1151495, 252903424, 17, 0, 0, 844038208, 55184128, 218129428, 1476410198, 370540566, 4044363286, 16711749
                 , 204629079, 1729 };
             Assert.IsNotNull(unknown3);
             Assert.AreEqual(expected.Length, unknown3.Length);
-            for (int i = 0; i < expected.Length; i++)
+            for (var i = 0; i < expected.Length; i++)
             {
                 Assert.AreEqual(expected[i], (object)unknown3[i]);
             }

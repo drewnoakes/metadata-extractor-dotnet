@@ -61,11 +61,11 @@ namespace Com.Adobe.Xmp.Impl
         public XmpDateTime(Calendar calendar)
         {
             // extract the date and timezone from the calendar provided
-            DateTime date = calendar.GetTime();
-            TimeZoneInfo zone = calendar.GetTimeZone();
+            var date = calendar.GetTime();
+            var zone = calendar.GetTimeZone();
             // put that date into a calendar the pretty much represents ISO8601
             // I use US because it is close to the "locale" for the ISO8601 spec
-            GregorianCalendar intCalendar = (GregorianCalendar)Calendar.GetInstance(CultureInfo.InvariantCulture);
+            var intCalendar = (GregorianCalendar)Calendar.GetInstance(CultureInfo.InvariantCulture);
             intCalendar.SetGregorianChange(Extensions.CreateDate(long.MinValue));
             intCalendar.SetTimeZone(zone);
             intCalendar.SetTime(date);
@@ -90,7 +90,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="timeZone">a TimeZone how to interpret the date</param>
         public XmpDateTime(DateTime date, TimeZoneInfo timeZone)
         {
-            GregorianCalendar calendar = new GregorianCalendar(timeZone);
+            var calendar = new GregorianCalendar(timeZone);
             calendar.SetTime(date);
             _year = calendar.Get(CalendarEnum.Year);
             _month = calendar.Get(CalendarEnum.Month) + 1;
@@ -220,7 +220,7 @@ namespace Com.Adobe.Xmp.Impl
 
         public int CompareTo(object dt)
         {
-            long d = GetCalendar().GetTimeInMillis() - ((IXmpDateTime)dt).GetCalendar().GetTimeInMillis();
+            var d = GetCalendar().GetTimeInMillis() - ((IXmpDateTime)dt).GetCalendar().GetTimeInMillis();
             if (d != 0)
             {
                 return Math.Sign(d);
@@ -259,7 +259,7 @@ namespace Com.Adobe.Xmp.Impl
 
         public Calendar GetCalendar()
         {
-            GregorianCalendar calendar = (GregorianCalendar)Calendar.GetInstance(CultureInfo.InvariantCulture);
+            var calendar = (GregorianCalendar)Calendar.GetInstance(CultureInfo.InvariantCulture);
             calendar.SetGregorianChange(Extensions.CreateDate(long.MinValue));
             if (_hasTimeZone)
             {

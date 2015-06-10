@@ -52,17 +52,17 @@ namespace Com.Adobe.Xmp.Impl
             if (ReferenceEquals(buffer.GetEncoding(), Encoding.UTF8))
             {
                 // the buffer containing one UTF-8 char (up to 8 bytes)
-                byte[] readAheadBuffer = new byte[8];
+                var readAheadBuffer = new byte[8];
                 // the number of bytes read ahead.
-                int readAhead = 0;
+                var readAhead = 0;
                 // expected UTF8 bytesto come
-                int expectedBytes = 0;
+                var expectedBytes = 0;
                 // output buffer with estimated length
-                ByteBuffer @out = new ByteBuffer(buffer.Length() * 4 / 3);
-                int state = StateStart;
-                for (int i = 0; i < buffer.Length(); i++)
+                var @out = new ByteBuffer(buffer.Length() * 4 / 3);
+                var state = StateStart;
+                for (var i = 0; i < buffer.Length(); i++)
                 {
-                    int b = buffer.CharAt(i);
+                    var b = buffer.CharAt(i);
                     switch (state)
                     {
                         case StateStart:
@@ -78,7 +78,7 @@ namespace Com.Adobe.Xmp.Impl
                                 {
                                     // start of UTF8 sequence
                                     expectedBytes = -1;
-                                    int test = b;
+                                    var test = b;
                                     for (; expectedBytes < 8 && (test & unchecked(0x80)) == unchecked(0x80); test = test << 1)
                                     {
                                         expectedBytes++;
@@ -90,7 +90,7 @@ namespace Com.Adobe.Xmp.Impl
                                 {
                                     //  implicitly:  b >= 0x80  &&  b < 0xC0
                                     // invalid UTF8 start char, assume to be Latin-1
-                                    byte[] utf8 = ConvertToUtf8(unchecked((byte)b));
+                                    var utf8 = ConvertToUtf8(unchecked((byte)b));
                                     @out.Append(utf8);
                                 }
                             }
@@ -115,7 +115,7 @@ namespace Com.Adobe.Xmp.Impl
                             {
                                 // invalid UTF8 char:
                                 // 1. convert first of seq to UTF8
-                                byte[] utf8 = ConvertToUtf8(readAheadBuffer[0]);
+                                var utf8 = ConvertToUtf8(readAheadBuffer[0]);
                                 @out.Append(utf8);
                                 // 2. continue processing at second byte of sequence
                                 i = i - readAhead;
@@ -129,10 +129,10 @@ namespace Com.Adobe.Xmp.Impl
                 // loop ends with "half" Utf8 char --> assume that the bytes are Latin-1
                 if (state == StateUtf8Char)
                 {
-                    for (int j = 0; j < readAhead; j++)
+                    for (var j = 0; j < readAhead; j++)
                     {
-                        byte b = readAheadBuffer[j];
-                        byte[] utf8 = ConvertToUtf8(b);
+                        var b = readAheadBuffer[j];
+                        var utf8 = ConvertToUtf8(b);
                         @out.Append(utf8);
                     }
                 }
@@ -156,7 +156,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns a byte array containing a UTF-8 byte sequence.</returns>
         private static byte[] ConvertToUtf8(byte ch)
         {
-            int c = ch & unchecked(0xFF);
+            var c = ch & unchecked(0xFF);
             if (c >= unchecked(0x80))
             {
                 if (c == unchecked(0x81) || c == unchecked(0x8D) || c == unchecked(0x8F) || c == unchecked(0x90) || c == unchecked(0x9D))

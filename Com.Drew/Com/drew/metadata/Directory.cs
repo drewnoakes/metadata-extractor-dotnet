@@ -312,12 +312,12 @@ namespace Com.Drew.Metadata
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
         public int GetInt(int tagType)
         {
-            int? integer = GetInteger(tagType);
+            var integer = GetInteger(tagType);
             if (integer != null)
             {
                 return (int)integer;
             }
-            object o = GetObject(tagType);
+            var o = GetObject(tagType);
             if (o == null)
             {
                 throw new MetadataException("Tag '" + GetTagName(tagType) + "' has not been set -- check using containsTag() first");
@@ -343,7 +343,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public int? GetInteger(int tagType)
         {
-            object o = GetObject(tagType);
+            var o = GetObject(tagType);
             if (o == null)
             {
                 return null;
@@ -362,10 +362,10 @@ namespace Com.Drew.Metadata
                 catch (FormatException)
                 {
                     // convert the char array to an int
-                    string s = value;
-                    byte[] bytes = Encoding.UTF8.GetBytes(s);
+                    var s = value;
+                    var bytes = Encoding.UTF8.GetBytes(s);
                     long val = 0;
-                    foreach (byte aByte in bytes)
+                    foreach (var aByte in bytes)
                     {
                         val = val << 8;
                         val += (aByte & unchecked(0xff));
@@ -424,7 +424,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public string[] GetStringArray(int tagType)
         {
-            object o = GetObject(tagType);
+            var o = GetObject(tagType);
             if (o == null)
             {
                 return null;
@@ -443,7 +443,7 @@ namespace Com.Drew.Metadata
             if (ints != null)
             {
                 strings = new string[ints.Length];
-                for (int i = 0; i < strings.Length; i++)
+                for (var i = 0; i < strings.Length; i++)
                 {
                     strings[i] = ints[i].ToString();
                 }
@@ -453,7 +453,7 @@ namespace Com.Drew.Metadata
             if (bytes != null)
             {
                 strings = new string[bytes.Length];
-                for (int i = 0; i < strings.Length; i++)
+                for (var i = 0; i < strings.Length; i++)
                 {
                     strings[i] = ((int)bytes[i]).ToString();
                 }
@@ -463,7 +463,7 @@ namespace Com.Drew.Metadata
             if (rationals != null)
             {
                 strings = new string[rationals.Length];
-                for (int i = 0; i < strings.Length; i++)
+                for (var i = 0; i < strings.Length; i++)
                 {
                     strings[i] = rationals[i].ToSimpleString(false);
                 }
@@ -482,7 +482,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public int[] GetIntArray(int tagType)
         {
-            object o = GetObject(tagType);
+            var o = GetObject(tagType);
             if (o == null)
             {
                 return null;
@@ -496,7 +496,7 @@ namespace Com.Drew.Metadata
             if (rationals != null)
             {
                 ints = new int[rationals.Length];
-                for (int i = 0; i < ints.Length; i++)
+                for (var i = 0; i < ints.Length; i++)
                 {
                     ints[i] = rationals[i].IntValue();
                 }
@@ -506,7 +506,7 @@ namespace Com.Drew.Metadata
             if (shorts != null)
             {
                 ints = new int[shorts.Length];
-                for (int i = 0; i < shorts.Length; i++)
+                for (var i = 0; i < shorts.Length; i++)
                 {
                     ints[i] = shorts[i];
                 }
@@ -516,7 +516,7 @@ namespace Com.Drew.Metadata
             {
                 var bytes = (sbyte[])o;
                 ints = new int[bytes.Length];
-                for (int i = 0; i < bytes.Length; i++)
+                for (var i = 0; i < bytes.Length; i++)
                 {
                     ints[i] = bytes[i];
                 }
@@ -526,7 +526,7 @@ namespace Com.Drew.Metadata
             {
                 var bytes = (byte[])o;
                 ints = new int[bytes.Length];
-                for (int i = 0; i < bytes.Length; i++)
+                for (var i = 0; i < bytes.Length; i++)
                 {
                     ints[i] = bytes[i];
                 }
@@ -536,7 +536,7 @@ namespace Com.Drew.Metadata
             if (str != null)
             {
                 ints = new int[str.Length];
-                for (int i = 0; i < str.Length; i++)
+                for (var i = 0; i < str.Length; i++)
                 {
                     ints[i] = str[i];
                 }
@@ -560,7 +560,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public byte[] GetByteArray(int tagType)
         {
-            object o = GetObject(tagType);
+            var o = GetObject(tagType);
             if (o == null)
             {
                 return null;
@@ -571,7 +571,7 @@ namespace Com.Drew.Metadata
             if (rationals != null)
             {
                 bytes = new byte[rationals.Length];
-                for (int i = 0; i < bytes.Length; i++)
+                for (var i = 0; i < bytes.Length; i++)
                 {
                     bytes[i] = rationals[i].ByteValue();
                 }
@@ -586,7 +586,7 @@ namespace Com.Drew.Metadata
             if (ints != null)
             {
                 bytes = new byte[ints.Length];
-                for (int i = 0; i < ints.Length; i++)
+                for (var i = 0; i < ints.Length; i++)
                 {
                     bytes[i] = unchecked((byte)ints[i]);
                 }
@@ -596,7 +596,7 @@ namespace Com.Drew.Metadata
             if (shorts != null)
             {
                 bytes = new byte[shorts.Length];
-                for (int i = 0; i < shorts.Length; i++)
+                for (var i = 0; i < shorts.Length; i++)
                 {
                     bytes[i] = unchecked((byte)shorts[i]);
                 }
@@ -606,7 +606,7 @@ namespace Com.Drew.Metadata
             if (str != null)
             {
                 bytes = new byte[str.Length];
-                for (int i = 0; i < str.Length; i++)
+                for (var i = 0; i < str.Length; i++)
                 {
                     bytes[i] = unchecked((byte)str[i]);
                 }
@@ -624,12 +624,12 @@ namespace Com.Drew.Metadata
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
         public double GetDouble(int tagType)
         {
-            double? value = GetDoubleObject(tagType);
+            var value = GetDoubleObject(tagType);
             if (value != null)
             {
                 return (double)value;
             }
-            object o = GetObject(tagType);
+            var o = GetObject(tagType);
             if (o == null)
             {
                 throw new MetadataException("Tag '" + GetTagName(tagType) + "' has not been set -- check using containsTag() first");
@@ -642,7 +642,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public double? GetDoubleObject(int tagType)
         {
-            object o = GetObject(tagType);
+            var o = GetObject(tagType);
             if (o == null)
             {
                 return null;
@@ -670,12 +670,12 @@ namespace Com.Drew.Metadata
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
         public float GetFloat(int tagType)
         {
-            float? value = GetFloatObject(tagType);
+            var value = GetFloatObject(tagType);
             if (value != null)
             {
                 return (float)value;
             }
-            object o = GetObject(tagType);
+            var o = GetObject(tagType);
             if (o == null)
             {
                 throw new MetadataException("Tag '" + GetTagName(tagType) + "' has not been set -- check using containsTag() first");
@@ -688,7 +688,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public float? GetFloatObject(int tagType)
         {
-            object o = GetObject(tagType);
+            var o = GetObject(tagType);
             if (o == null)
             {
                 return null;
@@ -716,12 +716,12 @@ namespace Com.Drew.Metadata
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
         public long GetLong(int tagType)
         {
-            long? value = GetLongObject(tagType);
+            var value = GetLongObject(tagType);
             if (value != null)
             {
                 return (long)value;
             }
-            object o = GetObject(tagType);
+            var o = GetObject(tagType);
             if (o == null)
             {
                 throw new MetadataException("Tag '" + GetTagName(tagType) + "' has not been set -- check using containsTag() first");
@@ -734,7 +734,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public long? GetLongObject(int tagType)
         {
-            object o = GetObject(tagType);
+            var o = GetObject(tagType);
             if (o == null)
             {
                 return null;
@@ -762,12 +762,12 @@ namespace Com.Drew.Metadata
         /// <exception cref="Com.Drew.Metadata.MetadataException"/>
         public bool GetBoolean(int tagType)
         {
-            bool? value = GetBooleanObject(tagType);
+            var value = GetBooleanObject(tagType);
             if (value != null)
             {
                 return (bool)value;
             }
-            object o = GetObject(tagType);
+            var o = GetObject(tagType);
             if (o == null)
             {
                 throw new MetadataException("Tag '" + GetTagName(tagType) + "' has not been set -- check using containsTag() first");
@@ -780,7 +780,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public bool? GetBooleanObject(int tagType)
         {
-            object o = GetObject(tagType);
+            var o = GetObject(tagType);
             if (o == null)
             {
                 return null;
@@ -820,7 +820,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public DateTime? GetDate(int tagType, [CanBeNull] TimeZoneInfo timeZone = null)
         {
-            object o = GetObject(tagType);
+            var o = GetObject(tagType);
             if (o == null)
             {
                 return null;
@@ -834,9 +834,9 @@ namespace Com.Drew.Metadata
             {
                 // This seems to cover all known Exif date strings
                 // Note that "    :  :     :  :  " is a valid date string according to the Exif spec (which means 'unknown date'): http://www.awaresystems.be/imaging/tiff/tifftags/privateifd/exif/datetimeoriginal.html
-                string[] datePatterns = new[] { "yyyy:MM:dd HH:mm:ss", "yyyy:MM:dd HH:mm", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm" };
-                string dateString = s;
-                foreach (string datePattern in datePatterns)
+                var datePatterns = new[] { "yyyy:MM:dd HH:mm:ss", "yyyy:MM:dd HH:mm", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm" };
+                var dateString = s;
+                foreach (var datePattern in datePatterns)
                 {
                     try
                     {
@@ -861,7 +861,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public Rational GetRational(int tagType)
         {
-            object o = GetObject(tagType);
+            var o = GetObject(tagType);
             if (o == null)
             {
                 return null;
@@ -888,7 +888,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public Rational[] GetRationalArray(int tagType)
         {
-            object o = GetObject(tagType);
+            var o = GetObject(tagType);
             if (o == null)
             {
                 return null;
@@ -913,7 +913,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public string GetString(int tagType)
         {
-            object o = GetObject(tagType);
+            var o = GetObject(tagType);
             if (o == null)
                 return null;
 
@@ -937,7 +937,7 @@ namespace Com.Drew.Metadata
                 if (componentType == typeof(float))
                 {
                     var vals = (float[])array;
-                    for (int i = 0; i < vals.Length; i++)
+                    for (var i = 0; i < vals.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
@@ -947,7 +947,7 @@ namespace Com.Drew.Metadata
                 else if (componentType == typeof(double))
                 {
                     var vals = (double[])array;
-                    for (int i = 0; i < vals.Length; i++)
+                    for (var i = 0; i < vals.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
@@ -957,7 +957,7 @@ namespace Com.Drew.Metadata
                 else if (componentType == typeof(int))
                 {
                     var vals = (int[])array;
-                    for (int i = 0; i < vals.Length; i++)
+                    for (var i = 0; i < vals.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
@@ -967,7 +967,7 @@ namespace Com.Drew.Metadata
                 else if (componentType == typeof(uint))
                 {
                     var vals = (uint[])array;
-                    for (int i = 0; i < vals.Length; i++)
+                    for (var i = 0; i < vals.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
@@ -977,7 +977,7 @@ namespace Com.Drew.Metadata
                 else if (componentType == typeof(short))
                 {
                     var vals = (short[])array;
-                    for (int i = 0; i < vals.Length; i++)
+                    for (var i = 0; i < vals.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
@@ -987,7 +987,7 @@ namespace Com.Drew.Metadata
                 else if (componentType == typeof(ushort))
                 {
                     var vals = (ushort[])array;
-                    for (int i = 0; i < vals.Length; i++)
+                    for (var i = 0; i < vals.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
@@ -997,7 +997,7 @@ namespace Com.Drew.Metadata
                 else if (componentType == typeof(byte))
                 {
                     var vals = (byte[])array;
-                    for (int i = 0; i < vals.Length; i++)
+                    for (var i = 0; i < vals.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
@@ -1007,7 +1007,7 @@ namespace Com.Drew.Metadata
                 else if (componentType == typeof(sbyte))
                 {
                     var vals = (sbyte[])array;
-                    for (int i = 0; i < vals.Length; i++)
+                    for (var i = 0; i < vals.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
@@ -1017,7 +1017,7 @@ namespace Com.Drew.Metadata
                 else if (componentType == typeof(string))
                 {
                     var vals = (string[])array;
-                    for (int i = 0; i < vals.Length; i++)
+                    for (var i = 0; i < vals.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
@@ -1027,7 +1027,7 @@ namespace Com.Drew.Metadata
                 else if (componentType.IsByRef)
                 {
                     var vals = (object[])array;
-                    for (int i = 0; i < vals.Length; i++)
+                    for (var i = 0; i < vals.Length; i++)
                     {
                         if (i != 0)
                             str.Append(' ');
@@ -1051,7 +1051,7 @@ namespace Com.Drew.Metadata
         [CanBeNull]
         public string GetString(int tagType, Encoding encoding)
         {
-            byte[] bytes = GetByteArray(tagType);
+            var bytes = GetByteArray(tagType);
             if (bytes == null)
             {
                 return null;
@@ -1075,7 +1075,7 @@ namespace Com.Drew.Metadata
         [NotNull]
         public string GetTagName(int tagType)
         {
-            Dictionary<int?, string> nameMap = GetTagNameMap();
+            var nameMap = GetTagNameMap();
             string value;
             if (nameMap.TryGetValue(tagType, out value))
                 return value;

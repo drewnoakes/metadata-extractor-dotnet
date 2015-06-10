@@ -35,7 +35,7 @@ namespace Com.Drew.Imaging.Jpeg
         [Test]
         public void TestReadAllSegments()
         {
-            JpegSegmentData segmentData = JpegSegmentReader.ReadSegments("Tests/Data/withExifAndIptc.jpg", null);
+            var segmentData = JpegSegmentReader.ReadSegments("Tests/Data/withExifAndIptc.jpg", null);
             Assert.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.App0));
             CollectionAssert.AreEqual(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app0"), segmentData.GetSegment(JpegSegmentType.App0));
             Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App0, 1));
@@ -74,7 +74,7 @@ namespace Com.Drew.Imaging.Jpeg
         [Test]
         public void TestReadSpecificSegments()
         {
-            JpegSegmentData segmentData = JpegSegmentReader.ReadSegments("Tests/Data/withExifAndIptc.jpg", new[] { JpegSegmentType.App0, JpegSegmentType.App2 });
+            var segmentData = JpegSegmentReader.ReadSegments("Tests/Data/withExifAndIptc.jpg", new[] { JpegSegmentType.App0, JpegSegmentType.App2 });
             Assert.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.App0));
             Assert.AreEqual(0, segmentData.GetSegmentCount(JpegSegmentType.App1));
             Assert.AreEqual(1, segmentData.GetSegmentCount(JpegSegmentType.App2));
@@ -102,7 +102,7 @@ namespace Com.Drew.Imaging.Jpeg
         [Test]
         public void TestLoadJpegWithoutExifDataReturnsNull()
         {
-            JpegSegmentData segmentData = JpegSegmentReader.ReadSegments("Tests/Data/noExif.jpg", null);
+            var segmentData = JpegSegmentReader.ReadSegments("Tests/Data/noExif.jpg", null);
             Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App1));
         }
 

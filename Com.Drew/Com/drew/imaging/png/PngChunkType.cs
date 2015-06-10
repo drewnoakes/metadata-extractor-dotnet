@@ -111,7 +111,7 @@ namespace Com.Drew.Imaging.Png
             // Standard ancillary chunks
             //
             _multipleAllowed = multipleAllowed;
-            byte[] bytes = Encoding.ASCII.GetBytes(identifier);
+            var bytes = Encoding.ASCII.GetBytes(identifier);
             ValidateBytes(bytes);
             _bytes = bytes;
         }
@@ -195,7 +195,7 @@ namespace Com.Drew.Imaging.Png
             {
                 return false;
             }
-            PngChunkType that = (PngChunkType)o;
+            var that = (PngChunkType)o;
             return _bytes.SequenceEqual(that._bytes);
         }
 

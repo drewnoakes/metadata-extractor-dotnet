@@ -34,7 +34,7 @@ namespace Sharpen
 
             try
             {
-                TimeZoneInfo tz = TimeZoneInfo.FindSystemTimeZoneById(tzone);
+                var tz = TimeZoneInfo.FindSystemTimeZoneById(tzone);
                 return tz;
             }
             catch
@@ -53,8 +53,8 @@ namespace Sharpen
                     var parts = timezone.Id.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
                     if (parts.Length == tzone.Length)
                     {
-                        bool found = true;
-                        for (int i = 0; i < parts.Length; i++)
+                        var found = true;
+                        for (var i = 0; i < parts.Length; i++)
                             found &= parts[i][0] == tzone[i];
 
                         if (found)
@@ -62,8 +62,8 @@ namespace Sharpen
                     }
                 }
             }
-            char[] separator = new[] {':'};
-            string[] strArray = tzone.Substring(4).Split(separator);
+            var separator = new[] {':'};
+            var strArray = tzone.Substring(4).Split(separator);
             int hours, minutes;
             if (strArray.Length == 1 && strArray[0].Length > 2)
             {
@@ -75,7 +75,7 @@ namespace Sharpen
                 hours = int.Parse(strArray[0]);
                 minutes = (strArray.Length <= 1) ? 0 : int.Parse(strArray[1]);
             }
-            TimeSpan t = new TimeSpan(0, hours, minutes, 0, 0);
+            var t = new TimeSpan(0, hours, minutes, 0, 0);
             if (tzone[3] == '-')
                 t = -t;
             return TimeZoneInfo.CreateCustomTimeZone(tzone, t, tzone, tzone);
@@ -98,14 +98,14 @@ namespace Sharpen
 
         public static DateTime CreateDate(long milliSecondsSinceEpoch)
         {
-            long num = EpochTicks + (milliSecondsSinceEpoch*10000);
+            var num = EpochTicks + (milliSecondsSinceEpoch*10000);
             return new DateTime(num);
         }
 
         public static DateTimeOffset MillisToDateTimeOffset(long milliSecondsSinceEpoch, long offsetMinutes)
         {
-            TimeSpan offset = TimeSpan.FromMinutes((double) offsetMinutes);
-            long num = EpochTicks + (milliSecondsSinceEpoch*10000);
+            var offset = TimeSpan.FromMinutes((double) offsetMinutes);
+            var num = EpochTicks + (milliSecondsSinceEpoch*10000);
             return new DateTimeOffset(num + offset.Ticks, offset);
         }
 
@@ -113,7 +113,7 @@ namespace Sharpen
         {
             IList sorted = new ArrayList(list);
             sorted.Sort();
-            for (int i = 0; i < list.Count; i++)
+            for (var i = 0; i < list.Count; i++)
             {
                 list[i] = sorted[i];
             }
@@ -121,12 +121,12 @@ namespace Sharpen
 
         public static string[] Split(this string str, string regex, int limit)
         {
-            Regex rgx = new Regex(regex);
-            List<string> list = new List<string>();
-            int startIndex = 0;
+            var rgx = new Regex(regex);
+            var list = new List<string>();
+            var startIndex = 0;
             if (limit != 1)
             {
-                int nm = 1;
+                var nm = 1;
                 foreach (Match match in rgx.Matches(str))
                 {
                     list.Add(str.Substring(startIndex, match.Index - startIndex));
@@ -141,7 +141,7 @@ namespace Sharpen
             }
             if (limit >= 0)
             {
-                int count = list.Count - 1;
+                var count = list.Count - 1;
                 while ((count >= 0) && (list[count].Length == 0))
                 {
                     count--;
@@ -213,7 +213,7 @@ namespace Sharpen
         {
             //  http://stackoverflow.com/questions/1398753/comparing-double-values-in-c-sharp
 
-            double diff = d1 - d2;
+            var diff = d1 - d2;
 
             if (Math.Abs(diff) < 0.0001)
             {
@@ -246,7 +246,7 @@ namespace Sharpen
             if (offset < 0 || len < 0 || offset + len > buffer.Length || targetOffset < 0 || targetOffset + len > targetBuffer.Length)
                 throw new ArgumentOutOfRangeException();
 
-            for (int i = 0; i < len; i++)
+            for (var i = 0; i < len; i++)
             {
                 targetBuffer[i + targetOffset] = (byte)buffer[offset + i];
             }

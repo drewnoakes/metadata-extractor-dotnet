@@ -74,9 +74,9 @@ namespace Com.Adobe.Xmp.Impl
             // Locate or create the array. If it already exists, make sure the array
             // form from the options
             // parameter is compatible with the current state.
-            XmpPath arrayPath = XmpPathParser.ExpandXPath(schemaNs, arrayName);
+            var arrayPath = XmpPathParser.ExpandXPath(schemaNs, arrayName);
             // Just lookup, don't try to create.
-            XmpNode arrayNode = XmpNodeUtils.FindNode(_tree, arrayPath, false, null);
+            var arrayNode = XmpNodeUtils.FindNode(_tree, arrayPath, false, null);
             if (arrayNode != null)
             {
                 // The array exists, make sure the form is compatible. Zero
@@ -121,8 +121,8 @@ namespace Com.Adobe.Xmp.Impl
         {
             ParameterAsserts.AssertSchemaNs(schemaNs);
             ParameterAsserts.AssertArrayName(arrayName);
-            XmpPath arrayPath = XmpPathParser.ExpandXPath(schemaNs, arrayName);
-            XmpNode arrayNode = XmpNodeUtils.FindNode(_tree, arrayPath, false, null);
+            var arrayPath = XmpPathParser.ExpandXPath(schemaNs, arrayName);
+            var arrayNode = XmpNodeUtils.FindNode(_tree, arrayPath, false, null);
             if (arrayNode == null)
             {
                 return 0;
@@ -140,7 +140,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 ParameterAsserts.AssertSchemaNs(schemaNs);
                 ParameterAsserts.AssertArrayName(arrayName);
-                string itemPath = XmpPathFactory.ComposeArrayItemPath(arrayName, itemIndex);
+                var itemPath = XmpPathFactory.ComposeArrayItemPath(arrayName, itemIndex);
                 DeleteProperty(schemaNs, itemPath);
             }
             catch (XmpException)
@@ -154,8 +154,8 @@ namespace Com.Adobe.Xmp.Impl
             {
                 ParameterAsserts.AssertSchemaNs(schemaNs);
                 ParameterAsserts.AssertPropName(propName);
-                XmpPath expPath = XmpPathParser.ExpandXPath(schemaNs, propName);
-                XmpNode propNode = XmpNodeUtils.FindNode(_tree, expPath, false, null);
+                var expPath = XmpPathParser.ExpandXPath(schemaNs, propName);
+                var propNode = XmpNodeUtils.FindNode(_tree, expPath, false, null);
                 if (propNode != null)
                 {
                     XmpNodeUtils.DeleteNode(propNode);
@@ -173,7 +173,7 @@ namespace Com.Adobe.Xmp.Impl
                 // Note: qualNS and qualName are checked inside composeQualfierPath
                 ParameterAsserts.AssertSchemaNs(schemaNs);
                 ParameterAsserts.AssertPropName(propName);
-                string qualPath = propName + XmpPathFactory.ComposeQualifierPath(qualNs, qualName);
+                var qualPath = propName + XmpPathFactory.ComposeQualifierPath(qualNs, qualName);
                 DeleteProperty(schemaNs, qualPath);
             }
             catch (XmpException)
@@ -188,7 +188,7 @@ namespace Com.Adobe.Xmp.Impl
                 // fieldNS and fieldName are checked inside composeStructFieldPath
                 ParameterAsserts.AssertSchemaNs(schemaNs);
                 ParameterAsserts.AssertStructName(structName);
-                string fieldPath = structName + XmpPathFactory.ComposeStructFieldPath(fieldNs, fieldName);
+                var fieldPath = structName + XmpPathFactory.ComposeStructFieldPath(fieldNs, fieldName);
                 DeleteProperty(schemaNs, fieldPath);
             }
             catch (XmpException)
@@ -202,8 +202,8 @@ namespace Com.Adobe.Xmp.Impl
             {
                 ParameterAsserts.AssertSchemaNs(schemaNs);
                 ParameterAsserts.AssertPropName(propName);
-                XmpPath expPath = XmpPathParser.ExpandXPath(schemaNs, propName);
-                XmpNode propNode = XmpNodeUtils.FindNode(_tree, expPath, false, null);
+                var expPath = XmpPathParser.ExpandXPath(schemaNs, propName);
+                var propNode = XmpNodeUtils.FindNode(_tree, expPath, false, null);
                 return propNode != null;
             }
             catch (XmpException)
@@ -218,7 +218,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 ParameterAsserts.AssertSchemaNs(schemaNs);
                 ParameterAsserts.AssertArrayName(arrayName);
-                string path = XmpPathFactory.ComposeArrayItemPath(arrayName, itemIndex);
+                var path = XmpPathFactory.ComposeArrayItemPath(arrayName, itemIndex);
                 return DoesPropertyExist(schemaNs, path);
             }
             catch (XmpException)
@@ -234,7 +234,7 @@ namespace Com.Adobe.Xmp.Impl
                 // fieldNS and fieldName are checked inside composeStructFieldPath()
                 ParameterAsserts.AssertSchemaNs(schemaNs);
                 ParameterAsserts.AssertStructName(structName);
-                string path = XmpPathFactory.ComposeStructFieldPath(fieldNs, fieldName);
+                var path = XmpPathFactory.ComposeStructFieldPath(fieldNs, fieldName);
                 return DoesPropertyExist(schemaNs, structName + path);
             }
             catch (XmpException)
@@ -250,7 +250,7 @@ namespace Com.Adobe.Xmp.Impl
                 // qualNS and qualName are checked inside composeQualifierPath()
                 ParameterAsserts.AssertSchemaNs(schemaNs);
                 ParameterAsserts.AssertPropName(propName);
-                string path = XmpPathFactory.ComposeQualifierPath(qualNs, qualName);
+                var path = XmpPathFactory.ComposeQualifierPath(qualNs, qualName);
                 return DoesPropertyExist(schemaNs, propName + path);
             }
             catch (XmpException)
@@ -264,7 +264,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             ParameterAsserts.AssertSchemaNs(schemaNs);
             ParameterAsserts.AssertArrayName(arrayName);
-            string itemPath = XmpPathFactory.ComposeArrayItemPath(arrayName, itemIndex);
+            var itemPath = XmpPathFactory.ComposeArrayItemPath(arrayName, itemIndex);
             return GetProperty(schemaNs, itemPath);
         }
 
@@ -276,15 +276,15 @@ namespace Com.Adobe.Xmp.Impl
             ParameterAsserts.AssertSpecificLang(specificLang);
             genericLang = genericLang != null ? Utils.NormalizeLangValue(genericLang) : null;
             specificLang = Utils.NormalizeLangValue(specificLang);
-            XmpPath arrayPath = XmpPathParser.ExpandXPath(schemaNs, altTextName);
-            XmpNode arrayNode = XmpNodeUtils.FindNode(_tree, arrayPath, false, null);
+            var arrayPath = XmpPathParser.ExpandXPath(schemaNs, altTextName);
+            var arrayNode = XmpNodeUtils.FindNode(_tree, arrayPath, false, null);
             if (arrayNode == null)
             {
                 return null;
             }
-            object[] result = XmpNodeUtils.ChooseLocalizedText(arrayNode, genericLang, specificLang);
-            int match = (int)result[0];
-            XmpNode itemNode = (XmpNode)result[1];
+            var result = XmpNodeUtils.ChooseLocalizedText(arrayNode, genericLang, specificLang);
+            var match = (int)result[0];
+            var itemNode = (XmpNode)result[1];
             if (match != XmpNodeUtils.CltNoValues)
             {
                 return new XmpProperty407(itemNode);
@@ -330,9 +330,9 @@ namespace Com.Adobe.Xmp.Impl
             ParameterAsserts.AssertSpecificLang(specificLang);
             genericLang = genericLang != null ? Utils.NormalizeLangValue(genericLang) : null;
             specificLang = Utils.NormalizeLangValue(specificLang);
-            XmpPath arrayPath = XmpPathParser.ExpandXPath(schemaNs, altTextName);
+            var arrayPath = XmpPathParser.ExpandXPath(schemaNs, altTextName);
             // Find the array node and set the options if it was just created.
-            XmpNode arrayNode = XmpNodeUtils.FindNode(_tree, arrayPath, true, new PropertyOptions(PropertyOptions.ArrayFlag | PropertyOptions.ArrayOrderedFlag | PropertyOptions.ArrayAlternateFlag | PropertyOptions.ArrayAltTextFlag));
+            var arrayNode = XmpNodeUtils.FindNode(_tree, arrayPath, true, new PropertyOptions(PropertyOptions.ArrayFlag | PropertyOptions.ArrayOrderedFlag | PropertyOptions.ArrayAlternateFlag | PropertyOptions.ArrayAltTextFlag));
             if (arrayNode == null)
             {
                 throw new XmpException("Failed to find or create array node", XmpErrorCode.BadXPath);
@@ -349,11 +349,11 @@ namespace Com.Adobe.Xmp.Impl
                 }
             }
             // Make sure the x-default item, if any, is first.
-            bool haveXDefault = false;
+            var haveXDefault = false;
             XmpNode xdItem = null;
-            for (IIterator it = arrayNode.IterateChildren(); it.HasNext(); )
+            for (var it = arrayNode.IterateChildren(); it.HasNext(); )
             {
-                XmpNode currItem = (XmpNode)it.Next();
+                var currItem = (XmpNode)it.Next();
                 if (!currItem.HasQualifier || !XmpConstConstants.XmlLang.Equals(currItem.GetQualifier(1).Name))
                 {
                     throw new XmpException("Language qualifier must be first", XmpErrorCode.BadXPath);
@@ -374,10 +374,10 @@ namespace Com.Adobe.Xmp.Impl
             // Find the appropriate item.
             // chooseLocalizedText will make sure the array is a language
             // alternative.
-            object[] result = XmpNodeUtils.ChooseLocalizedText(arrayNode, genericLang, specificLang);
-            int match = (int)result[0];
-            XmpNode itemNode = (XmpNode)result[1];
-            bool specificXDefault = XmpConstConstants.XDefault.Equals(specificLang);
+            var result = XmpNodeUtils.ChooseLocalizedText(arrayNode, genericLang, specificLang);
+            var match = (int)result[0];
+            var itemNode = (XmpNode)result[1];
+            var specificXDefault = XmpConstConstants.XDefault.Equals(specificLang);
             switch (match)
             {
                 case XmpNodeUtils.CltNoValues:
@@ -410,9 +410,9 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         // Update all items whose values match the old x-default value.
                         Debug.Assert(haveXDefault && xdItem == itemNode);
-                        for (IIterator it1 = arrayNode.IterateChildren(); it1.HasNext(); )
+                        for (var it1 = arrayNode.IterateChildren(); it1.HasNext(); )
                         {
-                            XmpNode currItem = (XmpNode)it1.Next();
+                            var currItem = (XmpNode)it1.Next();
                             if (currItem == xdItem || !currItem.Value.Equals(xdItem != null ? xdItem.Value : null))
                             {
                                 continue;
@@ -515,15 +515,15 @@ namespace Com.Adobe.Xmp.Impl
         {
             ParameterAsserts.AssertSchemaNs(schemaNs);
             ParameterAsserts.AssertPropName(propName);
-            XmpPath expPath = XmpPathParser.ExpandXPath(schemaNs, propName);
-            XmpNode propNode = XmpNodeUtils.FindNode(_tree, expPath, false, null);
+            var expPath = XmpPathParser.ExpandXPath(schemaNs, propName);
+            var propNode = XmpNodeUtils.FindNode(_tree, expPath, false, null);
             if (propNode != null)
             {
                 if (valueType != ValueType.String && propNode.Options.IsCompositeProperty)
                 {
                     throw new XmpException("Property must be simple when a value type is requested", XmpErrorCode.BadXPath);
                 }
-                object value = EvaluateNodeValue(valueType, propNode);
+                var value = EvaluateNodeValue(valueType, propNode);
                 return new XmpProperty682(value, propNode);
             }
             return null;
@@ -575,8 +575,8 @@ namespace Com.Adobe.Xmp.Impl
         {
             ParameterAsserts.AssertSchemaNs(schemaNs);
             ParameterAsserts.AssertPropName(propName);
-            XmpPath expPath = XmpPathParser.ExpandXPath(schemaNs, propName);
-            XmpNode propNode = XmpNodeUtils.FindNode(_tree, expPath, false, null);
+            var expPath = XmpPathParser.ExpandXPath(schemaNs, propName);
+            var propNode = XmpNodeUtils.FindNode(_tree, expPath, false, null);
             if (propNode != null)
             {
                 if (valueType != ValueType.String && propNode.Options.IsCompositeProperty)
@@ -726,7 +726,7 @@ namespace Com.Adobe.Xmp.Impl
             // qualNS and qualName are checked inside composeQualfierPath
             ParameterAsserts.AssertSchemaNs(schemaNs);
             ParameterAsserts.AssertPropName(propName);
-            string qualPath = propName + XmpPathFactory.ComposeQualifierPath(qualNs, qualName);
+            var qualPath = propName + XmpPathFactory.ComposeQualifierPath(qualNs, qualName);
             return GetProperty(schemaNs, qualPath);
         }
 
@@ -736,7 +736,7 @@ namespace Com.Adobe.Xmp.Impl
             // fieldNS and fieldName are checked inside composeStructFieldPath
             ParameterAsserts.AssertSchemaNs(schemaNs);
             ParameterAsserts.AssertStructName(structName);
-            string fieldPath = structName + XmpPathFactory.ComposeStructFieldPath(fieldNs, fieldName);
+            var fieldPath = structName + XmpPathFactory.ComposeStructFieldPath(fieldNs, fieldName);
             return GetProperty(schemaNs, fieldPath);
         }
 
@@ -764,8 +764,8 @@ namespace Com.Adobe.Xmp.Impl
             ParameterAsserts.AssertSchemaNs(schemaNs);
             ParameterAsserts.AssertArrayName(arrayName);
             // Just lookup, don't try to create.
-            XmpPath arrayPath = XmpPathParser.ExpandXPath(schemaNs, arrayName);
-            XmpNode arrayNode = XmpNodeUtils.FindNode(_tree, arrayPath, false, null);
+            var arrayPath = XmpPathParser.ExpandXPath(schemaNs, arrayName);
+            var arrayNode = XmpNodeUtils.FindNode(_tree, arrayPath, false, null);
             if (arrayNode != null)
             {
                 DoSetArrayItem(arrayNode, itemIndex, itemValue, options, false);
@@ -788,8 +788,8 @@ namespace Com.Adobe.Xmp.Impl
             ParameterAsserts.AssertSchemaNs(schemaNs);
             ParameterAsserts.AssertArrayName(arrayName);
             // Just lookup, don't try to create.
-            XmpPath arrayPath = XmpPathParser.ExpandXPath(schemaNs, arrayName);
-            XmpNode arrayNode = XmpNodeUtils.FindNode(_tree, arrayPath, false, null);
+            var arrayPath = XmpPathParser.ExpandXPath(schemaNs, arrayName);
+            var arrayNode = XmpNodeUtils.FindNode(_tree, arrayPath, false, null);
             if (arrayNode != null)
             {
                 DoSetArrayItem(arrayNode, itemIndex, itemValue, options, true);
@@ -812,8 +812,8 @@ namespace Com.Adobe.Xmp.Impl
             ParameterAsserts.AssertSchemaNs(schemaNs);
             ParameterAsserts.AssertPropName(propName);
             options = XmpNodeUtils.VerifySetOptions(options, propValue);
-            XmpPath expPath = XmpPathParser.ExpandXPath(schemaNs, propName);
-            XmpNode propNode = XmpNodeUtils.FindNode(_tree, expPath, true, options);
+            var expPath = XmpPathParser.ExpandXPath(schemaNs, propName);
+            var propNode = XmpNodeUtils.FindNode(_tree, expPath, true, options);
             if (propNode != null)
             {
                 SetNode(propNode, propValue, options, false);
@@ -839,7 +839,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 throw new XmpException("Specified property does not exist!", XmpErrorCode.BadXPath);
             }
-            string qualPath = propName + XmpPathFactory.ComposeQualifierPath(qualNs, qualName);
+            var qualPath = propName + XmpPathFactory.ComposeQualifierPath(qualNs, qualName);
             SetProperty(schemaNs, qualPath, qualValue, options);
         }
 
@@ -854,7 +854,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             ParameterAsserts.AssertSchemaNs(schemaNs);
             ParameterAsserts.AssertStructName(structName);
-            string fieldPath = structName + XmpPathFactory.ComposeStructFieldPath(fieldNs, fieldName);
+            var fieldPath = structName + XmpPathFactory.ComposeStructFieldPath(fieldNs, fieldName);
             SetProperty(schemaNs, fieldPath, fieldValue, options);
         }
 
@@ -889,7 +889,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <summary>Performs a deep clone of the XMPMeta-object</summary>
         public object Clone()
         {
-            XmpNode clonedTree = (XmpNode)_tree.Clone();
+            var clonedTree = (XmpNode)_tree.Clone();
             return new XmpMeta(clonedTree);
         }
 
@@ -936,11 +936,11 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException"/>
         private void DoSetArrayItem(XmpNode arrayNode, int itemIndex, string itemValue, PropertyOptions itemOptions, bool insert)
         {
-            XmpNode itemNode = new XmpNode(XmpConstConstants.ArrayItemName, null);
+            var itemNode = new XmpNode(XmpConstConstants.ArrayItemName, null);
             itemOptions = XmpNodeUtils.VerifySetOptions(itemOptions, itemValue);
             // in insert mode the index after the last is allowed,
             // even ARRAY_LAST_ITEM points to the index *after* the last.
-            int maxIndex = insert ? arrayNode.GetChildrenLength() + 1 : arrayNode.GetChildrenLength();
+            var maxIndex = insert ? arrayNode.GetChildrenLength() + 1 : arrayNode.GetChildrenLength();
             if (itemIndex == XmpConstConstants.ArrayLastItem)
             {
                 itemIndex = maxIndex;
@@ -1003,7 +1003,7 @@ namespace Com.Adobe.Xmp.Impl
         private static object EvaluateNodeValue(ValueType valueType, XmpNode propNode)
         {
             object value;
-            string rawValue = propNode.Value;
+            var rawValue = propNode.Value;
             switch (valueType)
             {
                 case ValueType.Boolean:
@@ -1038,7 +1038,7 @@ namespace Com.Adobe.Xmp.Impl
 
                 case ValueType.Calendar:
                 {
-                    IXmpDateTime dt = Xmp.XmpUtils.ConvertToDate(rawValue);
+                    var dt = Xmp.XmpUtils.ConvertToDate(rawValue);
                     value = dt.GetCalendar();
                     break;
                 }

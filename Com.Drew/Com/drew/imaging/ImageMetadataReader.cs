@@ -83,7 +83,7 @@ namespace Com.Drew.Imaging
         [NotNull]
         public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
         {
-            FileType fileType = FileTypeDetector.DetectFileType(stream) ?? FileType.Unknown;
+            var fileType = FileTypeDetector.DetectFileType(stream) ?? FileType.Unknown;
             switch (fileType)
             {
                 case FileType.Jpeg:
@@ -149,19 +149,19 @@ namespace Com.Drew.Imaging
         public static void Main([NotNull] string[] args)
         {
             ICollection<string> argList = args.ToList();
-            bool thumbRequested = argList.Remove("-thumb");
-            bool markdownFormat = argList.Remove("-markdown");
-            bool showHex = argList.Remove("-hex");
+            var thumbRequested = argList.Remove("-thumb");
+            var markdownFormat = argList.Remove("-markdown");
+            var showHex = argList.Remove("-hex");
             if (argList.Count < 1)
             {
-                string version = typeof(ImageMetadataReader).Assembly.GetName().Version.ToString();
+                var version = typeof(ImageMetadataReader).Assembly.GetName().Version.ToString();
                 Console.Out.WriteLine((object)("metadata-extractor version " + version));
                 Console.Out.WriteLine();
                 Console.Out.WriteLine((object)string.Format("Usage: java -jar metadata-extractor-{0}.jar <filename> [<filename>] [-thumb] [-markdown] [-hex]",
                     version ?? "a.b.c"));
                 Environment.Exit(1);
             }
-            foreach (string filePath in argList)
+            foreach (var filePath in argList)
             {
                 var stopwatch = Stopwatch.StartNew();
                 if (!markdownFormat && argList.Count > 1)
@@ -184,11 +184,11 @@ namespace Com.Drew.Imaging
                 }
                 if (markdownFormat)
                 {
-                    string fileName = Path.GetFileName(filePath);
-                    string urlName = StringUtil.UrlEncode(filePath);
-                    ExifIfd0Directory exifIfd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
-                    string make = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifDirectoryBase.TagMake);
-                    string model = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifDirectoryBase.TagModel);
+                    var fileName = Path.GetFileName(filePath);
+                    var urlName = StringUtil.UrlEncode(filePath);
+                    var exifIfd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
+                    var make = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifDirectoryBase.TagMake);
+                    var model = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifDirectoryBase.TagModel);
                     Console.Out.WriteLine();
                     Console.Out.WriteLine("---");
                     Console.Out.WriteLine();
@@ -203,13 +203,13 @@ namespace Com.Drew.Imaging
                     Console.Out.WriteLine(":--------:|-------:|----------|----------------");
                 }
                 // iterate over the metadata and print to System.out
-                foreach (Directory directory in metadata.GetDirectories())
+                foreach (var directory in metadata.GetDirectories())
                 {
-                    string directoryName = directory.GetName();
-                    foreach (Tag tag in directory.GetTags())
+                    var directoryName = directory.GetName();
+                    foreach (var tag in directory.GetTags())
                     {
-                        string tagName = tag.TagName;
-                        string description = tag.Description;
+                        var tagName = tag.TagName;
+                        var description = tag.Description;
                         // truncate the description if it's too long
                         if (description != null && description.Length > 1024)
                         {
@@ -233,14 +233,14 @@ namespace Com.Drew.Imaging
                         }
                     }
                     // print out any errors
-                    foreach (string error in directory.GetErrors())
+                    foreach (var error in directory.GetErrors())
                     {
                         Console.Error.WriteLine((object)("ERROR: " + error));
                     }
                 }
                 if (args.Length > 1 && thumbRequested)
                 {
-                    ExifThumbnailDirectory directory1 = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
+                    var directory1 = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
                     if (directory1 != null && directory1.HasThumbnailData())
                     {
                         Console.Out.WriteLine("Writing thumbnail...");

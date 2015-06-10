@@ -54,17 +54,17 @@ namespace Com.Drew.Imaging.Png
             {
                 throw new PngProcessingException("PNG signature mismatch");
             }
-            bool seenImageHeader = false;
-            bool seenImageTrailer = false;
+            var seenImageHeader = false;
+            var seenImageTrailer = false;
             IList<PngChunk> chunks = new List<PngChunk>();
             ICollection<PngChunkType> seenChunkTypes = new HashSet<PngChunkType>();
             while (!seenImageTrailer)
             {
                 // Process the next chunk.
-                int chunkDataLength = reader.GetInt32();
-                PngChunkType chunkType = new PngChunkType(reader.GetBytes(4));
-                bool willStoreChunk = desiredChunkTypes == null || desiredChunkTypes.Contains(chunkType);
-                byte[] chunkData = reader.GetBytes(chunkDataLength);
+                var chunkDataLength = reader.GetInt32();
+                var chunkType = new PngChunkType(reader.GetBytes(4));
+                var willStoreChunk = desiredChunkTypes == null || desiredChunkTypes.Contains(chunkType);
+                var chunkData = reader.GetBytes(chunkDataLength);
                 // Skip the CRC bytes at the end of the chunk
                 // TODO consider verifying the CRC value to determine if we're processing bad data
                 reader.Skip(4);

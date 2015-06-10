@@ -79,10 +79,10 @@ namespace Com.Drew.Metadata.Jpeg
         [Test]
         public void TestGetComponent()
         {
-            JpegComponent component1 = new JpegComponent(1, 2, 3);
-            JpegComponent component2 = new JpegComponent(1, 2, 3);
-            JpegComponent component3 = new JpegComponent(1, 2, 3);
-            JpegComponent component4 = new JpegComponent(1, 2, 3);
+            var component1 = new JpegComponent(1, 2, 3);
+            var component2 = new JpegComponent(1, 2, 3);
+            var component3 = new JpegComponent(1, 2, 3);
+            var component4 = new JpegComponent(1, 2, 3);
             _directory.SetObject(JpegDirectory.TagComponentData1, component1);
             _directory.SetObject(JpegDirectory.TagComponentData2, component2);
             _directory.SetObject(JpegDirectory.TagComponentData3, component3);

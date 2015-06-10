@@ -30,7 +30,7 @@ namespace Com.Drew.Imaging.Png
             {
                 throw new PngProcessingException("Invalid number of bytes");
             }
-            SequentialByteArrayReader reader = new SequentialByteArrayReader(bytes);
+            var reader = new SequentialByteArrayReader(bytes);
             try
             {
                 _whitePointX = reader.GetInt32();

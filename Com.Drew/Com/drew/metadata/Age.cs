@@ -66,12 +66,12 @@ namespace Com.Drew.Metadata
             }
             try
             {
-                int years = Convert.ToInt32(s.Substring (0, 4 - 0));
-                int months = Convert.ToInt32(s.Substring (5, 7 - 5));
-                int days = Convert.ToInt32(s.Substring (8, 10 - 8));
-                int hours = Convert.ToInt32(s.Substring (11, 13 - 11));
-                int minutes = Convert.ToInt32(s.Substring (14, 16 - 14));
-                int seconds = Convert.ToInt32(s.Substring (17, 19 - 17));
+                var years = Convert.ToInt32(s.Substring (0, 4 - 0));
+                var months = Convert.ToInt32(s.Substring (5, 7 - 5));
+                var days = Convert.ToInt32(s.Substring (8, 10 - 8));
+                var hours = Convert.ToInt32(s.Substring (11, 13 - 11));
+                var minutes = Convert.ToInt32(s.Substring (14, 16 - 14));
+                var seconds = Convert.ToInt32(s.Substring (17, 19 - 17));
                 return new Age(years, months, days, hours, minutes, seconds);
             }
             catch (FormatException)
@@ -127,7 +127,7 @@ namespace Com.Drew.Metadata
 
         public string ToFriendlyString()
         {
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
             AppendAgePart(result, _years, "year");
             AppendAgePart(result, _months, "month");
             AppendAgePart(result, _days, "day");
@@ -164,7 +164,7 @@ namespace Com.Drew.Metadata
             {
                 return false;
             }
-            Age age = (Age)o;
+            var age = (Age)o;
             if (_days != age._days)
             {
                 return false;
@@ -194,7 +194,7 @@ namespace Com.Drew.Metadata
 
         public override int GetHashCode()
         {
-            int result = _years;
+            var result = _years;
             result = 31 * result + _months;
             result = 31 * result + _days;
             result = 31 * result + _hours;

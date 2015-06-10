@@ -34,12 +34,12 @@ namespace Com.Drew.Metadata.Bmp
         [NotNull]
         public static BmpHeaderDirectory ProcessBytes([NotNull] string file)
         {
-            Metadata metadata = new Metadata();
+            var metadata = new Metadata();
             using (Stream stream = new FileStream(file, FileMode.Open))
             {
                 new BmpReader().Extract(new SequentialStreamReader(stream), metadata);
             }
-            BmpHeaderDirectory directory = metadata.GetFirstDirectoryOfType<BmpHeaderDirectory>();
+            var directory = metadata.GetFirstDirectoryOfType<BmpHeaderDirectory>();
             Assert.IsNotNull(directory);
             return directory;
         }
@@ -48,7 +48,7 @@ namespace Com.Drew.Metadata.Bmp
         [Test]
         public void TestMsPaint16Color()
         {
-            BmpHeaderDirectory directory = ProcessBytes("Tests/Data/16color-10x10.bmp");
+            var directory = ProcessBytes("Tests/Data/16color-10x10.bmp");
             Assert.IsFalse(directory.HasErrors());
             Assert.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageWidth));
             Assert.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageHeight));
@@ -66,7 +66,7 @@ namespace Com.Drew.Metadata.Bmp
         [Test]
         public void TestMsPaint24Bpp()
         {
-            BmpHeaderDirectory directory = ProcessBytes("Tests/Data/24bpp-10x10.bmp");
+            var directory = ProcessBytes("Tests/Data/24bpp-10x10.bmp");
             Assert.IsFalse(directory.HasErrors());
             Assert.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageWidth));
             Assert.AreEqual(10, directory.GetInt(BmpHeaderDirectory.TagImageHeight));

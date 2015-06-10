@@ -71,7 +71,7 @@ namespace Com.Drew.Metadata.Iptc
         [CanBeNull]
         public string GetFileFormatDescription()
         {
-            int? value = Directory.GetInteger(IptcDirectory.TagFileFormat);
+            var value = Directory.GetInteger(IptcDirectory.TagFileFormat);
             if (value == null)
             {
                 return null;
@@ -294,7 +294,7 @@ namespace Com.Drew.Metadata.Iptc
         [CanBeNull]
         public string GetKeywordsDescription()
         {
-            string[] keywords = Directory.GetStringArray(IptcDirectory.TagKeywords);
+            var keywords = Directory.GetStringArray(IptcDirectory.TagKeywords);
             if (keywords == null)
             {
                 return null;
@@ -365,7 +365,7 @@ namespace Com.Drew.Metadata.Iptc
         [CanBeNull]
         public string GetTimeCreatedDescription()
         {
-            string s = Directory.GetString(IptcDirectory.TagTimeCreated);
+            var s = Directory.GetString(IptcDirectory.TagTimeCreated);
             if (s == null)
             {
                 return null;
@@ -380,7 +380,7 @@ namespace Com.Drew.Metadata.Iptc
         [CanBeNull]
         public string GetDigitalTimeCreatedDescription()
         {
-            string s = Directory.GetString(IptcDirectory.TagDigitalTimeCreated);
+            var s = Directory.GetString(IptcDirectory.TagDigitalTimeCreated);
             if (s == null)
             {
                 return null;

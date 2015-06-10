@@ -410,7 +410,7 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetInteropIndexDescription()
         {
-            string value = Directory.GetString(ExifDirectoryBase.TagInteropIndex);
+            var value = Directory.GetString(ExifDirectoryBase.TagInteropIndex);
             if (value == null)
             {
                 return null;
@@ -421,17 +421,17 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetReferenceBlackWhiteDescription()
         {
-            int[] ints = Directory.GetIntArray(ExifDirectoryBase.TagReferenceBlackWhite);
+            var ints = Directory.GetIntArray(ExifDirectoryBase.TagReferenceBlackWhite);
             if (ints == null || ints.Length < 6)
             {
                 return null;
             }
-            int blackR = ints[0];
-            int whiteR = ints[1];
-            int blackG = ints[2];
-            int whiteG = ints[3];
-            int blackB = ints[4];
-            int whiteB = ints[5];
+            var blackR = ints[0];
+            var whiteR = ints[1];
+            var blackG = ints[2];
+            var whiteG = ints[3];
+            var blackB = ints[4];
+            var whiteB = ints[5];
             return string.Format("[{0},{1},{2}] [{3},{4},{5}]",
                 blackR, blackG, blackB,
                 whiteR, whiteG, whiteB);
@@ -440,24 +440,24 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetYResolutionDescription()
         {
-            Rational value = Directory.GetRational(ExifDirectoryBase.TagYResolution);
+            var value = Directory.GetRational(ExifDirectoryBase.TagYResolution);
             if (value == null)
             {
                 return null;
             }
-            string unit = GetResolutionDescription();
+            var unit = GetResolutionDescription();
             return string.Format("{0} dots per {1}", value.ToSimpleString(_allowDecimalRepresentationOfRationals), unit == null ? "unit" : unit.ToLower());
         }
 
         [CanBeNull]
         public virtual string GetXResolutionDescription()
         {
-            Rational value = Directory.GetRational(ExifDirectoryBase.TagXResolution);
+            var value = Directory.GetRational(ExifDirectoryBase.TagXResolution);
             if (value == null)
             {
                 return null;
             }
-            string unit = GetResolutionDescription();
+            var unit = GetResolutionDescription();
             return string.Format("{0} dots per {1}", value.ToSimpleString(_allowDecimalRepresentationOfRationals), unit == null ? "unit" : unit.ToLower());
         }
 
@@ -485,7 +485,7 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         private string GetUnicodeDescription(int tag)
         {
-            byte[] bytes = Directory.GetByteArray(tag);
+            var bytes = Directory.GetByteArray(tag);
             if (bytes == null)
             {
                 return null;
@@ -534,7 +534,7 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetYCbCrSubsamplingDescription()
         {
-            int[] positions = Directory.GetIntArray(ExifDirectoryBase.TagYcbcrSubsampling);
+            var positions = Directory.GetIntArray(ExifDirectoryBase.TagYcbcrSubsampling);
             if (positions == null || positions.Length < 2)
             {
                 return null;
@@ -563,21 +563,21 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetSamplesPerPixelDescription()
         {
-            string value = Directory.GetString(ExifDirectoryBase.TagSamplesPerPixel);
+            var value = Directory.GetString(ExifDirectoryBase.TagSamplesPerPixel);
             return value == null ? null : value + " samples/pixel";
         }
 
         [CanBeNull]
         public virtual string GetRowsPerStripDescription()
         {
-            string value = Directory.GetString(ExifDirectoryBase.TagRowsPerStrip);
+            var value = Directory.GetString(ExifDirectoryBase.TagRowsPerStrip);
             return value == null ? null : value + " rows/strip";
         }
 
         [CanBeNull]
         public virtual string GetStripByteCountsDescription()
         {
-            string value = Directory.GetString(ExifDirectoryBase.TagStripByteCounts);
+            var value = Directory.GetString(ExifDirectoryBase.TagStripByteCounts);
             return value == null ? null : value + " bytes";
         }
 
@@ -585,7 +585,7 @@ namespace Com.Drew.Metadata.Exif
         public virtual string GetPhotometricInterpretationDescription()
         {
             // Shows the color space of the image data components
-            int? value = Directory.GetInteger(ExifDirectoryBase.TagPhotometricInterpretation);
+            var value = Directory.GetInteger(ExifDirectoryBase.TagPhotometricInterpretation);
             if (value == null)
             {
                 return null;
@@ -672,21 +672,21 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetBitsPerSampleDescription()
         {
-            string value = Directory.GetString(ExifDirectoryBase.TagBitsPerSample);
+            var value = Directory.GetString(ExifDirectoryBase.TagBitsPerSample);
             return value == null ? null : value + " bits/component/pixel";
         }
 
         [CanBeNull]
         public virtual string GetImageWidthDescription()
         {
-            string value = Directory.GetString(ExifDirectoryBase.TagImageWidth);
+            var value = Directory.GetString(ExifDirectoryBase.TagImageWidth);
             return value == null ? null : value + " pixels";
         }
 
         [CanBeNull]
         public virtual string GetImageHeightDescription()
         {
-            string value = Directory.GetString(ExifDirectoryBase.TagImageHeight);
+            var value = Directory.GetString(ExifDirectoryBase.TagImageHeight);
             return value == null ? null : value + " pixels";
         }
 
@@ -761,14 +761,14 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string Get35MmFilmEquivFocalLengthDescription()
         {
-            int? value = Directory.GetInteger(ExifDirectoryBase.Tag35MmFilmEquivFocalLength);
+            var value = Directory.GetInteger(ExifDirectoryBase.Tag35MmFilmEquivFocalLength);
             return value == null ? null : value == 0 ? "Unknown" : SimpleDecimalFormatter.Format(value) + "mm";
         }
 
         [CanBeNull]
         public virtual string GetDigitalZoomRatioDescription()
         {
-            Rational value = Directory.GetRational(ExifDirectoryBase.TagDigitalZoomRatio);
+            var value = Directory.GetRational(ExifDirectoryBase.TagDigitalZoomRatio);
             return value == null ? null : value.GetNumerator() == 0 ? "Digital zoom not used." : SimpleDecimalFormatter.Format(value.DoubleValue());
         }
 
@@ -793,7 +793,7 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetUserCommentDescription()
         {
-            byte[] commentBytes = Directory.GetByteArray(ExifDirectoryBase.TagUserComment);
+            var commentBytes = Directory.GetByteArray(ExifDirectoryBase.TagUserComment);
             if (commentBytes == null)
             {
                 return null;
@@ -812,18 +812,18 @@ namespace Com.Drew.Metadata.Exif
             {
                 if (commentBytes.Length >= 10)
                 {
-                    string firstTenBytesString = Encoding.UTF8.GetString(commentBytes, 0, 10);
+                    var firstTenBytesString = Encoding.UTF8.GetString(commentBytes, 0, 10);
                     // try each encoding name
                     foreach (var pair in encodingMap)
                     {
-                        string encodingName = pair.Key;
-                        Encoding encoding = pair.Value;
+                        var encodingName = pair.Key;
+                        var encoding = pair.Value;
                         if (firstTenBytesString.StartsWith(encodingName))
                         {
                             // skip any null or blank characters commonly present after the encoding name, up to a limit of 10 from the start
-                            for (int j = encodingName.Length; j < 10; j++)
+                            for (var j = encodingName.Length; j < 10; j++)
                             {
-                                byte b = commentBytes[j];
+                                var b = commentBytes[j];
                                 if (b != '\0' && b != ' ')
                                 {
                                     return encoding.GetString(commentBytes, j, commentBytes.Length - j).Trim('\0', ' ');
@@ -846,7 +846,7 @@ namespace Com.Drew.Metadata.Exif
         public virtual string GetIsoEquivalentDescription()
         {
             // Have seen an exception here from files produced by ACDSEE that stored an int[] here with two values
-            int? isoEquiv = Directory.GetInteger(ExifDirectoryBase.TagIsoEquivalent);
+            var isoEquiv = Directory.GetInteger(ExifDirectoryBase.TagIsoEquivalent);
             // There used to be a check here that multiplied ISO values < 50 by 200.
             // Issue 36 shows a smart-phone image from a Samsung Galaxy S2 with ISO-40.
             return isoEquiv != null ? ((int)isoEquiv).ToString() : null;
@@ -879,7 +879,7 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetExposureBiasDescription()
         {
-            Rational value = Directory.GetRational(ExifDirectoryBase.TagExposureBias);
+            var value = Directory.GetRational(ExifDirectoryBase.TagExposureBias);
             if (value == null)
             {
                 return null;
@@ -890,24 +890,24 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetMaxApertureValueDescription()
         {
-            double? aperture = Directory.GetDoubleObject(ExifDirectoryBase.TagMaxAperture);
+            var aperture = Directory.GetDoubleObject(ExifDirectoryBase.TagMaxAperture);
             if (aperture == null)
             {
                 return null;
             }
-            double fStop = PhotographicConversions.ApertureToFStop((double)aperture);
+            var fStop = PhotographicConversions.ApertureToFStop((double)aperture);
             return "f/" + fStop.ToString("0.0");
         }
 
         [CanBeNull]
         public virtual string GetApertureValueDescription()
         {
-            double? aperture = Directory.GetDoubleObject(ExifDirectoryBase.TagAperture);
+            var aperture = Directory.GetDoubleObject(ExifDirectoryBase.TagAperture);
             if (aperture == null)
             {
                 return null;
             }
-            double fStop = PhotographicConversions.ApertureToFStop((double)aperture);
+            var fStop = PhotographicConversions.ApertureToFStop((double)aperture);
             return "f/" + fStop.ToString("0.0");
         }
 
@@ -921,24 +921,24 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetFocalPlaneXResolutionDescription()
         {
-            Rational rational = Directory.GetRational(ExifDirectoryBase.TagFocalPlaneXResolution);
+            var rational = Directory.GetRational(ExifDirectoryBase.TagFocalPlaneXResolution);
             if (rational == null)
             {
                 return null;
             }
-            string unit = GetFocalPlaneResolutionUnitDescription();
+            var unit = GetFocalPlaneResolutionUnitDescription();
             return rational.GetReciprocal().ToSimpleString(_allowDecimalRepresentationOfRationals) + (unit == null ? string.Empty : " " + unit.ToLower());
         }
 
         [CanBeNull]
         public virtual string GetFocalPlaneYResolutionDescription()
         {
-            Rational rational = Directory.GetRational(ExifDirectoryBase.TagFocalPlaneYResolution);
+            var rational = Directory.GetRational(ExifDirectoryBase.TagFocalPlaneYResolution);
             if (rational == null)
             {
                 return null;
             }
-            string unit = GetFocalPlaneResolutionUnitDescription();
+            var unit = GetFocalPlaneResolutionUnitDescription();
             return rational.GetReciprocal().ToSimpleString(_allowDecimalRepresentationOfRationals) + (unit == null ? string.Empty : " " + unit.ToLower());
         }
 
@@ -953,21 +953,21 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetExifImageWidthDescription()
         {
-            int? value = Directory.GetInteger(ExifDirectoryBase.TagExifImageWidth);
+            var value = Directory.GetInteger(ExifDirectoryBase.TagExifImageWidth);
             return value == null ? null : value + " pixels";
         }
 
         [CanBeNull]
         public virtual string GetExifImageHeightDescription()
         {
-            int? value = Directory.GetInteger(ExifDirectoryBase.TagExifImageHeight);
+            var value = Directory.GetInteger(ExifDirectoryBase.TagExifImageHeight);
             return value == null ? null : value + " pixels";
         }
 
         [CanBeNull]
         public virtual string GetColorSpaceDescription()
         {
-            int? value = Directory.GetInteger(ExifDirectoryBase.TagColorSpace);
+            var value = Directory.GetInteger(ExifDirectoryBase.TagColorSpace);
             if (value == null)
             {
                 return null;
@@ -986,12 +986,12 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetFocalLengthDescription()
         {
-            Rational value = Directory.GetRational(ExifDirectoryBase.TagFocalLength);
+            var value = Directory.GetRational(ExifDirectoryBase.TagFocalLength);
             if (value == null)
             {
                 return null;
             }
-            DecimalFormat formatter = new DecimalFormat("0.0##");
+            var formatter = new DecimalFormat("0.0##");
             return formatter.Format(value.DoubleValue()) + " mm";
         }
 
@@ -1008,12 +1008,12 @@ namespace Com.Drew.Metadata.Exif
          * 5 = unknown
          * 6 = red eye reduction used
          */
-            int? value = Directory.GetInteger(ExifDirectoryBase.TagFlash);
+            var value = Directory.GetInteger(ExifDirectoryBase.TagFlash);
             if (value == null)
             {
                 return null;
             }
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             if (((int)value & unchecked(0x1)) != 0)
             {
                 sb.Append("Flash fired");
@@ -1051,7 +1051,7 @@ namespace Com.Drew.Metadata.Exif
             // '0' means unknown, '1' daylight, '2' fluorescent, '3' tungsten, '10' flash,
             // '17' standard light A, '18' standard light B, '19' standard light C, '20' D55,
             // '21' D65, '22' D75, '255' other.
-            int? value = Directory.GetInteger(ExifDirectoryBase.TagWhiteBalance);
+            var value = Directory.GetInteger(ExifDirectoryBase.TagWhiteBalance);
             if (value == null)
             {
                 return null;
@@ -1130,7 +1130,7 @@ namespace Com.Drew.Metadata.Exif
         {
             // '0' means unknown, '1' average, '2' center weighted average, '3' spot
             // '4' multi-spot, '5' multi-segment, '6' partial, '255' other
-            int? value = Directory.GetInteger(ExifDirectoryBase.TagMeteringMode);
+            var value = Directory.GetInteger(ExifDirectoryBase.TagMeteringMode);
             if (value == null)
             {
                 return null;
@@ -1187,7 +1187,7 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetCompressionDescription()
         {
-            int? value = Directory.GetInteger(ExifDirectoryBase.TagCompression);
+            var value = Directory.GetInteger(ExifDirectoryBase.TagCompression);
             if (value == null)
             {
                 return null;
@@ -1409,31 +1409,31 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetSubjectDistanceDescription()
         {
-            Rational value = Directory.GetRational(ExifDirectoryBase.TagSubjectDistance);
+            var value = Directory.GetRational(ExifDirectoryBase.TagSubjectDistance);
             if (value == null)
             {
                 return null;
             }
-            DecimalFormat formatter = new DecimalFormat("0.0##");
+            var formatter = new DecimalFormat("0.0##");
             return formatter.Format(value.DoubleValue()) + " metres";
         }
 
         [CanBeNull]
         public virtual string GetCompressedAverageBitsPerPixelDescription()
         {
-            Rational value = Directory.GetRational(ExifDirectoryBase.TagCompressedAverageBitsPerPixel);
+            var value = Directory.GetRational(ExifDirectoryBase.TagCompressedAverageBitsPerPixel);
             if (value == null)
             {
                 return null;
             }
-            string ratio = value.ToSimpleString(_allowDecimalRepresentationOfRationals);
+            var ratio = value.ToSimpleString(_allowDecimalRepresentationOfRationals);
             return value.IsInteger() && value.IntValue() == 1 ? ratio + " bit/pixel" : ratio + " bits/pixel";
         }
 
         [CanBeNull]
         public virtual string GetExposureTimeDescription()
         {
-            string value = Directory.GetString(ExifDirectoryBase.TagExposureTime);
+            var value = Directory.GetString(ExifDirectoryBase.TagExposureTime);
             return value == null ? null : value + " sec";
         }
 
@@ -1449,21 +1449,21 @@ namespace Com.Drew.Metadata.Exif
             // thanks to Mark Edwards for spotting and patching a bug in the calculation of this
             // description (spotted bug using a Canon EOS 300D)
             // thanks also to Gli Blr for spotting this bug
-            float? apexValue = Directory.GetFloatObject(ExifDirectoryBase.TagShutterSpeed);
+            var apexValue = Directory.GetFloatObject(ExifDirectoryBase.TagShutterSpeed);
             if (apexValue == null)
             {
                 return null;
             }
             if (apexValue <= 1)
             {
-                float apexPower = (float)(1 / (Math.Exp((double)apexValue * Math.Log(2))));
-                long apexPower10 = (long)Math.Round(apexPower * 10.0);
-                float fApexPower = apexPower10 / 10.0f;
+                var apexPower = (float)(1 / (Math.Exp((double)apexValue * Math.Log(2))));
+                var apexPower10 = (long)Math.Round(apexPower * 10.0);
+                var fApexPower = apexPower10 / 10.0f;
                 return fApexPower + " sec";
             }
             else
             {
-                int apexPower = (int)((Math.Exp((double)apexValue * Math.Log(2))));
+                var apexPower = (int)((Math.Exp((double)apexValue * Math.Log(2))));
                 return "1/" + apexPower + " sec";
             }
         }
@@ -1490,7 +1490,7 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetFNumberDescription()
         {
-            Rational value = Directory.GetRational(ExifDirectoryBase.TagFnumber);
+            var value = Directory.GetRational(ExifDirectoryBase.TagFnumber);
             if (value == null)
             {
                 return null;
@@ -1511,16 +1511,16 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetComponentConfigurationDescription()
         {
-            int[] components = Directory.GetIntArray(ExifDirectoryBase.TagComponentsConfiguration);
+            var components = Directory.GetIntArray(ExifDirectoryBase.TagComponentsConfiguration);
             if (components == null)
             {
                 return null;
             }
-            string[] componentStrings = new[] { string.Empty, "Y", "Cb", "Cr", "R", "G", "B" };
-            StringBuilder componentConfig = new StringBuilder();
-            for (int i = 0; i < Math.Min(4, components.Length); i++)
+            var componentStrings = new[] { string.Empty, "Y", "Cb", "Cr", "R", "G", "B" };
+            var componentConfig = new StringBuilder();
+            for (var i = 0; i < Math.Min(4, components.Length); i++)
             {
-                int j = components[i];
+                var j = components[i];
                 if (j > 0 && j < componentStrings.Length)
                 {
                     componentConfig.Append(componentStrings[j]);
@@ -1532,7 +1532,7 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public virtual string GetJpegProcDescription()
         {
-            int? value = Directory.GetInteger(ExifDirectoryBase.TagJpegProc);
+            var value = Directory.GetInteger(ExifDirectoryBase.TagJpegProc);
             if (value == null)
             {
                 return null;

@@ -11,7 +11,7 @@ namespace Sharpen
 
         private static Stream GetStreamFromString(string input)
         {
-            byte[] byteArray = Encoding.UTF8.GetBytes(input);
+            var byteArray = Encoding.UTF8.GetBytes(input);
             return new MemoryStream(byteArray);
         }
     }

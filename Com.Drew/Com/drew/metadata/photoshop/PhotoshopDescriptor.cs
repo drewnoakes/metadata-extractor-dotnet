@@ -113,7 +113,7 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                byte[] b = Directory.GetByteArray(PhotoshopDirectory.TagJpegQuality);
+                var b = Directory.GetByteArray(PhotoshopDirectory.TagJpegQuality);
                 if (b == null)
                 {
                     return Directory.GetString(PhotoshopDirectory.TagJpegQuality);
@@ -208,7 +208,7 @@ namespace Com.Drew.Metadata.Photoshop
                         break;
                     }
                 }
-                string scans = s >= 1 && s <= 3 ? (s + 2).ToString() : string.Format("Unknown (0x{0:X4})", s);
+                var scans = s >= 1 && s <= 3 ? (s + 2).ToString() : string.Format("Unknown (0x{0:X4})", s);
                 return string.Format("{0} ({1}), {2} format, {3} scans", q1, quality, format, scans);
             }
             catch (IOException)
@@ -222,13 +222,13 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                byte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagPixelAspectRatio);
+                var bytes = Directory.GetByteArray(PhotoshopDirectory.TagPixelAspectRatio);
                 if (bytes == null)
                 {
                     return null;
                 }
                 IndexedReader reader = new ByteArrayReader(bytes);
-                double d = reader.GetDouble64(4);
+                var d = reader.GetDouble64(4);
                 return ((object)d).ToString();
             }
             catch (Exception)
@@ -242,16 +242,16 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                byte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagPrintScale);
+                var bytes = Directory.GetByteArray(PhotoshopDirectory.TagPrintScale);
                 if (bytes == null)
                 {
                     return null;
                 }
                 IndexedReader reader = new ByteArrayReader(bytes);
-                int style = reader.GetInt32(0);
-                float locX = reader.GetFloat32(2);
-                float locY = reader.GetFloat32(6);
-                float scale = reader.GetFloat32(10);
+                var style = reader.GetInt32(0);
+                var locX = reader.GetFloat32(2);
+                var locY = reader.GetFloat32(6);
+                var scale = reader.GetFloat32(10);
                 switch (style)
                 {
                     case 0:
@@ -286,14 +286,14 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                byte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagResolutionInfo);
+                var bytes = Directory.GetByteArray(PhotoshopDirectory.TagResolutionInfo);
                 if (bytes == null)
                 {
                     return null;
                 }
                 IndexedReader reader = new ByteArrayReader(bytes);
-                float resX = reader.GetS15Fixed16(0);
-                float resY = reader.GetS15Fixed16(8);
+                var resX = reader.GetS15Fixed16(0);
+                var resY = reader.GetS15Fixed16(8);
                 // is this the correct offset? it's only reading 4 bytes each time
                 return resX + "x" + resY + " DPI";
             }
@@ -308,25 +308,25 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                byte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagVersion);
+                var bytes = Directory.GetByteArray(PhotoshopDirectory.TagVersion);
                 if (bytes == null)
                 {
                     return null;
                 }
                 IndexedReader reader = new ByteArrayReader(bytes);
-                int pos = 0;
-                int ver = reader.GetInt32(0);
+                var pos = 0;
+                var ver = reader.GetInt32(0);
                 pos += 4;
                 pos++;
-                int readerLength = reader.GetInt32(5);
+                var readerLength = reader.GetInt32(5);
                 pos += 4;
-                string readerStr = reader.GetString(9, readerLength * 2, Encoding.Unicode);
+                var readerStr = reader.GetString(9, readerLength * 2, Encoding.Unicode);
                 pos += readerLength * 2;
-                int writerLength = reader.GetInt32(pos);
+                var writerLength = reader.GetInt32(pos);
                 pos += 4;
-                string writerStr = reader.GetString(pos, writerLength * 2, Encoding.Unicode);
+                var writerStr = reader.GetString(pos, writerLength * 2, Encoding.Unicode);
                 pos += writerLength * 2;
-                int fileVersion = reader.GetInt32(pos);
+                var fileVersion = reader.GetInt32(pos);
                 return string.Format("{0} ({1}, {2}) {3}", ver, readerStr, writerStr, fileVersion);
             }
             catch (IOException)
@@ -340,16 +340,16 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                byte[] bytes = Directory.GetByteArray(PhotoshopDirectory.TagSlices);
+                var bytes = Directory.GetByteArray(PhotoshopDirectory.TagSlices);
                 if (bytes == null)
                 {
                     return null;
                 }
                 IndexedReader reader = new ByteArrayReader(bytes);
-                int nameLength = reader.GetInt32(20);
-                string name = reader.GetString(24, nameLength * 2, Encoding.Unicode);
-                int pos = 24 + nameLength * 2;
-                int sliceCount = reader.GetInt32(pos);
+                var nameLength = reader.GetInt32(20);
+                var name = reader.GetString(24, nameLength * 2, Encoding.Unicode);
+                var pos = 24 + nameLength * 2;
+                var sliceCount = reader.GetInt32(pos);
                 //pos += 4;
                 return string.Format("{0} ({1},{2},{3},{4}) {5} Slices", name, reader.GetInt32(4), reader.GetInt32(8), reader.GetInt32(12), reader.GetInt32(16), sliceCount);
             }
@@ -371,25 +371,25 @@ namespace Com.Drew.Metadata.Photoshop
         {
             try
             {
-                byte[] v = Directory.GetByteArray(tagType);
+                var v = Directory.GetByteArray(tagType);
                 if (v == null)
                 {
                     return null;
                 }
                 IndexedReader reader = new ByteArrayReader(v);
                 //int pos = 0;
-                int format = reader.GetInt32(0);
+                var format = reader.GetInt32(0);
                 //pos += 4;
-                int width = reader.GetInt32(4);
+                var width = reader.GetInt32(4);
                 //pos += 4;
-                int height = reader.GetInt32(8);
+                var height = reader.GetInt32(8);
                 //pos += 4;
                 //pos += 4; //skip WidthBytes
-                int totalSize = reader.GetInt32(16);
+                var totalSize = reader.GetInt32(16);
                 //pos += 4;
-                int compSize = reader.GetInt32(20);
+                var compSize = reader.GetInt32(20);
                 //pos += 4;
-                int bpp = reader.GetInt32(24);
+                var bpp = reader.GetInt32(24);
                 //pos+=2;
                 //pos+=2; //skip Number of planes
                 //int thumbSize=v.length-pos;
@@ -404,7 +404,7 @@ namespace Com.Drew.Metadata.Photoshop
         [CanBeNull]
         private string GetBooleanString(int tag)
         {
-            byte[] bytes = Directory.GetByteArray(tag);
+            var bytes = Directory.GetByteArray(tag);
             if (bytes == null)
             {
                 return null;
@@ -415,7 +415,7 @@ namespace Com.Drew.Metadata.Photoshop
         [CanBeNull]
         private string Get32BitNumberString(int tag)
         {
-            byte[] bytes = Directory.GetByteArray(tag);
+            var bytes = Directory.GetByteArray(tag);
             if (bytes == null)
             {
                 return null;
@@ -434,7 +434,7 @@ namespace Com.Drew.Metadata.Photoshop
         [CanBeNull]
         private string GetSimpleString(int tagType)
         {
-            byte[] bytes = Directory.GetByteArray(tagType);
+            var bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
             {
                 return null;
@@ -445,7 +445,7 @@ namespace Com.Drew.Metadata.Photoshop
         [CanBeNull]
         private string GetBinaryDataString(int tagType)
         {
-            byte[] bytes = Directory.GetByteArray(tagType);
+            var bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
             {
                 return null;

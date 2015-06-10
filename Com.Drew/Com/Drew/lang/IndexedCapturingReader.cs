@@ -115,26 +115,26 @@ namespace Com.Drew.Lang
             {
                 return false;
             }
-            long endIndexLong = (long)index + bytesRequested - 1;
+            var endIndexLong = (long)index + bytesRequested - 1;
             if (endIndexLong > int.MaxValue)
             {
                 return false;
             }
-            int endIndex = (int)endIndexLong;
+            var endIndex = (int)endIndexLong;
             if (_isStreamFinished)
             {
                 return endIndex < _streamLength;
             }
-            int chunkIndex = endIndex / _chunkLength;
+            var chunkIndex = endIndex / _chunkLength;
             // TODO test loading several chunks for a single request
             while (chunkIndex >= _chunks.Count)
             {
                 Debug.Assert((!_isStreamFinished));
-                byte[] chunk = new byte[_chunkLength];
-                int totalBytesRead = 0;
+                var chunk = new byte[_chunkLength];
+                var totalBytesRead = 0;
                 while (!_isStreamFinished && totalBytesRead != _chunkLength)
                 {
-                    int bytesRead = _stream.Read(chunk, totalBytesRead, _chunkLength - totalBytesRead);
+                    var bytesRead = _stream.Read(chunk, totalBytesRead, _chunkLength - totalBytesRead);
                     if (bytesRead == 0)
                     {
                         // the stream has ended, which may be ok
@@ -161,9 +161,9 @@ namespace Com.Drew.Lang
         protected override byte GetByte(int index)
         {
             Debug.Assert((index >= 0));
-            int chunkIndex = index / _chunkLength;
-            int innerIndex = index % _chunkLength;
-            byte[] chunk = _chunks[chunkIndex];
+            var chunkIndex = index / _chunkLength;
+            var innerIndex = index % _chunkLength;
+            var chunk = _chunks[chunkIndex];
             return chunk[innerIndex];
         }
 
@@ -171,16 +171,16 @@ namespace Com.Drew.Lang
         public override byte[] GetBytes(int index, int count)
         {
             ValidateIndex(index, count);
-            byte[] bytes = new byte[count];
-            int remaining = count;
-            int fromIndex = index;
-            int toIndex = 0;
+            var bytes = new byte[count];
+            var remaining = count;
+            var fromIndex = index;
+            var toIndex = 0;
             while (remaining != 0)
             {
-                int fromChunkIndex = fromIndex / _chunkLength;
-                int fromInnerIndex = fromIndex % _chunkLength;
-                int length = Math.Min(remaining, _chunkLength - fromInnerIndex);
-                byte[] chunk = _chunks[fromChunkIndex];
+                var fromChunkIndex = fromIndex / _chunkLength;
+                var fromInnerIndex = fromIndex % _chunkLength;
+                var length = Math.Min(remaining, _chunkLength - fromInnerIndex);
+                var chunk = _chunks[fromChunkIndex];
                 Array.Copy(chunk, fromInnerIndex, bytes, toIndex, length);
                 remaining -= length;
                 fromIndex += length;

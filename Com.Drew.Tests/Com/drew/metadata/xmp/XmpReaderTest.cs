@@ -38,11 +38,11 @@ namespace Com.Drew.Metadata.Xmp
         [SetUp]
         public void SetUp()
         {
-            Metadata metadata = new Metadata();
+            var metadata = new Metadata();
             IList<byte[]> jpegSegments = new List<byte[]>();
             jpegSegments.Add(System.IO.File.ReadAllBytes("Tests/Data/withXmpAndIptc.jpg.app1.1"));
             new XmpReader().ReadJpegSegments(jpegSegments, metadata, JpegSegmentType.App1);
-            ICollection<XmpDirectory> xmpDirectories = metadata.GetDirectoriesOfType<XmpDirectory>();
+            var xmpDirectories = metadata.GetDirectoriesOfType<XmpDirectory>();
             Assert.IsNotNull(xmpDirectories);
             Assert.AreEqual(1, xmpDirectories.Count);
             _directory = xmpDirectories.Iterator().Next();
@@ -188,7 +188,7 @@ namespace Com.Drew.Metadata.Xmp
         [Test]
         public void TestExtract_OriginalDateTime()
         {
-            DateTime? actual = _directory.GetDate(XmpDirectory.TagDatetimeOriginal);
+            var actual = _directory.GetDate(XmpDirectory.TagDatetimeOriginal);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
             Assert.AreEqual(new SimpleDateFormat("hh:mm:ss dd MM yyyy Z").Parse("11:41:35 12 12 2010 +0000"), actual);
             //        assertEquals(new SimpleDateFormat("HH:mm:ss dd MMM yyyy Z").parse("12:41:35 12 Dec 2010 +0100"), actual);
@@ -201,7 +201,7 @@ namespace Com.Drew.Metadata.Xmp
         [Test]
         public void TestExtract_DigitizedDateTime()
         {
-            DateTime? actual = _directory.GetDate(XmpDirectory.TagDatetimeDigitized);
+            var actual = _directory.GetDate(XmpDirectory.TagDatetimeDigitized);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
             Assert.AreEqual(new SimpleDateFormat("hh:mm:ss dd MM yyyy Z").Parse("11:41:35 12 12 2010 +0000"), actual);
             //        assertEquals(new SimpleDateFormat("HH:mm:ss dd MMM yyyy Z").parse("12:41:35 12 Dec 2010 +0100"), actual);
@@ -214,7 +214,7 @@ namespace Com.Drew.Metadata.Xmp
         [Test]
         public void TestGetXmpProperties()
         {
-            IDictionary<string, string> propertyMap = _directory.GetXmpProperties();
+            var propertyMap = _directory.GetXmpProperties();
             Assert.AreEqual(179, propertyMap.Count);
             Assert.IsTrue(propertyMap.ContainsKey("photoshop:Country"));
             Assert.AreEqual("Deutschland", propertyMap["photoshop:Country"]);

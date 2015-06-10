@@ -30,7 +30,7 @@ namespace Com.Drew.Metadata
         [Test]
         public void TestParse()
         {
-            Age age = Age.FromPanasonicString("0031:07:15 00:00:00");
+            var age = Age.FromPanasonicString("0031:07:15 00:00:00");
             Assert.IsNotNull(age);
             Assert.AreEqual(31, age.GetYears());
             Assert.AreEqual(7, age.GetMonths());
@@ -45,9 +45,9 @@ namespace Com.Drew.Metadata
         [Test]
         public void TestEqualsAndHashCode()
         {
-            Age age1 = new Age(10, 11, 12, 13, 14, 15);
-            Age age2 = new Age(10, 11, 12, 13, 14, 15);
-            Age age3 = new Age(0, 0, 0, 0, 0, 0);
+            var age1 = new Age(10, 11, 12, 13, 14, 15);
+            var age2 = new Age(10, 11, 12, 13, 14, 15);
+            var age3 = new Age(0, 0, 0, 0, 0, 0);
             Assert.AreEqual(age1, age1);
             Assert.AreEqual(age1, age2);
             Assert.AreEqual(age2, age1);

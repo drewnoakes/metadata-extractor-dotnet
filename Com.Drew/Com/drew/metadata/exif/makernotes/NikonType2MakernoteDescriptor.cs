@@ -211,7 +211,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetActiveDLightingDescription()
         {
-            int? value = Directory.GetInteger(NikonType2MakernoteDirectory.TagActiveDLighting);
+            var value = Directory.GetInteger(NikonType2MakernoteDirectory.TagActiveDLighting);
             if (value == null)
             {
                 return null;
@@ -258,7 +258,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetVignetteControlDescription()
         {
-            int? value = Directory.GetInteger(NikonType2MakernoteDirectory.TagVignetteControl);
+            var value = Directory.GetInteger(NikonType2MakernoteDirectory.TagVignetteControl);
             if (value == null)
             {
                 return null;
@@ -295,7 +295,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetAutoFocusPositionDescription()
         {
-            int[] values = Directory.GetIntArray(NikonType2MakernoteDirectory.TagAfFocusPosition);
+            var values = Directory.GetIntArray(NikonType2MakernoteDirectory.TagAfFocusPosition);
             if (values == null)
             {
                 return null;
@@ -341,7 +341,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetDigitalZoomDescription()
         {
-            Rational value = Directory.GetRational(NikonType2MakernoteDirectory.TagDigitalZoom);
+            var value = Directory.GetRational(NikonType2MakernoteDirectory.TagDigitalZoom);
             if (value == null)
             {
                 return null;
@@ -394,7 +394,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         private string GetEvDescription(int tagType)
         {
-            int[] values = Directory.GetIntArray(tagType);
+            var values = Directory.GetIntArray(tagType);
             if (values == null)
             {
                 return null;
@@ -403,15 +403,15 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             {
                 return null;
             }
-            DecimalFormat decimalFormat = new DecimalFormat("0.##");
-            double ev = values[0] * values[1] / (double)values[2];
+            var decimalFormat = new DecimalFormat("0.##");
+            var ev = values[0] * values[1] / (double)values[2];
             return decimalFormat.Format(ev) + " EV";
         }
 
         [CanBeNull]
         public string GetIsoSettingDescription()
         {
-            int[] values = Directory.GetIntArray(NikonType2MakernoteDirectory.TagIso1);
+            var values = Directory.GetIntArray(NikonType2MakernoteDirectory.TagIso1);
             if (values == null)
             {
                 return null;
@@ -426,7 +426,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetLensDescription()
         {
-            Rational[] values = Directory.GetRationalArray(NikonType2MakernoteDirectory.TagLens);
+            var values = Directory.GetRationalArray(NikonType2MakernoteDirectory.TagLens);
             return values == null
                 ? null
                 : values.Length < 4
@@ -447,7 +447,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
         [CanBeNull]
         public string GetColorModeDescription()
         {
-            string value = Directory.GetString(NikonType2MakernoteDirectory.TagCameraColorMode);
+            var value = Directory.GetString(NikonType2MakernoteDirectory.TagCameraColorMode);
             return value == null ? null : value.StartsWith("MODE1") ? "Mode I (sRGB)" : value;
         }
 

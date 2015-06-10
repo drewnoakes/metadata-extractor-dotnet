@@ -44,7 +44,7 @@ namespace Com.Drew.Lang
         /// <exception cref="System.IO.IOException"/>
         protected override byte GetByte()
         {
-            int value = _stream.ReadByte();
+            var value = _stream.ReadByte();
             if (value == -1)
             {
                 throw new EofException("End of data reached.");
@@ -55,11 +55,11 @@ namespace Com.Drew.Lang
         /// <exception cref="System.IO.IOException"/>
         public override byte[] GetBytes(int count)
         {
-            byte[] bytes = new byte[count];
-            int totalBytesRead = 0;
+            var bytes = new byte[count];
+            var totalBytesRead = 0;
             while (totalBytesRead != count)
             {
-                int bytesRead = _stream.Read(bytes, totalBytesRead, count - totalBytesRead);
+                var bytesRead = _stream.Read(bytes, totalBytesRead, count - totalBytesRead);
                 if (bytesRead == 0)
                 {
                     throw new EofException("End of data reached.");

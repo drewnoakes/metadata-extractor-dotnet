@@ -61,7 +61,7 @@ namespace Com.Drew.Lang
             {
                 throw new EofException("End of data reached.");
             }
-            byte[] bytes = new byte[count];
+            var bytes = new byte[count];
             Array.Copy(_bytes, _index, bytes, 0, count);
             _index += count;
             return bytes;

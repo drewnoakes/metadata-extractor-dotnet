@@ -52,7 +52,7 @@ namespace Com.Drew.Metadata.File
         [CanBeNull]
         private string GetFileSizeDescription()
         {
-            long? size = Directory.GetLongObject(FileMetadataDirectory.TagFileSize);
+            var size = Directory.GetLongObject(FileMetadataDirectory.TagFileSize);
             if (size == null)
             {
                 return null;

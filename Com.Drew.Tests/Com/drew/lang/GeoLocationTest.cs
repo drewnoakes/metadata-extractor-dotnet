@@ -31,7 +31,7 @@ namespace Com.Drew.Lang
         [Test]
         public void TestDecimalToDegreesMinutesSeconds()
         {
-            double[] dms = GeoLocation.DecimalToDegreesMinutesSeconds(1);
+            var dms = GeoLocation.DecimalToDegreesMinutesSeconds(1);
             Assert.AreEqual(1.0, dms[0], 0.0001);
             Assert.AreEqual(0.0, dms[1], 0.0001);
             Assert.AreEqual(0.0, dms[2], 0.0001);

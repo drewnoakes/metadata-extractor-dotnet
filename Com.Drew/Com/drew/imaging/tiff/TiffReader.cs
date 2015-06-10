@@ -55,7 +55,7 @@ namespace Com.Drew.Imaging.Tiff
         public void ProcessTiff([NotNull] IndexedReader reader, [NotNull] ITiffHandler handler, int tiffHeaderOffset)
         {
             // This must be either "MM" or "II".
-            short byteOrderIdentifier = reader.GetInt16(tiffHeaderOffset);
+            var byteOrderIdentifier = reader.GetInt16(tiffHeaderOffset);
             if (byteOrderIdentifier == unchecked(0x4d4d))
             {
                 // "MM"
@@ -76,7 +76,7 @@ namespace Com.Drew.Imaging.Tiff
             // Check the next two values for correctness.
             int tiffMarker = reader.GetUInt16(2 + tiffHeaderOffset);
             handler.SetTiffMarker(tiffMarker);
-            int firstIfdOffset = reader.GetInt32(4 + tiffHeaderOffset) + tiffHeaderOffset;
+            var firstIfdOffset = reader.GetInt32(4 + tiffHeaderOffset) + tiffHeaderOffset;
             // David Ekholm sent a digital camera image that has this problem
             // TODO getLength should be avoided as it causes IndexedCapturingReader to read to the end of the stream
             if (firstIfdOffset >= reader.GetLength() - 1)
@@ -137,7 +137,7 @@ namespace Com.Drew.Imaging.Tiff
                 }
                 // First two bytes in the IFD are the number of tags in this directory
                 int dirTagCount = reader.GetUInt16(ifdOffset);
-                int dirLength = (2 + (12 * dirTagCount) + 4);
+                var dirLength = (2 + (12 * dirTagCount) + 4);
                 if (dirLength + ifdOffset > reader.GetLength())
                 {
                     handler.Error("Illegally sized IFD");
@@ -146,15 +146,15 @@ namespace Com.Drew.Imaging.Tiff
                 //
                 // Handle each tag in this directory
                 //
-                int invalidTiffFormatCodeCount = 0;
-                for (int tagNumber = 0; tagNumber < dirTagCount; tagNumber++)
+                var invalidTiffFormatCodeCount = 0;
+                for (var tagNumber = 0; tagNumber < dirTagCount; tagNumber++)
                 {
-                    int tagOffset = CalculateTagOffset(ifdOffset, tagNumber);
+                    var tagOffset = CalculateTagOffset(ifdOffset, tagNumber);
                     // 2 bytes for the tag id
                     int tagId = reader.GetUInt16(tagOffset);
                     // 2 bytes for the format code
                     int formatCode = reader.GetUInt16(tagOffset + 2);
-                    TiffDataFormat format = TiffDataFormat.FromTiffFormatCode(formatCode);
+                    var format = TiffDataFormat.FromTiffFormatCode(formatCode);
                     if (format == null)
                     {
                         // This error suggests that we are processing at an incorrect index and will generate
@@ -169,18 +169,18 @@ namespace Com.Drew.Imaging.Tiff
                         continue;
                     }
                     // 4 bytes dictate the number of components in this tag's data
-                    int componentCount = reader.GetInt32(tagOffset + 4);
+                    var componentCount = reader.GetInt32(tagOffset + 4);
                     if (componentCount < 0)
                     {
                         handler.Error("Negative TIFF tag component count");
                         continue;
                     }
-                    int byteCount = componentCount * format.GetComponentSizeBytes();
+                    var byteCount = componentCount * format.GetComponentSizeBytes();
                     int tagValueOffset;
                     if (byteCount > 4)
                     {
                         // If it's bigger than 4 bytes, the dir entry contains an offset.
-                        int offsetVal = reader.GetInt32(tagOffset + 8);
+                        var offsetVal = reader.GetInt32(tagOffset + 8);
                         if (offsetVal + byteCount > reader.GetLength())
                         {
                             // Bogus pointer offset and / or byteCount value
@@ -211,7 +211,7 @@ namespace Com.Drew.Imaging.Tiff
                     //
                     if (byteCount == 4 && handler.IsTagIfdPointer(tagId))
                     {
-                        int subDirOffset = tiffHeaderOffset + reader.GetInt32(tagValueOffset);
+                        var subDirOffset = tiffHeaderOffset + reader.GetInt32(tagValueOffset);
                         ProcessIfd(handler, reader, processedIfdOffsets, subDirOffset, tiffHeaderOffset);
                     }
                     else
@@ -223,8 +223,8 @@ namespace Com.Drew.Imaging.Tiff
                     }
                 }
                 // at the end of each IFD is an optional link to the next IFD
-                int finalTagOffset = CalculateTagOffset(ifdOffset, dirTagCount);
-                int nextIfdOffset = reader.GetInt32(finalTagOffset);
+                var finalTagOffset = CalculateTagOffset(ifdOffset, dirTagCount);
+                var nextIfdOffset = reader.GetInt32(finalTagOffset);
                 if (nextIfdOffset != 0)
                 {
                     nextIfdOffset += tiffHeaderOffset;
@@ -283,8 +283,8 @@ namespace Com.Drew.Imaging.Tiff
                     {
                         if (componentCount > 1)
                         {
-                            Rational[] array = new Rational[componentCount];
-                            for (int i = 0; i < componentCount; i++)
+                            var array = new Rational[componentCount];
+                            for (var i = 0; i < componentCount; i++)
                             {
                                 array[i] = new Rational(reader.GetInt32(tagValueOffset + (8 * i)), reader.GetInt32(tagValueOffset + 4 + (8 * i)));
                             }
@@ -304,8 +304,8 @@ namespace Com.Drew.Imaging.Tiff
                     {
                         if (componentCount > 1)
                         {
-                            Rational[] array = new Rational[componentCount];
-                            for (int i = 0; i < componentCount; i++)
+                            var array = new Rational[componentCount];
+                            for (var i = 0; i < componentCount; i++)
                             {
                                 array[i] = new Rational(reader.GetUInt32(tagValueOffset + (8 * i)), reader.GetUInt32(tagValueOffset + 4 + (8 * i)));
                             }
@@ -323,8 +323,8 @@ namespace Com.Drew.Imaging.Tiff
                     }
                     else
                     {
-                        float[] array = new float[componentCount];
-                        for (int i = 0; i < componentCount; i++)
+                        var array = new float[componentCount];
+                        for (var i = 0; i < componentCount; i++)
                         {
                             array[i] = reader.GetFloat32(tagValueOffset + (i * 4));
                         }
@@ -341,8 +341,8 @@ namespace Com.Drew.Imaging.Tiff
                     }
                     else
                     {
-                        double[] array = new double[componentCount];
-                        for (int i = 0; i < componentCount; i++)
+                        var array = new double[componentCount];
+                        for (var i = 0; i < componentCount; i++)
                         {
                             array[i] = reader.GetDouble64(tagValueOffset + (i * 4));
                         }
@@ -359,8 +359,8 @@ namespace Com.Drew.Imaging.Tiff
                     }
                     else
                     {
-                        sbyte[] array = new sbyte[componentCount];
-                        for (int i = 0; i < componentCount; i++)
+                        var array = new sbyte[componentCount];
+                        for (var i = 0; i < componentCount; i++)
                         {
                             array[i] = reader.GetInt8(tagValueOffset + i);
                         }
@@ -377,8 +377,8 @@ namespace Com.Drew.Imaging.Tiff
                     }
                     else
                     {
-                        byte[] array = new byte[componentCount];
-                        for (int i = 0; i < componentCount; i++)
+                        var array = new byte[componentCount];
+                        for (var i = 0; i < componentCount; i++)
                         {
                             array[i] = reader.GetUInt8(tagValueOffset + i);
                         }
@@ -395,8 +395,8 @@ namespace Com.Drew.Imaging.Tiff
                     }
                     else
                     {
-                        short[] array = new short[componentCount];
-                        for (int i = 0; i < componentCount; i++)
+                        var array = new short[componentCount];
+                        for (var i = 0; i < componentCount; i++)
                         {
                             array[i] = reader.GetInt16(tagValueOffset + (i * 2));
                         }
@@ -413,8 +413,8 @@ namespace Com.Drew.Imaging.Tiff
                     }
                     else
                     {
-                        ushort[] array = new ushort[componentCount];
-                        for (int i = 0; i < componentCount; i++)
+                        var array = new ushort[componentCount];
+                        for (var i = 0; i < componentCount; i++)
                         {
                             array[i] = reader.GetUInt16(tagValueOffset + (i * 2));
                         }
@@ -432,8 +432,8 @@ namespace Com.Drew.Imaging.Tiff
                     }
                     else
                     {
-                        int[] array = new int[componentCount];
-                        for (int i = 0; i < componentCount; i++)
+                        var array = new int[componentCount];
+                        for (var i = 0; i < componentCount; i++)
                         {
                             array[i] = reader.GetInt32(tagValueOffset + (i * 4));
                         }
@@ -451,8 +451,8 @@ namespace Com.Drew.Imaging.Tiff
                     }
                     else
                     {
-                        uint[] array = new uint[componentCount];
-                        for (int i = 0; i < componentCount; i++)
+                        var array = new uint[componentCount];
+                        for (var i = 0; i < componentCount; i++)
                         {
                             array[i] = reader.GetUInt32(tagValueOffset + (i * 4));
                         }

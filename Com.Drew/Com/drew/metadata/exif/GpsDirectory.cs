@@ -182,10 +182,10 @@ namespace Com.Drew.Metadata.Exif
         [CanBeNull]
         public GeoLocation GetGeoLocation()
         {
-            Rational[] latitudes = GetRationalArray(TagLatitude);
-            Rational[] longitudes = GetRationalArray(TagLongitude);
-            string latitudeRef = GetString(TagLatitudeRef);
-            string longitudeRef = GetString(TagLongitudeRef);
+            var latitudes = GetRationalArray(TagLatitude);
+            var longitudes = GetRationalArray(TagLongitude);
+            var latitudeRef = GetString(TagLatitudeRef);
+            var longitudeRef = GetString(TagLongitudeRef);
             // Make sure we have the required values
             if (latitudes == null || latitudes.Length != 3)
             {
@@ -199,8 +199,8 @@ namespace Com.Drew.Metadata.Exif
             {
                 return null;
             }
-            double? lat = GeoLocation.DegreesMinutesSecondsToDecimal(latitudes[0], latitudes[1], latitudes[2], latitudeRef.Equals ("S", StringComparison.CurrentCultureIgnoreCase));
-            double? lon = GeoLocation.DegreesMinutesSecondsToDecimal(longitudes[0], longitudes[1], longitudes[2], longitudeRef.Equals ("W", StringComparison.CurrentCultureIgnoreCase));
+            var lat = GeoLocation.DegreesMinutesSecondsToDecimal(latitudes[0], latitudes[1], latitudes[2], latitudeRef.Equals ("S", StringComparison.CurrentCultureIgnoreCase));
+            var lon = GeoLocation.DegreesMinutesSecondsToDecimal(longitudes[0], longitudes[1], longitudes[2], longitudeRef.Equals ("W", StringComparison.CurrentCultureIgnoreCase));
             // This can return null, in cases where the conversion was not possible
             if (lat == null || lon == null)
             {

@@ -44,7 +44,7 @@ namespace Sharpen
         protected Calendar(int year, int month, int dayOfMonth, int hourOfDay, int minute, int second)
         {
             _mTz = DefaultTimeZone;
-            bool addDay = false;
+            var addDay = false;
             if (hourOfDay == 24)
             {
                 hourOfDay = 0;
