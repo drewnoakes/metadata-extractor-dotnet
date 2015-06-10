@@ -30,37 +30,37 @@ namespace Com.Drew.Imaging
     /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
     public static class FileTypeDetector
     {
-        private static readonly ByteTrie<FileType?> Root;
+        private static readonly ByteTrie<FileType?> _root;
 
         static FileTypeDetector()
         {
-            Root = new ByteTrie<FileType?>();
-            Root.SetDefaultValue(FileType.Unknown);
+            _root = new ByteTrie<FileType?>();
+            _root.SetDefaultValue(FileType.Unknown);
             // https://en.wikipedia.org/wiki/List_of_file_signatures
-            Root.AddPath(FileType.Jpeg, new[] { (byte)0xff, (byte)0xd8 });
-            Root.AddPath(FileType.Tiff, Encoding.UTF8.GetBytes("II"), new byte[] { 0x2a, 0x00 });
-            Root.AddPath(FileType.Tiff, Encoding.UTF8.GetBytes("MM"), new byte[] { 0x00, 0x2a });
-            Root.AddPath(FileType.Psd, Encoding.UTF8.GetBytes("8BPS"));
-            Root.AddPath(FileType.Png, new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52 });
-            Root.AddPath(FileType.Bmp, Encoding.UTF8.GetBytes("BM"));
+            _root.AddPath(FileType.Jpeg, new[] { (byte)0xff, (byte)0xd8 });
+            _root.AddPath(FileType.Tiff, Encoding.UTF8.GetBytes("II"), new byte[] { 0x2a, 0x00 });
+            _root.AddPath(FileType.Tiff, Encoding.UTF8.GetBytes("MM"), new byte[] { 0x00, 0x2a });
+            _root.AddPath(FileType.Psd, Encoding.UTF8.GetBytes("8BPS"));
+            _root.AddPath(FileType.Png, new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52 });
+            _root.AddPath(FileType.Bmp, Encoding.UTF8.GetBytes("BM"));
             // TODO technically there are other very rare magic numbers for OS/2 BMP files...
-            Root.AddPath(FileType.Gif, Encoding.UTF8.GetBytes("GIF87a"));
-            Root.AddPath(FileType.Gif, Encoding.UTF8.GetBytes("GIF89a"));
-            Root.AddPath(FileType.Ico, new byte[] { 0x00, 0x00, 0x01, 0x00 });
-            Root.AddPath(FileType.Pcx, new byte[] { 0x0A, 0x00, 0x01 });
+            _root.AddPath(FileType.Gif, Encoding.UTF8.GetBytes("GIF87a"));
+            _root.AddPath(FileType.Gif, Encoding.UTF8.GetBytes("GIF89a"));
+            _root.AddPath(FileType.Ico, new byte[] { 0x00, 0x00, 0x01, 0x00 });
+            _root.AddPath(FileType.Pcx, new byte[] { 0x0A, 0x00, 0x01 });
             // multiple PCX versions, explicitly listed
-            Root.AddPath(FileType.Pcx, new byte[] { 0x0A, 0x02, 0x01 });
-            Root.AddPath(FileType.Pcx, new byte[] { 0x0A, 0x03, 0x01 });
-            Root.AddPath(FileType.Pcx, new byte[] { 0x0A, 0x05, 0x01 });
-            Root.AddPath(FileType.Riff, Encoding.UTF8.GetBytes("RIFF"));
-            Root.AddPath(FileType.Arw, Encoding.UTF8.GetBytes("II"), new byte[] { 0x2a, 0x00, 0x08, 0x00 });
-            Root.AddPath(FileType.Crw, Encoding.UTF8.GetBytes("II"), new byte[] { 0x1a, 0x00, 0x00, 0x00 }, Encoding.UTF8.GetBytes("HEAPCCDR"));
-            Root.AddPath(FileType.Cr2, Encoding.UTF8.GetBytes("II"), new byte[] { 0x2a, 0x00, 0x10, 0x00, 0x00, 0x00, 0x43, 0x52 });
-            Root.AddPath(FileType.Nef, Encoding.UTF8.GetBytes("MM"), new byte[] { 0x00, 0x2a, 0x00, 0x00, 0x00, 0x80, 0x00 });
-            Root.AddPath(FileType.Orf, Encoding.UTF8.GetBytes("IIRO"), new byte[] { 0x08, 0x00 });
-            Root.AddPath(FileType.Orf, Encoding.UTF8.GetBytes("IIRS"), new byte[] { 0x08, 0x00 });
-            Root.AddPath(FileType.Raf, Encoding.UTF8.GetBytes("FUJIFILMCCD-RAW"));
-            Root.AddPath(FileType.Rw2, Encoding.UTF8.GetBytes("II"), new byte[] { 0x55, 0x00 });
+            _root.AddPath(FileType.Pcx, new byte[] { 0x0A, 0x02, 0x01 });
+            _root.AddPath(FileType.Pcx, new byte[] { 0x0A, 0x03, 0x01 });
+            _root.AddPath(FileType.Pcx, new byte[] { 0x0A, 0x05, 0x01 });
+            _root.AddPath(FileType.Riff, Encoding.UTF8.GetBytes("RIFF"));
+            _root.AddPath(FileType.Arw, Encoding.UTF8.GetBytes("II"), new byte[] { 0x2a, 0x00, 0x08, 0x00 });
+            _root.AddPath(FileType.Crw, Encoding.UTF8.GetBytes("II"), new byte[] { 0x1a, 0x00, 0x00, 0x00 }, Encoding.UTF8.GetBytes("HEAPCCDR"));
+            _root.AddPath(FileType.Cr2, Encoding.UTF8.GetBytes("II"), new byte[] { 0x2a, 0x00, 0x10, 0x00, 0x00, 0x00, 0x43, 0x52 });
+            _root.AddPath(FileType.Nef, Encoding.UTF8.GetBytes("MM"), new byte[] { 0x00, 0x2a, 0x00, 0x00, 0x00, 0x80, 0x00 });
+            _root.AddPath(FileType.Orf, Encoding.UTF8.GetBytes("IIRO"), new byte[] { 0x08, 0x00 });
+            _root.AddPath(FileType.Orf, Encoding.UTF8.GetBytes("IIRS"), new byte[] { 0x08, 0x00 });
+            _root.AddPath(FileType.Raf, Encoding.UTF8.GetBytes("FUJIFILMCCD-RAW"));
+            _root.AddPath(FileType.Rw2, Encoding.UTF8.GetBytes("II"), new byte[] { 0x55, 0x00 });
         }
 
         /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
@@ -72,14 +72,14 @@ namespace Com.Drew.Imaging
         /// <exception cref="System.IO.IOException">if an IO error occurred or the input stream ended unexpectedly.</exception>
         public static FileType? DetectFileType([NotNull] Stream stream)
         {
-            var maxByteCount = Root.GetMaxDepth();
+            var maxByteCount = _root.MaxDepth;
             var bytes = new byte[maxByteCount];
             var bytesRead = stream.Read(bytes, 0, bytes.Length);
             if (bytesRead == 0)
                 return null;
             stream.Seek(-bytesRead, SeekOrigin.Current);
             //noinspection ConstantConditions
-            return Root.Find(bytes);
+            return _root.Find(bytes);
         }
     }
 }
