@@ -23,25 +23,25 @@
 using System;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Imaging.Png
+namespace Com.Drew.Imaging.Jpeg
 {
     /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a JPEG file.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [Serializable]
-    public class PngProcessingException : ImageProcessingException
+    public class JpegProcessingException : ImageProcessingException
     {
-        public PngProcessingException([CanBeNull] string message)
+        public JpegProcessingException([CanBeNull] string message)
             : base(message)
         {
         }
 
-        public PngProcessingException([CanBeNull] string message, [CanBeNull] Exception cause)
-            : base(message, cause)
+        public JpegProcessingException([CanBeNull] string message, [CanBeNull] Exception innerException)
+            : base(message, innerException)
         {
         }
 
-        public PngProcessingException([CanBeNull] Exception cause)
-            : base(cause)
+        public JpegProcessingException([CanBeNull] Exception innerException)
+            : base(innerException)
         {
         }
     }

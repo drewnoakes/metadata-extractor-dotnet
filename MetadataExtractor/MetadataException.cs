@@ -21,28 +21,27 @@
  */
 
 using System;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Imaging
+namespace Com.Drew.Metadata
 {
-    /// <summary>An exception class thrown upon an unexpected condition that was fatal for the processing of an image.</summary>
+    /// <summary>Base class for all metadata specific exceptions.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [Serializable]
-    public class ImageProcessingException : CompoundException
+    public class MetadataException : Exception
     {
-        public ImageProcessingException([CanBeNull] string message)
-            : base(message)
+        public MetadataException([CanBeNull] string msg)
+            : base(msg)
         {
         }
 
-        public ImageProcessingException([CanBeNull] string message, [CanBeNull] Exception cause)
-            : base(message, cause)
+        public MetadataException([CanBeNull] Exception innerException)
+            : base(null, innerException)
         {
         }
 
-        public ImageProcessingException([CanBeNull] Exception cause)
-            : base(cause)
+        public MetadataException([CanBeNull] string msg, [CanBeNull] Exception innerException)
+            : base(msg, innerException)
         {
         }
     }

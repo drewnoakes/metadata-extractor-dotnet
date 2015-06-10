@@ -20,29 +20,19 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using System;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Imaging.Riff
+namespace Com.Drew.Lang
 {
-    /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a RIFF file.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [Serializable]
-    public class RiffProcessingException : ImageProcessingException
+    internal static class StringUtil
     {
-        public RiffProcessingException([CanBeNull] string message)
-            : base(message)
+        [NotNull]
+        public static string UrlEncode([NotNull] string name)
         {
-        }
-
-        public RiffProcessingException([CanBeNull] string message, [CanBeNull] Exception cause)
-            : base(message, cause)
-        {
-        }
-
-        public RiffProcessingException([CanBeNull] Exception cause)
-            : base(cause)
-        {
+            // Sufficient for now, it seems
+            // TODO review http://stackoverflow.com/questions/3840762/how-do-you-urlencode-without-using-system-web
+            return name.Replace(" ", "%20");
         }
     }
 }

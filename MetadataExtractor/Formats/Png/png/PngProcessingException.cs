@@ -20,19 +20,29 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Lang
+namespace Com.Drew.Imaging.Png
 {
+    /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a JPEG file.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public static class StringUtil
+    [Serializable]
+    public class PngProcessingException : ImageProcessingException
     {
-        [NotNull]
-        public static string UrlEncode([NotNull] string name)
+        public PngProcessingException([CanBeNull] string message)
+            : base(message)
         {
-            // Sufficient for now, it seems
-            // TODO review http://stackoverflow.com/questions/3840762/how-do-you-urlencode-without-using-system-web
-            return name.Replace(" ", "%20");
+        }
+
+        public PngProcessingException([CanBeNull] string message, [CanBeNull] Exception innerException)
+            : base(message, innerException)
+        {
+        }
+
+        public PngProcessingException([CanBeNull] Exception innerException)
+            : base(innerException)
+        {
         }
     }
 }

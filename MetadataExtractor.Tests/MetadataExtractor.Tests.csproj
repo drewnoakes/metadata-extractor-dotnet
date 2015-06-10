@@ -49,7 +49,6 @@
     <Compile Include="Com\drew\imaging\png\PngMetadataReaderTest.cs" />
     <Compile Include="Com\drew\lang\ByteArrayReaderTest.cs" />
     <Compile Include="Com\drew\lang\ByteTrieTest.cs" />
-    <Compile Include="Com\drew\lang\CompoundExceptionTest.cs" />
     <Compile Include="Com\drew\lang\GeoLocationTest.cs" />
     <Compile Include="Com\drew\lang\IndexedSeekingReaderTest.cs" />
     <Compile Include="Com\drew\lang\RandomAccessStreamReaderTest.cs" />
@@ -156,7 +155,7 @@
       <Project>{5a1f2aff-7219-4543-97c4-364d4502c3c5}</Project>
       <Name>Com.Adobe.Xmp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Com.Drew\MetadataExtractor.csproj">
+    <ProjectReference Include="..\MetadataExtractor\MetadataExtractor.csproj">
       <Project>{26e27564-a74f-423b-a986-e979988f259d}</Project>
       <Name>MetadataExtractor</Name>
     </ProjectReference>

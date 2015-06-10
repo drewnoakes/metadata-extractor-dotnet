@@ -44,7 +44,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Com.Drew\MetadataExtractor.csproj">
+    <ProjectReference Include="..\MetadataExtractor\MetadataExtractor.csproj">
       <Project>{26E27564-A74F-423B-A986-E979988F259D}</Project>
       <Name>MetadataExtractor</Name>
     </ProjectReference>

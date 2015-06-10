@@ -23,25 +23,26 @@
 using System;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Imaging.Jpeg
+namespace Com.Drew.Imaging.Tiff
 {
-    /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a JPEG file.</summary>
+    /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a TIFF file.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    /// <author>Darren Salomons</author>
     [Serializable]
-    public class JpegProcessingException : ImageProcessingException
+    public class TiffProcessingException : ImageProcessingException
     {
-        public JpegProcessingException([CanBeNull] string message)
+        public TiffProcessingException([CanBeNull] string message)
             : base(message)
         {
         }
 
-        public JpegProcessingException([CanBeNull] string message, [CanBeNull] Exception cause)
-            : base(message, cause)
+        public TiffProcessingException([CanBeNull] string message, [CanBeNull] Exception innerException)
+            : base(message, innerException)
         {
         }
 
-        public JpegProcessingException([CanBeNull] Exception cause)
-            : base(cause)
+        public TiffProcessingException([CanBeNull] Exception innerException)
+            : base(innerException)
         {
         }
     }
