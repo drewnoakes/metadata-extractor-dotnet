@@ -42,9 +42,7 @@ namespace Com.Drew.Metadata
         private readonly IDictionary<Type, ICollection<Directory>> _directoryListByClass = new Dictionary<Type, ICollection<Directory>>();
 
         /// <summary>
-        /// Returns an iterable set of the
-        /// <see cref="Directory"/>
-        /// instances contained in this metadata collection.
+        /// Returns an iterable set of the <see cref="Directory"/> instances contained in this metadata collection.
         /// </summary>
         /// <returns>an iterable set of directories</returns>
         [NotNull]

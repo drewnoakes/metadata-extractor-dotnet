@@ -161,7 +161,7 @@ namespace Com.Drew.Metadata.Png
                 {
                     sb.Append('\n');
                 }
-                sb.Append(string.Format("{0}: {1}", keyValue.GetKey(), keyValue.GetValue()));
+                sb.Append(string.Format("{0}: {1}", keyValue.Key, keyValue.Value));
             }
             return sb.ToString();
         }

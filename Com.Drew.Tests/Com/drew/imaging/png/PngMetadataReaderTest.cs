@@ -59,8 +59,8 @@ namespace Com.Drew.Imaging.Png
                 IList<KeyValuePair> pairs = (IList<KeyValuePair>)dirs[5].GetObject(PngDirectory.TagTextualData);
                 Assert.IsNotNull(pairs);
                 Assert.AreEqual(1, pairs.Count);
-                Assert.AreEqual("Comment", pairs[0].GetKey());
-                Assert.AreEqual("Created with GIMP", pairs[0].GetValue());
+                Assert.AreEqual("Comment", pairs[0].Key);
+                Assert.AreEqual("Created with GIMP", pairs[0].Value);
             }
             finally
             {
