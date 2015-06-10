@@ -56,7 +56,7 @@
     <Compile Include="RationalTest.cs" />
     <Compile Include="IO\SequentialAccessTestBase.cs" />
     <Compile Include="IO\SequentialByteArrayReaderTest.cs" />
-    <Compile Include="IO\StreamReaderTest.cs" />
+    <Compile Include="IO\SequentialStreamReaderTest.cs" />
     <Compile Include="Formats\Adobe\AdobeJpegReaderTest.cs" />
     <Compile Include="AgeTest.cs" />
     <Compile Include="Formats\Bmp\BmpReaderTest.cs" />

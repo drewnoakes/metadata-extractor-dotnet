@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace MetadataExtractor.Tests.IO
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class StreamReaderTest : SequentialAccessTestBase
+    public sealed class SequentialStreamReaderTest : SequentialAccessTestBase
     {
         [Test, ExpectedException(typeof(ArgumentNullException))]
         public void TestConstructWithNullStreamThrows()
