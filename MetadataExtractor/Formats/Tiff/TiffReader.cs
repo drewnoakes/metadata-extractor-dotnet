@@ -61,17 +61,14 @@ namespace MetadataExtractor.Formats.Tiff
                 // "MM"
                 reader.IsMotorolaByteOrder = true;
             }
+            else if (byteOrderIdentifier == unchecked(0x4949))
+            {
+                // "II"
+                reader.IsMotorolaByteOrder = false;
+            }
             else
             {
-                if (byteOrderIdentifier == unchecked(0x4949))
-                {
-                    // "II"
-                    reader.IsMotorolaByteOrder = false;
-                }
-                else
-                {
-                    throw new TiffProcessingException("Unclear distinction between Motorola/Intel byte ordering: " + byteOrderIdentifier);
-                }
+                throw new TiffProcessingException("Unclear distinction between Motorola/Intel byte ordering: " + byteOrderIdentifier);
             }
             // Check the next two values for correctness.
             int tiffMarker = reader.GetUInt16(2 + tiffHeaderOffset);
@@ -175,7 +172,7 @@ namespace MetadataExtractor.Formats.Tiff
                         handler.Error("Negative TIFF tag component count");
                         continue;
                     }
-                    var byteCount = componentCount * format.GetComponentSizeBytes();
+                    var byteCount = componentCount * format.ComponentSizeBytes;
                     int tagValueOffset;
                     if (byteCount > 4)
                     {
@@ -234,15 +231,13 @@ namespace MetadataExtractor.Formats.Tiff
                         // Note this could have been caused by jhead 1.3 cropping too much
                         return;
                     }
-                    else
+                    else if (nextIfdOffset < ifdOffset)
                     {
-                        if (nextIfdOffset < ifdOffset)
-                        {
-                            // TODO is this a valid restriction?
-                            // Last 4 bytes of IFD reference another IFD with an address that is before the start of this directory
-                            return;
-                        }
+                        // TODO is this a valid restriction?
+                        // Last 4 bytes of IFD reference another IFD with an address that is before the start of this directory
+                        return;
                     }
+
                     if (handler.HasFollowerIfd())
                     {
                         ProcessIfd(handler, reader, processedIfdOffsets, nextIfdOffset, tiffHeaderOffset);
@@ -279,17 +274,14 @@ namespace MetadataExtractor.Formats.Tiff
                     {
                         handler.SetRational(tagId, new Rational(reader.GetInt32(tagValueOffset), reader.GetInt32(tagValueOffset + 4)));
                     }
-                    else
+                    else if (componentCount > 1)
                     {
-                        if (componentCount > 1)
+                        var array = new Rational[componentCount];
+                        for (var i = 0; i < componentCount; i++)
                         {
-                            var array = new Rational[componentCount];
-                            for (var i = 0; i < componentCount; i++)
-                            {
-                                array[i] = new Rational(reader.GetInt32(tagValueOffset + (8 * i)), reader.GetInt32(tagValueOffset + 4 + (8 * i)));
-                            }
-                            handler.SetRationalArray(tagId, array);
+                            array[i] = new Rational(reader.GetInt32(tagValueOffset + (8 * i)), reader.GetInt32(tagValueOffset + 4 + (8 * i)));
                         }
+                        handler.SetRationalArray(tagId, array);
                     }
                     break;
                 }
@@ -300,17 +292,14 @@ namespace MetadataExtractor.Formats.Tiff
                     {
                         handler.SetRational(tagId, new Rational(reader.GetUInt32(tagValueOffset), reader.GetUInt32(tagValueOffset + 4)));
                     }
-                    else
+                    else if (componentCount > 1)
                     {
-                        if (componentCount > 1)
+                        var array = new Rational[componentCount];
+                        for (var i = 0; i < componentCount; i++)
                         {
-                            var array = new Rational[componentCount];
-                            for (var i = 0; i < componentCount; i++)
-                            {
-                                array[i] = new Rational(reader.GetUInt32(tagValueOffset + (8 * i)), reader.GetUInt32(tagValueOffset + 4 + (8 * i)));
-                            }
-                            handler.SetRationalArray(tagId, array);
+                            array[i] = new Rational(reader.GetUInt32(tagValueOffset + (8 * i)), reader.GetUInt32(tagValueOffset + 4 + (8 * i)));
                         }
+                        handler.SetRationalArray(tagId, array);
                     }
                     break;
                 }
