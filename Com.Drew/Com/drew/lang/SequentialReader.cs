@@ -40,8 +40,6 @@ namespace Com.Drew.Lang
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class SequentialReader
     {
-        // TODO review whether the masks are needed (in both this and IndexedReader)
-
         /// <summary>Get and set the byte order of this reader. <c>true</c> by default.</summary>
         /// <remarks>
         /// <list type="bullet">
@@ -111,13 +109,13 @@ namespace Com.Drew.Lang
             {
                 // Motorola - MSB first
                 return (ushort)
-                    (GetByte() << 8 & 0xFF00 |
-                     GetByte()      & 0x00FF);
+                    (GetByte() << 8 |
+                     GetByte());
             }
             // Intel ordering - LSB first
             return (ushort)
-                (GetByte()      & 0x00FF |
-                 GetByte() << 8 & 0xFF00);
+                (GetByte() |
+                 GetByte() << 8);
         }
 
         /// <summary>Returns a signed 16-bit int calculated from two bytes of data (MSB, LSB).</summary>
@@ -129,13 +127,13 @@ namespace Com.Drew.Lang
             {
                 // Motorola - MSB first
                 return (short)
-                    (GetByte() << 8 & 0xFF00 |
-                     GetByte()      & 0x00FF);
+                    (GetByte() << 8 |
+                     GetByte());
             }
             // Intel ordering - LSB first
             return (short)
-                (GetByte()      & 0x00FF |
-                 GetByte() << 8 & 0xFF00);
+                (GetByte() |
+                 GetByte() << 8);
         }
 
         /// <summary>Get a 32-bit unsigned integer from the buffer, returning it as a long.</summary>
@@ -147,17 +145,17 @@ namespace Com.Drew.Lang
             {
                 // Motorola - MSB first (big endian)
                 return (uint)
-                    (GetByte() << 24 & 0xFF000000 |
-                     GetByte() << 16 & 0x00FF0000 |
-                     GetByte() << 8  & 0x0000FF00 |
-                     GetByte()       & 0x000000FF);
+                    (GetByte() << 24 |
+                     GetByte() << 16 |
+                     GetByte() << 8  |
+                     GetByte());
             }
             // Intel ordering - LSB first (little endian)
             return (uint)
-                (GetByte()       & 0x000000FF |
-                 GetByte() << 8  & 0x0000FF00 |
-                 GetByte() << 16 & 0x00FF0000 |
-                 GetByte() << 24 & 0xFF000000);
+                (GetByte()       |
+                 GetByte() << 8  |
+                 GetByte() << 16 |
+                 GetByte() << 24);
         }
 
         /// <summary>Returns a signed 32-bit integer from four bytes of data.</summary>
@@ -169,17 +167,17 @@ namespace Com.Drew.Lang
             {
                 // Motorola - MSB first (big endian)
                 return
-                    GetByte() << 24 & unchecked((int)(0xFF000000)) |
-                    GetByte() << 16 & 0xFF0000 |
-                    GetByte() << 8  & 0xFF00 |
-                    GetByte()       & 0xFF;
+                    GetByte() << 24 |
+                    GetByte() << 16 |
+                    GetByte() << 8  |
+                    GetByte();
             }
             // Intel ordering - LSB first (little endian)
             return
-                GetByte()       & 0xFF |
-                GetByte() <<  8 & 0xFF00 |
-                GetByte() << 16 & 0xFF0000 |
-                GetByte() << 24 & unchecked((int)(0xFF000000));
+                GetByte()       |
+                GetByte() <<  8 |
+                GetByte() << 16 |
+                GetByte() << 24;
         }
 
         /// <summary>Get a signed 64-bit integer from the buffer.</summary>
@@ -191,25 +189,25 @@ namespace Com.Drew.Lang
             {
                 // Motorola - MSB first
                 return
-                    (long)GetByte() << 56 & unchecked((long)(0xFF00000000000000L)) |
-                    (long)GetByte() << 48 & 0x00FF000000000000L |
-                    (long)GetByte() << 40 & 0x0000FF0000000000L |
-                    (long)GetByte() << 32 & 0x000000FF00000000L |
-                    (long)GetByte() << 24 & 0x00000000FF000000L |
-                    (long)GetByte() << 16 & 0x0000000000FF0000L |
-                    (long)GetByte() << 8  & 0x000000000000FF00L |
-                          GetByte()       & 0x00000000000000FFL;
+                    (long)GetByte() << 56 |
+                    (long)GetByte() << 48 |
+                    (long)GetByte() << 40 |
+                    (long)GetByte() << 32 |
+                    (long)GetByte() << 24 |
+                    (long)GetByte() << 16 |
+                    (long)GetByte() << 8  |
+                          GetByte();
             }
             // Intel ordering - LSB first
             return
-                      GetByte()       & 0x000000000000FFL |
-                (long)GetByte() << 8  & 0x0000000000FF00L |
-                (long)GetByte() << 16 & 0x00000000FF0000L |
-                (long)GetByte() << 24 & 0x000000FF000000L |
-                (long)GetByte() << 32 & 0x0000FF00000000L |
-                (long)GetByte() << 40 & 0x00FF0000000000L |
-                (long)GetByte() << 48 & 0xFF000000000000L |
-                (long)GetByte() << 56 & unchecked((long)(0xFF00000000000000L));
+                      GetByte()       |
+                (long)GetByte() << 8  |
+                (long)GetByte() << 16 |
+                (long)GetByte() << 24 |
+                (long)GetByte() << 32 |
+                (long)GetByte() << 40 |
+                (long)GetByte() << 48 |
+                (long)GetByte() << 56;
         }
 
         /// <summary>Gets a s15.16 fixed point float from the buffer.</summary>
@@ -224,15 +222,15 @@ namespace Com.Drew.Lang
         {
             if (IsMotorolaByteOrder)
             {
-                float res = (GetByte() & unchecked(0xFF)) << 8 | (GetByte() & unchecked(0xFF));
-                var d = (GetByte() & unchecked(0xFF)) << 8 | (GetByte() & unchecked(0xFF));
+                float res = GetByte() << 8 | GetByte();
+                var d = GetByte() << 8 | GetByte();
                 return (float)(res + d / 65536.0);
             }
             else
             {
                 // this particular branch is untested
-                var d = (GetByte() & unchecked(0xFF)) | (GetByte() & unchecked(0xFF)) << 8;
-                float res = (GetByte() & unchecked(0xFF)) | (GetByte() & unchecked(0xFF)) << 8;
+                var d = GetByte() | GetByte() << 8;
+                float res = GetByte() | GetByte() << 8;
                 return (float)(res + d / 65536.0);
             }
         }
