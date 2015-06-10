@@ -163,14 +163,14 @@ namespace Com.Adobe.Xmp
         /// The canonical true string value for Booleans in serialized XMP. Code that converts from the
         /// string to a bool should be case insensitive, and even allow "1".
         /// </remarks>
-        public const string Truestr = "True";
+        public const string TrueString = "True";
 
         /// <summary>The canonical false string value for Booleans in serialized XMP.</summary>
         /// <remarks>
         /// The canonical false string value for Booleans in serialized XMP. Code that converts from the
         /// string to a bool should be case insensitive, and even allow "0".
         /// </remarks>
-        public const string Falsestr = "False";
+        public const string FalseString = "False";
 
         /// <summary>Index that has the meaning to be always the last item in an array.</summary>
         public const int ArrayLastItem = -1;

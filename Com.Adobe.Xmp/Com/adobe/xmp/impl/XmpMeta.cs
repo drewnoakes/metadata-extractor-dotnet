@@ -617,14 +617,14 @@ namespace Com.Adobe.Xmp.Impl
         /// <seealso cref="IXmpMeta.SetPropertyBoolean(string, string, bool, Com.Adobe.Xmp.Options.PropertyOptions)"/>
         public void SetPropertyBoolean(string schemaNs, string propName, bool propValue, PropertyOptions options)
         {
-            SetProperty(schemaNs, propName, propValue ? XmpConstConstants.Truestr : XmpConstConstants.Falsestr, options);
+            SetProperty(schemaNs, propName, propValue ? XmpConstConstants.TrueString : XmpConstConstants.FalseString, options);
         }
 
         /// <seealso cref="IXmpMeta.SetPropertyBoolean(string, string, bool)"/>
         /// <exception cref="XmpException"/>
         public void SetPropertyBoolean(string schemaNs, string propName, bool propValue)
         {
-            SetProperty(schemaNs, propName, propValue ? XmpConstConstants.Truestr : XmpConstConstants.Falsestr, null);
+            SetProperty(schemaNs, propName, propValue ? XmpConstConstants.TrueString : XmpConstConstants.FalseString, null);
         }
 
         /// <seealso cref="IXmpMeta.GetPropertyInteger(string, string)"/>
