@@ -78,30 +78,23 @@ namespace MetadataExtractor.Tools.ExtractJpegSegments
             SaveSegmentFiles(filePath, segmentData);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        public static void SaveSegmentFiles(string jpegFilePath, JpegSegmentData segmentData)
+        private static void SaveSegmentFiles(string jpegFilePath, JpegSegmentData segmentData)
         {
             foreach (var segmentType in segmentData.GetSegmentTypes())
             {
                 IList<byte[]> segments = segmentData.GetSegments(segmentType).ToList();
+
                 if (segments.Count == 0)
-                {
                     continue;
-                }
-                if (segments.Count > 1)
+
+                var format = segments.Count > 1 ? "{0}.{1}.{2}" : "{0}.{1}";
+
+                for (var i = 0; i < segments.Count; i++)
                 {
-                    for (var i = 0; i < segments.Count; i++)
-                    {
-                        var outputFilePath = string.Format("{0}.{1}.{2}", jpegFilePath, segmentType.ToString().ToLower(), i);
-                        Console.Out.WriteLine((object)("Writing: " + outputFilePath));
-                        File.WriteAllBytes(outputFilePath, segments[i]);
-                    }
-                }
-                else
-                {
-                    var outputFilePath = string.Format("{0}.{1}", jpegFilePath, segmentType.ToString().ToLower());
-                    Console.Out.WriteLine((object)("Writing: " + outputFilePath));
-                    File.WriteAllBytes(outputFilePath, segments[0]);
+                    var outputFilePath = string.Format(format, jpegFilePath, segmentType.ToString().ToLower(), i);
+
+                    Console.Out.WriteLine("Writing: " + outputFilePath);
+                    File.WriteAllBytes(outputFilePath, segments[i]);
                 }
             }
         }
@@ -114,9 +107,7 @@ namespace MetadataExtractor.Tools.ExtractJpegSegments
             foreach (var segmentType in typeof(JpegSegmentType).GetEnumConstants<JpegSegmentType>())
             {
                 if (segmentType.CanContainMetadata)
-                {
-                    Console.Out.Write(" " + segmentType.ToString());
-                }
+                    Console.Out.Write(" " + segmentType);
             }
             Console.Out.WriteLine();
         }
