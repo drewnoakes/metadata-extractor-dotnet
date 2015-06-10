@@ -22,6 +22,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Png.png;
@@ -148,22 +149,11 @@ namespace MetadataExtractor.Formats.Png
         [CanBeNull]
         public string GetTextualDataDescription()
         {
-            var @object = Directory.GetObject(PngDirectory.TagTextualData);
-            if (@object == null)
-            {
-                return null;
-            }
-            var keyValues = (IList<KeyValuePair>)@object;
-            var sb = new StringBuilder();
-            foreach (var keyValue in keyValues)
-            {
-                if (sb.Length != 0)
-                {
-                    sb.Append('\n');
-                }
-                sb.Append(string.Format("{0}: {1}", keyValue.Key, keyValue.Value));
-            }
-            return sb.ToString();
+            var pairs = Directory.GetObject(PngDirectory.TagTextualData) as IList<KeyValuePair>;
+
+            return pairs == null
+                ? null
+                : string.Join("\n", pairs.Select(kv => string.Format("{0}: {1}", kv.Key, kv.Value)));
         }
 
         [CanBeNull]
