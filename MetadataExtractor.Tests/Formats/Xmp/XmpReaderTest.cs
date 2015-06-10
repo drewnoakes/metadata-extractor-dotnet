@@ -38,7 +38,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         [SetUp]
         public void SetUp()
         {
-            var metadata = new MetadataExtractor.Metadata();
+            var metadata = new Metadata();
             IList<byte[]> jpegSegments = new List<byte[]>();
             jpegSegments.Add(File.ReadAllBytes("Tests/Data/withXmpAndIptc.jpg.app1.1"));
             new XmpReader().ReadJpegSegments(jpegSegments, metadata, JpegSegmentType.App1);

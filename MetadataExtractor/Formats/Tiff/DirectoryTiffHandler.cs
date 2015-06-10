@@ -25,7 +25,6 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Tiff.tiff;
 using MetadataExtractor.IO;
-using Sharpen;
 
 namespace MetadataExtractor.Formats.Tiff
 {

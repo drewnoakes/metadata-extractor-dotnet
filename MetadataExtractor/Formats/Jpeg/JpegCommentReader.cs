@@ -23,7 +23,6 @@
 using System.Collections.Generic;
 using System.Text;
 using JetBrains.Annotations;
-using MetadataExtractor.Formats.Jpeg;
 
 namespace MetadataExtractor.Formats.Jpeg
 {

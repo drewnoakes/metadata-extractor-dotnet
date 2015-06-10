@@ -37,9 +37,9 @@ namespace MetadataExtractor.Tests.Formats.Exif
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static MetadataExtractor.Metadata ProcessBytes([NotNull] string filePath)
+        public static Metadata ProcessBytes([NotNull] string filePath)
         {
-            var metadata = new MetadataExtractor.Metadata();
+            var metadata = new Metadata();
             var bytes = File.ReadAllBytes(filePath);
             new ExifReader().Extract(new ByteArrayReader(bytes), metadata, ExifReader.JpegSegmentPreamble.Length);
             return metadata;
@@ -61,7 +61,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         {
             try
             {
-                new ExifReader().ReadJpegSegments(null, new MetadataExtractor.Metadata(), JpegSegmentType.App1);
+                new ExifReader().ReadJpegSegments(null, new Metadata(), JpegSegmentType.App1);
                 Assert.Fail("Exception expected");
             }
             catch (NullReferenceException)
@@ -87,7 +87,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void TestReadJpegSegmentWithNoExifData()
         {
             var badExifData = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            var metadata = new MetadataExtractor.Metadata();
+            var metadata = new Metadata();
             var segments = new List<byte[]>();
             segments.Add(badExifData);
             new ExifReader().ReadJpegSegments(segments, metadata, JpegSegmentType.App1);

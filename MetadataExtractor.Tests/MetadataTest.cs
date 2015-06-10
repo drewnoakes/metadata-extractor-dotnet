@@ -32,7 +32,7 @@ namespace MetadataExtractor.Tests
         [Test]
         public void TestGetDirectoryWhenNotExists()
         {
-            Assert.IsNull(new MetadataExtractor.Metadata().GetFirstDirectoryOfType<ExifSubIfdDirectory>());
+            Assert.IsNull(new Metadata().GetFirstDirectoryOfType<ExifSubIfdDirectory>());
         }
 
 
@@ -41,7 +41,7 @@ namespace MetadataExtractor.Tests
         {
             var directory = new ExifSubIfdDirectory();
             directory.AddError("Test Error 1");
-            var metadata = new MetadataExtractor.Metadata();
+            var metadata = new Metadata();
             Assert.IsFalse(metadata.HasErrors());
             metadata.AddDirectory(directory);
             Assert.IsTrue(metadata.HasErrors());
@@ -50,7 +50,7 @@ namespace MetadataExtractor.Tests
         [Test]
         public void TestToString()
         {
-            var metadata = new MetadataExtractor.Metadata();
+            var metadata = new Metadata();
             Assert.AreEqual("Metadata (0 directories)", metadata.ToString());
             metadata.AddDirectory(new ExifIfd0Directory());
             Assert.AreEqual("Metadata (1 directory)", metadata.ToString());

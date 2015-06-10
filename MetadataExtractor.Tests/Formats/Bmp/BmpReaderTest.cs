@@ -35,7 +35,7 @@ namespace MetadataExtractor.Tests.Formats.Bmp
         [NotNull]
         public static BmpHeaderDirectory ProcessBytes([NotNull] string file)
         {
-            var metadata = new MetadataExtractor.Metadata();
+            var metadata = new Metadata();
             using (Stream stream = new FileStream(file, FileMode.Open))
             {
                 new BmpReader().Extract(new SequentialStreamReader(stream), metadata);

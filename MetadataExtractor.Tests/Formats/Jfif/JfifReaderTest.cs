@@ -34,7 +34,7 @@ namespace MetadataExtractor.Tests.Formats.Jfif
         {
             var jfifData = new byte[] { 74, 70, 73, 70, 0, 1, 2, 1, 0, 108, 0, 108, 0, 0 };
 
-            var metadata = new MetadataExtractor.Metadata();
+            var metadata = new Metadata();
             new JfifReader().Extract(new ByteArrayReader(jfifData), metadata);
 
             Assert.AreEqual(1, metadata.GetDirectoryCount());

@@ -22,7 +22,6 @@
 
 using System.Collections.Generic;
 using System.IO;
-using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Jpeg

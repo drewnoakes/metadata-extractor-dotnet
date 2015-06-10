@@ -35,7 +35,7 @@ namespace MetadataExtractor.Tests.Formats.Photoshop
         [NotNull]
         public static PsdHeaderDirectory ProcessBytes([NotNull] string filePath)
         {
-            var metadata = new MetadataExtractor.Metadata();
+            var metadata = new Metadata();
             using (Stream stream = new FileStream(filePath, FileMode.Open))
                 new PsdReader().Extract(new SequentialStreamReader(stream), metadata);
             var directory = metadata.GetFirstDirectoryOfType<PsdHeaderDirectory>();

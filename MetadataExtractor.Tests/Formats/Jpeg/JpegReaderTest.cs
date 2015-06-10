@@ -34,7 +34,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [NotNull]
         public static JpegDirectory ProcessBytes(string filePath)
         {
-            var metadata = new MetadataExtractor.Metadata();
+            var metadata = new Metadata();
             new JpegReader().Extract(File.ReadAllBytes(filePath), metadata, JpegSegmentType.Sof0);
             var directory = metadata.GetFirstDirectoryOfType<JpegDirectory>();
             Assert.IsNotNull(directory);

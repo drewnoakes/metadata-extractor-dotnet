@@ -15,7 +15,7 @@ namespace MetadataExtractor.Tests.Formats.Png
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        private static MetadataExtractor.Metadata ProcessFile([NotNull] string filePath)
+        private static Metadata ProcessFile([NotNull] string filePath)
         {
             using (Stream stream = new FileStream(filePath, FileMode.Open))
                 return PngMetadataReader.ReadMetadata(stream);

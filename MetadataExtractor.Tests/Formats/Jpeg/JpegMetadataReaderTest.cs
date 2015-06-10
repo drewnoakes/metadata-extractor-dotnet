@@ -42,7 +42,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Validate(JpegMetadataReader.ReadMetadata(new FileStream("Tests/Data/withExif.jpg", FileMode.Open)));
         }
 
-        private static void Validate(MetadataExtractor.Metadata metadata)
+        private static void Validate(Metadata metadata)
         {
             Directory directory = metadata.GetFirstDirectoryOfType<ExifSubIfdDirectory>();
             Assert.IsNotNull(directory);

@@ -36,7 +36,7 @@ namespace MetadataExtractor.Tests.Formats.Icc
             var app2Bytes = File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2");
             // ICC data starts after a 14-byte preamble
             var icc = TestHelper.SkipBytes(app2Bytes, 14);
-            var metadata = new MetadataExtractor.Metadata();
+            var metadata = new Metadata();
             new IccReader().Extract(new ByteArrayReader(icc), metadata);
             var directory = metadata.GetFirstDirectoryOfType<IccDirectory>();
             Assert.IsNotNull(directory);

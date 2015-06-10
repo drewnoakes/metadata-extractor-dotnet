@@ -35,7 +35,7 @@ namespace MetadataExtractor.Tests.Formats.Gif
         [NotNull]
         public static GifHeaderDirectory ProcessBytes([NotNull] string file)
         {
-            var metadata = new MetadataExtractor.Metadata();
+            var metadata = new Metadata();
             using (Stream stream = new FileStream(file, FileMode.Open))
                 new GifReader().Extract(new SequentialStreamReader(stream), metadata);
             var directory = metadata.GetFirstDirectoryOfType<GifHeaderDirectory>();
