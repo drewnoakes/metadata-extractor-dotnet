@@ -58,7 +58,6 @@
     <Compile Include="Runtime.cs" />
     <Compile Include="SimpleDateFormat.cs" />
     <Compile Include="SimpleTimeZone.cs" />
-    <Compile Include="StringReader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

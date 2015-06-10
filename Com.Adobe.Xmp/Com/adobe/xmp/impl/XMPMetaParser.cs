@@ -12,7 +12,6 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using Com.Adobe.Xmp.Options;
-using StringReader = Sharpen.StringReader;
 
 namespace Com.Adobe.Xmp.Impl
 {
@@ -166,7 +165,7 @@ namespace Com.Adobe.Xmp.Impl
             catch (XmpException e)
             {
                 if (e.GetErrorCode() == XmpErrorCode.BadXml && options.FixControlChars)
-                    return ParseTextReader(new FixAsciiControlsReader(new StringReader(input)));
+                    return ParseTextReader(new FixAsciiControlsReader(new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(input)))));
                 throw;
             }
         }
