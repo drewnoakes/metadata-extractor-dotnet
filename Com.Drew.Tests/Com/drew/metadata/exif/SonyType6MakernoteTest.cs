@@ -28,7 +28,7 @@ namespace Com.Drew.Metadata.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class SonyType6MakernoteTest
     {
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestSonyType6Makernote()
         {

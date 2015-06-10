@@ -34,7 +34,7 @@ namespace Com.Drew.Metadata.Exif
 
         private NikonType2MakernoteDescriptor _descriptor;
 
-        /// <exception cref="System.Exception"/>
+
         [SetUp]
         public void SetUp()
         {
@@ -80,7 +80,7 @@ namespace Com.Drew.Metadata.Exif
         [Nikon Makernote] Unknown 13 = 0100{t@7b,4x,D"Y
         [Nikon Makernote] Unknown 15 = 78/10 78/10
     */
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestNikonMakernote_MatchesKnownValues()
         {
@@ -122,7 +122,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual("0 degrees", _descriptor.GetHueAdjustmentDescription());
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetColorModeDescription()
         {
@@ -130,7 +130,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual("Mode I (sRGB)", _descriptor.GetColorModeDescription());
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetAutoFlashCompensationDescription()
         {

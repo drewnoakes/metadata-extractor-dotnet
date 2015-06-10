@@ -50,35 +50,35 @@ namespace Com.Drew.Metadata.Jpeg
             _directory = ProcessBytes("Tests/Data/simple.jpg.sof0");
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_Width()
         {
             Assert.AreEqual(800, _directory.GetInt(JpegDirectory.TagImageWidth));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_Height()
         {
             Assert.AreEqual(600, _directory.GetInt(JpegDirectory.TagImageHeight));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_DataPrecision()
         {
             Assert.AreEqual(8, _directory.GetInt(JpegDirectory.TagDataPrecision));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_NumberOfComponents()
         {
             Assert.AreEqual(3, _directory.GetInt(JpegDirectory.TagNumberOfComponents));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestComponentData1()
         {
@@ -91,7 +91,7 @@ namespace Com.Drew.Metadata.Jpeg
             Assert.AreEqual(2, component.GetVerticalSamplingFactor());
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestComponentData2()
         {
@@ -105,7 +105,7 @@ namespace Com.Drew.Metadata.Jpeg
             Assert.AreEqual("Cb component: Quantization table 1, Sampling factors 1 horiz/1 vert", _directory.GetDescription(JpegDirectory.TagComponentData2));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestComponentData3()
         {

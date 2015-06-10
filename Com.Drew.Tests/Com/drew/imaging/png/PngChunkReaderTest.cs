@@ -17,7 +17,6 @@ namespace Com.Drew.Imaging.Png
                 return new PngChunkReader().Extract(new SequentialStreamReader(stream), null).ToList();
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestExtractMspaint()
         {
@@ -37,7 +36,6 @@ namespace Com.Drew.Imaging.Png
             Assert.AreEqual(0, chunks[5].Bytes.Length);
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestExtractPhotoshop()
         {

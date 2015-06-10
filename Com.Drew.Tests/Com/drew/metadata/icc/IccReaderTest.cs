@@ -28,7 +28,7 @@ namespace Com.Drew.Metadata.Icc
 {
     public sealed class IccReaderTest
     {
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract()
         {

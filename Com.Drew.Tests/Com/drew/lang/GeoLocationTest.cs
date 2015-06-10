@@ -27,7 +27,6 @@ namespace Com.Drew.Lang
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class GeoLocationTest
     {
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestDecimalToDegreesMinutesSeconds()
         {

@@ -40,7 +40,6 @@ namespace Com.Drew.Lang
             Assert.AreEqual(true, CreateReader(new byte[1]).IsMotorolaByteOrder);
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestGetInt8()
         {
@@ -52,7 +51,6 @@ namespace Com.Drew.Lang
             Assert.AreEqual(-1, reader.GetInt8(3));
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestGetUInt8()
         {
@@ -143,7 +141,6 @@ namespace Com.Drew.Lang
             Assert.AreEqual(unchecked(0x040302FF), reader.GetInt32(3));
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestGetUInt32()
         {
@@ -190,7 +187,6 @@ namespace Com.Drew.Lang
             Assert.AreEqual(unchecked((long)(0xFF07060504030201L)), (object)reader.GetInt64(1));
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestGetInt64_OutOfBounds()
         {
@@ -216,7 +212,6 @@ namespace Com.Drew.Lang
             }
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestGetFloat32()
         {
@@ -227,7 +222,6 @@ namespace Com.Drew.Lang
             Assert.IsTrue(float.IsNaN(reader.GetFloat32(0)));
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestGetFloat64()
         {
@@ -238,7 +232,6 @@ namespace Com.Drew.Lang
             Assert.IsTrue(double.IsNaN(reader.GetDouble64(0)));
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestGetNullTerminatedString()
         {
@@ -257,7 +250,6 @@ namespace Com.Drew.Lang
             Assert.AreEqual(string.Empty, reader.GetNullTerminatedString(4, 3));
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestGetString()
         {
@@ -304,7 +296,6 @@ namespace Com.Drew.Lang
             }
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestGetBytesEof()
         {
@@ -321,7 +312,6 @@ namespace Com.Drew.Lang
             }
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public virtual void TestGetInt8Eof()
         {

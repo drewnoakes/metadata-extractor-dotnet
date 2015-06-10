@@ -6,7 +6,6 @@ namespace Com.Drew.Imaging.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunkTypeTest
     {
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestConstructorTooLong()
         {
@@ -21,7 +20,6 @@ namespace Com.Drew.Imaging.Png
             }
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestConstructorTooShort()
         {
@@ -36,7 +34,6 @@ namespace Com.Drew.Imaging.Png
             }
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestConstructorInvalidBytes()
         {
@@ -55,7 +52,6 @@ namespace Com.Drew.Imaging.Png
             }
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestConstructorValidBytes()
         {
@@ -66,7 +62,6 @@ namespace Com.Drew.Imaging.Png
             }
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestIsCritical()
         {
@@ -74,7 +69,6 @@ namespace Com.Drew.Imaging.Png
             Assert.IsFalse(new PngChunkType("aBCD").IsCritical());
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestIsAncillary()
         {
@@ -82,7 +76,6 @@ namespace Com.Drew.Imaging.Png
             Assert.IsTrue(new PngChunkType("aBCD").IsAncillary());
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestIsPrivate()
         {
@@ -90,7 +83,6 @@ namespace Com.Drew.Imaging.Png
             Assert.IsFalse(new PngChunkType("AbCD").IsPrivate());
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestIsSafeToCopy()
         {
@@ -98,7 +90,6 @@ namespace Com.Drew.Imaging.Png
             Assert.IsTrue(new PngChunkType("ABCd").IsSafeToCopy());
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestAreMultipleAllowed()
         {
@@ -107,7 +98,6 @@ namespace Com.Drew.Imaging.Png
             Assert.IsTrue(new PngChunkType("ABCD", true).AreMultipleAllowed());
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestEquality()
         {

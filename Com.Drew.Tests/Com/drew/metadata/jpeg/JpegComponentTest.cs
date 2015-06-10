@@ -27,7 +27,7 @@ namespace Com.Drew.Metadata.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegComponentTest
     {
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetComponentCharacter()
         {

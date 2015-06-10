@@ -32,7 +32,7 @@ namespace Com.Drew.Metadata.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifIfd0DescriptorTest
     {
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestXResolutionDescription()
         {
@@ -44,7 +44,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual("72 dots per inch", descriptor.GetDescription(ExifDirectoryBase.TagXResolution));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestYResolutionDescription()
         {
@@ -56,7 +56,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual("50 dots per cm", descriptor.GetDescription(ExifDirectoryBase.TagYResolution));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestWindowsXpFields()
         {

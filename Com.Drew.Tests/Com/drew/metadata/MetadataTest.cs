@@ -35,7 +35,7 @@ namespace Com.Drew.Metadata
             Assert.IsNull(new Metadata().GetFirstDirectoryOfType<ExifSubIfdDirectory>());
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestHasErrors()
         {

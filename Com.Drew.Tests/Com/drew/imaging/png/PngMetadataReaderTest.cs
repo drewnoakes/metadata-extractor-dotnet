@@ -21,7 +21,6 @@ namespace Com.Drew.Imaging.Png
                 return PngMetadataReader.ReadMetadata(stream);
         }
 
-        /// <exception cref="System.Exception"/>
         [Test, SetCulture("en-GB")]
         public void TestGimpGreyscaleWithManyChunks()
         {

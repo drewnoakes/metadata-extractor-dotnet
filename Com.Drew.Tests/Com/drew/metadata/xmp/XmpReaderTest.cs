@@ -34,7 +34,7 @@ namespace Com.Drew.Metadata.Xmp
     {
         private XmpDirectory _directory;
 
-        /// <exception cref="System.Exception"/>
+
         [SetUp]
         public void SetUp()
         {
@@ -65,7 +65,7 @@ namespace Com.Drew.Metadata.Xmp
     [Xmp] Date/Time Original = Sun Dec 12 11:41:35 GMT 2010
     [Xmp] Date/Time Digitized = Sun Dec 12 11:41:35 GMT 2010
     */
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_LensInformation()
         {
@@ -78,14 +78,14 @@ namespace Com.Drew.Metadata.Xmp
         //        assertEquals(new Rational(70, 1), info[1]);
         //        assertEquals(new Rational(0, 0), info[2]);
         //        assertEquals(new Rational(0, 0), info[3]);
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_HasXMPMeta()
         {
             Assert.IsNotNull(_directory.GetXmpMeta());
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_Lens()
         {
@@ -119,35 +119,35 @@ namespace Com.Drew.Metadata.Xmp
         assertEquals("", _directory.getString(XmpDirectory.TAG_DESCRIPTION));
     }
 */
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_SerialNumber()
         {
             Assert.AreEqual("380319450", _directory.GetString(XmpDirectory.TagCameraSerialNumber));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_Firmware()
         {
             Assert.AreEqual("1.2.1", _directory.GetString(XmpDirectory.TagFirmware));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_Maker()
         {
             Assert.AreEqual("Canon", _directory.GetString(XmpDirectory.TagMake));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_Model()
         {
             Assert.AreEqual("Canon EOS 7D", _directory.GetString(XmpDirectory.TagModel));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_ExposureTime()
         {
@@ -156,35 +156,35 @@ namespace Com.Drew.Metadata.Xmp
         }
 
         //        assertEquals(new Rational(1, 125), _directory.getRational(XmpDirectory.TAG_EXPOSURE_TIME));
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_ExposureProgram()
         {
             Assert.AreEqual(1, _directory.GetInt(XmpDirectory.TagExposureProgram));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_FNumber()
         {
             Assert.AreEqual(new Rational(11, 1), _directory.GetRational(XmpDirectory.TagFNumber));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_FocalLength()
         {
             Assert.AreEqual(new Rational(57, 1), _directory.GetRational(XmpDirectory.TagFocalLength));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_ShutterSpeed()
         {
             Assert.AreEqual(new Rational(6965784, 1000000), _directory.GetRational(XmpDirectory.TagShutterSpeed));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_OriginalDateTime()
         {
@@ -197,7 +197,7 @@ namespace Com.Drew.Metadata.Xmp
             Assert.AreEqual(calendar.GetTime(), actual.Value);
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtract_DigitizedDateTime()
         {
@@ -210,7 +210,7 @@ namespace Com.Drew.Metadata.Xmp
             Assert.AreEqual(calendar.GetTime(), actual.Value);
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetXmpProperties()
         {

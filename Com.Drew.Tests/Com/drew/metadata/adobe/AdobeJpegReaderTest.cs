@@ -43,7 +43,7 @@ namespace Com.Drew.Metadata.Adobe
             return directory;
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestSegmentTypes()
         {
@@ -52,7 +52,7 @@ namespace Com.Drew.Metadata.Adobe
             Assert.AreEqual(JpegSegmentType.Appe, ((IList<JpegSegmentType>)reader.GetSegmentTypes().ToList())[0]);
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestReadAdobeJpegMetadata1()
         {

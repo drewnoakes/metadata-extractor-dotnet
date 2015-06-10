@@ -30,7 +30,7 @@ namespace Com.Drew.Metadata.Photoshop
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PsdReaderTest
     {
-        /// <exception cref="System.Exception"/>
+
         [NotNull]
         public static PsdHeaderDirectory ProcessBytes([NotNull] string filePath)
         {
@@ -42,7 +42,7 @@ namespace Com.Drew.Metadata.Photoshop
             return directory;
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void Test8X8X8BitGrayscale()
         {
@@ -55,7 +55,7 @@ namespace Com.Drew.Metadata.Photoshop
         }
 
         // 1 = grayscale
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void Test10X12X16BitCmyk()
         {

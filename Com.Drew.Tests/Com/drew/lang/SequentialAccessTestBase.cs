@@ -280,7 +280,7 @@ namespace Com.Drew.Lang
             }
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public virtual void TestGetBytesEof()
         {
@@ -298,7 +298,7 @@ namespace Com.Drew.Lang
             }
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public virtual void TestGetInt8Eof()
         {
@@ -318,7 +318,7 @@ namespace Com.Drew.Lang
             }
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public virtual void TestSkipEof()
         {
@@ -338,7 +338,7 @@ namespace Com.Drew.Lang
             }
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public virtual void TestTrySkipEof()
         {

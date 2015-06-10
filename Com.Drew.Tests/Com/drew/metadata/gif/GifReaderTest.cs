@@ -30,7 +30,7 @@ namespace Com.Drew.Metadata.Gif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class GifReaderTest
     {
-        /// <exception cref="System.Exception"/>
+
         [NotNull]
         public static GifHeaderDirectory ProcessBytes([NotNull] string file)
         {
@@ -42,7 +42,7 @@ namespace Com.Drew.Metadata.Gif
             return directory;
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestMsPaintGif()
         {
@@ -58,7 +58,7 @@ namespace Com.Drew.Metadata.Gif
             Assert.AreEqual(0, directory.GetInt(GifHeaderDirectory.TagTransparentColorIndex));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestPhotoshopGif()
         {

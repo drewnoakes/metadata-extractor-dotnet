@@ -37,7 +37,7 @@ namespace Com.Drew.Metadata.Exif
 
         private ExifThumbnailDirectory _thumbDirectory;
 
-        /// <exception cref="System.Exception"/>
+
         [SetUp]
         public void SetUp()
         {
@@ -73,7 +73,7 @@ namespace Com.Drew.Metadata.Exif
         [Nikon Makernote] Unknown tag (0x0e00) = PrintIM
         [Nikon Makernote] Unknown tag (0x0e10) = 1394
     */
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestNikonMakernote_MatchesKnownValues()
         {
@@ -136,7 +136,7 @@ namespace Com.Drew.Metadata.Exif
         [Exif] File Source = Digital Still Camera (DSC)
         [Exif] Scene Type = Directly photographed image
     */
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExifDirectory_MatchesKnownValues()
         {
@@ -180,7 +180,7 @@ namespace Com.Drew.Metadata.Exif
         [Exif Thumbnail] Thumbnail Offset = 1494 bytes
         [Exif Thumbnail] Thumbnail Length = 6077 bytes
     */
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExifThumbnailDirectory_MatchesKnownValues()
         {

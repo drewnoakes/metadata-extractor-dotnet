@@ -48,7 +48,7 @@ namespace Com.Drew.Metadata.Exif
         [Jpeg] Component 2 = Cb component: Quantization table 1, Sampling factors 1 horiz/1 vert
         [Jpeg] Component 3 = Cr component: Quantization table 1, Sampling factors 1 horiz/1 vert
     */
-        /// <exception cref="System.Exception"/>
+
         [SetUp]
         public void SetUp()
         {
@@ -72,7 +72,7 @@ namespace Com.Drew.Metadata.Exif
         [Nikon Makernote] Fisheye Converter = None
         [Nikon Makernote] Makernote Unknown 3 = 0 0 16777216 0 2685774096 0 34833 6931 16178 4372 4372 3322676767 3373084416 15112 0 0 1151495 252903424 17 0 0 844038208 55184128 218129428 1476410198 370540566 4044363286 16711749 204629079 1729
     */
-        /// <exception cref="System.Exception"/>
+
         [Test, SetCulture("en-GB")]
         public void TestNikonMakernote_MatchesKnownValues()
         {
@@ -136,7 +136,7 @@ namespace Com.Drew.Metadata.Exif
         [Exif] Thumbnail Length = 4662 bytes
         [Exif] Thumbnail Data = [4662 bytes of thumbnail data]
     */
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExifDirectory_MatchesKnownValues()
         {

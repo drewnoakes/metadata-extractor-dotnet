@@ -28,7 +28,6 @@ namespace Com.Drew.Metadata.Jfif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JfifReaderTest
     {
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestRead()
         {

@@ -30,7 +30,7 @@ namespace Com.Drew.Metadata.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifInteropDescriptorTest
     {
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetInteropVersionDescription()
         {
@@ -41,7 +41,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual("1.00", descriptor.GetInteropVersionDescription());
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetInteropIndexDescription()
         {

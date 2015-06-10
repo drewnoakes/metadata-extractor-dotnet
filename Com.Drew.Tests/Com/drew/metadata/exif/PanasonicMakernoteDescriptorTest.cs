@@ -30,14 +30,14 @@ namespace Com.Drew.Metadata.Exif
     {
         private PanasonicMakernoteDirectory _panasonicDirectory;
 
-        /// <exception cref="System.Exception"/>
+
         [SetUp]
         public void SetUp()
         {
             _panasonicDirectory = ExifReaderTest.ProcessBytes<PanasonicMakernoteDirectory>("Tests/Data/withPanasonicFaces.jpg.app1");
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetDetectedFaces()
         {
@@ -47,7 +47,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual(expResult, result[0]);
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetRecognizedFaces()
         {

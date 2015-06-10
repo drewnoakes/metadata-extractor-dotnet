@@ -31,7 +31,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         private JpegDescriptor _descriptor;
 
-        /// <exception cref="System.Exception"/>
+
         [SetUp]
         public void SetUp()
         {
@@ -39,14 +39,14 @@ namespace Com.Drew.Metadata.Jpeg
             _descriptor = new JpegDescriptor(_directory);
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetComponentDataDescription_InvalidComponentNumber()
         {
             Assert.IsNull(_descriptor.GetComponentDataDescription(1));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetImageWidthDescription()
         {
@@ -55,7 +55,7 @@ namespace Com.Drew.Metadata.Jpeg
             Assert.AreEqual("123 pixels", _directory.GetDescription(JpegDirectory.TagImageWidth));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetImageHeightDescription()
         {
@@ -64,7 +64,7 @@ namespace Com.Drew.Metadata.Jpeg
             Assert.AreEqual("123 pixels", _directory.GetDescription(JpegDirectory.TagImageHeight));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetDataPrecisionDescription()
         {

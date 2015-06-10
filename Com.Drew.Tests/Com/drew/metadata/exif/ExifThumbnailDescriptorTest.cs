@@ -28,7 +28,7 @@ namespace Com.Drew.Metadata.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifThumbnailDescriptorTest
     {
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetYCbCrSubsamplingDescription()
         {

@@ -53,7 +53,7 @@ namespace Com.Drew.Metadata.Exif
             return directory;
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestExtractWithNullDataThrows()
         {
@@ -68,7 +68,7 @@ namespace Com.Drew.Metadata.Exif
         }
 
         // passed
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestLoadFujifilmJpeg()
         {
@@ -80,7 +80,7 @@ namespace Com.Drew.Metadata.Exif
 
         // TODO decide if this should still be returned -- it was being calculated upon setting of a related tag
         //      assertEquals("F9", directory.getDescription(ExifSubIFDDirectory.TAG_APERTURE));
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestReadJpegSegmentWithNoExifData()
         {
@@ -93,7 +93,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.IsFalse(metadata.HasErrors());
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestCrashRegressionTest()
         {
@@ -104,7 +104,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.IsTrue(directory.GetTagCount() > 0);
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestDateTime()
         {
@@ -112,7 +112,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual("2002:11:27 18:00:35", directory.GetString(ExifDirectoryBase.TagDatetime));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestThumbnailXResolution()
         {
@@ -123,7 +123,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual(1, (object)rational.GetDenominator());
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestThumbnailYResolution()
         {
@@ -134,7 +134,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual(1, (object)rational.GetDenominator());
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestThumbnailOffset()
         {
@@ -142,7 +142,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual(192, directory.GetInt(ExifThumbnailDirectory.TagThumbnailOffset));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestThumbnailLength()
         {
@@ -150,7 +150,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual(2970, directory.GetInt(ExifThumbnailDirectory.TagThumbnailLength));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestThumbnailData()
         {
@@ -160,7 +160,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual(2970, thumbnailData.Length);
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestThumbnailCompression()
         {
@@ -169,7 +169,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual(6, directory.GetInt(ExifThumbnailDirectory.TagThumbnailCompression));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestStackOverflowOnRevisitationOfSameDirectory()
         {
@@ -181,7 +181,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual(5, metadata.GetDirectoryCount());
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestDifferenceImageAndThumbnailOrientations()
         {

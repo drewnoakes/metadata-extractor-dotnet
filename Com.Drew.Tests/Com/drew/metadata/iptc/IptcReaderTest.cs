@@ -45,7 +45,7 @@ namespace Com.Drew.Metadata.Iptc
             return directory;
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestIptc1BytesFromFile()
         {
@@ -87,7 +87,7 @@ namespace Com.Drew.Metadata.Iptc
             Assert.AreEqual("Byline", directory.GetObject(tags[15].TagType));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestIptc2Photoshop6BytesFromFile()
         {
@@ -131,7 +131,7 @@ namespace Com.Drew.Metadata.Iptc
             Assert.AreEqual("Copyright", directory.GetObject(tags[16].TagType));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestIptcEncodingUtf8()
         {
@@ -149,7 +149,7 @@ namespace Com.Drew.Metadata.Iptc
             Assert.AreEqual("In diesem Text sind Umlaute enthalten, nämlich öfter als üblich: ÄÖÜäöüß\r", directory.GetObject(tags[3].TagType));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestIptcEncodingUndefinedIso()
         {
@@ -165,7 +165,7 @@ namespace Com.Drew.Metadata.Iptc
             Assert.AreEqual("In diesem Text sind Umlaute enthalten, nämlich öfter als üblich: ÄÖÜäöüß\r", directory.GetObject(tags[2].TagType));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestIptcEncodingUnknown()
         {
@@ -181,7 +181,7 @@ namespace Com.Drew.Metadata.Iptc
             CollectionAssert.AreEqual(new[] { "häufig", "üblich", "Lösung", "Spaß" }, directory.GetStringArray(tags[2].TagType));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestIptcEncodingUnknown2()
         {

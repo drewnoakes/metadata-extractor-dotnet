@@ -29,7 +29,6 @@ namespace Com.Drew.Lang
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class CompoundExceptionTest
     {
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestGetMessage_NonNested()
         {
@@ -43,7 +42,6 @@ namespace Com.Drew.Lang
             }
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestGetMessage_Nested()
         {
@@ -67,7 +65,6 @@ namespace Com.Drew.Lang
             }
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestNoInnerException()
         {

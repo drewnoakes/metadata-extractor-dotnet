@@ -4,7 +4,7 @@ namespace Com.Drew.Metadata.Iptc
 {
     public sealed class Iso2022ConverterTest
     {
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestConvertIso2022CharsetToJavaCharset()
         {

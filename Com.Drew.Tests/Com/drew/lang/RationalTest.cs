@@ -27,7 +27,7 @@ namespace Com.Drew.Lang
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class RationalTest
     {
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestCreateRational()
         {
@@ -37,7 +37,7 @@ namespace Com.Drew.Lang
             Assert.AreEqual(1d / 3d, rational.DoubleValue(), 0.0001);
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestToString()
         {
@@ -45,7 +45,7 @@ namespace Com.Drew.Lang
             Assert.AreEqual("1/3", rational.ToString());
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test, SetCulture("en-GB")]
         public void TestToSimpleString()
         {
@@ -78,7 +78,7 @@ namespace Com.Drew.Lang
         // not sure this is a nice presentation of rationals.  won't implement it for now.
         //        Rational twoAndAHalf = new Rational(10,4);
         //        assertEquals("2 1/2", twoAndAHalf.toSimpleString());
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetReciprocal()
         {
@@ -88,7 +88,7 @@ namespace Com.Drew.Lang
             Assert.AreEqual(new Rational(1, 3), rational, "original reciprocal should remain unchanged");
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestZeroOverZero()
         {

@@ -30,14 +30,12 @@ namespace Com.Drew.Imaging.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegMetadataReaderTest
     {
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestExtractMetadata()
         {
             Validate(JpegMetadataReader.ReadMetadata("Tests/Data/withExif.jpg"));
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestExtractMetadataUsingInputStream()
         {

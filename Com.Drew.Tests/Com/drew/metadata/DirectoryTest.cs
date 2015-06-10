@@ -40,7 +40,7 @@ namespace Com.Drew.Metadata
             _directory = new MockDirectory();
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestSetAndGetMultipleTagsInSingleDirectory()
         {
@@ -50,7 +50,7 @@ namespace Com.Drew.Metadata
             Assert.AreEqual("TAG_BATTERY_LEVEL", _directory.GetString(ExifDirectoryBase.TagBatteryLevel));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestSetSameTagMultipleTimesOverwritesValue()
         {
@@ -59,7 +59,7 @@ namespace Com.Drew.Metadata
             Assert.AreEqual(2, _directory.GetInt(ExifDirectoryBase.TagAperture));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestUnderlyingInt()
         {
@@ -77,7 +77,7 @@ namespace Com.Drew.Metadata
             CollectionAssert.AreEqual(new[] { unchecked((byte)value) }, _directory.GetByteArray(tagType));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestSetAndGetIntArray()
         {
@@ -107,7 +107,7 @@ namespace Com.Drew.Metadata
             Assert.AreEqual(outputString.ToString(), _directory.GetString(tagType));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestSetStringAndGetDate()
         {
@@ -126,7 +126,7 @@ namespace Com.Drew.Metadata
             Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 0).GetTime(), _directory.GetDate(4));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestSetIntArrayGetByteArray()
         {
@@ -138,7 +138,7 @@ namespace Com.Drew.Metadata
             Assert.AreEqual(1, bytes[0]);
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestSetStringGetInt()
         {
@@ -147,7 +147,7 @@ namespace Com.Drew.Metadata
             Assert.AreEqual(unchecked(0x010203), _directory.GetInt(1));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestContainsTag()
         {
@@ -156,7 +156,7 @@ namespace Com.Drew.Metadata
             Assert.IsTrue(_directory.ContainsTag(ExifDirectoryBase.TagAperture));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetNonExistentTagIsNullForAllTypes()
         {

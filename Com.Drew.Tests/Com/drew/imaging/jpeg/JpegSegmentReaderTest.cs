@@ -31,7 +31,6 @@ namespace Com.Drew.Imaging.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegSegmentReaderTest
     {
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestReadAllSegments()
         {
@@ -70,7 +69,6 @@ namespace Com.Drew.Imaging.Jpeg
             Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App3, 0));
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestReadSpecificSegments()
         {
@@ -98,7 +96,6 @@ namespace Com.Drew.Imaging.Jpeg
             CollectionAssert.AreEqual(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app2"), segmentData.GetSegment(JpegSegmentType.App2));
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestLoadJpegWithoutExifDataReturnsNull()
         {
@@ -106,7 +103,6 @@ namespace Com.Drew.Imaging.Jpeg
             Assert.IsNull(segmentData.GetSegment(JpegSegmentType.App1));
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestWithNonJpegFile()
         {

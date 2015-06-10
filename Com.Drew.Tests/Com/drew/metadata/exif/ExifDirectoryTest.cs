@@ -33,7 +33,7 @@ namespace Com.Drew.Metadata.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifDirectoryTest
     {
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetDirectoryName()
         {
@@ -48,7 +48,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual("Exif Thumbnail", thumbDirectory.GetName());
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetThumbnailData()
         {
@@ -66,7 +66,7 @@ namespace Com.Drew.Metadata.Exif
             }
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestWriteThumbnail()
         {

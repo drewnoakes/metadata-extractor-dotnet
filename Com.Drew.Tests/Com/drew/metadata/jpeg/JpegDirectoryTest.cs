@@ -35,7 +35,7 @@ namespace Com.Drew.Metadata.Jpeg
             _directory = new JpegDirectory();
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestSetAndGetValue()
         {
@@ -50,7 +50,7 @@ namespace Com.Drew.Metadata.Jpeg
         }
 
         // NOTE tests for individual tag values exist in JpegReaderTest.java
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetImageWidth()
         {
@@ -58,7 +58,7 @@ namespace Com.Drew.Metadata.Jpeg
             Assert.AreEqual(123, _directory.GetImageWidth());
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetImageHeight()
         {
@@ -66,7 +66,7 @@ namespace Com.Drew.Metadata.Jpeg
             Assert.AreEqual(123, _directory.GetImageHeight());
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetNumberOfComponents()
         {
@@ -75,7 +75,7 @@ namespace Com.Drew.Metadata.Jpeg
             Assert.AreEqual("3", _directory.GetDescription(JpegDirectory.TagNumberOfComponents));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetComponent()
         {

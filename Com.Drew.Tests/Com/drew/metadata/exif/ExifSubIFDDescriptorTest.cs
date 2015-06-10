@@ -29,7 +29,7 @@ namespace Com.Drew.Metadata.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifSubIfdDescriptorTest
     {
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestUserCommentDescription_EmptyEncoding()
         {
@@ -40,7 +40,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual("This is a comment", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestUserCommentDescription_AsciiHeaderAsciiEncoding()
         {
@@ -51,7 +51,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual("This is a comment", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestUserCommentDescription_BlankAscii()
         {
@@ -62,7 +62,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual(string.Empty, descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestUserCommentDescription_ZeroLengthAscii1()
         {
@@ -74,7 +74,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual("ASCII", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestUserCommentDescription_ZeroLengthAscii2()
         {
@@ -86,7 +86,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual(string.Empty, descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestUnicodeComment_ActualBytes()
         {
@@ -101,7 +101,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual("This marmot is getting close...", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestUnicodeComment_Ascii()
         {

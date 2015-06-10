@@ -30,7 +30,7 @@ namespace Com.Drew.Metadata.Bmp
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class BmpReaderTest
     {
-        /// <exception cref="System.Exception"/>
+
         [NotNull]
         public static BmpHeaderDirectory ProcessBytes([NotNull] string file)
         {
@@ -44,7 +44,7 @@ namespace Com.Drew.Metadata.Bmp
             return directory;
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestMsPaint16Color()
         {
@@ -62,7 +62,7 @@ namespace Com.Drew.Metadata.Bmp
             Assert.AreEqual(40, directory.GetInt(BmpHeaderDirectory.TagHeaderSize));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestMsPaint24Bpp()
         {

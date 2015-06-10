@@ -27,7 +27,6 @@ namespace Com.Drew.Imaging.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegSegmentDataTest
     {
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestAddAndGetSegment()
         {
@@ -39,7 +38,6 @@ namespace Com.Drew.Imaging.Jpeg
             CollectionAssert.AreEqual(segmentBytes, segmentData.GetSegment(segmentType));
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestContainsSegment()
         {
@@ -51,7 +49,6 @@ namespace Com.Drew.Imaging.Jpeg
             Assert.IsTrue(segmentData.ContainsSegment(segmentType));
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestAddingMultipleSegments()
         {
@@ -68,7 +65,6 @@ namespace Com.Drew.Imaging.Jpeg
             CollectionAssert.AreEqual(segmentBytes2, segmentData.GetSegment(segmentType2));
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestSegmentWithMultipleOccurrences()
         {
@@ -84,7 +80,6 @@ namespace Com.Drew.Imaging.Jpeg
             CollectionAssert.AreEqual(segmentBytes2, segmentData.GetSegment(segmentType, 1));
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestRemoveSegmentOccurrence()
         {
@@ -100,7 +95,6 @@ namespace Com.Drew.Imaging.Jpeg
             CollectionAssert.AreEqual(segmentBytes2, segmentData.GetSegment(segmentType, 0));
         }
 
-        /// <exception cref="System.Exception"/>
         [Test]
         public void TestRemoveSegment()
         {
