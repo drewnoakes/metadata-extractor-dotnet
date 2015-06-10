@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using Sharpen;
 
-namespace Com.Drew.Lang
+namespace MetadataExtractor.Util
 {
     /// <summary>Stores values using a prefix tree (aka 'trie', i.e. reTRIEval data structure).</summary>
     public sealed class ByteTrie<T>

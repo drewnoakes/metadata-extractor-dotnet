@@ -21,12 +21,11 @@
  */
 
 using System.IO;
-using Com.Drew.Lang;
-using Com.Drew.Metadata.File;
-using Com.Drew.Metadata.Ico;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.FileSystem;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Imaging.Ico
+namespace MetadataExtractor.Formats.Ico.ico
 {
     /// <summary>Obtains metadata from ICO (Windows Icon) files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
@@ -34,9 +33,9 @@ namespace Com.Drew.Imaging.Ico
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] string filePath)
+        public static Metadata ReadMetadata([NotNull] string filePath)
         {
-            Metadata.Metadata metadata;
+            Metadata metadata;
             using (Stream inputStream = new FileStream(filePath, FileMode.Open))
                 metadata = ReadMetadata(inputStream);
             new FileMetadataReader().Read(filePath, metadata);
@@ -44,9 +43,9 @@ namespace Com.Drew.Imaging.Ico
         }
 
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
+        public static Metadata ReadMetadata([NotNull] Stream stream)
         {
-            var metadata = new Metadata.Metadata();
+            var metadata = new Metadata();
             new IcoReader().Extract(new SequentialStreamReader(stream), metadata);
             return metadata;
         }

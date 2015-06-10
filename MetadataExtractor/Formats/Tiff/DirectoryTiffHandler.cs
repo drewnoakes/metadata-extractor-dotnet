@@ -22,20 +22,20 @@
 
 using System;
 using System.Collections.Generic;
-using Com.Drew.Imaging.Tiff;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Tiff.tiff;
+using MetadataExtractor.IO;
 using Sharpen;
 
-namespace Com.Drew.Metadata.Tiff
+namespace MetadataExtractor.Formats.Tiff
 {
     /// <summary>
     /// Adapter between the
     /// <see cref="ITiffHandler"/>
     /// interface and the
-    /// <see cref="Com.Drew.Metadata.Metadata"/>
+    /// <see cref="MetadataExtractor.Metadata"/>
     /// /
-    /// <see cref="Com.Drew.Metadata.Directory"/>
+    /// <see cref="Directory"/>
     /// object model.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

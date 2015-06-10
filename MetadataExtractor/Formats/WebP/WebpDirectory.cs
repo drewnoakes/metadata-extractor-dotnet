@@ -23,7 +23,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Webp
+namespace MetadataExtractor.Formats.WebP
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class WebpDirectory : Directory

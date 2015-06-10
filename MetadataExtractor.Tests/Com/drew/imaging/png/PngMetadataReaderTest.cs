@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Com.Drew.Lang;
-using Com.Drew.Metadata.Png;
 using JetBrains.Annotations;
+using MetadataExtractor;
+using MetadataExtractor.Formats.Png;
+using MetadataExtractor.Formats.Png.png;
 using NUnit.Framework;
 using Sharpen;
 
@@ -12,10 +13,10 @@ namespace Com.Drew.Imaging.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngMetadataReaderTest
     {
-        /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
+        /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        private static Metadata.Metadata ProcessFile([NotNull] string filePath)
+        private static MetadataExtractor.Metadata ProcessFile([NotNull] string filePath)
         {
             using (Stream stream = new FileStream(filePath, FileMode.Open))
                 return PngMetadataReader.ReadMetadata(stream);

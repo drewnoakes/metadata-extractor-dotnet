@@ -22,10 +22,9 @@
 
 using System;
 using System.Collections.Generic;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Exif
+namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>Describes Exif tags that contain Global Positioning System (GPS) data.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

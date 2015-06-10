@@ -21,6 +21,7 @@
  */
 
 using System.Collections.Generic;
+using MetadataExtractor;
 
 namespace Com.Drew.Metadata
 {

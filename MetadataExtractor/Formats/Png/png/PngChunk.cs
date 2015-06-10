@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
 
-namespace Com.Drew.Imaging.Png
+namespace MetadataExtractor.Formats.Png.png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunk

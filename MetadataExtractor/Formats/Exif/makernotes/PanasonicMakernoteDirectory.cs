@@ -23,10 +23,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Metadata.Exif.Makernotes
+namespace MetadataExtractor.Formats.Exif.makernotes
 {
     /// <summary>Describes tags specific to Panasonic and Leica cameras.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

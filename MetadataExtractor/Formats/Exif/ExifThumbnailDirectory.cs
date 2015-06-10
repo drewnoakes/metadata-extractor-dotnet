@@ -21,9 +21,10 @@
  */
 
 using System.Collections.Generic;
+using System.IO;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Exif
+namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>One of several Exif directories.</summary>
     /// <remarks>One of several Exif directories.  Otherwise known as IFD1, this directory holds information about an embedded thumbnail image.</remarks>
@@ -113,14 +114,14 @@ namespace Com.Drew.Metadata.Exif
             _thumbnailData = data;
         }
 
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         /// <exception cref="System.IO.IOException"/>
         public void WriteThumbnail([NotNull] string filename)
         {
             if (_thumbnailData == null)
                 throw new MetadataException("No thumbnail data exists.");
 
-            System.IO.File.WriteAllBytes(filename, _thumbnailData);
+            File.WriteAllBytes(filename, _thumbnailData);
         }
 /*
     // This thumbnail extraction code is not complete, and is included to assist anyone who feels like looking into

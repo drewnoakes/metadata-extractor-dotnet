@@ -20,10 +20,11 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using System;
 using System.Collections.Generic;
-using Com.Drew.Imaging.Jpeg;
-using Com.Drew.Lang;
+using System.IO;
+using MetadataExtractor;
+using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.Formats.Xmp;
 using NUnit.Framework;
 using Sharpen;
 
@@ -38,9 +39,9 @@ namespace Com.Drew.Metadata.Xmp
         [SetUp]
         public void SetUp()
         {
-            var metadata = new Metadata();
+            var metadata = new MetadataExtractor.Metadata();
             IList<byte[]> jpegSegments = new List<byte[]>();
-            jpegSegments.Add(System.IO.File.ReadAllBytes("Tests/Data/withXmpAndIptc.jpg.app1.1"));
+            jpegSegments.Add(File.ReadAllBytes("Tests/Data/withXmpAndIptc.jpg.app1.1"));
             new XmpReader().ReadJpegSegments(jpegSegments, metadata, JpegSegmentType.App1);
             var xmpDirectories = metadata.GetDirectoriesOfType<XmpDirectory>();
             Assert.IsNotNull(xmpDirectories);

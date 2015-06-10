@@ -23,7 +23,7 @@
 using System;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Imaging.Tiff
+namespace MetadataExtractor.Formats.Tiff.tiff
 {
     /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a TIFF file.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

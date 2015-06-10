@@ -23,7 +23,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Ico
+namespace MetadataExtractor.Formats.Ico
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class IcoDirectory : Directory

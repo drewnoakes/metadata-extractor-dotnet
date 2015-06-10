@@ -25,12 +25,11 @@ using System.Collections.Generic;
 using System.Text;
 using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Properties;
-using Com.Drew.Imaging.Jpeg;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Jpeg;
 using Sharpen;
 
-namespace Com.Drew.Metadata.Xmp
+namespace MetadataExtractor.Formats.Xmp
 {
     /// <summary>Extracts XMP data from a JPEG header segment.</summary>
     /// <remarks>
@@ -89,12 +88,12 @@ namespace Com.Drew.Metadata.Xmp
         /// <param name="segments">The byte array from which the metadata should be extracted.</param>
         /// <param name="metadata">
         /// The
-        /// <see cref="Com.Drew.Metadata.Metadata"/>
+        /// <see cref="Metadata"/>
         /// object into which extracted values should be merged.
         /// </param>
         /// <param name="segmentType">
         /// The
-        /// <see cref="Com.Drew.Imaging.Jpeg.JpegSegmentType"/>
+        /// <see cref="JpegSegmentType"/>
         /// being read.
         /// </param>
         public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
@@ -114,7 +113,7 @@ namespace Com.Drew.Metadata.Xmp
         }
 
         /// <summary>
-        /// Performs the XMP data extraction, adding found values to the specified instance of <see cref="Com.Drew.Metadata.Metadata"/>.
+        /// Performs the XMP data extraction, adding found values to the specified instance of <see cref="Metadata"/>.
         /// <para />
         /// The extraction is done with Adobe's XMPCore library.
         /// </summary>
@@ -137,7 +136,7 @@ namespace Com.Drew.Metadata.Xmp
         }
 
         /// <summary>
-        /// Performs the XMP data extraction, adding found values to the specified instance of <see cref="Com.Drew.Metadata.Metadata"/>.
+        /// Performs the XMP data extraction, adding found values to the specified instance of <see cref="Metadata"/>.
         /// <para />
         /// The extraction is done with Adobe's XMPCore library.
         /// </summary>

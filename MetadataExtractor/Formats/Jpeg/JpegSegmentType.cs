@@ -24,7 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Com.Drew.Imaging.Jpeg
+namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>An enumeration of the known segment types found in JPEG files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

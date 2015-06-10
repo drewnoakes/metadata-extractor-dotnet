@@ -24,11 +24,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Com.Drew.Imaging.Jpeg;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Metadata.Adobe
+namespace MetadataExtractor.Formats.Adobe
 {
     /// <summary>Decodes Adobe formatted data stored in JPEG files, normally in the APPE (App14) segment.</summary>
     /// <author>Philip</author>

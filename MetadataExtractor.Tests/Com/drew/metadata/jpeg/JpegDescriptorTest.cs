@@ -20,6 +20,8 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using MetadataExtractor;
+using MetadataExtractor.Formats.Jpeg;
 using NUnit.Framework;
 
 namespace Com.Drew.Metadata.Jpeg
@@ -73,7 +75,7 @@ namespace Com.Drew.Metadata.Jpeg
             Assert.AreEqual("8 bits", _directory.GetDescription(JpegDirectory.TagDataPrecision));
         }
 
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         [Test]
         public void TestGetComponentDescription()
         {

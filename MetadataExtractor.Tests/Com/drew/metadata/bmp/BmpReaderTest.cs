@@ -21,8 +21,9 @@
  */
 
 using System.IO;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Bmp;
+using MetadataExtractor.IO;
 using NUnit.Framework;
 
 namespace Com.Drew.Metadata.Bmp
@@ -34,7 +35,7 @@ namespace Com.Drew.Metadata.Bmp
         [NotNull]
         public static BmpHeaderDirectory ProcessBytes([NotNull] string file)
         {
-            var metadata = new Metadata();
+            var metadata = new MetadataExtractor.Metadata();
             using (Stream stream = new FileStream(file, FileMode.Open))
             {
                 new BmpReader().Extract(new SequentialStreamReader(stream), metadata);

@@ -22,10 +22,9 @@
 
 using System.IO;
 using System.Text;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Imaging
+namespace MetadataExtractor.Util
 {
     /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
     public static class FileTypeDetector

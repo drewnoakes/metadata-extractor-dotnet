@@ -23,10 +23,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Metadata.Exif.Makernotes
+namespace MetadataExtractor.Formats.Exif.makernotes
 {
     /// <summary>
     /// The Olympus makernote is used by many manufacturers (Epson, Konica, Minolta and Agfa...), and as such contains some tags

@@ -21,10 +21,10 @@
  */
 
 using System.Collections.Generic;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Imaging.Tiff
+namespace MetadataExtractor.Formats.Tiff.tiff
 {
     /// <summary>
     /// Processes TIFF-formatted data, calling into client code via that
@@ -51,7 +51,7 @@ namespace Com.Drew.Imaging.Tiff
         /// ignored or recovered from
         /// </exception>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
-        /// <exception cref="Com.Drew.Imaging.Tiff.TiffProcessingException"/>
+        /// <exception cref="TiffProcessingException"/>
         public void ProcessTiff([NotNull] IndexedReader reader, [NotNull] ITiffHandler handler, int tiffHeaderOffset)
         {
             // This must be either "MM" or "II".

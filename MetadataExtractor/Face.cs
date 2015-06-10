@@ -23,7 +23,7 @@
 using System.Text;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata
+namespace MetadataExtractor
 {
     /// <summary>Class to hold information about a detected or recognized face in a photo.</summary>
     /// <remarks>

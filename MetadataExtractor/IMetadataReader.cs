@@ -20,10 +20,10 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Metadata
+namespace MetadataExtractor
 {
     /// <summary>
     /// Defines an object capable of processing a particular type of metadata from a <see cref="IndexedReader"/>.

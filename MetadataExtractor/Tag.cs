@@ -22,7 +22,7 @@
 
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata
+namespace MetadataExtractor
 {
     /// <summary>
     /// Models a particular tag within a

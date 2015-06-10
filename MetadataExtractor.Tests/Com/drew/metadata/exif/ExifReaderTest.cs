@@ -22,10 +22,13 @@
 
 using System;
 using System.Collections.Generic;
-using Com.Drew.Imaging.Jpeg;
-using Com.Drew.Lang;
+using System.IO;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Exif;
+using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.IO;
 using NUnit.Framework;
+using Directory = MetadataExtractor.Directory;
 
 namespace Com.Drew.Metadata.Exif
 {
@@ -35,10 +38,10 @@ namespace Com.Drew.Metadata.Exif
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata ProcessBytes([NotNull] string filePath)
+        public static MetadataExtractor.Metadata ProcessBytes([NotNull] string filePath)
         {
-            var metadata = new Metadata();
-            var bytes = System.IO.File.ReadAllBytes(filePath);
+            var metadata = new MetadataExtractor.Metadata();
+            var bytes = File.ReadAllBytes(filePath);
             new ExifReader().Extract(new ByteArrayReader(bytes), metadata, ExifReader.JpegSegmentPreamble.Length);
             return metadata;
         }
@@ -59,7 +62,7 @@ namespace Com.Drew.Metadata.Exif
         {
             try
             {
-                new ExifReader().ReadJpegSegments(null, new Metadata(), JpegSegmentType.App1);
+                new ExifReader().ReadJpegSegments(null, new MetadataExtractor.Metadata(), JpegSegmentType.App1);
                 Assert.Fail("Exception expected");
             }
             catch (NullReferenceException)
@@ -85,7 +88,7 @@ namespace Com.Drew.Metadata.Exif
         public void TestReadJpegSegmentWithNoExifData()
         {
             var badExifData = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            var metadata = new Metadata();
+            var metadata = new MetadataExtractor.Metadata();
             var segments = new List<byte[]>();
             segments.Add(badExifData);
             new ExifReader().ReadJpegSegments(segments, metadata, JpegSegmentType.App1);

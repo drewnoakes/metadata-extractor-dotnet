@@ -10,7 +10,6 @@
 using System.Collections.Generic;
 using System.IO;
 using Com.Adobe.Xmp.Options;
-using Sharpen;
 
 namespace Com.Adobe.Xmp.Impl
 {

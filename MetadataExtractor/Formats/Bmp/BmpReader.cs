@@ -1,8 +1,8 @@
 using System.IO;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Metadata.Bmp
+namespace MetadataExtractor.Formats.Bmp
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class BmpReader

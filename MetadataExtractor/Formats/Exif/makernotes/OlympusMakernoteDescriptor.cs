@@ -25,7 +25,7 @@ using System.Text;
 using JetBrains.Annotations;
 using Sharpen;
 
-namespace Com.Drew.Metadata.Exif.Makernotes
+namespace MetadataExtractor.Formats.Exif.makernotes
 {
     /// <summary>
     /// Provides human-readable string representations of tag values stored in a <see cref="OlympusMakernoteDirectory"/>.

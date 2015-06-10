@@ -26,7 +26,7 @@ using System.Diagnostics;
 using System.IO;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Lang
+namespace MetadataExtractor.IO
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class IndexedCapturingReader : IndexedReader

@@ -22,10 +22,10 @@
 
 using System.Diagnostics;
 using System.IO;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Metadata.Ico
+namespace MetadataExtractor.Formats.Ico
 {
     /// <summary>Reads ICO (Windows Icon) file metadata.</summary>
     /// <remarks>

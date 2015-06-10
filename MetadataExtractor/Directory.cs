@@ -24,11 +24,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
 using Sharpen;
 
-namespace Com.Drew.Metadata
+namespace MetadataExtractor
 {
     /// <summary>
     /// Abstract base class for all directory implementations, having methods for getting and setting tag values of various
@@ -308,7 +307,7 @@ namespace Com.Drew.Metadata
         /// </list>
         /// </remarks>
         /// <exception cref="MetadataException">if no value exists for tagType or if it cannot be converted to an int.</exception>
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         public int GetInt(int tagType)
         {
             var integer = GetInteger(tagType);
@@ -620,7 +619,7 @@ namespace Com.Drew.Metadata
         }
 
         /// <summary>Returns the specified tag's value as a double, if possible.</summary>
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         public double GetDouble(int tagType)
         {
             var value = GetDoubleObject(tagType);
@@ -666,7 +665,7 @@ namespace Com.Drew.Metadata
         }
 
         /// <summary>Returns the specified tag's value as a float, if possible.</summary>
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         public float GetFloat(int tagType)
         {
             var value = GetFloatObject(tagType);
@@ -712,7 +711,7 @@ namespace Com.Drew.Metadata
         }
 
         /// <summary>Returns the specified tag's value as a long, if possible.</summary>
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         public long GetLong(int tagType)
         {
             var value = GetLongObject(tagType);
@@ -758,7 +757,7 @@ namespace Com.Drew.Metadata
         }
 
         /// <summary>Returns the specified tag's value as a boolean, if possible.</summary>
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         public bool GetBoolean(int tagType)
         {
             var value = GetBooleanObject(tagType);

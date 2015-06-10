@@ -21,9 +21,12 @@
  */
 
 using System.IO;
-using Com.Drew.Imaging.Jpeg;
-using Com.Drew.Lang;
+using MetadataExtractor;
+using MetadataExtractor.Formats.Exif;
+using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.IO;
 using NUnit.Framework;
+using Directory = MetadataExtractor.Directory;
 
 namespace Com.Drew.Metadata.Exif
 {
@@ -82,7 +85,7 @@ namespace Com.Drew.Metadata.Exif
             }
             finally
             {
-                System.IO.File.Delete(thumbnailFile);
+                File.Delete(thumbnailFile);
             }
         }
 
@@ -97,9 +100,9 @@ namespace Com.Drew.Metadata.Exif
         //
         //        assertTrue(exifDirectory.hasThumbnailData());
         //    }
-        /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
+        /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         [Test]
         public void TestResolution()
         {

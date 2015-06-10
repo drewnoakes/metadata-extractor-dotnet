@@ -20,8 +20,10 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using Com.Drew.Lang;
+using System.IO;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Iptc;
+using MetadataExtractor.IO;
 using NUnit.Framework;
 using Sharpen;
 
@@ -37,8 +39,8 @@ namespace Com.Drew.Metadata.Iptc
         [NotNull]
         public static IptcDirectory ProcessBytes([NotNull] string filePath)
         {
-            var metadata = new Metadata();
-            var bytes = System.IO.File.ReadAllBytes(filePath);
+            var metadata = new MetadataExtractor.Metadata();
+            var bytes = File.ReadAllBytes(filePath);
             new IptcReader().Extract(new SequentialByteArrayReader(bytes), metadata, bytes.Length);
             var directory = metadata.GetFirstDirectoryOfType<IptcDirectory>();
             Assert.IsNotNull(directory);

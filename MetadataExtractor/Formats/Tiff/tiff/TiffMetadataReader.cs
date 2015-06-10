@@ -21,12 +21,12 @@
  */
 
 using System.IO;
-using Com.Drew.Lang;
-using Com.Drew.Metadata.Exif;
-using Com.Drew.Metadata.File;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Exif;
+using MetadataExtractor.Formats.FileSystem;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Imaging.Tiff
+namespace MetadataExtractor.Formats.Tiff.tiff
 {
     /// <summary>Obtains all available metadata from TIFF formatted files.</summary>
     /// <remarks>
@@ -38,11 +38,11 @@ namespace Com.Drew.Imaging.Tiff
     public static class TiffMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="Com.Drew.Imaging.Tiff.TiffProcessingException"/>
+        /// <exception cref="TiffProcessingException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] string filePath)
+        public static Metadata ReadMetadata([NotNull] string filePath)
         {
-            var metadata = new Metadata.Metadata();
+            var metadata = new Metadata();
             using (Stream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.RandomAccess))
             {
                 var handler = new ExifTiffHandler(metadata, storeThumbnailBytes: false);
@@ -53,14 +53,14 @@ namespace Com.Drew.Imaging.Tiff
         }
 
         /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="Com.Drew.Imaging.Tiff.TiffProcessingException"/>
+        /// <exception cref="TiffProcessingException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
+        public static Metadata ReadMetadata([NotNull] Stream stream)
         {
             // TIFF processing requires random access, as directories can be scattered throughout the byte sequence.
             // Stream does not support seeking backwards, so we wrap it with IndexedCapturingReader, which
             // buffers data from the stream as we seek forward.
-            var metadata = new Metadata.Metadata();
+            var metadata = new Metadata();
             var handler = new ExifTiffHandler(metadata, false);
             new TiffReader().ProcessTiff(new IndexedCapturingReader(stream), handler, 0);
             return metadata;

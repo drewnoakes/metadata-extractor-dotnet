@@ -24,15 +24,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Com.Drew.Imaging.Jpeg;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.IO;
 using Sharpen;
 
-namespace Com.Drew.Metadata.Iptc
+namespace MetadataExtractor.Formats.Iptc
 {
     /// <summary>
-    /// Decodes IPTC binary data, populating a <see cref="Com.Drew.Metadata.Metadata"/> object with tag values in an <see cref="IptcDirectory"/>.
+    /// Decodes IPTC binary data, populating a <see cref="Metadata"/> object with tag values in an <see cref="IptcDirectory"/>.
     /// <para />
     /// http://www.iptc.org/std/IIM/4.1/specification/IIMV4.1.pdf
     /// </summary>
@@ -72,7 +72,7 @@ namespace Com.Drew.Metadata.Iptc
         }
 
         /// <summary>
-        /// Performs the IPTC data extraction, adding found values to the specified instance of <see cref="Com.Drew.Metadata.Metadata"/>.
+        /// Performs the IPTC data extraction, adding found values to the specified instance of <see cref="Metadata"/>.
         /// </summary>
         public void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata, long length)
         {

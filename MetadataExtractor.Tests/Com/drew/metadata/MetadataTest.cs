@@ -20,7 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using Com.Drew.Metadata.Exif;
+using MetadataExtractor.Formats.Exif;
 using NUnit.Framework;
 
 namespace Com.Drew.Metadata
@@ -32,7 +32,7 @@ namespace Com.Drew.Metadata
         [Test]
         public void TestGetDirectoryWhenNotExists()
         {
-            Assert.IsNull(new Metadata().GetFirstDirectoryOfType<ExifSubIfdDirectory>());
+            Assert.IsNull(new MetadataExtractor.Metadata().GetFirstDirectoryOfType<ExifSubIfdDirectory>());
         }
 
 
@@ -41,7 +41,7 @@ namespace Com.Drew.Metadata
         {
             var directory = new ExifSubIfdDirectory();
             directory.AddError("Test Error 1");
-            var metadata = new Metadata();
+            var metadata = new MetadataExtractor.Metadata();
             Assert.IsFalse(metadata.HasErrors());
             metadata.AddDirectory(directory);
             Assert.IsTrue(metadata.HasErrors());
@@ -50,7 +50,7 @@ namespace Com.Drew.Metadata
         [Test]
         public void TestToString()
         {
-            var metadata = new Metadata();
+            var metadata = new MetadataExtractor.Metadata();
             Assert.AreEqual("Metadata (0 directories)", metadata.ToString());
             metadata.AddDirectory(new ExifIfd0Directory());
             Assert.AreEqual("Metadata (1 directory)", metadata.ToString());

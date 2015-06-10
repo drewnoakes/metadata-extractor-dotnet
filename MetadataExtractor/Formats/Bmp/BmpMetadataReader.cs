@@ -21,11 +21,10 @@
  */
 
 using System.IO;
-using Com.Drew.Lang;
-using Com.Drew.Metadata.Bmp;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Imaging.Bmp
+namespace MetadataExtractor.Formats.Bmp
 {
     /// <summary>Obtains metadata from BMP files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
@@ -33,16 +32,16 @@ namespace Com.Drew.Imaging.Bmp
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] string filePath)
+        public static Metadata ReadMetadata([NotNull] string filePath)
         {
             using (Stream stream = new FileStream(filePath, FileMode.Open))
                 return ReadMetadata(stream);
         }
 
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
+        public static Metadata ReadMetadata([NotNull] Stream stream)
         {
-            var metadata = new Metadata.Metadata();
+            var metadata = new Metadata();
             new BmpReader().Extract(new SequentialStreamReader(stream), metadata);
             return metadata;
         }

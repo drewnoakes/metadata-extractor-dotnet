@@ -20,10 +20,10 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Imaging.Riff
+namespace MetadataExtractor.Formats.Riff.riff
 {
     /// <summary>
     /// Processes RIFF-formatted data, calling into client code via that <see cref="IRiffHandler"/> interface.
@@ -42,7 +42,7 @@ namespace Com.Drew.Imaging.Riff
         /// <summary>Processes a RIFF data sequence.</summary>
         /// <param name="reader">
         /// the
-        /// <see cref="Com.Drew.Lang.SequentialReader"/>
+        /// <see cref="SequentialReader"/>
         /// from which the data should be read
         /// </param>
         /// <param name="handler">
@@ -55,7 +55,7 @@ namespace Com.Drew.Imaging.Riff
         /// ignored or recovered from
         /// </exception>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
-        /// <exception cref="Com.Drew.Imaging.Riff.RiffProcessingException"/>
+        /// <exception cref="RiffProcessingException"/>
         public void ProcessRiff([NotNull] SequentialReader reader, [NotNull] IRiffHandler handler)
         {
             // RIFF files are always little-endian

@@ -22,7 +22,7 @@
 
 using System;
 
-namespace Com.Drew.Imaging
+namespace MetadataExtractor.Util
 {
     /// <summary>Contains helper methods that perform photographic conversions.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

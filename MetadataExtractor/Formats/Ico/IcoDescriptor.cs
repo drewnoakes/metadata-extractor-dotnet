@@ -22,7 +22,7 @@
 
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Ico
+namespace MetadataExtractor.Formats.Ico
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class IcoDescriptor : TagDescriptor<IcoDirectory>

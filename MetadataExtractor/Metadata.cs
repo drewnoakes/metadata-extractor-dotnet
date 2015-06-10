@@ -26,7 +26,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using Sharpen;
 
-namespace Com.Drew.Metadata
+namespace MetadataExtractor
 {
     /// <summary>A top-level object that holds the metadata values extracted from an image.</summary>
     /// <remarks>

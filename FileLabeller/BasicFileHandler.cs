@@ -1,5 +1,5 @@
 using System.IO;
-using Com.Drew.Metadata;
+using MetadataExtractor;
 
 namespace FileLabeller
 {

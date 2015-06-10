@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata
+namespace MetadataExtractor
 {
     public static class Schema
     {

@@ -25,26 +25,24 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using Com.Drew.Imaging.Bmp;
-using Com.Drew.Imaging.Gif;
-using Com.Drew.Imaging.Ico;
-using Com.Drew.Imaging.Jpeg;
-using Com.Drew.Imaging.Pcx;
-using Com.Drew.Imaging.Png;
-using Com.Drew.Imaging.Psd;
-using Com.Drew.Imaging.Tiff;
-using Com.Drew.Imaging.Webp;
-using Com.Drew.Lang;
-using Com.Drew.Metadata;
-using Com.Drew.Metadata.Exif;
-using Com.Drew.Metadata.File;
 using JetBrains.Annotations;
-using Directory = Com.Drew.Metadata.Directory;
+using MetadataExtractor.Formats.Bmp;
+using MetadataExtractor.Formats.Exif;
+using MetadataExtractor.Formats.FileSystem;
+using MetadataExtractor.Formats.Gif;
+using MetadataExtractor.Formats.Ico.ico;
+using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.Formats.Pcx.pcx;
+using MetadataExtractor.Formats.Photoshop.psd;
+using MetadataExtractor.Formats.Png.png;
+using MetadataExtractor.Formats.Tiff.tiff;
+using MetadataExtractor.Formats.WebP.webp;
+using MetadataExtractor.Util;
 
-namespace Com.Drew.Imaging
+namespace MetadataExtractor
 {
     /// <summary>
-    /// Obtains <see cref="Com.Drew.Metadata.Metadata"/> from all supported file formats.
+    /// Obtains <see cref="Metadata"/> from all supported file formats.
     /// </summary>
     /// <remarks>
     /// This class a lightweight wrapper around other, specific metadata processors.
@@ -76,12 +74,12 @@ namespace Com.Drew.Imaging
         /// Reads metadata from an <see cref="Stream"/>.
         /// </summary>
         /// <param name="stream">a stream from which the file data may be read.  The stream must be positioned at the beginning of the file's data.</param>
-        /// <returns>a populated <see cref="Com.Drew.Metadata.Metadata"/> object containing directories of tags with values and any processing errors.</returns>
+        /// <returns>a populated <see cref="Metadata"/> object containing directories of tags with values and any processing errors.</returns>
         /// <exception cref="ImageProcessingException">if the file type is unknown, or for general processing errors.</exception>
-        /// <exception cref="Com.Drew.Imaging.ImageProcessingException"/>
+        /// <exception cref="ImageProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
+        public static Metadata ReadMetadata([NotNull] Stream stream)
         {
             var fileType = FileTypeDetector.DetectFileType(stream) ?? FileType.Unknown;
             switch (fileType)
@@ -114,17 +112,17 @@ namespace Com.Drew.Imaging
         }
 
         /// <summary>
-        /// Reads <see cref="Com.Drew.Metadata.Metadata"/> from a file.
+        /// Reads <see cref="Metadata"/> from a file.
         /// </summary>
         /// <param name="filePath">a file from which the image data may be read.</param>
-        /// <returns>a populated <see cref="Com.Drew.Metadata.Metadata"/> object containing directories of tags with values and any processing errors.</returns>
+        /// <returns>a populated <see cref="Metadata"/> object containing directories of tags with values and any processing errors.</returns>
         /// <exception cref="ImageProcessingException">for general processing errors.</exception>
-        /// <exception cref="Com.Drew.Imaging.ImageProcessingException"/>
+        /// <exception cref="ImageProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] string filePath)
+        public static Metadata ReadMetadata([NotNull] string filePath)
         {
-            Metadata.Metadata metadata;
+            Metadata metadata;
             using (Stream inputStream = new FileStream(filePath, FileMode.Open))
                 metadata = ReadMetadata(inputStream);
             new FileMetadataReader().Read(filePath, metadata);
@@ -144,7 +142,7 @@ namespace Com.Drew.Imaging
         /// If <c>-hex</c> is passed, then the ID of each tag will be displayed in hexadecimal.
         /// </remarks>
         /// <param name="args">the command line arguments</param>
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         /// <exception cref="System.IO.IOException"/>
         public static void Main([NotNull] string[] args)
         {
@@ -168,7 +166,7 @@ namespace Com.Drew.Imaging
                 {
                     Console.Out.WriteLine("\n***** PROCESSING: {0}", filePath);
                 }
-                Metadata.Metadata metadata = null;
+                Metadata metadata = null;
                 try
                 {
                     metadata = ReadMetadata(filePath);

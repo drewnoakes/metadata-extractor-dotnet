@@ -20,7 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-namespace Com.Drew.Imaging
+namespace MetadataExtractor.Util
 {
     /// <summary>Enumeration of supported image file formats.</summary>
     public enum FileType

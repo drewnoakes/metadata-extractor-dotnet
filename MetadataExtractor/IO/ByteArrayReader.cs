@@ -23,7 +23,7 @@
 using System;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Lang
+namespace MetadataExtractor.IO
 {
     /// <summary>
     /// Provides methods to read specific values from a byte array, with a consistent, checked exception structure for

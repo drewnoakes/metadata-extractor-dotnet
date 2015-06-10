@@ -21,24 +21,23 @@
  */
 
 using System.IO;
-using Com.Drew.Imaging.Riff;
-using Com.Drew.Lang;
-using Com.Drew.Metadata.File;
-using Com.Drew.Metadata.Webp;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.FileSystem;
+using MetadataExtractor.Formats.Riff.riff;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Imaging.Webp
+namespace MetadataExtractor.Formats.WebP.webp
 {
     /// <summary>Obtains metadata from WebP files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class WebpMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="Com.Drew.Imaging.Riff.RiffProcessingException"/>
+        /// <exception cref="RiffProcessingException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] string filePath)
+        public static Metadata ReadMetadata([NotNull] string filePath)
         {
-            Metadata.Metadata metadata;
+            Metadata metadata;
             using (Stream stream = new FileStream(filePath, FileMode.Open))
                 metadata = ReadMetadata(stream);
             new FileMetadataReader().Read(filePath, metadata);
@@ -46,11 +45,11 @@ namespace Com.Drew.Imaging.Webp
         }
 
         /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="Com.Drew.Imaging.Riff.RiffProcessingException"/>
+        /// <exception cref="RiffProcessingException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
+        public static Metadata ReadMetadata([NotNull] Stream stream)
         {
-            var metadata = new Metadata.Metadata();
+            var metadata = new Metadata();
             new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new WebpRiffHandler(metadata));
             return metadata;
         }

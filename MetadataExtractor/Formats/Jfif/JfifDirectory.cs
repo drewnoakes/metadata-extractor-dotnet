@@ -23,7 +23,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Jfif
+namespace MetadataExtractor.Formats.Jfif
 {
     /// <summary>Directory of tags and values for the SOF0 Jfif segment.</summary>
     /// <remarks>Directory of tags and values for the SOF0 Jfif segment.  This segment holds basic metadata about the image.</remarks>
@@ -65,25 +65,25 @@ namespace Com.Drew.Metadata.Jfif
             return TagNameMap;
         }
 
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         public int GetVersion()
         {
             return GetInt(TagVersion);
         }
 
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         public int GetResUnits()
         {
             return GetInt(TagUnits);
         }
 
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         public int GetImageWidth()
         {
             return GetInt(TagResy);
         }
 
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         public int GetImageHeight()
         {
             return GetInt(TagResx);

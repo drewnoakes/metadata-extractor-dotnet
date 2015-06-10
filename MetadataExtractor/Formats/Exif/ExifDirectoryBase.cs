@@ -22,7 +22,7 @@
 
 using System.Collections.Generic;
 
-namespace Com.Drew.Metadata.Exif
+namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>Base class for several Exif format tag directories.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

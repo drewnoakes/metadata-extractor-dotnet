@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Iptc
+namespace MetadataExtractor.Formats.Iptc
 {
     /// <summary>Describes tags used by the International Press Telecommunications Council (IPTC) metadata format.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

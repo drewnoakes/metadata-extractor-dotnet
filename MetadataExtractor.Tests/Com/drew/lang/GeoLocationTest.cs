@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using MetadataExtractor;
 using NUnit.Framework;
 
 namespace Com.Drew.Lang

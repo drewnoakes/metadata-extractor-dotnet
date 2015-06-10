@@ -22,7 +22,7 @@
 
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Jpeg
+namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>
     /// Provides human-readable string representations of tag values stored in a <see cref="JpegCommentDirectory"/>.

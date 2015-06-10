@@ -7,8 +7,6 @@
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
 
-using Com.Adobe.Xmp.Properties;
-
 namespace Com.Adobe.Xmp.Impl.Xpath
 {
     /// <summary>Parser for XMP XPaths.</summary>

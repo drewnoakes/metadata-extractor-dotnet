@@ -23,7 +23,7 @@
 using System;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Imaging.Riff
+namespace MetadataExtractor.Formats.Riff.riff
 {
     /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a RIFF file.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

@@ -23,7 +23,7 @@
 using System;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.File
+namespace MetadataExtractor.Formats.FileSystem
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class FileMetadataDescriptor : TagDescriptor<FileMetadataDirectory>

@@ -23,7 +23,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Jpeg
+namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>Directory of tags and values for the SOF0 JPEG segment.</summary>
     /// <remarks>Directory of tags and values for the SOF0 JPEG segment.  This segment holds basic metadata about the image.</remarks>
@@ -120,19 +120,19 @@ namespace Com.Drew.Metadata.Jpeg
             return (JpegComponent)GetObject(tagType);
         }
 
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         public int GetImageWidth()
         {
             return GetInt(TagImageWidth);
         }
 
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         public int GetImageHeight()
         {
             return GetInt(TagImageHeight);
         }
 
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         public int GetNumberOfComponents()
         {
             return GetInt(TagNumberOfComponents);

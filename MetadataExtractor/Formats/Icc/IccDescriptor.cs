@@ -23,10 +23,10 @@
 using System;
 using System.IO;
 using System.Text;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Metadata.Icc
+namespace MetadataExtractor.Formats.Icc
 {
     /// <author>Yuri Binev</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>

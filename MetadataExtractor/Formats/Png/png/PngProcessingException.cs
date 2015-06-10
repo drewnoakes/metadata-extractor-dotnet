@@ -23,7 +23,7 @@
 using System;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Imaging.Png
+namespace MetadataExtractor.Formats.Png.png
 {
     /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a JPEG file.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

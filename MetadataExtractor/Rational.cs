@@ -24,7 +24,7 @@ using System;
 using JetBrains.Annotations;
 using Sharpen;
 
-namespace Com.Drew.Lang
+namespace MetadataExtractor
 {
     /// <summary>Immutable class for holding a rational number without loss of precision.</summary>
     /// <remarks>

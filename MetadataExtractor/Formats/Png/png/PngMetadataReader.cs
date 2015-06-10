@@ -2,15 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using Com.Drew.Lang;
-using Com.Drew.Metadata.File;
-using Com.Drew.Metadata.Icc;
-using Com.Drew.Metadata.Png;
-using Com.Drew.Metadata.Xmp;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.FileSystem;
+using MetadataExtractor.Formats.Icc;
+using MetadataExtractor.Formats.Xmp;
+using MetadataExtractor.IO;
 using Sharpen;
 
-namespace Com.Drew.Imaging.Png
+namespace MetadataExtractor.Formats.Png.png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class PngMetadataReader
@@ -37,25 +36,25 @@ namespace Com.Drew.Imaging.Png
             };
         }
 
-        /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
+        /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] string filePath)
+        public static Metadata ReadMetadata([NotNull] string filePath)
         {
-            Metadata.Metadata metadata;
+            Metadata metadata;
             using (Stream stream = new FileStream(filePath, FileMode.Open))
                 metadata = ReadMetadata(stream);
             new FileMetadataReader().Read(filePath, metadata);
             return metadata;
         }
 
-        /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
+        /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
+        public static Metadata ReadMetadata([NotNull] Stream stream)
         {
             var chunks = new PngChunkReader().Extract(new SequentialStreamReader(stream), _desiredChunkTypes);
-            var metadata = new Metadata.Metadata();
+            var metadata = new Metadata();
             foreach (var chunk in chunks)
             {
                 try
@@ -70,9 +69,9 @@ namespace Com.Drew.Imaging.Png
             return metadata;
         }
 
-        /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
+        /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        private static void ProcessChunk([NotNull] Metadata.Metadata metadata, [NotNull] PngChunk chunk)
+        private static void ProcessChunk([NotNull] Metadata metadata, [NotNull] PngChunk chunk)
         {
             var chunkType = chunk.ChunkType;
             var bytes = chunk.Bytes;

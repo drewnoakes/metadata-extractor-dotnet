@@ -3,7 +3,7 @@ using System.IO;
 using Com.Adobe.Xmp;
 using Com.Adobe.Xmp.Options;
 
-namespace Com.Drew.Metadata.Xmp
+namespace MetadataExtractor.Formats.Xmp
 {
     public class XmpWriter
     {

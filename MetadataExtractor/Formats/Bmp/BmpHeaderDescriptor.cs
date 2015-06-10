@@ -1,7 +1,7 @@
 using System;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Bmp
+namespace MetadataExtractor.Formats.Bmp
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class BmpHeaderDescriptor : TagDescriptor<BmpHeaderDirectory>

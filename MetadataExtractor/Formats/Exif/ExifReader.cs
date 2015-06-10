@@ -25,15 +25,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using Com.Drew.Imaging.Jpeg;
-using Com.Drew.Imaging.Tiff;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.Formats.Tiff.tiff;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Metadata.Exif
+namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>
-    /// Decodes Exif binary data, populating a <see cref="Com.Drew.Metadata.Metadata"/> object with tag values in
+    /// Decodes Exif binary data, populating a <see cref="Metadata"/> object with tag values in
     /// <see cref="ExifSubIfdDirectory"/>, <see cref="ExifThumbnailDirectory"/>, <see cref="ExifInteropDirectory"/>,
     /// <see cref="GpsDirectory"/> and one of the many camera makernote directories.
     /// </summary>

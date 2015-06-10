@@ -1,14 +1,14 @@
 using System.IO;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.File
+namespace MetadataExtractor.Formats.FileSystem
 {
     public sealed class FileMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
         public void Read([NotNull] string file, [NotNull] Metadata metadata)
         {
-            var attr = System.IO.File.GetAttributes(file);
+            var attr = File.GetAttributes(file);
             if (attr.HasFlag(FileAttributes.Directory))
                 throw new IOException("File object must reference a file");
 

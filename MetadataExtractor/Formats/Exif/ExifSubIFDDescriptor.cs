@@ -22,7 +22,7 @@
 
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Exif
+namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>
     /// Provides human-readable string representations of tag values stored in a <see cref="ExifSubIfdDirectory"/>.

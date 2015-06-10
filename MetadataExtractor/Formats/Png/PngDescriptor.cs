@@ -23,11 +23,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Com.Drew.Imaging.Png;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Png.png;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Metadata.Png
+namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngDescriptor : TagDescriptor<PngDirectory>

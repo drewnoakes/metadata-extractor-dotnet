@@ -25,7 +25,7 @@ using System.Diagnostics;
 using System.IO;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Lang
+namespace MetadataExtractor.IO
 {
     /// <summary>
     /// Provides methods to read data types from a <see cref="Stream"/> by indexing into the data.

@@ -21,10 +21,10 @@
  */
 
 using System.Collections.Generic;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Imaging.Tiff
+namespace MetadataExtractor.Formats.Tiff.tiff
 {
     /// <summary>
     /// Interface of an class capable of handling events raised during the reading of a TIFF file
@@ -41,7 +41,7 @@ namespace Com.Drew.Imaging.Tiff
         /// validation or perhaps differentiating the type of mapping to use for observed tags and IFDs.
         /// </remarks>
         /// <param name="marker">the 2-byte value found at position 2 of the TIFF header</param>
-        /// <exception cref="Com.Drew.Imaging.Tiff.TiffProcessingException"/>
+        /// <exception cref="TiffProcessingException"/>
         void SetTiffMarker(int marker);
 
         bool IsTagIfdPointer(int tagType);

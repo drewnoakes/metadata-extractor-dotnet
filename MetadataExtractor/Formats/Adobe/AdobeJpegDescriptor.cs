@@ -22,7 +22,7 @@
 
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Adobe
+namespace MetadataExtractor.Formats.Adobe
 {
     /// <summary>Provides human-readable string versions of the tags stored in an AdobeJpegDirectory.</summary>
     public class AdobeJpegDescriptor : TagDescriptor<AdobeJpegDirectory>

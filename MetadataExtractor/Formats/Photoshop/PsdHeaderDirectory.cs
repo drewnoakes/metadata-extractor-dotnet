@@ -23,7 +23,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Photoshop
+namespace MetadataExtractor.Formats.Photoshop
 {
     /// <summary>Holds the basic metadata found in the header of a Photoshop PSD file.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

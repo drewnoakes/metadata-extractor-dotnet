@@ -22,13 +22,13 @@
 
 using System.Collections.Generic;
 using System.Text;
-using Com.Drew.Imaging.Jpeg;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Jpeg;
 
-namespace Com.Drew.Metadata.Jpeg
+namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>
-    /// Decodes the comment stored within JPEG files, populating a <see cref="Com.Drew.Metadata.Metadata"/> object with tag values in a
+    /// Decodes the comment stored within JPEG files, populating a <see cref="Metadata"/> object with tag values in a
     /// <see cref="JpegCommentDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

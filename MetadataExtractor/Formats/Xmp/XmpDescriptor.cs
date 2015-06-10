@@ -21,12 +21,11 @@
  */
 
 using System;
-using Com.Drew.Imaging;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.Util;
 using Sharpen;
 
-namespace Com.Drew.Metadata.Xmp
+namespace MetadataExtractor.Formats.Xmp
 {
     /// <summary>Contains all logic for the presentation of xmp data, as stored in Xmp-Segment.</summary>
     /// <remarks>

@@ -23,7 +23,7 @@
 using System;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Imaging
+namespace MetadataExtractor
 {
     /// <summary>An exception class thrown upon an unexpected condition that was fatal for the processing of an image.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

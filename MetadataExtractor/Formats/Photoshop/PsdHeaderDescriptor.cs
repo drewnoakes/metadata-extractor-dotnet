@@ -23,7 +23,7 @@
 using System;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Photoshop
+namespace MetadataExtractor.Formats.Photoshop
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PsdHeaderDescriptor : TagDescriptor<PsdHeaderDirectory>

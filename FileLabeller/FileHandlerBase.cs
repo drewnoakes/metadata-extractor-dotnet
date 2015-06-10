@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Com.Drew.Metadata;
+using MetadataExtractor;
 
 namespace FileLabeller
 {

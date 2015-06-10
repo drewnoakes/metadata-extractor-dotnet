@@ -21,11 +21,10 @@
  */
 
 using System;
-using Com.Drew.Imaging;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Metadata.Pcx
+namespace MetadataExtractor.Formats.Pcx
 {
     /// <summary>Reads PCX image file metadata.</summary>
     /// <remarks>

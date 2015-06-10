@@ -25,7 +25,7 @@ using System.Text;
 using JetBrains.Annotations;
 using Sharpen;
 
-namespace Com.Drew.Lang
+namespace MetadataExtractor.IO
 {
     /// <summary>Base class for reading sequentially through a sequence of data encoded in a byte stream.</summary>
     /// <remarks>

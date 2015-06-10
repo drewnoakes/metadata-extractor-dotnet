@@ -26,7 +26,7 @@ using JetBrains.Annotations;
 
 // TODO always read bytes in order which may assist memory read patterns
 
-namespace Com.Drew.Lang
+namespace MetadataExtractor.IO
 {
     /// <summary>Base class for random access data reading operations of common data types.</summary>
     /// <remarks>

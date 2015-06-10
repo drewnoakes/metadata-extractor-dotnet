@@ -23,7 +23,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Jpeg
+namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>Describes tags used by a JPEG file comment.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

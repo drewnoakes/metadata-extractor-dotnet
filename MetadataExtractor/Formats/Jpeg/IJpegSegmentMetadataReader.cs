@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Imaging.Jpeg
+namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>Defines an object that extracts metadata from in JPEG segments.</summary>
     public interface IJpegSegmentMetadataReader
@@ -15,9 +15,9 @@ namespace Com.Drew.Imaging.Jpeg
         /// A sequence of byte arrays from which the metadata should be extracted. These are in the order
         /// encountered in the original file.
         /// </param>
-        /// <param name="metadata">The <see cref="Com.Drew.Metadata.Metadata"/> object into which extracted values should be merged.</param>
+        /// <param name="metadata">The <see cref="Metadata"/> object into which extracted values should be merged.</param>
         /// <param name="segmentType">The <see cref="JpegSegmentType"/> being read.
         /// </param>
-        void ReadJpegSegments([NotNull] IEnumerable<byte[]> segments, [NotNull] Metadata.Metadata metadata, [NotNull] JpegSegmentType segmentType);
+        void ReadJpegSegments([NotNull] IEnumerable<byte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType);
     }
 }

@@ -23,7 +23,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Exif
+namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>Describes Exif tags from the IFD0 directory.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

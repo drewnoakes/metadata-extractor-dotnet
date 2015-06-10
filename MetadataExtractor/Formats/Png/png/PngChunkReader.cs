@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Imaging.Png
+namespace MetadataExtractor.Formats.Png.png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunkReader
@@ -11,7 +11,7 @@ namespace Com.Drew.Imaging.Png
         private static readonly byte[] PngSignatureBytes = new byte[] { unchecked((byte)0x89), unchecked(0x50), unchecked(0x4E), unchecked(0x47), unchecked(0x0D), unchecked(0x0A), unchecked(0x1A), unchecked(
             0x0A) };
 
-        /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
+        /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         public IEnumerable<PngChunk> Extract([NotNull] SequentialReader reader, [CanBeNull] ICollection<PngChunkType> desiredChunkTypes)
         {

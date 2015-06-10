@@ -24,7 +24,7 @@ using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Photoshop
+namespace MetadataExtractor.Formats.Photoshop
 {
     /// <summary>Holds the metadata found in the APPD segment of a JPEG file saved by Photoshop.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

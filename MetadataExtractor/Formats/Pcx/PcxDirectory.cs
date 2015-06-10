@@ -23,7 +23,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Pcx
+namespace MetadataExtractor.Formats.Pcx
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class PcxDirectory : Directory

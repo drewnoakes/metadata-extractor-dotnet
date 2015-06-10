@@ -21,7 +21,8 @@
  */
 
 using System.Text;
-using Com.Drew.Lang;
+using MetadataExtractor;
+using MetadataExtractor.Formats.Exif;
 using NUnit.Framework;
 
 namespace Com.Drew.Metadata.Exif

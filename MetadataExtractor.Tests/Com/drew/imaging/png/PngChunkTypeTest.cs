@@ -1,4 +1,5 @@
 ﻿using System;
+using MetadataExtractor.Formats.Png.png;
 using NUnit.Framework;
 
 namespace Com.Drew.Imaging.Png

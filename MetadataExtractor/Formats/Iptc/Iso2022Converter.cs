@@ -1,7 +1,7 @@
 using System.Text;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Iptc
+namespace MetadataExtractor.Formats.Iptc
 {
     public static class Iso2022Converter
     {

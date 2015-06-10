@@ -23,7 +23,7 @@
 using System;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata
+namespace MetadataExtractor
 {
     /// <summary>Base class for all metadata specific exceptions.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

@@ -23,22 +23,21 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Com.Drew.Imaging;
-using Com.Drew.Imaging.Jpeg;
-using Com.Drew.Lang;
-using Com.Drew.Metadata.Exif;
-using Com.Drew.Metadata.Icc;
-using Com.Drew.Metadata.Iptc;
-using Com.Drew.Metadata.Xmp;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Exif;
+using MetadataExtractor.Formats.Icc;
+using MetadataExtractor.Formats.Iptc;
+using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.Formats.Xmp;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Metadata.Photoshop
+namespace MetadataExtractor.Formats.Photoshop
 {
     /// <summary>Reads metadata created by Photoshop and stored in the APPD segment of JPEG files.</summary>
     /// <remarks>
     /// Reads metadata created by Photoshop and stored in the APPD segment of JPEG files.
     /// Note that IPTC data may be stored within this segment, in which case this reader will
-    /// create both a <see cref="PhotoshopDirectory"/> and a <see cref="Com.Drew.Metadata.Iptc.IptcDirectory"/>.
+    /// create both a <see cref="PhotoshopDirectory"/> and a <see cref="IptcDirectory"/>.
     /// </remarks>
     /// <author>Yuri Binev</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>

@@ -21,8 +21,9 @@
  */
 
 using System.IO;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Photoshop;
+using MetadataExtractor.IO;
 using NUnit.Framework;
 
 namespace Com.Drew.Metadata.Photoshop
@@ -34,7 +35,7 @@ namespace Com.Drew.Metadata.Photoshop
         [NotNull]
         public static PsdHeaderDirectory ProcessBytes([NotNull] string filePath)
         {
-            var metadata = new Metadata();
+            var metadata = new MetadataExtractor.Metadata();
             using (Stream stream = new FileStream(filePath, FileMode.Open))
                 new PsdReader().Extract(new SequentialStreamReader(stream), metadata);
             var directory = metadata.GetFirstDirectoryOfType<PsdHeaderDirectory>();

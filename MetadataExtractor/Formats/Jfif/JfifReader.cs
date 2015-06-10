@@ -23,10 +23,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Com.Drew.Imaging.Jpeg;
-using Com.Drew.Lang;
+using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Metadata.Jfif
+namespace MetadataExtractor.Formats.Jfif
 {
     /// <summary>Reader for JFIF data, found in the APP0 JPEG segment.</summary>
     /// <remarks>
@@ -57,7 +57,7 @@ namespace Com.Drew.Metadata.Jfif
         }
 
         /// <summary>
-        /// Performs the Jfif data extraction, adding found values to the specified instance of <see cref="Com.Drew.Metadata.Metadata"/>.
+        /// Performs the Jfif data extraction, adding found values to the specified instance of <see cref="Metadata"/>.
         /// </summary>
         public void Extract(IndexedReader reader, Metadata metadata)
         {

@@ -24,11 +24,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
 using Sharpen;
 
-namespace Com.Drew.Metadata
+namespace MetadataExtractor
 {
     /// <summary>Base class for all tag descriptor classes.</summary>
     /// <remarks>

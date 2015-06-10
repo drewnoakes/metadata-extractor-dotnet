@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using Com.Drew.Imaging;
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
+using MetadataExtractor;
 using Sharpen;
 using Directory = System.IO.Directory;
 

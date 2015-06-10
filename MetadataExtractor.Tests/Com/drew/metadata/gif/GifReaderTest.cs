@@ -21,8 +21,9 @@
  */
 
 using System.IO;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Gif;
+using MetadataExtractor.IO;
 using NUnit.Framework;
 
 namespace Com.Drew.Metadata.Gif
@@ -34,7 +35,7 @@ namespace Com.Drew.Metadata.Gif
         [NotNull]
         public static GifHeaderDirectory ProcessBytes([NotNull] string file)
         {
-            var metadata = new Metadata();
+            var metadata = new MetadataExtractor.Metadata();
             using (Stream stream = new FileStream(file, FileMode.Open))
                 new GifReader().Extract(new SequentialStreamReader(stream), metadata);
             var directory = metadata.GetFirstDirectoryOfType<GifHeaderDirectory>();

@@ -21,12 +21,11 @@
  */
 
 using System.IO;
-using Com.Drew.Lang;
-using Com.Drew.Metadata.File;
-using Com.Drew.Metadata.Photoshop;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.FileSystem;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Imaging.Psd
+namespace MetadataExtractor.Formats.Photoshop.psd
 {
     /// <summary>Obtains metadata from Photoshop's PSD files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
@@ -34,9 +33,9 @@ namespace Com.Drew.Imaging.Psd
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] string filePath)
+        public static Metadata ReadMetadata([NotNull] string filePath)
         {
-            var metadata = new Metadata.Metadata();
+            var metadata = new Metadata();
             using (Stream stream = new FileStream(filePath, FileMode.Open))
                 new PsdReader().Extract(new SequentialStreamReader(stream), metadata);
             new FileMetadataReader().Read(filePath, metadata);
@@ -44,9 +43,9 @@ namespace Com.Drew.Imaging.Psd
         }
 
         [NotNull]
-        public static Metadata.Metadata ReadMetadata([NotNull] Stream stream)
+        public static Metadata ReadMetadata([NotNull] Stream stream)
         {
-            var metadata = new Metadata.Metadata();
+            var metadata = new Metadata();
             new PsdReader().Extract(new SequentialStreamReader(stream), metadata);
             return metadata;
         }

@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Com.Drew.Lang;
+using MetadataExtractor.Formats.Png.png;
+using MetadataExtractor.IO;
 using NUnit.Framework;
 
 namespace Com.Drew.Imaging.Png
@@ -9,7 +10,7 @@ namespace Com.Drew.Imaging.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunkReaderTest
     {
-        /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
+        /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         public static IList<PngChunk> ProcessFile(string filePath)
         {

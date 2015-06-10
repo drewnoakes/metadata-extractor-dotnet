@@ -23,6 +23,7 @@
 using System;
 using System.IO;
 using System.Text;
+using MetadataExtractor.IO;
 using NUnit.Framework;
 using Sharpen;
 

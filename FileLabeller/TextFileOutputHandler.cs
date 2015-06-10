@@ -1,8 +1,8 @@
 using System;
 using System.IO;
 using System.Linq;
-using Com.Drew.Metadata;
 using JetBrains.Annotations;
+using MetadataExtractor;
 using Sharpen;
 using Directory = System.IO.Directory;
 

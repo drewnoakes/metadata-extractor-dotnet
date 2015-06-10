@@ -22,9 +22,10 @@
 
 using System;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Exif;
 using Sharpen;
 
-namespace Com.Drew.Lang
+namespace MetadataExtractor
 {
     /// <summary>Represents a latitude and longitude pair, giving a position on earth in spherical coordinates.</summary>
     /// <remarks>
@@ -97,7 +98,7 @@ namespace Com.Drew.Lang
 
         /// <summary>
         /// Converts DMS (degrees-minutes-seconds) rational values, as given in
-        /// <see cref="Com.Drew.Metadata.Exif.GpsDirectory"/>, into a single value in degrees,
+        /// <see cref="GpsDirectory"/>, into a single value in degrees,
         /// as a double.
         /// </summary>
         [CanBeNull]

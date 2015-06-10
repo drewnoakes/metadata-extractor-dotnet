@@ -11,8 +11,6 @@ using System.Diagnostics;
 using System.Text;
 using Com.Adobe.Xmp.Impl.Xpath;
 using Com.Adobe.Xmp.Options;
-using Com.Adobe.Xmp.Properties;
-using Sharpen;
 
 namespace Com.Adobe.Xmp.Impl
 {

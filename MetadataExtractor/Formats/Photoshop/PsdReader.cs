@@ -22,10 +22,10 @@
 
 using System.Diagnostics;
 using System.IO;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Metadata.Photoshop
+namespace MetadataExtractor.Formats.Photoshop
 {
     /// <summary>Reads metadata stored within PSD file format data.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

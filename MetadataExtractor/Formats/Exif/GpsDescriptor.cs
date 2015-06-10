@@ -21,11 +21,10 @@
  */
 
 using System;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
 using Sharpen;
 
-namespace Com.Drew.Metadata.Exif
+namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>
     /// Provides human-readable string representations of tag values stored in a <see cref="GpsDirectory"/>.

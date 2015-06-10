@@ -26,7 +26,7 @@ using System.IO;
 using JetBrains.Annotations;
 using Sharpen;
 
-namespace Com.Drew.Lang
+namespace MetadataExtractor.IO
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class SequentialStreamReader : SequentialReader

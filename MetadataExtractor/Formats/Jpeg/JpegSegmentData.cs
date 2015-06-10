@@ -24,9 +24,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using Sharpen;
 
-namespace Com.Drew.Imaging.Jpeg
+namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>Holds a collection of JPEG data segments.</summary>
     /// <remarks>

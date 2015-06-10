@@ -23,10 +23,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Imaging.Jpeg
+namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>Performs read functions of JPEG files, returning specific file segments.</summary>
     /// <remarks>
@@ -55,7 +55,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// the set of JPEG segments types that are to be returned. If this argument is <c>null</c>
         /// then all found segment types are returned.
         /// </param>
-        /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
+        /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
         public static JpegSegmentData ReadSegments([NotNull] string filePath, [CanBeNull] ICollection<JpegSegmentType> segmentTypes)
@@ -73,7 +73,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// </summary>
         /// <param name="reader">
         /// a
-        /// <see cref="Com.Drew.Lang.SequentialReader"/>
+        /// <see cref="SequentialReader"/>
         /// from which the JPEG data will be read. It must be positioned at the
         /// beginning of the JPEG data stream.
         /// </param>
@@ -81,7 +81,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// the set of JPEG segments types that are to be returned. If this argument is <c>null</c>
         /// then all found segment types are returned.
         /// </param>
-        /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
+        /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
         public static JpegSegmentData ReadSegments([NotNull] SequentialReader reader, [CanBeNull] ICollection<JpegSegmentType> segmentTypes = null)

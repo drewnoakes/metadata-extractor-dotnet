@@ -22,10 +22,10 @@
 
 using System.IO;
 using System.Text;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Metadata.Exif.Makernotes
+namespace MetadataExtractor.Formats.Exif.makernotes
 {
     /// <summary>
     /// Provides human-readable string representations of tag values stored in a <see cref="PanasonicMakernoteDirectory"/>.

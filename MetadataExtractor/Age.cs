@@ -24,7 +24,7 @@ using System;
 using System.Text;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata
+namespace MetadataExtractor
 {
     /// <summary>Represents an age in years, months, days, hours, minutes and seconds.</summary>
     /// <remarks>

@@ -23,7 +23,7 @@
 using System;
 using System.IO;
 
-namespace Com.Drew.Lang
+namespace MetadataExtractor.IO
 {
     /// <summary>
     /// A checked replacement for <see cref="System.IndexOutOfRangeException"/>.  Used by

@@ -22,7 +22,7 @@
 
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata
+namespace MetadataExtractor
 {
     /// <summary>A default implementation of the abstract TagDescriptor.</summary>
     /// <remarks>

@@ -21,9 +21,10 @@
  */
 
 using System.IO;
-using Com.Drew.Metadata.Exif;
+using MetadataExtractor.Formats.Exif;
+using MetadataExtractor.Formats.Jpeg;
 using NUnit.Framework;
-using Directory = Com.Drew.Metadata.Directory;
+using Directory = MetadataExtractor.Directory;
 
 namespace Com.Drew.Imaging.Jpeg
 {
@@ -42,7 +43,7 @@ namespace Com.Drew.Imaging.Jpeg
             Validate(JpegMetadataReader.ReadMetadata(new FileStream("Tests/Data/withExif.jpg", FileMode.Open)));
         }
 
-        private static void Validate(Metadata.Metadata metadata)
+        private static void Validate(MetadataExtractor.Metadata metadata)
         {
             Directory directory = metadata.GetFirstDirectoryOfType<ExifSubIfdDirectory>();
             Assert.IsNotNull(directory);

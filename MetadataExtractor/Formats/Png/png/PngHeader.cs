@@ -1,12 +1,12 @@
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Imaging.Png
+namespace MetadataExtractor.Formats.Png.png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngHeader
     {
-        /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
+        /// <exception cref="PngProcessingException"/>
         public PngHeader([NotNull] byte[] bytes)
         {
             if (bytes.Length != 13)

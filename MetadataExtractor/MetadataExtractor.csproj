@@ -38,6 +38,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formats\Jpeg\IJpegSegmentMetadataReader.cs" />
+    <Compile Include="Formats\Jpeg\JpegMetadataReader.cs" />
+    <Compile Include="Formats\Jpeg\JpegProcessingException.cs" />
+    <Compile Include="Formats\Jpeg\JpegSegmentData.cs" />
+    <Compile Include="Formats\Jpeg\JpegSegmentReader.cs" />
+    <Compile Include="Formats\Jpeg\JpegSegmentType.cs" />
     <Compile Include="Util\FileType.cs" />
     <Compile Include="Util\FileTypeDetector.cs" />
     <Compile Include="ImageMetadataReader.cs" />
@@ -150,12 +156,6 @@
     <Compile Include="Formats\Jpeg\JpegDescriptor.cs" />
     <Compile Include="Formats\Jpeg\JpegDirectory.cs" />
     <Compile Include="Formats\Jpeg\JpegReader.cs" />
-    <Compile Include="Formats\Jpeg\jpeg\IJpegSegmentMetadataReader.cs" />
-    <Compile Include="Formats\Jpeg\jpeg\JpegMetadataReader.cs" />
-    <Compile Include="Formats\Jpeg\jpeg\JpegProcessingException.cs" />
-    <Compile Include="Formats\Jpeg\jpeg\JpegSegmentData.cs" />
-    <Compile Include="Formats\Jpeg\jpeg\JpegSegmentReader.cs" />
-    <Compile Include="Formats\Jpeg\jpeg\JpegSegmentType.cs" />
     <Compile Include="Formats\Pcx\PcxDescriptor.cs" />
     <Compile Include="Formats\Pcx\PcxDirectory.cs" />
     <Compile Include="Formats\Pcx\PcxReader.cs" />

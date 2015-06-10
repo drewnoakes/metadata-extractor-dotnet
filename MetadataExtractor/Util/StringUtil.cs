@@ -22,7 +22,7 @@
 
 using JetBrains.Annotations;
 
-namespace Com.Drew.Lang
+namespace MetadataExtractor.Util
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     internal static class StringUtil

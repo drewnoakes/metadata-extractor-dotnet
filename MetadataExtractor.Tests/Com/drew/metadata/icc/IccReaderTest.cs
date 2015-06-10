@@ -20,8 +20,10 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using Com.Drew.Lang;
+using System.IO;
 using Com.Drew.Testing;
+using MetadataExtractor.Formats.Icc;
+using MetadataExtractor.IO;
 using NUnit.Framework;
 
 namespace Com.Drew.Metadata.Icc
@@ -32,10 +34,10 @@ namespace Com.Drew.Metadata.Icc
         [Test]
         public void TestExtract()
         {
-            var app2Bytes = System.IO.File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2");
+            var app2Bytes = File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2");
             // ICC data starts after a 14-byte preamble
             var icc = TestHelper.SkipBytes(app2Bytes, 14);
-            var metadata = new Metadata();
+            var metadata = new MetadataExtractor.Metadata();
             new IccReader().Extract(new ByteArrayReader(icc), metadata);
             var directory = metadata.GetFirstDirectoryOfType<IccDirectory>();
             Assert.IsNotNull(directory);

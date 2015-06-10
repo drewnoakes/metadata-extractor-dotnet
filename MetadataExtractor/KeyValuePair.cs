@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
 
-namespace Com.Drew.Lang
+namespace MetadataExtractor
 {
     /// <summary>
     /// Models a key/value pair, where both are non-null

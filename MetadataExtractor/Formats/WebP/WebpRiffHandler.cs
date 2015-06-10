@@ -22,14 +22,14 @@
 
 using System;
 using System.IO;
-using Com.Drew.Imaging.Riff;
-using Com.Drew.Lang;
-using Com.Drew.Metadata.Exif;
-using Com.Drew.Metadata.Icc;
-using Com.Drew.Metadata.Xmp;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Exif;
+using MetadataExtractor.Formats.Icc;
+using MetadataExtractor.Formats.Riff.riff;
+using MetadataExtractor.Formats.Xmp;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Metadata.Webp
+namespace MetadataExtractor.Formats.WebP
 {
     /// <summary>
     /// Implementation of

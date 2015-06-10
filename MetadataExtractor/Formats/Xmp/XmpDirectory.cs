@@ -29,7 +29,7 @@ using Com.Adobe.Xmp.Properties;
 using JetBrains.Annotations;
 using Sharpen;
 
-namespace Com.Drew.Metadata.Xmp
+namespace MetadataExtractor.Formats.Xmp
 {
     /// <author>Torsten Skadell</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>

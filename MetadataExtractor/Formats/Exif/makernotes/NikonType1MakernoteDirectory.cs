@@ -23,7 +23,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Exif.Makernotes
+namespace MetadataExtractor.Formats.Exif.makernotes
 {
     /// <summary>Describes tags specific to Nikon (type 1) cameras.</summary>
     /// <remarks>

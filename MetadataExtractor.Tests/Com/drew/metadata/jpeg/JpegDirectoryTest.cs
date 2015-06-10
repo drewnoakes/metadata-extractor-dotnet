@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using MetadataExtractor.Formats.Jpeg;
 using NUnit.Framework;
 
 namespace Com.Drew.Metadata.Jpeg

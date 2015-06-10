@@ -22,7 +22,8 @@
 
 using System.Globalization;
 using System.Threading;
-using Com.Drew.Metadata.Exif.Makernotes;
+using MetadataExtractor;
+using MetadataExtractor.Formats.Exif.makernotes;
 using NUnit.Framework;
 
 namespace Com.Drew.Metadata.Exif
@@ -106,7 +107,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual("78/10 78/10", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagSensorPixelSize));
         }
 
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         [Test]
         public void TestGetLensDescription()
         {
@@ -114,7 +115,7 @@ namespace Com.Drew.Metadata.Exif
             Assert.AreEqual("24-85mm f/3.5-4.5", _descriptor.GetLensDescription());
         }
 
-        /// <exception cref="Com.Drew.Metadata.MetadataException"/>
+        /// <exception cref="MetadataException"/>
         [Test]
         public void TestGetHueAdjustmentDescription()
         {

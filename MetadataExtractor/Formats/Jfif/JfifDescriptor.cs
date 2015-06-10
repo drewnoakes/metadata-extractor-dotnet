@@ -22,7 +22,7 @@
 
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Jfif
+namespace MetadataExtractor.Formats.Jfif
 {
     /// <summary>Provides human-readable string versions of the tags stored in a JfifDirectory.</summary>
     /// <remarks>

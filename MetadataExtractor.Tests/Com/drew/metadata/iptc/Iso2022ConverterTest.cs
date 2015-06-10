@@ -1,3 +1,4 @@
+using MetadataExtractor.Formats.Iptc;
 using NUnit.Framework;
 
 namespace Com.Drew.Metadata.Iptc

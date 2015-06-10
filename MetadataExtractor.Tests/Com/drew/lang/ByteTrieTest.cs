@@ -21,6 +21,7 @@
  */
 
 using System.Text;
+using MetadataExtractor.Util;
 using NUnit.Framework;
 
 namespace Com.Drew.Lang

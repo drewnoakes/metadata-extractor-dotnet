@@ -21,10 +21,10 @@
  */
 
 using System.Collections.Generic;
-using Com.Drew.Imaging.Png;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Png.png;
 
-namespace Com.Drew.Metadata.Png
+namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngDirectory : Directory

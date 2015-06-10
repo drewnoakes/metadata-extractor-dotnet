@@ -22,6 +22,7 @@
 
 using System;
 using System.IO;
+using MetadataExtractor.IO;
 using NUnit.Framework;
 
 namespace Com.Drew.Lang

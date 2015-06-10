@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using MetadataExtractor.Formats.Exif;
 using NUnit.Framework;
 
 namespace Com.Drew.Metadata.Exif

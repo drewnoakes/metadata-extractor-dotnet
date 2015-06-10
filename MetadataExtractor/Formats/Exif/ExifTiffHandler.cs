@@ -23,14 +23,14 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Com.Drew.Imaging.Tiff;
-using Com.Drew.Lang;
-using Com.Drew.Metadata.Exif.Makernotes;
-using Com.Drew.Metadata.Iptc;
-using Com.Drew.Metadata.Tiff;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Exif.makernotes;
+using MetadataExtractor.Formats.Iptc;
+using MetadataExtractor.Formats.Tiff;
+using MetadataExtractor.Formats.Tiff.tiff;
+using MetadataExtractor.IO;
 
-namespace Com.Drew.Metadata.Exif
+namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>
     /// Implementation of
@@ -51,7 +51,7 @@ namespace Com.Drew.Metadata.Exif
             _storeThumbnailBytes = storeThumbnailBytes;
         }
 
-        /// <exception cref="Com.Drew.Imaging.Tiff.TiffProcessingException"/>
+        /// <exception cref="TiffProcessingException"/>
         public override void SetTiffMarker(int marker)
         {
             var standardTiffMarker = unchecked(0x002A);

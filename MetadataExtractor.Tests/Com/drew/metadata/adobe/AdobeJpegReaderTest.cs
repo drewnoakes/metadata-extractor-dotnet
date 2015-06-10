@@ -21,10 +21,12 @@
  */
 
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using Com.Drew.Imaging.Jpeg;
-using Com.Drew.Lang;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Adobe;
+using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.IO;
 using NUnit.Framework;
 
 namespace Com.Drew.Metadata.Adobe
@@ -36,8 +38,8 @@ namespace Com.Drew.Metadata.Adobe
         [NotNull]
         public static AdobeJpegDirectory ProcessBytes([NotNull] string filePath)
         {
-            var metadata = new Metadata();
-            new AdobeJpegReader().Extract(new SequentialByteArrayReader(System.IO.File.ReadAllBytes(filePath)), metadata);
+            var metadata = new MetadataExtractor.Metadata();
+            new AdobeJpegReader().Extract(new SequentialByteArrayReader(File.ReadAllBytes(filePath)), metadata);
             var directory = metadata.GetFirstDirectoryOfType<AdobeJpegDirectory>();
             Assert.IsNotNull(directory);
             return directory;

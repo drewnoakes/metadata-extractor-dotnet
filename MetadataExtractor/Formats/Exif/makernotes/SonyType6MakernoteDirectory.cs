@@ -23,7 +23,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace Com.Drew.Metadata.Exif.Makernotes
+namespace MetadataExtractor.Formats.Exif.makernotes
 {
     /// <summary>Describes tags specific to Sony cameras that use the Sony Type 6 makernote tags.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

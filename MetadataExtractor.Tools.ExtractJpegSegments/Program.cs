@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Com.Drew.Imaging.Jpeg;
+using MetadataExtractor.Formats.Jpeg;
 
 namespace MetadataExtractor.Tools.ExtractJpegSegments
 {

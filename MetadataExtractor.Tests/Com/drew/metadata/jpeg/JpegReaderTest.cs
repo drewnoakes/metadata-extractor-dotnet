@@ -20,8 +20,9 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using Com.Drew.Imaging.Jpeg;
+using System.IO;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Jpeg;
 using NUnit.Framework;
 
 namespace Com.Drew.Metadata.Jpeg
@@ -33,8 +34,8 @@ namespace Com.Drew.Metadata.Jpeg
         [NotNull]
         public static JpegDirectory ProcessBytes(string filePath)
         {
-            var metadata = new Metadata();
-            new JpegReader().Extract(System.IO.File.ReadAllBytes(filePath), metadata, JpegSegmentType.Sof0);
+            var metadata = new MetadataExtractor.Metadata();
+            new JpegReader().Extract(File.ReadAllBytes(filePath), metadata, JpegSegmentType.Sof0);
             var directory = metadata.GetFirstDirectoryOfType<JpegDirectory>();
             Assert.IsNotNull(directory);
             return directory;
@@ -42,7 +43,7 @@ namespace Com.Drew.Metadata.Jpeg
 
         private JpegDirectory _directory;
 
-        /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
+        /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [SetUp]
         public void SetUp()
