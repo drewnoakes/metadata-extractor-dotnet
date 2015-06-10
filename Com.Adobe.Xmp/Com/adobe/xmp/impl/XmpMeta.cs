@@ -56,7 +56,6 @@ namespace Com.Adobe.Xmp.Impl
             _tree = tree;
         }
 
-        /// <seealso cref="IXmpMeta.AppendArrayItem(string, string, Com.Adobe.Xmp.Options.PropertyOptions, string, Com.Adobe.Xmp.Options.PropertyOptions)"/>
         /// <exception cref="XmpException"/>
         public void AppendArrayItem(string schemaNs, string arrayName, PropertyOptions arrayOptions, string itemValue, PropertyOptions itemOptions)
         {
@@ -111,7 +110,6 @@ namespace Com.Adobe.Xmp.Impl
             DoSetArrayItem(arrayNode, XmpConstConstants.ArrayLastItem, itemValue, itemOptions, true);
         }
 
-        /// <seealso cref="IXmpMeta.AppendArrayItem(string, string, string)"/>
         /// <exception cref="XmpException"/>
         public void AppendArrayItem(string schemaNs, string arrayName, string itemValue)
         {
@@ -119,7 +117,6 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <exception cref="XmpException"/>
-        /// <seealso cref="IXmpMeta.CountArrayItems(string, string)"/>
         public int CountArrayItems(string schemaNs, string arrayName)
         {
             ParameterAsserts.AssertSchemaNs(schemaNs);
@@ -137,7 +134,6 @@ namespace Com.Adobe.Xmp.Impl
             throw new XmpException("The named property is not an array", XmpErrorCode.BadXPath);
         }
 
-        /// <seealso cref="IXmpMeta.DeleteArrayItem(string, string, int)"/>
         public void DeleteArrayItem(string schemaNs, string arrayName, int itemIndex)
         {
             try
@@ -152,7 +148,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpMeta.DeleteProperty(string, string)"/>
         public void DeleteProperty(string schemaNs, string propName)
         {
             try
@@ -171,7 +166,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpMeta.DeleteQualifier(string, string, string, string)"/>
         public void DeleteQualifier(string schemaNs, string propName, string qualNs, string qualName)
         {
             try
@@ -187,7 +181,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpMeta.DeleteStructField(string, string, string, string)"/>
         public void DeleteStructField(string schemaNs, string structName, string fieldNs, string fieldName)
         {
             try
@@ -203,7 +196,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpMeta.DoesPropertyExist(string, string)"/>
         public bool DoesPropertyExist(string schemaNs, string propName)
         {
             try
@@ -220,7 +212,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpMeta.DoesArrayItemExist(string, string, int)"/>
         public bool DoesArrayItemExist(string schemaNs, string arrayName, int itemIndex)
         {
             try
@@ -236,7 +227,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpMeta.DoesStructFieldExist(string, string, string, string)"/>
         public bool DoesStructFieldExist(string schemaNs, string structName, string fieldNs, string fieldName)
         {
             try
@@ -253,7 +243,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpMeta.DoesQualifierExist(string, string, string, string)"/>
         public bool DoesQualifierExist(string schemaNs, string propName, string qualNs, string qualName)
         {
             try
@@ -270,7 +259,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpMeta.GetArrayItem(string, string, int)"/>
         /// <exception cref="XmpException"/>
         public IXmpProperty GetArrayItem(string schemaNs, string arrayName, int itemIndex)
         {
@@ -281,7 +269,6 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <exception cref="XmpException"/>
-        /// <seealso cref="IXmpMeta.GetLocalizedText(string, string, string, string)"/>
         public IXmpProperty GetLocalizedText(string schemaNs, string altTextName, string genericLang, string specificLang)
         {
             ParameterAsserts.AssertSchemaNs(schemaNs);
@@ -335,7 +322,6 @@ namespace Com.Adobe.Xmp.Impl
             private readonly XmpNode _itemNode;
         }
 
-        /// <seealso cref="IXmpMeta.SetLocalizedText(string, string, string, string, string, Com.Adobe.Xmp.Options.PropertyOptions)"/>
         /// <exception cref="XmpException"/>
         public void SetLocalizedText(string schemaNs, string altTextName, string genericLang, string specificLang, string itemValue, PropertyOptions options)
         {
@@ -504,7 +490,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpMeta.SetLocalizedText(string, string, string, string, string)"/>
         /// <exception cref="XmpException"/>
         public void SetLocalizedText(string schemaNs, string altTextName, string genericLang, string specificLang, string itemValue)
         {
@@ -512,7 +497,6 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <exception cref="XmpException"/>
-        /// <seealso cref="IXmpMeta.GetProperty(string, string)"/>
         public IXmpProperty GetProperty(string schemaNs, string propName)
         {
             return GetProperty(schemaNs, propName, ValueType.String);
@@ -522,7 +506,6 @@ namespace Com.Adobe.Xmp.Impl
         /// <remarks>
         /// Returns a property, but the result value can be requested.
         /// </remarks>
-        /// <seealso cref="IXmpMeta.GetProperty(string, string)"/>
         /// <param name="schemaNs">a schema namespace</param>
         /// <param name="propName">a property name or path</param>
         /// <param name="valueType">the type of the value, see VALUE_...</param>
@@ -580,7 +563,6 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <summary>Returns a property, but the result value can be requested.</summary>
-        /// <seealso cref="IXmpMeta.GetProperty(string, string)"/>
         /// <param name="schemaNs">a schema namespace</param>
         /// <param name="propName">a property name or path</param>
         /// <param name="valueType">the type of the value, see VALUE_...</param>
@@ -606,7 +588,6 @@ namespace Com.Adobe.Xmp.Impl
             return null;
         }
 
-        /// <seealso cref="IXmpMeta.GetPropertyBoolean(string, string)"/>
         /// <exception cref="XmpException"/>
         public bool GetPropertyBoolean(string schemaNs, string propName)
         {
@@ -614,146 +595,125 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <exception cref="XmpException"/>
-        /// <seealso cref="IXmpMeta.SetPropertyBoolean(string, string, bool, Com.Adobe.Xmp.Options.PropertyOptions)"/>
         public void SetPropertyBoolean(string schemaNs, string propName, bool propValue, PropertyOptions options)
         {
             SetProperty(schemaNs, propName, propValue ? XmpConstConstants.TrueString : XmpConstConstants.FalseString, options);
         }
 
-        /// <seealso cref="IXmpMeta.SetPropertyBoolean(string, string, bool)"/>
         /// <exception cref="XmpException"/>
         public void SetPropertyBoolean(string schemaNs, string propName, bool propValue)
         {
             SetProperty(schemaNs, propName, propValue ? XmpConstConstants.TrueString : XmpConstConstants.FalseString, null);
         }
 
-        /// <seealso cref="IXmpMeta.GetPropertyInteger(string, string)"/>
         /// <exception cref="XmpException"/>
         public int GetPropertyInteger(string schemaNs, string propName)
         {
             return (int)GetPropertyObject(schemaNs, propName, ValueType.Integer);
         }
 
-        /// <seealso cref="IXmpMeta.SetPropertyInteger(string, string, int, Com.Adobe.Xmp.Options.PropertyOptions)"/>
         /// <exception cref="XmpException"/>
         public void SetPropertyInteger(string schemaNs, string propName, int propValue, PropertyOptions options)
         {
             SetProperty(schemaNs, propName, propValue, options);
         }
 
-        /// <seealso cref="IXmpMeta.SetPropertyInteger(string, string, int)"/>
         /// <exception cref="XmpException"/>
         public void SetPropertyInteger(string schemaNs, string propName, int propValue)
         {
             SetProperty(schemaNs, propName, propValue, null);
         }
 
-        /// <seealso cref="IXmpMeta.GetPropertyLong(string, string)"/>
         /// <exception cref="XmpException"/>
         public long GetPropertyLong(string schemaNs, string propName)
         {
             return (long)GetPropertyObject(schemaNs, propName, ValueType.Long);
         }
 
-        /// <seealso cref="IXmpMeta.SetPropertyLong(string, string, long, Com.Adobe.Xmp.Options.PropertyOptions)"/>
         /// <exception cref="XmpException"/>
         public void SetPropertyLong(string schemaNs, string propName, long propValue, PropertyOptions options)
         {
             SetProperty(schemaNs, propName, propValue, options);
         }
 
-        /// <seealso cref="IXmpMeta.SetPropertyLong(string, string, long)"/>
         /// <exception cref="XmpException"/>
         public void SetPropertyLong(string schemaNs, string propName, long propValue)
         {
             SetProperty(schemaNs, propName, propValue, null);
         }
 
-        /// <seealso cref="IXmpMeta.GetPropertyDouble(string, string)"/>
         /// <exception cref="XmpException"/>
         public double GetPropertyDouble(string schemaNs, string propName)
         {
             return (double)GetPropertyObject(schemaNs, propName, ValueType.Double);
         }
 
-        /// <seealso cref="IXmpMeta.SetPropertyDouble(string, string, double, Com.Adobe.Xmp.Options.PropertyOptions)"/>
         /// <exception cref="XmpException"/>
         public void SetPropertyDouble(string schemaNs, string propName, double propValue, PropertyOptions options)
         {
             SetProperty(schemaNs, propName, propValue, options);
         }
 
-        /// <seealso cref="IXmpMeta.SetPropertyDouble(string, string, double)"/>
         /// <exception cref="XmpException"/>
         public void SetPropertyDouble(string schemaNs, string propName, double propValue)
         {
             SetProperty(schemaNs, propName, propValue, null);
         }
 
-        /// <seealso cref="IXmpMeta.GetPropertyDate(string, string)"/>
         /// <exception cref="XmpException"/>
         public IXmpDateTime GetPropertyDate(string schemaNs, string propName)
         {
             return (IXmpDateTime)GetPropertyObject(schemaNs, propName, ValueType.Date);
         }
 
-        /// <seealso cref="IXmpMeta.SetPropertyDate(string, string, IXmpDateTime, Com.Adobe.Xmp.Options.PropertyOptions)"/>
         /// <exception cref="XmpException"/>
         public void SetPropertyDate(string schemaNs, string propName, IXmpDateTime propValue, PropertyOptions options)
         {
             SetProperty(schemaNs, propName, propValue, options);
         }
 
-        /// <seealso cref="IXmpMeta.SetPropertyDate(string, string, IXmpDateTime)"/>
         /// <exception cref="XmpException"/>
         public void SetPropertyDate(string schemaNs, string propName, IXmpDateTime propValue)
         {
             SetProperty(schemaNs, propName, propValue, null);
         }
 
-        /// <seealso cref="IXmpMeta.GetPropertyCalendar(string, string)"/>
         /// <exception cref="XmpException"/>
         public Calendar GetPropertyCalendar(string schemaNs, string propName)
         {
             return (Calendar)GetPropertyObject(schemaNs, propName, ValueType.Calendar);
         }
 
-        /// <seealso cref="IXmpMeta.SetPropertyCalendar(string, string, Sharpen.Calendar, Com.Adobe.Xmp.Options.PropertyOptions)"/>
         /// <exception cref="XmpException"/>
         public void SetPropertyCalendar(string schemaNs, string propName, Calendar propValue, PropertyOptions options)
         {
             SetProperty(schemaNs, propName, propValue, options);
         }
 
-        /// <seealso cref="IXmpMeta.SetPropertyCalendar(string, string, Sharpen.Calendar)"/>
         /// <exception cref="XmpException"/>
         public void SetPropertyCalendar(string schemaNs, string propName, Calendar propValue)
         {
             SetProperty(schemaNs, propName, propValue, null);
         }
 
-        /// <seealso cref="IXmpMeta.GetPropertyBase64(string, string)"/>
         /// <exception cref="XmpException"/>
         public byte[] GetPropertyBase64(string schemaNs, string propName)
         {
             return (byte[])GetPropertyObject(schemaNs, propName, ValueType.Base64);
         }
 
-        /// <seealso cref="IXmpMeta.GetPropertyString(string, string)"/>
         /// <exception cref="XmpException"/>
         public string GetPropertyString(string schemaNs, string propName)
         {
             return (string)GetPropertyObject(schemaNs, propName, ValueType.String);
         }
 
-        /// <seealso cref="IXmpMeta.SetPropertyBase64(string, string, byte[], Com.Adobe.Xmp.Options.PropertyOptions)"/>
         /// <exception cref="XmpException"/>
         public void SetPropertyBase64(string schemaNs, string propName, byte[] propValue, PropertyOptions options)
         {
             SetProperty(schemaNs, propName, propValue, options);
         }
 
-        /// <seealso cref="IXmpMeta.SetPropertyBase64(string, string, byte[])"/>
         /// <exception cref="XmpException"/>
         public void SetPropertyBase64(string schemaNs, string propName, byte[] propValue)
         {
@@ -761,7 +721,6 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <exception cref="XmpException"/>
-        /// <seealso cref="IXmpMeta.GetQualifier(string, string, string, string)"/>
         public IXmpProperty GetQualifier(string schemaNs, string propName, string qualNs, string qualName)
         {
             // qualNS and qualName are checked inside composeQualfierPath
@@ -771,7 +730,6 @@ namespace Com.Adobe.Xmp.Impl
             return GetProperty(schemaNs, qualPath);
         }
 
-        /// <seealso cref="IXmpMeta.GetStructField(string, string, string, string)"/>
         /// <exception cref="XmpException"/>
         public IXmpProperty GetStructField(string schemaNs, string structName, string fieldNs, string fieldName)
         {
@@ -783,20 +741,17 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <exception cref="XmpException"/>
-        /// <seealso cref="IXmpMeta.Iterator()"/>
         public IXmpIterator Iterator()
         {
             return Iterator(null, null, null);
         }
 
-        /// <seealso cref="IXmpMeta.Iterator(Com.Adobe.Xmp.Options.IteratorOptions)"/>
         /// <exception cref="XmpException"/>
         public IXmpIterator Iterator(IteratorOptions options)
         {
             return Iterator(null, null, options);
         }
 
-        /// <seealso cref="IXmpMeta.Iterator(string, string, Com.Adobe.Xmp.Options.IteratorOptions)"/>
         /// <exception cref="XmpException"/>
         public IXmpIterator Iterator(string schemaNs, string propName, IteratorOptions options)
         {
@@ -804,7 +759,6 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <exception cref="XmpException"/>
-        /// <seealso cref="IXmpMeta.SetArrayItem(string, string, int, string, Com.Adobe.Xmp.Options.PropertyOptions)"/>
         public void SetArrayItem(string schemaNs, string arrayName, int itemIndex, string itemValue, PropertyOptions options)
         {
             ParameterAsserts.AssertSchemaNs(schemaNs);
@@ -822,7 +776,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpMeta.SetArrayItem(string, string, int, string)"/>
         /// <exception cref="XmpException"/>
         public void SetArrayItem(string schemaNs, string arrayName, int itemIndex, string itemValue)
         {
@@ -830,7 +783,6 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <exception cref="XmpException"/>
-        /// <seealso cref="IXmpMeta.InsertArrayItem(string, string, int, string, Com.Adobe.Xmp.Options.PropertyOptions)"/>
         public void InsertArrayItem(string schemaNs, string arrayName, int itemIndex, string itemValue, PropertyOptions options)
         {
             ParameterAsserts.AssertSchemaNs(schemaNs);
@@ -848,7 +800,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpMeta.InsertArrayItem(string, string, int, string)"/>
         /// <exception cref="XmpException"/>
         public void InsertArrayItem(string schemaNs, string arrayName, int itemIndex, string itemValue)
         {
@@ -856,7 +807,6 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <exception cref="XmpException"/>
-        /// <seealso cref="IXmpMeta.SetProperty(string, string, object, Com.Adobe.Xmp.Options.PropertyOptions)"/>
         public void SetProperty(string schemaNs, string propName, object propValue, PropertyOptions options)
         {
             ParameterAsserts.AssertSchemaNs(schemaNs);
@@ -874,7 +824,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpMeta.SetProperty(string, string, object)"/>
         /// <exception cref="XmpException"/>
         public void SetProperty(string schemaNs, string propName, object propValue)
         {
@@ -882,7 +831,6 @@ namespace Com.Adobe.Xmp.Impl
         }
 
         /// <exception cref="XmpException"/>
-        /// <seealso cref="IXmpMeta.SetQualifier(string, string, string, string, string, Com.Adobe.Xmp.Options.PropertyOptions)"/>
         public void SetQualifier(string schemaNs, string propName, string qualNs, string qualName, string qualValue, PropertyOptions options)
         {
             ParameterAsserts.AssertSchemaNs(schemaNs);
@@ -895,14 +843,12 @@ namespace Com.Adobe.Xmp.Impl
             SetProperty(schemaNs, qualPath, qualValue, options);
         }
 
-        /// <seealso cref="IXmpMeta.SetQualifier(string, string, string, string, string)"/>
         /// <exception cref="XmpException"/>
         public void SetQualifier(string schemaNs, string propName, string qualNs, string qualName, string qualValue)
         {
             SetQualifier(schemaNs, propName, qualNs, qualName, qualValue, null);
         }
 
-        /// <seealso cref="IXmpMeta.SetStructField(string, string, string, string, string, Com.Adobe.Xmp.Options.PropertyOptions)"/>
         /// <exception cref="XmpException"/>
         public void SetStructField(string schemaNs, string structName, string fieldNs, string fieldName, string fieldValue, PropertyOptions options)
         {
@@ -912,26 +858,22 @@ namespace Com.Adobe.Xmp.Impl
             SetProperty(schemaNs, fieldPath, fieldValue, options);
         }
 
-        /// <seealso cref="IXmpMeta.SetStructField(string, string, string, string, string)"/>
         /// <exception cref="XmpException"/>
         public void SetStructField(string schemaNs, string structName, string fieldNs, string fieldName, string fieldValue)
         {
             SetStructField(schemaNs, structName, fieldNs, fieldName, fieldValue, null);
         }
 
-        /// <seealso cref="IXmpMeta.GetObjectName()"/>
         public string GetObjectName()
         {
             return _tree.Name ?? string.Empty;
         }
 
-        /// <seealso cref="IXmpMeta.SetObjectName(string)"/>
         public void SetObjectName(string name)
         {
             _tree.Name = name;
         }
 
-        /// <seealso cref="IXmpMeta.GetPacketHeader()"/>
         public string GetPacketHeader()
         {
             return _packetHeader;
@@ -951,20 +893,17 @@ namespace Com.Adobe.Xmp.Impl
             return new XmpMeta(clonedTree);
         }
 
-        /// <seealso cref="IXmpMeta.DumpObject()"/>
         public string DumpObject()
         {
             // renders tree recursively
             return GetRoot().DumpNode(true);
         }
 
-        /// <seealso cref="IXmpMeta.Sort()"/>
         public void Sort()
         {
             _tree.Sort();
         }
 
-        /// <seealso cref="IXmpMeta.Normalize(Com.Adobe.Xmp.Options.ParseOptions)"/>
         /// <exception cref="XmpException"/>
         public void Normalize(ParseOptions options)
         {

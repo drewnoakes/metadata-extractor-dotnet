@@ -189,13 +189,11 @@ namespace Com.Adobe.Xmp.Options
             get { return (GetOptions() & ~(ArrayFlag | ArrayOrderedFlag | ArrayAlternateFlag | ArrayAltTextFlag)) == 0; }
         }
 
-        /// <seealso cref="Options.GetValidOptions()"/>
         protected override int GetValidOptions()
         {
             return IsUriFlag | HasQualifiersFlag | QualifierFlag | HasLanguageFlag | HasTypeFlag | StructFlag | ArrayFlag | ArrayOrderedFlag | ArrayAlternateFlag | ArrayAltTextFlag | SchemaNodeFlag;
         }
 
-        /// <seealso cref="Options.DefineOptionName(int)"/>
         protected override string DefineOptionName(int option)
         {
             switch (option)

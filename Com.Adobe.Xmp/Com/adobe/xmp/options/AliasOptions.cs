@@ -29,7 +29,6 @@ namespace Com.Adobe.Xmp.Options
         /// <summary>The actual is an alternate text array, the alias is to the 'x-default' element of the array.</summary>
         public const int PropArrayAltText = PropertyOptions.ArrayAltTextFlag;
 
-        /// <seealso cref="Options()"/>
         public AliasOptions()
         {
         }
@@ -80,7 +79,6 @@ namespace Com.Adobe.Xmp.Options
             return new PropertyOptions(GetOptions());
         }
 
-        /// <seealso cref="Options.DefineOptionName(int)"/>
         protected override string DefineOptionName(int option)
         {
             switch (option)
@@ -100,7 +98,6 @@ namespace Com.Adobe.Xmp.Options
             }
         }
 
-        /// <seealso cref="Options.GetValidOptions()"/>
         protected override int GetValidOptions()
         {
             return PropDirect | PropArray | PropArrayOrdered | PropArrayAlternate | PropArrayAltText;

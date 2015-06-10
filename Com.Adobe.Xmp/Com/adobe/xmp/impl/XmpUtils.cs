@@ -31,7 +31,6 @@ namespace Com.Adobe.Xmp.Impl
 
         private const int UckControl = 5;
 
-        /// <seealso cref="Xmp.XmpUtils.CatenateArrayItems(IXmpMeta, string, string, string, string, bool)"/>
         /// <param name="xmp">The XMP object containing the array to be catenated.</param>
         /// <param name="schemaNs">
         /// The schema namespace URI for the array. Must not be null or
@@ -326,7 +325,6 @@ namespace Com.Adobe.Xmp.Impl
             return arrayNode;
         }
 
-        /// <seealso cref="Xmp.XmpUtils.RemoveProperties(IXmpMeta, string, string, bool, bool)"/>
         /// <param name="xmp">The XMP object containing the properties to be removed.</param>
         /// <param name="schemaNs">
         /// Optional schema namespace URI for the properties to be
@@ -426,7 +424,6 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="Xmp.XmpUtils.AppendProperties(IXmpMeta, IXmpMeta, bool, bool)"/>
         /// <param name="source">The source XMP object.</param>
         /// <param name="destination">The destination XMP object.</param>
         /// <param name="doAllProperties">Do internal properties in addition to external properties.</param>
@@ -493,7 +490,6 @@ namespace Com.Adobe.Xmp.Impl
             return !schemaNode.HasChildren;
         }
 
-        /// <seealso cref="AppendProperties(IXmpMeta, IXmpMeta, bool, bool, bool)"/>
         /// <param name="destXmp">The destination XMP object.</param>
         /// <param name="sourceNode">the source node</param>
         /// <param name="destParent">the parent of the destination node</param>

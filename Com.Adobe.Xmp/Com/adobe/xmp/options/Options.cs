@@ -97,13 +97,11 @@ namespace Com.Adobe.Xmp.Options
             _options = options;
         }
 
-        /// <seealso cref="object.Equals(object)"/>
         public override bool Equals(object obj)
         {
             return GetOptions() == ((Options)obj).GetOptions();
         }
 
-        /// <seealso cref="object.GetHashCode()"/>
         public override int GetHashCode()
         {
             return GetOptions();

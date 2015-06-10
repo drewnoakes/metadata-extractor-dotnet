@@ -67,7 +67,6 @@ namespace Com.Adobe.Xmp.Impl.Xpath
         }
 
         /// <summary>Serializes the normalized XMP-path.</summary>
-        /// <seealso cref="object.ToString()"/>
         public override string ToString()
         {
             StringBuilder result = new StringBuilder();

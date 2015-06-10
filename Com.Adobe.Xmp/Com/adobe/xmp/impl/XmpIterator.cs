@@ -117,32 +117,27 @@ namespace Com.Adobe.Xmp.Impl
             }
         }
 
-        /// <seealso cref="IXmpIterator.SkipSubtree()"/>
         public void SkipSubtree()
         {
             _skipSubtree = true;
         }
 
-        /// <seealso cref="IXmpIterator.SkipSiblings()"/>
         public void SkipSiblings()
         {
             SkipSubtree();
             _skipSiblings = true;
         }
 
-        /// <seealso cref="Sharpen.Iterator{E}.HasNext()"/>
         public bool HasNext()
         {
             return _nodeIterator.HasNext();
         }
 
-        /// <seealso cref="Sharpen.Iterator{E}.Next()"/>
         public object Next()
         {
             return _nodeIterator.Next();
         }
 
-        /// <seealso cref="Sharpen.Iterator{E}.Remove()"/>
         public void Remove()
         {
             throw new NotSupportedException("The XMPIterator does not support remove().");
@@ -229,7 +224,6 @@ namespace Com.Adobe.Xmp.Impl
             }
 
             /// <summary>Prepares the next node to return if not already done.</summary>
-            /// <seealso cref="Sharpen.Iterator{E}.HasNext()"/>
             public virtual bool HasNext()
             {
                 if (_returnProperty != null)
@@ -310,7 +304,6 @@ namespace Com.Adobe.Xmp.Impl
             /// The existance of returnProperty indicates if there is a next node, otherwise
             /// an exceptio is thrown.
             /// </remarks>
-            /// <seealso cref="Sharpen.Iterator{E}.Next()"/>
             public virtual object Next()
             {
                 if (HasNext())
@@ -323,7 +316,6 @@ namespace Com.Adobe.Xmp.Impl
             }
 
             /// <summary>Not supported.</summary>
-            /// <seealso cref="Sharpen.Iterator{E}.Remove()"/>
             public virtual void Remove()
             {
                 throw new NotSupportedException();
@@ -482,7 +474,6 @@ namespace Com.Adobe.Xmp.Impl
             }
 
             /// <summary>Prepares the next node to return if not already done.</summary>
-            /// <seealso cref="Sharpen.Iterator{E}.HasNext()"/>
             public override bool HasNext()
             {
                 if (GetReturnProperty() != null)

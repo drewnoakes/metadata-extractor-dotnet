@@ -58,7 +58,6 @@ namespace Com.Adobe.Xmp.Options
             set { SetOption(OmitQualifiers, value); }
         }
 
-        /// <seealso cref="Options.DefineOptionName(int)"/>
         protected override string DefineOptionName(int option)
         {
             switch (option)
@@ -76,7 +75,6 @@ namespace Com.Adobe.Xmp.Options
             }
         }
 
-        /// <seealso cref="Options.GetValidOptions()"/>
         protected override int GetValidOptions()
         {
             return JustChildren | JustLeafnodes | JustLeafname | OmitQualifiers;

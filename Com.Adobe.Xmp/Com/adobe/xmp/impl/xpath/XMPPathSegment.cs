@@ -89,7 +89,6 @@ namespace Com.Adobe.Xmp.Impl.Xpath
             _aliasForm = aliasForm;
         }
 
-        /// <seealso cref="object.ToString()"/>
         public override string ToString()
         {
             switch (_kind)

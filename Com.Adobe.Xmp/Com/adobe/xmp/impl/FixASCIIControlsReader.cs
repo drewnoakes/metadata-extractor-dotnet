@@ -46,7 +46,6 @@ namespace Com.Adobe.Xmp.Impl
         {
         }
 
-        /// <seealso cref="System.IO.StreamReader.Read(char[], int, int)"/>
         /// <exception cref="System.IO.IOException"/>
         public override int Read(char[] cbuf, int off, int len)
         {

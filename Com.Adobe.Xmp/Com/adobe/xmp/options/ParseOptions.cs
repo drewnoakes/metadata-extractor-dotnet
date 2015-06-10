@@ -66,7 +66,6 @@ namespace Com.Adobe.Xmp.Options
             get { return GetOption(OmitNormalizationFlag); }
         }
 
-        /// <seealso cref="Options.DefineOptionName(int)"/>
         protected override string DefineOptionName(int option)
         {
             switch (option)
@@ -86,7 +85,6 @@ namespace Com.Adobe.Xmp.Options
             }
         }
 
-        /// <seealso cref="Options.GetValidOptions()"/>
         protected override int GetValidOptions()
         {
             return RequireXmpMetaFlag | StrictAliasingFlag | FixControlCharsFlag | AcceptLatin1Flag | OmitNormalizationFlag;

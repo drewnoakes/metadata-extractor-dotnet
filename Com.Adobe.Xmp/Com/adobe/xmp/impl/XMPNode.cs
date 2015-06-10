@@ -391,7 +391,6 @@ namespace Com.Adobe.Xmp.Impl
             return result.ToString();
         }
 
-        /// <seealso cref="System.IComparable{T}.CompareTo(object)"></seealso>
         public int CompareTo(object xmpNode)
         {
             if (Options.IsSchemaNode)
