@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Com.Drew.Imaging.Jpeg;
 using Sharpen;
 
@@ -108,7 +109,7 @@ namespace MetadataExtractor.Tools.ExtractJpegSegments
         private static void PrintUsage()
         {
             Console.Out.WriteLine("USAGE:\n");
-            Console.Out.WriteLine("\tjava com.drew.tools.ExtractJpegSegmentTool <filename> [<segment> ...]\n");
+            Console.Out.WriteLine("\t{0} <filename> [<segment> ...]\n", Assembly.GetExecutingAssembly().GetName().Name);
             Console.Out.Write("Where <segment> is zero or more of:");
             foreach (var segmentType in typeof(JpegSegmentType).GetEnumConstants<JpegSegmentType>())
             {
