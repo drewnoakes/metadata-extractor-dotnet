@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor", "Com.Drew\MetadataExtractor.csproj", "{26E27564-A74F-423B-A986-E979988F259D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor", "MetadataExtractor\MetadataExtractor.csproj", "{26E27564-A74F-423B-A986-E979988F259D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.Tests", "Com.Drew.Tests\MetadataExtractor.Tests.csproj", "{07AFC815-EDBB-4CF8-B555-86B6CADE7D0F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.Tests", "MetadataExtractor.Tests\MetadataExtractor.Tests.csproj", "{07AFC815-EDBB-4CF8-B555-86B6CADE7D0F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Com.Adobe.Xmp", "Com.Adobe.Xmp\Com.Adobe.Xmp.csproj", "{5A1F2AFF-7219-4543-97C4-364D4502C3C5}"
 EndProject
