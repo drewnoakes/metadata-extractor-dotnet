@@ -44,7 +44,7 @@ namespace Com.Drew.Lang
             Assert.IsNull(trie.Find(Encoding.UTF8.GetBytes("Not Included")));
             Assert.IsNull(trie.Find(Encoding.UTF8.GetBytes("HELL")));
             Assert.AreEqual("HELLO", trie.Find(Encoding.UTF8.GetBytes("HELLO MUM")));
-            Assert.AreEqual("HELLO WORLD".Length, trie.GetMaxDepth());
+            Assert.AreEqual("HELLO WORLD".Length, trie.MaxDepth);
             trie.SetDefaultValue("DEFAULT");
             Assert.AreEqual("DEFAULT", trie.Find(Encoding.UTF8.GetBytes("Also Not Included")));
         }
