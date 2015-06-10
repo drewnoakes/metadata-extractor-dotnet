@@ -29,23 +29,14 @@ namespace Com.Drew.Metadata.Ico
     public sealed class IcoDirectory : Directory
     {
         public const int TagImageType = 1;
-
         public const int TagImageWidth = 2;
-
         public const int TagImageHeight = 3;
-
         public const int TagColourPaletteSize = 4;
-
         public const int TagColourPlanes = 5;
-
         public const int TagCursorHotspotX = 6;
-
         public const int TagBitsPerPixel = 7;
-
         public const int TagCursorHotspotY = 8;
-
         public const int TagImageSizeBytes = 9;
-
         public const int TagImageOffsetBytes = 10;
 
         [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
