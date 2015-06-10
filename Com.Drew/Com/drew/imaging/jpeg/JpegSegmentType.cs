@@ -142,7 +142,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <summary>JPEG comment segment identifier.</summary>
         public static readonly JpegSegmentType Com = new JpegSegmentType(unchecked((byte)0xFE), true);
 
-        public static readonly ICollection<JpegSegmentType> CanContainMetadataTypes;
+        public static readonly IReadOnlyCollection<JpegSegmentType> CanContainMetadataTypes;
 
         static JpegSegmentType()
         {
