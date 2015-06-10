@@ -53,11 +53,11 @@ namespace MetadataExtractor
     ///   <item><see cref="JpegMetadataReader"/> for JPEG files</item>
     ///   <item><see cref="TiffMetadataReader"/> for TIFF and (most) RAW files</item>
     ///   <item><see cref="PsdMetadataReader"/> for Photoshop files</item>
-    ///   <item><see cref="PngMetadataReader"/> for BMP files</item>
+    ///   <item><see cref="PngMetadataReader"/> for PNG files</item>
     ///   <item><see cref="BmpMetadataReader"/> for BMP files</item>
     ///   <item><see cref="GifMetadataReader"/> for GIF files</item>
-    ///   <item><see cref="IcoMetadataReader"/> for GIF files</item>
-    ///   <item><see cref="PcxMetadataReader"/> for GIF files</item>
+    ///   <item><see cref="IcoMetadataReader"/> for ICO files</item>
+    ///   <item><see cref="PcxMetadataReader"/> for PCX files</item>
     ///   <item><see cref="WebPMetadataReader"/> for WebP files</item>
     /// </list>
     ///
