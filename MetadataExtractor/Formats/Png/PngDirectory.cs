@@ -22,7 +22,6 @@
 
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using MetadataExtractor.Formats.Png;
 
 namespace MetadataExtractor.Formats.Png
 {

@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
-using MetadataExtractor.Formats.Png;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Png
