@@ -38,7 +38,7 @@ namespace MetadataExtractor
     {
         /// <summary>Map of values hashed by type identifiers.</summary>
         [NotNull]
-        protected readonly Dictionary<int?, object> TagMap = new Dictionary<int?, object>();
+        private readonly Dictionary<int?, object> TagMap = new Dictionary<int?, object>();
 
         /// <summary>A convenient list holding tag values in the order in which they were stored.</summary>
         /// <remarks>
@@ -47,13 +47,13 @@ namespace MetadataExtractor
         /// defined tags.
         /// </remarks>
         [NotNull]
-        protected readonly List<Tag> DefinedTagList = new List<Tag>();
+        private readonly List<Tag> DefinedTagList = new List<Tag>();
 
         [NotNull]
         private readonly List<string> _errorList = new List<string>(4);
 
         /// <summary>The descriptor used to interpret tag values.</summary>
-        protected ITagDescriptor Descriptor;
+        private ITagDescriptor Descriptor;
 
         // ABSTRACT METHODS
 
