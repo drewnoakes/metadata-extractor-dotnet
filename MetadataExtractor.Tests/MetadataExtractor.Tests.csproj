@@ -41,53 +41,53 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Com\drew\imaging\jpeg\JpegMetadataReaderTest.cs" />
-    <Compile Include="Com\drew\imaging\jpeg\JpegSegmentDataTest.cs" />
-    <Compile Include="Com\drew\imaging\jpeg\JpegSegmentReaderTest.cs" />
-    <Compile Include="Com\drew\imaging\png\PngChunkReaderTest.cs" />
-    <Compile Include="Com\drew\imaging\png\PngChunkTypeTest.cs" />
-    <Compile Include="Com\drew\imaging\png\PngMetadataReaderTest.cs" />
-    <Compile Include="Com\drew\lang\ByteArrayReaderTest.cs" />
-    <Compile Include="Com\drew\lang\ByteTrieTest.cs" />
-    <Compile Include="Com\drew\lang\GeoLocationTest.cs" />
-    <Compile Include="Com\drew\lang\IndexedSeekingReaderTest.cs" />
-    <Compile Include="Com\drew\lang\RandomAccessStreamReaderTest.cs" />
-    <Compile Include="Com\drew\lang\IndexedReaderTestBase.cs" />
-    <Compile Include="Com\drew\lang\RationalTest.cs" />
-    <Compile Include="Com\drew\lang\SequentialAccessTestBase.cs" />
-    <Compile Include="Com\drew\lang\SequentialByteArrayReaderTest.cs" />
-    <Compile Include="Com\drew\lang\StreamReaderTest.cs" />
-    <Compile Include="Com\drew\metadata\adobe\AdobeJpegReaderTest.cs" />
-    <Compile Include="Com\drew\metadata\AgeTest.cs" />
-    <Compile Include="Com\drew\metadata\bmp\BmpReaderTest.cs" />
-    <Compile Include="Com\drew\metadata\DirectoryTest.cs" />
-    <Compile Include="Com\drew\metadata\exif\CanonMakernoteDescriptorTest.cs" />
-    <Compile Include="Com\drew\metadata\exif\ExifDirectoryTest.cs" />
-    <Compile Include="Com\drew\metadata\exif\ExifIFD0DescriptorTest.cs" />
-    <Compile Include="Com\drew\metadata\exif\ExifInteropDescriptorTest.cs" />
-    <Compile Include="Com\drew\metadata\exif\ExifReaderTest.cs" />
-    <Compile Include="Com\drew\metadata\exif\ExifSubIFDDescriptorTest.cs" />
-    <Compile Include="Com\drew\metadata\exif\ExifThumbnailDescriptorTest.cs" />
-    <Compile Include="Com\drew\metadata\exif\NikonType1MakernoteTest.cs" />
-    <Compile Include="Com\drew\metadata\exif\NikonType2MakernoteTest1.cs" />
-    <Compile Include="Com\drew\metadata\exif\NikonType2MakernoteTest2.cs" />
-    <Compile Include="Com\drew\metadata\exif\PanasonicMakernoteDescriptorTest.cs" />
-    <Compile Include="Com\drew\metadata\exif\SonyType1MakernoteTest.cs" />
-    <Compile Include="Com\drew\metadata\exif\SonyType6MakernoteTest.cs" />
-    <Compile Include="Com\drew\metadata\gif\GifReaderTest.cs" />
-    <Compile Include="Com\drew\metadata\icc\IccReaderTest.cs" />
-    <Compile Include="Com\drew\metadata\iptc\IptcReaderTest.cs" />
-    <Compile Include="Com\drew\metadata\iptc\Iso2022ConverterTest.cs" />
-    <Compile Include="Com\drew\metadata\jfif\JfifReaderTest.cs" />
-    <Compile Include="Com\drew\metadata\jpeg\JpegComponentTest.cs" />
-    <Compile Include="Com\drew\metadata\jpeg\JpegDescriptorTest.cs" />
-    <Compile Include="Com\drew\metadata\jpeg\JpegDirectoryTest.cs" />
-    <Compile Include="Com\drew\metadata\jpeg\JpegReaderTest.cs" />
-    <Compile Include="Com\drew\metadata\MetadataTest.cs" />
-    <Compile Include="Com\drew\metadata\MockDirectory.cs" />
-    <Compile Include="Com\drew\metadata\photoshop\PsdReaderTest.cs" />
-    <Compile Include="Com\drew\metadata\xmp\XmpReaderTest.cs" />
-    <Compile Include="Com\drew\testing\TestHelper.cs" />
+    <Compile Include="Formats\Jpeg\JpegMetadataReaderTest.cs" />
+    <Compile Include="Formats\Jpeg\JpegSegmentDataTest.cs" />
+    <Compile Include="Formats\Jpeg\JpegSegmentReaderTest.cs" />
+    <Compile Include="Formats\Png\PngChunkReaderTest.cs" />
+    <Compile Include="Formats\Png\PngChunkTypeTest.cs" />
+    <Compile Include="Formats\Png\PngMetadataReaderTest.cs" />
+    <Compile Include="IO\ByteArrayReaderTest.cs" />
+    <Compile Include="Util\ByteTrieTest.cs" />
+    <Compile Include="GeoLocationTest.cs" />
+    <Compile Include="IO\IndexedSeekingReaderTest.cs" />
+    <Compile Include="IO\RandomAccessStreamReaderTest.cs" />
+    <Compile Include="IO\IndexedReaderTestBase.cs" />
+    <Compile Include="RationalTest.cs" />
+    <Compile Include="IO\SequentialAccessTestBase.cs" />
+    <Compile Include="IO\SequentialByteArrayReaderTest.cs" />
+    <Compile Include="IO\StreamReaderTest.cs" />
+    <Compile Include="Formats\Adobe\AdobeJpegReaderTest.cs" />
+    <Compile Include="AgeTest.cs" />
+    <Compile Include="Formats\Bmp\BmpReaderTest.cs" />
+    <Compile Include="DirectoryTest.cs" />
+    <Compile Include="Formats\Exif\CanonMakernoteDescriptorTest.cs" />
+    <Compile Include="Formats\Exif\ExifDirectoryTest.cs" />
+    <Compile Include="Formats\Exif\ExifIFD0DescriptorTest.cs" />
+    <Compile Include="Formats\Exif\ExifInteropDescriptorTest.cs" />
+    <Compile Include="Formats\Exif\ExifReaderTest.cs" />
+    <Compile Include="Formats\Exif\ExifSubIFDDescriptorTest.cs" />
+    <Compile Include="Formats\Exif\ExifThumbnailDescriptorTest.cs" />
+    <Compile Include="Formats\Exif\NikonType1MakernoteTest.cs" />
+    <Compile Include="Formats\Exif\NikonType2MakernoteTest1.cs" />
+    <Compile Include="Formats\Exif\NikonType2MakernoteTest2.cs" />
+    <Compile Include="Formats\Exif\PanasonicMakernoteDescriptorTest.cs" />
+    <Compile Include="Formats\Exif\SonyType1MakernoteTest.cs" />
+    <Compile Include="Formats\Exif\SonyType6MakernoteTest.cs" />
+    <Compile Include="Formats\Gif\GifReaderTest.cs" />
+    <Compile Include="Formats\Icc\IccReaderTest.cs" />
+    <Compile Include="Formats\Iptc\IptcReaderTest.cs" />
+    <Compile Include="Formats\Iptc\Iso2022ConverterTest.cs" />
+    <Compile Include="Formats\Jfif\JfifReaderTest.cs" />
+    <Compile Include="Formats\Jpeg\JpegComponentTest.cs" />
+    <Compile Include="Formats\Jpeg\JpegDescriptorTest.cs" />
+    <Compile Include="Formats\Jpeg\JpegDirectoryTest.cs" />
+    <Compile Include="Formats\Jpeg\JpegReaderTest.cs" />
+    <Compile Include="MetadataTest.cs" />
+    <Compile Include="MockDirectory.cs" />
+    <Compile Include="Formats\Photoshop\PsdReaderTest.cs" />
+    <Compile Include="Formats\Xmp\XmpReaderTest.cs" />
+    <Compile Include="TestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -200,9 +200,7 @@
     <Content Include="Data\withUncompressedYCbCrThumbnail3.jpg" />
     <Content Include="Data\withUncompressedYCbCrThumbnail4.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Com\drew\Tools\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy $(ProjectDir)Data "$(TargetDir)Tests\Data\" /E /R /Y /I</PostBuildEvent>
