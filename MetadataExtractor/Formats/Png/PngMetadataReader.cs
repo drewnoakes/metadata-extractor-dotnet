@@ -120,7 +120,7 @@ namespace MetadataExtractor.Formats.Png
                                 var chromaticities = new PngChromaticities(bytes);
                                 var directory = new PngChromaticitiesDirectory();
                                 directory.SetInt(PngChromaticitiesDirectory.TagWhitePointX, chromaticities.WhitePointX);
-                                directory.SetInt(PngChromaticitiesDirectory.TagWhitePointX, chromaticities.WhitePointX);
+                                directory.SetInt(PngChromaticitiesDirectory.TagWhitePointY, chromaticities.WhitePointY);
                                 directory.SetInt(PngChromaticitiesDirectory.TagRedX, chromaticities.RedX);
                                 directory.SetInt(PngChromaticitiesDirectory.TagRedY, chromaticities.RedY);
                                 directory.SetInt(PngChromaticitiesDirectory.TagGreenX, chromaticities.GreenX);
