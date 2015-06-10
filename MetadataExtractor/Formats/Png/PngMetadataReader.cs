@@ -119,14 +119,14 @@ namespace MetadataExtractor.Formats.Png
                             {
                                 var chromaticities = new PngChromaticities(bytes);
                                 var directory = new PngChromaticitiesDirectory();
-                                directory.SetInt(PngChromaticitiesDirectory.TagWhitePointX, chromaticities.GetWhitePointX());
-                                directory.SetInt(PngChromaticitiesDirectory.TagWhitePointX, chromaticities.GetWhitePointX());
-                                directory.SetInt(PngChromaticitiesDirectory.TagRedX, chromaticities.GetRedX());
-                                directory.SetInt(PngChromaticitiesDirectory.TagRedY, chromaticities.GetRedY());
-                                directory.SetInt(PngChromaticitiesDirectory.TagGreenX, chromaticities.GetGreenX());
-                                directory.SetInt(PngChromaticitiesDirectory.TagGreenY, chromaticities.GetGreenY());
-                                directory.SetInt(PngChromaticitiesDirectory.TagBlueX, chromaticities.GetBlueX());
-                                directory.SetInt(PngChromaticitiesDirectory.TagBlueY, chromaticities.GetBlueY());
+                                directory.SetInt(PngChromaticitiesDirectory.TagWhitePointX, chromaticities.WhitePointX);
+                                directory.SetInt(PngChromaticitiesDirectory.TagWhitePointX, chromaticities.WhitePointX);
+                                directory.SetInt(PngChromaticitiesDirectory.TagRedX, chromaticities.RedX);
+                                directory.SetInt(PngChromaticitiesDirectory.TagRedY, chromaticities.RedY);
+                                directory.SetInt(PngChromaticitiesDirectory.TagGreenX, chromaticities.GreenX);
+                                directory.SetInt(PngChromaticitiesDirectory.TagGreenY, chromaticities.GreenY);
+                                directory.SetInt(PngChromaticitiesDirectory.TagBlueX, chromaticities.BlueX);
+                                directory.SetInt(PngChromaticitiesDirectory.TagBlueY, chromaticities.BlueY);
                                 metadata.AddDirectory(directory);
                             }
                             else
