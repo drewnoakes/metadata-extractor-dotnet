@@ -60,7 +60,11 @@ namespace MetadataExtractor.Formats.WebP
 
         public bool ShouldAcceptChunk(string fourCc)
         {
-            return fourCc.Equals("VP8X") || fourCc.Equals("EXIF") || fourCc.Equals("ICCP") || fourCc.Equals("XMP ");
+            return
+                fourCc.Equals("VP8X") ||
+                fourCc.Equals("EXIF") ||
+                fourCc.Equals("ICCP") ||
+                fourCc.Equals("XMP ");
         }
 
         public void ProcessChunk(string fourCc, byte[] payload)
@@ -69,49 +73,40 @@ namespace MetadataExtractor.Formats.WebP
             {
                 new ExifReader().Extract(new ByteArrayReader(payload), _metadata);
             }
-            else
+            else if (fourCc.Equals("ICCP"))
             {
-                if (fourCc.Equals("ICCP"))
+                new IccReader().Extract(new ByteArrayReader(payload), _metadata);
+            }
+            else if (fourCc.Equals("XMP "))
+            {
+                new XmpReader().Extract(payload, _metadata);
+            }
+            else if (fourCc.Equals("VP8X") && payload.Length == 10)
+            {
+                IndexedReader reader = new ByteArrayReader(payload);
+                reader.IsMotorolaByteOrder = false;
+                try
                 {
-                    new IccReader().Extract(new ByteArrayReader(payload), _metadata);
+                    // Flags
+                    //                boolean hasFragments = reader.getBit(0);
+                    var isAnimation = reader.GetBit(1);
+                    //                boolean hasXmp = reader.getBit(2);
+                    //                boolean hasExif = reader.getBit(3);
+                    var hasAlpha = reader.GetBit(4);
+                    //                boolean hasIcc = reader.getBit(5);
+                    // Image size
+                    var widthMinusOne = reader.GetInt24(4);
+                    var heightMinusOne = reader.GetInt24(7);
+                    var directory = new WebPDirectory();
+                    directory.SetInt(WebPDirectory.TagImageWidth, widthMinusOne + 1);
+                    directory.SetInt(WebPDirectory.TagImageHeight, heightMinusOne + 1);
+                    directory.SetBoolean(WebPDirectory.TagHasAlpha, hasAlpha);
+                    directory.SetBoolean(WebPDirectory.TagIsAnimation, isAnimation);
+                    _metadata.AddDirectory(directory);
                 }
-                else
+                catch (IOException e)
                 {
-                    if (fourCc.Equals("XMP "))
-                    {
-                        new XmpReader().Extract(payload, _metadata);
-                    }
-                    else
-                    {
-                        if (fourCc.Equals("VP8X") && payload.Length == 10)
-                        {
-                            IndexedReader reader = new ByteArrayReader(payload);
-                            reader.IsMotorolaByteOrder = false;
-                            try
-                            {
-                                // Flags
-                                //                boolean hasFragments = reader.getBit(0);
-                                var isAnimation = reader.GetBit(1);
-                                //                boolean hasXmp = reader.getBit(2);
-                                //                boolean hasExif = reader.getBit(3);
-                                var hasAlpha = reader.GetBit(4);
-                                //                boolean hasIcc = reader.getBit(5);
-                                // Image size
-                                var widthMinusOne = reader.GetInt24(4);
-                                var heightMinusOne = reader.GetInt24(7);
-                                var directory = new WebPDirectory();
-                                directory.SetInt(WebPDirectory.TagImageWidth, widthMinusOne + 1);
-                                directory.SetInt(WebPDirectory.TagImageHeight, heightMinusOne + 1);
-                                directory.SetBoolean(WebPDirectory.TagHasAlpha, hasAlpha);
-                                directory.SetBoolean(WebPDirectory.TagIsAnimation, isAnimation);
-                                _metadata.AddDirectory(directory);
-                            }
-                            catch (IOException e)
-                            {
-                                Console.Error.WriteLine (e);
-                            }
-                        }
-                    }
+                    Console.Error.WriteLine(e);
                 }
             }
         }
