@@ -224,13 +224,6 @@ namespace Com.Drew.Metadata.Iptc
                         // fall through and we'll process the 'string' value below
                         reader.Skip(tagByteCount);
                     }
-                    goto case IptcDirectory.TagReleaseTime;
-                }
-
-                case IptcDirectory.TagReleaseTime:
-                case IptcDirectory.TagTimeCreated:
-                default:
-                {
                     break;
                 }
             }
