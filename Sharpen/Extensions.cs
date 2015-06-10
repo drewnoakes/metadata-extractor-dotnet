@@ -104,19 +104,9 @@ namespace Sharpen
 
         public static DateTimeOffset MillisToDateTimeOffset(long milliSecondsSinceEpoch, long offsetMinutes)
         {
-            var offset = TimeSpan.FromMinutes((double) offsetMinutes);
+            var offset = TimeSpan.FromMinutes(offsetMinutes);
             var num = EpochTicks + (milliSecondsSinceEpoch*10000);
             return new DateTimeOffset(num + offset.Ticks, offset);
-        }
-
-        public static void Sort(this IList list)
-        {
-            IList sorted = new ArrayList(list);
-            sorted.Sort();
-            for (var i = 0; i < list.Count; i++)
-            {
-                list[i] = sorted[i];
-            }
         }
 
         public static string[] Split(this string str, string regex, int limit)
@@ -180,29 +170,6 @@ namespace Sharpen
             return result.ToArray();
         }
 
-        /// <summary>
-        /// Returns all public static fields values with specified type
-        /// </summary>
-        /// <typeparam name="T">values type</typeparam>
-        /// <param name="name">Constant name</param>
-        /// <returns></returns>
-        public static T GetEnumConstantByName<T>(string name)
-        {
-            var type = typeof (T);
-
-            var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static);
-
-            foreach (var field in fields)
-            {
-                if (field.FieldType == typeof (T) && field.Name.Equals(name))
-                {
-                    return (T) field.GetValue(null);
-                }
-            }
-
-            return default(T);
-        }
-
         public static int Digit(char ch, int radix)
         {
             //  http://stackoverflow.com/questions/1021645/is-there-something-like-javas-character-digitchar-ch-int-radix-in-c
@@ -239,17 +206,6 @@ namespace Sharpen
         public static bool HasAttributes(this XmlNode node)
         {
             return node.Attributes != null && node.Attributes.Count > 0;
-        }
-
-        internal static void CopyCastBuffer(byte[] buffer, int offset, int len, byte[] targetBuffer, int targetOffset)
-        {
-            if (offset < 0 || len < 0 || offset + len > buffer.Length || targetOffset < 0 || targetOffset + len > targetBuffer.Length)
-                throw new ArgumentOutOfRangeException();
-
-            for (var i = 0; i < len; i++)
-            {
-                targetBuffer[i + targetOffset] = (byte)buffer[offset + i];
-            }
         }
     }
 }
