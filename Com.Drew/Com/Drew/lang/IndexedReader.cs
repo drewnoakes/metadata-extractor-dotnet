@@ -24,6 +24,8 @@ using System;
 using System.Text;
 using JetBrains.Annotations;
 
+// TODO always read bytes in order which may assist memory read patterns
+
 namespace Com.Drew.Lang
 {
     /// <summary>Base class for random access data reading operations of common data types.</summary>
@@ -40,7 +42,7 @@ namespace Com.Drew.Lang
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class IndexedReader
     {
-        /// <summary>Get and set the byte order of this reader.</summary>
+        /// <summary>Get and set the byte order of this reader. <c>true</c> by default.</summary>
         /// <remarks>
         /// <list type="bullet">
         ///   <item><c>true</c> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</item>
@@ -330,7 +332,7 @@ namespace Com.Drew.Lang
 
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public string GetString(int index, int bytesRequested, Encoding encoding)
+        public string GetString(int index, int bytesRequested, [NotNull] Encoding encoding)
         {
             return encoding.GetString(GetBytes(index, bytesRequested));
         }
@@ -353,7 +355,7 @@ namespace Com.Drew.Lang
             var bytes = GetBytes(index, maxLengthBytes);
             // Count the number of non-null bytes
             var length = 0;
-            while (length < bytes.Length && bytes[length] != '\0')
+            while (length < bytes.Length && bytes[length] != 0)
                 length++;
             return Encoding.UTF8.GetString(bytes, 0, length);
         }

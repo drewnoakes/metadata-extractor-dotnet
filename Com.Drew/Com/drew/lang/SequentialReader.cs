@@ -256,7 +256,7 @@ namespace Com.Drew.Lang
 
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public string GetString(int bytesRequested, Encoding encoding)
+        public string GetString(int bytesRequested, [NotNull] Encoding encoding)
         {
             return encoding.GetString(GetBytes(bytesRequested));
         }
@@ -276,9 +276,7 @@ namespace Com.Drew.Lang
             // Count the number of non-null bytes
             var length = 0;
             while (length < bytes.Length && (bytes[length] = GetByte()) != 0)
-            {
                 length++;
-            }
             return Encoding.UTF8.GetString(bytes, 0, length);
         }
     }
