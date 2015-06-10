@@ -54,7 +54,7 @@ namespace MetadataExtractor.Formats.FileSystem
             return "File";
         }
 
-        protected override Dictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

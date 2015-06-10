@@ -53,7 +53,7 @@ namespace MetadataExtractor.Formats.Bmp
             return "BMP Header";
         }
 
-        protected override Dictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

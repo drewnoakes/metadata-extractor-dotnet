@@ -60,7 +60,7 @@ namespace MetadataExtractor.Formats.Jfif
             return "JFIF";
         }
 
-        protected override Dictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

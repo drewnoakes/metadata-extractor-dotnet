@@ -211,7 +211,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return "Casio Makernote";
         }
 
-        protected override Dictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

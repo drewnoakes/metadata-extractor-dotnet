@@ -552,7 +552,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return "Panasonic Makernote";
         }
 
-        protected override Dictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

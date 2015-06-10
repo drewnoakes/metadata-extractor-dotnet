@@ -40,7 +40,7 @@ namespace MetadataExtractor.Tests
             return string.Empty;
         }
 
-        protected override Dictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

@@ -50,7 +50,7 @@ namespace MetadataExtractor.Formats.Gif
             return "GIF Header";
         }
 
-        protected override Dictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

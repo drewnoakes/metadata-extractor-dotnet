@@ -586,7 +586,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return value != null && value == 5;
         }
 
-        protected override Dictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

@@ -92,7 +92,7 @@ namespace MetadataExtractor.Formats.Png
             return "PNG-" + _pngChunkType.GetIdentifier();
         }
 
-        protected override Dictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

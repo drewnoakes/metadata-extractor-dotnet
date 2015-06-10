@@ -69,7 +69,7 @@ namespace MetadataExtractor.Formats.Png
             return "PNG Chromaticities";
         }
 
-        protected override Dictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

@@ -979,7 +979,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return "Nikon Makernote";
         }
 
-        protected override Dictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

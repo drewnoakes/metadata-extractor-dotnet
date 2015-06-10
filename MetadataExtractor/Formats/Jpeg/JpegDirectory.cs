@@ -103,7 +103,7 @@ namespace MetadataExtractor.Formats.Jpeg
             return "JPEG";
         }
 
-        protected override Dictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

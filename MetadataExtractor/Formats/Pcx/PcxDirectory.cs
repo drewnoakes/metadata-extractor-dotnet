@@ -87,7 +87,7 @@ namespace MetadataExtractor.Formats.Pcx
             return "PCX";
         }
 
-        protected override Dictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

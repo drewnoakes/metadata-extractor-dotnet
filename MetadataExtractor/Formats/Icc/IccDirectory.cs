@@ -243,7 +243,7 @@ namespace MetadataExtractor.Formats.Icc
             return "ICC Profile";
         }
 
-        protected override Dictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }

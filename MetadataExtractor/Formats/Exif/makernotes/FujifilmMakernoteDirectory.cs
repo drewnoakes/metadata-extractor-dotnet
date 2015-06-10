@@ -179,7 +179,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return "Fujifilm Makernote";
         }
 
-        protected override Dictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
             return TagNameMap;
         }
