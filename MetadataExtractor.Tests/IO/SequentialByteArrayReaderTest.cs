@@ -2,7 +2,7 @@ using System;
 using MetadataExtractor.IO;
 using NUnit.Framework;
 
-namespace Com.Drew.Lang
+namespace MetadataExtractor.Tests.IO
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class SequentialByteArrayReaderTest : SequentialAccessTestBase

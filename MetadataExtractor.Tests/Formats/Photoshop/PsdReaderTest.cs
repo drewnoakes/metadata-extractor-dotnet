@@ -26,7 +26,7 @@ using MetadataExtractor.Formats.Photoshop;
 using MetadataExtractor.IO;
 using NUnit.Framework;
 
-namespace Com.Drew.Metadata.Photoshop
+namespace MetadataExtractor.Tests.Formats.Photoshop
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PsdReaderTest

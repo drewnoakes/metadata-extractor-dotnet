@@ -24,9 +24,8 @@ using System.IO;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Jpeg;
 using NUnit.Framework;
-using Directory = MetadataExtractor.Directory;
 
-namespace Com.Drew.Imaging.Jpeg
+namespace MetadataExtractor.Tests.Formats.Jpeg
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegMetadataReaderTest

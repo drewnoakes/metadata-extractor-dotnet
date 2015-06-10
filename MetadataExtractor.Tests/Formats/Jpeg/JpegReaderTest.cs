@@ -25,7 +25,7 @@ using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using NUnit.Framework;
 
-namespace Com.Drew.Metadata.Jpeg
+namespace MetadataExtractor.Tests.Formats.Jpeg
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegReaderTest

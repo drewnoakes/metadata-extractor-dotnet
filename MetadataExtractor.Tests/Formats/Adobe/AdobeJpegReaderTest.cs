@@ -29,7 +29,7 @@ using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 using NUnit.Framework;
 
-namespace Com.Drew.Metadata.Adobe
+namespace MetadataExtractor.Tests.Formats.Adobe
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class AdobeJpegReaderTest

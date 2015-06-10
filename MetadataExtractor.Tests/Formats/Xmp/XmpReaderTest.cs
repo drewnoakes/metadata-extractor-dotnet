@@ -22,13 +22,12 @@
 
 using System.Collections.Generic;
 using System.IO;
-using MetadataExtractor;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Xmp;
 using NUnit.Framework;
 using Sharpen;
 
-namespace Com.Drew.Metadata.Xmp
+namespace MetadataExtractor.Tests.Formats.Xmp
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class XmpReaderTest

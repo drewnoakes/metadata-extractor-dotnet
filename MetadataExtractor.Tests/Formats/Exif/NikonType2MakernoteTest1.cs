@@ -22,11 +22,10 @@
 
 using System.Globalization;
 using System.Threading;
-using MetadataExtractor;
 using MetadataExtractor.Formats.Exif.makernotes;
 using NUnit.Framework;
 
-namespace Com.Drew.Metadata.Exif
+namespace MetadataExtractor.Tests.Formats.Exif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class NikonType2MakernoteTest1

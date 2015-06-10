@@ -20,10 +20,9 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using MetadataExtractor;
 using NUnit.Framework;
 
-namespace Com.Drew.Lang
+namespace MetadataExtractor.Tests
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class RationalTest

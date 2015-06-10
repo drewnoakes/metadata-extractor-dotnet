@@ -23,7 +23,7 @@
 using MetadataExtractor.Formats.Exif;
 using NUnit.Framework;
 
-namespace Com.Drew.Metadata
+namespace MetadataExtractor.Tests
 {
     /// <summary>JUnit test case for class Metadata.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

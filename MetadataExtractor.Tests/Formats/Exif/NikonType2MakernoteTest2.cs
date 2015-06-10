@@ -20,12 +20,11 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using MetadataExtractor;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Exif.makernotes;
 using NUnit.Framework;
 
-namespace Com.Drew.Metadata.Exif
+namespace MetadataExtractor.Tests.Formats.Exif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class NikonType2MakernoteTest2

@@ -25,7 +25,7 @@ using System.IO;
 using MetadataExtractor.IO;
 using NUnit.Framework;
 
-namespace Com.Drew.Lang
+namespace MetadataExtractor.Tests.IO
 {
     /// <summary>
     /// Base class for testing implementations of <see cref="IndexedReader"/>.

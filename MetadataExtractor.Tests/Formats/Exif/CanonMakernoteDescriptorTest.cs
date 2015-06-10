@@ -23,7 +23,7 @@
 using MetadataExtractor.Formats.Exif.makernotes;
 using NUnit.Framework;
 
-namespace Com.Drew.Metadata.Exif
+namespace MetadataExtractor.Tests.Formats.Exif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class CanonMakernoteDescriptorTest

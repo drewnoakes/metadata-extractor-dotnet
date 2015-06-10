@@ -27,7 +27,7 @@ using MetadataExtractor.IO;
 using NUnit.Framework;
 using Sharpen;
 
-namespace Com.Drew.Metadata.Iptc
+namespace MetadataExtractor.Tests.Formats.Iptc
 {
     /// <summary>
     /// Unit tests for <see cref="IptcReader"/>.

@@ -24,7 +24,7 @@ using System.Text;
 using MetadataExtractor.Util;
 using NUnit.Framework;
 
-namespace Com.Drew.Lang
+namespace MetadataExtractor.Tests.Util
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ByteTrieTest

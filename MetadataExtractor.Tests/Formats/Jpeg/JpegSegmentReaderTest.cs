@@ -24,7 +24,7 @@ using System.IO;
 using MetadataExtractor.Formats.Jpeg;
 using NUnit.Framework;
 
-namespace Com.Drew.Imaging.Jpeg
+namespace MetadataExtractor.Tests.Formats.Jpeg
 {
     /// <summary>
     /// Unit tests for <see cref="JpegSegmentReader"/>.

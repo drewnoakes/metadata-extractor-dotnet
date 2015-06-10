@@ -23,7 +23,7 @@
 using MetadataExtractor.Formats.Exif;
 using NUnit.Framework;
 
-namespace Com.Drew.Metadata.Exif
+namespace MetadataExtractor.Tests.Formats.Exif
 {
     /// <summary>
     /// Unit tests for <see cref="ExifInteropDescriptor"/>.

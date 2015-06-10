@@ -22,7 +22,7 @@
 
 using System;
 
-namespace Com.Drew.Testing
+namespace MetadataExtractor.Tests
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class TestHelper

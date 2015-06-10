@@ -21,14 +21,12 @@
  */
 
 using System.IO;
-using MetadataExtractor;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 using NUnit.Framework;
-using Directory = MetadataExtractor.Directory;
 
-namespace Com.Drew.Metadata.Exif
+namespace MetadataExtractor.Tests.Formats.Exif
 {
     /// <summary>
     /// Unit tests for <see cref="ExifSubIfdDirectory"/>, <see cref="ExifIfd0Directory"/>, <see cref="ExifThumbnailDirectory"/>.

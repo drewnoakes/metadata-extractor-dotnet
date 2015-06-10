@@ -2,13 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
-using MetadataExtractor;
 using MetadataExtractor.Formats.Png;
 using MetadataExtractor.Formats.Png.png;
 using NUnit.Framework;
 using Sharpen;
 
-namespace Com.Drew.Imaging.Png
+namespace MetadataExtractor.Tests.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngMetadataReaderTest

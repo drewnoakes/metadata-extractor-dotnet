@@ -21,12 +21,11 @@
  */
 
 using System.IO;
-using Com.Drew.Testing;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.IO;
 using NUnit.Framework;
 
-namespace Com.Drew.Metadata.Icc
+namespace MetadataExtractor.Tests.Formats.Icc
 {
     public sealed class IccReaderTest
     {

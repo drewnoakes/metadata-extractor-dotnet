@@ -24,7 +24,7 @@ using System.Text;
 using MetadataExtractor.Formats.Exif;
 using NUnit.Framework;
 
-namespace Com.Drew.Metadata.Exif
+namespace MetadataExtractor.Tests.Formats.Exif
 {
     /// <summary>JUnit test case for class ExifSubIFDDescriptor.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

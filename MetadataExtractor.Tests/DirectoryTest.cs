@@ -21,12 +21,11 @@
  */
 
 using System.Text;
-using MetadataExtractor;
 using MetadataExtractor.Formats.Exif;
 using NUnit.Framework;
 using Sharpen;
 
-namespace Com.Drew.Metadata
+namespace MetadataExtractor.Tests
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class DirectoryTest

@@ -28,9 +28,8 @@ using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 using NUnit.Framework;
-using Directory = MetadataExtractor.Directory;
 
-namespace Com.Drew.Metadata.Exif
+namespace MetadataExtractor.Tests.Formats.Exif
 {
     /// <summary>JUnit test case for class ExifReader.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

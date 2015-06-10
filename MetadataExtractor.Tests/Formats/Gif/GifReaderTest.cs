@@ -26,7 +26,7 @@ using MetadataExtractor.Formats.Gif;
 using MetadataExtractor.IO;
 using NUnit.Framework;
 
-namespace Com.Drew.Metadata.Gif
+namespace MetadataExtractor.Tests.Formats.Gif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class GifReaderTest

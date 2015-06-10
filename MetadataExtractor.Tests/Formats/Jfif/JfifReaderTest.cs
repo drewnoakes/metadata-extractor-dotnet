@@ -24,7 +24,7 @@ using MetadataExtractor.Formats.Jfif;
 using MetadataExtractor.IO;
 using NUnit.Framework;
 
-namespace Com.Drew.Metadata.Jfif
+namespace MetadataExtractor.Tests.Formats.Jfif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JfifReaderTest

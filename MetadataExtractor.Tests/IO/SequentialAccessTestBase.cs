@@ -27,7 +27,7 @@ using MetadataExtractor.IO;
 using NUnit.Framework;
 using Sharpen;
 
-namespace Com.Drew.Lang
+namespace MetadataExtractor.Tests.IO
 {
     /// <summary>
     /// Base class for testing implementations of <see cref="SequentialReader"/>.

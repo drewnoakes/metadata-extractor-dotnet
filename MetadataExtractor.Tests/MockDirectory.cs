@@ -21,9 +21,8 @@
  */
 
 using System.Collections.Generic;
-using MetadataExtractor;
 
-namespace Com.Drew.Metadata
+namespace MetadataExtractor.Tests
 {
     /// <summary>A mock implementation of Directory used in unit testing.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

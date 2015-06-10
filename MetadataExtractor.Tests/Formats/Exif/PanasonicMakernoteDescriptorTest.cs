@@ -20,11 +20,10 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using MetadataExtractor;
 using MetadataExtractor.Formats.Exif.makernotes;
 using NUnit.Framework;
 
-namespace Com.Drew.Metadata.Exif
+namespace MetadataExtractor.Tests.Formats.Exif
 {
     /// <author>psandhaus, Drew Noakes</author>
     public sealed class PanasonicMakernoteDescriptorTest

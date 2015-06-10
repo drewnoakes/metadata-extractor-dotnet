@@ -20,11 +20,10 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using MetadataExtractor;
 using MetadataExtractor.Formats.Jpeg;
 using NUnit.Framework;
 
-namespace Com.Drew.Metadata.Jpeg
+namespace MetadataExtractor.Tests.Formats.Jpeg
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegDescriptorTest

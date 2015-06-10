@@ -26,7 +26,7 @@ using MetadataExtractor.Formats.Bmp;
 using MetadataExtractor.IO;
 using NUnit.Framework;
 
-namespace Com.Drew.Metadata.Bmp
+namespace MetadataExtractor.Tests.Formats.Bmp
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class BmpReaderTest

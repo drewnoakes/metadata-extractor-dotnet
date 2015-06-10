@@ -5,7 +5,7 @@ using MetadataExtractor.Formats.Png.png;
 using MetadataExtractor.IO;
 using NUnit.Framework;
 
-namespace Com.Drew.Imaging.Png
+namespace MetadataExtractor.Tests.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunkReaderTest

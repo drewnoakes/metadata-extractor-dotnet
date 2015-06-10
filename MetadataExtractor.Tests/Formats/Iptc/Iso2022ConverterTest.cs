@@ -1,7 +1,7 @@
 using MetadataExtractor.Formats.Iptc;
 using NUnit.Framework;
 
-namespace Com.Drew.Metadata.Iptc
+namespace MetadataExtractor.Tests.Formats.Iptc
 {
     public sealed class Iso2022ConverterTest
     {
