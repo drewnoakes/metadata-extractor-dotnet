@@ -103,6 +103,9 @@ namespace Com.Drew.Imaging.Jpeg
         /// <summary>Start-of-Frame (3) segment identifier.</summary>
         public static readonly JpegSegmentType Sof3 = new JpegSegmentType(unchecked((byte)0xC3), true);
 
+        //    /** Start-of-Frame (4) segment identifier. */
+        //    SOF4((byte)0xC4, true),
+
         /// <summary>Start-of-Frame (5) segment identifier.</summary>
         public static readonly JpegSegmentType Sof5 = new JpegSegmentType(unchecked((byte)0xC5), true);
 
@@ -124,6 +127,9 @@ namespace Com.Drew.Imaging.Jpeg
         /// <summary>Start-of-Frame (11) segment identifier.</summary>
         public static readonly JpegSegmentType Sof11 = new JpegSegmentType(unchecked((byte)0xCB), true);
 
+        //    /** Start-of-Frame (12) segment identifier. */
+        //    SOF12((byte)0xCC, true),
+
         /// <summary>Start-of-Frame (13) segment identifier.</summary>
         public static readonly JpegSegmentType Sof13 = new JpegSegmentType(unchecked((byte)0xCD), true);
 
@@ -140,10 +146,6 @@ namespace Com.Drew.Imaging.Jpeg
 
         static JpegSegmentType()
         {
-            //    /** Start-of-Frame (4) segment identifier. */
-            //    SOF4((byte)0xC4, true),
-            //    /** Start-of-Frame (12) segment identifier. */
-            //    SOF12((byte)0xCC, true),
             IList<JpegSegmentType> segmentTypes = new List<JpegSegmentType>();
             foreach (var segmentType in typeof(JpegSegmentType).GetEnumConstants<JpegSegmentType>())
             {
