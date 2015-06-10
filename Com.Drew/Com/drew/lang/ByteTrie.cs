@@ -32,18 +32,16 @@ namespace Com.Drew.Lang
     {
         /// <summary>A node in the trie.</summary>
         /// <remarks>A node in the trie. Has children and may have an associated value.</remarks>
-        internal sealed class ByteTrieNode
+        private sealed class ByteTrieNode
         {
-            internal readonly IDictionary<byte, ByteTrieNode> Children = new Dictionary<byte, ByteTrieNode>();
+            public readonly IDictionary<byte, ByteTrieNode> Children = new Dictionary<byte, ByteTrieNode>();
 
             public T Value { get; private set; }
 
             public void SetValue(T value)
             {
                 if (Value != null)
-                {
                     throw new RuntimeException("Value already set for this trie node");
-                }
                 Value = value;
             }
         }
