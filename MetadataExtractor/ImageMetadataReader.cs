@@ -153,10 +153,9 @@ namespace MetadataExtractor
             if (argList.Count < 1)
             {
                 var version = typeof(ImageMetadataReader).Assembly.GetName().Version.ToString();
-                Console.Out.WriteLine((object)("metadata-extractor version " + version));
+                Console.Out.WriteLine("metadata-extractor version " + version);
                 Console.Out.WriteLine();
-                Console.Out.WriteLine((object)string.Format("Usage: java -jar metadata-extractor-{0}.jar <filename> [<filename>] [-thumb] [-markdown] [-hex]",
-                    version ?? "a.b.c"));
+                Console.Out.WriteLine("Usage: java -jar metadata-extractor-{0}.jar <filename> [<filename>] [-thumb] [-markdown] [-hex]", version ?? "a.b.c");
                 Environment.Exit(1);
             }
             foreach (var filePath in argList)
