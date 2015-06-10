@@ -29,10 +29,6 @@ using System.IO;
 
 namespace Sharpen
 {
-    public class CharacterCodingException : Exception
-    {
-    }
-
     public class EofException : IOException
     {
         public EofException (string msg) : base(msg)
@@ -40,22 +36,7 @@ namespace Sharpen
         }
     }
 
-    public class ExecutionException : Exception
-    {
-        public ExecutionException (Exception inner): base ("Execution failed", inner)
-        {
-        }
-    }
-
     public class InstantiationException : Exception
-    {
-    }
-
-    public class MissingResourceException : Exception
-    {
-    }
-
-    public class NoSuchMethodException : Exception
     {
     }
 
