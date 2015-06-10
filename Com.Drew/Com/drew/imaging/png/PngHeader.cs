@@ -34,17 +34,17 @@ namespace Com.Drew.Imaging.Png
             {
                 _imageWidth = reader.GetInt32();
                 _imageHeight = reader.GetInt32();
-                _bitsPerSample = reader.GetInt8();
-                var colorTypeNumber = reader.GetInt8();
+                _bitsPerSample = reader.GetUInt8();
+                var colorTypeNumber = reader.GetUInt8();
                 var colorType = PngColorType.FromNumericValue(colorTypeNumber);
                 if (colorType == null)
                 {
                     throw new PngProcessingException("Unexpected PNG color type: " + colorTypeNumber);
                 }
                 _colorType = colorType;
-                _compressionType = reader.GetInt8();
-                _filterMethod = reader.GetInt8();
-                _interlaceMethod = reader.GetInt8();
+                _compressionType = reader.GetUInt8();
+                _filterMethod = reader.GetUInt8();
+                _interlaceMethod = reader.GetUInt8();
             }
             catch (IOException e)
             {

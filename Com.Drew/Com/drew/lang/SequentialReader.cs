@@ -33,6 +33,7 @@ namespace Com.Drew.Lang
         private bool _isMotorolaByteOrder = true;
 
         // TODO review whether the masks are needed (in both this and IndexedReader)
+
         /// <summary>Gets the next byte in the sequence.</summary>
         /// <returns>The read byte value</returns>
         /// <exception cref="System.IO.IOException"/>
@@ -92,31 +93,35 @@ namespace Com.Drew.Lang
         /// <summary>Returns an unsigned 8-bit int calculated from the next byte of the sequence.</summary>
         /// <returns>the 8 bit int value, between 0 and 255</returns>
         /// <exception cref="System.IO.IOException"/>
-        public short GetUInt8()
+        public byte GetUInt8()
         {
-            return (short)(GetByte() & unchecked(0xFF));
+            return GetByte();
         }
 
         /// <summary>Returns a signed 8-bit int calculated from the next byte the sequence.</summary>
         /// <returns>the 8 bit int value, between 0x00 and 0xFF</returns>
         /// <exception cref="System.IO.IOException"/>
-        public byte GetInt8()
+        public sbyte GetInt8()
         {
-            return GetByte();
+            return unchecked((sbyte)GetByte());
         }
 
         /// <summary>Returns an unsigned 16-bit int calculated from the next two bytes of the sequence.</summary>
         /// <returns>the 16 bit int value, between 0x0000 and 0xFFFF</returns>
         /// <exception cref="System.IO.IOException"/>
-        public int GetUInt16()
+        public ushort GetUInt16()
         {
             if (_isMotorolaByteOrder)
             {
                 // Motorola - MSB first
-                return (GetByte() << 8 & unchecked(0xFF00)) | (GetByte() & unchecked(0xFF));
+                return (ushort)
+                    (GetByte() << 8 & 0xFF00 |
+                     GetByte()      & 0x00FF);
             }
             // Intel ordering - LSB first
-            return (GetByte() & unchecked(0xFF)) | (GetByte() << 8 & unchecked(0xFF00));
+            return (ushort)
+                (GetByte()      & 0x00FF |
+                 GetByte() << 8 & 0xFF00);
         }
 
         /// <summary>Returns a signed 16-bit int calculated from two bytes of data (MSB, LSB).</summary>
@@ -127,24 +132,36 @@ namespace Com.Drew.Lang
             if (_isMotorolaByteOrder)
             {
                 // Motorola - MSB first
-                return (short)((GetByte() << 8 & unchecked((short)(0xFF00))) | (GetByte() & 0xFF));
+                return (short)
+                    (GetByte() << 8 & 0xFF00 |
+                     GetByte()      & 0x00FF);
             }
             // Intel ordering - LSB first
-            return (short)((GetByte() & 0xFF) | (GetByte() << 8 & unchecked((short)(0xFF00))));
+            return (short)
+                (GetByte()      & 0x00FF |
+                 GetByte() << 8 & 0xFF00);
         }
 
         /// <summary>Get a 32-bit unsigned integer from the buffer, returning it as a long.</summary>
         /// <returns>the unsigned 32-bit int value as a long, between 0x00000000 and 0xFFFFFFFF</returns>
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request</exception>
-        public long GetUInt32()
+        public uint GetUInt32()
         {
             if (_isMotorolaByteOrder)
             {
                 // Motorola - MSB first (big endian)
-                return (((long)GetByte()) << 24 & unchecked(0xFF000000L)) | (((long)GetByte()) << 16 & unchecked(0xFF0000L)) | (((long)GetByte()) << 8 & unchecked(0xFF00L)) | (GetByte() & unchecked(0xFFL));
+                return (uint)
+                    (GetByte() << 24 & 0xFF000000 |
+                     GetByte() << 16 & 0x00FF0000 |
+                     GetByte() << 8  & 0x0000FF00 |
+                     GetByte()       & 0x000000FF);
             }
             // Intel ordering - LSB first (little endian)
-            return (GetByte() & unchecked(0xFFL)) | (((long)GetByte()) << 8 & unchecked(0xFF00L)) | (((long)GetByte()) << 16 & unchecked(0xFF0000L)) | (((long)GetByte()) << 24 & unchecked(0xFF000000L));
+            return (uint)
+                (GetByte()       & 0x000000FF |
+                 GetByte() << 8  & 0x0000FF00 |
+                 GetByte() << 16 & 0x00FF0000 |
+                 GetByte() << 24 & 0xFF000000);
         }
 
         /// <summary>Returns a signed 32-bit integer from four bytes of data.</summary>
@@ -155,10 +172,18 @@ namespace Com.Drew.Lang
             if (_isMotorolaByteOrder)
             {
                 // Motorola - MSB first (big endian)
-                return (GetByte() << 24 & unchecked((int)(0xFF000000))) | (GetByte() << 16 & unchecked(0xFF0000)) | (GetByte() << 8 & unchecked(0xFF00)) | (GetByte() & unchecked(0xFF));
+                return
+                    GetByte() << 24 & unchecked((int)(0xFF000000)) |
+                    GetByte() << 16 & 0xFF0000 |
+                    GetByte() << 8  & 0xFF00 |
+                    GetByte()       & 0xFF;
             }
             // Intel ordering - LSB first (little endian)
-            return (GetByte() & unchecked(0xFF)) | (GetByte() << 8 & unchecked(0xFF00)) | (GetByte() << 16 & unchecked(0xFF0000)) | (GetByte() << 24 & unchecked((int)(0xFF000000)));
+            return
+                GetByte()       & 0xFF |
+                GetByte() <<  8 & 0xFF00 |
+                GetByte() << 16 & 0xFF0000 |
+                GetByte() << 24 & unchecked((int)(0xFF000000));
         }
 
         /// <summary>Get a signed 64-bit integer from the buffer.</summary>
@@ -169,11 +194,26 @@ namespace Com.Drew.Lang
             if (_isMotorolaByteOrder)
             {
                 // Motorola - MSB first
-                return ((long)GetByte() << 56 & unchecked((long)(0xFF00000000000000L))) | ((long)GetByte() << 48 & unchecked(0xFF000000000000L)) | ((long)GetByte() << 40 & unchecked(0xFF0000000000L)) | ((long)GetByte() << 32 & unchecked(0xFF00000000L)) | ((long)GetByte() << 24 & unchecked(0xFF000000L)) | ((long)GetByte() << 16 & unchecked(0xFF0000L)) | ((long)GetByte() << 8 & unchecked(0xFF00L)) | (GetByte() & unchecked(0xFFL));
+                return
+                    (long)GetByte() << 56 & unchecked((long)(0xFF00000000000000L)) |
+                    (long)GetByte() << 48 & 0x00FF000000000000L |
+                    (long)GetByte() << 40 & 0x0000FF0000000000L |
+                    (long)GetByte() << 32 & 0x000000FF00000000L |
+                    (long)GetByte() << 24 & 0x00000000FF000000L |
+                    (long)GetByte() << 16 & 0x0000000000FF0000L |
+                    (long)GetByte() << 8  & 0x000000000000FF00L |
+                          GetByte()       & 0x00000000000000FFL;
             }
             // Intel ordering - LSB first
-            return (GetByte() & unchecked(0xFFL)) | ((long)GetByte() << 8 & unchecked(0xFF00L)) | ((long)GetByte() << 16 & unchecked(0xFF0000L)) | ((long)GetByte() << 24 & unchecked(0xFF000000L)) | ((long)GetByte()
-                                                                                                                                                                                                                                             << 32 & unchecked(0xFF00000000L)) | ((long)GetByte() << 40 & unchecked(0xFF0000000000L)) | ((long)GetByte() << 48 & unchecked(0xFF000000000000L)) | ((long)GetByte() << 56 & unchecked((long)(0xFF00000000000000L)));
+            return
+                      GetByte()       & 0x000000000000FFL |
+                (long)GetByte() << 8  & 0x0000000000FF00L |
+                (long)GetByte() << 16 & 0x00000000FF0000L |
+                (long)GetByte() << 24 & 0x000000FF000000L |
+                (long)GetByte() << 32 & 0x0000FF00000000L |
+                (long)GetByte() << 40 & 0x00FF0000000000L |
+                (long)GetByte() << 48 & 0xFF000000000000L |
+                (long)GetByte() << 56 & unchecked((long)(0xFF00000000000000L));
         }
 
         /// <summary>Gets a s15.16 fixed point float from the buffer.</summary>
