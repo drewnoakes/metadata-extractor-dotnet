@@ -33,84 +33,56 @@ namespace Com.Drew.Metadata
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class Tag
     {
-        private readonly int _tagType;
-
         [NotNull]
         private readonly Directory _directory;
 
         public Tag(int tagType, [NotNull] Directory directory)
         {
-            _tagType = tagType;
+            TagType = tagType;
             _directory = directory;
         }
 
         /// <summary>Gets the tag type as an int</summary>
-        /// <returns>the tag type as an int</returns>
-        public int GetTagType()
-        {
-            return _tagType;
-        }
-
-        /// <summary>
-        /// Gets the tag type in hex notation as a String with padded leading
-        /// zeroes if necessary (i.e. <c>0x100E</c>).
-        /// </summary>
-        /// <returns>the tag type as a string in hexadecimal notation</returns>
-        [NotNull]
-        public string GetTagTypeHex()
-        {
-            return _tagType.ToString("X4");
-        }
+        /// <value>the tag type as an int</value>
+        public int TagType { get; private set; }
 
         /// <summary>
         /// Get a description of the tag's value, considering enumerated values
         /// and units.
         /// </summary>
-        /// <returns>a description of the tag's value</returns>
+        /// <value>a description of the tag's value</value>
         [CanBeNull]
-        public string GetDescription()
+        public string Description
         {
-            return _directory.GetDescription(_tagType);
+            get { return _directory.GetDescription(TagType); }
         }
 
         /// <summary>Get whether this tag has a name.</summary>
         /// <remarks>
-        /// Get whether this tag has a name.
-        /// If <c>true</c>, it may be accessed via <see cref="GetTagName()"/>.
-        /// If <c>false</c>, <see cref="GetTagName()"/> will return a string resembling <c>"Unknown tag (0x1234)"</c>.
+        /// If <c>true</c>, it may be accessed via <see cref="TagName"/>.
+        /// If <c>false</c>, <see cref="TagName"/> will return a string resembling <c>"Unknown tag (0x1234)"</c>.
         /// </remarks>
-        /// <returns>whether this tag has a name</returns>
-        public bool HasTagName()
+        public bool HasTagName
         {
-            return _directory.HasTagName(_tagType);
+            get { return _directory.HasTagName(TagType); }
         }
 
         /// <summary>
-        /// Get the name of the tag, such as <c>Aperture</c>, or
-        /// <c>InteropVersion</c>.
+        /// Get the name of the tag, such as <c>Aperture</c>, or <c>InteropVersion</c>.
         /// </summary>
-        /// <returns>the tag's name</returns>
         [NotNull]
-        public string GetTagName()
+        public string TagName
         {
-            return _directory.GetTagName(_tagType);
+            get { return _directory.GetTagName(TagType); }
         }
 
         /// <summary>
-        /// Get the name of the
-        /// <see cref="Directory"/>
-        /// in which the tag exists, such as
-        /// <c>Exif</c>, <c>GPS</c> or <c>Interoperability</c>.
+        /// Get the name of the <see cref="Directory"/> in which the tag exists, such as <c>Exif</c>, <c>GPS</c> or <c>Interoperability</c>.
         /// </summary>
-        /// <returns>
-        /// name of the
-        /// <see cref="Directory"/>
-        /// in which this tag exists
-        /// </returns>
         [NotNull]
-        public string GetDirectoryName()
+        public string DirectoryName
         {
-            return _directory.GetName();
+            get { return _directory.GetName(); }
         }
 
         /// <summary>A basic representation of the tag's type and value.</summary>
@@ -118,12 +90,12 @@ namespace Com.Drew.Metadata
         /// <returns>the tag's type and value</returns>
         public override string ToString()
         {
-            string description = GetDescription();
+            string description = Description;
             if (description == null)
             {
-                description = _directory.GetString(GetTagType()) + " (unable to formulate description)";
+                description = _directory.GetString(TagType) + " (unable to formulate description)";
             }
-            return "[" + _directory.GetName() + "] " + GetTagName() + " - " + description;
+            return "[" + _directory.GetName() + "] " + TagName + " - " + description;
         }
     }
 }

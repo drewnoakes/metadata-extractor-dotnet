@@ -61,10 +61,10 @@ namespace FileLabeller
                             var directoryName = directory.GetName();
                             foreach (var tag in directory.GetTags())
                             {
-                                var tagName = tag.GetTagName();
-                                var description = tag.GetDescription();
-                                writer.Write("[{0} - {1}] {2} = {3}\n",
-                                    directoryName, tag.GetTagTypeHex(), tagName, description);
+                                var tagName = tag.TagName;
+                                var description = tag.Description;
+                                writer.Write("[{0} - {1:X4}] {2} = {3}\n",
+                                    directoryName, tag.TagType, tagName, description);
                             }
 
                             if (directory.GetTagCount() != 0)

@@ -19,8 +19,8 @@ namespace FileLabeller
                 directory.GetName();
                 foreach (var tag in directory.GetTags())
                 {
-                    tag.GetTagName();
-                    tag.GetDescription();
+                    tag.TagName.ToString();
+                    tag.Description.ToString();
                 }
             }
         }

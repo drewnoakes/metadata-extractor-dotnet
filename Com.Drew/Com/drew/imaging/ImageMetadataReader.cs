@@ -208,8 +208,8 @@ namespace Com.Drew.Imaging
                     string directoryName = directory.GetName();
                     foreach (Tag tag in directory.GetTags())
                     {
-                        string tagName = tag.GetTagName();
-                        string description = tag.GetDescription();
+                        string tagName = tag.TagName;
+                        string description = tag.Description;
                         // truncate the description if it's too long
                         if (description != null && description.Length > 1024)
                         {
@@ -217,14 +217,14 @@ namespace Com.Drew.Imaging
                         }
                         if (markdownFormat)
                         {
-                            Console.Out.WriteLine("{0}|0x{1:X}|{2}|{3}", directoryName, tag.GetTagType(), tagName, description);
+                            Console.Out.WriteLine("{0}|0x{1:X}|{2}|{3}", directoryName, tag.TagType, tagName, description);
                         }
                         else
                         {
                             // simple formatting
                             if (showHex)
                             {
-                                Console.Out.WriteLine("[{0} - {1:X4}] {2} = {3}", directoryName, tag.GetTagType(), tagName, description);
+                                Console.Out.WriteLine("[{0} - {1:X4}] {2} = {3}", directoryName, tag.TagType, tagName, description);
                             }
                             else
                             {

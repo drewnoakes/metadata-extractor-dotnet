@@ -53,38 +53,38 @@ namespace Com.Drew.Metadata.Iptc
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
             Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(16, tags.Length);
-            Assert.AreEqual(IptcDirectory.TagCategory, tags[0].GetTagType());
-            CollectionAssert.AreEqual(new[] { "Supl. Category2", "Supl. Category1", "Cat" }, directory.GetStringArray(tags[0].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagCopyrightNotice, tags[1].GetTagType());
-            Assert.AreEqual("Copyright", directory.GetObject(tags[1].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagSpecialInstructions, tags[2].GetTagType());
-            Assert.AreEqual("Special Instr.", directory.GetObject(tags[2].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagHeadline, tags[3].GetTagType());
-            Assert.AreEqual("Headline", directory.GetObject(tags[3].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagCaptionWriter, tags[4].GetTagType());
-            Assert.AreEqual("CaptionWriter", directory.GetObject(tags[4].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagCaption, tags[5].GetTagType());
-            Assert.AreEqual("Caption", directory.GetObject(tags[5].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagOriginalTransmissionReference, tags[6].GetTagType());
-            Assert.AreEqual("Transmission", directory.GetObject(tags[6].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagCountryOrPrimaryLocationName, tags[7].GetTagType());
-            Assert.AreEqual("Country", directory.GetObject(tags[7].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagProvinceOrState, tags[8].GetTagType());
-            Assert.AreEqual("State", directory.GetObject(tags[8].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagCity, tags[9].GetTagType());
-            Assert.AreEqual("City", directory.GetObject(tags[9].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagDateCreated, tags[10].GetTagType());
-            Assert.AreEqual(new GregorianCalendar(2000, 0, 1).GetTime(), directory.GetObject(tags[10].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagObjectName, tags[11].GetTagType());
-            Assert.AreEqual("ObjectName", directory.GetObject(tags[11].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagSource, tags[12].GetTagType());
-            Assert.AreEqual("Source", directory.GetObject(tags[12].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagCredit, tags[13].GetTagType());
-            Assert.AreEqual("Credits", directory.GetObject(tags[13].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagByLineTitle, tags[14].GetTagType());
-            Assert.AreEqual("BylineTitle", directory.GetObject(tags[14].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagByLine, tags[15].GetTagType());
-            Assert.AreEqual("Byline", directory.GetObject(tags[15].GetTagType()));
+            Assert.AreEqual(IptcDirectory.TagCategory, tags[0].TagType);
+            CollectionAssert.AreEqual(new[] { "Supl. Category2", "Supl. Category1", "Cat" }, directory.GetStringArray(tags[0].TagType));
+            Assert.AreEqual(IptcDirectory.TagCopyrightNotice, tags[1].TagType);
+            Assert.AreEqual("Copyright", directory.GetObject(tags[1].TagType));
+            Assert.AreEqual(IptcDirectory.TagSpecialInstructions, tags[2].TagType);
+            Assert.AreEqual("Special Instr.", directory.GetObject(tags[2].TagType));
+            Assert.AreEqual(IptcDirectory.TagHeadline, tags[3].TagType);
+            Assert.AreEqual("Headline", directory.GetObject(tags[3].TagType));
+            Assert.AreEqual(IptcDirectory.TagCaptionWriter, tags[4].TagType);
+            Assert.AreEqual("CaptionWriter", directory.GetObject(tags[4].TagType));
+            Assert.AreEqual(IptcDirectory.TagCaption, tags[5].TagType);
+            Assert.AreEqual("Caption", directory.GetObject(tags[5].TagType));
+            Assert.AreEqual(IptcDirectory.TagOriginalTransmissionReference, tags[6].TagType);
+            Assert.AreEqual("Transmission", directory.GetObject(tags[6].TagType));
+            Assert.AreEqual(IptcDirectory.TagCountryOrPrimaryLocationName, tags[7].TagType);
+            Assert.AreEqual("Country", directory.GetObject(tags[7].TagType));
+            Assert.AreEqual(IptcDirectory.TagProvinceOrState, tags[8].TagType);
+            Assert.AreEqual("State", directory.GetObject(tags[8].TagType));
+            Assert.AreEqual(IptcDirectory.TagCity, tags[9].TagType);
+            Assert.AreEqual("City", directory.GetObject(tags[9].TagType));
+            Assert.AreEqual(IptcDirectory.TagDateCreated, tags[10].TagType);
+            Assert.AreEqual(new GregorianCalendar(2000, 0, 1).GetTime(), directory.GetObject(tags[10].TagType));
+            Assert.AreEqual(IptcDirectory.TagObjectName, tags[11].TagType);
+            Assert.AreEqual("ObjectName", directory.GetObject(tags[11].TagType));
+            Assert.AreEqual(IptcDirectory.TagSource, tags[12].TagType);
+            Assert.AreEqual("Source", directory.GetObject(tags[12].TagType));
+            Assert.AreEqual(IptcDirectory.TagCredit, tags[13].TagType);
+            Assert.AreEqual("Credits", directory.GetObject(tags[13].TagType));
+            Assert.AreEqual(IptcDirectory.TagByLineTitle, tags[14].TagType);
+            Assert.AreEqual("BylineTitle", directory.GetObject(tags[14].TagType));
+            Assert.AreEqual(IptcDirectory.TagByLine, tags[15].TagType);
+            Assert.AreEqual("Byline", directory.GetObject(tags[15].TagType));
         }
 
         /// <exception cref="System.Exception"/>
@@ -95,40 +95,40 @@ namespace Com.Drew.Metadata.Iptc
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
             Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(17, tags.Length);
-            Assert.AreEqual(IptcDirectory.TagApplicationRecordVersion, tags[0].GetTagType());
-            Assert.AreEqual(2, directory.GetObject(tags[0].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagCaption, tags[1].GetTagType());
-            Assert.AreEqual("Caption PS6", directory.GetObject(tags[1].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagCaptionWriter, tags[2].GetTagType());
-            Assert.AreEqual("CaptionWriter", directory.GetObject(tags[2].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagHeadline, tags[3].GetTagType());
-            Assert.AreEqual("Headline", directory.GetObject(tags[3].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagSpecialInstructions, tags[4].GetTagType());
-            Assert.AreEqual("Special Instr.", directory.GetObject(tags[4].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagByLine, tags[5].GetTagType());
-            Assert.AreEqual("Byline", directory.GetObject(tags[5].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagByLineTitle, tags[6].GetTagType());
-            Assert.AreEqual("BylineTitle", directory.GetObject(tags[6].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagCredit, tags[7].GetTagType());
-            Assert.AreEqual("Credits", directory.GetObject(tags[7].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagSource, tags[8].GetTagType());
-            Assert.AreEqual("Source", directory.GetObject(tags[8].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagObjectName, tags[9].GetTagType());
-            Assert.AreEqual("ObjectName", directory.GetObject(tags[9].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagCity, tags[10].GetTagType());
-            Assert.AreEqual("City", directory.GetObject(tags[10].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagProvinceOrState, tags[11].GetTagType());
-            Assert.AreEqual("State", directory.GetObject(tags[11].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagCountryOrPrimaryLocationName, tags[12].GetTagType());
-            Assert.AreEqual("Country", directory.GetObject(tags[12].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagOriginalTransmissionReference, tags[13].GetTagType());
-            Assert.AreEqual("Transmission", directory.GetObject(tags[13].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagCategory, tags[14].GetTagType());
-            Assert.AreEqual("Cat", directory.GetObject(tags[14].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagSupplementalCategories, tags[15].GetTagType());
-            CollectionAssert.AreEqual(new[] { "Supl. Category1", "Supl. Category2" }, directory.GetStringArray(tags[15].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagCopyrightNotice, tags[16].GetTagType());
-            Assert.AreEqual("Copyright", directory.GetObject(tags[16].GetTagType()));
+            Assert.AreEqual(IptcDirectory.TagApplicationRecordVersion, tags[0].TagType);
+            Assert.AreEqual(2, directory.GetObject(tags[0].TagType));
+            Assert.AreEqual(IptcDirectory.TagCaption, tags[1].TagType);
+            Assert.AreEqual("Caption PS6", directory.GetObject(tags[1].TagType));
+            Assert.AreEqual(IptcDirectory.TagCaptionWriter, tags[2].TagType);
+            Assert.AreEqual("CaptionWriter", directory.GetObject(tags[2].TagType));
+            Assert.AreEqual(IptcDirectory.TagHeadline, tags[3].TagType);
+            Assert.AreEqual("Headline", directory.GetObject(tags[3].TagType));
+            Assert.AreEqual(IptcDirectory.TagSpecialInstructions, tags[4].TagType);
+            Assert.AreEqual("Special Instr.", directory.GetObject(tags[4].TagType));
+            Assert.AreEqual(IptcDirectory.TagByLine, tags[5].TagType);
+            Assert.AreEqual("Byline", directory.GetObject(tags[5].TagType));
+            Assert.AreEqual(IptcDirectory.TagByLineTitle, tags[6].TagType);
+            Assert.AreEqual("BylineTitle", directory.GetObject(tags[6].TagType));
+            Assert.AreEqual(IptcDirectory.TagCredit, tags[7].TagType);
+            Assert.AreEqual("Credits", directory.GetObject(tags[7].TagType));
+            Assert.AreEqual(IptcDirectory.TagSource, tags[8].TagType);
+            Assert.AreEqual("Source", directory.GetObject(tags[8].TagType));
+            Assert.AreEqual(IptcDirectory.TagObjectName, tags[9].TagType);
+            Assert.AreEqual("ObjectName", directory.GetObject(tags[9].TagType));
+            Assert.AreEqual(IptcDirectory.TagCity, tags[10].TagType);
+            Assert.AreEqual("City", directory.GetObject(tags[10].TagType));
+            Assert.AreEqual(IptcDirectory.TagProvinceOrState, tags[11].TagType);
+            Assert.AreEqual("State", directory.GetObject(tags[11].TagType));
+            Assert.AreEqual(IptcDirectory.TagCountryOrPrimaryLocationName, tags[12].TagType);
+            Assert.AreEqual("Country", directory.GetObject(tags[12].TagType));
+            Assert.AreEqual(IptcDirectory.TagOriginalTransmissionReference, tags[13].TagType);
+            Assert.AreEqual("Transmission", directory.GetObject(tags[13].TagType));
+            Assert.AreEqual(IptcDirectory.TagCategory, tags[14].TagType);
+            Assert.AreEqual("Cat", directory.GetObject(tags[14].TagType));
+            Assert.AreEqual(IptcDirectory.TagSupplementalCategories, tags[15].TagType);
+            CollectionAssert.AreEqual(new[] { "Supl. Category1", "Supl. Category2" }, directory.GetStringArray(tags[15].TagType));
+            Assert.AreEqual(IptcDirectory.TagCopyrightNotice, tags[16].TagType);
+            Assert.AreEqual("Copyright", directory.GetObject(tags[16].TagType));
         }
 
         /// <exception cref="System.Exception"/>
@@ -139,14 +139,14 @@ namespace Com.Drew.Metadata.Iptc
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
             Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(4, tags.Length);
-            Assert.AreEqual(IptcDirectory.TagEnvelopeRecordVersion, tags[0].GetTagType());
-            Assert.AreEqual(2, directory.GetObject(tags[0].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagCodedCharacterSet, tags[1].GetTagType());
-            Assert.AreEqual("UTF-8", directory.GetObject(tags[1].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagApplicationRecordVersion, tags[2].GetTagType());
-            Assert.AreEqual(2, directory.GetObject(tags[2].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagCaption, tags[3].GetTagType());
-            Assert.AreEqual("In diesem Text sind Umlaute enthalten, nämlich öfter als üblich: ÄÖÜäöüß\r", directory.GetObject(tags[3].GetTagType()));
+            Assert.AreEqual(IptcDirectory.TagEnvelopeRecordVersion, tags[0].TagType);
+            Assert.AreEqual(2, directory.GetObject(tags[0].TagType));
+            Assert.AreEqual(IptcDirectory.TagCodedCharacterSet, tags[1].TagType);
+            Assert.AreEqual("UTF-8", directory.GetObject(tags[1].TagType));
+            Assert.AreEqual(IptcDirectory.TagApplicationRecordVersion, tags[2].TagType);
+            Assert.AreEqual(2, directory.GetObject(tags[2].TagType));
+            Assert.AreEqual(IptcDirectory.TagCaption, tags[3].TagType);
+            Assert.AreEqual("In diesem Text sind Umlaute enthalten, nämlich öfter als üblich: ÄÖÜäöüß\r", directory.GetObject(tags[3].TagType));
         }
 
         /// <exception cref="System.Exception"/>
@@ -157,12 +157,12 @@ namespace Com.Drew.Metadata.Iptc
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
             Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(3, tags.Length);
-            Assert.AreEqual(IptcDirectory.TagEnvelopeRecordVersion, tags[0].GetTagType());
-            Assert.AreEqual(2, directory.GetObject(tags[0].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagApplicationRecordVersion, tags[1].GetTagType());
-            Assert.AreEqual(2, directory.GetObject(tags[1].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagCaption, tags[2].GetTagType());
-            Assert.AreEqual("In diesem Text sind Umlaute enthalten, nämlich öfter als üblich: ÄÖÜäöüß\r", directory.GetObject(tags[2].GetTagType()));
+            Assert.AreEqual(IptcDirectory.TagEnvelopeRecordVersion, tags[0].TagType);
+            Assert.AreEqual(2, directory.GetObject(tags[0].TagType));
+            Assert.AreEqual(IptcDirectory.TagApplicationRecordVersion, tags[1].TagType);
+            Assert.AreEqual(2, directory.GetObject(tags[1].TagType));
+            Assert.AreEqual(IptcDirectory.TagCaption, tags[2].TagType);
+            Assert.AreEqual("In diesem Text sind Umlaute enthalten, nämlich öfter als üblich: ÄÖÜäöüß\r", directory.GetObject(tags[2].TagType));
         }
 
         /// <exception cref="System.Exception"/>
@@ -173,12 +173,12 @@ namespace Com.Drew.Metadata.Iptc
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
             Tag[] tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
             Assert.AreEqual(3, tags.Length);
-            Assert.AreEqual(IptcDirectory.TagApplicationRecordVersion, tags[0].GetTagType());
-            Assert.AreEqual(2, directory.GetObject(tags[0].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagCaption, tags[1].GetTagType());
-            Assert.AreEqual("Das Encoding dieser Metadaten ist nicht deklariert und lässt sich nur schwer erkennen.", directory.GetObject(tags[1].GetTagType()));
-            Assert.AreEqual(IptcDirectory.TagKeywords, tags[2].GetTagType());
-            CollectionAssert.AreEqual(new[] { "häufig", "üblich", "Lösung", "Spaß" }, directory.GetStringArray(tags[2].GetTagType()));
+            Assert.AreEqual(IptcDirectory.TagApplicationRecordVersion, tags[0].TagType);
+            Assert.AreEqual(2, directory.GetObject(tags[0].TagType));
+            Assert.AreEqual(IptcDirectory.TagCaption, tags[1].TagType);
+            Assert.AreEqual("Das Encoding dieser Metadaten ist nicht deklariert und lässt sich nur schwer erkennen.", directory.GetObject(tags[1].TagType));
+            Assert.AreEqual(IptcDirectory.TagKeywords, tags[2].TagType);
+            CollectionAssert.AreEqual(new[] { "häufig", "üblich", "Lösung", "Spaß" }, directory.GetStringArray(tags[2].TagType));
         }
 
         /// <exception cref="System.Exception"/>

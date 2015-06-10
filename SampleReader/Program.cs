@@ -97,9 +97,9 @@ namespace SampleReader
 
                 foreach (Tag tag in dir.GetTags())
                 {
-                    string tagName = tag.GetTagName();
+                    string tagName = tag.TagName;
                     string directoryName = dir.GetName();
-                    string description = tag.GetDescription();
+                    string description = tag.Description;
                     // truncate the description if it's too long
                     if (description != null && description.Length > 1024)
                     {
