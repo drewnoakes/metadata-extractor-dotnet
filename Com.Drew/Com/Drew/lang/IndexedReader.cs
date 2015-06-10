@@ -40,6 +40,8 @@ namespace Com.Drew.Lang
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class IndexedReader
     {
+        // TODO review whether the masks are needed (in both this and SequentialReader)
+
         /// <summary>Get and set the byte order of this reader.</summary>
         /// <remarks>
         /// <list type="bullet">
