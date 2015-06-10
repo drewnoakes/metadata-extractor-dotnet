@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MetadataExtractor.Tools.ExtractJpegSegments</RootNamespace>
-    <AssemblyName>MetadataExtractor.Tools.ExtractJpegSegments</AssemblyName>
+    <AssemblyName>ExtractJpegSegments</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
