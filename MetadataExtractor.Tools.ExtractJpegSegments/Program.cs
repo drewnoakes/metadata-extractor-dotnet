@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2002-2015 Drew Noakes
  *
  *    Modified by Yakov Danilov <yakodani@gmail.com> for Imazen LLC (Ported from Java to C#)
@@ -25,10 +25,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Com.Drew.Imaging.Jpeg;
-using JetBrains.Annotations;
 using Sharpen;
 
-namespace Com.Drew.Tools
+namespace MetadataExtractor.Tools.ExtractJpegSegments
 {
     /// <summary>Extracts JPEG segments and writes them to individual files.</summary>
     /// <remarks>
@@ -43,7 +42,7 @@ namespace Com.Drew.Tools
     /// </list>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ExtractJpegSegmentTool
+    public static class Program
     {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
@@ -82,7 +81,7 @@ namespace Com.Drew.Tools
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public static void SaveSegmentFiles([NotNull] string jpegFilePath, [NotNull] JpegSegmentData segmentData)
+        public static void SaveSegmentFiles(string jpegFilePath, JpegSegmentData segmentData)
         {
             foreach (var segmentType in segmentData.GetSegmentTypes())
             {

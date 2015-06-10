@@ -196,7 +196,6 @@
     <Compile Include="Com\drew\metadata\xmp\XmpDirectory.cs" />
     <Compile Include="Com\drew\metadata\xmp\XmpReader.cs" />
     <Compile Include="Com\drew\metadata\xmp\XmpWriter.cs" />
-    <Compile Include="Com\drew\tools\ExtractJpegSegmentTool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
