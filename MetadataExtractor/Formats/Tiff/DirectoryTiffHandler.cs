@@ -185,14 +185,14 @@ namespace MetadataExtractor.Formats.Tiff
             CurrentDirectory.SetObjectArray(tagId, array);
         }
 
-        public abstract void Completed(IndexedReader arg1, int arg2);
+        public abstract void Completed(IndexedReader reader, int tiffHeaderOffset);
 
-        public abstract bool CustomProcessTag(int arg1, ICollection<int?> arg2, int arg3, IndexedReader arg4, int arg5, int arg6);
+        public abstract bool CustomProcessTag(int tagOffset, ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, IndexedReader reader, int tagId, int byteCount);
 
         public abstract bool HasFollowerIfd();
 
-        public abstract bool IsTagIfdPointer(int arg1);
+        public abstract bool IsTagIfdPointer(int tagType);
 
-        public abstract void SetTiffMarker(int arg1);
+        public abstract void SetTiffMarker(int marker);
     }
 }
