@@ -488,8 +488,7 @@ namespace Com.Adobe.Xmp.Impl
                 (ch >= unchecked(0x2C00) && ch <= unchecked(0x2FEF)) ||
                 (ch >= unchecked(0x3001) && ch <= unchecked(0xD7FF)) ||
                 (ch >= unchecked(0xF900) && ch <= unchecked(0xFDCF)) ||
-                (ch >= unchecked(0xFDF0) && ch <= unchecked(0xFFFD)) ||
-                (ch >= unchecked(0x10000) && ch <= unchecked(0xEFFFF));
+                (ch >= unchecked(0xFDF0) && ch <= unchecked(0xFFFD));
         }
 
         /// <summary>

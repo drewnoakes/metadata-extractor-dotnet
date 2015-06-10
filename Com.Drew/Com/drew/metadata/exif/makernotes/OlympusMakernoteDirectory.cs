@@ -399,8 +399,7 @@ namespace Com.Drew.Metadata.Exif.Makernotes
             // 25, 26 missing
         }
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
         static OlympusMakernoteDirectory()
         {

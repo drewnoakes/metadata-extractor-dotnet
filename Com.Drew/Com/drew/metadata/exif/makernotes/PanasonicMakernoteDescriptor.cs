@@ -735,7 +735,6 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                             return "Unknown (" + value[0] + " " + value[1] + ")";
                         }
                     }
-                    goto case 1;
                 }
 
                 case 1:
@@ -757,7 +756,6 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                             return "Unknown (" + value[0] + " " + value[1] + ")";
                         }
                     }
-                    goto case 16;
                 }
 
                 case 16:
@@ -779,7 +777,6 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                             return "Unknown (" + value[0] + " " + value[1] + ")";
                         }
                     }
-                    goto case 32;
                 }
 
                 case 32:
@@ -811,7 +808,6 @@ namespace Com.Drew.Metadata.Exif.Makernotes
                             return "Unknown (" + value[0] + " " + value[1] + ")";
                         }
                     }
-                    goto case 64;
                 }
 
                 case 64:

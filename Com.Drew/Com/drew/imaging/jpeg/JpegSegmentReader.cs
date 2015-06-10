@@ -107,9 +107,9 @@ namespace Com.Drew.Imaging.Jpeg
                     throw new JpegProcessingException(string.Format("Expected JPEG segment start identifier 0xFF, not 0x{0:X2}", segmentIdentifier));
 
                 // Read until we have a non-0xFF byte. This identifies the segment type.
-                var segmentTypeByte = reader.GetInt8();
+                var segmentTypeByte = reader.GetUInt8();
                 while (segmentTypeByte == 0xFF)
-                    segmentTypeByte = reader.GetInt8();
+                    segmentTypeByte = reader.GetUInt8();
 
                 if (segmentTypeByte == 0)
                     throw new JpegProcessingException("Expected non-zero byte as part of JPEG marker identifier");
