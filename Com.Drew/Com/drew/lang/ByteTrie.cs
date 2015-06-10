@@ -27,8 +27,7 @@ using Sharpen;
 
 namespace Com.Drew.Lang
 {
-    /// <summary>Stores values using a prefix tree (aka 'trie', i.e.</summary>
-    /// <remarks>Stores values using a prefix tree (aka 'trie', i.e. reTRIEval data structure).</remarks>
+    /// <summary>Stores values using a prefix tree (aka 'trie', i.e. reTRIEval data structure).</summary>
     public sealed class ByteTrie<T>
     {
         /// <summary>A node in the trie.</summary>
@@ -102,9 +101,7 @@ namespace Com.Drew.Lang
         }
 
         /// <summary>
-        /// Sets the default value to use in
-        /// <see cref="ByteTrie{T}.Find(byte[])"/>
-        /// when no path matches.
+        /// Sets the default value to use in <see cref="ByteTrie{T}.Find(byte[])"/> when no path matches.
         /// </summary>
         public void SetDefaultValue(T defaultValue)
         {
