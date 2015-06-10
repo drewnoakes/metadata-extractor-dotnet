@@ -29,66 +29,48 @@ namespace MetadataExtractor.Formats.Png
     public sealed class PngDirectory : Directory
     {
         public const int TagImageWidth = 1;
-
         public const int TagImageHeight = 2;
-
         public const int TagBitsPerSample = 3;
-
         public const int TagColorType = 4;
-
         public const int TagCompressionType = 5;
-
         public const int TagFilterMethod = 6;
-
         public const int TagInterlaceMethod = 7;
-
         public const int TagPaletteSize = 8;
-
         public const int TagPaletteHasTransparency = 9;
-
         public const int TagSrgbRenderingIntent = 10;
-
         public const int TagGamma = 11;
-
         public const int TagIccProfileName = 12;
-
         public const int TagTextualData = 13;
-
         public const int TagLastModificationTime = 14;
-
         public const int TagBackgroundColor = 15;
-
         public const int TagPixelsPerUnitX = 16;
-
         public const int TagPixelsPerUnitY = 17;
-
         public const int TagUnitSpecifier = 18;
-
         public const int TagSignificantBits = 19;
 
-        [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
 
         static PngDirectory()
         {
-            TagNameMap[TagImageHeight] = "Image Height";
-            TagNameMap[TagImageWidth] = "Image Width";
-            TagNameMap[TagBitsPerSample] = "Bits Per Sample";
-            TagNameMap[TagColorType] = "Color Type";
-            TagNameMap[TagCompressionType] = "Compression Type";
-            TagNameMap[TagFilterMethod] = "Filter Method";
-            TagNameMap[TagInterlaceMethod] = "Interlace Method";
-            TagNameMap[TagPaletteSize] = "Palette Size";
-            TagNameMap[TagPaletteHasTransparency] = "Palette Has Transparency";
-            TagNameMap[TagSrgbRenderingIntent] = "sRGB Rendering Intent";
-            TagNameMap[TagGamma] = "Image Gamma";
-            TagNameMap[TagIccProfileName] = "ICC Profile Name";
-            TagNameMap[TagTextualData] = "Textual Data";
-            TagNameMap[TagLastModificationTime] = "Last Modification Time";
-            TagNameMap[TagBackgroundColor] = "Background Color";
-            TagNameMap[TagPixelsPerUnitX] = "Pixels Per Unit X";
-            TagNameMap[TagPixelsPerUnitY] = "Pixels Per Unit Y";
-            TagNameMap[TagUnitSpecifier] = "Unit Specifier";
-            TagNameMap[TagSignificantBits] = "Significant Bits";
+            _tagNameMap[TagImageHeight] = "Image Height";
+            _tagNameMap[TagImageWidth] = "Image Width";
+            _tagNameMap[TagBitsPerSample] = "Bits Per Sample";
+            _tagNameMap[TagColorType] = "Color Type";
+            _tagNameMap[TagCompressionType] = "Compression Type";
+            _tagNameMap[TagFilterMethod] = "Filter Method";
+            _tagNameMap[TagInterlaceMethod] = "Interlace Method";
+            _tagNameMap[TagPaletteSize] = "Palette Size";
+            _tagNameMap[TagPaletteHasTransparency] = "Palette Has Transparency";
+            _tagNameMap[TagSrgbRenderingIntent] = "sRGB Rendering Intent";
+            _tagNameMap[TagGamma] = "Image Gamma";
+            _tagNameMap[TagIccProfileName] = "ICC Profile Name";
+            _tagNameMap[TagTextualData] = "Textual Data";
+            _tagNameMap[TagLastModificationTime] = "Last Modification Time";
+            _tagNameMap[TagBackgroundColor] = "Background Color";
+            _tagNameMap[TagPixelsPerUnitX] = "Pixels Per Unit X";
+            _tagNameMap[TagPixelsPerUnitY] = "Pixels Per Unit Y";
+            _tagNameMap[TagUnitSpecifier] = "Unit Specifier";
+            _tagNameMap[TagSignificantBits] = "Significant Bits";
         }
 
         private readonly PngChunkType _pngChunkType;
@@ -112,7 +94,7 @@ namespace MetadataExtractor.Formats.Png
 
         protected override Dictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }
