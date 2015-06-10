@@ -67,11 +67,7 @@ namespace Com.Drew.Metadata
         }
 
         /// <summary>Adds a directory to this metadata collection.</summary>
-        /// <param name="directory">
-        /// the
-        /// <see cref="Directory"/>
-        /// to add into this metadata collection.
-        /// </param>
+        /// <param name="directory">the <see cref="Directory"/> to add into this metadata collection.</param>
         public void AddDirectory<T>([NotNull] T directory)
             where T : Directory
         {
@@ -79,9 +75,7 @@ namespace Com.Drew.Metadata
         }
 
         /// <summary>
-        /// Gets the first
-        /// <see cref="Directory"/>
-        /// of the specified type contained within this metadata collection.
+        /// Gets the first <see cref="Directory"/> of the specified type contained within this metadata collection.
         /// If no instances of this type are present, <c>null</c> is returned.
         /// </summary>
         /// <typeparam name="T">The Directory type</typeparam>
@@ -102,16 +96,8 @@ namespace Com.Drew.Metadata
         }
 
         /// <summary>Indicates whether an instance of the given directory type exists in this Metadata instance.</summary>
-        /// <param name="type">
-        /// the
-        /// <see cref="Directory"/>
-        /// type
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if a
-        /// <see cref="Directory"/>
-        /// of the specified type exists, otherwise <c>false</c>
-        /// </returns>
+        /// <param name="type">the <see cref="Directory"/> type</param>
+        /// <returns><c>true</c> if a <see cref="Directory"/> of the specified type exists, otherwise <c>false</c></returns>
         public bool ContainsDirectoryOfType(Type type)
         {
             var list = GetDirectoryList(type);
@@ -122,8 +108,7 @@ namespace Com.Drew.Metadata
         /// <remarks>
         /// Indicates whether any errors were reported during the reading of metadata values.
         /// This value will be true if Directory.hasErrors() is true for one of the contained
-        /// <see cref="Directory"/>
-        /// objects.
+        /// <see cref="Directory"/> objects.
         /// </remarks>
         /// <returns>whether one of the contained directories has an error</returns>
         public bool HasErrors()
