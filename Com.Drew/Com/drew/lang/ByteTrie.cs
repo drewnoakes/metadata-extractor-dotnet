@@ -33,9 +33,9 @@ namespace Com.Drew.Lang
     {
         /// <summary>A node in the trie.</summary>
         /// <remarks>A node in the trie. Has children and may have an associated value.</remarks>
-        internal sealed class ByteTrieNode<T>
+        internal sealed class ByteTrieNode
         {
-            internal readonly IDictionary<byte, ByteTrieNode<T>> Children = new Dictionary<byte, ByteTrieNode<T>>();
+            internal readonly IDictionary<byte, ByteTrieNode> Children = new Dictionary<byte, ByteTrieNode>();
 
             internal T Value;
 
@@ -49,7 +49,7 @@ namespace Com.Drew.Lang
             }
         }
 
-        private readonly ByteTrieNode<T> _root = new ByteTrieNode<T>();
+        private readonly ByteTrieNode _root = new ByteTrieNode();
 
         private int _maxDepth;
 
@@ -87,10 +87,10 @@ namespace Com.Drew.Lang
             {
                 foreach (var b in part)
                 {
-                    ByteTrieNode<T> child;
+                    ByteTrieNode child;
                     if (!node.Children.TryGetValue(b, out child))
                     {
-                        child = new ByteTrieNode<T>();
+                        child = new ByteTrieNode();
                         node.Children[b] = child;
                     }
                     node = child;
