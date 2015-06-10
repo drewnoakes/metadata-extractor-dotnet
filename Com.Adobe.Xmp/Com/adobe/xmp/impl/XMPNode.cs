@@ -9,7 +9,9 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using Com.Adobe.Xmp.Options;
 using Sharpen;
@@ -33,10 +35,10 @@ namespace Com.Adobe.Xmp.Impl
     public sealed class XmpNode : IComparable
     {
         /// <summary>list of child nodes, lazy initialized</summary>
-        private IList _children;
+        private List<XmpNode> _children;
 
         /// <summary>list of qualifier of the node, lazy initialized</summary>
-        private IList _qualifier;
+        private List<XmpNode> _qualifier;
 
         /// <summary>options describing the kind of the node</summary>
         private PropertyOptions _options;
@@ -80,7 +82,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns the child with the requested index.</returns>
         public XmpNode GetChild(int index)
         {
-            return (XmpNode)GetChildren()[index - 1];
+            return GetChildren()[index - 1];
         }
 
         /// <summary>Adds a node as child to this node.</summary>
@@ -125,7 +127,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="itemIndex">the index to remove [1..size]</param>
         public void RemoveChild(int itemIndex)
         {
-            GetChildren().Remove(itemIndex - 1);
+            GetChildren().RemoveAt(itemIndex - 1);
             CleanupChildren();
         }
 
@@ -177,7 +179,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns the qualifier with the requested index.</returns>
         public XmpNode GetQualifier(int index)
         {
-            return (XmpNode)GetQualifier()[index - 1];
+            return GetQualifier()[index - 1];
         }
 
         /// <returns>Returns the number of qualifier without neccessarily creating a list.</returns>
@@ -283,7 +285,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return GetChildren().Iterator();
             }
-            return Collections.EmptyList().ListIterator();
+            return Enumerable.Empty<object>().Iterator();
         }
 
         /// <summary>
@@ -305,7 +307,7 @@ namespace Com.Adobe.Xmp.Impl
                 var it = GetQualifier().Iterator();
                 return new Iterator391(it);
             }
-            return Collections.EmptyList().Iterator();
+            return Enumerable.Empty<object>().Iterator();
         }
 
         /// <summary>
@@ -448,14 +450,14 @@ namespace Com.Adobe.Xmp.Impl
             // sort qualifier
             if (HasQualifier)
             {
-                var quals = (XmpNode[])Collections.ToArray(GetQualifier(), new XmpNode[GetQualifierLength()]);
+                var quals = GetQualifier().ToArray();
                 var sortFrom = 0;
                 while (quals.Length > sortFrom && (XmpConstConstants.XmlLang.Equals(quals[sortFrom].Name) || "rdf:type".Equals(quals[sortFrom].Name)))
                 {
                     quals[sortFrom].Sort();
                     sortFrom++;
                 }
-                Array.Sort (quals, sortFrom, quals.Length);
+                Array.Sort(quals, sortFrom, quals.Length);
                 var it = _qualifier.ListIterator();
                 for (var j = 0; j < quals.Length; j++)
                 {
@@ -547,7 +549,7 @@ namespace Com.Adobe.Xmp.Impl
             // render qualifier
             if (recursive && HasQualifier)
             {
-                var quals = (XmpNode[])Collections.ToArray(GetQualifier(), new XmpNode[GetQualifierLength()]);
+                var quals = GetQualifier().ToArray();
                 var i1 = 0;
                 while (quals.Length > i1 && (XmpConstConstants.XmlLang.Equals(quals[i1].Name) || "rdf:type".Equals(quals[i1].Name)))
                 {
@@ -563,7 +565,7 @@ namespace Com.Adobe.Xmp.Impl
             // render children
             if (recursive && HasChildren)
             {
-                var children = (XmpNode[])Collections.ToArray(GetChildren(), new XmpNode[GetChildrenLength()]);
+                var children = GetChildren().ToArray();
                 if (!Options.IsArray)
                 {
                     Array.Sort(children);
@@ -597,49 +599,30 @@ namespace Com.Adobe.Xmp.Impl
         /// that its initialized.
         /// </summary>
         /// <returns>Returns list of children that is lazy initialized.</returns>
-        private IList GetChildren()
+        private List<XmpNode> GetChildren()
         {
-            if (_children == null)
-            {
-                _children = new ArrayList(0);
-            }
-            return _children;
+            return _children ?? (_children = new List<XmpNode>(0));
         }
 
         /// <returns>Returns a read-only copy of child nodes list.</returns>
-        public IList GetUnmodifiableChildren()
+        public IReadOnlyList<object> GetUnmodifiableChildren()
         {
-            return Collections.UnmodifiableList(new ArrayList(GetChildren()));
+            return GetChildren().Cast<object>().ToList();
         }
 
         /// <returns>Returns list of qualifier that is lazy initialized.</returns>
-        private IList GetQualifier()
+        private List<XmpNode> GetQualifier()
         {
-            if (_qualifier == null)
-            {
-                _qualifier = new ArrayList(0);
-            }
-            return _qualifier;
+            return _qualifier ?? (_qualifier = new List<XmpNode>(0));
         }
 
         /// <summary>Internal find.</summary>
         /// <param name="list">the list to search in</param>
         /// <param name="expr">the search expression</param>
         /// <returns>Returns the found node or <c>nulls</c>.</returns>
-        private static XmpNode Find(IList list, string expr)
+        private static XmpNode Find(IList<XmpNode> list, string expr)
         {
-            if (list != null)
-            {
-                for (var it = list.Iterator(); it.HasNext(); )
-                {
-                    var child = (XmpNode)it.Next();
-                    if (child.Name.Equals(expr))
-                    {
-                        return child;
-                    }
-                }
-            }
-            return null;
+            return list != null ? list.FirstOrDefault(node => node.Name == expr) : null;
         }
 
         /// <summary>Checks that a node name is not existing on the same level, except for array items.</summary>

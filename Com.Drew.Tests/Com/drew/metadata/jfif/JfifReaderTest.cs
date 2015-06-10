@@ -22,7 +22,6 @@
 
 using Com.Drew.Lang;
 using NUnit.Framework;
-using Sharpen;
 
 namespace Com.Drew.Metadata.Jfif
 {
@@ -34,17 +33,22 @@ namespace Com.Drew.Metadata.Jfif
         public void TestRead()
         {
             var jfifData = new byte[] { 74, 70, 73, 70, 0, 1, 2, 1, 0, 108, 0, 108, 0, 0 };
+
             var metadata = new Metadata();
-            var reader = new JfifReader();
-            reader.Extract(new ByteArrayReader(jfifData), metadata);
+            new JfifReader().Extract(new ByteArrayReader(jfifData), metadata);
+
             Assert.AreEqual(1, metadata.GetDirectoryCount());
+
             var directory = metadata.GetFirstDirectoryOfType<JfifDirectory>();
+
             Assert.IsNotNull(directory);
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            var tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
-            Assert.AreEqual(4, tags.Length);
+
+            var tags = directory.GetTags();
+
+            Assert.AreEqual(4, tags.Count);
             Assert.AreEqual(JfifDirectory.TagVersion, tags[0].TagType);
-            Assert.AreEqual(unchecked(0x0102), directory.GetInt(tags[0].TagType));
+            Assert.AreEqual(0x0102, directory.GetInt(tags[0].TagType));
             Assert.AreEqual(JfifDirectory.TagUnits, tags[1].TagType);
             Assert.AreEqual(1, directory.GetInt(tags[1].TagType));
             Assert.AreEqual(JfifDirectory.TagResx, tags[2].TagType);

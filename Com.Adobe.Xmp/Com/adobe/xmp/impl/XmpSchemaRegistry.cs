@@ -8,6 +8,7 @@
 // =================================================================================================
 
 using System.Collections;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Com.Adobe.Xmp.Options;
 using Com.Adobe.Xmp.Properties;
@@ -24,17 +25,17 @@ namespace Com.Adobe.Xmp.Impl
     public sealed class XmpSchemaRegistry : IXmpSchemaRegistry
     {
         /// <summary>a map from a namespace URI to its registered prefix</summary>
-        private readonly IDictionary _namespaceToPrefixMap = new Hashtable();
+        private readonly Dictionary<string, string> _namespaceToPrefixMap = new Dictionary<string, string>();
 
         /// <summary>a map from a prefix to the associated namespace URI</summary>
-        private readonly IDictionary _prefixToNamespaceMap = new Hashtable();
+        private readonly IDictionary<string, string> _prefixToNamespaceMap = new Dictionary<string, string>();
 
         /// <summary>a map of all registered aliases.</summary>
         /// <remarks>
         /// a map of all registered aliases.
         /// The map is a relationship from a qname to an <c>XMPAliasInfo</c>-object.
         /// </remarks>
-        private readonly IDictionary _aliasMap = new Hashtable();
+        private readonly IDictionary<string, IXmpAliasInfo> _aliasMap = new Dictionary<string, IXmpAliasInfo>();
 
         /// <summary>The pattern that must not be contained in simple properties</summary>
         private readonly Regex _p = new Regex ("[/*?\\[\\]]", RegexOptions.Compiled);
@@ -73,8 +74,8 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     throw new XmpException("The prefix is a bad XML name", XmpErrorCode.BadXml);
                 }
-                var registeredPrefix = (string)_namespaceToPrefixMap[namespaceUri];
-                var registeredNs = (string)_prefixToNamespaceMap[suggestedPrefix];
+                var registeredPrefix = _namespaceToPrefixMap[namespaceUri];
+                var registeredNs = _prefixToNamespaceMap[suggestedPrefix];
                 if (registeredPrefix != null)
                 {
                     // Return the actual prefix
@@ -85,7 +86,7 @@ namespace Com.Adobe.Xmp.Impl
                     // the namespace is new, but the prefix is already engaged,
                     // we generate a new prefix out of the suggested
                     var generatedPrefix = suggestedPrefix;
-                    for (var i = 1; _prefixToNamespaceMap.Contains(generatedPrefix); i++)
+                    for (var i = 1; _prefixToNamespaceMap.ContainsKey(generatedPrefix); i++)
                     {
                         generatedPrefix = suggestedPrefix.Substring(0, suggestedPrefix.Length - 1 - 0) + "_" + i + "_:";
                     }
@@ -115,7 +116,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             lock (this)
             {
-                return (string)_namespaceToPrefixMap[namespaceUri];
+                return _namespaceToPrefixMap[namespaceUri];
             }
         }
 
@@ -127,7 +128,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     namespacePrefix += ":";
                 }
-                return (string)_prefixToNamespaceMap[namespacePrefix];
+                return _prefixToNamespaceMap[namespacePrefix];
             }
         }
 
@@ -135,7 +136,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             lock (this)
             {
-                return Collections.UnmodifiableMap(new SortedList(_namespaceToPrefixMap));
+                return new Dictionary<string, string>(_namespaceToPrefixMap);
             }
         }
 
@@ -143,7 +144,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             lock (this)
             {
-                return Collections.UnmodifiableMap(new SortedList(_prefixToNamespaceMap));
+                return new Dictionary<string, string>(_prefixToNamespaceMap);
             }
         }
 
@@ -234,7 +235,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     return null;
                 }
-                return (IXmpAliasInfo)_aliasMap[aliasPrefix + aliasProp];
+                return _aliasMap[aliasPrefix + aliasProp];
             }
         }
 
@@ -242,28 +243,28 @@ namespace Com.Adobe.Xmp.Impl
         {
             lock (this)
             {
-                return (IXmpAliasInfo)_aliasMap[qname];
+                return _aliasMap[qname];
             }
         }
 
-        public IXmpAliasInfo[] FindAliases(string aliasNs)
+        public IReadOnlyList<IXmpAliasInfo> FindAliases(string aliasNs)
         {
             lock (this)
             {
                 var prefix = GetNamespacePrefix(aliasNs);
-                IList result = new ArrayList();
+                var result = new List<IXmpAliasInfo>();
                 if (prefix != null)
                 {
                     for (var it = _aliasMap.Keys.Iterator(); it.HasNext();)
                     {
-                        var qname = (string)it.Next();
+                        var qname = it.Next();
                         if (qname.StartsWith(prefix))
                         {
                             result.Add(FindAlias(qname));
                         }
                     }
                 }
-                return (IXmpAliasInfo[])Collections.ToArray(result, new IXmpAliasInfo[result.Count]);
+                return result;
             }
         }
 
@@ -336,11 +337,11 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 var key = aliasPrefix + aliasProp;
                 // check if alias is already existing
-                if (_aliasMap.Contains(key))
+                if (_aliasMap.ContainsKey(key))
                 {
                     throw new XmpException("Alias is already existing", XmpErrorCode.BadParam);
                 }
-                if (_aliasMap.Contains(actualPrefix + actualProp))
+                if (_aliasMap.ContainsKey(actualPrefix + actualProp))
                 {
                     throw new XmpException("Actual property is already an alias, use the base property", XmpErrorCode.BadParam);
                 }
@@ -394,7 +395,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             lock (this)
             {
-                return Collections.UnmodifiableMap(new SortedList(_aliasMap));
+                return new Dictionary<string, IXmpAliasInfo>(_aliasMap);
             }
         }
 

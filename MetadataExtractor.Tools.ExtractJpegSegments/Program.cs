@@ -26,7 +26,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Com.Drew.Imaging.Jpeg;
-using Sharpen;
 
 namespace MetadataExtractor.Tools.ExtractJpegSegments
 {
@@ -71,7 +70,8 @@ namespace MetadataExtractor.Tools.ExtractJpegSegments
             if (segmentTypes.Count == 0)
             {
                 // If none specified, use all that could reasonably contain metadata
-                Collections.AddAll(segmentTypes, JpegSegmentTypeExtensions.CanContainMetadataTypes);
+                foreach (var segmentType in JpegSegmentTypeExtensions.CanContainMetadataTypes)
+                    segmentTypes.Add(segmentType);
             }
             Console.Out.WriteLine("Reading: {0}", filePath);
             var segmentData = JpegSegmentReader.ReadSegments(filePath, segmentTypes);

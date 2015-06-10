@@ -8,6 +8,7 @@
 // =================================================================================================
 
 using System;
+using System.Linq;
 using Com.Adobe.Xmp.Impl.Xpath;
 using Com.Adobe.Xmp.Options;
 using Com.Adobe.Xmp.Properties;
@@ -98,7 +99,7 @@ namespace Com.Adobe.Xmp.Impl
             else
             {
                 // create null iterator
-                _nodeIterator = Collections.EmptyList().Iterator();
+                _nodeIterator = Enumerable.Empty<object>().Iterator();
             }
         }
 
@@ -165,7 +166,7 @@ namespace Com.Adobe.Xmp.Impl
             private int _index;
 
             /// <summary>the iterator for each child</summary>
-            private IIterator _subIterator = Collections.EmptyList().Iterator();
+            private IIterator _subIterator = Enumerable.Empty<object>().Iterator();
 
             /// <summary>the cached <c>PropertyInfo</c> to return</summary>
             private IXmpPropertyInfo _returnProperty;
@@ -251,7 +252,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     // setSkipSiblings(false);
                     _enclosing._skipSiblings = false;
-                    _subIterator = Collections.EmptyList().Iterator();
+                    _subIterator = Enumerable.Empty<object>().Iterator();
                 }
                 // create sub iterator for every child,
                 // if its the first child visited or the former child is finished

@@ -39,7 +39,7 @@ namespace Com.Drew.Metadata
     {
         /// <summary>Map of values hashed by type identifiers.</summary>
         [NotNull]
-        protected readonly IDictionary<int?, object> TagMap = new Dictionary<int?, object>();
+        protected readonly Dictionary<int?, object> TagMap = new Dictionary<int?, object>();
 
         /// <summary>A convenient list holding tag values in the order in which they were stored.</summary>
         /// <remarks>
@@ -48,10 +48,10 @@ namespace Com.Drew.Metadata
         /// defined tags.
         /// </remarks>
         [NotNull]
-        protected readonly ICollection<Tag> DefinedTagList = new List<Tag>();
+        protected readonly List<Tag> DefinedTagList = new List<Tag>();
 
         [NotNull]
-        private readonly ICollection<string> _errorList = new List<string>(4);
+        private readonly List<string> _errorList = new List<string>(4);
 
         /// <summary>The descriptor used to interpret tag values.</summary>
         protected ITagDescriptor Descriptor;
@@ -68,7 +68,6 @@ namespace Com.Drew.Metadata
         [NotNull]
         protected abstract Dictionary<int?, string> GetTagNameMap();
 
-        // VARIOUS METHODS
         /// <summary>Gets a value indicating whether the directory is empty, meaning it contains no errors and no tag values.</summary>
         public bool IsEmpty()
         {
@@ -84,11 +83,11 @@ namespace Com.Drew.Metadata
         }
 
         /// <summary>Returns an Iterator of Tag instances that have been set in this Directory.</summary>
-        /// <returns>an Iterator of Tag instances</returns>
+        /// <returns>The list of <see cref="Tag"/> instances</returns>
         [NotNull]
-        public ICollection<Tag> GetTags()
+        public IReadOnlyList<Tag> GetTags()
         {
-            return Collections.UnmodifiableCollection(DefinedTagList);
+            return DefinedTagList;
         }
 
         /// <summary>Returns the number of tags set in this Directory.</summary>
@@ -124,11 +123,11 @@ namespace Com.Drew.Metadata
         }
 
         /// <summary>Used to iterate over any error messages contained in this directory.</summary>
-        /// <returns>an iterable collection of error message strings.</returns>
+        /// <returns>The collection of error message strings.</returns>
         [NotNull]
-        public IEnumerable<string> GetErrors()
+        public IReadOnlyCollection<string> GetErrors()
         {
-            return Collections.UnmodifiableCollection(_errorList);
+            return _errorList;
         }
 
         /// <summary>Returns the count of error messages in this directory.</summary>

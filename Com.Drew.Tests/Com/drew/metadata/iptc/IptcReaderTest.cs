@@ -51,8 +51,8 @@ namespace Com.Drew.Metadata.Iptc
         {
             var directory = ProcessBytes("Tests/Data/iptc1.jpg.appd");
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            var tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
-            Assert.AreEqual(16, tags.Length);
+            var tags = directory.GetTags();
+            Assert.AreEqual(16, tags.Count);
             Assert.AreEqual(IptcDirectory.TagCategory, tags[0].TagType);
             CollectionAssert.AreEqual(new[] { "Supl. Category2", "Supl. Category1", "Cat" }, directory.GetStringArray(tags[0].TagType));
             Assert.AreEqual(IptcDirectory.TagCopyrightNotice, tags[1].TagType);
@@ -93,8 +93,8 @@ namespace Com.Drew.Metadata.Iptc
         {
             var directory = ProcessBytes("Tests/Data/iptc2-photoshop6.jpg.appd");
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            var tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
-            Assert.AreEqual(17, tags.Length);
+            var tags = directory.GetTags();
+            Assert.AreEqual(17, tags.Count);
             Assert.AreEqual(IptcDirectory.TagApplicationRecordVersion, tags[0].TagType);
             Assert.AreEqual(2, directory.GetObject(tags[0].TagType));
             Assert.AreEqual(IptcDirectory.TagCaption, tags[1].TagType);
@@ -137,8 +137,8 @@ namespace Com.Drew.Metadata.Iptc
         {
             var directory = ProcessBytes("Tests/Data/iptc-encoding-defined-utf8.bytes");
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            var tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
-            Assert.AreEqual(4, tags.Length);
+            var tags = directory.GetTags();
+            Assert.AreEqual(4, tags.Count);
             Assert.AreEqual(IptcDirectory.TagEnvelopeRecordVersion, tags[0].TagType);
             Assert.AreEqual(2, directory.GetObject(tags[0].TagType));
             Assert.AreEqual(IptcDirectory.TagCodedCharacterSet, tags[1].TagType);
@@ -155,8 +155,8 @@ namespace Com.Drew.Metadata.Iptc
         {
             var directory = ProcessBytes("Tests/Data/iptc-encoding-undefined-iso.bytes");
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            var tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
-            Assert.AreEqual(3, tags.Length);
+            var tags = directory.GetTags();
+            Assert.AreEqual(3, tags.Count);
             Assert.AreEqual(IptcDirectory.TagEnvelopeRecordVersion, tags[0].TagType);
             Assert.AreEqual(2, directory.GetObject(tags[0].TagType));
             Assert.AreEqual(IptcDirectory.TagApplicationRecordVersion, tags[1].TagType);
@@ -171,8 +171,8 @@ namespace Com.Drew.Metadata.Iptc
         {
             var directory = ProcessBytes("Tests/Data/iptc-encoding-unknown.bytes");
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            var tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
-            Assert.AreEqual(3, tags.Length);
+            var tags = directory.GetTags();
+            Assert.AreEqual(3, tags.Count);
             Assert.AreEqual(IptcDirectory.TagApplicationRecordVersion, tags[0].TagType);
             Assert.AreEqual(2, directory.GetObject(tags[0].TagType));
             Assert.AreEqual(IptcDirectory.TagCaption, tags[1].TagType);
@@ -190,8 +190,8 @@ namespace Com.Drew.Metadata.Iptc
             // Version 2.7.0 tripped up on this and threw an exception.
             var directory = ProcessBytes("Tests/Data/iptc-encoding-unknown-2.bytes");
             Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            var tags = Collections.ToArray(directory.GetTags(), new Tag[directory.GetTagCount()]);
-            Assert.AreEqual(37, tags.Length);
+            var tags = directory.GetTags();
+            Assert.AreEqual(37, tags.Count);
             Assert.AreEqual("MEDWAS,MEDLON,MEDTOR,RONL,ASIA,AONL,APC,USA,CAN,SAM,BIZ", directory.GetString(IptcDirectory.TagDestination));
         }
     }

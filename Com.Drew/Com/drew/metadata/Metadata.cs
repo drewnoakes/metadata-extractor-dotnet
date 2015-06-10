@@ -52,11 +52,13 @@ namespace Com.Drew.Metadata
         }
 
         [CanBeNull]
-        public ICollection<T> GetDirectoriesOfType<T>()
+        public IReadOnlyList<T> GetDirectoriesOfType<T>()
             where T : Directory
         {
             var type = typeof(T);
-            return _directoryListByClass.GetOrNull(type).Select(item => (T)item).ToList();
+            var list = _directoryListByClass.GetOrNull(type);
+
+            return list == null ? null : list.Select(item => (T)item).ToList();
         }
 
         /// <summary>Returns the count of directories in this metadata collection.</summary>

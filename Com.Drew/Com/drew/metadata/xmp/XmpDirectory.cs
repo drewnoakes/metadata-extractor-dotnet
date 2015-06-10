@@ -84,7 +84,7 @@ namespace Com.Drew.Metadata.Xmp
         internal static readonly Dictionary<int?, string> TagPropNameMap = new Dictionary<int?, string>();
 
         [NotNull]
-        private readonly IDictionary<string, string> _propertyValueByPath = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _propertyValueByPath = new Dictionary<string, string>();
 
         static XmpDirectory()
         {
@@ -263,7 +263,7 @@ namespace Com.Drew.Metadata.Xmp
         [NotNull]
         public IDictionary<string, string> GetXmpProperties()
         {
-            return Collections.UnmodifiableMap(_propertyValueByPath);
+            return new Dictionary<string, string>(_propertyValueByPath);
         }
 
         public void SetXmpMeta([NotNull] IXmpMeta xmpMeta)

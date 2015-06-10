@@ -8,6 +8,7 @@
 // =================================================================================================
 
 using System.Collections;
+using System.Collections.Generic;
 using Com.Adobe.Xmp.Properties;
 
 namespace Com.Adobe.Xmp
@@ -148,7 +149,7 @@ namespace Com.Adobe.Xmp
         /// </remarks>
         /// <param name="aliasNs">a schema namespace URI</param>
         /// <returns>Returns all alias infos from aliases that are contained in the provided namespace.</returns>
-        IXmpAliasInfo[] FindAliases(string aliasNs);
+        IReadOnlyList<IXmpAliasInfo> FindAliases(string aliasNs);
 
         /// <summary>Searches for registered aliases.</summary>
         /// <param name="qname">an XML conform qname</param>

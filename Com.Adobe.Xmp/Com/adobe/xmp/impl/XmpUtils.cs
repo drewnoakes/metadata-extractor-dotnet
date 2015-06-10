@@ -389,7 +389,7 @@ namespace Com.Adobe.Xmp.Impl
                         // Lookup the XMP node
                         // from the alias, to make sure the actual exists.
                         var aliases = XmpMetaFactory.GetSchemaRegistry().FindAliases(schemaNs);
-                        for (var i = 0; i < aliases.Length; i++)
+                        for (var i = 0; i < aliases.Count; i++)
                         {
                             var info = aliases[i];
                             var path = XmpPathParser.ExpandXPath(info.GetNamespace(), info.GetPropName());

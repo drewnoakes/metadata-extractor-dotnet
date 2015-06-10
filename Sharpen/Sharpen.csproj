@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calendar.cs" />
-    <Compile Include="Collections.cs" />
     <Compile Include="DateFormat.cs" />
     <Compile Include="DecimalFormat.cs" />
     <Compile Include="DecimalFormatSymbols.cs" />
