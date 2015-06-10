@@ -79,13 +79,13 @@ namespace Com.Drew.Imaging.Png
             {
                 var header = new PngHeader(bytes);
                 var directory = new PngDirectory(PngChunkType.Ihdr);
-                directory.SetInt(PngDirectory.TagImageWidth, header.GetImageWidth());
-                directory.SetInt(PngDirectory.TagImageHeight, header.GetImageHeight());
-                directory.SetInt(PngDirectory.TagBitsPerSample, header.GetBitsPerSample());
-                directory.SetInt(PngDirectory.TagColorType, header.GetColorType().GetNumericValue());
-                directory.SetInt(PngDirectory.TagCompressionType, header.GetCompressionType());
-                directory.SetInt(PngDirectory.TagFilterMethod, header.GetFilterMethod());
-                directory.SetInt(PngDirectory.TagInterlaceMethod, header.GetInterlaceMethod());
+                directory.SetInt(PngDirectory.TagImageWidth, header.ImageWidth);
+                directory.SetInt(PngDirectory.TagImageHeight, header.ImageHeight);
+                directory.SetInt(PngDirectory.TagBitsPerSample, header.BitsPerSample);
+                directory.SetInt(PngDirectory.TagColorType, header.ColorType.GetNumericValue());
+                directory.SetInt(PngDirectory.TagCompressionType, header.CompressionType);
+                directory.SetInt(PngDirectory.TagFilterMethod, header.FilterMethod);
+                directory.SetInt(PngDirectory.TagInterlaceMethod, header.InterlaceMethod);
                 metadata.AddDirectory(directory);
             }
             else

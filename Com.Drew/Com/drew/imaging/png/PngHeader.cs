@@ -1,4 +1,3 @@
-using System.IO;
 using Com.Drew.Lang;
 using JetBrains.Annotations;
 
@@ -7,86 +6,42 @@ namespace Com.Drew.Imaging.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngHeader
     {
-        private readonly int _imageWidth;
-
-        private readonly int _imageHeight;
-
-        private readonly byte _bitsPerSample;
-
-        [NotNull]
-        private readonly PngColorType _colorType;
-
-        private readonly byte _compressionType;
-
-        private readonly byte _filterMethod;
-
-        private readonly byte _interlaceMethod;
-
         /// <exception cref="Com.Drew.Imaging.Png.PngProcessingException"/>
         public PngHeader([NotNull] byte[] bytes)
         {
             if (bytes.Length != 13)
-            {
-                throw new PngProcessingException("PNG header chunk must have 13 data bytes");
-            }
-            SequentialReader reader = new SequentialByteArrayReader(bytes);
-            try
-            {
-                _imageWidth = reader.GetInt32();
-                _imageHeight = reader.GetInt32();
-                _bitsPerSample = reader.GetUInt8();
-                var colorTypeNumber = reader.GetUInt8();
-                var colorType = PngColorType.FromNumericValue(colorTypeNumber);
-                if (colorType == null)
-                {
-                    throw new PngProcessingException("Unexpected PNG color type: " + colorTypeNumber);
-                }
-                _colorType = colorType;
-                _compressionType = reader.GetUInt8();
-                _filterMethod = reader.GetUInt8();
-                _interlaceMethod = reader.GetUInt8();
-            }
-            catch (IOException e)
-            {
-                // Should never happen
-                throw new PngProcessingException(e);
-            }
+                throw new PngProcessingException("PNG header chunk must have exactly 13 data bytes");
+
+            var reader = new SequentialByteArrayReader(bytes);
+
+            ImageWidth = reader.GetInt32();
+            ImageHeight = reader.GetInt32();
+            BitsPerSample = reader.GetUInt8();
+
+            var colorTypeNumber = reader.GetUInt8();
+            var colorType = PngColorType.FromNumericValue(colorTypeNumber);
+            if (colorType == null)
+                throw new PngProcessingException("Unexpected PNG color type: " + colorTypeNumber);
+            ColorType = colorType;
+
+            CompressionType = reader.GetUInt8();
+            FilterMethod = reader.GetUInt8();
+            InterlaceMethod = reader.GetUInt8();
         }
 
-        public int GetImageWidth()
-        {
-            return _imageWidth;
-        }
+        public int ImageWidth { get; private set; }
 
-        public int GetImageHeight()
-        {
-            return _imageHeight;
-        }
+        public int ImageHeight { get; private set; }
 
-        public byte GetBitsPerSample()
-        {
-            return _bitsPerSample;
-        }
+        public byte BitsPerSample { get; private set; }
 
         [NotNull]
-        public PngColorType GetColorType()
-        {
-            return _colorType;
-        }
+        public PngColorType ColorType { get; private set; }
 
-        public byte GetCompressionType()
-        {
-            return _compressionType;
-        }
+        public byte CompressionType { get; private set; }
 
-        public byte GetFilterMethod()
-        {
-            return _filterMethod;
-        }
+        public byte FilterMethod { get; private set; }
 
-        public byte GetInterlaceMethod()
-        {
-            return _interlaceMethod;
-        }
+        public byte InterlaceMethod { get; private set; }
     }
 }
