@@ -386,18 +386,6 @@ namespace Com.Adobe.Xmp.Impl
                 }
             }
 
-            /// <returns>the childrenIterator</returns>
-            protected virtual IIterator GetChildrenIterator()
-            {
-                return _childrenIterator;
-            }
-
-            /// <param name="childrenIterator">the childrenIterator to set</param>
-            protected virtual void SetChildrenIterator(IIterator childrenIterator)
-            {
-                _childrenIterator = childrenIterator;
-            }
-
             /// <returns>Returns the returnProperty.</returns>
             protected IXmpPropertyInfo GetReturnProperty()
             {
