@@ -181,7 +181,7 @@ namespace MetadataExtractor.Formats.Tiff
 
         public virtual void SetInt32UArray(int tagId, uint[] array)
         {
-            // TODO create and use a proper setter for short[]
+            // TODO create and use a proper setter for uint[]
             CurrentDirectory.SetObjectArray(tagId, array);
         }
 
