@@ -46,7 +46,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             Assert.IsNotNull(xmpDirectories);
             Assert.AreEqual(1, xmpDirectories.Count);
             _directory = xmpDirectories.Iterator().Next();
-            Assert.IsFalse(_directory.HasErrors());
+            Assert.IsFalse(_directory.HasErrors);
         }
 
     /*

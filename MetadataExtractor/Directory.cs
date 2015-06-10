@@ -38,7 +38,7 @@ namespace MetadataExtractor
     {
         /// <summary>Map of values hashed by type identifiers.</summary>
         [NotNull]
-        private readonly Dictionary<int?, object> TagMap = new Dictionary<int?, object>();
+        private readonly Dictionary<int?, object> _tagMap = new Dictionary<int?, object>();
 
         /// <summary>A convenient list holding tag values in the order in which they were stored.</summary>
         /// <remarks>
@@ -47,13 +47,13 @@ namespace MetadataExtractor
         /// defined tags.
         /// </remarks>
         [NotNull]
-        private readonly List<Tag> DefinedTagList = new List<Tag>();
+        private readonly List<Tag> _definedTagList = new List<Tag>();
 
         [NotNull]
         private readonly List<string> _errorList = new List<string>(4);
 
         /// <summary>The descriptor used to interpret tag values.</summary>
-        private ITagDescriptor Descriptor;
+        private ITagDescriptor _descriptor;
 
         // ABSTRACT METHODS
 
@@ -69,9 +69,9 @@ namespace MetadataExtractor
         protected abstract IReadOnlyDictionary<int?, string> GetTagNameMap();
 
         /// <summary>Gets a value indicating whether the directory is empty, meaning it contains no errors and no tag values.</summary>
-        public bool IsEmpty()
+        public bool IsEmpty
         {
-            return _errorList.Count == 0 && DefinedTagList.Count == 0;
+            get { return _errorList.Count == 0 && _definedTagList.Count == 0; }
         }
 
         /// <summary>Indicates whether the specified tag type has been set.</summary>
@@ -79,22 +79,23 @@ namespace MetadataExtractor
         /// <returns>true if a value exists for the specified tag type, false if not</returns>
         public bool ContainsTag(int tagType)
         {
-            return TagMap.ContainsKey(tagType);
+            return _tagMap.ContainsKey(tagType);
         }
 
         /// <summary>Returns an Iterator of Tag instances that have been set in this Directory.</summary>
-        /// <returns>The list of <see cref="Tag"/> instances</returns>
+        /// <value>The list of <see cref="Tag"/>
+        ///   instances</value>
         [NotNull]
-        public IReadOnlyList<Tag> GetTags()
+        public IReadOnlyList<Tag> Tags
         {
-            return DefinedTagList;
+            get { return _definedTagList; }
         }
 
         /// <summary>Returns the number of tags set in this Directory.</summary>
-        /// <returns>the number of tags set in this Directory</returns>
-        public int GetTagCount()
+        /// <value>the number of tags set in this Directory</value>
+        public int TagCount
         {
-            return DefinedTagList.Count;
+            get { return _definedTagList.Count; }
         }
 
         /// <summary>Sets the descriptor used to interpret tag values.</summary>
@@ -102,10 +103,9 @@ namespace MetadataExtractor
         public void SetDescriptor([NotNull] ITagDescriptor descriptor)
         {
             if (descriptor == null)
-            {
-                throw new ArgumentNullException("cannot set a null descriptor");
-            }
-            Descriptor = descriptor;
+                throw new ArgumentNullException("descriptor");
+
+            _descriptor = descriptor;
         }
 
         /// <summary>Registers an error message with this directory.</summary>
@@ -116,27 +116,28 @@ namespace MetadataExtractor
         }
 
         /// <summary>Gets a value indicating whether this directory has any error messages.</summary>
-        /// <returns>true if the directory contains errors, otherwise false</returns>
-        public bool HasErrors()
+        /// <value>true if the directory contains errors, otherwise false</value>
+        public bool HasErrors
         {
-            return _errorList.Count > 0;
+            get { return _errorList.Count > 0; }
         }
 
         /// <summary>Used to iterate over any error messages contained in this directory.</summary>
-        /// <returns>The collection of error message strings.</returns>
+        /// <value>The collection of error message strings.</value>
         [NotNull]
-        public IReadOnlyCollection<string> GetErrors()
+        public IReadOnlyCollection<string> Errors
         {
-            return _errorList;
+            get { return _errorList; }
         }
 
         /// <summary>Returns the count of error messages in this directory.</summary>
-        public int GetErrorCount()
+        public int ErrorCount
         {
-            return _errorList.Count;
+            get { return _errorList.Count; }
         }
 
-        // TAG SETTERS
+        #region Tag Setters
+
         /// <summary>Sets an <c>int</c> value for the specified tag.</summary>
         /// <param name="tagType">the tag's value as an int</param>
         /// <param name="value">the value for the specified tag as an int</param>
@@ -191,9 +192,8 @@ namespace MetadataExtractor
         public void SetString(int tagType, [NotNull] string value)
         {
             if (value == null)
-            {
-                throw new ArgumentNullException("cannot set a null String");
-            }
+                throw new ArgumentNullException("value");
+
             SetObject(tagType, value);
         }
 
@@ -268,19 +268,16 @@ namespace MetadataExtractor
         public void SetObject(int tagType, [NotNull] object value)
         {
             if (value == null)
-            {
-                throw new ArgumentNullException("cannot set a null object");
-            }
-            if (!TagMap.ContainsKey(tagType))
-            {
-                DefinedTagList.Add(new Tag(tagType, this));
-            }
-            //        else {
-            //            final Object oldValue = _tagMap.get(tagType);
-            //            if (!oldValue.equals(value))
-            //                addError(String.format("Overwritten tag 0x%s (%s).  Old=%s, New=%s", Integer.toHexString(tagType), getTagName(tagType), oldValue, value));
-            //        }
-            TagMap[tagType] = value;
+                throw new ArgumentNullException("value");
+
+            if (!_tagMap.ContainsKey(tagType))
+                _definedTagList.Add(new Tag(tagType, this));
+//          else {
+//            final Object oldValue = _tagMap.get(tagType);
+//            if (!oldValue.equals(value))
+//                addError(String.format("Overwritten tag 0x%s (%s).  Old=%s, New=%s", Integer.toHexString(tagType), getTagName(tagType), oldValue, value));
+//          }
+            _tagMap[tagType] = value;
         }
 
         /// <summary>Sets an array <c>Object</c> for the specified tag.</summary>
@@ -292,7 +289,10 @@ namespace MetadataExtractor
             SetObject(tagType, array);
         }
 
-        // TAG GETTERS
+        #endregion
+
+        #region Tag Getters
+
         /// <summary>Returns the specified tag's value as an int, if possible.</summary>
         /// <remarks>
         /// Returns the specified tag's value as an int, if possible.  Every attempt to represent the tag's value as an int
@@ -847,8 +847,7 @@ namespace MetadataExtractor
                         return parser.Parse(dateString);
                     }
                     catch (ParseException)
-                    {
-                    }
+                    {}
                 }
             }
             // simply try the next pattern
@@ -1064,8 +1063,10 @@ namespace MetadataExtractor
         [CanBeNull]
         public object GetObject(int tagType)
         {
-            return TagMap.GetOrNull(tagType);
+            return _tagMap.GetOrNull(tagType);
         }
+
+        #endregion
 
         // OTHER METHODS
         /// <summary>Returns the name of a specified tag as a String.</summary>
@@ -1098,13 +1099,13 @@ namespace MetadataExtractor
         [CanBeNull]
         public string GetDescription(int tagType)
         {
-            Debug.Assert((Descriptor != null));
-            return Descriptor.GetDescription(tagType);
+            Debug.Assert((_descriptor != null));
+            return _descriptor.GetDescription(tagType);
         }
 
         public override string ToString()
         {
-            return string.Format("{0} Directory ({1} {2})", Name, TagMap.Count, TagMap.Count == 1 ? "tag" : "tags");
+            return string.Format("{0} Directory ({1} {2})", Name, _tagMap.Count, _tagMap.Count == 1 ? "tag" : "tags");
         }
     }
 }

@@ -91,7 +91,7 @@ namespace FileLabeller
                 foreach (var directory in metadata.GetDirectories())
                 {
                     var directoryName = directory.Name;
-                    foreach (var tag in directory.GetTags())
+                    foreach (var tag in directory.Tags)
                     {
                         var tagName = tag.TagName;
                         var description = tag.Description;
@@ -118,7 +118,7 @@ namespace FileLabeller
                         }
                     }
                     // print out any errors
-                    foreach (var error in directory.GetErrors())
+                    foreach (var error in directory.Errors)
                     {
                         Console.Error.WriteLine((object)("ERROR: " + error));
                     }

@@ -129,7 +129,7 @@ namespace MetadataExtractor.Formats.Xmp
             {
                 directory.AddError("Error processing XMP data: " + e.Message);
             }
-            if (!directory.IsEmpty())
+            if (!directory.IsEmpty)
             {
                 metadata.AddDirectory(directory);
             }
@@ -152,7 +152,7 @@ namespace MetadataExtractor.Formats.Xmp
             {
                 directory.AddError("Error processing XMP data: " + e.Message);
             }
-            if (!directory.IsEmpty())
+            if (!directory.IsEmpty)
             {
                 metadata.AddDirectory(directory);
             }

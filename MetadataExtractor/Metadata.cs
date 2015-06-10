@@ -115,7 +115,7 @@ namespace MetadataExtractor
         /// <returns>whether one of the contained directories has an error</returns>
         public bool HasErrors()
         {
-            return GetDirectories().Any(directory => directory.HasErrors());
+            return GetDirectories().Any(directory => directory.HasErrors);
         }
 
         public override string ToString()

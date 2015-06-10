@@ -52,8 +52,8 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         public void TestIptc1BytesFromFile()
         {
             var directory = ProcessBytes("Tests/Data/iptc1.jpg.appd");
-            Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            var tags = directory.GetTags();
+            Assert.IsFalse(directory.HasErrors, directory.Errors.ToString());
+            var tags = directory.Tags;
             Assert.AreEqual(16, tags.Count);
             Assert.AreEqual(IptcDirectory.TagCategory, tags[0].TagType);
             CollectionAssert.AreEqual(new[] { "Supl. Category2", "Supl. Category1", "Cat" }, directory.GetStringArray(tags[0].TagType));
@@ -94,8 +94,8 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         public void TestIptc2Photoshop6BytesFromFile()
         {
             var directory = ProcessBytes("Tests/Data/iptc2-photoshop6.jpg.appd");
-            Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            var tags = directory.GetTags();
+            Assert.IsFalse(directory.HasErrors, directory.Errors.ToString());
+            var tags = directory.Tags;
             Assert.AreEqual(17, tags.Count);
             Assert.AreEqual(IptcDirectory.TagApplicationRecordVersion, tags[0].TagType);
             Assert.AreEqual(2, directory.GetObject(tags[0].TagType));
@@ -138,8 +138,8 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         public void TestIptcEncodingUtf8()
         {
             var directory = ProcessBytes("Tests/Data/iptc-encoding-defined-utf8.bytes");
-            Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            var tags = directory.GetTags();
+            Assert.IsFalse(directory.HasErrors, directory.Errors.ToString());
+            var tags = directory.Tags;
             Assert.AreEqual(4, tags.Count);
             Assert.AreEqual(IptcDirectory.TagEnvelopeRecordVersion, tags[0].TagType);
             Assert.AreEqual(2, directory.GetObject(tags[0].TagType));
@@ -156,8 +156,8 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         public void TestIptcEncodingUndefinedIso()
         {
             var directory = ProcessBytes("Tests/Data/iptc-encoding-undefined-iso.bytes");
-            Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            var tags = directory.GetTags();
+            Assert.IsFalse(directory.HasErrors, directory.Errors.ToString());
+            var tags = directory.Tags;
             Assert.AreEqual(3, tags.Count);
             Assert.AreEqual(IptcDirectory.TagEnvelopeRecordVersion, tags[0].TagType);
             Assert.AreEqual(2, directory.GetObject(tags[0].TagType));
@@ -172,8 +172,8 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         public void TestIptcEncodingUnknown()
         {
             var directory = ProcessBytes("Tests/Data/iptc-encoding-unknown.bytes");
-            Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            var tags = directory.GetTags();
+            Assert.IsFalse(directory.HasErrors, directory.Errors.ToString());
+            var tags = directory.Tags;
             Assert.AreEqual(3, tags.Count);
             Assert.AreEqual(IptcDirectory.TagApplicationRecordVersion, tags[0].TagType);
             Assert.AreEqual(2, directory.GetObject(tags[0].TagType));
@@ -191,8 +191,8 @@ namespace MetadataExtractor.Tests.Formats.Iptc
             // It's not clear what to do with this, so it should be ignored.
             // Version 2.7.0 tripped up on this and threw an exception.
             var directory = ProcessBytes("Tests/Data/iptc-encoding-unknown-2.bytes");
-            Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
-            var tags = directory.GetTags();
+            Assert.IsFalse(directory.HasErrors, directory.Errors.ToString());
+            var tags = directory.Tags;
             Assert.AreEqual(37, tags.Count);
             Assert.AreEqual("MEDWAS,MEDLON,MEDTOR,RONL,ASIA,AONL,APC,USA,CAN,SAM,BIZ", directory.GetString(IptcDirectory.TagDestination));
         }

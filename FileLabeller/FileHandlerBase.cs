@@ -48,9 +48,9 @@ namespace FileLabeller
             log.WriteLine(filePath);
             foreach (var directory in metadata.GetDirectories())
             {
-                if (!directory.HasErrors())
+                if (!directory.HasErrors)
                     continue;
-                foreach (var error in directory.GetErrors())
+                foreach (var error in directory.Errors)
                 {
                     log.Write("\t[{0}] {1}\n", directory.Name, error);
                     _errorCount++;

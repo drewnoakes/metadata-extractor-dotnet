@@ -42,9 +42,9 @@ namespace MetadataExtractor.Tests.Formats.Jfif
             var directory = metadata.GetFirstDirectoryOfType<JfifDirectory>();
 
             Assert.IsNotNull(directory);
-            Assert.IsFalse(directory.HasErrors(), directory.GetErrors().ToString());
+            Assert.IsFalse(directory.HasErrors, directory.Errors.ToString());
 
-            var tags = directory.GetTags();
+            var tags = directory.Tags;
 
             Assert.AreEqual(4, tags.Count);
             Assert.AreEqual(JfifDirectory.TagVersion, tags[0].TagType);

@@ -103,7 +103,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
             // It seems to have a reference to an IFD starting outside the data segment.
             // I've noticed that ACDSee reports a Comment for this image, yet ExifReader doesn't report one.
             var directory = ProcessBytes<ExifSubIfdDirectory>("Tests/Data/crash01.jpg.app1");
-            Assert.IsTrue(directory.GetTagCount() > 0);
+            Assert.IsTrue(directory.TagCount > 0);
         }
 
 

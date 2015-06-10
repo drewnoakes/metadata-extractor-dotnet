@@ -20,7 +20,7 @@ namespace FileLabeller
             {
                 directory.Name.ToString();
 
-                foreach (var tag in directory.GetTags())
+                foreach (var tag in directory.Tags)
                 {
                     tag.TagName.ToString();
                     tag.Description.ToString();

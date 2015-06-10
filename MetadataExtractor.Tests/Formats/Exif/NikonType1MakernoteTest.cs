@@ -76,7 +76,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Test, SetCulture("en-GB")]
         public void TestNikonMakernote_MatchesKnownValues()
         {
-            Assert.IsTrue(_nikonDirectory.GetTagCount() > 0);
+            Assert.IsTrue(_nikonDirectory.TagCount > 0);
             Assert.AreEqual(8, _nikonDirectory.GetDouble(NikonType1MakernoteDirectory.TagUnknown1), 0.0001);
             Assert.AreEqual(12, _nikonDirectory.GetInt(NikonType1MakernoteDirectory.TagQuality));
             Assert.AreEqual(1, _nikonDirectory.GetInt(NikonType1MakernoteDirectory.TagColorMode));

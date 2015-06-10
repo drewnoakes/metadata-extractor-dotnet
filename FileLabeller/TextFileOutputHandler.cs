@@ -47,9 +47,9 @@ namespace FileLabeller
                         {
                             foreach (var directory in directories)
                             {
-                                if (!directory.HasErrors())
+                                if (!directory.HasErrors)
                                     continue;
-                                foreach (var error in directory.GetErrors())
+                                foreach (var error in directory.Errors)
                                     writer.Write("[ERROR: {0}] {1}\n", directory.Name, error);
                             }
                             writer.Write('\n');
@@ -59,7 +59,7 @@ namespace FileLabeller
                         foreach (var directory in directories)
                         {
                             var directoryName = directory.Name;
-                            foreach (var tag in directory.GetTags())
+                            foreach (var tag in directory.Tags)
                             {
                                 var tagName = tag.TagName;
                                 var description = tag.Description;
@@ -67,7 +67,7 @@ namespace FileLabeller
                                     directoryName, tag.TagType, tagName, description);
                             }
 
-                            if (directory.GetTagCount() != 0)
+                            if (directory.TagCount != 0)
                                 writer.Write('\n');
                         }
                     }
