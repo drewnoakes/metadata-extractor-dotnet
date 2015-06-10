@@ -49,7 +49,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             ParameterAsserts.AssertNotNull(bytes);
             options = options ?? new ParseOptions();
-            var doc = ParseXmlFromBytebuffer(new ByteBuffer(bytes), options);
+            var doc = ParseXmlFromByteBuffer(new ByteBuffer(bytes), options);
             return ParseXmlDoc(doc, options);
         }
 
@@ -101,7 +101,7 @@ namespace Com.Adobe.Xmp.Impl
             try
             {
                 var buffer = new ByteBuffer(stream);
-                return ParseXmlFromBytebuffer(buffer, options);
+                return ParseXmlFromByteBuffer(buffer, options);
             }
             catch (IOException e)
             {
@@ -117,7 +117,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <param name="options">the parsing options</param>
         /// <returns>Returns an XML DOM-Document.</returns>
         /// <exception cref="XmpException">Thrown when the parsing fails.</exception>
-        private static XmlDocument ParseXmlFromBytebuffer(ByteBuffer buffer, ParseOptions options)
+        private static XmlDocument ParseXmlFromByteBuffer(ByteBuffer buffer, ParseOptions options)
         {
             try
             {
