@@ -21,25 +21,6 @@ namespace Sharpen
             return true;
         }
 
-//        public static V Remove<K, V> (IDictionary<K, V> map, K toRemove) where K : class
-        public static TV Remove<TK, TV> (IDictionary<TK, TV> map, TK toRemove)
-        {
-            TV local;
-            if (map.TryGetValue (toRemove, out local)) {
-                map.Remove (toRemove);
-                return local;
-            }
-            return default(TV);
-        }
-
-        public static object Remove(IDictionary map, object toRemove)
-        {
-            var local = map[toRemove];
-            map.Remove (toRemove);
-            //return default(V);
-            return local;
-        }
-
         public static object[] ToArray (IList list, object[] result)
         {
             for (var i = 0; i < result.Length; i++)

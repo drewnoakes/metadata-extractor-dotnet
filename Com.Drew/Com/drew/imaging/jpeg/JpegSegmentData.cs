@@ -141,7 +141,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <param name="segmentType">identifies the required segment</param>
         public void RemoveAllSegments(JpegSegmentType segmentType)
         {
-            Collections.Remove(_segmentDataMap, segmentType);
+            _segmentDataMap.Remove(segmentType);
         }
 
         /// <summary>Determines whether data is present for a given segment type.</summary>

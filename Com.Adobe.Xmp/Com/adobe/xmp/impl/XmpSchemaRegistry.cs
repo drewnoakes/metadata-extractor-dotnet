@@ -105,8 +105,8 @@ namespace Com.Adobe.Xmp.Impl
                 var prefixToDelete = GetNamespacePrefix(namespaceUri);
                 if (prefixToDelete != null)
                 {
-                    Collections.Remove(_namespaceToPrefixMap, namespaceUri);
-                    Collections.Remove(_prefixToNamespaceMap, prefixToDelete);
+                    _namespaceToPrefixMap.Remove(namespaceUri);
+                    _prefixToNamespaceMap.Remove(prefixToDelete);
                 }
             }
         }
