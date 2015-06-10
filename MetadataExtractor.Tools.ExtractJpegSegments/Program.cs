@@ -31,21 +31,18 @@ namespace MetadataExtractor.Tools.ExtractJpegSegments
 {
     /// <summary>Extracts JPEG segments and writes them to individual files.</summary>
     /// <remarks>
-    /// Extracts JPEG segments and writes them to individual files.
-    /// <p/>
     /// Extracting only the required segment(s) for use in unit testing has several benefits:
+    ///
     /// <list type="bullet">
-    /// <item>Helps reduce the repository size. For example a small JPEG image may still be 20kB+ in size, yet its
-    /// APPD (IPTC) segment may be as small as 200 bytes.</item>
-    /// <item>Makes unit tests run more rapidly.</item>
-    /// <item>Partially anonymises user-contributed data by removing image portions.</item>
+    ///   <item>Helps reduce the repository size. For example a small JPEG image may still be 20kB+ in size, yet its
+    ///   APPD (IPTC) segment may be as small as 200 bytes.</item>
+    ///   <item>Makes unit tests run more rapidly.</item>
+    ///   <item>Partially anonymises user-contributed data by removing image portions.</item>
     /// </list>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class Program
     {
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         public static void Main(string[] args)
         {
             if (args.Length < 1)
