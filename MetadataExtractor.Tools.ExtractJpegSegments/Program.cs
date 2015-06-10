@@ -61,8 +61,8 @@ namespace MetadataExtractor.Tools.ExtractJpegSegments
             ICollection<JpegSegmentType> segmentTypes = new HashSet<JpegSegmentType>();
             for (var i = 1; i < args.Length; i++)
             {
-                var segmentType = JpegSegmentType.ValueOf(args[i].ToUpper());
-                if (!segmentType.CanContainMetadata)
+                var segmentType = (JpegSegmentType)Enum.Parse(typeof(JpegSegmentType), args[i], ignoreCase: true);
+                if (!segmentType.CanContainMetadata())
                 {
                     Console.Error.WriteLine("WARNING: Segment type {0} cannot contain metadata so it may not be necessary to extract it", segmentType);
                 }
@@ -71,7 +71,7 @@ namespace MetadataExtractor.Tools.ExtractJpegSegments
             if (segmentTypes.Count == 0)
             {
                 // If none specified, use all that could reasonably contain metadata
-                Collections.AddAll(segmentTypes, JpegSegmentType.CanContainMetadataTypes);
+                Collections.AddAll(segmentTypes, JpegSegmentTypeExtensions.CanContainMetadataTypes);
             }
             Console.Out.WriteLine("Reading: {0}", filePath);
             var segmentData = JpegSegmentReader.ReadSegments(filePath, segmentTypes);
@@ -104,11 +104,8 @@ namespace MetadataExtractor.Tools.ExtractJpegSegments
             Console.Out.WriteLine("USAGE:\n");
             Console.Out.WriteLine("\t{0} <filename> [<segment> ...]\n", Assembly.GetExecutingAssembly().GetName().Name);
             Console.Out.Write("Where <segment> is zero or more of:");
-            foreach (var segmentType in typeof(JpegSegmentType).GetEnumConstants<JpegSegmentType>())
-            {
-                if (segmentType.CanContainMetadata)
-                    Console.Out.Write(" " + segmentType);
-            }
+            foreach (var segmentType in JpegSegmentTypeExtensions.CanContainMetadataTypes)
+                Console.Out.Write(" " + segmentType);
             Console.Out.WriteLine();
         }
     }

@@ -23,151 +23,149 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
-using Sharpen;
 
 namespace Com.Drew.Imaging.Jpeg
 {
     /// <summary>An enumeration of the known segment types found in JPEG files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [Serializable]
-    public sealed class JpegSegmentType
+    public enum JpegSegmentType : byte
     {
-        /// <summary>APP0 JPEG segment identifier -- JFIF data (also JFXX apparently).</summary>
-        public static readonly JpegSegmentType App0 = new JpegSegmentType(0xE0, true);
+        /// <summary>APP0 JPEG segment -- JFIF data (also JFXX apparently).</summary>
+        App0 = 0xE0,
 
-        /// <summary>APP1 JPEG segment identifier -- where Exif data is kept.</summary>
-        /// <remarks>APP1 JPEG segment identifier -- where Exif data is kept.  XMP data is also kept in here, though usually in a second instance.</remarks>
-        public static readonly JpegSegmentType App1 = new JpegSegmentType(0xE1, true);
+        /// <summary>APP1 JPEG segment -- where Exif data is kept.</summary>
+        /// <remarks>XMP data is also kept in here, though usually in a second instance.</remarks>
+        App1 = 0xE1,
 
-        /// <summary>APP2 JPEG segment identifier.</summary>
-        public static readonly JpegSegmentType App2 = new JpegSegmentType(0xE2, true);
+        /// <summary>APP2 JPEG segment.</summary>
+        App2 = 0xE2,
 
-        /// <summary>APP3 JPEG segment identifier.</summary>
-        public static readonly JpegSegmentType App3 = new JpegSegmentType(0xE3, true);
+        /// <summary>APP3 JPEG segment.</summary>
+        App3 = 0xE3,
 
-        /// <summary>APP4 JPEG segment identifier.</summary>
-        public static readonly JpegSegmentType App4 = new JpegSegmentType(0xE4, true);
+        /// <summary>APP4 JPEG segment.</summary>
+        App4 = 0xE4,
 
-        /// <summary>APP5 JPEG segment identifier.</summary>
-        public static readonly JpegSegmentType App5 = new JpegSegmentType(0xE5, true);
+        /// <summary>APP5 JPEG segment.</summary>
+        App5 = 0xE5,
 
-        /// <summary>APP6 JPEG segment identifier.</summary>
-        public static readonly JpegSegmentType App6 = new JpegSegmentType(0xE6, true);
+        /// <summary>APP6 JPEG segment.</summary>
+        App6 = 0xE6,
 
-        /// <summary>APP7 JPEG segment identifier.</summary>
-        public static readonly JpegSegmentType App7 = new JpegSegmentType(0xE7, true);
+        /// <summary>APP7 JPEG segment.</summary>
+        App7 = 0xE7,
 
-        /// <summary>APP8 JPEG segment identifier.</summary>
-        public static readonly JpegSegmentType App8 = new JpegSegmentType(0xE8, true);
+        /// <summary>APP8 JPEG segment.</summary>
+        App8 = 0xE8,
 
-        /// <summary>APP9 JPEG segment identifier.</summary>
-        public static readonly JpegSegmentType App9 = new JpegSegmentType(0xE9, true);
+        /// <summary>APP9 JPEG segment.</summary>
+        App9 = 0xE9,
 
-        /// <summary>APPA (App10) JPEG segment identifier -- can hold Unicode comments.</summary>
-        public static readonly JpegSegmentType Appa = new JpegSegmentType(0xEA, true);
+        /// <summary>APPA (App10) JPEG segment -- can hold Unicode comments.</summary>
+        Appa = 0xEA,
 
-        /// <summary>APPB (App11) JPEG segment identifier.</summary>
-        public static readonly JpegSegmentType Appb = new JpegSegmentType(0xEB, true);
+        /// <summary>APPB (App11) JPEG segment.</summary>
+        Appb = 0xEB,
 
-        /// <summary>APPC (App12) JPEG segment identifier.</summary>
-        public static readonly JpegSegmentType Appc = new JpegSegmentType(0xEC, true);
+        /// <summary>APPC (App12) JPEG segment.</summary>
+        Appc = 0xEC,
 
-        /// <summary>APPD (App13) JPEG segment identifier -- IPTC data in here.</summary>
-        public static readonly JpegSegmentType Appd = new JpegSegmentType(0xED, true);
+        /// <summary>APPD (App13) JPEG segment -- IPTC data in here.</summary>
+        Appd = 0xED,
 
-        /// <summary>APPE (App14) JPEG segment identifier.</summary>
-        public static readonly JpegSegmentType Appe = new JpegSegmentType(0xEE, true);
+        /// <summary>APPE (App14) JPEG segment.</summary>
+        Appe = 0xEE,
 
-        /// <summary>APPF (App15) JPEG segment identifier.</summary>
-        public static readonly JpegSegmentType Appf = new JpegSegmentType(0xEF, true);
+        /// <summary>APPF (App15) JPEG segment.</summary>
+        Appf = 0xEF,
 
-        /// <summary>Start Of Image segment identifier.</summary>
-        public static readonly JpegSegmentType Soi = new JpegSegmentType(0xD8, false);
+        /// <summary>Start Of Image segment.</summary>
+        Soi = 0xD8,
 
-        /// <summary>Define Quantization Table segment identifier.</summary>
-        public static readonly JpegSegmentType Dqt = new JpegSegmentType(0xDB, false);
+        /// <summary>Define Quantization Table segment.</summary>
+        Dqt = 0xDB,
 
-        /// <summary>Define Huffman Table segment identifier.</summary>
-        public static readonly JpegSegmentType Dht = new JpegSegmentType(0xC4, false);
+        /// <summary>Define Huffman Table segment.</summary>
+        Dht = 0xC4,
 
-        /// <summary>Start-of-Frame (0) segment identifier.</summary>
-        public static readonly JpegSegmentType Sof0 = new JpegSegmentType(0xC0, true);
+        /// <summary>Start-of-Frame (0) segment.</summary>
+        Sof0 = 0xC0,
 
-        /// <summary>Start-of-Frame (1) segment identifier.</summary>
-        public static readonly JpegSegmentType Sof1 = new JpegSegmentType(0xC1, true);
+        /// <summary>Start-of-Frame (1) segment.</summary>
+        Sof1 = 0xC1,
 
-        /// <summary>Start-of-Frame (2) segment identifier.</summary>
-        public static readonly JpegSegmentType Sof2 = new JpegSegmentType(0xC2, true);
+        /// <summary>Start-of-Frame (2) segment.</summary>
+        Sof2 = 0xC2,
 
-        /// <summary>Start-of-Frame (3) segment identifier.</summary>
-        public static readonly JpegSegmentType Sof3 = new JpegSegmentType(0xC3, true);
+        /// <summary>Start-of-Frame (3) segment.</summary>
+        Sof3 = 0xC3,
 
-        //    /** Start-of-Frame (4) segment identifier. */
-        //    SOF4((byte)0xC4, true),
+//        /// <summary>Start-of-Frame (4) segment.</summary>
+//        Sof12 = 0xC4,
 
-        /// <summary>Start-of-Frame (5) segment identifier.</summary>
-        public static readonly JpegSegmentType Sof5 = new JpegSegmentType(0xC5, true);
+        /// <summary>Start-of-Frame (5) segment.</summary>
+        Sof5 = 0xC5,
 
-        /// <summary>Start-of-Frame (6) segment identifier.</summary>
-        public static readonly JpegSegmentType Sof6 = new JpegSegmentType(0xC6, true);
+        /// <summary>Start-of-Frame (6) segment.</summary>
+        Sof6 = 0xC6,
 
-        /// <summary>Start-of-Frame (7) segment identifier.</summary>
-        public static readonly JpegSegmentType Sof7 = new JpegSegmentType(0xC7, true);
+        /// <summary>Start-of-Frame (7) segment.</summary>
+        Sof7 = 0xC7,
 
-        /// <summary>Start-of-Frame (8) segment identifier.</summary>
-        public static readonly JpegSegmentType Sof8 = new JpegSegmentType(0xC8, true);
+        /// <summary>Start-of-Frame (8) segment.</summary>
+        Sof8 = 0xC8,
 
-        /// <summary>Start-of-Frame (9) segment identifier.</summary>
-        public static readonly JpegSegmentType Sof9 = new JpegSegmentType(0xC9, true);
+        /// <summary>Start-of-Frame (9) segment.</summary>
+        Sof9 = 0xC9,
 
-        /// <summary>Start-of-Frame (10) segment identifier.</summary>
-        public static readonly JpegSegmentType Sof10 = new JpegSegmentType(0xCA, true);
+        /// <summary>Start-of-Frame (10) segment.</summary>
+        Sof10 = 0xCA,
 
-        /// <summary>Start-of-Frame (11) segment identifier.</summary>
-        public static readonly JpegSegmentType Sof11 = new JpegSegmentType(0xCB, true);
+        /// <summary>Start-of-Frame (11) segment.</summary>
+        Sof11 = 0xCB,
 
-        //    /** Start-of-Frame (12) segment identifier. */
-        //    SOF12((byte)0xCC, true),
+//        /// <summary>Start-of-Frame (12) segment.</summary>
+//        Sof12 = 0xCC,
 
-        /// <summary>Start-of-Frame (13) segment identifier.</summary>
-        public static readonly JpegSegmentType Sof13 = new JpegSegmentType(0xCD, true);
+        /// <summary>Start-of-Frame (13) segment.</summary>
+        Sof13 = 0xCD,
 
-        /// <summary>Start-of-Frame (14) segment identifier.</summary>
-        public static readonly JpegSegmentType Sof14 = new JpegSegmentType(0xCE, true);
+        /// <summary>Start-of-Frame (14) segment.</summary>
+        Sof14 = 0xCE,
 
-        /// <summary>Start-of-Frame (15) segment identifier.</summary>
-        public static readonly JpegSegmentType Sof15 = new JpegSegmentType(0xCF, true);
+        /// <summary>Start-of-Frame (15) segment.</summary>
+        Sof15 = 0xCF,
 
-        /// <summary>JPEG comment segment identifier.</summary>
-        public static readonly JpegSegmentType Com = new JpegSegmentType(0xFE, true);
+        /// <summary>JPEG comment segment.</summary>
+        Com = 0xFE,
 
-        public static readonly IReadOnlyCollection<JpegSegmentType> CanContainMetadataTypes;
+        /// <summary>Start-Of-Scan segment.</summary>
+        Sos = 0xDA,
 
-        static JpegSegmentType()
+        /// <summary>End-of-Image segment.</summary>
+        Eoi = 0xD9
+    }
+
+    public static class JpegSegmentTypeExtensions
+    {
+        static JpegSegmentTypeExtensions()
         {
-            CanContainMetadataTypes = typeof (JpegSegmentType).GetEnumConstants<JpegSegmentType>().Where(segmentType => segmentType.CanContainMetadata).ToList();
+            CanContainMetadataTypes = Enum.GetValues(typeof (JpegSegmentType)).Cast<JpegSegmentType>().Where(type => type.CanContainMetadata()).ToList();
         }
 
-        public readonly byte ByteValue;
-
-        public readonly bool CanContainMetadata;
-
-        private JpegSegmentType(byte byteValue, bool canContainMetadata)
+        public static bool CanContainMetadata(this JpegSegmentType type)
         {
-            ByteValue = byteValue;
-            CanContainMetadata = canContainMetadata;
+            switch (type)
+            {
+                case JpegSegmentType.Soi:
+                case JpegSegmentType.Dqt:
+                case JpegSegmentType.Dht:
+                    return false;
+                default:
+                    return true;
+            }
         }
 
-        [CanBeNull]
-        public static JpegSegmentType FromByte(byte segmentTypeByte)
-        {
-            return typeof (JpegSegmentType).GetEnumConstants<JpegSegmentType>().FirstOrDefault(segmentType => segmentType.ByteValue == segmentTypeByte);
-        }
-
-        public static JpegSegmentType ValueOf(string segmentName)
-        {
-            return Extensions.GetEnumConstantByName<JpegSegmentType>(segmentName);
-        }
+        public static IReadOnlyList<JpegSegmentType> CanContainMetadataTypes { get; private set; }
     }
 }

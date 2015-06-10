@@ -61,7 +61,7 @@ namespace Com.Drew.Metadata.Jpeg
             var directory = new JpegDirectory();
             metadata.AddDirectory(directory);
             // The value of TAG_COMPRESSION_TYPE is determined by the segment type found
-            directory.SetInt(JpegDirectory.TagCompressionType, segmentType.ByteValue - JpegSegmentType.Sof0.ByteValue);
+            directory.SetInt(JpegDirectory.TagCompressionType, (int)segmentType - (int)JpegSegmentType.Sof0);
             SequentialReader reader = new SequentialByteArrayReader(segmentBytes);
             try
             {

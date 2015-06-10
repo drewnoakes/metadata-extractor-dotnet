@@ -43,12 +43,6 @@ namespace Com.Drew.Imaging.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class JpegSegmentReader
     {
-        /// <summary>Private, because this segment crashes my algorithm, and searching for it doesn't work (yet).</summary>
-        private const byte SegmentSos = unchecked((byte)0xDA);
-
-        /// <summary>Private, because one wouldn't search for it.</summary>
-        private const byte MarkerEoi = unchecked((byte)0xD9);
-
         /// <summary>
         /// Processes the provided JPEG data, and extracts the specified JPEG segments into a
         /// <see cref="JpegSegmentData"/>
@@ -64,7 +58,7 @@ namespace Com.Drew.Imaging.Jpeg
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static JpegSegmentData ReadSegments([NotNull] string filePath, [CanBeNull] IEnumerable<JpegSegmentType> segmentTypes)
+        public static JpegSegmentData ReadSegments([NotNull] string filePath, [CanBeNull] ICollection<JpegSegmentType> segmentTypes)
         {
             using (var stream = new FileStream(filePath, FileMode.Open))
                 return ReadSegments(new SequentialStreamReader(stream), segmentTypes);
@@ -90,68 +84,63 @@ namespace Com.Drew.Imaging.Jpeg
         /// <exception cref="Com.Drew.Imaging.Jpeg.JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static JpegSegmentData ReadSegments([NotNull] SequentialReader reader, [CanBeNull] IEnumerable<JpegSegmentType> segmentTypes)
+        public static JpegSegmentData ReadSegments([NotNull] SequentialReader reader, [CanBeNull] ICollection<JpegSegmentType> segmentTypes = null)
         {
             // Must be big-endian
-            Debug.Assert((reader.IsMotorolaByteOrder()));
+            Debug.Assert(reader.IsMotorolaByteOrder());
+
             // first two bytes should be JPEG magic number
             var magicNumber = reader.GetUInt16();
-            if (magicNumber != unchecked(0xFFD8))
-            {
-                throw new JpegProcessingException(string.Format("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x{0:X}", magicNumber));
-            }
-            ICollection<byte> segmentTypeBytes = null;
-            if (segmentTypes != null)
-            {
-                segmentTypeBytes = new HashSet<byte>();
-                foreach (var segmentType in segmentTypes)
-                {
-                    segmentTypeBytes.Add(segmentType.ByteValue);
-                }
-            }
+
+            if (magicNumber != 0xFFD8)
+                throw new JpegProcessingException(string.Format("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x{0:X4}", magicNumber));
+
             var segmentData = new JpegSegmentData();
             do
             {
                 // Find the segment marker. Markers are zero or more 0xFF bytes, followed
                 // by a 0xFF and then a byte not equal to 0x00 or 0xFF.
                 var segmentIdentifier = reader.GetUInt8();
+
                 // We must have at least one 0xFF byte
                 if (segmentIdentifier != unchecked(0xFF))
-                {
-                    throw new JpegProcessingException(string.Format("Expected JPEG segment start identifier 0xFF, not 0x{0:X}", segmentIdentifier));
-                }
+                    throw new JpegProcessingException(string.Format("Expected JPEG segment start identifier 0xFF, not 0x{0:X2}", segmentIdentifier));
+
                 // Read until we have a non-0xFF byte. This identifies the segment type.
-                var segmentType = reader.GetInt8();
-                while (segmentType == unchecked((byte)0xFF))
-                {
-                    segmentType = reader.GetInt8();
-                }
-                if (segmentType == 0)
-                {
+                var segmentTypeByte = reader.GetInt8();
+                while (segmentTypeByte == 0xFF)
+                    segmentTypeByte = reader.GetInt8();
+
+                if (segmentTypeByte == 0)
                     throw new JpegProcessingException("Expected non-zero byte as part of JPEG marker identifier");
-                }
-                if (segmentType == SegmentSos)
+
+                var segmentType = (JpegSegmentType)segmentTypeByte;
+
+                if (segmentType == JpegSegmentType.Sos)
                 {
                     // The 'Start-Of-Scan' segment's length doesn't include the image data, instead would
                     // have to search for the two bytes: 0xFF 0xD9 (EOI).
                     // It comes last so simply return at this point
                     return segmentData;
                 }
-                if (segmentType == MarkerEoi)
+
+                if (segmentType == JpegSegmentType.Eoi)
                 {
                     // the 'End-Of-Image' segment -- this should never be found in this fashion
                     return segmentData;
                 }
+
                 // next 2-bytes are <segment-size>: [high-byte] [low-byte]
                 var segmentLength = reader.GetUInt16();
+
                 // segment length includes size bytes, so subtract two
                 segmentLength -= 2;
+
                 if (segmentLength < 0)
-                {
                     throw new JpegProcessingException("JPEG segment size would be less than zero");
-                }
+
                 // Check whether we are interested in this segment
-                if (segmentTypeBytes == null || segmentTypeBytes.Contains(segmentType))
+                if (segmentTypes == null || segmentTypes.Contains(segmentType))
                 {
                     var segmentBytes = reader.GetBytes(segmentLength);
                     Debug.Assert((segmentLength == segmentBytes.Length));
@@ -159,7 +148,7 @@ namespace Com.Drew.Imaging.Jpeg
                 }
                 else
                 {
-                    // Some if the JPEG is truncated, just return what data we've already gathered
+                    // Some of the JPEG is truncated, so just return what data we've already gathered
                     if (!reader.TrySkip(segmentLength))
                     {
                         return segmentData;
