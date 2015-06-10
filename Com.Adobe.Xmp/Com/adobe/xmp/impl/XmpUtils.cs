@@ -19,17 +19,15 @@ namespace Com.Adobe.Xmp.Impl
     /// <since>11.08.2006</since>
     public static class XmpUtils
     {
-        private const int UckNormal = 0;
-
-        private const int UckSpace = 1;
-
-        private const int UckComma = 2;
-
-        private const int UckSemicolon = 3;
-
-        private const int UckQuote = 4;
-
-        private const int UckControl = 5;
+        private enum UnicodeKind
+        {
+            Normal = 0,
+            Space = 1,
+            Comma = 2,
+            Semicolon = 3,
+            Quote = 4,
+            Control = 5
+        }
 
         /// <param name="xmp">The XMP object containing the array to be catenated.</param>
         /// <param name="schemaNs">
@@ -138,8 +136,8 @@ namespace Com.Adobe.Xmp.Impl
             string itemValue;
             int itemStart;
             int itemEnd;
-            int nextKind = UckNormal;
-            int charKind = UckNormal;
+            var nextKind = UnicodeKind.Normal;
+            var charKind = UnicodeKind.Normal;
             char ch = (char)0;
             char nextChar = (char)0;
             itemEnd = 0;
@@ -152,7 +150,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     ch = catedStr[itemStart];
                     charKind = ClassifyCharacter(ch);
-                    if (charKind == UckNormal || charKind == UckQuote)
+                    if (charKind == UnicodeKind.Normal || charKind == UnicodeKind.Quote)
                     {
                         break;
                     }
@@ -161,7 +159,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     break;
                 }
-                if (charKind != UckQuote)
+                if (charKind != UnicodeKind.Quote)
                 {
                     // This is not a quoted value. Scan for the end, create an array
                     // item from the substring.
@@ -169,11 +167,11 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         ch = catedStr[itemEnd];
                         charKind = ClassifyCharacter(ch);
-                        if (charKind == UckNormal || charKind == UckQuote || (charKind == UckComma && preserveCommas))
+                        if (charKind == UnicodeKind.Normal || charKind == UnicodeKind.Quote || (charKind == UnicodeKind.Comma && preserveCommas))
                         {
                             continue;
                         }
-                        if (charKind != UckSpace)
+                        if (charKind != UnicodeKind.Space)
                         {
                             break;
                         }
@@ -181,7 +179,7 @@ namespace Com.Adobe.Xmp.Impl
                         {
                             ch = catedStr[itemEnd + 1];
                             nextKind = ClassifyCharacter(ch);
-                            if (nextKind == UckNormal || nextKind == UckQuote || (nextKind == UckComma && preserveCommas))
+                            if (nextKind == UnicodeKind.Normal || nextKind == UnicodeKind.Quote || (nextKind == UnicodeKind.Comma && preserveCommas))
                             {
                                 continue;
                             }
@@ -208,7 +206,7 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         ch = catedStr[itemEnd];
                         charKind = ClassifyCharacter(ch);
-                        if (charKind != UckQuote || !IsSurroundingQuote(ch, openQuote, closeQuote))
+                        if (charKind != UnicodeKind.Quote || !IsSurroundingQuote(ch, openQuote, closeQuote))
                         {
                             // This is not a matching quote, just append it to the
                             // item value.
@@ -228,7 +226,7 @@ namespace Com.Adobe.Xmp.Impl
                             }
                             else
                             {
-                                nextKind = UckSemicolon;
+                                nextKind = UnicodeKind.Semicolon;
                                 nextChar = (char)0x3B;
                             }
                             if (ch == nextChar)
@@ -724,8 +722,8 @@ namespace Com.Adobe.Xmp.Impl
             bool haveSemicolon = false;
             for (int i = 0; i < separator.Length; i++)
             {
-                int charKind = ClassifyCharacter(separator[i]);
-                if (charKind == UckSemicolon)
+                var charKind = ClassifyCharacter(separator[i]);
+                if (charKind == UnicodeKind.Semicolon)
                 {
                     if (haveSemicolon)
                     {
@@ -735,7 +733,7 @@ namespace Com.Adobe.Xmp.Impl
                 }
                 else
                 {
-                    if (charKind != UckSpace)
+                    if (charKind != UnicodeKind.Space)
                     {
                         throw new XmpException("Separator can have only spaces and one semicolon", XmpErrorCode.BadParam);
                     }
@@ -758,8 +756,8 @@ namespace Com.Adobe.Xmp.Impl
         private static char CheckQuotes(string quotes, char openQuote)
         {
             char closeQuote;
-            int charKind = ClassifyCharacter(openQuote);
-            if (charKind != UckQuote)
+            var charKind = ClassifyCharacter(openQuote);
+            if (charKind != UnicodeKind.Quote)
             {
                 throw new XmpException("Invalid quoting character", XmpErrorCode.BadParam);
             }
@@ -771,7 +769,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 closeQuote = quotes[1];
                 charKind = ClassifyCharacter(closeQuote);
-                if (charKind != UckQuote)
+                if (charKind != UnicodeKind.Quote)
                 {
                     throw new XmpException("Invalid quoting character", XmpErrorCode.BadParam);
                 }
@@ -789,30 +787,30 @@ namespace Com.Adobe.Xmp.Impl
         /// </summary>
         /// <param name="ch">a char</param>
         /// <returns>Return the character kind.</returns>
-        private static int ClassifyCharacter(char ch)
+        private static UnicodeKind ClassifyCharacter(char ch)
         {
             if (Spaces.IndexOf(ch) >= 0 || (unchecked(0x2000) <= ch && ch <= unchecked(0x200B)))
             {
-                return UckSpace;
+                return UnicodeKind.Space;
             }
             if (Commas.IndexOf(ch) >= 0)
             {
-                return UckComma;
+                return UnicodeKind.Comma;
             }
             if (Semicola.IndexOf(ch) >= 0)
             {
-                return UckSemicolon;
+                return UnicodeKind.Semicolon;
             }
             if (Quotes.IndexOf(ch) >= 0 || (unchecked(0x3008) <= ch && ch <= unchecked(0x300F)) || (unchecked(0x2018) <= ch && ch <= unchecked(0x201F)))
             {
-                return UckQuote;
+                return UnicodeKind.Quote;
             }
             if (ch < unchecked(0x0020) || Controls.IndexOf(ch) >= 0)
             {
-                return UckControl;
+                return UnicodeKind.Control;
             }
             // Assume typical case.
-            return UckNormal;
+            return UnicodeKind.Normal;
         }
 
         /// <param name="openQuote">the open quote char</param>
@@ -924,8 +922,6 @@ namespace Com.Adobe.Xmp.Impl
                 item = string.Empty;
             }
             bool prevSpace = false;
-            int charOffset;
-            int charKind;
             // See if there are any separators in the value. Stop at the first
             // occurrance. This is a bit
             // tricky in order to make typical typing work conveniently. The purpose
@@ -942,12 +938,12 @@ namespace Com.Adobe.Xmp.Impl
             for (i = 0; i < item.Length; i++)
             {
                 char ch = item[i];
-                charKind = ClassifyCharacter(ch);
-                if (i == 0 && charKind == UckQuote)
+                var charKind = ClassifyCharacter(ch);
+                if (i == 0 && charKind == UnicodeKind.Quote)
                 {
                     break;
                 }
-                if (charKind == UckSpace)
+                if (charKind == UnicodeKind.Space)
                 {
                     // Multiple spaces are a separator.
                     if (prevSpace)
@@ -959,7 +955,7 @@ namespace Com.Adobe.Xmp.Impl
                 else
                 {
                     prevSpace = false;
-                    if ((charKind == UckSemicolon || charKind == UckControl) || (charKind == UckComma && !allowCommas))
+                    if ((charKind == UnicodeKind.Semicolon || charKind == UnicodeKind.Control) || (charKind == UnicodeKind.Comma && !allowCommas))
                     {
                         break;
                     }
@@ -977,17 +973,17 @@ namespace Com.Adobe.Xmp.Impl
                 int splitPoint;
                 for (splitPoint = 0; splitPoint <= i; splitPoint++)
                 {
-                    if (ClassifyCharacter(item[i]) == UckQuote)
+                    if (ClassifyCharacter(item[i]) == UnicodeKind.Quote)
                     {
                         break;
                     }
                 }
                 // Copy the leading "normal" portion.
                 newItem.Append(openQuote).Append(item.Substring (0, splitPoint - 0));
-                for (charOffset = splitPoint; charOffset < item.Length; charOffset++)
+                for (int charOffset = splitPoint; charOffset < item.Length; charOffset++)
                 {
                     newItem.Append(item[charOffset]);
-                    if (ClassifyCharacter(item[charOffset]) == UckQuote && IsSurroundingQuote(item[charOffset], openQuote, closeQuote))
+                    if (ClassifyCharacter(item[charOffset]) == UnicodeKind.Quote && IsSurroundingQuote(item[charOffset], openQuote, closeQuote))
                     {
                         newItem.Append(item[charOffset]);
                     }
