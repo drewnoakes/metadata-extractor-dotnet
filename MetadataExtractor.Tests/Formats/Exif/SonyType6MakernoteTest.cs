@@ -20,7 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using MetadataExtractor.Formats.Exif.makernotes;
+using MetadataExtractor.Formats.Exif.Makernotes;
 using NUnit.Framework;
 
 namespace MetadataExtractor.Tests.Formats.Exif

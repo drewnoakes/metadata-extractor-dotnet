@@ -22,31 +22,47 @@
 
 using System.IO;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Ico.ico
+namespace MetadataExtractor.Formats.Tiff
 {
-    /// <summary>Obtains metadata from ICO (Windows Icon) files.</summary>
+    /// <summary>Obtains all available metadata from TIFF formatted files.</summary>
+    /// <remarks>
+    /// Obtains all available metadata from TIFF formatted files.  Note that TIFF files include many digital camera RAW
+    /// formats, including Canon (CRW, CR2), Nikon (NEF), Olympus (ORF) and Panasonic (RW2).
+    /// </remarks>
+    /// <author>Darren Salomons</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public static class IcoMetadataReader
+    public static class TiffMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="TiffProcessingException"/>
         [NotNull]
         public static Metadata ReadMetadata([NotNull] string filePath)
         {
-            Metadata metadata;
-            using (Stream inputStream = new FileStream(filePath, FileMode.Open))
-                metadata = ReadMetadata(inputStream);
+            var metadata = new Metadata();
+            using (Stream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.RandomAccess))
+            {
+                var handler = new ExifTiffHandler(metadata, storeThumbnailBytes: false);
+                new TiffReader().ProcessTiff(new IndexedSeekingReader(stream), handler, 0);
+            }
             new FileMetadataReader().Read(filePath, metadata);
             return metadata;
         }
 
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="TiffProcessingException"/>
         [NotNull]
         public static Metadata ReadMetadata([NotNull] Stream stream)
         {
+            // TIFF processing requires random access, as directories can be scattered throughout the byte sequence.
+            // Stream does not support seeking backwards, so we wrap it with IndexedCapturingReader, which
+            // buffers data from the stream as we seek forward.
             var metadata = new Metadata();
-            new IcoReader().Extract(new SequentialStreamReader(stream), metadata);
+            var handler = new ExifTiffHandler(metadata, false);
+            new TiffReader().ProcessTiff(new IndexedCapturingReader(stream), handler, 0);
             return metadata;
         }
     }

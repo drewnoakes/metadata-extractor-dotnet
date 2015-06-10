@@ -22,7 +22,7 @@
 
 using JetBrains.Annotations;
 
-namespace MetadataExtractor.Formats.Riff.riff
+namespace MetadataExtractor.Formats.Riff
 {
     /// <summary>
     /// Interface of an class capable of handling events raised during the reading of a RIFF file

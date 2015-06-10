@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Tiff.tiff
+namespace MetadataExtractor.Formats.Tiff
 {
     /// <summary>
     /// Processes TIFF-formatted data, calling into client code via that

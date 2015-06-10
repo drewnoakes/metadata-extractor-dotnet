@@ -23,7 +23,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-namespace MetadataExtractor.Formats.Exif.makernotes
+namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>Describes tags specific to Ricoh cameras.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

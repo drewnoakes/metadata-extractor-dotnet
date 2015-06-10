@@ -23,7 +23,7 @@
 using JetBrains.Annotations;
 using Sharpen;
 
-namespace MetadataExtractor.Formats.Exif.makernotes
+namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>
     /// Provides human-readable string representations of tag values stored in a <see cref="NikonType2MakernoteDirectory"/>.

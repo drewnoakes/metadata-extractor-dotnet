@@ -20,41 +20,29 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System;
 using JetBrains.Annotations;
 
-namespace MetadataExtractor.Formats.Exif.Makernotes
+namespace MetadataExtractor.Formats.Riff
 {
-    /// <summary>
-    /// Provides human-readable string representations of tag values stored in a <see cref="SonyType6MakernoteDirectory"/>.
-    /// </summary>
+    /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a RIFF file.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class SonyType6MakernoteDescriptor : TagDescriptor<SonyType6MakernoteDirectory>
+    [Serializable]
+    public class RiffProcessingException : ImageProcessingException
     {
-        public SonyType6MakernoteDescriptor([NotNull] SonyType6MakernoteDirectory directory)
-            : base(directory)
+        public RiffProcessingException([CanBeNull] string message)
+            : base(message)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public RiffProcessingException([CanBeNull] string message, [CanBeNull] Exception innerException)
+            : base(message, innerException)
         {
-            switch (tagType)
-            {
-                case SonyType6MakernoteDirectory.TagMakernoteThumbVersion:
-                {
-                    return GetMakernoteThumbVersionDescription();
-                }
-
-                default:
-                {
-                    return base.GetDescription(tagType);
-                }
-            }
         }
 
-        [CanBeNull]
-        public string GetMakernoteThumbVersionDescription()
+        public RiffProcessingException([CanBeNull] Exception innerException)
+            : base(innerException)
         {
-            return GetVersionBytesDescription(SonyType6MakernoteDirectory.TagMakernoteThumbVersion, 2);
         }
     }
 }

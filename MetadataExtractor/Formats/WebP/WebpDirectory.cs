@@ -26,7 +26,7 @@ using JetBrains.Annotations;
 namespace MetadataExtractor.Formats.WebP
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class WebpDirectory : Directory
+    public class WebPDirectory : Directory
     {
         public const int TagImageHeight = 1;
 
@@ -39,7 +39,7 @@ namespace MetadataExtractor.Formats.WebP
         [NotNull]
         protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
-        static WebpDirectory()
+        static WebPDirectory()
         {
             TagNameMap[TagImageHeight] = "Image Height";
             TagNameMap[TagImageWidth] = "Image Width";
@@ -47,9 +47,9 @@ namespace MetadataExtractor.Formats.WebP
             TagNameMap[TagIsAnimation] = "Is Animation";
         }
 
-        public WebpDirectory()
+        public WebPDirectory()
         {
-            SetDescriptor(new WebpDescriptor(this));
+            SetDescriptor(new WebPDescriptor(this));
         }
 
         public override string GetName()

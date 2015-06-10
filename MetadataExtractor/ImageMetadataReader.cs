@@ -25,13 +25,13 @@ using JetBrains.Annotations;
 using MetadataExtractor.Formats.Bmp;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Gif;
-using MetadataExtractor.Formats.Ico.ico;
+using MetadataExtractor.Formats.Ico;
 using MetadataExtractor.Formats.Jpeg;
-using MetadataExtractor.Formats.Pcx.pcx;
-using MetadataExtractor.Formats.Photoshop.psd;
-using MetadataExtractor.Formats.Png.png;
-using MetadataExtractor.Formats.Tiff.tiff;
-using MetadataExtractor.Formats.WebP.webp;
+using MetadataExtractor.Formats.Pcx;
+using MetadataExtractor.Formats.Photoshop;
+using MetadataExtractor.Formats.Png;
+using MetadataExtractor.Formats.Tiff;
+using MetadataExtractor.Formats.WebP;
 using MetadataExtractor.Util;
 
 namespace MetadataExtractor

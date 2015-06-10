@@ -25,7 +25,7 @@ using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Icc;
-using MetadataExtractor.Formats.Riff.riff;
+using MetadataExtractor.Formats.Riff;
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 
@@ -43,12 +43,12 @@ namespace MetadataExtractor.Formats.WebP
     /// <item><c>"XMP "</c>: full XMP data</item>
     /// </list>
     /// </summary>
-    public sealed class WebpRiffHandler : IRiffHandler
+    public sealed class WebPRiffHandler : IRiffHandler
     {
         [NotNull]
         private readonly Metadata _metadata;
 
-        public WebpRiffHandler([NotNull] Metadata metadata)
+        public WebPRiffHandler([NotNull] Metadata metadata)
         {
             _metadata = metadata;
         }
@@ -65,7 +65,6 @@ namespace MetadataExtractor.Formats.WebP
 
         public void ProcessChunk(string fourCc, byte[] payload)
         {
-            //        System.out.println("Chunk " + fourCC + " " + payload.length + " bytes");
             if (fourCc.Equals("EXIF"))
             {
                 new ExifReader().Extract(new ByteArrayReader(payload), _metadata);
@@ -100,11 +99,11 @@ namespace MetadataExtractor.Formats.WebP
                                 // Image size
                                 var widthMinusOne = reader.GetInt24(4);
                                 var heightMinusOne = reader.GetInt24(7);
-                                var directory = new WebpDirectory();
-                                directory.SetInt(WebpDirectory.TagImageWidth, widthMinusOne + 1);
-                                directory.SetInt(WebpDirectory.TagImageHeight, heightMinusOne + 1);
-                                directory.SetBoolean(WebpDirectory.TagHasAlpha, hasAlpha);
-                                directory.SetBoolean(WebpDirectory.TagIsAnimation, isAnimation);
+                                var directory = new WebPDirectory();
+                                directory.SetInt(WebPDirectory.TagImageWidth, widthMinusOne + 1);
+                                directory.SetInt(WebPDirectory.TagImageHeight, heightMinusOne + 1);
+                                directory.SetBoolean(WebPDirectory.TagHasAlpha, hasAlpha);
+                                directory.SetBoolean(WebPDirectory.TagIsAnimation, isAnimation);
                                 _metadata.AddDirectory(directory);
                             }
                             catch (IOException e)

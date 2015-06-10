@@ -25,9 +25,9 @@ using JetBrains.Annotations;
 namespace MetadataExtractor.Formats.WebP
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class WebpDescriptor : TagDescriptor<WebpDirectory>
+    public class WebPDescriptor : TagDescriptor<WebPDirectory>
     {
-        public WebpDescriptor([NotNull] WebpDirectory directory)
+        public WebPDescriptor([NotNull] WebPDirectory directory)
             : base(directory)
         {
         }

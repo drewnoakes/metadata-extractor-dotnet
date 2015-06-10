@@ -22,7 +22,7 @@
 
 using JetBrains.Annotations;
 
-namespace MetadataExtractor.Formats.Tiff.tiff
+namespace MetadataExtractor.Formats.Tiff
 {
     /// <summary>An enumeration of data formats used by the TIFF specification.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

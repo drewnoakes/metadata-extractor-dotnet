@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Png.png
+namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngHeader

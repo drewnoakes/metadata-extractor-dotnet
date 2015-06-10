@@ -26,7 +26,7 @@ using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Exif.makernotes
+namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>
     /// The Olympus makernote is used by many manufacturers (Epson, Konica, Minolta and Agfa...), and as such contains some tags

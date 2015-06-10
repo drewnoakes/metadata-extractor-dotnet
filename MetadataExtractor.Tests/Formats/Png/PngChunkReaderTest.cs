@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using MetadataExtractor.Formats.Png.png;
+using MetadataExtractor.Formats.Png;
 using MetadataExtractor.IO;
 using NUnit.Framework;
 

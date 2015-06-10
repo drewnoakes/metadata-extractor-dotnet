@@ -26,7 +26,7 @@ using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Exif.makernotes
+namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>Describes tags specific to Panasonic and Leica cameras.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

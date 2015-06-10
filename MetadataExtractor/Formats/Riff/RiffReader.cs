@@ -23,7 +23,7 @@
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Riff.riff
+namespace MetadataExtractor.Formats.Riff
 {
     /// <summary>
     /// Processes RIFF-formatted data, calling into client code via that <see cref="IRiffHandler"/> interface.

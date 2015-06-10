@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using MetadataExtractor.Formats.Tiff.tiff;
+using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Tiff

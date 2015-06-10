@@ -22,7 +22,7 @@
 
 using System.Globalization;
 using System.Threading;
-using MetadataExtractor.Formats.Exif.makernotes;
+using MetadataExtractor.Formats.Exif.Makernotes;
 using NUnit.Framework;
 
 namespace MetadataExtractor.Tests.Formats.Exif

@@ -23,10 +23,10 @@
 using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.FileSystem;
-using MetadataExtractor.Formats.Riff.riff;
+using MetadataExtractor.Formats.Riff;
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.WebP.webp
+namespace MetadataExtractor.Formats.WebP
 {
     /// <summary>Obtains metadata from WebP files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
@@ -50,7 +50,7 @@ namespace MetadataExtractor.Formats.WebP.webp
         public static Metadata ReadMetadata([NotNull] Stream stream)
         {
             var metadata = new Metadata();
-            new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new WebpRiffHandler(metadata));
+            new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new WebPRiffHandler(metadata));
             return metadata;
         }
     }

@@ -1,5 +1,5 @@
 ﻿using System;
-using MetadataExtractor.Formats.Png.png;
+using MetadataExtractor.Formats.Png;
 using NUnit.Framework;
 
 namespace MetadataExtractor.Tests.Formats.Png

@@ -21,7 +21,7 @@
  */
 
 using MetadataExtractor.Formats.Exif;
-using MetadataExtractor.Formats.Exif.makernotes;
+using MetadataExtractor.Formats.Exif.Makernotes;
 using NUnit.Framework;
 
 namespace MetadataExtractor.Tests.Formats.Exif

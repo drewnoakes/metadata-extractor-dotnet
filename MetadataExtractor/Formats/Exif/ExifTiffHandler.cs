@@ -24,10 +24,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
-using MetadataExtractor.Formats.Exif.makernotes;
+using MetadataExtractor.Formats.Exif.Makernotes;
 using MetadataExtractor.Formats.Iptc;
 using MetadataExtractor.Formats.Tiff;
-using MetadataExtractor.Formats.Tiff.tiff;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Exif

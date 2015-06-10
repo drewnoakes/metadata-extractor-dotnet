@@ -20,29 +20,34 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using System;
+using System.IO;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.FileSystem;
+using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Png.png
+namespace MetadataExtractor.Formats.Pcx
 {
-    /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a JPEG file.</summary>
+    /// <summary>Obtains metadata from PCX image files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    [Serializable]
-    public class PngProcessingException : ImageProcessingException
+    public static class PcxMetadataReader
     {
-        public PngProcessingException([CanBeNull] string message)
-            : base(message)
+        /// <exception cref="System.IO.IOException"/>
+        [NotNull]
+        public static Metadata ReadMetadata([NotNull] string filePath)
         {
+            Metadata metadata;
+            using (Stream inputStream = new FileStream(filePath, FileMode.Open))
+                metadata = ReadMetadata(inputStream);
+            new FileMetadataReader().Read(filePath, metadata);
+            return metadata;
         }
 
-        public PngProcessingException([CanBeNull] string message, [CanBeNull] Exception innerException)
-            : base(message, innerException)
+        [NotNull]
+        public static Metadata ReadMetadata([NotNull] Stream stream)
         {
-        }
-
-        public PngProcessingException([CanBeNull] Exception innerException)
-            : base(innerException)
-        {
+            var metadata = new Metadata();
+            new PcxReader().Extract(new SequentialStreamReader(stream), metadata);
+            return metadata;
         }
     }
 }

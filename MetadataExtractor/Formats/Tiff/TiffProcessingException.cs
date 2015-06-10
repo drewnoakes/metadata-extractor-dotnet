@@ -20,34 +20,30 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using System.IO;
+using System;
 using JetBrains.Annotations;
-using MetadataExtractor.Formats.FileSystem;
-using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Pcx.pcx
+namespace MetadataExtractor.Formats.Tiff
 {
-    /// <summary>Obtains metadata from PCX image files.</summary>
+    /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a TIFF file.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public static class PcxMetadataReader
+    /// <author>Darren Salomons</author>
+    [Serializable]
+    public class TiffProcessingException : ImageProcessingException
     {
-        /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public static Metadata ReadMetadata([NotNull] string filePath)
+        public TiffProcessingException([CanBeNull] string message)
+            : base(message)
         {
-            Metadata metadata;
-            using (Stream inputStream = new FileStream(filePath, FileMode.Open))
-                metadata = ReadMetadata(inputStream);
-            new FileMetadataReader().Read(filePath, metadata);
-            return metadata;
         }
 
-        [NotNull]
-        public static Metadata ReadMetadata([NotNull] Stream stream)
+        public TiffProcessingException([CanBeNull] string message, [CanBeNull] Exception innerException)
+            : base(message, innerException)
         {
-            var metadata = new Metadata();
-            new PcxReader().Extract(new SequentialStreamReader(stream), metadata);
-            return metadata;
+        }
+
+        public TiffProcessingException([CanBeNull] Exception innerException)
+            : base(innerException)
+        {
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Png;
-using MetadataExtractor.Formats.Png.png;
 using NUnit.Framework;
 using Sharpen;
 

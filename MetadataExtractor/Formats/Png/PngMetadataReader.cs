@@ -9,7 +9,7 @@ using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 using Sharpen;
 
-namespace MetadataExtractor.Formats.Png.png
+namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class PngMetadataReader

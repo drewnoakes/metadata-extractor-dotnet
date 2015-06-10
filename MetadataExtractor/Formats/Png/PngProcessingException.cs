@@ -23,24 +23,24 @@
 using System;
 using JetBrains.Annotations;
 
-namespace MetadataExtractor.Formats.Riff.riff
+namespace MetadataExtractor.Formats.Png
 {
-    /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a RIFF file.</summary>
+    /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a JPEG file.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [Serializable]
-    public class RiffProcessingException : ImageProcessingException
+    public class PngProcessingException : ImageProcessingException
     {
-        public RiffProcessingException([CanBeNull] string message)
+        public PngProcessingException([CanBeNull] string message)
             : base(message)
         {
         }
 
-        public RiffProcessingException([CanBeNull] string message, [CanBeNull] Exception innerException)
+        public PngProcessingException([CanBeNull] string message, [CanBeNull] Exception innerException)
             : base(message, innerException)
         {
         }
 
-        public RiffProcessingException([CanBeNull] Exception innerException)
+        public PngProcessingException([CanBeNull] Exception innerException)
             : base(innerException)
         {
         }

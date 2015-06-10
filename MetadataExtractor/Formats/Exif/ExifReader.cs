@@ -27,7 +27,7 @@ using System.IO;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
-using MetadataExtractor.Formats.Tiff.tiff;
+using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Exif

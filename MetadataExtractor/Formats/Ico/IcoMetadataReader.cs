@@ -20,30 +20,34 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using System;
+using System.IO;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.FileSystem;
+using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Tiff.tiff
+namespace MetadataExtractor.Formats.Ico
 {
-    /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a TIFF file.</summary>
+    /// <summary>Obtains metadata from ICO (Windows Icon) files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    /// <author>Darren Salomons</author>
-    [Serializable]
-    public class TiffProcessingException : ImageProcessingException
+    public static class IcoMetadataReader
     {
-        public TiffProcessingException([CanBeNull] string message)
-            : base(message)
+        /// <exception cref="System.IO.IOException"/>
+        [NotNull]
+        public static Metadata ReadMetadata([NotNull] string filePath)
         {
+            Metadata metadata;
+            using (Stream inputStream = new FileStream(filePath, FileMode.Open))
+                metadata = ReadMetadata(inputStream);
+            new FileMetadataReader().Read(filePath, metadata);
+            return metadata;
         }
 
-        public TiffProcessingException([CanBeNull] string message, [CanBeNull] Exception innerException)
-            : base(message, innerException)
+        [NotNull]
+        public static Metadata ReadMetadata([NotNull] Stream stream)
         {
-        }
-
-        public TiffProcessingException([CanBeNull] Exception innerException)
-            : base(innerException)
-        {
+            var metadata = new Metadata();
+            new IcoReader().Extract(new SequentialStreamReader(stream), metadata);
+            return metadata;
         }
     }
 }

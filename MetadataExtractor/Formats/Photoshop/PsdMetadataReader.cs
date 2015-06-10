@@ -25,7 +25,7 @@ using JetBrains.Annotations;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Photoshop.psd
+namespace MetadataExtractor.Formats.Photoshop
 {
     /// <summary>Obtains metadata from Photoshop's PSD files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>

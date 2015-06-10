@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
-namespace MetadataExtractor.Formats.Tiff.tiff
+namespace MetadataExtractor.Formats.Tiff
 {
     /// <summary>
     /// Interface of an class capable of handling events raised during the reading of a TIFF file

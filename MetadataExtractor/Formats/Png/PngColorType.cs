@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using JetBrains.Annotations;
 
-namespace MetadataExtractor.Formats.Png.png
+namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [Serializable]
