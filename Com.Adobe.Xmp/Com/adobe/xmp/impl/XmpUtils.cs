@@ -67,12 +67,10 @@ namespace Com.Adobe.Xmp.Impl
                 quotes = "\"";
             }
             XmpMeta xmpImpl = (XmpMeta)xmp;
-            XmpNode arrayNode = null;
-            XmpNode currItem = null;
             // Return an empty result if the array does not exist,
             // hurl if it isn't the right form.
             XmpPath arrayPath = XmpPathParser.ExpandXPath(schemaNs, arrayName);
-            arrayNode = XmpNodeUtils.FindNode(xmpImpl.GetRoot(), arrayPath, false, null);
+            var arrayNode = XmpNodeUtils.FindNode(xmpImpl.GetRoot(), arrayPath, false, null);
             if (arrayNode == null)
             {
                 return string.Empty;
@@ -91,7 +89,7 @@ namespace Com.Adobe.Xmp.Impl
             StringBuilder catinatedString = new StringBuilder();
             for (IIterator it = arrayNode.IterateChildren(); it.HasNext(); )
             {
-                currItem = (XmpNode)it.Next();
+                var currItem = (XmpNode)it.Next();
                 if (currItem.Options.IsCompositeProperty)
                 {
                     throw new XmpException("Array items must be simple", XmpErrorCode.BadParam);
