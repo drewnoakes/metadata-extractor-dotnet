@@ -48,9 +48,9 @@ namespace MetadataExtractor.Formats.Bmp
             SetDescriptor(new BmpHeaderDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "BMP Header";
+            get { return "BMP Header"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

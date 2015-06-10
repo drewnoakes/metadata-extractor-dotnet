@@ -146,9 +146,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             SetDescriptor(new PentaxMakernoteDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "Pentax Makernote";
+            get { return "Pentax Makernote"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

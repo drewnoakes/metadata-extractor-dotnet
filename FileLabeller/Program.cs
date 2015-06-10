@@ -90,7 +90,7 @@ namespace FileLabeller
                 // iterate over the metadata and print to System.out
                 foreach (var directory in metadata.GetDirectories())
                 {
-                    var directoryName = directory.GetName();
+                    var directoryName = directory.Name;
                     foreach (var tag in directory.GetTags())
                     {
                         var tagName = tag.TagName;

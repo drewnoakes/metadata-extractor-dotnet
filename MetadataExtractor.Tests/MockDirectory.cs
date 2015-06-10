@@ -35,9 +35,9 @@ namespace MetadataExtractor.Tests
             _tagNameMap = new Dictionary<int?, string>();
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return string.Empty;
+            get { return string.Empty; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

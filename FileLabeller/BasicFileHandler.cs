@@ -1,6 +1,8 @@
 using System.IO;
 using MetadataExtractor;
 
+// ReSharper disable ReturnValueOfPureMethodIsNotUsed
+
 namespace FileLabeller
 {
     /// <summary>
@@ -16,7 +18,8 @@ namespace FileLabeller
             // Iterate through all values, calling toString to flush out any formatting exceptions
             foreach (var directory in metadata.GetDirectories())
             {
-                directory.GetName();
+                directory.Name.ToString();
+
                 foreach (var tag in directory.GetTags())
                 {
                     tag.TagName.ToString();

@@ -122,9 +122,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             SetDescriptor(new SanyoMakernoteDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "Sanyo Makernote";
+            get { return "Sanyo Makernote"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

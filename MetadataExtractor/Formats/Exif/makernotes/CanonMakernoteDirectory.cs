@@ -807,9 +807,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             SetDescriptor(new CanonMakernoteDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "Canon Makernote";
+            get { return "Canon Makernote"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

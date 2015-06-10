@@ -82,7 +82,7 @@ namespace MetadataExtractor
         [NotNull]
         public string DirectoryName
         {
-            get { return _directory.GetName(); }
+            get { return _directory.Name; }
         }
 
         /// <summary>A basic representation of the tag's type and value.</summary>
@@ -95,7 +95,7 @@ namespace MetadataExtractor
             {
                 description = _directory.GetString(TagType) + " (unable to formulate description)";
             }
-            return "[" + _directory.GetName() + "] " + TagName + " - " + description;
+            return "[" + _directory.Name + "] " + TagName + " - " + description;
         }
     }
 }

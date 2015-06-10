@@ -42,9 +42,9 @@ namespace MetadataExtractor.Formats.Exif
             SetDescriptor(new ExifInteropDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "Interoperability";
+            get { return "Interoperability"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

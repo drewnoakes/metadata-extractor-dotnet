@@ -119,9 +119,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             SetDescriptor(new KodakMakernoteDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "Kodak Makernote";
+            get { return "Kodak Makernote"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

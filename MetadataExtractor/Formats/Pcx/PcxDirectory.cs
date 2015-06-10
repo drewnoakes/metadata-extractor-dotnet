@@ -82,9 +82,9 @@ namespace MetadataExtractor.Formats.Pcx
             SetDescriptor(new PcxDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "PCX";
+            get { return "PCX"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

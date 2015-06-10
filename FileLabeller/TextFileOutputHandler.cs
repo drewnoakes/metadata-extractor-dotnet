@@ -40,7 +40,7 @@ namespace FileLabeller
                         var directories = metadata.GetDirectories().ToList();
 
                         // Sort them by name
-                        directories.Sort((o1, o2) => string.Compare(o1.GetName(), o2.GetName(), StringComparison.Ordinal));
+                        directories.Sort((o1, o2) => string.Compare(o1.Name, o2.Name, StringComparison.Ordinal));
 
                         // Write any errors
                         if (metadata.HasErrors())
@@ -50,7 +50,7 @@ namespace FileLabeller
                                 if (!directory.HasErrors())
                                     continue;
                                 foreach (var error in directory.GetErrors())
-                                    writer.Write("[ERROR: {0}] {1}\n", directory.GetName(), error);
+                                    writer.Write("[ERROR: {0}] {1}\n", directory.Name, error);
                             }
                             writer.Write('\n');
                         }
@@ -58,7 +58,7 @@ namespace FileLabeller
                         // Write tag values for each directory
                         foreach (var directory in directories)
                         {
-                            var directoryName = directory.GetName();
+                            var directoryName = directory.Name;
                             foreach (var tag in directory.GetTags())
                             {
                                 var tagName = tag.TagName;

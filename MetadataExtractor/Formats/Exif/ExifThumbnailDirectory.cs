@@ -88,9 +88,9 @@ namespace MetadataExtractor.Formats.Exif
             SetDescriptor(new ExifThumbnailDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "Exif Thumbnail";
+            get { return "Exif Thumbnail"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

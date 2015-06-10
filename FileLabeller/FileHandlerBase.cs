@@ -52,7 +52,7 @@ namespace FileLabeller
                     continue;
                 foreach (var error in directory.GetErrors())
                 {
-                    log.Write("\t[{0}] {1}\n", directory.GetName(), error);
+                    log.Write("\t[{0}] {1}\n", directory.Name, error);
                     _errorCount++;
                 }
             }

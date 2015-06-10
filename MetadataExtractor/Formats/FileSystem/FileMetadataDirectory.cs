@@ -49,9 +49,9 @@ namespace MetadataExtractor.Formats.FileSystem
             SetDescriptor(new FileMetadataDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "File";
+            get { return "File"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

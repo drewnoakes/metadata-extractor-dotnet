@@ -163,9 +163,9 @@ namespace MetadataExtractor.Formats.Exif
             SetDescriptor(new GpsDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "GPS";
+            get { return "GPS"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

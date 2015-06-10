@@ -53,9 +53,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             SetDescriptor(new RicohMakernoteDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "Ricoh Makernote";
+            get { return "Ricoh Makernote"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

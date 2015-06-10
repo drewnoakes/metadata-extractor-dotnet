@@ -45,9 +45,9 @@ namespace MetadataExtractor.Formats.Gif
             SetDescriptor(new GifHeaderDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "GIF Header";
+            get { return "GIF Header"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

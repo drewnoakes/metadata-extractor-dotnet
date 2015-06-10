@@ -64,9 +64,9 @@ namespace MetadataExtractor.Formats.Png
             SetDescriptor(new TagDescriptor<PngChromaticitiesDirectory>(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "PNG Chromaticities";
+            get { return "PNG Chromaticities"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

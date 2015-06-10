@@ -56,11 +56,12 @@ namespace MetadataExtractor
         protected ITagDescriptor Descriptor;
 
         // ABSTRACT METHODS
+
         /// <summary>Provides the name of the directory, for display purposes.</summary>
         /// <remarks>Provides the name of the directory, for display purposes.  E.g. <c>Exif</c></remarks>
-        /// <returns>the name of the directory</returns>
+        /// <value>the name of the directory</value>
         [NotNull]
-        public abstract string GetName();
+        public abstract string Name { get; }
 
         /// <summary>Provides the map of tag names, hashed by tag type identifier.</summary>
         /// <returns>the map of tag names</returns>
@@ -1103,7 +1104,7 @@ namespace MetadataExtractor
 
         public override string ToString()
         {
-            return string.Format("{0} Directory ({1} {2})", GetName(), TagMap.Count, TagMap.Count == 1 ? "tag" : "tags");
+            return string.Format("{0} Directory ({1} {2})", Name, TagMap.Count, TagMap.Count == 1 ? "tag" : "tags");
         }
     }
 }

@@ -49,9 +49,9 @@ namespace MetadataExtractor.Formats.Jpeg
             SetDescriptor(new JpegCommentDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "JpegComment";
+            get { return "JpegComment"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

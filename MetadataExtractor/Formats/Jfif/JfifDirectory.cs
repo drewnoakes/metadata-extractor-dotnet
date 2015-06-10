@@ -55,9 +55,9 @@ namespace MetadataExtractor.Formats.Jfif
             SetDescriptor(new JfifDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "JFIF";
+            get { return "JFIF"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

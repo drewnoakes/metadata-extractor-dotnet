@@ -110,9 +110,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             SetDescriptor(new SigmaMakernoteDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "Sigma Makernote";
+            get { return "Sigma Makernote"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

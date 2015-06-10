@@ -293,9 +293,9 @@ namespace MetadataExtractor.Formats.Photoshop
             SetDescriptor(new PhotoshopDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "Photoshop";
+            get { return "Photoshop"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

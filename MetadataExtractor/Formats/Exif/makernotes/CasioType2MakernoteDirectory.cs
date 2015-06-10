@@ -206,9 +206,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             SetDescriptor(new CasioType2MakernoteDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "Casio Makernote";
+            get { return "Casio Makernote"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

@@ -48,9 +48,9 @@ namespace MetadataExtractor.Formats.WebP
             SetDescriptor(new WebPDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "WebP";
+            get { return "WebP"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

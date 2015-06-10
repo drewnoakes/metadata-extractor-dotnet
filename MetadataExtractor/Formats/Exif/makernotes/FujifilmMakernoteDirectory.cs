@@ -174,9 +174,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             SetDescriptor(new FujifilmMakernoteDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "Fujifilm Makernote";
+            get { return "Fujifilm Makernote"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

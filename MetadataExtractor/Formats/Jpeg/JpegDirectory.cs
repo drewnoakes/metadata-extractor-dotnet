@@ -98,9 +98,9 @@ namespace MetadataExtractor.Formats.Jpeg
             SetDescriptor(new JpegDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "JPEG";
+            get { return "JPEG"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

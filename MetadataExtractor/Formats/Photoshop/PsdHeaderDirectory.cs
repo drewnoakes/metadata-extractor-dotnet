@@ -67,9 +67,9 @@ namespace MetadataExtractor.Formats.Photoshop
             SetDescriptor(new PsdHeaderDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "PSD Header";
+            get { return "PSD Header"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

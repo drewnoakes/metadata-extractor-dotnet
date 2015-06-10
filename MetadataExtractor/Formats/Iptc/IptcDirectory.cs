@@ -351,9 +351,9 @@ namespace MetadataExtractor.Formats.Iptc
             SetDescriptor(new IptcDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "IPTC";
+            get { return "IPTC"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

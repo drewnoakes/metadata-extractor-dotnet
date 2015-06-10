@@ -543,9 +543,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             SetDescriptor(new OlympusMakernoteDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "Olympus Makernote";
+            get { return "Olympus Makernote"; }
         }
 
         public override void SetByteArray(int tagType, byte[] bytes)

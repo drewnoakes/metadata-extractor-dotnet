@@ -63,9 +63,9 @@ namespace MetadataExtractor.Formats.Adobe
             SetDescriptor(new AdobeJpegDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "Adobe JPEG";
+            get { return "Adobe JPEG"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

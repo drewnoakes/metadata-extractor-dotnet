@@ -48,9 +48,9 @@ namespace MetadataExtractor.Formats.Exif
             AddExifTagNames(TagNameMap);
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "Exif IFD0";
+            get { return "Exif IFD0"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

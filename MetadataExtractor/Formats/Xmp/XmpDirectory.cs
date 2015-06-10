@@ -238,9 +238,9 @@ namespace MetadataExtractor.Formats.Xmp
             SetDescriptor(new XmpDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "Xmp";
+            get { return "Xmp"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()

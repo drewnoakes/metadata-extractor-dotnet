@@ -238,9 +238,9 @@ namespace MetadataExtractor.Formats.Icc
             SetDescriptor(new IccDescriptor(this));
         }
 
-        public override string GetName()
+        public override string Name
         {
-            return "ICC Profile";
+            get { return "ICC Profile"; }
         }
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
