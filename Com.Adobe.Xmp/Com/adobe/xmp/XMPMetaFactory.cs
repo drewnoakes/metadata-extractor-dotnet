@@ -16,18 +16,13 @@ namespace Com.Adobe.Xmp
 {
     /// <summary>Creates <c>XMPMeta</c>-instances from an <c>Stream</c></summary>
     /// <since>30.01.2006</since>
-    public sealed class XmpMetaFactory
+    public static class XmpMetaFactory
     {
         /// <summary>The singleton instance of the <c>XMPSchemaRegistry</c>.</summary>
         private static IXmpSchemaRegistry _schema = new XmpSchemaRegistry();
 
         /// <summary>cache for version info</summary>
         private static IXmpVersionInfo _versionInfo;
-
-        /// <summary>Hides public constructor</summary>
-        private XmpMetaFactory()
-        {
-        }
 
         /// <returns>Returns the singleton instance of the <c>XMPSchemaRegistry</c>.</returns>
         public static IXmpSchemaRegistry GetSchemaRegistry()
