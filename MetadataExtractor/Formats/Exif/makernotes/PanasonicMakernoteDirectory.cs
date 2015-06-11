@@ -609,8 +609,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 for (var i = 0; i < faceCount; i++)
                 {
                     var offset = 4 + i * 44;
-                    var name = reader.GetString(offset, 20, Encoding.ASCII).Trim();
-                    var age = reader.GetString(offset + 28, 20, Encoding.ASCII).Trim();
+                    var name = reader.GetString(offset, 20, Encoding.ASCII).Trim(' ', '\0');
+                    var age = reader.GetString(offset + 28, 20, Encoding.ASCII).Trim(' ', '\0');
                     faces[i] = new Face(reader.GetUInt16(offset + 20), reader.GetUInt16(offset + 22), reader.GetUInt16(offset + 24), reader.GetUInt16(offset + 26), name, Age.FromPanasonicString(age));
                 }
                 return faces;
