@@ -51,7 +51,7 @@ namespace MetadataExtractor.Tests.Formats.Adobe
         {
             var reader = new AdobeJpegReader();
             Assert.AreEqual(1, ((IList<JpegSegmentType>)reader.GetSegmentTypes().ToList()).Count);
-            Assert.AreEqual(JpegSegmentType.Appe, ((IList<JpegSegmentType>)reader.GetSegmentTypes().ToList())[0]);
+            Assert.AreEqual(JpegSegmentType.AppE, ((IList<JpegSegmentType>)reader.GetSegmentTypes().ToList())[0]);
         }
 
 

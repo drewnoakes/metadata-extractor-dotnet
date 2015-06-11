@@ -62,22 +62,22 @@ namespace MetadataExtractor.Formats.Jpeg
         App9 = 0xE9,
 
         /// <summary>APPA (App10) JPEG segment -- can hold Unicode comments.</summary>
-        Appa = 0xEA,
+        AppA = 0xEA,
 
         /// <summary>APPB (App11) JPEG segment.</summary>
-        Appb = 0xEB,
+        AppB = 0xEB,
 
         /// <summary>APPC (App12) JPEG segment.</summary>
-        Appc = 0xEC,
+        AppC = 0xEC,
 
         /// <summary>APPD (App13) JPEG segment -- IPTC data in here.</summary>
-        Appd = 0xED,
+        AppD = 0xED,
 
         /// <summary>APPE (App14) JPEG segment.</summary>
-        Appe = 0xEE,
+        AppE = 0xEE,
 
         /// <summary>APPF (App15) JPEG segment.</summary>
-        Appf = 0xEF,
+        AppF = 0xEF,
 
         /// <summary>Start Of Image segment.</summary>
         Soi = 0xD8,
@@ -139,7 +139,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <summary>JPEG comment segment.</summary>
         Com = 0xFE,
 
-        /// <summary>Start-Of-Scan segment.</summary>
+        /// <summary>Start-of-Scan segment.</summary>
         Sos = 0xDA,
 
         /// <summary>End-of-Image segment.</summary>

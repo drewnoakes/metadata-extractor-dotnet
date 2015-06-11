@@ -39,7 +39,7 @@ namespace MetadataExtractor.Formats.Adobe
 
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
-            yield return JpegSegmentType.Appe;
+            yield return JpegSegmentType.AppE;
         }
 
         public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)

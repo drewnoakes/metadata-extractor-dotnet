@@ -56,7 +56,7 @@ namespace MetadataExtractor.Formats.Iptc
 
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
-            yield return JpegSegmentType.Appd;
+            yield return JpegSegmentType.AppD;
         }
 
         public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
