@@ -37,7 +37,7 @@ namespace MetadataExtractor
     /// <author>Philipp Sandhaus, Drew Noakes</author>
     public sealed class Face
     {
-        public Face(int x, int y, int width, int height, [CanBeNull] string name, [CanBeNull] Age age)
+        public Face(int x, int y, int width, int height, [CanBeNull] string name = null, [CanBeNull] Age age = null)
         {
             X = x;
             Y = y;
