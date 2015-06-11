@@ -312,15 +312,14 @@ namespace MetadataExtractor
         public int GetInt(int tagType)
         {
             var integer = GetInteger(tagType);
+
             if (integer != null)
-            {
                 return (int)integer;
-            }
+
             var o = GetObject(tagType);
             if (o == null)
-            {
                 throw new MetadataException("Tag '" + GetTagName(tagType) + "' has not been set -- check using containsTag() first");
-            }
+
             throw new MetadataException("Tag '" + tagType + "' cannot be converted to int.  It is of type '" + o.GetType() + "'.");
         }
 
@@ -344,13 +343,9 @@ namespace MetadataExtractor
         {
             var o = GetObject(tagType);
             if (o == null)
-            {
                 return null;
-            }
             if (o.IsNumber())
-            {
                 return Number.GetInstance(o).IntValue();
-            }
             var value = o as string;
             if (value != null)
             {
@@ -361,13 +356,12 @@ namespace MetadataExtractor
                 catch (FormatException)
                 {
                     // convert the char array to an int
-                    var s = value;
-                    var bytes = Encoding.UTF8.GetBytes(s);
+                    var bytes = Encoding.UTF8.GetBytes(value);
                     long val = 0;
                     foreach (var aByte in bytes)
                     {
                         val = val << 8;
-                        val += (aByte & unchecked(0xff));
+                        val += aByte;
                     }
                     return (int)val;
                 }
@@ -376,39 +370,25 @@ namespace MetadataExtractor
             if (rationals != null)
             {
                 if (rationals.Length == 1)
-                {
                     return rationals[0].IntValue();
-                }
+            }
+            else if (o.GetType() == typeof(byte[]))
+            {
+                var bytes = (byte[])o;
+                if (bytes.Length == 1)
+                    return bytes[0];
+            }
+            else if (o.GetType() == typeof(sbyte[]))
+            {
+                var bytes = (sbyte[])o;
+                if (bytes.Length == 1)
+                    return bytes[0];
             }
             else
             {
-                if (o.GetType() == typeof(byte[]))
-                {
-                    var bytes = (byte[])o;
-                    if (bytes.Length == 1)
-                    {
-                        return bytes[0];
-                    }
-                }
-                else if (o.GetType() == typeof(sbyte[]))
-                {
-                    var bytes = (sbyte[])o;
-                    if (bytes.Length == 1)
-                    {
-                        return bytes[0];
-                    }
-                }
-                else
-                {
-                    var ints = o as int[];
-                    if (ints != null)
-                    {
-                        if (ints.Length == 1)
-                        {
-                            return ints[0];
-                        }
-                    }
-                }
+                var ints = o as int[];
+                if (ints != null && ints.Length == 1)
+                    return ints[0];
             }
             return null;
         }
@@ -424,50 +404,45 @@ namespace MetadataExtractor
         public string[] GetStringArray(int tagType)
         {
             var o = GetObject(tagType);
+
             if (o == null)
-            {
                 return null;
-            }
+
             var strings = o as string[];
             if (strings != null)
-            {
                 return strings;
-            }
+
             var s = o as string;
             if (s != null)
-            {
                 return new[] { s };
-            }
+
             var ints = o as int[];
             if (ints != null)
             {
                 strings = new string[ints.Length];
                 for (var i = 0; i < strings.Length; i++)
-                {
                     strings[i] = ints[i].ToString();
-                }
                 return strings;
             }
+
             var bytes = o as byte[];
             if (bytes != null)
             {
                 strings = new string[bytes.Length];
                 for (var i = 0; i < strings.Length; i++)
-                {
                     strings[i] = ((int)bytes[i]).ToString();
-                }
                 return strings;
             }
+
             var rationals = o as Rational[];
             if (rationals != null)
             {
                 strings = new string[rationals.Length];
                 for (var i = 0; i < strings.Length; i++)
-                {
                     strings[i] = rationals[i].ToSimpleString(false);
-                }
                 return strings;
             }
+
             return null;
         }
 
@@ -482,70 +457,63 @@ namespace MetadataExtractor
         public int[] GetIntArray(int tagType)
         {
             var o = GetObject(tagType);
+
             if (o == null)
-            {
                 return null;
-            }
+
             var ints = o as int[];
             if (ints != null)
-            {
                 return ints;
-            }
+
             var rationals = o as Rational[];
             if (rationals != null)
             {
                 ints = new int[rationals.Length];
                 for (var i = 0; i < ints.Length; i++)
-                {
                     ints[i] = rationals[i].IntValue();
-                }
                 return ints;
             }
+
             var shorts = o as short[];
             if (shorts != null)
             {
                 ints = new int[shorts.Length];
                 for (var i = 0; i < shorts.Length; i++)
-                {
                     ints[i] = shorts[i];
-                }
                 return ints;
             }
+
             if (o.GetType() == typeof(sbyte[]))
             {
                 var bytes = (sbyte[])o;
                 ints = new int[bytes.Length];
                 for (var i = 0; i < bytes.Length; i++)
-                {
                     ints[i] = bytes[i];
-                }
                 return ints;
             }
+
             if (o.GetType() == typeof(byte[]))
             {
                 var bytes = (byte[])o;
                 ints = new int[bytes.Length];
                 for (var i = 0; i < bytes.Length; i++)
-                {
                     ints[i] = bytes[i];
-                }
                 return ints;
             }
+
             var str = o as string;
             if (str != null)
             {
                 ints = new int[str.Length];
                 for (var i = 0; i < str.Length; i++)
-                {
                     ints[i] = str[i];
-                }
                 return ints;
             }
+
             var nullableInt = o as int?;
             if (nullableInt != null)
-            {
                 return new[] { (int)o };
-            }
+
             return null;
         }
 
@@ -560,10 +528,10 @@ namespace MetadataExtractor
         public byte[] GetByteArray(int tagType)
         {
             var o = GetObject(tagType);
+
             if (o == null)
-            {
                 return null;
-            }
+
             byte[] bytes;
 
             var rationals = o as Rational[];
@@ -571,51 +539,45 @@ namespace MetadataExtractor
             {
                 bytes = new byte[rationals.Length];
                 for (var i = 0; i < bytes.Length; i++)
-                {
                     bytes[i] = rationals[i].ByteValue();
-                }
                 return bytes;
             }
+
             bytes = o as byte[];
             if (bytes != null)
-            {
                 return bytes;
-            }
+
             var ints = o as int[];
             if (ints != null)
             {
                 bytes = new byte[ints.Length];
                 for (var i = 0; i < ints.Length; i++)
-                {
                     bytes[i] = unchecked((byte)ints[i]);
-                }
                 return bytes;
             }
+
             var shorts = o as short[];
             if (shorts != null)
             {
                 bytes = new byte[shorts.Length];
                 for (var i = 0; i < shorts.Length; i++)
-                {
                     bytes[i] = unchecked((byte)shorts[i]);
-                }
                 return bytes;
             }
+
             var str = o as string;
             if (str != null)
             {
                 bytes = new byte[str.Length];
                 for (var i = 0; i < str.Length; i++)
-                {
                     bytes[i] = unchecked((byte)str[i]);
-                }
                 return bytes;
             }
+
             var nullableInt = o as int?;
             if (nullableInt != null)
-            {
                 return new[] { (byte)nullableInt.Value };
-            }
+
             return null;
         }
 
@@ -624,15 +586,14 @@ namespace MetadataExtractor
         public double GetDouble(int tagType)
         {
             var value = GetDoubleObject(tagType);
+
             if (value != null)
-            {
                 return (double)value;
-            }
+
             var o = GetObject(tagType);
             if (o == null)
-            {
                 throw new MetadataException("Tag '" + GetTagName(tagType) + "' has not been set -- check using containsTag() first");
-            }
+
             throw new MetadataException("Tag '" + tagType + "' cannot be converted to a double.  It is of type '" + o.GetType() + "'.");
         }
 
@@ -642,26 +603,20 @@ namespace MetadataExtractor
         public double? GetDoubleObject(int tagType)
         {
             var o = GetObject(tagType);
+
             if (o == null)
-            {
                 return null;
-            }
+
             var s = o as string;
             if (s != null)
             {
-                try
-                {
-                    return double.Parse(s);
-                }
-                catch (FormatException)
-                {
-                    return null;
-                }
+                double d;
+                return double.TryParse(s, out d) ? (double?)d : null;
             }
+
             if (o.IsNumber())
-            {
                 return Number.GetInstance(o).DoubleValue();
-            }
+
             return null;
         }
 
@@ -671,14 +626,12 @@ namespace MetadataExtractor
         {
             var value = GetFloatObject(tagType);
             if (value != null)
-            {
                 return (float)value;
-            }
+
             var o = GetObject(tagType);
             if (o == null)
-            {
                 throw new MetadataException("Tag '" + GetTagName(tagType) + "' has not been set -- check using containsTag() first");
-            }
+
             throw new MetadataException("Tag '" + tagType + "' cannot be converted to a float.  It is of type '" + o.GetType() + "'.");
         }
 
@@ -688,26 +641,20 @@ namespace MetadataExtractor
         public float? GetFloatObject(int tagType)
         {
             var o = GetObject(tagType);
+
             if (o == null)
-            {
                 return null;
-            }
+
             var s = o as string;
             if (s != null)
             {
-                try
-                {
-                    return float.Parse(s);
-                }
-                catch (FormatException)
-                {
-                    return null;
-                }
+                float f;
+                return float.TryParse(s, out f) ? (float?)f : null;
             }
+
             if (o.IsNumber())
-            {
                 return Number.GetInstance(o).FloatValue();
-            }
+
             return null;
         }
 
@@ -716,15 +663,14 @@ namespace MetadataExtractor
         public long GetLong(int tagType)
         {
             var value = GetLongObject(tagType);
+
             if (value != null)
-            {
                 return (long)value;
-            }
+
             var o = GetObject(tagType);
             if (o == null)
-            {
                 throw new MetadataException("Tag '" + GetTagName(tagType) + "' has not been set -- check using containsTag() first");
-            }
+
             throw new MetadataException("Tag '" + tagType + "' cannot be converted to a long.  It is of type '" + o.GetType() + "'.");
         }
 
@@ -734,26 +680,20 @@ namespace MetadataExtractor
         public long? GetLongObject(int tagType)
         {
             var o = GetObject(tagType);
+
             if (o == null)
-            {
                 return null;
-            }
+
             var s = o as string;
             if (s != null)
             {
-                try
-                {
-                    return Convert.ToInt64(s);
-                }
-                catch (FormatException)
-                {
-                    return null;
-                }
+                long l;
+                return long.TryParse(s, out l) ? (long?)l : null;
             }
+
             if (o.IsNumber())
-            {
                 return Number.GetInstance(o).LongValue();
-            }
+
             return null;
         }
 
@@ -762,15 +702,14 @@ namespace MetadataExtractor
         public bool GetBoolean(int tagType)
         {
             var value = GetBooleanObject(tagType);
+
             if (value != null)
-            {
                 return (bool)value;
-            }
+
             var o = GetObject(tagType);
             if (o == null)
-            {
                 throw new MetadataException("Tag '" + GetTagName(tagType) + "' has not been set -- check using containsTag() first");
-            }
+
             throw new MetadataException("Tag '" + tagType + "' cannot be converted to a boolean.  It is of type '" + o.GetType() + "'.");
         }
 
@@ -780,31 +719,24 @@ namespace MetadataExtractor
         public bool? GetBooleanObject(int tagType)
         {
             var o = GetObject(tagType);
+
             if (o == null)
-            {
                 return null;
-            }
+
             var b = o as bool?;
             if (b != null)
-            {
                 return b;
-            }
+
             var s = o as string;
             if (s != null)
             {
-                try
-                {
-                    return bool.Parse(s);
-                }
-                catch (FormatException)
-                {
-                    return null;
-                }
+                bool result;
+                return bool.TryParse(s, out result) ? (bool?)result : null;
             }
+
             if (o.IsNumber())
-            {
                 return Number.GetInstance(o).DoubleValue() != 0;
-            }
+
             return null;
         }
 
@@ -820,14 +752,13 @@ namespace MetadataExtractor
         public DateTime? GetDate(int tagType, [CanBeNull] TimeZoneInfo timeZone = null)
         {
             var o = GetObject(tagType);
+
             if (o == null)
-            {
                 return null;
-            }
+
             if (o is DateTime)
-            {
                 return (DateTime)o;
-            }
+
             var s = o as string;
             if (s != null)
             {
@@ -860,23 +791,20 @@ namespace MetadataExtractor
         public Rational GetRational(int tagType)
         {
             var o = GetObject(tagType);
+
             if (o == null)
-            {
                 return null;
-            }
+
             var rational = o as Rational;
             if (rational != null)
-            {
                 return rational;
-            }
+
             if (o is int?)
-            {
                 return new Rational((int)o, 1);
-            }
+
             if (o is long?)
-            {
                 return new Rational((long)o, 1);
-            }
+
             // NOTE not doing conversions for real number types
             return null;
         }
@@ -886,17 +814,7 @@ namespace MetadataExtractor
         [CanBeNull]
         public Rational[] GetRationalArray(int tagType)
         {
-            var o = GetObject(tagType);
-            if (o == null)
-            {
-                return null;
-            }
-            var rationals = o as Rational[];
-            if (rationals != null)
-            {
-                return rationals;
-            }
-            return null;
+            return GetObject(tagType) as Rational[];
         }
 
         /// <summary>Returns the specified tag's value as a String.</summary>
@@ -1050,11 +968,9 @@ namespace MetadataExtractor
         public string GetString(int tagType, Encoding encoding)
         {
             var bytes = GetByteArray(tagType);
-            if (bytes == null)
-            {
-                return null;
-            }
-            return encoding.GetString(bytes);
+            return bytes == null
+                ? null
+                : encoding.GetString(bytes);
         }
 
         /// <summary>Returns the object hashed for the particular tag type specified, if available.</summary>
@@ -1077,9 +993,9 @@ namespace MetadataExtractor
         {
             var nameMap = GetTagNameMap();
             string value;
-            if (nameMap.TryGetValue(tagType, out value))
-                return value;
-            return string.Format("Unknown tag (0x{0:X4})", tagType);
+            return nameMap.TryGetValue(tagType, out value)
+                ? value
+                : string.Format("Unknown tag (0x{0:X4})", tagType);
         }
 
         /// <summary>Gets whether the specified tag is known by the directory and has a name.</summary>

@@ -565,8 +565,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             {
                 return null;
             }
-            IndexedReader reader = new ByteArrayReader(bytes);
-            reader.IsMotorolaByteOrder = false;
+            var reader = new ByteArrayReader(bytes) { IsMotorolaByteOrder = false };
             try
             {
                 int faceCount = reader.GetUInt16(0);
@@ -592,27 +591,32 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public Face[] GetRecognizedFaces()
         {
             var bytes = GetByteArray(TagFaceRecognitionInfo);
+
             if (bytes == null)
-            {
                 return null;
-            }
-            IndexedReader reader = new ByteArrayReader(bytes);
-            reader.IsMotorolaByteOrder = false;
+
+            var reader = new ByteArrayReader(bytes) { IsMotorolaByteOrder = false };
+
             try
             {
                 int faceCount = reader.GetUInt16(0);
+
                 if (faceCount == 0)
-                {
                     return null;
-                }
+
                 var faces = new Face[faceCount];
-                for (var i = 0; i < faceCount; i++)
+
+                for (int i = 0, offset = 4; i < faceCount; i++, offset += 44)
                 {
-                    var offset = 4 + i * 44;
-                    var name = reader.GetString(offset, 20, Encoding.ASCII).Trim(' ', '\0');
-                    var age = reader.GetString(offset + 28, 20, Encoding.ASCII).Trim(' ', '\0');
-                    faces[i] = new Face(reader.GetUInt16(offset + 20), reader.GetUInt16(offset + 22), reader.GetUInt16(offset + 24), reader.GetUInt16(offset + 26), name, Age.FromPanasonicString(age));
+                    faces[i] = new Face(
+                        x: reader.GetUInt16(offset + 20),
+                        y: reader.GetUInt16(offset + 22),
+                        width: reader.GetUInt16(offset + 24),
+                        height: reader.GetUInt16(offset + 26),
+                        name: reader.GetString(offset, 20, Encoding.ASCII).Trim(' ', '\0'),
+                        age: Age.FromPanasonicString(reader.GetString(offset + 28, 20, Encoding.ASCII).Trim(' ', '\0')));
                 }
+
                 return faces;
             }
             catch (IOException)

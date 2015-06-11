@@ -32,12 +32,12 @@ namespace MetadataExtractor.Tests
         {
             var age = Age.FromPanasonicString("0031:07:15 00:00:00");
             Assert.IsNotNull(age);
-            Assert.AreEqual(31, age.GetYears());
-            Assert.AreEqual(7, age.GetMonths());
-            Assert.AreEqual(15, age.GetDays());
-            Assert.AreEqual(0, age.GetHours());
-            Assert.AreEqual(0, age.GetMinutes());
-            Assert.AreEqual(0, age.GetSeconds());
+            Assert.AreEqual(31, age.Years);
+            Assert.AreEqual(7, age.Months);
+            Assert.AreEqual(15, age.Days);
+            Assert.AreEqual(0, age.Hours);
+            Assert.AreEqual(0, age.Minutes);
+            Assert.AreEqual(0, age.Seconds);
             Assert.AreEqual("0031:07:15 00:00:00", age.ToString());
             Assert.AreEqual("31 years 7 months 15 days", age.ToFriendlyString());
         }
