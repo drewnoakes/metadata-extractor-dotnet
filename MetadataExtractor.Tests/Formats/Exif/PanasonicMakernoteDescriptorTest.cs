@@ -30,7 +30,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
     {
         private PanasonicMakernoteDirectory _panasonicDirectory;
 
-
         [SetUp]
         public void SetUp()
         {
@@ -41,21 +40,18 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Test]
         public void TestGetDetectedFaces()
         {
-            var expResult = new Face(142, 120, 76, 76, null, null);
-            var result = _panasonicDirectory.GetDetectedFaces();
-            Assert.IsNotNull(result);
-            Assert.AreEqual(expResult, result[0]);
+            CollectionAssert.AreEqual(
+                new[] { new Face(142, 120, 76, 76) },
+                _panasonicDirectory.GetDetectedFaces());
         }
 
 
         [Test]
         public void TestGetRecognizedFaces()
         {
-            var expected = new Face(142, 120, 76, 76, "NIELS", new Age(31, 7, 15, 0, 0, 0));
-            var result = _panasonicDirectory.GetRecognizedFaces();
-            Assert.IsNotNull(result);
-            Assert.AreEqual(1, result.Length);
-            Assert.AreEqual(expected, result[0]);
+            CollectionAssert.AreEqual(
+                new[] { new Face(142, 120, 76, 76, "NIELS", new Age(31, 7, 15, 0, 0, 0)) },
+                _panasonicDirectory.GetRecognizedFaces());
         }
     }
 }

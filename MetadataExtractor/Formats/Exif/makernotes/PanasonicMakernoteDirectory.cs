@@ -21,7 +21,6 @@
  */
 
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
@@ -557,71 +556,41 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return TagNameMap;
         }
 
-        [CanBeNull]
-        public Face[] GetDetectedFaces()
+        [NotNull, ItemNotNull]
+        public IEnumerable<Face> GetDetectedFaces()
         {
-            var bytes = GetByteArray(TagFaceDetectionInfo);
-            if (bytes == null)
-            {
-                return null;
-            }
-            var reader = new ByteArrayReader(bytes) { IsMotorolaByteOrder = false };
-            try
-            {
-                int faceCount = reader.GetUInt16(0);
-                if (faceCount == 0)
-                {
-                    return null;
-                }
-                var faces = new Face[faceCount];
-                for (var i = 0; i < faceCount; i++)
-                {
-                    var offset = 2 + i * 8;
-                    faces[i] = new Face(reader.GetUInt16(offset), reader.GetUInt16(offset + 2), reader.GetUInt16(offset + 4), reader.GetUInt16(offset + 6), null, null);
-                }
-                return faces;
-            }
-            catch (IOException)
-            {
-                return null;
-            }
+            return ParseFaces(GetByteArray(TagFaceDetectionInfo), 2, 0, 8);
         }
 
-        [CanBeNull]
-        public Face[] GetRecognizedFaces()
+        [NotNull, ItemNotNull]
+        public IEnumerable<Face> GetRecognizedFaces()
         {
-            var bytes = GetByteArray(TagFaceRecognitionInfo);
+            return ParseFaces(GetByteArray(TagFaceRecognitionInfo), 4, 20, 44);
+        }
 
+        private static IEnumerable<Face> ParseFaces(byte[] bytes, int firstRecordOffset, int posOffset, int recordLength)
+        {
             if (bytes == null)
-                return null;
+                yield break;
 
             var reader = new ByteArrayReader(bytes) { IsMotorolaByteOrder = false };
 
-            try
+            int faceCount = reader.GetUInt16(0);
+
+            if (faceCount == 0 || bytes.Length < firstRecordOffset + faceCount*recordLength)
+                yield break;
+
+            posOffset += firstRecordOffset;
+
+            for (int i = 0, recordOffset = firstRecordOffset; i < faceCount; i++, recordOffset += recordLength, posOffset += recordLength)
             {
-                int faceCount = reader.GetUInt16(0);
-
-                if (faceCount == 0)
-                    return null;
-
-                var faces = new Face[faceCount];
-
-                for (int i = 0, offset = 4; i < faceCount; i++, offset += 44)
-                {
-                    faces[i] = new Face(
-                        x: reader.GetUInt16(offset + 20),
-                        y: reader.GetUInt16(offset + 22),
-                        width: reader.GetUInt16(offset + 24),
-                        height: reader.GetUInt16(offset + 26),
-                        name: reader.GetString(offset, 20, Encoding.ASCII).Trim(' ', '\0'),
-                        age: Age.FromPanasonicString(reader.GetString(offset + 28, 20, Encoding.ASCII).Trim(' ', '\0')));
-                }
-
-                return faces;
-            }
-            catch (IOException)
-            {
-                return null;
+                yield return new Face(
+                    x: reader.GetUInt16(posOffset),
+                    y: reader.GetUInt16(posOffset + 2),
+                    width: reader.GetUInt16(posOffset + 4),
+                    height: reader.GetUInt16(posOffset + 6),
+                    name: recordLength == 44 ? reader.GetString(recordOffset, 20, Encoding.ASCII).Trim(' ', '\0') : null,
+                    age: recordLength == 44 ? Age.FromPanasonicString(reader.GetString(recordOffset + 28, 20, Encoding.ASCII).Trim(' ', '\0')) : null);
             }
         }
 
@@ -632,11 +601,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public Age GetAge(int tag)
         {
             var ageString = GetString(tag);
-            if (ageString == null)
-            {
-                return null;
-            }
-            return Age.FromPanasonicString(ageString);
+            return ageString == null ? null : Age.FromPanasonicString(ageString);
         }
     }
 }

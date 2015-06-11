@@ -20,7 +20,9 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
@@ -664,18 +666,15 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         }
 
         [CanBeNull]
-        private static string BuildFacesDescription([CanBeNull] Face[] faces)
+        private static string BuildFacesDescription([CanBeNull] IEnumerable<Face> faces)
         {
             if (faces == null)
-            {
                 return null;
-            }
+            var faceList = faces.ToList();
             var result = new StringBuilder();
-            for (var i = 0; i < faces.Length; i++)
-            {
-                result.Append("Face ").Append(i + 1).Append(": ").Append(faces[i].ToString()).Append("\n");
-            }
-            return result.Length > 0 ? result.ToString(0, result.Length) : null;
+            for (var i = 0; i < faceList.Count; i++)
+                result.Append("Face ").Append(i + 1).Append(": ").Append(faceList[i]).AppendLine();
+            return result.Length > 0 ? result.ToString() : null;
         }
 
         private static readonly string[] SceneModes = new[] { "Normal", "Portrait", "Scenery", "Sports", "Night Portrait", "Program", "Aperture Priority", "Shutter Priority", "Macro", "Spot", "Manual", "Movie Preview", "Panning", "Simple", "Color Effects"
