@@ -230,7 +230,7 @@ namespace MetadataExtractor
         /// </returns>
         public override bool Equals([CanBeNull] object obj)
         {
-            if (obj == null || !(obj is Rational))
+            if (!(obj is Rational))
             {
                 return false;
             }
