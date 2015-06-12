@@ -216,7 +216,7 @@ namespace MetadataExtractor
         private bool TooComplexForSimplification()
         {
             var maxPossibleCalculations = (((Math.Min(_denominator, _numerator) - 1) / 5d) + 2);
-            var maxSimplificationCalculations = 1000;
+            const int maxSimplificationCalculations = 1000;
             return maxPossibleCalculations > maxSimplificationCalculations;
         }
 
