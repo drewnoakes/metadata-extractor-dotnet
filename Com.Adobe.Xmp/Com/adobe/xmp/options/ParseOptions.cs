@@ -10,7 +10,7 @@
 namespace Com.Adobe.Xmp.Options
 {
     /// <summary>
-    /// Options for <see cref="XmpMetaFactory.Parse(Stream, ParseOptions)"/>.
+    /// Options for <see cref="XmpMetaFactory.Parse(System.IO.Stream, ParseOptions)"/>.
     /// </summary>
     /// <since>24.01.2006</since>
     public sealed class ParseOptions : Options

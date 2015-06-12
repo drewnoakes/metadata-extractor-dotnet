@@ -47,7 +47,7 @@ namespace MetadataExtractor.IO
             var value = _stream.ReadByte();
             if (value == -1)
             {
-                throw new EofException("End of data reached.");
+                throw new IOException("End of data reached.");
             }
             return unchecked((byte)value);
         }
@@ -62,7 +62,7 @@ namespace MetadataExtractor.IO
                 var bytesRead = _stream.Read(bytes, totalBytesRead, count - totalBytesRead);
                 if (bytesRead == 0)
                 {
-                    throw new EofException("End of data reached.");
+                    throw new IOException("End of data reached.");
                 }
                 totalBytesRead += bytesRead;
                 Debug.Assert((totalBytesRead <= count));
@@ -76,7 +76,7 @@ namespace MetadataExtractor.IO
                 throw new ArgumentException("n must be zero or greater.");
 
             if (_stream.Position + n > _stream.Length)
-                throw new EofException("Unable to skip past of end of file");
+                throw new IOException("Unable to skip past of end of file");
 
             _stream.Seek(n, SeekOrigin.Current);
         }

@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.IO;
 using JetBrains.Annotations;
 using Sharpen;
 
@@ -49,7 +50,7 @@ namespace MetadataExtractor.IO
         {
             if (_index >= _bytes.Length)
             {
-                throw new EofException("End of data reached.");
+                throw new IOException("End of data reached.");
             }
             return _bytes[_index++];
         }
@@ -59,7 +60,7 @@ namespace MetadataExtractor.IO
         {
             if (_index + count > _bytes.Length)
             {
-                throw new EofException("End of data reached.");
+                throw new IOException("End of data reached.");
             }
             var bytes = new byte[count];
             Array.Copy(_bytes, _index, bytes, 0, count);
@@ -76,7 +77,7 @@ namespace MetadataExtractor.IO
             }
             if (_index + n > _bytes.Length)
             {
-                throw new EofException("End of data reached.");
+                throw new IOException("End of data reached.");
             }
             _index += unchecked((int)(n));
         }

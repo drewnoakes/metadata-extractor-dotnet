@@ -294,7 +294,7 @@ namespace MetadataExtractor.Tests.IO
                 CreateReader(new byte[50]).GetBytes(51);
                 Assert.Fail("Expecting exception");
             }
-            catch (EofException)
+            catch (IOException)
             {
             }
         }
@@ -314,7 +314,7 @@ namespace MetadataExtractor.Tests.IO
                 reader.GetInt8();
                 Assert.Fail("Expecting exception");
             }
-            catch (EofException)
+            catch (IOException)
             {
             }
         }
@@ -334,7 +334,7 @@ namespace MetadataExtractor.Tests.IO
                 reader.Skip(1);
                 Assert.Fail("Expecting exception");
             }
-            catch (EofException)
+            catch (IOException)
             {
             }
         }

@@ -70,11 +70,11 @@ namespace MetadataExtractor.IO
         /// <summary>Skips forward in the sequence.</summary>
         /// <remarks>
         /// Skips forward in the sequence. If the sequence ends, an
-        /// <see cref="EofException"/>
+        /// <see cref="System.IO.IOException"/>
         /// is thrown.
         /// </remarks>
         /// <param name="n">the number of byte to skip. Must be zero or greater.</param>
-        /// <exception cref="EofException">the end of the sequence is reached.</exception>
+        /// <exception cref="System.IO.IOException">the end of the sequence is reached.</exception>
         /// <exception cref="System.IO.IOException">an error occurred reading from the underlying source.</exception>
         public abstract void Skip(long n);
 
