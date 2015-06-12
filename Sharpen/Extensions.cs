@@ -25,14 +25,11 @@ namespace Sharpen
         public static TimeZoneInfo GetTimeZone(string tzone)
         {
             if (tzone.Equals("GMT"))
-            {
                 tzone = "GMT Standard Time";
-            }
 
             try
             {
-                var tz = TimeZoneInfo.FindSystemTimeZoneById(tzone);
-                return tz;
+                return TimeZoneInfo.FindSystemTimeZoneById(tzone);
             }
             catch
             {
