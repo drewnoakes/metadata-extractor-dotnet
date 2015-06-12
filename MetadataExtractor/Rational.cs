@@ -68,7 +68,17 @@ namespace MetadataExtractor
         /// </remarks>
         public byte ByteValue()
         {
-            return unchecked((byte)DoubleValue());
+            return (byte)DoubleValue();
+        }
+
+        /// <summary>Returns the value of the specified number as a <see cref="sbyte"/>.</summary>
+        /// <remarks>
+        /// May incur rounding or truncation.  This implementation simply
+        /// casts the result of <see cref="DoubleValue()"/> to <see cref="sbyte"/>.
+        /// </remarks>
+        public sbyte SByteValue()
+        {
+            return (sbyte)DoubleValue();
         }
 
         /// <summary>Returns the value of the specified number as an <see cref="int"/>.</summary>
@@ -81,6 +91,16 @@ namespace MetadataExtractor
             return (int)DoubleValue();
         }
 
+        /// <summary>Returns the value of the specified number as an <see cref="uint"/>.</summary>
+        /// <remarks>
+        /// May incur rounding or truncation.  This implementation simply
+        /// casts the result of <see cref="DoubleValue()"/> to <see cref="uint"/>.
+        /// </remarks>
+        public uint UIntValue()
+        {
+            return (uint)DoubleValue();
+        }
+
         /// <summary>Returns the value of the specified number as a <see cref="long"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
@@ -91,6 +111,16 @@ namespace MetadataExtractor
             return (long)DoubleValue();
         }
 
+        /// <summary>Returns the value of the specified number as a <see cref="ulong"/>.</summary>
+        /// <remarks>
+        /// May incur rounding or truncation.  This implementation simply
+        /// casts the result of <see cref="DoubleValue()"/> to <see cref="ulong"/>.
+        /// </remarks>
+        public ulong ULongValue()
+        {
+            return (ulong)DoubleValue();
+        }
+
         /// <summary>Returns the value of the specified number as a <see cref="short"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
@@ -99,6 +129,16 @@ namespace MetadataExtractor
         public short ShortValue()
         {
             return (short)DoubleValue();
+        }
+
+        /// <summary>Returns the value of the specified number as a <see cref="ushort"/>.</summary>
+        /// <remarks>
+        /// May incur rounding or truncation.  This implementation simply
+        /// casts the result of <see cref="DoubleValue()"/> to <see cref="ushort"/>.
+        /// </remarks>
+        public ushort UShortValue()
+        {
+            return (ushort)DoubleValue();
         }
 
         /// <summary>Returns the denominator.</summary>
