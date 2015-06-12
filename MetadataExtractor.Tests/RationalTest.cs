@@ -24,6 +24,8 @@ using System;
 using System.ComponentModel;
 using NUnit.Framework;
 
+// ReSharper disable ReturnValueOfPureMethodIsNotUsed
+
 namespace MetadataExtractor.Tests
 {
     /// <summary>Unit tests for the <see cref="Rational"/> type.</summary>
@@ -106,7 +108,7 @@ namespace MetadataExtractor.Tests
         }
 
         [Test]
-        public void TestTypeConversion()
+        public void TestTypeConverter()
         {
             var converter = TypeDescriptor.GetConverter(typeof(Rational));
 
@@ -125,6 +127,25 @@ namespace MetadataExtractor.Tests
             Assert.AreEqual(new Rational(13, 35), converter.ConvertFrom(new[] { 12.9, 34.9 })); // rounding
 
             Assert.Throws<NotSupportedException>(() => converter.ConvertFrom(null));
+        }
+
+        [Test]
+        public void TestIConvertible()
+        {
+            Assert.AreEqual(15,  Convert.ToByte (new Rational(150, 10)));
+            Assert.AreEqual(15u, Convert.ToInt16(new Rational(150, 10)));
+            Assert.AreEqual(15,  Convert.ToInt32(new Rational(150, 10)));
+            Assert.AreEqual(15L, Convert.ToInt64(new Rational(150, 10)));
+
+            Assert.AreEqual(15.5f, Convert.ToSingle(new Rational(155, 10)));
+            Assert.AreEqual(15.5d, Convert.ToDouble(new Rational(155, 10)));
+            Assert.AreEqual(15.5m, Convert.ToDecimal(new Rational(155, 10)));
+
+            Assert.AreEqual("123/10", Convert.ToString(new Rational(123, 10)));
+
+            Assert.Throws<NotSupportedException>(() => Convert.ToBoolean(new Rational(123, 10)));
+            Assert.Throws<NotSupportedException>(() => Convert.ToChar(new Rational(123, 10)));
+            Assert.Throws<NotSupportedException>(() => Convert.ToDateTime(new Rational(123, 10)));
         }
     }
 }

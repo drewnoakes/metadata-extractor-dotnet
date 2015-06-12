@@ -25,6 +25,8 @@ using System.ComponentModel;
 using System.Globalization;
 using JetBrains.Annotations;
 
+// TODO operator overloads
+
 namespace MetadataExtractor
 {
     /// <summary>Immutable type for representing a rational number.</summary>
@@ -35,7 +37,7 @@ namespace MetadataExtractor
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [Serializable]
     [TypeConverter(typeof(RationalConverter))]
-    public sealed class Rational
+    public sealed class Rational : IConvertible
     {
         /// <summary>Gets the denominator.</summary>
         public long Denominator { get; private set; }
@@ -153,6 +155,90 @@ namespace MetadataExtractor
             return Denominator == 0 ? 0M : Numerator / (decimal)Denominator;
         }
 
+        #region IConvertible
+
+        TypeCode IConvertible.GetTypeCode()
+        {
+            return TypeCode.Object;
+        }
+
+        bool IConvertible.ToBoolean(IFormatProvider provider)
+        {
+            throw new NotSupportedException();
+        }
+
+        char IConvertible.ToChar(IFormatProvider provider)
+        {
+            throw new NotSupportedException();
+        }
+
+        sbyte IConvertible.ToSByte(IFormatProvider provider)
+        {
+            return ToSByte();
+        }
+
+        byte IConvertible.ToByte(IFormatProvider provider)
+        {
+            return ToByte();
+        }
+
+        short IConvertible.ToInt16(IFormatProvider provider)
+        {
+            return ToInt16();
+        }
+
+        ushort IConvertible.ToUInt16(IFormatProvider provider)
+        {
+            return ToUInt16();
+        }
+
+        int IConvertible.ToInt32(IFormatProvider provider)
+        {
+            return ToInt32();
+        }
+
+        uint IConvertible.ToUInt32(IFormatProvider provider)
+        {
+            return ToUInt32();
+        }
+
+        long IConvertible.ToInt64(IFormatProvider provider)
+        {
+            return ToInt64();
+        }
+
+        ulong IConvertible.ToUInt64(IFormatProvider provider)
+        {
+            return ToUInt64();
+        }
+
+        float IConvertible.ToSingle(IFormatProvider provider)
+        {
+            return ToSingle();
+        }
+
+        double IConvertible.ToDouble(IFormatProvider provider)
+        {
+            return ToDouble();
+        }
+
+        decimal IConvertible.ToDecimal(IFormatProvider provider)
+        {
+            return ToDecimal();
+        }
+
+        DateTime IConvertible.ToDateTime(IFormatProvider provider)
+        {
+            throw new NotSupportedException();
+        }
+
+        object IConvertible.ToType(Type conversionType, IFormatProvider provider)
+        {
+            throw new NotSupportedException();
+        }
+
+        #endregion
+
         #endregion
 
         /// <summary>Gets the reciprocal value of this object as a new <see cref="Rational"/>.</summary>
@@ -178,6 +264,11 @@ namespace MetadataExtractor
         public override string ToString()
         {
             return Numerator + "/" + Denominator;
+        }
+
+        public string ToString(IFormatProvider provider)
+        {
+            return Numerator.ToString(provider) + "/" + Denominator.ToString(provider);
         }
 
         /// <summary>
