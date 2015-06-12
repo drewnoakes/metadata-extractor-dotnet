@@ -223,22 +223,18 @@ namespace Com.Adobe.Xmp.Impl
                     // Delete non-simple children.
                     it.Remove();
                 }
-                else
+                else if (!currChild.Options.HasLanguage)
                 {
-                    if (!currChild.Options.HasLanguage)
+                    if (string.IsNullOrEmpty(currChild.Value))
                     {
-                        var childValue = currChild.Value;
-                        if (string.IsNullOrEmpty(childValue))
-                        {
-                            // Delete empty valued children that have no xml:lang.
-                            it.Remove();
-                        }
-                        else
-                        {
-                            // Add an xml:lang qualifier with the value "x-repair".
-                            var repairLang = new XmpNode(XmpConstConstants.XmlLang, "x-repair", null);
-                            currChild.AddQualifier(repairLang);
-                        }
+                        // Delete empty valued children that have no xml:lang.
+                        it.Remove();
+                    }
+                    else
+                    {
+                        // Add an xml:lang qualifier with the value "x-repair".
+                        var repairLang = new XmpNode(XmpConstConstants.XmlLang, "x-repair", null);
+                        currChild.AddQualifier(repairLang);
                     }
                 }
             }
@@ -305,53 +301,45 @@ namespace Com.Adobe.Xmp.Impl
                                 TransplantArrayItemAlias(propertyIt, currProp, baseNode);
                             }
                         }
+                        else if (info.GetAliasForm().IsSimple())
+                        {
+                            // The base node does exist and this is a top-to-top alias.
+                            // Check for conflicts if strict aliasing is on.
+                            // Remove and delete the alias subtree.
+                            if (strictAliasing)
+                            {
+                                CompareAliasedSubtrees(currProp, baseNode, true);
+                            }
+                            propertyIt.Remove();
+                        }
                         else
                         {
-                            if (info.GetAliasForm().IsSimple())
+                            // This is an alias to an array item and the array exists.
+                            // Look for the aliased item.
+                            // Then transplant or check & delete as appropriate.
+                            XmpNode itemNode = null;
+                            if (info.GetAliasForm().IsArrayAltText)
                             {
-                                // The base node does exist and this is a top-to-top alias.
-                                // Check for conflicts if strict aliasing is on.
-                                // Remove and delete the alias subtree.
-                                if (strictAliasing)
+                                var xdIndex = XmpNodeUtils.LookupLanguageItem(baseNode, XmpConstConstants.XDefault);
+                                if (xdIndex != -1)
                                 {
-                                    CompareAliasedSubtrees(currProp, baseNode, true);
-                                }
-                                propertyIt.Remove();
-                            }
-                            else
-                            {
-                                // This is an alias to an array item and the array exists.
-                                // Look for the aliased item.
-                                // Then transplant or check & delete as appropriate.
-                                XmpNode itemNode = null;
-                                if (info.GetAliasForm().IsArrayAltText)
-                                {
-                                    var xdIndex = XmpNodeUtils.LookupLanguageItem(baseNode, XmpConstConstants.XDefault);
-                                    if (xdIndex != -1)
-                                    {
-                                        itemNode = baseNode.GetChild(xdIndex);
-                                    }
-                                }
-                                else
-                                {
-                                    if (baseNode.HasChildren)
-                                    {
-                                        itemNode = baseNode.GetChild(1);
-                                    }
-                                }
-                                if (itemNode == null)
-                                {
-                                    TransplantArrayItemAlias(propertyIt, currProp, baseNode);
-                                }
-                                else
-                                {
-                                    if (strictAliasing)
-                                    {
-                                        CompareAliasedSubtrees(currProp, itemNode, true);
-                                    }
-                                    propertyIt.Remove();
+                                    itemNode = baseNode.GetChild(xdIndex);
                                 }
                             }
+                            else if (baseNode.HasChildren)
+                            {
+                                itemNode = baseNode.GetChild(1);
+                            }
+
+                            if (itemNode == null)
+                            {
+                                TransplantArrayItemAlias(propertyIt, currProp, baseNode);
+                            }
+                            else if (strictAliasing)
+                            {
+                                CompareAliasedSubtrees(currProp, itemNode, true);
+                            }
+                            propertyIt.Remove();
                         }
                     }
                 }
