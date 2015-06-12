@@ -364,7 +364,7 @@ namespace MetadataExtractor
             if (rationals != null)
             {
                 if (rationals.Length == 1)
-                    return rationals[0].IntValue();
+                    return rationals[0].ToInt32();
             }
             else if (o.GetType() == typeof(byte[]))
             {
@@ -458,7 +458,7 @@ namespace MetadataExtractor
             {
                 ints = new int[rationals.Length];
                 for (var i = 0; i < ints.Length; i++)
-                    ints[i] = rationals[i].IntValue();
+                    ints[i] = rationals[i].ToInt32();
                 return ints;
             }
 
@@ -524,7 +524,7 @@ namespace MetadataExtractor
             {
                 bytes = new byte[rationals.Length];
                 for (var i = 0; i < bytes.Length; i++)
-                    bytes[i] = rationals[i].ByteValue();
+                    bytes[i] = rationals[i].ToByte();
                 return bytes;
             }
 

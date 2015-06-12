@@ -37,7 +37,7 @@ namespace MetadataExtractor.Tests
 
             Assert.AreEqual(1, rational.Numerator);
             Assert.AreEqual(3, rational.Denominator);
-            Assert.AreEqual(1d / 3d, rational.DoubleValue(), 0.0001);
+            Assert.AreEqual(1d / 3d, rational.ToDouble(), 0.0001);
         }
 
         [Test]
@@ -96,11 +96,11 @@ namespace MetadataExtractor.Tests
         {
             Assert.AreEqual(new Rational(0, 0), new Rational(0, 0).Reciprocal);
 
-            Assert.AreEqual(0.0d, new Rational(0, 0).DoubleValue(), 0.000000001);
-            Assert.AreEqual(0, new Rational(0, 0).ByteValue());
-            Assert.AreEqual(0.0f, new Rational(0, 0).FloatValue(), 0.000000001f);
-            Assert.AreEqual(0, new Rational(0, 0).IntValue());
-            Assert.AreEqual(0L, (object)new Rational(0, 0).LongValue());
+            Assert.AreEqual(0.0d, new Rational(0, 0).ToDouble(), 0.000000001);
+            Assert.AreEqual(0, new Rational(0, 0).ToByte());
+            Assert.AreEqual(0.0f, new Rational(0, 0).ToSingle(), 0.000000001f);
+            Assert.AreEqual(0, new Rational(0, 0).ToInt32());
+            Assert.AreEqual(0L, (object)new Rational(0, 0).ToInt64());
 
             Assert.IsTrue(new Rational(0, 0).IsInteger);
         }

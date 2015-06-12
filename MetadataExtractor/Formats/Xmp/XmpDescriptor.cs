@@ -204,7 +204,7 @@ namespace MetadataExtractor.Formats.Xmp
             {
                 return null;
             }
-            return "f/" + value.DoubleValue().ToString("0.0");
+            return "f/" + value.ToDouble().ToString("0.0");
         }
 
         /// <summary>This code is from ExifSubIFDDescriptor.java</summary>
@@ -212,7 +212,7 @@ namespace MetadataExtractor.Formats.Xmp
         public string GetFocalLengthDescription()
         {
             var value = Directory.GetRational(XmpDirectory.TagFocalLength);
-            return value == null ? null : string.Format("{0:0.0##} mm", value.DoubleValue());
+            return value == null ? null : string.Format("{0:0.0##} mm", value.ToDouble());
         }
 
         /// <summary>This code is from ExifSubIFDDescriptor.java</summary>

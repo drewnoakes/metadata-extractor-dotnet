@@ -146,9 +146,9 @@ namespace MetadataExtractor.Formats.Exif
             return timeComponents == null
                 ? null
                 : string.Format("{0:D2}:{1:D2}:{2:00.00} UTC",
-                    timeComponents[0].IntValue(),
-                    timeComponents[1].IntValue(),
-                    timeComponents[2].DoubleValue());
+                    timeComponents[0].ToInt32(),
+                    timeComponents[1].ToInt32(),
+                    timeComponents[2].ToDouble());
         }
 
         [CanBeNull]
@@ -181,7 +181,7 @@ namespace MetadataExtractor.Formats.Exif
             var angle = Directory.GetRational(tagType);
             // provide a decimal version of rational numbers in the description, to avoid strings like "35334/199 degrees"
             var value = angle != null
-                ? angle.DoubleValue().ToString("0.##")
+                ? angle.ToDouble().ToString("0.##")
                 : Directory.GetString(tagType);
             return value == null || value.Trim().Length == 0 ? null : value.Trim() + " degrees";
         }
@@ -280,7 +280,7 @@ namespace MetadataExtractor.Formats.Exif
         public string GetGpsAltitudeDescription()
         {
             var value = Directory.GetRational(GpsDirectory.TagAltitude);
-            return value == null ? null : value.IntValue() + " metres";
+            return value == null ? null : value.ToInt32() + " metres";
         }
 
         [CanBeNull]

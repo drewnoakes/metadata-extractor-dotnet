@@ -764,7 +764,7 @@ namespace MetadataExtractor.Formats.Exif
         public virtual string GetDigitalZoomRatioDescription()
         {
             var value = Directory.GetRational(ExifDirectoryBase.TagDigitalZoomRatio);
-            return value == null ? null : value.Numerator == 0 ? "Digital zoom not used." : value.DoubleValue().ToString("0.#");
+            return value == null ? null : value.Numerator == 0 ? "Digital zoom not used." : value.ToDouble().ToString("0.#");
         }
 
         [CanBeNull]
@@ -982,7 +982,7 @@ namespace MetadataExtractor.Formats.Exif
         public virtual string GetFocalLengthDescription()
         {
             var value = Directory.GetRational(ExifDirectoryBase.TagFocalLength);
-            return value == null ? null : string.Format("{00.0##} mm", value.DoubleValue());
+            return value == null ? null : string.Format("{00.0##} mm", value.ToDouble());
         }
 
         [CanBeNull]
@@ -1379,7 +1379,7 @@ namespace MetadataExtractor.Formats.Exif
         public virtual string GetSubjectDistanceDescription()
         {
             var value = Directory.GetRational(ExifDirectoryBase.TagSubjectDistance);
-            return value == null ? null : string.Format("{0:0.0##} metres", value.DoubleValue());
+            return value == null ? null : string.Format("{0:0.0##} metres", value.ToDouble());
         }
 
         [CanBeNull]
@@ -1391,7 +1391,7 @@ namespace MetadataExtractor.Formats.Exif
                 return null;
             }
             var ratio = value.ToSimpleString(_allowDecimalRepresentationOfRationals);
-            return value.IsInteger && value.IntValue() == 1 ? ratio + " bit/pixel" : ratio + " bits/pixel";
+            return value.IsInteger && value.ToInt32() == 1 ? ratio + " bit/pixel" : ratio + " bits/pixel";
         }
 
         [CanBeNull]
@@ -1459,7 +1459,7 @@ namespace MetadataExtractor.Formats.Exif
             {
                 return null;
             }
-            return "f/" + value.DoubleValue().ToString("0.0");
+            return "f/" + value.ToDouble().ToString("0.0");
         }
 
         [CanBeNull]

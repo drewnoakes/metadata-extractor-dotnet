@@ -197,7 +197,7 @@ namespace MetadataExtractor
             {
                 return null;
             }
-            return string.Format("%." + decimalPlaces + "f", value.DoubleValue());
+            return string.Format("%." + decimalPlaces + "f", value.ToDouble());
         }
 
         [CanBeNull]

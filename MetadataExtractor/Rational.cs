@@ -54,14 +54,14 @@ namespace MetadataExtractor
 
         /// <summary>Returns the value of the specified number as a <see cref="double"/>.</summary>
         /// <remarks>This may involve rounding.</remarks>
-        public double DoubleValue()
+        public double ToDouble()
         {
             return Numerator == 0 ? 0.0 : Numerator/(double)Denominator;
         }
 
         /// <summary>Returns the value of the specified number as a <see cref="float"/>.</summary>
         /// <remarks>May incur rounding.</remarks>
-        public float FloatValue()
+        public float ToSingle()
         {
             return Numerator == 0 ? 0.0f : Numerator/(float)Denominator;
         }
@@ -69,81 +69,81 @@ namespace MetadataExtractor
         /// <summary>Returns the value of the specified number as a <see cref="byte"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
-        /// casts the result of <see cref="DoubleValue()"/> to <see cref="byte"/>.
+        /// casts the result of <see cref="ToDouble"/> to <see cref="byte"/>.
         /// </remarks>
-        public byte ByteValue()
+        public byte ToByte()
         {
-            return (byte)DoubleValue();
+            return (byte)ToDouble();
         }
 
         /// <summary>Returns the value of the specified number as a <see cref="sbyte"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
-        /// casts the result of <see cref="DoubleValue()"/> to <see cref="sbyte"/>.
+        /// casts the result of <see cref="ToDouble"/> to <see cref="sbyte"/>.
         /// </remarks>
-        public sbyte SByteValue()
+        public sbyte ToSByte()
         {
-            return (sbyte)DoubleValue();
+            return (sbyte)ToDouble();
         }
 
         /// <summary>Returns the value of the specified number as an <see cref="int"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
-        /// casts the result of <see cref="DoubleValue()"/> to <see cref="int"/>.
+        /// casts the result of <see cref="ToDouble"/> to <see cref="int"/>.
         /// </remarks>
-        public int IntValue()
+        public int ToInt32()
         {
-            return (int)DoubleValue();
+            return (int)ToDouble();
         }
 
         /// <summary>Returns the value of the specified number as an <see cref="uint"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
-        /// casts the result of <see cref="DoubleValue()"/> to <see cref="uint"/>.
+        /// casts the result of <see cref="ToDouble"/> to <see cref="uint"/>.
         /// </remarks>
-        public uint UIntValue()
+        public uint ToUInt32()
         {
-            return (uint)DoubleValue();
+            return (uint)ToDouble();
         }
 
         /// <summary>Returns the value of the specified number as a <see cref="long"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
-        /// casts the result of <see cref="DoubleValue()"/> to <see cref="long"/>.
+        /// casts the result of <see cref="ToDouble"/> to <see cref="long"/>.
         /// </remarks>
-        public long LongValue()
+        public long ToInt64()
         {
-            return (long)DoubleValue();
+            return (long)ToDouble();
         }
 
         /// <summary>Returns the value of the specified number as a <see cref="ulong"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
-        /// casts the result of <see cref="DoubleValue()"/> to <see cref="ulong"/>.
+        /// casts the result of <see cref="ToDouble"/> to <see cref="ulong"/>.
         /// </remarks>
-        public ulong ULongValue()
+        public ulong ToUInt64()
         {
-            return (ulong)DoubleValue();
+            return (ulong)ToDouble();
         }
 
         /// <summary>Returns the value of the specified number as a <see cref="short"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
-        /// casts the result of <see cref="DoubleValue()"/> to <see cref="short"/>.
+        /// casts the result of <see cref="ToDouble"/> to <see cref="short"/>.
         /// </remarks>
-        public short ShortValue()
+        public short ToInt16()
         {
-            return (short)DoubleValue();
+            return (short)ToDouble();
         }
 
         /// <summary>Returns the value of the specified number as a <see cref="ushort"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
-        /// casts the result of <see cref="DoubleValue()"/> to <see cref="ushort"/>.
+        /// casts the result of <see cref="ToDouble"/> to <see cref="ushort"/>.
         /// </remarks>
-        public ushort UShortValue()
+        public ushort ToUInt16()
         {
-            return (ushort)DoubleValue();
+            return (ushort)ToDouble();
         }
 
         /// <summary>Returns the value of the specified number as a <see cref="decimal"/>.</summary>
@@ -190,7 +190,7 @@ namespace MetadataExtractor
                 return ToString();
 
             if (IsInteger)
-                return IntValue().ToString();
+                return ToInt32().ToString();
 
             if (Numerator != 1 && Denominator%Numerator == 0)
             {
@@ -202,7 +202,7 @@ namespace MetadataExtractor
             var simplifiedInstance = GetSimplifiedInstance();
             if (allowDecimal)
             {
-                var doubleString = simplifiedInstance.DoubleValue().ToString();
+                var doubleString = simplifiedInstance.ToDouble().ToString();
                 if (doubleString.Length < 5)
                     return doubleString;
             }

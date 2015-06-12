@@ -92,7 +92,7 @@ namespace MetadataExtractor
         [CanBeNull, Pure]
         public static double? DegreesMinutesSecondsToDecimal([NotNull] Rational degs, [NotNull] Rational mins, [NotNull] Rational secs, bool isNegative)
         {
-            var @decimal = Math.Abs(degs.DoubleValue()) + mins.DoubleValue()/60.0d + secs.DoubleValue()/3600.0d;
+            var @decimal = Math.Abs(degs.ToDouble()) + mins.ToDouble()/60.0d + secs.ToDouble()/3600.0d;
             if (double.IsNaN(@decimal))
             {
                 return null;
