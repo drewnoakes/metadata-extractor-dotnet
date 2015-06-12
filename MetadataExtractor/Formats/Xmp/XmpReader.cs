@@ -233,7 +233,7 @@ namespace MetadataExtractor.Formats.Xmp
             {
                 case FmtRational:
                 {
-                    var rationalParts = property.Split("/", 2);
+                    var rationalParts = property.Split(new[]{'/'}, 2);
                     if (rationalParts.Length == 2)
                     {
                         try

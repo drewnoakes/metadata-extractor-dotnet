@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Xml;
 using JetBrains.Annotations;
 
@@ -103,38 +102,6 @@ namespace Sharpen
             var offset = TimeSpan.FromMinutes(offsetMinutes);
             var num = EpochTicks + (milliSecondsSinceEpoch*10000);
             return new DateTimeOffset(num + offset.Ticks, offset);
-        }
-
-        public static string[] Split(this string str, string regex, int limit)
-        {
-            var rgx = new Regex(regex);
-            var list = new List<string>();
-            var startIndex = 0;
-            if (limit != 1)
-            {
-                var nm = 1;
-                foreach (Match match in rgx.Matches(str))
-                {
-                    list.Add(str.Substring(startIndex, match.Index - startIndex));
-                    startIndex = match.Index + match.Length;
-                    if (limit > 0 && ++nm == limit)
-                        break;
-                }
-            }
-            if (startIndex < str.Length)
-            {
-                list.Add(str.Substring(startIndex));
-            }
-            if (limit >= 0)
-            {
-                var count = list.Count - 1;
-                while ((count >= 0) && (list[count].Length == 0))
-                {
-                    count--;
-                }
-                list.RemoveRange(count + 1, (list.Count - count) - 1);
-            }
-            return list.ToArray();
         }
 
         /// <summary>
