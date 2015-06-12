@@ -21,6 +21,8 @@
  */
 
 using System;
+using System.ComponentModel;
+using System.Globalization;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor
@@ -32,6 +34,7 @@ namespace MetadataExtractor
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [Serializable]
+    [TypeConverter(typeof(RationalConverter))]
     public sealed class Rational
     {
         /// <summary>Holds the numerator.</summary>
@@ -298,5 +301,61 @@ namespace MetadataExtractor
 
             return this;
         }
+
+        #region RationalConverter
+
+        private sealed class RationalConverter : TypeConverter
+        {
+            public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+            {
+                if (sourceType == typeof(string) ||
+                    sourceType == typeof(Rational) ||
+                    typeof(IConvertible).IsAssignableFrom(sourceType) ||
+                    (sourceType.IsArray && typeof(IConvertible).IsAssignableFrom(sourceType.GetElementType())))
+                    return true;
+
+                return base.CanConvertFrom(context, sourceType);
+            }
+
+            public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+            {
+                if (value == null)
+                    return base.ConvertFrom(context, culture, value);
+
+                var type = value.GetType();
+
+                if (type == typeof(string))
+                {
+                    var v = ((string)value).Split('/');
+                    long numerator;
+                    long denominator;
+                    if (v.Length == 2 && long.TryParse(v[0], out numerator) && long.TryParse(v[1], out denominator))
+                        return new Rational(numerator, denominator);
+                }
+
+                if (type == typeof(Rational))
+                    return value;
+
+                if (type.IsArray)
+                {
+                    var array = (Array)value;
+                    if (array.Rank == 1 && (array.Length == 1 || array.Length == 2))
+                    {
+                        return new Rational(
+                            numerator: Convert.ToInt64(array.GetValue(0)),
+                            denominator: array.Length == 2 ? Convert.ToInt64(array.GetValue(1)) : 1);
+                    }
+                }
+
+                return new Rational(Convert.ToInt64(value), 1);
+            }
+
+            public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+            {
+                return false;
+            }
+        }
+
+        #endregion
     }
 }

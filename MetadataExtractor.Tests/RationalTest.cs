@@ -20,6 +20,8 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System;
+using System.ComponentModel;
 using NUnit.Framework;
 
 namespace MetadataExtractor.Tests
@@ -101,6 +103,28 @@ namespace MetadataExtractor.Tests
             Assert.AreEqual(0L, (object)new Rational(0, 0).LongValue());
 
             Assert.IsTrue(new Rational(0, 0).IsInteger());
+        }
+
+        [Test]
+        public void TestTypeConversion()
+        {
+            var converter = TypeDescriptor.GetConverter(typeof(Rational));
+
+            Assert.AreEqual(new Rational(1, 3), converter.ConvertFrom("1/3"));
+            Assert.AreEqual(new Rational(1, 3), converter.ConvertFrom("1/3 "));
+
+            Assert.AreEqual(new Rational(1, 3), converter.ConvertFrom(new Rational(1, 3)));
+
+            Assert.AreEqual(new Rational(123, 1), converter.ConvertFrom(123));
+            Assert.AreEqual(new Rational(123, 1), converter.ConvertFrom(123.0));
+            Assert.AreEqual(new Rational(123, 1), converter.ConvertFrom(123L));
+            Assert.AreEqual(new Rational(123, 1), converter.ConvertFrom(123u));
+
+            Assert.AreEqual(new Rational(12, 34), converter.ConvertFrom(new[] { 12, 34 }));
+            Assert.AreEqual(new Rational(12, 34), converter.ConvertFrom(new[] { 12u, 34u }));
+            Assert.AreEqual(new Rational(13, 35), converter.ConvertFrom(new[] { 12.9, 34.9 })); // rounding
+
+            Assert.Throws<NotSupportedException>(() => converter.ConvertFrom(null));
         }
     }
 }
