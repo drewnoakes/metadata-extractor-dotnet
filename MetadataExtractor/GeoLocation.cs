@@ -116,38 +116,33 @@ namespace MetadataExtractor
             return @decimal;
         }
 
-        public override bool Equals(object o)
+        #region Equality and Hashing
+
+        private bool Equals(GeoLocation other)
         {
-            if (this == o)
-            {
+            return
+                _latitude.Equals(other._latitude) &&
+                _longitude.Equals(other._longitude);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+                return false;
+            if (ReferenceEquals(this, obj))
                 return true;
-            }
-            if (o == null || GetType() != o.GetType())
-            {
-                return false;
-            }
-            var that = (GeoLocation)o;
-            if (Extensions.Compare(that._latitude, _latitude) != 0)
-            {
-                return false;
-            }
-            if (Extensions.Compare(that._longitude, _longitude) != 0)
-            {
-                return false;
-            }
-            return true;
+            return obj is GeoLocation && Equals((GeoLocation)obj);
         }
 
         public override int GetHashCode()
         {
-            int result;
-            long temp;
-            temp = _latitude != +0.0d ? BitConverter.DoubleToInt64Bits(_latitude) : 0L;
-            result = (int)(temp ^ ((long)(((ulong)temp) >> 32)));
-            temp = _longitude != +0.0d ? BitConverter.DoubleToInt64Bits(_longitude) : 0L;
-            result = 31 * result + (int)(temp ^ ((long)(((ulong)temp) >> 32)));
-            return result;
+            unchecked
+            {
+                return (_latitude.GetHashCode()*397) ^ _longitude.GetHashCode();
+            }
         }
+
+        #endregion
 
         /// <returns>
         /// a string representation of this location, of format:

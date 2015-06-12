@@ -101,20 +101,6 @@ namespace Sharpen
             return new DateTimeOffset(num + offset.Ticks, offset);
         }
 
-        public static decimal Compare(double d1, double d2)
-        {
-            //  http://stackoverflow.com/questions/1398753/comparing-double-values-in-c-sharp
-
-            var diff = d1 - d2;
-
-            if (Math.Abs(diff) < 0.0001)
-            {
-                return 0;
-            }
-
-            return Math.Sign(diff);
-        }
-
         public static bool IsNumber(this object value)
         {
             try
