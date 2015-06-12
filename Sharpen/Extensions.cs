@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Reflection;
 using System.Xml;
 using JetBrains.Annotations;
 
@@ -102,19 +100,6 @@ namespace Sharpen
             var offset = TimeSpan.FromMinutes(offsetMinutes);
             var num = EpochTicks + (milliSecondsSinceEpoch*10000);
             return new DateTimeOffset(num + offset.Ticks, offset);
-        }
-
-        /// <summary>
-        /// Returns all public static fields values with specified type
-        /// </summary>
-        /// <typeparam name="T">values type</typeparam>
-        /// <param name="type">values source</param>
-        /// <returns></returns>
-        public static T[] GetEnumConstants<T>(this Type type)
-        {
-            var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static);
-
-            return fields.Where(field => field.FieldType == typeof(T)).Select(field => (T)field.GetValue(null)).ToArray();
         }
 
         public static int Digit(char ch, int radix)
