@@ -23,7 +23,6 @@
 using System;
 using JetBrains.Annotations;
 using MetadataExtractor.Util;
-using Sharpen;
 
 namespace MetadataExtractor.Formats.Xmp
 {

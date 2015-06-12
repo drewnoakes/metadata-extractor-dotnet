@@ -23,7 +23,6 @@
 using System;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
-using Sharpen;
 
 namespace MetadataExtractor
 {

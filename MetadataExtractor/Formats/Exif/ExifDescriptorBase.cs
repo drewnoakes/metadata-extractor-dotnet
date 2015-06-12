@@ -25,7 +25,6 @@ using System.Collections.Generic;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Util;
-using Sharpen;
 
 namespace MetadataExtractor.Formats.Exif
 {
