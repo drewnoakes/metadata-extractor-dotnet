@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor;
-using Sharpen;
 using Directory = System.IO.Directory;
 
 namespace FileLabeller

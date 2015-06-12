@@ -25,7 +25,6 @@ using System.IO;
 using System.Text;
 using MetadataExtractor.IO;
 using NUnit.Framework;
-using Sharpen;
 
 namespace MetadataExtractor.Tests.IO
 {

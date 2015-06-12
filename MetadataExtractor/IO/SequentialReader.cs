@@ -23,7 +23,6 @@
 using System;
 using System.Text;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace MetadataExtractor.IO
 {

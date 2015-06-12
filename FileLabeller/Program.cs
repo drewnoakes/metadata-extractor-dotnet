@@ -7,7 +7,6 @@ using System.Reflection;
 using JetBrains.Annotations;
 using MetadataExtractor;
 using MetadataExtractor.Formats.Exif;
-using Sharpen;
 using Directory = System.IO.Directory;
 
 namespace FileLabeller
