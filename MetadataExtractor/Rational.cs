@@ -146,6 +146,13 @@ namespace MetadataExtractor
             return (ushort)DoubleValue();
         }
 
+        /// <summary>Returns the value of the specified number as a <see cref="decimal"/>.</summary>
+        /// <remarks>May incur truncation.</remarks>
+        public decimal ToDecimal()
+        {
+            return Denominator == 0 ? 0M : Numerator / (decimal)Denominator;
+        }
+
         #endregion
 
         /// <summary>Gets the reciprocal value of this object as a new <see cref="Rational"/>.</summary>
@@ -217,28 +224,31 @@ namespace MetadataExtractor
 
         #endregion
 
-        /// <summary>
-        /// Compares two <see cref="Rational"/> instances, returning true if they are mathematically equivalent.
-        /// </summary>
-        /// <param name="obj">the <see cref="Rational"/> to compare this instance to.</param>
-        /// <returns>
-        /// true if instances are mathematically equivalent, otherwise false.  Will also
-        /// return false if <c>obj</c> is not an instance of <see cref="Rational"/>.
-        /// </returns>
-        public override bool Equals([CanBeNull] object obj)
+        #region Equality and hashing
+
+        private bool Equals(Rational other)
         {
-            if (!(obj is Rational))
-            {
+            return Denominator == other.Denominator && Numerator == other.Numerator;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
                 return false;
-            }
-            var that = (Rational)obj;
-            return DoubleValue() == that.DoubleValue();
+            if (ReferenceEquals(this, obj))
+                return true;
+            return obj is Rational && ((Rational)obj).ToDecimal().Equals(ToDecimal());
         }
 
         public override int GetHashCode()
         {
-            return (23 * (int)Denominator) + (int)Numerator;
+            unchecked
+            {
+                return (Denominator.GetHashCode()*397) ^ Numerator.GetHashCode();
+            }
         }
+
+        #endregion
 
         /// <summary>
         /// Simplifies the <see cref="Rational"/> number.
