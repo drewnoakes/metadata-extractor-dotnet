@@ -8,6 +8,7 @@
 // =================================================================================================
 
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Xml;
 using Com.Adobe.Xmp.Options;
@@ -369,7 +370,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             // remove the namespace-definitions from the list
             var attributes = xmlNode.Attributes;
-            IList nsAttrs = null;
+            IList<string> nsAttrs = null;
             for (var i = 0; i < attributes.Count; i++)
             {
                 var attribute = attributes.Item(i);
@@ -377,7 +378,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if (nsAttrs == null)
                     {
-                        nsAttrs = new ArrayList();
+                        nsAttrs = new List<string>();
                     }
                     nsAttrs.Add(attribute.Name);
                 }
@@ -386,7 +387,7 @@ namespace Com.Adobe.Xmp.Impl
             {
                 for (var it = nsAttrs.Iterator(); it.HasNext(); )
                 {
-                    var ns = (string)it.Next();
+                    var ns = it.Next();
                     attributes.RemoveNamedItem(ns);
                 }
             }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
@@ -77,11 +76,6 @@ namespace Sharpen
             if (tzone[3] == '-')
                 t = -t;
             return TimeZoneInfo.CreateCustomTimeZone(tzone, t, tzone, tzone);
-        }
-
-        public static IIterator Iterator(this IEnumerable col)
-        {
-            return new EnumeratorWrapper(col, col.GetEnumerator());
         }
 
         public static Iterator<T> Iterator<T>(this IEnumerable<T> col)
