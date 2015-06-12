@@ -24,80 +24,82 @@ using NUnit.Framework;
 
 namespace MetadataExtractor.Tests
 {
+    /// <summary>Unit tests for the <see cref="Rational"/> type.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class RationalTest
     {
-
         [Test]
         public void TestCreateRational()
         {
             var rational = new Rational(1, 3);
-            Assert.AreEqual(1, (object)rational.GetNumerator());
-            Assert.AreEqual(3, (object)rational.GetDenominator());
+
+            Assert.AreEqual(1, rational.GetNumerator());
+            Assert.AreEqual(3, rational.GetDenominator());
             Assert.AreEqual(1d / 3d, rational.DoubleValue(), 0.0001);
         }
-
 
         [Test]
         public void TestToString()
         {
-            var rational = new Rational(1, 3);
-            Assert.AreEqual("1/3", rational.ToString());
+            Assert.AreEqual("1/3", new Rational(1, 3).ToString());
         }
-
 
         [Test, SetCulture("en-GB")]
         public void TestToSimpleString()
         {
             var third1 = new Rational(1, 3);
             var third2 = new Rational(2, 6);
-            Assert.AreEqual("1/3", third1.ToSimpleString(true));
-            Assert.AreEqual("1/3", third2.ToSimpleString(true));
+            Assert.AreEqual("1/3", third1.ToSimpleString(allowDecimal: true));
+            Assert.AreEqual("1/3", third2.ToSimpleString(allowDecimal: true));
             Assert.AreEqual(third1, third2);
+
             var twoThirds = new Rational(10, 15);
-            Assert.AreEqual("2/3", twoThirds.ToSimpleString(true));
+            Assert.AreEqual("2/3", twoThirds.ToSimpleString(allowDecimal: true));
+
             var two = new Rational(10, 5);
             Assert.IsTrue(two.IsInteger());
-            Assert.AreEqual("2", two.ToSimpleString(true));
-            Assert.AreEqual("2", two.ToSimpleString(false));
+            Assert.AreEqual("2", two.ToSimpleString(allowDecimal: true));
+            Assert.AreEqual("2", two.ToSimpleString(allowDecimal: false));
+
             var twoFifths = new Rational(4, 10);
-            Assert.AreEqual("0.4", twoFifths.ToSimpleString(true));
-            Assert.AreEqual("2/5", twoFifths.ToSimpleString(false));
+            Assert.AreEqual("0.4", twoFifths.ToSimpleString(allowDecimal: true));
+            Assert.AreEqual("2/5", twoFifths.ToSimpleString(allowDecimal: false));
+
             var threeEighths = new Rational(3, 8);
-            Assert.AreEqual("3/8", threeEighths.ToSimpleString(true));
+            Assert.AreEqual("3/8", threeEighths.ToSimpleString(allowDecimal: true));
+
             var zero = new Rational(0, 8);
             Assert.IsTrue(zero.IsInteger());
-            Assert.AreEqual("0", zero.ToSimpleString(true));
-            Assert.AreEqual("0", zero.ToSimpleString(false));
+            Assert.AreEqual("0", zero.ToSimpleString(allowDecimal: true));
+            Assert.AreEqual("0", zero.ToSimpleString(allowDecimal: false));
+
             zero = new Rational(0, 0);
             Assert.IsTrue(zero.IsInteger());
-            Assert.AreEqual("0", zero.ToSimpleString(true));
-            Assert.AreEqual("0", zero.ToSimpleString(false));
+            Assert.AreEqual("0", zero.ToSimpleString(allowDecimal: true));
+            Assert.AreEqual("0", zero.ToSimpleString(allowDecimal: false));
         }
-
-        // not sure this is a nice presentation of rationals.  won't implement it for now.
-        //        Rational twoAndAHalf = new Rational(10,4);
-        //        assertEquals("2 1/2", twoAndAHalf.toSimpleString());
 
         [Test]
         public void TestGetReciprocal()
         {
             var rational = new Rational(1, 3);
             var reciprocal = rational.GetReciprocal();
-            Assert.AreEqual(new Rational(3, 1), reciprocal, "new rational should be reciprocal");
-            Assert.AreEqual(new Rational(1, 3), rational, "original reciprocal should remain unchanged");
-        }
 
+            Assert.AreEqual(new Rational(3, 1), reciprocal, "new rational should be reciprocal");
+            Assert.AreEqual(new Rational(1, 3), rational, "original should remain unchanged");
+        }
 
         [Test]
         public void TestZeroOverZero()
         {
             Assert.AreEqual(new Rational(0, 0), new Rational(0, 0).GetReciprocal());
+
             Assert.AreEqual(0.0d, new Rational(0, 0).DoubleValue(), 0.000000001);
             Assert.AreEqual(0, new Rational(0, 0).ByteValue());
             Assert.AreEqual(0.0f, new Rational(0, 0).FloatValue(), 0.000000001f);
             Assert.AreEqual(0, new Rational(0, 0).IntValue());
             Assert.AreEqual(0L, (object)new Rational(0, 0).LongValue());
+
             Assert.IsTrue(new Rational(0, 0).IsInteger());
         }
     }

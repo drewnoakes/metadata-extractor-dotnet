@@ -303,7 +303,6 @@ namespace MetadataExtractor
         /// </list>
         /// </remarks>
         /// <exception cref="MetadataException">if no value exists for tagType or if it cannot be converted to an int.</exception>
-        /// <exception cref="MetadataException"/>
         public int GetInt(int tagType)
         {
             var integer = GetInteger(tagType);
