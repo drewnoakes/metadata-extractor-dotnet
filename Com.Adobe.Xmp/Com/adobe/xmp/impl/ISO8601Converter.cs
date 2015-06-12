@@ -228,12 +228,15 @@ namespace Com.Adobe.Xmp.Impl
                 }
             }
             // create a corresponding TZ and set it time zone
-            var offset = (tzHour * 3600 * 1000 + tzMinute * 60 * 1000) * tzSign;
-            binValue.SetTimeZone((TimeZoneInfo)new SimpleTimeZone(offset, string.Empty));
+            var offset = (TimeSpan.FromHours(tzHour) + TimeSpan.FromMinutes(tzMinute));
+            if (tzSign < 0)
+                offset = -offset;
+
+            binValue.SetTimeZone(TimeZoneInfo.CreateCustomTimeZone(string.Empty, offset, string.Empty, string.Empty));
+
             if (input.HasNext)
-            {
                 throw new XmpException("Invalid date string, extra chars at end", XmpErrorCode.BadValue);
-            }
+
             return binValue;
         }
 
