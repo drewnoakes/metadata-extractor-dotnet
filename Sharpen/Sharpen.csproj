@@ -45,7 +45,6 @@
     <Compile Include="EnumeratorWrapper.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="FileWriter.cs" />
     <Compile Include="GregorianCalendar.cs" />
     <Compile Include="IIterator.cs" />
     <Compile Include="Number.cs" />

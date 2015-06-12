@@ -117,7 +117,7 @@ namespace FileLabeller
 
             var outputPath = string.Format("{0}/metadata/{1}.txt", directoryPath, fileName);
 
-            var writer = new FileWriter(outputPath, false);
+            var writer = new StreamWriter(outputPath, false);
             writer.Write("FILE: {0}\n\n", fileName);
 
             return writer;

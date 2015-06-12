@@ -179,7 +179,7 @@ namespace FileLabeller
                         PrintUsage();
                         return 1;
                     }
-                    log = new FileWriter(args[++i], append: false);
+                    log = new StreamWriter(args[++i], append: false);
                 }
                 else
                 {
