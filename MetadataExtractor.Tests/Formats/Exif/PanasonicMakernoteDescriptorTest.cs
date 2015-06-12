@@ -36,7 +36,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
             _panasonicDirectory = ExifReaderTest.ProcessBytes<PanasonicMakernoteDirectory>("Tests/Data/withPanasonicFaces.jpg.app1");
         }
 
-
         [Test]
         public void TestGetDetectedFaces()
         {
@@ -44,7 +43,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
                 new[] { new Face(142, 120, 76, 76) },
                 _panasonicDirectory.GetDetectedFaces());
         }
-
 
         [Test]
         public void TestGetRecognizedFaces()

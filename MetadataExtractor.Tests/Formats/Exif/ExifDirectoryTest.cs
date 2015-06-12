@@ -34,7 +34,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifDirectoryTest
     {
-
         [Test]
         public void TestGetDirectoryName()
         {
@@ -48,7 +47,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.AreEqual("Exif SubIFD", subIfdDirectory.Name);
             Assert.AreEqual("Exif Thumbnail", thumbDirectory.Name);
         }
-
 
         [Test]
         public void TestGetThumbnailData()
@@ -66,7 +64,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
                 Assert.Fail("Unable to construct JpegSegmentReader from thumbnail data");
             }
         }
-
 
         [Test]
         public void TestWriteThumbnail()
@@ -87,17 +84,17 @@ namespace MetadataExtractor.Tests.Formats.Exif
             }
         }
 
-        //    @Test
-        //    public void testContainsThumbnail()
-        //    {
-        //        ExifSubIFDDirectory exifDirectory = new ExifSubIFDDirectory();
-        //
-        //        assertTrue(!exifDirectory.hasThumbnailData());
-        //
-        //        exifDirectory.setObject(ExifSubIFDDirectory.TAG_THUMBNAIL_DATA, "foo");
-        //
-        //        assertTrue(exifDirectory.hasThumbnailData());
-        //    }
+//    public void TestContainsThumbnail()
+//    {
+//        ExifSubIFDDirectory exifDirectory = new ExifSubIFDDirectory();
+//
+//        assertTrue(!exifDirectory.hasThumbnailData());
+//
+//        exifDirectory.setObject(ExifSubIFDDirectory.TAG_THUMBNAIL_DATA, "foo");
+//
+//        assertTrue(exifDirectory.hasThumbnailData());
+//    }
+
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="MetadataException"/>

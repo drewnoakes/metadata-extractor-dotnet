@@ -20,9 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Adobe;
 using MetadataExtractor.Formats.Jpeg;
@@ -34,7 +32,6 @@ namespace MetadataExtractor.Tests.Formats.Adobe
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class AdobeJpegReaderTest
     {
-        /// <exception cref="System.IO.IOException"/>
         [NotNull]
         public static AdobeJpegDirectory ProcessBytes([NotNull] string filePath)
         {
@@ -45,20 +42,17 @@ namespace MetadataExtractor.Tests.Formats.Adobe
             return directory;
         }
 
-
         [Test]
         public void TestSegmentTypes()
         {
-            var reader = new AdobeJpegReader();
-            Assert.AreEqual(1, ((IList<JpegSegmentType>)reader.GetSegmentTypes().ToList()).Count);
-            Assert.AreEqual(JpegSegmentType.AppE, ((IList<JpegSegmentType>)reader.GetSegmentTypes().ToList())[0]);
+            CollectionAssert.AreEqual(new[] { JpegSegmentType.AppE }, new AdobeJpegReader().GetSegmentTypes());
         }
-
 
         [Test]
         public void TestReadAdobeJpegMetadata1()
         {
             var directory = ProcessBytes("Tests/Data/adobeJpeg1.jpg.appe");
+
             Assert.IsFalse(directory.HasErrors, directory.Errors.ToString());
             Assert.AreEqual(4, directory.TagCount);
             Assert.AreEqual(1, directory.GetInt(AdobeJpegDirectory.TagColorTransform));

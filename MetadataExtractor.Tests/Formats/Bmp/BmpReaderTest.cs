@@ -31,20 +31,16 @@ namespace MetadataExtractor.Tests.Formats.Bmp
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class BmpReaderTest
     {
-
         [NotNull]
         public static BmpHeaderDirectory ProcessBytes([NotNull] string file)
         {
             var metadata = new Metadata();
             using (Stream stream = new FileStream(file, FileMode.Open))
-            {
                 new BmpReader().Extract(new SequentialStreamReader(stream), metadata);
-            }
             var directory = metadata.GetFirstDirectoryOfType<BmpHeaderDirectory>();
             Assert.IsNotNull(directory);
             return directory;
         }
-
 
         [Test]
         public void TestMsPaint16Color()
@@ -62,7 +58,6 @@ namespace MetadataExtractor.Tests.Formats.Bmp
             Assert.AreEqual(1, directory.GetInt(BmpHeaderDirectory.TagColourPlanes));
             Assert.AreEqual(40, directory.GetInt(BmpHeaderDirectory.TagHeaderSize));
         }
-
 
         [Test]
         public void TestMsPaint24Bpp()

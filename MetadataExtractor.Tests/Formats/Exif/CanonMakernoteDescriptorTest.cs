@@ -28,7 +28,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class CanonMakernoteDescriptorTest
     {
-
         [Test, SetCulture("en-GB")]
         public void TestGetFlashBiasDescription()
         {

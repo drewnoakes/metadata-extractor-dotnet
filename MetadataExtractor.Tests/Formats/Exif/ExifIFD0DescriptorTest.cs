@@ -32,7 +32,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifIfd0DescriptorTest
     {
-
         [Test]
         public void TestXResolutionDescription()
         {
@@ -44,7 +43,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.AreEqual("72 dots per inch", descriptor.GetDescription(ExifDirectoryBase.TagXResolution));
         }
 
-
         [Test]
         public void TestYResolutionDescription()
         {
@@ -55,7 +53,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var descriptor = new ExifIfd0Descriptor(directory);
             Assert.AreEqual("50 dots per cm", descriptor.GetDescription(ExifDirectoryBase.TagYResolution));
         }
-
 
         [Test]
         public void TestWindowsXpFields()
