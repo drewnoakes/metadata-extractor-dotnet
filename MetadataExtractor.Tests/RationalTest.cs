@@ -35,8 +35,8 @@ namespace MetadataExtractor.Tests
         {
             var rational = new Rational(1, 3);
 
-            Assert.AreEqual(1, rational.GetNumerator());
-            Assert.AreEqual(3, rational.GetDenominator());
+            Assert.AreEqual(1, rational.Numerator);
+            Assert.AreEqual(3, rational.Denominator);
             Assert.AreEqual(1d / 3d, rational.DoubleValue(), 0.0001);
         }
 
@@ -59,7 +59,7 @@ namespace MetadataExtractor.Tests
             Assert.AreEqual("2/3", twoThirds.ToSimpleString(allowDecimal: true));
 
             var two = new Rational(10, 5);
-            Assert.IsTrue(two.IsInteger());
+            Assert.IsTrue(two.IsInteger);
             Assert.AreEqual("2", two.ToSimpleString(allowDecimal: true));
             Assert.AreEqual("2", two.ToSimpleString(allowDecimal: false));
 
@@ -71,12 +71,12 @@ namespace MetadataExtractor.Tests
             Assert.AreEqual("3/8", threeEighths.ToSimpleString(allowDecimal: true));
 
             var zero = new Rational(0, 8);
-            Assert.IsTrue(zero.IsInteger());
+            Assert.IsTrue(zero.IsInteger);
             Assert.AreEqual("0", zero.ToSimpleString(allowDecimal: true));
             Assert.AreEqual("0", zero.ToSimpleString(allowDecimal: false));
 
             zero = new Rational(0, 0);
-            Assert.IsTrue(zero.IsInteger());
+            Assert.IsTrue(zero.IsInteger);
             Assert.AreEqual("0", zero.ToSimpleString(allowDecimal: true));
             Assert.AreEqual("0", zero.ToSimpleString(allowDecimal: false));
         }
@@ -85,7 +85,7 @@ namespace MetadataExtractor.Tests
         public void TestGetReciprocal()
         {
             var rational = new Rational(1, 3);
-            var reciprocal = rational.GetReciprocal();
+            var reciprocal = rational.Reciprocal;
 
             Assert.AreEqual(new Rational(3, 1), reciprocal, "new rational should be reciprocal");
             Assert.AreEqual(new Rational(1, 3), rational, "original should remain unchanged");
@@ -94,7 +94,7 @@ namespace MetadataExtractor.Tests
         [Test]
         public void TestZeroOverZero()
         {
-            Assert.AreEqual(new Rational(0, 0), new Rational(0, 0).GetReciprocal());
+            Assert.AreEqual(new Rational(0, 0), new Rational(0, 0).Reciprocal);
 
             Assert.AreEqual(0.0d, new Rational(0, 0).DoubleValue(), 0.000000001);
             Assert.AreEqual(0, new Rational(0, 0).ByteValue());
@@ -102,7 +102,7 @@ namespace MetadataExtractor.Tests
             Assert.AreEqual(0, new Rational(0, 0).IntValue());
             Assert.AreEqual(0L, (object)new Rational(0, 0).LongValue());
 
-            Assert.IsTrue(new Rational(0, 0).IsInteger());
+            Assert.IsTrue(new Rational(0, 0).IsInteger);
         }
 
         [Test]

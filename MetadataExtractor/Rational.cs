@@ -37,17 +37,17 @@ namespace MetadataExtractor
     [TypeConverter(typeof(RationalConverter))]
     public sealed class Rational
     {
-        /// <summary>Holds the numerator.</summary>
-        private readonly long _numerator;
+        /// <summary>Gets the denominator.</summary>
+        public long Denominator { get; private set; }
 
-        /// <summary>Holds the denominator.</summary>
-        private readonly long _denominator;
+        /// <summary>Gets the numerator.</summary>
+        public long Numerator { get; private set; }
 
         /// <summary>Initialises a new instance with the <paramref name="numerator"/> and <paramref name="denominator"/>.</summary>
         public Rational(long numerator, long denominator)
         {
-            _numerator = numerator;
-            _denominator = denominator;
+            Numerator = numerator;
+            Denominator = denominator;
         }
 
         #region Conversion methods
@@ -56,14 +56,14 @@ namespace MetadataExtractor
         /// <remarks>This may involve rounding.</remarks>
         public double DoubleValue()
         {
-            return _numerator == 0 ? 0.0 : _numerator/(double)_denominator;
+            return Numerator == 0 ? 0.0 : Numerator/(double)Denominator;
         }
 
         /// <summary>Returns the value of the specified number as a <see cref="float"/>.</summary>
         /// <remarks>May incur rounding.</remarks>
         public float FloatValue()
         {
-            return _numerator == 0 ? 0.0f : _numerator/(float)_denominator;
+            return Numerator == 0 ? 0.0f : Numerator/(float)Denominator;
         }
 
         /// <summary>Returns the value of the specified number as a <see cref="byte"/>.</summary>
@@ -148,39 +148,29 @@ namespace MetadataExtractor
 
         #endregion
 
-        /// <summary>Returns the denominator.</summary>
-        public long GetDenominator()
-        {
-            return _denominator;
-        }
-
-        /// <summary>Returns the numerator.</summary>
-        public long GetNumerator()
-        {
-            return _numerator;
-        }
-
-        /// <summary>Returns the reciprocal value of this object as a new Rational.</summary>
-        /// <returns>the reciprocal in a new object</returns>
+        /// <summary>Gets the reciprocal value of this object as a new <see cref="Rational"/>.</summary>
+        /// <value>the reciprocal in a new object</value>
         [NotNull]
-        public Rational GetReciprocal()
+        public Rational Reciprocal
         {
-            return new Rational(_denominator, _numerator);
+            get { return new Rational(Denominator, Numerator); }
         }
 
         /// <summary>
-        /// Checks if this <see cref="Rational"/> number is an Integer, either positive or negative.
+        /// Checks if this <see cref="Rational"/> number is expressible as an integer, either positive or negative.
         /// </summary>
-        public bool IsInteger()
+        public bool IsInteger
         {
-            return _denominator == 1 || (_denominator != 0 && (_numerator % _denominator == 0)) || (_denominator == 0 && _numerator == 0);
+            get { return Denominator == 1 || (Denominator != 0 && (Numerator%Denominator == 0)) || (Denominator == 0 && Numerator == 0); }
         }
+
+        #region Formatting
 
         /// <summary>Returns a string representation of the object of form <c>numerator/denominator</c>.</summary>
         /// <returns>a string representation of the object.</returns>
         public override string ToString()
         {
-            return _numerator + "/" + _denominator;
+            return Numerator + "/" + Denominator;
         }
 
         /// <summary>
@@ -189,29 +179,27 @@ namespace MetadataExtractor
         [NotNull]
         public string ToSimpleString(bool allowDecimal)
         {
-            if (_denominator == 0 && _numerator != 0)
-            {
-                return this.ToString();
-            }
-            if (IsInteger())
-            {
+            if (Denominator == 0 && Numerator != 0)
+                return ToString();
+
+            if (IsInteger)
                 return IntValue().ToString();
-            }
-            if (_numerator != 1 && _denominator % _numerator == 0)
+
+            if (Numerator != 1 && Denominator%Numerator == 0)
             {
                 // common factor between denominator and numerator
-                var newDenominator = _denominator / _numerator;
+                var newDenominator = Denominator/Numerator;
                 return new Rational(1, newDenominator).ToSimpleString(allowDecimal);
             }
+
             var simplifiedInstance = GetSimplifiedInstance();
             if (allowDecimal)
             {
-                var doubleString = ((object)simplifiedInstance.DoubleValue()).ToString();
+                var doubleString = simplifiedInstance.DoubleValue().ToString();
                 if (doubleString.Length < 5)
-                {
                     return doubleString;
-                }
             }
+
             return simplifiedInstance.ToString();
         }
 
@@ -222,10 +210,12 @@ namespace MetadataExtractor
         /// <returns>true if the simplification should be performed, otherwise false</returns>
         private bool TooComplexForSimplification()
         {
-            var maxPossibleCalculations = (((Math.Min(_denominator, _numerator) - 1) / 5d) + 2);
+            var maxPossibleCalculations = (((Math.Min(Denominator, Numerator) - 1)/5d) + 2);
             const int maxSimplificationCalculations = 1000;
             return maxPossibleCalculations > maxSimplificationCalculations;
         }
+
+        #endregion
 
         /// <summary>
         /// Compares two <see cref="Rational"/> instances, returning true if they are mathematically equivalent.
@@ -247,7 +237,7 @@ namespace MetadataExtractor
 
         public override int GetHashCode()
         {
-            return (23 * (int)_denominator) + (int)_numerator;
+            return (23 * (int)Denominator) + (int)Numerator;
         }
 
         /// <summary>
@@ -287,15 +277,15 @@ namespace MetadataExtractor
             if (TooComplexForSimplification())
                 return this;
 
-            for (var factor = 2; factor <= Math.Min(_denominator, _numerator); factor++)
+            for (var factor = 2; factor <= Math.Min(Denominator, Numerator); factor++)
             {
                 if ((factor%2 == 0 && factor > 2) || (factor%5 == 0 && factor > 5))
                     continue;
 
-                if (_denominator % factor == 0 && _numerator % factor == 0)
+                if (Denominator % factor == 0 && Numerator % factor == 0)
                 {
                     // found a common factor
-                    return new Rational(_numerator / factor, _denominator / factor);
+                    return new Rational(Numerator / factor, Denominator / factor);
                 }
             }
 

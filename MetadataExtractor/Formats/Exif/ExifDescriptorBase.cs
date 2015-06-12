@@ -764,7 +764,7 @@ namespace MetadataExtractor.Formats.Exif
         public virtual string GetDigitalZoomRatioDescription()
         {
             var value = Directory.GetRational(ExifDirectoryBase.TagDigitalZoomRatio);
-            return value == null ? null : value.GetNumerator() == 0 ? "Digital zoom not used." : value.DoubleValue().ToString("0.#");
+            return value == null ? null : value.Numerator == 0 ? "Digital zoom not used." : value.DoubleValue().ToString("0.#");
         }
 
         [CanBeNull]
@@ -922,7 +922,7 @@ namespace MetadataExtractor.Formats.Exif
                 return null;
             }
             var unit = GetFocalPlaneResolutionUnitDescription();
-            return rational.GetReciprocal().ToSimpleString(_allowDecimalRepresentationOfRationals) + (unit == null ? string.Empty : " " + unit.ToLower());
+            return rational.Reciprocal.ToSimpleString(_allowDecimalRepresentationOfRationals) + (unit == null ? string.Empty : " " + unit.ToLower());
         }
 
         [CanBeNull]
@@ -934,7 +934,7 @@ namespace MetadataExtractor.Formats.Exif
                 return null;
             }
             var unit = GetFocalPlaneResolutionUnitDescription();
-            return rational.GetReciprocal().ToSimpleString(_allowDecimalRepresentationOfRationals) + (unit == null ? string.Empty : " " + unit.ToLower());
+            return rational.Reciprocal.ToSimpleString(_allowDecimalRepresentationOfRationals) + (unit == null ? string.Empty : " " + unit.ToLower());
         }
 
         [CanBeNull]
@@ -1391,7 +1391,7 @@ namespace MetadataExtractor.Formats.Exif
                 return null;
             }
             var ratio = value.ToSimpleString(_allowDecimalRepresentationOfRationals);
-            return value.IsInteger() && value.IntValue() == 1 ? ratio + " bit/pixel" : ratio + " bits/pixel";
+            return value.IsInteger && value.IntValue() == 1 ? ratio + " bit/pixel" : ratio + " bits/pixel";
         }
 
         [CanBeNull]
