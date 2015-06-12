@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using MetadataExtractor.Formats.Jpeg;
@@ -190,8 +191,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         {
             var actual = _directory.GetDate(XmpDirectory.TagDatetimeOriginal);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
-            Assert.AreEqual(new SimpleDateFormat("hh:mm:ss dd MM yyyy Z").Parse("11:41:35 12 12 2010 +0000"), actual);
-            //        assertEquals(new SimpleDateFormat("HH:mm:ss dd MMM yyyy Z").parse("12:41:35 12 Dec 2010 +0100"), actual);
+            Assert.AreEqual(DateTime.ParseExact("11:41:35 12 12 2010 +0000", "hh:mm:ss dd MM yyyy Z", null), actual);
             Calendar calendar = new GregorianCalendar(2010, 12 - 1, 12, 11, 41, 35);
             calendar.SetTimeZone(Extensions.GetTimeZone("GMT"));
             Assert.AreEqual(calendar.GetTime(), actual.Value);
@@ -203,8 +203,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         {
             var actual = _directory.GetDate(XmpDirectory.TagDatetimeDigitized);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
-            Assert.AreEqual(new SimpleDateFormat("hh:mm:ss dd MM yyyy Z").Parse("11:41:35 12 12 2010 +0000"), actual);
-            //        assertEquals(new SimpleDateFormat("HH:mm:ss dd MMM yyyy Z").parse("12:41:35 12 Dec 2010 +0100"), actual);
+            Assert.AreEqual(DateTime.ParseExact("11:41:35 12 12 2010 +0000", "hh:mm:ss dd MM yyyy Z", null), actual);
             Calendar calendar = new GregorianCalendar(2010, 12 - 1, 12, 11, 41, 35);
             calendar.SetTimeZone(Extensions.GetTimeZone("GMT"));
             Assert.AreEqual(calendar.GetTime(), actual.Value);

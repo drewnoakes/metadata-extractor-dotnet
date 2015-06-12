@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 using JetBrains.Annotations;
 using Sharpen;
@@ -741,15 +742,10 @@ namespace MetadataExtractor
         }
 
         /// <summary>Returns the specified tag's value as a java.util.Date.</summary>
-        /// <remarks>
-        /// Returns the specified tag's value as a java.util.Date.  If the value is unset or cannot be converted, <c>null</c> is returned.
-        /// <para />
-        /// If the underlying value is a <see cref="string"/>, then attempts will be made to parse the string as though it is in
-        /// the <see cref="System.TimeZoneInfo"/> represented by the <paramref name="timeZone"/> parameter (if it is non-null).  Note that this parameter
-        /// is only considered if the underlying value is a string and parsing occurs, otherwise it has no effect.
-        /// </remarks>
+        /// <remarks>If the underlying value is a <see cref="string"/>, then attempts will be made to parse it.</remarks>
+        /// <returns>The specified tag's value as a DateTime.  If the value is unset or cannot be converted, <c>null</c> is returned.</returns>
         [CanBeNull]
-        public DateTime? GetDate(int tagType, [CanBeNull] TimeZoneInfo timeZone = null)
+        public DateTime? GetDate(int tagType/*, [CanBeNull] TimeZoneInfo timeZone = null*/)
         {
             var o = GetObject(tagType);
 
@@ -760,28 +756,20 @@ namespace MetadataExtractor
                 return (DateTime)o;
 
             var s = o as string;
-            if (s != null)
+
+            if (s == null)
+                return null;
+
+            // This seems to cover all known Exif date strings
+            // Note that "    :  :     :  :  " is a valid date string according to the Exif spec (which means 'unknown date'): http://www.awaresystems.be/imaging/tiff/tifftags/privateifd/exif/datetimeoriginal.html
+            var datePatterns = new[] { "yyyy:MM:dd HH:mm:ss", "yyyy:MM:dd HH:mm", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm" };
+            foreach (var datePattern in datePatterns)
             {
-                // This seems to cover all known Exif date strings
-                // Note that "    :  :     :  :  " is a valid date string according to the Exif spec (which means 'unknown date'): http://www.awaresystems.be/imaging/tiff/tifftags/privateifd/exif/datetimeoriginal.html
-                var datePatterns = new[] { "yyyy:MM:dd HH:mm:ss", "yyyy:MM:dd HH:mm", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm" };
-                var dateString = s;
-                foreach (var datePattern in datePatterns)
-                {
-                    try
-                    {
-                        DateFormat parser = new SimpleDateFormat(datePattern);
-                        if (timeZone != null)
-                        {
-                            parser.SetTimeZone(timeZone);
-                        }
-                        return parser.Parse(dateString);
-                    }
-                    catch (ParseException)
-                    {}
-                }
+                DateTime result;
+                if (DateTime.TryParseExact(s, datePattern, null, DateTimeStyles.AllowWhiteSpaces, out result))
+                    return result;
             }
-            // simply try the next pattern
+
             return null;
         }
 
