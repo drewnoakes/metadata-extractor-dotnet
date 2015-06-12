@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="Calendar.cs" />
     <Compile Include="DateFormat.cs" />
-    <Compile Include="DecimalFormatSymbols.cs" />
     <Compile Include="EnumeratorWrapper.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Extensions.cs" />
