@@ -97,7 +97,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <exception cref="XmpException">thown on parsing errors</exception>
         internal static void Rdf_RDF(XmpMeta xmp, XmlNode rdfRdfNode)
         {
-            if (rdfRdfNode.HasAttributes())
+            if (rdfRdfNode.Attributes != null && rdfRdfNode.Attributes.Count > 0)
             {
                 Rdf_NodeElementList(xmp, xmp.GetRoot(), rdfRdfNode);
             }

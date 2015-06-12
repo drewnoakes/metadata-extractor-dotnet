@@ -107,10 +107,5 @@ namespace Sharpen
                 return false;
             }
         }
-
-        public static bool HasAttributes(this XmlNode node)
-        {
-            return node.Attributes != null && node.Attributes.Count > 0;
-        }
     }
 }
