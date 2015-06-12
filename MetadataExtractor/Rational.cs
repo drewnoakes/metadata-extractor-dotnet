@@ -47,18 +47,20 @@ namespace MetadataExtractor
             _denominator = denominator;
         }
 
+        #region Conversion methods
+
         /// <summary>Returns the value of the specified number as a <see cref="double"/>.</summary>
         /// <remarks>This may involve rounding.</remarks>
         public double DoubleValue()
         {
-            return _numerator == 0 ? 0.0 : _numerator / (double)_denominator;
+            return _numerator == 0 ? 0.0 : _numerator/(double)_denominator;
         }
 
         /// <summary>Returns the value of the specified number as a <see cref="float"/>.</summary>
         /// <remarks>May incur rounding.</remarks>
         public float FloatValue()
         {
-            return _numerator == 0 ? 0.0f : _numerator / (float)_denominator;
+            return _numerator == 0 ? 0.0f : _numerator/(float)_denominator;
         }
 
         /// <summary>Returns the value of the specified number as a <see cref="byte"/>.</summary>
@@ -140,6 +142,8 @@ namespace MetadataExtractor
         {
             return (ushort)DoubleValue();
         }
+
+        #endregion
 
         /// <summary>Returns the denominator.</summary>
         public long GetDenominator()
@@ -278,21 +282,20 @@ namespace MetadataExtractor
         public Rational GetSimplifiedInstance()
         {
             if (TooComplexForSimplification())
-            {
                 return this;
-            }
+
             for (var factor = 2; factor <= Math.Min(_denominator, _numerator); factor++)
             {
-                if ((factor % 2 == 0 && factor > 2) || (factor % 5 == 0 && factor > 5))
-                {
+                if ((factor%2 == 0 && factor > 2) || (factor%5 == 0 && factor > 5))
                     continue;
-                }
+
                 if (_denominator % factor == 0 && _numerator % factor == 0)
                 {
                     // found a common factor
                     return new Rational(_numerator / factor, _denominator / factor);
                 }
             }
+
             return this;
         }
     }
