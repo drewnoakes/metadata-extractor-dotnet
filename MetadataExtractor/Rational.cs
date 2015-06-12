@@ -22,7 +22,6 @@
 
 using System;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace MetadataExtractor
 {
@@ -35,7 +34,7 @@ namespace MetadataExtractor
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [Serializable]
-    public sealed class Rational : Number
+    public sealed class Rational
     {
         /// <summary>Holds the numerator.</summary>
         private readonly long _numerator;
@@ -64,7 +63,7 @@ namespace MetadataExtractor
         /// the numeric value represented by this object after conversion
         /// to type <c>double</c>.
         /// </returns>
-        public override double DoubleValue()
+        public double DoubleValue()
         {
             return _numerator == 0 ? 0.0 : _numerator / (double)_denominator;
         }
@@ -78,7 +77,7 @@ namespace MetadataExtractor
         /// the numeric value represented by this object after conversion
         /// to type <c>float</c>.
         /// </returns>
-        public override float FloatValue()
+        public float FloatValue()
         {
             return _numerator == 0 ? 0.0f : _numerator / (float)_denominator;
         }
@@ -95,7 +94,7 @@ namespace MetadataExtractor
         /// the numeric value represented by this object after conversion
         /// to type <c>byte</c>.
         /// </returns>
-        public sealed override byte ByteValue()
+        public byte ByteValue()
         {
             return unchecked((byte)DoubleValue());
         }
@@ -112,7 +111,7 @@ namespace MetadataExtractor
         /// the numeric value represented by this object after conversion
         /// to type <c>int</c>.
         /// </returns>
-        public sealed override int IntValue()
+        public int IntValue()
         {
             return (int)DoubleValue();
         }
@@ -129,7 +128,7 @@ namespace MetadataExtractor
         /// the numeric value represented by this object after conversion
         /// to type <c>long</c>.
         /// </returns>
-        public sealed override long LongValue()
+        public long LongValue()
         {
             return (long)DoubleValue();
         }
@@ -146,7 +145,7 @@ namespace MetadataExtractor
         /// the numeric value represented by this object after conversion
         /// to type <c>short</c>.
         /// </returns>
-        public sealed override short ShortValue()
+        public short ShortValue()
         {
             return (short)DoubleValue();
         }

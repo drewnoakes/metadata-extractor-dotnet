@@ -2,7 +2,7 @@
 
 namespace Sharpen
 {
-    public class Number
+    public sealed class Number
     {
         private readonly decimal _mValue;
 
@@ -15,32 +15,32 @@ namespace Sharpen
         {
         }
 
-        public virtual double DoubleValue()
+        public double DoubleValue()
         {
             return (double) _mValue;
         }
 
-        public virtual float FloatValue()
+        public float FloatValue()
         {
             return (float) _mValue;
         }
 
-        public virtual byte ByteValue()
+        public byte ByteValue()
         {
             return (byte) _mValue;
         }
 
-        public virtual int IntValue()
+        public int IntValue()
         {
             return (int) _mValue;
         }
 
-        public virtual long LongValue()
+        public long LongValue()
         {
             return (long) _mValue;
         }
 
-        public virtual short ShortValue()
+        public short ShortValue()
         {
             return (short) _mValue;
         }
