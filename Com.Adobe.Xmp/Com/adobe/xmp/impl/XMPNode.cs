@@ -432,9 +432,10 @@ namespace Com.Adobe.Xmp.Impl
         public bool HasValueChild { get; set; }
 
         /// <summary>
-        /// Sorts the complete datamodel according to the following rules:
+        /// Sorts the XMP node and its children, recursively.
         /// </summary>
         /// <remarks>
+        /// Sorting occurs according to the following rules:
         /// <list type="bullet">
         /// <item>Nodes at one level are sorted by name, that is prefix + local name</item>
         /// <item>Starting at the root node the children and qualifier are sorted recursively,
@@ -448,34 +449,16 @@ namespace Com.Adobe.Xmp.Impl
         {
             // sort qualifier
             if (HasQualifier)
-            {
-                var quals = GetQualifier().ToArray();
-                var sortFrom = 0;
-                while (quals.Length > sortFrom && (XmpConstConstants.XmlLang.Equals(quals[sortFrom].Name) || "rdf:type".Equals(quals[sortFrom].Name)))
-                {
-                    quals[sortFrom].Sort();
-                    sortFrom++;
-                }
-                Array.Sort(quals, sortFrom, quals.Length);
-                var it = new ListIterator(_qualifier);
-                for (var j = 0; j < quals.Length; j++)
-                {
-                    it.Next();
-                    it.Set(quals[j]);
-                    quals[j].Sort();
-                }
-            }
+                GetQualifier().Sort((a, b) => QualifierOrderComparer.Default.Compare(a.Name, b.Name));
+
             // sort children
-            if (HasChildren)
+            if (_children != null)
             {
                 if (!Options.IsArray)
-                {
                     _children.Sort();
-                }
-                for (var it = IterateChildren(); it.HasNext(); )
-                {
-                    ((XmpNode)it.Next()).Sort();
-                }
+
+                foreach (var child in _children)
+                    child.Sort();
             }
         }
 
@@ -492,9 +475,8 @@ namespace Com.Adobe.Xmp.Impl
         {
             // write indent
             for (var i = 0; i < indent; i++)
-            {
                 result.Append('\t');
-            }
+
             // render Node
             if (Parent != null)
             {
@@ -503,18 +485,15 @@ namespace Com.Adobe.Xmp.Impl
                     result.Append('?');
                     result.Append(Name);
                 }
+                else if (Parent.Options.IsArray)
+                {
+                    result.Append('[');
+                    result.Append(index);
+                    result.Append(']');
+                }
                 else
                 {
-                    if (Parent.Options.IsArray)
-                    {
-                        result.Append('[');
-                        result.Append(index);
-                        result.Append(']');
-                    }
-                    else
-                    {
-                        result.Append(Name);
-                    }
+                    result.Append(Name);
                 }
             }
             else
@@ -529,12 +508,14 @@ namespace Com.Adobe.Xmp.Impl
                     result.Append(')');
                 }
             }
+
             if (!string.IsNullOrEmpty(Value))
             {
                 result.Append(" = \"");
                 result.Append(Value);
                 result.Append('"');
             }
+
             // render options if at least one is set
             if (Options.ContainsOneOf(unchecked((int)(0xffffffff))))
             {
@@ -545,35 +526,20 @@ namespace Com.Adobe.Xmp.Impl
                 result.Append(')');
             }
             result.Append('\n');
+
             // render qualifier
             if (recursive && HasQualifier)
             {
-                var quals = GetQualifier().ToArray();
-                var i1 = 0;
-                while (quals.Length > i1 && (XmpConstConstants.XmlLang.Equals(quals[i1].Name) || "rdf:type".Equals(quals[i1].Name)))
-                {
-                    i1++;
-                }
-                Array.Sort (quals, i1, quals.Length);
-                for (i1 = 0; i1 < quals.Length; i1++)
-                {
-                    var qualifier = quals[i1];
-                    qualifier.DumpNode(result, recursive, indent + 2, i1 + 1);
-                }
+                var i = 0;
+                foreach (var qual in GetQualifier().OrderBy(q => q.Name, QualifierOrderComparer.Default))
+                    qual.DumpNode(result, recursive, indent + 2, ++i);
             }
             // render children
             if (recursive && HasChildren)
             {
-                var children = GetChildren().ToArray();
-                if (!Options.IsArray)
-                {
-                    Array.Sort(children);
-                }
-                for (var i1 = 0; i1 < children.Length; i1++)
-                {
-                    var child = children[i1];
-                    child.DumpNode(result, recursive, indent + 1, i1 + 1);
-                }
+                var i = 0;
+                foreach (var child in GetChildren().OrderBy(c => c))
+                    child.DumpNode(result, recursive, indent + 1, ++i);
             }
         }
 
@@ -643,6 +609,28 @@ namespace Com.Adobe.Xmp.Impl
             if (!XmpConstConstants.ArrayItemName.Equals(qualifierName) && FindQualifierByName(qualifierName) != null)
             {
                 throw new XmpException("Duplicate '" + qualifierName + "' qualifier", XmpErrorCode.BadXmp);
+            }
+        }
+
+        private sealed class QualifierOrderComparer : IComparer<string>
+        {
+            public static readonly QualifierOrderComparer Default = new QualifierOrderComparer();
+
+            public int Compare(string x, string y)
+            {
+                if (string.Equals(x, y))
+                    return 0;
+
+                const string xml = XmpConstConstants.XmlLang;
+                const string rdf = "rdf:type"; // TODO extract to a constant too
+
+                if (x == xml)
+                    return -1;
+
+                if (x == rdf)
+                    return y == xml ? 1 : -1;
+
+                return 0;
             }
         }
     }
