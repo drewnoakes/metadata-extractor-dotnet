@@ -129,14 +129,14 @@ namespace MetadataExtractor.Formats.Exif
         public string GetGpsLatitudeDescription()
         {
             var location = Directory.GetGeoLocation();
-            return location == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString(location.GetLatitude());
+            return location == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString(location.Latitude);
         }
 
         [CanBeNull]
         public string GetGpsLongitudeDescription()
         {
             var location = Directory.GetGeoLocation();
-            return location == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString(location.GetLongitude());
+            return location == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString(location.Longitude);
         }
 
         [CanBeNull]

@@ -29,46 +29,36 @@ namespace MetadataExtractor
 {
     /// <summary>Represents a latitude and longitude pair, giving a position on earth in spherical coordinates.</summary>
     /// <remarks>
-    /// Represents a latitude and longitude pair, giving a position on earth in spherical coordinates.
-    /// <para />
     /// Values of latitude and longitude are given in degrees.
     /// <para />
     /// This type is immutable.
     /// </remarks>
     public sealed class GeoLocation
     {
-        private readonly double _latitude;
-
-        private readonly double _longitude;
-
         /// <summary>
-        /// Instantiates a new instance of <see cref="GeoLocation"/>.
+        /// Initialises an instance of <see cref="GeoLocation"/>.
         /// </summary>
         /// <param name="latitude">the latitude, in degrees</param>
         /// <param name="longitude">the longitude, in degrees</param>
         public GeoLocation(double latitude, double longitude)
         {
-            _latitude = latitude;
-            _longitude = longitude;
+            Latitude = latitude;
+            Longitude = longitude;
         }
 
-        /// <returns>the latitudinal angle of this location, in degrees.</returns>
-        public double GetLatitude()
+        /// <value>the latitudinal angle of this location, in degrees.</value>
+        public double Latitude { get; private set; }
+
+        /// <value>the longitudinal angle of this location, in degrees.</value>
+        public double Longitude { get; private set; }
+
+        /// <value>true, if both latitude and longitude are equal to zero</value>
+        public bool IsZero
         {
-            return _latitude;
+            get { return Latitude == 0 && Longitude == 0; }
         }
 
-        /// <returns>the longitudinal angle of this location, in degrees.</returns>
-        public double GetLongitude()
-        {
-            return _longitude;
-        }
-
-        /// <returns>true, if both latitude and longitude are equal to zero</returns>
-        public bool IsZero()
-        {
-            return _latitude == 0 && _longitude == 0;
-        }
+        #region Static helpers/factories
 
         /// <summary>
         /// Converts a decimal degree angle into its corresponding DMS (degrees-minutes-seconds) representation as a string,
@@ -91,8 +81,8 @@ namespace MetadataExtractor
         public static double[] DecimalToDegreesMinutesSeconds(double @decimal)
         {
             var d = (int)@decimal;
-            var m = Math.Abs((@decimal % 1) * 60);
-            var s = (m % 1) * 60;
+            var m = Math.Abs((@decimal%1)*60);
+            var s = (m%1)*60;
             return new[] { d, (int)m, s };
         }
 
@@ -104,7 +94,7 @@ namespace MetadataExtractor
         [CanBeNull]
         public static double? DegreesMinutesSecondsToDecimal([NotNull] Rational degs, [NotNull] Rational mins, [NotNull] Rational secs, bool isNegative)
         {
-            var @decimal = Math.Abs(degs.DoubleValue()) + mins.DoubleValue() / 60.0d + secs.DoubleValue() / 3600.0d;
+            var @decimal = Math.Abs(degs.DoubleValue()) + mins.DoubleValue()/60.0d + secs.DoubleValue()/3600.0d;
             if (double.IsNaN(@decimal))
             {
                 return null;
@@ -116,13 +106,15 @@ namespace MetadataExtractor
             return @decimal;
         }
 
+        #endregion
+
         #region Equality and Hashing
 
         private bool Equals(GeoLocation other)
         {
             return
-                _latitude.Equals(other._latitude) &&
-                _longitude.Equals(other._longitude);
+                Latitude.Equals(other.Latitude) &&
+                Longitude.Equals(other.Longitude);
         }
 
         public override bool Equals(object obj)
@@ -138,11 +130,13 @@ namespace MetadataExtractor
         {
             unchecked
             {
-                return (_latitude.GetHashCode()*397) ^ _longitude.GetHashCode();
+                return (Latitude.GetHashCode()*397) ^ Longitude.GetHashCode();
             }
         }
 
         #endregion
+
+        #region ToString
 
         /// <returns>
         /// a string representation of this location, of format:
@@ -150,7 +144,7 @@ namespace MetadataExtractor
         /// </returns>
         public override string ToString()
         {
-            return _latitude + ", " + _longitude;
+            return Latitude + ", " + Longitude;
         }
 
         /// <returns>
@@ -160,7 +154,9 @@ namespace MetadataExtractor
         [NotNull]
         public string ToDmsString()
         {
-            return DecimalToDegreesMinutesSecondsString(_latitude) + ", " + DecimalToDegreesMinutesSecondsString(_longitude);
+            return DecimalToDegreesMinutesSecondsString(Latitude) + ", " + DecimalToDegreesMinutesSecondsString(Longitude);
         }
+
+        #endregion
     }
 }
