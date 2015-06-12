@@ -25,12 +25,10 @@ using JetBrains.Annotations;
 
 namespace MetadataExtractor
 {
-    /// <summary>Immutable class for holding a rational number without loss of precision.</summary>
+    /// <summary>Immutable type for representing a rational number.</summary>
     /// <remarks>
-    /// Immutable class for holding a rational number without loss of precision.  Provides
-    /// a familiar representation via <see cref="ToString"/> in form <c>numerator/denominator</c>.
-    /// Note that any value with a numerator of zero will be treated as zero, even if the
-    /// denominator is also zero.
+    /// Underlying values are stored as a numerator and denominator, each of type <see cref="long"/>.
+    /// Note that any <see cref="Rational"/> with a numerator of zero will be treated as zero, even if the denominator is also zero.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [Serializable]
@@ -42,109 +40,62 @@ namespace MetadataExtractor
         /// <summary>Holds the denominator.</summary>
         private readonly long _denominator;
 
-        /// <summary>Creates a new instance of Rational.</summary>
-        /// <remarks>
-        /// Creates a new instance of Rational.  Rational objects are immutable, so
-        /// once you've set your numerator and denominator values here, you're stuck
-        /// with them!
-        /// </remarks>
+        /// <summary>Initialises a new instance with the <paramref name="numerator"/> and <paramref name="denominator"/>.</summary>
         public Rational(long numerator, long denominator)
         {
             _numerator = numerator;
             _denominator = denominator;
         }
 
-        /// <summary>Returns the value of the specified number as a <c>double</c>.</summary>
-        /// <remarks>
-        /// Returns the value of the specified number as a <c>double</c>.
-        /// This may involve rounding.
-        /// </remarks>
-        /// <returns>
-        /// the numeric value represented by this object after conversion
-        /// to type <c>double</c>.
-        /// </returns>
+        /// <summary>Returns the value of the specified number as a <see cref="double"/>.</summary>
+        /// <remarks>This may involve rounding.</remarks>
         public double DoubleValue()
         {
             return _numerator == 0 ? 0.0 : _numerator / (double)_denominator;
         }
 
-        /// <summary>Returns the value of the specified number as a <c>float</c>.</summary>
-        /// <remarks>
-        /// Returns the value of the specified number as a <c>float</c>.
-        /// This may involve rounding.
-        /// </remarks>
-        /// <returns>
-        /// the numeric value represented by this object after conversion
-        /// to type <c>float</c>.
-        /// </returns>
+        /// <summary>Returns the value of the specified number as a <see cref="float"/>.</summary>
+        /// <remarks>May incur rounding.</remarks>
         public float FloatValue()
         {
             return _numerator == 0 ? 0.0f : _numerator / (float)_denominator;
         }
 
-        /// <summary>Returns the value of the specified number as a <c>byte</c>.</summary>
+        /// <summary>Returns the value of the specified number as a <see cref="byte"/>.</summary>
         /// <remarks>
-        /// Returns the value of the specified number as a <c>byte</c>.
-        /// This may involve rounding or truncation.  This implementation simply
-        /// casts the result of
-        /// <see cref="DoubleValue()"/>
-        /// to <c>byte</c>.
+        /// May incur rounding or truncation.  This implementation simply
+        /// casts the result of <see cref="DoubleValue()"/> to <see cref="byte"/>.
         /// </remarks>
-        /// <returns>
-        /// the numeric value represented by this object after conversion
-        /// to type <c>byte</c>.
-        /// </returns>
         public byte ByteValue()
         {
             return unchecked((byte)DoubleValue());
         }
 
-        /// <summary>Returns the value of the specified number as an <c>int</c>.</summary>
+        /// <summary>Returns the value of the specified number as an <see cref="int"/>.</summary>
         /// <remarks>
-        /// Returns the value of the specified number as an <c>int</c>.
-        /// This may involve rounding or truncation.  This implementation simply
-        /// casts the result of
-        /// <see cref="DoubleValue()"/>
-        /// to <c>int</c>.
+        /// May incur rounding or truncation.  This implementation simply
+        /// casts the result of <see cref="DoubleValue()"/> to <see cref="int"/>.
         /// </remarks>
-        /// <returns>
-        /// the numeric value represented by this object after conversion
-        /// to type <c>int</c>.
-        /// </returns>
         public int IntValue()
         {
             return (int)DoubleValue();
         }
 
-        /// <summary>Returns the value of the specified number as a <c>long</c>.</summary>
+        /// <summary>Returns the value of the specified number as a <see cref="long"/>.</summary>
         /// <remarks>
-        /// Returns the value of the specified number as a <c>long</c>.
-        /// This may involve rounding or truncation.  This implementation simply
-        /// casts the result of
-        /// <see cref="DoubleValue()"/>
-        /// to <c>long</c>.
+        /// May incur rounding or truncation.  This implementation simply
+        /// casts the result of <see cref="DoubleValue()"/> to <see cref="long"/>.
         /// </remarks>
-        /// <returns>
-        /// the numeric value represented by this object after conversion
-        /// to type <c>long</c>.
-        /// </returns>
         public long LongValue()
         {
             return (long)DoubleValue();
         }
 
-        /// <summary>Returns the value of the specified number as a <c>short</c>.</summary>
+        /// <summary>Returns the value of the specified number as a <see cref="short"/>.</summary>
         /// <remarks>
-        /// Returns the value of the specified number as a <c>short</c>.
-        /// This may involve rounding or truncation.  This implementation simply
-        /// casts the result of
-        /// <see cref="DoubleValue()"/>
-        /// to <c>short</c>.
+        /// May incur rounding or truncation.  This implementation simply
+        /// casts the result of <see cref="DoubleValue()"/> to <see cref="short"/>.
         /// </remarks>
-        /// <returns>
-        /// the numeric value represented by this object after conversion
-        /// to type <c>short</c>.
-        /// </returns>
         public short ShortValue()
         {
             return (short)DoubleValue();
@@ -171,9 +122,7 @@ namespace MetadataExtractor
         }
 
         /// <summary>
-        /// Checks if this
-        /// <see cref="Rational"/>
-        /// number is an Integer, either positive or negative.
+        /// Checks if this <see cref="Rational"/> number is an Integer, either positive or negative.
         /// </summary>
         public bool IsInteger()
         {
@@ -188,9 +137,7 @@ namespace MetadataExtractor
         }
 
         /// <summary>
-        /// Returns the simplest representation of this
-        /// <see cref="Rational"/>
-        /// 's value possible.
+        /// Returns the simplest representation of this <see cref="Rational"/>'s value possible.
         /// </summary>
         [NotNull]
         public string ToSimpleString(bool allowDecimal)
@@ -234,16 +181,9 @@ namespace MetadataExtractor
         }
 
         /// <summary>
-        /// Compares two
-        /// <see cref="Rational"/>
-        /// instances, returning true if they are mathematically
-        /// equivalent.
+        /// Compares two <see cref="Rational"/> instances, returning true if they are mathematically equivalent.
         /// </summary>
-        /// <param name="obj">
-        /// the
-        /// <see cref="Rational"/>
-        /// to compare this instance to.
-        /// </param>
+        /// <param name="obj">the <see cref="Rational"/> to compare this instance to.</param>
         /// <returns>
         /// true if instances are mathematically equivalent, otherwise false.  Will also
         /// return false if <c>obj</c> is not an instance of <see cref="Rational"/>.
