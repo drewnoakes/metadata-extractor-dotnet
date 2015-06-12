@@ -35,9 +35,6 @@ namespace MetadataExtractor.Formats.Xmp
     /// <author>Torsten Skadell, Drew Noakes https://drewnoakes.com</author>
     public sealed class XmpDescriptor : TagDescriptor<XmpDirectory>
     {
-        [NotNull]
-        private static readonly DecimalFormat SimpleDecimalFormatter = new DecimalFormat("0.#");
-
         public XmpDescriptor([NotNull] XmpDirectory directory)
             : base(directory)
         {
@@ -216,12 +213,7 @@ namespace MetadataExtractor.Formats.Xmp
         public string GetFocalLengthDescription()
         {
             var value = Directory.GetRational(XmpDirectory.TagFocalLength);
-            if (value == null)
-            {
-                return null;
-            }
-            var formatter = new DecimalFormat("0.0##");
-            return formatter.Format(value.DoubleValue()) + " mm";
+            return value == null ? null : string.Format("{0:0.0##} mm", value.DoubleValue());
         }
 
         /// <summary>This code is from ExifSubIFDDescriptor.java</summary>
@@ -229,12 +221,7 @@ namespace MetadataExtractor.Formats.Xmp
         public string GetApertureValueDescription()
         {
             var value = Directory.GetDoubleObject(XmpDirectory.TagApertureValue);
-            if (value == null)
-            {
-                return null;
-            }
-            var fStop = PhotographicConversions.ApertureToFStop((double)value);
-            return "f/" + fStop.ToString("0.0");
+            return value == null ? null : "f/" + PhotographicConversions.ApertureToFStop((double)value).ToString("0.0");
         }
     }
 }

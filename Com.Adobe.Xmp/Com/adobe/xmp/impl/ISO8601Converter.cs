@@ -275,36 +275,34 @@ namespace Com.Adobe.Xmp.Impl
             if (dateTime.HasDate())
             {
                 // year is rendered in any case, even 0000
-                var df = new DecimalFormat("0000", new DecimalFormatSymbols(Extensions.GetEnglishCulture()));
-                buffer.Append(df.Format(dateTime.GetYear()));
+                buffer.Append(dateTime.GetYear().ToString("0000"));
                 if (dateTime.GetMonth() == 0)
-                {
                     return buffer.ToString();
-                }
+
                 // month
-                df.ApplyPattern("'-'00");
-                buffer.Append(df.Format(dateTime.GetMonth()));
+                buffer.Append('-');
+                buffer.Append(dateTime.GetMonth().ToString("00"));
                 if (dateTime.GetDay() == 0)
-                {
                     return buffer.ToString();
-                }
+
                 // day
-                buffer.Append(df.Format(dateTime.GetDay()));
+                buffer.Append('-');
+                buffer.Append(dateTime.GetDay().ToString("00"));
+
                 // time, rendered if any time field is not zero
                 if (dateTime.HasTime())
                 {
                     // hours and minutes
                     buffer.Append('T');
-                    df.ApplyPattern("00");
-                    buffer.Append(df.Format(dateTime.GetHour()));
+                    buffer.Append(dateTime.GetHour().ToString("00"));
                     buffer.Append(':');
-                    buffer.Append(df.Format(dateTime.GetMinute()));
+                    buffer.Append(dateTime.GetMinute().ToString("00"));
                     // seconds and nanoseconds
                     if (dateTime.GetSecond() != 0 || dateTime.GetNanoSecond() != 0)
                     {
+                        buffer.Append(':');
                         var seconds = dateTime.GetSecond() + dateTime.GetNanoSecond() / 1e9d;
-                        df.ApplyPattern(":00.#########");
-                        buffer.Append(df.Format(seconds));
+                        buffer.AppendFormat("{0:00.#########}", seconds);
                     }
                     // time zone
                     if (dateTime.HasTimeZone())
@@ -321,10 +319,8 @@ namespace Com.Adobe.Xmp.Impl
                         {
                             var thours = offset / 3600000;
                             var tminutes = Math.Abs(offset % 3600000 / 60000);
-                            df.ApplyPattern("+00;-00");
-                            buffer.Append(df.Format(thours));
-                            df.ApplyPattern(":00");
-                            buffer.Append(df.Format(tminutes));
+                            buffer.Append(thours.ToString("+00;-00"));
+                            buffer.Append(tminutes.ToString(":00"));
                         }
                     }
                 }

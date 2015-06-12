@@ -69,8 +69,7 @@ namespace MetadataExtractor
         public static string DecimalToDegreesMinutesSecondsString(double @decimal)
         {
             var dms = DecimalToDegreesMinutesSeconds(@decimal);
-            var format = new DecimalFormat("0.##");
-            return string.Format("{0}° {1}' {2}\"", format.Format(dms[0]), format.Format(dms[1]), format.Format(dms[2]));
+            return string.Format("{0:0.##}° {1:0.##}' {2:0.##}\"", dms[0], dms[1], dms[2]);
         }
 
         /// <summary>

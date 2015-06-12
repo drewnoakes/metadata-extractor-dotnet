@@ -394,17 +394,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         private string GetEvDescription(int tagType)
         {
             var values = Directory.GetIntArray(tagType);
-            if (values == null)
-            {
+            if (values == null || values.Length < 3 || values[2] == 0)
                 return null;
-            }
-            if (values.Length < 3 || values[2] == 0)
-            {
-                return null;
-            }
-            var decimalFormat = new DecimalFormat("0.##");
-            var ev = values[0] * values[1] / (double)values[2];
-            return decimalFormat.Format(ev) + " EV";
+            return string.Format("{0:0.##} EV", values[0] * values[1] / (double)values[2]);
         }
 
         [CanBeNull]

@@ -40,9 +40,6 @@ namespace MetadataExtractor.Formats.Exif
         /// </summary>
         private readonly bool _allowDecimalRepresentationOfRationals = true;
 
-        [NotNull]
-        private static readonly DecimalFormat SimpleDecimalFormatter = new DecimalFormat("0.#");
-
         public ExifDescriptorBase([NotNull] T directory)
             : base(directory)
         {
@@ -761,14 +758,14 @@ namespace MetadataExtractor.Formats.Exif
         public virtual string Get35MmFilmEquivFocalLengthDescription()
         {
             var value = Directory.GetInteger(ExifDirectoryBase.Tag35MmFilmEquivFocalLength);
-            return value == null ? null : value == 0 ? "Unknown" : SimpleDecimalFormatter.Format(value) + "mm";
+            return value == null ? null : value == 0 ? "Unknown" : string.Format("{0:0.#}mm", value);
         }
 
         [CanBeNull]
         public virtual string GetDigitalZoomRatioDescription()
         {
             var value = Directory.GetRational(ExifDirectoryBase.TagDigitalZoomRatio);
-            return value == null ? null : value.GetNumerator() == 0 ? "Digital zoom not used." : SimpleDecimalFormatter.Format(value.DoubleValue());
+            return value == null ? null : value.GetNumerator() == 0 ? "Digital zoom not used." : value.DoubleValue().ToString("0.#");
         }
 
         [CanBeNull]
@@ -986,12 +983,7 @@ namespace MetadataExtractor.Formats.Exif
         public virtual string GetFocalLengthDescription()
         {
             var value = Directory.GetRational(ExifDirectoryBase.TagFocalLength);
-            if (value == null)
-            {
-                return null;
-            }
-            var formatter = new DecimalFormat("0.0##");
-            return formatter.Format(value.DoubleValue()) + " mm";
+            return value == null ? null : string.Format("{00.0##} mm", value.DoubleValue());
         }
 
         [CanBeNull]
@@ -1388,12 +1380,7 @@ namespace MetadataExtractor.Formats.Exif
         public virtual string GetSubjectDistanceDescription()
         {
             var value = Directory.GetRational(ExifDirectoryBase.TagSubjectDistance);
-            if (value == null)
-            {
-                return null;
-            }
-            var formatter = new DecimalFormat("0.0##");
-            return formatter.Format(value.DoubleValue()) + " metres";
+            return value == null ? null : string.Format("{0:0.0##} metres", value.DoubleValue());
         }
 
         [CanBeNull]

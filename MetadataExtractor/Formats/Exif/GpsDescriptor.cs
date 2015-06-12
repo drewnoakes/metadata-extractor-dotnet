@@ -144,8 +144,12 @@ namespace MetadataExtractor.Formats.Exif
         {
             // time in hour, min, sec
             var timeComponents = Directory.GetRationalArray(GpsDirectory.TagTimeStamp);
-            var df = new DecimalFormat("00.00");
-            return timeComponents == null ? null : string.Format("{0:D2}:{1:D2}:{2} UTC", timeComponents[0].IntValue(), timeComponents[1].IntValue(), df.Format(timeComponents[2].DoubleValue()));
+            return timeComponents == null
+                ? null
+                : string.Format("{0:D2}:{1:D2}:{2:00.00} UTC",
+                    timeComponents[0].IntValue(),
+                    timeComponents[1].IntValue(),
+                    timeComponents[2].DoubleValue());
         }
 
         [CanBeNull]
@@ -177,7 +181,9 @@ namespace MetadataExtractor.Formats.Exif
         {
             var angle = Directory.GetRational(tagType);
             // provide a decimal version of rational numbers in the description, to avoid strings like "35334/199 degrees"
-            var value = angle != null ? new DecimalFormat("0.##").Format(angle.DoubleValue()) : Directory.GetString(tagType);
+            var value = angle != null
+                ? angle.DoubleValue().ToString("0.##")
+                : Directory.GetString(tagType);
             return value == null || value.Trim().Length == 0 ? null : value.Trim() + " degrees";
         }
 
