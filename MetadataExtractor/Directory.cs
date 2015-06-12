@@ -41,12 +41,7 @@ namespace MetadataExtractor
         [NotNull]
         private readonly Dictionary<int?, object> _tagMap = new Dictionary<int?, object>();
 
-        /// <summary>A convenient list holding tag values in the order in which they were stored.</summary>
-        /// <remarks>
-        /// A convenient list holding tag values in the order in which they were stored.
-        /// This is used for creation of an iterator, and for counting the number of
-        /// defined tags.
-        /// </remarks>
+        /// <summary>Holds tags in the order in which they were stored.</summary>
         [NotNull]
         private readonly List<Tag> _definedTagList = new List<Tag>();
 
@@ -59,7 +54,6 @@ namespace MetadataExtractor
         // ABSTRACT METHODS
 
         /// <summary>Provides the name of the directory, for display purposes.</summary>
-        /// <remarks>Provides the name of the directory, for display purposes.  E.g. <c>Exif</c></remarks>
         /// <value>the name of the directory</value>
         [NotNull]
         public abstract string Name { get; }
@@ -296,8 +290,8 @@ namespace MetadataExtractor
 
         /// <summary>Returns the specified tag's value as an int, if possible.</summary>
         /// <remarks>
-        /// Returns the specified tag's value as an int, if possible.  Every attempt to represent the tag's value as an int
-        /// is taken.  Here is a list of the action taken depending upon the tag's original type:
+        /// Every attempt to represent the tag's value as an int is taken.
+        /// Here is a list of the action taken depending upon the tag's original type:
         /// <list type="bullet">
         /// <item> int - Return unchanged.</item>
         /// <item> Number - Return an int value (real numbers are truncated).</item>
@@ -324,10 +318,10 @@ namespace MetadataExtractor
             throw new MetadataException("Tag '" + tagType + "' cannot be converted to int.  It is of type '" + o.GetType() + "'.");
         }
 
-        /// <summary>Returns the specified tag's value as an Integer, if possible.</summary>
+        /// <summary>Returns the specified tag's value as an integer, if possible.</summary>
         /// <remarks>
-        /// Returns the specified tag's value as an Integer, if possible.  Every attempt to represent the tag's value as an
-        /// Integer is taken.  Here is a list of the action taken depending upon the tag's original type:
+        /// Every attempt to represent the tag's value as an integer is taken.
+        /// Here is a list of the action taken depending upon the tag's original type:
         /// <list type="bullet">
         /// <item> int - Return unchanged</item>
         /// <item> Number - Return an int value (real numbers are truncated)</item>
@@ -395,10 +389,7 @@ namespace MetadataExtractor
         }
 
         /// <summary>Gets the specified tag's value as a String array, if possible.</summary>
-        /// <remarks>
-        /// Gets the specified tag's value as a String array, if possible.  Only supported
-        /// where the tag is set as String[], String, int[], byte[] or Rational[].
-        /// </remarks>
+        /// <remarks>Only supported where the tag is set as String[], String, int[], byte[] or Rational[].</remarks>
         /// <param name="tagType">the tag identifier</param>
         /// <returns>the tag's value as an array of Strings. If the value is unset or cannot be converted, <c>null</c> is returned.</returns>
         [CanBeNull]
@@ -448,10 +439,7 @@ namespace MetadataExtractor
         }
 
         /// <summary>Gets the specified tag's value as an int array, if possible.</summary>
-        /// <remarks>
-        /// Gets the specified tag's value as an int array, if possible.  Only supported
-        /// where the tag is set as String, Integer, int[], byte[] or Rational[].
-        /// </remarks>
+        /// <remarks>Only supported where the tag is set as String, Integer, int[], byte[] or Rational[].</remarks>
         /// <param name="tagType">the tag identifier</param>
         /// <returns>the tag's value as an int array</returns>
         [CanBeNull]
@@ -519,10 +507,7 @@ namespace MetadataExtractor
         }
 
         /// <summary>Gets the specified tag's value as an byte array, if possible.</summary>
-        /// <remarks>
-        /// Gets the specified tag's value as an byte array, if possible.  Only supported
-        /// where the tag is set as String, Integer, int[], byte[] or Rational[].
-        /// </remarks>
+        /// <remarks>Only supported where the tag is set as String, Integer, int[], byte[] or Rational[].</remarks>
         /// <param name="tagType">the tag identifier</param>
         /// <returns>the tag's value as a byte array</returns>
         [CanBeNull]
@@ -599,7 +584,7 @@ namespace MetadataExtractor
         }
 
         /// <summary>Returns the specified tag's value as a Double.</summary>
-        /// <remarks>Returns the specified tag's value as a Double.  If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
+        /// <remarks>If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
         public double? GetDoubleObject(int tagType)
         {
@@ -637,7 +622,7 @@ namespace MetadataExtractor
         }
 
         /// <summary>Returns the specified tag's value as a float.</summary>
-        /// <remarks>Returns the specified tag's value as a float.  If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
+        /// <remarks>If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
         public float? GetFloatObject(int tagType)
         {
@@ -676,7 +661,7 @@ namespace MetadataExtractor
         }
 
         /// <summary>Returns the specified tag's value as a long.</summary>
-        /// <remarks>Returns the specified tag's value as a long.  If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
+        /// <remarks>If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
         public long? GetLongObject(int tagType)
         {
@@ -715,7 +700,7 @@ namespace MetadataExtractor
         }
 
         /// <summary>Returns the specified tag's value as a boolean.</summary>
-        /// <remarks>Returns the specified tag's value as a boolean.  If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
+        /// <remarks>If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
         public bool? GetBooleanObject(int tagType)
         {
@@ -774,7 +759,7 @@ namespace MetadataExtractor
         }
 
         /// <summary>Returns the specified tag's value as a Rational.</summary>
-        /// <remarks>Returns the specified tag's value as a Rational.  If the value is unset or cannot be converted, <c>null</c> is returned.</remarks>
+        /// <remarks>If the value is unset or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
         public Rational GetRational(int tagType)
         {
@@ -798,7 +783,7 @@ namespace MetadataExtractor
         }
 
         /// <summary>Returns the specified tag's value as an array of Rational.</summary>
-        /// <remarks>Returns the specified tag's value as an array of Rational.  If the value is unset or cannot be converted, <c>null</c> is returned.</remarks>
+        /// <remarks>If the value is unset or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
         public Rational[] GetRationalArray(int tagType)
         {
@@ -807,7 +792,7 @@ namespace MetadataExtractor
 
         /// <summary>Returns the specified tag's value as a String.</summary>
         /// <remarks>
-        /// Returns the specified tag's value as a String.  This value is the 'raw' value.  A more presentable decoding
+        /// This value is the 'raw' value.  A more presentable decoding
         /// of this value may be obtained from the corresponding Descriptor.
         /// </remarks>
         /// <returns>
@@ -972,7 +957,6 @@ namespace MetadataExtractor
 
         #endregion
 
-        // OTHER METHODS
         /// <summary>Returns the name of a specified tag as a String.</summary>
         /// <param name="tagType">the tag type identifier</param>
         /// <returns>the tag's name as a String</returns>

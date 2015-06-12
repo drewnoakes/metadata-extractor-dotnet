@@ -35,7 +35,6 @@ namespace MetadataExtractor.Tests.Formats.Xmp
     {
         private XmpDirectory _directory;
 
-
         [SetUp]
         public void SetUp()
         {
@@ -50,22 +49,22 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             Assert.IsFalse(_directory.HasErrors);
         }
 
-    /*
-    [Xmp] Lens Information = 24/1 70/1 0/0 0/0
-    [Xmp] Lens = EF24-70mm f/2.8L USM
-    [Xmp] Serial Number = 380319450
-    [Xmp] Firmware = 1.2.1
-    [Xmp] Make = Canon
-    [Xmp] Model = Canon EOS 7D
-    [Xmp] Exposure Time = 1/125 sec
-    [Xmp] Exposure Program = Manual control
-    [Xmp] Aperture Value = F11
-    [Xmp] F-Number = F11
-    [Xmp] Focal Length = 57.0 mm
-    [Xmp] Shutter Speed Value = 1/124 sec
-    [Xmp] Date/Time Original = Sun Dec 12 11:41:35 GMT 2010
-    [Xmp] Date/Time Digitized = Sun Dec 12 11:41:35 GMT 2010
-    */
+        /*
+        [Xmp] Lens Information = 24/1 70/1 0/0 0/0
+        [Xmp] Lens = EF24-70mm f/2.8L USM
+        [Xmp] Serial Number = 380319450
+        [Xmp] Firmware = 1.2.1
+        [Xmp] Make = Canon
+        [Xmp] Model = Canon EOS 7D
+        [Xmp] Exposure Time = 1/125 sec
+        [Xmp] Exposure Program = Manual control
+        [Xmp] Aperture Value = F11
+        [Xmp] F-Number = F11
+        [Xmp] Focal Length = 57.0 mm
+        [Xmp] Shutter Speed Value = 1/124 sec
+        [Xmp] Date/Time Original = Sun Dec 12 11:41:35 GMT 2010
+        [Xmp] Date/Time Digitized = Sun Dec 12 11:41:35 GMT 2010
+        */
 
         [Test]
         public void TestExtract_LensInformation()
@@ -74,18 +73,17 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             Assert.AreEqual("24/1 70/1 0/0 0/0", _directory.GetString(XmpDirectory.TagLensInfo));
         }
 
-        //        Rational[] info = _directory.getRationalArray(XmpDirectory.TAG_LENS_INFO);
-        //        assertEquals(new Rational(24, 1), info[0]);
-        //        assertEquals(new Rational(70, 1), info[1]);
-        //        assertEquals(new Rational(0, 0), info[2]);
-        //        assertEquals(new Rational(0, 0), info[3]);
+//        Rational[] info = _directory.getRationalArray(XmpDirectory.TAG_LENS_INFO);
+//        Assert.Equals(new Rational(24, 1), info[0]);
+//        Assert.Equals(new Rational(70, 1), info[1]);
+//        Assert.Equals(new Rational(0, 0), info[2]);
+//        Assert.Equals(new Rational(0, 0), info[3]);
 
         [Test]
         public void TestExtract_HasXMPMeta()
         {
             Assert.IsNotNull(_directory.GetXmpMeta());
         }
-
 
         [Test]
         public void TestExtract_Lens()
@@ -94,31 +92,27 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         }
 
 /*
-    // this requires further research
+        // this requires further research
 
-    @Test
-    public void testExtract_Format() throws Exception
-    {
-        assertEquals("image/tiff", _directory.getString(XmpDirectory.TAG_FORMAT));
-    }
+        public void TestExtract_Format() throws Exception
+        {
+            assertEquals("image/tiff", _directory.getString(XmpDirectory.TAG_FORMAT));
+        }
 
-    @Test
-    public void testExtract_Creator() throws Exception
-    {
-        assertEquals("", _directory.getString(XmpDirectory.TAG_CREATOR));
-    }
+        public void TestExtract_Creator() throws Exception
+        {
+            assertEquals("", _directory.getString(XmpDirectory.TAG_CREATOR));
+        }
 
-    @Test
-    public void testExtract_Rights() throws Exception
-    {
-        assertEquals("", _directory.getString(XmpDirectory.TAG_RIGHTS));
-    }
+        public void TestExtract_Rights() throws Exception
+        {
+            assertEquals("", _directory.getString(XmpDirectory.TAG_RIGHTS));
+        }
 
-    @Test
-    public void testExtract_Description() throws Exception
-    {
-        assertEquals("", _directory.getString(XmpDirectory.TAG_DESCRIPTION));
-    }
+        public void TestExtract_Description() throws Exception
+        {
+            assertEquals("", _directory.getString(XmpDirectory.TAG_DESCRIPTION));
+        }
 */
 
         [Test]
@@ -127,13 +121,11 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             Assert.AreEqual("380319450", _directory.GetString(XmpDirectory.TagCameraSerialNumber));
         }
 
-
         [Test]
         public void TestExtract_Firmware()
         {
             Assert.AreEqual("1.2.1", _directory.GetString(XmpDirectory.TagFirmware));
         }
-
 
         [Test]
         public void TestExtract_Maker()
@@ -141,13 +133,11 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             Assert.AreEqual("Canon", _directory.GetString(XmpDirectory.TagMake));
         }
 
-
         [Test]
         public void TestExtract_Model()
         {
             Assert.AreEqual("Canon EOS 7D", _directory.GetString(XmpDirectory.TagModel));
         }
-
 
         [Test]
         public void TestExtract_ExposureTime()
@@ -156,7 +146,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             Assert.AreEqual("1/125", _directory.GetString(XmpDirectory.TagExposureTime));
         }
 
-        //        assertEquals(new Rational(1, 125), _directory.getRational(XmpDirectory.TAG_EXPOSURE_TIME));
+//        Assert.Equals(new Rational(1, 125), _directory.getRational(XmpDirectory.TAG_EXPOSURE_TIME));
 
         [Test]
         public void TestExtract_ExposureProgram()
@@ -164,13 +154,11 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             Assert.AreEqual(1, _directory.GetInt(XmpDirectory.TagExposureProgram));
         }
 
-
         [Test]
         public void TestExtract_FNumber()
         {
             Assert.AreEqual(new Rational(11, 1), _directory.GetRational(XmpDirectory.TagFNumber));
         }
-
 
         [Test]
         public void TestExtract_FocalLength()
@@ -178,13 +166,11 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             Assert.AreEqual(new Rational(57, 1), _directory.GetRational(XmpDirectory.TagFocalLength));
         }
 
-
         [Test]
         public void TestExtract_ShutterSpeed()
         {
             Assert.AreEqual(new Rational(6965784, 1000000), _directory.GetRational(XmpDirectory.TagShutterSpeed));
         }
-
 
         [Test]
         public void TestExtract_OriginalDateTime()
@@ -197,7 +183,6 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             Assert.AreEqual(calendar.GetTime(), actual.Value);
         }
 
-
         [Test]
         public void TestExtract_DigitizedDateTime()
         {
@@ -208,7 +193,6 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             calendar.SetTimeZone(Extensions.GetTimeZone("GMT"));
             Assert.AreEqual(calendar.GetTime(), actual.Value);
         }
-
 
         [Test]
         public void TestGetXmpProperties()
