@@ -65,7 +65,7 @@ namespace MetadataExtractor
         /// of format:
         /// <c>-1° 23' 4.56"</c>
         /// </summary>
-        [NotNull]
+        [NotNull, Pure]
         public static string DecimalToDegreesMinutesSecondsString(double @decimal)
         {
             var dms = DecimalToDegreesMinutesSeconds(@decimal);
@@ -77,7 +77,7 @@ namespace MetadataExtractor
         /// Converts a decimal degree angle into its corresponding DMS (degrees-minutes-seconds) component values, as
         /// a double array.
         /// </summary>
-        [NotNull]
+        [NotNull, Pure]
         public static double[] DecimalToDegreesMinutesSeconds(double @decimal)
         {
             var d = (int)@decimal;
@@ -91,7 +91,7 @@ namespace MetadataExtractor
         /// <see cref="GpsDirectory"/>, into a single value in degrees,
         /// as a double.
         /// </summary>
-        [CanBeNull]
+        [CanBeNull, Pure]
         public static double? DegreesMinutesSecondsToDecimal([NotNull] Rational degs, [NotNull] Rational mins, [NotNull] Rational secs, bool isNegative)
         {
             var @decimal = Math.Abs(degs.DoubleValue()) + mins.DoubleValue()/60.0d + secs.DoubleValue()/3600.0d;
@@ -151,7 +151,7 @@ namespace MetadataExtractor
         /// a string representation of this location, of format:
         /// <c>-1° 23' 4.56", 54° 32' 1.92"</c>
         /// </returns>
-        [NotNull]
+        [NotNull, Pure]
         public string ToDmsString()
         {
             return DecimalToDegreesMinutesSecondsString(Latitude) + ", " + DecimalToDegreesMinutesSecondsString(Longitude);
