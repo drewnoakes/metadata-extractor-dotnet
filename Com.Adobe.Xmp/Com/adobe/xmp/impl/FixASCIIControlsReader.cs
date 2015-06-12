@@ -7,6 +7,7 @@
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
 
+using System;
 using System.IO;
 using Sharpen;
 
@@ -133,7 +134,7 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         if ('0' <= ch && ch <= '9')
                         {
-                            _control = Extensions.Digit(ch, 10);
+                            _control = ch - '0';
                             _digits = 1;
                             _state = StateDig1;
                         }
@@ -149,7 +150,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if ('0' <= ch && ch <= '9')
                     {
-                        _control = _control * 10 + Extensions.Digit(ch, 10);
+                        _control = _control * 10 + (ch - '0');
                         _digits++;
                         _state = _digits <= 5 ? StateDig1 : StateError;
                     }
@@ -170,7 +171,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     if (('0' <= ch && ch <= '9') || ('a' <= ch && ch <= 'f') || ('A' <= ch && ch <= 'F'))
                     {
-                        _control = _control * 16 + Extensions.Digit(ch, 16);
+                        _control = _control * 16 + Convert.ToInt32(ch.ToString(), fromBase: 16);
                         _digits++;
                         _state = _digits <= 4 ? StateHex : StateError;
                     }

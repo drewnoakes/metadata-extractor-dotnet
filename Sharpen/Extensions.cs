@@ -91,8 +91,7 @@ namespace Sharpen
 
         public static DateTime CreateDate(long milliSecondsSinceEpoch)
         {
-            var num = EpochTicks + (milliSecondsSinceEpoch*10000);
-            return new DateTime(num);
+            return new DateTime(EpochTicks + milliSecondsSinceEpoch*10000);
         }
 
         public static DateTimeOffset MillisToDateTimeOffset(long milliSecondsSinceEpoch, long offsetMinutes)
@@ -100,12 +99,6 @@ namespace Sharpen
             var offset = TimeSpan.FromMinutes(offsetMinutes);
             var num = EpochTicks + (milliSecondsSinceEpoch*10000);
             return new DateTimeOffset(num + offset.Ticks, offset);
-        }
-
-        public static int Digit(char ch, int radix)
-        {
-            //  http://stackoverflow.com/questions/1021645/is-there-something-like-javas-character-digitchar-ch-int-radix-in-c
-            return Convert.ToInt32(ch.ToString(), radix);
         }
 
         public static decimal Compare(double d1, double d2)
