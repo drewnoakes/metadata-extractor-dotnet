@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Xml;
 using JetBrains.Annotations;
 
@@ -15,11 +14,6 @@ namespace Sharpen
         {
             TU val;
             return d.TryGetValue(key, out val) ? val : null;
-        }
-
-        public static CultureInfo GetEnglishCulture()
-        {
-            return CultureInfo.GetCultureInfo("en-US");
         }
 
         public static TimeZoneInfo GetTimeZone(string tzone)
