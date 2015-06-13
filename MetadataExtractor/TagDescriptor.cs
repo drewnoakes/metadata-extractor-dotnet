@@ -135,20 +135,20 @@ namespace MetadataExtractor
         }
 
         [CanBeNull]
-        protected virtual string GetVersionBytesDescription(int tagType, int majorDigits)
+        protected string GetVersionBytesDescription(int tagType, int majorDigits)
         {
             var values = Directory.GetInt32Array(tagType);
             return values == null ? null : ConvertBytesToVersionString(values, majorDigits);
         }
 
         [CanBeNull]
-        protected virtual string GetIndexedDescription(int tagType, [NotNull] params string[] descriptions)
+        protected string GetIndexedDescription(int tagType, [NotNull] params string[] descriptions)
         {
             return GetIndexedDescription(tagType, 0, descriptions);
         }
 
         [CanBeNull]
-        protected virtual string GetIndexedDescription(int tagType, int baseIndex, [NotNull] params string[] descriptions)
+        protected string GetIndexedDescription(int tagType, int baseIndex, [NotNull] params string[] descriptions)
         {
             var index = Directory.GetInt32Nullable(tagType);
             if (index == null)
@@ -168,7 +168,7 @@ namespace MetadataExtractor
         }
 
         [CanBeNull]
-        protected virtual string GetByteLengthDescription(int tagType)
+        protected string GetByteLengthDescription(int tagType)
         {
             var bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
@@ -179,7 +179,7 @@ namespace MetadataExtractor
         }
 
         [CanBeNull]
-        protected virtual string GetSimpleRational(int tagType)
+        protected string GetSimpleRational(int tagType)
         {
             var value = Directory.GetRational(tagType);
             if (value == null)
@@ -190,7 +190,7 @@ namespace MetadataExtractor
         }
 
         [CanBeNull]
-        protected virtual string GetDecimalRational(int tagType, int decimalPlaces)
+        protected string GetDecimalRational(int tagType, int decimalPlaces)
         {
             var value = Directory.GetRational(tagType);
             if (value == null)
@@ -201,7 +201,7 @@ namespace MetadataExtractor
         }
 
         [CanBeNull]
-        protected virtual string GetFormattedInt(int tagType, [NotNull] string format)
+        protected string GetFormattedInt(int tagType, [NotNull] string format)
         {
             var value = Directory.GetInt32Nullable(tagType);
             if (value == null)
@@ -212,7 +212,7 @@ namespace MetadataExtractor
         }
 
         [CanBeNull]
-        protected virtual string GetFormattedFloat(int tagType, [NotNull] string format)
+        protected string GetFormattedFloat(int tagType, [NotNull] string format)
         {
             var value = Directory.GetFloatNullable(tagType);
             if (value == null)
@@ -223,7 +223,7 @@ namespace MetadataExtractor
         }
 
         [CanBeNull]
-        protected virtual string GetFormattedString(int tagType, [NotNull] string format)
+        protected string GetFormattedString(int tagType, [NotNull] string format)
         {
             var value = Directory.GetString(tagType);
             if (value == null)
@@ -234,7 +234,7 @@ namespace MetadataExtractor
         }
 
         [CanBeNull]
-        protected virtual string GetEpochTimeDescription(int tagType)
+        protected string GetEpochTimeDescription(int tagType)
         {
             // TODO have observed a byte[8] here which is likely some kind of date (ticks as long?)
             var value = Directory.GetInt64Nullable(tagType);
@@ -248,7 +248,7 @@ namespace MetadataExtractor
         /// <summary>LSB first.</summary>
         /// <remarks>LSB first. Labels may be null, a String, or a String[2] with (low label,high label) values.</remarks>
         [CanBeNull]
-        protected virtual string GetBitFlagDescription(int tagType, [NotNull] params object[] labels)
+        protected string GetBitFlagDescription(int tagType, [NotNull] params object[] labels)
         {
             var value = Directory.GetInt32Nullable(tagType);
             if (value == null)
@@ -285,7 +285,7 @@ namespace MetadataExtractor
         }
 
         [CanBeNull]
-        protected virtual string Get7BitStringFromBytes(int tagType)
+        protected string Get7BitStringFromBytes(int tagType)
         {
             var bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
@@ -306,7 +306,7 @@ namespace MetadataExtractor
         }
 
         [CanBeNull]
-        protected virtual string GetAsciiStringFromBytes(int tag)
+        protected string GetAsciiStringFromBytes(int tag)
         {
             var values = Directory.GetByteArray(tag);
             if (values == null)
