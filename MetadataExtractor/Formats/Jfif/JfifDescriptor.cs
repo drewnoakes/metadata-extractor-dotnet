@@ -42,12 +42,12 @@ namespace MetadataExtractor.Formats.Jfif
         {
             switch (tagType)
             {
-                case JfifDirectory.TagResx:
+                case JfifDirectory.TagResX:
                 {
                     return GetImageResXDescription();
                 }
 
-                case JfifDirectory.TagResy:
+                case JfifDirectory.TagResY:
                 {
                     return GetImageResYDescription();
                 }
@@ -85,7 +85,7 @@ namespace MetadataExtractor.Formats.Jfif
         [CanBeNull]
         public string GetImageResYDescription()
         {
-            var value = Directory.GetInteger(JfifDirectory.TagResy);
+            var value = Directory.GetInteger(JfifDirectory.TagResY);
             if (value == null)
             {
                 return null;
@@ -96,7 +96,7 @@ namespace MetadataExtractor.Formats.Jfif
         [CanBeNull]
         public string GetImageResXDescription()
         {
-            var value = Directory.GetInteger(JfifDirectory.TagResx);
+            var value = Directory.GetInteger(JfifDirectory.TagResX);
             if (value == null)
             {
                 return null;

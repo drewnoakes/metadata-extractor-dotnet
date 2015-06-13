@@ -70,10 +70,10 @@ namespace MetadataExtractor.Formats.Jfif
                 directory.SetInt(JfifDirectory.TagVersion, ver);
                 int units = reader.GetUInt8(JfifDirectory.TagUnits);
                 directory.SetInt(JfifDirectory.TagUnits, units);
-                int height = reader.GetUInt16(JfifDirectory.TagResx);
-                directory.SetInt(JfifDirectory.TagResx, height);
-                int width = reader.GetUInt16(JfifDirectory.TagResy);
-                directory.SetInt(JfifDirectory.TagResy, width);
+                int height = reader.GetUInt16(JfifDirectory.TagResX);
+                directory.SetInt(JfifDirectory.TagResX, height);
+                int width = reader.GetUInt16(JfifDirectory.TagResY);
+                directory.SetInt(JfifDirectory.TagResY, width);
             }
             catch (IOException me)
             {

@@ -36,9 +36,9 @@ namespace MetadataExtractor.Formats.Jfif
         /// <remarks>Units for pixel density fields.  One of None, Pixels per Inch, Pixels per Centimetre.</remarks>
         public const int TagUnits = 7;
 
-        public const int TagResx = 8;
+        public const int TagResX = 8;
 
-        public const int TagResy = 10;
+        public const int TagResY = 10;
 
         [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 
@@ -46,8 +46,8 @@ namespace MetadataExtractor.Formats.Jfif
         {
             TagNameMap[TagVersion] = "Version";
             TagNameMap[TagUnits] = "Resolution Units";
-            TagNameMap[TagResy] = "Y Resolution";
-            TagNameMap[TagResx] = "X Resolution";
+            TagNameMap[TagResY] = "Y Resolution";
+            TagNameMap[TagResX] = "X Resolution";
         }
 
         public JfifDirectory()
@@ -68,25 +68,25 @@ namespace MetadataExtractor.Formats.Jfif
         /// <exception cref="MetadataException"/>
         public int GetVersion()
         {
-            return GetInt(TagVersion);
+            return this.GetInt(TagVersion);
         }
 
         /// <exception cref="MetadataException"/>
         public int GetResUnits()
         {
-            return GetInt(TagUnits);
+            return this.GetInt(TagUnits);
         }
 
         /// <exception cref="MetadataException"/>
         public int GetImageWidth()
         {
-            return GetInt(TagResy);
+            return this.GetInt(TagResY);
         }
 
         /// <exception cref="MetadataException"/>
         public int GetImageHeight()
         {
-            return GetInt(TagResx);
+            return this.GetInt(TagResX);
         }
     }
 }
