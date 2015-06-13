@@ -400,7 +400,6 @@ namespace Com.Adobe.Xmp.Impl
             catch (XmpException)
             {
                 // Don't let a missing or bad date stop other things.
-                return;
             }
         }
 

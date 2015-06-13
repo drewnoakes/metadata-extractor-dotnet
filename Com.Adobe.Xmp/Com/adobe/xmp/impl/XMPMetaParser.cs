@@ -285,10 +285,7 @@ namespace Com.Adobe.Xmp.Impl
                         }
                         // continue searching
                         if (FindRootNode(root, xmpmetaRequired, out result))
-                        {
                             return true;
-                        }
-                        continue;
                     }
                 }
             }
