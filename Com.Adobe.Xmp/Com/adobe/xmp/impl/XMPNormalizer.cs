@@ -376,25 +376,20 @@ namespace Com.Adobe.Xmp.Impl
             // Note: if dates are not found the convert-methods throws an exceptions,
             //          and this methods returns.
             var gpsDateTime = XmpNodeUtils.FindChildNode(exifSchema, "exif:GPSTimeStamp", false);
+
             if (gpsDateTime == null)
-            {
                 return;
-            }
+
             try
             {
-                IXmpDateTime binGpsStamp;
-                IXmpDateTime binOtherDate;
-                binGpsStamp = Xmp.XmpUtils.ConvertToDate(gpsDateTime.Value);
+                var binGpsStamp = Xmp.XmpUtils.ConvertToDate(gpsDateTime.Value);
                 if (binGpsStamp.GetYear() != 0 || binGpsStamp.GetMonth() != 0 || binGpsStamp.GetDay() != 0)
-                {
                     return;
-                }
-                var otherDate = XmpNodeUtils.FindChildNode(exifSchema, "exif:DateTimeOriginal", false);
-                if (otherDate == null)
-                {
-                    otherDate = XmpNodeUtils.FindChildNode(exifSchema, "exif:DateTimeDigitized", false);
-                }
-                binOtherDate = Xmp.XmpUtils.ConvertToDate(otherDate.Value);
+
+                var otherDate = XmpNodeUtils.FindChildNode(exifSchema, "exif:DateTimeOriginal", false)
+                    ?? XmpNodeUtils.FindChildNode(exifSchema, "exif:DateTimeDigitized", false);
+
+                var binOtherDate = Xmp.XmpUtils.ConvertToDate(otherDate.Value);
                 var cal = binGpsStamp.GetCalendar();
                 cal.Set(CalendarEnum.Year, binOtherDate.GetYear());
                 cal.Set(CalendarEnum.Month, binOtherDate.GetMonth());

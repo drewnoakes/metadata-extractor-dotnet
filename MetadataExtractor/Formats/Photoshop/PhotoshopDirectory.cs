@@ -306,18 +306,15 @@ namespace MetadataExtractor.Formats.Photoshop
         [CanBeNull]
         public byte[] GetThumbnailBytes()
         {
-            var storedBytes = this.GetByteArray(TagThumbnail);
+            var storedBytes = this.GetByteArray(TagThumbnail) ?? this.GetByteArray(TagThumbnailOld);
+
             if (storedBytes == null)
-            {
-                storedBytes = this.GetByteArray(TagThumbnailOld);
-            }
-            if (storedBytes == null)
-            {
                 return null;
-            }
+
             var thumbSize = storedBytes.Length - 28;
             var thumbBytes = new byte[thumbSize];
             Array.Copy(storedBytes, 28, thumbBytes, 0, thumbSize);
+
             return thumbBytes;
         }
     }

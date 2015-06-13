@@ -224,11 +224,7 @@ namespace Com.Adobe.Xmp.Options
         /// <returns>Returns the optionNames map and creates it if required.</returns>
         private IDictionary ProcureOptionNames()
         {
-            if (_optionNames == null)
-            {
-                _optionNames = new Hashtable();
-            }
-            return _optionNames;
+            return _optionNames ?? (_optionNames = new Hashtable());
         }
     }
 }

@@ -296,11 +296,7 @@ namespace MetadataExtractor.Formats.Xmp
         [CanBeNull]
         public IXmpMeta GetXmpMeta()
         {
-            if (_xmpMeta == null)
-            {
-                _xmpMeta = new XmpMeta();
-            }
-            return _xmpMeta;
+            return _xmpMeta ?? (_xmpMeta = new XmpMeta());
         }
 
         // TODO: Might consider returning a boolean in the super to allow for exception handling. Failing to set is sufficient for now.
