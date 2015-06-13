@@ -548,16 +548,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             get { return "Olympus Makernote"; }
         }
 
-        public override void SetByteArray(int tagType, byte[] bytes)
+        public override void Set(int tagType, object value)
         {
-            if (tagType == TagCameraSettings1 || tagType == TagCameraSettings2)
-            {
+            var bytes = value as byte[];
+
+            if (bytes != null && (tagType == TagCameraSettings1 || tagType == TagCameraSettings2))
                 ProcessCameraSettings(bytes);
-            }
             else
-            {
-                base.SetByteArray(tagType, bytes);
-            }
+                base.Set(tagType, value);
         }
 
         private void ProcessCameraSettings(byte[] bytes)
@@ -570,7 +568,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 for (var i = 0; i < count; i++)
                 {
                     var value = reader.GetInt32();
-                    SetInt(CameraSettings.Offset + i, value);
+                    Set(CameraSettings.Offset + i, value);
                 }
             }
             catch (IOException e)

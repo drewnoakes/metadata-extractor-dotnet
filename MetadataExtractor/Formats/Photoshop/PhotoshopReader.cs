@@ -147,7 +147,7 @@ namespace MetadataExtractor.Formats.Photoshop
                                 }
                                 else
                                 {
-                                    directory.SetByteArray(tagType, tagBytes);
+                                    directory.Set(tagType, tagBytes);
                                 }
                             }
                         }

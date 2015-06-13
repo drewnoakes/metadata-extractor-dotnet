@@ -43,8 +43,8 @@ namespace MetadataExtractor.Tests
         [Test]
         public void TestSetAndGetMultipleTagsInSingleDirectory()
         {
-            _directory.SetString(ExifDirectoryBase.TagAperture, "TAG_APERTURE");
-            _directory.SetString(ExifDirectoryBase.TagBatteryLevel, "TAG_BATTERY_LEVEL");
+            _directory.Set(ExifDirectoryBase.TagAperture, "TAG_APERTURE");
+            _directory.Set(ExifDirectoryBase.TagBatteryLevel, "TAG_BATTERY_LEVEL");
             Assert.AreEqual("TAG_APERTURE", _directory.GetString(ExifDirectoryBase.TagAperture));
             Assert.AreEqual("TAG_BATTERY_LEVEL", _directory.GetString(ExifDirectoryBase.TagBatteryLevel));
         }
@@ -53,8 +53,8 @@ namespace MetadataExtractor.Tests
         [Test]
         public void TestSetSameTagMultipleTimesOverwritesValue()
         {
-            _directory.SetInt(ExifDirectoryBase.TagAperture, 1);
-            _directory.SetInt(ExifDirectoryBase.TagAperture, 2);
+            _directory.Set(ExifDirectoryBase.TagAperture, 1);
+            _directory.Set(ExifDirectoryBase.TagAperture, 2);
             Assert.AreEqual(2, _directory.GetInt(ExifDirectoryBase.TagAperture));
         }
 
@@ -64,7 +64,7 @@ namespace MetadataExtractor.Tests
         {
             var value = 123;
             var tagType = 321;
-            _directory.SetInt(tagType, value);
+            _directory.Set(tagType, value);
             Assert.AreEqual(value, _directory.GetInt(tagType));
             Assert.AreEqual(value, _directory.GetInteger(tagType));
             Assert.AreEqual(value, _directory.GetFloat(tagType), 0.00001);
@@ -82,7 +82,7 @@ namespace MetadataExtractor.Tests
         {
             var inputValues = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             var tagType = 123;
-            _directory.SetIntArray(tagType, inputValues);
+            _directory.Set(tagType, inputValues);
             var outputValues = _directory.GetIntArray(tagType);
             Assert.IsNotNull(outputValues);
             Assert.AreEqual(inputValues.Length, outputValues.Length);
@@ -114,10 +114,10 @@ namespace MetadataExtractor.Tests
             var date2 = "2002:01:30 24:59";
             var date3 = "2002-01-30 24:59:59";
             var date4 = "2002-01-30 24:59";
-            _directory.SetString(1, date1);
-            _directory.SetString(2, date2);
-            _directory.SetString(3, date3);
-            _directory.SetString(4, date4);
+            _directory.Set(1, date1);
+            _directory.Set(2, date2);
+            _directory.Set(3, date3);
+            _directory.Set(4, date4);
             Assert.AreEqual(date1, _directory.GetString(1));
             Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 59).GetTime(), _directory.GetDate(1));
             Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 0).GetTime(), _directory.GetDate(2));
@@ -130,7 +130,7 @@ namespace MetadataExtractor.Tests
         public void TestSetIntArrayGetByteArray()
         {
             var ints = new[] { 1, 2, 3, 4, 5 };
-            _directory.SetIntArray(1, ints);
+            _directory.Set(1, ints);
             var bytes = _directory.GetByteArray(1);
             Assert.IsNotNull(bytes);
             Assert.AreEqual(ints.Length, bytes.Length);
@@ -142,7 +142,7 @@ namespace MetadataExtractor.Tests
         public void TestSetStringGetInt()
         {
             var bytes = new byte[] { unchecked(0x01), unchecked(0x02), unchecked(0x03) };
-            _directory.SetString(1, Encoding.UTF8.GetString(bytes));
+            _directory.Set(1, Encoding.UTF8.GetString(bytes));
             Assert.AreEqual(unchecked(0x010203), _directory.GetInt(1));
         }
 
@@ -151,7 +151,7 @@ namespace MetadataExtractor.Tests
         public void TestContainsTag()
         {
             Assert.IsFalse(_directory.ContainsTag(ExifDirectoryBase.TagAperture));
-            _directory.SetString(ExifDirectoryBase.TagAperture, "Tag Value");
+            _directory.Set(ExifDirectoryBase.TagAperture, "Tag Value");
             Assert.IsTrue(_directory.ContainsTag(ExifDirectoryBase.TagAperture));
         }
 
@@ -178,9 +178,9 @@ namespace MetadataExtractor.Tests
         {
             Directory directory = new ExifIfd0Directory();
             Assert.AreEqual("Exif IFD0 Directory (0 tags)", directory.ToString());
-            directory.SetString(1, "Tag 1");
+            directory.Set(1, "Tag 1");
             Assert.AreEqual("Exif IFD0 Directory (1 tag)", directory.ToString());
-            directory.SetString(2, "Tag 2");
+            directory.Set(2, "Tag 2");
             Assert.AreEqual("Exif IFD0 Directory (2 tags)", directory.ToString());
         }
     }

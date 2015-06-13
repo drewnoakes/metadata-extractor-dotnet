@@ -65,10 +65,10 @@ namespace MetadataExtractor.Formats.Adobe
                     directory.AddError("Invalid Adobe JPEG data header.");
                     return;
                 }
-                directory.SetInt(AdobeJpegDirectory.TagDctEncodeVersion, reader.GetUInt16());
-                directory.SetInt(AdobeJpegDirectory.TagApp14Flags0, reader.GetUInt16());
-                directory.SetInt(AdobeJpegDirectory.TagApp14Flags1, reader.GetUInt16());
-                directory.SetInt(AdobeJpegDirectory.TagColorTransform, reader.GetInt8());
+                directory.Set(AdobeJpegDirectory.TagDctEncodeVersion, reader.GetUInt16());
+                directory.Set(AdobeJpegDirectory.TagApp14Flags0, reader.GetUInt16());
+                directory.Set(AdobeJpegDirectory.TagApp14Flags1, reader.GetUInt16());
+                directory.Set(AdobeJpegDirectory.TagColorTransform, reader.GetInt8());
             }
             catch (IOException ex)
             {

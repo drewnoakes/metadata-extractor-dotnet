@@ -60,15 +60,15 @@ namespace MetadataExtractor.Formats.Jpeg
             var directory = new JpegDirectory();
             metadata.AddDirectory(directory);
             // The value of TAG_COMPRESSION_TYPE is determined by the segment type found
-            directory.SetInt(JpegDirectory.TagCompressionType, (int)segmentType - (int)JpegSegmentType.Sof0);
+            directory.Set(JpegDirectory.TagCompressionType, (int)segmentType - (int)JpegSegmentType.Sof0);
             SequentialReader reader = new SequentialByteArrayReader(segmentBytes);
             try
             {
-                directory.SetInt(JpegDirectory.TagDataPrecision, reader.GetUInt8());
-                directory.SetInt(JpegDirectory.TagImageHeight, reader.GetUInt16());
-                directory.SetInt(JpegDirectory.TagImageWidth, reader.GetUInt16());
+                directory.Set(JpegDirectory.TagDataPrecision, reader.GetUInt8());
+                directory.Set(JpegDirectory.TagImageHeight, reader.GetUInt16());
+                directory.Set(JpegDirectory.TagImageWidth, reader.GetUInt16());
                 var componentCount = reader.GetUInt8();
-                directory.SetInt(JpegDirectory.TagNumberOfComponents, componentCount);
+                directory.Set(JpegDirectory.TagNumberOfComponents, componentCount);
                 // for each component, there are three bytes of data:
                 // 1 - Component ID: 1 = Y, 2 = Cb, 3 = Cr, 4 = I, 5 = Q
                 // 2 - Sampling factors: bit 0-3 vertical, 4-7 horizontal
@@ -79,7 +79,7 @@ namespace MetadataExtractor.Formats.Jpeg
                     int samplingFactorByte = reader.GetUInt8();
                     int quantizationTableNumber = reader.GetUInt8();
                     var component = new JpegComponent(componentId, samplingFactorByte, quantizationTableNumber);
-                    directory.SetObject(JpegDirectory.TagComponentData1 + i, component);
+                    directory.Set(JpegDirectory.TagComponentData1 + i, component);
                 }
             }
             catch (IOException ex)

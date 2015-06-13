@@ -51,7 +51,7 @@ namespace MetadataExtractor.Formats.Jpeg
                 var directory = new JpegCommentDirectory();
                 metadata.AddDirectory(directory);
                 // The entire contents of the directory are the comment
-                directory.SetString(JpegCommentDirectory.TagComment, Encoding.UTF8.GetString(segmentBytes));
+                directory.Set(JpegCommentDirectory.TagComment, Encoding.UTF8.GetString(segmentBytes));
             }
         }
     }

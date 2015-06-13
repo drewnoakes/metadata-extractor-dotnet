@@ -67,13 +67,13 @@ namespace MetadataExtractor.Formats.Jfif
             {
                 // For JFIF, the tag number is also the offset into the segment
                 int ver = reader.GetUInt16(JfifDirectory.TagVersion);
-                directory.SetInt(JfifDirectory.TagVersion, ver);
+                directory.Set(JfifDirectory.TagVersion, ver);
                 int units = reader.GetUInt8(JfifDirectory.TagUnits);
-                directory.SetInt(JfifDirectory.TagUnits, units);
+                directory.Set(JfifDirectory.TagUnits, units);
                 int height = reader.GetUInt16(JfifDirectory.TagResX);
-                directory.SetInt(JfifDirectory.TagResX, height);
+                directory.Set(JfifDirectory.TagResX, height);
                 int width = reader.GetUInt16(JfifDirectory.TagResY);
-                directory.SetInt(JfifDirectory.TagResY, width);
+                directory.Set(JfifDirectory.TagResY, width);
             }
             catch (IOException me)
             {

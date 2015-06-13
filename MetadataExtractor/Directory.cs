@@ -133,155 +133,19 @@ namespace MetadataExtractor
 
         #region Tag Setters
 
-        /// <summary>Sets an <c>int</c> value for the specified tag.</summary>
-        /// <param name="tagType">the tag's value as an int</param>
-        /// <param name="value">the value for the specified tag as an int</param>
-        public void SetInt(int tagType, int value)
-        {
-            SetObject(tagType, value);
-        }
-
-        /// <summary>Sets an <c>int[]</c> (array) for the specified tag.</summary>
-        /// <param name="tagType">the tag identifier</param>
-        /// <param name="ints">the int array to store</param>
-        public void SetIntArray(int tagType, [NotNull] int[] ints)
-        {
-            SetObjectArray(tagType, ints);
-        }
-
-        /// <summary>Sets a <c>float</c> value for the specified tag.</summary>
-        /// <param name="tagType">the tag's value as an int</param>
-        /// <param name="value">the value for the specified tag as a float</param>
-        public void SetFloat(int tagType, float value)
-        {
-            SetObject(tagType, value);
-        }
-
-        /// <summary>Sets a <c>float[]</c> (array) for the specified tag.</summary>
-        /// <param name="tagType">the tag identifier</param>
-        /// <param name="floats">the float array to store</param>
-        public void SetFloatArray(int tagType, [NotNull] float[] floats)
-        {
-            SetObjectArray(tagType, floats);
-        }
-
-        /// <summary>Sets a <c>double</c> value for the specified tag.</summary>
-        /// <param name="tagType">the tag's value as an int</param>
-        /// <param name="value">the value for the specified tag as a double</param>
-        public void SetDouble(int tagType, double value)
-        {
-            SetObject(tagType, value);
-        }
-
-        /// <summary>Sets a <c>double[]</c> (array) for the specified tag.</summary>
-        /// <param name="tagType">the tag identifier</param>
-        /// <param name="doubles">the double array to store</param>
-        public void SetDoubleArray(int tagType, [NotNull] double[] doubles)
-        {
-            SetObjectArray(tagType, doubles);
-        }
-
-        /// <summary>Sets a <c>String</c> value for the specified tag.</summary>
-        /// <param name="tagType">the tag's value as an int</param>
-        /// <param name="value">the value for the specified tag as a String</param>
-        public void SetString(int tagType, [NotNull] string value)
-        {
-            if (value == null)
-                throw new ArgumentNullException("value");
-
-            SetObject(tagType, value);
-        }
-
-        /// <summary>Sets a <c>String[]</c> (array) for the specified tag.</summary>
-        /// <param name="tagType">the tag identifier</param>
-        /// <param name="strings">the String array to store</param>
-        public void SetStringArray(int tagType, [NotNull] string[] strings)
-        {
-            SetObjectArray(tagType, strings);
-        }
-
-        /// <summary>Sets a <c>boolean</c> value for the specified tag.</summary>
-        /// <param name="tagType">the tag's value as an int</param>
-        /// <param name="value">the value for the specified tag as a boolean</param>
-        public void SetBoolean(int tagType, bool value)
-        {
-            SetObject(tagType, value);
-        }
-
-        /// <summary>Sets a <c>long</c> value for the specified tag.</summary>
-        /// <param name="tagType">the tag's value as an int</param>
-        /// <param name="value">the value for the specified tag as a long</param>
-        public void SetLong(int tagType, long value)
-        {
-            SetObject(tagType, value);
-        }
-
-        /// <summary>Sets a <c>java.util.Date</c> value for the specified tag.</summary>
-        /// <param name="tagType">the tag's value as an int</param>
-        /// <param name="value">the value for the specified tag as a java.util.Date</param>
-        public void SetDate(int tagType, DateTime value)
-        {
-            SetObject(tagType, value);
-        }
-
-        /// <summary>Sets a <c>Rational</c> value for the specified tag.</summary>
-        /// <param name="tagType">the tag's value as an int</param>
-        /// <param name="rational">rational number</param>
-        public void SetRational(int tagType, [NotNull] Rational rational)
-        {
-            SetObject(tagType, rational);
-        }
-
-        /// <summary>Sets a <c>Rational[]</c> (array) for the specified tag.</summary>
-        /// <param name="tagType">the tag identifier</param>
-        /// <param name="rationals">the Rational array to store</param>
-        public void SetRationalArray(int tagType, [NotNull] Rational[] rationals)
-        {
-            SetObjectArray(tagType, rationals);
-        }
-
-        /// <summary>Sets a <c>byte[]</c> (array) for the specified tag.</summary>
-        /// <param name="tagType">the tag identifier</param>
-        /// <param name="bytes">the byte array to store</param>
-        public virtual void SetByteArray(int tagType, [NotNull] byte[] bytes)
-        {
-            SetObjectArray(tagType, bytes);
-        }
-
-        /// <summary>Sets a <c>sbyte[]</c> (array) for the specified tag.</summary>
-        /// <param name="tagType">the tag identifier</param>
-        /// <param name="bytes">the signed byte array to store</param>
-        public void SetSByteArray(int tagType, [NotNull] sbyte[] bytes)
-        {
-            SetObjectArray(tagType, bytes);
-        }
-
         /// <summary>Sets a <c>Object</c> for the specified tag.</summary>
         /// <param name="tagType">the tag's value as an int</param>
         /// <param name="value">the value for the specified tag</param>
-        /// <exception cref="System.ArgumentNullException">if value is <c>null</c></exception>
-        public void SetObject(int tagType, [NotNull] object value)
+        /// <exception cref="ArgumentNullException">if value is <c>null</c></exception>
+        public virtual void Set(int tagType, [NotNull] object value)
         {
             if (value == null)
                 throw new ArgumentNullException("value");
 
             if (!_tagMap.ContainsKey(tagType))
                 _definedTagList.Add(new Tag(tagType, this));
-//          else {
-//            final Object oldValue = _tagMap.get(tagType);
-//            if (!oldValue.equals(value))
-//                addError(String.format("Overwritten tag 0x%s (%s).  Old=%s, New=%s", Integer.toHexString(tagType), getTagName(tagType), oldValue, value));
-//          }
-            _tagMap[tagType] = value;
-        }
 
-        /// <summary>Sets an array <c>Object</c> for the specified tag.</summary>
-        /// <param name="tagType">the tag's value as an int</param>
-        /// <param name="array">the array of values for the specified tag</param>
-        public virtual void SetObjectArray(int tagType, [NotNull] object array)
-        {
-            // for now, we don't do anything special -- this method might be a candidate for removal once the dust settles
-            SetObject(tagType, array);
+            _tagMap[tagType] = value;
         }
 
         #endregion

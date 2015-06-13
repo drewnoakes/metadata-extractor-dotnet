@@ -98,10 +98,10 @@ namespace MetadataExtractor.Formats.WebP
                     var widthMinusOne = reader.GetInt24(4);
                     var heightMinusOne = reader.GetInt24(7);
                     var directory = new WebPDirectory();
-                    directory.SetInt(WebPDirectory.TagImageWidth, widthMinusOne + 1);
-                    directory.SetInt(WebPDirectory.TagImageHeight, heightMinusOne + 1);
-                    directory.SetBoolean(WebPDirectory.TagHasAlpha, hasAlpha);
-                    directory.SetBoolean(WebPDirectory.TagIsAnimation, isAnimation);
+                    directory.Set(WebPDirectory.TagImageWidth, widthMinusOne + 1);
+                    directory.Set(WebPDirectory.TagImageHeight, heightMinusOne + 1);
+                    directory.Set(WebPDirectory.TagHasAlpha, hasAlpha);
+                    directory.Set(WebPDirectory.TagIsAnimation, isAnimation);
                     _metadata.AddDirectory(directory);
                 }
                 catch (IOException e)

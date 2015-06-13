@@ -36,9 +36,9 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void TestXResolutionDescription()
         {
             var directory = new ExifIfd0Directory();
-            directory.SetRational(ExifDirectoryBase.TagXResolution, new Rational(72, 1));
+            directory.Set(ExifDirectoryBase.TagXResolution, new Rational(72, 1));
             // 2 is for 'Inch'
-            directory.SetInt(ExifDirectoryBase.TagResolutionUnit, 2);
+            directory.Set(ExifDirectoryBase.TagResolutionUnit, 2);
             var descriptor = new ExifIfd0Descriptor(directory);
             Assert.AreEqual("72 dots per inch", descriptor.GetDescription(ExifDirectoryBase.TagXResolution));
         }
@@ -47,9 +47,9 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void TestYResolutionDescription()
         {
             var directory = new ExifIfd0Directory();
-            directory.SetRational(ExifDirectoryBase.TagYResolution, new Rational(50, 1));
+            directory.Set(ExifDirectoryBase.TagYResolution, new Rational(50, 1));
             // 3 is for 'cm'
-            directory.SetInt(ExifDirectoryBase.TagResolutionUnit, 3);
+            directory.Set(ExifDirectoryBase.TagResolutionUnit, 3);
             var descriptor = new ExifIfd0Descriptor(directory);
             Assert.AreEqual("50 dots per cm", descriptor.GetDescription(ExifDirectoryBase.TagYResolution));
         }

@@ -50,37 +50,37 @@ namespace MetadataExtractor.Formats.Pcx
                 {
                     throw new ImageProcessingException("Invalid PCX identifier byte");
                 }
-                directory.SetInt(PcxDirectory.TagVersion, reader.GetInt8());
+                directory.Set(PcxDirectory.TagVersion, reader.GetInt8());
                 var encoding = reader.GetInt8();
                 if (encoding != unchecked(0x01))
                 {
                     throw new ImageProcessingException("Invalid PCX encoding byte");
                 }
-                directory.SetInt(PcxDirectory.TagBitsPerPixel, reader.GetUInt8());
-                directory.SetInt(PcxDirectory.TagXmin, reader.GetUInt16());
-                directory.SetInt(PcxDirectory.TagYmin, reader.GetUInt16());
-                directory.SetInt(PcxDirectory.TagXmax, reader.GetUInt16());
-                directory.SetInt(PcxDirectory.TagYmax, reader.GetUInt16());
-                directory.SetInt(PcxDirectory.TagHorizontalDpi, reader.GetUInt16());
-                directory.SetInt(PcxDirectory.TagVerticalDpi, reader.GetUInt16());
-                directory.SetByteArray(PcxDirectory.TagPalette, reader.GetBytes(48));
+                directory.Set(PcxDirectory.TagBitsPerPixel, reader.GetUInt8());
+                directory.Set(PcxDirectory.TagXmin, reader.GetUInt16());
+                directory.Set(PcxDirectory.TagYmin, reader.GetUInt16());
+                directory.Set(PcxDirectory.TagXmax, reader.GetUInt16());
+                directory.Set(PcxDirectory.TagYmax, reader.GetUInt16());
+                directory.Set(PcxDirectory.TagHorizontalDpi, reader.GetUInt16());
+                directory.Set(PcxDirectory.TagVerticalDpi, reader.GetUInt16());
+                directory.Set(PcxDirectory.TagPalette, reader.GetBytes(48));
                 reader.Skip(1);
-                directory.SetInt(PcxDirectory.TagColorPlanes, reader.GetUInt8());
-                directory.SetInt(PcxDirectory.TagBytesPerLine, reader.GetUInt16());
+                directory.Set(PcxDirectory.TagColorPlanes, reader.GetUInt8());
+                directory.Set(PcxDirectory.TagBytesPerLine, reader.GetUInt16());
                 var paletteType = reader.GetUInt16();
                 if (paletteType != 0)
                 {
-                    directory.SetInt(PcxDirectory.TagPaletteType, paletteType);
+                    directory.Set(PcxDirectory.TagPaletteType, paletteType);
                 }
                 var hScrSize = reader.GetUInt16();
                 if (hScrSize != 0)
                 {
-                    directory.SetInt(PcxDirectory.TagHscrSize, hScrSize);
+                    directory.Set(PcxDirectory.TagHscrSize, hScrSize);
                 }
                 var vScrSize = reader.GetUInt16();
                 if (vScrSize != 0)
                 {
-                    directory.SetInt(PcxDirectory.TagVscrSize, vScrSize);
+                    directory.Set(PcxDirectory.TagVscrSize, vScrSize);
                 }
             }
             catch (Exception ex)

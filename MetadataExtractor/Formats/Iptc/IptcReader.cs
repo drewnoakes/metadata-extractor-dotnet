@@ -154,7 +154,7 @@ namespace MetadataExtractor.Formats.Iptc
             // https://raw.githubusercontent.com/wiki/drewnoakes/metadata-extractor/docs/IPTC-IIMV4.2.pdf
             if (tagByteCount == 0)
             {
-                directory.SetString(tagIdentifier, string.Empty);
+                directory.Set(tagIdentifier, string.Empty);
                 return;
             }
             string str = null;
@@ -170,7 +170,7 @@ namespace MetadataExtractor.Formats.Iptc
                         str = Encoding.UTF8.GetString(bytes);
                         break;
                     }
-                    directory.SetString(tagIdentifier, charset);
+                    directory.Set(tagIdentifier, charset);
                     return;
                 }
 
@@ -185,7 +185,7 @@ namespace MetadataExtractor.Formats.Iptc
                     {
                         var shortValue = reader.GetUInt16();
                         reader.Skip(tagByteCount - 2);
-                        directory.SetInt(tagIdentifier, shortValue);
+                        directory.Set(tagIdentifier, shortValue);
                         return;
                     }
                     break;
@@ -194,7 +194,7 @@ namespace MetadataExtractor.Formats.Iptc
                 case IptcDirectory.TagUrgency:
                 {
                     // byte
-                    directory.SetInt(tagIdentifier, reader.GetUInt8());
+                    directory.Set(tagIdentifier, reader.GetUInt8());
                     reader.Skip(tagByteCount - 1);
                     return;
                 }
@@ -212,7 +212,7 @@ namespace MetadataExtractor.Formats.Iptc
                             var month = Convert.ToInt32(str.Substring (4, 6 - 4)) - 1;
                             var day = Convert.ToInt32(str.Substring (6, 8 - 6));
                             var date = new GregorianCalendar(year, month, day).GetTime();
-                            directory.SetDate(tagIdentifier, date);
+                            directory.Set(tagIdentifier, date);
                             return;
                         }
                         catch (FormatException)
@@ -261,11 +261,11 @@ namespace MetadataExtractor.Formats.Iptc
                     Array.Copy(oldStrings, 0, newStrings, 0, oldStrings.Length);
                 }
                 newStrings[newStrings.Length - 1] = str;
-                directory.SetStringArray(tagIdentifier, newStrings);
+                directory.Set(tagIdentifier, newStrings);
             }
             else
             {
-                directory.SetString(tagIdentifier, str);
+                directory.Set(tagIdentifier, str);
             }
         }
     }

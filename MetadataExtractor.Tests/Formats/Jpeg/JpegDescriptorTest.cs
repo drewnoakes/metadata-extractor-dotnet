@@ -51,7 +51,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Test]
         public void TestGetImageWidthDescription()
         {
-            _directory.SetInt(JpegDirectory.TagImageWidth, 123);
+            _directory.Set(JpegDirectory.TagImageWidth, 123);
             Assert.AreEqual("123 pixels", _descriptor.GetImageWidthDescription());
             Assert.AreEqual("123 pixels", _directory.GetDescription(JpegDirectory.TagImageWidth));
         }
@@ -60,7 +60,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Test]
         public void TestGetImageHeightDescription()
         {
-            _directory.SetInt(JpegDirectory.TagImageHeight, 123);
+            _directory.Set(JpegDirectory.TagImageHeight, 123);
             Assert.AreEqual("123 pixels", _descriptor.GetImageHeightDescription());
             Assert.AreEqual("123 pixels", _directory.GetDescription(JpegDirectory.TagImageHeight));
         }
@@ -69,7 +69,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Test]
         public void TestGetDataPrecisionDescription()
         {
-            _directory.SetInt(JpegDirectory.TagDataPrecision, 8);
+            _directory.Set(JpegDirectory.TagDataPrecision, 8);
             Assert.AreEqual("8 bits", _descriptor.GetDataPrecisionDescription());
             Assert.AreEqual("8 bits", _directory.GetDescription(JpegDirectory.TagDataPrecision));
         }
@@ -79,7 +79,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         public void TestGetComponentDescription()
         {
             var component1 = new JpegComponent(1, unchecked(0x22), 0);
-            _directory.SetObject(JpegDirectory.TagComponentData1, component1);
+            _directory.Set(JpegDirectory.TagComponentData1, component1);
             Assert.AreEqual("Y component: Quantization table 0, Sampling factors 2 horiz/2 vert", _directory.GetDescription(JpegDirectory.TagComponentData1));
             Assert.AreEqual("Y component: Quantization table 0, Sampling factors 2 horiz/2 vert", _descriptor.GetComponentDataDescription(0));
         }

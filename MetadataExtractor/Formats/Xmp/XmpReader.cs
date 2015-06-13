@@ -239,7 +239,7 @@ namespace MetadataExtractor.Formats.Xmp
                         try
                         {
                             var rational = new Rational((long)float.Parse(rationalParts[0]), (long)float.Parse(rationalParts[1]));
-                            directory.SetRational(tagType, rational);
+                            directory.Set(tagType, rational);
                         }
                         catch (FormatException)
                         {
@@ -257,7 +257,7 @@ namespace MetadataExtractor.Formats.Xmp
                 {
                     try
                     {
-                        directory.SetInt(tagType, int.Parse(property));
+                        directory.Set(tagType, int.Parse(property));
                     }
                     catch (FormatException)
                     {
@@ -270,7 +270,7 @@ namespace MetadataExtractor.Formats.Xmp
                 {
                     try
                     {
-                        directory.SetDouble(tagType, double.Parse(property));
+                        directory.Set(tagType, double.Parse(property));
                     }
                     catch (FormatException)
                     {
@@ -281,7 +281,7 @@ namespace MetadataExtractor.Formats.Xmp
 
                 case FmtString:
                 {
-                    directory.SetString(tagType, property);
+                    directory.Set(tagType, property);
                     break;
                 }
 
@@ -294,7 +294,7 @@ namespace MetadataExtractor.Formats.Xmp
                     {
                         array[i - 1] = meta.GetArrayItem(schemaNs, propName, i).Value;
                     }
-                    directory.SetStringArray(tagType, array);
+                    directory.Set(tagType, array);
                     break;
                 }
 
@@ -314,7 +314,7 @@ namespace MetadataExtractor.Formats.Xmp
             var cal = meta.GetPropertyCalendar(schemaNs, propName);
             if (cal != null)
             {
-                directory.SetDate(tagType, cal.GetTime());
+                directory.Set(tagType, cal.GetTime());
             }
         }
     }

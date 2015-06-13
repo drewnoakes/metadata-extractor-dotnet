@@ -17,9 +17,9 @@ namespace MetadataExtractor.Formats.FileSystem
                 throw new IOException("File does not exist");
 
             var directory = new FileMetadataDirectory();
-            directory.SetString(FileMetadataDirectory.TagFileName, Path.GetFileName(file));
-            directory.SetLong(FileMetadataDirectory.TagFileSize, fileInfo.Length);
-            directory.SetDate(FileMetadataDirectory.TagFileModifiedDate, fileInfo.LastWriteTime);
+            directory.Set(FileMetadataDirectory.TagFileName, Path.GetFileName(file));
+            directory.Set(FileMetadataDirectory.TagFileSize, fileInfo.Length);
+            directory.Set(FileMetadataDirectory.TagFileModifiedDate, fileInfo.LastWriteTime);
             metadata.AddDirectory(directory);
         }
     }

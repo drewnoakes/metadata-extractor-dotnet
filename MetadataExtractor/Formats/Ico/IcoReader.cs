@@ -85,26 +85,26 @@ namespace MetadataExtractor.Formats.Ico
                 {
                     directory1 = new IcoDirectory();
                     metadata.AddDirectory(directory1);
-                    directory1.SetInt(IcoDirectory.TagImageType, type);
-                    directory1.SetInt(IcoDirectory.TagImageWidth, reader.GetUInt8());
-                    directory1.SetInt(IcoDirectory.TagImageHeight, reader.GetUInt8());
-                    directory1.SetInt(IcoDirectory.TagColourPaletteSize, reader.GetUInt8());
+                    directory1.Set(IcoDirectory.TagImageType, type);
+                    directory1.Set(IcoDirectory.TagImageWidth, reader.GetUInt8());
+                    directory1.Set(IcoDirectory.TagImageHeight, reader.GetUInt8());
+                    directory1.Set(IcoDirectory.TagColourPaletteSize, reader.GetUInt8());
                     // Ignore this byte (normally zero, though .NET's System.Drawing.Icon.Save method writes 255)
                     reader.GetUInt8();
                     if (type == 1)
                     {
                         // Icon
-                        directory1.SetInt(IcoDirectory.TagColourPlanes, reader.GetUInt16());
-                        directory1.SetInt(IcoDirectory.TagBitsPerPixel, reader.GetUInt16());
+                        directory1.Set(IcoDirectory.TagColourPlanes, reader.GetUInt16());
+                        directory1.Set(IcoDirectory.TagBitsPerPixel, reader.GetUInt16());
                     }
                     else
                     {
                         // Cursor
-                        directory1.SetInt(IcoDirectory.TagCursorHotspotX, reader.GetUInt16());
-                        directory1.SetInt(IcoDirectory.TagCursorHotspotY, reader.GetUInt16());
+                        directory1.Set(IcoDirectory.TagCursorHotspotX, reader.GetUInt16());
+                        directory1.Set(IcoDirectory.TagCursorHotspotY, reader.GetUInt16());
                     }
-                    directory1.SetLong(IcoDirectory.TagImageSizeBytes, reader.GetUInt32());
-                    directory1.SetLong(IcoDirectory.TagImageOffsetBytes, reader.GetUInt32());
+                    directory1.Set(IcoDirectory.TagImageSizeBytes, reader.GetUInt32());
+                    directory1.Set(IcoDirectory.TagImageOffsetBytes, reader.GetUInt32());
                 }
             }
             catch (IOException ex)

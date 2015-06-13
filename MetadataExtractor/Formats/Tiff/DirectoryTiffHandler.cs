@@ -76,111 +76,111 @@ namespace MetadataExtractor.Formats.Tiff
 
         public virtual void SetByteArray(int tagId, byte[] bytes)
         {
-            CurrentDirectory.SetByteArray(tagId, bytes);
+            CurrentDirectory.Set(tagId, bytes);
         }
 
         public virtual void SetString(int tagId, string @string)
         {
-            CurrentDirectory.SetString(tagId, @string);
+            CurrentDirectory.Set(tagId, @string);
         }
 
         public virtual void SetRational(int tagId, Rational rational)
         {
-            CurrentDirectory.SetRational(tagId, rational);
+            CurrentDirectory.Set(tagId, rational);
         }
 
         public virtual void SetRationalArray(int tagId, Rational[] array)
         {
-            CurrentDirectory.SetRationalArray(tagId, array);
+            CurrentDirectory.Set(tagId, array);
         }
 
         public virtual void SetFloat(int tagId, float float32)
         {
-            CurrentDirectory.SetFloat(tagId, float32);
+            CurrentDirectory.Set(tagId, float32);
         }
 
         public virtual void SetFloatArray(int tagId, float[] array)
         {
-            CurrentDirectory.SetFloatArray(tagId, array);
+            CurrentDirectory.Set(tagId, array);
         }
 
         public virtual void SetDouble(int tagId, double double64)
         {
-            CurrentDirectory.SetDouble(tagId, double64);
+            CurrentDirectory.Set(tagId, double64);
         }
 
         public virtual void SetDoubleArray(int tagId, double[] array)
         {
-            CurrentDirectory.SetDoubleArray(tagId, array);
+            CurrentDirectory.Set(tagId, array);
         }
 
         public virtual void SetInt8S(int tagId, sbyte int8S)
         {
             // NOTE Directory stores all integral types as int32s, except for int32u and long
-            CurrentDirectory.SetInt(tagId, int8S);
+            CurrentDirectory.Set(tagId, int8S);
         }
 
         public virtual void SetInt8SArray(int tagId, sbyte[] array)
         {
             // NOTE Directory stores all integral types as int32s, except for int32u and long
-            CurrentDirectory.SetSByteArray(tagId, array);
+            CurrentDirectory.Set(tagId, array);
         }
 
         public virtual void SetInt8U(int tagId, byte int8U)
         {
             // NOTE Directory stores all integral types as int32s, except for int32u and long
-            CurrentDirectory.SetInt(tagId, int8U);
+            CurrentDirectory.Set(tagId, int8U);
         }
 
         public virtual void SetInt8UArray(int tagId, byte[] array)
         {
             // TODO create and use a proper setter for short[]
-            CurrentDirectory.SetObjectArray(tagId, array);
+            CurrentDirectory.Set(tagId, (Array)array);
         }
 
         public virtual void SetInt16S(int tagId, short int16S)
         {
             // TODO create and use a proper setter for int16u?
-            CurrentDirectory.SetInt(tagId, int16S);
+            CurrentDirectory.Set(tagId, int16S);
         }
 
         public virtual void SetInt16SArray(int tagId, short[] array)
         {
             // TODO create and use a proper setter for short[]
-            CurrentDirectory.SetObjectArray(tagId, array);
+            CurrentDirectory.Set(tagId, array);
         }
 
         public virtual void SetInt16U(int tagId, ushort int16U)
         {
             // TODO create and use a proper setter for
-            CurrentDirectory.SetInt(tagId, int16U);
+            CurrentDirectory.Set(tagId, int16U);
         }
 
         public virtual void SetInt16UArray(int tagId, ushort[] array)
         {
             // TODO create and use a proper setter for short[]
-            CurrentDirectory.SetObjectArray(tagId, array);
+            CurrentDirectory.Set(tagId, array);
         }
 
         public virtual void SetInt32S(int tagId, int int32S)
         {
-            CurrentDirectory.SetInt(tagId, int32S);
+            CurrentDirectory.Set(tagId, int32S);
         }
 
         public virtual void SetInt32SArray(int tagId, int[] array)
         {
-            CurrentDirectory.SetIntArray(tagId, array);
+            CurrentDirectory.Set(tagId, array);
         }
 
         public virtual void SetInt32U(int tagId, uint int32U)
         {
-            CurrentDirectory.SetLong(tagId, int32U);
+            CurrentDirectory.Set(tagId, int32U);
         }
 
         public virtual void SetInt32UArray(int tagId, uint[] array)
         {
             // TODO create and use a proper setter for uint[]
-            CurrentDirectory.SetObjectArray(tagId, array);
+            CurrentDirectory.Set(tagId, array);
         }
 
         public abstract void Completed(IndexedReader reader, int tiffHeaderOffset);

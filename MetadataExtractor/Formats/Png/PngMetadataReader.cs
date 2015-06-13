@@ -79,53 +79,53 @@ namespace MetadataExtractor.Formats.Png
             {
                 var header = new PngHeader(bytes);
                 var directory = new PngDirectory(PngChunkType.Ihdr);
-                directory.SetInt(PngDirectory.TagImageWidth, header.ImageWidth);
-                directory.SetInt(PngDirectory.TagImageHeight, header.ImageHeight);
-                directory.SetInt(PngDirectory.TagBitsPerSample, header.BitsPerSample);
-                directory.SetInt(PngDirectory.TagColorType, header.ColorType.NumericValue);
-                directory.SetInt(PngDirectory.TagCompressionType, header.CompressionType);
-                directory.SetInt(PngDirectory.TagFilterMethod, header.FilterMethod);
-                directory.SetInt(PngDirectory.TagInterlaceMethod, header.InterlaceMethod);
+                directory.Set(PngDirectory.TagImageWidth, header.ImageWidth);
+                directory.Set(PngDirectory.TagImageHeight, header.ImageHeight);
+                directory.Set(PngDirectory.TagBitsPerSample, header.BitsPerSample);
+                directory.Set(PngDirectory.TagColorType, header.ColorType.NumericValue);
+                directory.Set(PngDirectory.TagCompressionType, header.CompressionType);
+                directory.Set(PngDirectory.TagFilterMethod, header.FilterMethod);
+                directory.Set(PngDirectory.TagInterlaceMethod, header.InterlaceMethod);
                 metadata.AddDirectory(directory);
             }
             else if (chunkType.Equals(PngChunkType.Plte))
             {
                 var directory = new PngDirectory(PngChunkType.Plte);
-                directory.SetInt(PngDirectory.TagPaletteSize, bytes.Length / 3);
+                directory.Set(PngDirectory.TagPaletteSize, bytes.Length / 3);
                 metadata.AddDirectory(directory);
             }
             else if (chunkType.Equals(PngChunkType.TRns))
             {
                 var directory = new PngDirectory(PngChunkType.TRns);
-                directory.SetInt(PngDirectory.TagPaletteHasTransparency, 1);
+                directory.Set(PngDirectory.TagPaletteHasTransparency, 1);
                 metadata.AddDirectory(directory);
             }
             else if (chunkType.Equals(PngChunkType.SRgb))
             {
                 int srgbRenderingIntent = new SequentialByteArrayReader(bytes).GetInt8();
                 var directory = new PngDirectory(PngChunkType.SRgb);
-                directory.SetInt(PngDirectory.TagSrgbRenderingIntent, srgbRenderingIntent);
+                directory.Set(PngDirectory.TagSrgbRenderingIntent, srgbRenderingIntent);
                 metadata.AddDirectory(directory);
             }
             else if (chunkType.Equals(PngChunkType.CHrm))
             {
                 var chromaticities = new PngChromaticities(bytes);
                 var directory = new PngChromaticitiesDirectory();
-                directory.SetInt(PngChromaticitiesDirectory.TagWhitePointX, chromaticities.WhitePointX);
-                directory.SetInt(PngChromaticitiesDirectory.TagWhitePointY, chromaticities.WhitePointY);
-                directory.SetInt(PngChromaticitiesDirectory.TagRedX, chromaticities.RedX);
-                directory.SetInt(PngChromaticitiesDirectory.TagRedY, chromaticities.RedY);
-                directory.SetInt(PngChromaticitiesDirectory.TagGreenX, chromaticities.GreenX);
-                directory.SetInt(PngChromaticitiesDirectory.TagGreenY, chromaticities.GreenY);
-                directory.SetInt(PngChromaticitiesDirectory.TagBlueX, chromaticities.BlueX);
-                directory.SetInt(PngChromaticitiesDirectory.TagBlueY, chromaticities.BlueY);
+                directory.Set(PngChromaticitiesDirectory.TagWhitePointX, chromaticities.WhitePointX);
+                directory.Set(PngChromaticitiesDirectory.TagWhitePointY, chromaticities.WhitePointY);
+                directory.Set(PngChromaticitiesDirectory.TagRedX, chromaticities.RedX);
+                directory.Set(PngChromaticitiesDirectory.TagRedY, chromaticities.RedY);
+                directory.Set(PngChromaticitiesDirectory.TagGreenX, chromaticities.GreenX);
+                directory.Set(PngChromaticitiesDirectory.TagGreenY, chromaticities.GreenY);
+                directory.Set(PngChromaticitiesDirectory.TagBlueX, chromaticities.BlueX);
+                directory.Set(PngChromaticitiesDirectory.TagBlueY, chromaticities.BlueY);
                 metadata.AddDirectory(directory);
             }
             else if (chunkType.Equals(PngChunkType.GAma))
             {
                 var gammaInt = new SequentialByteArrayReader(bytes).GetInt32();
                 var directory = new PngDirectory(PngChunkType.GAma);
-                directory.SetDouble(PngDirectory.TagGamma, gammaInt / 100000.0);
+                directory.Set(PngDirectory.TagGamma, gammaInt / 100000.0);
                 metadata.AddDirectory(directory);
             }
             else if (chunkType.Equals(PngChunkType.ICcp))
@@ -133,7 +133,7 @@ namespace MetadataExtractor.Formats.Png
                 SequentialReader reader = new SequentialByteArrayReader(bytes);
                 var profileName = reader.GetNullTerminatedString(79);
                 var directory = new PngDirectory(PngChunkType.ICcp);
-                directory.SetString(PngDirectory.TagIccProfileName, profileName);
+                directory.Set(PngDirectory.TagIccProfileName, profileName);
                 var compressionMethod = reader.GetInt8();
                 if (compressionMethod == 0)
                 {
@@ -149,7 +149,7 @@ namespace MetadataExtractor.Formats.Png
             else if (chunkType.Equals(PngChunkType.BKgd))
             {
                 var directory = new PngDirectory(PngChunkType.BKgd);
-                directory.SetByteArray(PngDirectory.TagBackgroundColor, bytes);
+                directory.Set(PngDirectory.TagBackgroundColor, bytes);
                 metadata.AddDirectory(directory);
             }
             else if (chunkType.Equals(PngChunkType.TEXt))
@@ -161,7 +161,7 @@ namespace MetadataExtractor.Formats.Png
                 IList<KeyValuePair> textPairs = new List<KeyValuePair>();
                 textPairs.Add(new KeyValuePair(keyword, value));
                 var directory = new PngDirectory(PngChunkType.ITXt);
-                directory.SetObject(PngDirectory.TagTextualData, textPairs);
+                directory.Set(PngDirectory.TagTextualData, textPairs);
                 metadata.AddDirectory(directory);
             }
             else if (chunkType.Equals(PngChunkType.ITXt))
@@ -211,7 +211,7 @@ namespace MetadataExtractor.Formats.Png
                         IList<KeyValuePair> textPairs = new List<KeyValuePair>();
                         textPairs.Add(new KeyValuePair(keyword, text));
                         var directory = new PngDirectory(PngChunkType.ITXt);
-                        directory.SetObject(PngDirectory.TagTextualData, textPairs);
+                        directory.Set(PngDirectory.TagTextualData, textPairs);
                         metadata.AddDirectory(directory);
                     }
                 }
@@ -229,7 +229,7 @@ namespace MetadataExtractor.Formats.Png
                 //noinspection MagicConstant
                 calendar.Set(year, month, day, hour, minute, second);
                 var directory = new PngDirectory(PngChunkType.TIme);
-                directory.SetDate(PngDirectory.TagLastModificationTime, calendar.GetTime());
+                directory.Set(PngDirectory.TagLastModificationTime, calendar.GetTime());
                 metadata.AddDirectory(directory);
             }
             else if (chunkType.Equals(PngChunkType.PHYs))
@@ -239,15 +239,15 @@ namespace MetadataExtractor.Formats.Png
                 var pixelsPerUnitY = reader.GetInt32();
                 var unitSpecifier = reader.GetInt8();
                 var directory = new PngDirectory(PngChunkType.PHYs);
-                directory.SetInt(PngDirectory.TagPixelsPerUnitX, pixelsPerUnitX);
-                directory.SetInt(PngDirectory.TagPixelsPerUnitY, pixelsPerUnitY);
-                directory.SetInt(PngDirectory.TagUnitSpecifier, unitSpecifier);
+                directory.Set(PngDirectory.TagPixelsPerUnitX, pixelsPerUnitX);
+                directory.Set(PngDirectory.TagPixelsPerUnitY, pixelsPerUnitY);
+                directory.Set(PngDirectory.TagUnitSpecifier, unitSpecifier);
                 metadata.AddDirectory(directory);
             }
             else if (chunkType.Equals(PngChunkType.SBit))
             {
                 var directory = new PngDirectory(PngChunkType.SBit);
-                directory.SetByteArray(PngDirectory.TagSignificantBits, bytes);
+                directory.Set(PngDirectory.TagSignificantBits, bytes);
                 metadata.AddDirectory(directory);
             }
         }

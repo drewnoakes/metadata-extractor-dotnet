@@ -40,7 +40,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Test]
         public void TestSetAndGetValue()
         {
-            _directory.SetInt(123, 8);
+            _directory.Set(123, 8);
             Assert.AreEqual(8, _directory.GetInt(123));
         }
 
@@ -55,7 +55,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Test]
         public void TestGetImageWidth()
         {
-            _directory.SetInt(JpegDirectory.TagImageWidth, 123);
+            _directory.Set(JpegDirectory.TagImageWidth, 123);
             Assert.AreEqual(123, _directory.GetImageWidth());
         }
 
@@ -63,7 +63,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Test]
         public void TestGetImageHeight()
         {
-            _directory.SetInt(JpegDirectory.TagImageHeight, 123);
+            _directory.Set(JpegDirectory.TagImageHeight, 123);
             Assert.AreEqual(123, _directory.GetImageHeight());
         }
 
@@ -71,7 +71,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Test]
         public void TestGetNumberOfComponents()
         {
-            _directory.SetInt(JpegDirectory.TagNumberOfComponents, 3);
+            _directory.Set(JpegDirectory.TagNumberOfComponents, 3);
             Assert.AreEqual(3, _directory.GetNumberOfComponents());
             Assert.AreEqual("3", _directory.GetDescription(JpegDirectory.TagNumberOfComponents));
         }
@@ -84,10 +84,10 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             var component2 = new JpegComponent(1, 2, 3);
             var component3 = new JpegComponent(1, 2, 3);
             var component4 = new JpegComponent(1, 2, 3);
-            _directory.SetObject(JpegDirectory.TagComponentData1, component1);
-            _directory.SetObject(JpegDirectory.TagComponentData2, component2);
-            _directory.SetObject(JpegDirectory.TagComponentData3, component3);
-            _directory.SetObject(JpegDirectory.TagComponentData4, component4);
+            _directory.Set(JpegDirectory.TagComponentData1, component1);
+            _directory.Set(JpegDirectory.TagComponentData2, component2);
+            _directory.Set(JpegDirectory.TagComponentData3, component3);
+            _directory.Set(JpegDirectory.TagComponentData4, component4);
             // component numbers are zero-indexed for this method
             Assert.AreSame(component1, _directory.GetComponent(0));
             Assert.AreSame(component2, _directory.GetComponent(1));

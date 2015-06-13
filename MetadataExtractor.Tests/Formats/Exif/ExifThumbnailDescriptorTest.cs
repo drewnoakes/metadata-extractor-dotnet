@@ -34,11 +34,11 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void TestGetYCbCrSubsamplingDescription()
         {
             var directory = new ExifThumbnailDirectory();
-            directory.SetIntArray(ExifDirectoryBase.TagYcbcrSubsampling, new[] { 2, 1 });
+            directory.Set(ExifDirectoryBase.TagYcbcrSubsampling, new[] { 2, 1 });
             var descriptor = new ExifThumbnailDescriptor(directory);
             Assert.AreEqual("YCbCr4:2:2", descriptor.GetDescription(ExifDirectoryBase.TagYcbcrSubsampling));
             Assert.AreEqual("YCbCr4:2:2", descriptor.GetYCbCrSubsamplingDescription());
-            directory.SetIntArray(ExifDirectoryBase.TagYcbcrSubsampling, new[] { 2, 2 });
+            directory.Set(ExifDirectoryBase.TagYcbcrSubsampling, new[] { 2, 2 });
             Assert.AreEqual("YCbCr4:2:0", descriptor.GetDescription(ExifDirectoryBase.TagYcbcrSubsampling));
             Assert.AreEqual("YCbCr4:2:0", descriptor.GetYCbCrSubsamplingDescription());
         }

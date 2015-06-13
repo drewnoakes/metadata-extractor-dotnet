@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
@@ -817,8 +818,16 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return TagNameMap;
         }
 
-        public override void SetObjectArray(int tagType, object array)
+        public override void Set(int tagType, object value)
         {
+            var array = value as Array;
+
+            if (array == null)
+            {
+                base.Set(tagType, value);
+                return;
+            }
+
             switch (tagType)
             {
                 case TagCameraSettingsArray:
@@ -831,7 +840,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     var values = (ushort[])array;
                     for (var i = 0; i < values.Length; i++)
                     {
-                        SetInt(CameraSettings.Offset + i, values[i]);
+                        Set(CameraSettings.Offset + i, values[i]);
                     }
                     break;
                 }
@@ -841,7 +850,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     var values = (ushort[])array;
                     for (var i = 0; i < values.Length; i++)
                     {
-                        SetInt(FocalLength.Offset + i, values[i]);
+                        Set(FocalLength.Offset + i, values[i]);
                     }
                     break;
                 }
@@ -851,7 +860,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     var values = (ushort[])array;
                     for (var i = 0; i < values.Length; i++)
                     {
-                        SetInt(ShotInfo.Offset + i, values[i]);
+                        Set(ShotInfo.Offset + i, values[i]);
                     }
                     break;
                 }
@@ -861,7 +870,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     var values = (ushort[])array;
                     for (var i = 0; i < values.Length; i++)
                     {
-                        SetInt(Panorama.Offset + i, values[i]);
+                        Set(Panorama.Offset + i, values[i]);
                     }
                     break;
                 }
@@ -871,7 +880,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     var values = (ushort[])array;
                     for (var i = 0; i < values.Length; i++)
                     {
-                        SetInt(AfInfo.Offset + i, values[i]);
+                        Set(AfInfo.Offset + i, values[i]);
                     }
                     break;
                 }
@@ -887,7 +896,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 default:
                 {
                     // no special handling...
-                    base.SetObjectArray(tagType, array);
+                    base.Set(tagType, value);
                     break;
                 }
             }

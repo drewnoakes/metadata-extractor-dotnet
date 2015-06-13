@@ -54,17 +54,17 @@ namespace MetadataExtractor.Formats.Photoshop
                 // 6 reserved bytes are skipped here.  They should be zero.
                 reader.Skip(6);
                 var channelCount = reader.GetUInt16();
-                directory.SetInt(PsdHeaderDirectory.TagChannelCount, channelCount);
+                directory.Set(PsdHeaderDirectory.TagChannelCount, channelCount);
                 // even though this is probably an unsigned int, the max height in practice is 300,000
                 var imageHeight = reader.GetInt32();
-                directory.SetInt(PsdHeaderDirectory.TagImageHeight, imageHeight);
+                directory.Set(PsdHeaderDirectory.TagImageHeight, imageHeight);
                 // even though this is probably an unsigned int, the max width in practice is 300,000
                 var imageWidth = reader.GetInt32();
-                directory.SetInt(PsdHeaderDirectory.TagImageWidth, imageWidth);
+                directory.Set(PsdHeaderDirectory.TagImageWidth, imageWidth);
                 var bitsPerChannel = reader.GetUInt16();
-                directory.SetInt(PsdHeaderDirectory.TagBitsPerChannel, bitsPerChannel);
+                directory.Set(PsdHeaderDirectory.TagBitsPerChannel, bitsPerChannel);
                 var colorMode = reader.GetUInt16();
-                directory.SetInt(PsdHeaderDirectory.TagColorMode, colorMode);
+                directory.Set(PsdHeaderDirectory.TagColorMode, colorMode);
             }
             catch (IOException)
             {

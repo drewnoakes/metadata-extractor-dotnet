@@ -67,31 +67,31 @@ namespace MetadataExtractor.Formats.Bmp
                 // skip past the rest of the file header
                 reader.Skip(4 + 2 + 2 + 4);
                 var headerSize = reader.GetInt32();
-                directory.SetInt(BmpHeaderDirectory.TagHeaderSize, headerSize);
+                directory.Set(BmpHeaderDirectory.TagHeaderSize, headerSize);
                 // We expect the header size to be either 40 (BITMAPINFOHEADER) or 12 (BITMAPCOREHEADER)
                 if (headerSize == 40)
                 {
                     // BITMAPINFOHEADER
-                    directory.SetInt(BmpHeaderDirectory.TagImageWidth, reader.GetInt32());
-                    directory.SetInt(BmpHeaderDirectory.TagImageHeight, reader.GetInt32());
-                    directory.SetInt(BmpHeaderDirectory.TagColourPlanes, reader.GetInt16());
-                    directory.SetInt(BmpHeaderDirectory.TagBitsPerPixel, reader.GetInt16());
-                    directory.SetInt(BmpHeaderDirectory.TagCompression, reader.GetInt32());
+                    directory.Set(BmpHeaderDirectory.TagImageWidth, reader.GetInt32());
+                    directory.Set(BmpHeaderDirectory.TagImageHeight, reader.GetInt32());
+                    directory.Set(BmpHeaderDirectory.TagColourPlanes, reader.GetInt16());
+                    directory.Set(BmpHeaderDirectory.TagBitsPerPixel, reader.GetInt16());
+                    directory.Set(BmpHeaderDirectory.TagCompression, reader.GetInt32());
                     // skip the pixel data length
                     reader.Skip(4);
-                    directory.SetInt(BmpHeaderDirectory.TagXPixelsPerMeter, reader.GetInt32());
-                    directory.SetInt(BmpHeaderDirectory.TagYPixelsPerMeter, reader.GetInt32());
-                    directory.SetInt(BmpHeaderDirectory.TagPaletteColourCount, reader.GetInt32());
-                    directory.SetInt(BmpHeaderDirectory.TagImportantColourCount, reader.GetInt32());
+                    directory.Set(BmpHeaderDirectory.TagXPixelsPerMeter, reader.GetInt32());
+                    directory.Set(BmpHeaderDirectory.TagYPixelsPerMeter, reader.GetInt32());
+                    directory.Set(BmpHeaderDirectory.TagPaletteColourCount, reader.GetInt32());
+                    directory.Set(BmpHeaderDirectory.TagImportantColourCount, reader.GetInt32());
                 }
                 else
                 {
                     if (headerSize == 12)
                     {
-                        directory.SetInt(BmpHeaderDirectory.TagImageWidth, reader.GetInt16());
-                        directory.SetInt(BmpHeaderDirectory.TagImageHeight, reader.GetInt16());
-                        directory.SetInt(BmpHeaderDirectory.TagColourPlanes, reader.GetInt16());
-                        directory.SetInt(BmpHeaderDirectory.TagBitsPerPixel, reader.GetInt16());
+                        directory.Set(BmpHeaderDirectory.TagImageWidth, reader.GetInt16());
+                        directory.Set(BmpHeaderDirectory.TagImageHeight, reader.GetInt16());
+                        directory.Set(BmpHeaderDirectory.TagColourPlanes, reader.GetInt16());
+                        directory.Set(BmpHeaderDirectory.TagBitsPerPixel, reader.GetInt16());
                     }
                     else
                     {

@@ -92,7 +92,7 @@ namespace MetadataExtractor.Formats.Icc
             try
             {
                 var profileByteCount = reader.GetInt32(IccDirectory.TagProfileByteCount);
-                directory.SetInt(IccDirectory.TagProfileByteCount, profileByteCount);
+                directory.Set(IccDirectory.TagProfileByteCount, profileByteCount);
                 // For these tags, the int value of the tag is in fact it's offset within the buffer.
                 Set4ByteString(directory, IccDirectory.TagCmmType, reader);
                 SetInt32(directory, IccDirectory.TagProfileVersion, reader);
@@ -109,20 +109,20 @@ namespace MetadataExtractor.Formats.Icc
                 {
                     if (temp <= unchecked(0x20202020))
                     {
-                        directory.SetInt(IccDirectory.TagDeviceModel, temp);
+                        directory.Set(IccDirectory.TagDeviceModel, temp);
                     }
                     else
                     {
-                        directory.SetString(IccDirectory.TagDeviceModel, GetStringFromInt32(temp));
+                        directory.Set(IccDirectory.TagDeviceModel, GetStringFromInt32(temp));
                     }
                 }
                 SetInt32(directory, IccDirectory.TagRenderingIntent, reader);
                 SetInt64(directory, IccDirectory.TagDeviceAttr, reader);
                 var xyz = new[] { reader.GetS15Fixed16(IccDirectory.TagXyzValues), reader.GetS15Fixed16(IccDirectory.TagXyzValues + 4), reader.GetS15Fixed16(IccDirectory.TagXyzValues + 8) };
-                directory.SetObject(IccDirectory.TagXyzValues, xyz);
+                directory.Set(IccDirectory.TagXyzValues, (object)xyz);
                 // Process 'ICC tags'
                 var tagCount = reader.GetInt32(IccDirectory.TagTagCount);
-                directory.SetInt(IccDirectory.TagTagCount, tagCount);
+                directory.Set(IccDirectory.TagTagCount, tagCount);
                 for (var i = 0; i < tagCount; i++)
                 {
                     var pos = IccDirectory.TagTagCount + 4 + i * 12;
@@ -130,7 +130,7 @@ namespace MetadataExtractor.Formats.Icc
                     var tagPtr = reader.GetInt32(pos + 4);
                     var tagLen = reader.GetInt32(pos + 8);
                     var b = reader.GetBytes(tagPtr, tagLen);
-                    directory.SetByteArray(tagType, b);
+                    directory.Set(tagType, b);
                 }
             }
             catch (IOException ex)
@@ -146,7 +146,7 @@ namespace MetadataExtractor.Formats.Icc
             var i = reader.GetInt32(tagType);
             if (i != 0)
             {
-                directory.SetString(tagType, GetStringFromInt32(i));
+                directory.Set(tagType, GetStringFromInt32(i));
             }
         }
 
@@ -156,7 +156,7 @@ namespace MetadataExtractor.Formats.Icc
             var i = reader.GetInt32(tagType);
             if (i != 0)
             {
-                directory.SetInt(tagType, i);
+                directory.Set(tagType, i);
             }
         }
 
@@ -166,7 +166,7 @@ namespace MetadataExtractor.Formats.Icc
             var l = reader.GetInt64(tagType);
             if (l != 0)
             {
-                directory.SetLong(tagType, l);
+                directory.Set(tagType, l);
             }
         }
 
@@ -183,7 +183,7 @@ namespace MetadataExtractor.Formats.Icc
             var calendar = Calendar.GetInstance(Extensions.GetTimeZone("UTC"));
             calendar.Set(y, m, d, h, M, s);
             var value = calendar.GetTime();
-            directory.SetDate(tagType, value);
+            directory.Set(tagType, value);
         }
 
         [NotNull]

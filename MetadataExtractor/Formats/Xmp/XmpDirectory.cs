@@ -281,7 +281,7 @@ namespace MetadataExtractor.Formats.Xmp
                         valueCount++;
                     }
                 }
-                SetInt(TagXmpValueCount, valueCount);
+                Set(TagXmpValueCount, valueCount);
             }
             catch (XmpException)
             {
@@ -309,7 +309,7 @@ namespace MetadataExtractor.Formats.Xmp
         // At the very least document this carefully!
         public void UpdateInt(int tagType, int value)
         {
-            SetInt(tagType, value);
+            Set(tagType, value);
             try
             {
                 GetXmpMeta().SetPropertyInteger(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
@@ -322,7 +322,7 @@ namespace MetadataExtractor.Formats.Xmp
 
         public void UpdateIntArray(int tagType, int[] ints)
         {
-            SetIntArray(tagType, ints);
+            Set(tagType, ints);
             try
             {
                 var schemaNs = TagSchemaMap.GetOrNull(tagType);
@@ -343,7 +343,7 @@ namespace MetadataExtractor.Formats.Xmp
 
         public void UpdateFloat(int tagType, float value)
         {
-            SetFloat(tagType, value);
+            Set(tagType, value);
             try
             {
                 GetXmpMeta().SetPropertyDouble(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
@@ -356,7 +356,7 @@ namespace MetadataExtractor.Formats.Xmp
 
         public void UpdateFloatArray(int tagType, float[] floats)
         {
-            SetFloatArray(tagType, floats);
+            Set(tagType, floats);
             try
             {
                 var schemaNs = TagSchemaMap.GetOrNull(tagType);
@@ -377,7 +377,7 @@ namespace MetadataExtractor.Formats.Xmp
 
         public void UpdateDouble(int tagType, double value)
         {
-            SetDouble(tagType, value);
+            Set(tagType, value);
             try
             {
                 GetXmpMeta().SetPropertyDouble(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
@@ -390,7 +390,7 @@ namespace MetadataExtractor.Formats.Xmp
 
         public void UpdateDoubleArray(int tagType, double[] doubles)
         {
-            SetDoubleArray(tagType, doubles);
+            Set(tagType, doubles);
             try
             {
                 var schemaNs = TagSchemaMap.GetOrNull(tagType);
@@ -411,7 +411,7 @@ namespace MetadataExtractor.Formats.Xmp
 
         public void UpdateString(int tagType, string value)
         {
-            SetString(tagType, value);
+            Set(tagType, value);
             try
             {
                 GetXmpMeta().SetProperty(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
@@ -429,7 +429,7 @@ namespace MetadataExtractor.Formats.Xmp
 
         public void UpdateStringArray(int tagType, string[] strings)
         {
-            SetStringArray(tagType, strings);
+            Set(tagType, strings);
             try
             {
                 var schemaNs = TagSchemaMap.GetOrNull(tagType);
@@ -450,7 +450,7 @@ namespace MetadataExtractor.Formats.Xmp
 
         public void UpdateBoolean(int tagType, bool value)
         {
-            SetBoolean(tagType, value);
+            Set(tagType, value);
             try
             {
                 GetXmpMeta().SetPropertyBoolean(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
@@ -463,7 +463,7 @@ namespace MetadataExtractor.Formats.Xmp
 
         public void UpdateLong(int tagType, long value)
         {
-            SetLong(tagType, value);
+            Set(tagType, value);
             try
             {
                 GetXmpMeta().SetPropertyLong(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
@@ -476,7 +476,7 @@ namespace MetadataExtractor.Formats.Xmp
 
         public void UpdateDate(int tagType, DateTime value)
         {
-            SetDate(tagType, value);
+            Set(tagType, value);
             IXmpDateTime date = new XmpDateTime(value, TimeZoneInfo.Local);
             try
             {
