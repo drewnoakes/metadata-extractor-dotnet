@@ -308,7 +308,7 @@ namespace MetadataExtractor.Formats.Photoshop
         {
             var storedBytes = this.GetByteArray(TagThumbnail) ?? this.GetByteArray(TagThumbnailOld);
 
-            if (storedBytes == null)
+            if (storedBytes == null || storedBytes.Length <= 28)
                 return null;
 
             var thumbSize = storedBytes.Length - 28;
