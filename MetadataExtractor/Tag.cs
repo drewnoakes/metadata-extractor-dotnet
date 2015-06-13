@@ -90,8 +90,10 @@ namespace MetadataExtractor
         /// <returns>the tag's type and value</returns>
         public override string ToString()
         {
-            var description = Description ?? _directory.GetString(TagType) + " (unable to formulate description)";
-            return "[" + _directory.Name + "] " + TagName + " - " + description;
+            return string.Format("[{0}] {1} - {2}",
+                _directory.Name,
+                TagName,
+                Description ?? _directory.GetString(TagType) + " (unable to formulate description)");
         }
     }
 }
