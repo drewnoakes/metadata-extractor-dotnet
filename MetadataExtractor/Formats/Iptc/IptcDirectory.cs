@@ -362,16 +362,12 @@ namespace MetadataExtractor.Formats.Iptc
         }
 
         /// <summary>Returns any keywords contained in the IPTC data.</summary>
-        /// <remarks>Returns any keywords contained in the IPTC data.  This value may be <c>null</c>.</remarks>
+        /// <remarks>This value may be <c>null</c>.</remarks>
         [CanBeNull]
         public IList<string> GetKeywords()
         {
             var array = this.GetStringArray(TagKeywords);
-            if (array == null)
-            {
-                return null;
-            }
-            return array.ToList();
+            return array == null ? null : array.ToList();
         }
     }
 }
