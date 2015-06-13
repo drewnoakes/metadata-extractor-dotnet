@@ -51,8 +51,6 @@ namespace MetadataExtractor
         /// <summary>The descriptor used to interpret tag values.</summary>
         private ITagDescriptor _descriptor;
 
-        // ABSTRACT METHODS
-
         /// <summary>Provides the name of the directory, for display purposes.</summary>
         /// <value>the name of the directory</value>
         [NotNull]
@@ -78,8 +76,7 @@ namespace MetadataExtractor
         }
 
         /// <summary>Returns an Iterator of Tag instances that have been set in this Directory.</summary>
-        /// <value>The list of <see cref="Tag"/>
-        ///   instances</value>
+        /// <value>The list of <see cref="Tag"/> instances</value>
         [NotNull]
         public IReadOnlyList<Tag> Tags
         {
@@ -134,6 +131,7 @@ namespace MetadataExtractor
         #region Tag Setters
 
         /// <summary>Sets a <c>Object</c> for the specified tag.</summary>
+        /// <remarks>Any previous value for this tag is overwritten.</remarks>
         /// <param name="tagType">the tag's value as an int</param>
         /// <param name="value">the value for the specified tag</param>
         /// <exception cref="ArgumentNullException">if value is <c>null</c></exception>
