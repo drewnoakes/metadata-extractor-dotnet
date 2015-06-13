@@ -150,6 +150,16 @@ namespace MetadataExtractor
 
         #region Tag Getters
 
+        /// <summary>Returns the object hashed for the particular tag type specified, if available.</summary>
+        /// <param name="tagType">the tag type identifier</param>
+        /// <returns>the tag's value as an Object if available, else <c>null</c></returns>
+        [CanBeNull]
+        public object GetObject(int tagType)
+        {
+            object val;
+            return _tagMap.TryGetValue(tagType, out val) ? val : null;
+        }
+
         /// <summary>Returns the specified tag's value as an int, if possible.</summary>
         /// <remarks>
         /// Every attempt to represent the tag's value as an int is taken.
@@ -805,15 +815,6 @@ namespace MetadataExtractor
             return bytes == null
                 ? null
                 : encoding.GetString(bytes);
-        }
-
-        /// <summary>Returns the object hashed for the particular tag type specified, if available.</summary>
-        /// <param name="tagType">the tag type identifier</param>
-        /// <returns>the tag's value as an Object if available, else <c>null</c></returns>
-        [CanBeNull]
-        public object GetObject(int tagType)
-        {
-            return _tagMap.GetOrNull(tagType);
         }
 
         #endregion
