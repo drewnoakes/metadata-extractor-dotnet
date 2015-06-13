@@ -137,7 +137,7 @@ namespace MetadataExtractor
         [CanBeNull]
         protected virtual string GetVersionBytesDescription(int tagType, int majorDigits)
         {
-            var values = Directory.GetIntArray(tagType);
+            var values = Directory.GetInt32Array(tagType);
             return values == null ? null : ConvertBytesToVersionString(values, majorDigits);
         }
 
@@ -150,7 +150,7 @@ namespace MetadataExtractor
         [CanBeNull]
         protected virtual string GetIndexedDescription(int tagType, int baseIndex, [NotNull] params string[] descriptions)
         {
-            var index = Directory.GetInteger(tagType);
+            var index = Directory.GetInt32Nullable(tagType);
             if (index == null)
             {
                 return null;
@@ -203,7 +203,7 @@ namespace MetadataExtractor
         [CanBeNull]
         protected virtual string GetFormattedInt(int tagType, [NotNull] string format)
         {
-            var value = Directory.GetInteger(tagType);
+            var value = Directory.GetInt32Nullable(tagType);
             if (value == null)
             {
                 return null;
@@ -214,7 +214,7 @@ namespace MetadataExtractor
         [CanBeNull]
         protected virtual string GetFormattedFloat(int tagType, [NotNull] string format)
         {
-            var value = Directory.GetFloatObject(tagType);
+            var value = Directory.GetFloatNullable(tagType);
             if (value == null)
             {
                 return null;
@@ -237,7 +237,7 @@ namespace MetadataExtractor
         protected virtual string GetEpochTimeDescription(int tagType)
         {
             // TODO have observed a byte[8] here which is likely some kind of date (ticks as long?)
-            var value = Directory.GetLongObject(tagType);
+            var value = Directory.GetInt64Nullable(tagType);
             if (value == null)
             {
                 return null;
@@ -250,7 +250,7 @@ namespace MetadataExtractor
         [CanBeNull]
         protected virtual string GetBitFlagDescription(int tagType, [NotNull] params object[] labels)
         {
-            var value = Directory.GetInteger(tagType);
+            var value = Directory.GetInt32Nullable(tagType);
             if (value == null)
             {
                 return null;

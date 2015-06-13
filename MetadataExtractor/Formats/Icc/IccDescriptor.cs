@@ -353,7 +353,7 @@ namespace MetadataExtractor.Formats.Icc
         [CanBeNull]
         private string GetRenderingIntentDescription()
         {
-            var value = Directory.GetInteger(IccDirectory.TagRenderingIntent);
+            var value = Directory.GetInt32Nullable(IccDirectory.TagRenderingIntent);
             if (value == null)
             {
                 return null;
@@ -509,7 +509,7 @@ namespace MetadataExtractor.Formats.Icc
         [CanBeNull]
         private string GetProfileVersionDescription()
         {
-            var value = Directory.GetInteger(IccDirectory.TagProfileVersion);
+            var value = Directory.GetInt32Nullable(IccDirectory.TagProfileVersion);
             if (value == null)
             {
                 return null;

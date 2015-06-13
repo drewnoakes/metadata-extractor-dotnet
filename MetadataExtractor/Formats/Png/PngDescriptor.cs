@@ -95,7 +95,7 @@ namespace MetadataExtractor.Formats.Png
         [CanBeNull]
         public string GetColorTypeDescription()
         {
-            var value = Directory.GetInteger(PngDirectory.TagColorType);
+            var value = Directory.GetInt32Nullable(PngDirectory.TagColorType);
             if (value == null)
             {
                 return null;
@@ -158,7 +158,7 @@ namespace MetadataExtractor.Formats.Png
         public string GetBackgroundColorDescription()
         {
             var bytes = Directory.GetByteArray(PngDirectory.TagBackgroundColor);
-            var colorType = Directory.GetInteger(PngDirectory.TagColorType);
+            var colorType = Directory.GetInt32Nullable(PngDirectory.TagColorType);
             if (bytes == null || colorType == null)
             {
                 return null;

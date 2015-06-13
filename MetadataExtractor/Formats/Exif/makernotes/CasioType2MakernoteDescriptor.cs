@@ -214,7 +214,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFocusMode2Description()
         {
-            var value = Directory.GetInteger(CasioType2MakernoteDirectory.TagFocusMode2);
+            var value = Directory.GetInt32Nullable(CasioType2MakernoteDirectory.TagFocusMode2);
             if (value == null)
             {
                 return null;
@@ -265,7 +265,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetObjectDistanceDescription()
         {
-            var value = Directory.GetInteger(CasioType2MakernoteDirectory.TagObjectDistance);
+            var value = Directory.GetInt32Nullable(CasioType2MakernoteDirectory.TagObjectDistance);
             if (value == null)
             {
                 return null;
@@ -276,7 +276,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetWhiteBalance2Description()
         {
-            var value = Directory.GetInteger(CasioType2MakernoteDirectory.TagWhiteBalance2);
+            var value = Directory.GetInt32Nullable(CasioType2MakernoteDirectory.TagWhiteBalance2);
             if (value == null)
             {
                 return null;
@@ -357,7 +357,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFocalLengthDescription()
         {
-            var value = Directory.GetDoubleObject(CasioType2MakernoteDirectory.TagFocalLength);
+            var value = Directory.GetDoubleNullable(CasioType2MakernoteDirectory.TagFocalLength);
             if (value == null)
             {
                 return null;
@@ -374,7 +374,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetIsoSensitivityDescription()
         {
-            var value = Directory.GetInteger(CasioType2MakernoteDirectory.TagIsoSensitivity);
+            var value = Directory.GetInt32Nullable(CasioType2MakernoteDirectory.TagIsoSensitivity);
             if (value == null)
             {
                 return null;
@@ -417,7 +417,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetImageSizeDescription()
         {
-            var value = Directory.GetInteger(CasioType2MakernoteDirectory.TagImageSize);
+            var value = Directory.GetInt32Nullable(CasioType2MakernoteDirectory.TagImageSize);
             if (value == null)
             {
                 return null;
@@ -481,7 +481,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetThumbnailSizeDescription()
         {
-            var value = Directory.GetInteger(CasioType2MakernoteDirectory.TagThumbnailSize);
+            var value = Directory.GetInt32Nullable(CasioType2MakernoteDirectory.TagThumbnailSize);
             if (value == null)
             {
                 return null;
@@ -492,7 +492,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetThumbnailDimensionsDescription()
         {
-            var dimensions = Directory.GetIntArray(CasioType2MakernoteDirectory.TagThumbnailDimensions);
+            var dimensions = Directory.GetInt32Array(CasioType2MakernoteDirectory.TagThumbnailDimensions);
             if (dimensions == null || dimensions.Length != 2)
             {
                 return Directory.GetString(CasioType2MakernoteDirectory.TagThumbnailDimensions);

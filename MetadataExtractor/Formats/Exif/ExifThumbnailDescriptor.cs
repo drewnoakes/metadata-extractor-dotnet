@@ -63,7 +63,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public override string GetCompressionDescription()
         {
-            var value = Directory.GetInteger(ExifThumbnailDirectory.TagThumbnailCompression);
+            var value = Directory.GetInt32Nullable(ExifThumbnailDirectory.TagThumbnailCompression);
             if (value == null)
             {
                 return null;

@@ -416,7 +416,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public virtual string GetReferenceBlackWhiteDescription()
         {
-            var ints = Directory.GetIntArray(ExifDirectoryBase.TagReferenceBlackWhite);
+            var ints = Directory.GetInt32Array(ExifDirectoryBase.TagReferenceBlackWhite);
             if (ints == null || ints.Length < 6)
             {
                 return null;
@@ -529,7 +529,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public virtual string GetYCbCrSubsamplingDescription()
         {
-            var positions = Directory.GetIntArray(ExifDirectoryBase.TagYcbcrSubsampling);
+            var positions = Directory.GetInt32Array(ExifDirectoryBase.TagYcbcrSubsampling);
             if (positions == null || positions.Length < 2)
             {
                 return null;
@@ -580,7 +580,7 @@ namespace MetadataExtractor.Formats.Exif
         public virtual string GetPhotometricInterpretationDescription()
         {
             // Shows the color space of the image data components
-            var value = Directory.GetInteger(ExifDirectoryBase.TagPhotometricInterpretation);
+            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagPhotometricInterpretation);
             if (value == null)
             {
                 return null;
@@ -756,7 +756,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public virtual string Get35MmFilmEquivFocalLengthDescription()
         {
-            var value = Directory.GetInteger(ExifDirectoryBase.Tag35MmFilmEquivFocalLength);
+            var value = Directory.GetInt32Nullable(ExifDirectoryBase.Tag35MmFilmEquivFocalLength);
             return value == null ? null : value == 0 ? "Unknown" : string.Format("{0:0.#}mm", value);
         }
 
@@ -841,7 +841,7 @@ namespace MetadataExtractor.Formats.Exif
         public virtual string GetIsoEquivalentDescription()
         {
             // Have seen an exception here from files produced by ACDSEE that stored an int[] here with two values
-            var isoEquiv = Directory.GetInteger(ExifDirectoryBase.TagIsoEquivalent);
+            var isoEquiv = Directory.GetInt32Nullable(ExifDirectoryBase.TagIsoEquivalent);
             // There used to be a check here that multiplied ISO values < 50 by 200.
             // Issue 36 shows a smart-phone image from a Samsung Galaxy S2 with ISO-40.
             return isoEquiv != null ? ((int)isoEquiv).ToString() : null;
@@ -885,7 +885,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public virtual string GetMaxApertureValueDescription()
         {
-            var aperture = Directory.GetDoubleObject(ExifDirectoryBase.TagMaxAperture);
+            var aperture = Directory.GetDoubleNullable(ExifDirectoryBase.TagMaxAperture);
             if (aperture == null)
             {
                 return null;
@@ -897,7 +897,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public virtual string GetApertureValueDescription()
         {
-            var aperture = Directory.GetDoubleObject(ExifDirectoryBase.TagAperture);
+            var aperture = Directory.GetDoubleNullable(ExifDirectoryBase.TagAperture);
             if (aperture == null)
             {
                 return null;
@@ -948,21 +948,21 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public virtual string GetExifImageWidthDescription()
         {
-            var value = Directory.GetInteger(ExifDirectoryBase.TagExifImageWidth);
+            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagExifImageWidth);
             return value == null ? null : value + " pixels";
         }
 
         [CanBeNull]
         public virtual string GetExifImageHeightDescription()
         {
-            var value = Directory.GetInteger(ExifDirectoryBase.TagExifImageHeight);
+            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagExifImageHeight);
             return value == null ? null : value + " pixels";
         }
 
         [CanBeNull]
         public virtual string GetColorSpaceDescription()
         {
-            var value = Directory.GetInteger(ExifDirectoryBase.TagColorSpace);
+            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagColorSpace);
             if (value == null)
             {
                 return null;
@@ -998,7 +998,7 @@ namespace MetadataExtractor.Formats.Exif
          * 5 = unknown
          * 6 = red eye reduction used
          */
-            var value = Directory.GetInteger(ExifDirectoryBase.TagFlash);
+            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagFlash);
             if (value == null)
                 return null;
 
@@ -1020,7 +1020,7 @@ namespace MetadataExtractor.Formats.Exif
             // '0' means unknown, '1' daylight, '2' fluorescent, '3' tungsten, '10' flash,
             // '17' standard light A, '18' standard light B, '19' standard light C, '20' D55,
             // '21' D65, '22' D75, '255' other.
-            var value = Directory.GetInteger(ExifDirectoryBase.TagWhiteBalance);
+            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagWhiteBalance);
             if (value == null)
             {
                 return null;
@@ -1099,7 +1099,7 @@ namespace MetadataExtractor.Formats.Exif
         {
             // '0' means unknown, '1' average, '2' center weighted average, '3' spot
             // '4' multi-spot, '5' multi-segment, '6' partial, '255' other
-            var value = Directory.GetInteger(ExifDirectoryBase.TagMeteringMode);
+            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagMeteringMode);
             if (value == null)
             {
                 return null;
@@ -1156,7 +1156,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public virtual string GetCompressionDescription()
         {
-            var value = Directory.GetInteger(ExifDirectoryBase.TagCompression);
+            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagCompression);
             if (value == null)
             {
                 return null;
@@ -1413,7 +1413,7 @@ namespace MetadataExtractor.Formats.Exif
             // thanks to Mark Edwards for spotting and patching a bug in the calculation of this
             // description (spotted bug using a Canon EOS 300D)
             // thanks also to Gli Blr for spotting this bug
-            var apexValue = Directory.GetFloatObject(ExifDirectoryBase.TagShutterSpeed);
+            var apexValue = Directory.GetFloatNullable(ExifDirectoryBase.TagShutterSpeed);
             if (apexValue == null)
             {
                 return null;
@@ -1475,7 +1475,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public virtual string GetComponentConfigurationDescription()
         {
-            var components = Directory.GetIntArray(ExifDirectoryBase.TagComponentsConfiguration);
+            var components = Directory.GetInt32Array(ExifDirectoryBase.TagComponentsConfiguration);
             if (components == null)
             {
                 return null;
@@ -1496,7 +1496,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public virtual string GetJpegProcDescription()
         {
-            var value = Directory.GetInteger(ExifDirectoryBase.TagJpegProc);
+            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagJpegProc);
             if (value == null)
             {
                 return null;

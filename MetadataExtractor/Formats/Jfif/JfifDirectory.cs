@@ -68,25 +68,25 @@ namespace MetadataExtractor.Formats.Jfif
         /// <exception cref="MetadataException"/>
         public int GetVersion()
         {
-            return this.GetInt(TagVersion);
+            return this.GetInt32(TagVersion);
         }
 
         /// <exception cref="MetadataException"/>
         public int GetResUnits()
         {
-            return this.GetInt(TagUnits);
+            return this.GetInt32(TagUnits);
         }
 
         /// <exception cref="MetadataException"/>
         public int GetImageWidth()
         {
-            return this.GetInt(TagResY);
+            return this.GetInt32(TagResY);
         }
 
         /// <exception cref="MetadataException"/>
         public int GetImageHeight()
         {
-            return this.GetInt(TagResX);
+            return this.GetInt32(TagResX);
         }
     }
 }

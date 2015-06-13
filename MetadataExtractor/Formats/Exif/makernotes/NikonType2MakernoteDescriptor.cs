@@ -209,7 +209,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetActiveDLightingDescription()
         {
-            var value = Directory.GetInteger(NikonType2MakernoteDirectory.TagActiveDLighting);
+            var value = Directory.GetInt32Nullable(NikonType2MakernoteDirectory.TagActiveDLighting);
             if (value == null)
             {
                 return null;
@@ -256,7 +256,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetVignetteControlDescription()
         {
-            var value = Directory.GetInteger(NikonType2MakernoteDirectory.TagVignetteControl);
+            var value = Directory.GetInt32Nullable(NikonType2MakernoteDirectory.TagVignetteControl);
             if (value == null)
             {
                 return null;
@@ -293,7 +293,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetAutoFocusPositionDescription()
         {
-            var values = Directory.GetIntArray(NikonType2MakernoteDirectory.TagAfFocusPosition);
+            var values = Directory.GetInt32Array(NikonType2MakernoteDirectory.TagAfFocusPosition);
             if (values == null)
             {
                 return null;
@@ -392,7 +392,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         private string GetEvDescription(int tagType)
         {
-            var values = Directory.GetIntArray(tagType);
+            var values = Directory.GetInt32Array(tagType);
             if (values == null || values.Length < 3 || values[2] == 0)
                 return null;
             return string.Format("{0:0.##} EV", values[0] * values[1] / (double)values[2]);
@@ -401,7 +401,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetIsoSettingDescription()
         {
-            var values = Directory.GetIntArray(NikonType2MakernoteDirectory.TagIso1);
+            var values = Directory.GetInt32Array(NikonType2MakernoteDirectory.TagIso1);
             if (values == null)
             {
                 return null;

@@ -509,7 +509,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetUptimeDescription()
         {
-            var value = Directory.GetInteger(PanasonicMakernoteDirectory.TagUptime);
+            var value = Directory.GetInt32Nullable(PanasonicMakernoteDirectory.TagUptime);
             if (value == null)
             {
                 return null;
@@ -526,7 +526,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetContrastModeDescription()
         {
-            var value = Directory.GetInteger(PanasonicMakernoteDirectory.TagContrastMode);
+            var value = Directory.GetInt32Nullable(PanasonicMakernoteDirectory.TagContrastMode);
             if (value == null)
             {
                 return null;
@@ -595,7 +595,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetRotationDescription()
         {
-            var value = Directory.GetInteger(PanasonicMakernoteDirectory.TagRotation);
+            var value = Directory.GetInt32Nullable(PanasonicMakernoteDirectory.TagRotation);
             if (value == null)
             {
                 return null;
@@ -708,7 +708,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetAfAreaModeDescription()
         {
-            var value = Directory.GetIntArray(PanasonicMakernoteDirectory.TagAfAreaMode);
+            var value = Directory.GetInt32Array(PanasonicMakernoteDirectory.TagAfAreaMode);
             if (value == null || value.Length < 2)
             {
                 return null;

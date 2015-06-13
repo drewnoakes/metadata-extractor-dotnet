@@ -72,7 +72,7 @@ namespace MetadataExtractor.Formats.Jfif
         [CanBeNull]
         public string GetImageVersionDescription()
         {
-            var value = Directory.GetInteger(JfifDirectory.TagVersion);
+            var value = Directory.GetInt32Nullable(JfifDirectory.TagVersion);
             if (value == null)
             {
                 return null;
@@ -85,7 +85,7 @@ namespace MetadataExtractor.Formats.Jfif
         [CanBeNull]
         public string GetImageResYDescription()
         {
-            var value = Directory.GetInteger(JfifDirectory.TagResY);
+            var value = Directory.GetInt32Nullable(JfifDirectory.TagResY);
             if (value == null)
             {
                 return null;
@@ -96,7 +96,7 @@ namespace MetadataExtractor.Formats.Jfif
         [CanBeNull]
         public string GetImageResXDescription()
         {
-            var value = Directory.GetInteger(JfifDirectory.TagResX);
+            var value = Directory.GetInt32Nullable(JfifDirectory.TagResX);
             if (value == null)
             {
                 return null;
@@ -107,7 +107,7 @@ namespace MetadataExtractor.Formats.Jfif
         [CanBeNull]
         public string GetImageResUnitsDescription()
         {
-            var value = Directory.GetInteger(JfifDirectory.TagUnits);
+            var value = Directory.GetInt32Nullable(JfifDirectory.TagUnits);
             if (value == null)
             {
                 return null;

@@ -139,7 +139,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetSanyoQualityDescription()
         {
-            var value = Directory.GetInteger(SanyoMakernoteDirectory.TagSanyoQuality);
+            var value = Directory.GetInt32Nullable(SanyoMakernoteDirectory.TagSanyoQuality);
             if (value == null)
             {
                 return null;

@@ -123,19 +123,19 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <exception cref="MetadataException"/>
         public int GetImageWidth()
         {
-            return this.GetInt(TagImageWidth);
+            return this.GetInt32(TagImageWidth);
         }
 
         /// <exception cref="MetadataException"/>
         public int GetImageHeight()
         {
-            return this.GetInt(TagImageHeight);
+            return this.GetInt32(TagImageHeight);
         }
 
         /// <exception cref="MetadataException"/>
         public int GetNumberOfComponents()
         {
-            return this.GetInt(TagNumberOfComponents);
+            return this.GetInt32(TagNumberOfComponents);
         }
     }
 }

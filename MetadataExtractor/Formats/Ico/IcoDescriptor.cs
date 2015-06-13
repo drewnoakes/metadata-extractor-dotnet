@@ -72,7 +72,7 @@ namespace MetadataExtractor.Formats.Ico
         [CanBeNull]
         public string GetImageWidthDescription()
         {
-            var width = Directory.GetInteger(IcoDirectory.TagImageWidth);
+            var width = Directory.GetInt32Nullable(IcoDirectory.TagImageWidth);
             if (width == null)
             {
                 return null;
@@ -83,7 +83,7 @@ namespace MetadataExtractor.Formats.Ico
         [CanBeNull]
         public string GetImageHeightDescription()
         {
-            var width = Directory.GetInteger(IcoDirectory.TagImageHeight);
+            var width = Directory.GetInt32Nullable(IcoDirectory.TagImageHeight);
             if (width == null)
             {
                 return null;
@@ -94,7 +94,7 @@ namespace MetadataExtractor.Formats.Ico
         [CanBeNull]
         public string GetColourPaletteSizeDescription()
         {
-            var size = Directory.GetInteger(IcoDirectory.TagColourPaletteSize);
+            var size = Directory.GetInt32Nullable(IcoDirectory.TagColourPaletteSize);
             if (size == null)
             {
                 return null;

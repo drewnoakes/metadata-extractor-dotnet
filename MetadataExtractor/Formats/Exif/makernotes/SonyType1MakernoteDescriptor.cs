@@ -216,7 +216,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetTeleconverterDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagTeleconverter);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagTeleconverter);
             if (value == null)
             {
                 return null;
@@ -268,7 +268,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetWhiteBalanceDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagWhiteBalance);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagWhiteBalance);
             if (value == null)
             {
                 return null;
@@ -330,7 +330,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetColorTemperatureDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagColorTemperature);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagColorTemperature);
             if (value == null)
             {
                 return null;
@@ -352,7 +352,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetDynamicRangeOptimizerDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagDynamicRangeOptimiser);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagDynamicRangeOptimiser);
             if (value == null)
             {
                 return null;
@@ -439,7 +439,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetImageStabilizationDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagImageStabilisation);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagImageStabilisation);
             if (value == null)
             {
                 return null;
@@ -466,7 +466,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetColorModeDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagColorMode);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagColorMode);
             if (value == null)
             {
                 return null;
@@ -567,7 +567,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetMacroDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagMacro);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagMacro);
             if (value == null)
             {
                 return null;
@@ -604,7 +604,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetExposureModeDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagExposureMode);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagExposureMode);
             if (value == null)
             {
                 return null;
@@ -776,7 +776,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetJpegQualityDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagJpegQuality);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagJpegQuality);
             if (value == null)
             {
                 return null;
@@ -813,7 +813,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetAntiBlurDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagAntiBlur);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagAntiBlur);
             if (value == null)
             {
                 return null;
@@ -850,7 +850,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetLongExposureNoiseReductionDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagLongExposureNoiseReductionOrFocusMode);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagLongExposureNoiseReductionOrFocusMode);
             if (value == null)
             {
                 return null;
@@ -882,7 +882,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetHighIsoNoiseReductionDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagHighIsoNoiseReduction);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagHighIsoNoiseReduction);
             if (value == null)
             {
                 return null;
@@ -929,7 +929,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetPictureEffectDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagPictureEffect);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagPictureEffect);
             if (value == null)
             {
                 return null;
@@ -1189,7 +1189,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetSonyModelIdDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagSonyModelId);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagSonyModelId);
             if (value == null)
             {
                 return null;
@@ -1396,7 +1396,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetSceneModeDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagSceneMode);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagSceneMode);
             if (value == null)
             {
                 return null;
@@ -1528,7 +1528,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetAfModeDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagAfMode);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagAfMode);
             if (value == null)
             {
                 return null;
@@ -1590,7 +1590,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetAfIlluminatorDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagAfIlluminator);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagAfIlluminator);
             if (value == null)
             {
                 return null;
@@ -1622,7 +1622,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFlashLevelDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagFlashLevel);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagFlashLevel);
             if (value == null)
             {
                 return null;
@@ -1689,7 +1689,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetReleaseModeDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagReleaseMode);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagReleaseMode);
             if (value == null)
             {
                 return null;
@@ -1731,7 +1731,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetSequenceNumberDescription()
         {
-            var value = Directory.GetInteger(SonyType1MakernoteDirectory.TagReleaseMode);
+            var value = Directory.GetInt32Nullable(SonyType1MakernoteDirectory.TagReleaseMode);
             if (value == null)
             {
                 return null;

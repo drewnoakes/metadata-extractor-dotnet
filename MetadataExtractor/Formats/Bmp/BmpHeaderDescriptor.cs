@@ -39,12 +39,12 @@ namespace MetadataExtractor.Formats.Bmp
             // 6 = Bit field
             try
             {
-                var value = Directory.GetInteger(BmpHeaderDirectory.TagCompression);
+                var value = Directory.GetInt32Nullable(BmpHeaderDirectory.TagCompression);
                 if (value == null)
                 {
                     return null;
                 }
-                var headerSize = Directory.GetInteger(BmpHeaderDirectory.TagHeaderSize);
+                var headerSize = Directory.GetInt32Nullable(BmpHeaderDirectory.TagHeaderSize);
                 if (headerSize == null)
                 {
                     return null;

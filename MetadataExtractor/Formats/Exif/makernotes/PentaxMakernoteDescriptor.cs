@@ -113,7 +113,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetIsoSpeedDescription()
         {
-            var value = Directory.GetInteger(PentaxMakernoteDirectory.TagIsoSpeed);
+            var value = Directory.GetInt32Nullable(PentaxMakernoteDirectory.TagIsoSpeed);
             if (value == null)
             {
                 return null;
@@ -169,7 +169,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetDigitalZoomDescription()
         {
-            var value = Directory.GetFloatObject(PentaxMakernoteDirectory.TagDigitalZoom);
+            var value = Directory.GetFloatNullable(PentaxMakernoteDirectory.TagDigitalZoom);
             if (value == null)
             {
                 return null;

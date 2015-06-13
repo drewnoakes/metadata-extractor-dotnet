@@ -23,9 +23,9 @@ namespace MetadataExtractor
         /// </list>
         /// </remarks>
         /// <exception cref="MetadataException">if no value exists for tagType or if it cannot be converted to an int.</exception>
-        public static int GetInt(this Directory directory, int tagType)
+        public static int GetInt32(this Directory directory, int tagType)
         {
-            var integer = directory.GetInteger(tagType);
+            var integer = directory.GetInt32Nullable(tagType);
 
             if (integer != null)
                 return (int)integer;
@@ -53,7 +53,7 @@ namespace MetadataExtractor
         /// If the value is not found or cannot be converted to int, <c>null</c> is returned.
         /// </remarks>
         [CanBeNull]
-        public static int? GetInteger(this Directory directory, int tagType)
+        public static int? GetInt32Nullable(this Directory directory, int tagType)
         {
             var o = directory.GetObject(tagType);
             if (o == null)
@@ -106,6 +106,7 @@ namespace MetadataExtractor
             }
             return null;
         }
+
 
         /// <summary>Gets the specified tag's value as a String array, if possible.</summary>
         /// <remarks>Only supported where the tag is set as String[], String, int[], byte[] or Rational[].</remarks>
@@ -162,7 +163,7 @@ namespace MetadataExtractor
         /// <param name="tagType">the tag identifier</param>
         /// <returns>the tag's value as an int array</returns>
         [CanBeNull]
-        public static int[] GetIntArray(this Directory directory, int tagType)
+        public static int[] GetInt32Array(this Directory directory, int tagType)
         {
             var o = directory.GetObject(tagType);
 
@@ -290,7 +291,7 @@ namespace MetadataExtractor
         /// <exception cref="MetadataException"/>
         public static double GetDouble(this Directory directory, int tagType)
         {
-            var value = directory.GetDoubleObject(tagType);
+            var value = directory.GetDoubleNullable(tagType);
 
             if (value != null)
                 return (double)value;
@@ -305,7 +306,7 @@ namespace MetadataExtractor
         /// <summary>Returns the specified tag's value as a Double.</summary>
         /// <remarks>If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
-        public static double? GetDoubleObject(this Directory directory, int tagType)
+        public static double? GetDoubleNullable(this Directory directory, int tagType)
         {
             var o = directory.GetObject(tagType);
 
@@ -329,7 +330,7 @@ namespace MetadataExtractor
         /// <exception cref="MetadataException"/>
         public static float GetFloat(this Directory directory, int tagType)
         {
-            var value = directory.GetFloatObject(tagType);
+            var value = directory.GetFloatNullable(tagType);
             if (value != null)
                 return (float)value;
 
@@ -343,7 +344,7 @@ namespace MetadataExtractor
         /// <summary>Returns the specified tag's value as a float.</summary>
         /// <remarks>If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
-        public static float? GetFloatObject(this Directory directory, int tagType)
+        public static float? GetFloatNullable(this Directory directory, int tagType)
         {
             var o = directory.GetObject(tagType);
 
@@ -365,9 +366,9 @@ namespace MetadataExtractor
 
         /// <summary>Returns the specified tag's value as a long, if possible.</summary>
         /// <exception cref="MetadataException"/>
-        public static long GetLong(this Directory directory, int tagType)
+        public static long GetInt64(this Directory directory, int tagType)
         {
-            var value = directory.GetLongObject(tagType);
+            var value = directory.GetInt64Nullable(tagType);
 
             if (value != null)
                 return (long)value;
@@ -382,7 +383,7 @@ namespace MetadataExtractor
         /// <summary>Returns the specified tag's value as a long.</summary>
         /// <remarks>If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
-        public static long? GetLongObject(this Directory directory, int tagType)
+        public static long? GetInt64Nullable(this Directory directory, int tagType)
         {
             var o = directory.GetObject(tagType);
 
@@ -406,7 +407,7 @@ namespace MetadataExtractor
         /// <exception cref="MetadataException"/>
         public static bool GetBoolean(this Directory directory, int tagType)
         {
-            var value = directory.GetBooleanObject(tagType);
+            var value = directory.GetBooleanNullable(tagType);
 
             if (value != null)
                 return (bool)value;
@@ -421,7 +422,7 @@ namespace MetadataExtractor
         /// <summary>Returns the specified tag's value as a boolean.</summary>
         /// <remarks>If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
-        public static bool? GetBooleanObject(this Directory directory, int tagType)
+        public static bool? GetBooleanNullable(this Directory directory, int tagType)
         {
             var o = directory.GetObject(tagType);
 
@@ -449,7 +450,7 @@ namespace MetadataExtractor
         /// <remarks>If the underlying value is a <see cref="string"/>, then attempts will be made to parse it.</remarks>
         /// <returns>The specified tag's value as a DateTime.  If the value is unset or cannot be converted, <c>null</c> is returned.</returns>
         [CanBeNull]
-        public static DateTime? GetDate(this Directory directory, int tagType/*, [CanBeNull] TimeZoneInfo timeZone = null*/)
+        public static DateTime? GetDateTimeNullable(this Directory directory, int tagType/*, [CanBeNull] TimeZoneInfo timeZone = null*/)
         {
             var o = directory.GetObject(tagType);
 

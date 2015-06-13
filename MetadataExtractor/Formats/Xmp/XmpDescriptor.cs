@@ -115,7 +115,7 @@ namespace MetadataExtractor.Formats.Xmp
             // '1' means manual control, '2' program normal, '3' aperture priority,
             // '4' shutter priority, '5' program creative (slow program),
             // '6' program action(high-speed program), '7' portrait mode, '8' landscape mode.
-            var value = Directory.GetInteger(XmpDirectory.TagExposureProgram);
+            var value = Directory.GetInt32Nullable(XmpDirectory.TagExposureProgram);
             if (value == null)
             {
                 return null;
@@ -173,7 +173,7 @@ namespace MetadataExtractor.Formats.Xmp
         [CanBeNull]
         public string GetShutterSpeedDescription()
         {
-            var value = Directory.GetFloatObject(XmpDirectory.TagShutterSpeed);
+            var value = Directory.GetFloatNullable(XmpDirectory.TagShutterSpeed);
             if (value == null)
             {
                 return null;
@@ -219,7 +219,7 @@ namespace MetadataExtractor.Formats.Xmp
         [CanBeNull]
         public string GetApertureValueDescription()
         {
-            var value = Directory.GetDoubleObject(XmpDirectory.TagApertureValue);
+            var value = Directory.GetDoubleNullable(XmpDirectory.TagApertureValue);
             return value == null ? null : "f/" + PhotographicConversions.ApertureToFStop((double)value).ToString("0.0");
         }
     }

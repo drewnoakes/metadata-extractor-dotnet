@@ -41,7 +41,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         public void TestSetAndGetValue()
         {
             _directory.Set(123, 8);
-            Assert.AreEqual(8, _directory.GetInt(123));
+            Assert.AreEqual(8, _directory.GetInt32(123));
         }
 
         [Test]

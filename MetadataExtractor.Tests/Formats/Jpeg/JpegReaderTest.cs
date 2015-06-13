@@ -55,28 +55,28 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Test]
         public void TestExtract_Width()
         {
-            Assert.AreEqual(800, _directory.GetInt(JpegDirectory.TagImageWidth));
+            Assert.AreEqual(800, _directory.GetInt32(JpegDirectory.TagImageWidth));
         }
 
 
         [Test]
         public void TestExtract_Height()
         {
-            Assert.AreEqual(600, _directory.GetInt(JpegDirectory.TagImageHeight));
+            Assert.AreEqual(600, _directory.GetInt32(JpegDirectory.TagImageHeight));
         }
 
 
         [Test]
         public void TestExtract_DataPrecision()
         {
-            Assert.AreEqual(8, _directory.GetInt(JpegDirectory.TagDataPrecision));
+            Assert.AreEqual(8, _directory.GetInt32(JpegDirectory.TagDataPrecision));
         }
 
 
         [Test]
         public void TestExtract_NumberOfComponents()
         {
-            Assert.AreEqual(3, _directory.GetInt(JpegDirectory.TagNumberOfComponents));
+            Assert.AreEqual(3, _directory.GetInt32(JpegDirectory.TagNumberOfComponents));
         }
 
 

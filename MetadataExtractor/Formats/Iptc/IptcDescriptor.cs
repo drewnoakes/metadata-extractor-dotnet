@@ -71,7 +71,7 @@ namespace MetadataExtractor.Formats.Iptc
         [CanBeNull]
         public string GetFileFormatDescription()
         {
-            var value = Directory.GetInteger(IptcDirectory.TagFileFormat);
+            var value = Directory.GetInt32Nullable(IptcDirectory.TagFileFormat);
             if (value == null)
             {
                 return null;

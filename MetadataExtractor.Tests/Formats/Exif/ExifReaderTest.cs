@@ -141,7 +141,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void TestThumbnailOffset()
         {
             var directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
-            Assert.AreEqual(192, directory.GetInt(ExifThumbnailDirectory.TagThumbnailOffset));
+            Assert.AreEqual(192, directory.GetInt32(ExifThumbnailDirectory.TagThumbnailOffset));
         }
 
 
@@ -149,7 +149,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void TestThumbnailLength()
         {
             var directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
-            Assert.AreEqual(2970, directory.GetInt(ExifThumbnailDirectory.TagThumbnailLength));
+            Assert.AreEqual(2970, directory.GetInt32(ExifThumbnailDirectory.TagThumbnailLength));
         }
 
 
@@ -168,7 +168,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         {
             var directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             // 6 means JPEG compression
-            Assert.AreEqual(6, directory.GetInt(ExifThumbnailDirectory.TagThumbnailCompression));
+            Assert.AreEqual(6, directory.GetInt32(ExifThumbnailDirectory.TagThumbnailCompression));
         }
 
 
@@ -195,8 +195,8 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var thumbnailDirectory = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
             Assert.IsNotNull(ifd0Directory);
             Assert.IsNotNull(thumbnailDirectory);
-            Assert.AreEqual(1, ifd0Directory.GetInt(ExifDirectoryBase.TagOrientation));
-            Assert.AreEqual(8, thumbnailDirectory.GetInt(ExifDirectoryBase.TagOrientation));
+            Assert.AreEqual(1, ifd0Directory.GetInt32(ExifDirectoryBase.TagOrientation));
+            Assert.AreEqual(8, thumbnailDirectory.GetInt32(ExifDirectoryBase.TagOrientation));
         }
 /*
     public void testUncompressedYCbCrThumbnail() throws Exception

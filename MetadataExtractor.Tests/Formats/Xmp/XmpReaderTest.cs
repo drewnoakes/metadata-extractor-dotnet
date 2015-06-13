@@ -151,7 +151,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         [Test]
         public void TestExtract_ExposureProgram()
         {
-            Assert.AreEqual(1, _directory.GetInt(XmpDirectory.TagExposureProgram));
+            Assert.AreEqual(1, _directory.GetInt32(XmpDirectory.TagExposureProgram));
         }
 
         [Test]
@@ -175,7 +175,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         [Test]
         public void TestExtract_OriginalDateTime()
         {
-            var actual = _directory.GetDate(XmpDirectory.TagDatetimeOriginal);
+            var actual = _directory.GetDateTimeNullable(XmpDirectory.TagDatetimeOriginal);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
             Assert.AreEqual(DateTime.ParseExact("11:41:35 12 12 2010 +0000", "hh:mm:ss dd MM yyyy Z", null), actual);
             Calendar calendar = new GregorianCalendar(2010, 12 - 1, 12, 11, 41, 35);
@@ -186,7 +186,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         [Test]
         public void TestExtract_DigitizedDateTime()
         {
-            var actual = _directory.GetDate(XmpDirectory.TagDatetimeDigitized);
+            var actual = _directory.GetDateTimeNullable(XmpDirectory.TagDatetimeDigitized);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
             Assert.AreEqual(DateTime.ParseExact("11:41:35 12 12 2010 +0000", "hh:mm:ss dd MM yyyy Z", null), actual);
             Calendar calendar = new GregorianCalendar(2010, 12 - 1, 12, 11, 41, 35);

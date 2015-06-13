@@ -55,7 +55,7 @@ namespace MetadataExtractor.Tests
         {
             _directory.Set(ExifDirectoryBase.TagAperture, 1);
             _directory.Set(ExifDirectoryBase.TagAperture, 2);
-            Assert.AreEqual(2, _directory.GetInt(ExifDirectoryBase.TagAperture));
+            Assert.AreEqual(2, _directory.GetInt32(ExifDirectoryBase.TagAperture));
         }
 
 
@@ -65,14 +65,14 @@ namespace MetadataExtractor.Tests
             var value = 123;
             var tagType = 321;
             _directory.Set(tagType, value);
-            Assert.AreEqual(value, _directory.GetInt(tagType));
-            Assert.AreEqual(value, _directory.GetInteger(tagType));
+            Assert.AreEqual(value, _directory.GetInt32(tagType));
+            Assert.AreEqual(value, _directory.GetInt32Nullable(tagType));
             Assert.AreEqual(value, _directory.GetFloat(tagType), 0.00001);
             Assert.AreEqual(value, _directory.GetDouble(tagType), 0.00001);
-            Assert.AreEqual((long)value, (object)_directory.GetLong(tagType));
+            Assert.AreEqual((long)value, (object)_directory.GetInt64(tagType));
             Assert.AreEqual(value.ToString(), _directory.GetString(tagType));
             Assert.AreEqual(new Rational(value, 1), _directory.GetRational(tagType));
-            CollectionAssert.AreEqual(new[] { value }, _directory.GetIntArray(tagType));
+            CollectionAssert.AreEqual(new[] { value }, _directory.GetInt32Array(tagType));
             CollectionAssert.AreEqual(new[] { unchecked((byte)value) }, _directory.GetByteArray(tagType));
         }
 
@@ -83,7 +83,7 @@ namespace MetadataExtractor.Tests
             var inputValues = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             var tagType = 123;
             _directory.Set(tagType, inputValues);
-            var outputValues = _directory.GetIntArray(tagType);
+            var outputValues = _directory.GetInt32Array(tagType);
             Assert.IsNotNull(outputValues);
             Assert.AreEqual(inputValues.Length, outputValues.Length);
             for (var i = 0; i < inputValues.Length; i++)
@@ -92,7 +92,7 @@ namespace MetadataExtractor.Tests
                 var outputValue = outputValues[i];
                 Assert.AreEqual(inputValue, outputValue);
             }
-            CollectionAssert.AreEqual(inputValues, _directory.GetIntArray(tagType));
+            CollectionAssert.AreEqual(inputValues, _directory.GetInt32Array(tagType));
             var outputString = new StringBuilder();
             for (var i1 = 0; i1 < inputValues.Length; i1++)
             {
@@ -119,10 +119,10 @@ namespace MetadataExtractor.Tests
             _directory.Set(3, date3);
             _directory.Set(4, date4);
             Assert.AreEqual(date1, _directory.GetString(1));
-            Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 59).GetTime(), _directory.GetDate(1));
-            Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 0).GetTime(), _directory.GetDate(2));
-            Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 59).GetTime(), _directory.GetDate(3));
-            Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 0).GetTime(), _directory.GetDate(4));
+            Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 59).GetTime(), _directory.GetDateTimeNullable(1));
+            Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 0).GetTime(), _directory.GetDateTimeNullable(2));
+            Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 59).GetTime(), _directory.GetDateTimeNullable(3));
+            Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 0).GetTime(), _directory.GetDateTimeNullable(4));
         }
 
 
@@ -143,7 +143,7 @@ namespace MetadataExtractor.Tests
         {
             var bytes = new byte[] { unchecked(0x01), unchecked(0x02), unchecked(0x03) };
             _directory.Set(1, Encoding.UTF8.GetString(bytes));
-            Assert.AreEqual(unchecked(0x010203), _directory.GetInt(1));
+            Assert.AreEqual(unchecked(0x010203), _directory.GetInt32(1));
         }
 
 
@@ -160,13 +160,13 @@ namespace MetadataExtractor.Tests
         public void TestGetNonExistentTagIsNullForAllTypes()
         {
             Assert.IsNull(_directory.GetString(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetInteger(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetDoubleObject(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetFloatObject(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetInt32Nullable(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetDoubleNullable(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetFloatNullable(ExifDirectoryBase.TagAperture));
             Assert.IsNull(_directory.GetByteArray(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetDate(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetIntArray(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetLongObject(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetDateTimeNullable(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetInt32Array(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetInt64Nullable(ExifDirectoryBase.TagAperture));
             Assert.IsNull(_directory.GetObject(ExifDirectoryBase.TagAperture));
             Assert.IsNull(_directory.GetRational(ExifDirectoryBase.TagAperture));
             Assert.IsNull(_directory.GetRationalArray(ExifDirectoryBase.TagAperture));

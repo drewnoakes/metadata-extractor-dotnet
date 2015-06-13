@@ -104,10 +104,10 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var metadata = ExifReaderTest.ProcessBytes("Tests/Data/withUncompressedRGBThumbnail.jpg.app1");
             var thumbnailDirectory = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
             Assert.IsNotNull(thumbnailDirectory);
-            Assert.AreEqual(72, thumbnailDirectory.GetInt(ExifDirectoryBase.TagXResolution));
+            Assert.AreEqual(72, thumbnailDirectory.GetInt32(ExifDirectoryBase.TagXResolution));
             var exifIfd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
             Assert.IsNotNull(exifIfd0Directory);
-            Assert.AreEqual(216, exifIfd0Directory.GetInt(ExifDirectoryBase.TagXResolution));
+            Assert.AreEqual(216, exifIfd0Directory.GetInt32(ExifDirectoryBase.TagXResolution));
         }
     }
 }
