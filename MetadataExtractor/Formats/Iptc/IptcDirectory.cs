@@ -366,7 +366,7 @@ namespace MetadataExtractor.Formats.Iptc
         [CanBeNull]
         public IList<string> GetKeywords()
         {
-            var array = GetStringArray(TagKeywords);
+            var array = this.GetStringArray(TagKeywords);
             if (array == null)
             {
                 return null;

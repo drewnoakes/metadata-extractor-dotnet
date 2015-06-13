@@ -559,13 +559,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [NotNull, ItemNotNull]
         public IEnumerable<Face> GetDetectedFaces()
         {
-            return ParseFaces(GetByteArray(TagFaceDetectionInfo), 2, 0, 8);
+            return ParseFaces(this.GetByteArray(TagFaceDetectionInfo), 2, 0, 8);
         }
 
         [NotNull, ItemNotNull]
         public IEnumerable<Face> GetRecognizedFaces()
         {
-            return ParseFaces(GetByteArray(TagFaceRecognitionInfo), 4, 20, 44);
+            return ParseFaces(this.GetByteArray(TagFaceRecognitionInfo), 4, 20, 44);
         }
 
         private static IEnumerable<Face> ParseFaces(byte[] bytes, int firstRecordOffset, int posOffset, int recordLength)
@@ -600,7 +600,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public Age GetAge(int tag)
         {
-            var ageString = GetString(tag);
+            var ageString = this.GetString(tag);
             return ageString == null ? null : Age.FromPanasonicString(ageString);
         }
     }

@@ -580,7 +580,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public bool IsIntervalMode()
         {
-            var value = GetLongObject(CameraSettings.TagShootingMode);
+            var value = this.GetLongObject(CameraSettings.TagShootingMode);
             return value != null && value == 5;
         }
 

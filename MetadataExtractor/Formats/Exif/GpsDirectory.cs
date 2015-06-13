@@ -181,10 +181,10 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public GeoLocation GetGeoLocation()
         {
-            var latitudes = GetRationalArray(TagLatitude);
-            var longitudes = GetRationalArray(TagLongitude);
-            var latitudeRef = GetString(TagLatitudeRef);
-            var longitudeRef = GetString(TagLongitudeRef);
+            var latitudes = this.GetRationalArray(TagLatitude);
+            var longitudes = this.GetRationalArray(TagLongitude);
+            var latitudeRef = this.GetString(TagLatitudeRef);
+            var longitudeRef = this.GetString(TagLongitudeRef);
             // Make sure we have the required values
             if (latitudes == null || latitudes.Length != 3)
             {

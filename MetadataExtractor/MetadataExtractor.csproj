@@ -38,6 +38,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DirectoryExtensions.cs" />
     <Compile Include="Formats\Jpeg\IJpegSegmentMetadataReader.cs" />
     <Compile Include="Formats\Jpeg\JpegMetadataReader.cs" />
     <Compile Include="Formats\Jpeg\JpegProcessingException.cs" />
