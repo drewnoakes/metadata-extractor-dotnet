@@ -32,17 +32,17 @@ using MetadataExtractor.IO;
 namespace MetadataExtractor.Formats.WebP
 {
     /// <summary>
-    /// Implementation of
-    /// <see cref="IRiffHandler"/>
-    /// specialising in WebP support.
+    /// Implementation of <see cref="IRiffHandler"/> specialising in WebP support.
+    /// </summary>
+    /// <remarks>
     /// Extracts data from chunk types:
     /// <list type="bullet">
-    /// <item><c>"VP8X"</c>: width, height, is animation, has alpha</item>
-    /// <item><c>"EXIF"</c>: full Exif data</item>
-    /// <item><c>"ICCP"</c>: full ICC profile</item>
-    /// <item><c>"XMP "</c>: full XMP data</item>
+    ///   <item><c>"VP8X"</c>: width, height, is animation, has alpha</item>
+    ///   <item><c>"EXIF"</c>: full Exif data</item>
+    ///   <item><c>"ICCP"</c>: full ICC profile</item>
+    ///   <item><c>"XMP "</c>: full XMP data</item>
     /// </list>
-    /// </summary>
+    /// </remarks>
     public sealed class WebPRiffHandler : IRiffHandler
     {
         [NotNull]
@@ -69,44 +69,54 @@ namespace MetadataExtractor.Formats.WebP
 
         public void ProcessChunk(string fourCc, byte[] payload)
         {
-            if (fourCc.Equals("EXIF"))
+            switch (fourCc)
             {
-                new ExifReader().Extract(new ByteArrayReader(payload), _metadata);
-            }
-            else if (fourCc.Equals("ICCP"))
-            {
-                new IccReader().Extract(new ByteArrayReader(payload), _metadata);
-            }
-            else if (fourCc.Equals("XMP "))
-            {
-                new XmpReader().Extract(payload, _metadata);
-            }
-            else if (fourCc.Equals("VP8X") && payload.Length == 10)
-            {
-                IndexedReader reader = new ByteArrayReader(payload);
-                reader.IsMotorolaByteOrder = false;
-                try
+                case "EXIF":
                 {
-                    // Flags
-                    //                boolean hasFragments = reader.getBit(0);
-                    var isAnimation = reader.GetBit(1);
-                    //                boolean hasXmp = reader.getBit(2);
-                    //                boolean hasExif = reader.getBit(3);
-                    var hasAlpha = reader.GetBit(4);
-                    //                boolean hasIcc = reader.getBit(5);
-                    // Image size
-                    var widthMinusOne = reader.GetInt24(4);
-                    var heightMinusOne = reader.GetInt24(7);
-                    var directory = new WebPDirectory();
-                    directory.Set(WebPDirectory.TagImageWidth, widthMinusOne + 1);
-                    directory.Set(WebPDirectory.TagImageHeight, heightMinusOne + 1);
-                    directory.Set(WebPDirectory.TagHasAlpha, hasAlpha);
-                    directory.Set(WebPDirectory.TagIsAnimation, isAnimation);
-                    _metadata.AddDirectory(directory);
+                    new ExifReader().Extract(new ByteArrayReader(payload), _metadata);
+                    break;
                 }
-                catch (IOException e)
+                case "ICCP":
                 {
-                    Console.Error.WriteLine(e);
+                    new IccReader().Extract(new ByteArrayReader(payload), _metadata);
+                    break;
+                }
+                case "XMP ":
+                {
+                    new XmpReader().Extract(payload, _metadata);
+                    break;
+                }
+                case "VP8X":
+                {
+                    if (payload.Length != 10)
+                        break;
+
+                    IndexedReader reader = new ByteArrayReader(payload);
+                    reader.IsMotorolaByteOrder = false;
+                    try
+                    {
+                        // Flags
+//                      var hasFragments = reader.getBit(0);
+                        var isAnimation = reader.GetBit(1);
+//                      var hasXmp = reader.getBit(2);
+//                      var hasExif = reader.getBit(3);
+                        var hasAlpha = reader.GetBit(4);
+//                      var hasIcc = reader.getBit(5);
+                        // Image size
+                        var widthMinusOne = reader.GetInt24(4);
+                        var heightMinusOne = reader.GetInt24(7);
+                        var directory = new WebPDirectory();
+                        directory.Set(WebPDirectory.TagImageWidth, widthMinusOne + 1);
+                        directory.Set(WebPDirectory.TagImageHeight, heightMinusOne + 1);
+                        directory.Set(WebPDirectory.TagHasAlpha, hasAlpha);
+                        directory.Set(WebPDirectory.TagIsAnimation, isAnimation);
+                        _metadata.AddDirectory(directory);
+                    }
+                    catch (IOException e)
+                    {
+                        Console.Error.WriteLine(e);
+                    }
+                    break;
                 }
             }
         }

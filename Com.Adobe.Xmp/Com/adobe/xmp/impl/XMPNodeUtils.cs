@@ -329,56 +329,45 @@ namespace Com.Adobe.Xmp.Impl
             {
                 strValue = null;
             }
+            else if (value is bool)
+            {
+                strValue = Xmp.XmpUtils.ConvertFromBoolean(((bool)value));
+            }
+            else if (value is int)
+            {
+                strValue = Xmp.XmpUtils.ConvertFromInteger((int)value);
+            }
+            else if (value is long)
+            {
+                strValue = Xmp.XmpUtils.ConvertFromLong((long)value);
+            }
+            else if (value is double)
+            {
+                strValue = Xmp.XmpUtils.ConvertFromDouble((double)value);
+            }
             else
             {
-                if (value is bool)
+                var dateTime = value as IXmpDateTime;
+                if (dateTime != null)
                 {
-                    strValue = Xmp.XmpUtils.ConvertFromBoolean(((bool)value));
+                    strValue = Xmp.XmpUtils.ConvertFromDate(dateTime);
                 }
                 else
                 {
-                    if (value is int)
+                    var calendar = value as GregorianCalendar;
+                    if (calendar != null)
                     {
-                        strValue = Xmp.XmpUtils.ConvertFromInteger((int)value);
+                        var dt = XmpDateTimeFactory.CreateFromCalendar(calendar);
+                        strValue = Xmp.XmpUtils.ConvertFromDate(dt);
                     }
                     else
                     {
-                        if (value is long)
-                        {
-                            strValue = Xmp.XmpUtils.ConvertFromLong((long)value);
-                        }
-                        else
-                        {
-                            if (value is double)
-                            {
-                                strValue = Xmp.XmpUtils.ConvertFromDouble((double)value);
-                            }
-                            else
-                            {
-                                var dateTime = value as IXmpDateTime;
-                                if (dateTime != null)
-                                {
-                                    strValue = Xmp.XmpUtils.ConvertFromDate(dateTime);
-                                }
-                                else
-                                {
-                                    var calendar = value as GregorianCalendar;
-                                    if (calendar != null)
-                                    {
-                                        var dt = XmpDateTimeFactory.CreateFromCalendar(calendar);
-                                        strValue = Xmp.XmpUtils.ConvertFromDate(dt);
-                                    }
-                                    else
-                                    {
-                                        var sbytes = value as byte[];
-                                        strValue = sbytes != null ? Xmp.XmpUtils.EncodeBase64(sbytes) : value.ToString();
-                                    }
-                                }
-                            }
-                        }
+                        var sbytes = value as byte[];
+                        strValue = sbytes != null ? Xmp.XmpUtils.EncodeBase64(sbytes) : value.ToString();
                     }
                 }
             }
+
             return strValue != null ? Utils.RemoveControlChars(strValue) : null;
         }
 
