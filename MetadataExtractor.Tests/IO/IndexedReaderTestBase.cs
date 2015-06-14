@@ -36,13 +36,13 @@ namespace MetadataExtractor.Tests.IO
         protected abstract IndexedReader CreateReader(byte[] bytes);
 
         [Test]
-        public virtual void TestDefaultEndianness()
+        public void TestDefaultEndianness()
         {
             Assert.AreEqual(true, CreateReader(new byte[1]).IsMotorolaByteOrder);
         }
 
         [Test]
-        public virtual void TestGetInt8()
+        public void TestGetInt8()
         {
             var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked(0xFF) };
             var reader = CreateReader(buffer);
@@ -53,7 +53,7 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Test]
-        public virtual void TestGetUInt8()
+        public void TestGetUInt8()
         {
             var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked(0xFF) };
             var reader = CreateReader(buffer);
@@ -64,7 +64,7 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Test]
-        public virtual void TestGetUInt8_OutOfBounds()
+        public void TestGetUInt8_OutOfBounds()
         {
             try
             {
@@ -80,7 +80,7 @@ namespace MetadataExtractor.Tests.IO
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetInt16()
+        public void TestGetInt16()
         {
             Assert.AreEqual(-1, CreateReader(new[] { unchecked((byte)0xff), unchecked((byte)0xff) }).GetInt16(0));
             var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked(0xFF) };
@@ -96,7 +96,7 @@ namespace MetadataExtractor.Tests.IO
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetUInt16()
+        public void TestGetUInt16()
         {
             var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked(0xFF) };
             var reader = CreateReader(buffer);
@@ -110,7 +110,7 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Test]
-        public virtual void TestGetUInt16_OutOfBounds()
+        public void TestGetUInt16_OutOfBounds()
         {
             try
             {
@@ -126,7 +126,7 @@ namespace MetadataExtractor.Tests.IO
 
         /// <exception cref="System.Exception"/>
         [Test]
-        public virtual void TestGetInt32()
+        public void TestGetInt32()
         {
             Assert.AreEqual(-1, CreateReader(new[] { unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff) }).GetInt32(0));
             var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked(0xFF), unchecked(0x02), unchecked(0x03), unchecked(0x04) };
@@ -143,7 +143,7 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Test]
-        public virtual void TestGetUInt32()
+        public void TestGetUInt32()
         {
             Assert.AreEqual(4294967295L, (object)CreateReader(new[] { unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff) }).GetUInt32(0));
             var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked(0xFF), unchecked(0x02), unchecked(0x03), unchecked(0x04) };
@@ -160,7 +160,7 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Test]
-        public virtual void TestGetInt32_OutOfBounds()
+        public void TestGetInt32_OutOfBounds()
         {
             try
             {
@@ -176,7 +176,7 @@ namespace MetadataExtractor.Tests.IO
 
         /// <exception cref="System.IO.IOException"/>
         [Test]
-        public virtual void TestGetInt64()
+        public void TestGetInt64()
         {
             var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x02), unchecked(0x03), unchecked(0x04), unchecked(0x05), unchecked(0x06), unchecked(0x07), unchecked(0xFF
                 ) };
@@ -189,7 +189,7 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Test]
-        public virtual void TestGetInt64_OutOfBounds()
+        public void TestGetInt64_OutOfBounds()
         {
             try
             {
@@ -214,7 +214,7 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Test]
-        public virtual void TestGetFloat32()
+        public void TestGetFloat32()
         {
             var nanBits = unchecked(0x7fc00000);
             Assert.IsTrue(float.IsNaN(BitConverter.ToSingle(BitConverter.GetBytes(nanBits), 0)));
@@ -224,7 +224,7 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Test]
-        public virtual void TestGetFloat64()
+        public void TestGetFloat64()
         {
             var nanBits = unchecked((long)(0xfff0000000000001L));
             Assert.IsTrue(double.IsNaN(BitConverter.Int64BitsToDouble(nanBits)));
@@ -234,7 +234,7 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Test]
-        public virtual void TestGetNullTerminatedString()
+        public void TestGetNullTerminatedString()
         {
             var bytes = new byte[] { unchecked(0x41), unchecked(0x42), unchecked(0x43), unchecked(0x44), unchecked(0x00), unchecked(0x45), unchecked(0x46), unchecked(0x47) };
             var reader = CreateReader(bytes);
@@ -252,7 +252,7 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Test]
-        public virtual void TestGetString()
+        public void TestGetString()
         {
             var bytes = new byte[] { unchecked(0x41), unchecked(0x42), unchecked(0x43), unchecked(0x44), unchecked(0x00), unchecked(0x45), unchecked(0x46), unchecked(0x47) };
             var reader = CreateReader(bytes);
@@ -270,7 +270,7 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Test]
-        public virtual void TestIndexPlusCountExceedsIntMaxValue()
+        public void TestIndexPlusCountExceedsIntMaxValue()
         {
             var reader = CreateReader(new byte[10]);
             try
@@ -284,7 +284,7 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Test]
-        public virtual void TestOverflowBoundsCalculation()
+        public void TestOverflowBoundsCalculation()
         {
             var reader = CreateReader(new byte[10]);
             try
@@ -298,7 +298,7 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Test]
-        public virtual void TestGetBytesEof()
+        public void TestGetBytesEof()
         {
             CreateReader(new byte[50]).GetBytes(0, 50);
             var reader = CreateReader(new byte[50]);
@@ -314,7 +314,7 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Test]
-        public virtual void TestGetInt8Eof()
+        public void TestGetInt8Eof()
         {
             CreateReader(new byte[1]).GetInt8(0);
             var reader = CreateReader(new byte[2]);
