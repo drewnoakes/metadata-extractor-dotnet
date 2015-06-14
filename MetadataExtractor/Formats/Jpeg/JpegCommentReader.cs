@@ -22,7 +22,6 @@
 
 using System.Collections.Generic;
 using System.Text;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -36,12 +35,6 @@ namespace MetadataExtractor.Formats.Jpeg
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             yield return JpegSegmentType.Com;
-        }
-
-        public bool CanProcess([NotNull] byte[] segmentBytes, [NotNull] JpegSegmentType segmentType)
-        {
-            // The entire contents of the byte[] is the comment. There's nothing here to discriminate upon.
-            return true;
         }
 
         public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
