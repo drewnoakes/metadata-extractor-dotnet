@@ -38,19 +38,17 @@ namespace MetadataExtractor.Formats.Iptc
 
         /// <summary>Attempts to guess the encoding of a string provided as a byte array.</summary>
         /// <remarks>
-        /// Attempts to guess the encoding of a string provided as a byte array.
-        /// <p/>
         /// Encodings trialled are, in order:
         /// <list type="bullet">
         /// <item>UTF-8</item>
         /// <item>ASCII</item>
         /// <item>ISO-8859-1</item>
         /// </list>
-        /// <p/>
+        /// <para />
         /// Its only purpose is to guess the encoding if and only if iptc tag coded character set is not set. If the
         /// encoding is not UTF-8, the tag should be set. Otherwise it is bad practice. This method tries to
         /// workaround this issue since some metadata manipulating tools do not prevent such bad practice.
-        /// <p/>
+        /// <para />
         /// About the reliability of this method: The check if some bytes are UTF-8 or not has a very high reliability.
         /// The two other checks are less reliable.
         /// </remarks>

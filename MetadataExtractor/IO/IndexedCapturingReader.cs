@@ -73,15 +73,9 @@ namespace MetadataExtractor.IO
             return _streamLength;
         }
 
-        /// <summary>Ensures that the buffered bytes extend to cover the specified index.</summary>
-        /// <remarks>
-        /// Ensures that the buffered bytes extend to cover the specified index. If not, an attempt is made
-        /// to read to that point.
-        /// <p/>
-        /// If the stream ends before the point is reached, a
-        /// <see cref="BufferBoundsException"/>
-        /// is raised.
-        /// </remarks>
+        /// <summary>Ensures that the buffered bytes extend to cover the specified index. If not, an attempt is made
+        /// to read to that point.</summary>
+        /// <remarks>If the stream ends before the point is reached, a <see cref="BufferBoundsException"/> is raised.</remarks>
         /// <param name="index">the index from which the required bytes start</param>
         /// <param name="bytesRequested">the number of bytes which are required</param>
         /// <exception cref="BufferBoundsException">if the stream ends before the required number of bytes are acquired</exception>
