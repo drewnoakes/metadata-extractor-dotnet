@@ -28,21 +28,14 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegComponentTest
     {
-
         [Test]
         public void TestGetComponentCharacter()
         {
-            JpegComponent component;
-            component = new JpegComponent(1, 2, 3);
-            Assert.AreEqual("Y", component.GetComponentName());
-            component = new JpegComponent(2, 2, 3);
-            Assert.AreEqual("Cb", component.GetComponentName());
-            component = new JpegComponent(3, 2, 3);
-            Assert.AreEqual("Cr", component.GetComponentName());
-            component = new JpegComponent(4, 2, 3);
-            Assert.AreEqual("I", component.GetComponentName());
-            component = new JpegComponent(5, 2, 3);
-            Assert.AreEqual("Q", component.GetComponentName());
+            Assert.AreEqual("Y",  new JpegComponent(1, 2, 3).GetComponentName());
+            Assert.AreEqual("Cb", new JpegComponent(2, 2, 3).GetComponentName());
+            Assert.AreEqual("Cr", new JpegComponent(3, 2, 3).GetComponentName());
+            Assert.AreEqual("I",  new JpegComponent(4, 2, 3).GetComponentName());
+            Assert.AreEqual("Q",  new JpegComponent(5, 2, 3).GetComponentName());
         }
     }
 }

@@ -524,12 +524,11 @@ namespace Com.Adobe.Xmp.Impl
                 }
             }
             // walk through the children
-            XmlNode currChild = null;
             var found = false;
             int i1;
             for (i1 = 0; i1 < xmlNode.ChildNodes.Count; i1++)
             {
-                currChild = xmlNode.ChildNodes.Item(i1);
+                var currChild = xmlNode.ChildNodes.Item(i1);
                 if (!IsWhitespaceNode(currChild))
                 {
                     if (currChild.NodeType == XmlNodeType.Element && !found)

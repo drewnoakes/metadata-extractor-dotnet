@@ -394,7 +394,6 @@ namespace Com.Adobe.Xmp.Impl
         private static XmpNode FollowXPathStep(XmpNode parentNode, XmpPathSegment nextStep, bool createNodes)
         {
             XmpNode nextNode = null;
-            var index = 0;
             var stepKind = nextStep.GetKind();
             if (stepKind == XmpPath.StructFieldStep)
             {
@@ -413,6 +412,7 @@ namespace Com.Adobe.Xmp.Impl
                     {
                         throw new XmpException("Indexing applied to non-array", XmpErrorCode.BadXPath);
                     }
+                    var index = 0;
                     if (stepKind == XmpPath.ArrayIndexStep)
                     {
                         index = FindIndexedItem(parentNode, nextStep.GetName(), createNodes);

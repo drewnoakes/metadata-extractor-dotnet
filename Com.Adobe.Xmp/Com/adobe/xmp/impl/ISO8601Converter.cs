@@ -74,13 +74,12 @@ namespace Com.Adobe.Xmp.Impl
                 return binValue;
             }
             var input = new ParseState(iso8601String);
-            int value;
             if (input.Ch(0) == '-')
             {
                 input.Skip();
             }
             // Extract the year.
-            value = input.GatherInt("Invalid year in date string", 9999);
+            var value = input.GatherInt("Invalid year in date string", 9999);
             if (input.HasNext && input.Ch() != '-')
             {
                 throw new XmpException("Invalid date string, after year", XmpErrorCode.BadValue);

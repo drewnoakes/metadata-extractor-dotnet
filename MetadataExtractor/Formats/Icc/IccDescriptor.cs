@@ -335,10 +335,9 @@ namespace MetadataExtractor.Formats.Icc
             long rest = (int)(long)Math.Round((Math.Abs(value) - intPart) * Math.Pow(10, precision));
             var restKept = rest;
             var res = string.Empty;
-            byte cour;
             for (var i = precision; i > 0; i--)
             {
-                cour = unchecked((byte)(Math.Abs(rest % 10)));
+                var cour = unchecked((byte)(Math.Abs(rest % 10)));
                 rest /= 10;
                 if (res.Length > 0 || zeroes || cour != 0 || i == 1)
                 {

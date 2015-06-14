@@ -131,19 +131,15 @@ namespace Com.Adobe.Xmp.Impl
             // Keep a zero value, has special meaning below.
             var arrayNode = SeparateFindCreateArray(schemaNs, arrayName, arrayOptions, xmpImpl);
             // Extract the item values one at a time, until the whole input string is done.
-            string itemValue;
-            int itemStart;
-            int itemEnd;
-            var nextKind = UnicodeKind.Normal;
             var charKind = UnicodeKind.Normal;
             var ch = (char)0;
-            var nextChar = (char)0;
-            itemEnd = 0;
+            var itemEnd = 0;
             var endPos = catedStr.Length;
             while (itemEnd < endPos)
             {
                 // Skip any leading spaces and separation characters. Always skip commas here.
                 // They can be kept when within a value, but not when alone between values.
+                int itemStart;
                 for (itemStart = itemEnd; itemStart < endPos; itemStart++)
                 {
                     ch = catedStr[itemStart];
@@ -157,6 +153,8 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     break;
                 }
+                string itemValue;
+                var nextKind = UnicodeKind.Normal;
                 if (charKind != UnicodeKind.Quote)
                 {
                     // This is not a quoted value. Scan for the end, create an array
@@ -217,6 +215,7 @@ namespace Com.Adobe.Xmp.Impl
                             // Tolerate various edge cases like undoubled opening
                             // (non-closing) quotes,
                             // or end of input.
+                            var nextChar = (char)0;
                             if ((itemEnd + 1) < endPos)
                             {
                                 nextChar = catedStr[itemEnd + 1];
@@ -263,12 +262,9 @@ namespace Com.Adobe.Xmp.Impl
                         break;
                     }
                 }
-                XmpNode newItem = null;
+
                 if (foundIndex < 0)
-                {
-                    newItem = new XmpNode(XmpConstConstants.ArrayItemName, itemValue, null);
-                    arrayNode.AddChild(newItem);
-                }
+                    arrayNode.AddChild(new XmpNode(XmpConstConstants.ArrayItemName, itemValue, null));
             }
         }
 
