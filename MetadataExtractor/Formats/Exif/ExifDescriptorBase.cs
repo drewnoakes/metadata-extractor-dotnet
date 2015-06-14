@@ -39,7 +39,7 @@ namespace MetadataExtractor.Formats.Exif
         /// </summary>
         private readonly bool _allowDecimalRepresentationOfRationals = true;
 
-        public ExifDescriptorBase([NotNull] T directory)
+        protected ExifDescriptorBase([NotNull] T directory)
             : base(directory)
         {
         }

@@ -27,14 +27,14 @@ namespace Com.Adobe.Xmp.Options
         private IDictionary _optionNames;
 
         /// <summary>The default constructor.</summary>
-        public Options()
+        protected Options()
         {
         }
 
         /// <summary>Constructor with the options bit mask.</summary>
         /// <param name="options">the options bit mask</param>
         /// <exception cref="XmpException">If the options are not correct</exception>
-        public Options(int options)
+        protected Options(int options)
         {
             // EMTPY
             AssertOptionsValid(options);
