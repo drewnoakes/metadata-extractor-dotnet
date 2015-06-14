@@ -119,7 +119,7 @@ namespace MetadataExtractor.Formats.Icc
                 SetInt32(directory, IccDirectory.TagRenderingIntent, reader);
                 SetInt64(directory, IccDirectory.TagDeviceAttr, reader);
                 var xyz = new[] { reader.GetS15Fixed16(IccDirectory.TagXyzValues), reader.GetS15Fixed16(IccDirectory.TagXyzValues + 4), reader.GetS15Fixed16(IccDirectory.TagXyzValues + 8) };
-                directory.Set(IccDirectory.TagXyzValues, (object)xyz);
+                directory.Set(IccDirectory.TagXyzValues, xyz);
                 // Process 'ICC tags'
                 var tagCount = reader.GetInt32(IccDirectory.TagTagCount);
                 directory.Set(IccDirectory.TagTagCount, tagCount);

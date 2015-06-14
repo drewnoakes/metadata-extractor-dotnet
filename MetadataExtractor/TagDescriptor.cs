@@ -262,7 +262,7 @@ namespace MetadataExtractor
                 var labelObj = labels[bitIndex];
                 if (labelObj != null)
                 {
-                    var isBitSet = ((int)value & 1) == 1;
+                    var isBitSet = (value & 1) == 1;
                     var obj = labelObj as string[];
                     if (obj != null)
                     {

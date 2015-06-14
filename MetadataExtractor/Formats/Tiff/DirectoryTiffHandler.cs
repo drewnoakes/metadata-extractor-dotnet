@@ -135,7 +135,7 @@ namespace MetadataExtractor.Formats.Tiff
         public virtual void SetInt8UArray(int tagId, byte[] array)
         {
             // TODO create and use a proper setter for short[]
-            CurrentDirectory.Set(tagId, (Array)array);
+            CurrentDirectory.Set(tagId, array);
         }
 
         public virtual void SetInt16S(int tagId, short int16S)
