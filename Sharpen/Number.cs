@@ -69,7 +69,8 @@ namespace Sharpen
                 || obj is ulong
                 || obj is float
                 || obj is double
-                || obj is decimal;
+                || obj is decimal
+                || obj is IConvertible;
         }
     }
 }
