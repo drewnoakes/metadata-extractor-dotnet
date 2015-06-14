@@ -8,27 +8,20 @@ namespace MetadataExtractor
 {
     public static class DirectoryExtensions
     {
-        /// <summary>Returns the specified tag's value as an int, if possible.</summary>
+        #region Int32
+
+        /// <summary>Returns the specified tag's value as an <see cref="int"/>, if possible.</summary>
         /// <remarks>
-        /// Every attempt to represent the tag's value as an int is taken.
-        /// Here is a list of the action taken depending upon the tag's original type:
-        /// <list type="bullet">
-        /// <item> int - Return unchanged.</item>
-        /// <item> Number - Return an int value (real numbers are truncated).</item>
-        /// <item> Rational - Truncate any fractional part and returns remaining int.</item>
-        /// <item> String - Attempt to parse string as an int.  If this fails, convert the char[] to an int (using shifts and OR).</item>
-        /// <item> Rational[] - Return int value of first item in array.</item>
-        /// <item> byte[] - Return int value of first item in array.</item>
-        /// <item> int[] - Return int value of first item in array.</item>
-        /// </list>
+        /// If the tag's value is not of the requested type, then conversion is attempted.
+        /// If the value is <see cref="IConvertible"/>, then that interface is used.
+        /// If the value is an array of <see cref="IConvertible"/> having length one, then the single item is converted.
         /// </remarks>
         /// <exception cref="MetadataException">if no value exists for tagType or if it cannot be converted to an int.</exception>
         public static int GetInt32(this Directory directory, int tagType)
         {
-            var integer = directory.GetInt32Nullable(tagType);
-
-            if (integer != null)
-                return (int)integer;
+            int value;
+            if (directory.TryGetInt32(tagType, out value))
+                return value;
 
             var o = directory.GetObject(tagType);
             if (o == null)
@@ -37,75 +30,50 @@ namespace MetadataExtractor
             throw new MetadataException("Tag '" + tagType + "' cannot be converted to int.  It is of type '" + o.GetType() + "'.");
         }
 
-        /// <summary>Returns the specified tag's value as an integer, if possible.</summary>
-        /// <remarks>
-        /// Every attempt to represent the tag's value as an integer is taken.
-        /// Here is a list of the action taken depending upon the tag's original type:
-        /// <list type="bullet">
-        /// <item> int - Return unchanged</item>
-        /// <item> Number - Return an int value (real numbers are truncated)</item>
-        /// <item> Rational - Truncate any fractional part and returns remaining int</item>
-        /// <item> String - Attempt to parse string as an int.  If this fails, convert the char[] to an int (using shifts and OR)</item>
-        /// <item> Rational[] - Return int value of first item in array if length &gt; 0</item>
-        /// <item> byte[] - Return int value of first item in array if length &gt; 0</item>
-        /// <item> int[] - Return int value of first item in array if length &gt; 0</item>
-        /// </list>
-        /// If the value is not found or cannot be converted to int, <c>null</c> is returned.
-        /// </remarks>
         [CanBeNull]
         public static int? GetInt32Nullable(this Directory directory, int tagType)
         {
+            int value;
+            if (directory.TryGetInt32(tagType, out value))
+                return value;
+            return null;
+        }
+
+        public static bool TryGetInt32(this Directory directory, int tagType, out int value)
+        {
             var o = directory.GetObject(tagType);
+
             if (o == null)
-                return null;
-            if (o.IsNumber())
-                return Number.GetInstance(o).IntValue();
-            var value = o as string;
-            if (value != null)
+            {
+                value = 0;
+                return false;
+            }
+
+            var convertible = o as IConvertible;
+
+            if (convertible == null)
+            {
+                var array = o as Array;
+                if (array != null && array.Length == 1 && array.Rank == 1)
+                    convertible = array.GetValue(0) as IConvertible;
+            }
+
+            if (convertible != null)
             {
                 try
                 {
-                    return Convert.ToInt32(value);
+                    value = convertible.ToInt32(null);
+                    return true;
                 }
-                catch (FormatException)
-                {
-                    // convert the char array to an int
-                    var bytes = Encoding.UTF8.GetBytes(value);
-                    long val = 0;
-                    foreach (var aByte in bytes)
-                    {
-                        val = val << 8;
-                        val += aByte;
-                    }
-                    return (int)val;
-                }
+                catch
+                {}
             }
-            var rationals = o as Rational[];
-            if (rationals != null)
-            {
-                if (rationals.Length == 1)
-                    return rationals[0].ToInt32();
-            }
-            else if (o.GetType() == typeof(byte[]))
-            {
-                var bytes = (byte[])o;
-                if (bytes.Length == 1)
-                    return bytes[0];
-            }
-            else if (o.GetType() == typeof(sbyte[]))
-            {
-                var bytes = (sbyte[])o;
-                if (bytes.Length == 1)
-                    return bytes[0];
-            }
-            else
-            {
-                var ints = o as int[];
-                if (ints != null && ints.Length == 1)
-                    return ints[0];
-            }
-            return null;
+
+            value = default(int);
+            return false;
         }
+
+        #endregion
 
         /// <summary>Returns the specified tag's value as a long, if possible.</summary>
         /// <exception cref="MetadataException"/>
