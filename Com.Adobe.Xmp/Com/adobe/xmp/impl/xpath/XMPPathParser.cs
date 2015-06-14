@@ -13,7 +13,6 @@ namespace Com.Adobe.Xmp.Impl.Xpath
     /// <since>01.03.2006</since>
     public static class XmpPathParser
     {
-        // empty
         /// <summary>
         /// Split an XMPPath expression apart at the conceptual steps, adding the
         /// root namespace prefix to the first property component.

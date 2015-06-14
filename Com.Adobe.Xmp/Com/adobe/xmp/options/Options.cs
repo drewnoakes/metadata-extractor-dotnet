@@ -170,7 +170,6 @@ namespace Com.Adobe.Xmp.Options
         {
         }
 
-        // empty, no checks
         /// <summary>Checks options before they are set.</summary>
         /// <remarks>
         /// Checks options before they are set.
