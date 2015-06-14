@@ -21,9 +21,7 @@ namespace MetadataExtractor.Formats.Xmp
             var meta = dir.GetXmpMeta();
             try
             {
-                var so = new SerializeOptions();
-                so.OmitPacketWrapper = true;
-                XmpMetaFactory.Serialize(meta, stream, so);
+                XmpMetaFactory.Serialize(meta, stream, new SerializeOptions { OmitPacketWrapper = true });
             }
             catch (XmpException e)
             {

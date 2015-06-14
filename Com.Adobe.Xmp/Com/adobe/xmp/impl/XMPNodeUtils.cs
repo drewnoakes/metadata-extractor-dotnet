@@ -76,10 +76,8 @@ namespace Com.Adobe.Xmp.Impl
             var schemaNode = tree.FindChildByName(namespaceUri);
             if (schemaNode == null && createNodes)
             {
-                var po = new PropertyOptions();
-                po.IsSchemaNode = true;
-                schemaNode = new XmpNode(namespaceUri, po);
-                schemaNode.IsImplicit = true;
+                var po = new PropertyOptions { IsSchemaNode = true };
+                schemaNode = new XmpNode(namespaceUri, po) { IsImplicit = true };
                 // only previously registered schema namespaces are allowed in the XMP tree.
                 var prefix = XmpMetaFactory.GetSchemaRegistry().GetNamespacePrefix(namespaceUri);
                 if (prefix == null)
@@ -130,8 +128,7 @@ namespace Com.Adobe.Xmp.Impl
             if (childNode == null && createNodes)
             {
                 var options = new PropertyOptions();
-                childNode = new XmpNode(childName, options);
-                childNode.IsImplicit = true;
+                childNode = new XmpNode(childName, options) { IsImplicit = true };
                 parent.AddChild(childNode);
             }
             Debug.Assert(childNode != null || !createNodes);
@@ -477,8 +474,7 @@ namespace Com.Adobe.Xmp.Impl
             var qualNode = parent.FindQualifierByName(qualName);
             if (qualNode == null && createNodes)
             {
-                qualNode = new XmpNode(qualName, null);
-                qualNode.IsImplicit = true;
+                qualNode = new XmpNode(qualName, null) { IsImplicit = true };
                 parent.AddQualifier(qualNode);
             }
             return qualNode;
@@ -508,8 +504,7 @@ namespace Com.Adobe.Xmp.Impl
             if (createNodes && index == arrayNode.GetChildrenLength() + 1)
             {
                 // Append a new last + 1 node.
-                var newItem = new XmpNode(XmpConstConstants.ArrayItemName, null);
-                newItem.IsImplicit = true;
+                var newItem = new XmpNode(XmpConstConstants.ArrayItemName, null) { IsImplicit = true };
                 arrayNode.AddChild(newItem);
             }
             return index;

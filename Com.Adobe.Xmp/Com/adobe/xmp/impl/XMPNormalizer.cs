@@ -545,8 +545,7 @@ namespace Com.Adobe.Xmp.Impl
         {
             _dcArrayForms = new Hashtable();
             // Properties supposed to be a "Bag".
-            var bagForm = new PropertyOptions();
-            bagForm.IsArray = true;
+            var bagForm = new PropertyOptions { IsArray = true };
             _dcArrayForms["dc:contributor"] = bagForm;
             _dcArrayForms["dc:language"] = bagForm;
             _dcArrayForms["dc:publisher"] = bagForm;
@@ -554,17 +553,11 @@ namespace Com.Adobe.Xmp.Impl
             _dcArrayForms["dc:subject"] = bagForm;
             _dcArrayForms["dc:type"] = bagForm;
             // Properties supposed to be a "Seq".
-            var seqForm = new PropertyOptions();
-            seqForm.IsArray = true;
-            seqForm.IsArrayOrdered = true;
+            var seqForm = new PropertyOptions { IsArray = true, IsArrayOrdered = true };
             _dcArrayForms["dc:creator"] = seqForm;
             _dcArrayForms["dc:date"] = seqForm;
             // Properties supposed to be an "Alt" in alternative-text form.
-            var altTextForm = new PropertyOptions();
-            altTextForm.IsArray = true;
-            altTextForm.IsArrayOrdered = true;
-            altTextForm.IsArrayAlternate = true;
-            altTextForm.IsArrayAltText = true;
+            var altTextForm = new PropertyOptions { IsArray = true, IsArrayOrdered = true, IsArrayAlternate = true, IsArrayAltText = true };
             _dcArrayForms["dc:description"] = altTextForm;
             _dcArrayForms["dc:rights"] = altTextForm;
             _dcArrayForms["dc:title"] = altTextForm;

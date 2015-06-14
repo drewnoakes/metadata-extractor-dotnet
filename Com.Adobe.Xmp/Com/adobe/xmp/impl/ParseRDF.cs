@@ -1022,8 +1022,7 @@ namespace Com.Adobe.Xmp.Impl
             var isArrayItem = "rdf:li".Equals(childName);
             var isValueNode = "rdf:value".Equals(childName);
             // Create XMP node and so some checks
-            var newChild = new XmpNode(childName, value, childOptions);
-            newChild.IsAlias = isAlias;
+            var newChild = new XmpNode(childName, value, childOptions) { IsAlias = isAlias };
             // Add the new child to the XMP parent node, a value node first.
             if (!isValueNode)
             {

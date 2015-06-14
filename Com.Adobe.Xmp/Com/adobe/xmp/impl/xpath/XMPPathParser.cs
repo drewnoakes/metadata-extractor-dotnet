@@ -69,8 +69,7 @@ namespace Com.Adobe.Xmp.Impl.Xpath
                 throw new XmpException("Parameter must not be null", XmpErrorCode.BadParam);
             }
             var expandedXPath = new XmpPath();
-            var pos = new PathPosition();
-            pos.Path = path;
+            var pos = new PathPosition { Path = path };
             // Pull out the first component and do some special processing on it: add the schema
             // namespace prefix and and see if it is an alias. The start must be a "qualName".
             ParseRootNode(schemaNs, pos, expandedXPath);

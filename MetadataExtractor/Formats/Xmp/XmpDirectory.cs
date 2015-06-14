@@ -324,8 +324,7 @@ namespace MetadataExtractor.Formats.Xmp
                 var schemaNs = TagSchemaMap.GetOrNull(tagType);
                 var propName = TagPropNameMap.GetOrNull(tagType);
                 GetXmpMeta().DeleteProperty(schemaNs, propName);
-                var po = new PropertyOptions();
-                po.IsArray = true;
+                var po = new PropertyOptions { IsArray = true };
                 foreach (var item in ints)
                 {
                     GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item.ToString(), null);
@@ -358,8 +357,7 @@ namespace MetadataExtractor.Formats.Xmp
                 var schemaNs = TagSchemaMap.GetOrNull(tagType);
                 var propName = TagPropNameMap.GetOrNull(tagType);
                 GetXmpMeta().DeleteProperty(schemaNs, propName);
-                var po = new PropertyOptions();
-                po.IsArray = true;
+                var po = new PropertyOptions { IsArray = true };
                 foreach (var item in floats)
                 {
                     GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item.ToString(), null);
@@ -392,8 +390,7 @@ namespace MetadataExtractor.Formats.Xmp
                 var schemaNs = TagSchemaMap.GetOrNull(tagType);
                 var propName = TagPropNameMap.GetOrNull(tagType);
                 GetXmpMeta().DeleteProperty(schemaNs, propName);
-                var po = new PropertyOptions();
-                po.IsArray = true;
+                var po = new PropertyOptions { IsArray = true };
                 foreach (var item in doubles)
                 {
                     GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item.ToString(), null);
@@ -431,8 +428,7 @@ namespace MetadataExtractor.Formats.Xmp
                 var schemaNs = TagSchemaMap.GetOrNull(tagType);
                 var propName = TagPropNameMap.GetOrNull(tagType);
                 GetXmpMeta().DeleteProperty(schemaNs, propName);
-                var po = new PropertyOptions();
-                po.IsArray = true;
+                var po = new PropertyOptions { IsArray = true };
                 foreach (var item in strings)
                 {
                     GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item, null);

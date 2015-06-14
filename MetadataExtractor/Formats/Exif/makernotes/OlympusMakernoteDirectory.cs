@@ -560,8 +560,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         private void ProcessCameraSettings(byte[] bytes)
         {
-            var reader = new SequentialByteArrayReader(bytes);
-            reader.IsMotorolaByteOrder = true;
+            var reader = new SequentialByteArrayReader(bytes) { IsMotorolaByteOrder = true };
             var count = bytes.Length / 4;
             try
             {

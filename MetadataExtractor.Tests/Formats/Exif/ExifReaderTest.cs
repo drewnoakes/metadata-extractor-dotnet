@@ -89,8 +89,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         {
             var badExifData = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             var metadata = new Metadata();
-            var segments = new List<byte[]>();
-            segments.Add(badExifData);
+            var segments = new [] { badExifData };
             new ExifReader().ReadJpegSegments(segments, metadata, JpegSegmentType.App1);
             Assert.AreEqual(0, metadata.GetDirectoryCount());
             Assert.IsFalse(metadata.HasErrors());
