@@ -18,6 +18,6 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <param name="metadata">The <see cref="Metadata"/> object into which extracted values should be merged.</param>
         /// <param name="segmentType">The <see cref="JpegSegmentType"/> being read.
         /// </param>
-        void ReadJpegSegments([NotNull] IEnumerable<byte[]> segments, [NotNull] Metadata metadata, [NotNull] JpegSegmentType segmentType);
+        void ReadJpegSegments([NotNull] IEnumerable<byte[]> segments, [NotNull] Metadata metadata, JpegSegmentType segmentType);
     }
 }
