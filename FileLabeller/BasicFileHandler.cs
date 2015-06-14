@@ -23,7 +23,7 @@ namespace FileLabeller
                 foreach (var tag in directory.Tags)
                 {
                     tag.TagName.ToString();
-                    tag.Description.ToString();
+                    (tag.Description ?? "").ToString();
                 }
             }
         }
