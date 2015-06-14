@@ -8,6 +8,7 @@
 // =================================================================================================
 
 using System;
+using System.Linq;
 using System.Text;
 
 namespace Com.Adobe.Xmp.Impl
@@ -59,9 +60,9 @@ namespace Com.Adobe.Xmp.Impl
             }
             var subTag = 1;
             var buffer = new StringBuilder();
-            for (var i = 0; i < value.Length; i++)
+            foreach (var t in value)
             {
-                switch (value[i])
+                switch (t)
                 {
                     case '-':
                     case '_':
@@ -81,7 +82,7 @@ namespace Com.Adobe.Xmp.Impl
                     default:
                     {
                         // convert second subtag to uppercase, all other to lowercase
-                        buffer.Append(subTag != 2 ? Char.ToLower(value[i]) : Char.ToUpper(value[i]));
+                        buffer.Append(subTag != 2 ? Char.ToLower(t) : Char.ToUpper(t));
                         break;
                     }
                 }
@@ -380,17 +381,7 @@ namespace Com.Adobe.Xmp.Impl
         public static string EscapeXml(string value, bool forAttribute, bool escapeWhitespaces)
         {
             // quick check if character are contained that need special treatment
-            var needsEscaping = false;
-            for (var i = 0; i < value.Length; i++)
-            {
-                var c = value[i];
-                if (c == '<' || c == '>' || c == '&' || (escapeWhitespaces && (c == '\t' || c == '\n' || c == '\r')) || (forAttribute && c == '"'))
-                {
-                    // XML chars
-                    needsEscaping = true;
-                    break;
-                }
-            }
+            var needsEscaping = value.Any(c => c == '<' || c == '>' || c == '&' || (escapeWhitespaces && (c == '\t' || c == '\n' || c == '\r')) || (forAttribute && c == '"'));
             if (!needsEscaping)
             {
                 // fast path
@@ -398,9 +389,8 @@ namespace Com.Adobe.Xmp.Impl
             }
             // slow path with escaping
             var buffer = new StringBuilder(value.Length * 4 / 3);
-            for (var i1 = 0; i1 < value.Length; i1++)
+            foreach (var c in value)
             {
-                var c = value[i1];
                 if (!(escapeWhitespaces && (c == '\t' || c == '\n' || c == '\r')))
                 {
                     switch (c)

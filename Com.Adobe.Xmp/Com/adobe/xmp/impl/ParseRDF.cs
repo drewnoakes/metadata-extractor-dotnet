@@ -9,6 +9,7 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Xml;
 using Com.Adobe.Xmp.Options;
 using Sharpen;
@@ -1136,19 +1137,7 @@ namespace Com.Adobe.Xmp.Impl
         /// </returns>
         private static bool IsWhitespaceNode(XmlNode node)
         {
-            if (node.NodeType != XmlNodeType.Text)
-            {
-                return false;
-            }
-            var value = node.Value;
-            for (var i = 0; i < value.Length; i++)
-            {
-                if (!char.IsWhiteSpace(value[i]))
-                {
-                    return false;
-                }
-            }
-            return true;
+            return node.NodeType == XmlNodeType.Text && node.Value.All(char.IsWhiteSpace);
         }
 
         /// <summary>

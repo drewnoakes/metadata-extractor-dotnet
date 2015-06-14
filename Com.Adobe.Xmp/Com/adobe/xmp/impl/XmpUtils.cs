@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Text;
 using Com.Adobe.Xmp.Impl.Xpath;
 using Com.Adobe.Xmp.Options;
+using Com.Adobe.Xmp.Properties;
 
 namespace Com.Adobe.Xmp.Impl
 {
@@ -383,9 +384,8 @@ namespace Com.Adobe.Xmp.Impl
                         // Lookup the XMP node
                         // from the alias, to make sure the actual exists.
                         var aliases = XmpMetaFactory.GetSchemaRegistry().FindAliases(schemaNs);
-                        for (var i = 0; i < aliases.Count; i++)
+                        foreach (var info in aliases)
                         {
-                            var info = aliases[i];
                             var path = XmpPathParser.ExpandXPath(info.GetNamespace(), info.GetPropName());
                             var actualProp = XmpNodeUtils.FindNode(xmpImpl.GetRoot(), path, false, null);
                             if (actualProp != null)
@@ -714,9 +714,9 @@ namespace Com.Adobe.Xmp.Impl
         private static void CheckSeparator(string separator)
         {
             var haveSemicolon = false;
-            for (var i = 0; i < separator.Length; i++)
+            foreach (var t in separator)
             {
-                var charKind = ClassifyCharacter(separator[i]);
+                var charKind = ClassifyCharacter(t);
                 if (charKind == UnicodeKind.Semicolon)
                 {
                     if (haveSemicolon)
