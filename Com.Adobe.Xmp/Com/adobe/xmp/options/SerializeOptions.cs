@@ -17,19 +17,19 @@ namespace Com.Adobe.Xmp.Options
     /// <since>24.01.2006</since>
     public sealed class SerializeOptions : Options
     {
-        private const int OmitPacketWrapperFlag = unchecked(0x0010);
-        private const int ReadonlyPacketFlag = unchecked(0x0020);
-        private const int UseCompactFormatFlag = unchecked(0x0040);
-        private const int UseCanonicalFormatFlag = unchecked(0x0080);
-        private const int IncludeThumbnailPadFlag = unchecked(0x0100);
-        private const int ExactPacketLengthFlag = unchecked(0x0200);
-        private const int OmitXmpmetaElementFlag = unchecked(0x1000);
-        private const int SortFlag = unchecked(0x2000);
+        private const int OmitPacketWrapperFlag = 0x0010;
+        private const int ReadonlyPacketFlag = 0x0020;
+        private const int UseCompactFormatFlag = 0x0040;
+        private const int UseCanonicalFormatFlag = 0x0080;
+        private const int IncludeThumbnailPadFlag = 0x0100;
+        private const int ExactPacketLengthFlag = 0x0200;
+        private const int OmitXmpmetaElementFlag = 0x1000;
+        private const int SortFlag = 0x2000;
 
         /// <summary>Bit indicating little endian encoding, unset is big endian</summary>
-        private const int LittleendianBit = unchecked(0x0001);
+        private const int LittleendianBit = 0x0001;
         /// <summary>Bit indication UTF16 encoding.</summary>
-        private const int Utf16Bit = unchecked(0x0002);
+        private const int Utf16Bit = 0x0002;
         /// <summary>UTF8 encoding; this is the default</summary>
         public const int EncodeUtf8 = 0;
         public const int EncodeUtf16BeFlag = Utf16Bit;

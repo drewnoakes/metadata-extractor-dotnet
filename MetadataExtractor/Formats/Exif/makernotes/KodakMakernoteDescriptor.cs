@@ -107,40 +107,40 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x001):
-                case unchecked(0x2000):
+                case 0x001:
+                case 0x2000:
                 {
                     return "B&W";
                 }
 
-                case unchecked(0x002):
-                case unchecked(0x4000):
+                case 0x002:
+                case 0x4000:
                 {
                     return "Sepia";
                 }
 
-                case unchecked(0x003):
+                case 0x003:
                 {
                     return "B&W Yellow Filter";
                 }
 
-                case unchecked(0x004):
+                case 0x004:
                 {
                     return "B&W Red Filter";
                 }
 
-                case unchecked(0x020):
+                case 0x020:
                 {
                     return "Saturated Color";
                 }
 
-                case unchecked(0x040):
-                case unchecked(0x200):
+                case 0x040:
+                case 0x200:
                 {
                     return "Neutral Color";
                 }
 
-                case unchecked(0x100):
+                case 0x100:
                 {
                     return "Saturated Color";
                 }
@@ -168,25 +168,25 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x00):
+                case 0x00:
                 {
                     return "Auto";
                 }
 
-                case unchecked(0x10):
-                case unchecked(0x01):
+                case 0x10:
+                case 0x01:
                 {
                     return "Fill Flash";
                 }
 
-                case unchecked(0x20):
-                case unchecked(0x02):
+                case 0x20:
+                case 0x02:
                 {
                     return "Off";
                 }
 
-                case unchecked(0x40):
-                case unchecked(0x03):
+                case 0x40:
+                case 0x03:
                 {
                     return "Red Eye";
                 }

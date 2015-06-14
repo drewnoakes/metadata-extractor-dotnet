@@ -138,13 +138,13 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var descriptor = new NikonType2MakernoteDescriptor(directory);
             // no entry exists
             Assert.IsNull(descriptor.GetAutoFlashCompensationDescription());
-            directory.Set(NikonType2MakernoteDirectory.TagAutoFlashCompensation, new sbyte[] { unchecked(0x06), unchecked(0x01), unchecked(0x06) });
+            directory.Set(NikonType2MakernoteDirectory.TagAutoFlashCompensation, new sbyte[] { 0x06, 0x01, 0x06 });
             Assert.AreEqual("1 EV", descriptor.GetAutoFlashCompensationDescription());
-            directory.Set(NikonType2MakernoteDirectory.TagAutoFlashCompensation, new sbyte[] { unchecked(0x04), unchecked(0x01), unchecked(0x06) });
+            directory.Set(NikonType2MakernoteDirectory.TagAutoFlashCompensation, new sbyte[] { 0x04, 0x01, 0x06 });
             Assert.AreEqual("0.67 EV", descriptor.GetAutoFlashCompensationDescription());
-            directory.Set(NikonType2MakernoteDirectory.TagAutoFlashCompensation, new sbyte[] { unchecked(0x02), unchecked(0x01), unchecked(0x06) });
+            directory.Set(NikonType2MakernoteDirectory.TagAutoFlashCompensation, new sbyte[] { 0x02, 0x01, 0x06 });
             Assert.AreEqual("0.33 EV", descriptor.GetAutoFlashCompensationDescription());
-            directory.Set(NikonType2MakernoteDirectory.TagAutoFlashCompensation, new sbyte[] { unchecked((sbyte)0xFE), unchecked(0x01), unchecked(0x06) });
+            directory.Set(NikonType2MakernoteDirectory.TagAutoFlashCompensation, new sbyte[] { unchecked((sbyte)0xFE), 0x01, 0x06 });
             Assert.AreEqual("-0.33 EV", descriptor.GetAutoFlashCompensationDescription());
         }
     }

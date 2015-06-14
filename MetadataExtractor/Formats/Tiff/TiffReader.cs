@@ -56,12 +56,12 @@ namespace MetadataExtractor.Formats.Tiff
         {
             // This must be either "MM" or "II".
             var byteOrderIdentifier = reader.GetInt16(tiffHeaderOffset);
-            if (byteOrderIdentifier == unchecked(0x4d4d))
+            if (byteOrderIdentifier == 0x4d4d)
             {
                 // "MM"
                 reader.IsMotorolaByteOrder = true;
             }
-            else if (byteOrderIdentifier == unchecked(0x4949))
+            else if (byteOrderIdentifier == 0x4949)
             {
                 // "II"
                 reader.IsMotorolaByteOrder = false;

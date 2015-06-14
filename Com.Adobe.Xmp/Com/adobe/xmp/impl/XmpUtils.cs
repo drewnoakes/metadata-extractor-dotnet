@@ -787,7 +787,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Return the character kind.</returns>
         private static UnicodeKind ClassifyCharacter(char ch)
         {
-            if (Spaces.IndexOf(ch) >= 0 || (unchecked(0x2000) <= ch && ch <= unchecked(0x200B)))
+            if (Spaces.IndexOf(ch) >= 0 || (0x2000 <= ch && ch <= 0x200B))
             {
                 return UnicodeKind.Space;
             }
@@ -799,11 +799,11 @@ namespace Com.Adobe.Xmp.Impl
             {
                 return UnicodeKind.Semicolon;
             }
-            if (Quotes.IndexOf(ch) >= 0 || (unchecked(0x3008) <= ch && ch <= unchecked(0x300F)) || (unchecked(0x2018) <= ch && ch <= unchecked(0x201F)))
+            if (Quotes.IndexOf(ch) >= 0 || (0x3008 <= ch && ch <= 0x300F) || (0x2018 <= ch && ch <= 0x201F))
             {
                 return UnicodeKind.Quote;
             }
-            if (ch < unchecked(0x0020) || Controls.IndexOf(ch) >= 0)
+            if (ch < 0x0020 || Controls.IndexOf(ch) >= 0)
             {
                 return UnicodeKind.Control;
             }
@@ -1007,7 +1007,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns true if the character is a closing quote.</returns>
         private static bool IsClosingingQuote(char ch, char openQuote, char closeQuote)
         {
-            return ch == closeQuote || (openQuote == unchecked(0x301D) && ch == unchecked(0x301E) || ch == unchecked(0x301F));
+            return ch == closeQuote || (openQuote == 0x301D && ch == 0x301E || ch == 0x301F);
         }
 
         /// <summary>

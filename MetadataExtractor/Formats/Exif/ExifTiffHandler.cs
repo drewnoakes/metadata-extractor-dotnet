@@ -112,7 +112,7 @@ namespace MetadataExtractor.Formats.Exif
             if (tagId == ExifDirectoryBase.TagIptcNaa && CurrentDirectory is ExifIfd0Directory)
             {
                 // NOTE Adobe sets type 4 for IPTC instead of 7
-                if (reader.GetInt8(tagOffset) == unchecked(0x1c))
+                if (reader.GetInt8(tagOffset) == 0x1c)
                 {
                     var iptcBytes = reader.GetBytes(tagOffset, byteCount);
                     new IptcReader().Extract(new SequentialByteArrayReader(iptcBytes), Metadata, iptcBytes.Length);

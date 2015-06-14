@@ -31,167 +31,167 @@ namespace MetadataExtractor.Formats.Photoshop
     /// <author>Yuri Binev</author>
     public sealed class PhotoshopDirectory : Directory
     {
-        public const int TagChannelsRowsColumnsDepthMode = unchecked(0x03E8);
+        public const int TagChannelsRowsColumnsDepthMode = 0x03E8;
 
-        public const int TagMacPrintInfo = unchecked(0x03E9);
+        public const int TagMacPrintInfo = 0x03E9;
 
-        public const int TagXml = unchecked(0x03EA);
+        public const int TagXml = 0x03EA;
 
-        public const int TagIndexedColorTable = unchecked(0x03EB);
+        public const int TagIndexedColorTable = 0x03EB;
 
-        public const int TagResolutionInfo = unchecked(0x03ED);
+        public const int TagResolutionInfo = 0x03ED;
 
-        public const int TagAlphaChannels = unchecked(0x03EE);
+        public const int TagAlphaChannels = 0x03EE;
 
-        public const int TagDisplayInfoObsolete = unchecked(0x03EF);
+        public const int TagDisplayInfoObsolete = 0x03EF;
 
-        public const int TagCaption = unchecked(0x03F0);
+        public const int TagCaption = 0x03F0;
 
-        public const int TagBorderInformation = unchecked(0x03F1);
+        public const int TagBorderInformation = 0x03F1;
 
-        public const int TagBackgroundColor = unchecked(0x03F2);
+        public const int TagBackgroundColor = 0x03F2;
 
-        public const int TagPrintFlags = unchecked(0x03F3);
+        public const int TagPrintFlags = 0x03F3;
 
-        public const int TagGrayscaleAndMultichannelHalftoningInformation = unchecked(0x03F4);
+        public const int TagGrayscaleAndMultichannelHalftoningInformation = 0x03F4;
 
-        public const int TagColorHalftoningInformation = unchecked(0x03F5);
+        public const int TagColorHalftoningInformation = 0x03F5;
 
-        public const int TagDuotoneHalftoningInformation = unchecked(0x03F6);
+        public const int TagDuotoneHalftoningInformation = 0x03F6;
 
-        public const int TagGrayscaleAndMultichannelTransferFunction = unchecked(0x03F7);
+        public const int TagGrayscaleAndMultichannelTransferFunction = 0x03F7;
 
-        public const int TagColorTransferFunctions = unchecked(0x03F8);
+        public const int TagColorTransferFunctions = 0x03F8;
 
-        public const int TagDuotoneTransferFunctions = unchecked(0x03F9);
+        public const int TagDuotoneTransferFunctions = 0x03F9;
 
-        public const int TagDuotoneImageInformation = unchecked(0x03FA);
+        public const int TagDuotoneImageInformation = 0x03FA;
 
-        public const int TagEffectiveBlackAndWhiteValues = unchecked(0x03FB);
+        public const int TagEffectiveBlackAndWhiteValues = 0x03FB;
 
-        public const int TagEpsOptions = unchecked(0x03FD);
+        public const int TagEpsOptions = 0x03FD;
 
-        public const int TagQuickMaskInformation = unchecked(0x03FE);
+        public const int TagQuickMaskInformation = 0x03FE;
 
-        public const int TagLayerStateInformation = unchecked(0x0400);
+        public const int TagLayerStateInformation = 0x0400;
 
-        public const int TagLayersGroupInformation = unchecked(0x0402);
+        public const int TagLayersGroupInformation = 0x0402;
 
-        public const int TagIptc = unchecked(0x0404);
+        public const int TagIptc = 0x0404;
 
-        public const int TagImageModeForRawFormatFiles = unchecked(0x0405);
+        public const int TagImageModeForRawFormatFiles = 0x0405;
 
-        public const int TagJpegQuality = unchecked(0x0406);
+        public const int TagJpegQuality = 0x0406;
 
-        public const int TagGridAndGuidesInformation = unchecked(0x0408);
+        public const int TagGridAndGuidesInformation = 0x0408;
 
-        public const int TagThumbnailOld = unchecked(0x0409);
+        public const int TagThumbnailOld = 0x0409;
 
-        public const int TagCopyright = unchecked(0x040A);
+        public const int TagCopyright = 0x040A;
 
-        public const int TagUrl = unchecked(0x040B);
+        public const int TagUrl = 0x040B;
 
-        public const int TagThumbnail = unchecked(0x040C);
+        public const int TagThumbnail = 0x040C;
 
-        public const int TagGlobalAngle = unchecked(0x040D);
+        public const int TagGlobalAngle = 0x040D;
 
-        public const int TagIccProfileBytes = unchecked(0x040F);
+        public const int TagIccProfileBytes = 0x040F;
 
-        public const int TagWatermark = unchecked(0x0410);
+        public const int TagWatermark = 0x0410;
 
-        public const int TagIccUntaggedProfile = unchecked(0x0411);
+        public const int TagIccUntaggedProfile = 0x0411;
 
-        public const int TagEffectsVisible = unchecked(0x0412);
+        public const int TagEffectsVisible = 0x0412;
 
-        public const int TagSpotHalftone = unchecked(0x0413);
+        public const int TagSpotHalftone = 0x0413;
 
-        public const int TagSeedNumber = unchecked(0x0414);
+        public const int TagSeedNumber = 0x0414;
 
-        public const int TagUnicodeAlphaNames = unchecked(0x0415);
+        public const int TagUnicodeAlphaNames = 0x0415;
 
-        public const int TagIndexedColorTableCount = unchecked(0x0416);
+        public const int TagIndexedColorTableCount = 0x0416;
 
-        public const int TagTransparencyIndex = unchecked(0x0417);
+        public const int TagTransparencyIndex = 0x0417;
 
-        public const int TagGlobalAltitude = unchecked(0x0419);
+        public const int TagGlobalAltitude = 0x0419;
 
-        public const int TagSlices = unchecked(0x041A);
+        public const int TagSlices = 0x041A;
 
-        public const int TagWorkflowUrl = unchecked(0x041B);
+        public const int TagWorkflowUrl = 0x041B;
 
-        public const int TagJumpToXpep = unchecked(0x041C);
+        public const int TagJumpToXpep = 0x041C;
 
-        public const int TagAlphaIdentifiers = unchecked(0x041D);
+        public const int TagAlphaIdentifiers = 0x041D;
 
-        public const int TagUrlList = unchecked(0x041E);
+        public const int TagUrlList = 0x041E;
 
-        public const int TagVersion = unchecked(0x0421);
+        public const int TagVersion = 0x0421;
 
-        public const int TagExifData1 = unchecked(0x0422);
+        public const int TagExifData1 = 0x0422;
 
-        public const int TagExifData3 = unchecked(0x0423);
+        public const int TagExifData3 = 0x0423;
 
-        public const int TagXmpData = unchecked(0x0424);
+        public const int TagXmpData = 0x0424;
 
-        public const int TagCaptionDigest = unchecked(0x0425);
+        public const int TagCaptionDigest = 0x0425;
 
-        public const int TagPrintScale = unchecked(0x0426);
+        public const int TagPrintScale = 0x0426;
 
-        public const int TagPixelAspectRatio = unchecked(0x0428);
+        public const int TagPixelAspectRatio = 0x0428;
 
-        public const int TagLayerComps = unchecked(0x0429);
+        public const int TagLayerComps = 0x0429;
 
-        public const int TagAlternateDuotoneColors = unchecked(0x042A);
+        public const int TagAlternateDuotoneColors = 0x042A;
 
-        public const int TagAlternateSpotColors = unchecked(0x042B);
+        public const int TagAlternateSpotColors = 0x042B;
 
-        public const int TagLayerSelectionIds = unchecked(0x042D);
+        public const int TagLayerSelectionIds = 0x042D;
 
-        public const int TagHdrToningInfo = unchecked(0x042E);
+        public const int TagHdrToningInfo = 0x042E;
 
-        public const int TagPrintInfo = unchecked(0x042F);
+        public const int TagPrintInfo = 0x042F;
 
-        public const int TagLayerGroupsEnabledId = unchecked(0x0430);
+        public const int TagLayerGroupsEnabledId = 0x0430;
 
-        public const int TagColorSamplers = unchecked(0x0431);
+        public const int TagColorSamplers = 0x0431;
 
-        public const int TagMeasurementScale = unchecked(0x0432);
+        public const int TagMeasurementScale = 0x0432;
 
-        public const int TagTimelineInformation = unchecked(0x0433);
+        public const int TagTimelineInformation = 0x0433;
 
-        public const int TagSheetDisclosure = unchecked(0x0434);
+        public const int TagSheetDisclosure = 0x0434;
 
-        public const int TagDisplayInfo = unchecked(0x0435);
+        public const int TagDisplayInfo = 0x0435;
 
-        public const int TagOnionSkins = unchecked(0x0436);
+        public const int TagOnionSkins = 0x0436;
 
-        public const int TagCountInformation = unchecked(0x0438);
+        public const int TagCountInformation = 0x0438;
 
-        public const int TagPrintInfo2 = unchecked(0x043A);
+        public const int TagPrintInfo2 = 0x043A;
 
-        public const int TagPrintStyle = unchecked(0x043B);
+        public const int TagPrintStyle = 0x043B;
 
-        public const int TagMacNsprintinfo = unchecked(0x043C);
+        public const int TagMacNsprintinfo = 0x043C;
 
-        public const int TagWinDevmode = unchecked(0x043D);
+        public const int TagWinDevmode = 0x043D;
 
-        public const int TagAutoSaveFilePath = unchecked(0x043E);
+        public const int TagAutoSaveFilePath = 0x043E;
 
-        public const int TagAutoSaveFormat = unchecked(0x043F);
+        public const int TagAutoSaveFormat = 0x043F;
 
-        public const int TagPathSelectionState = unchecked(0x0440);
+        public const int TagPathSelectionState = 0x0440;
 
-        public const int TagClippingPathName = unchecked(0x0BB7);
+        public const int TagClippingPathName = 0x0BB7;
 
-        public const int TagOriginPathInfo = unchecked(0x0BB8);
+        public const int TagOriginPathInfo = 0x0BB8;
 
-        public const int TagImageReadyVariablesXml = unchecked(0x1B58);
+        public const int TagImageReadyVariablesXml = 0x1B58;
 
-        public const int TagImageReadyDataSets = unchecked(0x1B59);
+        public const int TagImageReadyDataSets = 0x1B59;
 
-        public const int TagLightroomWorkflow = unchecked(0x1F40);
+        public const int TagLightroomWorkflow = 0x1F40;
 
-        public const int TagPrintFlagsInfo = unchecked(0x2710);
+        public const int TagPrintFlagsInfo = 0x2710;
 
         [NotNull]
         internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();

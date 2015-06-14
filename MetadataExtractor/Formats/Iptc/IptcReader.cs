@@ -64,7 +64,7 @@ namespace MetadataExtractor.Formats.Iptc
             foreach (var segmentBytes in segments)
             {
                 // Ensure data starts with the IPTC marker byte
-                if (segmentBytes.Length != 0 && segmentBytes[0] == unchecked(0x1c))
+                if (segmentBytes.Length != 0 && segmentBytes[0] == 0x1c)
                 {
                     Extract(new SequentialByteArrayReader(segmentBytes), metadata, segmentBytes.Length);
                 }
@@ -94,7 +94,7 @@ namespace MetadataExtractor.Formats.Iptc
                     directory.AddError("Unable to read starting byte of IPTC tag");
                     return;
                 }
-                if (startByte != unchecked(0x1c))
+                if (startByte != 0x1c)
                 {
                     // NOTE have seen images where there was one extra byte at the end, giving
                     // offset==length at this point, which is not worth logging as an error.

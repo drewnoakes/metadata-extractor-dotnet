@@ -183,22 +183,22 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x10000):
+                case 0x10000:
                 {
                     return "No digital zoom";
                 }
 
-                case unchecked(0x10001):
+                case 0x10001:
                 {
                     return "2x digital zoom";
                 }
 
-                case unchecked(0x20000):
+                case 0x20000:
                 {
                     return "2x digital zoom";
                 }
 
-                case unchecked(0x40000):
+                case 0x40000:
                 {
                     return "4x digital zoom";
                 }

@@ -29,123 +29,123 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class SonyType1MakernoteDirectory : Directory
     {
-        public const int TagCameraInfo = unchecked(0x0010);
+        public const int TagCameraInfo = 0x0010;
 
-        public const int TagFocusInfo = unchecked(0x0020);
+        public const int TagFocusInfo = 0x0020;
 
-        public const int TagImageQuality = unchecked(0x0102);
+        public const int TagImageQuality = 0x0102;
 
-        public const int TagFlashExposureComp = unchecked(0x0104);
+        public const int TagFlashExposureComp = 0x0104;
 
-        public const int TagTeleconverter = unchecked(0x0105);
+        public const int TagTeleconverter = 0x0105;
 
-        public const int TagWhiteBalanceFineTune = unchecked(0x0112);
+        public const int TagWhiteBalanceFineTune = 0x0112;
 
-        public const int TagCameraSettings = unchecked(0x0114);
+        public const int TagCameraSettings = 0x0114;
 
-        public const int TagWhiteBalance = unchecked(0x0115);
+        public const int TagWhiteBalance = 0x0115;
 
-        public const int TagExtraInfo = unchecked(0x0116);
+        public const int TagExtraInfo = 0x0116;
 
-        public const int TagPrintImageMatchingInfo = unchecked(0x0E00);
+        public const int TagPrintImageMatchingInfo = 0x0E00;
 
-        public const int TagMultiBurstMode = unchecked(0x1000);
+        public const int TagMultiBurstMode = 0x1000;
 
-        public const int TagMultiBurstImageWidth = unchecked(0x1001);
+        public const int TagMultiBurstImageWidth = 0x1001;
 
-        public const int TagMultiBurstImageHeight = unchecked(0x1002);
+        public const int TagMultiBurstImageHeight = 0x1002;
 
-        public const int TagPanorama = unchecked(0x1003);
+        public const int TagPanorama = 0x1003;
 
-        public const int TagPreviewImage = unchecked(0x2001);
+        public const int TagPreviewImage = 0x2001;
 
-        public const int TagRating = unchecked(0x2002);
+        public const int TagRating = 0x2002;
 
-        public const int TagContrast = unchecked(0x2004);
+        public const int TagContrast = 0x2004;
 
-        public const int TagSaturation = unchecked(0x2005);
+        public const int TagSaturation = 0x2005;
 
-        public const int TagSharpness = unchecked(0x2006);
+        public const int TagSharpness = 0x2006;
 
-        public const int TagBrightness = unchecked(0x2007);
+        public const int TagBrightness = 0x2007;
 
-        public const int TagLongExposureNoiseReduction = unchecked(0x2008);
+        public const int TagLongExposureNoiseReduction = 0x2008;
 
-        public const int TagHighIsoNoiseReduction = unchecked(0x2009);
+        public const int TagHighIsoNoiseReduction = 0x2009;
 
-        public const int TagHdr = unchecked(0x200a);
+        public const int TagHdr = 0x200a;
 
-        public const int TagMultiFrameNoiseReduction = unchecked(0x200b);
+        public const int TagMultiFrameNoiseReduction = 0x200b;
 
-        public const int TagPictureEffect = unchecked(0x200e);
+        public const int TagPictureEffect = 0x200e;
 
-        public const int TagSoftSkinEffect = unchecked(0x200f);
+        public const int TagSoftSkinEffect = 0x200f;
 
-        public const int TagVignettingCorrection = unchecked(0x2011);
+        public const int TagVignettingCorrection = 0x2011;
 
-        public const int TagLateralChromaticAberration = unchecked(0x2012);
+        public const int TagLateralChromaticAberration = 0x2012;
 
-        public const int TagDistortionCorrection = unchecked(0x2013);
+        public const int TagDistortionCorrection = 0x2013;
 
-        public const int TagWbShiftAmberMagenta = unchecked(0x2014);
+        public const int TagWbShiftAmberMagenta = 0x2014;
 
-        public const int TagAutoPortraitFramed = unchecked(0x2016);
+        public const int TagAutoPortraitFramed = 0x2016;
 
-        public const int TagFocusMode = unchecked(0x201b);
+        public const int TagFocusMode = 0x201b;
 
-        public const int TagAfPointSelected = unchecked(0x201e);
+        public const int TagAfPointSelected = 0x201e;
 
-        public const int TagShotInfo = unchecked(0x3000);
+        public const int TagShotInfo = 0x3000;
 
-        public const int TagFileFormat = unchecked(0xb000);
+        public const int TagFileFormat = 0xb000;
 
-        public const int TagSonyModelId = unchecked(0xb001);
+        public const int TagSonyModelId = 0xb001;
 
-        public const int TagColorModeSetting = unchecked(0xb020);
+        public const int TagColorModeSetting = 0xb020;
 
-        public const int TagColorTemperature = unchecked(0xb021);
+        public const int TagColorTemperature = 0xb021;
 
-        public const int TagColorCompensationFilter = unchecked(0xb022);
+        public const int TagColorCompensationFilter = 0xb022;
 
-        public const int TagSceneMode = unchecked(0xb023);
+        public const int TagSceneMode = 0xb023;
 
-        public const int TagZoneMatching = unchecked(0xb024);
+        public const int TagZoneMatching = 0xb024;
 
-        public const int TagDynamicRangeOptimiser = unchecked(0xb025);
+        public const int TagDynamicRangeOptimiser = 0xb025;
 
-        public const int TagImageStabilisation = unchecked(0xb026);
+        public const int TagImageStabilisation = 0xb026;
 
-        public const int TagLensId = unchecked(0xb027);
+        public const int TagLensId = 0xb027;
 
-        public const int TagMinoltaMakernote = unchecked(0xb028);
+        public const int TagMinoltaMakernote = 0xb028;
 
-        public const int TagColorMode = unchecked(0xb029);
+        public const int TagColorMode = 0xb029;
 
-        public const int TagLensSpec = unchecked(0xb02a);
+        public const int TagLensSpec = 0xb02a;
 
-        public const int TagFullImageSize = unchecked(0xb02b);
+        public const int TagFullImageSize = 0xb02b;
 
-        public const int TagPreviewImageSize = unchecked(0xb02c);
+        public const int TagPreviewImageSize = 0xb02c;
 
-        public const int TagMacro = unchecked(0xb040);
+        public const int TagMacro = 0xb040;
 
-        public const int TagExposureMode = unchecked(0xb041);
+        public const int TagExposureMode = 0xb041;
 
-        public const int TagFocusMode2 = unchecked(0xb042);
+        public const int TagFocusMode2 = 0xb042;
 
-        public const int TagAfMode = unchecked(0xb043);
+        public const int TagAfMode = 0xb043;
 
-        public const int TagAfIlluminator = unchecked(0xb044);
+        public const int TagAfIlluminator = 0xb044;
 
-        public const int TagJpegQuality = unchecked(0xb047);
+        public const int TagJpegQuality = 0xb047;
 
-        public const int TagFlashLevel = unchecked(0xb048);
+        public const int TagFlashLevel = 0xb048;
 
-        public const int TagReleaseMode = unchecked(0xb049);
+        public const int TagReleaseMode = 0xb049;
 
-        public const int TagSequenceNumber = unchecked(0xb04a);
+        public const int TagSequenceNumber = 0xb04a;
 
-        public const int TagAntiBlur = unchecked(0xb04b);
+        public const int TagAntiBlur = 0xb04b;
 
         /// <summary>
         /// (FocusMode for RX100)
@@ -160,17 +160,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// 2 = On 2
         /// 65535 = n/a
         /// </summary>
-        public const int TagLongExposureNoiseReductionOrFocusMode = unchecked(0xb04e);
+        public const int TagLongExposureNoiseReductionOrFocusMode = 0xb04e;
 
-        public const int TagDynamicRangeOptimizer = unchecked(0xb04f);
+        public const int TagDynamicRangeOptimizer = 0xb04f;
 
-        public const int TagHighIsoNoiseReduction2 = unchecked(0xb050);
+        public const int TagHighIsoNoiseReduction2 = 0xb050;
 
-        public const int TagIntelligentAuto = unchecked(0xb052);
+        public const int TagIntelligentAuto = 0xb052;
 
-        public const int TagWhiteBalance2 = unchecked(0xb054);
+        public const int TagWhiteBalance2 = 0xb054;
 
-        public const int TagNoPrint = unchecked(0xFFFF);
+        public const int TagNoPrint = 0xFFFF;
 
         [NotNull]
         protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();

@@ -103,7 +103,7 @@ namespace MetadataExtractor.Formats.Jpeg
                 var segmentIdentifier = reader.GetUInt8();
 
                 // We must have at least one 0xFF byte
-                if (segmentIdentifier != unchecked(0xFF))
+                if (segmentIdentifier != 0xFF)
                     throw new JpegProcessingException(string.Format("Expected JPEG segment start identifier 0xFF, not 0x{0:X2}", segmentIdentifier));
 
                 // Read until we have a non-0xFF byte. This identifies the segment type.

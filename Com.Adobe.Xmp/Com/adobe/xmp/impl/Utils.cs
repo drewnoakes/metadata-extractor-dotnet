@@ -361,7 +361,7 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns true if the char is an ASCII control char.</returns>
         internal static bool IsControlChar(char c)
         {
-            return (c <= unchecked(0x1F) || c == unchecked(0x7F)) && c != unchecked(0x09) && c != unchecked(0x0A) && c != unchecked(0x0D);
+            return (c <= 0x1F || c == 0x7F) && c != 0x09 && c != 0x0A && c != 0x0D;
         }
 
         /// <summary>Serializes the node value in XML encoding.</summary>
@@ -472,16 +472,16 @@ namespace Com.Adobe.Xmp.Impl
         private static bool IsNameStartChar(char ch)
         {
             return
-                (ch <= unchecked(0xFF) && _xmlNameStartChars[ch]) ||
-                (ch >= unchecked(0x100) && ch <= unchecked(0x2FF)) ||
-                (ch >= unchecked(0x370) && ch <= unchecked(0x37D)) ||
-                (ch >= unchecked(0x37F) && ch <= unchecked(0x1FFF)) ||
-                (ch >= unchecked(0x200C) && ch <= unchecked(0x200D)) ||
-                (ch >= unchecked(0x2070) && ch <= unchecked(0x218F)) ||
-                (ch >= unchecked(0x2C00) && ch <= unchecked(0x2FEF)) ||
-                (ch >= unchecked(0x3001) && ch <= unchecked(0xD7FF)) ||
-                (ch >= unchecked(0xF900) && ch <= unchecked(0xFDCF)) ||
-                (ch >= unchecked(0xFDF0) && ch <= unchecked(0xFFFD));
+                (ch <= 0xFF && _xmlNameStartChars[ch]) ||
+                (ch >= 0x100 && ch <= 0x2FF) ||
+                (ch >= 0x370 && ch <= 0x37D) ||
+                (ch >= 0x37F && ch <= 0x1FFF) ||
+                (ch >= 0x200C && ch <= 0x200D) ||
+                (ch >= 0x2070 && ch <= 0x218F) ||
+                (ch >= 0x2C00 && ch <= 0x2FEF) ||
+                (ch >= 0x3001 && ch <= 0xD7FF) ||
+                (ch >= 0xF900 && ch <= 0xFDCF) ||
+                (ch >= 0xFDF0 && ch <= 0xFFFD);
         }
 
         /// <summary>
@@ -494,10 +494,10 @@ namespace Com.Adobe.Xmp.Impl
         private static bool IsNameChar(char ch)
         {
             return
-                (ch <= unchecked(0xFF) && _xmlNameChars[ch]) ||
+                (ch <= 0xFF && _xmlNameChars[ch]) ||
                 IsNameStartChar(ch) ||
-                (ch >= unchecked(0x300) && ch <= unchecked(0x36F)) ||
-                (ch >= unchecked(0x203F) && ch <= unchecked(0x2040));
+                (ch >= 0x300 && ch <= 0x36F) ||
+                (ch >= 0x203F && ch <= 0x2040);
         }
 
         /// <summary>
@@ -507,8 +507,8 @@ namespace Com.Adobe.Xmp.Impl
         /// </summary>
         private static void InitCharTables()
         {
-            _xmlNameChars = new bool[unchecked(0x0100)];
-            _xmlNameStartChars = new bool[unchecked(0x0100)];
+            _xmlNameChars = new bool[0x0100];
+            _xmlNameStartChars = new bool[0x0100];
 
             for (var ch = (char)0; ch < _xmlNameChars.Length; ch++)
             {
@@ -517,9 +517,9 @@ namespace Com.Adobe.Xmp.Impl
                     ('A' <= ch && ch <= 'Z') ||
                     ch == '_' ||
                     ('a' <= ch && ch <= 'z') ||
-                    (unchecked(0xC0) <= ch && ch <= unchecked(0xD6)) ||
-                    (unchecked(0xD8) <= ch && ch <= unchecked(0xF6)) ||
-                    (unchecked(0xF8) <= ch && ch <= unchecked(0xFF));
+                    (0xC0 <= ch && ch <= 0xD6) ||
+                    (0xD8 <= ch && ch <= 0xF6) ||
+                    (0xF8 <= ch && ch <= 0xFF);
 
                 _xmlNameStartChars[ch] = isNameStartChar;
                 _xmlNameChars[ch] =
@@ -527,7 +527,7 @@ namespace Com.Adobe.Xmp.Impl
                     ch == '-' ||
                     ch == '.' ||
                     ('0' <= ch && ch <= '9') ||
-                    ch == unchecked(0xB7);
+                    ch == 0xB7;
             }
         }
     }

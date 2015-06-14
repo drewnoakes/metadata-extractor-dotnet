@@ -125,9 +125,9 @@ namespace MetadataExtractor.Formats.Photoshop
                 // & 0xFFFF;
                 int s = reader.GetUInt16(4);
                 int q1;
-                if (q <= unchecked(0xFFFF) && q >= unchecked(0xFFFD))
+                if (q <= 0xFFFF && q >= 0xFFFD)
                 {
-                    q1 = q - unchecked(0xFFFC);
+                    q1 = q - 0xFFFC;
                 }
                 else
                 {
@@ -143,9 +143,9 @@ namespace MetadataExtractor.Formats.Photoshop
                 string quality;
                 switch (q)
                 {
-                    case unchecked(0xFFFD):
-                    case unchecked(0xFFFE):
-                    case unchecked(0xFFFF):
+                    case 0xFFFD:
+                    case 0xFFFE:
+                    case 0xFFFF:
                     case 0:
                     {
                         quality = "Low";
@@ -184,19 +184,19 @@ namespace MetadataExtractor.Formats.Photoshop
                 string format;
                 switch (f)
                 {
-                    case unchecked(0x0000):
+                    case 0x0000:
                     {
                         format = "Standard";
                         break;
                     }
 
-                    case unchecked(0x0001):
+                    case 0x0001:
                     {
                         format = "Optimised";
                         break;
                     }
 
-                    case unchecked(0x0101):
+                    case 0x0101:
                     {
                         format = "Progressive ";
                         break;

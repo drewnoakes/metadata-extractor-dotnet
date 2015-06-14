@@ -8,7 +8,7 @@ namespace MetadataExtractor.Formats.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunkReader
     {
-        private static readonly byte[] PngSignatureBytes = new byte[] { unchecked(0x89), unchecked(0x50), unchecked(0x4E), unchecked(0x47), unchecked(0x0D), unchecked(0x0A), unchecked(0x1A), unchecked(
+        private static readonly byte[] PngSignatureBytes = new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, unchecked(
             0x0A) };
 
         /// <exception cref="PngProcessingException"/>

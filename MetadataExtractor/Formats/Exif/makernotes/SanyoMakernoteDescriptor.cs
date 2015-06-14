@@ -146,122 +146,122 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x0):
+                case 0x0:
                 {
                     return "Normal/Very Low";
                 }
 
-                case unchecked(0x1):
+                case 0x1:
                 {
                     return "Normal/Low";
                 }
 
-                case unchecked(0x2):
+                case 0x2:
                 {
                     return "Normal/Medium Low";
                 }
 
-                case unchecked(0x3):
+                case 0x3:
                 {
                     return "Normal/Medium";
                 }
 
-                case unchecked(0x4):
+                case 0x4:
                 {
                     return "Normal/Medium High";
                 }
 
-                case unchecked(0x5):
+                case 0x5:
                 {
                     return "Normal/High";
                 }
 
-                case unchecked(0x6):
+                case 0x6:
                 {
                     return "Normal/Very High";
                 }
 
-                case unchecked(0x7):
+                case 0x7:
                 {
                     return "Normal/Super High";
                 }
 
-                case unchecked(0x100):
+                case 0x100:
                 {
                     return "Fine/Very Low";
                 }
 
-                case unchecked(0x101):
+                case 0x101:
                 {
                     return "Fine/Low";
                 }
 
-                case unchecked(0x102):
+                case 0x102:
                 {
                     return "Fine/Medium Low";
                 }
 
-                case unchecked(0x103):
+                case 0x103:
                 {
                     return "Fine/Medium";
                 }
 
-                case unchecked(0x104):
+                case 0x104:
                 {
                     return "Fine/Medium High";
                 }
 
-                case unchecked(0x105):
+                case 0x105:
                 {
                     return "Fine/High";
                 }
 
-                case unchecked(0x106):
+                case 0x106:
                 {
                     return "Fine/Very High";
                 }
 
-                case unchecked(0x107):
+                case 0x107:
                 {
                     return "Fine/Super High";
                 }
 
-                case unchecked(0x200):
+                case 0x200:
                 {
                     return "Super Fine/Very Low";
                 }
 
-                case unchecked(0x201):
+                case 0x201:
                 {
                     return "Super Fine/Low";
                 }
 
-                case unchecked(0x202):
+                case 0x202:
                 {
                     return "Super Fine/Medium Low";
                 }
 
-                case unchecked(0x203):
+                case 0x203:
                 {
                     return "Super Fine/Medium";
                 }
 
-                case unchecked(0x204):
+                case 0x204:
                 {
                     return "Super Fine/Medium High";
                 }
 
-                case unchecked(0x205):
+                case 0x205:
                 {
                     return "Super Fine/High";
                 }
 
-                case unchecked(0x206):
+                case 0x206:
                 {
                     return "Super Fine/Very High";
                 }
 
-                case unchecked(0x207):
+                case 0x207:
                 {
                     return "Super Fine/Super High";
                 }

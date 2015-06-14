@@ -141,9 +141,9 @@ namespace MetadataExtractor.Tests
         [Test]
         public void TestSetStringGetInt()
         {
-            var bytes = new byte[] { unchecked(0x01), unchecked(0x02), unchecked(0x03) };
+            var bytes = new byte[] { 0x01, 0x02, 0x03 };
             _directory.Set(1, Encoding.UTF8.GetString(bytes));
-            Assert.AreEqual(unchecked(0x010203), _directory.GetInt32(1));
+            Assert.AreEqual(0x010203, _directory.GetInt32(1));
         }
 
 

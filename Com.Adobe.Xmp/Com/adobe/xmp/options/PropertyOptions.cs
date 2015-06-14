@@ -16,20 +16,20 @@ namespace Com.Adobe.Xmp.Options
     /// <since>03.07.2006</since>
     public sealed class PropertyOptions : Options
     {
-        internal const int IsUriFlag = unchecked(0x00000002);
-        internal const int HasQualifiersFlag = unchecked(0x00000010);
-        internal const int QualifierFlag = unchecked(0x00000020);
-        internal const int HasLanguageFlag = unchecked(0x00000040);
-        internal const int HasTypeFlag = unchecked(0x00000080);
-        internal const int StructFlag = unchecked(0x00000100);
-        internal const int ArrayFlag = unchecked(0x00000200);
-        internal const int ArrayOrderedFlag = unchecked(0x00000400);
-        internal const int ArrayAlternateFlag = unchecked(0x00000800);
-        internal const int ArrayAltTextFlag = unchecked(0x00001000);
+        internal const int IsUriFlag = 0x00000002;
+        internal const int HasQualifiersFlag = 0x00000010;
+        internal const int QualifierFlag = 0x00000020;
+        internal const int HasLanguageFlag = 0x00000040;
+        internal const int HasTypeFlag = 0x00000080;
+        internal const int StructFlag = 0x00000100;
+        internal const int ArrayFlag = 0x00000200;
+        internal const int ArrayOrderedFlag = 0x00000400;
+        internal const int ArrayAlternateFlag = 0x00000800;
+        internal const int ArrayAltTextFlag = 0x00001000;
         internal const int SchemaNodeFlag = unchecked((int)(0x80000000));
 
         /// <summary>may be used in the future</summary>
-        internal const int DeleteExisting = unchecked(0x20000000);
+        internal const int DeleteExisting = 0x20000000;
 
         /// <summary>Default constructor</summary>
         public PropertyOptions()

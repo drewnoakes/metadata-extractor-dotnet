@@ -78,7 +78,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Test]
         public void TestGetComponentDescription()
         {
-            var component1 = new JpegComponent(1, unchecked(0x22), 0);
+            var component1 = new JpegComponent(1, 0x22, 0);
             _directory.Set(JpegDirectory.TagComponentData1, component1);
             Assert.AreEqual("Y component: Quantization table 0, Sampling factors 2 horiz/2 vert", _directory.GetDescription(JpegDirectory.TagComponentData1));
             Assert.AreEqual("Y component: Quantization table 0, Sampling factors 2 horiz/2 vert", _descriptor.GetComponentDataDescription(0));

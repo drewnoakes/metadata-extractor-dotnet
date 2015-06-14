@@ -40,27 +40,27 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class NikonType1MakernoteDirectory : Directory
     {
-        public const int TagUnknown1 = unchecked(0x0002);
+        public const int TagUnknown1 = 0x0002;
 
-        public const int TagQuality = unchecked(0x0003);
+        public const int TagQuality = 0x0003;
 
-        public const int TagColorMode = unchecked(0x0004);
+        public const int TagColorMode = 0x0004;
 
-        public const int TagImageAdjustment = unchecked(0x0005);
+        public const int TagImageAdjustment = 0x0005;
 
-        public const int TagCcdSensitivity = unchecked(0x0006);
+        public const int TagCcdSensitivity = 0x0006;
 
-        public const int TagWhiteBalance = unchecked(0x0007);
+        public const int TagWhiteBalance = 0x0007;
 
-        public const int TagFocus = unchecked(0x0008);
+        public const int TagFocus = 0x0008;
 
-        public const int TagUnknown2 = unchecked(0x0009);
+        public const int TagUnknown2 = 0x0009;
 
-        public const int TagDigitalZoom = unchecked(0x000A);
+        public const int TagDigitalZoom = 0x000A;
 
-        public const int TagConverter = unchecked(0x000B);
+        public const int TagConverter = 0x000B;
 
-        public const int TagUnknown3 = unchecked(0x0F00);
+        public const int TagUnknown3 = 0x0F00;
 
         [NotNull]
         protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();

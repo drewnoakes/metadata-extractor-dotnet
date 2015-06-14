@@ -35,158 +35,158 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class CanonMakernoteDirectory : Directory
     {
-        private const int TagCameraSettingsArray = unchecked(0x0001);
+        private const int TagCameraSettingsArray = 0x0001;
 
-        private const int TagFocalLengthArray = unchecked(0x0002);
+        private const int TagFocalLengthArray = 0x0002;
 
-        private const int TagShotInfoArray = unchecked(0x0004);
+        private const int TagShotInfoArray = 0x0004;
 
-        private const int TagPanoramaArray = unchecked(0x0005);
+        private const int TagPanoramaArray = 0x0005;
 
-        public const int TagCanonImageType = unchecked(0x0006);
+        public const int TagCanonImageType = 0x0006;
 
-        public const int TagCanonFirmwareVersion = unchecked(0x0007);
+        public const int TagCanonFirmwareVersion = 0x0007;
 
-        public const int TagCanonImageNumber = unchecked(0x0008);
+        public const int TagCanonImageNumber = 0x0008;
 
-        public const int TagCanonOwnerName = unchecked(0x0009);
+        public const int TagCanonOwnerName = 0x0009;
 
-        public const int TagCanonSerialNumber = unchecked(0x000C);
+        public const int TagCanonSerialNumber = 0x000C;
 
-        public const int TagCameraInfoArray = unchecked(0x000D);
+        public const int TagCameraInfoArray = 0x000D;
 
-        public const int TagCanonFileLength = unchecked(0x000E);
+        public const int TagCanonFileLength = 0x000E;
 
-        public const int TagCanonCustomFunctionsArray = unchecked(0x000F);
+        public const int TagCanonCustomFunctionsArray = 0x000F;
 
-        public const int TagModelId = unchecked(0x0010);
+        public const int TagModelId = 0x0010;
 
-        public const int TagMovieInfoArray = unchecked(0x0011);
+        public const int TagMovieInfoArray = 0x0011;
 
-        private const int TagAfInfoArray = unchecked(0x0012);
+        private const int TagAfInfoArray = 0x0012;
 
-        public const int TagThumbnailImageValidArea = unchecked(0x0013);
+        public const int TagThumbnailImageValidArea = 0x0013;
 
-        public const int TagSerialNumberFormat = unchecked(0x0015);
+        public const int TagSerialNumberFormat = 0x0015;
 
-        public const int TagSuperMacro = unchecked(0x001A);
+        public const int TagSuperMacro = 0x001A;
 
-        public const int TagDateStampMode = unchecked(0x001C);
+        public const int TagDateStampMode = 0x001C;
 
-        public const int TagMyColors = unchecked(0x001D);
+        public const int TagMyColors = 0x001D;
 
-        public const int TagFirmwareRevision = unchecked(0x001E);
+        public const int TagFirmwareRevision = 0x001E;
 
-        public const int TagCategories = unchecked(0x0023);
+        public const int TagCategories = 0x0023;
 
-        public const int TagFaceDetectArray1 = unchecked(0x0024);
+        public const int TagFaceDetectArray1 = 0x0024;
 
-        public const int TagFaceDetectArray2 = unchecked(0x0025);
+        public const int TagFaceDetectArray2 = 0x0025;
 
-        public const int TagAfInfoArray2 = unchecked(0x0026);
+        public const int TagAfInfoArray2 = 0x0026;
 
-        public const int TagImageUniqueId = unchecked(0x0028);
+        public const int TagImageUniqueId = 0x0028;
 
-        public const int TagRawDataOffset = unchecked(0x0081);
+        public const int TagRawDataOffset = 0x0081;
 
-        public const int TagOriginalDecisionDataOffset = unchecked(0x0083);
+        public const int TagOriginalDecisionDataOffset = 0x0083;
 
-        public const int TagCustomFunctions1DArray = unchecked(0x0090);
+        public const int TagCustomFunctions1DArray = 0x0090;
 
-        public const int TagPersonalFunctionsArray = unchecked(0x0091);
+        public const int TagPersonalFunctionsArray = 0x0091;
 
-        public const int TagPersonalFunctionValuesArray = unchecked(0x0092);
+        public const int TagPersonalFunctionValuesArray = 0x0092;
 
-        public const int TagFileInfoArray = unchecked(0x0093);
+        public const int TagFileInfoArray = 0x0093;
 
-        public const int TagAfPointsInFocus1D = unchecked(0x0094);
+        public const int TagAfPointsInFocus1D = 0x0094;
 
-        public const int TagLensModel = unchecked(0x0095);
+        public const int TagLensModel = 0x0095;
 
-        public const int TagSerialInfoArray = unchecked(0x0096);
+        public const int TagSerialInfoArray = 0x0096;
 
-        public const int TagDustRemovalData = unchecked(0x0097);
+        public const int TagDustRemovalData = 0x0097;
 
-        public const int TagCropInfo = unchecked(0x0098);
+        public const int TagCropInfo = 0x0098;
 
-        public const int TagCustomFunctionsArray2 = unchecked(0x0099);
+        public const int TagCustomFunctionsArray2 = 0x0099;
 
-        public const int TagAspectInfoArray = unchecked(0x009A);
+        public const int TagAspectInfoArray = 0x009A;
 
-        public const int TagProcessingInfoArray = unchecked(0x00A0);
+        public const int TagProcessingInfoArray = 0x00A0;
 
-        public const int TagToneCurveTable = unchecked(0x00A1);
+        public const int TagToneCurveTable = 0x00A1;
 
-        public const int TagSharpnessTable = unchecked(0x00A2);
+        public const int TagSharpnessTable = 0x00A2;
 
-        public const int TagSharpnessFreqTable = unchecked(0x00A3);
+        public const int TagSharpnessFreqTable = 0x00A3;
 
-        public const int TagWhiteBalanceTable = unchecked(0x00A4);
+        public const int TagWhiteBalanceTable = 0x00A4;
 
-        public const int TagColorBalanceArray = unchecked(0x00A9);
+        public const int TagColorBalanceArray = 0x00A9;
 
-        public const int TagMeasuredColorArray = unchecked(0x00AA);
+        public const int TagMeasuredColorArray = 0x00AA;
 
-        public const int TagColorTemperature = unchecked(0x00AE);
+        public const int TagColorTemperature = 0x00AE;
 
-        public const int TagCanonFlagsArray = unchecked(0x00B0);
+        public const int TagCanonFlagsArray = 0x00B0;
 
-        public const int TagModifiedInfoArray = unchecked(0x00B1);
+        public const int TagModifiedInfoArray = 0x00B1;
 
-        public const int TagToneCurveMatching = unchecked(0x00B2);
+        public const int TagToneCurveMatching = 0x00B2;
 
-        public const int TagWhiteBalanceMatching = unchecked(0x00B3);
+        public const int TagWhiteBalanceMatching = 0x00B3;
 
-        public const int TagColorSpace = unchecked(0x00B4);
+        public const int TagColorSpace = 0x00B4;
 
-        public const int TagPreviewImageInfoArray = unchecked(0x00B6);
+        public const int TagPreviewImageInfoArray = 0x00B6;
 
-        public const int TagVrdOffset = unchecked(0x00D0);
+        public const int TagVrdOffset = 0x00D0;
 
-        public const int TagSensorInfoArray = unchecked(0x00E0);
+        public const int TagSensorInfoArray = 0x00E0;
 
-        public const int TagColorDataArray2 = unchecked(0x4001);
+        public const int TagColorDataArray2 = 0x4001;
 
-        public const int TagCrwParam = unchecked(0x4002);
+        public const int TagCrwParam = 0x4002;
 
-        public const int TagColorInfoArray2 = unchecked(0x4003);
+        public const int TagColorInfoArray2 = 0x4003;
 
-        public const int TagBlackLevel = unchecked(0x4008);
+        public const int TagBlackLevel = 0x4008;
 
-        public const int TagCustomPictureStyleFileName = unchecked(0x4010);
+        public const int TagCustomPictureStyleFileName = 0x4010;
 
-        public const int TagColorInfoArray = unchecked(0x4013);
+        public const int TagColorInfoArray = 0x4013;
 
-        public const int TagVignettingCorrectionArray1 = unchecked(0x4015);
+        public const int TagVignettingCorrectionArray1 = 0x4015;
 
-        public const int TagVignettingCorrectionArray2 = unchecked(0x4016);
+        public const int TagVignettingCorrectionArray2 = 0x4016;
 
-        public const int TagLightingOptimizerArray = unchecked(0x4018);
+        public const int TagLightingOptimizerArray = 0x4018;
 
-        public const int TagLensInfoArray = unchecked(0x4019);
+        public const int TagLensInfoArray = 0x4019;
 
-        public const int TagAmbianceInfoArray = unchecked(0x4020);
+        public const int TagAmbianceInfoArray = 0x4020;
 
-        public const int TagFilterInfoArray = unchecked(0x4024);
+        public const int TagFilterInfoArray = 0x4024;
 
         public static class CameraSettings
         {
-            internal const int Offset = unchecked(0xC100);
+            internal const int Offset = 0xC100;
 
             /// <summary>
             /// 1 = Macro
             /// 2 = Normal
             /// </summary>
-            public const int TagMacroMode = Offset + unchecked(0x01);
+            public const int TagMacroMode = Offset + 0x01;
 
-            public const int TagSelfTimerDelay = Offset + unchecked(0x02);
+            public const int TagSelfTimerDelay = Offset + 0x02;
 
             /// <summary>
             /// 2 = Normal
             /// 3 = Fine
             /// 5 = Superfine
             /// </summary>
-            public const int TagQuality = Offset + unchecked(0x03);
+            public const int TagQuality = Offset + 0x03;
 
             /// <summary>
             /// 0 = Flash Not Fired
@@ -198,15 +198,15 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             /// 6 = On + Red Eye Reduction
             /// 16 = External Flash
             /// </summary>
-            public const int TagFlashMode = Offset + unchecked(0x04);
+            public const int TagFlashMode = Offset + 0x04;
 
             /// <summary>
             /// 0 = Single Frame or Timer Mode
             /// 1 = Continuous
             /// </summary>
-            public const int TagContinuousDriveMode = Offset + unchecked(0x05);
+            public const int TagContinuousDriveMode = Offset + 0x05;
 
-            public const int TagUnknown2 = Offset + unchecked(0x06);
+            public const int TagUnknown2 = Offset + 0x06;
 
             /// <summary>
             /// 0 = One-Shot
@@ -217,18 +217,18 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             /// 5 = Continuous
             /// 6 = Manual Focus
             /// </summary>
-            public const int TagFocusMode1 = Offset + unchecked(0x07);
+            public const int TagFocusMode1 = Offset + 0x07;
 
-            public const int TagUnknown3 = Offset + unchecked(0x08);
+            public const int TagUnknown3 = Offset + 0x08;
 
-            public const int TagUnknown4 = Offset + unchecked(0x09);
+            public const int TagUnknown4 = Offset + 0x09;
 
             /// <summary>
             /// 0 = Large
             /// 1 = Medium
             /// 2 = Small
             /// </summary>
-            public const int TagImageSize = Offset + unchecked(0x0A);
+            public const int TagImageSize = Offset + 0x0A;
 
             /// <summary>
             /// 0 = Full Auto
@@ -244,35 +244,35 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             /// 10 = Macro / Close-Up
             /// 11 = Pan Focus
             /// </summary>
-            public const int TagEasyShootingMode = Offset + unchecked(0x0B);
+            public const int TagEasyShootingMode = Offset + 0x0B;
 
             /// <summary>
             /// 0 = No Digital Zoom
             /// 1 = 2x
             /// 2 = 4x
             /// </summary>
-            public const int TagDigitalZoom = Offset + unchecked(0x0C);
+            public const int TagDigitalZoom = Offset + 0x0C;
 
             /// <summary>
             /// 0 = Normal
             /// 1 = High
             /// 65535 = Low
             /// </summary>
-            public const int TagContrast = Offset + unchecked(0x0D);
+            public const int TagContrast = Offset + 0x0D;
 
             /// <summary>
             /// 0 = Normal
             /// 1 = High
             /// 65535 = Low
             /// </summary>
-            public const int TagSaturation = Offset + unchecked(0x0E);
+            public const int TagSaturation = Offset + 0x0E;
 
             /// <summary>
             /// 0 = Normal
             /// 1 = High
             /// 65535 = Low
             /// </summary>
-            public const int TagSharpness = Offset + unchecked(0x0F);
+            public const int TagSharpness = Offset + 0x0F;
 
             /// <summary>
             /// 0 = Check ISOSpeedRatings EXIF tag for ISO Speed
@@ -282,14 +282,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             /// 18 = ISO 200
             /// 19 = ISO 400
             /// </summary>
-            public const int TagIso = Offset + unchecked(0x10);
+            public const int TagIso = Offset + 0x10;
 
             /// <summary>
             /// 3 = Evaluative
             /// 4 = Partial
             /// 5 = Centre Weighted
             /// </summary>
-            public const int TagMeteringMode = Offset + unchecked(0x11);
+            public const int TagMeteringMode = Offset + 0x11;
 
             /// <summary>
             /// 0 = Manual
@@ -297,7 +297,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             /// 3 = Close-up (Macro)
             /// 8 = Locked (Pan Mode)
             /// </summary>
-            public const int TagFocusType = Offset + unchecked(0x12);
+            public const int TagFocusType = Offset + 0x12;
 
             /// <summary>
             /// 12288 = None (Manual Focus)
@@ -306,7 +306,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             /// 12291 = Centre
             /// 12292 = Left
             /// </summary>
-            public const int TagAfPointSelected = Offset + unchecked(0x13);
+            public const int TagAfPointSelected = Offset + 0x13;
 
             /// <summary>
             /// 0 = Easy Shooting (See Easy Shooting Mode)
@@ -316,39 +316,39 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             /// 4 = Manual
             /// 5 = A-DEP
             /// </summary>
-            public const int TagExposureMode = Offset + unchecked(0x14);
+            public const int TagExposureMode = Offset + 0x14;
 
-            public const int TagUnknown7 = Offset + unchecked(0x15);
+            public const int TagUnknown7 = Offset + 0x15;
 
-            public const int TagUnknown8 = Offset + unchecked(0x16);
+            public const int TagUnknown8 = Offset + 0x16;
 
-            public const int TagLongFocalLength = Offset + unchecked(0x17);
+            public const int TagLongFocalLength = Offset + 0x17;
 
-            public const int TagShortFocalLength = Offset + unchecked(0x18);
+            public const int TagShortFocalLength = Offset + 0x18;
 
-            public const int TagFocalUnitsPerMm = Offset + unchecked(0x19);
+            public const int TagFocalUnitsPerMm = Offset + 0x19;
 
-            public const int TagUnknown9 = Offset + unchecked(0x1A);
+            public const int TagUnknown9 = Offset + 0x1A;
 
-            public const int TagUnknown10 = Offset + unchecked(0x1B);
+            public const int TagUnknown10 = Offset + 0x1B;
 
             /// <summary>
             /// 0 = Flash Did Not Fire
             /// 1 = Flash Fired
             /// </summary>
-            public const int TagFlashActivity = Offset + unchecked(0x1C);
+            public const int TagFlashActivity = Offset + 0x1C;
 
-            public const int TagFlashDetails = Offset + unchecked(0x1D);
+            public const int TagFlashDetails = Offset + 0x1D;
 
-            public const int TagUnknown12 = Offset + unchecked(0x1E);
+            public const int TagUnknown12 = Offset + 0x1E;
 
-            public const int TagUnknown13 = Offset + unchecked(0x1F);
+            public const int TagUnknown13 = Offset + 0x1F;
 
             /// <summary>
             /// 0 = Focus Mode: Single
             /// 1 = Focus Mode: Continuous
             /// </summary>
-            public const int TagFocusMode2 = Offset + unchecked(0x20);
+            public const int TagFocusMode2 = Offset + 0x20;
             // These TAG_*_ARRAY Exif tags map to arrays of int16 values which are split out into separate 'fake' tags.
             // When an attempt is made to set one of these on the directory, it is split and the corresponding offset added to the tagType.
             // So the resulting tag is the offset + the index into the array.
@@ -388,7 +388,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public static class FocalLength
         {
-            internal const int Offset = unchecked(0xC200);
+            internal const int Offset = 0xC200;
 
             /// <summary>
             /// 0 = Auto
@@ -399,11 +399,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             /// 5 = Flash
             /// 6 = Custom
             /// </summary>
-            public const int TagWhiteBalance = Offset + unchecked(0x07);
+            public const int TagWhiteBalance = Offset + 0x07;
 
-            public const int TagSequenceNumber = Offset + unchecked(0x09);
+            public const int TagSequenceNumber = Offset + 0x09;
 
-            public const int TagAfPointUsed = Offset + unchecked(0x0E);
+            public const int TagAfPointUsed = Offset + 0x0E;
 
             /// <summary>The value of this tag may be translated into a flash bias value, in EV.</summary>
             /// <remarks>
@@ -426,19 +426,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             /// 0x0034 = 1.67 EV
             /// 0x0040 = 2 EV
             /// </remarks>
-            public const int TagFlashBias = Offset + unchecked(0x0F);
+            public const int TagFlashBias = Offset + 0x0F;
 
-            public const int TagAutoExposureBracketing = Offset + unchecked(0x10);
+            public const int TagAutoExposureBracketing = Offset + 0x10;
 
-            public const int TagAebBracketValue = Offset + unchecked(0x11);
+            public const int TagAebBracketValue = Offset + 0x11;
 
-            public const int TagSubjectDistance = Offset + unchecked(0x13);
+            public const int TagSubjectDistance = Offset + 0x13;
             // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
         }
 
         public static class ShotInfo
         {
-            internal const int Offset = unchecked(0xC400);
+            internal const int Offset = 0xC400;
 
             public const int TagAutoIso = Offset + 1;
 
@@ -500,7 +500,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public static class Panorama
         {
-            internal const int Offset = unchecked(0xC500);
+            internal const int Offset = 0xC500;
 
             public const int TagPanoramaFrameNumber = Offset + 2;
 
@@ -510,7 +510,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public static class AfInfo
         {
-            internal const int Offset = unchecked(0xD200);
+            internal const int Offset = 0xD200;
 
             public const int TagNumAfPoints = Offset;
 

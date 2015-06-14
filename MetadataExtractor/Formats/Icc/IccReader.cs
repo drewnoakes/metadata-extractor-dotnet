@@ -107,7 +107,7 @@ namespace MetadataExtractor.Formats.Icc
                 var temp = reader.GetInt32(IccDirectory.TagDeviceModel);
                 if (temp != 0)
                 {
-                    if (temp <= unchecked(0x20202020))
+                    if (temp <= 0x20202020)
                     {
                         directory.Set(IccDirectory.TagDeviceModel, temp);
                     }
@@ -190,7 +190,7 @@ namespace MetadataExtractor.Formats.Icc
         public static string GetStringFromInt32(int d)
         {
             // MSB
-            var b = new[] { unchecked((byte)((d & unchecked((int)(0xFF000000))) >> 24)), unchecked((byte)((d & unchecked(0x00FF0000)) >> 16)), unchecked((byte)((d & unchecked(0x0000FF00)) >> 8)), unchecked((byte)((d & unchecked(
+            var b = new[] { unchecked((byte)((d & unchecked((int)(0xFF000000))) >> 24)), unchecked((byte)((d & 0x00FF0000) >> 16)), unchecked((byte)((d & 0x0000FF00) >> 8)), unchecked((byte)((d & unchecked(
                 0x000000FF)))) };
             return Encoding.UTF8.GetString(b);
         }

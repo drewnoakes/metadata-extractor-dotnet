@@ -533,42 +533,42 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x0):
+                case 0x0:
                 {
                     return "Normal";
                 }
 
-                case unchecked(0x1):
+                case 0x1:
                 {
                     return "Low";
                 }
 
-                case unchecked(0x2):
+                case 0x2:
                 {
                     return "High";
                 }
 
-                case unchecked(0x6):
+                case 0x6:
                 {
                     return "Medium Low";
                 }
 
-                case unchecked(0x7):
+                case 0x7:
                 {
                     return "Medium High";
                 }
 
-                case unchecked(0x100):
+                case 0x100:
                 {
                     return "Low";
                 }
 
-                case unchecked(0x110):
+                case 0x110:
                 {
                     return "Normal";
                 }
 
-                case unchecked(0x120):
+                case 0x120:
                 {
                     return "High";
                 }

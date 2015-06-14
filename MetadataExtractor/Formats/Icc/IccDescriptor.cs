@@ -61,26 +61,26 @@ namespace MetadataExtractor.Formats.Icc
                     return GetRenderingIntentDescription();
                 }
             }
-            if (tagType > unchecked(0x20202020) && tagType < unchecked(0x7a7a7a7a))
+            if (tagType > 0x20202020 && tagType < 0x7a7a7a7a)
             {
                 return GetTagDataString(tagType);
             }
             return base.GetDescription(tagType);
         }
 
-        private const int IccTagTypeText = unchecked(0x74657874);
+        private const int IccTagTypeText = 0x74657874;
 
-        private const int IccTagTypeDesc = unchecked(0x64657363);
+        private const int IccTagTypeDesc = 0x64657363;
 
-        private const int IccTagTypeSig = unchecked(0x73696720);
+        private const int IccTagTypeSig = 0x73696720;
 
-        private const int IccTagTypeMeas = unchecked(0x6D656173);
+        private const int IccTagTypeMeas = 0x6D656173;
 
-        private const int IccTagTypeXyzArray = unchecked(0x58595A20);
+        private const int IccTagTypeXyzArray = 0x58595A20;
 
-        private const int IccTagTypeMluc = unchecked(0x6d6c7563);
+        private const int IccTagTypeMluc = 0x6d6c7563;
 
-        private const int IccTagTypeCurv = unchecked(0x63757276);
+        private const int IccTagTypeCurv = 0x63757276;
 
         [CanBeNull]
         private string GetTagDataString(int tagType)
@@ -408,29 +408,29 @@ namespace MetadataExtractor.Formats.Icc
             }
             switch (i)
             {
-                case unchecked(0x4150504C):
+                case 0x4150504C:
                 {
                     // "APPL"
                     return "Apple Computer, Inc.";
                 }
 
-                case unchecked(0x4D534654):
+                case 0x4D534654:
                 {
                     // "MSFT"
                     return "Microsoft Corporation";
                 }
 
-                case unchecked(0x53474920):
+                case 0x53474920:
                 {
                     return "Silicon Graphics, Inc.";
                 }
 
-                case unchecked(0x53554E57):
+                case 0x53554E57:
                 {
                     return "Sun Microsystems, Inc.";
                 }
 
-                case unchecked(0x54474E54):
+                case 0x54474E54:
                 {
                     return "Taligent, Inc.";
                 }
@@ -463,38 +463,38 @@ namespace MetadataExtractor.Formats.Icc
             }
             switch (i)
             {
-                case unchecked(0x73636E72):
+                case 0x73636E72:
                 {
                     return "Input Device";
                 }
 
-                case unchecked(0x6D6E7472):
+                case 0x6D6E7472:
                 {
                     // mntr
                     return "Display Device";
                 }
 
-                case unchecked(0x70727472):
+                case 0x70727472:
                 {
                     return "Output Device";
                 }
 
-                case unchecked(0x6C696E6B):
+                case 0x6C696E6B:
                 {
                     return "DeviceLink";
                 }
 
-                case unchecked(0x73706163):
+                case 0x73706163:
                 {
                     return "ColorSpace Conversion";
                 }
 
-                case unchecked(0x61627374):
+                case 0x61627374:
                 {
                     return "Abstract";
                 }
 
-                case unchecked(0x6E6D636C):
+                case 0x6E6D636C:
                 {
                     return "Named Color";
                 }
@@ -515,8 +515,8 @@ namespace MetadataExtractor.Formats.Icc
                 return null;
             }
             var m = ((int)value & unchecked((int)(0xFF000000))) >> 24;
-            var r = ((int)value & unchecked(0x00F00000)) >> 20;
-            var R = ((int)value & unchecked(0x000F0000)) >> 16;
+            var r = ((int)value & 0x00F00000) >> 20;
+            var R = ((int)value & 0x000F0000) >> 16;
             return string.Format("{0}.{1}.{2}", m, r, R);
         }
 

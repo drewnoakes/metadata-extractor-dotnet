@@ -295,8 +295,8 @@ namespace MetadataExtractor
             var length = bytes.Length;
             for (var index = 0; index < bytes.Length; index++)
             {
-                var i = bytes[index] & unchecked(0xFF);
-                if (i == 0 || i > unchecked(0x7F))
+                var i = bytes[index] & 0xFF;
+                if (i == 0 || i > 0x7F)
                 {
                     length = index;
                     break;

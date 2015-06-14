@@ -29,11 +29,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class SonyType6MakernoteDirectory : Directory
     {
-        public const int TagMakernoteThumbOffset = unchecked(0x0513);
+        public const int TagMakernoteThumbOffset = 0x0513;
 
-        public const int TagMakernoteThumbLength = unchecked(0x0514);
+        public const int TagMakernoteThumbLength = 0x0514;
 
-        public const int TagMakernoteThumbVersion = unchecked(0x2000);
+        public const int TagMakernoteThumbVersion = 0x2000;
 
         [NotNull]
         protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();

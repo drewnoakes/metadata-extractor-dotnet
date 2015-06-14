@@ -223,37 +223,37 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x00):
+                case 0x00:
                 {
                     return "None";
                 }
 
-                case unchecked(0x48):
+                case 0x48:
                 {
                     return "Minolta/Sony AF 2x APO (D)";
                 }
 
-                case unchecked(0x50):
+                case 0x50:
                 {
                     return "Minolta AF 2x APO II";
                 }
 
-                case unchecked(0x60):
+                case 0x60:
                 {
                     return "Minolta AF 2x APO";
                 }
 
-                case unchecked(0x88):
+                case 0x88:
                 {
                     return "Minolta/Sony AF 1.4x APO (D)";
                 }
 
-                case unchecked(0x90):
+                case 0x90:
                 {
                     return "Minolta AF 1.4x APO II";
                 }
 
-                case unchecked(0xa0):
+                case 0xa0:
                 {
                     return "Minolta AF 1.4x APO";
                 }
@@ -275,47 +275,47 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x00):
+                case 0x00:
                 {
                     return "Auto";
                 }
 
-                case unchecked(0x01):
+                case 0x01:
                 {
                     return "Color Temperature/Color Filter";
                 }
 
-                case unchecked(0x10):
+                case 0x10:
                 {
                     return "Daylight";
                 }
 
-                case unchecked(0x20):
+                case 0x20:
                 {
                     return "Cloudy";
                 }
 
-                case unchecked(0x30):
+                case 0x30:
                 {
                     return "Shade";
                 }
 
-                case unchecked(0x40):
+                case 0x40:
                 {
                     return "Tungsten";
                 }
 
-                case unchecked(0x50):
+                case 0x50:
                 {
                     return "Flash";
                 }
 
-                case unchecked(0x60):
+                case 0x60:
                 {
                     return "Fluorescent";
                 }
 
-                case unchecked(0x70):
+                case 0x70:
                 {
                     return "Custom";
                 }
@@ -339,7 +339,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             {
                 return "Auto";
             }
-            var kelvin = (((int)value & unchecked(0x00FF0000)) >> 8) | (((int)value & unchecked((int)(0xFF000000))) >> 24);
+            var kelvin = (((int)value & 0x00FF0000) >> 8) | (((int)value & unchecked((int)(0xFF000000))) >> 24);
             return string.Format("{0} K", kelvin);
         }
 
@@ -589,7 +589,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return "Magnifying Glass/Super Macro";
                 }
 
-                case unchecked(0xFFFF):
+                case 0xFFFF:
                 {
                     return "N/A";
                 }
@@ -761,7 +761,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return "3D Image";
                 }
 
-                case unchecked(0xFFFF):
+                case 0xFFFF:
                 {
                     return "N/A";
                 }
@@ -798,7 +798,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return "Extra Fine";
                 }
 
-                case unchecked(0xFFFF):
+                case 0xFFFF:
                 {
                     return "N/A";
                 }
@@ -835,7 +835,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return "On (Shooting)";
                 }
 
-                case unchecked(0xFFFF):
+                case 0xFFFF:
                 {
                     return "N/A";
                 }
@@ -867,7 +867,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return "On";
                 }
 
-                case unchecked(0xFFFF):
+                case 0xFFFF:
                 {
                     return "N/A";
                 }
@@ -909,12 +909,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return "High";
                 }
 
-                case unchecked(0x100):
+                case 0x100:
                 {
                     return "Auto";
                 }
 
-                case unchecked(0xffff):
+                case 0xffff:
                 {
                     return "N/A";
                 }
@@ -1575,7 +1575,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return "Face Detected";
                 }
 
-                case unchecked(0xffff):
+                case 0xffff:
                 {
                     return "n/a";
                 }
@@ -1607,7 +1607,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return "Auto";
                 }
 
-                case unchecked(0xffff):
+                case 0xffff:
                 {
                     return "n/a";
                 }

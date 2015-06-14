@@ -78,8 +78,8 @@ namespace MetadataExtractor.Formats.Jfif
                 return null;
             }
             return string.Format("{0}.{1}",
-                ((int)value & unchecked(0xFF00)) >> 8,
-                 (int)value & unchecked(0x00FF));
+                ((int)value & 0xFF00) >> 8,
+                 (int)value & 0x00FF);
         }
 
         [CanBeNull]

@@ -29,94 +29,94 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class FujifilmMakernoteDirectory : Directory
     {
-        public const int TagMakernoteVersion = unchecked(0x0000);
+        public const int TagMakernoteVersion = 0x0000;
 
-        public const int TagSerialNumber = unchecked(0x0010);
+        public const int TagSerialNumber = 0x0010;
 
-        public const int TagQuality = unchecked(0x1000);
+        public const int TagQuality = 0x1000;
 
-        public const int TagSharpness = unchecked(0x1001);
+        public const int TagSharpness = 0x1001;
 
-        public const int TagWhiteBalance = unchecked(0x1002);
+        public const int TagWhiteBalance = 0x1002;
 
-        public const int TagColorSaturation = unchecked(0x1003);
+        public const int TagColorSaturation = 0x1003;
 
-        public const int TagTone = unchecked(0x1004);
+        public const int TagTone = 0x1004;
 
-        public const int TagColorTemperature = unchecked(0x1005);
+        public const int TagColorTemperature = 0x1005;
 
-        public const int TagContrast = unchecked(0x1006);
+        public const int TagContrast = 0x1006;
 
-        public const int TagWhiteBalanceFineTune = unchecked(0x100a);
+        public const int TagWhiteBalanceFineTune = 0x100a;
 
-        public const int TagNoiseReduction = unchecked(0x100b);
+        public const int TagNoiseReduction = 0x100b;
 
-        public const int TagHighIsoNoiseReduction = unchecked(0x100e);
+        public const int TagHighIsoNoiseReduction = 0x100e;
 
-        public const int TagFlashMode = unchecked(0x1010);
+        public const int TagFlashMode = 0x1010;
 
-        public const int TagFlashEv = unchecked(0x1011);
+        public const int TagFlashEv = 0x1011;
 
-        public const int TagMacro = unchecked(0x1020);
+        public const int TagMacro = 0x1020;
 
-        public const int TagFocusMode = unchecked(0x1021);
+        public const int TagFocusMode = 0x1021;
 
-        public const int TagFocusPixel = unchecked(0x1023);
+        public const int TagFocusPixel = 0x1023;
 
-        public const int TagSlowSync = unchecked(0x1030);
+        public const int TagSlowSync = 0x1030;
 
-        public const int TagPictureMode = unchecked(0x1031);
+        public const int TagPictureMode = 0x1031;
 
-        public const int TagExrAuto = unchecked(0x1033);
+        public const int TagExrAuto = 0x1033;
 
-        public const int TagExrMode = unchecked(0x1034);
+        public const int TagExrMode = 0x1034;
 
-        public const int TagAutoBracketing = unchecked(0x1100);
+        public const int TagAutoBracketing = 0x1100;
 
-        public const int TagSequenceNumber = unchecked(0x1101);
+        public const int TagSequenceNumber = 0x1101;
 
-        public const int TagFinePixColor = unchecked(0x1210);
+        public const int TagFinePixColor = 0x1210;
 
-        public const int TagBlurWarning = unchecked(0x1300);
+        public const int TagBlurWarning = 0x1300;
 
-        public const int TagFocusWarning = unchecked(0x1301);
+        public const int TagFocusWarning = 0x1301;
 
-        public const int TagAutoExposureWarning = unchecked(0x1302);
+        public const int TagAutoExposureWarning = 0x1302;
 
-        public const int TagGeImageSize = unchecked(0x1304);
+        public const int TagGeImageSize = 0x1304;
 
-        public const int TagDynamicRange = unchecked(0x1400);
+        public const int TagDynamicRange = 0x1400;
 
-        public const int TagFilmMode = unchecked(0x1401);
+        public const int TagFilmMode = 0x1401;
 
-        public const int TagDynamicRangeSetting = unchecked(0x1402);
+        public const int TagDynamicRangeSetting = 0x1402;
 
-        public const int TagDevelopmentDynamicRange = unchecked(0x1403);
+        public const int TagDevelopmentDynamicRange = 0x1403;
 
-        public const int TagMinFocalLength = unchecked(0x1404);
+        public const int TagMinFocalLength = 0x1404;
 
-        public const int TagMaxFocalLength = unchecked(0x1405);
+        public const int TagMaxFocalLength = 0x1405;
 
-        public const int TagMaxApertureAtMinFocal = unchecked(0x1406);
+        public const int TagMaxApertureAtMinFocal = 0x1406;
 
-        public const int TagMaxApertureAtMaxFocal = unchecked(0x1407);
+        public const int TagMaxApertureAtMaxFocal = 0x1407;
 
-        public const int TagAutoDynamicRange = unchecked(0x140b);
+        public const int TagAutoDynamicRange = 0x140b;
 
-        public const int TagFacesDetected = unchecked(0x4100);
+        public const int TagFacesDetected = 0x4100;
 
         /// <summary>Left, top, right and bottom coordinates in full-sized image for each face detected.</summary>
-        public const int TagFacePositions = unchecked(0x4103);
+        public const int TagFacePositions = 0x4103;
 
-        public const int TagFaceRecInfo = unchecked(0x4282);
+        public const int TagFaceRecInfo = 0x4282;
 
-        public const int TagFileSource = unchecked(0x8000);
+        public const int TagFileSource = 0x8000;
 
-        public const int TagOrderNumber = unchecked(0x8002);
+        public const int TagOrderNumber = 0x8002;
 
-        public const int TagFrameNumber = unchecked(0x8003);
+        public const int TagFrameNumber = 0x8003;
 
-        public const int TagParallax = unchecked(0xb211);
+        public const int TagParallax = 0xb211;
 
         [NotNull]
         protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();

@@ -29,59 +29,59 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class SanyoMakernoteDirectory : Directory
     {
-        public const int TagMakernoteOffset = unchecked(0x00ff);
+        public const int TagMakernoteOffset = 0x00ff;
 
-        public const int TagSanyoThumbnail = unchecked(0x0100);
+        public const int TagSanyoThumbnail = 0x0100;
 
-        public const int TagSpecialMode = unchecked(0x0200);
+        public const int TagSpecialMode = 0x0200;
 
-        public const int TagSanyoQuality = unchecked(0x0201);
+        public const int TagSanyoQuality = 0x0201;
 
-        public const int TagMacro = unchecked(0x0202);
+        public const int TagMacro = 0x0202;
 
-        public const int TagDigitalZoom = unchecked(0x0204);
+        public const int TagDigitalZoom = 0x0204;
 
-        public const int TagSoftwareVersion = unchecked(0x0207);
+        public const int TagSoftwareVersion = 0x0207;
 
-        public const int TagPictInfo = unchecked(0x0208);
+        public const int TagPictInfo = 0x0208;
 
-        public const int TagCameraId = unchecked(0x0209);
+        public const int TagCameraId = 0x0209;
 
-        public const int TagSequentialShot = unchecked(0x020e);
+        public const int TagSequentialShot = 0x020e;
 
-        public const int TagWideRange = unchecked(0x020f);
+        public const int TagWideRange = 0x020f;
 
-        public const int TagColorAdjustmentMode = unchecked(0x0210);
+        public const int TagColorAdjustmentMode = 0x0210;
 
-        public const int TagQuickShot = unchecked(0x0213);
+        public const int TagQuickShot = 0x0213;
 
-        public const int TagSelfTimer = unchecked(0x0214);
+        public const int TagSelfTimer = 0x0214;
 
-        public const int TagVoiceMemo = unchecked(0x0216);
+        public const int TagVoiceMemo = 0x0216;
 
-        public const int TagRecordShutterRelease = unchecked(0x0217);
+        public const int TagRecordShutterRelease = 0x0217;
 
-        public const int TagFlickerReduce = unchecked(0x0218);
+        public const int TagFlickerReduce = 0x0218;
 
-        public const int TagOpticalZoomOn = unchecked(0x0219);
+        public const int TagOpticalZoomOn = 0x0219;
 
-        public const int TagDigitalZoomOn = unchecked(0x021b);
+        public const int TagDigitalZoomOn = 0x021b;
 
-        public const int TagLightSourceSpecial = unchecked(0x021d);
+        public const int TagLightSourceSpecial = 0x021d;
 
-        public const int TagResaved = unchecked(0x021e);
+        public const int TagResaved = 0x021e;
 
-        public const int TagSceneSelect = unchecked(0x021f);
+        public const int TagSceneSelect = 0x021f;
 
-        public const int TagManualFocusDistanceOrFaceInfo = unchecked(0x0223);
+        public const int TagManualFocusDistanceOrFaceInfo = 0x0223;
 
-        public const int TagSequenceShotInterval = unchecked(0x0224);
+        public const int TagSequenceShotInterval = 0x0224;
 
-        public const int TagFlashMode = unchecked(0x0225);
+        public const int TagFlashMode = 0x0225;
 
-        public const int TagPrintIm = unchecked(0x0e00);
+        public const int TagPrintIm = 0x0e00;
 
-        public const int TagDataDump = unchecked(0x0f00);
+        public const int TagDataDump = 0x0f00;
 
         [NotNull]
         protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();

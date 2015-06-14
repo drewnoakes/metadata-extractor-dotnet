@@ -55,7 +55,7 @@ namespace Com.Adobe.Xmp.Impl
                 var readAheadBuffer = new byte[8];
                 // the number of bytes read ahead.
                 var readAhead = 0;
-                // expected UTF8 bytesto come
+                // expected UTF8 bytes to come
                 var expectedBytes = 0;
                 // output buffer with estimated length
                 var @out = new ByteBuffer(buffer.Length() * 4 / 3);
@@ -68,18 +68,18 @@ namespace Com.Adobe.Xmp.Impl
                         case StateStart:
                         default:
                         {
-                            if (b < unchecked(0x7F))
+                            if (b < 0x7F)
                             {
                                 @out.Append(unchecked((byte)b));
                             }
                             else
                             {
-                                if (b >= unchecked(0xC0))
+                                if (b >= 0xC0)
                                 {
                                     // start of UTF8 sequence
                                     expectedBytes = -1;
                                     var test = b;
-                                    for (; expectedBytes < 8 && (test & unchecked(0x80)) == unchecked(0x80); test = test << 1)
+                                    for (; expectedBytes < 8 && (test & 0x80) == 0x80; test = test << 1)
                                     {
                                         expectedBytes++;
                                     }
@@ -99,7 +99,7 @@ namespace Com.Adobe.Xmp.Impl
 
                         case StateUtf8Char:
                         {
-                            if (expectedBytes > 0 && (b & unchecked(0xC0)) == unchecked(0x80))
+                            if (expectedBytes > 0 && (b & 0xC0) == 0x80)
                             {
                                 // valid UTF8 char, add to readAheadBuffer
                                 readAheadBuffer[readAhead++] = unchecked((byte)b);
@@ -156,12 +156,12 @@ namespace Com.Adobe.Xmp.Impl
         /// <returns>Returns a byte array containing a UTF-8 byte sequence.</returns>
         private static byte[] ConvertToUtf8(byte ch)
         {
-            var c = ch & unchecked(0xFF);
-            if (c >= unchecked(0x80))
+            var c = ch & 0xFF;
+            if (c >= 0x80)
             {
-                if (c == unchecked(0x81) || c == unchecked(0x8D) || c == unchecked(0x8F) || c == unchecked(0x90) || c == unchecked(0x9D))
+                if (c == 0x81 || c == 0x8D || c == 0x8F || c == 0x90 || c == 0x9D)
                 {
-                    return new byte[] { unchecked(0x20) };
+                    return new byte[] { 0x20 };
                 }
                 // space for undefined
                 // interpret byte as Windows Cp1252 char

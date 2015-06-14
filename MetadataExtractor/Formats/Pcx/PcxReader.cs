@@ -46,13 +46,13 @@ namespace MetadataExtractor.Formats.Pcx
             try
             {
                 var identifier = reader.GetInt8();
-                if (identifier != unchecked(0x0A))
+                if (identifier != 0x0A)
                 {
                     throw new ImageProcessingException("Invalid PCX identifier byte");
                 }
                 directory.Set(PcxDirectory.TagVersion, reader.GetInt8());
                 var encoding = reader.GetInt8();
-                if (encoding != unchecked(0x01))
+                if (encoding != 0x01)
                 {
                     throw new ImageProcessingException("Invalid PCX encoding byte");
                 }

@@ -59,7 +59,7 @@ namespace MetadataExtractor.Formats.Bmp
             try
             {
                 var magicNumber = reader.GetUInt16();
-                if (magicNumber != unchecked(0x4D42))
+                if (magicNumber != 0x4D42)
                 {
                     directory.AddError("Invalid BMP magic number");
                     return;

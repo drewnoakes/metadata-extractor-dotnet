@@ -35,44 +35,44 @@ namespace MetadataExtractor.Formats.Xmp
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class XmpDirectory : Directory
     {
-        public const int TagXmpValueCount = unchecked(0xFFFF);
+        public const int TagXmpValueCount = 0xFFFF;
 
-        public const int TagMake = unchecked(0x0001);
+        public const int TagMake = 0x0001;
 
-        public const int TagModel = unchecked(0x0002);
+        public const int TagModel = 0x0002;
 
-        public const int TagExposureTime = unchecked(0x0003);
+        public const int TagExposureTime = 0x0003;
 
-        public const int TagShutterSpeed = unchecked(0x0004);
+        public const int TagShutterSpeed = 0x0004;
 
-        public const int TagFNumber = unchecked(0x0005);
+        public const int TagFNumber = 0x0005;
 
-        public const int TagLensInfo = unchecked(0x0006);
+        public const int TagLensInfo = 0x0006;
 
-        public const int TagLens = unchecked(0x0007);
+        public const int TagLens = 0x0007;
 
-        public const int TagCameraSerialNumber = unchecked(0x0008);
+        public const int TagCameraSerialNumber = 0x0008;
 
-        public const int TagFirmware = unchecked(0x0009);
+        public const int TagFirmware = 0x0009;
 
-        public const int TagFocalLength = unchecked(0x000a);
+        public const int TagFocalLength = 0x000a;
 
-        public const int TagApertureValue = unchecked(0x000b);
+        public const int TagApertureValue = 0x000b;
 
-        public const int TagExposureProgram = unchecked(0x000c);
+        public const int TagExposureProgram = 0x000c;
 
-        public const int TagDatetimeOriginal = unchecked(0x000d);
+        public const int TagDatetimeOriginal = 0x000d;
 
-        public const int TagDatetimeDigitized = unchecked(0x000e);
+        public const int TagDatetimeDigitized = 0x000e;
 
         /// <summary>A value from 0 to 5, or -1 if the image is rejected.</summary>
-        public const int TagRating = unchecked(0x1001);
+        public const int TagRating = 0x1001;
 
         /// <summary>Generally a color value Blue, Red, Green, Yellow, Purple</summary>
-        public const int TagLabel = unchecked(0x2000);
+        public const int TagLabel = 0x2000;
 
         /// <summary>Keywords</summary>
-        public static int TagSubject = unchecked(0x2001);
+        public static int TagSubject = 0x2001;
 
         [NotNull]
         private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();

@@ -71,7 +71,7 @@ namespace MetadataExtractor.IO
             {
                 throw new BufferBoundsException("Unexpected end of file encountered.");
             }
-            Debug.Assert((b <= unchecked(0xff)));
+            Debug.Assert((b <= 0xff));
             _currentIndex++;
             return unchecked((byte)b);
         }

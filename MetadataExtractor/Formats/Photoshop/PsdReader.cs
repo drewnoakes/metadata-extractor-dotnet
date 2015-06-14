@@ -39,7 +39,7 @@ namespace MetadataExtractor.Formats.Photoshop
             try
             {
                 var signature = reader.GetInt32();
-                if (signature != unchecked(0x38425053))
+                if (signature != 0x38425053)
                 {
                     // "8BPS"
                     directory.AddError("Invalid PSD file signature");

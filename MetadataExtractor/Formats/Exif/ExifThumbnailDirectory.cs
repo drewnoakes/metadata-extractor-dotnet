@@ -32,10 +32,10 @@ namespace MetadataExtractor.Formats.Exif
     public sealed class ExifThumbnailDirectory : ExifDirectoryBase
     {
         /// <summary>The offset to thumbnail image bytes.</summary>
-        public const int TagThumbnailOffset = unchecked(0x0201);
+        public const int TagThumbnailOffset = 0x0201;
 
         /// <summary>The size of the thumbnail image data in bytes.</summary>
-        public const int TagThumbnailLength = unchecked(0x0202);
+        public const int TagThumbnailLength = 0x0202;
 
         /// <summary>Shows compression method for Thumbnail.</summary>
         /// <remarks>
@@ -68,7 +68,7 @@ namespace MetadataExtractor.Formats.Exif
         /// 34712 = JPEG 2000
         /// 34713 = Nikon NEF Compressed
         /// </remarks>
-        public const int TagThumbnailCompression = unchecked(0x0103);
+        public const int TagThumbnailCompression = 0x0103;
 
         [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
 

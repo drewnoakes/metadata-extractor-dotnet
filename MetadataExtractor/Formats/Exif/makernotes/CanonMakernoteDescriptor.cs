@@ -217,7 +217,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             {
                 return null;
             }
-            return string.Format("{0:X4}{1:D4}", ((int)value >> 8) & unchecked(0xFF), (int)value & unchecked(0xFF));
+            return string.Format("{0:X4}{1:D4}", ((int)value >> 8) & 0xFF, (int)value & 0xFF);
         }
 
 /*
@@ -407,10 +407,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
             }
             var isNegative = false;
-            if (value > unchecked(0xF000))
+            if (value > 0xF000)
             {
                 isNegative = true;
-                value = unchecked(0xFFFF) - (int)value;
+                value = 0xFFFF - (int)value;
                 value++;
             }
             // this tag is interesting in that the values returned are:
@@ -428,15 +428,15 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             {
                 return null;
             }
-            if (((int)value & unchecked(0x7)) == 0)
+            if (((int)value & 0x7) == 0)
             {
                 return "Right";
             }
-            if (((int)value & unchecked(0x7)) == 1)
+            if (((int)value & 0x7) == 1)
             {
                 return "Centre";
             }
-            if (((int)value & unchecked(0x7)) == 2)
+            if (((int)value & 0x7) == 2)
             {
                 return "Left";
             }
@@ -530,7 +530,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetAfPointSelectedDescription()
         {
-            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagAfPointSelected, unchecked(0x3000), "None (MF)", "Auto selected", "Right", "Centre", "Left");
+            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagAfPointSelected, 0x3000, "None (MF)", "Auto selected", "Right", "Centre", "Left");
         }
 
         [CanBeNull]
@@ -548,7 +548,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
             }
             // Canon PowerShot S3 is special
-            var canonMask = unchecked(0x4000);
+            var canonMask = 0x4000;
             if (((int)value & canonMask) > 0)
             {
                 return string.Empty + ((int)value & ~canonMask);
@@ -602,17 +602,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0xFFFF):
+                case 0xFFFF:
                 {
                     return "Low";
                 }
 
-                case unchecked(0x000):
+                case 0x000:
                 {
                     return "Normal";
                 }
 
-                case unchecked(0x001):
+                case 0x001:
                 {
                     return "High";
                 }
@@ -634,17 +634,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0xFFFF):
+                case 0xFFFF:
                 {
                     return "Low";
                 }
 
-                case unchecked(0x000):
+                case 0x000:
                 {
                     return "Normal";
                 }
 
-                case unchecked(0x001):
+                case 0x001:
                 {
                     return "High";
                 }
@@ -666,17 +666,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0xFFFF):
+                case 0xFFFF:
                 {
                     return "Low";
                 }
 
-                case unchecked(0x000):
+                case 0x000:
                 {
                     return "Normal";
                 }
 
-                case unchecked(0x001):
+                case 0x001:
                 {
                     return "High";
                 }

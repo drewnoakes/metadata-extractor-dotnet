@@ -35,19 +35,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     public class CasioType2MakernoteDirectory : Directory
     {
         /// <summary>2 values - x,y dimensions in pixels.</summary>
-        public const int TagThumbnailDimensions = unchecked(0x0002);
+        public const int TagThumbnailDimensions = 0x0002;
 
         /// <summary>Size in bytes</summary>
-        public const int TagThumbnailSize = unchecked(0x0003);
+        public const int TagThumbnailSize = 0x0003;
 
         /// <summary>Offset of Preview Thumbnail</summary>
-        public const int TagThumbnailOffset = unchecked(0x0004);
+        public const int TagThumbnailOffset = 0x0004;
 
         /// <summary>
         /// 1 = Fine
         /// 2 = Super Fine
         /// </summary>
-        public const int TagQualityMode = unchecked(0x0008);
+        public const int TagQualityMode = 0x0008;
 
         /// <summary>
         /// 0 = 640 x 480 pixels
@@ -58,13 +58,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// 22 = 2304 x 1728 pixels
         /// 36 = 3008 x 2008 pixels
         /// </summary>
-        public const int TagImageSize = unchecked(0x0009);
+        public const int TagImageSize = 0x0009;
 
         /// <summary>
         /// 0 = Normal
         /// 1 = Macro
         /// </summary>
-        public const int TagFocusMode1 = unchecked(0x000D);
+        public const int TagFocusMode1 = 0x000D;
 
         /// <summary>
         /// 3 = 50
@@ -72,7 +72,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// 6 = 100
         /// 9 = 200
         /// </summary>
-        public const int TagIsoSensitivity = unchecked(0x0014);
+        public const int TagIsoSensitivity = 0x0014;
 
         /// <summary>
         /// 0 = Auto
@@ -82,39 +82,39 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// 4 = Fluorescent
         /// 5 = Manual
         /// </summary>
-        public const int TagWhiteBalance1 = unchecked(0x0019);
+        public const int TagWhiteBalance1 = 0x0019;
 
         /// <summary>Units are tenths of a millimetre</summary>
-        public const int TagFocalLength = unchecked(0x001D);
+        public const int TagFocalLength = 0x001D;
 
         /// <summary>
         /// 0 = -1
         /// 1 = Normal
         /// 2 = +1
         /// </summary>
-        public const int TagSaturation = unchecked(0x001F);
+        public const int TagSaturation = 0x001F;
 
         /// <summary>
         /// 0 = -1
         /// 1 = Normal
         /// 2 = +1
         /// </summary>
-        public const int TagContrast = unchecked(0x0020);
+        public const int TagContrast = 0x0020;
 
         /// <summary>
         /// 0 = -1
         /// 1 = Normal
         /// 2 = +1
         /// </summary>
-        public const int TagSharpness = unchecked(0x0021);
+        public const int TagSharpness = 0x0021;
 
         /// <summary>See PIM specification here: http://www.ozhiker.com/electronics/pjmt/jpeg_info/pim.html</summary>
-        public const int TagPrintImageMatchingInfo = unchecked(0x0E00);
+        public const int TagPrintImageMatchingInfo = 0x0E00;
 
         /// <summary>Alternate thumbnail offset</summary>
-        public const int TagPreviewThumbnail = unchecked(0x2000);
+        public const int TagPreviewThumbnail = 0x2000;
 
-        public const int TagWhiteBalanceBias = unchecked(0x2011);
+        public const int TagWhiteBalanceBias = 0x2011;
 
         /// <summary>
         /// 12 = Flash
@@ -122,48 +122,48 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// 1 = Auto?
         /// 4 = Flash?
         /// </summary>
-        public const int TagWhiteBalance2 = unchecked(0x2012);
+        public const int TagWhiteBalance2 = 0x2012;
 
         /// <summary>Units are millimetres</summary>
-        public const int TagObjectDistance = unchecked(0x2022);
+        public const int TagObjectDistance = 0x2022;
 
         /// <summary>0 = Off</summary>
-        public const int TagFlashDistance = unchecked(0x2034);
+        public const int TagFlashDistance = 0x2034;
 
         /// <summary>2 = Normal Mode</summary>
-        public const int TagRecordMode = unchecked(0x3000);
+        public const int TagRecordMode = 0x3000;
 
         /// <summary>1 = Off?</summary>
-        public const int TagSelfTimer = unchecked(0x3001);
+        public const int TagSelfTimer = 0x3001;
 
         /// <summary>3 = Fine</summary>
-        public const int TagQuality = unchecked(0x3002);
+        public const int TagQuality = 0x3002;
 
         /// <summary>
         /// 1 = Fixation
         /// 6 = Multi-Area Auto Focus
         /// </summary>
-        public const int TagFocusMode2 = unchecked(0x3003);
+        public const int TagFocusMode2 = 0x3003;
 
         /// <summary>(string)</summary>
-        public const int TagTimeZone = unchecked(0x3006);
+        public const int TagTimeZone = 0x3006;
 
-        public const int TagBestshotMode = unchecked(0x3007);
+        public const int TagBestshotMode = 0x3007;
 
         /// <summary>
         /// 0 = Off
         /// 1 = On?
         /// </summary>
-        public const int TagCcdIsoSensitivity = unchecked(0x3014);
+        public const int TagCcdIsoSensitivity = 0x3014;
 
         /// <summary>0 = Off</summary>
-        public const int TagColourMode = unchecked(0x3015);
+        public const int TagColourMode = 0x3015;
 
         /// <summary>0 = Off</summary>
-        public const int TagEnhancement = unchecked(0x3016);
+        public const int TagEnhancement = 0x3016;
 
         /// <summary>0 = Off</summary>
-        public const int TagFilter = unchecked(0x3017);
+        public const int TagFilter = 0x3017;
 
         [NotNull]
         protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();

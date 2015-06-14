@@ -44,7 +44,7 @@ namespace MetadataExtractor.Tests.IO
         [Test]
         public void TestGetInt8()
         {
-            var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked(0xFF) };
+            var buffer = new byte[] { 0x00, 0x01, 0x7F, 0xFF };
             var reader = CreateReader(buffer);
             Assert.AreEqual(0, reader.GetInt8(0));
             Assert.AreEqual(1, reader.GetInt8(1));
@@ -55,7 +55,7 @@ namespace MetadataExtractor.Tests.IO
         [Test]
         public void TestGetUInt8()
         {
-            var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked(0xFF) };
+            var buffer = new byte[] { 0x00, 0x01, 0x7F, 0xFF };
             var reader = CreateReader(buffer);
             Assert.AreEqual(0, reader.GetUInt8(0));
             Assert.AreEqual(1, reader.GetUInt8(1));
@@ -82,8 +82,8 @@ namespace MetadataExtractor.Tests.IO
         [Test]
         public void TestGetInt16()
         {
-            Assert.AreEqual(-1, CreateReader(new[] { unchecked((byte)0xff), unchecked((byte)0xff) }).GetInt16(0));
-            var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked(0xFF) };
+            Assert.AreEqual(-1, CreateReader(new[] { (byte)0xff, (byte)0xff }).GetInt16(0));
+            var buffer = new byte[] { 0x00, 0x01, 0x7F, 0xFF };
             var reader = CreateReader(buffer);
             Assert.AreEqual(0x0001, reader.GetInt16(0));
             Assert.AreEqual(0x017F, reader.GetInt16(1));
@@ -98,15 +98,15 @@ namespace MetadataExtractor.Tests.IO
         [Test]
         public void TestGetUInt16()
         {
-            var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked(0xFF) };
+            var buffer = new byte[] { 0x00, 0x01, 0x7F, 0xFF };
             var reader = CreateReader(buffer);
-            Assert.AreEqual(unchecked(0x0001), reader.GetUInt16(0));
-            Assert.AreEqual(unchecked(0x017F), reader.GetUInt16(1));
-            Assert.AreEqual(unchecked(0x7FFF), reader.GetUInt16(2));
+            Assert.AreEqual(0x0001, reader.GetUInt16(0));
+            Assert.AreEqual(0x017F, reader.GetUInt16(1));
+            Assert.AreEqual(0x7FFF, reader.GetUInt16(2));
             reader.IsMotorolaByteOrder = false;
-            Assert.AreEqual(unchecked(0x0100), reader.GetUInt16(0));
-            Assert.AreEqual(unchecked(0x7F01), reader.GetUInt16(1));
-            Assert.AreEqual(unchecked(0xFF7F), reader.GetUInt16(2));
+            Assert.AreEqual(0x0100, reader.GetUInt16(0));
+            Assert.AreEqual(0x7F01, reader.GetUInt16(1));
+            Assert.AreEqual(0xFF7F, reader.GetUInt16(2));
         }
 
         [Test]
@@ -128,25 +128,25 @@ namespace MetadataExtractor.Tests.IO
         [Test]
         public void TestGetInt32()
         {
-            Assert.AreEqual(-1, CreateReader(new[] { unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff) }).GetInt32(0));
-            var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked(0xFF), unchecked(0x02), unchecked(0x03), unchecked(0x04) };
+            Assert.AreEqual(-1, CreateReader(new[] { (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff }).GetInt32(0));
+            var buffer = new byte[] { 0x00, 0x01, 0x7F, 0xFF, 0x02, 0x03, 0x04 };
             var reader = CreateReader(buffer);
-            Assert.AreEqual(unchecked(0x00017FFF), reader.GetInt32(0));
-            Assert.AreEqual(unchecked(0x017FFF02), reader.GetInt32(1));
-            Assert.AreEqual(unchecked(0x7FFF0203), reader.GetInt32(2));
+            Assert.AreEqual(0x00017FFF, reader.GetInt32(0));
+            Assert.AreEqual(0x017FFF02, reader.GetInt32(1));
+            Assert.AreEqual(0x7FFF0203, reader.GetInt32(2));
             Assert.AreEqual(unchecked((int)(0xFF020304)), reader.GetInt32(3));
             reader.IsMotorolaByteOrder = false;
             Assert.AreEqual(unchecked((int)(0xFF7F0100)), reader.GetInt32(0));
-            Assert.AreEqual(unchecked(0x02FF7F01), reader.GetInt32(1));
-            Assert.AreEqual(unchecked(0x0302FF7F), reader.GetInt32(2));
-            Assert.AreEqual(unchecked(0x040302FF), reader.GetInt32(3));
+            Assert.AreEqual(0x02FF7F01, reader.GetInt32(1));
+            Assert.AreEqual(0x0302FF7F, reader.GetInt32(2));
+            Assert.AreEqual(0x040302FF, reader.GetInt32(3));
         }
 
         [Test]
         public void TestGetUInt32()
         {
-            Assert.AreEqual(4294967295L, (object)CreateReader(new[] { unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff), unchecked((byte)0xff) }).GetUInt32(0));
-            var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x7F), unchecked(0xFF), unchecked(0x02), unchecked(0x03), unchecked(0x04) };
+            Assert.AreEqual(4294967295L, (object)CreateReader(new[] { (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff }).GetUInt32(0));
+            var buffer = new byte[] { 0x00, 0x01, 0x7F, 0xFF, 0x02, 0x03, 0x04 };
             var reader = CreateReader(buffer);
             Assert.AreEqual(unchecked(0x00017FFFL), (object)reader.GetUInt32(0));
             Assert.AreEqual(unchecked(0x017FFF02L), (object)reader.GetUInt32(1));
@@ -178,7 +178,7 @@ namespace MetadataExtractor.Tests.IO
         [Test]
         public void TestGetInt64()
         {
-            var buffer = new byte[] { unchecked(0x00), unchecked(0x01), unchecked(0x02), unchecked(0x03), unchecked(0x04), unchecked(0x05), unchecked(0x06), unchecked(0x07), unchecked(0xFF
+            var buffer = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, unchecked(0xFF
                 ) };
             var reader = CreateReader(buffer);
             Assert.AreEqual(unchecked(0x0001020304050607L), (object)reader.GetInt64(0));
@@ -216,9 +216,9 @@ namespace MetadataExtractor.Tests.IO
         [Test]
         public void TestGetFloat32()
         {
-            var nanBits = unchecked(0x7fc00000);
+            var nanBits = 0x7fc00000;
             Assert.IsTrue(float.IsNaN(BitConverter.ToSingle(BitConverter.GetBytes(nanBits), 0)));
-            var buffer = new byte[] { unchecked(0x7f), unchecked(0xc0), unchecked(0x00), unchecked(0x00) };
+            var buffer = new byte[] { 0x7f, 0xc0, 0x00, 0x00 };
             var reader = CreateReader(buffer);
             Assert.IsTrue(float.IsNaN(reader.GetFloat32(0)));
         }
@@ -228,7 +228,7 @@ namespace MetadataExtractor.Tests.IO
         {
             var nanBits = unchecked((long)(0xfff0000000000001L));
             Assert.IsTrue(double.IsNaN(BitConverter.Int64BitsToDouble(nanBits)));
-            var buffer = new byte[] { unchecked(0xff), unchecked(0xf0), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked(0x00), unchecked(0x01) };
+            var buffer = new byte[] { 0xff, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01 };
             var reader = CreateReader(buffer);
             Assert.IsTrue(double.IsNaN(reader.GetDouble64(0)));
         }
@@ -236,7 +236,7 @@ namespace MetadataExtractor.Tests.IO
         [Test]
         public void TestGetNullTerminatedString()
         {
-            var bytes = new byte[] { unchecked(0x41), unchecked(0x42), unchecked(0x43), unchecked(0x44), unchecked(0x00), unchecked(0x45), unchecked(0x46), unchecked(0x47) };
+            var bytes = new byte[] { 0x41, 0x42, 0x43, 0x44, 0x00, 0x45, 0x46, 0x47 };
             var reader = CreateReader(bytes);
             Assert.AreEqual(string.Empty, reader.GetNullTerminatedString(0, 0));
             Assert.AreEqual("A", reader.GetNullTerminatedString(0, 1));
@@ -254,7 +254,7 @@ namespace MetadataExtractor.Tests.IO
         [Test]
         public void TestGetString()
         {
-            var bytes = new byte[] { unchecked(0x41), unchecked(0x42), unchecked(0x43), unchecked(0x44), unchecked(0x00), unchecked(0x45), unchecked(0x46), unchecked(0x47) };
+            var bytes = new byte[] { 0x41, 0x42, 0x43, 0x44, 0x00, 0x45, 0x46, 0x47 };
             var reader = CreateReader(bytes);
             Assert.AreEqual(string.Empty, reader.GetString(0, 0));
             Assert.AreEqual("A", reader.GetString(0, 1));
@@ -275,7 +275,7 @@ namespace MetadataExtractor.Tests.IO
             var reader = CreateReader(new byte[10]);
             try
             {
-                reader.GetBytes(unchecked(0x6FFFFFFF), unchecked(0x6FFFFFFF));
+                reader.GetBytes(0x6FFFFFFF, 0x6FFFFFFF);
             }
             catch (IOException e)
             {

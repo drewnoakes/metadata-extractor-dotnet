@@ -35,20 +35,20 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// 2 = Manual
         /// 4 = Multiple
         /// </summary>
-        public const int TagCaptureMode = unchecked(0x0001);
+        public const int TagCaptureMode = 0x0001;
 
         /// <summary>
         /// 0 = Good
         /// 1 = Better
         /// 2 = Best
         /// </summary>
-        public const int TagQualityLevel = unchecked(0x0002);
+        public const int TagQualityLevel = 0x0002;
 
         /// <summary>
         /// 2 = Custom
         /// 3 = Auto
         /// </summary>
-        public const int TagFocusMode = unchecked(0x0003);
+        public const int TagFocusMode = 0x0003;
 
         /// <summary>
         /// 1 = Auto
@@ -56,7 +56,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// 4 = Flash off
         /// 6 = Red-eye Reduction
         /// </summary>
-        public const int TagFlashMode = unchecked(0x0004);
+        public const int TagFlashMode = 0x0004;
 
         /// <summary>
         /// 0 = Auto
@@ -66,31 +66,31 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// 4 = Fluorescent
         /// 5 = Manual
         /// </summary>
-        public const int TagWhiteBalance = unchecked(0x0007);
+        public const int TagWhiteBalance = 0x0007;
 
         /// <summary>(0 = Off)</summary>
-        public const int TagDigitalZoom = unchecked(0x000A);
+        public const int TagDigitalZoom = 0x000A;
 
         /// <summary>
         /// 0 = Normal
         /// 1 = Soft
         /// 2 = Hard
         /// </summary>
-        public const int TagSharpness = unchecked(0x000B);
+        public const int TagSharpness = 0x000B;
 
         /// <summary>
         /// 0 = Normal
         /// 1 = Low
         /// 2 = High
         /// </summary>
-        public const int TagContrast = unchecked(0x000C);
+        public const int TagContrast = 0x000C;
 
         /// <summary>
         /// 0 = Normal
         /// 1 = Low
         /// 2 = High
         /// </summary>
-        public const int TagSaturation = unchecked(0x000D);
+        public const int TagSaturation = 0x000D;
 
         /// <summary>
         /// 10 = ISO 100
@@ -98,27 +98,27 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// 100 = ISO 100
         /// 200 = ISO 200
         /// </summary>
-        public const int TagIsoSpeed = unchecked(0x0014);
+        public const int TagIsoSpeed = 0x0014;
 
         /// <summary>
         /// 1 = Normal
         /// 2 = Black &amp; White
         /// 3 = Sepia
         /// </summary>
-        public const int TagColour = unchecked(0x0017);
+        public const int TagColour = 0x0017;
 
         /// <summary>See Print Image Matching for specification.</summary>
         /// <remarks>
         /// See Print Image Matching for specification.
         /// http://www.ozhiker.com/electronics/pjmt/jpeg_info/pim.html
         /// </remarks>
-        public const int TagPrintImageMatchingInfo = unchecked(0x0E00);
+        public const int TagPrintImageMatchingInfo = 0x0E00;
 
         /// <summary>(String).</summary>
-        public const int TagTimeZone = unchecked(0x1000);
+        public const int TagTimeZone = 0x1000;
 
         /// <summary>(String).</summary>
-        public const int TagDaylightSavings = unchecked(0x1001);
+        public const int TagDaylightSavings = 0x1001;
 
         [NotNull]
         protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();

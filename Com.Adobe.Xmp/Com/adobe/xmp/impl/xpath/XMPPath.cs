@@ -17,23 +17,23 @@ namespace Com.Adobe.Xmp.Impl.Xpath
     public sealed class XmpPath
     {
         /// <summary>Marks a struct field step , also for top level nodes (schema "fields").</summary>
-        public const int StructFieldStep = unchecked(0x01);
+        public const int StructFieldStep = 0x01;
 
         /// <summary>Marks a qualifier step.</summary>
         /// <remarks>
         /// Marks a qualifier step.
         /// Note: Order is significant to separate struct/qual from array kinds!
         /// </remarks>
-        public const int QualifierStep = unchecked(0x02);
+        public const int QualifierStep = 0x02;
 
         /// <summary>Marks an array index step</summary>
-        public const int ArrayIndexStep = unchecked(0x03);
+        public const int ArrayIndexStep = 0x03;
 
-        public const int ArrayLastStep = unchecked(0x04);
+        public const int ArrayLastStep = 0x04;
 
-        public const int QualSelectorStep = unchecked(0x05);
+        public const int QualSelectorStep = 0x05;
 
-        public const int FieldSelectorStep = unchecked(0x06);
+        public const int FieldSelectorStep = 0x06;
 
         public const int SchemaNode = unchecked((int)(0x80000000));
 

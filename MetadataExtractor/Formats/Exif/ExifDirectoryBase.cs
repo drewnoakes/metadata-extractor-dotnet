@@ -28,9 +28,9 @@ namespace MetadataExtractor.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class ExifDirectoryBase : Directory
     {
-        public const int TagInteropIndex = unchecked(0x0001);
+        public const int TagInteropIndex = 0x0001;
 
-        public const int TagInteropVersion = unchecked(0x0002);
+        public const int TagInteropVersion = 0x0002;
 
         /// <summary>The new subfile type tag.</summary>
         /// <remarks>
@@ -44,7 +44,7 @@ namespace MetadataExtractor.Formats.Exif
         /// 6 = Transparency mask of multi-page image
         /// 7 = Transparency mask of reduced-resolution multi-page image
         /// </remarks>
-        public const int TagNewSubfileType = unchecked(0x00FE);
+        public const int TagNewSubfileType = 0x00FE;
 
         /// <summary>The old subfile type tag.</summary>
         /// <remarks>
@@ -53,11 +53,11 @@ namespace MetadataExtractor.Formats.Exif
         /// 2 = Reduced-resolution image (Thumbnail)
         /// 3 = Single page of multi-page image
         /// </remarks>
-        public const int TagSubfileType = unchecked(0x00FF);
+        public const int TagSubfileType = 0x00FF;
 
-        public const int TagImageWidth = unchecked(0x0100);
+        public const int TagImageWidth = 0x0100;
 
-        public const int TagImageHeight = unchecked(0x0101);
+        public const int TagImageHeight = 0x0101;
 
         /// <summary>
         /// When image format is no compression, this value shows the number of bits
@@ -67,9 +67,9 @@ namespace MetadataExtractor.Formats.Exif
         /// When image format is no compression, this value shows the number of bits
         /// per component for each pixel. Usually this value is '8,8,8'.
         /// </remarks>
-        public const int TagBitsPerSample = unchecked(0x0102);
+        public const int TagBitsPerSample = 0x0102;
 
-        public const int TagCompression = unchecked(0x0103);
+        public const int TagCompression = 0x0103;
 
         /// <summary>Shows the color space of the image data components.</summary>
         /// <remarks>
@@ -89,50 +89,50 @@ namespace MetadataExtractor.Formats.Exif
         /// 32845 = Pixar LogLuv
         /// 34892 = Linear Raw
         /// </remarks>
-        public const int TagPhotometricInterpretation = unchecked(0x0106);
+        public const int TagPhotometricInterpretation = 0x0106;
 
         /// <summary>
         /// 1 = No dithering or halftoning
         /// 2 = Ordered dither or halftone
         /// 3 = Randomized dither
         /// </summary>
-        public const int TagThresholding = unchecked(0x0107);
+        public const int TagThresholding = 0x0107;
 
         /// <summary>
         /// 1 = Normal
         /// 2 = Reversed
         /// </summary>
-        public const int TagFillOrder = unchecked(0x010A);
+        public const int TagFillOrder = 0x010A;
 
-        public const int TagDocumentName = unchecked(0x010D);
+        public const int TagDocumentName = 0x010D;
 
-        public const int TagImageDescription = unchecked(0x010E);
+        public const int TagImageDescription = 0x010E;
 
-        public const int TagMake = unchecked(0x010F);
+        public const int TagMake = 0x010F;
 
-        public const int TagModel = unchecked(0x0110);
+        public const int TagModel = 0x0110;
 
         /// <summary>The position in the file of raster data.</summary>
-        public const int TagStripOffsets = unchecked(0x0111);
+        public const int TagStripOffsets = 0x0111;
 
-        public const int TagOrientation = unchecked(0x0112);
+        public const int TagOrientation = 0x0112;
 
         /// <summary>Each pixel is composed of this many samples.</summary>
-        public const int TagSamplesPerPixel = unchecked(0x0115);
+        public const int TagSamplesPerPixel = 0x0115;
 
         /// <summary>The raster is codified by a single block of data holding this many rows.</summary>
-        public const int TagRowsPerStrip = unchecked(0x0116);
+        public const int TagRowsPerStrip = 0x0116;
 
         /// <summary>The size of the raster data in bytes.</summary>
-        public const int TagStripByteCounts = unchecked(0x0117);
+        public const int TagStripByteCounts = 0x0117;
 
-        public const int TagMinSampleValue = unchecked(0x0118);
+        public const int TagMinSampleValue = 0x0118;
 
-        public const int TagMaxSampleValue = unchecked(0x0119);
+        public const int TagMaxSampleValue = 0x0119;
 
-        public const int TagXResolution = unchecked(0x011A);
+        public const int TagXResolution = 0x011A;
 
-        public const int TagYResolution = unchecked(0x011B);
+        public const int TagYResolution = 0x011B;
 
         /// <summary>
         /// When image format is no compression YCbCr, this value shows byte aligns of
@@ -144,79 +144,79 @@ namespace MetadataExtractor.Formats.Exif
         /// each subsampling pixel. If value is '2', Y/Cb/Cr value is separated and
         /// stored to Y plane/Cb plane/Cr plane format.
         /// </remarks>
-        public const int TagPlanarConfiguration = unchecked(0x011C);
+        public const int TagPlanarConfiguration = 0x011C;
 
-        public const int TagPageName = unchecked(0x011D);
+        public const int TagPageName = 0x011D;
 
-        public const int TagResolutionUnit = unchecked(0x0128);
+        public const int TagResolutionUnit = 0x0128;
 
-        public const int TagTransferFunction = unchecked(0x012D);
+        public const int TagTransferFunction = 0x012D;
 
-        public const int TagSoftware = unchecked(0x0131);
+        public const int TagSoftware = 0x0131;
 
-        public const int TagDatetime = unchecked(0x0132);
+        public const int TagDatetime = 0x0132;
 
-        public const int TagArtist = unchecked(0x013B);
+        public const int TagArtist = 0x013B;
 
-        public const int TagHostComputer = unchecked(0x013C);
+        public const int TagHostComputer = 0x013C;
 
-        public const int TagPredictor = unchecked(0x013D);
+        public const int TagPredictor = 0x013D;
 
-        public const int TagWhitePoint = unchecked(0x013E);
+        public const int TagWhitePoint = 0x013E;
 
-        public const int TagPrimaryChromaticities = unchecked(0x013F);
+        public const int TagPrimaryChromaticities = 0x013F;
 
-        public const int TagTileWidth = unchecked(0x0142);
+        public const int TagTileWidth = 0x0142;
 
-        public const int TagTileLength = unchecked(0x0143);
+        public const int TagTileLength = 0x0143;
 
-        public const int TagTileOffsets = unchecked(0x0144);
+        public const int TagTileOffsets = 0x0144;
 
-        public const int TagTileByteCounts = unchecked(0x0145);
+        public const int TagTileByteCounts = 0x0145;
 
-        public const int TagSubIfdOffset = unchecked(0x014a);
+        public const int TagSubIfdOffset = 0x014a;
 
-        public const int TagTransferRange = unchecked(0x0156);
+        public const int TagTransferRange = 0x0156;
 
-        public const int TagJpegTables = unchecked(0x015B);
+        public const int TagJpegTables = 0x015B;
 
-        public const int TagJpegProc = unchecked(0x0200);
+        public const int TagJpegProc = 0x0200;
 
-        public const int TagYcbcrCoefficients = unchecked(0x0211);
+        public const int TagYcbcrCoefficients = 0x0211;
 
-        public const int TagYcbcrSubsampling = unchecked(0x0212);
+        public const int TagYcbcrSubsampling = 0x0212;
 
-        public const int TagYcbcrPositioning = unchecked(0x0213);
+        public const int TagYcbcrPositioning = 0x0213;
 
-        public const int TagReferenceBlackWhite = unchecked(0x0214);
+        public const int TagReferenceBlackWhite = 0x0214;
 
-        public const int TagRelatedImageFileFormat = unchecked(0x1000);
+        public const int TagRelatedImageFileFormat = 0x1000;
 
-        public const int TagRelatedImageWidth = unchecked(0x1001);
+        public const int TagRelatedImageWidth = 0x1001;
 
-        public const int TagRelatedImageHeight = unchecked(0x1002);
+        public const int TagRelatedImageHeight = 0x1002;
 
-        public const int TagRating = unchecked(0x4746);
+        public const int TagRating = 0x4746;
 
-        public const int TagCfaRepeatPatternDim = unchecked(0x828D);
+        public const int TagCfaRepeatPatternDim = 0x828D;
 
         /// <summary>There are two definitions for CFA pattern, I don't know the difference...</summary>
-        public const int TagCfaPattern2 = unchecked(0x828E);
+        public const int TagCfaPattern2 = 0x828E;
 
-        public const int TagBatteryLevel = unchecked(0x828F);
+        public const int TagBatteryLevel = 0x828F;
 
-        public const int TagCopyright = unchecked(0x8298);
+        public const int TagCopyright = 0x8298;
 
         /// <summary>Exposure time (reciprocal of shutter speed).</summary>
         /// <remarks>Exposure time (reciprocal of shutter speed). Unit is second.</remarks>
-        public const int TagExposureTime = unchecked(0x829A);
+        public const int TagExposureTime = 0x829A;
 
         /// <summary>The actual F-number(F-stop) of lens when the image was taken.</summary>
-        public const int TagFnumber = unchecked(0x829D);
+        public const int TagFnumber = 0x829D;
 
-        public const int TagIptcNaa = unchecked(0x83BB);
+        public const int TagIptcNaa = 0x83BB;
 
-        public const int TagInterColorProfile = unchecked(0x8773);
+        public const int TagInterColorProfile = 0x8773;
 
         /// <summary>Exposure program that the camera used when image was taken.</summary>
         /// <remarks>
@@ -225,11 +225,11 @@ namespace MetadataExtractor.Formats.Exif
         /// priority, '5' program creative (slow program), '6' program action
         /// (high-speed program), '7' portrait mode, '8' landscape mode.
         /// </remarks>
-        public const int TagExposureProgram = unchecked(0x8822);
+        public const int TagExposureProgram = 0x8822;
 
-        public const int TagSpectralSensitivity = unchecked(0x8824);
+        public const int TagSpectralSensitivity = 0x8824;
 
-        public const int TagIsoEquivalent = unchecked(0x8827);
+        public const int TagIsoEquivalent = 0x8827;
 
         /// <summary>Indicates the Opto-Electric Conversion Function (OECF) specified in ISO 14524.</summary>
         /// <remarks>
@@ -244,13 +244,13 @@ namespace MetadataExtractor.Formats.Exif
         /// <item>For each cell, an SRATIONAL value.</item>
         /// </list>
         /// </remarks>
-        public const int TagOptoElectricConversionFunction = unchecked(0x8828);
+        public const int TagOptoElectricConversionFunction = 0x8828;
 
-        public const int TagInterlace = unchecked(0x8829);
+        public const int TagInterlace = 0x8829;
 
-        public const int TagTimeZoneOffsetTiffEp = unchecked(0x882A);
+        public const int TagTimeZoneOffsetTiffEp = 0x882A;
 
-        public const int TagSelfTimerModeTiffEp = unchecked(0x882B);
+        public const int TagSelfTimerModeTiffEp = 0x882B;
 
         /// <summary>Applies to ISO tag.</summary>
         /// <remarks>
@@ -264,27 +264,27 @@ namespace MetadataExtractor.Formats.Exif
         /// 6 = Recommended Exposure Index and ISO Speed
         /// 7 = Standard Output Sensitivity, Recommended Exposure Index and ISO Speed
         /// </remarks>
-        public const int TagSensitivityType = unchecked(0x8830);
+        public const int TagSensitivityType = 0x8830;
 
-        public const int TagStandardOutputSensitivity = unchecked(0x8831);
+        public const int TagStandardOutputSensitivity = 0x8831;
 
-        public const int TagRecommendedExposureIndex = unchecked(0x8832);
+        public const int TagRecommendedExposureIndex = 0x8832;
 
         /// <summary>Non-standard, but in use.</summary>
-        public const int TagTimeZoneOffset = unchecked(0x882A);
+        public const int TagTimeZoneOffset = 0x882A;
 
-        public const int TagSelfTimerMode = unchecked(0x882B);
+        public const int TagSelfTimerMode = 0x882B;
 
-        public const int TagExifVersion = unchecked(0x9000);
+        public const int TagExifVersion = 0x9000;
 
-        public const int TagDatetimeOriginal = unchecked(0x9003);
+        public const int TagDatetimeOriginal = 0x9003;
 
-        public const int TagDatetimeDigitized = unchecked(0x9004);
+        public const int TagDatetimeDigitized = 0x9004;
 
-        public const int TagComponentsConfiguration = unchecked(0x9101);
+        public const int TagComponentsConfiguration = 0x9101;
 
         /// <summary>Average (rough estimate) compression level in JPEG bits per pixel.</summary>
-        public const int TagCompressedAverageBitsPerPixel = unchecked(0x9102);
+        public const int TagCompressedAverageBitsPerPixel = 0x9102;
 
         /// <summary>Shutter speed by APEX value.</summary>
         /// <remarks>
@@ -292,7 +292,7 @@ namespace MetadataExtractor.Formats.Exif
         /// calculate this value's power of 2, then reciprocal. For example, if the
         /// ShutterSpeedValue is '4', shutter speed is 1/(24)=1/16 second.
         /// </remarks>
-        public const int TagShutterSpeed = unchecked(0x9201);
+        public const int TagShutterSpeed = 0x9201;
 
         /// <summary>The actual aperture value of lens when the image was taken.</summary>
         /// <remarks>
@@ -301,11 +301,11 @@ namespace MetadataExtractor.Formats.Exif
         /// power of root 2 (=1.4142). For example, if the ApertureValue is '5',
         /// F-number is 1.4142^5 = F5.6.
         /// </remarks>
-        public const int TagAperture = unchecked(0x9202);
+        public const int TagAperture = 0x9202;
 
-        public const int TagBrightnessValue = unchecked(0x9203);
+        public const int TagBrightnessValue = 0x9203;
 
-        public const int TagExposureBias = unchecked(0x9204);
+        public const int TagExposureBias = 0x9204;
 
         /// <summary>Maximum aperture value of lens.</summary>
         /// <remarks>
@@ -315,11 +315,11 @@ namespace MetadataExtractor.Formats.Exif
         /// value to ordinary f-number(f-stop), calculate the value's power of root 2
         /// (=1.4142). For example, if the ApertureValue is '5', f-number is 1.41425^5 = F5.6.
         /// </remarks>
-        public const int TagMaxAperture = unchecked(0x9205);
+        public const int TagMaxAperture = 0x9205;
 
         /// <summary>Indicates the distance the autofocus camera is focused to.</summary>
         /// <remarks>Indicates the distance the autofocus camera is focused to.  Tends to be less accurate as distance increases.</remarks>
-        public const int TagSubjectDistance = unchecked(0x9206);
+        public const int TagSubjectDistance = 0x9206;
 
         /// <summary>Exposure metering method.</summary>
         /// <remarks>
@@ -327,9 +327,9 @@ namespace MetadataExtractor.Formats.Exif
         /// weighted average, '3' spot, '4' multi-spot, '5' multi-segment, '6' partial,
         /// '255' other.
         /// </remarks>
-        public const int TagMeteringMode = unchecked(0x9207);
+        public const int TagMeteringMode = 0x9207;
 
-        public const int TagLightSource = unchecked(0x9208);
+        public const int TagLightSource = 0x9208;
 
         /// <summary>White balance (aka light source).</summary>
         /// <remarks>
@@ -338,7 +338,7 @@ namespace MetadataExtractor.Formats.Exif
         /// '18' standard light B, '19' standard light C, '20' D55, '21' D65,
         /// '22' D75, '255' other.
         /// </remarks>
-        public const int TagWhiteBalance = unchecked(0x9208);
+        public const int TagWhiteBalance = 0x9208;
 
         /// <summary>
         /// 0x0  = 0000000 = No Flash
@@ -399,36 +399,36 @@ namespace MetadataExtractor.Formats.Exif
         /// 5 = unknown
         /// 6 = red eye reduction used
         /// </remarks>
-        public const int TagFlash = unchecked(0x9209);
+        public const int TagFlash = 0x9209;
 
         /// <summary>Focal length of lens used to take image.</summary>
         /// <remarks>
         /// Focal length of lens used to take image.  Unit is millimeter.
         /// Nice digital cameras actually save the focal length as a function of how far they are zoomed in.
         /// </remarks>
-        public const int TagFocalLength = unchecked(0x920A);
+        public const int TagFocalLength = 0x920A;
 
-        public const int TagFlashEnergyTiffEp = unchecked(0x920B);
+        public const int TagFlashEnergyTiffEp = 0x920B;
 
-        public const int TagSpatialFreqResponseTiffEp = unchecked(0x920C);
+        public const int TagSpatialFreqResponseTiffEp = 0x920C;
 
-        public const int TagNoise = unchecked(0x920D);
+        public const int TagNoise = 0x920D;
 
-        public const int TagFocalPlaneXResolutionTiffEp = unchecked(0x920E);
+        public const int TagFocalPlaneXResolutionTiffEp = 0x920E;
 
-        public const int TagFocalPlaneYResolutionTiffEp = unchecked(0x920F);
+        public const int TagFocalPlaneYResolutionTiffEp = 0x920F;
 
-        public const int TagImageNumber = unchecked(0x9211);
+        public const int TagImageNumber = 0x9211;
 
-        public const int TagSecurityClassification = unchecked(0x9212);
+        public const int TagSecurityClassification = 0x9212;
 
-        public const int TagImageHistory = unchecked(0x9213);
+        public const int TagImageHistory = 0x9213;
 
-        public const int TagSubjectLocationTiffEp = unchecked(0x9214);
+        public const int TagSubjectLocationTiffEp = 0x9214;
 
-        public const int TagExposureIndexTiffEp = unchecked(0x9215);
+        public const int TagExposureIndexTiffEp = 0x9215;
 
-        public const int TagStandardIdTiffEp = unchecked(0x9216);
+        public const int TagStandardIdTiffEp = 0x9216;
 
         /// <summary>This tag holds the Exif Makernote.</summary>
         /// <remarks>
@@ -438,32 +438,32 @@ namespace MetadataExtractor.Formats.Exif
         /// <para />
         /// The component count for this tag includes all of the bytes needed for the makernote.
         /// </remarks>
-        public const int TagMakernote = unchecked(0x927C);
+        public const int TagMakernote = 0x927C;
 
-        public const int TagUserComment = unchecked(0x9286);
+        public const int TagUserComment = 0x9286;
 
-        public const int TagSubsecondTime = unchecked(0x9290);
+        public const int TagSubsecondTime = 0x9290;
 
-        public const int TagSubsecondTimeOriginal = unchecked(0x9291);
+        public const int TagSubsecondTimeOriginal = 0x9291;
 
-        public const int TagSubsecondTimeDigitized = unchecked(0x9292);
+        public const int TagSubsecondTimeDigitized = 0x9292;
 
         /// <summary>The image title, as used by Windows XP.</summary>
-        public const int TagWinTitle = unchecked(0x9C9B);
+        public const int TagWinTitle = 0x9C9B;
 
         /// <summary>The image comment, as used by Windows XP.</summary>
-        public const int TagWinComment = unchecked(0x9C9C);
+        public const int TagWinComment = 0x9C9C;
 
         /// <summary>The image author, as used by Windows XP (called Artist in the Windows shell).</summary>
-        public const int TagWinAuthor = unchecked(0x9C9D);
+        public const int TagWinAuthor = 0x9C9D;
 
         /// <summary>The image keywords, as used by Windows XP.</summary>
-        public const int TagWinKeywords = unchecked(0x9C9E);
+        public const int TagWinKeywords = 0x9C9E;
 
         /// <summary>The image subject, as used by Windows XP.</summary>
-        public const int TagWinSubject = unchecked(0x9C9F);
+        public const int TagWinSubject = 0x9C9F;
 
-        public const int TagFlashpixVersion = unchecked(0xA000);
+        public const int TagFlashpixVersion = 0xA000;
 
         /// <summary>Defines Color Space.</summary>
         /// <remarks>
@@ -471,21 +471,21 @@ namespace MetadataExtractor.Formats.Exif
         /// always '1'. If the picture uses the other color space, value is
         /// '65535':Uncalibrated.
         /// </remarks>
-        public const int TagColorSpace = unchecked(0xA001);
+        public const int TagColorSpace = 0xA001;
 
-        public const int TagExifImageWidth = unchecked(0xA002);
+        public const int TagExifImageWidth = 0xA002;
 
-        public const int TagExifImageHeight = unchecked(0xA003);
+        public const int TagExifImageHeight = 0xA003;
 
-        public const int TagRelatedSoundFile = unchecked(0xA004);
+        public const int TagRelatedSoundFile = 0xA004;
 
-        public const int TagFlashEnergy = unchecked(0xA20B);
+        public const int TagFlashEnergy = 0xA20B;
 
-        public const int TagSpatialFreqResponse = unchecked(0xA20C);
+        public const int TagSpatialFreqResponse = 0xA20C;
 
-        public const int TagFocalPlaneXResolution = unchecked(0xA20E);
+        public const int TagFocalPlaneXResolution = 0xA20E;
 
-        public const int TagFocalPlaneYResolution = unchecked(0xA20F);
+        public const int TagFocalPlaneYResolution = 0xA20F;
 
         /// <summary>Unit of FocalPlaneXResolution/FocalPlaneYResolution.</summary>
         /// <remarks>
@@ -496,19 +496,19 @@ namespace MetadataExtractor.Formats.Exif
         /// '8.3mm?'(1/3in.?) to their ResolutionUnit. Fuji's BUG? Finepix4900Z has
         /// been changed to use value '2' but it doesn't match to actual value also.
         /// </remarks>
-        public const int TagFocalPlaneResolutionUnit = unchecked(0xA210);
+        public const int TagFocalPlaneResolutionUnit = 0xA210;
 
-        public const int TagSubjectLocation = unchecked(0xA214);
+        public const int TagSubjectLocation = 0xA214;
 
-        public const int TagExposureIndex = unchecked(0xA215);
+        public const int TagExposureIndex = 0xA215;
 
-        public const int TagSensingMethod = unchecked(0xA217);
+        public const int TagSensingMethod = 0xA217;
 
-        public const int TagFileSource = unchecked(0xA300);
+        public const int TagFileSource = 0xA300;
 
-        public const int TagSceneType = unchecked(0xA301);
+        public const int TagSceneType = 0xA301;
 
-        public const int TagCfaPattern = unchecked(0xA302);
+        public const int TagCfaPattern = 0xA302;
 
         /// <summary>
         /// This tag indicates the use of special processing on image data, such as rendering
@@ -526,7 +526,7 @@ namespace MetadataExtractor.Formats.Exif
         /// 1 = Custom process
         /// Other = reserved
         /// </remarks>
-        public const int TagCustomRendered = unchecked(0xA401);
+        public const int TagCustomRendered = 0xA401;
 
         /// <summary>This tag indicates the exposure mode set when the image was shot.</summary>
         /// <remarks>
@@ -541,7 +541,7 @@ namespace MetadataExtractor.Formats.Exif
         /// 2 = Auto bracket
         /// Other = reserved
         /// </remarks>
-        public const int TagExposureMode = unchecked(0xA402);
+        public const int TagExposureMode = 0xA402;
 
         /// <summary>This tag indicates the white balance mode set when the image was shot.</summary>
         /// <remarks>
@@ -554,7 +554,7 @@ namespace MetadataExtractor.Formats.Exif
         /// 1 = Manual white balance
         /// Other = reserved
         /// </remarks>
-        public const int TagWhiteBalanceMode = unchecked(0xA403);
+        public const int TagWhiteBalanceMode = 0xA403;
 
         /// <summary>This tag indicates the digital zoom ratio when the image was shot.</summary>
         /// <remarks>
@@ -566,7 +566,7 @@ namespace MetadataExtractor.Formats.Exif
         /// Count = 1
         /// Default = none
         /// </remarks>
-        public const int TagDigitalZoomRatio = unchecked(0xA404);
+        public const int TagDigitalZoomRatio = 0xA404;
 
         /// <summary>
         /// This tag indicates the equivalent focal length assuming a 35mm film camera,
@@ -581,7 +581,7 @@ namespace MetadataExtractor.Formats.Exif
         /// Count = 1
         /// Default = none
         /// </remarks>
-        public const int Tag35MmFilmEquivFocalLength = unchecked(0xA405);
+        public const int Tag35MmFilmEquivFocalLength = 0xA405;
 
         /// <summary>This tag indicates the type of scene that was shot.</summary>
         /// <remarks>
@@ -598,7 +598,7 @@ namespace MetadataExtractor.Formats.Exif
         /// 3 = Night scene
         /// Other = reserved
         /// </remarks>
-        public const int TagSceneCaptureType = unchecked(0xA406);
+        public const int TagSceneCaptureType = 0xA406;
 
         /// <summary>This tag indicates the degree of overall image gain adjustment.</summary>
         /// <remarks>
@@ -614,7 +614,7 @@ namespace MetadataExtractor.Formats.Exif
         /// 4 = High gain down
         /// Other = reserved
         /// </remarks>
-        public const int TagGainControl = unchecked(0xA407);
+        public const int TagGainControl = 0xA407;
 
         /// <summary>
         /// This tag indicates the direction of contrast processing applied by the camera
@@ -632,7 +632,7 @@ namespace MetadataExtractor.Formats.Exif
         /// 2 = Hard
         /// Other = reserved
         /// </remarks>
-        public const int TagContrast = unchecked(0xA408);
+        public const int TagContrast = 0xA408;
 
         /// <summary>
         /// This tag indicates the direction of saturation processing applied by the camera
@@ -650,7 +650,7 @@ namespace MetadataExtractor.Formats.Exif
         /// 2 = High saturation
         /// Other = reserved
         /// </remarks>
-        public const int TagSaturation = unchecked(0xA409);
+        public const int TagSaturation = 0xA409;
 
         /// <summary>
         /// This tag indicates the direction of sharpness processing applied by the camera
@@ -668,7 +668,7 @@ namespace MetadataExtractor.Formats.Exif
         /// 2 = Hard
         /// Other = reserved
         /// </remarks>
-        public const int TagSharpness = unchecked(0xA40A);
+        public const int TagSharpness = 0xA40A;
 
         /// <summary>
         /// This tag indicates information on the picture-taking conditions of a particular
@@ -696,7 +696,7 @@ namespace MetadataExtractor.Formats.Exif
         /// :       :           :
         /// Any     UNDEFINED   Camera setting-n
         /// </remarks>
-        public const int TagDeviceSettingDescription = unchecked(0xA40B);
+        public const int TagDeviceSettingDescription = 0xA40B;
 
         /// <summary>This tag indicates the distance to the subject.</summary>
         /// <remarks>
@@ -711,7 +711,7 @@ namespace MetadataExtractor.Formats.Exif
         /// 3 = Distant view
         /// Other = reserved
         /// </remarks>
-        public const int TagSubjectDistanceRange = unchecked(0xA40C);
+        public const int TagSubjectDistanceRange = 0xA40C;
 
         /// <summary>This tag indicates an identifier assigned uniquely to each image.</summary>
         /// <remarks>
@@ -723,38 +723,38 @@ namespace MetadataExtractor.Formats.Exif
         /// Count = 33
         /// Default = none
         /// </remarks>
-        public const int TagImageUniqueId = unchecked(0xA420);
+        public const int TagImageUniqueId = 0xA420;
 
         /// <summary>String.</summary>
-        public const int TagCameraOwnerName = unchecked(0xA430);
+        public const int TagCameraOwnerName = 0xA430;
 
         /// <summary>String.</summary>
-        public const int TagBodySerialNumber = unchecked(0xA431);
+        public const int TagBodySerialNumber = 0xA431;
 
         /// <summary>An array of four Rational64u numbers giving focal and aperture ranges.</summary>
-        public const int TagLensSpecification = unchecked(0xA432);
+        public const int TagLensSpecification = 0xA432;
 
         /// <summary>String.</summary>
-        public const int TagLensMake = unchecked(0xA433);
+        public const int TagLensMake = 0xA433;
 
         /// <summary>String.</summary>
-        public const int TagLensModel = unchecked(0xA434);
+        public const int TagLensModel = 0xA434;
 
         /// <summary>String.</summary>
-        public const int TagLensSerialNumber = unchecked(0xA435);
+        public const int TagLensSerialNumber = 0xA435;
 
         /// <summary>Rational64u.</summary>
-        public const int TagGamma = unchecked(0xA500);
+        public const int TagGamma = 0xA500;
 
-        public const int TagPrintIm = unchecked(0xC4A5);
+        public const int TagPrintIm = 0xC4A5;
 
-        public const int TagPanasonicTitle = unchecked(0xC6D2);
+        public const int TagPanasonicTitle = 0xC6D2;
 
-        public const int TagPanasonicTitle2 = unchecked(0xC6D3);
+        public const int TagPanasonicTitle2 = 0xC6D3;
 
-        public const int TagPadding = unchecked(0xEA1C);
+        public const int TagPadding = 0xEA1C;
 
-        public const int TagLens = unchecked(0xFDEA);
+        public const int TagLens = 0xFDEA;
 
         // TODO duplicate tag
         // TODO duplicate tag

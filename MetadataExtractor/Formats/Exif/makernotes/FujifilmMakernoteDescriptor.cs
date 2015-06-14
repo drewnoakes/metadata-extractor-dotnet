@@ -223,22 +223,22 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return "Hardest";
                 }
 
-                case unchecked(0x82):
+                case 0x82:
                 {
                     return "Medium Soft";
                 }
 
-                case unchecked(0x84):
+                case 0x84:
                 {
                     return "Medium Hard";
                 }
 
-                case unchecked(0x8000):
+                case 0x8000:
                 {
                     return "Film Simulation";
                 }
 
-                case unchecked(0xFFFF):
+                case 0xFFFF:
                 {
                     return "N/A";
                 }
@@ -260,82 +260,82 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x000):
+                case 0x000:
                 {
                     return "Auto";
                 }
 
-                case unchecked(0x100):
+                case 0x100:
                 {
                     return "Daylight";
                 }
 
-                case unchecked(0x200):
+                case 0x200:
                 {
                     return "Cloudy";
                 }
 
-                case unchecked(0x300):
+                case 0x300:
                 {
                     return "Daylight Fluorescent";
                 }
 
-                case unchecked(0x301):
+                case 0x301:
                 {
                     return "Day White Fluorescent";
                 }
 
-                case unchecked(0x302):
+                case 0x302:
                 {
                     return "White Fluorescent";
                 }
 
-                case unchecked(0x303):
+                case 0x303:
                 {
                     return "Warm White Fluorescent";
                 }
 
-                case unchecked(0x304):
+                case 0x304:
                 {
                     return "Living Room Warm White Fluorescent";
                 }
 
-                case unchecked(0x400):
+                case 0x400:
                 {
                     return "Incandescence";
                 }
 
-                case unchecked(0x500):
+                case 0x500:
                 {
                     return "Flash";
                 }
 
-                case unchecked(0xf00):
+                case 0xf00:
                 {
                     return "Custom White Balance";
                 }
 
-                case unchecked(0xf01):
+                case 0xf01:
                 {
                     return "Custom White Balance 2";
                 }
 
-                case unchecked(0xf02):
+                case 0xf02:
                 {
                     return "Custom White Balance 3";
                 }
 
-                case unchecked(0xf03):
+                case 0xf03:
                 {
                     return "Custom White Balance 4";
                 }
 
-                case unchecked(0xf04):
+                case 0xf04:
                 {
                     return "Custom White Balance 5";
                 }
 
-                case unchecked(0xff0):
+                case 0xff0:
                 {
                     return "Kelvin";
                 }
@@ -357,57 +357,57 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x000):
+                case 0x000:
                 {
                     return "Normal";
                 }
 
-                case unchecked(0x080):
+                case 0x080:
                 {
                     return "Medium High";
                 }
 
-                case unchecked(0x100):
+                case 0x100:
                 {
                     return "High";
                 }
 
-                case unchecked(0x180):
+                case 0x180:
                 {
                     return "Medium Low";
                 }
 
-                case unchecked(0x200):
+                case 0x200:
                 {
                     return "Low";
                 }
 
-                case unchecked(0x300):
+                case 0x300:
                 {
                     return "None (B&W)";
                 }
 
-                case unchecked(0x301):
+                case 0x301:
                 {
                     return "B&W Green Filter";
                 }
 
-                case unchecked(0x302):
+                case 0x302:
                 {
                     return "B&W Yellow Filter";
                 }
 
-                case unchecked(0x303):
+                case 0x303:
                 {
                     return "B&W Blue Filter";
                 }
 
-                case unchecked(0x304):
+                case 0x304:
                 {
                     return "B&W Sepia";
                 }
 
-                case unchecked(0x8000):
+                case 0x8000:
                 {
                     return "Film Simulation";
                 }
@@ -429,37 +429,37 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x000):
+                case 0x000:
                 {
                     return "Normal";
                 }
 
-                case unchecked(0x080):
+                case 0x080:
                 {
                     return "Medium High";
                 }
 
-                case unchecked(0x100):
+                case 0x100:
                 {
                     return "High";
                 }
 
-                case unchecked(0x180):
+                case 0x180:
                 {
                     return "Medium Low";
                 }
 
-                case unchecked(0x200):
+                case 0x200:
                 {
                     return "Low";
                 }
 
-                case unchecked(0x300):
+                case 0x300:
                 {
                     return "None (B&W)";
                 }
 
-                case unchecked(0x8000):
+                case 0x8000:
                 {
                     return "Film Simulation";
                 }
@@ -481,17 +481,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x000):
+                case 0x000:
                 {
                     return "Normal";
                 }
 
-                case unchecked(0x100):
+                case 0x100:
                 {
                     return "High";
                 }
 
-                case unchecked(0x300):
+                case 0x300:
                 {
                     return "Low";
                 }
@@ -513,17 +513,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x040):
+                case 0x040:
                 {
                     return "Low";
                 }
 
-                case unchecked(0x080):
+                case 0x080:
                 {
                     return "Normal";
                 }
 
-                case unchecked(0x100):
+                case 0x100:
                 {
                     return "N/A";
                 }
@@ -545,17 +545,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x000):
+                case 0x000:
                 {
                     return "Normal";
                 }
 
-                case unchecked(0x100):
+                case 0x100:
                 {
                     return "Strong";
                 }
 
-                case unchecked(0x200):
+                case 0x200:
                 {
                     return "Weak";
                 }
@@ -608,154 +608,154 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x000):
+                case 0x000:
                 {
                     return "Auto";
                 }
 
-                case unchecked(0x001):
+                case 0x001:
                 {
                     return "Portrait scene";
                 }
 
-                case unchecked(0x002):
+                case 0x002:
                 {
                     return "Landscape scene";
                 }
 
-                case unchecked(0x003):
+                case 0x003:
                 {
                     return "Macro";
                 }
 
-                case unchecked(0x004):
+                case 0x004:
                 {
                     return "Sports scene";
                 }
 
-                case unchecked(0x005):
+                case 0x005:
                 {
                     return "Night scene";
                 }
 
-                case unchecked(0x006):
+                case 0x006:
                 {
                     return "Program AE";
                 }
 
-                case unchecked(0x007):
+                case 0x007:
                 {
                     return "Natural Light";
                 }
 
-                case unchecked(0x008):
+                case 0x008:
                 {
                     return "Anti-blur";
                 }
 
-                case unchecked(0x009):
+                case 0x009:
                 {
                     return "Beach & Snow";
                 }
 
-                case unchecked(0x00a):
+                case 0x00a:
                 {
                     return "Sunset";
                 }
 
-                case unchecked(0x00b):
+                case 0x00b:
                 {
                     return "Museum";
                 }
 
-                case unchecked(0x00c):
+                case 0x00c:
                 {
                     return "Party";
                 }
 
-                case unchecked(0x00d):
+                case 0x00d:
                 {
                     return "Flower";
                 }
 
-                case unchecked(0x00e):
+                case 0x00e:
                 {
                     return "Text";
                 }
 
-                case unchecked(0x00f):
+                case 0x00f:
                 {
                     return "Natural Light & Flash";
                 }
 
-                case unchecked(0x010):
+                case 0x010:
                 {
                     return "Beach";
                 }
 
-                case unchecked(0x011):
+                case 0x011:
                 {
                     return "Snow";
                 }
 
-                case unchecked(0x012):
+                case 0x012:
                 {
                     return "Fireworks";
                 }
 
-                case unchecked(0x013):
+                case 0x013:
                 {
                     return "Underwater";
                 }
 
-                case unchecked(0x014):
+                case 0x014:
                 {
                     return "Portrait with Skin Correction";
                 }
 
-                case unchecked(0x016):
+                case 0x016:
                 {
                     // skip 0x015
                     return "Panorama";
                 }
 
-                case unchecked(0x017):
+                case 0x017:
                 {
                     return "Night (Tripod)";
                 }
 
-                case unchecked(0x018):
+                case 0x018:
                 {
                     return "Pro Low-light";
                 }
 
-                case unchecked(0x019):
+                case 0x019:
                 {
                     return "Pro Focus";
                 }
 
-                case unchecked(0x01b):
+                case 0x01b:
                 {
                     // skip 0x01a
                     return "Dog Face Detection";
                 }
 
-                case unchecked(0x01c):
+                case 0x01c:
                 {
                     return "Cat Face Detection";
                 }
 
-                case unchecked(0x100):
+                case 0x100:
                 {
                     return "Aperture priority AE";
                 }
 
-                case unchecked(0x200):
+                case 0x200:
                 {
                     return "Shutter priority AE";
                 }
 
-                case unchecked(0x300):
+                case 0x300:
                 {
                     return "Manual exposure";
                 }
@@ -783,17 +783,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x100):
+                case 0x100:
                 {
                     return "HR (High Resolution)";
                 }
 
-                case unchecked(0x200):
+                case 0x200:
                 {
                     return "SN (Signal to Noise Priority)";
                 }
 
-                case unchecked(0x300):
+                case 0x300:
                 {
                     return "DR (Dynamic Range Priority)";
                 }
@@ -821,17 +821,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x00):
+                case 0x00:
                 {
                     return "Standard";
                 }
 
-                case unchecked(0x10):
+                case 0x10:
                 {
                     return "Chrome";
                 }
 
-                case unchecked(0x30):
+                case 0x30:
                 {
                     return "B&W";
                 }
@@ -877,52 +877,52 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x000):
+                case 0x000:
                 {
                     return "F0/Standard (Provia) ";
                 }
 
-                case unchecked(0x100):
+                case 0x100:
                 {
                     return "F1/Studio Portrait";
                 }
 
-                case unchecked(0x110):
+                case 0x110:
                 {
                     return "F1a/Studio Portrait Enhanced Saturation";
                 }
 
-                case unchecked(0x120):
+                case 0x120:
                 {
                     return "F1b/Studio Portrait Smooth Skin Tone (Astia)";
                 }
 
-                case unchecked(0x130):
+                case 0x130:
                 {
                     return "F1c/Studio Portrait Increased Sharpness";
                 }
 
-                case unchecked(0x200):
+                case 0x200:
                 {
                     return "F2/Fujichrome (Velvia)";
                 }
 
-                case unchecked(0x300):
+                case 0x300:
                 {
                     return "F3/Studio Portrait Ex";
                 }
 
-                case unchecked(0x400):
+                case 0x400:
                 {
                     return "F4/Velvia";
                 }
 
-                case unchecked(0x500):
+                case 0x500:
                 {
                     return "Pro Neg. Std";
                 }
 
-                case unchecked(0x501):
+                case 0x501:
                 {
                     return "Pro Neg. Hi";
                 }
@@ -944,32 +944,32 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
             switch (value)
             {
-                case unchecked(0x000):
+                case 0x000:
                 {
                     return "Auto (100-400%)";
                 }
 
-                case unchecked(0x001):
+                case 0x001:
                 {
                     return "Manual";
                 }
 
-                case unchecked(0x100):
+                case 0x100:
                 {
                     return "Standard (100%)";
                 }
 
-                case unchecked(0x200):
+                case 0x200:
                 {
                     return "Wide 1 (230%)";
                 }
 
-                case unchecked(0x201):
+                case 0x201:
                 {
                     return "Wide 2 (400%)";
                 }
 
-                case unchecked(0x8000):
+                case 0x8000:
                 {
                     return "Film Simulation";
                 }
