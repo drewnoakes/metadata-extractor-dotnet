@@ -526,8 +526,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             // walk through the children
             var found = false;
-            int i1;
-            for (i1 = 0; i1 < xmlNode.ChildNodes.Count; i1++)
+            for (var i1 = 0; i1 < xmlNode.ChildNodes.Count; i1++)
             {
                 var currChild = xmlNode.ChildNodes.Item(i1);
                 if (!IsWhitespaceNode(currChild))
@@ -540,49 +539,36 @@ namespace Com.Adobe.Xmp.Impl
                         {
                             newCompound.Options.IsArray = true;
                         }
+                        else if (isRdf && "Seq".Equals(childLocal))
+                        {
+                            newCompound.Options.IsArray = true;
+                            newCompound.Options.IsArrayOrdered = true;
+                        }
+                        else if (isRdf && "Alt".Equals(childLocal))
+                        {
+                            newCompound.Options.IsArray = true;
+                            newCompound.Options.IsArrayOrdered = true;
+                            newCompound.Options.IsArrayAlternate = true;
+                        }
                         else
                         {
-                            if (isRdf && "Seq".Equals(childLocal))
+                            newCompound.Options.IsStruct = true;
+                            if (!isRdf && !"Description".Equals(childLocal))
                             {
-                                newCompound.Options.IsArray = true;
-                                newCompound.Options.IsArrayOrdered = true;
-                            }
-                            else
-                            {
-                                if (isRdf && "Alt".Equals(childLocal))
+                                var typeName = currChild.NamespaceURI;
+                                if (typeName == null)
                                 {
-                                    newCompound.Options.IsArray = true;
-                                    newCompound.Options.IsArrayOrdered = true;
-                                    newCompound.Options.IsArrayAlternate = true;
+                                    throw new XmpException("All XML elements must be in a namespace", XmpErrorCode.BadXmp);
                                 }
-                                else
-                                {
-                                    newCompound.Options.IsStruct = true;
-                                    if (!isRdf && !"Description".Equals(childLocal))
-                                    {
-                                        var typeName = currChild.NamespaceURI;
-                                        if (typeName == null)
-                                        {
-                                            throw new XmpException("All XML elements must be in a namespace", XmpErrorCode.BadXmp);
-                                        }
-                                        typeName += ':' + childLocal;
-                                        AddQualifierNode(newCompound, "rdf:type", typeName);
-                                    }
-                                }
+                                typeName += ':' + childLocal;
+                                AddQualifierNode(newCompound, "rdf:type", typeName);
                             }
                         }
                         Rdf_NodeElement(xmp, newCompound, currChild, false);
                         if (newCompound.HasValueChild)
-                        {
                             FixupQualifiedNode(newCompound);
-                        }
-                        else
-                        {
-                            if (newCompound.Options.IsArrayAlternate)
-                            {
-                                XmpNodeUtils.DetectAltText(newCompound);
-                            }
-                        }
+                        else if (newCompound.Options.IsArrayAlternate)
+                            XmpNodeUtils.DetectAltText(newCompound);
                         found = true;
                     }
                     else
