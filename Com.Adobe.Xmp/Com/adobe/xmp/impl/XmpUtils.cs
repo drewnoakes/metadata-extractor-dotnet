@@ -495,7 +495,7 @@ namespace Com.Adobe.Xmp.Impl
             var valueIsEmpty = false;
             if (deleteEmptyValues)
             {
-                valueIsEmpty = sourceNode.Options.IsSimple ? sourceNode.Value == null || sourceNode.Value.Length == 0 : !sourceNode.HasChildren;
+                valueIsEmpty = sourceNode.Options.IsSimple ? string.IsNullOrEmpty(sourceNode.Value) : !sourceNode.HasChildren;
             }
             if (deleteEmptyValues && valueIsEmpty)
             {
@@ -561,7 +561,7 @@ namespace Com.Adobe.Xmp.Impl
                                         continue;
                                     }
                                     var destIndex = XmpNodeUtils.LookupLanguageItem(destNode, sourceItem.GetQualifier(1).Value);
-                                    if (deleteEmptyValues && (sourceItem.Value == null || sourceItem.Value.Length == 0))
+                                    if (deleteEmptyValues && string.IsNullOrEmpty(sourceItem.Value))
                                     {
                                         if (destIndex != -1)
                                         {

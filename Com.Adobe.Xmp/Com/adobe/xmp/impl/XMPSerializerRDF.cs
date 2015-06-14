@@ -541,7 +541,7 @@ namespace Com.Adobe.Xmp.Impl
             }
             else
             {
-                if (node.Value == null || node.Value.Length == 0)
+                if (string.IsNullOrEmpty(node.Value))
                 {
                     Write("/>");
                     WriteNewline();

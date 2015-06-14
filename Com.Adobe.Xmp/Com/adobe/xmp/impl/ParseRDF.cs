@@ -217,7 +217,7 @@ namespace Com.Adobe.Xmp.Impl
                             // the XMP tree name if
                             // it doesn't have a name yet. Make sure this name matches
                             // the XMP tree name.
-                            if (xmpParent.Name != null && xmpParent.Name.Length > 0)
+                            if (!string.IsNullOrEmpty(xmpParent.Name))
                             {
                                 if (!xmpParent.Name.Equals(attribute.Value))
                                 {
