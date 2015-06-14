@@ -51,7 +51,6 @@ namespace MetadataExtractor.Tests.IO
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [TearDown]
         public void DeleteTempFile()
         {
@@ -69,10 +68,10 @@ namespace MetadataExtractor.Tests.IO
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [Test, ExpectedException(typeof(ArgumentNullException))]
         public void TestConstructWithNullBufferThrows()
         {
+            // ReSharper disable once AssignNullToNotNullAttribute
             new IndexedSeekingReader(null);
         }
     }

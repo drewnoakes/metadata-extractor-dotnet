@@ -10,6 +10,7 @@ namespace MetadataExtractor.Tests.IO
         [Test, ExpectedException(typeof(ArgumentNullException))]
         public void TestConstructWithNullStreamThrows()
         {
+            // ReSharper disable once AssignNullToNotNullAttribute
             new SequentialByteArrayReader(null);
         }
 

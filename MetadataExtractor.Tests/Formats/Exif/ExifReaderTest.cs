@@ -61,6 +61,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         {
             try
             {
+                // ReSharper disable once AssignNullToNotNullAttribute
                 new ExifReader().ReadJpegSegments(null, new Metadata(), JpegSegmentType.App1);
                 Assert.Fail("Exception expected");
             }

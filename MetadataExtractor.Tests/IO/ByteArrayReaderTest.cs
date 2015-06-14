@@ -37,6 +37,7 @@ namespace MetadataExtractor.Tests.IO
         [Test, ExpectedException(typeof(ArgumentNullException))]
         public void TestConstructWithNullBufferThrows()
         {
+            // ReSharper disable once AssignNullToNotNullAttribute
             new ByteArrayReader(null);
         }
     }
