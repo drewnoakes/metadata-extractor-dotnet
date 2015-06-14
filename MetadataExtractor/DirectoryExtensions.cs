@@ -149,7 +149,6 @@ namespace MetadataExtractor
 
         /// <summary>Gets the specified tag's value as a String array, if possible.</summary>
         /// <remarks>Only supported where the tag is set as String[], String, int[], byte[] or Rational[].</remarks>
-        /// <param name="tagType">the tag identifier</param>
         /// <returns>the tag's value as an array of Strings. If the value is unset or cannot be converted, <c>null</c> is returned.</returns>
         [CanBeNull]
         public static string[] GetStringArray(this Directory directory, int tagType)
@@ -199,7 +198,6 @@ namespace MetadataExtractor
 
         /// <summary>Gets the specified tag's value as an int array, if possible.</summary>
         /// <remarks>Only supported where the tag is set as String, Integer, int[], byte[] or Rational[].</remarks>
-        /// <param name="tagType">the tag identifier</param>
         /// <returns>the tag's value as an int array</returns>
         [CanBeNull]
         public static int[] GetInt32Array(this Directory directory, int tagType)
@@ -267,7 +265,6 @@ namespace MetadataExtractor
 
         /// <summary>Gets the specified tag's value as an byte array, if possible.</summary>
         /// <remarks>Only supported where the tag is set as String, Integer, int[], byte[] or Rational[].</remarks>
-        /// <param name="tagType">the tag identifier</param>
         /// <returns>the tag's value as a byte array</returns>
         [CanBeNull]
         public static byte[] GetByteArray(this Directory directory, int tagType)
