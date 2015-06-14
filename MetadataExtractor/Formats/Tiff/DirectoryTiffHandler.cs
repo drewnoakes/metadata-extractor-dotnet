@@ -28,13 +28,8 @@ using MetadataExtractor.IO;
 namespace MetadataExtractor.Formats.Tiff
 {
     /// <summary>
-    /// Adapter between the
-    /// <see cref="ITiffHandler"/>
-    /// interface and the
-    /// <see cref="MetadataExtractor.Metadata"/>
-    /// /
-    /// <see cref="Directory"/>
-    /// object model.
+    /// Adapter between the <see cref="ITiffHandler"/> interface and
+    /// the <see cref="MetadataExtractor.Metadata"/>/<see cref="Directory"/> object model.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class DirectoryTiffHandler : ITiffHandler
@@ -116,49 +111,41 @@ namespace MetadataExtractor.Formats.Tiff
 
         public virtual void SetInt8S(int tagId, sbyte int8S)
         {
-            // NOTE Directory stores all integral types as int32s, except for int32u and long
             CurrentDirectory.Set(tagId, int8S);
         }
 
         public virtual void SetInt8SArray(int tagId, sbyte[] array)
         {
-            // NOTE Directory stores all integral types as int32s, except for int32u and long
             CurrentDirectory.Set(tagId, array);
         }
 
         public virtual void SetInt8U(int tagId, byte int8U)
         {
-            // NOTE Directory stores all integral types as int32s, except for int32u and long
             CurrentDirectory.Set(tagId, int8U);
         }
 
         public virtual void SetInt8UArray(int tagId, byte[] array)
         {
-            // TODO create and use a proper setter for short[]
             CurrentDirectory.Set(tagId, array);
         }
 
         public virtual void SetInt16S(int tagId, short int16S)
         {
-            // TODO create and use a proper setter for int16u?
             CurrentDirectory.Set(tagId, int16S);
         }
 
         public virtual void SetInt16SArray(int tagId, short[] array)
         {
-            // TODO create and use a proper setter for short[]
             CurrentDirectory.Set(tagId, array);
         }
 
         public virtual void SetInt16U(int tagId, ushort int16U)
         {
-            // TODO create and use a proper setter for
             CurrentDirectory.Set(tagId, int16U);
         }
 
         public virtual void SetInt16UArray(int tagId, ushort[] array)
         {
-            // TODO create and use a proper setter for short[]
             CurrentDirectory.Set(tagId, array);
         }
 
@@ -179,7 +166,6 @@ namespace MetadataExtractor.Formats.Tiff
 
         public virtual void SetInt32UArray(int tagId, uint[] array)
         {
-            // TODO create and use a proper setter for uint[]
             CurrentDirectory.Set(tagId, array);
         }
 
