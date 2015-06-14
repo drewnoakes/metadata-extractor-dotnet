@@ -107,6 +107,45 @@ namespace MetadataExtractor
             return null;
         }
 
+        /// <summary>Returns the specified tag's value as a long, if possible.</summary>
+        /// <exception cref="MetadataException"/>
+        public static long GetInt64(this Directory directory, int tagType)
+        {
+            var value = directory.GetInt64Nullable(tagType);
+
+            if (value != null)
+                return (long)value;
+
+            var o = directory.GetObject(tagType);
+            if (o == null)
+                throw new MetadataException("Tag '" + directory.GetTagName(tagType) + "' has not been set -- check using containsTag() first");
+
+            throw new MetadataException("Tag '" + tagType + "' cannot be converted to a long.  It is of type '" + o.GetType() + "'.");
+        }
+
+        /// <summary>Returns the specified tag's value as a long.</summary>
+        /// <remarks>If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
+        [CanBeNull]
+        public static long? GetInt64Nullable(this Directory directory, int tagType)
+        {
+            var o = directory.GetObject(tagType);
+
+            if (o == null)
+                return null;
+
+            var s = o as string;
+            if (s != null)
+            {
+                long l;
+                return long.TryParse(s, out l) ? (long?)l : null;
+            }
+
+            if (o.IsNumber())
+                return Number.GetInstance(o).LongValue();
+
+            return null;
+        }
+
 
         /// <summary>Gets the specified tag's value as a String array, if possible.</summary>
         /// <remarks>Only supported where the tag is set as String[], String, int[], byte[] or Rational[].</remarks>
@@ -360,45 +399,6 @@ namespace MetadataExtractor
 
             if (o.IsNumber())
                 return Number.GetInstance(o).FloatValue();
-
-            return null;
-        }
-
-        /// <summary>Returns the specified tag's value as a long, if possible.</summary>
-        /// <exception cref="MetadataException"/>
-        public static long GetInt64(this Directory directory, int tagType)
-        {
-            var value = directory.GetInt64Nullable(tagType);
-
-            if (value != null)
-                return (long)value;
-
-            var o = directory.GetObject(tagType);
-            if (o == null)
-                throw new MetadataException("Tag '" + directory.GetTagName(tagType) + "' has not been set -- check using containsTag() first");
-
-            throw new MetadataException("Tag '" + tagType + "' cannot be converted to a long.  It is of type '" + o.GetType() + "'.");
-        }
-
-        /// <summary>Returns the specified tag's value as a long.</summary>
-        /// <remarks>If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
-        [CanBeNull]
-        public static long? GetInt64Nullable(this Directory directory, int tagType)
-        {
-            var o = directory.GetObject(tagType);
-
-            if (o == null)
-                return null;
-
-            var s = o as string;
-            if (s != null)
-            {
-                long l;
-                return long.TryParse(s, out l) ? (long?)l : null;
-            }
-
-            if (o.IsNumber())
-                return Number.GetInstance(o).LongValue();
 
             return null;
         }
