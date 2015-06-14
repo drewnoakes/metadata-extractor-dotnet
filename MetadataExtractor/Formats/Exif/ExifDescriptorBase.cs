@@ -982,7 +982,7 @@ namespace MetadataExtractor.Formats.Exif
         public virtual string GetFocalLengthDescription()
         {
             var value = Directory.GetRational(ExifDirectoryBase.TagFocalLength);
-            return value == null ? null : string.Format("{00.0##} mm", value.ToDouble());
+            return value == null ? null : string.Format("{0:0.0##} mm", value.ToDouble());
         }
 
         [CanBeNull]
