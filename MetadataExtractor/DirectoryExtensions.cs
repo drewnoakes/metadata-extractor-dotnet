@@ -10,24 +10,19 @@ namespace MetadataExtractor
     {
         #region Int32
 
-        /// <summary>Returns the specified tag's value as an <see cref="int"/>, if possible.</summary>
+        /// <summary>Returns a tag's value as an <see cref="int"/>, or throws if conversion is not possible.</summary>
         /// <remarks>
-        /// If the tag's value is not of the requested type, then conversion is attempted.
-        /// If the value is <see cref="IConvertible"/>, then that interface is used.
+        /// If the value is <see cref="IConvertible"/>, then that interface is used for conversion of the value.
         /// If the value is an array of <see cref="IConvertible"/> having length one, then the single item is converted.
         /// </remarks>
-        /// <exception cref="MetadataException">if no value exists for tagType or if it cannot be converted to an int.</exception>
+        /// <exception cref="MetadataException">No value exists for <paramref name="tagType"/>, or the value is not convertible to the requested type.</exception>
         public static int GetInt32(this Directory directory, int tagType)
         {
             int value;
             if (directory.TryGetInt32(tagType, out value))
                 return value;
 
-            var o = directory.GetObject(tagType);
-            if (o == null)
-                throw new MetadataException("Tag '" + directory.GetTagName(tagType) + "' has not been set -- check using containsTag() first");
-
-            throw new MetadataException("Tag '" + tagType + "' cannot be converted to int.  It is of type '" + o.GetType() + "'.");
+            return ThrowValueNotPossible<int>(directory, tagType);
         }
 
         [CanBeNull]
@@ -45,7 +40,7 @@ namespace MetadataExtractor
 
             if (o == null)
             {
-                value = 0;
+                value = default(int);
                 return false;
             }
 
@@ -66,7 +61,7 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                {}
+                { }
             }
 
             value = default(int);
@@ -75,45 +70,68 @@ namespace MetadataExtractor
 
         #endregion
 
-        /// <summary>Returns the specified tag's value as a long, if possible.</summary>
-        /// <exception cref="MetadataException"/>
+        #region Int64
+
+        /// <summary>Returns a tag's value as an <see cref="int"/>, or throws if conversion is not possible.</summary>
+        /// <remarks>
+        /// If the value is <see cref="IConvertible"/>, then that interface is used for conversion of the value.
+        /// If the value is an array of <see cref="IConvertible"/> having length one, then the single item is converted.
+        /// </remarks>
+        /// <exception cref="MetadataException">No value exists for <paramref name="tagType"/>, or the value is not convertible to the requested type.</exception>
         public static long GetInt64(this Directory directory, int tagType)
         {
-            var value = directory.GetInt64Nullable(tagType);
+            int value;
+            if (directory.TryGetInt32(tagType, out value))
+                return value;
 
-            if (value != null)
-                return (long)value;
-
-            var o = directory.GetObject(tagType);
-            if (o == null)
-                throw new MetadataException("Tag '" + directory.GetTagName(tagType) + "' has not been set -- check using containsTag() first");
-
-            throw new MetadataException("Tag '" + tagType + "' cannot be converted to a long.  It is of type '" + o.GetType() + "'.");
+            return ThrowValueNotPossible<long>(directory, tagType);
         }
 
-        /// <summary>Returns the specified tag's value as a long.</summary>
-        /// <remarks>If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
         public static long? GetInt64Nullable(this Directory directory, int tagType)
         {
-            var o = directory.GetObject(tagType);
-
-            if (o == null)
-                return null;
-
-            var s = o as string;
-            if (s != null)
-            {
-                long l;
-                return long.TryParse(s, out l) ? (long?)l : null;
-            }
-
-            if (o.IsNumber())
-                return Number.GetInstance(o).LongValue();
-
+            long value;
+            if (directory.TryGetInt64(tagType, out value))
+                return value;
             return null;
         }
 
+        public static bool TryGetInt64(this Directory directory, int tagType, out long value)
+        {
+            var o = directory.GetObject(tagType);
+
+            if (o == null)
+            {
+                value = default(long);
+                return false;
+            }
+
+            var convertible = o as IConvertible;
+
+            if (convertible == null)
+            {
+                var array = o as Array;
+                if (array != null && array.Length == 1 && array.Rank == 1)
+                    convertible = array.GetValue(0) as IConvertible;
+            }
+
+            if (convertible != null)
+            {
+                try
+                {
+                    value = convertible.ToInt64(null);
+                    return true;
+                }
+                catch
+                {
+                }
+            }
+
+            value = default(long);
+            return false;
+        }
+
+        #endregion
 
         /// <summary>Gets the specified tag's value as a String array, if possible.</summary>
         /// <remarks>Only supported where the tag is set as String[], String, int[], byte[] or Rational[].</remarks>
@@ -629,6 +647,17 @@ namespace MetadataExtractor
             return bytes == null
                 ? null
                 : encoding.GetString(bytes);
+        }
+
+        private static T ThrowValueNotPossible<T>(Directory directory, int tagType)
+        {
+            var o = directory.GetObject(tagType);
+            if (o == null)
+                throw new MetadataException(string.Format("No value exists for tag {0}.", directory.GetTagName(tagType)));
+
+            throw new MetadataException(string.Format("Tag {0} cannot be converted to {1}.  It is of type {2}.", tagType, o.GetType(), typeof(T).Name));
+
+            return default(T);
         }
     }
 }

@@ -37,6 +37,35 @@ namespace MetadataExtractor.Tests
             Test(BuildDirectory(_arraysOfSingleValues), assertPresentInt32, assertMissingInt32);
         }
 
+        [Test]
+        public void Int64Tests()
+        {
+            Action<Directory, int> assertPresentInt64 = (dictionary, i) =>
+            {
+                Assert.AreEqual(i, dictionary.GetInt64(i));
+                long value;
+                Assert.IsTrue(dictionary.TryGetInt64(i, out value));
+                Assert.IsNotNull(dictionary.GetInt64Nullable(i));
+                Assert.AreEqual(i, dictionary.GetInt64Nullable(i));
+            };
+
+            Action<Directory, int> assertMissingInt64 = (dictionary, i) =>
+            {
+                long value;
+                Assert.IsFalse(dictionary.TryGetInt64(i, out value));
+                Assert.Null(dictionary.GetInt64Nullable(i));
+                try
+                {
+                    Assert.AreEqual(i, dictionary.GetInt64(i));
+                    Assert.Fail("Should throw MetadataException");
+                }
+                catch (MetadataException) { }
+            };
+
+            Test(BuildDirectory(_singleValues), assertPresentInt64, assertMissingInt64);
+            Test(BuildDirectory(_arraysOfSingleValues), assertPresentInt64, assertMissingInt64);
+        }
+
         #region Test support
 
         private static void Test(Directory directory, Action<Directory, int> presentAssertion, Action<Directory, int> missingAssertion)
