@@ -124,6 +124,60 @@ namespace MetadataExtractor.Tests
             Test(BuildDirectory(_arraysOfSingleValues), assertPresentDouble, assertMissingDouble);
         }
 
+        [Test]
+        public void BooleanTests()
+        {
+            Action<Directory, int> assertPresentTrueBoolean = (dictionary, i) =>
+            {
+                Assert.IsTrue(dictionary.GetBoolean(i));
+                bool value;
+                Assert.IsTrue(dictionary.TryGetBoolean(i, out value));
+                Assert.IsNotNull(dictionary.GetBooleanNullable(i));
+                Assert.IsTrue(dictionary.GetBooleanNullable(i).Value);
+            };
+
+            Action<Directory, int> assertPresentFalseBoolean = (dictionary, i) =>
+            {
+                Assert.IsFalse(dictionary.GetBoolean(i));
+                bool value;
+                Assert.IsTrue(dictionary.TryGetBoolean(i, out value));
+                Assert.IsNotNull(dictionary.GetBooleanNullable(i));
+                Assert.IsFalse(dictionary.GetBooleanNullable(i).Value);
+            };
+
+            Action<Directory, int> assertMissingBoolean = (dictionary, i) =>
+            {
+                bool value;
+                Assert.IsFalse(dictionary.TryGetBoolean(i, out value));
+                Assert.Null(dictionary.GetBooleanNullable(i));
+                try
+                {
+                    dictionary.GetBoolean(i);
+                    Assert.Fail("Should throw MetadataException");
+                }
+                catch (MetadataException) { }
+            };
+
+            // NOTE string is not convertible to boolean other than for "true" and "false"
+
+            Test(BuildDirectory(_singleValues.Where(v => !(v is string))), assertPresentTrueBoolean, assertMissingBoolean);
+            Test(BuildDirectory(_singleZeroValues.Where(v => !(v is string))), assertPresentFalseBoolean, assertMissingBoolean);
+            Test(BuildDirectory(_arraysOfSingleValues.Where(v => !(v is string[]))), assertPresentTrueBoolean, assertMissingBoolean);
+            Test(BuildDirectory(_arraysOfSingleZeroValues.Where(v => !(v is string[]))), assertPresentFalseBoolean, assertMissingBoolean);
+
+            var directory = new MockDirectory();
+
+            directory.Set(1, "True");
+            directory.Set(2, "true");
+            directory.Set(3, "False");
+            directory.Set(4, "false");
+
+            Assert.IsTrue(directory.GetBoolean(1));
+            Assert.IsTrue(directory.GetBoolean(2));
+            Assert.IsFalse(directory.GetBoolean(3));
+            Assert.IsFalse(directory.GetBoolean(4));
+        }
+
         #region Test support
 
         private static void Test(Directory directory, Action<Directory, int> presentAssertion, Action<Directory, int> missingAssertion)
@@ -161,6 +215,23 @@ namespace MetadataExtractor.Tests
             "13"
         };
 
+        private static readonly IEnumerable<object> _singleZeroValues = new object[]
+        {
+            (byte)0,
+            (sbyte)0,
+            (short)0,
+            (ushort)0,
+            (int)0,
+            (uint)0,
+            (long)0,
+            (ulong)0,
+            (decimal)0,
+            (float)0,
+            (double)0,
+            new Rational(0, 0),
+            "0"
+        };
+
         private static readonly IEnumerable<object> _arraysOfSingleValues = new object[]
         {
             new byte[] { 1 },
@@ -176,6 +247,23 @@ namespace MetadataExtractor.Tests
             new double[] { 11 },
             new[] { new Rational(12, 1) },
             new[] { "13" }
+        };
+
+        private static readonly IEnumerable<object> _arraysOfSingleZeroValues = new object[]
+        {
+            new byte[] { 0 },
+            new sbyte[] { 0 },
+            new short[] { 0 },
+            new ushort[] { 0 },
+            new int[] { 0 },
+            new uint[] { 0 },
+            new long[] { 0 },
+            new ulong[] { 0 },
+            new decimal[] { 0 },
+            new float[] { 0 },
+            new double[] { 0 },
+            new[] { new Rational(0, 0) },
+            new[] { "0" }
         };
 
         #endregion
