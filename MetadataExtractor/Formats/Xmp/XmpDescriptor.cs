@@ -173,7 +173,7 @@ namespace MetadataExtractor.Formats.Xmp
         [CanBeNull]
         public string GetShutterSpeedDescription()
         {
-            var value = Directory.GetFloatNullable(XmpDirectory.TagShutterSpeed);
+            var value = Directory.GetSingleNullable(XmpDirectory.TagShutterSpeed);
             if (value == null)
             {
                 return null;

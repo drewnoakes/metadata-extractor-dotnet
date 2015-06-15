@@ -169,7 +169,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetDigitalZoomDescription()
         {
-            var value = Directory.GetFloatNullable(PentaxMakernoteDirectory.TagDigitalZoom);
+            var value = Directory.GetSingleNullable(PentaxMakernoteDirectory.TagDigitalZoom);
             if (value == null)
             {
                 return null;

@@ -67,7 +67,7 @@ namespace MetadataExtractor.Tests
             _directory.Set(tagType, value);
             Assert.AreEqual(value, _directory.GetInt32(tagType));
             Assert.AreEqual(value, _directory.GetInt32Nullable(tagType));
-            Assert.AreEqual(value, _directory.GetFloat(tagType), 0.00001);
+            Assert.AreEqual(value, _directory.GetSingle(tagType), 0.00001);
             Assert.AreEqual(value, _directory.GetDouble(tagType), 0.00001);
             Assert.AreEqual((long)value, (object)_directory.GetInt64(tagType));
             Assert.AreEqual(value.ToString(), _directory.GetString(tagType));
@@ -162,7 +162,7 @@ namespace MetadataExtractor.Tests
             Assert.IsNull(_directory.GetString(ExifDirectoryBase.TagAperture));
             Assert.IsNull(_directory.GetInt32Nullable(ExifDirectoryBase.TagAperture));
             Assert.IsNull(_directory.GetDoubleNullable(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetFloatNullable(ExifDirectoryBase.TagAperture));
+            Assert.IsNull(_directory.GetSingleNullable(ExifDirectoryBase.TagAperture));
             Assert.IsNull(_directory.GetByteArray(ExifDirectoryBase.TagAperture));
             Assert.IsNull(_directory.GetDateTimeNullable(ExifDirectoryBase.TagAperture));
             Assert.IsNull(_directory.GetInt32Array(ExifDirectoryBase.TagAperture));

@@ -1413,7 +1413,7 @@ namespace MetadataExtractor.Formats.Exif
             // thanks to Mark Edwards for spotting and patching a bug in the calculation of this
             // description (spotted bug using a Canon EOS 300D)
             // thanks also to Gli Blr for spotting this bug
-            var apexValue = Directory.GetFloatNullable(ExifDirectoryBase.TagShutterSpeed);
+            var apexValue = Directory.GetSingleNullable(ExifDirectoryBase.TagShutterSpeed);
             if (apexValue == null)
             {
                 return null;

@@ -214,7 +214,7 @@ namespace MetadataExtractor
         [CanBeNull]
         protected string GetFormattedFloat(int tagType, [NotNull] string format)
         {
-            var value = Directory.GetFloatNullable(tagType);
+            var value = Directory.GetSingleNullable(tagType);
             if (value == null)
             {
                 return null;

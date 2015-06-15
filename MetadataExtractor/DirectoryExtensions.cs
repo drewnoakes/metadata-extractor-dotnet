@@ -365,44 +365,6 @@ namespace MetadataExtractor
             return null;
         }
 
-        /// <summary>Returns the specified tag's value as a float, if possible.</summary>
-        /// <exception cref="MetadataException"/>
-        public static float GetFloat(this Directory directory, int tagType)
-        {
-            var value = directory.GetFloatNullable(tagType);
-            if (value != null)
-                return (float)value;
-
-            var o = directory.GetObject(tagType);
-            if (o == null)
-                throw new MetadataException("Tag '" + directory.GetTagName(tagType) + "' has not been set -- check using containsTag() first");
-
-            throw new MetadataException("Tag '" + tagType + "' cannot be converted to a float.  It is of type '" + o.GetType() + "'.");
-        }
-
-        /// <summary>Returns the specified tag's value as a float.</summary>
-        /// <remarks>If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
-        [CanBeNull]
-        public static float? GetFloatNullable(this Directory directory, int tagType)
-        {
-            var o = directory.GetObject(tagType);
-
-            if (o == null)
-                return null;
-
-            var s = o as string;
-            if (s != null)
-            {
-                float f;
-                return float.TryParse(s, out f) ? (float?)f : null;
-            }
-
-            if (o.IsNumber())
-                return Number.GetInstance(o).FloatValue();
-
-            return null;
-        }
-
         /// <summary>Returns the specified tag's value as a boolean, if possible.</summary>
         /// <exception cref="MetadataException"/>
         public static bool GetBoolean(this Directory directory, int tagType)
