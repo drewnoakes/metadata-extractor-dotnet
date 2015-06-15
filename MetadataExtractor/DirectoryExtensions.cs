@@ -659,12 +659,12 @@ namespace MetadataExtractor
         private static T ThrowValueNotPossible<T>(Directory directory, int tagType)
         {
             var o = directory.GetObject(tagType);
+
             if (o == null)
                 throw new MetadataException(string.Format("No value exists for tag {0}.", directory.GetTagName(tagType)));
 
-            throw new MetadataException(string.Format("Tag {0} cannot be converted to {1}.  It is of type {2}.", tagType, o.GetType(), typeof(T).Name));
-
-            return default(T);
+            throw new MetadataException(string.Format("Tag {0} cannot be converted to {1}.  It is of type {2} with value: {3}",
+                tagType, typeof(T).Name, o.GetType(), o));
         }
     }
 }
