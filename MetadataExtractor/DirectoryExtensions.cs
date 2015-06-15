@@ -133,6 +133,68 @@ namespace MetadataExtractor
 
         #endregion
 
+        #region Single
+
+        /// <summary>Returns a tag's value as an <see cref="float"/>, or throws if conversion is not possible.</summary>
+        /// <remarks>
+        /// If the value is <see cref="IConvertible"/>, then that interface is used for conversion of the value.
+        /// If the value is an array of <see cref="IConvertible"/> having length one, then the single item is converted.
+        /// </remarks>
+        /// <exception cref="MetadataException">No value exists for <paramref name="tagType"/>, or the value is not convertible to the requested type.</exception>
+        public static float GetSingle(this Directory directory, int tagType)
+        {
+            float value;
+            if (directory.TryGetSingle(tagType, out value))
+                return value;
+
+            return ThrowValueNotPossible<int>(directory, tagType);
+        }
+
+        [CanBeNull]
+        public static float? GetSingleNullable(this Directory directory, int tagType)
+        {
+            float value;
+            if (directory.TryGetSingle(tagType, out value))
+                return value;
+            return null;
+        }
+
+        public static bool TryGetSingle(this Directory directory, int tagType, out float value)
+        {
+            var o = directory.GetObject(tagType);
+
+            if (o == null)
+            {
+                value = default(float);
+                return false;
+            }
+
+            var convertible = o as IConvertible;
+
+            if (convertible == null)
+            {
+                var array = o as Array;
+                if (array != null && array.Length == 1 && array.Rank == 1)
+                    convertible = array.GetValue(0) as IConvertible;
+            }
+
+            if (convertible != null)
+            {
+                try
+                {
+                    value = convertible.ToSingle(null);
+                    return true;
+                }
+                catch
+                { }
+            }
+
+            value = default(float);
+            return false;
+        }
+
+        #endregion
+
         /// <summary>Gets the specified tag's value as a String array, if possible.</summary>
         /// <remarks>Only supported where the tag is set as String[], String, int[], byte[] or Rational[].</remarks>
         /// <returns>the tag's value as an array of Strings. If the value is unset or cannot be converted, <c>null</c> is returned.</returns>
