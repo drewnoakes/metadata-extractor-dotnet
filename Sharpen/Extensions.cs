@@ -84,18 +84,5 @@ namespace Sharpen
             var num = EpochTicks + (milliSecondsSinceEpoch*10000);
             return new DateTimeOffset(num + offset.Ticks, offset);
         }
-
-        public static bool IsNumber(this object value)
-        {
-            try
-            {
-                var number = Number.GetInstance(value);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
     }
 }

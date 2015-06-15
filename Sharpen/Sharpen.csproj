@@ -46,7 +46,6 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="GregorianCalendar.cs" />
     <Compile Include="IIterator.cs" />
-    <Compile Include="Number.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PushbackReader.cs" />
     <Compile Include="Runtime.cs" />
