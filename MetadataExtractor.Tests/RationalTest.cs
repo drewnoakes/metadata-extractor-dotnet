@@ -143,7 +143,11 @@ namespace MetadataExtractor.Tests
 
             Assert.AreEqual("123/10", Convert.ToString(new Rational(123, 10)));
 
-            Assert.Throws<NotSupportedException>(() => Convert.ToBoolean(new Rational(123, 10)));
+            Assert.IsTrue(Convert.ToBoolean(new Rational(123, 10)));
+            Assert.IsFalse(Convert.ToBoolean(new Rational(1, 0)));
+            Assert.IsFalse(Convert.ToBoolean(new Rational(0, 1)));
+            Assert.IsFalse(Convert.ToBoolean(new Rational(0, 0)));
+
             Assert.Throws<NotSupportedException>(() => Convert.ToChar(new Rational(123, 10)));
             Assert.Throws<NotSupportedException>(() => Convert.ToDateTime(new Rational(123, 10)));
         }

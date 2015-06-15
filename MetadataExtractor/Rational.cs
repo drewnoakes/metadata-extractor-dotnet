@@ -155,6 +155,12 @@ namespace MetadataExtractor
             return Denominator == 0 ? 0M : Numerator / (decimal)Denominator;
         }
 
+        /// <summary>Returns <c>true</c> if the value is non-zero, otherwise <c>false</c>.</summary>
+        public bool ToBoolean()
+        {
+            return Numerator != 0 && Denominator != 0;
+        }
+
         #region IConvertible
 
         TypeCode IConvertible.GetTypeCode()
@@ -164,7 +170,7 @@ namespace MetadataExtractor
 
         bool IConvertible.ToBoolean(IFormatProvider provider)
         {
-            throw new NotSupportedException();
+            return ToBoolean();
         }
 
         char IConvertible.ToChar(IFormatProvider provider)
