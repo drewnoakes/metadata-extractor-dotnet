@@ -117,7 +117,7 @@ namespace MetadataExtractor
             if (directory.TryGetSingle(tagType, out value))
                 return value;
 
-            return ThrowValueNotPossible<int>(directory, tagType);
+            return ThrowValueNotPossible<float>(directory, tagType);
         }
 
         [CanBeNull]
