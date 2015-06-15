@@ -27,7 +27,7 @@ namespace MetadataExtractor.Tests
                 Assert.Null(dictionary.GetInt32Nullable(i));
                 try
                 {
-                    Assert.AreEqual(i, dictionary.GetInt32(i));
+                    dictionary.GetInt32(i);
                     Assert.Fail("Should throw MetadataException");
                 }
                 catch (MetadataException) { }
@@ -56,7 +56,7 @@ namespace MetadataExtractor.Tests
                 Assert.Null(dictionary.GetInt64Nullable(i));
                 try
                 {
-                    Assert.AreEqual(i, dictionary.GetInt64(i));
+                    dictionary.GetInt64(i);
                     Assert.Fail("Should throw MetadataException");
                 }
                 catch (MetadataException) { }
@@ -85,7 +85,7 @@ namespace MetadataExtractor.Tests
                 Assert.Null(dictionary.GetSingleNullable(i));
                 try
                 {
-                    Assert.AreEqual(i, dictionary.GetSingle(i));
+                    dictionary.GetSingle(i);
                     Assert.Fail("Should throw MetadataException");
                 }
                 catch (MetadataException) { }
@@ -114,7 +114,7 @@ namespace MetadataExtractor.Tests
                 Assert.Null(dictionary.GetDoubleNullable(i));
                 try
                 {
-                    Assert.AreEqual(i, dictionary.GetDouble(i));
+                    dictionary.GetDouble(i);
                     Assert.Fail("Should throw MetadataException");
                 }
                 catch (MetadataException) { }
