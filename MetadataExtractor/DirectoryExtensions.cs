@@ -150,6 +150,53 @@ namespace MetadataExtractor
 
         #endregion
 
+        #region Double
+
+        /// <summary>Returns a tag's value as an <see cref="double"/>, or throws if conversion is not possible.</summary>
+        /// <remarks>
+        /// If the value is <see cref="IConvertible"/>, then that interface is used for conversion of the value.
+        /// If the value is an array of <see cref="IConvertible"/> having length one, then the single item is converted.
+        /// </remarks>
+        /// <exception cref="MetadataException">No value exists for <paramref name="tagType"/>, or the value is not convertible to the requested type.</exception>
+        public static double GetDouble(this Directory directory, int tagType)
+        {
+            double value;
+            if (directory.TryGetDouble(tagType, out value))
+                return value;
+
+            return ThrowValueNotPossible<double>(directory, tagType);
+        }
+
+        [CanBeNull]
+        public static double? GetDoubleNullable(this Directory directory, int tagType)
+        {
+            double value;
+            if (directory.TryGetDouble(tagType, out value))
+                return value;
+            return null;
+        }
+
+        public static bool TryGetDouble(this Directory directory, int tagType, out double value)
+        {
+            var convertible = GetConvertibleObject(directory, tagType);
+
+            if (convertible != null)
+            {
+                try
+                {
+                    value = convertible.ToSingle(null);
+                    return true;
+                }
+                catch
+                { }
+            }
+
+            value = default(double);
+            return false;
+        }
+
+        #endregion
+
         /// <summary>Gets the specified tag's value as a String array, if possible.</summary>
         /// <remarks>Only supported where the tag is set as String[], String, int[], byte[] or Rational[].</remarks>
         /// <returns>the tag's value as an array of Strings. If the value is unset or cannot be converted, <c>null</c> is returned.</returns>
@@ -322,45 +369,6 @@ namespace MetadataExtractor
             var nullableInt = o as int?;
             if (nullableInt != null)
                 return new[] { (byte)nullableInt.Value };
-
-            return null;
-        }
-
-        /// <summary>Returns the specified tag's value as a double, if possible.</summary>
-        /// <exception cref="MetadataException"/>
-        public static double GetDouble(this Directory directory, int tagType)
-        {
-            var value = directory.GetDoubleNullable(tagType);
-
-            if (value != null)
-                return (double)value;
-
-            var o = directory.GetObject(tagType);
-            if (o == null)
-                throw new MetadataException("Tag '" + directory.GetTagName(tagType) + "' has not been set -- check using containsTag() first");
-
-            throw new MetadataException("Tag '" + tagType + "' cannot be converted to a double.  It is of type '" + o.GetType() + "'.");
-        }
-
-        /// <summary>Returns the specified tag's value as a Double.</summary>
-        /// <remarks>If the tag is not set or cannot be converted, <c>null</c> is returned.</remarks>
-        [CanBeNull]
-        public static double? GetDoubleNullable(this Directory directory, int tagType)
-        {
-            var o = directory.GetObject(tagType);
-
-            if (o == null)
-                return null;
-
-            var s = o as string;
-            if (s != null)
-            {
-                double d;
-                return double.TryParse(s, out d) ? (double?)d : null;
-            }
-
-            if (o.IsNumber())
-                return Number.GetInstance(o).DoubleValue();
 
             return null;
         }
