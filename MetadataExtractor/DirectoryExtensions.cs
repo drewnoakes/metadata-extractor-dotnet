@@ -36,22 +36,7 @@ namespace MetadataExtractor
 
         public static bool TryGetInt32(this Directory directory, int tagType, out int value)
         {
-            var o = directory.GetObject(tagType);
-
-            if (o == null)
-            {
-                value = default(int);
-                return false;
-            }
-
-            var convertible = o as IConvertible;
-
-            if (convertible == null)
-            {
-                var array = o as Array;
-                if (array != null && array.Length == 1 && array.Rank == 1)
-                    convertible = array.GetValue(0) as IConvertible;
-            }
+            var convertible = GetConvertibleObject(directory, tagType);
 
             if (convertible != null)
             {
@@ -98,22 +83,7 @@ namespace MetadataExtractor
 
         public static bool TryGetInt64(this Directory directory, int tagType, out long value)
         {
-            var o = directory.GetObject(tagType);
-
-            if (o == null)
-            {
-                value = default(long);
-                return false;
-            }
-
-            var convertible = o as IConvertible;
-
-            if (convertible == null)
-            {
-                var array = o as Array;
-                if (array != null && array.Length == 1 && array.Rank == 1)
-                    convertible = array.GetValue(0) as IConvertible;
-            }
+            var convertible = GetConvertibleObject(directory, tagType);
 
             if (convertible != null)
             {
@@ -161,22 +131,7 @@ namespace MetadataExtractor
 
         public static bool TryGetSingle(this Directory directory, int tagType, out float value)
         {
-            var o = directory.GetObject(tagType);
-
-            if (o == null)
-            {
-                value = default(float);
-                return false;
-            }
-
-            var convertible = o as IConvertible;
-
-            if (convertible == null)
-            {
-                var array = o as Array;
-                if (array != null && array.Length == 1 && array.Rank == 1)
-                    convertible = array.GetValue(0) as IConvertible;
-            }
+            var convertible = GetConvertibleObject(directory, tagType);
 
             if (convertible != null)
             {
@@ -709,6 +664,26 @@ namespace MetadataExtractor
             return bytes == null
                 ? null
                 : encoding.GetString(bytes);
+        }
+
+        [CanBeNull]
+        private static IConvertible GetConvertibleObject([NotNull] this Directory directory, int tagType)
+        {
+            var o = directory.GetObject(tagType);
+
+            if (o == null)
+                return null;
+
+            var convertible = o as IConvertible;
+
+            if (convertible != null)
+                return convertible;
+
+            var array = o as Array;
+            if (array != null && array.Length == 1 && array.Rank == 1)
+                return array.GetValue(0) as IConvertible;
+
+            return null;
         }
 
         private static T ThrowValueNotPossible<T>(Directory directory, int tagType)
