@@ -22,13 +22,12 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
-    /// <summary>
-    /// Decodes JPEG SOFn data, populating a <see cref="Metadata"/> object with tag values in a <see cref="JpegDirectory"/>.
-    /// </summary>
+    /// <summary>Reads SOF (Start of Frame) segment data.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Darrell Silver http://www.darrellsilver.com</author>
     public sealed class JpegReader : IJpegSegmentMetadataReader
@@ -45,23 +44,21 @@ namespace MetadataExtractor.Formats.Jpeg
             };
         }
 
-        //            JpegSegmentType.SOF4,
-        //            JpegSegmentType.SOF12,
-        public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
+        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
         {
-            foreach (var segmentBytes in segments)
-            {
-                Extract(segmentBytes, metadata, segmentType);
-            }
+            return segments.Select(segmentBytes => Extract(segmentBytes, segmentType)).ToList();
         }
 
-        public void Extract(byte[] segmentBytes, Metadata metadata, JpegSegmentType segmentType)
+        /// <summary>Reads JPEG SOF values and returns them in a <see cref="JpegDirectory"/>.</summary>
+        public JpegDirectory Extract(byte[] segmentBytes, JpegSegmentType segmentType)
         {
             var directory = new JpegDirectory();
-            metadata.AddDirectory(directory);
-            // The value of TAG_COMPRESSION_TYPE is determined by the segment type found
+
+            // The value of TagCompressionType is determined by the segment type found
             directory.Set(JpegDirectory.TagCompressionType, (int)segmentType - (int)JpegSegmentType.Sof0);
+
             SequentialReader reader = new SequentialByteArrayReader(segmentBytes);
+
             try
             {
                 directory.Set(JpegDirectory.TagDataPrecision, reader.GetUInt8());
@@ -86,6 +83,8 @@ namespace MetadataExtractor.Formats.Jpeg
             {
                 directory.AddError(ex.Message);
             }
+
+            return directory;
         }
     }
 }

@@ -28,8 +28,7 @@ using MetadataExtractor.IO;
 namespace MetadataExtractor.Formats.Tiff
 {
     /// <summary>
-    /// Adapter between the <see cref="ITiffHandler"/> interface and
-    /// the <see cref="MetadataExtractor.Metadata"/>/<see cref="Directory"/> object model.
+    /// An implementation of <see cref="ITiffHandler"/> that stores tag values in <see cref="Directory"/> objects.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class DirectoryTiffHandler : ITiffHandler
@@ -38,13 +37,13 @@ namespace MetadataExtractor.Formats.Tiff
 
         protected Directory CurrentDirectory;
 
-        protected readonly Metadata Metadata;
+        protected readonly List<Directory> Directories;
 
-        protected DirectoryTiffHandler(Metadata metadata, Type initialDirectoryClass)
+        protected DirectoryTiffHandler(List<Directory> directories, Type initialDirectoryClass)
         {
-            Metadata = metadata;
+            Directories = directories;
             CurrentDirectory = (Directory)Activator.CreateInstance(initialDirectoryClass);
-            Metadata.AddDirectory(CurrentDirectory);
+            Directories.Add(CurrentDirectory);
         }
 
         public virtual void EndingIfd()
@@ -56,7 +55,7 @@ namespace MetadataExtractor.Formats.Tiff
         {
             _directoryStack.Push(CurrentDirectory);
             CurrentDirectory = (Directory)Activator.CreateInstance(directoryClass);
-            Metadata.AddDirectory(CurrentDirectory);
+            Directories.Add(CurrentDirectory);
         }
 
         public virtual void Warn(string message)

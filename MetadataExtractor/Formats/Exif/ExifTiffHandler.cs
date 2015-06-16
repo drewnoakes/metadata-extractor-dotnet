@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif.Makernotes;
 using MetadataExtractor.Formats.Iptc;
@@ -44,8 +45,8 @@ namespace MetadataExtractor.Formats.Exif
     {
         private readonly bool _storeThumbnailBytes;
 
-        public ExifTiffHandler([NotNull] Metadata metadata, bool storeThumbnailBytes)
-            : base(metadata, typeof(ExifIfd0Directory))
+        public ExifTiffHandler([NotNull] List<Directory> directories, bool storeThumbnailBytes)
+            : base(directories, typeof(ExifIfd0Directory))
         {
             _storeThumbnailBytes = storeThumbnailBytes;
         }
@@ -115,7 +116,7 @@ namespace MetadataExtractor.Formats.Exif
                 if (reader.GetInt8(tagOffset) == 0x1c)
                 {
                     var iptcBytes = reader.GetBytes(tagOffset, byteCount);
-                    new IptcReader().Extract(new SequentialByteArrayReader(iptcBytes), Metadata, iptcBytes.Length);
+                    Directories.Add(new IptcReader().Extract(new SequentialByteArrayReader(iptcBytes), iptcBytes.Length));
                     return true;
                 }
                 return false;
@@ -128,7 +129,7 @@ namespace MetadataExtractor.Formats.Exif
             if (_storeThumbnailBytes)
             {
                 // after the extraction process, if we have the correct tags, we may be able to store thumbnail information
-                var thumbnailDirectory = Metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
+                var thumbnailDirectory = Directories.OfType<ExifThumbnailDirectory>().FirstOrDefault();
                 if (thumbnailDirectory != null && thumbnailDirectory.ContainsTag(ExifThumbnailDirectory.TagThumbnailCompression))
                 {
                     var offset = thumbnailDirectory.GetInt32Nullable(ExifThumbnailDirectory.TagThumbnailOffset);
@@ -153,7 +154,7 @@ namespace MetadataExtractor.Formats.Exif
         private bool ProcessMakernote(int makernoteOffset, [NotNull] ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, [NotNull] IndexedReader reader)
         {
             // Determine the camera model and makernote format.
-            Directory ifd0Directory = Metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
+            Directory ifd0Directory = Directories.OfType<ExifIfd0Directory>().FirstOrDefault();
 
             if (ifd0Directory == null)
                 return false;
@@ -249,7 +250,7 @@ namespace MetadataExtractor.Formats.Exif
             {
                 reader.IsMotorolaByteOrder = firstSevenChars.Equals("KDK INFO");
                 var directory = new KodakMakernoteDirectory();
-                Metadata.AddDirectory(directory);
+                Directories.Add(directory);
                 ProcessKodakMakernote(directory, makernoteOffset, reader);
             }
             else if ("Canon".Equals(cameraMake, StringComparison.CurrentCultureIgnoreCase))

@@ -84,7 +84,6 @@
     <Compile Include="Formats\Jpeg\JpegDescriptorTest.cs" />
     <Compile Include="Formats\Jpeg\JpegDirectoryTest.cs" />
     <Compile Include="Formats\Jpeg\JpegReaderTest.cs" />
-    <Compile Include="MetadataTest.cs" />
     <Compile Include="MockDirectory.cs" />
     <Compile Include="Formats\Photoshop\PsdReaderTest.cs" />
     <Compile Include="Formats\Xmp\XmpReaderTest.cs" />

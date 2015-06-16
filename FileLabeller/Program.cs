@@ -52,10 +52,10 @@ namespace FileLabeller
                 {
                     Console.Out.WriteLine("\n***** PROCESSING: {0}", filePath);
                 }
-                Metadata metadata = null;
+                IEnumerable<MetadataExtractor.Directory> directories = null;
                 try
                 {
-                    metadata = ImageMetadataReader.ReadMetadata(filePath);
+                    directories = ImageMetadataReader.ReadMetadata(filePath);
                 }
                 catch (Exception e)
                 {
@@ -70,7 +70,7 @@ namespace FileLabeller
                 {
                     var fileName = Path.GetFileName(filePath);
                     var urlName = UrlEncode(filePath);
-                    var exifIfd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
+                    var exifIfd0Directory = directories.OfType<ExifIfd0Directory>().FirstOrDefault();
                     var make = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifDirectoryBase.TagMake);
                     var model = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifDirectoryBase.TagModel);
                     Console.Out.WriteLine();
@@ -87,7 +87,7 @@ namespace FileLabeller
                     Console.Out.WriteLine(":--------:|-------:|----------|----------------");
                 }
                 // iterate over the metadata and print to System.out
-                foreach (var directory in metadata.GetDirectories())
+                foreach (var directory in directories)
                 {
                     var directoryName = directory.Name;
                     foreach (var tag in directory.Tags)
@@ -124,11 +124,11 @@ namespace FileLabeller
                 }
                 if (args.Length > 1 && thumbRequested)
                 {
-                    var directory1 = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
-                    if (directory1 != null && directory1.HasThumbnailData())
+                    var thumbnailDirectory = directories.OfType<ExifThumbnailDirectory>().FirstOrDefault();
+                    if (thumbnailDirectory != null && thumbnailDirectory.HasThumbnailData())
                     {
                         Console.Out.WriteLine("Writing thumbnail...");
-                        directory1.WriteThumbnail(args[0].Trim() + ".thumb.jpg");
+                        thumbnailDirectory.WriteThumbnail(args[0].Trim() + ".thumb.jpg");
                     }
                     else
                     {
@@ -243,18 +243,15 @@ namespace FileLabeller
                     handler.OnBeforeExtraction(file, relativePath, log);
 
                     // Read metadata
-                    Metadata metadata;
                     try
                     {
-                        metadata = ImageMetadataReader.ReadMetadata(file);
+                        var directories = ImageMetadataReader.ReadMetadata(file);
+                        handler.OnExtractionSuccess(file, directories, relativePath, log);
                     }
                     catch (Exception e)
                     {
                         handler.OnExtractionError(file, e, log);
-                        continue;
                     }
-
-                    handler.OnExtractionSuccess(file, metadata, relativePath, log);
                 }
             }
         }

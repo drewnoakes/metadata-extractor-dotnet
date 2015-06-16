@@ -11,10 +11,10 @@ namespace MetadataExtractor.Formats.Gif
 
         private const string Gif89AVersionIdentifier = "89a";
 
-        public void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
+        public GifHeaderDirectory Extract([NotNull] SequentialReader reader)
         {
             var directory = new GifHeaderDirectory();
-            metadata.AddDirectory(directory);
+
             // FILE HEADER
             //
             // 3 - signature: "GIF"
@@ -31,20 +31,22 @@ namespace MetadataExtractor.Formats.Gif
             //       7    Global color table flag
             // 1 - background color index
             // 1 - pixel aspect ratio
+
             reader.IsMotorolaByteOrder = false;
+
             try
             {
                 var signature = reader.GetString(3);
                 if (!signature.Equals("GIF"))
                 {
                     directory.AddError("Invalid GIF file signature");
-                    return;
+                    return directory;
                 }
                 var version = reader.GetString(3);
                 if (!version.Equals(Gif87AVersionIdentifier) && !version.Equals(Gif89AVersionIdentifier))
                 {
                     directory.AddError("Unexpected GIF version");
-                    return;
+                    return directory;
                 }
                 directory.Set(GifHeaderDirectory.TagGifFormatVersion, version);
                 directory.Set(GifHeaderDirectory.TagImageWidth, reader.GetUInt16());
@@ -74,6 +76,8 @@ namespace MetadataExtractor.Formats.Gif
             {
                 directory.AddError("Unable to read BMP header");
             }
+
+            return directory;
         }
     }
 }

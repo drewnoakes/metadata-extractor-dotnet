@@ -20,7 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
@@ -29,7 +29,6 @@ namespace MetadataExtractor.Formats.Ico
 {
     /// <summary>Reads ICO (Windows Icon) file metadata.</summary>
     /// <remarks>
-    /// Reads ICO (Windows Icon) file metadata.
     /// <list type="bullet">
     /// <item>https://en.wikipedia.org/wiki/ICO_(file_format)</item>
     /// </list>
@@ -37,81 +36,86 @@ namespace MetadataExtractor.Formats.Ico
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class IcoReader
     {
-        public void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
+        public IReadOnlyList<Directory> Extract([NotNull] SequentialReader reader)
         {
+            var directories = new List<Directory>();
+
             reader.IsMotorolaByteOrder = false;
-            int type;
-            int imageCount;
+
+            int type = 0;
+            int imageCount = 0;
+
             // Read header (ICONDIR structure)
+
+            string error = null;
             try
             {
                 var reserved = reader.GetUInt16();
-                if (reserved != 0)
-                {
-                    var directory = new IcoDirectory();
-                    directory.AddError("Invalid header bytes");
-                    metadata.AddDirectory(directory);
-                    return;
-                }
                 type = reader.GetUInt16();
-                if (type != 1 && type != 2)
-                {
-                    var directory = new IcoDirectory();
-                    directory.AddError("Invalid type " + type + " -- expecting 1 or 2");
-                    metadata.AddDirectory(directory);
-                    return;
-                }
                 imageCount = reader.GetUInt16();
-                if (imageCount == 0)
-                {
-                    var directory = new IcoDirectory();
-                    directory.AddError("Image count cannot be zero");
-                    metadata.AddDirectory(directory);
-                    return;
-                }
+
+                if (reserved != 0)
+                    error = "Invalid header bytes";
+                else if (type != 1 && type != 2)
+                    error = "Invalid type " + type + " -- expecting 1 or 2";
+                else if (imageCount == 0)
+                    error = "Image count cannot be zero";
             }
             catch (IOException ex)
             {
-                var directory = new IcoDirectory();
-                directory.AddError("Exception reading ICO file metadata: " + ex.Message);
-                metadata.AddDirectory(directory);
-                return;
+                error = "Exception reading ICO file metadata: " + ex.Message;
             }
-            // Read each embedded image
-            IcoDirectory directory1 = null;
-            try
+
+            if (error != null)
             {
-                for (var imageIndex = 0; imageIndex < imageCount; imageIndex++)
+                var directory = new IcoDirectory();
+                directory.AddError(error);
+                directories.Add(directory);
+                return directories;
+            }
+
+            // Read each embedded image
+            for (var imageIndex = 0; imageIndex < imageCount; imageIndex++)
+            {
+                var directory = new IcoDirectory();
+
+                try
                 {
-                    directory1 = new IcoDirectory();
-                    metadata.AddDirectory(directory1);
-                    directory1.Set(IcoDirectory.TagImageType, type);
-                    directory1.Set(IcoDirectory.TagImageWidth, reader.GetUInt8());
-                    directory1.Set(IcoDirectory.TagImageHeight, reader.GetUInt8());
-                    directory1.Set(IcoDirectory.TagColourPaletteSize, reader.GetUInt8());
+                    directory.Set(IcoDirectory.TagImageType, type);
+                    directory.Set(IcoDirectory.TagImageWidth, reader.GetUInt8());
+                    directory.Set(IcoDirectory.TagImageHeight, reader.GetUInt8());
+                    directory.Set(IcoDirectory.TagColourPaletteSize, reader.GetUInt8());
                     // Ignore this byte (normally zero, though .NET's System.Drawing.Icon.Save method writes 255)
                     reader.GetUInt8();
+
                     if (type == 1)
                     {
                         // Icon
-                        directory1.Set(IcoDirectory.TagColourPlanes, reader.GetUInt16());
-                        directory1.Set(IcoDirectory.TagBitsPerPixel, reader.GetUInt16());
+                        directory.Set(IcoDirectory.TagColourPlanes, reader.GetUInt16());
+                        directory.Set(IcoDirectory.TagBitsPerPixel, reader.GetUInt16());
                     }
                     else
                     {
                         // Cursor
-                        directory1.Set(IcoDirectory.TagCursorHotspotX, reader.GetUInt16());
-                        directory1.Set(IcoDirectory.TagCursorHotspotY, reader.GetUInt16());
+                        directory.Set(IcoDirectory.TagCursorHotspotX, reader.GetUInt16());
+                        directory.Set(IcoDirectory.TagCursorHotspotY, reader.GetUInt16());
                     }
-                    directory1.Set(IcoDirectory.TagImageSizeBytes, reader.GetUInt32());
-                    directory1.Set(IcoDirectory.TagImageOffsetBytes, reader.GetUInt32());
+
+                    directory.Set(IcoDirectory.TagImageSizeBytes, reader.GetUInt32());
+                    directory.Set(IcoDirectory.TagImageOffsetBytes, reader.GetUInt32());
                 }
+                catch (IOException ex)
+                {
+                    directory.AddError("Exception reading ICO file metadata: " + ex.Message);
+                }
+
+                directories.Add(directory);
+
+                if (directory.HasErrors)
+                    break;
             }
-            catch (IOException ex)
-            {
-                Debug.Assert((directory1 != null));
-                directory1.AddError("Exception reading ICO file metadata: " + ex.Message);
-            }
+
+            return directories;
         }
     }
 }

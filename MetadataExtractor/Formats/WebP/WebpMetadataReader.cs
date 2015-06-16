@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.FileSystem;
@@ -35,23 +36,26 @@ namespace MetadataExtractor.Formats.WebP
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="RiffProcessingException"/>
         [NotNull]
-        public static Metadata ReadMetadata([NotNull] string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
         {
-            Metadata metadata;
-            using (Stream stream = new FileStream(filePath, FileMode.Open))
-                metadata = ReadMetadata(stream);
-            new FileMetadataReader().Read(filePath, metadata);
-            return metadata;
+            var directories = new List<Directory>();
+
+            using (var stream = new FileStream(filePath, FileMode.Open))
+                directories.AddRange(ReadMetadata(stream));
+
+            directories.Add(new FileMetadataReader().Read(filePath));
+
+            return directories;
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="RiffProcessingException"/>
         [NotNull]
-        public static Metadata ReadMetadata([NotNull] Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
-            var metadata = new Metadata();
-            new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new WebPRiffHandler(metadata));
-            return metadata;
+            var directories = new List<Directory>();
+            new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new WebPRiffHandler(directories));
+            return directories;
         }
     }
 }

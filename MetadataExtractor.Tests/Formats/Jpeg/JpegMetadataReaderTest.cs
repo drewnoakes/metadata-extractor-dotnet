@@ -20,7 +20,9 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Jpeg;
 using NUnit.Framework;
@@ -42,9 +44,9 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Validate(JpegMetadataReader.ReadMetadata(new FileStream("Tests/Data/withExif.jpg", FileMode.Open)));
         }
 
-        private static void Validate(Metadata metadata)
+        private static void Validate(IReadOnlyList<Directory> metadata)
         {
-            Directory directory = metadata.GetFirstDirectoryOfType<ExifSubIfdDirectory>();
+            var directory = metadata.OfType<ExifSubIfdDirectory>().FirstOrDefault();
             Assert.IsNotNull(directory);
             Assert.AreEqual("80", directory.GetString(ExifDirectoryBase.TagIsoEquivalent));
         }

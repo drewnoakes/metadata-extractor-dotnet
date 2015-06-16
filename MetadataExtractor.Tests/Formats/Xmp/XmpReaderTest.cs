@@ -21,8 +21,8 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Xmp;
 using NUnit.Framework;
@@ -38,14 +38,9 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         [SetUp]
         public void SetUp()
         {
-            var metadata = new Metadata();
-            IList<byte[]> jpegSegments = new List<byte[]>();
-            jpegSegments.Add(File.ReadAllBytes("Tests/Data/withXmpAndIptc.jpg.app1.1"));
-            new XmpReader().ReadJpegSegments(jpegSegments, metadata, JpegSegmentType.App1);
-            var xmpDirectories = metadata.GetDirectoriesOfType<XmpDirectory>();
-            Assert.IsNotNull(xmpDirectories);
-            Assert.AreEqual(1, xmpDirectories.Count);
-            _directory = xmpDirectories.Iterator().Next();
+            var jpegSegments = new [] { File.ReadAllBytes("Tests/Data/withXmpAndIptc.jpg.app1.1") };
+            var directories = new XmpReader().ReadJpegSegments(jpegSegments, JpegSegmentType.App1);
+            _directory = directories.OfType<XmpDirectory>().ToList().Single();
             Assert.IsFalse(_directory.HasErrors);
         }
 

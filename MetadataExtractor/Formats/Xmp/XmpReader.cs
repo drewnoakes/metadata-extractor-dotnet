@@ -33,8 +33,6 @@ namespace MetadataExtractor.Formats.Xmp
 {
     /// <summary>Extracts XMP data from a JPEG header segment.</summary>
     /// <remarks>
-    /// Extracts XMP data from a JPEG header segment.
-    /// <para />
     /// The extraction is done with Adobe's XmpCore-Library (XMP-Toolkit)
     /// Copyright (c) 1999 - 2007, Adobe Systems Incorporated All rights reserved.
     /// </remarks>
@@ -43,13 +41,9 @@ namespace MetadataExtractor.Formats.Xmp
     public sealed class XmpReader : IJpegSegmentMetadataReader
     {
         private const int FmtString = 1;
-
         private const int FmtRational = 2;
-
         private const int FmtInt = 3;
-
         private const int FmtDouble = 4;
-
         private const int FmtStringArray = 5;
 
         /// <summary>XMP tag namespace.</summary>
@@ -80,44 +74,31 @@ namespace MetadataExtractor.Formats.Xmp
             yield return JpegSegmentType.App1;
         }
 
-        /// <summary>Version specifically for dealing with XMP found in JPEG segments.</summary>
-        /// <remarks>
-        /// Version specifically for dealing with XMP found in JPEG segments. This form of XMP has a peculiar preamble, which
-        /// must be removed before parsing the XML.
-        /// </remarks>
-        /// <param name="segments">The byte array from which the metadata should be extracted.</param>
-        /// <param name="metadata">
-        /// The
-        /// <see cref="Metadata"/>
-        /// object into which extracted values should be merged.
-        /// </param>
-        /// <param name="segmentType">
-        /// The
-        /// <see cref="JpegSegmentType"/>
-        /// being read.
-        /// </param>
-        public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
+        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
         {
+            var directories = new List<Directory>();
+
             foreach (var segmentBytes in segments)
             {
                 // XMP in a JPEG file has an identifying preamble which is not valid XML
                 var preambleLength = XmpJpegPreamble.Length;
-                if (segmentBytes.Length < preambleLength || !XmpJpegPreamble.Equals (Encoding.UTF8.GetString(segmentBytes, 0, preambleLength), StringComparison.CurrentCultureIgnoreCase))
+                if (segmentBytes.Length >= preambleLength && XmpJpegPreamble.Equals(Encoding.UTF8.GetString(segmentBytes, 0, preambleLength), StringComparison.CurrentCultureIgnoreCase))
                 {
-                    continue;
+                    var xmlBytes = new byte[segmentBytes.Length - preambleLength];
+                    Array.Copy(segmentBytes, preambleLength, xmlBytes, 0, xmlBytes.Length);
+                    directories.Add(Extract(xmlBytes));
                 }
-                var xmlBytes = new byte[segmentBytes.Length - preambleLength];
-                Array.Copy(segmentBytes, preambleLength, xmlBytes, 0, xmlBytes.Length);
-                Extract(xmlBytes, metadata);
             }
+
+            return directories;
         }
 
         /// <summary>
-        /// Performs the XMP data extraction, adding found values to the specified instance of <see cref="Metadata"/>.
+        /// Performs the XMP data extraction.
         /// <para />
         /// The extraction is done with Adobe's XMPCore library.
         /// </summary>
-        public void Extract([NotNull] byte[] xmpBytes, [NotNull] Metadata metadata)
+        public XmpDirectory Extract([NotNull] byte[] xmpBytes)
         {
             var directory = new XmpDirectory();
             try
@@ -129,33 +110,17 @@ namespace MetadataExtractor.Formats.Xmp
             {
                 directory.AddError("Error processing XMP data: " + e.Message);
             }
-            if (!directory.IsEmpty)
-            {
-                metadata.AddDirectory(directory);
-            }
+            return directory;
         }
 
         /// <summary>
-        /// Performs the XMP data extraction, adding found values to the specified instance of <see cref="Metadata"/>.
+        /// Performs the XMP data extraction.
         /// <para />
         /// The extraction is done with Adobe's XMPCore library.
         /// </summary>
-        public void Extract([NotNull] string xmpString, [NotNull] Metadata metadata)
+        public XmpDirectory Extract([NotNull] string xmpString)
         {
-            var directory = new XmpDirectory();
-            try
-            {
-                var xmpMeta = XmpMetaFactory.ParseFromString(xmpString);
-                ProcessXmpTags(directory, xmpMeta);
-            }
-            catch (XmpException e)
-            {
-                directory.AddError("Error processing XMP data: " + e.Message);
-            }
-            if (!directory.IsEmpty)
-            {
-                metadata.AddDirectory(directory);
-            }
+            return Extract(Encoding.UTF8.GetBytes(xmpString));
         }
 
         /// <exception cref="XmpException"/>

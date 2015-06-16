@@ -28,7 +28,6 @@ namespace MetadataExtractor.Formats.Pcx
 {
     /// <summary>Reads PCX image file metadata.</summary>
     /// <remarks>
-    /// Reads PCX image file metadata.
     /// <list type="bullet">
     /// <item>https://courses.engr.illinois.edu/ece390/books/labmanual/graphics-pcx.html</item>
     /// <item>http://www.fileformat.info/format/pcx/egff.htm</item>
@@ -38,11 +37,12 @@ namespace MetadataExtractor.Formats.Pcx
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PcxReader
     {
-        public void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
+        public PcxDirectory Extract([NotNull] SequentialReader reader)
         {
             reader.IsMotorolaByteOrder = false;
+
             var directory = new PcxDirectory();
-            metadata.AddDirectory(directory);
+
             try
             {
                 var identifier = reader.GetInt8();
@@ -87,6 +87,8 @@ namespace MetadataExtractor.Formats.Pcx
             {
                 directory.AddError("Exception reading PCX file metadata: " + ex.Message);
             }
+
+            return directory;
         }
     }
 }

@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Linq;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Exif.Makernotes;
 using NUnit.Framework;
@@ -41,11 +42,13 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [SetUp]
         public void SetUp()
         {
-            var metadata = ExifReaderTest.ProcessBytes("Tests/Data/nikonMakernoteType2b.jpg.app1");
-            _nikonDirectory = metadata.GetFirstDirectoryOfType<NikonType2MakernoteDirectory>();
-            _exifIfd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
-            _exifSubIfdDirectory = metadata.GetFirstDirectoryOfType<ExifSubIfdDirectory>();
-            _thumbDirectory = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
+            var metadata = ExifReaderTest.ProcessSegmentBytes("Tests/Data/nikonMakernoteType2b.jpg.app1").ToList();
+
+            _nikonDirectory = metadata.OfType<NikonType2MakernoteDirectory>().SingleOrDefault();
+            _exifIfd0Directory = metadata.OfType<ExifIfd0Directory>().SingleOrDefault();
+            _exifSubIfdDirectory = metadata.OfType<ExifSubIfdDirectory>().SingleOrDefault();
+            _thumbDirectory = metadata.OfType<ExifThumbnailDirectory>().SingleOrDefault();
+
             Assert.IsNotNull(_nikonDirectory);
             Assert.IsNotNull(_exifSubIfdDirectory);
         }

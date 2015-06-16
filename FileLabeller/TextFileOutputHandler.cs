@@ -1,8 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
-using MetadataExtractor;
 using Directory = System.IO.Directory;
 
 namespace FileLabeller
@@ -25,9 +25,9 @@ namespace FileLabeller
             log.Write('\n');
         }
 
-        public override void OnExtractionSuccess(string filePath, Metadata metadata, string relativePath, TextWriter log)
+        public override void OnExtractionSuccess(string filePath, IReadOnlyList<MetadataExtractor.Directory> directories, string relativePath, TextWriter log)
         {
-            base.OnExtractionSuccess(filePath, metadata, relativePath, log);
+            base.OnExtractionSuccess(filePath, directories, relativePath, log);
 
             try
             {
@@ -36,15 +36,15 @@ namespace FileLabeller
                     try
                     {
                         // Build a list of all directories
-                        var directories = metadata.GetDirectories().ToList();
+                        var directoryList = directories.ToList();
 
                         // Sort them by name
-                        directories.Sort((o1, o2) => string.Compare(o1.Name, o2.Name, StringComparison.Ordinal));
+                        directoryList.Sort((o1, o2) => string.Compare(o1.Name, o2.Name, StringComparison.Ordinal));
 
                         // Write any errors
-                        if (metadata.HasErrors())
+                        if (directoryList.Any(d => d.HasErrors))
                         {
-                            foreach (var directory in directories)
+                            foreach (var directory in directoryList)
                             {
                                 if (!directory.HasErrors)
                                     continue;
@@ -55,7 +55,7 @@ namespace FileLabeller
                         }
 
                         // Write tag values for each directory
-                        foreach (var directory in directories)
+                        foreach (var directory in directoryList)
                         {
                             var directoryName = directory.Name;
                             foreach (var tag in directory.Tags)

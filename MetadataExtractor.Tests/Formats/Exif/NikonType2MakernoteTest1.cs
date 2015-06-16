@@ -39,7 +39,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void SetUp()
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-GB");
-            _nikonDirectory = ExifReaderTest.ProcessBytes<NikonType2MakernoteDirectory>("Tests/Data/nikonMakernoteType2a.jpg.app1");
+            _nikonDirectory = ExifReaderTest.ProcessSegmentBytes<NikonType2MakernoteDirectory>("Tests/Data/nikonMakernoteType2a.jpg.app1");
             Assert.IsNotNull(_nikonDirectory);
             _descriptor = new NikonType2MakernoteDescriptor(_nikonDirectory);
         }

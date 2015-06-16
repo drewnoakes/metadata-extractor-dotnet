@@ -32,7 +32,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Test]
         public void TestSonyType6Makernote()
         {
-            var directory = ExifReaderTest.ProcessBytes<SonyType6MakernoteDirectory>("Tests/Data/sonyType6.jpg.app1.0");
+            var directory = ExifReaderTest.ProcessSegmentBytes<SonyType6MakernoteDirectory>("Tests/Data/sonyType6.jpg.app1.0");
             Assert.IsNotNull(directory);
             Assert.IsFalse(directory.HasErrors);
             var descriptor = new SonyType6MakernoteDescriptor(directory);

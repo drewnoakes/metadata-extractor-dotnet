@@ -30,21 +30,16 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegReaderTest
     {
-        /// <exception cref="System.IO.IOException"/>
         [NotNull]
         public static JpegDirectory ProcessBytes(string filePath)
         {
-            var metadata = new Metadata();
-            new JpegReader().Extract(File.ReadAllBytes(filePath), metadata, JpegSegmentType.Sof0);
-            var directory = metadata.GetFirstDirectoryOfType<JpegDirectory>();
+            var directory = new JpegReader().Extract(File.ReadAllBytes(filePath), JpegSegmentType.Sof0);
             Assert.IsNotNull(directory);
             return directory;
         }
 
         private JpegDirectory _directory;
 
-        /// <exception cref="JpegProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
         [SetUp]
         public void SetUp()
         {

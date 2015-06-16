@@ -34,12 +34,8 @@ namespace MetadataExtractor.Tests.Formats.Bmp
         [NotNull]
         public static BmpHeaderDirectory ProcessBytes([NotNull] string file)
         {
-            var metadata = new Metadata();
-            using (Stream stream = new FileStream(file, FileMode.Open))
-                new BmpReader().Extract(new SequentialStreamReader(stream), metadata);
-            var directory = metadata.GetFirstDirectoryOfType<BmpHeaderDirectory>();
-            Assert.IsNotNull(directory);
-            return directory;
+            using (var stream = new FileStream(file, FileMode.Open))
+                return new BmpReader().Extract(new SequentialStreamReader(stream));
         }
 
         [Test]

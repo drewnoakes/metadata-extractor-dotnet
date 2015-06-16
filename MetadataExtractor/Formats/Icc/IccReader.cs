@@ -41,7 +41,7 @@ namespace MetadataExtractor.Formats.Icc
     /// </remarks>
     /// <author>Yuri Binev</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class IccReader : IJpegSegmentMetadataReader, IMetadataReader
+    public sealed class IccReader : IJpegSegmentMetadataReader
     {
         public const string JpegSegmentPreamble = "ICC_PROFILE";
 
@@ -50,9 +50,10 @@ namespace MetadataExtractor.Formats.Icc
             yield return JpegSegmentType.App2;
         }
 
-        public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
+        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
         {
             var preambleLength = JpegSegmentPreamble.Length;
+
             // ICC data can be spread across multiple JPEG segments.
             // We concat them together in this buffer for later processing.
             byte[] buffer = null;
@@ -79,13 +80,14 @@ namespace MetadataExtractor.Formats.Icc
                     buffer = newBuffer;
                 }
             }
+
             if (buffer != null)
-            {
-                Extract(new ByteArrayReader(buffer), metadata);
-            }
+                return new[] { Extract(new ByteArrayReader(buffer)) };
+
+            return new Directory[0];
         }
 
-        public void Extract(IndexedReader reader, Metadata metadata)
+        public IccDirectory Extract(IndexedReader reader)
         {
             // TODO review whether the 'tagPtr' values below really do require IndexedReader or whether SequentialReader may be used instead
             var directory = new IccDirectory();
@@ -137,7 +139,7 @@ namespace MetadataExtractor.Formats.Icc
             {
                 directory.AddError("Exception reading ICC profile: " + ex.Message);
             }
-            metadata.AddDirectory(directory);
+            return directory;
         }
 
         /// <exception cref="System.IO.IOException"/>

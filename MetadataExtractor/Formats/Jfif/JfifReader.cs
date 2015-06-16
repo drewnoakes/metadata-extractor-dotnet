@@ -22,50 +22,46 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Jfif
 {
-    /// <summary>Reader for JFIF data, found in the APP0 JPEG segment.</summary>
+    /// <summary>Reads JFIF (JPEG File Interchange Format) data.</summary>
     /// <remarks>
-    /// Reader for JFIF data, found in the APP0 JPEG segment.
+    /// JFIF is found in JPEG APP0 segments.
     /// <para />
     /// More info at: http://en.wikipedia.org/wiki/JPEG_File_Interchange_Format
     /// </remarks>
     /// <author>Yuri Binev, Drew Noakes, Markus Meyer</author>
-    public sealed class JfifReader : IJpegSegmentMetadataReader, IMetadataReader
+    public sealed class JfifReader : IJpegSegmentMetadataReader
     {
-        public const string Preamble = "JFIF";
+        private const string Preamble = "JFIF";
 
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             yield return JpegSegmentType.App0;
         }
 
-        public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
+        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
         {
-            foreach (var segmentBytes in segments)
-            {
-                // Skip segments not starting with the required header
-                if (segmentBytes.Length >= 4 && Preamble.Equals(Encoding.UTF8.GetString(segmentBytes, 0, Preamble.Length)))
-                {
-                    Extract(new ByteArrayReader(segmentBytes), metadata);
-                }
-            }
+            // Skip segments not starting with the required header
+            return segments
+                .Where(segment => segment.Length >= 4 && Preamble.Equals(Encoding.ASCII.GetString(segment, 0, Preamble.Length)))
+                .Select(segment => Extract(new ByteArrayReader(segment)))
+                .ToList();
         }
 
-        /// <summary>
-        /// Performs the Jfif data extraction, adding found values to the specified instance of <see cref="Metadata"/>.
-        /// </summary>
-        public void Extract(IndexedReader reader, Metadata metadata)
+        /// <summary>Reads JFIF values and returns them in an <see cref="JfifDirectory"/>.</summary>
+        public JfifDirectory Extract(IndexedReader reader)
         {
             var directory = new JfifDirectory();
-            metadata.AddDirectory(directory);
+
             try
             {
-                // For JFIF, the tag number is also the offset into the segment
+                // For JFIF the tag number is the value's byte offset
                 int ver = reader.GetUInt16(JfifDirectory.TagVersion);
                 directory.Set(JfifDirectory.TagVersion, ver);
                 int units = reader.GetUInt8(JfifDirectory.TagUnits);
@@ -75,10 +71,12 @@ namespace MetadataExtractor.Formats.Jfif
                 int width = reader.GetUInt16(JfifDirectory.TagResY);
                 directory.Set(JfifDirectory.TagResY, width);
             }
-            catch (IOException me)
+            catch (IOException e)
             {
-                directory.AddError(me.Message);
+                directory.AddError(e.Message);
             }
+
+            return directory;
         }
     }
 }

@@ -20,8 +20,10 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Bmp
@@ -32,18 +34,22 @@ namespace MetadataExtractor.Formats.Bmp
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata ReadMetadata([NotNull] string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
         {
-            using (Stream stream = new FileStream(filePath, FileMode.Open))
-                return ReadMetadata(stream);
+            var directories = new List<Directory>(2);
+
+            using (var stream = new FileStream(filePath, FileMode.Open))
+                directories.Add(ReadMetadata(stream));
+
+            directories.Add(new FileMetadataReader().Read(filePath));
+
+            return directories;
         }
 
         [NotNull]
-        public static Metadata ReadMetadata([NotNull] Stream stream)
+        public static BmpHeaderDirectory ReadMetadata([NotNull] Stream stream)
         {
-            var metadata = new Metadata();
-            new BmpReader().Extract(new SequentialStreamReader(stream), metadata);
-            return metadata;
+            return new BmpReader().Extract(new SequentialStreamReader(stream));
         }
     }
 }

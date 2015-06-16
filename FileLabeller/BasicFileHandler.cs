@@ -1,5 +1,6 @@
+using System.Collections.Generic;
 using System.IO;
-using MetadataExtractor;
+using Directory = MetadataExtractor.Directory;
 
 // ReSharper disable ReturnValueOfPureMethodIsNotUsed
 
@@ -11,12 +12,12 @@ namespace FileLabeller
     /// </summary>
     internal class BasicFileHandler : FileHandlerBase
     {
-        public override void OnExtractionSuccess(string filePath, Metadata metadata, string relativePath, TextWriter log)
+        public override void OnExtractionSuccess(string filePath, IReadOnlyList<Directory> directories, string relativePath, TextWriter log)
         {
-            base.OnExtractionSuccess(filePath, metadata, relativePath, log);
+            base.OnExtractionSuccess(filePath, directories, relativePath, log);
 
             // Iterate through all values, calling toString to flush out any formatting exceptions
-            foreach (var directory in metadata.GetDirectories())
+            foreach (var directory in directories)
             {
                 directory.Name.ToString();
 

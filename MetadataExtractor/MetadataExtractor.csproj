@@ -67,9 +67,7 @@
     <Compile Include="Directory.cs" />
     <Compile Include="Face.cs" />
     <Compile Include="ITagDescriptor.cs" />
-    <Compile Include="Metadata.cs" />
     <Compile Include="MetadataException.cs" />
-    <Compile Include="IMetadataReader.cs" />
     <Compile Include="Schema.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="TagDescriptor.cs" />
@@ -194,7 +192,6 @@
     <Compile Include="Formats\Xmp\XmpDescriptor.cs" />
     <Compile Include="Formats\Xmp\XmpDirectory.cs" />
     <Compile Include="Formats\Xmp\XmpReader.cs" />
-    <Compile Include="Formats\Xmp\XmpWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

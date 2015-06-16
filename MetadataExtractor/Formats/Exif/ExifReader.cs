@@ -24,8 +24,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.IO;
@@ -33,15 +33,15 @@ using MetadataExtractor.IO;
 namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>
-    /// Decodes Exif binary data, populating a <see cref="Metadata"/> object with tag values in
+    /// Decodes Exif binary data into potentially many <see cref="Directory"/> objects such as
     /// <see cref="ExifSubIfdDirectory"/>, <see cref="ExifThumbnailDirectory"/>, <see cref="ExifInteropDirectory"/>,
-    /// <see cref="GpsDirectory"/> and one of the many camera makernote directories.
+    /// <see cref="GpsDirectory"/>, camera makernote directories and more.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifReader : IJpegSegmentMetadataReader
     {
         /// <summary>Exif data stored in JPEG files' APP1 segment are preceded by this six character preamble.</summary>
-        public const string JpegSegmentPreamble = "Exif\x0\x0";
+        private const string JpegSegmentPreamble = "Exif\x0\x0";
 
         public ExifReader()
         {
@@ -55,29 +55,27 @@ namespace MetadataExtractor.Formats.Exif
             yield return JpegSegmentType.App1;
         }
 
-        public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
+        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
         {
-            Debug.Assert((segmentType == JpegSegmentType.App1));
-            foreach (var segmentBytes in segments)
-            {
-                // Filter any segments containing unexpected preambles
-                if (segmentBytes.Length < JpegSegmentPreamble.Length || Encoding.UTF8.GetString(segmentBytes, 0, JpegSegmentPreamble.Length) != JpegSegmentPreamble)
-                {
-                    continue;
-                }
-                Extract(new ByteArrayReader(segmentBytes), metadata, JpegSegmentPreamble.Length);
-            }
+            Debug.Assert(segmentType == JpegSegmentType.App1);
+
+            return segments
+                .Where(segment => segment.Length >= JpegSegmentPreamble.Length && Encoding.UTF8.GetString(segment, 0, JpegSegmentPreamble.Length) == JpegSegmentPreamble)
+                .SelectMany(segment => Extract(new ByteArrayReader(segment), JpegSegmentPreamble.Length))
+                .ToList();
         }
 
         /// <summary>
         /// Reads TIFF formatted Exif data a specified offset within a <see cref="IndexedReader"/>.
         /// </summary>
-        public void Extract([NotNull] IndexedReader reader, [NotNull] Metadata metadata, int readerOffset = 0)
+        public IReadOnlyList<Directory> Extract(IndexedReader reader, int readerOffset = 0)
         {
+            var directories = new List<Directory>();
+
             try
             {
                 // Read the TIFF-formatted Exif data
-                TiffReader.ProcessTiff(reader, new ExifTiffHandler(metadata, StoreThumbnailBytes), readerOffset);
+                TiffReader.ProcessTiff(reader, new ExifTiffHandler(directories, StoreThumbnailBytes), readerOffset);
             }
             catch (TiffProcessingException e)
             {
@@ -89,6 +87,8 @@ namespace MetadataExtractor.Formats.Exif
                 // TODO what do to with this error state?
                 Console.Error.WriteLine (e);
             }
+
+            return directories;
         }
     }
 }

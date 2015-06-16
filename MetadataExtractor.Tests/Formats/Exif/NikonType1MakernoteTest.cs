@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Linq;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Exif.Makernotes;
 using NUnit.Framework;
@@ -30,11 +31,8 @@ namespace MetadataExtractor.Tests.Formats.Exif
     public sealed class NikonType1MakernoteTest
     {
         private NikonType1MakernoteDirectory _nikonDirectory;
-
         private ExifIfd0Directory _exifIfd0Directory;
-
         private ExifSubIfdDirectory _exifSubIfdDirectory;
-
         private ExifThumbnailDirectory _thumbDirectory;
 
     /*
@@ -52,11 +50,12 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [SetUp]
         public void SetUp()
         {
-            var metadata = ExifReaderTest.ProcessBytes("Tests/Data/nikonMakernoteType1.jpg.app1");
-            _nikonDirectory = metadata.GetFirstDirectoryOfType<NikonType1MakernoteDirectory>();
-            _exifSubIfdDirectory = metadata.GetFirstDirectoryOfType<ExifSubIfdDirectory>();
-            _exifIfd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
-            _thumbDirectory = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
+            var metadata = ExifReaderTest.ProcessSegmentBytes("Tests/Data/nikonMakernoteType1.jpg.app1").ToList();
+
+            _nikonDirectory = metadata.OfType<NikonType1MakernoteDirectory>().SingleOrDefault();
+            _exifSubIfdDirectory = metadata.OfType<ExifSubIfdDirectory>().SingleOrDefault();
+            _exifIfd0Directory = metadata.OfType<ExifIfd0Directory>().SingleOrDefault();
+            _thumbDirectory = metadata.OfType<ExifThumbnailDirectory>().SingleOrDefault();
         }
 
     /*

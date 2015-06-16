@@ -7,10 +7,10 @@ namespace MetadataExtractor.Formats.Bmp
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class BmpReader
     {
-        public void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
+        public BmpHeaderDirectory Extract([NotNull] SequentialReader reader)
         {
             var directory = new BmpHeaderDirectory();
-            metadata.AddDirectory(directory);
+
             // FILE HEADER
             //
             // 2 - magic number (0x42 0x4D = "BM")
@@ -55,14 +55,16 @@ namespace MetadataExtractor.Formats.Bmp
             // 4 = JPEG (or RLE-24 if BITMAPCOREHEADER2 (size 64))
             // 5 = PNG
             // 6 = Bit field
+
             reader.IsMotorolaByteOrder = false;
+
             try
             {
                 var magicNumber = reader.GetUInt16();
                 if (magicNumber != 0x4D42)
                 {
                     directory.AddError("Invalid BMP magic number");
-                    return;
+                    return directory;
                 }
                 // skip past the rest of the file header
                 reader.Skip(4 + 2 + 2 + 4);
@@ -103,6 +105,8 @@ namespace MetadataExtractor.Formats.Bmp
             {
                 directory.AddError("Unable to read BMP header");
             }
+
+            return directory;
         }
     }
 }

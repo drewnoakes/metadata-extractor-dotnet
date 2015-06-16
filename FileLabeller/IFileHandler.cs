@@ -1,7 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
-using MetadataExtractor;
+using Directory = MetadataExtractor.Directory;
 
 namespace FileLabeller
 {
@@ -25,7 +26,7 @@ namespace FileLabeller
         /// <summary>
         /// Called when extraction on <paramref name="filePath"/> completed without an exception.
         /// </summary>
-        void OnExtractionSuccess([NotNull] string filePath, [NotNull] Metadata metadata, [NotNull] string relativePath, [NotNull] TextWriter log);
+        void OnExtractionSuccess([NotNull] string filePath, [NotNull] IReadOnlyList<Directory> directories, [NotNull] string relativePath, [NotNull] TextWriter log);
 
         /// <summary>
         /// Called when extraction on <paramref name="filePath"/> resulted in an exception.

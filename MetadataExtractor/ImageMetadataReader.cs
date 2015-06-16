@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Bmp;
@@ -36,9 +37,7 @@ using MetadataExtractor.Util;
 
 namespace MetadataExtractor
 {
-    /// <summary>
-    /// Obtains <see cref="Metadata"/> from all supported file formats.
-    /// </summary>
+    /// <summary>Reads metadata from any supported file format.</summary>
     /// <remarks>
     /// This class a lightweight wrapper around other, specific metadata processors.
     /// During extraction, the file type is determined from the first few bytes of the file.
@@ -65,18 +64,16 @@ namespace MetadataExtractor
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class ImageMetadataReader
     {
-        /// <summary>
-        /// Reads metadata from an <see cref="Stream"/>.
-        /// </summary>
-        /// <param name="stream">a stream from which the file data may be read.  The stream must be positioned at the beginning of the file's data.</param>
-        /// <returns>a populated <see cref="Metadata"/> object containing directories of tags with values and any processing errors.</returns>
-        /// <exception cref="ImageProcessingException">if the file type is unknown, or for general processing errors.</exception>
-        /// <exception cref="ImageProcessingException"/>
+        /// <summary>Reads metadata from an <see cref="Stream"/>.</summary>
+        /// <param name="stream">A stream from which the file data may be read.  The stream must be positioned at the beginning of the file's data.</param>
+        /// <returns>A list of <see cref="Directory"/> instances containing the various types of metadata found within the file's data.</returns>
+        /// <exception cref="ImageProcessingException">The file type is unknown, or processing errors occurred.</exception>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata ReadMetadata([NotNull] Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
             var fileType = FileTypeDetector.DetectFileType(stream) ?? FileType.Unknown;
+
             switch (fileType)
             {
                 case FileType.Jpeg:
@@ -93,35 +90,37 @@ namespace MetadataExtractor
                 case FileType.Png:
                     return PngMetadataReader.ReadMetadata(stream);
                 case FileType.Bmp:
-                    return BmpMetadataReader.ReadMetadata(stream);
+                    return new[] { BmpMetadataReader.ReadMetadata(stream) };
                 case FileType.Gif:
-                    return GifMetadataReader.ReadMetadata(stream);
+                    return new[] { GifMetadataReader.ReadMetadata(stream) };
                 case FileType.Ico:
                     return IcoMetadataReader.ReadMetadata(stream);
                 case FileType.Pcx:
-                    return PcxMetadataReader.ReadMetadata(stream);
+                    return new[] { PcxMetadataReader.ReadMetadata(stream) };
                 case FileType.Riff:
                     return WebPMetadataReader.ReadMetadata(stream);
             }
+
             throw new ImageProcessingException("File format is not supported");
         }
 
-        /// <summary>
-        /// Reads <see cref="Metadata"/> from a file.
-        /// </summary>
-        /// <param name="filePath">a file from which the image data may be read.</param>
-        /// <returns>a populated <see cref="Metadata"/> object containing directories of tags with values and any processing errors.</returns>
-        /// <exception cref="ImageProcessingException">for general processing errors.</exception>
-        /// <exception cref="ImageProcessingException"/>
+        /// <summary>Reads metadata from a file.</summary>
+        /// <remarks>Unlike <see cref="ReadMetadata(System.IO.Stream)"/>, this overload includes a <see cref="FileMetadataDirectory"/> in the output.</remarks>
+        /// <param name="filePath">Location of a file from which data should be read.</param>
+        /// <returns>A list of <see cref="Directory"/> instances containing the various types of metadata found within the file's data.</returns>
+        /// <exception cref="ImageProcessingException">The file type is unknown, or processing errors occurred.</exception>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata ReadMetadata([NotNull] string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
         {
-            Metadata metadata;
-            using (Stream inputStream = new FileStream(filePath, FileMode.Open))
-                metadata = ReadMetadata(inputStream);
-            new FileMetadataReader().Read(filePath, metadata);
-            return metadata;
+            var directories = new List<Directory>();
+
+            using (var stream = new FileStream(filePath, FileMode.Open))
+                directories.AddRange(ReadMetadata(stream));
+
+            directories.Add(new FileMetadataReader().Read(filePath));
+
+            return directories;
         }
     }
 }

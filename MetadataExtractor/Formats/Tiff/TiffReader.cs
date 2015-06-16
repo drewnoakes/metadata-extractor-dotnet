@@ -35,24 +35,13 @@ namespace MetadataExtractor.Formats.Tiff
     public static class TiffReader
     {
         /// <summary>Processes a TIFF data sequence.</summary>
-        /// <param name="reader">
-        /// the
-        /// <see cref="IndexedReader"/>
-        /// from which the data should be read
-        /// </param>
-        /// <param name="handler">
-        /// the
-        /// <see cref="ITiffHandler"/>
-        /// that will coordinate processing and accept read values
-        /// </param>
+        /// <param name="reader">the <see cref="IndexedReader"/> from which the data should be read</param>
+        /// <param name="handler">the <see cref="ITiffHandler"/> that will coordinate processing and accept read values</param>
         /// <param name="tiffHeaderOffset">the offset within <c>reader</c> at which the TIFF header starts</param>
-        /// <exception cref="TiffProcessingException">
-        /// if an error occurred during the processing of TIFF data that could not be
-        /// ignored or recovered from
-        /// </exception>
+        /// <exception cref="TiffProcessingException">if an error occurred during the processing of TIFF data that could not be ignored or recovered from</exception>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
         /// <exception cref="TiffProcessingException"/>
-        public static void ProcessTiff([NotNull] IndexedReader reader, [NotNull] ITiffHandler handler, int tiffHeaderOffset)
+        public static void ProcessTiff([NotNull] IndexedReader reader, [NotNull] ITiffHandler handler, int tiffHeaderOffset = 0)
         {
             // This must be either "MM" or "II".
             var byteOrderIdentifier = reader.GetInt16(tiffHeaderOffset);
@@ -89,7 +78,6 @@ namespace MetadataExtractor.Formats.Tiff
 
         /// <summary>Processes a TIFF IFD.</summary>
         /// <remarks>
-        /// Processes a TIFF IFD.
         /// IFD Header:
         /// <list type="bullet">
         /// <item><b>2 bytes</b> number of tags</item>
@@ -102,16 +90,8 @@ namespace MetadataExtractor.Formats.Tiff
         /// <item><b>4 bytes</b> inline value, or offset pointer if too large to fit in four bytes</item>
         /// </list>
         /// </remarks>
-        /// <param name="handler">
-        /// the
-        /// <see cref="ITiffHandler"/>
-        /// that will coordinate processing and accept read values
-        /// </param>
-        /// <param name="reader">
-        /// the
-        /// <see cref="IndexedReader"/>
-        /// from which the data should be read
-        /// </param>
+        /// <param name="handler">the <see cref="ITiffHandler"/> that will coordinate processing and accept read values</param>
+        /// <param name="reader">the <see cref="IndexedReader"/> from which the data should be read</param>
         /// <param name="processedIfdOffsets">the set of visited IFD offsets, to avoid revisiting the same IFD in an endless loop</param>
         /// <param name="ifdOffset">the offset within <c>reader</c> at which the IFD data starts</param>
         /// <param name="tiffHeaderOffset">the offset within <c>reader</c> at which the TIFF header starts</param>

@@ -23,8 +23,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 
@@ -35,36 +35,35 @@ namespace MetadataExtractor.Formats.Adobe
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class AdobeJpegReader : IJpegSegmentMetadataReader
     {
-        public const string Preamble = "Adobe";
+        private const string Preamble = "Adobe";
 
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             yield return JpegSegmentType.AppE;
         }
 
-        public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
+        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
         {
-            foreach (var bytes in segments)
-            {
-                if (bytes.Length == 12 && Preamble.Equals (Encoding.ASCII.GetString(bytes, 0, Preamble.Length), StringComparison.CurrentCultureIgnoreCase))
-                {
-                    Extract(new SequentialByteArrayReader(bytes), metadata);
-                }
-            }
+            return segments
+                .Where(segment => segment.Length == 12 && Preamble.Equals(Encoding.ASCII.GetString(segment, 0, Preamble.Length), StringComparison.CurrentCultureIgnoreCase))
+                .Select(bytes => Extract(new SequentialByteArrayReader(bytes)))
+                .ToList();
         }
 
-        public void Extract([NotNull] SequentialReader reader, [NotNull] Metadata metadata)
+        public AdobeJpegDirectory Extract(SequentialReader reader)
         {
-            Directory directory = new AdobeJpegDirectory();
-            metadata.AddDirectory(directory);
+            reader.IsMotorolaByteOrder = false;
+
+            var directory = new AdobeJpegDirectory();
+
             try
             {
-                reader.IsMotorolaByteOrder = false;
                 if (!reader.GetString(Preamble.Length).Equals(Preamble))
                 {
                     directory.AddError("Invalid Adobe JPEG data header.");
-                    return;
+                    return directory;
                 }
+
                 directory.Set(AdobeJpegDirectory.TagDctEncodeVersion, reader.GetUInt16());
                 directory.Set(AdobeJpegDirectory.TagApp14Flags0, reader.GetUInt16());
                 directory.Set(AdobeJpegDirectory.TagApp14Flags1, reader.GetUInt16());
@@ -74,6 +73,8 @@ namespace MetadataExtractor.Formats.Adobe
             {
                 directory.AddError("IO exception processing data: " + ex.Message);
             }
+
+            return directory;
         }
     }
 }

@@ -35,11 +35,8 @@ namespace MetadataExtractor.Tests.Formats.Adobe
         [NotNull]
         public static AdobeJpegDirectory ProcessBytes([NotNull] string filePath)
         {
-            var metadata = new Metadata();
-            new AdobeJpegReader().Extract(new SequentialByteArrayReader(File.ReadAllBytes(filePath)), metadata);
-            var directory = metadata.GetFirstDirectoryOfType<AdobeJpegDirectory>();
-            Assert.IsNotNull(directory);
-            return directory;
+            return new AdobeJpegReader()
+                .Extract(new SequentialByteArrayReader(File.ReadAllBytes(filePath)));
         }
 
         [Test]

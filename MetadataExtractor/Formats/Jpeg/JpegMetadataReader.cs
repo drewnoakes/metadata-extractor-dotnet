@@ -22,6 +22,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Adobe;
 using MetadataExtractor.Formats.Exif;
@@ -39,7 +40,7 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class JpegMetadataReader
     {
-        private static readonly IEnumerable<IJpegSegmentMetadataReader> AllReaders = new IJpegSegmentMetadataReader[]
+        private static readonly IEnumerable<IJpegSegmentMetadataReader> _allReaders = new IJpegSegmentMetadataReader[]
         {
             new JpegReader(),
             new JpegCommentReader(),
@@ -55,55 +56,46 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata ReadMetadata([NotNull] Stream stream, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
         {
-            var metadata = new Metadata();
-            Process(metadata, stream, readers);
-            return metadata;
+            return Process(stream, readers);
         }
 
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata ReadMetadata([NotNull] string filePath, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
         {
-            Metadata metadata;
-            using (Stream inputStream = new FileStream(filePath, FileMode.Open))
-                metadata = ReadMetadata(inputStream, readers);
-            new FileMetadataReader().Read(filePath, metadata);
-            return metadata;
+            var directories = new List<Directory>();
+
+            using (var stream = new FileStream(filePath, FileMode.Open))
+                directories.AddRange(ReadMetadata(stream, readers));
+
+            directories.Add(new FileMetadataReader().Read(filePath));
+
+            return directories;
         }
 
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        public static void Process([NotNull] Metadata metadata, [NotNull] Stream inputStream, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
+        public static IReadOnlyList<Directory> Process([NotNull] Stream inputStream, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
         {
             if (readers == null)
-            {
-                readers = AllReaders;
-            }
-            ICollection<JpegSegmentType> segmentTypes = new HashSet<JpegSegmentType>();
-            foreach (var reader in readers)
-            {
-                foreach (var type in reader.GetSegmentTypes())
-                {
-                    segmentTypes.Add(type);
-                }
-            }
+                readers = _allReaders;
+
+            var segmentTypes = new HashSet<JpegSegmentType>(readers.SelectMany(reader => reader.GetSegmentTypes()));
             var segmentData = JpegSegmentReader.ReadSegments(new SequentialStreamReader(inputStream), segmentTypes);
-            ProcessJpegSegmentData(metadata, readers, segmentData);
+            return ProcessJpegSegmentData(readers, segmentData);
         }
 
-        public static void ProcessJpegSegmentData(Metadata metadata, IEnumerable<IJpegSegmentMetadataReader> readers, JpegSegmentData segmentData)
+        public static IReadOnlyList<Directory> ProcessJpegSegmentData(IEnumerable<IJpegSegmentMetadataReader> readers, JpegSegmentData segmentData)
         {
             // Pass the appropriate byte arrays to each reader.
-            foreach (var reader in readers)
-            {
-                foreach (var segmentType in reader.GetSegmentTypes())
-                {
-                    reader.ReadJpegSegments(segmentData.GetSegments(segmentType), metadata, segmentType);
-                }
-            }
+            return (from reader in readers
+                    from segmentType in reader.GetSegmentTypes()
+                    from directory in reader.ReadJpegSegments(segmentData.GetSegments(segmentType), segmentType)
+                    select directory)
+                    .ToList();
         }
     }
 }

@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
@@ -46,11 +47,11 @@ namespace MetadataExtractor.Formats.WebP
     public sealed class WebPRiffHandler : IRiffHandler
     {
         [NotNull]
-        private readonly Metadata _metadata;
+        private readonly List<Directory> _directories;
 
-        public WebPRiffHandler([NotNull] Metadata metadata)
+        public WebPRiffHandler([NotNull] List<Directory> directories)
         {
-            _metadata = metadata;
+            _directories = directories;
         }
 
         public bool ShouldAcceptRiffIdentifier(string identifier)
@@ -73,17 +74,17 @@ namespace MetadataExtractor.Formats.WebP
             {
                 case "EXIF":
                 {
-                    new ExifReader().Extract(new ByteArrayReader(payload), _metadata);
+                    _directories.AddRange(new ExifReader().Extract(new ByteArrayReader(payload)));
                     break;
                 }
                 case "ICCP":
                 {
-                    new IccReader().Extract(new ByteArrayReader(payload), _metadata);
+                    _directories.Add(new IccReader().Extract(new ByteArrayReader(payload)));
                     break;
                 }
                 case "XMP ":
                 {
-                    new XmpReader().Extract(payload, _metadata);
+                    _directories.Add(new XmpReader().Extract(payload));
                     break;
                 }
                 case "VP8X":
@@ -110,7 +111,7 @@ namespace MetadataExtractor.Formats.WebP
                         directory.Set(WebPDirectory.TagImageHeight, heightMinusOne + 1);
                         directory.Set(WebPDirectory.TagHasAlpha, hasAlpha);
                         directory.Set(WebPDirectory.TagIsAnimation, isAnimation);
-                        _metadata.AddDirectory(directory);
+                        _directories.Add(directory);
                     }
                     catch (IOException e)
                     {

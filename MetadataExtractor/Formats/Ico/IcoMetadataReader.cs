@@ -20,6 +20,7 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.FileSystem;
@@ -33,21 +34,22 @@ namespace MetadataExtractor.Formats.Ico
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata ReadMetadata([NotNull] string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
         {
-            Metadata metadata;
-            using (Stream inputStream = new FileStream(filePath, FileMode.Open))
-                metadata = ReadMetadata(inputStream);
-            new FileMetadataReader().Read(filePath, metadata);
-            return metadata;
+            var directories = new List<Directory>();
+
+            using (var stream = new FileStream(filePath, FileMode.Open))
+                directories.AddRange(ReadMetadata(stream));
+
+            directories.Add(new FileMetadataReader().Read(filePath));
+
+            return directories;
         }
 
         [NotNull]
-        public static Metadata ReadMetadata([NotNull] Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
-            var metadata = new Metadata();
-            new IcoReader().Extract(new SequentialStreamReader(stream), metadata);
-            return metadata;
+            return new IcoReader().Extract(new SequentialStreamReader(stream));
         }
     }
 }

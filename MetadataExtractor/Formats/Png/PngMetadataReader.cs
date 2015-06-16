@@ -39,42 +39,49 @@ namespace MetadataExtractor.Formats.Png
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata ReadMetadata([NotNull] string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
         {
-            Metadata metadata;
-            using (Stream stream = new FileStream(filePath, FileMode.Open))
-                metadata = ReadMetadata(stream);
-            new FileMetadataReader().Read(filePath, metadata);
-            return metadata;
+            var directories = new List<Directory>();
+
+            using (var stream = new FileStream(filePath, FileMode.Open))
+                directories.AddRange(ReadMetadata(stream));
+
+            directories.Add(new FileMetadataReader().Read(filePath));
+
+            return directories;
         }
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata ReadMetadata([NotNull] Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
+            var directories = new List<Directory>();
+
             var chunks = new PngChunkReader().Extract(new SequentialStreamReader(stream), _desiredChunkTypes);
-            var metadata = new Metadata();
+
             foreach (var chunk in chunks)
             {
                 try
                 {
-                    ProcessChunk(metadata, chunk);
+                    directories.AddRange(ProcessChunk(chunk));
                 }
                 catch (Exception e)
                 {
-                    Console.Error.WriteLine (e);
+                    Console.Error.WriteLine(e);
                 }
             }
-            return metadata;
+
+            return directories;
         }
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        private static void ProcessChunk([NotNull] Metadata metadata, [NotNull] PngChunk chunk)
+        private static IEnumerable<Directory> ProcessChunk([NotNull] PngChunk chunk)
         {
             var chunkType = chunk.ChunkType;
             var bytes = chunk.Bytes;
+
             if (chunkType.Equals(PngChunkType.Ihdr))
             {
                 var header = new PngHeader(bytes);
@@ -86,26 +93,26 @@ namespace MetadataExtractor.Formats.Png
                 directory.Set(PngDirectory.TagCompressionType, header.CompressionType);
                 directory.Set(PngDirectory.TagFilterMethod, header.FilterMethod);
                 directory.Set(PngDirectory.TagInterlaceMethod, header.InterlaceMethod);
-                metadata.AddDirectory(directory);
+                yield return directory;
             }
             else if (chunkType.Equals(PngChunkType.Plte))
             {
                 var directory = new PngDirectory(PngChunkType.Plte);
                 directory.Set(PngDirectory.TagPaletteSize, bytes.Length / 3);
-                metadata.AddDirectory(directory);
+                yield return directory;
             }
             else if (chunkType.Equals(PngChunkType.TRns))
             {
                 var directory = new PngDirectory(PngChunkType.TRns);
                 directory.Set(PngDirectory.TagPaletteHasTransparency, 1);
-                metadata.AddDirectory(directory);
+                yield return directory;
             }
             else if (chunkType.Equals(PngChunkType.SRgb))
             {
                 int srgbRenderingIntent = new SequentialByteArrayReader(bytes).GetInt8();
                 var directory = new PngDirectory(PngChunkType.SRgb);
                 directory.Set(PngDirectory.TagSrgbRenderingIntent, srgbRenderingIntent);
-                metadata.AddDirectory(directory);
+                yield return directory;
             }
             else if (chunkType.Equals(PngChunkType.CHrm))
             {
@@ -119,14 +126,14 @@ namespace MetadataExtractor.Formats.Png
                 directory.Set(PngChromaticitiesDirectory.TagGreenY, chromaticities.GreenY);
                 directory.Set(PngChromaticitiesDirectory.TagBlueX, chromaticities.BlueX);
                 directory.Set(PngChromaticitiesDirectory.TagBlueY, chromaticities.BlueY);
-                metadata.AddDirectory(directory);
+                yield return directory;
             }
             else if (chunkType.Equals(PngChunkType.GAma))
             {
                 var gammaInt = new SequentialByteArrayReader(bytes).GetInt32();
                 var directory = new PngDirectory(PngChunkType.GAma);
                 directory.Set(PngDirectory.TagGamma, gammaInt / 100000.0);
-                metadata.AddDirectory(directory);
+                yield return directory;
             }
             else if (chunkType.Equals(PngChunkType.ICcp))
             {
@@ -142,15 +149,15 @@ namespace MetadataExtractor.Formats.Png
                     var bytesLeft = bytes.Length - profileName.Length - 2;
                     var compressedProfile = reader.GetBytes(bytesLeft);
                     using (var inflaterStream = new DeflateStream(new MemoryStream(compressedProfile), CompressionMode.Decompress))
-                        new IccReader().Extract(new IndexedCapturingReader(inflaterStream), metadata);
+                        yield return new IccReader().Extract(new IndexedCapturingReader(inflaterStream));
                 }
-                metadata.AddDirectory(directory);
+                yield return directory;
             }
             else if (chunkType.Equals(PngChunkType.BKgd))
             {
                 var directory = new PngDirectory(PngChunkType.BKgd);
                 directory.Set(PngDirectory.TagBackgroundColor, bytes);
-                metadata.AddDirectory(directory);
+                yield return directory;
             }
             else if (chunkType.Equals(PngChunkType.TEXt))
             {
@@ -162,7 +169,7 @@ namespace MetadataExtractor.Formats.Png
                 textPairs.Add(new KeyValuePair(keyword, value));
                 var directory = new PngDirectory(PngChunkType.ITXt);
                 directory.Set(PngDirectory.TagTextualData, textPairs);
-                metadata.AddDirectory(directory);
+                yield return directory;
             }
             else if (chunkType.Equals(PngChunkType.ITXt))
             {
@@ -189,14 +196,14 @@ namespace MetadataExtractor.Formats.Png
                     {
                         var directory = new PngDirectory(PngChunkType.ITXt);
                         directory.AddError("Invalid compression method value");
-                        metadata.AddDirectory(directory);
+                        yield return directory;
                     }
                 }
                 else
                 {
                     var directory = new PngDirectory(PngChunkType.ITXt);
                     directory.AddError("Invalid compression flag value");
-                    metadata.AddDirectory(directory);
+                    yield return directory;
                 }
 
                 if (text != null)
@@ -204,7 +211,7 @@ namespace MetadataExtractor.Formats.Png
                     if (keyword.Equals("XML:com.adobe.xmp"))
                     {
                         // NOTE in testing images, the XMP has parsed successfully, but we are not extracting tags from it as necessary
-                        new XmpReader().Extract(text, metadata);
+                        yield return new XmpReader().Extract(text);
                     }
                     else
                     {
@@ -212,7 +219,7 @@ namespace MetadataExtractor.Formats.Png
                         textPairs.Add(new KeyValuePair(keyword, text));
                         var directory = new PngDirectory(PngChunkType.ITXt);
                         directory.Set(PngDirectory.TagTextualData, textPairs);
-                        metadata.AddDirectory(directory);
+                        yield return directory;
                     }
                 }
             }
@@ -226,11 +233,10 @@ namespace MetadataExtractor.Formats.Png
                 int minute = reader.GetUInt8();
                 int second = reader.GetUInt8();
                 var calendar = Calendar.GetInstance(Extensions.GetTimeZone("UTC"));
-                //noinspection MagicConstant
                 calendar.Set(year, month, day, hour, minute, second);
                 var directory = new PngDirectory(PngChunkType.TIme);
                 directory.Set(PngDirectory.TagLastModificationTime, calendar.GetTime());
-                metadata.AddDirectory(directory);
+                yield return directory;
             }
             else if (chunkType.Equals(PngChunkType.PHYs))
             {
@@ -242,13 +248,13 @@ namespace MetadataExtractor.Formats.Png
                 directory.Set(PngDirectory.TagPixelsPerUnitX, pixelsPerUnitX);
                 directory.Set(PngDirectory.TagPixelsPerUnitY, pixelsPerUnitY);
                 directory.Set(PngDirectory.TagUnitSpecifier, unitSpecifier);
-                metadata.AddDirectory(directory);
+                yield return directory;
             }
             else if (chunkType.Equals(PngChunkType.SBit))
             {
                 var directory = new PngDirectory(PngChunkType.SBit);
                 directory.Set(PngDirectory.TagSignificantBits, bytes);
-                metadata.AddDirectory(directory);
+                yield return directory;
             }
         }
     }

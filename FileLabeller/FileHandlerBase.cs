@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using MetadataExtractor;
+using System.Linq;
+using Directory = MetadataExtractor.Directory;
 
 namespace FileLabeller
 {
@@ -40,13 +41,13 @@ namespace FileLabeller
             log.Write("\t[{0}] {1}\n", exception.GetType().Name, filePath);
         }
 
-        public virtual void OnExtractionSuccess(string filePath, Metadata metadata, string relativePath, TextWriter log)
+        public virtual void OnExtractionSuccess(string filePath, IReadOnlyList<Directory> directories, string relativePath, TextWriter log)
         {
-            if (!metadata.HasErrors())
+            if (!directories.Any(d => d.HasErrors))
                 return;
 
             log.WriteLine(filePath);
-            foreach (var directory in metadata.GetDirectories())
+            foreach (var directory in directories)
             {
                 if (!directory.HasErrors)
                     continue;

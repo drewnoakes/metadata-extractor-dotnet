@@ -57,7 +57,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Test]
         public void TestWindowsXpFields()
         {
-            var directory = ExifReaderTest.ProcessBytes<ExifIfd0Directory>("Tests/Data/windowsXpFields.jpg.app1");
+            var directory = ExifReaderTest.ProcessSegmentBytes<ExifIfd0Directory>("Tests/Data/windowsXpFields.jpg.app1");
             Assert.AreEqual("Testing artist\x0", directory.GetString(ExifDirectoryBase.TagWinAuthor, Encoding.Unicode));
             Assert.AreEqual("Testing comments\x0", directory.GetString(ExifDirectoryBase.TagWinComment, Encoding.Unicode));
             Assert.AreEqual("Testing keywords\x0", directory.GetString(ExifDirectoryBase.TagWinKeywords, Encoding.Unicode));

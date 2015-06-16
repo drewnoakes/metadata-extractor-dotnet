@@ -31,18 +31,12 @@ namespace MetadataExtractor.Tests.Formats.Gif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class GifReaderTest
     {
-
         [NotNull]
         public static GifHeaderDirectory ProcessBytes([NotNull] string file)
         {
-            var metadata = new Metadata();
-            using (Stream stream = new FileStream(file, FileMode.Open))
-                new GifReader().Extract(new SequentialStreamReader(stream), metadata);
-            var directory = metadata.GetFirstDirectoryOfType<GifHeaderDirectory>();
-            Assert.IsNotNull(directory);
-            return directory;
+            using (var stream = new FileStream(file, FileMode.Open))
+                return new GifReader().Extract(new SequentialStreamReader(stream));
         }
-
 
         [Test]
         public void TestMsPaintGif()
@@ -58,7 +52,6 @@ namespace MetadataExtractor.Tests.Formats.Gif
             Assert.IsTrue(directory.GetBoolean(GifHeaderDirectory.TagHasGlobalColorTable));
             Assert.AreEqual(0, directory.GetInt32(GifHeaderDirectory.TagTransparentColorIndex));
         }
-
 
         [Test]
         public void TestPhotoshopGif()

@@ -21,14 +21,14 @@
  */
 
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
-    /// <summary>
-    /// Decodes the comment stored within JPEG files, populating a <see cref="Metadata"/> object with tag values in a
-    /// <see cref="JpegCommentDirectory"/>.
-    /// </summary>
+    /// <summary>Reads JPEG comments.</summary>
+    /// <remarks>JPEG files can store zero or more comments in COM segments.</remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegCommentReader : IJpegSegmentMetadataReader
     {
@@ -37,15 +37,15 @@ namespace MetadataExtractor.Formats.Jpeg
             yield return JpegSegmentType.Com;
         }
 
-        public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
+        /// <summary>Reads JPEG comments, returning each in a <see cref="JpegCommentDirectory"/>.</summary>
+        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
         {
-            foreach (var segmentBytes in segments)
-            {
-                var directory = new JpegCommentDirectory();
-                metadata.AddDirectory(directory);
-                // The entire contents of the directory are the comment
-                directory.Set(JpegCommentDirectory.TagComment, Encoding.UTF8.GetString(segmentBytes));
-            }
+            Debug.Assert(segmentType == JpegSegmentType.Com);
+
+            // TODO store bytes in the directory to allow different encodings when decoding
+
+            // The entire contents of the segment are the comment
+            return segments.Select(segment => new JpegCommentDirectory(Encoding.UTF8.GetString(segment))).ToList();
         }
     }
 }

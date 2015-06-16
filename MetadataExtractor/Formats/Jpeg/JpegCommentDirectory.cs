@@ -44,9 +44,10 @@ namespace MetadataExtractor.Formats.Jpeg
             TagNameMap[TagComment] = "JPEG Comment";
         }
 
-        public JpegCommentDirectory()
+        public JpegCommentDirectory(string comment)
         {
             SetDescriptor(new JpegCommentDescriptor(this));
+            Set(TagComment, comment);
         }
 
         public override string Name

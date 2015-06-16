@@ -33,7 +33,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [SetUp]
         public void SetUp()
         {
-            _panasonicDirectory = ExifReaderTest.ProcessBytes<PanasonicMakernoteDirectory>("Tests/Data/withPanasonicFaces.jpg.app1");
+            _panasonicDirectory = ExifReaderTest.ProcessSegmentBytes<PanasonicMakernoteDirectory>("Tests/Data/withPanasonicFaces.jpg.app1");
         }
 
         [Test]

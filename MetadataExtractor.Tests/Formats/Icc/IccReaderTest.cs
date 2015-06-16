@@ -22,6 +22,8 @@
 
 using System.IO;
 using MetadataExtractor.Formats.Icc;
+using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.Formats.Photoshop;
 using MetadataExtractor.IO;
 using NUnit.Framework;
 
@@ -29,21 +31,24 @@ namespace MetadataExtractor.Tests.Formats.Icc
 {
     public sealed class IccReaderTest
     {
-
         [Test]
         public void TestExtract()
         {
             var app2Bytes = File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2");
             // ICC data starts after a 14-byte preamble
             var icc = TestHelper.SkipBytes(app2Bytes, 14);
-            var metadata = new Metadata();
-            new IccReader().Extract(new ByteArrayReader(icc), metadata);
-            var directory = metadata.GetFirstDirectoryOfType<IccDirectory>();
+            var directory = new IccReader().Extract(new ByteArrayReader(icc));
             Assert.IsNotNull(directory);
+            // TODO validate expected values
         }
-        // TODO validate expected values
-        //        for (Tag tag : directory.getTags()) {
-        //            System.out.println(tag);
-        //        }
+
+        [Test]
+        public void TestReadJpegSegments()
+        {
+            var app2Bytes = File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2");
+            var directory = new IccReader().ReadJpegSegments(new[] { app2Bytes }, JpegSegmentType.App2);
+            Assert.IsNotNull(directory);
+            // TODO validate expected values
+        }
     }
 }

@@ -11,13 +11,8 @@ namespace MetadataExtractor.Formats.Jpeg
         IEnumerable<JpegSegmentType> GetSegmentTypes();
 
         /// <summary>Extracts metadata from all instances of a particular JPEG segment type.</summary>
-        /// <param name="segments">
-        /// A sequence of byte arrays from which the metadata should be extracted. These are in the order
-        /// encountered in the original file.
-        /// </param>
-        /// <param name="metadata">The <see cref="Metadata"/> object into which extracted values should be merged.</param>
-        /// <param name="segmentType">The <see cref="JpegSegmentType"/> being read.
-        /// </param>
-        void ReadJpegSegments([NotNull] IEnumerable<byte[]> segments, [NotNull] Metadata metadata, JpegSegmentType segmentType);
+        /// <param name="segments">A sequence of byte arrays from which the metadata should be extracted. These are in the order encountered in the original file.</param>
+        /// <param name="segmentType">The <see cref="JpegSegmentType"/> being read.</param>
+        IReadOnlyList<Directory> ReadJpegSegments([NotNull] IEnumerable<byte[]> segments, JpegSegmentType segmentType);
     }
 }

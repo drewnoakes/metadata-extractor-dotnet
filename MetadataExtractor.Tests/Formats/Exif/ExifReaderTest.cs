@@ -23,10 +23,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Jpeg;
-using MetadataExtractor.IO;
 using NUnit.Framework;
 
 namespace MetadataExtractor.Tests.Formats.Exif
@@ -35,34 +35,25 @@ namespace MetadataExtractor.Tests.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifReaderTest
     {
-        /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static Metadata ProcessBytes([NotNull] string filePath)
+        public static IReadOnlyList<Directory> ProcessSegmentBytes([NotNull] string filePath)
         {
-            var metadata = new Metadata();
-            var bytes = File.ReadAllBytes(filePath);
-            new ExifReader().Extract(new ByteArrayReader(bytes), metadata, ExifReader.JpegSegmentPreamble.Length);
-            return metadata;
+            return new ExifReader().ReadJpegSegments(new[] { File.ReadAllBytes(filePath) }, JpegSegmentType.App1);
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static T ProcessBytes<T>([NotNull] string filePath)
-            where T : Directory
+        public static T ProcessSegmentBytes<T>([NotNull] string filePath) where T : Directory
         {
-            var directory = ProcessBytes(filePath).GetFirstDirectoryOfType<T>();
-            Assert.IsNotNull(directory);
-            return directory;
+            return ProcessSegmentBytes(filePath).OfType<T>().First();
         }
-
 
         [Test]
-        public void TestExtractWithNullDataThrows()
+        public void TestReadJpegSegmentsWithNullDataThrows()
         {
             try
             {
                 // ReSharper disable once AssignNullToNotNullAttribute
-                new ExifReader().ReadJpegSegments(null, new Metadata(), JpegSegmentType.App1);
+                new ExifReader().ReadJpegSegments(null, JpegSegmentType.App1);
                 Assert.Fail("Exception expected");
             }
             catch (NullReferenceException)
@@ -70,31 +61,21 @@ namespace MetadataExtractor.Tests.Formats.Exif
             }
         }
 
-        // passed
-
         [Test]
         public void TestLoadFujifilmJpeg()
         {
-            var directory = ProcessBytes<ExifSubIfdDirectory>("Tests/Data/withExif.jpg.app1");
-            var description = directory.GetDescription(ExifDirectoryBase.TagIsoEquivalent);
-            Assert.IsNotNull(description);
-            Assert.AreEqual("80", description);
-        }
+            var directory = ProcessSegmentBytes<ExifSubIfdDirectory>("Tests/Data/withExif.jpg.app1");
 
-        // TODO decide if this should still be returned -- it was being calculated upon setting of a related tag
-        //      assertEquals("F9", directory.getDescription(ExifSubIFDDirectory.TAG_APERTURE));
+            Assert.AreEqual("80", directory.GetDescription(ExifDirectoryBase.TagIsoEquivalent));
+        }
 
         [Test]
         public void TestReadJpegSegmentWithNoExifData()
         {
             var badExifData = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            var metadata = new Metadata();
-            var segments = new [] { badExifData };
-            new ExifReader().ReadJpegSegments(segments, metadata, JpegSegmentType.App1);
-            Assert.AreEqual(0, metadata.GetDirectoryCount());
-            Assert.IsFalse(metadata.HasErrors());
+            var directories = new ExifReader().ReadJpegSegments(new [] { badExifData }, JpegSegmentType.App1);
+            Assert.AreEqual(0, directories.Count());
         }
-
 
         [Test]
         public void TestCrashRegressionTest()
@@ -102,75 +83,67 @@ namespace MetadataExtractor.Tests.Formats.Exif
             // This image was created via a resize in ACDSee.
             // It seems to have a reference to an IFD starting outside the data segment.
             // I've noticed that ACDSee reports a Comment for this image, yet ExifReader doesn't report one.
-            var directory = ProcessBytes<ExifSubIfdDirectory>("Tests/Data/crash01.jpg.app1");
+            var directory = ProcessSegmentBytes<ExifSubIfdDirectory>("Tests/Data/crash01.jpg.app1");
             Assert.IsTrue(directory.TagCount > 0);
         }
-
 
         [Test]
         public void TestDateTime()
         {
-            var directory = ProcessBytes<ExifIfd0Directory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
+            var directory = ProcessSegmentBytes<ExifIfd0Directory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             Assert.AreEqual("2002:11:27 18:00:35", directory.GetString(ExifDirectoryBase.TagDatetime));
         }
-
 
         [Test]
         public void TestThumbnailXResolution()
         {
-            var directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
+            var directory = ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             var rational = directory.GetRational(ExifDirectoryBase.TagXResolution);
             Assert.IsNotNull(rational);
             Assert.AreEqual(72, rational.Numerator);
             Assert.AreEqual(1, rational.Denominator);
         }
 
-
         [Test]
         public void TestThumbnailYResolution()
         {
-            var directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
+            var directory = ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             var rational = directory.GetRational(ExifDirectoryBase.TagYResolution);
             Assert.IsNotNull(rational);
             Assert.AreEqual(72, rational.Numerator);
             Assert.AreEqual(1, rational.Denominator);
         }
 
-
         [Test]
         public void TestThumbnailOffset()
         {
-            var directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
+            var directory = ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             Assert.AreEqual(192, directory.GetInt32(ExifThumbnailDirectory.TagThumbnailOffset));
         }
-
 
         [Test]
         public void TestThumbnailLength()
         {
-            var directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
+            var directory = ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             Assert.AreEqual(2970, directory.GetInt32(ExifThumbnailDirectory.TagThumbnailLength));
         }
-
 
         [Test]
         public void TestThumbnailData()
         {
-            var directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
+            var directory = ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             var thumbnailData = directory.GetThumbnailData();
             Assert.IsNotNull(thumbnailData);
             Assert.AreEqual(2970, thumbnailData.Length);
         }
 
-
         [Test]
         public void TestThumbnailCompression()
         {
-            var directory = ProcessBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
+            var directory = ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             // 6 means JPEG compression
             Assert.AreEqual(6, directory.GetInt32(ExifThumbnailDirectory.TagThumbnailCompression));
         }
-
 
         [Test]
         public void TestStackOverflowOnRevisitationOfSameDirectory()
@@ -178,11 +151,11 @@ namespace MetadataExtractor.Tests.Formats.Exif
             // An error has been discovered in Exif data segments where a directory is referenced
             // repeatedly.  Thanks to Alistair Dickie for providing the sample data used in this
             // unit test.
-            var metadata = ProcessBytes("Tests/Data/recursiveDirectories.jpg.app1");
-            // Mostly we're just happy at this point that we didn't get stuck in an infinite loop.
-            Assert.AreEqual(5, metadata.GetDirectoryCount());
-        }
+            var directories = ProcessSegmentBytes("Tests/Data/recursiveDirectories.jpg.app1");
 
+            // Mostly we're just happy at this point that we didn't get stuck in an infinite loop.
+            Assert.AreEqual(5, directories.Count());
+        }
 
         [Test]
         public void TestDifferenceImageAndThumbnailOrientations()
@@ -190,48 +163,49 @@ namespace MetadataExtractor.Tests.Formats.Exif
             // This metadata contains different orientations for the thumbnail and the main image.
             // These values used to be merged into a single directory, causing errors.
             // This unit test demonstrates correct behaviour.
-            var metadata = ProcessBytes("Tests/Data/repeatedOrientationTagWithDifferentValues.jpg.app1");
-            var ifd0Directory = metadata.GetFirstDirectoryOfType<ExifIfd0Directory>();
-            var thumbnailDirectory = metadata.GetFirstDirectoryOfType<ExifThumbnailDirectory>();
+            var directories = ProcessSegmentBytes("Tests/Data/repeatedOrientationTagWithDifferentValues.jpg.app1").ToList();
+
+            var ifd0Directory = directories.OfType<ExifIfd0Directory>().First();
+            var thumbnailDirectory = directories.OfType<ExifThumbnailDirectory>().First();
             Assert.IsNotNull(ifd0Directory);
             Assert.IsNotNull(thumbnailDirectory);
             Assert.AreEqual(1, ifd0Directory.GetInt32(ExifDirectoryBase.TagOrientation));
             Assert.AreEqual(8, thumbnailDirectory.GetInt32(ExifDirectoryBase.TagOrientation));
         }
 /*
-    public void testUncompressedYCbCrThumbnail() throws Exception
-    {
-        String fileName = "withUncompressedYCbCrThumbnail.jpg";
-        String thumbnailFileName = "withUncompressedYCbCrThumbnail.bmp";
-        Metadata metadata = new ExifReader(new File(fileName)).extract();
-        ExifSubIFDDirectory directory = (ExifSubIFDDirectory)metadata.getOrCreateDirectory(ExifSubIFDDirectory.class);
-        directory.writeThumbnail(thumbnailFileName);
+        public void testUncompressedYCbCrThumbnail() throws Exception
+        {
+            String fileName = "withUncompressedYCbCrThumbnail.jpg";
+            String thumbnailFileName = "withUncompressedYCbCrThumbnail.bmp";
+            Metadata metadata = new ExifReader(new File(fileName)).extract();
+            ExifSubIFDDirectory directory = (ExifSubIFDDirectory)metadata.getOrCreateDirectory(ExifSubIFDDirectory.class);
+            directory.writeThumbnail(thumbnailFileName);
 
-        fileName = "withUncompressedYCbCrThumbnail2.jpg";
-        thumbnailFileName = "withUncompressedYCbCrThumbnail2.bmp";
-        metadata = new ExifReader(new File(fileName)).extract();
-        directory = (ExifSubIFDDirectory)metadata.getOrCreateDirectory(ExifSubIFDDirectory.class);
-        directory.writeThumbnail(thumbnailFileName);
-        fileName = "withUncompressedYCbCrThumbnail3.jpg";
-        thumbnailFileName = "withUncompressedYCbCrThumbnail3.bmp";
-        metadata = new ExifReader(new File(fileName)).extract();
-        directory = (ExifSubIFDDirectory)metadata.getOrCreateDirectory(ExifSubIFDDirectory.class);
-        directory.writeThumbnail(thumbnailFileName);
-        fileName = "withUncompressedYCbCrThumbnail4.jpg";
-        thumbnailFileName = "withUncompressedYCbCrThumbnail4.bmp";
-        metadata = new ExifReader(new File(fileName)).extract();
-        directory = (ExifSubIFDDirectory)metadata.getOrCreateDirectory(ExifSubIFDDirectory.class);
-        directory.writeThumbnail(thumbnailFileName);
-    }
+            fileName = "withUncompressedYCbCrThumbnail2.jpg";
+            thumbnailFileName = "withUncompressedYCbCrThumbnail2.bmp";
+            metadata = new ExifReader(new File(fileName)).extract();
+            directory = (ExifSubIFDDirectory)metadata.getOrCreateDirectory(ExifSubIFDDirectory.class);
+            directory.writeThumbnail(thumbnailFileName);
+            fileName = "withUncompressedYCbCrThumbnail3.jpg";
+            thumbnailFileName = "withUncompressedYCbCrThumbnail3.bmp";
+            metadata = new ExifReader(new File(fileName)).extract();
+            directory = (ExifSubIFDDirectory)metadata.getOrCreateDirectory(ExifSubIFDDirectory.class);
+            directory.writeThumbnail(thumbnailFileName);
+            fileName = "withUncompressedYCbCrThumbnail4.jpg";
+            thumbnailFileName = "withUncompressedYCbCrThumbnail4.bmp";
+            metadata = new ExifReader(new File(fileName)).extract();
+            directory = (ExifSubIFDDirectory)metadata.getOrCreateDirectory(ExifSubIFDDirectory.class);
+            directory.writeThumbnail(thumbnailFileName);
+        }
 
-    public void testUncompressedRGBThumbnail() throws Exception
-    {
-        String fileName = "withUncompressedRGBThumbnail.jpg";
-        String thumbnailFileName = "withUncompressedRGBThumbnail.bmp";
-        Metadata metadata = new ExifReader(new File(fileName)).extract();
-        ExifSubIFDDirectory directory = (ExifSubIFDDirectory)metadata.getOrCreateDirectory(ExifSubIFDDirectory.class);
-        directory.writeThumbnail(thumbnailFileName);
-    }
+        public void testUncompressedRGBThumbnail() throws Exception
+        {
+            String fileName = "withUncompressedRGBThumbnail.jpg";
+            String thumbnailFileName = "withUncompressedRGBThumbnail.bmp";
+            Metadata metadata = new ExifReader(new File(fileName)).extract();
+            ExifSubIFDDirectory directory = (ExifSubIFDDirectory)metadata.getOrCreateDirectory(ExifSubIFDDirectory.class);
+            directory.writeThumbnail(thumbnailFileName);
+        }
 */
     }
 }

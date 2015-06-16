@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
@@ -51,24 +52,21 @@ namespace MetadataExtractor.Formats.Photoshop
             yield return JpegSegmentType.AppD;
         }
 
-        public void ReadJpegSegments(IEnumerable<byte[]> segments, Metadata metadata, JpegSegmentType segmentType)
+        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
         {
             var preambleLength = JpegSegmentPreamble.Length;
-            foreach (var segmentBytes in segments)
-            {
-                // Ensure data starts with the necessary preamble
-                if (segmentBytes.Length < preambleLength + 1 || !JpegSegmentPreamble.Equals(Encoding.UTF8.GetString(segmentBytes, 0, preambleLength)))
-                {
-                    continue;
-                }
-                Extract(new SequentialByteArrayReader(segmentBytes, preambleLength + 1), segmentBytes.Length - preambleLength - 1, metadata);
-            }
+            return segments
+                .Where(segment => segment.Length >= preambleLength + 1 && JpegSegmentPreamble.Equals(Encoding.UTF8.GetString(segment, 0, preambleLength)))
+                .SelectMany(segment => Extract(new SequentialByteArrayReader(segment, preambleLength + 1), segment.Length - preambleLength - 1))
+                .ToList();
         }
 
-        public void Extract([NotNull] SequentialReader reader, int length, [NotNull] Metadata metadata)
+        public IReadOnlyList<Directory> Extract([NotNull] SequentialReader reader, int length)
         {
             var directory = new PhotoshopDirectory();
-            metadata.AddDirectory(directory);
+
+            var directories = new List<Directory> { directory };
+
             // Data contains a sequence of Image Resource Blocks (IRBs):
             //
             // 4 bytes - Signature "8BIM"
@@ -85,84 +83,80 @@ namespace MetadataExtractor.Formats.Photoshop
                 {
                     // 4 bytes for the signature.  Should always be "8BIM".
                     var signature = reader.GetString(4);
-                    if (!signature.Equals("8BIM"))
-                    {
-                        throw new ImageProcessingException("Expecting 8BIM marker");
-                    }
                     pos += 4;
+
+                    if (!signature.Equals("8BIM"))
+                        throw new ImageProcessingException("Expecting 8BIM marker");
+
                     // 2 bytes for the resource identifier (tag type).
                     var tagType = reader.GetUInt16();
-                    // segment type
                     pos += 2;
+
                     // A variable number of bytes holding a pascal string (two leading bytes for length).
                     var descriptionLength = reader.GetUInt8();
                     pos += 1;
+
                     // Some basic bounds checking
-                    if (descriptionLength < 0 || descriptionLength + pos > length)
-                    {
+                    if (descriptionLength + pos > length)
                         throw new ImageProcessingException("Invalid string length");
-                    }
+
                     // We don't use the string value here
                     reader.Skip(descriptionLength);
                     pos += descriptionLength;
+
                     // The number of bytes is padded with a trailing zero, if needed, to make the size even.
                     if (pos % 2 != 0)
                     {
                         reader.Skip(1);
                         pos++;
                     }
+
                     // 4 bytes for the size of the resource data that follows.
                     var byteCount = reader.GetInt32();
                     pos += 4;
+
                     // The resource data.
                     var tagBytes = reader.GetBytes(byteCount);
                     pos += byteCount;
+
                     // The number of bytes is padded with a trailing zero, if needed, to make the size even.
                     if (pos % 2 != 0)
                     {
                         reader.Skip(1);
                         pos++;
                     }
-                    if (tagType == PhotoshopDirectory.TagIptc)
+
+                    switch (tagType)
                     {
-                        new IptcReader().Extract(new SequentialByteArrayReader(tagBytes), metadata, tagBytes.Length);
+                        case PhotoshopDirectory.TagIptc:
+                            directories.Add(new IptcReader().Extract(new SequentialByteArrayReader(tagBytes), tagBytes.Length));
+                            break;
+                        case PhotoshopDirectory.TagIccProfileBytes:
+                            directories.Add(new IccReader().Extract(new ByteArrayReader(tagBytes)));
+                            break;
+                        case PhotoshopDirectory.TagExifData1:
+                        case PhotoshopDirectory.TagExifData3:
+                            directories.AddRange(new ExifReader().Extract(new ByteArrayReader(tagBytes)));
+                            break;
+                        case PhotoshopDirectory.TagXmpData:
+                            directories.Add(new XmpReader().Extract(tagBytes));
+                            break;
+                        default:
+                            directory.Set(tagType, tagBytes);
+                            break;
                     }
-                    else
-                    {
-                        if (tagType == PhotoshopDirectory.TagIccProfileBytes)
-                        {
-                            new IccReader().Extract(new ByteArrayReader(tagBytes), metadata);
-                        }
-                        else
-                        {
-                            if (tagType == PhotoshopDirectory.TagExifData1 || tagType == PhotoshopDirectory.TagExifData3)
-                            {
-                                new ExifReader().Extract(new ByteArrayReader(tagBytes), metadata);
-                            }
-                            else
-                            {
-                                if (tagType == PhotoshopDirectory.TagXmpData)
-                                {
-                                    new XmpReader().Extract(tagBytes, metadata);
-                                }
-                                else
-                                {
-                                    directory.Set(tagType, tagBytes);
-                                }
-                            }
-                        }
-                    }
+
                     if (tagType >= 0x0fa0 && tagType <= 0x1387)
-                    {
                         PhotoshopDirectory.TagNameMap[tagType] = string.Format("Plug-in {0} Data", tagType - 0x0fa0 + 1);
-                    }
                 }
                 catch (Exception ex)
                 {
                     directory.AddError(ex.Message);
-                    return;
+                    break;
                 }
             }
+
+            return directories;
         }
     }
 }
