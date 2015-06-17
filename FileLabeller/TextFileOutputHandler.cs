@@ -62,7 +62,7 @@ namespace FileLabeller
                             {
                                 var tagName = tag.TagName;
                                 var description = tag.Description;
-                                writer.Write("[{0} - {1:X4}] {2} = {3}\n",
+                                writer.Write("[{0} - 0x{1:x4}] {2} = {3}\n",
                                     directoryName, tag.TagType, tagName, description);
                             }
 

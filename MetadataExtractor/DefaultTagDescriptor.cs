@@ -44,7 +44,7 @@ namespace MetadataExtractor
         [NotNull]
         public virtual string GetTagName(int tagType)
         {
-            return string.Format("Unknown tag 0x{0:X4}", tagType);
+            return string.Format("Unknown tag 0x{0:x4}", tagType);
         }
     }
 }

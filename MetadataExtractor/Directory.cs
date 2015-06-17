@@ -169,7 +169,7 @@ namespace MetadataExtractor
             string value;
             return nameMap.TryGetValue(tagType, out value)
                 ? value
-                : string.Format("Unknown tag (0x{0:X4})", tagType);
+                : string.Format("Unknown tag (0x{0:x4})", tagType);
         }
 
         /// <summary>Gets whether the specified tag is known by the directory and has a name.</summary>
