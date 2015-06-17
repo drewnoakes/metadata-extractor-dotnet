@@ -172,7 +172,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.AreEqual(1200, _exifSubIfdDirectory.GetInt32(ExifDirectoryBase.TagExifImageHeight));
             Assert.AreEqual(3, _exifSubIfdDirectory.GetInt32(ExifDirectoryBase.TagFileSource));
             Assert.AreEqual(1, _exifSubIfdDirectory.GetInt32(ExifDirectoryBase.TagSceneType));
-            Assert.AreEqual(6, _thumbDirectory.GetInt32(ExifThumbnailDirectory.TagThumbnailCompression));
+            Assert.AreEqual(6, _thumbDirectory.GetInt32(ExifDirectoryBase.TagCompression));
             Assert.AreEqual(2036, _thumbDirectory.GetInt32(ExifThumbnailDirectory.TagThumbnailOffset));
             Assert.AreEqual(4662, _thumbDirectory.GetInt32(ExifThumbnailDirectory.TagThumbnailLength));
         }

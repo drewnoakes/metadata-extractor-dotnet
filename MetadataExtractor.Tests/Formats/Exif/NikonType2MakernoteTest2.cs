@@ -187,7 +187,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Test]
         public void TestExifThumbnailDirectory_MatchesKnownValues()
         {
-            Assert.AreEqual(6, _thumbDirectory.GetInt32(ExifThumbnailDirectory.TagThumbnailCompression));
+            Assert.AreEqual(6, _thumbDirectory.GetInt32(ExifDirectoryBase.TagCompression));
             Assert.AreEqual(1494, _thumbDirectory.GetInt32(ExifThumbnailDirectory.TagThumbnailOffset));
             Assert.AreEqual(6077, _thumbDirectory.GetInt32(ExifThumbnailDirectory.TagThumbnailLength));
             Assert.AreEqual(1494, _thumbDirectory.GetInt32(ExifThumbnailDirectory.TagThumbnailOffset));

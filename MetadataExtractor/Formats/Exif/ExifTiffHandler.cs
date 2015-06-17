@@ -130,7 +130,7 @@ namespace MetadataExtractor.Formats.Exif
             {
                 // after the extraction process, if we have the correct tags, we may be able to store thumbnail information
                 var thumbnailDirectory = Directories.OfType<ExifThumbnailDirectory>().FirstOrDefault();
-                if (thumbnailDirectory != null && thumbnailDirectory.ContainsTag(ExifThumbnailDirectory.TagThumbnailCompression))
+                if (thumbnailDirectory != null && thumbnailDirectory.ContainsTag(ExifDirectoryBase.TagCompression))
                 {
                     var offset = thumbnailDirectory.GetInt32Nullable(ExifThumbnailDirectory.TagThumbnailOffset);
                     var length = thumbnailDirectory.GetInt32Nullable(ExifThumbnailDirectory.TagThumbnailLength);
@@ -154,7 +154,7 @@ namespace MetadataExtractor.Formats.Exif
         private bool ProcessMakernote(int makernoteOffset, [NotNull] ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, [NotNull] IndexedReader reader)
         {
             // Determine the camera model and makernote format.
-            Directory ifd0Directory = Directories.OfType<ExifIfd0Directory>().FirstOrDefault();
+            var ifd0Directory = Directories.OfType<ExifIfd0Directory>().FirstOrDefault();
 
             if (ifd0Directory == null)
                 return false;

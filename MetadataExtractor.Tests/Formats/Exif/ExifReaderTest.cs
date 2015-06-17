@@ -142,7 +142,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         {
             var directory = ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             // 6 means JPEG compression
-            Assert.AreEqual(6, directory.GetInt32(ExifThumbnailDirectory.TagThumbnailCompression));
+            Assert.AreEqual(6, directory.GetInt32(ExifDirectoryBase.TagCompression));
         }
 
         [Test]
