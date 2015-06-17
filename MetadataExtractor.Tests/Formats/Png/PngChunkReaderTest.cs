@@ -14,12 +14,12 @@ namespace MetadataExtractor.Tests.Formats.Png
         /// <exception cref="System.IO.IOException"/>
         public static IList<PngChunk> ProcessFile(string filePath)
         {
-            using (Stream stream = new FileStream(filePath, FileMode.Open))
+            using (var stream = new FileStream(filePath, FileMode.Open))
                 return new PngChunkReader().Extract(new SequentialStreamReader(stream), null).ToList();
         }
 
         [Test]
-        public void TestExtractMspaint()
+        public void TestExtractMSPaint()
         {
             var chunks = ProcessFile("Tests/Data/mspaint-8x10.png");
             Assert.AreEqual(6, chunks.Count);
