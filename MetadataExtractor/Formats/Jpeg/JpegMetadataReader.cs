@@ -78,13 +78,13 @@ namespace MetadataExtractor.Formats.Jpeg
 
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        public static IReadOnlyList<Directory> Process([NotNull] Stream inputStream, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
+        public static IReadOnlyList<Directory> Process([NotNull] Stream stream, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
         {
             if (readers == null)
                 readers = _allReaders;
 
             var segmentTypes = new HashSet<JpegSegmentType>(readers.SelectMany(reader => reader.GetSegmentTypes()));
-            var segmentData = JpegSegmentReader.ReadSegments(new SequentialStreamReader(inputStream), segmentTypes);
+            var segmentData = JpegSegmentReader.ReadSegments(new SequentialStreamReader(stream), segmentTypes);
             return ProcessJpegSegmentData(readers, segmentData);
         }
 

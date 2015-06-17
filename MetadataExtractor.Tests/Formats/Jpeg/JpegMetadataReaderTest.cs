@@ -39,7 +39,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         }
 
         [Test]
-        public void TestExtractMetadataUsingInputStream()
+        public void TestExtractMetadataUsingStream()
         {
             Validate(JpegMetadataReader.ReadMetadata(new FileStream("Tests/Data/withExif.jpg", FileMode.Open)));
         }
