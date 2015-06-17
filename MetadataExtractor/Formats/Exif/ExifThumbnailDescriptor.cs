@@ -40,24 +40,13 @@ namespace MetadataExtractor.Formats.Exif
             switch (tagType)
             {
                 case ExifThumbnailDirectory.TagThumbnailOffset:
-                {
                     return GetThumbnailOffsetDescription();
-                }
-
                 case ExifThumbnailDirectory.TagThumbnailLength:
-                {
                     return GetThumbnailLengthDescription();
-                }
-
                 case ExifThumbnailDirectory.TagThumbnailCompression:
-                {
                     return GetCompressionDescription();
-                }
-
                 default:
-                {
                     return base.GetDescription(tagType);
-                }
             }
         }
 
