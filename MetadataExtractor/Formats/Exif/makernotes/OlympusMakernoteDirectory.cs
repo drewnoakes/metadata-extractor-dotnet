@@ -558,7 +558,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 base.Set(tagType, value);
         }
 
-        private void ProcessCameraSettings(byte[] bytes)
+        private void ProcessCameraSettings([NotNull] byte[] bytes)
         {
             var reader = new SequentialByteArrayReader(bytes) { IsMotorolaByteOrder = true };
             var count = bytes.Length / 4;
