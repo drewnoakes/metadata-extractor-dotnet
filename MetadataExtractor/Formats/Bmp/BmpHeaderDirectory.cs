@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Bmp
 {
@@ -7,41 +6,29 @@ namespace MetadataExtractor.Formats.Bmp
     public class BmpHeaderDirectory : Directory
     {
         public const int TagHeaderSize = -1;
-
         public const int TagImageHeight = 1;
-
         public const int TagImageWidth = 2;
-
         public const int TagColourPlanes = 3;
-
         public const int TagBitsPerPixel = 4;
-
         public const int TagCompression = 5;
-
         public const int TagXPixelsPerMeter = 6;
-
         public const int TagYPixelsPerMeter = 7;
-
         public const int TagPaletteColourCount = 8;
-
         public const int TagImportantColourCount = 9;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
-
-        static BmpHeaderDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            TagNameMap[TagHeaderSize] = "Header Size";
-            TagNameMap[TagImageHeight] = "Image Height";
-            TagNameMap[TagImageWidth] = "Image Width";
-            TagNameMap[TagColourPlanes] = "Planes";
-            TagNameMap[TagBitsPerPixel] = "Bits Per Pixel";
-            TagNameMap[TagCompression] = "Compression";
-            TagNameMap[TagXPixelsPerMeter] = "X Pixels per Meter";
-            TagNameMap[TagYPixelsPerMeter] = "Y Pixels per Meter";
-            TagNameMap[TagPaletteColourCount] = "Palette Colour Count";
-            TagNameMap[TagImportantColourCount] = "Important Colour Count";
-        }
+            { TagHeaderSize, "Header Size" },
+            { TagImageHeight, "Image Height" },
+            { TagImageWidth, "Image Width" },
+            { TagColourPlanes, "Planes" },
+            { TagBitsPerPixel, "Bits Per Pixel" },
+            { TagCompression, "Compression" },
+            { TagXPixelsPerMeter, "X Pixels per Meter" },
+            { TagYPixelsPerMeter, "Y Pixels per Meter" },
+            { TagPaletteColourCount, "Palette Colour Count" },
+            { TagImportantColourCount, "Important Colour Count" }
+        };
 
         public BmpHeaderDirectory()
         {
@@ -55,7 +42,7 @@ namespace MetadataExtractor.Formats.Bmp
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

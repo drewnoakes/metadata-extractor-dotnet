@@ -108,167 +108,86 @@ namespace MetadataExtractor.Formats.Iptc
         public const int TagObjectPreviewFileFormatVersion = 0x02C9;
         public const int TagObjectPreviewData = 0x02CA;
 
-        [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
-
-        static IptcDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            // IPTC EnvelopeRecord Tags
-            // 0 + 0x0100
-            // 5
-            // 20
-            // 22
-            // 30
-            // 40
-            // 50
-            // 60
-            // 70
-            // 80
-            // 90
-            // 100
-            // 120
-            // 122
-            // IPTC ApplicationRecord Tags
-            // 0 + 0x0200
-            // 3
-            // 4
-            // 5
-            // 7
-            // 8
-            // 10
-            // 12
-            // 15
-            // 20
-            // 22
-            // 25
-            // 26
-            // 27
-            // 30
-            // 35
-            // 37
-            // 38
-            // 40
-            // 42
-            // 45
-            // 47
-            // 50
-            // 55
-            // 60
-            // 62
-            // 63
-            // 65
-            // 70
-            // 75
-            // 80
-            // 85
-            // 90
-            // 92
-            // 95
-            // 100
-            // 101
-            // 103
-            // 105
-            // 110
-            // 115
-            // 116
-            // 118
-            // 120
-            // 121
-            // 122
-            // 125
-            // 130
-            // 131
-            // 135
-            // 150
-            // 151
-            // 152
-            // 153
-            // 154
-            // 184
-            // 185
-            // 186
-            // 187
-            // 188
-            // 200
-            // 201
-            // 202
-            TagNameMap[TagEnvelopeRecordVersion] = "Enveloped Record Version";
-            TagNameMap[TagDestination] = "Destination";
-            TagNameMap[TagFileFormat] = "File Format";
-            TagNameMap[TagFileVersion] = "File Version";
-            TagNameMap[TagServiceId] = "Service Identifier";
-            TagNameMap[TagEnvelopeNumber] = "Envelope Number";
-            TagNameMap[TagProductId] = "Product Identifier";
-            TagNameMap[TagEnvelopePriority] = "Envelope Priority";
-            TagNameMap[TagDateSent] = "Date Sent";
-            TagNameMap[TagTimeSent] = "Time Sent";
-            TagNameMap[TagCodedCharacterSet] = "Coded Character Set";
-            TagNameMap[TagUniqueObjectName] = "Unique Object Name";
-            TagNameMap[TagArmIdentifier] = "ARM Identifier";
-            TagNameMap[TagArmVersion] = "ARM Version";
-            TagNameMap[TagApplicationRecordVersion] = "Application Record Version";
-            TagNameMap[TagObjectTypeReference] = "Object Type Reference";
-            TagNameMap[TagObjectAttributeReference] = "Object Attribute Reference";
-            TagNameMap[TagObjectName] = "Object Name";
-            TagNameMap[TagEditStatus] = "Edit Status";
-            TagNameMap[TagEditorialUpdate] = "Editorial Update";
-            TagNameMap[TagUrgency] = "Urgency";
-            TagNameMap[TagSubjectReference] = "Subject Reference";
-            TagNameMap[TagCategory] = "Category";
-            TagNameMap[TagSupplementalCategories] = "Supplemental Category(s)";
-            TagNameMap[TagFixtureId] = "Fixture Identifier";
-            TagNameMap[TagKeywords] = "Keywords";
-            TagNameMap[TagContentLocationCode] = "Content Location Code";
-            TagNameMap[TagContentLocationName] = "Content Location Name";
-            TagNameMap[TagReleaseDate] = "Release Date";
-            TagNameMap[TagReleaseTime] = "Release Time";
-            TagNameMap[TagExpirationDate] = "Expiration Date";
-            TagNameMap[TagExpirationTime] = "Expiration Time";
-            TagNameMap[TagSpecialInstructions] = "Special Instructions";
-            TagNameMap[TagActionAdvised] = "Action Advised";
-            TagNameMap[TagReferenceService] = "Reference Service";
-            TagNameMap[TagReferenceDate] = "Reference Date";
-            TagNameMap[TagReferenceNumber] = "Reference Number";
-            TagNameMap[TagDateCreated] = "Date Created";
-            TagNameMap[TagTimeCreated] = "Time Created";
-            TagNameMap[TagDigitalDateCreated] = "Digital Date Created";
-            TagNameMap[TagDigitalTimeCreated] = "Digital Time Created";
-            TagNameMap[TagOriginatingProgram] = "Originating Program";
-            TagNameMap[TagProgramVersion] = "Program Version";
-            TagNameMap[TagObjectCycle] = "Object Cycle";
-            TagNameMap[TagByLine] = "By-line";
-            TagNameMap[TagByLineTitle] = "By-line Title";
-            TagNameMap[TagCity] = "City";
-            TagNameMap[TagSubLocation] = "Sub-location";
-            TagNameMap[TagProvinceOrState] = "Province/State";
-            TagNameMap[TagCountryOrPrimaryLocationCode] = "Country/Primary Location Code";
-            TagNameMap[TagCountryOrPrimaryLocationName] = "Country/Primary Location Name";
-            TagNameMap[TagOriginalTransmissionReference] = "Original Transmission Reference";
-            TagNameMap[TagHeadline] = "Headline";
-            TagNameMap[TagCredit] = "Credit";
-            TagNameMap[TagSource] = "Source";
-            TagNameMap[TagCopyrightNotice] = "Copyright Notice";
-            TagNameMap[TagContact] = "Contact";
-            TagNameMap[TagCaption] = "Caption/Abstract";
-            TagNameMap[TagLocalCaption] = "Local Caption";
-            TagNameMap[TagCaptionWriter] = "Caption Writer/Editor";
-            TagNameMap[TagRasterizedCaption] = "Rasterized Caption";
-            TagNameMap[TagImageType] = "Image Type";
-            TagNameMap[TagImageOrientation] = "Image Orientation";
-            TagNameMap[TagLanguageIdentifier] = "Language Identifier";
-            TagNameMap[TagAudioType] = "Audio Type";
-            TagNameMap[TagAudioSamplingRate] = "Audio Sampling Rate";
-            TagNameMap[TagAudioSamplingResolution] = "Audio Sampling Resolution";
-            TagNameMap[TagAudioDuration] = "Audio Duration";
-            TagNameMap[TagAudioOutcue] = "Audio Outcue";
-            TagNameMap[TagJobId] = "Job Identifier";
-            TagNameMap[TagMasterDocumentId] = "Master Document Identifier";
-            TagNameMap[TagShortDocumentId] = "Short Document Identifier";
-            TagNameMap[TagUniqueDocumentId] = "Unique Document Identifier";
-            TagNameMap[TagOwnerId] = "Owner Identifier";
-            TagNameMap[TagObjectPreviewFileFormat] = "Object Data Preview File Format";
-            TagNameMap[TagObjectPreviewFileFormatVersion] = "Object Data Preview File Format Version";
-            TagNameMap[TagObjectPreviewData] = "Object Data Preview Data";
-        }
+            { TagEnvelopeRecordVersion, "Enveloped Record Version" },
+            { TagDestination, "Destination" },
+            { TagFileFormat, "File Format" },
+            { TagFileVersion, "File Version" },
+            { TagServiceId, "Service Identifier" },
+            { TagEnvelopeNumber, "Envelope Number" },
+            { TagProductId, "Product Identifier" },
+            { TagEnvelopePriority, "Envelope Priority" },
+            { TagDateSent, "Date Sent" },
+            { TagTimeSent, "Time Sent" },
+            { TagCodedCharacterSet, "Coded Character Set" },
+            { TagUniqueObjectName, "Unique Object Name" },
+            { TagArmIdentifier, "ARM Identifier" },
+            { TagArmVersion, "ARM Version" },
+            { TagApplicationRecordVersion, "Application Record Version" },
+            { TagObjectTypeReference, "Object Type Reference" },
+            { TagObjectAttributeReference, "Object Attribute Reference" },
+            { TagObjectName, "Object Name" },
+            { TagEditStatus, "Edit Status" },
+            { TagEditorialUpdate, "Editorial Update" },
+            { TagUrgency, "Urgency" },
+            { TagSubjectReference, "Subject Reference" },
+            { TagCategory, "Category" },
+            { TagSupplementalCategories, "Supplemental Category(s)" },
+            { TagFixtureId, "Fixture Identifier" },
+            { TagKeywords, "Keywords" },
+            { TagContentLocationCode, "Content Location Code" },
+            { TagContentLocationName, "Content Location Name" },
+            { TagReleaseDate, "Release Date" },
+            { TagReleaseTime, "Release Time" },
+            { TagExpirationDate, "Expiration Date" },
+            { TagExpirationTime, "Expiration Time" },
+            { TagSpecialInstructions, "Special Instructions" },
+            { TagActionAdvised, "Action Advised" },
+            { TagReferenceService, "Reference Service" },
+            { TagReferenceDate, "Reference Date" },
+            { TagReferenceNumber, "Reference Number" },
+            { TagDateCreated, "Date Created" },
+            { TagTimeCreated, "Time Created" },
+            { TagDigitalDateCreated, "Digital Date Created" },
+            { TagDigitalTimeCreated, "Digital Time Created" },
+            { TagOriginatingProgram, "Originating Program" },
+            { TagProgramVersion, "Program Version" },
+            { TagObjectCycle, "Object Cycle" },
+            { TagByLine, "By-line" },
+            { TagByLineTitle, "By-line Title" },
+            { TagCity, "City" },
+            { TagSubLocation, "Sub-location" },
+            { TagProvinceOrState, "Province/State" },
+            { TagCountryOrPrimaryLocationCode, "Country/Primary Location Code" },
+            { TagCountryOrPrimaryLocationName, "Country/Primary Location Name" },
+            { TagOriginalTransmissionReference, "Original Transmission Reference" },
+            { TagHeadline, "Headline" },
+            { TagCredit, "Credit" },
+            { TagSource, "Source" },
+            { TagCopyrightNotice, "Copyright Notice" },
+            { TagContact, "Contact" },
+            { TagCaption, "Caption/Abstract" },
+            { TagLocalCaption, "Local Caption" },
+            { TagCaptionWriter, "Caption Writer/Editor" },
+            { TagRasterizedCaption, "Rasterized Caption" },
+            { TagImageType, "Image Type" },
+            { TagImageOrientation, "Image Orientation" },
+            { TagLanguageIdentifier, "Language Identifier" },
+            { TagAudioType, "Audio Type" },
+            { TagAudioSamplingRate, "Audio Sampling Rate" },
+            { TagAudioSamplingResolution, "Audio Sampling Resolution" },
+            { TagAudioDuration, "Audio Duration" },
+            { TagAudioOutcue, "Audio Outcue" },
+            { TagJobId, "Job Identifier" },
+            { TagMasterDocumentId, "Master Document Identifier" },
+            { TagShortDocumentId, "Short Document Identifier" },
+            { TagUniqueDocumentId, "Unique Document Identifier" },
+            { TagOwnerId, "Owner Identifier" },
+            { TagObjectPreviewFileFormat, "Object Data Preview File Format" },
+            { TagObjectPreviewFileFormatVersion, "Object Data Preview File Format Version" },
+            { TagObjectPreviewData, "Object Data Preview Data" }
+        };
 
         public IptcDirectory()
         {
@@ -282,7 +201,7 @@ namespace MetadataExtractor.Formats.Iptc
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
 
         /// <summary>Returns any keywords contained in the IPTC data.</summary>

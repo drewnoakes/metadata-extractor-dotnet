@@ -48,15 +48,13 @@ namespace MetadataExtractor.Formats.Adobe
 
         public const int TagColorTransform = 3;
 
-        private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
-
-        static AdobeJpegDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            TagNameMap[TagDctEncodeVersion] = "DCT Encode Version";
-            TagNameMap[TagApp14Flags0] = "Flags 0";
-            TagNameMap[TagApp14Flags1] = "Flags 1";
-            TagNameMap[TagColorTransform] = "Color Transform";
-        }
+            { TagDctEncodeVersion, "DCT Encode Version" },
+            { TagApp14Flags0, "Flags 0" },
+            { TagApp14Flags1, "Flags 1" },
+            { TagColorTransform, "Color Transform" }
+        };
 
         public AdobeJpegDirectory()
         {
@@ -70,7 +68,7 @@ namespace MetadataExtractor.Formats.Adobe
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }
