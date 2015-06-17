@@ -91,7 +91,7 @@ namespace MetadataExtractor
         public override string ToString()
         {
             return string.Format("[{0}] {1} - {2}",
-                _directory.Name,
+                DirectoryName,
                 TagName,
                 Description ?? _directory.GetString(TagType) + " (unable to formulate description)");
         }
