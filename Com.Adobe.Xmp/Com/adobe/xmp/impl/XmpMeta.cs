@@ -7,6 +7,7 @@
 // of the Adobe license agreement accompanying it.
 // =================================================================================================
 
+using System.Collections.Generic;
 using System.Diagnostics;
 using Com.Adobe.Xmp.Impl.Xpath;
 using Com.Adobe.Xmp.Options;
@@ -740,22 +741,15 @@ namespace Com.Adobe.Xmp.Impl
             return GetProperty(schemaNs, fieldPath);
         }
 
-        /// <exception cref="XmpException"/>
-        public IXmpIterator Iterator()
+        public IEnumerable<IXmpPropertyInfo> Properties
         {
-            return Iterator(null, null, null);
-        }
+            get
+            {
+                var iterator = new XmpIterator(this, null, null, null);
 
-        /// <exception cref="XmpException"/>
-        public IXmpIterator Iterator(IteratorOptions options)
-        {
-            return Iterator(null, null, options);
-        }
-
-        /// <exception cref="XmpException"/>
-        public IXmpIterator Iterator(string schemaNs, string propName, IteratorOptions options)
-        {
-            return new XmpIterator(this, schemaNs, propName, options);
+                while (iterator.HasNext())
+                    yield return (IXmpPropertyInfo)iterator.Next();
+            }
         }
 
         /// <exception cref="XmpException"/>

@@ -199,10 +199,6 @@
       <Project>{5a1f2aff-7219-4543-97c4-364d4502c3c5}</Project>
       <Name>Com.Adobe.Xmp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sharpen\Sharpen.csproj">
-      <Project>{72944a6c-45ff-4ef8-b349-8c9cabf519d4}</Project>
-      <Name>Sharpen</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

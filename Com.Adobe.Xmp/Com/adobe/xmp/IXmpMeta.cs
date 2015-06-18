@@ -8,6 +8,7 @@
 // =================================================================================================
 
 using System;
+using System.Collections.Generic;
 using Com.Adobe.Xmp.Options;
 using Com.Adobe.Xmp.Properties;
 using Sharpen;
@@ -1060,48 +1061,9 @@ namespace Com.Adobe.Xmp
         /// <exception cref="XmpException"/>
         void SetPropertyBase64(string schemaNs, string propName, byte[] propValue);
 
-        /// <summary>Constructs an iterator for the properties within this XMP object.</summary>
-        /// <returns>Returns an <c>XMPIterator</c>.</returns>
-        /// <seealso cref="Iterator(string, string, Com.Adobe.Xmp.Options.IteratorOptions)"/>
+        /// <summary>Constructs an enumerable for the properties within this XMP object.</summary>
         /// <exception cref="XmpException">Wraps all errors and exceptions that may occur.</exception>
-        /// <exception cref="XmpException"/>
-        IXmpIterator Iterator();
-
-        /// <summary>Constructs an iterator for the properties within this XMP object using some options.</summary>
-        /// <param name="options">Option flags to control the iteration.</param>
-        /// <returns>Returns an <c>XMPIterator</c>.</returns>
-        /// <seealso cref="Iterator(string, string, Com.Adobe.Xmp.Options.IteratorOptions)"/>
-        /// <exception cref="XmpException">Wraps all errors and exceptions that may occur.</exception>
-        /// <exception cref="XmpException"/>
-        IXmpIterator Iterator(IteratorOptions options);
-
-        /// <summary>Construct an iterator for the properties within an XMP object.</summary>
-        /// <remarks>
-        /// Construct an iterator for the properties within an XMP object. According to the parameters it iterates the entire data tree,
-        /// properties within a specific schema, or a subtree rooted at a specific node.
-        /// </remarks>
-        /// <param name="schemaNs">
-        /// Optional schema namespace URI to restrict the iteration. Omitted (visit all
-        /// schema) by passing <c>null</c> or empty String.
-        /// </param>
-        /// <param name="propName">
-        /// Optional property name to restrict the iteration. May be an arbitrary path
-        /// expression. Omitted (visit all properties) by passing <c>null</c> or empty
-        /// String. If no schema URI is given, it is ignored.
-        /// </param>
-        /// <param name="options">
-        /// Option flags to control the iteration. See
-        /// <see cref="Com.Adobe.Xmp.Options.IteratorOptions"/>
-        /// for
-        /// details.
-        /// </param>
-        /// <returns>
-        /// Returns an <c>XMPIterator</c> for this <c>XMPMeta</c>-object
-        /// considering the given options.
-        /// </returns>
-        /// <exception cref="XmpException">Wraps all errors and exceptions that may occur.</exception>
-        /// <exception cref="XmpException"/>
-        IXmpIterator Iterator(string schemaNs, string propName, IteratorOptions options);
+        IEnumerable<IXmpPropertyInfo> Properties { get; }
 
         /// <summary>
         /// This correlates to the about-attribute,
