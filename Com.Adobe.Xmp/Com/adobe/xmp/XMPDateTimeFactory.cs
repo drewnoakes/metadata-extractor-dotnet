@@ -20,9 +20,6 @@ namespace Com.Adobe.Xmp
     /// <since>16.02.2006</since>
     public static class XmpDateTimeFactory
     {
-        /// <summary>The UTC TimeZone</summary>
-        private static readonly TimeZoneInfo Utc = Extensions.GetTimeZone("UTC");
-
         /// <summary>Creates an <c>XMPDateTime</c> from a <c>Calendar</c>-object.</summary>
         /// <param name="calendar">a <c>Calendar</c>-object.</param>
         /// <returns>An <c>XMPDateTime</c>-object.</returns>
@@ -130,7 +127,7 @@ namespace Com.Adobe.Xmp
         public static IXmpDateTime ConvertToUtcTime(IXmpDateTime dateTime)
         {
             var timeInMillis = dateTime.GetCalendar().GetTimeInMillis();
-            var cal = new GregorianCalendar(Utc);
+            var cal = new GregorianCalendar(TimeZoneInfo.Utc);
             cal.SetGregorianChange(XmpDateTime.UnixTimeToDateTime(long.MinValue));
             cal.SetTimeInMillis(timeInMillis);
             return new XmpDateTime(cal);
