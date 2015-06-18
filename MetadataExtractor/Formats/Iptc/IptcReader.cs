@@ -218,11 +218,10 @@ namespace MetadataExtractor.Formats.Iptc
                         str = reader.GetString(tagByteCount);
                         try
                         {
-                            var year = Convert.ToInt32(str.Substring (0, 4 - 0));
-                            var month = Convert.ToInt32(str.Substring (4, 6 - 4)) - 1;
-                            var day = Convert.ToInt32(str.Substring (6, 8 - 6));
-                            var date = new DateTime(year, month, day);
-                            directory.Set(tagIdentifier, date);
+                            directory.Set(tagIdentifier, new DateTime(
+                                year:  Convert.ToInt32(str.Substring (0, 4 - 0)),
+                                month: Convert.ToInt32(str.Substring (4, 6 - 4)),
+                                day:   Convert.ToInt32(str.Substring (6, 8 - 6))));
                             return;
                         }
                         catch (FormatException)
