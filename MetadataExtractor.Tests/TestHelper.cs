@@ -30,9 +30,8 @@ namespace MetadataExtractor.Tests
         public static byte[] SkipBytes(byte[] input, int countToSkip)
         {
             if (input.Length - countToSkip < 0)
-            {
                 throw new ArgumentException("Attempting to skip more bytes than exist in the array.");
-            }
+
             var output = new byte[input.Length - countToSkip];
             Array.Copy(input, countToSkip, output, 0, input.Length - countToSkip);
             return output;

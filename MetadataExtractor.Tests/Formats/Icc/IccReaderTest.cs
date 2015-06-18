@@ -23,7 +23,6 @@
 using System.IO;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Jpeg;
-using MetadataExtractor.Formats.Photoshop;
 using MetadataExtractor.IO;
 using NUnit.Framework;
 
