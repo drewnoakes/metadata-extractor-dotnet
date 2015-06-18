@@ -131,7 +131,7 @@ namespace Com.Adobe.Xmp
         {
             var timeInMillis = dateTime.GetCalendar().GetTimeInMillis();
             var cal = new GregorianCalendar(Utc);
-            cal.SetGregorianChange(Extensions.CreateDate(long.MinValue));
+            cal.SetGregorianChange(XmpDateTime.UnixTimeToDateTime(long.MinValue));
             cal.SetTimeInMillis(timeInMillis);
             return new XmpDateTime(cal);
         }

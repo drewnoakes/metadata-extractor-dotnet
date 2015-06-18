@@ -8,6 +8,7 @@
 // =================================================================================================
 
 using System;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using Sharpen;
 using Calendar = Sharpen.Calendar;
@@ -66,7 +67,7 @@ namespace Com.Adobe.Xmp.Impl
             // put that date into a calendar the pretty much represents ISO8601
             // I use US because it is close to the "locale" for the ISO8601 spec
             var intCalendar = (GregorianCalendar)Calendar.GetInstance(CultureInfo.InvariantCulture);
-            intCalendar.SetGregorianChange(Extensions.CreateDate(long.MinValue));
+            intCalendar.SetGregorianChange(UnixTimeToDateTime(long.MinValue));
             intCalendar.SetTimeZone(zone);
             intCalendar.SetTime(date);
             _year = intCalendar.Get(CalendarEnum.Year);
@@ -240,7 +241,7 @@ namespace Com.Adobe.Xmp.Impl
         public Calendar GetCalendar()
         {
             var calendar = (GregorianCalendar)Calendar.GetInstance(CultureInfo.InvariantCulture);
-            calendar.SetGregorianChange(Extensions.CreateDate(long.MinValue));
+            calendar.SetGregorianChange(UnixTimeToDateTime(long.MinValue));
             if (_hasTimeZone)
             {
                 calendar.SetTimeZone(_timeZone);
@@ -265,5 +266,24 @@ namespace Com.Adobe.Xmp.Impl
         {
             return GetIso8601String();
         }
+
+        #region Conversions
+
+        private static readonly DateTime _unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+        [Pure]
+        internal static DateTime UnixTimeToDateTime(long unixTime)
+        {
+            return _unixEpoch.AddSeconds(unixTime);
+        }
+
+        [Pure]
+        public static DateTimeOffset UnixTimeToDateTimeOffset(long milliSecondsSinceEpoch)
+        {
+            var num = _unixEpoch.Ticks + (milliSecondsSinceEpoch*10000);
+            return new DateTimeOffset(num, TimeSpan.Zero);
+        }
+
+        #endregion
     }
 }

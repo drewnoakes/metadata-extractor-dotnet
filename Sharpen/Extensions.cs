@@ -6,8 +6,6 @@ namespace Sharpen
 {
     public static class Extensions
     {
-        private static readonly long EpochTicks = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).Ticks;
-
         [CanBeNull]
         public static TU GetOrNull<T, TU>(this IDictionary<T, TU> d, T key) where TU : class
         {
@@ -71,18 +69,6 @@ namespace Sharpen
         public static Iterator<T> Iterator<T>(this IEnumerable<T> col)
         {
             return new EnumeratorWrapper<T>(col, col.GetEnumerator());
-        }
-
-        public static DateTime CreateDate(long milliSecondsSinceEpoch)
-        {
-            return new DateTime(EpochTicks + milliSecondsSinceEpoch*10000);
-        }
-
-        public static DateTimeOffset MillisToDateTimeOffset(long milliSecondsSinceEpoch, long offsetMinutes)
-        {
-            var offset = TimeSpan.FromMinutes(offsetMinutes);
-            var num = EpochTicks + (milliSecondsSinceEpoch*10000);
-            return new DateTimeOffset(num + offset.Ticks, offset);
         }
     }
 }

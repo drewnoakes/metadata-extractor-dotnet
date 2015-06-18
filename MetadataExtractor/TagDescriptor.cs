@@ -242,7 +242,7 @@ namespace MetadataExtractor
             {
                 return null;
             }
-            return Extensions.CreateDate((long)value).ToString("ddd MMM dd HH:mm:ss zzz yyyy");
+            return FromUnixTime((long)value).ToString("ddd MMM dd HH:mm:ss zzz yyyy");
         }
 
         /// <summary>LSB first.</summary>
@@ -321,6 +321,13 @@ namespace MetadataExtractor
             {
                 return null;
             }
+        }
+
+        private static readonly DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+        protected static DateTime FromUnixTime(long unixTime)
+        {
+            return _epoch.AddSeconds(unixTime);
         }
     }
 }
