@@ -49,5 +49,11 @@ namespace MetadataExtractor.Tests.Formats.Icc
             Assert.IsNotNull(directory);
             // TODO validate expected values
         }
+
+        [Test]
+        public void GetStringFromUInt32()
+        {
+            Assert.AreEqual("ABCD", IccReader.GetStringFromUInt32(0x41424344u));
+        }
     }
 }

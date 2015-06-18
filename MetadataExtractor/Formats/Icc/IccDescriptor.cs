@@ -116,7 +116,7 @@ namespace MetadataExtractor.Formats.Icc
 
                     case IccTagTypeSig:
                     {
-                        return IccReader.GetStringFromInt32(reader.GetInt32(8));
+                        return IccReader.GetStringFromUInt32(reader.GetUInt32(8));
                     }
 
                     case IccTagTypeMeas:
@@ -275,7 +275,7 @@ namespace MetadataExtractor.Formats.Icc
                         //Console.Error.WriteLine("int1: {0}, int2: {1}", int1, int2);
                         for (var i = 0; i < int1; i++)
                         {
-                            var str = IccReader.GetStringFromInt32(reader.GetInt32(16 + i * 12));
+                            var str = IccReader.GetStringFromUInt32(reader.GetUInt32(16 + i * 12));
                             var len = reader.GetInt32(16 + i * 12 + 4);
                             var ofs = reader.GetInt32(16 + i * 12 + 8);
                             string name;
@@ -311,7 +311,10 @@ namespace MetadataExtractor.Formats.Icc
 
                     default:
                     {
-                        return string.Format("{0} (0x{1:X8}): {2} bytes", IccReader.GetStringFromInt32(iccTagType), iccTagType, bytes.Length);
+                        return string.Format("{0} (0x{1:X8}): {2} bytes",
+                            IccReader.GetStringFromUInt32(unchecked((uint)iccTagType)),
+                            iccTagType,
+                            bytes.Length);
                     }
                 }
             }

@@ -114,7 +114,7 @@ namespace MetadataExtractor.Formats.Icc
                     }
                     else
                     {
-                        directory.Set(IccDirectory.TagDeviceModel, GetStringFromInt32(temp));
+                        directory.Set(IccDirectory.TagDeviceModel, GetStringFromUInt32(unchecked((uint)temp)));
                     }
                 }
                 SetInt32(directory, IccDirectory.TagRenderingIntent, reader);
@@ -144,10 +144,10 @@ namespace MetadataExtractor.Formats.Icc
         /// <exception cref="System.IO.IOException"/>
         private static void Set4ByteString([NotNull] Directory directory, int tagType, [NotNull] IndexedReader reader)
         {
-            var i = reader.GetInt32(tagType);
+            var i = reader.GetUInt32(tagType);
             if (i != 0)
             {
-                directory.Set(tagType, GetStringFromInt32(i));
+                directory.Set(tagType, GetStringFromUInt32(i));
             }
         }
 
@@ -186,11 +186,17 @@ namespace MetadataExtractor.Formats.Icc
         }
 
         [NotNull]
-        public static string GetStringFromInt32(int d)
+        public static string GetStringFromUInt32(uint d)
         {
             // MSB
-            var b = new[] { unchecked((byte)((d & unchecked((int)(0xFF000000))) >> 24)), unchecked((byte)((d & 0x00FF0000) >> 16)), unchecked((byte)((d & 0x0000FF00) >> 8)), unchecked((byte)((d & unchecked(
-                0x000000FF)))) };
+            var b = new[]
+            {
+                unchecked((byte)(d >> 24)),
+                unchecked((byte)(d >> 16)),
+                unchecked((byte)(d >> 8)),
+                unchecked((byte)d)
+            };
+
             return Encoding.UTF8.GetString(b);
         }
     }
