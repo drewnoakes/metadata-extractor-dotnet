@@ -63,7 +63,6 @@
     <Compile Include="IO\SequentialReader.cs" />
     <Compile Include="IO\SequentialStreamReader.cs" />
     <Compile Include="Age.cs" />
-    <Compile Include="DefaultTagDescriptor.cs" />
     <Compile Include="Directory.cs" />
     <Compile Include="Face.cs" />
     <Compile Include="ITagDescriptor.cs" />
