@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Text;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace MetadataExtractor
 {

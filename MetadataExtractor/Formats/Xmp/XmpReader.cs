@@ -24,10 +24,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Com.Adobe.Xmp;
-using Com.Adobe.Xmp.Properties;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
-using Sharpen;
 
 namespace MetadataExtractor.Formats.Xmp
 {

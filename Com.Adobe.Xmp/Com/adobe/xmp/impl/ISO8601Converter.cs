@@ -9,7 +9,6 @@
 
 using System;
 using System.Text;
-using Sharpen;
 
 namespace Com.Adobe.Xmp.Impl
 {

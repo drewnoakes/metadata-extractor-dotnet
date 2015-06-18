@@ -23,9 +23,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Com.Adobe.Xmp;
-using Com.Adobe.Xmp.Properties;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace MetadataExtractor.Formats.Xmp
 {

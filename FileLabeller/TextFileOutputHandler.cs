@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
-using Directory = System.IO.Directory;
+using Directory = MetadataExtractor.Directory;
 
 namespace FileLabeller
 {
@@ -15,7 +15,7 @@ namespace FileLabeller
         public override void OnStartingDirectory(string directoryPath)
         {
             base.OnStartingDirectory(directoryPath);
-            Directory.Delete(Path.Combine(directoryPath, "metadata"), recursive: true);
+            System.IO.Directory.Delete(Path.Combine(directoryPath, "metadata"), recursive: true);
         }
 
         public override void OnBeforeExtraction(string filePath, string relativePath, TextWriter log)
@@ -25,7 +25,7 @@ namespace FileLabeller
             log.Write('\n');
         }
 
-        public override void OnExtractionSuccess(string filePath, IReadOnlyList<MetadataExtractor.Directory> directories, string relativePath, TextWriter log)
+        public override void OnExtractionSuccess(string filePath, IReadOnlyList<Directory> directories, string relativePath, TextWriter log)
         {
             base.OnExtractionSuccess(filePath, directories, relativePath, log);
 
@@ -111,8 +111,8 @@ namespace FileLabeller
             var fileName = Path.GetFileName(filePath);
 
             // Create the output directory if it doesn't exist
-            if (!Directory.Exists(metadataPath))
-                Directory.CreateDirectory(metadataPath);
+            if (!System.IO.Directory.Exists(metadataPath))
+                System.IO.Directory.CreateDirectory(metadataPath);
 
             var outputPath = string.Format("{0}/metadata/{1}.txt", directoryPath, fileName);
 

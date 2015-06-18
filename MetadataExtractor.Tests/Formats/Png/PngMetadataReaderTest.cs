@@ -5,7 +5,6 @@ using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Png;
 using NUnit.Framework;
-using Sharpen;
 
 namespace MetadataExtractor.Tests.Formats.Png
 {

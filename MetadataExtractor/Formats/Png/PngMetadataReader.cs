@@ -7,7 +7,6 @@ using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
-using Sharpen;
 
 namespace MetadataExtractor.Formats.Png
 {
