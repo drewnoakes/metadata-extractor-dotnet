@@ -45,6 +45,7 @@
     <Compile Include="Formats\Jpeg\JpegSegmentData.cs" />
     <Compile Include="Formats\Jpeg\JpegSegmentReader.cs" />
     <Compile Include="Formats\Jpeg\JpegSegmentType.cs" />
+    <Compile Include="Formats\Xmp\Schema.cs" />
     <Compile Include="Util\FileType.cs" />
     <Compile Include="Util\FileTypeDetector.cs" />
     <Compile Include="ImageMetadataReader.cs" />
@@ -67,7 +68,6 @@
     <Compile Include="Face.cs" />
     <Compile Include="ITagDescriptor.cs" />
     <Compile Include="MetadataException.cs" />
-    <Compile Include="Schema.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="TagDescriptor.cs" />
     <Compile Include="Formats\Adobe\AdobeJpegDescriptor.cs" />

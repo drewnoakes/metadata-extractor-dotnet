@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
 
-namespace MetadataExtractor
+namespace MetadataExtractor.Formats.Xmp
 {
     public static class Schema
     {
