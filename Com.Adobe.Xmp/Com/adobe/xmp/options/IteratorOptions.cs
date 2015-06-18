@@ -22,10 +22,10 @@ namespace Com.Adobe.Xmp.Options
         /// Bugfix #2658965: If this option is set the Iterator returns the namespace
         /// of the leaf instead of the namespace of the base property.
         /// </remarks>
-        public const int JustLeafnodes = 0x0200;
+        public const int JustLeafNodes = 0x0200;
 
         /// <summary>Return just the leaf part of the path, default is the full path.</summary>
-        public const int JustLeafname = 0x0400;
+        public const int JustLeafName = 0x0400;
 
         /// <summary>Omit all qualifiers.</summary>
         public const int OmitQualifiers = 0x1000;
@@ -40,16 +40,16 @@ namespace Com.Adobe.Xmp.Options
             set { SetOption(JustChildren, value); }
         }
 
-        public bool IsJustLeafname
+        public bool IsJustLeafName
         {
-            get { return GetOption(JustLeafname); }
-            set { SetOption(JustLeafname, value); }
+            get { return GetOption(JustLeafName); }
+            set { SetOption(JustLeafName, value); }
         }
 
-        public bool IsJustLeafnodes
+        public bool IsJustLeafNodes
         {
-            get { return GetOption(JustLeafnodes); }
-            set { SetOption(JustLeafnodes, value); }
+            get { return GetOption(JustLeafNodes); }
+            set { SetOption(JustLeafNodes, value); }
         }
 
         public bool IsOmitQualifiers
@@ -64,9 +64,9 @@ namespace Com.Adobe.Xmp.Options
             {
                 case JustChildren:
                     return "JUST_CHILDREN";
-                case JustLeafnodes:
+                case JustLeafNodes:
                     return "JUST_LEAFNODES";
-                case JustLeafname:
+                case JustLeafName:
                     return "JUST_LEAFNAME";
                 case OmitQualifiers:
                     return "OMIT_QUALIFIERS";
@@ -77,7 +77,7 @@ namespace Com.Adobe.Xmp.Options
 
         protected override int GetValidOptions()
         {
-            return JustChildren | JustLeafnodes | JustLeafname | OmitQualifiers;
+            return JustChildren | JustLeafNodes | JustLeafName | OmitQualifiers;
         }
     }
 }

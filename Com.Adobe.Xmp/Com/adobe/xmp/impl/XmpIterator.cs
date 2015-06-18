@@ -224,7 +224,7 @@ namespace Com.Adobe.Xmp.Impl
             private bool ReportNode()
             {
                 _state = IterateChildren;
-                if (_visitedNode.Parent != null && (!_enclosing.Options.IsJustLeafnodes || !_visitedNode.HasChildren))
+                if (_visitedNode.Parent != null && (!_enclosing.Options.IsJustLeafNodes || !_visitedNode.HasChildren))
                 {
                     _returnProperty = CreatePropertyInfo(_visitedNode, _enclosing.BaseNamespace, _path);
                     return true;
@@ -308,7 +308,7 @@ namespace Com.Adobe.Xmp.Impl
                 {
                     return segmentName;
                 }
-                if (_enclosing.Options.IsJustLeafname)
+                if (_enclosing.Options.IsJustLeafName)
                 {
                     return !segmentName.StartsWith("?") ? segmentName : segmentName.Substring (1);
                 }
@@ -446,7 +446,7 @@ namespace Com.Adobe.Xmp.Impl
                         }
                     }
                     // report next property, skip not-leaf nodes in case options is set
-                    if (!_enclosing.Options.IsJustLeafnodes || !child.HasChildren)
+                    if (!_enclosing.Options.IsJustLeafNodes || !child.HasChildren)
                     {
                         SetReturnProperty(CreatePropertyInfo(child, _enclosing.BaseNamespace, path));
                         return true;
