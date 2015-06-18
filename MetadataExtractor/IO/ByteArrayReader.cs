@@ -26,15 +26,11 @@ using JetBrains.Annotations;
 namespace MetadataExtractor.IO
 {
     /// <summary>
-    /// Provides methods to read specific values from a byte array, with a consistent, checked exception structure for
-    /// issues.
+    /// Reads values of various data types from a byte array, accessed by index.
     /// </summary>
     /// <remarks>
-    /// Provides methods to read specific values from a byte array, with a consistent, checked exception structure for
-    /// issues.
-    /// <para />
     /// By default, the reader operates with Motorola byte order (big endianness).  This can be changed by calling
-    /// <c>setMotorolaByteOrder(boolean)</c>.
+    /// <see cref="IndexedReader.IsMotorolaByteOrder"/>.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class ByteArrayReader : IndexedReader
@@ -45,9 +41,8 @@ namespace MetadataExtractor.IO
         public ByteArrayReader([NotNull] byte[] buffer)
         {
             if (buffer == null)
-            {
                 throw new ArgumentNullException();
-            }
+
             _buffer = buffer;
         }
 
@@ -56,31 +51,26 @@ namespace MetadataExtractor.IO
             return _buffer.Length;
         }
 
-        /// <exception cref="System.IO.IOException"/>
         protected override byte GetByte(int index)
         {
             return _buffer[index];
         }
 
-        /// <exception cref="System.IO.IOException"/>
         protected override void ValidateIndex(int index, int bytesRequested)
         {
             if (!IsValidIndex(index, bytesRequested))
-            {
                 throw new BufferBoundsException(index, bytesRequested, _buffer.Length);
-            }
         }
 
-        /// <exception cref="System.IO.IOException"/>
         protected override bool IsValidIndex(int index, int bytesRequested)
         {
             return bytesRequested >= 0 && index >= 0 && index + (long)bytesRequested - 1L < _buffer.Length;
         }
 
-        /// <exception cref="System.IO.IOException"/>
         public override byte[] GetBytes(int index, int count)
         {
             ValidateIndex(index, count);
+
             var bytes = new byte[count];
             Array.Copy(_buffer, index, bytes, 0, count);
             return bytes;

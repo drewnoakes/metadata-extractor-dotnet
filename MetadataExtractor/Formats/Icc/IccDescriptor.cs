@@ -42,44 +42,27 @@ namespace MetadataExtractor.Formats.Icc
             switch (tagType)
             {
                 case IccDirectory.TagProfileVersion:
-                {
                     return GetProfileVersionDescription();
-                }
-
                 case IccDirectory.TagProfileClass:
-                {
                     return GetProfileClassDescription();
-                }
-
                 case IccDirectory.TagPlatform:
-                {
                     return GetPlatformDescription();
-                }
-
                 case IccDirectory.TagRenderingIntent:
-                {
                     return GetRenderingIntentDescription();
-                }
             }
+
             if (tagType > 0x20202020 && tagType < 0x7a7a7a7a)
-            {
                 return GetTagDataString(tagType);
-            }
+
             return base.GetDescription(tagType);
         }
 
         private const int IccTagTypeText = 0x74657874;
-
         private const int IccTagTypeDesc = 0x64657363;
-
         private const int IccTagTypeSig = 0x73696720;
-
         private const int IccTagTypeMeas = 0x6D656173;
-
         private const int IccTagTypeXyzArray = 0x58595A20;
-
         private const int IccTagTypeMluc = 0x6d6c7563;
-
         private const int IccTagTypeCurv = 0x63757276;
 
         [CanBeNull]
@@ -89,11 +72,12 @@ namespace MetadataExtractor.Formats.Icc
             {
                 var bytes = Directory.GetByteArray(tagType);
                 if (bytes == null)
-                {
                     return Directory.GetString(tagType);
-                }
-                IndexedReader reader = new ByteArrayReader(bytes);
+
+                var reader = new ByteArrayReader(bytes);
+
                 var iccTagType = reader.GetInt32(0);
+
                 switch (iccTagType)
                 {
                     case IccTagTypeText:
@@ -128,141 +112,95 @@ namespace MetadataExtractor.Formats.Icc
                         var geometryType = reader.GetInt32(24);
                         var flare = reader.GetS15Fixed16(28);
                         var illuminantType = reader.GetInt32(32);
+
                         string observerString;
                         switch (observerType)
                         {
                             case 0:
-                            {
                                 observerString = "Unknown";
                                 break;
-                            }
-
                             case 1:
-                            {
                                 observerString = "1931 2°";
                                 break;
-                            }
-
                             case 2:
-                            {
                                 observerString = "1964 10°";
                                 break;
-                            }
-
                             default:
-                            {
                                 observerString = string.Format("Unknown ({0})", observerType);
                                 break;
-                            }
                         }
+
                         string geometryString;
                         switch (geometryType)
                         {
                             case 0:
-                            {
                                 geometryString = "Unknown";
                                 break;
-                            }
-
                             case 1:
-                            {
                                 geometryString = "0/45 or 45/0";
                                 break;
-                            }
-
                             case 2:
-                            {
                                 geometryString = "0/d or d/0";
                                 break;
-                            }
-
                             default:
-                            {
                                 geometryString = string.Format("Unknown ({0})", observerType);
                                 break;
-                            }
                         }
+
                         string illuminantString;
                         switch (illuminantType)
                         {
                             case 0:
-                            {
                                 illuminantString = "unknown";
                                 break;
-                            }
-
                             case 1:
-                            {
                                 illuminantString = "D50";
                                 break;
-                            }
-
                             case 2:
-                            {
                                 illuminantString = "D65";
                                 break;
-                            }
-
                             case 3:
-                            {
                                 illuminantString = "D93";
                                 break;
-                            }
-
                             case 4:
-                            {
                                 illuminantString = "F2";
                                 break;
-                            }
-
                             case 5:
-                            {
                                 illuminantString = "D55";
                                 break;
-                            }
-
                             case 6:
-                            {
                                 illuminantString = "A";
                                 break;
-                            }
-
                             case 7:
-                            {
                                 illuminantString = "Equi-Power (E)";
                                 break;
-                            }
-
                             case 8:
-                            {
                                 illuminantString = "F8";
                                 break;
-                            }
-
                             default:
-                            {
                                 illuminantString = string.Format("Unknown ({0})", illuminantType);
                                 break;
-                            }
                         }
-                        return string.Format("{0} Observer, Backing ({1}, {2}, {3}), Geometry {4}, Flare {5}%, Illuminant {6}", observerString, x, y, z, geometryString, (long)Math.Round(flare * 100), illuminantString);
+
+                        return string.Format("{0} Observer, Backing ({1}, {2}, {3}), Geometry {4}, Flare {5}%, Illuminant {6}",
+                            observerString, x, y, z, geometryString, (long)Math.Round(flare * 100), illuminantString);
                     }
 
                     case IccTagTypeXyzArray:
                     {
                         var res = new StringBuilder();
                         var count = (bytes.Length - 8) / 12;
+
                         for (var i = 0; i < count; i++)
                         {
                             var x = reader.GetS15Fixed16(8 + i * 12);
                             var y = reader.GetS15Fixed16(8 + i * 12 + 4);
                             var z = reader.GetS15Fixed16(8 + i * 12 + 8);
                             if (i > 0)
-                            {
                                 res.Append(", ");
-                            }
                             res.Append("(").Append(x).Append(", ").Append(y).Append(", ").Append(z).Append(")");
                         }
+
                         return res.ToString();
                     }
 
@@ -300,9 +238,7 @@ namespace MetadataExtractor.Formats.Icc
                         for (var i = 0; i < num; i++)
                         {
                             if (i != 0)
-                            {
                                 res.Append(", ");
-                            }
                             res.Append(FormatDoubleAsString(reader.GetUInt16(12 + i * 2) / 65535.0, 7, false));
                         }
                         //res+=String.format("%1.7g",Math.round(((float)iccReader.getInt16(b,12+i*2))/0.065535)/1E7);
@@ -328,12 +264,11 @@ namespace MetadataExtractor.Formats.Icc
         }
 
         [NotNull]
-        public static string FormatDoubleAsString(double value, int precision, bool zeroes)
+        private static string FormatDoubleAsString(double value, int precision, bool zeroes)
         {
             if (precision < 1)
-            {
                 return string.Empty + (long)Math.Round(value);
-            }
+
             var intPart = Math.Abs((long)value);
             long rest = (int)(long)Math.Round((Math.Abs(value) - intPart) * Math.Pow(10, precision));
             var restKept = rest;
@@ -343,10 +278,9 @@ namespace MetadataExtractor.Formats.Icc
                 var cour = unchecked((byte)(Math.Abs(rest % 10)));
                 rest /= 10;
                 if (res.Length > 0 || zeroes || cour != 0 || i == 1)
-                {
                     res = cour + res;
-                }
             }
+
             intPart += rest;
             var isNegative = ((value < 0) && (intPart != 0 || restKept != 0));
             return (isNegative ? "-" : string.Empty) + intPart + "." + res;
@@ -357,35 +291,20 @@ namespace MetadataExtractor.Formats.Icc
         {
             var value = Directory.GetInt32Nullable(IccDirectory.TagRenderingIntent);
             if (value == null)
-            {
                 return null;
-            }
+
             switch (value)
             {
                 case 0:
-                {
                     return "Perceptual";
-                }
-
                 case 1:
-                {
                     return "Media-Relative Colorimetric";
-                }
-
                 case 2:
-                {
                     return "Saturation";
-                }
-
                 case 3:
-                {
                     return "ICC-Absolute Colorimetric";
-                }
-
                 default:
-                {
                     return string.Format("Unknown ({0})", value);
-                }
             }
         }
 
@@ -394,53 +313,22 @@ namespace MetadataExtractor.Formats.Icc
         {
             var str = Directory.GetString(IccDirectory.TagPlatform);
             if (str == null)
-            {
                 return null;
-            }
-            // Because Java doesn't allow switching on string values, create an integer from the first four chars
-            // and switch on that instead.
-            int i;
-            try
+
+            switch (str)
             {
-                i = GetInt32FromString(str);
-            }
-            catch (IOException)
-            {
-                return str;
-            }
-            switch (i)
-            {
-                case 0x4150504C:
-                {
-                    // "APPL"
+                case "APPL":
                     return "Apple Computer, Inc.";
-                }
-
-                case 0x4D534654:
-                {
-                    // "MSFT"
+                case "MSFT":
                     return "Microsoft Corporation";
-                }
-
-                case 0x53474920:
-                {
+                case "SGI ":
                     return "Silicon Graphics, Inc.";
-                }
-
-                case 0x53554E57:
-                {
+                case "SUNW":
                     return "Sun Microsystems, Inc.";
-                }
-
-                case 0x54474E54:
-                {
+                case "TGNT":
                     return "Taligent, Inc.";
-                }
-
                 default:
-                {
                     return string.Format("Unknown ({0})", str);
-                }
             }
         }
 
@@ -448,63 +336,28 @@ namespace MetadataExtractor.Formats.Icc
         private string GetProfileClassDescription()
         {
             var str = Directory.GetString(IccDirectory.TagProfileClass);
+
             if (str == null)
-            {
                 return null;
-            }
-            // Because Java doesn't allow switching on string values, create an integer from the first four chars
-            // and switch on that instead.
-            int i;
-            try
+
+            switch (str)
             {
-                i = GetInt32FromString(str);
-            }
-            catch (IOException)
-            {
-                return str;
-            }
-            switch (i)
-            {
-                case 0x73636E72:
-                {
+                case "scnr":
                     return "Input Device";
-                }
-
-                case 0x6D6E7472:
-                {
-                    // mntr
+                case "mntr":
                     return "Display Device";
-                }
-
-                case 0x70727472:
-                {
+                case "prtr":
                     return "Output Device";
-                }
-
-                case 0x6C696E6B:
-                {
+                case "link":
                     return "DeviceLink";
-                }
-
-                case 0x73706163:
-                {
+                case "spac":
                     return "ColorSpace Conversion";
-                }
-
-                case 0x61627374:
-                {
+                case "abst":
                     return "Abstract";
-                }
-
-                case 0x6E6D636C:
-                {
+                case "nmcl":
                     return "Named Color";
-                }
-
                 default:
-                {
                     return string.Format("Unknown ({0})", str);
-                }
             }
         }
 
@@ -512,21 +365,14 @@ namespace MetadataExtractor.Formats.Icc
         private string GetProfileVersionDescription()
         {
             var value = Directory.GetInt32Nullable(IccDirectory.TagProfileVersion);
-            if (value == null)
-            {
-                return null;
-            }
-            var m = ((int)value & unchecked((int)(0xFF000000))) >> 24;
-            var r = ((int)value & 0x00F00000) >> 20;
-            var R = ((int)value & 0x000F0000) >> 16;
-            return string.Format("{0}.{1}.{2}", m, r, R);
-        }
 
-        /// <exception cref="System.IO.IOException"/>
-        private static int GetInt32FromString([NotNull] string @string)
-        {
-            var bytes = Encoding.UTF8.GetBytes(@string);
-            return new ByteArrayReader(bytes).GetInt32(0);
+            if (value == null)
+                return null;
+
+            var m = (byte)(value >> 24);
+            var r = (byte)((value >> 20) & 0x0F);
+            var R = (byte)((value >> 16) & 0x0F);
+            return string.Format("{0}.{1}.{2}", m, r, R);
         }
     }
 }
