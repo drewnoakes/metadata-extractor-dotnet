@@ -187,13 +187,15 @@ namespace MetadataExtractor.Formats.Xmp
         /// <exception cref="XmpException"/>
         private static void ProcessXmpTag([NotNull] IXmpMeta meta, [NotNull] XmpDirectory directory, int tagType, int formatCode)
         {
-            var schemaNs = XmpDirectory.TagSchemaMap.GetOrNull(tagType);
-            var propName = XmpDirectory.TagPropNameMap.GetOrNull(tagType);
+            string schemaNs;
+            string propName;
+            if (!XmpDirectory.TagSchemaMap.TryGetValue(tagType, out schemaNs) || !XmpDirectory.TagPropNameMap.TryGetValue(tagType, out propName))
+                return;
+
             var property = meta.GetPropertyString(schemaNs, propName);
             if (property == null)
-            {
                 return;
-            }
+
             switch (formatCode)
             {
                 case FmtRational:
@@ -274,13 +276,15 @@ namespace MetadataExtractor.Formats.Xmp
         /// <exception cref="XmpException"/>
         private static void ProcessXmpDateTag([NotNull] IXmpMeta meta, [NotNull] XmpDirectory directory, int tagType)
         {
-            var schemaNs = XmpDirectory.TagSchemaMap.GetOrNull(tagType);
-            var propName = XmpDirectory.TagPropNameMap.GetOrNull(tagType);
+            string schemaNs;
+            string propName;
+            if (!XmpDirectory.TagSchemaMap.TryGetValue(tagType, out schemaNs) || !XmpDirectory.TagPropNameMap.TryGetValue(tagType, out propName))
+                return;
+
             var cal = meta.GetPropertyCalendar(schemaNs, propName);
+
             if (cal != null)
-            {
                 directory.Set(tagType, cal.GetTime());
-            }
         }
     }
 }

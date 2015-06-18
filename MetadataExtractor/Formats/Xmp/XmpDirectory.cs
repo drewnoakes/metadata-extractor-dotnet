@@ -20,11 +20,8 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using System;
 using System.Collections.Generic;
 using Com.Adobe.Xmp;
-using Com.Adobe.Xmp.Impl;
-using Com.Adobe.Xmp.Options;
 using Com.Adobe.Xmp.Properties;
 using JetBrains.Annotations;
 using Sharpen;
@@ -36,33 +33,19 @@ namespace MetadataExtractor.Formats.Xmp
     public sealed class XmpDirectory : Directory
     {
         public const int TagXmpValueCount = 0xFFFF;
-
         public const int TagMake = 0x0001;
-
         public const int TagModel = 0x0002;
-
         public const int TagExposureTime = 0x0003;
-
         public const int TagShutterSpeed = 0x0004;
-
         public const int TagFNumber = 0x0005;
-
         public const int TagLensInfo = 0x0006;
-
         public const int TagLens = 0x0007;
-
         public const int TagCameraSerialNumber = 0x0008;
-
         public const int TagFirmware = 0x0009;
-
         public const int TagFocalLength = 0x000a;
-
         public const int TagApertureValue = 0x000b;
-
         public const int TagExposureProgram = 0x000c;
-
         public const int TagDatetimeOriginal = 0x000d;
-
         public const int TagDatetimeDigitized = 0x000e;
 
         /// <summary>A value from 0 to 5, or -1 if the image is rejected.</summary>
@@ -209,13 +192,6 @@ namespace MetadataExtractor.Formats.Xmp
             // this requires further research
             // _tagNameMap.put(TAG_TITLE, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
             TagSchemaMap[TagSubject] = Schema.DublinCoreSpecificProperties;
-        }
-
-        [CanBeNull]
-        private IXmpMeta _xmpMeta;
-
-        public XmpDirectory()
-        {
             // _tagNameMap.put(TAG_DATE, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
             // _tagNameMap.put(TAG_TYPE, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
             // _tagNameMap.put(TAG_DESCRIPTION, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
@@ -235,6 +211,13 @@ namespace MetadataExtractor.Formats.Xmp
             // _tagNameMap.put(TAG_ACCRUAL_METHOD, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
             // _tagNameMap.put(TAG_ACCRUAL_PERIODICITY, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
             // _tagNameMap.put(TAG_ACCRUAL_POLICY, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
+        }
+
+        [CanBeNull]
+        private IXmpMeta _xmpMeta;
+
+        public XmpDirectory()
+        {
             SetDescriptor(new XmpDescriptor(this));
         }
 
@@ -269,6 +252,7 @@ namespace MetadataExtractor.Formats.Xmp
         public void SetXmpMeta([NotNull] IXmpMeta xmpMeta)
         {
             _xmpMeta = xmpMeta;
+
             try
             {
                 var valueCount = 0;
@@ -276,10 +260,7 @@ namespace MetadataExtractor.Formats.Xmp
                 {
                     var prop = (IXmpPropertyInfo)i.Next();
                     if (prop.Path != null)
-                    {
-                        //System.out.printf("%s = %s\n", prop.getPath(), prop.getValue());
                         valueCount++;
-                    }
                 }
                 Set(TagXmpValueCount, valueCount);
             }
@@ -288,216 +269,12 @@ namespace MetadataExtractor.Formats.Xmp
             }
         }
 
-        /// <summary>Gets the XMPMeta object used to populate this directory.</summary>
-        /// <remarks>
-        /// Gets the XMPMeta object used to populate this directory. It can be used for more XMP-oriented operations. If one does not exist it will be
-        /// created.
-        /// </remarks>
+        /// <summary>Gets the <see cref="IXmpMeta"/> object within this directory.</summary>
+        /// <remarks>This object provides a rich API for working with XMP data.</remarks>
         [CanBeNull]
-        public IXmpMeta GetXmpMeta()
+        public IXmpMeta XmpMeta
         {
-            return _xmpMeta ?? (_xmpMeta = new XmpMeta());
+            get { return _xmpMeta; }
         }
-
-        // TODO: Might consider returning a boolean in the super to allow for exception handling. Failing to set is sufficient for now.
-        // TODO: update[Type] avoids rewriting the whole _xmpMeta on processXmpTags(),
-        // but with sets exposed this is still less than ideal...
-        // At the very least document this carefully!
-        public void UpdateInt(int tagType, int value)
-        {
-            Set(tagType, value);
-            try
-            {
-                GetXmpMeta().SetPropertyInteger(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
-            }
-            catch (XmpException e)
-            {
-                Console.WriteLine (e);
-            }
-        }
-
-        public void UpdateIntArray(int tagType, int[] ints)
-        {
-            Set(tagType, ints);
-            try
-            {
-                var schemaNs = TagSchemaMap.GetOrNull(tagType);
-                var propName = TagPropNameMap.GetOrNull(tagType);
-                GetXmpMeta().DeleteProperty(schemaNs, propName);
-                var po = new PropertyOptions { IsArray = true };
-                foreach (var item in ints)
-                {
-                    GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item.ToString(), null);
-                }
-            }
-            catch (XmpException e)
-            {
-                Console.WriteLine (e);
-            }
-        }
-
-        public void UpdateFloat(int tagType, float value)
-        {
-            Set(tagType, value);
-            try
-            {
-                GetXmpMeta().SetPropertyDouble(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
-            }
-            catch (XmpException e)
-            {
-                Console.WriteLine (e);
-            }
-        }
-
-        public void UpdateFloatArray(int tagType, float[] floats)
-        {
-            Set(tagType, floats);
-            try
-            {
-                var schemaNs = TagSchemaMap.GetOrNull(tagType);
-                var propName = TagPropNameMap.GetOrNull(tagType);
-                GetXmpMeta().DeleteProperty(schemaNs, propName);
-                var po = new PropertyOptions { IsArray = true };
-                foreach (var item in floats)
-                {
-                    GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item.ToString(), null);
-                }
-            }
-            catch (XmpException e)
-            {
-                Console.WriteLine (e);
-            }
-        }
-
-        public void UpdateDouble(int tagType, double value)
-        {
-            Set(tagType, value);
-            try
-            {
-                GetXmpMeta().SetPropertyDouble(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
-            }
-            catch (XmpException e)
-            {
-                Console.WriteLine (e);
-            }
-        }
-
-        public void UpdateDoubleArray(int tagType, double[] doubles)
-        {
-            Set(tagType, doubles);
-            try
-            {
-                var schemaNs = TagSchemaMap.GetOrNull(tagType);
-                var propName = TagPropNameMap.GetOrNull(tagType);
-                GetXmpMeta().DeleteProperty(schemaNs, propName);
-                var po = new PropertyOptions { IsArray = true };
-                foreach (var item in doubles)
-                {
-                    GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item.ToString(), null);
-                }
-            }
-            catch (XmpException e)
-            {
-                Console.WriteLine (e);
-            }
-        }
-
-        public void UpdateString(int tagType, string value)
-        {
-            Set(tagType, value);
-            try
-            {
-                GetXmpMeta().SetProperty(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
-            }
-            catch (XmpException e)
-            {
-                Console.WriteLine (e);
-            }
-        }
-
-        public void DeleteProperty(int tagType)
-        {
-            GetXmpMeta().DeleteProperty(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType));
-        }
-
-        public void UpdateStringArray(int tagType, string[] strings)
-        {
-            Set(tagType, strings);
-            try
-            {
-                var schemaNs = TagSchemaMap.GetOrNull(tagType);
-                var propName = TagPropNameMap.GetOrNull(tagType);
-                GetXmpMeta().DeleteProperty(schemaNs, propName);
-                var po = new PropertyOptions { IsArray = true };
-                foreach (var item in strings)
-                {
-                    GetXmpMeta().AppendArrayItem(schemaNs, propName, po, item, null);
-                }
-            }
-            catch (XmpException e)
-            {
-                Console.WriteLine (e);
-            }
-        }
-
-        public void UpdateBoolean(int tagType, bool value)
-        {
-            Set(tagType, value);
-            try
-            {
-                GetXmpMeta().SetPropertyBoolean(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
-            }
-            catch (XmpException e)
-            {
-                Console.WriteLine (e);
-            }
-        }
-
-        public void UpdateLong(int tagType, long value)
-        {
-            Set(tagType, value);
-            try
-            {
-                GetXmpMeta().SetPropertyLong(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), value);
-            }
-            catch (XmpException e)
-            {
-                Console.WriteLine (e);
-            }
-        }
-
-        public void UpdateDate(int tagType, DateTime value)
-        {
-            Set(tagType, value);
-            IXmpDateTime date = new XmpDateTime(value, TimeZoneInfo.Local);
-            try
-            {
-                GetXmpMeta().SetPropertyDate(TagSchemaMap.GetOrNull(tagType), TagPropNameMap.GetOrNull(tagType), date);
-            }
-            catch (XmpException e)
-            {
-                Console.WriteLine (e);
-            }
-        }
-        // TODO: Ignoring rationals for now, not sure their relevance to XMP (rational/floating storage)
-        // @Override
-        // public void setRational(int tagType, Rational rational)
-        // {
-        // super.setRational(tagType, rational);
-        // }
-        //
-        // @Override
-        // public void setRationalArray(int tagType, Rational[] rationals)
-        // {
-        // // TODO Auto-generated method stub
-        // super.setRationalArray(tagType, rationals);
-        // }
-        // TODO: Not sure the intention of the byte array, probably store like the other arrays.
-        // @Override
-        // public void setByteArray(int tagType, byte[] bytes)
-        // {
-        // // TODO Auto-generated method stub
-        // super.setByteArray(tagType, bytes);
-        // }
     }
 }

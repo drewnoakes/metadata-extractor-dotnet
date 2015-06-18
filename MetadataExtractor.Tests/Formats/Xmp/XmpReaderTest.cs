@@ -76,7 +76,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         [Test]
         public void TestExtract_HasXMPMeta()
         {
-            Assert.IsNotNull(_directory.GetXmpMeta());
+            Assert.IsNotNull(_directory.XmpMeta);
         }
 
         [Test]
