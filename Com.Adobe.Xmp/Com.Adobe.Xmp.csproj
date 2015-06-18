@@ -79,6 +79,7 @@
     <Compile Include="com\adobe\xmp\IXmpVersionInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sharpen\Calendar.cs" />
+    <Compile Include="Sharpen\Extensions.cs" />
     <Compile Include="Sharpen\GregorianCalendar.cs" />
   </ItemGroup>
   <ItemGroup>
