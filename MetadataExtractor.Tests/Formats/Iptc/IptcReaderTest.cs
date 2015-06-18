@@ -20,12 +20,12 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System;
 using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Iptc;
 using MetadataExtractor.IO;
 using NUnit.Framework;
-using Sharpen;
 
 namespace MetadataExtractor.Tests.Formats.Iptc
 {
@@ -73,7 +73,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
             Assert.AreEqual(IptcDirectory.TagCity, tags[9].TagType);
             Assert.AreEqual("City", directory.GetObject(tags[9].TagType));
             Assert.AreEqual(IptcDirectory.TagDateCreated, tags[10].TagType);
-            Assert.AreEqual(new GregorianCalendar(2000, 0, 1).GetTime(), directory.GetObject(tags[10].TagType));
+            Assert.AreEqual(new DateTime(2000, 1, 1), directory.GetObject(tags[10].TagType));
             Assert.AreEqual(IptcDirectory.TagObjectName, tags[11].TagType);
             Assert.AreEqual("ObjectName", directory.GetObject(tags[11].TagType));
             Assert.AreEqual(IptcDirectory.TagSource, tags[12].TagType);

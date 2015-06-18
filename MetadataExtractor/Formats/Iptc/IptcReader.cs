@@ -28,7 +28,6 @@ using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
-using Sharpen;
 
 namespace MetadataExtractor.Formats.Iptc
 {
@@ -222,7 +221,7 @@ namespace MetadataExtractor.Formats.Iptc
                             var year = Convert.ToInt32(str.Substring (0, 4 - 0));
                             var month = Convert.ToInt32(str.Substring (4, 6 - 4)) - 1;
                             var day = Convert.ToInt32(str.Substring (6, 8 - 6));
-                            var date = new GregorianCalendar(year, month, day).GetTime();
+                            var date = new DateTime(year, month, day);
                             directory.Set(tagIdentifier, date);
                             return;
                         }

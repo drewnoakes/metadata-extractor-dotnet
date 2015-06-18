@@ -23,7 +23,6 @@
 using System;
 using System.Text;
 using JetBrains.Annotations;
-using Sharpen;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -522,13 +521,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             // year = floor( value/65536)
             var value = Directory.GetInt64Nullable(OlympusMakernoteDirectory.CameraSettings.TagDate);
             if (value == null)
-            {
                 return null;
-            }
             var day = (long)value & 0xFF;
             var month = ((long)value >> 16) & 0xFF;
             var year = ((long)value >> 8) & 0xFF;
-            return new GregorianCalendar((int)year + 1970, (int)month, (int)day).GetTime().ToString("ddd MMM dd HH:mm:ss zzz yyyy");
+            return new DateTime((int)year + 1970, (int)month + 1, (int)day).ToString("ddd MMM dd HH:mm:ss zzz yyyy");
         }
 
         [CanBeNull]

@@ -26,7 +26,6 @@ using System.Linq;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Xmp;
 using NUnit.Framework;
-using Sharpen;
 
 namespace MetadataExtractor.Tests.Formats.Xmp
 {
@@ -173,9 +172,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             var actual = _directory.GetDateTimeNullable(XmpDirectory.TagDatetimeOriginal);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
             Assert.AreEqual(DateTime.ParseExact("11:41:35 12 12 2010 +0000", "hh:mm:ss dd MM yyyy Z", null), actual);
-            Calendar calendar = new GregorianCalendar(2010, 12 - 1, 12, 11, 41, 35);
-            calendar.SetTimeZone(Extensions.GetTimeZone("GMT"));
-            Assert.AreEqual(calendar.GetTime(), actual.Value);
+            Assert.AreEqual(new DateTime(2010, 12, 12, 11, 41, 35), actual.Value);
         }
 
         [Test]
@@ -184,9 +181,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             var actual = _directory.GetDateTimeNullable(XmpDirectory.TagDatetimeDigitized);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
             Assert.AreEqual(DateTime.ParseExact("11:41:35 12 12 2010 +0000", "hh:mm:ss dd MM yyyy Z", null), actual);
-            Calendar calendar = new GregorianCalendar(2010, 12 - 1, 12, 11, 41, 35);
-            calendar.SetTimeZone(Extensions.GetTimeZone("GMT"));
-            Assert.AreEqual(calendar.GetTime(), actual.Value);
+            Assert.AreEqual(new DateTime(2010, 12, 12, 11, 41, 35), actual.Value);
         }
 
         [Test]

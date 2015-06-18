@@ -20,10 +20,10 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
+using System;
 using System.Text;
 using MetadataExtractor.Formats.Exif;
 using NUnit.Framework;
-using Sharpen;
 
 namespace MetadataExtractor.Tests
 {
@@ -119,10 +119,10 @@ namespace MetadataExtractor.Tests
             _directory.Set(3, date3);
             _directory.Set(4, date4);
             Assert.AreEqual(date1, _directory.GetString(1));
-            Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 59).GetTime(), _directory.GetDateTimeNullable(1));
-            Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 0).GetTime(), _directory.GetDateTimeNullable(2));
-            Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 59).GetTime(), _directory.GetDateTimeNullable(3));
-            Assert.AreEqual(new GregorianCalendar(2002, GregorianCalendar.January, 30, 24, 59, 0).GetTime(), _directory.GetDateTimeNullable(4));
+            Assert.AreEqual(new DateTime(2002, 1, 30, 24, 59, 59), _directory.GetDateTimeNullable(1));
+            Assert.AreEqual(new DateTime(2002, 1, 30, 24, 59, 0), _directory.GetDateTimeNullable(2));
+            Assert.AreEqual(new DateTime(2002, 1, 30, 24, 59, 59), _directory.GetDateTimeNullable(3));
+            Assert.AreEqual(new DateTime(2002, 1, 30, 24, 59, 0), _directory.GetDateTimeNullable(4));
         }
 
 
