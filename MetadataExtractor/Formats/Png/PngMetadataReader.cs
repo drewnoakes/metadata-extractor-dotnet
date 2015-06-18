@@ -232,10 +232,9 @@ namespace MetadataExtractor.Formats.Png
                 int hour = reader.GetUInt8();
                 int minute = reader.GetUInt8();
                 int second = reader.GetUInt8();
-                var calendar = Calendar.GetInstance(Extensions.GetTimeZone("UTC"));
-                calendar.Set(year, month, day, hour, minute, second);
+                var time = new DateTime(year, month, day, hour, minute, second, DateTimeKind.Utc);
                 var directory = new PngDirectory(PngChunkType.TIme);
-                directory.Set(PngDirectory.TagLastModificationTime, calendar.GetTime());
+                directory.Set(PngDirectory.TagLastModificationTime, time);
                 yield return directory;
             }
             else if (chunkType.Equals(PngChunkType.PHYs))

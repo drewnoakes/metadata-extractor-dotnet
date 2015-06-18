@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -56,11 +57,8 @@ namespace MetadataExtractor.Tests.Formats.Png
 
         private static string CreateTestString(int year, int month, int day, int hourOfDay, int minute, int second)
         {
-            var gmt = Extensions.GetTimeZone("GMT");
-            var calendar = Calendar.GetInstance(gmt);
-            calendar.Set(year, month, day, hourOfDay, minute, second);
-
-            return calendar.GetTime().ToString("ddd MMM dd HH:mm:ss zzz yyyy");
+            return new DateTime(year, month, day, hourOfDay, minute, second)
+                .ToString("ddd MMM dd HH:mm:ss zzz yyyy");
         }
     }
 }
