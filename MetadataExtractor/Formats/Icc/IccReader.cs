@@ -27,7 +27,6 @@ using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
-using Sharpen;
 
 namespace MetadataExtractor.Formats.Icc
 {
@@ -175,17 +174,15 @@ namespace MetadataExtractor.Formats.Icc
         /// <exception cref="System.IO.IOException"/>
         private static void SetDate([NotNull] IccDirectory directory, int tagType, [NotNull] IndexedReader reader)
         {
-            int y = reader.GetUInt16(tagType);
-            int m = reader.GetUInt16(tagType + 2);
-            int d = reader.GetUInt16(tagType + 4);
-            int h = reader.GetUInt16(tagType + 6);
-            int M = reader.GetUInt16(tagType + 8);
-            int s = reader.GetUInt16(tagType + 10);
-            //        final Date value = new Date(Date.UTC(y - 1900, m - 1, d, h, M, s));
-            var calendar = Calendar.GetInstance(Extensions.GetTimeZone("UTC"));
-            calendar.Set(y, m, d, h, M, s);
-            var value = calendar.GetTime();
-            directory.Set(tagType, value);
+            directory.Set(
+                tagType,
+                new DateTime(year:   reader.GetUInt16(tagType),
+                             month:  reader.GetUInt16(tagType + 2),
+                             day:    reader.GetUInt16(tagType + 4),
+                             hour:   reader.GetUInt16(tagType + 6),
+                             minute: reader.GetUInt16(tagType + 8),
+                             second: reader.GetUInt16(tagType + 10),
+                             kind: DateTimeKind.Utc));
         }
 
         [NotNull]
