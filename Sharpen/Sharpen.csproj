@@ -41,10 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Calendar.cs" />
     <Compile Include="EnumeratorWrapper.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="GregorianCalendar.cs" />
     <Compile Include="IIterator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PushbackReader.cs" />
