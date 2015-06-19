@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Com.Adobe.Xmp;
+using XmpCore;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 

@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5A1F2AFF-7219-4543-97C4-364D4502C3C5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XmpCore</RootNamespace>
+    <AssemblyName>XmpCore</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Impl\ByteBuffer.cs" />
+    <Compile Include="Impl\FixASCIIControlsReader.cs" />
+    <Compile Include="Impl\ISO8601Converter.cs" />
+    <Compile Include="Impl\Latin1Converter.cs" />
+    <Compile Include="Impl\ParameterAsserts.cs" />
+    <Compile Include="Impl\ParseRdf.cs" />
+    <Compile Include="Impl\QName.cs" />
+    <Compile Include="Impl\Utils.cs" />
+    <Compile Include="Impl\XmpDateTime.cs" />
+    <Compile Include="Impl\XmpIterator.cs" />
+    <Compile Include="Impl\XmpMeta.cs" />
+    <Compile Include="Impl\XmpMetaParser.cs" />
+    <Compile Include="Impl\XmpNode.cs" />
+    <Compile Include="Impl\XmpNodeUtils.cs" />
+    <Compile Include="Impl\XmpNormalizer.cs" />
+    <Compile Include="Impl\XmpSchemaRegistry.cs" />
+    <Compile Include="Impl\XmpSerializerHelper.cs" />
+    <Compile Include="Impl\XmpSerializerRdf.cs" />
+    <Compile Include="Impl\XmpUtils.cs" />
+    <Compile Include="Impl\XPath\XmpPath.cs" />
+    <Compile Include="Impl\XPath\XmpPathParser.cs" />
+    <Compile Include="Impl\XPath\XmpPathSegment.cs" />
+    <Compile Include="Options\AliasOptions.cs" />
+    <Compile Include="Options\IteratorOptions.cs" />
+    <Compile Include="Options\Options.cs" />
+    <Compile Include="Options\ParseOptions.cs" />
+    <Compile Include="Options\PropertyOptions.cs" />
+    <Compile Include="Options\SerializeOptions.cs" />
+    <Compile Include="IXmpAliasInfo.cs" />
+    <Compile Include="IXmpProperty.cs" />
+    <Compile Include="IXmpPropertyInfo.cs" />
+    <Compile Include="XmpConstConstants.cs" />
+    <Compile Include="IXmpDateTime.cs" />
+    <Compile Include="XmpDateTimeFactory.cs" />
+    <Compile Include="XmpErrorCode.cs" />
+    <Compile Include="XmpException.cs" />
+    <Compile Include="IXmpIterator.cs" />
+    <Compile Include="IXmpMeta.cs" />
+    <Compile Include="XmpMetaFactory.cs" />
+    <Compile Include="XmpPathFactory.cs" />
+    <Compile Include="IXmpSchemaRegistry.cs" />
+    <Compile Include="XmpUtils.cs" />
+    <Compile Include="IXmpVersionInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sharpen\Calendar.cs" />
+    <Compile Include="Sharpen\Extensions.cs" />
+    <Compile Include="Sharpen\GregorianCalendar.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sharpen\Sharpen.csproj">
+      <Project>{72944a6c-45ff-4ef8-b349-8c9cabf519d4}</Project>
+      <Name>Sharpen</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -22,7 +22,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Com.Adobe.Xmp;
+using XmpCore;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Xmp
