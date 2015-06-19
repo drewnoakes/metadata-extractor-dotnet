@@ -7,7 +7,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 using MetadataExtractor;
 using MetadataExtractor.Formats.Exif;
-using Directory = System.IO.Directory;
+using Directory = MetadataExtractor.Directory;
 
 namespace FileLabeller
 {
@@ -52,7 +52,7 @@ namespace FileLabeller
                 {
                     Console.Out.WriteLine("\n***** PROCESSING: {0}", filePath);
                 }
-                IEnumerable<MetadataExtractor.Directory> directories = null;
+                IEnumerable<Directory> directories = null;
                 try
                 {
                     directories = ImageMetadataReader.ReadMetadata(filePath);
@@ -225,7 +225,7 @@ namespace FileLabeller
 
         private static void ProcessDirectory([NotNull] string path, [NotNull] IFileHandler handler, [NotNull] string relativePath, [NotNull] TextWriter log)
         {
-            var entries = Directory.GetFileSystemEntries(path);
+            var entries = System.IO.Directory.GetFileSystemEntries(path);
 
             // Order alphabetically so that output is stable across invocations
             Array.Sort(entries, string.CompareOrdinal);
@@ -234,7 +234,7 @@ namespace FileLabeller
             {
                 var file = Path.Combine(path, entry);
 
-                if (Directory.Exists(file))
+                if (System.IO.Directory.Exists(file))
                 {
                     ProcessDirectory(file, handler, relativePath.Length == 0 ? entry : relativePath + "/" + entry, log);
                 }
