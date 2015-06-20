@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics;
 using System.Text;
 using JetBrains.Annotations;
 
@@ -5,18 +7,10 @@ namespace MetadataExtractor.Formats.Iptc
 {
     public static class Iso2022Converter
     {
-        private const string Iso88591 = "ISO-8859-1";
-
-        private const string Utf8 = "UTF-8";
-
-        private const byte LatinCapitalA = 0x41;
-
         private const int Dot = 0xe280a2;
-
-        private const byte LatinCapitalG = 0x47;
-
-        private const byte PercentSign = 0x25;
-
+        private const byte LatinCapitalA = (byte)'A';
+        private const byte LatinCapitalG = (byte)'G';
+        private const byte PercentSign = (byte)'%';
         private const byte Esc = 0x1B;
 
         /// <summary>Converts the given ISO2022 char set to a Java charset name.</summary>
@@ -26,13 +20,11 @@ namespace MetadataExtractor.Formats.Iptc
         public static string ConvertIso2022CharsetToJavaCharset([NotNull] byte[] bytes)
         {
             if (bytes.Length > 2 && bytes[0] == Esc && bytes[1] == PercentSign && bytes[2] == LatinCapitalG)
-            {
-                return Utf8;
-            }
+                return "UTF-8";
+
             if (bytes.Length > 3 && bytes[0] == Esc && (bytes[3] & 0xFF | ((bytes[2] & 0xFF) << 8) | ((bytes[1] & 0xFF) << 16)) == Dot && bytes[4] == LatinCapitalA)
-            {
-                return Iso88591;
-            }
+                return "ISO-8859-1";
+
             return null;
         }
 
@@ -40,9 +32,9 @@ namespace MetadataExtractor.Formats.Iptc
         /// <remarks>
         /// Encodings trialled are, in order:
         /// <list type="bullet">
-        /// <item>UTF-8</item>
-        /// <item>ASCII</item>
-        /// <item>ISO-8859-1</item>
+        ///   <item>UTF-8</item>
+        ///   <item>ISO-8859-1</item>
+        ///   <item>ASCII</item>
         /// </list>
         /// <para />
         /// Its only purpose is to guess the encoding if and only if iptc tag coded character set is not set. If the
@@ -57,20 +49,58 @@ namespace MetadataExtractor.Formats.Iptc
         [CanBeNull]
         internal static Encoding GuessEncoding([NotNull] byte[] bytes)
         {
-            Encoding[] encodings = { Encoding.UTF8, Encoding.ASCII, Encoding.GetEncoding("iso-8859-1") };
+            // First, give ASCII a shot
+            var ascii = true;
+            foreach (var b in bytes)
+            {
+                if (b < 0x20 || b > 0x7f)
+                {
+                    ascii = false;
+                    break;
+                }
+            }
+
+            if (ascii)
+                return Encoding.ASCII;
+
+            var utf8 = false;
+            var i = 0;
+            while (i < bytes.Length - 4)
+            {
+                if (bytes[i] <= 0x7F) { i++; continue; }
+                if (bytes[i] >= 0xC2 && bytes[i] <= 0xDF && bytes[i + 1] >= 0x80 && bytes[i + 1] < 0xC0) { i += 2; utf8 = true; continue; }
+                if (bytes[i] >= 0xE0 && bytes[i] <= 0xF0 && bytes[i + 1] >= 0x80 && bytes[i + 1] < 0xC0 && bytes[i + 2] >= 0x80 && bytes[i + 2] < 0xC0) { i += 3; utf8 = true; continue; }
+                if (bytes[i] >= 0xF0 && bytes[i] <= 0xF4 && bytes[i + 1] >= 0x80 && bytes[i + 1] < 0xC0 && bytes[i + 2] >= 0x80 && bytes[i + 2] < 0xC0 && bytes[i + 3] >= 0x80 && bytes[i + 3] < 0xC0) { i += 4; utf8 = true; continue; }
+                utf8 = false;
+                break;
+            }
+
+            if (utf8)
+                return Encoding.UTF8;
+
+            Encoding[] encodings =
+            {
+                Encoding.UTF8,
+                Encoding.GetEncoding("iso-8859-1") // Latin-1
+            };
+
             foreach (var encoding in encodings)
             {
+                Debug.Assert(encoding != null);
                 try
                 {
                     // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                    encoding.GetString(bytes);
+                    var s = encoding.GetString(bytes);
+                    if (s.IndexOf((char)65533) != -1)
+                        continue;
                     return encoding;
                 }
                 catch
                 {
+                    // fall through...
                 }
             }
-            // fall through...
+
             // No encodings succeeded. Return null.
             return null;
         }
