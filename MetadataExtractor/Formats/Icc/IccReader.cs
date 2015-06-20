@@ -134,7 +134,7 @@ namespace MetadataExtractor.Formats.Icc
                     directory.Set(tagType, b);
                 }
             }
-            catch (IOException ex)
+            catch (Exception ex)
             {
                 directory.AddError("Exception reading ICC profile: " + ex.Message);
             }
