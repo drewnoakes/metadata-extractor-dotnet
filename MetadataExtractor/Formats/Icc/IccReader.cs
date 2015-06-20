@@ -84,7 +84,7 @@ namespace MetadataExtractor.Formats.Icc
             return new[] { Extract(new ByteArrayReader(buffer)) };
         }
 
-        public IccDirectory Extract(IndexedReader reader)
+        public IccDirectory Extract([NotNull] IndexedReader reader)
         {
             // TODO review whether the 'tagPtr' values below really do require IndexedReader or whether SequentialReader may be used instead
             var directory = new IccDirectory();
