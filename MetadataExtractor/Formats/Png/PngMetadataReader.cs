@@ -226,7 +226,7 @@ namespace MetadataExtractor.Formats.Png
             {
                 var reader = new SequentialByteArrayReader(bytes);
                 var year = reader.GetUInt16();
-                var month = reader.GetUInt8() - 1;
+                var month = reader.GetUInt8();
                 int day = reader.GetUInt8();
                 int hour = reader.GetUInt8();
                 int minute = reader.GetUInt8();
