@@ -19,7 +19,7 @@ namespace MetadataExtractor.Formats.Iptc
             if (bytes.Length > 2 && bytes[0] == Esc && bytes[1] == PercentSign && bytes[2] == LatinCapitalG)
                 return "UTF-8";
 
-            if (bytes.Length > 3 && bytes[0] == Esc && (bytes[3] & 0xFF | ((bytes[2] & 0xFF) << 8) | ((bytes[1] & 0xFF) << 16)) == Dot && bytes[4] == LatinCapitalA)
+            if (bytes.Length > 3 && bytes[0] == Esc && (bytes[3] | bytes[2] << 8 | bytes[1] << 16) == Dot && bytes[4] == LatinCapitalA)
                 return "ISO-8859-1";
 
             return null;

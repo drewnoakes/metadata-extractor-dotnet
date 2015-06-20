@@ -522,9 +522,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             var value = Directory.GetInt64Nullable(OlympusMakernoteDirectory.CameraSettings.TagDate);
             if (value == null)
                 return null;
-            var day = (long)value & 0xFF;
-            var month = ((long)value >> 16) & 0xFF;
-            var year = ((long)value >> 8) & 0xFF;
+            var day = value & 0xFF;
+            var month = (value >> 16) & 0xFF;
+            var year = (value >> 8) & 0xFF;
             return new DateTime((int)year + 1970, (int)month + 1, (int)day).ToString("ddd MMM dd HH:mm:ss zzz yyyy");
         }
 
@@ -539,9 +539,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             {
                 return null;
             }
-            var hours = ((long)value >> 8) & 0xFF;
-            var minutes = ((long)value >> 16) & 0xFF;
-            var seconds = (long)value & 0xFF;
+            var hours = (value >> 8) & 0xFF;
+            var minutes = (value >> 16) & 0xFF;
+            var seconds = value & 0xFF;
             return string.Format("{0:D2}:{1:D2}:{2:D2}", hours, minutes, seconds);
         }
 

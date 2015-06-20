@@ -120,9 +120,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 }
                 IndexedReader reader = new ByteArrayReader(b);
                 int q = reader.GetUInt16(0);
-                // & 0xFFFF;
                 int f = reader.GetUInt16(2);
-                // & 0xFFFF;
                 int s = reader.GetUInt16(4);
                 int q1;
                 if (q <= 0xFFFF && q >= 0xFFFD)
