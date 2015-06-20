@@ -56,7 +56,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
                 new ExifReader().ReadJpegSegments(null, JpegSegmentType.App1);
                 Assert.Fail("Exception expected");
             }
-            catch (NullReferenceException)
+            catch (ArgumentNullException)
             {
             }
         }
