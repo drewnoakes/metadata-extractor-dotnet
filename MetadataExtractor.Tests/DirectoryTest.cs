@@ -110,19 +110,19 @@ namespace MetadataExtractor.Tests
         [Test]
         public void TestSetStringAndGetDate()
         {
-            var date1 = "2002:01:30 24:59:59";
-            var date2 = "2002:01:30 24:59";
-            var date3 = "2002-01-30 24:59:59";
-            var date4 = "2002-01-30 24:59";
+            var date1 = "2002:01:30 23:59:59";
+            var date2 = "2002:01:30 23:59";
+            var date3 = "2002-01-30 23:59:59";
+            var date4 = "2002-01-30 23:59";
             _directory.Set(1, date1);
             _directory.Set(2, date2);
             _directory.Set(3, date3);
             _directory.Set(4, date4);
             Assert.AreEqual(date1, _directory.GetString(1));
-            Assert.AreEqual(new DateTime(2002, 1, 30, 24, 59, 59), _directory.GetDateTimeNullable(1));
-            Assert.AreEqual(new DateTime(2002, 1, 30, 24, 59, 0), _directory.GetDateTimeNullable(2));
-            Assert.AreEqual(new DateTime(2002, 1, 30, 24, 59, 59), _directory.GetDateTimeNullable(3));
-            Assert.AreEqual(new DateTime(2002, 1, 30, 24, 59, 0), _directory.GetDateTimeNullable(4));
+            Assert.AreEqual(new DateTime(2002, 1, 30, 23, 59, 59), _directory.GetDateTimeNullable(1));
+            Assert.AreEqual(new DateTime(2002, 1, 30, 23, 59, 0), _directory.GetDateTimeNullable(2));
+            Assert.AreEqual(new DateTime(2002, 1, 30, 23, 59, 59), _directory.GetDateTimeNullable(3));
+            Assert.AreEqual(new DateTime(2002, 1, 30, 23, 59, 0), _directory.GetDateTimeNullable(4));
         }
 
 
