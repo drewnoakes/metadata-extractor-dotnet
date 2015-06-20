@@ -42,7 +42,7 @@ namespace MetadataExtractor.Tests.IO
             Assert.AreEqual(true, CreateReader(new byte[1]).IsMotorolaByteOrder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
+
         [Test]
         public void TestGetInt8()
         {
@@ -54,7 +54,7 @@ namespace MetadataExtractor.Tests.IO
             Assert.AreEqual(255, reader.GetInt8());
         }
 
-        /// <exception cref="System.IO.IOException"/>
+
         [Test]
         public void TestGetUInt8()
         {
@@ -82,7 +82,7 @@ namespace MetadataExtractor.Tests.IO
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
+
         [Test]
         public void TestGetInt16()
         {
@@ -97,7 +97,7 @@ namespace MetadataExtractor.Tests.IO
             Assert.AreEqual(unchecked((short)(0xFF7F)), reader.GetInt16());
         }
 
-        /// <exception cref="System.IO.IOException"/>
+
         [Test]
         public void TestGetUInt16()
         {
@@ -126,7 +126,7 @@ namespace MetadataExtractor.Tests.IO
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
+
         [Test]
         public void TestGetInt32()
         {
@@ -141,7 +141,7 @@ namespace MetadataExtractor.Tests.IO
             Assert.AreEqual(0x07060504, reader.GetInt32());
         }
 
-        /// <exception cref="System.IO.IOException"/>
+
         [Test]
         public void TestGetUInt32()
         {
@@ -172,7 +172,7 @@ namespace MetadataExtractor.Tests.IO
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
+
         [Test]
         public void TestGetInt64()
         {
@@ -199,7 +199,7 @@ namespace MetadataExtractor.Tests.IO
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
+
         [Test]
         public void TestGetFloat32()
         {
@@ -210,7 +210,7 @@ namespace MetadataExtractor.Tests.IO
             Assert.IsTrue(float.IsNaN(reader.GetFloat32()));
         }
 
-        /// <exception cref="System.IO.IOException"/>
+
         [Test]
         public void TestGetFloat64()
         {
@@ -221,7 +221,7 @@ namespace MetadataExtractor.Tests.IO
             Assert.IsTrue(double.IsNaN(reader.GetDouble64()));
         }
 
-        /// <exception cref="System.IO.IOException"/>
+
         [Test]
         public void TestGetNullTerminatedString()
         {
@@ -237,7 +237,7 @@ namespace MetadataExtractor.Tests.IO
             Assert.AreEqual("AB", CreateReader(new byte[] { 0x41, 0x42, 0, 0x43 }).GetNullTerminatedString(10));
         }
 
-        /// <exception cref="System.IO.IOException"/>
+
         [Test]
         public void TestGetString()
         {
@@ -250,7 +250,7 @@ namespace MetadataExtractor.Tests.IO
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
+
         [Test]
         public void TestGetBytes()
         {
