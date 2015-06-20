@@ -1,92 +1,108 @@
-NMetadataExtractor
-====================
+![metadata-extractor logo](https://raw.githubusercontent.com/drewnoakes/metadata-extractor/master/Resources/metadata-extractor-logo-500x123.png)
 
-    using MetadataExtractor;
+_MetadataExtractor_ is a straightforward .NET library for reading metadata from image files.
 
-    Metadata metadata = new ImageMetadataExtractor().Extract(filePath);
+    IEnumerable<Directory> metadata = ImageMetadataReader.ReadMetadata(imagePath);
 
-MetadataExtractor.Formats.Png
-MetadataExtractor.Formats.Bpm
-MetadataExtractor.Formats.Exif
-MetadataExtractor.Util (PhotographicConversions, FileType, FileTypeDetector)
+The resulting `metadata` object holds potentially many different directories of metadata, depending upon the input image.
+You may then enumerate the various metadata values contained in each directory.
 
-class StreamCapabilities
-{
-    bool AcceptsStream(Stream stream);
-    
-    /// <summary>Returns a stream that has the capabilities required for this reader.</summary>
-    /// <remarks>Note that the returned stream need not be disposed, but the source stream still does.</summary>
-    Stream Decorate(Stream source);
-}
+The library understands several formats of metadata, many of which may be present in a single image:
 
-interface IMetadataReader
-{
-    StreamCapabilities StreamRequirements { get; }
+* [Exif](http://en.wikipedia.org/wiki/Exchangeable_image_file_format)
+* [IPTC](http://en.wikipedia.org/wiki/IPTC)
+* [XMP](http://en.wikipedia.org/wiki/Extensible_Metadata_Platform)
+* [JFIF / JFXX](http://en.wikipedia.org/wiki/JPEG_File_Interchange_Format)
+* [ICC Profiles](http://en.wikipedia.org/wiki/ICC_profile)
+* [Photoshop](http://en.wikipedia.org/wiki/Photoshop) fields
+* [WebP](http://en.wikipedia.org/wiki/WebP) properties
+* [PNG](http://en.wikipedia.org/wiki/Portable_Network_Graphics) properties
+* [BMP](http://en.wikipedia.org/wiki/BMP_file_format) properties
+* [GIF](http://en.wikipedia.org/wiki/Graphics_Interchange_Format) properties
+* [ICO](https://en.wikipedia.org/wiki/ICO_(file_format)) properties
+* [PCX](http://en.wikipedia.org/wiki/PCX) properties
 
-    IEnumerable<Directory> Read(Stream stream);
-}
+It will process files of type:
 
-interface IFileMetadataReader
-{
-    IEnumerable<byte[]> MagicNumbers { get; }
-}
+* JPEG
+* TIFF
+* WebP
+* PSD
+* PNG
+* BMP
+* GIF
+* ICO
+* PCX
+* Camera Raw
+  * NEF (Nikon)
+  * CR2 (Canon)
+  * ORF (Olympus)
+  * ARW (Sony)
+  * RW2 (Panasonic)
+  * RWL (Leica)
+  * SRW (Samsung)
 
+Camera-specific "makernote" data is decoded for cameras manufactured by:
 
+* Agfa
+* Canon
+* Casio
+* Epson
+* Fujifilm
+* Kodak
+* Kyocera
+* Leica
+* Minolta
+* Nikon
+* Olympus
+* Panasonic
+* Pentax
+* Sanyo
+* Sigma/Foveon
+* Sony
 
-public static class MetadataReaderExtension
-{
-    public static IEnumerable<Directory> Read(this IMetadataReader reader, string filePath)
-    {
-        using (var stream = new FileStream(filePath, FileMode.Open))
-             return reader.Read(reader.StreamRequirements.Decorate(stream));
-    }
-}
+## Mailing Lists
 
+* [metadata-extractor-dev](https://groups.google.com/forum/#!forum/metadata-extractor-dev) for discussion about development and notifications of changes to issues and source code
+* [metadata-extractor-announce](https://groups.google.com/forum/#!forum/metadata-extractor-announce) for announcements of new releases
 
-master: [![Build status](https://ci.appveyor.com/api/projects/status/12bkj9y5wcydqak7/branch/master?svg=true)](https://ci.appveyor.com/project/imazen/n-metadata-extractor/branch/master) most recent commit: [![Build status](https://ci.appveyor.com/api/projects/status/12bkj9y5wcydqak7?svg=true)](https://ci.appveyor.com/project/imazen/n-metadata-extractor) [Download documentation archive](https://ci.appveyor.com/project/imazen/n-metadata-extractor/build/artifacts)
+## Feedback
 
+Have questions or ideas? Try the [mailing list](http://groups.google.com/group/metadata-extractor-dev) or [open an issue](https://github.com/drewnoakes/metadata-extractor-dotnet/issues). GitHub's issue tracker accepts attachments, and sample images are often crucial in debugging problems.
 
-C# port of the [excellent Java MetadataExtractor library by Drew Noakes](https://drewnoakes.com/code/exif/). 
+## Contribute
 
+If you want to get your hands dirty, clone this repository, enhance the library and submit a pull request. Review the issue list and ask around on the mailing list to avoid duplication of work.
 
+An easier way to help is to contribute to the [sample image file library](https://github.com/drewnoakes/metadata-extractor/wiki/ImageDatabase) used for research and testing.
 
+## Credits
 
-Initial coversion was performed with [Sharpen](https://github.com/imazen/sharpen); details can be found in [HowToConvert.md](HowToConvert.md) and [SharpenBugsAndProblems.md](SharpenBugsAndProblems.md). Significant manual work was required afterward to make the library build and pass all tests correctly.
+This library is developed by [Drew Noakes](https://drewnoakes.com/code/exif/).
 
-Conversion was performed against [this copy](https://github.com/ydanila/j-metadata-extractor) of the MetadataExtractor library, which [was reorganized to be amenable to Sharpen conversion](https://github.com/ydanila/j-metadata-extractor/commit/0b6d857dde184bf992a975957521f950ed0e92f6). This copy, in turn, was based on the [Jan 18, 2014 commit eb70b234529a](https://code.google.com/p/metadata-extractor/source/detail?r=eb70b234529ae267c9ba72e9df68d9acb7e3504b). 
+Thanks are due to the many [users](https://github.com/drewnoakes/metadata-extractor/wiki/UsedBy) who sent in suggestions, bug reports,
+[sample images](https://github.com/drewnoakes/metadata-extractor/wiki/ImageDatabase) from their cameras as well as encouragement.
+Wherever possible, they have been credited in the source code and commit logs.
 
-Many thanks to Yakov Danilov <yakodani@gmail.com> his work in porting this library from Java to C#. 
+This library was [originally written in Java](https://github.com/drewnoakes/metadata-extractor/) in 2002. In 2014, Yakov Danilov (for Imazen LLC) converted the code to C# using Sharpen. Both projects are now developed in unison and aim to be functionally equivalent.
 
+## License
 
-Also, special thanks to [Ferret Renaud, who provided a C# port for many years](http://ferretrenaud.fr/Projets/MetaDataExtractor/index.html). His code can be found in the 'renaud' branch. 
+Copyright 2002-2015 Drew Noakes
 
-All code herein is licensed under one of the following licenses: Apache 2, BSD, MIT. See LICENSE for details about which code is licensed under which license. 
+> Licensed under the Apache License, Version 2.0 (the "License");
+> you may not use this file except in compliance with the License.
+> You may obtain a copy of the License at
+>
+>     http://www.apache.org/licenses/LICENSE-2.0
+>
+> Unless required by applicable law or agreed to in writing, software
+> distributed under the License is distributed on an "AS IS" BASIS,
+> WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+> See the License for the specific language governing permissions and
+> limitations under the License.
 
-ICSharpCode.SharpZipLib is licensed under the GPL with a linking exception, so it can be used in commerical products. 
+More information about this project is available at:
 
-
-### To-do
-
-* Publish to NuGet
-* Add documentation (and where possible, re-use documentation from the original).
-
-## Example use
-
-Autocoverted examples: 
-
-https://github.com/imazen/n-metadata-extractor/blob/master/Com.Drew/Com/drew/tools/ProcessAllImagesInFolderUtility.cs
-
-https://github.com/imazen/n-metadata-extractor/blob/master/Com.Drew/Com/drew/tools/ProcessUrlUtility.cs
-
-Sample project "SampleReader"
-
-
-### Basic usage
-
-```
-
-var meta = ImageMetadataReader.ReadMetadata(InputStream.Wrap(stream)); //Stream must be seekable
-
-//Produce a list of strings containing metadata key/value pairs. 
-var strings = metadata.GetDirectories().SelectMany(d => d.GetTags().Select(t => String.Format("[{0}] {1} = {2}\n",d.GetName(), t.GetTagName(), t.GetDescription()))).ToList();
-```
+* https://drewnoakes.com/code/exif/
+* https://github.com/drewnoakes/metadata-extractor-dotnet/
