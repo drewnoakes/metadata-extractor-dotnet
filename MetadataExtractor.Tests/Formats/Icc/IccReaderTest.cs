@@ -21,6 +21,7 @@
  */
 
 using System.IO;
+using System.Linq;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
@@ -30,24 +31,27 @@ namespace MetadataExtractor.Tests.Formats.Icc
 {
     public sealed class IccReaderTest
     {
+        // TODO add a test with well-formed ICC data and assert output values are correct
+
         [Test]
-        public void TestExtract()
+        public void TestExtract_InvalidData()
         {
             var app2Bytes = File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2");
-            // ICC data starts after a 14-byte preamble
+
+            // When in an APP2 segment, ICC data starts after a 14-byte preamble
             var icc = TestHelper.SkipBytes(app2Bytes, 14);
             var directory = new IccReader().Extract(new ByteArrayReader(icc));
             Assert.IsNotNull(directory);
-            // TODO validate expected values
+            Assert.IsTrue(directory.HasErrors);
         }
 
         [Test]
-        public void TestReadJpegSegments()
+        public void TestReadJpegSegments_InvalidData()
         {
             var app2Bytes = File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2");
             var directory = new IccReader().ReadJpegSegments(new[] { app2Bytes }, JpegSegmentType.App2);
             Assert.IsNotNull(directory);
-            // TODO validate expected values
+            Assert.IsTrue(directory.Single().HasErrors);
         }
 
         [Test]
