@@ -94,7 +94,7 @@ namespace MetadataExtractor.Formats.Icc
                 var profileByteCount = reader.GetInt32(IccDirectory.TagProfileByteCount);
                 directory.Set(IccDirectory.TagProfileByteCount, profileByteCount);
 
-                // For these tags, the int value of the tag is in fact it's offset within the buffer.
+                // For these tags, the int value of the tag is in fact its offset within the buffer.
                 Set4ByteString(directory, IccDirectory.TagCmmType, reader);
                 SetInt32(directory, IccDirectory.TagProfileVersion, reader);
                 Set4ByteString(directory, IccDirectory.TagProfileClass, reader);
