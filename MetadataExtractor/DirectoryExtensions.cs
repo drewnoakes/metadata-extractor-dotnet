@@ -606,7 +606,7 @@ namespace MetadataExtractor
                         str.Append(vals[i]);
                     }
                 }
-                else if (componentType.IsByRef)
+                else
                 {
                     var vals = (object[])array;
                     for (var i = 0; i < vals.Length; i++)
@@ -615,10 +615,6 @@ namespace MetadataExtractor
                             str.Append(' ');
                         str.Append(vals[i]);
                     }
-                }
-                else
-                {
-                    directory.AddError("Unexpected array component type: " + componentType.FullName);
                 }
 
                 return str.ToString();
