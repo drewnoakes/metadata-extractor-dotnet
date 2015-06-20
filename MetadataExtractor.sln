@@ -19,8 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileLabeller", "FileLabelle
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{FA64D44E-5E0C-4CD4-89D8-53BCFEBD18BE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5F8EBA76-F7AC-4575-B1B2-2123F9148481}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.Tools.ExtractJpegSegments", "MetadataExtractor.Tools.ExtractJpegSegments\MetadataExtractor.Tools.ExtractJpegSegments.csproj", "{B7BED0C7-F73D-4F58-AE3D-A9131405D62B}"
 EndProject
 Global
@@ -50,7 +48,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{07AFC815-EDBB-4CF8-B555-86B6CADE7D0F} = {5F8EBA76-F7AC-4575-B1B2-2123F9148481}
 		{CEBF4390-E9B8-4EB1-9B33-C2C087C9DADA} = {FA64D44E-5E0C-4CD4-89D8-53BCFEBD18BE}
 		{B7BED0C7-F73D-4F58-AE3D-A9131405D62B} = {FA64D44E-5E0C-4CD4-89D8-53BCFEBD18BE}
 	EndGlobalSection
