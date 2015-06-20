@@ -120,12 +120,6 @@ namespace MetadataExtractor
             get { return _errorList; }
         }
 
-        /// <summary>Returns the count of error messages in this directory.</summary>
-        public int ErrorCount
-        {
-            get { return _errorList.Count; }
-        }
-
         #region Tag Setters
 
         /// <summary>Sets a <c>Object</c> for the specified tag.</summary>
