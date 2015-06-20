@@ -56,10 +56,6 @@
       <Project>{26E27564-A74F-423B-A986-E979988F259D}</Project>
       <Name>MetadataExtractor</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sharpen\Sharpen.csproj">
-      <Project>{72944A6C-45FF-4EF8-B349-8C9CABF519D4}</Project>
-      <Name>Sharpen</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

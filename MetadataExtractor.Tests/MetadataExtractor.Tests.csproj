@@ -39,6 +39,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
+    <Reference Include="XmpCore, Version=5.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\XmpCore.1.0.1\lib\net40\XmpCore.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DirectoryExtensionsTest.cs" />
@@ -154,14 +158,6 @@
     <ProjectReference Include="..\MetadataExtractor\MetadataExtractor.csproj">
       <Project>{26e27564-a74f-423b-a986-e979988f259d}</Project>
       <Name>MetadataExtractor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sharpen\Sharpen.csproj">
-      <Project>{72944a6c-45ff-4ef8-b349-8c9cabf519d4}</Project>
-      <Name>Sharpen</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XmpCore\XmpCore.csproj">
-      <Project>{5A1F2AFF-7219-4543-97C4-364D4502C3C5}</Project>
-      <Name>XmpCore</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
