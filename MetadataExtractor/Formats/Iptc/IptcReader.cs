@@ -242,17 +242,25 @@ namespace MetadataExtractor.Formats.Iptc
             if (str == null)
             {
                 var encodingName = directory.GetString(IptcDirectory.TagCodedCharacterSet);
+                Encoding encoding = null;
                 if (encodingName != null)
                 {
-                    var encoding = Encoding.GetEncoding(encodingName);
-                    str = reader.GetString(tagByteCount, encoding);
+                    try
+                    {
+                        encoding = Encoding.GetEncoding(encodingName);
+                    }
+                    catch { }
                 }
-                else
-                {
-                    var bytes1 = reader.GetBytes(tagByteCount);
-                    var encoding = Iso2022Converter.GuessEncoding(bytes1);
-                    str = encoding != null ? encoding.GetString(bytes1) : Encoding.UTF8.GetString(bytes1);
-                }
+
+                var bytes = reader.GetBytes(tagByteCount);
+
+                if (encoding == null)
+                    encoding = Iso2022Converter.GuessEncoding(bytes);
+
+                if (encoding == null)
+                    encoding = Encoding.UTF8;
+
+                str = encoding.GetString(bytes);
             }
 
             if (directory.ContainsTag(tagIdentifier))
