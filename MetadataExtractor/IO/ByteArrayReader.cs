@@ -51,8 +51,9 @@ namespace MetadataExtractor.IO
             return _buffer.Length;
         }
 
-        protected override byte GetByte(int index)
+        public override byte GetByte(int index)
         {
+            ValidateIndex(index, 1);
             return _buffer[index];
         }
 

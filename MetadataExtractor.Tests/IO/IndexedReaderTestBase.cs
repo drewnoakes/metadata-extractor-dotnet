@@ -42,34 +42,34 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Test]
-        public void TestGetInt8()
+        public void TestGetSByte()
         {
             var buffer = new byte[] { 0x00, 0x01, 0x7F, 0xFF };
             var reader = CreateReader(buffer);
-            Assert.AreEqual(0, reader.GetInt8(0));
-            Assert.AreEqual(1, reader.GetInt8(1));
-            Assert.AreEqual(127, reader.GetInt8(2));
-            Assert.AreEqual(-1, reader.GetInt8(3));
+            Assert.AreEqual(0, reader.GetSByte(0));
+            Assert.AreEqual(1, reader.GetSByte(1));
+            Assert.AreEqual(127, reader.GetSByte(2));
+            Assert.AreEqual(-1, reader.GetSByte(3));
         }
 
         [Test]
-        public void TestGetUInt8()
+        public void TestGetByte()
         {
             var buffer = new byte[] { 0x00, 0x01, 0x7F, 0xFF };
             var reader = CreateReader(buffer);
-            Assert.AreEqual(0, reader.GetUInt8(0));
-            Assert.AreEqual(1, reader.GetUInt8(1));
-            Assert.AreEqual(127, reader.GetUInt8(2));
-            Assert.AreEqual(255, reader.GetUInt8(3));
+            Assert.AreEqual(0, reader.GetByte(0));
+            Assert.AreEqual(1, reader.GetByte(1));
+            Assert.AreEqual(127, reader.GetByte(2));
+            Assert.AreEqual(255, reader.GetByte(3));
         }
 
         [Test]
-        public void TestGetUInt8_OutOfBounds()
+        public void TestGetByte_OutOfBounds()
         {
             try
             {
                 var reader = CreateReader(new byte[2]);
-                reader.GetUInt8(2);
+                reader.GetByte(2);
                 Assert.Fail("Exception expected");
             }
             catch (IOException ex)
@@ -78,7 +78,7 @@ namespace MetadataExtractor.Tests.IO
             }
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetInt16()
         {
@@ -94,7 +94,7 @@ namespace MetadataExtractor.Tests.IO
             Assert.AreEqual(unchecked((short)(0xFF7F)), reader.GetInt16(2));
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetUInt16()
         {
@@ -124,7 +124,7 @@ namespace MetadataExtractor.Tests.IO
             }
         }
 
-        /// <exception cref="System.Exception"/>
+
         [Test]
         public void TestGetInt32()
         {
@@ -301,8 +301,10 @@ namespace MetadataExtractor.Tests.IO
         public void TestGetBytesEof()
         {
             CreateReader(new byte[50]).GetBytes(0, 50);
+
             var reader = CreateReader(new byte[50]);
             reader.GetBytes(25, 25);
+
             try
             {
                 CreateReader(new byte[50]).GetBytes(0, 51);
@@ -314,17 +316,19 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Test]
-        public void TestGetInt8Eof()
+        public void TestGetByteEof()
         {
-            CreateReader(new byte[1]).GetInt8(0);
+            CreateReader(new byte[1]).GetByte(0);
+
             var reader = CreateReader(new byte[2]);
-            reader.GetInt8(0);
-            reader.GetInt8(1);
+            reader.GetByte(0);
+            reader.GetByte(1);
+
             try
             {
                 reader = CreateReader(new byte[1]);
-                reader.GetInt8(0);
-                reader.GetInt8(1);
+                reader.GetByte(0);
+                reader.GetByte(1);
                 Assert.Fail("Expecting exception");
             }
             catch (IOException)

@@ -82,11 +82,11 @@ namespace MetadataExtractor.Formats.Ico
                 try
                 {
                     directory.Set(IcoDirectory.TagImageType, type);
-                    directory.Set(IcoDirectory.TagImageWidth, reader.GetUInt8());
-                    directory.Set(IcoDirectory.TagImageHeight, reader.GetUInt8());
-                    directory.Set(IcoDirectory.TagColourPaletteSize, reader.GetUInt8());
+                    directory.Set(IcoDirectory.TagImageWidth, reader.GetByte());
+                    directory.Set(IcoDirectory.TagImageHeight, reader.GetByte());
+                    directory.Set(IcoDirectory.TagColourPaletteSize, reader.GetByte());
                     // Ignore this byte (normally zero, though .NET's System.Drawing.Icon.Save method writes 255)
-                    reader.GetUInt8();
+                    reader.GetByte();
 
                     if (type == 1)
                     {

@@ -100,16 +100,16 @@ namespace MetadataExtractor.Formats.Jpeg
             {
                 // Find the segment marker. Markers are zero or more 0xFF bytes, followed
                 // by a 0xFF and then a byte not equal to 0x00 or 0xFF.
-                var segmentIdentifier = reader.GetUInt8();
+                var segmentIdentifier = reader.GetByte();
 
                 // We must have at least one 0xFF byte
                 if (segmentIdentifier != 0xFF)
                     throw new JpegProcessingException(string.Format("Expected JPEG segment start identifier 0xFF, not 0x{0:X2}", segmentIdentifier));
 
                 // Read until we have a non-0xFF byte. This identifies the segment type.
-                var segmentTypeByte = reader.GetUInt8();
+                var segmentTypeByte = reader.GetByte();
                 while (segmentTypeByte == 0xFF)
-                    segmentTypeByte = reader.GetUInt8();
+                    segmentTypeByte = reader.GetByte();
 
                 if (segmentTypeByte == 0)
                     throw new JpegProcessingException("Expected non-zero byte as part of JPEG marker identifier");

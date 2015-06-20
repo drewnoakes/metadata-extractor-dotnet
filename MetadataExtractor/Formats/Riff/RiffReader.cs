@@ -100,7 +100,7 @@ namespace MetadataExtractor.Formats.Riff
                 // Skip any padding byte added to keep chunks aligned to even numbers of bytes
                 if (chunkSize % 2 == 1)
                 {
-                    reader.GetInt8();
+                    reader.GetSByte();
                     sizeLeft--;
                 }
             }

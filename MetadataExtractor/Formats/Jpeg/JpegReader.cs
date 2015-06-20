@@ -61,10 +61,10 @@ namespace MetadataExtractor.Formats.Jpeg
 
             try
             {
-                directory.Set(JpegDirectory.TagDataPrecision, reader.GetUInt8());
+                directory.Set(JpegDirectory.TagDataPrecision, reader.GetByte());
                 directory.Set(JpegDirectory.TagImageHeight, reader.GetUInt16());
                 directory.Set(JpegDirectory.TagImageWidth, reader.GetUInt16());
-                var componentCount = reader.GetUInt8();
+                var componentCount = reader.GetByte();
                 directory.Set(JpegDirectory.TagNumberOfComponents, componentCount);
                 // for each component, there are three bytes of data:
                 // 1 - Component ID: 1 = Y, 2 = Cb, 3 = Cr, 4 = I, 5 = Q
@@ -72,9 +72,9 @@ namespace MetadataExtractor.Formats.Jpeg
                 // 3 - Quantization table number
                 for (var i = 0; i < (int)componentCount; i++)
                 {
-                    int componentId = reader.GetUInt8();
-                    int samplingFactorByte = reader.GetUInt8();
-                    int quantizationTableNumber = reader.GetUInt8();
+                    int componentId = reader.GetByte();
+                    int samplingFactorByte = reader.GetByte();
+                    int quantizationTableNumber = reader.GetByte();
                     var component = new JpegComponent(componentId, samplingFactorByte, quantizationTableNumber);
                     directory.Set(JpegDirectory.TagComponentData1 + i, component);
                 }

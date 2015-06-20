@@ -113,7 +113,7 @@ namespace MetadataExtractor.Formats.Exif
             if (tagId == ExifDirectoryBase.TagIptcNaa && CurrentDirectory is ExifIfd0Directory)
             {
                 // NOTE Adobe sets type 4 for IPTC instead of 7
-                if (reader.GetInt8(tagOffset) == 0x1c)
+                if (reader.GetSByte(tagOffset) == 0x1c)
                 {
                     var iptcBytes = reader.GetBytes(tagOffset, byteCount);
                     Directories.Add(new IptcReader().Extract(new SequentialByteArrayReader(iptcBytes), iptcBytes.Length));
@@ -190,7 +190,7 @@ namespace MetadataExtractor.Formats.Exif
             {
                 if ("Nikon".Equals(firstFiveChars))
                 {
-                    switch (reader.GetUInt8(makernoteOffset + 6))
+                    switch (reader.GetByte(makernoteOffset + 6))
                     {
                         case 1:
                         {
@@ -384,31 +384,31 @@ namespace MetadataExtractor.Formats.Exif
             try
             {
                 directory.Set(KodakMakernoteDirectory.TagKodakModel, reader.GetString(dataOffset, 8));
-                directory.Set(KodakMakernoteDirectory.TagQuality, reader.GetUInt8(dataOffset + 9));
-                directory.Set(KodakMakernoteDirectory.TagBurstMode, reader.GetUInt8(dataOffset + 10));
+                directory.Set(KodakMakernoteDirectory.TagQuality, reader.GetByte(dataOffset + 9));
+                directory.Set(KodakMakernoteDirectory.TagBurstMode, reader.GetByte(dataOffset + 10));
                 directory.Set(KodakMakernoteDirectory.TagImageWidth, reader.GetUInt16(dataOffset + 12));
                 directory.Set(KodakMakernoteDirectory.TagImageHeight, reader.GetUInt16(dataOffset + 14));
                 directory.Set(KodakMakernoteDirectory.TagYearCreated, reader.GetUInt16(dataOffset + 16));
                 directory.Set(KodakMakernoteDirectory.TagMonthDayCreated, reader.GetBytes(dataOffset + 18, 2));
                 directory.Set(KodakMakernoteDirectory.TagTimeCreated, reader.GetBytes(dataOffset + 20, 4));
                 directory.Set(KodakMakernoteDirectory.TagBurstMode2, reader.GetUInt16(dataOffset + 24));
-                directory.Set(KodakMakernoteDirectory.TagShutterMode, reader.GetUInt8(dataOffset + 27));
-                directory.Set(KodakMakernoteDirectory.TagMeteringMode, reader.GetUInt8(dataOffset + 28));
-                directory.Set(KodakMakernoteDirectory.TagSequenceNumber, reader.GetUInt8(dataOffset + 29));
+                directory.Set(KodakMakernoteDirectory.TagShutterMode, reader.GetByte(dataOffset + 27));
+                directory.Set(KodakMakernoteDirectory.TagMeteringMode, reader.GetByte(dataOffset + 28));
+                directory.Set(KodakMakernoteDirectory.TagSequenceNumber, reader.GetByte(dataOffset + 29));
                 directory.Set(KodakMakernoteDirectory.TagFNumber, reader.GetUInt16(dataOffset + 30));
                 directory.Set(KodakMakernoteDirectory.TagExposureTime, reader.GetUInt32(dataOffset + 32));
                 directory.Set(KodakMakernoteDirectory.TagExposureCompensation, reader.GetInt16(dataOffset + 36));
-                directory.Set(KodakMakernoteDirectory.TagFocusMode, reader.GetUInt8(dataOffset + 56));
-                directory.Set(KodakMakernoteDirectory.TagWhiteBalance, reader.GetUInt8(dataOffset + 64));
-                directory.Set(KodakMakernoteDirectory.TagFlashMode, reader.GetUInt8(dataOffset + 92));
-                directory.Set(KodakMakernoteDirectory.TagFlashFired, reader.GetUInt8(dataOffset + 93));
+                directory.Set(KodakMakernoteDirectory.TagFocusMode, reader.GetByte(dataOffset + 56));
+                directory.Set(KodakMakernoteDirectory.TagWhiteBalance, reader.GetByte(dataOffset + 64));
+                directory.Set(KodakMakernoteDirectory.TagFlashMode, reader.GetByte(dataOffset + 92));
+                directory.Set(KodakMakernoteDirectory.TagFlashFired, reader.GetByte(dataOffset + 93));
                 directory.Set(KodakMakernoteDirectory.TagIsoSetting, reader.GetUInt16(dataOffset + 94));
                 directory.Set(KodakMakernoteDirectory.TagIso, reader.GetUInt16(dataOffset + 96));
                 directory.Set(KodakMakernoteDirectory.TagTotalZoom, reader.GetUInt16(dataOffset + 98));
                 directory.Set(KodakMakernoteDirectory.TagDateTimeStamp, reader.GetUInt16(dataOffset + 100));
                 directory.Set(KodakMakernoteDirectory.TagColorMode, reader.GetUInt16(dataOffset + 102));
                 directory.Set(KodakMakernoteDirectory.TagDigitalZoom, reader.GetUInt16(dataOffset + 104));
-                directory.Set(KodakMakernoteDirectory.TagSharpness, reader.GetInt8(dataOffset + 107));
+                directory.Set(KodakMakernoteDirectory.TagSharpness, reader.GetSByte(dataOffset + 107));
             }
             catch (IOException ex)
             {

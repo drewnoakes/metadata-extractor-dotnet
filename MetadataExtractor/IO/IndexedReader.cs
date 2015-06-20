@@ -58,15 +58,14 @@ namespace MetadataExtractor.IO
 
         /// <summary>Gets the byte value at the specified byte <c>index</c>.</summary>
         /// <remarks>
-        /// Implementations should not perform any bounds checking in this method. That should be performed
-        /// in <c>validateIndex</c> and <c>isValidIndex</c>.
+        /// Implementations must validate <paramref name="index"/> by calling <see cref="ValidateIndex"/>.
         /// </remarks>
         /// <param name="index">The index from which to read the byte</param>
         /// <returns>The read byte value</returns>
-        /// <exception cref="System.ArgumentException"><c>index</c> or <c>count</c> are negative</exception>
+        /// <exception cref="System.ArgumentException"><c>index</c> is negative</exception>
         /// <exception cref="BufferBoundsException">if the requested byte is beyond the end of the underlying data source</exception>
         /// <exception cref="System.IO.IOException">if the byte is unable to be read</exception>
-        protected abstract byte GetByte(int index);
+        public abstract byte GetByte(int index);
 
         /// <summary>Returns the required number of bytes from the specified index from the underlying source.</summary>
         /// <param name="index">The index from which the bytes begins in the underlying source</param>
@@ -125,21 +124,11 @@ namespace MetadataExtractor.IO
             return ((b >> bitIndex) & 1) == 1;
         }
 
-        /// <summary>Returns an unsigned 8-bit int calculated from one byte of data at the specified index.</summary>
-        /// <param name="index">position within the data buffer to read byte</param>
-        /// <returns>the 8 bit int value, between 0 and 255</returns>
-        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
-        public byte GetUInt8(int index)
-        {
-            ValidateIndex(index, 1);
-            return GetByte(index);
-        }
-
         /// <summary>Returns a signed 8-bit int calculated from one byte of data at the specified index.</summary>
         /// <param name="index">position within the data buffer to read byte</param>
         /// <returns>the 8 bit signed byte value</returns>
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
-        public sbyte GetInt8(int index)
+        public sbyte GetSByte(int index)
         {
             ValidateIndex(index, 1);
             return unchecked((sbyte)GetByte(index));

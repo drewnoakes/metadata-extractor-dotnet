@@ -16,17 +16,17 @@ namespace MetadataExtractor.Formats.Png
 
             ImageWidth = reader.GetInt32();
             ImageHeight = reader.GetInt32();
-            BitsPerSample = reader.GetUInt8();
+            BitsPerSample = reader.GetByte();
 
-            var colorTypeNumber = reader.GetUInt8();
+            var colorTypeNumber = reader.GetByte();
             var colorType = PngColorType.FromNumericValue(colorTypeNumber);
             if (colorType == null)
                 throw new PngProcessingException("Unexpected PNG color type: " + colorTypeNumber);
             ColorType = colorType;
 
-            CompressionType = reader.GetUInt8();
-            FilterMethod = reader.GetUInt8();
-            InterlaceMethod = reader.GetUInt8();
+            CompressionType = reader.GetByte();
+            FilterMethod = reader.GetByte();
+            InterlaceMethod = reader.GetByte();
         }
 
         public int ImageWidth { get; private set; }

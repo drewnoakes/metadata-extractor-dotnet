@@ -93,7 +93,7 @@ namespace MetadataExtractor.Formats.Photoshop
                     pos += 2;
 
                     // A variable number of bytes holding a pascal string (two leading bytes for length).
-                    var descriptionLength = reader.GetUInt8();
+                    var descriptionLength = reader.GetByte();
                     pos += 1;
 
                     // Some basic bounds checking

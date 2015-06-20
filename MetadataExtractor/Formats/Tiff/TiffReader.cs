@@ -324,14 +324,14 @@ namespace MetadataExtractor.Formats.Tiff
                 {
                     if (componentCount == 1)
                     {
-                        handler.SetInt8S(tagId, reader.GetInt8(tagValueOffset));
+                        handler.SetInt8S(tagId, reader.GetSByte(tagValueOffset));
                     }
                     else
                     {
                         var array = new sbyte[componentCount];
                         for (var i = 0; i < componentCount; i++)
                         {
-                            array[i] = reader.GetInt8(tagValueOffset + i);
+                            array[i] = reader.GetSByte(tagValueOffset + i);
                         }
                         handler.SetInt8SArray(tagId, array);
                     }
@@ -342,14 +342,14 @@ namespace MetadataExtractor.Formats.Tiff
                 {
                     if (componentCount == 1)
                     {
-                        handler.SetInt8U(tagId, reader.GetUInt8(tagValueOffset));
+                        handler.SetInt8U(tagId, reader.GetByte(tagValueOffset));
                     }
                     else
                     {
                         var array = new byte[componentCount];
                         for (var i = 0; i < componentCount; i++)
                         {
-                            array[i] = reader.GetUInt8(tagValueOffset + i);
+                            array[i] = reader.GetByte(tagValueOffset + i);
                         }
                         handler.SetInt8UArray(tagId, array);
                     }

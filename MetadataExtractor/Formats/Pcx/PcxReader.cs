@@ -45,18 +45,18 @@ namespace MetadataExtractor.Formats.Pcx
 
             try
             {
-                var identifier = reader.GetInt8();
+                var identifier = reader.GetSByte();
                 if (identifier != 0x0A)
                 {
                     throw new ImageProcessingException("Invalid PCX identifier byte");
                 }
-                directory.Set(PcxDirectory.TagVersion, reader.GetInt8());
-                var encoding = reader.GetInt8();
+                directory.Set(PcxDirectory.TagVersion, reader.GetSByte());
+                var encoding = reader.GetSByte();
                 if (encoding != 0x01)
                 {
                     throw new ImageProcessingException("Invalid PCX encoding byte");
                 }
-                directory.Set(PcxDirectory.TagBitsPerPixel, reader.GetUInt8());
+                directory.Set(PcxDirectory.TagBitsPerPixel, reader.GetByte());
                 directory.Set(PcxDirectory.TagXmin, reader.GetUInt16());
                 directory.Set(PcxDirectory.TagYmin, reader.GetUInt16());
                 directory.Set(PcxDirectory.TagXmax, reader.GetUInt16());
@@ -65,7 +65,7 @@ namespace MetadataExtractor.Formats.Pcx
                 directory.Set(PcxDirectory.TagVerticalDpi, reader.GetUInt16());
                 directory.Set(PcxDirectory.TagPalette, reader.GetBytes(48));
                 reader.Skip(1);
-                directory.Set(PcxDirectory.TagColorPlanes, reader.GetUInt8());
+                directory.Set(PcxDirectory.TagColorPlanes, reader.GetByte());
                 directory.Set(PcxDirectory.TagBytesPerLine, reader.GetUInt16());
                 var paletteType = reader.GetUInt16();
                 if (paletteType != 0)

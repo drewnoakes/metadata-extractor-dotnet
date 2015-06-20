@@ -60,8 +60,9 @@ namespace MetadataExtractor.IO
         }
 
         /// <exception cref="System.IO.IOException"/>
-        protected override byte GetByte(int index)
+        public override byte GetByte(int index)
         {
+            ValidateIndex(index, 1);
             if (index != _currentIndex)
             {
                 Seek(index);

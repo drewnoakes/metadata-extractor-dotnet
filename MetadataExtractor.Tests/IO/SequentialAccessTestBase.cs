@@ -44,36 +44,36 @@ namespace MetadataExtractor.Tests.IO
 
 
         [Test]
-        public void TestGetInt8()
+        public void TestGetSByte()
         {
             var buffer = new byte[] { 0x00, 0x01, 0x7F, 0xFF };
             var reader = CreateReader(buffer);
-            Assert.AreEqual(0, reader.GetInt8());
-            Assert.AreEqual(1, reader.GetInt8());
-            Assert.AreEqual(127, reader.GetInt8());
-            Assert.AreEqual(-1, reader.GetInt8());
+            Assert.AreEqual(0, reader.GetSByte());
+            Assert.AreEqual(1, reader.GetSByte());
+            Assert.AreEqual(127, reader.GetSByte());
+            Assert.AreEqual(-1, reader.GetSByte());
         }
 
 
         [Test]
-        public void TestGetUInt8()
+        public void TestGetByte()
         {
             var buffer = new byte[] { 0x00, 0x01, 0x7F, 0xFF };
             var reader = CreateReader(buffer);
-            Assert.AreEqual(0, reader.GetUInt8());
-            Assert.AreEqual(1, reader.GetUInt8());
-            Assert.AreEqual(127, reader.GetUInt8());
-            Assert.AreEqual(255, reader.GetUInt8());
+            Assert.AreEqual(0, reader.GetByte());
+            Assert.AreEqual(1, reader.GetByte());
+            Assert.AreEqual(127, reader.GetByte());
+            Assert.AreEqual(255, reader.GetByte());
         }
 
         [Test]
-        public void TestGetUInt8_OutOfBounds()
+        public void TestGetByte_OutOfBounds()
         {
             try
             {
                 var reader = CreateReader(new byte[1]);
-                reader.GetUInt8();
-                reader.GetUInt8();
+                reader.GetByte();
+                reader.GetByte();
                 Assert.Fail("Exception expected");
             }
             catch (IOException ex)
@@ -285,6 +285,7 @@ namespace MetadataExtractor.Tests.IO
         public void TestGetBytesEof()
         {
             CreateReader(new byte[50]).GetBytes(50);
+
             var reader = CreateReader(new byte[50]);
             reader.GetBytes(25);
             reader.GetBytes(25);
@@ -300,17 +301,19 @@ namespace MetadataExtractor.Tests.IO
 
 
         [Test]
-        public void TestGetInt8Eof()
+        public void TestGetByteEof()
         {
-            CreateReader(new byte[1]).GetInt8();
+            CreateReader(new byte[1]).GetByte();
+
             var reader = CreateReader(new byte[2]);
-            reader.GetInt8();
-            reader.GetInt8();
+            reader.GetByte();
+            reader.GetByte();
+
             reader = CreateReader(new byte[1]);
-            reader.GetInt8();
+            reader.GetByte();
             try
             {
-                reader.GetInt8();
+                reader.GetByte();
                 Assert.Fail("Expecting exception");
             }
             catch (IOException)

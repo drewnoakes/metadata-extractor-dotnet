@@ -35,25 +35,18 @@ namespace MetadataExtractor.IO
 
         [NotNull]
         private readonly Stream _stream;
-
         private readonly int _chunkLength;
-
         private readonly List<byte[]> _chunks = new List<byte[]>();
-
         private bool _isStreamFinished;
-
         private int _streamLength;
 
         public IndexedCapturingReader([NotNull] Stream stream, int chunkLength = DefaultChunkLength)
         {
             if (stream == null)
-            {
                 throw new ArgumentNullException();
-            }
             if (chunkLength <= 0)
-            {
                 throw new ArgumentException("chunkLength must be greater than zero");
-            }
+
             _chunkLength = chunkLength;
             _stream = stream;
         }
@@ -102,7 +95,6 @@ namespace MetadataExtractor.IO
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
         protected override bool IsValidIndex(int index, int bytesRequested)
         {
             if (index < 0 || bytesRequested < 0)
@@ -151,9 +143,9 @@ namespace MetadataExtractor.IO
             return true;
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        protected override byte GetByte(int index)
+        public override byte GetByte(int index)
         {
+            ValidateIndex(index, 1);
             Debug.Assert((index >= 0));
             var chunkIndex = index / _chunkLength;
             var innerIndex = index % _chunkLength;
@@ -161,7 +153,6 @@ namespace MetadataExtractor.IO
             return chunk[innerIndex];
         }
 
-        /// <exception cref="System.IO.IOException"/>
         public override byte[] GetBytes(int index, int count)
         {
             ValidateIndex(index, count);

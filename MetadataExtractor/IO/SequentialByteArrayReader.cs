@@ -44,8 +44,7 @@ namespace MetadataExtractor.IO
             _index = baseIndex;
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        protected override byte GetByte()
+        public override byte GetByte()
         {
             if (_index >= _bytes.Length)
             {
@@ -54,7 +53,6 @@ namespace MetadataExtractor.IO
             return _bytes[_index++];
         }
 
-        /// <exception cref="System.IO.IOException"/>
         public override byte[] GetBytes(int count)
         {
             if (_index + count > _bytes.Length)
@@ -67,7 +65,6 @@ namespace MetadataExtractor.IO
             return bytes;
         }
 
-        /// <exception cref="System.IO.IOException"/>
         public override void Skip(long n)
         {
             if (n < 0)
@@ -81,7 +78,6 @@ namespace MetadataExtractor.IO
             _index += unchecked((int)(n));
         }
 
-        /// <exception cref="System.IO.IOException"/>
         public override bool TrySkip(long n)
         {
             if (n < 0)

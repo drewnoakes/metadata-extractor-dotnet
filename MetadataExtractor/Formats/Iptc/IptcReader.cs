@@ -89,7 +89,7 @@ namespace MetadataExtractor.Formats.Iptc
                 byte startByte;
                 try
                 {
-                    startByte = reader.GetUInt8();
+                    startByte = reader.GetByte();
                     offset++;
                 }
                 catch (IOException)
@@ -119,8 +119,8 @@ namespace MetadataExtractor.Formats.Iptc
                 int tagByteCount;
                 try
                 {
-                    directoryType = reader.GetUInt8();
-                    tagType = reader.GetUInt8();
+                    directoryType = reader.GetByte();
+                    tagType = reader.GetByte();
                     // TODO support Extended DataSet Tag (see 1.5(c), p14, IPTC-IIMV4.2.pdf)
                     tagByteCount = reader.GetUInt16();
                     offset += 4;
@@ -204,7 +204,7 @@ namespace MetadataExtractor.Formats.Iptc
                 case IptcDirectory.TagUrgency:
                 {
                     // byte
-                    directory.Set(tagIdentifier, reader.GetUInt8());
+                    directory.Set(tagIdentifier, reader.GetByte());
                     reader.Skip(tagByteCount - 1);
                     return;
                 }

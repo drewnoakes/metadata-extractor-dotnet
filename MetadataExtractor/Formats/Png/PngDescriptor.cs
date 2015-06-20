@@ -183,7 +183,7 @@ namespace MetadataExtractor.Formats.Png
 
                     case 3:
                     {
-                        return string.Format("Palette Index {0}", reader.GetUInt8());
+                        return string.Format("Palette Index {0}", reader.GetByte());
                     }
                 }
             }

@@ -54,11 +54,6 @@ namespace MetadataExtractor.IO
             IsMotorolaByteOrder = true;
         }
 
-        /// <summary>Gets the next byte in the sequence.</summary>
-        /// <returns>The read byte value</returns>
-        /// <exception cref="System.IO.IOException"/>
-        protected abstract byte GetByte();
-
         /// <summary>Returns the required number of bytes from the sequence.</summary>
         /// <param name="count">The number of bytes to be returned</param>
         /// <returns>The requested bytes</returns>
@@ -83,18 +78,15 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException">an error occurred reading from the underlying source.</exception>
         public abstract bool TrySkip(long n);
 
-        /// <summary>Returns an unsigned 8-bit int calculated from the next byte of the sequence.</summary>
+        /// <summary>Returns the next unsigned byte from the sequence.</summary>
         /// <returns>the 8 bit int value, between 0 and 255</returns>
         /// <exception cref="System.IO.IOException"/>
-        public byte GetUInt8()
-        {
-            return GetByte();
-        }
+        public abstract byte GetByte();
 
         /// <summary>Returns a signed 8-bit int calculated from the next byte the sequence.</summary>
         /// <returns>the 8 bit int value, between 0x00 and 0xFF</returns>
         /// <exception cref="System.IO.IOException"/>
-        public sbyte GetInt8()
+        public sbyte GetSByte()
         {
             return unchecked((sbyte)GetByte());
         }

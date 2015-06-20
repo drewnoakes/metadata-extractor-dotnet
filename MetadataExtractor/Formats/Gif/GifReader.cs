@@ -51,7 +51,7 @@ namespace MetadataExtractor.Formats.Gif
                 directory.Set(GifHeaderDirectory.TagGifFormatVersion, version);
                 directory.Set(GifHeaderDirectory.TagImageWidth, reader.GetUInt16());
                 directory.Set(GifHeaderDirectory.TagImageHeight, reader.GetUInt16());
-                var flags = reader.GetUInt8();
+                var flags = reader.GetByte();
                 // First three bits = (BPP - 1)
                 var colorTableSize = 1 << ((flags & 7) + 1);
                 directory.Set(GifHeaderDirectory.TagColorTableSize, colorTableSize);
@@ -64,8 +64,8 @@ namespace MetadataExtractor.Formats.Gif
                 directory.Set(GifHeaderDirectory.TagBitsPerPixel, bitsPerPixel);
                 var hasGlobalColorTable = (flags & 0xf) != 0;
                 directory.Set(GifHeaderDirectory.TagHasGlobalColorTable, hasGlobalColorTable);
-                directory.Set(GifHeaderDirectory.TagTransparentColorIndex, reader.GetUInt8());
-                int aspectRatioByte = reader.GetUInt8();
+                directory.Set(GifHeaderDirectory.TagTransparentColorIndex, reader.GetByte());
+                int aspectRatioByte = reader.GetByte();
                 if (aspectRatioByte != 0)
                 {
                     var pixelAspectRatio = (float)((aspectRatioByte + 15d) / 64d);

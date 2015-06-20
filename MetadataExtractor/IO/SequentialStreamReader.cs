@@ -40,8 +40,7 @@ namespace MetadataExtractor.IO
             _stream = stream;
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        protected override byte GetByte()
+        public override byte GetByte()
         {
             var value = _stream.ReadByte();
             if (value == -1)
@@ -51,7 +50,6 @@ namespace MetadataExtractor.IO
             return unchecked((byte)value);
         }
 
-        /// <exception cref="System.IO.IOException"/>
         public override byte[] GetBytes(int count)
         {
             var bytes = new byte[count];

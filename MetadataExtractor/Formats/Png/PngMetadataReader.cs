@@ -108,7 +108,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType.Equals(PngChunkType.SRgb))
             {
-                int srgbRenderingIntent = new SequentialByteArrayReader(bytes).GetInt8();
+                int srgbRenderingIntent = new SequentialByteArrayReader(bytes).GetSByte();
                 var directory = new PngDirectory(PngChunkType.SRgb);
                 directory.Set(PngDirectory.TagSrgbRenderingIntent, srgbRenderingIntent);
                 yield return directory;
@@ -140,7 +140,7 @@ namespace MetadataExtractor.Formats.Png
                 var profileName = reader.GetNullTerminatedString(79);
                 var directory = new PngDirectory(PngChunkType.ICcp);
                 directory.Set(PngDirectory.TagIccProfileName, profileName);
-                var compressionMethod = reader.GetInt8();
+                var compressionMethod = reader.GetSByte();
                 if (compressionMethod == 0)
                 {
                     // Only compression method allowed by the spec is zero: deflate
@@ -174,8 +174,8 @@ namespace MetadataExtractor.Formats.Png
             {
                 SequentialReader reader = new SequentialByteArrayReader(bytes);
                 var keyword = reader.GetNullTerminatedString(79);
-                var compressionFlag = reader.GetInt8();
-                var compressionMethod = reader.GetInt8();
+                var compressionFlag = reader.GetSByte();
+                var compressionMethod = reader.GetSByte();
                 var languageTag = reader.GetNullTerminatedString(bytes.Length);
                 var translatedKeyword = reader.GetNullTerminatedString(bytes.Length);
                 var bytesLeft = bytes.Length - keyword.Length - 1 - 1 - 1 - languageTag.Length - 1 - translatedKeyword.Length - 1;
@@ -226,11 +226,11 @@ namespace MetadataExtractor.Formats.Png
             {
                 var reader = new SequentialByteArrayReader(bytes);
                 var year = reader.GetUInt16();
-                var month = reader.GetUInt8();
-                int day = reader.GetUInt8();
-                int hour = reader.GetUInt8();
-                int minute = reader.GetUInt8();
-                int second = reader.GetUInt8();
+                var month = reader.GetByte();
+                int day = reader.GetByte();
+                int hour = reader.GetByte();
+                int minute = reader.GetByte();
+                int second = reader.GetByte();
                 var directory = new PngDirectory(PngChunkType.TIme);
                 try
                 {
@@ -248,7 +248,7 @@ namespace MetadataExtractor.Formats.Png
                 var reader = new SequentialByteArrayReader(bytes);
                 var pixelsPerUnitX = reader.GetInt32();
                 var pixelsPerUnitY = reader.GetInt32();
-                var unitSpecifier = reader.GetInt8();
+                var unitSpecifier = reader.GetSByte();
                 var directory = new PngDirectory(PngChunkType.PHYs);
                 directory.Set(PngDirectory.TagPixelsPerUnitX, pixelsPerUnitX);
                 directory.Set(PngDirectory.TagPixelsPerUnitY, pixelsPerUnitY);

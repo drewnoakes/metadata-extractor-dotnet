@@ -67,7 +67,7 @@ namespace MetadataExtractor.Formats.Adobe
                 directory.Set(AdobeJpegDirectory.TagDctEncodeVersion, reader.GetUInt16());
                 directory.Set(AdobeJpegDirectory.TagApp14Flags0, reader.GetUInt16());
                 directory.Set(AdobeJpegDirectory.TagApp14Flags1, reader.GetUInt16());
-                directory.Set(AdobeJpegDirectory.TagColorTransform, reader.GetInt8());
+                directory.Set(AdobeJpegDirectory.TagColorTransform, reader.GetSByte());
             }
             catch (IOException ex)
             {
