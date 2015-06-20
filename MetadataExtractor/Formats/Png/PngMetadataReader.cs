@@ -231,9 +231,16 @@ namespace MetadataExtractor.Formats.Png
                 int hour = reader.GetUInt8();
                 int minute = reader.GetUInt8();
                 int second = reader.GetUInt8();
-                var time = new DateTime(year, month, day, hour, minute, second, DateTimeKind.Utc);
                 var directory = new PngDirectory(PngChunkType.TIme);
-                directory.Set(PngDirectory.TagLastModificationTime, time);
+                try
+                {
+                    var time = new DateTime(year, month, day, hour, minute, second, DateTimeKind.Utc);
+                    directory.Set(PngDirectory.TagLastModificationTime, time);
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    directory.AddError("Error constructing DateTime: " + e.Message);
+                }
                 yield return directory;
             }
             else if (chunkType.Equals(PngChunkType.PHYs))
