@@ -41,7 +41,7 @@ namespace MetadataExtractor.Formats.Icc
 
         public const int TagProfileConnectionSpace = 20;
 
-        public const int TagProfileDatetime = 24;
+        public const int TagProfileDateTime = 24;
 
         public const int TagSignature = 36;
 
@@ -172,7 +172,7 @@ namespace MetadataExtractor.Formats.Icc
             TagNameMap[TagProfileClass] = "Class";
             TagNameMap[TagColorSpace] = "Color space";
             TagNameMap[TagProfileConnectionSpace] = "Profile Connection Space";
-            TagNameMap[TagProfileDatetime] = "Profile Date/Time";
+            TagNameMap[TagProfileDateTime] = "Profile Date/Time";
             TagNameMap[TagSignature] = "Signature";
             TagNameMap[TagPlatform] = "Primary Platform";
             TagNameMap[TagCmmFlags] = "CMM Flags";

@@ -140,8 +140,8 @@ namespace MetadataExtractor.Formats.Xmp
             ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagFNumber, FmtRational);
             ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagFocalLength, FmtRational);
             ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagShutterSpeed, FmtRational);
-            ProcessXmpDateTag(xmpMeta, directory, XmpDirectory.TagDatetimeOriginal);
-            ProcessXmpDateTag(xmpMeta, directory, XmpDirectory.TagDatetimeDigitized);
+            ProcessXmpDateTag(xmpMeta, directory, XmpDirectory.TagDateTimeOriginal);
+            ProcessXmpDateTag(xmpMeta, directory, XmpDirectory.TagDateTimeDigitized);
             ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagRating, FmtDouble);
             ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagLabel, FmtString);
             // this requires further research

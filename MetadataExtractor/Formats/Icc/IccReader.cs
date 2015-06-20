@@ -100,7 +100,7 @@ namespace MetadataExtractor.Formats.Icc
                 Set4ByteString(directory, IccDirectory.TagProfileClass, reader);
                 Set4ByteString(directory, IccDirectory.TagColorSpace, reader);
                 Set4ByteString(directory, IccDirectory.TagProfileConnectionSpace, reader);
-                SetDate(directory, IccDirectory.TagProfileDatetime, reader);
+                SetDate(directory, IccDirectory.TagProfileDateTime, reader);
                 Set4ByteString(directory, IccDirectory.TagSignature, reader);
                 Set4ByteString(directory, IccDirectory.TagPlatform, reader);
                 SetInt32(directory, IccDirectory.TagCmmFlags, reader);

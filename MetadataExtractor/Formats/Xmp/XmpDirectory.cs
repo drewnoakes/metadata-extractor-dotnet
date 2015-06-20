@@ -44,8 +44,8 @@ namespace MetadataExtractor.Formats.Xmp
         public const int TagFocalLength = 0x000a;
         public const int TagApertureValue = 0x000b;
         public const int TagExposureProgram = 0x000c;
-        public const int TagDatetimeOriginal = 0x000d;
-        public const int TagDatetimeDigitized = 0x000e;
+        public const int TagDateTimeOriginal = 0x000d;
+        public const int TagDateTimeDigitized = 0x000e;
 
         /// <summary>A value from 0 to 5, or -1 if the image is rejected.</summary>
         public const int TagRating = 0x1001;
@@ -108,8 +108,8 @@ namespace MetadataExtractor.Formats.Xmp
             TagNameMap[TagFocalLength] = "Focal Length";
             TagNameMap[TagApertureValue] = "Aperture Value";
             TagNameMap[TagExposureProgram] = "Exposure Program";
-            TagNameMap[TagDatetimeOriginal] = "Date/Time Original";
-            TagNameMap[TagDatetimeDigitized] = "Date/Time Digitized";
+            TagNameMap[TagDateTimeOriginal] = "Date/Time Original";
+            TagNameMap[TagDateTimeDigitized] = "Date/Time Digitized";
             TagNameMap[TagRating] = "Rating";
             TagNameMap[TagLabel] = "Label";
             // this requires further research
@@ -146,8 +146,8 @@ namespace MetadataExtractor.Formats.Xmp
             TagPropNameMap[TagFocalLength] = "exif:FocalLength";
             TagPropNameMap[TagApertureValue] = "exif:ApertureValue";
             TagPropNameMap[TagExposureProgram] = "exif:ExposureProgram";
-            TagPropNameMap[TagDatetimeOriginal] = "exif:DateTimeOriginal";
-            TagPropNameMap[TagDatetimeDigitized] = "exif:DateTimeDigitized";
+            TagPropNameMap[TagDateTimeOriginal] = "exif:DateTimeOriginal";
+            TagPropNameMap[TagDateTimeDigitized] = "exif:DateTimeDigitized";
             TagPropNameMap[TagRating] = "xmp:Rating";
             TagPropNameMap[TagLabel] = "xmp:Label";
             // this requires further research
@@ -184,8 +184,8 @@ namespace MetadataExtractor.Formats.Xmp
             TagSchemaMap[TagFocalLength] = Schema.ExifSpecificProperties;
             TagSchemaMap[TagApertureValue] = Schema.ExifSpecificProperties;
             TagSchemaMap[TagExposureProgram] = Schema.ExifSpecificProperties;
-            TagSchemaMap[TagDatetimeOriginal] = Schema.ExifSpecificProperties;
-            TagSchemaMap[TagDatetimeDigitized] = Schema.ExifSpecificProperties;
+            TagSchemaMap[TagDateTimeOriginal] = Schema.ExifSpecificProperties;
+            TagSchemaMap[TagDateTimeDigitized] = Schema.ExifSpecificProperties;
             TagSchemaMap[TagRating] = Schema.XmpProperties;
             TagSchemaMap[TagLabel] = Schema.XmpProperties;
             // this requires further research

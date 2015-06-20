@@ -150,15 +150,15 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.AreEqual(300, _exifIfd0Directory.GetDouble(ExifDirectoryBase.TagYResolution), 0.001);
             Assert.AreEqual(2, _exifIfd0Directory.GetInt32(ExifDirectoryBase.TagResolutionUnit));
             Assert.AreEqual("E995v1.6", _exifIfd0Directory.GetString(ExifDirectoryBase.TagSoftware));
-            Assert.AreEqual("2002:08:29 17:31:40", _exifIfd0Directory.GetString(ExifDirectoryBase.TagDatetime));
+            Assert.AreEqual("2002:08:29 17:31:40", _exifIfd0Directory.GetString(ExifDirectoryBase.TagDateTime));
             Assert.AreEqual(1, _exifIfd0Directory.GetInt32(ExifDirectoryBase.TagYcbcrPositioning));
             Assert.AreEqual(new Rational(2439024, 100000000), _exifSubIfdDirectory.GetRational(ExifDirectoryBase.TagExposureTime));
             Assert.AreEqual(2.6, _exifSubIfdDirectory.GetDouble(ExifDirectoryBase.TagFnumber), 0.001);
             Assert.AreEqual(2, _exifSubIfdDirectory.GetInt32(ExifDirectoryBase.TagExposureProgram));
             Assert.AreEqual(100, _exifSubIfdDirectory.GetInt32(ExifDirectoryBase.TagIsoEquivalent));
             Assert.AreEqual("48 50 49 48", _exifSubIfdDirectory.GetString(ExifDirectoryBase.TagExifVersion));
-            Assert.AreEqual("2002:08:29 17:31:40", _exifSubIfdDirectory.GetString(ExifDirectoryBase.TagDatetimeDigitized));
-            Assert.AreEqual("2002:08:29 17:31:40", _exifSubIfdDirectory.GetString(ExifDirectoryBase.TagDatetimeOriginal));
+            Assert.AreEqual("2002:08:29 17:31:40", _exifSubIfdDirectory.GetString(ExifDirectoryBase.TagDateTimeDigitized));
+            Assert.AreEqual("2002:08:29 17:31:40", _exifSubIfdDirectory.GetString(ExifDirectoryBase.TagDateTimeOriginal));
             Assert.AreEqual("1 2 3 0", _exifSubIfdDirectory.GetString(ExifDirectoryBase.TagComponentsConfiguration));
             Assert.AreEqual(0, _exifSubIfdDirectory.GetInt32(ExifDirectoryBase.TagExposureBias));
             Assert.AreEqual("0", _exifSubIfdDirectory.GetString(ExifDirectoryBase.TagMaxAperture));

@@ -154,7 +154,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagSoftware = 0x0131;
 
-        public const int TagDatetime = 0x0132;
+        public const int TagDateTime = 0x0132;
 
         public const int TagArtist = 0x013B;
 
@@ -277,9 +277,9 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagExifVersion = 0x9000;
 
-        public const int TagDatetimeOriginal = 0x9003;
+        public const int TagDateTimeOriginal = 0x9003;
 
-        public const int TagDatetimeDigitized = 0x9004;
+        public const int TagDateTimeDigitized = 0x9004;
 
         public const int TagComponentsConfiguration = 0x9101;
 
@@ -789,7 +789,7 @@ namespace MetadataExtractor.Formats.Exif
             map[TagResolutionUnit] = "Resolution Unit";
             map[TagTransferFunction] = "Transfer Function";
             map[TagSoftware] = "Software";
-            map[TagDatetime] = "Date/Time";
+            map[TagDateTime] = "Date/Time";
             map[TagArtist] = "Artist";
             map[TagPredictor] = "Predictor";
             map[TagHostComputer] = "Host Computer";
@@ -832,8 +832,8 @@ namespace MetadataExtractor.Formats.Exif
             map[TagTimeZoneOffset] = "Time Zone Offset";
             map[TagSelfTimerMode] = "Self Timer Mode";
             map[TagExifVersion] = "Exif Version";
-            map[TagDatetimeOriginal] = "Date/Time Original";
-            map[TagDatetimeDigitized] = "Date/Time Digitized";
+            map[TagDateTimeOriginal] = "Date/Time Original";
+            map[TagDateTimeDigitized] = "Date/Time Digitized";
             map[TagComponentsConfiguration] = "Components Configuration";
             map[TagCompressedAverageBitsPerPixel] = "Compressed Bits Per Pixel";
             map[TagShutterSpeed] = "Shutter Speed Value";

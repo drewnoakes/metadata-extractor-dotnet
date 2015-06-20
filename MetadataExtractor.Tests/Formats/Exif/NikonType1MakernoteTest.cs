@@ -147,15 +147,15 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.AreEqual(300, _exifIfd0Directory.GetDouble(ExifDirectoryBase.TagYResolution), 0.001);
             Assert.AreEqual(2, _exifIfd0Directory.GetInt32(ExifDirectoryBase.TagResolutionUnit));
             Assert.AreEqual("v981-79", _exifIfd0Directory.GetString(ExifDirectoryBase.TagSoftware));
-            Assert.AreEqual("2001:04:06 11:51:40", _exifIfd0Directory.GetString(ExifDirectoryBase.TagDatetime));
+            Assert.AreEqual("2001:04:06 11:51:40", _exifIfd0Directory.GetString(ExifDirectoryBase.TagDateTime));
             Assert.AreEqual(2, _exifIfd0Directory.GetInt32(ExifDirectoryBase.TagYcbcrPositioning));
             Assert.AreEqual(new Rational(1, 77), _exifSubIfdDirectory.GetRational(ExifDirectoryBase.TagExposureTime));
             Assert.AreEqual(5.5, _exifSubIfdDirectory.GetDouble(ExifDirectoryBase.TagFnumber), 0.001);
             Assert.AreEqual(2, _exifSubIfdDirectory.GetInt32(ExifDirectoryBase.TagExposureProgram));
             Assert.AreEqual(80, _exifSubIfdDirectory.GetInt32(ExifDirectoryBase.TagIsoEquivalent));
             Assert.AreEqual("48 50 49 48", _exifSubIfdDirectory.GetString(ExifDirectoryBase.TagExifVersion));
-            Assert.AreEqual("2001:04:06 11:51:40", _exifSubIfdDirectory.GetString(ExifDirectoryBase.TagDatetimeDigitized));
-            Assert.AreEqual("2001:04:06 11:51:40", _exifSubIfdDirectory.GetString(ExifDirectoryBase.TagDatetimeOriginal));
+            Assert.AreEqual("2001:04:06 11:51:40", _exifSubIfdDirectory.GetString(ExifDirectoryBase.TagDateTimeDigitized));
+            Assert.AreEqual("2001:04:06 11:51:40", _exifSubIfdDirectory.GetString(ExifDirectoryBase.TagDateTimeOriginal));
             Assert.AreEqual("1 2 3 0", _exifSubIfdDirectory.GetString(ExifDirectoryBase.TagComponentsConfiguration));
             Assert.AreEqual(4, _exifSubIfdDirectory.GetInt32(ExifDirectoryBase.TagCompressedAverageBitsPerPixel));
             Assert.AreEqual(0, _exifSubIfdDirectory.GetInt32(ExifDirectoryBase.TagExposureBias));

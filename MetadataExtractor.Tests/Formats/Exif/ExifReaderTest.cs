@@ -91,7 +91,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void TestDateTime()
         {
             var directory = ProcessSegmentBytes<ExifIfd0Directory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
-            Assert.AreEqual("2002:11:27 18:00:35", directory.GetString(ExifDirectoryBase.TagDatetime));
+            Assert.AreEqual("2002:11:27 18:00:35", directory.GetString(ExifDirectoryBase.TagDateTime));
         }
 
         [Test]
