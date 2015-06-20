@@ -60,7 +60,7 @@ namespace MetadataExtractor.Formats.Jpeg
         [NotNull]
         public static JpegSegmentData ReadSegments([NotNull] string filePath, [CanBeNull] ICollection<JpegSegmentType> segmentTypes)
         {
-            using (var stream = new FileStream(filePath, FileMode.Open))
+            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 return ReadSegments(new SequentialStreamReader(stream), segmentTypes);
         }
 

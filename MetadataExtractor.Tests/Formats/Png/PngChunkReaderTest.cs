@@ -14,7 +14,7 @@ namespace MetadataExtractor.Tests.Formats.Png
         /// <exception cref="System.IO.IOException"/>
         public static IList<PngChunk> ProcessFile(string filePath)
         {
-            using (var stream = new FileStream(filePath, FileMode.Open))
+            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 return new PngChunkReader().Extract(new SequentialStreamReader(stream), null).ToList();
         }
 

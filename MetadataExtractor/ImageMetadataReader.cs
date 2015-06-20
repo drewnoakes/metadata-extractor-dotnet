@@ -115,7 +115,7 @@ namespace MetadataExtractor
         {
             var directories = new List<Directory>();
 
-            using (var stream = new FileStream(filePath, FileMode.Open))
+            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 directories.AddRange(ReadMetadata(stream));
 
             directories.Add(new FileMetadataReader().Read(filePath));

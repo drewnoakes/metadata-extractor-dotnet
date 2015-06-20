@@ -38,7 +38,7 @@ namespace MetadataExtractor.Formats.Photoshop
         {
             var directories = new List<Directory>();
 
-            using (var stream = new FileStream(filePath, FileMode.Open))
+            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 directories.AddRange(new PsdReader().Extract(new SequentialStreamReader(stream)));
 
             directories.Add(new FileMetadataReader().Read(filePath));

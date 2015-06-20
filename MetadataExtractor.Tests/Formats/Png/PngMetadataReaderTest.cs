@@ -16,7 +16,7 @@ namespace MetadataExtractor.Tests.Formats.Png
         [NotNull]
         private static IReadOnlyList<Directory> ProcessFile([NotNull] string filePath)
         {
-            using (var stream = new FileStream(filePath, FileMode.Open))
+            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 return PngMetadataReader.ReadMetadata(stream);
         }
 

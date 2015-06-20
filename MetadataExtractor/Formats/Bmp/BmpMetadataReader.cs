@@ -38,7 +38,7 @@ namespace MetadataExtractor.Formats.Bmp
         {
             var directories = new List<Directory>(2);
 
-            using (var stream = new FileStream(filePath, FileMode.Open))
+            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 directories.Add(ReadMetadata(stream));
 
             directories.Add(new FileMetadataReader().Read(filePath));
