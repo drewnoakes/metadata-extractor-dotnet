@@ -5,11 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
-using MetadataExtractor;
 using MetadataExtractor.Formats.Exif;
-using Directory = MetadataExtractor.Directory;
 
-namespace FileLabeller
+namespace MetadataExtractor.Tools.FileProcessor
 {
     // TODO port MarkdownTableOutputHandler
     // TODO port UnknownTagHandler

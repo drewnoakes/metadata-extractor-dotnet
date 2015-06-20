@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
-using Directory = MetadataExtractor.Directory;
 
-namespace FileLabeller
+namespace MetadataExtractor.Tools.FileProcessor
 {
     /// <summary>
     /// Writes a text file containing the extracted metadata for each input file.

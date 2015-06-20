@@ -27,7 +27,7 @@ using System.Linq;
 using System.Reflection;
 using MetadataExtractor.Formats.Jpeg;
 
-namespace MetadataExtractor.Tools.ExtractJpegSegments
+namespace MetadataExtractor.Tools.JpegSegmentExtractor
 {
     /// <summary>Extracts JPEG segments and writes them to individual files.</summary>
     /// <remarks>

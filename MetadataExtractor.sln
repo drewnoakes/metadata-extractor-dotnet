@@ -15,11 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{8CF154EA-6
 		SharpenBugsAndProblems.md = SharpenBugsAndProblems.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileLabeller", "FileLabeller\FileLabeller.csproj", "{CEBF4390-E9B8-4EB1-9B33-C2C087C9DADA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.Tools.FileProcessor", "MetadataExtractor.Tools.FileProcessor\MetadataExtractor.Tools.FileProcessor.csproj", "{CEBF4390-E9B8-4EB1-9B33-C2C087C9DADA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{FA64D44E-5E0C-4CD4-89D8-53BCFEBD18BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.Tools.ExtractJpegSegments", "MetadataExtractor.Tools.ExtractJpegSegments\MetadataExtractor.Tools.ExtractJpegSegments.csproj", "{B7BED0C7-F73D-4F58-AE3D-A9131405D62B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.Tools.JpegSegmentExtractor", "MetadataExtractor.Tools.JpegSegmentExtractor\MetadataExtractor.Tools.JpegSegmentExtractor.csproj", "{B7BED0C7-F73D-4F58-AE3D-A9131405D62B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

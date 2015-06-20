@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Directory = MetadataExtractor.Directory;
 
-namespace FileLabeller
+namespace MetadataExtractor.Tools.FileProcessor
 {
     internal abstract class FileHandlerBase : IFileHandler
     {

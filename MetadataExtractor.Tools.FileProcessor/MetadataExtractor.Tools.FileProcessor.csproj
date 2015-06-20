@@ -7,8 +7,8 @@
     <ProjectGuid>{CEBF4390-E9B8-4EB1-9B33-C2C087C9DADA}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FileLabeller</RootNamespace>
-    <AssemblyName>FileLabeller</AssemblyName>
+    <RootNamespace>MetadataExtractor.Tools.FileProcessor</RootNamespace>
+    <AssemblyName>MetadataExtractor</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

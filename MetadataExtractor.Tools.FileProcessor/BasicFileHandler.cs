@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using System.IO;
-using Directory = MetadataExtractor.Directory;
 
 // ReSharper disable ReturnValueOfPureMethodIsNotUsed
 
-namespace FileLabeller
+namespace MetadataExtractor.Tools.FileProcessor
 {
     /// <summary>
     /// Does nothing with the output except enumerate it in memory and format descriptions. This is useful in order to

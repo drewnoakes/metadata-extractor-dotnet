@@ -7,8 +7,8 @@
     <ProjectGuid>{B7BED0C7-F73D-4F58-AE3D-A9131405D62B}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MetadataExtractor.Tools.ExtractJpegSegments</RootNamespace>
-    <AssemblyName>ExtractJpegSegments</AssemblyName>
+    <RootNamespace>MetadataExtractor.Tools.JpegSegmentExtractor</RootNamespace>
+    <AssemblyName>JpegSegmentExtractor</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
