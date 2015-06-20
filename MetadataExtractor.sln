@@ -7,17 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor", "Metada
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.Tests", "MetadataExtractor.Tests\MetadataExtractor.Tests.csproj", "{07AFC815-EDBB-4CF8-B555-86B6CADE7D0F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{8CF154EA-6A2C-4BF4-B263-78758F834192}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8CF154EA-6A2C-4BF4-B263-78758F834192}"
 	ProjectSection(SolutionItems) = preProject
-		HowToConvert.md = HowToConvert.md
 		LICENSE = LICENSE
 		README.md = README.md
-		SharpenBugsAndProblems.md = SharpenBugsAndProblems.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.Tools.FileProcessor", "MetadataExtractor.Tools.FileProcessor\MetadataExtractor.Tools.FileProcessor.csproj", "{CEBF4390-E9B8-4EB1-9B33-C2C087C9DADA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{FA64D44E-5E0C-4CD4-89D8-53BCFEBD18BE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.Tools.JpegSegmentExtractor", "MetadataExtractor.Tools.JpegSegmentExtractor\MetadataExtractor.Tools.JpegSegmentExtractor.csproj", "{B7BED0C7-F73D-4F58-AE3D-A9131405D62B}"
 EndProject
@@ -46,9 +42,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{CEBF4390-E9B8-4EB1-9B33-C2C087C9DADA} = {FA64D44E-5E0C-4CD4-89D8-53BCFEBD18BE}
-		{B7BED0C7-F73D-4F58-AE3D-A9131405D62B} = {FA64D44E-5E0C-4CD4-89D8-53BCFEBD18BE}
 	EndGlobalSection
 EndGlobal
