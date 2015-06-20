@@ -50,7 +50,7 @@ namespace MetadataExtractor.Tests.Formats.Adobe
         {
             var directory = ProcessBytes("Tests/Data/adobeJpeg1.jpg.appe");
 
-            Assert.IsFalse(directory.HasErrors, directory.Errors.ToString());
+            Assert.IsFalse(directory.HasError, directory.Errors.ToString());
             Assert.AreEqual(4, directory.TagCount);
             Assert.AreEqual(1, directory.GetInt32(AdobeJpegDirectory.TagColorTransform));
             Assert.AreEqual(25600, directory.GetInt32(AdobeJpegDirectory.TagDctEncodeVersion));

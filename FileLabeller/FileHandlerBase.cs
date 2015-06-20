@@ -43,13 +43,13 @@ namespace FileLabeller
 
         public virtual void OnExtractionSuccess(string filePath, IReadOnlyList<Directory> directories, string relativePath, TextWriter log)
         {
-            if (!directories.Any(d => d.HasErrors))
+            if (!directories.Any(d => d.HasError))
                 return;
 
             log.WriteLine(filePath);
             foreach (var directory in directories)
             {
-                if (!directory.HasErrors)
+                if (!directory.HasError)
                     continue;
                 foreach (var error in directory.Errors)
                 {

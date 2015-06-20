@@ -42,7 +42,7 @@ namespace MetadataExtractor.Tests.Formats.Bmp
         public void TestMsPaint16Color()
         {
             var directory = ProcessBytes("Tests/Data/16color-10x10.bmp");
-            Assert.IsFalse(directory.HasErrors);
+            Assert.IsFalse(directory.HasError);
             Assert.AreEqual(10, directory.GetInt32(BmpHeaderDirectory.TagImageWidth));
             Assert.AreEqual(10, directory.GetInt32(BmpHeaderDirectory.TagImageHeight));
             Assert.AreEqual(4, directory.GetInt32(BmpHeaderDirectory.TagBitsPerPixel));
@@ -59,7 +59,7 @@ namespace MetadataExtractor.Tests.Formats.Bmp
         public void TestMsPaint24Bpp()
         {
             var directory = ProcessBytes("Tests/Data/24bpp-10x10.bmp");
-            Assert.IsFalse(directory.HasErrors);
+            Assert.IsFalse(directory.HasError);
             Assert.AreEqual(10, directory.GetInt32(BmpHeaderDirectory.TagImageWidth));
             Assert.AreEqual(10, directory.GetInt32(BmpHeaderDirectory.TagImageHeight));
             Assert.AreEqual(24, directory.GetInt32(BmpHeaderDirectory.TagBitsPerPixel));

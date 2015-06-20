@@ -111,7 +111,7 @@ namespace MetadataExtractor.Formats.Ico
 
                 directories.Add(directory);
 
-                if (directory.HasErrors)
+                if (directory.HasError)
                     break;
             }
 

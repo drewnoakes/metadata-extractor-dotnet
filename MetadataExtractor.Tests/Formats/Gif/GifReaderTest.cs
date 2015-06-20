@@ -42,7 +42,7 @@ namespace MetadataExtractor.Tests.Formats.Gif
         public void TestMsPaintGif()
         {
             var directory = ProcessBytes("Tests/Data/mspaint-10x10.gif");
-            Assert.IsFalse(directory.HasErrors);
+            Assert.IsFalse(directory.HasError);
             Assert.AreEqual("89a", directory.GetString(GifHeaderDirectory.TagGifFormatVersion));
             Assert.AreEqual(10, directory.GetInt32(GifHeaderDirectory.TagImageWidth));
             Assert.AreEqual(10, directory.GetInt32(GifHeaderDirectory.TagImageHeight));
@@ -57,7 +57,7 @@ namespace MetadataExtractor.Tests.Formats.Gif
         public void TestPhotoshopGif()
         {
             var directory = ProcessBytes("Tests/Data/photoshop-8x12-32colors-alpha.gif");
-            Assert.IsFalse(directory.HasErrors);
+            Assert.IsFalse(directory.HasError);
             Assert.AreEqual("89a", directory.GetString(GifHeaderDirectory.TagGifFormatVersion));
             Assert.AreEqual(8, directory.GetInt32(GifHeaderDirectory.TagImageWidth));
             Assert.AreEqual(12, directory.GetInt32(GifHeaderDirectory.TagImageHeight));

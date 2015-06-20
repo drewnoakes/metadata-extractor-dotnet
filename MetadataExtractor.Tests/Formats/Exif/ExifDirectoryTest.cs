@@ -41,9 +41,9 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Directory subIfdDirectory = new ExifSubIfdDirectory();
             Directory ifd0Directory = new ExifIfd0Directory();
             Directory thumbDirectory = new ExifThumbnailDirectory();
-            Assert.IsFalse(subIfdDirectory.HasErrors);
-            Assert.IsFalse(ifd0Directory.HasErrors);
-            Assert.IsFalse(thumbDirectory.HasErrors);
+            Assert.IsFalse(subIfdDirectory.HasError);
+            Assert.IsFalse(ifd0Directory.HasError);
+            Assert.IsFalse(thumbDirectory.HasError);
             Assert.AreEqual("Exif IFD0", ifd0Directory.Name);
             Assert.AreEqual("Exif SubIFD", subIfdDirectory.Name);
             Assert.AreEqual("Exif Thumbnail", thumbDirectory.Name);

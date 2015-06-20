@@ -42,7 +42,7 @@ namespace MetadataExtractor.Tests.Formats.Icc
             var icc = TestHelper.SkipBytes(app2Bytes, 14);
             var directory = new IccReader().Extract(new ByteArrayReader(icc));
             Assert.IsNotNull(directory);
-            Assert.IsTrue(directory.HasErrors);
+            Assert.IsTrue(directory.HasError);
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace MetadataExtractor.Tests.Formats.Icc
             var app2Bytes = File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2");
             var directory = new IccReader().ReadJpegSegments(new[] { app2Bytes }, JpegSegmentType.App2);
             Assert.IsNotNull(directory);
-            Assert.IsTrue(directory.Single().HasErrors);
+            Assert.IsTrue(directory.Single().HasError);
         }
 
         [Test]

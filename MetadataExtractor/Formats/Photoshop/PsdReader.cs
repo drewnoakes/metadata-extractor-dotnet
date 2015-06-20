@@ -75,7 +75,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 directory.AddError("Unable to read PSD header");
             }
 
-            if (directory.HasErrors)
+            if (directory.HasError)
                 return new[] { directory };
 
             IReadOnlyList<Directory> photoshopDirectories = null;

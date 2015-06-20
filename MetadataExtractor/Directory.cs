@@ -104,9 +104,10 @@ namespace MetadataExtractor
             _errorList.Add(message);
         }
 
-        /// <summary>Gets a value indicating whether this directory has any error messages.</summary>
-        /// <value>true if the directory contains errors, otherwise false</value>
-        public bool HasErrors
+        /// <summary>Gets a value indicating whether this directory has one or more errors.</summary>
+        /// <remarks>Error messages are accessible via <see cref="Errors"/>.</remarks>
+        /// <returns><c>true</c> if the directory contains errors, otherwise <c>false</c></returns>
+        public bool HasError
         {
             get { return _errorList.Count > 0; }
         }

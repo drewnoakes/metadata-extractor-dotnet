@@ -42,11 +42,11 @@ namespace FileLabeller
                         directoryList.Sort((o1, o2) => string.Compare(o1.Name, o2.Name, StringComparison.Ordinal));
 
                         // Write any errors
-                        if (directoryList.Any(d => d.HasErrors))
+                        if (directoryList.Any(d => d.HasError))
                         {
                             foreach (var directory in directoryList)
                             {
-                                if (!directory.HasErrors)
+                                if (!directory.HasError)
                                     continue;
                                 foreach (var error in directory.Errors)
                                     writer.Write("[ERROR: {0}] {1}\n", directory.Name, error);

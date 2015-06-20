@@ -37,7 +37,7 @@ namespace MetadataExtractor.Tests.Formats.Jfif
             var directory = new JfifReader().Extract(new ByteArrayReader(jfifData));
 
             Assert.IsNotNull(directory);
-            Assert.IsFalse(directory.HasErrors, directory.Errors.ToString());
+            Assert.IsFalse(directory.HasError, directory.Errors.ToString());
 
             var tags = directory.Tags;
 

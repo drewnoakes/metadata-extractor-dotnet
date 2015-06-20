@@ -34,7 +34,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         {
             var directory = ExifReaderTest.ProcessSegmentBytes<SonyType1MakernoteDirectory>("Tests/Data/sonyType1.jpg.app1");
             Assert.IsNotNull(directory);
-            Assert.IsFalse(directory.HasErrors);
+            Assert.IsFalse(directory.HasError);
             var descriptor = new SonyType1MakernoteDescriptor(directory);
             Assert.IsNull(directory.GetObject(SonyType1MakernoteDirectory.TagColorTemperature));
             Assert.IsNull(descriptor.GetColorTemperatureDescription());

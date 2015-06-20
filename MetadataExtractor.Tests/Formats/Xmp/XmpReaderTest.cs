@@ -40,7 +40,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             var jpegSegments = new [] { File.ReadAllBytes("Tests/Data/withXmpAndIptc.jpg.app1.1") };
             var directories = new XmpReader().ReadJpegSegments(jpegSegments, JpegSegmentType.App1);
             _directory = directories.OfType<XmpDirectory>().ToList().Single();
-            Assert.IsFalse(_directory.HasErrors);
+            Assert.IsFalse(_directory.HasError);
         }
 
         /*
