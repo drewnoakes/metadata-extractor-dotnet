@@ -173,7 +173,7 @@ namespace MetadataExtractor.Formats.Iptc
                 case IptcDirectory.TagCodedCharacterSet:
                 {
                     var bytes = reader.GetBytes(tagByteCount);
-                    var charset = Iso2022Converter.ConvertIso2022CharsetToJavaCharset(bytes);
+                    var charset = Iso2022Converter.ConvertEscapeSequenceToEncodingName(bytes);
                     if (charset == null)
                     {
                         // Unable to determine the charset, so fall through and treat tag as a regular string

@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 using System.Text;
 using JetBrains.Annotations;
@@ -13,11 +12,9 @@ namespace MetadataExtractor.Formats.Iptc
         private const byte PercentSign = (byte)'%';
         private const byte Esc = 0x1B;
 
-        /// <summary>Converts the given ISO2022 char set to a Java charset name.</summary>
-        /// <param name="bytes">string data encoded using ISO2022</param>
-        /// <returns>the Java charset name as a string, or <c>null</c> if the conversion was not possible</returns>
+        /// <summary>Attempts to convert the given ISO2022 escape sequence to an encoding name.</summary>
         [CanBeNull]
-        public static string ConvertIso2022CharsetToJavaCharset([NotNull] byte[] bytes)
+        public static string ConvertEscapeSequenceToEncodingName([NotNull] byte[] bytes)
         {
             if (bytes.Length > 2 && bytes[0] == Esc && bytes[1] == PercentSign && bytes[2] == LatinCapitalG)
                 return "UTF-8";
