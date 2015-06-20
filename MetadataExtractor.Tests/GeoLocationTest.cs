@@ -20,28 +20,30 @@
  *    https://github.com/drewnoakes/metadata-extractor
  */
 
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class GeoLocationTest
     {
-        [Test]
+        [Fact]
         public void TestDecimalToDegreesMinutesSeconds()
         {
             var dms = GeoLocation.DecimalToDegreesMinutesSeconds(1);
-            Assert.AreEqual(1.0, dms[0], 0.0001);
-            Assert.AreEqual(0.0, dms[1], 0.0001);
-            Assert.AreEqual(0.0, dms[2], 0.0001);
+            Assert.Equal(1.0, dms[0], 4);
+            Assert.Equal(0.0, dms[1], 4);
+            Assert.Equal(0.0, dms[2], 4);
+
             dms = GeoLocation.DecimalToDegreesMinutesSeconds(-12.3216);
-            Assert.AreEqual(-12.0, dms[0], 0.0001);
-            Assert.AreEqual(19.0, dms[1], 0.0001);
-            Assert.AreEqual(17.76, dms[2], 0.0001);
+            Assert.Equal(-12.0, dms[0], 4);
+            Assert.Equal(19.0, dms[1], 4);
+            Assert.Equal(17.76, dms[2], 4);
+
             dms = GeoLocation.DecimalToDegreesMinutesSeconds(32.698);
-            Assert.AreEqual(32.0, dms[0], 0.0001);
-            Assert.AreEqual(41.0, dms[1], 0.0001);
-            Assert.AreEqual(52.8, dms[2], 0.0001);
+            Assert.Equal(32.0, dms[0], 4);
+            Assert.Equal(41.0, dms[1], 4);
+            Assert.Equal(52.8, dms[2], 4);
         }
     }
 }

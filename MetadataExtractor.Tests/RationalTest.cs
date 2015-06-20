@@ -22,7 +22,7 @@
 
 using System;
 using System.ComponentModel;
-using NUnit.Framework;
+using Xunit;
 
 // ReSharper disable ReturnValueOfPureMethodIsNotUsed
 
@@ -32,121 +32,125 @@ namespace MetadataExtractor.Tests
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class RationalTest
     {
-        [Test]
+        [Fact]
         public void TestCreateRational()
         {
             var rational = new Rational(1, 3);
 
-            Assert.AreEqual(1, rational.Numerator);
-            Assert.AreEqual(3, rational.Denominator);
-            Assert.AreEqual(1d / 3d, rational.ToDouble(), 0.0001);
+            Assert.Equal(1, rational.Numerator);
+            Assert.Equal(3, rational.Denominator);
+            Assert.Equal(1d / 3d, rational.ToDouble(), 4);
         }
 
-        [Test]
+        [Fact]
         public void TestToString()
         {
-            Assert.AreEqual("1/3", new Rational(1, 3).ToString());
+            Assert.Equal("1/3", new Rational(1, 3).ToString());
         }
 
-        [Test, SetCulture("en-GB")]
+        [Fact, UseCulture("en-GB")]
         public void TestToSimpleString()
         {
             var third1 = new Rational(1, 3);
             var third2 = new Rational(2, 6);
-            Assert.AreEqual("1/3", third1.ToSimpleString(allowDecimal: true));
-            Assert.AreEqual("1/3", third2.ToSimpleString(allowDecimal: true));
-            Assert.AreEqual(third1, third2);
+            Assert.Equal("1/3", third1.ToSimpleString(allowDecimal: true));
+            Assert.Equal("1/3", third2.ToSimpleString(allowDecimal: true));
+            Assert.Equal(third1, third2);
 
             var twoThirds = new Rational(10, 15);
-            Assert.AreEqual("2/3", twoThirds.ToSimpleString(allowDecimal: true));
+            Assert.Equal("2/3", twoThirds.ToSimpleString(allowDecimal: true));
 
             var two = new Rational(10, 5);
-            Assert.IsTrue(two.IsInteger);
-            Assert.AreEqual("2", two.ToSimpleString(allowDecimal: true));
-            Assert.AreEqual("2", two.ToSimpleString(allowDecimal: false));
+            Assert.True(two.IsInteger);
+            Assert.Equal("2", two.ToSimpleString(allowDecimal: true));
+            Assert.Equal("2", two.ToSimpleString(allowDecimal: false));
 
             var twoFifths = new Rational(4, 10);
-            Assert.AreEqual("0.4", twoFifths.ToSimpleString(allowDecimal: true));
-            Assert.AreEqual("2/5", twoFifths.ToSimpleString(allowDecimal: false));
+            Assert.Equal("0.4", twoFifths.ToSimpleString(allowDecimal: true));
+            Assert.Equal("2/5", twoFifths.ToSimpleString(allowDecimal: false));
 
             var threeEighths = new Rational(3, 8);
-            Assert.AreEqual("3/8", threeEighths.ToSimpleString(allowDecimal: true));
+            Assert.Equal("3/8", threeEighths.ToSimpleString(allowDecimal: true));
 
             var zero = new Rational(0, 8);
-            Assert.IsTrue(zero.IsInteger);
-            Assert.AreEqual("0", zero.ToSimpleString(allowDecimal: true));
-            Assert.AreEqual("0", zero.ToSimpleString(allowDecimal: false));
+            Assert.True(zero.IsInteger);
+            Assert.Equal("0", zero.ToSimpleString(allowDecimal: true));
+            Assert.Equal("0", zero.ToSimpleString(allowDecimal: false));
 
             zero = new Rational(0, 0);
-            Assert.IsTrue(zero.IsInteger);
-            Assert.AreEqual("0", zero.ToSimpleString(allowDecimal: true));
-            Assert.AreEqual("0", zero.ToSimpleString(allowDecimal: false));
+            Assert.True(zero.IsInteger);
+            Assert.Equal("0", zero.ToSimpleString(allowDecimal: true));
+            Assert.Equal("0", zero.ToSimpleString(allowDecimal: false));
         }
 
-        [Test]
+        [Fact]
         public void TestGetReciprocal()
         {
             var rational = new Rational(1, 3);
             var reciprocal = rational.Reciprocal;
-
-            Assert.AreEqual(new Rational(3, 1), reciprocal, "new rational should be reciprocal");
-            Assert.AreEqual(new Rational(1, 3), rational, "original should remain unchanged");
+            Assert.Equal(new Rational(3, 1), reciprocal);
+            Assert.Equal(new Rational(1, 3), rational);
         }
 
-        [Test]
+        [Fact]
         public void TestZeroOverZero()
         {
-            Assert.AreEqual(new Rational(0, 0), new Rational(0, 0).Reciprocal);
+            Assert.Equal(new Rational(0, 0), new Rational(0, 0).Reciprocal);
 
-            Assert.AreEqual(0.0d, new Rational(0, 0).ToDouble(), 0.000000001);
-            Assert.AreEqual(0, new Rational(0, 0).ToByte());
-            Assert.AreEqual(0.0f, new Rational(0, 0).ToSingle(), 0.000000001f);
-            Assert.AreEqual(0, new Rational(0, 0).ToInt32());
-            Assert.AreEqual(0L, (object)new Rational(0, 0).ToInt64());
+            Assert.Equal(0.0d, new Rational(0, 0).ToDouble(), 15);
+            Assert.Equal(0, new Rational(0, 0).ToByte());
+            Assert.Equal(0.0f, new Rational(0, 0).ToSingle(), 15);
+            Assert.Equal(0, new Rational(0, 0).ToInt32());
+            Assert.Equal(0L, (object)new Rational(0, 0).ToInt64());
 
-            Assert.IsTrue(new Rational(0, 0).IsInteger);
+            Assert.True(new Rational(0, 0).IsInteger);
         }
 
-        [Test]
+        [Fact]
         public void TestTypeConverter()
         {
             var converter = TypeDescriptor.GetConverter(typeof(Rational));
 
-            Assert.AreEqual(new Rational(1, 3), converter.ConvertFrom("1/3"));
-            Assert.AreEqual(new Rational(1, 3), converter.ConvertFrom("1/3 "));
+            Assert.Equal(new Rational(1, 3), converter.ConvertFrom("1/3"));
+            Assert.Equal(new Rational(1, 3), converter.ConvertFrom("1/3 "));
 
-            Assert.AreEqual(new Rational(1, 3), converter.ConvertFrom(new Rational(1, 3)));
+            Assert.Equal(new Rational(1, 3), converter.ConvertFrom(new Rational(1, 3)));
 
-            Assert.AreEqual(new Rational(123, 1), converter.ConvertFrom(123));
-            Assert.AreEqual(new Rational(123, 1), converter.ConvertFrom(123.0));
-            Assert.AreEqual(new Rational(123, 1), converter.ConvertFrom(123L));
-            Assert.AreEqual(new Rational(123, 1), converter.ConvertFrom(123u));
+            Assert.Equal(new Rational(123, 1), converter.ConvertFrom(123));
+            Assert.Equal(new Rational(123, 1), converter.ConvertFrom(123.0));
+            Assert.Equal(new Rational(123, 1), converter.ConvertFrom(123L));
+            Assert.Equal(new Rational(123, 1), converter.ConvertFrom(123u));
 
-            Assert.AreEqual(new Rational(12, 34), converter.ConvertFrom(new[] { 12, 34 }));
-            Assert.AreEqual(new Rational(12, 34), converter.ConvertFrom(new[] { 12u, 34u }));
-            Assert.AreEqual(new Rational(13, 35), converter.ConvertFrom(new[] { 12.9, 34.9 })); // rounding
+            Assert.Equal(new Rational(12, 34), converter.ConvertFrom(new[] { 12, 34 }));
+            Assert.Equal(new Rational(12, 34), converter.ConvertFrom(new[] { 12u, 34u }));
+            Assert.Equal(new Rational(13, 35), converter.ConvertFrom(new[] { 12.9, 34.9 })); // rounding
 
             Assert.Throws<NotSupportedException>(() => converter.ConvertFrom(null));
         }
 
-        [Test]
+        [Fact]
         public void TestIConvertible()
         {
-            Assert.AreEqual(15,  Convert.ToByte (new Rational(150, 10)));
-            Assert.AreEqual(15u, Convert.ToInt16(new Rational(150, 10)));
-            Assert.AreEqual(15,  Convert.ToInt32(new Rational(150, 10)));
-            Assert.AreEqual(15L, Convert.ToInt64(new Rational(150, 10)));
+            Assert.Equal(15,  Convert.ToByte (new Rational(150, 10)));
+            Assert.Equal(15,  Convert.ToInt16(new Rational(150, 10)));
+            Assert.Equal(15,  Convert.ToInt32(new Rational(150, 10)));
+            Assert.Equal(15L, Convert.ToInt64(new Rational(150, 10)));
 
-            Assert.AreEqual(15.5f, Convert.ToSingle(new Rational(155, 10)));
-            Assert.AreEqual(15.5d, Convert.ToDouble(new Rational(155, 10)));
-            Assert.AreEqual(15.5m, Convert.ToDecimal(new Rational(155, 10)));
+            Assert.Equal(15,   Convert.ToSByte (new Rational(150, 10)));
+            Assert.Equal(15,   Convert.ToUInt16(new Rational(150, 10)));
+            Assert.Equal(15u,  Convert.ToUInt32(new Rational(150, 10)));
+            Assert.Equal(15Lu, Convert.ToUInt64(new Rational(150, 10)));
 
-            Assert.AreEqual("123/10", Convert.ToString(new Rational(123, 10)));
+            Assert.Equal(15.5f, Convert.ToSingle(new Rational(155, 10)));
+            Assert.Equal(15.5d, Convert.ToDouble(new Rational(155, 10)));
+            Assert.Equal(15.5m, Convert.ToDecimal(new Rational(155, 10)));
 
-            Assert.IsTrue(Convert.ToBoolean(new Rational(123, 10)));
-            Assert.IsFalse(Convert.ToBoolean(new Rational(1, 0)));
-            Assert.IsFalse(Convert.ToBoolean(new Rational(0, 1)));
-            Assert.IsFalse(Convert.ToBoolean(new Rational(0, 0)));
+            Assert.Equal("123/10", Convert.ToString(new Rational(123, 10)));
+
+            Assert.True(Convert.ToBoolean(new Rational(123, 10)));
+            Assert.False(Convert.ToBoolean(new Rational(1, 0)));
+            Assert.False(Convert.ToBoolean(new Rational(0, 1)));
+            Assert.False(Convert.ToBoolean(new Rational(0, 0)));
 
             Assert.Throws<NotSupportedException>(() => Convert.ToChar(new Rational(123, 10)));
             Assert.Throws<NotSupportedException>(() => Convert.ToDateTime(new Rational(123, 10)));

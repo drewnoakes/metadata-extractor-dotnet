@@ -25,20 +25,20 @@ using System.IO;
 using System.Linq;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Jpeg;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Jpeg
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegMetadataReaderTest
     {
-        [Test]
+        [Fact]
         public void TestExtractMetadata()
         {
             Validate(JpegMetadataReader.ReadMetadata("Tests/Data/withExif.jpg"));
         }
 
-        [Test]
+        [Fact]
         public void TestExtractMetadataUsingStream()
         {
             Validate(JpegMetadataReader.ReadMetadata(new FileStream("Tests/Data/withExif.jpg", FileMode.Open)));
@@ -47,8 +47,8 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         private static void Validate(IReadOnlyList<Directory> metadata)
         {
             var directory = metadata.OfType<ExifSubIfdDirectory>().FirstOrDefault();
-            Assert.IsNotNull(directory);
-            Assert.AreEqual("80", directory.GetString(ExifDirectoryBase.TagIsoEquivalent));
+            Assert.NotNull(directory);
+            Assert.Equal("80", directory.GetString(ExifDirectoryBase.TagIsoEquivalent));
         }
     }
 }

@@ -22,7 +22,7 @@
 
 using System.Text;
 using MetadataExtractor.Formats.Exif;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {
@@ -32,7 +32,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifIfd0DescriptorTest
     {
-        [Test]
+        [Fact]
         public void TestXResolutionDescription()
         {
             var directory = new ExifIfd0Directory();
@@ -40,10 +40,10 @@ namespace MetadataExtractor.Tests.Formats.Exif
             // 2 is for 'Inch'
             directory.Set(ExifDirectoryBase.TagResolutionUnit, 2);
             var descriptor = new ExifIfd0Descriptor(directory);
-            Assert.AreEqual("72 dots per inch", descriptor.GetDescription(ExifDirectoryBase.TagXResolution));
+            Assert.Equal("72 dots per inch", descriptor.GetDescription(ExifDirectoryBase.TagXResolution));
         }
 
-        [Test]
+        [Fact]
         public void TestYResolutionDescription()
         {
             var directory = new ExifIfd0Directory();
@@ -51,24 +51,24 @@ namespace MetadataExtractor.Tests.Formats.Exif
             // 3 is for 'cm'
             directory.Set(ExifDirectoryBase.TagResolutionUnit, 3);
             var descriptor = new ExifIfd0Descriptor(directory);
-            Assert.AreEqual("50 dots per cm", descriptor.GetDescription(ExifDirectoryBase.TagYResolution));
+            Assert.Equal("50 dots per cm", descriptor.GetDescription(ExifDirectoryBase.TagYResolution));
         }
 
-        [Test]
+        [Fact]
         public void TestWindowsXpFields()
         {
             var directory = ExifReaderTest.ProcessSegmentBytes<ExifIfd0Directory>("Tests/Data/windowsXpFields.jpg.app1");
-            Assert.AreEqual("Testing artist\x0", directory.GetString(ExifDirectoryBase.TagWinAuthor, Encoding.Unicode));
-            Assert.AreEqual("Testing comments\x0", directory.GetString(ExifDirectoryBase.TagWinComment, Encoding.Unicode));
-            Assert.AreEqual("Testing keywords\x0", directory.GetString(ExifDirectoryBase.TagWinKeywords, Encoding.Unicode));
-            Assert.AreEqual("Testing subject\x0", directory.GetString(ExifDirectoryBase.TagWinSubject, Encoding.Unicode));
-            Assert.AreEqual("Testing title\x0", directory.GetString(ExifDirectoryBase.TagWinTitle, Encoding.Unicode));
+            Assert.Equal("Testing artist\x0", directory.GetString(ExifDirectoryBase.TagWinAuthor, Encoding.Unicode));
+            Assert.Equal("Testing comments\x0", directory.GetString(ExifDirectoryBase.TagWinComment, Encoding.Unicode));
+            Assert.Equal("Testing keywords\x0", directory.GetString(ExifDirectoryBase.TagWinKeywords, Encoding.Unicode));
+            Assert.Equal("Testing subject\x0", directory.GetString(ExifDirectoryBase.TagWinSubject, Encoding.Unicode));
+            Assert.Equal("Testing title\x0", directory.GetString(ExifDirectoryBase.TagWinTitle, Encoding.Unicode));
             var descriptor = new ExifIfd0Descriptor(directory);
-            Assert.AreEqual("Testing artist", descriptor.GetDescription(ExifDirectoryBase.TagWinAuthor));
-            Assert.AreEqual("Testing comments", descriptor.GetDescription(ExifDirectoryBase.TagWinComment));
-            Assert.AreEqual("Testing keywords", descriptor.GetDescription(ExifDirectoryBase.TagWinKeywords));
-            Assert.AreEqual("Testing subject", descriptor.GetDescription(ExifDirectoryBase.TagWinSubject));
-            Assert.AreEqual("Testing title", descriptor.GetDescription(ExifDirectoryBase.TagWinTitle));
+            Assert.Equal("Testing artist", descriptor.GetDescription(ExifDirectoryBase.TagWinAuthor));
+            Assert.Equal("Testing comments", descriptor.GetDescription(ExifDirectoryBase.TagWinComment));
+            Assert.Equal("Testing keywords", descriptor.GetDescription(ExifDirectoryBase.TagWinKeywords));
+            Assert.Equal("Testing subject", descriptor.GetDescription(ExifDirectoryBase.TagWinSubject));
+            Assert.Equal("Testing title", descriptor.GetDescription(ExifDirectoryBase.TagWinTitle));
         }
     }
 }

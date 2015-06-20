@@ -22,7 +22,7 @@
 
 using System;
 using MetadataExtractor.IO;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.IO
 {
@@ -34,11 +34,11 @@ namespace MetadataExtractor.Tests.IO
             return new ByteArrayReader(bytes);
         }
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void TestConstructWithNullBufferThrows()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
-            new ByteArrayReader(null);
+            Assert.Throws<ArgumentNullException>(() => new ByteArrayReader(null));
         }
     }
 }

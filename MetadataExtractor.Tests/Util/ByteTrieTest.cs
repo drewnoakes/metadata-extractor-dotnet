@@ -22,14 +22,14 @@
 
 using System.Text;
 using MetadataExtractor.Util;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Util
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ByteTrieTest
     {
-        [Test]
+        [Fact]
         public void TestBasics()
         {
             var trie = new ByteTrie<string>();
@@ -40,14 +40,14 @@ namespace MetadataExtractor.Tests.Util
             }
             foreach (var s1 in strings)
             {
-                Assert.AreSame(s1, trie.Find(Encoding.UTF8.GetBytes(s1)));
+                Assert.Same(s1, trie.Find(Encoding.UTF8.GetBytes(s1)));
             }
-            Assert.IsNull(trie.Find(Encoding.UTF8.GetBytes("Not Included")));
-            Assert.IsNull(trie.Find(Encoding.UTF8.GetBytes("HELL")));
-            Assert.AreEqual("HELLO", trie.Find(Encoding.UTF8.GetBytes("HELLO MUM")));
-            Assert.AreEqual("HELLO WORLD".Length, trie.MaxDepth);
+            Assert.Null(trie.Find(Encoding.UTF8.GetBytes("Not Included")));
+            Assert.Null(trie.Find(Encoding.UTF8.GetBytes("HELL")));
+            Assert.Equal("HELLO", trie.Find(Encoding.UTF8.GetBytes("HELLO MUM")));
+            Assert.Equal("HELLO WORLD".Length, trie.MaxDepth);
             trie.SetDefaultValue("DEFAULT");
-            Assert.AreEqual("DEFAULT", trie.Find(Encoding.UTF8.GetBytes("Also Not Included")));
+            Assert.Equal("DEFAULT", trie.Find(Encoding.UTF8.GetBytes("Also Not Included")));
         }
     }
 }

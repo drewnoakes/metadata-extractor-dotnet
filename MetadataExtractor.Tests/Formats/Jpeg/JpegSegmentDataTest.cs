@@ -21,36 +21,36 @@
  */
 
 using MetadataExtractor.Formats.Jpeg;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Jpeg
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegSegmentDataTest
     {
-        [Test]
+        [Fact]
         public void TestAddAndGetSegment()
         {
             var segmentData = new JpegSegmentData();
             var segmentType = JpegSegmentType.App3;
             var segmentBytes = new byte[] { 1, 2, 3 };
             segmentData.AddSegment(segmentType, segmentBytes);
-            Assert.AreEqual(1, segmentData.GetSegmentCount(segmentType));
-            CollectionAssert.AreEqual(segmentBytes, segmentData.GetSegment(segmentType));
+            Assert.Equal(1, segmentData.GetSegmentCount(segmentType));
+            Assert.Equal(segmentBytes, segmentData.GetSegment(segmentType));
         }
 
-        [Test]
+        [Fact]
         public void TestContainsSegment()
         {
             var segmentData = new JpegSegmentData();
             var segmentType = JpegSegmentType.App3;
             var segmentBytes = new byte[] { 1, 2, 3 };
-            Assert.IsTrue(!segmentData.ContainsSegment(segmentType));
+            Assert.True(!segmentData.ContainsSegment(segmentType));
             segmentData.AddSegment(segmentType, segmentBytes);
-            Assert.IsTrue(segmentData.ContainsSegment(segmentType));
+            Assert.True(segmentData.ContainsSegment(segmentType));
         }
 
-        [Test]
+        [Fact]
         public void TestAddingMultipleSegments()
         {
             var segmentData = new JpegSegmentData();
@@ -60,13 +60,13 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             var segmentBytes2 = new byte[] { 3, 2, 1 };
             segmentData.AddSegment(segmentType1, segmentBytes1);
             segmentData.AddSegment(segmentType2, segmentBytes2);
-            Assert.AreEqual(1, segmentData.GetSegmentCount(segmentType1));
-            Assert.AreEqual(1, segmentData.GetSegmentCount(segmentType2));
-            CollectionAssert.AreEqual(segmentBytes1, segmentData.GetSegment(segmentType1));
-            CollectionAssert.AreEqual(segmentBytes2, segmentData.GetSegment(segmentType2));
+            Assert.Equal(1, segmentData.GetSegmentCount(segmentType1));
+            Assert.Equal(1, segmentData.GetSegmentCount(segmentType2));
+            Assert.Equal(segmentBytes1, segmentData.GetSegment(segmentType1));
+            Assert.Equal(segmentBytes2, segmentData.GetSegment(segmentType2));
         }
 
-        [Test]
+        [Fact]
         public void TestSegmentWithMultipleOccurrences()
         {
             var segmentData = new JpegSegmentData();
@@ -75,13 +75,13 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             var segmentBytes2 = new byte[] { 3, 2, 1 };
             segmentData.AddSegment(segmentType, segmentBytes1);
             segmentData.AddSegment(segmentType, segmentBytes2);
-            Assert.AreEqual(2, segmentData.GetSegmentCount(segmentType));
-            CollectionAssert.AreEqual(segmentBytes1, segmentData.GetSegment(segmentType));
-            CollectionAssert.AreEqual(segmentBytes1, segmentData.GetSegment(segmentType, 0));
-            CollectionAssert.AreEqual(segmentBytes2, segmentData.GetSegment(segmentType, 1));
+            Assert.Equal(2, segmentData.GetSegmentCount(segmentType));
+            Assert.Equal(segmentBytes1, segmentData.GetSegment(segmentType));
+            Assert.Equal(segmentBytes1, segmentData.GetSegment(segmentType, 0));
+            Assert.Equal(segmentBytes2, segmentData.GetSegment(segmentType, 1));
         }
 
-        [Test]
+        [Fact]
         public void TestRemoveSegmentOccurrence()
         {
             var segmentData = new JpegSegmentData();
@@ -90,13 +90,13 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             var segmentBytes2 = new byte[] { 3, 2, 1 };
             segmentData.AddSegment(segmentType, segmentBytes1);
             segmentData.AddSegment(segmentType, segmentBytes2);
-            Assert.AreEqual(2, segmentData.GetSegmentCount(segmentType));
-            CollectionAssert.AreEqual(segmentBytes1, segmentData.GetSegment(segmentType, 0));
+            Assert.Equal(2, segmentData.GetSegmentCount(segmentType));
+            Assert.Equal(segmentBytes1, segmentData.GetSegment(segmentType, 0));
             segmentData.RemoveSegmentOccurrence(segmentType, 0);
-            CollectionAssert.AreEqual(segmentBytes2, segmentData.GetSegment(segmentType, 0));
+            Assert.Equal(segmentBytes2, segmentData.GetSegment(segmentType, 0));
         }
 
-        [Test]
+        [Fact]
         public void TestRemoveSegment()
         {
             var segmentData = new JpegSegmentData();
@@ -105,12 +105,12 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             var segmentBytes2 = new byte[] { 3, 2, 1 };
             segmentData.AddSegment(segmentType, segmentBytes1);
             segmentData.AddSegment(segmentType, segmentBytes2);
-            Assert.AreEqual(2, segmentData.GetSegmentCount(segmentType));
-            Assert.IsTrue(segmentData.ContainsSegment(segmentType));
-            CollectionAssert.AreEqual(segmentBytes1, segmentData.GetSegment(segmentType, 0));
+            Assert.Equal(2, segmentData.GetSegmentCount(segmentType));
+            Assert.True(segmentData.ContainsSegment(segmentType));
+            Assert.Equal(segmentBytes1, segmentData.GetSegment(segmentType, 0));
             segmentData.RemoveAllSegments(segmentType);
-            Assert.IsTrue(!segmentData.ContainsSegment(segmentType));
-            Assert.AreEqual(0, segmentData.GetSegmentCount(segmentType));
+            Assert.True(!segmentData.ContainsSegment(segmentType));
+            Assert.Equal(0, segmentData.GetSegmentCount(segmentType));
         }
     }
 }

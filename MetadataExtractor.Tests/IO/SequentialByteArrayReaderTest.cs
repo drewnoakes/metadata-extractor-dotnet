@@ -1,17 +1,17 @@
 using System;
 using MetadataExtractor.IO;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.IO
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class SequentialByteArrayReaderTest : SequentialAccessTestBase
     {
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void TestConstructWithNullStreamThrows()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
-            new SequentialByteArrayReader(null);
+            Assert.Throws<ArgumentNullException>(() => new SequentialByteArrayReader(null));
         }
 
         protected override SequentialReader CreateReader(byte[] bytes)

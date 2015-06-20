@@ -25,7 +25,7 @@ using System.Linq;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Icc
 {
@@ -33,7 +33,7 @@ namespace MetadataExtractor.Tests.Formats.Icc
     {
         // TODO add a test with well-formed ICC data and assert output values are correct
 
-        [Test]
+        [Fact]
         public void TestExtract_InvalidData()
         {
             var app2Bytes = File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2");
@@ -41,23 +41,23 @@ namespace MetadataExtractor.Tests.Formats.Icc
             // When in an APP2 segment, ICC data starts after a 14-byte preamble
             var icc = TestHelper.SkipBytes(app2Bytes, 14);
             var directory = new IccReader().Extract(new ByteArrayReader(icc));
-            Assert.IsNotNull(directory);
-            Assert.IsTrue(directory.HasError);
+            Assert.NotNull(directory);
+            Assert.True(directory.HasError);
         }
 
-        [Test]
+        [Fact]
         public void TestReadJpegSegments_InvalidData()
         {
             var app2Bytes = File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2");
             var directory = new IccReader().ReadJpegSegments(new[] { app2Bytes }, JpegSegmentType.App2);
-            Assert.IsNotNull(directory);
-            Assert.IsTrue(directory.Single().HasError);
+            Assert.NotNull(directory);
+            Assert.True(directory.Single().HasError);
         }
 
-        [Test]
+        [Fact]
         public void GetStringFromUInt32()
         {
-            Assert.AreEqual("ABCD", IccReader.GetStringFromUInt32(0x41424344u));
+            Assert.Equal("ABCD", IccReader.GetStringFromUInt32(0x41424344u));
         }
     }
 }

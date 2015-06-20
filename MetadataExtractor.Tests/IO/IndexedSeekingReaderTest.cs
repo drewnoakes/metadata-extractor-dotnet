@@ -23,12 +23,12 @@
 using System;
 using System.IO;
 using MetadataExtractor.IO;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.IO
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class IndexedSeekingReaderTest : IndexedReaderTestBase
+    public sealed class IndexedSeekingReaderTest : IndexedReaderTestBase, IDisposable
     {
         private string _tempFile;
         private Stream _stream;
@@ -44,15 +44,18 @@ namespace MetadataExtractor.Tests.IO
                 _stream = new FileStream(_tempFile, FileMode.Open, FileAccess.Read);
                 return new IndexedSeekingReader(_stream);
             }
-            catch (IOException)
+            catch (IOException ex)
             {
-                Assert.Fail("Unable to create temp file");
-                return null;
+                throw new IOException("Unable to create temp file", ex);
             }
         }
 
-        [TearDown]
-        public void DeleteTempFile()
+        public void Dispose()
+        {
+            DeleteTempFile();
+        }
+
+        private void DeleteTempFile()
         {
             if (_stream != null)
             {
@@ -68,11 +71,11 @@ namespace MetadataExtractor.Tests.IO
             }
         }
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void TestConstructWithNullBufferThrows()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
-            new IndexedSeekingReader(null);
+            Assert.Throws<ArgumentNullException>(() => new IndexedSeekingReader(null));
         }
     }
 }

@@ -1,161 +1,136 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class DirectoryExtensionsTest
     {
-        [Test]
+        [Fact]
         public void Int32Tests()
         {
             Action<Directory, int> assertPresentInt32 = (dictionary, i) =>
             {
-                Assert.AreEqual(i, dictionary.GetInt32(i));
+                Assert.Equal(i, dictionary.GetInt32(i));
                 int value;
-                Assert.IsTrue(dictionary.TryGetInt32(i, out value));
-                Assert.IsNotNull(dictionary.GetInt32Nullable(i));
-                Assert.AreEqual(i, dictionary.GetInt32Nullable(i));
+                Assert.True(dictionary.TryGetInt32(i, out value));
+                Assert.NotNull(dictionary.GetInt32Nullable(i));
+                Assert.Equal(i, dictionary.GetInt32Nullable(i));
             };
 
             Action<Directory, int> assertMissingInt32 = (dictionary, i) =>
             {
                 int value;
-                Assert.IsFalse(dictionary.TryGetInt32(i, out value));
+                Assert.False(dictionary.TryGetInt32(i, out value));
                 Assert.Null(dictionary.GetInt32Nullable(i));
-                try
-                {
-                    dictionary.GetInt32(i);
-                    Assert.Fail("Should throw MetadataException");
-                }
-                catch (MetadataException) { }
+                Assert.Throws<MetadataException>(() => dictionary.GetInt32(i));
             };
 
             Test(BuildDirectory(_singleValues), assertPresentInt32, assertMissingInt32);
             Test(BuildDirectory(_arraysOfSingleValues), assertPresentInt32, assertMissingInt32);
         }
 
-        [Test]
+        [Fact]
         public void Int64Tests()
         {
             Action<Directory, int> assertPresentInt64 = (dictionary, i) =>
             {
-                Assert.AreEqual(i, dictionary.GetInt64(i));
+                Assert.Equal(i, dictionary.GetInt64(i));
                 long value;
-                Assert.IsTrue(dictionary.TryGetInt64(i, out value));
-                Assert.IsNotNull(dictionary.GetInt64Nullable(i));
-                Assert.AreEqual(i, dictionary.GetInt64Nullable(i));
+                Assert.True(dictionary.TryGetInt64(i, out value));
+                Assert.NotNull(dictionary.GetInt64Nullable(i));
+                Assert.Equal(i, dictionary.GetInt64Nullable(i));
             };
 
             Action<Directory, int> assertMissingInt64 = (dictionary, i) =>
             {
                 long value;
-                Assert.IsFalse(dictionary.TryGetInt64(i, out value));
+                Assert.False(dictionary.TryGetInt64(i, out value));
                 Assert.Null(dictionary.GetInt64Nullable(i));
-                try
-                {
-                    dictionary.GetInt64(i);
-                    Assert.Fail("Should throw MetadataException");
-                }
-                catch (MetadataException) { }
+                Assert.Throws<MetadataException>(() => dictionary.GetInt64(i));
             };
 
             Test(BuildDirectory(_singleValues), assertPresentInt64, assertMissingInt64);
             Test(BuildDirectory(_arraysOfSingleValues), assertPresentInt64, assertMissingInt64);
         }
 
-        [Test]
+        [Fact]
         public void SingleTests()
         {
             Action<Directory, int> assertPresentSingle = (dictionary, i) =>
             {
-                Assert.AreEqual((float)i, dictionary.GetSingle(i));
+                Assert.Equal((float)i, dictionary.GetSingle(i));
                 float value;
-                Assert.IsTrue(dictionary.TryGetSingle(i, out value));
-                Assert.IsNotNull(dictionary.GetSingleNullable(i));
-                Assert.AreEqual(i, dictionary.GetSingleNullable(i));
+                Assert.True(dictionary.TryGetSingle(i, out value));
+                Assert.NotNull(dictionary.GetSingleNullable(i));
+                Assert.Equal(i, dictionary.GetSingleNullable(i));
             };
 
             Action<Directory, int> assertMissingSingle = (dictionary, i) =>
             {
                 float value;
-                Assert.IsFalse(dictionary.TryGetSingle(i, out value));
+                Assert.False(dictionary.TryGetSingle(i, out value));
                 Assert.Null(dictionary.GetSingleNullable(i));
-                try
-                {
-                    dictionary.GetSingle(i);
-                    Assert.Fail("Should throw MetadataException");
-                }
-                catch (MetadataException) { }
+                Assert.Throws<MetadataException>(() => dictionary.GetSingle(i));
             };
 
             Test(BuildDirectory(_singleValues), assertPresentSingle, assertMissingSingle);
             Test(BuildDirectory(_arraysOfSingleValues), assertPresentSingle, assertMissingSingle);
         }
 
-        [Test]
+        [Fact]
         public void DoubleTests()
         {
             Action<Directory, int> assertPresentDouble = (dictionary, i) =>
             {
-                Assert.AreEqual((double)i, dictionary.GetDouble(i));
+                Assert.Equal((double)i, dictionary.GetDouble(i));
                 double value;
-                Assert.IsTrue(dictionary.TryGetDouble(i, out value));
-                Assert.IsNotNull(dictionary.GetDoubleNullable(i));
-                Assert.AreEqual(i, dictionary.GetDoubleNullable(i));
+                Assert.True(dictionary.TryGetDouble(i, out value));
+                Assert.NotNull(dictionary.GetDoubleNullable(i));
+                Assert.Equal(i, dictionary.GetDoubleNullable(i));
             };
 
             Action<Directory, int> assertMissingDouble = (dictionary, i) =>
             {
                 double value;
-                Assert.IsFalse(dictionary.TryGetDouble(i, out value));
+                Assert.False(dictionary.TryGetDouble(i, out value));
                 Assert.Null(dictionary.GetDoubleNullable(i));
-                try
-                {
-                    dictionary.GetDouble(i);
-                    Assert.Fail("Should throw MetadataException");
-                }
-                catch (MetadataException) { }
+                Assert.Throws<MetadataException>(() => dictionary.GetDouble(i));
             };
 
             Test(BuildDirectory(_singleValues), assertPresentDouble, assertMissingDouble);
             Test(BuildDirectory(_arraysOfSingleValues), assertPresentDouble, assertMissingDouble);
         }
 
-        [Test]
+        [Fact]
         public void BooleanTests()
         {
             Action<Directory, int> assertPresentTrueBoolean = (dictionary, i) =>
             {
-                Assert.IsTrue(dictionary.GetBoolean(i));
+                Assert.True(dictionary.GetBoolean(i));
                 bool value;
-                Assert.IsTrue(dictionary.TryGetBoolean(i, out value));
-                Assert.IsNotNull(dictionary.GetBooleanNullable(i));
-                Assert.IsTrue(dictionary.GetBooleanNullable(i).Value);
+                Assert.True(dictionary.TryGetBoolean(i, out value));
+                Assert.NotNull(dictionary.GetBooleanNullable(i));
+                Assert.True(dictionary.GetBooleanNullable(i).Value);
             };
 
             Action<Directory, int> assertPresentFalseBoolean = (dictionary, i) =>
             {
-                Assert.IsFalse(dictionary.GetBoolean(i));
+                Assert.False(dictionary.GetBoolean(i));
                 bool value;
-                Assert.IsTrue(dictionary.TryGetBoolean(i, out value));
-                Assert.IsNotNull(dictionary.GetBooleanNullable(i));
-                Assert.IsFalse(dictionary.GetBooleanNullable(i).Value);
+                Assert.True(dictionary.TryGetBoolean(i, out value));
+                Assert.NotNull(dictionary.GetBooleanNullable(i));
+                Assert.False(dictionary.GetBooleanNullable(i).Value);
             };
 
             Action<Directory, int> assertMissingBoolean = (dictionary, i) =>
             {
                 bool value;
-                Assert.IsFalse(dictionary.TryGetBoolean(i, out value));
+                Assert.False(dictionary.TryGetBoolean(i, out value));
                 Assert.Null(dictionary.GetBooleanNullable(i));
-                try
-                {
-                    dictionary.GetBoolean(i);
-                    Assert.Fail("Should throw MetadataException");
-                }
-                catch (MetadataException) { }
+                Assert.Throws<MetadataException>(() => dictionary.GetBoolean(i));
             };
 
             // NOTE string is not convertible to boolean other than for "true" and "false"
@@ -172,10 +147,10 @@ namespace MetadataExtractor.Tests
             directory.Set(3, "False");
             directory.Set(4, "false");
 
-            Assert.IsTrue(directory.GetBoolean(1));
-            Assert.IsTrue(directory.GetBoolean(2));
-            Assert.IsFalse(directory.GetBoolean(3));
-            Assert.IsFalse(directory.GetBoolean(4));
+            Assert.True(directory.GetBoolean(1));
+            Assert.True(directory.GetBoolean(2));
+            Assert.False(directory.GetBoolean(3));
+            Assert.False(directory.GetBoolean(4));
         }
 
         #region Test support

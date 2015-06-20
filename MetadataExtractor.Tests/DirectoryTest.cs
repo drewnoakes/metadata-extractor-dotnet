@@ -23,76 +23,75 @@
 using System;
 using System.Text;
 using MetadataExtractor.Formats.Exif;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class DirectoryTest
     {
-        private Directory _directory;
+        private readonly Directory _directory;
 
         // TODO write tests to validate type conversions from all underlying types
-        [SetUp]
-        public void Setup()
+
+        public DirectoryTest()
         {
             _directory = new MockDirectory();
         }
 
-
-        [Test]
+        [Fact]
         public void TestSetAndGetMultipleTagsInSingleDirectory()
         {
             _directory.Set(ExifDirectoryBase.TagAperture, "TAG_APERTURE");
             _directory.Set(ExifDirectoryBase.TagBatteryLevel, "TAG_BATTERY_LEVEL");
-            Assert.AreEqual("TAG_APERTURE", _directory.GetString(ExifDirectoryBase.TagAperture));
-            Assert.AreEqual("TAG_BATTERY_LEVEL", _directory.GetString(ExifDirectoryBase.TagBatteryLevel));
+            Assert.Equal("TAG_APERTURE", _directory.GetString(ExifDirectoryBase.TagAperture));
+            Assert.Equal("TAG_BATTERY_LEVEL", _directory.GetString(ExifDirectoryBase.TagBatteryLevel));
         }
 
 
-        [Test]
+        [Fact]
         public void TestSetSameTagMultipleTimesOverwritesValue()
         {
             _directory.Set(ExifDirectoryBase.TagAperture, 1);
             _directory.Set(ExifDirectoryBase.TagAperture, 2);
-            Assert.AreEqual(2, _directory.GetInt32(ExifDirectoryBase.TagAperture));
+            Assert.Equal(2, _directory.GetInt32(ExifDirectoryBase.TagAperture));
         }
 
 
-        [Test]
+        [Fact]
         public void TestUnderlyingInt()
         {
             var value = 123;
             var tagType = 321;
             _directory.Set(tagType, value);
-            Assert.AreEqual(value, _directory.GetInt32(tagType));
-            Assert.AreEqual(value, _directory.GetInt32Nullable(tagType));
-            Assert.AreEqual(value, _directory.GetSingle(tagType), 0.00001);
-            Assert.AreEqual(value, _directory.GetDouble(tagType), 0.00001);
-            Assert.AreEqual((long)value, (object)_directory.GetInt64(tagType));
-            Assert.AreEqual(value.ToString(), _directory.GetString(tagType));
-            Assert.AreEqual(new Rational(value, 1), _directory.GetRational(tagType));
-            CollectionAssert.AreEqual(new[] { value }, _directory.GetInt32Array(tagType));
-            CollectionAssert.AreEqual(new[] { unchecked((byte)value) }, _directory.GetByteArray(tagType));
+            Assert.Equal(value, _directory.GetInt32(tagType));
+            Assert.Equal(value, _directory.GetInt32Nullable(tagType));
+            Assert.Equal(value, _directory.GetSingle(tagType), precision: 5);
+            Assert.Equal(value, _directory.GetDouble(tagType), precision: 5);
+            Assert.Equal((long)value, (object)_directory.GetInt64(tagType));
+            Assert.Equal(value.ToString(), _directory.GetString(tagType));
+            Assert.Equal(new Rational(value, 1), _directory.GetRational(tagType));
+            Assert.Equal(new[] { value }, _directory.GetInt32Array(tagType));
+            Assert.Equal(new[] { unchecked((byte)value) }, _directory.GetByteArray(tagType));
         }
 
 
-        [Test]
+        [Fact]
         public void TestSetAndGetIntArray()
         {
             var inputValues = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             var tagType = 123;
             _directory.Set(tagType, inputValues);
             var outputValues = _directory.GetInt32Array(tagType);
-            Assert.IsNotNull(outputValues);
-            Assert.AreEqual(inputValues.Length, outputValues.Length);
+            Assert.NotNull(outputValues);
+            Assert.Equal(inputValues.Length, outputValues.Length);
             for (var i = 0; i < inputValues.Length; i++)
             {
                 var inputValue = inputValues[i];
                 var outputValue = outputValues[i];
-                Assert.AreEqual(inputValue, outputValue);
+                Assert.Equal(inputValue, outputValue);
             }
-            CollectionAssert.AreEqual(inputValues, _directory.GetInt32Array(tagType));
+            Assert.Equal(inputValues, _directory.GetInt32Array(tagType));
             var outputString = new StringBuilder();
             for (var i1 = 0; i1 < inputValues.Length; i1++)
             {
@@ -103,11 +102,11 @@ namespace MetadataExtractor.Tests
                 }
                 outputString.Append(inputValue);
             }
-            Assert.AreEqual(outputString.ToString(), _directory.GetString(tagType));
+            Assert.Equal(outputString.ToString(), _directory.GetString(tagType));
         }
 
 
-        [Test]
+        [Fact]
         public void TestSetStringAndGetDate()
         {
             var date1 = "2002:01:30 23:59:59";
@@ -118,70 +117,70 @@ namespace MetadataExtractor.Tests
             _directory.Set(2, date2);
             _directory.Set(3, date3);
             _directory.Set(4, date4);
-            Assert.AreEqual(date1, _directory.GetString(1));
-            Assert.AreEqual(new DateTime(2002, 1, 30, 23, 59, 59), _directory.GetDateTimeNullable(1));
-            Assert.AreEqual(new DateTime(2002, 1, 30, 23, 59, 0), _directory.GetDateTimeNullable(2));
-            Assert.AreEqual(new DateTime(2002, 1, 30, 23, 59, 59), _directory.GetDateTimeNullable(3));
-            Assert.AreEqual(new DateTime(2002, 1, 30, 23, 59, 0), _directory.GetDateTimeNullable(4));
+            Assert.Equal(date1, _directory.GetString(1));
+            Assert.Equal(new DateTime(2002, 1, 30, 23, 59, 59), _directory.GetDateTimeNullable(1));
+            Assert.Equal(new DateTime(2002, 1, 30, 23, 59, 0), _directory.GetDateTimeNullable(2));
+            Assert.Equal(new DateTime(2002, 1, 30, 23, 59, 59), _directory.GetDateTimeNullable(3));
+            Assert.Equal(new DateTime(2002, 1, 30, 23, 59, 0), _directory.GetDateTimeNullable(4));
         }
 
 
-        [Test]
+        [Fact]
         public void TestSetIntArrayGetByteArray()
         {
             var ints = new[] { 1, 2, 3, 4, 5 };
             _directory.Set(1, ints);
             var bytes = _directory.GetByteArray(1);
-            Assert.IsNotNull(bytes);
-            Assert.AreEqual(ints.Length, bytes.Length);
-            Assert.AreEqual(1, bytes[0]);
+            Assert.NotNull(bytes);
+            Assert.Equal(ints.Length, bytes.Length);
+            Assert.Equal(1, bytes[0]);
         }
 
 
-        [Test]
+        [Fact]
         public void TestSetStringGetInt()
         {
             var bytes = new byte[] { 0x01, 0x02, 0x03 };
             _directory.Set(1, Encoding.UTF8.GetString(bytes));
-            Assert.AreEqual(0x010203, _directory.GetInt32(1));
+            Assert.Equal(0x010203, _directory.GetInt32(1));
         }
 
 
-        [Test]
+        [Fact]
         public void TestContainsTag()
         {
-            Assert.IsFalse(_directory.ContainsTag(ExifDirectoryBase.TagAperture));
+            Assert.False(_directory.ContainsTag(ExifDirectoryBase.TagAperture));
             _directory.Set(ExifDirectoryBase.TagAperture, "Tag Value");
-            Assert.IsTrue(_directory.ContainsTag(ExifDirectoryBase.TagAperture));
+            Assert.True(_directory.ContainsTag(ExifDirectoryBase.TagAperture));
         }
 
 
-        [Test]
+        [Fact]
         public void TestGetNonExistentTagIsNullForAllTypes()
         {
-            Assert.IsNull(_directory.GetString(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetInt32Nullable(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetDoubleNullable(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetSingleNullable(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetByteArray(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetDateTimeNullable(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetInt32Array(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetInt64Nullable(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetObject(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetRational(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetRationalArray(ExifDirectoryBase.TagAperture));
-            Assert.IsNull(_directory.GetStringArray(ExifDirectoryBase.TagAperture));
+            Assert.Null(_directory.GetString(ExifDirectoryBase.TagAperture));
+            Assert.Null(_directory.GetInt32Nullable(ExifDirectoryBase.TagAperture));
+            Assert.Null(_directory.GetDoubleNullable(ExifDirectoryBase.TagAperture));
+            Assert.Null(_directory.GetSingleNullable(ExifDirectoryBase.TagAperture));
+            Assert.Null(_directory.GetByteArray(ExifDirectoryBase.TagAperture));
+            Assert.Null(_directory.GetDateTimeNullable(ExifDirectoryBase.TagAperture));
+            Assert.Null(_directory.GetInt32Array(ExifDirectoryBase.TagAperture));
+            Assert.Null(_directory.GetInt64Nullable(ExifDirectoryBase.TagAperture));
+            Assert.Null(_directory.GetObject(ExifDirectoryBase.TagAperture));
+            Assert.Null(_directory.GetRational(ExifDirectoryBase.TagAperture));
+            Assert.Null(_directory.GetRationalArray(ExifDirectoryBase.TagAperture));
+            Assert.Null(_directory.GetStringArray(ExifDirectoryBase.TagAperture));
         }
 
-        [Test]
+        [Fact]
         public void TestToString()
         {
             Directory directory = new ExifIfd0Directory();
-            Assert.AreEqual("Exif IFD0 Directory (0 tags)", directory.ToString());
+            Assert.Equal("Exif IFD0 Directory (0 tags)", directory.ToString());
             directory.Set(1, "Tag 1");
-            Assert.AreEqual("Exif IFD0 Directory (1 tag)", directory.ToString());
+            Assert.Equal("Exif IFD0 Directory (1 tag)", directory.ToString());
             directory.Set(2, "Tag 2");
-            Assert.AreEqual("Exif IFD0 Directory (2 tags)", directory.ToString());
+            Assert.Equal("Exif IFD0 Directory (2 tags)", directory.ToString());
         }
     }
 }

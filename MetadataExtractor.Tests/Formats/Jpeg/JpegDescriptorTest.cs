@@ -21,67 +21,64 @@
  */
 
 using MetadataExtractor.Formats.Jpeg;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Jpeg
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegDescriptorTest
     {
-        private JpegDirectory _directory;
+        private readonly JpegDirectory _directory;
+        private readonly JpegDescriptor _descriptor;
 
-        private JpegDescriptor _descriptor;
-
-
-        [SetUp]
-        public void SetUp()
+        public JpegDescriptorTest()
         {
             _directory = new JpegDirectory();
             _descriptor = new JpegDescriptor(_directory);
         }
 
 
-        [Test]
+        [Fact]
         public void TestGetComponentDataDescription_InvalidComponentNumber()
         {
-            Assert.IsNull(_descriptor.GetComponentDataDescription(1));
+            Assert.Null(_descriptor.GetComponentDataDescription(1));
         }
 
 
-        [Test]
+        [Fact]
         public void TestGetImageWidthDescription()
         {
             _directory.Set(JpegDirectory.TagImageWidth, 123);
-            Assert.AreEqual("123 pixels", _descriptor.GetImageWidthDescription());
-            Assert.AreEqual("123 pixels", _directory.GetDescription(JpegDirectory.TagImageWidth));
+            Assert.Equal("123 pixels", _descriptor.GetImageWidthDescription());
+            Assert.Equal("123 pixels", _directory.GetDescription(JpegDirectory.TagImageWidth));
         }
 
 
-        [Test]
+        [Fact]
         public void TestGetImageHeightDescription()
         {
             _directory.Set(JpegDirectory.TagImageHeight, 123);
-            Assert.AreEqual("123 pixels", _descriptor.GetImageHeightDescription());
-            Assert.AreEqual("123 pixels", _directory.GetDescription(JpegDirectory.TagImageHeight));
+            Assert.Equal("123 pixels", _descriptor.GetImageHeightDescription());
+            Assert.Equal("123 pixels", _directory.GetDescription(JpegDirectory.TagImageHeight));
         }
 
 
-        [Test]
+        [Fact]
         public void TestGetDataPrecisionDescription()
         {
             _directory.Set(JpegDirectory.TagDataPrecision, 8);
-            Assert.AreEqual("8 bits", _descriptor.GetDataPrecisionDescription());
-            Assert.AreEqual("8 bits", _directory.GetDescription(JpegDirectory.TagDataPrecision));
+            Assert.Equal("8 bits", _descriptor.GetDataPrecisionDescription());
+            Assert.Equal("8 bits", _directory.GetDescription(JpegDirectory.TagDataPrecision));
         }
 
         /// <exception cref="MetadataException"/>
-        [Test]
+        [Fact]
         public void TestGetComponentDescription()
         {
             var component1 = new JpegComponent(1, 0x22, 0);
             _directory.Set(JpegDirectory.TagComponentData1, component1);
-            Assert.AreEqual("Y component: Quantization table 0, Sampling factors 2 horiz/2 vert", _directory.GetDescription(JpegDirectory.TagComponentData1));
-            Assert.AreEqual("Y component: Quantization table 0, Sampling factors 2 horiz/2 vert", _descriptor.GetComponentDataDescription(0));
+            Assert.Equal("Y component: Quantization table 0, Sampling factors 2 horiz/2 vert", _directory.GetDescription(JpegDirectory.TagComponentData1));
+            Assert.Equal("Y component: Quantization table 0, Sampling factors 2 horiz/2 vert", _descriptor.GetComponentDataDescription(0));
         }
     }
 }

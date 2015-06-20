@@ -22,7 +22,7 @@
 
 using System.Text;
 using MetadataExtractor.Formats.Exif;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {
@@ -31,40 +31,40 @@ namespace MetadataExtractor.Tests.Formats.Exif
     public sealed class ExifSubIfdDescriptorTest
     {
 
-        [Test]
+        [Fact]
         public void TestUserCommentDescription_EmptyEncoding()
         {
             var commentBytes = Encoding.UTF8.GetBytes("\x0\x0\x0\x0\x0\x0\x0\x0This is a comment");
             var directory = new ExifSubIfdDirectory();
             directory.Set(ExifDirectoryBase.TagUserComment, commentBytes);
             var descriptor = new ExifSubIfdDescriptor(directory);
-            Assert.AreEqual("This is a comment", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
+            Assert.Equal("This is a comment", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
 
-        [Test]
+        [Fact]
         public void TestUserCommentDescription_AsciiHeaderAsciiEncoding()
         {
             var commentBytes = Encoding.UTF8.GetBytes("ASCII\x0\x0This is a comment");
             var directory = new ExifSubIfdDirectory();
             directory.Set(ExifDirectoryBase.TagUserComment, commentBytes);
             var descriptor = new ExifSubIfdDescriptor(directory);
-            Assert.AreEqual("This is a comment", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
+            Assert.Equal("This is a comment", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
 
-        [Test]
+        [Fact]
         public void TestUserCommentDescription_BlankAscii()
         {
             var commentBytes = Encoding.UTF8.GetBytes("ASCII\x0\x0\x0          ");
             var directory = new ExifSubIfdDirectory();
             directory.Set(ExifDirectoryBase.TagUserComment, commentBytes);
             var descriptor = new ExifSubIfdDescriptor(directory);
-            Assert.AreEqual(string.Empty, descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
+            Assert.Equal(string.Empty, descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
 
-        [Test]
+        [Fact]
         public void TestUserCommentDescription_ZeroLengthAscii1()
         {
             // the 10-byte encoding region is only partially full
@@ -72,11 +72,11 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var directory = new ExifSubIfdDirectory();
             directory.Set(ExifDirectoryBase.TagUserComment, commentBytes);
             var descriptor = new ExifSubIfdDescriptor(directory);
-            Assert.AreEqual("ASCII", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
+            Assert.Equal("ASCII", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
 
-        [Test]
+        [Fact]
         public void TestUserCommentDescription_ZeroLengthAscii2()
         {
             // fill the 10-byte encoding region
@@ -84,11 +84,11 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var directory = new ExifSubIfdDirectory();
             directory.Set(ExifDirectoryBase.TagUserComment, commentBytes);
             var descriptor = new ExifSubIfdDescriptor(directory);
-            Assert.AreEqual(string.Empty, descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
+            Assert.Equal(string.Empty, descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
 
-        [Test]
+        [Fact]
         public void TestUnicodeComment_ActualBytes()
         {
             var commentBytes = new byte[] { 85, 78, 73, 67, 79, 68, 69, 0, 84, 0, 104, 0, 105, 0, 115, 0, 32, 0, 109, 0, 97, 0, 114, 0, 109, 0, 111, 0, 116, 0, 32, 0, 105, 0, 115, 0, 32, 0, 103, 0, 101, 0, 116, 0, 116, 0, 105, 0, 110, 0, 103, 0, 32
@@ -99,18 +99,18 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var directory = new ExifSubIfdDirectory();
             directory.Set(ExifDirectoryBase.TagUserComment, commentBytes);
             var descriptor = new ExifSubIfdDescriptor(directory);
-            Assert.AreEqual("This marmot is getting close...", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
+            Assert.Equal("This marmot is getting close...", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
 
-        [Test]
+        [Fact]
         public void TestUnicodeComment_Ascii()
         {
             var commentBytes = new byte[] { 65, 83, 67, 73, 73, 0, 0, 0, 73, 32, 97, 109, 32, 97, 32, 99, 111, 109, 109, 101, 110, 116, 46, 32, 89, 101, 121, 46, 0 };
             var directory = new ExifSubIfdDirectory();
             directory.Set(ExifDirectoryBase.TagUserComment, commentBytes);
             var descriptor = new ExifSubIfdDescriptor(directory);
-            Assert.AreEqual("I am a comment. Yey.", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
+            Assert.Equal("I am a comment. Yey.", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
     }
 }

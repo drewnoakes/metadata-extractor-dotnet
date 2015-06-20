@@ -25,7 +25,7 @@ using System.Linq;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {
@@ -35,49 +35,44 @@ namespace MetadataExtractor.Tests.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifDirectoryTest
     {
-        [Test]
+        [Fact]
         public void TestGetDirectoryName()
         {
             Directory subIfdDirectory = new ExifSubIfdDirectory();
             Directory ifd0Directory = new ExifIfd0Directory();
             Directory thumbDirectory = new ExifThumbnailDirectory();
-            Assert.IsFalse(subIfdDirectory.HasError);
-            Assert.IsFalse(ifd0Directory.HasError);
-            Assert.IsFalse(thumbDirectory.HasError);
-            Assert.AreEqual("Exif IFD0", ifd0Directory.Name);
-            Assert.AreEqual("Exif SubIFD", subIfdDirectory.Name);
-            Assert.AreEqual("Exif Thumbnail", thumbDirectory.Name);
+            Assert.False(subIfdDirectory.HasError);
+            Assert.False(ifd0Directory.HasError);
+            Assert.False(thumbDirectory.HasError);
+            Assert.Equal("Exif IFD0", ifd0Directory.Name);
+            Assert.Equal("Exif SubIFD", subIfdDirectory.Name);
+            Assert.Equal("Exif Thumbnail", thumbDirectory.Name);
         }
 
-        [Test]
+        [Fact]
         public void TestGetThumbnailData()
         {
             var directory = ExifReaderTest.ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/withExif.jpg.app1");
             var thumbData = directory.GetThumbnailData();
-            Assert.IsNotNull(thumbData);
-            try
-            {
-                // attempt to read the thumbnail -- it should be a legal Jpeg file
-                JpegSegmentReader.ReadSegments(new SequentialByteArrayReader(thumbData), null);
-            }
-            catch (JpegProcessingException)
-            {
-                Assert.Fail("Unable to construct JpegSegmentReader from thumbnail data");
-            }
+
+            Assert.NotNull(thumbData);
+
+            // attempt to read the thumbnail -- it should be a legal Jpeg file
+            JpegSegmentReader.ReadSegments(new SequentialByteArrayReader(thumbData));
         }
 
-        [Test]
+        [Fact]
         public void TestWriteThumbnail()
         {
             var directory = ExifReaderTest.ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
-            Assert.IsTrue(directory.HasThumbnailData());
+            Assert.True(directory.HasThumbnailData());
             var thumbnailFile = Path.GetTempFileName();
             try
             {
                 directory.WriteThumbnail(thumbnailFile);
                 var filePath = new FileInfo(thumbnailFile);
-                Assert.AreEqual(2970L, filePath.Length);
-                Assert.IsTrue(filePath.Exists);
+                Assert.Equal(2970L, filePath.Length);
+                Assert.True(filePath.Exists);
             }
             finally
             {
@@ -96,18 +91,18 @@ namespace MetadataExtractor.Tests.Formats.Exif
 //        assertTrue(exifDirectory.hasThumbnailData());
 //    }
 
-        [Test]
+        [Fact]
         public void TestResolution()
         {
             var directories = ExifReaderTest.ProcessSegmentBytes("Tests/Data/withUncompressedRGBThumbnail.jpg.app1");
 
             var thumbnailDirectory = directories.OfType<ExifThumbnailDirectory>().FirstOrDefault();
-            Assert.IsNotNull(thumbnailDirectory);
-            Assert.AreEqual(72, thumbnailDirectory.GetInt32(ExifDirectoryBase.TagXResolution));
+            Assert.NotNull(thumbnailDirectory);
+            Assert.Equal(72, thumbnailDirectory.GetInt32(ExifDirectoryBase.TagXResolution));
 
             var exifIfd0Directory = directories.OfType<ExifIfd0Directory>().FirstOrDefault();
-            Assert.IsNotNull(exifIfd0Directory);
-            Assert.AreEqual(216, exifIfd0Directory.GetInt32(ExifDirectoryBase.TagXResolution));
+            Assert.NotNull(exifIfd0Directory);
+            Assert.Equal(216, exifIfd0Directory.GetInt32(ExifDirectoryBase.TagXResolution));
         }
     }
 }

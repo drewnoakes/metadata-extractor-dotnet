@@ -21,63 +21,61 @@
  */
 
 using MetadataExtractor.Formats.Jpeg;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Jpeg
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegDirectoryTest
     {
-        private JpegDirectory _directory;
+        private readonly JpegDirectory _directory;
 
-        [SetUp]
-        public void SetUp()
+        public JpegDirectoryTest()
         {
             _directory = new JpegDirectory();
         }
 
-
-        [Test]
+        [Fact]
         public void TestSetAndGetValue()
         {
             _directory.Set(123, 8);
-            Assert.AreEqual(8, _directory.GetInt32(123));
+            Assert.Equal(8, _directory.GetInt32(123));
         }
 
-        [Test]
+        [Fact]
         public void TestGetComponent_NotAdded()
         {
-            Assert.IsNull(_directory.GetComponent(1));
+            Assert.Null(_directory.GetComponent(1));
         }
 
         // NOTE tests for individual tag values exist in JpegReaderTest.java
 
-        [Test]
+        [Fact]
         public void TestGetImageWidth()
         {
             _directory.Set(JpegDirectory.TagImageWidth, 123);
-            Assert.AreEqual(123, _directory.GetImageWidth());
+            Assert.Equal(123, _directory.GetImageWidth());
         }
 
 
-        [Test]
+        [Fact]
         public void TestGetImageHeight()
         {
             _directory.Set(JpegDirectory.TagImageHeight, 123);
-            Assert.AreEqual(123, _directory.GetImageHeight());
+            Assert.Equal(123, _directory.GetImageHeight());
         }
 
 
-        [Test]
+        [Fact]
         public void TestGetNumberOfComponents()
         {
             _directory.Set(JpegDirectory.TagNumberOfComponents, 3);
-            Assert.AreEqual(3, _directory.GetNumberOfComponents());
-            Assert.AreEqual("3", _directory.GetDescription(JpegDirectory.TagNumberOfComponents));
+            Assert.Equal(3, _directory.GetNumberOfComponents());
+            Assert.Equal("3", _directory.GetDescription(JpegDirectory.TagNumberOfComponents));
         }
 
 
-        [Test]
+        [Fact]
         public void TestGetComponent()
         {
             var component1 = new JpegComponent(1, 2, 3);
@@ -89,10 +87,10 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             _directory.Set(JpegDirectory.TagComponentData3, component3);
             _directory.Set(JpegDirectory.TagComponentData4, component4);
             // component numbers are zero-indexed for this method
-            Assert.AreSame(component1, _directory.GetComponent(0));
-            Assert.AreSame(component2, _directory.GetComponent(1));
-            Assert.AreSame(component3, _directory.GetComponent(2));
-            Assert.AreSame(component4, _directory.GetComponent(3));
+            Assert.Same(component1, _directory.GetComponent(0));
+            Assert.Same(component2, _directory.GetComponent(1));
+            Assert.Same(component3, _directory.GetComponent(2));
+            Assert.Same(component4, _directory.GetComponent(3));
         }
     }
 }

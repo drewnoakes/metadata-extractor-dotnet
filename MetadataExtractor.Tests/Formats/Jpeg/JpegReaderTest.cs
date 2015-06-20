@@ -23,7 +23,7 @@
 using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Jpeg
 {
@@ -31,88 +31,87 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
     public sealed class JpegReaderTest
     {
         [NotNull]
-        public static JpegDirectory ProcessBytes(string filePath)
+        private static JpegDirectory ProcessBytes([NotNull] string filePath)
         {
             var directory = new JpegReader().Extract(File.ReadAllBytes(filePath), JpegSegmentType.Sof0);
-            Assert.IsNotNull(directory);
+            Assert.NotNull(directory);
             return directory;
         }
 
-        private JpegDirectory _directory;
+        private readonly JpegDirectory _directory;
 
-        [SetUp]
-        public void SetUp()
+        public JpegReaderTest()
         {
             _directory = ProcessBytes("Tests/Data/simple.jpg.sof0");
         }
 
 
-        [Test]
+        [Fact]
         public void TestExtract_Width()
         {
-            Assert.AreEqual(800, _directory.GetInt32(JpegDirectory.TagImageWidth));
+            Assert.Equal(800, _directory.GetInt32(JpegDirectory.TagImageWidth));
         }
 
 
-        [Test]
+        [Fact]
         public void TestExtract_Height()
         {
-            Assert.AreEqual(600, _directory.GetInt32(JpegDirectory.TagImageHeight));
+            Assert.Equal(600, _directory.GetInt32(JpegDirectory.TagImageHeight));
         }
 
 
-        [Test]
+        [Fact]
         public void TestExtract_DataPrecision()
         {
-            Assert.AreEqual(8, _directory.GetInt32(JpegDirectory.TagDataPrecision));
+            Assert.Equal(8, _directory.GetInt32(JpegDirectory.TagDataPrecision));
         }
 
 
-        [Test]
+        [Fact]
         public void TestExtract_NumberOfComponents()
         {
-            Assert.AreEqual(3, _directory.GetInt32(JpegDirectory.TagNumberOfComponents));
+            Assert.Equal(3, _directory.GetInt32(JpegDirectory.TagNumberOfComponents));
         }
 
 
-        [Test]
+        [Fact]
         public void TestComponentData1()
         {
             var component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData1);
-            Assert.IsNotNull(component);
-            Assert.AreEqual("Y", component.GetComponentName());
-            Assert.AreEqual(1, component.GetComponentId());
-            Assert.AreEqual(0, component.GetQuantizationTableNumber());
-            Assert.AreEqual(2, component.GetHorizontalSamplingFactor());
-            Assert.AreEqual(2, component.GetVerticalSamplingFactor());
+            Assert.NotNull(component);
+            Assert.Equal("Y", component.GetComponentName());
+            Assert.Equal(1, component.GetComponentId());
+            Assert.Equal(0, component.GetQuantizationTableNumber());
+            Assert.Equal(2, component.GetHorizontalSamplingFactor());
+            Assert.Equal(2, component.GetVerticalSamplingFactor());
         }
 
 
-        [Test]
+        [Fact]
         public void TestComponentData2()
         {
             var component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData2);
-            Assert.IsNotNull(component);
-            Assert.AreEqual("Cb", component.GetComponentName());
-            Assert.AreEqual(2, component.GetComponentId());
-            Assert.AreEqual(1, component.GetQuantizationTableNumber());
-            Assert.AreEqual(1, component.GetHorizontalSamplingFactor());
-            Assert.AreEqual(1, component.GetVerticalSamplingFactor());
-            Assert.AreEqual("Cb component: Quantization table 1, Sampling factors 1 horiz/1 vert", _directory.GetDescription(JpegDirectory.TagComponentData2));
+            Assert.NotNull(component);
+            Assert.Equal("Cb", component.GetComponentName());
+            Assert.Equal(2, component.GetComponentId());
+            Assert.Equal(1, component.GetQuantizationTableNumber());
+            Assert.Equal(1, component.GetHorizontalSamplingFactor());
+            Assert.Equal(1, component.GetVerticalSamplingFactor());
+            Assert.Equal("Cb component: Quantization table 1, Sampling factors 1 horiz/1 vert", _directory.GetDescription(JpegDirectory.TagComponentData2));
         }
 
 
-        [Test]
+        [Fact]
         public void TestComponentData3()
         {
             var component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData3);
-            Assert.IsNotNull(component);
-            Assert.AreEqual("Cr", component.GetComponentName());
-            Assert.AreEqual(3, component.GetComponentId());
-            Assert.AreEqual(1, component.GetQuantizationTableNumber());
-            Assert.AreEqual(1, component.GetHorizontalSamplingFactor());
-            Assert.AreEqual(1, component.GetVerticalSamplingFactor());
-            Assert.AreEqual("Cr component: Quantization table 1, Sampling factors 1 horiz/1 vert", _directory.GetDescription(JpegDirectory.TagComponentData3));
+            Assert.NotNull(component);
+            Assert.Equal("Cr", component.GetComponentName());
+            Assert.Equal(3, component.GetComponentId());
+            Assert.Equal(1, component.GetQuantizationTableNumber());
+            Assert.Equal(1, component.GetHorizontalSamplingFactor());
+            Assert.Equal(1, component.GetVerticalSamplingFactor());
+            Assert.Equal("Cr component: Quantization table 1, Sampling factors 1 horiz/1 vert", _directory.GetDescription(JpegDirectory.TagComponentData3));
         }
 /*
     // this test is part of an incomplete investigation into extracting audio from JPG files

@@ -21,7 +21,7 @@
  */
 
 using MetadataExtractor.Formats.Exif.Makernotes;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {
@@ -29,14 +29,14 @@ namespace MetadataExtractor.Tests.Formats.Exif
     public sealed class SonyType6MakernoteTest
     {
 
-        [Test]
+        [Fact]
         public void TestSonyType6Makernote()
         {
             var directory = ExifReaderTest.ProcessSegmentBytes<SonyType6MakernoteDirectory>("Tests/Data/sonyType6.jpg.app1.0");
-            Assert.IsNotNull(directory);
-            Assert.IsFalse(directory.HasError);
+            Assert.NotNull(directory);
+            Assert.False(directory.HasError);
             var descriptor = new SonyType6MakernoteDescriptor(directory);
-            Assert.AreEqual("2.00", descriptor.GetMakernoteThumbVersionDescription());
+            Assert.Equal("2.00", descriptor.GetMakernoteThumbVersionDescription());
         }
     }
 }

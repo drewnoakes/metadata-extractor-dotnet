@@ -21,33 +21,32 @@
  */
 
 using MetadataExtractor.Formats.Exif.Makernotes;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {
     /// <author>psandhaus, Drew Noakes</author>
     public sealed class PanasonicMakernoteDescriptorTest
     {
-        private PanasonicMakernoteDirectory _panasonicDirectory;
+        private readonly PanasonicMakernoteDirectory _panasonicDirectory;
 
-        [SetUp]
-        public void SetUp()
+        public PanasonicMakernoteDescriptorTest()
         {
             _panasonicDirectory = ExifReaderTest.ProcessSegmentBytes<PanasonicMakernoteDirectory>("Tests/Data/withPanasonicFaces.jpg.app1");
         }
 
-        [Test]
+        [Fact]
         public void TestGetDetectedFaces()
         {
-            CollectionAssert.AreEqual(
+            Assert.Equal(
                 new[] { new Face(142, 120, 76, 76) },
                 _panasonicDirectory.GetDetectedFaces());
         }
 
-        [Test]
+        [Fact]
         public void TestGetRecognizedFaces()
         {
-            CollectionAssert.AreEqual(
+            Assert.Equal(
                 new[] { new Face(142, 120, 76, 76, "NIELS", new Age(31, 7, 15, 0, 0, 0)) },
                 _panasonicDirectory.GetRecognizedFaces());
         }

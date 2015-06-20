@@ -23,18 +23,18 @@
 using System;
 using System.IO;
 using MetadataExtractor.IO;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.IO
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class RandomAccessStreamReaderTest : IndexedReaderTestBase
     {
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void TestConstructWithNullBufferThrows()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
-            new IndexedCapturingReader(null);
+            Assert.Throws<ArgumentNullException>(() => new IndexedCapturingReader(null));
         }
 
         protected override IndexedReader CreateReader(byte[] bytes)

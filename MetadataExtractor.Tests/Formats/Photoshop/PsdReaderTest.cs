@@ -25,7 +25,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Photoshop;
 using MetadataExtractor.IO;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Photoshop
 {
@@ -38,33 +38,33 @@ namespace MetadataExtractor.Tests.Formats.Photoshop
             using (var stream = new FileStream(filePath, FileMode.Open))
             {
                 var directory = new PsdReader().Extract(new SequentialStreamReader(stream)).OfType<PsdHeaderDirectory>().FirstOrDefault();
-                Assert.IsNotNull(directory);
+                Assert.NotNull(directory);
                 return directory;
             }
         }
 
-        [Test]
+        [Fact]
         public void Test8X8X8BitGrayscale()
         {
             var directory = ProcessBytes("Tests/Data/8x4x8bit-Grayscale.psd");
-            Assert.AreEqual(8, directory.GetInt32(PsdHeaderDirectory.TagImageWidth));
-            Assert.AreEqual(4, directory.GetInt32(PsdHeaderDirectory.TagImageHeight));
-            Assert.AreEqual(8, directory.GetInt32(PsdHeaderDirectory.TagBitsPerChannel));
-            Assert.AreEqual(1, directory.GetInt32(PsdHeaderDirectory.TagChannelCount));
+            Assert.Equal(8, directory.GetInt32(PsdHeaderDirectory.TagImageWidth));
+            Assert.Equal(4, directory.GetInt32(PsdHeaderDirectory.TagImageHeight));
+            Assert.Equal(8, directory.GetInt32(PsdHeaderDirectory.TagBitsPerChannel));
+            Assert.Equal(1, directory.GetInt32(PsdHeaderDirectory.TagChannelCount));
             // 1 = grayscale
-            Assert.AreEqual(1, directory.GetInt32(PsdHeaderDirectory.TagColorMode));
+            Assert.Equal(1, directory.GetInt32(PsdHeaderDirectory.TagColorMode));
         }
 
-        [Test]
+        [Fact]
         public void Test10X12X16BitCmyk()
         {
             var directory = ProcessBytes("Tests/Data/10x12x16bit-CMYK.psd");
-            Assert.AreEqual(10, directory.GetInt32(PsdHeaderDirectory.TagImageWidth));
-            Assert.AreEqual(12, directory.GetInt32(PsdHeaderDirectory.TagImageHeight));
-            Assert.AreEqual(16, directory.GetInt32(PsdHeaderDirectory.TagBitsPerChannel));
-            Assert.AreEqual(4, directory.GetInt32(PsdHeaderDirectory.TagChannelCount));
+            Assert.Equal(10, directory.GetInt32(PsdHeaderDirectory.TagImageWidth));
+            Assert.Equal(12, directory.GetInt32(PsdHeaderDirectory.TagImageHeight));
+            Assert.Equal(16, directory.GetInt32(PsdHeaderDirectory.TagBitsPerChannel));
+            Assert.Equal(4, directory.GetInt32(PsdHeaderDirectory.TagChannelCount));
             // 4 = CMYK
-            Assert.AreEqual(4, directory.GetInt32(PsdHeaderDirectory.TagColorMode));
+            Assert.Equal(4, directory.GetInt32(PsdHeaderDirectory.TagColorMode));
         }
     }
 }

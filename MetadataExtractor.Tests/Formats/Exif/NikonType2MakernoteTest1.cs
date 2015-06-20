@@ -23,24 +23,21 @@
 using System.Globalization;
 using System.Threading;
 using MetadataExtractor.Formats.Exif.Makernotes;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class NikonType2MakernoteTest1
     {
-        private NikonType2MakernoteDirectory _nikonDirectory;
+        private readonly NikonType2MakernoteDirectory _nikonDirectory;
+        private readonly NikonType2MakernoteDescriptor _descriptor;
 
-        private NikonType2MakernoteDescriptor _descriptor;
-
-
-        [SetUp]
-        public void SetUp()
+        public NikonType2MakernoteTest1()
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-GB");
             _nikonDirectory = ExifReaderTest.ProcessSegmentBytes<NikonType2MakernoteDirectory>("Tests/Data/nikonMakernoteType2a.jpg.app1");
-            Assert.IsNotNull(_nikonDirectory);
+            Assert.NotNull(_nikonDirectory);
             _descriptor = new NikonType2MakernoteDescriptor(_nikonDirectory);
         }
 
@@ -81,71 +78,71 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Nikon Makernote] Unknown 15 = 78/10 78/10
     */
 
-        [Test]
+        [Fact]
         public void TestNikonMakernote_MatchesKnownValues()
         {
-            Assert.AreEqual("48 50 48 48", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagFirmwareVersion));
-            Assert.AreEqual("0 320", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagIso1));
-            Assert.AreEqual("0 320", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagIsoRequested));
-            Assert.AreEqual("FLASH       ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagCameraWhiteBalance));
-            Assert.AreEqual("AUTO  ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagCameraSharpening));
-            Assert.AreEqual("AF-C  ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagAfType));
-            Assert.AreEqual("NORMAL      ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagFlashSyncMode));
-            Assert.AreEqual("0", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagCameraWhiteBalanceFine));
-            Assert.AreEqual("914", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagPreviewIfd));
-            Assert.AreEqual("AUTO    ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagCameraToneCompensation));
-            Assert.AreEqual("6", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagLensType));
-            Assert.AreEqual("240/10 850/10 35/10 45/10", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagLens));
-            Assert.AreEqual("0", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagFlashUsed));
-            Assert.AreEqual("1", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagShootingMode));
-            Assert.AreEqual("0", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagUnknown20));
-            Assert.AreEqual("MODE1   ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagCameraColorMode));
-            Assert.AreEqual("NATURAL    ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagLightSource));
-            Assert.AreEqual("0", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagCameraHueAdjustment));
-            Assert.AreEqual("OFF ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagNoiseReduction));
-            Assert.AreEqual("78/10 78/10", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagSensorPixelSize));
+            Assert.Equal("48 50 48 48", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagFirmwareVersion));
+            Assert.Equal("0 320", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagIso1));
+            Assert.Equal("0 320", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagIsoRequested));
+            Assert.Equal("FLASH       ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagCameraWhiteBalance));
+            Assert.Equal("AUTO  ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagCameraSharpening));
+            Assert.Equal("AF-C  ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagAfType));
+            Assert.Equal("NORMAL      ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagFlashSyncMode));
+            Assert.Equal("0", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagCameraWhiteBalanceFine));
+            Assert.Equal("914", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagPreviewIfd));
+            Assert.Equal("AUTO    ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagCameraToneCompensation));
+            Assert.Equal("6", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagLensType));
+            Assert.Equal("240/10 850/10 35/10 45/10", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagLens));
+            Assert.Equal("0", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagFlashUsed));
+            Assert.Equal("1", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagShootingMode));
+            Assert.Equal("0", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagUnknown20));
+            Assert.Equal("MODE1   ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagCameraColorMode));
+            Assert.Equal("NATURAL    ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagLightSource));
+            Assert.Equal("0", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagCameraHueAdjustment));
+            Assert.Equal("OFF ", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagNoiseReduction));
+            Assert.Equal("78/10 78/10", _nikonDirectory.GetString(NikonType2MakernoteDirectory.TagSensorPixelSize));
         }
 
         /// <exception cref="MetadataException"/>
-        [Test]
+        [Fact]
         public void TestGetLensDescription()
         {
-            Assert.AreEqual("24-85mm f/3.5-4.5", _descriptor.GetDescription(NikonType2MakernoteDirectory.TagLens));
-            Assert.AreEqual("24-85mm f/3.5-4.5", _descriptor.GetLensDescription());
+            Assert.Equal("24-85mm f/3.5-4.5", _descriptor.GetDescription(NikonType2MakernoteDirectory.TagLens));
+            Assert.Equal("24-85mm f/3.5-4.5", _descriptor.GetLensDescription());
         }
 
         /// <exception cref="MetadataException"/>
-        [Test]
+        [Fact]
         public void TestGetHueAdjustmentDescription()
         {
-            Assert.AreEqual("0 degrees", _descriptor.GetDescription(NikonType2MakernoteDirectory.TagCameraHueAdjustment));
-            Assert.AreEqual("0 degrees", _descriptor.GetHueAdjustmentDescription());
+            Assert.Equal("0 degrees", _descriptor.GetDescription(NikonType2MakernoteDirectory.TagCameraHueAdjustment));
+            Assert.Equal("0 degrees", _descriptor.GetHueAdjustmentDescription());
         }
 
 
-        [Test]
+        [Fact]
         public void TestGetColorModeDescription()
         {
-            Assert.AreEqual("Mode I (sRGB)", _descriptor.GetDescription(NikonType2MakernoteDirectory.TagCameraColorMode));
-            Assert.AreEqual("Mode I (sRGB)", _descriptor.GetColorModeDescription());
+            Assert.Equal("Mode I (sRGB)", _descriptor.GetDescription(NikonType2MakernoteDirectory.TagCameraColorMode));
+            Assert.Equal("Mode I (sRGB)", _descriptor.GetColorModeDescription());
         }
 
 
-        [Test]
+        [Fact]
         public void TestGetAutoFlashCompensationDescription()
         {
             var directory = new NikonType2MakernoteDirectory();
             var descriptor = new NikonType2MakernoteDescriptor(directory);
             // no entry exists
-            Assert.IsNull(descriptor.GetAutoFlashCompensationDescription());
+            Assert.Null(descriptor.GetAutoFlashCompensationDescription());
             directory.Set(NikonType2MakernoteDirectory.TagAutoFlashCompensation, new sbyte[] { 0x06, 0x01, 0x06 });
-            Assert.AreEqual("1 EV", descriptor.GetAutoFlashCompensationDescription());
+            Assert.Equal("1 EV", descriptor.GetAutoFlashCompensationDescription());
             directory.Set(NikonType2MakernoteDirectory.TagAutoFlashCompensation, new sbyte[] { 0x04, 0x01, 0x06 });
-            Assert.AreEqual("0.67 EV", descriptor.GetAutoFlashCompensationDescription());
+            Assert.Equal("0.67 EV", descriptor.GetAutoFlashCompensationDescription());
             directory.Set(NikonType2MakernoteDirectory.TagAutoFlashCompensation, new sbyte[] { 0x02, 0x01, 0x06 });
-            Assert.AreEqual("0.33 EV", descriptor.GetAutoFlashCompensationDescription());
+            Assert.Equal("0.33 EV", descriptor.GetAutoFlashCompensationDescription());
             directory.Set(NikonType2MakernoteDirectory.TagAutoFlashCompensation, new sbyte[] { unchecked((sbyte)0xFE), 0x01, 0x06 });
-            Assert.AreEqual("-0.33 EV", descriptor.GetAutoFlashCompensationDescription());
+            Assert.Equal("-0.33 EV", descriptor.GetAutoFlashCompensationDescription());
         }
     }
 }

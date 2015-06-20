@@ -21,7 +21,7 @@
  */
 
 using MetadataExtractor.Formats.Exif;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {
@@ -30,17 +30,17 @@ namespace MetadataExtractor.Tests.Formats.Exif
     public sealed class ExifThumbnailDescriptorTest
     {
 
-        [Test]
+        [Fact]
         public void TestGetYCbCrSubsamplingDescription()
         {
             var directory = new ExifThumbnailDirectory();
             directory.Set(ExifDirectoryBase.TagYcbcrSubsampling, new[] { 2, 1 });
             var descriptor = new ExifThumbnailDescriptor(directory);
-            Assert.AreEqual("YCbCr4:2:2", descriptor.GetDescription(ExifDirectoryBase.TagYcbcrSubsampling));
-            Assert.AreEqual("YCbCr4:2:2", descriptor.GetYCbCrSubsamplingDescription());
+            Assert.Equal("YCbCr4:2:2", descriptor.GetDescription(ExifDirectoryBase.TagYcbcrSubsampling));
+            Assert.Equal("YCbCr4:2:2", descriptor.GetYCbCrSubsamplingDescription());
             directory.Set(ExifDirectoryBase.TagYcbcrSubsampling, new[] { 2, 2 });
-            Assert.AreEqual("YCbCr4:2:0", descriptor.GetDescription(ExifDirectoryBase.TagYcbcrSubsampling));
-            Assert.AreEqual("YCbCr4:2:0", descriptor.GetYCbCrSubsamplingDescription());
+            Assert.Equal("YCbCr4:2:0", descriptor.GetDescription(ExifDirectoryBase.TagYcbcrSubsampling));
+            Assert.Equal("YCbCr4:2:0", descriptor.GetYCbCrSubsamplingDescription());
         }
     }
 }

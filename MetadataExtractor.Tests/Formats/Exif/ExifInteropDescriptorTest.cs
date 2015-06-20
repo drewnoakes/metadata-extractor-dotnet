@@ -21,7 +21,7 @@
  */
 
 using MetadataExtractor.Formats.Exif;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {
@@ -32,25 +32,25 @@ namespace MetadataExtractor.Tests.Formats.Exif
     public sealed class ExifInteropDescriptorTest
     {
 
-        [Test]
+        [Fact]
         public void TestGetInteropVersionDescription()
         {
             var directory = new ExifInteropDirectory();
             directory.Set(ExifDirectoryBase.TagInteropVersion, new[] { 0, 1, 0, 0 });
             var descriptor = new ExifInteropDescriptor(directory);
-            Assert.AreEqual("1.00", descriptor.GetDescription(ExifDirectoryBase.TagInteropVersion));
-            Assert.AreEqual("1.00", descriptor.GetInteropVersionDescription());
+            Assert.Equal("1.00", descriptor.GetDescription(ExifDirectoryBase.TagInteropVersion));
+            Assert.Equal("1.00", descriptor.GetInteropVersionDescription());
         }
 
 
-        [Test]
+        [Fact]
         public void TestGetInteropIndexDescription()
         {
             var directory = new ExifInteropDirectory();
             directory.Set(ExifDirectoryBase.TagInteropIndex, "R98");
             var descriptor = new ExifInteropDescriptor(directory);
-            Assert.AreEqual("Recommended Exif Interoperability Rules (ExifR98)", descriptor.GetDescription(ExifDirectoryBase.TagInteropIndex));
-            Assert.AreEqual("Recommended Exif Interoperability Rules (ExifR98)", descriptor.GetInteropIndexDescription());
+            Assert.Equal("Recommended Exif Interoperability Rules (ExifR98)", descriptor.GetDescription(ExifDirectoryBase.TagInteropIndex));
+            Assert.Equal("Recommended Exif Interoperability Rules (ExifR98)", descriptor.GetInteropIndexDescription());
         }
     }
 }

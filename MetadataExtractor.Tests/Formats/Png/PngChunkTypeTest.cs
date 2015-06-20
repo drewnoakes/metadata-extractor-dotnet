@@ -1,59 +1,38 @@
 ﻿using System;
 using MetadataExtractor.Formats.Png;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunkTypeTest
     {
-        [Test]
+        [Fact]
         public void TestConstructorTooLong()
         {
-            try
-            {
-                new PngChunkType("TooLong");
-                Assert.Fail("Expecting exception");
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("PNG chunk type identifier must be four bytes in length", ex.Message);
-            }
+            var ex = Assert.Throws<ArgumentException>(() => new PngChunkType("TooLong"));
+            Assert.Equal("PNG chunk type identifier must be four bytes in length", ex.Message);
         }
 
-        [Test]
+        [Fact]
         public void TestConstructorTooShort()
         {
-            try
-            {
-                new PngChunkType("foo");
-                Assert.Fail("Expecting exception");
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("PNG chunk type identifier must be four bytes in length", ex.Message);
-            }
+            var ex = Assert.Throws<ArgumentException>(() => new PngChunkType("foo"));
+            Assert.Equal("PNG chunk type identifier must be four bytes in length", ex.Message);
         }
 
-        [Test]
+        [Fact]
         public void TestConstructorInvalidBytes()
         {
             var invalidStrings = new[] { "ABC1", "1234", "    ", "!£$%" };
             foreach (var invalidString in invalidStrings)
             {
-                try
-                {
-                    new PngChunkType(invalidString);
-                    Assert.Fail("Expecting exception");
-                }
-                catch (ArgumentException ex)
-                {
-                    Assert.AreEqual("PNG chunk type identifier may only contain alphabet characters", ex.Message);
-                }
+                var ex = Assert.Throws<ArgumentException>(() => new PngChunkType(invalidString));
+                Assert.Equal("PNG chunk type identifier may only contain alphabet characters", ex.Message);
             }
         }
 
-        [Test]
+        [Fact]
         public void TestConstructorValidBytes()
         {
             var validStrings = new[] { "ABCD", "abcd", "wxyz", "WXYZ", "lkjh", "LKJH" };
@@ -63,51 +42,51 @@ namespace MetadataExtractor.Tests.Formats.Png
             }
         }
 
-        [Test]
+        [Fact]
         public void TestIsCritical()
         {
-            Assert.IsTrue(new PngChunkType("ABCD").IsCritical());
-            Assert.IsFalse(new PngChunkType("aBCD").IsCritical());
+            Assert.True(new PngChunkType("ABCD").IsCritical());
+            Assert.False(new PngChunkType("aBCD").IsCritical());
         }
 
-        [Test]
+        [Fact]
         public void TestIsAncillary()
         {
-            Assert.IsFalse(new PngChunkType("ABCD").IsAncillary());
-            Assert.IsTrue(new PngChunkType("aBCD").IsAncillary());
+            Assert.False(new PngChunkType("ABCD").IsAncillary());
+            Assert.True(new PngChunkType("aBCD").IsAncillary());
         }
 
-        [Test]
+        [Fact]
         public void TestIsPrivate()
         {
-            Assert.IsTrue(new PngChunkType("ABCD").IsPrivate());
-            Assert.IsFalse(new PngChunkType("AbCD").IsPrivate());
+            Assert.True(new PngChunkType("ABCD").IsPrivate());
+            Assert.False(new PngChunkType("AbCD").IsPrivate());
         }
 
-        [Test]
+        [Fact]
         public void TestIsSafeToCopy()
         {
-            Assert.IsFalse(new PngChunkType("ABCD").IsSafeToCopy());
-            Assert.IsTrue(new PngChunkType("ABCd").IsSafeToCopy());
+            Assert.False(new PngChunkType("ABCD").IsSafeToCopy());
+            Assert.True(new PngChunkType("ABCd").IsSafeToCopy());
         }
 
-        [Test]
+        [Fact]
         public void TestAreMultipleAllowed()
         {
-            Assert.IsFalse(new PngChunkType("ABCD").AreMultipleAllowed());
-            Assert.IsFalse(new PngChunkType("ABCD", false).AreMultipleAllowed());
-            Assert.IsTrue(new PngChunkType("ABCD", true).AreMultipleAllowed());
+            Assert.False(new PngChunkType("ABCD").AreMultipleAllowed());
+            Assert.False(new PngChunkType("ABCD", false).AreMultipleAllowed());
+            Assert.True(new PngChunkType("ABCD", true).AreMultipleAllowed());
         }
 
-        [Test]
+        [Fact]
         public void TestEquality()
         {
-            Assert.AreEqual(new PngChunkType("ABCD"), new PngChunkType("ABCD"));
-            Assert.AreEqual(new PngChunkType("ABCD", true), new PngChunkType("ABCD", true));
-            Assert.AreEqual(new PngChunkType("ABCD", false), new PngChunkType("ABCD", false));
+            Assert.Equal(new PngChunkType("ABCD"), new PngChunkType("ABCD"));
+            Assert.Equal(new PngChunkType("ABCD", true), new PngChunkType("ABCD", true));
+            Assert.Equal(new PngChunkType("ABCD", false), new PngChunkType("ABCD", false));
             // NOTE we don't consider the 'allowMultiples' value in the equality test (or hash code)
-            Assert.AreEqual(new PngChunkType("ABCD", true), new PngChunkType("ABCD", false));
-            Assert.AreNotEqual(new PngChunkType("ABCD"), new PngChunkType("abcd"));
+            Assert.Equal(new PngChunkType("ABCD", true), new PngChunkType("ABCD", false));
+            Assert.NotEqual(new PngChunkType("ABCD"), new PngChunkType("abcd"));
         }
     }
 }

@@ -25,7 +25,7 @@ using JetBrains.Annotations;
 using MetadataExtractor.Formats.Adobe;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Adobe
 {
@@ -39,23 +39,23 @@ namespace MetadataExtractor.Tests.Formats.Adobe
                 .Extract(new SequentialByteArrayReader(File.ReadAllBytes(filePath)));
         }
 
-        [Test]
+        [Fact]
         public void TestSegmentTypes()
         {
-            CollectionAssert.AreEqual(new[] { JpegSegmentType.AppE }, new AdobeJpegReader().GetSegmentTypes());
+            Assert.Equal(new[] { JpegSegmentType.AppE }, new AdobeJpegReader().GetSegmentTypes());
         }
 
-        [Test]
+        [Fact]
         public void TestReadAdobeJpegMetadata1()
         {
             var directory = ProcessBytes("Tests/Data/adobeJpeg1.jpg.appe");
 
-            Assert.IsFalse(directory.HasError, directory.Errors.ToString());
-            Assert.AreEqual(4, directory.TagCount);
-            Assert.AreEqual(1, directory.GetInt32(AdobeJpegDirectory.TagColorTransform));
-            Assert.AreEqual(25600, directory.GetInt32(AdobeJpegDirectory.TagDctEncodeVersion));
-            Assert.AreEqual(128, directory.GetInt32(AdobeJpegDirectory.TagApp14Flags0));
-            Assert.AreEqual(0, directory.GetInt32(AdobeJpegDirectory.TagApp14Flags1));
+            Assert.False(directory.HasError, directory.Errors.ToString());
+            Assert.Equal(4, directory.TagCount);
+            Assert.Equal(1, directory.GetInt32(AdobeJpegDirectory.TagColorTransform));
+            Assert.Equal(25600, directory.GetInt32(AdobeJpegDirectory.TagDctEncodeVersion));
+            Assert.Equal(128, directory.GetInt32(AdobeJpegDirectory.TagApp14Flags0));
+            Assert.Equal(0, directory.GetInt32(AdobeJpegDirectory.TagApp14Flags1));
         }
     }
 }

@@ -21,21 +21,21 @@
  */
 
 using MetadataExtractor.Formats.Jpeg;
-using NUnit.Framework;
+using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Jpeg
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegComponentTest
     {
-        [Test]
+        [Fact]
         public void TestGetComponentCharacter()
         {
-            Assert.AreEqual("Y",  new JpegComponent(1, 2, 3).GetComponentName());
-            Assert.AreEqual("Cb", new JpegComponent(2, 2, 3).GetComponentName());
-            Assert.AreEqual("Cr", new JpegComponent(3, 2, 3).GetComponentName());
-            Assert.AreEqual("I",  new JpegComponent(4, 2, 3).GetComponentName());
-            Assert.AreEqual("Q",  new JpegComponent(5, 2, 3).GetComponentName());
+            Assert.Equal("Y",  new JpegComponent(1, 2, 3).GetComponentName());
+            Assert.Equal("Cb", new JpegComponent(2, 2, 3).GetComponentName());
+            Assert.Equal("Cr", new JpegComponent(3, 2, 3).GetComponentName());
+            Assert.Equal("I",  new JpegComponent(4, 2, 3).GetComponentName());
+            Assert.Equal("Q",  new JpegComponent(5, 2, 3).GetComponentName());
         }
     }
 }
