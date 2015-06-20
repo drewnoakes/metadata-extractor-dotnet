@@ -51,7 +51,7 @@ namespace MetadataExtractor.Tests.IO
             Assert.AreEqual(0, reader.GetInt8());
             Assert.AreEqual(1, reader.GetInt8());
             Assert.AreEqual(127, reader.GetInt8());
-            Assert.AreEqual(255, reader.GetInt8());
+            Assert.AreEqual(-1, reader.GetInt8());
         }
 
 
