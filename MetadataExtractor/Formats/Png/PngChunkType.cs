@@ -38,6 +38,8 @@ namespace MetadataExtractor.Formats.Png
     {
         private static readonly ICollection<string> IdentifiersAllowingMultiples = new HashSet<string> { "IDAT", "sPLT", "iTXt", "tEXt", "zTXt" };
 
+        #region Standard critical chunks
+
         /// <summary>
         /// Denotes a critical
         /// <see cref="PngChunk"/>
@@ -82,6 +84,10 @@ namespace MetadataExtractor.Formats.Png
 
         public static readonly PngChunkType IEND = new PngChunkType("IEND");
 
+        #endregion
+
+        #region Standard ancillary chunks
+
         public static readonly PngChunkType cHRM = new PngChunkType("cHRM");
 
         public static readonly PngChunkType gAMA = new PngChunkType("gAMA");
@@ -125,18 +131,14 @@ namespace MetadataExtractor.Formats.Png
 
         public static readonly PngChunkType zTXt = new PngChunkType("zTXt", true);
 
+        #endregion
+
         private readonly byte[] _bytes;
 
         private readonly bool _multipleAllowed;
 
         public PngChunkType([NotNull] string identifier, bool multipleAllowed = false)
         {
-            //
-            // Standard critical chunks
-            //
-            //
-            // Standard ancillary chunks
-            //
             _multipleAllowed = multipleAllowed;
             var bytes = Encoding.ASCII.GetBytes(identifier);
             ValidateBytes(bytes);
