@@ -8,15 +8,22 @@
     <owners>Drew Noakes</owners>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
     <projectUrl>https://github.com/drewnoakes/metadata-extractor-dotnet</projectUrl>
-<!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
+    <iconUrl>https://raw.githubusercontent.com/drewnoakes/metadata-extractor-dotnet/master/docs/metadata-extractor-logo-122.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>A straightforward library for reading metadata from image files.</summary>
     <description>
-      MetadataExtractor is a straightforward library for reading metadata from image files.
+      MetadataExtractor is a straightforward and lightweight library for reading metadata from image files.
       It reads Exif, IPTC, XMP, ICC, Photoshop, WebP, PNG, BMP, GIF, ICO, PCX metadata from JPEG, TIFF WebP, PSD, PNG, BMP, GIF, ICO, PCX and camera RAW files.
       Camera manufacturer specific support exists for Agfa, Canon, Casio, Epson, Fujifilm, Kodak, Kyocera, Leica, Minolta, Nikon, Olympus, Panasonic, Pentax, Sanyo, Sigma/Foveon and Sony models.
     </description>
 <!--<releaseNotes>Summary of changes made in this release of the package.</releaseNotes>-->
     <copyright>Copyright Drew Noakes 2015</copyright>
-    <tags>Metadata Exif IPTC XMP ICC Photoshop WebP PNG BMP ICO PCX JPEG TIFF PSD "Digital Photography"</tags>
+    <tags>Metadata Exif IPTC XMP ICC Photoshop WebP PNG BMP ICO PCX JPEG TIFF PSD Photography</tags>
   </metadata>
+  <files>
+    <file src="bin\Release\MetadataExtractor.dll" target="lib\net45\" />
+    <file src="bin\Release\MetadataExtractor.xml" target="lib\net45\" />
+    <file src="bin\Release\XmpCore.dll" target="lib\net45\" />
+    <file src="bin\Release\XmpCore.xml" target="lib\net45\" />
+  </files>
 </package>
