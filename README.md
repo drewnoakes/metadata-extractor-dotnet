@@ -1,5 +1,7 @@
 ![metadata-extractor logo](https://raw.githubusercontent.com/drewnoakes/metadata-extractor/master/Resources/metadata-extractor-logo-500x123.png)
 
+[![MetadataExtractor NuGet version](https://img.shields.io/nuget/v/MetadataExtractor.svg)](https://www.nuget.org/packages/MetadataExtractor/) [![MetadataExtractor download stats](https://img.shields.io/nuget/dt/MetadataExtractor.svg)](https://www.nuget.org/packages/MetadataExtractor/)
+
 _MetadataExtractor_ is a straightforward .NET library for reading metadata from image files.
 
     IEnumerable<Directory> metadata = ImageMetadataReader.ReadMetadata(imagePath);
