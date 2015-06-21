@@ -41,43 +41,39 @@ namespace MetadataExtractor.Formats.Png
         #region Standard critical chunks
 
         /// <summary>
-        /// Denotes a critical
-        /// <see cref="PngChunk"/>
-        /// that contains basic information about the PNG image.
+        /// Denotes a critical <see cref="PngChunk"/> that contains basic information about the PNG image.
+        /// </summary>
+        /// <remarks>
         /// This must be the first chunk in the data sequence, and may only occur once.
         /// <para />
         /// The format is:
         /// <list type="bullet">
-        /// <item><b>pixel width</b> 4 bytes, unsigned and greater than zero</item>
-        /// <item><b>pixel height</b> 4 bytes, unsigned and greater than zero</item>
-        /// <item><b>bit depth</b> 1 byte, number of bits per sample or per palette index (not per pixel)</item>
-        /// <item><b>color type</b> 1 byte, maps to
-        /// <see cref="PngColorType"/>
-        /// enum</item>
-        /// <item><b>compression method</b> 1 byte, currently only a value of zero (deflate/inflate) is in the standard</item>
-        /// <item><b>filter method</b> 1 byte, currently only a value of zero (adaptive filtering with five basic filter types) is in the standard</item>
-        /// <item><b>interlace method</b> 1 byte, indicates the transmission order of image data, currently only 0 (no interlace) and 1 (Adam7 interlace) are in the standard</item>
+        ///   <item><b>pixel width</b> 4 bytes, unsigned and greater than zero</item>
+        ///   <item><b>pixel height</b> 4 bytes, unsigned and greater than zero</item>
+        ///   <item><b>bit depth</b> 1 byte, number of bits per sample or per palette index (not per pixel)</item>
+        ///   <item><b>color type</b> 1 byte, maps to <see cref="PngColorType"/> enum</item>
+        ///   <item><b>compression method</b> 1 byte, currently only a value of zero (deflate/inflate) is in the standard</item>
+        ///   <item><b>filter method</b> 1 byte, currently only a value of zero (adaptive filtering with five basic filter types) is in the standard</item>
+        ///   <item><b>interlace method</b> 1 byte, indicates the transmission order of image data, currently only 0 (no interlace) and 1 (Adam7 interlace) are in the standard</item>
         /// </list>
-        /// </summary>
+        /// </remarks>
         public static readonly PngChunkType IHDR = new PngChunkType("IHDR");
 
         /// <summary>
-        /// Denotes a critical
-        /// <see cref="PngChunk"/>
-        /// that contains palette entries.
-        /// This chunk should only appear for a
-        /// <see cref="PngColorType"/>
-        /// of <c>IndexedColor</c>,
+        /// Denotes a critical <see cref="PngChunk"/> that contains palette entries.
+        /// </summary>
+        /// <remarks>
+        /// This chunk should only appear for a <see cref="PngColorType"/> of <see cref="PngColorType.IndexedColor"/>,
         /// and may only occur once in the PNG data sequence.
         /// <para />
         /// The chunk contains between one and 256 entries, each of three bytes:
         /// <list type="bullet">
-        /// <item><b>red</b> 1 byte</item>
-        /// <item><b>green</b> 1 byte</item>
-        /// <item><b>blue</b> 1 byte</item>
+        ///   <item><b>red</b> 1 byte</item>
+        ///   <item><b>green</b> 1 byte</item>
+        ///   <item><b>blue</b> 1 byte</item>
         /// </list>
         /// The number of entries is determined by the chunk length. A chunk length indivisible by three is an error.
-        /// </summary>
+        /// </remarks>
         public static readonly PngChunkType PLTE = new PngChunkType("PLTE");
 
         public static readonly PngChunkType IDAT = new PngChunkType("IDAT", true);
@@ -113,9 +109,9 @@ namespace MetadataExtractor.Formats.Png
         public static readonly PngChunkType iTXt = new PngChunkType("iTXt", true);
 
         /// <summary>
-        /// Denotes an ancillary
-        /// <see cref="PngChunk"/>
-        /// that contains textual data, having first a keyword and then a value.
+        /// Denotes an ancillary <see cref="PngChunk"/> that contains textual data, having first a keyword and then a value.
+        /// </summary>
+        /// <remarks>
         /// If multiple text data keywords are needed, then multiple chunks are included in the PNG data stream.
         /// <para />
         /// The format is:
@@ -126,7 +122,7 @@ namespace MetadataExtractor.Formats.Png
         /// </list>
         /// Text is interpreted according to the Latin-1 character set [ISO-8859-1].
         /// Newlines should be represented by a single linefeed character (0x9).
-        /// </summary>
+        /// </remarks>
         public static readonly PngChunkType tEXt = new PngChunkType("tEXt", true);
 
         public static readonly PngChunkType zTXt = new PngChunkType("zTXt", true);
