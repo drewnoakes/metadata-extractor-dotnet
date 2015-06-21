@@ -85,15 +85,19 @@ namespace MetadataExtractor.Formats.Bmp
             try
             {
                 var magicNumber = reader.GetUInt16();
+
                 if (magicNumber != 0x4D42)
                 {
                     directory.AddError("Invalid BMP magic number");
                     return directory;
                 }
+
                 // skip past the rest of the file header
                 reader.Skip(4 + 2 + 2 + 4);
+
                 var headerSize = reader.GetInt32();
                 directory.Set(BmpHeaderDirectory.TagHeaderSize, headerSize);
+
                 // We expect the header size to be either 40 (BITMAPINFOHEADER) or 12 (BITMAPCOREHEADER)
                 if (headerSize == 40)
                 {

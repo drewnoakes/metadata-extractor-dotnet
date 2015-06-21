@@ -22,7 +22,6 @@
 //
 #endregion
 
-using System;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Bmp
@@ -40,14 +39,9 @@ namespace MetadataExtractor.Formats.Bmp
             switch (tagType)
             {
                 case BmpHeaderDirectory.TagCompression:
-                {
                     return GetCompressionDescription();
-                }
-
                 default:
-                {
                     return base.GetDescription(tagType);
-                }
             }
         }
 
@@ -61,65 +55,32 @@ namespace MetadataExtractor.Formats.Bmp
             // 4 = JPEG (or RLE-24 if BITMAPCOREHEADER2 (size 64))
             // 5 = PNG
             // 6 = Bit field
-            try
-            {
-                var value = Directory.GetInt32Nullable(BmpHeaderDirectory.TagCompression);
-                if (value == null)
-                {
-                    return null;
-                }
-                var headerSize = Directory.GetInt32Nullable(BmpHeaderDirectory.TagHeaderSize);
-                if (headerSize == null)
-                {
-                    return null;
-                }
-                switch (value)
-                {
-                    case 0:
-                    {
-                        return "None";
-                    }
 
-                    case 1:
-                    {
-                        return "RLE 8-bit/pixel";
-                    }
-
-                    case 2:
-                    {
-                        return "RLE 4-bit/pixel";
-                    }
-
-                    case 3:
-                    {
-                        return headerSize == 64 ? "Bit field" : "Huffman 1D";
-                    }
-
-                    case 4:
-                    {
-                        return headerSize == 64 ? "JPEG" : "RLE-24";
-                    }
-
-                    case 5:
-                    {
-                        return "PNG";
-                    }
-
-                    case 6:
-                    {
-                        return "Bit field";
-                    }
-
-                    default:
-                    {
-                        return base.GetDescription(BmpHeaderDirectory.TagCompression);
-                    }
-                }
-            }
-            catch (Exception)
-            {
+            int value;
+            int headerSize;
+            if (!Directory.TryGetInt32(BmpHeaderDirectory.TagCompression, out value) ||
+                !Directory.TryGetInt32(BmpHeaderDirectory.TagHeaderSize, out headerSize))
                 return null;
+
+            switch (value)
+            {
+                case 0:
+                    return "None";
+                case 1:
+                    return "RLE 8-bit/pixel";
+                case 2:
+                    return "RLE 4-bit/pixel";
+                case 3:
+                    return headerSize == 64 ? "Bit field" : "Huffman 1D";
+                case 4:
+                    return headerSize == 64 ? "JPEG" : "RLE-24";
+                case 5:
+                    return "PNG";
+                case 6:
+                    return "Bit field";
             }
+
+            return base.GetDescription(BmpHeaderDirectory.TagCompression);
         }
     }
 }
