@@ -527,7 +527,13 @@ namespace MetadataExtractor
                 return rational.ToSimpleString(true);
 
             if (o is DateTime)
-                return ((DateTime)o).ToString("ddd MMM dd HH:mm:ss zzz yyyy");
+            {
+                var dateTime = (DateTime)o;
+                return dateTime.ToString(
+                    dateTime.Kind == DateTimeKind.Utc
+                        ? "ddd MMM dd HH:mm:ss yyyy"
+                        : "ddd MMM dd HH:mm:ss zzz yyyy");
+            }
 
             if (o is bool)
                 return (bool)o ? "true" : "false";
