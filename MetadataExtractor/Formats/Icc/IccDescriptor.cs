@@ -214,8 +214,6 @@ namespace MetadataExtractor.Formats.Icc
                         var int1 = reader.GetInt32(8);
                         var res = new StringBuilder();
                         res.Append(int1);
-                        //int int2 = reader.getInt32(12);
-                        //Console.Error.WriteLine("int1: {0}, int2: {1}", int1, int2);
                         for (var i = 0; i < int1; i++)
                         {
                             var str = IccReader.GetStringFromUInt32(reader.GetUInt32(16 + i * 12));
@@ -232,7 +230,6 @@ namespace MetadataExtractor.Formats.Icc
                             }
                             res.Append(" ").Append(str).Append("(").Append(name).Append(")");
                         }
-                        //System.err.format("% 3d: %s, len: %d, ofs: %d, \"%s\"\n", i, str, len,ofs,name);
                         return res.ToString();
                     }
 
@@ -246,7 +243,6 @@ namespace MetadataExtractor.Formats.Icc
                                 res.Append(", ");
                             res.Append(FormatDoubleAsString(reader.GetUInt16(12 + i * 2) / 65535.0, 7, false));
                         }
-                        //res+=String.format("%1.7g",Math.round(((float)iccReader.getInt16(b,12+i*2))/0.065535)/1E7);
                         return res.ToString();
                     }
 
