@@ -145,44 +145,40 @@ namespace MetadataExtractor.Formats.Png
         {
             ValidateBytes(bytes);
             _bytes = bytes;
-            _multipleAllowed = IdentifiersAllowingMultiples.Contains(GetIdentifier());
+            _multipleAllowed = IdentifiersAllowingMultiples.Contains(Identifier);
         }
 
         private static void ValidateBytes(byte[] bytes)
         {
             if (bytes.Length != 4)
-            {
                 throw new ArgumentException("PNG chunk type identifier must be four bytes in length");
-            }
             if (bytes.Any(b => !IsValidByte(b)))
-            {
                 throw new ArgumentException("PNG chunk type identifier may only contain alphabet characters");
-            }
         }
 
-        public bool IsCritical()
+        public bool IsCritical
         {
-            return IsUpperCase(_bytes[0]);
+            get { return IsUpperCase(_bytes[0]); }
         }
 
-        public bool IsAncillary()
+        public bool IsAncillary
         {
-            return !IsCritical();
+            get { return !IsCritical; }
         }
 
-        public bool IsPrivate()
+        public bool IsPrivate
         {
-            return IsUpperCase(_bytes[1]);
+            get { return IsUpperCase(_bytes[1]); }
         }
 
-        public bool IsSafeToCopy()
+        public bool IsSafeToCopy
         {
-            return IsLowerCase(_bytes[3]);
+            get { return IsLowerCase(_bytes[3]); }
         }
 
-        public bool AreMultipleAllowed()
+        public bool AreMultipleAllowed
         {
-            return _multipleAllowed;
+            get { return _multipleAllowed; }
         }
 
         private static bool IsLowerCase(byte b)
@@ -200,14 +196,14 @@ namespace MetadataExtractor.Formats.Png
             return (b >= 65 && b <= 90) || (b >= 97 && b <= 122);
         }
 
-        public string GetIdentifier()
+        public string Identifier
         {
-            return Encoding.ASCII.GetString(_bytes);
+            get { return Encoding.ASCII.GetString(_bytes); }
         }
 
         public override string ToString()
         {
-            return GetIdentifier();
+            return Identifier;
         }
 
         public override bool Equals(object o)

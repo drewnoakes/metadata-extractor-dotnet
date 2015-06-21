@@ -69,37 +69,37 @@ namespace MetadataExtractor.Tests.Formats.Png
         [Fact]
         public void TestIsCritical()
         {
-            Assert.True(new PngChunkType("ABCD").IsCritical());
-            Assert.False(new PngChunkType("aBCD").IsCritical());
+            Assert.True(new PngChunkType("ABCD").IsCritical);
+            Assert.False(new PngChunkType("aBCD").IsCritical);
         }
 
         [Fact]
         public void TestIsAncillary()
         {
-            Assert.False(new PngChunkType("ABCD").IsAncillary());
-            Assert.True(new PngChunkType("aBCD").IsAncillary());
+            Assert.False(new PngChunkType("ABCD").IsAncillary);
+            Assert.True(new PngChunkType("aBCD").IsAncillary);
         }
 
         [Fact]
         public void TestIsPrivate()
         {
-            Assert.True(new PngChunkType("ABCD").IsPrivate());
-            Assert.False(new PngChunkType("AbCD").IsPrivate());
+            Assert.True(new PngChunkType("ABCD").IsPrivate);
+            Assert.False(new PngChunkType("AbCD").IsPrivate);
         }
 
         [Fact]
         public void TestIsSafeToCopy()
         {
-            Assert.False(new PngChunkType("ABCD").IsSafeToCopy());
-            Assert.True(new PngChunkType("ABCd").IsSafeToCopy());
+            Assert.False(new PngChunkType("ABCD").IsSafeToCopy);
+            Assert.True(new PngChunkType("ABCd").IsSafeToCopy);
         }
 
         [Fact]
         public void TestAreMultipleAllowed()
         {
-            Assert.False(new PngChunkType("ABCD").AreMultipleAllowed());
-            Assert.False(new PngChunkType("ABCD", false).AreMultipleAllowed());
-            Assert.True(new PngChunkType("ABCD", true).AreMultipleAllowed());
+            Assert.False(new PngChunkType("ABCD").AreMultipleAllowed);
+            Assert.False(new PngChunkType("ABCD", false).AreMultipleAllowed);
+            Assert.True(new PngChunkType("ABCD", true).AreMultipleAllowed);
         }
 
         [Fact]
