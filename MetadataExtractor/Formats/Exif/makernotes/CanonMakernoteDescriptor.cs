@@ -56,6 +56,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return GetFocusTypeDescription();
                 }
 
+                case CanonMakernoteDirectory.CameraSettings.TagLensType:
+                {
+                    return GetLensTypeDescription();
+                }
+
                 case CanonMakernoteDirectory.CameraSettings.TagDigitalZoom:
                 {
                     return GetDigitalZoomDescription();
@@ -864,6 +869,15 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return "Unknown (" + value + ")";
                 }
             }
+        }
+
+        [CanBeNull]
+        public string GetLensTypeDescription()
+        {
+            int value;
+            return !Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagLensType, out value)
+                ? null
+                : "Lens type: " + value;
         }
 
         [CanBeNull]

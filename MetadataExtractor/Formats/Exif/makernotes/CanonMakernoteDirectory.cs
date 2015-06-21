@@ -321,7 +321,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             public const int TagUnknown7 = Offset + 0x15;
 
-            public const int TagUnknown8 = Offset + 0x16;
+            public const int TagLensType = Offset + 0x16;
 
             public const int TagLongFocalLength = Offset + 0x17;
 
@@ -680,7 +680,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             _tagNameMap[CameraSettings.TagDigitalZoom] = "Digital Zoom";
             _tagNameMap[CameraSettings.TagFocusType] = "Focus Type";
             _tagNameMap[CameraSettings.TagUnknown7] = "Unknown Camera Setting 7";
-            _tagNameMap[CameraSettings.TagUnknown8] = "Unknown Camera Setting 8";
+            _tagNameMap[CameraSettings.TagLensType] = "Lens Type";
             _tagNameMap[CameraSettings.TagUnknown9] = "Unknown Camera Setting 9";
             _tagNameMap[CameraSettings.TagUnknown10] = "Unknown Camera Setting 10";
             _tagNameMap[CameraSettings.TagFlashActivity] = "Flash Activity";
