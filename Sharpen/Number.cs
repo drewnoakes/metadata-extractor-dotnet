@@ -11,10 +11,6 @@ namespace Sharpen
             _mValue = value;
         }
 
-        public Number()
-        {
-        }
-
         public double DoubleValue()
         {
             return (double) _mValue;
@@ -64,7 +60,7 @@ namespace Sharpen
         private static bool IsNumberType(object obj)
         {
             return obj is byte
-                || obj is byte
+                || obj is sbyte
                 || obj is short
                 || obj is ushort
                 || obj is int
