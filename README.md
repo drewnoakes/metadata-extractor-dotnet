@@ -7,6 +7,8 @@ _MetadataExtractor_ is a straightforward .NET library for reading metadata from 
 The resulting `metadata` object holds potentially many different directories of metadata, depending upon the input image.
 You may then enumerate the various metadata values contained in each directory.
 
+## Features
+
 The library understands several formats of metadata, many of which may be present in a single image:
 
 * [Exif](http://en.wikipedia.org/wiki/Exchangeable_image_file_format)
@@ -60,6 +62,12 @@ Camera-specific "makernote" data is decoded for cameras manufactured by:
 * Sanyo
 * Sigma/Foveon
 * Sony
+
+## Installation
+
+The easiest way to reference this project is to install [its NuGet package](https://www.nuget.org/packages/MetadataExtractor/):
+
+    PM> Install-Package XmpCore
 
 ## Mailing Lists
 
