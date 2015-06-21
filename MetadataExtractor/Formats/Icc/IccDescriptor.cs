@@ -294,23 +294,11 @@ namespace MetadataExtractor.Formats.Icc
         [CanBeNull]
         private string GetRenderingIntentDescription()
         {
-            var value = Directory.GetInt32Nullable(IccDirectory.TagRenderingIntent);
-            if (value == null)
-                return null;
-
-            switch (value)
-            {
-                case 0:
-                    return "Perceptual";
-                case 1:
-                    return "Media-Relative Colorimetric";
-                case 2:
-                    return "Saturation";
-                case 3:
-                    return "ICC-Absolute Colorimetric";
-                default:
-                    return string.Format("Unknown ({0})", value);
-            }
+            return GetIndexedDescription(IccDirectory.TagRenderingIntent,
+                "Perceptual",
+                "Media-Relative Colorimetric",
+                "Saturation",
+                "ICC-Absolute Colorimetric");
         }
 
         [CanBeNull]
