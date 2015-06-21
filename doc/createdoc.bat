@@ -1,1 +1,0 @@
-doxygen.exe "C:\projects\n-metadata-extractor\doc\Com.Drew.Doxyfile"
