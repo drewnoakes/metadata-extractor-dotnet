@@ -39,58 +39,41 @@ namespace MetadataExtractor.Formats.Adobe
             switch (tagType)
             {
                 case AdobeJpegDirectory.TagColorTransform:
-                {
                     return GetColorTransformDescription();
-                }
-
                 case AdobeJpegDirectory.TagDctEncodeVersion:
-                {
                     return GetDctEncodeVersionDescription();
-                }
-
                 default:
-                {
                     return base.GetDescription(tagType);
-                }
             }
         }
 
         [CanBeNull]
         private string GetDctEncodeVersionDescription()
         {
-            var value = Directory.GetInt32Nullable(AdobeJpegDirectory.TagDctEncodeVersion);
-            return value == null ? null : value == 0x64 ? "100" : ((int)value).ToString();
+            int value;
+            if (!Directory.TryGetInt32(AdobeJpegDirectory.TagDctEncodeVersion, out value))
+                return null;
+
+            return value == 0x64 ? "100" : value.ToString();
         }
 
         [CanBeNull]
         private string GetColorTransformDescription()
         {
-            var value = Directory.GetInt32Nullable(AdobeJpegDirectory.TagColorTransform);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(AdobeJpegDirectory.TagColorTransform, out value))
                 return null;
-            }
+
             switch (value)
             {
                 case 0:
-                {
                     return "Unknown (RGB or CMYK)";
-                }
-
                 case 1:
-                {
                     return "YCbCr";
-                }
-
                 case 2:
-                {
                     return "YCCK";
-                }
-
                 default:
-                {
                     return string.Format("Unknown transform ({0})", value);
-                }
             }
         }
     }
