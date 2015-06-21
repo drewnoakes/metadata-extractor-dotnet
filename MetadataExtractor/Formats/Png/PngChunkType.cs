@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
@@ -31,6 +32,8 @@ using JetBrains.Annotations;
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "IdentifierTypo")]
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public sealed class PngChunkType
     {
         private static readonly ICollection<string> IdentifiersAllowingMultiples = new HashSet<string> { "IDAT", "sPLT", "iTXt", "tEXt", "zTXt" };
