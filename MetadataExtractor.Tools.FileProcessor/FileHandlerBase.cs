@@ -64,7 +64,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                 return;
 
             log.WriteLine(
-                "Processed {0:d} files ({1:d} bytes) with {2:d} exceptions and {3:d} file errors\n",
+                "Processed {0:#,##0} files ({1:#,##0} bytes) with {2:#,##0} exceptions and {3:#,##0} file errors\n",
                 _processedFileCount, _processedByteCount, _exceptionCount, _errorCount);
         }
     }

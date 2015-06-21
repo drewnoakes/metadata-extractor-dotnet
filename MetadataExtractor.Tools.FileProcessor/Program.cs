@@ -225,7 +225,7 @@ namespace MetadataExtractor.Tools.FileProcessor
 
             fileHandler.OnScanCompleted(log);
 
-            Console.Out.WriteLine("Completed in {0:0.##} ms", stopwatch.Elapsed.TotalMilliseconds);
+            Console.Out.WriteLine("Completed in {0:#,##0.##} ms", stopwatch.Elapsed.TotalMilliseconds);
 
             if (!ReferenceEquals(Console.Out, log))
                 log.Dispose();
