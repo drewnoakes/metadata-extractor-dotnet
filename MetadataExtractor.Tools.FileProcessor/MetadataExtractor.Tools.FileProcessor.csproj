@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MetadataExtractor.Tools.FileProcessor</RootNamespace>
-    <AssemblyName>MetadataExtractor</AssemblyName>
+    <AssemblyName>MetadataExtractor.FileProcessor</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
