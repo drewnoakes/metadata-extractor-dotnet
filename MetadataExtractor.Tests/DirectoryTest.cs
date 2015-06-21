@@ -139,7 +139,7 @@ namespace MetadataExtractor.Tests
         }
 
 
-        [Fact]
+        [Fact(Skip = "TODO test whether this is needed in a regression test against the image database")]
         public void TestSetStringGetInt()
         {
             var bytes = new byte[] { 0x01, 0x02, 0x03 };
