@@ -58,7 +58,7 @@ namespace MetadataExtractor.Formats.Adobe
         [CanBeNull]
         private string GetDctEncodeVersionDescription()
         {
-            var value = Directory.GetInt32Nullable(AdobeJpegDirectory.TagColorTransform);
+            var value = Directory.GetInt32Nullable(AdobeJpegDirectory.TagDctEncodeVersion);
             return value == null ? null : value == 0x64 ? "100" : ((int)value).ToString();
         }
 
