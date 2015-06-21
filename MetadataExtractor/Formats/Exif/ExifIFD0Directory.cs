@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
@@ -42,12 +41,11 @@ namespace MetadataExtractor.Formats.Exif
             SetDescriptor(new ExifIfd0Descriptor(this));
         }
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
 
         static ExifIfd0Directory()
         {
-            AddExifTagNames(TagNameMap);
+            AddExifTagNames(_tagNameMap);
         }
 
         public override string Name
@@ -57,7 +55,7 @@ namespace MetadataExtractor.Formats.Exif
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }
