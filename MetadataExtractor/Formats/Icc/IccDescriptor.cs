@@ -59,13 +59,16 @@ namespace MetadataExtractor.Formats.Icc
             return base.GetDescription(tagType);
         }
 
-        private const int IccTagTypeText = 0x74657874;
-        private const int IccTagTypeDesc = 0x64657363;
-        private const int IccTagTypeSig = 0x73696720;
-        private const int IccTagTypeMeas = 0x6D656173;
-        private const int IccTagTypeXyzArray = 0x58595A20;
-        private const int IccTagTypeMluc = 0x6d6c7563;
-        private const int IccTagTypeCurv = 0x63757276;
+        private enum IccTagType : int
+        {
+            Text = 0x74657874,
+            Desc = 0x64657363,
+            Sig = 0x73696720,
+            Meas = 0x6D656173,
+            XyzArray = 0x58595A20,
+            Mluc = 0x6d6c7563,
+            Curv = 0x63757276
+        }
 
         [CanBeNull]
         private string GetTagDataString(int tagType)
@@ -78,11 +81,11 @@ namespace MetadataExtractor.Formats.Icc
 
                 var reader = new ByteArrayReader(bytes);
 
-                var iccTagType = reader.GetInt32(0);
+                var iccTagType = (IccTagType)reader.GetInt32(0);
 
                 switch (iccTagType)
                 {
-                    case IccTagTypeText:
+                    case IccTagType.Text:
                     {
                         try
                         {
@@ -94,18 +97,18 @@ namespace MetadataExtractor.Formats.Icc
                         }
                     }
 
-                    case IccTagTypeDesc:
+                    case IccTagType.Desc:
                     {
                         var stringLength = reader.GetInt32(8);
                         return Encoding.UTF8.GetString(bytes, 12, stringLength - 1);
                     }
 
-                    case IccTagTypeSig:
+                    case IccTagType.Sig:
                     {
                         return IccReader.GetStringFromUInt32(reader.GetUInt32(8));
                     }
 
-                    case IccTagTypeMeas:
+                    case IccTagType.Meas:
                     {
                         var observerType = reader.GetInt32(8);
                         var x = reader.GetS15Fixed16(12);
@@ -188,7 +191,7 @@ namespace MetadataExtractor.Formats.Icc
                             observerString, x, y, z, geometryString, (long)Math.Round(flare * 100), illuminantString);
                     }
 
-                    case IccTagTypeXyzArray:
+                    case IccTagType.XyzArray:
                     {
                         var res = new StringBuilder();
                         var count = (bytes.Length - 8) / 12;
@@ -206,7 +209,7 @@ namespace MetadataExtractor.Formats.Icc
                         return res.ToString();
                     }
 
-                    case IccTagTypeMluc:
+                    case IccTagType.Mluc:
                     {
                         var int1 = reader.GetInt32(8);
                         var res = new StringBuilder();
@@ -233,7 +236,7 @@ namespace MetadataExtractor.Formats.Icc
                         return res.ToString();
                     }
 
-                    case IccTagTypeCurv:
+                    case IccTagType.Curv:
                     {
                         var num = reader.GetInt32(8);
                         var res = new StringBuilder();
