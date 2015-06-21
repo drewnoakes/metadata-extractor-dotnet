@@ -190,9 +190,9 @@
     <Compile Include="Formats\Tiff\TiffMetadataReader.cs" />
     <Compile Include="Formats\Tiff\TiffProcessingException.cs" />
     <Compile Include="Formats\Tiff\TiffReader.cs" />
-    <Compile Include="Formats\WebP\WebpDescriptor.cs" />
+    <Compile Include="Formats\WebP\WebPDescriptor.cs" />
     <Compile Include="Formats\WebP\WebPDirectory.cs" />
-    <Compile Include="Formats\WebP\WebpRiffHandler.cs" />
+    <Compile Include="Formats\WebP\WebPRiffHandler.cs" />
     <Compile Include="Formats\WebP\WebPMetadataReader.cs" />
     <Compile Include="Formats\Xmp\XmpDescriptor.cs" />
     <Compile Include="Formats\Xmp\XmpDirectory.cs" />
