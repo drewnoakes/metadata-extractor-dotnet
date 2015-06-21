@@ -60,21 +60,10 @@ namespace MetadataExtractor.Formats.Adobe
         [CanBeNull]
         private string GetColorTransformDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(AdobeJpegDirectory.TagColorTransform, out value))
-                return null;
-
-            switch (value)
-            {
-                case 0:
-                    return "Unknown (RGB or CMYK)";
-                case 1:
-                    return "YCbCr";
-                case 2:
-                    return "YCCK";
-                default:
-                    return string.Format("Unknown transform ({0})", value);
-            }
+            return GetIndexedDescription(AdobeJpegDirectory.TagColorTransform,
+                "Unknown (RGB or CMYK)",
+                "YCbCr",
+                "YCCK");
         }
     }
 }
