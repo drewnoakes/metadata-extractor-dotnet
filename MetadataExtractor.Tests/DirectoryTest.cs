@@ -23,6 +23,7 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using MetadataExtractor.Formats.Exif;
 using Xunit;
@@ -30,6 +31,7 @@ using Xunit;
 namespace MetadataExtractor.Tests
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "ConvertToConstant.Local")]
     public sealed class DirectoryTest
     {
         private readonly Directory _directory;

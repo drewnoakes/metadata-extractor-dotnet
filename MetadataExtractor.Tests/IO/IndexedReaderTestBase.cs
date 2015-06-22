@@ -187,7 +187,7 @@ namespace MetadataExtractor.Tests.IO
         [Fact]
         public void TestGetFloat32()
         {
-            var nanBits = 0x7fc00000;
+            const int nanBits = 0x7fc00000;
             Assert.True(float.IsNaN(BitConverter.ToSingle(BitConverter.GetBytes(nanBits), 0)));
             var buffer = new byte[] { 0x7f, 0xc0, 0x00, 0x00 };
             var reader = CreateReader(buffer);
@@ -197,7 +197,7 @@ namespace MetadataExtractor.Tests.IO
         [Fact]
         public void TestGetFloat64()
         {
-            var nanBits = unchecked((long)(0xfff0000000000001L));
+            const long nanBits = unchecked((long)(0xfff0000000000001L));
             Assert.True(double.IsNaN(BitConverter.Int64BitsToDouble(nanBits)));
             var buffer = new byte[] { 0xff, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01 };
             var reader = CreateReader(buffer);

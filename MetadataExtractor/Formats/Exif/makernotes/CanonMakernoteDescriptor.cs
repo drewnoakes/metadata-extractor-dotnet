@@ -555,7 +555,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
             }
             // Canon PowerShot S3 is special
-            var canonMask = 0x4000;
+            const int canonMask = 0x4000;
             if (((int)value & canonMask) > 0)
             {
                 return string.Empty + ((int)value & ~canonMask);

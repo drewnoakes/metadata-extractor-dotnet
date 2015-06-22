@@ -22,12 +22,14 @@
 //
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using MetadataExtractor.Formats.Jpeg;
 using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Jpeg
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "ConvertToConstant.Local")]
     public sealed class JpegSegmentDataTest
     {
         [Fact]
