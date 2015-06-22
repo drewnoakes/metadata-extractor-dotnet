@@ -7,7 +7,7 @@ namespace MetadataExtractor.Tools.FileProcessor
 {
     internal abstract class FileHandlerBase : IFileHandler
     {
-        private static readonly ISet<string> SupportedExtensions = new HashSet<string>
+        private static readonly ISet<string> _supportedExtensions = new HashSet<string>
         {
             "jpg", "jpeg", "png", "gif", "bmp", "ico", "webp", "pcx", "ai", "eps",
             "nef", "crw", "cr2", "orf", "arw", "raf", "srw", "x3f", "rw2", "rwl",
@@ -25,7 +25,7 @@ namespace MetadataExtractor.Tools.FileProcessor
         public bool ShouldProcess(string filePath)
         {
             var extension = Path.GetExtension(filePath);
-            return extension.Length > 1 && SupportedExtensions.Contains(extension.Substring(1));
+            return extension.Length > 1 && _supportedExtensions.Contains(extension.Substring(1));
         }
 
         public virtual void OnBeforeExtraction(string filePath, string relativePath, TextWriter log)
