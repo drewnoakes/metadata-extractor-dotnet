@@ -25,9 +25,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using XmpCore;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
+using XmpCore;
 
 namespace MetadataExtractor.Formats.Xmp
 {
