@@ -58,16 +58,16 @@ namespace MetadataExtractor.Formats.WebP
 
         public bool ShouldAcceptRiffIdentifier(string identifier)
         {
-            return identifier.Equals("WEBP");
+            return identifier == "WEBP";
         }
 
         public bool ShouldAcceptChunk(string fourCc)
         {
             return
-                fourCc.Equals("VP8X") ||
-                fourCc.Equals("EXIF") ||
-                fourCc.Equals("ICCP") ||
-                fourCc.Equals("XMP ");
+                fourCc == "VP8X" ||
+                fourCc == "EXIF" ||
+                fourCc == "ICCP" ||
+                fourCc == "XMP ";
         }
 
         public void ProcessChunk(string fourCc, byte[] payload)

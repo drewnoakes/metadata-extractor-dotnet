@@ -64,7 +64,7 @@ namespace MetadataExtractor.Formats.Riff
             reader.IsMotorolaByteOrder = false;
             // PROCESS FILE HEADER
             var fileFourCc = reader.GetString(4);
-            if (!fileFourCc.Equals("RIFF"))
+            if (fileFourCc != "RIFF")
             {
                 throw new RiffProcessingException("Invalid RIFF header: " + fileFourCc);
             }

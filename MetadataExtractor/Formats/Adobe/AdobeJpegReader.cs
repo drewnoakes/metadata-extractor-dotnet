@@ -60,7 +60,7 @@ namespace MetadataExtractor.Formats.Adobe
 
             try
             {
-                if (!reader.GetString(Preamble.Length).Equals(Preamble))
+                if (reader.GetString(Preamble.Length) != Preamble)
                 {
                     directory.AddError("Invalid Adobe JPEG data header.");
                     return directory;

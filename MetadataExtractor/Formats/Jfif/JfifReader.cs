@@ -51,7 +51,7 @@ namespace MetadataExtractor.Formats.Jfif
         {
             // Skip segments not starting with the required header
             return segments
-                .Where(segment => segment.Length >= 4 && Preamble.Equals(Encoding.ASCII.GetString(segment, 0, Preamble.Length)))
+                .Where(segment => segment.Length >= 4 && Preamble == Encoding.ASCII.GetString(segment, 0, Preamble.Length))
                 .Select(segment => Extract(new ByteArrayReader(segment)))
                 .ToList();
         }

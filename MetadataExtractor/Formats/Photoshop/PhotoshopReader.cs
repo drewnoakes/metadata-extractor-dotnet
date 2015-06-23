@@ -58,7 +58,7 @@ namespace MetadataExtractor.Formats.Photoshop
         {
             var preambleLength = JpegSegmentPreamble.Length;
             return segments
-                .Where(segment => segment.Length >= preambleLength + 1 && JpegSegmentPreamble.Equals(Encoding.UTF8.GetString(segment, 0, preambleLength)))
+                .Where(segment => segment.Length >= preambleLength + 1 && JpegSegmentPreamble == Encoding.UTF8.GetString(segment, 0, preambleLength))
                 .SelectMany(segment => Extract(new SequentialByteArrayReader(segment, preambleLength + 1), segment.Length - preambleLength - 1))
                 .ToList();
         }
@@ -87,7 +87,7 @@ namespace MetadataExtractor.Formats.Photoshop
                     var signature = reader.GetString(4);
                     pos += 4;
 
-                    if (!signature.Equals("8BIM"))
+                    if (signature != "8BIM")
                         throw new ImageProcessingException("Expecting 8BIM marker");
 
                     // 2 bytes for the resource identifier (tag type).

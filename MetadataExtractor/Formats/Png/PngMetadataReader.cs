@@ -231,7 +231,7 @@ namespace MetadataExtractor.Formats.Png
 
                 if (text != null)
                 {
-                    if (keyword.Equals("XML:com.adobe.xmp"))
+                    if (keyword == "XML:com.adobe.xmp")
                     {
                         // NOTE in testing images, the XMP has parsed successfully, but we are not extracting tags from it as necessary
                         yield return new XmpReader().Extract(text);

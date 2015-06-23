@@ -177,22 +177,22 @@ namespace MetadataExtractor.Tools.FileProcessor
             for (var i = 0; i < args.Length; i++)
             {
                 var arg = args[i];
-                if (arg.Equals("--text", StringComparison.OrdinalIgnoreCase))
+                if (arg == "--text")
                 {
                     // If "--text" is specified, write the discovered metadata into a sub-folder relative to the image
                     fileHandler = new TextFileOutputHandler();
                 }
-//                else if (arg.Equals("--markdown", StringComparison.OrdinalIgnoreCase))
+//                else if (arg == "--markdown")
 //                {
 //                    // If "--markdown" is specified, write a summary table in markdown format to standard out
 //                    fileHandler = new MarkdownTableOutputHandler();
 //                }
-//                else if (arg.Equals("--unknown", StringComparison.OrdinalIgnoreCase))
+//                else if (arg == "--unknown")
 //                {
 //                    // If "--unknown" is specified, write CSV tallying unknown tag counts
 //                    fileHandler = new UnknownTagHandler();
 //                }
-                else if (arg.Equals("--log-file"))
+                else if (arg == "--log-file")
                 {
                     if (i == args.Length - 1)
                     {

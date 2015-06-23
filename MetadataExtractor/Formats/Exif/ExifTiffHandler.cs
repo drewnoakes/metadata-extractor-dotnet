@@ -175,7 +175,7 @@ namespace MetadataExtractor.Formats.Exif
 
             var byteOrderBefore = reader.IsMotorolaByteOrder;
 
-            if ("OLYMP".Equals(firstFiveChars) || "EPSON".Equals(firstFiveChars) || "AGFA".Equals(firstFourChars))
+            if ("OLYMP" == firstFiveChars || "EPSON" == firstFiveChars || "AGFA" == firstFourChars)
             {
                 // Olympus Makernote
                 // Epson and Agfa use Olympus makernote standard: http://www.ozhiker.com/electronics/pjmt/jpeg_info/
@@ -191,7 +191,7 @@ namespace MetadataExtractor.Formats.Exif
             }
             else if (cameraMake != null && cameraMake.Trim().ToUpper().StartsWith("NIKON"))
             {
-                if ("Nikon".Equals(firstFiveChars))
+                if ("Nikon" == firstFiveChars)
                 {
                     switch (reader.GetByte(makernoteOffset + 6))
                     {
@@ -231,12 +231,12 @@ namespace MetadataExtractor.Formats.Exif
                     TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset, tiffHeaderOffset);
                 }
             }
-            else if ("SONY CAM".Equals(firstEightChars) || "SONY DSC".Equals(firstEightChars))
+            else if ("SONY CAM" == firstEightChars || "SONY DSC" == firstEightChars)
             {
                 PushDirectory(typeof(SonyType1MakernoteDirectory));
                 TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 12, tiffHeaderOffset);
             }
-            else if ("SEMC MS\u0000\u0000\u0000\u0000\u0000".Equals(firstTwelveChars))
+            else if ("SEMC MS\u0000\u0000\u0000\u0000\u0000" == firstTwelveChars)
             {
                 // force MM for this directory
                 reader.IsMotorolaByteOrder = true;
@@ -244,14 +244,14 @@ namespace MetadataExtractor.Formats.Exif
                 PushDirectory(typeof(SonyType6MakernoteDirectory));
                 TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 20, tiffHeaderOffset);
             }
-            else if ("SIGMA\u0000\u0000\u0000".Equals(firstEightChars) || "FOVEON\u0000\u0000".Equals(firstEightChars))
+            else if ("SIGMA\u0000\u0000\u0000" == firstEightChars || "FOVEON\u0000\u0000" == firstEightChars)
             {
                 PushDirectory(typeof(SigmaMakernoteDirectory));
                 TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 10, tiffHeaderOffset);
             }
-            else if ("KDK".Equals(firstThreeChars))
+            else if ("KDK" == firstThreeChars)
             {
-                reader.IsMotorolaByteOrder = firstSevenChars.Equals("KDK INFO");
+                reader.IsMotorolaByteOrder = firstSevenChars == "KDK INFO";
                 var directory = new KodakMakernoteDirectory();
                 Directories.Add(directory);
                 ProcessKodakMakernote(directory, makernoteOffset, reader);
@@ -263,7 +263,7 @@ namespace MetadataExtractor.Formats.Exif
             }
             else if (cameraMake != null && cameraMake.ToUpper().StartsWith("CASIO"))
             {
-                if ("QVC\u0000\u0000\u0000".Equals(firstSixChars))
+                if ("QVC\u0000\u0000\u0000" == firstSixChars)
                 {
                     PushDirectory(typeof(CasioType2MakernoteDirectory));
                     TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 6, tiffHeaderOffset);
@@ -274,7 +274,7 @@ namespace MetadataExtractor.Formats.Exif
                     TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset, tiffHeaderOffset);
                 }
             }
-            else if ("FUJIFILM".Equals(firstEightChars) || "Fujifilm".Equals(cameraMake, StringComparison.CurrentCultureIgnoreCase))
+            else if ("FUJIFILM" == firstEightChars || "Fujifilm".Equals(cameraMake, StringComparison.CurrentCultureIgnoreCase))
             {
                 // Note that this also applies to certain Leica cameras, such as the Digilux-4.3
                 reader.IsMotorolaByteOrder = false;
@@ -285,21 +285,21 @@ namespace MetadataExtractor.Formats.Exif
                 PushDirectory(typeof(FujifilmMakernoteDirectory));
                 TiffReader.ProcessIfd(this, reader, processedIfdOffsets, ifdStart, makernoteOffset);
             }
-            else if ("KYOCERA".Equals(firstSevenChars))
+            else if ("KYOCERA" == firstSevenChars)
             {
                 // http://www.ozhiker.com/electronics/pjmt/jpeg_info/kyocera_mn.html
                 PushDirectory(typeof(KyoceraMakernoteDirectory));
                 TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 22, tiffHeaderOffset);
             }
-            else if ("LEICA".Equals(firstFiveChars))
+            else if ("LEICA" == firstFiveChars)
             {
                 reader.IsMotorolaByteOrder = false;
-                if ("Leica Camera AG".Equals(cameraMake))
+                if ("Leica Camera AG" == cameraMake)
                 {
                     PushDirectory(typeof(LeicaMakernoteDirectory));
                     TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 8, tiffHeaderOffset);
                 }
-                else if ("LEICA".Equals(cameraMake))
+                else if ("LEICA" == cameraMake)
                 {
                     // Some Leica cameras use Panasonic makernote tags
                     PushDirectory(typeof(PanasonicMakernoteDirectory));
@@ -310,7 +310,7 @@ namespace MetadataExtractor.Formats.Exif
                     return false;
                 }
             }
-            else if ("Panasonic\u0000\u0000\u0000".Equals(reader.GetString(makernoteOffset, 12)))
+            else if ("Panasonic\u0000\u0000\u0000" == reader.GetString(makernoteOffset, 12))
             {
                 // NON-Standard TIFF IFD Data using Panasonic Tags. There is no Next-IFD pointer after the IFD
                 // Offsets are relative to the start of the TIFF header at the beginning of the EXIF segment
@@ -318,7 +318,7 @@ namespace MetadataExtractor.Formats.Exif
                 PushDirectory(typeof(PanasonicMakernoteDirectory));
                 TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 12, tiffHeaderOffset);
             }
-            else if ("AOC\u0000".Equals(firstFourChars))
+            else if ("AOC\u0000" == firstFourChars)
             {
                 // NON-Standard TIFF IFD Data using Casio Type 2 Tags
                 // IFD has no Next-IFD pointer at end of IFD, and
@@ -339,21 +339,21 @@ namespace MetadataExtractor.Formats.Exif
                 PushDirectory(typeof(PentaxMakernoteDirectory));
                 TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset, makernoteOffset);
             }
-//          else if ("KC".equals(firstTwoChars) || "MINOL".equals(firstFiveChars) || "MLY".equals(firstThreeChars) || "+M+M+M+M".equals(firstEightChars))
+//          else if ("KC" == firstTwoChars || "MINOL" == firstFiveChars || "MLY" == firstThreeChars || "+M+M+M+M" == firstEightChars)
 //          {
 //              // This Konica data is not understood.  Header identified in accordance with information at this site:
 //              // http://www.ozhiker.com/electronics/pjmt/jpeg_info/minolta_mn.html
 //              // TODO add support for minolta/konica cameras
 //              exifDirectory.addError("Unsupported Konica/Minolta data ignored.");
 //          }
-            else if ("SANYO\x0\x1\x0".Equals(firstEightChars))
+            else if ("SANYO\x0\x1\x0" == firstEightChars)
             {
                 PushDirectory(typeof(SanyoMakernoteDirectory));
                 TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 8, makernoteOffset);
             }
             else if (cameraMake != null && cameraMake.ToLower().StartsWith("ricoh"))
             {
-                if (firstTwoChars.Equals("Rv") || firstThreeChars.Equals("Rev"))
+                if (firstTwoChars == "Rv" || firstThreeChars == "Rev")
                 {
                     // This is a textual format, where the makernote bytes look like:
                     //   Rv0103;Rg1C;Bg18;Ll0;Ld0;Aj0000;Bn0473800;Fp2E00:������������������������������

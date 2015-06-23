@@ -61,13 +61,13 @@ namespace MetadataExtractor.Formats.Gif
             try
             {
                 var signature = reader.GetString(3);
-                if (!signature.Equals("GIF"))
+                if (signature != "GIF")
                 {
                     directory.AddError("Invalid GIF file signature");
                     return directory;
                 }
                 var version = reader.GetString(3);
-                if (!version.Equals(Gif87AVersionIdentifier) && !version.Equals(Gif89AVersionIdentifier))
+                if (version != Gif87AVersionIdentifier && version != Gif89AVersionIdentifier)
                 {
                     directory.AddError("Unexpected GIF version");
                     return directory;
@@ -79,7 +79,7 @@ namespace MetadataExtractor.Formats.Gif
                 // First three bits = (BPP - 1)
                 var colorTableSize = 1 << ((flags & 7) + 1);
                 directory.Set(GifHeaderDirectory.TagColorTableSize, colorTableSize);
-                if (version.Equals(Gif89AVersionIdentifier))
+                if (version == Gif89AVersionIdentifier)
                 {
                     var isColorTableSorted = (flags & 8) != 0;
                     directory.Set(GifHeaderDirectory.TagIsColorTableSorted, isColorTableSorted);
