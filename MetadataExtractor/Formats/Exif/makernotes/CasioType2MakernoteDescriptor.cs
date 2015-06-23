@@ -42,144 +42,61 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             switch (tagType)
             {
                 case CasioType2MakernoteDirectory.TagThumbnailDimensions:
-                {
                     return GetThumbnailDimensionsDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagThumbnailSize:
-                {
                     return GetThumbnailSizeDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagThumbnailOffset:
-                {
                     return GetThumbnailOffsetDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagQualityMode:
-                {
                     return GetQualityModeDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagImageSize:
-                {
                     return GetImageSizeDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagFocusMode1:
-                {
                     return GetFocusMode1Description();
-                }
-
                 case CasioType2MakernoteDirectory.TagIsoSensitivity:
-                {
                     return GetIsoSensitivityDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagWhiteBalance1:
-                {
                     return GetWhiteBalance1Description();
-                }
-
                 case CasioType2MakernoteDirectory.TagFocalLength:
-                {
                     return GetFocalLengthDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagSaturation:
-                {
                     return GetSaturationDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagContrast:
-                {
                     return GetContrastDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagSharpness:
-                {
                     return GetSharpnessDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagPrintImageMatchingInfo:
-                {
                     return GetPrintImageMatchingInfoDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagPreviewThumbnail:
-                {
                     return GetCasioPreviewThumbnailDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagWhiteBalanceBias:
-                {
                     return GetWhiteBalanceBiasDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagWhiteBalance2:
-                {
                     return GetWhiteBalance2Description();
-                }
-
                 case CasioType2MakernoteDirectory.TagObjectDistance:
-                {
                     return GetObjectDistanceDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagFlashDistance:
-                {
                     return GetFlashDistanceDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagRecordMode:
-                {
                     return GetRecordModeDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagSelfTimer:
-                {
                     return GetSelfTimerDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagQuality:
-                {
                     return GetQualityDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagFocusMode2:
-                {
                     return GetFocusMode2Description();
-                }
-
                 case CasioType2MakernoteDirectory.TagTimeZone:
-                {
                     return GetTimeZoneDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagCcdIsoSensitivity:
-                {
                     return GetCcdIsoSensitivityDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagColourMode:
-                {
                     return GetColourModeDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagEnhancement:
-                {
                     return GetEnhancementDescription();
-                }
-
                 case CasioType2MakernoteDirectory.TagFilter:
-                {
                     return GetFilterDescription();
-                }
-
                 default:
-                {
                     return base.GetDescription(tagType);
-                }
             }
         }
 
@@ -219,22 +136,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(CasioType2MakernoteDirectory.TagFocusMode2, out value))
                 return null;
+
             switch (value)
             {
-                case 1:
-                {
-                    return "Fixation";
-                }
-
-                case 6:
-                {
-                    return "Multi-Area Focus";
-                }
-
-                default:
-                {
-                    return "Unknown (" + value + ")";
-                }
+                case 1:  return "Fixation";
+                case 6:  return "Multi-Area Focus";
+                default: return "Unknown (" + value + ")";
             }
         }
 
@@ -268,7 +175,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(CasioType2MakernoteDirectory.TagObjectDistance, out value))
                 return null;
-            return value.ToString() + " mm";
+            return value + " mm";
         }
 
         [CanBeNull]
@@ -280,31 +187,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             switch (value)
             {
                 case 0:
-                {
                     return "Manual";
-                }
-
                 case 1:
-                {
                     return "Auto";
-                }
-
                 case 4:
-                {
                     // unsure about this
                     return "Flash";
-                }
-
                 case 12:
-                {
                     // unsure about this
                     return "Flash";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
@@ -319,9 +212,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             var bytes = Directory.GetByteArray(CasioType2MakernoteDirectory.TagPreviewThumbnail);
             if (bytes == null)
-            {
                 return null;
-            }
+
             return "<" + bytes.Length + " bytes of image data>";
         }
 
@@ -355,9 +247,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             var value = Directory.GetDoubleNullable(CasioType2MakernoteDirectory.TagFocalLength);
             if (value == null)
-            {
                 return null;
-            }
+
             return ((object)((double)value / 10d)).ToString() + " mm";
         }
 
@@ -373,32 +264,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(CasioType2MakernoteDirectory.TagIsoSensitivity, out value))
                 return null;
+
             switch (value)
             {
                 case 3:
-                {
                     return "50";
-                }
-
                 case 4:
-                {
                     return "64";
-                }
-
                 case 6:
-                {
                     return "100";
-                }
-
                 case 9:
-                {
                     return "200";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
@@ -414,47 +292,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(CasioType2MakernoteDirectory.TagImageSize, out value))
                 return null;
+
             switch (value)
             {
-                case 0:
-                {
-                    return "640 x 480 pixels";
-                }
-
-                case 4:
-                {
-                    return "1600 x 1200 pixels";
-                }
-
-                case 5:
-                {
-                    return "2048 x 1536 pixels";
-                }
-
-                case 20:
-                {
-                    return "2288 x 1712 pixels";
-                }
-
-                case 21:
-                {
-                    return "2592 x 1944 pixels";
-                }
-
-                case 22:
-                {
-                    return "2304 x 1728 pixels";
-                }
-
-                case 36:
-                {
-                    return "3008 x 2008 pixels";
-                }
-
-                default:
-                {
-                    return "Unknown (" + value + ")";
-                }
+                case 0:  return "640 x 480 pixels";
+                case 4:  return "1600 x 1200 pixels";
+                case 5:  return "2048 x 1536 pixels";
+                case 20: return "2288 x 1712 pixels";
+                case 21: return "2592 x 1944 pixels";
+                case 22: return "2304 x 1728 pixels";
+                case 36: return "3008 x 2008 pixels";
+                default: return "Unknown (" + value + ")";
             }
         }
 
@@ -476,7 +324,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(CasioType2MakernoteDirectory.TagThumbnailSize, out value))
                 return null;
-            return value.ToString() + " bytes";
+
+            return value + " bytes";
         }
 
         [CanBeNull]
@@ -484,9 +333,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             var dimensions = Directory.GetInt32Array(CasioType2MakernoteDirectory.TagThumbnailDimensions);
             if (dimensions == null || dimensions.Length != 2)
-            {
                 return Directory.GetString(CasioType2MakernoteDirectory.TagThumbnailDimensions);
-            }
             return dimensions[0] + " x " + dimensions[1] + " pixels";
         }
     }

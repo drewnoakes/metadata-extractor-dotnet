@@ -167,40 +167,42 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// <summary>0 = Off</summary>
         public const int TagFilter = 0x3017;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap;
 
         static CasioType2MakernoteDirectory()
         {
             // TODO add missing names
-            TagNameMap[TagThumbnailDimensions] = "Thumbnail Dimensions";
-            TagNameMap[TagThumbnailSize] = "Thumbnail Size";
-            TagNameMap[TagThumbnailOffset] = "Thumbnail Offset";
-            TagNameMap[TagQualityMode] = "Quality Mode";
-            TagNameMap[TagImageSize] = "Image Size";
-            TagNameMap[TagFocusMode1] = "Focus Mode";
-            TagNameMap[TagIsoSensitivity] = "ISO Sensitivity";
-            TagNameMap[TagWhiteBalance1] = "White Balance";
-            TagNameMap[TagFocalLength] = "Focal Length";
-            TagNameMap[TagSaturation] = "Saturation";
-            TagNameMap[TagContrast] = "Contrast";
-            TagNameMap[TagSharpness] = "Sharpness";
-            TagNameMap[TagPrintImageMatchingInfo] = "Print Image Matching (PIM) Info";
-            TagNameMap[TagPreviewThumbnail] = "Casio Preview Thumbnail";
-            TagNameMap[TagWhiteBalanceBias] = "White Balance Bias";
-            TagNameMap[TagWhiteBalance2] = "White Balance";
-            TagNameMap[TagObjectDistance] = "Object Distance";
-            TagNameMap[TagFlashDistance] = "Flash Distance";
-            TagNameMap[TagRecordMode] = "Record Mode";
-            TagNameMap[TagSelfTimer] = "Self Timer";
-            TagNameMap[TagQuality] = "Quality";
-            TagNameMap[TagFocusMode2] = "Focus Mode";
-            TagNameMap[TagTimeZone] = "Time Zone";
-            TagNameMap[TagBestshotMode] = "BestShot Mode";
-            TagNameMap[TagCcdIsoSensitivity] = "CCD ISO Sensitivity";
-            TagNameMap[TagColourMode] = "Colour Mode";
-            TagNameMap[TagEnhancement] = "Enhancement";
-            TagNameMap[TagFilter] = "Filter";
+            _tagNameMap = new Dictionary<int?, string>
+            {
+                { TagThumbnailDimensions, "Thumbnail Dimensions" },
+                { TagThumbnailSize, "Thumbnail Size" },
+                { TagThumbnailOffset, "Thumbnail Offset" },
+                { TagQualityMode, "Quality Mode" },
+                { TagImageSize, "Image Size" },
+                { TagFocusMode1, "Focus Mode" },
+                { TagIsoSensitivity, "ISO Sensitivity" },
+                { TagWhiteBalance1, "White Balance" },
+                { TagFocalLength, "Focal Length" },
+                { TagSaturation, "Saturation" },
+                { TagContrast, "Contrast" },
+                { TagSharpness, "Sharpness" },
+                { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" },
+                { TagPreviewThumbnail, "Casio Preview Thumbnail" },
+                { TagWhiteBalanceBias, "White Balance Bias" },
+                { TagWhiteBalance2, "White Balance" },
+                { TagObjectDistance, "Object Distance" },
+                { TagFlashDistance, "Flash Distance" },
+                { TagRecordMode, "Record Mode" },
+                { TagSelfTimer, "Self Timer" },
+                { TagQuality, "Quality" },
+                { TagFocusMode2, "Focus Mode" },
+                { TagTimeZone, "Time Zone" },
+                { TagBestshotMode, "BestShot Mode" },
+                { TagCcdIsoSensitivity, "CCD ISO Sensitivity" },
+                { TagColourMode, "Colour Mode" },
+                { TagEnhancement, "Enhancement" },
+                { TagFilter, "Filter" }
+            };
         }
 
         public CasioType2MakernoteDirectory()
@@ -215,7 +217,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

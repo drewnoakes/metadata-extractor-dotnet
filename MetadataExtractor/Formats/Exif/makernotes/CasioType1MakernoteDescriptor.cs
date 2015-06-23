@@ -78,61 +78,46 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
             switch (value)
             {
+                // these four for QV3000
                 case 64:
-                {
-                    // these four for QV3000
                     return "Normal";
-                }
-
                 case 125:
-                {
                     return "+1.0";
-                }
-
                 case 250:
-                {
                     return "+2.0";
-                }
-
                 case 244:
-                {
                     return "+3.0";
-                }
 
+                // these two for QV8000/2000
                 case 80:
-                {
-                    // these two for QV8000/2000
                     return "Normal (ISO 80 equivalent)";
-                }
-
                 case 100:
-                {
                     return "High";
-                }
 
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
         [CanBeNull]
         public string GetSaturationDescription()
         {
-            return GetIndexedDescription(CasioType1MakernoteDirectory.TagSaturation, "Normal", "Low", "High");
+            return GetIndexedDescription(CasioType1MakernoteDirectory.TagSaturation,
+                "Normal", "Low", "High");
         }
 
         [CanBeNull]
         public string GetContrastDescription()
         {
-            return GetIndexedDescription(CasioType1MakernoteDirectory.TagContrast, "Normal", "Low", "High");
+            return GetIndexedDescription(CasioType1MakernoteDirectory.TagContrast,
+                "Normal", "Low", "High");
         }
 
         [CanBeNull]
         public string GetSharpnessDescription()
         {
-            return GetIndexedDescription(CasioType1MakernoteDirectory.TagSharpness, "Normal", "Soft", "Hard");
+            return GetIndexedDescription(CasioType1MakernoteDirectory.TagSharpness,
+                "Normal", "Soft", "Hard");
         }
 
         [CanBeNull]
@@ -141,32 +126,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagDigitalZoom, out value))
                 return null;
+
             switch (value)
             {
                 case 0x10000:
-                {
                     return "No digital zoom";
-                }
-
                 case 0x10001:
-                {
                     return "2x digital zoom";
-                }
-
                 case 0x20000:
-                {
                     return "2x digital zoom";
-                }
-
                 case 0x40000:
-                {
                     return "4x digital zoom";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
@@ -176,42 +148,23 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagWhiteBalance, out value))
                 return null;
+
             switch (value)
             {
                 case 1:
-                {
                     return "Auto";
-                }
-
                 case 2:
-                {
                     return "Tungsten";
-                }
-
                 case 3:
-                {
                     return "Daylight";
-                }
-
                 case 4:
-                {
                     return "Florescent";
-                }
-
                 case 5:
-                {
                     return "Shade";
-                }
-
                 case 129:
-                {
                     return "Manual";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
@@ -230,52 +183,50 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagFlashIntensity, out value))
                 return null;
+
             switch (value)
             {
                 case 11:
-                {
                     return "Weak";
-                }
-
                 case 13:
-                {
                     return "Normal";
-                }
-
                 case 15:
-                {
                     return "Strong";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
         [CanBeNull]
         public string GetFlashModeDescription()
         {
-            return GetIndexedDescription(CasioType1MakernoteDirectory.TagFlashMode, 1, "Auto", "On", "Off", "Red eye reduction");
+            return GetIndexedDescription(CasioType1MakernoteDirectory.TagFlashMode,
+                1,
+                "Auto", "On", "Off", "Red eye reduction");
         }
 
         [CanBeNull]
         public string GetFocusingModeDescription()
         {
-            return GetIndexedDescription(CasioType1MakernoteDirectory.TagFocusingMode, 2, "Macro", "Auto focus", "Manual focus", "Infinity");
+            return GetIndexedDescription(CasioType1MakernoteDirectory.TagFocusingMode,
+                2,
+                "Macro", "Auto focus", "Manual focus", "Infinity");
         }
 
         [CanBeNull]
         public string GetQualityDescription()
         {
-            return GetIndexedDescription(CasioType1MakernoteDirectory.TagQuality, 1, "Economy", "Normal", "Fine");
+            return GetIndexedDescription(CasioType1MakernoteDirectory.TagQuality,
+                1,
+                "Economy", "Normal", "Fine");
         }
 
         [CanBeNull]
         public string GetRecordingModeDescription()
         {
-            return GetIndexedDescription(CasioType1MakernoteDirectory.TagRecordingMode, 1, "Single shutter", "Panorama", "Night scene", "Portrait", "Landscape");
+            return GetIndexedDescription(CasioType1MakernoteDirectory.TagRecordingMode,
+                1,
+                "Single shutter", "Panorama", "Night scene", "Portrait", "Landscape");
         }
     }
 }
