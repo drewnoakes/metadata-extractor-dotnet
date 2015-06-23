@@ -97,12 +97,10 @@ namespace MetadataExtractor.Formats.Png
         [CanBeNull]
         public string GetColorTypeDescription()
         {
-            var value = Directory.GetInt32Nullable(PngDirectory.TagColorType);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(PngDirectory.TagColorType, out value))
                 return null;
-            }
-            var colorType = PngColorType.FromNumericValue((int)value);
+            var colorType = PngColorType.FromNumericValue(value);
             if (colorType == null)
             {
                 return null;
@@ -160,12 +158,11 @@ namespace MetadataExtractor.Formats.Png
         public string GetBackgroundColorDescription()
         {
             var bytes = Directory.GetByteArray(PngDirectory.TagBackgroundColor);
-            var colorType = Directory.GetInt32Nullable(PngDirectory.TagColorType);
-            if (bytes == null || colorType == null)
-            {
+            int colorType;
+            if (bytes == null || !Directory.TryGetInt32(PngDirectory.TagColorType, out colorType))
                 return null;
-            }
-            SequentialReader reader = new SequentialByteArrayReader(bytes);
+
+            var reader = new SequentialByteArrayReader(bytes);
             try
             {
                 switch (colorType)

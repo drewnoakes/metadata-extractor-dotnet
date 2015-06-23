@@ -115,11 +115,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetIsoSpeedDescription()
         {
-            var value = Directory.GetInt32Nullable(PentaxMakernoteDirectory.TagIsoSpeed);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(PentaxMakernoteDirectory.TagIsoSpeed, out value))
                 return null;
-            }
             switch (value)
             {
                 case 10:

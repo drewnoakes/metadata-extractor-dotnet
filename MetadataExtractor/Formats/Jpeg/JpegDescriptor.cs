@@ -93,11 +93,9 @@ namespace MetadataExtractor.Formats.Jpeg
         [CanBeNull]
         public string GetImageCompressionTypeDescription()
         {
-            var value = Directory.GetInt32Nullable(JpegDirectory.TagCompressionType);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(JpegDirectory.TagCompressionType, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0:

@@ -211,11 +211,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetActiveDLightingDescription()
         {
-            var value = Directory.GetInt32Nullable(NikonType2MakernoteDirectory.TagActiveDLighting);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(NikonType2MakernoteDirectory.TagActiveDLighting, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0:
@@ -258,11 +256,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetVignetteControlDescription()
         {
-            var value = Directory.GetInt32Nullable(NikonType2MakernoteDirectory.TagVignetteControl);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(NikonType2MakernoteDirectory.TagVignetteControl, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0:

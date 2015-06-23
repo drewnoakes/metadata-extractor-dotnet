@@ -511,11 +511,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetUptimeDescription()
         {
-            var value = Directory.GetInt32Nullable(PanasonicMakernoteDirectory.TagUptime);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagUptime, out value))
                 return null;
-            }
             return value / 100f + " s";
         }
 
@@ -528,11 +526,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetContrastModeDescription()
         {
-            var value = Directory.GetInt32Nullable(PanasonicMakernoteDirectory.TagContrastMode);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagContrastMode, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0x0:
@@ -597,11 +593,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetRotationDescription()
         {
-            var value = Directory.GetInt32Nullable(PanasonicMakernoteDirectory.TagRotation);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagRotation, out value))
                 return null;
-            }
             switch (value)
             {
                 case 1:

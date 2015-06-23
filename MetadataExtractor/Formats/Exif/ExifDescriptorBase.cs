@@ -373,8 +373,8 @@ namespace MetadataExtractor.Formats.Exif
         public string GetPhotometricInterpretationDescription()
         {
             // Shows the color space of the image data components
-            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagPhotometricInterpretation);
-            if (value == null)
+            int value;
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagPhotometricInterpretation, out value))
                 return null;
 
             switch (value)
@@ -547,8 +547,10 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string Get35MmFilmEquivFocalLengthDescription()
         {
-            var value = Directory.GetInt32Nullable(ExifDirectoryBase.Tag35MmFilmEquivFocalLength);
-            return value == null ? null : value == 0 ? "Unknown" : string.Format("{0:0.#}mm", value);
+            int value;
+            if (!Directory.TryGetInt32(ExifDirectoryBase.Tag35MmFilmEquivFocalLength, out value))
+                return null;
+            return value == 0 ? "Unknown" : string.Format("{0:0.#}mm", value);
         }
 
         [CanBeNull]
@@ -638,10 +640,12 @@ namespace MetadataExtractor.Formats.Exif
         public string GetIsoEquivalentDescription()
         {
             // Have seen an exception here from files produced by ACDSEE that stored an int[] here with two values
-            var isoEquiv = Directory.GetInt32Nullable(ExifDirectoryBase.TagIsoEquivalent);
             // There used to be a check here that multiplied ISO values < 50 by 200.
             // Issue 36 shows a smart-phone image from a Samsung Galaxy S2 with ISO-40.
-            return isoEquiv != null ? ((int)isoEquiv).ToString() : null;
+            int value;
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagIsoEquivalent, out value))
+                return null;
+            return value.ToString();
         }
 
         [CanBeNull]
@@ -749,22 +753,26 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetExifImageWidthDescription()
         {
-            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagExifImageWidth);
-            return value == null ? null : value + " pixels";
+            int value;
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagExifImageWidth, out value))
+                return null;
+            return value + " pixels";
         }
 
         [CanBeNull]
         public string GetExifImageHeightDescription()
         {
-            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagExifImageHeight);
-            return value == null ? null : value + " pixels";
+            int value;
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagExifImageHeight, out value))
+                return null;
+            return value + " pixels";
         }
 
         [CanBeNull]
         public string GetColorSpaceDescription()
         {
-            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagColorSpace);
-            if (value == null)
+            int value;
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagColorSpace, out value))
                 return null;
             if (value == 1)
                 return "sRGB";
@@ -793,15 +801,15 @@ namespace MetadataExtractor.Formats.Exif
              * 5 = unknown
              * 6 = red eye reduction used
              */
-            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagFlash);
-            if (value == null)
+            int value;
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagFlash, out value))
                 return null;
 
             var sb = new StringBuilder();
             sb.Append((value & 0x1) != 0 ? "Flash fired" : "Flash did not fire");
             // check if we're able to detect a return, before we mention it
             if ((value & 0x4) != 0)
-                sb.Append((value.Value & 0x2) != 0 ? ", return detected" : ", return not detected");
+                sb.Append((value & 0x2) != 0 ? ", return detected" : ", return not detected");
             if ((value & 0x10) != 0)
                 sb.Append(", auto");
             if ((value & 0x40) != 0)
@@ -815,9 +823,9 @@ namespace MetadataExtractor.Formats.Exif
             // '0' means unknown, '1' daylight, '2' fluorescent, '3' tungsten, '10' flash,
             // '17' standard light A, '18' standard light B, '19' standard light C, '20' D55,
             // '21' D65, '22' D75, '255' other.
-            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagWhiteBalance);
+            int value;
 
-            if (value == null)
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagWhiteBalance, out value))
                 return null;
 
             switch (value)
@@ -856,9 +864,8 @@ namespace MetadataExtractor.Formats.Exif
         {
             // '0' means unknown, '1' average, '2' center weighted average, '3' spot
             // '4' multi-spot, '5' multi-segment, '6' partial, '255' other
-            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagMeteringMode);
-
-            if (value == null)
+            int value;
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagMeteringMode, out value))
                 return null;
 
             switch (value)
@@ -887,9 +894,8 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetCompressionDescription()
         {
-            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagCompression);
-
-            if (value == null)
+            int value;
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagCompression, out value))
                 return null;
 
             switch (value)
@@ -1080,9 +1086,8 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetJpegProcDescription()
         {
-            var value = Directory.GetInt32Nullable(ExifDirectoryBase.TagJpegProc);
-
-            if (value == null)
+            int value;
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagJpegProc, out value))
                 return null;
 
             switch (value)

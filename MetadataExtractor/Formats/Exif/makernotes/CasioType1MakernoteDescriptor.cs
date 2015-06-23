@@ -42,80 +42,40 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             switch (tagType)
             {
                 case CasioType1MakernoteDirectory.TagRecordingMode:
-                {
                     return GetRecordingModeDescription();
-                }
-
                 case CasioType1MakernoteDirectory.TagQuality:
-                {
                     return GetQualityDescription();
-                }
-
                 case CasioType1MakernoteDirectory.TagFocusingMode:
-                {
                     return GetFocusingModeDescription();
-                }
-
                 case CasioType1MakernoteDirectory.TagFlashMode:
-                {
                     return GetFlashModeDescription();
-                }
-
                 case CasioType1MakernoteDirectory.TagFlashIntensity:
-                {
                     return GetFlashIntensityDescription();
-                }
-
                 case CasioType1MakernoteDirectory.TagObjectDistance:
-                {
                     return GetObjectDistanceDescription();
-                }
-
                 case CasioType1MakernoteDirectory.TagWhiteBalance:
-                {
                     return GetWhiteBalanceDescription();
-                }
-
                 case CasioType1MakernoteDirectory.TagDigitalZoom:
-                {
                     return GetDigitalZoomDescription();
-                }
-
                 case CasioType1MakernoteDirectory.TagSharpness:
-                {
                     return GetSharpnessDescription();
-                }
-
                 case CasioType1MakernoteDirectory.TagContrast:
-                {
                     return GetContrastDescription();
-                }
-
                 case CasioType1MakernoteDirectory.TagSaturation:
-                {
                     return GetSaturationDescription();
-                }
-
                 case CasioType1MakernoteDirectory.TagCcdSensitivity:
-                {
                     return GetCcdSensitivityDescription();
-                }
-
                 default:
-                {
                     return base.GetDescription(tagType);
-                }
             }
         }
 
         [CanBeNull]
         public string GetCcdSensitivityDescription()
         {
-            var value = Directory.GetInt32Nullable(CasioType1MakernoteDirectory.TagCcdSensitivity);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagCcdSensitivity, out value))
                 return null;
-            }
             switch (value)
             {
                 case 64:
@@ -178,11 +138,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetDigitalZoomDescription()
         {
-            var value = Directory.GetInt32Nullable(CasioType1MakernoteDirectory.TagDigitalZoom);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagDigitalZoom, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0x10000:
@@ -215,11 +173,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetWhiteBalanceDescription()
         {
-            var value = Directory.GetInt32Nullable(CasioType1MakernoteDirectory.TagWhiteBalance);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagWhiteBalance, out value))
                 return null;
-            }
             switch (value)
             {
                 case 1:
@@ -262,22 +218,18 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetObjectDistanceDescription()
         {
-            var value = Directory.GetInt32Nullable(CasioType1MakernoteDirectory.TagObjectDistance);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagObjectDistance, out value))
                 return null;
-            }
             return value + " mm";
         }
 
         [CanBeNull]
         public string GetFlashIntensityDescription()
         {
-            var value = Directory.GetInt32Nullable(CasioType1MakernoteDirectory.TagFlashIntensity);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagFlashIntensity, out value))
                 return null;
-            }
             switch (value)
             {
                 case 11:

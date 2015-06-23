@@ -353,9 +353,8 @@ namespace MetadataExtractor.Formats.Icc
         [CanBeNull]
         private string GetProfileVersionDescription()
         {
-            var value = Directory.GetInt32Nullable(IccDirectory.TagProfileVersion);
-
-            if (value == null)
+            int value;
+            if (!Directory.TryGetInt32(IccDirectory.TagProfileVersion, out value))
                 return null;
 
             var m = (byte)(value >> 24);

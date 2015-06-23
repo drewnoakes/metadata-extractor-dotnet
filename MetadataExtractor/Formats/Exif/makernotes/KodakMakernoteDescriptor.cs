@@ -102,11 +102,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetColorModeDescription()
         {
-            var value = Directory.GetInt32Nullable(KodakMakernoteDirectory.TagColorMode);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(KodakMakernoteDirectory.TagColorMode, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0x001:
@@ -163,11 +161,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFlashModeDescription()
         {
-            var value = Directory.GetInt32Nullable(KodakMakernoteDirectory.TagFlashMode);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(KodakMakernoteDirectory.TagFlashMode, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0x00:
@@ -215,11 +211,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetShutterModeDescription()
         {
-            var value = Directory.GetInt32Nullable(KodakMakernoteDirectory.TagShutterMode);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(KodakMakernoteDirectory.TagShutterMode, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0:

@@ -204,11 +204,9 @@ namespace MetadataExtractor
         [CanBeNull]
         protected string GetFormattedInt(int tagType, [NotNull] string format)
         {
-            var value = Directory.GetInt32Nullable(tagType);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(tagType, out value))
                 return null;
-            }
             return string.Format(format, value);
         }
 
@@ -251,11 +249,9 @@ namespace MetadataExtractor
         [CanBeNull]
         protected string GetBitFlagDescription(int tagType, [NotNull] params object[] labels)
         {
-            var value = Directory.GetInt32Nullable(tagType);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(tagType, out value))
                 return null;
-            }
             IList<string> parts = new List<string>();
             var bitIndex = 0;
             while (labels.Length > bitIndex)

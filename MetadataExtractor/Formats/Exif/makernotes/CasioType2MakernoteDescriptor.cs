@@ -216,11 +216,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFocusMode2Description()
         {
-            var value = Directory.GetInt32Nullable(CasioType2MakernoteDirectory.TagFocusMode2);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CasioType2MakernoteDirectory.TagFocusMode2, out value))
                 return null;
-            }
             switch (value)
             {
                 case 1:
@@ -267,22 +265,18 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetObjectDistanceDescription()
         {
-            var value = Directory.GetInt32Nullable(CasioType2MakernoteDirectory.TagObjectDistance);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CasioType2MakernoteDirectory.TagObjectDistance, out value))
                 return null;
-            }
-            return ((int)value).ToString() + " mm";
+            return value.ToString() + " mm";
         }
 
         [CanBeNull]
         public string GetWhiteBalance2Description()
         {
-            var value = Directory.GetInt32Nullable(CasioType2MakernoteDirectory.TagWhiteBalance2);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CasioType2MakernoteDirectory.TagWhiteBalance2, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0:
@@ -376,11 +370,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetIsoSensitivityDescription()
         {
-            var value = Directory.GetInt32Nullable(CasioType2MakernoteDirectory.TagIsoSensitivity);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CasioType2MakernoteDirectory.TagIsoSensitivity, out value))
                 return null;
-            }
             switch (value)
             {
                 case 3:
@@ -419,11 +411,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetImageSizeDescription()
         {
-            var value = Directory.GetInt32Nullable(CasioType2MakernoteDirectory.TagImageSize);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CasioType2MakernoteDirectory.TagImageSize, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0:
@@ -483,12 +473,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetThumbnailSizeDescription()
         {
-            var value = Directory.GetInt32Nullable(CasioType2MakernoteDirectory.TagThumbnailSize);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CasioType2MakernoteDirectory.TagThumbnailSize, out value))
                 return null;
-            }
-            return ((int)value).ToString() + " bytes";
+            return value.ToString() + " bytes";
         }
 
         [CanBeNull]

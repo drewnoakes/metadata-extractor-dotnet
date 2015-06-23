@@ -134,13 +134,14 @@ namespace MetadataExtractor.Formats.Exif
                 var thumbnailDirectory = Directories.OfType<ExifThumbnailDirectory>().FirstOrDefault();
                 if (thumbnailDirectory != null && thumbnailDirectory.ContainsTag(ExifDirectoryBase.TagCompression))
                 {
-                    var offset = thumbnailDirectory.GetInt32Nullable(ExifThumbnailDirectory.TagThumbnailOffset);
-                    var length = thumbnailDirectory.GetInt32Nullable(ExifThumbnailDirectory.TagThumbnailLength);
-                    if (offset != null && length != null)
+                    int offset;
+                    int length;
+                    if (thumbnailDirectory.TryGetInt32(ExifThumbnailDirectory.TagThumbnailOffset, out offset) &&
+                        thumbnailDirectory.TryGetInt32(ExifThumbnailDirectory.TagThumbnailLength, out length))
                     {
                         try
                         {
-                            var thumbnailData = reader.GetBytes(tiffHeaderOffset + (int)offset, (int)length);
+                            var thumbnailData = reader.GetBytes(tiffHeaderOffset + offset, length);
                             thumbnailDirectory.SetThumbnailData(thumbnailData);
                         }
                         catch (IOException ex)

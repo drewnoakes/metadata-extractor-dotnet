@@ -77,11 +77,9 @@ namespace MetadataExtractor.Formats.Photoshop
             try
             {
                 // Supported range is 1 to 56.
-                var value = Directory.GetInt32Nullable(PsdHeaderDirectory.TagChannelCount);
-                if (value == null)
-                {
+                int value;
+                if (!Directory.TryGetInt32(PsdHeaderDirectory.TagChannelCount, out value))
                     return null;
-                }
                 return value + " channel" + (value == 1 ? string.Empty : "s");
             }
             catch (Exception)
@@ -96,11 +94,9 @@ namespace MetadataExtractor.Formats.Photoshop
             try
             {
                 // Supported values are 1, 8, 16 and 32.
-                var value = Directory.GetInt32Nullable(PsdHeaderDirectory.TagBitsPerChannel);
-                if (value == null)
-                {
+                int value;
+                if (!Directory.TryGetInt32(PsdHeaderDirectory.TagBitsPerChannel, out value))
                     return null;
-                }
                 return value + " bit" + (value == 1 ? string.Empty : "s") + " per channel";
             }
             catch (Exception)
@@ -115,11 +111,9 @@ namespace MetadataExtractor.Formats.Photoshop
             // Bitmap = 0; Grayscale = 1; Indexed = 2; RGB = 3; CMYK = 4; Multichannel = 7; Duotone = 8; Lab = 9
             try
             {
-                var value = Directory.GetInt32Nullable(PsdHeaderDirectory.TagColorMode);
-                if (value == null)
-                {
+                int value;
+                if (!Directory.TryGetInt32(PsdHeaderDirectory.TagColorMode, out value))
                     return null;
-                }
                 switch (value)
                 {
                     case 0:
@@ -179,11 +173,9 @@ namespace MetadataExtractor.Formats.Photoshop
         {
             try
             {
-                var value = Directory.GetInt32Nullable(PsdHeaderDirectory.TagImageHeight);
-                if (value == null)
-                {
+                int value;
+                if (!Directory.TryGetInt32(PsdHeaderDirectory.TagImageHeight, out value))
                     return null;
-                }
                 return value + " pixel" + (value == 1 ? string.Empty : "s");
             }
             catch (Exception)
@@ -197,11 +189,9 @@ namespace MetadataExtractor.Formats.Photoshop
         {
             try
             {
-                var value = Directory.GetInt32Nullable(PsdHeaderDirectory.TagImageWidth);
-                if (value == null)
-                {
+                int value;
+                if (!Directory.TryGetInt32(PsdHeaderDirectory.TagImageWidth, out value))
                     return null;
-                }
                 return value + " pixel" + (value == 1 ? string.Empty : "s");
             }
             catch (Exception)

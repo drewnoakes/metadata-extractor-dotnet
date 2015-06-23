@@ -193,11 +193,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetSharpnessDescription()
         {
-            var value = Directory.GetInt32Nullable(FujifilmMakernoteDirectory.TagSharpness);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagSharpness, out value))
                 return null;
-            }
             switch (value)
             {
                 case 1:
@@ -255,11 +253,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetWhiteBalanceDescription()
         {
-            var value = Directory.GetInt32Nullable(FujifilmMakernoteDirectory.TagWhiteBalance);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagWhiteBalance, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0x000:
@@ -352,11 +348,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetColorSaturationDescription()
         {
-            var value = Directory.GetInt32Nullable(FujifilmMakernoteDirectory.TagColorSaturation);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagColorSaturation, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0x000:
@@ -424,11 +418,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetToneDescription()
         {
-            var value = Directory.GetInt32Nullable(FujifilmMakernoteDirectory.TagTone);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagTone, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0x000:
@@ -476,11 +468,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetContrastDescription()
         {
-            var value = Directory.GetInt32Nullable(FujifilmMakernoteDirectory.TagContrast);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagContrast, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0x000:
@@ -508,11 +498,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetNoiseReductionDescription()
         {
-            var value = Directory.GetInt32Nullable(FujifilmMakernoteDirectory.TagNoiseReduction);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagNoiseReduction, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0x040:
@@ -540,11 +528,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetHighIsoNoiseReductionDescription()
         {
-            var value = Directory.GetInt32Nullable(FujifilmMakernoteDirectory.TagHighIsoNoiseReduction);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagHighIsoNoiseReduction, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0x000:
@@ -603,11 +589,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetPictureModeDescription()
         {
-            var value = Directory.GetInt32Nullable(FujifilmMakernoteDirectory.TagPictureMode);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagPictureMode, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0x000:
@@ -778,11 +762,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetExrModeDescription()
         {
-            var value = Directory.GetInt32Nullable(FujifilmMakernoteDirectory.TagExrMode);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagExrMode, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0x100:
@@ -816,11 +798,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFinePixColorDescription()
         {
-            var value = Directory.GetInt32Nullable(FujifilmMakernoteDirectory.TagFinePixColor);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagFinePixColor, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0x00:
@@ -872,11 +852,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFilmModeDescription()
         {
-            var value = Directory.GetInt32Nullable(FujifilmMakernoteDirectory.TagFilmMode);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagFilmMode, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0x000:
@@ -939,11 +917,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetDynamicRangeSettingDescription()
         {
-            var value = Directory.GetInt32Nullable(FujifilmMakernoteDirectory.TagDynamicRangeSetting);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagDynamicRangeSetting, out value))
                 return null;
-            }
             switch (value)
             {
                 case 0x000:

@@ -74,33 +74,27 @@ namespace MetadataExtractor.Formats.Ico
         [CanBeNull]
         public string GetImageWidthDescription()
         {
-            var width = Directory.GetInt32Nullable(IcoDirectory.TagImageWidth);
-            if (width == null)
-            {
+            int width;
+            if (!Directory.TryGetInt32(IcoDirectory.TagImageWidth, out width))
                 return null;
-            }
             return (width == 0 ? 256 : width) + " pixels";
         }
 
         [CanBeNull]
         public string GetImageHeightDescription()
         {
-            var width = Directory.GetInt32Nullable(IcoDirectory.TagImageHeight);
-            if (width == null)
-            {
+            int height;
+            if (!Directory.TryGetInt32(IcoDirectory.TagImageHeight, out height))
                 return null;
-            }
-            return (width == 0 ? 256 : width) + " pixels";
+            return (height == 0 ? 256 : height) + " pixels";
         }
 
         [CanBeNull]
         public string GetColourPaletteSizeDescription()
         {
-            var size = Directory.GetInt32Nullable(IcoDirectory.TagColourPaletteSize);
-            if (size == null)
-            {
+            int size;
+            if (!Directory.TryGetInt32(IcoDirectory.TagColourPaletteSize, out size))
                 return null;
-            }
             return size == 0 ? "No palette" : size + " colour" + (size == 1 ? string.Empty : "s");
         }
     }
