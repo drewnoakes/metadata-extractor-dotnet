@@ -198,13 +198,13 @@ namespace MetadataExtractor.Formats.Exif
                         case 1:
                         {
                             /* There are two scenarios here:
-                 * Type 1:                  **
-                 * :0000: 4E 69 6B 6F 6E 00 01 00-05 00 02 00 02 00 06 00 Nikon...........
-                 * :0010: 00 00 EC 02 00 00 03 00-03 00 01 00 00 00 06 00 ................
-                 * Type 3:                  **
-                 * :0000: 4E 69 6B 6F 6E 00 02 00-00 00 4D 4D 00 2A 00 00 Nikon....MM.*...
-                 * :0010: 00 08 00 1E 00 01 00 07-00 00 00 04 30 32 30 30 ............0200
-                 */
+                             * Type 1:                  **
+                             * :0000: 4E 69 6B 6F 6E 00 01 00-05 00 02 00 02 00 06 00 Nikon...........
+                             * :0010: 00 00 EC 02 00 00 03 00-03 00 01 00 00 00 06 00 ................
+                             * Type 3:                  **
+                             * :0000: 4E 69 6B 6F 6E 00 02 00-00 00 4D 4D 00 2A 00 00 Nikon....MM.*...
+                             * :0010: 00 08 00 1E 00 01 00 07-00 00 00 04 30 32 30 30 ............0200
+                             */
                             PushDirectory(typeof(NikonType1MakernoteDirectory));
                             TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 8, tiffHeaderOffset);
                             break;
