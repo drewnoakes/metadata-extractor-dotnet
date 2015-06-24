@@ -23,6 +23,7 @@
 #endregion
 
 using System;
+using System.Runtime.Serialization;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Tiff
@@ -45,6 +46,11 @@ namespace MetadataExtractor.Formats.Tiff
 
         public TiffProcessingException([CanBeNull] Exception innerException)
             : base(innerException)
+        {
+        }
+
+        protected TiffProcessingException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
     }

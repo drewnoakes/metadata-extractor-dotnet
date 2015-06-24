@@ -24,6 +24,7 @@
 
 using System;
 using System.IO;
+using System.Runtime.Serialization;
 
 namespace MetadataExtractor.IO
 {
@@ -60,6 +61,11 @@ namespace MetadataExtractor.IO
                 return string.Format("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: {0}, requested count: {1})", index, bytesRequested);
             }
             return string.Format("Attempt to read from beyond end of underlying data source (requested index: {0}, requested count: {1}, max index: {2})", index, bytesRequested, bufferLength - 1);
+        }
+
+        protected BufferBoundsException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
         }
     }
 }

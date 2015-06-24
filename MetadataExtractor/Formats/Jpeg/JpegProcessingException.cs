@@ -23,6 +23,7 @@
 #endregion
 
 using System;
+using System.Runtime.Serialization;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jpeg
@@ -44,6 +45,11 @@ namespace MetadataExtractor.Formats.Jpeg
 
         public JpegProcessingException([CanBeNull] Exception innerException)
             : base(innerException)
+        {
+        }
+
+        protected JpegProcessingException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
     }

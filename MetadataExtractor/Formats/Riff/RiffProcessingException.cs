@@ -23,6 +23,7 @@
 #endregion
 
 using System;
+using System.Runtime.Serialization;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Riff
@@ -44,6 +45,11 @@ namespace MetadataExtractor.Formats.Riff
 
         public RiffProcessingException([CanBeNull] Exception innerException)
             : base(innerException)
+        {
+        }
+
+        protected RiffProcessingException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
     }

@@ -23,6 +23,7 @@
 #endregion
 
 using System;
+using System.Runtime.Serialization;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Png
@@ -44,6 +45,11 @@ namespace MetadataExtractor.Formats.Png
 
         public PngProcessingException([CanBeNull] Exception innerException)
             : base(innerException)
+        {
+        }
+
+        protected PngProcessingException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
     }
