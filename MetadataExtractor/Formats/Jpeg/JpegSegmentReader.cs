@@ -32,31 +32,21 @@ namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>Performs read functions of JPEG files, returning specific file segments.</summary>
     /// <remarks>
-    /// Performs read functions of JPEG files, returning specific file segments.
-    /// <para />
     /// JPEG files are composed of a sequence of consecutive JPEG 'segments'. Each is identified by one of a set of byte
-    /// values, modelled in the
-    /// <see cref="JpegSegmentType"/>
-    /// enumeration. Use <c>readSegments</c> to read out the some
-    /// or all segments into a
-    /// <see cref="JpegSegmentData"/>
-    /// object, from which the raw JPEG segment byte arrays may be accessed.
+    /// values, modelled in the <see cref="JpegSegmentType"/> enumeration. Use <see cref="ReadSegments(SequentialReader,ICollection{JpegSegmentType})"/>
+    /// to read out the some or all segments into a <see cref="JpegSegmentData"/> object, from which the raw JPEG segment byte arrays may be accessed.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class JpegSegmentReader
     {
         /// <summary>
-        /// Processes the provided JPEG data, and extracts the specified JPEG segments into a
-        /// <see cref="JpegSegmentData"/>
-        /// object.
-        /// <para />
-        /// Will not return SOS (start of scan) or EOI (end of image) segments.
+        /// Processes the provided JPEG data, and extracts the specified JPEG segments into a <see cref="JpegSegmentData"/> object.
         /// </summary>
+        /// <remarks>
+        /// Will not return SOS (start of scan) or EOI (end of image) segments.
+        /// </remarks>
         /// <param name="filePath">a file from which the JPEG data will be read.</param>
-        /// <param name="segmentTypes">
-        /// the set of JPEG segments types that are to be returned. If this argument is <c>null</c>
-        /// then all found segment types are returned.
-        /// </param>
+        /// <param name="segmentTypes">the set of JPEG segments types that are to be returned. If this argument is <c>null</c> then all found segment types are returned.</param>
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
@@ -67,22 +57,13 @@ namespace MetadataExtractor.Formats.Jpeg
         }
 
         /// <summary>
-        /// Processes the provided JPEG data, and extracts the specified JPEG segments into a
-        /// <see cref="JpegSegmentData"/>
-        /// object.
-        /// <para />
-        /// Will not return SOS (start of scan) or EOI (end of image) segments.
+        /// Processes the provided JPEG data, and extracts the specified JPEG segments into a <see cref="JpegSegmentData"/> object.
         /// </summary>
-        /// <param name="reader">
-        /// a
-        /// <see cref="SequentialReader"/>
-        /// from which the JPEG data will be read. It must be positioned at the
-        /// beginning of the JPEG data stream.
-        /// </param>
-        /// <param name="segmentTypes">
-        /// the set of JPEG segments types that are to be returned. If this argument is <c>null</c>
-        /// then all found segment types are returned.
-        /// </param>
+        /// <remarks>
+        /// Will not return SOS (start of scan) or EOI (end of image) segments.
+        /// </remarks>
+        /// <param name="reader">a <see cref="SequentialReader"/> from which the JPEG data will be read. It must be positioned at the beginning of the JPEG data stream.</param>
+        /// <param name="segmentTypes">the set of JPEG segments types that are to be returned. If this argument is <c>null</c> then all found segment types are returned.</param>
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
