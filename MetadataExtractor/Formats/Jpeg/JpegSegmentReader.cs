@@ -133,7 +133,7 @@ namespace MetadataExtractor.Formats.Jpeg
                 }
 
                 // next 2-bytes are <segment-size>: [high-byte] [low-byte]
-                var segmentLength = reader.GetUInt16();
+                var segmentLength = (int)reader.GetUInt16();
 
                 // segment length includes size bytes, so subtract two
                 segmentLength -= 2;
