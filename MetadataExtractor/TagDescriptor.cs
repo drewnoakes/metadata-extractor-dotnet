@@ -178,7 +178,7 @@ namespace MetadataExtractor
             var value = Directory.GetRational(tagType);
             if (value == null)
                 return null;
-            return string.Format("%." + decimalPlaces + "f", value.ToDouble());
+            return string.Format("{0:F" + decimalPlaces + "}", value.ToDouble());
         }
 
         [CanBeNull]
