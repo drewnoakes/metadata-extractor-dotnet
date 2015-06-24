@@ -27,11 +27,10 @@ using JetBrains.Annotations;
 namespace MetadataExtractor
 {
     /// <summary>
-    /// Models a particular tag within a
-    /// <see cref="Directory"/>
-    /// and provides methods for obtaining its value.
-    /// Immutable.
+    /// Models metadata of a tag within a <see cref="Directory"/> and provides methods
+    /// for obtaining its value.
     /// </summary>
+    /// <remarks>Immutable.</remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class Tag
     {

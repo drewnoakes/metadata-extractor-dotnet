@@ -66,13 +66,9 @@ namespace MetadataExtractor.Util
             foreach (var b in bytes)
             {
                 if (!node.Children.TryGetValue(b, out node))
-                {
                     break;
-                }
                 if (node.Value != null)
-                {
                     value = node.Value;
-                }
             }
             return value;
         }

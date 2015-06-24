@@ -52,14 +52,13 @@ namespace MetadataExtractor
 
             try
             {
-                var years   = int.Parse(s.Substring (0, 4 - 0));
-                var months  = int.Parse(s.Substring (5, 7 - 5));
-                var days    = int.Parse(s.Substring (8, 10 - 8));
-                var hours   = int.Parse(s.Substring (11, 13 - 11));
-                var minutes = int.Parse(s.Substring (14, 16 - 14));
-                var seconds = int.Parse(s.Substring (17, 19 - 17));
-
-                return new Age(years, months, days, hours, minutes, seconds);
+                return new Age(
+                    years: int.Parse(s.Substring (0, 4 - 0)),
+                    months: int.Parse(s.Substring (5, 7 - 5)),
+                    days: int.Parse(s.Substring (8, 10 - 8)),
+                    hours: int.Parse(s.Substring (11, 13 - 11)),
+                    minutes: int.Parse(s.Substring (14, 16 - 14)),
+                    seconds: int.Parse(s.Substring (17, 19 - 17)));
             }
             catch (FormatException)
             {

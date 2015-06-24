@@ -45,13 +45,10 @@ namespace MetadataExtractor.IO
         public IndexedSeekingReader([NotNull] Stream stream)
         {
             if (stream == null)
-            {
                 throw new ArgumentNullException();
-            }
             if (!stream.CanSeek)
-            {
                 throw new ArgumentException("Must be capable of seeking.", "stream");
-            }
+
             _stream = stream;
             _length = _stream.Length;
         }
@@ -66,15 +63,13 @@ namespace MetadataExtractor.IO
         {
             ValidateIndex(index, 1);
             if (index != _currentIndex)
-            {
                 Seek(index);
-            }
+
             var b = _stream.ReadByte();
             if (b < 0)
-            {
                 throw new BufferBoundsException("Unexpected end of file encountered.");
-            }
-            Debug.Assert((b <= 0xff));
+
+            Debug.Assert(b <= 0xff);
             _currentIndex++;
             return unchecked((byte)b);
         }
@@ -84,16 +79,15 @@ namespace MetadataExtractor.IO
         {
             ValidateIndex(index, count);
             if (index != _currentIndex)
-            {
                 Seek(index);
-            }
+
             var bytes = new byte[count];
             var bytesRead = _stream.Read(bytes, 0, count);
             _currentIndex += bytesRead;
+
             if (bytesRead != count)
-            {
                 throw new BufferBoundsException("Unexpected end of file encountered.");
-            }
+
             return bytes;
         }
 
@@ -101,9 +95,8 @@ namespace MetadataExtractor.IO
         private void Seek(int index)
         {
             if (index == _currentIndex)
-            {
                 return;
-            }
+
             _stream.Seek(index, SeekOrigin.Begin);
             _currentIndex = index;
         }
@@ -118,9 +111,7 @@ namespace MetadataExtractor.IO
         protected override void ValidateIndex(int index, int bytesRequested)
         {
             if (!IsValidIndex(index, bytesRequested))
-            {
                 throw new BufferBoundsException(index, bytesRequested, _length);
-            }
         }
     }
 }

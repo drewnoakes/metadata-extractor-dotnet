@@ -29,8 +29,7 @@ using System.Runtime.Serialization;
 namespace MetadataExtractor.IO
 {
     /// <summary>
-    /// A checked replacement for <see cref="System.IndexOutOfRangeException"/>.  Used by
-    /// <see cref="IndexedReader"/>.
+    /// Thrown when the index provided to an <see cref="IndexedReader"/> is invalid.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [Serializable]
@@ -49,17 +48,14 @@ namespace MetadataExtractor.IO
         private static string GetMessage(int index, int bytesRequested, long bufferLength)
         {
             if (index < 0)
-            {
                 return string.Format("Attempt to read from buffer using a negative index ({0})", index);
-            }
+
             if (bytesRequested < 0)
-            {
                 return string.Format("Number of requested bytes cannot be negative ({0})", bytesRequested);
-            }
+
             if (index + (long)bytesRequested - 1L > int.MaxValue)
-            {
                 return string.Format("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: {0}, requested count: {1})", index, bytesRequested);
-            }
+
             return string.Format("Attempt to read from beyond end of underlying data source (requested index: {0}, requested count: {1}, max index: {2})", index, bytesRequested, bufferLength - 1);
         }
 

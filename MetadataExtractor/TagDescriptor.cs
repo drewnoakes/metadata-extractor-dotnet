@@ -62,30 +62,27 @@ namespace MetadataExtractor
         /// </returns>
         public virtual string GetDescription(int tagType)
         {
-            var @object = Directory.GetObject(tagType);
-            if (@object == null)
-            {
+            var obj = Directory.GetObject(tagType);
+            if (obj == null)
                 return null;
-            }
+
             // special presentation for long arrays
-            if (@object.GetType().IsArray)
+            var array = obj as Array;
+            if (array != null && array.Length > 16)
             {
-                var length = ((Array)@object).Length;
-                if (length > 16)
-                {
-                    var componentType = @object.GetType().GetElementType();
-                    var componentTypeName = componentType == typeof(byte)
-                        ? "byte"
-                        : componentType == typeof(short)
-                            ? "short"
-                            : componentType == typeof(int)
-                                ? "int"
-                                : componentType == typeof(long)
-                                    ? "long"
-                                    : componentType.Name;
-                    return string.Format("[{0} {1}{2}]", length, componentTypeName, length == 1 ? string.Empty : "s");
-                }
+                var componentType = array.GetType().GetElementType();
+                var componentTypeName = componentType == typeof(byte)
+                    ? "byte"
+                    : componentType == typeof(short)
+                        ? "short"
+                        : componentType == typeof(int)
+                            ? "int"
+                            : componentType == typeof(long)
+                                ? "long"
+                                : componentType.Name;
+                return string.Format("[{0} {1}{2}]", array.Length, componentTypeName, array.Length == 1 ? string.Empty : "s");
             }
+
             // no special handling required, so use default conversion to a string
             return Directory.GetString(tagType);
         }
@@ -95,9 +92,6 @@ namespace MetadataExtractor
         /// well-known version number, where possible.
         /// </summary>
         /// <remarks>
-        /// Takes a series of 4 bytes from the specified offset, and converts these to a
-        /// well-known version number, where possible.
-        /// <para />
         /// Two different formats are processed:
         /// <list type="bullet">
         /// <item>[30 32 31 30] -&gt; 2.10</item>
@@ -111,25 +105,18 @@ namespace MetadataExtractor
         public static string ConvertBytesToVersionString([CanBeNull] int[] components, int majorDigits)
         {
             if (components == null)
-            {
                 return null;
-            }
+
             var version = new StringBuilder();
             for (var i = 0; i < 4 && i < components.Length; i++)
             {
                 if (i == majorDigits)
-                {
                     version.Append('.');
-                }
                 var c = (char)components[i];
                 if (c < '0')
-                {
                     c += '0';
-                }
                 if (i == 0 && c == '0')
-                {
                     continue;
-                }
                 version.Append(c);
             }
             return version.ToString();
@@ -172,9 +159,7 @@ namespace MetadataExtractor
         {
             var bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
-            {
                 return null;
-            }
             return string.Format("({0} byte{1})", bytes.Length, bytes.Length == 1 ? string.Empty : "s");
         }
 
@@ -183,9 +168,7 @@ namespace MetadataExtractor
         {
             var value = Directory.GetRational(tagType);
             if (value == null)
-            {
                 return null;
-            }
             return value.ToSimpleString(true);
         }
 
@@ -194,9 +177,7 @@ namespace MetadataExtractor
         {
             var value = Directory.GetRational(tagType);
             if (value == null)
-            {
                 return null;
-            }
             return string.Format("%." + decimalPlaces + "f", value.ToDouble());
         }
 
@@ -214,9 +195,7 @@ namespace MetadataExtractor
         {
             var value = Directory.GetSingleNullable(tagType);
             if (value == null)
-            {
                 return null;
-            }
             return string.Format(format, value);
         }
 
@@ -225,9 +204,7 @@ namespace MetadataExtractor
         {
             var value = Directory.GetString(tagType);
             if (value == null)
-            {
                 return null;
-            }
             return string.Format(format, value);
         }
 
@@ -237,9 +214,7 @@ namespace MetadataExtractor
             // TODO have observed a byte[8] here which is likely some kind of date (ticks as long?)
             var value = Directory.GetInt64Nullable(tagType);
             if (value == null)
-            {
                 return null;
-            }
             return FromUnixTime((long)value).ToString("ddd MMM dd HH:mm:ss zzz yyyy");
         }
 
@@ -251,7 +226,7 @@ namespace MetadataExtractor
             int value;
             if (!Directory.TryGetInt32(tagType, out value))
                 return null;
-            IList<string> parts = new List<string>();
+            var parts = new List<string>();
             var bitIndex = 0;
             while (labels.Length > bitIndex)
             {
@@ -263,15 +238,12 @@ namespace MetadataExtractor
                     if (obj != null)
                     {
                         var labelPair = obj;
-                        Debug.Assert((labelPair.Length == 2));
+                        Debug.Assert(labelPair.Length == 2);
                         parts.Add(labelPair[isBitSet ? 1 : 0]);
                     }
-                    else
+                    else if (isBitSet && labelObj is string)
                     {
-                        if (isBitSet && labelObj is string)
-                        {
-                            parts.Add((string)labelObj);
-                        }
+                        parts.Add((string)labelObj);
                     }
                 }
                 value >>= 1;
@@ -285,9 +257,7 @@ namespace MetadataExtractor
         {
             var bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
-            {
                 return null;
-            }
             var length = bytes.Length;
             for (var index = 0; index < bytes.Length; index++)
             {
@@ -306,9 +276,8 @@ namespace MetadataExtractor
         {
             var values = Directory.GetByteArray(tag);
             if (values == null)
-            {
                 return null;
-            }
+
             try
             {
                 return Encoding.ASCII.GetString(values).Trim();

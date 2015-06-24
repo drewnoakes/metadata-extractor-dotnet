@@ -46,9 +46,8 @@ namespace MetadataExtractor.IO
         {
             var value = _stream.ReadByte();
             if (value == -1)
-            {
                 throw new IOException("End of data reached.");
-            }
+
             return unchecked((byte)value);
         }
 
@@ -60,11 +59,9 @@ namespace MetadataExtractor.IO
             {
                 var bytesRead = _stream.Read(bytes, totalBytesRead, count - totalBytesRead);
                 if (bytesRead == 0)
-                {
                     throw new IOException("End of data reached.");
-                }
                 totalBytesRead += bytesRead;
-                Debug.Assert((totalBytesRead <= count));
+                Debug.Assert(totalBytesRead <= count);
             }
             return bytes;
         }

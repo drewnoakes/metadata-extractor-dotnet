@@ -145,7 +145,7 @@ namespace MetadataExtractor.Formats.Jpeg
                 if (segmentTypes == null || segmentTypes.Contains(segmentType))
                 {
                     var segmentBytes = reader.GetBytes(segmentLength);
-                    Debug.Assert((segmentLength == segmentBytes.Length));
+                    Debug.Assert(segmentLength == segmentBytes.Length);
                     segmentData.AddSegment(segmentType, segmentBytes);
                 }
                 else

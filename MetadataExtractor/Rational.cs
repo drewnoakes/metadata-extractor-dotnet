@@ -361,8 +361,7 @@ namespace MetadataExtractor
         /// <para />
         /// However, generating the prime number series seems to be a hefty task.  Perhaps
         /// it's simpler to check if both d &amp; n are divisible by all numbers from 2
-        /// <literal>-&gt;</literal>
-        /// (Math.min(denominator, numerator) / 2).  In doing this, one can check for 2
+        /// -&gt; (Math.min(denominator, numerator) / 2). In doing this, one can check for 2
         /// and 5 once, then ignore all even numbers, and all numbers ending in 0 or 5.
         /// This leaves four numbers from every ten to check.
         /// <para />
@@ -377,8 +376,8 @@ namespace MetadataExtractor
         /// </code>
         /// </remarks>
         /// <returns>
-        /// a simplified instance, or if the Rational could not be simplified,
-        /// returns itself (unchanged)
+        /// A simplified instance, or if the Rational could not be simplified,
+        /// returns itself unchanged.
         /// </returns>
         [NotNull]
         public Rational GetSimplifiedInstance()

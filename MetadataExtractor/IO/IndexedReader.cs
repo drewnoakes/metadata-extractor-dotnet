@@ -96,18 +96,12 @@ namespace MetadataExtractor.IO
 
         /// <summary>Returns the length of the data source in bytes.</summary>
         /// <remarks>
-        /// Returns the length of the data source in bytes.
-        /// <para />
-        /// This is a simple operation for implementations (such as
-        /// <see cref="IndexedSeekingReader"/>
-        /// and
-        /// <see cref="ByteArrayReader"/>
-        /// ) that have the entire data source available.
+        /// This is a simple operation for implementations (such as <see cref="IndexedSeekingReader"/> and
+        /// <see cref="ByteArrayReader"/>) that have the entire data source available.
         /// <para />
         /// Users of this method must be aware that sequentially accessed implementations such as
         /// <see cref="IndexedCapturingReader"/>
-        /// will have to read and buffer the entire data source in
-        /// order to determine the length.
+        /// will have to read and buffer the entire data source in order to determine the length.
         /// </remarks>
         /// <returns>the length of the data source, in bytes.</returns>
         /// <exception cref="System.IO.IOException"/>

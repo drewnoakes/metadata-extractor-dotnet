@@ -60,11 +60,11 @@ namespace MetadataExtractor.IO
         /// <see cref="IndexedReader"/>.
         /// </remarks>
         /// <returns>the length of the data source, in bytes.</returns>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="BufferBoundsException"/>
         public override long GetLength()
         {
             IsValidIndex(int.MaxValue, 1);
-            Debug.Assert((_isStreamFinished));
+            Debug.Assert(_isStreamFinished);
             return _streamLength;
         }
 
@@ -74,24 +74,18 @@ namespace MetadataExtractor.IO
         /// <param name="index">the index from which the required bytes start</param>
         /// <param name="bytesRequested">the number of bytes which are required</param>
         /// <exception cref="BufferBoundsException">if the stream ends before the required number of bytes are acquired</exception>
-        /// <exception cref="System.IO.IOException"/>
         protected override void ValidateIndex(int index, int bytesRequested)
         {
             if (index < 0)
-            {
                 throw new BufferBoundsException(string.Format("Attempt to read from buffer using a negative index ({0})", index));
-            }
             if (bytesRequested < 0)
-            {
                 throw new BufferBoundsException("Number of requested bytes must be zero or greater");
-            }
             if ((long)index + bytesRequested - 1 > int.MaxValue)
-            {
                 throw new BufferBoundsException(string.Format("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: {0}, requested count: {1})", index, bytesRequested));
-            }
+
             if (!IsValidIndex(index, bytesRequested))
             {
-                Debug.Assert((_isStreamFinished));
+                Debug.Assert(_isStreamFinished);
                 // TODO test that can continue using an instance of this type after this exception
                 throw new BufferBoundsException(index, bytesRequested, _streamLength);
             }
@@ -100,29 +94,29 @@ namespace MetadataExtractor.IO
         protected override bool IsValidIndex(int index, int bytesRequested)
         {
             if (index < 0 || bytesRequested < 0)
-            {
                 return false;
-            }
+
             var endIndexLong = (long)index + bytesRequested - 1;
             if (endIndexLong > int.MaxValue)
-            {
                 return false;
-            }
+
             var endIndex = (int)endIndexLong;
             if (_isStreamFinished)
-            {
                 return endIndex < _streamLength;
-            }
+
             var chunkIndex = endIndex / _chunkLength;
+
             // TODO test loading several chunks for a single request
             while (chunkIndex >= _chunks.Count)
             {
-                Debug.Assert((!_isStreamFinished));
+                Debug.Assert(!_isStreamFinished);
+
                 var chunk = new byte[_chunkLength];
                 var totalBytesRead = 0;
                 while (!_isStreamFinished && totalBytesRead != _chunkLength)
                 {
                     var bytesRead = _stream.Read(chunk, totalBytesRead, _chunkLength - totalBytesRead);
+
                     if (bytesRead == 0)
                     {
                         // the stream has ended, which may be ok
@@ -140,15 +134,18 @@ namespace MetadataExtractor.IO
                         totalBytesRead += bytesRead;
                     }
                 }
+
                 _chunks.Add(chunk);
             }
+
             return true;
         }
 
         public override byte GetByte(int index)
         {
             ValidateIndex(index, 1);
-            Debug.Assert((index >= 0));
+            Debug.Assert(index >= 0);
+
             var chunkIndex = index / _chunkLength;
             var innerIndex = index % _chunkLength;
             var chunk = _chunks[chunkIndex];
@@ -158,6 +155,7 @@ namespace MetadataExtractor.IO
         public override byte[] GetBytes(int index, int count)
         {
             ValidateIndex(index, count);
+
             var bytes = new byte[count];
             var remaining = count;
             var fromIndex = index;

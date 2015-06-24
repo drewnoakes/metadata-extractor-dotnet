@@ -99,6 +99,8 @@ namespace MetadataExtractor
             _descriptor = descriptor;
         }
 
+        #region Errors
+
         /// <summary>Registers an error message with this directory.</summary>
         /// <param name="message">an error message.</param>
         public void AddError([NotNull] string message)
@@ -122,7 +124,9 @@ namespace MetadataExtractor
             get { return _errorList; }
         }
 
-        #region Tag Setters
+        #endregion
+
+        #region Get / set values
 
         /// <summary>Sets a <c>Object</c> for the specified tag.</summary>
         /// <remarks>Any previous value for this tag is overwritten.</remarks>
@@ -139,10 +143,6 @@ namespace MetadataExtractor
 
             _tagMap[tagType] = value;
         }
-
-        #endregion
-
-        #region Tag Getters
 
         /// <summary>Returns the object hashed for the particular tag type specified, if available.</summary>
         /// <param name="tagType">the tag type identifier</param>
@@ -186,7 +186,7 @@ namespace MetadataExtractor
         [CanBeNull]
         public string GetDescription(int tagType)
         {
-            Debug.Assert((_descriptor != null));
+            Debug.Assert(_descriptor != null);
             return _descriptor.GetDescription(tagType);
         }
 
