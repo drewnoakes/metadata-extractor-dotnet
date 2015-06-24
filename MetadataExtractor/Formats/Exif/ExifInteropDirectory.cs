@@ -31,12 +31,11 @@ namespace MetadataExtractor.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class ExifInteropDirectory : ExifDirectoryBase
     {
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        [NotNull] private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
 
         static ExifInteropDirectory()
         {
-            AddExifTagNames(TagNameMap);
+            AddExifTagNames(_tagNameMap);
         }
 
         public ExifInteropDirectory()
@@ -51,7 +50,7 @@ namespace MetadataExtractor.Formats.Exif
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }
