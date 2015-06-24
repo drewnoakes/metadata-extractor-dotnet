@@ -151,20 +151,19 @@ namespace MetadataExtractor
         [CanBeNull]
         protected string GetIndexedDescription(int tagType, int baseIndex, [NotNull] params string[] descriptions)
         {
-            var index = Directory.GetInt32Nullable(tagType);
-            if (index == null)
-            {
+            int index;
+            if (!Directory.TryGetInt32(tagType, out index))
                 return null;
-            }
-            var arrayIndex = (int)index - baseIndex;
+
+            var arrayIndex = index - baseIndex;
+
             if (arrayIndex >= 0 && arrayIndex < descriptions.Length)
             {
                 var description = descriptions[arrayIndex];
                 if (description != null)
-                {
                     return description;
-                }
             }
+
             return "Unknown (" + index + ")";
         }
 

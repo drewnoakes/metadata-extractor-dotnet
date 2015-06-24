@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
