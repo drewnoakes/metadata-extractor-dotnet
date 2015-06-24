@@ -103,9 +103,9 @@ namespace MetadataExtractor.IO
         /// <see cref="IndexedCapturingReader"/>
         /// will have to read and buffer the entire data source in order to determine the length.
         /// </remarks>
-        /// <returns>the length of the data source, in bytes.</returns>
+        /// <value>the length of the data source, in bytes.</value>
         /// <exception cref="System.IO.IOException"/>
-        public abstract long GetLength();
+        public abstract long Length { get; }
 
         /// <summary>Gets whether a bit at a specific index is set or not.</summary>
         /// <param name="index">the number of bits at which to test</param>

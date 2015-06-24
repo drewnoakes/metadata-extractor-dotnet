@@ -59,13 +59,16 @@ namespace MetadataExtractor.IO
         /// In general, this is not a good idea for this implementation of
         /// <see cref="IndexedReader"/>.
         /// </remarks>
-        /// <returns>the length of the data source, in bytes.</returns>
+        /// <value>the length of the data source, in bytes.</value>
         /// <exception cref="BufferBoundsException"/>
-        public override long GetLength()
+        public override long Length
         {
-            IsValidIndex(int.MaxValue, 1);
-            Debug.Assert(_isStreamFinished);
-            return _streamLength;
+            get
+            {
+                IsValidIndex(int.MaxValue, 1);
+                Debug.Assert(_isStreamFinished);
+                return _streamLength;
+            }
         }
 
         /// <summary>Ensures that the buffered bytes extend to cover the specified index. If not, an attempt is made

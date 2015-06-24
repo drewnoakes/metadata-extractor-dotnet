@@ -67,7 +67,7 @@ namespace MetadataExtractor.Formats.Tiff
             var firstIfdOffset = reader.GetInt32(4 + tiffHeaderOffset) + tiffHeaderOffset;
             // David Ekholm sent a digital camera image that has this problem
             // TODO getLength should be avoided as it causes IndexedCapturingReader to read to the end of the stream
-            if (firstIfdOffset >= reader.GetLength() - 1)
+            if (firstIfdOffset >= reader.Length - 1)
             {
                 handler.Warn("First IFD offset is beyond the end of the TIFF data segment -- trying default offset");
                 // First directory normally starts immediately after the offset bytes, so try that
@@ -109,7 +109,7 @@ namespace MetadataExtractor.Formats.Tiff
                 }
                 // remember that we've visited this directory so that we don't visit it again later
                 processedIfdOffsets.Add(ifdOffset);
-                if (ifdOffset >= reader.GetLength() || ifdOffset < 0)
+                if (ifdOffset >= reader.Length || ifdOffset < 0)
                 {
                     handler.Error("Ignored IFD marked to start outside data segment");
                     return;
@@ -117,7 +117,7 @@ namespace MetadataExtractor.Formats.Tiff
                 // First two bytes in the IFD are the number of tags in this directory
                 int dirTagCount = reader.GetUInt16(ifdOffset);
                 var dirLength = (2 + (12 * dirTagCount) + 4);
-                if (dirLength + ifdOffset > reader.GetLength())
+                if (dirLength + ifdOffset > reader.Length)
                 {
                     handler.Error("Illegally sized IFD");
                     return;
@@ -160,7 +160,7 @@ namespace MetadataExtractor.Formats.Tiff
                     {
                         // If it's bigger than 4 bytes, the dir entry contains an offset.
                         var offsetVal = reader.GetInt32(tagOffset + 8);
-                        if (offsetVal + byteCount > reader.GetLength())
+                        if (offsetVal + byteCount > reader.Length)
                         {
                             // Bogus pointer offset and / or byteCount value
                             handler.Error("Illegal TIFF tag pointer offset");
@@ -173,14 +173,14 @@ namespace MetadataExtractor.Formats.Tiff
                         // 4 bytes or less and value is in the dir entry itself.
                         tagValueOffset = tagOffset + 8;
                     }
-                    if (tagValueOffset < 0 || tagValueOffset > reader.GetLength())
+                    if (tagValueOffset < 0 || tagValueOffset > reader.Length)
                     {
                         handler.Error("Illegal TIFF tag pointer offset");
                         continue;
                     }
                     // Check that this tag isn't going to allocate outside the bounds of the data array.
                     // This addresses an uncommon OutOfMemoryError.
-                    if (byteCount < 0 || tagValueOffset + byteCount > reader.GetLength())
+                    if (byteCount < 0 || tagValueOffset + byteCount > reader.Length)
                     {
                         handler.Error("Illegal number of bytes for TIFF tag data: " + byteCount);
                         continue;
@@ -207,7 +207,7 @@ namespace MetadataExtractor.Formats.Tiff
                 if (nextIfdOffset != 0)
                 {
                     nextIfdOffset += tiffHeaderOffset;
-                    if (nextIfdOffset >= reader.GetLength())
+                    if (nextIfdOffset >= reader.Length)
                     {
                         // Last 4 bytes of IFD reference another IFD with an address that is out of bounds
                         // Note this could have been caused by jhead 1.3 cropping too much

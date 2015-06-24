@@ -53,9 +53,9 @@ namespace MetadataExtractor.IO
             _length = _stream.Length;
         }
 
-        public override long GetLength()
+        public override long Length
         {
-            return _length;
+            get { return _length; }
         }
 
         /// <exception cref="System.IO.IOException"/>
