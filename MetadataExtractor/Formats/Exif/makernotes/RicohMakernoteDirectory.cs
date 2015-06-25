@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -32,22 +31,21 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     public class RicohMakernoteDirectory : Directory
     {
         public const int TagMakernoteDataType = 0x0001;
-
         public const int TagVersion = 0x0002;
-
         public const int TagPrintImageMatchingInfo = 0x0E00;
-
         public const int TagRicohCameraInfoMakernoteSubIfdPointer = 0x2001;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap;
 
         static RicohMakernoteDirectory()
         {
-            TagNameMap[TagMakernoteDataType] = "Makernote Data Type";
-            TagNameMap[TagVersion] = "Version";
-            TagNameMap[TagPrintImageMatchingInfo] = "Print Image Matching (PIM) Info";
-            TagNameMap[TagRicohCameraInfoMakernoteSubIfdPointer] = "Ricoh Camera Info Makernote Sub-IFD";
+            _tagNameMap = new Dictionary<int?, string>
+            {
+                { TagMakernoteDataType, "Makernote Data Type" },
+                { TagVersion, "Version" },
+                { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" },
+                { TagRicohCameraInfoMakernoteSubIfdPointer, "Ricoh Camera Info Makernote Sub-IFD" }
+            };
         }
 
         public RicohMakernoteDirectory()
@@ -62,7 +60,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

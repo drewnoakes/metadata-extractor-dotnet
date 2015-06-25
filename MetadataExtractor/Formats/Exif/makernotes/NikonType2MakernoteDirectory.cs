@@ -823,7 +823,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public const int TagUnknown51 = 0x0103;
 
-        public const int TagPrintIm = 0x0E00;
+        public const int TagPrintIM = 0x0E00;
 
         /// <summary>Data about changes set by Nikon Capture Editor.</summary>
         /// <remarks>
@@ -848,127 +848,129 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public const int TagUnknown55 = 0x0E23;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap;
 
         static NikonType2MakernoteDirectory()
         {
-            TagNameMap[TagFirmwareVersion] = "Firmware Version";
-            TagNameMap[TagIso1] = "ISO";
-            TagNameMap[TagQualityAndFileFormat] = "Quality & File Format";
-            TagNameMap[TagCameraWhiteBalance] = "White Balance";
-            TagNameMap[TagCameraSharpening] = "Sharpening";
-            TagNameMap[TagAfType] = "AF Type";
-            TagNameMap[TagCameraWhiteBalanceFine] = "White Balance Fine";
-            TagNameMap[TagCameraWhiteBalanceRbCoeff] = "White Balance RB Coefficients";
-            TagNameMap[TagIsoRequested] = "ISO";
-            TagNameMap[TagIsoMode] = "ISO Mode";
-            TagNameMap[TagDataDump] = "Data Dump";
-            TagNameMap[TagProgramShift] = "Program Shift";
-            TagNameMap[TagExposureDifference] = "Exposure Difference";
-            TagNameMap[TagPreviewIfd] = "Preview IFD";
-            TagNameMap[TagLensType] = "Lens Type";
-            TagNameMap[TagFlashUsed] = "Flash Used";
-            TagNameMap[TagAfFocusPosition] = "AF Focus Position";
-            TagNameMap[TagShootingMode] = "Shooting Mode";
-            TagNameMap[TagLensStops] = "Lens Stops";
-            TagNameMap[TagContrastCurve] = "Contrast Curve";
-            TagNameMap[TagLightSource] = "Light source";
-            TagNameMap[TagShotInfo] = "Shot Info";
-            TagNameMap[TagColorBalance] = "Color Balance";
-            TagNameMap[TagLensData] = "Lens Data";
-            TagNameMap[TagNefThumbnailSize] = "NEF Thumbnail Size";
-            TagNameMap[TagSensorPixelSize] = "Sensor Pixel Size";
-            TagNameMap[TagUnknown10] = "Unknown 10";
-            TagNameMap[TagSceneAssist] = "Scene Assist";
-            TagNameMap[TagUnknown11] = "Unknown 11";
-            TagNameMap[TagRetouchHistory] = "Retouch History";
-            TagNameMap[TagUnknown12] = "Unknown 12";
-            TagNameMap[TagFlashSyncMode] = "Flash Sync Mode";
-            TagNameMap[TagAutoFlashMode] = "Auto Flash Mode";
-            TagNameMap[TagAutoFlashCompensation] = "Auto Flash Compensation";
-            TagNameMap[TagExposureSequenceNumber] = "Exposure Sequence Number";
-            TagNameMap[TagColorMode] = "Color Mode";
-            TagNameMap[TagUnknown20] = "Unknown 20";
-            TagNameMap[TagImageBoundary] = "Image Boundary";
-            TagNameMap[TagFlashExposureCompensation] = "Flash Exposure Compensation";
-            TagNameMap[TagFlashBracketCompensation] = "Flash Bracket Compensation";
-            TagNameMap[TagAeBracketCompensation] = "AE Bracket Compensation";
-            TagNameMap[TagFlashMode] = "Flash Mode";
-            TagNameMap[TagCropHighSpeed] = "Crop High Speed";
-            TagNameMap[TagExposureTuning] = "Exposure Tuning";
-            TagNameMap[TagCameraSerialNumber] = "Camera Serial Number";
-            TagNameMap[TagColorSpace] = "Color Space";
-            TagNameMap[TagVrInfo] = "VR Info";
-            TagNameMap[TagImageAuthentication] = "Image Authentication";
-            TagNameMap[TagUnknown35] = "Unknown 35";
-            TagNameMap[TagActiveDLighting] = "Active D-Lighting";
-            TagNameMap[TagPictureControl] = "Picture Control";
-            TagNameMap[TagWorldTime] = "World Time";
-            TagNameMap[TagIsoInfo] = "ISO Info";
-            TagNameMap[TagUnknown36] = "Unknown 36";
-            TagNameMap[TagUnknown37] = "Unknown 37";
-            TagNameMap[TagUnknown38] = "Unknown 38";
-            TagNameMap[TagUnknown39] = "Unknown 39";
-            TagNameMap[TagVignetteControl] = "Vignette Control";
-            TagNameMap[TagUnknown40] = "Unknown 40";
-            TagNameMap[TagUnknown41] = "Unknown 41";
-            TagNameMap[TagUnknown42] = "Unknown 42";
-            TagNameMap[TagUnknown43] = "Unknown 43";
-            TagNameMap[TagUnknown44] = "Unknown 44";
-            TagNameMap[TagUnknown45] = "Unknown 45";
-            TagNameMap[TagUnknown46] = "Unknown 46";
-            TagNameMap[TagUnknown47] = "Unknown 47";
-            TagNameMap[TagSceneMode] = "Scene Mode";
-            TagNameMap[TagCameraSerialNumber2] = "Camera Serial Number";
-            TagNameMap[TagImageDataSize] = "Image Data Size";
-            TagNameMap[TagUnknown27] = "Unknown 27";
-            TagNameMap[TagUnknown28] = "Unknown 28";
-            TagNameMap[TagImageCount] = "Image Count";
-            TagNameMap[TagDeletedImageCount] = "Deleted Image Count";
-            TagNameMap[TagSaturation2] = "Saturation";
-            TagNameMap[TagDigitalVariProgram] = "Digital Vari Program";
-            TagNameMap[TagImageStabilisation] = "Image Stabilisation";
-            TagNameMap[TagAfResponse] = "AF Response";
-            TagNameMap[TagUnknown29] = "Unknown 29";
-            TagNameMap[TagUnknown30] = "Unknown 30";
-            TagNameMap[TagMultiExposure] = "Multi Exposure";
-            TagNameMap[TagHighIsoNoiseReduction] = "High ISO Noise Reduction";
-            TagNameMap[TagUnknown31] = "Unknown 31";
-            TagNameMap[TagUnknown32] = "Unknown 32";
-            TagNameMap[TagUnknown33] = "Unknown 33";
-            TagNameMap[TagUnknown48] = "Unknown 48";
-            TagNameMap[TagPowerUpTime] = "Power Up Time";
-            TagNameMap[TagAfInfo2] = "AF Info 2";
-            TagNameMap[TagFileInfo] = "File Info";
-            TagNameMap[TagAfTune] = "AF Tune";
-            TagNameMap[TagFlashInfo] = "Flash Info";
-            TagNameMap[TagImageOptimisation] = "Image Optimisation";
-            TagNameMap[TagImageAdjustment] = "Image Adjustment";
-            TagNameMap[TagCameraToneCompensation] = "Tone Compensation";
-            TagNameMap[TagAdapter] = "Adapter";
-            TagNameMap[TagLens] = "Lens";
-            TagNameMap[TagManualFocusDistance] = "Manual Focus Distance";
-            TagNameMap[TagDigitalZoom] = "Digital Zoom";
-            TagNameMap[TagCameraColorMode] = "Colour Mode";
-            TagNameMap[TagCameraHueAdjustment] = "Camera Hue Adjustment";
-            TagNameMap[TagNefCompression] = "NEF Compression";
-            TagNameMap[TagSaturation] = "Saturation";
-            TagNameMap[TagNoiseReduction] = "Noise Reduction";
-            TagNameMap[TagLinearizationTable] = "Linearization Table";
-            TagNameMap[TagNikonCaptureData] = "Nikon Capture Data";
-            TagNameMap[TagUnknown49] = "Unknown 49";
-            TagNameMap[TagUnknown50] = "Unknown 50";
-            TagNameMap[TagUnknown51] = "Unknown 51";
-            TagNameMap[TagPrintIm] = "Print IM";
-            TagNameMap[TagUnknown52] = "Unknown 52";
-            TagNameMap[TagUnknown53] = "Unknown 53";
-            TagNameMap[TagNikonCaptureVersion] = "Nikon Capture Version";
-            TagNameMap[TagNikonCaptureOffsets] = "Nikon Capture Offsets";
-            TagNameMap[TagNikonScan] = "Nikon Scan";
-            TagNameMap[TagUnknown54] = "Unknown 54";
-            TagNameMap[TagNefBitDepth] = "NEF Bit Depth";
-            TagNameMap[TagUnknown55] = "Unknown 55";
+            _tagNameMap = new Dictionary<int?, string>
+            {
+                { TagFirmwareVersion, "Firmware Version" },
+                { TagIso1, "ISO" },
+                { TagQualityAndFileFormat, "Quality & File Format" },
+                { TagCameraWhiteBalance, "White Balance" },
+                { TagCameraSharpening, "Sharpening" },
+                { TagAfType, "AF Type" },
+                { TagCameraWhiteBalanceFine, "White Balance Fine" },
+                { TagCameraWhiteBalanceRbCoeff, "White Balance RB Coefficients" },
+                { TagIsoRequested, "ISO" },
+                { TagIsoMode, "ISO Mode" },
+                { TagDataDump, "Data Dump" },
+                { TagProgramShift, "Program Shift" },
+                { TagExposureDifference, "Exposure Difference" },
+                { TagPreviewIfd, "Preview IFD" },
+                { TagLensType, "Lens Type" },
+                { TagFlashUsed, "Flash Used" },
+                { TagAfFocusPosition, "AF Focus Position" },
+                { TagShootingMode, "Shooting Mode" },
+                { TagLensStops, "Lens Stops" },
+                { TagContrastCurve, "Contrast Curve" },
+                { TagLightSource, "Light source" },
+                { TagShotInfo, "Shot Info" },
+                { TagColorBalance, "Color Balance" },
+                { TagLensData, "Lens Data" },
+                { TagNefThumbnailSize, "NEF Thumbnail Size" },
+                { TagSensorPixelSize, "Sensor Pixel Size" },
+                { TagUnknown10, "Unknown 10" },
+                { TagSceneAssist, "Scene Assist" },
+                { TagUnknown11, "Unknown 11" },
+                { TagRetouchHistory, "Retouch History" },
+                { TagUnknown12, "Unknown 12" },
+                { TagFlashSyncMode, "Flash Sync Mode" },
+                { TagAutoFlashMode, "Auto Flash Mode" },
+                { TagAutoFlashCompensation, "Auto Flash Compensation" },
+                { TagExposureSequenceNumber, "Exposure Sequence Number" },
+                { TagColorMode, "Color Mode" },
+                { TagUnknown20, "Unknown 20" },
+                { TagImageBoundary, "Image Boundary" },
+                { TagFlashExposureCompensation, "Flash Exposure Compensation" },
+                { TagFlashBracketCompensation, "Flash Bracket Compensation" },
+                { TagAeBracketCompensation, "AE Bracket Compensation" },
+                { TagFlashMode, "Flash Mode" },
+                { TagCropHighSpeed, "Crop High Speed" },
+                { TagExposureTuning, "Exposure Tuning" },
+                { TagCameraSerialNumber, "Camera Serial Number" },
+                { TagColorSpace, "Color Space" },
+                { TagVrInfo, "VR Info" },
+                { TagImageAuthentication, "Image Authentication" },
+                { TagUnknown35, "Unknown 35" },
+                { TagActiveDLighting, "Active D-Lighting" },
+                { TagPictureControl, "Picture Control" },
+                { TagWorldTime, "World Time" },
+                { TagIsoInfo, "ISO Info" },
+                { TagUnknown36, "Unknown 36" },
+                { TagUnknown37, "Unknown 37" },
+                { TagUnknown38, "Unknown 38" },
+                { TagUnknown39, "Unknown 39" },
+                { TagVignetteControl, "Vignette Control" },
+                { TagUnknown40, "Unknown 40" },
+                { TagUnknown41, "Unknown 41" },
+                { TagUnknown42, "Unknown 42" },
+                { TagUnknown43, "Unknown 43" },
+                { TagUnknown44, "Unknown 44" },
+                { TagUnknown45, "Unknown 45" },
+                { TagUnknown46, "Unknown 46" },
+                { TagUnknown47, "Unknown 47" },
+                { TagSceneMode, "Scene Mode" },
+                { TagCameraSerialNumber2, "Camera Serial Number" },
+                { TagImageDataSize, "Image Data Size" },
+                { TagUnknown27, "Unknown 27" },
+                { TagUnknown28, "Unknown 28" },
+                { TagImageCount, "Image Count" },
+                { TagDeletedImageCount, "Deleted Image Count" },
+                { TagSaturation2, "Saturation" },
+                { TagDigitalVariProgram, "Digital Vari Program" },
+                { TagImageStabilisation, "Image Stabilisation" },
+                { TagAfResponse, "AF Response" },
+                { TagUnknown29, "Unknown 29" },
+                { TagUnknown30, "Unknown 30" },
+                { TagMultiExposure, "Multi Exposure" },
+                { TagHighIsoNoiseReduction, "High ISO Noise Reduction" },
+                { TagUnknown31, "Unknown 31" },
+                { TagUnknown32, "Unknown 32" },
+                { TagUnknown33, "Unknown 33" },
+                { TagUnknown48, "Unknown 48" },
+                { TagPowerUpTime, "Power Up Time" },
+                { TagAfInfo2, "AF Info 2" },
+                { TagFileInfo, "File Info" },
+                { TagAfTune, "AF Tune" },
+                { TagFlashInfo, "Flash Info" },
+                { TagImageOptimisation, "Image Optimisation" },
+                { TagImageAdjustment, "Image Adjustment" },
+                { TagCameraToneCompensation, "Tone Compensation" },
+                { TagAdapter, "Adapter" },
+                { TagLens, "Lens" },
+                { TagManualFocusDistance, "Manual Focus Distance" },
+                { TagDigitalZoom, "Digital Zoom" },
+                { TagCameraColorMode, "Colour Mode" },
+                { TagCameraHueAdjustment, "Camera Hue Adjustment" },
+                { TagNefCompression, "NEF Compression" },
+                { TagSaturation, "Saturation" },
+                { TagNoiseReduction, "Noise Reduction" },
+                { TagLinearizationTable, "Linearization Table" },
+                { TagNikonCaptureData, "Nikon Capture Data" },
+                { TagUnknown49, "Unknown 49" },
+                { TagUnknown50, "Unknown 50" },
+                { TagUnknown51, "Unknown 51" },
+                { TagPrintIM, "Print IM" },
+                { TagUnknown52, "Unknown 52" },
+                { TagUnknown53, "Unknown 53" },
+                { TagNikonCaptureVersion, "Nikon Capture Version" },
+                { TagNikonCaptureOffsets, "Nikon Capture Offsets" },
+                { TagNikonScan, "Nikon Scan" },
+                { TagUnknown54, "Unknown 54" },
+                { TagNefBitDepth, "NEF Bit Depth" },
+                { TagUnknown55, "Unknown 55" }
+            };
         }
 
         public NikonType2MakernoteDirectory()
@@ -983,7 +985,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

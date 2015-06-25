@@ -28,7 +28,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>
     /// Provides human-readable string representations of tag values stored in a <see cref="NikonType1MakernoteDirectory"/>.
-    /// <para />
+    /// </summary>
+    /// <remarks>
     /// Type-1 is for E-Series cameras prior to (not including) E990.  For example: E700, E800, E900,
     /// E900S, E910, E950.
     /// <para />
@@ -39,7 +40,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// :0000: 4E 69 6B 6F 6E 00 01 00-05 00 02 00 02 00 06 00 Nikon...........
     /// :0010: 00 00 EC 02 00 00 03 00-03 00 01 00 00 00 06 00 ................
     /// </c></pre>
-    /// </summary>
+    /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class NikonType1MakernoteDescriptor : TagDescriptor<NikonType1MakernoteDirectory>
     {
@@ -53,56 +54,31 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             switch (tagType)
             {
                 case NikonType1MakernoteDirectory.TagQuality:
-                {
                     return GetQualityDescription();
-                }
-
                 case NikonType1MakernoteDirectory.TagColorMode:
-                {
                     return GetColorModeDescription();
-                }
-
                 case NikonType1MakernoteDirectory.TagImageAdjustment:
-                {
                     return GetImageAdjustmentDescription();
-                }
-
                 case NikonType1MakernoteDirectory.TagCcdSensitivity:
-                {
                     return GetCcdSensitivityDescription();
-                }
-
                 case NikonType1MakernoteDirectory.TagWhiteBalance:
-                {
                     return GetWhiteBalanceDescription();
-                }
-
                 case NikonType1MakernoteDirectory.TagFocus:
-                {
                     return GetFocusDescription();
-                }
-
                 case NikonType1MakernoteDirectory.TagDigitalZoom:
-                {
                     return GetDigitalZoomDescription();
-                }
-
                 case NikonType1MakernoteDirectory.TagConverter:
-                {
                     return GetConverterDescription();
-                }
-
                 default:
-                {
                     return base.GetDescription(tagType);
-                }
             }
         }
 
         [CanBeNull]
         public string GetConverterDescription()
         {
-            return GetIndexedDescription(NikonType1MakernoteDirectory.TagConverter, "None", "Fisheye converter");
+            return GetIndexedDescription(NikonType1MakernoteDirectory.TagConverter,
+                "None", "Fisheye converter");
         }
 
         [CanBeNull]
@@ -122,31 +98,38 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetWhiteBalanceDescription()
         {
-            return GetIndexedDescription(NikonType1MakernoteDirectory.TagWhiteBalance, "Auto", "Preset", "Daylight", "Incandescence", "Florescence", "Cloudy", "SpeedLight");
+            return GetIndexedDescription(NikonType1MakernoteDirectory.TagWhiteBalance,
+                "Auto", "Preset", "Daylight", "Incandescence", "Florescence", "Cloudy", "SpeedLight");
         }
 
         [CanBeNull]
         public string GetCcdSensitivityDescription()
         {
-            return GetIndexedDescription(NikonType1MakernoteDirectory.TagCcdSensitivity, "ISO80", null, "ISO160", null, "ISO320", "ISO100");
+            return GetIndexedDescription(NikonType1MakernoteDirectory.TagCcdSensitivity,
+                "ISO80", null, "ISO160", null, "ISO320", "ISO100");
         }
 
         [CanBeNull]
         public string GetImageAdjustmentDescription()
         {
-            return GetIndexedDescription(NikonType1MakernoteDirectory.TagImageAdjustment, "Normal", "Bright +", "Bright -", "Contrast +", "Contrast -");
+            return GetIndexedDescription(NikonType1MakernoteDirectory.TagImageAdjustment,
+                "Normal", "Bright +", "Bright -", "Contrast +", "Contrast -");
         }
 
         [CanBeNull]
         public string GetColorModeDescription()
         {
-            return GetIndexedDescription(NikonType1MakernoteDirectory.TagColorMode, 1, "Color", "Monochrome");
+            return GetIndexedDescription(NikonType1MakernoteDirectory.TagColorMode,
+                1,
+                "Color", "Monochrome");
         }
 
         [CanBeNull]
         public string GetQualityDescription()
         {
-            return GetIndexedDescription(NikonType1MakernoteDirectory.TagQuality, 1, "VGA Basic", "VGA Normal", "VGA Fine", "SXGA Basic", "SXGA Normal", "SXGA Fine");
+            return GetIndexedDescription(NikonType1MakernoteDirectory.TagQuality,
+                1,
+                "VGA Basic", "VGA Normal", "VGA Fine", "SXGA Basic", "SXGA Normal", "SXGA Fine");
         }
     }
 }

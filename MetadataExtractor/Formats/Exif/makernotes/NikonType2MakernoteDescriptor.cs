@@ -43,124 +43,53 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             switch (tagType)
             {
                 case NikonType2MakernoteDirectory.TagProgramShift:
-                {
                     return GetProgramShiftDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagExposureDifference:
-                {
                     return GetExposureDifferenceDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagLens:
-                {
                     return GetLensDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagCameraHueAdjustment:
-                {
                     return GetHueAdjustmentDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagCameraColorMode:
-                {
                     return GetColorModeDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagAutoFlashCompensation:
-                {
                     return GetAutoFlashCompensationDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagFlashExposureCompensation:
-                {
                     return GetFlashExposureCompensationDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagFlashBracketCompensation:
-                {
                     return GetFlashBracketCompensationDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagExposureTuning:
-                {
                     return GetExposureTuningDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagLensStops:
-                {
                     return GetLensStopsDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagColorSpace:
-                {
                     return GetColorSpaceDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagActiveDLighting:
-                {
                     return GetActiveDLightingDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagVignetteControl:
-                {
                     return GetVignetteControlDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagIso1:
-                {
                     return GetIsoSettingDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagDigitalZoom:
-                {
                     return GetDigitalZoomDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagFlashUsed:
-                {
                     return GetFlashUsedDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagAfFocusPosition:
-                {
                     return GetAutoFocusPositionDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagFirmwareVersion:
-                {
                     return GetFirmwareVersionDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagLensType:
-                {
                     return GetLensTypeDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagShootingMode:
-                {
                     return GetShootingModeDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagNefCompression:
-                {
                     return GetNefCompressionDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagHighIsoNoiseReduction:
-                {
                     return GetHighIsoNoiseReductionDescription();
-                }
-
                 case NikonType2MakernoteDirectory.TagPowerUpTime:
-                {
                     return GetPowerUpTimeDescription();
-                }
-
                 default:
-                {
                     return base.GetDescription(tagType);
-                }
             }
         }
 
@@ -173,39 +102,47 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetHighIsoNoiseReductionDescription()
         {
-            return GetIndexedDescription(NikonType2MakernoteDirectory.TagHighIsoNoiseReduction, "Off", "Minimal", "Low", null, "Normal", null, "High");
+            return GetIndexedDescription(NikonType2MakernoteDirectory.TagHighIsoNoiseReduction,
+                "Off", "Minimal", "Low", null, "Normal", null, "High");
         }
 
         [CanBeNull]
         public string GetFlashUsedDescription()
         {
-            return GetIndexedDescription(NikonType2MakernoteDirectory.TagFlashUsed, "Flash Not Used", "Manual Flash", null, "Flash Not Ready", null, null, null, "External Flash", "Fired, Commander Mode", "Fired, TTL Mode");
+            return GetIndexedDescription(NikonType2MakernoteDirectory.TagFlashUsed,
+                "Flash Not Used", "Manual Flash", null, "Flash Not Ready", null, null, null, "External Flash", "Fired, Commander Mode", "Fired, TTL Mode");
         }
 
         [CanBeNull]
         public string GetNefCompressionDescription()
         {
-            return GetIndexedDescription(NikonType2MakernoteDirectory.TagNefCompression, 1, "Lossy (Type 1)", null, "Uncompressed", null, null, null, "Lossless", "Lossy (Type 2)");
+            return GetIndexedDescription(NikonType2MakernoteDirectory.TagNefCompression,
+                1,
+                "Lossy (Type 1)", null, "Uncompressed", null, null, null, "Lossless", "Lossy (Type 2)");
         }
 
         [CanBeNull]
         public string GetShootingModeDescription()
         {
-            return GetBitFlagDescription(NikonType2MakernoteDirectory.TagShootingMode, new[] { "Single Frame", "Continuous" }, "Delay", null, "PC Control", "Exposure Bracketing", "Auto ISO", "White-Balance Bracketing", "IR Control");
+            return GetBitFlagDescription(NikonType2MakernoteDirectory.TagShootingMode,
+                new[] { "Single Frame", "Continuous" }, "Delay", null, "PC Control", "Exposure Bracketing", "Auto ISO", "White-Balance Bracketing", "IR Control");
         }
 
         // LSB [low label, high label]
         [CanBeNull]
         public string GetLensTypeDescription()
         {
-            return GetBitFlagDescription(NikonType2MakernoteDirectory.TagLensType, new[] { "AF", "MF" }, "D", "G", "VR");
+            return GetBitFlagDescription(NikonType2MakernoteDirectory.TagLensType,
+                new[] { "AF", "MF" }, "D", "G", "VR");
         }
 
         // LSB [low label, high label]
         [CanBeNull]
         public string GetColorSpaceDescription()
         {
-            return GetIndexedDescription(NikonType2MakernoteDirectory.TagColorSpace, 1, "sRGB", "Adobe RGB");
+            return GetIndexedDescription(NikonType2MakernoteDirectory.TagColorSpace,
+                1,
+                "sRGB", "Adobe RGB");
         }
 
         [CanBeNull]
@@ -214,42 +151,23 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(NikonType2MakernoteDirectory.TagActiveDLighting, out value))
                 return null;
+
             switch (value)
             {
                 case 0:
-                {
                     return "Off";
-                }
-
                 case 1:
-                {
                     return "Light";
-                }
-
                 case 3:
-                {
                     return "Normal";
-                }
-
                 case 5:
-                {
                     return "High";
-                }
-
                 case 7:
-                {
                     return "Extra High";
-                }
-
                 case 65535:
-                {
                     return "Auto";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
@@ -259,32 +177,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(NikonType2MakernoteDirectory.TagVignetteControl, out value))
                 return null;
+
             switch (value)
             {
                 case 0:
-                {
                     return "Off";
-                }
-
                 case 1:
-                {
                     return "Low";
-                }
-
                 case 3:
-                {
                     return "Normal";
-                }
-
                 case 5:
-                {
                     return "High";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
@@ -293,44 +198,25 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             var values = Directory.GetInt32Array(NikonType2MakernoteDirectory.TagAfFocusPosition);
             if (values == null)
-            {
                 return null;
-            }
+
             if (values.Length != 4 || values[0] != 0 || values[2] != 0 || values[3] != 0)
-            {
                 return "Unknown (" + Directory.GetString(NikonType2MakernoteDirectory.TagAfFocusPosition) + ")";
-            }
+
             switch (values[1])
             {
                 case 0:
-                {
                     return "Centre";
-                }
-
                 case 1:
-                {
                     return "Top";
-                }
-
                 case 2:
-                {
                     return "Bottom";
-                }
-
                 case 3:
-                {
                     return "Left";
-                }
-
                 case 4:
-                {
                     return "Right";
-                }
-
                 default:
-                {
                     return "Unknown (" + values[1] + ")";
-                }
             }
         }
 
@@ -339,10 +225,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             var value = Directory.GetRational(NikonType2MakernoteDirectory.TagDigitalZoom);
             if (value == null)
-            {
                 return null;
-            }
-            return value.ToInt32() == 1 ? "No digital zoom" : value.ToSimpleString(true) + "x digital zoom";
+
+            return value.ToInt32() == 1
+                ? "No digital zoom"
+                : value.ToSimpleString(true) + "x digital zoom";
         }
 
         [CanBeNull]
@@ -401,13 +288,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             var values = Directory.GetInt32Array(NikonType2MakernoteDirectory.TagIso1);
             if (values == null)
-            {
                 return null;
-            }
             if (values[0] != 0 || values[1] == 0)
-            {
                 return "Unknown (" + Directory.GetString(NikonType2MakernoteDirectory.TagIso1) + ")";
-            }
             return "ISO " + values[1];
         }
 

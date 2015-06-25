@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -32,21 +31,20 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     public class SonyType6MakernoteDirectory : Directory
     {
         public const int TagMakernoteThumbOffset = 0x0513;
-
         public const int TagMakernoteThumbLength = 0x0514;
-
+//      public const int TagUnknown1 = 0x0515;
         public const int TagMakernoteThumbVersion = 0x2000;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap;
 
         static SonyType6MakernoteDirectory()
         {
-            //    public static final int TAG_UNKNOWN_1 = 0x0515;
-            TagNameMap[TagMakernoteThumbOffset] = "Makernote Thumb Offset";
-            TagNameMap[TagMakernoteThumbLength] = "Makernote Thumb Length";
-            //        _tagNameMap.put(TAG_UNKNOWN_1, "Sony-6-0x0203");
-            TagNameMap[TagMakernoteThumbVersion] = "Makernote Thumb Version";
+            _tagNameMap = new Dictionary<int?, string>
+            {
+                { TagMakernoteThumbOffset, "Makernote Thumb Offset" },
+                { TagMakernoteThumbLength, "Makernote Thumb Length" },
+                { TagMakernoteThumbVersion, "Makernote Thumb Version" }
+            };
         }
 
         public SonyType6MakernoteDirectory()
@@ -61,7 +59,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

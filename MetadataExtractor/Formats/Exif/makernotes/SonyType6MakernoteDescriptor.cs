@@ -42,14 +42,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             switch (tagType)
             {
                 case SonyType6MakernoteDirectory.TagMakernoteThumbVersion:
-                {
                     return GetMakernoteThumbVersionDescription();
-                }
-
                 default:
-                {
                     return base.GetDescription(tagType);
-                }
             }
         }
 

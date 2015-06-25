@@ -28,10 +28,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>
     /// Provides human-readable string representations of tag values stored in a <see cref="RicohMakernoteDescriptor"/>.
-    /// <para />
+    /// </summary>
+    /// <remarks>
     /// Some information about this makernote taken from here:
     /// http://www.ozhiker.com/electronics/pjmt/jpeg_info/ricoh_mn.html
-    /// </summary>
+    /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class RicohMakernoteDescriptor : TagDescriptor<RicohMakernoteDirectory>
     {
@@ -46,24 +47,25 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             {
                 default:
                 {
-                    //            case TAG_PRINT_IMAGE_MATCHING_INFO:
-                    //                return getPrintImageMatchingInfoDescription();
-                    //            case TAG_PROPRIETARY_THUMBNAIL:
-                    //                return getProprietaryThumbnailDataDescription();
+//                  case RicohMakernoteDirectory.TagPrintImageMatchingInfo:
+//                      return GetPrintImageMatchingInfoDescription();
+//                  case RicohMakernoteDirectory.TagProprietaryThumbnail:
+//                      return GetProprietaryThumbnailDataDescription();
                     return base.GetDescription(tagType);
                 }
             }
         }
-        //    @Nullable
-        //    public String getPrintImageMatchingInfoDescription()
-        //    {
-        //        return getByteLengthDescription(TAG_PRINT_IMAGE_MATCHING_INFO);
-        //    }
-        //
-        //    @Nullable
-        //    public String getProprietaryThumbnailDataDescription()
-        //    {
-        //        return getByteLengthDescription(TAG_PROPRIETARY_THUMBNAIL);
-        //    }
+
+//        [CanBeNull]
+//        public string GetPrintImageMatchingInfoDescription()
+//        {
+//            return GetByteLengthDescription(RicohMakernoteDirectory.TagPrintImageMatchingInfo);
+//        }
+//
+//        [CanBeNull]
+//        public string GetProprietaryThumbnailDataDescription()
+//        {
+//            return GetByteLengthDescription(RicohMakernoteDirectory.TagProprietaryThumbnail);
+//        }
     }
 }

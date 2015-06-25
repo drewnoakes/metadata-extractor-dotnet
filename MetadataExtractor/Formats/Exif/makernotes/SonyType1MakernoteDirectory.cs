@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -32,121 +31,63 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     public class SonyType1MakernoteDirectory : Directory
     {
         public const int TagCameraInfo = 0x0010;
-
         public const int TagFocusInfo = 0x0020;
-
         public const int TagImageQuality = 0x0102;
-
         public const int TagFlashExposureComp = 0x0104;
-
         public const int TagTeleconverter = 0x0105;
-
         public const int TagWhiteBalanceFineTune = 0x0112;
-
         public const int TagCameraSettings = 0x0114;
-
         public const int TagWhiteBalance = 0x0115;
-
         public const int TagExtraInfo = 0x0116;
-
         public const int TagPrintImageMatchingInfo = 0x0E00;
-
         public const int TagMultiBurstMode = 0x1000;
-
         public const int TagMultiBurstImageWidth = 0x1001;
-
         public const int TagMultiBurstImageHeight = 0x1002;
-
         public const int TagPanorama = 0x1003;
-
         public const int TagPreviewImage = 0x2001;
-
         public const int TagRating = 0x2002;
-
         public const int TagContrast = 0x2004;
-
         public const int TagSaturation = 0x2005;
-
         public const int TagSharpness = 0x2006;
-
         public const int TagBrightness = 0x2007;
-
         public const int TagLongExposureNoiseReduction = 0x2008;
-
         public const int TagHighIsoNoiseReduction = 0x2009;
-
         public const int TagHdr = 0x200a;
-
         public const int TagMultiFrameNoiseReduction = 0x200b;
-
         public const int TagPictureEffect = 0x200e;
-
         public const int TagSoftSkinEffect = 0x200f;
-
         public const int TagVignettingCorrection = 0x2011;
-
         public const int TagLateralChromaticAberration = 0x2012;
-
         public const int TagDistortionCorrection = 0x2013;
-
         public const int TagWbShiftAmberMagenta = 0x2014;
-
         public const int TagAutoPortraitFramed = 0x2016;
-
         public const int TagFocusMode = 0x201b;
-
         public const int TagAfPointSelected = 0x201e;
-
         public const int TagShotInfo = 0x3000;
-
         public const int TagFileFormat = 0xb000;
-
         public const int TagSonyModelId = 0xb001;
-
         public const int TagColorModeSetting = 0xb020;
-
         public const int TagColorTemperature = 0xb021;
-
         public const int TagColorCompensationFilter = 0xb022;
-
         public const int TagSceneMode = 0xb023;
-
         public const int TagZoneMatching = 0xb024;
-
         public const int TagDynamicRangeOptimiser = 0xb025;
-
         public const int TagImageStabilisation = 0xb026;
-
         public const int TagLensId = 0xb027;
-
         public const int TagMinoltaMakernote = 0xb028;
-
         public const int TagColorMode = 0xb029;
-
         public const int TagLensSpec = 0xb02a;
-
         public const int TagFullImageSize = 0xb02b;
-
         public const int TagPreviewImageSize = 0xb02c;
-
         public const int TagMacro = 0xb040;
-
         public const int TagExposureMode = 0xb041;
-
         public const int TagFocusMode2 = 0xb042;
-
         public const int TagAfMode = 0xb043;
-
         public const int TagAfIlluminator = 0xb044;
-
         public const int TagJpegQuality = 0xb047;
-
         public const int TagFlashLevel = 0xb048;
-
         public const int TagReleaseMode = 0xb049;
-
         public const int TagSequenceNumber = 0xb04a;
-
         public const int TagAntiBlur = 0xb04b;
 
         /// <summary>
@@ -165,85 +106,83 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagLongExposureNoiseReductionOrFocusMode = 0xb04e;
 
         public const int TagDynamicRangeOptimizer = 0xb04f;
-
         public const int TagHighIsoNoiseReduction2 = 0xb050;
-
         public const int TagIntelligentAuto = 0xb052;
-
         public const int TagWhiteBalance2 = 0xb054;
-
         public const int TagNoPrint = 0xFFFF;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap;
 
         static SonyType1MakernoteDirectory()
         {
-            TagNameMap[TagCameraInfo] = "Camera Info";
-            TagNameMap[TagFocusInfo] = "Focus Info";
-            TagNameMap[TagImageQuality] = "Image Quality";
-            TagNameMap[TagFlashExposureComp] = "Flash Exposure Compensation";
-            TagNameMap[TagTeleconverter] = "Teleconverter Model";
-            TagNameMap[TagWhiteBalanceFineTune] = "White Balance Fine Tune Value";
-            TagNameMap[TagCameraSettings] = "Camera Settings";
-            TagNameMap[TagWhiteBalance] = "White Balance";
-            TagNameMap[TagExtraInfo] = "Extra Info";
-            TagNameMap[TagPrintImageMatchingInfo] = "Print Image Matching Info";
-            TagNameMap[TagMultiBurstMode] = "Multi Burst Mode";
-            TagNameMap[TagMultiBurstImageWidth] = "Multi Burst Image Width";
-            TagNameMap[TagMultiBurstImageHeight] = "Multi Burst Image Height";
-            TagNameMap[TagPanorama] = "Panorama";
-            TagNameMap[TagPreviewImage] = "Preview Image";
-            TagNameMap[TagRating] = "Rating";
-            TagNameMap[TagContrast] = "Contrast";
-            TagNameMap[TagSaturation] = "Saturation";
-            TagNameMap[TagSharpness] = "Sharpness";
-            TagNameMap[TagBrightness] = "Brightness";
-            TagNameMap[TagLongExposureNoiseReduction] = "Long Exposure Noise Reduction";
-            TagNameMap[TagHighIsoNoiseReduction] = "High ISO Noise Reduction";
-            TagNameMap[TagHdr] = "HDR";
-            TagNameMap[TagMultiFrameNoiseReduction] = "Multi Frame Noise Reduction";
-            TagNameMap[TagPictureEffect] = "Picture Effect";
-            TagNameMap[TagSoftSkinEffect] = "Soft Skin Effect";
-            TagNameMap[TagVignettingCorrection] = "Vignetting Correction";
-            TagNameMap[TagLateralChromaticAberration] = "Lateral Chromatic Aberration";
-            TagNameMap[TagDistortionCorrection] = "Distortion Correction";
-            TagNameMap[TagWbShiftAmberMagenta] = "WB Shift Amber/Magenta";
-            TagNameMap[TagAutoPortraitFramed] = "Auto Portrait Framing";
-            TagNameMap[TagFocusMode] = "Focus Mode";
-            TagNameMap[TagAfPointSelected] = "AF Point Selected";
-            TagNameMap[TagShotInfo] = "Shot Info";
-            TagNameMap[TagFileFormat] = "File Format";
-            TagNameMap[TagSonyModelId] = "Sony Model ID";
-            TagNameMap[TagColorModeSetting] = "Color Mode Setting";
-            TagNameMap[TagColorTemperature] = "Color Temperature";
-            TagNameMap[TagColorCompensationFilter] = "Color Compensation Filter";
-            TagNameMap[TagSceneMode] = "Scene Mode";
-            TagNameMap[TagZoneMatching] = "Zone Matching";
-            TagNameMap[TagDynamicRangeOptimiser] = "Dynamic Range Optimizer";
-            TagNameMap[TagImageStabilisation] = "Image Stabilisation";
-            TagNameMap[TagLensId] = "Lens ID";
-            TagNameMap[TagMinoltaMakernote] = "Minolta Makernote";
-            TagNameMap[TagColorMode] = "Color Mode";
-            TagNameMap[TagLensSpec] = "Lens Spec";
-            TagNameMap[TagFullImageSize] = "Full Image Size";
-            TagNameMap[TagPreviewImageSize] = "Preview Image Size";
-            TagNameMap[TagMacro] = "Macro";
-            TagNameMap[TagExposureMode] = "Exposure Mode";
-            TagNameMap[TagFocusMode2] = "Focus Mode";
-            TagNameMap[TagAfMode] = "AF Mode";
-            TagNameMap[TagAfIlluminator] = "AF Illuminator";
-            TagNameMap[TagJpegQuality] = "Quality";
-            TagNameMap[TagFlashLevel] = "Flash Level";
-            TagNameMap[TagReleaseMode] = "Release Mode";
-            TagNameMap[TagSequenceNumber] = "Sequence Number";
-            TagNameMap[TagAntiBlur] = "Anti Blur";
-            TagNameMap[TagLongExposureNoiseReductionOrFocusMode] = "Long Exposure Noise Reduction";
-            TagNameMap[TagDynamicRangeOptimizer] = "Dynamic Range Optimizer";
-            TagNameMap[TagHighIsoNoiseReduction2] = "High ISO Noise Reduction";
-            TagNameMap[TagIntelligentAuto] = "Intelligent Auto";
-            TagNameMap[TagWhiteBalance2] = "White Balance 2";
-            TagNameMap[TagNoPrint] = "No Print";
+            _tagNameMap = new Dictionary<int?, string>
+            {
+                { TagCameraInfo, "Camera Info" },
+                { TagFocusInfo, "Focus Info" },
+                { TagImageQuality, "Image Quality" },
+                { TagFlashExposureComp, "Flash Exposure Compensation" },
+                { TagTeleconverter, "Teleconverter Model" },
+                { TagWhiteBalanceFineTune, "White Balance Fine Tune Value" },
+                { TagCameraSettings, "Camera Settings" },
+                { TagWhiteBalance, "White Balance" },
+                { TagExtraInfo, "Extra Info" },
+                { TagPrintImageMatchingInfo, "Print Image Matching Info" },
+                { TagMultiBurstMode, "Multi Burst Mode" },
+                { TagMultiBurstImageWidth, "Multi Burst Image Width" },
+                { TagMultiBurstImageHeight, "Multi Burst Image Height" },
+                { TagPanorama, "Panorama" },
+                { TagPreviewImage, "Preview Image" },
+                { TagRating, "Rating" },
+                { TagContrast, "Contrast" },
+                { TagSaturation, "Saturation" },
+                { TagSharpness, "Sharpness" },
+                { TagBrightness, "Brightness" },
+                { TagLongExposureNoiseReduction, "Long Exposure Noise Reduction" },
+                { TagHighIsoNoiseReduction, "High ISO Noise Reduction" },
+                { TagHdr, "HDR" },
+                { TagMultiFrameNoiseReduction, "Multi Frame Noise Reduction" },
+                { TagPictureEffect, "Picture Effect" },
+                { TagSoftSkinEffect, "Soft Skin Effect" },
+                { TagVignettingCorrection, "Vignetting Correction" },
+                { TagLateralChromaticAberration, "Lateral Chromatic Aberration" },
+                { TagDistortionCorrection, "Distortion Correction" },
+                { TagWbShiftAmberMagenta, "WB Shift Amber/Magenta" },
+                { TagAutoPortraitFramed, "Auto Portrait Framing" },
+                { TagFocusMode, "Focus Mode" },
+                { TagAfPointSelected, "AF Point Selected" },
+                { TagShotInfo, "Shot Info" },
+                { TagFileFormat, "File Format" },
+                { TagSonyModelId, "Sony Model ID" },
+                { TagColorModeSetting, "Color Mode Setting" },
+                { TagColorTemperature, "Color Temperature" },
+                { TagColorCompensationFilter, "Color Compensation Filter" },
+                { TagSceneMode, "Scene Mode" },
+                { TagZoneMatching, "Zone Matching" },
+                { TagDynamicRangeOptimiser, "Dynamic Range Optimizer" },
+                { TagImageStabilisation, "Image Stabilisation" },
+                { TagLensId, "Lens ID" },
+                { TagMinoltaMakernote, "Minolta Makernote" },
+                { TagColorMode, "Color Mode" },
+                { TagLensSpec, "Lens Spec" },
+                { TagFullImageSize, "Full Image Size" },
+                { TagPreviewImageSize, "Preview Image Size" },
+                { TagMacro, "Macro" },
+                { TagExposureMode, "Exposure Mode" },
+                { TagFocusMode2, "Focus Mode" },
+                { TagAfMode, "AF Mode" },
+                { TagAfIlluminator, "AF Illuminator" },
+                { TagJpegQuality, "Quality" },
+                { TagFlashLevel, "Flash Level" },
+                { TagReleaseMode, "Release Mode" },
+                { TagSequenceNumber, "Sequence Number" },
+                { TagAntiBlur, "Anti Blur" },
+                { TagLongExposureNoiseReductionOrFocusMode, "Long Exposure Noise Reduction" },
+                { TagDynamicRangeOptimizer, "Dynamic Range Optimizer" },
+                { TagHighIsoNoiseReduction2, "High ISO Noise Reduction" },
+                { TagIntelligentAuto, "Intelligent Auto" },
+                { TagWhiteBalance2, "White Balance 2" },
+                { TagNoPrint, "No Print" }
+            };
         }
 
         public SonyType1MakernoteDirectory()
@@ -258,7 +197,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

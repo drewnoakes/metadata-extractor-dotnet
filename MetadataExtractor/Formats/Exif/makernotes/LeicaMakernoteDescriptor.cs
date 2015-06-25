@@ -44,53 +44,27 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             switch (tagType)
             {
                 case LeicaMakernoteDirectory.TagQuality:
-                {
                     return GetQualityDescription();
-                }
-
                 case LeicaMakernoteDirectory.TagUserProfile:
-                {
                     return GetUserProfileDescription();
-                }
-
+//              case LeicaMakernoteDirectory.TagSerial:
+//                  return GetSerialNumberDescription();
                 case LeicaMakernoteDirectory.TagWhiteBalance:
-                {
-                    //            case TAG_SERIAL:
-                    //                return getSerialNumberDescription();
                     return GetWhiteBalanceDescription();
-                }
-
                 case LeicaMakernoteDirectory.TagExternalSensorBrightnessValue:
-                {
                     return GetExternalSensorBrightnessValueDescription();
-                }
-
-                case LeicaMakernoteDirectory.TagMeasuredLv:
-                {
-                    return GetMeasuredLvDescription();
-                }
-
+                case LeicaMakernoteDirectory.TagMeasuredLV:
+                    return GetMeasuredLVDescription();
                 case LeicaMakernoteDirectory.TagApproximateFNumber:
-                {
                     return GetApproximateFNumberDescription();
-                }
-
                 case LeicaMakernoteDirectory.TagCameraTemperature:
-                {
                     return GetCameraTemperatureDescription();
-                }
-
                 case LeicaMakernoteDirectory.TagWbRedLevel:
                 case LeicaMakernoteDirectory.TagWbBlueLevel:
                 case LeicaMakernoteDirectory.TagWbGreenLevel:
-                {
                     return GetSimpleRational(tagType);
-                }
-
                 default:
-                {
                     return base.GetDescription(tagType);
-                }
             }
         }
 
@@ -107,9 +81,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         }
 
         [CanBeNull]
-        private string GetMeasuredLvDescription()
+        private string GetMeasuredLVDescription()
         {
-            return GetSimpleRational(LeicaMakernoteDirectory.TagMeasuredLv);
+            return GetSimpleRational(LeicaMakernoteDirectory.TagMeasuredLV);
         }
 
         [CanBeNull]
@@ -121,19 +95,24 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         private string GetWhiteBalanceDescription()
         {
-            return GetIndexedDescription(LeicaMakernoteDirectory.TagWhiteBalance, "Auto or Manual", "Daylight", "Fluorescent", "Tungsten", "Flash", "Cloudy", "Shadow");
+            return GetIndexedDescription(LeicaMakernoteDirectory.TagWhiteBalance,
+                "Auto or Manual", "Daylight", "Fluorescent", "Tungsten", "Flash", "Cloudy", "Shadow");
         }
 
         [CanBeNull]
         private string GetUserProfileDescription()
         {
-            return GetIndexedDescription(LeicaMakernoteDirectory.TagQuality, 1, "User Profile 1", "User Profile 2", "User Profile 3", "User Profile 0 (Dynamic)");
+            return GetIndexedDescription(LeicaMakernoteDirectory.TagQuality,
+                1,
+                "User Profile 1", "User Profile 2", "User Profile 3", "User Profile 0 (Dynamic)");
         }
 
         [CanBeNull]
         private string GetQualityDescription()
         {
-            return GetIndexedDescription(LeicaMakernoteDirectory.TagQuality, 1, "Fine", "Basic");
+            return GetIndexedDescription(LeicaMakernoteDirectory.TagQuality,
+                1,
+                "Fine", "Basic");
         }
     }
 }

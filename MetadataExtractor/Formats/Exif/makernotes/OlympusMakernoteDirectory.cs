@@ -130,13 +130,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagDigiZoomRatio = 0x0204;
 
         public const int TagFocalPlaneDiagonal = 0x0205;
-
         public const int TagLensDistortionParameters = 0x0206;
-
         public const int TagFirmwareVersion = 0x0207;
-
         public const int TagPictInfo = 0x0208;
-
         public const int TagCameraId = 0x0209;
 
         /// <summary>
@@ -156,19 +152,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagOriginalManufacturerModel = 0x020D;
 
         public const int TagPreviewImage = 0x0280;
-
         public const int TagPreCaptureFrames = 0x0300;
-
         public const int TagWhiteBoard = 0x0301;
-
         public const int TagOneTouchWb = 0x0302;
-
         public const int TagWhiteBalanceBracket = 0x0303;
-
         public const int TagWhiteBalanceBias = 0x0304;
-
         public const int TagSceneMode = 0x0403;
-
         public const int TagFirmware = 0x0404;
 
         /// <summary>
@@ -178,366 +167,254 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagPrintImageMatchingInfo = 0x0E00;
 
         public const int TagDataDump1 = 0x0F00;
-
         public const int TagDataDump2 = 0x0F01;
-
         public const int TagShutterSpeedValue = 0x1000;
-
         public const int TagIsoValue = 0x1001;
-
         public const int TagApertureValue = 0x1002;
-
         public const int TagBrightnessValue = 0x1003;
-
         public const int TagFlashMode = 0x1004;
-
         public const int TagFlashDevice = 0x1005;
-
         public const int TagBracket = 0x1006;
-
         public const int TagSensorTemperature = 0x1007;
-
         public const int TagLensTemperature = 0x1008;
-
         public const int TagLightCondition = 0x1009;
-
         public const int TagFocusRange = 0x100A;
-
         public const int TagFocusMode = 0x100B;
-
         public const int TagFocusDistance = 0x100C;
-
         public const int TagZoom = 0x100D;
-
         public const int TagMacroFocus = 0x100E;
-
         public const int TagSharpness = 0x100F;
-
         public const int TagFlashChargeLevel = 0x1010;
-
         public const int TagColourMatrix = 0x1011;
-
         public const int TagBlackLevel = 0x1012;
-
         public const int TagWhiteBalance = 0x1015;
-
         public const int TagRedBias = 0x1017;
-
         public const int TagBlueBias = 0x1018;
-
         public const int TagColorMatrixNumber = 0x1019;
-
         public const int TagSerialNumber = 0x101A;
-
         public const int TagFlashBias = 0x1023;
-
         public const int TagExternalFlashBounce = 0x1026;
-
         public const int TagExternalFlashZoom = 0x1027;
-
         public const int TagExternalFlashMode = 0x1028;
-
         public const int TagContrast = 0x1029;
-
         public const int TagSharpnessFactor = 0x102A;
-
         public const int TagColourControl = 0x102B;
-
         public const int TagValidBits = 0x102C;
-
         public const int TagCoringFilter = 0x102D;
-
         public const int TagFinalWidth = 0x102E;
-
         public const int TagFinalHeight = 0x102F;
-
         public const int TagCompressionRatio = 0x1034;
-
         public const int TagThumbnail = 0x1035;
-
         public const int TagThumbnailOffset = 0x1036;
-
         public const int TagThumbnailLength = 0x1037;
-
         public const int TagCcdScanMode = 0x1039;
-
         public const int TagNoiseReduction = 0x103A;
-
         public const int TagInfinityLensStep = 0x103B;
-
         public const int TagNearLensStep = 0x103C;
-
         public const int TagEquipment = 0x2010;
-
         public const int TagCameraSettings = 0x2020;
-
         public const int TagRawDevelopment = 0x2030;
-
         public const int TagRawDevelopment2 = 0x2031;
-
         public const int TagImageProcessing = 0x2040;
-
         public const int TagFocusInfo = 0x2050;
-
         public const int TagRawInfo = 0x3000;
 
+        // These 'sub'-tag values have been created for consistency -- they don't exist within the Makernote IFD
         public static class CameraSettings
         {
             internal const int Offset = 0xF000;
 
             public const int TagExposureMode = Offset + 2;
-
             public const int TagFlashMode = Offset + 3;
-
             public const int TagWhiteBalance = Offset + 4;
-
             public const int TagImageSize = Offset + 5;
-
             public const int TagImageQuality = Offset + 6;
-
             public const int TagShootingMode = Offset + 7;
-
             public const int TagMeteringMode = Offset + 8;
-
             public const int TagApexFilmSpeedValue = Offset + 9;
-
             public const int TagApexShutterSpeedTimeValue = Offset + 10;
-
             public const int TagApexApertureValue = Offset + 11;
-
             public const int TagMacroMode = Offset + 12;
-
             public const int TagDigitalZoom = Offset + 13;
-
             public const int TagExposureCompensation = Offset + 14;
-
             public const int TagBracketStep = Offset + 15;
-
-            public const int TagIntervalLength = Offset + 17;
-
-            public const int TagIntervalNumber = Offset + 18;
-
-            public const int TagFocalLength = Offset + 19;
-
-            public const int TagFocusDistance = Offset + 20;
-
-            public const int TagFlashFired = Offset + 21;
-
-            public const int TagDate = Offset + 22;
-
-            public const int TagTime = Offset + 23;
-
-            public const int TagMaxApertureAtFocalLength = Offset + 24;
-
-            public const int TagFileNumberMemory = Offset + 27;
-
-            public const int TagLastFileNumber = Offset + 28;
-
-            public const int TagWhiteBalanceRed = Offset + 29;
-
-            public const int TagWhiteBalanceGreen = Offset + 30;
-
-            public const int TagWhiteBalanceBlue = Offset + 31;
-
-            public const int TagSaturation = Offset + 32;
-
-            public const int TagContrast = Offset + 33;
-
-            public const int TagSharpness = Offset + 34;
-
-            public const int TagSubjectProgram = Offset + 35;
-
-            public const int TagFlashCompensation = Offset + 36;
-
-            public const int TagIsoSetting = Offset + 37;
-
-            public const int TagCameraModel = Offset + 38;
-
-            public const int TagIntervalMode = Offset + 39;
-
-            public const int TagFolderName = Offset + 40;
-
-            public const int TagColorMode = Offset + 41;
-
-            public const int TagColorFilter = Offset + 42;
-
-            public const int TagBlackAndWhiteFilter = Offset + 43;
-
-            public const int TagInternalFlash = Offset + 44;
-
-            public const int TagApexBrightnessValue = Offset + 45;
-
-            public const int TagSpotFocusPointXCoordinate = Offset + 46;
-
-            public const int TagSpotFocusPointYCoordinate = Offset + 47;
-
-            public const int TagWideFocusZone = Offset + 48;
-
-            public const int TagFocusMode = Offset + 49;
-
-            public const int TagFocusArea = Offset + 50;
-
-            public const int TagDecSwitchPosition = Offset + 51;
-            //    public static final int TAG_ = 0x1013;
-            //    public static final int TAG_ = 0x1014;
-            //    public static final int TAG_ = 0x1016;
-            //    public static final int TAG_ = 0x101B;
-            //    public static final int TAG_ = 0x101C;
-            //    public static final int TAG_ = 0x101D;
-            //    public static final int TAG_ = 0x101E;
-            //    public static final int TAG_ = 0x101F;
-            //    public static final int TAG_ = 0x1020;
-            //    public static final int TAG_ = 0x1021;
-            //    public static final int TAG_ = 0x1022;
-            //    public static final int TAG_ = 0x1024;
-            //    public static final int TAG_ = 0x1025;
-            //    public static final int TAG_ = 0x1030;
-            //    public static final int TAG_ = 0x1031;
-            //    public static final int TAG_ = 0x1032;
-            //    public static final int TAG_ = 0x1033;
-            //    public static final int TAG_ = 0x1038;
-            // These 'sub'-tag values have been created for consistency -- they don't exist within the Makernote IFD
             // 16 missing
+            public const int TagIntervalLength = Offset + 17;
+            public const int TagIntervalNumber = Offset + 18;
+            public const int TagFocalLength = Offset + 19;
+            public const int TagFocusDistance = Offset + 20;
+            public const int TagFlashFired = Offset + 21;
+            public const int TagDate = Offset + 22;
+            public const int TagTime = Offset + 23;
+            public const int TagMaxApertureAtFocalLength = Offset + 24;
             // 25, 26 missing
+            public const int TagFileNumberMemory = Offset + 27;
+            public const int TagLastFileNumber = Offset + 28;
+            public const int TagWhiteBalanceRed = Offset + 29;
+            public const int TagWhiteBalanceGreen = Offset + 30;
+            public const int TagWhiteBalanceBlue = Offset + 31;
+            public const int TagSaturation = Offset + 32;
+            public const int TagContrast = Offset + 33;
+            public const int TagSharpness = Offset + 34;
+            public const int TagSubjectProgram = Offset + 35;
+            public const int TagFlashCompensation = Offset + 36;
+            public const int TagIsoSetting = Offset + 37;
+            public const int TagCameraModel = Offset + 38;
+            public const int TagIntervalMode = Offset + 39;
+            public const int TagFolderName = Offset + 40;
+            public const int TagColorMode = Offset + 41;
+            public const int TagColorFilter = Offset + 42;
+            public const int TagBlackAndWhiteFilter = Offset + 43;
+            public const int TagInternalFlash = Offset + 44;
+            public const int TagApexBrightnessValue = Offset + 45;
+            public const int TagSpotFocusPointXCoordinate = Offset + 46;
+            public const int TagSpotFocusPointYCoordinate = Offset + 47;
+            public const int TagWideFocusZone = Offset + 48;
+            public const int TagFocusMode = Offset + 49;
+            public const int TagFocusArea = Offset + 50;
+            public const int TagDecSwitchPosition = Offset + 51;
         }
 
-        [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap;
 
         static OlympusMakernoteDirectory()
         {
-            TagNameMap[TagMakernoteVersion] = "Makernote Version";
-            TagNameMap[TagCameraSettings1] = "Camera Settings";
-            TagNameMap[TagCameraSettings2] = "Camera Settings";
-            TagNameMap[TagCompressedImageSize] = "Compressed Image Size";
-            TagNameMap[TagMinoltaThumbnailOffset1] = "Thumbnail Offset";
-            TagNameMap[TagMinoltaThumbnailOffset2] = "Thumbnail Offset";
-            TagNameMap[TagMinoltaThumbnailLength] = "Thumbnail Length";
-            TagNameMap[TagThumbnailImage] = "Thumbnail Image";
-            TagNameMap[TagColourMode] = "Colour Mode";
-            TagNameMap[TagImageQuality1] = "Image Quality";
-            TagNameMap[TagImageQuality2] = "Image Quality";
-            TagNameMap[TagBodyFirmwareVersion] = "Body Firmware Version";
-            TagNameMap[TagSpecialMode] = "Special Mode";
-            TagNameMap[TagJpegQuality] = "JPEG Quality";
-            TagNameMap[TagMacroMode] = "Macro";
-            TagNameMap[TagBwMode] = "BW Mode";
-            TagNameMap[TagDigiZoomRatio] = "DigiZoom Ratio";
-            TagNameMap[TagFocalPlaneDiagonal] = "Focal Plane Diagonal";
-            TagNameMap[TagLensDistortionParameters] = "Lens Distortion Parameters";
-            TagNameMap[TagFirmwareVersion] = "Firmware Version";
-            TagNameMap[TagPictInfo] = "Pict Info";
-            TagNameMap[TagCameraId] = "Camera Id";
-            TagNameMap[TagImageWidth] = "Image Width";
-            TagNameMap[TagImageHeight] = "Image Height";
-            TagNameMap[TagOriginalManufacturerModel] = "Original Manufacturer Model";
-            TagNameMap[TagPreviewImage] = "Preview Image";
-            TagNameMap[TagPreCaptureFrames] = "Pre Capture Frames";
-            TagNameMap[TagWhiteBoard] = "White Board";
-            TagNameMap[TagOneTouchWb] = "One Touch WB";
-            TagNameMap[TagWhiteBalanceBracket] = "White Balance Bracket";
-            TagNameMap[TagWhiteBalanceBias] = "White Balance Bias";
-            TagNameMap[TagSceneMode] = "Scene Mode";
-            TagNameMap[TagFirmware] = "Firmware";
-            TagNameMap[TagPrintImageMatchingInfo] = "Print Image Matching (PIM) Info";
-            TagNameMap[TagDataDump1] = "Data Dump";
-            TagNameMap[TagDataDump2] = "Data Dump 2";
-            TagNameMap[TagShutterSpeedValue] = "Shutter Speed Value";
-            TagNameMap[TagIsoValue] = "ISO Value";
-            TagNameMap[TagApertureValue] = "Aperture Value";
-            TagNameMap[TagBrightnessValue] = "Brightness Value";
-            TagNameMap[TagFlashMode] = "Flash Mode";
-            TagNameMap[TagFlashDevice] = "Flash Device";
-            TagNameMap[TagBracket] = "Bracket";
-            TagNameMap[TagSensorTemperature] = "Sensor Temperature";
-            TagNameMap[TagLensTemperature] = "Lens Temperature";
-            TagNameMap[TagLightCondition] = "Light Condition";
-            TagNameMap[TagFocusRange] = "Focus Range";
-            TagNameMap[TagFocusMode] = "Focus Mode";
-            TagNameMap[TagFocusDistance] = "Focus Distance";
-            TagNameMap[TagZoom] = "Zoom";
-            TagNameMap[TagMacroFocus] = "Macro Focus";
-            TagNameMap[TagSharpness] = "Sharpness";
-            TagNameMap[TagFlashChargeLevel] = "Flash Charge Level";
-            TagNameMap[TagColourMatrix] = "Colour Matrix";
-            TagNameMap[TagBlackLevel] = "Black Level";
-            TagNameMap[TagWhiteBalance] = "White Balance";
-            TagNameMap[TagRedBias] = "Red Bias";
-            TagNameMap[TagBlueBias] = "Blue Bias";
-            TagNameMap[TagColorMatrixNumber] = "Color Matrix Number";
-            TagNameMap[TagSerialNumber] = "Serial Number";
-            TagNameMap[TagFlashBias] = "Flash Bias";
-            TagNameMap[TagExternalFlashBounce] = "External Flash Bounce";
-            TagNameMap[TagExternalFlashZoom] = "External Flash Zoom";
-            TagNameMap[TagExternalFlashMode] = "External Flash Mode";
-            TagNameMap[TagContrast] = "Contrast";
-            TagNameMap[TagSharpnessFactor] = "Sharpness Factor";
-            TagNameMap[TagColourControl] = "Colour Control";
-            TagNameMap[TagValidBits] = "Valid Bits";
-            TagNameMap[TagCoringFilter] = "Coring Filter";
-            TagNameMap[TagFinalWidth] = "Final Width";
-            TagNameMap[TagFinalHeight] = "Final Height";
-            TagNameMap[TagCompressionRatio] = "Compression Ratio";
-            TagNameMap[TagThumbnail] = "Thumbnail";
-            TagNameMap[TagThumbnailOffset] = "Thumbnail Offset";
-            TagNameMap[TagThumbnailLength] = "Thumbnail Length";
-            TagNameMap[TagCcdScanMode] = "CCD Scan Mode";
-            TagNameMap[TagNoiseReduction] = "Noise Reduction";
-            TagNameMap[TagInfinityLensStep] = "Infinity Lens Step";
-            TagNameMap[TagNearLensStep] = "Near Lens Step";
-            TagNameMap[TagEquipment] = "Equipment";
-            TagNameMap[TagCameraSettings] = "Camera Settings";
-            TagNameMap[TagRawDevelopment] = "Raw Development";
-            TagNameMap[TagRawDevelopment2] = "Raw Development 2";
-            TagNameMap[TagImageProcessing] = "Image Processing";
-            TagNameMap[TagFocusInfo] = "Focus Info";
-            TagNameMap[TagRawInfo] = "Raw Info";
-            TagNameMap[CameraSettings.TagExposureMode] = "Exposure Mode";
-            TagNameMap[CameraSettings.TagFlashMode] = "Flash Mode";
-            TagNameMap[CameraSettings.TagWhiteBalance] = "White Balance";
-            TagNameMap[CameraSettings.TagImageSize] = "Image Size";
-            TagNameMap[CameraSettings.TagImageQuality] = "Image Quality";
-            TagNameMap[CameraSettings.TagShootingMode] = "Shooting Mode";
-            TagNameMap[CameraSettings.TagMeteringMode] = "Metering Mode";
-            TagNameMap[CameraSettings.TagApexFilmSpeedValue] = "Apex Film Speed Value";
-            TagNameMap[CameraSettings.TagApexShutterSpeedTimeValue] = "Apex Shutter Speed Time Value";
-            TagNameMap[CameraSettings.TagApexApertureValue] = "Apex Aperture Value";
-            TagNameMap[CameraSettings.TagMacroMode] = "Macro Mode";
-            TagNameMap[CameraSettings.TagDigitalZoom] = "Digital Zoom";
-            TagNameMap[CameraSettings.TagExposureCompensation] = "Exposure Compensation";
-            TagNameMap[CameraSettings.TagBracketStep] = "Bracket Step";
-            TagNameMap[CameraSettings.TagIntervalLength] = "Interval Length";
-            TagNameMap[CameraSettings.TagIntervalNumber] = "Interval Number";
-            TagNameMap[CameraSettings.TagFocalLength] = "Focal Length";
-            TagNameMap[CameraSettings.TagFocusDistance] = "Focus Distance";
-            TagNameMap[CameraSettings.TagFlashFired] = "Flash Fired";
-            TagNameMap[CameraSettings.TagDate] = "Date";
-            TagNameMap[CameraSettings.TagTime] = "Time";
-            TagNameMap[CameraSettings.TagMaxApertureAtFocalLength] = "Max Aperture at Focal Length";
-            TagNameMap[CameraSettings.TagFileNumberMemory] = "File Number Memory";
-            TagNameMap[CameraSettings.TagLastFileNumber] = "Last File Number";
-            TagNameMap[CameraSettings.TagWhiteBalanceRed] = "White Balance Red";
-            TagNameMap[CameraSettings.TagWhiteBalanceGreen] = "White Balance Green";
-            TagNameMap[CameraSettings.TagWhiteBalanceBlue] = "White Balance Blue";
-            TagNameMap[CameraSettings.TagSaturation] = "Saturation";
-            TagNameMap[CameraSettings.TagContrast] = "Contrast";
-            TagNameMap[CameraSettings.TagSharpness] = "Sharpness";
-            TagNameMap[CameraSettings.TagSubjectProgram] = "Subject Program";
-            TagNameMap[CameraSettings.TagFlashCompensation] = "Flash Compensation";
-            TagNameMap[CameraSettings.TagIsoSetting] = "ISO Setting";
-            TagNameMap[CameraSettings.TagCameraModel] = "Camera Model";
-            TagNameMap[CameraSettings.TagIntervalMode] = "Interval Mode";
-            TagNameMap[CameraSettings.TagFolderName] = "Folder Name";
-            TagNameMap[CameraSettings.TagColorMode] = "Color Mode";
-            TagNameMap[CameraSettings.TagColorFilter] = "Color Filter";
-            TagNameMap[CameraSettings.TagBlackAndWhiteFilter] = "Black and White Filter";
-            TagNameMap[CameraSettings.TagInternalFlash] = "Internal Flash";
-            TagNameMap[CameraSettings.TagApexBrightnessValue] = "Apex Brightness Value";
-            TagNameMap[CameraSettings.TagSpotFocusPointXCoordinate] = "Spot Focus Point X Coordinate";
-            TagNameMap[CameraSettings.TagSpotFocusPointYCoordinate] = "Spot Focus Point Y Coordinate";
-            TagNameMap[CameraSettings.TagWideFocusZone] = "Wide Focus Zone";
-            TagNameMap[CameraSettings.TagFocusMode] = "Focus Mode";
-            TagNameMap[CameraSettings.TagFocusArea] = "Focus Area";
-            TagNameMap[CameraSettings.TagDecSwitchPosition] = "DEC Switch Position";
+            _tagNameMap = new Dictionary<int?, string>
+            {
+                { TagMakernoteVersion, "Makernote Version" },
+                { TagCameraSettings1, "Camera Settings" },
+                { TagCameraSettings2, "Camera Settings" },
+                { TagCompressedImageSize, "Compressed Image Size" },
+                { TagMinoltaThumbnailOffset1, "Thumbnail Offset" },
+                { TagMinoltaThumbnailOffset2, "Thumbnail Offset" },
+                { TagMinoltaThumbnailLength, "Thumbnail Length" },
+                { TagThumbnailImage, "Thumbnail Image" },
+                { TagColourMode, "Colour Mode" },
+                { TagImageQuality1, "Image Quality" },
+                { TagImageQuality2, "Image Quality" },
+                { TagBodyFirmwareVersion, "Body Firmware Version" },
+                { TagSpecialMode, "Special Mode" },
+                { TagJpegQuality, "JPEG Quality" },
+                { TagMacroMode, "Macro" },
+                { TagBwMode, "BW Mode" },
+                { TagDigiZoomRatio, "DigiZoom Ratio" },
+                { TagFocalPlaneDiagonal, "Focal Plane Diagonal" },
+                { TagLensDistortionParameters, "Lens Distortion Parameters" },
+                { TagFirmwareVersion, "Firmware Version" },
+                { TagPictInfo, "Pict Info" },
+                { TagCameraId, "Camera Id" },
+                { TagImageWidth, "Image Width" },
+                { TagImageHeight, "Image Height" },
+                { TagOriginalManufacturerModel, "Original Manufacturer Model" },
+                { TagPreviewImage, "Preview Image" },
+                { TagPreCaptureFrames, "Pre Capture Frames" },
+                { TagWhiteBoard, "White Board" },
+                { TagOneTouchWb, "One Touch WB" },
+                { TagWhiteBalanceBracket, "White Balance Bracket" },
+                { TagWhiteBalanceBias, "White Balance Bias" },
+                { TagSceneMode, "Scene Mode" },
+                { TagFirmware, "Firmware" },
+                { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" },
+                { TagDataDump1, "Data Dump" },
+                { TagDataDump2, "Data Dump 2" },
+                { TagShutterSpeedValue, "Shutter Speed Value" },
+                { TagIsoValue, "ISO Value" },
+                { TagApertureValue, "Aperture Value" },
+                { TagBrightnessValue, "Brightness Value" },
+                { TagFlashMode, "Flash Mode" },
+                { TagFlashDevice, "Flash Device" },
+                { TagBracket, "Bracket" },
+                { TagSensorTemperature, "Sensor Temperature" },
+                { TagLensTemperature, "Lens Temperature" },
+                { TagLightCondition, "Light Condition" },
+                { TagFocusRange, "Focus Range" },
+                { TagFocusMode, "Focus Mode" },
+                { TagFocusDistance, "Focus Distance" },
+                { TagZoom, "Zoom" },
+                { TagMacroFocus, "Macro Focus" },
+                { TagSharpness, "Sharpness" },
+                { TagFlashChargeLevel, "Flash Charge Level" },
+                { TagColourMatrix, "Colour Matrix" },
+                { TagBlackLevel, "Black Level" },
+                { TagWhiteBalance, "White Balance" },
+                { TagRedBias, "Red Bias" },
+                { TagBlueBias, "Blue Bias" },
+                { TagColorMatrixNumber, "Color Matrix Number" },
+                { TagSerialNumber, "Serial Number" },
+                { TagFlashBias, "Flash Bias" },
+                { TagExternalFlashBounce, "External Flash Bounce" },
+                { TagExternalFlashZoom, "External Flash Zoom" },
+                { TagExternalFlashMode, "External Flash Mode" },
+                { TagContrast, "Contrast" },
+                { TagSharpnessFactor, "Sharpness Factor" },
+                { TagColourControl, "Colour Control" },
+                { TagValidBits, "Valid Bits" },
+                { TagCoringFilter, "Coring Filter" },
+                { TagFinalWidth, "Final Width" },
+                { TagFinalHeight, "Final Height" },
+                { TagCompressionRatio, "Compression Ratio" },
+                { TagThumbnail, "Thumbnail" },
+                { TagThumbnailOffset, "Thumbnail Offset" },
+                { TagThumbnailLength, "Thumbnail Length" },
+                { TagCcdScanMode, "CCD Scan Mode" },
+                { TagNoiseReduction, "Noise Reduction" },
+                { TagInfinityLensStep, "Infinity Lens Step" },
+                { TagNearLensStep, "Near Lens Step" },
+                { TagEquipment, "Equipment" },
+                { TagCameraSettings, "Camera Settings" },
+                { TagRawDevelopment, "Raw Development" },
+                { TagRawDevelopment2, "Raw Development 2" },
+                { TagImageProcessing, "Image Processing" },
+                { TagFocusInfo, "Focus Info" },
+                { TagRawInfo, "Raw Info" },
+                { CameraSettings.TagExposureMode, "Exposure Mode" },
+                { CameraSettings.TagFlashMode, "Flash Mode" },
+                { CameraSettings.TagWhiteBalance, "White Balance" },
+                { CameraSettings.TagImageSize, "Image Size" },
+                { CameraSettings.TagImageQuality, "Image Quality" },
+                { CameraSettings.TagShootingMode, "Shooting Mode" },
+                { CameraSettings.TagMeteringMode, "Metering Mode" },
+                { CameraSettings.TagApexFilmSpeedValue, "Apex Film Speed Value" },
+                { CameraSettings.TagApexShutterSpeedTimeValue, "Apex Shutter Speed Time Value" },
+                { CameraSettings.TagApexApertureValue, "Apex Aperture Value" },
+                { CameraSettings.TagMacroMode, "Macro Mode" },
+                { CameraSettings.TagDigitalZoom, "Digital Zoom" },
+                { CameraSettings.TagExposureCompensation, "Exposure Compensation" },
+                { CameraSettings.TagBracketStep, "Bracket Step" },
+                { CameraSettings.TagIntervalLength, "Interval Length" },
+                { CameraSettings.TagIntervalNumber, "Interval Number" },
+                { CameraSettings.TagFocalLength, "Focal Length" },
+                { CameraSettings.TagFocusDistance, "Focus Distance" },
+                { CameraSettings.TagFlashFired, "Flash Fired" },
+                { CameraSettings.TagDate, "Date" },
+                { CameraSettings.TagTime, "Time" },
+                { CameraSettings.TagMaxApertureAtFocalLength, "Max Aperture at Focal Length" },
+                { CameraSettings.TagFileNumberMemory, "File Number Memory" },
+                { CameraSettings.TagLastFileNumber, "Last File Number" },
+                { CameraSettings.TagWhiteBalanceRed, "White Balance Red" },
+                { CameraSettings.TagWhiteBalanceGreen, "White Balance Green" },
+                { CameraSettings.TagWhiteBalanceBlue, "White Balance Blue" },
+                { CameraSettings.TagSaturation, "Saturation" },
+                { CameraSettings.TagContrast, "Contrast" },
+                { CameraSettings.TagSharpness, "Sharpness" },
+                { CameraSettings.TagSubjectProgram, "Subject Program" },
+                { CameraSettings.TagFlashCompensation, "Flash Compensation" },
+                { CameraSettings.TagIsoSetting, "ISO Setting" },
+                { CameraSettings.TagCameraModel, "Camera Model" },
+                { CameraSettings.TagIntervalMode, "Interval Mode" },
+                { CameraSettings.TagFolderName, "Folder Name" },
+                { CameraSettings.TagColorMode, "Color Mode" },
+                { CameraSettings.TagColorFilter, "Color Filter" },
+                { CameraSettings.TagBlackAndWhiteFilter, "Black and White Filter" },
+                { CameraSettings.TagInternalFlash, "Internal Flash" },
+                { CameraSettings.TagApexBrightnessValue, "Apex Brightness Value" },
+                { CameraSettings.TagSpotFocusPointXCoordinate, "Spot Focus Point X Coordinate" },
+                { CameraSettings.TagSpotFocusPointYCoordinate, "Spot Focus Point Y Coordinate" },
+                { CameraSettings.TagWideFocusZone, "Wide Focus Zone" },
+                { CameraSettings.TagFocusMode, "Focus Mode" },
+                { CameraSettings.TagFocusArea, "Focus Area" },
+                { CameraSettings.TagDecSwitchPosition, "DEC Switch Position" }
+            };
         }
 
         public OlympusMakernoteDirectory()
@@ -564,13 +441,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             var reader = new SequentialByteArrayReader(bytes) { IsMotorolaByteOrder = true };
             var count = bytes.Length / 4;
+
             try
             {
                 for (var i = 0; i < count; i++)
-                {
-                    var value = reader.GetInt32();
-                    Set(CameraSettings.Offset + i, value);
-                }
+                    Set(CameraSettings.Offset + i, reader.GetInt32());
             }
             catch (IOException e)
             {
@@ -587,7 +462,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

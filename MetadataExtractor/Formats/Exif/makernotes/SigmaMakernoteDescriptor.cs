@@ -42,16 +42,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             switch (tagType)
             {
                 case SigmaMakernoteDirectory.TagExposureMode:
-                {
                     return GetExposureModeDescription();
-                }
-
                 case SigmaMakernoteDirectory.TagMeteringMode:
-                {
                     return GetMeteringModeDescription();
-                }
+                default:
+                    return base.GetDescription(tagType);
             }
-            return base.GetDescription(tagType);
         }
 
         [CanBeNull]
@@ -59,30 +55,18 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             var value = Directory.GetString(SigmaMakernoteDirectory.TagMeteringMode);
             if (string.IsNullOrEmpty(value))
-            {
                 return null;
-            }
+
             switch (value[0])
             {
                 case '8':
-                {
                     return "Multi Segment";
-                }
-
                 case 'A':
-                {
                     return "Average";
-                }
-
                 case 'C':
-                {
                     return "Center Weighted Average";
-                }
-
                 default:
-                {
                     return value;
-                }
             }
         }
 
@@ -91,35 +75,20 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             var value = Directory.GetString(SigmaMakernoteDirectory.TagExposureMode);
             if (string.IsNullOrEmpty(value))
-            {
                 return null;
-            }
+
             switch (value[0])
             {
                 case 'A':
-                {
                     return "Aperture Priority AE";
-                }
-
                 case 'M':
-                {
                     return "Manual";
-                }
-
                 case 'P':
-                {
                     return "Program AE";
-                }
-
                 case 'S':
-                {
                     return "Shutter Speed Priority AE";
-                }
-
                 default:
-                {
                     return value;
-                }
             }
         }
     }

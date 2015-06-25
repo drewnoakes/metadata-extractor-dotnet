@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -32,79 +31,59 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     public class SigmaMakernoteDirectory : Directory
     {
         public const int TagSerialNumber = 0x2;
-
         public const int TagDriveMode = 0x3;
-
         public const int TagResolutionMode = 0x4;
-
         public const int TagAutoFocusMode = 0x5;
-
         public const int TagFocusSetting = 0x6;
-
         public const int TagWhiteBalance = 0x7;
-
         public const int TagExposureMode = 0x8;
-
         public const int TagMeteringMode = 0x9;
-
         public const int TagLensRange = 0xa;
-
         public const int TagColorSpace = 0xb;
-
         public const int TagExposure = 0xc;
-
         public const int TagContrast = 0xd;
-
         public const int TagShadow = 0xe;
-
         public const int TagHighlight = 0xf;
-
         public const int TagSaturation = 0x10;
-
         public const int TagSharpness = 0x11;
-
         public const int TagFillLight = 0x12;
-
         public const int TagColorAdjustment = 0x14;
-
         public const int TagAdjustmentMode = 0x15;
-
         public const int TagQuality = 0x16;
-
         public const int TagFirmware = 0x17;
-
         public const int TagSoftware = 0x18;
-
         public const int TagAutoBracket = 0x19;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap;
 
         static SigmaMakernoteDirectory()
         {
-            TagNameMap[TagSerialNumber] = "Serial Number";
-            TagNameMap[TagDriveMode] = "Drive Mode";
-            TagNameMap[TagResolutionMode] = "Resolution Mode";
-            TagNameMap[TagAutoFocusMode] = "Auto Focus Mode";
-            TagNameMap[TagFocusSetting] = "Focus Setting";
-            TagNameMap[TagWhiteBalance] = "White Balance";
-            TagNameMap[TagExposureMode] = "Exposure Mode";
-            TagNameMap[TagMeteringMode] = "Metering Mode";
-            TagNameMap[TagLensRange] = "Lens Range";
-            TagNameMap[TagColorSpace] = "Color Space";
-            TagNameMap[TagExposure] = "Exposure";
-            TagNameMap[TagContrast] = "Contrast";
-            TagNameMap[TagShadow] = "Shadow";
-            TagNameMap[TagHighlight] = "Highlight";
-            TagNameMap[TagSaturation] = "Saturation";
-            TagNameMap[TagSharpness] = "Sharpness";
-            TagNameMap[TagFillLight] = "Fill Light";
-            TagNameMap[TagColorAdjustment] = "Color Adjustment";
-            TagNameMap[TagAdjustmentMode] = "Adjustment Mode";
-            TagNameMap[TagQuality] = "Quality";
-            TagNameMap[TagFirmware] = "Firmware";
-            TagNameMap[TagSoftware] = "Software";
-            TagNameMap[TagAutoBracket] = "Auto Bracket";
+            _tagNameMap = new Dictionary<int?, string>
+            {
+                { TagSerialNumber, "Serial Number" },
+                { TagDriveMode, "Drive Mode" },
+                { TagResolutionMode, "Resolution Mode" },
+                { TagAutoFocusMode, "Auto Focus Mode" },
+                { TagFocusSetting, "Focus Setting" },
+                { TagWhiteBalance, "White Balance" },
+                { TagExposureMode, "Exposure Mode" },
+                { TagMeteringMode, "Metering Mode" },
+                { TagLensRange, "Lens Range" },
+                { TagColorSpace, "Color Space" },
+                { TagExposure, "Exposure" },
+                { TagContrast, "Contrast" },
+                { TagShadow, "Shadow" },
+                { TagHighlight, "Highlight" },
+                { TagSaturation, "Saturation" },
+                { TagSharpness, "Sharpness" },
+                { TagFillLight, "Fill Light" },
+                { TagColorAdjustment, "Color Adjustment" },
+                { TagAdjustmentMode, "Adjustment Mode" },
+                { TagQuality, "Quality" },
+                { TagFirmware, "Firmware" },
+                { TagSoftware, "Software" },
+                { TagAutoBracket, "Auto Bracket" }
+            };
         }
 
         public SigmaMakernoteDirectory()
@@ -119,7 +98,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

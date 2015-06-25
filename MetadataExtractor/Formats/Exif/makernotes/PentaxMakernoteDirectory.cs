@@ -122,25 +122,27 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// <summary>(String).</summary>
         public const int TagDaylightSavings = 0x1001;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap;
 
         static PentaxMakernoteDirectory()
         {
-            TagNameMap[TagCaptureMode] = "Capture Mode";
-            TagNameMap[TagQualityLevel] = "Quality Level";
-            TagNameMap[TagFocusMode] = "Focus Mode";
-            TagNameMap[TagFlashMode] = "Flash Mode";
-            TagNameMap[TagWhiteBalance] = "White Balance";
-            TagNameMap[TagDigitalZoom] = "Digital Zoom";
-            TagNameMap[TagSharpness] = "Sharpness";
-            TagNameMap[TagContrast] = "Contrast";
-            TagNameMap[TagSaturation] = "Saturation";
-            TagNameMap[TagIsoSpeed] = "ISO Speed";
-            TagNameMap[TagColour] = "Colour";
-            TagNameMap[TagPrintImageMatchingInfo] = "Print Image Matching (PIM) Info";
-            TagNameMap[TagTimeZone] = "Time Zone";
-            TagNameMap[TagDaylightSavings] = "Daylight Savings";
+            _tagNameMap = new Dictionary<int?, string>
+            {
+                { TagCaptureMode, "Capture Mode" },
+                { TagQualityLevel, "Quality Level" },
+                { TagFocusMode, "Focus Mode" },
+                { TagFlashMode, "Flash Mode" },
+                { TagWhiteBalance, "White Balance" },
+                { TagDigitalZoom, "Digital Zoom" },
+                { TagSharpness, "Sharpness" },
+                { TagContrast, "Contrast" },
+                { TagSaturation, "Saturation" },
+                { TagIsoSpeed, "ISO Speed" },
+                { TagColour, "Colour" },
+                { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" },
+                { TagTimeZone, "Time Zone" },
+                { TagDaylightSavings, "Daylight Savings" }
+            };
         }
 
         public PentaxMakernoteDirectory()
@@ -155,7 +157,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

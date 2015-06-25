@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -43,43 +42,35 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     public class NikonType1MakernoteDirectory : Directory
     {
         public const int TagUnknown1 = 0x0002;
-
         public const int TagQuality = 0x0003;
-
         public const int TagColorMode = 0x0004;
-
         public const int TagImageAdjustment = 0x0005;
-
         public const int TagCcdSensitivity = 0x0006;
-
         public const int TagWhiteBalance = 0x0007;
-
         public const int TagFocus = 0x0008;
-
         public const int TagUnknown2 = 0x0009;
-
         public const int TagDigitalZoom = 0x000A;
-
         public const int TagConverter = 0x000B;
-
         public const int TagUnknown3 = 0x0F00;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap;
 
         static NikonType1MakernoteDirectory()
         {
-            TagNameMap[TagCcdSensitivity] = "CCD Sensitivity";
-            TagNameMap[TagColorMode] = "Color Mode";
-            TagNameMap[TagDigitalZoom] = "Digital Zoom";
-            TagNameMap[TagConverter] = "Fisheye Converter";
-            TagNameMap[TagFocus] = "Focus";
-            TagNameMap[TagImageAdjustment] = "Image Adjustment";
-            TagNameMap[TagQuality] = "Quality";
-            TagNameMap[TagUnknown1] = "Makernote Unknown 1";
-            TagNameMap[TagUnknown2] = "Makernote Unknown 2";
-            TagNameMap[TagUnknown3] = "Makernote Unknown 3";
-            TagNameMap[TagWhiteBalance] = "White Balance";
+            _tagNameMap = new Dictionary<int?, string>
+            {
+                { TagCcdSensitivity, "CCD Sensitivity" },
+                { TagColorMode, "Color Mode" },
+                { TagDigitalZoom, "Digital Zoom" },
+                { TagConverter, "Fisheye Converter" },
+                { TagFocus, "Focus" },
+                { TagImageAdjustment, "Image Adjustment" },
+                { TagQuality, "Quality" },
+                { TagUnknown1, "Makernote Unknown 1" },
+                { TagUnknown2, "Makernote Unknown 2" },
+                { TagUnknown3, "Makernote Unknown 3" },
+                { TagWhiteBalance, "White Balance" }
+            };
         }
 
         public NikonType1MakernoteDirectory()
@@ -94,7 +85,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

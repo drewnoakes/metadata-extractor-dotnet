@@ -48,7 +48,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public const int TagExternalSensorBrightnessValue = 0x0311;
 
-        public const int TagMeasuredLv = 0x0312;
+        public const int TagMeasuredLV = 0x0312;
 
         public const int TagApproximateFNumber = 0x0313;
 
@@ -83,7 +83,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             TagNameMap[TagWhiteBalance] = "White Balance";
             TagNameMap[TagLensType] = "Lens Type";
             TagNameMap[TagExternalSensorBrightnessValue] = "External Sensor Brightness Value";
-            TagNameMap[TagMeasuredLv] = "Measured LV";
+            TagNameMap[TagMeasuredLV] = "Measured LV";
             TagNameMap[TagApproximateFNumber] = "Approximate F Number";
             TagNameMap[TagCameraTemperature] = "Camera Temperature";
             TagNameMap[TagColorTemperature] = "Color Temperature";
