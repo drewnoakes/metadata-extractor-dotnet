@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -32,16 +31,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     public class KyoceraMakernoteDirectory : Directory
     {
         public const int TagProprietaryThumbnail = 0x0001;
-
         public const int TagPrintImageMatchingInfo = 0x0E00;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap;
 
         static KyoceraMakernoteDirectory()
         {
-            TagNameMap[TagProprietaryThumbnail] = "Proprietary Thumbnail Format Data";
-            TagNameMap[TagPrintImageMatchingInfo] = "Print Image Matching (PIM) Info";
+            _tagNameMap = new Dictionary<int?, string>
+            {
+                { TagProprietaryThumbnail, "Proprietary Thumbnail Format Data" },
+                { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" }
+            };
         }
 
         public KyoceraMakernoteDirectory()
@@ -56,7 +56,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

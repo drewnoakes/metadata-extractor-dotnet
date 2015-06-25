@@ -28,7 +28,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>
     /// Provides human-readable string representations of tag values stored in a <see cref="FujifilmMakernoteDirectory"/>.
-    /// <para />
+    /// </summary>
+    /// <summary>
     /// Fujifilm added their Makernote tag from the Year 2000's models (e.g.Finepix1400,
     /// Finepix4700). It uses IFD format and start from ASCII character 'FUJIFILM', and next 4
     /// bytes (value 0x000c) points the offset to first IFD entry.
@@ -58,129 +59,55 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             switch (tagType)
             {
                 case FujifilmMakernoteDirectory.TagMakernoteVersion:
-                {
                     return GetMakernoteVersionDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagSharpness:
-                {
                     return GetSharpnessDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagWhiteBalance:
-                {
                     return GetWhiteBalanceDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagColorSaturation:
-                {
                     return GetColorSaturationDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagTone:
-                {
                     return GetToneDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagContrast:
-                {
                     return GetContrastDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagNoiseReduction:
-                {
                     return GetNoiseReductionDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagHighIsoNoiseReduction:
-                {
                     return GetHighIsoNoiseReductionDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagFlashMode:
-                {
                     return GetFlashModeDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagFlashEv:
-                {
                     return GetFlashExposureValueDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagMacro:
-                {
                     return GetMacroDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagFocusMode:
-                {
                     return GetFocusModeDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagSlowSync:
-                {
                     return GetSlowSyncDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagPictureMode:
-                {
                     return GetPictureModeDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagExrAuto:
-                {
                     return GetExrAutoDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagExrMode:
-                {
                     return GetExrModeDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagAutoBracketing:
-                {
                     return GetAutoBracketingDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagFinePixColor:
-                {
                     return GetFinePixColorDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagBlurWarning:
-                {
                     return GetBlurWarningDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagFocusWarning:
-                {
                     return GetFocusWarningDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagAutoExposureWarning:
-                {
                     return GetAutoExposureWarningDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagDynamicRange:
-                {
                     return GetDynamicRangeDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagFilmMode:
-                {
                     return GetFilmModeDescription();
-                }
-
                 case FujifilmMakernoteDirectory.TagDynamicRangeSetting:
-                {
                     return GetDynamicRangeSettingDescription();
-                }
-
                 default:
-                {
                     return base.GetDescription(tagType);
-                }
             }
         }
 
@@ -196,57 +123,29 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagSharpness, out value))
                 return null;
+
             switch (value)
             {
                 case 1:
-                {
                     return "Softest";
-                }
-
                 case 2:
-                {
                     return "Soft";
-                }
-
                 case 3:
-                {
                     return "Normal";
-                }
-
                 case 4:
-                {
                     return "Hard";
-                }
-
                 case 5:
-                {
                     return "Hardest";
-                }
-
                 case 0x82:
-                {
                     return "Medium Soft";
-                }
-
                 case 0x84:
-                {
                     return "Medium Hard";
-                }
-
                 case 0x8000:
-                {
                     return "Film Simulation";
-                }
-
                 case 0xFFFF:
-                {
                     return "N/A";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
@@ -256,92 +155,43 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagWhiteBalance, out value))
                 return null;
+
             switch (value)
             {
                 case 0x000:
-                {
                     return "Auto";
-                }
-
                 case 0x100:
-                {
                     return "Daylight";
-                }
-
                 case 0x200:
-                {
                     return "Cloudy";
-                }
-
                 case 0x300:
-                {
                     return "Daylight Fluorescent";
-                }
-
                 case 0x301:
-                {
                     return "Day White Fluorescent";
-                }
-
                 case 0x302:
-                {
                     return "White Fluorescent";
-                }
-
                 case 0x303:
-                {
                     return "Warm White Fluorescent";
-                }
-
                 case 0x304:
-                {
                     return "Living Room Warm White Fluorescent";
-                }
-
                 case 0x400:
-                {
                     return "Incandescence";
-                }
-
                 case 0x500:
-                {
                     return "Flash";
-                }
-
                 case 0xf00:
-                {
                     return "Custom White Balance";
-                }
-
                 case 0xf01:
-                {
                     return "Custom White Balance 2";
-                }
-
                 case 0xf02:
-                {
                     return "Custom White Balance 3";
-                }
-
                 case 0xf03:
-                {
                     return "Custom White Balance 4";
-                }
-
                 case 0xf04:
-                {
                     return "Custom White Balance 5";
-                }
-
                 case 0xff0:
-                {
                     return "Kelvin";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
@@ -351,67 +201,33 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagColorSaturation, out value))
                 return null;
+
             switch (value)
             {
                 case 0x000:
-                {
                     return "Normal";
-                }
-
                 case 0x080:
-                {
                     return "Medium High";
-                }
-
                 case 0x100:
-                {
                     return "High";
-                }
-
                 case 0x180:
-                {
                     return "Medium Low";
-                }
-
                 case 0x200:
-                {
                     return "Low";
-                }
-
                 case 0x300:
-                {
                     return "None (B&W)";
-                }
-
                 case 0x301:
-                {
                     return "B&W Green Filter";
-                }
-
                 case 0x302:
-                {
                     return "B&W Yellow Filter";
-                }
-
                 case 0x303:
-                {
                     return "B&W Blue Filter";
-                }
-
                 case 0x304:
-                {
                     return "B&W Sepia";
-                }
-
                 case 0x8000:
-                {
                     return "Film Simulation";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
@@ -421,47 +237,25 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagTone, out value))
                 return null;
+
             switch (value)
             {
                 case 0x000:
-                {
                     return "Normal";
-                }
-
                 case 0x080:
-                {
                     return "Medium High";
-                }
-
                 case 0x100:
-                {
                     return "High";
-                }
-
                 case 0x180:
-                {
                     return "Medium Low";
-                }
-
                 case 0x200:
-                {
                     return "Low";
-                }
-
                 case 0x300:
-                {
                     return "None (B&W)";
-                }
-
                 case 0x8000:
-                {
                     return "Film Simulation";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
@@ -471,27 +265,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagContrast, out value))
                 return null;
+
             switch (value)
             {
                 case 0x000:
-                {
                     return "Normal";
-                }
-
                 case 0x100:
-                {
                     return "High";
-                }
-
                 case 0x300:
-                {
                     return "Low";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
@@ -504,24 +288,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             switch (value)
             {
                 case 0x040:
-                {
                     return "Low";
-                }
-
                 case 0x080:
-                {
                     return "Normal";
-                }
-
                 case 0x100:
-                {
                     return "N/A";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
@@ -531,34 +304,25 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagHighIsoNoiseReduction, out value))
                 return null;
+
             switch (value)
             {
                 case 0x000:
-                {
                     return "Normal";
-                }
-
                 case 0x100:
-                {
                     return "Strong";
-                }
-
                 case 0x200:
-                {
                     return "Weak";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
         [CanBeNull]
         public string GetFlashModeDescription()
         {
-            return GetIndexedDescription(FujifilmMakernoteDirectory.TagFlashMode, "Auto", "On", "Off", "Red-eye Reduction", "External");
+            return GetIndexedDescription(FujifilmMakernoteDirectory.TagFlashMode,
+                "Auto", "On", "Off", "Red-eye Reduction", "External");
         }
 
         [CanBeNull]
@@ -571,19 +335,22 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetMacroDescription()
         {
-            return GetIndexedDescription(FujifilmMakernoteDirectory.TagMacro, "Off", "On");
+            return GetIndexedDescription(FujifilmMakernoteDirectory.TagMacro,
+                "Off", "On");
         }
 
         [CanBeNull]
         public string GetFocusModeDescription()
         {
-            return GetIndexedDescription(FujifilmMakernoteDirectory.TagFocusMode, "Auto Focus", "Manual Focus");
+            return GetIndexedDescription(FujifilmMakernoteDirectory.TagFocusMode,
+                "Auto Focus", "Manual Focus");
         }
 
         [CanBeNull]
         public string GetSlowSyncDescription()
         {
-            return GetIndexedDescription(FujifilmMakernoteDirectory.TagSlowSync, "Off", "On");
+            return GetIndexedDescription(FujifilmMakernoteDirectory.TagSlowSync,
+                "Off", "On");
         }
 
         [CanBeNull]
@@ -592,171 +359,81 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagPictureMode, out value))
                 return null;
+
             switch (value)
             {
                 case 0x000:
-                {
                     return "Auto";
-                }
-
                 case 0x001:
-                {
                     return "Portrait scene";
-                }
-
                 case 0x002:
-                {
                     return "Landscape scene";
-                }
-
                 case 0x003:
-                {
                     return "Macro";
-                }
-
                 case 0x004:
-                {
                     return "Sports scene";
-                }
-
                 case 0x005:
-                {
                     return "Night scene";
-                }
-
                 case 0x006:
-                {
                     return "Program AE";
-                }
-
                 case 0x007:
-                {
                     return "Natural Light";
-                }
-
                 case 0x008:
-                {
                     return "Anti-blur";
-                }
-
                 case 0x009:
-                {
                     return "Beach & Snow";
-                }
-
                 case 0x00a:
-                {
                     return "Sunset";
-                }
-
                 case 0x00b:
-                {
                     return "Museum";
-                }
-
                 case 0x00c:
-                {
                     return "Party";
-                }
-
                 case 0x00d:
-                {
                     return "Flower";
-                }
-
                 case 0x00e:
-                {
                     return "Text";
-                }
-
                 case 0x00f:
-                {
                     return "Natural Light & Flash";
-                }
-
                 case 0x010:
-                {
                     return "Beach";
-                }
-
                 case 0x011:
-                {
                     return "Snow";
-                }
-
                 case 0x012:
-                {
                     return "Fireworks";
-                }
-
                 case 0x013:
-                {
                     return "Underwater";
-                }
-
                 case 0x014:
-                {
                     return "Portrait with Skin Correction";
-                }
-
+                // skip 0x015
                 case 0x016:
-                {
-                    // skip 0x015
                     return "Panorama";
-                }
-
                 case 0x017:
-                {
                     return "Night (Tripod)";
-                }
-
                 case 0x018:
-                {
                     return "Pro Low-light";
-                }
-
                 case 0x019:
-                {
                     return "Pro Focus";
-                }
-
+                // skip 0x01a
                 case 0x01b:
-                {
-                    // skip 0x01a
                     return "Dog Face Detection";
-                }
-
                 case 0x01c:
-                {
                     return "Cat Face Detection";
-                }
-
                 case 0x100:
-                {
                     return "Aperture priority AE";
-                }
-
                 case 0x200:
-                {
                     return "Shutter priority AE";
-                }
-
                 case 0x300:
-                {
                     return "Manual exposure";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
         [CanBeNull]
         public string GetExrAutoDescription()
         {
-            return GetIndexedDescription(FujifilmMakernoteDirectory.TagExrAuto, "Auto", "Manual");
+            return GetIndexedDescription(FujifilmMakernoteDirectory.TagExrAuto,
+                "Auto", "Manual");
         }
 
         [CanBeNull]
@@ -765,34 +442,25 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagExrMode, out value))
                 return null;
+
             switch (value)
             {
                 case 0x100:
-                {
                     return "HR (High Resolution)";
-                }
-
                 case 0x200:
-                {
                     return "SN (Signal to Noise Priority)";
-                }
-
                 case 0x300:
-                {
                     return "DR (Dynamic Range Priority)";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
         [CanBeNull]
         public string GetAutoBracketingDescription()
         {
-            return GetIndexedDescription(FujifilmMakernoteDirectory.TagAutoBracketing, "Off", "On", "No Flash & Flash");
+            return GetIndexedDescription(FujifilmMakernoteDirectory.TagAutoBracketing,
+                "Off", "On", "No Flash & Flash");
         }
 
         [CanBeNull]
@@ -804,49 +472,43 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             switch (value)
             {
                 case 0x00:
-                {
                     return "Standard";
-                }
-
                 case 0x10:
-                {
                     return "Chrome";
-                }
-
                 case 0x30:
-                {
                     return "B&W";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
         [CanBeNull]
         public string GetBlurWarningDescription()
         {
-            return GetIndexedDescription(FujifilmMakernoteDirectory.TagBlurWarning, "No Blur Warning", "Blur warning");
+            return GetIndexedDescription(FujifilmMakernoteDirectory.TagBlurWarning,
+                "No Blur Warning", "Blur warning");
         }
 
         [CanBeNull]
         public string GetFocusWarningDescription()
         {
-            return GetIndexedDescription(FujifilmMakernoteDirectory.TagFocusWarning, "Good Focus", "Out Of Focus");
+            return GetIndexedDescription(FujifilmMakernoteDirectory.TagFocusWarning,
+                "Good Focus", "Out Of Focus");
         }
 
         [CanBeNull]
         public string GetAutoExposureWarningDescription()
         {
-            return GetIndexedDescription(FujifilmMakernoteDirectory.TagAutoExposureWarning, "AE Good", "Over Exposed");
+            return GetIndexedDescription(FujifilmMakernoteDirectory.TagAutoExposureWarning,
+                "AE Good", "Over Exposed");
         }
 
         [CanBeNull]
         public string GetDynamicRangeDescription()
         {
-            return GetIndexedDescription(FujifilmMakernoteDirectory.TagDynamicRange, 1, "Standard", null, "Wide");
+            return GetIndexedDescription(FujifilmMakernoteDirectory.TagDynamicRange,
+                1,
+                "Standard", null, "Wide");
         }
 
         [CanBeNull]
@@ -855,62 +517,31 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagFilmMode, out value))
                 return null;
+
             switch (value)
             {
                 case 0x000:
-                {
                     return "F0/Standard (Provia) ";
-                }
-
                 case 0x100:
-                {
                     return "F1/Studio Portrait";
-                }
-
                 case 0x110:
-                {
                     return "F1a/Studio Portrait Enhanced Saturation";
-                }
-
                 case 0x120:
-                {
                     return "F1b/Studio Portrait Smooth Skin Tone (Astia)";
-                }
-
                 case 0x130:
-                {
                     return "F1c/Studio Portrait Increased Sharpness";
-                }
-
                 case 0x200:
-                {
                     return "F2/Fujichrome (Velvia)";
-                }
-
                 case 0x300:
-                {
                     return "F3/Studio Portrait Ex";
-                }
-
                 case 0x400:
-                {
                     return "F4/Velvia";
-                }
-
                 case 0x500:
-                {
                     return "Pro Neg. Std";
-                }
-
                 case 0x501:
-                {
                     return "Pro Neg. Hi";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
@@ -920,42 +551,23 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagDynamicRangeSetting, out value))
                 return null;
+
             switch (value)
             {
                 case 0x000:
-                {
                     return "Auto (100-400%)";
-                }
-
                 case 0x001:
-                {
                     return "Manual";
-                }
-
                 case 0x100:
-                {
                     return "Standard (100%)";
-                }
-
                 case 0x200:
-                {
                     return "Wide 1 (230%)";
-                }
-
                 case 0x201:
-                {
                     return "Wide 2 (400%)";
-                }
-
                 case 0x8000:
-                {
                     return "Film Simulation";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
     }

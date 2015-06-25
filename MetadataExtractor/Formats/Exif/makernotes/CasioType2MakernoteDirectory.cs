@@ -23,15 +23,13 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>Describes tags specific to Casio (type 2) cameras.</summary>
     /// <remarks>
-    /// Describes tags specific to Casio (type 2) cameras.
     /// A standard TIFF IFD directory but always uses Motorola (Big-Endian) Byte Alignment.
-    /// Makernote data begins after a 6-byte header: "QVC\x00\x00\x00"
+    /// Makernote data begins after a 6-byte header: <c>"QVC\x00\x00\x00"</c>.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class CasioType2MakernoteDirectory : Directory
@@ -150,7 +148,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// <summary>(string)</summary>
         public const int TagTimeZone = 0x3006;
 
-        public const int TagBestshotMode = 0x3007;
+        public const int TagBestShotMode = 0x3007;
 
         /// <summary>
         /// 0 = Off
@@ -197,7 +195,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 { TagQuality, "Quality" },
                 { TagFocusMode2, "Focus Mode" },
                 { TagTimeZone, "Time Zone" },
-                { TagBestshotMode, "BestShot Mode" },
+                { TagBestShotMode, "BestShot Mode" },
                 { TagCcdIsoSensitivity, "CCD ISO Sensitivity" },
                 { TagColourMode, "Colour Mode" },
                 { TagEnhancement, "Enhancement" },

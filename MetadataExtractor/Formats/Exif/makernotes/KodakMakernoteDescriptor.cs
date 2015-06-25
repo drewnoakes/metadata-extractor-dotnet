@@ -42,54 +42,25 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             switch (tagType)
             {
                 case KodakMakernoteDirectory.TagQuality:
-                {
                     return GetQualityDescription();
-                }
-
                 case KodakMakernoteDirectory.TagBurstMode:
-                {
                     return GetBurstModeDescription();
-                }
-
                 case KodakMakernoteDirectory.TagShutterMode:
-                {
                     return GetShutterModeDescription();
-                }
-
                 case KodakMakernoteDirectory.TagFocusMode:
-                {
                     return GetFocusModeDescription();
-                }
-
                 case KodakMakernoteDirectory.TagWhiteBalance:
-                {
                     return GetWhiteBalanceDescription();
-                }
-
                 case KodakMakernoteDirectory.TagFlashMode:
-                {
                     return GetFlashModeDescription();
-                }
-
                 case KodakMakernoteDirectory.TagFlashFired:
-                {
                     return GetFlashFiredDescription();
-                }
-
                 case KodakMakernoteDirectory.TagColorMode:
-                {
                     return GetColorModeDescription();
-                }
-
                 case KodakMakernoteDirectory.TagSharpness:
-                {
                     return GetSharpnessDescription();
-                }
-
                 default:
-                {
                     return base.GetDescription(tagType);
-                }
             }
         }
 
@@ -105,50 +76,28 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(KodakMakernoteDirectory.TagColorMode, out value))
                 return null;
+
             switch (value)
             {
-                case 0x001:
+                case 0x0001:
                 case 0x2000:
-                {
                     return "B&W";
-                }
-
-                case 0x002:
+                case 0x0002:
                 case 0x4000:
-                {
                     return "Sepia";
-                }
-
                 case 0x003:
-                {
                     return "B&W Yellow Filter";
-                }
-
                 case 0x004:
-                {
                     return "B&W Red Filter";
-                }
-
                 case 0x020:
-                {
                     return "Saturated Color";
-                }
-
                 case 0x040:
                 case 0x200:
-                {
                     return "Neutral Color";
-                }
-
                 case 0x100:
-                {
                     return "Saturated Color";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
@@ -164,48 +113,37 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(KodakMakernoteDirectory.TagFlashMode, out value))
                 return null;
+
             switch (value)
             {
                 case 0x00:
-                {
                     return "Auto";
-                }
-
                 case 0x10:
                 case 0x01:
-                {
                     return "Fill Flash";
-                }
-
                 case 0x20:
                 case 0x02:
-                {
                     return "Off";
-                }
-
                 case 0x40:
                 case 0x03:
-                {
                     return "Red Eye";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
         [CanBeNull]
         public string GetWhiteBalanceDescription()
         {
-            return GetIndexedDescription(KodakMakernoteDirectory.TagWhiteBalance, "Auto", "Flash", "Tungsten", "Daylight");
+            return GetIndexedDescription(KodakMakernoteDirectory.TagWhiteBalance,
+                "Auto", "Flash", "Tungsten", "Daylight");
         }
 
         [CanBeNull]
         public string GetFocusModeDescription()
         {
-            return GetIndexedDescription(KodakMakernoteDirectory.TagFocusMode, "Normal", null, "Macro");
+            return GetIndexedDescription(KodakMakernoteDirectory.TagFocusMode,
+                "Normal", null, "Macro");
         }
 
         [CanBeNull]
@@ -214,40 +152,33 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(KodakMakernoteDirectory.TagShutterMode, out value))
                 return null;
+
             switch (value)
             {
                 case 0:
-                {
                     return "Auto";
-                }
-
                 case 8:
-                {
                     return "Aperture Priority";
-                }
-
                 case 32:
-                {
                     return "Manual";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
         [CanBeNull]
         public string GetBurstModeDescription()
         {
-            return GetIndexedDescription(KodakMakernoteDirectory.TagBurstMode, "Off", "On");
+            return GetIndexedDescription(KodakMakernoteDirectory.TagBurstMode,
+                "Off", "On");
         }
 
         [CanBeNull]
         public string GetQualityDescription()
         {
-            return GetIndexedDescription(KodakMakernoteDirectory.TagQuality, 1, "Fine", "Normal");
+            return GetIndexedDescription(KodakMakernoteDirectory.TagQuality,
+                1,
+                "Fine", "Normal");
         }
     }
 }

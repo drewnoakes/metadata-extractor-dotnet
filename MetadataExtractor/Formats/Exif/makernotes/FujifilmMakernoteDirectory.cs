@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -32,143 +31,102 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     public class FujifilmMakernoteDirectory : Directory
     {
         public const int TagMakernoteVersion = 0x0000;
-
         public const int TagSerialNumber = 0x0010;
-
         public const int TagQuality = 0x1000;
-
         public const int TagSharpness = 0x1001;
-
         public const int TagWhiteBalance = 0x1002;
-
         public const int TagColorSaturation = 0x1003;
-
         public const int TagTone = 0x1004;
-
         public const int TagColorTemperature = 0x1005;
-
         public const int TagContrast = 0x1006;
-
         public const int TagWhiteBalanceFineTune = 0x100a;
-
         public const int TagNoiseReduction = 0x100b;
-
         public const int TagHighIsoNoiseReduction = 0x100e;
-
         public const int TagFlashMode = 0x1010;
-
         public const int TagFlashEv = 0x1011;
-
         public const int TagMacro = 0x1020;
-
         public const int TagFocusMode = 0x1021;
-
         public const int TagFocusPixel = 0x1023;
-
         public const int TagSlowSync = 0x1030;
-
         public const int TagPictureMode = 0x1031;
-
         public const int TagExrAuto = 0x1033;
-
         public const int TagExrMode = 0x1034;
-
         public const int TagAutoBracketing = 0x1100;
-
         public const int TagSequenceNumber = 0x1101;
-
         public const int TagFinePixColor = 0x1210;
-
         public const int TagBlurWarning = 0x1300;
-
         public const int TagFocusWarning = 0x1301;
-
         public const int TagAutoExposureWarning = 0x1302;
-
         public const int TagGeImageSize = 0x1304;
-
         public const int TagDynamicRange = 0x1400;
-
         public const int TagFilmMode = 0x1401;
-
         public const int TagDynamicRangeSetting = 0x1402;
-
         public const int TagDevelopmentDynamicRange = 0x1403;
-
         public const int TagMinFocalLength = 0x1404;
-
         public const int TagMaxFocalLength = 0x1405;
-
         public const int TagMaxApertureAtMinFocal = 0x1406;
-
         public const int TagMaxApertureAtMaxFocal = 0x1407;
-
         public const int TagAutoDynamicRange = 0x140b;
-
         public const int TagFacesDetected = 0x4100;
-
         /// <summary>Left, top, right and bottom coordinates in full-sized image for each face detected.</summary>
         public const int TagFacePositions = 0x4103;
-
         public const int TagFaceRecInfo = 0x4282;
-
         public const int TagFileSource = 0x8000;
-
         public const int TagOrderNumber = 0x8002;
-
         public const int TagFrameNumber = 0x8003;
-
         public const int TagParallax = 0xb211;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap;
 
         static FujifilmMakernoteDirectory()
         {
-            TagNameMap[TagMakernoteVersion] = "Makernote Version";
-            TagNameMap[TagSerialNumber] = "Serial Number";
-            TagNameMap[TagQuality] = "Quality";
-            TagNameMap[TagSharpness] = "Sharpness";
-            TagNameMap[TagWhiteBalance] = "White Balance";
-            TagNameMap[TagColorSaturation] = "Color Saturation";
-            TagNameMap[TagTone] = "Tone (Contrast)";
-            TagNameMap[TagColorTemperature] = "Color Temperature";
-            TagNameMap[TagContrast] = "Contrast";
-            TagNameMap[TagWhiteBalanceFineTune] = "White Balance Fine Tune";
-            TagNameMap[TagNoiseReduction] = "Noise Reduction";
-            TagNameMap[TagHighIsoNoiseReduction] = "High ISO Noise Reduction";
-            TagNameMap[TagFlashMode] = "Flash Mode";
-            TagNameMap[TagFlashEv] = "Flash Strength";
-            TagNameMap[TagMacro] = "Macro";
-            TagNameMap[TagFocusMode] = "Focus Mode";
-            TagNameMap[TagFocusPixel] = "Focus Pixel";
-            TagNameMap[TagSlowSync] = "Slow Sync";
-            TagNameMap[TagPictureMode] = "Picture Mode";
-            TagNameMap[TagExrAuto] = "EXR Auto";
-            TagNameMap[TagExrMode] = "EXR Mode";
-            TagNameMap[TagAutoBracketing] = "Auto Bracketing";
-            TagNameMap[TagSequenceNumber] = "Sequence Number";
-            TagNameMap[TagFinePixColor] = "FinePix Color Setting";
-            TagNameMap[TagBlurWarning] = "Blur Warning";
-            TagNameMap[TagFocusWarning] = "Focus Warning";
-            TagNameMap[TagAutoExposureWarning] = "AE Warning";
-            TagNameMap[TagGeImageSize] = "GE Image Size";
-            TagNameMap[TagDynamicRange] = "Dynamic Range";
-            TagNameMap[TagFilmMode] = "Film Mode";
-            TagNameMap[TagDynamicRangeSetting] = "Dynamic Range Setting";
-            TagNameMap[TagDevelopmentDynamicRange] = "Development Dynamic Range";
-            TagNameMap[TagMinFocalLength] = "Minimum Focal Length";
-            TagNameMap[TagMaxFocalLength] = "Maximum Focal Length";
-            TagNameMap[TagMaxApertureAtMinFocal] = "Maximum Aperture at Minimum Focal Length";
-            TagNameMap[TagMaxApertureAtMaxFocal] = "Maximum Aperture at Maximum Focal Length";
-            TagNameMap[TagAutoDynamicRange] = "Auto Dynamic Range";
-            TagNameMap[TagFacesDetected] = "Faces Detected";
-            TagNameMap[TagFacePositions] = "Face Positions";
-            TagNameMap[TagFaceRecInfo] = "Face Detection Data";
-            TagNameMap[TagFileSource] = "File Source";
-            TagNameMap[TagOrderNumber] = "Order Number";
-            TagNameMap[TagFrameNumber] = "Frame Number";
-            TagNameMap[TagParallax] = "Parallax";
+            _tagNameMap = new Dictionary<int?, string>
+            {
+                { TagMakernoteVersion, "Makernote Version" },
+                { TagSerialNumber, "Serial Number" },
+                { TagQuality, "Quality" },
+                { TagSharpness, "Sharpness" },
+                { TagWhiteBalance, "White Balance" },
+                { TagColorSaturation, "Color Saturation" },
+                { TagTone, "Tone (Contrast)" },
+                { TagColorTemperature, "Color Temperature" },
+                { TagContrast, "Contrast" },
+                { TagWhiteBalanceFineTune, "White Balance Fine Tune" },
+                { TagNoiseReduction, "Noise Reduction" },
+                { TagHighIsoNoiseReduction, "High ISO Noise Reduction" },
+                { TagFlashMode, "Flash Mode" },
+                { TagFlashEv, "Flash Strength" },
+                { TagMacro, "Macro" },
+                { TagFocusMode, "Focus Mode" },
+                { TagFocusPixel, "Focus Pixel" },
+                { TagSlowSync, "Slow Sync" },
+                { TagPictureMode, "Picture Mode" },
+                { TagExrAuto, "EXR Auto" },
+                { TagExrMode, "EXR Mode" },
+                { TagAutoBracketing, "Auto Bracketing" },
+                { TagSequenceNumber, "Sequence Number" },
+                { TagFinePixColor, "FinePix Color Setting" },
+                { TagBlurWarning, "Blur Warning" },
+                { TagFocusWarning, "Focus Warning" },
+                { TagAutoExposureWarning, "AE Warning" },
+                { TagGeImageSize, "GE Image Size" },
+                { TagDynamicRange, "Dynamic Range" },
+                { TagFilmMode, "Film Mode" },
+                { TagDynamicRangeSetting, "Dynamic Range Setting" },
+                { TagDevelopmentDynamicRange, "Development Dynamic Range" },
+                { TagMinFocalLength, "Minimum Focal Length" },
+                { TagMaxFocalLength, "Maximum Focal Length" },
+                { TagMaxApertureAtMinFocal, "Maximum Aperture at Minimum Focal Length" },
+                { TagMaxApertureAtMaxFocal, "Maximum Aperture at Maximum Focal Length" },
+                { TagAutoDynamicRange, "Auto Dynamic Range" },
+                { TagFacesDetected, "Faces Detected" },
+                { TagFacePositions, "Face Positions" },
+                { TagFaceRecInfo, "Face Detection Data" },
+                { TagFileSource, "File Source" },
+                { TagOrderNumber, "Order Number" },
+                { TagFrameNumber, "Frame Number" },
+                { TagParallax, "Parallax" }
+            };
         }
 
         public FujifilmMakernoteDirectory()
@@ -183,7 +141,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }
