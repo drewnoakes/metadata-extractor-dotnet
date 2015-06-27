@@ -22,7 +22,6 @@
 //
 #endregion
 
-using System;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
