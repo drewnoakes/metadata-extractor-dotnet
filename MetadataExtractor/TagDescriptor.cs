@@ -69,19 +69,7 @@ namespace MetadataExtractor
             // special presentation for long arrays
             var array = obj as Array;
             if (array != null && array.Length > 16)
-            {
-                var componentType = array.GetType().GetElementType();
-                var componentTypeName = componentType == typeof(byte)
-                    ? "byte"
-                    : componentType == typeof(short)
-                        ? "short"
-                        : componentType == typeof(int)
-                            ? "int"
-                            : componentType == typeof(long)
-                                ? "long"
-                                : componentType.Name;
-                return string.Format("[{0} {1}{2}]", array.Length, componentTypeName, array.Length == 1 ? string.Empty : "s");
-            }
+                return string.Format("[{0} {1}]", array.Length, array.Length == 1 ? "value" : "values");
 
             // no special handling required, so use default conversion to a string
             return Directory.GetString(tagType);
