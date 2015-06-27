@@ -39,13 +39,13 @@ namespace MetadataExtractor.Formats.Exif
         /// <summary>The size of the thumbnail image data in bytes.</summary>
         public const int TagThumbnailLength = 0x0202;
 
-        [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
 
         static ExifThumbnailDirectory()
         {
-            AddExifTagNames(TagNameMap);
-            TagNameMap[TagThumbnailOffset] = "Thumbnail Offset";
-            TagNameMap[TagThumbnailLength] = "Thumbnail Length";
+            AddExifTagNames(_tagNameMap);
+            _tagNameMap[TagThumbnailOffset] = "Thumbnail Offset";
+            _tagNameMap[TagThumbnailLength] = "Thumbnail Length";
         }
 
         [CanBeNull]
@@ -63,7 +63,7 @@ namespace MetadataExtractor.Formats.Exif
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
 
         public bool HasThumbnailData()

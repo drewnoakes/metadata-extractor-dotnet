@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Png
 {
@@ -31,34 +30,29 @@ namespace MetadataExtractor.Formats.Png
     public class PngChromaticitiesDirectory : Directory
     {
         public const int TagWhitePointX = 1;
-
         public const int TagWhitePointY = 2;
-
         public const int TagRedX = 3;
-
         public const int TagRedY = 4;
-
         public const int TagGreenX = 5;
-
         public const int TagGreenY = 6;
-
         public const int TagBlueX = 7;
-
         public const int TagBlueY = 8;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap;
 
         static PngChromaticitiesDirectory()
         {
-            TagNameMap[TagWhitePointX] = "White Point X";
-            TagNameMap[TagWhitePointY] = "White Point Y";
-            TagNameMap[TagRedX] = "Red X";
-            TagNameMap[TagRedY] = "Red Y";
-            TagNameMap[TagGreenX] = "Green X";
-            TagNameMap[TagGreenY] = "Green Y";
-            TagNameMap[TagBlueX] = "Blue X";
-            TagNameMap[TagBlueY] = "Blue Y";
+            _tagNameMap = new Dictionary<int?, string>
+            {
+                { TagWhitePointX, "White Point X" },
+                { TagWhitePointY, "White Point Y" },
+                { TagRedX, "Red X" },
+                { TagRedY, "Red Y" },
+                { TagGreenX, "Green X" },
+                { TagGreenY, "Green Y" },
+                { TagBlueX, "Blue X" },
+                { TagBlueY, "Blue Y" }
+            };
         }
 
         public PngChromaticitiesDirectory()
@@ -73,7 +67,7 @@ namespace MetadataExtractor.Formats.Png
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

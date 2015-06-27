@@ -122,42 +122,46 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagDifferential = 0x001E;
 
-        [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap;
 
         static GpsDirectory()
         {
-            AddExifTagNames(TagNameMap);
-            TagNameMap[TagVersionId] = "GPS Version ID";
-            TagNameMap[TagLatitudeRef] = "GPS Latitude Ref";
-            TagNameMap[TagLatitude] = "GPS Latitude";
-            TagNameMap[TagLongitudeRef] = "GPS Longitude Ref";
-            TagNameMap[TagLongitude] = "GPS Longitude";
-            TagNameMap[TagAltitudeRef] = "GPS Altitude Ref";
-            TagNameMap[TagAltitude] = "GPS Altitude";
-            TagNameMap[TagTimeStamp] = "GPS Time-Stamp";
-            TagNameMap[TagSatellites] = "GPS Satellites";
-            TagNameMap[TagStatus] = "GPS Status";
-            TagNameMap[TagMeasureMode] = "GPS Measure Mode";
-            TagNameMap[TagDop] = "GPS DOP";
-            TagNameMap[TagSpeedRef] = "GPS Speed Ref";
-            TagNameMap[TagSpeed] = "GPS Speed";
-            TagNameMap[TagTrackRef] = "GPS Track Ref";
-            TagNameMap[TagTrack] = "GPS Track";
-            TagNameMap[TagImgDirectionRef] = "GPS Img Direction Ref";
-            TagNameMap[TagImgDirection] = "GPS Img Direction";
-            TagNameMap[TagMapDatum] = "GPS Map Datum";
-            TagNameMap[TagDestLatitudeRef] = "GPS Dest Latitude Ref";
-            TagNameMap[TagDestLatitude] = "GPS Dest Latitude";
-            TagNameMap[TagDestLongitudeRef] = "GPS Dest Longitude Ref";
-            TagNameMap[TagDestLongitude] = "GPS Dest Longitude";
-            TagNameMap[TagDestBearingRef] = "GPS Dest Bearing Ref";
-            TagNameMap[TagDestBearing] = "GPS Dest Bearing";
-            TagNameMap[TagDestDistanceRef] = "GPS Dest Distance Ref";
-            TagNameMap[TagDestDistance] = "GPS Dest Distance";
-            TagNameMap[TagProcessingMethod] = "GPS Processing Method";
-            TagNameMap[TagAreaInformation] = "GPS Area Information";
-            TagNameMap[TagDateStamp] = "GPS Date Stamp";
-            TagNameMap[TagDifferential] = "GPS Differential";
+            _tagNameMap = new Dictionary<int?, string>
+            {
+                { TagVersionId, "GPS Version ID" },
+                { TagLatitudeRef, "GPS Latitude Ref" },
+                { TagLatitude, "GPS Latitude" },
+                { TagLongitudeRef, "GPS Longitude Ref" },
+                { TagLongitude, "GPS Longitude" },
+                { TagAltitudeRef, "GPS Altitude Ref" },
+                { TagAltitude, "GPS Altitude" },
+                { TagTimeStamp, "GPS Time-Stamp" },
+                { TagSatellites, "GPS Satellites" },
+                { TagStatus, "GPS Status" },
+                { TagMeasureMode, "GPS Measure Mode" },
+                { TagDop, "GPS DOP" },
+                { TagSpeedRef, "GPS Speed Ref" },
+                { TagSpeed, "GPS Speed" },
+                { TagTrackRef, "GPS Track Ref" },
+                { TagTrack, "GPS Track" },
+                { TagImgDirectionRef, "GPS Img Direction Ref" },
+                { TagImgDirection, "GPS Img Direction" },
+                { TagMapDatum, "GPS Map Datum" },
+                { TagDestLatitudeRef, "GPS Dest Latitude Ref" },
+                { TagDestLatitude, "GPS Dest Latitude" },
+                { TagDestLongitudeRef, "GPS Dest Longitude Ref" },
+                { TagDestLongitude, "GPS Dest Longitude" },
+                { TagDestBearingRef, "GPS Dest Bearing Ref" },
+                { TagDestBearing, "GPS Dest Bearing" },
+                { TagDestDistanceRef, "GPS Dest Distance Ref" },
+                { TagDestDistance, "GPS Dest Distance" },
+                { TagProcessingMethod, "GPS Processing Method" },
+                { TagAreaInformation, "GPS Area Information" },
+                { TagDateStamp, "GPS Date Stamp" },
+                { TagDifferential, "GPS Differential" }
+            };
+
+            AddExifTagNames(_tagNameMap);
         }
 
         public GpsDirectory()
@@ -172,7 +176,7 @@ namespace MetadataExtractor.Formats.Exif
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
 
         /// <summary>
@@ -187,26 +191,21 @@ namespace MetadataExtractor.Formats.Exif
             var longitudes = this.GetRationalArray(TagLongitude);
             var latitudeRef = this.GetString(TagLatitudeRef);
             var longitudeRef = this.GetString(TagLongitudeRef);
+
             // Make sure we have the required values
             if (latitudes == null || latitudes.Length != 3)
-            {
                 return null;
-            }
             if (longitudes == null || longitudes.Length != 3)
-            {
                 return null;
-            }
             if (latitudeRef == null || longitudeRef == null)
-            {
                 return null;
-            }
+
             var lat = GeoLocation.DegreesMinutesSecondsToDecimal(latitudes[0], latitudes[1], latitudes[2], latitudeRef.Equals ("S", StringComparison.CurrentCultureIgnoreCase));
             var lon = GeoLocation.DegreesMinutesSecondsToDecimal(longitudes[0], longitudes[1], longitudes[2], longitudeRef.Equals ("W", StringComparison.CurrentCultureIgnoreCase));
             // This can return null, in cases where the conversion was not possible
             if (lat == null || lon == null)
-            {
                 return null;
-            }
+
             return new GeoLocation((double)lat, (double)lon);
         }
     }

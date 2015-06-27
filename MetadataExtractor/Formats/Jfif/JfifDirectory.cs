@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jfif
 {
@@ -42,14 +41,17 @@ namespace MetadataExtractor.Formats.Jfif
 
         public const int TagResY = 10;
 
-        [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap;
 
         static JfifDirectory()
         {
-            TagNameMap[TagVersion] = "Version";
-            TagNameMap[TagUnits] = "Resolution Units";
-            TagNameMap[TagResY] = "Y Resolution";
-            TagNameMap[TagResX] = "X Resolution";
+            _tagNameMap = new Dictionary<int?, string>
+            {
+                { TagVersion, "Version" },
+                { TagUnits, "Resolution Units" },
+                { TagResY, "Y Resolution" },
+                { TagResX, "X Resolution" }
+            };
         }
 
         public JfifDirectory()
@@ -64,7 +66,7 @@ namespace MetadataExtractor.Formats.Jfif
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
 
         /// <exception cref="MetadataException"/>

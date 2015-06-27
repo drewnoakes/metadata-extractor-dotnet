@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Photoshop
 {
@@ -52,16 +51,18 @@ namespace MetadataExtractor.Formats.Photoshop
         /// </remarks>
         public const int TagColorMode = 5;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap;
 
         static PsdHeaderDirectory()
         {
-            TagNameMap[TagChannelCount] = "Channel Count";
-            TagNameMap[TagImageHeight] = "Image Height";
-            TagNameMap[TagImageWidth] = "Image Width";
-            TagNameMap[TagBitsPerChannel] = "Bits Per Channel";
-            TagNameMap[TagColorMode] = "Color Mode";
+            _tagNameMap = new Dictionary<int?, string>
+            {
+                { TagChannelCount, "Channel Count" },
+                { TagImageHeight, "Image Height" },
+                { TagImageWidth, "Image Width" },
+                { TagBitsPerChannel, "Bits Per Channel" },
+                { TagColorMode, "Color Mode" }
+            };
         }
 
         public PsdHeaderDirectory()
@@ -76,7 +77,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

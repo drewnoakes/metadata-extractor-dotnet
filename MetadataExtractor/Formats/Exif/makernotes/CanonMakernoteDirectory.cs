@@ -36,140 +36,80 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class CanonMakernoteDirectory : Directory
     {
-        private const int TagCameraSettingsArray = 0x0001;
+        // These TAG_*_ARRAY Exif tags map to arrays of int16 values which are split out into separate 'fake' tags.
+        // When an attempt is made to set one of these on the directory, it is split and the corresponding offset added to the tagType.
+        // So the resulting tag is the offset + the index into the array.
+        private const int TagCameraSettingsArray        = 0x0001;
+        private const int TagFocalLengthArray           = 0x0002;
+//      private const int TagFlashInfo                  = 0x0003;
+        private const int TagShotInfoArray              = 0x0004;
+        private const int TagPanoramaArray              = 0x0005;
 
-        private const int TagFocalLengthArray = 0x0002;
-
-        private const int TagShotInfoArray = 0x0004;
-
-        private const int TagPanoramaArray = 0x0005;
-
-        public const int TagCanonImageType = 0x0006;
-
-        public const int TagCanonFirmwareVersion = 0x0007;
-
-        public const int TagCanonImageNumber = 0x0008;
-
-        public const int TagCanonOwnerName = 0x0009;
-
-        public const int TagCanonSerialNumber = 0x000C;
-
-        public const int TagCameraInfoArray = 0x000D;
-
-        public const int TagCanonFileLength = 0x000E;
-
-        public const int TagCanonCustomFunctionsArray = 0x000F;
-
-        public const int TagModelId = 0x0010;
-
-        public const int TagMovieInfoArray = 0x0011;
-
-        private const int TagAfInfoArray = 0x0012;
-
-        public const int TagThumbnailImageValidArea = 0x0013;
-
-        public const int TagSerialNumberFormat = 0x0015;
-
-        public const int TagSuperMacro = 0x001A;
-
-        public const int TagDateStampMode = 0x001C;
-
-        public const int TagMyColors = 0x001D;
-
-        public const int TagFirmwareRevision = 0x001E;
-
-        public const int TagCategories = 0x0023;
-
-        public const int TagFaceDetectArray1 = 0x0024;
-
-        public const int TagFaceDetectArray2 = 0x0025;
-
-        public const int TagAfInfoArray2 = 0x0026;
-
-        public const int TagImageUniqueId = 0x0028;
-
-        public const int TagRawDataOffset = 0x0081;
-
-        public const int TagOriginalDecisionDataOffset = 0x0083;
-
-        public const int TagCustomFunctions1DArray = 0x0090;
-
-        public const int TagPersonalFunctionsArray = 0x0091;
-
+        public const int TagCanonFirmwareVersion        = 0x0007;
+        public const int TagCanonImageNumber            = 0x0008;
+        public const int TagCanonOwnerName              = 0x0009;
+        public const int TagCanonSerialNumber           = 0x000C;
+        public const int TagCameraInfoArray             = 0x000D;
+        public const int TagCanonFileLength             = 0x000E;
+        public const int TagsArray   = 0x000F;
+        public const int TagModelId                     = 0x0010;
+        public const int TagMovieInfoArray              = 0x0011;
+        private const int TagAfInfoArray                = 0x0012;
+        public const int TagThumbnailImageValidArea     = 0x0013;
+        public const int TagSerialNumberFormat          = 0x0015;
+        public const int TagSuperMacro                  = 0x001A;
+        public const int TagDateStampMode               = 0x001C;
+        public const int TagMyColors                    = 0x001D;
+        public const int TagFirmwareRevision            = 0x001E;
+        public const int TagCategories                  = 0x0023;
+        public const int TagFaceDetectArray1            = 0x0024;
+        public const int TagFaceDetectArray2            = 0x0025;
+        public const int TagAfInfoArray2                = 0x0026;
+        public const int TagImageUniqueId               = 0x0028;
+        public const int TagRawDataOffset               = 0x0081;
+        public const int TagOriginalDecisionDataOffset  = 0x0083;
+        public const int TagCustomFunctions1DArray      = 0x0090;
+        public const int TagPersonalFunctionsArray      = 0x0091;
         public const int TagPersonalFunctionValuesArray = 0x0092;
+        public const int TagFileInfoArray               = 0x0093;
+        public const int TagAfPointsInFocus1D           = 0x0094;
+        public const int TagLensModel                   = 0x0095;
+        public const int TagSerialInfoArray             = 0x0096;
+        public const int TagDustRemovalData             = 0x0097;
+        public const int TagCropInfo                    = 0x0098;
+        public const int TagCustomFunctionsArray2       = 0x0099;
+        public const int TagAspectInfoArray             = 0x009A;
+        public const int TagProcessingInfoArray         = 0x00A0;
+        public const int TagToneCurveTable              = 0x00A1;
+        public const int TagSharpnessTable              = 0x00A2;
+        public const int TagSharpnessFreqTable          = 0x00A3;
+        public const int TagWhiteBalanceTable           = 0x00A4;
+        public const int TagColorBalanceArray           = 0x00A9;
+        public const int TagMeasuredColorArray          = 0x00AA;
+        public const int TagColorTemperature            = 0x00AE;
+        public const int TagCanonFlagsArray             = 0x00B0;
+        public const int TagModifiedInfoArray           = 0x00B1;
+        public const int TagToneCurveMatching           = 0x00B2;
+        public const int TagWhiteBalanceMatching        = 0x00B3;
+        public const int TagColorSpace                  = 0x00B4;
+        public const int TagPreviewImageInfoArray       = 0x00B6;
+        public const int TagVrdOffset                   = 0x00D0;
+        public const int TagSensorInfoArray             = 0x00E0;
+        public const int TagColorDataArray2             = 0x4001;
+        public const int TagCrwParam                    = 0x4002;
+        public const int TagColorInfoArray2             = 0x4003;
+        public const int TagBlackLevel                  = 0x4008;
+        public const int TagCustomPictureStyleFileName  = 0x4010;
+        public const int TagColorInfoArray              = 0x4013;
+        public const int TagVignettingCorrectionArray1  = 0x4015;
+        public const int TagVignettingCorrectionArray2  = 0x4016;
+        public const int TagLightingOptimizerArray      = 0x4018;
+        public const int TagLensInfoArray               = 0x4019;
+        public const int TagAmbianceInfoArray           = 0x4020;
+        public const int TagCanonImageType              = 0x0006;
+        public const int TagFilterInfoArray             = 0x4024;
 
-        public const int TagFileInfoArray = 0x0093;
-
-        public const int TagAfPointsInFocus1D = 0x0094;
-
-        public const int TagLensModel = 0x0095;
-
-        public const int TagSerialInfoArray = 0x0096;
-
-        public const int TagDustRemovalData = 0x0097;
-
-        public const int TagCropInfo = 0x0098;
-
-        public const int TagCustomFunctionsArray2 = 0x0099;
-
-        public const int TagAspectInfoArray = 0x009A;
-
-        public const int TagProcessingInfoArray = 0x00A0;
-
-        public const int TagToneCurveTable = 0x00A1;
-
-        public const int TagSharpnessTable = 0x00A2;
-
-        public const int TagSharpnessFreqTable = 0x00A3;
-
-        public const int TagWhiteBalanceTable = 0x00A4;
-
-        public const int TagColorBalanceArray = 0x00A9;
-
-        public const int TagMeasuredColorArray = 0x00AA;
-
-        public const int TagColorTemperature = 0x00AE;
-
-        public const int TagCanonFlagsArray = 0x00B0;
-
-        public const int TagModifiedInfoArray = 0x00B1;
-
-        public const int TagToneCurveMatching = 0x00B2;
-
-        public const int TagWhiteBalanceMatching = 0x00B3;
-
-        public const int TagColorSpace = 0x00B4;
-
-        public const int TagPreviewImageInfoArray = 0x00B6;
-
-        public const int TagVrdOffset = 0x00D0;
-
-        public const int TagSensorInfoArray = 0x00E0;
-
-        public const int TagColorDataArray2 = 0x4001;
-
-        public const int TagCrwParam = 0x4002;
-
-        public const int TagColorInfoArray2 = 0x4003;
-
-        public const int TagBlackLevel = 0x4008;
-
-        public const int TagCustomPictureStyleFileName = 0x4010;
-
-        public const int TagColorInfoArray = 0x4013;
-
-        public const int TagVignettingCorrectionArray1 = 0x4015;
-
-        public const int TagVignettingCorrectionArray2 = 0x4016;
-
-        public const int TagLightingOptimizerArray = 0x4018;
-
-        public const int TagLensInfoArray = 0x4019;
-
-        public const int TagAmbianceInfoArray = 0x4020;
-
-        public const int TagFilterInfoArray = 0x4024;
-
+        // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
         public static class CameraSettings
         {
             internal const int Offset = 0xC100;
@@ -221,7 +161,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             public const int TagFocusMode1 = Offset + 0x07;
 
             public const int TagUnknown3 = Offset + 0x08;
-
             public const int TagUnknown4 = Offset + 0x09;
 
             /// <summary>
@@ -320,17 +259,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             public const int TagExposureMode = Offset + 0x14;
 
             public const int TagUnknown7 = Offset + 0x15;
-
             public const int TagLensType = Offset + 0x16;
-
             public const int TagLongFocalLength = Offset + 0x17;
-
             public const int TagShortFocalLength = Offset + 0x18;
-
             public const int TagFocalUnitsPerMm = Offset + 0x19;
-
             public const int TagUnknown9 = Offset + 0x1A;
-
             public const int TagUnknown10 = Offset + 0x1B;
 
             /// <summary>
@@ -340,9 +273,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             public const int TagFlashActivity = Offset + 0x1C;
 
             public const int TagFlashDetails = Offset + 0x1D;
-
             public const int TagUnknown12 = Offset + 0x1E;
-
             public const int TagUnknown13 = Offset + 0x1F;
 
             /// <summary>
@@ -350,43 +281,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             /// 1 = Focus Mode: Continuous
             /// </summary>
             public const int TagFocusMode2 = Offset + 0x20;
-            // These TAG_*_ARRAY Exif tags map to arrays of int16 values which are split out into separate 'fake' tags.
-            // When an attempt is made to set one of these on the directory, it is split and the corresponding offset added to the tagType.
-            // So the resulting tag is the offset + the index into the array.
-            //    private static final int TAG_FLASH_INFO                     = 0x0003;
-            // depends upon model, so leave for now
-            // depends upon model, so leave for now
-            // not currently decoded as not sure we see it in still images
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // depends upon camera model, not currently decoded
-            // depends upon camera model, not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // not currently decoded
-            // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
         }
 
+        // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
         public static class FocalLength
         {
             internal const int Offset = 0xC200;
@@ -403,7 +300,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             public const int TagWhiteBalance = Offset + 0x07;
 
             public const int TagSequenceNumber = Offset + 0x09;
-
             public const int TagAfPointUsed = Offset + 0x0E;
 
             /// <summary>The value of this tag may be translated into a flash bias value, in EV.</summary>
@@ -430,377 +326,341 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             public const int TagFlashBias = Offset + 0x0F;
 
             public const int TagAutoExposureBracketing = Offset + 0x10;
-
             public const int TagAebBracketValue = Offset + 0x11;
-
             public const int TagSubjectDistance = Offset + 0x13;
-            // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
         }
 
+//        // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
+//        public static class CustomFunction
+//        {
+//            /**
+//             * Long Exposure Noise Reduction
+//             * 0 = Off
+//             * 1 = On
+//             */
+//            public const int TagLongExposureNoiseReduction = 0xC301;
+//
+//            /**
+//             * Shutter/Auto Exposure-lock buttons
+//             * 0 = AF/AE lock
+//             * 1 = AE lock/AF
+//             * 2 = AF/AF lock
+//             * 3 = AE+release/AE+AF
+//             */
+//            public const int TagShutterAutoExposureLockButtons = 0xC302;
+//
+//            /**
+//             * Mirror lockup
+//             * 0 = Disable
+//             * 1 = Enable
+//             */
+//            public const int TagMirrorLockup = 0xC303;
+//
+//            /**
+//             * Tv/Av and exposure level
+//             * 0 = 1/2 stop
+//             * 1 = 1/3 stop
+//             */
+//            public const int TagTvAvAndExposureLevel = 0xC304;
+//
+//            /**
+//             * AF-assist light
+//             * 0 = On (Auto)
+//             * 1 = Off
+//             */
+//            public const int TagAfAssistLight = 0xC305;
+//
+//            /**
+//             * Shutter speed in Av mode
+//             * 0 = Automatic
+//             * 1 = 1/200 (fixed)
+//             */
+//            public const int TagShutterSpeedInAvMode = 0xC306;
+//
+//            /**
+//             * Auto-Exposure Bracketing sequence/auto cancellation
+//             * 0 = 0,-,+ / Enabled
+//             * 1 = 0,-,+ / Disabled
+//             * 2 = -,0,+ / Enabled
+//             * 3 = -,0,+ / Disabled
+//             */
+//            public const int TagBracketing = 0xC307;
+//
+//            /**
+//             * Shutter Curtain Sync
+//             * 0 = 1st Curtain Sync
+//             * 1 = 2nd Curtain Sync
+//             */
+//            public const int TagShutterCurtainSync = 0xC308;
+//
+//            /**
+//             * Lens Auto-Focus stop button Function Switch
+//             * 0 = AF stop
+//             * 1 = Operate AF
+//             * 2 = Lock AE and start timer
+//             */
+//            public const int TagAfStop = 0xC309;
+//
+//            /**
+//             * Auto reduction of fill flash
+//             * 0 = Enable
+//             * 1 = Disable
+//             */
+//            public const int TagFillFlashReduction = 0xC30A;
+//
+//            /**
+//             * Menu button return position
+//             * 0 = Top
+//             * 1 = Previous (volatile)
+//             * 2 = Previous
+//             */
+//            public const int TagMenuButtonReturn = 0xC30B;
+//
+//            /**
+//             * SET button function when shooting
+//             * 0 = Not Assigned
+//             * 1 = Change Quality
+//             * 2 = Change ISO Speed
+//             * 3 = Select Parameters
+//             */
+//            public const int TagSetButtonFunction = 0xC30C;
+//
+//            /**
+//             * Sensor cleaning
+//             * 0 = Disable
+//             * 1 = Enable
+//             */
+//            public const int TagSensorCleaning = 0xC30D;
+//        }
+
+        // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
         public static class ShotInfo
         {
             internal const int Offset = 0xC400;
 
             public const int TagAutoIso = Offset + 1;
-
             public const int TagBaseIso = Offset + 2;
-
             public const int TagMeasuredEv = Offset + 3;
-
             public const int TagTargetAperture = Offset + 4;
-
             public const int TagTargetExposureTime = Offset + 5;
-
             public const int TagExposureCompensation = Offset + 6;
-
             public const int TagWhiteBalance = Offset + 7;
-
             public const int TagSlowShutter = Offset + 8;
-
             public const int TagSequenceNumber = Offset + 9;
-
             public const int TagOpticalZoomCode = Offset + 10;
-
             public const int TagCameraTemperature = Offset + 12;
-
             public const int TagFlashGuideNumber = Offset + 13;
-
             public const int TagAfPointsInFocus = Offset + 14;
-
             public const int TagFlashExposureBracketing = Offset + 15;
-
             public const int TagAutoExposureBracketing = Offset + 16;
-
             public const int TagAebBracketValue = Offset + 17;
-
             public const int TagControlMode = Offset + 18;
-
             public const int TagFocusDistanceUpper = Offset + 19;
-
             public const int TagFocusDistanceLower = Offset + 20;
-
             public const int TagFNumber = Offset + 21;
-
             public const int TagExposureTime = Offset + 22;
-
             public const int TagMeasuredEv2 = Offset + 23;
-
             public const int TagBulbDuration = Offset + 24;
-
             public const int TagCameraType = Offset + 26;
-
             public const int TagAutoRotate = Offset + 27;
-
             public const int TagNdFilter = Offset + 28;
-
             public const int TagSelfTimer2 = Offset + 29;
-
             public const int TagFlashOutput = Offset + 33;
-            // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
         }
 
+        // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
         public static class Panorama
         {
             internal const int Offset = 0xC500;
 
             public const int TagPanoramaFrameNumber = Offset + 2;
-
             public const int TagPanoramaDirection = Offset + 5;
-            // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
         }
 
+        // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
         public static class AfInfo
         {
             internal const int Offset = 0xD200;
 
             public const int TagNumAfPoints = Offset;
-
             public const int TagValidAfPoints = Offset + 1;
-
             public const int TagImageWidth = Offset + 2;
-
             public const int TagImageHeight = Offset + 3;
-
             public const int TagAfImageWidth = Offset + 4;
-
             public const int TagAfImageHeight = Offset + 5;
-
             public const int TagAfAreaWidth = Offset + 6;
-
             public const int TagAfAreaHeight = Offset + 7;
-
             public const int TagAfAreaXPositions = Offset + 8;
-
             public const int TagAfAreaYPositions = Offset + 9;
-
             public const int TagAfPointsInFocus = Offset + 10;
-
             public const int TagPrimaryAfPoint1 = Offset + 11;
-
             public const int TagPrimaryAfPoint2 = Offset + 12;
-            // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
-            // not sure why there are two of these
         }
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap;
 
         static CanonMakernoteDirectory()
         {
-            //    /**
-            //     * Long Exposure Noise Reduction
-            //     * 0 = Off
-            //     * 1 = On
-            //     */
-            //    public static final int TAG_CANON_CUSTOM_FUNCTION_LONG_EXPOSURE_NOISE_REDUCTION = 0xC301;
-            //
-            //    /**
-            //     * Shutter/Auto Exposure-lock buttons
-            //     * 0 = AF/AE lock
-            //     * 1 = AE lock/AF
-            //     * 2 = AF/AF lock
-            //     * 3 = AE+release/AE+AF
-            //     */
-            //    public static final int TAG_CANON_CUSTOM_FUNCTION_SHUTTER_AUTO_EXPOSURE_LOCK_BUTTONS = 0xC302;
-            //
-            //    /**
-            //     * Mirror lockup
-            //     * 0 = Disable
-            //     * 1 = Enable
-            //     */
-            //    public static final int TAG_CANON_CUSTOM_FUNCTION_MIRROR_LOCKUP = 0xC303;
-            //
-            //    /**
-            //     * Tv/Av and exposure level
-            //     * 0 = 1/2 stop
-            //     * 1 = 1/3 stop
-            //     */
-            //    public static final int TAG_CANON_CUSTOM_FUNCTION_TV_AV_AND_EXPOSURE_LEVEL = 0xC304;
-            //
-            //    /**
-            //     * AF-assist light
-            //     * 0 = On (Auto)
-            //     * 1 = Off
-            //     */
-            //    public static final int TAG_CANON_CUSTOM_FUNCTION_AF_ASSIST_LIGHT = 0xC305;
-            //
-            //    /**
-            //     * Shutter speed in Av mode
-            //     * 0 = Automatic
-            //     * 1 = 1/200 (fixed)
-            //     */
-            //    public static final int TAG_CANON_CUSTOM_FUNCTION_SHUTTER_SPEED_IN_AV_MODE = 0xC306;
-            //
-            //    /**
-            //     * Auto-Exposure Bracketing sequence/auto cancellation
-            //     * 0 = 0,-,+ / Enabled
-            //     * 1 = 0,-,+ / Disabled
-            //     * 2 = -,0,+ / Enabled
-            //     * 3 = -,0,+ / Disabled
-            //     */
-            //    public static final int TAG_CANON_CUSTOM_FUNCTION_BRACKETING = 0xC307;
-            //
-            //    /**
-            //     * Shutter Curtain Sync
-            //     * 0 = 1st Curtain Sync
-            //     * 1 = 2nd Curtain Sync
-            //     */
-            //    public static final int TAG_CANON_CUSTOM_FUNCTION_SHUTTER_CURTAIN_SYNC = 0xC308;
-            //
-            //    /**
-            //     * Lens Auto-Focus stop button Function Switch
-            //     * 0 = AF stop
-            //     * 1 = Operate AF
-            //     * 2 = Lock AE and start timer
-            //     */
-            //    public static final int TAG_CANON_CUSTOM_FUNCTION_AF_STOP = 0xC309;
-            //
-            //    /**
-            //     * Auto reduction of fill flash
-            //     * 0 = Enable
-            //     * 1 = Disable
-            //     */
-            //    public static final int TAG_CANON_CUSTOM_FUNCTION_FILL_FLASH_REDUCTION = 0xC30A;
-            //
-            //    /**
-            //     * Menu button return position
-            //     * 0 = Top
-            //     * 1 = Previous (volatile)
-            //     * 2 = Previous
-            //     */
-            //    public static final int TAG_CANON_CUSTOM_FUNCTION_MENU_BUTTON_RETURN = 0xC30B;
-            //
-            //    /**
-            //     * SET button function when shooting
-            //     * 0 = Not Assigned
-            //     * 1 = Change Quality
-            //     * 2 = Change ISO Speed
-            //     * 3 = Select Parameters
-            //     */
-            //    public static final int TAG_CANON_CUSTOM_FUNCTION_SET_BUTTON_FUNCTION = 0xC30C;
-            //
-            //    /**
-            //     * Sensor cleaning
-            //     * 0 = Disable
-            //     * 1 = Enable
-            //     */
-            //    public static final int TAG_CANON_CUSTOM_FUNCTION_SENSOR_CLEANING = 0xC30D;
-            _tagNameMap[TagCanonFirmwareVersion] = "Firmware Version";
-            _tagNameMap[TagCanonImageNumber] = "Image Number";
-            _tagNameMap[TagCanonImageType] = "Image Type";
-            _tagNameMap[TagCanonOwnerName] = "Owner Name";
-            _tagNameMap[TagCanonSerialNumber] = "Camera Serial Number";
-            _tagNameMap[TagCameraInfoArray] = "Camera Info Array";
-            _tagNameMap[TagCanonFileLength] = "File Length";
-            _tagNameMap[TagCanonCustomFunctionsArray] = "Custom Functions";
-            _tagNameMap[TagModelId] = "Canon Model ID";
-            _tagNameMap[TagMovieInfoArray] = "Movie Info Array";
-            _tagNameMap[CameraSettings.TagAfPointSelected] = "AF Point Selected";
-            _tagNameMap[CameraSettings.TagContinuousDriveMode] = "Continuous Drive Mode";
-            _tagNameMap[CameraSettings.TagContrast] = "Contrast";
-            _tagNameMap[CameraSettings.TagEasyShootingMode] = "Easy Shooting Mode";
-            _tagNameMap[CameraSettings.TagExposureMode] = "Exposure Mode";
-            _tagNameMap[CameraSettings.TagFlashDetails] = "Flash Details";
-            _tagNameMap[CameraSettings.TagFlashMode] = "Flash Mode";
-            _tagNameMap[CameraSettings.TagFocalUnitsPerMm] = "Focal Units per mm";
-            _tagNameMap[CameraSettings.TagFocusMode1] = "Focus Mode";
-            _tagNameMap[CameraSettings.TagFocusMode2] = "Focus Mode";
-            _tagNameMap[CameraSettings.TagImageSize] = "Image Size";
-            _tagNameMap[CameraSettings.TagIso] = "Iso";
-            _tagNameMap[CameraSettings.TagLongFocalLength] = "Long Focal Length";
-            _tagNameMap[CameraSettings.TagMacroMode] = "Macro Mode";
-            _tagNameMap[CameraSettings.TagMeteringMode] = "Metering Mode";
-            _tagNameMap[CameraSettings.TagSaturation] = "Saturation";
-            _tagNameMap[CameraSettings.TagSelfTimerDelay] = "Self Timer Delay";
-            _tagNameMap[CameraSettings.TagSharpness] = "Sharpness";
-            _tagNameMap[CameraSettings.TagShortFocalLength] = "Short Focal Length";
-            _tagNameMap[CameraSettings.TagQuality] = "Quality";
-            _tagNameMap[CameraSettings.TagUnknown2] = "Unknown Camera Setting 2";
-            _tagNameMap[CameraSettings.TagUnknown3] = "Unknown Camera Setting 3";
-            _tagNameMap[CameraSettings.TagUnknown4] = "Unknown Camera Setting 4";
-            _tagNameMap[CameraSettings.TagDigitalZoom] = "Digital Zoom";
-            _tagNameMap[CameraSettings.TagFocusType] = "Focus Type";
-            _tagNameMap[CameraSettings.TagUnknown7] = "Unknown Camera Setting 7";
-            _tagNameMap[CameraSettings.TagLensType] = "Lens Type";
-            _tagNameMap[CameraSettings.TagUnknown9] = "Unknown Camera Setting 9";
-            _tagNameMap[CameraSettings.TagUnknown10] = "Unknown Camera Setting 10";
-            _tagNameMap[CameraSettings.TagFlashActivity] = "Flash Activity";
-            _tagNameMap[CameraSettings.TagUnknown12] = "Unknown Camera Setting 12";
-            _tagNameMap[CameraSettings.TagUnknown13] = "Unknown Camera Setting 13";
-            _tagNameMap[FocalLength.TagWhiteBalance] = "White Balance";
-            _tagNameMap[FocalLength.TagSequenceNumber] = "Sequence Number";
-            _tagNameMap[FocalLength.TagAfPointUsed] = "AF Point Used";
-            _tagNameMap[FocalLength.TagFlashBias] = "Flash Bias";
-            _tagNameMap[FocalLength.TagAutoExposureBracketing] = "Auto Exposure Bracketing";
-            _tagNameMap[FocalLength.TagAebBracketValue] = "AEB Bracket Value";
-            _tagNameMap[FocalLength.TagSubjectDistance] = "Subject Distance";
-            _tagNameMap[ShotInfo.TagAutoIso] = "Auto ISO";
-            _tagNameMap[ShotInfo.TagBaseIso] = "Base ISO";
-            _tagNameMap[ShotInfo.TagMeasuredEv] = "Measured EV";
-            _tagNameMap[ShotInfo.TagTargetAperture] = "Target Aperture";
-            _tagNameMap[ShotInfo.TagTargetExposureTime] = "Target Exposure Time";
-            _tagNameMap[ShotInfo.TagExposureCompensation] = "Exposure Compensation";
-            _tagNameMap[ShotInfo.TagWhiteBalance] = "White Balance";
-            _tagNameMap[ShotInfo.TagSlowShutter] = "Slow Shutter";
-            _tagNameMap[ShotInfo.TagSequenceNumber] = "Sequence Number";
-            _tagNameMap[ShotInfo.TagOpticalZoomCode] = "Optical Zoom Code";
-            _tagNameMap[ShotInfo.TagCameraTemperature] = "Camera Temperature";
-            _tagNameMap[ShotInfo.TagFlashGuideNumber] = "Flash Guide Number";
-            _tagNameMap[ShotInfo.TagAfPointsInFocus] = "AF Points in Focus";
-            _tagNameMap[ShotInfo.TagFlashExposureBracketing] = "Flash Exposure Compensation";
-            _tagNameMap[ShotInfo.TagAutoExposureBracketing] = "Auto Exposure Bracketing";
-            _tagNameMap[ShotInfo.TagAebBracketValue] = "AEB Bracket Value";
-            _tagNameMap[ShotInfo.TagControlMode] = "Control Mode";
-            _tagNameMap[ShotInfo.TagFocusDistanceUpper] = "Focus Distance Upper";
-            _tagNameMap[ShotInfo.TagFocusDistanceLower] = "Focus Distance Lower";
-            _tagNameMap[ShotInfo.TagFNumber] = "F Number";
-            _tagNameMap[ShotInfo.TagExposureTime] = "Exposure Time";
-            _tagNameMap[ShotInfo.TagMeasuredEv2] = "Measured EV 2";
-            _tagNameMap[ShotInfo.TagBulbDuration] = "Bulb Duration";
-            _tagNameMap[ShotInfo.TagCameraType] = "Camera Type";
-            _tagNameMap[ShotInfo.TagAutoRotate] = "Auto Rotate";
-            _tagNameMap[ShotInfo.TagNdFilter] = "ND Filter";
-            _tagNameMap[ShotInfo.TagSelfTimer2] = "Self Timer 2";
-            _tagNameMap[ShotInfo.TagFlashOutput] = "Flash Output";
-            _tagNameMap[Panorama.TagPanoramaFrameNumber] = "Panorama Frame Number";
-            _tagNameMap[Panorama.TagPanoramaDirection] = "Panorama Direction";
-            _tagNameMap[AfInfo.TagNumAfPoints] = "AF Point Count";
-            _tagNameMap[AfInfo.TagValidAfPoints] = "Valid AF Point Count";
-            _tagNameMap[AfInfo.TagImageWidth] = "Image Width";
-            _tagNameMap[AfInfo.TagImageHeight] = "Image Height";
-            _tagNameMap[AfInfo.TagAfImageWidth] = "AF Image Width";
-            _tagNameMap[AfInfo.TagAfImageHeight] = "AF Image Height";
-            _tagNameMap[AfInfo.TagAfAreaWidth] = "AF Area Width";
-            _tagNameMap[AfInfo.TagAfAreaHeight] = "AF Area Height";
-            _tagNameMap[AfInfo.TagAfAreaXPositions] = "AF Area X Positions";
-            _tagNameMap[AfInfo.TagAfAreaYPositions] = "AF Area Y Positions";
-            _tagNameMap[AfInfo.TagAfPointsInFocus] = "AF Points in Focus Count";
-            _tagNameMap[AfInfo.TagPrimaryAfPoint1] = "Primary AF Point 1";
-            _tagNameMap[AfInfo.TagPrimaryAfPoint2] = "Primary AF Point 2";
-            //        _tagNameMap.put(TAG_CANON_CUSTOM_FUNCTION_LONG_EXPOSURE_NOISE_REDUCTION, "Long Exposure Noise Reduction");
-            //        _tagNameMap.put(TAG_CANON_CUSTOM_FUNCTION_SHUTTER_AUTO_EXPOSURE_LOCK_BUTTONS, "Shutter/Auto Exposure-lock Buttons");
-            //        _tagNameMap.put(TAG_CANON_CUSTOM_FUNCTION_MIRROR_LOCKUP, "Mirror Lockup");
-            //        _tagNameMap.put(TAG_CANON_CUSTOM_FUNCTION_TV_AV_AND_EXPOSURE_LEVEL, "Tv/Av And Exposure Level");
-            //        _tagNameMap.put(TAG_CANON_CUSTOM_FUNCTION_AF_ASSIST_LIGHT, "AF-Assist Light");
-            //        _tagNameMap.put(TAG_CANON_CUSTOM_FUNCTION_SHUTTER_SPEED_IN_AV_MODE, "Shutter Speed in Av Mode");
-            //        _tagNameMap.put(TAG_CANON_CUSTOM_FUNCTION_BRACKETING, "Auto-Exposure Bracketing Sequence/Auto Cancellation");
-            //        _tagNameMap.put(TAG_CANON_CUSTOM_FUNCTION_SHUTTER_CURTAIN_SYNC, "Shutter Curtain Sync");
-            //        _tagNameMap.put(TAG_CANON_CUSTOM_FUNCTION_AF_STOP, "Lens Auto-Focus Stop Button Function Switch");
-            //        _tagNameMap.put(TAG_CANON_CUSTOM_FUNCTION_FILL_FLASH_REDUCTION, "Auto Reduction of Fill Flash");
-            //        _tagNameMap.put(TAG_CANON_CUSTOM_FUNCTION_MENU_BUTTON_RETURN, "Menu Button Return Position");
-            //        _tagNameMap.put(TAG_CANON_CUSTOM_FUNCTION_SET_BUTTON_FUNCTION, "SET Button Function When Shooting");
-            //        _tagNameMap.put(TAG_CANON_CUSTOM_FUNCTION_SENSOR_CLEANING, "Sensor Cleaning");
-            _tagNameMap[TagThumbnailImageValidArea] = "Thumbnail Image Valid Area";
-            _tagNameMap[TagSerialNumberFormat] = "Serial Number Format";
-            _tagNameMap[TagSuperMacro] = "Super Macro";
-            _tagNameMap[TagDateStampMode] = "Date Stamp Mode";
-            _tagNameMap[TagMyColors] = "My Colors";
-            _tagNameMap[TagFirmwareRevision] = "Firmware Revision";
-            _tagNameMap[TagCategories] = "Categories";
-            _tagNameMap[TagFaceDetectArray1] = "Face Detect Array 1";
-            _tagNameMap[TagFaceDetectArray2] = "Face Detect Array 2";
-            _tagNameMap[TagAfInfoArray2] = "AF Info Array 2";
-            _tagNameMap[TagImageUniqueId] = "Image Unique ID";
-            _tagNameMap[TagRawDataOffset] = "Raw Data Offset";
-            _tagNameMap[TagOriginalDecisionDataOffset] = "Original Decision Data Offset";
-            _tagNameMap[TagCustomFunctions1DArray] = "Custom Functions (1D) Array";
-            _tagNameMap[TagPersonalFunctionsArray] = "Personal Functions Array";
-            _tagNameMap[TagPersonalFunctionValuesArray] = "Personal Function Values Array";
-            _tagNameMap[TagFileInfoArray] = "File Info Array";
-            _tagNameMap[TagAfPointsInFocus1D] = "AF Points in Focus (1D)";
-            _tagNameMap[TagLensModel] = "Lens Model";
-            _tagNameMap[TagSerialInfoArray] = "Serial Info Array";
-            _tagNameMap[TagDustRemovalData] = "Dust Removal Data";
-            _tagNameMap[TagCropInfo] = "Crop Info";
-            _tagNameMap[TagCustomFunctionsArray2] = "Custom Functions Array 2";
-            _tagNameMap[TagAspectInfoArray] = "Aspect Information Array";
-            _tagNameMap[TagProcessingInfoArray] = "Processing Information Array";
-            _tagNameMap[TagToneCurveTable] = "Tone Curve Table";
-            _tagNameMap[TagSharpnessTable] = "Sharpness Table";
-            _tagNameMap[TagSharpnessFreqTable] = "Sharpness Frequency Table";
-            _tagNameMap[TagWhiteBalanceTable] = "White Balance Table";
-            _tagNameMap[TagColorBalanceArray] = "Color Balance Array";
-            _tagNameMap[TagMeasuredColorArray] = "Measured Color Array";
-            _tagNameMap[TagColorTemperature] = "Color Temperature";
-            _tagNameMap[TagCanonFlagsArray] = "Canon Flags Array";
-            _tagNameMap[TagModifiedInfoArray] = "Modified Information Array";
-            _tagNameMap[TagToneCurveMatching] = "Tone Curve Matching";
-            _tagNameMap[TagWhiteBalanceMatching] = "White Balance Matching";
-            _tagNameMap[TagColorSpace] = "Color Space";
-            _tagNameMap[TagPreviewImageInfoArray] = "Preview Image Info Array";
-            _tagNameMap[TagVrdOffset] = "VRD Offset";
-            _tagNameMap[TagSensorInfoArray] = "Sensor Information Array";
-            _tagNameMap[TagColorDataArray2] = "Color Data Array 1";
-            _tagNameMap[TagCrwParam] = "CRW Parameters";
-            _tagNameMap[TagColorInfoArray2] = "Color Data Array 2";
-            _tagNameMap[TagBlackLevel] = "Black Level";
-            _tagNameMap[TagCustomPictureStyleFileName] = "Custom Picture Style File Name";
-            _tagNameMap[TagColorInfoArray] = "Color Info Array";
-            _tagNameMap[TagVignettingCorrectionArray1] = "Vignetting Correction Array 1";
-            _tagNameMap[TagVignettingCorrectionArray2] = "Vignetting Correction Array 2";
-            _tagNameMap[TagLightingOptimizerArray] = "Lighting Optimizer Array";
-            _tagNameMap[TagLensInfoArray] = "Lens Info Array";
-            _tagNameMap[TagAmbianceInfoArray] = "Ambiance Info Array";
-            _tagNameMap[TagFilterInfoArray] = "Filter Info Array";
+            _tagNameMap = new Dictionary<int?, string>
+            {
+                { TagCanonFirmwareVersion, "Firmware Version" },
+                { TagCanonImageNumber, "Image Number" },
+                { TagCanonImageType, "Image Type" },
+                { TagCanonOwnerName, "Owner Name" },
+                { TagCanonSerialNumber, "Camera Serial Number" },
+                { TagCameraInfoArray, "Camera Info Array" },
+                { TagCanonFileLength, "File Length" },
+                { TagsArray, "Custom Functions" },
+                { TagModelId, "Canon Model ID" },
+                { TagMovieInfoArray, "Movie Info Array" },
+                { CameraSettings.TagAfPointSelected, "AF Point Selected" },
+                { CameraSettings.TagContinuousDriveMode, "Continuous Drive Mode" },
+                { CameraSettings.TagContrast, "Contrast" },
+                { CameraSettings.TagEasyShootingMode, "Easy Shooting Mode" },
+                { CameraSettings.TagExposureMode, "Exposure Mode" },
+                { CameraSettings.TagFlashDetails, "Flash Details" },
+                { CameraSettings.TagFlashMode, "Flash Mode" },
+                { CameraSettings.TagFocalUnitsPerMm, "Focal Units per mm" },
+                { CameraSettings.TagFocusMode1, "Focus Mode" },
+                { CameraSettings.TagFocusMode2, "Focus Mode" },
+                { CameraSettings.TagImageSize, "Image Size" },
+                { CameraSettings.TagIso, "Iso" },
+                { CameraSettings.TagLongFocalLength, "Long Focal Length" },
+                { CameraSettings.TagMacroMode, "Macro Mode" },
+                { CameraSettings.TagMeteringMode, "Metering Mode" },
+                { CameraSettings.TagSaturation, "Saturation" },
+                { CameraSettings.TagSelfTimerDelay, "Self Timer Delay" },
+                { CameraSettings.TagSharpness, "Sharpness" },
+                { CameraSettings.TagShortFocalLength, "Short Focal Length" },
+                { CameraSettings.TagQuality, "Quality" },
+                { CameraSettings.TagUnknown2, "Unknown Camera Setting 2" },
+                { CameraSettings.TagUnknown3, "Unknown Camera Setting 3" },
+                { CameraSettings.TagUnknown4, "Unknown Camera Setting 4" },
+                { CameraSettings.TagDigitalZoom, "Digital Zoom" },
+                { CameraSettings.TagFocusType, "Focus Type" },
+                { CameraSettings.TagUnknown7, "Unknown Camera Setting 7" },
+                { CameraSettings.TagLensType, "Lens Type" },
+                { CameraSettings.TagUnknown9, "Unknown Camera Setting 9" },
+                { CameraSettings.TagUnknown10, "Unknown Camera Setting 10" },
+                { CameraSettings.TagFlashActivity, "Flash Activity" },
+                { CameraSettings.TagUnknown12, "Unknown Camera Setting 12" },
+                { CameraSettings.TagUnknown13, "Unknown Camera Setting 13" },
+                { FocalLength.TagWhiteBalance, "White Balance" },
+                { FocalLength.TagSequenceNumber, "Sequence Number" },
+                { FocalLength.TagAfPointUsed, "AF Point Used" },
+                { FocalLength.TagFlashBias, "Flash Bias" },
+                { FocalLength.TagAutoExposureBracketing, "Auto Exposure Bracketing" },
+                { FocalLength.TagAebBracketValue, "AEB Bracket Value" },
+                { FocalLength.TagSubjectDistance, "Subject Distance" },
+//                { CustomFunction.TagLongExposureNoiseReduction, "Long Exposure Noise Reduction" },
+//                { CustomFunction.TagShutterAutoExposureLockButtons, "Shutter/Auto Exposure-lock Buttons" },
+//                { CustomFunction.TagMirrorLockup, "Mirror Lockup" },
+//                { CustomFunction.TagTvAvAndExposureLevel, "Tv/Av And Exposure Level" },
+//                { CustomFunction.TagAfAssistLight, "AF-Assist Light" },
+//                { CustomFunction.TagShutterSpeedInAvMode, "Shutter Speed in Av Mode" },
+//                { CustomFunction.TagBracketing, "Auto-Exposure Bracketing Sequence/Auto Cancellation" },
+//                { CustomFunction.TagShutterCurtainSync, "Shutter Curtain Sync" },
+//                { CustomFunction.TagAfStop, "Lens Auto-Focus Stop Button Function Switch" },
+//                { CustomFunction.TagFillFlashReduction, "Auto Reduction of Fill Flash" },
+//                { CustomFunction.TagMenuButtonReturn, "Menu Button Return Position" },
+//                { CustomFunction.TagSetButtonFunction, "SET Button Function When Shooting" },
+//                { CustomFunction.TagSensorCleaning, "Sensor Cleaning" },
+                { ShotInfo.TagAutoIso, "Auto ISO" },
+                { ShotInfo.TagBaseIso, "Base ISO" },
+                { ShotInfo.TagMeasuredEv, "Measured EV" },
+                { ShotInfo.TagTargetAperture, "Target Aperture" },
+                { ShotInfo.TagTargetExposureTime, "Target Exposure Time" },
+                { ShotInfo.TagExposureCompensation, "Exposure Compensation" },
+                { ShotInfo.TagWhiteBalance, "White Balance" },
+                { ShotInfo.TagSlowShutter, "Slow Shutter" },
+                { ShotInfo.TagSequenceNumber, "Sequence Number" },
+                { ShotInfo.TagOpticalZoomCode, "Optical Zoom Code" },
+                { ShotInfo.TagCameraTemperature, "Camera Temperature" },
+                { ShotInfo.TagFlashGuideNumber, "Flash Guide Number" },
+                { ShotInfo.TagAfPointsInFocus, "AF Points in Focus" },
+                { ShotInfo.TagFlashExposureBracketing, "Flash Exposure Compensation" },
+                { ShotInfo.TagAutoExposureBracketing, "Auto Exposure Bracketing" },
+                { ShotInfo.TagAebBracketValue, "AEB Bracket Value" },
+                { ShotInfo.TagControlMode, "Control Mode" },
+                { ShotInfo.TagFocusDistanceUpper, "Focus Distance Upper" },
+                { ShotInfo.TagFocusDistanceLower, "Focus Distance Lower" },
+                { ShotInfo.TagFNumber, "F Number" },
+                { ShotInfo.TagExposureTime, "Exposure Time" },
+                { ShotInfo.TagMeasuredEv2, "Measured EV 2" },
+                { ShotInfo.TagBulbDuration, "Bulb Duration" },
+                { ShotInfo.TagCameraType, "Camera Type" },
+                { ShotInfo.TagAutoRotate, "Auto Rotate" },
+                { ShotInfo.TagNdFilter, "ND Filter" },
+                { ShotInfo.TagSelfTimer2, "Self Timer 2" },
+                { ShotInfo.TagFlashOutput, "Flash Output" },
+                { Panorama.TagPanoramaFrameNumber, "Panorama Frame Number" },
+                { Panorama.TagPanoramaDirection, "Panorama Direction" },
+                { AfInfo.TagNumAfPoints, "AF Point Count" },
+                { AfInfo.TagValidAfPoints, "Valid AF Point Count" },
+                { AfInfo.TagImageWidth, "Image Width" },
+                { AfInfo.TagImageHeight, "Image Height" },
+                { AfInfo.TagAfImageWidth, "AF Image Width" },
+                { AfInfo.TagAfImageHeight, "AF Image Height" },
+                { AfInfo.TagAfAreaWidth, "AF Area Width" },
+                { AfInfo.TagAfAreaHeight, "AF Area Height" },
+                { AfInfo.TagAfAreaXPositions, "AF Area X Positions" },
+                { AfInfo.TagAfAreaYPositions, "AF Area Y Positions" },
+                { AfInfo.TagAfPointsInFocus, "AF Points in Focus Count" },
+                { AfInfo.TagPrimaryAfPoint1, "Primary AF Point 1" },
+                { AfInfo.TagPrimaryAfPoint2, "Primary AF Point 2" },
+                { TagThumbnailImageValidArea, "Thumbnail Image Valid Area" },
+                { TagSerialNumberFormat, "Serial Number Format" },
+                { TagSuperMacro, "Super Macro" },
+                { TagDateStampMode, "Date Stamp Mode" },
+                { TagMyColors, "My Colors" },
+                { TagFirmwareRevision, "Firmware Revision" },
+                { TagCategories, "Categories" },
+                { TagFaceDetectArray1, "Face Detect Array 1" },
+                { TagFaceDetectArray2, "Face Detect Array 2" },
+                { TagAfInfoArray2, "AF Info Array 2" },
+                { TagImageUniqueId, "Image Unique ID" },
+                { TagRawDataOffset, "Raw Data Offset" },
+                { TagOriginalDecisionDataOffset, "Original Decision Data Offset" },
+                { TagCustomFunctions1DArray, "Custom Functions (1D) Array" },
+                { TagPersonalFunctionsArray, "Personal Functions Array" },
+                { TagPersonalFunctionValuesArray, "Personal Function Values Array" },
+                { TagFileInfoArray, "File Info Array" },
+                { TagAfPointsInFocus1D, "AF Points in Focus (1D)" },
+                { TagLensModel, "Lens Model" },
+                { TagSerialInfoArray, "Serial Info Array" },
+                { TagDustRemovalData, "Dust Removal Data" },
+                { TagCropInfo, "Crop Info" },
+                { TagCustomFunctionsArray2, "Custom Functions Array 2" },
+                { TagAspectInfoArray, "Aspect Information Array" },
+                { TagProcessingInfoArray, "Processing Information Array" },
+                { TagToneCurveTable, "Tone Curve Table" },
+                { TagSharpnessTable, "Sharpness Table" },
+                { TagSharpnessFreqTable, "Sharpness Frequency Table" },
+                { TagWhiteBalanceTable, "White Balance Table" },
+                { TagColorBalanceArray, "Color Balance Array" },
+                { TagMeasuredColorArray, "Measured Color Array" },
+                { TagColorTemperature, "Color Temperature" },
+                { TagCanonFlagsArray, "Canon Flags Array" },
+                { TagModifiedInfoArray, "Modified Information Array" },
+                { TagToneCurveMatching, "Tone Curve Matching" },
+                { TagWhiteBalanceMatching, "White Balance Matching" },
+                { TagColorSpace, "Color Space" },
+                { TagPreviewImageInfoArray, "Preview Image Info Array" },
+                { TagVrdOffset, "VRD Offset" },
+                { TagSensorInfoArray, "Sensor Information Array" },
+                { TagColorDataArray2, "Color Data Array 1" },
+                { TagCrwParam, "CRW Parameters" },
+                { TagColorInfoArray2, "Color Data Array 2" },
+                { TagBlackLevel, "Black Level" },
+                { TagCustomPictureStyleFileName, "Custom Picture Style File Name" },
+                { TagColorInfoArray, "Color Info Array" },
+                { TagVignettingCorrectionArray1, "Vignetting Correction Array 1" },
+                { TagVignettingCorrectionArray2, "Vignetting Correction Array 2" },
+                { TagLightingOptimizerArray, "Lighting Optimizer Array" },
+                { TagLensInfoArray, "Lens Info Array" },
+                { TagAmbianceInfoArray, "Ambiance Info Array" },
+                { TagFilterInfoArray, "Filter Info Array" }
+            };
         }
 
         public CanonMakernoteDirectory()
@@ -839,9 +699,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     // Otherwise just add as usual.
                     var values = (ushort[])array;
                     for (var i = 0; i < values.Length; i++)
-                    {
                         Set(CameraSettings.Offset + i, values[i]);
-                    }
                     break;
                 }
 
@@ -849,9 +707,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 {
                     var values = (ushort[])array;
                     for (var i = 0; i < values.Length; i++)
-                    {
                         Set(FocalLength.Offset + i, values[i]);
-                    }
                     break;
                 }
 
@@ -859,9 +715,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 {
                     var values = (ushort[])array;
                     for (var i = 0; i < values.Length; i++)
-                    {
                         Set(ShotInfo.Offset + i, values[i]);
-                    }
                     break;
                 }
 
@@ -869,9 +723,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 {
                     var values = (ushort[])array;
                     for (var i = 0; i < values.Length; i++)
-                    {
                         Set(Panorama.Offset + i, values[i]);
-                    }
                     break;
                 }
 
@@ -879,19 +731,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 {
                     var values = (ushort[])array;
                     for (var i = 0; i < values.Length; i++)
-                    {
                         Set(AfInfo.Offset + i, values[i]);
-                    }
                     break;
                 }
 
                 // TODO the interpretation of the custom functions tag depends upon the camera model
 //                case TAG_CANON_CUSTOM_FUNCTIONS_ARRAY:
+//                {
 //                    int subTagTypeBase = 0xC300;
 //                    // we intentionally skip the first array member
 //                    for (int i = 1; i < ints.length; i++)
 //                        setInt(subTagTypeBase + i + 1, ints[i] & 0x0F);
 //                    break;
+//                }
 
                 default:
                 {
