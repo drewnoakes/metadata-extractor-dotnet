@@ -126,7 +126,7 @@ namespace MetadataExtractor.Formats.Xmp
 //            { TagAccrualPolicy, "Accrual Policy" }
         };
 
-        internal static readonly Dictionary<int?, string> TagSchemaMap = new Dictionary<int?, string>
+        internal static readonly Dictionary<int, string> TagSchemaMap = new Dictionary<int, string>
         {
             { TagMake, Schema.ExifTiffProperties },
             { TagModel, Schema.ExifTiffProperties },
@@ -167,7 +167,7 @@ namespace MetadataExtractor.Formats.Xmp
 //            { TagAccrualPolicy, Schema.DublinCoreSpecificProperties }
         };
 
-        internal static readonly Dictionary<int?, string> TagPropNameMap = new Dictionary<int?, string>
+        internal static readonly Dictionary<int, string> TagPropNameMap = new Dictionary<int, string>
         {
             { TagMake, "tiff:Make" },
             { TagModel, "tiff:Model" },

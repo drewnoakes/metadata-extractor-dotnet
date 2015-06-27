@@ -73,7 +73,7 @@ namespace MetadataExtractor.Formats.Tiff
                 // First directory normally starts immediately after the offset bytes, so try that
                 firstIfdOffset = tiffHeaderOffset + 2 + 2 + 4;
             }
-            ICollection<int?> processedIfdOffsets = new HashSet<int?>();
+            ICollection<int> processedIfdOffsets = new HashSet<int>();
             ProcessIfd(handler, reader, processedIfdOffsets, firstIfdOffset, tiffHeaderOffset);
             handler.Completed(reader, tiffHeaderOffset);
         }
@@ -98,7 +98,7 @@ namespace MetadataExtractor.Formats.Tiff
         /// <param name="ifdOffset">the offset within <c>reader</c> at which the IFD data starts</param>
         /// <param name="tiffHeaderOffset">the offset within <c>reader</c> at which the TIFF header starts</param>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
-        public static void ProcessIfd([NotNull] ITiffHandler handler, [NotNull] IndexedReader reader, [NotNull] ICollection<int?> processedIfdOffsets, int ifdOffset, int tiffHeaderOffset)
+        public static void ProcessIfd([NotNull] ITiffHandler handler, [NotNull] IndexedReader reader, [NotNull] ICollection<int> processedIfdOffsets, int ifdOffset, int tiffHeaderOffset)
         {
             try
             {

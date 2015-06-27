@@ -104,7 +104,7 @@ namespace MetadataExtractor.Formats.Exif
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public override bool CustomProcessTag(int tagOffset, ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, IndexedReader reader, int tagId, int byteCount)
+        public override bool CustomProcessTag(int tagOffset, ICollection<int> processedIfdOffsets, int tiffHeaderOffset, IndexedReader reader, int tagId, int byteCount)
         {
             // Custom processing for the Makernote tag
             if (tagId == ExifDirectoryBase.TagMakernote && CurrentDirectory is ExifSubIfdDirectory)
@@ -154,7 +154,7 @@ namespace MetadataExtractor.Formats.Exif
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private bool ProcessMakernote(int makernoteOffset, [NotNull] ICollection<int?> processedIfdOffsets, int tiffHeaderOffset, [NotNull] IndexedReader reader)
+        private bool ProcessMakernote(int makernoteOffset, [NotNull] ICollection<int> processedIfdOffsets, int tiffHeaderOffset, [NotNull] IndexedReader reader)
         {
             // Determine the camera model and makernote format.
             var ifd0Directory = Directories.OfType<ExifIfd0Directory>().FirstOrDefault();

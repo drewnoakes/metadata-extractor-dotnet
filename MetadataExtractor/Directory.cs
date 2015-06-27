@@ -38,7 +38,7 @@ namespace MetadataExtractor
     {
         /// <summary>Map of values hashed by type identifiers.</summary>
         [NotNull]
-        private readonly Dictionary<int?, object> _tagMap = new Dictionary<int?, object>();
+        private readonly Dictionary<int, object> _tagMap = new Dictionary<int, object>();
 
         /// <summary>Holds tags in the order in which they were stored.</summary>
         [NotNull]
