@@ -122,44 +122,46 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagDifferential = 0x001E;
 
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
-        {
-            { TagVersionId, "GPS Version ID" },
-            { TagLatitudeRef, "GPS Latitude Ref" },
-            { TagLatitude, "GPS Latitude" },
-            { TagLongitudeRef, "GPS Longitude Ref" },
-            { TagLongitude, "GPS Longitude" },
-            { TagAltitudeRef, "GPS Altitude Ref" },
-            { TagAltitude, "GPS Altitude" },
-            { TagTimeStamp, "GPS Time-Stamp" },
-            { TagSatellites, "GPS Satellites" },
-            { TagStatus, "GPS Status" },
-            { TagMeasureMode, "GPS Measure Mode" },
-            { TagDop, "GPS DOP" },
-            { TagSpeedRef, "GPS Speed Ref" },
-            { TagSpeed, "GPS Speed" },
-            { TagTrackRef, "GPS Track Ref" },
-            { TagTrack, "GPS Track" },
-            { TagImgDirectionRef, "GPS Img Direction Ref" },
-            { TagImgDirection, "GPS Img Direction" },
-            { TagMapDatum, "GPS Map Datum" },
-            { TagDestLatitudeRef, "GPS Dest Latitude Ref" },
-            { TagDestLatitude, "GPS Dest Latitude" },
-            { TagDestLongitudeRef, "GPS Dest Longitude Ref" },
-            { TagDestLongitude, "GPS Dest Longitude" },
-            { TagDestBearingRef, "GPS Dest Bearing Ref" },
-            { TagDestBearing, "GPS Dest Bearing" },
-            { TagDestDistanceRef, "GPS Dest Distance Ref" },
-            { TagDestDistance, "GPS Dest Distance" },
-            { TagProcessingMethod, "GPS Processing Method" },
-            { TagAreaInformation, "GPS Area Information" },
-            { TagDateStamp, "GPS Date Stamp" },
-            { TagDifferential, "GPS Differential" }
-        };
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>();
 
         static GpsDirectory()
         {
             AddExifTagNames(_tagNameMap);
+
+            // NOTE there is overlap between the base Exif tags and the GPS tags,
+            // so we add the GPS tags after to ensure they're kept.
+
+            _tagNameMap[TagVersionId] = "GPS Version ID";
+            _tagNameMap[TagLatitudeRef] = "GPS Latitude Ref";
+            _tagNameMap[TagLatitude] = "GPS Latitude";
+            _tagNameMap[TagLongitudeRef] = "GPS Longitude Ref";
+            _tagNameMap[TagLongitude] = "GPS Longitude";
+            _tagNameMap[TagAltitudeRef] = "GPS Altitude Ref";
+            _tagNameMap[TagAltitude] = "GPS Altitude";
+            _tagNameMap[TagTimeStamp] = "GPS Time-Stamp";
+            _tagNameMap[TagSatellites] = "GPS Satellites";
+            _tagNameMap[TagStatus] = "GPS Status";
+            _tagNameMap[TagMeasureMode] = "GPS Measure Mode";
+            _tagNameMap[TagDop] = "GPS DOP";
+            _tagNameMap[TagSpeedRef] = "GPS Speed Ref";
+            _tagNameMap[TagSpeed] = "GPS Speed";
+            _tagNameMap[TagTrackRef] = "GPS Track Ref";
+            _tagNameMap[TagTrack] = "GPS Track";
+            _tagNameMap[TagImgDirectionRef] = "GPS Img Direction Ref";
+            _tagNameMap[TagImgDirection] = "GPS Img Direction";
+            _tagNameMap[TagMapDatum] = "GPS Map Datum";
+            _tagNameMap[TagDestLatitudeRef] = "GPS Dest Latitude Ref";
+            _tagNameMap[TagDestLatitude] = "GPS Dest Latitude";
+            _tagNameMap[TagDestLongitudeRef] = "GPS Dest Longitude Ref";
+            _tagNameMap[TagDestLongitude] = "GPS Dest Longitude";
+            _tagNameMap[TagDestBearingRef] = "GPS Dest Bearing Ref";
+            _tagNameMap[TagDestBearing] = "GPS Dest Bearing";
+            _tagNameMap[TagDestDistanceRef] = "GPS Dest Distance Ref";
+            _tagNameMap[TagDestDistance] = "GPS Dest Distance";
+            _tagNameMap[TagProcessingMethod] = "GPS Processing Method";
+            _tagNameMap[TagAreaInformation] = "GPS Area Information";
+            _tagNameMap[TagDateStamp] = "GPS Date Stamp";
+            _tagNameMap[TagDifferential] = "GPS Differential";
         }
 
         public GpsDirectory()
