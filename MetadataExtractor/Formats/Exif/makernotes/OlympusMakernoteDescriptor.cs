@@ -258,7 +258,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (value == null)
                 return null;
             var fStop = Math.Pow((value.Value / 16d) - 0.5, 2);
-            return "f/" + fStop.ToString("0.0");
+            return GetFStopDescription(fStop);
         }
 
         [CanBeNull]
@@ -366,7 +366,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (value == null)
                 return null;
             var fStop = Math.Pow(((double)value / 16d) - 0.5, 2);
-            return "f/" + fStop.ToString("0.0");
+            return GetFStopDescription(fStop);
         }
 
         [CanBeNull]

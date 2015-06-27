@@ -128,7 +128,7 @@ namespace MetadataExtractor.Formats.Xmp
             var value = Directory.GetRational(XmpDirectory.TagFNumber);
             if (value == null)
                 return null;
-            return "f/" + value.ToDouble().ToString("0.0");
+            return GetFStopDescription(value.ToDouble());
         }
 
         [CanBeNull]
@@ -142,7 +142,7 @@ namespace MetadataExtractor.Formats.Xmp
         public string GetApertureValueDescription()
         {
             var value = Directory.GetDoubleNullable(XmpDirectory.TagApertureValue);
-            return value == null ? null : "f/" + PhotographicConversions.ApertureToFStop((double)value).ToString("0.0");
+            return value == null ? null : GetFStopDescription(PhotographicConversions.ApertureToFStop((double)value));
         }
 
         [CanBeNull]

@@ -282,5 +282,10 @@ namespace MetadataExtractor
         {
             return _epoch.AddSeconds(unixTime);
         }
+
+        protected static string GetFStopDescription(double fStop)
+        {
+            return "f/" + fStop.ToString("0.0");
+        }
     }
 }

@@ -692,7 +692,7 @@ namespace MetadataExtractor.Formats.Exif
             if (aperture == null)
                 return null;
             var fStop = PhotographicConversions.ApertureToFStop((double)aperture);
-            return "f/" + fStop.ToString("0.0");
+            return GetFStopDescription(fStop);
         }
 
         [CanBeNull]
@@ -702,7 +702,7 @@ namespace MetadataExtractor.Formats.Exif
             if (aperture == null)
                 return null;
             var fStop = PhotographicConversions.ApertureToFStop((double)aperture);
-            return "f/" + fStop.ToString("0.0");
+            return GetFStopDescription(fStop);
         }
 
         [CanBeNull]
@@ -1046,7 +1046,7 @@ namespace MetadataExtractor.Formats.Exif
         public string GetFNumberDescription()
         {
             var value = Directory.GetRational(ExifDirectoryBase.TagFnumber);
-            return value == null ? null : "f/" + value.ToDouble().ToString("0.0");
+            return value == null ? null : GetFStopDescription(value.ToDouble());
         }
 
         [CanBeNull]
