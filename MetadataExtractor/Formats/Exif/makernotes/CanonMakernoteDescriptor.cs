@@ -133,9 +133,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetSerialNumberDescription()
         {
+            // http://www.ozhiker.com/electronics/pjmt/jpeg_info/canon_mn.html
             int value;
             return Directory.TryGetInt32(CanonMakernoteDirectory.TagCanonSerialNumber, out value)
-                ? string.Format("{0:X4}{1:D4}", (value >> 8) & 0xFF, value & 0xFF)
+                ? string.Format("{0:X4}{1:D5}", (value >> 8) & 0xFF, value & 0xFF)
                 : null;
         }
 
