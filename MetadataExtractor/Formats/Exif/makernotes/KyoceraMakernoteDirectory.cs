@@ -33,16 +33,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagProprietaryThumbnail = 0x0001;
         public const int TagPrintImageMatchingInfo = 0x0E00;
 
-        private static readonly Dictionary<int?, string> _tagNameMap;
-
-        static KyoceraMakernoteDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            _tagNameMap = new Dictionary<int?, string>
-            {
-                { TagProprietaryThumbnail, "Proprietary Thumbnail Format Data" },
-                { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" }
-            };
-        }
+            { TagProprietaryThumbnail, "Proprietary Thumbnail Format Data" },
+            { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" }
+        };
 
         public KyoceraMakernoteDirectory()
         {

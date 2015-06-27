@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.FileSystem
 {
@@ -31,20 +30,15 @@ namespace MetadataExtractor.Formats.FileSystem
     public class FileMetadataDirectory : Directory
     {
         public const int TagFileName = 1;
-
         public const int TagFileSize = 2;
-
         public const int TagFileModifiedDate = 3;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
-
-        static FileMetadataDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            TagNameMap[TagFileName] = "File Name";
-            TagNameMap[TagFileSize] = "File Size";
-            TagNameMap[TagFileModifiedDate] = "File Modified Date";
-        }
+            { TagFileName, "File Name" },
+            { TagFileSize, "File Size" },
+            { TagFileModifiedDate, "File Modified Date" }
+        };
 
         public FileMetadataDirectory()
         {
@@ -58,7 +52,7 @@ namespace MetadataExtractor.Formats.FileSystem
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

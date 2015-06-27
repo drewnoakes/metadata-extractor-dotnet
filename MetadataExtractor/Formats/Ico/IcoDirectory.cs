@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Ico
 {
@@ -41,21 +40,19 @@ namespace MetadataExtractor.Formats.Ico
         public const int TagImageSizeBytes = 9;
         public const int TagImageOffsetBytes = 10;
 
-        [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
-
-        static IcoDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            TagNameMap[TagImageType] = "Image Type";
-            TagNameMap[TagImageWidth] = "Image Width";
-            TagNameMap[TagImageHeight] = "Image Height";
-            TagNameMap[TagColourPaletteSize] = "Colour Palette Size";
-            TagNameMap[TagColourPlanes] = "Colour Planes";
-            TagNameMap[TagCursorHotspotX] = "Hotspot X";
-            TagNameMap[TagBitsPerPixel] = "Bits Per Pixel";
-            TagNameMap[TagCursorHotspotY] = "Hotspot Y";
-            TagNameMap[TagImageSizeBytes] = "Image Size Bytes";
-            TagNameMap[TagImageOffsetBytes] = "Image Offset Bytes";
-        }
+            { TagImageType, "Image Type" },
+            { TagImageWidth, "Image Width" },
+            { TagImageHeight, "Image Height" },
+            { TagColourPaletteSize, "Colour Palette Size" },
+            { TagColourPlanes, "Colour Planes" },
+            { TagCursorHotspotX, "Hotspot X" },
+            { TagBitsPerPixel, "Bits Per Pixel" },
+            { TagCursorHotspotY, "Hotspot Y" },
+            { TagImageSizeBytes, "Image Size Bytes" },
+            { TagImageOffsetBytes, "Image Offset Bytes" }
+        };
 
         public IcoDirectory()
         {
@@ -69,7 +66,7 @@ namespace MetadataExtractor.Formats.Ico
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

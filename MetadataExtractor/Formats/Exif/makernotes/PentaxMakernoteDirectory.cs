@@ -122,28 +122,23 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// <summary>(String).</summary>
         public const int TagDaylightSavings = 0x1001;
 
-        private static readonly Dictionary<int?, string> _tagNameMap;
-
-        static PentaxMakernoteDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            _tagNameMap = new Dictionary<int?, string>
-            {
-                { TagCaptureMode, "Capture Mode" },
-                { TagQualityLevel, "Quality Level" },
-                { TagFocusMode, "Focus Mode" },
-                { TagFlashMode, "Flash Mode" },
-                { TagWhiteBalance, "White Balance" },
-                { TagDigitalZoom, "Digital Zoom" },
-                { TagSharpness, "Sharpness" },
-                { TagContrast, "Contrast" },
-                { TagSaturation, "Saturation" },
-                { TagIsoSpeed, "ISO Speed" },
-                { TagColour, "Colour" },
-                { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" },
-                { TagTimeZone, "Time Zone" },
-                { TagDaylightSavings, "Daylight Savings" }
-            };
-        }
+            { TagCaptureMode, "Capture Mode" },
+            { TagQualityLevel, "Quality Level" },
+            { TagFocusMode, "Focus Mode" },
+            { TagFlashMode, "Flash Mode" },
+            { TagWhiteBalance, "White Balance" },
+            { TagDigitalZoom, "Digital Zoom" },
+            { TagSharpness, "Sharpness" },
+            { TagContrast, "Contrast" },
+            { TagSaturation, "Saturation" },
+            { TagIsoSpeed, "ISO Speed" },
+            { TagColour, "Colour" },
+            { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" },
+            { TagTimeZone, "Time Zone" },
+            { TagDaylightSavings, "Daylight Savings" }
+        };
 
         public PentaxMakernoteDirectory()
         {

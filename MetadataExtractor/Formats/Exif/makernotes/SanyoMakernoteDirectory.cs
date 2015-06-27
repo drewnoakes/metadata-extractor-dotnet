@@ -59,41 +59,36 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagPrintIm = 0x0e00;
         public const int TagDataDump = 0x0f00;
 
-        private static readonly Dictionary<int?, string> _tagNameMap;
-
-        static SanyoMakernoteDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            _tagNameMap = new Dictionary<int?, string>
-            {
-                { TagMakernoteOffset, "Makernote Offset" },
-                { TagSanyoThumbnail, "Sanyo Thumbnail" },
-                { TagSpecialMode, "Special Mode" },
-                { TagSanyoQuality, "Sanyo Quality" },
-                { TagMacro, "Macro" },
-                { TagDigitalZoom, "Digital Zoom" },
-                { TagSoftwareVersion, "Software Version" },
-                { TagPictInfo, "Pict Info" },
-                { TagCameraId, "Camera ID" },
-                { TagSequentialShot, "Sequential Shot" },
-                { TagWideRange, "Wide Range" },
-                { TagColorAdjustmentMode, "Color Adjustment Node" },
-                { TagQuickShot, "Quick Shot" },
-                { TagSelfTimer, "Self Timer" },
-                { TagVoiceMemo, "Voice Memo" },
-                { TagRecordShutterRelease, "Record Shutter Release" },
-                { TagFlickerReduce, "Flicker Reduce" },
-                { TagOpticalZoomOn, "Optical Zoom On" },
-                { TagDigitalZoomOn, "Digital Zoom On" },
-                { TagLightSourceSpecial, "Light Source Special" },
-                { TagResaved, "Resaved" },
-                { TagSceneSelect, "Scene Select" },
-                { TagManualFocusDistanceOrFaceInfo, "Manual Focus Distance or Face Info" },
-                { TagSequenceShotInterval, "Sequence Shot Interval" },
-                { TagFlashMode, "Flash Mode" },
-                { TagPrintIm, "Print IM" },
-                { TagDataDump, "Data Dump" }
-            };
-        }
+            { TagMakernoteOffset, "Makernote Offset" },
+            { TagSanyoThumbnail, "Sanyo Thumbnail" },
+            { TagSpecialMode, "Special Mode" },
+            { TagSanyoQuality, "Sanyo Quality" },
+            { TagMacro, "Macro" },
+            { TagDigitalZoom, "Digital Zoom" },
+            { TagSoftwareVersion, "Software Version" },
+            { TagPictInfo, "Pict Info" },
+            { TagCameraId, "Camera ID" },
+            { TagSequentialShot, "Sequential Shot" },
+            { TagWideRange, "Wide Range" },
+            { TagColorAdjustmentMode, "Color Adjustment Node" },
+            { TagQuickShot, "Quick Shot" },
+            { TagSelfTimer, "Self Timer" },
+            { TagVoiceMemo, "Voice Memo" },
+            { TagRecordShutterRelease, "Record Shutter Release" },
+            { TagFlickerReduce, "Flicker Reduce" },
+            { TagOpticalZoomOn, "Optical Zoom On" },
+            { TagDigitalZoomOn, "Digital Zoom On" },
+            { TagLightSourceSpecial, "Light Source Special" },
+            { TagResaved, "Resaved" },
+            { TagSceneSelect, "Scene Select" },
+            { TagManualFocusDistanceOrFaceInfo, "Manual Focus Distance or Face Info" },
+            { TagSequenceShotInterval, "Sequence Shot Interval" },
+            { TagFlashMode, "Flash Mode" },
+            { TagPrintIm, "Print IM" },
+            { TagDataDump, "Data Dump" }
+        };
 
         public SanyoMakernoteDirectory()
         {

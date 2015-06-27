@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Gif
 {
@@ -31,38 +30,27 @@ namespace MetadataExtractor.Formats.Gif
     public class GifHeaderDirectory : Directory
     {
         public const int TagGifFormatVersion = 1;
-
         public const int TagImageWidth = 2;
-
         public const int TagImageHeight = 3;
-
         public const int TagColorTableSize = 4;
-
         public const int TagIsColorTableSorted = 5;
-
         public const int TagBitsPerPixel = 6;
-
         public const int TagHasGlobalColorTable = 7;
-
         public const int TagTransparentColorIndex = 8;
-
         public const int TagPixelAspectRatio = 9;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
-
-        static GifHeaderDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            TagNameMap[TagGifFormatVersion] = "GIF Format Version";
-            TagNameMap[TagImageHeight] = "Image Height";
-            TagNameMap[TagImageWidth] = "Image Width";
-            TagNameMap[TagColorTableSize] = "Color Table Size";
-            TagNameMap[TagIsColorTableSorted] = "Is Color Table Sorted";
-            TagNameMap[TagBitsPerPixel] = "Bits per Pixel";
-            TagNameMap[TagHasGlobalColorTable] = "Has Global Color Table";
-            TagNameMap[TagTransparentColorIndex] = "Transparent Color Index";
-            TagNameMap[TagPixelAspectRatio] = "Pixel Aspect Ratio";
-        }
+            { TagGifFormatVersion, "GIF Format Version" },
+            { TagImageHeight, "Image Height" },
+            { TagImageWidth, "Image Width" },
+            { TagColorTableSize, "Color Table Size" },
+            { TagIsColorTableSorted, "Is Color Table Sorted" },
+            { TagBitsPerPixel, "Bits per Pixel" },
+            { TagHasGlobalColorTable, "Has Global Color Table" },
+            { TagTransparentColorIndex, "Transparent Color Index" },
+            { TagPixelAspectRatio, "Pixel Aspect Ratio" }
+        };
 
         public GifHeaderDirectory()
         {
@@ -76,7 +64,7 @@ namespace MetadataExtractor.Formats.Gif
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

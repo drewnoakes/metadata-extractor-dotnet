@@ -34,6 +34,10 @@ namespace MetadataExtractor.Formats.Xmp
     public sealed class XmpDirectory : Directory
     {
         public const int TagXmpValueCount = 0xFFFF;
+
+        // These are some Tags, belonging to xmp-data-tags
+        // The numeration is more like enums. The real xmp-tags are strings,
+        // so we do some kind of mapping here...
         public const int TagMake = 0x0001;
         public const int TagModel = 0x0002;
         public const int TagExposureTime = 0x0003;
@@ -55,164 +59,157 @@ namespace MetadataExtractor.Formats.Xmp
         /// <summary>Generally a color value Blue, Red, Green, Yellow, Purple</summary>
         public const int TagLabel = 0x2000;
 
+        // dublin core properties
+        // this requires further research
+//        public const int TagTitle = 0x100;
         /// <summary>Keywords</summary>
-        public static int TagSubject = 0x2001;
+        public const int TagSubject = 0x2001;
+//        public const int TagDate = 0x1002;
+//        public const int TagType = 0x1003;
+//        public const int TagDescription = 0x1004;
+//        public const int TagRelation = 0x1005;
+//        public const int TagCoverage = 0x1006;
+//        public const int TagCreator = 0x1007;
+//        public const int TagPublisher = 0x1008;
+//        public const int TagContributor = 0x1009;
+//        public const int TagRights = 0x100A;
+//        public const int TagFormat = 0x100B;
+//        public const int TagIdentifier = 0x100C;
+//        public const int TagLanguage = 0x100D;
+//        public const int TagAudience = 0x100E;
+//        public const int TagProvenance = 0x100F;
+//        public const int TagRightsHolder = 0x1010;
+//        public const int TagInstructionalMethod = 0x1011;
+//        public const int TagAccrualMethod = 0x1012;
+//        public const int TagAccrualPeriodicity = 0x1013;
+//        public const int TagAccrualPolicy = 0x1014;
 
-        [NotNull]
-        private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        {
+            { TagXmpValueCount, "XMP Value Count" },
+            { TagMake, "Make" },
+            { TagModel, "Model" },
+            { TagExposureTime, "Exposure Time" },
+            { TagShutterSpeed, "Shutter Speed Value" },
+            { TagFNumber, "F-Number" },
+            { TagLensInfo, "Lens Information" },
+            { TagLens, "Lens" },
+            { TagCameraSerialNumber, "Serial Number" },
+            { TagFirmware, "Firmware" },
+            { TagFocalLength, "Focal Length" },
+            { TagApertureValue, "Aperture Value" },
+            { TagExposureProgram, "Exposure Program" },
+            { TagDateTimeOriginal, "Date/Time Original" },
+            { TagDateTimeDigitized, "Date/Time Digitized" },
+            { TagRating, "Rating" },
+            { TagLabel, "Label" },
+//            { TagTitle, "Title" },
+            { TagSubject, "Subject" }
+//            { TagDate, "Date" },
+//            { TagType, "Type" },
+//            { TagDescription, "Description" },
+//            { TagRelation, "Relation" },
+//            { TagCoverage, "Coverage" },
+//            { TagCreator, "Creator" },
+//            { TagPublisher, "Publisher" },
+//            { TagContributor, "Contributor" },
+//            { TagRights, "Rights" },
+//            { TagFormat, "Format" },
+//            { TagIdentifier, "Identifier" },
+//            { TagLanguage, "Language" },
+//            { TagAudience, "Audience" },
+//            { TagProvenance, "Provenance" },
+//            { TagRightsHolder, "Rights Holder" },
+//            { TagInstructionalMethod, "Instructional Method" },
+//            { TagAccrualMethod, "Accrual Method" },
+//            { TagAccrualPeriodicity, "Accrual Periodicity" },
+//            { TagAccrualPolicy, "Accrual Policy" }
+        };
 
-        [NotNull]
-        internal static readonly Dictionary<int?, string> TagSchemaMap = new Dictionary<int?, string>();
+        internal static readonly Dictionary<int?, string> TagSchemaMap = new Dictionary<int?, string>
+        {
+            { TagMake, Schema.ExifTiffProperties },
+            { TagModel, Schema.ExifTiffProperties },
+            { TagExposureTime, Schema.ExifSpecificProperties },
+            { TagShutterSpeed, Schema.ExifSpecificProperties },
+            { TagFNumber, Schema.ExifSpecificProperties },
+            { TagLensInfo, Schema.ExifAdditionalProperties },
+            { TagLens, Schema.ExifAdditionalProperties },
+            { TagCameraSerialNumber, Schema.ExifAdditionalProperties },
+            { TagFirmware, Schema.ExifAdditionalProperties },
+            { TagFocalLength, Schema.ExifSpecificProperties },
+            { TagApertureValue, Schema.ExifSpecificProperties },
+            { TagExposureProgram, Schema.ExifSpecificProperties },
+            { TagDateTimeOriginal, Schema.ExifSpecificProperties },
+            { TagDateTimeDigitized, Schema.ExifSpecificProperties },
+            { TagRating, Schema.XmpProperties },
+            { TagLabel, Schema.XmpProperties },
+//            { TagTitle, Schema.DublinCoreSpecificProperties },
+            { TagSubject, Schema.DublinCoreSpecificProperties },
+//            { TagDate, Schema.DublinCoreSpecificProperties },
+//            { TagType, Schema.DublinCoreSpecificProperties },
+//            { TagDescription, Schema.DublinCoreSpecificProperties },
+//            { TagRelation, Schema.DublinCoreSpecificProperties },
+//            { TagCoverage, Schema.DublinCoreSpecificProperties },
+//            { TagCreator, Schema.DublinCoreSpecificProperties },
+//            { TagPublisher, Schema.DublinCoreSpecificProperties },
+//            { TagContributor, Schema.DublinCoreSpecificProperties },
+//            { TagRights, Schema.DublinCoreSpecificProperties },
+//            { TagFormat, Schema.DublinCoreSpecificProperties },
+//            { TagIdentifier, Schema.DublinCoreSpecificProperties },
+//            { TagLanguage, Schema.DublinCoreSpecificProperties },
+//            { TagAudience, Schema.DublinCoreSpecificProperties },
+//            { TagProvenance, Schema.DublinCoreSpecificProperties },
+//            { TagRightsHolder, Schema.DublinCoreSpecificProperties },
+//            { TagInstructionalMethod, Schema.DublinCoreSpecificProperties },
+//            { TagAccrualMethod, Schema.DublinCoreSpecificProperties },
+//            { TagAccrualPeriodicity, Schema.DublinCoreSpecificProperties },
+//            { TagAccrualPolicy, Schema.DublinCoreSpecificProperties }
+        };
 
-        [NotNull]
-        internal static readonly Dictionary<int?, string> TagPropNameMap = new Dictionary<int?, string>();
+        internal static readonly Dictionary<int?, string> TagPropNameMap = new Dictionary<int?, string>
+        {
+            { TagMake, "tiff:Make" },
+            { TagModel, "tiff:Model" },
+            { TagExposureTime, "exif:ExposureTime" },
+            { TagShutterSpeed, "exif:ShutterSpeedValue" },
+            { TagFNumber, "exif:FNumber" },
+            { TagLensInfo, "aux:LensInfo" },
+            { TagLens, "aux:Lens" },
+            { TagCameraSerialNumber, "aux:SerialNumber" },
+            { TagFirmware, "aux:Firmware" },
+            { TagFocalLength, "exif:FocalLength" },
+            { TagApertureValue, "exif:ApertureValue" },
+            { TagExposureProgram, "exif:ExposureProgram" },
+            { TagDateTimeOriginal, "exif:DateTimeOriginal" },
+            { TagDateTimeDigitized, "exif:DateTimeDigitized" },
+            { TagRating, "xmp:Rating" },
+            { TagLabel, "xmp:Label" },
+//            { TagTitle, "dc:title" },
+            { TagSubject, "dc:subject" },
+//            { TagDate, "dc:date" },
+//            { TagType, "dc:type" },
+//            { TagDescription, "dc:description" },
+//            { TagRelation, "dc:relation" },
+//            { TagCoverage, "dc:coverage" },
+//            { TagCreator, "dc:creator" },
+//            { TagPublisher, "dc:publisher" },
+//            { TagContributor, "dc:contributor" },
+//            { TagRights, "dc:rights" },
+//            { TagFormat, "dc:format" },
+//            { TagIdentifier, "dc:identifier" },
+//            { TagLanguage, "dc:language" },
+//            { TagAudience, "dc:audience" },
+//            { TagProvenance, "dc:provenance" },
+//            { TagRightsHolder, "dc:rightsHolder" },
+//            { TagInstructionalMethod, "dc:instructionalMethod" },
+//            { TagAccrualMethod, "dc:accrualMethod" },
+//            { TagAccrualPeriodicity, "dc:accrualPeriodicity" },
+//            { TagAccrualPolicy, "dc:accrualPolicy" }
+        };
 
         [NotNull]
         private readonly Dictionary<string, string> _propertyValueByPath = new Dictionary<string, string>();
-
-        static XmpDirectory()
-        {
-            // These are some Tags, belonging to xmp-data-tags
-            // The numeration is more like enums. The real xmp-tags are strings,
-            // so we do some kind of mapping here...
-            // dublin core properties
-            // this requires further research
-            // public static int TAG_TITLE = 0x100;
-            // public static int TAG_DATE = 0x1002;
-            // public static int TAG_TYPE = 0x1003;
-            // public static int TAG_DESCRIPTION = 0x1004;
-            // public static int TAG_RELATION = 0x1005;
-            // public static int TAG_COVERAGE = 0x1006;
-            // public static int TAG_CREATOR = 0x1007;
-            // public static int TAG_PUBLISHER = 0x1008;
-            // public static int TAG_CONTRIBUTOR = 0x1009;
-            // public static int TAG_RIGHTS = 0x100A;
-            // public static int TAG_FORMAT = 0x100B;
-            // public static int TAG_IDENTIFIER = 0x100C;
-            // public static int TAG_LANGUAGE = 0x100D;
-            // public static int TAG_AUDIENCE = 0x100E;
-            // public static int TAG_PROVENANCE = 0x100F;
-            // public static int TAG_RIGHTS_HOLDER = 0x1010;
-            // public static int TAG_INSTRUCTIONAL_METHOD = 0x1011;
-            // public static int TAG_ACCRUAL_METHOD = 0x1012;
-            // public static int TAG_ACCRUAL_PERIODICITY = 0x1013;
-            // public static int TAG_ACCRUAL_POLICY = 0x1014;
-            TagNameMap[TagXmpValueCount] = "XMP Value Count";
-            TagNameMap[TagMake] = "Make";
-            TagNameMap[TagModel] = "Model";
-            TagNameMap[TagExposureTime] = "Exposure Time";
-            TagNameMap[TagShutterSpeed] = "Shutter Speed Value";
-            TagNameMap[TagFNumber] = "F-Number";
-            TagNameMap[TagLensInfo] = "Lens Information";
-            TagNameMap[TagLens] = "Lens";
-            TagNameMap[TagCameraSerialNumber] = "Serial Number";
-            TagNameMap[TagFirmware] = "Firmware";
-            TagNameMap[TagFocalLength] = "Focal Length";
-            TagNameMap[TagApertureValue] = "Aperture Value";
-            TagNameMap[TagExposureProgram] = "Exposure Program";
-            TagNameMap[TagDateTimeOriginal] = "Date/Time Original";
-            TagNameMap[TagDateTimeDigitized] = "Date/Time Digitized";
-            TagNameMap[TagRating] = "Rating";
-            TagNameMap[TagLabel] = "Label";
-            // this requires further research
-            // _tagNameMap.put(TAG_TITLE, "Title");
-            TagNameMap[TagSubject] = "Subject";
-            // _tagNameMap.put(TAG_DATE, "Date");
-            // _tagNameMap.put(TAG_TYPE, "Type");
-            // _tagNameMap.put(TAG_DESCRIPTION, "Description");
-            // _tagNameMap.put(TAG_RELATION, "Relation");
-            // _tagNameMap.put(TAG_COVERAGE, "Coverage");
-            // _tagNameMap.put(TAG_CREATOR, "Creator");
-            // _tagNameMap.put(TAG_PUBLISHER, "Publisher");
-            // _tagNameMap.put(TAG_CONTRIBUTOR, "Contributor");
-            // _tagNameMap.put(TAG_RIGHTS, "Rights");
-            // _tagNameMap.put(TAG_FORMAT, "Format");
-            // _tagNameMap.put(TAG_IDENTIFIER, "Identifier");
-            // _tagNameMap.put(TAG_LANGUAGE, "Language");
-            // _tagNameMap.put(TAG_AUDIENCE, "Audience");
-            // _tagNameMap.put(TAG_PROVENANCE, "Provenance");
-            // _tagNameMap.put(TAG_RIGHTS_HOLDER, "Rights Holder");
-            // _tagNameMap.put(TAG_INSTRUCTIONAL_METHOD, "Instructional Method");
-            // _tagNameMap.put(TAG_ACCRUAL_METHOD, "Accrual Method");
-            // _tagNameMap.put(TAG_ACCRUAL_PERIODICITY, "Accrual Periodicity");
-            // _tagNameMap.put(TAG_ACCRUAL_POLICY, "Accrual Policy");
-            TagPropNameMap[TagMake] = "tiff:Make";
-            TagPropNameMap[TagModel] = "tiff:Model";
-            TagPropNameMap[TagExposureTime] = "exif:ExposureTime";
-            TagPropNameMap[TagShutterSpeed] = "exif:ShutterSpeedValue";
-            TagPropNameMap[TagFNumber] = "exif:FNumber";
-            TagPropNameMap[TagLensInfo] = "aux:LensInfo";
-            TagPropNameMap[TagLens] = "aux:Lens";
-            TagPropNameMap[TagCameraSerialNumber] = "aux:SerialNumber";
-            TagPropNameMap[TagFirmware] = "aux:Firmware";
-            TagPropNameMap[TagFocalLength] = "exif:FocalLength";
-            TagPropNameMap[TagApertureValue] = "exif:ApertureValue";
-            TagPropNameMap[TagExposureProgram] = "exif:ExposureProgram";
-            TagPropNameMap[TagDateTimeOriginal] = "exif:DateTimeOriginal";
-            TagPropNameMap[TagDateTimeDigitized] = "exif:DateTimeDigitized";
-            TagPropNameMap[TagRating] = "xmp:Rating";
-            TagPropNameMap[TagLabel] = "xmp:Label";
-            // this requires further research
-            // _tagPropNameMap.put(TAG_TITLE, "dc:title");
-            TagPropNameMap[TagSubject] = "dc:subject";
-            // _tagPropNameMap.put(TAG_DATE, "dc:date");
-            // _tagPropNameMap.put(TAG_TYPE, "dc:type");
-            // _tagPropNameMap.put(TAG_DESCRIPTION, "dc:description");
-            // _tagPropNameMap.put(TAG_RELATION, "dc:relation");
-            // _tagPropNameMap.put(TAG_COVERAGE, "dc:coverage");
-            // _tagPropNameMap.put(TAG_CREATOR, "dc:creator");
-            // _tagPropNameMap.put(TAG_PUBLISHER, "dc:publisher");
-            // _tagPropNameMap.put(TAG_CONTRIBUTOR, "dc:contributor");
-            // _tagPropNameMap.put(TAG_RIGHTS, "dc:rights");
-            // _tagPropNameMap.put(TAG_FORMAT, "dc:format");
-            // _tagPropNameMap.put(TAG_IDENTIFIER, "dc:identifier");
-            // _tagPropNameMap.put(TAG_LANGUAGE, "dc:language");
-            // _tagPropNameMap.put(TAG_AUDIENCE, "dc:audience");
-            // _tagPropNameMap.put(TAG_PROVENANCE, "dc:provenance");
-            // _tagPropNameMap.put(TAG_RIGHTS_HOLDER, "dc:rightsHolder");
-            // _tagPropNameMap.put(TAG_INSTRUCTIONAL_METHOD, "dc:instructionalMethod");
-            // _tagPropNameMap.put(TAG_ACCRUAL_METHOD, "dc:accrualMethod");
-            // _tagPropNameMap.put(TAG_ACCRUAL_PERIODICITY, "dc:accrualPeriodicity");
-            // _tagPropNameMap.put(TAG_ACCRUAL_POLICY, "dc:accrualPolicy");
-            TagSchemaMap[TagMake] = Schema.ExifTiffProperties;
-            TagSchemaMap[TagModel] = Schema.ExifTiffProperties;
-            TagSchemaMap[TagExposureTime] = Schema.ExifSpecificProperties;
-            TagSchemaMap[TagShutterSpeed] = Schema.ExifSpecificProperties;
-            TagSchemaMap[TagFNumber] = Schema.ExifSpecificProperties;
-            TagSchemaMap[TagLensInfo] = Schema.ExifAdditionalProperties;
-            TagSchemaMap[TagLens] = Schema.ExifAdditionalProperties;
-            TagSchemaMap[TagCameraSerialNumber] = Schema.ExifAdditionalProperties;
-            TagSchemaMap[TagFirmware] = Schema.ExifAdditionalProperties;
-            TagSchemaMap[TagFocalLength] = Schema.ExifSpecificProperties;
-            TagSchemaMap[TagApertureValue] = Schema.ExifSpecificProperties;
-            TagSchemaMap[TagExposureProgram] = Schema.ExifSpecificProperties;
-            TagSchemaMap[TagDateTimeOriginal] = Schema.ExifSpecificProperties;
-            TagSchemaMap[TagDateTimeDigitized] = Schema.ExifSpecificProperties;
-            TagSchemaMap[TagRating] = Schema.XmpProperties;
-            TagSchemaMap[TagLabel] = Schema.XmpProperties;
-            // this requires further research
-            // _tagNameMap.put(TAG_TITLE, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            TagSchemaMap[TagSubject] = Schema.DublinCoreSpecificProperties;
-            // _tagNameMap.put(TAG_DATE, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_TYPE, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_DESCRIPTION, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_RELATION, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_COVERAGE, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_CREATOR, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_PUBLISHER, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_CONTRIBUTOR, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_RIGHTS, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_FORMAT, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_IDENTIFIER, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_LANGUAGE, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_AUDIENCE, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_PROVENANCE, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_RIGHTS_HOLDER, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_INSTRUCTIONAL_METHOD, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_ACCRUAL_METHOD, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_ACCRUAL_PERIODICITY, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-            // _tagNameMap.put(TAG_ACCRUAL_POLICY, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES);
-        }
 
         [CanBeNull]
         private IXmpMeta _xmpMeta;
@@ -229,7 +226,7 @@ namespace MetadataExtractor.Formats.Xmp
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
 
         internal void AddProperty([NotNull] string path, [NotNull] string value)

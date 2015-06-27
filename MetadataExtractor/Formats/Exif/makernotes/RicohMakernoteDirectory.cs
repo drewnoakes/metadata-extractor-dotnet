@@ -35,18 +35,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagPrintImageMatchingInfo = 0x0E00;
         public const int TagRicohCameraInfoMakernoteSubIfdPointer = 0x2001;
 
-        private static readonly Dictionary<int?, string> _tagNameMap;
-
-        static RicohMakernoteDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            _tagNameMap = new Dictionary<int?, string>
-            {
-                { TagMakernoteDataType, "Makernote Data Type" },
-                { TagVersion, "Version" },
-                { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" },
-                { TagRicohCameraInfoMakernoteSubIfdPointer, "Ricoh Camera Info Makernote Sub-IFD" }
-            };
-        }
+            { TagMakernoteDataType, "Makernote Data Type" },
+            { TagVersion, "Version" },
+            { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" },
+            { TagRicohCameraInfoMakernoteSubIfdPointer, "Ricoh Camera Info Makernote Sub-IFD" }
+        };
 
         public RicohMakernoteDirectory()
         {

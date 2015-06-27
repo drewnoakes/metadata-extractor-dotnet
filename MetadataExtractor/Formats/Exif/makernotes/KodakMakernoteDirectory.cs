@@ -57,40 +57,35 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagDigitalZoom = 104;
         public const int TagSharpness = 107;
 
-        private static readonly Dictionary<int?, string> _tagNameMap;
-
-        static KodakMakernoteDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            _tagNameMap = new Dictionary<int?, string>
-            {
-                { TagKodakModel, "Kodak Model" },
-                { TagQuality, "Quality" },
-                { TagBurstMode, "Burst Mode" },
-                { TagImageWidth, "Image Width" },
-                { TagImageHeight, "Image Height" },
-                { TagYearCreated, "Year Created" },
-                { TagMonthDayCreated, "Month/Day Created" },
-                { TagTimeCreated, "Time Created" },
-                { TagBurstMode2, "Burst Mode 2" },
-                { TagShutterMode, "Shutter Speed" },
-                { TagMeteringMode, "Metering Mode" },
-                { TagSequenceNumber, "Sequence Number" },
-                { TagFNumber, "F Number" },
-                { TagExposureTime, "Exposure Time" },
-                { TagExposureCompensation, "Exposure Compensation" },
-                { TagFocusMode, "Focus Mode" },
-                { TagWhiteBalance, "White Balance" },
-                { TagFlashMode, "Flash Mode" },
-                { TagFlashFired, "Flash Fired" },
-                { TagIsoSetting, "ISO Setting" },
-                { TagIso, "ISO" },
-                { TagTotalZoom, "Total Zoom" },
-                { TagDateTimeStamp, "Date/Time Stamp" },
-                { TagColorMode, "Color Mode" },
-                { TagDigitalZoom, "Digital Zoom" },
-                { TagSharpness, "Sharpness" }
-            };
-        }
+            { TagKodakModel, "Kodak Model" },
+            { TagQuality, "Quality" },
+            { TagBurstMode, "Burst Mode" },
+            { TagImageWidth, "Image Width" },
+            { TagImageHeight, "Image Height" },
+            { TagYearCreated, "Year Created" },
+            { TagMonthDayCreated, "Month/Day Created" },
+            { TagTimeCreated, "Time Created" },
+            { TagBurstMode2, "Burst Mode 2" },
+            { TagShutterMode, "Shutter Speed" },
+            { TagMeteringMode, "Metering Mode" },
+            { TagSequenceNumber, "Sequence Number" },
+            { TagFNumber, "F Number" },
+            { TagExposureTime, "Exposure Time" },
+            { TagExposureCompensation, "Exposure Compensation" },
+            { TagFocusMode, "Focus Mode" },
+            { TagWhiteBalance, "White Balance" },
+            { TagFlashMode, "Flash Mode" },
+            { TagFlashFired, "Flash Fired" },
+            { TagIsoSetting, "ISO Setting" },
+            { TagIso, "ISO" },
+            { TagTotalZoom, "Total Zoom" },
+            { TagDateTimeStamp, "Date/Time Stamp" },
+            { TagColorMode, "Color Mode" },
+            { TagDigitalZoom, "Digital Zoom" },
+            { TagSharpness, "Sharpness" }
+        };
 
         public KodakMakernoteDirectory()
         {

@@ -53,25 +53,20 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagConverter = 0x000B;
         public const int TagUnknown3 = 0x0F00;
 
-        private static readonly Dictionary<int?, string> _tagNameMap;
-
-        static NikonType1MakernoteDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            _tagNameMap = new Dictionary<int?, string>
-            {
-                { TagCcdSensitivity, "CCD Sensitivity" },
-                { TagColorMode, "Color Mode" },
-                { TagDigitalZoom, "Digital Zoom" },
-                { TagConverter, "Fisheye Converter" },
-                { TagFocus, "Focus" },
-                { TagImageAdjustment, "Image Adjustment" },
-                { TagQuality, "Quality" },
-                { TagUnknown1, "Makernote Unknown 1" },
-                { TagUnknown2, "Makernote Unknown 2" },
-                { TagUnknown3, "Makernote Unknown 3" },
-                { TagWhiteBalance, "White Balance" }
-            };
-        }
+            { TagCcdSensitivity, "CCD Sensitivity" },
+            { TagColorMode, "Color Mode" },
+            { TagDigitalZoom, "Digital Zoom" },
+            { TagConverter, "Fisheye Converter" },
+            { TagFocus, "Focus" },
+            { TagImageAdjustment, "Image Adjustment" },
+            { TagQuality, "Quality" },
+            { TagUnknown1, "Makernote Unknown 1" },
+            { TagUnknown2, "Makernote Unknown 2" },
+            { TagUnknown3, "Makernote Unknown 3" },
+            { TagWhiteBalance, "White Balance" }
+        };
 
         public NikonType1MakernoteDirectory()
         {

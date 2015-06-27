@@ -50,30 +50,28 @@ namespace MetadataExtractor.Formats.Png
         public const int TagUnitSpecifier = 18;
         public const int TagSignificantBits = 19;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
-
-        static PngDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            _tagNameMap[TagImageHeight] = "Image Height";
-            _tagNameMap[TagImageWidth] = "Image Width";
-            _tagNameMap[TagBitsPerSample] = "Bits Per Sample";
-            _tagNameMap[TagColorType] = "Color Type";
-            _tagNameMap[TagCompressionType] = "Compression Type";
-            _tagNameMap[TagFilterMethod] = "Filter Method";
-            _tagNameMap[TagInterlaceMethod] = "Interlace Method";
-            _tagNameMap[TagPaletteSize] = "Palette Size";
-            _tagNameMap[TagPaletteHasTransparency] = "Palette Has Transparency";
-            _tagNameMap[TagSrgbRenderingIntent] = "sRGB Rendering Intent";
-            _tagNameMap[TagGamma] = "Image Gamma";
-            _tagNameMap[TagIccProfileName] = "ICC Profile Name";
-            _tagNameMap[TagTextualData] = "Textual Data";
-            _tagNameMap[TagLastModificationTime] = "Last Modification Time";
-            _tagNameMap[TagBackgroundColor] = "Background Color";
-            _tagNameMap[TagPixelsPerUnitX] = "Pixels Per Unit X";
-            _tagNameMap[TagPixelsPerUnitY] = "Pixels Per Unit Y";
-            _tagNameMap[TagUnitSpecifier] = "Unit Specifier";
-            _tagNameMap[TagSignificantBits] = "Significant Bits";
-        }
+            { TagImageHeight, "Image Height" },
+            { TagImageWidth, "Image Width" },
+            { TagBitsPerSample, "Bits Per Sample" },
+            { TagColorType, "Color Type" },
+            { TagCompressionType, "Compression Type" },
+            { TagFilterMethod, "Filter Method" },
+            { TagInterlaceMethod, "Interlace Method" },
+            { TagPaletteSize, "Palette Size" },
+            { TagPaletteHasTransparency, "Palette Has Transparency" },
+            { TagSrgbRenderingIntent, "sRGB Rendering Intent" },
+            { TagGamma, "Image Gamma" },
+            { TagIccProfileName, "ICC Profile Name" },
+            { TagTextualData, "Textual Data" },
+            { TagLastModificationTime, "Last Modification Time" },
+            { TagBackgroundColor, "Background Color" },
+            { TagPixelsPerUnitX, "Pixels Per Unit X" },
+            { TagPixelsPerUnitY, "Pixels Per Unit Y" },
+            { TagUnitSpecifier, "Unit Specifier" },
+            { TagSignificantBits, "Significant Bits" }
+        };
 
         private readonly PngChunkType _pngChunkType;
 

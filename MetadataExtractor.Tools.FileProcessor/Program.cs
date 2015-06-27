@@ -30,6 +30,13 @@ using System.Reflection;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 
+/*
+ * metadata-extractor foo.jpg
+ * metadata-extractor foo.jpg --extract-thumb foo.thumb.jpg
+ * metadata-extractor --recursive /foo --format
+ *
+ */
+
 namespace MetadataExtractor.Tools.FileProcessor
 {
     // TODO port MarkdownTableOutputHandler
@@ -64,6 +71,8 @@ namespace MetadataExtractor.Tools.FileProcessor
                 Console.Out.WriteLine("metadata-extractor version " + version);
                 Console.Out.WriteLine();
                 Console.Out.WriteLine("Usage: java -jar metadata-extractor-{0}.jar <filename> [<filename>] [-thumb] [-markdown] [-hex]", version ?? "a.b.c");
+                if (Debugger.IsAttached)
+                    Console.ReadLine();
                 Environment.Exit(1);
             }
             foreach (var filePath in argList)
@@ -157,6 +166,9 @@ namespace MetadataExtractor.Tools.FileProcessor
                     }
                 }
             }
+
+            if (Debugger.IsAttached)
+                Console.ReadLine();
         }
 
         [NotNull]
@@ -197,6 +209,8 @@ namespace MetadataExtractor.Tools.FileProcessor
                     if (i == args.Length - 1)
                     {
                         PrintUsage();
+                        if (Debugger.IsAttached)
+                            Console.ReadLine();
                         return 1;
                     }
                     log = new StreamWriter(args[++i], append: false);
@@ -212,6 +226,8 @@ namespace MetadataExtractor.Tools.FileProcessor
             {
                 Console.Error.WriteLine("Expects one or more directories as arguments.");
                 PrintUsage();
+                if (Debugger.IsAttached)
+                    Console.ReadLine();
                 return 1;
             }
 

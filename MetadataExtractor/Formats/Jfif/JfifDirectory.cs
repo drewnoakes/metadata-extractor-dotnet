@@ -41,18 +41,13 @@ namespace MetadataExtractor.Formats.Jfif
 
         public const int TagResY = 10;
 
-        private static readonly Dictionary<int?, string> _tagNameMap;
-
-        static JfifDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            _tagNameMap = new Dictionary<int?, string>
-            {
-                { TagVersion, "Version" },
-                { TagUnits, "Resolution Units" },
-                { TagResY, "Y Resolution" },
-                { TagResX, "X Resolution" }
-            };
-        }
+            { TagVersion, "Version" },
+            { TagUnits, "Resolution Units" },
+            { TagResY, "Y Resolution" },
+            { TagResX, "X Resolution" }
+        };
 
         public JfifDirectory()
         {

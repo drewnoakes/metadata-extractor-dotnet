@@ -30,12 +30,7 @@ namespace MetadataExtractor.Tests
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class MockDirectory : Directory
     {
-        private readonly Dictionary<int?, string> _tagNameMap;
-
-        public MockDirectory()
-        {
-            _tagNameMap = new Dictionary<int?, string>();
-        }
+        private readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
 
         public override string Name
         {

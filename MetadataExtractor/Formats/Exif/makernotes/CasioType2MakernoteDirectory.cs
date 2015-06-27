@@ -165,43 +165,38 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// <summary>0 = Off</summary>
         public const int TagFilter = 0x3017;
 
-        private static readonly Dictionary<int?, string> _tagNameMap;
-
-        static CasioType2MakernoteDirectory()
+        // TODO add missing names
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            // TODO add missing names
-            _tagNameMap = new Dictionary<int?, string>
-            {
-                { TagThumbnailDimensions, "Thumbnail Dimensions" },
-                { TagThumbnailSize, "Thumbnail Size" },
-                { TagThumbnailOffset, "Thumbnail Offset" },
-                { TagQualityMode, "Quality Mode" },
-                { TagImageSize, "Image Size" },
-                { TagFocusMode1, "Focus Mode" },
-                { TagIsoSensitivity, "ISO Sensitivity" },
-                { TagWhiteBalance1, "White Balance" },
-                { TagFocalLength, "Focal Length" },
-                { TagSaturation, "Saturation" },
-                { TagContrast, "Contrast" },
-                { TagSharpness, "Sharpness" },
-                { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" },
-                { TagPreviewThumbnail, "Casio Preview Thumbnail" },
-                { TagWhiteBalanceBias, "White Balance Bias" },
-                { TagWhiteBalance2, "White Balance" },
-                { TagObjectDistance, "Object Distance" },
-                { TagFlashDistance, "Flash Distance" },
-                { TagRecordMode, "Record Mode" },
-                { TagSelfTimer, "Self Timer" },
-                { TagQuality, "Quality" },
-                { TagFocusMode2, "Focus Mode" },
-                { TagTimeZone, "Time Zone" },
-                { TagBestShotMode, "BestShot Mode" },
-                { TagCcdIsoSensitivity, "CCD ISO Sensitivity" },
-                { TagColourMode, "Colour Mode" },
-                { TagEnhancement, "Enhancement" },
-                { TagFilter, "Filter" }
-            };
-        }
+            { TagThumbnailDimensions, "Thumbnail Dimensions" },
+            { TagThumbnailSize, "Thumbnail Size" },
+            { TagThumbnailOffset, "Thumbnail Offset" },
+            { TagQualityMode, "Quality Mode" },
+            { TagImageSize, "Image Size" },
+            { TagFocusMode1, "Focus Mode" },
+            { TagIsoSensitivity, "ISO Sensitivity" },
+            { TagWhiteBalance1, "White Balance" },
+            { TagFocalLength, "Focal Length" },
+            { TagSaturation, "Saturation" },
+            { TagContrast, "Contrast" },
+            { TagSharpness, "Sharpness" },
+            { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" },
+            { TagPreviewThumbnail, "Casio Preview Thumbnail" },
+            { TagWhiteBalanceBias, "White Balance Bias" },
+            { TagWhiteBalance2, "White Balance" },
+            { TagObjectDistance, "Object Distance" },
+            { TagFlashDistance, "Flash Distance" },
+            { TagRecordMode, "Record Mode" },
+            { TagSelfTimer, "Self Timer" },
+            { TagQuality, "Quality" },
+            { TagFocusMode2, "Focus Mode" },
+            { TagTimeZone, "Time Zone" },
+            { TagBestShotMode, "BestShot Mode" },
+            { TagCcdIsoSensitivity, "CCD ISO Sensitivity" },
+            { TagColourMode, "Colour Mode" },
+            { TagEnhancement, "Enhancement" },
+            { TagFilter, "Filter" }
+        };
 
         public CasioType2MakernoteDirectory()
         {

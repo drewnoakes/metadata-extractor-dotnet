@@ -35,17 +35,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 //      public const int TagUnknown1 = 0x0515;
         public const int TagMakernoteThumbVersion = 0x2000;
 
-        private static readonly Dictionary<int?, string> _tagNameMap;
-
-        static SonyType6MakernoteDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            _tagNameMap = new Dictionary<int?, string>
-            {
-                { TagMakernoteThumbOffset, "Makernote Thumb Offset" },
-                { TagMakernoteThumbLength, "Makernote Thumb Length" },
-                { TagMakernoteThumbVersion, "Makernote Thumb Version" }
-            };
-        }
+            { TagMakernoteThumbOffset, "Makernote Thumb Offset" },
+            { TagMakernoteThumbLength, "Makernote Thumb Length" },
+            { TagMakernoteThumbVersion, "Makernote Thumb Version" }
+        };
 
         public SonyType6MakernoteDirectory()
         {

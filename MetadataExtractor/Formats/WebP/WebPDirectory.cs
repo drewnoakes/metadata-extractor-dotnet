@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.WebP
 {
@@ -35,15 +34,13 @@ namespace MetadataExtractor.Formats.WebP
         public const int TagHasAlpha = 3;
         public const int TagIsAnimation = 4;
 
-        [NotNull] private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
-
-        static WebPDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            _tagNameMap[TagImageHeight] = "Image Height";
-            _tagNameMap[TagImageWidth] = "Image Width";
-            _tagNameMap[TagHasAlpha] = "Has Alpha";
-            _tagNameMap[TagIsAnimation] = "Is Animation";
-        }
+            { TagImageHeight, "Image Height" },
+            { TagImageWidth, "Image Width" },
+            { TagHasAlpha, "Has Alpha" },
+            { TagIsAnimation, "Is Animation" }
+        };
 
         public WebPDirectory()
         {

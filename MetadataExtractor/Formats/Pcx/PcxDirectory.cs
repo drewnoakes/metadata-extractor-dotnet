@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Pcx
 {
@@ -31,53 +30,37 @@ namespace MetadataExtractor.Formats.Pcx
     public class PcxDirectory : Directory
     {
         public const int TagVersion = 1;
-
         public const int TagBitsPerPixel = 2;
-
-        public const int TagXmin = 3;
-
-        public const int TagYmin = 4;
-
-        public const int TagXmax = 5;
-
-        public const int TagYmax = 6;
-
+        public const int TagXMin = 3;
+        public const int TagYMin = 4;
+        public const int TagXMax = 5;
+        public const int TagYMax = 6;
         public const int TagHorizontalDpi = 7;
-
         public const int TagVerticalDpi = 8;
-
         public const int TagPalette = 9;
-
         public const int TagColorPlanes = 10;
-
         public const int TagBytesPerLine = 11;
-
         public const int TagPaletteType = 12;
+        public const int TagHScrSize = 13;
+        public const int TagVScrSize = 14;
 
-        public const int TagHscrSize = 13;
-
-        public const int TagVscrSize = 14;
-
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
-
-        static PcxDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            TagNameMap[TagVersion] = "Version";
-            TagNameMap[TagBitsPerPixel] = "Bits Per Pixel";
-            TagNameMap[TagXmin] = "X Min";
-            TagNameMap[TagYmin] = "Y Min";
-            TagNameMap[TagXmax] = "X Max";
-            TagNameMap[TagYmax] = "Y Max";
-            TagNameMap[TagHorizontalDpi] = "Horitzontal DPI";
-            TagNameMap[TagVerticalDpi] = "Vertical DPI";
-            TagNameMap[TagPalette] = "Palette";
-            TagNameMap[TagColorPlanes] = "Color Planes";
-            TagNameMap[TagBytesPerLine] = "Bytes Per Line";
-            TagNameMap[TagPaletteType] = "Palette Type";
-            TagNameMap[TagHscrSize] = "H Hcr Size";
-            TagNameMap[TagVscrSize] = "V Scr Size";
-        }
+            { TagVersion, "Version" },
+            { TagBitsPerPixel, "Bits Per Pixel" },
+            { TagXMin, "X Min" },
+            { TagYMin, "Y Min" },
+            { TagXMax, "X Max" },
+            { TagYMax, "Y Max" },
+            { TagHorizontalDpi, "Horizontal DPI" },
+            { TagVerticalDpi, "Vertical DPI" },
+            { TagPalette, "Palette" },
+            { TagColorPlanes, "Color Planes" },
+            { TagBytesPerLine, "Bytes Per Line" },
+            { TagPaletteType, "Palette Type" },
+            { TagHScrSize, "H Scr Size" },
+            { TagVScrSize, "V Scr Size" }
+        };
 
         public PcxDirectory()
         {
@@ -91,7 +74,7 @@ namespace MetadataExtractor.Formats.Pcx
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

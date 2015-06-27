@@ -56,34 +56,29 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagUnknown8 = 0x0013;
         public const int TagCcdSensitivity = 0x0014;
 
-        private static readonly Dictionary<int?, string> _tagNameMap;
-
-        static CasioType1MakernoteDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            _tagNameMap = new Dictionary<int?, string>
-            {
-                { TagCcdSensitivity, "CCD Sensitivity" },
-                { TagContrast, "Contrast" },
-                { TagDigitalZoom, "Digital Zoom" },
-                { TagFlashIntensity, "Flash Intensity" },
-                { TagFlashMode, "Flash Mode" },
-                { TagFocusingMode, "Focusing Mode" },
-                { TagObjectDistance, "Object Distance" },
-                { TagQuality, "Quality" },
-                { TagRecordingMode, "Recording Mode" },
-                { TagSaturation, "Saturation" },
-                { TagSharpness, "Sharpness" },
-                { TagUnknown1, "Makernote Unknown 1" },
-                { TagUnknown2, "Makernote Unknown 2" },
-                { TagUnknown3, "Makernote Unknown 3" },
-                { TagUnknown4, "Makernote Unknown 4" },
-                { TagUnknown5, "Makernote Unknown 5" },
-                { TagUnknown6, "Makernote Unknown 6" },
-                { TagUnknown7, "Makernote Unknown 7" },
-                { TagUnknown8, "Makernote Unknown 8" },
-                { TagWhiteBalance, "White Balance" }
-            };
-        }
+            { TagCcdSensitivity, "CCD Sensitivity" },
+            { TagContrast, "Contrast" },
+            { TagDigitalZoom, "Digital Zoom" },
+            { TagFlashIntensity, "Flash Intensity" },
+            { TagFlashMode, "Flash Mode" },
+            { TagFocusingMode, "Focusing Mode" },
+            { TagObjectDistance, "Object Distance" },
+            { TagQuality, "Quality" },
+            { TagRecordingMode, "Recording Mode" },
+            { TagSaturation, "Saturation" },
+            { TagSharpness, "Sharpness" },
+            { TagUnknown1, "Makernote Unknown 1" },
+            { TagUnknown2, "Makernote Unknown 2" },
+            { TagUnknown3, "Makernote Unknown 3" },
+            { TagUnknown4, "Makernote Unknown 4" },
+            { TagUnknown5, "Makernote Unknown 5" },
+            { TagUnknown6, "Makernote Unknown 6" },
+            { TagUnknown7, "Makernote Unknown 7" },
+            { TagUnknown8, "Makernote Unknown 8" },
+            { TagWhiteBalance, "White Balance" }
+        };
 
         public CasioType1MakernoteDirectory()
         {

@@ -28,7 +28,7 @@ using JetBrains.Annotations;
 namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>Directory of tags and values for the SOF0 JPEG segment.</summary>
-    /// <remarks>Directory of tags and values for the SOF0 JPEG segment.  This segment holds basic metadata about the image.</remarks>
+    /// <remarks>This segment holds basic metadata about the image.</remarks>
     /// <author>Darrell Silver http://www.darrellsilver.com and Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegDirectory : Directory
     {
@@ -38,11 +38,11 @@ namespace MetadataExtractor.Formats.Jpeg
         public const int TagDataPrecision = 0;
 
         /// <summary>The image's height.</summary>
-        /// <remarks>The image's height.  Necessary for decoding the image, so it should always be there.</remarks>
+        /// <remarks>Necessary for decoding the image, so it should always be there.</remarks>
         public const int TagImageHeight = 1;
 
         /// <summary>The image's width.</summary>
-        /// <remarks>The image's width.  Necessary for decoding the image, so it should always be there.</remarks>
+        /// <remarks>Necessary for decoding the image, so it should always be there.</remarks>
         public const int TagImageWidth = 3;
 
         /// <summary>
@@ -53,47 +53,38 @@ namespace MetadataExtractor.Formats.Jpeg
         /// quantization table number (1 byte).
         /// </summary>
         /// <remarks>
-        /// Usually 1 = grey scaled, 3 = color YcbCr or YIQ, 4 = color CMYK
-        /// Each component TAG_COMPONENT_DATA_[1-4], has the following meaning:
-        /// component Id(1byte)(1 = Y, 2 = Cb, 3 = Cr, 4 = I, 5 = Q),
-        /// sampling factors (1byte) (bit 0-3 vertical., 4-7 horizontal.),
-        /// quantization table number (1 byte).
-        /// <para />
         /// This info is from http://www.funducode.com/freec/Fileformats/format3/format3b.htm
         /// </remarks>
         public const int TagNumberOfComponents = 5;
 
-        /// <summary>the first of a possible 4 color components.</summary>
-        /// <remarks>the first of a possible 4 color components.  Number of components specified in TAG_NUMBER_OF_COMPONENTS.</remarks>
+        /// <summary>The first of a possible 4 color components.</summary>
+        /// <remarks>The number of components specified in <see cref="TagNumberOfComponents"/>.</remarks>
         public const int TagComponentData1 = 6;
 
-        /// <summary>the second of a possible 4 color components.</summary>
-        /// <remarks>the second of a possible 4 color components.  Number of components specified in TAG_NUMBER_OF_COMPONENTS.</remarks>
+        /// <summary>The second of a possible 4 color components.</summary>
+        /// <remarks>The number of components specified in <see cref="TagNumberOfComponents"/>.</remarks>
         public const int TagComponentData2 = 7;
 
-        /// <summary>the third of a possible 4 color components.</summary>
-        /// <remarks>the third of a possible 4 color components.  Number of components specified in TAG_NUMBER_OF_COMPONENTS.</remarks>
+        /// <summary>The third of a possible 4 color components.</summary>
+        /// <remarks>The number of components specified in <see cref="TagNumberOfComponents"/>.</remarks>
         public const int TagComponentData3 = 8;
 
-        /// <summary>the fourth of a possible 4 color components.</summary>
-        /// <remarks>the fourth of a possible 4 color components.  Number of components specified in TAG_NUMBER_OF_COMPONENTS.</remarks>
+        /// <summary>The fourth of a possible 4 color components.</summary>
+        /// <remarks>The number of components specified in <see cref="TagNumberOfComponents"/>.</remarks>
         public const int TagComponentData4 = 9;
 
-        [NotNull] private static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
-
-        static JpegDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            // NOTE!  Component tag type int values must increment in steps of 1
-            TagNameMap[TagCompressionType] = "Compression Type";
-            TagNameMap[TagDataPrecision] = "Data Precision";
-            TagNameMap[TagImageWidth] = "Image Width";
-            TagNameMap[TagImageHeight] = "Image Height";
-            TagNameMap[TagNumberOfComponents] = "Number of Components";
-            TagNameMap[TagComponentData1] = "Component 1";
-            TagNameMap[TagComponentData2] = "Component 2";
-            TagNameMap[TagComponentData3] = "Component 3";
-            TagNameMap[TagComponentData4] = "Component 4";
-        }
+            { TagCompressionType, "Compression Type" },
+            { TagDataPrecision, "Data Precision" },
+            { TagImageWidth, "Image Width" },
+            { TagImageHeight, "Image Height" },
+            { TagNumberOfComponents, "Number of Components" },
+            { TagComponentData1, "Component 1" },
+            { TagComponentData2, "Component 2" },
+            { TagComponentData3, "Component 3" },
+            { TagComponentData4, "Component 4" }
+        };
 
         public JpegDirectory()
         {
@@ -107,7 +98,7 @@ namespace MetadataExtractor.Formats.Jpeg
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
 
         /// <param name="componentNumber">

@@ -23,79 +23,56 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>Describes tags specific to certain Leica cameras.</summary>
     /// <remarks>
-    /// Describes tags specific to certain Leica cameras.
-    /// <para />
     /// Tag reference from: http://gvsoft.homedns.org/exif/makernote-leica-type1.html
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class LeicaMakernoteDirectory : Directory
     {
         public const int TagQuality = 0x0300;
-
         public const int TagUserProfile = 0x0302;
-
         public const int TagSerialNumber = 0x0303;
-
         public const int TagWhiteBalance = 0x0304;
-
         public const int TagLensType = 0x0310;
-
         public const int TagExternalSensorBrightnessValue = 0x0311;
-
         public const int TagMeasuredLV = 0x0312;
-
         public const int TagApproximateFNumber = 0x0313;
-
         public const int TagCameraTemperature = 0x0320;
-
         public const int TagColorTemperature = 0x0321;
-
         public const int TagWbRedLevel = 0x0322;
-
         public const int TagWbGreenLevel = 0x0323;
-
         public const int TagWbBlueLevel = 0x0324;
-
         public const int TagCcdVersion = 0x0330;
-
         public const int TagCcdBoardVersion = 0x0331;
-
         public const int TagControllerBoardVersion = 0x0332;
-
         public const int TagM16CVersion = 0x0333;
-
         public const int TagImageIdNumber = 0x0340;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
-
-        static LeicaMakernoteDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            TagNameMap[TagQuality] = "Quality";
-            TagNameMap[TagUserProfile] = "User Profile";
-            TagNameMap[TagSerialNumber] = "Serial Number";
-            TagNameMap[TagWhiteBalance] = "White Balance";
-            TagNameMap[TagLensType] = "Lens Type";
-            TagNameMap[TagExternalSensorBrightnessValue] = "External Sensor Brightness Value";
-            TagNameMap[TagMeasuredLV] = "Measured LV";
-            TagNameMap[TagApproximateFNumber] = "Approximate F Number";
-            TagNameMap[TagCameraTemperature] = "Camera Temperature";
-            TagNameMap[TagColorTemperature] = "Color Temperature";
-            TagNameMap[TagWbRedLevel] = "WB Red Level";
-            TagNameMap[TagWbGreenLevel] = "WB Green Level";
-            TagNameMap[TagWbBlueLevel] = "WB Blue Level";
-            TagNameMap[TagCcdVersion] = "CCD Version";
-            TagNameMap[TagCcdBoardVersion] = "CCD Board Version";
-            TagNameMap[TagControllerBoardVersion] = "Controller Board Version";
-            TagNameMap[TagM16CVersion] = "M16 C Version";
-            TagNameMap[TagImageIdNumber] = "Image ID Number";
-        }
+            { TagQuality, "Quality" },
+            { TagUserProfile, "User Profile" },
+            { TagSerialNumber, "Serial Number" },
+            { TagWhiteBalance, "White Balance" },
+            { TagLensType, "Lens Type" },
+            { TagExternalSensorBrightnessValue, "External Sensor Brightness Value" },
+            { TagMeasuredLV, "Measured LV" },
+            { TagApproximateFNumber, "Approximate F Number" },
+            { TagCameraTemperature, "Camera Temperature" },
+            { TagColorTemperature, "Color Temperature" },
+            { TagWbRedLevel, "WB Red Level" },
+            { TagWbGreenLevel, "WB Green Level" },
+            { TagWbBlueLevel, "WB Blue Level" },
+            { TagCcdVersion, "CCD Version" },
+            { TagCcdBoardVersion, "CCD Board Version" },
+            { TagControllerBoardVersion, "Controller Board Version" },
+            { TagM16CVersion, "M16 C Version" },
+            { TagImageIdNumber, "Image ID Number" }
+        };
 
         public LeicaMakernoteDirectory()
         {
@@ -109,7 +86,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

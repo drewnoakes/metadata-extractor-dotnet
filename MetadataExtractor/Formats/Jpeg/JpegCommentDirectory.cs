@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -38,13 +37,10 @@ namespace MetadataExtractor.Formats.Jpeg
         /// </remarks>
         public const int TagComment = 0;
 
-        [NotNull]
-        protected static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>();
-
-        static JpegCommentDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            TagNameMap[TagComment] = "JPEG Comment";
-        }
+            { TagComment, "JPEG Comment" }
+        };
 
         public JpegCommentDirectory(string comment)
         {
@@ -59,7 +55,7 @@ namespace MetadataExtractor.Formats.Jpeg
 
         protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
         {
-            return TagNameMap;
+            return _tagNameMap;
         }
     }
 }

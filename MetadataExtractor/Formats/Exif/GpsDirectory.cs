@@ -122,45 +122,43 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagDifferential = 0x001E;
 
-        private static readonly Dictionary<int?, string> _tagNameMap;
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        {
+            { TagVersionId, "GPS Version ID" },
+            { TagLatitudeRef, "GPS Latitude Ref" },
+            { TagLatitude, "GPS Latitude" },
+            { TagLongitudeRef, "GPS Longitude Ref" },
+            { TagLongitude, "GPS Longitude" },
+            { TagAltitudeRef, "GPS Altitude Ref" },
+            { TagAltitude, "GPS Altitude" },
+            { TagTimeStamp, "GPS Time-Stamp" },
+            { TagSatellites, "GPS Satellites" },
+            { TagStatus, "GPS Status" },
+            { TagMeasureMode, "GPS Measure Mode" },
+            { TagDop, "GPS DOP" },
+            { TagSpeedRef, "GPS Speed Ref" },
+            { TagSpeed, "GPS Speed" },
+            { TagTrackRef, "GPS Track Ref" },
+            { TagTrack, "GPS Track" },
+            { TagImgDirectionRef, "GPS Img Direction Ref" },
+            { TagImgDirection, "GPS Img Direction" },
+            { TagMapDatum, "GPS Map Datum" },
+            { TagDestLatitudeRef, "GPS Dest Latitude Ref" },
+            { TagDestLatitude, "GPS Dest Latitude" },
+            { TagDestLongitudeRef, "GPS Dest Longitude Ref" },
+            { TagDestLongitude, "GPS Dest Longitude" },
+            { TagDestBearingRef, "GPS Dest Bearing Ref" },
+            { TagDestBearing, "GPS Dest Bearing" },
+            { TagDestDistanceRef, "GPS Dest Distance Ref" },
+            { TagDestDistance, "GPS Dest Distance" },
+            { TagProcessingMethod, "GPS Processing Method" },
+            { TagAreaInformation, "GPS Area Information" },
+            { TagDateStamp, "GPS Date Stamp" },
+            { TagDifferential, "GPS Differential" }
+        };
 
         static GpsDirectory()
         {
-            _tagNameMap = new Dictionary<int?, string>
-            {
-                { TagVersionId, "GPS Version ID" },
-                { TagLatitudeRef, "GPS Latitude Ref" },
-                { TagLatitude, "GPS Latitude" },
-                { TagLongitudeRef, "GPS Longitude Ref" },
-                { TagLongitude, "GPS Longitude" },
-                { TagAltitudeRef, "GPS Altitude Ref" },
-                { TagAltitude, "GPS Altitude" },
-                { TagTimeStamp, "GPS Time-Stamp" },
-                { TagSatellites, "GPS Satellites" },
-                { TagStatus, "GPS Status" },
-                { TagMeasureMode, "GPS Measure Mode" },
-                { TagDop, "GPS DOP" },
-                { TagSpeedRef, "GPS Speed Ref" },
-                { TagSpeed, "GPS Speed" },
-                { TagTrackRef, "GPS Track Ref" },
-                { TagTrack, "GPS Track" },
-                { TagImgDirectionRef, "GPS Img Direction Ref" },
-                { TagImgDirection, "GPS Img Direction" },
-                { TagMapDatum, "GPS Map Datum" },
-                { TagDestLatitudeRef, "GPS Dest Latitude Ref" },
-                { TagDestLatitude, "GPS Dest Latitude" },
-                { TagDestLongitudeRef, "GPS Dest Longitude Ref" },
-                { TagDestLongitude, "GPS Dest Longitude" },
-                { TagDestBearingRef, "GPS Dest Bearing Ref" },
-                { TagDestBearing, "GPS Dest Bearing" },
-                { TagDestDistanceRef, "GPS Dest Distance Ref" },
-                { TagDestDistance, "GPS Dest Distance" },
-                { TagProcessingMethod, "GPS Processing Method" },
-                { TagAreaInformation, "GPS Area Information" },
-                { TagDateStamp, "GPS Date Stamp" },
-                { TagDifferential, "GPS Differential" }
-            };
-
             AddExifTagNames(_tagNameMap);
         }
 

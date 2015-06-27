@@ -38,22 +38,17 @@ namespace MetadataExtractor.Formats.Png
         public const int TagBlueX = 7;
         public const int TagBlueY = 8;
 
-        private static readonly Dictionary<int?, string> _tagNameMap;
-
-        static PngChromaticitiesDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            _tagNameMap = new Dictionary<int?, string>
-            {
-                { TagWhitePointX, "White Point X" },
-                { TagWhitePointY, "White Point Y" },
-                { TagRedX, "Red X" },
-                { TagRedY, "Red Y" },
-                { TagGreenX, "Green X" },
-                { TagGreenY, "Green Y" },
-                { TagBlueX, "Blue X" },
-                { TagBlueY, "Blue Y" }
-            };
-        }
+            { TagWhitePointX, "White Point X" },
+            { TagWhitePointY, "White Point Y" },
+            { TagRedX, "Red X" },
+            { TagRedY, "Red Y" },
+            { TagGreenX, "Green X" },
+            { TagGreenY, "Green Y" },
+            { TagBlueX, "Blue X" },
+            { TagBlueY, "Blue Y" }
+        };
 
         public PngChromaticitiesDirectory()
         {

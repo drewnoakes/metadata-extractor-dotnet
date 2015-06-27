@@ -59,10 +59,10 @@ namespace MetadataExtractor.Formats.Pcx
                     throw new ImageProcessingException("Invalid PCX encoding byte");
                 }
                 directory.Set(PcxDirectory.TagBitsPerPixel, reader.GetByte());
-                directory.Set(PcxDirectory.TagXmin, reader.GetUInt16());
-                directory.Set(PcxDirectory.TagYmin, reader.GetUInt16());
-                directory.Set(PcxDirectory.TagXmax, reader.GetUInt16());
-                directory.Set(PcxDirectory.TagYmax, reader.GetUInt16());
+                directory.Set(PcxDirectory.TagXMin, reader.GetUInt16());
+                directory.Set(PcxDirectory.TagYMin, reader.GetUInt16());
+                directory.Set(PcxDirectory.TagXMax, reader.GetUInt16());
+                directory.Set(PcxDirectory.TagYMax, reader.GetUInt16());
                 directory.Set(PcxDirectory.TagHorizontalDpi, reader.GetUInt16());
                 directory.Set(PcxDirectory.TagVerticalDpi, reader.GetUInt16());
                 directory.Set(PcxDirectory.TagPalette, reader.GetBytes(48));
@@ -77,12 +77,12 @@ namespace MetadataExtractor.Formats.Pcx
                 var hScrSize = reader.GetUInt16();
                 if (hScrSize != 0)
                 {
-                    directory.Set(PcxDirectory.TagHscrSize, hScrSize);
+                    directory.Set(PcxDirectory.TagHScrSize, hScrSize);
                 }
                 var vScrSize = reader.GetUInt16();
                 if (vScrSize != 0)
                 {
-                    directory.Set(PcxDirectory.TagVscrSize, vScrSize);
+                    directory.Set(PcxDirectory.TagVScrSize, vScrSize);
                 }
             }
             catch (Exception ex)

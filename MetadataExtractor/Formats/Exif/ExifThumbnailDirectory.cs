@@ -29,7 +29,7 @@ using JetBrains.Annotations;
 namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>One of several Exif directories.</summary>
-    /// <remarks>One of several Exif directories.  Otherwise known as IFD1, this directory holds information about an embedded thumbnail image.</remarks>
+    /// <remarks>Otherwise known as IFD1, this directory holds information about an embedded thumbnail image.</remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifThumbnailDirectory : ExifDirectoryBase
     {
@@ -39,13 +39,15 @@ namespace MetadataExtractor.Formats.Exif
         /// <summary>The size of the thumbnail image data in bytes.</summary>
         public const int TagThumbnailLength = 0x0202;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        {
+            { TagThumbnailOffset, "Thumbnail Offset" },
+            { TagThumbnailLength, "Thumbnail Length" }
+        };
 
         static ExifThumbnailDirectory()
         {
             AddExifTagNames(_tagNameMap);
-            _tagNameMap[TagThumbnailOffset] = "Thumbnail Offset";
-            _tagNameMap[TagThumbnailLength] = "Thumbnail Length";
         }
 
         [CanBeNull]

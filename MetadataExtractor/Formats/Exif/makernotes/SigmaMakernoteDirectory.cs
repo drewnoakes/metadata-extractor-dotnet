@@ -54,37 +54,32 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagSoftware = 0x18;
         public const int TagAutoBracket = 0x19;
 
-        private static readonly Dictionary<int?, string> _tagNameMap;
-
-        static SigmaMakernoteDirectory()
+        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
         {
-            _tagNameMap = new Dictionary<int?, string>
-            {
-                { TagSerialNumber, "Serial Number" },
-                { TagDriveMode, "Drive Mode" },
-                { TagResolutionMode, "Resolution Mode" },
-                { TagAutoFocusMode, "Auto Focus Mode" },
-                { TagFocusSetting, "Focus Setting" },
-                { TagWhiteBalance, "White Balance" },
-                { TagExposureMode, "Exposure Mode" },
-                { TagMeteringMode, "Metering Mode" },
-                { TagLensRange, "Lens Range" },
-                { TagColorSpace, "Color Space" },
-                { TagExposure, "Exposure" },
-                { TagContrast, "Contrast" },
-                { TagShadow, "Shadow" },
-                { TagHighlight, "Highlight" },
-                { TagSaturation, "Saturation" },
-                { TagSharpness, "Sharpness" },
-                { TagFillLight, "Fill Light" },
-                { TagColorAdjustment, "Color Adjustment" },
-                { TagAdjustmentMode, "Adjustment Mode" },
-                { TagQuality, "Quality" },
-                { TagFirmware, "Firmware" },
-                { TagSoftware, "Software" },
-                { TagAutoBracket, "Auto Bracket" }
-            };
-        }
+            { TagSerialNumber, "Serial Number" },
+            { TagDriveMode, "Drive Mode" },
+            { TagResolutionMode, "Resolution Mode" },
+            { TagAutoFocusMode, "Auto Focus Mode" },
+            { TagFocusSetting, "Focus Setting" },
+            { TagWhiteBalance, "White Balance" },
+            { TagExposureMode, "Exposure Mode" },
+            { TagMeteringMode, "Metering Mode" },
+            { TagLensRange, "Lens Range" },
+            { TagColorSpace, "Color Space" },
+            { TagExposure, "Exposure" },
+            { TagContrast, "Contrast" },
+            { TagShadow, "Shadow" },
+            { TagHighlight, "Highlight" },
+            { TagSaturation, "Saturation" },
+            { TagSharpness, "Sharpness" },
+            { TagFillLight, "Fill Light" },
+            { TagColorAdjustment, "Color Adjustment" },
+            { TagAdjustmentMode, "Adjustment Mode" },
+            { TagQuality, "Quality" },
+            { TagFirmware, "Firmware" },
+            { TagSoftware, "Software" },
+            { TagAutoBracket, "Auto Bracket" }
+        };
 
         public SigmaMakernoteDirectory()
         {
