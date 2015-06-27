@@ -33,7 +33,7 @@ namespace MetadataExtractor.IO
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [Serializable]
-    public sealed class BufferBoundsException : IOException
+    public class BufferBoundsException : IOException
     {
         public BufferBoundsException(int index, int bytesRequested, long bufferLength)
             : base(GetMessage(index, bytesRequested, bufferLength))
