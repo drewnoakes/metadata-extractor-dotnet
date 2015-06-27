@@ -35,7 +35,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagPrintImageMatchingInfo = 0x0E00;
         public const int TagRicohCameraInfoMakernoteSubIfdPointer = 0x2001;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagMakernoteDataType, "Makernote Data Type" },
             { TagVersion, "Version" },
@@ -53,7 +53,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             get { return "Ricoh Makernote"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

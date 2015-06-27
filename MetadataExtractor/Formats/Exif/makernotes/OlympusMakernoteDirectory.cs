@@ -275,7 +275,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             public const int TagDecSwitchPosition = Offset + 51;
         }
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagMakernoteVersion, "Makernote Version" },
             { TagCameraSettings1, "Camera Settings" },
@@ -455,7 +455,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return value != null && value == 5;
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

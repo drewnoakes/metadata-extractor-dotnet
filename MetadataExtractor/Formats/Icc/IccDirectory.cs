@@ -97,7 +97,7 @@ namespace MetadataExtractor.Formats.Icc
         public const int TagTagView = 0x76696577;
         public const int TagAppleMultiLanguageProfileName = 0x6473636d;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagProfileByteCount, "Profile Size" },
             { TagCmmType, "CMM Type" },
@@ -176,7 +176,7 @@ namespace MetadataExtractor.Formats.Icc
             get { return "ICC Profile"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

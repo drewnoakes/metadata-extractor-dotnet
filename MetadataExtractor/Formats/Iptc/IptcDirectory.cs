@@ -110,7 +110,7 @@ namespace MetadataExtractor.Formats.Iptc
         public const int TagObjectPreviewFileFormatVersion = 0x02C9;
         public const int TagObjectPreviewData = 0x02CA;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagEnvelopeRecordVersion, "Enveloped Record Version" },
             { TagDestination, "Destination" },
@@ -201,7 +201,7 @@ namespace MetadataExtractor.Formats.Iptc
             get { return "IPTC"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

@@ -166,7 +166,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagFilter = 0x3017;
 
         // TODO add missing names
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagThumbnailDimensions, "Thumbnail Dimensions" },
             { TagThumbnailSize, "Thumbnail Size" },
@@ -208,7 +208,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             get { return "Casio Makernote"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

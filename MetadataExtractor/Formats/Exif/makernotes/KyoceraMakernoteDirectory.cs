@@ -33,7 +33,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagProprietaryThumbnail = 0x0001;
         public const int TagPrintImageMatchingInfo = 0x0E00;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagProprietaryThumbnail, "Proprietary Thumbnail Format Data" },
             { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" }
@@ -49,7 +49,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             get { return "Kyocera/Contax Makernote"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

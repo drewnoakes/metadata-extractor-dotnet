@@ -53,7 +53,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagConverter = 0x000B;
         public const int TagUnknown3 = 0x0F00;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagCcdSensitivity, "CCD Sensitivity" },
             { TagColorMode, "Color Mode" },
@@ -78,7 +78,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             get { return "Nikon Makernote"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

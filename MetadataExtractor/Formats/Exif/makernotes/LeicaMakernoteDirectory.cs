@@ -52,7 +52,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagM16CVersion = 0x0333;
         public const int TagImageIdNumber = 0x0340;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagQuality, "Quality" },
             { TagUserProfile, "User Profile" },
@@ -84,7 +84,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             get { return "Leica Makernote"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

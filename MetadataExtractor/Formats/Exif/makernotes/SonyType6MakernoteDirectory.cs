@@ -35,7 +35,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 //      public const int TagUnknown1 = 0x0515;
         public const int TagMakernoteThumbVersion = 0x2000;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagMakernoteThumbOffset, "Makernote Thumb Offset" },
             { TagMakernoteThumbLength, "Makernote Thumb Length" },
@@ -52,7 +52,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             get { return "Sony Makernote"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

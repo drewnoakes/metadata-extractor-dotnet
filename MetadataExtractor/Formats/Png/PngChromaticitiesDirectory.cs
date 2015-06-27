@@ -38,7 +38,7 @@ namespace MetadataExtractor.Formats.Png
         public const int TagBlueX = 7;
         public const int TagBlueY = 8;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagWhitePointX, "White Point X" },
             { TagWhitePointY, "White Point Y" },
@@ -60,7 +60,7 @@ namespace MetadataExtractor.Formats.Png
             get { return "PNG Chromaticities"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

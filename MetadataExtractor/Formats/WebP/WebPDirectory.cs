@@ -34,7 +34,7 @@ namespace MetadataExtractor.Formats.WebP
         public const int TagHasAlpha = 3;
         public const int TagIsAnimation = 4;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagImageHeight, "Image Height" },
             { TagImageWidth, "Image Width" },
@@ -52,7 +52,7 @@ namespace MetadataExtractor.Formats.WebP
             get { return "WebP"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

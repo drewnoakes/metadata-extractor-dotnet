@@ -54,7 +54,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagSoftware = 0x18;
         public const int TagAutoBracket = 0x19;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagSerialNumber, "Serial Number" },
             { TagDriveMode, "Drive Mode" },
@@ -91,7 +91,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             get { return "Sigma Makernote"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

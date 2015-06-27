@@ -41,7 +41,7 @@ namespace MetadataExtractor.Formats.Jfif
 
         public const int TagResY = 10;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagVersion, "Version" },
             { TagUnits, "Resolution Units" },
@@ -59,7 +59,7 @@ namespace MetadataExtractor.Formats.Jfif
             get { return "JFIF"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

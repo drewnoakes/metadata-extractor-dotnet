@@ -40,7 +40,7 @@ namespace MetadataExtractor.Formats.Ico
         public const int TagImageSizeBytes = 9;
         public const int TagImageOffsetBytes = 10;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagImageType, "Image Type" },
             { TagImageWidth, "Image Width" },
@@ -64,7 +64,7 @@ namespace MetadataExtractor.Formats.Ico
             get { return "ICO"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

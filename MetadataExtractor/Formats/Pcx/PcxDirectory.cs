@@ -44,7 +44,7 @@ namespace MetadataExtractor.Formats.Pcx
         public const int TagHScrSize = 13;
         public const int TagVScrSize = 14;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagVersion, "Version" },
             { TagBitsPerPixel, "Bits Per Pixel" },
@@ -72,7 +72,7 @@ namespace MetadataExtractor.Formats.Pcx
             get { return "PCX"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

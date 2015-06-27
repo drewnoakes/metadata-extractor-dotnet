@@ -58,7 +58,7 @@ namespace MetadataExtractor
         /// <summary>Provides the map of tag names, hashed by tag type identifier.</summary>
         /// <returns>the map of tag names</returns>
         [NotNull]
-        protected abstract IReadOnlyDictionary<int?, string> GetTagNameMap();
+        protected abstract IReadOnlyDictionary<int, string> GetTagNameMap();
 
         /// <summary>Gets a value indicating whether the directory is empty, meaning it contains no errors and no tag values.</summary>
         public bool IsEmpty

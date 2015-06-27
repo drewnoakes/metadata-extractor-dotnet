@@ -59,7 +59,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagPrintIm = 0x0e00;
         public const int TagDataDump = 0x0f00;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagMakernoteOffset, "Makernote Offset" },
             { TagSanyoThumbnail, "Sanyo Thumbnail" },
@@ -100,7 +100,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             get { return "Sanyo Makernote"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

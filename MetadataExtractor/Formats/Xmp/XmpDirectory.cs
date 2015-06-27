@@ -84,7 +84,7 @@ namespace MetadataExtractor.Formats.Xmp
 //        public const int TagAccrualPeriodicity = 0x1013;
 //        public const int TagAccrualPolicy = 0x1014;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagXmpValueCount, "XMP Value Count" },
             { TagMake, "Make" },
@@ -224,7 +224,7 @@ namespace MetadataExtractor.Formats.Xmp
             get { return "Xmp"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

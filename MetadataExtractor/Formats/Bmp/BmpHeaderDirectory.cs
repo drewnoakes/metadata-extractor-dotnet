@@ -40,7 +40,7 @@ namespace MetadataExtractor.Formats.Bmp
         public const int TagPaletteColourCount = 8;
         public const int TagImportantColourCount = 9;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagHeaderSize, "Header Size" },
             { TagImageHeight, "Image Height" },
@@ -64,7 +64,7 @@ namespace MetadataExtractor.Formats.Bmp
             get { return "BMP Header"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

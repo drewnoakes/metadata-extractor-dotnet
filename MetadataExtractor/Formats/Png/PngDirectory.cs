@@ -50,7 +50,7 @@ namespace MetadataExtractor.Formats.Png
         public const int TagUnitSpecifier = 18;
         public const int TagSignificantBits = 19;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagImageHeight, "Image Height" },
             { TagImageWidth, "Image Width" },
@@ -92,7 +92,7 @@ namespace MetadataExtractor.Formats.Png
             get { return "PNG-" + _pngChunkType.Identifier; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

@@ -39,7 +39,7 @@ namespace MetadataExtractor.Formats.Gif
         public const int TagTransparentColorIndex = 8;
         public const int TagPixelAspectRatio = 9;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagGifFormatVersion, "GIF Format Version" },
             { TagImageHeight, "Image Height" },
@@ -62,7 +62,7 @@ namespace MetadataExtractor.Formats.Gif
             get { return "GIF Header"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

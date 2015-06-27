@@ -50,7 +50,7 @@ namespace MetadataExtractor.Formats.Adobe
 
         public const int TagColorTransform = 3;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagDctEncodeVersion, "DCT Encode Version" },
             { TagApp14Flags0, "Flags 0" },
@@ -68,7 +68,7 @@ namespace MetadataExtractor.Formats.Adobe
             get { return "Adobe JPEG"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

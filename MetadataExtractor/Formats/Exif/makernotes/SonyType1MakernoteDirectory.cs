@@ -111,7 +111,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagWhiteBalance2 = 0xb054;
         public const int TagNoPrint = 0xFFFF;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagCameraInfo, "Camera Info" },
             { TagFocusInfo, "Focus Info" },
@@ -190,7 +190,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             get { return "Sony Makernote"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

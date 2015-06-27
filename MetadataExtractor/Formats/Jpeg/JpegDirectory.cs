@@ -73,7 +73,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <remarks>The number of components specified in <see cref="TagNumberOfComponents"/>.</remarks>
         public const int TagComponentData4 = 9;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagCompressionType, "Compression Type" },
             { TagDataPrecision, "Data Precision" },
@@ -96,7 +96,7 @@ namespace MetadataExtractor.Formats.Jpeg
             get { return "JPEG"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

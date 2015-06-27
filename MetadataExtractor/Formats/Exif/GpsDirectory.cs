@@ -122,7 +122,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagDifferential = 0x001E;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagVersionId, "GPS Version ID" },
             { TagLatitudeRef, "GPS Latitude Ref" },
@@ -172,7 +172,7 @@ namespace MetadataExtractor.Formats.Exif
             get { return "GPS"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

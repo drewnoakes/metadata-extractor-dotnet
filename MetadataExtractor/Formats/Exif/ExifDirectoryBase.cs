@@ -760,7 +760,7 @@ namespace MetadataExtractor.Formats.Exif
 
         // TODO duplicate tag
         // TODO duplicate tag
-        protected static void AddExifTagNames(Dictionary<int?, string> map)
+        protected static void AddExifTagNames(Dictionary<int, string> map)
         {
             map[TagInteropIndex] = "Interoperability Index";
             map[TagInteropVersion] = "Interoperability Version";

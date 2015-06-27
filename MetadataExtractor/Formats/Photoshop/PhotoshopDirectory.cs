@@ -123,7 +123,7 @@ namespace MetadataExtractor.Formats.Photoshop
         public const int TagPrintFlagsInfo = 0x2710;
 
         [NotNull]
-        internal static readonly Dictionary<int?, string> TagNameMap = new Dictionary<int?, string>
+        internal static readonly Dictionary<int, string> TagNameMap = new Dictionary<int, string>
         {
             { TagChannelsRowsColumnsDepthMode, "Channels, Rows, Columns, Depth, Mode" },
             { TagMacPrintInfo, "Mac Print Info" },
@@ -218,7 +218,7 @@ namespace MetadataExtractor.Formats.Photoshop
             get { return "Photoshop"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return TagNameMap;
         }

@@ -497,7 +497,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             public const int TagPrimaryAfPoint2 = Offset + 12;
         }
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagCanonFirmwareVersion, "Firmware Version" },
             { TagCanonImageNumber, "Image Number" },
@@ -668,7 +668,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             get { return "Canon Makernote"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

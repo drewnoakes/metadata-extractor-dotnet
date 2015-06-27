@@ -37,7 +37,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// </remarks>
         public const int TagComment = 0;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagComment, "JPEG Comment" }
         };
@@ -53,7 +53,7 @@ namespace MetadataExtractor.Formats.Jpeg
             get { return "JpegComment"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

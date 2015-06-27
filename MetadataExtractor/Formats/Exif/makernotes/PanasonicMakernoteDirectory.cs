@@ -440,7 +440,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// </summary>
         public const int TagTransform1 = 0x8012;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagQualityMode, "Quality Mode" },
             { TagFirmwareVersion, "Version" },
@@ -524,7 +524,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             get { return "Panasonic Makernote"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

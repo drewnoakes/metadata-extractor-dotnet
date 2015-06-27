@@ -51,7 +51,7 @@ namespace MetadataExtractor.Formats.Photoshop
         /// </remarks>
         public const int TagColorMode = 5;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagChannelCount, "Channel Count" },
             { TagImageHeight, "Image Height" },
@@ -70,7 +70,7 @@ namespace MetadataExtractor.Formats.Photoshop
             get { return "PSD Header"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

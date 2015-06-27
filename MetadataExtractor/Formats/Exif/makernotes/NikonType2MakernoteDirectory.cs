@@ -848,7 +848,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public const int TagUnknown55 = 0x0E23;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagFirmwareVersion, "Firmware Version" },
             { TagIso1, "ISO" },
@@ -978,7 +978,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             get { return "Nikon Makernote"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

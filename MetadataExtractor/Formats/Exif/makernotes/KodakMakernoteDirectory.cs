@@ -57,7 +57,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagDigitalZoom = 104;
         public const int TagSharpness = 107;
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagKodakModel, "Kodak Model" },
             { TagQuality, "Quality" },
@@ -97,7 +97,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             get { return "Kodak Makernote"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }

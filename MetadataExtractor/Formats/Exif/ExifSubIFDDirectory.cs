@@ -38,7 +38,7 @@ namespace MetadataExtractor.Formats.Exif
             SetDescriptor(new ExifSubIfdDescriptor(this));
         }
 
-        private static readonly Dictionary<int?, string> _tagNameMap = new Dictionary<int?, string>();
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>();
 
         static ExifSubIfdDirectory()
         {
@@ -50,7 +50,7 @@ namespace MetadataExtractor.Formats.Exif
             get { return "Exif SubIFD"; }
         }
 
-        protected override IReadOnlyDictionary<int?, string> GetTagNameMap()
+        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
         {
             return _tagNameMap;
         }
