@@ -125,10 +125,10 @@ namespace MetadataExtractor.Formats.Icc
                                 observerString = "Unknown";
                                 break;
                             case 1:
-                                observerString = "1931 2°";
+                                observerString = "1931 2\u00b0";
                                 break;
                             case 2:
-                                observerString = "1964 10°";
+                                observerString = "1964 10\u00b0";
                                 break;
                             default:
                                 observerString = string.Format("Unknown ({0})", observerType);

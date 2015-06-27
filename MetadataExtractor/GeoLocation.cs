@@ -70,7 +70,7 @@ namespace MetadataExtractor
         public static string DecimalToDegreesMinutesSecondsString(double @decimal)
         {
             var dms = DecimalToDegreesMinutesSeconds(@decimal);
-            return string.Format("{0:0.##}° {1:0.##}' {2:0.##}\"", dms[0], dms[1], dms[2]);
+            return string.Format("{0:0.##}\u00b0 {1:0.##}' {2:0.##}\"", dms[0], dms[1], dms[2]);
         }
 
         /// <summary>
