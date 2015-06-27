@@ -64,6 +64,8 @@ namespace MetadataExtractor.Formats.Xmp
                     return GetFocalLengthDescription();
                 case XmpDirectory.TagApertureValue:
                     return GetApertureValueDescription();
+                case XmpDirectory.TagRating:
+                    return GetRatingDescription();
                 default:
                     return base.GetDescription(tagType);
             }
@@ -141,6 +143,15 @@ namespace MetadataExtractor.Formats.Xmp
         {
             var value = Directory.GetDoubleNullable(XmpDirectory.TagApertureValue);
             return value == null ? null : "f/" + PhotographicConversions.ApertureToFStop((double)value).ToString("0.0");
+        }
+
+        [CanBeNull]
+        public string GetRatingDescription()
+        {
+            var value = Directory.GetDoubleNullable(XmpDirectory.TagRating);
+            return value == null
+                ? base.GetDescription(XmpDirectory.TagRating)
+                : value.Value.ToString("0.0");
         }
     }
 }
