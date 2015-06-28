@@ -836,11 +836,11 @@ namespace MetadataExtractor.Formats.Exif
                 case 9: return "Fine Weather";
                 case 10: return "Cloudy";
                 case 11: return "Shade";
-                case 12: return "Daylight Flourescent";
-                case 13: return "Day White Flourescent";
-                case 14: return "Cool White Flourescent";
-                case 15: return "White Flourescent";
-                case 16: return "Warm White Flourescent";
+                case 12: return "Daylight Fluorescent";
+                case 13: return "Day White Fluorescent";
+                case 14: return "Cool White Fluorescent";
+                case 15: return "White Fluorescent";
+                case 16: return "Warm White Fluorescent";
                 case 17: return "Standard light";
                 case 18: return "Standard light (B)";
                 case 19: return "Standard light (C)";
