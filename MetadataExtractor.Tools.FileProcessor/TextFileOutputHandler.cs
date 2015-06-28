@@ -57,11 +57,9 @@ namespace MetadataExtractor.Tools.FileProcessor
                 {
                     try
                     {
-                        // Build a list of all directories
-                        var directoryList = directories.ToList();
-
-                        // Sort them by name
-                        directoryList.Sort((o1, o2) => string.Compare(o1.Name, o2.Name, StringComparison.Ordinal));
+                        // Sort directories by name
+                        // Use Linq's OrderBy to maintain a stable sort
+                        var directoryList = directories.OrderBy(d => d.Name, StringComparer.OrdinalIgnoreCase).ToList();
 
                         // Write any errors
                         if (directoryList.Any(d => d.HasError))
