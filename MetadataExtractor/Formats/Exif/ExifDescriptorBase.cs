@@ -820,40 +820,36 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetWhiteBalanceDescription()
         {
-            // '0' means unknown, '1' daylight, '2' fluorescent, '3' tungsten, '10' flash,
-            // '17' standard light A, '18' standard light B, '19' standard light C, '20' D55,
-            // '21' D65, '22' D75, '255' other.
-            int value;
+            // See http://web.archive.org/web/20131018091152/http://exif.org/Exif2-2.PDF page 35
 
+            int value;
             if (!Directory.TryGetInt32(ExifDirectoryBase.TagWhiteBalance, out value))
                 return null;
 
             switch (value)
             {
-                case 0:
-                    return "Unknown";
-                case 1:
-                    return "Daylight";
-                case 2:
-                    return "Florescent";
-                case 3:
-                    return "Tungsten";
-                case 10:
-                    return "Flash";
-                case 17:
-                    return "Standard light";
-                case 18:
-                    return "Standard light (B)";
-                case 19:
-                    return "Standard light (C)";
-                case 20:
-                    return "D55";
-                case 21:
-                    return "D65";
-                case 22:
-                    return "D75";
-                case 255:
-                    return "(Other)";
+                case 0: return "Unknown";
+                case 1: return "Daylight";
+                case 2: return "Florescent";
+                case 3: return "Tungsten";
+                case 4: return "Flash";
+                case 9: return "Fine Weather";
+                case 10: return "Cloudy";
+                case 11: return "Shade";
+                case 12: return "Daylight Flourescent";
+                case 13: return "Day White Flourescent";
+                case 14: return "Cool White Flourescent";
+                case 15: return "White Flourescent";
+                case 16: return "Warm White Flourescent";
+                case 17: return "Standard light";
+                case 18: return "Standard light (B)";
+                case 19: return "Standard light (C)";
+                case 20: return "D55";
+                case 21: return "D65";
+                case 22: return "D75";
+                case 23: return "D50";
+                case 24: return "Studio Tungsten";
+                case 255: return "(Other)";
                 default:
                     return "Unknown (" + value + ")";
             }
