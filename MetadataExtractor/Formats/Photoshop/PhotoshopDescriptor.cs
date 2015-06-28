@@ -133,7 +133,7 @@ namespace MetadataExtractor.Formats.Photoshop
                         format = "Optimised";
                         break;
                     case 0x0101:
-                        format = "Progressive ";
+                        format = "Progressive";
                         break;
                     default:
                         format = string.Format("Unknown (0x{0:X4})", f);
