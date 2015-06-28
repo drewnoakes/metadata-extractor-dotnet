@@ -59,7 +59,7 @@ namespace MetadataExtractor.Formats.Icc
             return base.GetDescription(tagType);
         }
 
-        private enum IccTagType : int
+        private enum IccTagType
         {
             Text = 0x74657874,
             Desc = 0x64657363,
