@@ -135,7 +135,7 @@ namespace MetadataExtractor.Formats.Xmp
         public string GetFocalLengthDescription()
         {
             var value = Directory.GetRational(XmpDirectory.TagFocalLength);
-            return value == null ? null : string.Format("{0:0.0##} mm", value.ToDouble());
+            return value == null ? null : string.Format("{0} mm", value.ToDouble());
         }
 
         [CanBeNull]
@@ -151,7 +151,7 @@ namespace MetadataExtractor.Formats.Xmp
             var value = Directory.GetDoubleNullable(XmpDirectory.TagRating);
             return value == null
                 ? base.GetDescription(XmpDirectory.TagRating)
-                : value.Value.ToString("0.0");
+                : value.Value.ToString();
         }
     }
 }

@@ -552,7 +552,7 @@ namespace MetadataExtractor
                     {
                         if (i != 0)
                             str.Append(' ');
-                        str.Append(vals[i]);
+                        str.AppendFormat("{0:0.###}", vals[i]);
                     }
                 }
                 else if (componentType == typeof(double))
@@ -562,7 +562,7 @@ namespace MetadataExtractor
                     {
                         if (i != 0)
                             str.Append(' ');
-                        str.Append(vals[i]);
+                        str.AppendFormat("{0:0.###}", vals[i]);
                     }
                 }
                 else if (componentType == typeof(int))
@@ -648,6 +648,13 @@ namespace MetadataExtractor
 
                 return str.ToString();
             }
+
+            if (o is double)
+                return ((double)o).ToString("0.###");
+
+            if (o is float)
+                return ((float)o).ToString("0.###");
+
             // Note that several cameras leave trailing spaces (Olympus, Nikon) but this library is intended to show
             // the actual data within the file.  It is not inconceivable that whitespace may be significant here, so we
             // do not trim.  Also, if support is added for writing data back to files, this may cause issues.

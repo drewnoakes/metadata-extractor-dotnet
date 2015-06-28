@@ -187,7 +187,7 @@ namespace MetadataExtractor.Formats.Icc
                                 break;
                         }
 
-                        return string.Format("{0} Observer, Backing ({1}, {2}, {3}), Geometry {4}, Flare {5}%, Illuminant {6}",
+                        return string.Format("{0} Observer, Backing ({1:0.###}, {2:0.###}, {3:0.###}), Geometry {4}, Flare {5}%, Illuminant {6}",
                             observerString, x, y, z, geometryString, (long)Math.Round(flare * 100), illuminantString);
                     }
 
@@ -203,7 +203,7 @@ namespace MetadataExtractor.Formats.Icc
                             var z = reader.GetS15Fixed16(8 + i * 12 + 8);
                             if (i > 0)
                                 res.Append(", ");
-                            res.AppendFormat("({0:0.0####}, {1:0.0####}, {2:0.0####})", x, y, z);
+                            res.AppendFormat("({0:0.####}, {1:0.####}, {2:0.####})", x, y, z);
                         }
 
                         return res.ToString();
