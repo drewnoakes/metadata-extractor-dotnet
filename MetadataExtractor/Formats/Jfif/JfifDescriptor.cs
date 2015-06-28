@@ -26,11 +26,13 @@ using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jfif
 {
-    /// <summary>Provides human-readable string versions of the tags stored in a JfifDirectory.</summary>
+    /// <summary>Provides human-readable string versions of the tags stored in a <see cref="JfifDirectory"/>.</summary>
     /// <remarks>
-    /// Provides human-readable string versions of the tags stored in a JfifDirectory.
-    /// <para />
-    /// More info at: http://en.wikipedia.org/wiki/JPEG_File_Interchange_Format
+    /// Provides human-readable string versions of the tags stored in a <see cref="JfifDirectory"/>.
+    /// <list type="bullet">
+    ///   <item>http://en.wikipedia.org/wiki/JPEG_File_Interchange_Format</item>
+    ///   <item>http://www.w3.org/Graphics/JPEG/jfif3.pdf</item>
+    /// </list>
     /// </remarks>
     /// <author>Yuri Binev, Drew Noakes</author>
     public sealed class JfifDescriptor : TagDescriptor<JfifDirectory>
@@ -45,29 +47,15 @@ namespace MetadataExtractor.Formats.Jfif
             switch (tagType)
             {
                 case JfifDirectory.TagResX:
-                {
                     return GetImageResXDescription();
-                }
-
                 case JfifDirectory.TagResY:
-                {
                     return GetImageResYDescription();
-                }
-
                 case JfifDirectory.TagVersion:
-                {
                     return GetImageVersionDescription();
-                }
-
                 case JfifDirectory.TagUnits:
-                {
                     return GetImageResUnitsDescription();
-                }
-
                 default:
-                {
                     return base.GetDescription(tagType);
-                }
             }
         }
 
@@ -109,24 +97,13 @@ namespace MetadataExtractor.Formats.Jfif
             switch (value)
             {
                 case 0:
-                {
                     return "none";
-                }
-
                 case 1:
-                {
                     return "inch";
-                }
-
                 case 2:
-                {
                     return "centimetre";
-                }
-
                 default:
-                {
                     return "unit";
-                }
             }
         }
     }
