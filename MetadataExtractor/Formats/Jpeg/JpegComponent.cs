@@ -35,59 +35,52 @@ namespace MetadataExtractor.Formats.Jpeg
     [Serializable]
     public sealed class JpegComponent
     {
-        private readonly int _componentId;
-
         private readonly int _samplingFactorByte;
-
-        private readonly int _quantizationTableNumber;
 
         public JpegComponent(int componentId, int samplingFactorByte, int quantizationTableNumber)
         {
-            _componentId = componentId;
+            Id = componentId;
             _samplingFactorByte = samplingFactorByte;
-            _quantizationTableNumber = quantizationTableNumber;
+            QuantizationTableNumber = quantizationTableNumber;
         }
 
-        public int GetComponentId()
-        {
-            return _componentId;
-        }
+        public int Id { get; private set; }
+
+        public int QuantizationTableNumber { get; private set; }
 
         /// <summary>Returns the component name (one of: Y, Cb, Cr, I, or Q)</summary>
-        /// <returns>the component name</returns>
-        [NotNull, Pure]
-        public string GetComponentName()
+        /// <value>the component name</value>
+        [NotNull]
+        public string Name
         {
-            switch (_componentId)
+            get
             {
-                case 1:
-                    return "Y";
-                case 2:
-                    return "Cb";
-                case 3:
-                    return "Cr";
-                case 4:
-                    return "I";
-                case 5:
-                    return "Q";
-                default:
-                    return string.Format("Unknown ({0})", _componentId);
+                switch (Id)
+                {
+                    case 1:
+                        return "Y";
+                    case 2:
+                        return "Cb";
+                    case 3:
+                        return "Cr";
+                    case 4:
+                        return "I";
+                    case 5:
+                        return "Q";
+                    default:
+                        return string.Format("Unknown ({0})", Id);
+                }
             }
         }
 
-        public int GetQuantizationTableNumber()
+        public int HorizontalSamplingFactor
         {
-            return _quantizationTableNumber;
+            get { return _samplingFactorByte & 0x0F; }
         }
 
-        public int GetHorizontalSamplingFactor()
+        public int VerticalSamplingFactor
         {
-            return _samplingFactorByte & 0x0F;
-        }
-
-        public int GetVerticalSamplingFactor()
-        {
-            return (_samplingFactorByte >> 4) & 0x0F;
+            get { return (_samplingFactorByte >> 4) & 0x0F; }
         }
     }
 }

@@ -33,11 +33,11 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Fact]
         public void TestGetComponentCharacter()
         {
-            Assert.Equal("Y",  new JpegComponent(1, 2, 3).GetComponentName());
-            Assert.Equal("Cb", new JpegComponent(2, 2, 3).GetComponentName());
-            Assert.Equal("Cr", new JpegComponent(3, 2, 3).GetComponentName());
-            Assert.Equal("I",  new JpegComponent(4, 2, 3).GetComponentName());
-            Assert.Equal("Q",  new JpegComponent(5, 2, 3).GetComponentName());
+            Assert.Equal("Y",  new JpegComponent(1, 2, 3).Name);
+            Assert.Equal("Cb", new JpegComponent(2, 2, 3).Name);
+            Assert.Equal("Cr", new JpegComponent(3, 2, 3).Name);
+            Assert.Equal("I",  new JpegComponent(4, 2, 3).Name);
+            Assert.Equal("Q",  new JpegComponent(5, 2, 3).Name);
         }
     }
 }

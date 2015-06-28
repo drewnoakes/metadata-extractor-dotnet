@@ -118,9 +118,9 @@ namespace MetadataExtractor.Formats.Jpeg
             if (value == null)
                 return null;
 
-            return value.GetComponentName() + " component: Quantization table "
-                + value.GetQuantizationTableNumber() + ", Sampling factors "
-                + value.GetHorizontalSamplingFactor() + " horiz/" + value.GetVerticalSamplingFactor() + " vert";
+            return value.Name + " component: Quantization table "
+                + value.QuantizationTableNumber + ", Sampling factors "
+                + value.HorizontalSamplingFactor + " horiz/" + value.VerticalSamplingFactor + " vert";
         }
     }
 }
