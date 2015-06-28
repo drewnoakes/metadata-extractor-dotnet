@@ -321,7 +321,7 @@ namespace MetadataExtractor.Formats.Photoshop
         {
             var bytes = Directory.GetByteArray(tag);
 
-            if (bytes == null)
+            if (bytes == null || bytes.Length == 0)
                 return null;
 
             return bytes[0] == 0 ? "No" : "Yes";
