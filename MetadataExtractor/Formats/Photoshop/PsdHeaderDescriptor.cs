@@ -22,7 +22,6 @@
 //
 #endregion
 
-using System;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Photoshop
@@ -57,35 +56,21 @@ namespace MetadataExtractor.Formats.Photoshop
         [CanBeNull]
         public string GetChannelCountDescription()
         {
-            try
-            {
-                // Supported range is 1 to 56.
-                int value;
-                if (!Directory.TryGetInt32(PsdHeaderDirectory.TagChannelCount, out value))
-                    return null;
-                return value + " channel" + (value == 1 ? string.Empty : "s");
-            }
-            catch (Exception)
-            {
+            // Supported range is 1 to 56.
+            int value;
+            if (!Directory.TryGetInt32(PsdHeaderDirectory.TagChannelCount, out value))
                 return null;
-            }
+            return value + " channel" + (value == 1 ? string.Empty : "s");
         }
 
         [CanBeNull]
         public string GetBitsPerChannelDescription()
         {
-            try
-            {
-                // Supported values are 1, 8, 16 and 32.
-                int value;
-                if (!Directory.TryGetInt32(PsdHeaderDirectory.TagBitsPerChannel, out value))
-                    return null;
-                return value + " bit" + (value == 1 ? string.Empty : "s") + " per channel";
-            }
-            catch (Exception)
-            {
+            // Supported values are 1, 8, 16 and 32.
+            int value;
+            if (!Directory.TryGetInt32(PsdHeaderDirectory.TagBitsPerChannel, out value))
                 return null;
-            }
+            return value + " bit" + (value == 1 ? string.Empty : "s") + " per channel";
         }
 
         [CanBeNull]
@@ -107,33 +92,19 @@ namespace MetadataExtractor.Formats.Photoshop
         [CanBeNull]
         public string GetImageHeightDescription()
         {
-            try
-            {
-                int value;
-                if (!Directory.TryGetInt32(PsdHeaderDirectory.TagImageHeight, out value))
-                    return null;
-                return value + " pixel" + (value == 1 ? string.Empty : "s");
-            }
-            catch (Exception)
-            {
+            int value;
+            if (!Directory.TryGetInt32(PsdHeaderDirectory.TagImageHeight, out value))
                 return null;
-            }
+            return value + " pixel" + (value == 1 ? string.Empty : "s");
         }
 
         [CanBeNull]
         public string GetImageWidthDescription()
         {
-            try
-            {
-                int value;
-                if (!Directory.TryGetInt32(PsdHeaderDirectory.TagImageWidth, out value))
-                    return null;
-                return value + " pixel" + (value == 1 ? string.Empty : "s");
-            }
-            catch (Exception)
-            {
+            int value;
+            if (!Directory.TryGetInt32(PsdHeaderDirectory.TagImageWidth, out value))
                 return null;
-            }
+            return value + " pixel" + (value == 1 ? string.Empty : "s");
         }
     }
 }
