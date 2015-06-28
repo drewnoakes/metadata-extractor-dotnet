@@ -109,7 +109,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case OlympusMakernoteDirectory.CameraSettings.TagFocusDistance:
                     return GetFocusDistanceDescription();
                 case OlympusMakernoteDirectory.CameraSettings.TagFlashFired:
-                    return GetFlastFiredDescription();
+                    return GetFlashFiredDescription();
                 case OlympusMakernoteDirectory.CameraSettings.TagDate:
                     return GetDateDescription();
                 case OlympusMakernoteDirectory.CameraSettings.TagTime:
@@ -135,7 +135,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case OlympusMakernoteDirectory.CameraSettings.TagSubjectProgram:
                     return GetSubjectProgramDescription();
                 case OlympusMakernoteDirectory.CameraSettings.TagFlashCompensation:
-                    return GetFlastCompensationDescription();
+                    return GetFlashCompensationDescription();
                 case OlympusMakernoteDirectory.CameraSettings.TagIsoSetting:
                     return GetIsoSettingDescription();
                 case OlympusMakernoteDirectory.CameraSettings.TagCameraModel:
@@ -326,7 +326,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         }
 
         [CanBeNull]
-        public string GetFlastFiredDescription()
+        public string GetFlashFiredDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagFlashFired,
                 "No", "Yes");
@@ -465,7 +465,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         }
 
         [CanBeNull]
-        public string GetFlastCompensationDescription()
+        public string GetFlashCompensationDescription()
         {
             var value = Directory.GetInt64Nullable(OlympusMakernoteDirectory.CameraSettings.TagFlashCompensation);
             return value == null ? null : (((long)value - 6) / 3d) + " EV";
