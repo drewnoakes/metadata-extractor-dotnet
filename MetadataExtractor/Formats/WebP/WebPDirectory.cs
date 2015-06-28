@@ -52,9 +52,9 @@ namespace MetadataExtractor.Formats.WebP
             get { return "WebP"; }
         }
 
-        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
+        protected override bool TryGetTagName(int tagType, out string tagName)
         {
-            return _tagNameMap;
+            return _tagNameMap.TryGetValue(tagType, out tagName);
         }
     }
 }

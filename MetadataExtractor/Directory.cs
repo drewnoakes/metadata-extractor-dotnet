@@ -55,10 +55,11 @@ namespace MetadataExtractor
         [NotNull]
         public abstract string Name { get; }
 
-        /// <summary>Provides the map of tag names, hashed by tag type identifier.</summary>
-        /// <returns>the map of tag names</returns>
-        [NotNull]
-        protected abstract IReadOnlyDictionary<int, string> GetTagNameMap();
+        /// <summary>Attempts to find the name of the specified tag.</summary>
+        /// <param name="tagType">The tag to look up.</param>
+        /// <param name="tagName">The found name, if any.</param>
+        /// <returns><c>true</c> if the tag is known and <paramref name="tagName"/> was set, otherwise <c>false</c>.</returns>
+        protected abstract bool TryGetTagName(int tagType, out string tagName);
 
         /// <summary>Gets a value indicating whether the directory is empty, meaning it contains no errors and no tag values.</summary>
         public bool IsEmpty
@@ -162,11 +163,10 @@ namespace MetadataExtractor
         [NotNull]
         public string GetTagName(int tagType)
         {
-            var nameMap = GetTagNameMap();
-            string value;
-            return nameMap.TryGetValue(tagType, out value)
-                ? value
-                : string.Format("Unknown tag (0x{0:x4})", tagType);
+            string name;
+            return !TryGetTagName(tagType, out name)
+                ? string.Format("Unknown tag (0x{0:x4})", tagType)
+                : name;
         }
 
         /// <summary>Gets whether the specified tag is known by the directory and has a name.</summary>
@@ -174,7 +174,8 @@ namespace MetadataExtractor
         /// <returns>whether this directory has a name for the specified tag</returns>
         public bool HasTagName(int tagType)
         {
-            return GetTagNameMap().ContainsKey(tagType);
+            string name;
+            return TryGetTagName(tagType, out name);
         }
 
         /// <summary>

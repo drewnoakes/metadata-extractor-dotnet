@@ -218,9 +218,9 @@ namespace MetadataExtractor.Formats.Photoshop
             get { return "Photoshop"; }
         }
 
-        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
+        protected override bool TryGetTagName(int tagType, out string tagName)
         {
-            return TagNameMap;
+            return TagNameMap.TryGetValue(tagType, out tagName);
         }
 
         [CanBeNull]

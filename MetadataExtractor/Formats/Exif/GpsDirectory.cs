@@ -174,9 +174,9 @@ namespace MetadataExtractor.Formats.Exif
             get { return "GPS"; }
         }
 
-        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
+        protected override bool TryGetTagName(int tagType, out string tagName)
         {
-            return _tagNameMap;
+            return _tagNameMap.TryGetValue(tagType, out tagName);
         }
 
         /// <summary>

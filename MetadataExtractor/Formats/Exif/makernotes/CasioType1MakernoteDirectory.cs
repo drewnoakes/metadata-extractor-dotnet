@@ -90,9 +90,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             get { return "Casio Makernote"; }
         }
 
-        protected override IReadOnlyDictionary<int, string> GetTagNameMap()
+        protected override bool TryGetTagName(int tagType, out string tagName)
         {
-            return _tagNameMap;
+            return _tagNameMap.TryGetValue(tagType, out tagName);
         }
     }
 }
