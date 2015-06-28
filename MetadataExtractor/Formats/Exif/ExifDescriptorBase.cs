@@ -557,7 +557,7 @@ namespace MetadataExtractor.Formats.Exif
         public string GetDigitalZoomRatioDescription()
         {
             var value = Directory.GetRational(ExifDirectoryBase.TagDigitalZoomRatio);
-            return value == null ? null : value.Numerator == 0 ? "Digital zoom not used." : value.ToDouble().ToString("0.#");
+            return value == null ? null : value.Numerator == 0 ? "Digital zoom not used" : value.ToDouble().ToString("0.#");
         }
 
         [CanBeNull]
