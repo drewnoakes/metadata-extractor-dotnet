@@ -45,6 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DirectoryExtensions.cs" />
+    <Compile Include="Formats\Jfxx\JfxxDescriptor.cs" />
+    <Compile Include="Formats\Jfxx\JfxxDirectory.cs" />
+    <Compile Include="Formats\Jfxx\JfxxReader.cs" />
     <Compile Include="Formats\Jpeg\IJpegSegmentMetadataReader.cs" />
     <Compile Include="Formats\Jpeg\JpegMetadataReader.cs" />
     <Compile Include="Formats\Jpeg\JpegProcessingException.cs" />

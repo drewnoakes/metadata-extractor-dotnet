@@ -32,6 +32,7 @@ using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Iptc;
 using MetadataExtractor.Formats.Jfif;
+using MetadataExtractor.Formats.Jfxx;
 using MetadataExtractor.Formats.Photoshop;
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
@@ -47,6 +48,7 @@ namespace MetadataExtractor.Formats.Jpeg
             new JpegReader(),
             new JpegCommentReader(),
             new JfifReader(),
+            new JfxxReader(),
             new ExifReader(),
             new XmpReader(),
             new IccReader(),
