@@ -276,6 +276,21 @@ namespace MetadataExtractor
             }
         }
 
+        [CanBeNull]
+        protected string GetRationalOrDoubleString(int tagType)
+        {
+            var rational = Directory.GetRational(tagType);
+
+            if (rational != null)
+                return rational.ToSimpleString(allowDecimal: true);
+
+            double d;
+            if (Directory.TryGetDouble(tagType, out d))
+                return d.ToString("0.###");
+
+            return null;
+        }
+
         private static readonly DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         protected static DateTime FromUnixTime(long unixTime)

@@ -229,21 +229,21 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetYResolutionDescription()
         {
-            var value = Directory.GetRational(ExifDirectoryBase.TagYResolution);
-            if (value == null)
+            var resolution = GetRationalOrDoubleString(ExifDirectoryBase.TagYResolution);
+            if (resolution == null)
                 return null;
             var unit = GetResolutionDescription();
-            return string.Format("{0} dots per {1}", value.ToSimpleString(_allowDecimalRepresentationOfRationals), unit == null ? "unit" : unit.ToLower());
+            return string.Format("{0} dots per {1}", resolution, unit == null ? "unit" : unit.ToLower());
         }
 
         [CanBeNull]
         public string GetXResolutionDescription()
         {
-            var value = Directory.GetRational(ExifDirectoryBase.TagXResolution);
-            if (value == null)
+            var resolution = GetRationalOrDoubleString(ExifDirectoryBase.TagXResolution);
+            if (resolution == null)
                 return null;
             var unit = GetResolutionDescription();
-            return string.Format("{0} dots per {1}", value.ToSimpleString(_allowDecimalRepresentationOfRationals), unit == null ? "unit" : unit.ToLower());
+            return string.Format("{0} dots per {1}", resolution, unit == null ? "unit" : unit.ToLower());
         }
 
         [CanBeNull]
