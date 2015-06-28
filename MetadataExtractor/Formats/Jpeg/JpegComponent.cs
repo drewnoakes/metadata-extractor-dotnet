@@ -55,7 +55,7 @@ namespace MetadataExtractor.Formats.Jpeg
 
         /// <summary>Returns the component name (one of: Y, Cb, Cr, I, or Q)</summary>
         /// <returns>the component name</returns>
-        [CanBeNull]
+        [NotNull, Pure]
         public string GetComponentName()
         {
             switch (_componentId)
@@ -70,9 +70,9 @@ namespace MetadataExtractor.Formats.Jpeg
                     return "I";
                 case 5:
                     return "Q";
+                default:
+                    return string.Format("Unknown ({0})", _componentId);
             }
-
-            return null;
         }
 
         public int GetQuantizationTableNumber()
