@@ -550,7 +550,7 @@ namespace MetadataExtractor.Formats.Exif
             int value;
             if (!Directory.TryGetInt32(ExifDirectoryBase.Tag35MmFilmEquivFocalLength, out value))
                 return null;
-            return value == 0 ? "Unknown" : string.Format("{0:0.#}mm", value);
+            return value == 0 ? "Unknown" : GetFocalLengthDescription(value);
         }
 
         [CanBeNull]
@@ -785,7 +785,7 @@ namespace MetadataExtractor.Formats.Exif
         public string GetFocalLengthDescription()
         {
             var value = Directory.GetRational(ExifDirectoryBase.TagFocalLength);
-            return value == null ? null : string.Format("{0:0.0##} mm", value.ToDouble());
+            return value == null ? null : GetFocalLengthDescription(value.ToDouble());
         }
 
         [CanBeNull]

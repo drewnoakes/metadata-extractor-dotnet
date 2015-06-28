@@ -311,14 +311,18 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string GetFocalLengthDescription()
         {
             var value = Directory.GetInt64Nullable(OlympusMakernoteDirectory.CameraSettings.TagFocalLength);
-            return value == null ? null : ((object)((double)value / 256d)).ToString() + " mm";
+            return value == null ? null : GetFocalLengthDescription(value.Value / 256d);
         }
 
         [CanBeNull]
         public string GetFocusDistanceDescription()
         {
             var value = Directory.GetInt64Nullable(OlympusMakernoteDirectory.CameraSettings.TagFocusDistance);
-            return value == null ? null : value == 0 ? "Infinity" : value + " mm";
+            return value == null
+                ? null
+                : value == 0
+                    ? "Infinity"
+                    : value.Value + " mm";
         }
 
         [CanBeNull]

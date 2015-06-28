@@ -285,7 +285,12 @@ namespace MetadataExtractor
 
         protected static string GetFStopDescription(double fStop)
         {
-            return "f/" + fStop.ToString("0.0");
+            return string.Format("f/{0:0.0}", fStop);
+        }
+
+        protected static string GetFocalLengthDescription(double mm)
+        {
+            return string.Format("{0:0.#} mm", mm);
         }
     }
 }
