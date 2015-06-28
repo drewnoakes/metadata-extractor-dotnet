@@ -332,6 +332,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 "No", "Yes");
         }
 
+        [Pure]
+        private static bool IsValidDate(int year, int month, int day)
+        {
+            return year >= 1 && year <= 9999
+                && month >= 1 && month <= 12
+                && day >= 1 && day <= DateTime.DaysInMonth(year, month);
+        }
+
         [CanBeNull]
         public string GetDateDescription()
         {
@@ -341,10 +349,25 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             var value = Directory.GetInt64Nullable(OlympusMakernoteDirectory.CameraSettings.TagDate);
             if (value == null)
                 return null;
-            var day = value & 0xFF;
-            var month = (value >> 16) & 0xFF;
-            var year = (value >> 8) & 0xFF;
-            return new DateTime((int)year + 1970, (int)month + 1, (int)day).ToString("ddd MMM dd HH:mm:ss zzz yyyy");
+
+            var day = (int)(value & 0xFF);
+            var month = (int)Math.Floor((value.Value - Math.Floor(value.Value/65536.0)*65536.0)/256.0);
+            var year = (int)Math.Floor(value.Value/65536.0);
+//            var month = (value >> 16) & 0xFF;
+//            var year = (value >> 8) & 0xFF;
+
+            if (!IsValidDate(year, month, day))
+                return "Invalid date";
+
+            return new DateTime(year + 1970, month + 1, day).ToString("ddd MMM dd yyyy");
+        }
+
+        [Pure]
+        private static bool IsValidTime(int hours, int minutes, int seconds)
+        {
+            return hours >= 0 && hours < 24
+                && minutes >= 0 && minutes < 60
+                && seconds >= 0 && seconds < 60;
         }
 
         [CanBeNull]
@@ -356,9 +379,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             var value = Directory.GetInt64Nullable(OlympusMakernoteDirectory.CameraSettings.TagTime);
             if (value == null)
                 return null;
-            var hours = (value >> 8) & 0xFF;
-            var minutes = (value >> 16) & 0xFF;
-            var seconds = value & 0xFF;
+
+            var hours = (int)((value >> 8) & 0xFF);
+            var minutes = (int)((value >> 16) & 0xFF);
+            var seconds = (int)(value & 0xFF);
+
+            if (!IsValidTime(hours, minutes, seconds))
+                return "Invalid date";
+
             return string.Format("{0:D2}:{1:D2}:{2:D2}", hours, minutes, seconds);
         }
 
