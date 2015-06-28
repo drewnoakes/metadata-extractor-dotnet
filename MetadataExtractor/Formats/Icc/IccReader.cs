@@ -36,8 +36,8 @@ namespace MetadataExtractor.Formats.Icc
     /// <remarks>
     /// ICC is the International Color Consortium.
     /// <list type="bullet">
-    /// <item>http://en.wikipedia.org/wiki/ICC_profile</item>
-    /// <item>http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/ICC_Profile.html</item>
+    ///   <item>http://en.wikipedia.org/wiki/ICC_profile</item>
+    ///   <item>http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/ICC_Profile.html</item>
     /// </list>
     /// </remarks>
     /// <author>Yuri Binev</author>
@@ -170,7 +170,7 @@ namespace MetadataExtractor.Formats.Icc
             directory.Set(
                 tagType,
                 new DateTime(year:   reader.GetUInt16(tagType),
-                             month:  reader.GetUInt16(tagType + 2),
+                             month:  reader.GetUInt16(tagType + 2) + 1,
                              day:    reader.GetUInt16(tagType + 4),
                              hour:   reader.GetUInt16(tagType + 6),
                              minute: reader.GetUInt16(tagType + 8),
