@@ -44,49 +44,23 @@ namespace MetadataExtractor.Formats.Jpeg
             switch (tagType)
             {
                 case JpegDirectory.TagCompressionType:
-                {
                     return GetImageCompressionTypeDescription();
-                }
-
                 case JpegDirectory.TagComponentData1:
-                {
                     return GetComponentDataDescription(0);
-                }
-
                 case JpegDirectory.TagComponentData2:
-                {
                     return GetComponentDataDescription(1);
-                }
-
                 case JpegDirectory.TagComponentData3:
-                {
                     return GetComponentDataDescription(2);
-                }
-
                 case JpegDirectory.TagComponentData4:
-                {
                     return GetComponentDataDescription(3);
-                }
-
                 case JpegDirectory.TagDataPrecision:
-                {
                     return GetDataPrecisionDescription();
-                }
-
                 case JpegDirectory.TagImageHeight:
-                {
                     return GetImageHeightDescription();
-                }
-
                 case JpegDirectory.TagImageWidth:
-                {
                     return GetImageWidthDescription();
-                }
-
                 default:
-                {
                     return base.GetDescription(tagType);
-                }
             }
         }
 
@@ -116,44 +90,37 @@ namespace MetadataExtractor.Formats.Jpeg
         public string GetImageWidthDescription()
         {
             var value = Directory.GetString(JpegDirectory.TagImageWidth);
-            if (value == null)
-            {
-                return null;
-            }
-            return value + " pixels";
+
+            return value == null ? null : value + " pixels";
         }
 
         [CanBeNull]
         public string GetImageHeightDescription()
         {
             var value = Directory.GetString(JpegDirectory.TagImageHeight);
-            if (value == null)
-            {
-                return null;
-            }
-            return value + " pixels";
+
+            return value == null ? null : value + " pixels";
         }
 
         [CanBeNull]
         public string GetDataPrecisionDescription()
         {
             var value = Directory.GetString(JpegDirectory.TagDataPrecision);
-            if (value == null)
-            {
-                return null;
-            }
-            return value + " bits";
+
+            return value == null ? null : value + " bits";
         }
 
         [CanBeNull]
         public string GetComponentDataDescription(int componentNumber)
         {
             var value = Directory.GetComponent(componentNumber);
+
             if (value == null)
-            {
                 return null;
-            }
-            return value.GetComponentName() + " component: Quantization table " + value.GetQuantizationTableNumber() + ", Sampling factors " + value.GetHorizontalSamplingFactor() + " horiz/" + value.GetVerticalSamplingFactor() + " vert";
+
+            return value.GetComponentName() + " component: Quantization table "
+                + value.GetQuantizationTableNumber() + ", Sampling factors "
+                + value.GetHorizontalSamplingFactor() + " horiz/" + value.GetVerticalSamplingFactor() + " vert";
         }
     }
 }
