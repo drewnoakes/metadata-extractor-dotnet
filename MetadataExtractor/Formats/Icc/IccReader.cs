@@ -67,7 +67,8 @@ namespace MetadataExtractor.Formats.Icc
             byte[] buffer;
             if (iccSegments.Count == 1)
             {
-                buffer = iccSegments[0];
+                buffer = new byte[iccSegments[0].Length - SegmentHeaderLength];
+                Array.Copy(iccSegments[0], SegmentHeaderLength, buffer, 0, iccSegments[0].Length - SegmentHeaderLength);
             }
             else
             {

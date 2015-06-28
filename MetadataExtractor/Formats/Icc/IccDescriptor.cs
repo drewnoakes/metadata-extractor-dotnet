@@ -250,7 +250,7 @@ namespace MetadataExtractor.Formats.Icc
                     {
                         return string.Format("{0} (0x{1:X8}): {2} bytes",
                             IccReader.GetStringFromUInt32(unchecked((uint)iccTagType)),
-                            iccTagType,
+                            (int)iccTagType,
                             bytes.Length);
                     }
                 }
