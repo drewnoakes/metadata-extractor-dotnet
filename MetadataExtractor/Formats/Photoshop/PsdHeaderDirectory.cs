@@ -31,7 +31,7 @@ namespace MetadataExtractor.Formats.Photoshop
     public class PsdHeaderDirectory : Directory
     {
         /// <summary>The number of channels in the image, including any alpha channels.</summary>
-        /// <remarks>The number of channels in the image, including any alpha channels. Supported range is 1 to 56.</remarks>
+        /// <remarks>Supported range is 1 to 56.</remarks>
         public const int TagChannelCount = 1;
 
         /// <summary>The height of the image in pixels.</summary>
@@ -41,12 +41,12 @@ namespace MetadataExtractor.Formats.Photoshop
         public const int TagImageWidth = 3;
 
         /// <summary>The number of bits per channel.</summary>
-        /// <remarks>The number of bits per channel. Supported values are 1, 8, 16 and 32.</remarks>
+        /// <remarks>Supported values are 1, 8, 16 and 32.</remarks>
         public const int TagBitsPerChannel = 4;
 
         /// <summary>The color mode of the file.</summary>
         /// <remarks>
-        /// The color mode of the file. Supported values are:
+        /// Supported values are:
         /// Bitmap = 0; Grayscale = 1; Indexed = 2; RGB = 3; CMYK = 4; Multichannel = 7; Duotone = 8; Lab = 9.
         /// </remarks>
         public const int TagColorMode = 5;
