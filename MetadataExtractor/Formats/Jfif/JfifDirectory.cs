@@ -27,26 +27,28 @@ using System.Collections.Generic;
 namespace MetadataExtractor.Formats.Jfif
 {
     /// <summary>Directory of tags and values for the SOF0 Jfif segment.</summary>
-    /// <remarks>Directory of tags and values for the SOF0 Jfif segment.  This segment holds basic metadata about the image.</remarks>
     /// <author>Yuri Binev, Drew Noakes</author>
     public sealed class JfifDirectory : Directory
     {
         public const int TagVersion = 5;
 
         /// <summary>Units for pixel density fields.</summary>
-        /// <remarks>Units for pixel density fields.  One of None, Pixels per Inch, Pixels per Centimetre.</remarks>
+        /// <remarks>One of None, Pixels per Inch, Pixels per Centimetre.</remarks>
         public const int TagUnits = 7;
 
         public const int TagResX = 8;
-
         public const int TagResY = 10;
+        public const int TagThumbWidth = 12;
+        public const int TagThumbHeight = 13;
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
             { TagVersion, "Version" },
             { TagUnits, "Resolution Units" },
             { TagResY, "Y Resolution" },
-            { TagResX, "X Resolution" }
+            { TagResX, "X Resolution" },
+            { TagThumbWidth, "Thumbnail Width Pixels" },
+            { TagThumbHeight, "Thumbnail Height Pixels" }
         };
 
         public JfifDirectory()

@@ -43,7 +43,7 @@ namespace MetadataExtractor.Tests.Formats.Jfif
 
             var tags = directory.Tags;
 
-            Assert.Equal(4, tags.Count);
+            Assert.Equal(6, tags.Count);
             Assert.Equal(JfifDirectory.TagVersion, tags[0].TagType);
             Assert.Equal(0x0102, directory.GetInt32(tags[0].TagType));
             Assert.Equal(JfifDirectory.TagUnits, tags[1].TagType);
@@ -52,6 +52,10 @@ namespace MetadataExtractor.Tests.Formats.Jfif
             Assert.Equal(108, directory.GetInt32(tags[2].TagType));
             Assert.Equal(JfifDirectory.TagResY, tags[3].TagType);
             Assert.Equal(108, directory.GetInt32(tags[3].TagType));
+            Assert.Equal(JfifDirectory.TagThumbWidth, tags[4].TagType);
+            Assert.Equal(0, directory.GetInt32(tags[4].TagType));
+            Assert.Equal(JfifDirectory.TagThumbHeight, tags[5].TagType);
+            Assert.Equal(0, directory.GetInt32(tags[5].TagType));
         }
     }
 }

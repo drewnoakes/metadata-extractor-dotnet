@@ -68,14 +68,12 @@ namespace MetadataExtractor.Formats.Jfif
             try
             {
                 // For JFIF the tag number is the value's byte offset
-                int ver = reader.GetUInt16(JfifDirectory.TagVersion);
-                directory.Set(JfifDirectory.TagVersion, ver);
-                int units = reader.GetByte(JfifDirectory.TagUnits);
-                directory.Set(JfifDirectory.TagUnits, units);
-                int height = reader.GetUInt16(JfifDirectory.TagResX);
-                directory.Set(JfifDirectory.TagResX, height);
-                int width = reader.GetUInt16(JfifDirectory.TagResY);
-                directory.Set(JfifDirectory.TagResY, width);
+                directory.Set(JfifDirectory.TagVersion,     reader.GetUInt16(JfifDirectory.TagVersion));
+                directory.Set(JfifDirectory.TagUnits,       reader.GetByte(JfifDirectory.TagUnits));
+                directory.Set(JfifDirectory.TagResX,        reader.GetUInt16(JfifDirectory.TagResX));
+                directory.Set(JfifDirectory.TagResY,        reader.GetUInt16(JfifDirectory.TagResY));
+                directory.Set(JfifDirectory.TagThumbWidth,  reader.GetByte(JfifDirectory.TagThumbWidth));
+                directory.Set(JfifDirectory.TagThumbHeight, reader.GetByte(JfifDirectory.TagThumbHeight));
             }
             catch (IOException e)
             {
