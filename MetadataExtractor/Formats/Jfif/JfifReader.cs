@@ -35,7 +35,11 @@ namespace MetadataExtractor.Formats.Jfif
     /// <remarks>
     /// JFIF is found in JPEG APP0 segments.
     /// <para />
-    /// More info at: http://en.wikipedia.org/wiki/JPEG_File_Interchange_Format
+    /// More info at:
+    /// <list type="bullet">
+    ///   <item>http://en.wikipedia.org/wiki/JPEG_File_Interchange_Format</item>
+    ///   <item>http://www.w3.org/Graphics/JPEG/jfif3.pdf</item>
+    /// </list>
     /// </remarks>
     /// <author>Yuri Binev, Drew Noakes, Markus Meyer</author>
     public sealed class JfifReader : IJpegSegmentMetadataReader
