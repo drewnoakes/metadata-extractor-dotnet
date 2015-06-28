@@ -57,14 +57,10 @@ namespace MetadataExtractor.Tools.FileProcessor
                 {
                     try
                     {
-                        // Sort directories by name
-                        // Use Linq's OrderBy to maintain a stable sort
-                        var directoryList = directories.OrderBy(d => d.Name, StringComparer.OrdinalIgnoreCase).ToList();
-
                         // Write any errors
-                        if (directoryList.Any(d => d.HasError))
+                        if (directories.Any(d => d.HasError))
                         {
-                            foreach (var directory in directoryList)
+                            foreach (var directory in directories)
                             {
                                 if (!directory.HasError)
                                     continue;
@@ -75,7 +71,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                         }
 
                         // Write tag values for each directory
-                        foreach (var directory in directoryList)
+                        foreach (var directory in directories)
                         {
                             var directoryName = directory.Name;
                             foreach (var tag in directory.Tags)
