@@ -40,34 +40,17 @@ namespace MetadataExtractor.Formats.Photoshop
             switch (tagType)
             {
                 case PsdHeaderDirectory.TagChannelCount:
-                {
                     return GetChannelCountDescription();
-                }
-
                 case PsdHeaderDirectory.TagBitsPerChannel:
-                {
                     return GetBitsPerChannelDescription();
-                }
-
                 case PsdHeaderDirectory.TagColorMode:
-                {
                     return GetColorModeDescription();
-                }
-
                 case PsdHeaderDirectory.TagImageHeight:
-                {
                     return GetImageHeightDescription();
-                }
-
                 case PsdHeaderDirectory.TagImageWidth:
-                {
                     return GetImageWidthDescription();
-                }
-
                 default:
-                {
                     return base.GetDescription(tagType);
-                }
             }
         }
 
