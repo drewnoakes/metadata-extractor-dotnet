@@ -203,7 +203,7 @@ namespace MetadataExtractor.Formats.Icc
                             var z = reader.GetS15Fixed16(8 + i * 12 + 8);
                             if (i > 0)
                                 res.Append(", ");
-                            res.Append("(").Append(x).Append(", ").Append(y).Append(", ").Append(z).Append(")");
+                            res.AppendFormat("({0:0.0####}, {1:0.0####}, {2:0.0####})", x, y, z);
                         }
 
                         return res.ToString();
