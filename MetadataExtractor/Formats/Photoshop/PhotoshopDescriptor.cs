@@ -320,11 +320,11 @@ namespace MetadataExtractor.Formats.Photoshop
                 pos++;
                 var readerLength = reader.GetInt32(5);
                 pos += 4;
-                var readerStr = reader.GetString(9, readerLength * 2, Encoding.Unicode);
+                var readerStr = reader.GetString(9, readerLength * 2, Encoding.BigEndianUnicode);
                 pos += readerLength * 2;
                 var writerLength = reader.GetInt32(pos);
                 pos += 4;
-                var writerStr = reader.GetString(pos, writerLength * 2, Encoding.Unicode);
+                var writerStr = reader.GetString(pos, writerLength * 2, Encoding.BigEndianUnicode);
                 pos += writerLength * 2;
                 var fileVersion = reader.GetInt32(pos);
                 return string.Format("{0} ({1}, {2}) {3}", ver, readerStr, writerStr, fileVersion);
@@ -347,7 +347,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 }
                 IndexedReader reader = new ByteArrayReader(bytes);
                 var nameLength = reader.GetInt32(20);
-                var name = reader.GetString(24, nameLength * 2, Encoding.Unicode);
+                var name = reader.GetString(24, nameLength * 2, Encoding.BigEndianUnicode);
                 var pos = 24 + nameLength * 2;
                 var sliceCount = reader.GetInt32(pos);
                 //pos += 4;
