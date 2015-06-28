@@ -164,7 +164,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
                 var reader = new ByteArrayReader(bytes);
                 var d = reader.GetDouble64(4);
-                return d.ToString();
+                return d.ToString("0.0##");
             }
             catch
             {
@@ -191,13 +191,13 @@ namespace MetadataExtractor.Formats.Photoshop
                 switch (style)
                 {
                     case 0:
-                        return "Centered, Scale " + scale;
+                        return string.Format("Centered, Scale {0:0.0##}", scale);
                     case 1:
                         return "Size to fit";
                     case 2:
-                        return string.Format("User defined, X:{0} Y:{1}, Scale:{2}", locX, locY, scale);
+                        return string.Format("User defined, X:{0} Y:{1}, Scale:{2:0.0##}", locX, locY, scale);
                     default:
-                        return string.Format("Unknown {0:X4}, X:{1} Y:{2}, Scale:{3}", style, locX, locY, scale);
+                        return string.Format("Unknown {0:X4}, X:{1} Y:{2}, Scale:{3:0.0##}", style, locX, locY, scale);
                 }
             }
             catch
@@ -222,7 +222,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 var resY = reader.GetS15Fixed16(8);
 
                 // is this the correct offset? it's only reading 4 bytes each time
-                return resX + "x" + resY + " DPI";
+                return string.Format("{0:0.##}x{1:0.##} DPI", resX, resY);
             }
             catch
             {
