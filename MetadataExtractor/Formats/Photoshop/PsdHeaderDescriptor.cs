@@ -108,64 +108,17 @@ namespace MetadataExtractor.Formats.Photoshop
         [CanBeNull]
         public string GetColorModeDescription()
         {
-            // Bitmap = 0; Grayscale = 1; Indexed = 2; RGB = 3; CMYK = 4; Multichannel = 7; Duotone = 8; Lab = 9
-            try
-            {
-                int value;
-                if (!Directory.TryGetInt32(PsdHeaderDirectory.TagColorMode, out value))
-                    return null;
-                switch (value)
-                {
-                    case 0:
-                    {
-                        return "Bitmap";
-                    }
-
-                    case 1:
-                    {
-                        return "Grayscale";
-                    }
-
-                    case 2:
-                    {
-                        return "Indexed";
-                    }
-
-                    case 3:
-                    {
-                        return "RGB";
-                    }
-
-                    case 4:
-                    {
-                        return "CMYK";
-                    }
-
-                    case 7:
-                    {
-                        return "Multichannel";
-                    }
-
-                    case 8:
-                    {
-                        return "Duotone";
-                    }
-
-                    case 9:
-                    {
-                        return "Lab";
-                    }
-
-                    default:
-                    {
-                        return "Unknown color mode (" + value + ")";
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            return GetIndexedDescription(PsdHeaderDirectory.TagColorMode,
+                "Bitmap",
+                "Grayscale",
+                "Indexed",
+                "RGB",
+                "CMYK",
+                null,
+                null,
+                "Multichannel",
+                "Duotone",
+                "Lab");
         }
 
         [CanBeNull]
