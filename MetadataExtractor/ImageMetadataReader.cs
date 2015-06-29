@@ -33,6 +33,7 @@ using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Pcx;
 using MetadataExtractor.Formats.Photoshop;
 using MetadataExtractor.Formats.Png;
+using MetadataExtractor.Formats.Raf;
 using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.WebP;
 using MetadataExtractor.Util;
@@ -55,6 +56,7 @@ namespace MetadataExtractor
     ///   <item><see cref="IcoMetadataReader"/> for ICO files</item>
     ///   <item><see cref="PcxMetadataReader"/> for PCX files</item>
     ///   <item><see cref="WebPMetadataReader"/> for WebP files</item>
+    ///   <item><see cref="RafMetadataReader"/> for RAF files</item>
     /// </list>
     ///
     /// If you know the file type you're working with, you may use one of the above processors directly.
@@ -101,6 +103,8 @@ namespace MetadataExtractor
                     return new[] { PcxMetadataReader.ReadMetadata(stream) };
                 case FileType.Riff:
                     return WebPMetadataReader.ReadMetadata(stream);
+                case FileType.Raf:
+                    return RafMetadataReader.ReadMetadata(stream);
             }
 
             throw new ImageProcessingException("File format is not supported");
