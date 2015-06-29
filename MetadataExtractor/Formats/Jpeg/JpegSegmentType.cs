@@ -29,17 +29,22 @@ using System.Linq;
 namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>An enumeration of the known segment types found in JPEG files.</summary>
+    /// <remarks>
+    /// <list type="bullet">
+    ///   <item>http://www.ozhiker.com/electronics/pjmt/jpeg_info/app_segments.html</item>
+    ///   <item>http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/JPEG.html</item>
+    /// </list>
+    /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public enum JpegSegmentType : byte
     {
-        /// <summary>APP0 JPEG segment -- JFIF data (also JFXX apparently).</summary>
+        /// <summary>APP0 JPEG segment. Commonly contains JFIF, JFXX.</summary>
         App0 = 0xE0,
 
-        /// <summary>APP1 JPEG segment -- where Exif data is kept.</summary>
-        /// <remarks>XMP data is also kept in here, though usually in a second instance.</remarks>
+        /// <summary>APP1 JPEG segment. Commonly contains Exif. XMP data is also kept in here, though usually in a second instance.</summary>
         App1 = 0xE1,
 
-        /// <summary>APP2 JPEG segment.</summary>
+        /// <summary>APP2 JPEG segment. Commonly contains ICC.</summary>
         App2 = 0xE2,
 
         /// <summary>APP3 JPEG segment.</summary>
@@ -63,7 +68,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <summary>APP9 JPEG segment.</summary>
         App9 = 0xE9,
 
-        /// <summary>APPA (App10) JPEG segment -- can hold Unicode comments.</summary>
+        /// <summary>APPA (App10) JPEG segment. Can contain Unicode comments, though <see cref="Com"/> is more commonly used for comments.</summary>
         AppA = 0xEA,
 
         /// <summary>APPB (App11) JPEG segment.</summary>
@@ -72,10 +77,10 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <summary>APPC (App12) JPEG segment.</summary>
         AppC = 0xEC,
 
-        /// <summary>APPD (App13) JPEG segment -- IPTC data in here.</summary>
+        /// <summary>APPD (App13) JPEG segment. Commonly contains IPTC, Photoshop data.</summary>
         AppD = 0xED,
 
-        /// <summary>APPE (App14) JPEG segment.</summary>
+        /// <summary>APPE (App14) JPEG segment. Commonly contains Adobe data.</summary>
         AppE = 0xEE,
 
         /// <summary>APPF (App15) JPEG segment.</summary>
