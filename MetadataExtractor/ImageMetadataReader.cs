@@ -74,7 +74,7 @@ namespace MetadataExtractor
         [NotNull]
         public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
-            var fileType = FileTypeDetector.DetectFileType(stream) ?? FileType.Unknown;
+            var fileType = FileTypeDetector.DetectFileType(stream);
 
             switch (fileType)
             {

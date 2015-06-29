@@ -38,12 +38,14 @@ namespace MetadataExtractor.Util
             public readonly IDictionary<byte, ByteTrieNode> Children = new Dictionary<byte, ByteTrieNode>();
 
             public T Value { get; private set; }
+            public bool HasValue { get; private set; }
 
             public void SetValue(T value)
             {
-                if (Value != null)
+                if (HasValue)
                     throw new InvalidOperationException("Value already set for this trie node");
                 Value = value;
+                HasValue = true;
             }
         }
 
@@ -67,7 +69,7 @@ namespace MetadataExtractor.Util
             {
                 if (!node.Children.TryGetValue(b, out node))
                     break;
-                if (node.Value != null)
+                if (node.HasValue)
                     value = node.Value;
             }
             return value;

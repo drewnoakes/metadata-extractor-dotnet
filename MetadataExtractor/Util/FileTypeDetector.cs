@@ -32,11 +32,11 @@ namespace MetadataExtractor.Util
     /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
     public static class FileTypeDetector
     {
-        private static readonly ByteTrie<FileType?> _root;
+        private static readonly ByteTrie<FileType> _root;
 
         static FileTypeDetector()
         {
-            _root = new ByteTrie<FileType?>();
+            _root = new ByteTrie<FileType>();
             _root.SetDefaultValue(FileType.Unknown);
 
             // https://en.wikipedia.org/wiki/List_of_file_signatures
@@ -69,7 +69,7 @@ namespace MetadataExtractor.Util
         /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
         /// <exception cref="ArgumentException">Stream does not support seeking.</exception>
         /// <exception cref="IOException">if an IO error occurred or the input stream ended unexpectedly.</exception>
-        public static FileType? DetectFileType([NotNull] Stream stream)
+        public static FileType DetectFileType([NotNull] Stream stream)
         {
             if (!stream.CanSeek)
                 throw new ArgumentException("Must support seek", "stream");
@@ -80,7 +80,7 @@ namespace MetadataExtractor.Util
             var bytesRead = stream.Read(bytes, 0, bytes.Length);
 
             if (bytesRead == 0)
-                return null;
+                return FileType.Unknown;
 
             stream.Seek(-bytesRead, SeekOrigin.Current);
 
