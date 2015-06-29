@@ -53,6 +53,7 @@ namespace MetadataExtractor.Formats.Jpeg
             new XmpReader(),
             new IccReader(),
             new PhotoshopReader(),
+            new DuckyReader(),
             new IptcReader(),
             new AdobeJpegReader()
         };

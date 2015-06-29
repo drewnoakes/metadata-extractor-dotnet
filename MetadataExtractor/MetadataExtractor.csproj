@@ -54,6 +54,8 @@
     <Compile Include="Formats\Jpeg\JpegSegmentData.cs" />
     <Compile Include="Formats\Jpeg\JpegSegmentReader.cs" />
     <Compile Include="Formats\Jpeg\JpegSegmentType.cs" />
+    <Compile Include="Formats\Photoshop\DuckyDirectory.cs" />
+    <Compile Include="Formats\Photoshop\DuckyReader.cs" />
     <Compile Include="Formats\Xmp\Schema.cs" />
     <Compile Include="Util\FileType.cs" />
     <Compile Include="Util\FileTypeDetector.cs" />
