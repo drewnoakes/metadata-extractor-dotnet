@@ -38,6 +38,7 @@ namespace MetadataExtractor.Util
         {
             _root = new ByteTrie<FileType?>();
             _root.SetDefaultValue(FileType.Unknown);
+
             // https://en.wikipedia.org/wiki/List_of_file_signatures
             _root.AddPath(FileType.Jpeg, new[] { (byte)0xff, (byte)0xd8 });
             _root.AddPath(FileType.Tiff, Encoding.UTF8.GetBytes("II"), new byte[] { 0x2a, 0x00 });
@@ -74,12 +75,15 @@ namespace MetadataExtractor.Util
                 throw new ArgumentException("Must support seek", "stream");
 
             var maxByteCount = _root.MaxDepth;
+
             var bytes = new byte[maxByteCount];
             var bytesRead = stream.Read(bytes, 0, bytes.Length);
+
             if (bytesRead == 0)
                 return null;
+
             stream.Seek(-bytesRead, SeekOrigin.Current);
-            //noinspection ConstantConditions
+
             return _root.Find(bytes);
         }
     }
