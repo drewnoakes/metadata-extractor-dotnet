@@ -76,7 +76,7 @@ namespace MetadataExtractor.Formats.Photoshop
                                 directory.AddError("Unexpected length for the quality tag");
                                 return directory;
                             }
-                            directory.Set(DuckyDirectory.TagQuality, reader.GetUInt32());
+                            directory.Set(tag, reader.GetUInt32());
                             break;
                         }
                         case DuckyDirectory.TagComment:
