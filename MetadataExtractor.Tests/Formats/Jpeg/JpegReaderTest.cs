@@ -47,13 +47,11 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             _directory = ProcessBytes("Tests/Data/simple.jpg.sof0");
         }
 
-
         [Fact]
         public void TestExtract_Width()
         {
             Assert.Equal(800, _directory.GetInt32(JpegDirectory.TagImageWidth));
         }
-
 
         [Fact]
         public void TestExtract_Height()
@@ -61,20 +59,17 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Assert.Equal(600, _directory.GetInt32(JpegDirectory.TagImageHeight));
         }
 
-
         [Fact]
         public void TestExtract_DataPrecision()
         {
             Assert.Equal(8, _directory.GetInt32(JpegDirectory.TagDataPrecision));
         }
 
-
         [Fact]
         public void TestExtract_NumberOfComponents()
         {
             Assert.Equal(3, _directory.GetInt32(JpegDirectory.TagNumberOfComponents));
         }
-
 
         [Fact]
         public void TestComponentData1()
@@ -87,7 +82,6 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Assert.Equal(2, component.HorizontalSamplingFactor);
             Assert.Equal(2, component.VerticalSamplingFactor);
         }
-
 
         [Fact]
         public void TestComponentData2()
@@ -102,7 +96,6 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Assert.Equal("Cb component: Quantization table 1, Sampling factors 1 horiz/1 vert", _directory.GetDescription(JpegDirectory.TagComponentData2));
         }
 
-
         [Fact]
         public void TestComponentData3()
         {
@@ -115,52 +108,5 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Assert.Equal(1, component.VerticalSamplingFactor);
             Assert.Equal("Cr component: Quantization table 1, Sampling factors 1 horiz/1 vert", _directory.GetDescription(JpegDirectory.TagComponentData3));
         }
-/*
-    // this test is part of an incomplete investigation into extracting audio from JPG files
-    public void testJpegWithAudio() throws Exception
-    {
-        // use a known testing image
-        File jpegFile = new File("Tests/com/drew/metadata/jpeg/audioPresent.jpg");
-
-        JpegSegmentReader jpegSegmentReader = new JpegSegmentReader(jpegFile);
-        byte[] segment1Bytes = jpegSegmentReader.readSegment(JpegSegmentReader.APP2);
-        System.out.println(segment1Bytes.length);
-
-//        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.APP1));
-        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.APP2).length);
-//        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.APP3));
-//        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.APP4));
-//        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.APP5));
-//        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.APP6));
-//        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.APP7));
-//        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.APP8));
-//        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.APP9));
-//        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.APPA));
-//        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.APPB));
-//        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.APPC));
-//        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.APPD));
-//        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.APPE));
-//        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.APPF));
-//        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.COM));
-        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.DHT).length);
-        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.DQT).length);
-        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.SOF0).length);
-//        System.out.println(jpegSegmentReader.readSegment(JpegSegmentReader.SOI));
-
-        // write the segment's data out to a wav file...
-        File audioFile = new File("Tests/com/drew/metadata/jpeg/audio.wav");
-        FileOutputStream os = null;
-        try
-        {
-            os = new FileOutputStream(audioFile);
-            os.write(segment1Bytes);
-        }
-        finally
-        {
-            if (os!=null)
-                os.close();
-        }
-    }
-*/
     }
 }
