@@ -58,6 +58,7 @@
     <Compile Include="Formats\Photoshop\DuckyReader.cs" />
     <Compile Include="Formats\Raf\RafMetadataReader.cs" />
     <Compile Include="Formats\Xmp\Schema.cs" />
+    <Compile Include="Util\DateUtil.cs" />
     <Compile Include="Util\FileType.cs" />
     <Compile Include="Util\FileTypeDetector.cs" />
     <Compile Include="ImageMetadataReader.cs" />
