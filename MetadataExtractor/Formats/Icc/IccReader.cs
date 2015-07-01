@@ -171,7 +171,7 @@ namespace MetadataExtractor.Formats.Icc
             directory.Set(
                 tagType,
                 new DateTime(year:   reader.GetUInt16(tagType),
-                             month:  reader.GetUInt16(tagType + 2) + 1,
+                             month:  reader.GetUInt16(tagType + 2),
                              day:    reader.GetUInt16(tagType + 4),
                              hour:   reader.GetUInt16(tagType + 6),
                              minute: reader.GetUInt16(tagType + 8),
