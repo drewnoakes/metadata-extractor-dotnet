@@ -38,6 +38,7 @@ namespace MetadataExtractor.Formats.Icc
     /// <list type="bullet">
     ///   <item>http://en.wikipedia.org/wiki/ICC_profile</item>
     ///   <item>http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/ICC_Profile.html</item>
+    ///   <item>https://developer.apple.com/library/mac/samplecode/ImageApp/Listings/ICC_h.html</item>
     /// </list>
     /// </remarks>
     /// <author>Yuri Binev</author>
