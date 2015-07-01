@@ -29,6 +29,7 @@ using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
+using MetadataExtractor.Util;
 
 namespace MetadataExtractor.Formats.Icc
 {
@@ -168,15 +169,18 @@ namespace MetadataExtractor.Formats.Icc
 
         private static void SetDate([NotNull] IccDirectory directory, int tagType, [NotNull] IndexedReader reader)
         {
-            directory.Set(
-                tagType,
-                new DateTime(year:   reader.GetUInt16(tagType),
-                             month:  reader.GetUInt16(tagType + 2),
-                             day:    reader.GetUInt16(tagType + 4),
-                             hour:   reader.GetUInt16(tagType + 6),
-                             minute: reader.GetUInt16(tagType + 8),
-                             second: reader.GetUInt16(tagType + 10),
-                             kind: DateTimeKind.Utc));
+            var year = reader.GetUInt16(tagType);
+            var month = reader.GetUInt16(tagType + 2);
+            var day = reader.GetUInt16(tagType + 4);
+            var hours = reader.GetUInt16(tagType + 6);
+            var minutes = reader.GetUInt16(tagType + 8);
+            var seconds = reader.GetUInt16(tagType + 10);
+
+            if (DateUtil.IsValidDate(year, month, day) &&
+                DateUtil.IsValidTime(hours, minutes, seconds))
+                directory.Set(tagType, new DateTime(year, month, day, hours, minutes, seconds, kind: DateTimeKind.Utc));
+            else
+                directory.AddError(string.Format("ICC data describes an invalid date/time: year={0} month={1} day={2} hour={3} minute={4} second={5}", year, month, day, hours, minutes, seconds));
         }
 
         [NotNull]
