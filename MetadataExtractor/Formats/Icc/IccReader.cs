@@ -73,13 +73,13 @@ namespace MetadataExtractor.Formats.Icc
             else
             {
                 // Concatenate all buffers
-                var totalLength = iccSegments.Sum(s => s.Length);
+                var totalLength = iccSegments.Sum(s => s.Length - SegmentHeaderLength);
                 buffer = new byte[totalLength];
                 for (int i = 0, pos = 0; i < iccSegments.Count; i++)
                 {
                     var segment = iccSegments[i];
                     Array.Copy(segment, SegmentHeaderLength, buffer, pos, segment.Length - SegmentHeaderLength);
-                    pos += segment.Length;
+                    pos += segment.Length - SegmentHeaderLength;
                 }
             }
 
