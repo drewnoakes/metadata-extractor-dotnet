@@ -56,16 +56,18 @@ namespace MetadataExtractor.Tools.FileProcessor
         /// <para />
         /// If <c>-hex</c> is passed, then the ID of each tag will be displayed in hexadecimal.
         /// </remarks>
-        /// <param name="args">the command line arguments</param>
+        /// <param name="argArray">the command line arguments</param>
         /// <exception cref="MetadataException"/>
         /// <exception cref="System.IO.IOException"/>
-        public static void Main2([NotNull] string[] args)
+        public static void Main([NotNull] string[] argArray)
         {
-            ICollection<string> argList = args.ToList();
-            var thumbRequested = argList.Remove("-thumb");
-            var markdownFormat = argList.Remove("-markdown");
-            var showHex = argList.Remove("-hex");
-            if (argList.Count < 1)
+            var args = argArray.ToList();
+
+            var thumbRequested = args.Remove("-thumb");
+            var markdownFormat = args.Remove("-markdown");
+            var showHex = args.Remove("-hex");
+
+            if (args.Count < 1)
             {
                 var version = typeof(ImageMetadataReader).Assembly.GetName().Version.ToString();
                 Console.Out.WriteLine("metadata-extractor version " + version);
@@ -75,27 +77,30 @@ namespace MetadataExtractor.Tools.FileProcessor
                     Console.ReadLine();
                 Environment.Exit(1);
             }
-            foreach (var filePath in argList)
+
+            foreach (var filePath in args)
             {
                 var stopwatch = Stopwatch.StartNew();
-                if (!markdownFormat && argList.Count > 1)
-                {
+
+                if (!markdownFormat && args.Count > 1)
                     Console.Out.WriteLine("\n***** PROCESSING: {0}", filePath);
-                }
-                IEnumerable<Directory> directories = null;
+
+                IEnumerable<Directory> directories;
+
                 try
                 {
                     directories = ImageMetadataReader.ReadMetadata(filePath);
                 }
                 catch (Exception e)
                 {
-                    Console.Error.WriteLine (e);
+                    Console.Error.WriteLine(e);
                     Environment.Exit(1);
+                    return;
                 }
+
                 if (!markdownFormat)
-                {
-                    Console.Out.WriteLine("Processed {0:#,##0.##} MB file in {1:#,##0.##} ms\n", new FileInfo(filePath).Length / (1024d * 1024), stopwatch.Elapsed.TotalMilliseconds);
-                }
+                    Console.Out.WriteLine("Processed {0:#,##0.##} MB file in {1:#,##0.##} ms\n", new FileInfo(filePath).Length/(1024d*1024), stopwatch.Elapsed.TotalMilliseconds);
+
                 if (markdownFormat)
                 {
                     var fileName = Path.GetFileName(filePath);
@@ -116,49 +121,50 @@ namespace MetadataExtractor.Tools.FileProcessor
                     Console.Out.WriteLine("Directory | Tag Id | Tag Name | Extracted Value");
                     Console.Out.WriteLine(":--------:|-------:|----------|----------------");
                 }
+
                 // iterate over the metadata and print to System.out
                 foreach (var directory in directories)
                 {
-                    var directoryName = directory.Name;
                     foreach (var tag in directory.Tags)
                     {
-                        var tagName = tag.TagName;
-                        var description = tag.Description;
-                        // truncate the description if it's too long
-                        if (description != null && description.Length > 1024)
+                        string description;
+                        try
                         {
-                            description = description.Substring (0, 1024 - 0) + "...";
+                            description = tag.Description;
+
+                            // truncate the description if it's too long
+                            if (description != null && description.Length > 1024)
+                                description = description.Substring(0, 1024 - 0) + "...";
                         }
-                        if (markdownFormat)
+                        catch (Exception e)
                         {
-                            Console.Out.WriteLine("{0}|0x{1:X}|{2}|{3}", directoryName, tag.TagType, tagName, description);
+                            description = string.Format("EXCEPTION: {0}", e.Message);
                         }
-                        else
-                        {
-                            // simple formatting
-                            if (showHex)
-                            {
-                                Console.Out.WriteLine("[{0} - {1:X4}] {2} = {3}", directoryName, tag.TagType, tagName, description);
-                            }
-                            else
-                            {
-                                Console.Out.WriteLine("[{0}] {1} = {2}", directoryName, tagName, description);
-                            }
-                        }
+
+                        Console.Out.WriteLine(
+                            markdownFormat
+                                ? "{0}|0x{1:X}|{2}|{3}"
+                                : showHex
+                                    ? "[{0} - {1:X4}] {2} = {3}"
+                                    : "[{0}] {2} = {3}",
+                            directory.Name,
+                            tag.TagType,
+                            tag.TagName,
+                            description);
                     }
+
                     // print out any errors
                     foreach (var error in directory.Errors)
-                    {
-                        Console.Error.WriteLine((object)("ERROR: " + error));
-                    }
+                        Console.Error.WriteLine("ERROR: {0}", error);
                 }
-                if (args.Length > 1 && thumbRequested)
+
+                if (thumbRequested && argArray.Length > 1)
                 {
                     var thumbnailDirectory = directories.OfType<ExifThumbnailDirectory>().FirstOrDefault();
                     if (thumbnailDirectory != null && thumbnailDirectory.HasThumbnailData())
                     {
                         Console.Out.WriteLine("Writing thumbnail...");
-                        thumbnailDirectory.WriteThumbnail(args[0].Trim() + ".thumb.jpg");
+                        thumbnailDirectory.WriteThumbnail(argArray[0].Trim() + ".thumb.jpg");
                     }
                     else
                     {
@@ -179,7 +185,7 @@ namespace MetadataExtractor.Tools.FileProcessor
             return name.Replace(" ", "%20");
         }
 
-        private static int Main(string[] args)
+        private static int Main2(string[] args)
         {
             var directories = new List<string>();
 
