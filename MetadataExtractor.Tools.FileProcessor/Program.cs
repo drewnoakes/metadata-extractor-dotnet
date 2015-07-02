@@ -63,15 +63,15 @@ namespace MetadataExtractor.Tools.FileProcessor
         {
             var args = argArray.ToList();
 
-            var thumbRequested = args.Remove("-thumb");
-            var markdownFormat = args.Remove("-markdown");
-            var showHex = args.Remove("-hex");
+            var thumbRequested = args.Remove("--thumb");
+            var markdownFormat = args.Remove("--markdown");
+            var showHex = args.Remove("--hex");
 
             if (args.Count < 1)
             {
                 Console.Out.WriteLine("MetadataExtractor {0}", Assembly.GetExecutingAssembly().GetName().Version);
                 Console.Out.WriteLine();
-                Console.Out.WriteLine("Usage: MetadataExtractor <filename> [<filename> ...] [-thumb] [-markdown] [-hex]");
+                Console.Out.WriteLine("Usage: MetadataExtractor <filename> [<filename> ...] [--thumb] [--markdown] [--hex]");
 
                 if (Debugger.IsAttached)
                     Console.ReadLine();
