@@ -44,6 +44,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="DirectoryExtensions.cs" />
     <Compile Include="Formats\Jfxx\JfxxDescriptor.cs" />
     <Compile Include="Formats\Jfxx\JfxxDirectory.cs" />

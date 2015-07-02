@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="BasicFileHandler.cs" />
     <Compile Include="FileHandlerBase.cs" />
     <Compile Include="IFileHandler.cs" />
