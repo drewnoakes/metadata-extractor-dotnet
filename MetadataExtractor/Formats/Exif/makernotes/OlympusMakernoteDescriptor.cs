@@ -654,7 +654,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetSpecialModeDescription()
         {
-            var values = (long[])Directory.GetObject(OlympusMakernoteDirectory.TagSpecialMode);
+            var values = Directory.GetObject(OlympusMakernoteDirectory.TagSpecialMode) as uint[];
             if (values == null)
                 return null;
             if (values.Length < 1)
