@@ -200,10 +200,10 @@ namespace MetadataExtractor
         protected string GetEpochTimeDescription(int tagType)
         {
             // TODO have observed a byte[8] here which is likely some kind of date (ticks as long?)
-            var value = Directory.GetInt64Nullable(tagType);
-            if (value == null)
-                return null;
-            return FromUnixTime((long)value).ToString("ddd MMM dd HH:mm:ss zzz yyyy");
+            long value;
+            return Directory.TryGetInt64(tagType, out value)
+                ? FromUnixTime(value).ToString("ddd MMM dd HH:mm:ss zzz yyyy")
+                : null;
         }
 
         /// <summary>LSB first.</summary>

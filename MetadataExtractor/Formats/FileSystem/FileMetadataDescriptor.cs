@@ -54,12 +54,10 @@ namespace MetadataExtractor.Formats.FileSystem
         [CanBeNull]
         private string GetFileSizeDescription()
         {
-            var size = Directory.GetInt64Nullable(FileMetadataDirectory.TagFileSize);
-            if (size == null)
-            {
-                return null;
-            }
-            return Convert.ToString((long)size) + " bytes";
+            long size;
+            return Directory.TryGetInt64(FileMetadataDirectory.TagFileSize, out size)
+                ? Convert.ToString(size) + " bytes"
+                : null;
         }
     }
 }
