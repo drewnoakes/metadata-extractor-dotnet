@@ -110,7 +110,7 @@ namespace MetadataExtractor.Formats.Jpeg
         public JpegComponent GetComponent(int componentNumber)
         {
             var tagType = TagComponentData1 + componentNumber;
-            return (JpegComponent)GetObject(tagType);
+            return GetObject(tagType) as JpegComponent;
         }
 
         /// <exception cref="MetadataException"/>
