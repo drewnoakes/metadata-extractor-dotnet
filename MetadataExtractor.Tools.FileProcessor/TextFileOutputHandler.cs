@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.FileSystem;
 
 namespace MetadataExtractor.Tools.FileProcessor
 {
@@ -78,6 +79,10 @@ namespace MetadataExtractor.Tools.FileProcessor
                             {
                                 var tagName = tag.TagName;
                                 var description = tag.Description;
+
+                                if (directory is FileMetadataDirectory && tag.TagType == FileMetadataDirectory.TagFileModifiedDate)
+                                    description = "<omitted for regression testing as checkout dependent>";
+
                                 writer.Write("[{0} - 0x{1:x4}] {2} = {3}\n",
                                     directoryName, tag.TagType, tagName, description);
                             }
