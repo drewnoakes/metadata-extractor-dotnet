@@ -345,14 +345,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             var day = (int)(value & 0xFF);
             var month = (int)Math.Floor((value.Value - Math.Floor(value.Value/65536.0)*65536.0)/256.0);
-            var year = (int)Math.Floor(value.Value/65536.0);
+            var year = (int)Math.Floor(value.Value/65536.0) + 1970;
 //            var month = (value >> 16) & 0xFF;
-//            var year = (value >> 8) & 0xFF;
+//            var year = (value >> 8) & 0xFF + 1970;
 
             if (!DateUtil.IsValidDate(year, month, day))
                 return "Invalid date";
 
-            return new DateTime(year + 1970, month + 1, day).ToString("ddd MMM dd yyyy");
+            return new DateTime(year, month + 1, day).ToString("ddd MMM dd yyyy");
         }
 
         [CanBeNull]
