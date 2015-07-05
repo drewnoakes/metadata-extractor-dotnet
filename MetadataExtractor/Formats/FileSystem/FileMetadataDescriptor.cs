@@ -22,7 +22,6 @@
 //
 #endregion
 
-using System;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.FileSystem
@@ -51,7 +50,7 @@ namespace MetadataExtractor.Formats.FileSystem
         {
             long size;
             return Directory.TryGetInt64(FileMetadataDirectory.TagFileSize, out size)
-                ? Convert.ToString(size) + " bytes"
+                ? size + " bytes"
                 : null;
         }
     }

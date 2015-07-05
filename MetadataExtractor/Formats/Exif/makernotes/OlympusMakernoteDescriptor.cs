@@ -312,7 +312,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             long value;
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagIntervalNumber, out value)
-                ? Convert.ToString(value)
+                ? value.ToString()
                 : null;
         }
 
@@ -408,7 +408,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagLastFileNumber, out value)
                 ? value == 0
                     ? "File Number Memory Off"
-                    : Convert.ToString(value)
+                    : value.ToString()
                 : null;
         }
 
@@ -444,7 +444,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             long value;
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagSaturation, out value)
-                ? Convert.ToString(value - 3)
+                ? (value - 3).ToString()
                 : null;
         }
 
@@ -453,7 +453,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             long value;
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagContrast, out value)
-                ? Convert.ToString(value - 3)
+                ? (value - 3).ToString()
                 : null;
         }
 
@@ -520,7 +520,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             long value;
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagColorFilter, out value)
-                ? Convert.ToString(value - 3)
+                ? (value - 3).ToString()
                 : null;
         }
 
