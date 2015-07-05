@@ -677,6 +677,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     description.Append("Panorama picture taking mode");
                     break;
                 default:
+                    // TODO return at this point, as future values are not likely to be any good
                     description.Append("Unknown picture taking mode");
                     break;
             }
