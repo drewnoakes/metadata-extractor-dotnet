@@ -175,6 +175,10 @@ namespace MetadataExtractor.Formats.Png
                     using (var inflaterStream = new InflaterInputStream(new MemoryStream(compressedProfile)))
                         yield return new IccReader().Extract(new IndexedCapturingReader(inflaterStream));
                 }
+                else
+                {
+                    directory.AddError("Invalid compression method value");
+                }
                 yield return directory;
             }
             else if (chunkType.Equals(PngChunkType.bKGD))
