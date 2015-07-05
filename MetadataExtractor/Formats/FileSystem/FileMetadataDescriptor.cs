@@ -40,14 +40,9 @@ namespace MetadataExtractor.Formats.FileSystem
             switch (tagType)
             {
                 case FileMetadataDirectory.TagFileSize:
-                {
                     return GetFileSizeDescription();
-                }
-
                 default:
-                {
                     return base.GetDescription(tagType);
-                }
             }
         }
 
