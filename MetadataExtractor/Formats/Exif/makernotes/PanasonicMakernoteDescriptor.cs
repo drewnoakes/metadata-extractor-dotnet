@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -504,11 +505,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             if (faces == null)
                 return null;
-            var faceList = faces.ToList();
-            var result = new StringBuilder();
-            for (var i = 0; i < faceList.Count; i++)
-                result.Append("Face ").Append(i + 1).Append(": ").Append(faceList[i]).AppendLine();
-            return result.Length > 0 ? result.ToString() : null;
+
+            var description = string.Join(Environment.NewLine,
+                faces.Select((f, i) => string.Format("Face {0}: {1}", i + 1, f)));
+
+            return string.IsNullOrWhiteSpace(description) ? null : description;
         }
 
         private static readonly string[] _sceneModes =
