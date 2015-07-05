@@ -232,7 +232,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagApexFilmSpeedValue, out value))
                 return null;
             var iso = Math.Pow((value / 8d) - 1, 2) * 3.125;
-            return iso.ToString();
+            return iso.ToString("0.##");
         }
 
         [CanBeNull]
@@ -246,7 +246,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagApexShutterSpeedTimeValue, out value))
                 return null;
             var shutterSpeed = Math.Pow((49 - value) / 8d, 2);
-            return shutterSpeed + " sec";
+            return string.Format("{0:0.###} sec", shutterSpeed);
         }
 
         [CanBeNull]
@@ -281,7 +281,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             long value;
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagExposureCompensation, out value)
-                ? (value/3d - 2) + " EV"
+                ? string.Format("{0:0.##} EV", (value/3d - 2))
                 : null;
         }
 
