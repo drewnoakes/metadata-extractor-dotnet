@@ -287,7 +287,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string GetIsoSettingDescription()
         {
             var values = Directory.GetInt32Array(NikonType2MakernoteDirectory.TagIso1);
-            if (values == null)
+            if (values == null || values.Length < 2)
                 return null;
             if (values[0] != 0 || values[1] == 0)
                 return "Unknown (" + Directory.GetString(NikonType2MakernoteDirectory.TagIso1) + ")";
