@@ -352,10 +352,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             var day = (int)(value & 0xFF);
-            var month = (int)Math.Floor((value - Math.Floor(value/65536.0)*65536.0)/256.0);
-            var year = (int)Math.Floor(value/65536.0) + 1970;
-//            var month = (value >> 16) & 0xFF;
-//            var year = (value >> 8) & 0xFF + 1970;
+//            var month = (int)Math.Floor((value - Math.Floor(value/65536.0)*65536.0)/256.0);
+//            var year = (int)Math.Floor(value/65536.0);
+            var month = (int)(value >> 16) & 0xFF;
+            var year = ((int)(value >> 8) & 0xFF) + 1970;
 
             if (!DateUtil.IsValidDate(year, month, day))
                 return "Invalid date";
