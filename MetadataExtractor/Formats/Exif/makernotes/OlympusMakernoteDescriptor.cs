@@ -404,21 +404,21 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string GetWhiteBalanceRedDescription()
         {
             var value = Directory.GetInt64Nullable(OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceRed);
-            return value == null ? null : ((object)((double)value / 256d)).ToString();
+            return value == null ? null : ((double)value / 256d).ToString("0.##");
         }
 
         [CanBeNull]
         public string GetWhiteBalanceGreenDescription()
         {
             var value = Directory.GetInt64Nullable(OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceGreen);
-            return value == null ? null : ((object)((double)value / 256d)).ToString();
+            return value == null ? null : ((double)value / 256d).ToString("0.##");
         }
 
         [CanBeNull]
         public string GetWhiteBalanceBlueDescription()
         {
             var value = Directory.GetInt64Nullable(OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceBlue);
-            return value == null ? null : ((object)((double)value / 256d)).ToString();
+            return value == null ? null : ((double)value / 256d).ToString("0.##");
         }
 
         [CanBeNull]
@@ -453,7 +453,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string GetFlashCompensationDescription()
         {
             var value = Directory.GetInt64Nullable(OlympusMakernoteDirectory.CameraSettings.TagFlashCompensation);
-            return value == null ? null : (((long)value - 6) / 3d) + " EV";
+            return value == null ? null : (((long)value - 6) / 3d).ToString("0.##") + " EV";
         }
 
         [CanBeNull]
