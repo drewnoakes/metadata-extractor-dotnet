@@ -103,9 +103,9 @@ namespace MetadataExtractor.Formats.Jpeg
 
         /// <param name="componentNumber">
         /// The zero-based index of the component.  This number is normally between 0 and 3.
-        /// Use getNumberOfComponents for bounds-checking.
+        /// Use <see cref="GetNumberOfComponents"/> for bounds-checking.
         /// </param>
-        /// <returns>the JpegComponent having the specified number.</returns>
+        /// <returns>the JpegComponent having the specified number, or <c>null</c>.</returns>
         [CanBeNull]
         public JpegComponent GetComponent(int componentNumber)
         {
