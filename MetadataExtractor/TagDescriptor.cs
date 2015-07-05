@@ -268,7 +268,7 @@ namespace MetadataExtractor
 
             try
             {
-                return Encoding.ASCII.GetString(values).Trim();
+                return Encoding.ASCII.GetString(values).Trim('\0', ' ', '\r', '\n', '\t');
             }
             catch
             {
