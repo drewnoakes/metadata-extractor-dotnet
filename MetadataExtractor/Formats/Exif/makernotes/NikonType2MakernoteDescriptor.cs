@@ -303,8 +303,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 : values.Length < 4
                     ? Directory.GetString(NikonType2MakernoteDirectory.TagLens)
                     : string.Format(Equals(values[2], values[3])
-                            ? "{0}-{1}mm f/{2:0.#}"
-                            : "{0}-{1}mm f/{2:0.#}-{3:0.#}",
+                            ? "{0}-{1}mm f/{2:0.0}"
+                            : "{0}-{1}mm f/{2:0.0}-{3:0.0}",
                         values[0].ToInt32(),
                         values[1].ToInt32(),
                         values[2].ToSingle(),
