@@ -213,6 +213,7 @@ namespace MetadataExtractor.Formats.Iptc
 
                 case IptcDirectory.TagReleaseDate:
                 case IptcDirectory.TagDateCreated:
+                case IptcDirectory.TagDigitalDateCreated:
                 {
                     // Date object
                     if (tagByteCount >= 8)
