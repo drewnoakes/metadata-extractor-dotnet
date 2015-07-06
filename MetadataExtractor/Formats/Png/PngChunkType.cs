@@ -36,7 +36,8 @@ namespace MetadataExtractor.Formats.Png
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public sealed class PngChunkType
     {
-        private static readonly ICollection<string> IdentifiersAllowingMultiples = new HashSet<string> { "IDAT", "sPLT", "iTXt", "tEXt", "zTXt" };
+        private static readonly ICollection<string> IdentifiersAllowingMultiples
+            = new HashSet<string> { "IDAT", "sPLT", "iTXt", "tEXt", "zTXt" };
 
         #region Standard critical chunks
 
