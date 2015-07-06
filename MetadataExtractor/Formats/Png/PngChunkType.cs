@@ -210,23 +210,40 @@ namespace MetadataExtractor.Formats.Png
             return Identifier;
         }
 
-        public override bool Equals(object o)
+        #region Equality and Hashing
+
+        private bool Equals(PngChunkType other)
         {
-            if (this == o)
-            {
-                return true;
-            }
-            if (o == null || GetType() != o.GetType())
-            {
+            return _bytes.SequenceEqual(other._bytes);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
                 return false;
-            }
-            var that = (PngChunkType)o;
-            return _bytes.SequenceEqual(that._bytes);
+            if (ReferenceEquals(this, obj))
+                return true;
+            return obj is PngChunkType && Equals((PngChunkType)obj);
         }
 
         public override int GetHashCode()
         {
-            return _bytes == null ? 0 : _bytes.Aggregate(1, (current, element) => 31*current + element);
+            unchecked
+            {
+                return _bytes[0] << 24 | _bytes[1] << 16 << _bytes[2] << 8 | _bytes[3];
+            }
         }
+
+        public static bool operator ==(PngChunkType left, PngChunkType right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(PngChunkType left, PngChunkType right)
+        {
+            return !Equals(left, right);
+        }
+
+        #endregion
     }
 }
