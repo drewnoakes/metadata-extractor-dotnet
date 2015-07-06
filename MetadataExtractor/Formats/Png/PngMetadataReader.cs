@@ -38,27 +38,22 @@ namespace MetadataExtractor.Formats.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class PngMetadataReader
     {
-        private static readonly HashSet<PngChunkType> _desiredChunkTypes;
-
-        static PngMetadataReader()
+        private static readonly HashSet<PngChunkType> _desiredChunkTypes = new HashSet<PngChunkType>
         {
-            _desiredChunkTypes = new HashSet<PngChunkType>
-            {
-                PngChunkType.IHDR,
-                PngChunkType.PLTE,
-                PngChunkType.tRNS,
-                PngChunkType.cHRM,
-                PngChunkType.sRGB,
-                PngChunkType.gAMA,
-                PngChunkType.iCCP,
-                PngChunkType.bKGD,
-                PngChunkType.tEXt,
-                PngChunkType.iTXt,
-                PngChunkType.tIME,
-                PngChunkType.pHYs,
-                PngChunkType.sBIT
-            };
-        }
+            PngChunkType.IHDR,
+            PngChunkType.PLTE,
+            PngChunkType.tRNS,
+            PngChunkType.cHRM,
+            PngChunkType.sRGB,
+            PngChunkType.gAMA,
+            PngChunkType.iCCP,
+            PngChunkType.bKGD,
+            PngChunkType.tEXt,
+            PngChunkType.iTXt,
+            PngChunkType.tIME,
+            PngChunkType.pHYs,
+            PngChunkType.sBIT
+        };
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
