@@ -24,12 +24,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
+using MetadataExtractor.Util;
 
 namespace MetadataExtractor.Formats.Iptc
 {
@@ -219,16 +221,16 @@ namespace MetadataExtractor.Formats.Iptc
                     if (tagByteCount >= 8)
                     {
                         str = reader.GetString(tagByteCount);
-                        try
+                        Debug.Assert(str.Length >= 8);
+
+                        int year, month, day;
+                        if (int.TryParse(str.Substring(0, 4), out year) &&
+                            int.TryParse(str.Substring(4, 2), out month) &&
+                            int.TryParse(str.Substring(6, 2), out day) &&
+                            DateUtil.IsValidDate(year, month, day))
                         {
-                            directory.Set(tagIdentifier, new DateTime(
-                                year:  Convert.ToInt32(str.Substring (0, 4 - 0)),
-                                month: Convert.ToInt32(str.Substring (4, 6 - 4)),
-                                day:   Convert.ToInt32(str.Substring (6, 8 - 6))));
+                            directory.Set(tagIdentifier, new DateTime(year, month, day, 0, 0, 0, DateTimeKind.Unspecified));
                             return;
-                        }
-                        catch (FormatException)
-                        {
                         }
                     }
                     else
