@@ -237,8 +237,7 @@ namespace MetadataExtractor.Formats.Png
                     }
                     else
                     {
-                        IList<KeyValuePair> textPairs = new List<KeyValuePair>();
-                        textPairs.Add(new KeyValuePair(keyword, text));
+                        var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, text) };
                         var directory = new PngDirectory(PngChunkType.iTXt);
                         directory.Set(PngDirectory.TagTextualData, textPairs);
                         yield return directory;
