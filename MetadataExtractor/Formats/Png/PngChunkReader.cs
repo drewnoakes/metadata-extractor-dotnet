@@ -32,8 +32,7 @@ namespace MetadataExtractor.Formats.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunkReader
     {
-        private static readonly byte[] PngSignatureBytes = new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, unchecked(
-            0x0A) };
+        private static readonly byte[] _pngSignatureBytes = { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A };
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
@@ -72,16 +71,18 @@ namespace MetadataExtractor.Formats.Png
             //     Miscellaneous information: bKGD, hIST, pHYs, sPLT
             //     Time information:          tIME
             //
-            reader.IsMotorolaByteOrder = true;
+
             // network byte order
-            if (!PngSignatureBytes.SequenceEqual(reader.GetBytes(PngSignatureBytes.Length)))
-            {
+            reader.IsMotorolaByteOrder = true;
+
+            if (!_pngSignatureBytes.SequenceEqual(reader.GetBytes(_pngSignatureBytes.Length)))
                 throw new PngProcessingException("PNG signature mismatch");
-            }
+
             var seenImageHeader = false;
             var seenImageTrailer = false;
-            IList<PngChunk> chunks = new List<PngChunk>();
-            ICollection<PngChunkType> seenChunkTypes = new HashSet<PngChunkType>();
+            var chunks = new List<PngChunk>();
+            var seenChunkTypes = new HashSet<PngChunkType>();
+
             while (!seenImageTrailer)
             {
                 // Process the next chunk.
@@ -89,34 +90,28 @@ namespace MetadataExtractor.Formats.Png
                 var chunkType = new PngChunkType(reader.GetBytes(4));
                 var willStoreChunk = desiredChunkTypes == null || desiredChunkTypes.Contains(chunkType);
                 var chunkData = reader.GetBytes(chunkDataLength);
+
                 // Skip the CRC bytes at the end of the chunk
                 // TODO consider verifying the CRC value to determine if we're processing bad data
                 reader.Skip(4);
+
                 if (willStoreChunk && seenChunkTypes.Contains(chunkType) && !chunkType.AreMultipleAllowed)
-                {
                     throw new PngProcessingException(string.Format("Observed multiple instances of PNG chunk '{0}', for which multiples are not allowed", chunkType));
-                }
+
                 if (chunkType.Equals(PngChunkType.IHDR))
-                {
                     seenImageHeader = true;
-                }
-                else
-                {
-                    if (!seenImageHeader)
-                    {
-                        throw new PngProcessingException(string.Format("First chunk should be '{0}', but '{1}' was observed", PngChunkType.IHDR, chunkType));
-                    }
-                }
+                else if (!seenImageHeader)
+                    throw new PngProcessingException(string.Format("First chunk should be '{0}', but '{1}' was observed", PngChunkType.IHDR, chunkType));
+
                 if (chunkType.Equals(PngChunkType.IEND))
-                {
                     seenImageTrailer = true;
-                }
+
                 if (willStoreChunk)
-                {
                     chunks.Add(new PngChunk(chunkType, chunkData));
-                }
+
                 seenChunkTypes.Add(chunkType);
             }
+
             return chunks;
         }
     }

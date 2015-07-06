@@ -43,54 +43,25 @@ namespace MetadataExtractor.Formats.Png
             switch (tagType)
             {
                 case PngDirectory.TagColorType:
-                {
                     return GetColorTypeDescription();
-                }
-
                 case PngDirectory.TagCompressionType:
-                {
                     return GetCompressionTypeDescription();
-                }
-
                 case PngDirectory.TagFilterMethod:
-                {
                     return GetFilterMethodDescription();
-                }
-
                 case PngDirectory.TagInterlaceMethod:
-                {
                     return GetInterlaceMethodDescription();
-                }
-
                 case PngDirectory.TagPaletteHasTransparency:
-                {
                     return GetPaletteHasTransparencyDescription();
-                }
-
                 case PngDirectory.TagSrgbRenderingIntent:
-                {
                     return GetIsSrgbColorSpaceDescription();
-                }
-
                 case PngDirectory.TagTextualData:
-                {
                     return GetTextualDataDescription();
-                }
-
                 case PngDirectory.TagBackgroundColor:
-                {
                     return GetBackgroundColorDescription();
-                }
-
                 case PngDirectory.TagUnitSpecifier:
-                {
                     return GetUnitSpecifierDescription();
-                }
-
                 default:
-                {
                     return base.GetDescription(tagType);
-                }
             }
         }
 
@@ -101,11 +72,7 @@ namespace MetadataExtractor.Formats.Png
             if (!Directory.TryGetInt32(PngDirectory.TagColorType, out value))
                 return null;
             var colorType = PngColorType.FromNumericValue(value);
-            if (colorType == null)
-            {
-                return null;
-            }
-            return colorType.Description;
+            return colorType == null ? null : colorType.Description;
         }
 
         [CanBeNull]
@@ -169,27 +136,20 @@ namespace MetadataExtractor.Formats.Png
                 {
                     case 0:
                     case 4:
-                    {
                         // TODO do we need to normalise these based upon the bit depth?
                         return string.Format("Greyscale Level {0}", reader.GetUInt16());
-                    }
-
                     case 2:
                     case 6:
-                    {
                         return string.Format("R {0}, G {1}, B {2}", reader.GetUInt16(), reader.GetUInt16(), reader.GetUInt16());
-                    }
-
                     case 3:
-                    {
                         return string.Format("Palette Index {0}", reader.GetByte());
-                    }
                 }
             }
             catch (IOException)
             {
                 return null;
             }
+
             return null;
         }
     }
