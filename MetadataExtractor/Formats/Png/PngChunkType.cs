@@ -148,6 +148,7 @@ namespace MetadataExtractor.Formats.Png
             _multipleAllowed = IdentifiersAllowingMultiples.Contains(Identifier);
         }
 
+        [SuppressMessage("ReSharper", "UnusedParameter.Local")]
         private static void ValidateBytes([NotNull] byte[] bytes)
         {
             if (bytes.Length != 4)
