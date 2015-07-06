@@ -152,7 +152,7 @@ namespace MetadataExtractor.Formats.Png
         {
             if (bytes.Length != 4)
                 throw new ArgumentException("PNG chunk type identifier must be four bytes in length");
-            if (bytes.Any(b => !IsValidByte(b)))
+            if (!bytes.All(IsValidByte))
                 throw new ArgumentException("PNG chunk type identifier may only contain alphabet characters");
         }
 
