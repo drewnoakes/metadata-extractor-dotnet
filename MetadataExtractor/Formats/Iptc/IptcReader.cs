@@ -276,6 +276,7 @@ namespace MetadataExtractor.Formats.Iptc
                 string[] newStrings;
                 if (oldStrings == null)
                 {
+                    // TODO hitting this block means any prior value(s) are discarded
                     newStrings = new string[1];
                 }
                 else
