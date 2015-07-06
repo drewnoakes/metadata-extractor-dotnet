@@ -102,7 +102,7 @@ namespace MetadataExtractor.Formats.Png
             var chunkType = chunk.ChunkType;
             var bytes = chunk.Bytes;
 
-            if (chunkType.Equals(PngChunkType.IHDR))
+            if (chunkType == PngChunkType.IHDR)
             {
                 var header = new PngHeader(bytes);
                 var directory = new PngDirectory(PngChunkType.IHDR);
@@ -115,26 +115,26 @@ namespace MetadataExtractor.Formats.Png
                 directory.Set(PngDirectory.TagInterlaceMethod, header.InterlaceMethod);
                 yield return directory;
             }
-            else if (chunkType.Equals(PngChunkType.PLTE))
+            else if (chunkType == PngChunkType.PLTE)
             {
                 var directory = new PngDirectory(PngChunkType.PLTE);
                 directory.Set(PngDirectory.TagPaletteSize, bytes.Length / 3);
                 yield return directory;
             }
-            else if (chunkType.Equals(PngChunkType.tRNS))
+            else if (chunkType == PngChunkType.tRNS)
             {
                 var directory = new PngDirectory(PngChunkType.tRNS);
                 directory.Set(PngDirectory.TagPaletteHasTransparency, 1);
                 yield return directory;
             }
-            else if (chunkType.Equals(PngChunkType.sRGB))
+            else if (chunkType == PngChunkType.sRGB)
             {
                 int srgbRenderingIntent = unchecked((sbyte)bytes[0]);
                 var directory = new PngDirectory(PngChunkType.sRGB);
                 directory.Set(PngDirectory.TagSrgbRenderingIntent, srgbRenderingIntent);
                 yield return directory;
             }
-            else if (chunkType.Equals(PngChunkType.cHRM))
+            else if (chunkType == PngChunkType.cHRM)
             {
                 var chromaticities = new PngChromaticities(bytes);
                 var directory = new PngChromaticitiesDirectory();
@@ -148,14 +148,14 @@ namespace MetadataExtractor.Formats.Png
                 directory.Set(PngChromaticitiesDirectory.TagBlueY, chromaticities.BlueY);
                 yield return directory;
             }
-            else if (chunkType.Equals(PngChunkType.gAMA))
+            else if (chunkType == PngChunkType.gAMA)
             {
                 var gammaInt = ByteConvert.ToInt32BigEndian(bytes);
                 var directory = new PngDirectory(PngChunkType.gAMA);
                 directory.Set(PngDirectory.TagGamma, gammaInt / 100000.0);
                 yield return directory;
             }
-            else if (chunkType.Equals(PngChunkType.iCCP))
+            else if (chunkType == PngChunkType.iCCP)
             {
                 var reader = new SequentialByteArrayReader(bytes);
                 var profileName = reader.GetNullTerminatedString(maxLengthBytes: 79);
@@ -177,13 +177,13 @@ namespace MetadataExtractor.Formats.Png
                 }
                 yield return directory;
             }
-            else if (chunkType.Equals(PngChunkType.bKGD))
+            else if (chunkType == PngChunkType.bKGD)
             {
                 var directory = new PngDirectory(PngChunkType.bKGD);
                 directory.Set(PngDirectory.TagBackgroundColor, bytes);
                 yield return directory;
             }
-            else if (chunkType.Equals(PngChunkType.tEXt))
+            else if (chunkType == PngChunkType.tEXt)
             {
                 var reader = new SequentialByteArrayReader(bytes);
                 var keyword = reader.GetNullTerminatedString(maxLengthBytes: 79);
@@ -194,7 +194,7 @@ namespace MetadataExtractor.Formats.Png
                 directory.Set(PngDirectory.TagTextualData, textPairs);
                 yield return directory;
             }
-            else if (chunkType.Equals(PngChunkType.iTXt))
+            else if (chunkType == PngChunkType.iTXt)
             {
                 var reader = new SequentialByteArrayReader(bytes);
                 var keyword = reader.GetNullTerminatedString(maxLengthBytes: 79);
@@ -245,7 +245,7 @@ namespace MetadataExtractor.Formats.Png
                     }
                 }
             }
-            else if (chunkType.Equals(PngChunkType.tIME))
+            else if (chunkType == PngChunkType.tIME)
             {
                 var reader = new SequentialByteArrayReader(bytes);
                 var year = reader.GetUInt16();
@@ -266,7 +266,7 @@ namespace MetadataExtractor.Formats.Png
                 }
                 yield return directory;
             }
-            else if (chunkType.Equals(PngChunkType.pHYs))
+            else if (chunkType == PngChunkType.pHYs)
             {
                 var reader = new SequentialByteArrayReader(bytes);
                 var pixelsPerUnitX = reader.GetInt32();
