@@ -128,7 +128,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType.Equals(PngChunkType.sRGB))
             {
-                int srgbRenderingIntent = new SequentialByteArrayReader(bytes).GetSByte();
+                int srgbRenderingIntent = unchecked((sbyte)bytes[0]);
                 var directory = new PngDirectory(PngChunkType.sRGB);
                 directory.Set(PngDirectory.TagSrgbRenderingIntent, srgbRenderingIntent);
                 yield return directory;
