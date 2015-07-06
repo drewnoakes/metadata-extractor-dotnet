@@ -161,8 +161,8 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType.Equals(PngChunkType.iCCP))
             {
-                SequentialReader reader = new SequentialByteArrayReader(bytes);
-                var profileName = reader.GetNullTerminatedString(79);
+                var reader = new SequentialByteArrayReader(bytes);
+                var profileName = reader.GetNullTerminatedString(maxLengthBytes: 79);
                 var directory = new PngDirectory(PngChunkType.iCCP);
                 directory.Set(PngDirectory.TagIccProfileName, profileName);
                 var compressionMethod = reader.GetSByte();
@@ -189,20 +189,19 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType.Equals(PngChunkType.tEXt))
             {
-                SequentialReader reader = new SequentialByteArrayReader(bytes);
-                var keyword = reader.GetNullTerminatedString(79);
+                var reader = new SequentialByteArrayReader(bytes);
+                var keyword = reader.GetNullTerminatedString(maxLengthBytes: 79);
                 var bytesLeft = bytes.Length - keyword.Length - 1;
                 var value = reader.GetNullTerminatedString(bytesLeft);
-                IList<KeyValuePair> textPairs = new List<KeyValuePair>();
-                textPairs.Add(new KeyValuePair(keyword, value));
+                var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, value) };
                 var directory = new PngDirectory(PngChunkType.iTXt);
                 directory.Set(PngDirectory.TagTextualData, textPairs);
                 yield return directory;
             }
             else if (chunkType.Equals(PngChunkType.iTXt))
             {
-                SequentialReader reader = new SequentialByteArrayReader(bytes);
-                var keyword = reader.GetNullTerminatedString(79);
+                var reader = new SequentialByteArrayReader(bytes);
+                var keyword = reader.GetNullTerminatedString(maxLengthBytes: 79);
                 var compressionFlag = reader.GetSByte();
                 var compressionMethod = reader.GetSByte();
                 var languageTag = reader.GetNullTerminatedString(bytes.Length);
