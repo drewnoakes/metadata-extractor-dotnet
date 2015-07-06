@@ -129,7 +129,7 @@ namespace MetadataExtractor.Formats.Png
 
         #endregion
 
-        private readonly byte[] _bytes;
+        [NotNull] private readonly byte[] _bytes;
 
         private readonly bool _multipleAllowed;
 
@@ -148,7 +148,7 @@ namespace MetadataExtractor.Formats.Png
             _multipleAllowed = IdentifiersAllowingMultiples.Contains(Identifier);
         }
 
-        private static void ValidateBytes(byte[] bytes)
+        private static void ValidateBytes([NotNull] byte[] bytes)
         {
             if (bytes.Length != 4)
                 throw new ArgumentException("PNG chunk type identifier must be four bytes in length");
@@ -181,21 +181,25 @@ namespace MetadataExtractor.Formats.Png
             get { return _multipleAllowed; }
         }
 
+        [Pure]
         private static bool IsLowerCase(byte b)
         {
             return (b & (1 << 5)) != 0;
         }
 
+        [Pure]
         private static bool IsUpperCase(byte b)
         {
             return (b & (1 << 5)) == 0;
         }
 
+        [Pure]
         private static bool IsValidByte(byte b)
         {
             return (b >= 65 && b <= 90) || (b >= 97 && b <= 122);
         }
 
+        [NotNull]
         public string Identifier
         {
             get { return Encoding.ASCII.GetString(_bytes); }
