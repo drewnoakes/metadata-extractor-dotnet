@@ -68,6 +68,7 @@
     <Compile Include="Formats\Png\PngMetadataReaderTest.cs" />
     <Compile Include="IO\ByteArrayReaderTest.cs" />
     <Compile Include="UseCultureAttribute.cs" />
+    <Compile Include="Util\ByteConvertTest.cs" />
     <Compile Include="Util\ByteTrieTest.cs" />
     <Compile Include="GeoLocationTest.cs" />
     <Compile Include="IO\IndexedSeekingReaderTest.cs" />

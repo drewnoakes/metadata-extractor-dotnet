@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 
 namespace MetadataExtractor.Util
 {
-    internal static class ByteConvert
+    public static class ByteConvert
     {
         [Pure]
         public static int ToInt32BigEndian([NotNull] byte[] bytes)
