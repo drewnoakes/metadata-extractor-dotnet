@@ -32,6 +32,7 @@ using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
+using MetadataExtractor.Util;
 
 namespace MetadataExtractor.Formats.Png
 {
@@ -149,7 +150,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType.Equals(PngChunkType.gAMA))
             {
-                var gammaInt = new SequentialByteArrayReader(bytes).GetInt32();
+                var gammaInt = ByteConvert.ToInt32BigEndian(bytes);
                 var directory = new PngDirectory(PngChunkType.gAMA);
                 directory.Set(PngDirectory.TagGamma, gammaInt / 100000.0);
                 yield return directory;
