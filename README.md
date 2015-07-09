@@ -7,7 +7,9 @@
 
 _MetadataExtractor_ is a straightforward .NET library for reading metadata from image files.
 
-    IEnumerable<Directory> metadata = ImageMetadataReader.ReadMetadata(imagePath);
+```csharp
+IEnumerable<Directory> metadata = ImageMetadataReader.ReadMetadata(imagePath);
+```
 
 The resulting `metadata` object holds potentially many different directories of metadata, depending upon the input image.
 You may then enumerate the various metadata values contained in each directory.
