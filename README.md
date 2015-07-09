@@ -48,7 +48,7 @@ IPTC - City = London
 Access a specific value, in this case the Exif DateTime tag:
 
 ```csharp
-var subIfdDirectory = directories.OfType<ExifSubIfdDirectory>().SingleOrDefault();
+var subIfdDirectory = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
 var dateTime = subIfdDirectory?.GetDescription(ExifDirectoryBase.TagDateTime);
 ```
 
