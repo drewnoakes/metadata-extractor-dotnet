@@ -7,12 +7,50 @@
 
 _MetadataExtractor_ is a straightforward .NET library for reading metadata from image files.
 
+## Installation
+
+The easiest way to reference this project is to install [its NuGet package](https://www.nuget.org/packages/MetadataExtractor/):
+
+    PM> Install-Package MetadataExtractor
+
+## Usage
+
 ```csharp
-IEnumerable<Directory> metadata = ImageMetadataReader.ReadMetadata(imagePath);
+IEnumerable<Directory> directories = ImageMetadataReader.ReadMetadata(imagePath);
 ```
 
-The resulting `metadata` object holds potentially many different directories of metadata, depending upon the input image.
-You may then enumerate the various metadata values contained in each directory.
+The resulting `directories` sequence holds potentially many different directories of metadata, depending upon the input image.
+
+To print out all values from all directories:
+
+```csharp
+foreach (var directory in directories)
+foreach (var tag in directory.Tags)
+{
+    Console.Out.WriteLine("{0} - {1} = {2}", directory.Name, tag.TagName, tag.Description);
+}
+```
+
+Producing:
+
+```text
+Exif SubIFD - Exposure Time = 1/60 sec
+Exif SubIFD - F-Number = f/8.0
+...
+Exif IFD0 - Make = NIKON CORPORATION
+Exif IFD0 - Model = NIKON D70
+...
+IPTC - Credit = Drew Noakes
+IPTC - City = London
+...
+```
+
+Access a specific value, in this case the Exif DateTime tag:
+
+```csharp
+var subIfdDirectory = directories.OfType<ExifSubIfdDirectory>().SingleOrDefault();
+var dateTime = subIfdDirectory?.GetDescription(ExifDirectoryBase.TagDateTime);
+```
 
 ## Features
 
@@ -69,12 +107,6 @@ Camera-specific "makernote" data is decoded for cameras manufactured by:
 * Sanyo
 * Sigma/Foveon
 * Sony
-
-## Installation
-
-The easiest way to reference this project is to install [its NuGet package](https://www.nuget.org/packages/MetadataExtractor/):
-
-    PM> Install-Package XmpCore
 
 ## Mailing Lists
 
