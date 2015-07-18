@@ -45,22 +45,19 @@ namespace MetadataExtractor.Formats.Tiff
         /// <exception cref="TiffProcessingException"/>
         public static void ProcessTiff([NotNull] IndexedReader reader, [NotNull] ITiffHandler handler, int tiffHeaderOffset = 0)
         {
-            // This must be either "MM" or "II".
-            var byteOrderIdentifier = reader.GetInt16(tiffHeaderOffset);
-            if (byteOrderIdentifier == 0x4d4d)
+            // Read byte order.
+            switch (reader.GetInt16(tiffHeaderOffset))
             {
-                // "MM"
-                reader.IsMotorolaByteOrder = true;
+                case 0x4d4d: // MM
+                    reader.IsMotorolaByteOrder = true;
+                    break;
+                case 0x4949: // II
+                    reader.IsMotorolaByteOrder = false;
+                    break;
+                default:
+                    throw new TiffProcessingException("Unclear distinction between Motorola/Intel byte ordering: " + reader.GetInt16(tiffHeaderOffset));
             }
-            else if (byteOrderIdentifier == 0x4949)
-            {
-                // "II"
-                reader.IsMotorolaByteOrder = false;
-            }
-            else
-            {
-                throw new TiffProcessingException("Unclear distinction between Motorola/Intel byte ordering: " + byteOrderIdentifier);
-            }
+
             // Check the next two values for correctness.
             int tiffMarker = reader.GetUInt16(2 + tiffHeaderOffset);
             handler.SetTiffMarker(tiffMarker);
