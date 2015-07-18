@@ -27,22 +27,55 @@ namespace MetadataExtractor.Util
     /// <summary>Enumeration of supported image file formats.</summary>
     public enum FileType
     {
+        /// <summary>File type is not known.</summary>
         Unknown,
+
+        /// <summary>Joint Photographic Experts Group (JPEG).</summary>
         Jpeg,
+
+        /// <summary>Tagged Image File Format (TIFF).</summary>
         Tiff,
+
+        /// <summary>Photoshop Document.</summary>
         Psd,
+
+        /// <summary>Portable Network Graphic (PNG).</summary>
         Png,
+
+        /// <summary>Bitmap (BMP).</summary>
         Bmp,
+
+        /// <summary>Graphics Interchange Format (GIF).</summary>
         Gif,
+
+        /// <summary>Windows Icon.</summary>
         Ico,
+
+        /// <summary>PiCture eXchange.</summary>
         Pcx,
+
+        /// <summary>Resource Interchange File Format.</summary>
         Riff,
+
+        /// <summary>Sony camera raw.</summary>
         Arw,
+
+        /// <summary>Canon camera raw (version 1).</summary>
         Crw,
+
+        /// <summary>Canon camera raw (version 2).</summary>
         Cr2,
+
+        /// <summary>Nikon camera raw.</summary>
         Nef,
+
+        /// <summary>Olympus camera raw.</summary>
         Orf,
+
+        /// <summary>Fujifilm camera raw.</summary>
         Raf,
+
+        /// <summary>Panasonic camera raw.</summary>
         Rw2
     }
 }
