@@ -189,7 +189,7 @@ namespace MetadataExtractor
             // TODO have observed a byte[8] here which is likely some kind of date (ticks as long?)
             long value;
             return Directory.TryGetInt64(tagType, out value)
-                ? FromUnixTime(value).ToString("ddd MMM dd HH:mm:ss zzz yyyy")
+                ? DateUtil.FromUnixTime(value).ToString("ddd MMM dd HH:mm:ss zzz yyyy")
                 : null;
         }
 
@@ -276,8 +276,6 @@ namespace MetadataExtractor
 
             return null;
         }
-
-        protected static DateTime FromUnixTime(long unixTime) => DateUtil.UnixEpoch.AddSeconds(unixTime);
 
         protected static string GetFStopDescription(double fStop) => $"f/{fStop:0.0}";
 
