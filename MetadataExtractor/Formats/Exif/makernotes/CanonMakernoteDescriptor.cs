@@ -326,12 +326,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             var isNegative = false;
+
             if (value > 0xF000)
             {
                 isNegative = true;
                 value = 0xFFFF - value;
                 value++;
             }
+
             // this tag is interesting in that the values returned are:
             //  0, 0.375, 0.5, 0.626, 1
             // not
@@ -453,40 +455,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             switch (value)
             {
-                case 0:
-                {
-                    return "Not specified (see ISOSpeedRatings tag)";
-                }
-
-                case 15:
-                {
-                    return "Auto";
-                }
-
-                case 16:
-                {
-                    return "50";
-                }
-
-                case 17:
-                {
-                    return "100";
-                }
-
-                case 18:
-                {
-                    return "200";
-                }
-
-                case 19:
-                {
-                    return "400";
-                }
-
-                default:
-                {
-                    return "Unknown (" + value + ")";
-                }
+                case 0:  return "Not specified (see ISOSpeedRatings tag)";
+                case 15: return "Auto";
+                case 16: return "50";
+                case 17: return "100";
+                case 18: return "200";
+                case 19: return "400";
+                default: return "Unknown (" + value + ")";
             }
         }
 
@@ -499,25 +474,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             switch (value)
             {
-                case 0xFFFF:
-                {
-                    return "Low";
-                }
-
-                case 0x000:
-                {
-                    return "Normal";
-                }
-
-                case 0x001:
-                {
-                    return "High";
-                }
-
-                default:
-                {
-                    return "Unknown (" + value + ")";
-                }
+                case 0xFFFF: return "Low";
+                case 0x0000: return "Normal";
+                case 0x0001: return "High";
+                default:     return "Unknown (" + value + ")";
             }
         }
 
@@ -530,25 +490,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             switch (value)
             {
-                case 0xFFFF:
-                {
-                    return "Low";
-                }
-
-                case 0x000:
-                {
-                    return "Normal";
-                }
-
-                case 0x001:
-                {
-                    return "High";
-                }
-
-                default:
-                {
-                    return "Unknown (" + value + ")";
-                }
+                case 0xFFFF: return "Low";
+                case 0x0000: return "Normal";
+                case 0x0001: return "High";
+                default:     return "Unknown (" + value + ")";
             }
         }
 
@@ -561,25 +506,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             switch (value)
             {
-                case 0xFFFF:
-                {
-                    return "Low";
-                }
-
-                case 0x000:
-                {
-                    return "Normal";
-                }
-
-                case 0x001:
-                {
-                    return "High";
-                }
-
-                default:
-                {
-                    return "Unknown (" + value + ")";
-                }
+                case 0xFFFF: return "Low";
+                case 0x0000: return "Normal";
+                case 0x0001: return "High";
+                default:     return "Unknown (" + value + ")";
             }
         }
 
@@ -612,19 +542,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             switch (value)
             {
                 case 0:
-                {
                     int delay;
                     if (Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSelfTimerDelay, out delay))
-                    {
                         return delay == 0 ? "Single shot" : "Single shot with self-timer";
-                    }
                     goto case 1;
-                }
-
                 case 1:
-                {
                     return "Continuous";
-                }
             }
             return "Unknown (" + value + ")";
         }
@@ -639,50 +562,24 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             switch (value)
             {
                 case 0:
-                {
                     return "No flash fired";
-                }
-
                 case 1:
-                {
                     return "Auto";
-                }
-
                 case 2:
-                {
                     return "On";
-                }
-
                 case 3:
-                {
                     return "Red-eye reduction";
-                }
-
                 case 4:
-                {
                     return "Slow-synchro";
-                }
-
                 case 5:
-                {
                     return "Auto and red-eye reduction";
-                }
-
                 case 6:
-                {
                     return "On and red-eye reduction";
-                }
-
                 case 16:
-                {
                     // note: this value not set on Canon D30
                     return "External flash";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
@@ -693,12 +590,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSelfTimerDelay, out value))
                 return null;
 
-            if (value == 0)
-            {
-                return "Self timer not used";
-            }
             // TODO find an image that tests this calculation
-            return ((object)((double)value * 0.1d)).ToString() + " sec";
+            return value == 0 
+                ? "Self timer not used" 
+                : $"{value*0.1d} sec";
         }
 
         [CanBeNull]
@@ -729,29 +624,15 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             switch (value)
             {
                 case 0:
-                {
                     return "Manual";
-                }
-
                 case 1:
-                {
                     return "Auto";
-                }
-
                 case 3:
-                {
                     return "Close-up (Macro)";
-                }
-
                 case 8:
-                {
                     return "Locked (Pan Mode)";
-                }
-
                 default:
-                {
                     return "Unknown (" + value + ")";
-                }
             }
         }
 
