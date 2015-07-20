@@ -283,7 +283,7 @@ namespace MetadataExtractor
         /// Returns the simplest representation of this <see cref="Rational"/>'s value possible.
         /// </summary>
         [NotNull]
-        public string ToSimpleString(bool allowDecimal)
+        public string ToSimpleString(bool allowDecimal = true)
         {
             if (Denominator == 0 && Numerator != 0)
                 return ToString();
