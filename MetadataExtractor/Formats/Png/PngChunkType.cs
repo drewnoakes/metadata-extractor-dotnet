@@ -132,11 +132,9 @@ namespace MetadataExtractor.Formats.Png
 
         [NotNull] private readonly byte[] _bytes;
 
-        private readonly bool _multipleAllowed;
-
         public PngChunkType([NotNull] string identifier, bool multipleAllowed = false)
         {
-            _multipleAllowed = multipleAllowed;
+            AreMultipleAllowed = multipleAllowed;
             var bytes = Encoding.ASCII.GetBytes(identifier);
             ValidateBytes(bytes);
             _bytes = bytes;
@@ -146,7 +144,7 @@ namespace MetadataExtractor.Formats.Png
         {
             ValidateBytes(bytes);
             _bytes = bytes;
-            _multipleAllowed = IdentifiersAllowingMultiples.Contains(Identifier);
+            AreMultipleAllowed = IdentifiersAllowingMultiples.Contains(Identifier);
         }
 
         [SuppressMessage("ReSharper", "UnusedParameter.Local")]
@@ -166,7 +164,7 @@ namespace MetadataExtractor.Formats.Png
 
         public bool IsSafeToCopy => IsLowerCase(_bytes[3]);
 
-        public bool AreMultipleAllowed => _multipleAllowed;
+        public bool AreMultipleAllowed { get; }
 
         [Pure]
         private static bool IsLowerCase(byte b)
