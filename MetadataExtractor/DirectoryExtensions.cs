@@ -109,7 +109,7 @@ namespace MetadataExtractor
 
         #region Single
 
-        /// <summary>Returns a tag's value as an <see cref="float"/>, or throws if conversion is not possible.</summary>
+        /// <summary>Returns a tag's value as a <see cref="float"/>, or throws if conversion is not possible.</summary>
         /// <remarks>
         /// If the value is <see cref="IConvertible"/>, then that interface is used for conversion of the value.
         /// If the value is an array of <see cref="IConvertible"/> having length one, then the single item is converted.
@@ -397,37 +397,70 @@ namespace MetadataExtractor
             return null;
         }
 
+        #region DateTime
+
+        /// <summary>Returns a tag's value as a <see cref="DateTime"/>, or throws if conversion is not possible.</summary>
+        /// <remarks>
+        /// If the value is <see cref="IConvertible"/>, then that interface is used for conversion of the value.
+        /// If the value is an array of <see cref="IConvertible"/> having length one, then the single item is converted.
+        /// </remarks>
+        /// <exception cref="MetadataException">No value exists for <paramref name="tagType"/>, or the value is not convertible to the requested type.</exception>
+        public static DateTime GetDateTime(this Directory directory, int tagType /*, [CanBeNull] TimeZoneInfo timeZone = null*/)
+        {
+            DateTime value;
+            if (directory.TryGetDateTime(tagType, out value))
+                return value;
+
+            return ThrowValueNotPossible<DateTime>(directory, tagType);
+        }
+
         /// <summary>Returns the specified tag's value as a java.util.Date.</summary>
         /// <remarks>If the underlying value is a <see cref="string"/>, then attempts will be made to parse it.</remarks>
-        /// <returns>The specified tag's value as a DateTime.  If the value is unset or cannot be converted, <c>null</c> is returned.</returns>
-        [CanBeNull]
-        public static DateTime? GetDateTimeNullable(this Directory directory, int tagType/*, [CanBeNull] TimeZoneInfo timeZone = null*/)
+        /// <returns><c>true</c> if a DateTime was returned, otherwise <c>false</c>.</returns>
+        public static bool TryGetDateTime(this Directory directory, int tagType /*, [CanBeNull] TimeZoneInfo timeZone = null*/, out DateTime dateTime)
         {
             var o = directory.GetObject(tagType);
 
             if (o == null)
-                return null;
+            {
+                dateTime = default(DateTime);
+                return false;
+            }
 
             if (o is DateTime)
-                return (DateTime)o;
+            {
+                dateTime = (DateTime)o;
+                return true;
+            }
 
             var s = o as string;
 
             if (s == null)
-                return null;
+            {
+                dateTime = default(DateTime);
+                return false;
+            }
 
             // This seems to cover all known Exif date strings
             // Note that "    :  :     :  :  " is a valid date string according to the Exif spec (which means 'unknown date'): http://www.awaresystems.be/imaging/tiff/tifftags/privateifd/exif/datetimeoriginal.html
             var datePatterns = new[] { "yyyy:MM:dd HH:mm:ss", "yyyy:MM:dd HH:mm", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm" };
             foreach (var datePattern in datePatterns)
             {
-                DateTime result;
-                if (DateTime.TryParseExact(s, datePattern, null, DateTimeStyles.AllowWhiteSpaces, out result))
-                    return result;
+                if (DateTime.TryParseExact(s, datePattern, null, DateTimeStyles.AllowWhiteSpaces, out dateTime))
+                    return true;
             }
 
-            return null;
+            if (o is IConvertible)
+            {
+                dateTime = ((IConvertible)o).ToDateTime(null);
+                return true;
+            }
+
+            dateTime = default(DateTime);
+            return false;
         }
+
+        #endregion
 
         /// <summary>Returns the specified tag's value as a Rational.</summary>
         /// <remarks>If the value is unset or cannot be converted, <c>null</c> is returned.</remarks>

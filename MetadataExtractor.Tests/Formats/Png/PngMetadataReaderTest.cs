@@ -69,7 +69,7 @@ namespace MetadataExtractor.Tests.Formats.Png
             Assert.Equal(PngChunkType.tIME, directories[4].GetPngChunkType());
             //Sharpen.Tests.AreEqual("Tue Jan 01 04:08:30 GMT 2013", Sharpen.Extensions.ConvertToString(dirs[4].GetDateTimeNullable(PngDirectory.TagLastModificationTime)));
             var testString = CreateTestString(2013, 01, 01, 04, 08, 30);
-            Assert.Equal(testString, directories[4].GetDateTimeNullable(PngDirectory.TagLastModificationTime).Value.ToString("ddd MMM dd HH:mm:ss zzz yyyy"));
+            Assert.Equal(testString, directories[4].GetDateTime(PngDirectory.TagLastModificationTime).ToString("ddd MMM dd HH:mm:ss zzz yyyy"));
             Assert.Equal(PngChunkType.iTXt, directories[5].GetPngChunkType());
             var pairs = (IList<KeyValuePair>)directories[5].GetObject(PngDirectory.TagTextualData);
             Assert.NotNull(pairs);

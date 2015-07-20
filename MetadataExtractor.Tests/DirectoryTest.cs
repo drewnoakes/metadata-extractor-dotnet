@@ -121,10 +121,10 @@ namespace MetadataExtractor.Tests
             _directory.Set(3, date3);
             _directory.Set(4, date4);
             Assert.Equal(date1, _directory.GetString(1));
-            Assert.Equal(new DateTime(2002, 1, 30, 23, 59, 59), _directory.GetDateTimeNullable(1));
-            Assert.Equal(new DateTime(2002, 1, 30, 23, 59, 0), _directory.GetDateTimeNullable(2));
-            Assert.Equal(new DateTime(2002, 1, 30, 23, 59, 59), _directory.GetDateTimeNullable(3));
-            Assert.Equal(new DateTime(2002, 1, 30, 23, 59, 0), _directory.GetDateTimeNullable(4));
+            Assert.Equal(new DateTime(2002, 1, 30, 23, 59, 59), _directory.GetDateTime(1));
+            Assert.Equal(new DateTime(2002, 1, 30, 23, 59, 0), _directory.GetDateTime(2));
+            Assert.Equal(new DateTime(2002, 1, 30, 23, 59, 59), _directory.GetDateTime(3));
+            Assert.Equal(new DateTime(2002, 1, 30, 23, 59, 0), _directory.GetDateTime(4));
         }
 
 
@@ -163,7 +163,6 @@ namespace MetadataExtractor.Tests
         {
             Assert.Null(_directory.GetString(ExifDirectoryBase.TagAperture));
             Assert.Null(_directory.GetByteArray(ExifDirectoryBase.TagAperture));
-            Assert.Null(_directory.GetDateTimeNullable(ExifDirectoryBase.TagAperture));
             Assert.Null(_directory.GetInt32Array(ExifDirectoryBase.TagAperture));
             Assert.Null(_directory.GetObject(ExifDirectoryBase.TagAperture));
             Assert.Null(_directory.GetRational(ExifDirectoryBase.TagAperture));
