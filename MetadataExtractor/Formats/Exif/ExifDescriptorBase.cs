@@ -36,12 +36,6 @@ namespace MetadataExtractor.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class ExifDescriptorBase<T> : TagDescriptor<T> where T : Directory
     {
-        /// <summary>
-        /// Dictates whether rational values will be represented in decimal format in instances
-        /// where decimal notation is elegant (such as 1/2 -&gt; 0.5, but not 1/3).
-        /// </summary>
-        private readonly bool _allowDecimalRepresentationOfRationals = true;
-
         protected ExifDescriptorBase([NotNull] T directory)
             : base(directory)
         {
@@ -726,7 +720,7 @@ namespace MetadataExtractor.Formats.Exif
             if (rational == null)
                 return null;
             var unit = GetFocalPlaneResolutionUnitDescription();
-            return rational.Reciprocal.ToSimpleString(_allowDecimalRepresentationOfRationals) + (unit == null ? string.Empty : " " + unit.ToLower());
+            return rational.Reciprocal.ToSimpleString() + (unit == null ? string.Empty : " " + unit.ToLower());
         }
 
         [CanBeNull]
@@ -736,7 +730,7 @@ namespace MetadataExtractor.Formats.Exif
             if (rational == null)
                 return null;
             var unit = GetFocalPlaneResolutionUnitDescription();
-            return rational.Reciprocal.ToSimpleString(_allowDecimalRepresentationOfRationals) + (unit == null ? string.Empty : " " + unit.ToLower());
+            return rational.Reciprocal.ToSimpleString() + (unit == null ? string.Empty : " " + unit.ToLower());
         }
 
         [CanBeNull]
@@ -996,7 +990,7 @@ namespace MetadataExtractor.Formats.Exif
             var value = Directory.GetRational(ExifDirectoryBase.TagCompressedAverageBitsPerPixel);
             if (value == null)
                 return null;
-            var ratio = value.ToSimpleString(_allowDecimalRepresentationOfRationals);
+            var ratio = value.ToSimpleString();
             return value.IsInteger && value.ToInt32() == 1 ? ratio + " bit/pixel" : ratio + " bits/pixel";
         }
 
