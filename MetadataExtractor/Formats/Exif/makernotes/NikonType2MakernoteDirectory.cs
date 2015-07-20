@@ -28,8 +28,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>Describes tags specific to Nikon (type 2) cameras.</summary>
     /// <remarks>
-    /// Describes tags specific to Nikon (type 2) cameras.  Type-2 applies to the E990 and D-series cameras such as the E990, D1,
-    /// D70 and D100.
+    /// Type-2 applies to the E990 and D-series cameras such as the E990, D1, D70 and D100.
     /// <para />
     /// Thanks to Fabrizio Giudici for publishing his reverse-engineering of the D100 makernote data.
     /// http://www.timelesswanderings.net/equipment/D100/NEF.html
@@ -37,7 +36,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Note that the camera implements image protection (locking images) via the file's 'readonly' attribute.  Similarly
     /// image hiding uses the 'hidden' attribute (observed on the D70).  Consequently, these values are not available here.
     /// <para />
-    /// Additional sample images have been observed, and their tag values recorded in javadoc comments for each tag's field.
+    /// Additional sample images have been observed, and their tag values recorded in API documentation for each tag's field.
     /// New tags have subsequently been added since Fabrizio's observations.
     /// <para />
     /// In earlier models (such as the E990 and D1), this directory begins at the first byte of the makernote IFD.  In

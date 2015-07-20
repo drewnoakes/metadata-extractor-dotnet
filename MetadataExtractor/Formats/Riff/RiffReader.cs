@@ -71,8 +71,7 @@ namespace MetadataExtractor.Formats.Riff
                 var chunkFourCc = reader.GetString(4);
                 var chunkSize = reader.GetInt32();
                 sizeLeft -= 8;
-                // NOTE we fail a negative chunk size here (greater than 0x7FFFFFFF) as Java cannot
-                // allocate arrays larger than this.
+                // NOTE we fail a negative chunk size here (greater than 0x7FFFFFFF) as we cannot allocate arrays larger than this
                 if (chunkSize < 0 || sizeLeft < chunkSize)
                 {
                     throw new RiffProcessingException("Invalid RIFF chunk size");
