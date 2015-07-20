@@ -67,10 +67,7 @@ namespace MetadataExtractor
         /// <summary>Indicates whether the specified tag type has been set.</summary>
         /// <param name="tagType">the tag type to check for</param>
         /// <returns>true if a value exists for the specified tag type, false if not</returns>
-        public bool ContainsTag(int tagType)
-        {
-            return _tagMap.ContainsKey(tagType);
-        }
+        public bool ContainsTag(int tagType) => _tagMap.ContainsKey(tagType);
 
         /// <summary>Returns an Iterator of Tag instances that have been set in this Directory.</summary>
         /// <value>The list of <see cref="Tag"/> instances</value>
@@ -95,10 +92,7 @@ namespace MetadataExtractor
 
         /// <summary>Registers an error message with this directory.</summary>
         /// <param name="message">an error message.</param>
-        public void AddError([NotNull] string message)
-        {
-            _errorList.Add(message);
-        }
+        public void AddError([NotNull] string message) => _errorList.Add(message);
 
         /// <summary>Gets a value indicating whether this directory has one or more errors.</summary>
         /// <remarks>Error messages are accessible via <see cref="Errors"/>.</remarks>

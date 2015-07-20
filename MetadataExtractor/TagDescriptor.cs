@@ -290,19 +290,10 @@ namespace MetadataExtractor
 
         private static readonly DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        protected static DateTime FromUnixTime(long unixTime)
-        {
-            return _epoch.AddSeconds(unixTime);
-        }
+        protected static DateTime FromUnixTime(long unixTime) => _epoch.AddSeconds(unixTime);
 
-        protected static string GetFStopDescription(double fStop)
-        {
-            return $"f/{fStop:0.0}";
-        }
+        protected static string GetFStopDescription(double fStop) => $"f/{fStop:0.0}";
 
-        protected static string GetFocalLengthDescription(double mm)
-        {
-            return $"{mm:0.#} mm";
-        }
+        protected static string GetFocalLengthDescription(double mm) => $"{mm:0.#} mm";
     }
 }

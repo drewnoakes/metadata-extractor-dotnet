@@ -107,12 +107,8 @@ namespace MetadataExtractor
 
         #region Equality and Hashing
 
-        private bool Equals(GeoLocation other)
-        {
-            return
-                Latitude.Equals(other.Latitude) &&
-                Longitude.Equals(other.Longitude);
-        }
+        private bool Equals(GeoLocation other) => Latitude.Equals(other.Latitude) &&
+                                                  Longitude.Equals(other.Longitude);
 
         public override bool Equals(object obj)
         {
@@ -123,36 +119,24 @@ namespace MetadataExtractor
             return obj is GeoLocation && Equals((GeoLocation)obj);
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return (Latitude.GetHashCode()*397) ^ Longitude.GetHashCode();
-            }
-        }
+        public override int GetHashCode() => unchecked((Latitude.GetHashCode()*397) ^ Longitude.GetHashCode());
 
         #endregion
 
         #region ToString
 
         /// <returns>
-        /// a string representation of this location, of format:
+        /// Returns a string representation of this object, of format:
         /// <c>1.23, 4.56</c>
         /// </returns>
-        public override string ToString()
-        {
-            return Latitude + ", " + Longitude;
-        }
+        public override string ToString() => Latitude + ", " + Longitude;
 
         /// <returns>
         /// a string representation of this location, of format:
         /// <c>-1° 23' 4.56", 54° 32' 1.92"</c>
         /// </returns>
         [NotNull, Pure]
-        public string ToDmsString()
-        {
-            return DecimalToDegreesMinutesSecondsString(Latitude) + ", " + DecimalToDegreesMinutesSecondsString(Longitude);
-        }
+        public string ToDmsString() => DecimalToDegreesMinutesSecondsString(Latitude) + ", " + DecimalToDegreesMinutesSecondsString(Longitude);
 
         #endregion
     }

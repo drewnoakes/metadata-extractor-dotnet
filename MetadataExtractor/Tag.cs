@@ -77,9 +77,6 @@ namespace MetadataExtractor
         /// <summary>A basic representation of the tag's type and value.</summary>
         /// <remarks>EG: <c>[ExifIfd0] F Number - f/2.8</c>.</remarks>
         /// <returns>The tag's type and value.</returns>
-        public override string ToString()
-        {
-            return $"[{DirectoryName}] {TagName} - {Description ?? _directory.GetString(TagType) + " (unable to formulate description)"}";
-        }
+        public override string ToString() => $"[{DirectoryName}] {TagName} - {Description ?? _directory.GetString(TagType) + " (unable to formulate description)"}";
     }
 }

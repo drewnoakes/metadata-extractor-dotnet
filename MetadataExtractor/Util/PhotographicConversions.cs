@@ -36,19 +36,13 @@ namespace MetadataExtractor.Util
         /// <summary>Converts an aperture value to its corresponding F-stop number.</summary>
         /// <param name="aperture">the aperture value to convert</param>
         /// <returns>the F-stop number of the specified aperture</returns>
-        public static double ApertureToFStop(double aperture)
-        {
-            return Math.Pow(RootTwo, aperture);
-        }
+        public static double ApertureToFStop(double aperture) => Math.Pow(RootTwo, aperture);
 
         // NOTE jhead uses a different calculation as far as i can tell...  this confuses me...
         // fStop = (float)Math.exp(aperture * Math.log(2) * 0.5));
         /// <summary>Converts a shutter speed to an exposure time.</summary>
         /// <param name="shutterSpeed">the shutter speed to convert</param>
         /// <returns>the exposure time of the specified shutter speed</returns>
-        public static double ShutterSpeedToExposureTime(double shutterSpeed)
-        {
-            return (float)(1/Math.Exp(shutterSpeed*Ln2));
-        }
+        public static double ShutterSpeedToExposureTime(double shutterSpeed) => (float)(1 / Math.Exp(shutterSpeed * Ln2));
     }
 }

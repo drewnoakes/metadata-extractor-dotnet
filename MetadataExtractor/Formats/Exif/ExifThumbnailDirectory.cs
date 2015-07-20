@@ -65,16 +65,10 @@ namespace MetadataExtractor.Formats.Exif
             return _tagNameMap.TryGetValue(tagType, out tagName);
         }
 
-        public bool HasThumbnailData()
-        {
-            return _thumbnailData != null;
-        }
+        public bool HasThumbnailData() => _thumbnailData != null;
 
         [CanBeNull]
-        public byte[] GetThumbnailData()
-        {
-            return _thumbnailData;
-        }
+        public byte[] GetThumbnailData() => _thumbnailData;
 
         public void SetThumbnailData([CanBeNull] byte[] data)
         {

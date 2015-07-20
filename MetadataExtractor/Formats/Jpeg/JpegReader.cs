@@ -34,17 +34,14 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <author>Darrell Silver http://www.darrellsilver.com</author>
     public sealed class JpegReader : IJpegSegmentMetadataReader
     {
-        public IEnumerable<JpegSegmentType> GetSegmentTypes()
+        public IEnumerable<JpegSegmentType> GetSegmentTypes() => new []
         {
             // NOTE that some SOFn values do not exist
-            return new []
-            {
-                JpegSegmentType.Sof0, JpegSegmentType.Sof1, JpegSegmentType.Sof2, JpegSegmentType.Sof3,
-                JpegSegmentType.Sof5, JpegSegmentType.Sof6, JpegSegmentType.Sof7, JpegSegmentType.Sof8,
-                JpegSegmentType.Sof9, JpegSegmentType.Sof10, JpegSegmentType.Sof11, JpegSegmentType.Sof13,
-                JpegSegmentType.Sof14, JpegSegmentType.Sof15
-            };
-        }
+            JpegSegmentType.Sof0, JpegSegmentType.Sof1, JpegSegmentType.Sof2, JpegSegmentType.Sof3,
+            JpegSegmentType.Sof5, JpegSegmentType.Sof6, JpegSegmentType.Sof7, JpegSegmentType.Sof8,
+            JpegSegmentType.Sof9, JpegSegmentType.Sof10, JpegSegmentType.Sof11, JpegSegmentType.Sof13,
+            JpegSegmentType.Sof14, JpegSegmentType.Sof15
+        };
 
         public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
         {

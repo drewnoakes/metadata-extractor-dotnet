@@ -237,10 +237,7 @@ namespace MetadataExtractor.Formats.Xmp
         /// uses integers for keys.
         /// </remarks>
         [NotNull]
-        public IDictionary<string, string> GetXmpProperties()
-        {
-            return new Dictionary<string, string>(_propertyValueByPath);
-        }
+        public IDictionary<string, string> GetXmpProperties() => new Dictionary<string, string>(_propertyValueByPath);
 
         public void SetXmpMeta([NotNull] IXmpMeta xmpMeta)
         {

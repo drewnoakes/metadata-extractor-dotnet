@@ -56,19 +56,12 @@ namespace MetadataExtractor.Formats.WebP
             _directories = directories;
         }
 
-        public bool ShouldAcceptRiffIdentifier(string identifier)
-        {
-            return identifier == "WEBP";
-        }
+        public bool ShouldAcceptRiffIdentifier(string identifier) => identifier == "WEBP";
 
-        public bool ShouldAcceptChunk(string fourCc)
-        {
-            return
-                fourCc == "VP8X" ||
-                fourCc == "EXIF" ||
-                fourCc == "ICCP" ||
-                fourCc == "XMP ";
-        }
+        public bool ShouldAcceptChunk(string fourCc) => fourCc == "VP8X" ||
+                                                        fourCc == "EXIF" ||
+                                                        fourCc == "ICCP" ||
+                                                        fourCc == "XMP ";
 
         public void ProcessChunk(string fourCc, byte[] payload)
         {

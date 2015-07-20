@@ -57,9 +57,6 @@ namespace MetadataExtractor.Formats.Png
 
         public override string Name => "PNG Chromaticities";
 
-        protected override bool TryGetTagName(int tagType, out string tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
+        protected override bool TryGetTagName(int tagType, out string tagName) => _tagNameMap.TryGetValue(tagType, out tagName);
     }
 }

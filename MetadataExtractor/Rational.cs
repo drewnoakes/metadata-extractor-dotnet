@@ -58,182 +58,107 @@ namespace MetadataExtractor
 
         /// <summary>Returns the value of the specified number as a <see cref="double"/>.</summary>
         /// <remarks>This may involve rounding.</remarks>
-        public double ToDouble()
-        {
-            return Numerator == 0 ? 0.0 : Numerator/(double)Denominator;
-        }
+        public double ToDouble() => Numerator == 0 ? 0.0 : Numerator/(double)Denominator;
 
         /// <summary>Returns the value of the specified number as a <see cref="float"/>.</summary>
         /// <remarks>May incur rounding.</remarks>
-        public float ToSingle()
-        {
-            return Numerator == 0 ? 0.0f : Numerator/(float)Denominator;
-        }
+        public float ToSingle() => Numerator == 0 ? 0.0f : Numerator/(float)Denominator;
 
         /// <summary>Returns the value of the specified number as a <see cref="byte"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
         /// casts the result of <see cref="ToDouble"/> to <see cref="byte"/>.
         /// </remarks>
-        public byte ToByte()
-        {
-            return (byte)ToDouble();
-        }
+        public byte ToByte() => (byte)ToDouble();
 
         /// <summary>Returns the value of the specified number as a <see cref="sbyte"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
         /// casts the result of <see cref="ToDouble"/> to <see cref="sbyte"/>.
         /// </remarks>
-        public sbyte ToSByte()
-        {
-            return (sbyte)ToDouble();
-        }
+        public sbyte ToSByte() => (sbyte)ToDouble();
 
         /// <summary>Returns the value of the specified number as an <see cref="int"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
         /// casts the result of <see cref="ToDouble"/> to <see cref="int"/>.
         /// </remarks>
-        public int ToInt32()
-        {
-            return (int)ToDouble();
-        }
+        public int ToInt32() => (int)ToDouble();
 
         /// <summary>Returns the value of the specified number as an <see cref="uint"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
         /// casts the result of <see cref="ToDouble"/> to <see cref="uint"/>.
         /// </remarks>
-        public uint ToUInt32()
-        {
-            return (uint)ToDouble();
-        }
+        public uint ToUInt32() => (uint)ToDouble();
 
         /// <summary>Returns the value of the specified number as a <see cref="long"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
         /// casts the result of <see cref="ToDouble"/> to <see cref="long"/>.
         /// </remarks>
-        public long ToInt64()
-        {
-            return (long)ToDouble();
-        }
+        public long ToInt64() => (long)ToDouble();
 
         /// <summary>Returns the value of the specified number as a <see cref="ulong"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
         /// casts the result of <see cref="ToDouble"/> to <see cref="ulong"/>.
         /// </remarks>
-        public ulong ToUInt64()
-        {
-            return (ulong)ToDouble();
-        }
+        public ulong ToUInt64() => (ulong)ToDouble();
 
         /// <summary>Returns the value of the specified number as a <see cref="short"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
         /// casts the result of <see cref="ToDouble"/> to <see cref="short"/>.
         /// </remarks>
-        public short ToInt16()
-        {
-            return (short)ToDouble();
-        }
+        public short ToInt16() => (short)ToDouble();
 
         /// <summary>Returns the value of the specified number as a <see cref="ushort"/>.</summary>
         /// <remarks>
         /// May incur rounding or truncation.  This implementation simply
         /// casts the result of <see cref="ToDouble"/> to <see cref="ushort"/>.
         /// </remarks>
-        public ushort ToUInt16()
-        {
-            return (ushort)ToDouble();
-        }
+        public ushort ToUInt16() => (ushort)ToDouble();
 
         /// <summary>Returns the value of the specified number as a <see cref="decimal"/>.</summary>
         /// <remarks>May incur truncation.</remarks>
-        public decimal ToDecimal()
-        {
-            return Denominator == 0 ? 0M : Numerator / (decimal)Denominator;
-        }
+        public decimal ToDecimal() => Denominator == 0 ? 0M : Numerator / (decimal)Denominator;
 
         /// <summary>Returns <c>true</c> if the value is non-zero, otherwise <c>false</c>.</summary>
-        public bool ToBoolean()
-        {
-            return Numerator != 0 && Denominator != 0;
-        }
+        public bool ToBoolean() => Numerator != 0 && Denominator != 0;
 
         #region IConvertible
 
-        TypeCode IConvertible.GetTypeCode()
-        {
-            return TypeCode.Object;
-        }
+        TypeCode IConvertible.GetTypeCode() => TypeCode.Object;
 
-        bool IConvertible.ToBoolean(IFormatProvider provider)
-        {
-            return ToBoolean();
-        }
+        bool IConvertible.ToBoolean(IFormatProvider provider) => ToBoolean();
 
         char IConvertible.ToChar(IFormatProvider provider)
         {
             throw new NotSupportedException();
         }
 
-        sbyte IConvertible.ToSByte(IFormatProvider provider)
-        {
-            return ToSByte();
-        }
+        sbyte IConvertible.ToSByte(IFormatProvider provider) => ToSByte();
 
-        byte IConvertible.ToByte(IFormatProvider provider)
-        {
-            return ToByte();
-        }
+        byte IConvertible.ToByte(IFormatProvider provider) => ToByte();
 
-        short IConvertible.ToInt16(IFormatProvider provider)
-        {
-            return ToInt16();
-        }
+        short IConvertible.ToInt16(IFormatProvider provider) => ToInt16();
 
-        ushort IConvertible.ToUInt16(IFormatProvider provider)
-        {
-            return ToUInt16();
-        }
+        ushort IConvertible.ToUInt16(IFormatProvider provider) => ToUInt16();
 
-        int IConvertible.ToInt32(IFormatProvider provider)
-        {
-            return ToInt32();
-        }
+        int IConvertible.ToInt32(IFormatProvider provider) => ToInt32();
 
-        uint IConvertible.ToUInt32(IFormatProvider provider)
-        {
-            return ToUInt32();
-        }
+        uint IConvertible.ToUInt32(IFormatProvider provider) => ToUInt32();
 
-        long IConvertible.ToInt64(IFormatProvider provider)
-        {
-            return ToInt64();
-        }
+        long IConvertible.ToInt64(IFormatProvider provider) => ToInt64();
 
-        ulong IConvertible.ToUInt64(IFormatProvider provider)
-        {
-            return ToUInt64();
-        }
+        ulong IConvertible.ToUInt64(IFormatProvider provider) => ToUInt64();
 
-        float IConvertible.ToSingle(IFormatProvider provider)
-        {
-            return ToSingle();
-        }
+        float IConvertible.ToSingle(IFormatProvider provider) => ToSingle();
 
-        double IConvertible.ToDouble(IFormatProvider provider)
-        {
-            return ToDouble();
-        }
+        double IConvertible.ToDouble(IFormatProvider provider) => ToDouble();
 
-        decimal IConvertible.ToDecimal(IFormatProvider provider)
-        {
-            return ToDecimal();
-        }
+        decimal IConvertible.ToDecimal(IFormatProvider provider) => ToDecimal();
 
         DateTime IConvertible.ToDateTime(IFormatProvider provider)
         {
@@ -263,15 +188,9 @@ namespace MetadataExtractor
 
         /// <summary>Returns a string representation of the object of form <c>numerator/denominator</c>.</summary>
         /// <returns>a string representation of the object.</returns>
-        public override string ToString()
-        {
-            return Numerator + "/" + Denominator;
-        }
+        public override string ToString() => Numerator + "/" + Denominator;
 
-        public string ToString(IFormatProvider provider)
-        {
-            return Numerator.ToString(provider) + "/" + Denominator.ToString(provider);
-        }
+        public string ToString(IFormatProvider provider) => Numerator.ToString(provider) + "/" + Denominator.ToString(provider);
 
         /// <summary>
         /// Returns the simplest representation of this <see cref="Rational"/>'s value possible.
@@ -319,10 +238,7 @@ namespace MetadataExtractor
 
         #region Equality and hashing
 
-        private bool Equals(Rational other)
-        {
-            return Denominator == other.Denominator && Numerator == other.Numerator;
-        }
+        private bool Equals(Rational other) => Denominator == other.Denominator && Numerator == other.Numerator;
 
         public override bool Equals(object obj)
         {
@@ -333,13 +249,7 @@ namespace MetadataExtractor
             return obj is Rational && ((Rational)obj).ToDecimal().Equals(ToDecimal());
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return (Denominator.GetHashCode()*397) ^ Numerator.GetHashCode();
-            }
-        }
+        public override int GetHashCode() => unchecked(Denominator.GetHashCode()*397) ^ Numerator.GetHashCode();
 
         #endregion
 
@@ -442,10 +352,7 @@ namespace MetadataExtractor
                 return new Rational(Convert.ToInt64(value), 1);
             }
 
-            public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
-            {
-                return false;
-            }
+            public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => false;
         }
 
         #endregion

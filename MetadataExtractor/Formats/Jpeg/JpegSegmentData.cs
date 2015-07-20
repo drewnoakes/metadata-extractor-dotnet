@@ -89,10 +89,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <param name="segmentType">a number which identifies the type of JPEG segment being queried</param>
         /// <returns>zero or more byte arrays, each holding the data of a JPEG segment</returns>
         [NotNull]
-        public IEnumerable<byte[]> GetSegments(JpegSegmentType segmentType)
-        {
-            return GetSegmentList(segmentType) ?? Enumerable.Empty<byte[]>();
-        }
+        public IEnumerable<byte[]> GetSegments(JpegSegmentType segmentType) => GetSegmentList(segmentType) ?? Enumerable.Empty<byte[]>();
 
         [CanBeNull]
         private IList<byte[]> GetSegmentList(JpegSegmentType segmentType)

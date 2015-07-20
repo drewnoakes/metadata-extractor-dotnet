@@ -292,30 +292,18 @@ namespace MetadataExtractor.IO
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public float GetFloat32(int index)
-        {
-            return BitConverter.ToSingle(BitConverter.GetBytes(GetInt32(index)), 0);
-        }
+        public float GetFloat32(int index) => BitConverter.ToSingle(BitConverter.GetBytes(GetInt32(index)), 0);
 
         /// <exception cref="System.IO.IOException"/>
-        public double GetDouble64(int index)
-        {
-            return BitConverter.Int64BitsToDouble(GetInt64(index));
-        }
+        public double GetDouble64(int index) => BitConverter.Int64BitsToDouble(GetInt64(index));
 
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public string GetString(int index, int bytesRequested)
-        {
-            return GetString(index, bytesRequested, Encoding.UTF8);
-        }
+        public string GetString(int index, int bytesRequested) => GetString(index, bytesRequested, Encoding.UTF8);
 
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public string GetString(int index, int bytesRequested, [NotNull] Encoding encoding)
-        {
-            return encoding.GetString(GetBytes(index, bytesRequested));
-        }
+        public string GetString(int index, int bytesRequested, [NotNull] Encoding encoding) => encoding.GetString(GetBytes(index, bytesRequested));
 
         /// <summary>
         /// Creates a string starting at the specified index, and ending where either <c>byte=='\0'</c> or

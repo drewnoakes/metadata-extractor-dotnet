@@ -167,37 +167,22 @@ namespace MetadataExtractor.Formats.Png
         public bool AreMultipleAllowed { get; }
 
         [Pure]
-        private static bool IsLowerCase(byte b)
-        {
-            return (b & (1 << 5)) != 0;
-        }
+        private static bool IsLowerCase(byte b) => (b & (1 << 5)) != 0;
 
         [Pure]
-        private static bool IsUpperCase(byte b)
-        {
-            return (b & (1 << 5)) == 0;
-        }
+        private static bool IsUpperCase(byte b) => (b & (1 << 5)) == 0;
 
         [Pure]
-        private static bool IsValidByte(byte b)
-        {
-            return (b >= 65 && b <= 90) || (b >= 97 && b <= 122);
-        }
+        private static bool IsValidByte(byte b) => (b >= 65 && b <= 90) || (b >= 97 && b <= 122);
 
         [NotNull]
         public string Identifier => Encoding.ASCII.GetString(_bytes);
 
-        public override string ToString()
-        {
-            return Identifier;
-        }
+        public override string ToString() => Identifier;
 
         #region Equality and Hashing
 
-        private bool Equals(PngChunkType other)
-        {
-            return _bytes.SequenceEqual(other._bytes);
-        }
+        private bool Equals(PngChunkType other) => _bytes.SequenceEqual(other._bytes);
 
         public override bool Equals(object obj)
         {
@@ -208,23 +193,10 @@ namespace MetadataExtractor.Formats.Png
             return obj is PngChunkType && Equals((PngChunkType)obj);
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return _bytes[0] << 24 | _bytes[1] << 16 << _bytes[2] << 8 | _bytes[3];
-            }
-        }
+        public override int GetHashCode() => unchecked(_bytes[0] << 24 | _bytes[1] << 16 << _bytes[2] << 8 | _bytes[3]);
 
-        public static bool operator ==(PngChunkType left, PngChunkType right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(PngChunkType left, PngChunkType right)
-        {
-            return !Equals(left, right);
-        }
+        public static bool operator ==(PngChunkType left, PngChunkType right) => Equals(left, right);
+        public static bool operator !=(PngChunkType left, PngChunkType right) => !Equals(left, right);
 
         #endregion
     }

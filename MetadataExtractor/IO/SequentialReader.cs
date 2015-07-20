@@ -224,30 +224,18 @@ namespace MetadataExtractor.IO
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public float GetFloat32()
-        {
-            return BitConverter.ToSingle(BitConverter.GetBytes(GetInt32()), 0);
-        }
+        public float GetFloat32() => BitConverter.ToSingle(BitConverter.GetBytes(GetInt32()), 0);
 
         /// <exception cref="System.IO.IOException"/>
-        public double GetDouble64()
-        {
-            return BitConverter.Int64BitsToDouble(GetInt64());
-        }
+        public double GetDouble64() => BitConverter.Int64BitsToDouble(GetInt64());
 
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public string GetString(int bytesRequested)
-        {
-            return GetString(bytesRequested, Encoding.UTF8);
-        }
+        public string GetString(int bytesRequested) => GetString(bytesRequested, Encoding.UTF8);
 
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public string GetString(int bytesRequested, [NotNull] Encoding encoding)
-        {
-            return encoding.GetString(GetBytes(bytesRequested));
-        }
+        public string GetString(int bytesRequested, [NotNull] Encoding encoding) => encoding.GetString(GetBytes(bytesRequested));
 
         /// <summary>Creates a String from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.</summary>
         /// <param name="maxLengthBytes">

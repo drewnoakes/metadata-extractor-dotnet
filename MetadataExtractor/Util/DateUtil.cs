@@ -34,18 +34,14 @@ namespace MetadataExtractor.Util
     {
         [Pure]
         public static bool IsValidDate(int year, int month, int day)
-        {
-            return year >= 1 && year <= 9999 &&
-                   month >= 1 && month <= 12 &&
-                   day >= 1 && day <= DateTime.DaysInMonth(year, month);
-        }
+            => year >= 1 && year <= 9999 &&
+               month >= 1 && month <= 12 &&
+               day >= 1 && day <= DateTime.DaysInMonth(year, month);
 
         [Pure]
         public static bool IsValidTime(int hours, int minutes, int seconds)
-        {
-            return hours >= 0 && hours < 24 &&
-                   minutes >= 0 && minutes < 60 &&
-                   seconds >= 0 && seconds < 60;
-        }
+            => hours >= 0 && hours < 24 &&
+               minutes >= 0 && minutes < 60 &&
+               seconds >= 0 && seconds < 60;
     }
 }

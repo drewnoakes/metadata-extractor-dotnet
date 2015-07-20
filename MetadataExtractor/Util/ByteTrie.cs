@@ -100,9 +100,6 @@ namespace MetadataExtractor.Util
         /// <summary>
         /// Sets the default value to use in <see cref="ByteTrie{T}.Find(byte[])"/> when no path matches.
         /// </summary>
-        public void SetDefaultValue(T defaultValue)
-        {
-            _root.SetValue(defaultValue);
-        }
+        public void SetDefaultValue(T defaultValue) => _root.SetValue(defaultValue);
     }
 }
