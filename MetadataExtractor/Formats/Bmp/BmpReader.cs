@@ -114,19 +114,16 @@ namespace MetadataExtractor.Formats.Bmp
                     directory.Set(BmpHeaderDirectory.TagPaletteColourCount, reader.GetInt32());
                     directory.Set(BmpHeaderDirectory.TagImportantColourCount, reader.GetInt32());
                 }
+                else if (headerSize == 12)
+                {
+                    directory.Set(BmpHeaderDirectory.TagImageWidth, reader.GetInt16());
+                    directory.Set(BmpHeaderDirectory.TagImageHeight, reader.GetInt16());
+                    directory.Set(BmpHeaderDirectory.TagColourPlanes, reader.GetInt16());
+                    directory.Set(BmpHeaderDirectory.TagBitsPerPixel, reader.GetInt16());
+                }
                 else
                 {
-                    if (headerSize == 12)
-                    {
-                        directory.Set(BmpHeaderDirectory.TagImageWidth, reader.GetInt16());
-                        directory.Set(BmpHeaderDirectory.TagImageHeight, reader.GetInt16());
-                        directory.Set(BmpHeaderDirectory.TagColourPlanes, reader.GetInt16());
-                        directory.Set(BmpHeaderDirectory.TagBitsPerPixel, reader.GetInt16());
-                    }
-                    else
-                    {
-                        directory.AddError("Unexpected DIB header size: " + headerSize);
-                    }
+                    directory.AddError("Unexpected DIB header size: " + headerSize);
                 }
             }
             catch (IOException)
