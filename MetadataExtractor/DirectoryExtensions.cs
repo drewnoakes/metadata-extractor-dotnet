@@ -47,15 +47,6 @@ namespace MetadataExtractor
             return ThrowValueNotPossible<int>(directory, tagType);
         }
 
-        [CanBeNull]
-        public static int? GetInt32Nullable(this Directory directory, int tagType)
-        {
-            int value;
-            if (directory.TryGetInt32(tagType, out value))
-                return value;
-            return null;
-        }
-
         public static bool TryGetInt32(this Directory directory, int tagType, out int value)
         {
             var convertible = GetConvertibleObject(directory, tagType);

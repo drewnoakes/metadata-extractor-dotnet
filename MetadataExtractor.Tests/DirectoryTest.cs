@@ -69,7 +69,6 @@ namespace MetadataExtractor.Tests
             var tagType = 321;
             _directory.Set(tagType, value);
             Assert.Equal(value, _directory.GetInt32(tagType));
-            Assert.Equal(value, _directory.GetInt32Nullable(tagType));
             Assert.Equal(value, _directory.GetSingle(tagType), precision: 5);
             Assert.Equal(value, _directory.GetDouble(tagType), precision: 5);
             Assert.Equal((long)value, (object)_directory.GetInt64(tagType));
@@ -163,7 +162,6 @@ namespace MetadataExtractor.Tests
         public void TestGetNonExistentTagIsNullForAllTypes()
         {
             Assert.Null(_directory.GetString(ExifDirectoryBase.TagAperture));
-            Assert.Null(_directory.GetInt32Nullable(ExifDirectoryBase.TagAperture));
             Assert.Null(_directory.GetDoubleNullable(ExifDirectoryBase.TagAperture));
             Assert.Null(_directory.GetSingleNullable(ExifDirectoryBase.TagAperture));
             Assert.Null(_directory.GetByteArray(ExifDirectoryBase.TagAperture));

@@ -39,15 +39,13 @@ namespace MetadataExtractor.Tests
                 Assert.Equal(i, dictionary.GetInt32(i));
                 int value;
                 Assert.True(dictionary.TryGetInt32(i, out value));
-                Assert.NotNull(dictionary.GetInt32Nullable(i));
-                Assert.Equal(i, dictionary.GetInt32Nullable(i));
+                Assert.Equal(i, dictionary.GetInt32(i));
             };
 
             Action<Directory, int> assertMissingInt32 = (dictionary, i) =>
             {
                 int value;
                 Assert.False(dictionary.TryGetInt32(i, out value));
-                Assert.Null(dictionary.GetInt32Nullable(i));
                 Assert.Throws<MetadataException>(() => dictionary.GetInt32(i));
             };
 

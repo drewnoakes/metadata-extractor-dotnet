@@ -442,17 +442,15 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetIsoDescription()
         {
-            var value = Directory.GetInt32Nullable(CanonMakernoteDirectory.CameraSettings.TagIso);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagIso, out value))
                 return null;
-            }
+
             // Canon PowerShot S3 is special
             const int canonMask = 0x4000;
-            if (((int)value & canonMask) > 0)
-            {
-                return string.Empty + ((int)value & ~canonMask);
-            }
+            if ((value & canonMask) > 0)
+                return (value & ~canonMask).ToString();
+
             switch (value)
             {
                 case 0:
@@ -495,11 +493,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetSharpnessDescription()
         {
-            var value = Directory.GetInt32Nullable(CanonMakernoteDirectory.CameraSettings.TagSharpness);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSharpness, out value))
                 return null;
-            }
+
             switch (value)
             {
                 case 0xFFFF:
@@ -527,11 +524,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetSaturationDescription()
         {
-            var value = Directory.GetInt32Nullable(CanonMakernoteDirectory.CameraSettings.TagSaturation);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSaturation, out value))
                 return null;
-            }
+
             switch (value)
             {
                 case 0xFFFF:
@@ -559,11 +555,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetContrastDescription()
         {
-            var value = Directory.GetInt32Nullable(CanonMakernoteDirectory.CameraSettings.TagContrast);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagContrast, out value))
                 return null;
-            }
+
             switch (value)
             {
                 case 0xFFFF:
@@ -610,17 +605,16 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetContinuousDriveModeDescription()
         {
-            var value = Directory.GetInt32Nullable(CanonMakernoteDirectory.CameraSettings.TagContinuousDriveMode);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagContinuousDriveMode, out value))
                 return null;
-            }
+
             switch (value)
             {
                 case 0:
                 {
-                    var delay = Directory.GetInt32Nullable(CanonMakernoteDirectory.CameraSettings.TagSelfTimerDelay);
-                    if (delay != null)
+                    int delay;
+                    if (Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSelfTimerDelay, out delay))
                     {
                         return delay == 0 ? "Single shot" : "Single shot with self-timer";
                     }
@@ -638,11 +632,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFlashModeDescription()
         {
-            var value = Directory.GetInt32Nullable(CanonMakernoteDirectory.CameraSettings.TagFlashMode);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagFlashMode, out value))
                 return null;
-            }
+
             switch (value)
             {
                 case 0:
@@ -696,11 +689,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetSelfTimerDelayDescription()
         {
-            var value = Directory.GetInt32Nullable(CanonMakernoteDirectory.CameraSettings.TagSelfTimerDelay);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSelfTimerDelay, out value))
                 return null;
-            }
+
             if (value == 0)
             {
                 return "Self timer not used";
@@ -730,11 +722,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFocusTypeDescription()
         {
-            var value = Directory.GetInt32Nullable(CanonMakernoteDirectory.CameraSettings.TagFocusType);
-            if (value == null)
-            {
+            int value;
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagFocusType, out value))
                 return null;
-            }
+
             switch (value)
             {
                 case 0:
