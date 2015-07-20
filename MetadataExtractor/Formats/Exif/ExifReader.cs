@@ -45,12 +45,7 @@ namespace MetadataExtractor.Formats.Exif
         /// <summary>Exif data stored in JPEG files' APP1 segment are preceded by this six character preamble.</summary>
         private const string JpegSegmentPreamble = "Exif\x0\x0";
 
-        public ExifReader()
-        {
-            StoreThumbnailBytes = true;
-        }
-
-        public bool StoreThumbnailBytes { get; set; }
+        public bool StoreThumbnailBytes { get; set; } = true;
 
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {

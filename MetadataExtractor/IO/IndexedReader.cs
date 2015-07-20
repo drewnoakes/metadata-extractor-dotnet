@@ -51,12 +51,7 @@ namespace MetadataExtractor.IO
         ///   <item><c>false</c> for Intel (or little) endianness, with LSB before MSB.</item>
         /// </list>
         /// </remarks>
-        public bool IsMotorolaByteOrder { set; get; }
-
-        protected IndexedReader()
-        {
-            IsMotorolaByteOrder = true;
-        }
+        public bool IsMotorolaByteOrder { set; get; } = true;
 
         /// <summary>Gets the byte value at the specified byte <c>index</c>.</summary>
         /// <remarks>
