@@ -40,11 +40,14 @@ namespace MetadataExtractor.Formats.Xmp
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class XmpReader : IJpegSegmentMetadataReader
     {
-        private const int FmtString = 1;
-        private const int FmtRational = 2;
-        private const int FmtInt = 3;
-        private const int FmtDouble = 4;
-        private const int FmtStringArray = 5;
+        private enum FormatType
+        {
+            String = 1,
+            Rational = 2,
+            Int = 3,
+            Double = 4,
+            StringArray = 5
+        }
 
         /// <summary>XMP tag namespace.</summary>
         /// <remarks>
@@ -127,25 +130,25 @@ namespace MetadataExtractor.Formats.Xmp
             directory.SetXmpMeta(xmpMeta);
             // read all the tags and send them to the directory
             // I've added some popular tags, feel free to add more tags
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagLensInfo, FmtString);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagLens, FmtString);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagCameraSerialNumber, FmtString);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagFirmware, FmtString);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagMake, FmtString);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagModel, FmtString);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagExposureTime, FmtString);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagExposureProgram, FmtInt);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagApertureValue, FmtRational);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagFNumber, FmtRational);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagFocalLength, FmtRational);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagShutterSpeed, FmtRational);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagLensInfo, FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagLens, FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagCameraSerialNumber, FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagFirmware, FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagMake, FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagModel, FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagExposureTime, FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagExposureProgram, FormatType.Int);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagApertureValue, FormatType.Rational);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagFNumber, FormatType.Rational);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagFocalLength, FormatType.Rational);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagShutterSpeed, FormatType.Rational);
             ProcessXmpDateTag(xmpMeta, directory, XmpDirectory.TagDateTimeOriginal);
             ProcessXmpDateTag(xmpMeta, directory, XmpDirectory.TagDateTimeDigitized);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagRating, FmtDouble);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagLabel, FmtString);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagRating, FormatType.Double);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagLabel, FormatType.String);
             // this requires further research
             // processXmpTag(xmpMeta, directory, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES, "dc:title", XmpDirectory.TAG_TITLE, FMT_STRING);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagSubject, FmtStringArray);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagSubject, FormatType.StringArray);
             // processXmpDateTag(xmpMeta, directory, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES, "dc:date", XmpDirectory.TAG_DATE);
             // processXmpTag(xmpMeta, directory, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES, "dc:type", XmpDirectory.TAG_TYPE, FMT_STRING);
             // processXmpTag(xmpMeta, directory, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES, "dc:description", XmpDirectory.TAG_DESCRIPTION, FMT_STRING);
@@ -179,7 +182,7 @@ namespace MetadataExtractor.Formats.Xmp
         /// <summary>Reads an property value with given namespace URI and property name.</summary>
         /// <remarks>Reads an property value with given namespace URI and property name. Add property value to directory if exists</remarks>
         /// <exception cref="XmpException"/>
-        private static void ProcessXmpTag([NotNull] IXmpMeta meta, [NotNull] XmpDirectory directory, int tagType, int formatCode)
+        private static void ProcessXmpTag([NotNull] IXmpMeta meta, [NotNull] XmpDirectory directory, int tagType, FormatType formatCode)
         {
             string schemaNs;
             string propName;
@@ -192,7 +195,7 @@ namespace MetadataExtractor.Formats.Xmp
 
             switch (formatCode)
             {
-                case FmtRational:
+                case FormatType.Rational:
                 {
                     var rationalParts = property.Split(new[]{'/'}, 2);
                     if (rationalParts.Length == 2)
@@ -213,8 +216,7 @@ namespace MetadataExtractor.Formats.Xmp
                     }
                     break;
                 }
-
-                case FmtInt:
+                case FormatType.Int:
                 {
                     try
                     {
@@ -226,8 +228,7 @@ namespace MetadataExtractor.Formats.Xmp
                     }
                     break;
                 }
-
-                case FmtDouble:
+                case FormatType.Double:
                 {
                     try
                     {
@@ -239,14 +240,12 @@ namespace MetadataExtractor.Formats.Xmp
                     }
                     break;
                 }
-
-                case FmtString:
+                case FormatType.String:
                 {
                     directory.Set(tagType, property);
                     break;
                 }
-
-                case FmtStringArray:
+                case FormatType.StringArray:
                 {
                     //XMP iterators are 1-based
                     var count = meta.CountArrayItems(schemaNs, propName);
@@ -258,7 +257,6 @@ namespace MetadataExtractor.Formats.Xmp
                     directory.Set(tagType, array);
                     break;
                 }
-
                 default:
                 {
                     directory.AddError($"Unknown format code {formatCode} for tag {tagType}");
