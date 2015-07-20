@@ -127,8 +127,7 @@ namespace MetadataExtractor.Tests
                 Assert.True(dictionary.GetBoolean(i));
                 bool value;
                 Assert.True(dictionary.TryGetBoolean(i, out value));
-                Assert.NotNull(dictionary.GetBooleanNullable(i));
-                Assert.True(dictionary.GetBooleanNullable(i).Value);
+                Assert.True(dictionary.GetBoolean(i));
             };
 
             Action<Directory, int> assertPresentFalseBoolean = (dictionary, i) =>
@@ -136,15 +135,13 @@ namespace MetadataExtractor.Tests
                 Assert.False(dictionary.GetBoolean(i));
                 bool value;
                 Assert.True(dictionary.TryGetBoolean(i, out value));
-                Assert.NotNull(dictionary.GetBooleanNullable(i));
-                Assert.False(dictionary.GetBooleanNullable(i).Value);
+                Assert.False(dictionary.GetBoolean(i));
             };
 
             Action<Directory, int> assertMissingBoolean = (dictionary, i) =>
             {
                 bool value;
                 Assert.False(dictionary.TryGetBoolean(i, out value));
-                Assert.Null(dictionary.GetBooleanNullable(i));
                 Assert.Throws<MetadataException>(() => dictionary.GetBoolean(i));
             };
 

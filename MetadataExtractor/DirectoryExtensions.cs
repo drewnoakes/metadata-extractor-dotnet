@@ -200,15 +200,6 @@ namespace MetadataExtractor
             return ThrowValueNotPossible<bool>(directory, tagType);
         }
 
-        [CanBeNull]
-        public static bool? GetBooleanNullable(this Directory directory, int tagType)
-        {
-            bool value;
-            if (directory.TryGetBoolean(tagType, out value))
-                return value;
-            return null;
-        }
-
         public static bool TryGetBoolean(this Directory directory, int tagType, out bool value)
         {
             var convertible = GetConvertibleObject(directory, tagType);
