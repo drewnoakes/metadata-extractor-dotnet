@@ -45,7 +45,7 @@ namespace MetadataExtractor
 
         /// <summary>Gets the tag type as an int</summary>
         /// <value>the tag type as an int</value>
-        public int TagType { get; private set; }
+        public int TagType { get; }
 
         /// <summary>
         /// Get a description of the tag's value, considering enumerated values

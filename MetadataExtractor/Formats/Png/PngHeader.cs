@@ -53,19 +53,19 @@ namespace MetadataExtractor.Formats.Png
             InterlaceMethod = reader.GetByte();
         }
 
-        public int ImageWidth { get; private set; }
+        public int ImageWidth { get; }
 
-        public int ImageHeight { get; private set; }
+        public int ImageHeight { get; }
 
-        public byte BitsPerSample { get; private set; }
+        public byte BitsPerSample { get; }
 
         [NotNull]
-        public PngColorType ColorType { get; private set; }
+        public PngColorType ColorType { get; }
 
-        public byte CompressionType { get; private set; }
+        public byte CompressionType { get; }
 
-        public byte FilterMethod { get; private set; }
+        public byte FilterMethod { get; }
 
-        public byte InterlaceMethod { get; private set; }
+        public byte InterlaceMethod { get; }
     }
 }

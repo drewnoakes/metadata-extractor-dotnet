@@ -48,10 +48,10 @@ namespace MetadataExtractor
         }
 
         /// <value>the latitudinal angle of this location, in degrees.</value>
-        public double Latitude { get; private set; }
+        public double Latitude { get; }
 
         /// <value>the longitudinal angle of this location, in degrees.</value>
-        public double Longitude { get; private set; }
+        public double Longitude { get; }
 
         /// <value>true, if both latitude and longitude are equal to zero</value>
         public bool IsZero

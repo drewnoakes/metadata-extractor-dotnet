@@ -36,9 +36,9 @@ namespace MetadataExtractor.Formats.Png
         }
 
         [NotNull]
-        public PngChunkType ChunkType { get; private set; }
+        public PngChunkType ChunkType { get; }
 
         [NotNull]
-        public byte[] Bytes { get; private set; }
+        public byte[] Bytes { get; }
     }
 }

@@ -49,19 +49,19 @@ namespace MetadataExtractor
             Age = age;
         }
 
-        public int X { get; private set; }
+        public int X { get; }
 
-        public int Y { get; private set; }
+        public int Y { get; }
 
-        public int Width { get; private set; }
+        public int Width { get; }
 
-        public int Height { get; private set; }
-
-        [CanBeNull]
-        public string Name { get; private set; }
+        public int Height { get; }
 
         [CanBeNull]
-        public Age Age { get; private set; }
+        public string Name { get; }
+
+        [CanBeNull]
+        public Age Age { get; }
 
         #region Equality and hashing
 

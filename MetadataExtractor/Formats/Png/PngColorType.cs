@@ -55,13 +55,13 @@ namespace MetadataExtractor.Formats.Png
             return colorTypes.FirstOrDefault(colorType => colorType.NumericValue == numericValue);
         }
 
-        public int NumericValue { get; private set; }
+        public int NumericValue { get; }
 
         [NotNull]
-        public string Description { get; private set; }
+        public string Description { get; }
 
         [NotNull]
-        public int[] AllowedBitDepths { get; private set; }
+        public int[] AllowedBitDepths { get; }
 
         private PngColorType(int numericValue, [NotNull] string description, [NotNull] params int[] allowedBitDepths)
         {

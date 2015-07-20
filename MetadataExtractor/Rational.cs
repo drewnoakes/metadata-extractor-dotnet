@@ -42,10 +42,10 @@ namespace MetadataExtractor
     public sealed class Rational : IConvertible
     {
         /// <summary>Gets the denominator.</summary>
-        public long Denominator { get; private set; }
+        public long Denominator { get; }
 
         /// <summary>Gets the numerator.</summary>
-        public long Numerator { get; private set; }
+        public long Numerator { get; }
 
         /// <summary>Initialises a new instance with the <paramref name="numerator"/> and <paramref name="denominator"/>.</summary>
         public Rational(long numerator, long denominator)

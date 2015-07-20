@@ -39,9 +39,9 @@ namespace MetadataExtractor
         }
 
         [NotNull]
-        public string Key { get; private set; }
+        public string Key { get; }
 
         [NotNull]
-        public string Value { get; private set; }
+        public string Value { get; }
     }
 }

@@ -44,9 +44,9 @@ namespace MetadataExtractor.Formats.Jpeg
             QuantizationTableNumber = quantizationTableNumber;
         }
 
-        public int Id { get; private set; }
+        public int Id { get; }
 
-        public int QuantizationTableNumber { get; private set; }
+        public int QuantizationTableNumber { get; }
 
         /// <summary>Returns the component name (one of: Y, Cb, Cr, I, or Q)</summary>
         /// <value>the component name</value>

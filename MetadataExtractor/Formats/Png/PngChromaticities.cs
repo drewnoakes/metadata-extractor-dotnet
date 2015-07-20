@@ -31,14 +31,14 @@ namespace MetadataExtractor.Formats.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChromaticities
     {
-        public int WhitePointX { get; private set; }
-        public int WhitePointY { get; private set; }
-        public int RedX { get; private set; }
-        public int RedY { get; private set; }
-        public int GreenX { get; private set; }
-        public int GreenY { get; private set; }
-        public int BlueX { get; private set; }
-        public int BlueY { get; private set; }
+        public int WhitePointX { get; }
+        public int WhitePointY { get; }
+        public int RedX { get; }
+        public int RedY { get; }
+        public int GreenX { get; }
+        public int GreenY { get; }
+        public int BlueX { get; }
+        public int BlueY { get; }
 
         /// <exception cref="PngProcessingException"/>
         public PngChromaticities([NotNull] byte[] bytes)

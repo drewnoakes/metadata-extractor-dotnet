@@ -78,9 +78,9 @@ namespace MetadataExtractor.Formats.Tiff
         }
 
         [NotNull]
-        public string Name { get; private set; }
-        public int ComponentSizeBytes { get; private set; }
-        public int TiffFormatCode { get; private set; }
+        public string Name { get; }
+        public int ComponentSizeBytes { get; }
+        public int TiffFormatCode { get; }
 
         private TiffDataFormat([NotNull] string name, int tiffFormatCode, int componentSizeBytes)
         {
