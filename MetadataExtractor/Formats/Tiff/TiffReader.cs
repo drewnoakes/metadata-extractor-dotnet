@@ -135,7 +135,7 @@ namespace MetadataExtractor.Formats.Tiff
                     int tagId = reader.GetUInt16(tagOffset);
 
                     // 2 bytes for the format code
-                    int formatCode = reader.GetUInt16(tagOffset + 2);
+                    var formatCode = (TiffDataFormatCode)reader.GetUInt16(tagOffset + 2);
                     var format = TiffDataFormat.FromTiffFormatCode(formatCode);
                     if (format == null)
                     {
@@ -238,22 +238,22 @@ namespace MetadataExtractor.Formats.Tiff
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private static void ProcessTag([NotNull] ITiffHandler handler, int tagId, int tagValueOffset, int componentCount, int formatCode, [NotNull] IndexedReader reader)
+        private static void ProcessTag([NotNull] ITiffHandler handler, int tagId, int tagValueOffset, int componentCount, TiffDataFormatCode formatCode, [NotNull] IndexedReader reader)
         {
             switch (formatCode)
             {
-                case TiffDataFormat.CodeUndefined:
+                case TiffDataFormatCode.Undefined:
                 {
                     // this includes exif user comments
                     handler.SetByteArray(tagId, reader.GetBytes(tagValueOffset, componentCount));
                     break;
                 }
-                case TiffDataFormat.CodeString:
+                case TiffDataFormatCode.String:
                 {
                     handler.SetString(tagId, reader.GetNullTerminatedString(tagValueOffset, componentCount));
                     break;
                 }
-                case TiffDataFormat.CodeRationalS:
+                case TiffDataFormatCode.RationalS:
                 {
                     if (componentCount == 1)
                     {
@@ -268,7 +268,7 @@ namespace MetadataExtractor.Formats.Tiff
                     }
                     break;
                 }
-                case TiffDataFormat.CodeRationalU:
+                case TiffDataFormatCode.RationalU:
                 {
                     if (componentCount == 1)
                     {
@@ -283,7 +283,7 @@ namespace MetadataExtractor.Formats.Tiff
                     }
                     break;
                 }
-                case TiffDataFormat.CodeSingle:
+                case TiffDataFormatCode.Single:
                 {
                     if (componentCount == 1)
                     {
@@ -298,7 +298,7 @@ namespace MetadataExtractor.Formats.Tiff
                     }
                     break;
                 }
-                case TiffDataFormat.CodeDouble:
+                case TiffDataFormatCode.Double:
                 {
                     if (componentCount == 1)
                     {
@@ -313,8 +313,7 @@ namespace MetadataExtractor.Formats.Tiff
                     }
                     break;
                 }
-
-                case TiffDataFormat.CodeInt8S:
+                case TiffDataFormatCode.Int8S:
                 {
                     if (componentCount == 1)
                     {
@@ -329,7 +328,7 @@ namespace MetadataExtractor.Formats.Tiff
                     }
                     break;
                 }
-                case TiffDataFormat.CodeInt8U:
+                case TiffDataFormatCode.Int8U:
                 {
                     if (componentCount == 1)
                     {
@@ -344,7 +343,7 @@ namespace MetadataExtractor.Formats.Tiff
                     }
                     break;
                 }
-                case TiffDataFormat.CodeInt16S:
+                case TiffDataFormatCode.Int16S:
                 {
                     if (componentCount == 1)
                     {
@@ -359,7 +358,7 @@ namespace MetadataExtractor.Formats.Tiff
                     }
                     break;
                 }
-                case TiffDataFormat.CodeInt16U:
+                case TiffDataFormatCode.Int16U:
                 {
                     if (componentCount == 1)
                     {
@@ -374,7 +373,7 @@ namespace MetadataExtractor.Formats.Tiff
                     }
                     break;
                 }
-                case TiffDataFormat.CodeInt32S:
+                case TiffDataFormatCode.Int32S:
                 {
                     // NOTE 'long' in this case means 32 bit, not 64
                     if (componentCount == 1)
@@ -390,7 +389,7 @@ namespace MetadataExtractor.Formats.Tiff
                     }
                     break;
                 }
-                case TiffDataFormat.CodeInt32U:
+                case TiffDataFormatCode.Int32U:
                 {
                     // NOTE 'long' in this case means 32 bit, not 64
                     if (componentCount == 1)
