@@ -69,7 +69,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         {
             var badExifData = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             var directories = new ExifReader().ReadJpegSegments(new [] { badExifData }, JpegSegmentType.App1);
-            Assert.Equal(0, directories.Count());
+            Assert.Equal(0, directories.Count);
         }
 
         [Fact]
@@ -149,7 +149,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var directories = ProcessSegmentBytes("Tests/Data/recursiveDirectories.jpg.app1");
 
             // Mostly we're just happy at this point that we didn't get stuck in an infinite loop.
-            Assert.Equal(5, directories.Count());
+            Assert.Equal(5, directories.Count);
         }
 
         [Fact]
