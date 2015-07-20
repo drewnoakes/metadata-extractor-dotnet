@@ -50,32 +50,35 @@ namespace MetadataExtractor.Formats.Riff
         {
             // RIFF files are always little-endian
             reader.IsMotorolaByteOrder = false;
+
             // PROCESS FILE HEADER
+
             var fileFourCc = reader.GetString(4);
             if (fileFourCc != "RIFF")
-            {
                 throw new RiffProcessingException("Invalid RIFF header: " + fileFourCc);
-            }
+
             // The total size of the chunks that follow plus 4 bytes for the 'WEBP' FourCC
             var fileSize = reader.GetInt32();
             var sizeLeft = fileSize;
             var identifier = reader.GetString(4);
             sizeLeft -= 4;
+
             if (!handler.ShouldAcceptRiffIdentifier(identifier))
-            {
                 return;
-            }
+
             // PROCESS CHUNKS
+
             while (sizeLeft != 0)
             {
                 var chunkFourCc = reader.GetString(4);
                 var chunkSize = reader.GetInt32();
+
                 sizeLeft -= 8;
+                
                 // NOTE we fail a negative chunk size here (greater than 0x7FFFFFFF) as we cannot allocate arrays larger than this
                 if (chunkSize < 0 || sizeLeft < chunkSize)
-                {
                     throw new RiffProcessingException("Invalid RIFF chunk size");
-                }
+
                 if (handler.ShouldAcceptChunk(chunkFourCc))
                 {
                     // TODO is it feasible to avoid copying the chunk here, and to pass the sequential reader to the handler?
@@ -85,7 +88,9 @@ namespace MetadataExtractor.Formats.Riff
                 {
                     reader.Skip(chunkSize);
                 }
+
                 sizeLeft -= chunkSize;
+
                 // Skip any padding byte added to keep chunks aligned to even numbers of bytes
                 if (chunkSize % 2 == 1)
                 {
