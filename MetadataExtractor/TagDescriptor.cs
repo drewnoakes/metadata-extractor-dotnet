@@ -175,15 +175,6 @@ namespace MetadataExtractor
         }
 
         [CanBeNull]
-        protected string GetFormattedFloat(int tagType, [NotNull] string format)
-        {
-            float value;
-            if (!Directory.TryGetSingle(tagType, out value))
-                return null;
-            return string.Format(format, value);
-        }
-
-        [CanBeNull]
         protected string GetFormattedString(int tagType, [NotNull] string format)
         {
             var value = Directory.GetString(tagType);
