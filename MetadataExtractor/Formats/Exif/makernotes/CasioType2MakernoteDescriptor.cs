@@ -245,8 +245,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFocalLengthDescription()
         {
-            var value = Directory.GetDoubleNullable(CasioType2MakernoteDirectory.TagFocalLength);
-            return value == null ? null : GetFocalLengthDescription(value.Value/10d);
+            double value;
+            if (!Directory.TryGetDouble(CasioType2MakernoteDirectory.TagFocalLength, out value))
+                return null;
+            return GetFocalLengthDescription(value/10d);
         }
 
         [CanBeNull]

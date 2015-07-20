@@ -107,15 +107,13 @@ namespace MetadataExtractor.Tests
                 Assert.Equal(i, dictionary.GetDouble(i));
                 double value;
                 Assert.True(dictionary.TryGetDouble(i, out value));
-                Assert.NotNull(dictionary.GetDoubleNullable(i));
-                Assert.Equal(i, dictionary.GetDoubleNullable(i));
+                Assert.Equal(i, dictionary.GetDouble(i));
             };
 
             Action<Directory, int> assertMissingDouble = (dictionary, i) =>
             {
                 double value;
                 Assert.False(dictionary.TryGetDouble(i, out value));
-                Assert.Null(dictionary.GetDoubleNullable(i));
                 Assert.Throws<MetadataException>(() => dictionary.GetDouble(i));
             };
 

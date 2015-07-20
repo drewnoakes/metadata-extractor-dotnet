@@ -135,16 +135,19 @@ namespace MetadataExtractor.Formats.Xmp
         [CanBeNull]
         public string GetApertureValueDescription()
         {
-            var value = Directory.GetDoubleNullable(XmpDirectory.TagApertureValue);
-            return value == null ? null : GetFStopDescription(PhotographicConversions.ApertureToFStop((double)value));
+            double value;
+            if (!Directory.TryGetDouble(XmpDirectory.TagApertureValue, out value))
+                return null;
+            return GetFStopDescription(PhotographicConversions.ApertureToFStop(value));
         }
 
         [CanBeNull]
         public string GetRatingDescription()
         {
-            var value = Directory.GetDoubleNullable(XmpDirectory.TagRating);
-            return value?.ToString() 
-                ?? base.GetDescription(XmpDirectory.TagRating);
+            double value;
+            if (!Directory.TryGetDouble(XmpDirectory.TagRating, out value))
+                return base.GetDescription(XmpDirectory.TagRating);
+            return value.ToString();
         }
     }
 }

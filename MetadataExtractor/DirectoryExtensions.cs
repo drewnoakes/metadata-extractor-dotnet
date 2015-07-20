@@ -171,15 +171,6 @@ namespace MetadataExtractor
             return ThrowValueNotPossible<double>(directory, tagType);
         }
 
-        [CanBeNull]
-        public static double? GetDoubleNullable(this Directory directory, int tagType)
-        {
-            double value;
-            if (directory.TryGetDouble(tagType, out value))
-                return value;
-            return null;
-        }
-
         public static bool TryGetDouble(this Directory directory, int tagType, out double value)
         {
             var convertible = GetConvertibleObject(directory, tagType);

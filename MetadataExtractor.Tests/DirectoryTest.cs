@@ -162,7 +162,6 @@ namespace MetadataExtractor.Tests
         public void TestGetNonExistentTagIsNullForAllTypes()
         {
             Assert.Null(_directory.GetString(ExifDirectoryBase.TagAperture));
-            Assert.Null(_directory.GetDoubleNullable(ExifDirectoryBase.TagAperture));
             Assert.Null(_directory.GetSingleNullable(ExifDirectoryBase.TagAperture));
             Assert.Null(_directory.GetByteArray(ExifDirectoryBase.TagAperture));
             Assert.Null(_directory.GetDateTimeNullable(ExifDirectoryBase.TagAperture));

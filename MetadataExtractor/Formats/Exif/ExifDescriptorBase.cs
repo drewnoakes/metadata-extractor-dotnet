@@ -680,21 +680,19 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetMaxApertureValueDescription()
         {
-            var aperture = Directory.GetDoubleNullable(ExifDirectoryBase.TagMaxAperture);
-            if (aperture == null)
+            double aperture;
+            if (!Directory.TryGetDouble(ExifDirectoryBase.TagMaxAperture, out aperture))
                 return null;
-            var fStop = PhotographicConversions.ApertureToFStop((double)aperture);
-            return GetFStopDescription(fStop);
+            return GetFStopDescription(PhotographicConversions.ApertureToFStop(aperture));
         }
 
         [CanBeNull]
         public string GetApertureValueDescription()
         {
-            var aperture = Directory.GetDoubleNullable(ExifDirectoryBase.TagAperture);
-            if (aperture == null)
+            double aperture;
+            if (!Directory.TryGetDouble(ExifDirectoryBase.TagAperture, out aperture))
                 return null;
-            var fStop = PhotographicConversions.ApertureToFStop((double)aperture);
-            return GetFStopDescription(fStop);
+            return GetFStopDescription(PhotographicConversions.ApertureToFStop(aperture));
         }
 
         [CanBeNull]
