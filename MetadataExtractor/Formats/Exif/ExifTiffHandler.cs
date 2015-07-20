@@ -142,7 +142,7 @@ namespace MetadataExtractor.Formats.Exif
                         try
                         {
                             var thumbnailData = reader.GetBytes(tiffHeaderOffset + offset, length);
-                            thumbnailDirectory.SetThumbnailData(thumbnailData);
+                            thumbnailDirectory.ThumbnailData = thumbnailData;
                         }
                         catch (IOException ex)
                         {

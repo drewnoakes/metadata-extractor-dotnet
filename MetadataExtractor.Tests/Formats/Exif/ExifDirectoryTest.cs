@@ -55,7 +55,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void TestGetThumbnailData()
         {
             var directory = ExifReaderTest.ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/withExif.jpg.app1");
-            var thumbData = directory.GetThumbnailData();
+            var thumbData = directory.ThumbnailData;
 
             Assert.NotNull(thumbData);
 
@@ -67,7 +67,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void TestWriteThumbnail()
         {
             var directory = ExifReaderTest.ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
-            Assert.True(directory.HasThumbnailData());
+            Assert.True(directory.HasThumbnailData);
             var thumbnailFile = Path.GetTempFileName();
             try
             {

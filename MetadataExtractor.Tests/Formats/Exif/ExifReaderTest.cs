@@ -127,7 +127,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void TestThumbnailData()
         {
             var directory = ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
-            var thumbnailData = directory.GetThumbnailData();
+            var thumbnailData = directory.ThumbnailData;
             Assert.NotNull(thumbnailData);
             Assert.Equal(2970, thumbnailData.Length);
         }

@@ -50,9 +50,6 @@ namespace MetadataExtractor.Formats.Exif
             AddExifTagNames(_tagNameMap);
         }
 
-        [CanBeNull]
-        private byte[] _thumbnailData;
-
         public ExifThumbnailDirectory()
         {
             SetDescriptor(new ExifThumbnailDescriptor(this));
@@ -65,24 +62,19 @@ namespace MetadataExtractor.Formats.Exif
             return _tagNameMap.TryGetValue(tagType, out tagName);
         }
 
-        public bool HasThumbnailData() => _thumbnailData != null;
+        public bool HasThumbnailData => ThumbnailData != null;
 
         [CanBeNull]
-        public byte[] GetThumbnailData() => _thumbnailData;
-
-        public void SetThumbnailData([CanBeNull] byte[] data)
-        {
-            _thumbnailData = data;
-        }
+        public byte[] ThumbnailData { get; set; }
 
         /// <exception cref="MetadataException"/>
         /// <exception cref="System.IO.IOException"/>
         public void WriteThumbnail([NotNull] string filename)
         {
-            if (_thumbnailData == null)
+            if (ThumbnailData == null)
                 throw new MetadataException("No thumbnail data exists.");
 
-            File.WriteAllBytes(filename, _thumbnailData);
+            File.WriteAllBytes(filename, ThumbnailData);
         }
     }
 }

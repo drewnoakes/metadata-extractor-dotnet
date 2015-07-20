@@ -162,7 +162,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                 if (thumbRequested && argArray.Length > 1)
                 {
                     var thumbnailDirectory = directories.OfType<ExifThumbnailDirectory>().FirstOrDefault();
-                    if (thumbnailDirectory != null && thumbnailDirectory.HasThumbnailData())
+                    if (thumbnailDirectory != null && thumbnailDirectory.HasThumbnailData)
                     {
                         Console.Out.WriteLine("Writing thumbnail...");
                         thumbnailDirectory.WriteThumbnail(argArray[0].Trim() + ".thumb.jpg");
