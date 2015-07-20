@@ -33,16 +33,5 @@ namespace MetadataExtractor.Formats.WebP
             : base(directory)
         {
         }
-
-        public override string GetDescription(int tagType)
-        {
-            switch (tagType)
-            {
-                default:
-                {
-                    return base.GetDescription(tagType);
-                }
-            }
-        }
     }
 }
