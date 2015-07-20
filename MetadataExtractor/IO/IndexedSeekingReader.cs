@@ -38,8 +38,6 @@ namespace MetadataExtractor.IO
         [NotNull]
         private readonly Stream _stream;
 
-        private readonly long _length;
-
         private int _currentIndex;
 
         public IndexedSeekingReader([NotNull] Stream stream)
@@ -50,10 +48,10 @@ namespace MetadataExtractor.IO
                 throw new ArgumentException("Must be capable of seeking.", "stream");
 
             _stream = stream;
-            _length = _stream.Length;
+            Length = _stream.Length;
         }
 
-        public override long Length => _length;
+        public override long Length { get; }
 
         /// <exception cref="System.IO.IOException"/>
         public override byte GetByte(int index)
@@ -101,14 +99,14 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException"/>
         protected override bool IsValidIndex(int index, int bytesRequested)
         {
-            return bytesRequested >= 0 && index >= 0 && index + (long)bytesRequested - 1L < _length;
+            return bytesRequested >= 0 && index >= 0 && index + (long)bytesRequested - 1L < Length;
         }
 
         /// <exception cref="System.IO.IOException"/>
         protected override void ValidateIndex(int index, int bytesRequested)
         {
             if (!IsValidIndex(index, bytesRequested))
-                throw new BufferBoundsException(index, bytesRequested, _length);
+                throw new BufferBoundsException(index, bytesRequested, Length);
         }
     }
 }
