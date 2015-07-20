@@ -43,9 +43,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagApproximateFNumber = 0x0313;
         public const int TagCameraTemperature = 0x0320;
         public const int TagColorTemperature = 0x0321;
-        public const int TagWbRedLevel = 0x0322;
-        public const int TagWbGreenLevel = 0x0323;
-        public const int TagWbBlueLevel = 0x0324;
+        public const int TagWBRedLevel = 0x0322;
+        public const int TagWBGreenLevel = 0x0323;
+        public const int TagWBBlueLevel = 0x0324;
         public const int TagCcdVersion = 0x0330;
         public const int TagCcdBoardVersion = 0x0331;
         public const int TagControllerBoardVersion = 0x0332;
@@ -64,9 +64,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagApproximateFNumber, "Approximate F Number" },
             { TagCameraTemperature, "Camera Temperature" },
             { TagColorTemperature, "Color Temperature" },
-            { TagWbRedLevel, "WB Red Level" },
-            { TagWbGreenLevel, "WB Green Level" },
-            { TagWbBlueLevel, "WB Blue Level" },
+            { TagWBRedLevel, "WB Red Level" },
+            { TagWBGreenLevel, "WB Green Level" },
+            { TagWBBlueLevel, "WB Blue Level" },
             { TagCcdVersion, "CCD Version" },
             { TagCcdBoardVersion, "CCD Board Version" },
             { TagControllerBoardVersion, "Controller Board Version" },

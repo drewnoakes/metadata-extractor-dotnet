@@ -59,9 +59,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return GetApproximateFNumberDescription();
                 case LeicaMakernoteDirectory.TagCameraTemperature:
                     return GetCameraTemperatureDescription();
-                case LeicaMakernoteDirectory.TagWbRedLevel:
-                case LeicaMakernoteDirectory.TagWbBlueLevel:
-                case LeicaMakernoteDirectory.TagWbGreenLevel:
+                case LeicaMakernoteDirectory.TagWBRedLevel:
+                case LeicaMakernoteDirectory.TagWBBlueLevel:
+                case LeicaMakernoteDirectory.TagWBGreenLevel:
                     return GetSimpleRational(tagType);
                 default:
                     return base.GetDescription(tagType);

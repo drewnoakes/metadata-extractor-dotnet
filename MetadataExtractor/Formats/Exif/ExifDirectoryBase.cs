@@ -583,7 +583,7 @@ namespace MetadataExtractor.Formats.Exif
         /// Count = 1
         /// Default = none
         /// </remarks>
-        public const int Tag35MmFilmEquivFocalLength = 0xA405;
+        public const int Tag35MMFilmEquivFocalLength = 0xA405;
 
         /// <summary>This tag indicates the type of scene that was shot.</summary>
         /// <remarks>
@@ -890,7 +890,7 @@ namespace MetadataExtractor.Formats.Exif
             map[TagExposureMode] = "Exposure Mode";
             map[TagWhiteBalanceMode] = "White Balance Mode";
             map[TagDigitalZoomRatio] = "Digital Zoom Ratio";
-            map[Tag35MmFilmEquivFocalLength] = "Focal Length 35";
+            map[Tag35MMFilmEquivFocalLength] = "Focal Length 35";
             map[TagSceneCaptureType] = "Scene Capture Type";
             map[TagGainControl] = "Gain Control";
             map[TagContrast] = "Contrast";

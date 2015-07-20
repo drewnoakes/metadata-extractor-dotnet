@@ -161,8 +161,8 @@ namespace MetadataExtractor.Formats.Exif
                     return GetWhiteBalanceModeDescription();
                 case ExifDirectoryBase.TagDigitalZoomRatio:
                     return GetDigitalZoomRatioDescription();
-                case ExifDirectoryBase.Tag35MmFilmEquivFocalLength:
-                    return Get35MmFilmEquivFocalLengthDescription();
+                case ExifDirectoryBase.Tag35MMFilmEquivFocalLength:
+                    return Get35MMFilmEquivFocalLengthDescription();
                 case ExifDirectoryBase.TagSceneCaptureType:
                     return GetSceneCaptureTypeDescription();
                 case ExifDirectoryBase.TagGainControl:
@@ -537,10 +537,10 @@ namespace MetadataExtractor.Formats.Exif
         }
 
         [CanBeNull]
-        public string Get35MmFilmEquivFocalLengthDescription()
+        public string Get35MMFilmEquivFocalLengthDescription()
         {
             int value;
-            if (!Directory.TryGetInt32(ExifDirectoryBase.Tag35MmFilmEquivFocalLength, out value))
+            if (!Directory.TryGetInt32(ExifDirectoryBase.Tag35MMFilmEquivFocalLength, out value))
                 return null;
             return value == 0 ? "Unknown" : GetFocalLengthDescription(value);
         }
