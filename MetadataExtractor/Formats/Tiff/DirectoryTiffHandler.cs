@@ -48,7 +48,7 @@ namespace MetadataExtractor.Formats.Tiff
             Directories.Add(CurrentDirectory);
         }
 
-        public virtual void EndingIfd()
+        public void EndingIfd()
         {
             CurrentDirectory = _directoryStack.Count == 0 ? null : _directoryStack.Pop();
         }
@@ -60,112 +60,112 @@ namespace MetadataExtractor.Formats.Tiff
             Directories.Add(CurrentDirectory);
         }
 
-        public virtual void Warn(string message)
+        public void Warn(string message)
         {
             CurrentDirectory.AddError(message);
         }
 
-        public virtual void Error(string message)
+        public void Error(string message)
         {
             CurrentDirectory.AddError(message);
         }
 
-        public virtual void SetByteArray(int tagId, byte[] bytes)
+        public void SetByteArray(int tagId, byte[] bytes)
         {
             CurrentDirectory.Set(tagId, bytes);
         }
 
-        public virtual void SetString(int tagId, string @string)
+        public void SetString(int tagId, string @string)
         {
             CurrentDirectory.Set(tagId, @string);
         }
 
-        public virtual void SetRational(int tagId, Rational rational)
+        public void SetRational(int tagId, Rational rational)
         {
             CurrentDirectory.Set(tagId, rational);
         }
 
-        public virtual void SetRationalArray(int tagId, Rational[] array)
+        public void SetRationalArray(int tagId, Rational[] array)
         {
             CurrentDirectory.Set(tagId, array);
         }
 
-        public virtual void SetFloat(int tagId, float float32)
+        public void SetFloat(int tagId, float float32)
         {
             CurrentDirectory.Set(tagId, float32);
         }
 
-        public virtual void SetFloatArray(int tagId, float[] array)
+        public void SetFloatArray(int tagId, float[] array)
         {
             CurrentDirectory.Set(tagId, array);
         }
 
-        public virtual void SetDouble(int tagId, double double64)
+        public void SetDouble(int tagId, double double64)
         {
             CurrentDirectory.Set(tagId, double64);
         }
 
-        public virtual void SetDoubleArray(int tagId, double[] array)
+        public void SetDoubleArray(int tagId, double[] array)
         {
             CurrentDirectory.Set(tagId, array);
         }
 
-        public virtual void SetInt8S(int tagId, sbyte int8S)
+        public void SetInt8S(int tagId, sbyte int8S)
         {
             CurrentDirectory.Set(tagId, int8S);
         }
 
-        public virtual void SetInt8SArray(int tagId, sbyte[] array)
+        public void SetInt8SArray(int tagId, sbyte[] array)
         {
             CurrentDirectory.Set(tagId, array);
         }
 
-        public virtual void SetInt8U(int tagId, byte int8U)
+        public void SetInt8U(int tagId, byte int8U)
         {
             CurrentDirectory.Set(tagId, int8U);
         }
 
-        public virtual void SetInt8UArray(int tagId, byte[] array)
+        public void SetInt8UArray(int tagId, byte[] array)
         {
             CurrentDirectory.Set(tagId, array);
         }
 
-        public virtual void SetInt16S(int tagId, short int16S)
+        public void SetInt16S(int tagId, short int16S)
         {
             CurrentDirectory.Set(tagId, int16S);
         }
 
-        public virtual void SetInt16SArray(int tagId, short[] array)
+        public void SetInt16SArray(int tagId, short[] array)
         {
             CurrentDirectory.Set(tagId, array);
         }
 
-        public virtual void SetInt16U(int tagId, ushort int16U)
+        public void SetInt16U(int tagId, ushort int16U)
         {
             CurrentDirectory.Set(tagId, int16U);
         }
 
-        public virtual void SetInt16UArray(int tagId, ushort[] array)
+        public void SetInt16UArray(int tagId, ushort[] array)
         {
             CurrentDirectory.Set(tagId, array);
         }
 
-        public virtual void SetInt32S(int tagId, int int32S)
+        public void SetInt32S(int tagId, int int32S)
         {
             CurrentDirectory.Set(tagId, int32S);
         }
 
-        public virtual void SetInt32SArray(int tagId, int[] array)
+        public void SetInt32SArray(int tagId, int[] array)
         {
             CurrentDirectory.Set(tagId, array);
         }
 
-        public virtual void SetInt32U(int tagId, uint int32U)
+        public void SetInt32U(int tagId, uint int32U)
         {
             CurrentDirectory.Set(tagId, int32U);
         }
 
-        public virtual void SetInt32UArray(int tagId, uint[] array)
+        public void SetInt32UArray(int tagId, uint[] array)
         {
             CurrentDirectory.Set(tagId, array);
         }
