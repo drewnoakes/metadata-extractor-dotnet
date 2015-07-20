@@ -55,33 +55,33 @@ namespace MetadataExtractor.Tests
         {
             var third1 = new Rational(1, 3);
             var third2 = new Rational(2, 6);
-            Assert.Equal("1/3", third1.ToSimpleString(allowDecimal: true));
-            Assert.Equal("1/3", third2.ToSimpleString(allowDecimal: true));
+            Assert.Equal("1/3", third1.ToSimpleString());
+            Assert.Equal("1/3", third2.ToSimpleString());
             Assert.Equal(third1, third2);
 
             var twoThirds = new Rational(10, 15);
-            Assert.Equal("2/3", twoThirds.ToSimpleString(allowDecimal: true));
+            Assert.Equal("2/3", twoThirds.ToSimpleString());
 
             var two = new Rational(10, 5);
             Assert.True(two.IsInteger);
-            Assert.Equal("2", two.ToSimpleString(allowDecimal: true));
+            Assert.Equal("2", two.ToSimpleString());
             Assert.Equal("2", two.ToSimpleString(allowDecimal: false));
 
             var twoFifths = new Rational(4, 10);
-            Assert.Equal("0.4", twoFifths.ToSimpleString(allowDecimal: true));
+            Assert.Equal("0.4", twoFifths.ToSimpleString());
             Assert.Equal("2/5", twoFifths.ToSimpleString(allowDecimal: false));
 
             var threeEighths = new Rational(3, 8);
-            Assert.Equal("3/8", threeEighths.ToSimpleString(allowDecimal: true));
+            Assert.Equal("3/8", threeEighths.ToSimpleString());
 
             var zero = new Rational(0, 8);
             Assert.True(zero.IsInteger);
-            Assert.Equal("0", zero.ToSimpleString(allowDecimal: true));
+            Assert.Equal("0", zero.ToSimpleString());
             Assert.Equal("0", zero.ToSimpleString(allowDecimal: false));
 
             zero = new Rational(0, 0);
             Assert.True(zero.IsInteger);
-            Assert.Equal("0", zero.ToSimpleString(allowDecimal: true));
+            Assert.Equal("0", zero.ToSimpleString());
             Assert.Equal("0", zero.ToSimpleString(allowDecimal: false));
         }
 

@@ -153,7 +153,7 @@ namespace MetadataExtractor
         [CanBeNull]
         protected string GetSimpleRational(int tagType)
         {
-            return Directory.GetRational(tagType)?.ToSimpleString(true);
+            return Directory.GetRational(tagType)?.ToSimpleString();
         }
 
         [CanBeNull]
@@ -277,7 +277,7 @@ namespace MetadataExtractor
             var rational = Directory.GetRational(tagType);
 
             if (rational != null)
-                return rational.ToSimpleString(allowDecimal: true);
+                return rational.ToSimpleString();
 
             double d;
             if (Directory.TryGetDouble(tagType, out d))

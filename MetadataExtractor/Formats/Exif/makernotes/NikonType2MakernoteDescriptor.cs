@@ -229,7 +229,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             return value.ToInt32() == 1
                 ? "No digital zoom"
-                : value.ToSimpleString(true) + "x digital zoom";
+                : value.ToSimpleString() + "x digital zoom";
         }
 
         [CanBeNull]

@@ -674,7 +674,7 @@ namespace MetadataExtractor.Formats.Exif
             var value = Directory.GetRational(ExifDirectoryBase.TagExposureBias);
             if (value == null)
                 return null;
-            return value.ToSimpleString(true) + " EV";
+            return value.ToSimpleString() + " EV";
         }
 
         [CanBeNull]

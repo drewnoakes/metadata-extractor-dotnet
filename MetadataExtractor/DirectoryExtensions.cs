@@ -497,7 +497,7 @@ namespace MetadataExtractor
 
             var rational = o as Rational;
             if (rational != null)
-                return rational.ToSimpleString(true);
+                return rational.ToSimpleString();
 
             if (o is DateTime)
             {
