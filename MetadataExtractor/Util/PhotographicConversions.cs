@@ -30,7 +30,8 @@ namespace MetadataExtractor.Util
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class PhotographicConversions
     {
-        public static readonly double RootTwo = Math.Sqrt(2);
+        private const double Ln2 = 0.69314718055994530941723212145818d;
+        private const double RootTwo = 1.4142135623730950488016887242097d;
 
         /// <summary>Converts an aperture value to its corresponding F-stop number.</summary>
         /// <param name="aperture">the aperture value to convert</param>
@@ -47,7 +48,7 @@ namespace MetadataExtractor.Util
         /// <returns>the exposure time of the specified shutter speed</returns>
         public static double ShutterSpeedToExposureTime(double shutterSpeed)
         {
-            return (float)(1 / Math.Exp(shutterSpeed * Math.Log(2)));
+            return (float)(1/Math.Exp(shutterSpeed*Ln2));
         }
     }
 }
