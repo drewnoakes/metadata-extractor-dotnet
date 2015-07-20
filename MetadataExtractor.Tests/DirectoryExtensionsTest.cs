@@ -83,15 +83,13 @@ namespace MetadataExtractor.Tests
                 Assert.Equal(i, dictionary.GetSingle(i));
                 float value;
                 Assert.True(dictionary.TryGetSingle(i, out value));
-                Assert.NotNull(dictionary.GetSingleNullable(i));
-                Assert.Equal(i, dictionary.GetSingleNullable(i));
+                Assert.Equal(i, dictionary.GetSingle(i));
             };
 
             Action<Directory, int> assertMissingSingle = (dictionary, i) =>
             {
                 float value;
                 Assert.False(dictionary.TryGetSingle(i, out value));
-                Assert.Null(dictionary.GetSingleNullable(i));
                 Assert.Throws<MetadataException>(() => dictionary.GetSingle(i));
             };
 

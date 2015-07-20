@@ -126,12 +126,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetDigitalZoomDescription()
         {
-            var value = Directory.GetSingleNullable(PentaxMakernoteDirectory.TagDigitalZoom);
-            if (value == null)
+            float value;
+            if (!Directory.TryGetSingle(PentaxMakernoteDirectory.TagDigitalZoom, out value))
                 return null;
-            if (value == 0)
-                return "Off";
-            return value.Value.ToString("0.0###########");
+            return value == 0 ? "Off" : value.ToString("0.0###########");
         }
 
         [CanBeNull]

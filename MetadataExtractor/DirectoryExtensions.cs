@@ -124,15 +124,6 @@ namespace MetadataExtractor
             return ThrowValueNotPossible<float>(directory, tagType);
         }
 
-        [CanBeNull]
-        public static float? GetSingleNullable(this Directory directory, int tagType)
-        {
-            float value;
-            if (directory.TryGetSingle(tagType, out value))
-                return value;
-            return null;
-        }
-
         public static bool TryGetSingle(this Directory directory, int tagType, out float value)
         {
             var convertible = GetConvertibleObject(directory, tagType);
