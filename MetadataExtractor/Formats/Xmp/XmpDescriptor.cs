@@ -81,10 +81,6 @@ namespace MetadataExtractor.Formats.Xmp
         [CanBeNull]
         public string GetExposureProgramDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(XmpDirectory.TagExposureProgram, out value))
-                return null;
-
             return GetIndexedDescription(XmpDirectory.TagExposureProgram, 1,
                 "Manual control",
                 "Program normal",
