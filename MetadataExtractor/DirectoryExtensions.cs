@@ -94,15 +94,6 @@ namespace MetadataExtractor
             return ThrowValueNotPossible<long>(directory, tagType);
         }
 
-        [CanBeNull]
-        public static long? GetInt64Nullable(this Directory directory, int tagType)
-        {
-            long value;
-            if (directory.TryGetInt64(tagType, out value))
-                return value;
-            return null;
-        }
-
         public static bool TryGetInt64(this Directory directory, int tagType, out long value)
         {
             var convertible = GetConvertibleObject(directory, tagType);

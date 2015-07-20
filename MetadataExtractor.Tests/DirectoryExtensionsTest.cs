@@ -63,15 +63,13 @@ namespace MetadataExtractor.Tests
                 Assert.Equal(i, dictionary.GetInt64(i));
                 long value;
                 Assert.True(dictionary.TryGetInt64(i, out value));
-                Assert.NotNull(dictionary.GetInt64Nullable(i));
-                Assert.Equal(i, dictionary.GetInt64Nullable(i));
+                Assert.Equal(i, dictionary.GetInt64(i));
             };
 
             Action<Directory, int> assertMissingInt64 = (dictionary, i) =>
             {
                 long value;
                 Assert.False(dictionary.TryGetInt64(i, out value));
-                Assert.Null(dictionary.GetInt64Nullable(i));
                 Assert.Throws<MetadataException>(() => dictionary.GetInt64(i));
             };
 

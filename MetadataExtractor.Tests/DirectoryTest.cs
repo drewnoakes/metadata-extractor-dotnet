@@ -169,7 +169,6 @@ namespace MetadataExtractor.Tests
             Assert.Null(_directory.GetByteArray(ExifDirectoryBase.TagAperture));
             Assert.Null(_directory.GetDateTimeNullable(ExifDirectoryBase.TagAperture));
             Assert.Null(_directory.GetInt32Array(ExifDirectoryBase.TagAperture));
-            Assert.Null(_directory.GetInt64Nullable(ExifDirectoryBase.TagAperture));
             Assert.Null(_directory.GetObject(ExifDirectoryBase.TagAperture));
             Assert.Null(_directory.GetRational(ExifDirectoryBase.TagAperture));
             Assert.Null(_directory.GetRationalArray(ExifDirectoryBase.TagAperture));
