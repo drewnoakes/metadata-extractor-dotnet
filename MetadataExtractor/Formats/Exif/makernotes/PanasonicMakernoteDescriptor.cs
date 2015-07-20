@@ -649,15 +649,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetBabyAgeDescription()
         {
-            var age = Directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge);
-            return age == null ? null : age.ToFriendlyString();
+            return Directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge)?.ToFriendlyString();
         }
 
         [CanBeNull]
         public string GetBabyAge1Description()
         {
-            var age = Directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge1);
-            return age == null ? null : age.ToFriendlyString();
+            return Directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge1)?.ToFriendlyString();
         }
     }
 }

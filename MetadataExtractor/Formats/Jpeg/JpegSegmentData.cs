@@ -115,8 +115,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <returns>the segment count (zero if no segments exist).</returns>
         public int GetSegmentCount(JpegSegmentType segmentType)
         {
-            var segmentList = GetSegmentList(segmentType);
-            return segmentList == null ? 0 : segmentList.Count;
+            return GetSegmentList(segmentType)?.Count ?? 0;
         }
 
         /// <summary>Removes a specified instance of a segment's data from the collection.</summary>

@@ -143,9 +143,8 @@ namespace MetadataExtractor.Formats.Xmp
         public string GetRatingDescription()
         {
             var value = Directory.GetDoubleNullable(XmpDirectory.TagRating);
-            return value == null
-                ? base.GetDescription(XmpDirectory.TagRating)
-                : value.Value.ToString();
+            return value?.ToString() 
+                ?? base.GetDescription(XmpDirectory.TagRating);
         }
     }
 }

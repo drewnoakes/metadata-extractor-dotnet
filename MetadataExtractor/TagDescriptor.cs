@@ -152,10 +152,7 @@ namespace MetadataExtractor
         [CanBeNull]
         protected string GetSimpleRational(int tagType)
         {
-            var value = Directory.GetRational(tagType);
-            if (value == null)
-                return null;
-            return value.ToSimpleString(true);
+            return Directory.GetRational(tagType)?.ToSimpleString(true);
         }
 
         [CanBeNull]

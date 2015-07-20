@@ -133,9 +133,7 @@ namespace MetadataExtractor.Formats.Exif
         {
             var angle = Directory.GetRational(tagType);
             // provide a decimal version of rational numbers in the description, to avoid strings like "35334/199 degrees"
-            var value = angle != null
-                ? angle.ToDouble().ToString("0.##")
-                : Directory.GetString(tagType);
+            var value = angle?.ToDouble().ToString("0.##") ?? Directory.GetString(tagType);
             return value == null || value.Trim().Length == 0 ? null : value.Trim() + " degrees";
         }
 
@@ -238,7 +236,7 @@ namespace MetadataExtractor.Formats.Exif
         public string GetDegreesMinutesSecondsDescription()
         {
             var location = Directory.GetGeoLocation();
-            return location == null ? null : location.ToDmsString();
+            return location?.ToDmsString();
         }
     }
 }

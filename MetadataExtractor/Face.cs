@@ -87,8 +87,8 @@ namespace MetadataExtractor
                 hashCode = (hashCode*397) ^ Y;
                 hashCode = (hashCode*397) ^ Width;
                 hashCode = (hashCode*397) ^ Height;
-                hashCode = (hashCode*397) ^ (Name != null ? Name.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ (Age != null ? Age.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (Name?.GetHashCode() ?? 0);
+                hashCode = (hashCode*397) ^ (Age?.GetHashCode() ?? 0);
                 return hashCode;
             }
         }

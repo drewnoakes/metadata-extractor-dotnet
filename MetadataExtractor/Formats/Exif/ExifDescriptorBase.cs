@@ -225,7 +225,7 @@ namespace MetadataExtractor.Formats.Exif
             if (resolution == null)
                 return null;
             var unit = GetResolutionDescription();
-            return $"{resolution} dots per {(unit == null ? "unit" : unit.ToLower())}";
+            return $"{resolution} dots per {unit?.ToLower() ?? "unit"}";
         }
 
         [CanBeNull]
@@ -235,7 +235,7 @@ namespace MetadataExtractor.Formats.Exif
             if (resolution == null)
                 return null;
             var unit = GetResolutionDescription();
-            return $"{resolution} dots per {(unit == null ? "unit" : unit.ToLower())}";
+            return $"{resolution} dots per {unit?.ToLower() ?? "unit"}";
         }
 
         [CanBeNull]
