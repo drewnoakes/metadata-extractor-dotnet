@@ -30,8 +30,8 @@ namespace MetadataExtractor
 {
     /// <summary>Models information about a face in an image.</summary>
     /// <remarks>
-    /// When a face is <em>detected</em>, the camera believes that a face is present at a given location in
-    /// the image, but is not sure whose face it is.  When a face is <em>recognised</em>, then the face is
+    /// When a face is detected, the camera believes that a face is present at a given location in
+    /// the image, but is not sure whose face it is.  When a face is recognised, then the face is
     /// both detected and identified as belonging to a known person.
     /// <para />
     /// Currently this is only used by <see cref="PanasonicMakernoteDirectory"/>.
