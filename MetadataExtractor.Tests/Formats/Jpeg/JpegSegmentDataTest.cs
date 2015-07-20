@@ -81,8 +81,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             segmentData.AddSegment(segmentType, segmentBytes2);
             Assert.Equal(2, segmentData.GetSegmentCount(segmentType));
             Assert.Equal(segmentBytes1, segmentData.GetSegment(segmentType));
-            Assert.Equal(segmentBytes1, segmentData.GetSegment(segmentType, 0));
-            Assert.Equal(segmentBytes2, segmentData.GetSegment(segmentType, 1));
+            Assert.Equal(segmentBytes2, segmentData.GetSegment(segmentType, occurrence: 1));
         }
 
         [Fact]
@@ -95,9 +94,9 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             segmentData.AddSegment(segmentType, segmentBytes1);
             segmentData.AddSegment(segmentType, segmentBytes2);
             Assert.Equal(2, segmentData.GetSegmentCount(segmentType));
-            Assert.Equal(segmentBytes1, segmentData.GetSegment(segmentType, 0));
+            Assert.Equal(segmentBytes1, segmentData.GetSegment(segmentType));
             segmentData.RemoveSegmentOccurrence(segmentType, 0);
-            Assert.Equal(segmentBytes2, segmentData.GetSegment(segmentType, 0));
+            Assert.Equal(segmentBytes2, segmentData.GetSegment(segmentType));
         }
 
         [Fact]
@@ -111,7 +110,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             segmentData.AddSegment(segmentType, segmentBytes2);
             Assert.Equal(2, segmentData.GetSegmentCount(segmentType));
             Assert.True(segmentData.ContainsSegment(segmentType));
-            Assert.Equal(segmentBytes1, segmentData.GetSegment(segmentType, 0));
+            Assert.Equal(segmentBytes1, segmentData.GetSegment(segmentType));
             segmentData.RemoveAllSegments(segmentType);
             Assert.True(!segmentData.ContainsSegment(segmentType));
             Assert.Equal(0, segmentData.GetSegmentCount(segmentType));

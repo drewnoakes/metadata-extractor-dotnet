@@ -98,18 +98,16 @@ namespace MetadataExtractor.Tests.Formats.Png
         public void TestAreMultipleAllowed()
         {
             Assert.False(new PngChunkType("ABCD").AreMultipleAllowed);
-            Assert.False(new PngChunkType("ABCD", false).AreMultipleAllowed);
-            Assert.True(new PngChunkType("ABCD", true).AreMultipleAllowed);
+            Assert.True(new PngChunkType("ABCD", multipleAllowed: true).AreMultipleAllowed);
         }
 
         [Fact]
         public void TestEquality()
         {
             Assert.Equal(new PngChunkType("ABCD"), new PngChunkType("ABCD"));
-            Assert.Equal(new PngChunkType("ABCD", true), new PngChunkType("ABCD", true));
-            Assert.Equal(new PngChunkType("ABCD", false), new PngChunkType("ABCD", false));
+            Assert.Equal(new PngChunkType("ABCD", multipleAllowed: true), new PngChunkType("ABCD", multipleAllowed: true));
             // NOTE we don't consider the 'allowMultiples' value in the equality test (or hash code)
-            Assert.Equal(new PngChunkType("ABCD", true), new PngChunkType("ABCD", false));
+            Assert.Equal(new PngChunkType("ABCD", multipleAllowed: true), new PngChunkType("ABCD"));
             Assert.NotEqual(new PngChunkType("ABCD"), new PngChunkType("abcd"));
         }
     }

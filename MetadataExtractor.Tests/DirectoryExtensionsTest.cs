@@ -84,7 +84,7 @@ namespace MetadataExtractor.Tests
         {
             Action<Directory, int> assertPresentSingle = (dictionary, i) =>
             {
-                Assert.Equal((float)i, dictionary.GetSingle(i));
+                Assert.Equal(i, dictionary.GetSingle(i));
                 float value;
                 Assert.True(dictionary.TryGetSingle(i, out value));
                 Assert.NotNull(dictionary.GetSingleNullable(i));
@@ -108,7 +108,7 @@ namespace MetadataExtractor.Tests
         {
             Action<Directory, int> assertPresentDouble = (dictionary, i) =>
             {
-                Assert.Equal((double)i, dictionary.GetDouble(i));
+                Assert.Equal(i, dictionary.GetDouble(i));
                 double value;
                 Assert.True(dictionary.TryGetDouble(i, out value));
                 Assert.NotNull(dictionary.GetDoubleNullable(i));
@@ -190,7 +190,7 @@ namespace MetadataExtractor.Tests
         {
             var directory = new MockDirectory();
 
-            foreach (var pair in Enumerable.Range(1, int.MaxValue).Zip<int, object, Tuple<int, object>>(values, Tuple.Create))
+            foreach (var pair in Enumerable.Range(1, int.MaxValue).Zip(values, Tuple.Create))
                 directory.Set(pair.Item1, pair.Item2);
 
             return directory;
