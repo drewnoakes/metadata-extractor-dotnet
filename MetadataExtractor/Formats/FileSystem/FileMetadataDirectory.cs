@@ -45,10 +45,7 @@ namespace MetadataExtractor.Formats.FileSystem
             SetDescriptor(new FileMetadataDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "File"; }
-        }
+        public override string Name => "File";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

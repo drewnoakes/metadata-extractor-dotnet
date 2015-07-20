@@ -67,10 +67,7 @@ namespace MetadataExtractor.Formats.Pcx
             SetDescriptor(new PcxDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "PCX"; }
-        }
+        public override string Name => "PCX";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

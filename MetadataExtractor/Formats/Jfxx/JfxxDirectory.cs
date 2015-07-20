@@ -42,10 +42,7 @@ namespace MetadataExtractor.Formats.Jfxx
             SetDescriptor(new JfxxDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "JFXX"; }
-        }
+        public override string Name => "JFXX";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

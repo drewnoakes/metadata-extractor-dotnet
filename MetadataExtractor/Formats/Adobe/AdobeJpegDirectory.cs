@@ -63,10 +63,7 @@ namespace MetadataExtractor.Formats.Adobe
             SetDescriptor(new AdobeJpegDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "Adobe JPEG"; }
-        }
+        public override string Name => "Adobe JPEG";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

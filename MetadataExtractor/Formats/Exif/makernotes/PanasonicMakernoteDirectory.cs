@@ -519,10 +519,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             SetDescriptor(new PanasonicMakernoteDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "Panasonic Makernote"; }
-        }
+        public override string Name => "Panasonic Makernote";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

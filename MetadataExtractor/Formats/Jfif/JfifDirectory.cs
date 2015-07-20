@@ -56,10 +56,7 @@ namespace MetadataExtractor.Formats.Jfif
             SetDescriptor(new JfifDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "JFIF"; }
-        }
+        public override string Name => "JFIF";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

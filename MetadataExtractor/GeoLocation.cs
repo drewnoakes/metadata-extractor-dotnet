@@ -54,10 +54,7 @@ namespace MetadataExtractor
         public double Longitude { get; }
 
         /// <value>true, if both latitude and longitude are equal to zero</value>
-        public bool IsZero
-        {
-            get { return Latitude == 0 && Longitude == 0; }
-        }
+        public bool IsZero => Latitude == 0 && Longitude == 0;
 
         #region Static helpers/factories
 

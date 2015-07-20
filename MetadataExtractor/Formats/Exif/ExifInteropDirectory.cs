@@ -43,10 +43,7 @@ namespace MetadataExtractor.Formats.Exif
             SetDescriptor(new ExifInteropDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "Interoperability"; }
-        }
+        public override string Name => "Interoperability";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

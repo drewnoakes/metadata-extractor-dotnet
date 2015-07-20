@@ -158,30 +158,15 @@ namespace MetadataExtractor.Formats.Png
                 throw new ArgumentException("PNG chunk type identifier may only contain alphabet characters");
         }
 
-        public bool IsCritical
-        {
-            get { return IsUpperCase(_bytes[0]); }
-        }
+        public bool IsCritical => IsUpperCase(_bytes[0]);
 
-        public bool IsAncillary
-        {
-            get { return !IsCritical; }
-        }
+        public bool IsAncillary => !IsCritical;
 
-        public bool IsPrivate
-        {
-            get { return IsUpperCase(_bytes[1]); }
-        }
+        public bool IsPrivate => IsUpperCase(_bytes[1]);
 
-        public bool IsSafeToCopy
-        {
-            get { return IsLowerCase(_bytes[3]); }
-        }
+        public bool IsSafeToCopy => IsLowerCase(_bytes[3]);
 
-        public bool AreMultipleAllowed
-        {
-            get { return _multipleAllowed; }
-        }
+        public bool AreMultipleAllowed => _multipleAllowed;
 
         [Pure]
         private static bool IsLowerCase(byte b)
@@ -202,10 +187,7 @@ namespace MetadataExtractor.Formats.Png
         }
 
         [NotNull]
-        public string Identifier
-        {
-            get { return Encoding.ASCII.GetString(_bytes); }
-        }
+        public string Identifier => Encoding.ASCII.GetString(_bytes);
 
         public override string ToString()
         {

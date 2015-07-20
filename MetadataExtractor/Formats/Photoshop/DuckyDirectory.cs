@@ -46,10 +46,7 @@ namespace MetadataExtractor.Formats.Photoshop
             SetDescriptor(new TagDescriptor<DuckyDirectory>(this));
         }
 
-        public override string Name
-        {
-            get { return "Ducky"; }
-        }
+        public override string Name => "Ducky";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

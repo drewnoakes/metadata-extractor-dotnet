@@ -73,14 +73,8 @@ namespace MetadataExtractor.Formats.Jpeg
             }
         }
 
-        public int HorizontalSamplingFactor
-        {
-            get { return _samplingFactorByte & 0x0F; }
-        }
+        public int HorizontalSamplingFactor => _samplingFactorByte & 0x0F;
 
-        public int VerticalSamplingFactor
-        {
-            get { return (_samplingFactorByte >> 4) & 0x0F; }
-        }
+        public int VerticalSamplingFactor => (_samplingFactorByte >> 4) & 0x0F;
     }
 }

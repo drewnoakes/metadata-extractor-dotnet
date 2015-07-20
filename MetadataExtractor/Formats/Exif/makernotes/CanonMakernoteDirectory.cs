@@ -663,10 +663,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             SetDescriptor(new CanonMakernoteDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "Canon Makernote"; }
-        }
+        public override string Name => "Canon Makernote";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

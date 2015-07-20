@@ -196,10 +196,7 @@ namespace MetadataExtractor.Formats.Iptc
             SetDescriptor(new IptcDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "IPTC"; }
-        }
+        public override string Name => "IPTC";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

@@ -65,10 +65,7 @@ namespace MetadataExtractor.Formats.Photoshop
             SetDescriptor(new PsdHeaderDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "PSD Header"; }
-        }
+        public override string Name => "PSD Header";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

@@ -58,10 +58,7 @@ namespace MetadataExtractor.Formats.Exif
             SetDescriptor(new ExifThumbnailDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "Exif Thumbnail"; }
-        }
+        public override string Name => "Exif Thumbnail";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

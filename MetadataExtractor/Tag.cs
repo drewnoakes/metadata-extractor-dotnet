@@ -53,38 +53,26 @@ namespace MetadataExtractor
         /// </summary>
         /// <value>a description of the tag's value</value>
         [CanBeNull]
-        public string Description
-        {
-            get { return _directory.GetDescription(TagType); }
-        }
+        public string Description => _directory.GetDescription(TagType);
 
         /// <summary>Get whether this tag has a name.</summary>
         /// <remarks>
         /// If <c>true</c>, it may be accessed via <see cref="TagName"/>.
         /// If <c>false</c>, <see cref="TagName"/> will return a string resembling <c>"Unknown tag (0x1234)"</c>.
         /// </remarks>
-        public bool HasTagName
-        {
-            get { return _directory.HasTagName(TagType); }
-        }
+        public bool HasTagName => _directory.HasTagName(TagType);
 
         /// <summary>
         /// Get the name of the tag, such as <c>Aperture</c>, or <c>InteropVersion</c>.
         /// </summary>
         [NotNull]
-        public string TagName
-        {
-            get { return _directory.GetTagName(TagType); }
-        }
+        public string TagName => _directory.GetTagName(TagType);
 
         /// <summary>
         /// Get the name of the <see cref="Directory"/> in which the tag exists, such as <c>Exif</c>, <c>GPS</c> or <c>Interoperability</c>.
         /// </summary>
         [NotNull]
-        public string DirectoryName
-        {
-            get { return _directory.Name; }
-        }
+        public string DirectoryName => _directory.Name;
 
         /// <summary>A basic representation of the tag's type and value.</summary>
         /// <remarks>EG: <c>[ExifIfd0] F Number - f/2.8</c>.</remarks>

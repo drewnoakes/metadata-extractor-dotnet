@@ -171,10 +171,7 @@ namespace MetadataExtractor.Formats.Icc
             SetDescriptor(new IccDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "ICC Profile"; }
-        }
+        public override string Name => "ICC Profile";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

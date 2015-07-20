@@ -48,10 +48,7 @@ namespace MetadataExtractor.IO
             _buffer = buffer;
         }
 
-        public override long Length
-        {
-            get { return _buffer.Length; }
-        }
+        public override long Length => _buffer.Length;
 
         public override byte GetByte(int index)
         {

@@ -62,10 +62,7 @@ namespace MetadataExtractor
         protected abstract bool TryGetTagName(int tagType, out string tagName);
 
         /// <summary>Gets a value indicating whether the directory is empty, meaning it contains no errors and no tag values.</summary>
-        public bool IsEmpty
-        {
-            get { return _errorList.Count == 0 && _definedTagList.Count == 0; }
-        }
+        public bool IsEmpty => _errorList.Count == 0 && _definedTagList.Count == 0;
 
         /// <summary>Indicates whether the specified tag type has been set.</summary>
         /// <param name="tagType">the tag type to check for</param>
@@ -78,17 +75,11 @@ namespace MetadataExtractor
         /// <summary>Returns an Iterator of Tag instances that have been set in this Directory.</summary>
         /// <value>The list of <see cref="Tag"/> instances</value>
         [NotNull]
-        public IReadOnlyList<Tag> Tags
-        {
-            get { return _definedTagList; }
-        }
+        public IReadOnlyList<Tag> Tags => _definedTagList;
 
         /// <summary>Returns the number of tags set in this Directory.</summary>
         /// <value>the number of tags set in this Directory</value>
-        public int TagCount
-        {
-            get { return _definedTagList.Count; }
-        }
+        public int TagCount => _definedTagList.Count;
 
         /// <summary>Sets the descriptor used to interpret tag values.</summary>
         /// <param name="descriptor">the descriptor used to interpret tag values</param>
@@ -112,18 +103,12 @@ namespace MetadataExtractor
         /// <summary>Gets a value indicating whether this directory has one or more errors.</summary>
         /// <remarks>Error messages are accessible via <see cref="Errors"/>.</remarks>
         /// <returns><c>true</c> if the directory contains errors, otherwise <c>false</c></returns>
-        public bool HasError
-        {
-            get { return _errorList.Count > 0; }
-        }
+        public bool HasError => _errorList.Count > 0;
 
         /// <summary>Used to iterate over any error messages contained in this directory.</summary>
         /// <value>The collection of error message strings.</value>
         [NotNull]
-        public IReadOnlyCollection<string> Errors
-        {
-            get { return _errorList; }
-        }
+        public IReadOnlyCollection<string> Errors => _errorList;
 
         #endregion
 

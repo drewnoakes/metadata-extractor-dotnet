@@ -59,10 +59,7 @@ namespace MetadataExtractor.Formats.Ico
             SetDescriptor(new IcoDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "ICO"; }
-        }
+        public override string Name => "ICO";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

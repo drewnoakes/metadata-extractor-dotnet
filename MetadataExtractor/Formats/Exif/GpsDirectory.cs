@@ -169,10 +169,7 @@ namespace MetadataExtractor.Formats.Exif
             SetDescriptor(new GpsDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "GPS"; }
-        }
+        public override string Name => "GPS";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

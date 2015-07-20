@@ -79,10 +79,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             SetDescriptor(new LeicaMakernoteDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "Leica Makernote"; }
-        }
+        public override string Name => "Leica Makernote";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

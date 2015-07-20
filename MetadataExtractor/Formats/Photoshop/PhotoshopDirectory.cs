@@ -213,10 +213,7 @@ namespace MetadataExtractor.Formats.Photoshop
             SetDescriptor(new PhotoshopDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "Photoshop"; }
-        }
+        public override string Name => "Photoshop";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

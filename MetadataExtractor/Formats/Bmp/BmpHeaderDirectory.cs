@@ -59,10 +59,7 @@ namespace MetadataExtractor.Formats.Bmp
             SetDescriptor(new BmpHeaderDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "BMP Header"; }
-        }
+        public override string Name => "BMP Header";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

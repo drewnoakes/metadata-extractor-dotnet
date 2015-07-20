@@ -50,18 +50,12 @@ namespace MetadataExtractor.Tests
         /// <summary>
         /// Gets the culture.
         /// </summary>
-        public CultureInfo Culture
-        {
-            get { return _culture.Value; }
-        }
+        public CultureInfo Culture => _culture.Value;
 
         /// <summary>
         /// Gets the UI culture.
         /// </summary>
-        public CultureInfo UICulture
-        {
-            get { return _uiCulture.Value; }
-        }
+        public CultureInfo UICulture => _uiCulture.Value;
 
         /// <summary>
         /// Stores the current <see cref="Thread.CurrentPrincipal" />

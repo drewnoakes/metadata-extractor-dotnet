@@ -47,10 +47,7 @@ namespace MetadataExtractor.Formats.WebP
             SetDescriptor(new WebPDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "WebP"; }
-        }
+        public override string Name => "WebP";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

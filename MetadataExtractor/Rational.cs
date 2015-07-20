@@ -252,18 +252,12 @@ namespace MetadataExtractor
         /// <summary>Gets the reciprocal value of this object as a new <see cref="Rational"/>.</summary>
         /// <value>the reciprocal in a new object</value>
         [NotNull]
-        public Rational Reciprocal
-        {
-            get { return new Rational(Denominator, Numerator); }
-        }
+        public Rational Reciprocal => new Rational(Denominator, Numerator);
 
         /// <summary>
         /// Checks if this <see cref="Rational"/> number is expressible as an integer, either positive or negative.
         /// </summary>
-        public bool IsInteger
-        {
-            get { return Denominator == 1 || (Denominator != 0 && (Numerator%Denominator == 0)) || (Denominator == 0 && Numerator == 0); }
-        }
+        public bool IsInteger => Denominator == 1 || (Denominator != 0 && (Numerator%Denominator == 0)) || (Denominator == 0 && Numerator == 0);
 
         #region Formatting
 

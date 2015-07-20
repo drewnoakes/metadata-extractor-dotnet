@@ -44,10 +44,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             SetDescriptor(new KyoceraMakernoteDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "Kyocera/Contax Makernote"; }
-        }
+        public override string Name => "Kyocera/Contax Makernote";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

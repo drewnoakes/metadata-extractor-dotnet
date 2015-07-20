@@ -972,10 +972,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             SetDescriptor(new NikonType2MakernoteDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "Nikon Makernote"; }
-        }
+        public override string Name => "Nikon Makernote";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

@@ -48,10 +48,7 @@ namespace MetadataExtractor.Formats.Jpeg
             Set(TagComment, comment);
         }
 
-        public override string Name
-        {
-            get { return "JpegComment"; }
-        }
+        public override string Name => "JpegComment";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

@@ -47,10 +47,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             SetDescriptor(new SonyType6MakernoteDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "Sony Makernote"; }
-        }
+        public override string Name => "Sony Makernote";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

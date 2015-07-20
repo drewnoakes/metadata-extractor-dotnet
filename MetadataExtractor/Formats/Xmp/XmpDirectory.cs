@@ -219,10 +219,7 @@ namespace MetadataExtractor.Formats.Xmp
             SetDescriptor(new XmpDescriptor(this));
         }
 
-        public override string Name
-        {
-            get { return "Xmp"; }
-        }
+        public override string Name => "Xmp";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {
@@ -261,9 +258,6 @@ namespace MetadataExtractor.Formats.Xmp
         /// <summary>Gets the <see cref="IXmpMeta"/> object within this directory.</summary>
         /// <remarks>This object provides a rich API for working with XMP data.</remarks>
         [CanBeNull]
-        public IXmpMeta XmpMeta
-        {
-            get { return _xmpMeta; }
-        }
+        public IXmpMeta XmpMeta => _xmpMeta;
     }
 }
