@@ -64,9 +64,9 @@ namespace MetadataExtractor
         /// <c>-1° 23' 4.56"</c>
         /// </summary>
         [NotNull, Pure]
-        public static string DecimalToDegreesMinutesSecondsString(double @decimal)
+        public static string DecimalToDegreesMinutesSecondsString(double value)
         {
-            var dms = DecimalToDegreesMinutesSeconds(@decimal);
+            var dms = DecimalToDegreesMinutesSeconds(value);
             return $"{dms[0]:0.##}\u00b0 {dms[1]:0.##}' {dms[2]:0.##}\"";
         }
 
@@ -75,10 +75,10 @@ namespace MetadataExtractor
         /// a double array.
         /// </summary>
         [NotNull, Pure]
-        public static double[] DecimalToDegreesMinutesSeconds(double @decimal)
+        public static double[] DecimalToDegreesMinutesSeconds(double value)
         {
-            var d = (int)@decimal;
-            var m = Math.Abs((@decimal%1)*60);
+            var d = (int)value;
+            var m = Math.Abs((value%1)*60);
             var s = (m%1)*60;
             return new[] { d, (int)m, s };
         }
@@ -91,16 +91,16 @@ namespace MetadataExtractor
         [CanBeNull, Pure]
         public static double? DegreesMinutesSecondsToDecimal([NotNull] Rational degs, [NotNull] Rational mins, [NotNull] Rational secs, bool isNegative)
         {
-            var @decimal = Math.Abs(degs.ToDouble()) + mins.ToDouble()/60.0d + secs.ToDouble()/3600.0d;
-            if (double.IsNaN(@decimal))
+            var value = Math.Abs(degs.ToDouble()) + mins.ToDouble()/60.0d + secs.ToDouble()/3600.0d;
+            if (double.IsNaN(value))
             {
                 return null;
             }
             if (isNegative)
             {
-                @decimal *= -1;
+                value *= -1;
             }
-            return @decimal;
+            return value;
         }
 
         #endregion
