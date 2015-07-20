@@ -33,15 +33,5 @@ namespace MetadataExtractor.Formats.Gif
             : base(directory)
         {
         }
-        //    @Override
-        //    public String getDescription(int tagType)
-        //    {
-        //        switch (tagType) {
-        //            case GifHeaderDirectory.TAG_COMPRESSION:
-        //                return getCompressionDescription();
-        //            default:
-        //                return super.getDescription(tagType);
-        //        }
-        //    }
     }
 }
