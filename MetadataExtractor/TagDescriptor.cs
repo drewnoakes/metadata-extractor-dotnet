@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using JetBrains.Annotations;
+using MetadataExtractor.Util;
 
 namespace MetadataExtractor
 {
@@ -285,9 +286,7 @@ namespace MetadataExtractor
             return null;
         }
 
-        private static readonly DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
-        protected static DateTime FromUnixTime(long unixTime) => _epoch.AddSeconds(unixTime);
+        protected static DateTime FromUnixTime(long unixTime) => DateUtil.UnixEpoch.AddSeconds(unixTime);
 
         protected static string GetFStopDescription(double fStop) => $"f/{fStop:0.0}";
 
