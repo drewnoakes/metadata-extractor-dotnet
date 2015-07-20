@@ -87,8 +87,8 @@ namespace MetadataExtractor
         }
 
         /// <summary>A basic representation of the tag's type and value.</summary>
-        /// <remarks>A basic representation of the tag's type and value.  EG: <c>[FNumber] F2.8</c>.</remarks>
-        /// <returns>the tag's type and value</returns>
+        /// <remarks>EG: <c>[ExifIfd0] F Number - f/2.8</c>.</remarks>
+        /// <returns>The tag's type and value.</returns>
         public override string ToString()
         {
             return string.Format("[{0}] {1} - {2}",

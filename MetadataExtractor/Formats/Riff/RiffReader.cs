@@ -33,31 +33,19 @@ namespace MetadataExtractor.Formats.Riff
     /// <remarks>
     /// For information on this file format, see:
     /// <list type="bullet">
-    /// <item>http://en.wikipedia.org/wiki/Resource_Interchange_File_Format</item>
-    /// <item>https://developers.google.com/speed/webp/docs/riff_container</item>
-    /// <item>https://www.daubnet.com/en/file-format-riff</item>
+    ///   <item>http://en.wikipedia.org/wiki/Resource_Interchange_File_Format</item>
+    ///   <item>https://developers.google.com/speed/webp/docs/riff_container</item>
+    ///   <item>https://www.daubnet.com/en/file-format-riff</item>
     /// </list>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class RiffReader
     {
         /// <summary>Processes a RIFF data sequence.</summary>
-        /// <param name="reader">
-        /// the
-        /// <see cref="SequentialReader"/>
-        /// from which the data should be read
-        /// </param>
-        /// <param name="handler">
-        /// the
-        /// <see cref="IRiffHandler"/>
-        /// that will coordinate processing and accept read values
-        /// </param>
-        /// <exception cref="RiffProcessingException">
-        /// if an error occurred during the processing of RIFF data that could not be
-        /// ignored or recovered from
-        /// </exception>
+        /// <param name="reader">The <see cref="SequentialReader"/> from which the data should be read.</param>
+        /// <param name="handler">The <see cref="IRiffHandler"/> that will coordinate processing and accept read values.</param>
+        /// <exception cref="RiffProcessingException">An error occurred during the processing of RIFF data that could not be ignored or recovered from.</exception>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
-        /// <exception cref="RiffProcessingException"/>
         public void ProcessRiff([NotNull] SequentialReader reader, [NotNull] IRiffHandler handler)
         {
             // RIFF files are always little-endian

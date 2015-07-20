@@ -32,7 +32,7 @@ namespace MetadataExtractor.Util
     public sealed class ByteTrie<T>
     {
         /// <summary>A node in the trie.</summary>
-        /// <remarks>A node in the trie. Has children and may have an associated value.</remarks>
+        /// <remarks>Has children and may have an associated value.</remarks>
         private sealed class ByteTrieNode
         {
             public readonly IDictionary<byte, ByteTrieNode> Children = new Dictionary<byte, ByteTrieNode>();
@@ -56,7 +56,6 @@ namespace MetadataExtractor.Util
 
         /// <summary>Return the most specific value stored for this byte sequence.</summary>
         /// <remarks>
-        /// Return the most specific value stored for this byte sequence.
         /// If not found, returns <c>null</c> or a default values as specified by
         /// calling <see cref="SetDefaultValue"/>.
         /// </remarks>

@@ -54,11 +54,7 @@ namespace MetadataExtractor.IO
         }
 
         /// <summary>Reads to the end of the stream, in order to determine the total number of bytes.</summary>
-        /// <remarks>
-        /// Reads to the end of the stream, in order to determine the total number of bytes.
-        /// In general, this is not a good idea for this implementation of
-        /// <see cref="IndexedReader"/>.
-        /// </remarks>
+        /// <remarks>In general, this is not a good idea for this implementation of <see cref="IndexedReader"/>.</remarks>
         /// <value>the length of the data source, in bytes.</value>
         /// <exception cref="BufferBoundsException"/>
         public override long Length

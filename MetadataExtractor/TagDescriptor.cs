@@ -32,8 +32,7 @@ namespace MetadataExtractor
 {
     /// <summary>Base class for all tag descriptor classes.</summary>
     /// <remarks>
-    /// Base class for all tag descriptor classes.  Implementations are responsible for
-    /// providing the human-readable string representation of tag values stored in a directory.
+    /// Implementations are responsible for providing the human-readable string representation of tag values stored in a directory.
     /// The directory is provided to the tag descriptor via its constructor.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
@@ -50,7 +49,6 @@ namespace MetadataExtractor
 
         /// <summary>Returns a descriptive value of the specified tag for this image.</summary>
         /// <remarks>
-        /// Returns a descriptive value of the specified tag for this image.
         /// Where possible, known values will be substituted here in place of the raw
         /// tokens actually kept in the metadata segment.  If no substitution is
         /// available, the value provided by <c>getString(tagType)</c> will be returned.
@@ -206,7 +204,6 @@ namespace MetadataExtractor
                 : null;
         }
 
-        /// <summary>LSB first.</summary>
         /// <remarks>LSB first. Labels may be null, a String, or a String[2] with (low label,high label) values.</remarks>
         [CanBeNull]
         protected string GetBitFlagDescription(int tagType, [NotNull] params object[] labels)
