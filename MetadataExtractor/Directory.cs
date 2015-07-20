@@ -83,7 +83,7 @@ namespace MetadataExtractor
         public void SetDescriptor([NotNull] ITagDescriptor descriptor)
         {
             if (descriptor == null)
-                throw new ArgumentNullException("descriptor");
+                throw new ArgumentNullException(nameof(descriptor));
 
             _descriptor = descriptor;
         }
@@ -116,7 +116,7 @@ namespace MetadataExtractor
         public virtual void Set(int tagType, [NotNull] object value)
         {
             if (value == null)
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
 
             if (!_tagMap.ContainsKey(tagType))
                 _definedTagList.Add(new Tag(tagType, this));

@@ -45,7 +45,7 @@ namespace MetadataExtractor.IO
             if (stream == null)
                 throw new ArgumentNullException();
             if (!stream.CanSeek)
-                throw new ArgumentException("Must be capable of seeking.", "stream");
+                throw new ArgumentException("Must be capable of seeking.", nameof(stream));
 
             _stream = stream;
             Length = _stream.Length;

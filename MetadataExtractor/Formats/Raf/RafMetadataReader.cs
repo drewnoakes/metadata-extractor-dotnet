@@ -41,7 +41,7 @@ namespace MetadataExtractor.Formats.Raf
         public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
             if (!stream.CanSeek)
-                throw new ArgumentException("Must support seek", "stream");
+                throw new ArgumentException("Must support seek", nameof(stream));
 
             var data = new byte[512];
             var bytesRead = stream.Read(data, 0, 512);

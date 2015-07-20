@@ -72,7 +72,7 @@ namespace MetadataExtractor.Util
         public static FileType DetectFileType([NotNull] Stream stream)
         {
             if (!stream.CanSeek)
-                throw new ArgumentException("Must support seek", "stream");
+                throw new ArgumentException("Must support seek", nameof(stream));
 
             var maxByteCount = _root.MaxDepth;
 
