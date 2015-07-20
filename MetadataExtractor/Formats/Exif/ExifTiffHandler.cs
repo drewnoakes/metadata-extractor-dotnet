@@ -256,7 +256,7 @@ namespace MetadataExtractor.Formats.Exif
                 Directories.Add(directory);
                 ProcessKodakMakernote(directory, makernoteOffset, reader);
             }
-            else if ("Canon".Equals(cameraMake, StringComparison.CurrentCultureIgnoreCase))
+            else if ("Canon".Equals(cameraMake, StringComparison.OrdinalIgnoreCase))
             {
                 PushDirectory(typeof(CanonMakernoteDirectory));
                 TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset, tiffHeaderOffset);
@@ -274,7 +274,7 @@ namespace MetadataExtractor.Formats.Exif
                     TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset, tiffHeaderOffset);
                 }
             }
-            else if ("FUJIFILM" == firstEightChars || "Fujifilm".Equals(cameraMake, StringComparison.CurrentCultureIgnoreCase))
+            else if ("FUJIFILM" == firstEightChars || "Fujifilm".Equals(cameraMake, StringComparison.OrdinalIgnoreCase))
             {
                 // Note that this also applies to certain Leica cameras, such as the Digilux-4.3
                 reader.IsMotorolaByteOrder = false;
@@ -362,7 +362,7 @@ namespace MetadataExtractor.Formats.Exif
                     // This format is currently unsupported
                     return false;
                 }
-                if (firstFiveChars.Equals("Ricoh", StringComparison.CurrentCultureIgnoreCase))
+                if (firstFiveChars.Equals("Ricoh", StringComparison.OrdinalIgnoreCase))
                 {
                     // Always in Motorola byte order
                     reader.IsMotorolaByteOrder = true;

@@ -82,7 +82,7 @@ namespace MetadataExtractor.Formats.Xmp
             {
                 // XMP in a JPEG file has an identifying preamble which is not valid XML
                 var preambleLength = XmpJpegPreamble.Length;
-                if (segmentBytes.Length >= preambleLength && XmpJpegPreamble.Equals(Encoding.UTF8.GetString(segmentBytes, 0, preambleLength), StringComparison.CurrentCultureIgnoreCase))
+                if (segmentBytes.Length >= preambleLength && XmpJpegPreamble.Equals(Encoding.UTF8.GetString(segmentBytes, 0, preambleLength), StringComparison.OrdinalIgnoreCase))
                 {
                     var xmlBytes = new byte[segmentBytes.Length - preambleLength];
                     Array.Copy(segmentBytes, preambleLength, xmlBytes, 0, xmlBytes.Length);

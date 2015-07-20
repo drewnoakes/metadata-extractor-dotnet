@@ -204,7 +204,7 @@ namespace MetadataExtractor.Formats.Exif
             var value = Directory.GetString(ExifDirectoryBase.TagInteropIndex);
             if (value == null)
                 return null;
-            return string.Equals("R98", value.Trim(), StringComparison.CurrentCultureIgnoreCase)
+            return string.Equals("R98", value.Trim(), StringComparison.OrdinalIgnoreCase)
                 ? "Recommended Exif Interoperability Rules (ExifR98)"
                 : "Unknown (" + value + ")";
         }

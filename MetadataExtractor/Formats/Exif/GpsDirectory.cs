@@ -200,8 +200,9 @@ namespace MetadataExtractor.Formats.Exif
             if (latitudeRef == null || longitudeRef == null)
                 return null;
 
-            var lat = GeoLocation.DegreesMinutesSecondsToDecimal(latitudes[0], latitudes[1], latitudes[2], latitudeRef.Equals ("S", StringComparison.CurrentCultureIgnoreCase));
-            var lon = GeoLocation.DegreesMinutesSecondsToDecimal(longitudes[0], longitudes[1], longitudes[2], longitudeRef.Equals ("W", StringComparison.CurrentCultureIgnoreCase));
+            var lat = GeoLocation.DegreesMinutesSecondsToDecimal(latitudes[0],  latitudes[1],  latitudes[2],  latitudeRef.Equals("S", StringComparison.OrdinalIgnoreCase));
+            var lon = GeoLocation.DegreesMinutesSecondsToDecimal(longitudes[0], longitudes[1], longitudes[2], longitudeRef.Equals("W", StringComparison.OrdinalIgnoreCase));
+
             // This can return null, in cases where the conversion was not possible
             if (lat == null || lon == null)
                 return null;
