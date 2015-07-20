@@ -68,7 +68,7 @@ namespace MetadataExtractor.Formats.Jpeg
                     case 5:
                         return "Q";
                     default:
-                        return string.Format("Unknown ({0})", Id);
+                        return $"Unknown ({Id})";
                 }
             }
         }

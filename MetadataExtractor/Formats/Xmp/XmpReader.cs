@@ -207,7 +207,7 @@ namespace MetadataExtractor.Formats.Xmp
                         }
                         catch (FormatException)
                         {
-                            directory.AddError(string.Format("Unable to parse XMP property {0} as a Rational.", propName));
+                            directory.AddError($"Unable to parse XMP property {propName} as a Rational.");
                         }
                     }
                     else
@@ -225,7 +225,7 @@ namespace MetadataExtractor.Formats.Xmp
                     }
                     catch (FormatException)
                     {
-                        directory.AddError(string.Format("Unable to parse XMP property {0} as an int.", propName));
+                        directory.AddError($"Unable to parse XMP property {propName} as an int.");
                     }
                     break;
                 }
@@ -238,7 +238,7 @@ namespace MetadataExtractor.Formats.Xmp
                     }
                     catch (FormatException)
                     {
-                        directory.AddError(string.Format("Unable to parse XMP property {0} as an double.", propName));
+                        directory.AddError($"Unable to parse XMP property {propName} as an double.");
                     }
                     break;
                 }
@@ -264,7 +264,7 @@ namespace MetadataExtractor.Formats.Xmp
 
                 default:
                 {
-                    directory.AddError(string.Format("Unknown format code {0} for tag {1}", formatCode, tagType));
+                    directory.AddError($"Unknown format code {formatCode} for tag {tagType}");
                     break;
                 }
             }

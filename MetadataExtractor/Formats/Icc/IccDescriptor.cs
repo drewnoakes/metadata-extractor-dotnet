@@ -131,7 +131,7 @@ namespace MetadataExtractor.Formats.Icc
                                 observerString = "1964 10\u00b0";
                                 break;
                             default:
-                                observerString = string.Format("Unknown ({0})", observerType);
+                                observerString = $"Unknown ({observerType})";
                                 break;
                         }
 
@@ -148,7 +148,7 @@ namespace MetadataExtractor.Formats.Icc
                                 geometryString = "0/d or d/0";
                                 break;
                             default:
-                                geometryString = string.Format("Unknown ({0})", observerType);
+                                geometryString = $"Unknown ({observerType})";
                                 break;
                         }
 
@@ -183,12 +183,11 @@ namespace MetadataExtractor.Formats.Icc
                                 illuminantString = "F8";
                                 break;
                             default:
-                                illuminantString = string.Format("Unknown ({0})", illuminantType);
+                                illuminantString = $"Unknown ({illuminantType})";
                                 break;
                         }
 
-                        return string.Format("{0} Observer, Backing ({1:0.###}, {2:0.###}, {3:0.###}), Geometry {4}, Flare {5}%, Illuminant {6}",
-                            observerString, x, y, z, geometryString, (long)Math.Round(flare * 100), illuminantString);
+                        return $"{observerString} Observer, Backing ({x:0.###}, {y:0.###}, {z:0.###}), Geometry {geometryString}, Flare {(long)Math.Round(flare*100)}%, Illuminant {illuminantString}";
                     }
 
                     case IccTagType.XyzArray:
@@ -248,10 +247,7 @@ namespace MetadataExtractor.Formats.Icc
 
                     default:
                     {
-                        return string.Format("{0} (0x{1:X8}): {2} bytes",
-                            IccReader.GetStringFromUInt32(unchecked((uint)iccTagType)),
-                            (int)iccTagType,
-                            bytes.Length);
+                        return $"{IccReader.GetStringFromUInt32(unchecked((uint)iccTagType))} (0x{(int)iccTagType:X8}): {bytes.Length} bytes";
                     }
                 }
             }
@@ -317,7 +313,7 @@ namespace MetadataExtractor.Formats.Icc
                 case "TGNT":
                     return "Taligent, Inc.";
                 default:
-                    return string.Format("Unknown ({0})", str);
+                    return $"Unknown ({str})";
             }
         }
 
@@ -346,7 +342,7 @@ namespace MetadataExtractor.Formats.Icc
                 case "nmcl":
                     return "Named Color";
                 default:
-                    return string.Format("Unknown ({0})", str);
+                    return $"Unknown ({str})";
             }
         }
 
@@ -360,7 +356,7 @@ namespace MetadataExtractor.Formats.Icc
             var m = (byte)(value >> 24);
             var r = (byte)((value >> 20) & 0x0F);
             var R = (byte)((value >> 16) & 0x0F);
-            return string.Format("{0}.{1}.{2}", m, r, R);
+            return $"{m}.{r}.{R}";
         }
     }
 }

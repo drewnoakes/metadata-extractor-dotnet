@@ -215,9 +215,7 @@ namespace MetadataExtractor.Formats.Exif
             var whiteG = ints[3];
             var blackB = ints[4];
             var whiteB = ints[5];
-            return string.Format("[{0},{1},{2}] [{3},{4},{5}]",
-                blackR, blackG, blackB,
-                whiteR, whiteG, whiteB);
+            return $"[{blackR},{blackG},{blackB}] [{whiteR},{whiteG},{whiteB}]";
         }
 
         [CanBeNull]
@@ -227,7 +225,7 @@ namespace MetadataExtractor.Formats.Exif
             if (resolution == null)
                 return null;
             var unit = GetResolutionDescription();
-            return string.Format("{0} dots per {1}", resolution, unit == null ? "unit" : unit.ToLower());
+            return $"{resolution} dots per {(unit == null ? "unit" : unit.ToLower())}";
         }
 
         [CanBeNull]
@@ -237,7 +235,7 @@ namespace MetadataExtractor.Formats.Exif
             if (resolution == null)
                 return null;
             var unit = GetResolutionDescription();
-            return string.Format("{0} dots per {1}", resolution, unit == null ? "unit" : unit.ToLower());
+            return $"{resolution} dots per {(unit == null ? "unit" : unit.ToLower())}";
         }
 
         [CanBeNull]
@@ -981,7 +979,7 @@ namespace MetadataExtractor.Formats.Exif
         public string GetSubjectDistanceDescription()
         {
             var value = Directory.GetRational(ExifDirectoryBase.TagSubjectDistance);
-            return value == null ? null : string.Format("{0:0.0##} metres", value.ToDouble());
+            return value == null ? null : $"{value.ToDouble():0.0##} metres";
         }
 
         [CanBeNull]

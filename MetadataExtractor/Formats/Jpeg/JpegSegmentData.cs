@@ -63,7 +63,7 @@ namespace MetadataExtractor.Formats.Jpeg
             foreach (var segmentType in _segmentDataMap.Keys)
             {
                 if (!Enum.IsDefined(typeof (JpegSegmentType), segmentType))
-                    throw new InvalidOperationException(string.Format("Should not have a JpegSegmentType byte that is not in the enum: 0x{0:X}", segmentType));
+                    throw new InvalidOperationException($"Should not have a JpegSegmentType byte that is not in the enum: 0x{segmentType:X}");
                 segmentTypes.Add(segmentType);
             }
             return segmentTypes;

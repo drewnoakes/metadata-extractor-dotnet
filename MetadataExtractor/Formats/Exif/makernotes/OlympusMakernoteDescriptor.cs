@@ -246,7 +246,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagApexShutterSpeedTimeValue, out value))
                 return null;
             var shutterSpeed = Math.Pow((49 - value) / 8d, 2);
-            return string.Format("{0:0.###} sec", shutterSpeed);
+            return $"{shutterSpeed:0.###} sec";
         }
 
         [CanBeNull]
@@ -281,7 +281,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             long value;
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagExposureCompensation, out value)
-                ? string.Format("{0:0.##} EV", (value/3d - 2))
+                ? $"{(value/3d - 2):0.##} EV"
                 : null;
         }
 
@@ -380,7 +380,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!DateUtil.IsValidTime(hours, minutes, seconds))
                 return "Invalid date";
 
-            return string.Format("{0:D2}:{1:D2}:{2:D2}", hours, minutes, seconds);
+            return $"{hours:D2}:{minutes:D2}:{seconds:D2}";
         }
 
         [CanBeNull]
@@ -476,7 +476,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             long value;
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagFlashCompensation, out value)
-                ? string.Format("{0:0.##} EV", (value - 6) / 3d)
+                ? $"{(value - 6)/3d:0.##} EV"
                 : null;
         }
 

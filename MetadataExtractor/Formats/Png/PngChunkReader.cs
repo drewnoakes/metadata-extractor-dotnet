@@ -96,12 +96,12 @@ namespace MetadataExtractor.Formats.Png
                 reader.Skip(4);
 
                 if (willStoreChunk && seenChunkTypes.Contains(chunkType) && !chunkType.AreMultipleAllowed)
-                    throw new PngProcessingException(string.Format("Observed multiple instances of PNG chunk '{0}', for which multiples are not allowed", chunkType));
+                    throw new PngProcessingException($"Observed multiple instances of PNG chunk '{chunkType}', for which multiples are not allowed");
 
                 if (chunkType.Equals(PngChunkType.IHDR))
                     seenImageHeader = true;
                 else if (!seenImageHeader)
-                    throw new PngProcessingException(string.Format("First chunk should be '{0}', but '{1}' was observed", PngChunkType.IHDR, chunkType));
+                    throw new PngProcessingException($"First chunk should be '{PngChunkType.IHDR}', but '{chunkType}' was observed");
 
                 if (chunkType.Equals(PngChunkType.IEND))
                     seenImageTrailer = true;

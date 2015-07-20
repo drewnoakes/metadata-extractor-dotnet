@@ -165,7 +165,7 @@ namespace MetadataExtractor
         {
             string name;
             return !TryGetTagName(tagType, out name)
-                ? string.Format("Unknown tag (0x{0:x4})", tagType)
+                ? $"Unknown tag (0x{tagType:x4})"
                 : name;
         }
 
@@ -193,7 +193,7 @@ namespace MetadataExtractor
 
         public override string ToString()
         {
-            return string.Format("{0} Directory ({1} {2})", Name, _tagMap.Count, _tagMap.Count == 1 ? "tag" : "tags");
+            return $"{Name} Directory ({_tagMap.Count} {(_tagMap.Count == 1 ? "tag" : "tags")})";
         }
     }
 }

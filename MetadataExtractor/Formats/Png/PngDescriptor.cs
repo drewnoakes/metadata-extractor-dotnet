@@ -118,7 +118,7 @@ namespace MetadataExtractor.Formats.Png
 
             return pairs == null
                 ? null
-                : string.Join("\n", pairs.Select(kv => string.Format("{0}: {1}", kv.Key, kv.Value)));
+                : string.Join("\n", pairs.Select(kv => $"{kv.Key}: {kv.Value}"));
         }
 
         [CanBeNull]
@@ -137,12 +137,12 @@ namespace MetadataExtractor.Formats.Png
                     case 0:
                     case 4:
                         // TODO do we need to normalise these based upon the bit depth?
-                        return string.Format("Greyscale Level {0}", reader.GetUInt16());
+                        return $"Greyscale Level {reader.GetUInt16()}";
                     case 2:
                     case 6:
-                        return string.Format("R {0}, G {1}, B {2}", reader.GetUInt16(), reader.GetUInt16(), reader.GetUInt16());
+                        return $"R {reader.GetUInt16()}, G {reader.GetUInt16()}, B {reader.GetUInt16()}";
                     case 3:
-                        return string.Format("Palette Index {0}", reader.GetByte());
+                        return $"Palette Index {reader.GetByte()}";
                 }
             }
             catch (IOException)

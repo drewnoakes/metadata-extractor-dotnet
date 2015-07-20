@@ -228,7 +228,7 @@ namespace MetadataExtractor.Formats.Iptc
                     return "Corel Draw [.CDR]";
                 }
             }
-            return string.Format("Unknown ({0})", value);
+            return $"Unknown ({value})";
         }
 
         [CanBeNull]

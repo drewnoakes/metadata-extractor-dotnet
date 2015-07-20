@@ -408,7 +408,7 @@ namespace MetadataExtractor.Formats.Tiff
                 }
                 default:
                 {
-                    handler.Error(string.Format("Unknown format code {0} for tag {1}", formatCode, tagId));
+                    handler.Error($"Unknown format code {formatCode} for tag {tagId}");
                     break;
                 }
             }

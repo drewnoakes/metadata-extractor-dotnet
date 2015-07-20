@@ -139,7 +139,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                         }
                         catch (Exception e)
                         {
-                            description = string.Format("EXCEPTION: {0}", e.Message);
+                            description = $"EXCEPTION: {e.Message}";
                         }
 
                         Console.Out.WriteLine(

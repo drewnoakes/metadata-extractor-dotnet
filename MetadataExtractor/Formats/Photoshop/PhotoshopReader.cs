@@ -149,7 +149,7 @@ namespace MetadataExtractor.Formats.Photoshop
                     }
 
                     if (tagType >= 0x0fa0 && tagType <= 0x1387)
-                        PhotoshopDirectory.TagNameMap[tagType] = string.Format("Plug-in {0} Data", tagType - 0x0fa0 + 1);
+                        PhotoshopDirectory.TagNameMap[tagType] = $"Plug-in {tagType - 0x0fa0 + 1} Data";
                 }
                 catch (Exception ex)
                 {

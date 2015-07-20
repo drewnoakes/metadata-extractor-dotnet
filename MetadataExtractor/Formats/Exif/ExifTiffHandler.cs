@@ -62,7 +62,7 @@ namespace MetadataExtractor.Formats.Exif
             const int panasonicRawTiffMarker = 0x0055; // for RW2 files
 
             if (marker != standardTiffMarker && marker != olympusRawTiffMarker && marker != olympusRawTiffMarker2 && marker != panasonicRawTiffMarker)
-                throw new TiffProcessingException(string.Format("Unexpected TIFF marker: 0x{0:X}", marker));
+                throw new TiffProcessingException($"Unexpected TIFF marker: 0x{marker:X}");
         }
 
         public override bool IsTagIfdPointer(int tagType)

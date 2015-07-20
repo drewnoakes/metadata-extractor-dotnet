@@ -194,7 +194,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (value == 0)
                 return "Auto";
             var kelvin = ((value & 0x00FF0000) >> 8) | ((value & unchecked((int)(0xFF000000))) >> 24);
-            return string.Format("{0} K", kelvin);
+            return $"{kelvin} K";
         }
 
         [CanBeNull]
@@ -242,7 +242,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case 20:
                     return "LV5";
                 default:
-                    return string.Format("Unknown ({0})", value);
+                    return $"Unknown ({value})";
             }
         }
 
@@ -310,7 +310,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case 105:
                     return "Autumn Leaves";
                 default:
-                    return string.Format("Unknown ({0})", value);
+                    return $"Unknown ({value})";
             }
         }
 
@@ -332,7 +332,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case 0xFFFF:
                     return "N/A";
                 default:
-                    return string.Format("Unknown ({0})", value);
+                    return $"Unknown ({value})";
             }
         }
 
@@ -408,7 +408,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case 0xFFFF:
                     return "N/A";
                 default:
-                    return string.Format("Unknown ({0})", value);
+                    return $"Unknown ({value})";
             }
         }
 
@@ -430,7 +430,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case 0xFFFF:
                     return "N/A";
                 default:
-                    return string.Format("Unknown ({0})", value);
+                    return $"Unknown ({value})";
             }
         }
 
@@ -452,7 +452,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case 0xFFFF:
                     return "N/A";
                 default:
-                    return string.Format("Unknown ({0})", value);
+                    return $"Unknown ({value})";
             }
         }
 
@@ -472,7 +472,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case 0xFFFF:
                     return "N/A";
                 default:
-                    return string.Format("Unknown ({0})", value);
+                    return $"Unknown ({value})";
             }
         }
 
@@ -498,7 +498,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case 0xffff:
                     return "N/A";
                 default:
-                    return string.Format("Unknown ({0})", value);
+                    return $"Unknown ({value})";
             }
         }
 
@@ -584,7 +584,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case 114:
                     return "Illustration (high)";
                 default:
-                    return string.Format("Unknown ({0})", value);
+                    return $"Unknown ({value})";
             }
         }
 

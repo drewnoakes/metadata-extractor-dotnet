@@ -696,10 +696,9 @@ namespace MetadataExtractor
             var o = directory.GetObject(tagType);
 
             if (o == null)
-                throw new MetadataException(string.Format("No value exists for tag {0}.", directory.GetTagName(tagType)));
+                throw new MetadataException($"No value exists for tag {directory.GetTagName(tagType)}.");
 
-            throw new MetadataException(string.Format("Tag {0} cannot be converted to {1}.  It is of type {2} with value: {3}",
-                tagType, typeof(T).Name, o.GetType(), o));
+            throw new MetadataException($"Tag {tagType} cannot be converted to {typeof(T).Name}.  It is of type {o.GetType()} with value: {o}");
         }
     }
 }

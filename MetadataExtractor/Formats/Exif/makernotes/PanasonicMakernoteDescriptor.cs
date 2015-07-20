@@ -507,7 +507,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             var description = string.Join(Environment.NewLine,
-                faces.Select((f, i) => string.Format("Face {0}: {1}", i + 1, f)));
+                faces.Select((f, i) => $"Face {i + 1}: {f}"));
 
             return string.IsNullOrWhiteSpace(description) ? null : description;
         }

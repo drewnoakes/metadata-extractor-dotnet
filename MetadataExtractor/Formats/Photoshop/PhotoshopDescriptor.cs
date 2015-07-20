@@ -136,15 +136,15 @@ namespace MetadataExtractor.Formats.Photoshop
                         format = "Progressive";
                         break;
                     default:
-                        format = string.Format("Unknown (0x{0:X4})", f);
+                        format = $"Unknown (0x{f:X4})";
                         break;
                 }
 
                 var scans = s >= 1 && s <= 3
                     ? (s + 2).ToString()
-                    : string.Format("Unknown (0x{0:X4})", s);
+                    : $"Unknown (0x{s:X4})";
 
-                return string.Format("{0} ({1}), {2} format, {3} scans", q1, quality, format, scans);
+                return $"{q1} ({quality}), {format} format, {scans} scans";
             }
             catch
             {
@@ -191,13 +191,13 @@ namespace MetadataExtractor.Formats.Photoshop
                 switch (style)
                 {
                     case 0:
-                        return string.Format("Centered, Scale {0:0.0##}", scale);
+                        return $"Centered, Scale {scale:0.0##}";
                     case 1:
                         return "Size to fit";
                     case 2:
-                        return string.Format("User defined, X:{0} Y:{1}, Scale:{2:0.0##}", locX, locY, scale);
+                        return $"User defined, X:{locX} Y:{locY}, Scale:{scale:0.0##}";
                     default:
-                        return string.Format("Unknown {0:X4}, X:{1} Y:{2}, Scale:{3:0.0##}", style, locX, locY, scale);
+                        return $"Unknown {style:X4}, X:{locX} Y:{locY}, Scale:{scale:0.0##}";
                 }
             }
             catch
@@ -222,7 +222,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 var resY = reader.GetS15Fixed16(8);
 
                 // is this the correct offset? it's only reading 4 bytes each time
-                return string.Format("{0:0.##}x{1:0.##} DPI", resX, resY);
+                return $"{resX:0.##}x{resY:0.##} DPI";
             }
             catch
             {
@@ -256,7 +256,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 pos += writerLength * 2;
                 var fileVersion = reader.GetInt32(pos);
 
-                return string.Format("{0} ({1}, {2}) {3}", ver, readerStr, writerStr, fileVersion);
+                return $"{ver} ({readerStr}, {writerStr}) {fileVersion}";
             }
             catch
             {
@@ -280,7 +280,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 var name = reader.GetString(24, nameLength * 2, Encoding.BigEndianUnicode);
                 var pos = 24 + nameLength * 2;
                 var sliceCount = reader.GetInt32(pos);
-                return string.Format("{0} ({1},{2},{3},{4}) {5} Slices", name, reader.GetInt32(4), reader.GetInt32(8), reader.GetInt32(12), reader.GetInt32(16), sliceCount);
+                return $"{name} ({reader.GetInt32(4)},{reader.GetInt32(8)},{reader.GetInt32(12)},{reader.GetInt32(16)}) {sliceCount} Slices";
             }
             catch
             {
@@ -308,7 +308,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 var bpp = reader.GetInt32(24);
                 // skip Number of planes
 
-                return string.Format("{0}, {1}x{2}, Decomp {3} bytes, {4} bpp, {5} bytes", format == 1 ? "JpegRGB" : "RawRGB", width, height, totalSize, bpp, compSize);
+                return $"{(format == 1 ? "JpegRGB" : "RawRGB")}, {width}x{height}, Decomp {totalSize} bytes, {bpp} bpp, {compSize} bytes";
             }
             catch
             {
@@ -339,7 +339,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
             try
             {
-                return string.Format("{0}", reader.GetInt32(0));
+                return $"{reader.GetInt32(0)}";
             }
             catch
             {
@@ -364,7 +364,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
             return bytes == null
                 ? null
-                : string.Format("{0} bytes binary data", bytes.Length);
+                : $"{bytes.Length} bytes binary data";
         }
     }
 }

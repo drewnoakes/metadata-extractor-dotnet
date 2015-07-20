@@ -67,7 +67,7 @@ namespace MetadataExtractor
             // special presentation for long arrays
             var array = obj as Array;
             if (array != null && array.Length > 16)
-                return string.Format("[{0} {1}]", array.Length, array.Length == 1 ? "value" : "values");
+                return $"[{array.Length} {(array.Length == 1 ? "value" : "values")}]";
 
             // no special handling required, so use default conversion to a string
             return Directory.GetString(tagType);
@@ -146,7 +146,7 @@ namespace MetadataExtractor
             var bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
                 return null;
-            return string.Format("({0} byte{1})", bytes.Length, bytes.Length == 1 ? string.Empty : "s");
+            return $"({bytes.Length} byte{(bytes.Length == 1 ? string.Empty : "s")})";
         }
 
         [CanBeNull]
@@ -297,12 +297,12 @@ namespace MetadataExtractor
 
         protected static string GetFStopDescription(double fStop)
         {
-            return string.Format("f/{0:0.0}", fStop);
+            return $"f/{fStop:0.0}";
         }
 
         protected static string GetFocalLengthDescription(double mm)
         {
-            return string.Format("{0:0.#} mm", mm);
+            return $"{mm:0.#} mm";
         }
     }
 }

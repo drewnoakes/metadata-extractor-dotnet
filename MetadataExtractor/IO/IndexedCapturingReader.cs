@@ -76,11 +76,11 @@ namespace MetadataExtractor.IO
         protected override void ValidateIndex(int index, int bytesRequested)
         {
             if (index < 0)
-                throw new BufferBoundsException(string.Format("Attempt to read from buffer using a negative index ({0})", index));
+                throw new BufferBoundsException($"Attempt to read from buffer using a negative index ({index})");
             if (bytesRequested < 0)
                 throw new BufferBoundsException("Number of requested bytes must be zero or greater");
             if ((long)index + bytesRequested - 1 > int.MaxValue)
-                throw new BufferBoundsException(string.Format("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: {0}, requested count: {1})", index, bytesRequested));
+                throw new BufferBoundsException($"Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: {index}, requested count: {bytesRequested})");
 
             if (!IsValidIndex(index, bytesRequested))
             {

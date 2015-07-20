@@ -75,7 +75,7 @@ namespace MetadataExtractor.Formats.Xmp
         public string GetExposureTimeDescription()
         {
             var value = Directory.GetString(XmpDirectory.TagExposureTime);
-            return value == null ? null : string.Format("{0} sec", value);
+            return value == null ? null : $"{value} sec";
         }
 
         [CanBeNull]
@@ -107,12 +107,12 @@ namespace MetadataExtractor.Formats.Xmp
                 var apexPower = (float)(1 / (Math.Exp((double)value * Math.Log(2))));
                 var apexPower10 = (long)Math.Round(apexPower * 10.0);
                 var fApexPower = apexPower10 / 10.0f;
-                return string.Format("{0} sec", fApexPower);
+                return $"{fApexPower} sec";
             }
             else
             {
                 var apexPower = (int)((Math.Exp((double)value * Math.Log(2))));
-                return string.Format("1/{0} sec", apexPower);
+                return $"1/{apexPower} sec";
             }
         }
 

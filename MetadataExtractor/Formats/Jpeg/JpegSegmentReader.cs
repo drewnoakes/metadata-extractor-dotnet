@@ -76,7 +76,7 @@ namespace MetadataExtractor.Formats.Jpeg
             var magicNumber = reader.GetUInt16();
 
             if (magicNumber != 0xFFD8)
-                throw new JpegProcessingException(string.Format("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x{0:X4}", magicNumber));
+                throw new JpegProcessingException($"JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x{magicNumber:X4}");
 
             var segmentData = new JpegSegmentData();
             do
@@ -87,7 +87,7 @@ namespace MetadataExtractor.Formats.Jpeg
 
                 // We must have at least one 0xFF byte
                 if (segmentIdentifier != 0xFF)
-                    throw new JpegProcessingException(string.Format("Expected JPEG segment start identifier 0xFF, not 0x{0:X2}", segmentIdentifier));
+                    throw new JpegProcessingException($"Expected JPEG segment start identifier 0xFF, not 0x{segmentIdentifier:X2}");
 
                 // Read until we have a non-0xFF byte. This identifies the segment type.
                 var segmentTypeByte = reader.GetByte();

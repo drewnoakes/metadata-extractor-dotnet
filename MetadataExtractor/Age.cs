@@ -85,7 +85,7 @@ namespace MetadataExtractor
 
         public override string ToString()
         {
-            return string.Format("{0:D4}:{1:D2}:{2:D2} {3:D2}:{4:D2}:{5:D2}", Years, Months, Days, Hours, Minutes, Seconds);
+            return $"{Years:D4}:{Months:D2}:{Days:D2} {Hours:D2}:{Minutes:D2}:{Seconds:D2}";
         }
 
         public string ToFriendlyString()

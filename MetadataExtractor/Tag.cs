@@ -91,10 +91,7 @@ namespace MetadataExtractor
         /// <returns>The tag's type and value.</returns>
         public override string ToString()
         {
-            return string.Format("[{0}] {1} - {2}",
-                DirectoryName,
-                TagName,
-                Description ?? _directory.GetString(TagType) + " (unable to formulate description)");
+            return $"[{DirectoryName}] {TagName} - {Description ?? _directory.GetString(TagType) + " (unable to formulate description)"}";
         }
     }
 }

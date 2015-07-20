@@ -280,7 +280,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             var values = Directory.GetInt32Array(tagType);
             if (values == null || values.Length < 3 || values[2] == 0)
                 return null;
-            return string.Format("{0:0.##} EV", values[0] * values[1] / (double)values[2]);
+            return $"{values[0]*values[1]/(double)values[2]:0.##} EV";
         }
 
         [CanBeNull]

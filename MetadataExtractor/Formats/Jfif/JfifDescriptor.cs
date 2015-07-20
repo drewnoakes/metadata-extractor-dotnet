@@ -65,9 +65,7 @@ namespace MetadataExtractor.Formats.Jfif
             int value;
             if (!Directory.TryGetInt32(JfifDirectory.TagVersion, out value))
                 return null;
-            return string.Format("{0}.{1}",
-                (value & 0xFF00) >> 8,
-                 value & 0x00FF);
+            return $"{(value & 0xFF00) >> 8}.{value & 0x00FF}";
         }
 
         [CanBeNull]
@@ -76,7 +74,7 @@ namespace MetadataExtractor.Formats.Jfif
             int value;
             if (!Directory.TryGetInt32(JfifDirectory.TagResY, out value))
                 return null;
-            return string.Format("{0} dot{1}", value, value == 1 ? string.Empty : "s");
+            return $"{value} dot{(value == 1 ? string.Empty : "s")}";
         }
 
         [CanBeNull]
@@ -85,7 +83,7 @@ namespace MetadataExtractor.Formats.Jfif
             int value;
             if (!Directory.TryGetInt32(JfifDirectory.TagResX, out value))
                 return null;
-            return string.Format("{0} dot{1}", value, value == 1 ? string.Empty : "s");
+            return $"{value} dot{(value == 1 ? string.Empty : "s")}";
         }
 
         [CanBeNull]
