@@ -322,7 +322,7 @@ namespace MetadataExtractor.Formats.Exif
         /// </remarks>
         public const int TagMeteringMode = 0x9207;
 
-        public const int TagLightSource = 0x9208;
+        public const int TagLightSource = 0x9208; // TODO duplicate tag
 
         /// <summary>White balance (aka light source).</summary>
         /// <remarks>
@@ -331,7 +331,7 @@ namespace MetadataExtractor.Formats.Exif
         /// '18' standard light B, '19' standard light C, '20' D55, '21' D65,
         /// '22' D75, '255' other.
         /// </remarks>
-        public const int TagWhiteBalance = 0x9208;
+        public const int TagWhiteBalance = 0x9208; // TODO duplicate tag
 
         /// <summary>
         /// 0x0  = 0000000 = No Flash
@@ -706,8 +706,6 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagLens = 0xFDEA;
 
-        // TODO duplicate tag
-        // TODO duplicate tag
         protected static void AddExifTagNames(Dictionary<int, string> map)
         {
             map[TagInteropIndex] = "Interoperability Index";
