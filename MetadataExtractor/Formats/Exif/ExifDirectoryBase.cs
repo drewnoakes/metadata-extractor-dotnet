@@ -36,7 +36,6 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>The new subfile type tag.</summary>
         /// <remarks>
-        /// The new subfile type tag.
         /// 0 = Full-resolution Image
         /// 1 = Reduced-resolution image
         /// 2 = Single page of multi-page image
@@ -50,7 +49,6 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>The old subfile type tag.</summary>
         /// <remarks>
-        /// The old subfile type tag.
         /// 1 = Full-resolution image (Main image)
         /// 2 = Reduced-resolution image (Thumbnail)
         /// 3 = Single page of multi-page image
@@ -66,8 +64,7 @@ namespace MetadataExtractor.Formats.Exif
         /// per component for each pixel.
         /// </summary>
         /// <remarks>
-        /// When image format is no compression, this value shows the number of bits
-        /// per component for each pixel. Usually this value is '8,8,8'.
+        /// Usually this value is '8,8,8'.
         /// </remarks>
         public const int TagBitsPerSample = 0x0102;
 
@@ -75,7 +72,6 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>Shows the color space of the image data components.</summary>
         /// <remarks>
-        /// Shows the color space of the image data components.
         /// 0 = WhiteIsZero
         /// 1 = BlackIsZero
         /// 2 = RGB
@@ -137,12 +133,10 @@ namespace MetadataExtractor.Formats.Exif
         public const int TagYResolution = 0x011B;
 
         /// <summary>
-        /// When image format is no compression YCbCr, this value shows byte aligns of
-        /// YCbCr data.
+        /// When image format is no compression YCbCr, this value shows byte aligns of YCbCr data.
         /// </summary>
         /// <remarks>
-        /// When image format is no compression YCbCr, this value shows byte aligns of
-        /// YCbCr data. If value is '1', Y/Cb/Cr value is chunky format, contiguous for
+        /// If value is '1', Y/Cb/Cr value is chunky format, contiguous for
         /// each subsampling pixel. If value is '2', Y/Cb/Cr value is separated and
         /// stored to Y plane/Cb plane/Cr plane format.
         /// </remarks>
@@ -210,7 +204,7 @@ namespace MetadataExtractor.Formats.Exif
         public const int TagCopyright = 0x8298;
 
         /// <summary>Exposure time (reciprocal of shutter speed).</summary>
-        /// <remarks>Exposure time (reciprocal of shutter speed). Unit is second.</remarks>
+        /// <remarks>Unit is second.</remarks>
         public const int TagExposureTime = 0x829A;
 
         /// <summary>The actual F-number(F-stop) of lens when the image was taken.</summary>
@@ -222,7 +216,7 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>Exposure program that the camera used when image was taken.</summary>
         /// <remarks>
-        /// Exposure program that the camera used when image was taken. '1' means
+        /// '1' means
         /// manual control, '2' program normal, '3' aperture priority, '4' shutter
         /// priority, '5' program creative (slow program), '6' program action
         /// (high-speed program), '7' portrait mode, '8' landscape mode.
@@ -235,8 +229,6 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>Indicates the Opto-Electric Conversion Function (OECF) specified in ISO 14524.</summary>
         /// <remarks>
-        /// Indicates the Opto-Electric Conversion Function (OECF) specified in ISO 14524.
-        /// <para />
         /// OECF is the relationship between the camera optical input and the image values.
         /// <para />
         /// The values are:
@@ -256,7 +248,6 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>Applies to ISO tag.</summary>
         /// <remarks>
-        /// Applies to ISO tag.
         /// 0 = Unknown
         /// 1 = Standard Output Sensitivity
         /// 2 = Recommended Exposure Index
@@ -290,7 +281,7 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>Shutter speed by APEX value.</summary>
         /// <remarks>
-        /// Shutter speed by APEX value. To convert this value to ordinary 'Shutter Speed';
+        /// To convert this value to ordinary 'Shutter Speed';
         /// calculate this value's power of 2, then reciprocal. For example, if the
         /// ShutterSpeedValue is '4', shutter speed is 1/(24)=1/16 second.
         /// </remarks>
@@ -298,7 +289,7 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>The actual aperture value of lens when the image was taken.</summary>
         /// <remarks>
-        /// The actual aperture value of lens when the image was taken. Unit is APEX.
+        /// Unit is APEX.
         /// To convert this value to ordinary F-number (F-stop), calculate this value's
         /// power of root 2 (=1.4142). For example, if the ApertureValue is '5',
         /// F-number is 1.4142^5 = F5.6.
@@ -311,7 +302,7 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>Maximum aperture value of lens.</summary>
         /// <remarks>
-        /// Maximum aperture value of lens. You can convert to F-number by calculating
+        /// You can convert to F-number by calculating
         /// power of root 2 (same process of ApertureValue:0x9202).
         /// The actual aperture value of lens when the image was taken. To convert this
         /// value to ordinary f-number(f-stop), calculate the value's power of root 2
@@ -320,13 +311,13 @@ namespace MetadataExtractor.Formats.Exif
         public const int TagMaxAperture = 0x9205;
 
         /// <summary>Indicates the distance the autofocus camera is focused to.</summary>
-        /// <remarks>Indicates the distance the autofocus camera is focused to.  Tends to be less accurate as distance increases.</remarks>
+        /// <remarks>Tends to be less accurate as distance increases.</remarks>
         public const int TagSubjectDistance = 0x9206;
 
         /// <summary>Exposure metering method.</summary>
         /// <remarks>
-        /// Exposure metering method. '0' means unknown, '1' average, '2' center
-        /// weighted average, '3' spot, '4' multi-spot, '5' multi-segment, '6' partial,
+        /// '0' means unknown, '1' average, '2' center weighted average,
+        /// '3' spot, '4' multi-spot, '5' multi-segment, '6' partial,
         /// '255' other.
         /// </remarks>
         public const int TagMeteringMode = 0x9207;
@@ -335,7 +326,7 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>White balance (aka light source).</summary>
         /// <remarks>
-        /// White balance (aka light source). '0' means unknown, '1' daylight,
+        /// '0' means unknown, '1' daylight,
         /// '2' fluorescent, '3' tungsten, '10' flash, '17' standard light A,
         /// '18' standard light B, '19' standard light C, '20' D55, '21' D65,
         /// '22' D75, '255' other.
@@ -365,33 +356,7 @@ namespace MetadataExtractor.Formats.Exif
         /// 0x59 = 1011001 = Auto, Fired, Red-eye reduction
         /// 0x5d = 1011101 = Auto, Fired, Red-eye reduction, Return not detected
         /// 0x5f = 1011111 = Auto, Fired, Red-eye reduction, Return detected
-        /// 6543210 (positions)
-        /// This is a bitmask.
-        /// </summary>
-        /// <remarks>
-        /// 0x0  = 0000000 = No Flash
-        /// 0x1  = 0000001 = Fired
-        /// 0x5  = 0000101 = Fired, Return not detected
-        /// 0x7  = 0000111 = Fired, Return detected
-        /// 0x9  = 0001001 = On
-        /// 0xd  = 0001101 = On, Return not detected
-        /// 0xf  = 0001111 = On, Return detected
-        /// 0x10 = 0010000 = Off
-        /// 0x18 = 0011000 = Auto, Did not fire
-        /// 0x19 = 0011001 = Auto, Fired
-        /// 0x1d = 0011101 = Auto, Fired, Return not detected
-        /// 0x1f = 0011111 = Auto, Fired, Return detected
-        /// 0x20 = 0100000 = No flash function
-        /// 0x41 = 1000001 = Fired, Red-eye reduction
-        /// 0x45 = 1000101 = Fired, Red-eye reduction, Return not detected
-        /// 0x47 = 1000111 = Fired, Red-eye reduction, Return detected
-        /// 0x49 = 1001001 = On, Red-eye reduction
-        /// 0x4d = 1001101 = On, Red-eye reduction, Return not detected
-        /// 0x4f = 1001111 = On, Red-eye reduction, Return detected
-        /// 0x59 = 1011001 = Auto, Fired, Red-eye reduction
-        /// 0x5d = 1011101 = Auto, Fired, Red-eye reduction, Return not detected
-        /// 0x5f = 1011111 = Auto, Fired, Red-eye reduction, Return detected
-        /// 6543210 (positions)
+        ///        6543210 (positions)
         /// This is a bitmask.
         /// 0 = flash fired
         /// 1 = return detected
@@ -400,12 +365,12 @@ namespace MetadataExtractor.Formats.Exif
         /// 4 = auto used
         /// 5 = unknown
         /// 6 = red eye reduction used
-        /// </remarks>
+        /// </summary>
         public const int TagFlash = 0x9209;
 
         /// <summary>Focal length of lens used to take image.</summary>
         /// <remarks>
-        /// Focal length of lens used to take image.  Unit is millimeter.
+        /// Unit is millimeter.
         /// Nice digital cameras actually save the focal length as a function of how far they are zoomed in.
         /// </remarks>
         public const int TagFocalLength = 0x920A;
@@ -434,7 +399,7 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>This tag holds the Exif Makernote.</summary>
         /// <remarks>
-        /// This tag holds the Exif Makernote. Makernotes are free to be in any format, though they are often IFDs.
+        /// Makernotes are free to be in any format, though they are often IFDs.
         /// To determine the format, we consider the starting bytes of the makernote itself and sometimes the
         /// camera model and make.
         /// <para />
@@ -469,7 +434,7 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>Defines Color Space.</summary>
         /// <remarks>
-        /// Defines Color Space. DCF image must use sRGB color space so value is
+        /// DCF image must use sRGB color space so value is
         /// always '1'. If the picture uses the other color space, value is
         /// '65535':Uncalibrated.
         /// </remarks>
@@ -491,8 +456,7 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>Unit of FocalPlaneXResolution/FocalPlaneYResolution.</summary>
         /// <remarks>
-        /// Unit of FocalPlaneXResolution/FocalPlaneYResolution. '1' means no-unit,
-        /// '2' inch, '3' centimeter.
+        /// '1' means no-unit, '2' inch, '3' centimeter.
         /// Note: Some of Fujifilm's digicam(e.g.FX2700,FX2900,Finepix4700Z/40i etc)
         /// uses value '3' so it must be 'centimeter', but it seems that they use a
         /// '8.3mm?'(1/3in.?) to their ResolutionUnit. Fuji's BUG? Finepix4900Z has
@@ -517,8 +481,7 @@ namespace MetadataExtractor.Formats.Exif
         /// geared to output.
         /// </summary>
         /// <remarks>
-        /// This tag indicates the use of special processing on image data, such as rendering
-        /// geared to output. When special processing is performed, the reader is expected to
+        /// When special processing is performed, the reader is expected to
         /// disable or minimize any further processing.
         /// Tag = 41985 (A401.H)
         /// Type = SHORT
@@ -532,8 +495,8 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>This tag indicates the exposure mode set when the image was shot.</summary>
         /// <remarks>
-        /// This tag indicates the exposure mode set when the image was shot. In auto-bracketing
-        /// mode, the camera shoots a series of frames of the same scene at different exposure settings.
+        /// In auto-bracketing mode, the camera shoots a series of frames of the
+        /// same scene at different exposure settings.
         /// Tag = 41986 (A402.H)
         /// Type = SHORT
         /// Count = 1
@@ -547,7 +510,6 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>This tag indicates the white balance mode set when the image was shot.</summary>
         /// <remarks>
-        /// This tag indicates the white balance mode set when the image was shot.
         /// Tag = 41987 (A403.H)
         /// Type = SHORT
         /// Count = 1
@@ -560,8 +522,7 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>This tag indicates the digital zoom ratio when the image was shot.</summary>
         /// <remarks>
-        /// This tag indicates the digital zoom ratio when the image was shot. If the
-        /// numerator of the recorded value is 0, this indicates that digital zoom was
+        /// If the numerator of the recorded value is 0, this indicates that digital zoom was
         /// not used.
         /// Tag = 41988 (A404.H)
         /// Type = RATIONAL
@@ -571,12 +532,10 @@ namespace MetadataExtractor.Formats.Exif
         public const int TagDigitalZoomRatio = 0xA404;
 
         /// <summary>
-        /// This tag indicates the equivalent focal length assuming a 35mm film camera,
-        /// in mm.
+        /// This tag indicates the equivalent focal length assuming a 35mm film camera, in mm.
         /// </summary>
         /// <remarks>
-        /// This tag indicates the equivalent focal length assuming a 35mm film camera,
-        /// in mm. A value of 0 means the focal length is unknown. Note that this tag
+        /// A value of 0 means the focal length is unknown. Note that this tag
         /// differs from the FocalLength tag.
         /// Tag = 41989 (A405.H)
         /// Type = SHORT
@@ -587,7 +546,7 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>This tag indicates the type of scene that was shot.</summary>
         /// <remarks>
-        /// This tag indicates the type of scene that was shot. It can also be used to
+        /// It can also be used to
         /// record the mode in which the image was shot. Note that this differs from
         /// the scene type (SceneType) tag.
         /// Tag = 41990 (A406.H)
@@ -604,7 +563,6 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>This tag indicates the degree of overall image gain adjustment.</summary>
         /// <remarks>
-        /// This tag indicates the degree of overall image gain adjustment.
         /// Tag = 41991 (A407.H)
         /// Type = SHORT
         /// Count = 1
@@ -623,8 +581,6 @@ namespace MetadataExtractor.Formats.Exif
         /// when the image was shot.
         /// </summary>
         /// <remarks>
-        /// This tag indicates the direction of contrast processing applied by the camera
-        /// when the image was shot.
         /// Tag = 41992 (A408.H)
         /// Type = SHORT
         /// Count = 1
@@ -641,8 +597,6 @@ namespace MetadataExtractor.Formats.Exif
         /// when the image was shot.
         /// </summary>
         /// <remarks>
-        /// This tag indicates the direction of saturation processing applied by the camera
-        /// when the image was shot.
         /// Tag = 41993 (A409.H)
         /// Type = SHORT
         /// Count = 1
@@ -659,8 +613,6 @@ namespace MetadataExtractor.Formats.Exif
         /// when the image was shot.
         /// </summary>
         /// <remarks>
-        /// This tag indicates the direction of sharpness processing applied by the camera
-        /// when the image was shot.
         /// Tag = 41994 (A40A.H)
         /// Type = SHORT
         /// Count = 1
@@ -677,9 +629,7 @@ namespace MetadataExtractor.Formats.Exif
         /// camera model.
         /// </summary>
         /// <remarks>
-        /// This tag indicates information on the picture-taking conditions of a particular
-        /// camera model. The tag is used only to indicate the picture-taking conditions in
-        /// the reader.
+        /// The tag is used only to indicate the picture-taking conditions in the reader.
         /// Tag = 41995 (A40B.H)
         /// Type = UNDEFINED
         /// Count = Any
@@ -702,7 +652,6 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>This tag indicates the distance to the subject.</summary>
         /// <remarks>
-        /// This tag indicates the distance to the subject.
         /// Tag = 41996 (A40C.H)
         /// Type = SHORT
         /// Count = 1
@@ -717,8 +666,7 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>This tag indicates an identifier assigned uniquely to each image.</summary>
         /// <remarks>
-        /// This tag indicates an identifier assigned uniquely to each image. It is
-        /// recorded as an ASCII string equivalent to hexadecimal notation and 128-bit
+        /// It is recorded as an ASCII string equivalent to hexadecimal notation and 128-bit
         /// fixed length.
         /// Tag = 42016 (A420.H)
         /// Type = ASCII
