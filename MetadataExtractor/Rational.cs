@@ -304,6 +304,21 @@ namespace MetadataExtractor
             return this;
         }
 
+        #region Equality operators
+
+        public static bool operator==(Rational a, Rational b)
+        {
+            return Equals(a, b);
+        }
+
+        public static bool operator!=(Rational a, Rational b)
+        {
+            return !Equals(a, b);
+        }
+
+        #endregion
+
+
         #region RationalConverter
 
         private sealed class RationalConverter : TypeConverter

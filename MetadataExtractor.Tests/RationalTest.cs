@@ -157,5 +157,18 @@ namespace MetadataExtractor.Tests
             Assert.Throws<NotSupportedException>(() => Convert.ToChar(new Rational(123, 10)));
             Assert.Throws<NotSupportedException>(() => Convert.ToDateTime(new Rational(123, 10)));
         }
+
+        [Fact]
+        public void EqualityOperators()
+        {
+            Assert.True(new Rational(1, 2) == new Rational(1, 2));
+            Assert.True(new Rational(1, 2) != new Rational(2, 1));
+
+            Assert.True(new Rational(1, 2) == new Rational(2, 4));
+            Assert.True(new Rational(0, 0) == new Rational(0, 0));
+
+            Assert.True(new Rational(0, 1) == new Rational(0, 0));
+            Assert.True(new Rational(1, 0) == new Rational(0, 0));
+        }
     }
 }
