@@ -93,13 +93,9 @@ namespace MetadataExtractor
         {
             var value = Math.Abs(degs.ToDouble()) + mins.ToDouble()/60.0d + secs.ToDouble()/3600.0d;
             if (double.IsNaN(value))
-            {
                 return null;
-            }
             if (isNegative)
-            {
                 value *= -1;
-            }
             return value;
         }
 
