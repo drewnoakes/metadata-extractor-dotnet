@@ -658,7 +658,7 @@ namespace MetadataExtractor
                         str.Append(vals[i]);
                     }
                 }
-                else
+                else if (componentType.IsByRef)
                 {
                     var vals = (object[])array;
                     for (var i = 0; i < vals.Length; i++)
@@ -666,6 +666,15 @@ namespace MetadataExtractor
                         if (i != 0)
                             str.Append(' ');
                         str.Append(vals[i]);
+                    }
+                }
+                else
+                {
+                    for (var i = 0; i < array.Length; i++)
+                    {
+                        if (i != 0)
+                            str.Append(' ');
+                        str.Append(array.GetValue(i));
                     }
                 }
 
