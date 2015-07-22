@@ -223,8 +223,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetDigitalZoomDescription()
         {
-            var value = Directory.GetRational(NikonType2MakernoteDirectory.TagDigitalZoom);
-            if (value == null)
+            Rational value;
+            if (!Directory.TryGetRational(NikonType2MakernoteDirectory.TagDigitalZoom, out value))
                 return null;
 
             return value.ToInt32() == 1

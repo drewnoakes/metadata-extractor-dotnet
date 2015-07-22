@@ -94,7 +94,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
         {
             var directory = ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             var rational = directory.GetRational(ExifDirectoryBase.TagXResolution);
-            Assert.NotNull(rational);
             Assert.Equal(72, rational.Numerator);
             Assert.Equal(1, rational.Denominator);
         }
@@ -104,7 +103,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
         {
             var directory = ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
             var rational = directory.GetRational(ExifDirectoryBase.TagYResolution);
-            Assert.NotNull(rational);
             Assert.Equal(72, rational.Numerator);
             Assert.Equal(1, rational.Denominator);
         }

@@ -462,29 +462,55 @@ namespace MetadataExtractor
 
         #endregion
 
+        #region Rational
+
+        public static Rational GetRational(this Directory directory, int tagType)
+        {
+            Rational value;
+            if (directory.TryGetRational(tagType, out value))
+                return value;
+
+            return ThrowValueNotPossible<Rational>(directory, tagType);
+        }
+
         /// <summary>Returns the specified tag's value as a Rational.</summary>
         /// <remarks>If the value is unset or cannot be converted, <c>null</c> is returned.</remarks>
         [CanBeNull]
-        public static Rational GetRational(this Directory directory, int tagType)
+        public static bool TryGetRational(this Directory directory, int tagType, out Rational value)
         {
             var o = directory.GetObject(tagType);
 
             if (o == null)
-                return null;
+            {
+                value = default(Rational);
+                return false;
+            }
 
-            var rational = o as Rational;
-            if (rational != null)
-                return rational;
+            if (o is Rational)
+            {
+                value = (Rational)o;
+                return true;
+            }
 
             if (o is int?)
-                return new Rational((int)o, 1);
+            {
+                value = new Rational((int)o, 1);
+                return true;
+            }
 
             if (o is long?)
-                return new Rational((long)o, 1);
+            {
+                value = new Rational((long)o, 1);
+                return true;
+            }
 
             // NOTE not doing conversions for real number types
-            return null;
+
+            value = default(Rational);
+            return false;
         }
+
+        #endregion
 
         /// <summary>Returns the specified tag's value as an array of Rational.</summary>
         /// <remarks>If the value is unset or cannot be converted, <c>null</c> is returned.</remarks>
@@ -510,9 +536,8 @@ namespace MetadataExtractor
             if (o == null)
                 return null;
 
-            var rational = o as Rational;
-            if (rational != null)
-                return rational.ToSimpleString();
+            if (o is Rational)
+                return ((Rational)o).ToSimpleString();
 
             if (o is DateTime)
             {
@@ -606,6 +631,16 @@ namespace MetadataExtractor
                 else if (componentType == typeof(sbyte))
                 {
                     var vals = (sbyte[])array;
+                    for (var i = 0; i < vals.Length; i++)
+                    {
+                        if (i != 0)
+                            str.Append(' ');
+                        str.Append(vals[i]);
+                    }
+                }
+                else if (componentType == typeof(Rational))
+                {
+                    var vals = (Rational[])array;
                     for (var i = 0; i < vals.Length; i++)
                     {
                         if (i != 0)

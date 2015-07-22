@@ -39,7 +39,7 @@ namespace MetadataExtractor
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [Serializable]
     [TypeConverter(typeof(RationalConverter))]
-    public sealed class Rational : IConvertible
+    public struct Rational : IConvertible
     {
         /// <summary>Gets the denominator.</summary>
         public long Denominator { get; }

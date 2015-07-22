@@ -153,14 +153,17 @@ namespace MetadataExtractor
         [CanBeNull]
         protected string GetSimpleRational(int tagType)
         {
-            return Directory.GetRational(tagType)?.ToSimpleString();
+            Rational value;
+            if (!Directory.TryGetRational(tagType, out value))
+                return null;
+            return value.ToSimpleString();
         }
 
         [CanBeNull]
         protected string GetDecimalRational(int tagType, int decimalPlaces)
         {
-            var value = Directory.GetRational(tagType);
-            if (value == null)
+            Rational value;
+            if (!Directory.TryGetRational(tagType, out value))
                 return null;
             return string.Format("{0:F" + decimalPlaces + "}", value.ToDouble());
         }
@@ -265,9 +268,8 @@ namespace MetadataExtractor
         [CanBeNull]
         protected string GetRationalOrDoubleString(int tagType)
         {
-            var rational = Directory.GetRational(tagType);
-
-            if (rational != null)
+            Rational rational;
+            if (Directory.TryGetRational(tagType, out rational))
                 return rational.ToSimpleString();
 
             double d;

@@ -548,8 +548,12 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetDigitalZoomRatioDescription()
         {
-            var value = Directory.GetRational(ExifDirectoryBase.TagDigitalZoomRatio);
-            return value == null ? null : value.Numerator == 0 ? "Digital zoom not used" : value.ToDouble().ToString("0.#");
+            Rational value;
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagDigitalZoomRatio, out value))
+                return null;
+            return value.Numerator == 0 
+                ? "Digital zoom not used" 
+                : value.ToDouble().ToString("0.#");
         }
 
         [CanBeNull]
@@ -671,8 +675,8 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetExposureBiasDescription()
         {
-            var value = Directory.GetRational(ExifDirectoryBase.TagExposureBias);
-            if (value == null)
+            Rational value;
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagExposureBias, out value))
                 return null;
             return value.ToSimpleString() + " EV";
         }
@@ -712,21 +716,21 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetFocalPlaneXResolutionDescription()
         {
-            var rational = Directory.GetRational(ExifDirectoryBase.TagFocalPlaneXResolution);
-            if (rational == null)
+            Rational value;
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagFocalPlaneXResolution, out value))
                 return null;
             var unit = GetFocalPlaneResolutionUnitDescription();
-            return rational.Reciprocal.ToSimpleString() + (unit == null ? string.Empty : " " + unit.ToLower());
+            return value.Reciprocal.ToSimpleString() + (unit == null ? string.Empty : " " + unit.ToLower());
         }
 
         [CanBeNull]
         public string GetFocalPlaneYResolutionDescription()
         {
-            var rational = Directory.GetRational(ExifDirectoryBase.TagFocalPlaneYResolution);
-            if (rational == null)
+            Rational value;
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagFocalPlaneYResolution, out value))
                 return null;
             var unit = GetFocalPlaneResolutionUnitDescription();
-            return rational.Reciprocal.ToSimpleString() + (unit == null ? string.Empty : " " + unit.ToLower());
+            return value.Reciprocal.ToSimpleString() + (unit == null ? string.Empty : " " + unit.ToLower());
         }
 
         [CanBeNull]
@@ -774,8 +778,10 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetFocalLengthDescription()
         {
-            var value = Directory.GetRational(ExifDirectoryBase.TagFocalLength);
-            return value == null ? null : GetFocalLengthDescription(value.ToDouble());
+            Rational value;
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagFocalLength, out value))
+                return null;
+            return GetFocalLengthDescription(value.ToDouble());
         }
 
         [CanBeNull]
@@ -976,15 +982,17 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetSubjectDistanceDescription()
         {
-            var value = Directory.GetRational(ExifDirectoryBase.TagSubjectDistance);
-            return value == null ? null : $"{value.ToDouble():0.0##} metres";
+            Rational value;
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagSubjectDistance, out value))
+                return null;
+            return $"{value.ToDouble():0.0##} metres";
         }
 
         [CanBeNull]
         public string GetCompressedAverageBitsPerPixelDescription()
         {
-            var value = Directory.GetRational(ExifDirectoryBase.TagCompressedAverageBitsPerPixel);
-            if (value == null)
+            Rational value;
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagCompressedAverageBitsPerPixel, out value))
                 return null;
             var ratio = value.ToSimpleString();
             return value.IsInteger && value.ToInt32() == 1 ? ratio + " bit/pixel" : ratio + " bits/pixel";
@@ -1030,8 +1038,10 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetFNumberDescription()
         {
-            var value = Directory.GetRational(ExifDirectoryBase.TagFnumber);
-            return value == null ? null : GetFStopDescription(value.ToDouble());
+            Rational value;
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagFnumber, out value))
+                return null;
+            return GetFStopDescription(value.ToDouble());
         }
 
         [CanBeNull]

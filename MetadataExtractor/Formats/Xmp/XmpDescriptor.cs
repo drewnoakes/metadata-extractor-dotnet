@@ -119,8 +119,8 @@ namespace MetadataExtractor.Formats.Xmp
         [CanBeNull]
         public string GetFNumberDescription()
         {
-            var value = Directory.GetRational(XmpDirectory.TagFNumber);
-            if (value == null)
+            Rational value;
+            if (!Directory.TryGetRational(XmpDirectory.TagFNumber, out value))
                 return null;
             return GetFStopDescription(value.ToDouble());
         }
@@ -128,8 +128,10 @@ namespace MetadataExtractor.Formats.Xmp
         [CanBeNull]
         public string GetFocalLengthDescription()
         {
-            var value = Directory.GetRational(XmpDirectory.TagFocalLength);
-            return value == null ? null : GetFocalLengthDescription(value.ToDouble());
+            Rational value;
+            if (!Directory.TryGetRational(XmpDirectory.TagFocalLength, out value))
+                return null;
+            return GetFocalLengthDescription(value.ToDouble());
         }
 
         [CanBeNull]

@@ -328,8 +328,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFlashExposureValueDescription()
         {
-            var value = Directory.GetRational(FujifilmMakernoteDirectory.TagFlashEv);
-            return value == null ? null : value.ToSimpleString(false) + " EV (Apex)";
+            Rational value;
+            if (!Directory.TryGetRational(FujifilmMakernoteDirectory.TagFlashEv, out value))
+                return null;
+            return value.ToSimpleString(allowDecimal: false) + " EV (Apex)";
         }
 
         [CanBeNull]
