@@ -77,12 +77,12 @@ namespace MetadataExtractor.Formats.Exif
             catch (TiffProcessingException e)
             {
                 // TODO what do to with this error state?
-                Console.Error.WriteLine (e);
+                Console.Error.WriteLine(e);
             }
             catch (IOException e)
             {
                 // TODO what do to with this error state?
-                Console.Error.WriteLine (e);
+                Console.Error.WriteLine(e);
             }
 
             return directories;
