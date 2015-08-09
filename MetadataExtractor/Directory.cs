@@ -69,8 +69,8 @@ namespace MetadataExtractor
         /// <returns>true if a value exists for the specified tag type, false if not</returns>
         public bool ContainsTag(int tagType) => _tagMap.ContainsKey(tagType);
 
-        /// <summary>Returns an Iterator of Tag instances that have been set in this Directory.</summary>
-        /// <value>The list of <see cref="Tag"/> instances</value>
+        /// <summary>Returns all <see cref="Tag"/> objects that have been set in this <see cref="Directory"/>.</summary>
+        /// <value>The list of <see cref="Tag"/> objects.</value>
         [NotNull]
         public IReadOnlyList<Tag> Tags => _definedTagList;
 
