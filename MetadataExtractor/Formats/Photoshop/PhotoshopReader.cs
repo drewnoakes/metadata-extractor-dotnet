@@ -54,7 +54,13 @@ namespace MetadataExtractor.Formats.Photoshop
             yield return JpegSegmentType.AppD;
         }
 
-        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+        public
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
         {
             var preambleLength = JpegSegmentPreamble.Length;
             return segments
@@ -63,7 +69,13 @@ namespace MetadataExtractor.Formats.Photoshop
                 .ToList();
         }
 
-        public IReadOnlyList<Directory> Extract([NotNull] SequentialReader reader, int length)
+        public
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            Extract([NotNull] SequentialReader reader, int length)
         {
             var directory = new PhotoshopDirectory();
 

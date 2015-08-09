@@ -34,7 +34,7 @@ namespace MetadataExtractor.Formats.FileSystem
         {
             var attr = File.GetAttributes(file);
 
-            if (attr.HasFlag(FileAttributes.Directory))
+            if ((attr & FileAttributes.Directory) != 0)
                 throw new IOException("File object must reference a file");
 
             var fileInfo = new FileInfo(file);

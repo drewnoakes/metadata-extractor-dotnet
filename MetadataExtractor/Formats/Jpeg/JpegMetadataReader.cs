@@ -61,7 +61,13 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
+        public static
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadMetadata([NotNull] Stream stream, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
         {
             return Process(stream, readers);
         }
@@ -69,7 +75,13 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
+        public static
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadMetadata([NotNull] string filePath, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
         {
             var directories = new List<Directory>();
 
@@ -83,7 +95,13 @@ namespace MetadataExtractor.Formats.Jpeg
 
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        public static IReadOnlyList<Directory> Process([NotNull] Stream stream, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
+        public static
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            Process([NotNull] Stream stream, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
         {
             if (readers == null)
                 readers = _allReaders;
@@ -93,7 +111,13 @@ namespace MetadataExtractor.Formats.Jpeg
             return ProcessJpegSegmentData(readers, segmentData);
         }
 
-        public static IReadOnlyList<Directory> ProcessJpegSegmentData(IEnumerable<IJpegSegmentMetadataReader> readers, JpegSegmentData segmentData)
+        public static
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ProcessJpegSegmentData(IEnumerable<IJpegSegmentMetadataReader> readers, JpegSegmentData segmentData)
         {
             // Pass the appropriate byte arrays to each reader.
             return (from reader in readers

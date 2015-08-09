@@ -56,7 +56,13 @@ namespace MetadataExtractor.Formats.Icc
             yield return JpegSegmentType.App2;
         }
 
-        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+        public
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
         {
             // ICC data can be spread across multiple JPEG segments.
 

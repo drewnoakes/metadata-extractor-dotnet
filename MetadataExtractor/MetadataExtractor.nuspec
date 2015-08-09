@@ -25,7 +25,9 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\MetadataExtractor.dll" target="lib\net45\" />
-    <file src="bin\Release\MetadataExtractor.xml" target="lib\net45\" />
+    <file src="bin\Release\net35\MetadataExtractor.dll" target="lib\net35\" />
+    <file src="bin\Release\net35\MetadataExtractor.xml" target="lib\net35\" />
+    <file src="bin\Release\net45\MetadataExtractor.dll" target="lib\net45\" />
+    <file src="bin\Release\net45\MetadataExtractor.xml" target="lib\net45\" />
   </files>
 </package>

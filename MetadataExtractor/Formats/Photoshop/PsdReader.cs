@@ -34,7 +34,13 @@ namespace MetadataExtractor.Formats.Photoshop
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PsdReader
     {
-        public IReadOnlyList<Directory> Extract([NotNull] SequentialReader reader)
+        public
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            Extract([NotNull] SequentialReader reader)
         {
             var directory = new PsdHeaderDirectory();
 
@@ -80,7 +86,7 @@ namespace MetadataExtractor.Formats.Photoshop
             if (directory.HasError)
                 return new[] { directory };
 
-            IReadOnlyList<Directory> photoshopDirectories = null;
+            IEnumerable<Directory> photoshopDirectories = null;
 
             try
             {

@@ -38,7 +38,13 @@ namespace MetadataExtractor.Formats.Raf
     public static class RafMetadataReader
     {
         [NotNull]
-        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
+        public static
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadMetadata([NotNull] Stream stream)
         {
             if (!stream.CanSeek)
                 throw new ArgumentException("Must support seek", nameof(stream));

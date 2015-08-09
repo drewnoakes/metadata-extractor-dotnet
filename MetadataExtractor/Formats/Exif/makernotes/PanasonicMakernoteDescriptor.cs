@@ -506,9 +506,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             var description = string.Join(Environment.NewLine,
-                faces.Select((f, i) => $"Face {i + 1}: {f}"));
+                faces.Select((f, i) => $"Face {i + 1}: {f}")
+#if NET35
+                .ToArray()
+#endif
+                );
 
-            return string.IsNullOrWhiteSpace(description) ? null : description;
+            return description.Length == 0 ? null : description;
         }
 
         private static readonly string[] _sceneModes =

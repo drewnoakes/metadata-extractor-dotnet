@@ -77,7 +77,13 @@ namespace MetadataExtractor.Formats.Xmp
             yield return JpegSegmentType.App1;
         }
 
-        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+        public
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
         {
             var directories = new List<Directory>();
 

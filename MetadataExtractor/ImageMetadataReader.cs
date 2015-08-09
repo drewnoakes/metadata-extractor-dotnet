@@ -74,7 +74,13 @@ namespace MetadataExtractor
         /// <exception cref="ImageProcessingException">The file type is unknown, or processing errors occurred.</exception>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
+        public static
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadMetadata([NotNull] Stream stream)
         {
             var fileType = FileTypeDetector.DetectFileType(stream);
 
@@ -117,7 +123,13 @@ namespace MetadataExtractor
         /// <exception cref="ImageProcessingException">The file type is unknown, or processing errors occurred.</exception>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
+        public static
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadMetadata([NotNull] string filePath)
         {
             var directories = new List<Directory>();
 

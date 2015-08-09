@@ -38,7 +38,13 @@ namespace MetadataExtractor.Formats.WebP
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="RiffProcessingException"/>
         [NotNull]
-        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
+        public static
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadMetadata([NotNull] string filePath)
         {
             var directories = new List<Directory>();
 
@@ -53,7 +59,13 @@ namespace MetadataExtractor.Formats.WebP
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="RiffProcessingException"/>
         [NotNull]
-        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
+        public static
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadMetadata([NotNull] Stream stream)
         {
             var directories = new List<Directory>();
             new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new WebPRiffHandler(directories));

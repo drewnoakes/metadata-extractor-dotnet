@@ -44,11 +44,20 @@ namespace MetadataExtractor.Formats.Adobe
             yield return JpegSegmentType.AppE;
         }
 
-        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+        public
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
         {
             return segments
                 .Where(segment => segment.Length == 12 && Preamble.Equals(Encoding.ASCII.GetString(segment, 0, Preamble.Length), StringComparison.OrdinalIgnoreCase))
                 .Select(bytes => Extract(new SequentialByteArrayReader(bytes)))
+#if NET35
+                .Cast<Directory>()
+#endif
                 .ToList();
         }
 

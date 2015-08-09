@@ -40,14 +40,24 @@ namespace MetadataExtractor.Formats.Jpeg
         }
 
         /// <summary>Reads JPEG comments, returning each in a <see cref="JpegCommentDirectory"/>.</summary>
-        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+        public
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
         {
             Debug.Assert(segmentType == JpegSegmentType.Com);
 
             // TODO store bytes in the directory to allow different encodings when decoding
 
             // The entire contents of the segment are the comment
-            return segments.Select(segment => new JpegCommentDirectory(Encoding.UTF8.GetString(segment))).ToList();
+            return segments.Select(segment => new JpegCommentDirectory(Encoding.UTF8.GetString(segment)))
+#if NET35
+                .Cast<Directory>()
+#endif
+                .ToList();
         }
     }
 }

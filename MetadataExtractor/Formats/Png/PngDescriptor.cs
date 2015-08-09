@@ -117,7 +117,13 @@ namespace MetadataExtractor.Formats.Png
 
             return pairs == null
                 ? null
-                : string.Join("\n", pairs.Select(kv => $"{kv.Key}: {kv.Value}"));
+                : string.Join(
+                    "\n",
+                    pairs.Select(kv => $"{kv.Key}: {kv.Value}")
+#if NET35
+                    .ToArray()
+#endif
+                    );
         }
 
         [CanBeNull]

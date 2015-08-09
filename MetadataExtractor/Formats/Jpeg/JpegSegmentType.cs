@@ -155,11 +155,6 @@ namespace MetadataExtractor.Formats.Jpeg
 
     public static class JpegSegmentTypeExtensions
     {
-        static JpegSegmentTypeExtensions()
-        {
-            CanContainMetadataTypes = Enum.GetValues(typeof (JpegSegmentType)).Cast<JpegSegmentType>().Where(type => type.CanContainMetadata()).ToList();
-        }
-
         public static bool CanContainMetadata(this JpegSegmentType type)
         {
             switch (type)
@@ -173,6 +168,11 @@ namespace MetadataExtractor.Formats.Jpeg
             }
         }
 
-        public static IReadOnlyList<JpegSegmentType> CanContainMetadataTypes { get; private set; }
+#if NET35
+        public static IEnumerable<JpegSegmentType> CanContainMetadataTypes { get; }
+#else
+        public static IReadOnlyList<JpegSegmentType> CanContainMetadataTypes { get; }
+#endif
+            = Enum.GetValues(typeof(JpegSegmentType)).Cast<JpegSegmentType>().Where(type => type.CanContainMetadata()).ToList();
     }
 }

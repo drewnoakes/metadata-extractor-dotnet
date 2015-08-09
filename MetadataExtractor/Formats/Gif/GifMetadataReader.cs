@@ -36,7 +36,13 @@ namespace MetadataExtractor.Formats.Gif
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
+        public static
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadMetadata([NotNull] string filePath)
         {
             var directories = new List<Directory>(2);
 

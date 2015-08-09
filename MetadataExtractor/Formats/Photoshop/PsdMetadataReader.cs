@@ -36,7 +36,13 @@ namespace MetadataExtractor.Formats.Photoshop
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
+        public static
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadMetadata([NotNull] string filePath)
         {
             var directories = new List<Directory>();
 
@@ -49,7 +55,13 @@ namespace MetadataExtractor.Formats.Photoshop
         }
 
         [NotNull]
-        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
+        public static
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadMetadata([NotNull] Stream stream)
         {
             return new PsdReader().Extract(new SequentialStreamReader(stream));
         }

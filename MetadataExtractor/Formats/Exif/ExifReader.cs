@@ -52,7 +52,13 @@ namespace MetadataExtractor.Formats.Exif
             yield return JpegSegmentType.App1;
         }
 
-        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+        public
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
         {
             Debug.Assert(segmentType == JpegSegmentType.App1);
 
@@ -65,7 +71,13 @@ namespace MetadataExtractor.Formats.Exif
         /// <summary>
         /// Reads TIFF formatted Exif data a specified offset within a <see cref="IndexedReader"/>.
         /// </summary>
-        public IReadOnlyList<Directory> Extract(IndexedReader reader, int readerOffset = 0)
+        public
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            Extract(IndexedReader reader, int readerOffset = 0)
         {
             var directories = new List<Directory>();
 

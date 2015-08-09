@@ -72,7 +72,13 @@ namespace MetadataExtractor
         /// <summary>Returns all <see cref="Tag"/> objects that have been set in this <see cref="Directory"/>.</summary>
         /// <value>The list of <see cref="Tag"/> objects.</value>
         [NotNull]
-        public IReadOnlyList<Tag> Tags => _definedTagList;
+        public
+#if NET35
+            IEnumerable<Tag>
+#else
+            IReadOnlyList<Tag>
+#endif
+            Tags => _definedTagList;
 
         /// <summary>Returns the number of tags set in this Directory.</summary>
         /// <value>the number of tags set in this Directory</value>
@@ -102,7 +108,13 @@ namespace MetadataExtractor
         /// <summary>Used to iterate over any error messages contained in this directory.</summary>
         /// <value>The collection of error message strings.</value>
         [NotNull]
-        public IReadOnlyCollection<string> Errors => _errorList;
+        public
+#if NET35
+            IEnumerable<string>
+#else
+            IReadOnlyList<string>
+#endif
+            Errors => _errorList;
 
         #endregion
 

@@ -47,9 +47,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MetadataExtractor\MetadataExtractor.csproj">
+    <ProjectReference Include="..\MetadataExtractor\MetadataExtractor.net45.csproj">
       <Project>{26E27564-A74F-423B-A986-E979988F259D}</Project>
-      <Name>MetadataExtractor</Name>
+      <Name>MetadataExtractor.net45</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

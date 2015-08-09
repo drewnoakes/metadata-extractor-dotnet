@@ -42,12 +42,21 @@ namespace MetadataExtractor.Formats.Photoshop
             yield return JpegSegmentType.AppC;
         }
 
-        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+        public
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
         {
             // Skip segments not starting with the required header
             return segments
                 .Where(segment => segment.Length >= Preamble.Length && Preamble == Encoding.ASCII.GetString(segment, 0, Preamble.Length))
                 .Select(segment => Extract(new SequentialByteArrayReader(segment, Preamble.Length)))
+#if NET35
+                .Cast<Directory>()
+#endif
                 .ToList();
         }
 
