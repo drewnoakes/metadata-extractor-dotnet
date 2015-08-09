@@ -20,7 +20,7 @@
     <copyright>Copyright Drew Noakes 2015</copyright>
     <tags>Metadata Exif IPTC XMP ICC Photoshop WebP PNG BMP ICO PCX JPEG TIFF PSD Photography</tags>
     <dependencies>
-      <dependency id="XmpCore" version="1.0.2" />
+      <dependency id="XmpCore" version="1.1.0" />
     </dependencies>
   </metadata>
   <files>
