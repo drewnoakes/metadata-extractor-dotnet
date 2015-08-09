@@ -26,7 +26,5 @@
   <files>
     <file src="bin\Release\MetadataExtractor.dll" target="lib\net45\" />
     <file src="bin\Release\MetadataExtractor.xml" target="lib\net45\" />
-    <file src="bin\Release\XmpCore.dll" target="lib\net45\" />
-    <file src="bin\Release\XmpCore.xml" target="lib\net45\" />
   </files>
 </package>
