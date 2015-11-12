@@ -83,7 +83,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
             // Data contains a sequence of Image Resource Blocks (IRBs):
             //
-            // 4 bytes - Signature "8BIM"
+            // 4 bytes - Signature; mostly "8BIM" but "PHUT", "AgHg" and "DCSR" are also found
             // 2 bytes - Resource identifier
             // String  - Pascal string, padded to make length even
             // 4 bytes - Size of resource data which follows
@@ -95,12 +95,9 @@ namespace MetadataExtractor.Formats.Photoshop
             {
                 try
                 {
-                    // 4 bytes for the signature.  Should always be "8BIM".
+                    // 4 bytes for the signature ("8BIM", "PHUT", etc.)
                     var signature = reader.GetString(4);
                     pos += 4;
-
-                    if (signature != "8BIM")
-                        throw new ImageProcessingException("Expecting 8BIM marker");
 
                     // 2 bytes for the resource identifier (tag type).
                     var tagType = reader.GetUInt16();
@@ -139,6 +136,10 @@ namespace MetadataExtractor.Formats.Photoshop
                         reader.Skip(1);
                         pos++;
                     }
+
+                    // Skip any unsupported IRBs
+                    if (signature != "8BIM")
+                        continue;
 
                     switch (tagType)
                     {
