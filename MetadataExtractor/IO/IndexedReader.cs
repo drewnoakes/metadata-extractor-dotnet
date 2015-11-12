@@ -303,7 +303,11 @@ namespace MetadataExtractor.IO
 
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public string GetString(int index, int bytesRequested, [NotNull] Encoding encoding) => encoding.GetString(GetBytes(index, bytesRequested));
+        public string GetString(int index, int bytesRequested, [NotNull] Encoding encoding)
+        {
+            var bytes = GetBytes(index, bytesRequested);
+            return encoding.GetString(bytes, 0, bytes.Length);
+        }
 
         /// <summary>
         /// Creates a string starting at the specified index, and ending where either <c>byte=='\0'</c> or

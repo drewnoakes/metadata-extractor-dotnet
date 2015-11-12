@@ -354,7 +354,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
             return bytes == null
                 ? null
-                : Encoding.UTF8.GetString(bytes);
+                : Encoding.UTF8.GetString(bytes, 0, bytes.Length);
         }
 
         [CanBeNull]

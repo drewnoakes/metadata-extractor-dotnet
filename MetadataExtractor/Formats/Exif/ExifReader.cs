@@ -53,7 +53,7 @@ namespace MetadataExtractor.Formats.Exif
         }
 
         public
-#if NET35
+#if NET35 || PORTABLE
             IList<Directory>
 #else
             IReadOnlyList<Directory>
@@ -72,7 +72,7 @@ namespace MetadataExtractor.Formats.Exif
         /// Reads TIFF formatted Exif data a specified offset within a <see cref="IndexedReader"/>.
         /// </summary>
         public
-#if NET35
+#if NET35 || PORTABLE
             IList<Directory>
 #else
             IReadOnlyList<Directory>

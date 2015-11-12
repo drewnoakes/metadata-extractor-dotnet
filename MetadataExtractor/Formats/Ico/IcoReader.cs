@@ -39,7 +39,7 @@ namespace MetadataExtractor.Formats.Ico
     public sealed class IcoReader
     {
         public
-#if NET35
+#if NET35 || PORTABLE
             IList<Directory>
 #else
             IReadOnlyList<Directory>

@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.Tools.Jpe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.net35", "MetadataExtractor\MetadataExtractor.net35.csproj", "{D09E58A4-9758-4BEA-9981-1BDE7CE4D2FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.net45.pcl", "MetadataExtractor\MetadataExtractor.net45.pcl.csproj", "{CF21B630-6303-4EFE-B017-E66CDEB516B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{D09E58A4-9758-4BEA-9981-1BDE7CE4D2FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D09E58A4-9758-4BEA-9981-1BDE7CE4D2FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D09E58A4-9758-4BEA-9981-1BDE7CE4D2FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF21B630-6303-4EFE-B017-E66CDEB516B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF21B630-6303-4EFE-B017-E66CDEB516B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF21B630-6303-4EFE-B017-E66CDEB516B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF21B630-6303-4EFE-B017-E66CDEB516B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

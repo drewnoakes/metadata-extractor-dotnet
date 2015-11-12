@@ -30,7 +30,9 @@ namespace MetadataExtractor
 {
     /// <summary>Base class for all metadata specific exceptions.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+#if !PORTABLE
     [Serializable]
+#endif
     public class MetadataException : Exception
     {
         public MetadataException([CanBeNull] string msg)
@@ -48,9 +50,11 @@ namespace MetadataExtractor
         {
         }
 
+#if !PORTABLE
         protected MetadataException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
+#endif
     }
 }

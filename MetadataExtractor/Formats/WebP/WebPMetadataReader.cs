@@ -25,7 +25,9 @@
 using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
+#if !PORTABLE
 using MetadataExtractor.Formats.FileSystem;
+#endif
 using MetadataExtractor.Formats.Riff;
 using MetadataExtractor.IO;
 
@@ -35,6 +37,7 @@ namespace MetadataExtractor.Formats.WebP
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class WebPMetadataReader
     {
+#if !PORTABLE
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="RiffProcessingException"/>
         [NotNull]
@@ -56,11 +59,13 @@ namespace MetadataExtractor.Formats.WebP
             return directories;
         }
 
+#endif
+
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="RiffProcessingException"/>
         [NotNull]
         public static
-#if NET35
+#if NET35 || PORTABLE
             IList<Directory>
 #else
             IReadOnlyList<Directory>

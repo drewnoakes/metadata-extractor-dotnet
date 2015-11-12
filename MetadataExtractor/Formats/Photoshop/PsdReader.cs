@@ -35,7 +35,7 @@ namespace MetadataExtractor.Formats.Photoshop
     public sealed class PsdReader
     {
         public
-#if NET35
+#if NET35 || PORTABLE
             IList<Directory>
 #else
             IReadOnlyList<Directory>

@@ -29,7 +29,9 @@ using JetBrains.Annotations;
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
+#if !PORTABLE
     [Serializable]
+#endif
     public sealed class PngColorType
     {
         /// <summary>Each pixel is a greyscale sample.</summary>

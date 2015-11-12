@@ -37,8 +37,10 @@ namespace MetadataExtractor
     /// Note that any <see cref="Rational"/> with a numerator of zero will be treated as zero, even if the denominator is also zero.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+#if !PORTABLE
     [Serializable]
     [TypeConverter(typeof(RationalConverter))]
+#endif
     public struct Rational : IConvertible
     {
         /// <summary>Gets the denominator.</summary>
@@ -321,6 +323,7 @@ namespace MetadataExtractor
 
         #region RationalConverter
 
+#if !PORTABLE
         private sealed class RationalConverter : TypeConverter
         {
             public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
@@ -369,6 +372,7 @@ namespace MetadataExtractor
 
             public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => false;
         }
+#endif
 
         #endregion
     }

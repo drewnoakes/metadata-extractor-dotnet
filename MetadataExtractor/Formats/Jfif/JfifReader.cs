@@ -50,7 +50,7 @@ namespace MetadataExtractor.Formats.Jfif
         }
 
         public
-#if NET35
+#if NET35 || PORTABLE
             IList<Directory>
 #else
             IReadOnlyList<Directory>

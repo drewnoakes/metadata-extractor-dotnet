@@ -28,13 +28,15 @@ using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Adobe;
 using MetadataExtractor.Formats.Exif;
-using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Iptc;
 using MetadataExtractor.Formats.Jfif;
 using MetadataExtractor.Formats.Jfxx;
 using MetadataExtractor.Formats.Photoshop;
+#if !PORTABLE
+using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Xmp;
+#endif
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Jpeg
@@ -50,7 +52,9 @@ namespace MetadataExtractor.Formats.Jpeg
             new JfifReader(),
             new JfxxReader(),
             new ExifReader(),
+#if !PORTABLE
             new XmpReader(),
+#endif
             new IccReader(),
             new PhotoshopReader(),
             new DuckyReader(),
@@ -62,7 +66,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
         public static
-#if NET35
+#if NET35 || PORTABLE
             IList<Directory>
 #else
             IReadOnlyList<Directory>
@@ -72,6 +76,7 @@ namespace MetadataExtractor.Formats.Jpeg
             return Process(stream, readers);
         }
 
+#if !PORTABLE
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
@@ -92,11 +97,12 @@ namespace MetadataExtractor.Formats.Jpeg
 
             return directories;
         }
+#endif
 
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         public static
-#if NET35
+#if NET35 || PORTABLE
             IList<Directory>
 #else
             IReadOnlyList<Directory>
@@ -112,7 +118,7 @@ namespace MetadataExtractor.Formats.Jpeg
         }
 
         public static
-#if NET35
+#if NET35 || PORTABLE
             IList<Directory>
 #else
             IReadOnlyList<Directory>

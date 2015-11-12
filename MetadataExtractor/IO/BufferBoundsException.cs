@@ -32,7 +32,9 @@ namespace MetadataExtractor.IO
     /// Thrown when the index provided to an <see cref="IndexedReader"/> is invalid.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+#if !PORTABLE
     [Serializable]
+#endif
     public class BufferBoundsException : IOException
     {
         public BufferBoundsException(int index, int bytesRequested, long bufferLength)
@@ -59,9 +61,11 @@ namespace MetadataExtractor.IO
             return $"Attempt to read from beyond end of underlying data source (requested index: {index}, requested count: {bytesRequested}, max index: {bufferLength - 1})";
         }
 
+#if !PORTABLE
         protected BufferBoundsException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
+#endif
     }
 }

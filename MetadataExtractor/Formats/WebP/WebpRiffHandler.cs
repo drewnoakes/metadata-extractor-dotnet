@@ -29,7 +29,9 @@ using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Riff;
+#if !PORTABLE
 using MetadataExtractor.Formats.Xmp;
+#endif
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.WebP
@@ -77,11 +79,13 @@ namespace MetadataExtractor.Formats.WebP
                     _directories.Add(new IccReader().Extract(new ByteArrayReader(payload)));
                     break;
                 }
+#if !PORTABLE
                 case "XMP ":
                 {
                     _directories.Add(new XmpReader().Extract(payload));
                     break;
                 }
+#endif
                 case "VP8X":
                 {
                     if (payload.Length != 10)

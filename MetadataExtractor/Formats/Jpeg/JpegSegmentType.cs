@@ -168,7 +168,7 @@ namespace MetadataExtractor.Formats.Jpeg
             }
         }
 
-#if NET35
+#if NET35 || PORTABLE
         public static IEnumerable<JpegSegmentType> CanContainMetadataTypes { get; }
 #else
         public static IReadOnlyList<JpegSegmentType> CanContainMetadataTypes { get; }

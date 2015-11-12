@@ -32,7 +32,9 @@ namespace MetadataExtractor.Formats.Jpeg
     /// quantization table number.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+#if !PORTABLE
     [Serializable]
+#endif
     public sealed class JpegComponent
     {
         private readonly int _samplingFactorByte;

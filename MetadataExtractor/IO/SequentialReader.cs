@@ -235,7 +235,11 @@ namespace MetadataExtractor.IO
 
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public string GetString(int bytesRequested, [NotNull] Encoding encoding) => encoding.GetString(GetBytes(bytesRequested));
+        public string GetString(int bytesRequested, [NotNull] Encoding encoding)
+        {
+            var bytes = GetBytes(bytesRequested);
+            return encoding.GetString(bytes, 0, bytes.Length);
+        }
 
         /// <summary>Creates a String from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.</summary>
         /// <param name="maxLengthBytes">

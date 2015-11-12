@@ -25,7 +25,9 @@
 using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
+#if !PORTABLE
 using MetadataExtractor.Formats.FileSystem;
+#endif
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Bmp
@@ -34,6 +36,7 @@ namespace MetadataExtractor.Formats.Bmp
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class BmpMetadataReader
     {
+#if !PORTABLE
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
         public static
@@ -53,6 +56,7 @@ namespace MetadataExtractor.Formats.Bmp
 
             return directories;
         }
+#endif
 
         [NotNull]
         public static BmpHeaderDirectory ReadMetadata([NotNull] Stream stream)

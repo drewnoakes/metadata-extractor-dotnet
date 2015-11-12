@@ -700,7 +700,7 @@ namespace MetadataExtractor
             var bytes = directory.GetByteArray(tagType);
             return bytes == null
                 ? null
-                : encoding.GetString(bytes);
+                : encoding.GetString(bytes, 0, bytes.Length);
         }
 
         [CanBeNull]

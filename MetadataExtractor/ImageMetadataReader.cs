@@ -26,7 +26,9 @@ using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Bmp;
+#if !PORTABLE
 using MetadataExtractor.Formats.FileSystem;
+#endif
 using MetadataExtractor.Formats.Gif;
 using MetadataExtractor.Formats.Ico;
 using MetadataExtractor.Formats.Jpeg;
@@ -75,7 +77,7 @@ namespace MetadataExtractor
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
         public static
-#if NET35
+#if NET35 || PORTABLE
             IList<Directory>
 #else
             IReadOnlyList<Directory>
@@ -116,6 +118,7 @@ namespace MetadataExtractor
             throw new ImageProcessingException("File format is not supported");
         }
 
+#if !PORTABLE
         /// <summary>Reads metadata from a file.</summary>
         /// <remarks>Unlike <see cref="ReadMetadata(System.IO.Stream)"/>, this overload includes a <see cref="FileMetadataDirectory"/> in the output.</remarks>
         /// <param name="filePath">Location of a file from which data should be read.</param>
@@ -140,5 +143,6 @@ namespace MetadataExtractor
 
             return directories;
         }
+#endif
     }
 }

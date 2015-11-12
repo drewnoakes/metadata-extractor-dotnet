@@ -30,7 +30,9 @@ namespace MetadataExtractor
 {
     /// <summary>An exception class thrown upon an unexpected condition that was fatal for the processing of an image.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+#if !PORTABLE
     [Serializable]
+#endif
     public class ImageProcessingException : Exception
     {
         public ImageProcessingException([CanBeNull] string message)
@@ -48,9 +50,11 @@ namespace MetadataExtractor
         {
         }
 
+#if !PORTABLE
         protected ImageProcessingException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
+#endif
     }
 }

@@ -57,7 +57,7 @@ namespace MetadataExtractor.Formats.Icc
         }
 
         public
-#if NET35
+#if NET35 || PORTABLE
             IList<Directory>
 #else
             IReadOnlyList<Directory>
@@ -201,7 +201,7 @@ namespace MetadataExtractor.Formats.Icc
                 unchecked((byte)d)
             };
 
-            return Encoding.UTF8.GetString(b);
+            return Encoding.UTF8.GetString(b, 0, b.Length);
         }
 
         private static bool IsSubarrayEqualTo<T>(T[] source, int sourceIndex, T[] pattern)

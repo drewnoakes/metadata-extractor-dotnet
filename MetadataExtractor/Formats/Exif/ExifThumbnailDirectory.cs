@@ -67,6 +67,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public byte[] ThumbnailData { get; set; }
 
+#if !PORTABLE
         /// <exception cref="MetadataException"/>
         /// <exception cref="System.IO.IOException"/>
         public void WriteThumbnail([NotNull] string filename)
@@ -76,5 +77,6 @@ namespace MetadataExtractor.Formats.Exif
 
             File.WriteAllBytes(filename, ThumbnailData);
         }
+#endif
     }
 }

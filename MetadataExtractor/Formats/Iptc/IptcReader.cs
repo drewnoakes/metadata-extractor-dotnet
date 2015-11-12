@@ -68,7 +68,7 @@ namespace MetadataExtractor.Formats.Iptc
         }
 
         public
-#if NET35
+#if NET35 || PORTABLE
             IList<Directory>
 #else
             IReadOnlyList<Directory>
@@ -79,7 +79,7 @@ namespace MetadataExtractor.Formats.Iptc
             return segments
                 .Where(segment => segment.Length != 0 && segment[0] == IptcMarkerByte)
                 .Select(segment => Extract(new SequentialByteArrayReader(segment), segment.Length))
-#if NET35
+#if NET35 || PORTABLE
                 .Cast<Directory>()
 #endif
                 .ToList();
@@ -190,7 +190,7 @@ namespace MetadataExtractor.Formats.Iptc
                     if (charset == null)
                     {
                         // Unable to determine the charset, so fall through and treat tag as a regular string
-                        str = Encoding.UTF8.GetString(bytes);
+                        str = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
                         break;
                     }
                     directory.Set(tagIdentifier, charset);
@@ -274,7 +274,7 @@ namespace MetadataExtractor.Formats.Iptc
                 if (encoding == null)
                     encoding = Encoding.UTF8;
 
-                str = encoding.GetString(bytes);
+                str = encoding.GetString(bytes, 0, bytes.Length);
             }
 
             if (directory.ContainsTag(tagIdentifier))

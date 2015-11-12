@@ -111,7 +111,7 @@ namespace MetadataExtractor.Formats.Iptc
                 try
                 {
                     // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                    var s = encoding.GetString(bytes);
+                    var s = encoding.GetString(bytes, 0, bytes.Length);
                     if (s.IndexOf((char)65533) != -1)
                         continue;
                     return encoding;

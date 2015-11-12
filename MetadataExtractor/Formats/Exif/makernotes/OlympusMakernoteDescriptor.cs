@@ -654,7 +654,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             var bytes = Directory.GetByteArray(OlympusMakernoteDirectory.TagCameraId);
             if (bytes == null)
                 return null;
-            return Encoding.UTF8.GetString(bytes);
+            return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
         }
 
         [CanBeNull]
