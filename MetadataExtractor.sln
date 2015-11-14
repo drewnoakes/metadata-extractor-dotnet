@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.Tools.Jpe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.net35", "MetadataExtractor\MetadataExtractor.net35.csproj", "{D09E58A4-9758-4BEA-9981-1BDE7CE4D2FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.net45.pcl", "MetadataExtractor\MetadataExtractor.net45.pcl.csproj", "{CF21B630-6303-4EFE-B017-E66CDEB516B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.Portable", "MetadataExtractor\MetadataExtractor.Portable.csproj", "{CF21B630-6303-4EFE-B017-E66CDEB516B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
