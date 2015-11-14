@@ -38,6 +38,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Age.cs" />
     <Compile Include="Directory.cs" />
     <Compile Include="DirectoryExtensions.cs" />
