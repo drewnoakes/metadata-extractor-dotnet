@@ -52,7 +52,7 @@ namespace MetadataExtractor.Formats.Photoshop
         {
             // Skip segments not starting with the required header
             return segments
-                .Where(segment => segment.Length >= Preamble.Length && Preamble == Encoding.ASCII.GetString(segment, 0, Preamble.Length))
+                .Where(segment => segment.Length >= Preamble.Length && Preamble == Encoding.UTF8.GetString(segment, 0, Preamble.Length))
                 .Select(segment => Extract(new SequentialByteArrayReader(segment, Preamble.Length)))
 #if NET35 || PORTABLE
                 .Cast<Directory>()

@@ -559,8 +559,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     y: reader.GetUInt16(posOffset + 2),
                     width: reader.GetUInt16(posOffset + 4),
                     height: reader.GetUInt16(posOffset + 6),
-                    name: recordLength == 44 ? reader.GetString(recordOffset, 20, Encoding.ASCII).Trim(' ', '\0') : null,
-                    age: recordLength == 44 ? Age.FromPanasonicString(reader.GetString(recordOffset + 28, 20, Encoding.ASCII).Trim(' ', '\0')) : null);
+                    name: recordLength == 44 ? reader.GetString(recordOffset, 20, Encoding.UTF8).Trim(' ', '\0') : null,
+                    age: recordLength == 44 ? Age.FromPanasonicString(reader.GetString(recordOffset + 28, 20, Encoding.UTF8).Trim(' ', '\0')) : null);
             }
         }
 
