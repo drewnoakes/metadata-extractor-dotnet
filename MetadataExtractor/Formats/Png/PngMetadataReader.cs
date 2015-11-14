@@ -25,8 +25,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
+#if !PORTABLE
+using System.IO.Compression;
+#else
+using Ionic.Zlib;
+#endif
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Icc;
 #if !PORTABLE
