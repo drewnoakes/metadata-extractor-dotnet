@@ -49,12 +49,12 @@ namespace MetadataExtractor.Tools.FileProcessor
         /// An application entry point.  Takes the name of one or more files as arguments and prints the contents of all
         /// metadata directories to <c>System.out</c>.
         /// <para />
-        /// If <c>-thumb</c> is passed, then any thumbnail data will be written to a file with name of the
+        /// If <c>--thumb</c> is passed, then any thumbnail data will be written to a file with name of the
         /// input file having <c>.thumb.jpg</c> appended.
         /// <para />
-        /// If <c>-markdown</c> is passed, then output will be in markdown format.
+        /// If <c>--markdown</c> is passed, then output will be in markdown format.
         /// <para />
-        /// If <c>-hex</c> is passed, then the ID of each tag will be displayed in hexadecimal.
+        /// If <c>--hex</c> is passed, then the ID of each tag will be displayed in hexadecimal.
         /// </remarks>
         /// <param name="argArray">the command line arguments</param>
         /// <exception cref="MetadataException"/>
