@@ -55,7 +55,7 @@ namespace MetadataExtractor.Formats.Adobe
             return segments
                 .Where(segment => segment.Length == 12 && Preamble.Equals(Encoding.ASCII.GetString(segment, 0, Preamble.Length), StringComparison.OrdinalIgnoreCase))
                 .Select(bytes => Extract(new SequentialByteArrayReader(bytes)))
-#if NET35
+#if NET35 || PORTABLE
                 .Cast<Directory>()
 #endif
                 .ToList();

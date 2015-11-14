@@ -61,7 +61,7 @@ namespace MetadataExtractor.Formats.Jfxx
             return segments
                 .Where(segment => segment.Length >= Preamble.Length && Preamble == Encoding.ASCII.GetString(segment, 0, Preamble.Length))
                 .Select(segment => Extract(new ByteArrayReader(segment)))
-#if NET35
+#if NET35 || PORTABLE
                 .Cast<Directory>()
 #endif
                 .ToList();

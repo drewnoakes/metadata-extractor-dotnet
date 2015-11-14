@@ -54,7 +54,7 @@ namespace MetadataExtractor.Formats.Photoshop
             return segments
                 .Where(segment => segment.Length >= Preamble.Length && Preamble == Encoding.ASCII.GetString(segment, 0, Preamble.Length))
                 .Select(segment => Extract(new SequentialByteArrayReader(segment, Preamble.Length)))
-#if NET35
+#if NET35 || PORTABLE
                 .Cast<Directory>()
 #endif
                 .ToList();
