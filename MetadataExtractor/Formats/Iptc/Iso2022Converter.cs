@@ -82,7 +82,13 @@ namespace MetadataExtractor.Formats.Iptc
             }
 
             if (ascii)
+            {
+#if PORTABLE
+                return Encoding.UTF8;
+#else
                 return Encoding.ASCII;
+#endif
+            }
 
             var utf8 = false;
             var i = 0;
