@@ -592,12 +592,14 @@ namespace MetadataExtractor.Formats.Exif
             if (commentBytes.Length == 0)
                 return string.Empty;
 
-            IDictionary<string, Encoding> encodingMap = new Dictionary<string, Encoding>();
-            encodingMap["ASCII"] = Encoding.ASCII;
             // Someone suggested "ISO-8859-1".
-            encodingMap["UNICODE"] = Encoding.Unicode;
-            encodingMap["JIS"] = Encoding.GetEncoding("Shift-JIS");
-            // We assume this charset for now.  Another suggestion is "JIS".
+            var encodingMap = new Dictionary<string, Encoding>
+            {
+                ["ASCII"] = Encoding.ASCII,
+                ["UNICODE"] = Encoding.Unicode,
+                ["JIS"] = Encoding.GetEncoding("Shift-JIS")
+            };
+
             try
             {
                 if (commentBytes.Length >= 10)
