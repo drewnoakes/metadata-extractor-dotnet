@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 #if !PORTABLE
@@ -108,7 +109,7 @@ namespace MetadataExtractor.Formats.Png
                 }
                 catch (Exception e)
                 {
-                    Console.Error.WriteLine(e);
+                    Debug.WriteLine(e);
                 }
             }
 

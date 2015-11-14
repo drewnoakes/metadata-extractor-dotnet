@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
@@ -442,7 +443,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             catch (IOException e)
             {
                 // Should never happen, given that we check the length of the bytes beforehand.
-                Console.WriteLine (e);
+                Debug.WriteLine(e);
             }
         }
 

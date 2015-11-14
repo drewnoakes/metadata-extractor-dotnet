@@ -22,8 +22,8 @@
 //
 #endregion
 
-using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
@@ -114,7 +114,7 @@ namespace MetadataExtractor.Formats.WebP
                     }
                     catch (IOException e)
                     {
-                        Console.Error.WriteLine(e);
+                        Debug.WriteLine(e);
                     }
                     break;
                 }
