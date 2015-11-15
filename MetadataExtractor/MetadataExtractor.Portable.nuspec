@@ -29,6 +29,7 @@
     <tags>Metadata PCL Portable Exif IPTC XMP ICC Photoshop WebP PNG BMP ICO PCX JPEG TIFF PSD Photography</tags>
     <dependencies>
       <dependency id="Zlib.Portable" version="1.11.0" />
+      <dependency id="SharpZipLib" version="0.86.0" />
     </dependencies>
   </metadata>
   <files>
