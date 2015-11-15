@@ -108,6 +108,18 @@ Camera-specific "makernote" data is decoded for cameras manufactured by:
 * Sigma/Foveon
 * Sony
 
+## Portable Class Library
+
+A PCL compatible build is available that supports Xamarin for Android and iOS, as well as:
+
+- .NET Framework 4.5
+- Silverlight 5.0
+- Windows 8.0
+- Windows Phone 8.1
+- Windows Phone Silverlight 8.0
+
+If you require PCL support, use the [`MetadataExtractor.Portable`](https://www.nuget.org/packages/MetadataExtractor.Portable/) NuGet package.
+
 ## Mailing Lists
 
 * [metadata-extractor-dev](https://groups.google.com/forum/#!forum/metadata-extractor-dev) for discussion about development and notifications of changes to issues and source code
