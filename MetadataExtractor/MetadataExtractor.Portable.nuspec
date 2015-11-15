@@ -23,6 +23,8 @@
       - Windows 8.0
       - Windows Phone 8.1
       - Windows Phone Silverlight 8.0
+
+      Note that this portable verison does not support XMP or file-system metadata types due to the restrictions of the target BCLs.
     </description>
 <!--<releaseNotes>Summary of changes made in this release of the package.</releaseNotes>-->
     <copyright>Copyright Drew Noakes 2015</copyright>
