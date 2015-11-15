@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>MetadataExtractor.Portable</id>
+    <version>$version$</version>
+    <title>Metadata Extractor (Portable)</title>
+    <authors>Drew Noakes</authors>
+    <owners>Drew Noakes</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/drewnoakes/metadata-extractor-dotnet</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/drewnoakes/metadata-extractor-dotnet/master/docs/metadata-extractor-logo-122.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>A straightforward library for reading metadata from image files.</summary>
+    <description>
+      MetadataExtractor is a straightforward and lightweight library for reading metadata from image files.
+      It reads Exif, IPTC, XMP, ICC, Photoshop, WebP, PNG, BMP, GIF, ICO, PCX metadata from JPEG, TIFF WebP, PSD, PNG, BMP, GIF, ICO, PCX and camera RAW files.
+      Camera manufacturer specific support exists for Agfa, Canon, Casio, Epson, Fujifilm, Kodak, Kyocera, Leica, Minolta, Nikon, Olympus, Panasonic, Pentax, Sanyo, Sigma/Foveon and Sony models.
+
+      This portable class library supports:
+
+      - .NET Framework 4.5
+      - Silverlight 5.0
+      - Windows 8.0
+      - Windows Phone 8.1
+      - Windows Phone Silverlight 8.0
+    </description>
+<!--<releaseNotes>Summary of changes made in this release of the package.</releaseNotes>-->
+    <copyright>Copyright Drew Noakes 2015</copyright>
+    <tags>Metadata PCL Portable Exif IPTC XMP ICC Photoshop WebP PNG BMP ICO PCX JPEG TIFF PSD Photography</tags>
+    <dependencies>
+      <dependency id="Zlib.Portable" version="1.11.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\Portable\MetadataExtractor.Portable.dll" target="lib\portable-net45+sl50+netcore45+wpa81+wp8\" />
+    <file src="bin\Release\Portable\MetadataExtractor.Portable.xml" target="lib\portable-net45+sl50+netcore45+wpa81+wp8\" />
+  </files>
+</package>
