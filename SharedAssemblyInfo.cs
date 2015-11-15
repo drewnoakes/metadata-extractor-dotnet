@@ -1,6 +1,6 @@
 using System.Reflection;
 
-[assembly: AssemblyProduct("MetadataExtractor.Tools.FileProcessor")]
+[assembly: AssemblyProduct("MetadataExtractor")]
 
 [assembly: AssemblyCompany("Drew Noakes")]
 [assembly: AssemblyCopyright("Copyright © Drew Noakes 2015")]
