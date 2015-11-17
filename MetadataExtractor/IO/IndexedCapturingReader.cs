@@ -45,7 +45,7 @@ namespace MetadataExtractor.IO
         public IndexedCapturingReader([NotNull] Stream stream, int chunkLength = DefaultChunkLength)
         {
             if (stream == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(stream));
             if (chunkLength <= 0)
                 throw new ArgumentException("chunkLength must be greater than zero");
 

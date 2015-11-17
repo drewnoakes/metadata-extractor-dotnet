@@ -43,7 +43,7 @@ namespace MetadataExtractor.IO
         public ByteArrayReader([NotNull] byte[] buffer)
         {
             if (buffer == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(buffer));
 
             _buffer = buffer;
         }

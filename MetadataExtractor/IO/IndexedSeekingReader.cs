@@ -43,7 +43,7 @@ namespace MetadataExtractor.IO
         public IndexedSeekingReader([NotNull] Stream stream)
         {
             if (stream == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(stream));
             if (!stream.CanSeek)
                 throw new ArgumentException("Must be capable of seeking.", nameof(stream));
 

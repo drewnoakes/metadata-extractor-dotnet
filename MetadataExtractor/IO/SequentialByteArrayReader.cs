@@ -39,7 +39,7 @@ namespace MetadataExtractor.IO
         public SequentialByteArrayReader([NotNull] byte[] bytes, int baseIndex = 0)
         {
             if (bytes == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(bytes));
 
             _bytes = bytes;
             _index = baseIndex;
