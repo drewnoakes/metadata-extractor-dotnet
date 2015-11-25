@@ -163,6 +163,12 @@
     <Compile Include="Formats\Png\PngHeader.cs" />
     <Compile Include="Formats\Png\PngMetadataReader.cs" />
     <Compile Include="Formats\Png\PngProcessingException.cs" />
+    <Compile Include="Formats\QuickTime\QuicktimeFileTypeDirectory.cs" />
+    <Compile Include="Formats\QuickTime\QuickTimeMetadataReader.cs" />
+    <Compile Include="Formats\QuickTime\QuicktimeMovieHeaderDirectory.cs" />
+    <Compile Include="Formats\QuickTime\QuickTimeReader.cs" />
+    <Compile Include="Formats\QuickTime\QuickTimeReaderExtensions.cs" />
+    <Compile Include="Formats\QuickTime\QuickTimeTrackHeaderDirectory.cs" />
     <Compile Include="Formats\Raf\RafMetadataReader.cs" />
     <Compile Include="Formats\Riff\IRiffHandler.cs" />
     <Compile Include="Formats\Riff\RiffProcessingException.cs" />

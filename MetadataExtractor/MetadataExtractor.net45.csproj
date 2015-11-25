@@ -64,6 +64,12 @@
     <Compile Include="Formats\Jpeg\JpegSegmentType.cs" />
     <Compile Include="Formats\Photoshop\DuckyDirectory.cs" />
     <Compile Include="Formats\Photoshop\DuckyReader.cs" />
+    <Compile Include="Formats\QuickTime\QuicktimeFileTypeDirectory.cs" />
+    <Compile Include="Formats\QuickTime\QuickTimeMetadataReader.cs" />
+    <Compile Include="Formats\QuickTime\QuicktimeMovieHeaderDirectory.cs" />
+    <Compile Include="Formats\QuickTime\QuickTimeReader.cs" />
+    <Compile Include="Formats\QuickTime\QuickTimeReaderExtensions.cs" />
+    <Compile Include="Formats\QuickTime\QuickTimeTrackHeaderDirectory.cs" />
     <Compile Include="Formats\Raf\RafMetadataReader.cs" />
     <Compile Include="Formats\Xmp\Schema.cs" />
     <Compile Include="Util\ByteConvert.cs" />
