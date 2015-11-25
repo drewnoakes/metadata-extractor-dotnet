@@ -35,6 +35,7 @@ using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Pcx;
 using MetadataExtractor.Formats.Photoshop;
 using MetadataExtractor.Formats.Png;
+using MetadataExtractor.Formats.QuickTime;
 using MetadataExtractor.Formats.Raf;
 using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.WebP;
@@ -113,6 +114,8 @@ namespace MetadataExtractor
                     return WebPMetadataReader.ReadMetadata(stream);
                 case FileType.Raf:
                     return RafMetadataReader.ReadMetadata(stream);
+                case FileType.QuickTime:
+                    return QuicktimeMetadataReader.ReadMetadata(stream);
             }
 
             throw new ImageProcessingException("File format is not supported");
