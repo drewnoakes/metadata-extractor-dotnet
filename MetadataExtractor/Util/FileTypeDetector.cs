@@ -23,6 +23,7 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using JetBrains.Annotations;
@@ -33,6 +34,7 @@ namespace MetadataExtractor.Util
     public static class FileTypeDetector
     {
         private static readonly ByteTrie<FileType> _root;
+        private static readonly IEnumerable<Func<byte[], FileType>> _fixedCheckers;
 
         static FileTypeDetector()
         {
@@ -64,6 +66,11 @@ namespace MetadataExtractor.Util
             _root.AddPath(FileType.Orf, Encoding.UTF8.GetBytes("IIRS"), new byte[] { 0x08, 0x00 });
             _root.AddPath(FileType.Raf, Encoding.UTF8.GetBytes("FUJIFILMCCD-RAW"));
             _root.AddPath(FileType.Rw2, Encoding.UTF8.GetBytes("II"), new byte[] { 0x55, 0x00 });
+
+            _fixedCheckers = new Func<byte[], FileType>[]
+            {
+                bytes => bytes.RegionEquals(4, 4, Encoding.UTF8.GetBytes("ftyp")) ? FileType.QuickTime : FileType.Unknown
+            };
         }
 
         /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
@@ -84,7 +91,38 @@ namespace MetadataExtractor.Util
 
             stream.Seek(-bytesRead, SeekOrigin.Current);
 
-            return _root.Find(bytes);
+            var fileType = _root.Find(bytes);
+
+            if (fileType == FileType.Unknown)
+            {
+                foreach (var fixedChecker in _fixedCheckers)
+                {
+                    fileType = fixedChecker(bytes);
+                    if (fileType != FileType.Unknown)
+                        return fileType;
+                }
+            }
+
+            return fileType;
+        }
+    }
+
+    internal static class ByteArrayExtensions
+    {
+        public static bool RegionEquals(this byte[] bytes, int offset, int count, byte[] comparand)
+        {
+            if (offset < 0 ||                   // invalid arg
+                count < 0 ||                    // invalid arg
+                bytes.Length < offset + count)  // extends beyond end
+                return false;
+
+            for (int i = 0, j = offset; i < count; i++, j++)
+            {
+                if (bytes[j] != comparand[i])
+                    return false;
+            }
+
+            return true;
         }
     }
 }

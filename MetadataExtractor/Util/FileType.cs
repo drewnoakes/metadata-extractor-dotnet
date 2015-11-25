@@ -76,6 +76,9 @@ namespace MetadataExtractor.Util
         Raf,
 
         /// <summary>Panasonic camera raw.</summary>
-        Rw2
+        Rw2,
+
+        /// <summary>QuickTime (mov) format video.</summary>
+        QuickTime
     }
 }
