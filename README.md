@@ -26,9 +26,7 @@ To print out all values from all directories:
 ```csharp
 foreach (var directory in directories)
 foreach (var tag in directory.Tags)
-{
-    Console.Out.WriteLine("{0} - {1} = {2}", directory.Name, tag.TagName, tag.Description);
-}
+    Console.WriteLine($"{directory.Name} - {tag.TagName} = {tag.Description}");
 ```
 
 Producing:
