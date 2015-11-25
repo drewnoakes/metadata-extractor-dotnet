@@ -22,21 +22,18 @@
 //
 #endregion
 
-using System.Collections.Generic;
-
 namespace MetadataExtractor.Tests
 {
     /// <summary>A mock implementation of Directory used in unit testing.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class MockDirectory : Directory
     {
-        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>();
-
         public override string Name => string.Empty;
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
+            tagName = null;
+            return false;
         }
     }
 }
