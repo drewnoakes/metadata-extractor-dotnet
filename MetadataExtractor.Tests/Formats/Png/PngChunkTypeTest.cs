@@ -48,7 +48,7 @@ namespace MetadataExtractor.Tests.Formats.Png
         [Fact]
         public void TestConstructorInvalidBytes()
         {
-            var invalidStrings = new[] { "ABC1", "1234", "    ", "!£$%" };
+            var invalidStrings = new[] { "ABC1", "1234", "    ", "!&$%" };
             foreach (var invalidString in invalidStrings)
             {
                 var ex = Assert.Throws<ArgumentException>(() => new PngChunkType(invalidString));
