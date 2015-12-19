@@ -21,6 +21,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.Portable", "MetadataExtractor\MetadataExtractor.Portable.csproj", "{CF21B630-6303-4EFE-B017-E66CDEB516B5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.Portable.Tests", "MetadataExtractor.Tests\MetadataExtractor.Portable.Tests.csproj", "{59B07B72-B0BD-4CD3-989C-C4065A431468}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CF21B630-6303-4EFE-B017-E66CDEB516B5} = {CF21B630-6303-4EFE-B017-E66CDEB516B5}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.Tests", "MetadataExtractor.Tests\MetadataExtractor.Tests.csproj", "{07AFC815-EDBB-4CF8-B555-86B6CADE7D0F}"
 EndProject
