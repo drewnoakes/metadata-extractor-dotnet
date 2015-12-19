@@ -37,7 +37,12 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Fact]
         public void TestExtractMetadata()
         {
+#if !PORTABLE
             Validate(JpegMetadataReader.ReadMetadata("Tests/Data/withExif.jpg"));
+#else
+            using (var stream = new FileStream("Tests/Data/withExif.jpg", FileMode.Open, FileAccess.Read, FileShare.Read))
+                Validate(JpegMetadataReader.ReadMetadata(stream));
+#endif
         }
 
         [Fact]
@@ -46,7 +51,13 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Validate(JpegMetadataReader.ReadMetadata(new FileStream("Tests/Data/withExif.jpg", FileMode.Open, FileAccess.Read, FileShare.Read)));
         }
 
-        private static void Validate(IReadOnlyList<Directory> metadata)
+        private static void Validate(
+#if !PORTABLE
+            IReadOnlyList<Directory>
+#else
+            IList<Directory>
+#endif
+                                 metadata)
         {
             var directory = metadata.OfType<ExifSubIfdDirectory>().FirstOrDefault();
             Assert.NotNull(directory);

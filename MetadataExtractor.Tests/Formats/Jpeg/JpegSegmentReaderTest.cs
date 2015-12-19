@@ -37,7 +37,14 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Fact]
         public void TestReadAllSegments()
         {
-            var segmentData = JpegSegmentReader.ReadSegments("Tests/Data/withExifAndIptc.jpg", null);
+            string fileName = "Tests/Data/withExifAndIptc.jpg";
+#if !PORTABLE
+            var segmentData = JpegSegmentReader.ReadSegments(fileName, null);
+#else
+            JpegSegmentData segmentData = null;
+            using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                segmentData = JpegSegmentReader.ReadSegments(new MetadataExtractor.IO.SequentialStreamReader(stream), null);
+#endif
             Assert.Equal(1, segmentData.GetSegmentCount(JpegSegmentType.App0));
             Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app0"), segmentData.GetSegment(JpegSegmentType.App0));
             Assert.Null(segmentData.GetSegment(JpegSegmentType.App0, 1));
@@ -75,7 +82,14 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Fact]
         public void TestReadSpecificSegments()
         {
-            var segmentData = JpegSegmentReader.ReadSegments("Tests/Data/withExifAndIptc.jpg", new[] { JpegSegmentType.App0, JpegSegmentType.App2 });
+            string fileName = "Tests/Data/withExifAndIptc.jpg";
+#if !PORTABLE
+            var segmentData = JpegSegmentReader.ReadSegments(fileName, new[] { JpegSegmentType.App0, JpegSegmentType.App2 });
+#else
+            JpegSegmentData segmentData = null;
+            using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                segmentData = JpegSegmentReader.ReadSegments(new MetadataExtractor.IO.SequentialStreamReader(stream), new[] { JpegSegmentType.App0, JpegSegmentType.App2 });
+#endif
             Assert.Equal(1, segmentData.GetSegmentCount(JpegSegmentType.App0));
             Assert.Equal(0, segmentData.GetSegmentCount(JpegSegmentType.App1));
             Assert.Equal(1, segmentData.GetSegmentCount(JpegSegmentType.App2));
@@ -102,14 +116,28 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Fact]
         public void TestLoadJpegWithoutExifDataReturnsNull()
         {
-            var segmentData = JpegSegmentReader.ReadSegments("Tests/Data/noExif.jpg", null);
+            string fileName = "Tests/Data/noExif.jpg";
+#if !PORTABLE
+            var segmentData = JpegSegmentReader.ReadSegments(fileName, null);
+#else
+            JpegSegmentData segmentData = null;
+            using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                segmentData = JpegSegmentReader.ReadSegments(new MetadataExtractor.IO.SequentialStreamReader(stream), null);
+#endif
             Assert.Null(segmentData.GetSegment(JpegSegmentType.App1));
         }
 
         [Fact]
         public void TestWithNonJpegFile()
         {
-            Assert.Throws<JpegProcessingException>(() => JpegSegmentReader.ReadSegments("MetadataExtractor.Tests.dll", null));
+#if !PORTABLE
+            string fileName = "MetadataExtractor.Tests.dll";
+            Assert.Throws<JpegProcessingException>(() => JpegSegmentReader.ReadSegments(fileName, null));
+#else
+            string fileName = "MetadataExtractor.Portable.Tests.dll";
+            using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                Assert.Throws<JpegProcessingException>(() => JpegSegmentReader.ReadSegments(new MetadataExtractor.IO.SequentialStreamReader(stream), null));
+#endif
         }
     }
 }

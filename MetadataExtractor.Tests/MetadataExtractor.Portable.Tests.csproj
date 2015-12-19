@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{59B07B72-B0BD-4CD3-989C-C4065A431468}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MetadataExtractor.Tests</RootNamespace>
+    <AssemblyName>MetadataExtractor.Portable.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\portable\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;PORTABLE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\net45\</OutputPath>
+    <DefineConstants>TRACE;PORTABLE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="JetBrains.Annotations, Version=10.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.10.0.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MetadataExtractor.Portable">
+      <HintPath>..\MetadataExtractor\bin\Debug\Portable\MetadataExtractor.Portable.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="XmpCore.Portable">
+      <HintPath>..\..\xmp-core-dotnet\XmpCore\bin\Debug\Portable\XmpCore.Portable.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="xunit.assert, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.assert.2.1.0\lib\portable-net45+win8+wp8+wpa81\xunit.assert.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="xunit.core, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.core.2.1.0\lib\portable-net45+win8+wp8+wpa81\xunit.core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="xunit.execution.desktop, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.execution.2.1.0\lib\net45\xunit.execution.desktop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="DirectoryExtensionsTest.cs" />
+    <Compile Include="Formats\Jfif\JfifReaderTest.cs" />
+    <Compile Include="Formats\Jpeg\JpegMetadataReaderTest.cs" />
+    <Compile Include="Formats\Jpeg\JpegSegmentDataTest.cs" />
+    <Compile Include="Formats\Jpeg\JpegSegmentReaderTest.cs" />
+    <Compile Include="Formats\Png\PngChunkReaderTest.cs" />
+    <Compile Include="Formats\Png\PngChunkTypeTest.cs" />
+    <Compile Include="Formats\Png\PngMetadataReaderTest.cs" />
+    <Compile Include="IO\ByteArrayReaderTest.cs" />
+    <Compile Include="UseCultureAttribute.cs" />
+    <Compile Include="Util\ByteConvertTest.cs" />
+    <Compile Include="Util\ByteTrieTest.cs" />
+    <Compile Include="GeoLocationTest.cs" />
+    <Compile Include="IO\IndexedSeekingReaderTest.cs" />
+    <Compile Include="IO\RandomAccessStreamReaderTest.cs" />
+    <Compile Include="IO\IndexedReaderTestBase.cs" />
+    <Compile Include="RationalTest.cs" />
+    <Compile Include="IO\SequentialAccessTestBase.cs" />
+    <Compile Include="IO\SequentialByteArrayReaderTest.cs" />
+    <Compile Include="IO\SequentialStreamReaderTest.cs" />
+    <Compile Include="Formats\Adobe\AdobeJpegReaderTest.cs" />
+    <Compile Include="AgeTest.cs" />
+    <Compile Include="Formats\Bmp\BmpReaderTest.cs" />
+    <Compile Include="DirectoryTest.cs" />
+    <Compile Include="Formats\Exif\CanonMakernoteDescriptorTest.cs" />
+    <Compile Include="Formats\Exif\ExifDirectoryTest.cs" />
+    <Compile Include="Formats\Exif\ExifIFD0DescriptorTest.cs" />
+    <Compile Include="Formats\Exif\ExifInteropDescriptorTest.cs" />
+    <Compile Include="Formats\Exif\ExifReaderTest.cs" />
+    <Compile Include="Formats\Exif\ExifSubIFDDescriptorTest.cs" />
+    <Compile Include="Formats\Exif\ExifThumbnailDescriptorTest.cs" />
+    <Compile Include="Formats\Exif\NikonType1MakernoteTest.cs" />
+    <Compile Include="Formats\Exif\NikonType2MakernoteTest1.cs" />
+    <Compile Include="Formats\Exif\NikonType2MakernoteTest2.cs" />
+    <Compile Include="Formats\Exif\PanasonicMakernoteDescriptorTest.cs" />
+    <Compile Include="Formats\Exif\SonyType1MakernoteTest.cs" />
+    <Compile Include="Formats\Exif\SonyType6MakernoteTest.cs" />
+    <Compile Include="Formats\Gif\GifReaderTest.cs" />
+    <Compile Include="Formats\Icc\IccReaderTest.cs" />
+    <Compile Include="Formats\Iptc\IptcReaderTest.cs" />
+    <Compile Include="Formats\Iptc\Iso2022ConverterTest.cs" />
+    <Compile Include="Formats\Jpeg\JpegComponentTest.cs" />
+    <Compile Include="Formats\Jpeg\JpegDescriptorTest.cs" />
+    <Compile Include="Formats\Jpeg\JpegDirectoryTest.cs" />
+    <Compile Include="Formats\Jpeg\JpegReaderTest.cs" />
+    <Compile Include="MockDirectory.cs" />
+    <Compile Include="Formats\Photoshop\PsdReaderTest.cs" />
+    <Compile Include="Formats\Xmp\XmpReaderTest.cs" />
+    <Compile Include="TestHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\10x12x16bit-CMYK.psd" />
+    <None Include="Data\8x4x8bit-Grayscale.psd" />
+    <None Include="Data\adobeJpeg1.jpg.app0" />
+    <None Include="Data\adobeJpeg1.jpg.app1.0" />
+    <None Include="Data\adobeJpeg1.jpg.app1.1" />
+    <None Include="Data\adobeJpeg1.jpg.app2" />
+    <None Include="Data\adobeJpeg1.jpg.appd" />
+    <None Include="Data\adobeJpeg1.jpg.appe" />
+    <None Include="Data\crash01.jpg.app1" />
+    <None Include="Data\iccDataInvalid1.jpg.app2" />
+    <None Include="Data\iptc-encoding-defined-utf8.bytes" />
+    <None Include="Data\iptc-encoding-undefined-iso.bytes" />
+    <None Include="Data\iptc-encoding-unknown-2.bytes" />
+    <None Include="Data\iptc-encoding-unknown.bytes" />
+    <None Include="Data\iptc1.jpg.appd" />
+    <None Include="Data\iptc2-photoshop6.jpg.appd" />
+    <None Include="Data\manuallyAddedThumbnail.jpg.app1" />
+    <None Include="Data\manuallyAddedThumbnail.jpg.com" />
+    <None Include="Data\nikonMakernoteType1.jpg.app0" />
+    <None Include="Data\nikonMakernoteType1.jpg.app1" />
+    <None Include="Data\nikonMakernoteType1.jpg.appd" />
+    <None Include="Data\nikonMakernoteType1.jpg.appe" />
+    <None Include="Data\nikonMakernoteType2a.jpg.app1" />
+    <None Include="Data\nikonMakernoteType2b.jpg.app1" />
+    <None Include="Data\nikonMakernoteType2b.jpg.appd" />
+    <None Include="Data\noExif.jpg.app0" />
+    <None Include="Data\noExif.jpg.com" />
+    <None Include="Data\recursiveDirectories.jpg.app1" />
+    <None Include="Data\repeatedOrientationTagWithDifferentValues.jpg.app1" />
+    <None Include="Data\simple.jpg.app1" />
+    <None Include="Data\simple.jpg.com" />
+    <None Include="Data\simple.jpg.sof0" />
+    <None Include="Data\sonyType1.jpg.app1" />
+    <None Include="Data\sonyType6.jpg.app1.0" />
+    <None Include="Data\sonyType6.jpg.app1.1" />
+    <None Include="Data\sonyType6.jpg.app4.0" />
+    <None Include="Data\sonyType6.jpg.app4.1" />
+    <None Include="Data\windowsXpFields.jpg.app0" />
+    <None Include="Data\windowsXpFields.jpg.app1" />
+    <None Include="Data\windowsXpFields.jpg.app2" />
+    <None Include="Data\windowsXpFields.jpg.appd" />
+    <None Include="Data\windowsXpFields.jpg.appe" />
+    <None Include="Data\withExif.jpg.app1" />
+    <None Include="Data\withExif.jpg.appd" />
+    <None Include="Data\withExifAndIptc.jpg.app0" />
+    <None Include="Data\withExifAndIptc.jpg.app1.0" />
+    <None Include="Data\withExifAndIptc.jpg.app1.1" />
+    <None Include="Data\withExifAndIptc.jpg.app2" />
+    <None Include="Data\withExifAndIptc.jpg.appd" />
+    <None Include="Data\withExifAndIptc.jpg.appe" />
+    <None Include="Data\withPanasonicFaces.jpg.app1" />
+    <None Include="Data\withUncompressedRGBThumbnail.jpg.app1" />
+    <None Include="Data\withUncompressedRGBThumbnail.jpg.com" />
+    <None Include="Data\withXmpAndIptc.jpg.app1.0" />
+    <None Include="Data\withXmpAndIptc.jpg.app1.1" />
+    <None Include="Data\withXmpAndIptc.jpg.app2" />
+    <None Include="Data\withXmpAndIptc.jpg.appd" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\16color-10x10.bmp" />
+    <Content Include="Data\24bpp-10x10.bmp" />
+    <Content Include="Data\256color-10x10.bmp" />
+    <Content Include="Data\adobeJpeg1.jpg" />
+    <Content Include="Data\crash01.jpg" />
+    <Content Include="Data\dotnet-256x256-alpha-palette.png" />
+    <Content Include="Data\gimp-8x12-greyscale-alpha-time-background.png" />
+    <Content Include="Data\invalid-iCCP-missing-adler32-checksum.png" />
+    <Content Include="Data\manuallyAddedThumbnail.jpg" />
+    <Content Include="Data\mspaint-10x10.gif" />
+    <Content Include="Data\mspaint-8x10.png" />
+    <Content Include="Data\nikonMakernoteType1.jpg" />
+    <Content Include="Data\nikonMakernoteType2b.jpg" />
+    <Content Include="Data\noExif.jpg" />
+    <Content Include="Data\photoshop-8x12-16colorpalette.png" />
+    <Content Include="Data\photoshop-8x12-32colors-alpha.gif" />
+    <Content Include="Data\photoshop-8x12-rgb24-all-metadata.png" />
+    <Content Include="Data\photoshop-8x12-rgb24-interlaced.png" />
+    <Content Include="Data\photoshop-8x12-rgb24.png" />
+    <Content Include="Data\photoshop-8x12-rgba32-interlaced.png" />
+    <Content Include="Data\photoshop-8x12-rgba32.png" />
+    <Content Include="Data\simple.jpg" />
+    <Content Include="Data\windowsXpFields.jpg" />
+    <Content Include="Data\withExif.jpg" />
+    <Content Include="Data\withExifAndIptc.jpg" />
+    <Content Include="Data\withIptc.jpg" />
+    <Content Include="Data\withIptcExifGps.jpg" />
+    <Content Include="Data\withIptcPhotoshop6.jpg" />
+    <Content Include="Data\withPanasonicFaces.jpg" />
+    <Content Include="Data\withUncompressedRGBThumbnail.jpg" />
+    <Content Include="Data\withUncompressedYCbCrThumbnail.jpg" />
+    <Content Include="Data\withUncompressedYCbCrThumbnail2.jpg" />
+    <Content Include="Data\withUncompressedYCbCrThumbnail3.jpg" />
+    <Content Include="Data\withUncompressedYCbCrThumbnail4.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy $(ProjectDir)Data "$(TargetDir)Tests\Data\" /E /R /Y /I</PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
