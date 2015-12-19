@@ -36,8 +36,8 @@ using JetBrains.Annotations;
 using MetadataExtractor.Formats.Icc;
 #if !PORTABLE
 using MetadataExtractor.Formats.FileSystem;
-using MetadataExtractor.Formats.Xmp;
 #endif
+using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 using MetadataExtractor.Util;
 
@@ -252,14 +252,12 @@ namespace MetadataExtractor.Formats.Png
 
                 if (text != null)
                 {
-#if !PORTABLE
                     if (keyword == "XML:com.adobe.xmp")
                     {
                         // NOTE in testing images, the XMP has parsed successfully, but we are not extracting tags from it as necessary
                         yield return new XmpReader().Extract(text);
                     }
                     else
-#endif
                     {
                         var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, text) };
                         var directory = new PngDirectory(PngChunkType.iTXt);
