@@ -104,9 +104,10 @@ namespace MetadataExtractor.Formats.Xmp
 
         /// <summary>
         /// Performs the XMP data extraction.
-        /// <para />
-        /// The extraction is done with Adobe's XMPCore library.
         /// </summary>
+        /// <remarks>
+        /// The extraction is done with Adobe's XMPCore library.
+        /// </remarks>
         public XmpDirectory Extract([NotNull] byte[] xmpBytes)
         {
             var directory = new XmpDirectory();
@@ -124,9 +125,10 @@ namespace MetadataExtractor.Formats.Xmp
 
         /// <summary>
         /// Performs the XMP data extraction.
-        /// <para />
-        /// The extraction is done with Adobe's XMPCore library.
         /// </summary>
+        /// <remarks>
+        /// The extraction is done with Adobe's XMPCore library.
+        /// </remarks>
         public XmpDirectory Extract([NotNull] string xmpString) => Extract(Encoding.UTF8.GetBytes(xmpString));
 
         /// <exception cref="XmpException"/>
@@ -186,7 +188,6 @@ namespace MetadataExtractor.Formats.Xmp
         }
 
         /// <summary>Reads an property value with given namespace URI and property name.</summary>
-        /// <remarks>Reads an property value with given namespace URI and property name. Add property value to directory if exists</remarks>
         /// <exception cref="XmpException"/>
         private static void ProcessXmpTag([NotNull] IXmpMeta meta, [NotNull] XmpDirectory directory, int tagType, FormatType formatCode)
         {
