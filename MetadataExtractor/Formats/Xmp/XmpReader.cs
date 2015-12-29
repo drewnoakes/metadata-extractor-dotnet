@@ -49,22 +49,22 @@ namespace MetadataExtractor.Formats.Xmp
             StringArray = 5
         }
 
-        /// <summary>XMP tag namespace.</summary>
-        /// <remarks>
-        /// XMP tag namespace.
-        /// TODO the older "xap", "xapBJ", "xapMM" or "xapRights" namespace prefixes should be translated to the newer "xmp", "xmpBJ", "xmpMM" and "xmpRights" prefixes for use in family 1 group names
-        /// </remarks>
-        [NotNull]
-        private const string SchemaXmpProperties = "http://ns.adobe.com/xap/1.0/";
+//        /// <summary>XMP tag namespace.</summary>
+//        /// <remarks>
+//        /// XMP tag namespace.
+//        /// TODO the older "xap", "xapBJ", "xapMM" or "xapRights" namespace prefixes should be translated to the newer "xmp", "xmpBJ", "xmpMM" and "xmpRights" prefixes for use in family 1 group names
+//        /// </remarks>
+//        [NotNull]
+//        private const string SchemaXmpProperties = "http://ns.adobe.com/xap/1.0/";
 
-        [NotNull]
-        private const string SchemaExifSpecificProperties = "http://ns.adobe.com/exif/1.0/";
+//        [NotNull]
+//        private const string SchemaExifSpecificProperties = "http://ns.adobe.com/exif/1.0/";
 
-        [NotNull]
-        private const string SchemaExifAdditionalProperties = "http://ns.adobe.com/exif/1.0/aux/";
+//        [NotNull]
+//        private const string SchemaExifAdditionalProperties = "http://ns.adobe.com/exif/1.0/aux/";
 
-        [NotNull]
-        private const string SchemaExifTiffProperties = "http://ns.adobe.com/tiff/1.0/";
+//        [NotNull]
+//        private const string SchemaExifTiffProperties = "http://ns.adobe.com/tiff/1.0/";
 
 //      [NotNull]
 //      private const string SchemaDublinCoreSpecificProperties = "http://purl.org/dc/elements/1.1/";
