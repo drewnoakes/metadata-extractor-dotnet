@@ -35,8 +35,8 @@ using MetadataExtractor.Formats.Jfxx;
 using MetadataExtractor.Formats.Photoshop;
 #if !PORTABLE
 using MetadataExtractor.Formats.FileSystem;
-using MetadataExtractor.Formats.Xmp;
 #endif
+using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Jpeg
@@ -52,9 +52,7 @@ namespace MetadataExtractor.Formats.Jpeg
             new JfifReader(),
             new JfxxReader(),
             new ExifReader(),
-#if !PORTABLE
             new XmpReader(),
-#endif
             new IccReader(),
             new PhotoshopReader(),
             new DuckyReader(),

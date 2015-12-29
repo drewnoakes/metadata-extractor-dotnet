@@ -183,6 +183,10 @@
     <Compile Include="Formats\WebP\WebPDirectory.cs" />
     <Compile Include="Formats\WebP\WebPMetadataReader.cs" />
     <Compile Include="Formats\WebP\WebpRiffHandler.cs" />
+    <Compile Include="Formats\Xmp\Schema.cs" />
+    <Compile Include="Formats\Xmp\XmpDescriptor.cs" />
+    <Compile Include="Formats\Xmp\XmpDirectory.cs" />
+    <Compile Include="Formats\Xmp\XmpReader.cs" />
     <Compile Include="GeoLocation.cs" />
     <Compile Include="ImageMetadataReader.cs" />
     <Compile Include="ImageProcessingException.cs" />
@@ -215,6 +219,9 @@
     </Reference>
     <Reference Include="SharpZipLib.Silverlight4">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\SL4\SharpZipLib.Silverlight4.dll</HintPath>
+    </Reference>
+    <Reference Include="XmpCore.Portable">
+      <HintPath>..\packages\XmpCore.1.2.0\lib\portable-net45+sl50+netcore45+wpa81+wp8\XmpCore.Portable.dll</HintPath>
     </Reference>
     <Reference Include="Zlib.Portable, Version=1.11.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Zlib.Portable.1.11.0\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>

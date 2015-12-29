@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
@@ -204,7 +205,7 @@ namespace MetadataExtractor.Formats.Xmp
             {
                 case FormatType.Rational:
                 {
-                    var rationalParts = property.Split(new[]{'/'}, 2);
+                    var rationalParts = property.Split('/').Take(2).ToArray();
                     if (rationalParts.Length == 2)
                     {
                         try

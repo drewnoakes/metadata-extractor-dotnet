@@ -31,9 +31,7 @@ using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Iptc;
 using MetadataExtractor.Formats.Jpeg;
-#if !PORTABLE
 using MetadataExtractor.Formats.Xmp;
-#endif
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Photoshop
@@ -155,11 +153,9 @@ namespace MetadataExtractor.Formats.Photoshop
                         case PhotoshopDirectory.TagExifData3:
                             directories.AddRange(new ExifReader().Extract(new ByteArrayReader(tagBytes)));
                             break;
-#if !PORTABLE
                         case PhotoshopDirectory.TagXmpData:
                             directories.Add(new XmpReader().Extract(tagBytes));
                             break;
-#endif
                         default:
                             directory.Set(tagType, tagBytes);
                             break;
