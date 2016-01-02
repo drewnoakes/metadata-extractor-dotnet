@@ -107,7 +107,7 @@ namespace MetadataExtractor.Tests
 
             Assert.True(new Rational(0, 0).IsInteger);
         }
-
+#if !PORTABLE
         [Fact]
         public void TestTypeConverter()
         {
@@ -129,6 +129,7 @@ namespace MetadataExtractor.Tests
 
             Assert.Throws<NotSupportedException>(() => converter.ConvertFrom(null));
         }
+#endif
 
         [Fact]
         public void TestIConvertible()

@@ -38,7 +38,12 @@ namespace MetadataExtractor.Tests.Formats.Exif
     public sealed class ExifReaderTest
     {
         [NotNull]
-        public static IReadOnlyList<Directory> ProcessSegmentBytes([NotNull] string filePath)
+#if PORTABLE
+        public static IList<Directory>
+#else
+        public static IReadOnlyList<Directory> 
+#endif
+            ProcessSegmentBytes([NotNull] string filePath)
         {
             return new ExifReader().ReadJpegSegments(new[] { File.ReadAllBytes(filePath) }, JpegSegmentType.App1);
         }
