@@ -173,7 +173,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             var actual = _directory.GetDateTime(XmpDirectory.TagDateTimeOriginal);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
             Assert.Equal(DateTime.ParseExact("11:41:35 12 12 2010 +0000", "hh:mm:ss dd MM yyyy zzz", null), actual);
-            Assert.Equal(new DateTime(2010, 12, 12, 11, 41, 35), actual);
+            Assert.Equal(new DateTime(2010, 12, 12, 11, 41, 35, DateTimeKind.Utc).ToLocalTime(), actual);
         }
 
         [Fact]
@@ -182,7 +182,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             var actual = _directory.GetDateTime(XmpDirectory.TagDateTimeDigitized);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
             Assert.Equal(DateTime.ParseExact("11:41:35 12 12 2010 +0000", "hh:mm:ss dd MM yyyy zzz", null), actual);
-            Assert.Equal(new DateTime(2010, 12, 12, 11, 41, 35), actual);
+            Assert.Equal(new DateTime(2010, 12, 12, 11, 41, 35, DateTimeKind.Utc).ToLocalTime(), actual);
         }
 
         [Fact]
