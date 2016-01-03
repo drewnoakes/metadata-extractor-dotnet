@@ -23,6 +23,7 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 #if !PORTABLE
 using System.ComponentModel;
 #endif
@@ -47,6 +48,7 @@ namespace MetadataExtractor.Tests
         }
 
         [Fact]
+        [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
         public void TestToString()
         {
             Assert.Equal("1/3", new Rational(1, 3).ToString());
@@ -163,6 +165,7 @@ namespace MetadataExtractor.Tests
         }
 
         [Fact]
+        [SuppressMessage("ReSharper", "EqualExpressionComparison")]
         public void EqualityOperators()
         {
             Assert.True(new Rational(1, 2) == new Rational(1, 2));
