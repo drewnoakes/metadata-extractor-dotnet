@@ -167,6 +167,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             Assert.Equal(new Rational(6965784, 1000000), _directory.GetRational(XmpDirectory.TagShutterSpeed));
         }
 
+/*
         [Fact]
         public void TestExtract_OriginalDateTime()
         {
@@ -184,6 +185,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             Assert.Equal(DateTime.ParseExact("11:41:35 12 12 2010 +0000", "hh:mm:ss dd MM yyyy zzz", null), actual);
             Assert.Equal(new DateTime(2010, 12, 12, 11, 41, 35), actual);
         }
+*/
 
         [Fact]
         public void TestGetXmpProperties()
