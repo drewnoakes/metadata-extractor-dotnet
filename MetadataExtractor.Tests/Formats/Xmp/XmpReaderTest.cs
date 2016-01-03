@@ -167,8 +167,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             Assert.Equal(new Rational(6965784, 1000000), _directory.GetRational(XmpDirectory.TagShutterSpeed));
         }
 
-/*
-        [Fact]
+        [Fact(Skip = "TODO fix XMP support for DateTime with offset")]
         public void TestExtract_OriginalDateTime()
         {
             var actual = _directory.GetDateTime(XmpDirectory.TagDateTimeOriginal);
@@ -177,7 +176,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             Assert.Equal(new DateTime(2010, 12, 12, 11, 41, 35), actual);
         }
 
-        [Fact]
+        [Fact(Skip = "TODO fix XMP support for DateTime with offset")]
         public void TestExtract_DigitizedDateTime()
         {
             var actual = _directory.GetDateTime(XmpDirectory.TagDateTimeDigitized);
@@ -185,7 +184,6 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             Assert.Equal(DateTime.ParseExact("11:41:35 12 12 2010 +0000", "hh:mm:ss dd MM yyyy zzz", null), actual);
             Assert.Equal(new DateTime(2010, 12, 12, 11, 41, 35), actual);
         }
-*/
 
         [Fact]
         public void TestGetXmpProperties()
