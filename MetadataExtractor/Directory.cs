@@ -74,7 +74,7 @@ namespace MetadataExtractor
         [NotNull]
         public
 #if NET35 || PORTABLE
-            IEnumerable<Tag>
+            IList<Tag>
 #else
             IReadOnlyList<Tag>
 #endif
