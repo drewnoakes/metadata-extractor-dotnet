@@ -24,6 +24,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Iptc;
 using MetadataExtractor.IO;
@@ -52,7 +53,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         {
             var directory = ProcessBytes("Tests/Data/iptc1.jpg.appd");
             Assert.False(directory.HasError, directory.Errors.ToString());
-            var tags = directory.Tags;
+            var tags = directory.Tags.ToList();
             Assert.Equal(16, tags.Count);
             Assert.Equal(IptcDirectory.TagCategory, tags[0].TagType);
             Assert.Equal(new[] { "Supl. Category2", "Supl. Category1", "Cat" }, directory.GetStringArray(tags[0].TagType));
@@ -94,7 +95,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         {
             var directory = ProcessBytes("Tests/Data/iptc2-photoshop6.jpg.appd");
             Assert.False(directory.HasError, directory.Errors.ToString());
-            var tags = directory.Tags;
+            var tags = directory.Tags.ToList();
             Assert.Equal(17, tags.Count);
             Assert.Equal(IptcDirectory.TagApplicationRecordVersion, tags[0].TagType);
             Assert.Equal((ushort)2, directory.GetObject(tags[0].TagType));
@@ -138,7 +139,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         {
             var directory = ProcessBytes("Tests/Data/iptc-encoding-defined-utf8.bytes");
             Assert.False(directory.HasError, directory.Errors.ToString());
-            var tags = directory.Tags;
+            var tags = directory.Tags.ToList();
             Assert.Equal(4, tags.Count);
             Assert.Equal(IptcDirectory.TagEnvelopeRecordVersion, tags[0].TagType);
             Assert.Equal((ushort)2, directory.GetObject(tags[0].TagType));
@@ -156,7 +157,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         {
             var directory = ProcessBytes("Tests/Data/iptc-encoding-undefined-iso.bytes");
             Assert.False(directory.HasError, directory.Errors.ToString());
-            var tags = directory.Tags;
+            var tags = directory.Tags.ToList();
             Assert.Equal(3, tags.Count);
             Assert.Equal(IptcDirectory.TagEnvelopeRecordVersion, tags[0].TagType);
             Assert.Equal((ushort)2, directory.GetObject(tags[0].TagType));
@@ -172,7 +173,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         {
             var directory = ProcessBytes("Tests/Data/iptc-encoding-unknown.bytes");
             Assert.False(directory.HasError, directory.Errors.ToString());
-            var tags = directory.Tags;
+            var tags = directory.Tags.ToList();
             Assert.Equal(3, tags.Count);
             Assert.Equal(IptcDirectory.TagApplicationRecordVersion, tags[0].TagType);
             Assert.Equal((ushort)2, directory.GetObject(tags[0].TagType));
@@ -192,7 +193,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
             var directory = ProcessBytes("Tests/Data/iptc-encoding-unknown-2.bytes");
             Assert.False(directory.HasError, directory.Errors.ToString());
             var tags = directory.Tags;
-            Assert.Equal(37, tags.Count);
+            Assert.Equal(37, tags.Count());
             Assert.Equal("MEDWAS,MEDLON,MEDTOR,RONL,ASIA,AONL,APC,USA,CAN,SAM,BIZ", directory.GetString(IptcDirectory.TagDestination));
         }
     }

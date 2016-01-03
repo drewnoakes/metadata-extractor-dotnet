@@ -63,6 +63,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
             JpegSegmentReader.ReadSegments(new SequentialByteArrayReader(thumbData));
         }
 
+#if !PORTABLE
         [Fact]
         public void TestWriteThumbnail()
         {
@@ -81,6 +82,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
                 File.Delete(thumbnailFile);
             }
         }
+#endif
 
 //    public void TestContainsThumbnail()
 //    {

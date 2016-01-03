@@ -34,11 +34,13 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegMetadataReaderTest
     {
+#if !PORTABLE
         [Fact]
         public void TestExtractMetadata()
         {
             Validate(JpegMetadataReader.ReadMetadata("Tests/Data/withExif.jpg"));
         }
+#endif
 
         [Fact]
         public void TestExtractMetadataUsingStream()
@@ -46,9 +48,10 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Validate(JpegMetadataReader.ReadMetadata(new FileStream("Tests/Data/withExif.jpg", FileMode.Open, FileAccess.Read, FileShare.Read)));
         }
 
-        private static void Validate(IReadOnlyList<Directory> metadata)
+        private static void Validate(IEnumerable<Directory> metadata)
         {
             var directory = metadata.OfType<ExifSubIfdDirectory>().FirstOrDefault();
+
             Assert.NotNull(directory);
             Assert.Equal("80", directory.GetString(ExifDirectoryBase.TagIsoEquivalent));
         }

@@ -38,7 +38,7 @@ namespace MetadataExtractor.Tests.Formats.Png
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        private static IReadOnlyList<Directory> ProcessFile([NotNull] string filePath)
+        private static IEnumerable<Directory> ProcessFile([NotNull] string filePath)
         {
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 return PngMetadataReader.ReadMetadata(stream);

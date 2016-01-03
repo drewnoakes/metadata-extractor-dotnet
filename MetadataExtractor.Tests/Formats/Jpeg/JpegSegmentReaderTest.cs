@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System.Collections.Generic;
 using System.IO;
 using MetadataExtractor.Formats.Jpeg;
 using Xunit;
@@ -34,10 +35,17 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegSegmentReaderTest
     {
+        private static JpegSegmentData ReadSegments(string fileName, ICollection<JpegSegmentType> segmentTypes = null)
+        {
+            using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                return JpegSegmentReader.ReadSegments(new MetadataExtractor.IO.SequentialStreamReader(stream), segmentTypes);
+        }
+
         [Fact]
         public void TestReadAllSegments()
         {
-            var segmentData = JpegSegmentReader.ReadSegments("Tests/Data/withExifAndIptc.jpg", null);
+            var segmentData = ReadSegments("Tests/Data/withExifAndIptc.jpg");
+
             Assert.Equal(1, segmentData.GetSegmentCount(JpegSegmentType.App0));
             Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app0"), segmentData.GetSegment(JpegSegmentType.App0));
             Assert.Null(segmentData.GetSegment(JpegSegmentType.App0, 1));
@@ -75,7 +83,8 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Fact]
         public void TestReadSpecificSegments()
         {
-            var segmentData = JpegSegmentReader.ReadSegments("Tests/Data/withExifAndIptc.jpg", new[] { JpegSegmentType.App0, JpegSegmentType.App2 });
+            var segmentData = ReadSegments("Tests/Data/withExifAndIptc.jpg", new[] { JpegSegmentType.App0, JpegSegmentType.App2 });
+
             Assert.Equal(1, segmentData.GetSegmentCount(JpegSegmentType.App0));
             Assert.Equal(0, segmentData.GetSegmentCount(JpegSegmentType.App1));
             Assert.Equal(1, segmentData.GetSegmentCount(JpegSegmentType.App2));
@@ -102,14 +111,21 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Fact]
         public void TestLoadJpegWithoutExifDataReturnsNull()
         {
-            var segmentData = JpegSegmentReader.ReadSegments("Tests/Data/noExif.jpg", null);
+            var segmentData = ReadSegments("Tests/Data/noExif.jpg");
+
             Assert.Null(segmentData.GetSegment(JpegSegmentType.App1));
         }
 
         [Fact]
         public void TestWithNonJpegFile()
         {
-            Assert.Throws<JpegProcessingException>(() => JpegSegmentReader.ReadSegments("MetadataExtractor.Tests.dll", null));
+#if PORTABLE
+            var ex = Assert.Throws<JpegProcessingException>(() => ReadSegments("MetadataExtractor.Portable.Tests.dll"));
+#else
+            var ex = Assert.Throws<JpegProcessingException>(() => ReadSegments("MetadataExtractor.Tests.dll"));
+#endif
+
+            Assert.Equal("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x4D5A", ex.Message);
         }
     }
 }

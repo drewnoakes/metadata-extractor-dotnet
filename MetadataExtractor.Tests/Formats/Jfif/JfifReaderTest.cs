@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System.Linq;
 using MetadataExtractor.Formats.Jfif;
 using MetadataExtractor.IO;
 using Xunit;
@@ -41,7 +42,7 @@ namespace MetadataExtractor.Tests.Formats.Jfif
             Assert.NotNull(directory);
             Assert.False(directory.HasError, directory.Errors.ToString());
 
-            var tags = directory.Tags;
+            var tags = directory.Tags.ToList();
 
             Assert.Equal(6, tags.Count);
             Assert.Equal(JfifDirectory.TagVersion, tags[0].TagType);
