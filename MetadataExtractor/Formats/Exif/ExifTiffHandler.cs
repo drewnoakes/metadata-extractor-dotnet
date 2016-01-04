@@ -171,6 +171,7 @@ namespace MetadataExtractor.Formats.Exif
             var firstSixChars = reader.GetString(makernoteOffset, 6);
             var firstSevenChars = reader.GetString(makernoteOffset, 7);
             var firstEightChars = reader.GetString(makernoteOffset, 8);
+            var firstTenChars = reader.GetString(makernoteOffset, 10);
             var firstTwelveChars = reader.GetString(makernoteOffset, 12);
 
             var byteOrderBefore = reader.IsMotorolaByteOrder;
@@ -181,6 +182,14 @@ namespace MetadataExtractor.Formats.Exif
                 // Epson and Agfa use Olympus makernote standard: http://www.ozhiker.com/electronics/pjmt/jpeg_info/
                 PushDirectory(typeof(OlympusMakernoteDirectory));
                 TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 8, tiffHeaderOffset);
+            }
+            else if ("OLYMPUS\0II" == firstTenChars)
+            {
+                // Olympus Makernote (alternate)
+                // Note that data is relative to the beginning of the makernote
+                // http://exiv2.org/makernote.html
+                PushDirectory(typeof(OlympusMakernoteDirectory));
+                TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 12, makernoteOffset);
             }
             else if (cameraMake != null && cameraMake.ToUpper().StartsWith("MINOLTA"))
             {
