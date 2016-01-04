@@ -175,7 +175,7 @@ namespace MetadataExtractor.Formats.Exif
 
             var byteOrderBefore = reader.IsMotorolaByteOrder;
 
-            if ("OLYMP" == firstFiveChars || "EPSON" == firstFiveChars || "AGFA" == firstFourChars)
+            if ("OLYMP\0" == firstSixChars || "EPSON" == firstFiveChars || "AGFA" == firstFourChars)
             {
                 // Olympus Makernote
                 // Epson and Agfa use Olympus makernote standard: http://www.ozhiker.com/electronics/pjmt/jpeg_info/
