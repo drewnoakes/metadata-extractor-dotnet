@@ -95,6 +95,10 @@ namespace MetadataExtractor.Tools.FileProcessor
                 catch (Exception e)
                 {
                     Console.Error.WriteLine(e);
+
+                    if (Debugger.IsAttached)
+                        Console.ReadLine();
+
                     Environment.Exit(1);
                     return;
                 }
