@@ -75,7 +75,7 @@ namespace MetadataExtractor.Tests.Formats.Png
             Assert.NotNull(pairs);
             Assert.Equal(1, pairs.Count);
             Assert.Equal("Comment", pairs[0].Key);
-            Assert.Equal("Created with GIMP", pairs[0].Value);
+            Assert.Equal("Created with GIMP", pairs[0].Value.ToString());
         }
 
         private static string CreateTestString(int year, int month, int day, int hourOfDay, int minute, int second)

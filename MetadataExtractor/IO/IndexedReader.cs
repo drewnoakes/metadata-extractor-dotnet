@@ -323,13 +323,23 @@ namespace MetadataExtractor.IO
         [NotNull]
         public string GetNullTerminatedString(int index, int maxLengthBytes)
         {
+            return GetNullTerminatedStringValue(index, maxLengthBytes).ToString();
+        }
+
+        public StringValue GetNullTerminatedStringValue(int index, int maxLengthBytes)
+        {
             // NOTE currently only really suited to single-byte character strings
             var bytes = GetBytes(index, maxLengthBytes);
             // Count the number of non-null bytes
             var length = 0;
             while (length < bytes.Length && bytes[length] != 0)
                 length++;
-            return Encoding.UTF8.GetString(bytes, 0, length);
+
+            var _actualBytes = new byte[length];
+            if(length > 0)
+                Array.Copy(bytes, 0, _actualBytes, 0, length);
+
+            return new StringValue(_actualBytes);
         }
     }
 }

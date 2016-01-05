@@ -251,13 +251,24 @@ namespace MetadataExtractor.IO
         [NotNull]
         public string GetNullTerminatedString(int maxLengthBytes)
         {
+            return GetNullTerminatedStringValue(maxLengthBytes).ToString();
+        }
+
+        public StringValue GetNullTerminatedStringValue(int maxLengthBytes)
+        {
             // NOTE currently only really suited to single-byte character strings
             var bytes = new byte[maxLengthBytes];
             // Count the number of non-null bytes
             var length = 0;
             while (length < bytes.Length && (bytes[length] = GetByte()) != 0)
                 length++;
-            return Encoding.UTF8.GetString(bytes, 0, length);
+            if(length != maxLengthBytes)
+            {
+                var bytesCopy = new byte[length];
+                Array.Copy(bytes, bytesCopy, length);
+                bytes = bytesCopy;
+            }
+            return new StringValue(bytes);
         }
     }
 }
