@@ -46,6 +46,9 @@ namespace MetadataExtractor.Formats.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class PngMetadataReader
     {
+        // In General, PNG uses this encoding
+        private static string defaultEncodingName = "ISO-8859-1";
+
         private static readonly HashSet<PngChunkType> _desiredChunkTypes = new HashSet<PngChunkType>
         {
             PngChunkType.IHDR,
@@ -120,6 +123,11 @@ namespace MetadataExtractor.Formats.Png
         /// <exception cref="System.IO.IOException"/>
         private static IEnumerable<Directory> ProcessChunk([NotNull] PngChunk chunk)
         {
+            // For more guidance:
+            // http://www.w3.org/TR/PNG-Decoders.html#D.Text-chunk-processing
+            // http://www.libpng.org/pub/png/spec/1.2/PNG-Chunks.html#C.iCCP
+            var defaultEncoding = System.Text.Encoding.GetEncoding(defaultEncodingName);
+
             var chunkType = chunk.ChunkType;
             var bytes = chunk.Bytes;
 
@@ -179,7 +187,7 @@ namespace MetadataExtractor.Formats.Png
             else if (chunkType == PngChunkType.iCCP)
             {
                 var reader = new SequentialByteArrayReader(bytes);
-                var profileName = reader.GetNullTerminatedString(maxLengthBytes: 79);
+                var profileName = reader.GetNullTerminatedStringValue(maxLengthBytes: 79);
                 var directory = new PngDirectory(PngChunkType.iCCP);
                 directory.Set(PngDirectory.TagIccProfileName, profileName);
                 var compressionMethod = reader.GetSByte();
@@ -207,9 +215,11 @@ namespace MetadataExtractor.Formats.Png
             else if (chunkType == PngChunkType.tEXt)
             {
                 var reader = new SequentialByteArrayReader(bytes);
-                var keyword = reader.GetNullTerminatedString(maxLengthBytes: 79);
+                var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(defaultEncoding);
                 var bytesLeft = bytes.Length - keyword.Length - 1;
-                var value = reader.GetNullTerminatedString(bytesLeft);
+                var value = reader.GetNullTerminatedStringValue(bytesLeft);
+                value.SetEncodingByName(defaultEncodingName);
+
                 var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, value) };
                 var directory = new PngDirectory(PngChunkType.iTXt);
                 directory.Set(PngDirectory.TagTextualData, textPairs);
@@ -218,23 +228,44 @@ namespace MetadataExtractor.Formats.Png
             else if (chunkType == PngChunkType.iTXt)
             {
                 var reader = new SequentialByteArrayReader(bytes);
-                var keyword = reader.GetNullTerminatedString(maxLengthBytes: 79);
+                var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(defaultEncoding);
                 var compressionFlag = reader.GetSByte();
                 var compressionMethod = reader.GetSByte();
-                var languageTag = reader.GetNullTerminatedString(bytes.Length);
-                var translatedKeyword = reader.GetNullTerminatedString(bytes.Length);
+                var languageTag = reader.GetNullTerminatedStringValue(bytes.Length);
+                languageTag.SetEncodingByName(defaultEncodingName);
+
+                var translatedKeyword = reader.GetNullTerminatedStringValue(bytes.Length);
+                translatedKeyword.SetEncodingByName(defaultEncodingName);
+
                 var bytesLeft = bytes.Length - keyword.Length - 1 - 1 - 1 - languageTag.Length - 1 - translatedKeyword.Length - 1;
-                string text = null;
+                StringValue text = null;
                 if (compressionFlag == 0)
                 {
-                    text = reader.GetNullTerminatedString(bytesLeft);
+                    text = reader.GetNullTerminatedStringValue(bytesLeft);
+                    text.SetEncodingByName(defaultEncodingName);
                 }
                 else if (compressionFlag == 1)
                 {
                     if (compressionMethod == 0)
                     {
                         using (var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress))
-                            text = new StreamReader(inflaterStream).ReadToEnd();
+                        using (MemoryStream decompstream = new MemoryStream())
+                        {
+#if !NET35
+                            inflaterStream.CopyTo(decompstream);
+#else
+                            byte[] buffer = new byte[256];
+                            int count;
+                            int totalBytes = 0;
+                            while ((count = inflaterStream.Read(buffer, 0, 256)) > 0)
+                            {
+                                decompstream.Write(buffer, 0, count);
+                                totalBytes += count;
+                            }
+#endif
+                            text = new StringValue(decompstream.ToArray());
+                            text.SetEncodingByName(defaultEncodingName);
+                        }
                     }
                     else
                     {
@@ -255,7 +286,7 @@ namespace MetadataExtractor.Formats.Png
                     if (keyword == "XML:com.adobe.xmp")
                     {
                         // NOTE in testing images, the XMP has parsed successfully, but we are not extracting tags from it as necessary
-                        yield return new XmpReader().Extract(text);
+                        yield return new XmpReader().Extract(text.Bytes);
                     }
                     else
                     {

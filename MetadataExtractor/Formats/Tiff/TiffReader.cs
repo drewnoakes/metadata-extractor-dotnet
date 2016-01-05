@@ -250,7 +250,7 @@ namespace MetadataExtractor.Formats.Tiff
                 }
                 case TiffDataFormatCode.String:
                 {
-                    handler.SetString(tagId, reader.GetNullTerminatedString(tagValueOffset, componentCount));
+                    handler.SetString(tagId, reader.GetNullTerminatedStringValue(tagValueOffset, componentCount));
                     break;
                 }
                 case TiffDataFormatCode.RationalS:

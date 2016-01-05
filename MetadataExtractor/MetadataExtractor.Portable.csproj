@@ -196,6 +196,7 @@
     <Compile Include="MetadataException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rational.cs" />
+    <Compile Include="StringValue.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="TagDescriptor.cs" />
     <Compile Include="Util\ByteConvert.cs" />

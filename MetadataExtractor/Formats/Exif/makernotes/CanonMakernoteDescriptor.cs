@@ -41,6 +41,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             switch (tagType)
             {
+                case CanonMakernoteDirectory.TagCanonOwnerName:
+                    return GetOwnerNameDescription();
+
                 case CanonMakernoteDirectory.TagCanonSerialNumber:
                     return GetSerialNumberDescription();
                 case CanonMakernoteDirectory.CameraSettings.TagFlashActivity:
@@ -128,6 +131,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 default:
                     return base.GetDescription(tagType);
             }
+        }
+
+        [CanBeNull]
+        public string GetOwnerNameDescription()
+        {
+            return Directory.GetString(CanonMakernoteDirectory.TagCanonOwnerName, System.Text.Encoding.GetEncoding("windows-1252"));
         }
 
         [CanBeNull]
