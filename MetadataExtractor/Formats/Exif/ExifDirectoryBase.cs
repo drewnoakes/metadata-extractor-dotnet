@@ -706,6 +706,8 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagLens = 0xFDEA;
 
+        public const int TagOffsetSchema = 0xEA1D;
+
         protected static void AddExifTagNames(Dictionary<int, string> map)
         {
             map[TagInteropIndex] = "Interoperability Index";
@@ -857,6 +859,8 @@ namespace MetadataExtractor.Formats.Exif
             map[TagPanasonicTitle2] = "Panasonic Title (2)";
             map[TagPadding] = "Padding";
             map[TagLens] = "Lens";
+
+            map[TagOffsetSchema] = "Offset Schema";
         }
     }
 }

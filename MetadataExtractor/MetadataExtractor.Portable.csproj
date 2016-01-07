@@ -40,6 +40,7 @@
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Age.cs" />
+    <Compile Include="DeferredTagValue.cs" />
     <Compile Include="Directory.cs" />
     <Compile Include="DirectoryExtensions.cs" />
     <Compile Include="Face.cs" />

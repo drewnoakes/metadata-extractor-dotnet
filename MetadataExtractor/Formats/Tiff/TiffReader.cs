@@ -73,7 +73,7 @@ namespace MetadataExtractor.Formats.Tiff
 
             var processedIfdOffsets = new HashSet<int>();
 
-            ProcessIfd(handler, reader, processedIfdOffsets, firstIfdOffset, tiffHeaderOffset);
+            ProcessIfd(handler, reader, processedIfdOffsets, firstIfdOffset, tiffHeaderOffset, 0);
 
             handler.Completed(reader, tiffHeaderOffset);
         }
@@ -98,8 +98,10 @@ namespace MetadataExtractor.Formats.Tiff
         /// <param name="ifdOffset">the offset within <c>reader</c> at which the IFD data starts</param>
         /// <param name="tiffHeaderOffset">the offset within <c>reader</c> at which the TIFF header starts</param>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
-        public static void ProcessIfd([NotNull] ITiffHandler handler, [NotNull] IndexedReader reader, [NotNull] ICollection<int> processedIfdOffsets, int ifdOffset, int tiffHeaderOffset)
+        public static void ProcessIfd([NotNull] ITiffHandler handler, [NotNull] IndexedReader reader, [NotNull] ICollection<int> processedIfdOffsets, int ifdOffset, int tiffHeaderOffset, int schemaOffset)
         {
+            bool? resetByteOrder = null;
+
             try
             {
                 // check for directories we've already visited to avoid stack overflows when recursive/cyclic directory structures exist
@@ -116,12 +118,27 @@ namespace MetadataExtractor.Formats.Tiff
 
                 // First two bytes in the IFD are the number of tags in this directory
                 int dirTagCount = reader.GetUInt16(ifdOffset);
+
+                // Some software modifies the byte order of the file, but misses some IFDs (such as makernotes).
+                // The entire test image repository doesn't contain a single IFD with more than 255 entries.
+                // Here we detect switched bytes that suggest this problem, and temporarily swap the byte order.
+                // This was discussed in GitHub issue #136.
+                if (dirTagCount > 0xFF && (dirTagCount & 0xFF) == 0)
+                {
+                    resetByteOrder = reader.IsMotorolaByteOrder;
+                    dirTagCount >>= 8;
+                    reader.IsMotorolaByteOrder = !reader.IsMotorolaByteOrder;
+                }
+
                 var dirLength = (2 + (12 * dirTagCount) + 4);
                 if (dirLength + ifdOffset > reader.Length)
                 {
                     handler.Error("Illegally sized IFD");
                     return;
                 }
+
+                // Keep a list of any tags that should be processed after all others
+                var deferredTagVals = new List<DeferredTagValue>();
 
                 //
                 // Handle each tag in this directory
@@ -171,7 +188,10 @@ namespace MetadataExtractor.Formats.Tiff
                             handler.Error("Illegal TIFF tag pointer offset");
                             continue;
                         }
-                        tagValueOffset = tiffHeaderOffset + offsetVal;
+
+                        // A non-0 schema offset indicates 'ExifDirectoryBase.TagOffsetSchema' tag was encountered.
+                        tagValueOffset = tiffHeaderOffset + offsetVal
+                                        + schemaOffset;
                     }
                     else
                     {
@@ -199,11 +219,27 @@ namespace MetadataExtractor.Formats.Tiff
                     if (byteCount == 4 && handler.IsTagIfdPointer(tagId))
                     {
                         var subDirOffset = tiffHeaderOffset + reader.GetInt32(tagValueOffset);
-                        ProcessIfd(handler, reader, processedIfdOffsets, subDirOffset, tiffHeaderOffset);
+                        ProcessIfd(handler, reader, processedIfdOffsets, subDirOffset, tiffHeaderOffset, schemaOffset);
+                    }
+                    else if (handler.DeferProcessing(tagId))
+                    {
+                        var deferred = new DeferredTagValue(tagId, tagValueOffset, tiffHeaderOffset);
+                        deferredTagVals.Add(deferred);
                     }
                     else if (!handler.CustomProcessTag(tagValueOffset, processedIfdOffsets, tiffHeaderOffset, reader, tagId, byteCount))
                     {
                         ProcessTag(handler, tagId, tagValueOffset, componentCount, formatCode, reader);
+                    }
+                }
+
+                // Some Makernotes (so far only Canon) store a separate base offset in Exif SubIfd.
+                // Makernotes tag can appear before this offset is read, so defer processing all Makernotes
+                // until all other SubIfd's are done and then the offset is available.
+                if(deferredTagVals.Count > 0)
+                {
+                    foreach (var deferredTagVal in deferredTagVals)
+                    {
+                        handler.CustomProcessTag(deferredTagVal.TagValueOffset, processedIfdOffsets, deferredTagVal.TiffHeaderOffset, reader, deferredTagVal.TagId, 0);
                     }
                 }
 
@@ -228,12 +264,15 @@ namespace MetadataExtractor.Formats.Tiff
                     }
 
                     if (handler.HasFollowerIfd())
-                        ProcessIfd(handler, reader, processedIfdOffsets, nextIfdOffset, tiffHeaderOffset);
+                        ProcessIfd(handler, reader, processedIfdOffsets, nextIfdOffset, tiffHeaderOffset, schemaOffset);
                 }
             }
             finally
             {
                 handler.EndingIfd();
+
+                if (resetByteOrder.HasValue)
+                    reader.IsMotorolaByteOrder = resetByteOrder.Value;
             }
         }
 

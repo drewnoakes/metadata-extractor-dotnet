@@ -54,6 +54,8 @@ namespace MetadataExtractor.Formats.Tiff
 
         void Completed([NotNull] IndexedReader reader, int tiffHeaderOffset);
 
+        bool DeferProcessing(int tagId);
+
         /// <exception cref="System.IO.IOException"/>
         bool CustomProcessTag(int tagOffset, [NotNull] ICollection<int> processedIfdOffsets, int tiffHeaderOffset, [NotNull] IndexedReader reader, int tagId, int byteCount);
 

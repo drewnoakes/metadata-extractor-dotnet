@@ -86,6 +86,8 @@ namespace MetadataExtractor.Formats.Tiff
 
         public abstract void Completed(IndexedReader reader, int tiffHeaderOffset);
 
+        public abstract bool DeferProcessing(int tagId);
+
         public abstract bool CustomProcessTag(int tagOffset, ICollection<int> processedIfdOffsets, int tiffHeaderOffset, IndexedReader reader, int tagId, int byteCount);
 
         public abstract bool HasFollowerIfd();
