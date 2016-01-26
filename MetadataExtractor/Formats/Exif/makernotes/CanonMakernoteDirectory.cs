@@ -163,7 +163,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             public const int TagFocusMode1 = Offset + 0x07;
 
             public const int TagUnknown3 = Offset + 0x08;
-            public const int TagUnknown4 = Offset + 0x09;
+            public const int TagRecordMode = Offset + 0x09;
 
             /// <summary>
             /// 0 = Large
@@ -265,8 +265,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             public const int TagLongFocalLength = Offset + 0x17;
             public const int TagShortFocalLength = Offset + 0x18;
             public const int TagFocalUnitsPerMm = Offset + 0x19;
-            public const int TagUnknown9 = Offset + 0x1A;
-            public const int TagUnknown10 = Offset + 0x1B;
+            public const int TagMaxAperture = Offset + 0x1A;
+            public const int TagMinAperture = Offset + 0x1B;
 
             /// <summary>
             /// 0 = Flash Did Not Fire
@@ -275,14 +275,25 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             public const int TagFlashActivity = Offset + 0x1C;
 
             public const int TagFlashDetails = Offset + 0x1D;
-            public const int TagUnknown12 = Offset + 0x1E;
-            public const int TagUnknown13 = Offset + 0x1F;
+            public const int TagFocusContinuous = Offset + 0x1E;
+            public const int TagAESetting = Offset + 0x1F;
 
             /// <summary>
             /// 0 = Focus Mode: Single
             /// 1 = Focus Mode: Continuous
             /// </summary>
             public const int TagFocusMode2 = Offset + 0x20;
+
+            public const int TagDisplayAperture = Offset + 0x21;
+            public const int TagZoomSourceWidth = Offset + 0x22;
+            public const int TagZoomTargetWidth = Offset + 0x23;
+
+            public const int TagSpotMeteringMode = Offset + 0x25;
+            public const int TagPhotoEffect = Offset + 0x26;
+            public const int TagManualFlashOutput = Offset + 0x27;
+
+            public const int TagColorTone = Offset + 0x29;
+            public const int TagSRAWQuality = Offset + 0x2D;
         }
 
         // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
@@ -533,16 +544,25 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { CameraSettings.TagQuality, "Quality" },
             { CameraSettings.TagUnknown2, "Unknown Camera Setting 2" },
             { CameraSettings.TagUnknown3, "Unknown Camera Setting 3" },
-            { CameraSettings.TagUnknown4, "Unknown Camera Setting 4" },
+            { CameraSettings.TagRecordMode, "Record Mode" },
             { CameraSettings.TagDigitalZoom, "Digital Zoom" },
             { CameraSettings.TagFocusType, "Focus Type" },
             { CameraSettings.TagUnknown7, "Unknown Camera Setting 7" },
             { CameraSettings.TagLensType, "Lens Type" },
-            { CameraSettings.TagUnknown9, "Unknown Camera Setting 9" },
-            { CameraSettings.TagUnknown10, "Unknown Camera Setting 10" },
+            { CameraSettings.TagMaxAperture, "Max Aperture" },
+            { CameraSettings.TagMinAperture, "Min Aperture" },
             { CameraSettings.TagFlashActivity, "Flash Activity" },
-            { CameraSettings.TagUnknown12, "Unknown Camera Setting 12" },
-            { CameraSettings.TagUnknown13, "Unknown Camera Setting 13" },
+            { CameraSettings.TagFocusContinuous, "Focus Continuous" },
+            { CameraSettings.TagAESetting, "AE Setting" },
+            { CameraSettings.TagDisplayAperture, "Display Aperture" },
+            { CameraSettings.TagZoomSourceWidth, "Zoom Source Width" },
+            { CameraSettings.TagZoomTargetWidth, "Zoom Target Width" },
+            { CameraSettings.TagSpotMeteringMode, "Spot Metering Mode" },
+            { CameraSettings.TagPhotoEffect, "Photo Effect" },
+            { CameraSettings.TagManualFlashOutput, "Manual Flash Output" },
+            { CameraSettings.TagColorTone, "Color Tone" },
+            { CameraSettings.TagSRAWQuality, "SRAW Quality" },
+
             { FocalLength.TagWhiteBalance, "White Balance" },
             { FocalLength.TagSequenceNumber, "Sequence Number" },
             { FocalLength.TagAfPointUsed, "AF Point Used" },
@@ -721,23 +741,74 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     break;
                 }
 
+                // Notes from Exiftool 10.10 by Phil Harvey, lib\Image\Exiftool\Canon.pm:
+                // Auto-focus information used by many older Canon models. The values in this
+                // record are sequential, and some have variable sizes based on the value of
+                // numafpoints (which may be 1,5,7,9,15,45, or 53). The AFArea coordinates are
+                // given in a system where the image has dimensions given by AFImageWidth and
+                // AFImageHeight, and 0,0 is the image center. The direction of the Y axis
+                // depends on the camera model, with positive Y upwards for EOS models, but
+                // apparently downwards for PowerShot models.
+
+
+                // AFInfo is another array with 'fake' tags. The first int of the array contains
+                // the number of AF points. Iterate through the array one byte at a time, generally
+                // assuming one byte corresponds to one tag UNLESS certain tag numbers are encountered.
+                // For these, read specific subsequent bytes from the array based on the tag type. The
+                // number of bytes read can vary.
+
                 case TagAfInfoArray:
                 {
                     var values = (ushort[])array;
+                    int numafpoints = values[0];
+                    int tagnumber = 0;
                     for (var i = 0; i < values.Length; i++)
-                        Set(AfInfo.Offset + i, values[i]);
+                    {
+                        // These two tags store 'numafpoints' bytes of data in the array
+                        if (AfInfo.Offset + tagnumber == AfInfo.TagAfAreaXPositions ||
+                            AfInfo.Offset + tagnumber == AfInfo.TagAfAreaYPositions)
+                        {
+                            // There could be incorrect data in the array, so boundary check
+                            if (values.Length - 1 >= (i + numafpoints))
+                            {
+                                var areaPositions = new short[numafpoints];
+                                for (var j = 0; j < areaPositions.Length; j++)
+                                    areaPositions[j] = (short)values[i + j];
+
+                                Set(AfInfo.Offset + tagnumber, areaPositions);
+                            }
+                            i += numafpoints - 1;   // assume these bytes are processed and skip
+                        }
+                        else if (AfInfo.Offset + tagnumber == AfInfo.TagAfPointsInFocus)
+                        {
+                            var pointsInFocus = new short[(int)((numafpoints + 15) / 16)];
+                            
+                            // There could be incorrect data in the array, so boundary check
+                            if (values.Length - 1 >= (i + pointsInFocus.Length))
+                            {
+                                for (var j = 0; j < pointsInFocus.Length; j++)
+                                    pointsInFocus[j] = (short)values[i + j];
+
+                                Set(AfInfo.Offset + tagnumber, pointsInFocus);
+                            }
+                            i += pointsInFocus.Length - 1;  // assume these bytes are processed and skip
+                        }
+                        else
+                            Set(AfInfo.Offset + tagnumber, values[i]);
+                        tagnumber++;
+                    }
                     break;
                 }
 
                 // TODO the interpretation of the custom functions tag depends upon the camera model
-//                case TAG_CANON_CUSTOM_FUNCTIONS_ARRAY:
-//                {
-//                    int subTagTypeBase = 0xC300;
-//                    // we intentionally skip the first array member
-//                    for (int i = 1; i < ints.length; i++)
-//                        setInt(subTagTypeBase + i + 1, ints[i] & 0x0F);
-//                    break;
-//                }
+                //                case TAG_CANON_CUSTOM_FUNCTIONS_ARRAY:
+                //                {
+                //                    int subTagTypeBase = 0xC300;
+                //                    // we intentionally skip the first array member
+                //                    for (int i = 1; i < ints.length; i++)
+                //                        setInt(subTagTypeBase + i + 1, ints[i] & 0x0F);
+                //                    break;
+                //                }
 
                 default:
                 {
