@@ -318,10 +318,26 @@ namespace MetadataExtractor.IO
         /// The maximum number of bytes to read.  If a zero-byte is not reached within this limit,
         /// reading will stop and the string will be truncated to this length.
         /// </param>
-        /// <returns>The read string.</returns>
+        /// <returns>The read <see cref="string"/></returns>
         /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
         [NotNull]
         public string GetNullTerminatedString(int index, int maxLengthBytes)
+        {
+            return GetNullTerminatedStringValue(index, maxLengthBytes).ToString();
+        }
+
+        /// <summary>
+        /// Creates a string starting at the specified index, and ending where either <c>byte=='\0'</c> or
+        /// <c>length==maxLength</c>.
+        /// </summary>
+        /// <param name="index">The index within the buffer at which to start reading the string.</param>
+        /// <param name="maxLengthBytes">
+        /// The maximum number of bytes to read.  If a zero-byte is not reached within this limit,
+        /// reading will stop and the string will be truncated to this length.
+        /// </param>
+        /// <returns>The read <see cref="StringValue"/></returns>
+        /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
+        public StringValue GetNullTerminatedStringValue(int index, int maxLengthBytes)
         {
             // NOTE currently only really suited to single-byte character strings
             var bytes = GetBytes(index, maxLengthBytes);
@@ -329,7 +345,12 @@ namespace MetadataExtractor.IO
             var length = 0;
             while (length < bytes.Length && bytes[length] != 0)
                 length++;
-            return Encoding.UTF8.GetString(bytes, 0, length);
+
+            var _actualBytes = new byte[length];
+            if (length > 0)
+                Array.Copy(bytes, 0, _actualBytes, 0, length);
+
+            return new StringValue(_actualBytes);
         }
     }
 }

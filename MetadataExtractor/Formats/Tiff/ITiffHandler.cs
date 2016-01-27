@@ -63,7 +63,7 @@ namespace MetadataExtractor.Formats.Tiff
 
         void SetByteArray(int tagId, [NotNull] byte[] bytes);
 
-        void SetString(int tagId, [NotNull] string str);
+        void SetString(int tagId, [NotNull] StringValue str);
 
         void SetRational(int tagId, [NotNull] Rational rational);
 

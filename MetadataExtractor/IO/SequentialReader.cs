@@ -246,10 +246,22 @@ namespace MetadataExtractor.IO
         /// The maximum number of bytes to read.  If a zero-byte is not reached within this limit,
         /// reading will stop and the string will be truncated to this length.
         /// </param>
-        /// <returns>The read string.</returns>
+        /// <returns>The read <see cref="string"/></returns>
         /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
         [NotNull]
         public string GetNullTerminatedString(int maxLengthBytes)
+        {
+            return GetNullTerminatedStringValue(maxLengthBytes).ToString();
+        }
+
+        /// <summary>Creates a String from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.</summary>
+        /// <param name="maxLengthBytes">
+        /// The maximum number of bytes to read.  If a zero-byte is not reached within this limit,
+        /// reading will stop and the string will be truncated to this length.
+        /// </param>
+        /// <returns>The read string as a <see cref="StringValue"/></returns>
+        /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
+        public StringValue GetNullTerminatedStringValue(int maxLengthBytes)
         {
             // NOTE currently only really suited to single-byte character strings
             var bytes = new byte[maxLengthBytes];
@@ -257,7 +269,13 @@ namespace MetadataExtractor.IO
             var length = 0;
             while (length < bytes.Length && (bytes[length] = GetByte()) != 0)
                 length++;
-            return Encoding.UTF8.GetString(bytes, 0, length);
+            if (length != maxLengthBytes)
+            {
+                var bytesCopy = new byte[length];
+                Array.Copy(bytes, bytesCopy, length);
+                bytes = bytesCopy;
+            }
+            return new StringValue(bytes);
         }
     }
 }
