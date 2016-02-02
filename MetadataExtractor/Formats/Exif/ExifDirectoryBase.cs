@@ -728,8 +728,8 @@ namespace MetadataExtractor.Formats.Exif
             map[TagSamplesPerPixel] = "Samples Per Pixel";
             map[TagRowsPerStrip] = "Rows Per Strip";
             map[TagStripByteCounts] = "Strip Byte Counts";
-            map[TagMinSampleValue] = "Minimum sample value";
-            map[TagMaxSampleValue] = "Maximum sample value";
+            map[TagMinSampleValue] = "Minimum Sample Value";
+            map[TagMaxSampleValue] = "Maximum Sample Value";
             map[TagXResolution] = "X Resolution";
             map[TagYResolution] = "Y Resolution";
             map[TagPlanarConfiguration] = "Planar Configuration";
