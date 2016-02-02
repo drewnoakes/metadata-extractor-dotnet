@@ -176,7 +176,7 @@ namespace MetadataExtractor.Formats.Exif
                 case ExifDirectoryBase.TagSubjectDistanceRange:
                     return GetSubjectDistanceRangeDescription();
                 case ExifDirectoryBase.TagSensitivityType:
-                    return GetSensitivityTypeRangeDescription();
+                    return GetSensitivityTypeDescription();
                 case ExifDirectoryBase.TagCompression:
                     return GetCompressionDescription();
                 case ExifDirectoryBase.TagJpegProc:
@@ -475,7 +475,7 @@ namespace MetadataExtractor.Formats.Exif
         }
 
         [CanBeNull]
-        public string GetSensitivityTypeRangeDescription()
+        public string GetSensitivityTypeDescription()
         {
             return GetIndexedDescription(ExifDirectoryBase.TagSensitivityType,
                 "Unknown",
