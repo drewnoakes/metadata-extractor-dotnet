@@ -103,7 +103,7 @@ namespace MetadataExtractor.Formats.Exif
                     return GetExposureTimeDescription();
                 case ExifDirectoryBase.TagShutterSpeed:
                     return GetShutterSpeedDescription();
-                case ExifDirectoryBase.TagFnumber:
+                case ExifDirectoryBase.TagFNumber:
                     return GetFNumberDescription();
                 case ExifDirectoryBase.TagCompressedAverageBitsPerPixel:
                     return GetCompressedAverageBitsPerPixelDescription();
@@ -1045,7 +1045,7 @@ namespace MetadataExtractor.Formats.Exif
         public string GetFNumberDescription()
         {
             Rational value;
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagFnumber, out value))
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagFNumber, out value))
                 return null;
             return GetFStopDescription(value.ToDouble());
         }

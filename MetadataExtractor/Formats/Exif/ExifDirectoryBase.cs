@@ -208,7 +208,7 @@ namespace MetadataExtractor.Formats.Exif
         public const int TagExposureTime = 0x829A;
 
         /// <summary>The actual F-number(F-stop) of lens when the image was taken.</summary>
-        public const int TagFnumber = 0x829D;
+        public const int TagFNumber = 0x829D;
 
         public const int TagIptcNaa = 0x83BB;
 
@@ -764,7 +764,7 @@ namespace MetadataExtractor.Formats.Exif
             map[TagBatteryLevel] = "Battery Level";
             map[TagCopyright] = "Copyright";
             map[TagExposureTime] = "Exposure Time";
-            map[TagFnumber] = "F-Number";
+            map[TagFNumber] = "F-Number";
             map[TagIptcNaa] = "IPTC/NAA";
             map[TagInterColorProfile] = "Inter Color Profile";
             map[TagExposureProgram] = "Exposure Program";
