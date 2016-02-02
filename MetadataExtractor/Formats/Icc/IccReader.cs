@@ -62,12 +62,12 @@ namespace MetadataExtractor.Formats.Icc
 #else
             IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+            ReadJpegSegments(IEnumerable<JpegSegment> segments, JpegSegmentType segmentType)
         {
             // ICC data can be spread across multiple JPEG segments.
 
             // Skip any segments that do not contain the required preamble
-            var iccSegments = segments.Where(segment => segment.Length > SegmentHeaderLength && IsSubarrayEqualTo(segment, 0, _jpegSegmentPreambleBytes)).ToList();
+            var iccSegments = segments.Where(segment => segment.Bytes.Length > SegmentHeaderLength && IsSubarrayEqualTo(segment.Bytes, 0, _jpegSegmentPreambleBytes)).ToList();
 
             if (iccSegments.Count == 0)
                 return new Directory[0];
@@ -75,29 +75,30 @@ namespace MetadataExtractor.Formats.Icc
             byte[] buffer;
             if (iccSegments.Count == 1)
             {
-                buffer = new byte[iccSegments[0].Length - SegmentHeaderLength];
-                Array.Copy(iccSegments[0], SegmentHeaderLength, buffer, 0, iccSegments[0].Length - SegmentHeaderLength);
+                buffer = new byte[iccSegments[0].Bytes.Length - SegmentHeaderLength];
+                Array.Copy(iccSegments[0].Bytes, SegmentHeaderLength, buffer, 0, iccSegments[0].Bytes.Length - SegmentHeaderLength);
             }
             else
             {
                 // Concatenate all buffers
-                var totalLength = iccSegments.Sum(s => s.Length - SegmentHeaderLength);
+                var totalLength = iccSegments.Sum(s => s.Bytes.Length - SegmentHeaderLength);
                 buffer = new byte[totalLength];
                 for (int i = 0, pos = 0; i < iccSegments.Count; i++)
                 {
                     var segment = iccSegments[i];
-                    Array.Copy(segment, SegmentHeaderLength, buffer, pos, segment.Length - SegmentHeaderLength);
-                    pos += segment.Length - SegmentHeaderLength;
+                    Array.Copy(segment.Bytes, SegmentHeaderLength, buffer, pos, segment.Bytes.Length - SegmentHeaderLength);
+                    pos += segment.Bytes.Length - SegmentHeaderLength;
                 }
             }
 
-            return new[] { Extract(new ByteArrayReader(buffer)) };
+            return new[] { Extract(new ByteArrayReader(buffer), segments.First().StartPosition) };
         }
 
-        public IccDirectory Extract([NotNull] IndexedReader reader)
+        public IccDirectory Extract([NotNull] IndexedReader reader, long segmentStart)
         {
             // TODO review whether the 'tagPtr' values below really do require IndexedReader or whether SequentialReader may be used instead
             var directory = new IccDirectory();
+            directory.StartPosition = segmentStart;
 
             try
             {

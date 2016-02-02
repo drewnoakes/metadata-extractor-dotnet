@@ -40,7 +40,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [NotNull]
         public static IList<Directory> ProcessSegmentBytes([NotNull] string filePath)
         {
-            return new ExifReader().ReadJpegSegments(new[] { File.ReadAllBytes(filePath) }, JpegSegmentType.App1).ToList();
+            return new ExifReader().ReadJpegSegments(new[] { new JpegSegment(JpegSegmentType.App1, File.ReadAllBytes(filePath)) }, JpegSegmentType.App1).ToList();
         }
 
         [NotNull]
@@ -68,7 +68,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void TestReadJpegSegmentWithNoExifData()
         {
             var badExifData = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            var directories = new ExifReader().ReadJpegSegments(new [] { badExifData }, JpegSegmentType.App1);
+            var directories = new ExifReader().ReadJpegSegments(new [] { new JpegSegment(JpegSegmentType.App1, badExifData) }, JpegSegmentType.App1);
             Assert.Equal(0, directories.Count);
         }
 
@@ -111,7 +111,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void TestThumbnailOffset()
         {
             var directory = ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
-            Assert.Equal(192, directory.GetInt32(ExifThumbnailDirectory.TagThumbnailOffset));
+            Assert.Equal(198, directory.GetInt32(ExifThumbnailDirectory.TagThumbnailOffset));
         }
 
         [Fact]

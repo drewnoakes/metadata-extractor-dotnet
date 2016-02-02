@@ -46,14 +46,14 @@ namespace MetadataExtractor.Formats.Jpeg
     public sealed class JpegSegmentData
     {
         [NotNull]
-        private readonly Dictionary<JpegSegmentType, IList<byte[]>> _segmentDataMap = new Dictionary<JpegSegmentType, IList<byte[]>>(10);
+        private readonly Dictionary<JpegSegmentType, IList<JpegSegment>> _segmentDataMap = new Dictionary<JpegSegmentType, IList<JpegSegment>>(10);
 
         /// <summary>Adds segment bytes to the collection.</summary>
         /// <param name="segmentType">the type of the segment being added</param>
         /// <param name="segmentBytes">the byte array holding data for the segment being added</param>
-        public void AddSegment(JpegSegmentType segmentType, [NotNull] byte[] segmentBytes)
+        public void AddSegment(JpegSegmentType segmentType, [NotNull] JpegSegment segment)
         {
-            GetOrCreateSegmentList(segmentType).Add(segmentBytes);
+            GetOrCreateSegmentList(segmentType).Add(segment);
         }
 
         /// <summary>Gets the set of JPEG segment type identifiers.</summary>
@@ -78,7 +78,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <param name="occurrence">the zero-based index of the occurrence</param>
         /// <returns>the segment data as a byte[], or null if no segment exists for the type &amp; occurrence</returns>
         [CanBeNull]
-        public byte[] GetSegment(JpegSegmentType segmentType, int occurrence = 0)
+        public JpegSegment GetSegment(JpegSegmentType segmentType, int occurrence = 0)
         {
             var segmentList = GetSegmentList(segmentType);
             return segmentList != null && segmentList.Count > occurrence ? segmentList[occurrence] : null;
@@ -89,22 +89,22 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <param name="segmentType">a number which identifies the type of JPEG segment being queried</param>
         /// <returns>zero or more byte arrays, each holding the data of a JPEG segment</returns>
         [NotNull]
-        public IEnumerable<byte[]> GetSegments(JpegSegmentType segmentType) => GetSegmentList(segmentType) ?? Enumerable.Empty<byte[]>();
+        public IEnumerable<JpegSegment> GetSegments(JpegSegmentType segmentType) => GetSegmentList(segmentType) ?? Enumerable.Empty<JpegSegment>();
 
         [CanBeNull]
-        private IList<byte[]> GetSegmentList(JpegSegmentType segmentType)
+        private IList<JpegSegment> GetSegmentList(JpegSegmentType segmentType)
         {
-            IList<byte[]> list;
+            IList<JpegSegment> list;
             return _segmentDataMap.TryGetValue(segmentType, out list) ? list : null;
         }
 
         [NotNull]
-        private IList<byte[]> GetOrCreateSegmentList(JpegSegmentType segmentType)
+        private IList<JpegSegment> GetOrCreateSegmentList(JpegSegmentType segmentType)
         {
-            IList<byte[]> segmentList;
+            IList<JpegSegment> segmentList;
             if (!_segmentDataMap.TryGetValue(segmentType, out segmentList))
             {
-                segmentList = new List<byte[]>();
+                segmentList = new List<JpegSegment>();
                 _segmentDataMap[segmentType] = segmentList;
             }
             return segmentList;
@@ -127,7 +127,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <param name="occurrence">the zero-based index of the segment occurrence to remove.</param>
         public void RemoveSegmentOccurrence(JpegSegmentType segmentType, int occurrence)
         {
-            IList<byte[]> segmentList;
+            IList<JpegSegment> segmentList;
             if (_segmentDataMap.TryGetValue(segmentType, out segmentList))
             {
                 segmentList.RemoveAt(occurrence);

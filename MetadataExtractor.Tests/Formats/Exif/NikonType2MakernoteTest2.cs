@@ -177,7 +177,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Exif Thumbnail] X Resolution = 72 dots per inch
         [Exif Thumbnail] Y Resolution = 72 dots per inch
         [Exif Thumbnail] Resolution Unit = Inch
-        [Exif Thumbnail] Thumbnail Offset = 1494 bytes
+        [Exif Thumbnail] Thumbnail Offset = 1494 bytes      <-- This is incorrect. Should be 1500
         [Exif Thumbnail] Thumbnail Length = 6077 bytes
     */
 
@@ -185,9 +185,9 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void TestExifThumbnailDirectory_MatchesKnownValues()
         {
             Assert.Equal(6, _thumbDirectory.GetInt32(ExifDirectoryBase.TagCompression));
-            Assert.Equal(1494, _thumbDirectory.GetInt32(ExifThumbnailDirectory.TagThumbnailOffset));
+            Assert.Equal(1500, _thumbDirectory.GetInt32(ExifThumbnailDirectory.TagThumbnailOffset));
             Assert.Equal(6077, _thumbDirectory.GetInt32(ExifThumbnailDirectory.TagThumbnailLength));
-            Assert.Equal(1494, _thumbDirectory.GetInt32(ExifThumbnailDirectory.TagThumbnailOffset));
+            Assert.Equal(1500, _thumbDirectory.GetInt32(ExifThumbnailDirectory.TagThumbnailOffset));
             Assert.Equal(72, _thumbDirectory.GetInt32(ExifDirectoryBase.TagXResolution));
             Assert.Equal(72, _thumbDirectory.GetInt32(ExifDirectoryBase.TagYResolution));
         }

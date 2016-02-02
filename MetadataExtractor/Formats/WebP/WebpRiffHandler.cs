@@ -63,23 +63,23 @@ namespace MetadataExtractor.Formats.WebP
                                                         fourCc == "ICCP" ||
                                                         fourCc == "XMP ";
 
-        public void ProcessChunk(string fourCc, byte[] payload)
+        public void ProcessChunk(string fourCc, byte[] payload, long segmentStart)
         {
             switch (fourCc)
             {
                 case "EXIF":
                 {
-                    _directories.AddRange(new ExifReader().Extract(new ByteArrayReader(payload)));
+                    _directories.AddRange(new ExifReader().Extract(new ByteArrayReader(payload), 0, segmentStart));
                     break;
                 }
                 case "ICCP":
                 {
-                    _directories.Add(new IccReader().Extract(new ByteArrayReader(payload)));
+                    _directories.Add(new IccReader().Extract(new ByteArrayReader(payload), segmentStart));
                     break;
                 }
                 case "XMP ":
                 {
-                    _directories.Add(new XmpReader().Extract(payload));
+                    _directories.Add(new XmpReader().Extract(payload, segmentStart));
                     break;
                 }
                 case "VP8X":

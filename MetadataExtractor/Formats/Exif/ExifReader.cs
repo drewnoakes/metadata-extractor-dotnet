@@ -58,20 +58,20 @@ namespace MetadataExtractor.Formats.Exif
 #else
             IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+            ReadJpegSegments(IEnumerable<JpegSegment> segments, JpegSegmentType segmentType)
         {
             Debug.Assert(segmentType == JpegSegmentType.App1);
 
             return segments
-                .Where(segment => segment.Length >= JpegSegmentPreamble.Length && Encoding.UTF8.GetString(segment, 0, JpegSegmentPreamble.Length) == JpegSegmentPreamble)
-                .SelectMany(segment => Extract(new ByteArrayReader(segment), JpegSegmentPreamble.Length))
+                .Where(segment => segment.Bytes.Length >= JpegSegmentPreamble.Length && Encoding.UTF8.GetString(segment.Bytes, 0, JpegSegmentPreamble.Length) == JpegSegmentPreamble)
+                .SelectMany(segment => Extract(new ByteArrayReader(segment.Bytes), JpegSegmentPreamble.Length, segment.StartPosition))
                 .ToList();
         }
 
         /// <summary>
         /// Reads TIFF formatted Exif data a specified offset within a <see cref="IndexedReader"/>.
         /// </summary>
-        public
+        /*public
 #if NET35 || PORTABLE
             IList<Directory>
 #else
@@ -79,12 +79,23 @@ namespace MetadataExtractor.Formats.Exif
 #endif
             Extract(IndexedReader reader, int readerOffset = 0)
         {
+            return Extract(reader, readerOffset, 0);
+        }*/
+
+        public
+#if NET35 || PORTABLE
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            Extract(IndexedReader reader, int readerOffset, long segmentStart)
+        {
             var directories = new List<Directory>();
 
             try
             {
                 // Read the TIFF-formatted Exif data
-                TiffReader.ProcessTiff(reader, new ExifTiffHandler(directories, StoreThumbnailBytes), readerOffset);
+                TiffReader.ProcessTiff(reader, new ExifTiffHandler(directories, StoreThumbnailBytes, segmentStart), readerOffset);
             }
             catch (TiffProcessingException e)
             {

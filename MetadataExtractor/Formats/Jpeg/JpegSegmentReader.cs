@@ -127,9 +127,11 @@ namespace MetadataExtractor.Formats.Jpeg
                 // Check whether we are interested in this segment
                 if (segmentTypes == null || segmentTypes.Contains(segmentType))
                 {
+                    long segmentPosition = reader.Position;
                     var segmentBytes = reader.GetBytes(segmentLength);
                     Debug.Assert(segmentLength == segmentBytes.Length);
-                    segmentData.AddSegment(segmentType, segmentBytes);
+                    JpegSegment segment = new JpegSegment(segmentType, segmentBytes, segmentPosition);
+                    segmentData.AddSegment(segmentType, segment);
                 }
                 else
                 {

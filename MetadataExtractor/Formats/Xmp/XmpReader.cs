@@ -84,19 +84,19 @@ namespace MetadataExtractor.Formats.Xmp
 #else
             IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+            ReadJpegSegments(IEnumerable<JpegSegment> segments, JpegSegmentType segmentType)
         {
             var directories = new List<Directory>();
 
-            foreach (var segmentBytes in segments)
+            foreach (var segment in segments)
             {
                 // XMP in a JPEG file has an identifying preamble which is not valid XML
                 var preambleLength = XmpJpegPreamble.Length;
-                if (segmentBytes.Length >= preambleLength && XmpJpegPreamble.Equals(Encoding.UTF8.GetString(segmentBytes, 0, preambleLength), StringComparison.OrdinalIgnoreCase))
+                if (segment.Bytes.Length >= preambleLength && XmpJpegPreamble.Equals(Encoding.UTF8.GetString(segment.Bytes, 0, preambleLength), StringComparison.OrdinalIgnoreCase))
                 {
-                    var xmlBytes = new byte[segmentBytes.Length - preambleLength];
-                    Array.Copy(segmentBytes, preambleLength, xmlBytes, 0, xmlBytes.Length);
-                    directories.Add(Extract(xmlBytes));
+                    var xmlBytes = new byte[segment.Bytes.Length - preambleLength];
+                    Array.Copy(segment.Bytes, preambleLength, xmlBytes, 0, xmlBytes.Length);
+                    directories.Add(Extract(xmlBytes, segment.StartPosition));
                 }
             }
 
@@ -109,7 +109,7 @@ namespace MetadataExtractor.Formats.Xmp
         /// <remarks>
         /// The extraction is done with Adobe's XMPCore library.
         /// </remarks>
-        public XmpDirectory Extract([NotNull] byte[] xmpBytes)
+        public XmpDirectory Extract([NotNull] byte[] xmpBytes, long segmentStart)
         {
             var directory = new XmpDirectory();
             try
@@ -130,7 +130,7 @@ namespace MetadataExtractor.Formats.Xmp
         /// <remarks>
         /// The extraction is done with Adobe's XMPCore library.
         /// </remarks>
-        public XmpDirectory Extract([NotNull] string xmpString) => Extract(Encoding.UTF8.GetBytes(xmpString));
+        public XmpDirectory Extract([NotNull] string xmpString) => Extract(Encoding.UTF8.GetBytes(xmpString), 0);
 
         /// <exception cref="XmpException"/>
         private static void ProcessXmpTags(XmpDirectory directory, IXmpMeta xmpMeta)

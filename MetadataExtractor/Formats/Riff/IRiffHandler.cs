@@ -52,7 +52,8 @@ namespace MetadataExtractor.Formats.Riff
         /// <summary>Perform whatever processing is necessary for the type of chunk with its payload.</summary>
         /// <remarks>This is only called if a previous call to <see cref="ShouldAcceptChunk(string)"/> with the same <c>fourCC</c> returned <c>true</c>.</remarks>
         /// <param name="fourCc">the four character code of the chunk</param>
-        /// <param name="payload">they payload of the chunk as a byte array</param>
-        void ProcessChunk([NotNull] string fourCc, [NotNull] byte[] payload);
+        /// <param name="payload">the payload of the chunk as a byte array</param>
+        /// <param name="segmentStart">the absolute starting position of the byte array in the parent data</param>
+        void ProcessChunk([NotNull] string fourCc, [NotNull] byte[] payload, [NotNull] long segmentStart);
     }
 }

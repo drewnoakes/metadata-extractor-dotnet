@@ -50,6 +50,9 @@ namespace MetadataExtractor
         /// <summary>The descriptor used to interpret tag values.</summary>
         private ITagDescriptor _descriptor;
 
+        /// <summary>Absolute position of this directory within the file/stream/array </summary>
+        public long StartPosition { get; set; } = 0;
+
         /// <summary>Provides the name of the directory, for display purposes.</summary>
         /// <value>the name of the directory</value>
         [NotNull]

@@ -60,6 +60,7 @@
     <Compile Include="Formats\Jpeg\IJpegSegmentMetadataReader.cs" />
     <Compile Include="Formats\Jpeg\JpegMetadataReader.cs" />
     <Compile Include="Formats\Jpeg\JpegProcessingException.cs" />
+    <Compile Include="Formats\Jpeg\JpegSegment.cs" />
     <Compile Include="Formats\Jpeg\JpegSegmentData.cs" />
     <Compile Include="Formats\Jpeg\JpegSegmentReader.cs" />
     <Compile Include="Formats\Jpeg\JpegSegmentType.cs" />

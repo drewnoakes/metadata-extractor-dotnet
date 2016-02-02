@@ -190,7 +190,7 @@ namespace MetadataExtractor.Formats.Png
                     var bytesLeft = bytes.Length - profileName.Length - 2;
                     var compressedProfile = reader.GetBytes(bytesLeft);
                     using (var inflaterStream = new InflaterInputStream(new MemoryStream(compressedProfile)))
-                        yield return new IccReader().Extract(new IndexedCapturingReader(inflaterStream));
+                        yield return new IccReader().Extract(new IndexedCapturingReader(inflaterStream), 0);
                 }
                 else
                 {

@@ -50,7 +50,7 @@ namespace MetadataExtractor.Formats.Photoshop
             var directories = new List<Directory>();
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.AddRange(new PsdReader().Extract(new SequentialStreamReader(stream)));
+                directories.AddRange(new PsdReader().Extract(new SequentialStreamReader(stream), stream.Position));
 
             directories.Add(new FileMetadataReader().Read(filePath));
 
@@ -68,7 +68,7 @@ namespace MetadataExtractor.Formats.Photoshop
 #endif
             ReadMetadata([NotNull] Stream stream)
         {
-            return new PsdReader().Extract(new SequentialStreamReader(stream));
+            return new PsdReader().Extract(new SequentialStreamReader(stream), stream.Position);
         }
     }
 }

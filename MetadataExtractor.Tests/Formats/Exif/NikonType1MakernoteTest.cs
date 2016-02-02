@@ -132,7 +132,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Exif] File Source = Digital Still Camera (DSC)
         [Exif] Scene Type = Directly photographed image
         [Exif] Compression = JPEG compression
-        [Exif] Thumbnail Offset = 2036 bytes
+        [Exif] Thumbnail Offset = 2036 bytes    <-- This is incorrect. Should be 2042
         [Exif] Thumbnail Length = 4662 bytes
         [Exif] Thumbnail Data = [4662 bytes of thumbnail data]
     */
@@ -174,7 +174,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.Equal(3, _exifSubIfdDirectory.GetInt32(ExifDirectoryBase.TagFileSource));
             Assert.Equal(1, _exifSubIfdDirectory.GetInt32(ExifDirectoryBase.TagSceneType));
             Assert.Equal(6, _thumbDirectory.GetInt32(ExifDirectoryBase.TagCompression));
-            Assert.Equal(2036, _thumbDirectory.GetInt32(ExifThumbnailDirectory.TagThumbnailOffset));
+            Assert.Equal(2042, _thumbDirectory.GetInt32(ExifThumbnailDirectory.TagThumbnailOffset));
             Assert.Equal(4662, _thumbDirectory.GetInt32(ExifThumbnailDirectory.TagThumbnailLength));
         }
     }

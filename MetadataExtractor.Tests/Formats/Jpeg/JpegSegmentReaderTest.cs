@@ -47,20 +47,20 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             var segmentData = ReadSegments("Tests/Data/withExifAndIptc.jpg");
 
             Assert.Equal(1, segmentData.GetSegmentCount(JpegSegmentType.App0));
-            Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app0"), segmentData.GetSegment(JpegSegmentType.App0));
+            Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app0"), segmentData.GetSegment(JpegSegmentType.App0).Bytes);
             Assert.Null(segmentData.GetSegment(JpegSegmentType.App0, 1));
             Assert.Equal(2, segmentData.GetSegmentCount(JpegSegmentType.App1));
-            Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app1.0"), segmentData.GetSegment(JpegSegmentType.App1));
-            Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app1.1"), segmentData.GetSegment(JpegSegmentType.App1, occurrence: 1));
+            Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app1.0"), segmentData.GetSegment(JpegSegmentType.App1).Bytes);
+            Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app1.1"), segmentData.GetSegment(JpegSegmentType.App1, occurrence: 1).Bytes);
             Assert.Null(segmentData.GetSegment(JpegSegmentType.App1, 2));
             Assert.Equal(1, segmentData.GetSegmentCount(JpegSegmentType.App2));
-            Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app2"), segmentData.GetSegment(JpegSegmentType.App2));
+            Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app2"), segmentData.GetSegment(JpegSegmentType.App2).Bytes);
             Assert.Null(segmentData.GetSegment(JpegSegmentType.App2, 1));
             Assert.Equal(1, segmentData.GetSegmentCount(JpegSegmentType.AppD));
-            Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.appd"), segmentData.GetSegment(JpegSegmentType.AppD));
+            Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.appd"), segmentData.GetSegment(JpegSegmentType.AppD).Bytes);
             Assert.Null(segmentData.GetSegment(JpegSegmentType.AppD, 1));
             Assert.Equal(1, segmentData.GetSegmentCount(JpegSegmentType.AppE));
-            Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.appe"), segmentData.GetSegment(JpegSegmentType.AppE));
+            Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.appe"), segmentData.GetSegment(JpegSegmentType.AppE).Bytes);
             Assert.Null(segmentData.GetSegment(JpegSegmentType.AppE, 1));
             Assert.Equal(0, segmentData.GetSegmentCount(JpegSegmentType.App3));
             Assert.Equal(0, segmentData.GetSegmentCount(JpegSegmentType.App4));
@@ -104,8 +104,8 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Assert.Equal(0, segmentData.GetSegmentCount(JpegSegmentType.Com));
             Assert.Equal(0, segmentData.GetSegmentCount(JpegSegmentType.Dht));
             Assert.Equal(0, segmentData.GetSegmentCount(JpegSegmentType.Sof0));
-            Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app0"), segmentData.GetSegment(JpegSegmentType.App0));
-            Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app2"), segmentData.GetSegment(JpegSegmentType.App2));
+            Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app0"), segmentData.GetSegment(JpegSegmentType.App0).Bytes);
+            Assert.Equal(File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app2"), segmentData.GetSegment(JpegSegmentType.App2).Bytes);
         }
 
         [Fact]

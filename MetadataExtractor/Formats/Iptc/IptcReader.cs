@@ -73,12 +73,12 @@ namespace MetadataExtractor.Formats.Iptc
 #else
             IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+            ReadJpegSegments(IEnumerable<JpegSegment> segments, JpegSegmentType segmentType)
         {
             // Ensure data starts with the IPTC marker byte
             return segments
-                .Where(segment => segment.Length != 0 && segment[0] == IptcMarkerByte)
-                .Select(segment => Extract(new SequentialByteArrayReader(segment), segment.Length))
+                .Where(segment => segment.Bytes.Length != 0 && segment.Bytes[0] == IptcMarkerByte)
+                .Select(segment => Extract(new SequentialByteArrayReader(segment.Bytes), segment.Bytes.Length, segment.StartPosition))
 #if NET35 || PORTABLE
                 .Cast<Directory>()
 #endif
@@ -89,9 +89,10 @@ namespace MetadataExtractor.Formats.Iptc
         /// <remarks>
         /// Note that IPTC data does not describe its own length, hence <paramref name="length"/> is required.
         /// </remarks>
-        public IptcDirectory Extract([NotNull] SequentialReader reader, long length)
+        public IptcDirectory Extract([NotNull] SequentialReader reader, long length, long segmentStart)
         {
             var directory = new IptcDirectory();
+            directory.StartPosition = segmentStart;
 
             var offset = 0;
 

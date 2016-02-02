@@ -60,12 +60,12 @@ namespace MetadataExtractor.Formats.Photoshop
 #else
             IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+            ReadJpegSegments(IEnumerable<JpegSegment> segments, JpegSegmentType segmentType)
         {
             var preambleLength = JpegSegmentPreamble.Length;
             return segments
-                .Where(segment => segment.Length >= preambleLength + 1 && JpegSegmentPreamble == Encoding.UTF8.GetString(segment, 0, preambleLength))
-                .SelectMany(segment => Extract(new SequentialByteArrayReader(segment, preambleLength + 1), segment.Length - preambleLength - 1))
+                .Where(segment => segment.Bytes.Length >= preambleLength + 1 && JpegSegmentPreamble == Encoding.UTF8.GetString(segment.Bytes, 0, preambleLength))
+                .SelectMany(segment => Extract(new SequentialByteArrayReader(segment.Bytes, preambleLength + 1), segment.Bytes.Length - preambleLength - 1, segment.StartPosition))
                 .ToList();
         }
 
@@ -75,7 +75,7 @@ namespace MetadataExtractor.Formats.Photoshop
 #else
             IReadOnlyList<Directory>
 #endif
-            Extract([NotNull] SequentialReader reader, int length)
+            Extract([NotNull] SequentialReader reader, int length, long segmentStart)
         {
             var directory = new PhotoshopDirectory();
 
@@ -144,17 +144,17 @@ namespace MetadataExtractor.Formats.Photoshop
                     switch (tagType)
                     {
                         case PhotoshopDirectory.TagIptc:
-                            directories.Add(new IptcReader().Extract(new SequentialByteArrayReader(tagBytes), tagBytes.Length));
+                            directories.Add(new IptcReader().Extract(new SequentialByteArrayReader(tagBytes), tagBytes.Length, segmentStart));
                             break;
                         case PhotoshopDirectory.TagIccProfileBytes:
-                            directories.Add(new IccReader().Extract(new ByteArrayReader(tagBytes)));
+                            directories.Add(new IccReader().Extract(new ByteArrayReader(tagBytes), segmentStart));
                             break;
                         case PhotoshopDirectory.TagExifData1:
                         case PhotoshopDirectory.TagExifData3:
-                            directories.AddRange(new ExifReader().Extract(new ByteArrayReader(tagBytes)));
+                            directories.AddRange(new ExifReader().Extract(new ByteArrayReader(tagBytes), 0, segmentStart));
                             break;
                         case PhotoshopDirectory.TagXmpData:
-                            directories.Add(new XmpReader().Extract(tagBytes));
+                            directories.Add(new XmpReader().Extract(tagBytes, segmentStart));
                             break;
                         default:
                             directory.Set(tagType, tagBytes);
