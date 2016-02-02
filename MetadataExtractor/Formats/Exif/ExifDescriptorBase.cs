@@ -55,7 +55,7 @@ namespace MetadataExtractor.Formats.Exif
                     return GetOrientationDescription();
                 case ExifDirectoryBase.TagResolutionUnit:
                     return GetResolutionDescription();
-                case ExifDirectoryBase.TagYcbcrPositioning:
+                case ExifDirectoryBase.TagYCbCrPositioning:
                     return GetYCbCrPositioningDescription();
                 case ExifDirectoryBase.TagXResolution:
                     return GetXResolutionDescription();
@@ -77,7 +77,7 @@ namespace MetadataExtractor.Formats.Exif
                     return GetSamplesPerPixelDescription();
                 case ExifDirectoryBase.TagPlanarConfiguration:
                     return GetPlanarConfigurationDescription();
-                case ExifDirectoryBase.TagYcbcrSubsampling:
+                case ExifDirectoryBase.TagYCbCrSubsampling:
                     return GetYCbCrSubsamplingDescription();
                 case ExifDirectoryBase.TagReferenceBlackWhite:
                     return GetReferenceBlackWhiteDescription();
@@ -241,7 +241,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetYCbCrPositioningDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagYcbcrPositioning, 1,
+            return GetIndexedDescription(ExifDirectoryBase.TagYCbCrPositioning, 1,
                 "Center of pixel array",
                 "Datum point");
         }
@@ -320,7 +320,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetYCbCrSubsamplingDescription()
         {
-            var positions = Directory.GetInt32Array(ExifDirectoryBase.TagYcbcrSubsampling);
+            var positions = Directory.GetInt32Array(ExifDirectoryBase.TagYCbCrSubsampling);
             if (positions == null || positions.Length < 2)
                 return null;
             if (positions[0] == 2 && positions[1] == 1)

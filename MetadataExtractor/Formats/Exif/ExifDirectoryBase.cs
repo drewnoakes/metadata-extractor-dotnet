@@ -178,11 +178,11 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagJpegProc = 0x0200;
 
-        public const int TagYcbcrCoefficients = 0x0211;
+        public const int TagYCbCrCoefficients = 0x0211;
 
-        public const int TagYcbcrSubsampling = 0x0212;
+        public const int TagYCbCrSubsampling = 0x0212;
 
-        public const int TagYcbcrPositioning = 0x0213;
+        public const int TagYCbCrPositioning = 0x0213;
 
         public const int TagReferenceBlackWhite = 0x0214;
 
@@ -751,9 +751,9 @@ namespace MetadataExtractor.Formats.Exif
             map[TagTransferRange] = "Transfer Range";
             map[TagJpegTables] = "JPEG Tables";
             map[TagJpegProc] = "JPEG Proc";
-            map[TagYcbcrCoefficients] = "YCbCr Coefficients";
-            map[TagYcbcrSubsampling] = "YCbCr Sub-Sampling";
-            map[TagYcbcrPositioning] = "YCbCr Positioning";
+            map[TagYCbCrCoefficients] = "YCbCr Coefficients";
+            map[TagYCbCrSubsampling] = "YCbCr Sub-Sampling";
+            map[TagYCbCrPositioning] = "YCbCr Positioning";
             map[TagReferenceBlackWhite] = "Reference Black/White";
             map[TagRelatedImageFileFormat] = "Related Image File Format";
             map[TagRelatedImageWidth] = "Related Image Width";
