@@ -322,8 +322,6 @@ namespace MetadataExtractor.Formats.Exif
         /// </remarks>
         public const int TagMeteringMode = 0x9207;
 
-        public const int TagLightSource = 0x9208; // TODO duplicate tag
-
         /// <summary>White balance (aka light source).</summary>
         /// <remarks>
         /// '0' means unknown, '1' daylight,
@@ -331,7 +329,7 @@ namespace MetadataExtractor.Formats.Exif
         /// '18' standard light B, '19' standard light C, '20' D55, '21' D65,
         /// '22' D75, '255' other.
         /// </remarks>
-        public const int TagWhiteBalance = 0x9208; // TODO duplicate tag
+        public const int TagWhiteBalance = 0x9208;
 
         /// <summary>
         /// 0x0  = 0000000 = No Flash
@@ -791,7 +789,6 @@ namespace MetadataExtractor.Formats.Exif
             map[TagMaxAperture] = "Max Aperture Value";
             map[TagSubjectDistance] = "Subject Distance";
             map[TagMeteringMode] = "Metering Mode";
-            map[TagLightSource] = "Light Source";
             map[TagWhiteBalance] = "White Balance";
             map[TagFlash] = "Flash";
             map[TagFocalLength] = "Focal Length";
