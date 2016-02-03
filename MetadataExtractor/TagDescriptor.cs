@@ -25,6 +25,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Util;
@@ -293,5 +294,32 @@ namespace MetadataExtractor
         protected static string GetFStopDescription(double fStop) => $"f/{fStop:0.0}";
 
         protected static string GetFocalLengthDescription(double mm) => $"{mm:0.#} mm";
+
+        /// <summary>
+        /// Decode bit mask
+        /// </summary>
+        ///<remarks>
+        /// Converted from Exiftool version 10.10 created by Phil Harvey
+        /// http://www.sno.phy.queensu.ca/~phil/exiftool/
+        /// lib\Image\ExifTool\ExifTool.pm
+        ///</remarks>
+        ///<param name="val">value to decode</param>
+        ///<param name="bits">optional bits per word (defaults to 32)</param>
+        protected string DecodeBits(short val, int bits = 32)
+        {
+            int num = 0;
+            List<int> bitList = new List<int>();
+
+            for (var i = 0; i < bits; i++)
+            {
+                if ((val & (1 << i)) > 0)
+                {
+                    int n = i + num;
+                    bitList.Add(n);
+                }
+            }
+            num += bits;
+            return (bitList.Count == 0) ? "(none)" : string.Join(",", bitList.Select(x => x.ToString()).ToArray());
+        }
     }
 }

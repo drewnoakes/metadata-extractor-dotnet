@@ -51,6 +51,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return GetLensTypeDescription();
                 case CanonMakernoteDirectory.CameraSettings.TagDigitalZoom:
                     return GetDigitalZoomDescription();
+                case CanonMakernoteDirectory.CameraSettings.TagRecordMode:
+                    return GetRecordModeDescription();
                 case CanonMakernoteDirectory.CameraSettings.TagQuality:
                     return GetQualityDescription();
                 case CanonMakernoteDirectory.CameraSettings.TagMacroMode:
@@ -97,34 +99,56 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return GetAfPointUsedDescription();
                 case CanonMakernoteDirectory.FocalLength.TagFlashBias:
                     return GetFlashBiasDescription();
+                case CanonMakernoteDirectory.AfInfo.TagAfPointsInFocus:
+                    return GetTagAfPointsInFocus();
+                case CanonMakernoteDirectory.CameraSettings.TagMaxAperture:
+                    return GetMaxApertureDescription();
+                case CanonMakernoteDirectory.CameraSettings.TagMinAperture:
+                    return GetMinApertureDescription();
+                case CanonMakernoteDirectory.CameraSettings.TagFocusContinuous:
+                    return GetFocusContinuousDescription();
+                case CanonMakernoteDirectory.CameraSettings.TagAESetting:
+                    return GetAESettingDescription();
+                case CanonMakernoteDirectory.CameraSettings.TagDisplayAperture:
+                    return GetDisplayApertureDescription();
+                case CanonMakernoteDirectory.CameraSettings.TagSpotMeteringMode:
+                    return GetSpotMeteringModeDescription();
+                case CanonMakernoteDirectory.CameraSettings.TagPhotoEffect:
+                    return GetPhotoEffectDescription();
+                case CanonMakernoteDirectory.CameraSettings.TagManualFlashOutput:
+                    return GetManualFlashOutputDescription();
+                case CanonMakernoteDirectory.CameraSettings.TagColorTone:
+                    return GetColorToneDescription();
+                case CanonMakernoteDirectory.CameraSettings.TagSRAWQuality:
+                    return GetSRAWQualityDescription();
                 // It turns out that these values are dependent upon the camera model and therefore the below code was
                 // incorrect for some Canon models.  This needs to be revisited.
-//              case TAG_CANON_CUSTOM_FUNCTION_LONG_EXPOSURE_NOISE_REDUCTION:
-//                  return getLongExposureNoiseReductionDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_AUTO_EXPOSURE_LOCK_BUTTONS:
-//                  return getShutterAutoExposureLockButtonDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_MIRROR_LOCKUP:
-//                  return getMirrorLockupDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_TV_AV_AND_EXPOSURE_LEVEL:
-//                  return getTvAndAvExposureLevelDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_AF_ASSIST_LIGHT:
-//                  return getAutoFocusAssistLightDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_SPEED_IN_AV_MODE:
-//                  return getShutterSpeedInAvModeDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_BRACKETING:
-//                  return getAutoExposureBracketingSequenceAndAutoCancellationDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_CURTAIN_SYNC:
-//                  return getShutterCurtainSyncDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_AF_STOP:
-//                  return getLensAutoFocusStopButtonDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_FILL_FLASH_REDUCTION:
-//                  return getFillFlashReductionDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_MENU_BUTTON_RETURN:
-//                  return getMenuButtonReturnPositionDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_SET_BUTTON_FUNCTION:
-//                  return getSetButtonFunctionWhenShootingDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_SENSOR_CLEANING:
-//                  return getSensorCleaningDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_LONG_EXPOSURE_NOISE_REDUCTION:
+                //                  return getLongExposureNoiseReductionDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_AUTO_EXPOSURE_LOCK_BUTTONS:
+                //                  return getShutterAutoExposureLockButtonDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_MIRROR_LOCKUP:
+                //                  return getMirrorLockupDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_TV_AV_AND_EXPOSURE_LEVEL:
+                //                  return getTvAndAvExposureLevelDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_AF_ASSIST_LIGHT:
+                //                  return getAutoFocusAssistLightDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_SPEED_IN_AV_MODE:
+                //                  return getShutterSpeedInAvModeDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_BRACKETING:
+                //                  return getAutoExposureBracketingSequenceAndAutoCancellationDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_CURTAIN_SYNC:
+                //                  return getShutterCurtainSyncDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_AF_STOP:
+                //                  return getLensAutoFocusStopButtonDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_FILL_FLASH_REDUCTION:
+                //                  return getFillFlashReductionDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_MENU_BUTTON_RETURN:
+                //                  return getMenuButtonReturnPositionDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_SET_BUTTON_FUNCTION:
+                //                  return getSetButtonFunctionWhenShootingDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_SENSOR_CLEANING:
+                //                  return getSensorCleaningDescription();
                 default:
                     return base.GetDescription(tagType);
             }
@@ -356,6 +380,16 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
 
             return "Unknown (" + value + ")";
+        }
+
+        [CanBeNull]
+        public string GetTagAfPointsInFocus()
+        {
+            short value;
+            if (!Directory.TryGetInt16(CanonMakernoteDirectory.AfInfo.TagAfPointsInFocus, out value))
+                return null;
+
+            return DecodeBits(value, 16);
         }
 
         [CanBeNull]
@@ -615,6 +649,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         }
 
         [CanBeNull]
+        public string GetRecordModeDescription()
+        {
+            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagRecordMode, 1, "JPEG", "CRW+THM", "AVI+THM", "TIF", "TIF+JPEG", "CR2", "CR2+JPEG", null, "MOV", "MP4");
+        }
+
+        [CanBeNull]
         public string GetFocusTypeDescription()
         {
             int value;
@@ -642,13 +682,172 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             return !Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagLensType, out value)
                 ? null
-                : "Lens type: " + value;
+                : value.ToString();
+        }
+
+        [CanBeNull]
+        public string GetMaxApertureDescription()
+        {
+            int value;
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagMaxAperture, out value))
+                return null;
+
+            return System.Math.Exp(CanonEv(value) * System.Math.Log(2.0) / 2.0).ToString("0.#");
+        }
+
+        [CanBeNull]
+        public string GetMinApertureDescription()
+        {
+            int value;
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagMinAperture, out value))
+                return null;
+
+            return System.Math.Exp(CanonEv(value) * System.Math.Log(2.0) / 2.0).ToString("0.#");
         }
 
         [CanBeNull]
         public string GetFlashActivityDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagFlashActivity, "Flash did not fire", "Flash fired");
+        }
+
+        [CanBeNull]
+        public string GetFocusContinuousDescription()
+        {
+            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagFocusContinuous, 0, "Single", "Continous",
+                                            null, null, null, null, null, null, "Manual");
+        }
+
+        [CanBeNull]
+        public string GetAESettingDescription()
+        {
+            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagAESetting, 0, "Normal AE", "Exposure Compensation",
+                                            "AE Lock", "AE Lock + Exposure Comp.", "No AE");
+        }
+
+        [CanBeNull]
+        public string GetDisplayApertureDescription()
+        {
+            int value;
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagDisplayAperture, out value))
+                return null;
+
+            return (value / 10).ToString();
+        }
+
+        [CanBeNull]
+        public string GetSpotMeteringModeDescription()
+        {
+            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagSpotMeteringMode, 0, "Center", "AF Point");
+        }
+
+        [CanBeNull]
+        public string GetPhotoEffectDescription()
+        {
+            int value;
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagPhotoEffect, out value))
+                return null;
+
+            switch (value)
+            {
+                case 0:
+                    return "Off";
+                case 1:
+                    return "Vivid";
+                case 2:
+                    return "Neutral";
+                case 3:
+                    return "Smooth";
+                case 4:
+                    return "Sepia";
+                case 5:
+                    return "B&W";
+                case 6:
+                    return "Custom";
+                case 100:
+                    return "My Color Data";
+                default:
+                    return "Unknown (" + value + ")";
+            }
+        }
+
+        [CanBeNull]
+        public string GetManualFlashOutputDescription()
+        {
+            int value;
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagManualFlashOutput, out value))
+                return null;
+
+            switch (value)
+            {
+                case 0:
+                    return "n/a";
+                case 0x500:
+                    return "Full";
+                case 0x502:
+                    return "Medium";
+                case 0x504:
+                    return "Low";
+                case 0x7fff:
+                    return "n/a";   // (EOS models)
+                default:
+                    return "Unknown (" + value + ")";
+            }
+        }
+
+        [CanBeNull]
+        public string GetColorToneDescription()
+        {
+            int value;
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagColorTone, out value))
+                return null;
+
+            if (value == 0x7fff)
+                return "n/a";
+            else
+                return value.ToString();
+        }
+
+        [CanBeNull]
+        public string GetSRAWQualityDescription()
+        {
+            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagSRAWQuality, 0, "n/a", "sRAW1 (mRAW)", "sRAW2 (sRAW)");
+        }
+
+        /// <summary>
+        /// Canon hex-based EV (modulo 0x20) to real number
+        /// </summary>
+        ///<remarks>
+        /// Converted from Exiftool version 10.10 created by Phil Harvey
+        /// http://www.sno.phy.queensu.ca/~phil/exiftool/
+        /// lib\Image\ExifTool\Canon.pm
+        ///</remarks>
+        /// <param name="val">value to convert
+        ///         eg) 0x00 -> 0
+        ///             0x0c -> 0.33333
+        ///             0x10 -> 0.5
+        ///             0x14 -> 0.66666
+        ///             0x20 -> 1   ... etc
+        ///</param>
+        ///<returns>double</returns>
+        private double CanonEv(int val)
+        {
+            int sign = 1;
+            if (val < 0)
+            {
+                val = -val;
+                sign = -1;
+            }
+
+            int frac = val & 0x1f;
+            val -= frac;
+
+            if (frac == 0x0c)
+                frac = 0x20 / 3;
+            else if (frac == 0x14)
+                frac = 0x40 / 3;
+
+            return sign * (val + frac) / (double)0x20;
         }
     }
 }
