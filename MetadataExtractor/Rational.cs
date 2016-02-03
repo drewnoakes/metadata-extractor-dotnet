@@ -320,7 +320,6 @@ namespace MetadataExtractor
 
         #endregion
 
-
         #region RationalConverter
 
 #if !PORTABLE
