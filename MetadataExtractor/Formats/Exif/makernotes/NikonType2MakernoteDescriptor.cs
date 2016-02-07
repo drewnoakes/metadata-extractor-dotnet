@@ -297,6 +297,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetLensDescription()
         {
+            // TODO update this to match the new logic found in the Java version
             var values = Directory.GetRationalArray(NikonType2MakernoteDirectory.TagLens);
             return values == null
                 ? null

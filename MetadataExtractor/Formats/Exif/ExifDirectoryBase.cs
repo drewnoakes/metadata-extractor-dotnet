@@ -178,11 +178,11 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagJpegProc = 0x0200;
 
-        public const int TagYcbcrCoefficients = 0x0211;
+        public const int TagYCbCrCoefficients = 0x0211;
 
-        public const int TagYcbcrSubsampling = 0x0212;
+        public const int TagYCbCrSubsampling = 0x0212;
 
-        public const int TagYcbcrPositioning = 0x0213;
+        public const int TagYCbCrPositioning = 0x0213;
 
         public const int TagReferenceBlackWhite = 0x0214;
 
@@ -208,7 +208,7 @@ namespace MetadataExtractor.Formats.Exif
         public const int TagExposureTime = 0x829A;
 
         /// <summary>The actual F-number(F-stop) of lens when the image was taken.</summary>
-        public const int TagFnumber = 0x829D;
+        public const int TagFNumber = 0x829D;
 
         public const int TagIptcNaa = 0x83BB;
 
@@ -322,8 +322,6 @@ namespace MetadataExtractor.Formats.Exif
         /// </remarks>
         public const int TagMeteringMode = 0x9207;
 
-        public const int TagLightSource = 0x9208; // TODO duplicate tag
-
         /// <summary>White balance (aka light source).</summary>
         /// <remarks>
         /// '0' means unknown, '1' daylight,
@@ -331,7 +329,7 @@ namespace MetadataExtractor.Formats.Exif
         /// '18' standard light B, '19' standard light C, '20' D55, '21' D65,
         /// '22' D75, '255' other.
         /// </remarks>
-        public const int TagWhiteBalance = 0x9208; // TODO duplicate tag
+        public const int TagWhiteBalance = 0x9208;
 
         /// <summary>
         /// 0x0  = 0000000 = No Flash
@@ -728,8 +726,8 @@ namespace MetadataExtractor.Formats.Exif
             map[TagSamplesPerPixel] = "Samples Per Pixel";
             map[TagRowsPerStrip] = "Rows Per Strip";
             map[TagStripByteCounts] = "Strip Byte Counts";
-            map[TagMinSampleValue] = "Minimum sample value";
-            map[TagMaxSampleValue] = "Maximum sample value";
+            map[TagMinSampleValue] = "Minimum Sample Value";
+            map[TagMaxSampleValue] = "Maximum Sample Value";
             map[TagXResolution] = "X Resolution";
             map[TagYResolution] = "Y Resolution";
             map[TagPlanarConfiguration] = "Planar Configuration";
@@ -751,9 +749,9 @@ namespace MetadataExtractor.Formats.Exif
             map[TagTransferRange] = "Transfer Range";
             map[TagJpegTables] = "JPEG Tables";
             map[TagJpegProc] = "JPEG Proc";
-            map[TagYcbcrCoefficients] = "YCbCr Coefficients";
-            map[TagYcbcrSubsampling] = "YCbCr Sub-Sampling";
-            map[TagYcbcrPositioning] = "YCbCr Positioning";
+            map[TagYCbCrCoefficients] = "YCbCr Coefficients";
+            map[TagYCbCrSubsampling] = "YCbCr Sub-Sampling";
+            map[TagYCbCrPositioning] = "YCbCr Positioning";
             map[TagReferenceBlackWhite] = "Reference Black/White";
             map[TagRelatedImageFileFormat] = "Related Image File Format";
             map[TagRelatedImageWidth] = "Related Image Width";
@@ -764,7 +762,7 @@ namespace MetadataExtractor.Formats.Exif
             map[TagBatteryLevel] = "Battery Level";
             map[TagCopyright] = "Copyright";
             map[TagExposureTime] = "Exposure Time";
-            map[TagFnumber] = "F-Number";
+            map[TagFNumber] = "F-Number";
             map[TagIptcNaa] = "IPTC/NAA";
             map[TagInterColorProfile] = "Inter Color Profile";
             map[TagExposureProgram] = "Exposure Program";
@@ -791,7 +789,6 @@ namespace MetadataExtractor.Formats.Exif
             map[TagMaxAperture] = "Max Aperture Value";
             map[TagSubjectDistance] = "Subject Distance";
             map[TagMeteringMode] = "Metering Mode";
-            map[TagLightSource] = "Light Source";
             map[TagWhiteBalance] = "White Balance";
             map[TagFlash] = "Flash";
             map[TagFocalLength] = "Focal Length";

@@ -55,7 +55,7 @@ namespace MetadataExtractor.Formats.Exif
                     return GetOrientationDescription();
                 case ExifDirectoryBase.TagResolutionUnit:
                     return GetResolutionDescription();
-                case ExifDirectoryBase.TagYcbcrPositioning:
+                case ExifDirectoryBase.TagYCbCrPositioning:
                     return GetYCbCrPositioningDescription();
                 case ExifDirectoryBase.TagXResolution:
                     return GetXResolutionDescription();
@@ -77,7 +77,7 @@ namespace MetadataExtractor.Formats.Exif
                     return GetSamplesPerPixelDescription();
                 case ExifDirectoryBase.TagPlanarConfiguration:
                     return GetPlanarConfigurationDescription();
-                case ExifDirectoryBase.TagYcbcrSubsampling:
+                case ExifDirectoryBase.TagYCbCrSubsampling:
                     return GetYCbCrSubsamplingDescription();
                 case ExifDirectoryBase.TagReferenceBlackWhite:
                     return GetReferenceBlackWhiteDescription();
@@ -103,7 +103,7 @@ namespace MetadataExtractor.Formats.Exif
                     return GetExposureTimeDescription();
                 case ExifDirectoryBase.TagShutterSpeed:
                     return GetShutterSpeedDescription();
-                case ExifDirectoryBase.TagFnumber:
+                case ExifDirectoryBase.TagFNumber:
                     return GetFNumberDescription();
                 case ExifDirectoryBase.TagCompressedAverageBitsPerPixel:
                     return GetCompressedAverageBitsPerPixelDescription();
@@ -176,7 +176,7 @@ namespace MetadataExtractor.Formats.Exif
                 case ExifDirectoryBase.TagSubjectDistanceRange:
                     return GetSubjectDistanceRangeDescription();
                 case ExifDirectoryBase.TagSensitivityType:
-                    return GetSensitivityTypeRangeDescription();
+                    return GetSensitivityTypeDescription();
                 case ExifDirectoryBase.TagCompression:
                     return GetCompressionDescription();
                 case ExifDirectoryBase.TagJpegProc:
@@ -241,7 +241,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetYCbCrPositioningDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagYcbcrPositioning, 1,
+            return GetIndexedDescription(ExifDirectoryBase.TagYCbCrPositioning, 1,
                 "Center of pixel array",
                 "Datum point");
         }
@@ -320,7 +320,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetYCbCrSubsamplingDescription()
         {
-            var positions = Directory.GetInt32Array(ExifDirectoryBase.TagYcbcrSubsampling);
+            var positions = Directory.GetInt32Array(ExifDirectoryBase.TagYCbCrSubsampling);
             if (positions == null || positions.Length < 2)
                 return null;
             if (positions[0] == 2 && positions[1] == 1)
@@ -475,7 +475,7 @@ namespace MetadataExtractor.Formats.Exif
         }
 
         [CanBeNull]
-        public string GetSensitivityTypeRangeDescription()
+        public string GetSensitivityTypeDescription()
         {
             return GetIndexedDescription(ExifDirectoryBase.TagSensitivityType,
                 "Unknown",
@@ -1029,14 +1029,14 @@ namespace MetadataExtractor.Formats.Exif
 
             if (apexValue <= 1)
             {
-                var apexPower = (float)(1 / (Math.Exp(apexValue * Math.Log(2))));
+                var apexPower = (float)(1 / Math.Exp(apexValue * Math.Log(2)));
                 var apexPower10 = (long)Math.Round(apexPower * 10.0);
                 var fApexPower = apexPower10 / 10.0f;
                 return fApexPower + " sec";
             }
             else
             {
-                var apexPower = (int)((Math.Exp(apexValue * Math.Log(2))));
+                var apexPower = (int)Math.Exp(apexValue * Math.Log(2));
                 return "1/" + apexPower + " sec";
             }
         }
@@ -1045,7 +1045,7 @@ namespace MetadataExtractor.Formats.Exif
         public string GetFNumberDescription()
         {
             Rational value;
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagFnumber, out value))
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagFNumber, out value))
                 return null;
             return GetFStopDescription(value.ToDouble());
         }

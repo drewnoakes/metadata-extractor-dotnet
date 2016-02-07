@@ -149,9 +149,9 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.Equal(2, _exifIfd0Directory.GetInt32(ExifDirectoryBase.TagResolutionUnit));
             Assert.Equal("v981-79", _exifIfd0Directory.GetString(ExifDirectoryBase.TagSoftware));
             Assert.Equal("2001:04:06 11:51:40", _exifIfd0Directory.GetString(ExifDirectoryBase.TagDateTime));
-            Assert.Equal(2, _exifIfd0Directory.GetInt32(ExifDirectoryBase.TagYcbcrPositioning));
+            Assert.Equal(2, _exifIfd0Directory.GetInt32(ExifDirectoryBase.TagYCbCrPositioning));
             Assert.Equal(new Rational(1, 77), _exifSubIfdDirectory.GetRational(ExifDirectoryBase.TagExposureTime));
-            Assert.Equal(5.5, _exifSubIfdDirectory.GetDouble(ExifDirectoryBase.TagFnumber), 3);
+            Assert.Equal(5.5, _exifSubIfdDirectory.GetDouble(ExifDirectoryBase.TagFNumber), 3);
             Assert.Equal(2, _exifSubIfdDirectory.GetInt32(ExifDirectoryBase.TagExposureProgram));
             Assert.Equal(80, _exifSubIfdDirectory.GetInt32(ExifDirectoryBase.TagIsoEquivalent));
             Assert.Equal("48 50 49 48", _exifSubIfdDirectory.GetString(ExifDirectoryBase.TagExifVersion));

@@ -198,30 +198,30 @@ namespace MetadataExtractor
         /// Returns the simplest representation of this <see cref="Rational"/>'s value possible.
         /// </summary>
         [NotNull]
-        public string ToSimpleString(bool allowDecimal = true)
+        public string ToSimpleString(bool allowDecimal = true, IFormatProvider provider = null)
         {
             if (Denominator == 0 && Numerator != 0)
-                return ToString();
+                return ToString(provider);
 
             if (IsInteger)
-                return ToInt32().ToString();
+                return ToInt32().ToString(provider);
 
             if (Numerator != 1 && Denominator%Numerator == 0)
             {
                 // common factor between denominator and numerator
                 var newDenominator = Denominator/Numerator;
-                return new Rational(1, newDenominator).ToSimpleString(allowDecimal);
+                return new Rational(1, newDenominator).ToSimpleString(allowDecimal, provider);
             }
 
             var simplifiedInstance = GetSimplifiedInstance();
             if (allowDecimal)
             {
-                var doubleString = simplifiedInstance.ToDouble().ToString();
+                var doubleString = simplifiedInstance.ToDouble().ToString(provider);
                 if (doubleString.Length < 5)
                     return doubleString;
             }
 
-            return simplifiedInstance.ToString();
+            return simplifiedInstance.ToString(provider);
         }
 
         /// <summary>
@@ -319,7 +319,6 @@ namespace MetadataExtractor
         }
 
         #endregion
-
 
         #region RationalConverter
 
