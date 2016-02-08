@@ -98,7 +98,7 @@ namespace MetadataExtractor.Formats.Tiff
         /// <param name="ifdOffset">the offset within <c>reader</c> at which the IFD data starts</param>
         /// <param name="tiffHeaderOffset">the offset within <c>reader</c> at which the TIFF header starts</param>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
-        public static void ProcessIfd([NotNull] ITiffHandler handler, [NotNull] IndexedReader reader, [NotNull] ICollection<int> processedIfdOffsets, int ifdOffset, int tiffHeaderOffset)
+        public static void ProcessIfd([NotNull] ITiffHandler handler, [NotNull] IndexedReader reader, [NotNull] ICollection<int> processedIfdOffsets, int ifdOffset, int tiffHeaderOffset, bool isSubIfd = false)
         {
             bool? resetByteOrder = null;
             try
@@ -209,10 +209,15 @@ namespace MetadataExtractor.Formats.Tiff
                     //
                     // Special handling for tags that point to other IFDs
                     //
-                    if (byteCount == 4 && handler.IsTagIfdPointer(tagId))
+                    if (format == TiffDataFormat.IFD || (byteCount == 4 && handler.IsTagIfdPointer(tagId)))
                     {
                         var subDirOffset = tiffHeaderOffset + reader.GetInt32(tagValueOffset);
-                        ProcessIfd(handler, reader, processedIfdOffsets, subDirOffset, tiffHeaderOffset);
+
+                        bool isSubIfdLoc = isSubIfd;
+                        if (format == TiffDataFormat.IFD)
+                            isSubIfdLoc = true;
+
+                        ProcessIfd(handler, reader, processedIfdOffsets, subDirOffset, tiffHeaderOffset, isSubIfdLoc);
                     }
                     else if (!handler.CustomProcessTag(tagValueOffset, processedIfdOffsets, tiffHeaderOffset, reader, tagId, byteCount))
                     {
@@ -241,12 +246,14 @@ namespace MetadataExtractor.Formats.Tiff
                     }
 
                     if (handler.HasFollowerIfd())
-                        ProcessIfd(handler, reader, processedIfdOffsets, nextIfdOffset, tiffHeaderOffset);
+                        ProcessIfd(handler, reader, processedIfdOffsets, nextIfdOffset, tiffHeaderOffset, false);
                 }
             }
             finally
             {
-                handler.EndingIfd();
+                if (!isSubIfd)
+                    handler.EndingIfd();
+
                 if (resetByteOrder != null)
                     reader.IsMotorolaByteOrder = resetByteOrder.Value;
             }
