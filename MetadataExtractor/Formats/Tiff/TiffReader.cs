@@ -208,8 +208,11 @@ namespace MetadataExtractor.Formats.Tiff
 
                     //
                     // Special handling for tags that point to other IFDs
+                    // Could be where byteCount == 4, or the format is TiffDataFormat.IFD (format 13)
+                    // handler.IsTagSubIfdPointer will dynamically push the appropriate Directory
+                    // if the current Directory on the stack has this subifd registered
                     //
-                    if (byteCount == 4 && handler.IsTagIfdPointer(tagId))
+                    if ( (format == TiffDataFormat.IFD || byteCount == 4) && handler.IsTagSubIfdPointer(tagId))
                     {
                         var subDirOffset = tiffHeaderOffset + reader.GetInt32(tagValueOffset);
                         ProcessIfd(handler, reader, processedIfdOffsets, subDirOffset, tiffHeaderOffset);
@@ -247,6 +250,7 @@ namespace MetadataExtractor.Formats.Tiff
             finally
             {
                 handler.EndingIfd();
+
                 if (resetByteOrder != null)
                     reader.IsMotorolaByteOrder = resetByteOrder.Value;
             }

@@ -186,5 +186,46 @@ namespace MetadataExtractor
         {
             return $"{Name} Directory ({_tagMap.Count} {(_tagMap.Count == 1 ? "tag" : "tags")})";
         }
+
+        /// <summary>Map of possible Directory types this directory supports as sub-directories.</summary>
+        [NotNull]
+        private readonly Dictionary<int, Type> _subIfdMap = new Dictionary<int, Type>();
+
+        /// <summary>
+        /// Adds a subifd type to the map dictionary if it doesn't already exist
+        /// </summary>
+        /// <param name="tagType">the tag type identifier</param>
+        /// <param name="subIfd">type of subifd to store</param>
+        protected void RegisterSubIfd(int tagType, [NotNull] Type subIfd)
+        {
+            if (subIfd == null)
+                throw new ArgumentNullException(nameof(subIfd));
+
+            if (!_subIfdMap.ContainsKey(tagType))
+                _subIfdMap.Add(tagType, subIfd);
+        }
+
+        /// <summary>
+        /// Gets a subifd type from the map dictionary if it exists
+        /// </summary>
+        /// <param name="tagType">the tag type identifier</param>
+        /// <returns>the subifd type if it exists. otherwise null</returns>
+        public Type GetSubIfd(int tagType)
+        {
+            Type val;
+            return _subIfdMap.TryGetValue(tagType, out val) ? val : null;
+        }
+
+        /// <summary>
+        /// Determines if this directory registered a handler for the given sub-directory tag type.
+        /// </summary>
+        /// <param name="tagType">the tag type identifier</param>
+        /// <returns>whether this directory can handle a sub-directory of the given tag type</returns>
+        public bool HasSubIfd(int tagType)
+        {
+            Type value;
+            return _subIfdMap.TryGetValue(tagType, out value);
+        }
+
     }
 }

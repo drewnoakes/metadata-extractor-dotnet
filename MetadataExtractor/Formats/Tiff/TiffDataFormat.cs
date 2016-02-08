@@ -39,7 +39,8 @@ namespace MetadataExtractor.Formats.Tiff
         Int32S = 9,
         RationalS = 10,
         Single = 11,
-        Double = 12
+        Double = 12,
+        IFD = 13
     }
 
     /// <summary>An enumeration of data formats used by the TIFF specification.</summary>
@@ -58,6 +59,7 @@ namespace MetadataExtractor.Formats.Tiff
         public static readonly TiffDataFormat RationalS = new TiffDataFormat("SRATIONAL", TiffDataFormatCode.RationalS, 8);
         public static readonly TiffDataFormat Single    = new TiffDataFormat("SINGLE",    TiffDataFormatCode.Single,    4);
         public static readonly TiffDataFormat Double    = new TiffDataFormat("DOUBLE",    TiffDataFormatCode.Double,    8);
+        public static readonly TiffDataFormat IFD       = new TiffDataFormat("IFD",       TiffDataFormatCode.IFD,       4);
 
         [CanBeNull]
         public static TiffDataFormat FromTiffFormatCode(TiffDataFormatCode tiffFormatCode)
@@ -76,6 +78,7 @@ namespace MetadataExtractor.Formats.Tiff
                 case TiffDataFormatCode.RationalS: return RationalS;
                 case TiffDataFormatCode.Single:    return Single;
                 case TiffDataFormatCode.Double:    return Double;
+                case TiffDataFormatCode.IFD:       return IFD;
             }
 
             return null;

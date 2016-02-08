@@ -63,23 +63,14 @@ namespace MetadataExtractor.Formats.Exif
                 throw new TiffProcessingException($"Unexpected TIFF marker: 0x{marker:X}");
         }
 
-        public override bool IsTagIfdPointer(int tagType)
+        public override bool IsTagSubIfdPointer(int tagType)
         {
-            if (tagType == ExifIfd0Directory.TagExifSubIfdOffset && CurrentDirectory is ExifIfd0Directory)
+            if (CurrentDirectory.HasSubIfd(tagType))
             {
-                PushDirectory(typeof(ExifSubIfdDirectory));
+                PushDirectory(CurrentDirectory.GetSubIfd(tagType));
                 return true;
             }
-            if (tagType == ExifIfd0Directory.TagGpsInfoOffset && CurrentDirectory is ExifIfd0Directory)
-            {
-                PushDirectory(typeof(GpsDirectory));
-                return true;
-            }
-            if (tagType == ExifSubIfdDirectory.TagInteropOffset && CurrentDirectory is ExifSubIfdDirectory)
-            {
-                PushDirectory(typeof(ExifInteropDirectory));
-                return true;
-            }
+
             return false;
         }
 

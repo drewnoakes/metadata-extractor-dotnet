@@ -88,9 +88,9 @@ namespace MetadataExtractor.Formats.Tiff
 
         public abstract bool CustomProcessTag(int tagOffset, ICollection<int> processedIfdOffsets, int tiffHeaderOffset, IndexedReader reader, int tagId, int byteCount);
 
-        public abstract bool HasFollowerIfd();
+        public abstract bool IsTagSubIfdPointer(int tagType);
 
-        public abstract bool IsTagIfdPointer(int tagType);
+        public abstract bool HasFollowerIfd();
 
         public abstract void SetTiffMarker(int marker);
     }
