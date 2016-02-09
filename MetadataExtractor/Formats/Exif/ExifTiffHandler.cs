@@ -82,7 +82,22 @@ namespace MetadataExtractor.Formats.Exif
                 PushDirectory(typeof(ExifInteropDirectory));
                 return true;
             }
+
             return false;
+        }
+
+        public override bool IsTagSubIfdPointer(int tagType)
+        {
+            if (CurrentDirectory.HasSubIfd(tagType))
+            {
+                PushDirectory(CurrentDirectory.GetSubIfd(tagType));
+                return true;
+            }
+            else
+            {
+                PushDirectory(typeof(ExifUnknownSubIfdDirectory));
+                return true;
+            }
         }
 
         public override bool HasFollowerIfd()
