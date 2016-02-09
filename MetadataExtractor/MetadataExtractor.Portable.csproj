@@ -62,6 +62,8 @@
     <Compile Include="Formats\Exif\ExifThumbnailDescriptor.cs" />
     <Compile Include="Formats\Exif\ExifThumbnailDirectory.cs" />
     <Compile Include="Formats\Exif\ExifTiffHandler.cs" />
+    <Compile Include="Formats\Exif\ExifUnknownSubIfdDescriptor.cs" />
+    <Compile Include="Formats\Exif\ExifUnknownSubIfdDirectory.cs" />
     <Compile Include="Formats\Exif\GpsDescriptor.cs" />
     <Compile Include="Formats\Exif\GpsDirectory.cs" />
     <Compile Include="Formats\Exif\makernotes\CanonMakernoteDescriptor.cs" />
@@ -82,6 +84,8 @@
     <Compile Include="Formats\Exif\makernotes\NikonType1MakernoteDirectory.cs" />
     <Compile Include="Formats\Exif\makernotes\NikonType2MakernoteDescriptor.cs" />
     <Compile Include="Formats\Exif\makernotes\NikonType2MakernoteDirectory.cs" />
+    <Compile Include="Formats\Exif\makernotes\OlympusEquipmentMakernoteDescriptor.cs" />
+    <Compile Include="Formats\Exif\makernotes\OlympusEquipmentMakernoteDirectory.cs" />
     <Compile Include="Formats\Exif\makernotes\OlympusMakernoteDescriptor.cs" />
     <Compile Include="Formats\Exif\makernotes\OlympusMakernoteDirectory.cs" />
     <Compile Include="Formats\Exif\makernotes\PanasonicMakernoteDescriptor.cs" />
