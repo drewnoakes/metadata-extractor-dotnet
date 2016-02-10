@@ -418,6 +418,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             SetDescriptor(new OlympusMakernoteDescriptor(this));
 
             RegisterSubIfd(TagEquipment, typeof(OlympusEquipmentMakernoteDirectory));
+            RegisterSubIfd(TagCameraSettings, typeof(OlympusCameraSettingsMakernoteDirectory));
         }
 
         public override string Name => "Olympus Makernote";

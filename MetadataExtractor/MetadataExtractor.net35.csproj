@@ -56,6 +56,8 @@
     <Compile Include="DirectoryExtensions.cs" />
     <Compile Include="Formats\Exif\ExifUnknownSubIfdDescriptor.cs" />
     <Compile Include="Formats\Exif\ExifUnknownSubIfdDirectory.cs" />
+    <Compile Include="Formats\Exif\Makernotes\OlympusCameraSettingsMakernoteDescriptor.cs" />
+    <Compile Include="Formats\Exif\Makernotes\OlympusCameraSettingsMakernoteDirectory.cs" />
     <Compile Include="Formats\Exif\Makernotes\OlympusEquipmentMakernoteDescriptor.cs" />
     <Compile Include="Formats\Exif\Makernotes\OlympusEquipmentMakernoteDirectory.cs" />
     <Compile Include="Formats\Jfxx\JfxxDescriptor.cs" />
