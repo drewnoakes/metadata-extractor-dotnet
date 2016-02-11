@@ -55,8 +55,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return GetEquipmentVersionDescription();
                 case OlympusEquipmentMakernoteDirectory.TagFocalPlaneDiagonal:
                     return GetFocalPlaneDiagonalDescription();
+                case OlympusEquipmentMakernoteDirectory.TagBodyFirmwareVersion:
+                    return GetBodyFirmwareVersionDescription();
                 case OlympusEquipmentMakernoteDirectory.TagLensType:
                     return GetLensTypeDescription();
+                case OlympusEquipmentMakernoteDirectory.TagLensFirmwareVersion:
+                    return GetLensFirmwareVersionDescription();
                 case OlympusEquipmentMakernoteDirectory.TagMaxApertureAtMinFocal:
                     return GetMaxApertureAtMinFocalDescription();
                 case OlympusEquipmentMakernoteDirectory.TagMaxApertureAtMaxFocal:
@@ -88,6 +92,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return Directory.GetString(OlympusEquipmentMakernoteDirectory.TagFocalPlaneDiagonal) + " mm";
         }
 
+        [CanBeNull]
+        public string GetBodyFirmwareVersionDescription()
+        {
+            int value;
+            if (!Directory.TryGetInt32(OlympusEquipmentMakernoteDirectory.TagBodyFirmwareVersion, out value))
+                return null;
+
+            string hexstring = ((uint)value).ToString("X");
+            return hexstring.PadLeft(4, '0').Insert(hexstring.Length - 3, ".");
+        }
+
         /// <summary>
         /// 6 numbers: 0. Make, 1. Unknown, 2. Model, 3. Sub-model, 4-5. Unknown. Only
         /// the Make, Model and Sub-model are used to identify the lens type
@@ -111,6 +126,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                                 );
 
             return olympusLensTypes.ContainsKey(key) ? olympusLensTypes[key] : "[unknown]";
+        }
+
+        [CanBeNull]
+        public string GetLensFirmwareVersionDescription()
+        {
+            int value;
+            if (!Directory.TryGetInt32(OlympusEquipmentMakernoteDirectory.TagLensFirmwareVersion, out value))
+                return null;
+
+            string hexstring = ((uint)value).ToString("X");
+            return hexstring.PadLeft(4, '0').Insert(hexstring.Length - 3, ".");
         }
 
         [CanBeNull]
