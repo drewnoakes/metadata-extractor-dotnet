@@ -181,6 +181,8 @@ namespace MetadataExtractor.Formats.Exif
                     return GetCompressionDescription();
                 case ExifDirectoryBase.TagJpegProc:
                     return GetJpegProcDescription();
+                case ExifDirectoryBase.TagLensSpecification:
+                    return GetLensSpecification();
                 default:
                     return base.GetDescription(tagType);
             }
@@ -486,6 +488,34 @@ namespace MetadataExtractor.Formats.Exif
                 "Standard Output Sensitivity and ISO Speed",
                 "Recommended Exposure Index and ISO Speed",
                 "Standard Output Sensitivity, Recommended Exposure Index and ISO Speed");
+        }
+
+        [CanBeNull]
+        public string GetLensSpecification()
+        {
+            var values = Directory.GetRationalArray(ExifDirectoryBase.TagLensSpecification);
+
+            if (values == null || (values != null && (values.Length != 4 || (values[0].ToDouble() == 0 && values[2].ToDouble() == 0)) ))
+                return null;
+
+            StringBuilder sb = new StringBuilder();
+
+            if (values[0].Equals(values[1]))
+                sb.Append(values[0].ToSimpleString(true) + "mm");
+            else
+                sb.Append(values[0].ToSimpleString(true) + "-" + values[1].ToSimpleString(true) + "mm");
+
+            if(values[2].ToDouble() != 0)
+            {
+                sb.Append(" ");
+
+                if (values[2].Equals(values[3]))
+                    sb.Append(GetFStopDescription(values[2].ToDouble()));
+                else
+                    sb.Append(GetFStopDescription(values[2].ToDouble()) + "-" + GetFStopDescription(values[3].ToDouble()));
+            }
+
+            return sb.ToString();
         }
 
         [CanBeNull]
