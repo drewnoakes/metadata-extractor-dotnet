@@ -293,5 +293,44 @@ namespace MetadataExtractor
         protected static string GetFStopDescription(double fStop) => $"f/{fStop:0.0}";
 
         protected static string GetFocalLengthDescription(double mm) => $"{mm:0.#} mm";
+
+        [CanBeNull]
+        public string GetLensSpecificationDescription(int tagId)
+        {
+            var values = Directory.GetRationalArray(tagId);
+
+            if (values == null || (values != null && (values.Length != 4 || (values[0].ToDouble() == 0 && values[2].ToDouble() == 0))))
+                return null;
+
+            StringBuilder sb = new StringBuilder();
+
+            if (values[0].Equals(values[1]))
+                sb.Append(values[0].ToSimpleString(true)).Append("mm");
+            else
+                sb.Append(values[0].ToSimpleString(true)).Append("-").Append(values[1].ToSimpleString(true) + "mm");
+
+            if (values[2].ToDouble() != 0)
+            {
+                sb.Append(" ");
+
+                if (values[2].Equals(values[3]))
+                    sb.Append(GetFStopDescription(values[2].ToDouble()));
+                else
+                    sb.Append("f/")
+#if !PORTABLE
+                      .Append(Math.Round(values[2].ToDouble(), 1, MidpointRounding.AwayFromZero).ToString("0.0"))
+#else
+                      .Append(Math.Round(values[2].ToDouble(), 1).ToString("0.0"))
+#endif
+                      .Append("-")
+#if !PORTABLE
+                      .Append(Math.Round(values[3].ToDouble(), 1, MidpointRounding.AwayFromZero).ToString("0.0"));
+#else
+                      .Append(Math.Round(values[3].ToDouble(), 1).ToString("0.0"));
+#endif
+            }
+
+            return sb.ToString();
+        }
     }
 }
