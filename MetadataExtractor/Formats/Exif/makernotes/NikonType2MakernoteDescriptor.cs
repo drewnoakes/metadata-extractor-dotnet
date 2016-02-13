@@ -297,19 +297,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetLensDescription()
         {
-            // TODO update this to match the new logic found in the Java version
-            var values = Directory.GetRationalArray(NikonType2MakernoteDirectory.TagLens);
-            return values == null
-                ? null
-                : values.Length < 4
-                    ? Directory.GetString(NikonType2MakernoteDirectory.TagLens)
-                    : string.Format(Equals(values[2], values[3])
-                            ? "{0}-{1}mm f/{2:0.0}"
-                            : "{0}-{1}mm f/{2:0.0}-{3:0.0}",
-                        values[0].ToInt32(),
-                        values[1].ToInt32(),
-                        values[2].ToSingle(),
-                        values[3].ToSingle());
+            return GetLensSpecificationDescription(NikonType2MakernoteDirectory.TagLens);
         }
 
         [CanBeNull]

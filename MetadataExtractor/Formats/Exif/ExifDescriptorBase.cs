@@ -181,6 +181,8 @@ namespace MetadataExtractor.Formats.Exif
                     return GetCompressionDescription();
                 case ExifDirectoryBase.TagJpegProc:
                     return GetJpegProcDescription();
+                case ExifDirectoryBase.TagLensSpecification:
+                    return GetLensSpecificationDescription();
                 default:
                     return base.GetDescription(tagType);
             }
@@ -486,6 +488,12 @@ namespace MetadataExtractor.Formats.Exif
                 "Standard Output Sensitivity and ISO Speed",
                 "Recommended Exposure Index and ISO Speed",
                 "Standard Output Sensitivity, Recommended Exposure Index and ISO Speed");
+        }
+
+        [CanBeNull]
+        public string GetLensSpecificationDescription()
+        {
+            return GetLensSpecificationDescription(ExifDirectoryBase.TagLensSpecification);
         }
 
         [CanBeNull]
