@@ -9,4 +9,4 @@ _ReSharper*/
 *.DotSettings.user
 *.nupkg
 packages/
-
+.vs
