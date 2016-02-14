@@ -118,12 +118,11 @@ A PCL compatible build is available that supports Xamarin for Android and iOS, a
 
 If you require PCL support, use the [`MetadataExtractor.Portable`](https://www.nuget.org/packages/MetadataExtractor.Portable/) NuGet package.
 
-Note that the portable verison does not yet support XMP metadata. It also doesn't support file-system metadata due to the restrictions of the target BCLs.
+Note that the portable version does not yet support XMP metadata. It also doesn't support file-system metadata due to the restrictions of the target BCLs.
 
-## Mailing Lists
+## Mailing List
 
-* [metadata-extractor-dev](https://groups.google.com/forum/#!forum/metadata-extractor-dev) for discussion about development and notifications of changes to issues and source code
-* [metadata-extractor-announce](https://groups.google.com/forum/#!forum/metadata-extractor-announce) for announcements of new releases
+The [metadata-extractor-dev](https://groups.google.com/forum/#!forum/metadata-extractor-dev) Google Group is for discussion about the development of the library and questions about its usage.
 
 ## Feedback
 
