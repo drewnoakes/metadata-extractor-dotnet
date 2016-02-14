@@ -77,14 +77,14 @@ namespace MetadataExtractor.Tools.FileProcessor
                             var directoryName = directory.Name;
                             foreach (var tag in directory.Tags)
                             {
-                                var tagName = tag.TagName;
+                                var tagName = tag.Name;
                                 var description = tag.Description;
 
-                                if (directory is FileMetadataDirectory && tag.TagType == FileMetadataDirectory.TagFileModifiedDate)
+                                if (directory is FileMetadataDirectory && tag.Type == FileMetadataDirectory.TagFileModifiedDate)
                                     description = "<omitted for regression testing as checkout dependent>";
 
                                 writer.Write("[{0} - 0x{1:x4}] {2} = {3}\n",
-                                    directoryName, tag.TagType, tagName, description);
+                                    directoryName, tag.Type, tagName, description);
                             }
 
                             if (directory.TagCount != 0)

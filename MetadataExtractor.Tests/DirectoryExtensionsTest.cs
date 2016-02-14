@@ -170,9 +170,9 @@ namespace MetadataExtractor.Tests
         private static void Test(Directory directory, Action<Directory, int> presentAssertion, Action<Directory, int> missingAssertion)
         {
             foreach (var tag in directory.Tags)
-                presentAssertion(directory, tag.TagType);
+                presentAssertion(directory, tag.Type);
 
-            missingAssertion(directory, directory.Tags.Max(t => t.TagType) + 1);
+            missingAssertion(directory, directory.Tags.Max(t => t.Type) + 1);
         }
 
         private static Directory BuildDirectory(IEnumerable<object> values)

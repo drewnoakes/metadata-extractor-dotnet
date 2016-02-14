@@ -45,7 +45,7 @@ namespace MetadataExtractor.Tools.FileProcessor
 
                 foreach (var tag in directory.Tags)
                 {
-                    tag.TagName.ToString();
+                    tag.Name.ToString();
                     (tag.Description ?? "").ToString();
                 }
             }
