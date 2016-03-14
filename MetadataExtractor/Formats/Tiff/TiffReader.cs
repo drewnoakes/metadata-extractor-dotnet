@@ -211,7 +211,13 @@ namespace MetadataExtractor.Formats.Tiff
                     //
                     if(format == TiffDataFormat.IFD)
                     {
-                        if (handler.IsTagSubIfdPointer(tagId))
+                        // some Ifd pointers use Tiff format 13 instead of a byteCount == 4
+                        if(handler.IsTagIfdPointer(tagId))
+                        {
+                            var subDirOffset = tiffHeaderOffset + reader.GetInt32(tagValueOffset);
+                            ProcessIfd(handler, reader, processedIfdOffsets, subDirOffset, tiffHeaderOffset);
+                        }
+                        else if (handler.IsTagSubIfdPointer(tagId))
                         {
                             var subDirOffset = tiffHeaderOffset + reader.GetInt32(tagValueOffset);
                             ProcessIfd(handler, reader, processedIfdOffsets, subDirOffset, tiffHeaderOffset);
