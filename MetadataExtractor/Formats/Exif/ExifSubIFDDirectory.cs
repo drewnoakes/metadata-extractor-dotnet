@@ -36,6 +36,8 @@ namespace MetadataExtractor.Formats.Exif
         public ExifSubIfdDirectory()
         {
             SetDescriptor(new ExifSubIfdDescriptor(this));
+
+            RegisterSubIfd(TagInteropOffset, typeof(ExifInteropDirectory));
         }
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>();

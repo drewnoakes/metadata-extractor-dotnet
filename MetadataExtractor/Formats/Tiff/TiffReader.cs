@@ -208,24 +208,11 @@ namespace MetadataExtractor.Formats.Tiff
 
                     //
                     // Special handling for tags that point to other IFDs
+                    // Could be where byteCount == 4, or the format is TiffDataFormat.IFD (format 13)
+                    // handler.IsTagSubIfdPointer will dynamically push the appropriate Directory
+                    // if the current Directory on the stack has this subifd registered
                     //
-                    if(format == TiffDataFormat.IFD)
-                    {
-                        // some Ifd pointers use Tiff format 13 instead of a byteCount == 4
-                        if(handler.IsTagIfdPointer(tagId))
-                        {
-                            var subDirOffset = tiffHeaderOffset + reader.GetInt32(tagValueOffset);
-                            ProcessIfd(handler, reader, processedIfdOffsets, subDirOffset, tiffHeaderOffset);
-                        }
-                        else if (handler.IsTagSubIfdPointer(tagId))
-                        {
-                            var subDirOffset = tiffHeaderOffset + reader.GetInt32(tagValueOffset);
-                            ProcessIfd(handler, reader, processedIfdOffsets, subDirOffset, tiffHeaderOffset);
-                        }
-                        else
-                            continue;
-                    }
-                    else if (byteCount == 4 && handler.IsTagIfdPointer(tagId))
+                    if ( (format == TiffDataFormat.IFD || byteCount == 4) && handler.IsTagSubIfdPointer(tagId))
                     {
                         var subDirOffset = tiffHeaderOffset + reader.GetInt32(tagValueOffset);
                         ProcessIfd(handler, reader, processedIfdOffsets, subDirOffset, tiffHeaderOffset);

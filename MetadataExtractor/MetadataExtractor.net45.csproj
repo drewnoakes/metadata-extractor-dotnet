@@ -53,8 +53,6 @@
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DirectoryExtensions.cs" />
-    <Compile Include="Formats\Exif\ExifUnknownSubIfdDescriptor.cs" />
-    <Compile Include="Formats\Exif\ExifUnknownSubIfdDirectory.cs" />
     <Compile Include="Formats\Exif\Makernotes\OlympusCameraSettingsMakernoteDescriptor.cs" />
     <Compile Include="Formats\Exif\Makernotes\OlympusEquipmentMakernoteDescriptor.cs" />
     <Compile Include="Formats\Exif\Makernotes\OlympusCameraSettingsMakernoteDirectory.cs" />
