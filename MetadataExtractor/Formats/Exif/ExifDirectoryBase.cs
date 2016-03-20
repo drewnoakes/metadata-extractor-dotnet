@@ -186,6 +186,10 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagReferenceBlackWhite = 0x0214;
 
+        public const int TagStripRowCounts = 0x022F;
+
+        public const int TagApplicationNotes = 0x02BC;
+
         public const int TagRelatedImageFileFormat = 0x1000;
 
         public const int TagRelatedImageWidth = 0x1001;
@@ -753,6 +757,8 @@ namespace MetadataExtractor.Formats.Exif
             map[TagYCbCrSubsampling] = "YCbCr Sub-Sampling";
             map[TagYCbCrPositioning] = "YCbCr Positioning";
             map[TagReferenceBlackWhite] = "Reference Black/White";
+            map[TagStripRowCounts] = "Strip Row Counts";
+            map[TagApplicationNotes] = "Application Notes";
             map[TagRelatedImageFileFormat] = "Related Image File Format";
             map[TagRelatedImageWidth] = "Related Image Width";
             map[TagRelatedImageHeight] = "Related Image Height";
