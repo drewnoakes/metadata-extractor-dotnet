@@ -443,7 +443,15 @@ namespace MetadataExtractor
 
             // This seems to cover all known Exif date strings
             // Note that "    :  :     :  :  " is a valid date string according to the Exif spec (which means 'unknown date'): http://www.awaresystems.be/imaging/tiff/tifftags/privateifd/exif/datetimeoriginal.html
-            var datePatterns = new[] { "yyyy:MM:dd HH:mm:ss", "yyyy:MM:dd HH:mm", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm" };
+            var datePatterns = new[]
+            {
+                "yyyy:MM:dd HH:mm:ss",
+                "yyyy:MM:dd HH:mm",
+                "yyyy-MM-dd HH:mm:ss",
+                "yyyy-MM-dd HH:mm",
+                "yyyy.MM.dd HH:mm:ss",
+                "yyyy.MM.dd HH:mm"
+            };
             foreach (var datePattern in datePatterns)
             {
                 if (DateTime.TryParseExact(s, datePattern, null, DateTimeStyles.AllowWhiteSpaces, out dateTime))
