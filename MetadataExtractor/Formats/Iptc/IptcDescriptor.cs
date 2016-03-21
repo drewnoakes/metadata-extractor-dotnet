@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Iptc
@@ -51,6 +52,8 @@ namespace MetadataExtractor.Formats.Iptc
                     return GetTimeCreatedDescription();
                 case IptcDirectory.TagDigitalTimeCreated:
                     return GetDigitalTimeCreatedDescription();
+                case IptcDirectory.TagDateCreated:
+                    return GetDateCreatedDescription();
                 default:
                     return base.GetDescription(tagType);
             }
@@ -143,7 +146,11 @@ namespace MetadataExtractor.Formats.Iptc
         [CanBeNull]
         public string GetDateCreatedDescription()
         {
-            return Directory.GetString(IptcDirectory.TagDateCreated);
+            DateTime value;
+            if (!Directory.TryGetDateTime(IptcDirectory.TagDateCreated, out value))
+                return null;
+
+            return value.ToString("yyyy:MM:dd");
         }
 
         [CanBeNull]

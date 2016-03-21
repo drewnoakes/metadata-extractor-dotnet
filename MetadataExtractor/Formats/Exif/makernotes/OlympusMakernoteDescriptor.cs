@@ -360,7 +360,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!DateUtil.IsValidDate(year, month, day))
                 return "Invalid date";
 
-            return new DateTime(year, month + 1, day).ToString("ddd MMM dd yyyy");
+            return $"{year:0000}-{month + 1:00}-{day:00}";
         }
 
         [CanBeNull]

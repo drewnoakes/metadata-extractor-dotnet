@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -60,6 +61,8 @@ namespace MetadataExtractor.Formats.Png
                     return GetBackgroundColorDescription();
                 case PngDirectory.TagUnitSpecifier:
                     return GetUnitSpecifierDescription();
+                case PngDirectory.TagLastModificationTime:
+                    return GetLastModificationTimeDescription();
                 default:
                     return base.GetDescription(tagType);
             }
@@ -108,6 +111,16 @@ namespace MetadataExtractor.Formats.Png
         public string GetUnitSpecifierDescription()
         {
             return GetIndexedDescription(PngDirectory.TagUnitSpecifier, "Unspecified", "Metres");
+        }
+
+        [CanBeNull]
+        public string GetLastModificationTimeDescription()
+        {
+            DateTime value;
+            if (!Directory.TryGetDateTime(PngDirectory.TagLastModificationTime, out value))
+                return null;
+
+            return value.ToString("yyyy:MM:dd HH:mm:ss");
         }
 
         [CanBeNull]

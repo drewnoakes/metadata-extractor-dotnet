@@ -51,6 +51,8 @@ namespace MetadataExtractor.Formats.Icc
                     return GetPlatformDescription();
                 case IccDirectory.TagRenderingIntent:
                     return GetRenderingIntentDescription();
+                case IccDirectory.TagProfileDateTime:
+                    return GetProfileDateTimeDescription();
             }
 
             if (tagType > 0x20202020 && tagType < 0x7a7a7a7a)
@@ -359,6 +361,16 @@ namespace MetadataExtractor.Formats.Icc
             var r = (byte)((value >> 20) & 0x0F);
             var R = (byte)((value >> 16) & 0x0F);
             return $"{m}.{r}.{R}";
+        }
+
+        [CanBeNull]
+        private string GetProfileDateTimeDescription()
+        {
+            DateTime value;
+            if (!Directory.TryGetDateTime(IccDirectory.TagProfileDateTime, out value))
+                return null;
+
+            return value.ToString("yyyy:MM:dd HH:mm:ss");
         }
     }
 }

@@ -151,8 +151,8 @@ namespace MetadataExtractor.Formats.Xmp
             ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagFNumber, FormatType.Rational);
             ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagFocalLength, FormatType.Rational);
             ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagShutterSpeed, FormatType.Rational);
-            ProcessXmpDateTag(xmpMeta, directory, XmpDirectory.TagDateTimeOriginal);
-            ProcessXmpDateTag(xmpMeta, directory, XmpDirectory.TagDateTimeDigitized);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagDateTimeOriginal, FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagDateTimeDigitized, FormatType.String);
             ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagRating, FormatType.Double);
             ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagLabel, FormatType.String);
             // this requires further research
