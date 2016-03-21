@@ -105,7 +105,7 @@ namespace MetadataExtractor.Formats.Exif
             var timeComponents = Directory.GetRationalArray(GpsDirectory.TagTimeStamp);
             return timeComponents == null
                 ? null
-                : $"{timeComponents[0].ToInt32():D2}:{timeComponents[1].ToInt32():D2}:{timeComponents[2].ToDouble():00.00} UTC";
+                : $"{timeComponents[0].ToInt32():D2}:{timeComponents[1].ToInt32():D2}:{timeComponents[2].ToDouble():00.000} UTC";
         }
 
         [CanBeNull]
