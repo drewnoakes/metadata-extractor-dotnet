@@ -272,19 +272,5 @@ namespace MetadataExtractor.Formats.Xmp
                 }
             }
         }
-
-        /// <exception cref="XmpException"/>
-        private static void ProcessXmpDateTag([NotNull] IXmpMeta meta, [NotNull] XmpDirectory directory, int tagType)
-        {
-            string schemaNs;
-            string propName;
-            if (!XmpDirectory.TagSchemaMap.TryGetValue(tagType, out schemaNs) || !XmpDirectory.TagPropNameMap.TryGetValue(tagType, out propName))
-                return;
-
-            var cal = meta.GetPropertyCalendar(schemaNs, propName);
-
-            if (cal != null)
-                directory.Set(tagType, cal.GetTime());
-        }
     }
 }
