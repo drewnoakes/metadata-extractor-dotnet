@@ -434,39 +434,36 @@ namespace MetadataExtractor
 
             var s = o as string;
 
-            if (s == null)
+            if (s != null)
             {
-                dateTime = default(DateTime);
-                return false;
-            }
-
-            // This seems to cover all known Exif date strings
-            // Note that "    :  :     :  :  " is a valid date string according to the Exif spec (which means 'unknown date'): http://www.awaresystems.be/imaging/tiff/tifftags/privateifd/exif/datetimeoriginal.html
-            // Custom format reference: https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
-            var datePatterns = new[]
-            {
-                "yyyy:MM:dd HH:mm:ss",
-                "yyyy:MM:dd HH:mm",
-                "yyyy-MM-dd HH:mm:ss",
-                "yyyy-MM-dd HH:mm",
-                "yyyy.MM.dd HH:mm:ss",
-                "yyyy.MM.dd HH:mm",
-                "yyyy-MM-ddTHH:mm:ss.fff",
-                "yyyy-MM-ddTHH:mm:ss.ff",
-                "yyyy-MM-ddTHH:mm:ss.f",
-                "yyyy-MM-ddTHH:mm:ss",
-                "yyyy-MM-ddTHH:mm.fff",
-                "yyyy-MM-ddTHH:mm.ff",
-                "yyyy-MM-ddTHH:mm.f",
-                "yyyy-MM-ddTHH:mm",
-                "yyyy-MM-dd",
-                "yyyy-MM",
-                "yyyy"
-            };
-            foreach (var datePattern in datePatterns)
-            {
-                if (DateTime.TryParseExact(s, datePattern, null, DateTimeStyles.AllowWhiteSpaces, out dateTime))
-                    return true;
+                // This seems to cover all known Exif date strings
+                // Note that "    :  :     :  :  " is a valid date string according to the Exif spec (which means 'unknown date'): http://www.awaresystems.be/imaging/tiff/tifftags/privateifd/exif/datetimeoriginal.html
+                // Custom format reference: https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
+                var datePatterns = new[]
+                {
+                    "yyyy:MM:dd HH:mm:ss",
+                    "yyyy:MM:dd HH:mm",
+                    "yyyy-MM-dd HH:mm:ss",
+                    "yyyy-MM-dd HH:mm",
+                    "yyyy.MM.dd HH:mm:ss",
+                    "yyyy.MM.dd HH:mm",
+                    "yyyy-MM-ddTHH:mm:ss.fff",
+                    "yyyy-MM-ddTHH:mm:ss.ff",
+                    "yyyy-MM-ddTHH:mm:ss.f",
+                    "yyyy-MM-ddTHH:mm:ss",
+                    "yyyy-MM-ddTHH:mm.fff",
+                    "yyyy-MM-ddTHH:mm.ff",
+                    "yyyy-MM-ddTHH:mm.f",
+                    "yyyy-MM-ddTHH:mm",
+                    "yyyy-MM-dd",
+                    "yyyy-MM",
+                    "yyyy"
+                };
+                foreach (var datePattern in datePatterns)
+                {
+                    if (DateTime.TryParseExact(s, datePattern, null, DateTimeStyles.AllowWhiteSpaces, out dateTime))
+                        return true;
+                }
             }
 
             if (o is IConvertible)
