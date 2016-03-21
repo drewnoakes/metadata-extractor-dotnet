@@ -278,7 +278,7 @@ namespace MetadataExtractor.Formats.Png
                 var directory = new PngDirectory(PngChunkType.tIME);
                 try
                 {
-                    var time = new DateTime(year, month, day, hour, minute, second, DateTimeKind.Utc);
+                    var time = new DateTime(year, month, day, hour, minute, second, DateTimeKind.Unspecified);
                     directory.Set(PngDirectory.TagLastModificationTime, time);
                 }
                 catch (ArgumentOutOfRangeException e)
