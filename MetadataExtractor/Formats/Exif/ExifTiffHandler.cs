@@ -30,6 +30,7 @@ using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif.Makernotes;
 using MetadataExtractor.Formats.Iptc;
 using MetadataExtractor.Formats.Tiff;
+using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Exif
@@ -123,6 +124,14 @@ namespace MetadataExtractor.Formats.Exif
                 }
                 return false;
             }
+
+            // Custom processing for embedded XMP data
+            if (tagId == ExifDirectoryBase.TagApplicationNotes && CurrentDirectory is ExifIfd0Directory)
+            {
+                Directories.Add(new XmpReader().Extract(reader.GetNullTerminatedString(tagOffset, byteCount)));
+                return true;
+            }
+
             return false;
         }
 
