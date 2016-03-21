@@ -466,9 +466,10 @@ namespace MetadataExtractor
                 }
             }
 
-            if (o is IConvertible)
+            var convertible = o as IConvertible;
+            if (convertible != null)
             {
-                dateTime = ((IConvertible)o).ToDateTime(null);
+                dateTime = convertible.ToDateTime(null);
                 return true;
             }
 
