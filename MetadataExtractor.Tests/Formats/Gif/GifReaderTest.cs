@@ -52,7 +52,7 @@ namespace MetadataExtractor.Tests.Formats.Gif
             Assert.False(directory.GetBoolean(GifHeaderDirectory.TagIsColorTableSorted));
             Assert.Equal(8, directory.GetInt32(GifHeaderDirectory.TagBitsPerPixel));
             Assert.True(directory.GetBoolean(GifHeaderDirectory.TagHasGlobalColorTable));
-            Assert.Equal(0, directory.GetInt32(GifHeaderDirectory.TagTransparentColorIndex));
+            Assert.Equal(0, directory.GetInt32(GifHeaderDirectory.TagBackgroundColorIndex));
         }
 
         [Fact]
@@ -67,7 +67,7 @@ namespace MetadataExtractor.Tests.Formats.Gif
             Assert.False(directory.GetBoolean(GifHeaderDirectory.TagIsColorTableSorted));
             Assert.Equal(5, directory.GetInt32(GifHeaderDirectory.TagBitsPerPixel));
             Assert.True(directory.GetBoolean(GifHeaderDirectory.TagHasGlobalColorTable));
-            Assert.Equal(8, directory.GetInt32(GifHeaderDirectory.TagTransparentColorIndex));
+            Assert.Equal(8, directory.GetInt32(GifHeaderDirectory.TagBackgroundColorIndex));
         }
     }
 }

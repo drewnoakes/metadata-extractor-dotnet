@@ -36,7 +36,7 @@ namespace MetadataExtractor.Formats.Gif
         public const int TagIsColorTableSorted = 5;
         public const int TagBitsPerPixel = 6;
         public const int TagHasGlobalColorTable = 7;
-        public const int TagTransparentColorIndex = 8;
+        public const int TagBackgroundColorIndex = 8;
         public const int TagPixelAspectRatio = 9;
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
@@ -48,7 +48,7 @@ namespace MetadataExtractor.Formats.Gif
             { TagIsColorTableSorted, "Is Color Table Sorted" },
             { TagBitsPerPixel, "Bits per Pixel" },
             { TagHasGlobalColorTable, "Has Global Color Table" },
-            { TagTransparentColorIndex, "Transparent Color Index" },
+            { TagBackgroundColorIndex, "Background Color Index" },
             { TagPixelAspectRatio, "Pixel Aspect Ratio" }
         };
 

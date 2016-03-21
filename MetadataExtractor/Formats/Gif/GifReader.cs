@@ -88,7 +88,7 @@ namespace MetadataExtractor.Formats.Gif
                 directory.Set(GifHeaderDirectory.TagBitsPerPixel, bitsPerPixel);
                 var hasGlobalColorTable = (flags & 0xf) != 0;
                 directory.Set(GifHeaderDirectory.TagHasGlobalColorTable, hasGlobalColorTable);
-                directory.Set(GifHeaderDirectory.TagTransparentColorIndex, reader.GetByte());
+                directory.Set(GifHeaderDirectory.TagBackgroundColorIndex, reader.GetByte());
                 int aspectRatioByte = reader.GetByte();
                 if (aspectRatioByte != 0)
                 {
