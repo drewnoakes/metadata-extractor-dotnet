@@ -42,7 +42,7 @@ namespace MetadataExtractor.Tests.Formats.Icc
 
             // When in an APP2 segment, ICC data starts after a 14-byte preamble
             var icc = TestHelper.SkipBytes(app2Bytes, 14);
-            var directory = new IccReader().Extract(new ByteArrayReader(icc));
+            var directory = new IccReader().Extract(new ByteArrayReader(icc), 14);
             Assert.NotNull(directory);
             Assert.True(directory.HasError);
         }
@@ -51,7 +51,7 @@ namespace MetadataExtractor.Tests.Formats.Icc
         public void TestReadJpegSegments_InvalidData()
         {
             var app2Bytes = File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2");
-            var directory = new IccReader().ReadJpegSegments(new[] { app2Bytes }, JpegSegmentType.App2);
+            var directory = new IccReader().ReadJpegSegments(new[] { new JpegSegment(JpegSegmentType.App2, app2Bytes) }, JpegSegmentType.App2);
             Assert.NotNull(directory);
             Assert.True(directory.Single().HasError);
         }

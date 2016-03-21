@@ -35,6 +35,16 @@ namespace MetadataExtractor.Formats.Tiff
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public interface ITiffHandler
     {
+        /// <summary>Receives an offset where this directory stores in the underlying Stream or object.</summary>
+        /// <remarks>
+        /// Receives an offset where this directory stores in the underlying Stream or object.
+        /// <para />
+        /// Implementations are not obligated to set this value. However, it is necessary to get an accurate
+        /// byte mark for Thumbnail data in Tiff.
+        /// </remarks>
+        /// <param name="offset"></param>
+        void SetCurrentDirectoryStartPosition(long offset);
+
         /// <summary>Receives the 2-byte marker found in the TIFF header.</summary>
         /// <remarks>
         /// Receives the 2-byte marker found in the TIFF header.

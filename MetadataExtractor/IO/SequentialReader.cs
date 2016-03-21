@@ -58,6 +58,11 @@ namespace MetadataExtractor.IO
         [NotNull]
         public abstract byte[] GetBytes(int count);
 
+        /// <summary>
+        /// Return the current position in the underlying data sequence
+        /// </summary>
+        public abstract long Position { get; }
+
         /// <summary>Skips forward in the sequence.</summary>
         /// <remarks>
         /// Skips forward in the sequence. If the sequence ends, an

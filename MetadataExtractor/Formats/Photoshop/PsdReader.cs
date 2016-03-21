@@ -40,7 +40,7 @@ namespace MetadataExtractor.Formats.Photoshop
 #else
             IReadOnlyList<Directory>
 #endif
-            Extract([NotNull] SequentialReader reader)
+            Extract([NotNull] SequentialReader reader, long segmentStart)
         {
             var directory = new PsdHeaderDirectory();
 
@@ -108,7 +108,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
                 var imageResourcesSectionLength = reader.GetUInt32();
                 Debug.Assert(imageResourcesSectionLength <= int.MaxValue);
-                photoshopDirectories = new PhotoshopReader().Extract(reader, (int)imageResourcesSectionLength);
+                photoshopDirectories = new PhotoshopReader().Extract(reader, (int)imageResourcesSectionLength, segmentStart);
             }
             catch (IOException)
             {

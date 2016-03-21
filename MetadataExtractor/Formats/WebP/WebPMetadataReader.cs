@@ -73,7 +73,7 @@ namespace MetadataExtractor.Formats.WebP
             ReadMetadata([NotNull] Stream stream)
         {
             var directories = new List<Directory>();
-            new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new WebPRiffHandler(directories));
+            new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new WebPRiffHandler(directories), stream.Position);
             return directories;
         }
     }

@@ -90,5 +90,13 @@ namespace MetadataExtractor.IO
 
             return true;
         }
+
+        public override long Position
+        {
+            get
+            {
+                return _index;
+            }
+        }
     }
 }

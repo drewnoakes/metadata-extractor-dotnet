@@ -84,7 +84,7 @@ namespace MetadataExtractor.Tools.JpegSegmentExtractor
         {
             foreach (var segmentType in segmentData.GetSegmentTypes())
             {
-                IList<byte[]> segments = segmentData.GetSegments(segmentType).ToList();
+                IList<JpegSegment> segments = segmentData.GetSegments(segmentType).ToList();
 
                 if (segments.Count == 0)
                     continue;
@@ -96,7 +96,7 @@ namespace MetadataExtractor.Tools.JpegSegmentExtractor
                     var outputFilePath = string.Format(format, jpegFilePath, segmentType.ToString().ToLower(), i);
 
                     Console.Out.WriteLine("Writing: " + outputFilePath);
-                    File.WriteAllBytes(outputFilePath, segments[i]);
+                    File.WriteAllBytes(outputFilePath, segments[i].Bytes);
                 }
             }
         }

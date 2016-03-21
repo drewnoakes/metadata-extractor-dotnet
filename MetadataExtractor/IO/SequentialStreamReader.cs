@@ -89,5 +89,14 @@ namespace MetadataExtractor.IO
                 return false;
             }
         }
+
+        public override long Position
+        {
+            get
+            {
+                return _stream.Position;
+            }
+        }
+
     }
 }

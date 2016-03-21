@@ -46,7 +46,7 @@ namespace MetadataExtractor.Formats.Riff
         /// <param name="handler">The <see cref="IRiffHandler"/> that will coordinate processing and accept read values.</param>
         /// <exception cref="RiffProcessingException">An error occurred during the processing of RIFF data that could not be ignored or recovered from.</exception>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
-        public void ProcessRiff([NotNull] SequentialReader reader, [NotNull] IRiffHandler handler)
+        public void ProcessRiff([NotNull] SequentialReader reader, [NotNull] IRiffHandler handler, long segmentStart)
         {
             // RIFF files are always little-endian
             reader.IsMotorolaByteOrder = false;
@@ -82,7 +82,7 @@ namespace MetadataExtractor.Formats.Riff
                 if (handler.ShouldAcceptChunk(chunkFourCc))
                 {
                     // TODO is it feasible to avoid copying the chunk here, and to pass the sequential reader to the handler?
-                    handler.ProcessChunk(chunkFourCc, reader.GetBytes(chunkSize));
+                    handler.ProcessChunk(chunkFourCc, reader.GetBytes(chunkSize), segmentStart);
                 }
                 else
                 {

@@ -58,7 +58,7 @@ namespace MetadataExtractor.Formats.Tiff
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.RandomAccess))
             {
-                var handler = new ExifTiffHandler(directories, storeThumbnailBytes: false);
+                var handler = new ExifTiffHandler(directories, storeThumbnailBytes: false, segmentStart: stream.Position);
                 TiffReader.ProcessTiff(new IndexedSeekingReader(stream), handler);
             }
 
@@ -85,7 +85,7 @@ namespace MetadataExtractor.Formats.Tiff
             // buffers data from the stream as we seek forward.
             var directories = new List<Directory>();
 
-            var handler = new ExifTiffHandler(directories, false);
+            var handler = new ExifTiffHandler(directories, false, stream.Position);
             TiffReader.ProcessTiff(new IndexedCapturingReader(stream), handler);
 
             return directories;

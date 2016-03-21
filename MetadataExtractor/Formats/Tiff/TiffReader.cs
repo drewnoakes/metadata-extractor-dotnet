@@ -212,6 +212,7 @@ namespace MetadataExtractor.Formats.Tiff
                     if (byteCount == 4 && handler.IsTagIfdPointer(tagId))
                     {
                         var subDirOffset = tiffHeaderOffset + reader.GetInt32(tagValueOffset);
+                        handler.SetCurrentDirectoryStartPosition(subDirOffset);
                         ProcessIfd(handler, reader, processedIfdOffsets, subDirOffset, tiffHeaderOffset);
                     }
                     else if (!handler.CustomProcessTag(tagValueOffset, processedIfdOffsets, tiffHeaderOffset, reader, tagId, byteCount))
@@ -241,7 +242,10 @@ namespace MetadataExtractor.Formats.Tiff
                     }
 
                     if (handler.HasFollowerIfd())
+                    {
+                        handler.SetCurrentDirectoryStartPosition(nextIfdOffset);
                         ProcessIfd(handler, reader, processedIfdOffsets, nextIfdOffset, tiffHeaderOffset);
+                    }
                 }
             }
             finally

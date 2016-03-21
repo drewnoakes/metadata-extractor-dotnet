@@ -41,10 +41,11 @@ namespace MetadataExtractor.Formats.Tiff
 
         protected readonly List<Directory> Directories;
 
-        protected DirectoryTiffHandler(List<Directory> directories, Type initialDirectoryClass)
+        protected DirectoryTiffHandler(List<Directory> directories, Type initialDirectoryClass, long directoryStart)
         {
             Directories = directories;
             CurrentDirectory = (Directory)Activator.CreateInstance(initialDirectoryClass);
+            CurrentDirectory.StartPosition = directoryStart;
             Directories.Add(CurrentDirectory);
         }
 
@@ -53,10 +54,11 @@ namespace MetadataExtractor.Formats.Tiff
             CurrentDirectory = _directoryStack.Count == 0 ? null : _directoryStack.Pop();
         }
 
-        protected void PushDirectory([NotNull] Type directoryClass)
+        protected void PushDirectory([NotNull] Type directoryClass, long directoryStart = 0)
         {
             _directoryStack.Push(CurrentDirectory);
             CurrentDirectory = (Directory)Activator.CreateInstance(directoryClass);
+            CurrentDirectory.StartPosition = directoryStart;
             Directories.Add(CurrentDirectory);
         }
 
@@ -91,6 +93,8 @@ namespace MetadataExtractor.Formats.Tiff
         public abstract bool HasFollowerIfd();
 
         public abstract bool IsTagIfdPointer(int tagType);
+
+        public abstract void SetCurrentDirectoryStartPosition(long relativeOffset);
 
         public abstract void SetTiffMarker(int marker);
     }

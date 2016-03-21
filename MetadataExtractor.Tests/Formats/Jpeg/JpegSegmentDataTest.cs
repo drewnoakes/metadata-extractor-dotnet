@@ -37,7 +37,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         {
             var segmentData = new JpegSegmentData();
             var segmentType = JpegSegmentType.App3;
-            var segmentBytes = new byte[] { 1, 2, 3 };
+            var segmentBytes = new JpegSegment(segmentType, new byte[] { 1, 2, 3 });
             segmentData.AddSegment(segmentType, segmentBytes);
             Assert.Equal(1, segmentData.GetSegmentCount(segmentType));
             Assert.Equal(segmentBytes, segmentData.GetSegment(segmentType));
@@ -48,7 +48,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         {
             var segmentData = new JpegSegmentData();
             var segmentType = JpegSegmentType.App3;
-            var segmentBytes = new byte[] { 1, 2, 3 };
+            var segmentBytes = new JpegSegment(segmentType, new byte[] { 1, 2, 3 });
             Assert.True(!segmentData.ContainsSegment(segmentType));
             segmentData.AddSegment(segmentType, segmentBytes);
             Assert.True(segmentData.ContainsSegment(segmentType));
@@ -60,8 +60,8 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             var segmentData = new JpegSegmentData();
             var segmentType1 = JpegSegmentType.App3;
             var segmentType2 = JpegSegmentType.App4;
-            var segmentBytes1 = new byte[] { 1, 2, 3 };
-            var segmentBytes2 = new byte[] { 3, 2, 1 };
+            var segmentBytes1 = new JpegSegment(segmentType1, new byte[] { 1, 2, 3 });
+            var segmentBytes2 = new JpegSegment(segmentType2, new byte[] { 3, 2, 1 });
             segmentData.AddSegment(segmentType1, segmentBytes1);
             segmentData.AddSegment(segmentType2, segmentBytes2);
             Assert.Equal(1, segmentData.GetSegmentCount(segmentType1));
@@ -75,8 +75,8 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         {
             var segmentData = new JpegSegmentData();
             var segmentType = JpegSegmentType.App3;
-            var segmentBytes1 = new byte[] { 1, 2, 3 };
-            var segmentBytes2 = new byte[] { 3, 2, 1 };
+            var segmentBytes1 = new JpegSegment(segmentType, new byte[] { 1, 2, 3 });
+            var segmentBytes2 = new JpegSegment(segmentType, new byte[] { 3, 2, 1 });
             segmentData.AddSegment(segmentType, segmentBytes1);
             segmentData.AddSegment(segmentType, segmentBytes2);
             Assert.Equal(2, segmentData.GetSegmentCount(segmentType));
@@ -89,8 +89,8 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         {
             var segmentData = new JpegSegmentData();
             var segmentType = JpegSegmentType.App3;
-            var segmentBytes1 = new byte[] { 1, 2, 3 };
-            var segmentBytes2 = new byte[] { 3, 2, 1 };
+            var segmentBytes1 = new JpegSegment(segmentType, new byte[] { 1, 2, 3 });
+            var segmentBytes2 = new JpegSegment(segmentType, new byte[] { 3, 2, 1 });
             segmentData.AddSegment(segmentType, segmentBytes1);
             segmentData.AddSegment(segmentType, segmentBytes2);
             Assert.Equal(2, segmentData.GetSegmentCount(segmentType));
@@ -104,8 +104,8 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         {
             var segmentData = new JpegSegmentData();
             var segmentType = JpegSegmentType.App3;
-            var segmentBytes1 = new byte[] { 1, 2, 3 };
-            var segmentBytes2 = new byte[] { 3, 2, 1 };
+            var segmentBytes1 = new JpegSegment(segmentType, new byte[] { 1, 2, 3 });
+            var segmentBytes2 = new JpegSegment(segmentType, new byte[] { 3, 2, 1 });
             segmentData.AddSegment(segmentType, segmentBytes1);
             segmentData.AddSegment(segmentType, segmentBytes2);
             Assert.Equal(2, segmentData.GetSegmentCount(segmentType));

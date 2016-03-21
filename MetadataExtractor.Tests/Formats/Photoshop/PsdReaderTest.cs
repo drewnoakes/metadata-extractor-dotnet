@@ -39,7 +39,7 @@ namespace MetadataExtractor.Tests.Formats.Photoshop
         {
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-                var directory = new PsdReader().Extract(new SequentialStreamReader(stream)).OfType<PsdHeaderDirectory>().FirstOrDefault();
+                var directory = new PsdReader().Extract(new SequentialStreamReader(stream), 0).OfType<PsdHeaderDirectory>().FirstOrDefault();
                 Assert.NotNull(directory);
                 return directory;
             }
