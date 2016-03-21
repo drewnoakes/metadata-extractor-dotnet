@@ -59,7 +59,7 @@ namespace MetadataExtractor.Tools.FileProcessor
         /// <param name="argArray">the command line arguments</param>
         /// <exception cref="MetadataException"/>
         /// <exception cref="System.IO.IOException"/>
-        public static void Main([NotNull] string[] argArray)
+        public static void Main2([NotNull] string[] argArray)
         {
             var args = argArray.ToList();
 
@@ -190,7 +190,7 @@ namespace MetadataExtractor.Tools.FileProcessor
             return name.Replace(" ", "%20");
         }
 
-        private static int Main2(string[] args)
+        private static int Main(string[] args)
         {
             var directories = new List<string>();
 
