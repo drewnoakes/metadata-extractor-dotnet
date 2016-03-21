@@ -563,9 +563,9 @@ namespace MetadataExtractor
             {
                 var dateTime = (DateTime)o;
                 return dateTime.ToString(
-                    dateTime.Kind == DateTimeKind.Utc
-                        ? "ddd MMM dd HH:mm:ss yyyy"
-                        : "ddd MMM dd HH:mm:ss zzz yyyy");
+                    dateTime.Kind != DateTimeKind.Unspecified
+                        ? "ddd MMM dd HH:mm:ss zzz yyyy"
+                        : "ddd MMM dd HH:mm:ss yyyy");
             }
 
             if (o is bool)
