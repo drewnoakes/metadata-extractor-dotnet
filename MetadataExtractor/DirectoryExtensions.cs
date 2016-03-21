@@ -97,8 +97,7 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                {
-                }
+                { }
             }
 
             value = default(long);
