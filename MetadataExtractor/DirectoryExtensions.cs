@@ -491,7 +491,6 @@ namespace MetadataExtractor
 
         /// <summary>Returns the specified tag's value as a Rational.</summary>
         /// <remarks>If the value is unset or cannot be converted, <c>null</c> is returned.</remarks>
-        [CanBeNull]
         public static bool TryGetRational(this Directory directory, int tagType, out Rational value)
         {
             var o = directory.GetObject(tagType);
