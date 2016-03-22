@@ -22,6 +22,8 @@
 //
 #endregion
 
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MetadataExtractor.Formats.Icc;
@@ -60,6 +62,21 @@ namespace MetadataExtractor.Tests.Formats.Icc
         public void GetStringFromUInt32()
         {
             Assert.Equal("ABCD", IccReader.GetStringFromUInt32(0x41424344u));
+        }
+
+        [Fact]
+        public void TestExtract_ProfileDateTime()
+        {
+            var app2Bytes = File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app2");
+
+            var directory = new IccReader()
+                .ReadJpegSegments(new[] { app2Bytes }, JpegSegmentType.App2)
+                .OfType<IccDirectory>()
+                .Single();
+
+            Assert.NotNull(directory);
+//            Assert.Equal("1998:02:09 06:49:00", directory.GetString(IccDirectory.TagProfileDateTime));
+            Assert.Equal(new DateTime(1998, 2, 9, 6, 49, 0), directory.GetDateTime(IccDirectory.TagProfileDateTime));
         }
     }
 }

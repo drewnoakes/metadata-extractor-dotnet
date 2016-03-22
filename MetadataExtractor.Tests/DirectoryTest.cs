@@ -24,6 +24,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Text;
 using MetadataExtractor.Formats.Exif;
 using Xunit;
@@ -114,19 +115,27 @@ namespace MetadataExtractor.Tests
         [Fact]
         public void TestSetStringAndGetDate()
         {
-            var date1 = "2002:01:30 23:59:59";
-            var date2 = "2002:01:30 23:59";
-            var date3 = "2002-01-30 23:59:59";
-            var date4 = "2002-01-30 23:59";
-            _directory.Set(1, date1);
-            _directory.Set(2, date2);
-            _directory.Set(3, date3);
-            _directory.Set(4, date4);
-            Assert.Equal(date1, _directory.GetString(1));
-            Assert.Equal(new DateTime(2002, 1, 30, 23, 59, 59), _directory.GetDateTime(1));
-            Assert.Equal(new DateTime(2002, 1, 30, 23, 59, 0), _directory.GetDateTime(2));
-            Assert.Equal(new DateTime(2002, 1, 30, 23, 59, 59), _directory.GetDateTime(3));
-            Assert.Equal(new DateTime(2002, 1, 30, 23, 59, 0), _directory.GetDateTime(4));
+            Action<string, DateTime> test = (str, expected) =>
+            {
+                _directory.Set(1, str);
+                Assert.Equal(expected, _directory.GetDateTime(1));
+            };
+
+            // TODO revisit these commented cases and introduce GetDateTimeOffset impl/test
+
+            test("2002:01:30 23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
+            test("2002:01:30 23:59",              new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
+            test("2002-01-30 23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
+            test("2002-01-30 23:59",              new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
+//          test("2002-01-30T23:59:59.099-08:00", new DateTime(2002, 1, 30, 23, 59, 59, 99, DateTimeKind.Unspecified));
+            test("2002-01-30T23:59:59.099",       new DateTime(2002, 1, 30, 23, 59, 59, 99, DateTimeKind.Unspecified));
+//          test("2002-01-30T23:59:59-08:00",     new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
+            test("2002-01-30T23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
+//          test("2002-01-30T23:59-08:00",        new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
+            test("2002-01-30T23:59",              new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
+            test("2002-01-30",                    new DateTime(2002, 1, 30,  0,  0,  0,     DateTimeKind.Unspecified));
+            test("2002-01",                       new DateTime(2002, 1,  1,  0,  0,  0,     DateTimeKind.Unspecified));
+            test("2002",                          new DateTime(2002, 1,  1,  0,  0,  0,     DateTimeKind.Unspecified));
         }
 
 
