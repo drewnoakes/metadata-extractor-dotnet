@@ -263,7 +263,8 @@ namespace MetadataExtractor.Formats.Iptc
                     {
                         encoding = Encoding.GetEncoding(encodingName);
                     }
-                    catch { }
+                    catch (ArgumentException)
+                    { }
                 }
 
                 var bytes = reader.GetBytes(tagByteCount);
