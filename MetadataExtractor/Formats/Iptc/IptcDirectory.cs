@@ -22,7 +22,9 @@
 //
 #endregion
 
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using JetBrains.Annotations;
 
@@ -30,6 +32,7 @@ namespace MetadataExtractor.Formats.Iptc
 {
     /// <summary>Describes tags used by the International Press Telecommunications Council (IPTC) metadata format.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    /// <author>Akihiko Kusanagi https://github.com/nagix</author>
     public sealed class IptcDirectory : Directory
     {
         public const int TagEnvelopeRecordVersion = 0x0100;
@@ -209,6 +212,73 @@ namespace MetadataExtractor.Formats.Iptc
         public IList<string> GetKeywords()
         {
             return this.GetStringArray(TagKeywords)?.ToList();
+        }
+
+        /// <summary>
+        /// Combines tags <see cref="TagDateSent" /> and <see cref="TagTimeSent"/> to obtain a single
+        /// <see cref="DateTimeOffset"/> representing when the service sent this image.
+        /// </summary>
+        /// <returns>When the service sent this image, if possible, otherwise <c>null</c>.</returns>
+        public DateTimeOffset? GetDateSent()
+        {
+            return GetDate(TagDateSent, TagTimeSent);
+        }
+
+        /// <summary>
+        /// Combines tags <see cref="TagReleaseDate" /> and <see cref="TagReleaseTime"/> to obtain a single
+        /// <see cref="DateTimeOffset"/> representing when this image was released.
+        /// </summary>
+        /// <returns>When this image was released, if possible, otherwise <c>null</c>.</returns>
+        public DateTimeOffset? GetReleaseDate()
+        {
+            return GetDate(TagReleaseDate, TagReleaseTime);
+        }
+
+        /// <summary>
+        /// Combines tags <see cref="TagExpirationDate" /> and <see cref="TagExpirationTime"/> to obtain a single
+        /// <see cref="DateTimeOffset"/> after which this image should not be used.
+        /// </summary>
+        /// <returns>When this image should expire, if possible, otherwise <c>null</c>.</returns>
+        public DateTimeOffset? GetExpirationDate()
+        {
+            return GetDate(TagExpirationDate, TagExpirationTime);
+        }
+
+        /// <summary>
+        /// Combines tags <see cref="TagDateCreated" /> and <see cref="TagTimeCreated"/> to obtain a single
+        /// <see cref="DateTimeOffset"/> representing when this image was captured.
+        /// </summary>
+        /// <returns>When this image was released, if possible, otherwise <c>null</c>.</returns>
+        public DateTimeOffset? GetDateCreated()
+        {
+            return GetDate(TagDateCreated, TagTimeCreated);
+        }
+
+        /// <summary>
+        /// Combines tags <see cref="TagDateCreated" /> and <see cref="TagTimeCreated"/> to obtain a single
+        /// <see cref="DateTimeOffset"/> representing when the digital representation of this image was created.
+        /// </summary>
+        /// <returns>When the digital representation of this image was created, if possible, otherwise <c>null</c>.</returns>
+        public DateTimeOffset? GetDigitalDateCreated()
+        {
+            return GetDate(TagDigitalDateCreated, TagDigitalTimeCreated);
+        }
+
+        private static readonly string[] _formats = { "yyyyMMddHHmmsszzz", "yyyyMMddHHmmss" };
+
+        private DateTimeOffset? GetDate(int dateTagType, int timeTagType)
+        {
+            var date = this.GetString(dateTagType);
+            var time = this.GetString(timeTagType);
+
+            if (date == null || time == null)
+                return null;
+
+            DateTimeOffset result;
+            if (DateTimeOffset.TryParseExact(date + time, _formats, null, DateTimeStyles.None, out result))
+                return result;
+
+            return null;
         }
     }
 }

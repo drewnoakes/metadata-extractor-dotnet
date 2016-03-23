@@ -76,7 +76,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
             Assert.Equal(IptcDirectory.TagCity, tags[9].Type);
             Assert.Equal("City", directory.GetObject(tags[9].Type));
             Assert.Equal(IptcDirectory.TagDateCreated, tags[10].Type);
-            Assert.Equal(new DateTime(2000, 1, 1), directory.GetObject(tags[10].Type));
+            Assert.Equal("20000101", directory.GetObject(tags[10].Type));
             Assert.Equal(IptcDirectory.TagObjectName, tags[11].Type);
             Assert.Equal("ObjectName", directory.GetObject(tags[11].Type));
             Assert.Equal(IptcDirectory.TagSource, tags[12].Type);

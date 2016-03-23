@@ -34,6 +34,7 @@ namespace MetadataExtractor.Formats.Iptc
     /// As the IPTC directory already stores values as strings, this class simply returns the tag's value.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    /// <author>Akihiko Kusanagi https://github.com/nagix</author>
     public sealed class IptcDescriptor : TagDescriptor<IptcDirectory>
     {
         public IptcDescriptor([NotNull] IptcDirectory directory)
@@ -45,19 +46,57 @@ namespace MetadataExtractor.Formats.Iptc
         {
             switch (tagType)
             {
+                case TagDateCreated:
+                    return GetDateCreatedDescription();
+                case TagDigitalDateCreated:
+                    return GetDigitalDateCreatedDescription();
+                case TagDateSent:
+                    return GetDateSentDescription();
+                case TagExpirationDate:
+                    return GetExpirationDateDescription();
+                case TagExpirationTime:
+                    return GetExpirationTimeDescription();
                 case TagFileFormat:
                     return GetFileFormatDescription();
                 case TagKeywords:
                     return GetKeywordsDescription();
+                case TagReferenceDate:
+                    return GetReferenceDateDescription();
+                case TagReleaseDate:
+                    return GetReleaseDateDescription();
+                case TagReleaseTime:
+                    return GetReleaseTimeDescription();
                 case TagTimeCreated:
                     return GetTimeCreatedDescription();
                 case TagDigitalTimeCreated:
                     return GetDigitalTimeCreatedDescription();
-                case TagDateCreated:
-                    return GetDateCreatedDescription();
+                case TagTimeSent:
+                    return GetTimeSentDescription();
                 default:
                     return base.GetDescription(tagType);
             }
+        }
+
+        [CanBeNull]
+        private string GetDateDescription(int tagType)
+        {
+            var s = Directory.GetString(tagType);
+            if (s == null)
+                return null;
+            if (s.Length == 8)
+                return s.Substring(0, 4) + ':' + s.Substring(4, 2) + ':' + s.Substring(6);
+            return s;
+        }
+
+        [CanBeNull]
+        private string GetTimeDescription(int tagType)
+        {
+            var s = Directory.GetString(tagType);
+            if (s == null)
+                return null;
+            if (s.Length == 6 || s.Length == 11)
+                return s.Substring(0, 2) + ':' + s.Substring(2, 2) + ':' + s.Substring(4);
+            return s;
         }
 
         [CanBeNull]
@@ -147,11 +186,31 @@ namespace MetadataExtractor.Formats.Iptc
         [CanBeNull]
         public string GetDateCreatedDescription()
         {
-            DateTime value;
-            if (!Directory.TryGetDateTime(TagDateCreated, out value))
-                return null;
+            return GetDateDescription(TagDateCreated);
+        }
 
-            return value.ToString("yyyy:MM:dd");
+        [CanBeNull]
+        public string GetDigitalDateCreatedDescription()
+        {
+            return GetDateDescription(TagDigitalDateCreated);
+        }
+
+        [CanBeNull]
+        public string GetDateSentDescription()
+        {
+            return GetDateDescription(TagDateSent);
+        }
+
+        [CanBeNull]
+        public string GetExpirationDateDescription()
+        {
+            return GetDateDescription(TagExpirationDate);
+        }
+
+        [CanBeNull]
+        public string GetExpirationTimeDescription()
+        {
+            return GetTimeDescription(TagExpirationTime);
         }
 
         [CanBeNull]
@@ -198,15 +257,27 @@ namespace MetadataExtractor.Formats.Iptc
         }
 
         [CanBeNull]
+        public string GetReferenceDateDescription()
+        {
+            return GetDateDescription(TagReferenceDate);
+        }
+
+        [CanBeNull]
         public string GetReleaseDateDescription()
         {
-            return Directory.GetString(TagReleaseDate);
+            return GetDateDescription(TagReleaseDate);
         }
 
         [CanBeNull]
         public string GetReleaseTimeDescription()
         {
-            return Directory.GetString(TagReleaseTime);
+            return GetTimeDescription(TagReleaseTime);
+        }
+
+        [CanBeNull]
+        public string GetTimeSentDescription()
+        {
+            return GetTimeDescription(TagTimeSent);
         }
 
         [CanBeNull]
@@ -230,23 +301,13 @@ namespace MetadataExtractor.Formats.Iptc
         [CanBeNull]
         public string GetTimeCreatedDescription()
         {
-            var s = Directory.GetString(TagTimeCreated);
-            if (s == null)
-                return null;
-            if (s.Length == 6 || s.Length == 11)
-                return s.Substring(0, 2 - 0) + ':' + s.Substring(2, 4 - 2) + ':' + s.Substring(4);
-            return s;
+            return GetTimeDescription(TagTimeCreated);
         }
 
         [CanBeNull]
         public string GetDigitalTimeCreatedDescription()
         {
-            var s = Directory.GetString(TagDigitalTimeCreated);
-            if (s == null)
-                return null;
-            if (s.Length == 6 || s.Length == 11)
-                return s.Substring(0, 2 - 0) + ':' + s.Substring(2, 4 - 2) + ':' + s.Substring(4);
-            return s;
+            return GetTimeDescription(TagDigitalTimeCreated);
         }
 
         [CanBeNull]

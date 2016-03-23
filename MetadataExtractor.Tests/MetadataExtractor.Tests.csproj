@@ -65,6 +65,7 @@
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DirectoryExtensionsTest.cs" />
+    <Compile Include="Formats\Iptc\IptcDirectoryTests.cs" />
     <Compile Include="Formats\Jpeg\JpegMetadataReaderTest.cs" />
     <Compile Include="Formats\Jpeg\JpegSegmentDataTest.cs" />
     <Compile Include="Formats\Jpeg\JpegSegmentReaderTest.cs" />
