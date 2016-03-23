@@ -98,6 +98,10 @@
     <Compile Include="Formats\Exif\makernotes\SonyType1MakernoteDirectory.cs" />
     <Compile Include="Formats\Exif\makernotes\SonyType6MakernoteDescriptor.cs" />
     <Compile Include="Formats\Exif\makernotes\SonyType6MakernoteDirectory.cs" />
+    <Compile Include="Formats\Exif\SubIFD1Descriptor.cs" />
+    <Compile Include="Formats\Exif\SubIFD1Directory.cs" />
+    <Compile Include="Formats\Exif\SubIFD2Descriptor.cs" />
+    <Compile Include="Formats\Exif\SubIFD2Directory.cs" />
     <Compile Include="Formats\Gif\GifHeaderDescriptor.cs" />
     <Compile Include="Formats\Gif\GifHeaderDirectory.cs" />
     <Compile Include="Formats\Gif\GifMetadataReader.cs" />
