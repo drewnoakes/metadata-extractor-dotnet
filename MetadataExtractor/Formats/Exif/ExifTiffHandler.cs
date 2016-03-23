@@ -83,6 +83,12 @@ namespace MetadataExtractor.Formats.Exif
                 PushDirectory(typeof(ExifInteropDirectory));
                 return true;
             }
+
+            /*if(tagType == ExifIfd0Directory.TagSubIfdOffset && CurrentDirectory is ExifIfd0Directory)
+            {
+                return true;
+            }*/
+
             return false;
         }
 
@@ -129,6 +135,39 @@ namespace MetadataExtractor.Formats.Exif
             if (tagId == ExifDirectoryBase.TagApplicationNotes && CurrentDirectory is ExifIfd0Directory)
             {
                 Directories.Add(new XmpReader().Extract(reader.GetNullTerminatedString(tagOffset, byteCount)));
+                return true;
+            }
+
+            if(tagId == ExifDirectoryBase.TagSubIfdOffset && CurrentDirectory is ExifIfd0Directory)
+            {
+                if (byteCount >= TiffDataFormat.Int32U.ComponentSizeBytes)
+                {
+                    int componentCount = byteCount / TiffDataFormat.Int32U.ComponentSizeBytes; // 4;
+
+                    var array = new uint[componentCount];
+                    for (var i = 0; i < componentCount; i++)
+                        array[i] = reader.GetUInt32(tagOffset + (i * 4));
+
+                    // TODO: reinstate this later when class structure supports it better
+                    //int maxDirs = 10;   // keep this from getting out of hand
+                    int maxDirs = 2;
+                    for (var i = 0; i < array.Length; i++)
+                    {
+                        if (i == 0)
+                            PushDirectory(typeof(SubIfd1Directory));
+                        else if (i == 1)
+                            PushDirectory(typeof(SubIfd2Directory));
+                        else
+                            break;
+
+                        TiffReader.ProcessIfd(this, reader, processedIfdOffsets, (int)array[i], tiffHeaderOffset);
+
+                        if (i == maxDirs)
+                            i = array.Length;
+                    }
+
+                }
+
                 return true;
             }
 
