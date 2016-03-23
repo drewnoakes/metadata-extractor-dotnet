@@ -441,6 +441,7 @@ namespace MetadataExtractor
                 // Custom format reference: https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
                 var datePatterns = new[]
                 {
+                    "yyyy:MM:dd HH:mm:ss.fff",
                     "yyyy:MM:dd HH:mm:ss",
                     "yyyy:MM:dd HH:mm",
                     "yyyy-MM-dd HH:mm:ss",
@@ -455,6 +456,7 @@ namespace MetadataExtractor
                     "yyyy-MM-ddTHH:mm.ff",
                     "yyyy-MM-ddTHH:mm.f",
                     "yyyy-MM-ddTHH:mm",
+                    "yyyy:MM:dd",
                     "yyyy-MM-dd",
                     "yyyy-MM",
                     "yyyy"
