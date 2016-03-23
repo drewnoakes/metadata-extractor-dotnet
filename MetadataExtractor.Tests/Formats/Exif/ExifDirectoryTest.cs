@@ -120,5 +120,17 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.Equal(54.989666666666665, geoLocation.Latitude);
             Assert.Equal(-1.9141666666666666, geoLocation.Longitude);
         }
+
+        [Fact]
+        public void TestGpsDate()
+        {
+            var gpsDirectory = ExifReaderTest.ProcessSegmentBytes<GpsDirectory>("Tests/Data/withPanasonicFaces.jpg.app1");
+            Assert.Equal("2010:06:24", gpsDirectory.GetString(GpsDirectory.TagDateStamp));
+            Assert.Equal("10/1 17/1 21/1", gpsDirectory.GetString(GpsDirectory.TagTimeStamp));
+            DateTime gpsDate;
+            Assert.True(gpsDirectory.TryGetGpsDate(out gpsDate));
+            Assert.Equal(DateTimeKind.Utc, gpsDate.Kind);
+            Assert.Equal(new DateTime(2010, 6, 24, 10, 17, 21), gpsDate);
+        }
     }
 }
