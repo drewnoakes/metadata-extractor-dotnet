@@ -22,7 +22,10 @@
 //
 #endregion
 
+using System;
+#if !PORTABLE
 using System.IO;
+#endif
 using System.Linq;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Jpeg;
