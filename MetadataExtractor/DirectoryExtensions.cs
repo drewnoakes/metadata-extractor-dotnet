@@ -461,11 +461,9 @@ namespace MetadataExtractor
                     "yyyy-MM",
                     "yyyy"
                 };
-                foreach (var datePattern in datePatterns)
-                {
-                    if (DateTime.TryParseExact(s, datePattern, null, DateTimeStyles.AllowWhiteSpaces, out dateTime))
-                        return true;
-                }
+
+                if (DateTime.TryParseExact(s, datePatterns, null, DateTimeStyles.AllowWhiteSpaces, out dateTime))
+                    return true;
 
                 dateTime = default(DateTime);
                 return false;
