@@ -111,5 +111,14 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.NotNull(exifIfd0Directory);
             Assert.Equal(216, exifIfd0Directory.GetInt32(ExifDirectoryBase.TagXResolution));
         }
+
+        [Fact]
+        public void TestGeoLocation()
+        {
+            var gpsDirectory = ExifReaderTest.ProcessSegmentBytes<GpsDirectory>("Tests/Data/withExifAndIptc.jpg.app1.0");
+            var geoLocation = gpsDirectory.GetGeoLocation();
+            Assert.Equal(54.989666666666665, geoLocation.Latitude);
+            Assert.Equal(-1.9141666666666666, geoLocation.Longitude);
+        }
     }
 }
