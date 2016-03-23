@@ -36,10 +36,7 @@ using MetadataExtractor.IO;
 namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>
-    /// Implementation of
-    /// <see cref="ITiffHandler"/>
-    /// used for handling TIFF tags according to the Exif
-    /// standard.
+    /// Implementation of <see cref="ITiffHandler"/> used for handling TIFF tags according to the Exif standard.
     /// <para />
     /// Includes support for camera manufacturer makernotes.
     /// </summary>
