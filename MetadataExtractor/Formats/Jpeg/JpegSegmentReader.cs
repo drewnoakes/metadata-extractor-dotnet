@@ -49,7 +49,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <param name="filePath">a file from which the JPEG data will be read.</param>
         /// <param name="segmentTypes">the set of JPEG segments types that are to be returned. If this argument is <c>null</c> then all found segment types are returned.</param>
         /// <exception cref="JpegProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         [NotNull]
         public static JpegSegmentData ReadSegments([NotNull] string filePath, [CanBeNull] ICollection<JpegSegmentType> segmentTypes)
         {
@@ -67,7 +67,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <param name="reader">a <see cref="SequentialReader"/> from which the JPEG data will be read. It must be positioned at the beginning of the JPEG data stream.</param>
         /// <param name="segmentTypes">the set of JPEG segments types that are to be returned. If this argument is <c>null</c> then all found segment types are returned.</param>
         /// <exception cref="JpegProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         [NotNull]
         public static JpegSegmentData ReadSegments([NotNull] SequentialReader reader, [CanBeNull] ICollection<JpegSegmentType> segmentTypes = null)
         {
