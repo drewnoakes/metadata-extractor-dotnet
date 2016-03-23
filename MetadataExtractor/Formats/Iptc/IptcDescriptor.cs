@@ -24,6 +24,7 @@
 
 using System;
 using JetBrains.Annotations;
+using static MetadataExtractor.Formats.Iptc.IptcDirectory;
 
 namespace MetadataExtractor.Formats.Iptc
 {
@@ -44,15 +45,15 @@ namespace MetadataExtractor.Formats.Iptc
         {
             switch (tagType)
             {
-                case IptcDirectory.TagFileFormat:
+                case TagFileFormat:
                     return GetFileFormatDescription();
-                case IptcDirectory.TagKeywords:
+                case TagKeywords:
                     return GetKeywordsDescription();
-                case IptcDirectory.TagTimeCreated:
+                case TagTimeCreated:
                     return GetTimeCreatedDescription();
-                case IptcDirectory.TagDigitalTimeCreated:
+                case TagDigitalTimeCreated:
                     return GetDigitalTimeCreatedDescription();
-                case IptcDirectory.TagDateCreated:
+                case TagDateCreated:
                     return GetDateCreatedDescription();
                 default:
                     return base.GetDescription(tagType);
@@ -62,7 +63,7 @@ namespace MetadataExtractor.Formats.Iptc
         [CanBeNull]
         public string GetFileFormatDescription()
         {
-            return GetIndexedDescription(IptcDirectory.TagFileFormat,
+            return GetIndexedDescription(TagFileFormat,
                 "No ObjectData",
                 "IPTC-NAA Digital Newsphoto Parameter Record",
                 "IPTC7901 Recommended Message Format",
@@ -98,56 +99,56 @@ namespace MetadataExtractor.Formats.Iptc
         [CanBeNull]
         public string GetByLineDescription()
         {
-            return Directory.GetString(IptcDirectory.TagByLine);
+            return Directory.GetString(TagByLine);
         }
 
         [CanBeNull]
         public string GetByLineTitleDescription()
         {
-            return Directory.GetString(IptcDirectory.TagByLineTitle);
+            return Directory.GetString(TagByLineTitle);
         }
 
         [CanBeNull]
         public string GetCaptionDescription()
         {
-            return Directory.GetString(IptcDirectory.TagCaption);
+            return Directory.GetString(TagCaption);
         }
 
         [CanBeNull]
         public string GetCategoryDescription()
         {
-            return Directory.GetString(IptcDirectory.TagCategory);
+            return Directory.GetString(TagCategory);
         }
 
         [CanBeNull]
         public string GetCityDescription()
         {
-            return Directory.GetString(IptcDirectory.TagCity);
+            return Directory.GetString(TagCity);
         }
 
         [CanBeNull]
         public string GetCopyrightNoticeDescription()
         {
-            return Directory.GetString(IptcDirectory.TagCopyrightNotice);
+            return Directory.GetString(TagCopyrightNotice);
         }
 
         [CanBeNull]
         public string GetCountryOrPrimaryLocationDescription()
         {
-            return Directory.GetString(IptcDirectory.TagCountryOrPrimaryLocationName);
+            return Directory.GetString(TagCountryOrPrimaryLocationName);
         }
 
         [CanBeNull]
         public string GetCreditDescription()
         {
-            return Directory.GetString(IptcDirectory.TagCredit);
+            return Directory.GetString(TagCredit);
         }
 
         [CanBeNull]
         public string GetDateCreatedDescription()
         {
             DateTime value;
-            if (!Directory.TryGetDateTime(IptcDirectory.TagDateCreated, out value))
+            if (!Directory.TryGetDateTime(TagDateCreated, out value))
                 return null;
 
             return value.ToString("yyyy:MM:dd");
@@ -156,80 +157,80 @@ namespace MetadataExtractor.Formats.Iptc
         [CanBeNull]
         public string GetHeadlineDescription()
         {
-            return Directory.GetString(IptcDirectory.TagHeadline);
+            return Directory.GetString(TagHeadline);
         }
 
         [CanBeNull]
         public string GetKeywordsDescription()
         {
-            var keywords = Directory.GetStringArray(IptcDirectory.TagKeywords);
+            var keywords = Directory.GetStringArray(TagKeywords);
             return keywords == null ? null : string.Join(";", keywords);
         }
 
         [CanBeNull]
         public string GetObjectNameDescription()
         {
-            return Directory.GetString(IptcDirectory.TagObjectName);
+            return Directory.GetString(TagObjectName);
         }
 
         [CanBeNull]
         public string GetOriginalTransmissionReferenceDescription()
         {
-            return Directory.GetString(IptcDirectory.TagOriginalTransmissionReference);
+            return Directory.GetString(TagOriginalTransmissionReference);
         }
 
         [CanBeNull]
         public string GetOriginatingProgramDescription()
         {
-            return Directory.GetString(IptcDirectory.TagOriginatingProgram);
+            return Directory.GetString(TagOriginatingProgram);
         }
 
         [CanBeNull]
         public string GetProvinceOrStateDescription()
         {
-            return Directory.GetString(IptcDirectory.TagProvinceOrState);
+            return Directory.GetString(TagProvinceOrState);
         }
 
         [CanBeNull]
         public string GetRecordVersionDescription()
         {
-            return Directory.GetString(IptcDirectory.TagApplicationRecordVersion);
+            return Directory.GetString(TagApplicationRecordVersion);
         }
 
         [CanBeNull]
         public string GetReleaseDateDescription()
         {
-            return Directory.GetString(IptcDirectory.TagReleaseDate);
+            return Directory.GetString(TagReleaseDate);
         }
 
         [CanBeNull]
         public string GetReleaseTimeDescription()
         {
-            return Directory.GetString(IptcDirectory.TagReleaseTime);
+            return Directory.GetString(TagReleaseTime);
         }
 
         [CanBeNull]
         public string GetSourceDescription()
         {
-            return Directory.GetString(IptcDirectory.TagSource);
+            return Directory.GetString(TagSource);
         }
 
         [CanBeNull]
         public string GetSpecialInstructionsDescription()
         {
-            return Directory.GetString(IptcDirectory.TagSpecialInstructions);
+            return Directory.GetString(TagSpecialInstructions);
         }
 
         [CanBeNull]
         public string GetSupplementalCategoriesDescription()
         {
-            return Directory.GetString(IptcDirectory.TagSupplementalCategories);
+            return Directory.GetString(TagSupplementalCategories);
         }
 
         [CanBeNull]
         public string GetTimeCreatedDescription()
         {
-            var s = Directory.GetString(IptcDirectory.TagTimeCreated);
+            var s = Directory.GetString(TagTimeCreated);
             if (s == null)
                 return null;
             if (s.Length == 6 || s.Length == 11)
@@ -240,7 +241,7 @@ namespace MetadataExtractor.Formats.Iptc
         [CanBeNull]
         public string GetDigitalTimeCreatedDescription()
         {
-            var s = Directory.GetString(IptcDirectory.TagDigitalTimeCreated);
+            var s = Directory.GetString(TagDigitalTimeCreated);
             if (s == null)
                 return null;
             if (s.Length == 6 || s.Length == 11)
@@ -251,13 +252,13 @@ namespace MetadataExtractor.Formats.Iptc
         [CanBeNull]
         public string GetUrgencyDescription()
         {
-            return Directory.GetString(IptcDirectory.TagUrgency);
+            return Directory.GetString(TagUrgency);
         }
 
         [CanBeNull]
         public string GetWriterDescription()
         {
-            return Directory.GetString(IptcDirectory.TagCaptionWriter);
+            return Directory.GetString(TagCaptionWriter);
         }
     }
 }
