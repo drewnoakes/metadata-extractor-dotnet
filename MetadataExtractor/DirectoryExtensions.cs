@@ -466,6 +466,9 @@ namespace MetadataExtractor
                     if (DateTime.TryParseExact(s, datePattern, null, DateTimeStyles.AllowWhiteSpaces, out dateTime))
                         return true;
                 }
+
+                dateTime = default(DateTime);
+                return false;
             }
 
             var convertible = o as IConvertible;
