@@ -474,8 +474,13 @@ namespace MetadataExtractor
             var convertible = o as IConvertible;
             if (convertible != null)
             {
-                dateTime = convertible.ToDateTime(null);
-                return true;
+                try
+                {
+                    dateTime = convertible.ToDateTime(null);
+                    return true;
+                }
+                catch (FormatException)
+                { }
             }
 
             dateTime = default(DateTime);
