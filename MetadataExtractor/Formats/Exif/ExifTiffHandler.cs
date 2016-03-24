@@ -63,16 +63,16 @@ namespace MetadataExtractor.Formats.Exif
                 throw new TiffProcessingException($"Unexpected TIFF marker: 0x{marker:X}");
         }
 
-        public override bool IsTagIfdPointer(int tagType)
+        public override bool IsTagIfdPointer(int tagId)
         {
             if (CurrentDirectory is ExifIfd0Directory)
             {
-                if (tagType == ExifIfd0Directory.TagExifSubIfdOffset)
+                if (tagId == ExifIfd0Directory.TagExifSubIfdOffset)
                 {
                     PushDirectory(typeof(ExifSubIfdDirectory));
                     return true;
                 }
-                if (tagType == ExifIfd0Directory.TagGpsInfoOffset)
+                if (tagId == ExifIfd0Directory.TagGpsInfoOffset)
                 {
                     PushDirectory(typeof(GpsDirectory));
                     return true;
@@ -81,7 +81,7 @@ namespace MetadataExtractor.Formats.Exif
 
             if (CurrentDirectory is ExifSubIfdDirectory)
             {
-                if (tagType == ExifSubIfdDirectory.TagInteropOffset)
+                if (tagId == ExifSubIfdDirectory.TagInteropOffset)
                 {
                     PushDirectory(typeof(ExifInteropDirectory));
                     return true;
@@ -90,12 +90,12 @@ namespace MetadataExtractor.Formats.Exif
 
             if (CurrentDirectory is OlympusMakernoteDirectory)
             {
-                if (tagType == OlympusMakernoteDirectory.TagEquipment)
+                if (tagId == OlympusMakernoteDirectory.TagEquipment)
                 {
                     PushDirectory(typeof(OlympusEquipmentMakernoteDirectory));
                     return true;
                 }
-                if (tagType == OlympusMakernoteDirectory.TagCameraSettings)
+                if (tagId == OlympusMakernoteDirectory.TagCameraSettings)
                 {
                     PushDirectory(typeof(OlympusCameraSettingsMakernoteDirectory));
                     return true;
