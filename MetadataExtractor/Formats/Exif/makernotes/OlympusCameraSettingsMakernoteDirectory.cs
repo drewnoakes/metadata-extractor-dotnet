@@ -22,19 +22,15 @@
 //
 #endregion
 
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using JetBrains.Annotations;
-using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>
-    /// The Olympus Equipment subifd makernote is used by many manufacturers (Epson, Konica, Minolta and Agfa...), and as such contains some tags
+    /// The Olympus camera settings makernote is used by many manufacturers (Epson, Konica, Minolta and Agfa...), and as such contains some tags
     /// that appear specific to those manufacturers.
     /// </summary>
+    /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class OlympusCameraSettingsMakernoteDirectory : Directory
     {
@@ -105,7 +101,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagExtendedWBDetect = 0x902;
         public const int TagRollAngle = 0x903;
         public const int TagPitchAngle = 0x904;
-        public const int TagDateTimeUTC = 0x908;
+        public const int TagDateTimeUtc = 0x908;
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
@@ -176,22 +172,15 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagExtendedWBDetect, "Extended WB Detect" },
             { TagRollAngle, "Roll Angle" },
             { TagPitchAngle, "Pitch Angle" },
-            { TagDateTimeUTC, "Date Time UTC" }
-
-    };
+            { TagDateTimeUtc, "Date Time UTC" }
+        };
 
         public OlympusCameraSettingsMakernoteDirectory()
         {
             SetDescriptor(new OlympusCameraSettingsMakernoteDescriptor(this));
         }
 
-        public override string Name => "Olympus Camera Settings SubIfd";
-
-        public override void Set(int tagType, object value)
-        {
-            var bytes = value as byte[];
-            base.Set(tagType, value);
-        }
+        public override string Name => "Olympus Camera Settings";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {

@@ -149,20 +149,6 @@ namespace MetadataExtractor.Formats.Tiff
 
                     // 2 bytes for the format code
                     var formatCode = (TiffDataFormatCode)reader.GetUInt16(tagOffset + 2);
-                    var format = TiffDataFormat.FromTiffFormatCode(formatCode);
-                    if (format == null)
-                    {
-                        // This error suggests that we are processing at an incorrect index and will generate
-                        // rubbish until we go out of bounds (which may be a while).  Exit now.
-                        handler.Error("Invalid TIFF tag format code " + formatCode + " for tag 0x" + tagId.ToString("X"));
-                        // TODO specify threshold as a parameter, or provide some other external control over this behaviour
-                        if (++invalidTiffFormatCodeCount > 5)
-                        {
-                            handler.Error("Stopping processing as too many errors seen in TIFF IFD");
-                            return;
-                        }
-                        continue;
-                    }
 
                     // 4 bytes dictate the number of components in this tag's data
                     var componentCount = reader.GetInt32(tagOffset + 4);
@@ -172,7 +158,30 @@ namespace MetadataExtractor.Formats.Tiff
                         continue;
                     }
 
-                    var byteCount = componentCount * format.ComponentSizeBytes;
+                    var format = TiffDataFormat.FromTiffFormatCode(formatCode);
+
+                    int byteCount;
+                    if (format == null)
+                    {
+                        if (!handler.TryCustomProcessFormat(tagId, formatCode, componentCount, out byteCount))
+                        {
+                            // This error suggests that we are processing at an incorrect index and will generate
+                            // rubbish until we go out of bounds (which may be a while).  Exit now.
+                            handler.Error("Invalid TIFF tag format code " + formatCode + " for tag 0x" + tagId.ToString("X"));
+                            // TODO specify threshold as a parameter, or provide some other external control over this behaviour
+                            if (++invalidTiffFormatCodeCount > 5)
+                            {
+                                handler.Error("Stopping processing as too many errors seen in TIFF IFD");
+                                return;
+                            }
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        byteCount = componentCount * format.ComponentSizeBytes;
+                    }
+
                     int tagValueOffset;
                     if (byteCount > 4)
                     {
@@ -208,11 +217,8 @@ namespace MetadataExtractor.Formats.Tiff
 
                     //
                     // Special handling for tags that point to other IFDs
-                    // Could be where byteCount == 4, or the format is TiffDataFormat.IFD (format 13)
-                    // handler.IsTagSubIfdPointer will dynamically push the appropriate Directory
-                    // if the current Directory on the stack has this subifd registered
                     //
-                    if ( (format == TiffDataFormat.IFD || byteCount == 4) && handler.IsTagSubIfdPointer(tagId))
+                    if (byteCount == 4 && handler.IsTagIfdPointer(tagId))
                     {
                         var subDirOffset = tiffHeaderOffset + reader.GetInt32(tagValueOffset);
                         ProcessIfd(handler, reader, processedIfdOffsets, subDirOffset, tiffHeaderOffset);
@@ -426,7 +432,7 @@ namespace MetadataExtractor.Formats.Tiff
                 }
                 default:
                 {
-                    handler.Error($"Unknown format code {formatCode} for tag {tagId}");
+                    handler.Error($"Invalid TIFF tag format code {formatCode} for tag 0x{tagId:X4}");
                     break;
                 }
             }

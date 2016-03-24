@@ -39,9 +39,6 @@ namespace MetadataExtractor.Formats.Exif
         public ExifIfd0Directory()
         {
             SetDescriptor(new ExifIfd0Descriptor(this));
-
-            RegisterSubIfd(TagExifSubIfdOffset, typeof(ExifSubIfdDirectory));
-            RegisterSubIfd(TagGpsInfoOffset, typeof(GpsDirectory));
         }
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>();

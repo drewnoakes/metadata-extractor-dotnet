@@ -22,19 +22,15 @@
 //
 #endregion
 
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using JetBrains.Annotations;
-using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>
-    /// The Olympus Equipment subifd makernote is used by many manufacturers (Epson, Konica, Minolta and Agfa...), and as such contains some tags
+    /// The Olympus equipment makernote is used by many manufacturers (Epson, Konica, Minolta and Agfa...), and as such contains some tags
     /// that appear specific to those manufacturers.
     /// </summary>
+    /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class OlympusEquipmentMakernoteDirectory : Directory
     {
@@ -108,7 +104,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             SetDescriptor(new OlympusEquipmentMakernoteDescriptor(this));
         }
 
-        public override string Name => "Olympus Equipment SubIfd";
+        public override string Name => "Olympus Equipment";
 
         public override void Set(int tagType, object value)
         {

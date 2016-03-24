@@ -63,12 +63,43 @@ namespace MetadataExtractor.Formats.Exif
                 throw new TiffProcessingException($"Unexpected TIFF marker: 0x{marker:X}");
         }
 
-        public override bool IsTagSubIfdPointer(int tagType)
+        public override bool IsTagIfdPointer(int tagType)
         {
-            if (CurrentDirectory.HasSubIfd(tagType))
+            if (CurrentDirectory is ExifIfd0Directory)
             {
-                PushDirectory(CurrentDirectory.GetSubIfd(tagType));
-                return true;
+                if (tagType == ExifIfd0Directory.TagExifSubIfdOffset)
+                {
+                    PushDirectory(typeof(ExifSubIfdDirectory));
+                    return true;
+                }
+                if (tagType == ExifIfd0Directory.TagGpsInfoOffset)
+                {
+                    PushDirectory(typeof(GpsDirectory));
+                    return true;
+                }
+            }
+
+            if (CurrentDirectory is ExifSubIfdDirectory)
+            {
+                if (tagType == ExifSubIfdDirectory.TagInteropOffset)
+                {
+                    PushDirectory(typeof(ExifInteropDirectory));
+                    return true;
+                }
+            }
+
+            if (CurrentDirectory is OlympusMakernoteDirectory)
+            {
+                if (tagType == OlympusMakernoteDirectory.TagEquipment)
+                {
+                    PushDirectory(typeof(OlympusEquipmentMakernoteDirectory));
+                    return true;
+                }
+                if (tagType == OlympusMakernoteDirectory.TagCameraSettings)
+                {
+                    PushDirectory(typeof(OlympusCameraSettingsMakernoteDirectory));
+                    return true;
+                }
             }
 
             return false;
@@ -120,6 +151,18 @@ namespace MetadataExtractor.Formats.Exif
                 return true;
             }
 
+            return false;
+        }
+
+        public override bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, int componentCount, out int byteCount)
+        {
+            if ((ushort)formatCode == 13u && componentCount == 1)
+            {
+                byteCount = 4;
+                return true;
+            }
+
+            byteCount = default(int);
             return false;
         }
 

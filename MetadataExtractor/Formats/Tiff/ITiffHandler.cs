@@ -46,7 +46,7 @@ namespace MetadataExtractor.Formats.Tiff
         /// <exception cref="TiffProcessingException"/>
         void SetTiffMarker(int marker);
 
-        bool IsTagSubIfdPointer(int tagType);
+        bool IsTagIfdPointer(int tagType);
 
         bool HasFollowerIfd();
 
@@ -56,6 +56,8 @@ namespace MetadataExtractor.Formats.Tiff
 
         /// <exception cref="System.IO.IOException"/>
         bool CustomProcessTag(int tagOffset, [NotNull] ICollection<int> processedIfdOffsets, int tiffHeaderOffset, [NotNull] IndexedReader reader, int tagId, int byteCount);
+
+        bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, int componentCount, out int byteCount);
 
         void Warn([NotNull] string message);
 

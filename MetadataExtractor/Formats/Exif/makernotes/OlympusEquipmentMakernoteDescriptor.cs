@@ -23,9 +23,7 @@
 #endregion
 
 using System;
-using System.Text;
 using JetBrains.Annotations;
-using MetadataExtractor.Util;
 using System.Collections.Generic;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
@@ -33,11 +31,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// <summary>
     /// Provides human-readable string representations of tag values stored in a <see cref="OlympusEquipmentMakernoteDirectory"/>.
     /// </summary>
-    ///<remarks>
+    /// <remarks>
     /// Some Description functions and the Extender and Lens types lists converted from Exiftool version 10.10 created by Phil Harvey
     /// http://www.sno.phy.queensu.ca/~phil/exiftool/
     /// lib\Image\ExifTool\Olympus.pm
-    ///</remarks>
+    /// </remarks>
+    /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class OlympusEquipmentMakernoteDescriptor : TagDescriptor<OlympusEquipmentMakernoteDirectory>
     {
@@ -99,33 +98,44 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(OlympusEquipmentMakernoteDirectory.TagBodyFirmwareVersion, out value))
                 return null;
 
-            string hexstring = ((uint)value).ToString("X");
-            return hexstring.PadLeft(4, '0').Insert(hexstring.Length - 3, ".");
+            var hexstring = ((uint)value).ToString("X4");
+            return hexstring.Insert(hexstring.Length - 3, ".");
         }
 
-        /// <summary>
-        /// 6 numbers: 0. Make, 1. Unknown, 2. Model, 3. Sub-model, 4-5. Unknown. Only
-        /// the Make, Model and Sub-model are used to identify the lens type
-        /// </summary>
-        /// <returns></returns>
         [CanBeNull]
         public string GetLensTypeDescription()
         {
-            var values = Directory.GetString(OlympusEquipmentMakernoteDirectory.TagLensType);
-            if (values == null)
+            var str = Directory.GetString(OlympusEquipmentMakernoteDirectory.TagLensType);
+
+            if (str == null)
                 return null;
 
-            string[] valuesArray = values.Split(' ');
-            if (valuesArray.Length < 6)
-                return "[unknown] (6 values expected; " + valuesArray.Length + " value(s) actual)";
+            // The string contains six numbers:
+            //
+            // - Make
+            // - Unknown
+            // - Model
+            // - Sub-model
+            // - Unknown
+            // - Unknown
+            //
+            // Only the Make, Model and Sub-model are used to identify the lens type
+            var values = str.Split(' ');
 
-            string key = string.Format("{0} {1} {2}",
-                                string.Format("{0:X}", Convert.ToInt32(valuesArray[0])),
-                                string.Format("{0:X2}", Convert.ToInt32(valuesArray[2])),
-                                string.Format("{0:X2}", Convert.ToInt32(valuesArray[3]))
-                                );
+            if (values.Length < 6)
+                return null;
 
-            return olympusLensTypes.ContainsKey(key) ? olympusLensTypes[key] : "[unknown]";
+            int num1;
+            int num2;
+            int num3;
+            string lensType;
+
+            return int.TryParse(values[0], out num1) &&
+                   int.TryParse(values[2], out num2) &&
+                   int.TryParse(values[3], out num3) &&
+                   _olympusLensTypes.TryGetValue($"{num1:X} {num2:X2} {num3:X2}", out lensType)
+                       ? lensType
+                       : null;
         }
 
         [CanBeNull]
@@ -135,8 +145,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(OlympusEquipmentMakernoteDirectory.TagLensFirmwareVersion, out value))
                 return null;
 
-            string hexstring = ((uint)value).ToString("X");
-            return hexstring.PadLeft(4, '0').Insert(hexstring.Length - 3, ".");
+            var hexstring = ((uint)value).ToString("X4");
+            return hexstring.Insert(hexstring.Length - 3, ".");
         }
 
         [CanBeNull]
@@ -169,7 +179,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return CalcMaxAperture((ushort)value).ToString("0.#");
         }
 
-        private double CalcMaxAperture(ushort value)
+        private static double CalcMaxAperture(ushort value)
         {
             return Math.Pow(Math.Sqrt(2.00), value / 256.0);
         }
@@ -181,31 +191,41 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(OlympusEquipmentMakernoteDirectory.TagLensProperties, out value))
                 return null;
 
-            return "0x" + value.ToString("X4");
+            return $"0x{value:X4}";
         }
 
-        /// <summary>
-        /// 6 numbers: 0. Make, 1. Unknown, 2. Model, 3. Sub-model, 4-5. Unknown. Only
-        /// the Make and Model are used to identify the extender
-        /// </summary>
-        /// <returns></returns>
         [CanBeNull]
         public string GetExtenderDescription()
         {
-            var values = Directory.GetString(OlympusEquipmentMakernoteDirectory.TagExtender);
-            if (values == null)
+            var str = Directory.GetString(OlympusEquipmentMakernoteDirectory.TagExtender);
+
+            if (str == null)
                 return null;
 
-            string[] valuesArray = values.Split(' ');
-            if (valuesArray.Length < 6)
-                return "[unknown] (6 values expected; " + valuesArray.Length + " value(s) actual)";
+            // The string contains six numbers:
+            //
+            // - Make
+            // - Unknown
+            // - Model
+            // - Sub-model
+            // - Unknown
+            // - Unknown
+            //
+            // Only the Make and Model are used to identify the extender
+            var values = str.Split(' ');
 
-            string key = string.Format("{0} {1}",
-                                string.Format("{0:X}", Convert.ToInt32(valuesArray[0])),
-                                string.Format("{0:X2}", Convert.ToInt32(valuesArray[2]))
-                                );
+            if (values.Length < 6)
+                return null;
 
-            return olympusExtenderTypes.ContainsKey(key) ? olympusExtenderTypes[key] : "[unknown]";
+            int num1;
+            int num2;
+            string extenderType;
+
+            return int.TryParse(values[0], out num1) &&
+                   int.TryParse(values[2], out num2) &&
+                   _olympusLensTypes.TryGetValue($"{num1:X} {num2:X2}", out extenderType)
+                       ? extenderType
+                       : null;
         }
 
         [CanBeNull]
@@ -222,8 +242,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 "None", "FL-20", "FL-50", "RF-11", "TF-22", "FL-36", "FL-50R", "FL-36R");
         }
 
-
-        public static readonly Dictionary<string, string> olympusLensTypes = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> _olympusLensTypes = new Dictionary<string, string>
         {
             { "0 00 00", "None" },
             // Olympus lenses (also Kenko Tokina)
@@ -337,7 +356,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { "5 01 10", "Tamron 14-150mm F3.5-5.8 Di III" } //20 (model C001)
         };
 
-        public static readonly Dictionary<string, string> olympusExtenderTypes = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> _olympusExtenderTypes = new Dictionary<string, string>
         {
             { "0 00", "None" },
             { "0 04", "Olympus Zuiko Digital EC-14 1.4x Teleconverter" },
