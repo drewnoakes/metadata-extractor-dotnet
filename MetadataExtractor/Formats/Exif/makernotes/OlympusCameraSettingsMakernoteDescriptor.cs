@@ -1,7 +1,6 @@
 #region License
 //
-// Copyright 2002-2015 Drew Noakes
-// Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
+// Copyright 2002-2016 Drew Noakes
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.

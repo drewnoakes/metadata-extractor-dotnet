@@ -27,7 +27,7 @@
       - Windows Phone Silverlight 8.0
     </description>
 <!--<releaseNotes>Summary of changes made in this release of the package.</releaseNotes>-->
-    <copyright>Copyright Drew Noakes 2015</copyright>
+    <copyright>Copyright Drew Noakes 2002-2016</copyright>
     <tags>Metadata Exif IPTC XMP ICC Photoshop WebP PNG BMP ICO PCX JPEG TIFF PSD Photography QuickTime MOV MP4 M4V Video</tags>
     <dependencies>
       <dependency id="XmpCore" version="1.2.0" />
