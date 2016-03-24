@@ -5,11 +5,11 @@
 [![Issue Stats](http://issuestats.com/github/drewnoakes/metadata-extractor-dotnet/badge/issue?style=flat)](http://issuestats.com/github/drewnoakes/metadata-extractor-dotnet)
 <!--[![MetadataExtractor download stats](https://img.shields.io/nuget/dt/MetadataExtractor.svg)](https://www.nuget.org/packages/MetadataExtractor/)-->
 
-_MetadataExtractor_ is a straightforward .NET library for reading metadata from image files.
+_MetadataExtractor_ is a straightforward .NET library for reading metadata from image and movie files.
 
 ## Installation
 
-The easiest way to reference this project is to install [its NuGet package](https://www.nuget.org/packages/MetadataExtractor/):
+The easiest way to use this library is via its [NuGet package](https://www.nuget.org/packages/MetadataExtractor/):
 
     PM> Install-Package MetadataExtractor
 
@@ -106,19 +106,19 @@ Camera-specific "makernote" data is decoded for cameras manufactured by:
 * Sigma/Foveon
 * Sony
 
-## Portable Class Library
+## Supported Frameworks
 
-A PCL compatible build is available that supports Xamarin for Android and iOS, as well as:
+Multiple target frameworks are supported via the single NuGet package. This allows supports Xamarin for Android and iOS, as well as:
 
+- .NET Framework 3.5
 - .NET Framework 4.5
+- .NET Framework 4.5 (Portable)
 - Silverlight 5.0
 - Windows 8.0
 - Windows Phone 8.1
 - Windows Phone Silverlight 8.0
 
-If you require PCL support, use the [`MetadataExtractor.Portable`](https://www.nuget.org/packages/MetadataExtractor.Portable/) NuGet package.
-
-Note that the portable version does not yet support XMP metadata. It also doesn't support file-system metadata due to the restrictions of the target BCLs.
+Note that the PCL version does not support file-system metadata due to restricted IO APIs.
 
 ## Mailing List
 
@@ -136,7 +136,7 @@ An easier way to help is to contribute to the [sample image file library](https:
 
 ## Credits
 
-This library is developed by [Drew Noakes](https://drewnoakes.com/code/exif/).
+This library is developed by [Drew Noakes](https://drewnoakes.com/code/exif/) and contributors.
 
 Thanks are due to the many [users](https://github.com/drewnoakes/metadata-extractor/wiki/UsedBy) who sent in suggestions, bug reports,
 [sample images](https://github.com/drewnoakes/metadata-extractor/wiki/ImageDatabase) from their cameras as well as encouragement.
