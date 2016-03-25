@@ -170,6 +170,8 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagTileByteCounts = 0x0145;
 
+        /// <summary>Tag is a pointer to one or more sub-IFDs.</summary>
+        /// <remarks>Seems to be used exclusively by raw formats, referencing one or two IFDs.</remarks>
         public const int TagSubIfdOffset = 0x014a;
 
         public const int TagTransferRange = 0x0156;

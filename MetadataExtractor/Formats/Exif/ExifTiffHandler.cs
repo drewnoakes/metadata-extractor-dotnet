@@ -65,6 +65,12 @@ namespace MetadataExtractor.Formats.Exif
 
         public override bool TryEnterSubIfd(int tagId)
         {
+            if (tagId == ExifDirectoryBase.TagSubIfdOffset)
+            {
+                PushDirectory(typeof(ExifSubIfdDirectory));
+                return true;
+            }
+
             if (CurrentDirectory is ExifIfd0Directory)
             {
                 if (tagId == ExifIfd0Directory.TagExifSubIfdOffset)
