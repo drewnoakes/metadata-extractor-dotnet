@@ -92,7 +92,7 @@ namespace MetadataExtractor.Formats.Tiff
 
         public abstract bool HasFollowerIfd();
 
-        public abstract bool IsTagIfdPointer(int tagType);
+        public abstract bool TryEnterSubIfd(int tagType);
 
         public abstract void SetTiffMarker(int marker);
     }

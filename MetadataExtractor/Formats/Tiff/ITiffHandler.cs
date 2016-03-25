@@ -46,7 +46,7 @@ namespace MetadataExtractor.Formats.Tiff
         /// <exception cref="TiffProcessingException"/>
         void SetTiffMarker(int marker);
 
-        bool IsTagIfdPointer(int tagType);
+        bool TryEnterSubIfd(int tagType);
 
         bool HasFollowerIfd();
 

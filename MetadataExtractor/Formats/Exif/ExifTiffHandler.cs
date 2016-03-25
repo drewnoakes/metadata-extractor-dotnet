@@ -63,7 +63,7 @@ namespace MetadataExtractor.Formats.Exif
                 throw new TiffProcessingException($"Unexpected TIFF marker: 0x{marker:X}");
         }
 
-        public override bool IsTagIfdPointer(int tagId)
+        public override bool TryEnterSubIfd(int tagId)
         {
             if (CurrentDirectory is ExifIfd0Directory)
             {

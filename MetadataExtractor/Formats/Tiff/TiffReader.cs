@@ -215,16 +215,25 @@ namespace MetadataExtractor.Formats.Tiff
                         continue;
                     }
 
-                    //
-                    // Special handling for tags that point to other IFDs
-                    //
-                    if (byteCount == 4 && handler.IsTagIfdPointer(tagId))
+                    // Some tags point to one or more additional IFDs to process
+                    var isIfdPointer = false;
+                    if (byteCount == 4*componentCount)
                     {
-                        var subDirOffset = tiffHeaderOffset + reader.GetInt32(tagValueOffset);
-                        ProcessIfd(handler, reader, processedIfdOffsets, subDirOffset, tiffHeaderOffset);
+                        for (var i = 0; i < componentCount; i++)
+                        {
+                            if (handler.TryEnterSubIfd(tagId))
+                            {
+                                isIfdPointer = true;
+                                var subDirOffset = tiffHeaderOffset + reader.GetInt32(tagValueOffset + i*4);
+                                ProcessIfd(handler, reader, processedIfdOffsets, subDirOffset, tiffHeaderOffset);
+                            }
+                        }
                     }
-                    else if (!handler.CustomProcessTag(tagValueOffset, processedIfdOffsets, tiffHeaderOffset, reader, tagId, byteCount))
+
+                    // If it wasn't an IFD pointer, allow custom tag processing to occur
+                    if (!isIfdPointer && !handler.CustomProcessTag(tagValueOffset, processedIfdOffsets, tiffHeaderOffset, reader, tagId, byteCount))
                     {
+                        // If no custom processing occurred, process the tag in the standard fashion
                         ProcessTag(handler, tagId, tagValueOffset, componentCount, formatCode, reader);
                     }
                 }
