@@ -222,7 +222,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             return int.TryParse(values[0], out num1) &&
                    int.TryParse(values[2], out num2) &&
-                   _olympusLensTypes.TryGetValue($"{num1:X} {num2:X2}", out extenderType)
+                   _olympusExtenderTypes.TryGetValue($"{num1:X} {num2:X2}", out extenderType)
                        ? extenderType
                        : null;
         }
