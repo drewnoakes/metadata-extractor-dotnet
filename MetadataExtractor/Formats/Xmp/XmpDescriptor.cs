@@ -100,7 +100,7 @@ namespace MetadataExtractor.Formats.Xmp
             float value;
             if (!Directory.TryGetSingle(XmpDirectory.TagShutterSpeed, out value))
                 return null;
-            
+
             // thanks to Mark Edwards for spotting and patching a bug in the calculation of this
             // description (spotted bug using a Canon EOS 300D)
             // thanks also to Gli Blr for spotting this bug
