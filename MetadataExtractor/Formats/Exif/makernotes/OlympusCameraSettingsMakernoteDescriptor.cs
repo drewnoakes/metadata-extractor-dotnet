@@ -666,21 +666,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return value.ToString();
         }
 
-        /// <summary>
-        /// 3 numbers: 1. CS Value, 2. Min, 3. Max
-        /// </summary>
-        /// <returns></returns>
         [CanBeNull]
         public string GetCustomSaturationDescription()
         {
-            var values = Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagCustomSaturation) as short[];
-            if (values == null)
-                return null;
-
             // TODO: if model is /^E-1\b/  then
             // $a-=$b; $c-=$b;
             // return "CS$a (min CS0, max CS$c)"
-            return $"{values[0]} (min {values[1]}, max {values[2]})";
+            return GetValueMinMaxDescription(OlympusCameraSettingsMakernoteDirectory.TagCustomSaturation);
         }
 
         [CanBeNull]
@@ -690,32 +682,16 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 "Off", "CM1 (Red Enhance)", "CM2 (Green Enhance)", "CM3 (Blue Enhance)", "CM4 (Skin Tones)");
         }
 
-        /// <summary>
-        /// value, min, max
-        /// </summary>
-        /// <returns></returns>
         [CanBeNull]
         public string GetContrastSettingDescription()
         {
-            var values = Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagContrastSetting) as short[];
-            if (values == null)
-                return null;
-
-            return $"{values[0]} (min {values[1]}, max {values[2]})";
+            return GetValueMinMaxDescription(OlympusCameraSettingsMakernoteDirectory.TagContrastSetting);
         }
 
-        /// <summary>
-        /// value, min, max
-        /// </summary>
-        /// <returns></returns>
         [CanBeNull]
         public string GetSharpnessSettingDescription()
         {
-            var values = Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagSharpnessSetting) as short[];
-            if (values == null)
-                return null;
-
-            return $"{values[0]} (min {values[1]}, max {values[2]})";
+            return GetValueMinMaxDescription(OlympusCameraSettingsMakernoteDirectory.TagSharpnessSetting);
         }
 
         [CanBeNull]
@@ -995,46 +971,22 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return sb.ToString();
         }
 
-        /// <summary>
-        /// value, min, max
-        /// </summary>
-        /// <returns></returns>
         [CanBeNull]
         public string GetPictureModeSaturationDescription()
         {
-            var values = Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagPictureModeSaturation) as short[];
-            if (values == null)
-                return null;
-
-            return $"{values[0]} (min {values[1]}, max {values[2]})";
+            return GetValueMinMaxDescription(OlympusCameraSettingsMakernoteDirectory.TagPictureModeSaturation);
         }
 
-        /// <summary>
-        /// value, min, max
-        /// </summary>
-        /// <returns></returns>
         [CanBeNull]
         public string GetPictureModeContrastDescription()
         {
-            var values = Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagPictureModeContrast) as short[];
-            if (values == null)
-                return null;
-
-            return $"{values[0]} (min {values[1]}, max {values[2]})";
+            return GetValueMinMaxDescription(OlympusCameraSettingsMakernoteDirectory.TagPictureModeContrast);
         }
 
-        /// <summary>
-        /// value, min, max
-        /// </summary>
-        /// <returns></returns>
         [CanBeNull]
         public string GetPictureModeSharpnessDescription()
         {
-            var values = Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagPictureModeSharpness) as short[];
-            if (values == null)
-                return null;
-
-            return $"{values[0]} (min {values[1]}, max {values[2]})";
+            return GetValueMinMaxDescription(OlympusCameraSettingsMakernoteDirectory.TagPictureModeSharpness);
         }
 
         [CanBeNull]
@@ -1440,6 +1392,16 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string GetDateTimeUTCDescription()
         {
             return Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagDateTimeUtc)?.ToString();
+        }
+
+        [CanBeNull]
+        private string GetValueMinMaxDescription(int tagId)
+        {
+            var values = Directory.GetObject(tagId) as short[];
+            if (values == null || values.Length < 3)
+                return null;
+
+            return $"{values[0]} (min {values[1]}, max {values[2]})";
         }
 
         // ArtFilter, ArtFilterEffect and MagicFilter values
