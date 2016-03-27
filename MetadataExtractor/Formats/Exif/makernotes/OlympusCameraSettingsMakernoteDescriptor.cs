@@ -1041,48 +1041,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         }
 
         [CanBeNull]
-        public string GetArtFilterDescription()
-        {
-            var values = Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagArtFilter) as short[];
-            if (values == null)
-                return null;
-
-            var sb = new StringBuilder();
-            for(var i = 0; i < values.Length; i++)
-            {
-                if (i == 0)
-                    sb.Append((_filters.ContainsKey(values[i]) ? _filters[values[i]] : "[unknown]") + "; ");
-                else
-                    sb.Append(values[i] + "; ");
-            }
-
-            if(sb.Length > 0)
-                sb.Remove(sb.Length - 2, 2);
-
-            return sb.ToString();
-        }
+        public string GetArtFilterDescription() => GetFilterDescription(OlympusCameraSettingsMakernoteDirectory.TagArtFilter);
 
         [CanBeNull]
-        public string GetMagicFilterDescription()
-        {
-            var values = Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagMagicFilter) as short[];
-            if (values == null)
-                return null;
-
-            var sb = new StringBuilder();
-            for (var i = 0; i < values.Length; i++)
-            {
-                if (i == 0)
-                    sb.Append((_filters.ContainsKey(values[i]) ? _filters[values[i]] : "[unknown]") + "; ");
-                else
-                    sb.Append(values[i] + "; ");
-            }
-
-            if (sb.Length > 0)
-                sb.Remove(sb.Length - 2, 2);
-
-            return sb.ToString();
-        }
+        public string GetMagicFilterDescription() => GetFilterDescription(OlympusCameraSettingsMakernoteDirectory.TagMagicFilter);
 
         [CanBeNull]
         public string GetPictureModeEffectDescription()
@@ -1404,6 +1366,26 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             return $"{values[0]} (min {values[1]}, max {values[2]})";
+        }
+
+        [CanBeNull]
+        private string GetFilterDescription(int tagId)
+        {
+            var values = Directory.GetObject(tagId) as short[];
+            if (values == null || values.Length == 0)
+                return null;
+
+            var sb = new StringBuilder();
+            for (var i = 0; i < values.Length; i++)
+            {
+                if (i == 0)
+                    sb.Append(_filters.ContainsKey(values[i]) ? _filters[values[i]] : "[unknown]");
+                else
+                    sb.Append(values[i]);
+                sb.Append("; ");
+            }
+
+            return sb.ToString(0, sb.Length - 2);
         }
 
         // ArtFilter, ArtFilterEffect and MagicFilter values
