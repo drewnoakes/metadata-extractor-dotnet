@@ -388,7 +388,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     sb.Append("Right ");
 
                 var bytesArray = BitConverter.GetBytes(point);
-                sb.Append($"({bytesArray[3]},{bytesArray[2]})-({bytesArray[1]},{bytesArray[0]})");
+                sb.Append($"({bytesArray[3]}/255,{bytesArray[2]}/255)-({bytesArray[1]}/255,{bytesArray[0]}/255)");
             }
 
             return sb.Length == 0 ? null : sb.ToString();
@@ -412,7 +412,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (vals.Length == 5 && vals[0].ToInt64() == 0)
                 index = 1;
 
-            var p1 = (int)(vals[index].ToDouble() * 100);
+            var p1 = (int)(vals[index    ].ToDouble() * 100);
             var p2 = (int)(vals[index + 1].ToDouble() * 100);
             var p3 = (int)(vals[index + 2].ToDouble() * 100);
             var p4 = (int)(vals[index + 3].ToDouble() * 100);
@@ -435,26 +435,20 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagFlashMode, out value))
                 return null;
 
-            var sb = new StringBuilder();
             if (value == 0)
-            {
-                sb.Append("Off");
-            }
-            else
-            {
-                var valshort = (ushort)value;
+                return "Off";
 
-                if ((valshort & 1) > 0) sb.Append("On, ");
-                if (((valshort >> 1) & 1) > 0) sb.Append("Fill-in, ");
-                if (((valshort >> 2) & 1) > 0) sb.Append("Red-eye, ");
-                if (((valshort >> 3) & 1) > 0) sb.Append("Slow-sync, ");
-                if (((valshort >> 4) & 1) > 0) sb.Append("Forced On, ");
-                if (((valshort >> 5) & 1) > 0) sb.Append("2nd Curtain, ");
+            var sb = new StringBuilder();
+            var v = (ushort)value;
 
-                sb.Remove(sb.Length - 2, 2);
-            }
+            if (( v       & 1) != 0) sb.Append("On, ");
+            if (((v >> 1) & 1) != 0) sb.Append("Fill-in, ");
+            if (((v >> 2) & 1) != 0) sb.Append("Red-eye, ");
+            if (((v >> 3) & 1) != 0) sb.Append("Slow-sync, ");
+            if (((v >> 4) & 1) != 0) sb.Append("Forced On, ");
+            if (((v >> 5) & 1) != 0) sb.Append("2nd Curtain, ");
 
-            return sb.ToString();
+            return sb.ToString(0, sb.Length - 2);
         }
 
         [CanBeNull]
@@ -662,7 +656,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             int value;
             if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagWhiteBalanceTemperature, out value))
-                return "Auto";
+                return null;
             if (value == 0)
                 return "Auto";
             return value.ToString();
@@ -963,12 +957,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     sb.Append("Sepia");
                     break;
                 default:
-                    sb.Append("Unknown (" + values[0] + ")");
+                    sb.Append("Unknown (").Append(values[0]).Append(')');
                     break;
             }
 
             if (values.Length > 1)
-                sb.Append("; " + values[1]);
+                sb.Append("; ").Append(values[1]);
 
             return sb.ToString();
         }
@@ -1012,32 +1006,21 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values == null)
                 return null;
 
-            var join = $"{values[0]} {values[1]} {values[2]}";
-
-            string ret;
-            switch (join)
+            switch ($"{values[0]} {values[1]} {values[2]}")
             {
                 case "0 0 0":
-                    ret = "n/a";
-                    break;
+                    return "n/a";
                 case "-2 -2 1":
-                    ret = "Off";
-                    break;
+                    return "Off";
                 case "-1 -2 1":
-                    ret = "Low";
-                    break;
+                    return "Low";
                 case "0 -2 1":
-                    ret = "Standard";
-                    break;
+                    return "Standard";
                 case "1 -2 1":
-                    ret = "High";
-                    break;
+                    return "High";
                 default:
-                    ret = "Unknown (" + join + ")";
-                    break;
+                    return $"Unknown ({values[0]} {values[1]} {values[2]})";
             }
-
-            return ret;
         }
 
         [CanBeNull]
@@ -1132,7 +1115,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                             sb.Append("B&W");
                             break;
                         default:
-                            sb.Append("Unknown (" + values[i] + ")");
+                            sb.Append("Unknown (").Append(values[i]).Append(')');
                             break;
                     }
                     sb.Append("; ");
@@ -1193,7 +1176,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                         a.Append("Exposure+WB Bracketing");
                         break;
                     default:
-                        a.Append("Unknown (" + values[0] + ")");
+                        a.Append("Unknown (").Append(values[0]).Append(')');
                         break;
                 }
             }
@@ -1214,7 +1197,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values == null)
                 return null;
 
-            if (values.Length == 0 || (values.Length > 0 && values[0] == 0))
+            if (values.Length == 0 || values[0] == 0)
                 return "Off";
 
             string a;
@@ -1261,17 +1244,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values == null)
                 return null;
 
-            var join = $"{values[0]} {values[1]}";
+            int v1 = values[0];
+            int v2 = values[1];
 
-            switch (join)
-            {
-                case "0 0":
-                    return "No";
-                case "9 8":
-                    return "Focus-stacked (8 images)";
-                default:
-                    return "Unknown (" + join + ")";
-            }
+            if (v1 == 0 && v2 == 0)
+                return "No";
+            if (v1 == 9 && v2 == 8)
+                return "Focus-stacked (8 images)";
+            return $"Unknown ({v1} {v2})";
         }
 
         /// <remarks>
@@ -1285,7 +1265,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagManometerPressure, out value))
                 return null;
 
-            return $"{(value/10)} kPa";
+            return $"{value/10.0} kPa";
         }
 
         /// <remarks>
@@ -1296,10 +1276,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string GetManometerReadingDescription()
         {
             var values = Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagManometerReading) as int[];
-            if (values == null)
+            if (values == null || values.Length < 2)
                 return null;
 
-            return $"{(values[0]/10)} m, {(values[1]/10)} ft";
+            return $"{values[0]/10.0} m, {values[1]/10.0} ft";
         }
 
         [CanBeNull]
