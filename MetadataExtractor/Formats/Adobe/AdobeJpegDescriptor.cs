@@ -50,7 +50,7 @@ namespace MetadataExtractor.Formats.Adobe
         }
 
         [CanBeNull]
-        private string GetDctEncodeVersionDescription()
+        public string GetDctEncodeVersionDescription()
         {
             int value;
             if (!Directory.TryGetInt32(AdobeJpegDirectory.TagDctEncodeVersion, out value))
@@ -60,7 +60,7 @@ namespace MetadataExtractor.Formats.Adobe
         }
 
         [CanBeNull]
-        private string GetColorTransformDescription()
+        public string GetColorTransformDescription()
         {
             return GetIndexedDescription(AdobeJpegDirectory.TagColorTransform,
                 "Unknown (RGB or CMYK)",
