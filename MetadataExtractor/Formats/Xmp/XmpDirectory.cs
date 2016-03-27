@@ -221,7 +221,7 @@ namespace MetadataExtractor.Formats.Xmp
             SetDescriptor(new XmpDescriptor(this));
         }
 
-        public override string Name => "Xmp";
+        public override string Name => "XMP";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {
