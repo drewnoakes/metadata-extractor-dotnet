@@ -167,7 +167,7 @@ namespace MetadataExtractor.Formats.Tiff
                         {
                             // This error suggests that we are processing at an incorrect index and will generate
                             // rubbish until we go out of bounds (which may be a while).  Exit now.
-                            handler.Error("Invalid TIFF tag format code " + formatCode + " for tag 0x" + tagId.ToString("X"));
+                            handler.Error($"Invalid TIFF tag format code {formatCode} for tag 0x{tagId:X4}");
                             // TODO specify threshold as a parameter, or provide some other external control over this behaviour
                             if (++invalidTiffFormatCodeCount > 5)
                             {
