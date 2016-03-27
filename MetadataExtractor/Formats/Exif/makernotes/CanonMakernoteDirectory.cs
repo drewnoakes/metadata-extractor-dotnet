@@ -53,7 +53,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagCanonSerialNumber           = 0x000C;
         public const int TagCameraInfoArray             = 0x000D;
         public const int TagCanonFileLength             = 0x000E;
-        public const int TagsArray   = 0x000F;
+        public const int TagsArray                      = 0x000F;
         public const int TagModelId                     = 0x0010;
         public const int TagMovieInfoArray              = 0x0011;
         private const int TagAfInfoArray                = 0x0012;
