@@ -165,7 +165,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case OlympusCameraSettingsMakernoteDirectory.TagPitchAngle:
                     return GetPitchAngleDescription();
                 case OlympusCameraSettingsMakernoteDirectory.TagDateTimeUtc:
-                    return GetDateTimeUTCDescription();
+                    return GetDateTimeUtcDescription();
 
                 default:
                     return base.GetDescription(tagType);
@@ -1391,7 +1391,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         }
 
         [CanBeNull]
-        public string GetDateTimeUTCDescription()
+        public string GetDateTimeUtcDescription()
         {
             return Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagDateTimeUtc)?.ToString();
         }
