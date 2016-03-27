@@ -105,6 +105,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return GetContrastSettingDescription();
                 case OlympusCameraSettingsMakernoteDirectory.TagSharpnessSetting:
                     return GetSharpnessSettingDescription();
+                case OlympusCameraSettingsMakernoteDirectory.TagColorSpace:
+                    return GetColorSpaceDescription();
                 case OlympusCameraSettingsMakernoteDirectory.TagSceneMode:
                     return GetSceneModeDescription();
                 case OlympusCameraSettingsMakernoteDirectory.TagNoiseReduction:
