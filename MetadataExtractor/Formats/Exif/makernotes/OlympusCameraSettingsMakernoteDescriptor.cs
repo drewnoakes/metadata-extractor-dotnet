@@ -47,7 +47,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
         }
 
-        // TODO extend support for some offset-encoded byte[] tags: http://www.ozhiker.com/electronics/pjmt/jpeg_info/olympus_mn.html
         public override string GetDescription(int tagType)
         {
             switch (tagType)
