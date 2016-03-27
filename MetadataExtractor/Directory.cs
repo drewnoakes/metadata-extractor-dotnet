@@ -170,8 +170,7 @@ namespace MetadataExtractor
         }
 
         /// <summary>
-        /// Provides a description of a tag's value using the descriptor set by
-        /// <c>setDescriptor(Descriptor)</c>.
+        /// Provides a description of a tag's value using the descriptor set by <see cref="SetDescriptor"/>.
         /// </summary>
         /// <param name="tagType">the tag type identifier</param>
         /// <returns>the tag value's description as a String</returns>
