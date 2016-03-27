@@ -23,11 +23,13 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Icc
 {
     /// <author>Yuri Binev</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class IccDirectory : Directory
     {
         // The smaller valued tags have an integer value that's equal to their offset within the ICC data buffer.

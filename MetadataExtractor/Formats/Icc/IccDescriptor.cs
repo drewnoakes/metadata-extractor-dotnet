@@ -23,6 +23,7 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using JetBrains.Annotations;
@@ -32,6 +33,7 @@ namespace MetadataExtractor.Formats.Icc
 {
     /// <author>Yuri Binev</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class IccDescriptor : TagDescriptor<IccDirectory>
     {
         public IccDescriptor([NotNull] IccDirectory directory)

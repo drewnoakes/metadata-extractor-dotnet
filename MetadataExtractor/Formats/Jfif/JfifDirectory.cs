@@ -23,11 +23,13 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Jfif
 {
     /// <summary>Directory of tags and values for the SOF0 Jfif segment.</summary>
     /// <author>Yuri Binev, Drew Noakes</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class JfifDirectory : Directory
     {
         public const int TagVersion = 5;

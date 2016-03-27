@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
@@ -32,6 +33,7 @@ using MetadataExtractor.IO;
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class PngDescriptor : TagDescriptor<PngDirectory>
     {
         public PngDescriptor([NotNull] PngDirectory directory)

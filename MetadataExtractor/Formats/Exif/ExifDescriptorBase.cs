@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Util;
@@ -34,6 +35,7 @@ namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>Base class for several Exif format descriptor classes.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public abstract class ExifDescriptorBase<T> : TagDescriptor<T> where T : Directory
     {
         protected ExifDescriptorBase([NotNull] T directory)

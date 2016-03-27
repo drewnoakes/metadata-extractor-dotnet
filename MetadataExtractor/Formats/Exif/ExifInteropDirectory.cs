@@ -23,12 +23,14 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>Describes Exif interoperability tags.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class ExifInteropDirectory : ExifDirectoryBase
     {
         [NotNull] private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>();

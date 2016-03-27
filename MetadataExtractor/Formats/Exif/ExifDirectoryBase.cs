@@ -23,11 +23,13 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>Base class for several Exif format tag directories.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public abstract class ExifDirectoryBase : Directory
     {
         public const int TagInteropIndex = 0x0001;

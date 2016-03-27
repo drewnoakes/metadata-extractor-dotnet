@@ -23,10 +23,12 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Ico
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class IcoDirectory : Directory
     {
         public const int TagImageType = 1;

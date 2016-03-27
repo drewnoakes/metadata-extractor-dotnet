@@ -23,11 +23,13 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Photoshop
 {
     /// <summary>Holds the basic metadata found in the header of a Photoshop PSD file.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class PsdHeaderDirectory : Directory
     {
         /// <summary>The number of channels in the image, including any alpha channels.</summary>

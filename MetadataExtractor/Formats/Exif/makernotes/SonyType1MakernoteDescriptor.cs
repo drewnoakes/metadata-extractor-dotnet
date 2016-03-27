@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
@@ -31,6 +32,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Thanks to David Carson for the initial version of this class.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class SonyType1MakernoteDescriptor : TagDescriptor<SonyType1MakernoteDirectory>
     {
         public SonyType1MakernoteDescriptor([NotNull] SonyType1MakernoteDirectory directory)

@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
@@ -30,6 +31,7 @@ namespace MetadataExtractor.Formats.Exif
     /// Provides human-readable string representations of tag values stored in a <see cref="ExifIfd0Directory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class ExifIfd0Descriptor : ExifDescriptorBase<ExifIfd0Directory>
     {
         public ExifIfd0Descriptor([NotNull] ExifIfd0Directory directory)

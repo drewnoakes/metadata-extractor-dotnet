@@ -22,11 +22,13 @@
 //
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Photoshop
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class PsdHeaderDescriptor : TagDescriptor<PsdHeaderDirectory>
     {
         public PsdHeaderDescriptor([NotNull] PsdHeaderDirectory directory)

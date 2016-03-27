@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
@@ -30,6 +31,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="SigmaMakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class SigmaMakernoteDescriptor : TagDescriptor<SigmaMakernoteDirectory>
     {
         public SigmaMakernoteDescriptor([NotNull] SigmaMakernoteDirectory directory)

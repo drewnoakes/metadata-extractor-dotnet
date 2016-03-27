@@ -23,6 +23,7 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -44,6 +45,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// provide this prefix to aid in software decoding).
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class NikonType2MakernoteDirectory : Directory
     {
         /// <summary>

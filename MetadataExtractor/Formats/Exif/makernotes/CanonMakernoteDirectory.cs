@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -34,6 +35,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Many tag definitions explained here: http://www.ozhiker.com/electronics/pjmt/jpeg_info/canon_mn.html
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class CanonMakernoteDirectory : Directory
     {
         // These TAG_*_ARRAY Exif tags map to arrays of int16 values which are split out into separate 'fake' tags.

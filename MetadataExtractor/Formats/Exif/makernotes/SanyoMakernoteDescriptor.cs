@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
@@ -30,6 +31,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="SonyType6MakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class SanyoMakernoteDescriptor : TagDescriptor<SanyoMakernoteDirectory>
     {
         public SanyoMakernoteDescriptor([NotNull] SanyoMakernoteDirectory directory)

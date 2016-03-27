@@ -23,6 +23,7 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -33,6 +34,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Makernote data begins immediately (no header).
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class CasioType1MakernoteDirectory : Directory
     {
         public const int TagRecordingMode = 0x0001;

@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jpeg
@@ -30,6 +31,7 @@ namespace MetadataExtractor.Formats.Jpeg
     /// Provides human-readable string representations of tag values stored in a <see cref="JpegCommentDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class JpegCommentDescriptor : TagDescriptor<JpegCommentDirectory>
     {
         public JpegCommentDescriptor([NotNull] JpegCommentDirectory directory)

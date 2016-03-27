@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
@@ -32,6 +33,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Tag reference from: http://gvsoft.homedns.org/exif/makernote-leica-type1.html
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class LeicaMakernoteDescriptor : TagDescriptor<LeicaMakernoteDirectory>
     {
         public LeicaMakernoteDescriptor([NotNull] LeicaMakernoteDirectory directory)

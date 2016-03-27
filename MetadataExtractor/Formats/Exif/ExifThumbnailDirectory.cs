@@ -23,6 +23,7 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using JetBrains.Annotations;
 
@@ -31,6 +32,7 @@ namespace MetadataExtractor.Formats.Exif
     /// <summary>One of several Exif directories.</summary>
     /// <remarks>Otherwise known as IFD1, this directory holds information about an embedded thumbnail image.</remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class ExifThumbnailDirectory : ExifDirectoryBase
     {
         /// <summary>The offset to thumbnail image bytes.</summary>

@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jpeg
@@ -32,6 +33,7 @@ namespace MetadataExtractor.Formats.Jpeg
     /// Thanks to Darrell Silver (www.darrellsilver.com) for the initial version of this class.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class JpegDescriptor : TagDescriptor<JpegDirectory>
     {
         public JpegDescriptor([NotNull] JpegDirectory directory)

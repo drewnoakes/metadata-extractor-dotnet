@@ -23,6 +23,7 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
@@ -32,6 +33,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// <summary>Describes tags specific to Panasonic and Leica cameras.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Philipp Sandhaus</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class PanasonicMakernoteDirectory : Directory
     {
         /// <summary>

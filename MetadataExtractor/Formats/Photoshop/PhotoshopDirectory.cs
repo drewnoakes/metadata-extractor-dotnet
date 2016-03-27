@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Photoshop
@@ -31,6 +32,7 @@ namespace MetadataExtractor.Formats.Photoshop
     /// <summary>Holds the metadata found in the APPD segment of a JPEG file saved by Photoshop.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Yuri Binev</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class PhotoshopDirectory : Directory
     {
         public const int TagChannelsRowsColumnsDepthMode = 0x03E8;

@@ -23,10 +23,12 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Adobe
 {
     /// <summary>Contains image encoding information for DCT filters, as stored by Adobe.</summary>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class AdobeJpegDirectory : Directory
     {
         public const int TagDctEncodeVersion = 0;

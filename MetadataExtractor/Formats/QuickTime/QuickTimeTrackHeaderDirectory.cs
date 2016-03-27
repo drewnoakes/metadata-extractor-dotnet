@@ -22,9 +22,11 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.QuickTime
 {
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class QuickTimeTrackHeaderDirectory : Directory
     {
         public const int TagVersion = 1;

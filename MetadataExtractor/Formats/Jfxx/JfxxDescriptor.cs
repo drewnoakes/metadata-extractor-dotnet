@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jfxx
@@ -35,6 +36,7 @@ namespace MetadataExtractor.Formats.Jfxx
     /// </list>
     /// </remarks>
     /// <author>Drew Noakes</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class JfxxDescriptor : TagDescriptor<JfxxDirectory>
     {
         public JfxxDescriptor([NotNull] JfxxDirectory directory)

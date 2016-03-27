@@ -23,11 +23,13 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>Describes tags used by a JPEG file comment.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class JpegCommentDirectory : Directory
     {
         /// <summary>This value does not apply to a particular standard.</summary>

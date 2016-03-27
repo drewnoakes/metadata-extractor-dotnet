@@ -23,6 +23,7 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Util;
@@ -33,6 +34,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="OlympusMakernoteDirectory"/>.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class OlympusMakernoteDescriptor : TagDescriptor<OlympusMakernoteDirectory>
     {
         public OlympusMakernoteDescriptor([NotNull] OlympusMakernoteDirectory directory)

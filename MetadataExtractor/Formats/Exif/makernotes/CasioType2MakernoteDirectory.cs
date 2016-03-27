@@ -23,6 +23,7 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -32,6 +33,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Makernote data begins after a 6-byte header: <c>"QVC\x00\x00\x00"</c>.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class CasioType2MakernoteDirectory : Directory
     {
         /// <summary>2 values - x,y dimensions in pixels.</summary>

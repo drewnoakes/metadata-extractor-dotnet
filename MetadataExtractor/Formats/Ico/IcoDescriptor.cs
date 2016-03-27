@@ -22,11 +22,13 @@
 //
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Ico
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class IcoDescriptor : TagDescriptor<IcoDirectory>
     {
         public IcoDescriptor([NotNull] IcoDirectory directory)

@@ -22,11 +22,13 @@
 //
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.FileSystem
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class FileMetadataDescriptor : TagDescriptor<FileMetadataDirectory>
     {
         public FileMetadataDescriptor([NotNull] FileMetadataDirectory directory)

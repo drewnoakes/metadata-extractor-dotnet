@@ -22,11 +22,13 @@
 //
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Adobe
 {
     /// <summary>Provides human-readable string versions of the tags stored in an AdobeJpegDirectory.</summary>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class AdobeJpegDescriptor : TagDescriptor<AdobeJpegDirectory>
     {
         public AdobeJpegDescriptor(AdobeJpegDirectory directory)

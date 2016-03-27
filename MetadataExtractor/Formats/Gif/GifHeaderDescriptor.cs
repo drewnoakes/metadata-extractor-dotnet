@@ -22,11 +22,13 @@
 //
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Gif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class GifHeaderDescriptor : TagDescriptor<GifHeaderDirectory>
     {
         public GifHeaderDescriptor([NotNull] GifHeaderDirectory directory)

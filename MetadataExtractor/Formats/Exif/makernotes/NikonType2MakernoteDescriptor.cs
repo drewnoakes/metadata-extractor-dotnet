@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
@@ -31,6 +32,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Type-2 applies to the E990 and D-series cameras such as the D1, D70 and D100.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class NikonType2MakernoteDescriptor : TagDescriptor<NikonType2MakernoteDirectory>
     {
         public NikonType2MakernoteDescriptor([NotNull] NikonType2MakernoteDirectory directory)

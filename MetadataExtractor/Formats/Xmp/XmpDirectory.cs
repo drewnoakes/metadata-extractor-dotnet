@@ -23,6 +23,7 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Annotations;
 using XmpCore;
@@ -31,6 +32,7 @@ namespace MetadataExtractor.Formats.Xmp
 {
     /// <author>Torsten Skadell</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class XmpDirectory : Directory
     {
         public const int TagXmpValueCount = 0xFFFF;
