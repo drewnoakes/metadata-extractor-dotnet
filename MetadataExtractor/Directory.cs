@@ -55,6 +55,12 @@ namespace MetadataExtractor
         [NotNull]
         public abstract string Name { get; }
 
+        /// <summary>
+        /// The parent <see cref="Directory"/>, when available, which may be used to construct information about the hierarchical structure of metadata.
+        /// </summary>
+        [CanBeNull]
+        public Directory Parent { get; internal set; }
+
         /// <summary>Attempts to find the name of the specified tag.</summary>
         /// <param name="tagType">The tag to look up.</param>
         /// <param name="tagName">The found name, if any.</param>

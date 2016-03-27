@@ -56,8 +56,10 @@ namespace MetadataExtractor.Formats.Tiff
         protected void PushDirectory([NotNull] Type directoryClass)
         {
             _directoryStack.Push(CurrentDirectory);
-            CurrentDirectory = (Directory)Activator.CreateInstance(directoryClass);
-            Directories.Add(CurrentDirectory);
+            var newDirectory = (Directory)Activator.CreateInstance(directoryClass);
+            newDirectory.Parent = CurrentDirectory;
+            Directories.Add(newDirectory);
+            CurrentDirectory = newDirectory;
         }
 
         public void Warn(string message)  => CurrentDirectory.AddError(message);

@@ -144,17 +144,26 @@ namespace MetadataExtractor.Formats.Photoshop
                     switch (tagType)
                     {
                         case PhotoshopDirectory.TagIptc:
-                            directories.Add(new IptcReader().Extract(new SequentialByteArrayReader(tagBytes), tagBytes.Length));
+                            var iptcDirectory = new IptcReader().Extract(new SequentialByteArrayReader(tagBytes), tagBytes.Length);
+                            iptcDirectory.Parent = directory;
+                            directories.Add(iptcDirectory);
                             break;
                         case PhotoshopDirectory.TagIccProfileBytes:
-                            directories.Add(new IccReader().Extract(new ByteArrayReader(tagBytes)));
+                            var iccDirectory = new IccReader().Extract(new ByteArrayReader(tagBytes));
+                            iccDirectory.Parent = directory;
+                            directories.Add(iccDirectory);
                             break;
                         case PhotoshopDirectory.TagExifData1:
                         case PhotoshopDirectory.TagExifData3:
-                            directories.AddRange(new ExifReader().Extract(new ByteArrayReader(tagBytes)));
+                            var exifDirectories = new ExifReader().Extract(new ByteArrayReader(tagBytes));
+                            foreach (var exifDirectory in exifDirectories.Where(d => d.Parent == null))
+                                exifDirectory.Parent = directory;
+                            directories.AddRange(exifDirectories);
                             break;
                         case PhotoshopDirectory.TagXmpData:
-                            directories.Add(new XmpReader().Extract(tagBytes));
+                            var xmpDirectory = new XmpReader().Extract(tagBytes);
+                            xmpDirectory.Parent = directory;
+                            directories.Add(xmpDirectory);
                             break;
                         default:
                             directory.Set(tagType, tagBytes);

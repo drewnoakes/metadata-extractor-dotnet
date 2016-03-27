@@ -137,6 +137,7 @@ namespace MetadataExtractor.Formats.Exif
             {
                 return ProcessMakernote(tagOffset, processedIfdOffsets, tiffHeaderOffset, reader);
             }
+
             // Custom processing for embedded IPTC data
             if (tagId == ExifDirectoryBase.TagIptcNaa && CurrentDirectory is ExifIfd0Directory)
             {
@@ -144,7 +145,9 @@ namespace MetadataExtractor.Formats.Exif
                 if (reader.GetSByte(tagOffset) == 0x1c)
                 {
                     var iptcBytes = reader.GetBytes(tagOffset, byteCount);
-                    Directories.Add(new IptcReader().Extract(new SequentialByteArrayReader(iptcBytes), iptcBytes.Length));
+                    var iptcDirectory = new IptcReader().Extract(new SequentialByteArrayReader(iptcBytes), iptcBytes.Length);
+                    iptcDirectory.Parent = CurrentDirectory;
+                    Directories.Add(iptcDirectory);
                     return true;
                 }
                 return false;
@@ -153,7 +156,9 @@ namespace MetadataExtractor.Formats.Exif
             // Custom processing for embedded XMP data
             if (tagId == ExifDirectoryBase.TagApplicationNotes && CurrentDirectory is ExifIfd0Directory)
             {
-                Directories.Add(new XmpReader().Extract(reader.GetNullTerminatedString(tagOffset, byteCount)));
+                var xmpDirectory = new XmpReader().Extract(reader.GetNullTerminatedString(tagOffset, byteCount));
+                xmpDirectory.Parent = CurrentDirectory;
+                Directories.Add(xmpDirectory);
                 return true;
             }
 

@@ -90,6 +90,23 @@ namespace MetadataExtractor.Tools.FileProcessor
                             if (directory.TagCount != 0)
                                 writer.Write('\n');
                         }
+
+                        // Write file structure
+                        var tree = directories.ToLookup(d => d.Parent);
+                        const int indent = 4;
+                        Action<Directory, int> writeLevel = null;
+                        writeLevel = (parent, level) =>
+                        {
+                            foreach (var child in tree[parent])
+                            {
+                                writer.Write(new string(' ', level*indent));
+                                writer.Write($"- {child.Name}\n");
+                                writeLevel(child, level + 1);
+                            }
+                        };
+                        writeLevel(null, 0);
+
+                        writer.Write('\n');
                     }
                     finally
                     {
