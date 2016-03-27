@@ -22,9 +22,11 @@
 //
 #endregion
 
-using System;
 using System.IO;
+#if !PORTABLE
+using System;
 using System.Runtime.Serialization;
+#endif
 
 namespace MetadataExtractor.IO
 {

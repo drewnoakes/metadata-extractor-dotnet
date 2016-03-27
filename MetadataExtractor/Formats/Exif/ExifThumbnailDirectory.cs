@@ -24,7 +24,9 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+#if !PORTABLE
 using System.IO;
+#endif
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif

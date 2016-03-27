@@ -1,9 +1,8 @@
 ﻿using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("MetadataExtractor")]
 [assembly: AssemblyDescription("")]
 
 #if !PORTABLE
-[assembly: ComVisible(false)]
+[assembly: System.Runtime.InteropServices.ComVisible(false)]
 #endif

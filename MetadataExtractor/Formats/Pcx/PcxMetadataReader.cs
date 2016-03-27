@@ -22,10 +22,10 @@
 //
 #endregion
 
-using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 #if !PORTABLE
+using System.Collections.Generic;
 using MetadataExtractor.Formats.FileSystem;
 #endif
 using MetadataExtractor.IO;

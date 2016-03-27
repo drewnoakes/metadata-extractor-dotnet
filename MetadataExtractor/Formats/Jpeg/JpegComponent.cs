@@ -22,7 +22,9 @@
 //
 #endregion
 
+#if !PORTABLE
 using System;
+#endif
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jpeg

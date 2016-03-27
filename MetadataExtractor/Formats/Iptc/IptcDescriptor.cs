@@ -22,7 +22,6 @@
 //
 #endregion
 
-using System;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using static MetadataExtractor.Formats.Iptc.IptcDirectory;

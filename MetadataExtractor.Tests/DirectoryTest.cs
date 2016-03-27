@@ -24,7 +24,6 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Text;
 using MetadataExtractor.Formats.Exif;
 using Xunit;

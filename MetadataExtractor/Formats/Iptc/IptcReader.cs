@@ -24,14 +24,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
-using MetadataExtractor.Util;
 
 namespace MetadataExtractor.Formats.Iptc
 {

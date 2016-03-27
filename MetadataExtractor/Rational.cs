@@ -23,7 +23,9 @@
 #endregion
 
 using System;
+#if !PORTABLE
 using System.ComponentModel;
+#endif
 using System.Globalization;
 using JetBrains.Annotations;
 

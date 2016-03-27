@@ -23,7 +23,9 @@
 #endregion
 
 using System;
+#if !PORTABLE
 using System.Runtime.Serialization;
+#endif
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Riff

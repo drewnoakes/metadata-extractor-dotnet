@@ -22,7 +22,9 @@
 //
 #endregion
 
+#if !PORTABLE
 using System;
+#endif
 using System.Linq;
 using JetBrains.Annotations;
 
