@@ -370,13 +370,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (points == null)
                 return null;
 
-            var afPointNames = new Dictionary<uint, string>()
-            {
-                { 0x36794285, "Left" },
-                { 0x79798585, "Center" },
-                { 0xBD79C985, "Right" }
-            };
-
             var sb = new StringBuilder();
             foreach (var point in points)
             {
@@ -385,8 +378,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 if (sb.Length != 0)
                     sb.Append(", ");
 
-                if (afPointNames.ContainsKey(point))
-                    sb.Append(afPointNames[point]).Append(' ');
+                if (point == 0x36794285)
+                    sb.Append("Left ");
+                else if (point == 0x79798585)
+                    sb.Append("Center ");
+                else if (point == 0xBD79C985)
+                    sb.Append("Right ");
 
                 var bytesArray = BitConverter.GetBytes(point);
                 sb.Append($"({bytesArray[3]},{bytesArray[2]})-({bytesArray[1]},{bytesArray[0]})");
