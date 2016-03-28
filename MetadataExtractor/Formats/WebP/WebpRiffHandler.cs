@@ -41,6 +41,8 @@ namespace MetadataExtractor.Formats.WebP
     /// Extracts data from chunk types:
     /// <list type="bullet">
     ///   <item><c>"VP8X"</c>: width, height, is animation, has alpha</item>
+    ///   <item><c>"VP8L"</c>: width, height</item>
+    ///   <item><c>"VP8 "</c>: width, height</item>
     ///   <item><c>"EXIF"</c>: full Exif data</item>
     ///   <item><c>"ICCP"</c>: full ICC profile</item>
     ///   <item><c>"XMP "</c>: full XMP data</item>
