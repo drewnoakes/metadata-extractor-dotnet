@@ -34,7 +34,6 @@ using MetadataExtractor.Formats.Exif;
  * metadata-extractor foo.jpg
  * metadata-extractor foo.jpg --extract-thumb foo.thumb.jpg
  * metadata-extractor --recursive /foo --format
- *
  */
 
 namespace MetadataExtractor.Tools.FileProcessor
@@ -44,6 +43,12 @@ namespace MetadataExtractor.Tools.FileProcessor
 
     internal static class Program
     {
+        private static int Main(string[] args)
+        {
+            return ProcessRecursively(args);
+//            return ProcessFileList(args);
+        }
+
         /// <summary>An application entry point.</summary>
         /// <remarks>
         /// An application entry point.  Takes the name of one or more files as arguments and prints the contents of all
@@ -59,7 +64,7 @@ namespace MetadataExtractor.Tools.FileProcessor
         /// <param name="argArray">the command line arguments</param>
         /// <exception cref="MetadataException"/>
         /// <exception cref="System.IO.IOException"/>
-        public static void Main2([NotNull] string[] argArray)
+        private static int ProcessFileList([NotNull] string[] argArray)
         {
             var args = argArray.ToList();
 
@@ -99,8 +104,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                     if (Debugger.IsAttached)
                         Console.ReadLine();
 
-                    Environment.Exit(1);
-                    return;
+                    return 1;
                 }
 
                 if (!markdownFormat)
@@ -180,17 +184,19 @@ namespace MetadataExtractor.Tools.FileProcessor
 
             if (Debugger.IsAttached)
                 Console.ReadLine();
+
+            return 0;
         }
 
         [NotNull]
-        public static string UrlEncode([NotNull] string name)
+        private static string UrlEncode([NotNull] string name)
         {
             // Sufficient for now, it seems
             // TODO review http://stackoverflow.com/questions/3840762/how-do-you-urlencode-without-using-system-web
             return name.Replace(" ", "%20");
         }
 
-        private static int Main(string[] args)
+        private static int ProcessRecursively(string[] args)
         {
             var directories = new List<string>();
 
