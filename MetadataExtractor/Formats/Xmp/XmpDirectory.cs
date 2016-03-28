@@ -55,6 +55,15 @@ namespace MetadataExtractor.Formats.Xmp
         public const int TagDateTimeOriginal = 0x000d;
         public const int TagDateTimeDigitized = 0x000e;
 
+        // Properties in the XMP namespace
+        public const int TagBaseUrl = 0x0201;
+        public const int TagCreateDate = 0x0202;
+        public const int TagCreatorTool = 0x0203;
+        public const int TagIdentifier = 0x0204;
+        public const int TagMetadataDate = 0x0205;
+        public const int TagModifyDate = 0x0206;
+        public const int TagNickname = 0x0207;
+
         /// <summary>A value from 0 to 5, or -1 if the image is rejected.</summary>
         public const int TagRating = 0x1001;
 
@@ -105,6 +114,13 @@ namespace MetadataExtractor.Formats.Xmp
             { TagDateTimeDigitized, "Date/Time Digitized" },
             { TagRating, "Rating" },
             { TagLabel, "Label" },
+            { TagBaseUrl, "Base URL" },
+            { TagCreateDate, "Create Date" },
+            { TagCreatorTool, "Creator Tool" },
+            { TagIdentifier, "Identifier" },
+            { TagMetadataDate, "Metadata Date" },
+            { TagModifyDate, "Modify Date" },
+            { TagNickname, "Nickname" },
 //            { TagTitle, "Title" },
             { TagSubject, "Subject" }
 //            { TagDate, "Date" },
@@ -144,6 +160,13 @@ namespace MetadataExtractor.Formats.Xmp
             { TagExposureProgram, Schema.ExifSpecificProperties },
             { TagDateTimeOriginal, Schema.ExifSpecificProperties },
             { TagDateTimeDigitized, Schema.ExifSpecificProperties },
+            { TagBaseUrl, Schema.XmpProperties },
+            { TagCreateDate, Schema.XmpProperties },
+            { TagCreatorTool, Schema.XmpProperties },
+            { TagIdentifier, Schema.XmpProperties },
+            { TagMetadataDate, Schema.XmpProperties },
+            { TagModifyDate, Schema.XmpProperties },
+            { TagNickname, Schema.XmpProperties },
             { TagRating, Schema.XmpProperties },
             { TagLabel, Schema.XmpProperties },
 //            { TagTitle, Schema.DublinCoreSpecificProperties },
@@ -185,6 +208,13 @@ namespace MetadataExtractor.Formats.Xmp
             { TagExposureProgram, "exif:ExposureProgram" },
             { TagDateTimeOriginal, "exif:DateTimeOriginal" },
             { TagDateTimeDigitized, "exif:DateTimeDigitized" },
+            { TagBaseUrl, "xmp:BaseURL" },
+            { TagCreateDate, "xmp:CreateDate" },
+            { TagCreatorTool, "xmp:CreatorTool" },
+            { TagIdentifier, "xmp:Identifier" },
+            { TagMetadataDate, "xmp:MetadataDate" },
+            { TagModifyDate, "xmp:ModifyDate" },
+            { TagNickname, "xmp:Nickname" },
             { TagRating, "xmp:Rating" },
             { TagLabel, "xmp:Label" },
 //            { TagTitle, "dc:title" },

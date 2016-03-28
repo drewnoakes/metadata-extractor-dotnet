@@ -139,22 +139,29 @@ namespace MetadataExtractor.Formats.Xmp
             directory.SetXmpMeta(xmpMeta);
             // read all the tags and send them to the directory
             // I've added some popular tags, feel free to add more tags
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagLensInfo, FormatType.String);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagLens, FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagLensInfo,           FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagLens,               FormatType.String);
             ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagCameraSerialNumber, FormatType.String);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagFirmware, FormatType.String);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagMake, FormatType.String);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagModel, FormatType.String);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagExposureTime, FormatType.String);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagExposureProgram, FormatType.Int);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagApertureValue, FormatType.Rational);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagFNumber, FormatType.Rational);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagFocalLength, FormatType.Rational);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagShutterSpeed, FormatType.Rational);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagDateTimeOriginal, FormatType.String);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagDateTimeDigitized, FormatType.String);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagRating, FormatType.Double);
-            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagLabel, FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagFirmware,           FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagMake,               FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagModel,              FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagExposureTime,       FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagExposureProgram,    FormatType.Int);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagApertureValue,      FormatType.Rational);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagFNumber,            FormatType.Rational);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagFocalLength,        FormatType.Rational);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagShutterSpeed,       FormatType.Rational);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagDateTimeOriginal,   FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagDateTimeDigitized,  FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagBaseUrl,            FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagCreateDate,         FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagCreatorTool,        FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagIdentifier,         FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagMetadataDate,       FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagModifyDate,         FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagNickname,           FormatType.String);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagRating,             FormatType.Double);
+            ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagLabel,              FormatType.String);
             // this requires further research
             // processXmpTag(xmpMeta, directory, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES, "dc:title", XmpDirectory.TAG_TITLE, FMT_STRING);
             ProcessXmpTag(xmpMeta, directory, XmpDirectory.TagSubject, FormatType.StringArray);
