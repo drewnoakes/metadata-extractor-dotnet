@@ -244,7 +244,7 @@ namespace MetadataExtractor.Formats.Xmp
                     }
                     catch (FormatException)
                     {
-                        directory.AddError($"Unable to parse XMP property {propName} as an double.");
+                        directory.AddError($"Unable to parse XMP property {propName} as a double.");
                     }
                     break;
                 }
