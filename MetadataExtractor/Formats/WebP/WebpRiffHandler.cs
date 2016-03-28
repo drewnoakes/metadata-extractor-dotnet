@@ -60,6 +60,7 @@ namespace MetadataExtractor.Formats.WebP
 
         public bool ShouldAcceptChunk(string fourCc) => fourCc == "VP8X" ||
                                                         fourCc == "VP8L" ||
+                                                        fourCc == "VP8 " ||
                                                         fourCc == "EXIF" ||
                                                         fourCc == "ICCP" ||
                                                         fourCc == "XMP ";
@@ -140,6 +141,36 @@ namespace MetadataExtractor.Formats.WebP
                         var directory = new WebPDirectory();
                         directory.Set(WebPDirectory.TagImageWidth, widthMinusOne + 1);
                         directory.Set(WebPDirectory.TagImageHeight, heightMinusOne + 1);
+                        _directories.Add(directory);
+                    }
+                    catch (IOException e)
+                    {
+                        Debug.WriteLine(e);
+                    }
+                    break;
+                }
+                case "VP8 ":
+                {
+                    if (payload.Length < 10)
+                        break;
+
+                    IndexedReader reader = new ByteArrayReader(payload);
+                    reader.IsMotorolaByteOrder = false;
+                    try
+                    {
+                        // https://tools.ietf.org/html/rfc6386#section-9.1
+                        // https://github.com/webmproject/libwebp/blob/master/src/enc/syntax.c#L115
+
+                        // Expect the signature bytes
+                        if (reader.GetByte(3) != 0x9D ||
+                            reader.GetByte(4) != 0x01 ||
+                            reader.GetByte(5) != 0x2A)
+                            break;
+                        var width = reader.GetUInt16(6);
+                        var height = reader.GetUInt16(8);
+                        var directory = new WebPDirectory();
+                        directory.Set(WebPDirectory.TagImageWidth, width);
+                        directory.Set(WebPDirectory.TagImageHeight, height);
                         _directories.Add(directory);
                     }
                     catch (IOException e)
