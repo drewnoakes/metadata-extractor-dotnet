@@ -59,6 +59,7 @@ namespace MetadataExtractor.Formats.WebP
         public bool ShouldAcceptRiffIdentifier(string identifier) => identifier == "WEBP";
 
         public bool ShouldAcceptChunk(string fourCc) => fourCc == "VP8X" ||
+                                                        fourCc == "VP8L" ||
                                                         fourCc == "EXIF" ||
                                                         fourCc == "ICCP" ||
                                                         fourCc == "XMP ";
@@ -106,6 +107,39 @@ namespace MetadataExtractor.Formats.WebP
                         directory.Set(WebPDirectory.TagImageHeight, heightMinusOne + 1);
                         directory.Set(WebPDirectory.TagHasAlpha, hasAlpha);
                         directory.Set(WebPDirectory.TagIsAnimation, isAnimation);
+                        _directories.Add(directory);
+                    }
+                    catch (IOException e)
+                    {
+                        Debug.WriteLine(e);
+                    }
+                    break;
+                }
+                case "VP8L":
+                {
+                    if (payload.Length < 5)
+                        break;
+
+                    IndexedReader reader = new ByteArrayReader(payload);
+                    reader.IsMotorolaByteOrder = false;
+                    try
+                    {
+                        // https://developers.google.com/speed/webp/docs/webp_lossless_bitstream_specification#2_riff_header
+
+                        // Expect the signature byte
+                        if (reader.GetByte(0) != 0x2F)
+                            break;
+                        var b1 = reader.GetByte(1);
+                        var b2 = reader.GetByte(2);
+                        var b3 = reader.GetByte(3);
+                        var b4 = reader.GetByte(4);
+                        // 14 bits for width
+                        var widthMinusOne = (b2 & 0x3F) << 8 | b1;
+                        // 14 bits for height
+                        var heightMinusOne = (b4 & 0x0F) << 10 | b3 << 2 | (b2 & 0xC0) >> 6;
+                        var directory = new WebPDirectory();
+                        directory.Set(WebPDirectory.TagImageWidth, widthMinusOne + 1);
+                        directory.Set(WebPDirectory.TagImageHeight, heightMinusOne + 1);
                         _directories.Add(directory);
                     }
                     catch (IOException e)
