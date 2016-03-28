@@ -25,7 +25,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Util;
@@ -296,69 +295,42 @@ namespace MetadataExtractor
         protected static string GetFocalLengthDescription(double mm) => $"{mm:0.#} mm";
 
         [CanBeNull]
-        public string GetLensSpecificationDescription(int tagId)
+        protected string GetLensSpecificationDescription(int tagId)
         {
             var values = Directory.GetRationalArray(tagId);
 
-            if (values == null || (values != null && (values.Length != 4 || (values[0].ToDouble() == 0 && values[2].ToDouble() == 0))))
+            if (values == null || values.Length != 4 || values[0].IsZero && values[2].IsZero)
                 return null;
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-            if (values[0].Equals(values[1]))
-                sb.Append(values[0].ToSimpleString(true)).Append("mm");
+            if (values[0] == values[1])
+                sb.Append(values[0].ToSimpleString()).Append("mm");
             else
-                sb.Append(values[0].ToSimpleString(true)).Append("-").Append(values[1].ToSimpleString(true) + "mm");
+                sb.Append(values[0].ToSimpleString()).Append("-").Append(values[1].ToSimpleString()).Append("mm");
 
-            if (values[2].ToDouble() != 0)
+            if (!values[2].IsZero)
             {
-                sb.Append(" ");
+                sb.Append(' ');
 
-                if (values[2].Equals(values[3]))
+                if (values[2] == values[3])
                     sb.Append(GetFStopDescription(values[2].ToDouble()));
                 else
                     sb.Append("f/")
 #if !PORTABLE
-                        .Append(Math.Round(values[2].ToDouble(), 1, MidpointRounding.AwayFromZero).ToString("0.0"))
+                      .Append(Math.Round(values[2].ToDouble(), 1, MidpointRounding.AwayFromZero).ToString("0.0"))
 #else
                       .Append(Math.Round(values[2].ToDouble(), 1).ToString("0.0"))
 #endif
-                        .Append("-")
+                      .Append("-")
 #if !PORTABLE
-                        .Append(Math.Round(values[3].ToDouble(), 1, MidpointRounding.AwayFromZero).ToString("0.0"));
+                      .Append(Math.Round(values[3].ToDouble(), 1, MidpointRounding.AwayFromZero).ToString("0.0"));
 #else
                       .Append(Math.Round(values[3].ToDouble(), 1).ToString("0.0"));
 #endif
             }
 
             return sb.ToString();
-        }
-
-        /// <summary>
-        /// Decode bit mask
-        /// </summary>
-        ///<remarks>
-        /// Converted from Exiftool version 10.10 created by Phil Harvey
-        /// http://www.sno.phy.queensu.ca/~phil/exiftool/
-        /// lib\Image\ExifTool\ExifTool.pm
-        ///</remarks>
-        ///<param name="val">value to decode</param>
-        ///<param name="bits">optional bits per word (defaults to 32)</param>
-        protected string DecodeBits(short val, int bits = 32)
-        {
-            int num = 0;
-            List<int> bitList = new List<int>();
-
-            for (var i = 0; i < bits; i++)
-            {
-                if ((val & (1 << i)) > 0)
-                {
-                    int n = i + num;
-                    bitList.Add(n);
-                }
-            }
-            num += bits;
-            return (bitList.Count == 0) ? "(none)" : string.Join(",", bitList.Select(x => x.ToString()).ToArray());
         }
     }
 }

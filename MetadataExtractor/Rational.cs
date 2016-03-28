@@ -188,6 +188,11 @@ namespace MetadataExtractor
         /// </summary>
         public bool IsInteger => Denominator == 1 || (Denominator != 0 && (Numerator%Denominator == 0)) || (Denominator == 0 && Numerator == 0);
 
+        /// <summary>
+        /// True if either <see cref="Denominator"/> or <see cref="Numerator"/> are zero.
+        /// </summary>
+        public bool IsZero => Denominator == 0 || Numerator == 0;
+
         #region Formatting
 
         /// <summary>Returns a string representation of the object of form <c>numerator/denominator</c>.</summary>

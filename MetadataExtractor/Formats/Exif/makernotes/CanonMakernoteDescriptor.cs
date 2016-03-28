@@ -22,7 +22,9 @@
 //
 #endregion
 
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
@@ -121,36 +123,36 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return GetManualFlashOutputDescription();
                 case CanonMakernoteDirectory.CameraSettings.TagColorTone:
                     return GetColorToneDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagSRAWQuality:
-                    return GetSRAWQualityDescription();
+                case CanonMakernoteDirectory.CameraSettings.TagSRawQuality:
+                    return GetSRawQualityDescription();
                 // It turns out that these values are dependent upon the camera model and therefore the below code was
                 // incorrect for some Canon models.  This needs to be revisited.
-                //              case TAG_CANON_CUSTOM_FUNCTION_LONG_EXPOSURE_NOISE_REDUCTION:
-                //                  return getLongExposureNoiseReductionDescription();
-                //              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_AUTO_EXPOSURE_LOCK_BUTTONS:
-                //                  return getShutterAutoExposureLockButtonDescription();
-                //              case TAG_CANON_CUSTOM_FUNCTION_MIRROR_LOCKUP:
-                //                  return getMirrorLockupDescription();
-                //              case TAG_CANON_CUSTOM_FUNCTION_TV_AV_AND_EXPOSURE_LEVEL:
-                //                  return getTvAndAvExposureLevelDescription();
-                //              case TAG_CANON_CUSTOM_FUNCTION_AF_ASSIST_LIGHT:
-                //                  return getAutoFocusAssistLightDescription();
-                //              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_SPEED_IN_AV_MODE:
-                //                  return getShutterSpeedInAvModeDescription();
-                //              case TAG_CANON_CUSTOM_FUNCTION_BRACKETING:
-                //                  return getAutoExposureBracketingSequenceAndAutoCancellationDescription();
-                //              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_CURTAIN_SYNC:
-                //                  return getShutterCurtainSyncDescription();
-                //              case TAG_CANON_CUSTOM_FUNCTION_AF_STOP:
-                //                  return getLensAutoFocusStopButtonDescription();
-                //              case TAG_CANON_CUSTOM_FUNCTION_FILL_FLASH_REDUCTION:
-                //                  return getFillFlashReductionDescription();
-                //              case TAG_CANON_CUSTOM_FUNCTION_MENU_BUTTON_RETURN:
-                //                  return getMenuButtonReturnPositionDescription();
-                //              case TAG_CANON_CUSTOM_FUNCTION_SET_BUTTON_FUNCTION:
-                //                  return getSetButtonFunctionWhenShootingDescription();
-                //              case TAG_CANON_CUSTOM_FUNCTION_SENSOR_CLEANING:
-                //                  return getSensorCleaningDescription();
+//              case TAG_CANON_CUSTOM_FUNCTION_LONG_EXPOSURE_NOISE_REDUCTION:
+//                  return getLongExposureNoiseReductionDescription();
+//              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_AUTO_EXPOSURE_LOCK_BUTTONS:
+//                  return getShutterAutoExposureLockButtonDescription();
+//              case TAG_CANON_CUSTOM_FUNCTION_MIRROR_LOCKUP:
+//                  return getMirrorLockupDescription();
+//              case TAG_CANON_CUSTOM_FUNCTION_TV_AV_AND_EXPOSURE_LEVEL:
+//                  return getTvAndAvExposureLevelDescription();
+//              case TAG_CANON_CUSTOM_FUNCTION_AF_ASSIST_LIGHT:
+//                  return getAutoFocusAssistLightDescription();
+//              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_SPEED_IN_AV_MODE:
+//                  return getShutterSpeedInAvModeDescription();
+//              case TAG_CANON_CUSTOM_FUNCTION_BRACKETING:
+//                  return getAutoExposureBracketingSequenceAndAutoCancellationDescription();
+//              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_CURTAIN_SYNC:
+//                  return getShutterCurtainSyncDescription();
+//              case TAG_CANON_CUSTOM_FUNCTION_AF_STOP:
+//                  return getLensAutoFocusStopButtonDescription();
+//              case TAG_CANON_CUSTOM_FUNCTION_FILL_FLASH_REDUCTION:
+//                  return getFillFlashReductionDescription();
+//              case TAG_CANON_CUSTOM_FUNCTION_MENU_BUTTON_RETURN:
+//                  return getMenuButtonReturnPositionDescription();
+//              case TAG_CANON_CUSTOM_FUNCTION_SET_BUTTON_FUNCTION:
+//                  return getSetButtonFunctionWhenShootingDescription();
+//              case TAG_CANON_CUSTOM_FUNCTION_SENSOR_CLEANING:
+//                  return getSensorCleaningDescription();
                 default:
                     return base.GetDescription(tagType);
             }
@@ -364,7 +366,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             //  0, 0.375, 0.5, 0.626, 1
             // not
             //  0, 0.33,  0.5, 0.66,  1
-            return ((isNegative) ? "-" : string.Empty) + (value / 32f).ToString("0.0###########") + " EV";
+            return (isNegative ? "-" : string.Empty) + (value / 32f).ToString("0.0###########") + " EV";
         }
 
         [CanBeNull]
@@ -391,7 +393,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt16(CanonMakernoteDirectory.AfInfo.TagAfPointsInFocus, out value))
                 return null;
 
-            return DecodeBits(value, 16);
+            var sb = new StringBuilder();
+
+            for (var i = 0; i < 16; i++)
+            {
+                if ((value & 1 << i) != 0)
+                {
+                    if (sb.Length != 0)
+                        sb.Append(',');
+                    sb.Append(i);
+                }
+            }
+
+            return sb.Length == 0 ? "None" : sb.ToString();
         }
 
         [CanBeNull]
@@ -486,7 +500,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             // Canon PowerShot S3 is special
             const int canonMask = 0x4000;
-            if ((value & canonMask) > 0)
+            if ((value & canonMask) != 0)
                 return (value & ~canonMask).ToString();
 
             switch (value)
@@ -627,8 +641,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             // TODO find an image that tests this calculation
-            return value == 0 
-                ? "Self timer not used" 
+            return value == 0
+                ? "Self timer not used"
                 : $"{value*0.1d} sec";
         }
 
@@ -693,8 +707,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagMaxAperture, out value))
                 return null;
-
-            return System.Math.Exp(CanonEv(value) * System.Math.Log(2.0) / 2.0).ToString("0.#");
+            if (value > 512)
+                return $"Unknown ({value})";
+            return GetFStopDescription(Math.Exp(DecodeCanonEv(value) * Math.Log(2.0) / 2.0));
         }
 
         [CanBeNull]
@@ -703,8 +718,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             int value;
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagMinAperture, out value))
                 return null;
-
-            return System.Math.Exp(CanonEv(value) * System.Math.Log(2.0) / 2.0).ToString("0.#");
+            if (value > 512)
+                return $"Unknown ({value})";
+            return GetFStopDescription(Math.Exp(DecodeCanonEv(value) * Math.Log(2.0) / 2.0));
         }
 
         [CanBeNull]
@@ -716,15 +732,15 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFocusContinuousDescription()
         {
-            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagFocusContinuous, 0, "Single", "Continous",
-                                            null, null, null, null, null, null, "Manual");
+            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagFocusContinuous, 0,
+                "Single", "Continous", null, null, null, null, null, null, "Manual");
         }
 
         [CanBeNull]
         public string GetAESettingDescription()
         {
-            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagAESetting, 0, "Normal AE", "Exposure Compensation",
-                                            "AE Lock", "AE Lock + Exposure Comp.", "No AE");
+            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagAESetting, 0,
+                "Normal AE", "Exposure Compensation", "AE Lock", "AE Lock + Exposure Comp.", "No AE");
         }
 
         [CanBeNull]
@@ -734,7 +750,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagDisplayAperture, out value))
                 return null;
 
-            return (value / 10).ToString();
+            if (value == ushort.MaxValue)
+                return value.ToString();
+            return GetFStopDescription(value / 10.0);
         }
 
         [CanBeNull]
@@ -804,44 +822,43 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagColorTone, out value))
                 return null;
 
-            if (value == 0x7fff)
-                return "n/a";
-            else
-                return value.ToString();
+            return value == 0x7fff ? "n/a" : value.ToString();
         }
 
         [CanBeNull]
-        public string GetSRAWQualityDescription()
+        public string GetSRawQualityDescription()
         {
-            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagSRAWQuality, 0, "n/a", "sRAW1 (mRAW)", "sRAW2 (sRAW)");
+            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagSRawQuality, 0, "n/a", "sRAW1 (mRAW)", "sRAW2 (sRAW)");
         }
 
         /// <summary>
         /// Canon hex-based EV (modulo 0x20) to real number
         /// </summary>
-        ///<remarks>
+        /// <remarks>
+        /// <code>
+        /// 0x00 -> 0
+        /// 0x0c -> 0.33333
+        /// 0x10 -> 0.5
+        /// 0x14 -> 0.66666
+        /// 0x20 -> 1   ... etc
+        /// </code>
+        /// <para />
         /// Converted from Exiftool version 10.10 created by Phil Harvey
         /// http://www.sno.phy.queensu.ca/~phil/exiftool/
         /// lib\Image\ExifTool\Canon.pm
-        ///</remarks>
-        /// <param name="val">value to convert
-        ///         eg) 0x00 -> 0
-        ///             0x0c -> 0.33333
-        ///             0x10 -> 0.5
-        ///             0x14 -> 0.66666
-        ///             0x20 -> 1   ... etc
-        ///</param>
-        ///<returns>double</returns>
-        private double CanonEv(int val)
+        /// </remarks>
+        /// <param name="val">value to convert</param>
+        [Pure]
+        private static double DecodeCanonEv(int val)
         {
-            int sign = 1;
+            var sign = 1;
             if (val < 0)
             {
                 val = -val;
                 sign = -1;
             }
 
-            int frac = val & 0x1f;
+            var frac = val & 0x1f;
             val -= frac;
 
             if (frac == 0x0c)

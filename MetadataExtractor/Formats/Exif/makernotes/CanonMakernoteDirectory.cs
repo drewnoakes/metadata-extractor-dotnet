@@ -22,7 +22,6 @@
 //
 #endregion
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -293,7 +292,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             public const int TagManualFlashOutput = Offset + 0x27;
 
             public const int TagColorTone = Offset + 0x29;
-            public const int TagSRAWQuality = Offset + 0x2D;
+            public const int TagSRawQuality = Offset + 0x2D;
         }
 
         // These 'sub'-tag values have been created for consistency -- they don't exist within the exif segment
@@ -561,7 +560,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { CameraSettings.TagPhotoEffect, "Photo Effect" },
             { CameraSettings.TagManualFlashOutput, "Manual Flash Output" },
             { CameraSettings.TagColorTone, "Color Tone" },
-            { CameraSettings.TagSRAWQuality, "SRAW Quality" },
+            { CameraSettings.TagSRawQuality, "SRAW Quality" },
 
             { FocalLength.TagWhiteBalance, "White Balance" },
             { FocalLength.TagSequenceNumber, "Sequence Number" },
@@ -623,7 +622,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { AfInfo.TagAfAreaHeight, "AF Area Height" },
             { AfInfo.TagAfAreaXPositions, "AF Area X Positions" },
             { AfInfo.TagAfAreaYPositions, "AF Area Y Positions" },
-            { AfInfo.TagAfPointsInFocus, "AF Points in Focus Count" },
+            { AfInfo.TagAfPointsInFocus, "AF Points in Focus" },
             { AfInfo.TagPrimaryAfPoint1, "Primary AF Point 1" },
             { AfInfo.TagPrimaryAfPoint2, "Primary AF Point 2" },
             { TagThumbnailImageValidArea, "Thumbnail Image Valid Area" },
@@ -694,7 +693,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override void Set(int tagType, object value)
         {
-            var array = value as Array;
+            var array = value as ushort[];
 
             if (array == null)
             {
@@ -711,104 +710,108 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     // index in the array has its own meaning and decoding.
                     // Pick those tags out here and throw away the original array.
                     // Otherwise just add as usual.
-                    var values = (ushort[])array;
-                    for (var i = 0; i < values.Length; i++)
-                        Set(CameraSettings.Offset + i, values[i]);
+                    for (var i = 0; i < array.Length; i++)
+                        Set(CameraSettings.Offset + i, array[i]);
                     break;
                 }
 
                 case TagFocalLengthArray:
                 {
-                    var values = (ushort[])array;
-                    for (var i = 0; i < values.Length; i++)
-                        Set(FocalLength.Offset + i, values[i]);
+                    for (var i = 0; i < array.Length; i++)
+                        Set(FocalLength.Offset + i, array[i]);
                     break;
                 }
 
                 case TagShotInfoArray:
                 {
-                    var values = (ushort[])array;
-                    for (var i = 0; i < values.Length; i++)
-                        Set(ShotInfo.Offset + i, values[i]);
+                    for (var i = 0; i < array.Length; i++)
+                        Set(ShotInfo.Offset + i, array[i]);
                     break;
                 }
 
                 case TagPanoramaArray:
                 {
-                    var values = (ushort[])array;
-                    for (var i = 0; i < values.Length; i++)
-                        Set(Panorama.Offset + i, values[i]);
+                    for (var i = 0; i < array.Length; i++)
+                        Set(Panorama.Offset + i, array[i]);
                     break;
                 }
 
                 // Notes from Exiftool 10.10 by Phil Harvey, lib\Image\Exiftool\Canon.pm:
                 // Auto-focus information used by many older Canon models. The values in this
                 // record are sequential, and some have variable sizes based on the value of
-                // numafpoints (which may be 1,5,7,9,15,45, or 53). The AFArea coordinates are
+                // numafpoints (which may be 1,5,7,9,15,45 or 53). The AFArea coordinates are
                 // given in a system where the image has dimensions given by AFImageWidth and
                 // AFImageHeight, and 0,0 is the image center. The direction of the Y axis
                 // depends on the camera model, with positive Y upwards for EOS models, but
                 // apparently downwards for PowerShot models.
-
-
+                //
                 // AFInfo is another array with 'fake' tags. The first int of the array contains
                 // the number of AF points. Iterate through the array one byte at a time, generally
                 // assuming one byte corresponds to one tag UNLESS certain tag numbers are encountered.
                 // For these, read specific subsequent bytes from the array based on the tag type. The
                 // number of bytes read can vary.
-
+                //
                 case TagAfInfoArray:
                 {
-                    var values = (ushort[])array;
-                    int numafpoints = values[0];
-                    int tagnumber = 0;
-                    for (var i = 0; i < values.Length; i++)
+                    int afPointCount = array[0];
+                    for (int idx = 0, tagnumber = AfInfo.Offset;
+                         idx < array.Length;
+                         idx++, tagnumber++)
                     {
-                        // These two tags store 'numafpoints' bytes of data in the array
-                        if (AfInfo.Offset + tagnumber == AfInfo.TagAfAreaXPositions ||
-                            AfInfo.Offset + tagnumber == AfInfo.TagAfAreaYPositions)
+                        switch (tagnumber)
                         {
-                            // There could be incorrect data in the array, so boundary check
-                            if (values.Length - 1 >= (i + numafpoints))
+                            // These two tags store 'afPointCount' bytes of data in the array
+                            case AfInfo.TagAfAreaXPositions:
+                            case AfInfo.TagAfAreaYPositions:
                             {
-                                var areaPositions = new short[numafpoints];
-                                for (var j = 0; j < areaPositions.Length; j++)
-                                    areaPositions[j] = (short)values[i + j];
+                                // There could be incorrect data in the array, so boundary check
+                                if (array.Length - 1 >= idx + afPointCount)
+                                {
+                                    var areaPositions = new short[afPointCount];
+                                    for (var j = 0; j < areaPositions.Length; j++)
+                                        areaPositions[j] = (short)array[idx + j];
 
-                                Set(AfInfo.Offset + tagnumber, areaPositions);
+                                    Set(tagnumber, areaPositions);
+                                }
+                                // assume these bytes are processed and skip
+                                idx += afPointCount - 1;
+                                break;
                             }
-                            i += numafpoints - 1;   // assume these bytes are processed and skip
-                        }
-                        else if (AfInfo.Offset + tagnumber == AfInfo.TagAfPointsInFocus)
-                        {
-                            var pointsInFocus = new short[(int)((numafpoints + 15) / 16)];
-                            
-                            // There could be incorrect data in the array, so boundary check
-                            if (values.Length - 1 >= (i + pointsInFocus.Length))
+                            case AfInfo.TagAfPointsInFocus:
                             {
-                                for (var j = 0; j < pointsInFocus.Length; j++)
-                                    pointsInFocus[j] = (short)values[i + j];
+                                var pointsInFocus = new short[(afPointCount + 15)/16];
 
-                                Set(AfInfo.Offset + tagnumber, pointsInFocus);
+                                // There could be incorrect data in the array, so boundary check
+                                if (array.Length - 1 >= idx + pointsInFocus.Length)
+                                {
+                                    for (var j = 0; j < pointsInFocus.Length; j++)
+                                        pointsInFocus[j] = (short)array[idx + j];
+
+                                    Set(tagnumber, pointsInFocus);
+                                }
+                                // assume these bytes are processed and skip
+                                idx += pointsInFocus.Length - 1;
+                                break;
                             }
-                            i += pointsInFocus.Length - 1;  // assume these bytes are processed and skip
+                            default:
+                            {
+                                Set(tagnumber, array[idx]);
+                                break;
+                            }
                         }
-                        else
-                            Set(AfInfo.Offset + tagnumber, values[i]);
-                        tagnumber++;
                     }
                     break;
                 }
 
                 // TODO the interpretation of the custom functions tag depends upon the camera model
-                //                case TAG_CANON_CUSTOM_FUNCTIONS_ARRAY:
-                //                {
-                //                    int subTagTypeBase = 0xC300;
-                //                    // we intentionally skip the first array member
-                //                    for (int i = 1; i < ints.length; i++)
-                //                        setInt(subTagTypeBase + i + 1, ints[i] & 0x0F);
-                //                    break;
-                //                }
+//                case TAG_CANON_CUSTOM_FUNCTIONS_ARRAY:
+//                {
+//                    int subTagTypeBase = 0xC300;
+//                    // we intentionally skip the first array member
+//                    for (int i = 1; i < ints.length; i++)
+//                        setInt(subTagTypeBase + i + 1, ints[i] & 0x0F);
+//                    break;
+//                }
 
                 default:
                 {

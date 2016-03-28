@@ -736,7 +736,7 @@ namespace MetadataExtractor.Formats.Exif
             if (!Directory.TryGetRational(ExifDirectoryBase.TagFocalPlaneXResolution, out value))
                 return null;
             var unit = GetFocalPlaneResolutionUnitDescription();
-            return value.ToDecimal().ToString("0.000000");
+            return value.Reciprocal.ToSimpleString() + (unit == null ? string.Empty : " " + unit.ToLower());
         }
 
         [CanBeNull]
@@ -746,7 +746,7 @@ namespace MetadataExtractor.Formats.Exif
             if (!Directory.TryGetRational(ExifDirectoryBase.TagFocalPlaneYResolution, out value))
                 return null;
             var unit = GetFocalPlaneResolutionUnitDescription();
-            return value.ToDecimal().ToString("0.000000");
+            return value.Reciprocal.ToSimpleString() + (unit == null ? string.Empty : " " + unit.ToLower());
         }
 
         [CanBeNull]
