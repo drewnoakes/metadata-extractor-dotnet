@@ -65,6 +65,8 @@ namespace MetadataExtractor
         /// <param name="tagType">The tag to look up.</param>
         /// <param name="tagName">The found name, if any.</param>
         /// <returns><c>true</c> if the tag is known and <paramref name="tagName"/> was set, otherwise <c>false</c>.</returns>
+        [ContractAnnotation("=>false,tagName:null")]
+        [ContractAnnotation("=>true, tagName:notnull")]
         protected abstract bool TryGetTagName(int tagType, out string tagName);
 
         /// <summary>Gets a value indicating whether the directory is empty, meaning it contains no errors and no tag values.</summary>
