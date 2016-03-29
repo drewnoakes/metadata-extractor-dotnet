@@ -75,7 +75,7 @@ namespace MetadataExtractor.Tests.Formats.Icc
 
             Assert.NotNull(directory);
 //            Assert.Equal("1998:02:09 06:49:00", directory.GetString(IccDirectory.TagProfileDateTime));
-            Assert.Equal(new DateTime(1998, 2, 9, 6, 49, 0), directory.GetDateTime(IccDirectory.TagProfileDateTime));
+            Assert.Equal(new DateTimeOffset(1998, 2, 9, 6, 49, 0, new TimeSpan(0)), directory.GetDateTimeOffset(IccDirectory.TagProfileDateTime));
         }
     }
 }

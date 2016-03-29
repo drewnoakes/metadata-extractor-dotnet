@@ -68,8 +68,8 @@ namespace MetadataExtractor.Tests.Formats.Png
             Assert.Equal(2835, directories[3].GetInt32(PngDirectory.TagPixelsPerUnitY));
             Assert.Equal(PngChunkType.tIME, directories[4].GetPngChunkType());
             //Sharpen.Tests.AreEqual("Tue Jan 01 04:08:30 GMT 2013", Sharpen.Extensions.ConvertToString(dirs[4].GetDateTimeNullable(PngDirectory.TagLastModificationTime)));
-            var testString = CreateTestString(2013, 01, 01, 04, 08, 30);
-            Assert.Equal(testString, directories[4].GetDateTime(PngDirectory.TagLastModificationTime).ToString("ddd MMM dd HH:mm:ss zzz yyyy"));
+            var testString = CreateTestString(2013, 01, 01, 04, 08, 30, new TimeSpan(0));
+            Assert.Equal(testString, directories[4].GetDateTimeOffset(PngDirectory.TagLastModificationTime).ToString("ddd MMM dd HH:mm:ss zzz yyyy"));
             Assert.Equal("Tue Jan 01 04:08:30 2013", directories[4].GetString(PngDirectory.TagLastModificationTime));
             Assert.Equal(PngChunkType.iTXt, directories[5].GetPngChunkType());
             var pairs = (IList<KeyValuePair>)directories[5].GetObject(PngDirectory.TagTextualData);
@@ -79,9 +79,9 @@ namespace MetadataExtractor.Tests.Formats.Png
             Assert.Equal("Created with GIMP", pairs[0].Value);
         }
 
-        private static string CreateTestString(int year, int month, int day, int hourOfDay, int minute, int second)
+        private static string CreateTestString(int year, int month, int day, int hourOfDay, int minute, int second, TimeSpan offset)
         {
-            return new DateTime(year, month, day, hourOfDay, minute, second)
+            return new DateTimeOffset(year, month, day, hourOfDay, minute, second, offset)
                 .ToString("ddd MMM dd HH:mm:ss zzz yyyy");
         }
     }

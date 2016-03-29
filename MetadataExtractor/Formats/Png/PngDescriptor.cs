@@ -118,8 +118,8 @@ namespace MetadataExtractor.Formats.Png
         [CanBeNull]
         public string GetLastModificationTimeDescription()
         {
-            DateTime value;
-            if (!Directory.TryGetDateTime(PngDirectory.TagLastModificationTime, out value))
+            DateTimeOffset value;
+            if (!Directory.TryGetDateTimeOffset(PngDirectory.TagLastModificationTime, out value))
                 return null;
 
             return value.ToString("yyyy:MM:dd HH:mm:ss");

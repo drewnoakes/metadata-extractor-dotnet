@@ -114,27 +114,25 @@ namespace MetadataExtractor.Tests
         [Fact]
         public void TestSetStringAndGetDate()
         {
-            Action<string, DateTime> test = (str, expected) =>
+            Action<string, DateTimeOffset> test = (str, expected) =>
             {
                 _directory.Set(1, str);
-                Assert.Equal(expected, _directory.GetDateTime(1));
+                Assert.Equal(expected, _directory.GetDateTimeOffset(1));
             };
 
-            // TODO revisit these commented cases and introduce GetDateTimeOffset impl/test
-
-            test("2002:01:30 23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
-            test("2002:01:30 23:59",              new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
-            test("2002-01-30 23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
-            test("2002-01-30 23:59",              new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
-//          test("2002-01-30T23:59:59.099-08:00", new DateTime(2002, 1, 30, 23, 59, 59, 99, DateTimeKind.Unspecified));
-            test("2002-01-30T23:59:59.099",       new DateTime(2002, 1, 30, 23, 59, 59, 99, DateTimeKind.Unspecified));
-//          test("2002-01-30T23:59:59-08:00",     new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
-            test("2002-01-30T23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
-//          test("2002-01-30T23:59-08:00",        new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
-            test("2002-01-30T23:59",              new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
-            test("2002-01-30",                    new DateTime(2002, 1, 30,  0,  0,  0,     DateTimeKind.Unspecified));
-            test("2002-01",                       new DateTime(2002, 1,  1,  0,  0,  0,     DateTimeKind.Unspecified));
-            test("2002",                          new DateTime(2002, 1,  1,  0,  0,  0,     DateTimeKind.Unspecified));
+            test("2002:01:30 23:59:59",           new DateTimeOffset(2002, 1, 30, 23, 59, 59,     new TimeSpan(0)));
+            test("2002:01:30 23:59",              new DateTimeOffset(2002, 1, 30, 23, 59,  0,     new TimeSpan(0)));
+            test("2002-01-30 23:59:59",           new DateTimeOffset(2002, 1, 30, 23, 59, 59,     new TimeSpan(0)));
+            test("2002-01-30 23:59",              new DateTimeOffset(2002, 1, 30, 23, 59,  0,     new TimeSpan(0)));
+            test("2002-01-30T23:59:59.099-08:00", new DateTimeOffset(2002, 1, 30, 23, 59, 59, 99, new TimeSpan(-8, 0, 0)));
+            test("2002-01-30T23:59:59.099",       new DateTimeOffset(2002, 1, 30, 23, 59, 59, 99, new TimeSpan(0)));
+            test("2002-01-30T23:59:59-08:00",     new DateTimeOffset(2002, 1, 30, 23, 59, 59,     new TimeSpan(-8, 0, 0)));
+            test("2002-01-30T23:59:59",           new DateTimeOffset(2002, 1, 30, 23, 59, 59,     new TimeSpan(0)));
+            test("2002-01-30T23:59-08:00",        new DateTimeOffset(2002, 1, 30, 23, 59,  0,     new TimeSpan(-8, 0, 0)));
+            test("2002-01-30T23:59",              new DateTimeOffset(2002, 1, 30, 23, 59,  0,     new TimeSpan(0)));
+            test("2002-01-30",                    new DateTimeOffset(2002, 1, 30,  0,  0,  0,     new TimeSpan(0)));
+            test("2002-01",                       new DateTimeOffset(2002, 1,  1,  0,  0,  0,     new TimeSpan(0)));
+            test("2002",                          new DateTimeOffset(2002, 1,  1,  0,  0,  0,     new TimeSpan(0)));
         }
 
 
@@ -182,8 +180,8 @@ namespace MetadataExtractor.Tests
 
             bool b;
             Assert.False(_directory.TryGetBoolean(ExifDirectoryBase.TagAperture, out b));
-            DateTime dt;
-            Assert.False(_directory.TryGetDateTime(ExifDirectoryBase.TagAperture, out dt));
+            DateTimeOffset dt;
+            Assert.False(_directory.TryGetDateTimeOffset(ExifDirectoryBase.TagAperture, out dt));
             double d;
             Assert.False(_directory.TryGetDouble(ExifDirectoryBase.TagAperture, out d));
             int i;

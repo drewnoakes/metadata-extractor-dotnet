@@ -184,7 +184,7 @@ namespace MetadataExtractor.Formats.Icc
 
             if (DateUtil.IsValidDate(year, month, day) &&
                 DateUtil.IsValidTime(hours, minutes, seconds))
-                directory.Set(tagType, new DateTime(year, month, day, hours, minutes, seconds, kind: DateTimeKind.Utc));
+                directory.Set(tagType, new DateTimeOffset(year, month, day, hours, minutes, seconds, new TimeSpan(0)));
             else
                 directory.AddError($"ICC data describes an invalid date/time: year={year} month={month} day={day} hour={hours} minute={minutes} second={seconds}");
         }

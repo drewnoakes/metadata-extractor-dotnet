@@ -368,8 +368,8 @@ namespace MetadataExtractor.Formats.Icc
         [CanBeNull]
         private string GetProfileDateTimeDescription()
         {
-            DateTime value;
-            if (!Directory.TryGetDateTime(IccDirectory.TagProfileDateTime, out value))
+            DateTimeOffset value;
+            if (!Directory.TryGetDateTimeOffset(IccDirectory.TagProfileDateTime, out value))
                 return null;
 
             return value.ToString("yyyy:MM:dd HH:mm:ss");

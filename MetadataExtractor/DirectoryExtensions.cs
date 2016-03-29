@@ -434,26 +434,27 @@ namespace MetadataExtractor
             return null;
         }
 
-        #region DateTime
+        #region DateTimeOffset
 
-        /// <summary>Returns a tag's value as a <see cref="DateTime"/>, or throws if conversion is not possible.</summary>
+        /// <summary>Returns a tag's value as a <see cref="DateTimeOffset"/>, or throws if conversion is not possible.</summary>
         /// <remarks>
         /// If the value is <see cref="IConvertible"/>, then that interface is used for conversion of the value.
         /// If the value is an array of <see cref="IConvertible"/> having length one, then the single item is converted.
         /// </remarks>
         /// <exception cref="MetadataException">No value exists for <paramref name="tagType"/>, or the value is not convertible to the requested type.</exception>
-        public static DateTime GetDateTime(this Directory directory, int tagType /*, [CanBeNull] TimeZoneInfo timeZone = null*/)
+        public static DateTimeOffset GetDateTimeOffset(this Directory directory, int tagType /*, [CanBeNull] TimeZoneInfo timeZone = null*/)
         {
-            DateTime value;
-            if (directory.TryGetDateTime(tagType, out value))
+            DateTimeOffset value;
+            if (directory.TryGetDateTimeOffset(tagType, out value))
                 return value;
 
-            return ThrowValueNotPossible<DateTime>(directory, tagType);
+            return ThrowValueNotPossible<DateTimeOffset>(directory, tagType);
         }
 
         // This seems to cover all known Exif date strings
         // Note that "    :  :     :  :  " is a valid date string according to the Exif spec (which means 'unknown date'): http://www.awaresystems.be/imaging/tiff/tifftags/privateifd/exif/datetimeoriginal.html
         // Custom format reference: https://msdn.microsoft.com/en-us/library/8kb3ddd4(v=vs.110).aspx
+        // This also tries to parse XMP date strings in the ISO8601 format (add more as necessary)
         private static readonly string[] _datePatterns =
         {
             "yyyy:MM:dd HH:mm:ss.fff",
@@ -474,25 +475,27 @@ namespace MetadataExtractor
             "yyyy:MM:dd",
             "yyyy-MM-dd",
             "yyyy-MM",
-            "yyyy"
+            "yyyy",
+            "yyyy-MM-ddTHH:mm.FFFK",  // XMP (iso 8601) with MINUTE resolution
+            "yyyy-MM-ddTHH:mm:ss.FFFK"  // XMP (iso 8601) with MILLISECOND resolution
         };
 
-        /// <summary>Attempts to return the specified tag's value as a DateTime.</summary>
+        /// <summary>Attempts to return the specified tag's value as a DateTimeOffset.</summary>
         /// <remarks>If the underlying value is a <see cref="string"/>, then attempts will be made to parse it.</remarks>
-        /// <returns><c>true</c> if a DateTime was returned, otherwise <c>false</c>.</returns>
-        public static bool TryGetDateTime(this Directory directory, int tagType /*, [CanBeNull] TimeZoneInfo timeZone = null*/, out DateTime dateTime)
+        /// <returns><c>true</c> if a DateTimeOffset was returned, otherwise <c>false</c>.</returns>
+        public static bool TryGetDateTimeOffset(this Directory directory, int tagType /*, [CanBeNull] TimeZoneInfo timeZone = null*/, out DateTimeOffset dateTime)
         {
             var o = directory.GetObject(tagType);
 
             if (o == null)
             {
-                dateTime = default(DateTime);
+                dateTime = default(DateTimeOffset);
                 return false;
             }
 
-            if (o is DateTime)
+            if (o is DateTimeOffset)
             {
-                dateTime = (DateTime)o;
+                dateTime = (DateTimeOffset)o;
                 return true;
             }
 
@@ -500,10 +503,10 @@ namespace MetadataExtractor
 
             if (s != null)
             {
-                if (DateTime.TryParseExact(s, _datePatterns, null, DateTimeStyles.AllowWhiteSpaces, out dateTime))
+                if (DateTimeOffset.TryParseExact(s, _datePatterns, null, DateTimeStyles.AllowWhiteSpaces | DateTimeStyles.AssumeUniversal, out dateTime))
                     return true;
 
-                dateTime = default(DateTime);
+                dateTime = default(DateTimeOffset);
                 return false;
             }
 
@@ -519,7 +522,7 @@ namespace MetadataExtractor
                 { }
             }
 
-            dateTime = default(DateTime);
+            dateTime = default(DateTimeOffset);
             return false;
         }
 
@@ -601,11 +604,11 @@ namespace MetadataExtractor
             if (o is Rational)
                 return ((Rational)o).ToSimpleString();
 
-            if (o is DateTime)
+            if (o is DateTimeOffset)
             {
-                var dateTime = (DateTime)o;
+                var dateTime = (DateTimeOffset)o;
                 return dateTime.ToString(
-                    dateTime.Kind != DateTimeKind.Unspecified
+                    dateTime.Offset.Ticks != 0
                         ? "ddd MMM dd HH:mm:ss zzz yyyy"
                         : "ddd MMM dd HH:mm:ss yyyy");
             }
