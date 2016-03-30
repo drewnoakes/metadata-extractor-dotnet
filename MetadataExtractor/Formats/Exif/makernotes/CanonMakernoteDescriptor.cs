@@ -738,7 +738,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string GetFocusContinuousDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagFocusContinuous, 0,
-                "Single", "Continous", null, null, null, null, null, null, "Manual");
+                "Single", "Continuous", null, null, null, null, null, null, "Manual");
         }
 
         [CanBeNull]
