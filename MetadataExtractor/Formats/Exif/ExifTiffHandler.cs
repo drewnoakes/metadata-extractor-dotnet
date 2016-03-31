@@ -111,6 +111,11 @@ namespace MetadataExtractor.Formats.Exif
                     PushDirectory(typeof(OlympusRawDevelopmentMakernoteDirectory));
                     return true;
                 }
+                if (tagId == OlympusMakernoteDirectory.TagRawDevelopment2)
+                {
+                    PushDirectory(typeof(OlympusRawDevelopment2MakernoteDirectory));
+                    return true;
+                }
             }
 
             return false;
