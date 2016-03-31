@@ -88,6 +88,8 @@
     <Compile Include="Formats\Exif\makernotes\OlympusEquipmentMakernoteDirectory.cs" />
     <Compile Include="Formats\Exif\makernotes\OlympusMakernoteDescriptor.cs" />
     <Compile Include="Formats\Exif\makernotes\OlympusMakernoteDirectory.cs" />
+    <Compile Include="Formats\Exif\makernotes\OlympusRawDevelopment2MakernoteDescriptor.cs" />
+    <Compile Include="Formats\Exif\makernotes\OlympusRawDevelopment2MakernoteDirectory.cs" />
     <Compile Include="Formats\Exif\makernotes\OlympusRawDevelopmentMakernoteDescriptor.cs" />
     <Compile Include="Formats\Exif\makernotes\OlympusRawDevelopmentMakernoteDirectory.cs" />
     <Compile Include="Formats\Exif\makernotes\PanasonicMakernoteDescriptor.cs" />
