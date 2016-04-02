@@ -121,6 +121,16 @@ namespace MetadataExtractor.Formats.Exif
                     PushDirectory(typeof(OlympusImageProcessingMakernoteDirectory));
                     return true;
                 }
+                if (tagId == OlympusMakernoteDirectory.TagFocusInfo)
+                {
+                    PushDirectory(typeof(OlympusFocusInfoMakernoteDirectory));
+                    return true;
+                }
+                if(tagId == OlympusMakernoteDirectory.TagMainInfo)
+                {
+                    PushDirectory(typeof(OlympusMakernoteDirectory));
+                    return true;
+                }
             }
 
             return false;
