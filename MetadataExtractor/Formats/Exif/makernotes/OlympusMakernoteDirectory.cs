@@ -160,7 +160,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagWhiteBalanceBracket = 0x0303;
         public const int TagWhiteBalanceBias = 0x0304;
         public const int TagSceneMode = 0x0403;
-        public const int TagFirmware = 0x0404;
+        public const int TagSerialNumber1 = 0x0404;
+        public const int TagFirmware = 0x0405;
 
         /// <summary>
         /// See the PIM specification here:
@@ -193,7 +194,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagRedBias = 0x1017;
         public const int TagBlueBias = 0x1018;
         public const int TagColorMatrixNumber = 0x1019;
-        public const int TagSerialNumber = 0x101A;
+        public const int TagSerialNumber2 = 0x101A;
         public const int TagFlashBias = 0x1023;
         public const int TagExternalFlashBounce = 0x1026;
         public const int TagExternalFlashZoom = 0x1027;
@@ -220,6 +221,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagImageProcessing = 0x2040;
         public const int TagFocusInfo = 0x2050;
         public const int TagRawInfo = 0x3000;
+
+        public const int TagMainInfo = 0x4000;
 
         // These 'sub'-tag values have been created for consistency -- they don't exist within the Makernote IFD
         public static class CameraSettings
@@ -311,6 +314,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagWhiteBalanceBracket, "White Balance Bracket" },
             { TagWhiteBalanceBias, "White Balance Bias" },
             { TagSceneMode, "Scene Mode" },
+            { TagSerialNumber1, "Serial Number" },
             { TagFirmware, "Firmware" },
             { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" },
             { TagDataDump1, "Data Dump" },
@@ -338,7 +342,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagRedBias, "Red Bias" },
             { TagBlueBias, "Blue Bias" },
             { TagColorMatrixNumber, "Color Matrix Number" },
-            { TagSerialNumber, "Serial Number" },
+            { TagSerialNumber2, "Serial Number" },
             { TagFlashBias, "Flash Bias" },
             { TagExternalFlashBounce, "External Flash Bounce" },
             { TagExternalFlashZoom, "External Flash Zoom" },
@@ -365,6 +369,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagImageProcessing, "Image Processing" },
             { TagFocusInfo, "Focus Info" },
             { TagRawInfo, "Raw Info" },
+            { TagMainInfo, "Main Info" },
             { CameraSettings.TagExposureMode, "Exposure Mode" },
             { CameraSettings.TagFlashMode, "Flash Mode" },
             { CameraSettings.TagWhiteBalance, "White Balance" },

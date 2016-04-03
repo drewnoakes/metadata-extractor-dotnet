@@ -54,6 +54,8 @@
     </Compile>
     <Compile Include="DirectoryExtensions.cs" />
     <Compile Include="Formats\Exif\Makernotes\OlympusCameraSettingsMakernoteDescriptor.cs" />
+    <Compile Include="Formats\Exif\Makernotes\OlympusFocusInfoMakernoteDescriptor.cs" />
+    <Compile Include="Formats\Exif\Makernotes\OlympusFocusInfoMakernoteDirectory.cs" />
     <Compile Include="Formats\Exif\Makernotes\OlympusRawDevelopment2MakernoteDescriptor.cs" />
     <Compile Include="Formats\Exif\Makernotes\OlympusRawDevelopment2MakernoteDirectory.cs" />
     <Compile Include="Formats\Exif\Makernotes\OlympusImageProcessingMakernoteDescriptor.cs" />
