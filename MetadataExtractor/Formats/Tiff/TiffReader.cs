@@ -151,16 +151,11 @@ namespace MetadataExtractor.Formats.Tiff
                     var formatCode = (TiffDataFormatCode)reader.GetUInt16(tagOffset + 2);
 
                     // 4 bytes dictate the number of components in this tag's data
-                    var componentCount = reader.GetInt32(tagOffset + 4);
-                    if (componentCount < 0)
-                    {
-                        handler.Error("Negative TIFF tag component count");
-                        continue;
-                    }
+                    uint componentCount = reader.GetUInt32(tagOffset + 4);
 
                     var format = TiffDataFormat.FromTiffFormatCode(formatCode);
 
-                    int byteCount;
+                    long byteCount;
                     if (format == null)
                     {
                         if (!handler.TryCustomProcessFormat(tagId, formatCode, componentCount, out byteCount))
@@ -182,7 +177,7 @@ namespace MetadataExtractor.Formats.Tiff
                         byteCount = componentCount * format.ComponentSizeBytes;
                     }
 
-                    int tagValueOffset;
+                    long tagValueOffset;
                     if (byteCount > 4)
                     {
                         // If it's bigger than 4 bytes, the dir entry contains an offset.
@@ -224,17 +219,17 @@ namespace MetadataExtractor.Formats.Tiff
                             if (handler.TryEnterSubIfd(tagId))
                             {
                                 isIfdPointer = true;
-                                var subDirOffset = tiffHeaderOffset + reader.GetInt32(tagValueOffset + i*4);
-                                ProcessIfd(handler, reader, processedIfdOffsets, subDirOffset, tiffHeaderOffset);
+                                var subDirOffset = tiffHeaderOffset + reader.GetUInt32((int)(tagValueOffset + i*4));
+                                ProcessIfd(handler, reader, processedIfdOffsets, (int)subDirOffset, tiffHeaderOffset);
                             }
                         }
                     }
 
                     // If it wasn't an IFD pointer, allow custom tag processing to occur
-                    if (!isIfdPointer && !handler.CustomProcessTag(tagValueOffset, processedIfdOffsets, tiffHeaderOffset, reader, tagId, byteCount))
+                    if (!isIfdPointer && !handler.CustomProcessTag((int)tagValueOffset, processedIfdOffsets, tiffHeaderOffset, reader, tagId, (int)byteCount))
                     {
                         // If no custom processing occurred, process the tag in the standard fashion
-                        ProcessTag(handler, tagId, tagValueOffset, componentCount, formatCode, reader);
+                        ProcessTag(handler, tagId, (int)tagValueOffset, (int)componentCount, formatCode, reader);
                     }
                 }
 

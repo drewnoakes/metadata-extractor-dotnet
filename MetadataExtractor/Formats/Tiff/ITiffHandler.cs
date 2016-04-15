@@ -57,7 +57,7 @@ namespace MetadataExtractor.Formats.Tiff
         /// <exception cref="System.IO.IOException"/>
         bool CustomProcessTag(int tagOffset, [NotNull] ICollection<int> processedIfdOffsets, int tiffHeaderOffset, [NotNull] IndexedReader reader, int tagId, int byteCount);
 
-        bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, int componentCount, out int byteCount);
+        bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, uint componentCount, out long byteCount);
 
         void Warn([NotNull] string message);
 

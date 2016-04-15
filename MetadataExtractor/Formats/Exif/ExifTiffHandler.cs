@@ -190,7 +190,7 @@ namespace MetadataExtractor.Formats.Exif
             return false;
         }
 
-        public override bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, int componentCount, out int byteCount)
+        public override bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, uint componentCount, out long byteCount)
         {
             if ((ushort)formatCode == 13u)
             {

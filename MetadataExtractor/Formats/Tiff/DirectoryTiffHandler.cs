@@ -90,7 +90,7 @@ namespace MetadataExtractor.Formats.Tiff
 
         public abstract bool CustomProcessTag(int tagOffset, ICollection<int> processedIfdOffsets, int tiffHeaderOffset, IndexedReader reader, int tagId, int byteCount);
 
-        public abstract bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, int componentCount, out int byteCount);
+        public abstract bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, uint componentCount, out long byteCount);
 
         public abstract bool HasFollowerIfd();
 
