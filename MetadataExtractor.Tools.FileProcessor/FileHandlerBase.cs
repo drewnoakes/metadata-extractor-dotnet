@@ -7,7 +7,7 @@ namespace MetadataExtractor.Tools.FileProcessor
 {
     internal abstract class FileHandlerBase : IFileHandler
     {
-        private static readonly ISet<string> _supportedExtensions = new HashSet<string>
+        private static readonly ISet<string> _supportedExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
             "jpg", "jpeg", "png", "gif", "bmp", "ico", "webp", "pcx", "ai", "eps",
             "nef", "crw", "cr2", "orf", "arw", "raf", "srw", "x3f", "rw2", "rwl",
