@@ -77,7 +77,7 @@ namespace MetadataExtractor.Formats.QuickTime
 
             var moovHandler = (Action<AtomCallbackArgs>) (a =>
             {
-                Debug.WriteLine($"- Atom {a.TypeString} of size {a.Size}");
+//                Debug.WriteLine($"- Atom {a.TypeString} of size {a.Size}");
 
                 switch (a.TypeString)
                 {
@@ -129,7 +129,8 @@ namespace MetadataExtractor.Formats.QuickTime
 
             Action<AtomCallbackArgs> handler = a =>
             {
-                Debug.WriteLine($"- Atom {a.TypeString} of size {a.Size}");
+//                Debug.WriteLine($"- Atom {a.TypeString} of size {a.Size}");
+
                 switch (a.TypeString)
                 {
                     case "moov":
