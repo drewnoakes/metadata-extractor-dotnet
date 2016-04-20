@@ -37,6 +37,8 @@ namespace MetadataExtractor.Tests.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifReaderTest
     {
+        #region Helpers
+
         [NotNull]
         public static IList<Directory> ProcessSegmentBytes([NotNull] string filePath)
         {
@@ -48,6 +50,8 @@ namespace MetadataExtractor.Tests.Formats.Exif
         {
             return ProcessSegmentBytes(filePath).OfType<T>().First();
         }
+
+        #endregion
 
         [Fact]
         public void TestReadJpegSegmentsWithNullDataThrows()
