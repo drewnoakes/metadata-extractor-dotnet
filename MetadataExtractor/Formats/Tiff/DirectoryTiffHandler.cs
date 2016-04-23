@@ -41,7 +41,7 @@ namespace MetadataExtractor.Formats.Tiff
 
         protected readonly List<Directory> Directories;
 
-        protected DirectoryTiffHandler(List<Directory> directories, Type initialDirectoryClass)
+        protected DirectoryTiffHandler([NotNull] List<Directory> directories, [NotNull] Type initialDirectoryClass)
         {
             Directories = directories;
             CurrentDirectory = (Directory)Activator.CreateInstance(initialDirectoryClass);
