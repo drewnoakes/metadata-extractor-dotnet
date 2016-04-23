@@ -64,6 +64,8 @@
     <Compile Include="Formats\Exif\ExifTiffHandler.cs" />
     <Compile Include="Formats\Exif\GpsDescriptor.cs" />
     <Compile Include="Formats\Exif\GpsDirectory.cs" />
+    <Compile Include="Formats\Exif\makernotes\AppleMakernoteDescriptor.cs" />
+    <Compile Include="Formats\Exif\makernotes\AppleMakernoteDirectory.cs" />
     <Compile Include="Formats\Exif\makernotes\CanonMakernoteDescriptor.cs" />
     <Compile Include="Formats\Exif\makernotes\CanonMakernoteDirectory.cs" />
     <Compile Include="Formats\Exif\makernotes\CasioType1MakernoteDescriptor.cs" />

@@ -53,6 +53,8 @@
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DirectoryExtensions.cs" />
+    <Compile Include="Formats\Exif\Makernotes\AppleMakernoteDescriptor.cs" />
+    <Compile Include="Formats\Exif\Makernotes\AppleMakernoteDirectory.cs" />
     <Compile Include="Formats\Exif\Makernotes\OlympusCameraSettingsMakernoteDescriptor.cs" />
     <Compile Include="Formats\Exif\Makernotes\OlympusFocusInfoMakernoteDescriptor.cs" />
     <Compile Include="Formats\Exif\Makernotes\OlympusFocusInfoMakernoteDirectory.cs" />

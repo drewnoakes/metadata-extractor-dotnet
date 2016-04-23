@@ -449,6 +449,15 @@ namespace MetadataExtractor.Formats.Exif
                     TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 8, makernoteOffset);
                 }
             }
+            else if (firstTenChars == "Apple iOS\0")
+            {
+                // Always in Motorola byte order
+                var orderBefore = reader.IsMotorolaByteOrder;
+                reader.IsMotorolaByteOrder = true;
+                PushDirectory(typeof(AppleMakernoteDirectory));
+                TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 14, makernoteOffset);
+                reader.IsMotorolaByteOrder = orderBefore;
+            }
             else
             {
                 // The makernote is not comprehended by this library.
