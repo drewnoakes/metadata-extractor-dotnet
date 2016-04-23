@@ -22,12 +22,14 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public static class DirectoryExtensions
     {
         #region Int16
