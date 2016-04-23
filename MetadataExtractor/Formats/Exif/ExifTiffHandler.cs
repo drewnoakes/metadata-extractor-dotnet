@@ -304,7 +304,7 @@ namespace MetadataExtractor.Formats.Exif
 
                         default:
                         {
-                            ifd0Directory.AddError("Unsupported Nikon makernote data ignored.");
+                            Error("Unsupported Nikon makernote data ignored.");
                             break;
                         }
                     }
