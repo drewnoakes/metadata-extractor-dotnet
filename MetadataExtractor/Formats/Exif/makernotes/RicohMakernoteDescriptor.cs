@@ -28,7 +28,7 @@ using JetBrains.Annotations;
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>
-    /// Provides human-readable string representations of tag values stored in a <see cref="RicohMakernoteDescriptor"/>.
+    /// Provides human-readable string representations of tag values stored in a <see cref="RicohMakernoteDirectory"/>.
     /// </summary>
     /// <remarks>
     /// Some information about this makernote taken from here:
