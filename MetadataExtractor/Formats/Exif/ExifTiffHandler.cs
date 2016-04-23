@@ -232,13 +232,7 @@ namespace MetadataExtractor.Formats.Exif
         /// <exception cref="System.IO.IOException"/>
         private bool ProcessMakernote(int makernoteOffset, [NotNull] ICollection<int> processedIfdOffsets, int tiffHeaderOffset, [NotNull] IndexedReader reader)
         {
-            // Determine the camera model and makernote format.
-            var ifd0Directory = Directories.OfType<ExifIfd0Directory>().FirstOrDefault();
-
-            if (ifd0Directory == null)
-                return false;
-
-            var cameraMake = ifd0Directory.GetString(ExifDirectoryBase.TagMake);
+            var cameraMake = Directories.OfType<ExifIfd0Directory>().FirstOrDefault()?.GetString(ExifDirectoryBase.TagMake);
 
             var firstTwoChars = reader.GetString(makernoteOffset, 2);
             var firstThreeChars = reader.GetString(makernoteOffset, 3);
