@@ -27,6 +27,8 @@ using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.FileSystem;
+using MetadataExtractor.Formats.Xmp;
+using XmpCore;
 
 namespace MetadataExtractor.Tools.FileProcessor
 {
@@ -89,6 +91,19 @@ namespace MetadataExtractor.Tools.FileProcessor
 
                             if (directory.TagCount != 0)
                                 writer.Write('\n');
+
+                            var xmpDirectory = directory as XmpDirectory;
+                            if (xmpDirectory?.XmpMeta != null)
+                            {
+                                var wrote = false;
+                                foreach (var prop in xmpDirectory.XmpMeta.Properties)
+                                {
+                                    writer.WriteLine($"[XMPMeta - {prop.Namespace}] {prop.Path} = {prop.Value}");
+                                    wrote = true;
+                                }
+                                if (wrote)
+                                    writer.Write('\n');
+                            }
                         }
 
                         // Write file structure
