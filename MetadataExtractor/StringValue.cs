@@ -8,17 +8,17 @@ namespace MetadataExtractor
     public sealed class StringValue : IConvertible
     {
         private readonly byte[] _buffer;
-        private Encoding _encoder = Encoding.UTF8;
+        private Encoding _encoding = Encoding.UTF8;
 
         public StringValue([NotNull] byte[] bytes)
         {
             _buffer = bytes;
         }
 
-        public StringValue([NotNull] byte[] bytes, Encoding defaultEncoder)
+        public StringValue([NotNull] byte[] bytes, Encoding defaultEncoding)
         {
             _buffer = bytes;
-            _encoder = defaultEncoder;
+            _encoding = defaultEncoding;
         }
 
         public byte[] Bytes
@@ -28,13 +28,13 @@ namespace MetadataExtractor
 
         public void SetEncodingByName(string encodingName)
         {
-            _encoder = Encoding.GetEncoding(encodingName);
+            _encoding = Encoding.GetEncoding(encodingName);
         }
 
-        public Encoding Encoder
+        public Encoding Encoding
         {
-            get { return _encoder; }
-            set { _encoder = value; }
+            get { return _encoding; }
+            set { _encoding = value; }
         }
 
         public int Length
@@ -137,7 +137,7 @@ namespace MetadataExtractor
 
         public override string ToString()
         {
-            return ToString(_encoder);
+            return ToString(_encoding);
         }
         public string ToString(Encoding encoder)
         {
