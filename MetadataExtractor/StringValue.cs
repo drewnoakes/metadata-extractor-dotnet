@@ -35,9 +35,10 @@ namespace MetadataExtractor
             return (float)ToDouble();
         }
 
-        public string ToString(IFormatProvider provider) => ToString();
+        string IConvertible.ToString(IFormatProvider provider) => ToString();
 
         #region IConvertible
+
         double IConvertible.ToDouble(IFormatProvider provider) => ToDouble();
 
         decimal IConvertible.ToDecimal(IFormatProvider prodiver) => (decimal)ToDouble();
