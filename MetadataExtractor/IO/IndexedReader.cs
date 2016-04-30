@@ -318,12 +318,15 @@ namespace MetadataExtractor.IO
         /// The maximum number of bytes to read.  If a zero-byte is not reached within this limit,
         /// reading will stop and the string will be truncated to this length.
         /// </param>
+        /// <param name="encoding">An optional string encoding. If none is provided, <see cref="Encoding.UTF8"/> is used.</param>
         /// <returns>The read <see cref="string"/></returns>
         /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
         [NotNull]
-        public string GetNullTerminatedString(int index, int maxLengthBytes)
+        public string GetNullTerminatedString(int index, int maxLengthBytes, Encoding encoding = null)
         {
-            return GetNullTerminatedStringValue(index, maxLengthBytes).ToString();
+            var bytes = GetNullTerminatedBytes(index, maxLengthBytes);
+
+            return (encoding ?? Encoding.UTF8).GetString(bytes, 0, bytes.Length);
         }
 
         /// <summary>
@@ -335,22 +338,42 @@ namespace MetadataExtractor.IO
         /// The maximum number of bytes to read.  If a zero-byte is not reached within this limit,
         /// reading will stop and the string will be truncated to this length.
         /// </param>
+        /// <param name="encoding">An optional string encoding to use when interpreting bytes.</param>
         /// <returns>The read <see cref="StringValue"/></returns>
         /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
-        public StringValue GetNullTerminatedStringValue(int index, int maxLengthBytes)
+        public StringValue GetNullTerminatedStringValue(int index, int maxLengthBytes, Encoding encoding = null)
         {
-            // NOTE currently only really suited to single-byte character strings
-            var bytes = GetBytes(index, maxLengthBytes);
+            var bytes = GetNullTerminatedBytes(index, maxLengthBytes);
+
+            return new StringValue(bytes, encoding);
+        }
+
+        /// <summary>
+        /// Returns the sequence of bytes punctuated by a <c>\0</c> value.
+        /// </summary>
+        /// <param name="index">The index to start reading from.</param>
+        /// <param name="maxLengthBytes">
+        /// The maximum number of bytes to read.  If a <c>\0</c> byte is not reached within this limit,
+        /// the returned array will be <paramref name="maxLengthBytes"/> long.
+        /// </param>
+        /// <returns>The read byte array.</returns>
+        /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
+        public byte[] GetNullTerminatedBytes(int index, int maxLengthBytes)
+        {
+            var buffer = GetBytes(index, maxLengthBytes);
+
             // Count the number of non-null bytes
             var length = 0;
-            while (length < bytes.Length && bytes[length] != 0)
+            while (length < buffer.Length && buffer[length] != 0)
                 length++;
 
-            var _actualBytes = new byte[length];
-            if (length > 0)
-                Array.Copy(bytes, 0, _actualBytes, 0, length);
+            if (length == maxLengthBytes)
+                return buffer;
 
-            return new StringValue(_actualBytes);
+            var bytes = new byte[length];
+            if (length > 0)
+                Array.Copy(buffer, 0, bytes, 0, length);
+            return bytes;
         }
     }
 }

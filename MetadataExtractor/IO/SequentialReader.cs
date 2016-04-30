@@ -241,41 +241,66 @@ namespace MetadataExtractor.IO
             return encoding.GetString(bytes, 0, bytes.Length);
         }
 
-        /// <summary>Creates a String from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.</summary>
+        /// <summary>
+        /// Creates a String from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.
+        /// </summary>
         /// <param name="maxLengthBytes">
-        /// The maximum number of bytes to read.  If a zero-byte is not reached within this limit,
+        /// The maximum number of bytes to read.  If a <c>\0</c> byte is not reached within this limit,
         /// reading will stop and the string will be truncated to this length.
         /// </param>
+        /// <param name="encoding">An optional string encoding. If none is provided, <see cref="Encoding.UTF8"/> is used.</param>
         /// <returns>The read <see cref="string"/></returns>
         /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
         [NotNull]
-        public string GetNullTerminatedString(int maxLengthBytes)
+        public string GetNullTerminatedString(int maxLengthBytes, Encoding encoding = null)
         {
-            return GetNullTerminatedStringValue(maxLengthBytes).ToString();
+            var bytes = GetNullTerminatedBytes(maxLengthBytes);
+
+            return (encoding ?? Encoding.UTF8).GetString(bytes, 0, bytes.Length);
         }
 
-        /// <summary>Creates a String from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.</summary>
+        /// <summary>
+        /// Creates a String from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.
+        /// </summary>
         /// <param name="maxLengthBytes">
-        /// The maximum number of bytes to read.  If a zero-byte is not reached within this limit,
+        /// The maximum number of bytes to read.  If a <c>\0</c> byte is not reached within this limit,
         /// reading will stop and the string will be truncated to this length.
         /// </param>
+        /// <param name="encoding">An optional string encoding to use when interpreting bytes.</param>
         /// <returns>The read string as a <see cref="StringValue"/></returns>
         /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
-        public StringValue GetNullTerminatedStringValue(int maxLengthBytes)
+        public StringValue GetNullTerminatedStringValue(int maxLengthBytes, Encoding encoding = null)
         {
-            // NOTE currently only really suited to single-byte character strings
-            var bytes = new byte[maxLengthBytes];
+            var bytes = GetNullTerminatedBytes(maxLengthBytes);
+
+            return new StringValue(bytes, encoding);
+        }
+
+        /// <summary>
+        /// Returns the sequence of bytes punctuated by a <c>\0</c> value.
+        /// </summary>
+        /// <param name="maxLengthBytes">
+        /// The maximum number of bytes to read.  If a <c>\0</c> byte is not reached within this limit,
+        /// the returned array will be <paramref name="maxLengthBytes"/> long.
+        /// </param>
+        /// <returns>The read byte array.</returns>
+        /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
+        public byte[] GetNullTerminatedBytes(int maxLengthBytes)
+        {
+            var buffer = new byte[maxLengthBytes];
+
             // Count the number of non-null bytes
             var length = 0;
-            while (length < bytes.Length && (bytes[length] = GetByte()) != 0)
+            while (length < buffer.Length && (buffer[length] = GetByte()) != 0)
                 length++;
-            if (length != maxLengthBytes)
-            {
-                var bytesCopy = new byte[length];
-                Array.Copy(bytes, bytesCopy, length);
-                bytes = bytesCopy;
-            }
-            return new StringValue(bytes);
+
+            if (length == maxLengthBytes)
+                return buffer;
+
+            var bytes = new byte[length];
+            if (length > 0)
+                Array.Copy(buffer, bytes, length);
+            return bytes;
         }
     }
 }

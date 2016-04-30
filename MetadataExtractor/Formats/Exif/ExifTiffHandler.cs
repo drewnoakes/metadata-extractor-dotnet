@@ -181,7 +181,7 @@ namespace MetadataExtractor.Formats.Exif
             // Custom processing for embedded XMP data
             if (tagId == ExifDirectoryBase.TagApplicationNotes && CurrentDirectory is ExifIfd0Directory)
             {
-                var xmpDirectory = new XmpReader().Extract(reader.GetNullTerminatedString(tagOffset, byteCount));
+                var xmpDirectory = new XmpReader().Extract(reader.GetNullTerminatedBytes(tagOffset, byteCount));
                 xmpDirectory.Parent = CurrentDirectory;
                 Directories.Add(xmpDirectory);
                 return true;
