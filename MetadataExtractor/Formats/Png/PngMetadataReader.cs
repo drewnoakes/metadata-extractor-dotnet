@@ -239,10 +239,10 @@ namespace MetadataExtractor.Formats.Png
                 var translatedKeyword = reader.GetNullTerminatedStringValue(bytes.Length, defaultEncoding);
 
                 var bytesLeft = bytes.Length - keyword.Length - 1 - 1 - 1 - languageTag.Bytes.Length - 1 - translatedKeyword.Bytes.Length - 1;
-                StringValue text = null;
+                byte[] textBytes = null;
                 if (compressionFlag == 0)
                 {
-                    text = reader.GetNullTerminatedStringValue(bytesLeft, defaultEncoding);
+                    textBytes = reader.GetNullTerminatedBytes(bytesLeft);
                 }
                 else if (compressionFlag == 1)
                 {
@@ -259,11 +259,11 @@ namespace MetadataExtractor.Formats.Png
                             int totalBytes = 0;
                             while ((count = inflaterStream.Read(buffer, 0, 256)) > 0)
                             {
-                                decompstream.Write(buffer, 0, count);
+                                decompStream.Write(buffer, 0, count);
                                 totalBytes += count;
                             }
 #endif
-                            text = new StringValue(decompStream.ToArray(), defaultEncoding);
+                            textBytes = decompStream.ToArray();
                         }
                     }
                     else
@@ -280,16 +280,16 @@ namespace MetadataExtractor.Formats.Png
                     yield return directory;
                 }
 
-                if (text != null)
+                if (textBytes != null)
                 {
                     if (keyword == "XML:com.adobe.xmp")
                     {
                         // NOTE in testing images, the XMP has parsed successfully, but we are not extracting tags from it as necessary
-                        yield return new XmpReader().Extract(text.Bytes);
+                        yield return new XmpReader().Extract(textBytes);
                     }
                     else
                     {
-                        var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, text) };
+                        var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, new StringValue(textBytes, defaultEncoding)) };
                         var directory = new PngDirectory(PngChunkType.iTXt);
                         directory.Set(PngDirectory.TagTextualData, textPairs);
                         yield return directory;
