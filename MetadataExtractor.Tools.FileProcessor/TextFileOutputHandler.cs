@@ -28,7 +28,6 @@ using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Xmp;
-using XmpCore;
 
 namespace MetadataExtractor.Tools.FileProcessor
 {
