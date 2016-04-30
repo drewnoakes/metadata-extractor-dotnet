@@ -122,28 +122,5 @@ namespace MetadataExtractor
         }
 
         #endregion
-
-        // user-defined conversion from StringValue to Double
-        /*public static implicit operator double(StringValue strval)
-        {
-            double value;
-            if (double.TryParse(strval.ToString(), out value))
-                return value;
-
-            throw new MetadataException($"Tag cannot be converted to {typeof(double).Name}.");
-        }*/
-
-        // user-defined conversion from StringValue to string
-        /*public static implicit operator string(StringValue strval)
-        {
-            return strval.ToString();
-        }*/
-
-        // user-defined conversion from string to StringValue
-        /*public static implicit operator StringValue(string str)
-        {
-            return new StringValue(Encoding.UTF8.GetBytes(str));
-        }*/
-
     }
 }
