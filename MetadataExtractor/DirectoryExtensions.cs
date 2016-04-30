@@ -377,7 +377,7 @@ namespace MetadataExtractor
         }
 
         /// <summary>Gets the specified tag's value as an byte array, if possible.</summary>
-        /// <remarks>Only supported where the tag is set as String, Integer, int[], byte[] or Rational[].</remarks>
+        /// <remarks>Only supported where the tag is set as StringValue, String, Integer, int[], byte[] or Rational[].</remarks>
         /// <returns>the tag's value as a byte array</returns>
         [CanBeNull]
         public static byte[] GetByteArray(this Directory directory, int tagType)
@@ -386,6 +386,10 @@ namespace MetadataExtractor
 
             if (o == null)
                 return null;
+
+            var strvalue = o as StringValue;
+            if (strvalue != null)
+                return strvalue.Bytes;
 
             byte[] bytes;
 

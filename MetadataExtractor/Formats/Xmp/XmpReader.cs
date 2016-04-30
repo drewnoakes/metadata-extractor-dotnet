@@ -130,7 +130,7 @@ namespace MetadataExtractor.Formats.Xmp
         /// <remarks>
         /// The extraction is done with Adobe's XMPCore library.
         /// </remarks>
-        public XmpDirectory Extract([NotNull] string xmpString) => Extract(Encoding.UTF8.GetBytes(xmpString));
+        //public XmpDirectory Extract([NotNull] string xmpString) => Extract(Encoding.UTF8.GetBytes(xmpString));
 
         /// <exception cref="XmpException"/>
         private static void ProcessXmpTags(XmpDirectory directory, IXmpMeta xmpMeta)
