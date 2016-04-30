@@ -7,39 +7,25 @@ namespace MetadataExtractor
 {
     public sealed class StringValue : IConvertible
     {
-        private readonly byte[] _buffer;
-        private Encoding _encoding = Encoding.UTF8;
-
         public StringValue([NotNull] byte[] bytes)
         {
-            _buffer = bytes;
+            Bytes = bytes;
         }
 
         public StringValue([NotNull] byte[] bytes, Encoding defaultEncoding)
         {
-            _buffer = bytes;
-            _encoding = defaultEncoding;
+            Bytes = bytes;
+            Encoding = defaultEncoding;
         }
 
-        public byte[] Bytes
-        {
-            get { return _buffer; }
-        }
+        public byte[] Bytes { get; }
 
-        public void SetEncodingByName(string encodingName)
-        {
-            _encoding = Encoding.GetEncoding(encodingName);
-        }
-
-        public Encoding Encoding
-        {
-            get { return _encoding; }
-            set { _encoding = value; }
-        }
+        [CanBeNull]
+        public Encoding Encoding { get; }
 
         public int Length
         {
-            get { return (_buffer != null) ? _buffer.Length : 0; }
+            get { return (Bytes != null) ? Bytes.Length : 0; }
         }
 
         #region Conversion methods
@@ -137,11 +123,11 @@ namespace MetadataExtractor
 
         public override string ToString()
         {
-            return ToString(_encoding);
+            return ToString(Encoding);
         }
         public string ToString(Encoding encoder)
         {
-            return encoder.GetString(_buffer, 0, Length);
+            return encoder.GetString(Bytes, 0, Length);
         }
 
         #endregion
