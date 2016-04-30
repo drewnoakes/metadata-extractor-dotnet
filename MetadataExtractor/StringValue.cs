@@ -23,95 +23,47 @@ namespace MetadataExtractor
         [CanBeNull]
         public Encoding Encoding { get; }
 
-        #region Conversion methods
-
-        public double ToDouble()
-        {
-            double output;
-            if (!double.TryParse(ToString(), out output))
-                throw new FormatException();
-
-            return output;
-        }
-
-        public float ToSingle()
-        {
-            return (float)ToDouble();
-        }
-
-        string IConvertible.ToString(IFormatProvider provider) => ToString();
-
         #region IConvertible
-
-        double IConvertible.ToDouble(IFormatProvider provider) => ToDouble();
-
-        decimal IConvertible.ToDecimal(IFormatProvider prodiver) => (decimal)ToDouble();
-
-        float IConvertible.ToSingle(IFormatProvider provider) => ToSingle();
 
         TypeCode IConvertible.GetTypeCode() => TypeCode.Object;
 
-        bool IConvertible.ToBoolean(IFormatProvider provider)
-        {
-            throw new NotImplementedException();
-        }
+        string IConvertible.ToString(IFormatProvider provider) => ToString();
 
-        byte IConvertible.ToByte(IFormatProvider provider)
-        {
-            throw new NotImplementedException();
-        }
+        double IConvertible.ToDouble(IFormatProvider provider) => double.Parse(ToString());
+
+        decimal IConvertible.ToDecimal(IFormatProvider prodiver) => decimal.Parse(ToString());
+
+        float IConvertible.ToSingle(IFormatProvider provider) => float.Parse(ToString());
+
+        bool IConvertible.ToBoolean(IFormatProvider provider) => bool.Parse(ToString());
+
+        byte IConvertible.ToByte(IFormatProvider provider) => byte.Parse(ToString());
 
         char IConvertible.ToChar(IFormatProvider provider)
         {
-            throw new NotImplementedException();
+            var s = ToString();
+            if (s.Length != 1)
+                throw new FormatException();
+            return s[0];
         }
 
-        DateTime IConvertible.ToDateTime(IFormatProvider provider)
-        {
-            throw new NotImplementedException();
-        }
+        DateTime IConvertible.ToDateTime(IFormatProvider provider) => DateTime.Parse(ToString());
 
-        short IConvertible.ToInt16(IFormatProvider provider)
-        {
-            throw new NotImplementedException();
-        }
+        short IConvertible.ToInt16(IFormatProvider provider) => short.Parse(ToString());
 
-        int IConvertible.ToInt32(IFormatProvider provider)
-        {
-            throw new NotImplementedException();
-        }
+        int IConvertible.ToInt32(IFormatProvider provider) => int.Parse(ToString());
 
-        long IConvertible.ToInt64(IFormatProvider provider)
-        {
-            throw new NotImplementedException();
-        }
+        long IConvertible.ToInt64(IFormatProvider provider) => long.Parse(ToString());
 
-        sbyte IConvertible.ToSByte(IFormatProvider provider)
-        {
-            throw new NotImplementedException();
-        }
+        sbyte IConvertible.ToSByte(IFormatProvider provider) => sbyte.Parse(ToString());
 
-        ushort IConvertible.ToUInt16(IFormatProvider provider)
-        {
-            throw new NotImplementedException();
-        }
+        ushort IConvertible.ToUInt16(IFormatProvider provider) => ushort.Parse(ToString());
 
-        uint IConvertible.ToUInt32(IFormatProvider provider)
-        {
-            throw new NotImplementedException();
-        }
+        uint IConvertible.ToUInt32(IFormatProvider provider) => uint.Parse(ToString());
 
-        ulong IConvertible.ToUInt64(IFormatProvider provider)
-        {
-            throw new NotImplementedException();
-        }
+        ulong IConvertible.ToUInt64(IFormatProvider provider) => ulong.Parse(ToString());
 
-        object IConvertible.ToType(Type conversionType, IFormatProvider provider)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
+        object IConvertible.ToType(Type conversionType, IFormatProvider provider) => Convert.ChangeType(ToString(), conversionType, provider);
 
         #endregion
 
