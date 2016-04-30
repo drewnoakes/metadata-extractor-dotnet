@@ -5,6 +5,17 @@ using JetBrains.Annotations;
 
 namespace MetadataExtractor
 {
+    /// <summary>
+    /// Wraps a byte array with an <see cref="Encoding"/>. Allows consumers to override the encoding if required.
+    /// </summary>
+    /// <remarks>
+    /// String data is often in the incorrect format, and many issues have been raised in the past related to string
+    /// encoding. Metadata Extractor used to decode string bytes at read-time, after which it was not possible to
+    /// override the encoding at a later time by the user.
+    /// <para />
+    /// The introduction of this type allows full transparency and control over the use of string data extracted
+    /// by the library during the read phase.
+    /// </remarks>
     public struct StringValue : IConvertible
     {
         /// <summary>
