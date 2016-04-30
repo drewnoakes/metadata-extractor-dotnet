@@ -249,10 +249,10 @@ namespace MetadataExtractor.Formats.Png
                     if (compressionMethod == 0)
                     {
                         using (var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress))
-                            using (MemoryStream decompstream = new MemoryStream())
+                        using (var decompStream = new MemoryStream())
                         {
 #if !NET35
-                            inflaterStream.CopyTo(decompstream);
+                            inflaterStream.CopyTo(decompStream);
 #else
                             byte[] buffer = new byte[256];
                             int count;
@@ -263,7 +263,7 @@ namespace MetadataExtractor.Formats.Png
                                 totalBytes += count;
                             }
 #endif
-                            text = new StringValue(decompstream.ToArray(), defaultEncoding);
+                            text = new StringValue(decompStream.ToArray(), defaultEncoding);
                         }
                     }
                     else
