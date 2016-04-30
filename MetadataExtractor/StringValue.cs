@@ -23,11 +23,6 @@ namespace MetadataExtractor
         [CanBeNull]
         public Encoding Encoding { get; }
 
-        public int Length
-        {
-            get { return (Bytes != null) ? Bytes.Length : 0; }
-        }
-
         #region Conversion methods
 
         public double ToDouble()
@@ -127,7 +122,7 @@ namespace MetadataExtractor
         }
         public string ToString(Encoding encoder)
         {
-            return encoder.GetString(Bytes, 0, Length);
+            return encoder.GetString(Bytes, 0, Bytes.Length);
         }
 
         #endregion

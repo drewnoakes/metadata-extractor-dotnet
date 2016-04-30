@@ -195,7 +195,7 @@ namespace MetadataExtractor.Formats.Png
                 {
                     // Only compression method allowed by the spec is zero: deflate
                     // This assumes 1-byte-per-char, which it is by spec.
-                    var bytesLeft = bytes.Length - profileName.Length - 2;
+                    var bytesLeft = bytes.Length - profileName.Bytes.Length - 2;
                     var compressedProfile = reader.GetBytes(bytesLeft);
                     using (var inflaterStream = new InflaterInputStream(new MemoryStream(compressedProfile)))
                     {
@@ -238,7 +238,7 @@ namespace MetadataExtractor.Formats.Png
 
                 var translatedKeyword = reader.GetNullTerminatedStringValue(bytes.Length, defaultEncoding);
 
-                var bytesLeft = bytes.Length - keyword.Length - 1 - 1 - 1 - languageTag.Length - 1 - translatedKeyword.Length - 1;
+                var bytesLeft = bytes.Length - keyword.Length - 1 - 1 - 1 - languageTag.Bytes.Length - 1 - translatedKeyword.Bytes.Length - 1;
                 StringValue text = null;
                 if (compressionFlag == 0)
                 {
