@@ -7,15 +7,11 @@ namespace MetadataExtractor
 {
     public sealed class StringValue : IConvertible
     {
-        public StringValue([NotNull] byte[] bytes)
-        {
-            Bytes = bytes;
-        }
 
-        public StringValue([NotNull] byte[] bytes, Encoding defaultEncoding)
+        public StringValue([NotNull] byte[] bytes, Encoding encoding = null)
         {
             Bytes = bytes;
-            Encoding = defaultEncoding;
+            Encoding = encoding;
         }
 
         public byte[] Bytes { get; }
