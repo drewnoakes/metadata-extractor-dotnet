@@ -121,7 +121,8 @@ namespace MetadataExtractor
         {
             return ToString(Encoding ?? DefaultEncoding);
         }
-        public string ToString(Encoding encoder)
+
+        public string ToString([NotNull] Encoding encoder)
         {
             return encoder.GetString(Bytes, 0, Bytes.Length);
         }
