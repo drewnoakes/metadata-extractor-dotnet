@@ -500,6 +500,9 @@ namespace MetadataExtractor
 
             var s = o as string;
 
+            if (o is StringValue)
+                s = ((StringValue)o).ToString();
+
             if (s != null)
             {
                 if (DateTime.TryParseExact(s, _datePatterns, null, DateTimeStyles.AllowWhiteSpaces, out dateTime))
