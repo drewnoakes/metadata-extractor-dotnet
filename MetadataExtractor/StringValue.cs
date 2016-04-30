@@ -7,6 +7,10 @@ namespace MetadataExtractor
 {
     public sealed class StringValue : IConvertible
     {
+        /// <summary>
+        /// The encoding used when decoding a <see cref="StringValue"/> that does not specify its encoding.
+        /// </summary>
+        public static readonly Encoding DefaultEncoding = Encoding.UTF8;
 
         public StringValue([NotNull] byte[] bytes, Encoding encoding = null)
         {
@@ -115,7 +119,7 @@ namespace MetadataExtractor
 
         public override string ToString()
         {
-            return ToString(Encoding);
+            return ToString(Encoding ?? DefaultEncoding);
         }
         public string ToString(Encoding encoder)
         {
