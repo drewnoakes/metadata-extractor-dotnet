@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 #if !PORTABLE
 using System.IO.Compression;
@@ -46,9 +47,6 @@ namespace MetadataExtractor.Formats.Png
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class PngMetadataReader
     {
-        // by spec, PNG is generally supposed to use this encoding
-        private static string defaultEncodingName = "ISO-8859-1";
-
         private static readonly HashSet<PngChunkType> _desiredChunkTypes = new HashSet<PngChunkType>
         {
             PngChunkType.IHDR,
@@ -126,7 +124,9 @@ namespace MetadataExtractor.Formats.Png
             // For more guidance:
             // http://www.w3.org/TR/PNG-Decoders.html#D.Text-chunk-processing
             // http://www.libpng.org/pub/png/spec/1.2/PNG-Chunks.html#C.iCCP
-            var defaultEncoding = System.Text.Encoding.GetEncoding(defaultEncodingName);
+            // by spec, PNG is generally supposed to use this encoding
+            const string defaultEncodingName = "ISO-8859-1";
+            var defaultEncoding = Encoding.GetEncoding(defaultEncodingName);
 
             var chunkType = chunk.ChunkType;
             var bytes = chunk.Bytes;
@@ -221,8 +221,7 @@ namespace MetadataExtractor.Formats.Png
                 var reader = new SequentialByteArrayReader(bytes);
                 var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(defaultEncoding);
                 var bytesLeft = bytes.Length - keyword.Length - 1;
-                var value = reader.GetNullTerminatedStringValue(bytesLeft);
-                value.SetEncodingByName(defaultEncodingName);
+                var value = reader.GetNullTerminatedStringValue(bytesLeft, defaultEncoding);
 
                 var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, value) };
                 var directory = new PngDirectory(PngChunkType.iTXt);
@@ -235,18 +234,15 @@ namespace MetadataExtractor.Formats.Png
                 var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(defaultEncoding);
                 var compressionFlag = reader.GetSByte();
                 var compressionMethod = reader.GetSByte();
-                var languageTag = reader.GetNullTerminatedStringValue(bytes.Length);
-                languageTag.SetEncodingByName(defaultEncodingName);
+                var languageTag = reader.GetNullTerminatedStringValue(bytes.Length, defaultEncoding);
 
-                var translatedKeyword = reader.GetNullTerminatedStringValue(bytes.Length);
-                translatedKeyword.SetEncodingByName(defaultEncodingName);
+                var translatedKeyword = reader.GetNullTerminatedStringValue(bytes.Length, defaultEncoding);
 
                 var bytesLeft = bytes.Length - keyword.Length - 1 - 1 - 1 - languageTag.Length - 1 - translatedKeyword.Length - 1;
                 StringValue text = null;
                 if (compressionFlag == 0)
                 {
-                    text = reader.GetNullTerminatedStringValue(bytesLeft);
-                    text.SetEncodingByName(defaultEncodingName);
+                    text = reader.GetNullTerminatedStringValue(bytesLeft, defaultEncoding);
                 }
                 else if (compressionFlag == 1)
                 {
@@ -267,8 +263,7 @@ namespace MetadataExtractor.Formats.Png
                                 totalBytes += count;
                             }
 #endif
-                            text = new StringValue(decompstream.ToArray());
-                            text.SetEncodingByName(defaultEncodingName);
+                            text = new StringValue(decompstream.ToArray(), defaultEncoding);
                         }
                     }
                     else
