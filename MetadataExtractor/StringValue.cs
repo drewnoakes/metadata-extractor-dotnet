@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 
 namespace MetadataExtractor
 {
-    public sealed class StringValue : IConvertible
+    public struct StringValue : IConvertible
     {
         /// <summary>
         /// The encoding used when decoding a <see cref="StringValue"/> that does not specify its encoding.

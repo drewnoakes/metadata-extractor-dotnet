@@ -387,9 +387,8 @@ namespace MetadataExtractor
             if (o == null)
                 return null;
 
-            var strvalue = o as StringValue;
-            if (strvalue != null)
-                return strvalue.Bytes;
+            if (o is StringValue)
+                return ((StringValue)o).Bytes;
 
             byte[] bytes;
 
