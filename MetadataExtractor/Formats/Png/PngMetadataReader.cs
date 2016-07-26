@@ -27,7 +27,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 #if !PORTABLE
 using System.IO.Compression;
 #else
@@ -197,7 +196,7 @@ namespace MetadataExtractor.Formats.Png
                     // This assumes 1-byte-per-char, which it is by spec.
                     var bytesLeft = bytes.Length - profileName.Bytes.Length - 2;
                     var compressedProfile = reader.GetBytes(bytesLeft);
-                    using (var inflaterStream = new InflaterInputStream(new MemoryStream(compressedProfile)))
+                    using (var inflaterStream = new DeflateStream(new MemoryStream(compressedProfile), CompressionMode.Decompress))
                     {
                         var iccDirectory = new IccReader().Extract(new IndexedCapturingReader(inflaterStream));
                         iccDirectory.Parent = directory;

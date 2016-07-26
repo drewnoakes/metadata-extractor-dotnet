@@ -227,9 +227,6 @@
       <HintPath>..\packages\JetBrains.Annotations.10.0.0\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\JetBrains.Annotations.PCL328.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SharpZipLib.Silverlight4">
-      <HintPath>..\packages\SharpZipLib.0.86.0\lib\SL4\SharpZipLib.Silverlight4.dll</HintPath>
-    </Reference>
     <Reference Include="XmpCore.Portable, Version=5.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\XmpCore.1.2.2\lib\portable-net45+sl50+netcore45+wpa81+wp8\XmpCore.Portable.dll</HintPath>
       <Private>True</Private>
