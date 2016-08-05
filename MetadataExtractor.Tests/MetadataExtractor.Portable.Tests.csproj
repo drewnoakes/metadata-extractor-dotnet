@@ -40,8 +40,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
-    <Reference Include="XmpCore.Portable">
-      <HintPath>..\packages\XmpCore.1.2.0\lib\portable-net45+sl50+netcore45+wpa81+wp8\XmpCore.Portable.dll</HintPath>
+    <Reference Include="XmpCore.Portable, Version=5.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\XmpCore.1.2.2\lib\portable-net45+sl50+netcore45+wpa81+wp8\XmpCore.Portable.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
