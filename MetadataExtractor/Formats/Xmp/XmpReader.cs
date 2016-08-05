@@ -211,47 +211,40 @@ namespace MetadataExtractor.Formats.Xmp
             {
                 case FormatType.Rational:
                 {
+                    // TODO introduce Rational.TryParse
                     var rationalParts = property.Split('/').Take(2).ToArray();
                     if (rationalParts.Length == 2)
                     {
-                        try
-                        {
-                            var rational = new Rational((long)float.Parse(rationalParts[0]), (long)float.Parse(rationalParts[1]));
-                            directory.Set(tagType, rational);
-                        }
-                        catch (FormatException)
-                        {
+                        // TODO should this really be parsed as float?
+                        float numerator;
+                        float denominator;
+                        if (float.TryParse(rationalParts[0], out numerator) && float.TryParse(rationalParts[1], out denominator))
+                            directory.Set(tagType, new Rational((long)numerator, (long)denominator));
+                        else
                             directory.AddError($"Unable to parse XMP property {propName} as a Rational.");
-                        }
                     }
                     else
                     {
-                        directory.AddError("Error in rational format for tag " + tagType);
+                        directory.AddError($"Error in rational format for tag {tagType}");
                     }
                     break;
                 }
                 case FormatType.Int:
                 {
-                    try
-                    {
-                        directory.Set(tagType, int.Parse(property));
-                    }
-                    catch (FormatException)
-                    {
+                    int value;
+                    if (int.TryParse(property, out value))
+                        directory.Set(tagType, value);
+                    else
                         directory.AddError($"Unable to parse XMP property {propName} as an int.");
-                    }
                     break;
                 }
                 case FormatType.Double:
                 {
-                    try
-                    {
-                        directory.Set(tagType, double.Parse(property));
-                    }
-                    catch (FormatException)
-                    {
+                    double value;
+                    if (double.TryParse(property, out value))
+                        directory.Set(tagType, value);
+                    else
                         directory.AddError($"Unable to parse XMP property {propName} as a double.");
-                    }
                     break;
                 }
                 case FormatType.String:
@@ -264,10 +257,8 @@ namespace MetadataExtractor.Formats.Xmp
                     //XMP iterators are 1-based
                     var count = meta.CountArrayItems(schemaNs, propName);
                     var array = new string[count];
-                    for (var i = 1; i <= count; ++i)
-                    {
+                    for (var i = 1; i <= count; i++)
                         array[i - 1] = meta.GetArrayItem(schemaNs, propName, i).Value;
-                    }
                     directory.Set(tagType, array);
                     break;
                 }
