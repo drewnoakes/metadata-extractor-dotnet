@@ -30,7 +30,7 @@ namespace MetadataExtractor.Formats.QuickTime
 {
     public static class QuicktimeMetadataReader
     {
-        private static readonly DateTime _epoch = new DateTime(1904, 1, 1);
+        private static readonly DateTimeOffset _epoch = new DateTimeOffset(1904, 1, 1, 0, 0, 0, new TimeSpan(0));
 
         public static
 #if NET35 || PORTABLE

@@ -167,22 +167,22 @@ namespace MetadataExtractor.Tests.Formats.Xmp
             Assert.Equal(new Rational(6965784, 1000000), _directory.GetRational(XmpDirectory.TagShutterSpeed));
         }
 
-        [Fact(Skip = "TODO fix XMP support for DateTime with offset")]
+        [Fact]
         public void TestExtract_OriginalDateTime()
         {
-            var actual = _directory.GetDateTime(XmpDirectory.TagDateTimeOriginal);
+            var actual = _directory.GetDateTimeOffset(XmpDirectory.TagDateTimeOriginal);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
-            Assert.Equal(DateTime.ParseExact("11:41:35 12 12 2010 +0000", "hh:mm:ss dd MM yyyy zzz", null), actual);
-            Assert.Equal(new DateTime(2010, 12, 12, 11, 41, 35), actual);
+            Assert.Equal(DateTimeOffset.ParseExact("11:41:35 12 12 2010 +0000", "hh:mm:ss dd MM yyyy zzz", null), actual);
+            Assert.Equal(new DateTimeOffset(2010, 12, 12, 11, 41, 35, new TimeSpan(0)), actual);
         }
 
-        [Fact(Skip = "TODO fix XMP support for DateTime with offset")]
+        [Fact]
         public void TestExtract_DigitizedDateTime()
         {
-            var actual = _directory.GetDateTime(XmpDirectory.TagDateTimeDigitized);
+            var actual = _directory.GetDateTimeOffset(XmpDirectory.TagDateTimeDigitized);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
-            Assert.Equal(DateTime.ParseExact("11:41:35 12 12 2010 +0000", "hh:mm:ss dd MM yyyy zzz", null), actual);
-            Assert.Equal(new DateTime(2010, 12, 12, 11, 41, 35), actual);
+            Assert.Equal(DateTimeOffset.ParseExact("11:41:35 12 12 2010 +0000", "hh:mm:ss dd MM yyyy zzz", null), actual);
+            Assert.Equal(new DateTimeOffset(2010, 12, 12, 11, 41, 35, new TimeSpan(0)), actual);
         }
 
         [Fact]

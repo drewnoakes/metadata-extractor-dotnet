@@ -211,11 +211,11 @@ namespace MetadataExtractor.Formats.Exif
 
         /// <summary>
         /// Parses values for <see cref="TagDateStamp"/> and <see cref="TagTimeStamp"/> to produce a single
-        /// <see cref="DateTime"/> value representing when this image was captured according to the GPS unit.
+        /// <see cref="DateTimeOffset"/> value representing when this image was captured according to the GPS unit.
         /// </summary>
-        public bool TryGetGpsDate(out DateTime date)
+        public bool TryGetGpsDate(out DateTimeOffset date)
         {
-            if (!this.TryGetDateTime(TagDateStamp, out date))
+            if (!this.TryGetDateTimeOffset(TagDateStamp, out date))
                 return false;
 
             var timeComponents = this.GetRationalArray(TagTimeStamp);
@@ -227,8 +227,6 @@ namespace MetadataExtractor.Formats.Exif
                 .AddHours(timeComponents[0].ToDouble())
                 .AddMinutes(timeComponents[1].ToDouble())
                 .AddSeconds(timeComponents[2].ToDouble());
-
-            date = DateTime.SpecifyKind(date, DateTimeKind.Utc);
 
             return true;
         }
