@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif.Makernotes;
 using MetadataExtractor.Formats.Iptc;
@@ -458,6 +459,12 @@ namespace MetadataExtractor.Formats.Exif
                 TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 14, makernoteOffset);
                 reader.IsMotorolaByteOrder = orderBefore;
             }
+            else if ("Reconyx".Equals(cameraMake, StringComparison.OrdinalIgnoreCase) || reader.GetUInt16(makernoteOffset) == ReconyxMakernoteDirectory.MakernoteVersion)
+            {
+                var directory = new ReconyxMakernoteDirectory();
+                Directories.Add(directory);
+                ProcessReconyxMakernote(directory, makernoteOffset, reader);
+            }
             else
             {
                 // The makernote is not comprehended by this library.
@@ -505,6 +512,58 @@ namespace MetadataExtractor.Formats.Exif
             {
                 directory.AddError("Error processing Kodak makernote data: " + ex.Message);
             }
+        }
+
+        private static void ProcessReconyxMakernote([NotNull] ReconyxMakernoteDirectory directory, int makernoteOffset, [NotNull] IndexedReader reader)
+        {
+            directory.Set(ReconyxMakernoteDirectory.TagMakernoteVersion, reader.GetUInt16(makernoteOffset));
+            ushort major = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagFirmwareVersion);
+            ushort minor = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagFirmwareVersion + 2);
+            ushort build = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagFirmwareVersion + 4);
+            directory.Set(ReconyxMakernoteDirectory.TagFirmwareVersion, new Version(major, minor, build));
+
+            directory.Set(ReconyxMakernoteDirectory.TagFirmwareDate,
+                          new ushort[]
+                          {
+                              reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagFirmwareDate),
+                              reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagFirmwareDate + 2)
+                          });
+            directory.Set(ReconyxMakernoteDirectory.TagTriggerMode, new string((char)reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagTriggerMode), 1));
+            directory.Set(ReconyxMakernoteDirectory.TagSequence, 
+                          new ushort[]
+                          {
+                              reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagSequence),
+                              reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagSequence + 2)
+                          });
+            directory.Set(ReconyxMakernoteDirectory.TagEventNumber, 
+                          new ushort[]
+                          {
+                              reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagEventNumber),
+                              reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagEventNumber + 2)
+                          });
+
+            ushort seconds = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagDateTimeOriginal);
+            ushort minutes = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagDateTimeOriginal + 2);
+            ushort hour = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagDateTimeOriginal + 4);
+            ushort month = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagDateTimeOriginal + 6);
+            ushort day = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagDateTimeOriginal + 8);
+            ushort year = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagDateTimeOriginal + 10);
+            directory.Set(ReconyxMakernoteDirectory.TagDateTimeOriginal, new DateTime(year, month, day, hour, minutes, seconds));
+
+            directory.Set(ReconyxMakernoteDirectory.TagMoonPhase, reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagMoonPhase));
+            directory.Set(ReconyxMakernoteDirectory.TagAmbientTemperatureFarenheit, reader.GetInt16(makernoteOffset + ReconyxMakernoteDirectory.TagAmbientTemperatureFarenheit));
+            directory.Set(ReconyxMakernoteDirectory.TagAmbientTemperature, reader.GetInt16(makernoteOffset + ReconyxMakernoteDirectory.TagAmbientTemperature));
+            directory.Set(ReconyxMakernoteDirectory.TagSerialNumber, reader.GetString(makernoteOffset + ReconyxMakernoteDirectory.TagSerialNumber, 28, Encoding.Unicode));
+            // two unread bytes: the serial number's terminating null
+
+            directory.Set(ReconyxMakernoteDirectory.TagContrast, reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagContrast));
+            directory.Set(ReconyxMakernoteDirectory.TagBrightness, reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagBrightness));
+            directory.Set(ReconyxMakernoteDirectory.TagSharpness, reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagSharpness));
+            directory.Set(ReconyxMakernoteDirectory.TagSaturation, reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagSaturation));
+            directory.Set(ReconyxMakernoteDirectory.TagInfraredIlluminator, reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagInfraredIlluminator));
+            directory.Set(ReconyxMakernoteDirectory.TagMotionSensitivity, reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagMotionSensitivity));
+            directory.Set(ReconyxMakernoteDirectory.TagBatteryVoltage, reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagBatteryVoltage) / 1000.0);
+            directory.Set(ReconyxMakernoteDirectory.TagUserLabel, reader.GetNullTerminatedString(makernoteOffset + ReconyxMakernoteDirectory.TagUserLabel, 44));
         }
     }
 }
