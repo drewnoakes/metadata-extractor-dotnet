@@ -38,7 +38,7 @@ namespace MetadataExtractor.Tools.FileProcessor
         public virtual void OnExtractionError(string filePath, Exception exception, TextWriter log)
         {
             _exceptionCount++;
-            log.Write("\t[{0}] {1}\n", exception.GetType().Name, filePath);
+            log.Write($"\t[{exception.GetType().Name}] {filePath}\n");
         }
 
         public virtual void OnExtractionSuccess(string filePath, IReadOnlyList<Directory> directories, string relativePath, TextWriter log)
@@ -53,20 +53,19 @@ namespace MetadataExtractor.Tools.FileProcessor
                     continue;
                 foreach (var error in directory.Errors)
                 {
-                    log.Write("\t[{0}] {1}\n", directory.Name, error);
+                    log.Write($"\t[{directory.Name}] {error}\n");
                     _errorCount++;
                 }
             }
         }
 
-        public void OnScanCompleted(TextWriter log)
+        public virtual void OnScanCompleted(TextWriter log)
         {
             if (_processedFileCount <= 0)
                 return;
 
             log.WriteLine(
-                "Processed {0:#,##0} files ({1:#,##0} bytes) with {2:#,##0} exceptions and {3:#,##0} file errors\n",
-                _processedFileCount, _processedByteCount, _exceptionCount, _errorCount);
+                $"Processed {_processedFileCount:#,##0} files ({_processedByteCount:#,##0} bytes) with {_exceptionCount:#,##0} exceptions and {_errorCount:#,##0} file errors\n");
         }
     }
 }
