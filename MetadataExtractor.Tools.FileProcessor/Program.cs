@@ -290,7 +290,7 @@ namespace MetadataExtractor.Tools.FileProcessor
 
                 if (System.IO.Directory.Exists(file))
                 {
-                    ProcessDirectory(file, handler, relativePath.Length == 0 ? entry : relativePath + "/" + entry, log);
+                    ProcessDirectory(file, handler, relativePath.Length == 0 ? new DirectoryInfo(entry).Name : relativePath + "/" + new DirectoryInfo(entry).Name, log);
                 }
                 else if (handler.ShouldProcess(file))
                 {
