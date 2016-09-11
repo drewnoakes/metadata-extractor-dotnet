@@ -50,6 +50,7 @@
     <Compile Include="BasicFileHandler.cs" />
     <Compile Include="FileHandlerBase.cs" />
     <Compile Include="IFileHandler.cs" />
+    <Compile Include="MarkdownTableOutputHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextFileOutputHandler.cs" />

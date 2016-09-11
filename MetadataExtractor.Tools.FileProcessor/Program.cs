@@ -189,7 +189,7 @@ namespace MetadataExtractor.Tools.FileProcessor
         }
 
         [NotNull]
-        private static string UrlEncode([NotNull] string name)
+        internal static string UrlEncode([NotNull] string name)
         {
             // Sufficient for now, it seems
             // TODO review http://stackoverflow.com/questions/3840762/how-do-you-urlencode-without-using-system-web
@@ -211,11 +211,11 @@ namespace MetadataExtractor.Tools.FileProcessor
                     // If "--text" is specified, write the discovered metadata into a sub-folder relative to the image
                     fileHandler = new TextFileOutputHandler();
                 }
-//                else if (arg == "--markdown")
-//                {
-//                    // If "--markdown" is specified, write a summary table in markdown format to standard out
-//                    fileHandler = new MarkdownTableOutputHandler();
-//                }
+                else if (arg == "--markdown")
+                {
+                    // If "--markdown" is specified, write a summary table in markdown format
+                    fileHandler = new MarkdownTableOutputHandler();
+                }
 //                else if (arg == "--unknown")
 //                {
 //                    // If "--unknown" is specified, write CSV tallying unknown tag counts
