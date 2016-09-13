@@ -60,6 +60,7 @@ namespace MetadataExtractor
     ///   <item><see cref="PcxMetadataReader"/> for PCX files</item>
     ///   <item><see cref="WebPMetadataReader"/> for WebP files</item>
     ///   <item><see cref="RafMetadataReader"/> for RAF files</item>
+    ///   <item><see cref="QuicktimeMetadataReader"/> for Quicktime files</item>
     /// </list>
     ///
     /// If you know the file type you're working with, you may use one of the above processors directly.
