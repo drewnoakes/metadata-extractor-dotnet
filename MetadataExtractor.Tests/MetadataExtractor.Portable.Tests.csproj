@@ -225,7 +225,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy $(ProjectDir)Data "$(TargetDir)Tests\Data\" /E /R /Y /I</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(ProjectDir)Data" "$(TargetDir)Tests\Data\" /E /R /Y /I</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

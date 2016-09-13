@@ -70,6 +70,44 @@ namespace MetadataExtractor
 
         #endregion
 
+        #region UInt16
+
+        /// <summary>Returns a tag's value as a <see cref="ushort"/>, or throws if conversion is not possible.</summary>
+        /// <remarks>
+        /// If the value is <see cref="IConvertible"/>, then that interface is used for conversion of the value.
+        /// If the value is an array of <see cref="IConvertible"/> having length one, then the single item is converted.
+        /// </remarks>
+        /// <exception cref="MetadataException">No value exists for <paramref name="tagType"/>, or the value is not convertible to the requested type.</exception>
+        public static ushort GetUInt16(this Directory directory, int tagType)
+        {
+            ushort value;
+            if (directory.TryGetUInt16(tagType, out value))
+                return value;
+
+            return ThrowValueNotPossible<ushort>(directory, tagType);
+        }
+
+        public static bool TryGetUInt16(this Directory directory, int tagType, out ushort value)
+        {
+            var convertible = GetConvertibleObject(directory, tagType);
+
+            if (convertible != null)
+            {
+                try
+                {
+                    value = convertible.ToUInt16(null);
+                    return true;
+                }
+                catch
+                { }
+            }
+
+            value = default(ushort);
+            return false;
+        }
+
+        #endregion
+
         #region Int32
 
         /// <summary>Returns a tag's value as an <see cref="int"/>, or throws if conversion is not possible.</summary>

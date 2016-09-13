@@ -102,6 +102,8 @@
     <Compile Include="Formats\Exif\makernotes\PanasonicMakernoteDirectory.cs" />
     <Compile Include="Formats\Exif\makernotes\PentaxMakernoteDescriptor.cs" />
     <Compile Include="Formats\Exif\makernotes\PentaxMakernoteDirectory.cs" />
+    <Compile Include="Formats\Exif\makernotes\ReconyxMakernoteDescriptor.cs" />
+    <Compile Include="Formats\Exif\makernotes\ReconyxMakernoteDirectory.cs" />
     <Compile Include="Formats\Exif\makernotes\RicohMakernoteDescriptor.cs" />
     <Compile Include="Formats\Exif\makernotes\RicohMakernoteDirectory.cs" />
     <Compile Include="Formats\Exif\makernotes\SanyoMakernoteDescriptor.cs" />
