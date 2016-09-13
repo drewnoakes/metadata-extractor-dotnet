@@ -41,7 +41,7 @@ namespace MetadataExtractor.Formats.QuickTime
         public const int TagWidth = 10;
         public const int TagHeight = 11;
 
-        public override string Name { get; } = "Quicktime Track Header";
+        public override string Name { get; } = "QuickTime Track Header";
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {

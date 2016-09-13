@@ -60,7 +60,7 @@ namespace MetadataExtractor
     ///   <item><see cref="PcxMetadataReader"/> for PCX files</item>
     ///   <item><see cref="WebPMetadataReader"/> for WebP files</item>
     ///   <item><see cref="RafMetadataReader"/> for RAF files</item>
-    ///   <item><see cref="QuicktimeMetadataReader"/> for Quicktime files</item>
+    ///   <item><see cref="QuickTimeMetadataReader"/> for QuickTime files</item>
     /// </list>
     ///
     /// If you know the file type you're working with, you may use one of the above processors directly.
@@ -116,7 +116,7 @@ namespace MetadataExtractor
                 case FileType.Raf:
                     return RafMetadataReader.ReadMetadata(stream);
                 case FileType.QuickTime:
-                    return QuicktimeMetadataReader.ReadMetadata(stream);
+                    return QuickTimeMetadataReader.ReadMetadata(stream);
             }
 
             throw new ImageProcessingException("File format is not supported");

@@ -27,7 +27,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace MetadataExtractor.Formats.QuickTime
 {
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    public sealed class QuicktimeMovieHeaderDirectory : Directory
+    public sealed class QuickTimeMovieHeaderDirectory : Directory
     {
         public const int TagVersion = 1;
         public const int TagFlags = 2;
@@ -46,7 +46,7 @@ namespace MetadataExtractor.Formats.QuickTime
         public const int TagCurrentTime = 15;
         public const int TagNextTrackId = 16;
 
-        public override string Name { get; } = "Quicktime Movie Header";
+        public override string Name { get; } = "QuickTime Movie Header";
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
@@ -68,9 +68,9 @@ namespace MetadataExtractor.Formats.QuickTime
             { TagNextTrackId,       "Next Track Id" }
         };
 
-        public QuicktimeMovieHeaderDirectory()
+        public QuickTimeMovieHeaderDirectory()
         {
-            SetDescriptor(new TagDescriptor<QuicktimeMovieHeaderDirectory>(this));
+            SetDescriptor(new TagDescriptor<QuickTimeMovieHeaderDirectory>(this));
         }
 
         protected override bool TryGetTagName(int tagType, out string tagName)

@@ -27,13 +27,13 @@ using System.Diagnostics.CodeAnalysis;
 namespace MetadataExtractor.Formats.QuickTime
 {
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    public sealed class QuicktimeFileTypeDirectory : Directory
+    public sealed class QuickTimeFileTypeDirectory : Directory
     {
         public const int TagMajorBrand = 1;
         public const int TagMinorVersion = 2;
         public const int TagCompatibleBrands = 3;
 
-        public override string Name { get; } = "Quicktime File Type";
+        public override string Name { get; } = "QuickTime File Type";
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
@@ -42,9 +42,9 @@ namespace MetadataExtractor.Formats.QuickTime
             { TagCompatibleBrands, "Compatible Brands" }
         };
 
-        public QuicktimeFileTypeDirectory()
+        public QuickTimeFileTypeDirectory()
         {
-            SetDescriptor(new TagDescriptor<QuicktimeFileTypeDirectory>(this));
+            SetDescriptor(new TagDescriptor<QuickTimeFileTypeDirectory>(this));
         }
 
         protected override bool TryGetTagName(int tagType, out string tagName)
