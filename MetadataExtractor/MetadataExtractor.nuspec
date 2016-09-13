@@ -31,7 +31,6 @@
     <tags>Metadata Exif IPTC XMP ICC Photoshop WebP PNG BMP ICO PCX JPEG TIFF PSD Photography QuickTime MOV MP4 M4V Video</tags>
     <dependencies>
       <dependency id="XmpCore" version="1.2.2" />
-      <dependency id="SharpZipLib" version="0.86.0" />
     </dependencies>
   </metadata>
   <files>
