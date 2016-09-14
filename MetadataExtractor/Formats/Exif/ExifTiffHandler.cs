@@ -459,7 +459,7 @@ namespace MetadataExtractor.Formats.Exif
                 TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 14, makernoteOffset);
                 reader.IsMotorolaByteOrder = orderBefore;
             }
-            else if ("Reconyx".Equals(cameraMake, StringComparison.OrdinalIgnoreCase) || reader.GetUInt16(makernoteOffset) == ReconyxMakernoteDirectory.MakernoteVersion)
+            else if ("Reconyx".Equals(cameraMake, StringComparison.OrdinalIgnoreCase) || reader.GetUInt16(makernoteOffset) == ReconyxMakernoteDirectory.HyperFireMakernoteVersion)
             {
                 var directory = new ReconyxMakernoteDirectory();
                 Directories.Add(directory);
@@ -517,17 +517,16 @@ namespace MetadataExtractor.Formats.Exif
         private static void ProcessReconyxMakernote([NotNull] ReconyxMakernoteDirectory directory, int makernoteOffset, [NotNull] IndexedReader reader)
         {
             directory.Set(ReconyxMakernoteDirectory.TagMakernoteVersion, reader.GetUInt16(makernoteOffset));
+
+            // revision and build are reversed from .NET ordering
             ushort major = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagFirmwareVersion);
             ushort minor = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagFirmwareVersion + 2);
-            ushort build = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagFirmwareVersion + 4);
-            directory.Set(ReconyxMakernoteDirectory.TagFirmwareVersion, new Version(major, minor, build));
+            ushort revision = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagFirmwareVersion + 4);
+            string buildYear = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagFirmwareVersion + 6).ToString("x4");
+            string buildDate = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagFirmwareVersion + 8).ToString("x4");
+            int build = int.Parse(buildYear + buildDate);
+            directory.Set(ReconyxMakernoteDirectory.TagFirmwareVersion, new Version(major, minor, revision, build));
 
-            directory.Set(ReconyxMakernoteDirectory.TagFirmwareDate,
-                          new ushort[]
-                          {
-                              reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagFirmwareDate),
-                              reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagFirmwareDate + 2)
-                          });
             directory.Set(ReconyxMakernoteDirectory.TagTriggerMode, new string((char)reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagTriggerMode), 1));
             directory.Set(ReconyxMakernoteDirectory.TagSequence,
                           new ushort[]
@@ -535,12 +534,10 @@ namespace MetadataExtractor.Formats.Exif
                               reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagSequence),
                               reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagSequence + 2)
                           });
-            directory.Set(ReconyxMakernoteDirectory.TagEventNumber,
-                          new ushort[]
-                          {
-                              reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagEventNumber),
-                              reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagEventNumber + 2)
-                          });
+
+            uint eventNumberHigh = (uint)reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagEventNumber);
+            uint eventNumberLow = (uint)reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagEventNumber + 2);
+            directory.Set(ReconyxMakernoteDirectory.TagEventNumber, (eventNumberHigh << 16) + eventNumberLow);
 
             ushort seconds = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagDateTimeOriginal);
             ushort minutes = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagDateTimeOriginal + 2);
