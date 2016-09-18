@@ -24,6 +24,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using MetadataExtractor.IO;
 using Xunit;
 
@@ -227,17 +228,17 @@ namespace MetadataExtractor.Tests.IO
         {
             var bytes = new byte[] { 0x41, 0x42, 0x43, 0x44, 0x00, 0x45, 0x46, 0x47 };
             var reader = CreateReader(bytes);
-            Assert.Equal(string.Empty, reader.GetString(0, 0));
-            Assert.Equal("A", reader.GetString(0, 1));
-            Assert.Equal("AB", reader.GetString(0, 2));
-            Assert.Equal("ABC", reader.GetString(0, 3));
-            Assert.Equal("ABCD", reader.GetString(0, 4));
-            Assert.Equal("ABCD\x0", reader.GetString(0, 5));
-            Assert.Equal("ABCD\x0000E", reader.GetString(0, 6));
-            Assert.Equal("BCD", reader.GetString(1, 3));
-            Assert.Equal("BCD\x0", reader.GetString(1, 4));
-            Assert.Equal("BCD\x0000E", reader.GetString(1, 5));
-            Assert.Equal("\x0000EF", reader.GetString(4, 3));
+            Assert.Equal(string.Empty, reader.GetString(0, 0, Encoding.UTF8));
+            Assert.Equal("A", reader.GetString(0, 1, Encoding.UTF8));
+            Assert.Equal("AB", reader.GetString(0, 2, Encoding.UTF8));
+            Assert.Equal("ABC", reader.GetString(0, 3, Encoding.UTF8));
+            Assert.Equal("ABCD", reader.GetString(0, 4, Encoding.UTF8));
+            Assert.Equal("ABCD\x0", reader.GetString(0, 5, Encoding.UTF8));
+            Assert.Equal("ABCD\x0000E", reader.GetString(0, 6, Encoding.UTF8));
+            Assert.Equal("BCD", reader.GetString(1, 3, Encoding.UTF8));
+            Assert.Equal("BCD\x0", reader.GetString(1, 4, Encoding.UTF8));
+            Assert.Equal("BCD\x0000E", reader.GetString(1, 5, Encoding.UTF8));
+            Assert.Equal("\x0000EF", reader.GetString(4, 3, Encoding.UTF8));
         }
 
         [Fact]

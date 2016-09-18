@@ -224,7 +224,7 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal(bytes.Length, expected.Length);
             for (var i = 0; i < bytes.Length; i++)
             {
-                Assert.Equal("ABCDEFG".Substring (0, i - 0), CreateReader(bytes).GetString(i));
+                Assert.Equal("ABCDEFG".Substring (0, i - 0), CreateReader(bytes).GetString(i, Encoding.UTF8));
             }
         }
 

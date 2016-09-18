@@ -23,6 +23,7 @@
 #endregion
 
 using System.IO;
+using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
@@ -60,13 +61,13 @@ namespace MetadataExtractor.Formats.Gif
 
             try
             {
-                var signature = reader.GetString(3);
+                var signature = reader.GetString(3, Encoding.UTF8);
                 if (signature != "GIF")
                 {
                     directory.AddError("Invalid GIF file signature");
                     return directory;
                 }
-                var version = reader.GetString(3);
+                var version = reader.GetString(3, Encoding.UTF8);
                 if (version != Gif87AVersionIdentifier && version != Gif89AVersionIdentifier)
                 {
                     directory.AddError("Unexpected GIF version");

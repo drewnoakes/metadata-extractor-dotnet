@@ -235,15 +235,15 @@ namespace MetadataExtractor.Formats.Exif
         {
             var cameraMake = Directories.OfType<ExifIfd0Directory>().FirstOrDefault()?.GetString(ExifDirectoryBase.TagMake);
 
-            var firstTwoChars = reader.GetString(makernoteOffset, 2);
-            var firstThreeChars = reader.GetString(makernoteOffset, 3);
-            var firstFourChars = reader.GetString(makernoteOffset, 4);
-            var firstFiveChars = reader.GetString(makernoteOffset, 5);
-            var firstSixChars = reader.GetString(makernoteOffset, 6);
-            var firstSevenChars = reader.GetString(makernoteOffset, 7);
-            var firstEightChars = reader.GetString(makernoteOffset, 8);
-            var firstTenChars = reader.GetString(makernoteOffset, 10);
-            var firstTwelveChars = reader.GetString(makernoteOffset, 12);
+            var firstTwoChars = reader.GetString(makernoteOffset, 2, Encoding.UTF8);
+            var firstThreeChars = reader.GetString(makernoteOffset, 3, Encoding.UTF8);
+            var firstFourChars = reader.GetString(makernoteOffset, 4, Encoding.UTF8);
+            var firstFiveChars = reader.GetString(makernoteOffset, 5, Encoding.UTF8);
+            var firstSixChars = reader.GetString(makernoteOffset, 6, Encoding.UTF8);
+            var firstSevenChars = reader.GetString(makernoteOffset, 7, Encoding.UTF8);
+            var firstEightChars = reader.GetString(makernoteOffset, 8, Encoding.UTF8);
+            var firstTenChars = reader.GetString(makernoteOffset, 10, Encoding.UTF8);
+            var firstTwelveChars = reader.GetString(makernoteOffset, 12, Encoding.UTF8);
 
             var byteOrderBefore = reader.IsMotorolaByteOrder;
 
@@ -390,7 +390,7 @@ namespace MetadataExtractor.Formats.Exif
                     return false;
                 }
             }
-            else if ("Panasonic\u0000\u0000\u0000" == reader.GetString(makernoteOffset, 12))
+            else if ("Panasonic\u0000\u0000\u0000" == reader.GetString(makernoteOffset, 12, Encoding.UTF8))
             {
                 // NON-Standard TIFF IFD Data using Panasonic Tags. There is no Next-IFD pointer after the IFD
                 // Offsets are relative to the start of the TIFF header at the beginning of the EXIF segment
@@ -481,7 +481,7 @@ namespace MetadataExtractor.Formats.Exif
             var dataOffset = tagValueOffset + 8;
             try
             {
-                directory.Set(KodakMakernoteDirectory.TagKodakModel, reader.GetString(dataOffset, 8));
+                directory.Set(KodakMakernoteDirectory.TagKodakModel, reader.GetString(dataOffset, 8, Encoding.UTF8));
                 directory.Set(KodakMakernoteDirectory.TagQuality, reader.GetByte(dataOffset + 9));
                 directory.Set(KodakMakernoteDirectory.TagBurstMode, reader.GetByte(dataOffset + 10));
                 directory.Set(KodakMakernoteDirectory.TagImageWidth, reader.GetUInt16(dataOffset + 12));

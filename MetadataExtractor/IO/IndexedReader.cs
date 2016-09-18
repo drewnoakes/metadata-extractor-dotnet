@@ -299,10 +299,6 @@ namespace MetadataExtractor.IO
 
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public string GetString(int index, int bytesRequested) => GetString(index, bytesRequested, Encoding.UTF8);
-
-        /// <exception cref="System.IO.IOException"/>
-        [NotNull]
         public string GetString(int index, int bytesRequested, [NotNull] Encoding encoding)
         {
             var bytes = GetBytes(index, bytesRequested);

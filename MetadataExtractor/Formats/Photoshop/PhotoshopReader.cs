@@ -96,7 +96,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 try
                 {
                     // 4 bytes for the signature ("8BIM", "PHUT", etc.)
-                    var signature = reader.GetString(4);
+                    var signature = reader.GetString(4, Encoding.UTF8);
                     pos += 4;
 
                     // 2 bytes for the resource identifier (tag type).
