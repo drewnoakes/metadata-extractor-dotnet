@@ -242,7 +242,7 @@ namespace MetadataExtractor.IO
         }
 
         /// <summary>
-        /// Creates a String from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.
+        /// Creates a <see cref="String"/> from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.
         /// </summary>
         /// <param name="maxLengthBytes">
         /// The maximum number of bytes to read.  If a <c>\0</c> byte is not reached within this limit,
@@ -260,14 +260,14 @@ namespace MetadataExtractor.IO
         }
 
         /// <summary>
-        /// Creates a String from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.
+        /// Creates a <see cref="StringValue"/> from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.
         /// </summary>
         /// <param name="maxLengthBytes">
         /// The maximum number of bytes to read.  If a <c>\0</c> byte is not reached within this limit,
         /// reading will stop and the string will be truncated to this length.
         /// </param>
         /// <param name="encoding">An optional string encoding to use when interpreting bytes.</param>
-        /// <returns>The read string as a <see cref="StringValue"/></returns>
+        /// <returns>The read string as a <see cref="StringValue"/>, excluding the null terminator.</returns>
         /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
         public StringValue GetNullTerminatedStringValue(int maxLengthBytes, Encoding encoding = null)
         {
@@ -283,8 +283,9 @@ namespace MetadataExtractor.IO
         /// The maximum number of bytes to read.  If a <c>\0</c> byte is not reached within this limit,
         /// the returned array will be <paramref name="maxLengthBytes"/> long.
         /// </param>
-        /// <returns>The read byte array.</returns>
+        /// <returns>The read byte array, excluding the null terminator.</returns>
         /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
+        [NotNull]
         public byte[] GetNullTerminatedBytes(int maxLengthBytes)
         {
             var buffer = new byte[maxLengthBytes];
