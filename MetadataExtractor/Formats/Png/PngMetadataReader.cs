@@ -117,17 +117,23 @@ namespace MetadataExtractor.Formats.Png
             return directories;
         }
 
+        /// <summary>
+        /// The PNG spec states that ISO_8859_1 (Latin-1) encoding should be used for:
+        /// <list type="bullet">
+        ///   <item>"tEXt" and "zTXt" chunks, both for keys and values (https://www.w3.org/TR/PNG/#11tEXt)</item>
+        ///   <item>"iCCP" chunks, for the profile name (https://www.w3.org/TR/PNG/#11iCCP)</item>
+        ///   <item>"sPLT" chunks, for the palette name (https://www.w3.org/TR/PNG/#11sPLT)</item>
+        /// </list>
+        /// Note that "iTXt" chunks use UTF-8 encoding (https://www.w3.org/TR/PNG/#11iTXt).
+        /// <para/>
+        /// For more guidance: http://www.w3.org/TR/PNG-Decoders.html#D.Text-chunk-processing
+        /// </summary>
+        private static readonly Encoding _latin1Encoding = Encoding.GetEncoding("ISO-8859-1");
+
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         private static IEnumerable<Directory> ProcessChunk([NotNull] PngChunk chunk)
         {
-            // For more guidance:
-            // http://www.w3.org/TR/PNG-Decoders.html#D.Text-chunk-processing
-            // http://www.libpng.org/pub/png/spec/1.2/PNG-Chunks.html#C.iCCP
-            // by spec, PNG is generally supposed to use this encoding
-            const string defaultEncodingName = "ISO-8859-1";
-            var defaultEncoding = Encoding.GetEncoding(defaultEncodingName);
-
             var chunkType = chunk.ChunkType;
             var bytes = chunk.Bytes;
 
@@ -219,9 +225,9 @@ namespace MetadataExtractor.Formats.Png
             else if (chunkType == PngChunkType.tEXt)
             {
                 var reader = new SequentialByteArrayReader(bytes);
-                var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(defaultEncoding);
+                var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(_latin1Encoding);
                 var bytesLeft = bytes.Length - keyword.Length - 1;
-                var value = reader.GetNullTerminatedStringValue(bytesLeft, defaultEncoding);
+                var value = reader.GetNullTerminatedStringValue(bytesLeft, _latin1Encoding);
 
                 var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, value) };
                 var directory = new PngDirectory(PngChunkType.iTXt);
@@ -231,14 +237,15 @@ namespace MetadataExtractor.Formats.Png
             else if (chunkType == PngChunkType.iTXt)
             {
                 var reader = new SequentialByteArrayReader(bytes);
-                var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(defaultEncoding);
+                var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(_latin1Encoding);
                 var compressionFlag = reader.GetSByte();
                 var compressionMethod = reader.GetSByte();
-                var languageTag = reader.GetNullTerminatedStringValue(bytes.Length, defaultEncoding);
 
-                var translatedKeyword = reader.GetNullTerminatedStringValue(bytes.Length, defaultEncoding);
+                // TODO we currently ignore languageTagBytes and translatedKeywordBytes
+                var languageTagBytes = reader.GetNullTerminatedBytes(bytes.Length);
+                var translatedKeywordBytes = reader.GetNullTerminatedBytes(bytes.Length);
 
-                var bytesLeft = bytes.Length - keyword.Length - 1 - 1 - 1 - languageTag.Bytes.Length - 1 - translatedKeyword.Bytes.Length - 1;
+                var bytesLeft = bytes.Length - keyword.Length - 1 - 1 - 1 - languageTagBytes.Length - 1 - translatedKeywordBytes.Length - 1;
                 byte[] textBytes = null;
                 if (compressionFlag == 0)
                 {
@@ -289,7 +296,7 @@ namespace MetadataExtractor.Formats.Png
                     }
                     else
                     {
-                        var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, new StringValue(textBytes, defaultEncoding)) };
+                        var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, new StringValue(textBytes, _latin1Encoding)) };
                         var directory = new PngDirectory(PngChunkType.iTXt);
                         directory.Set(PngDirectory.TagTextualData, textPairs);
                         yield return directory;
