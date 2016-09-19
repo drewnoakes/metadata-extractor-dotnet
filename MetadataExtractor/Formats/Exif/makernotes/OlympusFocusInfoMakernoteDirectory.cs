@@ -94,12 +94,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override string Name => "Olympus Focus Info";
 
-        public override void Set(int tagType, object value)
-        {
-            var bytes = value as byte[];
-            base.Set(tagType, value);
-        }
-
         protected override bool TryGetTagName(int tagType, out string tagName)
         {
             return _tagNameMap.TryGetValue(tagType, out tagName);
