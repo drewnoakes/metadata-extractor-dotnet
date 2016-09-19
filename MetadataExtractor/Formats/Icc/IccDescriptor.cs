@@ -278,14 +278,14 @@ namespace MetadataExtractor.Formats.Icc
             var res = string.Empty;
             for (var i = precision; i > 0; i--)
             {
-                var cour = unchecked((byte)(Math.Abs(rest % 10)));
+                var cour = unchecked((byte)Math.Abs(rest % 10));
                 rest /= 10;
                 if (res.Length > 0 || zeroes || cour != 0 || i == 1)
                     res = cour + res;
             }
 
             intPart += rest;
-            var isNegative = ((value < 0) && (intPart != 0 || restKept != 0));
+            var isNegative = (value < 0) && (intPart != 0 || restKept != 0);
             return (isNegative ? "-" : string.Empty) + intPart + "." + res;
         }
 

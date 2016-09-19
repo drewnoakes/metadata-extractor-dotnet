@@ -195,7 +195,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
             if (value == 0)
                 return "Auto";
-            var kelvin = ((value & 0x00FF0000) >> 8) | ((value & unchecked((int)(0xFF000000))) >> 24);
+            var kelvin = ((value & 0x00FF0000) >> 8) | ((value & unchecked((int)0xFF000000)) >> 24);
             return $"{kelvin} K";
         }
 

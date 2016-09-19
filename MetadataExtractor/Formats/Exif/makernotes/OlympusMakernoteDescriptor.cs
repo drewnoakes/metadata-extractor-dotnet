@@ -283,7 +283,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             long value;
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagExposureCompensation, out value)
-                ? $"{(value/3d - 2):0.##} EV"
+                ? $"{value/3d - 2:0.##} EV"
                 : null;
         }
 

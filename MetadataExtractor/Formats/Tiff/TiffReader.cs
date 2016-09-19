@@ -129,7 +129,7 @@ namespace MetadataExtractor.Formats.Tiff
                     reader.IsMotorolaByteOrder = !reader.IsMotorolaByteOrder;
                 }
 
-                var dirLength = (2 + (12 * dirTagCount) + 4);
+                var dirLength = 2 + 12*dirTagCount + 4;
                 if (dirLength + ifdOffset > reader.Length)
                 {
                     handler.Error("Illegally sized IFD");

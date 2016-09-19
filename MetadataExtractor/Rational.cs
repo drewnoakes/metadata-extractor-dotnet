@@ -237,7 +237,7 @@ namespace MetadataExtractor
         /// <returns>true if the simplification should be performed, otherwise false</returns>
         private bool TooComplexForSimplification()
         {
-            var maxPossibleCalculations = (((Math.Min(Denominator, Numerator) - 1)/5d) + 2);
+            var maxPossibleCalculations = (Math.Min(Denominator, Numerator) - 1)/5d + 2;
             const int maxSimplificationCalculations = 1000;
             return maxPossibleCalculations > maxSimplificationCalculations;
         }

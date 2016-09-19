@@ -90,7 +90,7 @@ namespace MetadataExtractor.Tests.IO
             reader = CreateReader(buffer);
             reader.IsMotorolaByteOrder = false;
             Assert.Equal(0x0100, reader.GetInt16());
-            Assert.Equal(unchecked((short)(0xFF7F)), reader.GetInt16());
+            Assert.Equal(unchecked((short)0xFF7F), reader.GetInt16());
         }
 
 
@@ -163,10 +163,10 @@ namespace MetadataExtractor.Tests.IO
         {
             var buffer = new byte[] { 0xFF, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07 };
             var reader = CreateReader(buffer);
-            Assert.Equal(unchecked((long)(0xFF00010203040506L)), (object)reader.GetInt64());
+            Assert.Equal(unchecked((long)0xFF00010203040506L), (object)reader.GetInt64());
             reader = CreateReader(buffer);
             reader.IsMotorolaByteOrder = false;
-            Assert.Equal(unchecked(0x06050403020100FFL), (object)reader.GetInt64());
+            Assert.Equal(0x06050403020100FFL, (object)reader.GetInt64());
         }
 
         [Fact]
@@ -192,7 +192,7 @@ namespace MetadataExtractor.Tests.IO
         [Fact]
         public void TestGetFloat64()
         {
-            const long nanBits = unchecked((long)(0xfff0000000000001L));
+            const long nanBits = unchecked((long)0xfff0000000000001L);
             Assert.True(double.IsNaN(BitConverter.Int64BitsToDouble(nanBits)));
             var buffer = new byte[] { 0xff, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01 };
             var reader = CreateReader(buffer);

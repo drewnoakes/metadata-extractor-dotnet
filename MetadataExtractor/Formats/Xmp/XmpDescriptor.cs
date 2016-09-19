@@ -106,14 +106,14 @@ namespace MetadataExtractor.Formats.Xmp
             // thanks also to Gli Blr for spotting this bug
             if (value <= 1)
             {
-                var apexPower = (float)(1 / (Math.Exp(value * Math.Log(2))));
+                var apexPower = (float)(1 / Math.Exp(value * Math.Log(2)));
                 var apexPower10 = (long)Math.Round(apexPower * 10.0);
                 var fApexPower = apexPower10 / 10.0f;
                 return $"{fApexPower} sec";
             }
             else
             {
-                var apexPower = (int)((Math.Exp(value * Math.Log(2))));
+                var apexPower = (int)Math.Exp(value * Math.Log(2));
                 return $"1/{apexPower} sec";
             }
         }

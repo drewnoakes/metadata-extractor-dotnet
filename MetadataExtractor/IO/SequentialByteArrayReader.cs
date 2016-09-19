@@ -72,7 +72,7 @@ namespace MetadataExtractor.IO
             if (_index + n > _bytes.Length)
                 throw new IOException("End of data reached.");
 
-            _index += unchecked((int)(n));
+            _index += unchecked((int)n);
         }
 
         public override bool TrySkip(long n)
@@ -80,7 +80,7 @@ namespace MetadataExtractor.IO
             if (n < 0)
                 throw new ArgumentException("n must be zero or greater.");
 
-            _index += unchecked((int)(n));
+            _index += unchecked((int)n);
 
             if (_index > _bytes.Length)
             {
