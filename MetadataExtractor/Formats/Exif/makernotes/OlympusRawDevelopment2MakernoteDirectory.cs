@@ -87,7 +87,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagRawDevAutoGradation, "Raw Dev Auto Gradation" },
             { TagRawDevPmNoiseFilter, "Raw Dev PM Noise Filter" },
             { TagRawDevArtFilter, "Raw Dev Art Filter" }
-    };
+        };
 
         public OlympusRawDevelopment2MakernoteDirectory()
         {

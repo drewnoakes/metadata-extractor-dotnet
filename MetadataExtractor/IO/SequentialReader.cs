@@ -60,9 +60,7 @@ namespace MetadataExtractor.IO
 
         /// <summary>Skips forward in the sequence.</summary>
         /// <remarks>
-        /// Skips forward in the sequence. If the sequence ends, an
-        /// <see cref="System.IO.IOException"/>
-        /// is thrown.
+        /// Skips forward in the sequence. If the sequence ends, an <see cref="System.IO.IOException"/> is thrown.
         /// </remarks>
         /// <param name="n">the number of byte to skip. Must be zero or greater.</param>
         /// <exception cref="System.IO.IOException">the end of the sequence is reached.</exception>
@@ -83,10 +81,7 @@ namespace MetadataExtractor.IO
         /// <summary>Returns a signed 8-bit int calculated from the next byte the sequence.</summary>
         /// <returns>the 8 bit int value, between 0x00 and 0xFF</returns>
         /// <exception cref="System.IO.IOException"/>
-        public sbyte GetSByte()
-        {
-            return unchecked((sbyte)GetByte());
-        }
+        public sbyte GetSByte() => unchecked((sbyte)GetByte());
 
         /// <summary>Returns an unsigned 16-bit int calculated from the next two bytes of the sequence.</summary>
         /// <returns>the 16 bit int value, between 0x0000 and 0xFFFF</returns>

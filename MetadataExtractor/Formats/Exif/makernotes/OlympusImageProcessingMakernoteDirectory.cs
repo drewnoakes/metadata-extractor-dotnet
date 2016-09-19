@@ -180,7 +180,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagFaceDetectFrameSize, "Face Detect Frame Size" },
             { TagFaceDetectFrameCrop, "Face Detect Frame Crop" },
             { TagCameraTemperature , "Camera Temperature" }
-    };
+        };
 
         public OlympusImageProcessingMakernoteDirectory()
         {

@@ -81,16 +81,10 @@ namespace MetadataExtractor
 
         #region Formatting
 
-        public override string ToString()
-        {
-            return ToString(Encoding ?? DefaultEncoding);
-        }
+        public override string ToString() => ToString(Encoding ?? DefaultEncoding);
 
         [NotNull]
-        public string ToString([NotNull] Encoding encoder)
-        {
-            return encoder.GetString(Bytes, 0, Bytes.Length);
-        }
+        public string ToString([NotNull] Encoding encoder) => encoder.GetString(Bytes, 0, Bytes.Length);
 
         #endregion
     }

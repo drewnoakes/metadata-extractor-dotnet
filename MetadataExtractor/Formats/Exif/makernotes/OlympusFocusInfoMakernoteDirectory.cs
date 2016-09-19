@@ -57,7 +57,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagInternalFlash = 0x1208;
         public const int TagManualFlash = 0x1209;
         public const int TagMacroLed = 0x120A;
-        
+
         public const int TagSensorTemperature = 0x1500;
 
         public const int TagImageStabilization = 0x1600;
@@ -85,7 +85,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagMacroLed, "Macro LED" },
             { TagSensorTemperature, "Sensor Temperature" },
             { TagImageStabilization, "Image Stabilization" }
-    };
+        };
 
         public OlympusFocusInfoMakernoteDirectory()
         {
