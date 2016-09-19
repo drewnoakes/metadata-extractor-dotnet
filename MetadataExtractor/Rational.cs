@@ -23,11 +23,11 @@
 #endregion
 
 using System;
+using JetBrains.Annotations;
 #if !PORTABLE
+using System.Globalization;
 using System.ComponentModel;
 #endif
-using System.Globalization;
-using JetBrains.Annotations;
 
 // TODO operator overloads
 
