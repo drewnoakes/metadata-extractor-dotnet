@@ -29,6 +29,7 @@ namespace MetadataExtractor
             Encoding = encoding;
         }
 
+        [NotNull]
         public byte[] Bytes { get; }
 
         [CanBeNull]
@@ -74,7 +75,7 @@ namespace MetadataExtractor
 
         ulong IConvertible.ToUInt64(IFormatProvider provider) => ulong.Parse(ToString());
 
-        object IConvertible.ToType(Type conversionType, IFormatProvider provider) => Convert.ChangeType(ToString(), conversionType, provider);
+        object IConvertible.ToType([NotNull] Type conversionType, IFormatProvider provider) => Convert.ChangeType(ToString(), conversionType, provider);
 
         #endregion
 
@@ -85,6 +86,7 @@ namespace MetadataExtractor
             return ToString(Encoding ?? DefaultEncoding);
         }
 
+        [NotNull]
         public string ToString([NotNull] Encoding encoder)
         {
             return encoder.GetString(Bytes, 0, Bytes.Length);

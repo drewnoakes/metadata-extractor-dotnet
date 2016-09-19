@@ -81,6 +81,7 @@ namespace MetadataExtractor.Formats.QuickTime
         /// <summary>
         /// Gets the string representation of this atom's type.
         /// </summary>
+        [NotNull]
         public string TypeString
         {
             get

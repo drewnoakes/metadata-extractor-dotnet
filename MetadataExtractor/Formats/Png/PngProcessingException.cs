@@ -53,7 +53,7 @@ namespace MetadataExtractor.Formats.Png
         }
 
 #if !PORTABLE
-        protected PngProcessingException(SerializationInfo info, StreamingContext context)
+        protected PngProcessingException([NotNull] SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

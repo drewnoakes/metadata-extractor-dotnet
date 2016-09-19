@@ -60,7 +60,7 @@ namespace MetadataExtractor.Util
         /// calling <see cref="SetDefaultValue"/>.
         /// </remarks>
         [CanBeNull]
-        public T Find(byte[] bytes)
+        public T Find([NotNull] byte[] bytes)
         {
             var node = _root;
             var value = node.Value;
@@ -75,7 +75,7 @@ namespace MetadataExtractor.Util
         }
 
         /// <summary>Store the given value at the specified path.</summary>
-        public void AddPath(T value, params byte[][] parts)
+        public void AddPath(T value, [NotNull] params byte[][] parts)
         {
             var depth = 0;
             var node = _root;

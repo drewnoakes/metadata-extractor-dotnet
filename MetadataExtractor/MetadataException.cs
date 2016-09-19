@@ -53,7 +53,7 @@ namespace MetadataExtractor
         }
 
 #if !PORTABLE
-        protected MetadataException(SerializationInfo info, StreamingContext context)
+        protected MetadataException([NotNull] SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

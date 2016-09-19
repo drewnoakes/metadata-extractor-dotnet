@@ -53,7 +53,7 @@ namespace MetadataExtractor.Formats.Riff
         }
 
 #if !PORTABLE
-        protected RiffProcessingException(SerializationInfo info, StreamingContext context)
+        protected RiffProcessingException([NotNull] SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

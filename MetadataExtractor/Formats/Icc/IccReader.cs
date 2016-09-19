@@ -56,6 +56,7 @@ namespace MetadataExtractor.Formats.Icc
             yield return JpegSegmentType.App2;
         }
 
+        [NotNull]
         public
 #if NET35 || PORTABLE
             IList<Directory>
@@ -94,6 +95,7 @@ namespace MetadataExtractor.Formats.Icc
             return new[] { Extract(new ByteArrayReader(buffer)) };
         }
 
+        [NotNull]
         public IccDirectory Extract([NotNull] IndexedReader reader)
         {
             // TODO review whether the 'tagPtr' values below really do require IndexedReader or whether SequentialReader may be used instead
@@ -204,7 +206,7 @@ namespace MetadataExtractor.Formats.Icc
             return Encoding.UTF8.GetString(b, 0, b.Length);
         }
 
-        private static bool IsSubarrayEqualTo<T>(T[] source, int sourceIndex, T[] pattern)
+        private static bool IsSubarrayEqualTo<T>([NotNull] T[] source, int sourceIndex, [NotNull] T[] pattern)
         {
             if (sourceIndex + pattern.Length >= source.Length)
                 return false;

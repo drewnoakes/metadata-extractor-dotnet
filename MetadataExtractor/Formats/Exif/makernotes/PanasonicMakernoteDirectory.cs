@@ -540,6 +540,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return ParseFaces(this.GetByteArray(TagFaceRecognitionInfo), 4, 20, 44);
         }
 
+        [NotNull]
         private static IEnumerable<Face> ParseFaces(byte[] bytes, int firstRecordOffset, int posOffset, int recordLength)
         {
             if (bytes == null)

@@ -89,7 +89,7 @@ namespace MetadataExtractor
         /// as a double.
         /// </summary>
         [CanBeNull, Pure]
-        public static double? DegreesMinutesSecondsToDecimal([NotNull] Rational degs, [NotNull] Rational mins, [NotNull] Rational secs, bool isNegative)
+        public static double? DegreesMinutesSecondsToDecimal(Rational degs, Rational mins, Rational secs, bool isNegative)
         {
             var value = Math.Abs(degs.ToDouble()) + mins.ToDouble()/60.0d + secs.ToDouble()/3600.0d;
             if (double.IsNaN(value))
@@ -103,7 +103,7 @@ namespace MetadataExtractor
 
         #region Equality and Hashing
 
-        private bool Equals(GeoLocation other) => Latitude.Equals(other.Latitude) &&
+        private bool Equals([NotNull] GeoLocation other) => Latitude.Equals(other.Latitude) &&
                                                   Longitude.Equals(other.Longitude);
 
         public override bool Equals(object obj)

@@ -65,6 +65,7 @@ namespace MetadataExtractor.Formats.Iptc
             yield return JpegSegmentType.AppD;
         }
 
+        [NotNull]
         public
 #if NET35 || PORTABLE
             IList<Directory>
@@ -87,6 +88,7 @@ namespace MetadataExtractor.Formats.Iptc
         /// <remarks>
         /// Note that IPTC data does not describe its own length, hence <paramref name="length"/> is required.
         /// </remarks>
+        [NotNull]
         public IptcDirectory Extract([NotNull] SequentialReader reader, long length)
         {
             var directory = new IptcDirectory();

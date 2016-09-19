@@ -27,6 +27,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.IO;
@@ -51,6 +52,7 @@ namespace MetadataExtractor.Formats.Exif
             yield return JpegSegmentType.App1;
         }
 
+        [NotNull]
         public
 #if NET35 || PORTABLE
             IList<Directory>
@@ -70,13 +72,14 @@ namespace MetadataExtractor.Formats.Exif
         /// <summary>
         /// Reads TIFF formatted Exif data a specified offset within a <see cref="IndexedReader"/>.
         /// </summary>
+        [NotNull]
         public
 #if NET35 || PORTABLE
             IList<Directory>
 #else
             IReadOnlyList<Directory>
 #endif
-            Extract(IndexedReader reader, int readerOffset = 0)
+            Extract([NotNull] IndexedReader reader, int readerOffset = 0)
         {
             var directories = new List<Directory>();
 

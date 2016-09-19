@@ -54,7 +54,7 @@ namespace MetadataExtractor.Formats.Tiff
         }
 
 #if !PORTABLE
-        protected TiffProcessingException(SerializationInfo info, StreamingContext context)
+        protected TiffProcessingException([NotNull] SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

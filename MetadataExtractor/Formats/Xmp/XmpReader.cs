@@ -78,6 +78,7 @@ namespace MetadataExtractor.Formats.Xmp
             yield return JpegSegmentType.App1;
         }
 
+        [NotNull]
         public
 #if NET35 || PORTABLE
             IList<Directory>
@@ -109,6 +110,7 @@ namespace MetadataExtractor.Formats.Xmp
         /// <remarks>
         /// The extraction is done with Adobe's XMPCore library.
         /// </remarks>
+        [NotNull]
         public XmpDirectory Extract([NotNull] byte[] xmpBytes)
         {
             var directory = new XmpDirectory();
@@ -133,7 +135,7 @@ namespace MetadataExtractor.Formats.Xmp
         //public XmpDirectory Extract([NotNull] string xmpString) => Extract(Encoding.UTF8.GetBytes(xmpString));
 
         /// <exception cref="XmpException"/>
-        private static void ProcessXmpTags(XmpDirectory directory, IXmpMeta xmpMeta)
+        private static void ProcessXmpTags([NotNull] XmpDirectory directory, [NotNull] IXmpMeta xmpMeta)
         {
             // store the XMPMeta object on the directory in case others wish to use it
             directory.SetXmpMeta(xmpMeta);

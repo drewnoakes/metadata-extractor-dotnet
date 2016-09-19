@@ -25,6 +25,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Jpeg
@@ -47,12 +48,14 @@ namespace MetadataExtractor.Formats.Jpeg
         public IList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
             => segments.Select(segmentBytes => Extract(segmentBytes, segmentType)).Cast<Directory>().ToList();
 #else
-        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+        [NotNull]
+        public IReadOnlyList<Directory> ReadJpegSegments([NotNull] IEnumerable<byte[]> segments, JpegSegmentType segmentType)
             => segments.Select(segmentBytes => Extract(segmentBytes, segmentType)).ToList();
 #endif
 
         /// <summary>Reads JPEG SOF values and returns them in a <see cref="JpegDirectory"/>.</summary>
-        public JpegDirectory Extract(byte[] segmentBytes, JpegSegmentType segmentType)
+        [NotNull]
+        public JpegDirectory Extract([NotNull] byte[] segmentBytes, JpegSegmentType segmentType)
         {
             var directory = new JpegDirectory();
 

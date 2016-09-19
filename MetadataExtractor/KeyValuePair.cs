@@ -32,7 +32,7 @@ namespace MetadataExtractor
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class KeyValuePair
     {
-        public KeyValuePair([NotNull] string key, [NotNull] StringValue value)
+        public KeyValuePair([NotNull] string key, StringValue value)
         {
             Key = key;
             Value = value;
@@ -41,7 +41,6 @@ namespace MetadataExtractor
         [NotNull]
         public string Key { get; }
 
-        [NotNull]
         public StringValue Value { get; }
     }
 }

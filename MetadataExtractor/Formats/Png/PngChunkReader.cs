@@ -36,6 +36,7 @@ namespace MetadataExtractor.Formats.Png
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
+        [NotNull]
         public IEnumerable<PngChunk> Extract([NotNull] SequentialReader reader, [CanBeNull] ICollection<PngChunkType> desiredChunkTypes)
         {
             //

@@ -57,6 +57,7 @@ namespace MetadataExtractor.Formats.Jpeg
         }
 
         /// <summary>Gets the set of JPEG segment type identifiers.</summary>
+        [NotNull]
         public IEnumerable<JpegSegmentType> GetSegmentTypes()
         {
             ICollection<JpegSegmentType> segmentTypes = new HashSet<JpegSegmentType>();

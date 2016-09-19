@@ -23,6 +23,7 @@
 #endregion
 
 using System.IO;
+using JetBrains.Annotations;
 #if !PORTABLE
 using System;
 using System.Runtime.Serialization;
@@ -49,6 +50,7 @@ namespace MetadataExtractor.IO
         {
         }
 
+        [NotNull]
         private static string GetMessage(int index, int bytesRequested, long bufferLength)
         {
             if (index < 0)
@@ -64,7 +66,7 @@ namespace MetadataExtractor.IO
         }
 
 #if !PORTABLE
-        protected BufferBoundsException(SerializationInfo info, StreamingContext context)
+        protected BufferBoundsException([NotNull] SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

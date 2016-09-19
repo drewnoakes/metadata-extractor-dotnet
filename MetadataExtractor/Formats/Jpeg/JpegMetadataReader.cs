@@ -99,6 +99,7 @@ namespace MetadataExtractor.Formats.Jpeg
 
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
+        [NotNull]
         public static
 #if NET35 || PORTABLE
             IList<Directory>
@@ -115,13 +116,14 @@ namespace MetadataExtractor.Formats.Jpeg
             return ProcessJpegSegmentData(readers, segmentData);
         }
 
+        [NotNull]
         public static
 #if NET35 || PORTABLE
             IList<Directory>
 #else
             IReadOnlyList<Directory>
 #endif
-            ProcessJpegSegmentData(IEnumerable<IJpegSegmentMetadataReader> readers, JpegSegmentData segmentData)
+            ProcessJpegSegmentData(IEnumerable<IJpegSegmentMetadataReader> readers, [NotNull] JpegSegmentData segmentData)
         {
             // Pass the appropriate byte arrays to each reader.
             return (from reader in readers

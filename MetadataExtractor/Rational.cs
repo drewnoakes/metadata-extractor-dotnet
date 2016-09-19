@@ -180,7 +180,6 @@ namespace MetadataExtractor
 
         /// <summary>Gets the reciprocal value of this object as a new <see cref="Rational"/>.</summary>
         /// <value>the reciprocal in a new object</value>
-        [NotNull]
         public Rational Reciprocal => new Rational(Denominator, Numerator);
 
         /// <summary>
@@ -292,7 +291,6 @@ namespace MetadataExtractor
         /// A simplified instance, or if the Rational could not be simplified,
         /// returns itself unchanged.
         /// </returns>
-        [NotNull]
         public Rational GetSimplifiedInstance()
         {
             if (TooComplexForSimplification())

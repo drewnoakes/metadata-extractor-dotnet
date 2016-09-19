@@ -31,7 +31,7 @@ namespace MetadataExtractor.Formats.Adobe
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class AdobeJpegDescriptor : TagDescriptor<AdobeJpegDirectory>
     {
-        public AdobeJpegDescriptor(AdobeJpegDirectory directory)
+        public AdobeJpegDescriptor([NotNull] AdobeJpegDirectory directory)
             : base(directory)
         {
         }

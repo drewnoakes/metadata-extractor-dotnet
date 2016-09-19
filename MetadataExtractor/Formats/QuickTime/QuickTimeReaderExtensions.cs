@@ -33,6 +33,7 @@ namespace MetadataExtractor.Formats.QuickTime
     /// </summary>
     public static class QuickTimeReaderExtensions
     {
+        [NotNull]
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         public static string Get4ccString([NotNull] this SequentialReader reader)
         {

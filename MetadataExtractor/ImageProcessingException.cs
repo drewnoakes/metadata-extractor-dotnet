@@ -53,7 +53,7 @@ namespace MetadataExtractor
         }
 
 #if !PORTABLE
-        protected ImageProcessingException(SerializationInfo info, StreamingContext context)
+        protected ImageProcessingException([NotNull] SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

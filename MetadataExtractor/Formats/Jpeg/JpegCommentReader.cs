@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -40,6 +41,7 @@ namespace MetadataExtractor.Formats.Jpeg
         }
 
         /// <summary>Reads JPEG comments, returning each in a <see cref="JpegCommentDirectory"/>.</summary>
+        [NotNull]
         public
 #if NET35 || PORTABLE
             IList<Directory>

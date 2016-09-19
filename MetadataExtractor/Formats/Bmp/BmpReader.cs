@@ -31,6 +31,7 @@ namespace MetadataExtractor.Formats.Bmp
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class BmpReader
     {
+        [NotNull]
         public BmpHeaderDirectory Extract([NotNull] SequentialReader reader)
         {
             var directory = new BmpHeaderDirectory();

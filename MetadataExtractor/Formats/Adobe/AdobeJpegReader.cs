@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 
@@ -44,6 +45,7 @@ namespace MetadataExtractor.Formats.Adobe
             yield return JpegSegmentType.AppE;
         }
 
+        [NotNull]
         public
 #if NET35 || PORTABLE
             IList<Directory>
@@ -61,7 +63,8 @@ namespace MetadataExtractor.Formats.Adobe
                 .ToList();
         }
 
-        public AdobeJpegDirectory Extract(SequentialReader reader)
+        [NotNull]
+        public AdobeJpegDirectory Extract([NotNull] SequentialReader reader)
         {
             reader.IsMotorolaByteOrder = false;
 

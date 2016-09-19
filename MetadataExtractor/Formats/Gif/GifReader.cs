@@ -36,6 +36,7 @@ namespace MetadataExtractor.Formats.Gif
 
         private const string Gif89AVersionIdentifier = "89a";
 
+        [NotNull]
         public GifHeaderDirectory Extract([NotNull] SequentialReader reader)
         {
             var directory = new GifHeaderDirectory();

@@ -65,7 +65,7 @@ namespace MetadataExtractor
 
         #region Equality and hashing
 
-        private bool Equals(Face other)
+        private bool Equals([NotNull] Face other)
         {
             return X == other.X && Y == other.Y && Width == other.Width && Height == other.Height && string.Equals(Name, other.Name) && Equals(Age, other.Age);
         }

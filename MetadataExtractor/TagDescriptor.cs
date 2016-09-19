@@ -290,8 +290,10 @@ namespace MetadataExtractor
             return null;
         }
 
+        [NotNull]
         protected static string GetFStopDescription(double fStop) => $"f/{fStop:0.0}";
 
+        [NotNull]
         protected static string GetFocalLengthDescription(double mm) => $"{mm:0.#} mm";
 
         [CanBeNull]

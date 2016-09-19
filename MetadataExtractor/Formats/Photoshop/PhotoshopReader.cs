@@ -54,6 +54,7 @@ namespace MetadataExtractor.Formats.Photoshop
             yield return JpegSegmentType.AppD;
         }
 
+        [NotNull]
         public
 #if NET35 || PORTABLE
             IList<Directory>
@@ -69,6 +70,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 .ToList();
         }
 
+        [NotNull]
         public
 #if NET35 || PORTABLE
             IList<Directory>

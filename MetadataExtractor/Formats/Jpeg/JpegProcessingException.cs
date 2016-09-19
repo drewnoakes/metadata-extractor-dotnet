@@ -53,7 +53,7 @@ namespace MetadataExtractor.Formats.Jpeg
         }
 
 #if !PORTABLE
-        protected JpegProcessingException(SerializationInfo info, StreamingContext context)
+        protected JpegProcessingException([NotNull] SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

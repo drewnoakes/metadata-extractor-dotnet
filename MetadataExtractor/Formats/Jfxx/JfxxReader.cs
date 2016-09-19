@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 
@@ -49,6 +50,7 @@ namespace MetadataExtractor.Formats.Jfxx
             yield return JpegSegmentType.App0;
         }
 
+        [NotNull]
         public
 #if NET35 || PORTABLE
             IList<Directory>
@@ -68,7 +70,8 @@ namespace MetadataExtractor.Formats.Jfxx
         }
 
         /// <summary>Reads JFXX values and returns them in an <see cref="JfxxDirectory"/>.</summary>
-        public JfxxDirectory Extract(IndexedReader reader)
+        [NotNull]
+        public JfxxDirectory Extract([NotNull] IndexedReader reader)
         {
             var directory = new JfxxDirectory();
 

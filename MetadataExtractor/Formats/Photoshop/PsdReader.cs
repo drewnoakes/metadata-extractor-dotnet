@@ -34,6 +34,7 @@ namespace MetadataExtractor.Formats.Photoshop
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PsdReader
     {
+        [NotNull]
         public
 #if NET35 || PORTABLE
             IList<Directory>

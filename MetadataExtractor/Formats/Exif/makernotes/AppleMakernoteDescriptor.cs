@@ -31,6 +31,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
+        [CanBeNull]
         private string GetHdrImageTypeDescription()
         {
             return GetIndexedDescription(AppleMakernoteDirectory.TagHdrImageType, 3, "HDR Image", "Original Image");

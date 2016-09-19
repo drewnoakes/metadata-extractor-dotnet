@@ -88,6 +88,7 @@ namespace MetadataExtractor
             return $"{Years:D4}:{Months:D2}:{Days:D2} {Hours:D2}:{Minutes:D2}:{Seconds:D2}";
         }
 
+        [NotNull]
         public string ToFriendlyString()
         {
             var result = new StringBuilder();
@@ -100,7 +101,7 @@ namespace MetadataExtractor
             return result.ToString();
         }
 
-        private static void AppendAgePart(StringBuilder result, int num, string singularName)
+        private static void AppendAgePart([NotNull] StringBuilder result, int num, string singularName)
         {
             if (num == 0)
                 return;
@@ -113,7 +114,7 @@ namespace MetadataExtractor
 
         #region Equality and hashing
 
-        private bool Equals(Age other)
+        private bool Equals([NotNull] Age other)
         {
             return Years == other.Years && Months == other.Months && Days == other.Days && Hours == other.Hours && Minutes == other.Minutes && Seconds == other.Seconds;
         }

@@ -354,6 +354,7 @@ namespace MetadataExtractor.IO
         /// </param>
         /// <returns>The read byte array.</returns>
         /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
+        [NotNull]
         public byte[] GetNullTerminatedBytes(int index, int maxLengthBytes)
         {
             var buffer = GetBytes(index, maxLengthBytes);

@@ -38,6 +38,7 @@ namespace MetadataExtractor.Formats.Ico
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class IcoReader
     {
+        [NotNull]
         public
 #if NET35 || PORTABLE
             IList<Directory>
