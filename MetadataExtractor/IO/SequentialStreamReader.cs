@@ -35,6 +35,8 @@ namespace MetadataExtractor.IO
         [NotNull]
         private readonly Stream _stream;
 
+        public override long Position => _stream.Position;
+
         public SequentialStreamReader([NotNull] Stream stream)
         {
             if (stream == null)

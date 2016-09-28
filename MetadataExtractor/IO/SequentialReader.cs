@@ -51,6 +51,8 @@ namespace MetadataExtractor.IO
         /// <value><c>true</c> for Motorola/big endian, <c>false</c> for Intel/little endian</value>
         public bool IsMotorolaByteOrder { set; get; } = true;
 
+        public abstract long Position { get; }
+
         /// <summary>Returns the required number of bytes from the sequence.</summary>
         /// <param name="count">The number of bytes to be returned</param>
         /// <returns>The requested bytes</returns>

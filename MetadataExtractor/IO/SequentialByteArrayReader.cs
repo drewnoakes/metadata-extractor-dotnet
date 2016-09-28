@@ -36,6 +36,8 @@ namespace MetadataExtractor.IO
 
         private int _index;
 
+        public override long Position => _index;
+
         public SequentialByteArrayReader([NotNull] byte[] bytes, int baseIndex = 0)
         {
             if (bytes == null)
