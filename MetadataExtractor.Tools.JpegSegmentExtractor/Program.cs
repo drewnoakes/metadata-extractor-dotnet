@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -103,11 +104,13 @@ namespace MetadataExtractor.Tools.JpegSegmentExtractor
 
         private static void PrintUsage()
         {
-            Console.Out.WriteLine("USAGE:\n");
-            Console.Out.WriteLine("\t{0} <filename> [<segment> ...]\n", Assembly.GetExecutingAssembly().GetName().Name);
+            Console.Out.WriteLine("USAGE:");
+            Console.Out.WriteLine();
+            Console.Out.WriteLine("    {0} <filename> [<segment> ...]", Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName));
+            Console.Out.WriteLine();
             Console.Out.Write("Where <segment> is zero or more of:");
             foreach (var segmentType in JpegSegmentTypeExtensions.CanContainMetadataTypes)
-                Console.Out.Write(" " + segmentType);
+                Console.Out.Write(" " + segmentType.ToString().ToUpper());
             Console.Out.WriteLine();
         }
     }
