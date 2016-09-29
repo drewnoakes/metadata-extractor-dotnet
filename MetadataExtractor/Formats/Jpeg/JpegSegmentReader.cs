@@ -25,23 +25,31 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
-    /// <summary>Performs read functions of JPEG files, returning specific file segments.</summary>
+    /// <summary>Parses the structure of JPEG data, returning contained segments.</summary>
     /// <remarks>
-    /// JPEG files are composed of a sequence of consecutive JPEG 'segments'. Each is identified by one of a set of byte
-    /// values, modelled in the <see cref="JpegSegmentType"/> enumeration. Use <see cref="ReadSegments(SequentialReader,ICollection{JpegSegmentType})"/>
-    /// to read out the some or all segments into a <see cref="JpegSegmentData"/> object, from which the raw JPEG segment byte arrays may be accessed.
+    /// JPEG files are composed of a sequence of consecutive JPEG segments. Each segment has a type <see cref="JpegSegmentType"/>.
+    /// A JPEG file can contain multiple segments having the same type.
+    /// <para />
+    /// Segments are returned in the order they appear in the file, however that order may vary from file to file.
+    /// <para />
+    /// Use <see cref="ReadSegments(SequentialReader,ICollection{JpegSegmentType})"/> to specific segment types,
+    /// or pass <c>null</c> to read all segments.
+    /// <para />
+    /// Note that SOS (start of scan) or EOI (end of image) segments are not returned by this class's methods.
     /// </remarks>
+    /// <seealso cref="JpegSegment"/>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class JpegSegmentReader
     {
 #if !PORTABLE
         /// <summary>
-        /// Processes the provided JPEG data, and extracts the specified JPEG segments into a <see cref="JpegSegmentData"/> object.
+        /// Walks the provided JPEG data, returning <see cref="JpegSegment"/> objects.
         /// </summary>
         /// <remarks>
         /// Will not return SOS (start of scan) or EOI (end of image) segments.
@@ -51,15 +59,15 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="IOException"/>
         [NotNull]
-        public static JpegSegmentData ReadSegments([NotNull] string filePath, [CanBeNull] ICollection<JpegSegmentType> segmentTypes)
+        public static IEnumerable<JpegSegment> ReadSegments([NotNull] string filePath, [CanBeNull] ICollection<JpegSegmentType> segmentTypes)
         {
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                return ReadSegments(new SequentialStreamReader(stream), segmentTypes);
+                return ReadSegments(new SequentialStreamReader(stream), segmentTypes).ToList();
         }
 #endif
 
         /// <summary>
-        /// Processes the provided JPEG data, and extracts the specified JPEG segments into a <see cref="JpegSegmentData"/> object.
+        /// Processes the provided JPEG data, and extracts the specified JPEG segments into a <see cref="JpegSegment"/> object.
         /// </summary>
         /// <remarks>
         /// Will not return SOS (start of scan) or EOI (end of image) segments.
@@ -69,7 +77,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="IOException"/>
         [NotNull]
-        public static JpegSegmentData ReadSegments([NotNull] SequentialReader reader, [CanBeNull] ICollection<JpegSegmentType> segmentTypes = null)
+        public static IEnumerable<JpegSegment> ReadSegments([NotNull] SequentialReader reader, [CanBeNull] ICollection<JpegSegmentType> segmentTypes = null)
         {
             // Must be big-endian
             Debug.Assert(reader.IsMotorolaByteOrder);
@@ -80,7 +88,6 @@ namespace MetadataExtractor.Formats.Jpeg
             if (magicNumber != 0xFFD8)
                 throw new JpegProcessingException($"JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x{magicNumber:X4}");
 
-            var segmentData = new JpegSegmentData();
             do
             {
                 // Find the segment marker. Markers are zero or more 0xFF bytes, followed
@@ -102,13 +109,13 @@ namespace MetadataExtractor.Formats.Jpeg
                     // The 'Start-Of-Scan' segment's length doesn't include the image data, instead would
                     // have to search for the two bytes: 0xFF 0xD9 (EOI).
                     // It comes last so simply return at this point
-                    return segmentData;
+                    yield break;
                 }
 
                 if (segmentType == JpegSegmentType.Eoi)
                 {
                     // the 'End-Of-Image' segment -- this should never be found in this fashion
-                    return segmentData;
+                    yield break;
                 }
 
                 // next 2-bytes are <segment-size>: [high-byte] [low-byte]
@@ -117,23 +124,23 @@ namespace MetadataExtractor.Formats.Jpeg
                 // segment length includes size bytes, so subtract two
                 segmentLength -= 2;
 
+                // TODO exception strings should end with periods
                 if (segmentLength < 0)
                     throw new JpegProcessingException("JPEG segment size would be less than zero");
 
                 // Check whether we are interested in this segment
                 if (segmentTypes == null || segmentTypes.Contains(segmentType))
                 {
+                    var segmentOffset = reader.Position;
                     var segmentBytes = reader.GetBytes(segmentLength);
                     Debug.Assert(segmentLength == segmentBytes.Length);
-                    segmentData.AddSegment(segmentType, segmentBytes);
+                    yield return new JpegSegment(segmentType, segmentBytes, segmentOffset);
                 }
                 else
                 {
                     // Some of the JPEG is truncated, so just return what data we've already gathered
                     if (!reader.TrySkip(segmentLength))
-                    {
-                        return segmentData;
-                    }
+                        yield break;
                 }
             }
             while (true);

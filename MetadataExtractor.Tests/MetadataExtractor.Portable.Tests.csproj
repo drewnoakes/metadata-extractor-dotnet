@@ -69,7 +69,6 @@
     <Compile Include="Formats\Exif\ExifReaderGremlinTest.cs" />
     <Compile Include="Formats\Iptc\IptcDirectoryTests.cs" />
     <Compile Include="Formats\Jpeg\JpegMetadataReaderTest.cs" />
-    <Compile Include="Formats\Jpeg\JpegSegmentDataTest.cs" />
     <Compile Include="Formats\Jpeg\JpegSegmentReaderTest.cs" />
     <Compile Include="Formats\Png\PngChunkReaderTest.cs" />
     <Compile Include="Formats\Png\PngChunkTypeTest.cs" />
