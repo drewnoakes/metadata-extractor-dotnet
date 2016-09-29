@@ -234,7 +234,7 @@ namespace MetadataExtractor
         }
 
         [CanBeNull]
-        protected string Get7BitStringFromBytes(int tagType)
+        protected string GetStringFrom7BitBytes(int tagType)
         {
             var bytes = Directory.GetByteArray(tagType);
             if (bytes == null)

@@ -640,7 +640,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetInternalSerialNumberDescription()
         {
-            return Get7BitStringFromBytes(PanasonicMakernoteDirectory.TagInternalSerialNumber);
+            return GetStringFrom7BitBytes(PanasonicMakernoteDirectory.TagInternalSerialNumber);
         }
 
         [CanBeNull]
