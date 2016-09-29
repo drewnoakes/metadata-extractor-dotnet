@@ -292,43 +292,43 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetCountryDescription()
         {
-            return GetAsciiStringFromBytes(PanasonicMakernoteDirectory.TagCountry);
+            return GetStringFromUtf8Bytes(PanasonicMakernoteDirectory.TagCountry);
         }
 
         [CanBeNull]
         public string GetStateDescription()
         {
-            return GetAsciiStringFromBytes(PanasonicMakernoteDirectory.TagState);
+            return GetStringFromUtf8Bytes(PanasonicMakernoteDirectory.TagState);
         }
 
         [CanBeNull]
         public string GetCityDescription()
         {
-            return GetAsciiStringFromBytes(PanasonicMakernoteDirectory.TagCity);
+            return GetStringFromUtf8Bytes(PanasonicMakernoteDirectory.TagCity);
         }
 
         [CanBeNull]
         public string GetLandmarkDescription()
         {
-            return GetAsciiStringFromBytes(PanasonicMakernoteDirectory.TagLandmark);
+            return GetStringFromUtf8Bytes(PanasonicMakernoteDirectory.TagLandmark);
         }
 
         [CanBeNull]
         public string GetTitleDescription()
         {
-            return GetAsciiStringFromBytes(PanasonicMakernoteDirectory.TagTitle);
+            return GetStringFromUtf8Bytes(PanasonicMakernoteDirectory.TagTitle);
         }
 
         [CanBeNull]
         public string GetBabyNameDescription()
         {
-            return GetAsciiStringFromBytes(PanasonicMakernoteDirectory.TagBabyName);
+            return GetStringFromUtf8Bytes(PanasonicMakernoteDirectory.TagBabyName);
         }
 
         [CanBeNull]
         public string GetLocationDescription()
         {
-            return GetAsciiStringFromBytes(PanasonicMakernoteDirectory.TagLocation);
+            return GetStringFromUtf8Bytes(PanasonicMakernoteDirectory.TagLocation);
         }
 
         [CanBeNull]

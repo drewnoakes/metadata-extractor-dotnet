@@ -253,7 +253,7 @@ namespace MetadataExtractor
         }
 
         [CanBeNull]
-        protected string GetAsciiStringFromBytes(int tag)
+        protected string GetStringFromUtf8Bytes(int tag)
         {
             var values = Directory.GetByteArray(tag);
             if (values == null)
@@ -261,12 +261,7 @@ namespace MetadataExtractor
 
             try
             {
-#if PORTABLE
-                var encoding = Encoding.UTF8;
-#else
-                var encoding = Encoding.ASCII;
-#endif
-                return encoding
+                return Encoding.UTF8
                     .GetString(values, 0, values.Length)
                     .Trim('\0', ' ', '\r', '\n', '\t');
             }
