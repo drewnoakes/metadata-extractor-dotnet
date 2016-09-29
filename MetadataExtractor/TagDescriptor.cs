@@ -88,6 +88,7 @@ namespace MetadataExtractor
         /// <param name="components">the four version values</param>
         /// <param name="majorDigits">the number of components to be</param>
         /// <returns>the version as a string of form "2.10" or null if the argument cannot be converted</returns>
+        [Pure]
         [CanBeNull]
         public static string ConvertBytesToVersionString([CanBeNull] int[] components, int majorDigits)
         {
@@ -109,6 +110,7 @@ namespace MetadataExtractor
             return version.ToString();
         }
 
+        [Pure]
         [CanBeNull]
         protected string GetVersionBytesDescription(int tagType, int majorDigits)
         {
@@ -116,12 +118,14 @@ namespace MetadataExtractor
             return values == null ? null : ConvertBytesToVersionString(values, majorDigits);
         }
 
+        [Pure]
         [CanBeNull]
         protected string GetIndexedDescription(int tagType, [NotNull] params string[] descriptions)
         {
             return GetIndexedDescription(tagType, 0, descriptions);
         }
 
+        [Pure]
         [CanBeNull]
         protected string GetIndexedDescription(int tagType, int baseIndex, [NotNull] params string[] descriptions)
         {
@@ -141,6 +145,7 @@ namespace MetadataExtractor
             return "Unknown (" + index + ")";
         }
 
+        [Pure]
         [CanBeNull]
         protected string GetByteLengthDescription(int tagType)
         {
@@ -150,6 +155,7 @@ namespace MetadataExtractor
             return $"({bytes.Length} byte{(bytes.Length == 1 ? string.Empty : "s")})";
         }
 
+        [Pure]
         [CanBeNull]
         protected string GetSimpleRational(int tagType)
         {
@@ -159,6 +165,7 @@ namespace MetadataExtractor
             return value.ToSimpleString();
         }
 
+        [Pure]
         [CanBeNull]
         protected string GetDecimalRational(int tagType, int decimalPlaces)
         {
@@ -168,6 +175,7 @@ namespace MetadataExtractor
             return string.Format("{0:F" + decimalPlaces + "}", value.ToDouble());
         }
 
+        [Pure]
         [CanBeNull]
         protected string GetFormattedInt(int tagType, [NotNull] string format)
         {
@@ -177,6 +185,7 @@ namespace MetadataExtractor
             return string.Format(format, value);
         }
 
+        [Pure]
         [CanBeNull]
         protected string GetFormattedString(int tagType, [NotNull] string format)
         {
@@ -186,6 +195,7 @@ namespace MetadataExtractor
             return string.Format(format, value);
         }
 
+        [Pure]
         [CanBeNull]
         protected string GetEpochTimeDescription(int tagType)
         {
@@ -197,6 +207,7 @@ namespace MetadataExtractor
         }
 
         /// <remarks>LSB first. Labels may be null, a String, or a String[2] with (low label,high label) values.</remarks>
+        [Pure]
         [CanBeNull]
         protected string GetBitFlagDescription(int tagType, [NotNull] params object[] labels)
         {
@@ -233,6 +244,7 @@ namespace MetadataExtractor
 #endif
         }
 
+        [Pure]
         [CanBeNull]
         protected string GetStringFrom7BitBytes(int tagType)
         {
@@ -252,6 +264,7 @@ namespace MetadataExtractor
             return Encoding.UTF8.GetString(bytes, 0, length);
         }
 
+        [Pure]
         [CanBeNull]
         protected string GetStringFromUtf8Bytes(int tag)
         {
@@ -271,6 +284,7 @@ namespace MetadataExtractor
             }
         }
 
+        [Pure]
         [CanBeNull]
         protected string GetRationalOrDoubleString(int tagType)
         {
@@ -285,12 +299,15 @@ namespace MetadataExtractor
             return null;
         }
 
+        [Pure]
         [NotNull]
         protected static string GetFStopDescription(double fStop) => $"f/{fStop:0.0}";
 
+        [Pure]
         [NotNull]
         protected static string GetFocalLengthDescription(double mm) => $"{mm:0.#} mm";
 
+        [Pure]
         [CanBeNull]
         protected string GetLensSpecificationDescription(int tagId)
         {
