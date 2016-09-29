@@ -127,7 +127,7 @@ namespace MetadataExtractor.Formats.Exif
                     PushDirectory(typeof(OlympusFocusInfoMakernoteDirectory));
                     return true;
                 }
-                if(tagId == OlympusMakernoteDirectory.TagMainInfo)
+                if (tagId == OlympusMakernoteDirectory.TagMainInfo)
                 {
                     PushDirectory(typeof(OlympusMakernoteDirectory));
                     return true;
@@ -529,13 +529,13 @@ namespace MetadataExtractor.Formats.Exif
                               reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagFirmwareDate + 2)
                           });
             directory.Set(ReconyxMakernoteDirectory.TagTriggerMode, new string((char)reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagTriggerMode), 1));
-            directory.Set(ReconyxMakernoteDirectory.TagSequence, 
+            directory.Set(ReconyxMakernoteDirectory.TagSequence,
                           new ushort[]
                           {
                               reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagSequence),
                               reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagSequence + 2)
                           });
-            directory.Set(ReconyxMakernoteDirectory.TagEventNumber, 
+            directory.Set(ReconyxMakernoteDirectory.TagEventNumber,
                           new ushort[]
                           {
                               reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagEventNumber),
