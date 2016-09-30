@@ -41,24 +41,13 @@ namespace MetadataExtractor.Formats.Pcx
             switch (tagType)
             {
                 case PcxDirectory.TagVersion:
-                {
                     return GetVersionDescription();
-                }
-
                 case PcxDirectory.TagColorPlanes:
-                {
                     return GetColorPlanesDescription();
-                }
-
                 case PcxDirectory.TagPaletteType:
-                {
                     return GetPaletteTypeDescription();
-                }
-
                 default:
-                {
                     return base.GetDescription(tagType);
-                }
             }
         }
 
@@ -67,8 +56,13 @@ namespace MetadataExtractor.Formats.Pcx
         {
             // Prior to v2.5 of PC Paintbrush, the PCX image file format was considered proprietary information
             // by ZSoft Corporation
-            return GetIndexedDescription(PcxDirectory.TagVersion, "2.5 with fixed EGA palette information", null, "2.8 with modifiable EGA palette information", "2.8 without palette information (default palette)", "PC Paintbrush for Windows", "3.0 or better"
-                );
+            return GetIndexedDescription(PcxDirectory.TagVersion,
+                "2.5 with fixed EGA palette information",
+                null,
+                "2.8 with modifiable EGA palette information",
+                "2.8 without palette information (default palette)",
+                "PC Paintbrush for Windows",
+                "3.0 or better");
         }
 
         [CanBeNull]
