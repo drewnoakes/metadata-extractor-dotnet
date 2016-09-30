@@ -79,6 +79,10 @@
     <Compile Include="Formats\Jpeg\JpegSegment.cs" />
     <Compile Include="Formats\Jpeg\JpegSegmentReader.cs" />
     <Compile Include="Formats\Jpeg\JpegSegmentType.cs" />
+    <Compile Include="Formats\Netpbm\NetpbmHeaderDescriptor.cs" />
+    <Compile Include="Formats\Netpbm\NetpbmHeaderDirectory.cs" />
+    <Compile Include="Formats\Netpbm\NetpbmMetadataReader.cs" />
+    <Compile Include="Formats\Netpbm\NetpbmReader.cs" />
     <Compile Include="Formats\Photoshop\DuckyDirectory.cs" />
     <Compile Include="Formats\Photoshop\DuckyReader.cs" />
     <Compile Include="Formats\QuickTime\QuicktimeFileTypeDirectory.cs" />

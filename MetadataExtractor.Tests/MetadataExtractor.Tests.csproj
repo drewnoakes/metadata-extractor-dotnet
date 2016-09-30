@@ -69,6 +69,7 @@
     <Compile Include="Formats\Iptc\IptcDirectoryTests.cs" />
     <Compile Include="Formats\Jpeg\JpegMetadataReaderTest.cs" />
     <Compile Include="Formats\Jpeg\JpegSegmentReaderTest.cs" />
+    <Compile Include="Formats\Netpbm\NetpbmReaderTest.cs" />
     <Compile Include="Formats\Png\PngChunkReaderTest.cs" />
     <Compile Include="Formats\Png\PngChunkTypeTest.cs" />
     <Compile Include="Formats\Png\PngMetadataReaderTest.cs" />

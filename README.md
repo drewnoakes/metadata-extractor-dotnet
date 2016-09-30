@@ -2,8 +2,6 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/90hfuleg8wj8r956?svg=true)](https://ci.appveyor.com/project/drewnoakes/metadata-extractor-dotnet)
 [![MetadataExtractor NuGet version](https://img.shields.io/nuget/v/MetadataExtractor.svg)](https://www.nuget.org/packages/MetadataExtractor/)
-[![Issue Stats](http://issuestats.com/github/drewnoakes/metadata-extractor-dotnet/badge/issue?style=flat)](http://issuestats.com/github/drewnoakes/metadata-extractor-dotnet)
-<!--[![MetadataExtractor download stats](https://img.shields.io/nuget/dt/MetadataExtractor.svg)](https://www.nuget.org/packages/MetadataExtractor/)-->
 
 _MetadataExtractor_ is a straightforward .NET library for reading metadata from image and movie files.
 
@@ -61,6 +59,7 @@ The library understands several formats of metadata, many of which may be presen
 * [ICC Profiles](http://en.wikipedia.org/wiki/ICC_profile)
 * [Photoshop](http://en.wikipedia.org/wiki/Photoshop) fields
 * [WebP](http://en.wikipedia.org/wiki/WebP) properties
+* [Netpbm](https://en.wikipedia.org/wiki/Netpbm_format) properties
 * [PNG](http://en.wikipedia.org/wiki/Portable_Network_Graphics) properties
 * [BMP](http://en.wikipedia.org/wiki/BMP_file_format) properties
 * [GIF](http://en.wikipedia.org/wiki/Graphics_Interchange_Format) properties
@@ -78,6 +77,7 @@ It will process files of type:
 * GIF
 * ICO
 * PCX
+* Netpbm
 * Camera Raw
   * NEF (Nikon)
   * CR2 (Canon)

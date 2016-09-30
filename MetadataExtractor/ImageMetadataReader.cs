@@ -32,6 +32,7 @@ using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Gif;
 using MetadataExtractor.Formats.Ico;
 using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.Formats.Netpbm;
 using MetadataExtractor.Formats.Pcx;
 using MetadataExtractor.Formats.Photoshop;
 using MetadataExtractor.Formats.Png;
@@ -57,6 +58,7 @@ namespace MetadataExtractor
     ///   <item><see cref="BmpMetadataReader"/> for BMP files</item>
     ///   <item><see cref="GifMetadataReader"/> for GIF files</item>
     ///   <item><see cref="IcoMetadataReader"/> for ICO files</item>
+    ///   <item><see cref="NetpbmMetadataReader"/> for Netpbm files (PPM, PGM, PBM, PPM)</item>
     ///   <item><see cref="PcxMetadataReader"/> for PCX files</item>
     ///   <item><see cref="WebPMetadataReader"/> for WebP files</item>
     ///   <item><see cref="RafMetadataReader"/> for RAF files</item>
@@ -117,6 +119,8 @@ namespace MetadataExtractor
                     return RafMetadataReader.ReadMetadata(stream);
                 case FileType.QuickTime:
                     return QuickTimeMetadataReader.ReadMetadata(stream);
+                case FileType.Netpbm:
+                    return new[] { NetpbmMetadataReader.ReadMetadata(stream) };
             }
 
             throw new ImageProcessingException("File format is not supported");

@@ -148,6 +148,10 @@
     <Compile Include="Formats\Jpeg\JpegSegment.cs" />
     <Compile Include="Formats\Jpeg\JpegSegmentReader.cs" />
     <Compile Include="Formats\Jpeg\JpegSegmentType.cs" />
+    <Compile Include="Formats\Netpbm\NetpbmHeaderDescriptor.cs" />
+    <Compile Include="Formats\Netpbm\NetpbmHeaderDirectory.cs" />
+    <Compile Include="Formats\Netpbm\NetpbmMetadataReader.cs" />
+    <Compile Include="Formats\Netpbm\NetpbmReader.cs" />
     <Compile Include="Formats\Pcx\PcxDescriptor.cs" />
     <Compile Include="Formats\Pcx\PcxDirectory.cs" />
     <Compile Include="Formats\Pcx\PcxMetadataReader.cs" />

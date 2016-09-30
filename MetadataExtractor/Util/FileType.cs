@@ -79,6 +79,9 @@ namespace MetadataExtractor.Util
         Rw2,
 
         /// <summary>QuickTime (mov) format video.</summary>
-        QuickTime
+        QuickTime,
+
+        /// <summary>Netpbm family of image formats.</summary>
+        Netpbm
     }
 }

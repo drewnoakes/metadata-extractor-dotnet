@@ -52,6 +52,13 @@ namespace MetadataExtractor.Util
             _root.AddPath(FileType.Gif, Encoding.UTF8.GetBytes("GIF87a"));
             _root.AddPath(FileType.Gif, Encoding.UTF8.GetBytes("GIF89a"));
             _root.AddPath(FileType.Ico, new byte[] { 0x00, 0x00, 0x01, 0x00 });
+            _root.AddPath(FileType.Netpbm, Encoding.UTF8.GetBytes("P1")); // ASCII B&W
+            _root.AddPath(FileType.Netpbm, Encoding.UTF8.GetBytes("P2")); // ASCII greyscale
+            _root.AddPath(FileType.Netpbm, Encoding.UTF8.GetBytes("P3")); // ASCII RGB
+            _root.AddPath(FileType.Netpbm, Encoding.UTF8.GetBytes("P4")); // RAW B&W
+            _root.AddPath(FileType.Netpbm, Encoding.UTF8.GetBytes("P5")); // RAW greyscale
+            _root.AddPath(FileType.Netpbm, Encoding.UTF8.GetBytes("P6")); // RAW RGB
+            _root.AddPath(FileType.Netpbm, Encoding.UTF8.GetBytes("P7")); // PAM
             _root.AddPath(FileType.Pcx, new byte[] { 0x0A, 0x00, 0x01 });
             // multiple PCX versions, explicitly listed
             _root.AddPath(FileType.Pcx, new byte[] { 0x0A, 0x02, 0x01 });
