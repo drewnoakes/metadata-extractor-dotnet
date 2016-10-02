@@ -241,10 +241,6 @@ namespace MetadataExtractor.Formats.Png
                 var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(_latin1Encoding);
                 var compressionMethod = reader.GetSByte();
 
-                // TODO we currently ignore languageTagBytes and translatedKeywordBytes
-                var languageTagBytes = reader.GetNullTerminatedBytes(bytes.Length);
-                var translatedKeywordBytes = reader.GetNullTerminatedBytes(bytes.Length);
-
                 var bytesLeft = bytes.Length - keyword.Length - 1-1-1-1;
                 byte[] textBytes = null;
                 if (compressionMethod == 0)
