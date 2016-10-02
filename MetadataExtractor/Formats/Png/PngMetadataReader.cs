@@ -241,7 +241,7 @@ namespace MetadataExtractor.Formats.Png
                 var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(_latin1Encoding);
                 var compressionMethod = reader.GetSByte();
 
-                var bytesLeft = bytes.Length - keyword.Length - 1-1-1-1;
+                var bytesLeft = bytes.Length - keyword.Length - 1 - 1 - 1 - 1;
                 byte[] textBytes = null;
                 if (compressionMethod == 0)
                 {
@@ -251,14 +251,14 @@ namespace MetadataExtractor.Formats.Png
 #if !NET35
                         inflaterStream.CopyTo(decompStream);
 #else
-                            byte[] buffer = new byte[256];
-                            int count;
-                            int totalBytes = 0;
-                            while ((count = inflaterStream.Read(buffer, 0, 256)) > 0)
-                            {
-                                decompStream.Write(buffer, 0, count);
-                                totalBytes += count;
-                            }
+                        byte[] buffer = new byte[256];
+                        int count;
+                        int totalBytes = 0;
+                        while ((count = inflaterStream.Read(buffer, 0, 256)) > 0)
+                        {
+                            decompStream.Write(buffer, 0, count);
+                            totalBytes += count;
+                        }
 #endif
                         textBytes = decompStream.ToArray();
                     }
