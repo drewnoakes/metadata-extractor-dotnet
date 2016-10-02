@@ -8,8 +8,8 @@ using System.Reflection;
 
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("1.4.0.0")]
-[assembly: AssemblyFileVersion("1.4.0.0")]
+[assembly: AssemblyVersion("1.5.2.0")]
+[assembly: AssemblyFileVersion("1.5.2.0")]
 
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
