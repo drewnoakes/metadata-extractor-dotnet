@@ -269,7 +269,7 @@ namespace MetadataExtractor.Formats.Png
                 }
                 else
                 {
-                    var directory = new PngDirectory(PngChunkType.iTXt);
+                    var directory = new PngDirectory(PngChunkType.zTXt);
                     directory.AddError("Invalid compression method value");
                     yield return directory;
                 }
@@ -283,7 +283,7 @@ namespace MetadataExtractor.Formats.Png
                     else
                     {
                         var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, new StringValue(textBytes, _latin1Encoding)) };
-                        var directory = new PngDirectory(PngChunkType.iTXt);
+                        var directory = new PngDirectory(PngChunkType.zTXt);
                         directory.Set(PngDirectory.TagTextualData, textPairs);
                         yield return directory;
                     }
