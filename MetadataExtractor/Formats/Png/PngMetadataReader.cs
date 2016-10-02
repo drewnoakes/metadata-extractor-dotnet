@@ -58,6 +58,7 @@ namespace MetadataExtractor.Formats.Png
             PngChunkType.iCCP,
             PngChunkType.bKGD,
             PngChunkType.tEXt,
+            PngChunkType.zTXt,
             PngChunkType.iTXt,
             PngChunkType.tIME,
             PngChunkType.pHYs,
@@ -233,6 +234,60 @@ namespace MetadataExtractor.Formats.Png
                 var directory = new PngDirectory(PngChunkType.iTXt);
                 directory.Set(PngDirectory.TagTextualData, textPairs);
                 yield return directory;
+            }
+            else if (chunkType == PngChunkType.zTXt)
+            {
+                var reader = new SequentialByteArrayReader(bytes);
+                var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(_latin1Encoding);
+                var compressionMethod = reader.GetSByte();
+
+                // TODO we currently ignore languageTagBytes and translatedKeywordBytes
+                var languageTagBytes = reader.GetNullTerminatedBytes(bytes.Length);
+                var translatedKeywordBytes = reader.GetNullTerminatedBytes(bytes.Length);
+
+                var bytesLeft = bytes.Length - keyword.Length - 1-1-1-1;
+                byte[] textBytes = null;
+                if (compressionMethod == 0)
+                {
+                    using (var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress))
+                    using (var decompStream = new MemoryStream())
+                    {
+#if !NET35
+                        inflaterStream.CopyTo(decompStream);
+#else
+                            byte[] buffer = new byte[256];
+                            int count;
+                            int totalBytes = 0;
+                            while ((count = inflaterStream.Read(buffer, 0, 256)) > 0)
+                            {
+                                decompStream.Write(buffer, 0, count);
+                                totalBytes += count;
+                            }
+#endif
+                        textBytes = decompStream.ToArray();
+                    }
+                }
+                else
+                {
+                    var directory = new PngDirectory(PngChunkType.iTXt);
+                    directory.AddError("Invalid compression method value");
+                    yield return directory;
+                }
+                if (textBytes != null)
+                {
+                    if (keyword == "XML:com.adobe.xmp")
+                    {
+                        // NOTE in testing images, the XMP has parsed successfully, but we are not extracting tags from it as necessary
+                        yield return new XmpReader().Extract(textBytes);
+                    }
+                    else
+                    {
+                        var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, new StringValue(textBytes, _latin1Encoding)) };
+                        var directory = new PngDirectory(PngChunkType.iTXt);
+                        directory.Set(PngDirectory.TagTextualData, textPairs);
+                        yield return directory;
+                    }
+                }
             }
             else if (chunkType == PngChunkType.iTXt)
             {
