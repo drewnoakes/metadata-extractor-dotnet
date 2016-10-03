@@ -34,13 +34,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     public class ReconyxMakernoteDirectory : Directory
     {
         /// <summary>
-        /// Version number used for identifying makernotes from Reconyx v3 firmware.  May be different in v4.
+        /// Version number used for identifying makernotes from Reconyx HyperFire cameras.  May also apply to some UltraFire models.
         /// </summary>
-        public static readonly ushort MakernoteVersion = 61697;
+        public static readonly ushort HyperFireMakernoteVersion = 61697;
 
         public const int TagMakernoteVersion = 0;
         public const int TagFirmwareVersion = 2;
-        public const int TagFirmwareDate = 8;
         public const int TagTriggerMode = 12;
         public const int TagSequence = 14;
         public const int TagEventNumber = 18;
@@ -62,7 +61,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
              { TagMakernoteVersion, "Makernote Version" },
              { TagFirmwareVersion, "Firmware Version" },
-             { TagFirmwareDate, "Firmware Date" },
              { TagTriggerMode, "Trigger Mode" },
              { TagSequence, "Sequence" },
              { TagEventNumber, "Event Number" },

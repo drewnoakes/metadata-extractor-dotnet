@@ -48,17 +48,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case ReconyxMakernoteDirectory.TagFirmwareVersion:
                     // invokes Version.ToString()
                     return Directory.GetString(tagType);
-                case ReconyxMakernoteDirectory.TagFirmwareDate:
-                    int[] firmwareDate = Directory.GetInt32Array(tagType);
-                    return string.Format("{0} {1}", firmwareDate[0], firmwareDate[1]);
                 case ReconyxMakernoteDirectory.TagTriggerMode:
                     return Directory.GetString(tagType);
                 case ReconyxMakernoteDirectory.TagSequence:
                     int[] sequence = Directory.GetInt32Array(tagType);
                     return string.Format("{0}/{1}", sequence[0], sequence[1]);
                 case ReconyxMakernoteDirectory.TagEventNumber:
-                    int[] eventNumber = Directory.GetInt32Array(tagType);
-                    return string.Format("{0} {1}", eventNumber[0], eventNumber[1]);
+                    return Directory.GetUInt32(tagType).ToString();
                 case ReconyxMakernoteDirectory.TagMotionSensitivity:
                     return Directory.GetUInt16(tagType).ToString();
                 case ReconyxMakernoteDirectory.TagBatteryVoltage:
@@ -66,7 +62,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case ReconyxMakernoteDirectory.TagDateTimeOriginal:
                     return Directory.GetDateTime(tagType).ToString("yyyy:MM:dd HH:mm:ss");
                 case ReconyxMakernoteDirectory.TagMoonPhase:
-                    return GetIndexedDescription(tagType, "New", "New Crescent", "First Quarter", "Waxing Gibbous", "Full", "Waning Gibbous", "Last Quarter", "Old Crescent");
+                    return GetIndexedDescription(tagType, "New", "Waxing Crescent", "First Quarter", "Waxing Gibbous", "Full", "Waning Gibbous", "Last Quarter", "Waning Crescent");
                 case ReconyxMakernoteDirectory.TagAmbientTemperatureFarenheit:
                 case ReconyxMakernoteDirectory.TagAmbientTemperature:
                     return Directory.GetInt16(tagType).ToString();
