@@ -35,7 +35,7 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <author>Darrell Silver http://www.darrellsilver.com</author>
     public sealed class JpegReader : IJpegSegmentMetadataReader
     {
-        IEnumerable<JpegSegmentType> IJpegSegmentMetadataReader.GetSegmentTypes() => new []
+        IEnumerable<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[]
         {
             // NOTE that some SOFn values do not exist
             JpegSegmentType.Sof0, JpegSegmentType.Sof1, JpegSegmentType.Sof2, JpegSegmentType.Sof3,

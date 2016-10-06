@@ -111,7 +111,7 @@ namespace MetadataExtractor.Formats.Jpeg
             if (readers == null)
                 readers = _allReaders;
 
-            var segmentTypes = new HashSet<JpegSegmentType>(readers.SelectMany(reader => reader.GetSegmentTypes()));
+            var segmentTypes = new HashSet<JpegSegmentType>(readers.SelectMany(reader => reader.SegmentTypes));
             var segments = JpegSegmentReader.ReadSegments(new SequentialStreamReader(stream), segmentTypes);
             return ProcessJpegSegments(readers, segments);
         }
@@ -129,7 +129,7 @@ namespace MetadataExtractor.Formats.Jpeg
 
             // Pass the appropriate byte arrays to each reader.
             return (from reader in readers
-                    from segmentType in reader.GetSegmentTypes()
+                    from segmentType in reader.SegmentTypes
                     let segmentsOfType = segmentLookup[segmentType]
                     from directory in reader.ReadJpegSegments(segmentsOfType.Select(s => s.Bytes), segmentType)
                     select directory)

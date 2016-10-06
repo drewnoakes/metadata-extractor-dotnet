@@ -47,9 +47,9 @@ namespace MetadataExtractor.Formats.Exif
 
         public bool StoreThumbnailBytes { get; set; } = true;
 
-        IEnumerable<JpegSegmentType> IJpegSegmentMetadataReader.GetSegmentTypes()
+        IEnumerable<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes
         {
-            yield return JpegSegmentType.App1;
+            get { yield return JpegSegmentType.App1; }
         }
 
         [NotNull]

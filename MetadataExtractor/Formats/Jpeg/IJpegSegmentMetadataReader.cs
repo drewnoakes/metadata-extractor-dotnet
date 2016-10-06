@@ -32,7 +32,7 @@ namespace MetadataExtractor.Formats.Jpeg
     {
         /// <summary>Gets the set of JPEG segment types that this reader is interested in.</summary>
         [NotNull]
-        IEnumerable<JpegSegmentType> GetSegmentTypes();
+        IEnumerable<JpegSegmentType> SegmentTypes { get; }
 
         /// <summary>Extracts metadata from all instances of a particular JPEG segment type.</summary>
         /// <param name="segments">A sequence of byte arrays from which the metadata should be extracted. These are in the order encountered in the original file.</param>

@@ -40,9 +40,9 @@ namespace MetadataExtractor.Formats.Adobe
     {
         private const string Preamble = "Adobe";
 
-        IEnumerable<JpegSegmentType> IJpegSegmentMetadataReader.GetSegmentTypes()
+        IEnumerable<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes
         {
-            yield return JpegSegmentType.AppE;
+            get { yield return JpegSegmentType.AppE; }
         }
 
         [NotNull]

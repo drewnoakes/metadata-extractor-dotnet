@@ -38,9 +38,9 @@ namespace MetadataExtractor.Formats.Photoshop
     {
         private const string Preamble = "Ducky";
 
-        IEnumerable<JpegSegmentType> IJpegSegmentMetadataReader.GetSegmentTypes()
+        IEnumerable<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes
         {
-            yield return JpegSegmentType.AppC;
+            get { yield return JpegSegmentType.AppC; }
         }
 
         [NotNull]
