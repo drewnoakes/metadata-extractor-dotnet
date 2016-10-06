@@ -45,7 +45,7 @@ namespace MetadataExtractor.Formats.Jfif
     {
         private const string Preamble = "JFIF";
 
-        public IEnumerable<JpegSegmentType> GetSegmentTypes()
+        IEnumerable<JpegSegmentType> IJpegSegmentMetadataReader.GetSegmentTypes()
         {
             yield return JpegSegmentType.App0;
         }

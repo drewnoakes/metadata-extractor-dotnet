@@ -35,7 +35,7 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegCommentReader : IJpegSegmentMetadataReader
     {
-        public IEnumerable<JpegSegmentType> GetSegmentTypes()
+        IEnumerable<JpegSegmentType> IJpegSegmentMetadataReader.GetSegmentTypes()
         {
             yield return JpegSegmentType.Com;
         }

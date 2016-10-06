@@ -49,7 +49,7 @@ namespace MetadataExtractor.Formats.Photoshop
         [NotNull]
         private const string JpegSegmentPreamble = "Photoshop 3.0";
 
-        public IEnumerable<JpegSegmentType> GetSegmentTypes()
+        IEnumerable<JpegSegmentType> IJpegSegmentMetadataReader.GetSegmentTypes()
         {
             yield return JpegSegmentType.AppD;
         }

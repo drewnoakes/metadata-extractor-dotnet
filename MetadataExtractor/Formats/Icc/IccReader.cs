@@ -51,7 +51,7 @@ namespace MetadataExtractor.Formats.Icc
         // NOTE the header is 14 bytes, while "ICC_PROFILE" is 11
         private const int SegmentHeaderLength = 14;
 
-        public IEnumerable<JpegSegmentType> GetSegmentTypes()
+        IEnumerable<JpegSegmentType> IJpegSegmentMetadataReader.GetSegmentTypes()
         {
             yield return JpegSegmentType.App2;
         }
