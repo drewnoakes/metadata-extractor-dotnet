@@ -38,9 +38,10 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <param name="segments">A sequence of byte arrays from which the metadata should be extracted. These are in the order encountered in the original file.</param>
         /// <param name="segmentType">The <see cref="JpegSegmentType"/> being read.</param>
 #if NET35 || PORTABLE
-        IList<Directory> ReadJpegSegments([NotNull] IEnumerable<byte[]> segments, JpegSegmentType segmentType);
+        IList<Directory>
 #else
-        IReadOnlyList<Directory> ReadJpegSegments([NotNull] IEnumerable<byte[]> segments, JpegSegmentType segmentType);
+        IReadOnlyList<Directory>
 #endif
+            ReadJpegSegments([NotNull] IEnumerable<byte[]> segments, JpegSegmentType segmentType);
     }
 }
