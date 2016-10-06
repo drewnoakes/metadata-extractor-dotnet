@@ -22,7 +22,6 @@
 //
 #endregion
 
-using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
@@ -41,10 +40,10 @@ namespace MetadataExtractor.Formats.Tiff
 
         protected readonly List<Directory> Directories;
 
-        protected DirectoryTiffHandler([NotNull] List<Directory> directories, [NotNull] Type initialDirectoryClass)
+        protected DirectoryTiffHandler([NotNull] List<Directory> directories, [NotNull] Directory initialDirectory)
         {
             Directories = directories;
-            CurrentDirectory = (Directory)Activator.CreateInstance(initialDirectoryClass);
+            CurrentDirectory = initialDirectory;
             Directories.Add(CurrentDirectory);
         }
 
@@ -53,13 +52,12 @@ namespace MetadataExtractor.Formats.Tiff
             CurrentDirectory = _directoryStack.Count == 0 ? null : _directoryStack.Pop();
         }
 
-        protected void PushDirectory([NotNull] Type directoryClass)
+        protected void PushDirectory([NotNull] Directory directory)
         {
             _directoryStack.Push(CurrentDirectory);
-            var newDirectory = (Directory)Activator.CreateInstance(directoryClass);
-            newDirectory.Parent = CurrentDirectory;
-            Directories.Add(newDirectory);
-            CurrentDirectory = newDirectory;
+            directory.Parent = CurrentDirectory;
+            Directories.Add(directory);
+            CurrentDirectory = directory;
         }
 
         public void Warn(string message)  => CurrentDirectory.AddError(message);
