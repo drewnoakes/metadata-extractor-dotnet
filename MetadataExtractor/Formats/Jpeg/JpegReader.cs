@@ -49,7 +49,7 @@ namespace MetadataExtractor.Formats.Jpeg
             => segments.Select(segmentBytes => Extract(segmentBytes, segmentType)).Cast<Directory>().ToList();
 #else
         [NotNull]
-        public IReadOnlyList<Directory> ReadJpegSegments([NotNull] IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
             => segments.Select(segmentBytes => Extract(segmentBytes, segmentType)).ToList();
 #endif
 
