@@ -45,7 +45,7 @@ namespace MetadataExtractor
         private readonly List<Tag> _definedTagList = new List<Tag>();
 
         [NotNull]
-        private readonly List<string> _errorList = new List<string>(4);
+        private readonly List<string> _errorList = new List<string>(capacity: 4);
 
         /// <summary>The descriptor used to interpret tag values.</summary>
         private ITagDescriptor _descriptor;
