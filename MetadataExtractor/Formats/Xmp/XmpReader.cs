@@ -73,10 +73,7 @@ namespace MetadataExtractor.Formats.Xmp
         [NotNull]
         public const string XmpJpegPreamble = "http://ns.adobe.com/xap/1.0/\x0";
 
-        IEnumerable<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes
-        {
-            get { yield return JpegSegmentType.App1; }
-        }
+        ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.App1 };
 
         [NotNull]
         public
