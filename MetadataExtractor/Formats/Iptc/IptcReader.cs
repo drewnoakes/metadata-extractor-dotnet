@@ -69,12 +69,12 @@ namespace MetadataExtractor.Formats.Iptc
 #else
             IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+            ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             // Ensure data starts with the IPTC marker byte
             return segments
-                .Where(segment => segment.Length != 0 && segment[0] == IptcMarkerByte)
-                .Select(segment => Extract(new SequentialByteArrayReader(segment), segment.Length))
+                .Where(segment => segment.Bytes.Length != 0 && segment.Bytes[0] == IptcMarkerByte)
+                .Select(segment => Extract(new SequentialByteArrayReader(segment.Bytes), segment.Bytes.Length))
 #if NET35 || PORTABLE
                 .Cast<Directory>()
 #endif

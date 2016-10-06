@@ -52,7 +52,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var sw = Stopwatch.StartNew();
 
             var app1 = File.ReadAllBytes(filePath);
-            var segments = new[] { app1 };
+            var segments = new[] { new JpegSegment(JpegSegmentType.App1, app1, 0) };
 
             for (var i = 0; i < app1.Length; i++)
             {
@@ -66,7 +66,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
                     app1[i] = b;
 
                     // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                    exifReader.ReadJpegSegments(segments, JpegSegmentType.App1).ToList();
+                    exifReader.ReadJpegSegments(segments).ToList();
                 }
 
                 app1[i] = original;

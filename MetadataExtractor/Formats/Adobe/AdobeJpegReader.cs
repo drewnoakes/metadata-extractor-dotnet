@@ -49,11 +49,11 @@ namespace MetadataExtractor.Formats.Adobe
 #else
             IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+            ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             return segments
-                .Where(segment => segment.Length == 12 && Preamble.Equals(Encoding.UTF8.GetString(segment, 0, Preamble.Length), StringComparison.OrdinalIgnoreCase))
-                .Select(bytes => Extract(new SequentialByteArrayReader(bytes)))
+                .Where(segment => segment.Bytes.Length == 12 && Preamble.Equals(Encoding.UTF8.GetString(segment.Bytes, 0, Preamble.Length), StringComparison.OrdinalIgnoreCase))
+                .Select(bytes => Extract(new SequentialByteArrayReader(bytes.Bytes)))
 #if NET35 || PORTABLE
                 .Cast<Directory>()
 #endif

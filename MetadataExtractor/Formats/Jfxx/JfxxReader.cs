@@ -54,12 +54,12 @@ namespace MetadataExtractor.Formats.Jfxx
 #else
             IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+            ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             // Skip segments not starting with the required header
             return segments
-                .Where(segment => segment.Length >= Preamble.Length && Preamble == Encoding.UTF8.GetString(segment, 0, Preamble.Length))
-                .Select(segment => Extract(new ByteArrayReader(segment)))
+                .Where(segment => segment.Bytes.Length >= Preamble.Length && Preamble == Encoding.UTF8.GetString(segment.Bytes, 0, Preamble.Length))
+                .Select(segment => Extract(new ByteArrayReader(segment.Bytes)))
 #if NET35 || PORTABLE
                 .Cast<Directory>()
 #endif

@@ -57,7 +57,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Fact]
         public void TestGetThumbnailData()
         {
-            var directory = ExifReaderTest.ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/withExif.jpg.app1");
+            var directory = ExifReaderTest.ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/withExif.jpg.app1", JpegSegmentType.App1);
             var thumbData = directory.ThumbnailData;
 
             Assert.NotNull(thumbData);
@@ -70,7 +70,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Fact]
         public void TestWriteThumbnail()
         {
-            var directory = ExifReaderTest.ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1");
+            var directory = ExifReaderTest.ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1", JpegSegmentType.App1);
             Assert.True(directory.HasThumbnailData);
             var thumbnailFile = Path.GetTempFileName();
             try
@@ -101,7 +101,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Fact]
         public void TestResolution()
         {
-            var directories = ExifReaderTest.ProcessSegmentBytes("Tests/Data/withUncompressedRGBThumbnail.jpg.app1");
+            var directories = ExifReaderTest.ProcessSegmentBytes("Tests/Data/withUncompressedRGBThumbnail.jpg.app1", JpegSegmentType.App1);
 
             var thumbnailDirectory = directories.OfType<ExifThumbnailDirectory>().FirstOrDefault();
             Assert.NotNull(thumbnailDirectory);
@@ -115,7 +115,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Fact]
         public void TestGeoLocation()
         {
-            var gpsDirectory = ExifReaderTest.ProcessSegmentBytes<GpsDirectory>("Tests/Data/withExifAndIptc.jpg.app1.0");
+            var gpsDirectory = ExifReaderTest.ProcessSegmentBytes<GpsDirectory>("Tests/Data/withExifAndIptc.jpg.app1.0", JpegSegmentType.App1);
             var geoLocation = gpsDirectory.GetGeoLocation();
             Assert.Equal(54.989666666666665, geoLocation.Latitude);
             Assert.Equal(-1.9141666666666666, geoLocation.Longitude);
@@ -124,7 +124,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Fact]
         public void TestGpsDate()
         {
-            var gpsDirectory = ExifReaderTest.ProcessSegmentBytes<GpsDirectory>("Tests/Data/withPanasonicFaces.jpg.app1");
+            var gpsDirectory = ExifReaderTest.ProcessSegmentBytes<GpsDirectory>("Tests/Data/withPanasonicFaces.jpg.app1", JpegSegmentType.App1);
             Assert.Equal("2010:06:24", gpsDirectory.GetString(GpsDirectory.TagDateStamp));
             Assert.Equal("10/1 17/1 21/1", gpsDirectory.GetString(GpsDirectory.TagTimeStamp));
             DateTime gpsDate;

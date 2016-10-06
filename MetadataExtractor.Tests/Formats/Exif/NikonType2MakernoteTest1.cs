@@ -25,6 +25,7 @@
 using System.Globalization;
 using System.Threading;
 using MetadataExtractor.Formats.Exif.Makernotes;
+using MetadataExtractor.Formats.Jpeg;
 using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
@@ -38,7 +39,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public NikonType2MakernoteTest1()
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-GB");
-            _nikonDirectory = ExifReaderTest.ProcessSegmentBytes<NikonType2MakernoteDirectory>("Tests/Data/nikonMakernoteType2a.jpg.app1");
+            _nikonDirectory = ExifReaderTest.ProcessSegmentBytes<NikonType2MakernoteDirectory>("Tests/Data/nikonMakernoteType2a.jpg.app1", JpegSegmentType.App1);
             Assert.NotNull(_nikonDirectory);
             _descriptor = new NikonType2MakernoteDescriptor(_nikonDirectory);
         }

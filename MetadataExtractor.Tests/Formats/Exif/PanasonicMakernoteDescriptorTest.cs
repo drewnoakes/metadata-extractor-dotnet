@@ -23,6 +23,7 @@
 #endregion
 
 using MetadataExtractor.Formats.Exif.Makernotes;
+using MetadataExtractor.Formats.Jpeg;
 using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
@@ -34,7 +35,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
 
         public PanasonicMakernoteDescriptorTest()
         {
-            _panasonicDirectory = ExifReaderTest.ProcessSegmentBytes<PanasonicMakernoteDirectory>("Tests/Data/withPanasonicFaces.jpg.app1");
+            _panasonicDirectory = ExifReaderTest.ProcessSegmentBytes<PanasonicMakernoteDirectory>("Tests/Data/withPanasonicFaces.jpg.app1", JpegSegmentType.App1);
         }
 
         [Fact]

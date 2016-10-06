@@ -24,6 +24,7 @@
 
 using System.Text;
 using MetadataExtractor.Formats.Exif;
+using MetadataExtractor.Formats.Jpeg;
 using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
@@ -59,7 +60,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Fact]
         public void TestWindowsXpFields()
         {
-            var directory = ExifReaderTest.ProcessSegmentBytes<ExifIfd0Directory>("Tests/Data/windowsXpFields.jpg.app1");
+            var directory = ExifReaderTest.ProcessSegmentBytes<ExifIfd0Directory>("Tests/Data/windowsXpFields.jpg.app1", JpegSegmentType.App1);
             Assert.Equal("Testing artist\x0", directory.GetString(ExifDirectoryBase.TagWinAuthor, Encoding.Unicode));
             Assert.Equal("Testing comments\x0", directory.GetString(ExifDirectoryBase.TagWinComment, Encoding.Unicode));
             Assert.Equal("Testing keywords\x0", directory.GetString(ExifDirectoryBase.TagWinKeywords, Encoding.Unicode));

@@ -56,13 +56,11 @@ namespace MetadataExtractor.Formats.Exif
 #else
             IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+            ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
-            Debug.Assert(segmentType == JpegSegmentType.App1);
-
             return segments
-                .Where(segment => segment.Length >= JpegSegmentPreamble.Length && Encoding.UTF8.GetString(segment, 0, JpegSegmentPreamble.Length) == JpegSegmentPreamble)
-                .SelectMany(segment => Extract(new ByteArrayReader(segment), JpegSegmentPreamble.Length))
+                .Where(segment => segment.Bytes.Length >= JpegSegmentPreamble.Length && Encoding.UTF8.GetString(segment.Bytes, 0, JpegSegmentPreamble.Length) == JpegSegmentPreamble)
+                .SelectMany(segment => Extract(new ByteArrayReader(segment.Bytes), JpegSegmentPreamble.Length))
                 .ToList();
         }
 

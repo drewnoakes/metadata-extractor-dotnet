@@ -25,6 +25,7 @@
 using System.Linq;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Exif.Makernotes;
+using MetadataExtractor.Formats.Jpeg;
 using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
@@ -39,7 +40,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
 
         public NikonType2MakernoteTest2()
         {
-            var metadata = ExifReaderTest.ProcessSegmentBytes("Tests/Data/nikonMakernoteType2b.jpg.app1").ToList();
+            var metadata = ExifReaderTest.ProcessSegmentBytes("Tests/Data/nikonMakernoteType2b.jpg.app1", JpegSegmentType.App1).ToList();
 
             _nikonDirectory = metadata.OfType<NikonType2MakernoteDirectory>().SingleOrDefault();
             _exifIfd0Directory = metadata.OfType<ExifIfd0Directory>().SingleOrDefault();

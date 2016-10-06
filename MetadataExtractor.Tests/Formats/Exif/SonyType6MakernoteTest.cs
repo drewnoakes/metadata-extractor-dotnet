@@ -23,6 +23,7 @@
 #endregion
 
 using MetadataExtractor.Formats.Exif.Makernotes;
+using MetadataExtractor.Formats.Jpeg;
 using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
@@ -34,7 +35,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Fact]
         public void TestSonyType6Makernote()
         {
-            var directory = ExifReaderTest.ProcessSegmentBytes<SonyType6MakernoteDirectory>("Tests/Data/sonyType6.jpg.app1.0");
+            var directory = ExifReaderTest.ProcessSegmentBytes<SonyType6MakernoteDirectory>("Tests/Data/sonyType6.jpg.app1.0", JpegSegmentType.App1);
             Assert.NotNull(directory);
             Assert.False(directory.HasError);
             var descriptor = new SonyType6MakernoteDescriptor(directory);

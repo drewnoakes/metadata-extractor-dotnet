@@ -51,8 +51,8 @@ namespace MetadataExtractor.Tests.Formats.Icc
         [Fact]
         public void TestReadJpegSegments_InvalidData()
         {
-            var app2Bytes = File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2");
-            var directory = new IccReader().ReadJpegSegments(new[] { app2Bytes }, JpegSegmentType.App2);
+            var app2 = new JpegSegment(JpegSegmentType.App2, File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2"), offset: 0);
+            var directory = new IccReader().ReadJpegSegments(new[] { app2 });
             Assert.NotNull(directory);
             Assert.True(directory.Single().HasError);
         }
@@ -66,10 +66,10 @@ namespace MetadataExtractor.Tests.Formats.Icc
         [Fact]
         public void TestExtract_ProfileDateTime()
         {
-            var app2Bytes = File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app2");
+            var app2 = new JpegSegment(JpegSegmentType.App2, File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app2"), offset: 0);
 
             var directory = new IccReader()
-                .ReadJpegSegments(new[] { app2Bytes }, JpegSegmentType.App2)
+                .ReadJpegSegments(new[] { app2 })
                 .OfType<IccDirectory>()
                 .Single();
 

@@ -32,19 +32,13 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegReaderTest
     {
-        [NotNull]
-        private static JpegDirectory ProcessBytes([NotNull] string filePath)
-        {
-            var directory = new JpegReader().Extract(File.ReadAllBytes(filePath), JpegSegmentType.Sof0);
-            Assert.NotNull(directory);
-            return directory;
-        }
-
         private readonly JpegDirectory _directory;
 
         public JpegReaderTest()
         {
-            _directory = ProcessBytes("Tests/Data/simple.jpg.sof0");
+            var sof0 = new JpegSegment(JpegSegmentType.Sof0, File.ReadAllBytes("Tests/Data/simple.jpg.sof0"), offset: 0);
+
+            _directory = new JpegReader().Extract(sof0);
         }
 
         [Fact]

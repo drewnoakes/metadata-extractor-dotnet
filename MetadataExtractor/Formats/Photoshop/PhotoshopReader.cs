@@ -58,12 +58,12 @@ namespace MetadataExtractor.Formats.Photoshop
 #else
             IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments(IEnumerable<byte[]> segments, JpegSegmentType segmentType)
+            ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             var preambleLength = JpegSegmentPreamble.Length;
             return segments
-                .Where(segment => segment.Length >= preambleLength + 1 && JpegSegmentPreamble == Encoding.UTF8.GetString(segment, 0, preambleLength))
-                .SelectMany(segment => Extract(new SequentialByteArrayReader(segment, preambleLength + 1), segment.Length - preambleLength - 1))
+                .Where(segment => segment.Bytes.Length >= preambleLength + 1 && JpegSegmentPreamble == Encoding.UTF8.GetString(segment.Bytes, 0, preambleLength))
+                .SelectMany(segment => Extract(new SequentialByteArrayReader(segment.Bytes, preambleLength + 1), segment.Bytes.Length - preambleLength - 1))
                 .ToList();
         }
 
