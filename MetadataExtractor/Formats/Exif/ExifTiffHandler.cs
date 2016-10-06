@@ -97,40 +97,30 @@ namespace MetadataExtractor.Formats.Exif
 
             if (CurrentDirectory is OlympusMakernoteDirectory)
             {
-                if (tagId == OlympusMakernoteDirectory.TagEquipment)
+                // ReSharper disable once SwitchStatementMissingSomeCases
+                switch (tagId)
                 {
-                    PushDirectory(typeof(OlympusEquipmentMakernoteDirectory));
-                    return true;
-                }
-                if (tagId == OlympusMakernoteDirectory.TagCameraSettings)
-                {
-                    PushDirectory(typeof(OlympusCameraSettingsMakernoteDirectory));
-                    return true;
-                }
-                if (tagId == OlympusMakernoteDirectory.TagRawDevelopment)
-                {
-                    PushDirectory(typeof(OlympusRawDevelopmentMakernoteDirectory));
-                    return true;
-                }
-                if (tagId == OlympusMakernoteDirectory.TagRawDevelopment2)
-                {
-                    PushDirectory(typeof(OlympusRawDevelopment2MakernoteDirectory));
-                    return true;
-                }
-                if (tagId == OlympusMakernoteDirectory.TagImageProcessing)
-                {
-                    PushDirectory(typeof(OlympusImageProcessingMakernoteDirectory));
-                    return true;
-                }
-                if (tagId == OlympusMakernoteDirectory.TagFocusInfo)
-                {
-                    PushDirectory(typeof(OlympusFocusInfoMakernoteDirectory));
-                    return true;
-                }
-                if (tagId == OlympusMakernoteDirectory.TagMainInfo)
-                {
-                    PushDirectory(typeof(OlympusMakernoteDirectory));
-                    return true;
+                    case OlympusMakernoteDirectory.TagEquipment:
+                        PushDirectory(typeof(OlympusEquipmentMakernoteDirectory));
+                        return true;
+                    case OlympusMakernoteDirectory.TagCameraSettings:
+                        PushDirectory(typeof(OlympusCameraSettingsMakernoteDirectory));
+                        return true;
+                    case OlympusMakernoteDirectory.TagRawDevelopment:
+                        PushDirectory(typeof(OlympusRawDevelopmentMakernoteDirectory));
+                        return true;
+                    case OlympusMakernoteDirectory.TagRawDevelopment2:
+                        PushDirectory(typeof(OlympusRawDevelopment2MakernoteDirectory));
+                        return true;
+                    case OlympusMakernoteDirectory.TagImageProcessing:
+                        PushDirectory(typeof(OlympusImageProcessingMakernoteDirectory));
+                        return true;
+                    case OlympusMakernoteDirectory.TagFocusInfo:
+                        PushDirectory(typeof(OlympusFocusInfoMakernoteDirectory));
+                        return true;
+                    case OlympusMakernoteDirectory.TagMainInfo:
+                        PushDirectory(typeof(OlympusMakernoteDirectory));
+                        return true;
                 }
             }
 
