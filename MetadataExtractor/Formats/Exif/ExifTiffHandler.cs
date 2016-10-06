@@ -85,8 +85,7 @@ namespace MetadataExtractor.Formats.Exif
                     return true;
                 }
             }
-
-            if (CurrentDirectory is ExifSubIfdDirectory)
+            else if (CurrentDirectory is ExifSubIfdDirectory)
             {
                 if (tagId == ExifSubIfdDirectory.TagInteropOffset)
                 {
@@ -94,8 +93,7 @@ namespace MetadataExtractor.Formats.Exif
                     return true;
                 }
             }
-
-            if (CurrentDirectory is OlympusMakernoteDirectory)
+            else if (CurrentDirectory is OlympusMakernoteDirectory)
             {
                 // ReSharper disable once SwitchStatementMissingSomeCases
                 switch (tagId)
