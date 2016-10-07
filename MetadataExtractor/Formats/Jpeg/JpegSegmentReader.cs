@@ -79,8 +79,8 @@ namespace MetadataExtractor.Formats.Jpeg
         [NotNull]
         public static IEnumerable<JpegSegment> ReadSegments([NotNull] SequentialReader reader, [CanBeNull] ICollection<JpegSegmentType> segmentTypes = null)
         {
-            // Must be big-endian
-            Debug.Assert(reader.IsMotorolaByteOrder);
+            if (!reader.IsMotorolaByteOrder)
+                throw new JpegProcessingException("Must be big-endian/Motorola byte order.");
 
             // first two bytes should be JPEG magic number
             var magicNumber = reader.GetUInt16();
