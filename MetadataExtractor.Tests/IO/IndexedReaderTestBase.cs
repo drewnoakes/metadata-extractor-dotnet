@@ -34,7 +34,7 @@ namespace MetadataExtractor.Tests.IO
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class IndexedReaderTestBase
     {
-        protected abstract IndexedReader CreateReader(byte[] bytes);
+        protected abstract IndexedReader CreateReader(params byte[] bytes);
 
         [Fact]
         public void DefaultEndianness()
@@ -45,8 +45,8 @@ namespace MetadataExtractor.Tests.IO
         [Fact]
         public void GetSByte()
         {
-            var buffer = new byte[] { 0x00, 0x01, 0x7F, 0xFF };
-            var reader = CreateReader(buffer);
+            var reader = CreateReader(0x00, 0x01, 0x7F, 0xFF);
+
             Assert.Equal(0, reader.GetSByte(0));
             Assert.Equal(1, reader.GetSByte(1));
             Assert.Equal(127, reader.GetSByte(2));
@@ -56,8 +56,8 @@ namespace MetadataExtractor.Tests.IO
         [Fact]
         public void GetByte()
         {
-            var buffer = new byte[] { 0x00, 0x01, 0x7F, 0xFF };
-            var reader = CreateReader(buffer);
+            var reader = CreateReader(0x00, 0x01, 0x7F, 0xFF);
+
             Assert.Equal(0, reader.GetByte(0));
             Assert.Equal(1, reader.GetByte(1));
             Assert.Equal(127, reader.GetByte(2));
@@ -68,20 +68,27 @@ namespace MetadataExtractor.Tests.IO
         public void GetByte_OutOfBounds()
         {
             var reader = CreateReader(new byte[2]);
+
             var ex = Assert.Throws<BufferBoundsException>(() => reader.GetByte(2));
-            Assert.Equal("Attempt to read from beyond end of underlying data source (requested index: 2, requested count: 1, max index: 1)", ex.Message);
+
+            Assert.Equal(
+                "Attempt to read from beyond end of underlying data source (requested index: 2, requested count: 1, max index: 1)",
+                ex.Message);
         }
 
         [Fact]
         public void GetInt16()
         {
-            Assert.Equal(-1, CreateReader(new[] { (byte)0xff, (byte)0xff }).GetInt16(0));
-            var buffer = new byte[] { 0x00, 0x01, 0x7F, 0xFF };
-            var reader = CreateReader(buffer);
+            Assert.Equal(-1, CreateReader(0xff, 0xff).GetInt16(0));
+
+            var reader = CreateReader(0x00, 0x01, 0x7F, 0xFF);
+
             Assert.Equal(0x0001, reader.GetInt16(0));
             Assert.Equal(0x017F, reader.GetInt16(1));
             Assert.Equal(0x7FFF, reader.GetInt16(2));
+
             reader.IsMotorolaByteOrder = false;
+
             Assert.Equal(0x0100, reader.GetInt16(0));
             Assert.Equal(0x7F01, reader.GetInt16(1));
             Assert.Equal(unchecked((short)0xFF7F), reader.GetInt16(2));
@@ -90,12 +97,14 @@ namespace MetadataExtractor.Tests.IO
         [Fact]
         public void GetUInt16()
         {
-            var buffer = new byte[] { 0x00, 0x01, 0x7F, 0xFF };
-            var reader = CreateReader(buffer);
+            var reader = CreateReader(0x00, 0x01, 0x7F, 0xFF);
+
             Assert.Equal(0x0001, reader.GetUInt16(0));
             Assert.Equal(0x017F, reader.GetUInt16(1));
             Assert.Equal(0x7FFF, reader.GetUInt16(2));
+
             reader.IsMotorolaByteOrder = false;
+
             Assert.Equal(0x0100, reader.GetUInt16(0));
             Assert.Equal(0x7F01, reader.GetUInt16(1));
             Assert.Equal(0xFF7F, reader.GetUInt16(2));
@@ -105,21 +114,28 @@ namespace MetadataExtractor.Tests.IO
         public void GetUInt16_OutOfBounds()
         {
             var reader = CreateReader(new byte[2]);
+
             var ex = Assert.Throws<BufferBoundsException>(() => reader.GetUInt16(1));
-            Assert.Equal("Attempt to read from beyond end of underlying data source (requested index: 1, requested count: 2, max index: 1)", ex.Message);
+
+            Assert.Equal(
+                "Attempt to read from beyond end of underlying data source (requested index: 1, requested count: 2, max index: 1)",
+                ex.Message);
         }
 
         [Fact]
         public void GetInt32()
         {
-            Assert.Equal(-1, CreateReader(new[] { (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff }).GetInt32(0));
-            var buffer = new byte[] { 0x00, 0x01, 0x7F, 0xFF, 0x02, 0x03, 0x04 };
-            var reader = CreateReader(buffer);
+            Assert.Equal(-1, CreateReader(0xff, 0xff, 0xff, 0xff).GetInt32(0));
+
+            var reader = CreateReader(0x00, 0x01, 0x7F, 0xFF, 0x02, 0x03, 0x04);
+
             Assert.Equal(0x00017FFF, reader.GetInt32(0));
             Assert.Equal(0x017FFF02, reader.GetInt32(1));
             Assert.Equal(0x7FFF0203, reader.GetInt32(2));
             Assert.Equal(unchecked((int)0xFF020304), reader.GetInt32(3));
+
             reader.IsMotorolaByteOrder = false;
+
             Assert.Equal(unchecked((int)0xFF7F0100), reader.GetInt32(0));
             Assert.Equal(0x02FF7F01, reader.GetInt32(1));
             Assert.Equal(0x0302FF7F, reader.GetInt32(2));
@@ -129,9 +145,9 @@ namespace MetadataExtractor.Tests.IO
         [Fact]
         public void GetUInt32()
         {
-            Assert.Equal(4294967295u, CreateReader(new byte[] { 0xff, 0xff, 0xff, 0xff }).GetUInt32(0));
+            Assert.Equal(4294967295u, CreateReader(0xff, 0xff, 0xff, 0xff).GetUInt32(0));
 
-            var reader = CreateReader(new byte[] { 0x00, 0x01, 0x7F, 0xFF, 0x02, 0x03, 0x04 });
+            var reader = CreateReader(0x00, 0x01, 0x7F, 0xFF, 0x02, 0x03, 0x04);
 
             Assert.Equal(0x00017FFFu, reader.GetUInt32(0));
             Assert.Equal(0x017FFF02u, reader.GetUInt32(1));
@@ -150,19 +166,24 @@ namespace MetadataExtractor.Tests.IO
         public void GetInt32_OutOfBounds()
         {
             var reader = CreateReader(new byte[3]);
+
             var ex = Assert.Throws<BufferBoundsException>(() => reader.GetInt32(0));
-            Assert.Equal("Attempt to read from beyond end of underlying data source (requested index: 0, requested count: 4, max index: 2)", ex.Message);
+
+            Assert.Equal(
+                "Attempt to read from beyond end of underlying data source (requested index: 0, requested count: 4, max index: 2)",
+                ex.Message);
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [Fact]
         public void GetInt64()
         {
-            var buffer = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0xFF };
-            var reader = CreateReader(buffer);
+            var reader = CreateReader(0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0xFF);
+
             Assert.Equal(0x0001020304050607L, (object)reader.GetInt64(0));
             Assert.Equal(0x01020304050607FFL, (object)reader.GetInt64(1));
+
             reader.IsMotorolaByteOrder = false;
+
             Assert.Equal(0x0706050403020100L, (object)reader.GetInt64(0));
             Assert.Equal(unchecked((long)0xFF07060504030201L), (object)reader.GetInt64(1));
         }
@@ -171,12 +192,20 @@ namespace MetadataExtractor.Tests.IO
         public void GetInt64_OutOfBounds()
         {
             var reader = CreateReader(new byte[7]);
+
             var ex = Assert.Throws<BufferBoundsException>(() => reader.GetInt64(0));
-            Assert.Equal("Attempt to read from beyond end of underlying data source (requested index: 0, requested count: 8, max index: 6)", ex.Message);
+
+            Assert.Equal(
+                "Attempt to read from beyond end of underlying data source (requested index: 0, requested count: 8, max index: 6)",
+                ex.Message);
 
             reader = CreateReader(new byte[7]);
+
             ex = Assert.Throws<BufferBoundsException>(() => reader.GetInt64(-1));
-            Assert.Equal("Attempt to read from buffer using a negative index (-1)", ex.Message);
+
+            Assert.Equal(
+                "Attempt to read from buffer using a negative index (-1)",
+                ex.Message);
         }
 
         [Fact]
@@ -184,8 +213,9 @@ namespace MetadataExtractor.Tests.IO
         {
             const int nanBits = 0x7fc00000;
             Assert.True(float.IsNaN(BitConverter.ToSingle(BitConverter.GetBytes(nanBits), 0)));
-            var buffer = new byte[] { 0x7f, 0xc0, 0x00, 0x00 };
-            var reader = CreateReader(buffer);
+
+            var reader = CreateReader(0x7f, 0xc0, 0x00, 0x00);
+
             Assert.True(float.IsNaN(reader.GetFloat32(0)));
         }
 
@@ -194,16 +224,17 @@ namespace MetadataExtractor.Tests.IO
         {
             const long nanBits = unchecked((long)0xfff0000000000001L);
             Assert.True(double.IsNaN(BitConverter.Int64BitsToDouble(nanBits)));
-            var buffer = new byte[] { 0xff, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01 };
-            var reader = CreateReader(buffer);
+
+            var reader = CreateReader(0xff, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01);
+
             Assert.True(double.IsNaN(reader.GetDouble64(0)));
         }
 
         [Fact]
         public void GetNullTerminatedString()
         {
-            var bytes = new byte[] { 0x41, 0x42, 0x43, 0x44, 0x00, 0x45, 0x46, 0x47 };
-            var reader = CreateReader(bytes);
+            var reader = CreateReader(0x41, 0x42, 0x43, 0x44, 0x00, 0x45, 0x46, 0x47);
+
             Assert.Equal(string.Empty, reader.GetNullTerminatedString(0, 0));
             Assert.Equal("A", reader.GetNullTerminatedString(0, 1));
             Assert.Equal("AB", reader.GetNullTerminatedString(0, 2));
@@ -220,8 +251,8 @@ namespace MetadataExtractor.Tests.IO
         [Fact]
         public void GetString()
         {
-            var bytes = new byte[] { 0x41, 0x42, 0x43, 0x44, 0x00, 0x45, 0x46, 0x47 };
-            var reader = CreateReader(bytes);
+            var reader = CreateReader(0x41, 0x42, 0x43, 0x44, 0x00, 0x45, 0x46, 0x47);
+
             Assert.Equal(string.Empty, reader.GetString(0, 0, Encoding.UTF8));
             Assert.Equal("A", reader.GetString(0, 1, Encoding.UTF8));
             Assert.Equal("AB", reader.GetString(0, 2, Encoding.UTF8));

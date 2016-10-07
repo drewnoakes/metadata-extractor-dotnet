@@ -40,7 +40,7 @@ namespace MetadataExtractor.Tests.IO
             Assert.Throws<ArgumentNullException>(() => new IndexedCapturingReader(null));
         }
 
-        protected override IndexedReader CreateReader(byte[] bytes)
+        protected override IndexedReader CreateReader(params byte[] bytes)
         {
             return new IndexedCapturingReader(new MemoryStream(bytes));
         }

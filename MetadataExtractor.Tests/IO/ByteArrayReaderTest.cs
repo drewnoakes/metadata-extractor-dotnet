@@ -32,7 +32,7 @@ namespace MetadataExtractor.Tests.IO
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ByteArrayReaderTest : IndexedReaderTestBase
     {
-        protected override IndexedReader CreateReader(byte[] bytes)
+        protected override IndexedReader CreateReader(params byte[] bytes)
         {
             return new ByteArrayReader(bytes);
         }

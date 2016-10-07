@@ -36,7 +36,7 @@ namespace MetadataExtractor.Tests.IO
         private string _tempFile;
         private Stream _stream;
 
-        protected override IndexedReader CreateReader(byte[] bytes)
+        protected override IndexedReader CreateReader(params byte[] bytes)
         {
             try
             {
