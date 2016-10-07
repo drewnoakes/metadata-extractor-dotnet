@@ -59,7 +59,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="IOException"/>
         [NotNull]
-        public static IEnumerable<JpegSegment> ReadSegments([NotNull] string filePath, [CanBeNull] ICollection<JpegSegmentType> segmentTypes)
+        public static IEnumerable<JpegSegment> ReadSegments([NotNull] string filePath, [CanBeNull] ICollection<JpegSegmentType> segmentTypes = null)
         {
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 return ReadSegments(new SequentialStreamReader(stream), segmentTypes).ToList();
