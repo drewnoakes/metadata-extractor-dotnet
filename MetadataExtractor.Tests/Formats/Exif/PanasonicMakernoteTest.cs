@@ -28,12 +28,16 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {
-    /// <author>psandhaus, Drew Noakes</author>
-    public sealed class PanasonicMakernoteDescriptorTest
+    /// <summary>Unit tests for Panasonic maker notes.</summary>
+    /// <author>psandhaus</author>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
+    /// <seealso cref="PanasonicMakernoteDirectory"/>
+    /// <seealso cref="PanasonicMakernoteDescriptor"/>
+    public sealed class PanasonicMakernoteTest
     {
         private readonly PanasonicMakernoteDirectory _panasonicDirectory;
 
-        public PanasonicMakernoteDescriptorTest()
+        public PanasonicMakernoteTest()
         {
             _panasonicDirectory = ExifReaderTest.ProcessSegmentBytes<PanasonicMakernoteDirectory>("Tests/Data/withPanasonicFaces.jpg.app1", JpegSegmentType.App1);
         }

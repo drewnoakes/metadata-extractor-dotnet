@@ -67,6 +67,7 @@
     <Compile Include="DirectoryExtensionsTest.cs" />
     <Compile Include="Formats\Exif\ExifReaderGremlinTest.cs" />
     <Compile Include="Formats\Exif\NikonType2MakernoteTest.cs" />
+    <Compile Include="Formats\Exif\PanasonicMakernoteTest.cs" />
     <Compile Include="Formats\Iptc\IptcDirectoryTest.cs" />
     <Compile Include="Formats\Jpeg\JpegMetadataReaderTest.cs" />
     <Compile Include="Formats\Jpeg\JpegSegmentReaderTest.cs" />
@@ -98,7 +99,6 @@
     <Compile Include="Formats\Exif\ExifSubIFDDescriptorTest.cs" />
     <Compile Include="Formats\Exif\ExifThumbnailDescriptorTest.cs" />
     <Compile Include="Formats\Exif\NikonType1MakernoteTest.cs" />
-    <Compile Include="Formats\Exif\PanasonicMakernoteDescriptorTest.cs" />
     <Compile Include="Formats\Exif\SonyType1MakernoteTest.cs" />
     <Compile Include="Formats\Exif\SonyType6MakernoteTest.cs" />
     <Compile Include="Formats\Gif\GifReaderTest.cs" />
