@@ -33,7 +33,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
     public sealed class SonyType1MakernoteTest
     {
         [Fact]
-        public void TestSonyType1Makernote()
+        public void File1()
         {
             var directory = ExifReaderTest.ProcessSegmentBytes<SonyType1MakernoteDirectory>("Tests/Data/sonyType1.jpg.app1", JpegSegmentType.App1);
             Assert.NotNull(directory);

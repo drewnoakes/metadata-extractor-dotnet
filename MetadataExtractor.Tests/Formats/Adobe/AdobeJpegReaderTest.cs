@@ -43,7 +43,7 @@ namespace MetadataExtractor.Tests.Formats.Adobe
         }
 
         [Fact]
-        public void TestSegmentTypes()
+        public void SegmentTypes()
         {
             Assert.Equal(
                 new[] { JpegSegmentType.AppE },
@@ -51,7 +51,7 @@ namespace MetadataExtractor.Tests.Formats.Adobe
         }
 
         [Fact]
-        public void TestReadAdobeJpegMetadata1()
+        public void ReadAdobeJpegMetadata1()
         {
             var directory = ProcessBytes("Tests/Data/adobeJpeg1.jpg.appe");
 

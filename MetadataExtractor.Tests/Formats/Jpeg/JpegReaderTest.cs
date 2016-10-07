@@ -43,31 +43,31 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         }
 
         [Fact]
-        public void TestExtract_Width()
+        public void Extract_Width()
         {
             Assert.Equal(800, _directory.GetInt32(JpegDirectory.TagImageWidth));
         }
 
         [Fact]
-        public void TestExtract_Height()
+        public void Extract_Height()
         {
             Assert.Equal(600, _directory.GetInt32(JpegDirectory.TagImageHeight));
         }
 
         [Fact]
-        public void TestExtract_DataPrecision()
+        public void Extract_DataPrecision()
         {
             Assert.Equal(8, _directory.GetInt32(JpegDirectory.TagDataPrecision));
         }
 
         [Fact]
-        public void TestExtract_NumberOfComponents()
+        public void Extract_NumberOfComponents()
         {
             Assert.Equal(3, _directory.GetInt32(JpegDirectory.TagNumberOfComponents));
         }
 
         [Fact]
-        public void TestComponentData1()
+        public void ComponentData1()
         {
             var component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData1);
             Assert.NotNull(component);
@@ -79,7 +79,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         }
 
         [Fact]
-        public void TestComponentData2()
+        public void ComponentData2()
         {
             var component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData2);
             Assert.NotNull(component);
@@ -92,7 +92,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         }
 
         [Fact]
-        public void TestComponentData3()
+        public void ComponentData3()
         {
             var component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData3);
             Assert.NotNull(component);

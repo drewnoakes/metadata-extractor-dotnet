@@ -39,14 +39,14 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         }
 
         [Fact]
-        public void TestSetAndGetValue()
+        public void SetAndGetValue()
         {
             _directory.Set(123, 8);
             Assert.Equal(8, _directory.GetInt32(123));
         }
 
         [Fact]
-        public void TestGetComponent_NotAdded()
+        public void GetComponent_NotAdded()
         {
             Assert.Null(_directory.GetComponent(1));
         }
@@ -54,7 +54,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         // NOTE tests for individual tag values exist in JpegReaderTest
 
         [Fact]
-        public void TestGetImageWidth()
+        public void GetImageWidth()
         {
             _directory.Set(JpegDirectory.TagImageWidth, 123);
 
@@ -62,7 +62,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         }
 
         [Fact]
-        public void TestGetImageHeight()
+        public void GetImageHeight()
         {
             _directory.Set(JpegDirectory.TagImageHeight, 123);
 
@@ -70,7 +70,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         }
 
         [Fact]
-        public void TestGetNumberOfComponents()
+        public void GetNumberOfComponents()
         {
             _directory.Set(JpegDirectory.TagNumberOfComponents, 3);
 
@@ -79,7 +79,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         }
 
         [Fact]
-        public void TestGetComponent()
+        public void GetComponent()
         {
             var component1 = new JpegComponent(1, 2, 3);
             var component2 = new JpegComponent(1, 2, 3);

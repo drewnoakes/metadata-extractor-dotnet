@@ -32,7 +32,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
     public sealed class JpegComponentTest
     {
         [Fact]
-        public void TestGetComponentCharacter()
+        public void GetComponentCharacter()
         {
             Assert.Equal("Y",  new JpegComponent(1, 2, 3).Name);
             Assert.Equal("Cb", new JpegComponent(2, 2, 3).Name);

@@ -43,7 +43,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         }
 
         [Fact]
-        public void TestGetDetectedFaces()
+        public void GetDetectedFaces()
         {
             Assert.Equal(
                 new[] { new Face(142, 120, 76, 76) },
@@ -51,7 +51,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         }
 
         [Fact]
-        public void TestGetRecognizedFaces()
+        public void GetRecognizedFaces()
         {
             Assert.Equal(
                 new[] { new Face(142, 120, 76, 76, "NIELS", new Age(31, 7, 15, 0, 0, 0)) },

@@ -46,7 +46,7 @@ namespace MetadataExtractor.Tests.Formats.Png
         }
 
         [Fact, UseCulture("en-GB")]
-        public void TestGimpGreyscaleWithManyChunks()
+        public void GimpGreyscaleWithManyChunks()
         {
             var directories = ProcessFile("Tests/Data/gimp-8x12-greyscale-alpha-time-background.png").OfType<PngDirectory>().ToList();
             Assert.NotNull(directories);

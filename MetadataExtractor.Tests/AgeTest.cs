@@ -31,7 +31,7 @@ namespace MetadataExtractor.Tests
     public sealed class AgeTest
     {
         [Fact]
-        public void TestParse()
+        public void Parse()
         {
             var age = Age.FromPanasonicString("0031:07:15 00:00:00");
             Assert.NotNull(age);
@@ -46,7 +46,7 @@ namespace MetadataExtractor.Tests
         }
 
         [Fact]
-        public void TestEqualsAndHashCode()
+        public void EqualsAndHashCode()
         {
             var age1 = new Age(10, 11, 12, 13, 14, 15);
             var age2 = new Age(10, 11, 12, 13, 14, 15);

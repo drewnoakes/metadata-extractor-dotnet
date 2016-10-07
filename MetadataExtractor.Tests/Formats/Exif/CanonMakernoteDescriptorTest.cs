@@ -32,7 +32,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
     public sealed class CanonMakernoteDescriptorTest
     {
         [Fact, UseCulture("en-GB")]
-        public void TestGetFlashBiasDescription()
+        public void GetFlashBiasDescription()
         {
             var directory = new CanonMakernoteDirectory();
             var descriptor = new CanonMakernoteDescriptor(directory);

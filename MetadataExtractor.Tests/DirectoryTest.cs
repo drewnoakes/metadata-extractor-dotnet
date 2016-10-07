@@ -45,7 +45,7 @@ namespace MetadataExtractor.Tests
         }
 
         [Fact]
-        public void TestSetAndGetMultipleTagsInSingleDirectory()
+        public void SetAndGetMultipleTagsInSingleDirectory()
         {
             _directory.Set(ExifDirectoryBase.TagAperture, "TAG_APERTURE");
             _directory.Set(ExifDirectoryBase.TagBatteryLevel, "TAG_BATTERY_LEVEL");
@@ -54,7 +54,7 @@ namespace MetadataExtractor.Tests
         }
 
         [Fact]
-        public void TestSetSameTagMultipleTimesOverwritesValue()
+        public void SetSameTagMultipleTimesOverwritesValue()
         {
             _directory.Set(ExifDirectoryBase.TagAperture, 1);
             _directory.Set(ExifDirectoryBase.TagAperture, 2);
@@ -62,7 +62,7 @@ namespace MetadataExtractor.Tests
         }
 
         [Fact]
-        public void TestUnderlyingInt()
+        public void UnderlyingInt()
         {
             var value = 123;
             var tagType = 321;
@@ -80,7 +80,7 @@ namespace MetadataExtractor.Tests
         }
 
         [Fact]
-        public void TestSetAndGetIntArray()
+        public void SetAndGetIntArray()
         {
             var inputValues = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             var tagType = 123;
@@ -109,7 +109,7 @@ namespace MetadataExtractor.Tests
         }
 
         [Fact]
-        public void TestSetStringAndGetDate()
+        public void SetStringAndGetDate()
         {
             Action<string, DateTime> test = (str, expected) =>
             {
@@ -135,7 +135,7 @@ namespace MetadataExtractor.Tests
         }
 
         [Fact]
-        public void TestSetIntArrayGetByteArray()
+        public void SetIntArrayGetByteArray()
         {
             var ints = new[] { 1, 2, 3, 4, 5 };
             _directory.Set(1, ints);
@@ -146,7 +146,7 @@ namespace MetadataExtractor.Tests
         }
 
         [Fact(Skip = "TODO test whether this is needed in a regression test against the image database")]
-        public void TestSetStringGetInt()
+        public void SetStringGetInt()
         {
             var bytes = new byte[] { 0x01, 0x02, 0x03 };
             _directory.Set(1, Encoding.UTF8.GetString(bytes));
@@ -154,7 +154,7 @@ namespace MetadataExtractor.Tests
         }
 
         [Fact]
-        public void TestContainsTag()
+        public void ContainsTag()
         {
             Assert.False(_directory.ContainsTag(ExifDirectoryBase.TagAperture));
             _directory.Set(ExifDirectoryBase.TagAperture, "Tag Value");
@@ -162,7 +162,7 @@ namespace MetadataExtractor.Tests
         }
 
         [Fact]
-        public void TestGetNonExistentTagIsNullForAllTypes()
+        public void GetNonExistentTagIsNullForAllTypes()
         {
             Assert.Null(_directory.GetObject(ExifDirectoryBase.TagAperture));
 
@@ -190,7 +190,7 @@ namespace MetadataExtractor.Tests
         }
 
         [Fact]
-        public void TestToString()
+        public void ToString()
         {
             var directory = new ExifIfd0Directory();
             Assert.Equal("Exif IFD0 Directory (0 tags)", directory.ToString());

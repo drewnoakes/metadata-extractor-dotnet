@@ -37,14 +37,14 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
     {
 #if !PORTABLE
         [Fact]
-        public void TestExtractMetadataUsingPath()
+        public void ExtractMetadataUsingPath()
         {
             Validate(JpegMetadataReader.ReadMetadata("Tests/Data/withExif.jpg"));
         }
 #endif
 
         [Fact]
-        public void TestExtractMetadataUsingStream()
+        public void ExtractMetadataUsingStream()
         {
             using (var stream = new FileStream("Tests/Data/withExif.jpg", FileMode.Open, FileAccess.Read, FileShare.Read))
                 Validate(JpegMetadataReader.ReadMetadata(stream));

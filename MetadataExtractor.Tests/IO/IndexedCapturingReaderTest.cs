@@ -34,7 +34,7 @@ namespace MetadataExtractor.Tests.IO
     public sealed class IndexedCapturingReaderTest : IndexedReaderTestBase
     {
         [Fact]
-        public void TestConstructWithNullBufferThrows()
+        public void ConstructWithNullBufferThrows()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => new IndexedCapturingReader(null));

@@ -41,7 +41,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         }
 
         [Fact]
-        public void TestReadAllSegments()
+        public void ReadAllSegments()
         {
             var segments = ReadSegments("Tests/Data/withExifAndIptc.jpg");
 
@@ -63,7 +63,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         }
 
         [Fact]
-        public void TestReadSpecificSegments()
+        public void ReadSpecificSegments()
         {
             var segments = ReadSegments("Tests/Data/withExifAndIptc.jpg", new[] { JpegSegmentType.App0, JpegSegmentType.App2 });
 
@@ -77,14 +77,14 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         }
 
         [Fact]
-        public void TestLoadJpegWithoutExifDataReturnsNull()
+        public void LoadJpegWithoutExifDataReturnsNull()
         {
             Assert.False(ReadSegments("Tests/Data/noExif.jpg")
                 .Any(s => s.Type == JpegSegmentType.App1));
         }
 
         [Fact]
-        public void TestWithNonJpegFile()
+        public void WithNonJpegFile()
         {
 #if PORTABLE
             var ex = Assert.Throws<JpegProcessingException>(() => ReadSegments("MetadataExtractor.Portable.Tests.dll"));

@@ -42,7 +42,7 @@ namespace MetadataExtractor.Tests.Formats.Gif
         }
 
         [Fact]
-        public void TestMsPaintGif()
+        public void MsPaintGif()
         {
             var directory = ProcessBytes("Tests/Data/mspaint-10x10.gif");
             Assert.False(directory.HasError);
@@ -57,7 +57,7 @@ namespace MetadataExtractor.Tests.Formats.Gif
         }
 
         [Fact]
-        public void TestPhotoshopGif()
+        public void PhotoshopGif()
         {
             var directory = ProcessBytes("Tests/Data/photoshop-8x12-32colors-alpha.gif");
             Assert.False(directory.HasError);

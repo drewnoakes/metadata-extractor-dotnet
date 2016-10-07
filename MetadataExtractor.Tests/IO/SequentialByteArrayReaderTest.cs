@@ -33,7 +33,7 @@ namespace MetadataExtractor.Tests.IO
     public sealed class SequentialByteArrayReaderTest : SequentialAccessTestBase
     {
         [Fact]
-        public void TestConstructWithNullStreamThrows()
+        public void ConstructWithNullStreamThrows()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => new SequentialByteArrayReader(null));

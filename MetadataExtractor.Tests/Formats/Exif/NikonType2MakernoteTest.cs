@@ -263,7 +263,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         }
 
         [Fact]
-        public void TestGetAutoFlashCompensationDescription()
+        public void GetAutoFlashCompensationDescription()
         {
             var directory = new NikonType2MakernoteDirectory();
             var descriptor = new NikonType2MakernoteDescriptor(directory);

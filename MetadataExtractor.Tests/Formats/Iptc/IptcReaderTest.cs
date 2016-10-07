@@ -46,7 +46,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         }
 
         [Fact]
-        public void TestIptc1BytesFromFile()
+        public void Iptc1BytesFromFile()
         {
             var directory = ProcessBytes("Tests/Data/iptc1.jpg.appd");
             Assert.False(directory.HasError, directory.Errors.ToString());
@@ -87,7 +87,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         }
 
         [Fact]
-        public void TestIptc2Photoshop6BytesFromFile()
+        public void Iptc2Photoshop6BytesFromFile()
         {
             var directory = ProcessBytes("Tests/Data/iptc2-photoshop6.jpg.appd");
             Assert.False(directory.HasError, directory.Errors.ToString());
@@ -130,7 +130,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         }
 
         [Fact]
-        public void TestIptcEncodingUtf8()
+        public void IptcEncodingUtf8()
         {
             var directory = ProcessBytes("Tests/Data/iptc-encoding-defined-utf8.bytes");
             Assert.False(directory.HasError, directory.Errors.ToString());
@@ -147,7 +147,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         }
 
         [Fact]
-        public void TestIptcEncodingUndefinedIso()
+        public void IptcEncodingUndefinedIso()
         {
             var directory = ProcessBytes("Tests/Data/iptc-encoding-undefined-iso.bytes");
             Assert.False(directory.HasError, directory.Errors.ToString());
@@ -162,7 +162,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         }
 
         [Fact]
-        public void TestIptcEncodingUnknown()
+        public void IptcEncodingUnknown()
         {
             var directory = ProcessBytes("Tests/Data/iptc-encoding-unknown.bytes");
             Assert.False(directory.HasError, directory.Errors.ToString());
@@ -177,7 +177,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         }
 
         [Fact]
-        public void TestIptcEncodingUnknown2()
+        public void IptcEncodingUnknown2()
         {
             // This metadata has an encoding of three characters [ \ESC '%' '5' ]
             // It's not clear what to do with this, so it should be ignored.

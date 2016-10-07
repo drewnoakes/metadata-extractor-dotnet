@@ -34,7 +34,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
     public sealed class ExifIfd0DescriptorTest
     {
         [Fact]
-        public void TestXResolutionDescription()
+        public void XResolutionDescription()
         {
             var directory = new ExifIfd0Directory();
             directory.Set(ExifDirectoryBase.TagXResolution, new Rational(72, 1));
@@ -46,7 +46,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         }
 
         [Fact]
-        public void TestYResolutionDescription()
+        public void YResolutionDescription()
         {
             var directory = new ExifIfd0Directory();
             directory.Set(ExifDirectoryBase.TagYResolution, new Rational(50, 1));
@@ -58,7 +58,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         }
 
         [Fact]
-        public void TestWindowsXpFields()
+        public void WindowsXpFields()
         {
             var directory = ExifReaderTest.ProcessSegmentBytes<ExifIfd0Directory>("Tests/Data/windowsXpFields.jpg.app1", JpegSegmentType.App1);
             Assert.Equal("Testing artist\x0", directory.GetString(ExifDirectoryBase.TagWinAuthor, Encoding.Unicode));

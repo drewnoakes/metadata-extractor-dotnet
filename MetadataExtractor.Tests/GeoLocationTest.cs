@@ -31,7 +31,7 @@ namespace MetadataExtractor.Tests
     public sealed class GeoLocationTest
     {
         [Fact]
-        public void TestDecimalToDegreesMinutesSeconds()
+        public void DecimalToDegreesMinutesSeconds()
         {
             var dms = GeoLocation.DecimalToDegreesMinutesSeconds(1);
             Assert.Equal(1.0, dms[0], 4);

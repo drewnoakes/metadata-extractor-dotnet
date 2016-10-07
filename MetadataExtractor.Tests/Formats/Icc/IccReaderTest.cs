@@ -39,7 +39,7 @@ namespace MetadataExtractor.Tests.Formats.Icc
         // TODO add a test with well-formed ICC data and assert output values are correct
 
         [Fact]
-        public void TestExtract_InvalidData()
+        public void Extract_InvalidData()
         {
             var app2Bytes = File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2");
 
@@ -51,7 +51,7 @@ namespace MetadataExtractor.Tests.Formats.Icc
         }
 
         [Fact]
-        public void TestReadJpegSegments_InvalidData()
+        public void ReadJpegSegments_InvalidData()
         {
             var app2 = new JpegSegment(JpegSegmentType.App2, File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2"), offset: 0);
             var directory = new IccReader().ReadJpegSegments(new[] { app2 });
@@ -66,7 +66,7 @@ namespace MetadataExtractor.Tests.Formats.Icc
         }
 
         [Fact]
-        public void TestExtract_ProfileDateTime()
+        public void Extract_ProfileDateTime()
         {
             var app2 = new JpegSegment(JpegSegmentType.App2, File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app2"), offset: 0);
 

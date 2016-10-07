@@ -32,7 +32,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
     public sealed class ExifInteropDescriptorTest
     {
         [Fact]
-        public void TestGetInteropVersionDescription()
+        public void GetInteropVersionDescription()
         {
             var directory = new ExifInteropDirectory();
             directory.Set(ExifDirectoryBase.TagInteropVersion, new[] { 0, 1, 0, 0 });
@@ -43,7 +43,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         }
 
         [Fact]
-        public void TestGetInteropIndexDescription()
+        public void GetInteropIndexDescription()
         {
             var directory = new ExifInteropDirectory();
             directory.Set(ExifDirectoryBase.TagInteropIndex, "R98");

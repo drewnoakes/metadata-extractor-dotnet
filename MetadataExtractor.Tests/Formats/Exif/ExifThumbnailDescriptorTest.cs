@@ -32,7 +32,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
     public sealed class ExifThumbnailDescriptorTest
     {
         [Fact]
-        public void TestGetYCbCrSubsamplingDescription()
+        public void GetYCbCrSubsamplingDescription()
         {
             var directory = new ExifThumbnailDirectory();
             var descriptor = new ExifThumbnailDescriptor(directory);

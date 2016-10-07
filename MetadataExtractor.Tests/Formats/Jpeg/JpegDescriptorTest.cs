@@ -41,13 +41,13 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         }
 
         [Fact]
-        public void TestGetComponentDataDescription_InvalidComponentNumber()
+        public void GetComponentDataDescription_InvalidComponentNumber()
         {
             Assert.Null(_descriptor.GetComponentDataDescription(1));
         }
 
         [Fact]
-        public void TestGetImageWidthDescription()
+        public void GetImageWidthDescription()
         {
             _directory.Set(JpegDirectory.TagImageWidth, 123);
 
@@ -56,7 +56,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         }
 
         [Fact]
-        public void TestGetImageHeightDescription()
+        public void GetImageHeightDescription()
         {
             _directory.Set(JpegDirectory.TagImageHeight, 123);
 
@@ -65,7 +65,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         }
 
         [Fact]
-        public void TestGetDataPrecisionDescription()
+        public void GetDataPrecisionDescription()
         {
             _directory.Set(JpegDirectory.TagDataPrecision, 8);
 
@@ -74,7 +74,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         }
 
         [Fact]
-        public void TestGetComponentDescription()
+        public void GetComponentDescription()
         {
             _directory.Set(JpegDirectory.TagComponentData1, new JpegComponent(1, 0x22, 0));
 

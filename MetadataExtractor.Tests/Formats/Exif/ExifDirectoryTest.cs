@@ -41,7 +41,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
     public sealed class ExifDirectoryTest
     {
         [Fact]
-        public void TestGetDirectoryName()
+        public void GetDirectoryName()
         {
             Directory subIfdDirectory = new ExifSubIfdDirectory();
             Directory ifd0Directory = new ExifIfd0Directory();
@@ -55,7 +55,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         }
 
         [Fact]
-        public void TestGetThumbnailData()
+        public void GetThumbnailData()
         {
             var directory = ExifReaderTest.ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/withExif.jpg.app1", JpegSegmentType.App1);
             var thumbData = directory.ThumbnailData;
@@ -68,7 +68,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
 
 #if !PORTABLE
         [Fact]
-        public void TestWriteThumbnail()
+        public void WriteThumbnail()
         {
             var directory = ExifReaderTest.ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1", JpegSegmentType.App1);
             Assert.True(directory.HasThumbnailData);
@@ -99,7 +99,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
 //    }
 
         [Fact]
-        public void TestResolution()
+        public void Resolution()
         {
             var directories = ExifReaderTest.ProcessSegmentBytes("Tests/Data/withUncompressedRGBThumbnail.jpg.app1", JpegSegmentType.App1);
 
@@ -113,7 +113,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         }
 
         [Fact]
-        public void TestGeoLocation()
+        public void GeoLocation()
         {
             var gpsDirectory = ExifReaderTest.ProcessSegmentBytes<GpsDirectory>("Tests/Data/withExifAndIptc.jpg.app1.0", JpegSegmentType.App1);
             var geoLocation = gpsDirectory.GetGeoLocation();
@@ -122,7 +122,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         }
 
         [Fact]
-        public void TestGpsDate()
+        public void GpsDate()
         {
             var gpsDirectory = ExifReaderTest.ProcessSegmentBytes<GpsDirectory>("Tests/Data/withPanasonicFaces.jpg.app1", JpegSegmentType.App1);
             Assert.Equal("2010:06:24", gpsDirectory.GetString(GpsDirectory.TagDateStamp));

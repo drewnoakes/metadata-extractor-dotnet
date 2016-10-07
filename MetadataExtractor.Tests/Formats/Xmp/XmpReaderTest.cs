@@ -63,7 +63,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         */
 
         [Fact]
-        public void TestExtract_LensInformation()
+        public void Extract_LensInformation()
         {
             // Note that this tag really holds a rational array, but XmpReader doesn't parse arrays
             Assert.Equal("24/1 70/1 0/0 0/0", _directory.GetString(XmpDirectory.TagLensInfo));
@@ -76,13 +76,13 @@ namespace MetadataExtractor.Tests.Formats.Xmp
 //        Assert.Equals(new Rational(0, 0), info[3]);
 
         [Fact]
-        public void TestExtract_HasXMPMeta()
+        public void Extract_HasXMPMeta()
         {
             Assert.NotNull(_directory.XmpMeta);
         }
 
         [Fact]
-        public void TestExtract_Lens()
+        public void Extract_Lens()
         {
             Assert.Equal("EF24-70mm f/2.8L USM", _directory.GetString(XmpDirectory.TagLens));
         }
@@ -90,53 +90,53 @@ namespace MetadataExtractor.Tests.Formats.Xmp
 /*
         // this requires further research
 
-        public void TestExtract_Format() throws Exception
+        public void Extract_Format()
         {
-            assertEquals("image/tiff", _directory.getString(XmpDirectory.TAG_FORMAT));
+            Assert.Equal("image/tiff", _directory.GetString(XmpDirectory.TagFormat));
         }
 
-        public void TestExtract_Creator() throws Exception
+        public void Extract_Creator()
         {
-            assertEquals("", _directory.getString(XmpDirectory.TAG_CREATOR));
+            Assert.Equal("", _directory.GetString(XmpDirectory.TagCreator));
         }
 
-        public void TestExtract_Rights() throws Exception
+        public void Extract_Rights()
         {
-            assertEquals("", _directory.getString(XmpDirectory.TAG_RIGHTS));
+            Assert.Equal("", _directory.GetString(XmpDirectory.TagRights));
         }
 
-        public void TestExtract_Description() throws Exception
+        public void Extract_Description()
         {
-            assertEquals("", _directory.getString(XmpDirectory.TAG_DESCRIPTION));
+            Assert.Equal("", _directory.GetString(XmpDirectory.TagDescription));
         }
 */
 
         [Fact]
-        public void TestExtract_SerialNumber()
+        public void Extract_SerialNumber()
         {
             Assert.Equal("380319450", _directory.GetString(XmpDirectory.TagCameraSerialNumber));
         }
 
         [Fact]
-        public void TestExtract_Firmware()
+        public void Extract_Firmware()
         {
             Assert.Equal("1.2.1", _directory.GetString(XmpDirectory.TagFirmware));
         }
 
         [Fact]
-        public void TestExtract_Maker()
+        public void Extract_Maker()
         {
             Assert.Equal("Canon", _directory.GetString(XmpDirectory.TagMake));
         }
 
         [Fact]
-        public void TestExtract_Model()
+        public void Extract_Model()
         {
             Assert.Equal("Canon EOS 7D", _directory.GetString(XmpDirectory.TagModel));
         }
 
         [Fact]
-        public void TestExtract_ExposureTime()
+        public void Extract_ExposureTime()
         {
             // Note XmpReader doesn't parse this as a rational even though it appears to be... need more examples
             Assert.Equal("1/125", _directory.GetString(XmpDirectory.TagExposureTime));
@@ -145,31 +145,31 @@ namespace MetadataExtractor.Tests.Formats.Xmp
 //        Assert.Equals(new Rational(1, 125), _directory.getRational(XmpDirectory.TAG_EXPOSURE_TIME));
 
         [Fact]
-        public void TestExtract_ExposureProgram()
+        public void Extract_ExposureProgram()
         {
             Assert.Equal(1, _directory.GetInt32(XmpDirectory.TagExposureProgram));
         }
 
         [Fact]
-        public void TestExtract_FNumber()
+        public void Extract_FNumber()
         {
             Assert.Equal(new Rational(11, 1), _directory.GetRational(XmpDirectory.TagFNumber));
         }
 
         [Fact]
-        public void TestExtract_FocalLength()
+        public void Extract_FocalLength()
         {
             Assert.Equal(new Rational(57, 1), _directory.GetRational(XmpDirectory.TagFocalLength));
         }
 
         [Fact]
-        public void TestExtract_ShutterSpeed()
+        public void Extract_ShutterSpeed()
         {
             Assert.Equal(new Rational(6965784, 1000000), _directory.GetRational(XmpDirectory.TagShutterSpeed));
         }
 
         [Fact(Skip = "TODO fix XMP support for DateTime with offset")]
-        public void TestExtract_OriginalDateTime()
+        public void Extract_OriginalDateTime()
         {
             var actual = _directory.GetDateTime(XmpDirectory.TagDateTimeOriginal);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
@@ -178,7 +178,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         }
 
         [Fact(Skip = "TODO fix XMP support for DateTime with offset")]
-        public void TestExtract_DigitizedDateTime()
+        public void Extract_DigitizedDateTime()
         {
             var actual = _directory.GetDateTime(XmpDirectory.TagDateTimeDigitized);
             // Underlying string value (in XMP data) is: 2010-12-12T12:41:35.00+01:00
@@ -187,7 +187,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         }
 
         [Fact]
-        public void TestGetXmpProperties()
+        public void GetXmpProperties()
         {
             var propertyMap = _directory.GetXmpProperties();
 

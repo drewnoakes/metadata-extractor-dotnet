@@ -38,7 +38,7 @@ namespace MetadataExtractor.Tests
     public sealed class RationalTest
     {
         [Fact]
-        public void TestCreateRational()
+        public void Construction()
         {
             var rational = new Rational(1, 3);
 
@@ -49,13 +49,13 @@ namespace MetadataExtractor.Tests
 
         [Fact]
         [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
-        public void TestToString()
+        public void ToString()
         {
             Assert.Equal("1/3", new Rational(1, 3).ToString());
         }
 
         [Fact, UseCulture("en-GB")]
-        public void TestToSimpleString()
+        public void ToSimpleString()
         {
             var third1 = new Rational(1, 3);
             var third2 = new Rational(2, 6);
@@ -90,7 +90,7 @@ namespace MetadataExtractor.Tests
         }
 
         [Fact]
-        public void TestGetReciprocal()
+        public void GetReciprocal()
         {
             var rational = new Rational(1, 3);
             var reciprocal = rational.Reciprocal;
@@ -99,7 +99,7 @@ namespace MetadataExtractor.Tests
         }
 
         [Fact]
-        public void TestZeroOverZero()
+        public void ZeroOverZero()
         {
             Assert.Equal(new Rational(0, 0), new Rational(0, 0).Reciprocal);
 
@@ -114,7 +114,7 @@ namespace MetadataExtractor.Tests
 
 #if !PORTABLE
         [Fact]
-        public void TestTypeConverter()
+        public void TypeConverter()
         {
             var converter = TypeDescriptor.GetConverter(typeof(Rational));
 
@@ -137,7 +137,7 @@ namespace MetadataExtractor.Tests
 #endif
 
         [Fact]
-        public void TestIConvertible()
+        public void IConvertible()
         {
             Assert.Equal(15,  Convert.ToByte (new Rational(150, 10)));
             Assert.Equal(15,  Convert.ToInt16(new Rational(150, 10)));

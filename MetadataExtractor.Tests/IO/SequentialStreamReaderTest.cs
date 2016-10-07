@@ -34,7 +34,7 @@ namespace MetadataExtractor.Tests.IO
     public sealed class SequentialStreamReaderTest : SequentialAccessTestBase
     {
         [Fact]
-        public void TestConstructWithNullStreamThrows()
+        public void ConstructWithNullStreamThrows()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             Assert.Throws<ArgumentNullException>(() => new SequentialStreamReader(null));

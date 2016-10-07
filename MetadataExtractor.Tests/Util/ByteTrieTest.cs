@@ -33,7 +33,7 @@ namespace MetadataExtractor.Tests.Util
     public sealed class ByteTrieTest
     {
         [Fact]
-        public void TestBasics()
+        public void Basics()
         {
             var trie = new ByteTrie<string>();
 
