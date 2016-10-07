@@ -143,7 +143,6 @@ namespace MetadataExtractor.IO
         public override byte GetByte(int index)
         {
             ValidateIndex(index, 1);
-            Debug.Assert(index >= 0);
 
             var chunkIndex = index / _chunkLength;
             var innerIndex = index % _chunkLength;
