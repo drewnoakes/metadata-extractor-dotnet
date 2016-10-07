@@ -270,28 +270,20 @@ namespace MetadataExtractor.Tests.IO
         public void IndexPlusCountExceedsIntMaxValue()
         {
             var reader = CreateReader(new byte[10]);
-            try
-            {
-                reader.GetBytes(0x6FFFFFFF, 0x6FFFFFFF);
-            }
-            catch (IOException e)
-            {
-                Assert.Equal("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: 1879048191, requested count: 1879048191)", e.Message);
-            }
+            var ex = Assert.Throws<BufferBoundsException>(() => reader.GetBytes(0x6FFFFFFF, 0x6FFFFFFF));
+            Assert.Equal(
+                "Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: 1879048191, requested count: 1879048191)",
+                ex.Message);
         }
 
         [Fact]
         public void OverflowBoundsCalculation()
         {
             var reader = CreateReader(new byte[10]);
-            try
-            {
-                reader.GetBytes(5, 10);
-            }
-            catch (IOException e)
-            {
-                Assert.Equal("Attempt to read from beyond end of underlying data source (requested index: 5, requested count: 10, max index: 9)", e.Message);
-            }
+            var ex = Assert.Throws<BufferBoundsException>(() => reader.GetBytes(5, 10));
+            Assert.Equal(
+                "Attempt to read from beyond end of underlying data source (requested index: 5, requested count: 10, max index: 9)",
+                ex.Message);
         }
 
         [Fact]

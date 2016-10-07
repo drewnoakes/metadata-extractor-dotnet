@@ -246,14 +246,8 @@ namespace MetadataExtractor.Tests.IO
         public void OverflowBoundsCalculation()
         {
             var reader = CreateReader(new byte[10]);
-            try
-            {
-                reader.GetBytes(15);
-            }
-            catch (IOException e)
-            {
-                Assert.Equal("End of data reached.", e.Message);
-            }
+            var ex = Assert.Throws<IOException>(() => reader.GetBytes(15));
+            Assert.Equal("End of data reached.", ex.Message);
         }
 
         [Fact]
