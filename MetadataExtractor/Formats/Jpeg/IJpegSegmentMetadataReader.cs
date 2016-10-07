@@ -38,6 +38,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <param name="segments">
         /// A sequence of JPEG segments from which the metadata should be extracted. These are in the order encountered in the original file.
         /// </param>
+        [NotNull]
 #if NET35 || PORTABLE
         IList<Directory>
 #else

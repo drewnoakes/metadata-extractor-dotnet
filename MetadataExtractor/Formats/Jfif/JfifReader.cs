@@ -47,7 +47,6 @@ namespace MetadataExtractor.Formats.Jfif
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.App0 };
 
-        [NotNull]
         public
 #if NET35 || PORTABLE
             IList<Directory>

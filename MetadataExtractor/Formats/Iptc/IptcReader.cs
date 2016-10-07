@@ -62,7 +62,6 @@ namespace MetadataExtractor.Formats.Iptc
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppD };
 
-        [NotNull]
         public
 #if NET35 || PORTABLE
             IList<Directory>

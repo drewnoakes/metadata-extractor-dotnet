@@ -40,7 +40,6 @@ namespace MetadataExtractor.Formats.Photoshop
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppC };
 
-        [NotNull]
         public
 #if NET35 || PORTABLE
             IList<Directory>

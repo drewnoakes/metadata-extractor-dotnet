@@ -42,7 +42,6 @@ namespace MetadataExtractor.Formats.Adobe
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppE };
 
-        [NotNull]
         public
 #if NET35 || PORTABLE
             IList<Directory>

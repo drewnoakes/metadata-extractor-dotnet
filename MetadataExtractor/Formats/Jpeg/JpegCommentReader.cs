@@ -37,7 +37,6 @@ namespace MetadataExtractor.Formats.Jpeg
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.Com };
 
         /// <summary>Reads JPEG comments, returning each in a <see cref="JpegCommentDirectory"/>.</summary>
-        [NotNull]
         public
 #if NET35 || PORTABLE
             IList<Directory>
