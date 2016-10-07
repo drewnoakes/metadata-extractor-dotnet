@@ -143,7 +143,6 @@ namespace MetadataExtractor.Formats.Exif
             return false;
         }
 
-        /// <exception cref="System.IO.IOException"/>
         public override bool CustomProcessTag(int tagOffset, ICollection<int> processedIfdOffsets, int tiffHeaderOffset, IndexedReader reader, int tagId, int byteCount)
         {
             // Custom processing for the Makernote tag
