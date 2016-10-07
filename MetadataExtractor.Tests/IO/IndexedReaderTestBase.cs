@@ -72,7 +72,6 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal("Attempt to read from beyond end of underlying data source (requested index: 2, requested count: 1, max index: 1)", ex.Message);
         }
 
-
         [Fact]
         public void GetInt16()
         {
@@ -87,7 +86,6 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal(0x7F01, reader.GetInt16(1));
             Assert.Equal(unchecked((short)0xFF7F), reader.GetInt16(2));
         }
-
 
         [Fact]
         public void GetUInt16()
@@ -110,7 +108,6 @@ namespace MetadataExtractor.Tests.IO
             var ex = Assert.Throws<BufferBoundsException>(() => reader.GetUInt16(1));
             Assert.Equal("Attempt to read from beyond end of underlying data source (requested index: 1, requested count: 2, max index: 1)", ex.Message);
         }
-
 
         [Fact]
         public void GetInt32()
