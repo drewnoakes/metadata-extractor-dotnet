@@ -64,7 +64,7 @@ namespace MetadataExtractor.Formats.Tiff
         public void Error(string message) => CurrentDirectory.AddError(message);
 
         public void SetByteArray(int tagId, byte[] bytes)         => CurrentDirectory.Set(tagId, bytes);
-        public void SetString(int tagId, StringValue strval)      => CurrentDirectory.Set(tagId, strval);
+        public void SetString(int tagId, StringValue stringValue) => CurrentDirectory.Set(tagId, stringValue);
         public void SetRational(int tagId, Rational rational)     => CurrentDirectory.Set(tagId, rational);
         public void SetRationalArray(int tagId, Rational[] array) => CurrentDirectory.Set(tagId, array);
         public void SetFloat(int tagId, float float32)            => CurrentDirectory.Set(tagId, float32);
