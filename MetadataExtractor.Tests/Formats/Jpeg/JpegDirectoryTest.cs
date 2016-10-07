@@ -27,6 +27,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Jpeg
 {
+    /// <summary>Unit tests for <see cref="JpegDirectory"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegDirectoryTest
     {
@@ -50,7 +51,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Assert.Null(_directory.GetComponent(1));
         }
 
-        // NOTE tests for individual tag values exist in JpegReaderTest.java
+        // NOTE tests for individual tag values exist in JpegReaderTest
 
         [Fact]
         public void TestGetImageWidth()

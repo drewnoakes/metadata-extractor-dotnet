@@ -29,6 +29,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Netpbm
 {
+    /// <summary>Unit tests for <see cref="NetpbmReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class NetpbmReaderTest
     {

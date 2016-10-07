@@ -29,9 +29,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {
-    /// <summary>
-    /// Unit tests for <see cref="ExifIfd0Descriptor"/>.
-    /// </summary>
+    /// <summary>Unit tests for <see cref="ExifIfd0Descriptor"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifIfd0DescriptorTest
     {

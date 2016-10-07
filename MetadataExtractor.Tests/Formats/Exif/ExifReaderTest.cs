@@ -33,7 +33,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {
-    /// <summary>JUnit test case for class ExifReader.</summary>
+    /// <summary>Unit tests for <see cref="ExifReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifReaderTest
     {

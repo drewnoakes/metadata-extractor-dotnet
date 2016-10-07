@@ -28,6 +28,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Png
 {
+    /// <summary>Unit tests for <see cref="PngChunkType"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunkTypeTest
     {

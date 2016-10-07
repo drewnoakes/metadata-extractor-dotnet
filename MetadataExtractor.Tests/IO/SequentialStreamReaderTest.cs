@@ -29,6 +29,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.IO
 {
+    /// <summary>Unit tests for <see cref="SequentialStreamReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class SequentialStreamReaderTest : SequentialAccessTestBase
     {

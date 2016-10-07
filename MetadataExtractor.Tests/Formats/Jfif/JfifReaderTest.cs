@@ -29,6 +29,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Jfif
 {
+    /// <summary>Unit tests for <see cref="JfifReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JfifReaderTest
     {

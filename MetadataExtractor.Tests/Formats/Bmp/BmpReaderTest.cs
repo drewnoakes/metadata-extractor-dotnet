@@ -30,6 +30,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Bmp
 {
+    /// <summary>Unit tests for <see cref="BmpReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class BmpReaderTest
     {

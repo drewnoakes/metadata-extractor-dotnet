@@ -28,7 +28,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {
-    /// <summary>JUnit test case for class ExifSubIFDDescriptor.</summary>
+    /// <summary>Unit tests for <see cref="ExifSubIfdDescriptor"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifSubIfdDescriptorTest
     {

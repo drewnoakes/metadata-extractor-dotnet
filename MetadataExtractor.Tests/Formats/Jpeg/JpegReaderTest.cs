@@ -29,6 +29,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Jpeg
 {
+    /// <summary>Unit tests for <see cref="JpegReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegReaderTest
     {

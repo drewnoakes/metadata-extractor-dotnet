@@ -30,6 +30,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests
 {
+    /// <summary>Unit tests for <see cref="Directory"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [SuppressMessage("ReSharper", "ConvertToConstant.Local")]
     public sealed class DirectoryTest

@@ -27,6 +27,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {
+    /// <summary>Unit tests for <see cref="CanonMakernoteDescriptor"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class CanonMakernoteDescriptorTest
     {

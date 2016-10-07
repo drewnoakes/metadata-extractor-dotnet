@@ -63,7 +63,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.NotNull(thumbData);
 
             // attempt to read the thumbnail -- it should be a legal Jpeg file
-            JpegSegmentReader.ReadSegments(new SequentialByteArrayReader(thumbData));
+            JpegSegmentReader.ReadSegments(new SequentialByteArrayReader(thumbData)).ToList();
         }
 
 #if !PORTABLE

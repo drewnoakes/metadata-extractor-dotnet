@@ -28,6 +28,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.IO
 {
+    /// <summary>Unit tests for <see cref="ByteArrayReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ByteArrayReaderTest : IndexedReaderTestBase
     {

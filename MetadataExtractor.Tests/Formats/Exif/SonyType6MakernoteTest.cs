@@ -28,6 +28,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {
+    /// <summary>Unit tests for Sony (Type 6) maker notes.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class SonyType6MakernoteTest
     {

@@ -27,9 +27,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {
-    /// <summary>
-    /// Unit tests for <see cref="ExifInteropDescriptor"/>.
-    /// </summary>
+    /// <summary>Unit tests for <see cref="ExifInteropDescriptor"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifInteropDescriptorTest
     {

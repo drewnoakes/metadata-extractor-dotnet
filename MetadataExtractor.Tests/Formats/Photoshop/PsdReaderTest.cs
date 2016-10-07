@@ -31,6 +31,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Photoshop
 {
+    /// <summary>Unit tests for <see cref="PsdReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PsdReaderTest
     {

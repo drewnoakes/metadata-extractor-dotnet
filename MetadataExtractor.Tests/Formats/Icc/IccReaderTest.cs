@@ -32,6 +32,8 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Icc
 {
+    /// <summary>Unit tests for <see cref="IccReader"/>.</summary>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class IccReaderTest
     {
         // TODO add a test with well-formed ICC data and assert output values are correct

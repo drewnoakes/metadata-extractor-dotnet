@@ -31,6 +31,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Adobe
 {
+    /// <summary>Unit tests for <see cref="AdobeJpegReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class AdobeJpegReaderTest
     {

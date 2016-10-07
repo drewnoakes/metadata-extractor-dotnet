@@ -30,9 +30,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.IO
 {
-    /// <summary>
-    /// Base class for testing implementations of <see cref="IndexedReader"/>.
-    /// </summary>
+    /// <summary>Base class for testing implementations of <see cref="IndexedReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class IndexedReaderTestBase
     {

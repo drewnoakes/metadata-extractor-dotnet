@@ -30,6 +30,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {
+    /// <summary>Unit tests for Nikon (Type 1) makernote handling.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class NikonType1MakernoteTest
     {

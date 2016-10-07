@@ -27,6 +27,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Iptc
 {
+    /// <summary>Unit tests for <see cref="Iso2022Converter"/>.</summary>
     public sealed class Iso2022ConverterTest
     {
         [Fact]

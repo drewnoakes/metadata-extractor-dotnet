@@ -30,6 +30,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Gif
 {
+    /// <summary>Unit tests for <see cref="GifReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class GifReaderTest
     {

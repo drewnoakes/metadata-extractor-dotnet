@@ -31,9 +31,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Iptc
 {
-    /// <summary>
-    /// Unit tests for <see cref="IptcReader"/>.
-    /// </summary>
+    /// <summary>Unit tests for <see cref="IptcReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class IptcReaderTest
     {

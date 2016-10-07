@@ -26,6 +26,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests
 {
+    /// <summary>Unit tests for <see cref="Age"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class AgeTest
     {

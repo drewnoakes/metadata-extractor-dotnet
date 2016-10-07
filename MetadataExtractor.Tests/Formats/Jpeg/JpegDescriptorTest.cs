@@ -27,6 +27,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Jpeg
 {
+    /// <summary>Unit tests for <see cref="JpegDescriptor"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegDescriptorTest
     {
@@ -72,7 +73,6 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Assert.Equal("8 bits", _directory.GetDescription(JpegDirectory.TagDataPrecision));
         }
 
-        /// <exception cref="MetadataException"/>
         [Fact]
         public void TestGetComponentDescription()
         {

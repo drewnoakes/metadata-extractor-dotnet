@@ -32,6 +32,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Png
 {
+    /// <summary>Unit tests for <see cref="PngMetadataReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngMetadataReaderTest
     {

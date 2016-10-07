@@ -31,6 +31,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Xmp
 {
+    /// <summary>Unit tests for <see cref="XmpReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class XmpReaderTest
     {

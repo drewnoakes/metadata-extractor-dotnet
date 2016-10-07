@@ -29,6 +29,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Util
 {
+    /// <summary>Unit tests for <see cref="ByteConvert"/>.</summary>
     public class ByteConvertTest
     {
         [Fact]

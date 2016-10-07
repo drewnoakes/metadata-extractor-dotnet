@@ -31,6 +31,16 @@ using Xunit.Abstractions;
 
 namespace MetadataExtractor.Tests.Formats.Exif
 {
+    /// <summary>
+    /// Long-running test of <see cref="ExifReader"/> that attempts to verify exceptions are not thrown for invalid input.
+    /// </summary>
+    /// <remarks>
+    /// This test takes a valid APP1 segment and reads it in a loop. At each iteration of the loop, one
+    /// byte from within the segment is modified to some different value. Extraction is performed. This may
+    /// cause extraction to fail, but failure should be captured in the returned directories not as an
+    /// exception.
+    /// </remarks>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifReaderGremlinTest
     {
         private readonly ITestOutputHelper _output;

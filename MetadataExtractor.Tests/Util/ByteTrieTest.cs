@@ -28,6 +28,7 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Util
 {
+    /// <summary>Unit tests for <see cref="ByteTrie{T}"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ByteTrieTest
     {
