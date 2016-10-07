@@ -41,7 +41,8 @@ namespace MetadataExtractor.IO
         private readonly byte[] _buffer;
         private readonly int _baseOffset;
 
-        public ByteArrayReader([NotNull] byte[] buffer, int baseOffset = 0)
+        public ByteArrayReader([NotNull] byte[] buffer, int baseOffset = 0, bool isMotorolaByteOrder = true)
+            : base(isMotorolaByteOrder)
         {
             if (buffer == null)
                 throw new ArgumentNullException(nameof(buffer));
@@ -52,7 +53,9 @@ namespace MetadataExtractor.IO
             _baseOffset = baseOffset;
         }
 
-        public override IndexedReader WithShiftedBaseOffset(int shift) => shift == 0 ? this : new ByteArrayReader(_buffer, _baseOffset + shift) { IsMotorolaByteOrder = IsMotorolaByteOrder };
+        public override IndexedReader WithByteOrder(bool isMotorolaByteOrder) => isMotorolaByteOrder == IsMotorolaByteOrder ? this : new ByteArrayReader(_buffer, _baseOffset, isMotorolaByteOrder);
+
+        public override IndexedReader WithShiftedBaseOffset(int shift) => shift == 0 ? this : new ByteArrayReader(_buffer, _baseOffset + shift, IsMotorolaByteOrder);
 
         public override int ToUnshiftedOffset(int localOffset) => localOffset + _baseOffset;
 

@@ -44,14 +44,21 @@ namespace MetadataExtractor.IO
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class IndexedReader
     {
-        /// <summary>Get and set the byte order of this reader. <c>true</c> by default.</summary>
+        protected IndexedReader(bool isMotorolaByteOrder)
+        {
+            IsMotorolaByteOrder = isMotorolaByteOrder;
+        }
+
+        /// <summary>Get the byte order of this reader.</summary>
         /// <remarks>
         /// <list type="bullet">
         ///   <item><c>true</c> for Motorola (or big) endianness (also known as network byte order), with MSB before LSB.</item>
         ///   <item><c>false</c> for Intel (or little) endianness, with LSB before MSB.</item>
         /// </list>
         /// </remarks>
-        public bool IsMotorolaByteOrder { set; get; } = true;
+        public bool IsMotorolaByteOrder { get; }
+
+        public abstract IndexedReader WithByteOrder(bool isMotorolaByteOrder);
 
         public abstract IndexedReader WithShiftedBaseOffset(int shift);
 

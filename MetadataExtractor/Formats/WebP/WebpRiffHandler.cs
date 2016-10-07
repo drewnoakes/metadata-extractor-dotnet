@@ -91,8 +91,7 @@ namespace MetadataExtractor.Formats.WebP
                     if (payload.Length != 10)
                         break;
 
-                    IndexedReader reader = new ByteArrayReader(payload);
-                    reader.IsMotorolaByteOrder = false;
+                    var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
                     try
                     {
                         // Flags
@@ -123,8 +122,7 @@ namespace MetadataExtractor.Formats.WebP
                     if (payload.Length < 5)
                         break;
 
-                    IndexedReader reader = new ByteArrayReader(payload);
-                    reader.IsMotorolaByteOrder = false;
+                    var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
                     try
                     {
                         // https://developers.google.com/speed/webp/docs/webp_lossless_bitstream_specification#2_riff_header
@@ -156,8 +154,7 @@ namespace MetadataExtractor.Formats.WebP
                     if (payload.Length < 10)
                         break;
 
-                    IndexedReader reader = new ByteArrayReader(payload);
-                    reader.IsMotorolaByteOrder = false;
+                    var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
                     try
                     {
                         // https://tools.ietf.org/html/rfc6386#section-9.1

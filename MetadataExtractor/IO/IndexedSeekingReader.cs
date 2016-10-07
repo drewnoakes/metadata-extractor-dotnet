@@ -39,7 +39,8 @@ namespace MetadataExtractor.IO
 
         private readonly int _baseOffset;
 
-        public IndexedSeekingReader([NotNull] Stream stream, int baseOffset = 0)
+        public IndexedSeekingReader([NotNull] Stream stream, int baseOffset = 0, bool isMotorolaByteOrder = true)
+            : base(isMotorolaByteOrder)
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
@@ -59,7 +60,9 @@ namespace MetadataExtractor.IO
             Length = availableLength;
         }
 
-        public override IndexedReader WithShiftedBaseOffset(int shift) => shift == 0 ? this : new IndexedSeekingReader(_stream, _baseOffset + shift) { IsMotorolaByteOrder = IsMotorolaByteOrder };
+        public override IndexedReader WithByteOrder(bool isMotorolaByteOrder) => isMotorolaByteOrder == IsMotorolaByteOrder ? this : new IndexedSeekingReader(_stream, _baseOffset, isMotorolaByteOrder);
+
+        public override IndexedReader WithShiftedBaseOffset(int shift) => shift == 0 ? this : new IndexedSeekingReader(_stream, _baseOffset + shift, IsMotorolaByteOrder);
 
         public override int ToUnshiftedOffset(int localOffset) => localOffset + _baseOffset;
 

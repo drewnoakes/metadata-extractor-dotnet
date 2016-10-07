@@ -42,7 +42,8 @@ namespace MetadataExtractor.IO
         private bool _isStreamFinished;
         private int _streamLength;
 
-        public IndexedCapturingReader([NotNull] Stream stream, int chunkLength = DefaultChunkLength)
+        public IndexedCapturingReader([NotNull] Stream stream, int chunkLength = DefaultChunkLength, bool isMotorolaByteOrder = true)
+            : base(isMotorolaByteOrder)
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
@@ -174,14 +175,17 @@ namespace MetadataExtractor.IO
             return bytes;
         }
 
-        public override IndexedReader WithShiftedBaseOffset(int shift) => shift == 0 ? (IndexedReader)this : new ShiftedIndexedCapturingReader(this, shift) { IsMotorolaByteOrder = IsMotorolaByteOrder };
+        public override IndexedReader WithByteOrder(bool isMotorolaByteOrder) => isMotorolaByteOrder == IsMotorolaByteOrder ? (IndexedReader)this : new ShiftedIndexedCapturingReader(this, 0, isMotorolaByteOrder);
+
+        public override IndexedReader WithShiftedBaseOffset(int shift) => shift == 0 ? (IndexedReader)this : new ShiftedIndexedCapturingReader(this, shift, IsMotorolaByteOrder);
 
         private sealed class ShiftedIndexedCapturingReader : IndexedReader
         {
             private readonly IndexedCapturingReader _baseReader;
             private readonly int _baseOffset;
 
-            public ShiftedIndexedCapturingReader(IndexedCapturingReader baseReader, int baseOffset)
+            public ShiftedIndexedCapturingReader(IndexedCapturingReader baseReader, int baseOffset, bool isMotorolaByteOrder)
+                : base(isMotorolaByteOrder)
             {
                 if (baseOffset < 0)
                     throw new ArgumentOutOfRangeException(nameof(baseOffset), "Must be zero or greater.");
@@ -190,7 +194,9 @@ namespace MetadataExtractor.IO
                 _baseOffset = baseOffset;
             }
 
-            public override IndexedReader WithShiftedBaseOffset(int shift) => shift == 0 ? this : new ShiftedIndexedCapturingReader(_baseReader, _baseOffset + shift) { IsMotorolaByteOrder = IsMotorolaByteOrder };
+            public override IndexedReader WithByteOrder(bool isMotorolaByteOrder) => isMotorolaByteOrder == IsMotorolaByteOrder ? this : new ShiftedIndexedCapturingReader(_baseReader, _baseOffset, isMotorolaByteOrder);
+
+            public override IndexedReader WithShiftedBaseOffset(int shift) => shift == 0 ? this : new ShiftedIndexedCapturingReader(_baseReader, _baseOffset + shift, IsMotorolaByteOrder);
 
             public override int ToUnshiftedOffset(int localOffset) => localOffset + _baseOffset;
 

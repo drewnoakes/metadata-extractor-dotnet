@@ -47,10 +47,10 @@ namespace MetadataExtractor.Formats.Tiff
             switch (byteOrder)
             {
                 case 0x4d4d: // MM
-                    reader.IsMotorolaByteOrder = true;
+                    reader = reader.WithByteOrder(isMotorolaByteOrder: true);
                     break;
                 case 0x4949: // II
-                    reader.IsMotorolaByteOrder = false;
+                    reader = reader.WithByteOrder(isMotorolaByteOrder: false);
                     break;
                 default:
                     throw new TiffProcessingException("Unclear distinction between Motorola/Intel byte ordering: " + reader.GetInt16(0));
@@ -99,7 +99,6 @@ namespace MetadataExtractor.Formats.Tiff
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
         public static void ProcessIfd([NotNull] ITiffHandler handler, [NotNull] IndexedReader reader, [NotNull] ICollection<int> processedGlobalIfdOffsets, int ifdOffset)
         {
-            bool? resetByteOrder = null;
             try
             {
                 // Check for directories we've already visited to avoid stack overflows when recursive/cyclic directory structures exist.
@@ -127,9 +126,8 @@ namespace MetadataExtractor.Formats.Tiff
                 // This was discussed in GitHub issue #136.
                 if (dirTagCount > 0xFF && (dirTagCount & 0xFF) == 0)
                 {
-                    resetByteOrder = reader.IsMotorolaByteOrder;
                     dirTagCount >>= 8;
-                    reader.IsMotorolaByteOrder = !reader.IsMotorolaByteOrder;
+                    reader = reader.WithByteOrder(!reader.IsMotorolaByteOrder);
                 }
 
                 var dirLength = 2 + 12*dirTagCount + 4;
@@ -259,9 +257,6 @@ namespace MetadataExtractor.Formats.Tiff
             finally
             {
                 handler.EndingIfd();
-
-                if (resetByteOrder != null)
-                    reader.IsMotorolaByteOrder = resetByteOrder.Value;
             }
         }
 
