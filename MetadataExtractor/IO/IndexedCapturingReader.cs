@@ -47,7 +47,7 @@ namespace MetadataExtractor.IO
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
             if (chunkLength <= 0)
-                throw new ArgumentException("chunkLength must be greater than zero");
+                throw new ArgumentOutOfRangeException(nameof(chunkLength), "Must be greater than zero.");
 
             _chunkLength = chunkLength;
             _stream = stream;
