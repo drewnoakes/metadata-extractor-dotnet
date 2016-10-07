@@ -75,15 +75,15 @@ namespace MetadataExtractor.IO
         /// <exception cref="BufferBoundsException">if the stream ends before the required number of bytes are acquired</exception>
         protected override void ValidateIndex(int index, int bytesRequested)
         {
-            if (index < 0)
-                throw new BufferBoundsException($"Attempt to read from buffer using a negative index ({index})");
-            if (bytesRequested < 0)
-                throw new BufferBoundsException("Number of requested bytes must be zero or greater");
-            if ((long)index + bytesRequested - 1 > int.MaxValue)
-                throw new BufferBoundsException($"Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: {index}, requested count: {bytesRequested})");
-
             if (!IsValidIndex(index, bytesRequested))
             {
+                if (index < 0)
+                    throw new BufferBoundsException($"Attempt to read from buffer using a negative index ({index}).");
+                if (bytesRequested < 0)
+                    throw new BufferBoundsException("Number of requested bytes must be zero or greater.");
+                if ((long)index + bytesRequested - 1 > int.MaxValue)
+                    throw new BufferBoundsException($"Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: {index}, requested count: {bytesRequested}).");
+
                 Debug.Assert(_isStreamFinished);
                 // TODO test that can continue using an instance of this type after this exception
                 throw new BufferBoundsException(index, bytesRequested, _streamLength);
