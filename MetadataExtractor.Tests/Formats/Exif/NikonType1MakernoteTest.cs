@@ -52,11 +52,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
         {
             var metadata = ExifReaderTest.ProcessSegmentBytes("Tests/Data/nikonMakernoteType1.jpg.app1", JpegSegmentType.App1).ToList();
 
-            var nikonDirectory = metadata.OfType<NikonType1MakernoteDirectory>().SingleOrDefault();
-            var subIfdDirectory = metadata.OfType<ExifSubIfdDirectory>().SingleOrDefault();
-            var ifd0Directory = metadata.OfType<ExifIfd0Directory>().SingleOrDefault();
-            var thumbDirectory = metadata.OfType<ExifThumbnailDirectory>().SingleOrDefault();
-
             /*
                 [Nikon Makernote] Makernote Unknown 1 = 08.00
                 [Nikon Makernote] Quality = Unknown (12)
@@ -70,18 +65,20 @@ namespace MetadataExtractor.Tests.Formats.Exif
                 [Nikon Makernote] Fisheye Converter = None
                 [Nikon Makernote] Makernote Unknown 3 = 0 0 16777216 0 2685774096 0 34833 6931 16178 4372 4372 3322676767 3373084416 15112 0 0 1151495 252903424 17 0 0 844038208 55184128 218129428 1476410198 370540566 4044363286 16711749 204629079 1729
             */
+            var nikonDirectory = metadata.OfType<NikonType1MakernoteDirectory>().SingleOrDefault();
 
+            Assert.NotNull(nikonDirectory);
             Assert.True(nikonDirectory.TagCount > 0);
-            Assert.Equal(8, nikonDirectory.GetDouble(NikonType1MakernoteDirectory.TagUnknown1), 5);
+            Assert.Equal("08.00", nikonDirectory.GetString(NikonType1MakernoteDirectory.TagUnknown1));
             Assert.Equal(12, nikonDirectory.GetInt32(NikonType1MakernoteDirectory.TagQuality));
-            Assert.Equal(1, nikonDirectory.GetInt32(NikonType1MakernoteDirectory.TagColorMode));
-            Assert.Equal(3, nikonDirectory.GetInt32(NikonType1MakernoteDirectory.TagImageAdjustment));
-            Assert.Equal(0, nikonDirectory.GetInt32(NikonType1MakernoteDirectory.TagCcdSensitivity));
-            Assert.Equal(0, nikonDirectory.GetInt32(NikonType1MakernoteDirectory.TagWhiteBalance));
-            Assert.Equal(0, nikonDirectory.GetInt32(NikonType1MakernoteDirectory.TagFocus));
-            Assert.Equal(string.Empty, nikonDirectory.GetString(NikonType1MakernoteDirectory.TagUnknown2));
-            Assert.Equal(0, nikonDirectory.GetDouble(NikonType1MakernoteDirectory.TagDigitalZoom), 5);
-            Assert.Equal(0, nikonDirectory.GetInt32(NikonType1MakernoteDirectory.TagConverter));
+            Assert.Equal(1,  nikonDirectory.GetInt32(NikonType1MakernoteDirectory.TagColorMode));
+            Assert.Equal(3,  nikonDirectory.GetInt32(NikonType1MakernoteDirectory.TagImageAdjustment));
+            Assert.Equal(0,  nikonDirectory.GetInt32(NikonType1MakernoteDirectory.TagCcdSensitivity));
+            Assert.Equal(0,  nikonDirectory.GetInt32(NikonType1MakernoteDirectory.TagWhiteBalance));
+            Assert.Equal(0,  nikonDirectory.GetInt32(NikonType1MakernoteDirectory.TagFocus));
+            Assert.Equal("", nikonDirectory.GetString(NikonType1MakernoteDirectory.TagUnknown2));
+            Assert.Equal(0,  nikonDirectory.GetDouble(NikonType1MakernoteDirectory.TagDigitalZoom), 5);
+            Assert.Equal(0,  nikonDirectory.GetInt32(NikonType1MakernoteDirectory.TagConverter));
 
             Assert.Equal(
                 new uint[] { 0, 0, 16777216, 0, 2685774096, 0, 34833, 6931, 16178, 4372, 4372, 3322676767, 3373084416, 15112, 0, 0, 1151495, 252903424, 17, 0, 0, 844038208, 55184128, 218129428, 1476410198, 370540566, 4044363286, 16711749, 204629079, 1729 },
@@ -126,16 +123,23 @@ namespace MetadataExtractor.Tests.Formats.Exif
                 [Exif] Thumbnail Data = [4662 bytes of thumbnail data]
             */
 
-            Assert.Equal("          ", ifd0Directory.GetString(ExifDirectoryBase.TagImageDescription));
-            Assert.Equal("NIKON", ifd0Directory.GetString(ExifDirectoryBase.TagMake));
-            Assert.Equal("E950", ifd0Directory.GetString(ExifDirectoryBase.TagModel));
-            Assert.Equal(1, ifd0Directory.GetInt32(ExifDirectoryBase.TagOrientation));
-            Assert.Equal(300, ifd0Directory.GetDouble(ExifDirectoryBase.TagXResolution), 3);
-            Assert.Equal(300, ifd0Directory.GetDouble(ExifDirectoryBase.TagYResolution), 3);
-            Assert.Equal(2, ifd0Directory.GetInt32(ExifDirectoryBase.TagResolutionUnit));
-            Assert.Equal("v981-79", ifd0Directory.GetString(ExifDirectoryBase.TagSoftware));
+            var ifd0Directory = metadata.OfType<ExifIfd0Directory>().SingleOrDefault();
+
+            Assert.NotNull(ifd0Directory);
+            Assert.Equal("          ",          ifd0Directory.GetString(ExifDirectoryBase.TagImageDescription));
+            Assert.Equal("NIKON",               ifd0Directory.GetString(ExifDirectoryBase.TagMake));
+            Assert.Equal("E950",                ifd0Directory.GetString(ExifDirectoryBase.TagModel));
+            Assert.Equal(1,                     ifd0Directory.GetInt32(ExifDirectoryBase.TagOrientation));
+            Assert.Equal(300,                   ifd0Directory.GetDouble(ExifDirectoryBase.TagXResolution), 3);
+            Assert.Equal(300,                   ifd0Directory.GetDouble(ExifDirectoryBase.TagYResolution), 3);
+            Assert.Equal(2,                     ifd0Directory.GetInt32(ExifDirectoryBase.TagResolutionUnit));
+            Assert.Equal("v981-79",             ifd0Directory.GetString(ExifDirectoryBase.TagSoftware));
             Assert.Equal("2001:04:06 11:51:40", ifd0Directory.GetString(ExifDirectoryBase.TagDateTime));
-            Assert.Equal(2, ifd0Directory.GetInt32(ExifDirectoryBase.TagYCbCrPositioning));
+            Assert.Equal(2,                     ifd0Directory.GetInt32(ExifDirectoryBase.TagYCbCrPositioning));
+
+            var subIfdDirectory = metadata.OfType<ExifSubIfdDirectory>().SingleOrDefault();
+
+            Assert.NotNull(subIfdDirectory);
             Assert.Equal(new Rational(1, 77), subIfdDirectory.GetRational(ExifDirectoryBase.TagExposureTime));
             Assert.Equal(5.5, subIfdDirectory.GetDouble(ExifDirectoryBase.TagFNumber), 3);
             Assert.Equal(2, subIfdDirectory.GetInt32(ExifDirectoryBase.TagExposureProgram));
@@ -161,6 +165,10 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.Equal(1200, subIfdDirectory.GetInt32(ExifDirectoryBase.TagExifImageHeight));
             Assert.Equal(3, subIfdDirectory.GetInt32(ExifDirectoryBase.TagFileSource));
             Assert.Equal(1, subIfdDirectory.GetInt32(ExifDirectoryBase.TagSceneType));
+
+            var thumbDirectory = metadata.OfType<ExifThumbnailDirectory>().SingleOrDefault();
+
+            Assert.NotNull(thumbDirectory);
             Assert.Equal(6, thumbDirectory.GetInt32(ExifDirectoryBase.TagCompression));
             Assert.Equal(2036, thumbDirectory.GetInt32(ExifThumbnailDirectory.TagThumbnailOffset));
             Assert.Equal(4662, thumbDirectory.GetInt32(ExifThumbnailDirectory.TagThumbnailLength));
