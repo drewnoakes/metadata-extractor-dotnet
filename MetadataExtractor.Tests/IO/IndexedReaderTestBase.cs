@@ -318,5 +318,36 @@ namespace MetadataExtractor.Tests.IO
             reader.GetByte(0);
             Assert.Throws<BufferBoundsException>(() => reader.GetByte(1));
         }
+
+        [Fact]
+        public void WithShiftedBaseOffset()
+        {
+            var reader = CreateReader(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+            reader.IsMotorolaByteOrder = false;
+
+            Assert.Equal(10, reader.Length);
+            Assert.Equal(0, reader.GetByte(0));
+            Assert.Equal(1, reader.GetByte(1));
+            Assert.Equal(new byte[] { 0, 1 }, reader.GetBytes(0, 2));
+            Assert.Equal(4, reader.ToUnshiftedOffset(4));
+
+            reader = reader.WithShiftedBaseOffset(2);
+
+            Assert.False(reader.IsMotorolaByteOrder);
+            Assert.Equal(8, reader.Length);
+            Assert.Equal(2, reader.GetByte(0));
+            Assert.Equal(3, reader.GetByte(1));
+            Assert.Equal(new byte[] { 2, 3 }, reader.GetBytes(0, 2));
+            Assert.Equal(6, reader.ToUnshiftedOffset(4));
+
+            reader = reader.WithShiftedBaseOffset(2);
+
+            Assert.False(reader.IsMotorolaByteOrder);
+            Assert.Equal(6, reader.Length);
+            Assert.Equal(4, reader.GetByte(0));
+            Assert.Equal(5, reader.GetByte(1));
+            Assert.Equal(new byte[] { 4, 5 }, reader.GetBytes(0, 2));
+            Assert.Equal(8, reader.ToUnshiftedOffset(4));
+        }
     }
 }

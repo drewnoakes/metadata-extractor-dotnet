@@ -59,7 +59,7 @@ namespace MetadataExtractor.Formats.Exif
         {
             return segments
                 .Where(segment => segment.Bytes.Length >= JpegSegmentPreamble.Length && Encoding.UTF8.GetString(segment.Bytes, 0, JpegSegmentPreamble.Length) == JpegSegmentPreamble)
-                .SelectMany(segment => Extract(new ByteArrayReader(segment.Bytes), JpegSegmentPreamble.Length))
+                .SelectMany(segment => Extract(new ByteArrayReader(segment.Bytes, baseOffset: JpegSegmentPreamble.Length)))
                 .ToList();
         }
 
@@ -73,14 +73,14 @@ namespace MetadataExtractor.Formats.Exif
 #else
             IReadOnlyList<Directory>
 #endif
-            Extract([NotNull] IndexedReader reader, int readerOffset = 0)
+            Extract([NotNull] IndexedReader reader)
         {
             var directories = new List<Directory>();
 
             try
             {
                 // Read the TIFF-formatted Exif data
-                TiffReader.ProcessTiff(reader, new ExifTiffHandler(directories, StoreThumbnailBytes), readerOffset);
+                TiffReader.ProcessTiff(reader, new ExifTiffHandler(directories, StoreThumbnailBytes));
             }
             catch (TiffProcessingException e)
             {

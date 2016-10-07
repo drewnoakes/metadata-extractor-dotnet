@@ -53,6 +53,10 @@ namespace MetadataExtractor.IO
         /// </remarks>
         public bool IsMotorolaByteOrder { set; get; } = true;
 
+        public abstract IndexedReader WithShiftedBaseOffset(int shift);
+
+        public abstract int ToUnshiftedOffset(int localOffset);
+
         /// <summary>Gets the byte value at the specified byte <c>index</c>.</summary>
         /// <remarks>
         /// Implementations must validate <paramref name="index"/> by calling <see cref="ValidateIndex"/>.

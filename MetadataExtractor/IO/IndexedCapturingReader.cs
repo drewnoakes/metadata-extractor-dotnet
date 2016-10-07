@@ -78,15 +78,15 @@ namespace MetadataExtractor.IO
             if (!IsValidIndex(index, bytesRequested))
             {
                 if (index < 0)
-                    throw new BufferBoundsException($"Attempt to read from buffer using a negative index ({index}).");
+                    throw new BufferBoundsException($"Attempt to read from buffer using a negative index ({index})");
                 if (bytesRequested < 0)
-                    throw new BufferBoundsException("Number of requested bytes must be zero or greater.");
+                    throw new BufferBoundsException("Number of requested bytes must be zero or greater");
                 if ((long)index + bytesRequested - 1 > int.MaxValue)
-                    throw new BufferBoundsException($"Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: {index}, requested count: {bytesRequested}).");
+                    throw new BufferBoundsException($"Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: {index}, requested count: {bytesRequested})");
 
                 Debug.Assert(_isStreamFinished);
                 // TODO test that can continue using an instance of this type after this exception
-                throw new BufferBoundsException(index, bytesRequested, _streamLength);
+                throw new BufferBoundsException(ToUnshiftedOffset(index), bytesRequested, _streamLength);
             }
         }
 
@@ -140,6 +140,8 @@ namespace MetadataExtractor.IO
             return true;
         }
 
+        public override int ToUnshiftedOffset(int localOffset) => localOffset;
+
         public override byte GetByte(int index)
         {
             ValidateIndex(index, 1);
@@ -170,6 +172,37 @@ namespace MetadataExtractor.IO
                 toIndex += length;
             }
             return bytes;
+        }
+
+        public override IndexedReader WithShiftedBaseOffset(int shift) => shift == 0 ? (IndexedReader)this : new ShiftedIndexedCapturingReader(this, shift) { IsMotorolaByteOrder = IsMotorolaByteOrder };
+
+        private sealed class ShiftedIndexedCapturingReader : IndexedReader
+        {
+            private readonly IndexedCapturingReader _baseReader;
+            private readonly int _baseOffset;
+
+            public ShiftedIndexedCapturingReader(IndexedCapturingReader baseReader, int baseOffset)
+            {
+                if (baseOffset < 0)
+                    throw new ArgumentOutOfRangeException(nameof(baseOffset), "Must be zero or greater.");
+
+                _baseReader = baseReader;
+                _baseOffset = baseOffset;
+            }
+
+            public override IndexedReader WithShiftedBaseOffset(int shift) => shift == 0 ? this : new ShiftedIndexedCapturingReader(_baseReader, _baseOffset + shift) { IsMotorolaByteOrder = IsMotorolaByteOrder };
+
+            public override int ToUnshiftedOffset(int localOffset) => localOffset + _baseOffset;
+
+            public override byte GetByte(int index) => _baseReader.GetByte(_baseOffset + index);
+
+            public override byte[] GetBytes(int index, int count) => _baseReader.GetBytes(_baseOffset + index, count);
+
+            protected override void ValidateIndex(int index, int bytesRequested) => _baseReader.ValidateIndex(index + _baseOffset, bytesRequested);
+
+            protected override bool IsValidIndex(int index, int bytesRequested) => _baseReader.IsValidIndex(index + _baseOffset, bytesRequested);
+
+            public override long Length => _baseReader.Length - _baseOffset;
         }
     }
 }

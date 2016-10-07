@@ -37,14 +37,14 @@ namespace MetadataExtractor.Formats.Tiff
         /// <summary>Processes a TIFF data sequence.</summary>
         /// <param name="reader">the <see cref="IndexedReader"/> from which the data should be read</param>
         /// <param name="handler">the <see cref="ITiffHandler"/> that will coordinate processing and accept read values</param>
-        /// <param name="tiffHeaderOffset">the offset within <c>reader</c> at which the TIFF header starts</param>
         /// <exception cref="TiffProcessingException">if an error occurred during the processing of TIFF data that could not be ignored or recovered from</exception>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
         /// <exception cref="TiffProcessingException"/>
-        public static void ProcessTiff([NotNull] IndexedReader reader, [NotNull] ITiffHandler handler, int tiffHeaderOffset = 0)
+        public static void ProcessTiff([NotNull] IndexedReader reader, [NotNull] ITiffHandler handler)
         {
             // Read byte order.
-            switch (reader.GetInt16(tiffHeaderOffset))
+            var byteOrder = reader.GetInt16(0);
+            switch (byteOrder)
             {
                 case 0x4d4d: // MM
                     reader.IsMotorolaByteOrder = true;
@@ -53,14 +53,14 @@ namespace MetadataExtractor.Formats.Tiff
                     reader.IsMotorolaByteOrder = false;
                     break;
                 default:
-                    throw new TiffProcessingException("Unclear distinction between Motorola/Intel byte ordering: " + reader.GetInt16(tiffHeaderOffset));
+                    throw new TiffProcessingException("Unclear distinction between Motorola/Intel byte ordering: " + reader.GetInt16(0));
             }
 
             // Check the next two values for correctness.
-            int tiffMarker = reader.GetUInt16(2 + tiffHeaderOffset);
+            int tiffMarker = reader.GetUInt16(2);
             handler.SetTiffMarker(tiffMarker);
 
-            var firstIfdOffset = reader.GetInt32(4 + tiffHeaderOffset) + tiffHeaderOffset;
+            var firstIfdOffset = reader.GetInt32(4);
 
             // David Ekholm sent a digital camera image that has this problem
             // TODO calling Length should be avoided as it causes IndexedCapturingReader to read to the end of the stream
@@ -68,14 +68,14 @@ namespace MetadataExtractor.Formats.Tiff
             {
                 handler.Warn("First IFD offset is beyond the end of the TIFF data segment -- trying default offset");
                 // First directory normally starts immediately after the offset bytes, so try that
-                firstIfdOffset = tiffHeaderOffset + 2 + 2 + 4;
+                firstIfdOffset = 2 + 2 + 4;
             }
 
             var processedIfdOffsets = new HashSet<int>();
 
-            ProcessIfd(handler, reader, processedIfdOffsets, firstIfdOffset, tiffHeaderOffset);
+            ProcessIfd(handler, reader, processedIfdOffsets, firstIfdOffset);
 
-            handler.Completed(reader, tiffHeaderOffset);
+            handler.Completed(reader);
         }
 
         /// <summary>Processes a TIFF IFD.</summary>
@@ -94,21 +94,24 @@ namespace MetadataExtractor.Formats.Tiff
         /// </remarks>
         /// <param name="handler">the <see cref="ITiffHandler"/> that will coordinate processing and accept read values</param>
         /// <param name="reader">the <see cref="IndexedReader"/> from which the data should be read</param>
-        /// <param name="processedIfdOffsets">the set of visited IFD offsets, to avoid revisiting the same IFD in an endless loop</param>
+        /// <param name="processedGlobalIfdOffsets">the set of visited IFD offsets, to avoid revisiting the same IFD in an endless loop</param>
         /// <param name="ifdOffset">the offset within <c>reader</c> at which the IFD data starts</param>
-        /// <param name="tiffHeaderOffset">the offset within <c>reader</c> at which the TIFF header starts</param>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
-        public static void ProcessIfd([NotNull] ITiffHandler handler, [NotNull] IndexedReader reader, [NotNull] ICollection<int> processedIfdOffsets, int ifdOffset, int tiffHeaderOffset)
+        public static void ProcessIfd([NotNull] ITiffHandler handler, [NotNull] IndexedReader reader, [NotNull] ICollection<int> processedGlobalIfdOffsets, int ifdOffset)
         {
             bool? resetByteOrder = null;
             try
             {
-                // check for directories we've already visited to avoid stack overflows when recursive/cyclic directory structures exist
-                if (processedIfdOffsets.Contains(ifdOffset))
+                // Check for directories we've already visited to avoid stack overflows when recursive/cyclic directory structures exist.
+                // Note that we track these offsets in the global frame, not the reader's local frame.
+                var globalIfdOffset = reader.ToUnshiftedOffset(ifdOffset);
+                if (processedGlobalIfdOffsets.Contains(globalIfdOffset))
                     return;
 
-                // remember that we've visited this directory so that we don't visit it again later
-                processedIfdOffsets.Add(ifdOffset);
+                // Remember that we've visited this directory so that we don't visit it again later
+                processedGlobalIfdOffsets.Add(globalIfdOffset);
+
+                // Validate IFD offset
                 if (ifdOffset >= reader.Length || ifdOffset < 0)
                 {
                     handler.Error("Ignored IFD marked to start outside data segment");
@@ -181,14 +184,13 @@ namespace MetadataExtractor.Formats.Tiff
                     if (byteCount > 4)
                     {
                         // If it's bigger than 4 bytes, the dir entry contains an offset.
-                        var offsetVal = reader.GetInt32(tagOffset + 8);
-                        if (offsetVal + byteCount > reader.Length)
+                        tagValueOffset = reader.GetUInt32(tagOffset + 8);
+                        if (tagValueOffset + byteCount > reader.Length)
                         {
                             // Bogus pointer offset and / or byteCount value
                             handler.Error("Illegal TIFF tag pointer offset");
                             continue;
                         }
-                        tagValueOffset = tiffHeaderOffset + offsetVal;
                     }
                     else
                     {
@@ -219,14 +221,14 @@ namespace MetadataExtractor.Formats.Tiff
                             if (handler.TryEnterSubIfd(tagId))
                             {
                                 isIfdPointer = true;
-                                var subDirOffset = tiffHeaderOffset + reader.GetUInt32((int)(tagValueOffset + i*4));
-                                ProcessIfd(handler, reader, processedIfdOffsets, (int)subDirOffset, tiffHeaderOffset);
+                                var subDirOffset = reader.GetUInt32((int)(tagValueOffset + i*4));
+                                ProcessIfd(handler, reader, processedGlobalIfdOffsets, (int)subDirOffset);
                             }
                         }
                     }
 
                     // If it wasn't an IFD pointer, allow custom tag processing to occur
-                    if (!isIfdPointer && !handler.CustomProcessTag((int)tagValueOffset, processedIfdOffsets, tiffHeaderOffset, reader, tagId, (int)byteCount))
+                    if (!isIfdPointer && !handler.CustomProcessTag((int)tagValueOffset, processedGlobalIfdOffsets, reader, tagId, (int)byteCount))
                     {
                         // If no custom processing occurred, process the tag in the standard fashion
                         ProcessTag(handler, tagId, (int)tagValueOffset, (int)componentCount, formatCode, reader);
@@ -238,12 +240,9 @@ namespace MetadataExtractor.Formats.Tiff
                 var nextIfdOffset = reader.GetInt32(finalTagOffset);
                 if (nextIfdOffset != 0)
                 {
-                    nextIfdOffset += tiffHeaderOffset;
-
                     if (nextIfdOffset >= reader.Length)
                     {
                         // Last 4 bytes of IFD reference another IFD with an address that is out of bounds
-                        // Note this could have been caused by jhead 1.3 cropping too much
                         return;
                     }
                     else if (nextIfdOffset < ifdOffset)
@@ -254,7 +253,7 @@ namespace MetadataExtractor.Formats.Tiff
                     }
 
                     if (handler.HasFollowerIfd())
-                        ProcessIfd(handler, reader, processedIfdOffsets, nextIfdOffset, tiffHeaderOffset);
+                        ProcessIfd(handler, reader, processedGlobalIfdOffsets, nextIfdOffset);
                 }
             }
             finally

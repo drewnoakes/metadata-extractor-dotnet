@@ -83,9 +83,9 @@ namespace MetadataExtractor.Formats.Tiff
         public void SetInt32U(int tagId, uint int32U)             => CurrentDirectory.Set(tagId, int32U);
         public void SetInt32UArray(int tagId, uint[] array)       => CurrentDirectory.Set(tagId, array);
 
-        public abstract void Completed(IndexedReader reader, int tiffHeaderOffset);
+        public abstract void Completed(IndexedReader reader);
 
-        public abstract bool CustomProcessTag(int tagOffset, ICollection<int> processedIfdOffsets, int tiffHeaderOffset, IndexedReader reader, int tagId, int byteCount);
+        public abstract bool CustomProcessTag(int tagOffset, ICollection<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount);
 
         public abstract bool TryCustomProcessFormat(int tagId, TiffDataFormatCode formatCode, uint componentCount, out long byteCount);
 

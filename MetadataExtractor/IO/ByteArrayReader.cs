@@ -39,32 +39,43 @@ namespace MetadataExtractor.IO
     {
         [NotNull]
         private readonly byte[] _buffer;
+        private readonly int _baseOffset;
 
-        public ByteArrayReader([NotNull] byte[] buffer)
+        public ByteArrayReader([NotNull] byte[] buffer, int baseOffset = 0)
         {
             if (buffer == null)
                 throw new ArgumentNullException(nameof(buffer));
+            if (baseOffset < 0)
+                throw new ArgumentOutOfRangeException(nameof(baseOffset), "Must be zero or greater.");
 
             _buffer = buffer;
+            _baseOffset = baseOffset;
         }
 
-        public override long Length => _buffer.Length;
+        public override IndexedReader WithShiftedBaseOffset(int shift) => shift == 0 ? this : new ByteArrayReader(_buffer, _baseOffset + shift) { IsMotorolaByteOrder = IsMotorolaByteOrder };
+
+        public override int ToUnshiftedOffset(int localOffset) => localOffset + _baseOffset;
+
+        public override long Length => _buffer.Length - _baseOffset;
 
         public override byte GetByte(int index)
         {
             ValidateIndex(index, 1);
-            return _buffer[index];
+            return _buffer[index + _baseOffset];
         }
 
         protected override void ValidateIndex(int index, int bytesRequested)
         {
             if (!IsValidIndex(index, bytesRequested))
-                throw new BufferBoundsException(index, bytesRequested, _buffer.Length);
+                throw new BufferBoundsException(ToUnshiftedOffset(index), bytesRequested, _buffer.Length);
         }
 
         protected override bool IsValidIndex(int index, int bytesRequested)
         {
-            return bytesRequested >= 0 && index >= 0 && index + (long)bytesRequested - 1L < _buffer.Length;
+            return
+                bytesRequested >= 0 &&
+                index >= 0 &&
+                index + (long)bytesRequested - 1L < Length;
         }
 
         public override byte[] GetBytes(int index, int count)
@@ -72,7 +83,7 @@ namespace MetadataExtractor.IO
             ValidateIndex(index, count);
 
             var bytes = new byte[count];
-            Array.Copy(_buffer, index, bytes, 0, count);
+            Array.Copy(_buffer, index + _baseOffset, bytes, 0, count);
             return bytes;
         }
     }
