@@ -1,0 +1,62 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [ "MetadataExtractor/MetadataExtractor.net45.csproj" ]
+        }
+      ],
+      "dest": "docs/api"
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "docs/api/**.yml",
+          "docs/api/index.md"
+        ]
+      },
+      {
+        "files": [
+          "docs/articles/**.md",
+          "docs/articles/**/toc.yml",
+          "docs/toc.yml",
+          "docs/*.md"
+        ],
+        "exclude": [
+          "obj/**",
+          "docs/generated/**"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+        ],
+        "exclude": [
+          "obj/**",
+          "docs/generated/**"
+        ]
+      }
+    ],
+    "overwrite": [
+      {
+        "files": [
+        ],
+        "exclude": [
+          "obj/**",
+          "docs/generated/**"
+        ]
+      }
+    ],
+    "dest": "docs/generated",
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
+    "template": [
+      "default"
+    ],
+    "postProcessors": [],
+    "noLangKeyword": false
+  }
+}
