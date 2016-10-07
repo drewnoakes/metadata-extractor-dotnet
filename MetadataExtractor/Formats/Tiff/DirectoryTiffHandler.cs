@@ -36,9 +36,8 @@ namespace MetadataExtractor.Formats.Tiff
     {
         private readonly Stack<Directory> _directoryStack = new Stack<Directory>();
 
-        protected Directory CurrentDirectory;
-
-        protected readonly List<Directory> Directories;
+        protected List<Directory> Directories { get; }
+        protected Directory CurrentDirectory { get; private set; }
 
         protected DirectoryTiffHandler([NotNull] List<Directory> directories, [NotNull] Directory initialDirectory)
         {
