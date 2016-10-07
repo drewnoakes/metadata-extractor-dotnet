@@ -163,8 +163,7 @@ namespace MetadataExtractor.Tests.IO
         [Fact]
         public void TestGetInt64()
         {
-            var buffer = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, unchecked(0xFF
-                ) };
+            var buffer = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, unchecked(0xFF) };
             var reader = CreateReader(buffer);
             Assert.Equal(unchecked(0x0001020304050607L), (object)reader.GetInt64(0));
             Assert.Equal(unchecked(0x01020304050607FFL), (object)reader.GetInt64(1));

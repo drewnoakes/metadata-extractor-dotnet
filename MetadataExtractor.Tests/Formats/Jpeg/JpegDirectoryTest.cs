@@ -56,26 +56,26 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         public void TestGetImageWidth()
         {
             _directory.Set(JpegDirectory.TagImageWidth, 123);
+
             Assert.Equal(123, _directory.GetImageWidth());
         }
-
 
         [Fact]
         public void TestGetImageHeight()
         {
             _directory.Set(JpegDirectory.TagImageHeight, 123);
+
             Assert.Equal(123, _directory.GetImageHeight());
         }
-
 
         [Fact]
         public void TestGetNumberOfComponents()
         {
             _directory.Set(JpegDirectory.TagNumberOfComponents, 3);
+
             Assert.Equal(3, _directory.GetNumberOfComponents());
             Assert.Equal("3", _directory.GetDescription(JpegDirectory.TagNumberOfComponents));
         }
-
 
         [Fact]
         public void TestGetComponent()
@@ -84,10 +84,12 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             var component2 = new JpegComponent(1, 2, 3);
             var component3 = new JpegComponent(1, 2, 3);
             var component4 = new JpegComponent(1, 2, 3);
+
             _directory.Set(JpegDirectory.TagComponentData1, component1);
             _directory.Set(JpegDirectory.TagComponentData2, component2);
             _directory.Set(JpegDirectory.TagComponentData3, component3);
             _directory.Set(JpegDirectory.TagComponentData4, component4);
+
             // component numbers are zero-indexed for this method
             Assert.Same(component1, _directory.GetComponent(0));
             Assert.Same(component2, _directory.GetComponent(1));

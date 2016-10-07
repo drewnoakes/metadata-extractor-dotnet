@@ -45,7 +45,6 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal(true, CreateReader(new byte[1]).IsMotorolaByteOrder);
         }
 
-
         [Fact]
         public void TestGetSByte()
         {
@@ -56,7 +55,6 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal(127, reader.GetSByte());
             Assert.Equal(-1, reader.GetSByte());
         }
-
 
         [Fact]
         public void TestGetByte()
@@ -78,7 +76,6 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal("End of data reached.", ex.Message);
         }
 
-
         [Fact]
         public void TestGetInt16()
         {
@@ -92,7 +89,6 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal(0x0100, reader.GetInt16());
             Assert.Equal(unchecked((short)0xFF7F), reader.GetInt16());
         }
-
 
         [Fact]
         public void TestGetUInt16()
@@ -115,7 +111,6 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal("End of data reached.", ex.Message);
         }
 
-
         [Fact]
         public void TestGetInt32()
         {
@@ -129,7 +124,6 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal(0x03020100, reader.GetInt32());
             Assert.Equal(0x07060504, reader.GetInt32());
         }
-
 
         [Fact]
         public void TestGetUInt32()
@@ -157,7 +151,6 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal("End of data reached.", ex.Message);
         }
 
-
         [Fact]
         public void TestGetInt64()
         {
@@ -177,7 +170,6 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal("End of data reached.", ex.Message);
         }
 
-
         [Fact]
         public void TestGetFloat32()
         {
@@ -188,7 +180,6 @@ namespace MetadataExtractor.Tests.IO
             Assert.True(float.IsNaN(reader.GetFloat32()));
         }
 
-
         [Fact]
         public void TestGetFloat64()
         {
@@ -198,7 +189,6 @@ namespace MetadataExtractor.Tests.IO
             var reader = CreateReader(buffer);
             Assert.True(double.IsNaN(reader.GetDouble64()));
         }
-
 
         [Fact]
         public void TestGetNullTerminatedString()
@@ -215,7 +205,6 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal("AB", CreateReader(new byte[] { 0x41, 0x42, 0, 0x43 }).GetNullTerminatedString(10));
         }
 
-
         [Fact]
         public void TestGetString()
         {
@@ -227,7 +216,6 @@ namespace MetadataExtractor.Tests.IO
                 Assert.Equal("ABCDEFG".Substring (0, i - 0), CreateReader(bytes).GetString(i, Encoding.UTF8));
             }
         }
-
 
         [Fact]
         public void TestGetBytes()
@@ -255,7 +243,6 @@ namespace MetadataExtractor.Tests.IO
             }
         }
 
-
         [Fact]
         public void TestGetBytesEof()
         {
@@ -267,7 +254,6 @@ namespace MetadataExtractor.Tests.IO
 
             Assert.Throws<IOException>(() => CreateReader(new byte[50]).GetBytes(51));
         }
-
 
         [Fact]
         public void TestGetByteEof()
@@ -283,7 +269,6 @@ namespace MetadataExtractor.Tests.IO
             Assert.Throws<IOException>(() => reader.GetByte());
         }
 
-
         [Fact]
         public void TestSkipEof()
         {
@@ -297,7 +282,6 @@ namespace MetadataExtractor.Tests.IO
             reader.Skip(1);
             Assert.Throws<IOException>(() => reader.Skip(1));
         }
-
 
         [Fact]
         public void TestTrySkipEof()

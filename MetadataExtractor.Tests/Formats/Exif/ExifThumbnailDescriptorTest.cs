@@ -31,15 +31,16 @@ namespace MetadataExtractor.Tests.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifThumbnailDescriptorTest
     {
-
         [Fact]
         public void TestGetYCbCrSubsamplingDescription()
         {
             var directory = new ExifThumbnailDirectory();
-            directory.Set(ExifDirectoryBase.TagYCbCrSubsampling, new[] { 2, 1 });
             var descriptor = new ExifThumbnailDescriptor(directory);
+
+            directory.Set(ExifDirectoryBase.TagYCbCrSubsampling, new[] { 2, 1 });
             Assert.Equal("YCbCr4:2:2", descriptor.GetDescription(ExifDirectoryBase.TagYCbCrSubsampling));
             Assert.Equal("YCbCr4:2:2", descriptor.GetYCbCrSubsamplingDescription());
+
             directory.Set(ExifDirectoryBase.TagYCbCrSubsampling, new[] { 2, 2 });
             Assert.Equal("YCbCr4:2:0", descriptor.GetDescription(ExifDirectoryBase.TagYCbCrSubsampling));
             Assert.Equal("YCbCr4:2:0", descriptor.GetYCbCrSubsamplingDescription());

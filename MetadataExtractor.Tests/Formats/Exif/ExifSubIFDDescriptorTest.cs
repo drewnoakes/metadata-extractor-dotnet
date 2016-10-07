@@ -32,7 +32,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifSubIfdDescriptorTest
     {
-
         [Fact]
         public void TestUserCommentDescription_EmptyEncoding()
         {
@@ -42,7 +41,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var descriptor = new ExifSubIfdDescriptor(directory);
             Assert.Equal("This is a comment", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
-
 
         [Fact]
         public void TestUserCommentDescription_AsciiHeaderAsciiEncoding()
@@ -54,7 +52,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.Equal("This is a comment", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
-
         [Fact]
         public void TestUserCommentDescription_BlankAscii()
         {
@@ -64,7 +61,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var descriptor = new ExifSubIfdDescriptor(directory);
             Assert.Equal(string.Empty, descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
-
 
         [Fact]
         public void TestUserCommentDescription_ZeroLengthAscii1()
@@ -77,7 +73,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.Equal("ASCII", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
 
-
         [Fact]
         public void TestUserCommentDescription_ZeroLengthAscii2()
         {
@@ -88,7 +83,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var descriptor = new ExifSubIfdDescriptor(directory);
             Assert.Equal(string.Empty, descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
-
 
         [Fact]
         public void TestUnicodeComment_ActualBytes()
@@ -103,7 +97,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var descriptor = new ExifSubIfdDescriptor(directory);
             Assert.Equal("This marmot is getting close...", descriptor.GetDescription(ExifDirectoryBase.TagUserComment));
         }
-
 
         [Fact]
         public void TestUnicodeComment_Ascii()

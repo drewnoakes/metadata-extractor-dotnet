@@ -44,7 +44,9 @@ namespace MetadataExtractor.Tests.Formats.Adobe
         [Fact]
         public void TestSegmentTypes()
         {
-            Assert.Equal(new[] { JpegSegmentType.AppE }, ((IJpegSegmentMetadataReader)new AdobeJpegReader()).SegmentTypes);
+            Assert.Equal(
+                new[] { JpegSegmentType.AppE },
+                ((IJpegSegmentMetadataReader)new AdobeJpegReader()).SegmentTypes);
         }
 
         [Fact]

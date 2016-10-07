@@ -189,9 +189,12 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         public void TestGetXmpProperties()
         {
             var propertyMap = _directory.GetXmpProperties();
+
             Assert.Equal(179, propertyMap.Count);
+
             Assert.True(propertyMap.ContainsKey("photoshop:Country"));
             Assert.Equal("Deutschland", propertyMap["photoshop:Country"]);
+
             Assert.True(propertyMap.ContainsKey("tiff:ImageLength"));
             Assert.Equal("900", propertyMap["tiff:ImageLength"]);
         }

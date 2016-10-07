@@ -52,7 +52,6 @@ namespace MetadataExtractor.Tests
             Assert.Equal("TAG_BATTERY_LEVEL", _directory.GetString(ExifDirectoryBase.TagBatteryLevel));
         }
 
-
         [Fact]
         public void TestSetSameTagMultipleTimesOverwritesValue()
         {
@@ -60,7 +59,6 @@ namespace MetadataExtractor.Tests
             _directory.Set(ExifDirectoryBase.TagAperture, 2);
             Assert.Equal(2, _directory.GetInt32(ExifDirectoryBase.TagAperture));
         }
-
 
         [Fact]
         public void TestUnderlyingInt()
@@ -79,7 +77,6 @@ namespace MetadataExtractor.Tests
             Assert.Equal(new[] { value }, _directory.GetInt32Array(tagType));
             Assert.Equal(new[] { unchecked((byte)value) }, _directory.GetByteArray(tagType));
         }
-
 
         [Fact]
         public void TestSetAndGetIntArray()
@@ -110,7 +107,6 @@ namespace MetadataExtractor.Tests
             Assert.Equal(outputString.ToString(), _directory.GetString(tagType));
         }
 
-
         [Fact]
         public void TestSetStringAndGetDate()
         {
@@ -137,7 +133,6 @@ namespace MetadataExtractor.Tests
             test("2002",                          new DateTime(2002, 1,  1,  0,  0,  0,     DateTimeKind.Unspecified));
         }
 
-
         [Fact]
         public void TestSetIntArrayGetByteArray()
         {
@@ -149,7 +144,6 @@ namespace MetadataExtractor.Tests
             Assert.Equal(1, bytes[0]);
         }
 
-
         [Fact(Skip = "TODO test whether this is needed in a regression test against the image database")]
         public void TestSetStringGetInt()
         {
@@ -158,7 +152,6 @@ namespace MetadataExtractor.Tests
             Assert.Equal(0x010203, _directory.GetInt32(1));
         }
 
-
         [Fact]
         public void TestContainsTag()
         {
@@ -166,7 +159,6 @@ namespace MetadataExtractor.Tests
             _directory.Set(ExifDirectoryBase.TagAperture, "Tag Value");
             Assert.True(_directory.ContainsTag(ExifDirectoryBase.TagAperture));
         }
-
 
         [Fact]
         public void TestGetNonExistentTagIsNullForAllTypes()
@@ -199,7 +191,7 @@ namespace MetadataExtractor.Tests
         [Fact]
         public void TestToString()
         {
-            Directory directory = new ExifIfd0Directory();
+            var directory = new ExifIfd0Directory();
             Assert.Equal("Exif IFD0 Directory (0 tags)", directory.ToString());
             directory.Set(1, "Tag 1");
             Assert.Equal("Exif IFD0 Directory (1 tag)", directory.ToString());

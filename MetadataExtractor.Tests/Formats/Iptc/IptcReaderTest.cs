@@ -88,7 +88,6 @@ namespace MetadataExtractor.Tests.Formats.Iptc
             Assert.Equal("Byline", directory.GetObject(tags[15].Type));
         }
 
-
         [Fact]
         public void TestIptc2Photoshop6BytesFromFile()
         {
@@ -132,7 +131,6 @@ namespace MetadataExtractor.Tests.Formats.Iptc
             Assert.Equal("Copyright", directory.GetObject(tags[16].Type));
         }
 
-
         [Fact]
         public void TestIptcEncodingUtf8()
         {
@@ -150,7 +148,6 @@ namespace MetadataExtractor.Tests.Formats.Iptc
             Assert.Equal("In diesem Text sind Umlaute enthalten, nämlich öfter als üblich: ÄÖÜäöüß\r", directory.GetObject(tags[3].Type));
         }
 
-
         [Fact]
         public void TestIptcEncodingUndefinedIso()
         {
@@ -166,7 +163,6 @@ namespace MetadataExtractor.Tests.Formats.Iptc
             Assert.Equal("In diesem Text sind Umlaute enthalten, nämlich öfter als üblich: ÄÖÜäöüß\r", directory.GetObject(tags[2].Type));
         }
 
-
         [Fact]
         public void TestIptcEncodingUnknown()
         {
@@ -181,7 +177,6 @@ namespace MetadataExtractor.Tests.Formats.Iptc
             Assert.Equal(IptcDirectory.TagKeywords, tags[2].Type);
             Assert.Equal(new[] { "häufig", "üblich", "Lösung", "Spaß" }, directory.GetStringArray(tags[2].Type));
         }
-
 
         [Fact]
         public void TestIptcEncodingUnknown2()

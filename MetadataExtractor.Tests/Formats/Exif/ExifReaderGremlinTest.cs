@@ -48,11 +48,14 @@ namespace MetadataExtractor.Tests.Formats.Exif
 
         private void RunGremlinTest(string filePath)
         {
-            var exifReader = new ExifReader();
             var sw = Stopwatch.StartNew();
 
             var app1 = File.ReadAllBytes(filePath);
             var segments = new[] { new JpegSegment(JpegSegmentType.App1, app1, 0) };
+
+            Assert.Same(app1, segments[0].Bytes);
+
+            var exifReader = new ExifReader();
 
             for (var i = 0; i < app1.Length; i++)
             {

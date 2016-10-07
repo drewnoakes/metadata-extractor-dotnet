@@ -42,6 +42,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
             directory.Set(ExifDirectoryBase.TagXResolution, new Rational(72, 1));
             // 2 is for 'Inch'
             directory.Set(ExifDirectoryBase.TagResolutionUnit, 2);
+
             var descriptor = new ExifIfd0Descriptor(directory);
             Assert.Equal("72 dots per inch", descriptor.GetDescription(ExifDirectoryBase.TagXResolution));
         }
@@ -53,6 +54,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
             directory.Set(ExifDirectoryBase.TagYResolution, new Rational(50, 1));
             // 3 is for 'cm'
             directory.Set(ExifDirectoryBase.TagResolutionUnit, 3);
+
             var descriptor = new ExifIfd0Descriptor(directory);
             Assert.Equal("50 dots per cm", descriptor.GetDescription(ExifDirectoryBase.TagYResolution));
         }
@@ -66,6 +68,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.Equal("Testing keywords\x0", directory.GetString(ExifDirectoryBase.TagWinKeywords, Encoding.Unicode));
             Assert.Equal("Testing subject\x0", directory.GetString(ExifDirectoryBase.TagWinSubject, Encoding.Unicode));
             Assert.Equal("Testing title\x0", directory.GetString(ExifDirectoryBase.TagWinTitle, Encoding.Unicode));
+
             var descriptor = new ExifIfd0Descriptor(directory);
             Assert.Equal("Testing artist", descriptor.GetDescription(ExifDirectoryBase.TagWinAuthor));
             Assert.Equal("Testing comments", descriptor.GetDescription(ExifDirectoryBase.TagWinComment));

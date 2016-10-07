@@ -31,7 +31,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class SonyType1MakernoteTest
     {
-
         [Fact]
         public void TestSonyType1Makernote()
         {
