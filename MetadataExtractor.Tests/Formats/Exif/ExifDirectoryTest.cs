@@ -23,13 +23,9 @@
 #endregion
 
 using System;
-#if !PORTABLE
-using System.IO;
-#endif
 using System.Linq;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Jpeg;
-using MetadataExtractor.IO;
 using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
@@ -53,50 +49,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.Equal("Exif SubIFD", subIfdDirectory.Name);
             Assert.Equal("Exif Thumbnail", thumbDirectory.Name);
         }
-
-        [Fact]
-        public void GetThumbnailData()
-        {
-            var directory = ExifReaderTest.ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/withExif.jpg.app1", JpegSegmentType.App1);
-            var thumbData = directory.ThumbnailData;
-
-            Assert.NotNull(thumbData);
-
-            // attempt to read the thumbnail -- it should be a legal Jpeg file
-            JpegSegmentReader.ReadSegments(new SequentialByteArrayReader(thumbData)).ToList();
-        }
-
-#if !PORTABLE
-        [Fact]
-        public void WriteThumbnail()
-        {
-            var directory = ExifReaderTest.ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1", JpegSegmentType.App1);
-            Assert.True(directory.HasThumbnailData);
-            var thumbnailFile = Path.GetTempFileName();
-            try
-            {
-                directory.WriteThumbnail(thumbnailFile);
-                var filePath = new FileInfo(thumbnailFile);
-                Assert.Equal(2970L, filePath.Length);
-                Assert.True(filePath.Exists);
-            }
-            finally
-            {
-                File.Delete(thumbnailFile);
-            }
-        }
-#endif
-
-//    public void TestContainsThumbnail()
-//    {
-//        ExifSubIFDDirectory exifDirectory = new ExifSubIFDDirectory();
-//
-//        assertTrue(!exifDirectory.hasThumbnailData());
-//
-//        exifDirectory.setObject(ExifSubIFDDirectory.TAG_THUMBNAIL_DATA, "foo");
-//
-//        assertTrue(exifDirectory.hasThumbnailData());
-//    }
 
         [Fact]
         public void Resolution()

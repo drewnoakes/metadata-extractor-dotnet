@@ -68,7 +68,7 @@ namespace MetadataExtractor.Tools.FileProcessor
         {
             var args = argArray.ToList();
 
-            var thumbRequested = args.Remove("--thumb");
+//            var thumbRequested = args.Remove("--thumb");
             var markdownFormat = args.Remove("--markdown");
             var showHex = args.Remove("--hex");
 
@@ -167,19 +167,19 @@ namespace MetadataExtractor.Tools.FileProcessor
                         Console.Error.WriteLine("ERROR: {0}", error);
                 }
 
-                if (thumbRequested && argArray.Length > 1)
-                {
-                    var thumbnailDirectory = directories.OfType<ExifThumbnailDirectory>().FirstOrDefault();
-                    if (thumbnailDirectory != null && thumbnailDirectory.HasThumbnailData)
-                    {
-                        Console.Out.WriteLine("Writing thumbnail...");
-                        thumbnailDirectory.WriteThumbnail(argArray[0].Trim() + ".thumb.jpg");
-                    }
-                    else
-                    {
-                        Console.Out.WriteLine("No thumbnail data exists in this image");
-                    }
-                }
+//                if (thumbRequested && argArray.Length > 1)
+//                {
+//                    var thumbnailDirectory = directories.OfType<ExifThumbnailDirectory>().FirstOrDefault();
+//                    if (thumbnailDirectory != null && thumbnailDirectory.HasThumbnailData)
+//                    {
+//                        Console.Out.WriteLine("Writing thumbnail...");
+//                        thumbnailDirectory.WriteThumbnail(argArray[0].Trim() + ".thumb.jpg");
+//                    }
+//                    else
+//                    {
+//                        Console.Out.WriteLine("No thumbnail data exists in this image");
+//                    }
+//                }
             }
 
             if (Debugger.IsAttached)

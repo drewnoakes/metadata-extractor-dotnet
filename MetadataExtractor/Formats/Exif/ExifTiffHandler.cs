@@ -45,13 +45,9 @@ namespace MetadataExtractor.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class ExifTiffHandler : DirectoryTiffHandler
     {
-        private readonly bool _storeThumbnailBytes;
-
-        public ExifTiffHandler([NotNull] List<Directory> directories, bool storeThumbnailBytes)
+        public ExifTiffHandler([NotNull] List<Directory> directories)
             : base(directories, new ExifIfd0Directory())
-        {
-            _storeThumbnailBytes = storeThumbnailBytes;
-        }
+        {}
 
         /// <exception cref="TiffProcessingException"/>
         public override void SetTiffMarker(int marker)
@@ -187,33 +183,6 @@ namespace MetadataExtractor.Formats.Exif
 
             byteCount = default(int);
             return false;
-        }
-
-        public override void Completed(IndexedReader reader)
-        {
-            if (_storeThumbnailBytes)
-            {
-                // after the extraction process, if we have the correct tags, we may be able to store thumbnail information
-                var thumbnailDirectory = Directories.OfType<ExifThumbnailDirectory>().FirstOrDefault();
-                if (thumbnailDirectory != null && thumbnailDirectory.ContainsTag(ExifDirectoryBase.TagCompression))
-                {
-                    int offset;
-                    int length;
-                    if (thumbnailDirectory.TryGetInt32(ExifThumbnailDirectory.TagThumbnailOffset, out offset) &&
-                        thumbnailDirectory.TryGetInt32(ExifThumbnailDirectory.TagThumbnailLength, out length))
-                    {
-                        try
-                        {
-                            var thumbnailData = reader.GetBytes(/*tiffHeaderOffset +*/ offset, length);
-                            thumbnailDirectory.ThumbnailData = thumbnailData;
-                        }
-                        catch (IOException ex)
-                        {
-                            thumbnailDirectory.AddError("Invalid thumbnail data specification: " + ex.Message);
-                        }
-                    }
-                }
-            }
         }
 
         /// <exception cref="System.IO.IOException"/>

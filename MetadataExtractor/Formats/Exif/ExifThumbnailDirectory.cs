@@ -24,10 +24,6 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-#if !PORTABLE
-using System.IO;
-#endif
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
@@ -65,22 +61,5 @@ namespace MetadataExtractor.Formats.Exif
         {
             return _tagNameMap.TryGetValue(tagType, out tagName);
         }
-
-        public bool HasThumbnailData => ThumbnailData != null;
-
-        [CanBeNull]
-        public byte[] ThumbnailData { get; set; }
-
-#if !PORTABLE
-        /// <exception cref="MetadataException"/>
-        /// <exception cref="System.IO.IOException"/>
-        public void WriteThumbnail([NotNull] string filename)
-        {
-            if (ThumbnailData == null)
-                throw new MetadataException("No thumbnail data exists.");
-
-            File.WriteAllBytes(filename, ThumbnailData);
-        }
-#endif
     }
 }

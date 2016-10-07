@@ -128,15 +128,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
         }
 
         [Fact]
-        public void ThumbnailData()
-        {
-            var directory = ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1", JpegSegmentType.App1);
-            var thumbnailData = directory.ThumbnailData;
-            Assert.NotNull(thumbnailData);
-            Assert.Equal(2970, thumbnailData.Length);
-        }
-
-        [Fact]
         public void ThumbnailCompression()
         {
             var directory = ProcessSegmentBytes<ExifThumbnailDirectory>("Tests/Data/manuallyAddedThumbnail.jpg.app1", JpegSegmentType.App1);

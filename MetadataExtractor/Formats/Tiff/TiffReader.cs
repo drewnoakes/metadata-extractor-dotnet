@@ -74,8 +74,6 @@ namespace MetadataExtractor.Formats.Tiff
             var processedIfdOffsets = new HashSet<int>();
 
             ProcessIfd(handler, reader, processedIfdOffsets, firstIfdOffset);
-
-            handler.Completed(reader);
         }
 
         /// <summary>Processes a TIFF IFD.</summary>
