@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.IO;
 using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Jpeg
@@ -37,7 +38,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         private static IReadOnlyList<JpegSegment> ReadSegments(string fileName, ICollection<JpegSegmentType> segmentTypes = null)
         {
             using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-                return JpegSegmentReader.ReadSegments(new MetadataExtractor.IO.SequentialStreamReader(stream), segmentTypes).ToList();
+                return JpegSegmentReader.ReadSegments(new SequentialStreamReader(stream), segmentTypes).ToList();
         }
 
         [Fact]

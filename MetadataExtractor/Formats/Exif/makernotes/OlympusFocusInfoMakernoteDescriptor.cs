@@ -21,8 +21,8 @@
 //
 #endregion
 
-using JetBrains.Annotations;
 using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -193,8 +193,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             if (values[1] == 1)
                 return "Full";
-            else
-                return "On " + 1.0 / values[1] + " strength)";
+            return "On " + 1.0 / values[1] + " strength)";
         }
 
         [CanBeNull]
@@ -228,9 +227,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             
             if((values[0] | values[1] | values[2] | values[3]) == 0x0)
                 return "Off";
-            else
-                return "On, " + ((values[43] & 1) > 0 ? "Mode 1" : "Mode 2");
-
+            return "On, " + ((values[43] & 1) > 0 ? "Mode 1" : "Mode 2");
         }
 
     }

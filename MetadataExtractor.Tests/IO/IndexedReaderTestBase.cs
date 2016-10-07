@@ -161,12 +161,12 @@ namespace MetadataExtractor.Tests.IO
         [Fact]
         public void GetInt64()
         {
-            var buffer = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, unchecked(0xFF) };
+            var buffer = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0xFF };
             var reader = CreateReader(buffer);
-            Assert.Equal(unchecked(0x0001020304050607L), (object)reader.GetInt64(0));
-            Assert.Equal(unchecked(0x01020304050607FFL), (object)reader.GetInt64(1));
+            Assert.Equal(0x0001020304050607L, (object)reader.GetInt64(0));
+            Assert.Equal(0x01020304050607FFL, (object)reader.GetInt64(1));
             reader.IsMotorolaByteOrder = false;
-            Assert.Equal(unchecked(0x0706050403020100L), (object)reader.GetInt64(0));
+            Assert.Equal(0x0706050403020100L, (object)reader.GetInt64(0));
             Assert.Equal(unchecked((long)0xFF07060504030201L), (object)reader.GetInt64(1));
         }
 

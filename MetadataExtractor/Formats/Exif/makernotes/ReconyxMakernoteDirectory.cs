@@ -76,7 +76,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
              { TagInfraredIlluminator, "Infrared Illuminator" },
              { TagMotionSensitivity, "Motion Sensitivity" },
              { TagBatteryVoltage, "Battery Voltage" },
-             { TagUserLabel, "UserLabel" },
+             { TagUserLabel, "UserLabel" }
         };
 
         public ReconyxMakernoteDirectory()

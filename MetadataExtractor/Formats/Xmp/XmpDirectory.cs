@@ -170,7 +170,7 @@ namespace MetadataExtractor.Formats.Xmp
             { TagRating, Schema.XmpProperties },
             { TagLabel, Schema.XmpProperties },
 //            { TagTitle, Schema.DublinCoreSpecificProperties },
-            { TagSubject, Schema.DublinCoreSpecificProperties },
+            { TagSubject, Schema.DublinCoreSpecificProperties }
 //            { TagDate, Schema.DublinCoreSpecificProperties },
 //            { TagType, Schema.DublinCoreSpecificProperties },
 //            { TagDescription, Schema.DublinCoreSpecificProperties },
@@ -218,7 +218,7 @@ namespace MetadataExtractor.Formats.Xmp
             { TagRating, "xmp:Rating" },
             { TagLabel, "xmp:Label" },
 //            { TagTitle, "dc:title" },
-            { TagSubject, "dc:subject" },
+            { TagSubject, "dc:subject" }
 //            { TagDate, "dc:date" },
 //            { TagType, "dc:type" },
 //            { TagDescription, "dc:description" },

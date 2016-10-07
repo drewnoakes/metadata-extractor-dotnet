@@ -517,14 +517,14 @@ namespace MetadataExtractor.Formats.Exif
 
             directory.Set(ReconyxMakernoteDirectory.TagTriggerMode, new string((char)reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagTriggerMode), 1));
             directory.Set(ReconyxMakernoteDirectory.TagSequence,
-                          new ushort[]
+                          new[]
                           {
                               reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagSequence),
                               reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagSequence + 2)
                           });
 
-            uint eventNumberHigh = (uint)reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagEventNumber);
-            uint eventNumberLow = (uint)reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagEventNumber + 2);
+            uint eventNumberHigh = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagEventNumber);
+            uint eventNumberLow = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagEventNumber + 2);
             directory.Set(ReconyxMakernoteDirectory.TagEventNumber, (eventNumberHigh << 16) + eventNumberLow);
 
             ushort seconds = reader.GetUInt16(makernoteOffset + ReconyxMakernoteDirectory.TagDateTimeOriginal);

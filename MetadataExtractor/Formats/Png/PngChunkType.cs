@@ -193,7 +193,7 @@ namespace MetadataExtractor.Formats.Png
             return obj is PngChunkType && Equals((PngChunkType)obj);
         }
 
-        public override int GetHashCode() => unchecked(_bytes[0] << 24 | _bytes[1] << 16 << _bytes[2] << 8 | _bytes[3]);
+        public override int GetHashCode() => _bytes[0] << 24 | _bytes[1] << 16 << _bytes[2] << 8 | _bytes[3];
 
         public static bool operator ==(PngChunkType left, PngChunkType right) => Equals(left, right);
         public static bool operator !=(PngChunkType left, PngChunkType right) => !Equals(left, right);
