@@ -27,13 +27,14 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Iptc
 {
+    /// <summary>Unit tests for <see cref="IptcDirectory"/>.</summary>
     /// <author>Akihiko Kusanagi https://github.com/nagix</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class IptcDirectoryTests
+    public sealed class IptcDirectoryTest
     {
         private readonly IptcDirectory _directory;
 
-        public IptcDirectoryTests()
+        public IptcDirectoryTest()
         {
             _directory = new IptcDirectory();
         }
