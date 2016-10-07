@@ -29,8 +29,9 @@ using Xunit;
 
 namespace MetadataExtractor.Tests.IO
 {
+    /// <summary>Unit tests for <see cref="IndexedCapturingReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class RandomAccessStreamReaderTest : IndexedReaderTestBase
+    public sealed class IndexedCapturingReaderTest : IndexedReaderTestBase
     {
         [Fact]
         public void TestConstructWithNullBufferThrows()

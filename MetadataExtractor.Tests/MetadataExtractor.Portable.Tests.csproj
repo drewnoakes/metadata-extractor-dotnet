@@ -80,7 +80,7 @@
     <Compile Include="Util\ByteTrieTest.cs" />
     <Compile Include="GeoLocationTest.cs" />
     <Compile Include="IO\IndexedSeekingReaderTest.cs" />
-    <Compile Include="IO\RandomAccessStreamReaderTest.cs" />
+    <Compile Include="IO\IndexedCapturingReaderTest.cs" />
     <Compile Include="IO\IndexedReaderTestBase.cs" />
     <Compile Include="RationalTest.cs" />
     <Compile Include="IO\SequentialAccessTestBase.cs" />

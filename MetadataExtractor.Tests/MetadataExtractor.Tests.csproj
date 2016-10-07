@@ -76,12 +76,12 @@
     <Compile Include="Formats\Png\PngChunkTypeTest.cs" />
     <Compile Include="Formats\Png\PngMetadataReaderTest.cs" />
     <Compile Include="IO\ByteArrayReaderTest.cs" />
+    <Compile Include="IO\IndexedCapturingReaderTest.cs" />
     <Compile Include="UseCultureAttribute.cs" />
     <Compile Include="Util\ByteConvertTest.cs" />
     <Compile Include="Util\ByteTrieTest.cs" />
     <Compile Include="GeoLocationTest.cs" />
     <Compile Include="IO\IndexedSeekingReaderTest.cs" />
-    <Compile Include="IO\RandomAccessStreamReaderTest.cs" />
     <Compile Include="IO\IndexedReaderTestBase.cs" />
     <Compile Include="RationalTest.cs" />
     <Compile Include="IO\SequentialAccessTestBase.cs" />
