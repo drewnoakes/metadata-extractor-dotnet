@@ -81,7 +81,7 @@ namespace MetadataExtractor.Formats.Bmp
             // 5 = PNG
             // 6 = Bit field
 
-            reader.IsMotorolaByteOrder = false;
+            reader = reader.WithByteOrder(isMotorolaByteOrder: false);
 
             try
             {

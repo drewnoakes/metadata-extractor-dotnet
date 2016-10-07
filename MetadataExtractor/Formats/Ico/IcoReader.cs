@@ -49,7 +49,7 @@ namespace MetadataExtractor.Formats.Ico
         {
             var directories = new List<Directory>();
 
-            reader.IsMotorolaByteOrder = false;
+            reader = reader.WithByteOrder(isMotorolaByteOrder: false);
 
             int type = 0;
             int imageCount = 0;

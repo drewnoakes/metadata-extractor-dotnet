@@ -78,12 +78,16 @@ namespace MetadataExtractor.Tests.IO
         public void GetInt16()
         {
             Assert.Equal(-1, CreateReader(new[] { (byte)0xff, (byte)0xff }).GetInt16());
+
             var buffer = new byte[] { 0x00, 0x01, 0x7F, 0xFF };
+
             var reader = CreateReader(buffer);
+
             Assert.Equal(0x0001, reader.GetInt16());
             Assert.Equal(0x7FFF, reader.GetInt16());
-            reader = CreateReader(buffer);
-            reader.IsMotorolaByteOrder = false;
+
+            reader = CreateReader(buffer).WithByteOrder(isMotorolaByteOrder: false);
+
             Assert.Equal(0x0100, reader.GetInt16());
             Assert.Equal(unchecked((short)0xFF7F), reader.GetInt16());
         }
@@ -92,11 +96,14 @@ namespace MetadataExtractor.Tests.IO
         public void GetUInt16()
         {
             var buffer = new byte[] { 0x00, 0x01, 0x7F, 0xFF };
+
             var reader = CreateReader(buffer);
+
             Assert.Equal(0x0001, reader.GetUInt16());
             Assert.Equal(0x7FFF, reader.GetUInt16());
-            reader = CreateReader(buffer);
-            reader.IsMotorolaByteOrder = false;
+
+            reader = CreateReader(buffer).WithByteOrder(isMotorolaByteOrder: false);
+
             Assert.Equal(0x0100, reader.GetUInt16());
             Assert.Equal(0xFF7F, reader.GetUInt16());
         }
@@ -113,12 +120,16 @@ namespace MetadataExtractor.Tests.IO
         public void GetInt32()
         {
             Assert.Equal(-1, CreateReader(new[] { (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff }).GetInt32());
+
             var buffer = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07 };
+
             var reader = CreateReader(buffer);
+
             Assert.Equal(0x00010203, reader.GetInt32());
             Assert.Equal(0x04050607, reader.GetInt32());
-            reader = CreateReader(buffer);
-            reader.IsMotorolaByteOrder = false;
+
+            reader = CreateReader(buffer).WithByteOrder(isMotorolaByteOrder: false);
+
             Assert.Equal(0x03020100, reader.GetInt32());
             Assert.Equal(0x07060504, reader.GetInt32());
         }
@@ -129,13 +140,14 @@ namespace MetadataExtractor.Tests.IO
             Assert.Equal(4294967295u, CreateReader(new byte[] { 0xff, 0xff, 0xff, 0xff }).GetUInt32());
 
             var buffer = new byte[] { 0xFF, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
+
             var reader = CreateReader(buffer);
 
             Assert.Equal(0xFF000102u, reader.GetUInt32());
             Assert.Equal(0x03040506u, reader.GetUInt32());
 
-            reader = CreateReader(buffer);
-            reader.IsMotorolaByteOrder = false;
+            reader = CreateReader(buffer).WithByteOrder(isMotorolaByteOrder: false);
+
             Assert.Equal(0x020100FFu, reader.GetUInt32());
             // 0x0010200FF
             Assert.Equal(0x06050403u, reader.GetUInt32());
@@ -153,10 +165,13 @@ namespace MetadataExtractor.Tests.IO
         public void GetInt64()
         {
             var buffer = new byte[] { 0xFF, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07 };
+
             var reader = CreateReader(buffer);
+
             Assert.Equal(unchecked((long)0xFF00010203040506L), (object)reader.GetInt64());
-            reader = CreateReader(buffer);
-            reader.IsMotorolaByteOrder = false;
+
+            reader = CreateReader(buffer).WithByteOrder(isMotorolaByteOrder: false);
+
             Assert.Equal(0x06050403020100FFL, (object)reader.GetInt64());
         }
 
@@ -173,8 +188,8 @@ namespace MetadataExtractor.Tests.IO
         {
             const int nanBits = 0x7fc00000;
             Assert.True(float.IsNaN(BitConverter.ToSingle(BitConverter.GetBytes(nanBits), 0)));
-            var buffer = new byte[] { 0x7f, 0xc0, 0x00, 0x00 };
-            var reader = CreateReader(buffer);
+
+            var reader = CreateReader(new byte[] { 0x7f, 0xc0, 0x00, 0x00 });
             Assert.True(float.IsNaN(reader.GetFloat32()));
         }
 
@@ -183,8 +198,8 @@ namespace MetadataExtractor.Tests.IO
         {
             const long nanBits = unchecked((long)0xfff0000000000001L);
             Assert.True(double.IsNaN(BitConverter.Int64BitsToDouble(nanBits)));
-            var buffer = new byte[] { 0xff, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01 };
-            var reader = CreateReader(buffer);
+
+            var reader = CreateReader(new byte[] { 0xff, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01 });
             Assert.True(double.IsNaN(reader.GetDouble64()));
         }
 
@@ -192,11 +207,11 @@ namespace MetadataExtractor.Tests.IO
         public void GetNullTerminatedString()
         {
             var bytes = new byte[] { 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47 };
+
             // Test max length
             for (var i = 0; i < bytes.Length; i++)
-            {
-                Assert.Equal("ABCDEFG".Substring (0, i - 0), CreateReader(bytes).GetNullTerminatedString(i));
-            }
+                Assert.Equal("ABCDEFG".Substring(0, i - 0), CreateReader(bytes).GetNullTerminatedString(i));
+
             Assert.Equal(string.Empty, CreateReader(new byte[] { 0 }).GetNullTerminatedString(10));
             Assert.Equal("A", CreateReader(new byte[] { 0x41, 0 }).GetNullTerminatedString(10));
             Assert.Equal("AB", CreateReader(new byte[] { 0x41, 0x42, 0 }).GetNullTerminatedString(10));
@@ -208,11 +223,11 @@ namespace MetadataExtractor.Tests.IO
         {
             var bytes = new byte[] { 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47 };
             var expected = Encoding.UTF8.GetString(bytes);
+
             Assert.Equal(bytes.Length, expected.Length);
+
             for (var i = 0; i < bytes.Length; i++)
-            {
-                Assert.Equal("ABCDEFG".Substring (0, i - 0), CreateReader(bytes).GetString(i, Encoding.UTF8));
-            }
+                Assert.Equal("ABCDEFG".Substring(0, i - 0), CreateReader(bytes).GetString(i, Encoding.UTF8));
         }
 
         [Fact]

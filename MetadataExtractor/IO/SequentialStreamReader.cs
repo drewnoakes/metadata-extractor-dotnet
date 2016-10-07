@@ -37,7 +37,8 @@ namespace MetadataExtractor.IO
 
         public override long Position => _stream.Position;
 
-        public SequentialStreamReader([NotNull] Stream stream)
+        public SequentialStreamReader([NotNull] Stream stream, bool isMotorolaByteOrder = true)
+            : base(isMotorolaByteOrder)
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
@@ -52,6 +53,8 @@ namespace MetadataExtractor.IO
 
             return unchecked((byte)value);
         }
+
+        public override SequentialReader WithByteOrder(bool isMotorolaByteOrder) => isMotorolaByteOrder == IsMotorolaByteOrder ? this : new SequentialStreamReader(_stream, isMotorolaByteOrder);
 
         public override byte[] GetBytes(int count)
         {

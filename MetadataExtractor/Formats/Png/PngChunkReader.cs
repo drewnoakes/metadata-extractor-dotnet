@@ -74,7 +74,7 @@ namespace MetadataExtractor.Formats.Png
             //
 
             // network byte order
-            reader.IsMotorolaByteOrder = true;
+            reader = reader.WithByteOrder(isMotorolaByteOrder: true);
 
             if (!_pngSignatureBytes.SequenceEqual(reader.GetBytes(_pngSignatureBytes.Length)))
                 throw new PngProcessingException("PNG signature mismatch");

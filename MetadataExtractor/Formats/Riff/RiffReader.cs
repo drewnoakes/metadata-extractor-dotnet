@@ -50,7 +50,7 @@ namespace MetadataExtractor.Formats.Riff
         public void ProcessRiff([NotNull] SequentialReader reader, [NotNull] IRiffHandler handler)
         {
             // RIFF files are always little-endian
-            reader.IsMotorolaByteOrder = false;
+            reader = reader.WithByteOrder(isMotorolaByteOrder: false);
 
             // PROCESS FILE HEADER
 
@@ -75,7 +75,7 @@ namespace MetadataExtractor.Formats.Riff
                 var chunkSize = reader.GetInt32();
 
                 sizeLeft -= 8;
-                
+
                 // NOTE we fail a negative chunk size here (greater than 0x7FFFFFFF) as we cannot allocate arrays larger than this
                 if (chunkSize < 0 || sizeLeft < chunkSize)
                     throw new RiffProcessingException("Invalid RIFF chunk size");

@@ -438,7 +438,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         private void ProcessCameraSettings([NotNull] byte[] bytes)
         {
-            var reader = new SequentialByteArrayReader(bytes) { IsMotorolaByteOrder = true };
+            var reader = new SequentialByteArrayReader(bytes);
             var count = bytes.Length / 4;
 
             try

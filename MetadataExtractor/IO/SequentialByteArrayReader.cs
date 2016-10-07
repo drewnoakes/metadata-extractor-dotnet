@@ -38,7 +38,8 @@ namespace MetadataExtractor.IO
 
         public override long Position => _index;
 
-        public SequentialByteArrayReader([NotNull] byte[] bytes, int baseIndex = 0)
+        public SequentialByteArrayReader([NotNull] byte[] bytes, int baseIndex = 0, bool isMotorolaByteOrder = true)
+            : base(isMotorolaByteOrder)
         {
             if (bytes == null)
                 throw new ArgumentNullException(nameof(bytes));
@@ -54,6 +55,8 @@ namespace MetadataExtractor.IO
 
             return _bytes[_index++];
         }
+
+        public override SequentialReader WithByteOrder(bool isMotorolaByteOrder) => isMotorolaByteOrder == IsMotorolaByteOrder ? this : new SequentialByteArrayReader(_bytes, _index, isMotorolaByteOrder);
 
         public override byte[] GetBytes(int count)
         {

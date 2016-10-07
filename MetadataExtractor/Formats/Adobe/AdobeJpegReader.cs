@@ -62,7 +62,7 @@ namespace MetadataExtractor.Formats.Adobe
         [NotNull]
         public AdobeJpegDirectory Extract([NotNull] SequentialReader reader)
         {
-            reader.IsMotorolaByteOrder = false;
+            reader = reader.WithByteOrder(isMotorolaByteOrder: false);
 
             var directory = new AdobeJpegDirectory();
 

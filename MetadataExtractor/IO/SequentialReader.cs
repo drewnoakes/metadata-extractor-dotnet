@@ -41,6 +41,11 @@ namespace MetadataExtractor.IO
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class SequentialReader
     {
+        protected SequentialReader(bool isMotorolaByteOrder)
+        {
+            IsMotorolaByteOrder = isMotorolaByteOrder;
+        }
+
         /// <summary>Get and set the byte order of this reader. <c>true</c> by default.</summary>
         /// <remarks>
         /// <list type="bullet">
@@ -49,9 +54,11 @@ namespace MetadataExtractor.IO
         /// </list>
         /// </remarks>
         /// <value><c>true</c> for Motorola/big endian, <c>false</c> for Intel/little endian</value>
-        public bool IsMotorolaByteOrder { set; get; } = true;
+        public bool IsMotorolaByteOrder { get; }
 
         public abstract long Position { get; }
+
+        public abstract SequentialReader WithByteOrder(bool isMotorolaByteOrder);
 
         /// <summary>Returns the required number of bytes from the sequence.</summary>
         /// <param name="count">The number of bytes to be returned</param>

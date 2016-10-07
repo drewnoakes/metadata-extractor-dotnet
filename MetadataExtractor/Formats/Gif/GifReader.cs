@@ -58,7 +58,7 @@ namespace MetadataExtractor.Formats.Gif
             // 1 - background color index
             // 1 - pixel aspect ratio
 
-            reader.IsMotorolaByteOrder = false;
+            reader = reader.WithByteOrder(isMotorolaByteOrder: false);
 
             try
             {
