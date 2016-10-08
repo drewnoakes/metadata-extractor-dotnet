@@ -24,6 +24,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 
@@ -162,7 +163,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                         "[{0}](https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/{1}/{2})|{3}|{4}|{5}|{6}|{7}|{8}|[metadata](https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/{9}/metadata/{10}.txt)",
                         fileName,
                         row.RelativePath,
-                        Program.UrlEncode(fileName),
+                        WebUtility.UrlEncode(fileName),
                         row.Manufacturer,
                         row.Model,
                         row.DirectoryCount,
@@ -170,7 +171,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                         row.Makernote,
                         row.Thumbnail,
                         row.RelativePath,
-                        Program.UrlEncode(fileName).ToLower());
+                        WebUtility.UrlEncode(fileName).ToLower());
                 }
 
                 writer.WriteLine();

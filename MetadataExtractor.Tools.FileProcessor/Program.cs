@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
@@ -113,7 +114,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                 if (markdownFormat)
                 {
                     var fileName = Path.GetFileName(filePath);
-                    var urlName = UrlEncode(filePath);
+                    var urlName = WebUtility.UrlEncode(filePath);
                     var exifIfd0Directory = directories.OfType<ExifIfd0Directory>().FirstOrDefault();
                     var make = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifDirectoryBase.TagMake);
                     var model = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifDirectoryBase.TagModel);
@@ -186,14 +187,6 @@ namespace MetadataExtractor.Tools.FileProcessor
                 Console.ReadLine();
 
             return 0;
-        }
-
-        [NotNull]
-        internal static string UrlEncode([NotNull] string name)
-        {
-            // Sufficient for now, it seems
-            // TODO review http://stackoverflow.com/questions/3840762/how-do-you-urlencode-without-using-system-web
-            return name.Replace(" ", "%20");
         }
 
         private static int ProcessRecursively(string[] args)
