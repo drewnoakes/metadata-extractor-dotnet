@@ -77,7 +77,7 @@ namespace MetadataExtractor.Tools.FileProcessor
             {
                 Console.Out.WriteLine("MetadataExtractor {0}", Assembly.GetExecutingAssembly().GetName().Version);
                 Console.Out.WriteLine();
-                Console.Out.WriteLine("Usage: MetadataExtractor <filename> [<filename> ...] [--thumb] [--markdown] [--hex]");
+                Console.Out.WriteLine($"Usage: {Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName)} <filename> [<filename> ...] [--markdown] [--hex]"); // [--thumb]
 
                 if (Debugger.IsAttached)
                     Console.ReadLine();
