@@ -128,13 +128,13 @@
     <Compile Include="Formats\Bmp\BmpReader.cs" />
     <Compile Include="Formats\Exif\ExifDescriptorBase.cs" />
     <Compile Include="Formats\Exif\ExifDirectoryBase.cs" />
-    <Compile Include="Formats\Exif\ExifIFD0Descriptor.cs" />
-    <Compile Include="Formats\Exif\ExifIFD0Directory.cs" />
+    <Compile Include="Formats\Exif\ExifIfd0Descriptor.cs" />
+    <Compile Include="Formats\Exif\ExifIfd0Directory.cs" />
     <Compile Include="Formats\Exif\ExifInteropDescriptor.cs" />
     <Compile Include="Formats\Exif\ExifInteropDirectory.cs" />
     <Compile Include="Formats\Exif\ExifReader.cs" />
-    <Compile Include="Formats\Exif\ExifSubIFDDescriptor.cs" />
-    <Compile Include="Formats\Exif\ExifSubIFDDirectory.cs" />
+    <Compile Include="Formats\Exif\ExifSubIfdDescriptor.cs" />
+    <Compile Include="Formats\Exif\ExifSubIfdDirectory.cs" />
     <Compile Include="Formats\Exif\ExifThumbnailDescriptor.cs" />
     <Compile Include="Formats\Exif\ExifThumbnailDirectory.cs" />
     <Compile Include="Formats\Exif\ExifTiffHandler.cs" />
