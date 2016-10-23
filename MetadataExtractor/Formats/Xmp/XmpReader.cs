@@ -112,7 +112,10 @@ namespace MetadataExtractor.Formats.Xmp
             var directory = new XmpDirectory();
             try
             {
-                var xmpMeta = XmpMetaFactory.ParseFromBuffer(xmpBytes);
+                // first extract the XML
+                directory.SetRootDocument(XmpMetaFactory.ExtractXDocumentFromBuffer(xmpBytes));
+                // now try to parse it
+                var xmpMeta = XmpMetaFactory.ParseFromXDocument(directory.Root);
                 ProcessXmpTags(directory, xmpMeta);
             }
             catch (XmpException e)

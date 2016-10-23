@@ -27,6 +27,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Annotations;
 using XmpCore;
+using System.Xml.Linq;
 
 namespace MetadataExtractor.Formats.Xmp
 {
@@ -245,6 +246,10 @@ namespace MetadataExtractor.Formats.Xmp
 
         [CanBeNull]
         private IXmpMeta _xmpMeta;
+        
+        [CanBeNull]
+        private XDocument _Root;
+
 
         public XmpDirectory()
         {
@@ -284,9 +289,20 @@ namespace MetadataExtractor.Formats.Xmp
             }
         }
 
+        public void SetRootDocument([NotNull] XDocument root)
+        {
+            _Root = root;
+        }
+
         /// <summary>Gets the <see cref="IXmpMeta"/> object within this directory.</summary>
         /// <remarks>This object provides a rich API for working with XMP data.</remarks>
         [CanBeNull]
         public IXmpMeta XmpMeta => _xmpMeta;
+
+        /// <summary>
+        /// Root XMP <see cref="XDocument"/> as read from the file.
+        /// </summary>
+        [CanBeNull]
+        public XDocument Root => _Root;
     }
 }
