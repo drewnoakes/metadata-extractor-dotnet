@@ -143,6 +143,7 @@
     <Compile Include="Formats\Jpeg\JpegDescriptor.cs" />
     <Compile Include="Formats\Jpeg\JpegDirectory.cs" />
     <Compile Include="Formats\Jpeg\JpegMetadataReader.cs" />
+    <Compile Include="Formats\Jpeg\JpegMetadataWriter.cs" />
     <Compile Include="Formats\Jpeg\JpegProcessingException.cs" />
     <Compile Include="Formats\Jpeg\JpegReader.cs" />
     <Compile Include="Formats\Jpeg\JpegSegment.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="Formats\Xmp\XmpReader.cs" />
     <Compile Include="GeoLocation.cs" />
     <Compile Include="ImageMetadataReader.cs" />
+    <Compile Include="ImageMetadataWriter.cs" />
     <Compile Include="ImageProcessingException.cs" />
     <Compile Include="IO\BufferBoundsException.cs" />
     <Compile Include="IO\ByteArrayReader.cs" />
@@ -235,7 +237,7 @@
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\SL4\SharpZipLib.Silverlight4.dll</HintPath>
     </Reference>
     <Reference Include="XmpCore.Portable, Version=5.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\XmpCore.1.2.2\lib\portable-net45+sl50+netcore45+wpa81+wp8\XmpCore.Portable.dll</HintPath>
+      <HintPath>..\packages\XmpCore.1.2.3\lib\portable-net45+sl50+netcore45+wpa81+wp8\XmpCore.Portable.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Zlib.Portable, Version=1.11.0.0, Culture=neutral, processorArchitecture=MSIL">
