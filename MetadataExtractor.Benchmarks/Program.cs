@@ -105,11 +105,11 @@ namespace MetadataExtractor.Benchmarks
         }
 
         [Benchmark(Baseline = true)]
-        public DateTime ImageMetadataReaderBenchmark()
+        public DateTime JpegMetadataReaderOnlyExifReaderBenchmark()
         {
             _stream.Position = 0;
 
-            var directories = ImageMetadataReader.ReadMetadata(_stream);
+            var directories = JpegMetadataReader.ReadMetadata(_stream, new[] { new ExifReader() });
             var subIfdDirectory = directories.OfType<ExifSubIfdDirectory>().First();
             return subIfdDirectory.GetDateTime(ExifDirectoryBase.TagDateTimeOriginal);
         }
@@ -125,11 +125,11 @@ namespace MetadataExtractor.Benchmarks
         }
 
         [Benchmark]
-        public DateTime JpegMetadataReaderOnlyExifReaderBenchmark()
+        public DateTime ImageMetadataReaderBenchmark()
         {
             _stream.Position = 0;
 
-            var directories = JpegMetadataReader.ReadMetadata(_stream, new[] { new ExifReader() });
+            var directories = ImageMetadataReader.ReadMetadata(_stream);
             var subIfdDirectory = directories.OfType<ExifSubIfdDirectory>().First();
             return subIfdDirectory.GetDateTime(ExifDirectoryBase.TagDateTimeOriginal);
         }
