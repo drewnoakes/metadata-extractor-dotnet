@@ -602,6 +602,7 @@ namespace MetadataExtractor.Formats.Exif
             if (commentBytes.Length == 0)
                 return string.Empty;
 
+            // TODO use ByteTrie here
             // Someone suggested "ISO-8859-1".
             var encodingMap = new Dictionary<string, Encoding>
             {
@@ -618,6 +619,7 @@ namespace MetadataExtractor.Formats.Exif
             {
                 if (commentBytes.Length >= 10)
                 {
+                    // TODO no guarantee bytes after the UTF8 name are valid UTF8 -- only read as many as needed
                     var firstTenBytesString = Encoding.UTF8.GetString(commentBytes, 0, 10);
                     // try each encoding name
                     foreach (var pair in encodingMap)
