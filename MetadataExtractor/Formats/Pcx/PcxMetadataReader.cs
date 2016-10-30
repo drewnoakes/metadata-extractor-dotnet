@@ -24,10 +24,8 @@
 
 using System.IO;
 using JetBrains.Annotations;
-#if !PORTABLE
 using System.Collections.Generic;
 using MetadataExtractor.Formats.FileSystem;
-#endif
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Pcx
@@ -36,11 +34,10 @@ namespace MetadataExtractor.Formats.Pcx
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class PcxMetadataReader
     {
-#if !PORTABLE
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
         public static
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>
@@ -56,7 +53,6 @@ namespace MetadataExtractor.Formats.Pcx
 
             return directories;
         }
-#endif
 
         [NotNull]
         public static PcxDirectory ReadMetadata([NotNull] Stream stream)

@@ -48,7 +48,7 @@ namespace MetadataExtractor.Formats.Exif
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.App1 };
 
         public
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>
@@ -66,7 +66,7 @@ namespace MetadataExtractor.Formats.Exif
         /// </summary>
         [NotNull]
         public
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>

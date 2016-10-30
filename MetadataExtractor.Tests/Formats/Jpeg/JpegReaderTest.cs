@@ -37,7 +37,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
 
         public JpegReaderTest()
         {
-            var sof0 = new JpegSegment(JpegSegmentType.Sof0, File.ReadAllBytes("Tests/Data/simple.jpg.sof0"), offset: 0);
+            var sof0 = new JpegSegment(JpegSegmentType.Sof0, File.ReadAllBytes("Data/simple.jpg.sof0"), offset: 0);
 
             _directory = new JpegReader().Extract(sof0);
         }

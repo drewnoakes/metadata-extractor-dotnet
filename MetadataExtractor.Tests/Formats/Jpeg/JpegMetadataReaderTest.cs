@@ -35,18 +35,18 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegMetadataReaderTest
     {
-#if !PORTABLE
+#if !NETCOREAPP1_0
         [Fact]
         public void ExtractMetadataUsingPath()
         {
-            Validate(JpegMetadataReader.ReadMetadata("Tests/Data/withExif.jpg"));
+            Validate(JpegMetadataReader.ReadMetadata("Data/withExif.jpg"));
         }
 #endif
 
         [Fact]
         public void ExtractMetadataUsingStream()
         {
-            using (var stream = new FileStream("Tests/Data/withExif.jpg", FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var stream = new FileStream("Data/withExif.jpg", FileMode.Open, FileAccess.Read, FileShare.Read))
                 Validate(JpegMetadataReader.ReadMetadata(stream));
         }
 

@@ -24,7 +24,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-#if !PORTABLE
+#if !NETSTANDARD1_3
 using System.ComponentModel;
 #endif
 using Xunit;
@@ -112,7 +112,7 @@ namespace MetadataExtractor.Tests
             Assert.True(new Rational(0, 0).IsInteger);
         }
 
-#if !PORTABLE
+#if !NETCOREAPP1_0
         [Fact]
         public void TypeConverter()
         {

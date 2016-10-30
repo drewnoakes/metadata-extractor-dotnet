@@ -83,7 +83,7 @@ namespace MetadataExtractor.Formats.Iptc
 
             if (ascii)
             {
-#if PORTABLE
+#if NETSTANDARD1_3
                 return Encoding.UTF8;
 #else
                 return Encoding.ASCII;

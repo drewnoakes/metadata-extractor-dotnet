@@ -22,7 +22,7 @@
 //
 #endregion
 
-#if !PORTABLE
+#if !NETSTANDARD1_3
 using System;
 #endif
 using System.Linq;
@@ -31,7 +31,7 @@ using JetBrains.Annotations;
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-#if !PORTABLE
+#if !NETSTANDARD1_3
     [Serializable]
 #endif
     public sealed class PngColorType

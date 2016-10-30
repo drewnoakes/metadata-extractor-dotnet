@@ -46,7 +46,7 @@ namespace MetadataExtractor.Tests.Formats.Png
         [Fact]
         public void Extract_MSPaint()
         {
-            var chunks = ProcessFile("Tests/Data/mspaint-8x10.png");
+            var chunks = ProcessFile("Data/mspaint-8x10.png");
             Assert.Equal(6, chunks.Count);
             Assert.Equal(PngChunkType.IHDR, chunks[0].ChunkType);
             Assert.Equal(13, chunks[0].Bytes.Length);
@@ -65,7 +65,7 @@ namespace MetadataExtractor.Tests.Formats.Png
         [Fact]
         public void Extract_Photoshop()
         {
-            var chunks = ProcessFile("Tests/Data/photoshop-8x12-rgba32.png");
+            var chunks = ProcessFile("Data/photoshop-8x12-rgba32.png");
             Assert.Equal(5, chunks.Count);
             Assert.Equal(PngChunkType.IHDR, chunks[0].ChunkType);
             Assert.Equal(13, chunks[0].Bytes.Length);

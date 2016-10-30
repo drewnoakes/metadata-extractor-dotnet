@@ -62,7 +62,7 @@ namespace MetadataExtractor.Tests.IO
         {
             if (_stream != null)
             {
-                _stream.Close();
+                _stream.Dispose();
                 _stream = null;
             }
 

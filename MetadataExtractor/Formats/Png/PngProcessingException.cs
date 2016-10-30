@@ -23,7 +23,7 @@
 #endregion
 
 using System;
-#if !PORTABLE
+#if !NETSTANDARD1_3
 using System.Runtime.Serialization;
 #endif
 using JetBrains.Annotations;
@@ -32,7 +32,7 @@ namespace MetadataExtractor.Formats.Png
 {
     /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a JPEG file.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-#if !PORTABLE
+#if !NETSTANDARD1_3
     [Serializable]
 #endif
     public class PngProcessingException : ImageProcessingException
@@ -52,7 +52,7 @@ namespace MetadataExtractor.Formats.Png
         {
         }
 
-#if !PORTABLE
+#if !NETSTANDARD1_3
         protected PngProcessingException([NotNull] SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

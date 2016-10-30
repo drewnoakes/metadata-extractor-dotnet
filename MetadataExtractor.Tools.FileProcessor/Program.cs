@@ -26,8 +26,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
+using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 
@@ -75,7 +75,7 @@ namespace MetadataExtractor.Tools.FileProcessor
 
             if (args.Count < 1)
             {
-                Console.Out.WriteLine("MetadataExtractor {0}", Assembly.GetExecutingAssembly().GetName().Version);
+                Console.Out.WriteLine("MetadataExtractor {0}", Assembly.GetEntryAssembly().GetName().Version);
                 Console.Out.WriteLine();
                 Console.Out.WriteLine($"Usage: {Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName)} <filename> [<filename> ...] [--markdown] [--hex]"); // [--thumb]
 
@@ -114,7 +114,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                 if (markdownFormat)
                 {
                     var fileName = Path.GetFileName(filePath);
-                    var urlName = WebUtility.UrlEncode(filePath);
+                    var urlName = Uri.EscapeDataString(filePath).Replace("%20", "+");
                     var exifIfd0Directory = directories.OfType<ExifIfd0Directory>().FirstOrDefault();
                     var make = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifDirectoryBase.TagMake);
                     var model = exifIfd0Directory == null ? string.Empty : exifIfd0Directory.GetString(ExifDirectoryBase.TagModel);
@@ -223,7 +223,8 @@ namespace MetadataExtractor.Tools.FileProcessor
                             Console.ReadLine();
                         return 1;
                     }
-                    log = new StreamWriter(args[++i], append: false);
+                    var fileStream = File.Open(args[++i], FileMode.Create);
+                    log = new StreamWriter(fileStream, new UTF8Encoding(false));
                 }
                 else
                 {
@@ -267,7 +268,7 @@ namespace MetadataExtractor.Tools.FileProcessor
             Console.Out.WriteLine("Usage:");
             Console.Out.WriteLine();
             Console.Out.WriteLine("  {0}.exe [--text|--markdown|--unknown] [--log-file <file-name>]",
-                Assembly.GetExecutingAssembly().GetName().Name);
+                Assembly.GetEntryAssembly().GetName().Name);
         }
 
         private static void ProcessDirectory([NotNull] string path, [NotNull] IFileHandler handler, [NotNull] string relativePath, [NotNull] TextWriter log)
@@ -292,7 +293,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                     // Read metadata
                     try
                     {
-                        var directories = ImageMetadataReader.ReadMetadata(file);
+                        var directories = ImageMetadataReader.ReadMetadata(file).ToList();
                         handler.OnExtractionSuccess(file, directories, relativePath, log);
                     }
                     catch (Exception e)

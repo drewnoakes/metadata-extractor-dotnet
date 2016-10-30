@@ -88,7 +88,7 @@ namespace MetadataExtractor.Formats.QuickTime
             {
                 var bytes = BitConverter.GetBytes(Type);
                 bytes = bytes.Reverse().ToArray();
-#if PORTABLE
+#if NETSTANDARD1_3
                 return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
 #else
                 return Encoding.ASCII.GetString(bytes);

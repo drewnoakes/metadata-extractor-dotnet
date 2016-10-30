@@ -63,7 +63,7 @@ namespace MetadataExtractor.Formats.Iptc
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppD };
 
         public
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>
@@ -74,7 +74,7 @@ namespace MetadataExtractor.Formats.Iptc
             return segments
                 .Where(segment => segment.Bytes.Length != 0 && segment.Bytes[0] == IptcMarkerByte)
                 .Select(segment => Extract(new SequentialByteArrayReader(segment.Bytes), segment.Bytes.Length))
-#if NET35 || PORTABLE
+#if NET35
                 .Cast<Directory>()
 #endif
                 .ToList();

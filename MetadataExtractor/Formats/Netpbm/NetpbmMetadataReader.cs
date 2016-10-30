@@ -24,9 +24,7 @@
 using System.IO;
 using JetBrains.Annotations;
 using System.Collections.Generic;
-#if !PORTABLE
 using MetadataExtractor.Formats.FileSystem;
-#endif
 
 namespace MetadataExtractor.Formats.Netpbm
 {
@@ -34,7 +32,6 @@ namespace MetadataExtractor.Formats.Netpbm
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class NetpbmMetadataReader
     {
-#if !PORTABLE
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
         public static
@@ -54,7 +51,6 @@ namespace MetadataExtractor.Formats.Netpbm
 
             return directories;
         }
-#endif
 
         [NotNull]
         public static NetpbmHeaderDirectory ReadMetadata([NotNull] Stream stream)

@@ -34,7 +34,7 @@ namespace MetadataExtractor.Tools.FileProcessor
     /// </summary>
     internal class BasicFileHandler : FileHandlerBase
     {
-        public override void OnExtractionSuccess(string filePath, IReadOnlyList<Directory> directories, string relativePath, TextWriter log)
+        public override void OnExtractionSuccess(string filePath, IList<Directory> directories, string relativePath, TextWriter log)
         {
             base.OnExtractionSuccess(filePath, directories, relativePath, log);
 

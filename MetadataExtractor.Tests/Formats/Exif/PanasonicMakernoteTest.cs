@@ -39,7 +39,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
 
         public PanasonicMakernoteTest()
         {
-            _panasonicDirectory = ExifReaderTest.ProcessSegmentBytes<PanasonicMakernoteDirectory>("Tests/Data/withPanasonicFaces.jpg.app1", JpegSegmentType.App1);
+            _panasonicDirectory = ExifReaderTest.ProcessSegmentBytes<PanasonicMakernoteDirectory>("Data/withPanasonicFaces.jpg.app1", JpegSegmentType.App1);
         }
 
         [Fact]

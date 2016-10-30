@@ -21,10 +21,10 @@
 //
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 
@@ -52,7 +52,7 @@ namespace MetadataExtractor.Tools.FileProcessor
             [CanBeNull] public string Thumbnail { get; }
             [CanBeNull] public string Makernote { get; }
 
-            internal Row(string filePath, IReadOnlyCollection<Directory> directories, string relativePath)
+            internal Row(string filePath, ICollection<Directory> directories, string relativePath)
             {
                 FilePath = filePath;
                 RelativePath = relativePath;
@@ -98,7 +98,7 @@ namespace MetadataExtractor.Tools.FileProcessor
             }
         }
 
-        public override void OnExtractionSuccess(string filePath, IReadOnlyList<Directory> directories, string relativePath, TextWriter log)
+        public override void OnExtractionSuccess(string filePath, IList<Directory> directories, string relativePath, TextWriter log)
         {
             base.OnExtractionSuccess(filePath, directories, relativePath, log);
 
@@ -158,12 +158,13 @@ namespace MetadataExtractor.Tools.FileProcessor
                 foreach (var row in rows)
                 {
                     var fileName = Path.GetFileName(row.FilePath);
+                    var urlEncodedFileName = Uri.EscapeDataString(fileName).Replace("%20", "+");
 
                     writer.WriteLine(
                         "[{0}](https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/{1}/{2})|{3}|{4}|{5}|{6}|{7}|{8}|[metadata](https://raw.githubusercontent.com/drewnoakes/metadata-extractor-images/master/{9}/metadata/{10}.txt)",
                         fileName,
                         row.RelativePath,
-                        WebUtility.UrlEncode(fileName),
+                        urlEncodedFileName,
                         row.Manufacturer,
                         row.Model,
                         row.DirectoryCount,
@@ -171,7 +172,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                         row.Makernote,
                         row.Thumbnail,
                         row.RelativePath,
-                        WebUtility.UrlEncode(fileName).ToLower());
+                        urlEncodedFileName.ToLower());
                 }
 
                 writer.WriteLine();

@@ -28,6 +28,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Tools.JpegSegmentExtractor
 {
@@ -76,8 +77,11 @@ namespace MetadataExtractor.Tools.JpegSegmentExtractor
                     segmentTypes.Add(segmentType);
             }
             Console.Out.WriteLine("Reading: {0}", filePath);
-            var segmentData = JpegSegmentReader.ReadSegments(filePath, segmentTypes);
-            SaveSegmentFiles(filePath, segmentData);
+            using (var stream = File.OpenRead(filePath))
+            {
+                var segmentData = JpegSegmentReader.ReadSegments(new SequentialStreamReader(stream), segmentTypes);
+                SaveSegmentFiles(filePath, segmentData);
+            }
         }
 
         private static void SaveSegmentFiles(string jpegFilePath, IEnumerable<JpegSegment> segments)

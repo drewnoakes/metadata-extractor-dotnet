@@ -47,7 +47,7 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class JpegSegmentReader
     {
-#if !PORTABLE
+#if !NETSTANDARD1_3
         /// <summary>
         /// Walks the provided JPEG data, returning <see cref="JpegSegment"/> objects.
         /// </summary>

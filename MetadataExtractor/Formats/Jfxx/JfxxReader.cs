@@ -48,7 +48,7 @@ namespace MetadataExtractor.Formats.Jfxx
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.App0 };
 
         public
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>
@@ -59,7 +59,7 @@ namespace MetadataExtractor.Formats.Jfxx
             return segments
                 .Where(segment => segment.Bytes.Length >= Preamble.Length && Preamble == Encoding.UTF8.GetString(segment.Bytes, 0, Preamble.Length))
                 .Select(segment => Extract(new ByteArrayReader(segment.Bytes)))
-#if NET35 || PORTABLE
+#if NET35
                 .Cast<Directory>()
 #endif
                 .ToList();

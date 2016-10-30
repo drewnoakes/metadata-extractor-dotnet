@@ -23,7 +23,7 @@
 #endregion
 
 using System;
-#if !PORTABLE
+#if !NETSTANDARD1_3
 using System.Runtime.Serialization;
 #endif
 using JetBrains.Annotations;
@@ -32,7 +32,7 @@ namespace MetadataExtractor
 {
     /// <summary>Base class for all metadata specific exceptions.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-#if !PORTABLE
+#if !NETSTANDARD1_3
     [Serializable]
 #endif
     public class MetadataException : Exception
@@ -52,7 +52,7 @@ namespace MetadataExtractor
         {
         }
 
-#if !PORTABLE
+#if !NETSTANDARD1_3
         protected MetadataException([NotNull] SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

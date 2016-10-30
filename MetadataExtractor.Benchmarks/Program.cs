@@ -100,7 +100,7 @@ namespace MetadataExtractor.Benchmarks
             _stream = new MemoryStream();
 
             // This is the largest JPEG file in this repository
-            using (var fs = File.OpenRead("../../../../MetadataExtractor.Tests/Data/nikonMakernoteType2b.jpg"))
+            using (var fs = File.OpenRead("../MetadataExtractor.Tests/Data/nikonMakernoteType2b.jpg"))
                 fs.CopyTo(_stream);
         }
 

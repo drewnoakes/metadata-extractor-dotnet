@@ -38,7 +38,7 @@ namespace MetadataExtractor.Formats.Jpeg
 
         /// <summary>Reads JPEG comments, returning each in a <see cref="JpegCommentDirectory"/>.</summary>
         public
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>
@@ -49,7 +49,7 @@ namespace MetadataExtractor.Formats.Jpeg
 
             // The entire contents of the segment are the comment
             return segments.Select(segment => new JpegCommentDirectory(Encoding.UTF8.GetString(segment.Bytes, 0, segment.Bytes.Length)))
-#if NET35 || PORTABLE
+#if NET35
                 .Cast<Directory>()
 #endif
                 .ToList();

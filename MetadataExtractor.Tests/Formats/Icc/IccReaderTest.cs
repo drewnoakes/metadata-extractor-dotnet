@@ -41,7 +41,7 @@ namespace MetadataExtractor.Tests.Formats.Icc
         [Fact]
         public void Extract_InvalidData()
         {
-            var app2Bytes = File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2");
+            var app2Bytes = File.ReadAllBytes("Data/iccDataInvalid1.jpg.app2");
 
             // When in an APP2 segment, ICC data starts after a 14-byte preamble
             var icc = TestHelper.SkipBytes(app2Bytes, 14);
@@ -53,7 +53,7 @@ namespace MetadataExtractor.Tests.Formats.Icc
         [Fact]
         public void ReadJpegSegments_InvalidData()
         {
-            var app2 = new JpegSegment(JpegSegmentType.App2, File.ReadAllBytes("Tests/Data/iccDataInvalid1.jpg.app2"), offset: 0);
+            var app2 = new JpegSegment(JpegSegmentType.App2, File.ReadAllBytes("Data/iccDataInvalid1.jpg.app2"), offset: 0);
             var directory = new IccReader().ReadJpegSegments(new[] { app2 });
             Assert.NotNull(directory);
             Assert.True(directory.Single().HasError);
@@ -68,7 +68,7 @@ namespace MetadataExtractor.Tests.Formats.Icc
         [Fact]
         public void Extract_ProfileDateTime()
         {
-            var app2 = new JpegSegment(JpegSegmentType.App2, File.ReadAllBytes("Tests/Data/withExifAndIptc.jpg.app2"), offset: 0);
+            var app2 = new JpegSegment(JpegSegmentType.App2, File.ReadAllBytes("Data/withExifAndIptc.jpg.app2"), offset: 0);
 
             var directory = new IccReader()
                 .ReadJpegSegments(new[] { app2 })

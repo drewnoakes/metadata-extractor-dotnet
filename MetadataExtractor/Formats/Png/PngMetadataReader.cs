@@ -27,17 +27,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
-#if !PORTABLE
+//using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
+#if !NETSTANDARD1_3
 using System.IO.Compression;
 #else
-using Ionic.Zlib;
+using System.IO.Compression;
+//using Ionic.Zlib;
 #endif
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Icc;
-#if !PORTABLE
 using MetadataExtractor.Formats.FileSystem;
-#endif
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 using MetadataExtractor.Util;
@@ -65,7 +64,6 @@ namespace MetadataExtractor.Formats.Png
             PngChunkType.sBIT
         };
 
-#if !PORTABLE
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
@@ -86,13 +84,12 @@ namespace MetadataExtractor.Formats.Png
 
             return directories;
         }
-#endif
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
         public static
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>
@@ -204,7 +201,8 @@ namespace MetadataExtractor.Formats.Png
                     // This assumes 1-byte-per-char, which it is by spec.
                     var bytesLeft = bytes.Length - profileName.Bytes.Length - 2;
                     var compressedProfile = reader.GetBytes(bytesLeft);
-                    using (var inflaterStream = new InflaterInputStream(new MemoryStream(compressedProfile)))
+                    using (var inflaterStream = new DeflateStream(new MemoryStream(compressedProfile), CompressionMode.Decompress))
+//                    using (var inflaterStream = new InflaterInputStream(new MemoryStream(compressedProfile)))
                     {
                         var iccDirectory = new IccReader().Extract(new IndexedCapturingReader(inflaterStream));
                         iccDirectory.Parent = directory;

@@ -53,7 +53,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Fact(Skip = "Don't run on CI machines as it takes an age to complete")]
         public void DoesntThrowNoMatterWhat()
         {
-            RunGremlinTest("Tests/Data/withExif.jpg.app1");
+            RunGremlinTest("Data/withExif.jpg.app1");
         }
 
         private void RunGremlinTest(string filePath)

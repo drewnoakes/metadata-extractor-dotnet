@@ -37,7 +37,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Fact, UseCulture("en-GB")]
         public void NikonType2MakernoteTest1()
         {
-            var directory = ExifReaderTest.ProcessSegmentBytes<NikonType2MakernoteDirectory>("Tests/Data/nikonMakernoteType2a.jpg.app1", JpegSegmentType.App1);
+            var directory = ExifReaderTest.ProcessSegmentBytes<NikonType2MakernoteDirectory>("Data/nikonMakernoteType2a.jpg.app1", JpegSegmentType.App1);
 
             Assert.NotNull(directory);
 
@@ -112,7 +112,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Fact, UseCulture("en-GB")]
         public void NikonType2MakernoteTest2()
         {
-            var directories = ExifReaderTest.ProcessSegmentBytes("Tests/Data/nikonMakernoteType2b.jpg.app1", JpegSegmentType.App1).ToList();
+            var directories = ExifReaderTest.ProcessSegmentBytes("Data/nikonMakernoteType2b.jpg.app1", JpegSegmentType.App1).ToList();
 
             /*
                 [Nikon Makernote] Makernote Unknown 1 =

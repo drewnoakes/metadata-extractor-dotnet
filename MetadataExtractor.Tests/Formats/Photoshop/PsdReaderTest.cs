@@ -49,7 +49,7 @@ namespace MetadataExtractor.Tests.Formats.Photoshop
         [Fact]
         public void Psd8X8X8BitGrayscale()
         {
-            var directory = ProcessBytes("Tests/Data/8x4x8bit-Grayscale.psd");
+            var directory = ProcessBytes("Data/8x4x8bit-Grayscale.psd");
             Assert.Equal(8, directory.GetInt32(PsdHeaderDirectory.TagImageWidth));
             Assert.Equal(4, directory.GetInt32(PsdHeaderDirectory.TagImageHeight));
             Assert.Equal(8, directory.GetInt32(PsdHeaderDirectory.TagBitsPerChannel));
@@ -61,7 +61,7 @@ namespace MetadataExtractor.Tests.Formats.Photoshop
         [Fact]
         public void Psd10X12X16BitCmyk()
         {
-            var directory = ProcessBytes("Tests/Data/10x12x16bit-CMYK.psd");
+            var directory = ProcessBytes("Data/10x12x16bit-CMYK.psd");
             Assert.Equal(10, directory.GetInt32(PsdHeaderDirectory.TagImageWidth));
             Assert.Equal(12, directory.GetInt32(PsdHeaderDirectory.TagImageHeight));
             Assert.Equal(16, directory.GetInt32(PsdHeaderDirectory.TagBitsPerChannel));

@@ -10,3 +10,6 @@ _ReSharper*/
 *.nupkg
 packages/
 .vs
+*.lock.json
+MetadataExtractor.Benchmarks/BenchmarkDotNet.Artifacts/
+MetadataExtractor.Tools.FileProcessor/Properties/launchSettings.json

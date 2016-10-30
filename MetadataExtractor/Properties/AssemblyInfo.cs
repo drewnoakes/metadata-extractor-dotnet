@@ -3,6 +3,6 @@
 [assembly: AssemblyTitle("MetadataExtractor")]
 [assembly: AssemblyDescription("")]
 
-#if !PORTABLE
+#if !NETSTANDARD1_3
 [assembly: System.Runtime.InteropServices.ComVisible(false)]
 #endif

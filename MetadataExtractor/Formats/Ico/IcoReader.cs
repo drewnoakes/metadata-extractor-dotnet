@@ -40,7 +40,7 @@ namespace MetadataExtractor.Formats.Ico
     {
         [NotNull]
         public
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>

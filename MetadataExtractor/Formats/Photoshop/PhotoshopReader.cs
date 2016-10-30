@@ -52,7 +52,7 @@ namespace MetadataExtractor.Formats.Photoshop
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppD };
 
         public
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>
@@ -68,7 +68,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
         [NotNull]
         public
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>

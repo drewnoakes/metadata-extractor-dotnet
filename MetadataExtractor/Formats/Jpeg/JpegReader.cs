@@ -44,7 +44,7 @@ namespace MetadataExtractor.Formats.Jpeg
             JpegSegmentType.Sof14, JpegSegmentType.Sof15
         };
 
-#if NET35 || PORTABLE
+#if NET35
         public IList<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
             => segments.Select(Extract).Cast<Directory>().ToList();
 #else

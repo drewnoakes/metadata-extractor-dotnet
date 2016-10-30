@@ -606,13 +606,15 @@ namespace MetadataExtractor.Formats.Exif
             // Someone suggested "ISO-8859-1".
             var encodingMap = new Dictionary<string, Encoding>
             {
-#if PORTABLE
+#if NETSTANDARD1_3
                 ["ASCII"] = Encoding.UTF8, // No ASCII for PCL
 #else
                 ["ASCII"] = Encoding.ASCII,
 #endif
                 ["UNICODE"] = Encoding.Unicode,
+#if !NETSTANDARD1_3
                 ["JIS"] = Encoding.GetEncoding("Shift-JIS")
+#endif
             };
 
             try

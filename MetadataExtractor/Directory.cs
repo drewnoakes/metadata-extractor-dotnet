@@ -81,7 +81,7 @@ namespace MetadataExtractor
         /// <value>The list of <see cref="Tag"/> objects.</value>
         [NotNull]
         public
-#if NET35 || PORTABLE
+#if NET35
             IEnumerable<Tag>
 #else
             IReadOnlyList<Tag>
@@ -117,7 +117,7 @@ namespace MetadataExtractor
         /// <value>The collection of error message strings.</value>
         [NotNull]
         public
-#if NET35 || PORTABLE
+#if NET35
             IEnumerable<string>
 #else
             IReadOnlyList<string>

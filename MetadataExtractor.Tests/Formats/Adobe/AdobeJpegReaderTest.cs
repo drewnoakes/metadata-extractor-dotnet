@@ -53,7 +53,7 @@ namespace MetadataExtractor.Tests.Formats.Adobe
         [Fact]
         public void ReadAdobeJpegMetadata1()
         {
-            var directory = ProcessBytes("Tests/Data/adobeJpeg1.jpg.appe");
+            var directory = ProcessBytes("Data/adobeJpeg1.jpg.appe");
 
             Assert.False(directory.HasError, directory.Errors.ToString());
             Assert.Equal(4, directory.TagCount);

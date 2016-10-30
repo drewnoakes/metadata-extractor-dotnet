@@ -22,7 +22,7 @@
 //
 #endregion
 
-#if !PORTABLE
+#if !NETSTANDARD1_3
 using System;
 #endif
 using JetBrains.Annotations;
@@ -34,7 +34,7 @@ namespace MetadataExtractor.Formats.Jpeg
     /// quantization table number.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-#if !PORTABLE
+#if !NETSTANDARD1_3
     [Serializable]
 #endif
     public sealed class JpegComponent

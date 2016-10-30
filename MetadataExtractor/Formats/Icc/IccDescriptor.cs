@@ -91,7 +91,7 @@ namespace MetadataExtractor.Formats.Icc
                 {
                     case IccTagType.Text:
                     {
-#if !PORTABLE
+#if !NETSTANDARD1_3
                         try
                         {
                             return Encoding.ASCII.GetString(bytes, 8, bytes.Length - 8 - 1);

@@ -25,9 +25,7 @@
 using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
-#if !PORTABLE
 using MetadataExtractor.Formats.FileSystem;
-#endif
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Ico
@@ -36,11 +34,10 @@ namespace MetadataExtractor.Formats.Ico
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class IcoMetadataReader
     {
-#if !PORTABLE
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
         public static
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>
@@ -56,11 +53,10 @@ namespace MetadataExtractor.Formats.Ico
 
             return directories;
         }
-#endif
 
         [NotNull]
         public static
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>

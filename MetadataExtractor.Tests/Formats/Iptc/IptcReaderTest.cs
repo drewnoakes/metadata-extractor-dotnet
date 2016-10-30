@@ -48,7 +48,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         [Fact]
         public void Iptc1BytesFromFile()
         {
-            var directory = ProcessBytes("Tests/Data/iptc1.jpg.appd");
+            var directory = ProcessBytes("Data/iptc1.jpg.appd");
             Assert.False(directory.HasError, directory.Errors.ToString());
             var tags = directory.Tags.ToList();
             Assert.Equal(16, tags.Count);
@@ -89,7 +89,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         [Fact]
         public void Iptc2Photoshop6BytesFromFile()
         {
-            var directory = ProcessBytes("Tests/Data/iptc2-photoshop6.jpg.appd");
+            var directory = ProcessBytes("Data/iptc2-photoshop6.jpg.appd");
             Assert.False(directory.HasError, directory.Errors.ToString());
             var tags = directory.Tags.ToList();
             Assert.Equal(17, tags.Count);
@@ -132,7 +132,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         [Fact]
         public void IptcEncodingUtf8()
         {
-            var directory = ProcessBytes("Tests/Data/iptc-encoding-defined-utf8.bytes");
+            var directory = ProcessBytes("Data/iptc-encoding-defined-utf8.bytes");
             Assert.False(directory.HasError, directory.Errors.ToString());
             var tags = directory.Tags.ToList();
             Assert.Equal(4, tags.Count);
@@ -149,7 +149,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         [Fact]
         public void IptcEncodingUndefinedIso()
         {
-            var directory = ProcessBytes("Tests/Data/iptc-encoding-undefined-iso.bytes");
+            var directory = ProcessBytes("Data/iptc-encoding-undefined-iso.bytes");
             Assert.False(directory.HasError, directory.Errors.ToString());
             var tags = directory.Tags.ToList();
             Assert.Equal(3, tags.Count);
@@ -164,7 +164,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         [Fact]
         public void IptcEncodingUnknown()
         {
-            var directory = ProcessBytes("Tests/Data/iptc-encoding-unknown.bytes");
+            var directory = ProcessBytes("Data/iptc-encoding-unknown.bytes");
             Assert.False(directory.HasError, directory.Errors.ToString());
             var tags = directory.Tags.ToList();
             Assert.Equal(3, tags.Count);
@@ -182,7 +182,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
             // This metadata has an encoding of three characters [ \ESC '%' '5' ]
             // It's not clear what to do with this, so it should be ignored.
             // Version 2.7.0 tripped up on this and threw an exception.
-            var directory = ProcessBytes("Tests/Data/iptc-encoding-unknown-2.bytes");
+            var directory = ProcessBytes("Data/iptc-encoding-unknown-2.bytes");
             Assert.False(directory.HasError, directory.Errors.ToString());
             var tags = directory.Tags;
             Assert.Equal(37, tags.Count());

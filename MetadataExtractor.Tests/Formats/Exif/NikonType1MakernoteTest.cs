@@ -50,7 +50,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Fact, UseCulture("en-GB")]
         public void TestFile1()
         {
-            var metadata = ExifReaderTest.ProcessSegmentBytes("Tests/Data/nikonMakernoteType1.jpg.app1", JpegSegmentType.App1).ToList();
+            var metadata = ExifReaderTest.ProcessSegmentBytes("Data/nikonMakernoteType1.jpg.app1", JpegSegmentType.App1).ToList();
 
             /*
                 [Nikon Makernote] Makernote Unknown 1 = 08.00

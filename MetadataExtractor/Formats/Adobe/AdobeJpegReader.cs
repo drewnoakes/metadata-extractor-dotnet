@@ -43,7 +43,7 @@ namespace MetadataExtractor.Formats.Adobe
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppE };
 
         public
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>
@@ -53,7 +53,7 @@ namespace MetadataExtractor.Formats.Adobe
             return segments
                 .Where(segment => segment.Bytes.Length == 12 && Preamble.Equals(Encoding.UTF8.GetString(segment.Bytes, 0, Preamble.Length), StringComparison.OrdinalIgnoreCase))
                 .Select(bytes => Extract(new SequentialByteArrayReader(bytes.Bytes)))
-#if NET35 || PORTABLE
+#if NET35
                 .Cast<Directory>()
 #endif
                 .ToList();

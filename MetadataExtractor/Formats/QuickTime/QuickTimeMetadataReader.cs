@@ -34,7 +34,7 @@ namespace MetadataExtractor.Formats.QuickTime
 
         [NotNull]
         public static
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>

@@ -26,9 +26,7 @@ using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
-#if !PORTABLE
 using MetadataExtractor.Formats.FileSystem;
-#endif
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Tiff
@@ -42,7 +40,6 @@ namespace MetadataExtractor.Formats.Tiff
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class TiffMetadataReader
     {
-#if !PORTABLE
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="TiffProcessingException"/>
         [NotNull]
@@ -67,13 +64,11 @@ namespace MetadataExtractor.Formats.Tiff
             return directories;
         }
 
-#endif
-
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="TiffProcessingException"/>
         [NotNull]
         public static
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>

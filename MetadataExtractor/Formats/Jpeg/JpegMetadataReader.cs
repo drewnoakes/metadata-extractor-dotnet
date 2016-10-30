@@ -33,9 +33,7 @@ using MetadataExtractor.Formats.Iptc;
 using MetadataExtractor.Formats.Jfif;
 using MetadataExtractor.Formats.Jfxx;
 using MetadataExtractor.Formats.Photoshop;
-#if !PORTABLE
 using MetadataExtractor.Formats.FileSystem;
-#endif
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 
@@ -64,7 +62,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
         public static
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>
@@ -74,7 +72,6 @@ namespace MetadataExtractor.Formats.Jpeg
             return Process(stream, readers);
         }
 
-#if !PORTABLE
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
@@ -95,13 +92,12 @@ namespace MetadataExtractor.Formats.Jpeg
 
             return directories;
         }
-#endif
 
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
         public static
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>
@@ -123,7 +119,7 @@ namespace MetadataExtractor.Formats.Jpeg
 
         [NotNull]
         public static
-#if NET35 || PORTABLE
+#if NET35
             IList<Directory>
 #else
             IReadOnlyList<Directory>

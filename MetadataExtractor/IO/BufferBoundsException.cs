@@ -24,7 +24,7 @@
 
 using System.IO;
 using JetBrains.Annotations;
-#if !PORTABLE
+#if !NETSTANDARD1_3
 using System;
 using System.Runtime.Serialization;
 #endif
@@ -35,7 +35,7 @@ namespace MetadataExtractor.IO
     /// Thrown when the index provided to an <see cref="IndexedReader"/> is invalid.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-#if !PORTABLE
+#if !NETSTANDARD1_3
     [Serializable]
 #endif
     public class BufferBoundsException : IOException
@@ -65,7 +65,7 @@ namespace MetadataExtractor.IO
             return $"Attempt to read from beyond end of underlying data source (requested index: {index}, requested count: {bytesRequested}, max index: {bufferLength - 1})";
         }
 
-#if !PORTABLE
+#if !NETSTANDARD1_3
         protected BufferBoundsException([NotNull] SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

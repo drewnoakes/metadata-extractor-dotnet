@@ -23,8 +23,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Xmp;
@@ -49,7 +51,7 @@ namespace MetadataExtractor.Tools.FileProcessor
             log.Write('\n');
         }
 
-        public override void OnExtractionSuccess(string filePath, IReadOnlyList<Directory> directories, string relativePath, TextWriter log)
+        public override void OnExtractionSuccess(string filePath, IList<Directory> directories, string relativePath, TextWriter log)
         {
             base.OnExtractionSuccess(filePath, directories, relativePath, log);
 
@@ -159,6 +161,7 @@ namespace MetadataExtractor.Tools.FileProcessor
         private static TextWriter OpenWriter(string filePath)
         {
             var directoryPath = Path.GetDirectoryName(filePath);
+            Debug.Assert(directoryPath != null);
             var metadataPath = Path.Combine(directoryPath, "metadata");
             var fileName = Path.GetFileName(filePath);
 
@@ -168,7 +171,8 @@ namespace MetadataExtractor.Tools.FileProcessor
 
             var outputPath = $"{directoryPath}/metadata/{fileName}.txt";
 
-            var writer = new StreamWriter(outputPath, false);
+            var stream = File.Open(outputPath, FileMode.Create);
+            var writer = new StreamWriter(stream, new UTF8Encoding(false));
             writer.Write("FILE: {0}\n\n", fileName);
 
             return writer;

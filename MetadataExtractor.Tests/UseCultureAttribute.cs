@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Reflection;
-using System.Threading;
 using Xunit.Sdk;
 
 namespace MetadataExtractor.Tests
@@ -64,11 +63,11 @@ namespace MetadataExtractor.Tests
         /// <param name="methodUnderTest">The method under test</param>
         public override void Before(MethodInfo methodUnderTest)
         {
-            _originalCulture = Thread.CurrentThread.CurrentCulture;
-            _originalUiCulture = Thread.CurrentThread.CurrentUICulture;
+            _originalCulture = CultureInfo.CurrentCulture;
+            _originalUiCulture = CultureInfo.CurrentUICulture;
 
-            Thread.CurrentThread.CurrentCulture = Culture;
-            Thread.CurrentThread.CurrentUICulture = UICulture;
+            CultureInfo.CurrentCulture = Culture;
+            CultureInfo.CurrentUICulture = Culture;
         }
 
         /// <summary>
@@ -78,8 +77,8 @@ namespace MetadataExtractor.Tests
         /// <param name="methodUnderTest">The method under test</param>
         public override void After(MethodInfo methodUnderTest)
         {
-            Thread.CurrentThread.CurrentCulture = _originalCulture;
-            Thread.CurrentThread.CurrentUICulture = _originalUiCulture;
+            CultureInfo.CurrentCulture = _originalCulture;
+            CultureInfo.CurrentUICulture = _originalUiCulture;
         }
     }
 }
