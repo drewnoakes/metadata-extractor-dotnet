@@ -49,7 +49,7 @@ namespace MetadataExtractor.Tests
 
         [Fact]
         [SuppressMessage("ReSharper", "SpecifyACultureInStringConversionExplicitly")]
-        public void ToString()
+        public new void ToString()
         {
             Assert.Equal("1/3", new Rational(1, 3).ToString());
         }
