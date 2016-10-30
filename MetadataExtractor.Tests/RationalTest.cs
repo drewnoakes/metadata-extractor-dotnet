@@ -24,9 +24,6 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-#if !NETSTANDARD1_3
-using System.ComponentModel;
-#endif
 using Xunit;
 
 // ReSharper disable ReturnValueOfPureMethodIsNotUsed

@@ -23,7 +23,6 @@
 #endregion
 
 using System.IO;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using Xunit;
 

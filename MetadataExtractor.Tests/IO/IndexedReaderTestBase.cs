@@ -23,7 +23,6 @@
 #endregion
 
 using System;
-using System.IO;
 using System.Text;
 using MetadataExtractor.IO;
 using Xunit;
