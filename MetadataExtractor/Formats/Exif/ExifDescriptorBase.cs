@@ -561,8 +561,8 @@ namespace MetadataExtractor.Formats.Exif
             Rational value;
             if (!Directory.TryGetRational(ExifDirectoryBase.TagDigitalZoomRatio, out value))
                 return null;
-            return value.Numerator == 0 
-                ? "Digital zoom not used" 
+            return value.Numerator == 0
+                ? "Digital zoom not used"
                 : value.ToDouble().ToString("0.#");
         }
 
