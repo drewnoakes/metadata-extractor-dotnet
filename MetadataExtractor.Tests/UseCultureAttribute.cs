@@ -58,8 +58,7 @@ namespace MetadataExtractor.Tests
         public CultureInfo UICulture => _uiCulture.Value;
 
         /// <summary>
-        /// Stores the current <see cref="Thread.CurrentPrincipal" />
-        /// <see cref="CultureInfo.CurrentCulture" /> and <see cref="CultureInfo.CurrentUICulture" />
+        /// Stores the current <see cref="CultureInfo.CurrentCulture" /> and <see cref="CultureInfo.CurrentUICulture" />
         /// and replaces them with the new cultures defined in the constructor.
         /// </summary>
         /// <param name="methodUnderTest">The method under test</param>
@@ -74,7 +73,7 @@ namespace MetadataExtractor.Tests
 
         /// <summary>
         /// Restores the original <see cref="CultureInfo.CurrentCulture" /> and
-        /// <see cref="CultureInfo.CurrentUICulture" /> to <see cref="Thread.CurrentPrincipal" />
+        /// <see cref="CultureInfo.CurrentUICulture" />.
         /// </summary>
         /// <param name="methodUnderTest">The method under test</param>
         public override void After(MethodInfo methodUnderTest)
