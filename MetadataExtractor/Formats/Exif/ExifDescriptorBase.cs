@@ -606,11 +606,10 @@ namespace MetadataExtractor.Formats.Exif
             // Someone suggested "ISO-8859-1".
             var encodingMap = new Dictionary<string, Encoding>
             {
-#if NETSTANDARD1_3
-                ["ASCII"] = Encoding.UTF8, // No ASCII for PCL
-#else
                 ["ASCII"] = Encoding.ASCII,
-#endif
+                ["UTF8"] = Encoding.UTF8,
+                ["UTF7"] = Encoding.UTF7,
+                ["UTF32"] = Encoding.UTF32,
                 ["UNICODE"] = Encoding.Unicode,
 #if !NETSTANDARD1_3
                 // http://stackoverflow.com/questions/40331957/shift-jis-encoding-on-net-core
