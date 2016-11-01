@@ -42,12 +42,16 @@
   },
 
   "buildOptions": {
-    "debugType": "portable"
+    "debugType": "portable",
+    "xmlDoc": true,
+    "optimize": true,
+    "nowarn": [ 1591 ]
   },
 
   "dependencies": {
     "XmpCore": "2.0.0-rc2"
   },
+
   "frameworks": {
     "netstandard1.3": {
       "dependencies": {
