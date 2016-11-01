@@ -47,7 +47,6 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class JpegSegmentReader
     {
-#if !NETSTANDARD1_3
         /// <summary>
         /// Walks the provided JPEG data, returning <see cref="JpegSegment"/> objects.
         /// </summary>
@@ -64,7 +63,6 @@ namespace MetadataExtractor.Formats.Jpeg
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 return ReadSegments(new SequentialStreamReader(stream), segmentTypes).ToList();
         }
-#endif
 
         /// <summary>
         /// Processes the provided JPEG data, and extracts the specified JPEG segments into a <see cref="JpegSegment"/> object.
