@@ -3,7 +3,7 @@
 
   "dependencies": {
     "MetadataExtractor": "*",
-    "JetBrains.Annotations": "10.1.5", 
+    "JetBrains.Annotations": "10.2.1",
     "System.Management.Automation": "6.1.7601.17515"
   },
 
