@@ -88,12 +88,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 "Off", "On");
         }
 
-        [CanBeNull]
         /// <remarks>
         /// this rational value looks like it is in mm when the denominator is
         /// 1 (E-1), and cm when denominator is 10 (E-300), so if we ignore the
         /// denominator we are consistently in mm - PH
         /// </remarks>
+        [CanBeNull]
         public string GetFocusDistanceDescription()
         {
             Rational value;
@@ -105,11 +105,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return value.Numerator / 1000.0 + " m";
         }
 
-        [CanBeNull]
         /// <remarks>
         /// <para>TODO: Complete when Camera Model is available.</para>
         /// <para>There are differences in how to interpret this tag that can only be reconciled by knowing the model.</para>
         /// </remarks>
+        [CanBeNull]
         public string GetAfPointDescription()
         {
             short value;
@@ -127,7 +127,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             var join = $"{values[0]} {values[1]}";
-            
+
             switch (join)
             {
                 case "0 0":
@@ -203,32 +203,30 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 "Off", "On");
         }
 
-        [CanBeNull]
         /// <remarks>
         /// <para>TODO: Complete when Camera Model is available.</para>
         /// <para>There are differences in how to interpret this tag that can only be reconciled by knowing the model.</para>
         /// </remarks>
+        [CanBeNull]
         public string GetSensorTemperatureDescription()
         {
             return Directory.GetString(OlympusFocusInfoMakernoteDirectory.TagSensorTemperature);
         }
 
-        [CanBeNull]
         /// <remarks>
-        /// ref http://fourthirdsphoto.com/vbb/showpost.php?p=107607&postcount=15
         /// <para> if the first 4 bytes are non-zero, then bit 0x01 of byte 44 gives the stabilization mode</para>
         /// <notes>(the other value is more reliable, so ignore this totally if the other exists)</notes>
         /// </remarks>
+        [CanBeNull]
         public string GetImageStabilizationDescription()
         {
             var values = Directory.GetByteArray(OlympusFocusInfoMakernoteDirectory.TagImageStabilization);
             if (values == null)
                 return null;
-            
+
             if((values[0] | values[1] | values[2] | values[3]) == 0x0)
                 return "Off";
             return "On, " + ((values[43] & 1) > 0 ? "Mode 1" : "Mode 2");
         }
-
     }
 }
