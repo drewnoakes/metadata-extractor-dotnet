@@ -22,8 +22,8 @@
 //
 #endregion
 
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
@@ -73,22 +73,16 @@ namespace MetadataExtractor.Formats.Exif
             Extract([NotNull] IndexedReader reader)
         {
             var directories = new List<Directory>();
-
             var exifTiffHandler = new ExifTiffHandler(directories);
+
             try
             {
                 // Read the TIFF-formatted Exif data
                 TiffReader.ProcessTiff(reader, exifTiffHandler);
             }
-            catch (TiffProcessingException e)
+            catch (Exception e)
             {
-                // TODO what do to with this error state?
-                exifTiffHandler.Error("ExifReader TiffProcessingException : " + e.Message);
-            }
-            catch (IOException e)
-            {
-                // TODO what do to with this error state?
-                exifTiffHandler.Error("ExifReader IOException : " + e.Message);
+                exifTiffHandler.Error("Exception processing TIFF data: " + e.Message);
             }
 
             return directories;
