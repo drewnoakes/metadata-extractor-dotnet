@@ -56,7 +56,8 @@ namespace MetadataExtractor.Formats.Png
         public static PngColorType FromNumericValue(int numericValue)
         {
             var colorTypes = new[] { Greyscale, TrueColor, IndexedColor, GreyscaleWithAlpha, TrueColorWithAlpha };
-            return colorTypes.FirstOrDefault(colorType => colorType.NumericValue == numericValue);
+            return colorTypes.FirstOrDefault(colorType => colorType.NumericValue == numericValue) ??
+                    new PngColorType(numericValue, $"Unknown ({numericValue})", new int[0]);
         }
 
         public int NumericValue { get; }

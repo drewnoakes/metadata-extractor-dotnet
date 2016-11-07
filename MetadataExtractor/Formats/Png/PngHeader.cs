@@ -43,10 +43,7 @@ namespace MetadataExtractor.Formats.Png
             BitsPerSample = reader.GetByte();
 
             var colorTypeNumber = reader.GetByte();
-            var colorType = PngColorType.FromNumericValue(colorTypeNumber);
-            if (colorType == null)
-                throw new PngProcessingException("Unexpected PNG color type: " + colorTypeNumber);
-            ColorType = colorType;
+            ColorType = PngColorType.FromNumericValue(colorTypeNumber);
 
             CompressionType = reader.GetByte();
             FilterMethod = reader.GetByte();

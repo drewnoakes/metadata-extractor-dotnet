@@ -441,16 +441,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             var reader = new SequentialByteArrayReader(bytes);
             var count = bytes.Length / 4;
 
-            try
-            {
-                for (var i = 0; i < count; i++)
-                    Set(CameraSettings.Offset + i, reader.GetInt32());
-            }
-            catch (IOException e)
-            {
-                // Should never happen, given that we check the length of the bytes beforehand.
-                Debug.WriteLine(e);
-            }
+            for (var i = 0; i < count; i++)
+                Set(CameraSettings.Offset + i, reader.GetInt32());
         }
 
         public bool IsIntervalMode()

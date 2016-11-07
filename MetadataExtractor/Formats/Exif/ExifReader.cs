@@ -75,20 +75,21 @@ namespace MetadataExtractor.Formats.Exif
         {
             var directories = new List<Directory>();
 
+            var exifTiffHandler = new ExifTiffHandler(directories);
             try
             {
                 // Read the TIFF-formatted Exif data
-                TiffReader.ProcessTiff(reader, new ExifTiffHandler(directories));
+                TiffReader.ProcessTiff(reader, exifTiffHandler);
             }
             catch (TiffProcessingException e)
             {
                 // TODO what do to with this error state?
-                Debug.WriteLine(e);
+                exifTiffHandler.Error("ExifReader TiffProcessingException : " + e.Message);
             }
             catch (IOException e)
             {
                 // TODO what do to with this error state?
-                Debug.WriteLine(e);
+                exifTiffHandler.Error("ExifReader IOException : " + e.Message);
             }
 
             return directories;

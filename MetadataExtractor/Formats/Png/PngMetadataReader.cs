@@ -102,14 +102,7 @@ namespace MetadataExtractor.Formats.Png
 
             foreach (var chunk in chunks)
             {
-                try
-                {
-                    directories.AddRange(ProcessChunk(chunk));
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e);
-                }
+                directories.AddRange(ProcessChunk(chunk));
             }
 
             return directories;

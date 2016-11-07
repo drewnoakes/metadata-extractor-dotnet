@@ -71,15 +71,8 @@ namespace MetadataExtractor.Formats.QuickTime
                 }
             };
 
-//            Action<AtomCallbackArgs> clipHandler = a =>
-//            {
-//                Debug.WriteLine($"- Atom {a.TypeString} of size {a.Size}");
-//            };
-
             var moovHandler = (Action<AtomCallbackArgs>) (a =>
             {
-//                Debug.WriteLine($"- Atom {a.TypeString} of size {a.Size}");
-
                 switch (a.TypeString)
                 {
                     case "mvhd":
@@ -130,8 +123,6 @@ namespace MetadataExtractor.Formats.QuickTime
 
             Action<AtomCallbackArgs> handler = a =>
             {
-//                Debug.WriteLine($"- Atom {a.TypeString} of size {a.Size}");
-
                 switch (a.TypeString)
                 {
                     case "moov":
