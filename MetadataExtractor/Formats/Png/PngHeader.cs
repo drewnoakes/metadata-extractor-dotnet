@@ -41,10 +41,7 @@ namespace MetadataExtractor.Formats.Png
             ImageWidth = reader.GetInt32();
             ImageHeight = reader.GetInt32();
             BitsPerSample = reader.GetByte();
-
-            var colorTypeNumber = reader.GetByte();
-            ColorType = PngColorType.FromNumericValue(colorTypeNumber);
-
+            ColorType = PngColorType.FromNumericValue(reader.GetByte());
             CompressionType = reader.GetByte();
             FilterMethod = reader.GetByte();
             InterlaceMethod = reader.GetByte();
