@@ -47,7 +47,7 @@ namespace MetadataExtractor.Formats.Jpeg
             // TODO store bytes in the directory to allow different encodings when decoding
 
             // The entire contents of the segment are the comment
-            return segments.Select(segment => new JpegCommentDirectory(Encoding.UTF8.GetString(segment.Bytes, 0, segment.Bytes.Length)))
+            return segments.Select(segment => new JpegCommentDirectory(new StringValue(segment.Bytes, Encoding.UTF8)))
 #if NET35
                 .Cast<Directory>()
 #endif
