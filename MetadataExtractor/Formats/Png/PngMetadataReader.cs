@@ -24,16 +24,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
-//using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
-#if !NETSTANDARD1_3
 using System.IO.Compression;
-#else
-using System.IO.Compression;
-//using Ionic.Zlib;
-#endif
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.FileSystem;
