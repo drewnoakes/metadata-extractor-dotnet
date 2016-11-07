@@ -52,12 +52,12 @@ namespace MetadataExtractor.Formats.Png
         /// <summary>Each pixel is an R,G,B triple followed by an alpha sample.</summary>
         public static readonly PngColorType TrueColorWithAlpha = new PngColorType(6, "True Color with Alpha", 8, 16);
 
-        [CanBeNull]
+        [NotNull]
         public static PngColorType FromNumericValue(int numericValue)
         {
             var colorTypes = new[] { Greyscale, TrueColor, IndexedColor, GreyscaleWithAlpha, TrueColorWithAlpha };
-            return colorTypes.FirstOrDefault(colorType => colorType.NumericValue == numericValue) ??
-                    new PngColorType(numericValue, $"Unknown ({numericValue})", new int[0]);
+            return colorTypes.FirstOrDefault(colorType => colorType.NumericValue == numericValue)
+                ?? new PngColorType(numericValue, $"Unknown ({numericValue})");
         }
 
         public int NumericValue { get; }

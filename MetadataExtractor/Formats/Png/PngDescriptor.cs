@@ -76,7 +76,7 @@ namespace MetadataExtractor.Formats.Png
             int value;
             if (!Directory.TryGetInt32(PngDirectory.TagColorType, out value))
                 return null;
-            return PngColorType.FromNumericValue(value)?.Description;
+            return PngColorType.FromNumericValue(value).Description;
         }
 
         [CanBeNull]
