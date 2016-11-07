@@ -45,7 +45,7 @@ namespace MetadataExtractor.Formats.Jpeg
             { TagComment, "JPEG Comment" }
         };
 
-        public JpegCommentDirectory([NotNull] string comment)
+        public JpegCommentDirectory([NotNull] StringValue comment)
         {
             SetDescriptor(new JpegCommentDescriptor(this));
             Set(TagComment, comment);
