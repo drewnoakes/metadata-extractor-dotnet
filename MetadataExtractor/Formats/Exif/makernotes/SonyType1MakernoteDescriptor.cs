@@ -600,22 +600,61 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetVignettingCorrectionDescription()
         {
-            return GetIndexedDescription(SonyType1MakernoteDirectory.TagVignettingCorrection,
-                "Off", null, "Auto");
+            uint value;
+            if (!Directory.TryGetUInt32(SonyType1MakernoteDirectory.TagVignettingCorrection, out value))
+                return null;
+
+            switch (value)
+            {
+                case 0:
+                    return "Off";
+                case 2:
+                    return "Auto";
+                case 0xffffffff:
+                    return "N/A";
+                default:
+                    return $"Unknown ({value})";
+            }
         }
 
         [CanBeNull]
         public string GetLateralChromaticAberrationDescription()
         {
-            return GetIndexedDescription(SonyType1MakernoteDirectory.TagLateralChromaticAberration,
-                "Off", null, "Auto");
+            uint value;
+            if (!Directory.TryGetUInt32(SonyType1MakernoteDirectory.TagLateralChromaticAberration, out value))
+                return null;
+
+            switch (value)
+            {
+                case 0:
+                    return "Off";
+                case 2:
+                    return "Auto";
+                case 0xffffffff:
+                    return "N/A";
+                default:
+                    return $"Unknown ({value})";
+            }
         }
 
         [CanBeNull]
         public string GetDistortionCorrectionDescription()
         {
-            return GetIndexedDescription(SonyType1MakernoteDirectory.TagDistortionCorrection,
-                "Off", null, "Auto");
+            uint value;
+            if (!Directory.TryGetUInt32(SonyType1MakernoteDirectory.TagDistortionCorrection, out value))
+                return null;
+
+            switch (value)
+            {
+                case 0:
+                    return "Off";
+                case 2:
+                    return "Auto";
+                case 0xffffffff:
+                    return "N/A";
+                default:
+                    return $"Unknown ({value})";
+            }
         }
 
         [CanBeNull]
