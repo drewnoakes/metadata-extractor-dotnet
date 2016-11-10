@@ -142,6 +142,17 @@ namespace MetadataExtractor.Formats.Exif
 
         public override bool CustomProcessTag(int tagOffset, ICollection<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount)
         {
+            // Some 0x0000 tags have a 0 byteCount. Determine whether it's bad
+            if (tagId == 0x0000)
+            {
+                if(CurrentDirectory.ContainsTag(tagId))
+                {
+                    return false;   // let it go through for now. Some directories handle it, some don't
+                }
+                else if(byteCount == 0) // otherwise, skip over 0x0000 tags that don't have any associated bytes. No idea what it contains in this case, if anything
+                    return true;
+            }
+
             // Custom processing for the Makernote tag
             if (tagId == ExifDirectoryBase.TagMakernote && CurrentDirectory is ExifSubIfdDirectory)
                 return ProcessMakernote(tagOffset, processedIfdOffsets, reader);
@@ -178,6 +189,13 @@ namespace MetadataExtractor.Formats.Exif
             if ((ushort)formatCode == 13u)
             {
                 byteCount = 4 * componentCount;
+                return true;
+            }
+
+            // an unknown (0) formatCode needs to be potentially handled later as a highly custom directory tag
+            if(formatCode == 0)
+            {
+                byteCount = 0;
                 return true;
             }
 
@@ -272,6 +290,14 @@ namespace MetadataExtractor.Formats.Exif
                 PushDirectory(new SonyType1MakernoteDirectory());
                 TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset + 12);
             }
+            // Do this check LAST after most other Sony checks
+            else if (cameraMake != null && cameraMake.StartsWith("SONY", StringComparison.Ordinal) &&
+                reader.GetBytes(makernoteOffset, 2) != new byte[] { 0x01, 0x00 })
+            {
+                // The IFD begins with the first Makernote byte (no ASCII name). Used in SR2 and ARW images
+                PushDirectory(new SonyType1MakernoteDirectory());
+                TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset);
+            }
             else if (string.Equals("SEMC MS\u0000\u0000\u0000\u0000\u0000", firstTwelveChars, StringComparison.Ordinal))
             {
                 // Force Motorola byte order for this directory
@@ -328,7 +354,23 @@ namespace MetadataExtractor.Formats.Exif
             }
             else if (string.Equals("LEICA", firstFiveChars, StringComparison.Ordinal))
             {
-                if (string.Equals("Leica Camera AG", cameraMake, StringComparison.Ordinal))
+                // used by the X1/X2/X VARIO/T
+                // (X1 starts with "LEICA\0\x01\0", Make is "LEICA CAMERA AG")
+                // (X2 starts with "LEICA\0\x05\0", Make is "LEICA CAMERA AG")
+                // (X VARIO starts with "LEICA\0\x04\0", Make is "LEICA CAMERA AG")
+                // (T (Typ 701) starts with "LEICA\0\0x6", Make is "LEICA CAMERA AG")
+                // (X (Typ 113) starts with "LEICA\0\0x7", Make is "LEICA CAMERA AG")
+
+                if(string.Equals("LEICA\0\x1\0", firstEightChars, StringComparison.Ordinal) ||
+                    string.Equals("LEICA\0\x4\0", firstEightChars, StringComparison.Ordinal) ||
+                    string.Equals("LEICA\0\x5\0", firstEightChars, StringComparison.Ordinal) ||
+                    string.Equals("LEICA\0\x6\0", firstEightChars, StringComparison.Ordinal) || 
+                    string.Equals("LEICA\0\x7\0", firstEightChars, StringComparison.Ordinal))
+                {
+                    PushDirectory(new LeicaType5MakernoteDirectory());
+                    TiffReader.ProcessIfd(this, reader.WithShiftedBaseOffset(makernoteOffset), processedIfdOffsets, 8);
+                }
+                else if (string.Equals("Leica Camera AG", cameraMake, StringComparison.Ordinal))
                 {
                     PushDirectory(new LeicaMakernoteDirectory());
                     TiffReader.ProcessIfd(this, reader.WithByteOrder(isMotorolaByteOrder: false), processedIfdOffsets, makernoteOffset + 8);
@@ -416,6 +458,12 @@ namespace MetadataExtractor.Formats.Exif
                 var directory = new ReconyxMakernoteDirectory();
                 Directories.Add(directory);
                 ProcessReconyxMakernote(directory, makernoteOffset, reader);
+            }
+            else if(string.Equals("SAMSUNG", cameraMake, StringComparison.Ordinal))
+            {
+                // Only handles Type2 notes correctly. Others aren't implemented, and it's complex to determine which ones to use
+                PushDirectory(new SamsungType2MakernoteDirectory());
+                TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset);
             }
             else
             {
