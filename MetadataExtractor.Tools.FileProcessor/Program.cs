@@ -55,9 +55,6 @@ namespace MetadataExtractor.Tools.FileProcessor
         /// An application entry point.  Takes the name of one or more files as arguments and prints the contents of all
         /// metadata directories to <c>System.out</c>.
         /// <para />
-        /// If <c>--thumb</c> is passed, then any thumbnail data will be written to a file with name of the
-        /// input file having <c>.thumb.jpg</c> appended.
-        /// <para />
         /// If <c>--markdown</c> is passed, then output will be in markdown format.
         /// <para />
         /// If <c>--hex</c> is passed, then the ID of each tag will be displayed in hexadecimal.
@@ -69,7 +66,6 @@ namespace MetadataExtractor.Tools.FileProcessor
         {
             var args = argArray.ToList();
 
-//            var thumbRequested = args.Remove("--thumb");
             var markdownFormat = args.Remove("--markdown");
             var showHex = args.Remove("--hex");
 
@@ -77,7 +73,7 @@ namespace MetadataExtractor.Tools.FileProcessor
             {
                 Console.Out.WriteLine("MetadataExtractor {0}", Assembly.GetEntryAssembly().GetName().Version);
                 Console.Out.WriteLine();
-                Console.Out.WriteLine($"Usage: {Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName)} <filename> [<filename> ...] [--markdown] [--hex]"); // [--thumb]
+                Console.Out.WriteLine($"Usage: {Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName)} <filename> [<filename> ...] [--markdown] [--hex]");
 
                 if (Debugger.IsAttached)
                     Console.ReadLine();
@@ -167,20 +163,6 @@ namespace MetadataExtractor.Tools.FileProcessor
                     foreach (var error in directory.Errors)
                         Console.Error.WriteLine("ERROR: {0}", error);
                 }
-
-//                if (thumbRequested && argArray.Length > 1)
-//                {
-//                    var thumbnailDirectory = directories.OfType<ExifThumbnailDirectory>().FirstOrDefault();
-//                    if (thumbnailDirectory != null && thumbnailDirectory.HasThumbnailData)
-//                    {
-//                        Console.Out.WriteLine("Writing thumbnail...");
-//                        thumbnailDirectory.WriteThumbnail(argArray[0].Trim() + ".thumb.jpg");
-//                    }
-//                    else
-//                    {
-//                        Console.Out.WriteLine("No thumbnail data exists in this image");
-//                    }
-//                }
             }
 
             if (Debugger.IsAttached)
