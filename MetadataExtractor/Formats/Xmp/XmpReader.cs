@@ -55,23 +55,14 @@ namespace MetadataExtractor.Formats.Xmp
 //        /// XMP tag namespace.
 //        /// TODO the older "xap", "xapBJ", "xapMM" or "xapRights" namespace prefixes should be translated to the newer "xmp", "xmpBJ", "xmpMM" and "xmpRights" prefixes for use in family 1 group names
 //        /// </remarks>
-//        [NotNull]
 //        private const string SchemaXmpProperties = "http://ns.adobe.com/xap/1.0/";
 
-//        [NotNull]
 //        private const string SchemaExifSpecificProperties = "http://ns.adobe.com/exif/1.0/";
-
-//        [NotNull]
 //        private const string SchemaExifAdditionalProperties = "http://ns.adobe.com/exif/1.0/aux/";
-
-//        [NotNull]
 //        private const string SchemaExifTiffProperties = "http://ns.adobe.com/tiff/1.0/";
+//        private const string SchemaDublinCoreSpecificProperties = "http://purl.org/dc/elements/1.1/";
 
-//      [NotNull]
-//      private const string SchemaDublinCoreSpecificProperties = "http://purl.org/dc/elements/1.1/";
-
-        [NotNull]
-        public const string XmpJpegPreamble = "http://ns.adobe.com/xap/1.0/\x0";
+        public const string JpegSegmentPreamble = "http://ns.adobe.com/xap/1.0/\0";
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.App1 };
 
@@ -88,8 +79,9 @@ namespace MetadataExtractor.Formats.Xmp
             foreach (var segment in segments)
             {
                 // XMP in a JPEG file has an identifying preamble which is not valid XML
-                var preambleLength = XmpJpegPreamble.Length;
-                if (segment.Bytes.Length >= preambleLength && XmpJpegPreamble.Equals(Encoding.UTF8.GetString(segment.Bytes, 0, preambleLength), StringComparison.OrdinalIgnoreCase))
+                // TODO compare bytes here to avoid string allocation
+                var preambleLength = JpegSegmentPreamble.Length;
+                if (segment.Bytes.Length >= preambleLength && JpegSegmentPreamble.Equals(Encoding.UTF8.GetString(segment.Bytes, 0, preambleLength), StringComparison.OrdinalIgnoreCase))
                 {
                     var xmlBytes = new byte[segment.Bytes.Length - preambleLength];
                     Array.Copy(segment.Bytes, preambleLength, xmlBytes, 0, xmlBytes.Length);

@@ -46,8 +46,7 @@ namespace MetadataExtractor.Formats.Photoshop
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PhotoshopReader : IJpegSegmentMetadataReader
     {
-        [NotNull]
-        private const string JpegSegmentPreamble = "Photoshop 3.0";
+        public const string JpegSegmentPreamble = "Photoshop 3.0";
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppD };
 

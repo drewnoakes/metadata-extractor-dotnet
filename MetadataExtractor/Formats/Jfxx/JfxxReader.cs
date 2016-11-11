@@ -43,7 +43,7 @@ namespace MetadataExtractor.Formats.Jfxx
     /// <author>Drew Noakes</author>
     public sealed class JfxxReader : IJpegSegmentMetadataReader
     {
-        private const string Preamble = "JFXX";
+        public const string JpegSegmentPreamble = "JFXX";
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.App0 };
 
@@ -57,7 +57,7 @@ namespace MetadataExtractor.Formats.Jfxx
         {
             // Skip segments not starting with the required header
             return segments
-                .Where(segment => segment.Bytes.Length >= Preamble.Length && Preamble == Encoding.UTF8.GetString(segment.Bytes, 0, Preamble.Length))
+                .Where(segment => segment.Bytes.Length >= JpegSegmentPreamble.Length && JpegSegmentPreamble == Encoding.UTF8.GetString(segment.Bytes, 0, JpegSegmentPreamble.Length))
                 .Select(segment => Extract(new ByteArrayReader(segment.Bytes)))
 #if NET35
                 .Cast<Directory>()

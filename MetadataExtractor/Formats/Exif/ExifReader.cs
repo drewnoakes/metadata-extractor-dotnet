@@ -42,7 +42,7 @@ namespace MetadataExtractor.Formats.Exif
     public sealed class ExifReader : IJpegSegmentMetadataReader
     {
         /// <summary>Exif data stored in JPEG files' APP1 segment are preceded by this six character preamble.</summary>
-        private const string JpegSegmentPreamble = "Exif\x0\x0";
+        public const string JpegSegmentPreamble = "Exif\x0\x0";
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.App1 };
 
