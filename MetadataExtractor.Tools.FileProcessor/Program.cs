@@ -68,7 +68,7 @@ namespace MetadataExtractor.Tools.FileProcessor
             var markdownFormat = args.Remove("--markdown");
             var showHex = args.Remove("--hex");
 
-            if (args.Count < 1)
+            if (args.Count == 0)
             {
                 Console.Out.WriteLine("MetadataExtractor {0}", Assembly.GetEntryAssembly().GetName().Version);
                 Console.Out.WriteLine();
