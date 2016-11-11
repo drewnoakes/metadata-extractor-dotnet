@@ -39,7 +39,6 @@ using MetadataExtractor.Formats.Exif;
 
 namespace MetadataExtractor.Tools.FileProcessor
 {
-    // TODO port MarkdownTableOutputHandler
     // TODO port UnknownTagHandler
 
     internal static class Program
