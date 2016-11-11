@@ -51,8 +51,8 @@ namespace MetadataExtractor.Tools.FileProcessor
 
         /// <summary>An application entry point.</summary>
         /// <remarks>
-        /// An application entry point.  Takes the name of one or more files as arguments and prints the contents of all
-        /// metadata directories to <c>System.out</c>.
+        /// Takes the name of one or more files as arguments and prints the contents of all
+        /// metadata directories to standard out.
         /// <para />
         /// If <c>--markdown</c> is passed, then output will be in markdown format.
         /// <para />
@@ -127,7 +127,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                     Console.Out.WriteLine(":--------:|-------:|----------|----------------");
                 }
 
-                // iterate over the metadata and print to System.out
+                // iterate over the metadata and print to standard out
                 foreach (var directory in directories)
                 {
                     foreach (var tag in directory.Tags)
