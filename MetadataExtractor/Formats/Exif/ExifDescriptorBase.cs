@@ -611,10 +611,7 @@ namespace MetadataExtractor.Formats.Exif
                 ["UTF7"] = Encoding.UTF7,
                 ["UTF32"] = Encoding.UTF32,
                 ["UNICODE"] = Encoding.Unicode,
-#if !NETSTANDARD1_3
-                // http://stackoverflow.com/questions/40331957/shift-jis-encoding-on-net-core
                 ["JIS"] = Encoding.GetEncoding("Shift-JIS")
-#endif
             };
 
             try

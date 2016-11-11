@@ -25,6 +25,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor
@@ -36,6 +37,13 @@ namespace MetadataExtractor
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class Directory
     {
+#if NETSTANDARD1_3
+        static Directory()
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        }
+#endif
+
         /// <summary>Map of values hashed by type identifiers.</summary>
         [NotNull]
         private readonly Dictionary<int, object> _tagMap = new Dictionary<int, object>();
