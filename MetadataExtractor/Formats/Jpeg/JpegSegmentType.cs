@@ -223,8 +223,13 @@ namespace MetadataExtractor.Formats.Jpeg
         Com = 0xFE
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="JpegSegmentType"/> enum.
+    /// </summary>
     public static class JpegSegmentTypeExtensions
     {
+        /// <summary>Gets whether this JPEG segment type might contain metadata.</summary>
+        /// <remarks>Used to exclude large image-data-only segment from certain types of processing.</remarks>
         public static bool CanContainMetadata(this JpegSegmentType type)
         {
             switch (type)
@@ -238,11 +243,38 @@ namespace MetadataExtractor.Formats.Jpeg
             }
         }
 
+        /// <summary>Gets JPEG segment types that might contain metadata.</summary>
 #if NET35
         public static IEnumerable<JpegSegmentType> CanContainMetadataTypes { get; }
 #else
         public static IReadOnlyList<JpegSegmentType> CanContainMetadataTypes { get; }
 #endif
             = Enum.GetValues(typeof(JpegSegmentType)).Cast<JpegSegmentType>().Where(type => type.CanContainMetadata()).ToList();
+
+        /// <summary>Gets whether this JPEG segment type's marker is followed by a length indicator.</summary>
+        public static bool ContainsPayload(this JpegSegmentType type)
+        {
+            // ReSharper disable once SwitchStatementMissingSomeCases
+            switch (type)
+            {
+                case JpegSegmentType.Soi:
+                case JpegSegmentType.Eoi:
+                case JpegSegmentType.Rst0:
+                case JpegSegmentType.Rst1:
+                case JpegSegmentType.Rst2:
+                case JpegSegmentType.Rst3:
+                case JpegSegmentType.Rst4:
+                case JpegSegmentType.Rst5:
+                case JpegSegmentType.Rst6:
+                case JpegSegmentType.Rst7:
+                    return false;
+
+                default:
+                    return true;
+            }
+        }
+
+        /// <summary>Gets whether this JPEG segment is intended to hold application specific data.</summary>
+        public static bool IsApplicationSpecific(this JpegSegmentType type) => type >= JpegSegmentType.App0 && type <= JpegSegmentType.AppF;
     }
 }
