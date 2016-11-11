@@ -39,9 +39,9 @@ namespace MetadataExtractor.Formats.Jpeg
         {
             // NOTE that some SOFn values do not exist
             JpegSegmentType.Sof0, JpegSegmentType.Sof1, JpegSegmentType.Sof2, JpegSegmentType.Sof3,
-            JpegSegmentType.Sof5, JpegSegmentType.Sof6, JpegSegmentType.Sof7, JpegSegmentType.Sof8,
-            JpegSegmentType.Sof9, JpegSegmentType.Sof10, JpegSegmentType.Sof11, JpegSegmentType.Sof13,
-            JpegSegmentType.Sof14, JpegSegmentType.Sof15
+            JpegSegmentType.Sof5, JpegSegmentType.Sof6, JpegSegmentType.Sof7, JpegSegmentType.Sof9,
+            JpegSegmentType.Sof10, JpegSegmentType.Sof11, JpegSegmentType.Sof13, JpegSegmentType.Sof14,
+            JpegSegmentType.Sof15
         };
 
 #if NET35
