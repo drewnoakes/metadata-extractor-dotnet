@@ -143,14 +143,6 @@ namespace MetadataExtractor.PowerShell
             }
         }
 
-        private static byte GetByte(Stream stream)
-        {
-            var b = stream.ReadByte();
-            if (b == -1)
-                throw new IOException("Unexpected end of stream.");
-            return unchecked((byte)b);
-        }
-
         private static ushort GetUInt16(Stream stream)
         {
             var b1 = stream.ReadByte();
