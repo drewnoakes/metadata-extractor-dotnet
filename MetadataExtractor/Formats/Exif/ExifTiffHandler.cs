@@ -142,14 +142,17 @@ namespace MetadataExtractor.Formats.Exif
 
         public override bool CustomProcessTag(int tagOffset, ICollection<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount)
         {
-            // Some 0x0000 tags have a 0 byteCount. Determine whether it's bad
-            if (tagId == 0x0000)
+            // Some 0x0000 tags have a 0 byteCount. Determine whether it's bad.
+            if (tagId == 0)
             {
-                if(CurrentDirectory.ContainsTag(tagId))
+                if (CurrentDirectory.ContainsTag(tagId))
                 {
-                    return false;   // let it go through for now. Some directories handle it, some don't
+                    // Let it go through for now. Some directories handle it, some don't.
+                    return false;
                 }
-                else if(byteCount == 0) // otherwise, skip over 0x0000 tags that don't have any associated bytes. No idea what it contains in this case, if anything
+
+                // Skip over 0x0000 tags that don't have any associated bytes. No idea what it contains in this case, if anything.
+                if (byteCount == 0)
                     return true;
             }
 
