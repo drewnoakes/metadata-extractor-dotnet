@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
+using MetadataExtractor.Util;
 using MetadataExtractor.Formats.Jpeg;
 using XmpCore;
 
@@ -63,10 +64,12 @@ namespace MetadataExtractor.Formats.Xmp
 //        private const string SchemaDublinCoreSpecificProperties = "http://purl.org/dc/elements/1.1/";
 
         public const string JpegSegmentPreamble = "http://ns.adobe.com/xap/1.0/\0";
+        private static byte[] JpegSegmentPreambleBytes { get; } = Encoding.UTF8.GetBytes(JpegSegmentPreamble);
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.App1 };
 
         public
+
 #if NET35
             IList<Directory>
 #else
@@ -79,14 +82,8 @@ namespace MetadataExtractor.Formats.Xmp
             foreach (var segment in segments)
             {
                 // XMP in a JPEG file has an identifying preamble which is not valid XML
-                // TODO compare bytes here to avoid string allocation
-                var preambleLength = JpegSegmentPreamble.Length;
-                if (segment.Bytes.Length >= preambleLength && JpegSegmentPreamble.Equals(Encoding.UTF8.GetString(segment.Bytes, 0, preambleLength), StringComparison.OrdinalIgnoreCase))
-                {
-                    var xmlBytes = new byte[segment.Bytes.Length - preambleLength];
-                    Array.Copy(segment.Bytes, preambleLength, xmlBytes, 0, xmlBytes.Length);
-                    directories.Add(Extract(xmlBytes));
-                }
+                if (segment.Bytes.StartsWith(JpegSegmentPreambleBytes))
+                    directories.Add(Extract(segment.Bytes, JpegSegmentPreambleBytes.Length, segment.Bytes.Length - JpegSegmentPreambleBytes.Length));
             }
 
             return directories;
@@ -99,12 +96,15 @@ namespace MetadataExtractor.Formats.Xmp
         /// The extraction is done with Adobe's XMPCore library.
         /// </remarks>
         [NotNull]
-        public XmpDirectory Extract([NotNull] byte[] xmpBytes)
+        public XmpDirectory Extract([NotNull] byte[] xmpBytes) => Extract(xmpBytes, 0, xmpBytes.Length);
+
+        [NotNull]
+        public XmpDirectory Extract([NotNull] byte[] xmpBytes, int offset, int length)
         {
             var directory = new XmpDirectory();
             try
             {
-                var xmpMeta = XmpMetaFactory.ParseFromBuffer(xmpBytes);
+                var xmpMeta = XmpMetaFactory.ParseFromBuffer(xmpBytes, offset, length);
                 ProcessXmpTags(directory, xmpMeta);
             }
             catch (XmpException e)
