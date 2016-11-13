@@ -72,7 +72,6 @@ namespace MetadataExtractor.PowerShell
         {
             _appSegmentByPreambleBytes = new ByteTrie<string>();
 
-            // TODO make all these preamble properties have the same name -- maybe an abstraction
             _appSegmentByPreambleBytes.AddPath("Adobe", Encoding.UTF8.GetBytes(AdobeJpegReader.JpegSegmentPreamble));
             _appSegmentByPreambleBytes.AddPath("Ducky", Encoding.UTF8.GetBytes(DuckyReader.JpegSegmentPreamble));
             _appSegmentByPreambleBytes.AddPath("Exif", Encoding.UTF8.GetBytes(ExifReader.JpegSegmentPreamble));
@@ -81,6 +80,7 @@ namespace MetadataExtractor.PowerShell
             _appSegmentByPreambleBytes.AddPath("JFXX", Encoding.UTF8.GetBytes(JfxxReader.JpegSegmentPreamble));
             _appSegmentByPreambleBytes.AddPath("Photoshop", Encoding.UTF8.GetBytes(PhotoshopReader.JpegSegmentPreamble));
             _appSegmentByPreambleBytes.AddPath("XMP", Encoding.UTF8.GetBytes(XmpReader.JpegSegmentPreamble));
+            _appSegmentByPreambleBytes.AddPath("XMP (Extended)", Encoding.UTF8.GetBytes(XmpReader.JpegSegmentPreambleExtension));
         }
 
         [Parameter(Position = 0, Mandatory = true, HelpMessage = "Path to the file to process")]
