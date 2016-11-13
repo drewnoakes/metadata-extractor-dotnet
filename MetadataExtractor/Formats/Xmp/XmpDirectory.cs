@@ -271,13 +271,7 @@ namespace MetadataExtractor.Formats.Xmp
         {
             XmpMeta = xmpMeta;
 
-            try
-            {
-                Set(TagXmpValueCount, XmpMeta.Properties.Count(prop => prop.Path != null));
-            }
-            catch (XmpException)
-            {
-            }
+            Set(TagXmpValueCount, XmpMeta.Properties.Count(prop => prop.Path != null));
         }
     }
 }
