@@ -70,16 +70,12 @@ namespace MetadataExtractor.Formats.Xmp
 #endif
             ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
-            var directories = new List<Directory>();
-
-            foreach (var segment in segments)
-            {
-                // XMP in a JPEG file has an identifying preamble which is not valid XML
-                if (segment.Bytes.StartsWith(JpegSegmentPreambleBytes))
-                    directories.Add(Extract(segment.Bytes, JpegSegmentPreambleBytes.Length, segment.Bytes.Length - JpegSegmentPreambleBytes.Length));
-            }
-
-            return directories;
+            var jpegSegmentPreambleBytes = JpegSegmentPreambleBytes;
+            return segments
+                .Where(segment => segment.Bytes.StartsWith(jpegSegmentPreambleBytes))
+                .Select(segment => Extract(segment.Bytes, jpegSegmentPreambleBytes.Length, segment.Bytes.Length - jpegSegmentPreambleBytes.Length))
+                .Cast<Directory>()
+                .ToList();
         }
 
         /// <summary>
