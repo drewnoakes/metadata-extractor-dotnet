@@ -22,9 +22,11 @@
 //
 #endregion
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using JetBrains.Annotations;
+using MetadataExtractor.Formats.Xmp;
 
 namespace MetadataExtractor.PowerShell
 {
@@ -47,33 +49,53 @@ namespace MetadataExtractor.PowerShell
 
             var directories = ImageMetadataReader.ReadMetadata(FilePath);
 
+            WriteObject(directories.SelectMany(GetDirectoryItems).ToList());
+        }
+
+        private IEnumerable<object> GetDirectoryItems(Directory directory)
+        {
+            // XmpDirectory gets special treatment -- we use the XmpMeta object to list properties
+            var xmp = directory as XmpDirectory;
+
+            if (xmp?.XmpMeta != null)
+            {
+                if (Raw)
+                {
+                    return xmp.XmpMeta.Properties.Select(prop => new
+                    {
+                        Directory = directory.Name,
+                        Tag = prop.Path,
+                        RawValue = (object)prop.Value
+                    });
+                }
+                else
+                {
+                    return xmp.XmpMeta.Properties.Select(prop => new
+                    {
+                        Directory = directory.Name,
+                        Tag = prop.Path,
+                        Description = prop.Value
+                    });
+                }
+            }
+
             if (Raw)
             {
-                var obj = from dir in directories
-                    where !dir.IsEmpty
-                    from tag in dir.Tags
-                    select new
-                    {
-                        Directory = dir.Name,
-                        Tag = tag.Name,
-                        RawValue = dir.GetObject(tag.Type)
-                    };
-
-                WriteObject(obj.ToList());
+                return directory.Tags.Select(tag => new
+                {
+                    Directory = directory.Name,
+                    Tag = tag.Name,
+                    RawValue = directory.GetObject(tag.Type)
+                });
             }
             else
             {
-                var obj = from dir in directories
-                    where !dir.IsEmpty
-                    from tag in dir.Tags
-                    select new
-                    {
-                        Directory = dir.Name,
-                        Tag = tag.Name,
-                        Description = tag.Description
-                    };
-
-                WriteObject(obj.ToList());
+                return directory.Tags.Select(tag => new
+                {
+                    Directory = directory.Name,
+                    Tag = tag.Name,
+                    Description = tag.Description
+                });
             }
         }
     }
