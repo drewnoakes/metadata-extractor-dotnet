@@ -11,8 +11,8 @@ namespace MetadataExtractor.Util
                 return false;
 
             // ReSharper disable once LoopCanBeConvertedToQuery
-            for (var i=0; i<pattern.Length; i++)
-                if (source[i]!=pattern[i])
+            for (var i = 0; i < pattern.Length; i++)
+                if (source[i] != pattern[i])
                     return false;
 
             return true;
