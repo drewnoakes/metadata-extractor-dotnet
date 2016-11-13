@@ -240,8 +240,10 @@ namespace MetadataExtractor.Formats.Xmp
 //            { TagAccrualPolicy, "dc:accrualPolicy" }
         };
 
+        /// <summary>Gets the <see cref="IXmpMeta"/> object within this directory.</summary>
+        /// <remarks>This object provides a rich API for working with XMP data.</remarks>
         [CanBeNull]
-        private IXmpMeta _xmpMeta;
+        public IXmpMeta XmpMeta { get; private set; }
 
         public XmpDirectory()
         {
@@ -261,26 +263,21 @@ namespace MetadataExtractor.Formats.Xmp
         /// uses integers for keys.
         /// </remarks>
         [NotNull]
-        public IDictionary<string, string> GetXmpProperties() => _xmpMeta == null
+        public IDictionary<string, string> GetXmpProperties() => XmpMeta == null
             ? new Dictionary<string,string>()
-            : _xmpMeta.Properties.ToDictionary(p => p.Path, p => p.Value);
+            : XmpMeta.Properties.ToDictionary(p => p.Path, p => p.Value);
 
         public void SetXmpMeta([NotNull] IXmpMeta xmpMeta)
         {
-            _xmpMeta = xmpMeta;
+            XmpMeta = xmpMeta;
 
             try
             {
-                Set(TagXmpValueCount, _xmpMeta.Properties.Count(prop => prop.Path != null));
+                Set(TagXmpValueCount, XmpMeta.Properties.Count(prop => prop.Path != null));
             }
             catch (XmpException)
             {
             }
         }
-
-        /// <summary>Gets the <see cref="IXmpMeta"/> object within this directory.</summary>
-        /// <remarks>This object provides a rich API for working with XMP data.</remarks>
-        [CanBeNull]
-        public IXmpMeta XmpMeta => _xmpMeta;
     }
 }
