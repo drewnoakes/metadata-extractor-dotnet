@@ -99,7 +99,10 @@ namespace MetadataExtractor.Tools.FileProcessor
                                 var wrote = false;
                                 foreach (var prop in xmpDirectory.XmpMeta.Properties)
                                 {
-                                    writer.WriteLine($"[XMPMeta - {prop.Namespace}] {prop.Path} = {prop.Value}");
+                                    var value = prop.Value;
+                                    if (value?.Length > 512)
+                                        value = value.Substring(0, 512) + $" <truncated from {value.Length} characters>";
+                                    writer.WriteLine($"[XMPMeta - {prop.Namespace}] {prop.Path} = {value}");
                                     wrote = true;
                                 }
                                 if (wrote)
