@@ -70,11 +70,11 @@ namespace MetadataExtractor.Formats.Xmp
         /// <summary>Generally a color value Blue, Red, Green, Yellow, Purple</summary>
         public const int TagLabel = 0x2000;
 
-        // dublin core properties
-        // this requires further research
-//        public const int TagTitle = 0x100;
         /// <summary>Keywords</summary>
         public const int TagSubject = 0x2001;
+
+        // dublin core properties (requires further research)
+//        public const int TagTitle = 0x100;
 //        public const int TagDate = 0x1002;
 //        public const int TagType = 0x1003;
 //        public const int TagDescription = 0x1004;
