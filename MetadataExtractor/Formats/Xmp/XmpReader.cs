@@ -176,14 +176,6 @@ namespace MetadataExtractor.Formats.Xmp
             // processXmpTag(xmpMeta, directory, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES, "dc:accrualMethod", XmpDirectory.TAG_ACCRUAL_METHOD, FMT_STRING);
             // processXmpTag(xmpMeta, directory, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES, "dc:accrualPeriodicity", XmpDirectory.TAG_ACCRUAL_PERIODICITY, FMT_STRING);
             // processXmpTag(xmpMeta, directory, Schema.DUBLIN_CORE_SPECIFIC_PROPERTIES, "dc:accrualPolicy", XmpDirectory.TAG_ACCRUAL_POLICY, FMT_STRING);
-
-            foreach (var prop in xmpMeta.Properties)
-            {
-                var path = prop.Path;
-                var value = prop.Value;
-                if (path != null && value != null)
-                    directory.AddProperty(path, value);
-            }
         }
 
         /// <summary>Reads an property value with given namespace URI and property name.</summary>

@@ -240,9 +240,6 @@ namespace MetadataExtractor.Formats.Xmp
 //            { TagAccrualPolicy, "dc:accrualPolicy" }
         };
 
-        [NotNull]
-        private readonly Dictionary<string, string> _propertyValueByPath = new Dictionary<string, string>();
-
         [CanBeNull]
         private IXmpMeta _xmpMeta;
 
@@ -258,18 +255,15 @@ namespace MetadataExtractor.Formats.Xmp
             return _tagNameMap.TryGetValue(tagType, out tagName);
         }
 
-        internal void AddProperty([NotNull] string path, [NotNull] string value)
-        {
-            _propertyValueByPath[path] = value;
-        }
-
         /// <summary>Gets a map of all XMP properties in this directory, not just the known ones.</summary>
         /// <remarks>
         /// This is required because XMP properties are represented as strings, whereas the rest of this library
         /// uses integers for keys.
         /// </remarks>
         [NotNull]
-        public IDictionary<string, string> GetXmpProperties() => new Dictionary<string, string>(_propertyValueByPath);
+        public IDictionary<string, string> GetXmpProperties() => _xmpMeta == null
+            ? new Dictionary<string,string>()
+            : _xmpMeta.Properties.ToDictionary(p => p.Path, p => p.Value);
 
         public void SetXmpMeta([NotNull] IXmpMeta xmpMeta)
         {
