@@ -265,7 +265,7 @@ namespace MetadataExtractor.Formats.Xmp
         [NotNull]
         public IDictionary<string, string> GetXmpProperties() => XmpMeta == null
             ? new Dictionary<string,string>()
-            : XmpMeta.Properties.ToDictionary(p => p.Path, p => p.Value);
+            : XmpMeta.Properties.Where(p => p.Path != null).ToDictionary(p => p.Path, p => p.Value);
 
         public void SetXmpMeta([NotNull] IXmpMeta xmpMeta)
         {
