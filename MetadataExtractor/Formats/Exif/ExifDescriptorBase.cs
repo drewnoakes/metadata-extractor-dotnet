@@ -54,7 +54,7 @@ namespace MetadataExtractor.Formats.Exif
                 case ExifDirectoryBase.TagInteropVersion:
                     return GetInteropVersionDescription();
                 case ExifDirectoryBase.TagOrientation:
-                    return GetOrientationDescription();
+                    return GetOrientationDescription(ExifDirectoryBase.TagOrientation);
                 case ExifDirectoryBase.TagResolutionUnit:
                     return GetResolutionDescription();
                 case ExifDirectoryBase.TagYCbCrPositioning:
@@ -248,19 +248,6 @@ namespace MetadataExtractor.Formats.Exif
             return GetIndexedDescription(ExifDirectoryBase.TagYCbCrPositioning, 1,
                 "Center of pixel array",
                 "Datum point");
-        }
-
-        [CanBeNull]
-        public string GetOrientationDescription()
-        {
-            return GetIndexedDescription(ExifDirectoryBase.TagOrientation, 1,
-                "Top, left side (Horizontal / normal)",
-                "Top, right side (Mirror horizontal)",
-                "Bottom, right side (Rotate 180)", "Bottom, left side (Mirror vertical)",
-                "Left side, top (Mirror horizontal and rotate 270 CW)",
-                "Right side, top (Rotate 90 CW)",
-                "Right side, bottom (Mirror horizontal and rotate 90 CW)",
-                "Left side, bottom (Rotate 270 CW)");
         }
 
         [CanBeNull]

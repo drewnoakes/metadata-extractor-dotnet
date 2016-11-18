@@ -46,6 +46,21 @@ namespace MetadataExtractor.Formats.Tiff
             Directories.Add(CurrentDirectory);
         }
 
+        protected bool ResetInitialDirectory([NotNull] Directory initialDirectory)
+        {
+            if (Directories.Count == 1)
+            {
+                Directories.RemoveAt(0);
+
+                if (_directoryStack.Count == 1)
+                    _directoryStack.Pop();
+
+                PushDirectory(initialDirectory);
+                return true;
+            }
+            return false;
+        }
+
         public void EndingIfd()
         {
             CurrentDirectory = _directoryStack.Count == 0 ? null : _directoryStack.Pop();

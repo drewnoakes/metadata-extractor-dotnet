@@ -55,10 +55,17 @@ namespace MetadataExtractor.Formats.Exif
             const int standardTiffMarker     = 0x002A;
             const int olympusRawTiffMarker   = 0x4F52; // for ORF files
             const int olympusRawTiffMarker2  = 0x5352; // for ORF files
-            const int panasonicRawTiffMarker = 0x0055; // for RW2 files
+            const int panasonicRawTiffMarker = 0x0055; // for RAW, RW2, and RWL files
 
             if (marker != standardTiffMarker && marker != olympusRawTiffMarker && marker != olympusRawTiffMarker2 && marker != panasonicRawTiffMarker)
                 throw new TiffProcessingException($"Unexpected TIFF marker: 0x{marker:X}");
+
+            // initial directory is ExifIfd0, but this marker isn't standard so reset to appropriate dir
+            if (marker == panasonicRawTiffMarker)
+            {
+                if (!ResetInitialDirectory(new PanasonicRawIfd0Directory()))
+                        throw new TiffProcessingException($"Initial TIFF marker is 0x{marker:X} but unable to reset initial directory to match");
+            }
         }
 
         public override bool TryEnterSubIfd(int tagId)
@@ -69,7 +76,7 @@ namespace MetadataExtractor.Formats.Exif
                 return true;
             }
 
-            if (CurrentDirectory is ExifIfd0Directory)
+            if (CurrentDirectory is ExifIfd0Directory || CurrentDirectory is PanasonicRawIfd0Directory)
             {
                 if (tagId == ExifIfd0Directory.TagExifSubIfdOffset)
                 {
@@ -181,6 +188,47 @@ namespace MetadataExtractor.Formats.Exif
                 var xmpDirectory = new XmpReader().Extract(reader.GetNullTerminatedBytes(tagOffset, byteCount));
                 xmpDirectory.Parent = CurrentDirectory;
                 Directories.Add(xmpDirectory);
+                return true;
+            }
+
+            if (CurrentDirectory is PanasonicRawIfd0Directory)
+            {
+                // these contain binary data with specific offsets, and can't be processed as an ifd
+                switch (tagId)
+                {
+                    case PanasonicRawIfd0Directory.TagWbInfo:
+                        var dirWbInfo = new PanasonicRawWbInfoDirectory();
+                        dirWbInfo.Parent = CurrentDirectory;
+                        Directories.Add(dirWbInfo);
+                        ProcessBinary(dirWbInfo, tagOffset, reader, byteCount, false, 2);
+                        return true;
+                    case PanasonicRawIfd0Directory.TagWbInfo2:
+                        var dirWbInfo2 = new PanasonicRawWbInfo2Directory();
+                        dirWbInfo2.Parent = CurrentDirectory;
+                        Directories.Add(dirWbInfo2);
+                        ProcessBinary(dirWbInfo2, tagOffset, reader, byteCount, false, 3);
+                        return true;
+                    case PanasonicRawIfd0Directory.TagDistortionInfo:
+                        var dirDistort = new PanasonicRawDistortionDirectory();
+                        dirDistort.Parent = CurrentDirectory;
+                        Directories.Add(dirDistort);
+                        ProcessBinary(dirDistort, tagOffset, reader, byteCount);
+                        return true;
+                }
+            }
+
+            // Panasonic RAW sometimes contains an embedded version of the data as a JPG file.
+            if (tagId == PanasonicRawIfd0Directory.TagJpgFromRaw && CurrentDirectory is PanasonicRawIfd0Directory)
+            {
+                var jpegrawbytes = reader.GetBytes(tagOffset, byteCount);
+
+                // Extract information from embedded image since it is metadata-rich
+                var jpegDirectory = Jpeg.JpegMetadataReader.ReadMetadata(new MemoryStream(jpegrawbytes));
+                foreach(var dir in jpegDirectory)
+                {
+                    dir.Parent = CurrentDirectory;
+                    Directories.Add(dir);
+                }
                 return true;
             }
 
@@ -476,6 +524,49 @@ namespace MetadataExtractor.Formats.Exif
             }
 
             return true;
+        }
+
+        private static void ProcessBinary([NotNull] Directory directory, int tagValueOffset, [NotNull] IndexedReader reader, int byteCount, bool issigned = true, int arrayLength = 1)
+        {
+            // expects signed/unsigned int16 (for now)
+            int byteSize = issigned ? sizeof(short) : sizeof(ushort);
+
+            // 'directory' is assumed to contains tags that correspond to the byte position unless it's a set of bytes
+            for (var i = 0; i < byteCount; i++)
+            {
+                if (directory.HasTagName(i))
+                {
+                    // only process this tag if the 'next' tag exist. Otherwise, it's a set of bytes
+                    if (i < byteCount - 1 && directory.HasTagName(i + 1))
+                    {
+                        if(issigned)
+                            directory.Set(i, reader.GetInt16(tagValueOffset + (i* byteSize)));
+                        else
+                            directory.Set(i, reader.GetUInt16(tagValueOffset + (i* byteSize)));
+                    }
+                    else
+                    {
+                        // the next arrayLength bytes are a multi-byte value
+                        if (issigned)
+                        {
+                            short[] val = new short[arrayLength];
+                            for (int j = 0; j<val.Length; j++)
+                                val[j] = reader.GetInt16(tagValueOffset + ((i + j) * byteSize));
+                            directory.Set(i, val);
+                        }
+                        else
+                        {
+                            ushort[] val = new ushort[arrayLength];
+                            for (int j = 0; j<val.Length; j++)
+                                val[j] = reader.GetUInt16(tagValueOffset + ((i + j) * byteSize));
+                            directory.Set(i, val);
+                        }
+
+                        i += arrayLength - 1;
+                    }
+                }
+
+            }
         }
 
         private static void ProcessKodakMakernote([NotNull] KodakMakernoteDirectory directory, int tagValueOffset, [NotNull] IndexedReader reader)

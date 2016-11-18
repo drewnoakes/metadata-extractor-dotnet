@@ -346,5 +346,18 @@ namespace MetadataExtractor
 
             return sb.ToString();
         }
+
+        [CanBeNull]
+        public string GetOrientationDescription(int tag)
+        {
+            return GetIndexedDescription(tag, 1,
+                "Top, left side (Horizontal / normal)",
+                "Top, right side (Mirror horizontal)",
+                "Bottom, right side (Rotate 180)", "Bottom, left side (Mirror vertical)",
+                "Left side, top (Mirror horizontal and rotate 270 CW)",
+                "Right side, top (Rotate 90 CW)",
+                "Right side, bottom (Mirror horizontal and rotate 90 CW)",
+                "Left side, bottom (Rotate 270 CW)");
+        }
     }
 }
