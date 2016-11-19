@@ -223,11 +223,14 @@ namespace MetadataExtractor.Formats.Exif
                 var jpegrawbytes = reader.GetBytes(tagOffset, byteCount);
 
                 // Extract information from embedded image since it is metadata-rich
-                var jpegDirectory = Jpeg.JpegMetadataReader.ReadMetadata(new MemoryStream(jpegrawbytes));
-                foreach(var dir in jpegDirectory)
+                using (var jpegmem = new MemoryStream(jpegrawbytes))
                 {
-                    dir.Parent = CurrentDirectory;
-                    Directories.Add(dir);
+                    var jpegDirectory = Jpeg.JpegMetadataReader.ReadMetadata(jpegmem);
+                    foreach (var dir in jpegDirectory)
+                    {
+                        dir.Parent = CurrentDirectory;
+                        Directories.Add(dir);
+                    }
                 }
                 return true;
             }
