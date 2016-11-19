@@ -67,6 +67,14 @@ namespace MetadataExtractor.IO
         [NotNull]
         public abstract byte[] GetBytes(int count);
 
+        /// <summary>Retrieves bytes, writing them into a caller-provided buffer.</summary>
+        /// <param name="buffer">The array to write bytes to.</param>
+        /// <param name="offset">The starting position within <paramref name="buffer"/> to write to.</param>
+        /// <param name="count">The number of bytes to be written.</param>
+        /// <returns>The requested bytes</returns>
+        /// <exception cref="System.IO.IOException"/>
+        public abstract void GetBytes([NotNull] byte[] buffer, int offset, int count);
+
         /// <summary>Skips forward in the sequence.</summary>
         /// <remarks>
         /// Skips forward in the sequence. If the sequence ends, an <see cref="System.IO.IOException"/> is thrown.

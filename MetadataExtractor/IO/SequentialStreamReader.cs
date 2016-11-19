@@ -59,16 +59,21 @@ namespace MetadataExtractor.IO
         public override byte[] GetBytes(int count)
         {
             var bytes = new byte[count];
+            GetBytes(bytes, 0, count);
+            return bytes;
+        }
+
+        public override void GetBytes(byte[] buffer, int offset, int count)
+        {
             var totalBytesRead = 0;
             while (totalBytesRead != count)
             {
-                var bytesRead = _stream.Read(bytes, totalBytesRead, count - totalBytesRead);
+                var bytesRead = _stream.Read(buffer, offset + totalBytesRead, count - totalBytesRead);
                 if (bytesRead == 0)
                     throw new IOException("End of data reached.");
                 totalBytesRead += bytesRead;
                 Debug.Assert(totalBytesRead <= count);
             }
-            return bytes;
         }
 
         public override void Skip(long n)

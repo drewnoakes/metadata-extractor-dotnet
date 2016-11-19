@@ -69,6 +69,15 @@ namespace MetadataExtractor.IO
             return bytes;
         }
 
+        public override void GetBytes(byte[] buffer, int offset, int count)
+        {
+            if (_index + count > _bytes.Length)
+                throw new IOException("End of data reached.");
+
+            Array.Copy(_bytes, _index, buffer, offset, count);
+            _index += count;
+        }
+
         public override void Skip(long n)
         {
             if (n < 0)
