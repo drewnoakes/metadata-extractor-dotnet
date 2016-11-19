@@ -392,6 +392,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagBurstSpeed = 0x0077;
         public const int TagIntelligentDRange = 0x0079;
         public const int TagClearRetouch = 0x007c;
+        public const int TagCity2 = 0x0080;
         public const int TagPhotoStyle = 0x0089;
         public const int TagShadingCompensation = 0x008a;
 
@@ -549,6 +550,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagBurstSpeed, "Burst Speed" },
             { TagIntelligentDRange, "Intelligent D-Range" },
             { TagClearRetouch, "Clear Retouch" },
+            { TagCity2, "City 2" },
             { TagPhotoStyle, "Photo Style" },
             { TagShadingCompensation, "Shading Compensation" },
 

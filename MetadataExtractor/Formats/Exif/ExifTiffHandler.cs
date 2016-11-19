@@ -46,7 +46,7 @@ namespace MetadataExtractor.Formats.Exif
     public class ExifTiffHandler : DirectoryTiffHandler
     {
         public ExifTiffHandler([NotNull] List<Directory> directories)
-            : base(directories, new ExifIfd0Directory())
+            : base(directories)
         {}
 
         /// <exception cref="TiffProcessingException"/>
@@ -57,14 +57,18 @@ namespace MetadataExtractor.Formats.Exif
             const int olympusRawTiffMarker2  = 0x5352; // for ORF files
             const int panasonicRawTiffMarker = 0x0055; // for RAW, RW2, and RWL files
 
-            if (marker != standardTiffMarker && marker != olympusRawTiffMarker && marker != olympusRawTiffMarker2 && marker != panasonicRawTiffMarker)
-                throw new TiffProcessingException($"Unexpected TIFF marker: 0x{marker:X}");
-
-            // initial directory is ExifIfd0, but this marker isn't standard so reset to appropriate dir
-            if (marker == panasonicRawTiffMarker)
+            switch (marker)
             {
-                if (!ResetInitialDirectory(new PanasonicRawIfd0Directory()))
-                        throw new TiffProcessingException($"Initial TIFF marker is 0x{marker:X} but unable to reset initial directory to match");
+                case standardTiffMarker:
+                case olympusRawTiffMarker:  // Todo: implement an IFD0
+                case olympusRawTiffMarker2: // Todo: implement an IFD0
+                    PushDirectory(new ExifIfd0Directory());
+                    break;
+                case panasonicRawTiffMarker:
+                    PushDirectory(new PanasonicRawIfd0Directory());
+                    break;
+                default:
+                    throw new TiffProcessingException($"Unexpected TIFF marker: 0x{marker:X}");
             }
         }
 
@@ -224,14 +228,12 @@ namespace MetadataExtractor.Formats.Exif
                 var jpegrawbytes = reader.GetBytes(tagOffset, byteCount);
 
                 // Extract information from embedded image since it is metadata-rich
-                using (var jpegmem = new MemoryStream(jpegrawbytes))
+                var jpegmem = new MemoryStream(jpegrawbytes);
+                var jpegDirectory = Jpeg.JpegMetadataReader.ReadMetadata(jpegmem);
+                foreach (var dir in jpegDirectory)
                 {
-                    var jpegDirectory = Jpeg.JpegMetadataReader.ReadMetadata(jpegmem);
-                    foreach (var dir in jpegDirectory)
-                    {
-                        dir.Parent = CurrentDirectory;
-                        Directories.Add(dir);
-                    }
+                    dir.Parent = CurrentDirectory;
+                    Directories.Add(dir);
                 }
                 return true;
             }

@@ -52,17 +52,15 @@ namespace MetadataExtractor.Tests.Formats.Netpbm
 
         private static void Verify(string content, int formatType, int width, int height, int? maxVal)
         {
-            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(content)))
-            {
-                var directory = new NetpbmReader().Extract(stream);
+            var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
+            var directory = new NetpbmReader().Extract(stream);
 
-                Assert.Equal(formatType, directory.GetInt32(NetpbmHeaderDirectory.TagFormatType));
-                Assert.Equal(width, directory.GetInt32(NetpbmHeaderDirectory.TagWidth));
-                Assert.Equal(height, directory.GetInt32(NetpbmHeaderDirectory.TagHeight));
+            Assert.Equal(formatType, directory.GetInt32(NetpbmHeaderDirectory.TagFormatType));
+            Assert.Equal(width, directory.GetInt32(NetpbmHeaderDirectory.TagWidth));
+            Assert.Equal(height, directory.GetInt32(NetpbmHeaderDirectory.TagHeight));
 
-                if (maxVal != null)
-                    Assert.Equal(maxVal, directory.GetInt32(NetpbmHeaderDirectory.TagMaximumValue));
-            }
+            if (maxVal != null)
+                Assert.Equal(maxVal, directory.GetInt32(NetpbmHeaderDirectory.TagMaximumValue));
         }
     }
 }

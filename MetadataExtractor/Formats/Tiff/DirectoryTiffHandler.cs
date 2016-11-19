@@ -39,26 +39,9 @@ namespace MetadataExtractor.Formats.Tiff
         protected List<Directory> Directories { get; }
         protected Directory CurrentDirectory { get; private set; }
 
-        protected DirectoryTiffHandler([NotNull] List<Directory> directories, [NotNull] Directory initialDirectory)
+        protected DirectoryTiffHandler([NotNull] List<Directory> directories)
         {
             Directories = directories;
-            CurrentDirectory = initialDirectory;
-            Directories.Add(CurrentDirectory);
-        }
-
-        protected bool ResetInitialDirectory([NotNull] Directory initialDirectory)
-        {
-            if (Directories.Count == 1)
-            {
-                Directories.RemoveAt(0);
-
-                if (_directoryStack.Count == 1)
-                    _directoryStack.Pop();
-
-                PushDirectory(initialDirectory);
-                return true;
-            }
-            return false;
         }
 
         public void EndingIfd()
@@ -68,10 +51,14 @@ namespace MetadataExtractor.Formats.Tiff
 
         protected void PushDirectory([NotNull] Directory directory)
         {
-            _directoryStack.Push(CurrentDirectory);
-            directory.Parent = CurrentDirectory;
-            Directories.Add(directory);
+            // If this is the first directory, don't add to the stack
+            if (CurrentDirectory != null)
+            {
+                _directoryStack.Push(CurrentDirectory);
+                directory.Parent = CurrentDirectory;
+            }
             CurrentDirectory = directory;
+            Directories.Add(CurrentDirectory);
         }
 
         public void Warn(string message)  => CurrentDirectory.AddError(message);

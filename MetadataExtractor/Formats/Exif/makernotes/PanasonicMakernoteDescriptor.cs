@@ -696,7 +696,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetDetectedFacesDescription()
         {
-            return BuildFacesDescription(Directory.GetDetectedFaces()) ?? "0";
+            return BuildFacesDescription(Directory.GetDetectedFaces());
         }
 
         [CanBeNull]
@@ -858,13 +858,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetBabyAgeDescription()
         {
-            return Directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge)?.ToFriendlyString() ?? "(not set)";
+            return Directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge)?.ToFriendlyString();
         }
 
         [CanBeNull]
         public string GetBabyAge1Description()
         {
-            return Directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge1)?.ToFriendlyString() ?? "(not set)";
+            return Directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge1)?.ToFriendlyString();
         }
     }
 }

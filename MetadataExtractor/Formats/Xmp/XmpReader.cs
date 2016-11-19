@@ -87,20 +87,18 @@ namespace MetadataExtractor.Formats.Xmp
 
             foreach (var extensionGroup in extensionGroups)
             {
-                using (var buffer = new MemoryStream())
+                var buffer = new MemoryStream();
+                foreach (var segment in extensionGroup)
                 {
-                    foreach (var segment in extensionGroup)
-                    {
-                        var N = JpegSegmentPreambleExtensionBytes.Length + 32 + 4 + 4;
-                        buffer.Write(segment.Bytes, N, segment.Bytes.Length - N);
-                    }
-
-                    buffer.Position = 0;
-                    var directory = new XmpDirectory();
-                    var xmpMeta = XmpMetaFactory.Parse(buffer);
-                    ProcessXmpTags(directory, xmpMeta);
-                    directories.Add(directory);
+                    var N = JpegSegmentPreambleExtensionBytes.Length + 32 + 4 + 4;
+                    buffer.Write(segment.Bytes, N, segment.Bytes.Length - N);
                 }
+
+                buffer.Position = 0;
+                var directory = new XmpDirectory();
+                var xmpMeta = XmpMetaFactory.Parse(buffer);
+                ProcessXmpTags(directory, xmpMeta);
+                directories.Add(directory);
             }
 
             return directories;
