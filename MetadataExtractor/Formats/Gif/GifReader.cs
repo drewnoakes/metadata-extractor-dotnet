@@ -100,7 +100,7 @@ namespace MetadataExtractor.Formats.Gif
             }
             catch (IOException)
             {
-                directory.AddError("Unable to read BMP header");
+                directory.AddError("Unable to read GIF header");
             }
 
             return directory;
