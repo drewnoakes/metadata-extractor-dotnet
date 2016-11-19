@@ -98,7 +98,7 @@ namespace MetadataExtractor.PowerShell
         }
 
         [NotNull]
-        public static IEnumerable<JpegSegment> ReadSegments([NotNull] Stream stream)
+        private static IEnumerable<JpegSegment> ReadSegments([NotNull] Stream stream)
         {
             if (!stream.CanSeek)
                 throw new ArgumentException("Must be able to seek.", nameof(stream));
