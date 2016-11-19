@@ -193,7 +193,8 @@ namespace MetadataExtractor.Formats.Exif
 
             if (CurrentDirectory is PanasonicRawIfd0Directory)
             {
-                // these contain binary data with specific offsets, and can't be processed as an ifd
+                // these contain binary data with specific offsets, and can't be processed as regular ifd's.
+                // The binary data is broken into 'fake' tags and there is a pattern.
                 switch (tagId)
                 {
                     case PanasonicRawIfd0Directory.TagWbInfo:
@@ -534,12 +535,12 @@ namespace MetadataExtractor.Formats.Exif
             // expects signed/unsigned int16 (for now)
             int byteSize = issigned ? sizeof(short) : sizeof(ushort);
 
-            // 'directory' is assumed to contains tags that correspond to the byte position unless it's a set of bytes
+            // 'directory' is assumed to contain tags that correspond to the byte position unless it's a set of bytes
             for (var i = 0; i < byteCount; i++)
             {
                 if (directory.HasTagName(i))
                 {
-                    // only process this tag if the 'next' tag exist. Otherwise, it's a set of bytes
+                    // only process this tag if the 'next' integral tag exists. Otherwise, it's a set of bytes
                     if (i < byteCount - 1 && directory.HasTagName(i + 1))
                     {
                         if(issigned)

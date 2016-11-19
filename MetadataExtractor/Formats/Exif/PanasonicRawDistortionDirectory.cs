@@ -27,7 +27,8 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Exif
 {
-    /// <remarks>These tags are found in Panasonic/Leica RAW, RW2 and RWL images.</remarks>
+    /// <remarks>These tags are found in Panasonic/Leica RAW, RW2 and RWL images. The index values are 'fake' but
+    /// chosen specifically to make processing easier</remarks>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]

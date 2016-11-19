@@ -552,8 +552,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagPhotoStyle, "Photo Style" },
             { TagShadingCompensation, "Shading Compensation" },
 
-
-
             { TagAccelerometerZ, "Accelerometer Z" },
             { TagAccelerometerX, "Accelerometer X" },
             { TagAccelerometerY, "Accelerometer Y" },

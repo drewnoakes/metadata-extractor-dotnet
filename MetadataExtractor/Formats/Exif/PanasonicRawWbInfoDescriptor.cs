@@ -27,6 +27,9 @@ using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
+    /// <summary>
+    /// Provides human-readable string representations of tag values stored in a <see cref="PanasonicRawWbInfoDirectory"/>.
+    /// </summary>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
