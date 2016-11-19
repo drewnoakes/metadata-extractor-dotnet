@@ -29,6 +29,15 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Gif
 {
+    /// <summary>Reader of GIF encoded data.</summary>
+    /// <remarks>
+    /// Resources:
+    /// <list type="bullet">
+    ///   <item>https://wiki.whatwg.org/wiki/GIF</item>
+    ///   <item>https://www.w3.org/Graphics/GIF/spec-gif89a.txt</item>
+    ///   <item>http://web.archive.org/web/20100929230301/http://www.etsimo.uniovi.es/gifanim/gif87a.txt</item>
+    /// </list>
+    /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class GifReader
     {
