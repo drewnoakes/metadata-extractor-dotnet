@@ -85,6 +85,8 @@ namespace MetadataExtractor.PowerShell
 
         [Parameter(Position = 0, Mandatory = true, HelpMessage = "Path to the file to process")]
         [ValidateNotNullOrEmpty]
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public string FilePath { get; set; }
 
         protected override void ProcessRecord()
