@@ -333,6 +333,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagSharpness = 0x0041;
         public const int TagFilmMode = 0x0042;
 
+        public const int TagColorTempKelvin = 0x0044;
+        public const int TagBracketSettings = 0x0045;
+
         /// <summary>WB adjust AB.</summary>
         /// <remarks>WB adjust AB. Positive is a shift toward blue.</remarks>
         public const int TagWbAdjustAb = 0x0046;
@@ -341,6 +344,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// <remarks>WB adjust GM. Positive is a shift toward green.</remarks>
         public const int TagWbAdjustGm = 0x0047;
 
+        public const int TagFlashCurtain = 0x0048;
+        public const int TagLongExposureNoiseReduction = 0x0049;
+
+        public const int TagPanasonicImageWidth = 0x004b;
+        public const int TagPanasonicImageHeight = 0x004c;
         public const int TagAfPointPosition = 0x004d;
 
         /// <summary>
@@ -360,6 +368,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagLensType = 0x0051;
         public const int TagLensSerialNumber = 0x0052;
         public const int TagAccessoryType = 0x0053;
+        public const int TagAccessorySerialNumber = 0x0054;
 
         /// <summary>
         /// (decoded as two 16-bit signed integers)
@@ -378,6 +387,31 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// 3 = High
         /// </summary>
         public const int TagIntelligentExposure = 0x005d;
+
+        public const int TagLensFirmwareVersion = 0x0060;
+        public const int TagBurstSpeed = 0x0077;
+        public const int TagIntelligentDRange = 0x0079;
+        public const int TagClearRetouch = 0x007c;
+        public const int TagCity2 = 0x0080;
+        public const int TagPhotoStyle = 0x0089;
+        public const int TagShadingCompensation = 0x008a;
+
+        public const int TagAccelerometerZ = 0x008c;
+        public const int TagAccelerometerX = 0x008d;
+        public const int TagAccelerometerY = 0x008e;
+        public const int TagCameraOrientation = 0x008f;
+        public const int TagRollAngle = 0x0090;
+        public const int TagPitchAngle = 0x0091;
+        public const int TagSweepPanoramaDirection = 0x0093;
+        public const int TagSweepPanoramaFieldOfView = 0x0094;
+        public const int TagTimerRecording = 0x0096;
+
+        public const int TagInternalNDFilter = 0x009d;
+        public const int TagHDR = 0x009e;
+        public const int TagShutterType = 0x009f;
+
+        public const int TagClearRetouchValue = 0x00a3;
+        public const int TagTouchAe = 0x00ab;
 
         /// <summary>Info at http://www.ozhiker.com/electronics/pjmt/jpeg_info/pim.html</summary>
         public const int TagPrintImageMatchingInfo = 0x0E00;
@@ -483,15 +517,25 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagSaturation, "Saturation" },
             { TagSharpness, "Sharpness" },
             { TagFilmMode, "Film Mode" },
+            { TagColorTempKelvin, "Color Temp Kelvin" },
+            { TagBracketSettings, "Bracket Settings" },
             { TagWbAdjustAb, "White Balance Adjust (AB)" },
             { TagWbAdjustGm, "White Balance Adjust (GM)" },
+
+            { TagFlashCurtain, "Flash Curtain" },
+            { TagLongExposureNoiseReduction, "Long Exposure Noise Reduction" },
+            { TagPanasonicImageWidth, "Panasonic Image Width" },
+            { TagPanasonicImageHeight, "Panasonic Image Height" },
+
             { TagAfPointPosition, "Af Point Position" },
             { TagFaceDetectionInfo, "Face Detection Info" },
             { TagLensType, "Lens Type" },
             { TagLensSerialNumber, "Lens Serial Number" },
             { TagAccessoryType, "Accessory Type" },
+            { TagAccessorySerialNumber, "Accessory Serial Number" },
             { TagTransform, "Transform" },
             { TagIntelligentExposure, "Intelligent Exposure" },
+            { TagLensFirmwareVersion, "Lens Firmware Version" },
             { TagFaceRecognitionInfo, "Face Recognition Info" },
             { TagFlashWarning, "Flash Warning" },
             { TagRecognizedFaceFlags, "Recognized Face Flags" },
@@ -503,6 +547,29 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagCity, "City" },
             { TagLandmark, "Landmark" },
             { TagIntelligentResolution, "Intelligent Resolution" },
+            { TagBurstSpeed, "Burst Speed" },
+            { TagIntelligentDRange, "Intelligent D-Range" },
+            { TagClearRetouch, "Clear Retouch" },
+            { TagCity2, "City 2" },
+            { TagPhotoStyle, "Photo Style" },
+            { TagShadingCompensation, "Shading Compensation" },
+
+            { TagAccelerometerZ, "Accelerometer Z" },
+            { TagAccelerometerX, "Accelerometer X" },
+            { TagAccelerometerY, "Accelerometer Y" },
+            { TagCameraOrientation, "Camera Orientation" },
+            { TagRollAngle, "Roll Angle" },
+            { TagPitchAngle, "Pitch Angle" },
+            { TagSweepPanoramaDirection, "Sweep Panorama Direction" },
+            { TagSweepPanoramaFieldOfView, "Sweep Panorama Field Of View" },
+            { TagTimerRecording, "Timer Recording" },
+
+            { TagInternalNDFilter, "Internal ND Filter" },
+            { TagHDR, "HDR" },
+            { TagShutterType, "Shutter Type" },
+            { TagClearRetouchValue, "Clear Retouch Value" },
+            { TagTouchAe, "Touch AE" },
+
             { TagMakernoteVersion, "Makernote Version" },
             { TagSceneMode, "Scene Mode" },
             { TagWbRedLevel, "White Balance (Red)" },
