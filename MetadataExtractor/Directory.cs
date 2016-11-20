@@ -204,4 +204,23 @@ namespace MetadataExtractor
             return $"{Name} Directory ({_tagMap.Count} {(_tagMap.Count == 1 ? "tag" : "tags")})";
         }
     }
+
+    /// <summary>
+    /// A directory to use for the reporting of errors. No values may be added to this directory, only warnings and errors.
+    /// </summary>
+    public sealed class ErrorDirectory : Directory
+    {
+        public override string Name => "Error";
+
+        protected override bool TryGetTagName(int tagType, out string tagName)
+        {
+            tagName = null;
+            return false;
+        }
+
+        public override void Set(int tagType, object value)
+        {
+            throw new NotSupportedException($"Cannot add values to {nameof(ErrorDirectory)}.");
+        }
+    }
 }

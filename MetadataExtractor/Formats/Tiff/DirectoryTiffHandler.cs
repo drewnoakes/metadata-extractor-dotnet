@@ -23,6 +23,7 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
@@ -63,8 +64,21 @@ namespace MetadataExtractor.Formats.Tiff
             Directories.Add(CurrentDirectory);
         }
 
-        public void Warn(string message)  => CurrentDirectory.AddError(message);
-        public void Error(string message) => CurrentDirectory.AddError(message);
+        public void Warn(string message)  => GetCurrentOrErrorDirectory().AddError(message);
+        public void Error(string message) => GetCurrentOrErrorDirectory().AddError(message);
+
+        [NotNull]
+        private Directory GetCurrentOrErrorDirectory()
+        {
+            if (CurrentDirectory != null)
+                return CurrentDirectory;
+            var error = Directories.OfType<ErrorDirectory>().FirstOrDefault();
+            if (error != null)
+                return error;
+            error = new ErrorDirectory();
+            PushDirectory(error);
+            return error;
+        }
 
         public void SetByteArray(int tagId, byte[] bytes)         => CurrentDirectory.Set(tagId, bytes);
         public void SetString(int tagId, StringValue stringValue) => CurrentDirectory.Set(tagId, stringValue);
