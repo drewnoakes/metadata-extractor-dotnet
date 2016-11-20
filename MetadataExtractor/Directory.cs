@@ -25,7 +25,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+#if NETSTANDARD1_3
 using System.Text;
+#endif
 using JetBrains.Annotations;
 
 namespace MetadataExtractor
