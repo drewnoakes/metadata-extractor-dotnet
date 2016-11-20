@@ -421,7 +421,7 @@ namespace MetadataExtractor.Formats.Exif
                 if(string.Equals("LEICA\0\x1\0", firstEightChars, StringComparison.Ordinal) ||
                     string.Equals("LEICA\0\x4\0", firstEightChars, StringComparison.Ordinal) ||
                     string.Equals("LEICA\0\x5\0", firstEightChars, StringComparison.Ordinal) ||
-                    string.Equals("LEICA\0\x6\0", firstEightChars, StringComparison.Ordinal) || 
+                    string.Equals("LEICA\0\x6\0", firstEightChars, StringComparison.Ordinal) ||
                     string.Equals("LEICA\0\x7\0", firstEightChars, StringComparison.Ordinal))
                 {
                     PushDirectory(new LeicaType5MakernoteDirectory());
