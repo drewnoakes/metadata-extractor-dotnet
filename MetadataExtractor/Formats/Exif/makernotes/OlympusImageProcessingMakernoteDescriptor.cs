@@ -31,7 +31,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     /// Provides human-readable string representations of tag values stored in a <see cref="OlympusImageProcessingMakernoteDirectory"/>.
     /// </summary>
     /// <remarks>
-    /// Some Description functions converted from Exiftool version 10.10 created by Phil Harvey
+    /// Some Description functions converted from Exiftool version 10.33 created by Phil Harvey
     /// http://www.sno.phy.queensu.ca/~phil/exiftool/
     /// lib\Image\ExifTool\Olympus.pm
     /// </remarks>
@@ -63,6 +63,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return GetMultipleExposureModeDescription();
                 case OlympusImageProcessingMakernoteDirectory.TagAspectRatio:
                     return GetAspectRatioDescription();
+                case OlympusImageProcessingMakernoteDirectory.TagKeystoneCompensation:
+                    return GetKeystoneCompensationDescription();
+                case OlympusImageProcessingMakernoteDirectory.TagKeystoneDirection:
+                    return GetKeystoneDirectionDescription();
                 default:
                     return base.GetDescription(tagType);
             }
@@ -228,6 +232,39 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
 
             return ret;
+        }
+
+        [CanBeNull]
+        public string GetKeystoneCompensationDescription()
+        {
+            var values = Directory.GetObject(OlympusImageProcessingMakernoteDirectory.TagKeystoneCompensation) as byte[];
+            if (values == null || values.Length < 2)
+                return null;
+
+            var join = $"{values[0]} {values[1]}";
+
+            string ret;
+            switch (join)
+            {
+                case "0 0":
+                    ret = "Off";
+                    break;
+                case "0 1":
+                    ret = "On";
+                    break;
+                default:
+                    ret = "Unknown (" + join + ")";
+                    break;
+            }
+
+            return ret;
+        }
+
+        [CanBeNull]
+        public string GetKeystoneDirectionDescription()
+        {
+            return GetIndexedDescription(OlympusImageProcessingMakernoteDirectory.TagKeystoneDirection,
+                "Vertical", "Horizontal");
         }
     }
 }

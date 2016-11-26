@@ -67,8 +67,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return GetContrastDescription();
                 case CasioType2MakernoteDirectory.TagSharpness:
                     return GetSharpnessDescription();
-                case CasioType2MakernoteDirectory.TagPrintImageMatchingInfo:
-                    return GetPrintImageMatchingInfoDescription();
                 case CasioType2MakernoteDirectory.TagPreviewThumbnail:
                     return GetCasioPreviewThumbnailDescription();
                 case CasioType2MakernoteDirectory.TagWhiteBalanceBias:
@@ -217,13 +215,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             return "<" + bytes.Length + " bytes of image data>";
-        }
-
-        [CanBeNull]
-        public string GetPrintImageMatchingInfoDescription()
-        {
-            // TODO research PIM specification http://www.ozhiker.com/electronics/pjmt/jpeg_info/pim.html
-            return Directory.GetString(CasioType2MakernoteDirectory.TagPrintImageMatchingInfo);
         }
 
         [CanBeNull]

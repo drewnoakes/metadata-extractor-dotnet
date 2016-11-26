@@ -52,6 +52,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             {
                 case OlympusEquipmentMakernoteDirectory.TagEquipmentVersion:
                     return GetEquipmentVersionDescription();
+                case OlympusEquipmentMakernoteDirectory.TagCameraType2:
+                    return GetCameraType2Description();
                 case OlympusEquipmentMakernoteDirectory.TagFocalPlaneDiagonal:
                     return GetFocalPlaneDiagonalDescription();
                 case OlympusEquipmentMakernoteDirectory.TagBodyFirmwareVersion:
@@ -86,6 +88,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         }
 
         [CanBeNull]
+        public string GetCameraType2Description()
+        {
+            var cameratype = Directory.GetString(OlympusEquipmentMakernoteDirectory.TagCameraType2);
+            if (cameratype == null)
+                return null;
+
+            if (OlympusMakernoteDirectory.OlympusCameraTypes.ContainsKey(cameratype))
+                return OlympusMakernoteDirectory.OlympusCameraTypes[cameratype];
+
+            return cameratype;
+        }
+
+        [CanBeNull]
         public string GetFocalPlaneDiagonalDescription()
         {
             return Directory.GetString(OlympusEquipmentMakernoteDirectory.TagFocalPlaneDiagonal) + " mm";
@@ -98,8 +113,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(OlympusEquipmentMakernoteDirectory.TagBodyFirmwareVersion, out value))
                 return null;
 
-            var hexstring = ((uint)value).ToString("X4");
-            return hexstring.Insert(hexstring.Length - 3, ".");
+            return ((uint)value).ToString("X4");
         }
 
         [CanBeNull]

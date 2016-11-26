@@ -87,7 +87,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagManualFocusDistanceOrFaceInfo, "Manual Focus Distance or Face Info" },
             { TagSequenceShotInterval, "Sequence Shot Interval" },
             { TagFlashMode, "Flash Mode" },
-            { TagPrintIm, "Print IM" },
+            { TagPrintIm, "Print Image Matching (PIM) Info" },
             { TagDataDump, "Data Dump" }
         };
 

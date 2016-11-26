@@ -957,7 +957,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagUnknown49, "Unknown 49" },
             { TagUnknown50, "Unknown 50" },
             { TagUnknown51, "Unknown 51" },
-            { TagPrintIM, "Print IM" },
+            { TagPrintIM, "Print Image Matching (PIM) Info" },
             { TagUnknown52, "Unknown 52" },
             { TagUnknown53, "Unknown 53" },
             { TagNikonCaptureVersion, "Nikon Capture Version" },

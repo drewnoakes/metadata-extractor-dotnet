@@ -89,6 +89,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagPictureModeEffect = 0x52d;
         public const int TagToneLevel = 0x52e;
         public const int TagArtFilterEffect = 0x52f;
+        public const int TagColorCreatorEffect = 0x532;
 
         public const int TagDriveMode = 0x600;
         public const int TagPanoramaMode = 0x601;
@@ -160,6 +161,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagPictureModeEffect, "Picture Mode Effect" },
             { TagToneLevel, "Tone Level" },
             { TagArtFilterEffect, "Art Filter Effect" },
+            { TagColorCreatorEffect, "Color Creator Effect" },
 
             { TagDriveMode, "Drive Mode" },
             { TagPanoramaMode, "Panorama Mode" },

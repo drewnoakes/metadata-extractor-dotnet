@@ -25,24 +25,17 @@
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
-namespace MetadataExtractor.Formats.Exif.Makernotes
+namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>
-    /// Provides human-readable string representations of tag values stored in a <see cref="KyoceraMakernoteDirectory"/>.
+    /// Provides human-readable string representations of tag values stored in a <see cref="PrintIMDirectory"/>.
     /// </summary>
-    /// <remarks>
-    /// Some information about this makernote taken from here:
-    /// http://www.ozhiker.com/electronics/pjmt/jpeg_info/kyocera_mn.html
-    /// <para />
-    /// Most manufacturer's Makernote counts the "offset to data" from the first byte
-    /// of TIFF header (same as the other IFD), but Kyocera (along with Fujifilm) counts
-    /// it from the first byte of Makernote itself.
-    /// </remarks>
+    /// <author>Kevin Mott https://github.com/kwhopper</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    public sealed class KyoceraMakernoteDescriptor : TagDescriptor<KyoceraMakernoteDirectory>
+    public class PrintIMDescriptor : TagDescriptor<PrintIMDirectory>
     {
-        public KyoceraMakernoteDescriptor([NotNull] KyoceraMakernoteDirectory directory)
+        public PrintIMDescriptor([NotNull] PrintIMDirectory directory)
             : base(directory)
         {
         }
@@ -51,17 +44,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             switch (tagType)
             {
-                case KyoceraMakernoteDirectory.TagProprietaryThumbnail:
-                    return GetProprietaryThumbnailDataDescription();
-                default:
+                case PrintIMDirectory.TagPrintImVersion:
                     return base.GetDescription(tagType);
+                default:
+                    uint value;
+                    if(!Directory.TryGetUInt32(tagType, out value))
+                        return null;
+                    return "0x" + value.ToString("x8");
             }
-        }
-
-        [CanBeNull]
-        public string GetProprietaryThumbnailDataDescription()
-        {
-            return GetByteLengthDescription(KyoceraMakernoteDirectory.TagProprietaryThumbnail);
         }
     }
 }
