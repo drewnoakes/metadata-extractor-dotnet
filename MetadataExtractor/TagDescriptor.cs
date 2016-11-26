@@ -360,6 +360,36 @@ namespace MetadataExtractor
                 "Left side, bottom (Rotate 270 CW)");
         }
 
+        [CanBeNull]
+        public string GetShutterSpeedDescription(int tagId)
+        {
+            // I believe this method to now be stable, but am leaving some alternative snippets of
+            // code in here, to assist anyone who's looking into this (given that I don't have a public CVS).
+            //        float apexValue = _directory.getFloat(ExifSubIFDDirectory.TAG_SHUTTER_SPEED);
+            //        int apexPower = (int)Math.pow(2.0, apexValue);
+            //        return "1/" + apexPower + " sec";
+            // TODO test this method
+            // thanks to Mark Edwards for spotting and patching a bug in the calculation of this
+            // description (spotted bug using a Canon EOS 300D)
+            // thanks also to Gli Blr for spotting this bug
+            float apexValue;
+            if (!Directory.TryGetSingle(tagId, out apexValue))
+                return null;
+
+            if (apexValue <= 1)
+            {
+                var apexPower = (float)(1 / Math.Exp(apexValue * Math.Log(2)));
+                var apexPower10 = (long)Math.Round(apexPower * 10.0);
+                var fApexPower = apexPower10 / 10.0f;
+                return fApexPower + " sec";
+            }
+            else
+            {
+                var apexPower = (int)Math.Exp(apexValue * Math.Log(2));
+                return "1/" + apexPower + " sec";
+            }
+        }
+
         // EXIF LightSource
         [CanBeNull]
         public string GetLightSourceDescription(ushort wbtype)

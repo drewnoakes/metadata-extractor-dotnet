@@ -126,8 +126,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return GetIntelligentResolutionDescription();
                 case PanasonicMakernoteDirectory.TagFaceRecognitionInfo:
                     return GetRecognizedFacesDescription();
-                case PanasonicMakernoteDirectory.TagPrintImageMatchingInfo:
-                    return GetPrintImageMatchingInfoDescription();
                 case PanasonicMakernoteDirectory.TagSceneMode:
                     return GetSceneModeDescription();
                 case PanasonicMakernoteDirectory.TagFlashFired:
@@ -199,12 +197,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 default:
                     return base.GetDescription(tagType);
             }
-        }
-
-        [CanBeNull]
-        public string GetPrintImageMatchingInfoDescription()
-        {
-            return GetByteLengthDescription(PanasonicMakernoteDirectory.TagPrintImageMatchingInfo);
         }
 
         [CanBeNull]

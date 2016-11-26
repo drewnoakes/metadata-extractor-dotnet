@@ -28,6 +28,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Util;
+using MetadataExtractor.IO;
 
 // ReSharper disable MemberCanBePrivate.Global
 
@@ -104,7 +105,7 @@ namespace MetadataExtractor.Formats.Exif
                 case ExifDirectoryBase.TagExposureTime:
                     return GetExposureTimeDescription();
                 case ExifDirectoryBase.TagShutterSpeed:
-                    return GetShutterSpeedDescription();
+                    return GetShutterSpeedDescription(ExifDirectoryBase.TagShutterSpeed);
                 case ExifDirectoryBase.TagFNumber:
                     return GetFNumberDescription();
                 case ExifDirectoryBase.TagCompressedAverageBitsPerPixel:
@@ -145,6 +146,8 @@ namespace MetadataExtractor.Formats.Exif
                     return GetFileSourceDescription();
                 case ExifDirectoryBase.TagSceneType:
                     return GetSceneTypeDescription();
+                case ExifDirectoryBase.TagCfaPattern:
+                    return GetCfaPatternDescription();
                 case ExifDirectoryBase.TagComponentsConfiguration:
                     return GetComponentConfigurationDescription();
                 case ExifDirectoryBase.TagExifVersion:
@@ -673,6 +676,105 @@ namespace MetadataExtractor.Formats.Exif
                 "Directly photographed image");
         }
 
+        /// <summary>
+        /// String description of CFA Pattern
+        /// </summary>
+        /// <remarks>
+        /// Converted from Exiftool version 10.33 created by Phil Harvey
+        /// http://www.sno.phy.queensu.ca/~phil/exiftool/
+        /// lib\Image\ExifTool\Exif.pm
+        /// </remarks>
+        [CanBeNull]
+        public string GetCfaPatternDescription()
+        {
+            int[] intpattern = DecodeCFAPattern(ExifDirectoryBase.TagCfaPattern);
+
+            if (intpattern.Length < 2)
+                return "<truncated data>";
+            else if (intpattern[0] == 0 && intpattern[1] == 0)
+                return "<zero pattern size>";
+
+            int end = 2 + intpattern[0] * intpattern[1];
+            if (end > intpattern.Length)
+                return "<invalid pattern size>";
+
+            string[] cfaColors = { "Red", "Green", "Blue", "Cyan", "Magenta", "Yellow", "White" };
+
+            string ret = "[";
+            for(int pos = 2; pos < end; pos++)
+            {
+                ret += cfaColors[intpattern[pos]];
+                if ((pos - 2) % intpattern[1] == 0)
+                    ret += ",";
+                else if(pos != end - 1)
+                    ret += "][";
+            }
+            ret += "]";
+
+            return ret;
+        }
+
+        /// <summary>
+        /// Decode raw CFAPattern value
+        /// </summary>
+        /// <remarks>
+        /// Converted from Exiftool version 10.33 created by Phil Harvey
+        /// http://www.sno.phy.queensu.ca/~phil/exiftool/
+        /// lib\Image\ExifTool\Exif.pm
+        /// </remarks>
+        private int[] DecodeCFAPattern(int tagType)
+        {
+            int[] ret;
+
+            byte[] values = Directory.GetByteArray(ExifDirectoryBase.TagCfaPattern);
+            if (values == null)
+                return null;
+
+            if (values.Length < 4)
+            {
+                ret = new int[values.Length];
+                for (var i = 0; i < values.Length; i++)
+                    ret[i] = values[i];
+                return ret;
+            }
+
+            IndexedReader reader = new ByteArrayReader(values);
+
+            // first two values should be read as 16-bits (2 bytes)
+            var item0 = reader.GetInt16(0);
+            var item1 = reader.GetInt16(2);
+
+            ret = new int[values.Length - 2];
+
+            bool copyArray = false;
+            int end = 2 + item0 * item1;
+            if (end > values.Length) // sanity check in case of byte order problems; calculated 'end' should be <= length of the values
+            {
+                // try swapping byte order (I have seen this order different than in EXIF)
+                reader = reader.WithByteOrder(!reader.IsMotorolaByteOrder);
+                item0 = reader.GetInt16(0);
+                item1 = reader.GetInt16(2);
+
+                /*if (values.Length < (2 + item0 * item1))
+                    Console.WriteLine("Invalid CFAPattern");
+                else*/
+                if (values.Length >= (2 + item0 * item1))
+                    copyArray = true;
+            }
+            else
+                copyArray = true;
+
+            if(copyArray)
+            {
+                ret[0] = item0;
+                ret[1] = item1;
+
+                for (var i = 4; i < values.Length; i++)
+                    ret[i - 2] = reader.GetByte(i);
+            }
+            return ret;
+        }
+
         [CanBeNull]
         public string GetFileSourceDescription()
         {
@@ -1018,31 +1120,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetShutterSpeedDescription()
         {
-            // I believe this method to now be stable, but am leaving some alternative snippets of
-            // code in here, to assist anyone who's looking into this (given that I don't have a public CVS).
-            //        float apexValue = _directory.getFloat(ExifSubIFDDirectory.TAG_SHUTTER_SPEED);
-            //        int apexPower = (int)Math.pow(2.0, apexValue);
-            //        return "1/" + apexPower + " sec";
-            // TODO test this method
-            // thanks to Mark Edwards for spotting and patching a bug in the calculation of this
-            // description (spotted bug using a Canon EOS 300D)
-            // thanks also to Gli Blr for spotting this bug
-            float apexValue;
-            if (!Directory.TryGetSingle(ExifDirectoryBase.TagShutterSpeed, out apexValue))
-                return null;
-
-            if (apexValue <= 1)
-            {
-                var apexPower = (float)(1 / Math.Exp(apexValue * Math.Log(2)));
-                var apexPower10 = (long)Math.Round(apexPower * 10.0);
-                var fApexPower = apexPower10 / 10.0f;
-                return fApexPower + " sec";
-            }
-            else
-            {
-                var apexPower = (int)Math.Exp(apexValue * Math.Log(2));
-                return "1/" + apexPower + " sec";
-            }
+            return GetShutterSpeedDescription(ExifDirectoryBase.TagShutterSpeed);
         }
 
         [CanBeNull]

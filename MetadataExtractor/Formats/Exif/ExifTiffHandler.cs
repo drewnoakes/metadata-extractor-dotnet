@@ -103,7 +103,8 @@ namespace MetadataExtractor.Formats.Exif
             }
             else if (CurrentDirectory is OlympusMakernoteDirectory)
             {
-                // ReSharper disable once SwitchStatementMissingSomeCases
+                // Note: these also appear in CustomProcessTag because some are IFD pointers while others begin immediately
+                // for the same directories
                 switch (tagId)
                 {
                     case OlympusMakernoteDirectory.TagEquipment:
@@ -123,6 +124,9 @@ namespace MetadataExtractor.Formats.Exif
                         return true;
                     case OlympusMakernoteDirectory.TagFocusInfo:
                         PushDirectory(new OlympusFocusInfoMakernoteDirectory());
+                        return true;
+                    case OlympusMakernoteDirectory.TagRawInfo:
+                        PushDirectory(new OlympusRawInfoMakernoteDirectory());
                         return true;
                     case OlympusMakernoteDirectory.TagMainInfo:
                         PushDirectory(new OlympusMakernoteDirectory());
@@ -193,6 +197,56 @@ namespace MetadataExtractor.Formats.Exif
                 xmpDirectory.Parent = CurrentDirectory;
                 Directories.Add(xmpDirectory);
                 return true;
+            }
+
+            if(tagId == ExifDirectoryBase.TagPrintIm)
+            {
+                var dirPrintIm = new PrintIMDirectory();
+                dirPrintIm.Parent = CurrentDirectory;
+                Directories.Add(dirPrintIm);
+                ProcessPrintIM(dirPrintIm, tagOffset, reader, byteCount);
+                return true;
+            }
+
+            // Note: these also appear in TryEnterSubIfd because some are IFD pointers while others begin immediately
+            // for the same directories
+            if(CurrentDirectory is OlympusMakernoteDirectory)
+            {
+                switch (tagId)
+                {
+                    case OlympusMakernoteDirectory.TagEquipment:
+                        PushDirectory(new OlympusEquipmentMakernoteDirectory());
+                        TiffReader.ProcessIfd(this, reader, processedIfdOffsets, tagOffset);
+                        return true;
+                    case OlympusMakernoteDirectory.TagCameraSettings:
+                        PushDirectory(new OlympusCameraSettingsMakernoteDirectory());
+                        TiffReader.ProcessIfd(this, reader, processedIfdOffsets, tagOffset);
+                        return true;
+                    case OlympusMakernoteDirectory.TagRawDevelopment:
+                        PushDirectory(new OlympusRawDevelopmentMakernoteDirectory());
+                        TiffReader.ProcessIfd(this, reader, processedIfdOffsets, tagOffset);
+                        return true;
+                    case OlympusMakernoteDirectory.TagRawDevelopment2:
+                        PushDirectory(new OlympusRawDevelopment2MakernoteDirectory());
+                        TiffReader.ProcessIfd(this, reader, processedIfdOffsets, tagOffset);
+                        return true;
+                    case OlympusMakernoteDirectory.TagImageProcessing:
+                        PushDirectory(new OlympusImageProcessingMakernoteDirectory());
+                        TiffReader.ProcessIfd(this, reader, processedIfdOffsets, tagOffset);
+                        return true;
+                    case OlympusMakernoteDirectory.TagFocusInfo:
+                        PushDirectory(new OlympusFocusInfoMakernoteDirectory());
+                        TiffReader.ProcessIfd(this, reader, processedIfdOffsets, tagOffset);
+                        return true;
+                    case OlympusMakernoteDirectory.TagRawInfo:
+                        PushDirectory(new OlympusRawInfoMakernoteDirectory());
+                        TiffReader.ProcessIfd(this, reader, processedIfdOffsets, tagOffset);
+                        return true;
+                    case OlympusMakernoteDirectory.TagMainInfo:
+                        PushDirectory(new OlympusMakernoteDirectory());
+                        TiffReader.ProcessIfd(this, reader, processedIfdOffsets, tagOffset);
+                        return true;
+                }
             }
 
             if (CurrentDirectory is PanasonicRawIfd0Directory)
@@ -530,6 +584,61 @@ namespace MetadataExtractor.Formats.Exif
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Process PrintIM IFD
+        /// </summary>
+        /// <remarks>
+        /// Converted from Exiftool version 10.33 created by Phil Harvey
+        /// http://www.sno.phy.queensu.ca/~phil/exiftool/
+        /// lib\Image\ExifTool\PrintIM.pm
+        /// </remarks>
+        private void ProcessPrintIM([NotNull] Directory directory, int tagValueOffset, [NotNull] IndexedReader reader, int byteCount)
+        {
+            if (byteCount == 0)
+            {
+                Error("Empty PrintIM data");
+                return;
+            }
+            else if(byteCount <= 15)
+            {
+                Error("Bad PrintIM data");
+                return;
+            }
+
+            string header = reader.GetString(tagValueOffset, 12, Encoding.UTF8);
+            if (!string.Equals(header.Substring(0, 7), "PrintIM", StringComparison.Ordinal))
+            {
+                Error("Invalid PrintIM header");
+                return;
+            }
+
+            var localReader = reader;
+            // check size of PrintIM block
+            var num = localReader.GetUInt16(tagValueOffset + 14);
+            if (byteCount < 16 + num * 6)
+            {
+                // size is too big, maybe byte ordering is wrong
+                localReader = reader.WithByteOrder(!reader.IsMotorolaByteOrder);
+                num = localReader.GetUInt16(tagValueOffset + 14);
+                if (byteCount < 16 + num * 6)
+                {
+                    Error("Bad PrintIM size");
+                    return;
+                }
+            }
+
+            directory.Set(PrintIMDirectory.TagPrintImVersion, header.Substring(8, 4));
+
+            for (int n = 0; n < num; n++)
+            {
+                int pos = tagValueOffset + 16 + n * 6;
+                var tag = localReader.GetUInt16(pos);
+                var val = localReader.GetUInt32(pos + 2);
+
+                directory.Set(tag, val);
+            }
         }
 
         private static void ProcessBinary([NotNull] Directory directory, int tagValueOffset, [NotNull] IndexedReader reader, int byteCount, bool issigned = true, int arrayLength = 1)

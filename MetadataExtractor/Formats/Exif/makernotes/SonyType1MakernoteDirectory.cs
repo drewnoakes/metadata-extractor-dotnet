@@ -124,7 +124,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagCameraSettings, "Camera Settings" },
             { TagWhiteBalance, "White Balance" },
             { TagExtraInfo, "Extra Info" },
-            { TagPrintImageMatchingInfo, "Print Image Matching Info" },
+            { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" },
             { TagMultiBurstMode, "Multi Burst Mode" },
             { TagMultiBurstImageWidth, "Multi Burst Image Width" },
             { TagMultiBurstImageHeight, "Multi Burst Image Height" },

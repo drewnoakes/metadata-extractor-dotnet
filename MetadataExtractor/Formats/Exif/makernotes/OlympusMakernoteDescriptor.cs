@@ -24,6 +24,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Util;
@@ -63,10 +64,22 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return GetMacroModeDescription();
                 case OlympusMakernoteDirectory.TagBwMode:
                     return GetBwModeDescription();
-                case OlympusMakernoteDirectory.TagDigiZoomRatio:
-                    return GetDigiZoomRatioDescription();
+                case OlympusMakernoteDirectory.TagDigitalZoom:
+                    return GetDigitalZoomDescription();
+                case OlympusMakernoteDirectory.TagFocalPlaneDiagonal:
+                    return GetFocalPlaneDiagonalDescription();
+                case OlympusMakernoteDirectory.TagCameraType:
+                    return GetCameraTypeDescription();
                 case OlympusMakernoteDirectory.TagCameraId:
                     return GetCameraIdDescription();
+                case OlympusMakernoteDirectory.TagOneTouchWb:
+                    return GetOneTouchWbDescription();
+                case OlympusMakernoteDirectory.TagShutterSpeedValue:
+                    return GetShutterSpeedDescription();
+                case OlympusMakernoteDirectory.TagIsoValue:
+                    return GetIsoValueDescription();
+                case OlympusMakernoteDirectory.TagApertureValue:
+                    return GetApertureValueDescription();
                 case OlympusMakernoteDirectory.TagFlashMode:
                     return GetFlashModeDescription();
                 case OlympusMakernoteDirectory.TagFocusRange:
@@ -75,6 +88,18 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return GetFocusModeDescription();
                 case OlympusMakernoteDirectory.TagSharpness:
                     return GetSharpnessDescription();
+                case OlympusMakernoteDirectory.TagColourMatrix:
+                    return GetColorMatrixDescription();
+                case OlympusMakernoteDirectory.TagWbMode:
+                    return GetWbModeDescription();
+                case OlympusMakernoteDirectory.TagRedBalance:
+                    return GetRedBalanceDescription();
+                case OlympusMakernoteDirectory.TagBlueBalance:
+                    return GetBlueBalanceDescription();
+                case OlympusMakernoteDirectory.TagContrast:
+                    return GetContrastDescription();
+                case OlympusMakernoteDirectory.TagPreviewImageValid:
+                    return GetPreviewImageValidDescription();
                 case OlympusMakernoteDirectory.CameraSettings.TagExposureMode:
                     return GetExposureModeDescription();
                 case OlympusMakernoteDirectory.CameraSettings.TagFlashMode:
@@ -98,7 +123,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case OlympusMakernoteDirectory.CameraSettings.TagMacroMode:
                     return GetMacroModeCameraSettingDescription();
                 case OlympusMakernoteDirectory.CameraSettings.TagDigitalZoom:
-                    return GetDigitalZoomDescription();
+                    return GetDigitalZoomCameraSettingDescription();
                 case OlympusMakernoteDirectory.CameraSettings.TagExposureCompensation:
                     return GetExposureCompensationDescription();
                 case OlympusMakernoteDirectory.CameraSettings.TagBracketStep:
@@ -132,7 +157,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case OlympusMakernoteDirectory.CameraSettings.TagSaturation:
                     return GetSaturationDescription();
                 case OlympusMakernoteDirectory.CameraSettings.TagContrast:
-                    return GetContrastDescription();
+                    return GetContrastCameraSettingDescription();
                 case OlympusMakernoteDirectory.CameraSettings.TagSharpness:
                     return GetSharpnessCameraSettingDescription();
                 case OlympusMakernoteDirectory.CameraSettings.TagSubjectProgram:
@@ -272,7 +297,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         }
 
         [CanBeNull]
-        public string GetDigitalZoomDescription()
+        public string GetDigitalZoomCameraSettingDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagDigitalZoom,
                 "Off", "Electronic magnification", "Digital zoom 2x");
@@ -451,7 +476,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         }
 
         [CanBeNull]
-        public string GetContrastDescription()
+        public string GetContrastCameraSettingDescription()
         {
             long value;
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagContrast, out value)
@@ -623,6 +648,87 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         }
 
         [CanBeNull]
+        public string GetColorMatrixDescription()
+        {
+            var values = Directory.GetObject(OlympusMakernoteDirectory.TagColourMatrix) as short[];
+            if (values == null)
+                return null;
+
+            return string.Join(" ", values.Select(b => b.ToString()).ToArray());
+        }
+
+        [CanBeNull]
+        public string GetWbModeDescription()
+        {
+            var values = Directory.GetObject(OlympusMakernoteDirectory.TagWbMode) as short[];
+            if (values == null)
+                return null;
+
+            switch ($"{values[0]} {values[1]}".Trim())
+            {
+                case "1":
+                case "1 0":
+                    return "Auto";
+                case "1 2":
+                    return "Auto (2)";
+                case "1 4":
+                    return "Auto (4)";
+                case "2 2":
+                    return "3000 Kelvin";
+                case "2 3":
+                    return "3700 Kelvin";
+                case "2 4":
+                    return "4000 Kelvin";
+                case "2 5":
+                    return "4500 Kelvin";
+                case "2 6":
+                    return "5500 Kelvin";
+                case "2 7":
+                    return "6500 Kelvin";
+                case "2 8":
+                    return "7500 Kelvin";
+                case "3 0":
+                    return "One-touch";
+                default:
+                    return $"Unknown ({values[0]} {values[1]})";
+            }
+        }
+
+        [CanBeNull]
+        public string GetRedBalanceDescription()
+        {
+            var values = Directory.GetObject(OlympusMakernoteDirectory.TagRedBalance) as ushort[];
+            if (values == null || values.Length < 2)
+                return null;
+
+            return (values[0] / 256.0d).ToString();
+        }
+
+        [CanBeNull]
+        public string GetBlueBalanceDescription()
+        {
+            var values = Directory.GetObject(OlympusMakernoteDirectory.TagBlueBalance) as ushort[];
+            if (values == null || values.Length < 2)
+                return null;
+
+            return (values[0] / 256.0d).ToString();
+        }
+
+        [CanBeNull]
+        public string GetContrastDescription()
+        {
+            return GetIndexedDescription(OlympusMakernoteDirectory.TagContrast,
+                "High", "Normal", "Low");
+        }
+
+        [CanBeNull]
+        public string GetPreviewImageValidDescription()
+        {
+            return GetIndexedDescription(OlympusMakernoteDirectory.TagPreviewImageValid,
+                "No", "Yes");
+        }
+
+        [CanBeNull]
         public string GetFocusModeDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.TagFocusMode,
@@ -644,10 +750,34 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         }
 
         [CanBeNull]
-        public string GetDigiZoomRatioDescription()
+        public string GetDigitalZoomDescription()
         {
-            return GetIndexedDescription(OlympusMakernoteDirectory.TagDigiZoomRatio,
-                "Normal", null, "Digital 2x Zoom");
+            Rational value;
+            if (!Directory.TryGetRational(OlympusMakernoteDirectory.TagDigitalZoom, out value))
+                return null;
+            return value.ToSimpleString(allowDecimal: false);
+        }
+
+        [CanBeNull]
+        public string GetFocalPlaneDiagonalDescription()
+        {
+            Rational value;
+            if (!Directory.TryGetRational(OlympusMakernoteDirectory.TagFocalPlaneDiagonal, out value))
+                return null;
+            return value.ToDouble().ToString("0.###") + " mm";
+        }
+
+        [CanBeNull]
+        public string GetCameraTypeDescription()
+        {
+            var cameratype = Directory.GetString(OlympusMakernoteDirectory.TagCameraType);
+            if (cameratype == null)
+                return null;
+
+            if(OlympusMakernoteDirectory.OlympusCameraTypes.ContainsKey(cameratype))
+                return OlympusMakernoteDirectory.OlympusCameraTypes[cameratype];
+
+            return cameratype;
         }
 
         [CanBeNull]
@@ -656,7 +786,40 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             var bytes = Directory.GetByteArray(OlympusMakernoteDirectory.TagCameraId);
             if (bytes == null)
                 return null;
+
             return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+        }
+
+        [CanBeNull]
+        public string GetOneTouchWbDescription()
+        {
+            return GetIndexedDescription(OlympusMakernoteDirectory.TagOneTouchWb,
+                "Off", "On", "On (Preset)");
+        }
+
+        [CanBeNull]
+        public string GetShutterSpeedDescription()
+        {
+            return GetShutterSpeedDescription(OlympusMakernoteDirectory.TagShutterSpeedValue);
+        }
+
+        [CanBeNull]
+        public string GetIsoValueDescription()
+        {
+            Rational value;
+            if (!Directory.TryGetRational(OlympusMakernoteDirectory.TagIsoValue, out value))
+                return null;
+
+            return Math.Round(Math.Pow(2, value.ToDouble() - 5) * 100, 0).ToString();
+        }
+
+        [CanBeNull]
+        public string GetApertureValueDescription()
+        {
+            double aperture;
+            if (!Directory.TryGetDouble(OlympusMakernoteDirectory.TagApertureValue, out aperture))
+                return null;
+            return GetFStopDescription(PhotographicConversions.ApertureToFStop(aperture));
         }
 
         [CanBeNull]
@@ -676,9 +839,58 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetJpegQualityDescription()
         {
-            return GetIndexedDescription(OlympusMakernoteDirectory.TagJpegQuality,
-                1,
-                "Standard Quality", "High Quality", "Super High Quality");
+            string cameratype = Directory.GetString(OlympusMakernoteDirectory.TagCameraType);
+
+            if(cameratype != null)
+            {
+                int value;
+                if (!Directory.TryGetInt32(OlympusMakernoteDirectory.TagJpegQuality, out value))
+                    return null;
+
+                if ((cameratype.StartsWith("SX", StringComparison.OrdinalIgnoreCase) && !cameratype.StartsWith("SX151", StringComparison.OrdinalIgnoreCase))
+                    || cameratype.StartsWith("D4322", StringComparison.OrdinalIgnoreCase))
+                {
+                    switch (value)
+                    {
+                        case 0:
+                            return "Standard Quality (Low)";
+                        case 1:
+                            return "High Quality (Normal)";
+                        case 2:
+                            return "Super High Quality (Fine)";
+                        case 6:
+                            return "RAW";
+                        default:
+                            return "Unknown (" + value + ")";
+                    }
+                }
+                else
+                {
+                    switch (value)
+                    {
+                        case 0:
+                            return "Standard Quality (Low)";
+                        case 1:
+                            return "High Quality (Normal)";
+                        case 2:
+                            return "Super High Quality (Fine)";
+                        case 4:
+                            return "RAW";
+                        case 5:
+                            return "Medium-Fine";
+                        case 6:
+                            return "Small-Fine";
+                        case 33:
+                            return "Uncompressed";
+                        default:
+                            return "Unknown (" + value + ")";
+                    }
+                }
+            }
+            else
+                return GetIndexedDescription(OlympusMakernoteDirectory.TagJpegQuality,
+                    1,
+                    "Standard Quality", "High Quality", "Super High Quality");
         }
 
         [CanBeNull]

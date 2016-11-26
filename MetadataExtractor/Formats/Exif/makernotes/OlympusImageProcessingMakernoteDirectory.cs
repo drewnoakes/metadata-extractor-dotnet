@@ -112,7 +112,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagFaceDetectFrameSize = 0x1203;
         public const int TagFaceDetectFrameCrop = 0x1207;
         public const int TagCameraTemperature = 0x1306;
+
+        public const int TagKeystoneCompensation = 0x1900;
+        public const int TagKeystoneDirection = 0x1901;
         // 0x1905 - focal length (PH, E-M1)
+        public const int TagKeystoneValue = 0x1906;
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
@@ -179,7 +183,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagMaxFaces, "Max Faces" },
             { TagFaceDetectFrameSize, "Face Detect Frame Size" },
             { TagFaceDetectFrameCrop, "Face Detect Frame Crop" },
-            { TagCameraTemperature , "Camera Temperature" }
+            { TagCameraTemperature , "Camera Temperature" },
+            { TagKeystoneCompensation, "Keystone Compensation" },
+            { TagKeystoneDirection, "Keystone Direction" },
+            { TagKeystoneValue, "Keystone Value" }
         };
 
         public OlympusImageProcessingMakernoteDirectory()

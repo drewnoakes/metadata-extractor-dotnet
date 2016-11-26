@@ -141,6 +141,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return GetToneLevelDescription();
                 case OlympusCameraSettingsMakernoteDirectory.TagArtFilterEffect:
                     return GetArtFilterEffectDescription();
+                case OlympusCameraSettingsMakernoteDirectory.TagColorCreatorEffect:
+                    return GetColorCreatorEffectDescription();
 
                 case OlympusCameraSettingsMakernoteDirectory.TagDriveMode:
                     return GetDriveModeDescription();
@@ -416,6 +418,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             var p2 = (int)(vals[index + 1].ToDouble() * 100);
             var p3 = (int)(vals[index + 2].ToDouble() * 100);
             var p4 = (int)(vals[index + 3].ToDouble() * 100);
+
+            if(p1 + p2 + p3 + p4 == 0)
+                return "n/a";
 
             return $"({p1}%,{p2}%) ({p3}%,{p4}%)";
 
@@ -1061,12 +1066,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             var sb = new StringBuilder();
             for (var i = 0; i < values.Length; i++)
             {
-                if (i == 1)
-                    sb.Append("Highlights ");
-                else if (i == 5)
-                    sb.Append("Shadows ");
-
-                sb.Append(values[i] + "; ");
+                if (i == 0 || i == 4 || i == 8 || i == 12 || i == 16 || i == 20 || i == 24)
+                    sb.Append(_toneLevelType[values[i]] + "; ");
+                else
+                    sb.Append(values[i] + "; ");
             }
 
             if (sb.Length > 0)
@@ -1086,9 +1089,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             for (var i = 0; i < values.Length; i++)
             {
                 if (i == 0)
-                {
                     sb.Append((_filters.ContainsKey(values[i]) ? _filters[values[i]] : "[unknown]") + "; ");
-                }
+                else if(i == 3)
+                    sb.Append("Partial Color " + values[i] + "; ");
                 else if (i == 4)
                 {
                     switch (values[i])
@@ -1120,10 +1123,59 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     }
                     sb.Append("; ");
                 }
+                else if (i == 6)
+                {
+                    switch (values[i])
+                    {
+                        case 0:
+                            sb.Append("No Color Filter");
+                            break;
+                        case 1:
+                            sb.Append("Yellow Color Filter");
+                            break;
+                        case 2:
+                            sb.Append("Orange Color Filter");
+                            break;
+                        case 3:
+                            sb.Append("Red Color Filter");
+                            break;
+                        case 4:
+                            sb.Append("Green Color Filter");
+                            break;
+                        default:
+                            sb.Append("Unknown (").Append(values[i]).Append(')');
+                            break;
+                    }
+                    sb.Append("; ");
+                }
                 else
                 {
                     sb.Append(values[i] + "; ");
                 }
+            }
+
+            if (sb.Length > 0)
+                sb.Remove(sb.Length - 2, 2);
+
+            return sb.ToString();
+        }
+
+        [CanBeNull]
+        public string GetColorCreatorEffectDescription()
+        {
+            var values = Directory.GetObject(OlympusCameraSettingsMakernoteDirectory.TagColorCreatorEffect) as short[];
+            if (values == null)
+                return null;
+
+            var sb = new StringBuilder();
+            for (var i = 0; i < values.Length; i++)
+            {
+                if (i == 0)
+                    sb.Append("Color " + values[i] + "; ");
+                else if (i == 3)
+                    sb.Append("Strength " + values[i] + "; ");
+                else
+                    sb.Append(values[i] + "; ");
             }
 
             if (sb.Length > 0)
@@ -1367,6 +1419,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             return sb.ToString(0, sb.Length - 2);
         }
+
+        private static readonly Dictionary<int, string> _toneLevelType = new Dictionary<int, string>
+        {
+            { 0, "0" },
+            { -31999, "Highlights " },
+            { -31998, "Shadows " },
+            { -31997, "Midtones " }
+        };
 
         // ArtFilter, ArtFilterEffect and MagicFilter values
         private static readonly Dictionary<int, string> _filters = new Dictionary<int, string>
