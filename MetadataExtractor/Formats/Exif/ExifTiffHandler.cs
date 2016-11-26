@@ -103,7 +103,8 @@ namespace MetadataExtractor.Formats.Exif
             }
             else if (CurrentDirectory is OlympusMakernoteDirectory)
             {
-                // ReSharper disable once SwitchStatementMissingSomeCases
+                // Note: these also appear in CustomProcessTag because some are IFD pointers while others begin immediately
+                // for the same directories
                 switch (tagId)
                 {
                     case OlympusMakernoteDirectory.TagEquipment:
@@ -207,6 +208,8 @@ namespace MetadataExtractor.Formats.Exif
                 return true;
             }
 
+            // Note: these also appear in TryEnterSubIfd because some are IFD pointers while others begin immediately
+            // for the same directories
             if(CurrentDirectory is OlympusMakernoteDirectory)
             {
                 switch (tagId)
