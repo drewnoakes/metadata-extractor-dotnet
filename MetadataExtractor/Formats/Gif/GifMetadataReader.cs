@@ -47,7 +47,7 @@ namespace MetadataExtractor.Formats.Gif
             var directories = new List<Directory>(2);
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.Add(ReadMetadata(stream));
+                directories.AddRange(ReadMetadata(stream));
 
             directories.Add(new FileMetadataReader().Read(filePath));
 
@@ -55,7 +55,13 @@ namespace MetadataExtractor.Formats.Gif
         }
 
         [NotNull]
-        public static GifHeaderDirectory ReadMetadata([NotNull] Stream stream)
+        public static
+#if NET35
+            IList<Directory>
+#else
+            IReadOnlyList<Directory>
+#endif
+            ReadMetadata([NotNull] Stream stream)
         {
             return new GifReader().Extract(new SequentialStreamReader(stream));
         }
