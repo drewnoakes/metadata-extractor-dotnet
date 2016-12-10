@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System.Collections.Generic;
 using System.Linq;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Exif.Makernotes;
@@ -160,11 +161,41 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.Equal("                ", nikonDirectory.GetString(0x008f));
             Assert.Equal(0, nikonDirectory.GetInt32(0x0094));
             Assert.Equal("FPNR", nikonDirectory.GetString(0x0095));
-            Assert.Equal("80 114 105 110 116 73 77 0 48 49 48 48 0 0 13 0 1 0 22 0 22 0 2 0 1 0 0 0 3 0 94 0 0 0 7 0 0 0 0 0 8 0 0 0 0 0 9 0 0 0 0 0 " +
+
+            // PrintIM
+            var expectedData = new Dictionary<int, string>
+            {
+                { 0x0000, "0100" },
+                { 0x0001, "0x00160016" },
+                { 0x0002, "0x00000001" },
+                { 0x0003, "0x0000005e" },
+                { 0x0007, "0x00000000" },
+                { 0x0008, "0x00000000" },
+                { 0x0009, "0x00000000" },
+                { 0x000A, "0x00000000" },
+                { 0x000B, "0x000000a6" },
+                { 0x000C, "0x00000000" },
+                { 0x000D, "0x00000000" },
+                { 0x000E, "0x000000be" },
+                { 0x0100, "0x00000005" },
+                { 0x0101, "0x00000001" }
+            };
+
+            var nikonPrintImDirectory = directories.OfType<PrintIMDirectory>().SingleOrDefault();
+
+            Assert.NotNull(nikonPrintImDirectory);
+
+            Assert.Equal(expectedData.Count, nikonPrintImDirectory.Tags.Count);
+            foreach(var expected in expectedData)
+            {
+                Assert.Equal(expected.Value, nikonPrintImDirectory.GetDescription(expected.Key));
+            }
+
+            /*Assert.Equal("80 114 105 110 116 73 77 0 48 49 48 48 0 0 13 0 1 0 22 0 22 0 2 0 1 0 0 0 3 0 94 0 0 0 7 0 0 0 0 0 8 0 0 0 0 0 9 0 0 0 0 0 " +
                             "10 0 0 0 0 0 11 0 166 0 0 0 12 0 0 0 0 0 13 0 0 0 0 0 14 0 190 0 0 0 0 1 5 0 0 0 1 1 1 0 0 0 9 17 0 0 16 39 0 0 11 15 0 0 16 " +
                             "39 0 0 151 5 0 0 16 39 0 0 176 8 0 0 16 39 0 0 1 28 0 0 16 39 0 0 94 2 0 0 16 39 0 0 139 0 0 0 16 39 0 0 203 3 0 0 16 39 " +
                             "0 0 229 27 0 0 16 39 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
-                            nikonDirectory.GetString(0x0e00));
+                            nikonPrintImDirectory.GetString(0x0e00));*/
             //            Assert.Equals("PrintIM", _nikonDirectory.GetString(0x0e00));
             Assert.Equal(1394, nikonDirectory.GetInt32(0x0e10));
 

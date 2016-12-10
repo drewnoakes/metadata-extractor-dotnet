@@ -199,7 +199,7 @@ namespace MetadataExtractor.Formats.Exif
                 return true;
             }
 
-            if(tagId == ExifDirectoryBase.TagPrintIm)
+            if (HandlePrintIM(CurrentDirectory, tagId))
             {
                 var dirPrintIm = new PrintIMDirectory();
                 dirPrintIm.Parent = CurrentDirectory;
@@ -584,6 +584,28 @@ namespace MetadataExtractor.Formats.Exif
             }
 
             return true;
+        }
+
+        private bool HandlePrintIM([NotNull] Directory directory, int tagId)
+        {
+            if (tagId == ExifDirectoryBase.TagPrintIm)
+            {
+                return true;
+            }
+            else if(tagId == 0x0E00)    // Tempted to say every tagid of 0x0E00 is a PIM tag, but can't be 100% sure
+            {
+                if (directory is CasioType2MakernoteDirectory ||
+                    directory is KyoceraMakernoteDirectory ||
+                    directory is NikonType2MakernoteDirectory ||
+                    directory is OlympusMakernoteDirectory ||
+                    directory is PanasonicMakernoteDirectory ||
+                    directory is PentaxMakernoteDirectory ||
+                    directory is RicohMakernoteDirectory ||
+                    directory is SanyoMakernoteDirectory ||
+                    directory is SonyType1MakernoteDirectory)
+                    return true;
+            }
+            return false;
         }
 
         /// <summary>
