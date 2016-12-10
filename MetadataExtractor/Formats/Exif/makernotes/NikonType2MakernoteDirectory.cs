@@ -823,7 +823,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public const int TagUnknown51 = 0x0103;
 
-        public const int TagPrintIM = 0x0E00;
+        public const int TagPrintImageMatchingInfo = 0x0E00;
 
         /// <summary>Data about changes set by Nikon Capture Editor.</summary>
         /// <remarks>
@@ -957,7 +957,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagUnknown49, "Unknown 49" },
             { TagUnknown50, "Unknown 50" },
             { TagUnknown51, "Unknown 51" },
-            { TagPrintIM, "Print Image Matching (PIM) Info" },
+            { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" },
             { TagUnknown52, "Unknown 52" },
             { TagUnknown53, "Unknown 53" },
             { TagNikonCaptureVersion, "Nikon Capture Version" },

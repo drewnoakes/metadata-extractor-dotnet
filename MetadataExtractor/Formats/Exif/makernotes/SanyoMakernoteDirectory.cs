@@ -57,7 +57,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagManualFocusDistanceOrFaceInfo = 0x0223;
         public const int TagSequenceShotInterval = 0x0224;
         public const int TagFlashMode = 0x0225;
-        public const int TagPrintIm = 0x0e00;
+        public const int TagPrintImageMatchingInfo = 0x0E00;
         public const int TagDataDump = 0x0f00;
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
@@ -87,7 +87,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             { TagManualFocusDistanceOrFaceInfo, "Manual Focus Distance or Face Info" },
             { TagSequenceShotInterval, "Sequence Shot Interval" },
             { TagFlashMode, "Flash Mode" },
-            { TagPrintIm, "Print Image Matching (PIM) Info" },
+            { TagPrintImageMatchingInfo, "Print Image Matching (PIM) Info" },
             { TagDataDump, "Data Dump" }
         };
 
