@@ -28,13 +28,13 @@ using JetBrains.Annotations;
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>
-    /// Provides human-readable string representations of tag values stored in a <see cref="ReconyxMakernoteDirectory"/>.
+    /// Provides human-readable string representations of tag values stored in a <see cref="ReconyxHyperFireMakernoteDirectory"/>.
     /// </summary>
     /// <author>Todd West http://cascadescarnivoreproject.blogspot.com</author>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    public sealed class ReconyxMakernoteDescriptor : TagDescriptor<ReconyxMakernoteDirectory>
+    public sealed class ReconyxHyperFireMakernoteDescriptor : TagDescriptor<ReconyxHyperFireMakernoteDirectory>
     {
-        public ReconyxMakernoteDescriptor([NotNull] ReconyxMakernoteDirectory directory)
+        public ReconyxHyperFireMakernoteDescriptor([NotNull] ReconyxHyperFireMakernoteDirectory directory)
             : base(directory)
         {
         }
@@ -43,39 +43,39 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             switch (tagType)
             {
-                case ReconyxMakernoteDirectory.TagMakernoteVersion:
+                case ReconyxHyperFireMakernoteDirectory.TagMakernoteVersion:
                     return Directory.GetUInt16(tagType).ToString();
-                case ReconyxMakernoteDirectory.TagFirmwareVersion:
+                case ReconyxHyperFireMakernoteDirectory.TagFirmwareVersion:
                     // invokes Version.ToString()
                     return Directory.GetString(tagType);
-                case ReconyxMakernoteDirectory.TagTriggerMode:
+                case ReconyxHyperFireMakernoteDirectory.TagTriggerMode:
                     return Directory.GetString(tagType);
-                case ReconyxMakernoteDirectory.TagSequence:
+                case ReconyxHyperFireMakernoteDirectory.TagSequence:
                     int[] sequence = Directory.GetInt32Array(tagType);
                     return string.Format("{0}/{1}", sequence[0], sequence[1]);
-                case ReconyxMakernoteDirectory.TagEventNumber:
+                case ReconyxHyperFireMakernoteDirectory.TagEventNumber:
                     return Directory.GetUInt32(tagType).ToString();
-                case ReconyxMakernoteDirectory.TagMotionSensitivity:
+                case ReconyxHyperFireMakernoteDirectory.TagMotionSensitivity:
                     return Directory.GetUInt16(tagType).ToString();
-                case ReconyxMakernoteDirectory.TagBatteryVoltage:
+                case ReconyxHyperFireMakernoteDirectory.TagBatteryVoltage:
                     return Directory.GetDouble(tagType).ToString("0.000");
-                case ReconyxMakernoteDirectory.TagDateTimeOriginal:
+                case ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal:
                     return Directory.GetDateTime(tagType).ToString("yyyy:MM:dd HH:mm:ss");
-                case ReconyxMakernoteDirectory.TagMoonPhase:
+                case ReconyxHyperFireMakernoteDirectory.TagMoonPhase:
                     return GetIndexedDescription(tagType, "New", "Waxing Crescent", "First Quarter", "Waxing Gibbous", "Full", "Waning Gibbous", "Last Quarter", "Waning Crescent");
-                case ReconyxMakernoteDirectory.TagAmbientTemperatureFarenheit:
-                case ReconyxMakernoteDirectory.TagAmbientTemperature:
+                case ReconyxHyperFireMakernoteDirectory.TagAmbientTemperatureFahrenheit:
+                case ReconyxHyperFireMakernoteDirectory.TagAmbientTemperature:
                     return Directory.GetInt16(tagType).ToString();
-                case ReconyxMakernoteDirectory.TagSerialNumber:
+                case ReconyxHyperFireMakernoteDirectory.TagSerialNumber:
                     return Directory.GetString(tagType);
-                case ReconyxMakernoteDirectory.TagContrast:
-                case ReconyxMakernoteDirectory.TagBrightness:
-                case ReconyxMakernoteDirectory.TagSharpness:
-                case ReconyxMakernoteDirectory.TagSaturation:
+                case ReconyxHyperFireMakernoteDirectory.TagContrast:
+                case ReconyxHyperFireMakernoteDirectory.TagBrightness:
+                case ReconyxHyperFireMakernoteDirectory.TagSharpness:
+                case ReconyxHyperFireMakernoteDirectory.TagSaturation:
                     return Directory.GetUInt16(tagType).ToString();
-                case ReconyxMakernoteDirectory.TagInfraredIlluminator:
+                case ReconyxHyperFireMakernoteDirectory.TagInfraredIlluminator:
                     return GetIndexedDescription(tagType, "Off", "On");
-                case ReconyxMakernoteDirectory.TagUserLabel:
+                case ReconyxHyperFireMakernoteDirectory.TagUserLabel:
                     return Directory.GetString(tagType);
                 default:
                     return base.GetDescription(tagType);

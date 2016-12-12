@@ -32,6 +32,46 @@ namespace MetadataExtractor
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public static class DirectoryExtensions
     {
+        #region Byte
+
+        /// <summary>Returns a tag's value as a <see cref="byte"/>, or throws if conversion is not possible.</summary>
+        /// <remarks>
+        /// If the value is <see cref="IConvertible"/>, then that interface is used for conversion of the value.
+        /// If the value is an array of <see cref="IConvertible"/> having length one, then the single item is converted.
+        /// </remarks>
+        /// <exception cref="MetadataException">No value exists for <paramref name="tagType"/>, or the value is not convertible to the requested type.</exception>
+        [Pure]
+        public static byte GetByte([NotNull] this Directory directory, int tagType)
+        {
+            byte value;
+            if (directory.TryGetByte(tagType, out value))
+                return value;
+
+            return ThrowValueNotPossible<byte>(directory, tagType);
+        }
+
+        [Pure]
+        public static bool TryGetByte([NotNull] this Directory directory, int tagType, out byte value)
+        {
+            var convertible = GetConvertibleObject(directory, tagType);
+
+            if (convertible != null)
+            {
+                try
+                {
+                    value = convertible.ToByte(null);
+                    return true;
+                }
+                catch
+                { }
+            }
+
+            value = default(byte);
+            return false;
+        }
+
+        #endregion
+
         #region Int16
 
         /// <summary>Returns a tag's value as a <see cref="short"/>, or throws if conversion is not possible.</summary>
