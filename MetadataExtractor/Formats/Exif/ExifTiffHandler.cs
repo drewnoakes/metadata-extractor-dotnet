@@ -635,8 +635,8 @@ namespace MetadataExtractor.Formats.Exif
             }
 
             var header = reader.GetString(tagValueOffset, 12, Encoding.UTF8);
-            
-            if (!string.Equals(header.Substring(0, 7), "PrintIM", StringComparison.Ordinal))
+
+            if (!header.StartsWith("PrintIM", StringComparison.Ordinal))
             {
                 directory.AddError("Invalid PrintIM header");
                 return;
