@@ -202,16 +202,15 @@ namespace MetadataExtractor.Formats.Exif
 
             if (HandlePrintIM(CurrentDirectory, tagId))
             {
-                var dirPrintIm = new PrintIMDirectory();
-                dirPrintIm.Parent = CurrentDirectory;
-                Directories.Add(dirPrintIm);
-                ProcessPrintIM(dirPrintIm, tagOffset, reader, byteCount);
+                var printIMDirectory = new PrintIMDirectory { Parent = CurrentDirectory };
+                Directories.Add(printIMDirectory);
+                ProcessPrintIM(printIMDirectory, tagOffset, reader, byteCount);
                 return true;
             }
 
             // Note: these also appear in TryEnterSubIfd because some are IFD pointers while others begin immediately
             // for the same directories
-            if(CurrentDirectory is OlympusMakernoteDirectory)
+            if (CurrentDirectory is OlympusMakernoteDirectory)
             {
                 switch (tagId)
                 {
@@ -257,20 +256,17 @@ namespace MetadataExtractor.Formats.Exif
                 switch (tagId)
                 {
                     case PanasonicRawIfd0Directory.TagWbInfo:
-                        var dirWbInfo = new PanasonicRawWbInfoDirectory();
-                        dirWbInfo.Parent = CurrentDirectory;
+                        var dirWbInfo = new PanasonicRawWbInfoDirectory { Parent = CurrentDirectory };
                         Directories.Add(dirWbInfo);
                         ProcessBinary(dirWbInfo, tagOffset, reader, byteCount, false, 2);
                         return true;
                     case PanasonicRawIfd0Directory.TagWbInfo2:
-                        var dirWbInfo2 = new PanasonicRawWbInfo2Directory();
-                        dirWbInfo2.Parent = CurrentDirectory;
+                        var dirWbInfo2 = new PanasonicRawWbInfo2Directory { Parent = CurrentDirectory };
                         Directories.Add(dirWbInfo2);
                         ProcessBinary(dirWbInfo2, tagOffset, reader, byteCount, false, 3);
                         return true;
                     case PanasonicRawIfd0Directory.TagDistortionInfo:
-                        var dirDistort = new PanasonicRawDistortionDirectory();
-                        dirDistort.Parent = CurrentDirectory;
+                        var dirDistort = new PanasonicRawDistortionDirectory { Parent = CurrentDirectory };
                         Directories.Add(dirDistort);
                         ProcessBinary(dirDistort, tagOffset, reader, byteCount);
                         return true;
@@ -305,7 +301,7 @@ namespace MetadataExtractor.Formats.Exif
             }
 
             // an unknown (0) formatCode needs to be potentially handled later as a highly custom directory tag
-            if(formatCode == 0)
+            if (formatCode == 0)
             {
                 byteCount = 0;
                 return true;
@@ -593,14 +589,14 @@ namespace MetadataExtractor.Formats.Exif
             return true;
         }
 
-        private bool HandlePrintIM([NotNull] Directory directory, int tagId)
+        private static bool HandlePrintIM([NotNull] Directory directory, int tagId)
         {
             if (tagId == ExifDirectoryBase.TagPrintIm)
-            {
                 return true;
-            }
-            else if(tagId == 0x0E00)    // Tempted to say every tagid of 0x0E00 is a PIM tag, but can't be 100% sure
+
+            if (tagId == 0x0E00)
             {
+                // Tempting to say every tagid of 0x0E00 is a PIM tag, but can't be 100% sure
                 if (directory is CasioType2MakernoteDirectory ||
                     directory is KyoceraMakernoteDirectory ||
                     directory is NikonType2MakernoteDirectory ||
@@ -612,6 +608,7 @@ namespace MetadataExtractor.Formats.Exif
                     directory is SonyType1MakernoteDirectory)
                     return true;
             }
+
             return false;
         }
 
@@ -623,20 +620,22 @@ namespace MetadataExtractor.Formats.Exif
         /// http://www.sno.phy.queensu.ca/~phil/exiftool/
         /// lib\Image\ExifTool\PrintIM.pm
         /// </remarks>
-        private void ProcessPrintIM([NotNull] PrintIMDirectory directory, int tagValueOffset, [NotNull] IndexedReader reader, int byteCount)
+        private static void ProcessPrintIM([NotNull] PrintIMDirectory directory, int tagValueOffset, [NotNull] IndexedReader reader, int byteCount)
         {
             if (byteCount == 0)
             {
                 directory.AddError("Empty PrintIM data");
                 return;
             }
-            else if(byteCount <= 15)
+
+            if (byteCount <= 15)
             {
                 directory.AddError("Bad PrintIM data");
                 return;
             }
 
-            string header = reader.GetString(tagValueOffset, 12, Encoding.UTF8);
+            var header = reader.GetString(tagValueOffset, 12, Encoding.UTF8);
+            
             if (!string.Equals(header.Substring(0, 7), "PrintIM", StringComparison.Ordinal))
             {
                 directory.AddError("Invalid PrintIM header");
@@ -660,9 +659,9 @@ namespace MetadataExtractor.Formats.Exif
 
             directory.Set(PrintIMDirectory.TagPrintImVersion, header.Substring(8, 4));
 
-            for (int n = 0; n < num; n++)
+            for (var n = 0; n < num; n++)
             {
-                int pos = tagValueOffset + 16 + n * 6;
+                var pos = tagValueOffset + 16 + n * 6;
                 var tag = localReader.GetUInt16(pos);
                 var val = localReader.GetUInt32(pos + 2);
 
