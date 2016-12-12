@@ -623,23 +623,23 @@ namespace MetadataExtractor.Formats.Exif
         /// http://www.sno.phy.queensu.ca/~phil/exiftool/
         /// lib\Image\ExifTool\PrintIM.pm
         /// </remarks>
-        private void ProcessPrintIM([NotNull] Directory directory, int tagValueOffset, [NotNull] IndexedReader reader, int byteCount)
+        private void ProcessPrintIM([NotNull] PrintIMDirectory directory, int tagValueOffset, [NotNull] IndexedReader reader, int byteCount)
         {
             if (byteCount == 0)
             {
-                Error("Empty PrintIM data");
+                directory.AddError("Empty PrintIM data");
                 return;
             }
             else if(byteCount <= 15)
             {
-                Error("Bad PrintIM data");
+                directory.AddError("Bad PrintIM data");
                 return;
             }
 
             string header = reader.GetString(tagValueOffset, 12, Encoding.UTF8);
             if (!string.Equals(header.Substring(0, 7), "PrintIM", StringComparison.Ordinal))
             {
-                Error("Invalid PrintIM header");
+                directory.AddError("Invalid PrintIM header");
                 return;
             }
 
@@ -653,7 +653,7 @@ namespace MetadataExtractor.Formats.Exif
                 num = localReader.GetUInt16(tagValueOffset + 14);
                 if (byteCount < 16 + num * 6)
                 {
-                    Error("Bad PrintIM size");
+                    directory.AddError("Bad PrintIM size");
                     return;
                 }
             }
