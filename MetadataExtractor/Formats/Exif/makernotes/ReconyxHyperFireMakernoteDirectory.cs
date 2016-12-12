@@ -27,16 +27,16 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
-    /// <summary>Describes tags specific to Reconyx cameras.</summary>
+    /// <summary>Describes tags specific to Reconyx HyperFire cameras.</summary>
     /// <author>Todd West http://cascadescarnivoreproject.blogspot.com</author>
-    /// <remarks>Reconyx uses a fixed firmware block.  Tag values are the byte index of the tag within the makernote.</remarks>
+    /// <remarks>Reconyx uses a fixed makernote block.  Tag values are the byte index of the tag within the makernote.</remarks>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    public class ReconyxMakernoteDirectory : Directory
+    public class ReconyxHyperFireMakernoteDirectory : Directory
     {
         /// <summary>
-        /// Version number used for identifying makernotes from Reconyx HyperFire cameras.  May also apply to some UltraFire models.
+        /// Version number used for identifying makernotes from Reconyx HyperFire cameras.
         /// </summary>
-        public static readonly ushort HyperFireMakernoteVersion = 61697;
+        public static readonly ushort MakernoteVersion = 61697;
 
         public const int TagMakernoteVersion = 0;
         public const int TagFirmwareVersion = 2;
@@ -45,7 +45,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagEventNumber = 18;
         public const int TagDateTimeOriginal = 22;
         public const int TagMoonPhase = 36;
-        public const int TagAmbientTemperatureFarenheit = 38;
+        public const int TagAmbientTemperatureFahrenheit = 38;
         public const int TagAmbientTemperature = 40;
         public const int TagSerialNumber = 42;
         public const int TagContrast = 72;
@@ -66,7 +66,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
              { TagEventNumber, "Event Number" },
              { TagDateTimeOriginal, "Date/Time Original" },
              { TagMoonPhase, "Moon Phase" },
-             { TagAmbientTemperatureFarenheit, "Ambient Temperature Farenheit" },
+             { TagAmbientTemperatureFahrenheit, "Ambient Temperature Fahrenheit" },
              { TagAmbientTemperature, "Ambient Temperature" },
              { TagSerialNumber, "Serial Number" },
              { TagContrast, "Contrast" },
@@ -76,15 +76,15 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
              { TagInfraredIlluminator, "Infrared Illuminator" },
              { TagMotionSensitivity, "Motion Sensitivity" },
              { TagBatteryVoltage, "Battery Voltage" },
-             { TagUserLabel, "UserLabel" }
+             { TagUserLabel, "User Label" }
         };
 
-        public ReconyxMakernoteDirectory()
+        public ReconyxHyperFireMakernoteDirectory()
         {
-            SetDescriptor(new ReconyxMakernoteDescriptor(this));
+            SetDescriptor(new ReconyxHyperFireMakernoteDescriptor(this));
         }
 
-        public override string Name => "Reconyx Makernote";
+        public override string Name => "Reconyx HyperFire Makernote";
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {
