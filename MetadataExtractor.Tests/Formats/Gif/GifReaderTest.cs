@@ -23,6 +23,7 @@
 #endregion
 
 using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Gif;
 using MetadataExtractor.IO;
@@ -38,7 +39,11 @@ namespace MetadataExtractor.Tests.Formats.Gif
         public static GifHeaderDirectory ProcessBytes([NotNull] string file)
         {
             using (var stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
-                return new GifReader().Extract(new SequentialStreamReader(stream));
+            {
+                var directory = new GifReader().Extract(new SequentialStreamReader(stream)).OfType<GifHeaderDirectory>().FirstOrDefault();
+                Assert.NotNull(directory);
+                return directory;
+            }
         }
 
         [Fact]
@@ -49,11 +54,11 @@ namespace MetadataExtractor.Tests.Formats.Gif
             Assert.Equal("89a", directory.GetString(GifHeaderDirectory.TagGifFormatVersion));
             Assert.Equal(10, directory.GetInt32(GifHeaderDirectory.TagImageWidth));
             Assert.Equal(10, directory.GetInt32(GifHeaderDirectory.TagImageHeight));
-            Assert.Equal(256, directory.GetInt32(GifHeaderDirectory.TagColorTableSize));
-            Assert.False(directory.GetBoolean(GifHeaderDirectory.TagIsColorTableSorted));
-            Assert.Equal(8, directory.GetInt32(GifHeaderDirectory.TagBitsPerPixel));
-            Assert.True(directory.GetBoolean(GifHeaderDirectory.TagHasGlobalColorTable));
-            Assert.Equal(0, directory.GetInt32(GifHeaderDirectory.TagBackgroundColorIndex));
+            Assert.Equal(256, directory.GetInt32(GifHeaderDirectory.Screen.TagColorTableSize));
+            Assert.False(directory.GetBoolean(GifHeaderDirectory.Screen.TagIsColorTableSorted));
+            Assert.Equal(8, directory.GetInt32(GifHeaderDirectory.Screen.TagBitsPerPixel));
+            Assert.True(directory.GetBoolean(GifHeaderDirectory.Screen.TagHasGlobalColorTable));
+            Assert.Equal(0, directory.GetInt32(GifHeaderDirectory.Screen.TagBackgroundColorIndex));
         }
 
         [Fact]
@@ -64,11 +69,11 @@ namespace MetadataExtractor.Tests.Formats.Gif
             Assert.Equal("89a", directory.GetString(GifHeaderDirectory.TagGifFormatVersion));
             Assert.Equal(8, directory.GetInt32(GifHeaderDirectory.TagImageWidth));
             Assert.Equal(12, directory.GetInt32(GifHeaderDirectory.TagImageHeight));
-            Assert.Equal(32, directory.GetInt32(GifHeaderDirectory.TagColorTableSize));
-            Assert.False(directory.GetBoolean(GifHeaderDirectory.TagIsColorTableSorted));
-            Assert.Equal(5, directory.GetInt32(GifHeaderDirectory.TagBitsPerPixel));
-            Assert.True(directory.GetBoolean(GifHeaderDirectory.TagHasGlobalColorTable));
-            Assert.Equal(8, directory.GetInt32(GifHeaderDirectory.TagBackgroundColorIndex));
+            Assert.Equal(32, directory.GetInt32(GifHeaderDirectory.Screen.TagColorTableSize));
+            Assert.False(directory.GetBoolean(GifHeaderDirectory.Screen.TagIsColorTableSorted));
+            Assert.Equal(5, directory.GetInt32(GifHeaderDirectory.Screen.TagBitsPerPixel));
+            Assert.True(directory.GetBoolean(GifHeaderDirectory.Screen.TagHasGlobalColorTable));
+            Assert.Equal(8, directory.GetInt32(GifHeaderDirectory.Screen.TagBackgroundColorIndex));
         }
     }
 }

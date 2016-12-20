@@ -35,5 +35,41 @@ namespace MetadataExtractor.Formats.Gif
             : base(directory)
         {
         }
+
+        public override string GetDescription(int tagType)
+        {
+            switch (tagType)
+            {
+                case GifHeaderDirectory.TagDuration:
+                    return GetDurationDescription();
+                case GifHeaderDirectory.Animate.TagAnimationIterations:
+                    return GetAnimationIterationsDescription();
+                default:
+                    return base.GetDescription(tagType);
+            }
+        }
+
+        /// <summary>duration of a single animation iteration</summary>
+        /// <remarks>Value stored as number of hundredths of a second to wait before moving on to the next scene</remarks>
+        [CanBeNull]
+        public string GetDurationDescription()
+        {
+            ushort value;
+            if (!Directory.TryGetUInt16(GifHeaderDirectory.TagDuration, out value))
+                return null;
+
+            return (value / 100.0).ToString("0.##") + " s";
+        }
+
+        [CanBeNull]
+        public string GetAnimationIterationsDescription()
+        {
+            ushort value;
+            if (!Directory.TryGetUInt16(GifHeaderDirectory.Animate.TagAnimationIterations, out value))
+                return null;
+
+            return (value == 0) ? "Infinite" : value.ToString();
+        }
+
     }
 }
