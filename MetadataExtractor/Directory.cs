@@ -212,6 +212,15 @@ namespace MetadataExtractor
     {
         public override string Name => "Error";
 
+        public ErrorDirectory()
+        {
+        }
+
+        public ErrorDirectory(string error)
+        {
+            AddError(error);
+        }
+
         protected override bool TryGetTagName(int tagType, out string tagName)
         {
             tagName = null;

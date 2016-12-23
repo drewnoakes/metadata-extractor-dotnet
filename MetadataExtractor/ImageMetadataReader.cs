@@ -106,7 +106,7 @@ namespace MetadataExtractor
                 case FileType.Bmp:
                     return new[] { BmpMetadataReader.ReadMetadata(stream) };
                 case FileType.Gif:
-                    return new[] { GifMetadataReader.ReadMetadata(stream) };
+                    return GifMetadataReader.ReadMetadata(stream);
                 case FileType.Ico:
                     return IcoMetadataReader.ReadMetadata(stream);
                 case FileType.Pcx:

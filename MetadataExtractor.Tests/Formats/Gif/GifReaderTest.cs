@@ -22,7 +22,9 @@
 //
 #endregion
 
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Gif;
 using MetadataExtractor.IO;
@@ -35,7 +37,7 @@ namespace MetadataExtractor.Tests.Formats.Gif
     public sealed class GifReaderTest
     {
         [NotNull]
-        public static GifHeaderDirectory ProcessBytes([NotNull] string file)
+        private static IEnumerable<Directory> ProcessBytes([NotNull] string file)
         {
             using (var stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
                 return new GifReader().Extract(new SequentialStreamReader(stream));
@@ -44,8 +46,10 @@ namespace MetadataExtractor.Tests.Formats.Gif
         [Fact]
         public void MsPaintGif()
         {
-            var directory = ProcessBytes("Data/mspaint-10x10.gif");
+            var directory = ProcessBytes("Data/mspaint-10x10.gif").OfType<GifHeaderDirectory>().Single();
+
             Assert.False(directory.HasError);
+
             Assert.Equal("89a", directory.GetString(GifHeaderDirectory.TagGifFormatVersion));
             Assert.Equal(10, directory.GetInt32(GifHeaderDirectory.TagImageWidth));
             Assert.Equal(10, directory.GetInt32(GifHeaderDirectory.TagImageHeight));
@@ -59,8 +63,10 @@ namespace MetadataExtractor.Tests.Formats.Gif
         [Fact]
         public void PhotoshopGif()
         {
-            var directory = ProcessBytes("Data/photoshop-8x12-32colors-alpha.gif");
+            var directory = ProcessBytes("Data/photoshop-8x12-32colors-alpha.gif").OfType<GifHeaderDirectory>().Single();
+
             Assert.False(directory.HasError);
+
             Assert.Equal("89a", directory.GetString(GifHeaderDirectory.TagGifFormatVersion));
             Assert.Equal(8, directory.GetInt32(GifHeaderDirectory.TagImageWidth));
             Assert.Equal(12, directory.GetInt32(GifHeaderDirectory.TagImageHeight));
