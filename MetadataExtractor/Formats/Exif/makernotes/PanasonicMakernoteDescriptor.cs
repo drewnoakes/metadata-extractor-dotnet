@@ -151,7 +151,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case PanasonicMakernoteDirectory.TagFlashCurtain:
                     return GetFlashCurtainDescription();
                 case PanasonicMakernoteDirectory.TagLongExposureNoiseReduction:
-                    return GetLongExposureNoiceReductionDescription();
+                    return GetLongExposureNoiseReductionDescription();
                 case PanasonicMakernoteDirectory.TagBabyName:
                     return GetBabyNameDescription();
                 case PanasonicMakernoteDirectory.TagLocation:
@@ -365,7 +365,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 "n/a", "1st", "2nd");
         }
 
-        public string GetLongExposureNoiceReductionDescription()
+        public string GetLongExposureNoiseReductionDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagLongExposureNoiseReduction, 1,
                 "Off", "On");
@@ -403,7 +403,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string GetShadingCompensationDescription()
         {
-            return GetIndexedDescription(PanasonicMakernoteDirectory.TagPhotoStyle,
+            return GetIndexedDescription(PanasonicMakernoteDirectory.TagShadingCompensation,
                 "Off", "On");
         }
 

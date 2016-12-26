@@ -591,7 +591,7 @@ namespace MetadataExtractor.Formats.Exif
 
         private static bool HandlePrintIM([NotNull] Directory directory, int tagId)
         {
-            if (tagId == ExifDirectoryBase.TagPrintIm)
+            if (tagId == ExifDirectoryBase.TagPrintImageMatchingInfo)
                 return true;
 
             if (tagId == 0x0E00)

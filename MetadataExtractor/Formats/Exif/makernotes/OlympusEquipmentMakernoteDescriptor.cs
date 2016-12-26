@@ -113,7 +113,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(OlympusEquipmentMakernoteDirectory.TagBodyFirmwareVersion, out value))
                 return null;
 
-            return ((uint)value).ToString("X4");
+            string hex = ((uint)value).ToString("X4");
+            return hex.Substring(0, hex.Length - 3) + "." + hex.Substring(hex.Length - 3);
         }
 
         [CanBeNull]
