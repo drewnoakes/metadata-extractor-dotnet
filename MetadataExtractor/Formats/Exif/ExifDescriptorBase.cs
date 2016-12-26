@@ -105,7 +105,7 @@ namespace MetadataExtractor.Formats.Exif
                 case ExifDirectoryBase.TagExposureTime:
                     return GetExposureTimeDescription();
                 case ExifDirectoryBase.TagShutterSpeed:
-                    return GetShutterSpeedDescription(ExifDirectoryBase.TagShutterSpeed);
+                    return GetShutterSpeedDescription();
                 case ExifDirectoryBase.TagFNumber:
                     return GetFNumberDescription();
                 case ExifDirectoryBase.TagCompressedAverageBitsPerPixel:
@@ -726,7 +726,7 @@ namespace MetadataExtractor.Formats.Exif
         {
             int[] ret;
 
-            byte[] values = Directory.GetByteArray(ExifDirectoryBase.TagCfaPattern);
+            byte[] values = Directory.GetByteArray(tagType);
             if (values == null)
                 return null;
 

@@ -49,20 +49,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             {
                 default:
                 {
-//                  case RicohMakernoteDirectory.TagPrintImageMatchingInfo:
-//                      return GetPrintImageMatchingInfoDescription();
 //                  case RicohMakernoteDirectory.TagProprietaryThumbnail:
 //                      return GetProprietaryThumbnailDataDescription();
                     return base.GetDescription(tagType);
                 }
             }
         }
-
-//        [CanBeNull]
-//        public string GetPrintImageMatchingInfoDescription()
-//        {
-//            return GetByteLengthDescription(RicohMakernoteDirectory.TagPrintImageMatchingInfo);
-//        }
 //
 //        [CanBeNull]
 //        public string GetProprietaryThumbnailDataDescription()

@@ -703,7 +703,7 @@ namespace MetadataExtractor.Formats.Exif
         /// <summary>Rational64u.</summary>
         public const int TagGamma = 0xA500;
 
-        public const int TagPrintIm = 0xC4A5;
+        public const int TagPrintImageMatchingInfo = 0xC4A5;
 
         public const int TagPanasonicTitle = 0xC6D2;
 
@@ -769,7 +769,7 @@ namespace MetadataExtractor.Formats.Exif
             map[TagRelatedImageHeight] = "Related Image Height";
             map[TagRating] = "Rating";
             map[TagCfaRepeatPatternDim] = "CFA Repeat Pattern Dim";
-            map[TagCfaPattern2] = "CFA Pattern";
+            map[TagCfaPattern2] = "CFA Pattern 2";
             map[TagBatteryLevel] = "Battery Level";
             map[TagCopyright] = "Copyright";
             map[TagExposureTime] = "Exposure Time";
@@ -860,7 +860,7 @@ namespace MetadataExtractor.Formats.Exif
             map[TagLensModel] = "Lens Model";
             map[TagLensSerialNumber] = "Lens Serial Number";
             map[TagGamma] = "Gamma";
-            map[TagPrintIm] = "Print IM";
+            map[TagPrintImageMatchingInfo] = "Print Image Matching (PIM) Info";
             map[TagPanasonicTitle] = "Panasonic Title";
             map[TagPanasonicTitle2] = "Panasonic Title (2)";
             map[TagPadding] = "Padding";

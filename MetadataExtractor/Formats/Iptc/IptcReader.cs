@@ -112,7 +112,7 @@ namespace MetadataExtractor.Formats.Iptc
                     // NOTE have seen images where there was one extra byte at the end, giving
                     // offset==length at this point, which is not worth logging as an error.
                     if (offset != length)
-                        directory.AddError($"Invalid IPTC tag marker at offset {offset - 1}. Expected '0x{IptcMarkerByte:X2}' but got '0x{startByte:X}'.");
+                        directory.AddError($"Invalid IPTC tag marker at offset {offset - 1}. Expected '0x{IptcMarkerByte:x2}' but got '0x{startByte:x}'.");
                     break;
                 }
 

@@ -99,7 +99,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             Rational value;
             if (!Directory.TryGetRational(OlympusFocusInfoMakernoteDirectory.TagFocusDistance, out value))
                 return "inf";
-            if (value.Numerator == 0xFFFFFFFF)
+            if (value.Numerator == 0xFFFFFFFF || value.Numerator == 0x00000000)
                 return "inf";
 
             return value.Numerator / 1000.0 + " m";
@@ -193,7 +193,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             if (values[1] == 1)
                 return "Full";
-            return "On " + 1.0 / values[1] + " strength)";
+            return "On (1/" + values[1] + " strength)";
         }
 
         [CanBeNull]
