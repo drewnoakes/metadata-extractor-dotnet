@@ -96,17 +96,23 @@ namespace MetadataExtractor.Tools.FileProcessor
                             var xmpDirectory = directory as XmpDirectory;
                             if (xmpDirectory?.XmpMeta != null)
                             {
-                                var wrote = false;
+                                var props = new List<string>();
                                 foreach (var prop in xmpDirectory.XmpMeta.Properties)
                                 {
                                     var value = prop.Value;
                                     if (value?.Length > 512)
                                         value = value.Substring(0, 512) + $" <truncated from {value.Length} characters>";
-                                    writer.WriteLine($"[XMPMeta - {prop.Namespace}] {prop.Path} = {value}");
-                                    wrote = true;
+                                    props.Add($"[XMPMeta - {prop.Namespace}] {prop.Path} = {value}");
                                 }
-                                if (wrote)
+                                if (props.Count > 0)
+                                {
+                                    props.Sort();
+
+                                    foreach (var prop in props)
+                                        writer.WriteLine(prop);
+
                                     writer.Write('\n');
+                                }
                             }
                         }
 
