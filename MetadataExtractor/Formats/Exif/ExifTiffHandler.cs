@@ -896,14 +896,13 @@ namespace MetadataExtractor.Formats.Exif
 
         private static string ProcessReconyxUltraFireVersion(int versionOffset, [NotNull] IndexedReader reader)
         {
-            var major = reader.GetByte(versionOffset);
-            var minor = reader.GetByte(versionOffset + 1);
-            var year = ByteConvert.FromBigEndianToNative(reader.GetUInt16(versionOffset + 2));
-            var month = reader.GetByte(versionOffset + 4);
-            var day = reader.GetByte(versionOffset + 5);
-            var revision = reader.GetString(versionOffset + 6, 1, Encoding.UTF8);
-
-            return $"{major}.{minor}.{year:x4}{month:00}{day:00}{revision}";
+            string major = reader.GetByte(versionOffset).ToString();
+            string minor = reader.GetByte(versionOffset + 1).ToString();
+            string year = ByteConvert.FromBigEndianToNative(reader.GetUInt16(versionOffset + 2)).ToString("x4");
+            string month = reader.GetByte(versionOffset + 4).ToString("x2");
+            string day = reader.GetByte(versionOffset + 5).ToString("x2");
+            string revision = reader.GetString(versionOffset + 6, 1, Encoding.UTF8);
+            return major + "." + minor + "." + year + "." + month + "." + day + revision;
         }
     }
 }
