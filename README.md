@@ -2,6 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/90hfuleg8wj8r956?svg=true)](https://ci.appveyor.com/project/drewnoakes/metadata-extractor-dotnet)
 [![MetadataExtractor NuGet version](https://img.shields.io/nuget/v/MetadataExtractor.svg)](https://www.nuget.org/packages/MetadataExtractor/)
+[![MetadataExtractor NuGet pre-release version](https://img.shields.io/nuget/vpre/MetadataExtractor.svg)](https://www.nuget.org/packages/MetadataExtractor/)
 
 _MetadataExtractor_ is a straightforward .NET library for reading metadata from image and movie files.
 
