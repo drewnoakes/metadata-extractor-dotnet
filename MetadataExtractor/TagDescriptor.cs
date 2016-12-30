@@ -348,7 +348,7 @@ namespace MetadataExtractor
         }
 
         [CanBeNull]
-        public string GetOrientationDescription(int tag)
+        protected string GetOrientationDescription(int tag)
         {
             return GetIndexedDescription(tag, 1,
                 "Top, left side (Horizontal / normal)",
@@ -361,7 +361,7 @@ namespace MetadataExtractor
         }
 
         [CanBeNull]
-        public string GetShutterSpeedDescription(int tagId)
+        protected string GetShutterSpeedDescription(int tagId)
         {
             // I believe this method to now be stable, but am leaving some alternative snippets of
             // code in here, to assist anyone who's looking into this (given that I don't have a public CVS).
@@ -392,7 +392,7 @@ namespace MetadataExtractor
 
         // EXIF LightSource
         [CanBeNull]
-        public string GetLightSourceDescription(ushort wbtype)
+        protected string GetLightSourceDescription(ushort wbtype)
         {
             switch (wbtype)
             {
