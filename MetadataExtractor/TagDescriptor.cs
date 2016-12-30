@@ -301,7 +301,7 @@ namespace MetadataExtractor
 
         [Pure]
         [NotNull]
-        protected static string GetFStopDescription(double fStop) => $"f/{Math.Round(fStop, 1, MidpointRounding.AwayFromZero)}";
+        protected static string GetFStopDescription(double fStop) => $"f/{Math.Round(fStop, 1, MidpointRounding.AwayFromZero):0.0}";
 
         [Pure]
         [NotNull]
