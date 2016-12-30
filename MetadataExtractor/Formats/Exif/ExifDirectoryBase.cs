@@ -769,7 +769,7 @@ namespace MetadataExtractor.Formats.Exif
             map[TagRelatedImageHeight] = "Related Image Height";
             map[TagRating] = "Rating";
             map[TagCfaRepeatPatternDim] = "CFA Repeat Pattern Dim";
-            map[TagCfaPattern2] = "CFA Pattern 2";
+            map[TagCfaPattern2] = "CFA Pattern";
             map[TagBatteryLevel] = "Battery Level";
             map[TagCopyright] = "Copyright";
             map[TagExposureTime] = "Exposure Time";
