@@ -30,6 +30,7 @@ using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Xmp;
+using MetadataExtractor.Util;
 
 namespace MetadataExtractor.Tools.FileProcessor
 {
@@ -176,7 +177,14 @@ namespace MetadataExtractor.Tools.FileProcessor
 
             var stream = File.Open(outputPath, FileMode.Create);
             var writer = new StreamWriter(stream, new UTF8Encoding(false));
-            writer.Write("FILE: {0}\n\n", fileName);
+            writer.Write("FILE: {0}\n", fileName);
+
+            // Detect file type
+            using (var fileTypeDetectStream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                var fileType = FileTypeDetector.DetectFileType(fileTypeDetectStream);
+                writer.Write("TYPE: {0}\n\n", fileType.ToString().ToUpper());
+            }
 
             return writer;
         }
