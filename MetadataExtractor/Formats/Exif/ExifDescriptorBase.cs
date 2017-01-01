@@ -102,6 +102,8 @@ namespace MetadataExtractor.Formats.Exif
                     return GetThresholdingDescription();
                 case ExifDirectoryBase.TagFillOrder:
                     return GetFillOrderDescription();
+                case ExifDirectoryBase.TagCfaPattern2:
+                    return GetCfaPattern2Description();
                 case ExifDirectoryBase.TagExposureTime:
                     return GetExposureTimeDescription();
                 case ExifDirectoryBase.TagShutterSpeed:
@@ -683,35 +685,83 @@ namespace MetadataExtractor.Formats.Exif
         /// Converted from Exiftool version 10.33 created by Phil Harvey
         /// http://www.sno.phy.queensu.ca/~phil/exiftool/
         /// lib\Image\ExifTool\Exif.pm
+        ///
+        /// Indicates the color filter array (CFA) geometric pattern of the image sensor when a one-chip color area sensor is used.
+        /// It does not apply to all sensing methods.
         /// </remarks>
         [CanBeNull]
         public string GetCfaPatternDescription()
         {
-            int[] intpattern = DecodeCFAPattern(ExifDirectoryBase.TagCfaPattern);
+            return FormatCFAPattern(DecodeCFAPattern(ExifDirectoryBase.TagCfaPattern));
+        }
 
-            if (intpattern.Length < 2)
+        /// <summary>
+        /// String description of CFA Pattern
+        /// </summary>
+        /// <remarks>
+        /// Indicates the color filter array (CFA) geometric pattern of the image sensor when a one-chip color area sensor is used.
+        /// It does not apply to all sensing methods.
+        ///
+        /// <see cref="ExifDirectoryBase.TagCfaPattern2"/> holds only the pixel pattern. <see cref="ExifDirectoryBase.TagCfaRepeatPatternDim"/> is expected to exist and pass
+        /// some conditional tests.
+        /// </remarks>
+        [CanBeNull]
+        public string GetCfaPattern2Description()
+        {
+            var values = Directory.GetByteArray(ExifDirectoryBase.TagCfaPattern2);
+            if (values == null)
+                return null;
+
+            var repeatPattern = Directory.GetObject(ExifDirectoryBase.TagCfaRepeatPatternDim) as ushort[];
+            if(repeatPattern == null)
+                return $"Repeat Pattern not found for CFAPattern ({base.GetDescription(ExifDirectoryBase.TagCfaPattern2)})";
+
+            System.Console.WriteLine("rp.length=" + repeatPattern.Length + "; cfap2.length=" + values.Length);
+            if (repeatPattern.Length == 2 && values.Length == (repeatPattern[0] * repeatPattern[1]))
+            {
+                int[] intpattern = new int[2 + values.Length];
+                intpattern[0] = repeatPattern[0];
+                intpattern[1] = repeatPattern[1];
+
+                Array.Copy(values, 0, intpattern, 2, values.Length);
+
+                return FormatCFAPattern(intpattern);
+            }
+            else
+                return $"Unknown Pattern ({base.GetDescription(ExifDirectoryBase.TagCfaPattern2)})";
+        }
+
+        [CanBeNull]
+        private string FormatCFAPattern(int[] pattern)
+        {
+            if (pattern.Length < 2)
                 return "<truncated data>";
-            else if (intpattern[0] == 0 && intpattern[1] == 0)
+            else if (pattern[0] == 0 && pattern[1] == 0)
                 return "<zero pattern size>";
 
-            int end = 2 + intpattern[0] * intpattern[1];
-            if (end > intpattern.Length)
+            int end = 2 + pattern[0] * pattern[1];
+            if (end > pattern.Length)
                 return "<invalid pattern size>";
 
             string[] cfaColors = { "Red", "Green", "Blue", "Cyan", "Magenta", "Yellow", "White" };
 
-            string ret = "[";
+            StringBuilder ret = new StringBuilder();
+            ret.Append("[");
             for(int pos = 2; pos < end; pos++)
             {
-                ret += cfaColors[intpattern[pos]];
-                if ((pos - 2) % intpattern[1] == 0)
-                    ret += ",";
-                else if(pos != end - 1)
-                    ret += "][";
-            }
-            ret += "]";
+                if (pattern[pos] <= cfaColors.Length - 1)
+                    ret.Append(cfaColors[pattern[pos]]);
+                else
+                    ret.Append("Unknown");  // indicated pattern position is outside the array bounds
 
-            return ret;
+                if ((pos - 2) % pattern[1] == 0)
+                    ret.Append(",");
+                else if(pos != end - 1)
+                    ret.Append("][");
+            }
+            ret.Append("]");
+
+            return ret.ToString();
         }
 
         /// <summary>
@@ -721,6 +771,10 @@ namespace MetadataExtractor.Formats.Exif
         /// Converted from Exiftool version 10.33 created by Phil Harvey
         /// http://www.sno.phy.queensu.ca/~phil/exiftool/
         /// lib\Image\ExifTool\Exif.pm
+        ///
+        /// The value consists of:
+        /// - Two short, being the grid width and height of the repeated pattern.
+        /// - Next, for every pixel in that pattern, an identification code.
         /// </remarks>
         private int[] DecodeCFAPattern(int tagType)
         {
@@ -758,7 +812,7 @@ namespace MetadataExtractor.Formats.Exif
                 /*if (values.Length < (2 + item0 * item1))
                     Console.WriteLine("Invalid CFAPattern");
                 else*/
-                if (values.Length >= (2 + item0 * item1))
+            if (values.Length >= (2 + item0 * item1))
                     copyArray = true;
             }
             else
