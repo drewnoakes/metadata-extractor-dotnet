@@ -713,7 +713,7 @@ namespace MetadataExtractor.Formats.Exif
                 return null;
 
             var repeatPattern = Directory.GetObject(ExifDirectoryBase.TagCfaRepeatPatternDim) as ushort[];
-            if(repeatPattern == null)
+            if (repeatPattern == null)
                 return $"Repeat Pattern not found for CFAPattern ({base.GetDescription(ExifDirectoryBase.TagCfaPattern2)})";
 
             if (repeatPattern.Length == 2 && values.Length == (repeatPattern[0] * repeatPattern[1]))
@@ -726,16 +726,16 @@ namespace MetadataExtractor.Formats.Exif
 
                 return FormatCFAPattern(intpattern);
             }
-            else
-                return $"Unknown Pattern ({base.GetDescription(ExifDirectoryBase.TagCfaPattern2)})";
+
+            return $"Unknown Pattern ({base.GetDescription(ExifDirectoryBase.TagCfaPattern2)})";
         }
 
         [CanBeNull]
-        private string FormatCFAPattern(int[] pattern)
+        private static string FormatCFAPattern(int[] pattern)
         {
             if (pattern.Length < 2)
                 return "<truncated data>";
-            else if (pattern[0] == 0 && pattern[1] == 0)
+            if (pattern[0] == 0 && pattern[1] == 0)
                 return "<zero pattern size>";
 
             int end = 2 + pattern[0] * pattern[1];
@@ -746,7 +746,7 @@ namespace MetadataExtractor.Formats.Exif
 
             StringBuilder ret = new StringBuilder();
             ret.Append("[");
-            for(int pos = 2; pos < end; pos++)
+            for (int pos = 2; pos < end; pos++)
             {
                 if (pattern[pos] <= cfaColors.Length - 1)
                     ret.Append(cfaColors[pattern[pos]]);
@@ -808,13 +808,15 @@ namespace MetadataExtractor.Formats.Exif
                 item0 = reader.GetInt16(0);
                 item1 = reader.GetInt16(2);
 
-            if (values.Length >= (2 + item0 * item1))
+                if (values.Length >= (2 + item0 * item1))
                     copyArray = true;
             }
             else
+            {
                 copyArray = true;
+            }
 
-            if(copyArray)
+            if (copyArray)
             {
                 ret[0] = item0;
                 ret[1] = item1;
