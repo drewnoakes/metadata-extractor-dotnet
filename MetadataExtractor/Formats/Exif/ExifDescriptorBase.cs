@@ -716,7 +716,6 @@ namespace MetadataExtractor.Formats.Exif
             if(repeatPattern == null)
                 return $"Repeat Pattern not found for CFAPattern ({base.GetDescription(ExifDirectoryBase.TagCfaPattern2)})";
 
-            System.Console.WriteLine("rp.length=" + repeatPattern.Length + "; cfap2.length=" + values.Length);
             if (repeatPattern.Length == 2 && values.Length == (repeatPattern[0] * repeatPattern[1]))
             {
                 int[] intpattern = new int[2 + values.Length];
@@ -809,9 +808,6 @@ namespace MetadataExtractor.Formats.Exif
                 item0 = reader.GetInt16(0);
                 item1 = reader.GetInt16(2);
 
-                /*if (values.Length < (2 + item0 * item1))
-                    Console.WriteLine("Invalid CFAPattern");
-                else*/
             if (values.Length >= (2 + item0 * item1))
                     copyArray = true;
             }
