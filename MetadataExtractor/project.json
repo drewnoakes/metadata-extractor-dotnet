@@ -49,7 +49,7 @@
   },
 
   "dependencies": {
-    "XmpCore": "2.0.0-rc4"
+    "XmpCore": "2.0.0"
   },
 
   "frameworks": {
