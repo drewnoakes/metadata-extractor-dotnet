@@ -56,7 +56,7 @@
     "netstandard1.3": {
       "dependencies": {
         "NETStandard.Library": "1.6.0",
-        "System.Text.Encoding.CodePages": "4.0.1"
+        "System.Text.Encoding.CodePages": "4.3.0"
       }
     },
     "net35": {},
