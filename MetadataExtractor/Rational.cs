@@ -230,18 +230,6 @@ namespace MetadataExtractor
             return simplifiedInstance.ToString(provider);
         }
 
-        /// <summary>
-        /// Decides whether a brute-force simplification calculation should be avoided
-        /// by comparing the maximum number of possible calculations with some threshold.
-        /// </summary>
-        /// <returns>true if the simplification should be performed, otherwise false</returns>
-        private bool TooComplexForSimplification()
-        {
-            var maxPossibleCalculations = (Math.Min(Denominator, Numerator) - 1)/5d + 2;
-            const int maxSimplificationCalculations = 1000;
-            return maxPossibleCalculations > maxSimplificationCalculations;
-        }
-
         #endregion
 
         #region Equality and hashing
@@ -286,53 +274,35 @@ namespace MetadataExtractor
         #endregion
 
         /// <summary>
-        /// Simplifies the <see cref="Rational"/> number.
+        /// Simplifies the representation of this <see cref="Rational"/> number.
         /// </summary>
         /// <remarks>
-        /// Prime number series: 1, 2, 3, 5, 7, 9, 11, 13, 17
+        /// For example, <c>5/10</c> simplifies to <c>1/2</c> because both <see cref="Numerator"/>
+        /// and <see cref="Denominator"/> share a common factor of 5.
         /// <para />
-        /// To reduce a rational, need to see if both numerator and denominator are divisible
-        /// by a common factor.  Using the prime number series in ascending order guarantees
-        /// the minimum number of checks required.
-        /// <para />
-        /// However, generating the prime number series seems to be a hefty task.  Perhaps
-        /// it's simpler to check if both d &amp; n are divisible by all numbers from 2
-        /// -&gt; (Math.min(denominator, numerator) / 2). In doing this, one can check for 2
-        /// and 5 once, then ignore all even numbers, and all numbers ending in 0 or 5.
-        /// This leaves four numbers from every ten to check.
-        /// <para />
-        /// Therefore, the max number of pairs of modulus divisions required will be:
-        /// <code>
-        ///  4   Math.min(denominator, numerator) - 1
-        /// -- * ------------------------------------ + 2
-        /// 10                    2
-        ///      Math.min(denominator, numerator) - 1
-        ///    = ------------------------------------ + 2
-        ///                       5
-        /// </code>
+        /// Uses the Euclidean Algorithm to find the greatest common divisor.
         /// </remarks>
         /// <returns>
-        /// A simplified instance, or if the Rational could not be simplified,
-        /// returns itself unchanged.
+        /// A simplified instance if one exists, otherwise a copy of the original value.
         /// </returns>
         public Rational GetSimplifiedInstance()
         {
-            if (TooComplexForSimplification())
-                return this;
+            var gcd = GCD(Numerator, Denominator);
 
-            for (var factor = 2; factor <= Math.Min(Denominator, Numerator); factor++)
+            return new Rational(Numerator / gcd, Denominator / gcd);
+        }
+
+        private static long GCD(long a, long b)
+        {
+            while (a != 0 && b != 0)
             {
-                if ((factor%2 == 0 && factor > 2) || (factor%5 == 0 && factor > 5))
-                    continue;
-
-                if (Denominator % factor == 0 && Numerator % factor == 0)
-                {
-                    // found a common factor
-                    return new Rational(Numerator / factor, Denominator / factor);
-                }
+                if (a > b)
+                    a %= b;
+                else
+                    b %= a;
             }
 
-            return this;
+            return a == 0 ? b : a;
         }
 
         #region Equality operators
