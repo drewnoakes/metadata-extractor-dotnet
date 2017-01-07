@@ -7,7 +7,11 @@
     "MetadataExtractor": "*",
     "System.Runtime.Serialization.Primitives": "4.3.0",
     "xunit": "2.1.0",
-    "dotnet-test-xunit": "1.0.0-rc2-192208-24"
+    "dotnet-test-xunit": "1.0.0-rc2-192208-24",
+    "JetBrains.Annotations": {
+      "version": "10.2.1",
+      "type": "build"
+    }
   },
   "testRunner": "xunit",
   "frameworks": {

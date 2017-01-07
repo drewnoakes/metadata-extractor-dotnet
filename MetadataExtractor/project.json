@@ -49,7 +49,11 @@
   },
 
   "dependencies": {
-    "XmpCore": "2.0.0"
+    "XmpCore": "2.0.0",
+    "JetBrains.Annotations": {
+      "version": "10.2.1",
+      "type": "build"
+    }
   },
 
   "frameworks": {
