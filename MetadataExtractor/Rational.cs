@@ -43,7 +43,7 @@ namespace MetadataExtractor
     [Serializable]
     [TypeConverter(typeof(RationalConverter))]
 #endif
-    public struct Rational : IConvertible
+    public struct Rational : IConvertible, IEquatable<Rational>
     {
         /// <summary>Gets the denominator.</summary>
         public long Denominator { get; }
@@ -246,7 +246,31 @@ namespace MetadataExtractor
 
         #region Equality and hashing
 
-        private bool Equals(Rational other) => Denominator == other.Denominator && Numerator == other.Numerator;
+        /// <summary>
+        /// Indicates whether this instance and <paramref name="other"/> are numerically equal,
+        /// even if their representations differ.
+        /// </summary>
+        /// <remarks>
+        /// For example, <c>1/2</c> is equal to <c>10/20</c> by this method.
+        /// Similarly, <c>1/0</c> is equal to <c>100/0</c> by this method.
+        /// To test equal representations, use <see cref="EqualsExact"/>.
+        /// </remarks>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(Rational other) => other.ToDecimal().Equals(ToDecimal());
+
+        /// <summary>
+        /// Indicates whether this instance and <paramref name="other"/> have identical
+        /// <see cref="Numerator"/> and <see cref="Denominator"/>.
+        /// </summary>
+        /// <remarks>
+        /// For example, <c>1/2</c> is not equal to <c>10/20</c> by this method.
+        /// Similarly, <c>1/0</c> is not equal to <c>100/0</c> by this method.
+        /// To test numerically equivalence, use <see cref="Equals(MetadataExtractor.Rational)"/>.
+        /// </remarks>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool EqualsExact(Rational other) => Denominator == other.Denominator && Numerator == other.Numerator;
 
         public override bool Equals(object obj)
         {
@@ -254,7 +278,7 @@ namespace MetadataExtractor
                 return false;
             if (ReferenceEquals(this, obj))
                 return true;
-            return obj is Rational && ((Rational)obj).ToDecimal().Equals(ToDecimal());
+            return obj is Rational && Equals((Rational)obj);
         }
 
         public override int GetHashCode() => unchecked(Denominator.GetHashCode()*397) ^ Numerator.GetHashCode();

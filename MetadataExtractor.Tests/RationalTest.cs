@@ -174,5 +174,31 @@ namespace MetadataExtractor.Tests
             Assert.True(new Rational(0, 1) == new Rational(0, 0));
             Assert.True(new Rational(1, 0) == new Rational(0, 0));
         }
+
+        [Fact]
+        public void EqualsMethod()
+        {
+            Assert.True(new Rational(1, 2).Equals(new Rational(1, 2)));
+            Assert.False(new Rational(1, 2).Equals(new Rational(2, 1)));
+
+            Assert.True(new Rational(1, 2).Equals(new Rational(2, 4)));
+            Assert.True(new Rational(0, 0).Equals(new Rational(0, 0)));
+
+            Assert.True(new Rational(0, 1).Equals(new Rational(0, 0)));
+            Assert.True(new Rational(1, 0).Equals(new Rational(0, 0)));
+        }
+
+        [Fact]
+        public void EqualsExactMethod()
+        {
+            Assert.True(new Rational(1, 2).EqualsExact(new Rational(1, 2)));
+            Assert.False(new Rational(1, 2).EqualsExact(new Rational(2, 1)));
+
+            Assert.False(new Rational(1, 2).EqualsExact(new Rational(2, 4)));
+            Assert.True(new Rational(0, 0).EqualsExact(new Rational(0, 0)));
+
+            Assert.False(new Rational(0, 1).EqualsExact(new Rational(0, 0)));
+            Assert.False(new Rational(1, 0).EqualsExact(new Rational(0, 0)));
+        }
     }
 }
