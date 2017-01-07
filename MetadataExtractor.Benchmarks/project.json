@@ -6,8 +6,8 @@
   },
   "dependencies": {
     "MetadataExtractor": "*",
-    "BenchmarkDotNet": "0.9.9",
-    "BenchmarkDotNet.Core": "0.9.9",
+    "BenchmarkDotNet": "0.10.1",
+    "BenchmarkDotNet.Core": "0.10.1",
     "JetBrains.Annotations": "10.2.1"
   },
   "frameworks": {
