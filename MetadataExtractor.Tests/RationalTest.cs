@@ -271,6 +271,7 @@ namespace MetadataExtractor.Tests
                 var actualSimple = complex.GetSimplifiedInstance();
 
                 Assert.True(simple.EqualsExact(actualSimple), $"Complex {complex}, Expected simple {simple}, Actual simple {actualSimple}");
+                Assert.Equal(actualSimple.ToDecimal(), complex.ToDecimal());
             }
 
             simple = new Rational(2, 1);
@@ -281,7 +282,44 @@ namespace MetadataExtractor.Tests
                 var actualSimple = complex.GetSimplifiedInstance();
 
                 Assert.True(simple.EqualsExact(actualSimple), $"Complex {complex}, Expected simple {simple}, Actual simple {actualSimple}");
+                Assert.Equal(actualSimple.ToDecimal(), complex.ToDecimal());
             }
+
+            simple = new Rational(-1, 2);
+
+            foreach (var prime in _primes)
+            {
+                var complex = new Rational(-prime, 2 * prime);
+                var actualSimple = complex.GetSimplifiedInstance();
+
+                Assert.True(simple.EqualsExact(actualSimple), $"Complex {complex}, Expected simple {simple}, Actual simple {actualSimple}");
+                Assert.Equal(actualSimple.ToDecimal(), complex.ToDecimal());
+            }
+
+            simple = new Rational(1, -2);
+
+            foreach (var prime in _primes)
+            {
+                var complex = new Rational(prime, -2 * prime);
+                var actualSimple = complex.GetSimplifiedInstance();
+
+                Assert.True(simple.EqualsExact(actualSimple), $"Complex {complex}, Expected simple {simple}, Actual simple {actualSimple}");
+                Assert.Equal(actualSimple.ToDecimal(), complex.ToDecimal());
+            }
+
+            simple = new Rational(-1, -2);
+
+            foreach (var prime in _primes)
+            {
+                var complex = new Rational(-prime, -2 * prime);
+                var actualSimple = complex.GetSimplifiedInstance();
+
+                Assert.True(simple.EqualsExact(actualSimple), $"Complex {complex}, Expected simple {simple}, Actual simple {actualSimple}");
+                Assert.Equal(actualSimple.ToDecimal(), complex.ToDecimal());
+            }
+
+            Assert.Equal(new Rational(-32768, 65535), new Rational(-32768, 65535).GetSimplifiedInstance());
+            Assert.Equal(new Rational(-32768, 32767), new Rational(-32768, 32767).GetSimplifiedInstance());
         }
     }
 }

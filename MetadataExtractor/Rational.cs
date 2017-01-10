@@ -287,7 +287,7 @@ namespace MetadataExtractor
         /// </returns>
         public Rational GetSimplifiedInstance()
         {
-            var gcd = GCD(Numerator, Denominator);
+            var gcd = GCD(Math.Abs(Numerator), Math.Abs(Denominator));
 
             return new Rational(Numerator / gcd, Denominator / gcd);
         }
