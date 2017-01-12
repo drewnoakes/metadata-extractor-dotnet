@@ -430,9 +430,10 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetNewSubfileTypeDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagNewSubfileType, 1,
+            return GetIndexedDescription(ExifDirectoryBase.TagNewSubfileType, 0,
                 "Full-resolution image",
                 "Reduced-resolution image",
+                "Single page of multi-page image",
                 "Single page of multi-page reduced-resolution image",
                 "Transparency mask",
                 "Transparency mask of reduced-resolution image",

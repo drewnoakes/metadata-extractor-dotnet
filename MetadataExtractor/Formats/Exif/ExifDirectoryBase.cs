@@ -148,6 +148,7 @@ namespace MetadataExtractor.Formats.Exif
         public const int TagPageName = 0x011D;
 
         public const int TagResolutionUnit = 0x0128;
+        public const int TagPageNumber = 0x0129;
 
         public const int TagTransferFunction = 0x012D;
 
@@ -742,6 +743,7 @@ namespace MetadataExtractor.Formats.Exif
             map[TagPlanarConfiguration] = "Planar Configuration";
             map[TagPageName] = "Page Name";
             map[TagResolutionUnit] = "Resolution Unit";
+            map[TagPageNumber] = "Page Number";
             map[TagTransferFunction] = "Transfer Function";
             map[TagSoftware] = "Software";
             map[TagDateTime] = "Date/Time";
