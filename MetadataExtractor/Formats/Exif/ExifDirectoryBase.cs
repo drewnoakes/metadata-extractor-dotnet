@@ -184,6 +184,15 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagJpegProc = 0x0200;
 
+        // 0x0201 can have all kinds of descriptions for thumbnail starting index
+        // 0x0202 can have all kinds of descriptions for thumbnail length
+        public const int TagJpegRestartInterval = 0x0203;
+        public const int TagJpegLosslessPredictors = 0x0205;
+        public const int TagJpegPointTransforms = 0x0206;
+        public const int TagJpegQTables = 0x0207;
+        public const int TagJpegDcTables = 0x0208;
+        public const int TagJpegAcTables = 0x0209;
+
         public const int TagYCbCrCoefficients = 0x0211;
 
         public const int TagYCbCrSubsampling = 0x0212;
@@ -760,6 +769,14 @@ namespace MetadataExtractor.Formats.Exif
             map[TagTransferRange] = "Transfer Range";
             map[TagJpegTables] = "JPEG Tables";
             map[TagJpegProc] = "JPEG Proc";
+
+            map[TagJpegRestartInterval] = "JPEG Restart Interval";
+            map[TagJpegLosslessPredictors] = "JPEG Lossless Predictors";
+            map[TagJpegPointTransforms] = "JPEG Point Transforms";
+            map[TagJpegQTables] = "JPEGQ Tables";
+            map[TagJpegDcTables] = "JPEGDC Tables";
+            map[TagJpegAcTables] = "JPEGAC Tables";
+
             map[TagYCbCrCoefficients] = "YCbCr Coefficients";
             map[TagYCbCrSubsampling] = "YCbCr Sub-Sampling";
             map[TagYCbCrPositioning] = "YCbCr Positioning";
