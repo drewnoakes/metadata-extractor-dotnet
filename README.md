@@ -157,6 +157,13 @@ In 2014, Yakov Danilov (for Imazen LLC) converted the code to C# using Sharpen.
 The code has subsequently been edited to provide a more idiomatic .NET API.
 Both projects are now developed in unison and aim to be functionally equivalent.
 
+## Other languages
+
+- Java  [metadata-extractor](https://github.com/drewnoakes/metadata-extractor) is the original implementation of this project, from which this .NET version was ported
+- PHP [php-metadata-extractor](https://github.com/gomoob/php-metadata-extractor) wraps the Java project, making it available to users of PHP
+
+---
+
 More information about this project is available at:
 
 * https://drewnoakes.com/code/exif/
