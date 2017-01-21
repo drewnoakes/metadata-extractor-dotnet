@@ -249,6 +249,12 @@ namespace MetadataExtractor.IO
             return encoding.GetString(bytes, 0, bytes.Length);
         }
 
+        [NotNull]
+        public StringValue GetStringValue(int bytesRequested, Encoding encoding = null)
+        {
+            return new StringValue(GetBytes(bytesRequested), encoding);
+        }
+
         /// <summary>
         /// Creates a <see cref="String"/> from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.
         /// </summary>
