@@ -186,6 +186,12 @@ namespace MetadataExtractor.Formats.Png
                     // Only compression method allowed by the spec is zero: deflate
                     // This assumes 1-byte-per-char, which it is by spec.
                     var bytesLeft = bytes.Length - profileName.Bytes.Length - 2;
+
+                    // http://george.chiramattel.com/blog/2007/09/deflatestream-block-length-does-not-match.html
+                    // First two bytes are part of the zlib specification (RFC 1950), not the deflate specification (RFC 1951).
+                    reader.GetByte(); reader.GetByte();
+                    bytesLeft -= 2;
+
                     var compressedProfile = reader.GetBytes(bytesLeft);
                     using (var inflaterStream = new DeflateStream(new MemoryStream(compressedProfile), CompressionMode.Decompress))
 //                    using (var inflaterStream = new InflaterInputStream(new MemoryStream(compressedProfile)))
@@ -348,15 +354,13 @@ namespace MetadataExtractor.Formats.Png
                 int minute = reader.GetByte();
                 int second = reader.GetByte();
                 var directory = new PngDirectory(PngChunkType.tIME);
-                try
+                if (DateUtil.IsValidDate(year, month, day) && DateUtil.IsValidTime(hour, minute, second))
                 {
                     var time = new DateTime(year, month, day, hour, minute, second, DateTimeKind.Unspecified);
                     directory.Set(PngDirectory.TagLastModificationTime, time);
                 }
-                catch (ArgumentOutOfRangeException e)
-                {
-                    directory.AddError("Error constructing DateTime: " + e.Message);
-                }
+                else
+                    directory.AddError($"PNG tIME data describes an invalid date/time: year={year} month={month} day={day} hour={hour} minute={minute} second={second}");
                 yield return directory;
             }
             else if (chunkType == PngChunkType.pHYs)

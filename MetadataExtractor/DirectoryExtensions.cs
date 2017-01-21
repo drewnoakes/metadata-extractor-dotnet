@@ -410,6 +410,18 @@ namespace MetadataExtractor
             if (s != null)
                 return new[] { s };
 
+            if (o is StringValue)
+                return new string[] { o.ToString() };
+
+            if (o is StringValue[])
+            {
+                StringValue[] stringValues = (StringValue[])o;
+                string[] strs = new string[stringValues.Length];
+                for (int i = 0; i < strs.Length; i++)
+                    strs[i] = stringValues[i].ToString();
+                return strs;
+            }
+
             var ints = o as int[];
             if (ints != null)
             {
@@ -436,6 +448,25 @@ namespace MetadataExtractor
                     strings[i] = rationals[i].ToSimpleString(false);
                 return strings;
             }
+
+            return null;
+        }
+
+        /// <summary>Gets the specified tag's value as a StringValue array, if possible.</summary>
+        /// <remarks>Only succeeds if the tag is set as StringValue[], or String.</remarks>
+        /// <returns>the tag's value as an array of StringValues. If the value is unset or cannot be converted, <c>null</c> is returned.</returns>
+        [Pure]
+        [CanBeNull]
+        public static StringValue[] GetStringValueArray([NotNull] this Directory directory, int tagType)
+        {
+            var o = directory.GetObject(tagType);
+
+            if (o == null)
+                return null;
+            if (o is StringValue[])
+                return (StringValue[])o;
+            if (o is StringValue)
+                return new StringValue[] { (StringValue)o };
 
             return null;
         }
@@ -612,6 +643,7 @@ namespace MetadataExtractor
             "yyyy:MM:dd",
             "yyyy-MM-dd",
             "yyyy-MM",
+            "yyyyMMdd", // as used in IPTC data
             "yyyy"
         };
 
@@ -910,6 +942,17 @@ namespace MetadataExtractor
             return bytes == null
                 ? null
                 : encoding.GetString(bytes, 0, bytes.Length);
+        }
+
+        [Pure]
+        [CanBeNull]
+        public static StringValue GetStringValue([NotNull] this Directory directory, int tagType)
+        {
+            var o = directory.GetObject(tagType);
+            if (o is StringValue)
+                return (StringValue)o;
+
+            return default(StringValue);
         }
 
         [Pure]

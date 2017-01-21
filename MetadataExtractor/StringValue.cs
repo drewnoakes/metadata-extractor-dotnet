@@ -63,7 +63,23 @@ namespace MetadataExtractor
 
         short IConvertible.ToInt16(IFormatProvider provider) => short.Parse(ToString());
 
-        int IConvertible.ToInt32(IFormatProvider provider) => int.Parse(ToString());
+        int IConvertible.ToInt32(IFormatProvider provider)
+        {
+            try
+            {
+                return int.Parse(ToString());
+            }
+            catch(Exception)
+            {
+                long val = 0;
+                foreach(byte aByte in Bytes)
+                {
+                    val = val << 8;
+                    val += (aByte & 0xff);
+                }
+                return (int)val;
+            }
+        }
 
         long IConvertible.ToInt64(IFormatProvider provider) => long.Parse(ToString());
 

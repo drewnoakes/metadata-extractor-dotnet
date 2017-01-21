@@ -176,7 +176,6 @@ namespace MetadataExtractor.Formats.Iptc
                 return;
             }
 
-            string str = null;
             switch (tagIdentifier)
             {
                 case IptcDirectory.TagCodedCharacterSet:
@@ -186,8 +185,7 @@ namespace MetadataExtractor.Formats.Iptc
                     if (charset == null)
                     {
                         // Unable to determine the charset, so fall through and treat tag as a regular string
-                        str = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
-                        break;
+                        charset = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
                     }
                     directory.Set(tagIdentifier, charset);
                     return;
@@ -221,45 +219,42 @@ namespace MetadataExtractor.Formats.Iptc
 
             // If we haven't returned yet, treat it as a string
             // NOTE that there's a chance we've already loaded the value as a string above, but failed to parse the value
-            if (str == null)
+            var encodingName = directory.GetString(IptcDirectory.TagCodedCharacterSet);
+            Encoding encoding = null;
+            if (encodingName != null)
             {
-                var encodingName = directory.GetString(IptcDirectory.TagCodedCharacterSet);
-                Encoding encoding = null;
-                if (encodingName != null)
+                try
                 {
-                    try
-                    {
-                        encoding = Encoding.GetEncoding(encodingName);
-                    }
-                    catch (ArgumentException)
-                    { }
+                    encoding = Encoding.GetEncoding(encodingName);
                 }
+                catch (ArgumentException)
+                { }
+            }
 
+            StringValue str;
+            if (encoding != null)
+                str = reader.GetStringValue(tagByteCount, encoding);
+            else
+            {
                 var bytes = reader.GetBytes(tagByteCount);
-
-                if (encoding == null)
-                    encoding = Iso2022Converter.GuessEncoding(bytes);
-
-                if (encoding == null)
-                    encoding = Encoding.UTF8;
-
-                str = encoding.GetString(bytes, 0, bytes.Length);
+                encoding = Iso2022Converter.GuessEncoding(bytes);
+                str = new StringValue(bytes, encoding);
             }
 
             if (directory.ContainsTag(tagIdentifier))
             {
                 // this fancy string[] business avoids using an ArrayList for performance reasons
-                var oldStrings = directory.GetStringArray(tagIdentifier);
+                var oldStrings = directory.GetStringValueArray(tagIdentifier);
 
-                string[] newStrings;
+                StringValue[] newStrings;
                 if (oldStrings == null)
                 {
                     // TODO hitting this block means any prior value(s) are discarded
-                    newStrings = new string[1];
+                    newStrings = new StringValue[1];
                 }
                 else
                 {
-                    newStrings = new string[oldStrings.Length + 1];
+                    newStrings = new StringValue[oldStrings.Length + 1];
                     Array.Copy(oldStrings, 0, newStrings, 0, oldStrings.Length);
                 }
                 newStrings[newStrings.Length - 1] = str;
