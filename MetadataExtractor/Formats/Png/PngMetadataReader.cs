@@ -194,7 +194,6 @@ namespace MetadataExtractor.Formats.Png
 
                     var compressedProfile = reader.GetBytes(bytesLeft);
                     using (var inflaterStream = new DeflateStream(new MemoryStream(compressedProfile), CompressionMode.Decompress))
-//                    using (var inflaterStream = new InflaterInputStream(new MemoryStream(compressedProfile)))
                     {
                         var iccDirectory = new IccReader().Extract(new IndexedCapturingReader(inflaterStream));
                         iccDirectory.Parent = directory;
@@ -236,21 +235,24 @@ namespace MetadataExtractor.Formats.Png
                 if (compressionMethod == 0)
                 {
                     using (var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress))
-                    using (var decompStream = new MemoryStream())
                     {
-#if !NET35
-                        inflaterStream.CopyTo(decompStream);
-#else
-                        byte[] buffer = new byte[256];
-                        int count;
-                        int totalBytes = 0;
-                        while ((count = inflaterStream.Read(buffer, 0, 256)) > 0)
+                        Exception ex = null;
+                        try
                         {
-                            decompStream.Write(buffer, 0, count);
-                            totalBytes += count;
+                            textBytes = ReadStreamToBytes(inflaterStream);
                         }
-#endif
-                        textBytes = decompStream.ToArray();
+                        catch (Exception e)
+                        {
+                            ex = e;
+                        }
+
+                        // Work-around no yield-return from catch blocks
+                        if (ex != null)
+                        {
+                            var directory = new PngDirectory(PngChunkType.zTXt);
+                            directory.AddError($"Exception decompressing {nameof(PngChunkType.zTXt)} chunk with keyword \"{keyword}\": {ex.Message}");
+                            yield return directory;
+                        }
                     }
                 }
                 else
@@ -297,21 +299,24 @@ namespace MetadataExtractor.Formats.Png
                     if (compressionMethod == 0)
                     {
                         using (var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress))
-                        using (var decompStream = new MemoryStream())
                         {
-#if !NET35
-                            inflaterStream.CopyTo(decompStream);
-#else
-                            byte[] buffer = new byte[256];
-                            int count;
-                            int totalBytes = 0;
-                            while ((count = inflaterStream.Read(buffer, 0, 256)) > 0)
+                            Exception ex = null;
+                            try
                             {
-                                decompStream.Write(buffer, 0, count);
-                                totalBytes += count;
+                                textBytes = ReadStreamToBytes(inflaterStream);
                             }
-#endif
-                            textBytes = decompStream.ToArray();
+                            catch (Exception e)
+                            {
+                                ex = e;
+                            }
+
+                            // Work-around no yield-return from catch blocks
+                            if (ex != null)
+                            {
+                                var directory = new PngDirectory(PngChunkType.iTXt);
+                                directory.AddError($"Exception decompressing {nameof(PngChunkType.iTXt)} chunk with keyword \"{keyword}\": {ex.Message}");
+                                yield return directory;
+                            }
                         }
                     }
                     else
@@ -381,6 +386,22 @@ namespace MetadataExtractor.Formats.Png
                 directory.Set(PngDirectory.TagSignificantBits, bytes);
                 yield return directory;
             }
+        }
+
+        private static byte[] ReadStreamToBytes(Stream stream)
+        {
+            var ms = new MemoryStream();
+
+#if !NET35
+            stream.CopyTo(ms);
+#else
+            var buffer = new byte[1024];
+            int count;
+            while ((count = stream.Read(buffer, 0, 256)) > 0)
+                ms.Write(buffer, 0, count);
+#endif
+
+            return ms.ToArray();
         }
     }
 }
