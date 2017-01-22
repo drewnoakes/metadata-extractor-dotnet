@@ -36,10 +36,10 @@ namespace MetadataExtractor.Tests.Formats.Adobe
     public sealed class AdobeJpegReaderTest
     {
         [NotNull]
-        public static AdobeJpegDirectory ProcessBytes([NotNull] string filePath)
+        private static AdobeJpegDirectory ProcessBytes([NotNull] string filePath)
         {
             return new AdobeJpegReader()
-                .Extract(new SequentialByteArrayReader(File.ReadAllBytes(filePath)));
+                .Extract(new SequentialByteArrayReader(File.ReadAllBytes(TestDataUtil.GetPath(filePath))));
         }
 
         [Fact]

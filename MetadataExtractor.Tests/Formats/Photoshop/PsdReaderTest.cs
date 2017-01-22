@@ -22,7 +22,6 @@
 //
 #endregion
 
-using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Photoshop;
@@ -36,9 +35,9 @@ namespace MetadataExtractor.Tests.Formats.Photoshop
     public sealed class PsdReaderTest
     {
         [NotNull]
-        public static PsdHeaderDirectory ProcessBytes([NotNull] string filePath)
+        private static PsdHeaderDirectory ProcessBytes([NotNull] string filePath)
         {
-            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var stream = TestDataUtil.OpenRead(filePath))
             {
                 var directory = new PsdReader().Extract(new SequentialStreamReader(stream)).OfType<PsdHeaderDirectory>().FirstOrDefault();
                 Assert.NotNull(directory);

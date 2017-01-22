@@ -22,7 +22,6 @@
 //
 #endregion
 
-using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Bmp;
 using MetadataExtractor.IO;
@@ -35,9 +34,9 @@ namespace MetadataExtractor.Tests.Formats.Bmp
     public sealed class BmpReaderTest
     {
         [NotNull]
-        public static BmpHeaderDirectory ProcessBytes([NotNull] string file)
+        private static BmpHeaderDirectory ProcessBytes([NotNull] string filePath)
         {
-            using (var stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var stream = TestDataUtil.OpenRead(filePath))
                 return new BmpReader().Extract(new SequentialStreamReader(stream));
         }
 

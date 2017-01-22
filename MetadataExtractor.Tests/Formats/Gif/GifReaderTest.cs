@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Gif;
@@ -39,7 +38,7 @@ namespace MetadataExtractor.Tests.Formats.Gif
         [NotNull]
         private static IEnumerable<Directory> ProcessBytes([NotNull] string file)
         {
-            using (var stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var stream = TestDataUtil.OpenRead(file))
                 return new GifReader().Extract(new SequentialStreamReader(stream));
         }
 

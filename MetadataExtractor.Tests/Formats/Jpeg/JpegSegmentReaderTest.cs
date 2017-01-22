@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
@@ -37,7 +36,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
     {
         private static IReadOnlyList<JpegSegment> ReadSegments(string fileName, ICollection<JpegSegmentType> segmentTypes = null)
         {
-            using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var stream = TestDataUtil.OpenRead(fileName))
                 return JpegSegmentReader.ReadSegments(new SequentialStreamReader(stream), segmentTypes).ToList();
         }
 
@@ -55,12 +54,12 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Assert.Equal(JpegSegmentType.App2, segments[4].Type);
             Assert.Equal(JpegSegmentType.AppE, segments[5].Type);
 
-            Assert.Equal(File.ReadAllBytes("Data/withExifAndIptc.jpg.app0"),   segments[0].Bytes);
-            Assert.Equal(File.ReadAllBytes("Data/withExifAndIptc.jpg.app1.0"), segments[1].Bytes);
-            Assert.Equal(File.ReadAllBytes("Data/withExifAndIptc.jpg.appd"),   segments[2].Bytes);
-            Assert.Equal(File.ReadAllBytes("Data/withExifAndIptc.jpg.app1.1"), segments[3].Bytes);
-            Assert.Equal(File.ReadAllBytes("Data/withExifAndIptc.jpg.app2"),   segments[4].Bytes);
-            Assert.Equal(File.ReadAllBytes("Data/withExifAndIptc.jpg.appe"),   segments[5].Bytes);
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app0"),   segments[0].Bytes);
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app1.0"), segments[1].Bytes);
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.appd"),   segments[2].Bytes);
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app1.1"), segments[3].Bytes);
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2"),   segments[4].Bytes);
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.appe"),   segments[5].Bytes);
         }
 
         [Fact]
@@ -73,8 +72,8 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Assert.Equal(JpegSegmentType.App0, segments[0].Type);
             Assert.Equal(JpegSegmentType.App2, segments[1].Type);
 
-            Assert.Equal(File.ReadAllBytes("Data/withExifAndIptc.jpg.app0"), segments[0].Bytes);
-            Assert.Equal(File.ReadAllBytes("Data/withExifAndIptc.jpg.app2"), segments[1].Bytes);
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app0"), segments[0].Bytes);
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2"), segments[1].Bytes);
         }
 
         [Fact]

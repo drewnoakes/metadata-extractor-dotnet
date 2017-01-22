@@ -22,7 +22,6 @@
 //
 #endregion
 
-using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Iptc;
@@ -37,9 +36,9 @@ namespace MetadataExtractor.Tests.Formats.Iptc
     {
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static IptcDirectory ProcessBytes([NotNull] string filePath)
+        private static IptcDirectory ProcessBytes([NotNull] string filePath)
         {
-            var bytes = File.ReadAllBytes(filePath);
+            var bytes = TestDataUtil.GetBytes(filePath);
             var directory = new IptcReader().Extract(new SequentialByteArrayReader(bytes), bytes.Length);
             Assert.NotNull(directory);
             return directory;

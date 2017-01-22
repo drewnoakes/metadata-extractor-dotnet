@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using MetadataExtractor.Formats.Png;
 using MetadataExtractor.IO;
@@ -37,9 +36,9 @@ namespace MetadataExtractor.Tests.Formats.Png
     {
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        public static IList<PngChunk> ProcessFile(string filePath)
+        private static IList<PngChunk> ProcessFile(string filePath)
         {
-            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var stream = TestDataUtil.OpenRead(filePath))
                 return new PngChunkReader().Extract(new SequentialStreamReader(stream), null).ToList();
         }
 

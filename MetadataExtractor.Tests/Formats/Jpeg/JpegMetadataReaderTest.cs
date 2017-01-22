@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Jpeg;
@@ -46,7 +45,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Fact]
         public void ExtractMetadataUsingStream()
         {
-            using (var stream = new FileStream("Data/withExif.jpg", FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var stream = TestDataUtil.OpenRead("Data/withExif.jpg"))
                 Validate(JpegMetadataReader.ReadMetadata(stream));
         }
 

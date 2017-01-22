@@ -24,7 +24,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
@@ -42,7 +41,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [NotNull]
         public static IList<Directory> ProcessSegmentBytes([NotNull] string filePath, JpegSegmentType type)
         {
-            var segment = new JpegSegment(type, File.ReadAllBytes(filePath), 0);
+            var segment = new JpegSegment(type, TestDataUtil.GetBytes(filePath), 0);
 
             return new ExifReader().ReadJpegSegments(new[] { segment }).ToList();
         }
