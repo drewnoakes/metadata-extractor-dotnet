@@ -3,11 +3,13 @@ using System.Globalization;
 using System.Reflection;
 using Xunit.Sdk;
 
+// ReSharper disable MemberCanBePrivate.Global
+
 namespace MetadataExtractor.Tests
 {
     /// <summary>
     /// Apply this attribute to your test method to replace the
-    /// <see cref="Thread.CurrentThread" /> <see cref="CultureInfo.CurrentCulture" /> and
+    /// <see cref="System.Threading.Thread.CurrentThread" /> <see cref="CultureInfo.CurrentCulture" /> and
     /// <see cref="CultureInfo.CurrentUICulture" /> with another culture.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
