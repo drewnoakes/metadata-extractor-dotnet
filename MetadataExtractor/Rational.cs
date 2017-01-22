@@ -287,13 +287,18 @@ namespace MetadataExtractor
         /// </returns>
         public Rational GetSimplifiedInstance()
         {
-            var gcd = GCD(Math.Abs(Numerator), Math.Abs(Denominator));
+            var gcd = GCD(Numerator, Denominator);
 
             return new Rational(Numerator / gcd, Denominator / gcd);
         }
 
         private static long GCD(long a, long b)
         {
+            if (a < 0)
+                a = -a;
+            if (b < 0)
+                b = -b;
+
             while (a != 0 && b != 0)
             {
                 if (a > b)
