@@ -90,7 +90,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             var ex = Assert.Throws<JpegProcessingException>(
                 () => JpegSegmentReader.ReadSegments(new SequentialByteArrayReader(bytes)).ToList());
 
-            Assert.Equal("JPEG data is expected to begin with 0xFFD8 (��) not 0x0102", ex.Message);
+            Assert.Equal("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x0102", ex.Message);
         }
     }
 }
