@@ -3,7 +3,7 @@
   "title": "Metadata Extractor",
   "version": "2.0.0-*",
   "authors": [ "Drew Noakes" ],
-  "copyright": "Copyright Drew Noakes 2002-2016",
+  "copyright": "Copyright Drew Noakes 2002-2017",
   "description": "MetadataExtractor is a straightforward and lightweight library for reading metadata from image and video files. It reads Exif, IPTC, XMP, ICC, Photoshop, WebP, PNG, BMP, GIF, ICO, PCX metadata from JPEG, TIFF WebP, PSD, PNG, BMP, GIF, ICO, PCX and camera RAW files. Camera manufacturer specific support exists for Agfa, Canon, Casio, Epson, Fujifilm, Kodak, Kyocera, Leica, Minolta, Nikon, Olympus, Panasonic, Pentax, Reconyx, Sanyo, Sigma/Foveon and Sony models. In addition, MOV and related QuickTime video formats are supported such as MP4, M4V, 3G2, 3GP.",
 
   "packOptions": {

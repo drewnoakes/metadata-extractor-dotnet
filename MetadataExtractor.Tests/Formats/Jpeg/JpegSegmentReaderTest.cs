@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2016 Drew Noakes
+// Copyright 2002-2017 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -90,7 +90,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             var ex = Assert.Throws<JpegProcessingException>(
                 () => JpegSegmentReader.ReadSegments(new SequentialByteArrayReader(bytes)).ToList());
 
-            Assert.Equal("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x0102", ex.Message);
+            Assert.Equal("JPEG data is expected to begin with 0xFFD8 (ï¿½ï¿½) not 0x0102", ex.Message);
         }
     }
 }

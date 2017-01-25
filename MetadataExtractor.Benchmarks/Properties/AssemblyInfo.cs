@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("MetadataExtractor")]
 
 [assembly: AssemblyCompany("Drew Noakes")]
-[assembly: AssemblyCopyright("Copyright © Drew Noakes 2002-2016")]
+[assembly: AssemblyCopyright("Copyright © Drew Noakes 2002-2017")]
 [assembly: AssemblyTrademark("")]
 
 [assembly: AssemblyCulture("")]
