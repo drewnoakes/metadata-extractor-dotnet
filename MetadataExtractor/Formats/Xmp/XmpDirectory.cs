@@ -30,6 +30,14 @@ using XmpCore;
 
 namespace MetadataExtractor.Formats.Xmp
 {
+    /// <summary>
+    /// Wraps an instance of Adobe's <see cref="IXmpMeta"/> object, which holds XMP data.
+    /// </summary>
+    /// <remarks>
+    /// XMP uses a namespace and path format for identifying values, which does not map to metadata-extractor's
+    /// integer based tag identifiers. Therefore, XMP data is extracted and exposed via <see cref="XmpMeta"/>
+    /// which returns an instance of Adobe's <see cref="IXmpMeta"/> which exposes the full XMP data set.
+    /// </remarks>
     /// <author>Torsten Skadell</author>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
@@ -37,207 +45,10 @@ namespace MetadataExtractor.Formats.Xmp
     {
         public const int TagXmpValueCount = 0xFFFF;
 
-        // These are some Tags, belonging to xmp-data-tags
-        // The numeration is more like enums. The real xmp-tags are strings,
-        // so we do some kind of mapping here...
-        public const int TagMake = 0x0001;
-        public const int TagModel = 0x0002;
-        public const int TagExposureTime = 0x0003;
-        public const int TagShutterSpeed = 0x0004;
-        public const int TagFNumber = 0x0005;
-        public const int TagLensInfo = 0x0006;
-        public const int TagLens = 0x0007;
-        public const int TagCameraSerialNumber = 0x0008;
-        public const int TagFirmware = 0x0009;
-        public const int TagFocalLength = 0x000a;
-        public const int TagApertureValue = 0x000b;
-        public const int TagExposureProgram = 0x000c;
-        public const int TagDateTimeOriginal = 0x000d;
-        public const int TagDateTimeDigitized = 0x000e;
-
-        // Properties in the XMP namespace
-        public const int TagBaseUrl = 0x0201;
-        public const int TagCreateDate = 0x0202;
-        public const int TagCreatorTool = 0x0203;
-        public const int TagIdentifier = 0x0204;
-        public const int TagMetadataDate = 0x0205;
-        public const int TagModifyDate = 0x0206;
-        public const int TagNickname = 0x0207;
-
-        /// <summary>A value from 0 to 5, or -1 if the image is rejected.</summary>
-        public const int TagRating = 0x1001;
-
-        /// <summary>Generally a color value Blue, Red, Green, Yellow, Purple</summary>
-        public const int TagLabel = 0x2000;
-
-        /// <summary>Keywords</summary>
-        public const int TagSubject = 0x2001;
-
-        // dublin core properties (requires further research)
-//        public const int TagTitle = 0x100;
-//        public const int TagDate = 0x1002;
-//        public const int TagType = 0x1003;
-//        public const int TagDescription = 0x1004;
-//        public const int TagRelation = 0x1005;
-//        public const int TagCoverage = 0x1006;
-//        public const int TagCreator = 0x1007;
-//        public const int TagPublisher = 0x1008;
-//        public const int TagContributor = 0x1009;
-//        public const int TagRights = 0x100A;
-//        public const int TagFormat = 0x100B;
-//        public const int TagIdentifier = 0x100C;
-//        public const int TagLanguage = 0x100D;
-//        public const int TagAudience = 0x100E;
-//        public const int TagProvenance = 0x100F;
-//        public const int TagRightsHolder = 0x1010;
-//        public const int TagInstructionalMethod = 0x1011;
-//        public const int TagAccrualMethod = 0x1012;
-//        public const int TagAccrualPeriodicity = 0x1013;
-//        public const int TagAccrualPolicy = 0x1014;
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
-            { TagXmpValueCount, "XMP Value Count" },
-            { TagMake, "Make" },
-            { TagModel, "Model" },
-            { TagExposureTime, "Exposure Time" },
-            { TagShutterSpeed, "Shutter Speed Value" },
-            { TagFNumber, "F-Number" },
-            { TagLensInfo, "Lens Information" },
-            { TagLens, "Lens" },
-            { TagCameraSerialNumber, "Serial Number" },
-            { TagFirmware, "Firmware" },
-            { TagFocalLength, "Focal Length" },
-            { TagApertureValue, "Aperture Value" },
-            { TagExposureProgram, "Exposure Program" },
-            { TagDateTimeOriginal, "Date/Time Original" },
-            { TagDateTimeDigitized, "Date/Time Digitized" },
-            { TagRating, "Rating" },
-            { TagLabel, "Label" },
-            { TagBaseUrl, "Base URL" },
-            { TagCreateDate, "Create Date" },
-            { TagCreatorTool, "Creator Tool" },
-            { TagIdentifier, "Identifier" },
-            { TagMetadataDate, "Metadata Date" },
-            { TagModifyDate, "Modify Date" },
-            { TagNickname, "Nickname" },
-//            { TagTitle, "Title" },
-            { TagSubject, "Subject" }
-//            { TagDate, "Date" },
-//            { TagType, "Type" },
-//            { TagDescription, "Description" },
-//            { TagRelation, "Relation" },
-//            { TagCoverage, "Coverage" },
-//            { TagCreator, "Creator" },
-//            { TagPublisher, "Publisher" },
-//            { TagContributor, "Contributor" },
-//            { TagRights, "Rights" },
-//            { TagFormat, "Format" },
-//            { TagIdentifier, "Identifier" },
-//            { TagLanguage, "Language" },
-//            { TagAudience, "Audience" },
-//            { TagProvenance, "Provenance" },
-//            { TagRightsHolder, "Rights Holder" },
-//            { TagInstructionalMethod, "Instructional Method" },
-//            { TagAccrualMethod, "Accrual Method" },
-//            { TagAccrualPeriodicity, "Accrual Periodicity" },
-//            { TagAccrualPolicy, "Accrual Policy" }
-        };
-
-        internal static readonly Dictionary<int, string> TagSchemaMap = new Dictionary<int, string>
-        {
-            { TagMake, Schema.ExifTiffProperties },
-            { TagModel, Schema.ExifTiffProperties },
-            { TagExposureTime, Schema.ExifSpecificProperties },
-            { TagShutterSpeed, Schema.ExifSpecificProperties },
-            { TagFNumber, Schema.ExifSpecificProperties },
-            { TagLensInfo, Schema.ExifAdditionalProperties },
-            { TagLens, Schema.ExifAdditionalProperties },
-            { TagCameraSerialNumber, Schema.ExifAdditionalProperties },
-            { TagFirmware, Schema.ExifAdditionalProperties },
-            { TagFocalLength, Schema.ExifSpecificProperties },
-            { TagApertureValue, Schema.ExifSpecificProperties },
-            { TagExposureProgram, Schema.ExifSpecificProperties },
-            { TagDateTimeOriginal, Schema.ExifSpecificProperties },
-            { TagDateTimeDigitized, Schema.ExifSpecificProperties },
-            { TagBaseUrl, Schema.XmpProperties },
-            { TagCreateDate, Schema.XmpProperties },
-            { TagCreatorTool, Schema.XmpProperties },
-            { TagIdentifier, Schema.XmpProperties },
-            { TagMetadataDate, Schema.XmpProperties },
-            { TagModifyDate, Schema.XmpProperties },
-            { TagNickname, Schema.XmpProperties },
-            { TagRating, Schema.XmpProperties },
-            { TagLabel, Schema.XmpProperties },
-//            { TagTitle, Schema.DublinCoreSpecificProperties },
-            { TagSubject, Schema.DublinCoreSpecificProperties }
-//            { TagDate, Schema.DublinCoreSpecificProperties },
-//            { TagType, Schema.DublinCoreSpecificProperties },
-//            { TagDescription, Schema.DublinCoreSpecificProperties },
-//            { TagRelation, Schema.DublinCoreSpecificProperties },
-//            { TagCoverage, Schema.DublinCoreSpecificProperties },
-//            { TagCreator, Schema.DublinCoreSpecificProperties },
-//            { TagPublisher, Schema.DublinCoreSpecificProperties },
-//            { TagContributor, Schema.DublinCoreSpecificProperties },
-//            { TagRights, Schema.DublinCoreSpecificProperties },
-//            { TagFormat, Schema.DublinCoreSpecificProperties },
-//            { TagIdentifier, Schema.DublinCoreSpecificProperties },
-//            { TagLanguage, Schema.DublinCoreSpecificProperties },
-//            { TagAudience, Schema.DublinCoreSpecificProperties },
-//            { TagProvenance, Schema.DublinCoreSpecificProperties },
-//            { TagRightsHolder, Schema.DublinCoreSpecificProperties },
-//            { TagInstructionalMethod, Schema.DublinCoreSpecificProperties },
-//            { TagAccrualMethod, Schema.DublinCoreSpecificProperties },
-//            { TagAccrualPeriodicity, Schema.DublinCoreSpecificProperties },
-//            { TagAccrualPolicy, Schema.DublinCoreSpecificProperties }
-        };
-
-        internal static readonly Dictionary<int, string> TagPropNameMap = new Dictionary<int, string>
-        {
-            { TagMake, "tiff:Make" },
-            { TagModel, "tiff:Model" },
-            { TagExposureTime, "exif:ExposureTime" },
-            { TagShutterSpeed, "exif:ShutterSpeedValue" },
-            { TagFNumber, "exif:FNumber" },
-            { TagLensInfo, "aux:LensInfo" },
-            { TagLens, "aux:Lens" },
-            { TagCameraSerialNumber, "aux:SerialNumber" },
-            { TagFirmware, "aux:Firmware" },
-            { TagFocalLength, "exif:FocalLength" },
-            { TagApertureValue, "exif:ApertureValue" },
-            { TagExposureProgram, "exif:ExposureProgram" },
-            { TagDateTimeOriginal, "exif:DateTimeOriginal" },
-            { TagDateTimeDigitized, "exif:DateTimeDigitized" },
-            { TagBaseUrl, "xmp:BaseURL" },
-            { TagCreateDate, "xmp:CreateDate" },
-            { TagCreatorTool, "xmp:CreatorTool" },
-            { TagIdentifier, "xmp:Identifier" },
-            { TagMetadataDate, "xmp:MetadataDate" },
-            { TagModifyDate, "xmp:ModifyDate" },
-            { TagNickname, "xmp:Nickname" },
-            { TagRating, "xmp:Rating" },
-            { TagLabel, "xmp:Label" },
-//            { TagTitle, "dc:title" },
-            { TagSubject, "dc:subject" }
-//            { TagDate, "dc:date" },
-//            { TagType, "dc:type" },
-//            { TagDescription, "dc:description" },
-//            { TagRelation, "dc:relation" },
-//            { TagCoverage, "dc:coverage" },
-//            { TagCreator, "dc:creator" },
-//            { TagPublisher, "dc:publisher" },
-//            { TagContributor, "dc:contributor" },
-//            { TagRights, "dc:rights" },
-//            { TagFormat, "dc:format" },
-//            { TagIdentifier, "dc:identifier" },
-//            { TagLanguage, "dc:language" },
-//            { TagAudience, "dc:audience" },
-//            { TagProvenance, "dc:provenance" },
-//            { TagRightsHolder, "dc:rightsHolder" },
-//            { TagInstructionalMethod, "dc:instructionalMethod" },
-//            { TagAccrualMethod, "dc:accrualMethod" },
-//            { TagAccrualPeriodicity, "dc:accrualPeriodicity" },
-//            { TagAccrualPolicy, "dc:accrualPolicy" }
+            { TagXmpValueCount, "XMP Value Count" }
         };
 
         /// <summary>Gets the <see cref="IXmpMeta"/> object within this directory.</summary>
@@ -263,9 +74,13 @@ namespace MetadataExtractor.Formats.Xmp
         /// uses integers for keys.
         /// </remarks>
         [NotNull]
-        public IDictionary<string, string> GetXmpProperties() => XmpMeta == null
-            ? new Dictionary<string,string>()
-            : XmpMeta.Properties.Where(p => p.Path != null).ToDictionary(p => p.Path, p => p.Value);
+        public IDictionary<string, string> GetXmpProperties()
+        {
+            return XmpMeta?.Properties
+                       .Where(p => p.Path != null)
+                       .ToDictionary(p => p.Path, p => p.Value)
+                   ?? new Dictionary<string, string>();
+        }
 
         public void SetXmpMeta([NotNull] IXmpMeta xmpMeta)
         {
