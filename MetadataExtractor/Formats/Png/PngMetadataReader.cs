@@ -220,7 +220,7 @@ namespace MetadataExtractor.Formats.Png
                 var value = reader.GetNullTerminatedStringValue(bytesLeft, _latin1Encoding);
 
                 var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, value) };
-                var directory = new PngDirectory(PngChunkType.iTXt);
+                var directory = new PngDirectory(PngChunkType.tEXt);
                 directory.Set(PngDirectory.TagTextualData, textPairs);
                 yield return directory;
             }
