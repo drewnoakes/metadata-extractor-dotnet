@@ -43,6 +43,7 @@ namespace MetadataExtractor.Formats.Jfif
     /// <author>Yuri Binev, Drew Noakes, Markus Meyer</author>
     public sealed class JfifReader : IJpegSegmentMetadataReader
     {
+        public const string JpegSegmentId = "JFIF";
         public const string JpegSegmentPreamble = "JFIF";
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.App0 };
@@ -53,12 +54,12 @@ namespace MetadataExtractor.Formats.Jfif
 #else
             IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments(IEnumerable<JpegSegment> segments)
+            ReadJpegSegments(Stream stream, IEnumerable<JpegSegment> segments)
         {
             // Skip segments not starting with the required header
             return segments
-                .Where(segment => segment.Bytes.Length >= JpegSegmentPreamble.Length && JpegSegmentPreamble == Encoding.UTF8.GetString(segment.Bytes, 0, JpegSegmentPreamble.Length))
-                .Select(segment => Extract(new ByteArrayReader(segment.Bytes)))
+                .Where(segment => segment.Length >= JpegSegmentPreamble.Length && JpegSegmentId == segment.Preamble)
+                .Select(segment => Extract(new IndexedSeekingReader(stream, (int)segment.Offset)))
 #if NET35
                 .Cast<Directory>()
 #endif

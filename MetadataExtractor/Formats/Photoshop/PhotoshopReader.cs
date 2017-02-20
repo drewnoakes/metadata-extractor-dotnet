@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
@@ -46,6 +47,7 @@ namespace MetadataExtractor.Formats.Photoshop
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PhotoshopReader : IJpegSegmentMetadataReader
     {
+        public const string JpegSegmentId = "Photoshop";
         public const string JpegSegmentPreamble = "Photoshop 3.0";
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppD };
@@ -56,12 +58,12 @@ namespace MetadataExtractor.Formats.Photoshop
 #else
             IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments(IEnumerable<JpegSegment> segments)
+            ReadJpegSegments(Stream stream, IEnumerable<JpegSegment> segments)
         {
             var preambleLength = JpegSegmentPreamble.Length;
             return segments
-                .Where(segment => segment.Bytes.Length >= preambleLength + 1 && JpegSegmentPreamble == Encoding.UTF8.GetString(segment.Bytes, 0, preambleLength))
-                .SelectMany(segment => Extract(new SequentialByteArrayReader(segment.Bytes, preambleLength + 1), segment.Bytes.Length - preambleLength - 1))
+                .Where(segment => segment.Length >= preambleLength + 1 && JpegSegmentId == segment.Preamble)
+                .SelectMany(segment => Extract(new SequentialStreamReader(stream, initialOffset: segment.Offset + preambleLength + 1), segment.Length - preambleLength - 1))
                 .ToList();
         }
 

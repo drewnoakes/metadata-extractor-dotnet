@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
@@ -46,8 +47,9 @@ namespace MetadataExtractor.Formats.Icc
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class IccReader : IJpegSegmentMetadataReader
     {
+        public const string JpegSegmentId = "ICC";
         public const string JpegSegmentPreamble = "ICC_PROFILE"; // TODO what are the extra three bytes here? are they always the same?
-        private static readonly byte[] _jpegSegmentPreambleBytes = Encoding.UTF8.GetBytes(JpegSegmentPreamble);
+        //private static readonly byte[] _jpegSegmentPreambleBytes = Encoding.UTF8.GetBytes(JpegSegmentPreamble);
 
         // NOTE the header is 14 bytes, while "ICC_PROFILE" is 11
         private const int JpegSegmentPreambleLength = 14;
@@ -60,12 +62,11 @@ namespace MetadataExtractor.Formats.Icc
 #else
             IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments(IEnumerable<JpegSegment> segments)
+            ReadJpegSegments(Stream stream, IEnumerable<JpegSegment> segments)
         {
             // ICC data can be spread across multiple JPEG segments.
-
             // Skip any segments that do not contain the required preamble
-            var iccSegments = segments.Where(segment => segment.Bytes.Length > JpegSegmentPreambleLength && IsSubarrayEqualTo(segment.Bytes, 0, _jpegSegmentPreambleBytes)).ToList();
+            var iccSegments = segments.Where(segment => segment.Length > JpegSegmentPreambleLength && JpegSegmentId.Equals(segment.Preamble, StringComparison.OrdinalIgnoreCase)).ToList();
 
             if (iccSegments.Count == 0)
                 return new Directory[0];
@@ -73,19 +74,21 @@ namespace MetadataExtractor.Formats.Icc
             byte[] buffer;
             if (iccSegments.Count == 1)
             {
-                buffer = new byte[iccSegments[0].Bytes.Length - JpegSegmentPreambleLength];
-                Array.Copy(iccSegments[0].Bytes, JpegSegmentPreambleLength, buffer, 0, iccSegments[0].Bytes.Length - JpegSegmentPreambleLength);
+                buffer = new SequentialStreamReader(stream, initialOffset: iccSegments[0].Offset + JpegSegmentPreambleLength).GetBytes(iccSegments[0].Length - JpegSegmentPreambleLength);
+                //buffer = new byte[iccSegments[0].Length - JpegSegmentPreambleLength];
+                //Array.Copy(iccSegments[0].Bytes, JpegSegmentPreambleLength, buffer, 0, iccSegments[0].Length - JpegSegmentPreambleLength);
             }
             else
             {
                 // Concatenate all buffers
-                var totalLength = iccSegments.Sum(s => s.Bytes.Length - JpegSegmentPreambleLength);
+                var totalLength = iccSegments.Sum(s => s.Length - JpegSegmentPreambleLength);
                 buffer = new byte[totalLength];
                 for (int i = 0, pos = 0; i < iccSegments.Count; i++)
                 {
                     var segment = iccSegments[i];
-                    Array.Copy(segment.Bytes, JpegSegmentPreambleLength, buffer, pos, segment.Bytes.Length - JpegSegmentPreambleLength);
-                    pos += segment.Bytes.Length - JpegSegmentPreambleLength;
+                    var tempbuffer = new SequentialStreamReader(stream, initialOffset: segment.Offset + JpegSegmentPreambleLength).GetBytes(segment.Length - JpegSegmentPreambleLength);
+                    Array.Copy(tempbuffer, 0, buffer, pos, segment.Length - JpegSegmentPreambleLength);
+                    pos += segment.Length - JpegSegmentPreambleLength;
                 }
             }
 

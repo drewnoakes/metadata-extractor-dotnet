@@ -23,6 +23,7 @@
 #endregion
 
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -42,12 +43,12 @@ namespace MetadataExtractor.Formats.Jpeg
 #else
             IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments(IEnumerable<JpegSegment> segments)
+            ReadJpegSegments(Stream stream, IEnumerable<JpegSegment> segments)
         {
             // TODO store bytes in the directory to allow different encodings when decoding
 
             // The entire contents of the segment are the comment
-            return segments.Select(segment => new JpegCommentDirectory(new StringValue(segment.Bytes, Encoding.UTF8)))
+            return segments.Select(segment => new JpegCommentDirectory(new StringValue(segment.ByteReader(stream).GetBytes(0, segment.Length), Encoding.UTF8)))
 #if NET35
                 .Cast<Directory>()
 #endif

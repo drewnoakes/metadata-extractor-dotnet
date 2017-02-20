@@ -22,7 +22,9 @@
 //
 #endregion
 
+using System.IO;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -34,14 +36,30 @@ namespace MetadataExtractor.Formats.Jpeg
     public sealed class JpegSegment
     {
         public JpegSegmentType Type { get; }
-        [NotNull] public byte[] Bytes { get; }
+        public int Length { get; }
+        public int Padding { get; set; }
         public long Offset { get; }
+        public string Preamble { get; }
 
-        public JpegSegment(JpegSegmentType type, [NotNull] byte[] bytes, long offset)
+        public JpegSegment(JpegSegmentType type, [NotNull] int length, int padding, long offset, string preamble)
         {
             Type = type;
-            Bytes = bytes;
+            Length = length;
+            Padding = padding;
             Offset = offset;
+            Preamble = preamble;
         }
+
+        private IndexedReader _byteReader = null;
+        public IndexedReader ByteReader(Stream stream)
+        {
+            if (_byteReader == null)
+                _byteReader = new IndexedSeekingReader(stream, (int)Offset);
+            return _byteReader;
+        }
+        /*public byte[] Bytes(Stream stream)
+        {
+            return new IndexedSeekingReader(stream, (int)Offset).GetBytes(0, Length);
+        }*/
     }
 }

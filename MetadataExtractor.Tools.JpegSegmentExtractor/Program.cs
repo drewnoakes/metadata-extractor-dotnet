@@ -79,12 +79,12 @@ namespace MetadataExtractor.Tools.JpegSegmentExtractor
             Console.Out.WriteLine("Reading: {0}", filePath);
             using (var stream = File.OpenRead(filePath))
             {
-                var segmentData = JpegSegmentReader.ReadSegments(new SequentialStreamReader(stream), segmentTypes);
-                SaveSegmentFiles(filePath, segmentData);
+                var segmentData = JpegSegmentReader.ReadSegments(stream, segmentTypes);
+                SaveSegmentFiles(filePath, stream, segmentData);
             }
         }
 
-        private static void SaveSegmentFiles(string jpegFilePath, IEnumerable<JpegSegment> segments)
+        private static void SaveSegmentFiles(string jpegFilePath, Stream jpegStream, IEnumerable<JpegSegment> segments)
         {
             var segmentsByType = segments.ToLookup(s => s.Type);
 
@@ -103,8 +103,9 @@ namespace MetadataExtractor.Tools.JpegSegmentExtractor
                 {
                     var outputFilePath = string.Format(format, jpegFilePath, segmentType.ToString().ToLower(), i++);
 
-                    Console.Out.WriteLine($"Writing: {outputFilePath} (offset {segment.Offset}, length {segment.Bytes.Length})");
-                    File.WriteAllBytes(outputFilePath, segment.Bytes);
+                    var segmentBytes = segment.ByteReader(jpegStream).GetBytes(0, segment.Length);
+                    Console.Out.WriteLine($"Writing: {outputFilePath} (offset {segment.Offset}, length {segmentBytes.Length})");
+                    File.WriteAllBytes(outputFilePath, segmentBytes);
                 }
             }
         }

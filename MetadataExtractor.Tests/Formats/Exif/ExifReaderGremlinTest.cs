@@ -61,9 +61,12 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var sw = Stopwatch.StartNew();
 
             var app1 = File.ReadAllBytes(filePath);
-            var segments = new[] { new JpegSegment(JpegSegmentType.App1, app1, 0) };
+            //using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            var stream = new MemoryStream(app1);
 
-            Assert.Same(app1, segments[0].Bytes);
+            var segments = new[] { new JpegSegment(JpegSegmentType.App1, app1.Length, 0, 0, ExifReader.JpegSegmentId) };
+
+            Assert.Same(app1, segments[0].ByteReader(stream).GetBytes(0, segments[0].Length));
 
             var exifReader = new ExifReader();
 
@@ -79,7 +82,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
                     app1[i] = b;
 
                     // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                    exifReader.ReadJpegSegments(segments).ToList();
+                    exifReader.ReadJpegSegments(stream, segments).ToList();
                 }
 
                 app1[i] = original;

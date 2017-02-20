@@ -110,11 +110,22 @@ namespace MetadataExtractor.Formats.Jpeg
             // Build the union of segment types desired by all readers
             var segmentTypes = new HashSet<JpegSegmentType>(readers.SelectMany(reader => reader.SegmentTypes));
 
-            // Read out those segments
-            var segments = JpegSegmentReader.ReadSegments(new SequentialStreamReader(stream), segmentTypes);
+            long initialPosition = stream.Position;
+
+            // first pass to gather segments, if any
+            var segments = JpegSegmentReader.ReadSegments(stream, segmentTypes);
+
+            /*foreach (var segment in segments)
+            {
+                System.Console.WriteLine("Type=" + segment.Type + "; Padding = " + segment.Padding + "; Offset=" + segment.Offset + "; Length=" + segment.Length + "; End=" + (segment.Offset + segment.Length));
+            }*/
+
+            // reset stream to initial position for processing
+            if (stream.Position != initialPosition)
+                stream.Seek(initialPosition, SeekOrigin.Begin);
 
             // Process them
-            return ProcessJpegSegments(readers, segments.ToList());
+            return ProcessJpegSegments(readers, stream, segments.ToList());
         }
 
         [NotNull]
@@ -124,7 +135,7 @@ namespace MetadataExtractor.Formats.Jpeg
 #else
             IReadOnlyList<Directory>
 #endif
-            ProcessJpegSegments(IEnumerable<IJpegSegmentMetadataReader> readers, [NotNull] ICollection<JpegSegment> segments)
+            ProcessJpegSegments(IEnumerable<IJpegSegmentMetadataReader> readers, [NotNull] Stream stream, [NotNull] ICollection<JpegSegment> segments)
         {
             var directories = new List<Directory>();
 
@@ -132,7 +143,7 @@ namespace MetadataExtractor.Formats.Jpeg
             {
                 var readerSegmentTypes = reader.SegmentTypes;
                 var readerSegments = segments.Where(s => readerSegmentTypes.Contains(s.Type));
-                directories.AddRange(reader.ReadJpegSegments(readerSegments));
+                directories.AddRange(reader.ReadJpegSegments(stream, readerSegments));
             }
 
             return directories;

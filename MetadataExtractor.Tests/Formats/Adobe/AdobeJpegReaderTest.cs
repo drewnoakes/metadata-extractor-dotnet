@@ -38,8 +38,15 @@ namespace MetadataExtractor.Tests.Formats.Adobe
         [NotNull]
         private static AdobeJpegDirectory ProcessBytes([NotNull] string filePath)
         {
+            /*var bytes = File.ReadAllBytes(TestDataUtil.GetPath(filePath));
             return new AdobeJpegReader()
-                .Extract(new SequentialByteArrayReader(File.ReadAllBytes(TestDataUtil.GetPath(filePath))));
+                .Extract(new SequentialByteArrayReader(bytes), new JpegSegment(JpegSegmentType.AppE, bytes.Length, 0, 0, AdobeJpegReader.JpegSegmentId));*/
+
+            using (var stream = TestDataUtil.OpenRead(filePath))
+            {
+                return new AdobeJpegReader()
+                    .Extract(new SequentialStreamReader(stream), new JpegSegment(JpegSegmentType.AppE, (int)stream.Length, 0, 0, AdobeJpegReader.JpegSegmentId));
+            }
         }
 
         [Fact]

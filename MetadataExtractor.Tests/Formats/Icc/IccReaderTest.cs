@@ -23,6 +23,7 @@
 #endregion
 
 using System;
+using System.IO;
 using System.Linq;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Jpeg;
@@ -40,22 +41,39 @@ namespace MetadataExtractor.Tests.Formats.Icc
         [Fact]
         public void Extract_InvalidData()
         {
-            var app2Bytes = TestDataUtil.GetBytes("Data/iccDataInvalid1.jpg.app2");
+            /*var app2Bytes = TestDataUtil.GetBytes("Data/iccDataInvalid1.jpg.app2");
 
             // When in an APP2 segment, ICC data starts after a 14-byte preamble
             var icc = TestHelper.SkipBytes(app2Bytes, 14);
             var directory = new IccReader().Extract(new ByteArrayReader(icc));
             Assert.NotNull(directory);
-            Assert.True(directory.HasError);
+            Assert.True(directory.HasError);*/
+
+            using (var stream = TestDataUtil.OpenRead("Data/iccDataInvalid1.jpg.app2"))
+            {
+                // When in an APP2 segment, ICC data starts after a 14-byte preamble
+                var directory = new IccReader().Extract(new IndexedSeekingReader(stream, 14));
+                Assert.NotNull(directory);
+                Assert.True(directory.HasError);
+            }
         }
 
         [Fact]
         public void ReadJpegSegments_InvalidData()
         {
-            var app2 = new JpegSegment(JpegSegmentType.App2, TestDataUtil.GetBytes("Data/iccDataInvalid1.jpg.app2"), offset: 0);
-            var directory = new IccReader().ReadJpegSegments(new[] { app2 });
+            /*var bytes = TestDataUtil.GetBytes("Data/iccDataInvalid1.jpg.app2");
+            var app2 = new JpegSegment(JpegSegmentType.App2, bytes.Length, 0, 0, IccReader.JpegSegmentId);
+            var directory = new IccReader().ReadJpegSegments(new MemoryStream(bytes), new[] { app2 });
             Assert.NotNull(directory);
-            Assert.True(directory.Single().HasError);
+            Assert.True(directory.Single().HasError);*/
+
+            using (var stream = TestDataUtil.OpenRead("Data/iccDataInvalid1.jpg.app2"))
+            {
+                var app2 = new JpegSegment(JpegSegmentType.App2, (int)stream.Length, 0, 0, IccReader.JpegSegmentId);
+                var directory = new IccReader().ReadJpegSegments(stream, new[] { app2 });
+                Assert.NotNull(directory);
+                Assert.True(directory.Single().HasError);
+            }
         }
 
         [Fact]
@@ -67,16 +85,32 @@ namespace MetadataExtractor.Tests.Formats.Icc
         [Fact]
         public void Extract_ProfileDateTime()
         {
-            var app2 = new JpegSegment(JpegSegmentType.App2, TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2"), offset: 0);
+            using (var stream = TestDataUtil.OpenRead("Data/withExifAndIptc.jpg.app2"))
+            {
+                var app2 = new JpegSegment(JpegSegmentType.App2, (int)stream.Length, 0, 0, IccReader.JpegSegmentId);
+                var directory = new IccReader()
+                .ReadJpegSegments(stream, new[] { app2 })
+                .OfType<IccDirectory>()
+                .Single();
 
+                Assert.NotNull(directory);
+//                Assert.Equal("1998:02:09 06:49:00", directory.GetString(IccDirectory.TagProfileDateTime));
+                Assert.Equal(new DateTime(1998, 2, 9, 6, 49, 0), directory.GetDateTime(IccDirectory.TagProfileDateTime));
+            }
+
+            /*
+            var bytes = TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2");
+            //var app2 = new JpegSegment(JpegSegmentType.App2, TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2"), offset: 0);
+            var app2 = new JpegSegment(JpegSegmentType.App2, bytes.Length, 0, 0, IccReader.JpegSegmentId);
             var directory = new IccReader()
-                .ReadJpegSegments(new[] { app2 })
+                .ReadJpegSegments(new MemoryStream(bytes), new[] { app2 })
                 .OfType<IccDirectory>()
                 .Single();
 
             Assert.NotNull(directory);
 //            Assert.Equal("1998:02:09 06:49:00", directory.GetString(IccDirectory.TagProfileDateTime));
             Assert.Equal(new DateTime(1998, 2, 9, 6, 49, 0), directory.GetDateTime(IccDirectory.TagProfileDateTime));
+            */
         }
     }
 }

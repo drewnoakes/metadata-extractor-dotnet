@@ -36,6 +36,7 @@ namespace MetadataExtractor.Formats.Photoshop
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class DuckyReader : IJpegSegmentMetadataReader
     {
+        public const string JpegSegmentId = "Ducky";
         public const string JpegSegmentPreamble = "Ducky";
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppC };
@@ -46,12 +47,12 @@ namespace MetadataExtractor.Formats.Photoshop
 #else
             IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments(IEnumerable<JpegSegment> segments)
+            ReadJpegSegments(Stream stream, IEnumerable<JpegSegment> segments)
         {
             // Skip segments not starting with the required header
             return segments
-                .Where(segment => segment.Bytes.Length >= JpegSegmentPreamble.Length && JpegSegmentPreamble == Encoding.UTF8.GetString(segment.Bytes, 0, JpegSegmentPreamble.Length))
-                .Select(segment => Extract(new SequentialByteArrayReader(segment.Bytes, JpegSegmentPreamble.Length)))
+                .Where(segment => segment.Length >= JpegSegmentPreamble.Length && JpegSegmentId == segment.Preamble)
+                .Select(segment => Extract(new SequentialStreamReader(stream, initialOffset: segment.Offset + JpegSegmentPreamble.Length)))
 #if NET35
                 .Cast<Directory>()
 #endif

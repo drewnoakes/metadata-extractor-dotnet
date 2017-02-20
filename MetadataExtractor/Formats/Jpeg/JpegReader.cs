@@ -46,24 +46,24 @@ namespace MetadataExtractor.Formats.Jpeg
 
 #if NET35
         [NotNull]
-        public IList<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
-            => segments.Select(Extract).Cast<Directory>().ToList();
+        public IList<Directory> ReadJpegSegments(Stream stream, IEnumerable<JpegSegment> segments)
+            => segments.Select(segment => Extract(stream, segment)).Cast<Directory>().ToList();
 #else
         [NotNull]
-        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
-            => segments.Select(Extract).ToList();
+        public IReadOnlyList<Directory> ReadJpegSegments(Stream stream, IEnumerable<JpegSegment> segments)
+            => segments.Select(segment => Extract(stream, segment)).ToList();
 #endif
 
         /// <summary>Reads JPEG SOF values and returns them in a <see cref="JpegDirectory"/>.</summary>
         [NotNull]
-        public JpegDirectory Extract([NotNull] JpegSegment segment)
+        public JpegDirectory Extract(Stream stream, [NotNull] JpegSegment segment)
         {
             var directory = new JpegDirectory();
 
             // The value of TagCompressionType is determined by the segment type found
             directory.Set(JpegDirectory.TagCompressionType, (int)segment.Type - (int)JpegSegmentType.Sof0);
 
-            SequentialReader reader = new SequentialByteArrayReader(segment.Bytes);
+            SequentialStreamReader reader = new SequentialStreamReader(stream, initialOffset: segment.Offset);
 
             try
             {
