@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>MetadataExtractor is a straightforward and lightweight library for reading metadata from image and video files. It reads Exif, IPTC, XMP, ICC, Photoshop, WebP, PNG, BMP, GIF, ICO, PCX metadata from JPEG, TIFF WebP, PSD, PNG, BMP, GIF, ICO, PCX and camera RAW files. Camera manufacturer specific support exists for Agfa, Canon, Casio, Epson, Fujifilm, Kodak, Kyocera, Leica, Minolta, Nikon, Olympus, Panasonic, Pentax, Reconyx, Sanyo, Sigma/Foveon and Sony models. In addition, MOV and related QuickTime video formats are supported such as MP4, M4V, 3G2, 3GP.</Description>
+    <Copyright>Copyright Drew Noakes 2002-2017</Copyright>
+    <AssemblyTitle>Metadata Extractor</AssemblyTitle>
+    <VersionPrefix>2.0.0</VersionPrefix>
+    <Authors>Drew Noakes</Authors>
+    <TargetFrameworks>netstandard1.3;net35;net45</TargetFrameworks>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <DebugType>portable</DebugType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageTags>Metadata;Exif;IPTC;XMP;ICC;Photoshop;WebP;PNG;BMP;ICO;PCX;JPEG;TIFF;PSD;Photography;QuickTime;MOV;MP4;M4V;Video</PackageTags>
+    <PackageIconUrl>https://raw.githubusercontent.com/drewnoakes/metadata-extractor-dotnet/master/docs/metadata-extractor-logo-122.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/drewnoakes/metadata-extractor-dotnet</PackageProjectUrl>
+    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/drewnoakes/metadata-extractor-dotnet.git</RepositoryUrl>
+    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.0</NetStandardImplicitPackageVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="XmpCore" Version="2.0.1" />
+    <PackageReference Include="JetBrains.Annotations" Version="10.2.1" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
+    <Reference Include="System" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>

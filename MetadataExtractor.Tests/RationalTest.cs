@@ -109,7 +109,7 @@ namespace MetadataExtractor.Tests
             Assert.True(new Rational(0, 0).IsInteger);
         }
 
-#if !NETCOREAPP1_0
+#if !NETCOREAPP1_3
         [Fact]
         public void TypeConverter()
         {
