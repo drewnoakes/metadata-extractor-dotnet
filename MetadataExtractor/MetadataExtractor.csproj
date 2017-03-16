@@ -20,8 +20,18 @@
     <IncludeSource>true</IncludeSource>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Signed)' == 'True' ">
+    <AssemblyTitle>MetadataExtractor.StrongName</AssemblyTitle>
+    <AssemblyName>MetadataExtractor.StrongName</AssemblyName>
+    <AssemblyOriginatorKeyFile>../MetadataExtractor.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+    <PackageId>MetadataExtractor.StrongName</PackageId>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="XmpCore" Version="5.1.3" />
+    <PackageReference Include="XmpCore" Version="5.1.3" Condition=" '$(Signed)' != 'True' " />
+    <PackageReference Include="XmpCore.StrongName" Version="5.1.3" Condition=" '$(Signed)' == 'True' " />
     <PackageReference Include="JetBrains.Annotations" Version="10.4.0" PrivateAssets="All" />
   </ItemGroup>
 
