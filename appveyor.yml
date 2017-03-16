@@ -12,6 +12,8 @@ build:
 test:
   assemblies:
     - MetadataExtractor.Tests.dll
+test_script:
+  - dotnet test .\MetadataExtractor.Tests\MetadataExtractor.Tests.csproj --configuration Release --no-build
 notifications:
 - provider: Email
   to:
