@@ -86,8 +86,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetDigitalZoomDescription()
         {
-            Rational value;
-            if (!Directory.TryGetRational(NikonType1MakernoteDirectory.TagDigitalZoom, out value))
+            if (!Directory.TryGetRational(NikonType1MakernoteDirectory.TagDigitalZoom, out Rational value))
                 return null;
             return value.Numerator == 0 
                 ? "No digital zoom" 
@@ -97,8 +96,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFocusDescription()
         {
-            Rational value;
-            if (!Directory.TryGetRational(NikonType1MakernoteDirectory.TagFocus, out value))
+            if (!Directory.TryGetRational(NikonType1MakernoteDirectory.TagFocus, out Rational value))
                 return null;
             return value.Numerator == 1 && value.Denominator == 0 
                 ? "Infinite" 

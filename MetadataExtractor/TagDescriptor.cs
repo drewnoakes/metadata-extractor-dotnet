@@ -128,8 +128,7 @@ namespace MetadataExtractor
         [CanBeNull]
         protected string GetIndexedDescription(int tagType, int baseIndex, [NotNull] params string[] descriptions)
         {
-            int index;
-            if (!Directory.TryGetInt32(tagType, out index))
+            if (!Directory.TryGetInt32(tagType, out int index))
                 return null;
 
             var arrayIndex = index - baseIndex;
@@ -158,8 +157,7 @@ namespace MetadataExtractor
         [CanBeNull]
         protected string GetSimpleRational(int tagType)
         {
-            Rational value;
-            if (!Directory.TryGetRational(tagType, out value))
+            if (!Directory.TryGetRational(tagType, out Rational value))
                 return null;
             return value.ToSimpleString();
         }
@@ -168,8 +166,7 @@ namespace MetadataExtractor
         [CanBeNull]
         protected string GetDecimalRational(int tagType, int decimalPlaces)
         {
-            Rational value;
-            if (!Directory.TryGetRational(tagType, out value))
+            if (!Directory.TryGetRational(tagType, out Rational value))
                 return null;
             return string.Format("{0:F" + decimalPlaces + "}", value.ToDouble());
         }
@@ -178,8 +175,7 @@ namespace MetadataExtractor
         [CanBeNull]
         protected string GetFormattedInt(int tagType, [NotNull] string format)
         {
-            int value;
-            if (!Directory.TryGetInt32(tagType, out value))
+            if (!Directory.TryGetInt32(tagType, out int value))
                 return null;
             return string.Format(format, value);
         }
@@ -199,8 +195,7 @@ namespace MetadataExtractor
         protected string GetEpochTimeDescription(int tagType)
         {
             // TODO have observed a byte[8] here which is likely some kind of date (ticks as long?)
-            long value;
-            return Directory.TryGetInt64(tagType, out value)
+            return Directory.TryGetInt64(tagType, out long value)
                 ? DateUtil.FromUnixTime(value).ToString("ddd MMM dd HH:mm:ss zzz yyyy")
                 : null;
         }
@@ -210,8 +205,7 @@ namespace MetadataExtractor
         [CanBeNull]
         protected string GetBitFlagDescription(int tagType, [NotNull] params object[] labels)
         {
-            int value;
-            if (!Directory.TryGetInt32(tagType, out value))
+            if (!Directory.TryGetInt32(tagType, out int value))
                 return null;
             var parts = new List<string>();
             var bitIndex = 0;
@@ -286,12 +280,10 @@ namespace MetadataExtractor
         [CanBeNull]
         protected string GetRationalOrDoubleString(int tagType)
         {
-            Rational rational;
-            if (Directory.TryGetRational(tagType, out rational))
+            if (Directory.TryGetRational(tagType, out Rational rational))
                 return rational.ToSimpleString();
 
-            double d;
-            if (Directory.TryGetDouble(tagType, out d))
+            if (Directory.TryGetDouble(tagType, out double d))
                 return d.ToString("0.###");
 
             return null;
@@ -370,8 +362,7 @@ namespace MetadataExtractor
             // thanks to Mark Edwards for spotting and patching a bug in the calculation of this
             // description (spotted bug using a Canon EOS 300D)
             // thanks also to Gli Blr for spotting this bug
-            float apexValue;
-            if (!Directory.TryGetSingle(tagId, out apexValue))
+            if (!Directory.TryGetSingle(tagId, out float apexValue))
                 return null;
 
             if (apexValue <= 1)

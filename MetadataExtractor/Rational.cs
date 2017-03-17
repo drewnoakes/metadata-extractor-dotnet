@@ -350,9 +350,7 @@ namespace MetadataExtractor
                 if (type == typeof(string))
                 {
                     var v = ((string)value).Split('/');
-                    long numerator;
-                    long denominator;
-                    if (v.Length == 2 && long.TryParse(v[0], out numerator) && long.TryParse(v[1], out denominator))
+                    if (v.Length == 2 && long.TryParse(v[0], out long numerator) && long.TryParse(v[1], out long denominator))
                         return new Rational(numerator, denominator);
                 }
 

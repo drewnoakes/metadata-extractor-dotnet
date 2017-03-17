@@ -487,8 +487,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public bool IsIntervalMode()
         {
-            long value;
-            return this.TryGetInt64(CameraSettings.TagShootingMode, out value) && value == 5;
+            return this.TryGetInt64(CameraSettings.TagShootingMode, out long value) && value == 5;
         }
 
         protected override bool TryGetTagName(int tagType, out string tagName)

@@ -58,8 +58,7 @@ namespace MetadataExtractor.Formats.Jfxx
         [CanBeNull]
         public string GetExtensionCodeDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(JfxxDirectory.TagExtensionCode, out value))
+            if (!Directory.TryGetInt32(JfxxDirectory.TagExtensionCode, out int value))
                 return null;
 
             switch (value)

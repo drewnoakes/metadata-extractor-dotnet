@@ -99,8 +99,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetNoiseReduction2Description()
         {
-            int value;
-            if (!Directory.TryGetInt32(OlympusImageProcessingMakernoteDirectory.TagNoiseReduction2, out value))
+            if (!Directory.TryGetInt32(OlympusImageProcessingMakernoteDirectory.TagNoiseReduction2, out int value))
                 return null;
 
             if (value == 0)
@@ -137,8 +136,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values == null)
             {
                 // check if it's only one value long also
-                int value;
-                if (!Directory.TryGetInt32(OlympusImageProcessingMakernoteDirectory.TagMultipleExposureMode, out value))
+                if (!Directory.TryGetInt32(OlympusImageProcessingMakernoteDirectory.TagMultipleExposureMode, out int value))
                     return null;
 
                 values = new ushort[1];

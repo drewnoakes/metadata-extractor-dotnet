@@ -770,8 +770,7 @@ namespace MetadataExtractor.Formats.Exif
             string buildYear = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagFirmwareVersion + 6).ToString("x4");
             string buildDate = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagFirmwareVersion + 8).ToString("x4");
             string buildYearAndDate = buildYear + buildDate;
-            int build;
-            if (int.TryParse(buildYear + buildDate, out build))
+            if (int.TryParse(buildYear + buildDate, out int build))
             {
                 directory.Set(ReconyxHyperFireMakernoteDirectory.TagFirmwareVersion, new Version(major, minor, revision, build));
             }

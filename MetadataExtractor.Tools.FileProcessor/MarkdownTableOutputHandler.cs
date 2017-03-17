@@ -77,9 +77,8 @@ namespace MetadataExtractor.Tools.FileProcessor
 
                 if (thumbDir != null)
                 {
-                    int width;
-                    int height;
-                    Thumbnail = thumbDir.TryGetInt32(ExifDirectoryBase.TagImageWidth, out width) && thumbDir.TryGetInt32(ExifDirectoryBase.TagImageHeight, out height)
+                    Thumbnail = thumbDir.TryGetInt32(ExifDirectoryBase.TagImageWidth, out int width) &&
+                                thumbDir.TryGetInt32(ExifDirectoryBase.TagImageHeight, out int height)
                         ? $"Yes ({width} x {height})"
                         : "Yes";
                 }
@@ -112,8 +111,7 @@ namespace MetadataExtractor.Tools.FileProcessor
             if (_extensionEquivalence.ContainsKey(extension))
                 extension = _extensionEquivalence[extension];
 
-            List<Row> rows;
-            if (!_rowsByExtension.TryGetValue(extension, out rows))
+            if (!_rowsByExtension.TryGetValue(extension, out List<Row> rows))
             {
                 rows = new List<Row>();
                 _rowsByExtension[extension] = rows;

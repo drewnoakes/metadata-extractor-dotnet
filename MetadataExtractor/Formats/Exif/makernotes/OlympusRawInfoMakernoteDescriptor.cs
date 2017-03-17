@@ -91,8 +91,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetOlympusLightSourceDescription()
         {
-            ushort value;
-            if (!Directory.TryGetUInt16(OlympusRawInfoMakernoteDirectory.TagLightSource, out value))
+            if (!Directory.TryGetUInt16(OlympusRawInfoMakernoteDirectory.TagLightSource, out ushort value))
                 return null;
 
             switch (value)

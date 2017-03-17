@@ -38,15 +38,13 @@ namespace MetadataExtractor.Tests
             void AssertPresentInt32(Directory dictionary, int i)
             {
                 Assert.Equal(i, dictionary.GetInt32(i));
-                int value;
-                Assert.True(dictionary.TryGetInt32(i, out value));
+                Assert.True(dictionary.TryGetInt32(i, out int value));
                 Assert.Equal(i, dictionary.GetInt32(i));
             }
 
             void AssertMissingInt32(Directory dictionary, int i)
             {
-                int value;
-                Assert.False(dictionary.TryGetInt32(i, out value));
+                Assert.False(dictionary.TryGetInt32(i, out int value));
                 Assert.Throws<MetadataException>(() => dictionary.GetInt32(i));
             }
 
@@ -60,15 +58,13 @@ namespace MetadataExtractor.Tests
             void AssertPresentInt64(Directory dictionary, int i)
             {
                 Assert.Equal(i, dictionary.GetInt64(i));
-                long value;
-                Assert.True(dictionary.TryGetInt64(i, out value));
+                Assert.True(dictionary.TryGetInt64(i, out long value));
                 Assert.Equal(i, dictionary.GetInt64(i));
             }
 
             void AssertMissingInt64(Directory dictionary, int i)
             {
-                long value;
-                Assert.False(dictionary.TryGetInt64(i, out value));
+                Assert.False(dictionary.TryGetInt64(i, out long value));
                 Assert.Throws<MetadataException>(() => dictionary.GetInt64(i));
             }
 
@@ -82,15 +78,13 @@ namespace MetadataExtractor.Tests
             void AssertPresentSingle(Directory dictionary, int i)
             {
                 Assert.Equal(i, dictionary.GetSingle(i));
-                float value;
-                Assert.True(dictionary.TryGetSingle(i, out value));
+                Assert.True(dictionary.TryGetSingle(i, out float value));
                 Assert.Equal(i, dictionary.GetSingle(i));
             }
 
             void AssertMissingSingle(Directory dictionary, int i)
             {
-                float value;
-                Assert.False(dictionary.TryGetSingle(i, out value));
+                Assert.False(dictionary.TryGetSingle(i, out float value));
                 Assert.Throws<MetadataException>(() => dictionary.GetSingle(i));
             }
 
@@ -104,15 +98,13 @@ namespace MetadataExtractor.Tests
             void AssertPresentDouble(Directory dictionary, int i)
             {
                 Assert.Equal(i, dictionary.GetDouble(i));
-                double value;
-                Assert.True(dictionary.TryGetDouble(i, out value));
+                Assert.True(dictionary.TryGetDouble(i, out double value));
                 Assert.Equal(i, dictionary.GetDouble(i));
             }
 
             void AssertMissingDouble(Directory dictionary, int i)
             {
-                double value;
-                Assert.False(dictionary.TryGetDouble(i, out value));
+                Assert.False(dictionary.TryGetDouble(i, out double value));
                 Assert.Throws<MetadataException>(() => dictionary.GetDouble(i));
             }
 
@@ -126,23 +118,20 @@ namespace MetadataExtractor.Tests
             void AssertPresentTrueBoolean(Directory dictionary, int i)
             {
                 Assert.True(dictionary.GetBoolean(i));
-                bool value;
-                Assert.True(dictionary.TryGetBoolean(i, out value));
+                Assert.True(dictionary.TryGetBoolean(i, out bool value));
                 Assert.True(dictionary.GetBoolean(i));
             }
 
             void AssertPresentFalseBoolean(Directory dictionary, int i)
             {
                 Assert.False(dictionary.GetBoolean(i));
-                bool value;
-                Assert.True(dictionary.TryGetBoolean(i, out value));
+                Assert.True(dictionary.TryGetBoolean(i, out bool value));
                 Assert.False(dictionary.GetBoolean(i));
             }
 
             void AssertMissingBoolean(Directory dictionary, int i)
             {
-                bool value;
-                Assert.False(dictionary.TryGetBoolean(i, out value));
+                Assert.False(dictionary.TryGetBoolean(i, out bool value));
                 Assert.Throws<MetadataException>(() => dictionary.GetBoolean(i));
             }
 
