@@ -150,7 +150,7 @@ namespace MetadataExtractor.Formats.Tiff
                     var formatCode = (TiffDataFormatCode)reader.GetUInt16(tagOffset + 2);
 
                     // 4 bytes dictate the number of components in this tag's data
-                    uint componentCount = reader.GetUInt32(tagOffset + 4);
+                    var componentCount = reader.GetUInt32(tagOffset + 4);
 
                     var format = TiffDataFormat.FromTiffFormatCode(formatCode);
 

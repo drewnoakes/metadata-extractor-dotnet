@@ -92,10 +92,10 @@ namespace MetadataExtractor.Formats.WebP
 
                     string error = null;
                     var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
-                    bool isAnimation = false;
-                    bool hasAlpha = false;
-                    int widthMinusOne = -1;
-                    int heightMinusOne = -1;
+                    var isAnimation = false;
+                    var hasAlpha = false;
+                    var widthMinusOne = -1;
+                    var heightMinusOne = -1;
                     try
                     {
                         // Flags
@@ -135,8 +135,8 @@ namespace MetadataExtractor.Formats.WebP
                     var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
 
                     string error = null;
-                    int widthMinusOne = -1;
-                    int heightMinusOne = -1;
+                    var widthMinusOne = -1;
+                    var heightMinusOne = -1;
                     try
                     {
                         // https://developers.google.com/speed/webp/docs/webp_lossless_bitstream_specification#2_riff_header
@@ -177,8 +177,8 @@ namespace MetadataExtractor.Formats.WebP
                     var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
 
                     string error = null;
-                    int width = 0;
-                    int height = 0;
+                    var width = 0;
+                    var height = 0;
                     try
                     {
                         // https://tools.ietf.org/html/rfc6386#section-9.1

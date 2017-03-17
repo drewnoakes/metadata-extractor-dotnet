@@ -64,7 +64,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case ReconyxUltraFireMakernoteDirectory.TagEventType:
                     return Directory.GetString(tagType);
                 case ReconyxUltraFireMakernoteDirectory.TagSequence:
-                    int[] sequence = Directory.GetInt32Array(tagType);
+                    var sequence = Directory.GetInt32Array(tagType);
                     return string.Format("{0}/{1}", sequence[0], sequence[1]);
                 case ReconyxUltraFireMakernoteDirectory.TagEventNumber:
                     return Directory.GetUInt32(tagType).ToString();

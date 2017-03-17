@@ -98,7 +98,7 @@ namespace MetadataExtractor.Formats.Exif
                 return null;
 
             // (have seen the upper 4 bits set for GF5 and GX1, giving a value of -4095 - PH)
-            int mask = 0x000f;
+            var mask = 0x000f;
             switch (value & mask)
             {
                 case 0:

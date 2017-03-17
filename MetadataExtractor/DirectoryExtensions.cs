@@ -404,8 +404,8 @@ namespace MetadataExtractor
 
             if (o is StringValue[] stringValues)
             {
-                string[] strs = new string[stringValues.Length];
-                for (int i = 0; i < strs.Length; i++)
+                var strs = new string[stringValues.Length];
+                for (var i = 0; i < strs.Length; i++)
                     strs[i] = stringValues[i].ToString();
                 return strs;
             }
