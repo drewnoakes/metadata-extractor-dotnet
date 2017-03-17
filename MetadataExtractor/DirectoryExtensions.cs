@@ -400,7 +400,7 @@ namespace MetadataExtractor
                 return new[] { s };
 
             if (o is StringValue)
-                return new string[] { o.ToString() };
+                return new[] { o.ToString() };
 
             if (o is StringValue[] stringValues)
             {
@@ -451,7 +451,7 @@ namespace MetadataExtractor
             if (o is StringValue[] stringValues)
                 return stringValues;
             if (o is StringValue sv)
-                return new StringValue[] { sv };
+                return new [] { sv };
 
             return null;
         }
