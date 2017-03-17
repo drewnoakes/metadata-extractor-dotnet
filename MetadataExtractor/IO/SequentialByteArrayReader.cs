@@ -41,10 +41,7 @@ namespace MetadataExtractor.IO
         public SequentialByteArrayReader([NotNull] byte[] bytes, int baseIndex = 0, bool isMotorolaByteOrder = true)
             : base(isMotorolaByteOrder)
         {
-            if (bytes == null)
-                throw new ArgumentNullException(nameof(bytes));
-
-            _bytes = bytes;
+            _bytes = bytes ?? throw new ArgumentNullException(nameof(bytes));
             _index = baseIndex;
         }
 
