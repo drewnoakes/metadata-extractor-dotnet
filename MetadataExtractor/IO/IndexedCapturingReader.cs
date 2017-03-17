@@ -45,13 +45,11 @@ namespace MetadataExtractor.IO
         public IndexedCapturingReader([NotNull] Stream stream, int chunkLength = DefaultChunkLength, bool isMotorolaByteOrder = true)
             : base(isMotorolaByteOrder)
         {
-            if (stream == null)
-                throw new ArgumentNullException(nameof(stream));
             if (chunkLength <= 0)
                 throw new ArgumentOutOfRangeException(nameof(chunkLength), "Must be greater than zero.");
 
             _chunkLength = chunkLength;
-            _stream = stream;
+            _stream = stream ?? throw new ArgumentNullException(nameof(stream));
         }
 
         /// <summary>Reads to the end of the stream, in order to determine the total number of bytes.</summary>

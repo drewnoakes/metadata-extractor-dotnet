@@ -106,10 +106,7 @@ namespace MetadataExtractor
         /// <param name="descriptor">the descriptor used to interpret tag values</param>
         public void SetDescriptor([NotNull] ITagDescriptor descriptor)
         {
-            if (descriptor == null)
-                throw new ArgumentNullException(nameof(descriptor));
-
-            _descriptor = descriptor;
+            _descriptor = descriptor ?? throw new ArgumentNullException(nameof(descriptor));
         }
 
         #region Errors
