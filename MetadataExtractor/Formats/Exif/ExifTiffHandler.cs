@@ -798,9 +798,9 @@ namespace MetadataExtractor.Formats.Exif
             ushort month = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 6);
             ushort day = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 8);
             ushort year = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 10);
-            if (seconds >= 0 && seconds < 60 &&
-                minutes >= 0 && minutes < 60 &&
-                hour >= 0 && hour < 24 &&
+            if (seconds < 60 &&
+                minutes < 60 &&
+                hour < 24 &&
                 month >= 1 && month < 13 &&
                 day >= 1 && day < 32 &&
                 year >= DateTime.MinValue.Year && year <= DateTime.MaxValue.Year)
@@ -868,9 +868,9 @@ namespace MetadataExtractor.Formats.Exif
             byte day = reader.GetByte(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 3);
             byte month = reader.GetByte(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 4);
             ushort year = ByteConvert.FromBigEndianToNative(reader.GetUInt16(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 5));
-            if (seconds >= 0 && seconds < 60 &&
-                minutes >= 0 && minutes < 60 &&
-                hour >= 0 && hour < 24 &&
+            if (seconds < 60 &&
+                minutes < 60 &&
+                hour < 24 &&
                 month >= 1 && month < 13 &&
                 day >= 1 && day < 32 &&
                 year >= DateTime.MinValue.Year && year <= DateTime.MaxValue.Year)
