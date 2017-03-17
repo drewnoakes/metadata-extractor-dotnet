@@ -23,6 +23,9 @@
 #endregion
 
 using System;
+#if !NETCOREAPP1_0
+using System.ComponentModel;
+#endif
 using System.Diagnostics.CodeAnalysis;
 using Xunit;
 
@@ -109,7 +112,7 @@ namespace MetadataExtractor.Tests
             Assert.True(new Rational(0, 0).IsInteger);
         }
 
-#if !NETCOREAPP1_3
+#if !NETCOREAPP1_0
         [Fact]
         public void TypeConverter()
         {

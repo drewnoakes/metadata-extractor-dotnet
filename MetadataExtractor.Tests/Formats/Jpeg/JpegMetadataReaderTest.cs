@@ -34,7 +34,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegMetadataReaderTest
     {
-#if !NETCOREAPP1_3
+#if !NETCOREAPP1_0
         [Fact]
         public void ExtractMetadataUsingPath()
         {
