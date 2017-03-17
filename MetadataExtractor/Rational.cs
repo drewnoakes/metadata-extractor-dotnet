@@ -264,8 +264,6 @@ namespace MetadataExtractor
         {
             if (ReferenceEquals(null, obj))
                 return false;
-            if (ReferenceEquals(this, obj))
-                return true;
             return obj is Rational rational && Equals(rational);
         }
 
