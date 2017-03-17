@@ -284,7 +284,7 @@ namespace MetadataExtractor.Formats.Tiff
                     {
                         var array = new Rational[componentCount];
                         for (var i = 0; i < componentCount; i++)
-                            array[i] = new Rational(reader.GetInt32(tagValueOffset + (8 * i)), reader.GetInt32(tagValueOffset + 4 + (8 * i)));
+                            array[i] = new Rational(reader.GetInt32(tagValueOffset + 8*i), reader.GetInt32(tagValueOffset + 4 + 8*i));
                         handler.SetRationalArray(tagId, array);
                     }
                     break;
@@ -299,7 +299,7 @@ namespace MetadataExtractor.Formats.Tiff
                     {
                         var array = new Rational[componentCount];
                         for (var i = 0; i < componentCount; i++)
-                            array[i] = new Rational(reader.GetUInt32(tagValueOffset + (8 * i)), reader.GetUInt32(tagValueOffset + 4 + (8 * i)));
+                            array[i] = new Rational(reader.GetUInt32(tagValueOffset + 8*i), reader.GetUInt32(tagValueOffset + 4 + 8*i));
                         handler.SetRationalArray(tagId, array);
                     }
                     break;
@@ -314,7 +314,7 @@ namespace MetadataExtractor.Formats.Tiff
                     {
                         var array = new float[componentCount];
                         for (var i = 0; i < componentCount; i++)
-                            array[i] = reader.GetFloat32(tagValueOffset + (i * 4));
+                            array[i] = reader.GetFloat32(tagValueOffset + i*4);
                         handler.SetFloatArray(tagId, array);
                     }
                     break;
@@ -329,7 +329,7 @@ namespace MetadataExtractor.Formats.Tiff
                     {
                         var array = new double[componentCount];
                         for (var i = 0; i < componentCount; i++)
-                            array[i] = reader.GetDouble64(tagValueOffset + (i * 4));
+                            array[i] = reader.GetDouble64(tagValueOffset + i*4);
                         handler.SetDoubleArray(tagId, array);
                     }
                     break;
@@ -374,7 +374,7 @@ namespace MetadataExtractor.Formats.Tiff
                     {
                         var array = new short[componentCount];
                         for (var i = 0; i < componentCount; i++)
-                            array[i] = reader.GetInt16(tagValueOffset + (i * 2));
+                            array[i] = reader.GetInt16(tagValueOffset + i*2);
                         handler.SetInt16SArray(tagId, array);
                     }
                     break;
@@ -389,7 +389,7 @@ namespace MetadataExtractor.Formats.Tiff
                     {
                         var array = new ushort[componentCount];
                         for (var i = 0; i < componentCount; i++)
-                            array[i] = reader.GetUInt16(tagValueOffset + (i * 2));
+                            array[i] = reader.GetUInt16(tagValueOffset + i*2);
                         handler.SetInt16UArray(tagId, array);
                     }
                     break;
@@ -405,7 +405,7 @@ namespace MetadataExtractor.Formats.Tiff
                     {
                         var array = new int[componentCount];
                         for (var i = 0; i < componentCount; i++)
-                            array[i] = reader.GetInt32(tagValueOffset + (i * 4));
+                            array[i] = reader.GetInt32(tagValueOffset + i*4);
                         handler.SetInt32SArray(tagId, array);
                     }
                     break;
@@ -421,7 +421,7 @@ namespace MetadataExtractor.Formats.Tiff
                     {
                         var array = new uint[componentCount];
                         for (var i = 0; i < componentCount; i++)
-                            array[i] = reader.GetUInt32(tagValueOffset + (i * 4));
+                            array[i] = reader.GetUInt32(tagValueOffset + i*4);
                         handler.SetInt32UArray(tagId, array);
                     }
                     break;

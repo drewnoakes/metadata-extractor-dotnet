@@ -257,7 +257,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             // ISO = (2^(value/8-1))*3.125
             if (!Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagApexFilmSpeedValue, out long value))
                 return null;
-            var iso = Math.Pow((value / 8d) - 1, 2) * 3.125;
+            var iso = Math.Pow(value/8d - 1, 2)*3.125;
             return iso.ToString("0.##");
         }
 
@@ -282,7 +282,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             // Aperture F-stop = 2^( value/16-0.5 )
             if (!Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagApexApertureValue, out long value))
                 return null;
-            var fStop = Math.Pow((value / 16d) - 0.5, 2);
+            var fStop = Math.Pow(value/16d - 0.5, 2);
             return GetFStopDescription(fStop);
         }
 
@@ -406,7 +406,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             // Aperture F-Stop = 2^(value/16-0.5)
             if (!Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagTime, out long value))
                 return null;
-            var fStop = Math.Pow((value / 16d) - 0.5, 2);
+            var fStop = Math.Pow(value/16d - 0.5, 2);
             return GetFStopDescription(fStop);
         }
 
@@ -549,7 +549,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string GetApexBrightnessDescription()
         {
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagApexBrightnessValue, out long value)
-                ? ((value / 8d) - 6).ToString()
+                ? (value/8d - 6).ToString()
                 : null;
         }
 

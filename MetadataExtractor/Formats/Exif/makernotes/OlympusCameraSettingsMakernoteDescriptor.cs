@@ -1185,7 +1185,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values == null)
                 return null;
 
-            if (values.Length == 0 || (values.Length > 0 && values[0] == 0))
+            if (values.Length == 0 || values.Length > 0 && values[0] == 0)
                 return "Single Shot";
 
             var a = new StringBuilder();

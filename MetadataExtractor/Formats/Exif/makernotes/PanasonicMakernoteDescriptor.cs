@@ -446,7 +446,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             // converted to degrees of clockwise camera rotation
-            return (((short)value) / 10.0).ToString();
+            return ((short)value/10.0).ToString();
         }
 
         public string GetPitchAngleDescription()
@@ -455,7 +455,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             // converted to degrees of upward camera tilt
-            return (-((short)value) / 10.0).ToString();
+            return (-(short)value/10.0).ToString();
         }
 
         public string GetSweepPanoramaDirectionDescription()
