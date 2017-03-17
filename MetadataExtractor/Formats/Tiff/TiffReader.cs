@@ -435,13 +435,12 @@ namespace MetadataExtractor.Formats.Tiff
         }
 
         /// <summary>Determine the offset of a given tag within the specified IFD.</summary>
+        /// <remarks>
+        /// Add 2 bytes for the tag count.
+        /// Each entry is 12 bytes.
+        /// </remarks>
         /// <param name="ifdStartOffset">the offset at which the IFD starts</param>
         /// <param name="entryNumber">the zero-based entry number</param>
-        private static int CalculateTagOffset(int ifdStartOffset, int entryNumber)
-        {
-            // Add 2 bytes for the tag count.
-            // Each entry is 12 bytes.
-            return ifdStartOffset + 2 + (12 * entryNumber);
-        }
+        private static int CalculateTagOffset(int ifdStartOffset, int entryNumber) => ifdStartOffset + 2 + 12*entryNumber;
     }
 }
