@@ -173,13 +173,13 @@ namespace MetadataExtractor.Tests
             Assert.Null(_directory.GetRationalArray(ExifDirectoryBase.TagAperture));
             Assert.Null(_directory.GetStringArray(ExifDirectoryBase.TagAperture));
 
-            Assert.False(_directory.TryGetBoolean(ExifDirectoryBase.TagAperture, out bool b));
-            Assert.False(_directory.TryGetDateTime(ExifDirectoryBase.TagAperture, out DateTime dt));
-            Assert.False(_directory.TryGetDouble(ExifDirectoryBase.TagAperture, out double d));
-            Assert.False(_directory.TryGetInt32(ExifDirectoryBase.TagAperture, out int i));
-            Assert.False(_directory.TryGetInt64(ExifDirectoryBase.TagAperture, out long l));
-            Assert.False(_directory.TryGetRational(ExifDirectoryBase.TagAperture, out Rational r));
-            Assert.False(_directory.TryGetSingle(ExifDirectoryBase.TagAperture, out float f));
+            Assert.False(_directory.TryGetBoolean(ExifDirectoryBase.TagAperture, out bool _));
+            Assert.False(_directory.TryGetDateTime(ExifDirectoryBase.TagAperture, out DateTime _));
+            Assert.False(_directory.TryGetDouble(ExifDirectoryBase.TagAperture, out double _));
+            Assert.False(_directory.TryGetInt32(ExifDirectoryBase.TagAperture, out int _));
+            Assert.False(_directory.TryGetInt64(ExifDirectoryBase.TagAperture, out long _));
+            Assert.False(_directory.TryGetRational(ExifDirectoryBase.TagAperture, out Rational _));
+            Assert.False(_directory.TryGetSingle(ExifDirectoryBase.TagAperture, out float _));
         }
 
         [Fact]

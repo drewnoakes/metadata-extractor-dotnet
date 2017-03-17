@@ -178,7 +178,7 @@ namespace MetadataExtractor
         /// <returns>whether this directory has a name for the specified tag</returns>
         public bool HasTagName(int tagType)
         {
-            return TryGetTagName(tagType, out string name);
+            return TryGetTagName(tagType, out string _);
         }
 
         /// <summary>
