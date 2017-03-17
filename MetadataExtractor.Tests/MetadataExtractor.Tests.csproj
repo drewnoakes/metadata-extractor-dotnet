@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.3</TargetFramework>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
     <RuntimeFrameworkVersion>1.0.4</RuntimeFrameworkVersion>
   </PropertyGroup>
 
@@ -19,6 +19,10 @@
 
   <ItemGroup>
     <Content Include="Data\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>
 
 </Project>
