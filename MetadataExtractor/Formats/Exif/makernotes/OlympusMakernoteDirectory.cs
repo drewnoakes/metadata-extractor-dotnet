@@ -469,9 +469,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override void Set(int tagType, object value)
         {
-            var bytes = value as byte[];
 
-            if (bytes != null && (tagType == TagCameraSettings1 || tagType == TagCameraSettings2))
+            if (value is byte[] bytes && (tagType == TagCameraSettings1 || tagType == TagCameraSettings2))
                 ProcessCameraSettings(bytes);
             else
                 base.Set(tagType, value);
