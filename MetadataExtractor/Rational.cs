@@ -287,27 +287,27 @@ namespace MetadataExtractor
         /// </returns>
         public Rational GetSimplifiedInstance()
         {
+            long GCD(long a, long b)
+            {
+                if (a < 0)
+                    a = -a;
+                if (b < 0)
+                    b = -b;
+
+                while (a != 0 && b != 0)
+                {
+                    if (a > b)
+                        a %= b;
+                    else
+                        b %= a;
+                }
+
+                return a == 0 ? b : a;
+            }
+
             var gcd = GCD(Numerator, Denominator);
 
             return new Rational(Numerator / gcd, Denominator / gcd);
-        }
-
-        private static long GCD(long a, long b)
-        {
-            if (a < 0)
-                a = -a;
-            if (b < 0)
-                b = -b;
-
-            while (a != 0 && b != 0)
-            {
-                if (a > b)
-                    a %= b;
-                else
-                    b %= a;
-            }
-
-            return a == 0 ? b : a;
         }
 
         #region Equality operators
