@@ -45,11 +45,9 @@ namespace MetadataExtractor.Formats.Jpeg
         };
 
 #if NET35
-        [NotNull]
         public IList<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
             => segments.Select(Extract).Cast<Directory>().ToList();
 #else
-        [NotNull]
         public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
             => segments.Select(Extract).ToList();
 #endif

@@ -91,7 +91,7 @@ namespace MetadataExtractor
 
         ulong IConvertible.ToUInt64(IFormatProvider provider) => ulong.Parse(ToString());
 
-        object IConvertible.ToType([NotNull] Type conversionType, IFormatProvider provider) => Convert.ChangeType(ToString(), conversionType, provider);
+        object IConvertible.ToType(Type conversionType, IFormatProvider provider) => Convert.ChangeType(ToString(), conversionType, provider);
 
         #endregion
 
