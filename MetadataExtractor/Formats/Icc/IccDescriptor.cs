@@ -285,7 +285,7 @@ namespace MetadataExtractor.Formats.Icc
             }
 
             intPart += rest;
-            var isNegative = (value < 0) && (intPart != 0 || restKept != 0);
+            var isNegative = value < 0 && (intPart != 0 || restKept != 0);
             return (isNegative ? "-" : string.Empty) + intPart + "." + res;
         }
 

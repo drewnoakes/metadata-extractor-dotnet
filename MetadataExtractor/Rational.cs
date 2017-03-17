@@ -185,7 +185,7 @@ namespace MetadataExtractor
         /// <summary>
         /// Checks if this <see cref="Rational"/> number is expressible as an integer, either positive or negative.
         /// </summary>
-        public bool IsInteger => Denominator == 1 || (Denominator != 0 && (Numerator%Denominator == 0)) || (Denominator == 0 && Numerator == 0);
+        public bool IsInteger => Denominator == 1 || (Denominator != 0 && Numerator%Denominator == 0) || (Denominator == 0 && Numerator == 0);
 
         /// <summary>
         /// True if either <see cref="Denominator"/> or <see cref="Numerator"/> are zero.

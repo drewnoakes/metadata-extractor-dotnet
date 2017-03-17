@@ -690,10 +690,10 @@ namespace MetadataExtractor.Formats.Exif
                     // only process this tag if the 'next' integral tag exists. Otherwise, it's a set of bytes
                     if (i < byteCount - 1 && directory.HasTagName(i + 1))
                     {
-                        if(issigned)
-                            directory.Set(i, reader.GetInt16(tagValueOffset + (i* byteSize)));
+                        if (issigned)
+                            directory.Set(i, reader.GetInt16(tagValueOffset + i*byteSize));
                         else
-                            directory.Set(i, reader.GetUInt16(tagValueOffset + (i* byteSize)));
+                            directory.Set(i, reader.GetUInt16(tagValueOffset + i*byteSize));
                     }
                     else
                     {
@@ -701,15 +701,15 @@ namespace MetadataExtractor.Formats.Exif
                         if (issigned)
                         {
                             var val = new short[arrayLength];
-                            for (var j = 0; j<val.Length; j++)
-                                val[j] = reader.GetInt16(tagValueOffset + ((i + j) * byteSize));
+                            for (var j = 0; j < val.Length; j++)
+                                val[j] = reader.GetInt16(tagValueOffset + (i + j)*byteSize);
                             directory.Set(i, val);
                         }
                         else
                         {
                             var val = new ushort[arrayLength];
-                            for (var j = 0; j<val.Length; j++)
-                                val[j] = reader.GetUInt16(tagValueOffset + ((i + j) * byteSize));
+                            for (var j = 0; j < val.Length; j++)
+                                val[j] = reader.GetUInt16(tagValueOffset + (i + j)*byteSize);
                             directory.Set(i, val);
                         }
 
@@ -798,12 +798,12 @@ namespace MetadataExtractor.Formats.Exif
             ushort month = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 6);
             ushort day = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 8);
             ushort year = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 10);
-            if ((seconds >= 0 && seconds < 60) &&
-                (minutes >= 0 && minutes < 60) &&
-                (hour >= 0 && hour < 24) &&
-                (month >= 1 && month < 13) &&
-                (day >= 1 && day < 32) &&
-                (year >= DateTime.MinValue.Year && year <= DateTime.MaxValue.Year))
+            if (seconds >= 0 && seconds < 60 &&
+                minutes >= 0 && minutes < 60 &&
+                hour >= 0 && hour < 24 &&
+                month >= 1 && month < 13 &&
+                day >= 1 && day < 32 &&
+                year >= DateTime.MinValue.Year && year <= DateTime.MaxValue.Year)
             {
                 directory.Set(ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal, new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Unspecified));
             }
@@ -868,12 +868,12 @@ namespace MetadataExtractor.Formats.Exif
             byte day = reader.GetByte(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 3);
             byte month = reader.GetByte(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 4);
             ushort year = ByteConvert.FromBigEndianToNative(reader.GetUInt16(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 5));
-            if ((seconds >= 0 && seconds < 60) &&
-                (minutes >= 0 && minutes < 60) &&
-                (hour >= 0 && hour < 24) &&
-                (month >= 1 && month < 13) &&
-                (day >= 1 && day < 32) &&
-                (year >= DateTime.MinValue.Year && year <= DateTime.MaxValue.Year))
+            if (seconds >= 0 && seconds < 60 &&
+                minutes >= 0 && minutes < 60 &&
+                hour >= 0 && hour < 24 &&
+                month >= 1 && month < 13 &&
+                day >= 1 && day < 32 &&
+                year >= DateTime.MinValue.Year && year <= DateTime.MaxValue.Year)
             {
                 directory.Set(ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal, new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Unspecified));
             }

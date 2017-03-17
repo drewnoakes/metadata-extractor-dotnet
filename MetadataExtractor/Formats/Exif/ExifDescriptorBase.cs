@@ -805,7 +805,7 @@ namespace MetadataExtractor.Formats.Exif
                 item0 = reader.GetInt16(0);
                 item1 = reader.GetInt16(2);
 
-                if (values.Length >= (2 + item0 * item1))
+                if (values.Length >= 2 + item0 * item1)
                     copyArray = true;
             }
             else
