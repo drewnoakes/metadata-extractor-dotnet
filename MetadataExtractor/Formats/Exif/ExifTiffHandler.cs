@@ -894,7 +894,7 @@ namespace MetadataExtractor.Formats.Exif
             directory.Set(ReconyxUltraFireMakernoteDirectory.TagUserLabel, reader.GetNullTerminatedString(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagUserLabel, 20, Encoding.UTF8));
         }
 
-        private static string ProcessReconyxUltraFireVersion([NotNull] int versionOffset, [NotNull] IndexedReader reader)
+        private static string ProcessReconyxUltraFireVersion(int versionOffset, [NotNull] IndexedReader reader)
         {
             var major = reader.GetByte(versionOffset);
             var minor = reader.GetByte(versionOffset + 1);

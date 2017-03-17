@@ -914,7 +914,6 @@ namespace MetadataExtractor
         }
 
         [Pure]
-        [CanBeNull]
         public static StringValue GetStringValue([NotNull] this Directory directory, int tagType)
         {
             var o = directory.GetObject(tagType);
