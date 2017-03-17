@@ -63,6 +63,7 @@ namespace MetadataExtractor.Tests.Formats.Png
             var validStrings = new[] { "ABCD", "abcd", "wxyz", "WXYZ", "lkjh", "LKJH" };
             foreach (var validString in validStrings)
             {
+                // ReSharper disable once ObjectCreationAsStatement
                 new PngChunkType(validString);
             }
         }

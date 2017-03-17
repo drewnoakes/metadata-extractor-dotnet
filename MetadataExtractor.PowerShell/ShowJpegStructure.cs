@@ -44,6 +44,7 @@ namespace MetadataExtractor.PowerShell
 {
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+    [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global")]
     public struct JpegSegment
     {
         public JpegSegmentType Type { get; }
