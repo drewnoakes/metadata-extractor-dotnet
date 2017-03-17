@@ -104,7 +104,7 @@ namespace MetadataExtractor
 
         /// <summary>Sets the descriptor used to interpret tag values.</summary>
         /// <param name="descriptor">the descriptor used to interpret tag values</param>
-        public void SetDescriptor([NotNull] ITagDescriptor descriptor)
+        protected void SetDescriptor([NotNull] ITagDescriptor descriptor)
         {
             _descriptor = descriptor ?? throw new ArgumentNullException(nameof(descriptor));
         }
