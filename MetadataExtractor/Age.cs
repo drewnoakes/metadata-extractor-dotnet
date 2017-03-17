@@ -125,7 +125,7 @@ namespace MetadataExtractor
                 return false;
             if (ReferenceEquals(this, obj))
                 return true;
-            return obj is Age && Equals((Age)obj);
+            return obj is Age age && Equals(age);
         }
 
         public override int GetHashCode()

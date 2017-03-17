@@ -76,7 +76,7 @@ namespace MetadataExtractor
                 return false;
             if (ReferenceEquals(this, obj))
                 return true;
-            return obj is Face && Equals((Face)obj);
+            return obj is Face face && Equals(face);
         }
 
         public override int GetHashCode()

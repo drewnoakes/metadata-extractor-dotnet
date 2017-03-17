@@ -266,7 +266,7 @@ namespace MetadataExtractor
                 return false;
             if (ReferenceEquals(this, obj))
                 return true;
-            return obj is Rational && Equals((Rational)obj);
+            return obj is Rational rational && Equals(rational);
         }
 
         public override int GetHashCode() => unchecked(Denominator.GetHashCode()*397) ^ Numerator.GetHashCode();

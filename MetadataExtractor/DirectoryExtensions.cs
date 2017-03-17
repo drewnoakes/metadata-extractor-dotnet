@@ -402,28 +402,24 @@ namespace MetadataExtractor
             if (o == null)
                 return null;
 
-            var strings = o as string[];
-            if (strings != null)
+            if (o is string[] strings)
                 return strings;
 
-            var s = o as string;
-            if (s != null)
+            if (o is string s)
                 return new[] { s };
 
             if (o is StringValue)
                 return new string[] { o.ToString() };
 
-            if (o is StringValue[])
+            if (o is StringValue[] stringValues)
             {
-                StringValue[] stringValues = (StringValue[])o;
                 string[] strs = new string[stringValues.Length];
                 for (int i = 0; i < strs.Length; i++)
                     strs[i] = stringValues[i].ToString();
                 return strs;
             }
 
-            var ints = o as int[];
-            if (ints != null)
+            if (o is int[] ints)
             {
                 strings = new string[ints.Length];
                 for (var i = 0; i < strings.Length; i++)
@@ -431,8 +427,7 @@ namespace MetadataExtractor
                 return strings;
             }
 
-            var bytes = o as byte[];
-            if (bytes != null)
+            if (o is byte[] bytes)
             {
                 strings = new string[bytes.Length];
                 for (var i = 0; i < strings.Length; i++)
@@ -440,8 +435,7 @@ namespace MetadataExtractor
                 return strings;
             }
 
-            var rationals = o as Rational[];
-            if (rationals != null)
+            if (o is Rational[] rationals)
             {
                 strings = new string[rationals.Length];
                 for (var i = 0; i < strings.Length; i++)
@@ -463,10 +457,10 @@ namespace MetadataExtractor
 
             if (o == null)
                 return null;
-            if (o is StringValue[])
-                return (StringValue[])o;
-            if (o is StringValue)
-                return new StringValue[] { (StringValue)o };
+            if (o is StringValue[] stringValues)
+                return stringValues;
+            if (o is StringValue sv)
+                return new StringValue[] { sv };
 
             return null;
         }
@@ -483,12 +477,10 @@ namespace MetadataExtractor
             if (o == null)
                 return null;
 
-            var ints = o as int[];
-            if (ints != null)
+            if (o is int[] ints)
                 return ints;
 
-            var rationals = o as Rational[];
-            if (rationals != null)
+            if (o is Rational[] rationals)
             {
                 ints = new int[rationals.Length];
                 for (var i = 0; i < ints.Length; i++)
@@ -496,8 +488,7 @@ namespace MetadataExtractor
                 return ints;
             }
 
-            var shorts = o as short[];
-            if (shorts != null)
+            if (o is short[] shorts)
             {
                 ints = new int[shorts.Length];
                 for (var i = 0; i < shorts.Length; i++)
@@ -505,26 +496,23 @@ namespace MetadataExtractor
                 return ints;
             }
 
-            if (o.GetType() == typeof(sbyte[]))
+            if (o is sbyte[] sbytes)
             {
-                var bytes = (sbyte[])o;
+                ints = new int[sbytes.Length];
+                for (var i = 0; i < sbytes.Length; i++)
+                    ints[i] = sbytes[i];
+                return ints;
+            }
+
+            if (o is byte[] bytes)
+            {
                 ints = new int[bytes.Length];
                 for (var i = 0; i < bytes.Length; i++)
                     ints[i] = bytes[i];
                 return ints;
             }
 
-            if (o.GetType() == typeof(byte[]))
-            {
-                var bytes = (byte[])o;
-                ints = new int[bytes.Length];
-                for (var i = 0; i < bytes.Length; i++)
-                    ints[i] = bytes[i];
-                return ints;
-            }
-
-            var str = o as string;
-            if (str != null)
+            if (o is string str)
             {
                 ints = new int[str.Length];
                 for (var i = 0; i < str.Length; i++)
@@ -556,8 +544,7 @@ namespace MetadataExtractor
 
             byte[] bytes;
 
-            var rationals = o as Rational[];
-            if (rationals != null)
+            if (o is Rational[] rationals)
             {
                 bytes = new byte[rationals.Length];
                 for (var i = 0; i < bytes.Length; i++)
@@ -569,8 +556,7 @@ namespace MetadataExtractor
             if (bytes != null)
                 return bytes;
 
-            var ints = o as int[];
-            if (ints != null)
+            if (o is int[] ints)
             {
                 bytes = new byte[ints.Length];
                 for (var i = 0; i < ints.Length; i++)
@@ -578,8 +564,7 @@ namespace MetadataExtractor
                 return bytes;
             }
 
-            var shorts = o as short[];
-            if (shorts != null)
+            if (o is short[] shorts)
             {
                 bytes = new byte[shorts.Length];
                 for (var i = 0; i < shorts.Length; i++)
@@ -587,8 +572,7 @@ namespace MetadataExtractor
                 return bytes;
             }
 
-            var str = o as string;
-            if (str != null)
+            if (o is string str)
             {
                 bytes = new byte[str.Length];
                 for (var i = 0; i < str.Length; i++)
@@ -661,16 +645,16 @@ namespace MetadataExtractor
                 return false;
             }
 
-            if (o is DateTime)
+            if (o is DateTime dt)
             {
-                dateTime = (DateTime)o;
+                dateTime = dt;
                 return true;
             }
 
             var s = o as string;
 
-            if (o is StringValue)
-                s = ((StringValue)o).ToString();
+            if (o is StringValue sv)
+                s = sv.ToString();
 
             if (s != null)
             {
@@ -681,8 +665,7 @@ namespace MetadataExtractor
                 return false;
             }
 
-            var convertible = o as IConvertible;
-            if (convertible != null)
+            if (o is IConvertible convertible)
             {
                 try
                 {
@@ -724,21 +707,21 @@ namespace MetadataExtractor
                 return false;
             }
 
-            if (o is Rational)
+            if (o is Rational r)
             {
-                value = (Rational)o;
+                value = r;
                 return true;
             }
 
-            if (o is int?)
+            if (o is int i)
             {
-                value = new Rational((int)o, 1);
+                value = new Rational(i, 1);
                 return true;
             }
 
-            if (o is long?)
+            if (o is long l)
             {
-                value = new Rational((long)o, 1);
+                value = new Rational(l, 1);
                 return true;
             }
 
@@ -773,27 +756,24 @@ namespace MetadataExtractor
         public static string GetString([NotNull] this Directory directory, int tagType)
         {
             var o = directory.GetObject(tagType);
+
             if (o == null)
                 return null;
 
-            if (o is Rational)
-                return ((Rational)o).ToSimpleString();
+            if (o is Rational r)
+                return r.ToSimpleString();
 
-            if (o is DateTime)
-            {
-                var dateTime = (DateTime)o;
-                return dateTime.ToString(
-                    dateTime.Kind != DateTimeKind.Unspecified
+            if (o is DateTime dt)
+                return dt.ToString(
+                    dt.Kind != DateTimeKind.Unspecified
                         ? "ddd MMM dd HH:mm:ss zzz yyyy"
                         : "ddd MMM dd HH:mm:ss yyyy");
-            }
 
-            if (o is bool)
-                return (bool)o ? "true" : "false";
+            if (o is bool b)
+                return b ? "true" : "false";
 
             // handle arrays of objects and primitives
-            var array = o as Array;
-            if (array != null)
+            if (o is Array array)
             {
                 var componentType = array.GetType().GetElementType();
                 var str = new StringBuilder();
@@ -921,11 +901,11 @@ namespace MetadataExtractor
                 return str.ToString();
             }
 
-            if (o is double)
-                return ((double)o).ToString("0.###");
+            if (o is double d)
+                return d.ToString("0.###");
 
-            if (o is float)
-                return ((float)o).ToString("0.###");
+            if (o is float f)
+                return f.ToString("0.###");
 
             // Note that several cameras leave trailing spaces (Olympus, Nikon) but this library is intended to show
             // the actual data within the file.  It is not inconceivable that whitespace may be significant here, so we
@@ -964,13 +944,11 @@ namespace MetadataExtractor
             if (o == null)
                 return null;
 
-            var convertible = o as IConvertible;
 
-            if (convertible != null)
+            if (o is IConvertible convertible)
                 return convertible;
 
-            var array = o as Array;
-            if (array != null && array.Length == 1 && array.Rank == 1)
+            if (o is Array array && array.Length == 1 && array.Rank == 1)
                 return array.GetValue(0) as IConvertible;
 
             return null;

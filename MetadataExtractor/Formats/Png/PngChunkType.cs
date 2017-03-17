@@ -190,7 +190,7 @@ namespace MetadataExtractor.Formats.Png
                 return false;
             if (ReferenceEquals(this, obj))
                 return true;
-            return obj is PngChunkType && Equals((PngChunkType)obj);
+            return obj is PngChunkType t && Equals(t);
         }
 
         public override int GetHashCode() => _bytes[0] << 24 | _bytes[1] << 16 << _bytes[2] << 8 | _bytes[3];

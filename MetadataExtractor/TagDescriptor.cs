@@ -66,8 +66,7 @@ namespace MetadataExtractor
                 return null;
 
             // special presentation for long arrays
-            var array = obj as Array;
-            if (array != null && array.Length > 16)
+            if (obj is Array array && array.Length > 16)
                 return $"[{array.Length} {(array.Length == 1 ? "value" : "values")}]";
 
             // no special handling required, so use default conversion to a string
@@ -222,8 +221,7 @@ namespace MetadataExtractor
                 if (labelObj != null)
                 {
                     var isBitSet = (value & 1) == 1;
-                    var obj = labelObj as string[];
-                    if (obj != null)
+                    if (labelObj is string[] obj)
                     {
                         var labelPair = obj;
                         Debug.Assert(labelPair.Length == 2);
