@@ -104,13 +104,13 @@ namespace MetadataExtractor
                 case FileType.Png:
                     return PngMetadataReader.ReadMetadata(stream);
                 case FileType.Bmp:
-                    return new[] { BmpMetadataReader.ReadMetadata(stream) };
+                    return new Directory[] { BmpMetadataReader.ReadMetadata(stream) };
                 case FileType.Gif:
                     return GifMetadataReader.ReadMetadata(stream);
                 case FileType.Ico:
                     return IcoMetadataReader.ReadMetadata(stream);
                 case FileType.Pcx:
-                    return new[] { PcxMetadataReader.ReadMetadata(stream) };
+                    return new Directory[] { PcxMetadataReader.ReadMetadata(stream) };
                 case FileType.Riff:
                     return WebPMetadataReader.ReadMetadata(stream);
                 case FileType.Raf:
@@ -118,7 +118,7 @@ namespace MetadataExtractor
                 case FileType.QuickTime:
                     return QuickTimeMetadataReader.ReadMetadata(stream);
                 case FileType.Netpbm:
-                    return new[] { NetpbmMetadataReader.ReadMetadata(stream) };
+                    return new Directory[] { NetpbmMetadataReader.ReadMetadata(stream) };
             }
 
             throw new ImageProcessingException("File format is not supported");

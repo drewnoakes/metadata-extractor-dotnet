@@ -85,7 +85,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
 
             if (directory.HasError)
-                return new[] { directory };
+                return new Directory[] { directory };
 
             IEnumerable<Directory> photoshopDirectories = null;
 
