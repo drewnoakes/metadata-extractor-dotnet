@@ -184,7 +184,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
             var directory = ProcessBytes("Data/iptc-encoding-unknown-2.bytes");
             Assert.False(directory.HasError, directory.Errors.ToString());
             var tags = directory.Tags;
-            Assert.Equal(37, tags.Count());
+            Assert.Equal(37, tags.Count);
             Assert.Equal("MEDWAS,MEDLON,MEDTOR,RONL,ASIA,AONL,APC,USA,CAN,SAM,BIZ", directory.GetString(IptcDirectory.TagDestination));
         }
     }
