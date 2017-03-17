@@ -160,8 +160,7 @@ namespace MetadataExtractor
         [CanBeNull]
         public object GetObject(int tagType)
         {
-            object val;
-            return _tagMap.TryGetValue(tagType, out val) ? val : null;
+            return _tagMap.TryGetValue(tagType, out object val) ? val : null;
         }
 
         #endregion
@@ -172,8 +171,7 @@ namespace MetadataExtractor
         [NotNull]
         public string GetTagName(int tagType)
         {
-            string name;
-            return !TryGetTagName(tagType, out name)
+            return !TryGetTagName(tagType, out string name)
                 ? $"Unknown tag (0x{tagType:x4})"
                 : name;
         }
@@ -183,8 +181,7 @@ namespace MetadataExtractor
         /// <returns>whether this directory has a name for the specified tag</returns>
         public bool HasTagName(int tagType)
         {
-            string name;
-            return TryGetTagName(tagType, out name);
+            return TryGetTagName(tagType, out string name);
         }
 
         /// <summary>

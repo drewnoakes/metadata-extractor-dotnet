@@ -409,8 +409,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string GetAccelerometerZDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagAccelerometerZ, out value))
+            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagAccelerometerZ, out int value))
                 return null;
 
             // positive is acceleration upwards
@@ -419,8 +418,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string GetAccelerometerXDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagAccelerometerX, out value))
+            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagAccelerometerX, out int value))
                 return null;
 
             // positive is acceleration to the left
@@ -429,8 +427,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string GetAccelerometerYDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagAccelerometerY, out value))
+            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagAccelerometerY, out int value))
                 return null;
 
             // positive is acceleration backwards
@@ -445,8 +442,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string GetRollAngleDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagRollAngle, out value))
+            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagRollAngle, out int value))
                 return null;
 
             // converted to degrees of clockwise camera rotation
@@ -455,8 +451,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string GetPitchAngleDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagPitchAngle, out value))
+            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagPitchAngle, out int value))
                 return null;
 
             // converted to degrees of upward camera tilt
@@ -477,8 +472,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string GetHDRDescription()
         {
-            ushort value;
-            if (!Directory.TryGetUInt16(PanasonicMakernoteDirectory.TagHDR, out value))
+            if (!Directory.TryGetUInt16(PanasonicMakernoteDirectory.TagHDR, out ushort value))
                 return null;
 
             switch (value)
@@ -574,8 +568,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetUptimeDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagUptime, out value))
+            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagUptime, out int value))
                 return null;
             return value / 100f + " s";
         }
@@ -590,8 +583,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetContrastModeDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagContrastMode, out value))
+            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagContrastMode, out int value))
                 return null;
 
             switch (value)
@@ -635,8 +627,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetRotationDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagRotation, out value))
+            if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagRotation, out int value))
                 return null;
 
             switch (value)

@@ -74,8 +74,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetDeviceTypeDescription()
         {
-            uint value;
-            if (!Directory.TryGetUInt32(SamsungType2MakernoteDirectory.TagDeviceType, out value))
+            if (!Directory.TryGetUInt32(SamsungType2MakernoteDirectory.TagDeviceType, out uint value))
                 return null;
 
             switch (value)
@@ -98,8 +97,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetSamsungModelIdDescription()
         {
-            uint value;
-            if (!Directory.TryGetUInt32(SamsungType2MakernoteDirectory.TagSamsungModelId, out value))
+            if (!Directory.TryGetUInt32(SamsungType2MakernoteDirectory.TagSamsungModelId, out uint value))
                 return null;
 
             switch (value)

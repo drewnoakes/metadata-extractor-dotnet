@@ -60,8 +60,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetWbTypeDescription(int tagType)
         {
-            ushort wbtype;
-            if (!Directory.TryGetUInt16(tagType, out wbtype))
+            if (!Directory.TryGetUInt16(tagType, out ushort wbtype))
                 return null;
 
             return base.GetLightSourceDescription(wbtype);

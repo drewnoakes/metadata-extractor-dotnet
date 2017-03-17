@@ -82,8 +82,7 @@ namespace MetadataExtractor.Formats.Gif
                 yield break;
 
             // Skip over any global colour table
-            int globalColorTableSize;
-            if (header.TryGetInt32(GifHeaderDirectory.TagColorTableSize, out globalColorTableSize))
+            if (header.TryGetInt32(GifHeaderDirectory.TagColorTableSize, out int globalColorTableSize))
             {
                 // Colour table has R/G/B byte triplets
                 reader.Skip(3 * globalColorTableSize);

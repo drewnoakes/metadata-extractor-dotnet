@@ -133,8 +133,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetGpsDirectionDescription(int tagType)
         {
-            Rational angle;
-            if (!Directory.TryGetRational(tagType, out angle))
+            if (!Directory.TryGetRational(tagType, out Rational angle))
                 return null;
             // provide a decimal version of rational numbers in the description, to avoid strings like "35334/199 degrees"
             return angle.ToDouble().ToString("0.##") + " degrees";
@@ -224,8 +223,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetGpsAltitudeDescription()
         {
-            Rational value;
-            if (!Directory.TryGetRational(GpsDirectory.TagAltitude, out value))
+            if (!Directory.TryGetRational(GpsDirectory.TagAltitude, out Rational value))
                 return null;
             return value.ToInt32() + " metres";
         }

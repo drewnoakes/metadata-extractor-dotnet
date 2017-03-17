@@ -87,8 +87,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetSanyoQualityDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(SanyoMakernoteDirectory.TagSanyoQuality, out value))
+            if (!Directory.TryGetInt32(SanyoMakernoteDirectory.TagSanyoQuality, out int value))
                 return null;
 
             switch (value)

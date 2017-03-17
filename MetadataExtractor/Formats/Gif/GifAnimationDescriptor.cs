@@ -47,8 +47,7 @@ namespace MetadataExtractor.Formats.Gif
 
         private string GetIterationCountDescription()
         {
-            ushort count;
-            if (!Directory.TryGetUInt16(GifAnimationDirectory.TagIterationCount, out count))
+            if (!Directory.TryGetUInt16(GifAnimationDirectory.TagIterationCount, out ushort count))
                 return null;
             return count == 0 ? "Infinite" : count == 1 ? "Once" : count == 2 ? "Twice" : $"{count} times";
         }

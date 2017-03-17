@@ -163,8 +163,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public string GetSerialNumberDescription()
         {
             // http://www.ozhiker.com/electronics/pjmt/jpeg_info/canon_mn.html
-            int value;
-            return Directory.TryGetInt32(CanonMakernoteDirectory.TagCanonSerialNumber, out value)
+            return Directory.TryGetInt32(CanonMakernoteDirectory.TagCanonSerialNumber, out int value)
                 ? $"{(value >> 8) & 0xFF:X4}{value & 0xFF:D5}"
                 : null;
         }
@@ -350,8 +349,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFlashBiasDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.FocalLength.TagFlashBias, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.FocalLength.TagFlashBias, out int value))
                 return null;
 
             var isNegative = false;
@@ -373,8 +371,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetAfPointUsedDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.FocalLength.TagAfPointUsed, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.FocalLength.TagAfPointUsed, out int value))
                 return null;
 
             switch (value & 0x7)
@@ -390,8 +387,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetTagAfPointsInFocus()
         {
-            short value;
-            if (!Directory.TryGetInt16(CanonMakernoteDirectory.AfInfo.TagAfPointsInFocus, out value))
+            if (!Directory.TryGetInt16(CanonMakernoteDirectory.AfInfo.TagAfPointsInFocus, out short value))
                 return null;
 
             var sb = new StringBuilder();
@@ -426,8 +422,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFlashDetailsDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagFlashDetails, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagFlashDetails, out int value))
                 return null;
 
             if (((value >> 14) & 1) > 0) return "External E-TTL";
@@ -441,8 +436,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFocalUnitsPerMillimetreDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagFocalUnitsPerMm, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagFocalUnitsPerMm, out int value))
                 return null;
 
             return value != 0 ? value.ToString() : string.Empty;
@@ -451,8 +445,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetShortFocalLengthDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagShortFocalLength, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagShortFocalLength, out int value))
                 return null;
 
             var units = GetFocalUnitsPerMillimetreDescription();
@@ -462,8 +455,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetLongFocalLengthDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagLongFocalLength, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagLongFocalLength, out int value))
                 return null;
 
             return value + " " + GetFocalUnitsPerMillimetreDescription();
@@ -495,8 +487,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetIsoDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagIso, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagIso, out int value))
                 return null;
 
             // Canon PowerShot S3 is special
@@ -519,8 +510,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetSharpnessDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSharpness, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSharpness, out int value))
                 return null;
 
             switch (value)
@@ -535,8 +525,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetSaturationDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSaturation, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSaturation, out int value))
                 return null;
 
             switch (value)
@@ -551,8 +540,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetContrastDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagContrast, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagContrast, out int value))
                 return null;
 
             switch (value)
@@ -586,15 +574,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetContinuousDriveModeDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagContinuousDriveMode, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagContinuousDriveMode, out int value))
                 return null;
 
             switch (value)
             {
                 case 0:
-                    int delay;
-                    if (Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSelfTimerDelay, out delay))
+                    if (Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSelfTimerDelay, out int delay))
                         return delay == 0 ? "Single shot" : "Single shot with self-timer";
                     goto case 1;
                 case 1:
@@ -606,8 +592,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFlashModeDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagFlashMode, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagFlashMode, out int value))
                 return null;
 
             switch (value)
@@ -637,8 +622,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetSelfTimerDelayDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSelfTimerDelay, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSelfTimerDelay, out int value))
                 return null;
 
             // TODO find an image that tests this calculation
@@ -674,8 +658,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFocusTypeDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagFocusType, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagFocusType, out int value))
                 return null;
 
             switch (value)
@@ -696,12 +679,10 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetLensTypeDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagLensType, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagLensType, out int value))
                 return null;
 
-            string lensType;
-            return _lensTypeById.TryGetValue(value, out lensType)
+            return _lensTypeById.TryGetValue(value, out string lensType)
                 ? lensType
                 : $"Unknown ({value})";
         }
@@ -709,8 +690,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetMaxApertureDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagMaxAperture, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagMaxAperture, out int value))
                 return null;
             if (value > 512)
                 return $"Unknown ({value})";
@@ -720,8 +700,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetMinApertureDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagMinAperture, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagMinAperture, out int value))
                 return null;
             if (value > 512)
                 return $"Unknown ({value})";
@@ -751,8 +730,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetDisplayApertureDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagDisplayAperture, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagDisplayAperture, out int value))
                 return null;
 
             if (value == ushort.MaxValue)
@@ -769,8 +747,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetPhotoEffectDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagPhotoEffect, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagPhotoEffect, out int value))
                 return null;
 
             switch (value)
@@ -799,8 +776,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetManualFlashOutputDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagManualFlashOutput, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagManualFlashOutput, out int value))
                 return null;
 
             switch (value)
@@ -823,8 +799,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetColorToneDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagColorTone, out value))
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagColorTone, out int value))
                 return null;
 
             return value == 0x7fff ? "n/a" : value.ToString();

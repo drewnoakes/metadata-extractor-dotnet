@@ -43,8 +43,7 @@ namespace MetadataExtractor
         [Pure]
         public static byte GetByte([NotNull] this Directory directory, int tagType)
         {
-            byte value;
-            if (directory.TryGetByte(tagType, out value))
+            if (directory.TryGetByte(tagType, out byte value))
                 return value;
 
             return ThrowValueNotPossible<byte>(directory, tagType);
@@ -83,8 +82,7 @@ namespace MetadataExtractor
         [Pure]
         public static short GetInt16([NotNull] this Directory directory, int tagType)
         {
-            short value;
-            if (directory.TryGetInt16(tagType, out value))
+            if (directory.TryGetInt16(tagType, out short value))
                 return value;
 
             return ThrowValueNotPossible<short>(directory, tagType);
@@ -123,8 +121,7 @@ namespace MetadataExtractor
         [Pure]
         public static ushort GetUInt16([NotNull] this Directory directory, int tagType)
         {
-            ushort value;
-            if (directory.TryGetUInt16(tagType, out value))
+            if (directory.TryGetUInt16(tagType, out ushort value))
                 return value;
 
             return ThrowValueNotPossible<ushort>(directory, tagType);
@@ -163,8 +160,7 @@ namespace MetadataExtractor
         [Pure]
         public static int GetInt32([NotNull] this Directory directory, int tagType)
         {
-            int value;
-            if (directory.TryGetInt32(tagType, out value))
+            if (directory.TryGetInt32(tagType, out int value))
                 return value;
 
             return ThrowValueNotPossible<int>(directory, tagType);
@@ -202,8 +198,7 @@ namespace MetadataExtractor
         /// <exception cref="MetadataException">No value exists for <paramref name="tagType"/>, or the value is not convertible to the requested type.</exception>
         public static uint GetUInt32(this Directory directory, int tagType)
         {
-            uint value;
-            if (directory.TryGetUInt32(tagType, out value))
+            if (directory.TryGetUInt32(tagType, out uint value))
                 return value;
 
             return ThrowValueNotPossible<ushort>(directory, tagType);
@@ -241,8 +236,7 @@ namespace MetadataExtractor
         [Pure]
         public static long GetInt64([NotNull] this Directory directory, int tagType)
         {
-            int value;
-            if (directory.TryGetInt32(tagType, out value))
+            if (directory.TryGetInt32(tagType, out int value))
                 return value;
 
             return ThrowValueNotPossible<long>(directory, tagType);
@@ -281,8 +275,7 @@ namespace MetadataExtractor
         [Pure]
         public static float GetSingle([NotNull] this Directory directory, int tagType)
         {
-            float value;
-            if (directory.TryGetSingle(tagType, out value))
+            if (directory.TryGetSingle(tagType, out float value))
                 return value;
 
             return ThrowValueNotPossible<float>(directory, tagType);
@@ -321,8 +314,7 @@ namespace MetadataExtractor
         [Pure]
         public static double GetDouble([NotNull] this Directory directory, int tagType)
         {
-            double value;
-            if (directory.TryGetDouble(tagType, out value))
+            if (directory.TryGetDouble(tagType, out double value))
                 return value;
 
             return ThrowValueNotPossible<double>(directory, tagType);
@@ -361,8 +353,7 @@ namespace MetadataExtractor
         [Pure]
         public static bool GetBoolean([NotNull] this Directory directory, int tagType)
         {
-            bool value;
-            if (directory.TryGetBoolean(tagType, out value))
+            if (directory.TryGetBoolean(tagType, out bool value))
                 return value;
 
             return ThrowValueNotPossible<bool>(directory, tagType);
@@ -597,8 +588,7 @@ namespace MetadataExtractor
         /// <exception cref="MetadataException">No value exists for <paramref name="tagType"/>, or the value is not convertible to the requested type.</exception>
         public static DateTime GetDateTime([NotNull] this Directory directory, int tagType /*, [CanBeNull] TimeZoneInfo timeZone = null*/)
         {
-            DateTime value;
-            if (directory.TryGetDateTime(tagType, out value))
+            if (directory.TryGetDateTime(tagType, out DateTime value))
                 return value;
 
             return ThrowValueNotPossible<DateTime>(directory, tagType);
@@ -687,8 +677,7 @@ namespace MetadataExtractor
         [Pure]
         public static Rational GetRational([NotNull] this Directory directory, int tagType)
         {
-            Rational value;
-            if (directory.TryGetRational(tagType, out value))
+            if (directory.TryGetRational(tagType, out Rational value))
                 return value;
 
             return ThrowValueNotPossible<Rational>(directory, tagType);
