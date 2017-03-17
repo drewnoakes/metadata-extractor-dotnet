@@ -680,7 +680,7 @@ namespace MetadataExtractor.Formats.Exif
         private static void ProcessBinary([NotNull] Directory directory, int tagValueOffset, [NotNull] IndexedReader reader, int byteCount, bool issigned = true, int arrayLength = 1)
         {
             // expects signed/unsigned int16 (for now)
-            int byteSize = issigned ? sizeof(short) : sizeof(ushort);
+            var byteSize = issigned ? sizeof(short) : sizeof(ushort);
 
             // 'directory' is assumed to contain tags that correspond to the byte position unless it's a set of bytes
             for (var i = 0; i < byteCount; i++)
@@ -700,15 +700,15 @@ namespace MetadataExtractor.Formats.Exif
                         // the next arrayLength bytes are a multi-byte value
                         if (issigned)
                         {
-                            short[] val = new short[arrayLength];
-                            for (int j = 0; j<val.Length; j++)
+                            var val = new short[arrayLength];
+                            for (var j = 0; j<val.Length; j++)
                                 val[j] = reader.GetInt16(tagValueOffset + ((i + j) * byteSize));
                             directory.Set(i, val);
                         }
                         else
                         {
-                            ushort[] val = new ushort[arrayLength];
-                            for (int j = 0; j<val.Length; j++)
+                            var val = new ushort[arrayLength];
+                            for (var j = 0; j<val.Length; j++)
                                 val[j] = reader.GetUInt16(tagValueOffset + ((i + j) * byteSize));
                             directory.Set(i, val);
                         }

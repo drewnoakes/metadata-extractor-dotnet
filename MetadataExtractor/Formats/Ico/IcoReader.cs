@@ -51,8 +51,8 @@ namespace MetadataExtractor.Formats.Ico
 
             reader = reader.WithByteOrder(isMotorolaByteOrder: false);
 
-            int type = 0;
-            int imageCount = 0;
+            var type = 0;
+            var imageCount = 0;
 
             // Read header (ICONDIR structure)
 

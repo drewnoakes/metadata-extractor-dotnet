@@ -715,7 +715,7 @@ namespace MetadataExtractor.Formats.Exif
 
             if (repeatPattern.Length == 2 && values.Length == (repeatPattern[0] * repeatPattern[1]))
             {
-                int[] intpattern = new int[2 + values.Length];
+                var intpattern = new int[2 + values.Length];
                 intpattern[0] = repeatPattern[0];
                 intpattern[1] = repeatPattern[1];
 
@@ -735,15 +735,15 @@ namespace MetadataExtractor.Formats.Exif
             if (pattern[0] == 0 && pattern[1] == 0)
                 return "<zero pattern size>";
 
-            int end = 2 + pattern[0] * pattern[1];
+            var end = 2 + pattern[0] * pattern[1];
             if (end > pattern.Length)
                 return "<invalid pattern size>";
 
             string[] cfaColors = { "Red", "Green", "Blue", "Cyan", "Magenta", "Yellow", "White" };
 
-            StringBuilder ret = new StringBuilder();
+            var ret = new StringBuilder();
             ret.Append("[");
-            for (int pos = 2; pos < end; pos++)
+            for (var pos = 2; pos < end; pos++)
             {
                 if (pattern[pos] <= cfaColors.Length - 1)
                     ret.Append(cfaColors[pattern[pos]]);
@@ -776,7 +776,7 @@ namespace MetadataExtractor.Formats.Exif
         {
             int[] ret;
 
-            byte[] values = Directory.GetByteArray(tagType);
+            var values = Directory.GetByteArray(tagType);
             if (values == null)
                 return null;
 
@@ -796,8 +796,8 @@ namespace MetadataExtractor.Formats.Exif
 
             ret = new int[values.Length - 2];
 
-            bool copyArray = false;
-            int end = 2 + item0 * item1;
+            var copyArray = false;
+            var end = 2 + item0 * item1;
             if (end > values.Length) // sanity check in case of byte order problems; calculated 'end' should be <= length of the values
             {
                 // try swapping byte order (I have seen this order different than in EXIF)
