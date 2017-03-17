@@ -63,7 +63,9 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                }
             }
 
             value = default(byte);
@@ -102,7 +104,9 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                }
             }
 
             value = default(short);
@@ -141,7 +145,9 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                }
             }
 
             value = default(ushort);
@@ -180,7 +186,9 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                }
             }
 
             value = default(int);
@@ -217,7 +225,9 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                }
             }
 
             value = default(uint);
@@ -256,7 +266,10 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                    // ignored
+                }
             }
 
             value = default(long);
@@ -295,7 +308,9 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                }
             }
 
             value = default(float);
@@ -334,7 +349,9 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                }
             }
 
             value = default(double);
@@ -373,7 +390,9 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                }
             }
 
             value = default(bool);
