@@ -117,7 +117,7 @@ namespace MetadataExtractor.Formats.Jpeg
 
             /*foreach (var segment in segments)
             {
-                System.Console.WriteLine("Type=" + segment.Type + "; Padding = " + segment.Padding + "; Offset=" + segment.Offset + "; Length=" + segment.Length + "; End=" + (segment.Offset + segment.Length));
+                System.Console.WriteLine("Type=" + segment.Type + " (0x" + ((byte)segment.Type).ToString("X2") + ")" + "; Padding = " + segment.Padding + "; Offset=" + segment.Offset + "; Length=" + segment.Length + "; End=" + (segment.Offset + segment.Length));
             }*/
 
             // reset stream to initial position for processing

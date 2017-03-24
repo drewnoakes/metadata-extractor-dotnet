@@ -67,23 +67,44 @@ namespace MetadataExtractor.Formats.Jpeg
 
             try
             {
-                directory.Set(JpegDirectory.TagDataPrecision, reader.GetByte());
-                directory.Set(JpegDirectory.TagImageHeight, reader.GetUInt16());
-                directory.Set(JpegDirectory.TagImageWidth, reader.GetUInt16());
-                var componentCount = reader.GetByte();
-                directory.Set(JpegDirectory.TagNumberOfComponents, componentCount);
-                // for each component, there are three bytes of data:
-                // 1 - Component ID: 1 = Y, 2 = Cb, 3 = Cr, 4 = I, 5 = Q
-                // 2 - Sampling factors: bit 0-3 vertical, 4-7 horizontal
-                // 3 - Quantization table number
-                for (var i = 0; i < (int)componentCount; i++)
+                // This is in bits/sample, usually 8 (12 and 16 not supported by most software)
+                var precision = reader.GetByte();
+
+                // no values > 16 are expected
+                if (precision <= 16)
                 {
-                    int componentId = reader.GetByte();
-                    int samplingFactorByte = reader.GetByte();
-                    int quantizationTableNumber = reader.GetByte();
-                    var component = new JpegComponent(componentId, samplingFactorByte, quantizationTableNumber);
-                    directory.Set(JpegDirectory.TagComponentData1 + i, component);
+                    directory.Set(JpegDirectory.TagDataPrecision, precision);
+                    directory.Set(JpegDirectory.TagImageHeight, reader.GetUInt16());
+                    directory.Set(JpegDirectory.TagImageWidth, reader.GetUInt16());
+
+                    var componentCount = reader.GetByte();
+                    if (componentCount < 255)
+                    {
+                        directory.Set(JpegDirectory.TagNumberOfComponents, componentCount);
+
+                        // for each component, there are three bytes of data:
+                        // 1 - Component ID: 1 = Y, 2 = Cb, 3 = Cr, 4 = I, 5 = Q
+                        // 2 - Sampling factors: bit 0-3 vertical, 4-7 horizontal
+                        // 3 - Quantization table number
+                        for (var i = 0; i < (int)componentCount; i++)
+                        {
+                            int componentId = reader.GetByte();
+                            int samplingFactorByte = reader.GetByte();
+                            int quantizationTableNumber = reader.GetByte();
+                            var component = new JpegComponent(componentId, samplingFactorByte, quantizationTableNumber);
+                            directory.Set(JpegDirectory.TagComponentData1 + i, component);
+                        }
+                    }
+                    else
+                    {
+                        // too many components; likely a bad file
+                        directory.AddError($"Too many components (Actual = {componentCount}, Expected < 255)");
+                    }
                 }
+                else
+                    directory.AddError($"Precision value too large (Actual = {precision}, Expected <= 16)");
+
+
             }
             catch (IOException ex)
             {
