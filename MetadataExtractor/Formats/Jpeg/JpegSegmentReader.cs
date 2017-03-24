@@ -118,6 +118,10 @@ namespace MetadataExtractor.Formats.Jpeg
             if (magicNumber != 0xFFD8)
                 throw new JpegProcessingException($"JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x{magicNumber:X4}");
 
+            // if SOS is found, this helps buffer the search for the next segment indicator
+            // It's up here so only one buffer is used instead of creating a bunch of new ones
+            byte[] sosBuffer = new byte[1024];
+
             while (true)
             {
                 var padding = 0;
@@ -166,11 +170,12 @@ namespace MetadataExtractor.Formats.Jpeg
 
                     // TODO: would you rather break here or throw an exception?
                     if (segmentLength > (stream.Length - offset + 1))
-                        yield break;
-                    //    throw new JpegProcessingException($"Segment {segmentType} is truncated. Processing cannot proceed.");
-
-                    // segment length includes size bytes, so subtract two
-                    segmentLength -= 2;
+                        yield break;        // throw new JpegProcessingException($"Segment {segmentType} is truncated. Processing cannot proceed.");
+                    else
+                    {
+                        // segment length includes size bytes, so subtract two
+                        segmentLength -= 2;
+                    }
 
                     // Check whether we are interested in this segment
                     if (segmentTypes == null || segmentTypes.Contains(segmentType))
@@ -196,13 +201,59 @@ namespace MetadataExtractor.Formats.Jpeg
                     {
                         //yield break;
 
+                        //Console.WriteLine("SOS (ffda) at " + (offset - 4));
+
                         // This is the actual encoded data for this scan.
                         // NOTE: a 0x00 byte that follows a 0xFF is a 'stuff byte.' This functions as an escape sequence.
                         //       The 0xFF should be seen as part of the data and not a new segment indicator.
                         //       TODO: If we decide to hold an encoding segment, any parsing directories should throw 
                         //       out the 0x00 bytes when decoding the actual image data.
+
+                        var startidx = stream.Position;
+
+                        // absolute count of bytes read and processed
+                        long accumidx = 0;
+                        // storage to help find the next indicator
+                        byte lastToken = 0x00;
+                        // break out of the loop if this is set to true
+                        bool foundNext = false;
+
                         while (true)
                         {
+                            //Console.Write("pos = " + stream.Position + "; ");
+                            var readcount = stream.Read(sosBuffer, 0, sosBuffer.Length);
+                            if (readcount == 0)
+                                yield break;
+
+                            //Console.WriteLine("read + " + buffer.Length);
+                            for (int i = 0; i < readcount; i++)
+                            {
+                                accumidx++;
+                                if(lastToken != 0xFF && sosBuffer[i] == 0xFF)  // possibly the next segment indicator; will find out in the next byte
+                                    lastToken = 0xFF;
+                                else if(lastToken == 0xFF)
+                                {
+                                    if (sosBuffer[i] == 0x00) // 0xFF followed by 0x00 (a 'stuff byte')
+                                        lastToken = 0x00; // ignore and go to the next byte
+                                    else if (sosBuffer[i] != 0x00)
+                                    {
+                                        // encountered a 0xFF followed by something other a 0x00.
+                                        foundNext = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if(foundNext)
+                            {
+                                // encountered a 0xFF followed by something other a 0x00.
+                                // Is likely a new segment, so backup two bytes and let the main while loop continue
+                                stream.Seek(startidx + accumidx - 2, SeekOrigin.Begin);
+                                break;
+                            }
+
+                            // ORIGINAL byte-at-a-time VERSION
+                            /*
                             var next = stream.ReadByte();
                             if (next == -1)
                                 yield break;
@@ -221,6 +272,9 @@ namespace MetadataExtractor.Formats.Jpeg
                                     break;
                                 }
                             }
+                            */
+
+
                         }
                         
                     }
