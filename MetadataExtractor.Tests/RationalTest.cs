@@ -23,6 +23,9 @@
 #endregion
 
 using System;
+#if !NETCOREAPP1_0
+using System.ComponentModel;
+#endif
 using System.Diagnostics.CodeAnalysis;
 using Xunit;
 

@@ -64,8 +64,7 @@ namespace MetadataExtractor.Formats.Jfif
         [CanBeNull]
         public string GetImageVersionDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(JfifDirectory.TagVersion, out value))
+            if (!Directory.TryGetInt32(JfifDirectory.TagVersion, out int value))
                 return null;
             return $"{(value & 0xFF00) >> 8}.{value & 0x00FF}";
         }
@@ -73,8 +72,7 @@ namespace MetadataExtractor.Formats.Jfif
         [CanBeNull]
         public string GetImageResYDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(JfifDirectory.TagResY, out value))
+            if (!Directory.TryGetInt32(JfifDirectory.TagResY, out int value))
                 return null;
             return $"{value} dot{(value == 1 ? string.Empty : "s")}";
         }
@@ -82,8 +80,7 @@ namespace MetadataExtractor.Formats.Jfif
         [CanBeNull]
         public string GetImageResXDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(JfifDirectory.TagResX, out value))
+            if (!Directory.TryGetInt32(JfifDirectory.TagResX, out int value))
                 return null;
             return $"{value} dot{(value == 1 ? string.Empty : "s")}";
         }
@@ -91,8 +88,7 @@ namespace MetadataExtractor.Formats.Jfif
         [CanBeNull]
         public string GetImageResUnitsDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(JfifDirectory.TagUnits, out value))
+            if (!Directory.TryGetInt32(JfifDirectory.TagUnits, out int value))
                 return null;
             switch (value)
             {

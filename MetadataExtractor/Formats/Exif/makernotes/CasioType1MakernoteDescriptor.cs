@@ -75,8 +75,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetCcdSensitivityDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagCcdSensitivity, out value))
+            if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagCcdSensitivity, out int value))
                 return null;
             switch (value)
             {
@@ -125,8 +124,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetDigitalZoomDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagDigitalZoom, out value))
+            if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagDigitalZoom, out int value))
                 return null;
 
             switch (value)
@@ -147,8 +145,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetWhiteBalanceDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagWhiteBalance, out value))
+            if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagWhiteBalance, out int value))
                 return null;
 
             switch (value)
@@ -173,8 +170,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetObjectDistanceDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagObjectDistance, out value))
+            if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagObjectDistance, out int value))
                 return null;
             return value + " mm";
         }
@@ -182,8 +178,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFlashIntensityDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagFlashIntensity, out value))
+            if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagFlashIntensity, out int value))
                 return null;
 
             switch (value)

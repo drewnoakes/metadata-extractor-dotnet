@@ -30,6 +30,7 @@ using JetBrains.Annotations;
 namespace MetadataExtractor
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public static class DirectoryExtensions
     {
         #region Byte
@@ -43,8 +44,7 @@ namespace MetadataExtractor
         [Pure]
         public static byte GetByte([NotNull] this Directory directory, int tagType)
         {
-            byte value;
-            if (directory.TryGetByte(tagType, out value))
+            if (directory.TryGetByte(tagType, out byte value))
                 return value;
 
             return ThrowValueNotPossible<byte>(directory, tagType);
@@ -63,7 +63,9 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                }
             }
 
             value = default(byte);
@@ -83,8 +85,7 @@ namespace MetadataExtractor
         [Pure]
         public static short GetInt16([NotNull] this Directory directory, int tagType)
         {
-            short value;
-            if (directory.TryGetInt16(tagType, out value))
+            if (directory.TryGetInt16(tagType, out short value))
                 return value;
 
             return ThrowValueNotPossible<short>(directory, tagType);
@@ -103,7 +104,9 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                }
             }
 
             value = default(short);
@@ -123,8 +126,7 @@ namespace MetadataExtractor
         [Pure]
         public static ushort GetUInt16([NotNull] this Directory directory, int tagType)
         {
-            ushort value;
-            if (directory.TryGetUInt16(tagType, out value))
+            if (directory.TryGetUInt16(tagType, out ushort value))
                 return value;
 
             return ThrowValueNotPossible<ushort>(directory, tagType);
@@ -143,7 +145,9 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                }
             }
 
             value = default(ushort);
@@ -163,8 +167,7 @@ namespace MetadataExtractor
         [Pure]
         public static int GetInt32([NotNull] this Directory directory, int tagType)
         {
-            int value;
-            if (directory.TryGetInt32(tagType, out value))
+            if (directory.TryGetInt32(tagType, out int value))
                 return value;
 
             return ThrowValueNotPossible<int>(directory, tagType);
@@ -183,7 +186,9 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                }
             }
 
             value = default(int);
@@ -202,8 +207,7 @@ namespace MetadataExtractor
         /// <exception cref="MetadataException">No value exists for <paramref name="tagType"/>, or the value is not convertible to the requested type.</exception>
         public static uint GetUInt32(this Directory directory, int tagType)
         {
-            uint value;
-            if (directory.TryGetUInt32(tagType, out value))
+            if (directory.TryGetUInt32(tagType, out uint value))
                 return value;
 
             return ThrowValueNotPossible<ushort>(directory, tagType);
@@ -221,7 +225,9 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                }
             }
 
             value = default(uint);
@@ -241,8 +247,7 @@ namespace MetadataExtractor
         [Pure]
         public static long GetInt64([NotNull] this Directory directory, int tagType)
         {
-            int value;
-            if (directory.TryGetInt32(tagType, out value))
+            if (directory.TryGetInt32(tagType, out int value))
                 return value;
 
             return ThrowValueNotPossible<long>(directory, tagType);
@@ -261,7 +266,10 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                    // ignored
+                }
             }
 
             value = default(long);
@@ -281,8 +289,7 @@ namespace MetadataExtractor
         [Pure]
         public static float GetSingle([NotNull] this Directory directory, int tagType)
         {
-            float value;
-            if (directory.TryGetSingle(tagType, out value))
+            if (directory.TryGetSingle(tagType, out float value))
                 return value;
 
             return ThrowValueNotPossible<float>(directory, tagType);
@@ -301,7 +308,9 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                }
             }
 
             value = default(float);
@@ -321,8 +330,7 @@ namespace MetadataExtractor
         [Pure]
         public static double GetDouble([NotNull] this Directory directory, int tagType)
         {
-            double value;
-            if (directory.TryGetDouble(tagType, out value))
+            if (directory.TryGetDouble(tagType, out double value))
                 return value;
 
             return ThrowValueNotPossible<double>(directory, tagType);
@@ -341,7 +349,9 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                }
             }
 
             value = default(double);
@@ -361,8 +371,7 @@ namespace MetadataExtractor
         [Pure]
         public static bool GetBoolean([NotNull] this Directory directory, int tagType)
         {
-            bool value;
-            if (directory.TryGetBoolean(tagType, out value))
+            if (directory.TryGetBoolean(tagType, out bool value))
                 return value;
 
             return ThrowValueNotPossible<bool>(directory, tagType);
@@ -381,7 +390,9 @@ namespace MetadataExtractor
                     return true;
                 }
                 catch
-                { }
+                {
+                    // ignored
+                }
             }
 
             value = default(bool);
@@ -402,28 +413,24 @@ namespace MetadataExtractor
             if (o == null)
                 return null;
 
-            var strings = o as string[];
-            if (strings != null)
+            if (o is string[] strings)
                 return strings;
 
-            var s = o as string;
-            if (s != null)
+            if (o is string s)
                 return new[] { s };
 
             if (o is StringValue)
-                return new string[] { o.ToString() };
+                return new[] { o.ToString() };
 
-            if (o is StringValue[])
+            if (o is StringValue[] stringValues)
             {
-                StringValue[] stringValues = (StringValue[])o;
-                string[] strs = new string[stringValues.Length];
-                for (int i = 0; i < strs.Length; i++)
+                var strs = new string[stringValues.Length];
+                for (var i = 0; i < strs.Length; i++)
                     strs[i] = stringValues[i].ToString();
                 return strs;
             }
 
-            var ints = o as int[];
-            if (ints != null)
+            if (o is int[] ints)
             {
                 strings = new string[ints.Length];
                 for (var i = 0; i < strings.Length; i++)
@@ -431,8 +438,7 @@ namespace MetadataExtractor
                 return strings;
             }
 
-            var bytes = o as byte[];
-            if (bytes != null)
+            if (o is byte[] bytes)
             {
                 strings = new string[bytes.Length];
                 for (var i = 0; i < strings.Length; i++)
@@ -440,8 +446,7 @@ namespace MetadataExtractor
                 return strings;
             }
 
-            var rationals = o as Rational[];
-            if (rationals != null)
+            if (o is Rational[] rationals)
             {
                 strings = new string[rationals.Length];
                 for (var i = 0; i < strings.Length; i++)
@@ -463,10 +468,10 @@ namespace MetadataExtractor
 
             if (o == null)
                 return null;
-            if (o is StringValue[])
-                return (StringValue[])o;
-            if (o is StringValue)
-                return new StringValue[] { (StringValue)o };
+            if (o is StringValue[] stringValues)
+                return stringValues;
+            if (o is StringValue sv)
+                return new [] { sv };
 
             return null;
         }
@@ -483,12 +488,10 @@ namespace MetadataExtractor
             if (o == null)
                 return null;
 
-            var ints = o as int[];
-            if (ints != null)
+            if (o is int[] ints)
                 return ints;
 
-            var rationals = o as Rational[];
-            if (rationals != null)
+            if (o is Rational[] rationals)
             {
                 ints = new int[rationals.Length];
                 for (var i = 0; i < ints.Length; i++)
@@ -496,8 +499,7 @@ namespace MetadataExtractor
                 return ints;
             }
 
-            var shorts = o as short[];
-            if (shorts != null)
+            if (o is short[] shorts)
             {
                 ints = new int[shorts.Length];
                 for (var i = 0; i < shorts.Length; i++)
@@ -505,26 +507,23 @@ namespace MetadataExtractor
                 return ints;
             }
 
-            if (o.GetType() == typeof(sbyte[]))
+            if (o is sbyte[] sbytes)
             {
-                var bytes = (sbyte[])o;
+                ints = new int[sbytes.Length];
+                for (var i = 0; i < sbytes.Length; i++)
+                    ints[i] = sbytes[i];
+                return ints;
+            }
+
+            if (o is byte[] bytes)
+            {
                 ints = new int[bytes.Length];
                 for (var i = 0; i < bytes.Length; i++)
                     ints[i] = bytes[i];
                 return ints;
             }
 
-            if (o.GetType() == typeof(byte[]))
-            {
-                var bytes = (byte[])o;
-                ints = new int[bytes.Length];
-                for (var i = 0; i < bytes.Length; i++)
-                    ints[i] = bytes[i];
-                return ints;
-            }
-
-            var str = o as string;
-            if (str != null)
+            if (o is string str)
             {
                 ints = new int[str.Length];
                 for (var i = 0; i < str.Length; i++)
@@ -556,8 +555,7 @@ namespace MetadataExtractor
 
             byte[] bytes;
 
-            var rationals = o as Rational[];
-            if (rationals != null)
+            if (o is Rational[] rationals)
             {
                 bytes = new byte[rationals.Length];
                 for (var i = 0; i < bytes.Length; i++)
@@ -569,8 +567,7 @@ namespace MetadataExtractor
             if (bytes != null)
                 return bytes;
 
-            var ints = o as int[];
-            if (ints != null)
+            if (o is int[] ints)
             {
                 bytes = new byte[ints.Length];
                 for (var i = 0; i < ints.Length; i++)
@@ -578,8 +575,7 @@ namespace MetadataExtractor
                 return bytes;
             }
 
-            var shorts = o as short[];
-            if (shorts != null)
+            if (o is short[] shorts)
             {
                 bytes = new byte[shorts.Length];
                 for (var i = 0; i < shorts.Length; i++)
@@ -587,8 +583,7 @@ namespace MetadataExtractor
                 return bytes;
             }
 
-            var str = o as string;
-            if (str != null)
+            if (o is string str)
             {
                 bytes = new byte[str.Length];
                 for (var i = 0; i < str.Length; i++)
@@ -613,8 +608,7 @@ namespace MetadataExtractor
         /// <exception cref="MetadataException">No value exists for <paramref name="tagType"/>, or the value is not convertible to the requested type.</exception>
         public static DateTime GetDateTime([NotNull] this Directory directory, int tagType /*, [CanBeNull] TimeZoneInfo timeZone = null*/)
         {
-            DateTime value;
-            if (directory.TryGetDateTime(tagType, out value))
+            if (directory.TryGetDateTime(tagType, out DateTime value))
                 return value;
 
             return ThrowValueNotPossible<DateTime>(directory, tagType);
@@ -661,16 +655,16 @@ namespace MetadataExtractor
                 return false;
             }
 
-            if (o is DateTime)
+            if (o is DateTime dt)
             {
-                dateTime = (DateTime)o;
+                dateTime = dt;
                 return true;
             }
 
             var s = o as string;
 
-            if (o is StringValue)
-                s = ((StringValue)o).ToString();
+            if (o is StringValue sv)
+                s = sv.ToString();
 
             if (s != null)
             {
@@ -681,8 +675,7 @@ namespace MetadataExtractor
                 return false;
             }
 
-            var convertible = o as IConvertible;
-            if (convertible != null)
+            if (o is IConvertible convertible)
             {
                 try
                 {
@@ -704,8 +697,7 @@ namespace MetadataExtractor
         [Pure]
         public static Rational GetRational([NotNull] this Directory directory, int tagType)
         {
-            Rational value;
-            if (directory.TryGetRational(tagType, out value))
+            if (directory.TryGetRational(tagType, out Rational value))
                 return value;
 
             return ThrowValueNotPossible<Rational>(directory, tagType);
@@ -724,21 +716,21 @@ namespace MetadataExtractor
                 return false;
             }
 
-            if (o is Rational)
+            if (o is Rational r)
             {
-                value = (Rational)o;
+                value = r;
                 return true;
             }
 
-            if (o is int?)
+            if (o is int i)
             {
-                value = new Rational((int)o, 1);
+                value = new Rational(i, 1);
                 return true;
             }
 
-            if (o is long?)
+            if (o is long l)
             {
-                value = new Rational((long)o, 1);
+                value = new Rational(l, 1);
                 return true;
             }
 
@@ -773,27 +765,24 @@ namespace MetadataExtractor
         public static string GetString([NotNull] this Directory directory, int tagType)
         {
             var o = directory.GetObject(tagType);
+
             if (o == null)
                 return null;
 
-            if (o is Rational)
-                return ((Rational)o).ToSimpleString();
+            if (o is Rational r)
+                return r.ToSimpleString();
 
-            if (o is DateTime)
-            {
-                var dateTime = (DateTime)o;
-                return dateTime.ToString(
-                    dateTime.Kind != DateTimeKind.Unspecified
+            if (o is DateTime dt)
+                return dt.ToString(
+                    dt.Kind != DateTimeKind.Unspecified
                         ? "ddd MMM dd HH:mm:ss zzz yyyy"
                         : "ddd MMM dd HH:mm:ss yyyy");
-            }
 
-            if (o is bool)
-                return (bool)o ? "true" : "false";
+            if (o is bool b)
+                return b ? "true" : "false";
 
             // handle arrays of objects and primitives
-            var array = o as Array;
-            if (array != null)
+            if (o is Array array)
             {
                 var componentType = array.GetType().GetElementType();
                 var str = new StringBuilder();
@@ -921,11 +910,11 @@ namespace MetadataExtractor
                 return str.ToString();
             }
 
-            if (o is double)
-                return ((double)o).ToString("0.###");
+            if (o is double d)
+                return d.ToString("0.###");
 
-            if (o is float)
-                return ((float)o).ToString("0.###");
+            if (o is float f)
+                return f.ToString("0.###");
 
             // Note that several cameras leave trailing spaces (Olympus, Nikon) but this library is intended to show
             // the actual data within the file.  It is not inconceivable that whitespace may be significant here, so we
@@ -945,7 +934,6 @@ namespace MetadataExtractor
         }
 
         [Pure]
-        [CanBeNull]
         public static StringValue GetStringValue([NotNull] this Directory directory, int tagType)
         {
             var o = directory.GetObject(tagType);
@@ -964,13 +952,11 @@ namespace MetadataExtractor
             if (o == null)
                 return null;
 
-            var convertible = o as IConvertible;
 
-            if (convertible != null)
+            if (o is IConvertible convertible)
                 return convertible;
 
-            var array = o as Array;
-            if (array != null && array.Length == 1 && array.Rank == 1)
+            if (o is Array array && array.Length == 1 && array.Rank == 1)
                 return array.GetValue(0) as IConvertible;
 
             return null;

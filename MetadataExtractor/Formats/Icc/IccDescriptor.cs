@@ -285,7 +285,7 @@ namespace MetadataExtractor.Formats.Icc
             }
 
             intPart += rest;
-            var isNegative = (value < 0) && (intPart != 0 || restKept != 0);
+            var isNegative = value < 0 && (intPart != 0 || restKept != 0);
             return (isNegative ? "-" : string.Empty) + intPart + "." + res;
         }
 
@@ -355,8 +355,7 @@ namespace MetadataExtractor.Formats.Icc
         [CanBeNull]
         private string GetProfileVersionDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(IccDirectory.TagProfileVersion, out value))
+            if (!Directory.TryGetInt32(IccDirectory.TagProfileVersion, out int value))
                 return null;
 
             var m = (byte)(value >> 24);
@@ -368,8 +367,7 @@ namespace MetadataExtractor.Formats.Icc
         [CanBeNull]
         private string GetProfileDateTimeDescription()
         {
-            DateTime value;
-            if (!Directory.TryGetDateTime(IccDirectory.TagProfileDateTime, out value))
+            if (!Directory.TryGetDateTime(IccDirectory.TagProfileDateTime, out DateTime value))
                 return null;
 
             return value.ToString("yyyy:MM:dd HH:mm:ss");

@@ -66,8 +66,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetDistortionParam02Description()
         {
-            short value;
-            if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionParam02, out value))
+            if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionParam02, out short value))
                 return null;
 
             return new Rational(value, 32678).ToString();
@@ -77,8 +76,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetDistortionParam04Description()
         {
-            short value;
-            if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionParam04, out value))
+            if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionParam04, out short value))
                 return null;
 
             return new Rational(value, 32678).ToString();
@@ -87,8 +85,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetDistortionScaleDescription()
         {
-            short value;
-            if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionScale, out value))
+            if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionScale, out short value))
                 return null;
 
             return (1 / (1 + value / 32768)).ToString();
@@ -97,12 +94,11 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetDistortionCorrectionDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(PanasonicRawDistortionDirectory.TagDistortionCorrection, out value))
+            if (!Directory.TryGetInt32(PanasonicRawDistortionDirectory.TagDistortionCorrection, out int value))
                 return null;
 
             // (have seen the upper 4 bits set for GF5 and GX1, giving a value of -4095 - PH)
-            int mask = 0x000f;
+            var mask = 0x000f;
             switch (value & mask)
             {
                 case 0:
@@ -117,8 +113,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetDistortionParam08Description()
         {
-            short value;
-            if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionParam08, out value))
+            if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionParam08, out short value))
                 return null;
 
             return new Rational(value, 32678).ToString();
@@ -127,8 +122,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetDistortionParam09Description()
         {
-            short value;
-            if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionParam09, out value))
+            if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionParam09, out short value))
                 return null;
 
             return new Rational(value, 32678).ToString();
@@ -137,8 +131,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetDistortionParam11Description()
         {
-            short value;
-            if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionParam11, out value))
+            if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionParam11, out short value))
                 return null;
 
             return new Rational(value, 32678).ToString();

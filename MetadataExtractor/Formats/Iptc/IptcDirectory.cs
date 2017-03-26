@@ -282,8 +282,7 @@ namespace MetadataExtractor.Formats.Iptc
             if (date == null || time == null)
                 return null;
 
-            DateTimeOffset result;
-            if (DateTimeOffset.TryParseExact(date + time, _formats, null, DateTimeStyles.None, out result))
+            if (DateTimeOffset.TryParseExact(date + time, _formats, null, DateTimeStyles.None, out DateTimeOffset result))
                 return result;
 
             return null;

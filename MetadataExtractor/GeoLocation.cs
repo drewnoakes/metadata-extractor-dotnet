@@ -112,7 +112,7 @@ namespace MetadataExtractor
                 return false;
             if (ReferenceEquals(this, obj))
                 return true;
-            return obj is GeoLocation && Equals((GeoLocation)obj);
+            return obj is GeoLocation location && Equals(location);
         }
 
         public override int GetHashCode() => unchecked((Latitude.GetHashCode()*397) ^ Longitude.GetHashCode());

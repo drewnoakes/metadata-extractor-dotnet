@@ -9,39 +9,33 @@ namespace MetadataExtractor.Util
         public static uint FromBigEndianToNative(uint bigEndian)
         {
             if (BitConverter.IsLittleEndian == false)
-            {
                 return bigEndian;
-            }
 
-            byte[] bigEndianBytes = BitConverter.GetBytes(bigEndian);
-            byte[] littleEndianBytes = new byte[4] { bigEndianBytes[3], bigEndianBytes[2], bigEndianBytes[1], bigEndianBytes[0] };
-            return BitConverter.ToUInt32(littleEndianBytes, 0);
+            var bytes = BitConverter.GetBytes(bigEndian);
+            Array.Reverse(bytes);
+            return BitConverter.ToUInt32(bytes, startIndex: 0);
         }
 
         [Pure]
         public static ushort FromBigEndianToNative(ushort bigEndian)
         {
             if (BitConverter.IsLittleEndian == false)
-            {
                 return bigEndian;
-            }
 
-            byte[] bigEndianBytes = BitConverter.GetBytes(bigEndian);
-            byte[] littleEndianBytes = new byte[2] { bigEndianBytes[1], bigEndianBytes[0] };
-            return BitConverter.ToUInt16(littleEndianBytes, 0);
+            var bytes = BitConverter.GetBytes(bigEndian);
+            Array.Reverse(bytes);
+            return BitConverter.ToUInt16(bytes, startIndex: 0);
         }
 
         [Pure]
         public static short FromBigEndianToNative(short bigEndian)
         {
             if (BitConverter.IsLittleEndian == false)
-            {
                 return bigEndian;
-            }
 
-            byte[] bigEndianBytes = BitConverter.GetBytes(bigEndian);
-            byte[] littleEndianBytes = new byte[2] { bigEndianBytes[1], bigEndianBytes[0] };
-            return BitConverter.ToInt16(littleEndianBytes, 0);
+            var bytes = BitConverter.GetBytes(bigEndian);
+            Array.Reverse(bytes);
+            return BitConverter.ToInt16(bytes, startIndex: 0);
         }
 
         [Pure]

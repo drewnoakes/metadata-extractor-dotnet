@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using MetadataExtractor.Formats.Netpbm;
@@ -31,6 +32,7 @@ namespace MetadataExtractor.Tests.Formats.Netpbm
 {
     /// <summary>Unit tests for <see cref="NetpbmReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    [SuppressMessage("ReSharper", "UnusedParameter.Local")]
     public sealed class NetpbmReaderTest
     {
         [Fact]

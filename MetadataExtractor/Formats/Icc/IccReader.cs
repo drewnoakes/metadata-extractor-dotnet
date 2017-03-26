@@ -92,7 +92,7 @@ namespace MetadataExtractor.Formats.Icc
                 }
             }
 
-            return new[] { Extract(new ByteArrayReader(buffer)) };
+            return new Directory[] { Extract(new ByteArrayReader(buffer)) };
         }
 
         [NotNull]

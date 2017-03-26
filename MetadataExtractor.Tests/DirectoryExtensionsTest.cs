@@ -35,123 +35,112 @@ namespace MetadataExtractor.Tests
         [Fact]
         public void Int32Tests()
         {
-            Action<Directory, int> assertPresentInt32 = (dictionary, i) =>
+            void AssertPresentInt32(Directory dictionary, int i)
             {
                 Assert.Equal(i, dictionary.GetInt32(i));
-                int value;
-                Assert.True(dictionary.TryGetInt32(i, out value));
+                Assert.True(dictionary.TryGetInt32(i, out int _));
                 Assert.Equal(i, dictionary.GetInt32(i));
-            };
+            }
 
-            Action<Directory, int> assertMissingInt32 = (dictionary, i) =>
+            void AssertMissingInt32(Directory dictionary, int i)
             {
-                int value;
-                Assert.False(dictionary.TryGetInt32(i, out value));
+                Assert.False(dictionary.TryGetInt32(i, out int _));
                 Assert.Throws<MetadataException>(() => dictionary.GetInt32(i));
-            };
+            }
 
-            Test(BuildDirectory(_singleValues), assertPresentInt32, assertMissingInt32);
-            Test(BuildDirectory(_arraysOfSingleValues), assertPresentInt32, assertMissingInt32);
+            Test(BuildDirectory(_singleValues), AssertPresentInt32, AssertMissingInt32);
+            Test(BuildDirectory(_arraysOfSingleValues), AssertPresentInt32, AssertMissingInt32);
         }
 
         [Fact]
         public void Int64Tests()
         {
-            Action<Directory, int> assertPresentInt64 = (dictionary, i) =>
+            void AssertPresentInt64(Directory dictionary, int i)
             {
                 Assert.Equal(i, dictionary.GetInt64(i));
-                long value;
-                Assert.True(dictionary.TryGetInt64(i, out value));
+                Assert.True(dictionary.TryGetInt64(i, out long _));
                 Assert.Equal(i, dictionary.GetInt64(i));
-            };
+            }
 
-            Action<Directory, int> assertMissingInt64 = (dictionary, i) =>
+            void AssertMissingInt64(Directory dictionary, int i)
             {
-                long value;
-                Assert.False(dictionary.TryGetInt64(i, out value));
+                Assert.False(dictionary.TryGetInt64(i, out long _));
                 Assert.Throws<MetadataException>(() => dictionary.GetInt64(i));
-            };
+            }
 
-            Test(BuildDirectory(_singleValues), assertPresentInt64, assertMissingInt64);
-            Test(BuildDirectory(_arraysOfSingleValues), assertPresentInt64, assertMissingInt64);
+            Test(BuildDirectory(_singleValues), AssertPresentInt64, AssertMissingInt64);
+            Test(BuildDirectory(_arraysOfSingleValues), AssertPresentInt64, AssertMissingInt64);
         }
 
         [Fact]
         public void SingleTests()
         {
-            Action<Directory, int> assertPresentSingle = (dictionary, i) =>
+            void AssertPresentSingle(Directory dictionary, int i)
             {
                 Assert.Equal(i, dictionary.GetSingle(i));
-                float value;
-                Assert.True(dictionary.TryGetSingle(i, out value));
+                Assert.True(dictionary.TryGetSingle(i, out float _));
                 Assert.Equal(i, dictionary.GetSingle(i));
-            };
+            }
 
-            Action<Directory, int> assertMissingSingle = (dictionary, i) =>
+            void AssertMissingSingle(Directory dictionary, int i)
             {
-                float value;
-                Assert.False(dictionary.TryGetSingle(i, out value));
+                Assert.False(dictionary.TryGetSingle(i, out float _));
                 Assert.Throws<MetadataException>(() => dictionary.GetSingle(i));
-            };
+            }
 
-            Test(BuildDirectory(_singleValues), assertPresentSingle, assertMissingSingle);
-            Test(BuildDirectory(_arraysOfSingleValues), assertPresentSingle, assertMissingSingle);
+            Test(BuildDirectory(_singleValues), AssertPresentSingle, AssertMissingSingle);
+            Test(BuildDirectory(_arraysOfSingleValues), AssertPresentSingle, AssertMissingSingle);
         }
 
         [Fact]
         public void DoubleTests()
         {
-            Action<Directory, int> assertPresentDouble = (dictionary, i) =>
+            void AssertPresentDouble(Directory dictionary, int i)
             {
                 Assert.Equal(i, dictionary.GetDouble(i));
-                double value;
-                Assert.True(dictionary.TryGetDouble(i, out value));
+                Assert.True(dictionary.TryGetDouble(i, out double _));
                 Assert.Equal(i, dictionary.GetDouble(i));
-            };
+            }
 
-            Action<Directory, int> assertMissingDouble = (dictionary, i) =>
+            void AssertMissingDouble(Directory dictionary, int i)
             {
-                double value;
-                Assert.False(dictionary.TryGetDouble(i, out value));
+                Assert.False(dictionary.TryGetDouble(i, out double _));
                 Assert.Throws<MetadataException>(() => dictionary.GetDouble(i));
-            };
+            }
 
-            Test(BuildDirectory(_singleValues), assertPresentDouble, assertMissingDouble);
-            Test(BuildDirectory(_arraysOfSingleValues), assertPresentDouble, assertMissingDouble);
+            Test(BuildDirectory(_singleValues), AssertPresentDouble, AssertMissingDouble);
+            Test(BuildDirectory(_arraysOfSingleValues), AssertPresentDouble, AssertMissingDouble);
         }
 
         [Fact]
         public void BooleanTests()
         {
-            Action<Directory, int> assertPresentTrueBoolean = (dictionary, i) =>
+            void AssertPresentTrueBoolean(Directory dictionary, int i)
             {
                 Assert.True(dictionary.GetBoolean(i));
-                bool value;
-                Assert.True(dictionary.TryGetBoolean(i, out value));
+                Assert.True(dictionary.TryGetBoolean(i, out bool _));
                 Assert.True(dictionary.GetBoolean(i));
-            };
+            }
 
-            Action<Directory, int> assertPresentFalseBoolean = (dictionary, i) =>
+            void AssertPresentFalseBoolean(Directory dictionary, int i)
             {
                 Assert.False(dictionary.GetBoolean(i));
-                bool value;
-                Assert.True(dictionary.TryGetBoolean(i, out value));
+                Assert.True(dictionary.TryGetBoolean(i, out bool _));
                 Assert.False(dictionary.GetBoolean(i));
-            };
+            }
 
-            Action<Directory, int> assertMissingBoolean = (dictionary, i) =>
+            void AssertMissingBoolean(Directory dictionary, int i)
             {
-                bool value;
-                Assert.False(dictionary.TryGetBoolean(i, out value));
+                Assert.False(dictionary.TryGetBoolean(i, out bool _));
                 Assert.Throws<MetadataException>(() => dictionary.GetBoolean(i));
-            };
+            }
 
             // NOTE string is not convertible to boolean other than for "true" and "false"
 
-            Test(BuildDirectory(_singleValues.Where(v => !(v is string))), assertPresentTrueBoolean, assertMissingBoolean);
-            Test(BuildDirectory(_singleZeroValues.Where(v => !(v is string))), assertPresentFalseBoolean, assertMissingBoolean);
-            Test(BuildDirectory(_arraysOfSingleValues.Where(v => !(v is string[]))), assertPresentTrueBoolean, assertMissingBoolean);
-            Test(BuildDirectory(_arraysOfSingleZeroValues.Where(v => !(v is string[]))), assertPresentFalseBoolean, assertMissingBoolean);
+            Test(BuildDirectory(_singleValues.Where(v => !(v is string))), AssertPresentTrueBoolean, AssertMissingBoolean);
+            Test(BuildDirectory(_singleZeroValues.Where(v => !(v is string))), AssertPresentFalseBoolean, AssertMissingBoolean);
+            Test(BuildDirectory(_arraysOfSingleValues.Where(v => !(v is string[]))), AssertPresentTrueBoolean, AssertMissingBoolean);
+            Test(BuildDirectory(_arraysOfSingleZeroValues.Where(v => !(v is string[]))), AssertPresentFalseBoolean, AssertMissingBoolean);
 
             var directory = new MockDirectory();
 

@@ -79,8 +79,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var gpsDirectory = ExifReaderTest.ProcessSegmentBytes<GpsDirectory>("Data/withPanasonicFaces.jpg.app1", JpegSegmentType.App1);
             Assert.Equal("2010:06:24", gpsDirectory.GetString(GpsDirectory.TagDateStamp));
             Assert.Equal("10/1 17/1 21/1", gpsDirectory.GetString(GpsDirectory.TagTimeStamp));
-            DateTime gpsDate;
-            Assert.True(gpsDirectory.TryGetGpsDate(out gpsDate));
+            Assert.True(gpsDirectory.TryGetGpsDate(out DateTime gpsDate));
             Assert.Equal(DateTimeKind.Utc, gpsDate.Kind);
             Assert.Equal(new DateTime(2010, 6, 24, 10, 17, 21), gpsDate);
         }

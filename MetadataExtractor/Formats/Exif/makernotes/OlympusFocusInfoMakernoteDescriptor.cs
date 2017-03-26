@@ -96,8 +96,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFocusDistanceDescription()
         {
-            Rational value;
-            if (!Directory.TryGetRational(OlympusFocusInfoMakernoteDirectory.TagFocusDistance, out value))
+            if (!Directory.TryGetRational(OlympusFocusInfoMakernoteDirectory.TagFocusDistance, out Rational value))
                 return "inf";
             if (value.Numerator == 0xFFFFFFFF || value.Numerator == 0x00000000)
                 return "inf";
@@ -112,8 +111,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetAfPointDescription()
         {
-            short value;
-            if (!Directory.TryGetInt16(OlympusFocusInfoMakernoteDirectory.TagAfPoint, out value))
+            if (!Directory.TryGetInt16(OlympusFocusInfoMakernoteDirectory.TagAfPoint, out short value))
                 return null;
 
             return value.ToString();
@@ -153,8 +151,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values == null)
             {
                 // check if it's only one value long also
-                short value;
-                if (!Directory.TryGetInt16(OlympusFocusInfoMakernoteDirectory.TagExternalFlashZoom, out value))
+                if (!Directory.TryGetInt16(OlympusFocusInfoMakernoteDirectory.TagExternalFlashZoom, out short value))
                     return null;
 
                 values = new ushort[1];

@@ -72,8 +72,7 @@ namespace MetadataExtractor.Tests
             Assert.Equal(value, _directory.GetDouble(tagType), precision: 5);
             Assert.Equal((long)value, (object)_directory.GetInt64(tagType));
             Assert.Equal(value.ToString(), _directory.GetString(tagType));
-            Rational rational;
-            Assert.True(_directory.TryGetRational(tagType, out rational));
+            Assert.True(_directory.TryGetRational(tagType, out Rational rational));
             Assert.Equal(new Rational(value, 1), rational);
             Assert.Equal(new[] { value }, _directory.GetInt32Array(tagType));
             Assert.Equal(new[] { unchecked((byte)value) }, _directory.GetByteArray(tagType));
@@ -111,27 +110,28 @@ namespace MetadataExtractor.Tests
         [Fact]
         public void SetStringAndGetDate()
         {
-            Action<string, DateTime> test = (str, expected) =>
+            // ReSharper disable once UnusedParameter.Local
+            void Test(string str, DateTime expected)
             {
                 _directory.Set(1, str);
                 Assert.Equal(expected, _directory.GetDateTime(1));
-            };
+            }
 
             // TODO revisit these commented cases and introduce GetDateTimeOffset impl/test
 
-            test("2002:01:30 23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
-            test("2002:01:30 23:59",              new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
-            test("2002-01-30 23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
-            test("2002-01-30 23:59",              new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
+            Test("2002:01:30 23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
+            Test("2002:01:30 23:59",              new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
+            Test("2002-01-30 23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
+            Test("2002-01-30 23:59",              new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
 //          test("2002-01-30T23:59:59.099-08:00", new DateTime(2002, 1, 30, 23, 59, 59, 99, DateTimeKind.Unspecified));
-            test("2002-01-30T23:59:59.099",       new DateTime(2002, 1, 30, 23, 59, 59, 99, DateTimeKind.Unspecified));
+            Test("2002-01-30T23:59:59.099",       new DateTime(2002, 1, 30, 23, 59, 59, 99, DateTimeKind.Unspecified));
 //          test("2002-01-30T23:59:59-08:00",     new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
-            test("2002-01-30T23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
+            Test("2002-01-30T23:59:59",           new DateTime(2002, 1, 30, 23, 59, 59,     DateTimeKind.Unspecified));
 //          test("2002-01-30T23:59-08:00",        new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
-            test("2002-01-30T23:59",              new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
-            test("2002-01-30",                    new DateTime(2002, 1, 30,  0,  0,  0,     DateTimeKind.Unspecified));
-            test("2002-01",                       new DateTime(2002, 1,  1,  0,  0,  0,     DateTimeKind.Unspecified));
-            test("2002",                          new DateTime(2002, 1,  1,  0,  0,  0,     DateTimeKind.Unspecified));
+            Test("2002-01-30T23:59",              new DateTime(2002, 1, 30, 23, 59,  0,     DateTimeKind.Unspecified));
+            Test("2002-01-30",                    new DateTime(2002, 1, 30,  0,  0,  0,     DateTimeKind.Unspecified));
+            Test("2002-01",                       new DateTime(2002, 1,  1,  0,  0,  0,     DateTimeKind.Unspecified));
+            Test("2002",                          new DateTime(2002, 1,  1,  0,  0,  0,     DateTimeKind.Unspecified));
         }
 
         [Fact]
@@ -173,20 +173,13 @@ namespace MetadataExtractor.Tests
             Assert.Null(_directory.GetRationalArray(ExifDirectoryBase.TagAperture));
             Assert.Null(_directory.GetStringArray(ExifDirectoryBase.TagAperture));
 
-            bool b;
-            Assert.False(_directory.TryGetBoolean(ExifDirectoryBase.TagAperture, out b));
-            DateTime dt;
-            Assert.False(_directory.TryGetDateTime(ExifDirectoryBase.TagAperture, out dt));
-            double d;
-            Assert.False(_directory.TryGetDouble(ExifDirectoryBase.TagAperture, out d));
-            int i;
-            Assert.False(_directory.TryGetInt32(ExifDirectoryBase.TagAperture, out i));
-            long l;
-            Assert.False(_directory.TryGetInt64(ExifDirectoryBase.TagAperture, out l));
-            Rational r;
-            Assert.False(_directory.TryGetRational(ExifDirectoryBase.TagAperture, out r));
-            float f;
-            Assert.False(_directory.TryGetSingle(ExifDirectoryBase.TagAperture, out f));
+            Assert.False(_directory.TryGetBoolean(ExifDirectoryBase.TagAperture, out bool _));
+            Assert.False(_directory.TryGetDateTime(ExifDirectoryBase.TagAperture, out DateTime _));
+            Assert.False(_directory.TryGetDouble(ExifDirectoryBase.TagAperture, out double _));
+            Assert.False(_directory.TryGetInt32(ExifDirectoryBase.TagAperture, out int _));
+            Assert.False(_directory.TryGetInt64(ExifDirectoryBase.TagAperture, out long _));
+            Assert.False(_directory.TryGetRational(ExifDirectoryBase.TagAperture, out Rational _));
+            Assert.False(_directory.TryGetSingle(ExifDirectoryBase.TagAperture, out float _));
         }
 
         [Fact]

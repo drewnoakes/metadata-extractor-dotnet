@@ -43,7 +43,7 @@ namespace MetadataExtractor.Formats.QuickTime
         {
             var directories = new List<Directory>();
 
-            Action<AtomCallbackArgs> trakHandler = a =>
+            void TrakHandler(AtomCallbackArgs a)
             {
                 switch (a.TypeString)
                 {
@@ -69,9 +69,9 @@ namespace MetadataExtractor.Formats.QuickTime
                         break;
                     }
                 }
-            };
+            }
 
-            var moovHandler = (Action<AtomCallbackArgs>) (a =>
+            void MoovHandler(AtomCallbackArgs a)
             {
                 switch (a.TypeString)
                 {
@@ -101,7 +101,7 @@ namespace MetadataExtractor.Formats.QuickTime
                     }
                     case "trak":
                     {
-                        QuickTimeReader.ProcessAtoms(stream, trakHandler, a.BytesLeft);
+                        QuickTimeReader.ProcessAtoms(stream, TrakHandler, a.BytesLeft);
                         break;
                     }
 //                    case "clip":
@@ -119,15 +119,15 @@ namespace MetadataExtractor.Formats.QuickTime
 //                        break;
 //                    }
                 }
-            });
+            }
 
-            Action<AtomCallbackArgs> handler = a =>
+            void Handler(AtomCallbackArgs a)
             {
                 switch (a.TypeString)
                 {
                     case "moov":
                     {
-                        QuickTimeReader.ProcessAtoms(stream, moovHandler, a.BytesLeft);
+                        QuickTimeReader.ProcessAtoms(stream, MoovHandler, a.BytesLeft);
                         break;
                     }
                     case "ftyp":
@@ -143,9 +143,9 @@ namespace MetadataExtractor.Formats.QuickTime
                         break;
                     }
                 }
-            };
+            }
 
-            QuickTimeReader.ProcessAtoms(stream, handler);
+            QuickTimeReader.ProcessAtoms(stream, Handler);
 
             return directories;
         }

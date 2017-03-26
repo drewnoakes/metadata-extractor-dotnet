@@ -66,8 +66,7 @@ namespace MetadataExtractor.Formats.Netpbm
                 if (!words.MoveNext())
                     throw new IOException("Unexpected EOF.");
 
-                int width;
-                if (!int.TryParse(words.Current, out width))
+                if (!int.TryParse(words.Current, out int width))
                     throw new IOException("Width is not parseable as an integer.");
 
                 directory.Set(NetpbmHeaderDirectory.TagWidth, width);
@@ -75,8 +74,7 @@ namespace MetadataExtractor.Formats.Netpbm
                 if (!words.MoveNext())
                     throw new IOException("Unexpected EOF.");
 
-                int height;
-                if (!int.TryParse(words.Current, out height))
+                if (!int.TryParse(words.Current, out int height))
                     throw new IOException("Height is not parseable as an integer.");
 
                 directory.Set(NetpbmHeaderDirectory.TagHeight, height);
@@ -86,8 +84,7 @@ namespace MetadataExtractor.Formats.Netpbm
 
                 if (magicNum != 1 && magicNum != 6)
                 {
-                    int maxValue;
-                    if (!int.TryParse(words.Current, out maxValue))
+                    if (!int.TryParse(words.Current, out int maxValue))
                         throw new IOException("MaxValue is not parseable as an integer.");
 
                     directory.Set(NetpbmHeaderDirectory.TagMaximumValue, maxValue);

@@ -75,12 +75,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetYCbCrCoefficientsDescription()
         {
-            ushort[] values = Directory.GetObject(OlympusRawInfoMakernoteDirectory.TagYCbCrCoefficients) as ushort[];
+            var values = Directory.GetObject(OlympusRawInfoMakernoteDirectory.TagYCbCrCoefficients) as ushort[];
             if (values == null)
                 return null;
 
             var ret = new Rational[values.Length / 2];
-            for(int i = 0; i < values.Length / 2; i++)
+            for(var i = 0; i < values.Length / 2; i++)
             {
                 ret[i] = new Rational(values[2*i], values[2*i + 1]);
             }
@@ -91,8 +91,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetOlympusLightSourceDescription()
         {
-            ushort value;
-            if (!Directory.TryGetUInt16(OlympusRawInfoMakernoteDirectory.TagLightSource, out value))
+            if (!Directory.TryGetUInt16(OlympusRawInfoMakernoteDirectory.TagLightSource, out ushort value))
                 return null;
 
             switch (value)

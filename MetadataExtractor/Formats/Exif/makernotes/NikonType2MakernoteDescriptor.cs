@@ -150,8 +150,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetActiveDLightingDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(NikonType2MakernoteDirectory.TagActiveDLighting, out value))
+            if (!Directory.TryGetInt32(NikonType2MakernoteDirectory.TagActiveDLighting, out int value))
                 return null;
 
             switch (value)
@@ -176,8 +175,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetVignetteControlDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(NikonType2MakernoteDirectory.TagVignetteControl, out value))
+            if (!Directory.TryGetInt32(NikonType2MakernoteDirectory.TagVignetteControl, out int value))
                 return null;
 
             switch (value)
@@ -225,8 +223,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetDigitalZoomDescription()
         {
-            Rational value;
-            if (!Directory.TryGetRational(NikonType2MakernoteDirectory.TagDigitalZoom, out value))
+            if (!Directory.TryGetRational(NikonType2MakernoteDirectory.TagDigitalZoom, out Rational value))
                 return null;
 
             return value.ToInt32() == 1

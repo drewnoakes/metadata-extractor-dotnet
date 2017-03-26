@@ -47,8 +47,7 @@ namespace MetadataExtractor.Formats.Exif
                 case PrintIMDirectory.TagPrintImVersion:
                     return base.GetDescription(tagType);
                 default:
-                    uint value;
-                    if(!Directory.TryGetUInt32(tagType, out value))
+                    if(!Directory.TryGetUInt32(tagType, out uint value))
                         return null;
                     return "0x" + value.ToString("x8");
             }
