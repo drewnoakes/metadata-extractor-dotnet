@@ -521,6 +521,15 @@ namespace MetadataExtractor.Formats.Exif
                 PushDirectory(new CasioType2MakernoteDirectory());
                 TiffReader.ProcessIfd(this, reader.WithShiftedBaseOffset(makernoteOffset), processedIfdOffsets, 6);
             }
+            else if (string.Equals("PENTAX \0", firstEightChars, StringComparison.Ordinal))
+            {
+                // From ExifTool:
+                // labeled 'MakerNotePentax5'
+                // starts with "PENTAX \0"
+                // used by cameras such as the Q, Optio  S1, RS1500 and WG-1
+                PushDirectory(new PentaxMakernoteDirectory());
+                TiffReader.ProcessIfd(this, reader.WithShiftedBaseOffset(makernoteOffset), processedIfdOffsets, 10);
+            }
             else if (cameraMake != null && (cameraMake.StartsWith("PENTAX", StringComparison.OrdinalIgnoreCase) || cameraMake.StartsWith("ASAHI", StringComparison.OrdinalIgnoreCase)))
             {
                 // NON-Standard TIFF IFD Data using Pentax Tags
