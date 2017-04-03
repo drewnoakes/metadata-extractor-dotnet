@@ -140,28 +140,19 @@ namespace MetadataExtractor.Formats.Exif
 
         public override bool HasFollowerIfd()
         {
-            // In Exif, the only known 'follower' IFD is the thumbnail one, however this may not be the case.
-            // UPDATE: In multipage TIFFs, the 'follower' IFD points to the next image in the set
-            if (CurrentDirectory is ExifIfd0Directory || CurrentDirectory is ExifImageDirectory)
+            // If the next Ifd is IFD1, it's a thumbnail for JPG and some TIFF-based images
+            // NOTE: this is not true for some other image types, but those are not implemented yet
+            if (CurrentDirectory is ExifIfd0Directory)
             {
-                // If the PageNumber tag is defined, assume this is a multipage TIFF or similar
-                // TODO: Find better ways to know which follower Directory should be used
-                if (CurrentDirectory.ContainsTag(ExifDirectoryBase.TagPageNumber))
-                    PushDirectory(new ExifImageDirectory());
-                else
-                    PushDirectory(new ExifThumbnailDirectory());
-
+                PushDirectory(new ExifThumbnailDirectory());
                 return true;
             }
-
-            // The Canon EOS 7D (CR2) has three chained/following thumbnail IFDs
-            if (CurrentDirectory is ExifThumbnailDirectory)
+            else
             {
+                // In multipage TIFFs, the 'follower' IFD points to the next image in the set
+                PushDirectory(new ExifImageDirectory());
                 return true;
             }
-            // This should not happen, as Exif doesn't use follower IFDs apart from that above.
-            // NOTE have seen the CanonMakernoteDirectory IFD have a follower pointer, but it points to invalid data.
-            return false;
         }
 
         public override bool CustomProcessTag(int tagOffset, ICollection<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount)
