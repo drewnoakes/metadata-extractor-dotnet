@@ -104,12 +104,9 @@ namespace MetadataExtractor
 
         /// <summary>Sets the descriptor used to interpret tag values.</summary>
         /// <param name="descriptor">the descriptor used to interpret tag values</param>
-        public void SetDescriptor([NotNull] ITagDescriptor descriptor)
+        protected void SetDescriptor([NotNull] ITagDescriptor descriptor)
         {
-            if (descriptor == null)
-                throw new ArgumentNullException(nameof(descriptor));
-
-            _descriptor = descriptor;
+            _descriptor = descriptor ?? throw new ArgumentNullException(nameof(descriptor));
         }
 
         #region Errors
@@ -160,8 +157,7 @@ namespace MetadataExtractor
         [CanBeNull]
         public object GetObject(int tagType)
         {
-            object val;
-            return _tagMap.TryGetValue(tagType, out val) ? val : null;
+            return _tagMap.TryGetValue(tagType, out object val) ? val : null;
         }
 
         #endregion
@@ -172,8 +168,7 @@ namespace MetadataExtractor
         [NotNull]
         public string GetTagName(int tagType)
         {
-            string name;
-            return !TryGetTagName(tagType, out name)
+            return !TryGetTagName(tagType, out string name)
                 ? $"Unknown tag (0x{tagType:x4})"
                 : name;
         }
@@ -181,11 +176,7 @@ namespace MetadataExtractor
         /// <summary>Gets whether the specified tag is known by the directory and has a name.</summary>
         /// <param name="tagType">the tag type identifier</param>
         /// <returns>whether this directory has a name for the specified tag</returns>
-        public bool HasTagName(int tagType)
-        {
-            string name;
-            return TryGetTagName(tagType, out name);
-        }
+        public bool HasTagName(int tagType) => TryGetTagName(tagType, out string _);
 
         /// <summary>
         /// Provides a description of a tag's value using the descriptor set by <see cref="SetDescriptor"/>.
@@ -199,10 +190,7 @@ namespace MetadataExtractor
             return _descriptor.GetDescription(tagType);
         }
 
-        public override string ToString()
-        {
-            return $"{Name} Directory ({_tagMap.Count} {(_tagMap.Count == 1 ? "tag" : "tags")})";
-        }
+        public override string ToString() => $"{Name} Directory ({_tagMap.Count} {(_tagMap.Count == 1 ? "tag" : "tags")})";
     }
 
     /// <summary>
@@ -212,14 +200,9 @@ namespace MetadataExtractor
     {
         public override string Name => "Error";
 
-        public ErrorDirectory()
-        {
-        }
+        public ErrorDirectory() { }
 
-        public ErrorDirectory(string error)
-        {
-            AddError(error);
-        }
+        public ErrorDirectory(string error) => AddError(error);
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {
@@ -227,9 +210,6 @@ namespace MetadataExtractor
             return false;
         }
 
-        public override void Set(int tagType, object value)
-        {
-            throw new NotSupportedException($"Cannot add values to {nameof(ErrorDirectory)}.");
-        }
+        public override void Set(int tagType, object value) => throw new NotSupportedException($"Cannot add values to {nameof(ErrorDirectory)}.");
     }
 }

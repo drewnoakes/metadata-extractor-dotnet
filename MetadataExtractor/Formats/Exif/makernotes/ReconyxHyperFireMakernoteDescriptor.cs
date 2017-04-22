@@ -51,8 +51,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 case ReconyxHyperFireMakernoteDirectory.TagTriggerMode:
                     return Directory.GetString(tagType);
                 case ReconyxHyperFireMakernoteDirectory.TagSequence:
-                    int[] sequence = Directory.GetInt32Array(tagType);
-                    return string.Format("{0}/{1}", sequence[0], sequence[1]);
+                    var sequence = Directory.GetInt32Array(tagType);
+                    return $"{sequence[0]}/{sequence[1]}";
                 case ReconyxHyperFireMakernoteDirectory.TagEventNumber:
                     return Directory.GetUInt32(tagType).ToString();
                 case ReconyxHyperFireMakernoteDirectory.TagMotionSensitivity:

@@ -293,7 +293,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
             Assert.Equal(72, thumbDirectory.GetInt32(ExifDirectoryBase.TagYResolution));
         }
 
-        [Fact]
+        [Fact, UseCulture("en-GB")]
         public void GetAutoFlashCompensationDescription()
         {
             var directory = new NikonType2MakernoteDirectory();

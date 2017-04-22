@@ -113,18 +113,20 @@ namespace MetadataExtractor.Tools.FileProcessor
 
                         // Write file structure
                         var tree = directories.ToLookup(d => d.Parent);
-                        const int indent = 4;
-                        Action<Directory, int> writeLevel = null;
-                        writeLevel = (parent, level) =>
+
+                        void WriteLevel(Directory parent, int level)
                         {
+                            const int indent = 4;
+
                             foreach (var child in tree[parent])
                             {
                                 writer.Write(new string(' ', level*indent));
                                 writer.Write($"- {child.Name}\n");
-                                writeLevel(child, level + 1);
+                                WriteLevel(child, level + 1);
                             }
-                        };
-                        writeLevel(null, 0);
+                        }
+
+                        WriteLevel(null, 0);
 
                         writer.Write('\n');
                     }

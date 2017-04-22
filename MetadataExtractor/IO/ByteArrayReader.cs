@@ -44,12 +44,10 @@ namespace MetadataExtractor.IO
         public ByteArrayReader([NotNull] byte[] buffer, int baseOffset = 0, bool isMotorolaByteOrder = true)
             : base(isMotorolaByteOrder)
         {
-            if (buffer == null)
-                throw new ArgumentNullException(nameof(buffer));
             if (baseOffset < 0)
                 throw new ArgumentOutOfRangeException(nameof(baseOffset), "Must be zero or greater.");
 
-            _buffer = buffer;
+            _buffer = buffer ?? throw new ArgumentNullException(nameof(buffer));
             _baseOffset = baseOffset;
         }
 

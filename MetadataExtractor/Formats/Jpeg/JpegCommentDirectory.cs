@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -45,7 +44,7 @@ namespace MetadataExtractor.Formats.Jpeg
             { TagComment, "JPEG Comment" }
         };
 
-        public JpegCommentDirectory([NotNull] StringValue comment)
+        public JpegCommentDirectory(StringValue comment)
         {
             SetDescriptor(new JpegCommentDescriptor(this));
             Set(TagComment, comment);

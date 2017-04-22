@@ -40,9 +40,7 @@ namespace MetadataExtractor.IO
         public SequentialStreamReader([NotNull] Stream stream, bool isMotorolaByteOrder = true)
             : base(isMotorolaByteOrder)
         {
-            if (stream == null)
-                throw new ArgumentNullException(nameof(stream));
-            _stream = stream;
+            _stream = stream ?? throw new ArgumentNullException(nameof(stream));
         }
 
         public override byte GetByte()

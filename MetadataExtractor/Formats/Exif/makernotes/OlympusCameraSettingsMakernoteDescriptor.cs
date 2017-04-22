@@ -204,8 +204,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetMeteringModeDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagMeteringMode, out value))
+            if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagMeteringMode, out int value))
                 return null;
 
             switch (value)
@@ -254,8 +253,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values == null)
             {
                 // check if it's only one value long also
-                int value;
-                if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagFocusMode, out value))
+                if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagFocusMode, out int value))
                     return null;
 
                 values = new ushort[1];
@@ -324,8 +322,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values == null)
             {
                 // check if it's only one value long also
-                int value;
-                if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagFocusProcess, out value))
+                if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagFocusProcess, out int value))
                     return null;
 
                 values = new ushort[1];
@@ -436,8 +433,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFlashModeDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagFlashMode, out value))
+            if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagFlashMode, out int value))
                 return null;
 
             if (value == 0)
@@ -459,8 +455,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetFlashRemoteControlDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagFlashRemoteControl, out value))
+            if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagFlashRemoteControl, out int value))
                 return null;
 
             switch (value)
@@ -599,8 +594,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetWhiteBalance2Description()
         {
-            int value;
-            if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagWhiteBalance2, out value))
+            if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagWhiteBalance2, out int value))
                 return null;
 
             switch (value)
@@ -659,8 +653,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetWhiteBalanceTemperatureDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagWhiteBalanceTemperature, out value))
+            if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagWhiteBalanceTemperature, out int value))
                 return null;
             if (value == 0)
                 return "Auto";
@@ -705,8 +698,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetSceneModeDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagSceneMode, out value))
+            if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagSceneMode, out int value))
                 return null;
 
             switch (value)
@@ -833,8 +825,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetNoiseReductionDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagNoiseReduction, out value))
+            if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagNoiseReduction, out int value))
                 return null;
 
             var sb = new StringBuilder();
@@ -926,8 +917,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values == null)
             {
                 // check if it's only one value long also
-                int value;
-                if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagPictureMode, out value))
+                if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagPictureMode, out int value))
                     return null;
 
                 values = new ushort[1];
@@ -1195,7 +1185,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values == null)
                 return null;
 
-            if (values.Length == 0 || (values.Length > 0 && values[0] == 0))
+            if (values.Length == 0 || values.Length > 0 && values[0] == 0)
                 return "Single Shot";
 
             var a = new StringBuilder();
@@ -1313,8 +1303,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetManometerPressureDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagManometerPressure, out value))
+            if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagManometerPressure, out int value))
                 return null;
 
             return $"{value/10.0} kPa";

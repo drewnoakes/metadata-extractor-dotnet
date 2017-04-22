@@ -96,8 +96,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetRawDevNoiseReductionDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(OlympusRawDevelopment2MakernoteDirectory.TagRawDevNoiseReduction, out value))
+            if (!Directory.TryGetInt32(OlympusRawDevelopment2MakernoteDirectory.TagRawDevNoiseReduction, out int value))
                 return null;
 
             if (value == 0)
@@ -123,8 +122,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetRawDevPictureModeDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(OlympusRawDevelopment2MakernoteDirectory.TagRawDevPictureMode, out value))
+            if (!Directory.TryGetInt32(OlympusRawDevelopment2MakernoteDirectory.TagRawDevPictureMode, out int value))
                 return null;
 
             switch (value)

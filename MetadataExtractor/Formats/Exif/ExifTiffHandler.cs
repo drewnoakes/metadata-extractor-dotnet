@@ -140,28 +140,19 @@ namespace MetadataExtractor.Formats.Exif
 
         public override bool HasFollowerIfd()
         {
-            // In Exif, the only known 'follower' IFD is the thumbnail one, however this may not be the case.
-            // UPDATE: In multipage TIFFs, the 'follower' IFD points to the next image in the set
-            if (CurrentDirectory is ExifIfd0Directory || CurrentDirectory is ExifImageDirectory)
+            // If the next Ifd is IFD1, it's a thumbnail for JPG and some TIFF-based images
+            // NOTE: this is not true for some other image types, but those are not implemented yet
+            if (CurrentDirectory is ExifIfd0Directory)
             {
-                // If the PageNumber tag is defined, assume this is a multipage TIFF or similar
-                // TODO: Find better ways to know which follower Directory should be used
-                if (CurrentDirectory.ContainsTag(ExifDirectoryBase.TagPageNumber))
-                    PushDirectory(new ExifImageDirectory());
-                else
-                    PushDirectory(new ExifThumbnailDirectory());
-
+                PushDirectory(new ExifThumbnailDirectory());
                 return true;
             }
-
-            // The Canon EOS 7D (CR2) has three chained/following thumbnail IFDs
-            if (CurrentDirectory is ExifThumbnailDirectory)
+            else
             {
+                // In multipage TIFFs, the 'follower' IFD points to the next image in the set
+                PushDirectory(new ExifImageDirectory());
                 return true;
             }
-            // This should not happen, as Exif doesn't use follower IFDs apart from that above.
-            // NOTE have seen the CanonMakernoteDirectory IFD have a follower pointer, but it points to invalid data.
-            return false;
         }
 
         public override bool CustomProcessTag(int tagOffset, ICollection<int> processedIfdOffsets, IndexedReader reader, int tagId, int byteCount)
@@ -680,7 +671,7 @@ namespace MetadataExtractor.Formats.Exif
         private static void ProcessBinary([NotNull] Directory directory, int tagValueOffset, [NotNull] IndexedReader reader, int byteCount, bool issigned = true, int arrayLength = 1)
         {
             // expects signed/unsigned int16 (for now)
-            int byteSize = issigned ? sizeof(short) : sizeof(ushort);
+            var byteSize = issigned ? sizeof(short) : sizeof(ushort);
 
             // 'directory' is assumed to contain tags that correspond to the byte position unless it's a set of bytes
             for (var i = 0; i < byteCount; i++)
@@ -690,26 +681,26 @@ namespace MetadataExtractor.Formats.Exif
                     // only process this tag if the 'next' integral tag exists. Otherwise, it's a set of bytes
                     if (i < byteCount - 1 && directory.HasTagName(i + 1))
                     {
-                        if(issigned)
-                            directory.Set(i, reader.GetInt16(tagValueOffset + (i* byteSize)));
+                        if (issigned)
+                            directory.Set(i, reader.GetInt16(tagValueOffset + i*byteSize));
                         else
-                            directory.Set(i, reader.GetUInt16(tagValueOffset + (i* byteSize)));
+                            directory.Set(i, reader.GetUInt16(tagValueOffset + i*byteSize));
                     }
                     else
                     {
                         // the next arrayLength bytes are a multi-byte value
                         if (issigned)
                         {
-                            short[] val = new short[arrayLength];
-                            for (int j = 0; j<val.Length; j++)
-                                val[j] = reader.GetInt16(tagValueOffset + ((i + j) * byteSize));
+                            var val = new short[arrayLength];
+                            for (var j = 0; j < val.Length; j++)
+                                val[j] = reader.GetInt16(tagValueOffset + (i + j)*byteSize);
                             directory.Set(i, val);
                         }
                         else
                         {
-                            ushort[] val = new ushort[arrayLength];
-                            for (int j = 0; j<val.Length; j++)
-                                val[j] = reader.GetUInt16(tagValueOffset + ((i + j) * byteSize));
+                            var val = new ushort[arrayLength];
+                            for (var j = 0; j < val.Length; j++)
+                                val[j] = reader.GetUInt16(tagValueOffset + (i + j)*byteSize);
                             directory.Set(i, val);
                         }
 
@@ -770,8 +761,7 @@ namespace MetadataExtractor.Formats.Exif
             string buildYear = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagFirmwareVersion + 6).ToString("x4");
             string buildDate = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagFirmwareVersion + 8).ToString("x4");
             string buildYearAndDate = buildYear + buildDate;
-            int build;
-            if (int.TryParse(buildYear + buildDate, out build))
+            if (int.TryParse(buildYear + buildDate, out int build))
             {
                 directory.Set(ReconyxHyperFireMakernoteDirectory.TagFirmwareVersion, new Version(major, minor, revision, build));
             }
@@ -799,12 +789,12 @@ namespace MetadataExtractor.Formats.Exif
             ushort month = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 6);
             ushort day = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 8);
             ushort year = reader.GetUInt16(makernoteOffset + ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal + 10);
-            if ((seconds >= 0 && seconds < 60) &&
-                (minutes >= 0 && minutes < 60) &&
-                (hour >= 0 && hour < 24) &&
-                (month >= 1 && month < 13) &&
-                (day >= 1 && day < 32) &&
-                (year >= DateTime.MinValue.Year && year <= DateTime.MaxValue.Year))
+            if (seconds < 60 &&
+                minutes < 60 &&
+                hour < 24 &&
+                month >= 1 && month < 13 &&
+                day >= 1 && day < 32 &&
+                year >= DateTime.MinValue.Year && year <= DateTime.MaxValue.Year)
             {
                 directory.Set(ReconyxHyperFireMakernoteDirectory.TagDateTimeOriginal, new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Unspecified));
             }
@@ -869,12 +859,12 @@ namespace MetadataExtractor.Formats.Exif
             byte day = reader.GetByte(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 3);
             byte month = reader.GetByte(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 4);
             ushort year = ByteConvert.FromBigEndianToNative(reader.GetUInt16(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal + 5));
-            if ((seconds >= 0 && seconds < 60) &&
-                (minutes >= 0 && minutes < 60) &&
-                (hour >= 0 && hour < 24) &&
-                (month >= 1 && month < 13) &&
-                (day >= 1 && day < 32) &&
-                (year >= DateTime.MinValue.Year && year <= DateTime.MaxValue.Year))
+            if (seconds < 60 &&
+                minutes < 60 &&
+                hour < 24 &&
+                month >= 1 && month < 13 &&
+                day >= 1 && day < 32 &&
+                year >= DateTime.MinValue.Year && year <= DateTime.MaxValue.Year)
             {
                 directory.Set(ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal, new DateTime(year, month, day, hour, minutes, seconds, DateTimeKind.Unspecified));
             }
@@ -895,15 +885,15 @@ namespace MetadataExtractor.Formats.Exif
             directory.Set(ReconyxUltraFireMakernoteDirectory.TagUserLabel, reader.GetNullTerminatedString(makernoteOffset + ReconyxUltraFireMakernoteDirectory.TagUserLabel, 20, Encoding.UTF8));
         }
 
-        private static string ProcessReconyxUltraFireVersion([NotNull] int versionOffset, [NotNull] IndexedReader reader)
+        private static string ProcessReconyxUltraFireVersion(int versionOffset, [NotNull] IndexedReader reader)
         {
             string major = reader.GetByte(versionOffset).ToString();
             string minor = reader.GetByte(versionOffset + 1).ToString();
             string year = ByteConvert.FromBigEndianToNative(reader.GetUInt16(versionOffset + 2)).ToString("x4");
-            string month = reader.GetByte(versionOffset + 4).ToString("00");
-            string day = reader.GetByte(versionOffset + 5).ToString("00");
+            string month = reader.GetByte(versionOffset + 4).ToString("x2");
+            string day = reader.GetByte(versionOffset + 5).ToString("x2");
             string revision = reader.GetString(versionOffset + 6, 1, Encoding.UTF8);
-            return major + "." + minor + "." + year + month + day + revision;
+            return major + "." + minor + "." + year + "." + month + "." + day + revision;
         }
     }
 }

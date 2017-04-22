@@ -59,8 +59,7 @@ namespace MetadataExtractor.Formats.Photoshop
         public string GetChannelCountDescription()
         {
             // Supported range is 1 to 56.
-            int value;
-            if (!Directory.TryGetInt32(PsdHeaderDirectory.TagChannelCount, out value))
+            if (!Directory.TryGetInt32(PsdHeaderDirectory.TagChannelCount, out int value))
                 return null;
             return value + " channel" + (value == 1 ? string.Empty : "s");
         }
@@ -69,8 +68,7 @@ namespace MetadataExtractor.Formats.Photoshop
         public string GetBitsPerChannelDescription()
         {
             // Supported values are 1, 8, 16 and 32.
-            int value;
-            if (!Directory.TryGetInt32(PsdHeaderDirectory.TagBitsPerChannel, out value))
+            if (!Directory.TryGetInt32(PsdHeaderDirectory.TagBitsPerChannel, out int value))
                 return null;
             return value + " bit" + (value == 1 ? string.Empty : "s") + " per channel";
         }
@@ -94,8 +92,7 @@ namespace MetadataExtractor.Formats.Photoshop
         [CanBeNull]
         public string GetImageHeightDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(PsdHeaderDirectory.TagImageHeight, out value))
+            if (!Directory.TryGetInt32(PsdHeaderDirectory.TagImageHeight, out int value))
                 return null;
             return value + " pixel" + (value == 1 ? string.Empty : "s");
         }
@@ -103,8 +100,7 @@ namespace MetadataExtractor.Formats.Photoshop
         [CanBeNull]
         public string GetImageWidthDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(PsdHeaderDirectory.TagImageWidth, out value))
+            if (!Directory.TryGetInt32(PsdHeaderDirectory.TagImageWidth, out int value))
                 return null;
             return value + " pixel" + (value == 1 ? string.Empty : "s");
         }

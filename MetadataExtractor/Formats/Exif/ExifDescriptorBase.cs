@@ -367,8 +367,7 @@ namespace MetadataExtractor.Formats.Exif
         public string GetPhotometricInterpretationDescription()
         {
             // Shows the color space of the image data components
-            int value;
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagPhotometricInterpretation, out value))
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagPhotometricInterpretation, out int value))
                 return null;
 
             switch (value)
@@ -548,8 +547,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string Get35MMFilmEquivFocalLengthDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(ExifDirectoryBase.Tag35MMFilmEquivFocalLength, out value))
+            if (!Directory.TryGetInt32(ExifDirectoryBase.Tag35MMFilmEquivFocalLength, out int value))
                 return null;
             return value == 0 ? "Unknown" : GetFocalLengthDescription(value);
         }
@@ -557,8 +555,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetDigitalZoomRatioDescription()
         {
-            Rational value;
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagDigitalZoomRatio, out value))
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagDigitalZoomRatio, out Rational value))
                 return null;
             return value.Numerator == 0
                 ? "Digital zoom not used"
@@ -654,8 +651,7 @@ namespace MetadataExtractor.Formats.Exif
             // Have seen an exception here from files produced by ACDSEE that stored an int[] here with two values
             // There used to be a check here that multiplied ISO values < 50 by 200.
             // Issue 36 shows a smart-phone image from a Samsung Galaxy S2 with ISO-40.
-            int value;
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagIsoEquivalent, out value))
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagIsoEquivalent, out int value))
                 return null;
             return value.ToString();
         }
@@ -719,7 +715,7 @@ namespace MetadataExtractor.Formats.Exif
 
             if (repeatPattern.Length == 2 && values.Length == (repeatPattern[0] * repeatPattern[1]))
             {
-                int[] intpattern = new int[2 + values.Length];
+                var intpattern = new int[2 + values.Length];
                 intpattern[0] = repeatPattern[0];
                 intpattern[1] = repeatPattern[1];
 
@@ -739,15 +735,15 @@ namespace MetadataExtractor.Formats.Exif
             if (pattern[0] == 0 && pattern[1] == 0)
                 return "<zero pattern size>";
 
-            int end = 2 + pattern[0] * pattern[1];
+            var end = 2 + pattern[0] * pattern[1];
             if (end > pattern.Length)
                 return "<invalid pattern size>";
 
             string[] cfaColors = { "Red", "Green", "Blue", "Cyan", "Magenta", "Yellow", "White" };
 
-            StringBuilder ret = new StringBuilder();
+            var ret = new StringBuilder();
             ret.Append("[");
-            for (int pos = 2; pos < end; pos++)
+            for (var pos = 2; pos < end; pos++)
             {
                 if (pattern[pos] <= cfaColors.Length - 1)
                     ret.Append(cfaColors[pattern[pos]]);
@@ -780,7 +776,7 @@ namespace MetadataExtractor.Formats.Exif
         {
             int[] ret;
 
-            byte[] values = Directory.GetByteArray(tagType);
+            var values = Directory.GetByteArray(tagType);
             if (values == null)
                 return null;
 
@@ -800,8 +796,8 @@ namespace MetadataExtractor.Formats.Exif
 
             ret = new int[values.Length - 2];
 
-            bool copyArray = false;
-            int end = 2 + item0 * item1;
+            var copyArray = false;
+            var end = 2 + item0 * item1;
             if (end > values.Length) // sanity check in case of byte order problems; calculated 'end' should be <= length of the values
             {
                 // try swapping byte order (I have seen this order different than in EXIF)
@@ -809,7 +805,7 @@ namespace MetadataExtractor.Formats.Exif
                 item0 = reader.GetInt16(0);
                 item1 = reader.GetInt16(2);
 
-                if (values.Length >= (2 + item0 * item1))
+                if (values.Length >= 2 + item0 * item1)
                     copyArray = true;
             }
             else
@@ -840,8 +836,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetExposureBiasDescription()
         {
-            Rational value;
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagExposureBias, out value))
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagExposureBias, out Rational value))
                 return null;
             return value.ToSimpleString() + " EV";
         }
@@ -849,8 +844,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetMaxApertureValueDescription()
         {
-            double aperture;
-            if (!Directory.TryGetDouble(ExifDirectoryBase.TagMaxAperture, out aperture))
+            if (!Directory.TryGetDouble(ExifDirectoryBase.TagMaxAperture, out double aperture))
                 return null;
             return GetFStopDescription(PhotographicConversions.ApertureToFStop(aperture));
         }
@@ -858,8 +852,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetApertureValueDescription()
         {
-            double aperture;
-            if (!Directory.TryGetDouble(ExifDirectoryBase.TagAperture, out aperture))
+            if (!Directory.TryGetDouble(ExifDirectoryBase.TagAperture, out double aperture))
                 return null;
             return GetFStopDescription(PhotographicConversions.ApertureToFStop(aperture));
         }
@@ -881,8 +874,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetFocalPlaneXResolutionDescription()
         {
-            Rational value;
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagFocalPlaneXResolution, out value))
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagFocalPlaneXResolution, out Rational value))
                 return null;
             var unit = GetFocalPlaneResolutionUnitDescription();
             return value.Reciprocal.ToSimpleString() + (unit == null ? string.Empty : " " + unit.ToLower());
@@ -891,8 +883,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetFocalPlaneYResolutionDescription()
         {
-            Rational value;
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagFocalPlaneYResolution, out value))
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagFocalPlaneYResolution, out Rational value))
                 return null;
             var unit = GetFocalPlaneResolutionUnitDescription();
             return value.Reciprocal.ToSimpleString() + (unit == null ? string.Empty : " " + unit.ToLower());
@@ -912,8 +903,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetExifImageWidthDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagExifImageWidth, out value))
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagExifImageWidth, out int value))
                 return null;
             return value + " pixels";
         }
@@ -921,8 +911,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetExifImageHeightDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagExifImageHeight, out value))
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagExifImageHeight, out int value))
                 return null;
             return value + " pixels";
         }
@@ -930,8 +919,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetColorSpaceDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagColorSpace, out value))
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagColorSpace, out int value))
                 return null;
             if (value == 1)
                 return "sRGB";
@@ -943,8 +931,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetFocalLengthDescription()
         {
-            Rational value;
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagFocalLength, out value))
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagFocalLength, out Rational value))
                 return null;
             return GetFocalLengthDescription(value.ToDouble());
         }
@@ -962,8 +949,7 @@ namespace MetadataExtractor.Formats.Exif
              * 5 = unknown
              * 6 = red eye reduction used
              */
-            int value;
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagFlash, out value))
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagFlash, out int value))
                 return null;
 
             var sb = new StringBuilder();
@@ -983,8 +969,7 @@ namespace MetadataExtractor.Formats.Exif
         {
             // See http://web.archive.org/web/20131018091152/http://exif.org/Exif2-2.PDF page 35
 
-            int value;
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagWhiteBalance, out value))
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagWhiteBalance, out int value))
                 return null;
 
             switch (value)
@@ -1021,8 +1006,7 @@ namespace MetadataExtractor.Formats.Exif
         {
             // '0' means unknown, '1' average, '2' center weighted average, '3' spot
             // '4' multi-spot, '5' multi-segment, '6' partial, '255' other
-            int value;
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagMeteringMode, out value))
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagMeteringMode, out int value))
                 return null;
 
             switch (value)
@@ -1051,8 +1035,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetCompressionDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagCompression, out value))
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagCompression, out int value))
                 return null;
 
             switch (value)
@@ -1147,8 +1130,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetSubjectDistanceDescription()
         {
-            Rational value;
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagSubjectDistance, out value))
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagSubjectDistance, out Rational value))
                 return null;
             return $"{value.ToDouble():0.0##} metres";
         }
@@ -1156,8 +1138,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetCompressedAverageBitsPerPixelDescription()
         {
-            Rational value;
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagCompressedAverageBitsPerPixel, out value))
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagCompressedAverageBitsPerPixel, out Rational value))
                 return null;
             var ratio = value.ToSimpleString();
             return value.IsInteger && value.ToInt32() == 1 ? ratio + " bit/pixel" : ratio + " bits/pixel";
@@ -1179,8 +1160,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetFNumberDescription()
         {
-            Rational value;
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagFNumber, out value))
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagFNumber, out Rational value))
                 return null;
             return GetFStopDescription(value.ToDouble());
         }
@@ -1222,8 +1202,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetJpegProcDescription()
         {
-            int value;
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagJpegProc, out value))
+            if (!Directory.TryGetInt32(ExifDirectoryBase.TagJpegProc, out int value))
                 return null;
 
             switch (value)

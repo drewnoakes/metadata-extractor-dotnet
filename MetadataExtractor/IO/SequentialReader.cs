@@ -249,7 +249,6 @@ namespace MetadataExtractor.IO
             return encoding.GetString(bytes, 0, bytes.Length);
         }
 
-        [NotNull]
         public StringValue GetStringValue(int bytesRequested, Encoding encoding = null)
         {
             return new StringValue(GetBytes(bytesRequested), encoding);

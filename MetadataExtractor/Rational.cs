@@ -185,7 +185,7 @@ namespace MetadataExtractor
         /// <summary>
         /// Checks if this <see cref="Rational"/> number is expressible as an integer, either positive or negative.
         /// </summary>
-        public bool IsInteger => Denominator == 1 || (Denominator != 0 && (Numerator%Denominator == 0)) || (Denominator == 0 && Numerator == 0);
+        public bool IsInteger => Denominator == 1 || (Denominator != 0 && Numerator%Denominator == 0) || (Denominator == 0 && Numerator == 0);
 
         /// <summary>
         /// True if either <see cref="Denominator"/> or <see cref="Numerator"/> are zero.
@@ -264,9 +264,7 @@ namespace MetadataExtractor
         {
             if (ReferenceEquals(null, obj))
                 return false;
-            if (ReferenceEquals(this, obj))
-                return true;
-            return obj is Rational && Equals((Rational)obj);
+            return obj is Rational rational && Equals(rational);
         }
 
         public override int GetHashCode() => unchecked(Denominator.GetHashCode()*397) ^ Numerator.GetHashCode();
@@ -287,27 +285,27 @@ namespace MetadataExtractor
         /// </returns>
         public Rational GetSimplifiedInstance()
         {
+            long GCD(long a, long b)
+            {
+                if (a < 0)
+                    a = -a;
+                if (b < 0)
+                    b = -b;
+
+                while (a != 0 && b != 0)
+                {
+                    if (a > b)
+                        a %= b;
+                    else
+                        b %= a;
+                }
+
+                return a == 0 ? b : a;
+            }
+
             var gcd = GCD(Numerator, Denominator);
 
             return new Rational(Numerator / gcd, Denominator / gcd);
-        }
-
-        private static long GCD(long a, long b)
-        {
-            if (a < 0)
-                a = -a;
-            if (b < 0)
-                b = -b;
-
-            while (a != 0 && b != 0)
-            {
-                if (a > b)
-                    a %= b;
-                else
-                    b %= a;
-            }
-
-            return a == 0 ? b : a;
         }
 
         #region Equality operators
@@ -350,9 +348,7 @@ namespace MetadataExtractor
                 if (type == typeof(string))
                 {
                     var v = ((string)value).Split('/');
-                    long numerator;
-                    long denominator;
-                    if (v.Length == 2 && long.TryParse(v[0], out numerator) && long.TryParse(v[1], out denominator))
+                    if (v.Length == 2 && long.TryParse(v[0], out long numerator) && long.TryParse(v[1], out long denominator))
                         return new Rational(numerator, denominator);
                 }
 

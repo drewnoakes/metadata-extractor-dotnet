@@ -1,28 +1,29 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8CF154EA-6A2C-4BF4-B263-78758F834192}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
 		CONTRIBUTING.md = CONTRIBUTING.md
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MetadataExtractor", "MetadataExtractor\MetadataExtractor.xproj", "{13B43D58-5196-45CF-B288-17675E572185}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetadataExtractor", "MetadataExtractor\MetadataExtractor.csproj", "{13B43D58-5196-45CF-B288-17675E572185}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MetadataExtractor.Tests", "MetadataExtractor.Tests\MetadataExtractor.Tests.xproj", "{24F63B67-9F76-436B-8A4E-EA15FD35598D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetadataExtractor.Tests", "MetadataExtractor.Tests\MetadataExtractor.Tests.csproj", "{24F63B67-9F76-436B-8A4E-EA15FD35598D}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MetadataExtractor.Tools.FileProcessor", "MetadataExtractor.Tools.FileProcessor\MetadataExtractor.Tools.FileProcessor.xproj", "{F999E38B-CBE8-43D5-B7C8-F2FCC7851191}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetadataExtractor.Tools.FileProcessor", "MetadataExtractor.Tools.FileProcessor\MetadataExtractor.Tools.FileProcessor.csproj", "{F999E38B-CBE8-43D5-B7C8-F2FCC7851191}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MetadataExtractor.Tools.JpegSegmentExtractor", "MetadataExtractor.Tools.JpegSegmentExtractor\MetadataExtractor.Tools.JpegSegmentExtractor.xproj", "{44ECB1E6-E2E0-4ECA-95CA-466E42903E42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetadataExtractor.Tools.JpegSegmentExtractor", "MetadataExtractor.Tools.JpegSegmentExtractor\MetadataExtractor.Tools.JpegSegmentExtractor.csproj", "{44ECB1E6-E2E0-4ECA-95CA-466E42903E42}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MetadataExtractor.Benchmarks", "MetadataExtractor.Benchmarks\MetadataExtractor.Benchmarks.xproj", "{E78F38A6-CB2F-47A0-9932-47224B3FD2FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetadataExtractor.Benchmarks", "MetadataExtractor.Benchmarks\MetadataExtractor.Benchmarks.csproj", "{E78F38A6-CB2F-47A0-9932-47224B3FD2FC}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MetadataExtractor.PowerShell", "MetadataExtractor.PowerShell\MetadataExtractor.PowerShell.xproj", "{96158958-7CA7-4BFC-A573-30F31E7F39A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetadataExtractor.PowerShell", "MetadataExtractor.PowerShell\MetadataExtractor.PowerShell.csproj", "{96158958-7CA7-4BFC-A573-30F31E7F39A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
