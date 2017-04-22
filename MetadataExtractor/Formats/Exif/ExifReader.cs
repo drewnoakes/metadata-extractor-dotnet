@@ -24,8 +24,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Tiff;
@@ -41,6 +43,7 @@ namespace MetadataExtractor.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifReader : IJpegSegmentMetadataReader
     {
+        public const string JpegSegmentId = "Exif";
         /// <summary>Exif data stored in JPEG files' APP1 segment are preceded by this six character preamble.</summary>
         public const string JpegSegmentPreamble = "Exif\x0\x0";
 
@@ -52,11 +55,11 @@ namespace MetadataExtractor.Formats.Exif
 #else
             IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments(IEnumerable<JpegSegment> segments)
+            ReadJpegSegments(Stream stream, IEnumerable<JpegSegment> segments)
         {
             return segments
-                .Where(segment => segment.Bytes.Length >= JpegSegmentPreamble.Length && Encoding.UTF8.GetString(segment.Bytes, 0, JpegSegmentPreamble.Length) == JpegSegmentPreamble)
-                .SelectMany(segment => Extract(new ByteArrayReader(segment.Bytes, baseOffset: JpegSegmentPreamble.Length)))
+                .Where(segment => segment.Length >= JpegSegmentPreamble.Length && segment.Preamble == JpegSegmentId)
+                .SelectMany(segment => Extract(new IndexedSeekingReader(stream, (int)segment.Offset + JpegSegmentPreamble.Length)))
                 .ToList();
         }
 

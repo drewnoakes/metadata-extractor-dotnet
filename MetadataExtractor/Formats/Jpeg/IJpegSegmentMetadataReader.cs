@@ -24,6 +24,9 @@
 
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using System.IO;
+
+using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -35,6 +38,7 @@ namespace MetadataExtractor.Formats.Jpeg
         ICollection<JpegSegmentType> SegmentTypes { get; }
 
         /// <summary>Extracts metadata from all instances of a particular JPEG segment type.</summary>
+        /// <param name="stream"></param>
         /// <param name="segments">
         /// A sequence of JPEG segments from which the metadata should be extracted. These are in the order encountered in the original file.
         /// </param>
@@ -44,6 +48,6 @@ namespace MetadataExtractor.Formats.Jpeg
 #else
         IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments([NotNull] IEnumerable<JpegSegment> segments);
+            ReadJpegSegments(Stream stream, [NotNull] IEnumerable<JpegSegment> segments);
     }
 }

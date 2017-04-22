@@ -22,12 +22,24 @@
 //
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
+
+using System.Text;
+
+using MetadataExtractor.Formats.Adobe;
+using MetadataExtractor.Formats.Exif;
+using MetadataExtractor.Formats.Icc;
+using MetadataExtractor.Formats.Jfif;
+using MetadataExtractor.Formats.Jfxx;
+using MetadataExtractor.Formats.Photoshop;
+using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
+using MetadataExtractor.Util;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -38,7 +50,7 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <para />
     /// Segments are returned in the order they appear in the file, however that order may vary from file to file.
     /// <para />
-    /// Use <see cref="ReadSegments(SequentialReader,ICollection{JpegSegmentType})"/> to specific segment types,
+    /// Use <see cref="ReadSegments(Stream,ICollection{JpegSegmentType})"/> to specific segment types,
     /// or pass <c>null</c> to read all segments.
     /// <para />
     /// Note that SOS (start of scan) or EOI (end of image) segments are not returned by this class's methods.
@@ -47,12 +59,26 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class JpegSegmentReader
     {
+        private static readonly ByteTrie<string> _appSegmentByPreambleBytes;
+
+        static JpegSegmentReader()
+        {
+            _appSegmentByPreambleBytes = new ByteTrie<string>();
+
+            _appSegmentByPreambleBytes.AddPath(AdobeJpegReader.JpegSegmentId, Encoding.UTF8.GetBytes(AdobeJpegReader.JpegSegmentPreamble));
+            _appSegmentByPreambleBytes.AddPath(DuckyReader.JpegSegmentId, Encoding.UTF8.GetBytes(DuckyReader.JpegSegmentPreamble));
+            _appSegmentByPreambleBytes.AddPath(ExifReader.JpegSegmentId, Encoding.UTF8.GetBytes(ExifReader.JpegSegmentPreamble));
+            _appSegmentByPreambleBytes.AddPath(IccReader.JpegSegmentId, Encoding.UTF8.GetBytes(IccReader.JpegSegmentPreamble));
+            _appSegmentByPreambleBytes.AddPath(JfifReader.JpegSegmentId, Encoding.UTF8.GetBytes(JfifReader.JpegSegmentPreamble));
+            _appSegmentByPreambleBytes.AddPath(JfxxReader.JpegSegmentId, Encoding.UTF8.GetBytes(JfxxReader.JpegSegmentPreamble));
+            _appSegmentByPreambleBytes.AddPath(PhotoshopReader.JpegSegmentId, Encoding.UTF8.GetBytes(PhotoshopReader.JpegSegmentPreamble));
+            _appSegmentByPreambleBytes.AddPath(XmpReader.JpegSegmentId, Encoding.UTF8.GetBytes(XmpReader.JpegSegmentPreamble));
+            _appSegmentByPreambleBytes.AddPath(XmpReader.JpegSegmentExtensionId, Encoding.UTF8.GetBytes(XmpReader.JpegSegmentPreambleExtension));
+        }
+
         /// <summary>
         /// Walks the provided JPEG data, returning <see cref="JpegSegment"/> objects.
         /// </summary>
-        /// <remarks>
-        /// Will not return SOS (start of scan) or EOI (end of image) segments.
-        /// </remarks>
         /// <param name="filePath">a file from which the JPEG data will be read.</param>
         /// <param name="segmentTypes">the set of JPEG segments types that are to be returned. If this argument is <c>null</c> then all found segment types are returned.</param>
         /// <exception cref="JpegProcessingException"/>
@@ -61,24 +87,40 @@ namespace MetadataExtractor.Formats.Jpeg
         public static IEnumerable<JpegSegment> ReadSegments([NotNull] string filePath, [CanBeNull] ICollection<JpegSegmentType> segmentTypes = null)
         {
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                return ReadSegments(new SequentialStreamReader(stream), segmentTypes).ToList();
+            {
+                return ReadSegments(new RandomAccessReader(stream), segmentTypes).ToList();
+            }
         }
 
         /// <summary>
-        /// Processes the provided JPEG data, and extracts the specified JPEG segments into a <see cref="JpegSegment"/> object.
+        /// Walks the provided JPEG data, returning <see cref="JpegSegment"/> objects.
         /// </summary>
-        /// <remarks>
-        /// Will not return SOS (start of scan) or EOI (end of image) segments.
-        /// </remarks>
-        /// <param name="reader">a <see cref="SequentialReader"/> from which the JPEG data will be read. It must be positioned at the beginning of the JPEG data stream.</param>
+        /// <param name="stream">a <see cref="Stream"/> from which the JPEG data will be read.</param>
+        /// <param name="segmentTypes">the set of JPEG segments types that are to be returned. If this argument is <c>null</c> then all found segment types are returned.</param>
+        /// <exception cref="JpegProcessingException"/>
+        /// <exception cref="IOException"/>
+        public static IEnumerable<JpegSegment> ReadSegments([NotNull] Stream stream, [CanBeNull] ICollection<JpegSegmentType> segmentTypes = null)
+        {
+            return ReadSegments(new RandomAccessReader(stream), segmentTypes);
+        }
+
+        public static IEnumerable<JpegSegment> ReadSegments([NotNull] byte[] bytes, [CanBeNull] ICollection<JpegSegmentType> segmentTypes = null)
+        {
+            return ReadSegments(new RandomAccessReader(new MemoryStream(bytes)), segmentTypes);
+        }
+
+        /// <summary>
+        /// Walks the provided JPEG data, returning <see cref="JpegSegment"/> objects.
+        /// </summary>
+        /// <param name="reader">a <see cref="RandomAccessReader"/> from which the JPEG data will be read, generally positioned at the beginning of the JPEG data stream.</param>
         /// <param name="segmentTypes">the set of JPEG segments types that are to be returned. If this argument is <c>null</c> then all found segment types are returned.</param>
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="IOException"/>
         [NotNull]
-        public static IEnumerable<JpegSegment> ReadSegments([NotNull] SequentialReader reader, [CanBeNull] ICollection<JpegSegmentType> segmentTypes = null)
+        public static IEnumerable<JpegSegment> ReadSegments([NotNull] RandomAccessReader reader, [CanBeNull] ICollection<JpegSegmentType> segmentTypes = null)
         {
-            if (!reader.IsMotorolaByteOrder)
-                throw new JpegProcessingException("Must be big-endian/Motorola byte order.");
+            if (!reader.CanSeek)
+                throw new ArgumentException("Must be able to seek.", nameof(reader));
 
             // first two bytes should be JPEG magic number
             var magicNumber = reader.GetUInt16();
@@ -86,62 +128,198 @@ namespace MetadataExtractor.Formats.Jpeg
             if (magicNumber != 0xFFD8)
                 throw new JpegProcessingException($"JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x{magicNumber:X4}");
 
-            do
+            // if SOS is found, this helps buffer the search for the next segment indicator
+            // It's up here so only one buffer is used instead of creating a bunch of new ones
+            byte[] sosBuffer = new byte[1024];
+            long sosBufferStartIdx = 0;
+            int sosBufferLength = 0;
+
+            while (true)
             {
+                var padding = 0;
+
                 // Find the segment marker. Markers are zero or more 0xFF bytes, followed
                 // by a 0xFF and then a byte not equal to 0x00 or 0xFF.
-                var segmentIdentifier = reader.GetByte();
-                var segmentTypeByte = reader.GetByte();
+                var segmentIdentifier = reader.ReadByte();
+                var segmentTypeByte = reader.ReadByte();
+
+                if (segmentTypeByte == -1)
+                    yield break;
 
                 // Read until we have a 0xFF byte followed by a byte that is not 0xFF or 0x00
                 while (segmentIdentifier != 0xFF || segmentTypeByte == 0xFF || segmentTypeByte == 0)
                 {
+                    padding++;
                     segmentIdentifier = segmentTypeByte;
-                    segmentTypeByte = reader.GetByte();
+                    segmentTypeByte = reader.ReadByte();
+
+                    if (segmentTypeByte == -1)
+                        yield break;
                 }
 
                 var segmentType = (JpegSegmentType)segmentTypeByte;
+                var offset = reader.Position;
 
-                if (segmentType == JpegSegmentType.Sos)
+                // if there is a payload, then segment length includes the two size bytes
+                if (segmentType.ContainsPayload())
                 {
-                    // The 'Start-Of-Scan' segment's length doesn't include the image data, instead would
-                    // have to search for the two bytes: 0xFF 0xD9 (EOI).
-                    // It comes last so simply return at this point
-                    yield break;
-                }
+                    // Read the 2-byte big-endian segment length (excludes two marker bytes)
+                    var b1 = reader.ReadByte();
+                    var b2 = reader.ReadByte();
+                    if (b2 == -1)
+                        yield break;
+                    var segmentLength = reader.GetUInt16(b1, b2);
 
-                if (segmentType == JpegSegmentType.Eoi)
-                {
-                    // the 'End-Of-Image' segment -- this should never be found in this fashion
-                    yield break;
-                }
+                    // A length of less than two would be an error
+                    if (segmentLength < 2)
+                        yield break;
 
-                // next 2-bytes are <segment-size>: [high-byte] [low-byte]
-                var segmentLength = (int)reader.GetUInt16();
+                    // get position after id and type bytes (beginning of payload)
+                    offset += 2;
 
-                // segment length includes size bytes, so subtract two
-                segmentLength -= 2;
+                    // TODO: would you rather break here or throw an exception?
+                    if (segmentLength > (reader.Length - offset + 1))
+                        yield break;        // throw new JpegProcessingException($"Segment {segmentType} is truncated. Processing cannot proceed.");
+                    else
+                    {
+                        // segment length includes size bytes, so subtract two
+                        segmentLength -= 2;
+                    }
 
-                // TODO exception strings should end with periods
-                if (segmentLength < 0)
-                    throw new JpegProcessingException("JPEG segment size would be less than zero");
+                    // Check whether we are interested in this segment
+                    if (segmentTypes == null || segmentTypes.Contains(segmentType))
+                    {
+                        var preambleBytes = new byte[Math.Min(segmentLength, _appSegmentByPreambleBytes.MaxDepth)];
+                        if (reader.Read(preambleBytes, 0, preambleBytes.Length) != preambleBytes.Length)
+                            yield break;
+                        var preamble = _appSegmentByPreambleBytes.Find(preambleBytes); //?? "";
 
-                // Check whether we are interested in this segment
-                if (segmentTypes == null || segmentTypes.Contains(segmentType))
-                {
-                    var segmentOffset = reader.Position;
-                    var segmentBytes = reader.GetBytes(segmentLength);
-                    Debug.Assert(segmentLength == segmentBytes.Length);
-                    yield return new JpegSegment(segmentType, segmentBytes, segmentOffset);
+                        // Preamble wasn't found in the list. Since preamble is used in string comparisons, set it to blank.
+                        // (TODO: this might be a good place to record unknown preambles and report back somehow)
+                        if (preamble == null)
+                            preamble = "";
+
+                        yield return new JpegSegment(segmentType, segmentLength, padding, offset, preamble);
+                    }
+
+                    // seek to the end of the segment
+                    reader.Position = offset + segmentLength;
+
+                    // Sos means entropy encoded data immediately follows, ending with Eoi or another indicator
+                    // We already did a seek to the end of the SOS segment. A byte-by-byte scan follows to find the next indicator
+                    if (segmentType == JpegSegmentType.Sos)
+                    {
+                        // yielding here makes Sos processing work the old way (ending at the first one)
+                        //yield break;
+
+                        // Data that follows is the actual encoded data for this scan.
+                        // NOTE: a 0x00 byte that follows a 0xFF is a 'stuff byte.' This functions as an escape sequence.
+                        //       The 0xFF should be seen as part of the data and not a new segment indicator.
+                        //       TODO: If we decide to hold an encoding segment, any parsing directories should throw 
+                        //       out the 0x00 bytes when decoding the actual image data.
+
+                        // For buffering, keep track of where the data started
+                        // Also incremented if more than one buffer is needed, or the same buffer is reused
+                        var curridx = reader.Position;
+                        
+                        // storage to help find the next indicator
+                        byte lastToken = 0x00;
+                        // break out of the loop if this is set to true
+                        bool foundNext = false;
+
+                        while (true)
+                        {
+                            int start = 0;
+                            int readcount = 0;
+
+                            if((sosBufferStartIdx + sosBufferLength) <= curridx)
+                            {
+                                // Record where this buffer started in the stream
+                                sosBufferStartIdx = reader.Position;
+                                readcount = reader.Read(sosBuffer, 0, sosBuffer.Length);
+                                if (readcount == 0)
+                                    yield break;
+                                // Record byte count from the last Read
+                                sosBufferLength = readcount;
+                            }
+                            else
+                            {
+                                // next segment indicator index is in the current sos buffer
+                                // start the next for loop from the last processed byte index
+                                start = (int)(curridx - sosBufferStartIdx);
+                                readcount = sosBufferLength;
+                            }
+
+
+                            for (int i = start; i < readcount; i++)
+                            {
+                                curridx++;
+
+                                if (lastToken != 0xFF && sosBuffer[i] == 0xFF)  // possibly the next segment indicator; will find out in the next byte
+                                    lastToken = 0xFF;
+                                else if (lastToken == 0xFF)
+                                {
+                                    if (sosBuffer[i] == 0x00) // 0xFF followed by 0x00 (a 'stuff byte')
+                                        lastToken = 0x00; // ignore and go to the next byte
+                                    else if (sosBuffer[i] != 0x00)
+                                    {
+                                        // encountered a 0xFF followed by something other than a 0x00.
+                                        foundNext = true;
+                                        // backup the two bytes already inspected
+                                        curridx -= 2;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            // always seek to curridx
+                            reader.Seek(curridx, SeekOrigin.Begin);
+                            
+                            if (foundNext)
+                            {
+                                // Is likely a new segment, so let the main while loop continue
+                                break;
+                            }
+
+
+                            // ORIGINAL byte-at-a-time VERSION
+                            /*
+                            var next = stream.ReadByte();
+                            if (next == -1)
+                                yield break;
+                            if (next == 0xFF)
+                            {
+                                next = stream.ReadByte();
+                                if (next == -1)
+                                    yield break;
+
+                                // Ignore unless it's not 0x00 (stuff byte)
+                                if (next != 0x00)
+                                {
+                                    // encountered a 0xFF followed by something other a 0x00.
+                                    // Is likely a new segment, so backup two bytes and let the main while loop continue
+                                    stream.Seek(-2, SeekOrigin.Current);
+                                    break;
+                                }
+                            }
+                            */
+
+
+                        }
+                        
+                    }
                 }
                 else
                 {
-                    // Some of the JPEG is truncated, so just return what data we've already gathered
-                    if (!reader.TrySkip(segmentLength))
-                        yield break;
+                    // Check whether we are interested in this non-payload segment
+                    if (segmentTypes == null || segmentTypes.Contains(segmentType))
+                        yield return new JpegSegment(segmentType, 0, padding, offset, "");
+
+                    if (segmentType == JpegSegmentType.Eoi)
+                        break;
                 }
+
             }
-            while (true);
         }
     }
 }

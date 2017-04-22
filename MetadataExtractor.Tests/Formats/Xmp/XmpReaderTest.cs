@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System.IO;
 using System.Linq;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Xmp;
@@ -37,10 +38,18 @@ namespace MetadataExtractor.Tests.Formats.Xmp
 
         public XmpReaderTest()
         {
-            var jpegSegments = new [] { new JpegSegment(JpegSegmentType.App1, TestDataUtil.GetBytes("Data/withXmpAndIptc.jpg.app1.1"), offset: 0) };
+            /*var jpegSegments = new [] { new JpegSegment(JpegSegmentType.App1, TestDataUtil.GetBytes("Data/withXmpAndIptc.jpg.app1.1"), offset: 0) };
             var directories = new XmpReader().ReadJpegSegments(jpegSegments);
             _directory = directories.OfType<XmpDirectory>().ToList().Single();
-            Assert.False(_directory.HasError);
+            Assert.False(_directory.HasError);*/
+
+            using (var stream = TestDataUtil.OpenRead("Data/withXmpAndIptc.jpg.app1.1"))
+            {
+                var jpegSegments = new[] { new JpegSegment(JpegSegmentType.App1, (int)stream.Length, 0, 0, XmpReader.JpegSegmentId) };
+                var directories = new XmpReader().ReadJpegSegments(stream, jpegSegments);
+                _directory = directories.OfType<XmpDirectory>().ToList().Single();
+                Assert.False(_directory.HasError);
+            }
         }
 
         [Fact]

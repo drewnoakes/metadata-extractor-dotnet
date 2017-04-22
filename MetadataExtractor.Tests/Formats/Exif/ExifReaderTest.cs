@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
@@ -41,9 +42,16 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [NotNull]
         public static IList<Directory> ProcessSegmentBytes([NotNull] string filePath, JpegSegmentType type)
         {
-            var segment = new JpegSegment(type, TestDataUtil.GetBytes(filePath), 0);
+            /*var bytes = TestDataUtil.GetBytes(filePath);
+            var segment = new JpegSegment(type, bytes.Length, 0, 0, ExifReader.JpegSegmentId);
 
-            return new ExifReader().ReadJpegSegments(new[] { segment }).ToList();
+            return new ExifReader().ReadJpegSegments(new MemoryStream(bytes), new[] { segment }).ToList();*/
+
+            using (var stream = TestDataUtil.OpenRead(filePath))
+            {
+                var segment = new JpegSegment(type, (int)stream.Length, 0, 0, ExifReader.JpegSegmentId);
+                return new ExifReader().ReadJpegSegments(stream, new[] { segment }).ToList();
+            }
         }
 
         [NotNull]
@@ -58,7 +66,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void ReadJpegSegmentsWithNullDataThrows()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new ExifReader().ReadJpegSegments(null));
+            Assert.Throws<ArgumentNullException>(() => new ExifReader().ReadJpegSegments(null, null));
         }
 
         [Fact]
@@ -72,8 +80,10 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Fact]
         public void ReadJpegSegmentWithNoExifData()
         {
-            var badExifSegment = new JpegSegment(JpegSegmentType.App1, new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, offset: 0);
-            var directories = new ExifReader().ReadJpegSegments(new [] { badExifSegment });
+            var bytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            //var badExifSegment = new JpegSegment(JpegSegmentType.App1, new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, offset: 0);
+            var badExifSegment = new JpegSegment(JpegSegmentType.App1, bytes.Length, 0, 0, "");
+            var directories = new ExifReader().ReadJpegSegments(new MemoryStream(bytes), new [] { badExifSegment });
             Assert.Equal(0, directories.Count);
         }
 

@@ -38,6 +38,7 @@ namespace MetadataExtractor.Formats.Adobe
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class AdobeJpegReader : IJpegSegmentMetadataReader
     {
+        public const string JpegSegmentId = "Adobe";
         public const string JpegSegmentPreamble = "Adobe";
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppE };
@@ -48,11 +49,11 @@ namespace MetadataExtractor.Formats.Adobe
 #else
             IReadOnlyList<Directory>
 #endif
-            ReadJpegSegments(IEnumerable<JpegSegment> segments)
+            ReadJpegSegments(Stream stream, IEnumerable<JpegSegment> segments)
         {
             return segments
-                .Where(segment => segment.Bytes.Length == 12 && JpegSegmentPreamble.Equals(Encoding.UTF8.GetString(segment.Bytes, 0, JpegSegmentPreamble.Length), StringComparison.OrdinalIgnoreCase))
-                .Select(bytes => Extract(new SequentialByteArrayReader(bytes.Bytes)))
+                .Where(segment => segment.Length == 12 && JpegSegmentPreamble.Equals(segment.Preamble, StringComparison.OrdinalIgnoreCase))
+                .Select(seg => Extract(new SequentialStreamReader(stream, initialOffset: seg.Offset), seg))
 #if NET35
                 .Cast<Directory>()
 #endif
@@ -60,7 +61,7 @@ namespace MetadataExtractor.Formats.Adobe
         }
 
         [NotNull]
-        public AdobeJpegDirectory Extract([NotNull] SequentialReader reader)
+        public AdobeJpegDirectory Extract([NotNull] SequentialReader reader, JpegSegment seg)
         {
             reader = reader.WithByteOrder(isMotorolaByteOrder: false);
 
@@ -68,6 +69,7 @@ namespace MetadataExtractor.Formats.Adobe
 
             try
             {
+
                 if (reader.GetString(JpegSegmentPreamble.Length, Encoding.UTF8) != JpegSegmentPreamble)
                 {
                     directory.AddError("Invalid Adobe JPEG data header.");
