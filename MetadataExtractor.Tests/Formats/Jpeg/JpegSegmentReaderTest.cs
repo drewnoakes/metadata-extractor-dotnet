@@ -105,7 +105,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         {
             var bytes = Enumerable.Range(1, 100).Select(i => (byte)i).ToArray();
             var ex = Assert.Throws<JpegProcessingException>(
-                () => JpegSegmentReader.ReadSegments(new MemoryStream(bytes)).ToList());
+                () => JpegSegmentReader.ReadSegments(bytes).ToList());
 
             Assert.Equal("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x0102", ex.Message);
         }
