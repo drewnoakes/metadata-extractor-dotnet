@@ -303,11 +303,11 @@ namespace MetadataExtractor.Tests.Formats.Exif
             directory.Set(NikonType2MakernoteDirectory.TagAutoFlashCompensation, new sbyte[] { 0x06, 0x01, 0x06 });
             Assert.Equal("1 EV", descriptor.GetAutoFlashCompensationDescription());
             directory.Set(NikonType2MakernoteDirectory.TagAutoFlashCompensation, new sbyte[] { 0x04, 0x01, 0x06 });
-            Assert.Equal("0.67 EV", descriptor.GetAutoFlashCompensationDescription());
+            Assert.Equal($"{0.67} EV", descriptor.GetAutoFlashCompensationDescription());
             directory.Set(NikonType2MakernoteDirectory.TagAutoFlashCompensation, new sbyte[] { 0x02, 0x01, 0x06 });
-            Assert.Equal("0.33 EV", descriptor.GetAutoFlashCompensationDescription());
+            Assert.Equal($"{0.33} EV", descriptor.GetAutoFlashCompensationDescription());
             directory.Set(NikonType2MakernoteDirectory.TagAutoFlashCompensation, new sbyte[] { unchecked((sbyte)0xFE), 0x01, 0x06 });
-            Assert.Equal("-0.33 EV", descriptor.GetAutoFlashCompensationDescription());
+            Assert.Equal($"{-0.33} EV", descriptor.GetAutoFlashCompensationDescription());
         }
     }
 }
