@@ -28,6 +28,9 @@ using System.IO;
 using System.Text;
 using JetBrains.Annotations;
 
+// ReSharper disable CommentTypo
+// ReSharper disable StringLiteralTypo
+
 namespace MetadataExtractor.Util
 {
     /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>

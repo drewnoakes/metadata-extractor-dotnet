@@ -25,6 +25,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Util
@@ -65,6 +66,7 @@ namespace MetadataExtractor.Util
         /// calling <see cref="SetDefaultValue"/>.
         /// </remarks>
         [CanBeNull]
+        [SuppressMessage("ReSharper", "ParameterTypeCanBeEnumerable.Global")]
         public T Find([NotNull] byte[] bytes)
         {
             var node = _root;
