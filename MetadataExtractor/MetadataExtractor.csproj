@@ -22,7 +22,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Signed)' == 'True' ">
-    <AssemblyTitle>MetadataExtractor.StrongName</AssemblyTitle>
+    <AssemblyTitle>Metadata Extractor (Strong Name)</AssemblyTitle>
     <AssemblyName>MetadataExtractor.StrongName</AssemblyName>
     <AssemblyOriginatorKeyFile>../MetadataExtractor.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
