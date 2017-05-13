@@ -23,13 +23,14 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Util
 {
     /// <summary>Stores values using a prefix tree (aka 'trie', i.e. reTRIEval data structure).</summary>
-    public sealed class ByteTrie<T>
+    public sealed class ByteTrie<T> : IEnumerable<T>
     {
         /// <summary>A node in the trie.</summary>
         /// <remarks>Has children and may have an associated value.</remarks>
@@ -54,6 +55,10 @@ namespace MetadataExtractor.Util
         /// <summary>Gets the maximum depth stored in this trie.</summary>
         public int MaxDepth { get; private set; }
 
+        public ByteTrie() {}
+
+        public ByteTrie(T defaultValue) => SetDefaultValue(defaultValue);
+
         /// <summary>Return the most specific value stored for this byte sequence.</summary>
         /// <remarks>
         /// If not found, returns <c>null</c> or a default values as specified by
@@ -75,7 +80,7 @@ namespace MetadataExtractor.Util
         }
 
         /// <summary>Store the given value at the specified path.</summary>
-        public void AddPath(T value, [NotNull] params byte[][] parts)
+        public void Add(T value, [NotNull] params byte[][] parts)
         {
             var depth = 0;
             var node = _root;
@@ -100,5 +105,8 @@ namespace MetadataExtractor.Util
         /// Sets the default value to use in <see cref="ByteTrie{T}.Find(byte[])"/> when no path matches.
         /// </summary>
         public void SetDefaultValue(T defaultValue) => _root.SetValue(defaultValue);
+
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() => throw new NotImplementedException();
+        IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
     }
 }

@@ -40,7 +40,7 @@ namespace MetadataExtractor.Tests.Util
             var strings = new[] { "HELLO", "HELLO WORLD", "HERBERT" };
 
             foreach (var s in strings)
-                trie.AddPath(s, Encoding.UTF8.GetBytes(s));
+                trie.Add(s, Encoding.UTF8.GetBytes(s));
 
             foreach (var s1 in strings)
                 Assert.Same(s1, trie.Find(Encoding.UTF8.GetBytes(s1)));

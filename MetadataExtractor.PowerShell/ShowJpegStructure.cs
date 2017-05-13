@@ -67,22 +67,18 @@ namespace MetadataExtractor.PowerShell
     [UsedImplicitly]
     public sealed class ShowJpegStructure : PSCmdlet
     {
-        private static readonly ByteTrie<string> _appSegmentByPreambleBytes;
-
-        static ShowJpegStructure()
+        private static readonly ByteTrie<string> _appSegmentByPreambleBytes = new ByteTrie<string>
         {
-            _appSegmentByPreambleBytes = new ByteTrie<string>();
-
-            _appSegmentByPreambleBytes.AddPath("Adobe",          Encoding.UTF8.GetBytes(AdobeJpegReader.JpegSegmentPreamble));
-            _appSegmentByPreambleBytes.AddPath("Ducky",          Encoding.UTF8.GetBytes(DuckyReader.JpegSegmentPreamble));
-            _appSegmentByPreambleBytes.AddPath("Exif",           Encoding.UTF8.GetBytes(ExifReader.JpegSegmentPreamble));
-            _appSegmentByPreambleBytes.AddPath("ICC",            Encoding.UTF8.GetBytes(IccReader.JpegSegmentPreamble));
-            _appSegmentByPreambleBytes.AddPath("JFIF",           Encoding.UTF8.GetBytes(JfifReader.JpegSegmentPreamble));
-            _appSegmentByPreambleBytes.AddPath("JFXX",           Encoding.UTF8.GetBytes(JfxxReader.JpegSegmentPreamble));
-            _appSegmentByPreambleBytes.AddPath("Photoshop",      Encoding.UTF8.GetBytes(PhotoshopReader.JpegSegmentPreamble));
-            _appSegmentByPreambleBytes.AddPath("XMP",            Encoding.UTF8.GetBytes(XmpReader.JpegSegmentPreamble));
-            _appSegmentByPreambleBytes.AddPath("XMP (Extended)", Encoding.UTF8.GetBytes(XmpReader.JpegSegmentPreambleExtension));
-        }
+            { "Adobe",          Encoding.UTF8.GetBytes(AdobeJpegReader.JpegSegmentPreamble) },
+            { "Ducky",          Encoding.UTF8.GetBytes(DuckyReader.JpegSegmentPreamble) },
+            { "Exif",           Encoding.UTF8.GetBytes(ExifReader.JpegSegmentPreamble) },
+            { "ICC",            Encoding.UTF8.GetBytes(IccReader.JpegSegmentPreamble) },
+            { "JFIF",           Encoding.UTF8.GetBytes(JfifReader.JpegSegmentPreamble) },
+            { "JFXX",           Encoding.UTF8.GetBytes(JfxxReader.JpegSegmentPreamble) },
+            { "Photoshop",      Encoding.UTF8.GetBytes(PhotoshopReader.JpegSegmentPreamble) },
+            { "XMP",            Encoding.UTF8.GetBytes(XmpReader.JpegSegmentPreamble) },
+            { "XMP (Extended)", Encoding.UTF8.GetBytes(XmpReader.JpegSegmentPreambleExtension) }
+        };
 
         [Parameter(Position = 0, Mandatory = true, HelpMessage = "Path to the file to process")]
         [ValidateNotNullOrEmpty]
