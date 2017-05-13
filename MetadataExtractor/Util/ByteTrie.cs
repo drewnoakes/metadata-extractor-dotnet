@@ -25,6 +25,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
@@ -44,8 +45,7 @@ namespace MetadataExtractor.Util
 
             public void SetValue(T value)
             {
-                if (HasValue)
-                    throw new InvalidOperationException("Value already set for this trie node");
+                Debug.Assert(!HasValue, "Value already set for this trie node");
                 Value = value;
                 HasValue = true;
             }
