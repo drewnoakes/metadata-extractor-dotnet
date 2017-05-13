@@ -87,25 +87,25 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <summary>Start-of-Frame, differential Huffman coding frame, differential lossless.</summary>
         Sof7 = 0xC7,
 
-        /// <summary>Start-of-Frame, non-differential artihmetic coding frame, extended sequential DCT.</summary>
+        /// <summary>Start-of-Frame, non-differential arithmetic coding frame, extended sequential DCT.</summary>
         Sof9 = 0xC9,
 
-        /// <summary>Start-of-Frame, non-differential artihmetic coding frame, progressive DCT.</summary>
+        /// <summary>Start-of-Frame, non-differential arithmetic coding frame, progressive DCT.</summary>
         Sof10 = 0xCA,
 
-        /// <summary>Start-of-Frame, non-differential artihmetic coding frame, lossless sequential.</summary>
+        /// <summary>Start-of-Frame, non-differential arithmetic coding frame, lossless sequential.</summary>
         Sof11 = 0xCB,
 
         /// <summary>Define Arithmetic Coding table(s).</summary>
         Dac = 0xCC,
 
-        /// <summary>Start-of-Frame, differential artihmetic coding frame, differential sequential DCT.</summary>
+        /// <summary>Start-of-Frame, differential arithmetic coding frame, differential sequential DCT.</summary>
         Sof13 = 0xCD,
 
-        /// <summary>Start-of-Frame, differential artihmetic coding frame, differential progressive DCT.</summary>
+        /// <summary>Start-of-Frame, differential arithmetic coding frame, differential progressive DCT.</summary>
         Sof14 = 0xCE,
 
-        /// <summary>Start-of-Frame, differential artihmetic coding frame, differential lossless.</summary>
+        /// <summary>Start-of-Frame, differential arithmetic coding frame, differential lossless.</summary>
         Sof15 = 0xCF,
 
         /// <summary>Restart.</summary>
