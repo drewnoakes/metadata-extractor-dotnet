@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System.Diagnostics.CodeAnalysis;
 using Xunit;
 
 namespace MetadataExtractor.Tests
@@ -46,6 +47,8 @@ namespace MetadataExtractor.Tests
         }
 
         [Fact]
+        [SuppressMessage("ReSharper", "EqualExpressionComparison")]
+        [SuppressMessage("ReSharper", "SuspiciousTypeConversion.Global")]
         public void EqualsAndHashCode()
         {
             var age1 = new Age(10, 11, 12, 13, 14, 15);
