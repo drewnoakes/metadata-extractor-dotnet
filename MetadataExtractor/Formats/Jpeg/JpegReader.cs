@@ -76,9 +76,9 @@ namespace MetadataExtractor.Formats.Jpeg
                 // 3 - Quantization table number
                 for (var i = 0; i < (int)componentCount; i++)
                 {
-                    int componentId = reader.GetByte();
-                    int samplingFactorByte = reader.GetByte();
-                    int quantizationTableNumber = reader.GetByte();
+                    var componentId = reader.GetByte();
+                    var samplingFactorByte = reader.GetByte();
+                    var quantizationTableNumber = reader.GetByte();
                     var component = new JpegComponent(componentId, samplingFactorByte, quantizationTableNumber);
                     directory.Set(JpegDirectory.TagComponentData1 + i, component);
                 }

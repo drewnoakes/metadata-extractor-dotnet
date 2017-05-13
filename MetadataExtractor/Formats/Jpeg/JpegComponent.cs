@@ -39,18 +39,18 @@ namespace MetadataExtractor.Formats.Jpeg
 #endif
     public sealed class JpegComponent
     {
-        private readonly int _samplingFactorByte;
+        private readonly byte _samplingFactorByte;
 
-        public JpegComponent(int componentId, int samplingFactorByte, int quantizationTableNumber)
+        public JpegComponent(byte componentId, byte samplingFactorByte, byte quantizationTableNumber)
         {
             Id = componentId;
             _samplingFactorByte = samplingFactorByte;
             QuantizationTableNumber = quantizationTableNumber;
         }
 
-        public int Id { get; }
+        public byte Id { get; }
 
-        public int QuantizationTableNumber { get; }
+        public byte QuantizationTableNumber { get; }
 
         /// <summary>Returns the component name (one of: Y, Cb, Cr, I, or Q)</summary>
         /// <value>the component name</value>
