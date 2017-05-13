@@ -49,7 +49,7 @@ namespace MetadataExtractor.PowerShell
     {
         public JpegSegmentType Type { get; }
         public int Length { get; }
-        public int Padding { get; set; }
+        public int Padding { get; }
         public long Offset { get; }
         public string Preamble { get; }
 
