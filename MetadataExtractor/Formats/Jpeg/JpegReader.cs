@@ -68,13 +68,17 @@ namespace MetadataExtractor.Formats.Jpeg
                 directory.Set(JpegDirectory.TagDataPrecision, reader.GetByte());
                 directory.Set(JpegDirectory.TagImageHeight, reader.GetUInt16());
                 directory.Set(JpegDirectory.TagImageWidth, reader.GetUInt16());
+
                 var componentCount = reader.GetByte();
+
                 directory.Set(JpegDirectory.TagNumberOfComponents, componentCount);
-                // for each component, there are three bytes of data:
+
+                // For each component, there are three bytes of data:
                 // 1 - Component ID: 1 = Y, 2 = Cb, 3 = Cr, 4 = I, 5 = Q
                 // 2 - Sampling factors: bit 0-3 vertical, 4-7 horizontal
                 // 3 - Quantization table number
-                for (var i = 0; i < (int)componentCount; i++)
+
+                for (var i = 0; i < componentCount; i++)
                 {
                     var componentId = reader.GetByte();
                     var samplingFactorByte = reader.GetByte();
