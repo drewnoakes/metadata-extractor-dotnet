@@ -73,14 +73,14 @@ namespace MetadataExtractor.PowerShell
         {
             _appSegmentByPreambleBytes = new ByteTrie<string>();
 
-            _appSegmentByPreambleBytes.AddPath("Adobe", Encoding.UTF8.GetBytes(AdobeJpegReader.JpegSegmentPreamble));
-            _appSegmentByPreambleBytes.AddPath("Ducky", Encoding.UTF8.GetBytes(DuckyReader.JpegSegmentPreamble));
-            _appSegmentByPreambleBytes.AddPath("Exif", Encoding.UTF8.GetBytes(ExifReader.JpegSegmentPreamble));
-            _appSegmentByPreambleBytes.AddPath("ICC", Encoding.UTF8.GetBytes(IccReader.JpegSegmentPreamble));
-            _appSegmentByPreambleBytes.AddPath("JFIF", Encoding.UTF8.GetBytes(JfifReader.JpegSegmentPreamble));
-            _appSegmentByPreambleBytes.AddPath("JFXX", Encoding.UTF8.GetBytes(JfxxReader.JpegSegmentPreamble));
-            _appSegmentByPreambleBytes.AddPath("Photoshop", Encoding.UTF8.GetBytes(PhotoshopReader.JpegSegmentPreamble));
-            _appSegmentByPreambleBytes.AddPath("XMP", Encoding.UTF8.GetBytes(XmpReader.JpegSegmentPreamble));
+            _appSegmentByPreambleBytes.AddPath("Adobe",          Encoding.UTF8.GetBytes(AdobeJpegReader.JpegSegmentPreamble));
+            _appSegmentByPreambleBytes.AddPath("Ducky",          Encoding.UTF8.GetBytes(DuckyReader.JpegSegmentPreamble));
+            _appSegmentByPreambleBytes.AddPath("Exif",           Encoding.UTF8.GetBytes(ExifReader.JpegSegmentPreamble));
+            _appSegmentByPreambleBytes.AddPath("ICC",            Encoding.UTF8.GetBytes(IccReader.JpegSegmentPreamble));
+            _appSegmentByPreambleBytes.AddPath("JFIF",           Encoding.UTF8.GetBytes(JfifReader.JpegSegmentPreamble));
+            _appSegmentByPreambleBytes.AddPath("JFXX",           Encoding.UTF8.GetBytes(JfxxReader.JpegSegmentPreamble));
+            _appSegmentByPreambleBytes.AddPath("Photoshop",      Encoding.UTF8.GetBytes(PhotoshopReader.JpegSegmentPreamble));
+            _appSegmentByPreambleBytes.AddPath("XMP",            Encoding.UTF8.GetBytes(XmpReader.JpegSegmentPreamble));
             _appSegmentByPreambleBytes.AddPath("XMP (Extended)", Encoding.UTF8.GetBytes(XmpReader.JpegSegmentPreambleExtension));
         }
 
