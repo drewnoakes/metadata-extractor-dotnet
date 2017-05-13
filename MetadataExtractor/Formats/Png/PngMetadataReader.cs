@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.IO.Compression;
+using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.FileSystem;
@@ -83,16 +84,10 @@ namespace MetadataExtractor.Formats.Png
         [NotNull]
         public static DirectoryList ReadMetadata([NotNull] Stream stream)
         {
-            var directories = new List<Directory>();
-
-            var chunks = new PngChunkReader().Extract(new SequentialStreamReader(stream), _desiredChunkTypes);
-
-            foreach (var chunk in chunks)
-            {
-                directories.AddRange(ProcessChunk(chunk));
-            }
-
-            return directories;
+            return new PngChunkReader()
+                .Extract(new SequentialStreamReader(stream), _desiredChunkTypes)
+                .SelectMany(ProcessChunk)
+                .ToList();
         }
 
         /// <summary>
