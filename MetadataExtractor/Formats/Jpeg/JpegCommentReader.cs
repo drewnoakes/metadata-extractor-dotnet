@@ -26,6 +26,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+#if NET35
+using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
+#else
+using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
+#endif
+
 namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>Reads JPEG comments.</summary>
@@ -36,13 +42,7 @@ namespace MetadataExtractor.Formats.Jpeg
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.Com };
 
         /// <summary>Reads JPEG comments, returning each in a <see cref="JpegCommentDirectory"/>.</summary>
-        public
-#if NET35
-            IList<Directory>
-#else
-            IReadOnlyList<Directory>
-#endif
-            ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             // TODO store bytes in the directory to allow different encodings when decoding
 

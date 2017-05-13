@@ -25,10 +25,15 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
+
+#if NET35
+using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
+#else
+using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
+#endif
 
 namespace MetadataExtractor.Formats.Raf
 {
@@ -38,13 +43,7 @@ namespace MetadataExtractor.Formats.Raf
     public static class RafMetadataReader
     {
         [NotNull]
-        public static
-#if NET35
-            IList<Directory>
-#else
-            IReadOnlyList<Directory>
-#endif
-            ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata([NotNull] Stream stream)
         {
             if (!stream.CanSeek)
                 throw new ArgumentException("Must support seek", nameof(stream));

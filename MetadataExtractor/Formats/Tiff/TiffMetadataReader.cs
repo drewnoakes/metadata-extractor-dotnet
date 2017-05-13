@@ -29,6 +29,12 @@ using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.IO;
 
+#if NET35
+using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
+#else
+using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
+#endif
+
 namespace MetadataExtractor.Formats.Tiff
 {
     /// <summary>Obtains all available metadata from TIFF formatted files.</summary>
@@ -43,13 +49,7 @@ namespace MetadataExtractor.Formats.Tiff
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="TiffProcessingException"/>
         [NotNull]
-        public static
-#if NET35
-            IList<Directory>
-#else
-            IReadOnlyList<Directory>
-#endif
-            ReadMetadata([NotNull] string filePath)
+        public static DirectoryList ReadMetadata([NotNull] string filePath)
         {
             var directories = new List<Directory>();
 
@@ -67,13 +67,7 @@ namespace MetadataExtractor.Formats.Tiff
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="TiffProcessingException"/>
         [NotNull]
-        public static
-#if NET35
-            IList<Directory>
-#else
-            IReadOnlyList<Directory>
-#endif
-            ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata([NotNull] Stream stream)
         {
             // TIFF processing requires random access, as directories can be scattered throughout the byte sequence.
             // Stream does not support seeking backwards, so we wrap it with IndexedCapturingReader, which

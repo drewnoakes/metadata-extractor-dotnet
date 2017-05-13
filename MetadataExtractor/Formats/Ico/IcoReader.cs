@@ -27,6 +27,12 @@ using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
+#if NET35
+using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
+#else
+using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
+#endif
+
 namespace MetadataExtractor.Formats.Ico
 {
     /// <summary>Reads ICO (Windows Icon) file metadata.</summary>
@@ -39,13 +45,7 @@ namespace MetadataExtractor.Formats.Ico
     public sealed class IcoReader
     {
         [NotNull]
-        public
-#if NET35
-            IList<Directory>
-#else
-            IReadOnlyList<Directory>
-#endif
-            Extract([NotNull] SequentialReader reader)
+        public DirectoryList Extract([NotNull] SequentialReader reader)
         {
             var directories = new List<Directory>();
 

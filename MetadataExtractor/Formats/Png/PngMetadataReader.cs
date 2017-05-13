@@ -34,6 +34,12 @@ using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 using MetadataExtractor.Util;
 
+#if NET35
+using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
+#else
+using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
+#endif
+
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
@@ -60,13 +66,7 @@ namespace MetadataExtractor.Formats.Png
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static
-#if NET35
-            IList<Directory>
-#else
-            IReadOnlyList<Directory>
-#endif
-            ReadMetadata([NotNull] string filePath)
+        public static DirectoryList ReadMetadata([NotNull] string filePath)
         {
             var directories = new List<Directory>();
 
@@ -81,13 +81,7 @@ namespace MetadataExtractor.Formats.Png
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static
-#if NET35
-            IList<Directory>
-#else
-            IReadOnlyList<Directory>
-#endif
-            ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata([NotNull] Stream stream)
         {
             var directories = new List<Directory>();
 

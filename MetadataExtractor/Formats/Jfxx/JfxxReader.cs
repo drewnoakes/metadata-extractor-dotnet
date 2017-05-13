@@ -30,6 +30,12 @@ using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 
+#if NET35
+using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
+#else
+using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
+#endif
+
 namespace MetadataExtractor.Formats.Jfxx
 {
     /// <summary>Reads JFXX (JFIF Extensions) data.</summary>
@@ -47,13 +53,7 @@ namespace MetadataExtractor.Formats.Jfxx
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.App0 };
 
-        public
-#if NET35
-            IList<Directory>
-#else
-            IReadOnlyList<Directory>
-#endif
-            ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             // Skip segments not starting with the required header
             return segments

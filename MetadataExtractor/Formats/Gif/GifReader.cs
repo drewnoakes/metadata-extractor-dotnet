@@ -30,6 +30,12 @@ using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 
+#if NET35
+using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
+#else
+using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
+#endif
+
 namespace MetadataExtractor.Formats.Gif
 {
     /// <summary>Reader of GIF encoded data.</summary>
@@ -49,13 +55,7 @@ namespace MetadataExtractor.Formats.Gif
         private const string Gif89AVersionIdentifier = "89a";
 
         [NotNull]
-        public
-#if NET35
-            IEnumerable<Directory>
-#else
-            IReadOnlyList<Directory>
-#endif
-            Extract([NotNull] SequentialReader reader)
+        public DirectoryList Extract([NotNull] SequentialReader reader)
         {
             reader = reader.WithByteOrder(isMotorolaByteOrder: false);
 

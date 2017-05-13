@@ -30,6 +30,12 @@ using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 
+#if NET35
+using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
+#else
+using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
+#endif
+
 namespace MetadataExtractor.Formats.Photoshop
 {
     /// <summary>Reads Photoshop "ducky" segments, created during Save-for-Web.</summary>
@@ -40,13 +46,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppC };
 
-        public
-#if NET35
-            IList<Directory>
-#else
-            IReadOnlyList<Directory>
-#endif
-            ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             // Skip segments not starting with the required header
             return segments
