@@ -106,7 +106,7 @@ namespace MetadataExtractor.Formats.Jpeg
         }
 
         [NotNull]
-        public static DirectoryList ProcessJpegSegments(IEnumerable<IJpegSegmentMetadataReader> readers, [NotNull] ICollection<JpegSegment> segments)
+        public static DirectoryList ProcessJpegSegments([NotNull] IEnumerable<IJpegSegmentMetadataReader> readers, [NotNull] ICollection<JpegSegment> segments)
         {
             var directories = new List<Directory>();
 
