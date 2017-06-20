@@ -26,6 +26,64 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetadataExtractor.Benchmark
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetadataExtractor.PowerShell", "MetadataExtractor.PowerShell\MetadataExtractor.PowerShell.csproj", "{96158958-7CA7-4BFC-A573-30F31E7F39A4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wiki", "Wiki", "{DD8398AB-EE55-4190-819D-F0AED820845B}"
+	ProjectSection(SolutionItems) = preProject
+		wiki\.gitignore = wiki\.gitignore
+		wiki\_JavaReleaseProcess.md = wiki\_JavaReleaseProcess.md
+		wiki\_SampleOutputGeneration.txt = wiki\_SampleOutputGeneration.txt
+		wiki\ChangeLog.md = wiki\ChangeLog.md
+		wiki\Contributing.md = wiki\Contributing.md
+		wiki\FAQ.md = wiki\FAQ.md
+		wiki\File-Type-Detection.md = wiki\File-Type-Detection.md
+		wiki\Getting Started (Java).md = wiki\Getting Started (Java).md
+		wiki\Home.md = wiki\Home.md
+		wiki\JPEG.md = wiki\JPEG.md
+		wiki\ProGuard.md = wiki\ProGuard.md
+		wiki\project-logo-inkscape.svg = wiki\project-logo-inkscape.svg
+		wiki\project-logo-optimised.svg = wiki\project-logo-optimised.svg
+		wiki\project-logo.svg = wiki\project-logo.svg
+		wiki\Resources.md = wiki\Resources.md
+		wiki\SampleOutput.md = wiki\SampleOutput.md
+		wiki\Troubleshooting.md = wiki\Troubleshooting.md
+		wiki\UsedBy.md = wiki\UsedBy.md
+		wiki\Working-with-test-images.md = wiki\Working-with-test-images.md
+		wiki\XMP.md = wiki\XMP.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specs", "Specs", "{1806EC0F-839C-45A4-9778-11A89CFD5C14}"
+	ProjectSection(SolutionItems) = preProject
+		wiki\docs\Adobe Photoshop File Format Specification.html = wiki\docs\Adobe Photoshop File Format Specification.html
+		wiki\docs\CIFFspecV1R03.pdf = wiki\docs\CIFFspecV1R03.pdf
+		wiki\docs\CIFFspecV1R04.pdf = wiki\docs\CIFFspecV1R04.pdf
+		wiki\docs\DCF-Exif.pdf = wiki\docs\DCF-Exif.pdf
+		wiki\docs\DCF.pdf = wiki\docs\DCF.pdf
+		wiki\docs\dng_spec_1.4.0.0.pdf = wiki\docs\dng_spec_1.4.0.0.pdf
+		wiki\docs\Exif2-1.pdf = wiki\docs\Exif2-1.pdf
+		wiki\docs\Exif2-2.pdf = wiki\docs\Exif2-2.pdf
+		wiki\docs\Exif2-3.pdf = wiki\docs\Exif2-3.pdf
+		wiki\docs\gif87a.txt = wiki\docs\gif87a.txt
+		wiki\docs\gif89a.txt = wiki\docs\gif89a.txt
+		wiki\docs\ICC1v43_2010-12.pdf = wiki\docs\ICC1v43_2010-12.pdf
+		wiki\docs\IPTC-IIMV3.PDF = wiki\docs\IPTC-IIMV3.PDF
+		wiki\docs\IPTC-IIMV4.1.pdf = wiki\docs\IPTC-IIMV4.1.pdf
+		wiki\docs\IPTC-IIMV4.2.pdf = wiki\docs\IPTC-IIMV4.2.pdf
+		wiki\docs\JPEG-itu-t81.pdf = wiki\docs\JPEG-itu-t81.pdf
+		wiki\docs\PCX File Format.html = wiki\docs\PCX File Format.html
+		wiki\docs\PCX File Format.txt = wiki\docs\PCX File Format.txt
+		wiki\docs\QTFF.pdf = wiki\docs\QTFF.pdf
+		wiki\docs\TIFF6.pdf = wiki\docs\TIFF6.pdf
+		wiki\docs\x3f-raw-format.pdf = wiki\docs\x3f-raw-format.pdf
+		wiki\docs\XMPSpecificationPart1.pdf = wiki\docs\XMPSpecificationPart1.pdf
+		wiki\docs\XMPSpecificationPart2.pdf = wiki\docs\XMPSpecificationPart2.pdf
+		wiki\docs\XMPSpecificationPart3.pdf = wiki\docs\XMPSpecificationPart3.pdf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wiki (Images)", "Wiki (Images)", "{33A1B0CC-6954-47B4-A970-46749104B7D9}"
+	ProjectSection(SolutionItems) = preProject
+		wiki-images\ContentSummary.md = wiki-images\ContentSummary.md
+		wiki-images\Home.md = wiki-images\Home.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
