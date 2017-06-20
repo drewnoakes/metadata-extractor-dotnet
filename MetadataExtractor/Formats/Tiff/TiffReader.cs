@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
@@ -210,7 +211,7 @@ namespace MetadataExtractor.Formats.Tiff
 
                     // Some tags point to one or more additional IFDs to process
                     var isIfdPointer = false;
-                    if (byteCount == 4*componentCount)
+                    if (byteCount == 4L * componentCount)
                     {
                         for (var i = 0; i < componentCount; i++)
                         {
