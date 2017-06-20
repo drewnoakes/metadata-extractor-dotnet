@@ -1,8 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Summary>A straightforward and lightweight library for reading metadata from image and video files.</Summary>
-    <Description>MetadataExtractor reads Exif, IPTC, XMP, ICC, Photoshop, WebP, PNG, BMP, GIF, ICO, PCX metadata from JPEG, TIFF WebP, PSD, PNG, BMP, GIF, ICO, PCX and camera RAW files. Camera manufacturer specific support exists for Agfa, Canon, Casio, Epson, Fujifilm, Kodak, Kyocera, Leica, Minolta, Nikon, Olympus, Panasonic, Pentax, Reconyx, Sanyo, Sigma/Foveon and Sony models. In addition, MOV and related QuickTime video formats are supported such as MP4, M4V, 3G2, 3GP.</Description>
+    <Description>
+      A straightforward and lightweight library for reading metadata from image and video files.
+
+      MetadataExtractor reads Exif, IPTC, XMP, ICC, Photoshop, WebP, PNG, BMP, GIF, ICO, PCX metadata from JPEG, TIFF WebP, PSD, PNG, BMP, GIF, ICO, PCX and camera RAW files.
+      In addition, MOV and related QuickTime video formats such as MP4, M4V, 3G2, 3GP are supported.
+
+      Camera manufacturer specific support exists for Agfa, Canon, Casio, Epson, Fujifilm, Kodak, Kyocera, Leica, Minolta, Nikon, Olympus, Panasonic, Pentax, Reconyx, Sanyo, Sigma/Foveon and Sony models.
+    </Description>
     <Copyright>Copyright Drew Noakes 2002-2017</Copyright>
     <AssemblyTitle>Metadata Extractor</AssemblyTitle>
     <VersionPrefix>2.0.0</VersionPrefix>
