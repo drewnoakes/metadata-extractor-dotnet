@@ -38,7 +38,10 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Fact]
         public void ExtractMetadataUsingPath()
         {
-            Validate(JpegMetadataReader.ReadMetadata("Data/withExif.jpg"));
+            Validate(JpegMetadataReader.ReadMetadata("Data/withExif.jpg"), "80");
+
+            // jpeg which ran into endless loop
+            Validate(JpegMetadataReader.ReadMetadata("Data/withExifAndTiffIfd.jpg"), "100");
         }
 #endif
 
@@ -46,15 +49,19 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         public void ExtractMetadataUsingStream()
         {
             using (var stream = TestDataUtil.OpenRead("Data/withExif.jpg"))
-                Validate(JpegMetadataReader.ReadMetadata(stream));
+                Validate(JpegMetadataReader.ReadMetadata(stream), "80");
+
+            // jpeg which ran into endless loop
+            using (var stream = TestDataUtil.OpenRead("Data/withExifAndTiffIfd.jpg"))
+                Validate(JpegMetadataReader.ReadMetadata(stream), "100");
         }
 
-        private static void Validate(IEnumerable<Directory> metadata)
+        private static void Validate(IEnumerable<Directory> metadata, string iso)
         {
             var directory = metadata.OfType<ExifSubIfdDirectory>().FirstOrDefault();
 
             Assert.NotNull(directory);
-            Assert.Equal("80", directory.GetString(ExifDirectoryBase.TagIsoEquivalent));
+            Assert.Equal(iso, directory.GetString(ExifDirectoryBase.TagIsoEquivalent));
         }
     }
 }

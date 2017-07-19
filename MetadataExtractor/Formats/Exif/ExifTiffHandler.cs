@@ -295,7 +295,7 @@ namespace MetadataExtractor.Formats.Exif
         {
             if ((ushort)formatCode == 13u)
             {
-                byteCount = 4 * componentCount;
+                byteCount = 4L * componentCount;
                 return true;
             }
 
