@@ -184,6 +184,28 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Fact]
+        public void GetUInt64()
+        {
+            var buffer = new byte[] { 0xFF, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07 };
+
+            var reader = CreateReader(buffer);
+
+            Assert.Equal(0xFF00010203040506UL, (object)reader.GetUInt64());
+
+            reader = CreateReader(buffer).WithByteOrder(isMotorolaByteOrder: false);
+
+            Assert.Equal(0x06050403020100FFUL, (object)reader.GetUInt64());
+        }
+
+        [Fact]
+        public void GetUInt64_OutOfBounds()
+        {
+            var reader = CreateReader(new byte[7]);
+            var ex = Assert.Throws<IOException>(() => reader.GetUInt64());
+            Assert.Equal("End of data reached.", ex.Message);
+        }
+
+        [Fact]
         public void GetFloat32()
         {
             const int nanBits = 0x7fc00000;
