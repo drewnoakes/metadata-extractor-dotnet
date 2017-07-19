@@ -168,7 +168,7 @@ namespace MetadataExtractor.Tests.IO
 
             var reader = CreateReader(buffer);
 
-            Assert.Equal(unchecked((long)0xFF00010203040506L), (object)reader.GetInt64());
+            Assert.Equal(unchecked((long)0xFF00010203040506UL), (object)reader.GetInt64());
 
             reader = CreateReader(buffer).WithByteOrder(isMotorolaByteOrder: false);
 
