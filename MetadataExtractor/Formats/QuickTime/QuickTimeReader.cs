@@ -105,6 +105,9 @@ namespace MetadataExtractor.Formats.QuickTime
     /// <summary>
     /// Static class for processing atoms the QuickTime container format.
     /// </summary>
+    /// <remarks>
+    /// QuickTime file format specification: https://developer.apple.com/library/mac/documentation/QuickTime/QTFF/qtff.pdf
+    /// </remarks>
     public static class QuickTimeReader
     {
         /// <summary>
