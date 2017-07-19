@@ -30,7 +30,7 @@ namespace MetadataExtractor.Tests.IO
 {
     /// <summary>Unit tests for <see cref="SequentialByteArrayReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class SequentialByteArrayReaderTest : SequentialAccessTestBase
+    public sealed class SequentialByteArrayReaderTest : SequentialReaderTestBase
     {
         [Fact]
         public void ConstructWithNullStreamThrows()

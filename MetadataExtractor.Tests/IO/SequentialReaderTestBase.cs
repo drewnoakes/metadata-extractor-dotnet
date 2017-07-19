@@ -33,7 +33,7 @@ namespace MetadataExtractor.Tests.IO
 {
     /// <summary>Base class for testing implementations of <see cref="SequentialReader"/>.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public abstract class SequentialAccessTestBase
+    public abstract class SequentialReaderTestBase
     {
         protected abstract SequentialReader CreateReader(byte[] bytes);
 
