@@ -142,8 +142,7 @@ namespace MetadataExtractor.Formats.QuickTime
                 if (atomSize == 1)
                 {
                     // Size doesn't fit in 32 bits so read the 64 bit size here
-                    // TODO GetUInt64 (i.e. unsigned)
-                    atomSize = reader.GetInt64();
+                    atomSize = checked((long)reader.GetUInt64());
                 }
                 else
                 {
