@@ -94,6 +94,7 @@ namespace MetadataExtractor.IO
             }
             catch (IOException)
             {
+                // Stream ended, or error reading from underlying source
                 return false;
             }
         }
