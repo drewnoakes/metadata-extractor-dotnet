@@ -42,16 +42,10 @@ namespace MetadataExtractor.Formats.FileSystem
             { TagFileModifiedDate, "File Modified Date" }
         };
 
-        public FileMetadataDirectory()
-        {
-            SetDescriptor(new FileMetadataDescriptor(this));
-        }
+        public FileMetadataDirectory() => SetDescriptor(new FileMetadataDescriptor(this));
 
         public override string Name => "File";
 
-        protected override bool TryGetTagName(int tagType, out string tagName)
-        {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
-        }
+        protected override bool TryGetTagName(int tagType, out string tagName) => _tagNameMap.TryGetValue(tagType, out tagName);
     }
 }
