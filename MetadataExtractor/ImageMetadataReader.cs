@@ -27,6 +27,7 @@ using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Bmp;
 using MetadataExtractor.Formats.FileSystem;
+using MetadataExtractor.Formats.FileType;
 using MetadataExtractor.Formats.Gif;
 using MetadataExtractor.Formats.Ico;
 using MetadataExtractor.Formats.Jpeg;
@@ -45,6 +46,8 @@ using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directo
 #else
 using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
 #endif
+
+// ReSharper disable RedundantCaseLabel
 
 namespace MetadataExtractor
 {
@@ -88,40 +91,48 @@ namespace MetadataExtractor
         {
             var fileType = FileTypeDetector.DetectFileType(stream);
 
+            var fileTypeDirectory = new FileTypeDirectory(fileType);
+            
             switch (fileType)
             {
                 case FileType.Jpeg:
-                    return JpegMetadataReader.ReadMetadata(stream);
+                    return Append(JpegMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Tiff:
                 case FileType.Arw:
                 case FileType.Cr2:
                 case FileType.Nef:
                 case FileType.Orf:
                 case FileType.Rw2:
-                    return TiffMetadataReader.ReadMetadata(stream);
+                    return Append(TiffMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Psd:
-                    return PsdMetadataReader.ReadMetadata(stream);
+                    return Append(PsdMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Png:
-                    return PngMetadataReader.ReadMetadata(stream);
+                    return Append(PngMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Bmp:
-                    return new Directory[] { BmpMetadataReader.ReadMetadata(stream) };
+                    return new Directory[] { BmpMetadataReader.ReadMetadata(stream), fileTypeDirectory };
                 case FileType.Gif:
-                    return GifMetadataReader.ReadMetadata(stream);
+                    return Append(GifMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Ico:
-                    return IcoMetadataReader.ReadMetadata(stream);
+                    return Append(IcoMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Pcx:
-                    return new Directory[] { PcxMetadataReader.ReadMetadata(stream) };
+                    return new Directory[] { PcxMetadataReader.ReadMetadata(stream), fileTypeDirectory };
                 case FileType.Riff:
-                    return WebPMetadataReader.ReadMetadata(stream);
+                    return Append(WebPMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Raf:
-                    return RafMetadataReader.ReadMetadata(stream);
+                    return Append(RafMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.QuickTime:
-                    return QuickTimeMetadataReader.ReadMetadata(stream);
+                    return Append(QuickTimeMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Netpbm:
-                    return new Directory[] { NetpbmMetadataReader.ReadMetadata(stream) };
+                    return new Directory[] { NetpbmMetadataReader.ReadMetadata(stream), fileTypeDirectory };
+                case FileType.Unknown:
+                    throw new ImageProcessingException("File format could not be determined");
+                case FileType.Crw:
+                default:
+                    throw new ImageProcessingException("File format is not supported");
             }
 
-            throw new ImageProcessingException("File format is not supported");
+            DirectoryList Append(IEnumerable<Directory> list, Directory directory) 
+                => new List<Directory>(list) { directory };
         }
 
         /// <summary>Reads metadata from a file.</summary>
