@@ -128,7 +128,7 @@ namespace MetadataExtractor
         [CanBeNull]
         protected string GetIndexedDescription(int tagType, int baseIndex, [NotNull] params string[] descriptions)
         {
-            if (!Directory.TryGetInt32(tagType, out int index))
+            if (!Directory.TryGetUInt32(tagType, out uint index))
                 return null;
 
             var arrayIndex = index - baseIndex;
