@@ -550,8 +550,8 @@ namespace MetadataExtractor
             if (o == null)
                 return null;
 
-            if (o is StringValue)
-                return ((StringValue)o).Bytes;
+            if (o is StringValue value)
+                return value.Bytes;
 
             byte[] bytes;
 
@@ -937,8 +937,9 @@ namespace MetadataExtractor
         public static StringValue GetStringValue([NotNull] this Directory directory, int tagType)
         {
             var o = directory.GetObject(tagType);
-            if (o is StringValue)
-                return (StringValue)o;
+            
+            if (o is StringValue value)
+                return value;
 
             return default(StringValue);
         }
@@ -951,7 +952,6 @@ namespace MetadataExtractor
 
             if (o == null)
                 return null;
-
 
             if (o is IConvertible convertible)
                 return convertible;
