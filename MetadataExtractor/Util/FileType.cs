@@ -61,33 +61,42 @@ namespace MetadataExtractor.Util
 
         /// <summary>Resource Interchange File Format.</summary>
         Riff = 9,
+        
+        /// <summary>Waveform Audio File Format.</summary>
+        Wav = 10, // ("WAV", "Waveform Audio File Format", "audio/vnd.wave", "wav", "wave"),
+        
+        /// <summary>Audio Video Interleaved.</summary>
+        Avi = 11, //("AVI", "Audio Video Interleaved", "video/vnd.avi", "avi"),
+        
+        /// <summary>WebP.</summary>
+        WebP = 12, //("WebP", "WebP", "image/webp", "webp"),
 
         /// <summary>Sony camera raw.</summary>
-        Arw = 10,
+        Arw = 13,
 
         /// <summary>Canon camera raw (version 1).</summary>
-        Crw = 11,
+        Crw = 14,
 
         /// <summary>Canon camera raw (version 2).</summary>
-        Cr2 = 12,
+        Cr2 = 15,
 
         /// <summary>Nikon camera raw.</summary>
-        Nef = 13,
+        Nef = 16,
 
         /// <summary>Olympus camera raw.</summary>
-        Orf = 14,
+        Orf = 17,
 
         /// <summary>Fujifilm camera raw.</summary>
-        Raf = 15,
+        Raf = 18,
 
         /// <summary>Panasonic camera raw.</summary>
-        Rw2 = 16,
+        Rw2 = 19,
 
         /// <summary>QuickTime (mov) format video.</summary>
-        QuickTime = 17,
+        QuickTime = 20,
 
         /// <summary>Netpbm family of image formats.</summary>
-        Netpbm = 18
+        Netpbm = 21
     }
 
     public static class FileTypeExtensions
@@ -104,6 +113,9 @@ namespace MetadataExtractor.Util
             "ICO",
             "PCX",
             "RIFF",
+            "WAV",
+            "AVI",
+            "WebP",
             "ARW",
             "CRW",
             "CR2",
@@ -127,6 +139,9 @@ namespace MetadataExtractor.Util
             "Windows Icon",
             "PiCture eXchange",
             "Resource Interchange File Format",
+            "Waveform Audio File Format",
+            "Audio Video Interleaved",
+            "WebP",
             "Sony Camera Raw",
             "Canon Camera Raw",
             "Canon Camera Raw",
@@ -149,8 +164,11 @@ namespace MetadataExtractor.Util
             "image/gif",
             "image/x-icon",
             "image/x-pcx",
-            null,
-            null,
+            null, // RIFF
+            "audio/vnd.wave",
+            "video/vnd.avi",
+            "image/webp",
+            null, // Sony RAW
             null,
             null,
             null,
@@ -172,7 +190,10 @@ namespace MetadataExtractor.Util
             new[] { "gif" },
             new[] { "ico" },
             new[] { "pcx" },
-            null,
+            null, // RIFF
+            new[] { "wav", "wave" },
+            new[] { "avi" },
+            new[] { "webp" },
             new[] { "arw" },
             new[] { "crw" },
             new[] { "cr2" },

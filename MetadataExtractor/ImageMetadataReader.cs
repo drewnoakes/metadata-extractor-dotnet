@@ -116,7 +116,7 @@ namespace MetadataExtractor
                     return Append(IcoMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Pcx:
                     return new Directory[] { PcxMetadataReader.ReadMetadata(stream), fileTypeDirectory };
-                case FileType.Riff:
+                case FileType.WebP:
                     return Append(WebPMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Raf:
                     return Append(RafMetadataReader.ReadMetadata(stream), fileTypeDirectory);
@@ -126,6 +126,9 @@ namespace MetadataExtractor
                     return new Directory[] { NetpbmMetadataReader.ReadMetadata(stream), fileTypeDirectory };
                 case FileType.Unknown:
                     throw new ImageProcessingException("File format could not be determined");
+                case FileType.Riff:
+                case FileType.Wav:
+                case FileType.Avi:
                 case FileType.Crw:
                 default:
                     throw new ImageProcessingException("File format is not supported");

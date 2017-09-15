@@ -110,6 +110,19 @@ namespace MetadataExtractor.Util
                         return fileType;
                 }
             }
+            else if (fileType == FileType.Riff)
+            {
+                var fourCC = Encoding.UTF8.GetString(bytes, index: 8, count: 4);
+                switch (fourCC)
+                {
+                    case "WAVE":
+                        return FileType.Wav;
+                    case "AVI ":
+                        return FileType.Avi;
+                    case "WEBP":
+                        return FileType.WebP;
+                }
+            }
 
             return fileType;
         }
