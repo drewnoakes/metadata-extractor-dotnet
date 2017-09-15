@@ -48,6 +48,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wiki", "Wiki", "{DD8398AB-E
 		wiki\UsedBy.md = wiki\UsedBy.md
 		wiki\Working-with-test-images.md = wiki\Working-with-test-images.md
 		wiki\XMP.md = wiki\XMP.md
+		wiki\Getting Started.md = wiki\Getting Started.md
+		wiki\Getting Started (dotnet).md = wiki\Getting Started (dotnet).md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specs", "Specs", "{1806EC0F-839C-45A4-9778-11A89CFD5C14}"
