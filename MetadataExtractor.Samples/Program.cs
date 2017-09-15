@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Iptc;
 using MetadataExtractor.Formats.Jpeg;
@@ -117,6 +118,36 @@ namespace MetadataExtractor.Samples
                     foreach (var error in directory.Errors)
                         Console.Error.WriteLine("ERROR: " + error);
                 }
+            }
+
+            DateTime? GetTakenDateTime(IEnumerable<Directory> directories)
+            {
+                // obtain the Exif SubIFD directory
+                var directory = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
+
+                if (directory == null)
+                    return null;
+
+                // query the tag's value
+                if (directory.TryGetDateTime(ExifDirectoryBase.TagDateTimeOriginal, out var dateTime))
+                    return dateTime;
+
+                return null;
+            }
+
+            string GetExposureProgramDescription(IEnumerable<Directory> directories)
+            {
+                // obtain a specific directory
+                var directory = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
+
+                if (directory == null)
+                    return null;
+                
+                // create a descriptor
+                var descriptor = new ExifSubIfdDescriptor(directory);
+
+                // get tag description
+                return descriptor.GetExposureProgramDescription();                
             }
             
             void PrintError(Exception exception) => Console.Error.WriteLine($"EXCEPTION: {exception}");
