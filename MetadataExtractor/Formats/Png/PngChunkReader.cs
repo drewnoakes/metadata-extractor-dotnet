@@ -88,6 +88,8 @@ namespace MetadataExtractor.Formats.Png
             {
                 // Process the next chunk.
                 var chunkDataLength = reader.GetInt32();
+                if (chunkDataLength < 0)
+                    throw new PngProcessingException("PNG chunk length exceeds maximum");
                 var chunkType = new PngChunkType(reader.GetBytes(4));
                 var willStoreChunk = desiredChunkTypes == null || desiredChunkTypes.Contains(chunkType);
                 var chunkData = reader.GetBytes(chunkDataLength);
