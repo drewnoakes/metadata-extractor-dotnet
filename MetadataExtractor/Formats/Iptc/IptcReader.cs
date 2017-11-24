@@ -130,8 +130,12 @@ namespace MetadataExtractor.Formats.Iptc
                 {
                     directoryType = reader.GetByte();
                     tagType = reader.GetByte();
-                    // TODO support Extended DataSet Tag (see 1.5(c), p14, IPTC-IIMV4.2.pdf)
                     tagByteCount = reader.GetUInt16();
+                    if (tagByteCount > 0x7FFF) {
+                        // Extended DataSet Tag (see 1.5(c), p14, IPTC-IIMV4.2.pdf)
+                        tagByteCount = ((tagByteCount & 0x7FFF) << 16) | reader.GetUInt16();
+                        offset += 2;
+                    }
                     offset += 4;
                 }
                 catch (IOException)
