@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.4
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8CF154EA-6A2C-4BF4-B263-78758F834192}"
 	ProjectSection(SolutionItems) = preProject
@@ -35,7 +35,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wiki", "Wiki", "{DD8398AB-E
 		wiki\Contributing.md = wiki\Contributing.md
 		wiki\FAQ.md = wiki\FAQ.md
 		wiki\File-Type-Detection.md = wiki\File-Type-Detection.md
+		wiki\Getting Started (dotnet).md = wiki\Getting Started (dotnet).md
 		wiki\Getting Started (Java).md = wiki\Getting Started (Java).md
+		wiki\Getting Started.md = wiki\Getting Started.md
 		wiki\Home.md = wiki\Home.md
 		wiki\JPEG.md = wiki\JPEG.md
 		wiki\ProGuard.md = wiki\ProGuard.md
@@ -48,8 +50,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wiki", "Wiki", "{DD8398AB-E
 		wiki\UsedBy.md = wiki\UsedBy.md
 		wiki\Working-with-test-images.md = wiki\Working-with-test-images.md
 		wiki\XMP.md = wiki\XMP.md
-		wiki\Getting Started.md = wiki\Getting Started.md
-		wiki\Getting Started (dotnet).md = wiki\Getting Started (dotnet).md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specs", "Specs", "{1806EC0F-839C-45A4-9778-11A89CFD5C14}"
@@ -86,7 +86,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wiki (Images)", "Wiki (Imag
 		wiki-images\Home.md = wiki-images\Home.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.Samples", "MetadataExtractor.Samples\MetadataExtractor.Samples.csproj", "{F8B15C79-7D2A-44F2-9E8A-1D5127FE6D91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetadataExtractor.Samples", "MetadataExtractor.Samples\MetadataExtractor.Samples.csproj", "{F8B15C79-7D2A-44F2-9E8A-1D5127FE6D91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -146,14 +146,17 @@ Global
 		{96158958-7CA7-4BFC-A573-30F31E7F39A4}.Release|x64.Build.0 = Release|Any CPU
 		{F8B15C79-7D2A-44F2-9E8A-1D5127FE6D91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F8B15C79-7D2A-44F2-9E8A-1D5127FE6D91}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8B15C79-7D2A-44F2-9E8A-1D5127FE6D91}.Debug|x64.ActiveCfg = Debug|x64
-		{F8B15C79-7D2A-44F2-9E8A-1D5127FE6D91}.Debug|x64.Build.0 = Debug|x64
+		{F8B15C79-7D2A-44F2-9E8A-1D5127FE6D91}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F8B15C79-7D2A-44F2-9E8A-1D5127FE6D91}.Debug|x64.Build.0 = Debug|Any CPU
 		{F8B15C79-7D2A-44F2-9E8A-1D5127FE6D91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8B15C79-7D2A-44F2-9E8A-1D5127FE6D91}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F8B15C79-7D2A-44F2-9E8A-1D5127FE6D91}.Release|x64.ActiveCfg = Release|x64
-		{F8B15C79-7D2A-44F2-9E8A-1D5127FE6D91}.Release|x64.Build.0 = Release|x64
+		{F8B15C79-7D2A-44F2-9E8A-1D5127FE6D91}.Release|x64.ActiveCfg = Release|Any CPU
+		{F8B15C79-7D2A-44F2-9E8A-1D5127FE6D91}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {15F8CDD5-5EFF-4277-8559-5AA83D1353C8}
 	EndGlobalSection
 EndGlobal
