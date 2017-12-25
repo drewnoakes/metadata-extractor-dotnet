@@ -98,5 +98,10 @@ namespace MetadataExtractor.IO
                 return false;
             }
         }
-    }
+    
+		public override bool IsCloserToEnd(long numberOfBytes)
+		{
+			return _stream.Position + numberOfBytes >= _stream.Length;
+		}
+	}
 }
