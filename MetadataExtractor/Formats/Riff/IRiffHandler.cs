@@ -49,10 +49,20 @@ namespace MetadataExtractor.Formats.Riff
         /// <returns><c>true</c> if <see cref="ProcessChunk(string, byte[])"/> should be called, otherwise <c>false</c>.</returns>
         bool ShouldAcceptChunk([NotNull] string fourCc);
 
-        /// <summary>Perform whatever processing is necessary for the type of chunk with its payload.</summary>
-        /// <remarks>This is only called if a previous call to <see cref="ShouldAcceptChunk(string)"/> with the same <c>fourCC</c> returned <c>true</c>.</remarks>
-        /// <param name="fourCc">the four character code of the chunk</param>
-        /// <param name="payload">they payload of the chunk as a byte array</param>
-        void ProcessChunk([NotNull] string fourCc, [NotNull] byte[] payload);
+		/// <summary>Gets whether this handler is interested in the specific list type.</summary>
+		/// <remarks>
+		/// Returns <c>true</c> if the data should be copied into an array and passed
+		/// to <see cref="ProcessChunk(string, byte[])"/>, or <c>false</c> to avoid
+		/// the copy and skip to the next chunk in the file, if any.
+		/// </remarks>
+		/// <param name="fourCc">the four character code of this chunk</param>
+		/// <returns><c>true</c> if <see cref="ProcessChunk(string, byte[])"/> should be called, otherwise <c>false</c>.</returns>
+		bool ShouldAcceptList([NotNull] string fourCc);
+
+		/// <summary>Perform whatever processing is necessary for the type of chunk with its payload.</summary>
+		/// <remarks>This is only called if a previous call to <see cref="ShouldAcceptChunk(string)"/> with the same <c>fourCC</c> returned <c>true</c>.</remarks>
+		/// <param name="fourCc">the four character code of the chunk</param>
+		/// <param name="payload">they payload of the chunk as a byte array</param>
+		void ProcessChunk([NotNull] string fourCc, [NotNull] byte[] payload);
     }
 }

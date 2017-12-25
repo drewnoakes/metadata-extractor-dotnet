@@ -66,7 +66,9 @@ namespace MetadataExtractor.Formats.WebP
                                                         fourCc == "ICCP" ||
                                                         fourCc == "XMP ";
 
-        public void ProcessChunk(string fourCc, byte[] payload)
+		public bool ShouldAcceptList(string fourCc) =>	false;
+
+		public void ProcessChunk(string fourCc, byte[] payload)
         {
             switch (fourCc)
             {
