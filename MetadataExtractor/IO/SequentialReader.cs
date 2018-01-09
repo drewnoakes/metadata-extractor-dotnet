@@ -347,15 +347,15 @@ namespace MetadataExtractor.IO
             return bytes;
         }
 
-		/// <summary>
-		/// Returns true in case the stream supports length checking and distance to the end of the stream is less then number of bytes in parameter.
-		/// Otherwise false.
-		/// </summary>
-		/// <param name="numberOfBytes"></param>
-		/// <returns>True if we going to have an exception while reading next numberOfBytes bytes from the stream</returns>
-		public virtual bool IsCloserToEnd(long numberOfBytes)
-		{
-			return false;
-		}
-	}
+        /// <summary>
+        /// Returns true in case the stream supports length checking and distance to the end of the stream is less then number of bytes in parameter.
+        /// Otherwise false.
+        /// </summary>
+        /// <param name="numberOfBytes"></param>
+        /// <returns>True if we going to have an exception while reading next numberOfBytes bytes from the stream</returns>
+        public virtual bool IsCloserToEnd(long numberOfBytes)
+        {
+            return false;
+        }
+    }
 }

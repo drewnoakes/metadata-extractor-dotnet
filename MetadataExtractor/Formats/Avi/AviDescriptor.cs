@@ -27,8 +27,8 @@ using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Avi
 {
-	/// <author>Payton Garland</author>
-	[SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+    /// <author>Payton Garland</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class AviDescriptor : TagDescriptor<AviDirectory>
     {
         public AviDescriptor([NotNull] AviDirectory directory)
@@ -36,15 +36,15 @@ namespace MetadataExtractor.Formats.Avi
         {
         }
 
-		public override string GetDescription(int tagType)
-		{
-			switch (tagType)
-			{
-			case AviDirectory.TAG_WIDTH:
-			case AviDirectory.TAG_HEIGHT:
-				return Directory.GetString(tagType) + " pixels";
-			}
-			return base.GetDescription(tagType);
-		}
-	}
+        public override string GetDescription(int tagType)
+        {
+            switch (tagType)
+            {
+            case AviDirectory.TAG_WIDTH:
+            case AviDirectory.TAG_HEIGHT:
+                return Directory.GetString(tagType) + " pixels";
+            }
+            return base.GetDescription(tagType);
+        }
+    }
 }

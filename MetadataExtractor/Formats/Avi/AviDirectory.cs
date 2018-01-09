@@ -27,29 +27,29 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Avi
 {
-	/// <author>Payton Garland</author>
-	[SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+    /// <author>Payton Garland</author>
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class AviDirectory : Directory
     {
-		public const int TAG_FRAMES_PER_SECOND = 1;
-		public const int TAG_SAMPLES_PER_SECOND = 2;
-		public const int TAG_DURATION = 3;
-		public const int TAG_VIDEO_CODEC = 4;
-		public const int TAG_AUDIO_CODEC = 5;
-		public const int TAG_WIDTH = 6;
-		public const int TAG_HEIGHT = 7;
-		public const int TAG_STREAMS = 8;
+        public const int TAG_FRAMES_PER_SECOND = 1;
+        public const int TAG_SAMPLES_PER_SECOND = 2;
+        public const int TAG_DURATION = 3;
+        public const int TAG_VIDEO_CODEC = 4;
+        public const int TAG_AUDIO_CODEC = 5;
+        public const int TAG_WIDTH = 6;
+        public const int TAG_HEIGHT = 7;
+        public const int TAG_STREAMS = 8;
 
-		private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
-			{TAG_FRAMES_PER_SECOND, "Frames Per Second"},
-			{TAG_SAMPLES_PER_SECOND, "Samples Per Second"},
-			{TAG_DURATION, "Duration"},
-			{TAG_VIDEO_CODEC, "Video Codec"},
-			{TAG_AUDIO_CODEC, "Audio Codec"},
-			{TAG_WIDTH, "Width"},
-			{TAG_HEIGHT, "Height"},
-			{TAG_STREAMS, "Stream Count"}
+            {TAG_FRAMES_PER_SECOND, "Frames Per Second"},
+            {TAG_SAMPLES_PER_SECOND, "Samples Per Second"},
+            {TAG_DURATION, "Duration"},
+            {TAG_VIDEO_CODEC, "Video Codec"},
+            {TAG_AUDIO_CODEC, "Audio Codec"},
+            {TAG_WIDTH, "Width"},
+            {TAG_HEIGHT, "Height"},
+            {TAG_STREAMS, "Stream Count"}
         };
 
         public AviDirectory()
