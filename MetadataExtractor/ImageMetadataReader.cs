@@ -39,6 +39,7 @@ using MetadataExtractor.Formats.QuickTime;
 using MetadataExtractor.Formats.Raf;
 using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.WebP;
+using MetadataExtractor.Formats.Avi;
 using MetadataExtractor.Util;
 
 #if NET35
@@ -118,6 +119,8 @@ namespace MetadataExtractor
                     return new Directory[] { PcxMetadataReader.ReadMetadata(stream), fileTypeDirectory };
                 case FileType.WebP:
                     return Append(WebPMetadataReader.ReadMetadata(stream), fileTypeDirectory);
+                case FileType.Avi:
+                    return Append(AviMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Raf:
                     return Append(RafMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.QuickTime:
@@ -128,7 +131,6 @@ namespace MetadataExtractor
                     throw new ImageProcessingException("File format could not be determined");
                 case FileType.Riff:
                 case FileType.Wav:
-                case FileType.Avi:
                 case FileType.Crw:
                 default:
                     throw new ImageProcessingException("File format is not supported");
