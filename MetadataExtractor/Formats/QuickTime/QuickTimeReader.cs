@@ -126,48 +126,55 @@ namespace MetadataExtractor.Formats.QuickTime
             {
                 var atomStartPos = stream.Position;
 
-                // Length of the atom's data, in bytes, including size bytes
-                long atomSize;
                 try
                 {
-                    atomSize = reader.GetUInt32();
+                    // Check if the end of the stream is closer then 8 bytes to current position (Length of the atom's data + atom type)
+                    if (reader.IsCloserToEnd(8)) return;
+
+                    // Length of the atom's data, in bytes, including size bytes
+                    long atomSize = reader.GetUInt32();
+
+                    // Typically four ASCII characters, but may be non-printable.
+                    // By convention, lowercase 4CCs are reserved by Apple.
+                    var atomType = reader.GetUInt32();
+
+                    if (atomSize == 1)
+                    {
+                        // Check if the end of the stream is closer then 8 bytes
+                        if (reader.IsCloserToEnd(8)) return;
+
+                        // Size doesn't fit in 32 bits so read the 64 bit size here
+                        atomSize = checked((long)reader.GetUInt64());
+                    }
+                    else
+                    {
+                        Debug.Assert(atomSize >= 8, "Atom should be at least 8 bytes long");
+                    }
+
+                    var args = new AtomCallbackArgs(atomType, atomSize, stream, atomStartPos, reader);
+
+                    handler(args);
+
+                    if (args.Cancel)
+                        return;
+
+                    if (atomSize == 0)
+                        return;
+
+                    var toSkip = atomStartPos + atomSize - stream.Position;
+
+                    if (toSkip < 0)
+                        throw new Exception("Handler moved stream beyond end of atom");
+
+                    // To avoid exception handling we can check if needed number of bytes are available
+                    if (!reader.IsCloserToEnd(toSkip))
+                        reader.TrySkip(toSkip);
                 }
                 catch (IOException)
                 {
-                    // TODO don't use exception to trap end of stream
+                    // Exception trapping is used when stream doen't support stream length method only
                     return;
                 }
-
-                // Typically four ASCII characters, but may be non-printable.
-                // By convention, lowercase 4CCs are reserved by Apple.
-                var atomType = reader.GetUInt32();
-
-                if (atomSize == 1)
-                {
-                    // Size doesn't fit in 32 bits so read the 64 bit size here
-                    atomSize = checked((long)reader.GetUInt64());
-                }
-                else
-                {
-                    Debug.Assert(atomSize >= 8, "Atom should be at least 8 bytes long");
-                }
-
-                var args = new AtomCallbackArgs(atomType, atomSize, stream, atomStartPos, reader);
-
-                handler(args);
-
-                if (args.Cancel)
-                    return;
-
-                if (atomSize == 0)
-                    return;
-
-                var toSkip = atomStartPos + atomSize - stream.Position;
-
-                if (toSkip < 0)
-                    throw new Exception("Handler moved stream beyond end of atom");
-
-                reader.TrySkip(toSkip);
             }
         }
     }
