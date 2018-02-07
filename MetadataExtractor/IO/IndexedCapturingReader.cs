@@ -60,9 +60,16 @@ namespace MetadataExtractor.IO
         {
             get
             {
-                IsValidIndex(int.MaxValue, 1);
-                Debug.Assert(_isStreamFinished);
-                return _streamLength;
+                try
+                {
+                    return _stream.Length;
+                }
+                catch (NotSupportedException)
+                {
+                    IsValidIndex(int.MaxValue, 1);
+                    Debug.Assert(_isStreamFinished);
+                    return _streamLength;
+                }
             }
         }
 
