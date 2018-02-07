@@ -148,9 +148,10 @@ namespace MetadataExtractor.Formats.QuickTime
                         // Size doesn't fit in 32 bits so read the 64 bit size here
                         atomSize = checked((long)reader.GetUInt64());
                     }
-                    else
+                    else if (atomSize < 8)
                     {
-                        Debug.Assert(atomSize >= 8, "Atom should be at least 8 bytes long");
+                        // Atom should be at least 8 bytes long
+                        return;
                     }
 
                     var args = new AtomCallbackArgs(atomType, atomSize, stream, atomStartPos, reader);
