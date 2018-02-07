@@ -129,7 +129,8 @@ namespace MetadataExtractor.Formats.QuickTime
                 try
                 {
                     // Check if the end of the stream is closer then 8 bytes to current position (Length of the atom's data + atom type)
-                    if (reader.IsCloserToEnd(8)) return;
+                    if (reader.IsCloserToEnd(8))
+                        return;
 
                     // Length of the atom's data, in bytes, including size bytes
                     long atomSize = reader.GetUInt32();
@@ -141,7 +142,8 @@ namespace MetadataExtractor.Formats.QuickTime
                     if (atomSize == 1)
                     {
                         // Check if the end of the stream is closer then 8 bytes
-                        if (reader.IsCloserToEnd(8)) return;
+                        if (reader.IsCloserToEnd(8))
+                            return;
 
                         // Size doesn't fit in 32 bits so read the 64 bit size here
                         atomSize = checked((long)reader.GetUInt64());
