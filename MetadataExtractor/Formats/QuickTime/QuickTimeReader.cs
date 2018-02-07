@@ -172,7 +172,7 @@ namespace MetadataExtractor.Formats.QuickTime
                 }
                 catch (IOException)
                 {
-                    // Exception trapping is used when stream doen't support stream length method only
+                    // Exception trapping is used when stream doesn't support stream length method only
                     return;
                 }
             }
