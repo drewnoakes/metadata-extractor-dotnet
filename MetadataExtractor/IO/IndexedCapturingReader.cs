@@ -41,7 +41,7 @@ namespace MetadataExtractor.IO
         private readonly List<byte[]> _chunks = new List<byte[]>();
         private bool _isStreamFinished;
         private int _streamLength;
-        private bool _streamLengthThrewException = false;
+        private bool _streamLengthThrewException;
 
         public IndexedCapturingReader([NotNull] Stream stream, int chunkLength = DefaultChunkLength, bool isMotorolaByteOrder = true)
             : base(isMotorolaByteOrder)
