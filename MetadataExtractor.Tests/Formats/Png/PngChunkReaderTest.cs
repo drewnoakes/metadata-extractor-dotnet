@@ -50,7 +50,7 @@ namespace MetadataExtractor.Tests.Formats.Png
             Assert.Equal(PngChunkType.IHDR, chunks[0].ChunkType);
             Assert.Equal(13, chunks[0].Bytes.Length);
             Assert.Equal(PngChunkType.sRGB, chunks[1].ChunkType);
-            Assert.Equal(1, chunks[1].Bytes.Length);
+            Assert.Single(chunks[1].Bytes);
             Assert.Equal(PngChunkType.gAMA, chunks[2].ChunkType);
             Assert.Equal(4, chunks[2].Bytes.Length);
             Assert.Equal(PngChunkType.pHYs, chunks[3].ChunkType);
@@ -58,7 +58,7 @@ namespace MetadataExtractor.Tests.Formats.Png
             Assert.Equal(PngChunkType.IDAT, chunks[4].ChunkType);
             Assert.Equal(17, chunks[4].Bytes.Length);
             Assert.Equal(PngChunkType.IEND, chunks[5].ChunkType);
-            Assert.Equal(0, chunks[5].Bytes.Length);
+            Assert.Empty(chunks[5].Bytes);
         }
 
         [Fact]
@@ -75,7 +75,7 @@ namespace MetadataExtractor.Tests.Formats.Png
             Assert.Equal(PngChunkType.IDAT, chunks[3].ChunkType);
             Assert.Equal(130, chunks[3].Bytes.Length);
             Assert.Equal(PngChunkType.IEND, chunks[4].ChunkType);
-            Assert.Equal(0, chunks[4].Bytes.Length);
+            Assert.Empty(chunks[4].Bytes);
         }
     }
 }

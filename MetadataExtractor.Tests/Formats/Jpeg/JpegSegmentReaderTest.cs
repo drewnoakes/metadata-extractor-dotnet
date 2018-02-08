@@ -79,8 +79,9 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Fact]
         public void LoadJpegWithoutExifDataReturnsNull()
         {
-            Assert.False(ReadSegments("Data/noExif.jpg")
-                .Any(s => s.Type == JpegSegmentType.App1));
+            Assert.DoesNotContain(
+                ReadSegments("Data/noExif.jpg"),
+                s => s.Type == JpegSegmentType.App1);
         }
 
         [Fact]

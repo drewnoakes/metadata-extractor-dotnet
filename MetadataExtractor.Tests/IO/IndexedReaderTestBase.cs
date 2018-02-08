@@ -38,7 +38,7 @@ namespace MetadataExtractor.Tests.IO
         [Fact]
         public void DefaultEndianness()
         {
-            Assert.Equal(true, CreateReader(new byte[1]).IsMotorolaByteOrder);
+            Assert.True(CreateReader(new byte[1]).IsMotorolaByteOrder);
         }
 
         [Fact]
