@@ -72,7 +72,7 @@ namespace MetadataExtractor.IO
                         _streamLengthThrewException = true;
                     }
                 }
-                
+
                 IsValidIndex(int.MaxValue, 1);
                 Debug.Assert(_isStreamFinished);
                 return _streamLength;
