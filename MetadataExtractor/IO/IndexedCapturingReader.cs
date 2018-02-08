@@ -124,7 +124,6 @@ namespace MetadataExtractor.IO
 
             var chunkIndex = endIndex / _chunkLength;
 
-            // TODO test loading several chunks for a single request
             while (chunkIndex >= _chunks.Count)
             {
                 Debug.Assert(!_isStreamFinished);
