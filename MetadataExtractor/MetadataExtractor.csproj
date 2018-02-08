@@ -25,6 +25,7 @@
     <RepositoryUrl>https://github.com/drewnoakes/metadata-extractor-dotnet.git</RepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <IncludeSource>true</IncludeSource>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Signed)' == 'True' ">

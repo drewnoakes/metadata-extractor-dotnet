@@ -4,6 +4,7 @@
     <TargetFrameworks>netcoreapp1.0;net35;net45</TargetFrameworks>
     <DebugType>portable</DebugType>
     <OutputType>Exe</OutputType>
+    <LangLevel>latest</LangLevel>
   </PropertyGroup>
 
   <ItemGroup>
