@@ -183,7 +183,7 @@ namespace MetadataExtractor.Tests
         }
 
         [Fact]
-        public new void ToString()
+        public void ToStringMethod()
         {
             var directory = new ExifIfd0Directory();
             Assert.Equal("Exif IFD0 Directory (0 tags)", directory.ToString());
