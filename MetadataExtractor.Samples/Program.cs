@@ -6,6 +6,8 @@ using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Iptc;
 using MetadataExtractor.Formats.Jpeg;
 
+#pragma warning disable 8321
+
 namespace MetadataExtractor.Samples
 {
     /// <summary>
