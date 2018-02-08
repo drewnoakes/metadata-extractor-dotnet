@@ -10,19 +10,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class DJIMakernoteDirectory : Directory
     {
-        // Retrieved from 
-        //Tag ID   Tag Name                             Writable
-        //------   --------                             --------
-        //0x0001   Make                                 string
-        //0x0003   SpeedX                               float
-        //0x0004   SpeedY                               float
-        //0x0005   SpeedZ                               float
-        //0x0006   Pitch                                float
-        //0x0007   Yaw                                  float
-        //0x0008   Roll                                 float
-        //0x0009   CameraPitch                          float
-        //0x000a   CameraYaw                            float
-        //0x000b   CameraRoll                           float
+        // Retrieved from
+        // Tag ID   Tag Name                             Writable
+        // ------   --------                             --------
+        // 0x0001   Make                                 string
+        // 0x0003   SpeedX                               float
+        // 0x0004   SpeedY                               float
+        // 0x0005   SpeedZ                               float
+        // 0x0006   Pitch                                float
+        // 0x0007   Yaw                                  float
+        // 0x0008   Roll                                 float
+        // 0x0009   CameraPitch                          float
+        // 0x000a   CameraYaw                            float
+        // 0x000b   CameraRoll                           float
         public const int TagMake = 0x0001;
         public const int TagSpeedX = 0x0003;
         public const int TagSpeedY = 0x0004;
@@ -66,14 +66,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// </summary>
         /// <returns>The x speed of the aircraft for this image, if possible, otherwise <c>null</c>.</returns>
         [CanBeNull]
-        public float? GetAircraftSpeedX()
-        {
-            float value;
-            if (!this.TryGetSingle(TagSpeedX, out value))
-                return null;
-
-            return value;
-        }
+        public float? GetAircraftSpeedX() => this.TryGetSingle(TagSpeedX, out var value) ? value : (float?)null;
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the y speed,
@@ -81,14 +74,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// </summary>
         /// <returns>The y speed of the aircraft for this image, if possible, otherwise <c>null</c>.</returns>
         [CanBeNull]
-        public float? GetAircraftSpeedY()
-        {
-            float value;
-            if (!this.TryGetSingle(TagSpeedY, out value))
-                return null;
-
-            return value;
-        }
+        public float? GetAircraftSpeedY() => this.TryGetSingle(TagSpeedY, out var value) ? (float?)value : null;
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the z speed,
@@ -96,14 +82,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// </summary>
         /// <returns>The z speed of the aircraft for this image, if possible, otherwise <c>null</c>.</returns>
         [CanBeNull]
-        public float? GetAircraftSpeedZ()
-        {
-            float value;
-            if (!this.TryGetSingle(TagSpeedZ, out value))
-                return null;
-
-            return value;
-        }
+        public float? GetAircraftSpeedZ() => this.TryGetSingle(TagSpeedZ, out var value) ? (float?)value : null;
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the pitch,
@@ -111,14 +90,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// </summary>
         /// <returns>The pitch of the aircraft for this image, if possible, otherwise <c>null</c>.</returns>
         [CanBeNull]
-        public float? GetAircraftPitch()
-        {
-            float value;
-            if (!this.TryGetSingle(TagAircraftPitch, out value))
-                return null;
-
-            return value;
-        }
+        public float? GetAircraftPitch() => this.TryGetSingle(TagAircraftPitch, out var value) ? (float?)value : null;
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the yaw,
@@ -126,14 +98,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// </summary>
         /// <returns>The yaw of the aircraft for this image, if possible, otherwise <c>null</c>.</returns>
         [CanBeNull]
-        public float? GetAircraftYaw()
-        {
-            float value;
-            if (!this.TryGetSingle(TagAircraftYaw, out value))
-                return null;
-
-            return value;
-        }
+        public float? GetAircraftYaw() => this.TryGetSingle(TagAircraftYaw, out var value) ? (float?)value : null;
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the roll,
@@ -141,14 +106,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// </summary>
         /// <returns>The roll of the aircraft for this image, if possible, otherwise <c>null</c>.</returns>
         [CanBeNull]
-        public float? GetAircraftRoll()
-        {
-            float value;
-            if (!this.TryGetSingle(TagAircraftRoll, out value))
-                return null;
-
-            return value;
-        }
+        public float? GetAircraftRoll() => this.TryGetSingle(TagAircraftRoll, out var value) ? (float?)value : null;
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the pitch,
@@ -156,14 +114,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// </summary>
         /// <returns>The pitch of the camera for this image, if possible, otherwise <c>null</c>.</returns>
         [CanBeNull]
-        public float? GetCameraPitch()
-        {
-            float value;
-            if (!this.TryGetSingle(TagCameraPitch, out value))
-                return null;
-            
-            return value;
-        }
+        public float? GetCameraPitch() => this.TryGetSingle(TagCameraPitch, out var value) ? (float?)value : null;
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the yaw,
@@ -171,14 +122,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// </summary>
         /// <returns>The yaw of the camera for this image, if possible, otherwise <c>null</c>.</returns>
         [CanBeNull]
-        public float? GetCameraYaw()
-        {
-            float value;
-            if (!this.TryGetSingle(TagCameraYaw, out value))
-                return null;
-
-            return value;
-        }
+        public float? GetCameraYaw() => this.TryGetSingle(TagCameraYaw, out var value) ? (float?)value : null;
 
         /// <summary>
         /// Parses various tags in an attempt to obtain a single object representing the roll,
@@ -186,13 +130,6 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// </summary>
         /// <returns>The roll of the camera for this image, if possible, otherwise <c>null</c>.</returns>
         [CanBeNull]
-        public float? GetCameraRoll()
-        {
-            float value;
-            if (!this.TryGetSingle(TagCameraRoll, out value))
-                return null;
-
-            return value;
-        }
+        public float? GetCameraRoll() => this.TryGetSingle(TagCameraRoll, out var value) ? (float?)value : null;
     }
 }

@@ -752,7 +752,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (cameratype == null)
                 return null;
 
-            if(OlympusMakernoteDirectory.OlympusCameraTypes.ContainsKey(cameratype))
+            if (OlympusMakernoteDirectory.OlympusCameraTypes.ContainsKey(cameratype))
                 return OlympusMakernoteDirectory.OlympusCameraTypes[cameratype];
 
             return cameratype;
@@ -817,7 +817,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             var cameratype = Directory.GetString(OlympusMakernoteDirectory.TagCameraType);
 
-            if(cameratype != null)
+            if (cameratype != null)
             {
                 if (!Directory.TryGetInt32(OlympusMakernoteDirectory.TagJpegQuality, out int value))
                     return null;

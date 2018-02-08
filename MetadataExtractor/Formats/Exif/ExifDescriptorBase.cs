@@ -752,7 +752,7 @@ namespace MetadataExtractor.Formats.Exif
 
                 if ((pos - 2) % pattern[1] == 0)
                     ret.Append(",");
-                else if(pos != end - 1)
+                else if (pos != end - 1)
                     ret.Append("][");
             }
             ret.Append("]");

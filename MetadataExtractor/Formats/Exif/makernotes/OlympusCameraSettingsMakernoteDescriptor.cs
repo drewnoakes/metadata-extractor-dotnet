@@ -416,7 +416,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             var p3 = (int)(vals[index + 2].ToDouble() * 100);
             var p4 = (int)(vals[index + 3].ToDouble() * 100);
 
-            if(p1 + p2 + p3 + p4 == 0)
+            if (p1 + p2 + p3 + p4 == 0)
                 return "n/a";
 
             return $"({p1}%,{p2}%) ({p3}%,{p4}%)";
@@ -1080,7 +1080,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             {
                 if (i == 0)
                     sb.Append((_filters.ContainsKey(values[i]) ? _filters[values[i]] : "[unknown]") + "; ");
-                else if(i == 3)
+                else if (i == 3)
                     sb.Append("Partial Color " + values[i] + "; ");
                 else if (i == 4)
                 {
