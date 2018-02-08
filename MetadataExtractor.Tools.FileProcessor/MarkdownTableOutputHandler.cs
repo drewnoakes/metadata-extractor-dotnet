@@ -97,9 +97,9 @@ namespace MetadataExtractor.Tools.FileProcessor
             }
         }
 
-        public override void OnExtractionSuccess(string filePath, IList<Directory> directories, string relativePath, TextWriter log)
+        public override void OnExtractionSuccess(string filePath, IList<Directory> directories, string relativePath, TextWriter log, long streamPosition)
         {
-            base.OnExtractionSuccess(filePath, directories, relativePath, log);
+            base.OnExtractionSuccess(filePath, directories, relativePath, log, streamPosition);
 
             var extension = Path.GetExtension(filePath);
 

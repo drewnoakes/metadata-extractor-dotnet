@@ -19,7 +19,8 @@ namespace MetadataExtractor.Tools.FileProcessor
         private int _processedFileCount;
         private int _exceptionCount;
         private int _errorCount;
-        private long _processedByteCount;
+        private long _totalFileByteCount;
+        private long _totalReadByteCount;
 
         public virtual void OnStartingDirectory(string directoryPath)
         {}
@@ -33,20 +34,24 @@ namespace MetadataExtractor.Tools.FileProcessor
         public virtual void OnBeforeExtraction(string filePath, string relativePath, TextWriter log)
         {
             _processedFileCount++;
-            _processedByteCount += new FileInfo(filePath).Length;
+            _totalFileByteCount += new FileInfo(filePath).Length;
         }
 
-        public virtual void OnExtractionError(string filePath, Exception exception, TextWriter log)
+        public virtual void OnExtractionError(string filePath, Exception exception, TextWriter log, long streamPosition)
         {
             _exceptionCount++;
+            _totalReadByteCount += streamPosition;
             log.Write($"\t[{exception.GetType().Name}] {filePath}\n");
         }
 
-        public virtual void OnExtractionSuccess(string filePath, IList<Directory> directories, string relativePath, TextWriter log)
+        public virtual void OnExtractionSuccess(string filePath, IList<Directory> directories, string relativePath, TextWriter log, long streamPosition)
         {
+            _totalReadByteCount += streamPosition;
+
             if (!directories.Any(d => d.HasError))
                 return;
 
+            // write out any errors
             log.WriteLine(filePath);
             foreach (var directory in directories)
             {
@@ -66,7 +71,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                 return;
 
             log.WriteLine(
-                $"Processed {_processedFileCount:#,##0} files ({_processedByteCount:#,##0} bytes) with {_exceptionCount:#,##0} exceptions and {_errorCount:#,##0} file errors\n");
+                $"Processed {_processedFileCount:#,##0} files (read {_totalReadByteCount:#,##0} of {_totalFileByteCount:#,##0} bytes) with {_exceptionCount:#,##0} exceptions and {_errorCount:#,##0} file errors\n");
         }
     }
 }
