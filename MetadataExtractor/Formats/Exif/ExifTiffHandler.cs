@@ -469,7 +469,7 @@ namespace MetadataExtractor.Formats.Exif
                 // (T (Typ 701) starts with "LEICA\0\0x6", Make is "LEICA CAMERA AG")
                 // (X (Typ 113) starts with "LEICA\0\0x7", Make is "LEICA CAMERA AG")
 
-                if(string.Equals("LEICA\0\x1\0", firstEightChars, StringComparison.Ordinal) ||
+                if (string.Equals("LEICA\0\x1\0", firstEightChars, StringComparison.Ordinal) ||
                     string.Equals("LEICA\0\x4\0", firstEightChars, StringComparison.Ordinal) ||
                     string.Equals("LEICA\0\x5\0", firstEightChars, StringComparison.Ordinal) ||
                     string.Equals("LEICA\0\x6\0", firstEightChars, StringComparison.Ordinal) ||

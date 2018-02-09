@@ -221,7 +221,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values == null)
                 return null;
 
-            if((values[0] | values[1] | values[2] | values[3]) == 0x0)
+            if ((values[0] | values[1] | values[2] | values[3]) == 0x0)
                 return "Off";
             return "On, " + ((values[43] & 1) > 0 ? "Mode 1" : "Mode 2");
         }

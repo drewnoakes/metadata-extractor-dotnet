@@ -48,12 +48,12 @@ namespace MetadataExtractor.Tools.FileProcessor
         /// <summary>
         /// Called when extraction on <paramref name="filePath"/> completed without an exception.
         /// </summary>
-        void OnExtractionSuccess([NotNull] string filePath, [NotNull] IList<Directory> directories, [NotNull] string relativePath, [NotNull] TextWriter log);
+        void OnExtractionSuccess([NotNull] string filePath, [NotNull] IList<Directory> directories, [NotNull] string relativePath, [NotNull] TextWriter log, long streamPosition);
 
         /// <summary>
         /// Called when extraction on <paramref name="filePath"/> resulted in an exception.
         /// </summary>
-        void OnExtractionError([NotNull] string filePath, [NotNull] Exception exception, [NotNull] TextWriter log);
+        void OnExtractionError([NotNull] string filePath, [NotNull] Exception exception, [NotNull] TextWriter log, long streamPosition);
 
         /// <summary>
         /// Called when all files have been processed.

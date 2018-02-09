@@ -87,9 +87,16 @@ namespace MetadataExtractor.IO
             }
         }
 
-        /// <summary>Reads to the end of the stream, in order to determine the total number of bytes.</summary>
-        /// <remarks>In general, this is not a good idea for this implementation of <see cref="IndexedReader"/>.</remarks>
-        /// <value>the length of the data source, in bytes.</value>
+        /// <summary>
+        /// Returns the length of the data stream this reader is reading from.
+        /// </summary>
+        /// <remarks>
+        /// If the underlying stream's <see cref="Stream.Length"/> property does not throw <see cref="NotSupportedException"/> then it can be used directly.
+        /// However if it does throw, then this class has no alternative but to reads to the end of the stream in order to determine the total number of bytes.
+        /// <para />
+        /// In general, this is not a good idea for this implementation of <see cref="IndexedReader"/>.
+        /// </remarks>
+        /// <value>The length of the data source, in bytes.</value>
         /// <exception cref="BufferBoundsException"/>
         public override long Length
         {

@@ -52,9 +52,9 @@ namespace MetadataExtractor.Tools.FileProcessor
             log.Write('\n');
         }
 
-        public override void OnExtractionSuccess(string filePath, IList<Directory> directories, string relativePath, TextWriter log)
+        public override void OnExtractionSuccess(string filePath, IList<Directory> directories, string relativePath, TextWriter log, long streamPosition)
         {
-            base.OnExtractionSuccess(filePath, directories, relativePath, log);
+            base.OnExtractionSuccess(filePath, directories, relativePath, log, streamPosition);
 
             try
             {
@@ -143,9 +143,9 @@ namespace MetadataExtractor.Tools.FileProcessor
             }
         }
 
-        public override void OnExtractionError(string filePath, Exception exception, TextWriter log)
+        public override void OnExtractionError(string filePath, Exception exception, TextWriter log, long streamPosition)
         {
-            base.OnExtractionError(filePath, exception, log);
+            base.OnExtractionError(filePath, exception, log, streamPosition);
 
             try
             {

@@ -4,6 +4,7 @@
     <TargetFrameworks>netcoreapp1.0;net35;net45</TargetFrameworks>
     <DebugType>portable</DebugType>
     <OutputType>Exe</OutputType>
+    <LangLevel>latest</LangLevel>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="10.4.0" PrivateAssets="All" />
+    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">

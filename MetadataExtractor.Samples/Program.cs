@@ -6,6 +6,8 @@ using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Iptc;
 using MetadataExtractor.Formats.Jpeg;
 
+#pragma warning disable 8321
+
 namespace MetadataExtractor.Samples
 {
     /// <summary>
@@ -142,14 +144,14 @@ namespace MetadataExtractor.Samples
 
                 if (directory == null)
                     return null;
-                
+
                 // create a descriptor
                 var descriptor = new ExifSubIfdDescriptor(directory);
 
                 // get tag description
-                return descriptor.GetExposureProgramDescription();                
+                return descriptor.GetExposureProgramDescription();
             }
-            
+
             void PrintError(Exception exception) => Console.Error.WriteLine($"EXCEPTION: {exception}");
         }
     }

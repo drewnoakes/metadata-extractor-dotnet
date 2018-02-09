@@ -94,8 +94,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (cameratype == null)
                 return null;
 
-            if (OlympusMakernoteDirectory.OlympusCameraTypes.ContainsKey(cameratype))
-                return OlympusMakernoteDirectory.OlympusCameraTypes[cameratype];
+            if (OlympusMakernoteDirectory.OlympusCameraTypes.TryGetValue(cameratype, out var mapped))
+                return mapped;
 
             return cameratype;
         }
