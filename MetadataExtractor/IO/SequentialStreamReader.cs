@@ -101,7 +101,7 @@ namespace MetadataExtractor.IO
 
         public override bool IsCloserToEnd(long numberOfBytes)
         {
-            return _stream.Position + numberOfBytes >= _stream.Length;
+            return _stream.Position + numberOfBytes > _stream.Length;
         }
     }
 }
