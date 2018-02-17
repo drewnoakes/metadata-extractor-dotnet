@@ -1,7 +1,6 @@
 You want to contribute to _metadata-extractor_? Great!
 
-The easiest way to contribute is to provide test images for the [image database]
-(https://github.com/drewnoakes/metadata-extractor-images/wiki).
+The easiest way to contribute is to provide test images for the [image database](https://github.com/drewnoakes/metadata-extractor-images/wiki).
 
 Check the [issues list](https://github.com/drewnoakes/metadata-extractor-dotnet/issues)
 for tasks that need attention. If you have something else in mind, that's great too.
@@ -30,3 +29,6 @@ these guidelines will need to be amended before being accepted.
 
 The goal of these guidelines is to make your contribution clearer to read and review for
 all, both now and in the future.
+
+If you're new to GitHub's pull request model, [this article](https://github.com/susam/gitpr)
+might be helpful.
