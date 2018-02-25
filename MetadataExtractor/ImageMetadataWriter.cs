@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2016 Drew Noakes
+// Copyright 2002-2017 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -52,15 +52,7 @@ namespace MetadataExtractor
     ///
     /// <list type="bullet">
     ///   <item><see cref="JpegMetadataSubstitutor"/> for JPEG files</item>
-    ///   <item><see cref="TiffMetadataReader"/> for TIFF and (most) RAW files</item>
-    ///   <item><see cref="PsdMetadataReader"/> for Photoshop files</item>
-    ///   <item><see cref="PngMetadataReader"/> for PNG files</item>
-    ///   <item><see cref="BmpMetadataReader"/> for BMP files</item>
-    ///   <item><see cref="GifMetadataReader"/> for GIF files</item>
-    ///   <item><see cref="IcoMetadataReader"/> for ICO files</item>
-    ///   <item><see cref="PcxMetadataReader"/> for PCX files</item>
-    ///   <item><see cref="WebPMetadataReader"/> for WebP files</item>
-    ///   <item><see cref="RafMetadataReader"/> for RAF files</item>
+    ///   <item>Writing to other file types is currently not implemented. Feel free to contribute!</item>
     /// </list>
     ///
     /// If you know the file type you're working with, you may use one of the above processors directly.
@@ -70,6 +62,7 @@ namespace MetadataExtractor
     /// the appropriate metadata reader to use.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    /// <exception cref="ImageProcessingException">on unsupported file types</exception>
     public static class ImageMetadataWriter
     {
         /// <summary>Writes metadata to a <see cref="Stream"/>.</summary>
