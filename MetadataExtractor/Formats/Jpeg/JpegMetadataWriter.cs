@@ -198,27 +198,5 @@ namespace MetadataExtractor.Formats.Jpeg
             else
                 return new byte[] { bytes[0], bytes[1] };
         }
-
-        ///// <exception cref="JpegProcessingException"/>
-        ///// <exception cref="System.IO.IOException"/>
-        //public static void Process([NotNull] Stream stream, [CanBeNull] IEnumerable<IJpegSegmentMetadataReader> readers = null)
-        //{
-        //    if (readers == null)
-        //        readers = _allReaders;
-
-        //    var segmentTypes = new HashSet<JpegSegmentType>(readers.SelectMany(reader => reader.GetSegmentTypes()));
-        //    var segmentData = JpegSegmentReader.ReadSegments(new SequentialStreamReader(stream), segmentTypes);
-        //    return ProcessJpegSegmentData(readers, segmentData);
-        //}
-
-        //public static void ProcessJpegSegmentData(IEnumerable<IJpegSegmentMetadataReader> readers, JpegSegmentData segmentData)
-        //{
-        //    // Pass the appropriate byte arrays to each reader.
-        //    return (from reader in readers
-        //            from segmentType in reader.GetSegmentTypes()
-        //            from directory in reader.ReadJpegSegments(segmentData.GetSegments(segmentType), segmentType)
-        //            select directory)
-        //            .ToList();
-        //}
     }
 }
