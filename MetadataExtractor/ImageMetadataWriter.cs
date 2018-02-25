@@ -61,7 +61,7 @@ namespace MetadataExtractor
     /// <see cref="FileTypeDetector"/> is used to determine the provided image's file type, and therefore
     /// the appropriate metadata reader to use.
     /// </remarks>
-    /// <author>Drew Noakes https://drewnoakes.com</author>
+    /// <author>Michael Osthege</author>
     /// <exception cref="ImageProcessingException">on unsupported file types</exception>
     public static class ImageMetadataWriter
     {

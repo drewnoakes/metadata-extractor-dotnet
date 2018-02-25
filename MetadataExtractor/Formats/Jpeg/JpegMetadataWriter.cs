@@ -62,99 +62,59 @@ namespace MetadataExtractor.Formats.Jpeg
         [NotNull]
         public static MemoryStream SubstituteXmp([NotNull] byte[] original, [NotNull] XDocument xmp)
         {
-            SequentialByteArrayReader reader = new SequentialByteArrayReader(original);
-            MemoryStream ms = new MemoryStream();
+            SequentialByteArrayReader input = new SequentialByteArrayReader(original);
+            MemoryStream output = new MemoryStream();
 
             try
             {
+                // The Xmp-substitution loops over the original bytes and copies them into a
+                // MemoryStream (ms).  If an App1-segment containing Xmp data is encountered,
+                // the new Xmp bytes are written to the MemoryStream instead of the old bytes.
+                // If no Xmp-containing App1 is encountered before other segments, a new App1-
+                // segment with the Xmp-data is inserted.
+                // All non-App1-fragments are just copied as they are.
+
                 bool wroteXmp = false;
+                // The following loop scans over the input, copies it to the output and locks in
+                // when it encounters a segment marker.
+                // Reference: http://dev.exiv2.org/projects/exiv2/wiki/The_Metadata_in_JPEG_files
                 while (true)
                 {
                     // Find the segment marker. Markers are zero or more 0xFF bytes, followed
                     // by a 0xFF and then a byte not equal to 0x00 or 0xFF.
-                    var segmentIdentifier = reader.GetByte();
-                    ms.WriteByte(segmentIdentifier);
-                    var segmentTypeByte = reader.GetByte();
-                    ms.WriteByte(segmentTypeByte);
+                    var segmentIdentifier = input.GetByte();
+                    output.WriteByte(segmentIdentifier);
+                    var segmentTypeByte = input.GetByte();
+                    output.WriteByte(segmentTypeByte);
 
                     // Read until we have a 0xFF byte followed by a byte that is not 0xFF or 0x00
                     while (segmentIdentifier != 0xFF || segmentTypeByte == 0xFF || segmentTypeByte == 0)
                     {
                         segmentIdentifier = segmentTypeByte;
-                        segmentTypeByte = reader.GetByte();
-                        ms.WriteByte(segmentTypeByte);
+                        segmentTypeByte = input.GetByte();
+                        output.WriteByte(segmentTypeByte);
                     }
-
                     var segmentType = (JpegSegmentType)segmentTypeByte;
 
-                    // is this App1?
-                    // save the index of the first byte of this segment
-                    // read the whole segment into a new byte[]
-                    // evaluate if the segment contains the XMP metadata
-                    // yes: write new xmp metadata to the output (discard the segment that was just read)
-                    // no : write the whole segment to the output
-                    // continue looping
 
+                    // the algorithm above stopped at a segment marker. This may be an opportunity
+                    // to update or insert an App1-Xmp segment
                     if (!wroteXmp && segmentType == JpegSegmentType.App1)
                     {
-                        // next 2-bytes are <segment-size>: [high-byte] [low-byte]
-                        byte highByte = reader.GetByte();
-                        byte lowByte = reader.GetByte();
-
-                        //int segmentLength = -2 + ((reader.IsMotorolaByteOrder) ? (highByte << 8 | lowByte) : (highByte | lowByte << 8));// (includes size bytes, so subtract two)
-                        int segmentLength = SegmentLengthFromBytes(highByte, lowByte, reader.IsMotorolaByteOrder) - 2;
-
-                        // the rest of the segment is only read - at first
-                        byte[] segmentBytes = reader.GetBytes(segmentLength);
-
-                        // if this is the XMP segment, overwrite the byte[] with the new segment
-                        int preambleLength = XmpReader.JpegSegmentPreamble.Length;
-                        if (segmentBytes.Length >= preambleLength && XmpReader.JpegSegmentPreamble.Equals(Encoding.UTF8.GetString(segmentBytes, 0, preambleLength), StringComparison.OrdinalIgnoreCase))
-                        {
-                            segmentBytes = ByteArrayFromXmpXDocument(xmp);
-                            // also update the segment length!!
-                            byte[] lengthMark = BytesFromSegmentLength(segmentBytes.Length + 2, reader.IsMotorolaByteOrder);
-                            highByte = lengthMark[0];
-                            lowByte = lengthMark[1];
-                            // no one will ever know this was not the original segment
-                            wroteXmp = true;
-                        }
-                        // write the segment
-                        ms.WriteByte(highByte);
-                        ms.WriteByte(lowByte);
-                        ms.Write(segmentBytes, 0, segmentBytes.Length);
+                        // An App1 segment was encountered and might be a candidate for updating the Xmp
+                        // Copy the segment (if it already contains Xmp, it will be updated)
+                        wroteXmp = CopyOrUpdateApp1Segment(xmp, input, output, wroteXmp);
                     }
-                    else if (!wroteXmp && segmentType != JpegSegmentType.Soi && segmentType != JpegSegmentType.App0) // file begins with Soi (App0) App1 ...
+                    else if (!wroteXmp && segmentType != JpegSegmentType.Soi && segmentType != JpegSegmentType.App0)
                     {
-                        // we have encountered a segment that should not be earlier than App1. Therfore we must insert a new App1 with the Xmp right now. (The file does not contain an App1 segement yet.)
-                        // go back and overwrite the recently encountered marker (cache what it was!)
-                        // create a new marker App1 http://dev.exiv2.org/projects/exiv2/wiki/The_Metadata_in_JPEG_files
-                        // build Xmp byte[]
-                        // ...
-                        // end by writing the marker that was substituted before
-
-                        // remember the segment that comes after
-                        byte[] nextSegmentMarker = new byte[] { segmentIdentifier, segmentTypeByte };
-                        ms.Seek(-2, SeekOrigin.Current);
-                        // open a new App1 segment
-                        byte[] app1marker = new byte[] { 0xFF, 0xE1 };
-                        ms.Write(app1marker, 0, app1marker.Length);
-                        // build Xmp segment
-                        byte[] segmentBytes = ByteArrayFromXmpXDocument(xmp);
-                        // calculate a length marker
-                        byte[] lengthMark = BytesFromSegmentLength(segmentBytes.Length + 2, reader.IsMotorolaByteOrder);
-                        byte highByte = lengthMark[0];
-                        byte lowByte = lengthMark[1];
-                        // write the segment to the output
-                        ms.WriteByte(highByte);
-                        ms.WriteByte(lowByte);
-                        ms.Write(segmentBytes, 0, segmentBytes.Length);
-                        // remember that we're done
-                        wroteXmp = true;
-                        // write the segment marker that we replaced
-                        ms.Write(nextSegmentMarker, 0, nextSegmentMarker.Length);
-                        // in the next loop it will just proceed
+                        // file begins with Soi (App0) (App1) ...
+                        // At this point we have encountered a segment that should not be earlier than an App1.
+                        // Also, the files does not contain an App1-Xmp segment yet.
+                        // Therefore we must insert a new App1-Xmp segment now.
+                        wroteXmp = InsertApp1XmpSegment(xmp, input, output, segmentIdentifier, segmentTypeByte);
                     }
+
+                    // then continues with copying until the next segment or the end of the input
                 }
             }
             catch(IOException ex)
@@ -168,8 +128,91 @@ namespace MetadataExtractor.Formats.Jpeg
                 throw new JpegProcessingException("An error occured while trying to write Xml to the buffer.", ex);
             }
 
-            return ms;
+            return output;
         }
+
+        /// <summary>
+        /// Copies an App1 segment and may replace it with Xmp.
+        /// </summary>
+        /// <param name="xmp">Xmp content that shall be used</param>
+        /// <param name="input">Stream of bytes in the original file</param>
+        /// <param name="output">Stream of bytes in the newly composed file</param>
+        /// <param name="wroteXmp"></param>
+        /// <returns>indicates if the Xmp content was written to this segment</returns>
+        private static bool CopyOrUpdateApp1Segment(XDocument xmp, SequentialByteArrayReader input, MemoryStream output, bool wroteXmp)
+        {
+            // 1. read the segment index that encodes the segment length
+            byte highByte = input.GetByte();
+            byte lowByte = input.GetByte();
+            int segmentLength = SegmentLengthFromBytes(highByte, lowByte, input.IsMotorolaByteOrder);
+
+            // 2. read the rest of the segment
+            byte[] segmentBytes = input.GetBytes(segmentLength);
+
+            // 3. if this is the XMP segment, overwrite it with the new segment
+            int preambleLength = XmpReader.JpegSegmentPreamble.Length;
+            if (segmentBytes.Length >= preambleLength && XmpReader.JpegSegmentPreamble.Equals(Encoding.UTF8.GetString(segmentBytes, 0, preambleLength), StringComparison.OrdinalIgnoreCase))
+            {
+                // overwrite the payload
+                segmentBytes = ByteArrayFromXmpXDocument(xmp);
+                // and update the segment length!!
+                byte[] lengthMark = BytesFromSegmentLength(segmentBytes.Length, input.IsMotorolaByteOrder);
+                highByte = lengthMark[0];
+                lowByte = lengthMark[1];
+                // indicate that the Xmp was written to this segment
+                wroteXmp = true;
+            }
+
+            // 4. only now write the entire segment (index + payload)
+            output.WriteByte(highByte);
+            output.WriteByte(lowByte);
+            output.Write(segmentBytes, 0, segmentBytes.Length);
+
+            return wroteXmp;
+        }
+
+        /// <summary>
+        /// Inserts a new Xmp App1 segment to the output memory stream.
+        /// The segment will be inserted -2 bytes from the current position.
+        /// </summary>
+        /// <param name="xmp">Xmp document to be inserted</param>
+        /// <param name="input">Stream of bytes in the original file</param>
+        /// <param name="output">Stream of bytes in the newly composed file</param>
+        /// <param name="nextSegmentIdentifier">The identifier of the segment that began at position -2</param>
+        /// <param name="nextSegmentTypeByte">The identifier of the segment that began at position -2</param>
+        /// <returns>True, indicating that the Xmp content was inserted</returns>
+        private static bool InsertApp1XmpSegment(XDocument xmp, SequentialByteArrayReader input, MemoryStream output, byte nextSegmentIdentifier, byte nextSegmentTypeByte)
+        {
+            // 1. remember the segment that comes after
+            byte[] nextSegmentMarker = new byte[] { nextSegmentIdentifier, nextSegmentTypeByte };
+
+            // 2. open a new App1 segment in place of the recently encountered segment
+            output.Seek(-2, SeekOrigin.Current);
+            // reference: http://dev.exiv2.org/projects/exiv2/wiki/The_Metadata_in_JPEG_files
+            byte[] app1marker = new byte[] { 0xFF, 0xE1 };
+            output.Write(app1marker, 0, app1marker.Length);
+
+            // 3. prepare the new Xmp segment
+            byte[] segmentBytes = ByteArrayFromXmpXDocument(xmp);
+            byte[] lengthMark = BytesFromSegmentLength(segmentBytes.Length, input.IsMotorolaByteOrder);
+            byte highByte = lengthMark[0];
+            byte lowByte = lengthMark[1];
+            // 4. write the new segment to the output
+            output.WriteByte(highByte);
+            output.WriteByte(lowByte);
+            output.Write(segmentBytes, 0, segmentBytes.Length);
+
+            // 5. now write the segment marker that was replaced
+            // (in the next iteration it will just proceed with that segment)
+            output.Write(nextSegmentMarker, 0, nextSegmentMarker.Length);
+            return true;
+        }
+
+        /// <summary>
+        /// Encodes an XDocument to bytes to be used as the payload of an App1 segment.
+        /// </summary>
+        /// <param name="xmp">Xmp document to be encoded</param>
+        /// <returns>App1 segment payload</returns>
         private static byte[] ByteArrayFromXmpXDocument(XDocument xmp)
         {
             // we found the XMP segment. Now write the new XMP to the output
@@ -186,13 +229,31 @@ namespace MetadataExtractor.Formats.Jpeg
             // make it into a byte array
             return xmpMS.ToArray();
         }
+
+        /// <summary>
+        /// Computes the length of a segment payload from the high/low bytes of the index.
+        /// (Segment length excludes the index bytes.)
+        /// </summary>
+        /// <param name="highByte">first byte of the index</param>
+        /// <param name="lowByte">second byte of the index</param>
+        /// <param name="motorolaBigEndian">byte order of the index</param>
+        /// <returns></returns>
         private static int SegmentLengthFromBytes(byte highByte, byte lowByte, bool motorolaBigEndian)
         {
-            return ((motorolaBigEndian) ? (highByte << 8 | lowByte) : (highByte | lowByte << 8));
+            // the segment length includes size bytes, so subtract two
+            return -2 + ((motorolaBigEndian) ? (highByte << 8 | lowByte) : (highByte | lowByte << 8));
         }
+
+        /// <summary>
+        /// Encodes the length of a segment into the index bytes of the segment.
+        /// </summary>
+        /// <param name="length">Length of the payload (excludes the index)</param>
+        /// <param name="motorolaBigEndian">byte order of the index</param>
+        /// <returns>segment-index bytes (length 2)</returns>
         private static byte[] BytesFromSegmentLength(int length, bool motorolaBigEndian)
         {
-            byte[] bytes = BitConverter.GetBytes(length);
+            // the segment length includes the high & low bytes, so add 2
+            byte[] bytes = BitConverter.GetBytes(length + 2);
             if (motorolaBigEndian)
                 return new byte[] { bytes[1], bytes[0] };
             else
