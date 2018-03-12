@@ -104,6 +104,7 @@ namespace MetadataExtractor.Formats.Xmp
         public XmpDirectory Extract([NotNull] byte[] xmpBytes, int offset, int length)
         {
             var directory = new XmpDirectory();
+            directory.SetXmpRawData(xmpBytes);
             try
             {
                 var xmpMeta = XmpMetaFactory.ParseFromBuffer(xmpBytes, offset, length);
