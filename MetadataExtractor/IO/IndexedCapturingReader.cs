@@ -104,7 +104,7 @@ namespace MetadataExtractor.IO
             {
                 if (_contiguousBufferMode)
                 {
-                    if (_streamLength != -1)
+                    if (_streamLength == -1)
                     {
                         IsValidIndex(int.MaxValue, 1);
                     }
@@ -133,7 +133,7 @@ namespace MetadataExtractor.IO
                     throw new BufferBoundsException($"Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: {index}, requested count: {bytesRequested})");
 
                 // TODO test that can continue using an instance of this type after this exception
-                throw new BufferBoundsException(ToUnshiftedOffset(index), bytesRequested, _streamLength);
+                throw new BufferBoundsException(ToUnshiftedOffset(index), bytesRequested, Length);
             }
         }
 
@@ -238,8 +238,16 @@ namespace MetadataExtractor.IO
                 if (curChunk != null)
                 {
                     _chunks[curChunkIdx] = curChunk;
-                    var newStreamLen = (curChunkIdx * _chunkLength) + curChunk.Length;
-                    _streamLength = newStreamLen > _streamLength ? newStreamLen : _streamLength;
+                    if(_streamLength < 0)
+                    {
+                        // If this is the first chunk we've loaded, then initialize the stream length.
+                        _streamLength = curChunk.Length;
+                    }
+                    else
+                    {
+                        var newStreamLen = _streamLength + curChunk.Length;
+                        _streamLength = newStreamLen > _streamLength ? newStreamLen : _streamLength;
+                    }
                 }
                 else
                 {
