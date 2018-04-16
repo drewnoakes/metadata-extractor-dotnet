@@ -51,7 +51,7 @@ namespace MetadataExtractor
     /// Writing is then delegated to one of:
     ///
     /// <list type="bullet">
-    ///   <item><see cref="JpegMetadataSubstitutor"/> for JPEG files</item>
+    ///   <item><see cref="JpegMetadataWriter"/> for JPEG files</item>
     ///   <item>Writing to other file types is currently not implemented. Feel free to contribute!</item>
     /// </list>
     ///
@@ -67,19 +67,16 @@ namespace MetadataExtractor
     {
         /// <summary>Writes metadata to a <see cref="Stream"/>.</summary>
         /// <param name="stream">A stream to which the file data may be written.  The stream must be positioned at the beginning of the file's data.</param>
-        /// <param name="xmp">An XDocument containing the new XMP metadata.</param>
+        /// <param name="metadata">Collection of metadata objects.</param>
         /// <exception cref="ImageProcessingException">The file type is unknown, or processing errors occurred.</exception>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static MemoryStream SubstituteXmp([NotNull] Stream stream, XDocument xmp)
+        public static MemoryStream WriteMetadata([NotNull] Stream stream, IEnumerable<object> metadata)
         {
             var fileType = FileTypeDetector.DetectFileType(stream);
-            stream.Seek(0, SeekOrigin.Begin);
-            byte[] original = new byte[stream.Length];
-            stream.Read(original, 0, (int)stream.Length);
             switch (fileType)
             {
-                case FileType.Jpeg: return JpegMetadataSubstitutor.SubstituteXmp(original, xmp);
+                case FileType.Jpeg: return JpegMetadataWriter.WriteMetadata(stream, metadata);
                 //case FileType.Tiff:
                 //case FileType.Arw:
                 //case FileType.Cr2:
