@@ -40,13 +40,20 @@ namespace MetadataExtractor.Formats.Jpeg
             Segment = segment;
         }
 
+        public override string ToString()
+        {
+            if (IsSegment)
+                return $"{Bytes.Length} bytes ({Segment.Type})";
+            else
+                return $"{Bytes.Length} bytes";
+        }
+
         /// <summary>
         /// Infers the marker and segment size bytes that correspond to the JpegSegment.
         /// </summary>
         /// <param name="segment">A JpegSegment</param>
-        /// <param name="isMotorolaByteOrder">Indicates if the collection of fragments is encoded using MotorolaByteOrder</param>
         /// <returns>A JpegFragment that is the concatenation of JpegSegment marker, size bytes and payload.</returns>
-        public static JpegFragment FromJpegSegment(JpegSegment segment, bool isMotorolaByteOrder)
+        public static JpegFragment FromJpegSegment(JpegSegment segment)
         {
             byte[] fragmentBytes = new byte[2 + 2 + segment.Bytes.Length];
 
@@ -55,11 +62,8 @@ namespace MetadataExtractor.Formats.Jpeg
             fragmentBytes[1] = (byte)segment.Type;
 
             // Segment size
-            byte[] sizeBytes = BitConverter.GetBytes(segment.Bytes.Length + 2);
-            if (isMotorolaByteOrder)
-                new byte[] { sizeBytes[1], sizeBytes[0] }.CopyTo(fragmentBytes, 0);
-            else
-                new byte[] { sizeBytes[0], sizeBytes[1] }.CopyTo(fragmentBytes, 0);
+            byte[] sizeBytes = JpegSegment.EncodePayloadLength(segment.Bytes.Length);
+            sizeBytes.CopyTo(fragmentBytes, 2);
 
             // Segment payload
             segment.Bytes.CopyTo(fragmentBytes, 4);

@@ -48,10 +48,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <param name="metadata">
         /// A directory containing metadata that shall be written to the JpegFragments.
         /// </param>
-        /// <param name="isMotorolaByteOrder">
-        /// Indicates if the collection of fragments is encoded using MotorolaByteOrder
-        /// </param>
         [NotNull]
-        List<JpegFragment> UpdateFragments([NotNull] FragmentList fragments, [NotNull] object metadata, bool isMotorolaByteOrder);
+        List<JpegFragment> UpdateFragments([NotNull] FragmentList fragments, [NotNull] object metadata);
     }
 }

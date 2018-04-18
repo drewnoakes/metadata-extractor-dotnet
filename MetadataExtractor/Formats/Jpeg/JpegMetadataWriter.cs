@@ -66,14 +66,14 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <returns>A new stream that contains Jpeg data, updated with the metadata.</returns>
         public static MemoryStream WriteMetadata([NotNull] Stream original, [NotNull] IEnumerable<object> metadata)
         {
-            var ssr = new SequentialStreamReader(original);
+            var ssr = new SequentialStreamReader(original, isMotorolaByteOrder:true);
 
             // 1. split up the original data into a collection of fragments (non-coding and coding)
             List<JpegFragment> fragments = JpegFragmentWriter.SplitFragments(ssr);
 
             // for each metadata item, apply a compatible writer to the segments
             // this updates the fragments with the metadata
-            fragments = UpdateJpegFragments(fragments, metadata, ssr.IsMotorolaByteOrder);
+            fragments = UpdateJpegFragments(fragments, metadata);
 
             // now concatenate all fragments back into the complete file
             return JpegFragmentWriter.JoinFragments(fragments);
@@ -94,9 +94,8 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <param name="fragments">The list of JpegFragments to start with.</param>
         /// <param name="metadata">Collection of metadata items.</param>
         /// <param name="writers">A dictionary that maps metadata types to compatible JpegMetadataWriters.</param>
-        /// <param name="isMotorolaByteOrder">Indicates if Motorola byte order shall be used for encoding of metadata segments.</param>
         /// <returns>The updated list of JpegFragments</returns>
-        public static List<JpegFragment> UpdateJpegFragments([NotNull] List<JpegFragment> fragments, [NotNull] IEnumerable<object> metadata, bool isMotorolaByteOrder, [NotNull] Dictionary<Type, IJpegFragmentMetadataWriter> writers = null)
+        public static List<JpegFragment> UpdateJpegFragments([NotNull] List<JpegFragment> fragments, [NotNull] IEnumerable<object> metadata, [NotNull] Dictionary<Type, IJpegFragmentMetadataWriter> writers = null)
         {
             if (writers == null)
                 writers = _allWriters;
@@ -107,7 +106,7 @@ namespace MetadataExtractor.Formats.Jpeg
                 if (writers.ContainsKey(mdatType))
                 {
                     IJpegFragmentMetadataWriter writer = writers[mdatType];
-                    fragments = writer.UpdateFragments(fragments, mdat, isMotorolaByteOrder);
+                    fragments = writer.UpdateFragments(fragments, mdat);
                 }
                 else
                 {

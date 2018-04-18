@@ -3,6 +3,7 @@ using MetadataExtractor.Formats.Jpeg;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
@@ -31,26 +32,26 @@ namespace MetadataExtractor.Formats.Xmp
         /// </summary>
         /// <param name="fragments">Original file fragmets</param>
         /// <param name="metadata">The Xmp metadata that shall be written</param>
-        /// <param name="isMotorolaByteOrder">
-        /// Indicates if the collection of fragments is encoded using MotorolaByteOrder
-        /// </param>
         /// <returns>A new list of JpegFragments</returns>
-        public List<JpegFragment> UpdateFragments([NotNull] FragmentList fragments, [NotNull] object metadata, bool isMotorolaByteOrder)
+        public List<JpegFragment> UpdateFragments([NotNull] FragmentList fragments, [NotNull] object metadata)
         {
             JpegFragment metadataFragment;
             List<JpegFragment> output = new List<JpegFragment>();
             bool wroteData = false;
+            int insertPosition = 0;
 
             if (metadata is XDocument)
             {
-                byte[] payloadBytes = PayloadBytesFromXmpXDocument((XDocument)metadata);
-                byte[] segmentBytes = SegmentBytesFromPayload(JpegSegmentType.App1, payloadBytes, isMotorolaByteOrder);
-                metadataFragment = new JpegFragment(segmentBytes);
+                byte[] payloadBytes = EncodeXmpToPayloadBytes((XDocument)metadata);
+                JpegSegment metadataSegment = new JpegSegment(JpegSegmentType.App1, payloadBytes, offset: 0);
+                metadataFragment = JpegFragment.FromJpegSegment(metadataSegment);
             }
             else
             {
                 throw new ArgumentException($"XmpWriter expects metadata to be of type XmpDirectory, but was given {metadata.GetType()}.");
             }
+
+            // First look for any potential Xmp fragment, insert only if none is found
 
             // Walk over existing fragment and replace or insert the new metadata fragment
             for (int i = 0; i < fragments.Count; i++)
@@ -74,92 +75,74 @@ namespace MetadataExtractor.Formats.Xmp
                             wroteData = true;
                         }
                     }
-                    else if (currentType != JpegSegmentType.Soi && currentType != JpegSegmentType.App0)
+                    else if (insertPosition == 0 && currentType != JpegSegmentType.Soi && currentType != JpegSegmentType.App0)
                     {
                         // file begins with Soi (App0) (App1) ...
                         // At this point we have encountered a segment that should not be earlier than an App1.
-                        // Also, the files does not contain an App1-Xmp segment yet.
-                        // Therefore we must insert a new App1-Xmp segment now.
-                        output.Add(metadataFragment);
-                        wroteData = true;
+                        // But there could be another Xmp segment, so we just make a note of this position
+                        insertPosition = i;
                     }
                 }
                 output.Add(currentFragment);
+            }
+
+            if (!wroteData)
+            {
+                // The files does not contain an App1-Xmp segment yet.
+                // Therefore we must insert a new App1-Xmp segment at the previously determined position.
+                output.Insert(insertPosition, metadataFragment);
+                wroteData = true;
             }
 
             return output;
         }
 
         /// <summary>
-        /// Concatenates the JpegSegment mark, segment length and payload bytes.
-        /// </summary>
-        /// <param name="type">The type of JpegSegment to encode</param>
-        /// <param name="payloadBytes">Payload of the JpegSegment</param>
-        /// <param name="isMotorolaByteOrder">Indicates the byte order for the segment length encoding</param>
-        /// <returns>Byte array of the entire segment</returns>
-        private static byte[] SegmentBytesFromPayload(JpegSegmentType type, byte[] payloadBytes, bool isMotorolaByteOrder)
-        {
-            byte[] segmentBytes = new byte[4 + payloadBytes.Length];
-            byte[] lengthMark = EncodeSegmentLength(payloadBytes.Length, isMotorolaByteOrder);
-
-            segmentBytes[0] = 0xFF;
-            segmentBytes[1] = (byte)type;
-            segmentBytes[2] = lengthMark[0];
-            segmentBytes[3] = lengthMark[1];
-            payloadBytes.CopyTo(segmentBytes, 4);
-
-            return segmentBytes;
-        }
-
-        /// <summary>
         /// Encodes an XDocument to bytes to be used as the payload of an App1 segment.
         /// </summary>
-        /// <param name="xmp">Xmp document to be encoded</param>
+        /// <param name="xmpDoc">Xmp document to be encoded</param>
+        /// <param name="writeable">Indicates if the Xmp packet shall be marked as writable.</param>
         /// <returns>App1 segment payload</returns>
-        private static byte[] PayloadBytesFromXmpXDocument([NotNull] XDocument xmp)
+        public static byte[] EncodeXmpToPayloadBytes([NotNull] XDocument xmpDoc, bool writeable=true)
         {
+            // constant parts
+            byte[] preamble = Encoding.UTF8.GetBytes(XmpReader.JpegSegmentPreamble);
+            byte[] xpacketHeader = Encoding.UTF8.GetBytes("<?xpacket begin=\"\uFEFF\" id=\"W5M0MpCehiHzreSzNTczkc9d\"?>");
+            byte[] xpacketTrailer = Encoding.UTF8.GetBytes($"<?xpacket end='{ (writeable ? 'w' : 'r') }'?>");
+
             MemoryStream xmpMS = new MemoryStream();
-            // first the preamble "http://ns.adobe.com/xap/1.0/\0"
-            byte[] preamble = UTF8Encoding.UTF8.GetBytes(XmpReader.JpegSegmentPreamble);
+            // 1. preamble "http://ns.adobe.com/xap/1.0/\0"
             xmpMS.Write(preamble, 0, preamble.Length);
-            // now the XDocument WITHOUT Xml Declaration
+
+            // 2. xpacket header
+            xmpMS.Write(xpacketHeader, 0, xpacketHeader.Length);
+
+            // 3. serialized Xmp xml
             XmlWriterSettings settings = new XmlWriterSettings() { OmitXmlDeclaration = true };
-            using (XmlWriter xw = XmlWriter.Create(xmpMS, settings))
+            using (XmlWriter xmlWriter = XmlWriter.Create(xmpMS, settings))
             {
-                xmp.WriteTo(xw);
+                xmpDoc.WriteTo(xmlWriter);
             }
+
+            // 4. whitespace padding
+            byte[] whitespace = Encoding.UTF8.GetBytes(CreateWhitespace());
+            xmpMS.Write(whitespace, 0, whitespace.Length);
+
+            // 5. xpacket trailer
+            xmpMS.Write(xpacketTrailer, 0, xpacketTrailer.Length);
 
             return xmpMS.ToArray();
         }
 
         /// <summary>
-        /// Computes the length of a segment payload from the high/low bytes of the index.
-        /// (Segment length excludes the index bytes.)
+        /// Creates a string of whitespace with linebreaks for padding within xpacket.
         /// </summary>
-        /// <param name="highByte">first byte of the index</param>
-        /// <param name="lowByte">second byte of the index</param>
-        /// <param name="motorolaBigEndian">byte order of the index</param>
-        /// <returns></returns>
-        private static int DecodeSegmentLength(byte highByte, byte lowByte, bool motorolaBigEndian)
+        /// <param name="size">Desired total size of whitespace</param>
+        /// <returns>String of whitespace with newline character in each line of 100 chars</returns>
+        public static string CreateWhitespace(int size=4096)
         {
-            // the segment length includes size bytes, so subtract two
-            return -2 + ((motorolaBigEndian) ? (highByte << 8 | lowByte) : (highByte | lowByte << 8));
-        }
-
-        /// <summary>
-        /// Encodes the length of a segment into the index bytes of the segment.
-        /// </summary>
-        /// <param name="length">Length of the payload (excludes the index)</param>
-        /// <param name="motorolaBigEndian">byte order of the index</param>
-        /// <returns>segment-index bytes (length 2)</returns>
-        private static byte[] EncodeSegmentLength(int length, bool motorolaBigEndian)
-        {
-            // the segment length includes the high & low bytes, so add 2
-            byte[] bytes = BitConverter.GetBytes(length + 2);
-            if (motorolaBigEndian)
-                return new byte[] { bytes[1], bytes[0] };
-            else
-                return new byte[] { bytes[0], bytes[1] };
+            var line = '\u000A' + new String('\u0020', 99);
+            return string.Concat(Enumerable.Repeat(line, (int)Math.Ceiling(size / 100.0))).Substring(0, size);
         }
     }
 }

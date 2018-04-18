@@ -90,27 +90,33 @@ namespace MetadataExtractor.Formats.Jpeg
                     var segmentType = (JpegSegmentType)segmentTypeByte;
 
                     // The algorithm above stopped right after a segment marker.
+
                     // 1. All buffer up to the segment marker must become a fragment
                     if (buffer.Length > 2)
                     {
-                        byte[] fragmentA = new byte[buffer.Length - 2];
-                        buffer.Read(fragmentA, 0, fragmentA.Length);
+                        byte[] fragmentA = buffer.ToArray().Take((int)buffer.Length - 2).ToArray();
                         fragments.Add(new JpegFragment(fragmentA));
                     }
 
-                    // 2. The segment marker + the segment payload becomes a fragment
-                    // To read the segment payload, the segment length must be decoded:
-                    // next 2-bytes are <segment-size>: [high-byte] [low-byte]
-                    var segmentLength = (int)reader.GetUInt16();
-                    // segment length includes size bytes, so subtract two
-                    segmentLength -= 2;
-                    if (segmentLength < 0)
-                        throw new JpegProcessingException("JPEG segment size would be less than zero.");
-                    var segmentOffset = reader.Position;
-                    var payloadBytes = reader.GetBytes(segmentLength);
-                    Debug.Assert(segmentLength == payloadBytes.Length);
-                    var segment = new JpegSegment(segmentType, payloadBytes, segmentOffset);
-                    fragments.Add(JpegFragment.FromJpegSegment(segment, reader.IsMotorolaByteOrder));
+                    // 2. the segment marker (+ size + payload) becomes a fragment
+                    // only some JpegSegments have a payload and can/should be read in one shot
+                    if (segmentType.ContainsPayload())
+                    {
+                        // To read the segment payload, the segment length must be decoded:
+                        var payloadLength = JpegSegment.DecodePayloadLength(reader.GetByte(), reader.GetByte());
+                        if (payloadLength < 0)
+                            throw new JpegProcessingException("JPEG segment size would be less than zero.");
+                        var segmentOffset = reader.Position;
+                        var payloadBytes = reader.GetBytes(payloadLength);
+                        Debug.Assert(payloadLength == payloadBytes.Length);
+                        var segment = new JpegSegment(segmentType, payloadBytes, segmentOffset);
+                        fragments.Add(JpegFragment.FromJpegSegment(segment));
+                    }
+                    else
+                    {
+                        // for segments without a payload, take just the marker
+                        fragments.Add(new JpegFragment(new byte[] { 0xFF, segmentTypeByte }));
+                    }
 
                     // All buffer contents have been copied into fragments
                     buffer = new MemoryStream();
@@ -135,7 +141,6 @@ namespace MetadataExtractor.Formats.Jpeg
 
             return fragments;
         }
-
 
         /// <summary>
         /// Concatenates the provided JpegFragments into a <see cref="MemoryStream"/> object.
