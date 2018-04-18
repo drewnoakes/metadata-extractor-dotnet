@@ -25,6 +25,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Xml.Linq;
 using JetBrains.Annotations;
 using XmpCore;
 
@@ -60,6 +61,11 @@ namespace MetadataExtractor.Formats.Xmp
         [CanBeNull]
         public byte[] XmpRawData { get; private set; }
 
+        /// <summary>Root XMP <see cref="XDocument"/> as read from the file.</summary>
+        /// <remarks>Allows processing data from this element if the data is not standards-compliant.</remarks>
+        [CanBeNull]
+        public XDocument Root { get; private set; }
+
         public XmpDirectory()
         {
             SetDescriptor(new XmpDescriptor(this));
@@ -93,9 +99,14 @@ namespace MetadataExtractor.Formats.Xmp
             Set(TagXmpValueCount, XmpMeta.Properties.Count(prop => prop.Path != null));
         }
 
-        public void SetXmpRawData([NotNull]byte[] data)
+        public void SetXmpRawData([NotNull] byte[] data)
         {
             XmpRawData = data;
+        }
+
+        public void SetRootDocument([NotNull] XDocument root)
+        {
+            Root = root;
         }
     }
 }

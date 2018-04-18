@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -104,10 +105,16 @@ namespace MetadataExtractor.Formats.Xmp
         public XmpDirectory Extract([NotNull] byte[] xmpBytes, int offset, int length)
         {
             var directory = new XmpDirectory();
-            directory.SetXmpRawData(xmpBytes);
             try
             {
-                var xmpMeta = XmpMetaFactory.ParseFromBuffer(xmpBytes, offset, length);
+                var bytes = new byte[length];
+                Array.Copy(xmpBytes, offset, bytes, 0, length);
+                directory.SetXmpRawData(bytes);
+
+                var xdoc = XmpMetaFactory.ExtractXDocumentFromBuffer(bytes);
+                directory.SetRootDocument(xdoc);
+
+                var xmpMeta = XmpMetaFactory.ParseFromXDocument(xdoc);
                 directory.SetXmpMeta(xmpMeta);
             }
             catch (XmpException e)
