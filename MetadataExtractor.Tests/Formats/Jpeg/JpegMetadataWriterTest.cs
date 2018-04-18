@@ -94,7 +94,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         }
 
         [Fact]
-        public void TestWriteMetadata()
+        public void TestWriteJpegMetadata()
         {
             var originalStream = TestDataUtil.OpenRead("Data/xmpWriting_PictureWithMicrosoftXmp.jpg");
             XDocument xmp = XDocument.Parse(File.ReadAllText("Data/xmpWriting_XmpContent.xmp"));
