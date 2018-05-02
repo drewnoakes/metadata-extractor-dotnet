@@ -12,7 +12,7 @@ namespace MetadataExtractor.IO
         private long p_streamLength = -1;
 
         private bool p_canSeek = false;
-        private readonly List<ReaderInfo> rdrList = new List<ReaderInfo>();
+        //private readonly List<ReaderInfo> rdrList = new List<ReaderInfo>();
 
         private const int DefaultChunkLength = 4 * 1024;
         
@@ -66,10 +66,10 @@ namespace MetadataExtractor.IO
         {
             var pos = startPosition >= 0 ? startPosition : 0;
 
-            var rdrInfo = new ReaderInfo(this, pos, 0, length, isMotorolaByteOrder);
-            rdrList.Add(rdrInfo);
-
-            return rdrInfo;
+            //var rdrInfo = new ReaderInfo(this, pos, 0, length, isMotorolaByteOrder);
+            //rdrList.Add(rdrInfo);
+            //return rdrInfo;
+            return new ReaderInfo(this, pos, 0, length, isMotorolaByteOrder);
         }
 
         public void Seek(long index, SeekOrigin origin)
