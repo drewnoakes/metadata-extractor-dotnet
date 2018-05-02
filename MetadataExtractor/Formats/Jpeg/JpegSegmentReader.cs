@@ -164,14 +164,20 @@ namespace MetadataExtractor.Formats.Jpeg
                 // decide whether this JPEG segment type's marker is followed by a length indicator
                 if (segmentType.ContainsPayload())
                 {
-                    // Read the 2-byte big-endian segment length
-                    // The length includes the two bytes for the length, but not the two bytes for the marker
-                    var b1 = reader.GetByte();
+                    /*var b1 = reader.GetByte();
                     var b2 = reader.GetByte();
                     if (unchecked((sbyte)b2) == -1)
                         yield break;
 
-                    var segmentLength = reader.GetUInt16(b1, b2);
+                    var segmentLength = reader.GetUInt16(b1, b2);*/
+
+                    // Need two more bytes for the segment length. If closer than two bytes to the end, yield
+                    if (reader.IsCloserToEnd(2))
+                        yield break;
+
+                    // Read the 2-byte big-endian segment length
+                    // The length includes the two bytes for the length, but not the two bytes for the marker
+                    var segmentLength = reader.GetUInt16();
                     
                     // A length of less than two would be an error
                     if (segmentLength < 2)

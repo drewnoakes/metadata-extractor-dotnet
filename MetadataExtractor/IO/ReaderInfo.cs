@@ -9,7 +9,7 @@ namespace MetadataExtractor.IO
 {
     public class ReaderInfo
     {
-        public RandomAccessStream p_ras = null;
+        private RandomAccessStream p_ras = null;
         private long p_length = -1;
 
         //private Dictionary<long, long> p_ranges = new Dictionary<long, long>();
@@ -601,7 +601,8 @@ namespace MetadataExtractor.IO
         //public ReaderInfo Clone(bool blah, long length = -1, long offset = 0, bool useByteOrder = true)
         public ReaderInfo Clone(long offset, long length, bool useByteOrder)
         {
-            return p_ras.CreateReader(GlobalPosition + offset, (length > -1 ? length : Length), useByteOrder ? IsMotorolaByteOrder : !IsMotorolaByteOrder);
+            //return p_ras.CreateReader(GlobalPosition + offset, (length > -1 ? length : Length), useByteOrder ? IsMotorolaByteOrder : !IsMotorolaByteOrder);
+            return p_ras.CreateReader(GlobalPosition + offset, (length > -1 ? length : Length - offset), useByteOrder ? IsMotorolaByteOrder : !IsMotorolaByteOrder);
         }
 
         public bool IsCloserToEnd(long numberOfBytes)
