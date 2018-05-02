@@ -23,6 +23,7 @@
 #endregion
 
 using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.IO;
 using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Jpeg
@@ -35,7 +36,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
 
         public JpegReaderTest()
         {
-            var sof0 = new JpegSegment(JpegSegmentType.Sof0, TestDataUtil.GetBytes("Data/simple.jpg.sof0"), offset: 0);
+            var sof0 = new JpegSegment(JpegSegmentType.Sof0, new RandomAccessStream(TestDataUtil.GetBytes("Data/simple.jpg.sof0")).CreateReader());
 
             _directory = new JpegReader().Extract(sof0);
         }

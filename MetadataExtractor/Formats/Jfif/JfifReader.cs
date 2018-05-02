@@ -49,6 +49,7 @@ namespace MetadataExtractor.Formats.Jfif
     /// <author>Yuri Binev, Drew Noakes, Markus Meyer</author>
     public sealed class JfifReader : IJpegSegmentMetadataReader
     {
+        public const string JpegSegmentId = "JFIF";
         public const string JpegSegmentPreamble = "JFIF";
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.App0 };
@@ -57,8 +58,8 @@ namespace MetadataExtractor.Formats.Jfif
         {
             // Skip segments not starting with the required header
             return segments
-                .Where(segment => segment.Bytes.Length >= JpegSegmentPreamble.Length && JpegSegmentPreamble == Encoding.UTF8.GetString(segment.Bytes, 0, JpegSegmentPreamble.Length))
-                .Select(segment => Extract(new ByteArrayReader(segment.Bytes)))
+                .Where(segment => segment.Reader.Length >= JpegSegmentPreamble.Length && segment.Preamble == JpegSegmentId)
+                .Select(segment => Extract(segment.Reader.Clone(segment.Reader.LocalPosition, -1)))
 #if NET35
                 .Cast<Directory>()
 #endif
@@ -67,7 +68,7 @@ namespace MetadataExtractor.Formats.Jfif
 
         /// <summary>Reads JFIF values and returns them in an <see cref="JfifDirectory"/>.</summary>
         [NotNull]
-        public JfifDirectory Extract([NotNull] IndexedReader reader)
+        public JfifDirectory Extract([NotNull] ReaderInfo reader)
         {
             var directory = new JfifDirectory();
 

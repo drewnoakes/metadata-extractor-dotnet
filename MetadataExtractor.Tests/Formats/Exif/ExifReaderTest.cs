@@ -28,6 +28,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.IO;
 using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Exif
@@ -41,7 +42,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [NotNull]
         public static IList<Directory> ProcessSegmentBytes([NotNull] string filePath, JpegSegmentType type)
         {
-            var segment = new JpegSegment(type, TestDataUtil.GetBytes(filePath), 0);
+            var segment = new JpegSegment(type, new RandomAccessStream(TestDataUtil.GetBytes(filePath)).CreateReader(), ExifReader.JpegSegmentId);
 
             return new ExifReader().ReadJpegSegments(new[] { segment }).ToList();
         }
@@ -72,7 +73,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         [Fact]
         public void ReadJpegSegmentWithNoExifData()
         {
-            var badExifSegment = new JpegSegment(JpegSegmentType.App1, new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, offset: 0);
+            var badExifSegment = new JpegSegment(JpegSegmentType.App1, new RandomAccessStream(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }).CreateReader());
             var directories = new ExifReader().ReadJpegSegments(new [] { badExifSegment });
             Assert.Equal(0, directories.Count);
         }

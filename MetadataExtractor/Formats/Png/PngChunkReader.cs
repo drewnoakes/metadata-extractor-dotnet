@@ -37,7 +37,7 @@ namespace MetadataExtractor.Formats.Png
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public IEnumerable<PngChunk> Extract([NotNull] SequentialReader reader, [CanBeNull] ICollection<PngChunkType> desiredChunkTypes)
+        public IEnumerable<PngChunk> Extract([NotNull] ReaderInfo reader, [CanBeNull] ICollection<PngChunkType> desiredChunkTypes)
         {
             //
             // PNG DATA STREAM
@@ -74,7 +74,8 @@ namespace MetadataExtractor.Formats.Png
             //
 
             // network byte order
-            reader = reader.WithByteOrder(isMotorolaByteOrder: true);
+            reader = reader.Clone();
+            reader.IsMotorolaByteOrder = true;
 
             if (!_pngSignatureBytes.SequenceEqual(reader.GetBytes(_pngSignatureBytes.Length)))
                 throw new PngProcessingException("PNG signature mismatch");
@@ -92,11 +93,8 @@ namespace MetadataExtractor.Formats.Png
                     throw new PngProcessingException("PNG chunk length exceeds maximum");
                 var chunkType = new PngChunkType(reader.GetBytes(4));
                 var willStoreChunk = desiredChunkTypes == null || desiredChunkTypes.Contains(chunkType);
-                var chunkData = reader.GetBytes(chunkDataLength);
-
-                // Skip the CRC bytes at the end of the chunk
-                // TODO consider verifying the CRC value to determine if we're processing bad data
-                reader.Skip(4);
+                var chunkReader = reader.Clone(chunkDataLength);
+                reader.Seek(chunkDataLength);
 
                 if (willStoreChunk && seenChunkTypes.Contains(chunkType) && !chunkType.AreMultipleAllowed)
                     throw new PngProcessingException($"Observed multiple instances of PNG chunk '{chunkType}', for which multiples are not allowed");
@@ -110,7 +108,11 @@ namespace MetadataExtractor.Formats.Png
                     seenImageTrailer = true;
 
                 if (willStoreChunk)
-                    chunks.Add(new PngChunk(chunkType, chunkData));
+                    chunks.Add(new PngChunk(chunkType, chunkReader));
+
+                // Skip the CRC bytes at the end of the chunk
+                // TODO consider verifying the CRC value to determine if we're processing bad data
+                reader.Seek(4);
 
                 seenChunkTypes.Add(chunkType);
             }

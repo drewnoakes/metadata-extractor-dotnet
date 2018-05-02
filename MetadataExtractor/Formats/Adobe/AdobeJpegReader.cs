@@ -44,6 +44,7 @@ namespace MetadataExtractor.Formats.Adobe
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class AdobeJpegReader : IJpegSegmentMetadataReader
     {
+        public const string JpegSegmentId = "Adobe";
         public const string JpegSegmentPreamble = "Adobe";
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppE };
@@ -51,8 +52,8 @@ namespace MetadataExtractor.Formats.Adobe
         public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             return segments
-                .Where(segment => segment.Bytes.Length == 12 && JpegSegmentPreamble.Equals(Encoding.UTF8.GetString(segment.Bytes, 0, JpegSegmentPreamble.Length), StringComparison.OrdinalIgnoreCase))
-                .Select(bytes => Extract(new SequentialByteArrayReader(bytes.Bytes)))
+                .Where(segment => segment.Reader.Length == 12 && segment.Preamble == JpegSegmentId)
+                .Select(segment => Extract(segment.Reader.Clone()))
 #if NET35
                 .Cast<Directory>()
 #endif
@@ -60,9 +61,9 @@ namespace MetadataExtractor.Formats.Adobe
         }
 
         [NotNull]
-        public AdobeJpegDirectory Extract([NotNull] SequentialReader reader)
+        public AdobeJpegDirectory Extract([NotNull] ReaderInfo reader)
         {
-            reader = reader.WithByteOrder(isMotorolaByteOrder: false);
+            reader.IsMotorolaByteOrder = false;
 
             var directory = new AdobeJpegDirectory();
 

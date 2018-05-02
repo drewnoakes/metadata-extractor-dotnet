@@ -35,7 +35,7 @@ namespace MetadataExtractor.Tests.IO
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class SequentialReaderTestBase
     {
-        protected abstract SequentialReader CreateReader(byte[] bytes);
+        protected abstract ReaderInfo CreateReader(byte[] bytes);
 
         [Fact]
         public void DefaultEndianness()
@@ -85,8 +85,9 @@ namespace MetadataExtractor.Tests.IO
 
             Assert.Equal(0x0001, reader.GetInt16());
             Assert.Equal(0x7FFF, reader.GetInt16());
-
-            reader = CreateReader(buffer).WithByteOrder(isMotorolaByteOrder: false);
+            
+            reader = CreateReader(buffer);
+            reader.IsMotorolaByteOrder = false;
 
             Assert.Equal(0x0100, reader.GetInt16());
             Assert.Equal(unchecked((short)0xFF7F), reader.GetInt16());
@@ -101,8 +102,9 @@ namespace MetadataExtractor.Tests.IO
 
             Assert.Equal(0x0001, reader.GetUInt16());
             Assert.Equal(0x7FFF, reader.GetUInt16());
-
-            reader = CreateReader(buffer).WithByteOrder(isMotorolaByteOrder: false);
+            
+            reader = CreateReader(buffer);
+            reader.IsMotorolaByteOrder = false;
 
             Assert.Equal(0x0100, reader.GetUInt16());
             Assert.Equal(0xFF7F, reader.GetUInt16());
@@ -127,8 +129,9 @@ namespace MetadataExtractor.Tests.IO
 
             Assert.Equal(0x00010203, reader.GetInt32());
             Assert.Equal(0x04050607, reader.GetInt32());
-
-            reader = CreateReader(buffer).WithByteOrder(isMotorolaByteOrder: false);
+            
+            reader = CreateReader(buffer);
+            reader.IsMotorolaByteOrder = false;
 
             Assert.Equal(0x03020100, reader.GetInt32());
             Assert.Equal(0x07060504, reader.GetInt32());
@@ -145,8 +148,9 @@ namespace MetadataExtractor.Tests.IO
 
             Assert.Equal(0xFF000102u, reader.GetUInt32());
             Assert.Equal(0x03040506u, reader.GetUInt32());
-
-            reader = CreateReader(buffer).WithByteOrder(isMotorolaByteOrder: false);
+            
+            reader = CreateReader(buffer);
+            reader.IsMotorolaByteOrder = false;
 
             Assert.Equal(0x020100FFu, reader.GetUInt32());
             // 0x0010200FF
@@ -169,8 +173,9 @@ namespace MetadataExtractor.Tests.IO
             var reader = CreateReader(buffer);
 
             Assert.Equal(unchecked((long)0xFF00010203040506UL), (object)reader.GetInt64());
-
-            reader = CreateReader(buffer).WithByteOrder(isMotorolaByteOrder: false);
+            
+            reader = CreateReader(buffer);
+            reader.IsMotorolaByteOrder = false;
 
             Assert.Equal(0x06050403020100FFL, (object)reader.GetInt64());
         }
@@ -191,8 +196,9 @@ namespace MetadataExtractor.Tests.IO
             var reader = CreateReader(buffer);
 
             Assert.Equal(0xFF00010203040506UL, (object)reader.GetUInt64());
-
-            reader = CreateReader(buffer).WithByteOrder(isMotorolaByteOrder: false);
+            
+            reader = CreateReader(buffer);
+            reader.IsMotorolaByteOrder = false;
 
             Assert.Equal(0x06050403020100FFUL, (object)reader.GetUInt64());
         }
@@ -299,28 +305,46 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Fact]
-        public void SkipEof()
+        public void SeekEof()
         {
-            CreateReader(new byte[1]).Skip(1);
+            CreateReader(new byte[1]).Seek(1);
 
             var reader = CreateReader(new byte[2]);
-            reader.Skip(1);
-            reader.Skip(1);
+            reader.Seek(1);
+            reader.Seek(1);
 
             reader = CreateReader(new byte[1]);
-            reader.Skip(1);
-            Assert.Throws<IOException>(() => reader.Skip(1));
+            reader.Seek(1);
+
+            var ex = Assert.Throws<BufferBoundsException>(() => reader.Seek(1));
+            Assert.Equal(
+                "Attempt to read from beyond end of underlying data source (requested index: 2, requested count: 0, max index: 0)",
+                ex.Message);
         }
 
-        [Fact]
-        public void TrySkipEof()
+        /*[Fact]
+        public void SkipEof()
         {
-            Assert.True(CreateReader(new byte[1]).TrySkip(1));
+            CreateReader(new byte[1]).Seek(1);
 
             var reader = CreateReader(new byte[2]);
-            Assert.True(reader.TrySkip(1));
-            Assert.True(reader.TrySkip(1));
-            Assert.False(reader.TrySkip(1));
+            reader.Seek(1);
+            reader.Seek(1);
+
+            reader = CreateReader(new byte[1]);
+            reader.Seek(1);
+            Assert.Throws<IOException>(() => reader.Seek(1));
+        }*/
+
+        [Fact]
+        public void TrySeekEof()
+        {
+            Assert.True(CreateReader(new byte[1]).TrySeek(1));
+
+            var reader = CreateReader(new byte[2]);
+            Assert.True(reader.TrySeek(1));
+            Assert.True(reader.TrySeek(1));
+            Assert.False(reader.TrySeek(1));
         }
     }
 }

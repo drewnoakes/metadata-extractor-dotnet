@@ -37,12 +37,12 @@ namespace MetadataExtractor.Tests.IO
         public void ConstructWithNullBufferThrows()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new IndexedCapturingReader(null));
+            Assert.Throws<ArgumentNullException>(() => new RandomAccessStream((byte[])null).CreateReader());
         }
 
-        protected override IndexedReader CreateReader(params byte[] bytes)
+        protected override ReaderInfo CreateReader(params byte[] bytes)
         {
-            return new IndexedCapturingReader(new MemoryStream(bytes));
+            return new RandomAccessStream(bytes).CreateReader();
         }
     }
 }

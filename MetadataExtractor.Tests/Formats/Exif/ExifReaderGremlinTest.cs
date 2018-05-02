@@ -26,6 +26,7 @@ using System.IO;
 using System.Linq;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.IO;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -61,9 +62,9 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var sw = Stopwatch.StartNew();
 
             var app1 = File.ReadAllBytes(filePath);
-            var segments = new[] { new JpegSegment(JpegSegmentType.App1, app1, 0) };
-
-            Assert.Same(app1, segments[0].Bytes);
+            var segments = new[] { new JpegSegment(JpegSegmentType.App1, new RandomAccessStream(app1).CreateReader()) };
+            
+            Assert.Same(app1, segments[0].Reader.GetAllBytes());
 
             var exifReader = new ExifReader();
 

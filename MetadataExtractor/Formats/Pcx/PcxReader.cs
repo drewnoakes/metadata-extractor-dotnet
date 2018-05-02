@@ -40,9 +40,9 @@ namespace MetadataExtractor.Formats.Pcx
     public sealed class PcxReader
     {
         [NotNull]
-        public PcxDirectory Extract([NotNull] SequentialReader reader)
+        public PcxDirectory Extract([NotNull] ReaderInfo reader)
         {
-            reader = reader.WithByteOrder(isMotorolaByteOrder: false);
+            reader.IsMotorolaByteOrder = false;
 
             var directory = new PcxDirectory();
 
@@ -67,7 +67,7 @@ namespace MetadataExtractor.Formats.Pcx
                 directory.Set(PcxDirectory.TagHorizontalDpi, reader.GetUInt16());
                 directory.Set(PcxDirectory.TagVerticalDpi, reader.GetUInt16());
                 directory.Set(PcxDirectory.TagPalette, reader.GetBytes(48));
-                reader.Skip(1);
+                reader.Seek(1);
                 directory.Set(PcxDirectory.TagColorPlanes, reader.GetByte());
                 directory.Set(PcxDirectory.TagBytesPerLine, reader.GetUInt16());
 

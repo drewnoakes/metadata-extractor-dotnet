@@ -43,14 +43,15 @@ namespace MetadataExtractor.Formats.Riff
     public sealed class RiffReader
     {
         /// <summary>Processes a RIFF data sequence.</summary>
-        /// <param name="reader">The <see cref="SequentialReader"/> from which the data should be read.</param>
+        /// <param name="reader">The <see cref="ReaderInfo"/> from which the data should be read.</param>
         /// <param name="handler">The <see cref="IRiffHandler"/> that will coordinate processing and accept read values.</param>
         /// <exception cref="RiffProcessingException">An error occurred during the processing of RIFF data that could not be ignored or recovered from.</exception>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
-        public void ProcessRiff([NotNull] SequentialReader reader, [NotNull] IRiffHandler handler)
+        public void ProcessRiff([NotNull] ReaderInfo reader, [NotNull] IRiffHandler handler)
         {
             // RIFF files are always little-endian
-            reader = reader.WithByteOrder(isMotorolaByteOrder: false);
+            if (reader.IsMotorolaByteOrder)
+                reader = reader.Clone(false);
 
             // PROCESS FILE HEADER
 
@@ -71,11 +72,11 @@ namespace MetadataExtractor.Formats.Riff
         }
 
         // PROCESS CHUNKS
-        public void ProcessChunks([NotNull] SequentialReader reader, int sizeLeft, [NotNull] IRiffHandler handler)
+        public void ProcessChunks([NotNull] ReaderInfo reader, int sizeLeft, [NotNull] IRiffHandler handler)
         {
             // Processing chunks. Each chunk is 8 bytes header (4 bytes CC code + 4 bytes length of chunk) + data of the chunk
 
-            while (reader.Position < sizeLeft)
+            while (reader.LocalPosition < sizeLeft)
             {
                 // Check if end of the file is closer then 8 bytes
                 if (reader.IsCloserToEnd(8)) return;
@@ -98,7 +99,7 @@ namespace MetadataExtractor.Formats.Riff
                     if (handler.ShouldAcceptList(listName))
                         ProcessChunks(reader, sizeLeft - 4, handler);
                     else
-                        reader.Skip(sizeLeft - 4);
+                        reader.Seek(sizeLeft - 4);
                     sizeLeft -= chunkSize;
                 }
                 else
@@ -106,12 +107,11 @@ namespace MetadataExtractor.Formats.Riff
                     if (handler.ShouldAcceptChunk(chunkFourCc))
                     {
                         // TODO is it feasible to avoid copying the chunk here, and to pass the sequential reader to the handler?
-                        handler.ProcessChunk(chunkFourCc, reader.GetBytes(chunkSize));
+                        // ** FIXED this TODO by using ReaderInfo **
+                        handler.ProcessChunk(chunkFourCc, reader.Clone(chunkSize));
                     }
-                    else
-                    {
-                        reader.Skip(chunkSize);
-                    }
+
+                    reader.Seek(chunkSize);
 
                     sizeLeft -= chunkSize;
 

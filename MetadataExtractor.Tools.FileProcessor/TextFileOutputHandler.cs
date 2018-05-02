@@ -30,6 +30,7 @@ using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Xmp;
+using MetadataExtractor.IO;
 using MetadataExtractor.Util;
 
 namespace MetadataExtractor.Tools.FileProcessor
@@ -184,7 +185,7 @@ namespace MetadataExtractor.Tools.FileProcessor
             // Detect file type
             using (var fileTypeDetectStream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-                var fileType = FileTypeDetector.DetectFileType(fileTypeDetectStream);
+                var fileType = FileTypeDetector.DetectFileType(new RandomAccessStream(fileTypeDetectStream).CreateReader());
                 writer.Write("TYPE: {0}\n\n", fileType.ToString().ToUpper());
             }
 

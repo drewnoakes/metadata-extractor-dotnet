@@ -36,7 +36,7 @@ namespace MetadataExtractor.Tests.IO
         private string _tempFile;
         private Stream _stream;
 
-        protected override IndexedReader CreateReader(params byte[] bytes)
+        protected override ReaderInfo CreateReader(params byte[] bytes)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace MetadataExtractor.Tests.IO
                 _tempFile = Path.GetTempFileName();
                 File.WriteAllBytes(_tempFile, bytes);
                 _stream = new FileStream(_tempFile, FileMode.Open, FileAccess.Read);
-                return new IndexedSeekingReader(_stream);
+                return new RandomAccessStream(_stream).CreateReader();
             }
             catch (IOException ex)
             {
@@ -78,7 +78,7 @@ namespace MetadataExtractor.Tests.IO
         public void ConstructWithNullBufferThrows()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new IndexedSeekingReader(null));
+            Assert.Throws<ArgumentNullException>(() => new RandomAccessStream((byte[])null).CreateReader());
         }
     }
 }

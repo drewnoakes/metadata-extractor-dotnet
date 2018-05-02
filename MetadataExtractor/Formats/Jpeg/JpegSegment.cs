@@ -24,6 +24,8 @@
 
 using JetBrains.Annotations;
 
+using MetadataExtractor.IO;
+
 namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>
@@ -34,14 +36,24 @@ namespace MetadataExtractor.Formats.Jpeg
     public sealed class JpegSegment
     {
         public JpegSegmentType Type { get; }
-        [NotNull] public byte[] Bytes { get; }
-        public long Offset { get; }
+        [NotNull] public string Preamble { get; }
+        public ReaderInfo Reader { get; private set; }
+        public byte ByteMarker { get; private set; }
 
-        public JpegSegment(JpegSegmentType type, [NotNull] byte[] bytes, long offset)
+        public JpegSegment(JpegSegmentType type, [NotNull] ReaderInfo segmentReader)
+            : this(type, segmentReader, "")
+        { }
+
+        public JpegSegment(JpegSegmentType type, [NotNull] ReaderInfo segmentReader, [NotNull] string preamble)
+            : this(type, segmentReader, preamble, 0x00)
+        { }
+
+        public JpegSegment(JpegSegmentType type, [NotNull] ReaderInfo segmentReader, [NotNull] string preamble, [NotNull] byte byteMarker)
         {
             Type = type;
-            Bytes = bytes;
-            Offset = offset;
+            Reader = segmentReader;
+            Preamble = preamble;
+            ByteMarker = byteMarker;
         }
     }
 }

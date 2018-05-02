@@ -70,9 +70,9 @@ namespace MetadataExtractor.Formats.Png
         public static DirectoryList ReadMetadata([NotNull] string filePath)
         {
             var directories = new List<Directory>();
-
+            
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.AddRange(ReadMetadata(stream));
+                directories.AddRange(ReadMetadata(new RandomAccessStream(stream).CreateReader()));
 
             directories.Add(new FileMetadataReader().Read(filePath));
 
@@ -82,10 +82,10 @@ namespace MetadataExtractor.Formats.Png
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata([NotNull] ReaderInfo readerInfo)
         {
             return new PngChunkReader()
-                .Extract(new SequentialStreamReader(stream), _desiredChunkTypes)
+                .Extract(readerInfo, _desiredChunkTypes)
                 .SelectMany(ProcessChunk)
                 .ToList();
         }
@@ -108,11 +108,10 @@ namespace MetadataExtractor.Formats.Png
         private static IEnumerable<Directory> ProcessChunk([NotNull] PngChunk chunk)
         {
             var chunkType = chunk.ChunkType;
-            var bytes = chunk.Bytes;
 
             if (chunkType == PngChunkType.IHDR)
             {
-                var header = new PngHeader(bytes);
+                var header = new PngHeader(chunk.Reader);
                 var directory = new PngDirectory(PngChunkType.IHDR);
                 directory.Set(PngDirectory.TagImageWidth, header.ImageWidth);
                 directory.Set(PngDirectory.TagImageHeight, header.ImageHeight);
@@ -126,7 +125,7 @@ namespace MetadataExtractor.Formats.Png
             else if (chunkType == PngChunkType.PLTE)
             {
                 var directory = new PngDirectory(PngChunkType.PLTE);
-                directory.Set(PngDirectory.TagPaletteSize, bytes.Length / 3);
+                directory.Set(PngDirectory.TagPaletteSize, chunk.Reader.Length / 3);
                 yield return directory;
             }
             else if (chunkType == PngChunkType.tRNS)
@@ -137,14 +136,14 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.sRGB)
             {
-                int srgbRenderingIntent = unchecked((sbyte)bytes[0]);
+                int srgbRenderingIntent = unchecked((sbyte)chunk.Reader.GetByte(0));
                 var directory = new PngDirectory(PngChunkType.sRGB);
                 directory.Set(PngDirectory.TagSrgbRenderingIntent, srgbRenderingIntent);
                 yield return directory;
             }
             else if (chunkType == PngChunkType.cHRM)
             {
-                var chromaticities = new PngChromaticities(bytes);
+                var chromaticities = new PngChromaticities(chunk.Reader);
                 var directory = new PngChromaticitiesDirectory();
                 directory.Set(PngChromaticitiesDirectory.TagWhitePointX, chromaticities.WhitePointX);
                 directory.Set(PngChromaticitiesDirectory.TagWhitePointY, chromaticities.WhitePointY);
@@ -158,6 +157,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.gAMA)
             {
+                var bytes = chunk.Reader.GetBytes((int)chunk.Reader.Length);
                 var gammaInt = ByteConvert.ToInt32BigEndian(bytes);
                 var directory = new PngDirectory(PngChunkType.gAMA);
                 directory.Set(PngDirectory.TagGamma, gammaInt / 100000.0);
@@ -165,8 +165,8 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.iCCP)
             {
-                var reader = new SequentialByteArrayReader(bytes);
-                var profileName = reader.GetNullTerminatedStringValue(maxLengthBytes: 79);
+                var reader = chunk.Reader;
+                var profileName = reader.GetNullTerminatedStringValue(79);
                 var directory = new PngDirectory(PngChunkType.iCCP);
                 directory.Set(PngDirectory.TagIccProfileName, profileName);
                 var compressionMethod = reader.GetSByte();
@@ -174,7 +174,7 @@ namespace MetadataExtractor.Formats.Png
                 {
                     // Only compression method allowed by the spec is zero: deflate
                     // This assumes 1-byte-per-char, which it is by spec.
-                    var bytesLeft = bytes.Length - profileName.Bytes.Length - 2;
+                    var bytesLeft = (int)reader.Length - profileName.Bytes.Length - 2;
 
                     // http://george.chiramattel.com/blog/2007/09/deflatestream-block-length-does-not-match.html
                     // First two bytes are part of the zlib specification (RFC 1950), not the deflate specification (RFC 1951).
@@ -184,7 +184,7 @@ namespace MetadataExtractor.Formats.Png
                     var compressedProfile = reader.GetBytes(bytesLeft);
                     using (var inflaterStream = new DeflateStream(new MemoryStream(compressedProfile), CompressionMode.Decompress))
                     {
-                        var iccDirectory = new IccReader().Extract(new IndexedCapturingReader(inflaterStream));
+                        var iccDirectory = new IccReader().Extract(new RandomAccessStream(inflaterStream).CreateReader());
                         iccDirectory.Parent = directory;
                         yield return iccDirectory;
                     }
@@ -197,15 +197,16 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.bKGD)
             {
+                var bytes = chunk.Reader.GetBytes((int)chunk.Reader.Length);
                 var directory = new PngDirectory(PngChunkType.bKGD);
                 directory.Set(PngDirectory.TagBackgroundColor, bytes);
                 yield return directory;
             }
             else if (chunkType == PngChunkType.tEXt)
             {
-                var reader = new SequentialByteArrayReader(bytes);
-                var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(_latin1Encoding);
-                var bytesLeft = bytes.Length - keyword.Length - 1;
+                var reader = chunk.Reader;
+                var keyword = reader.GetNullTerminatedStringValue(79).ToString(_latin1Encoding);
+                var bytesLeft = (int)reader.Length - keyword.Length - 1;
                 var value = reader.GetNullTerminatedStringValue(bytesLeft, _latin1Encoding);
 
                 var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, value) };
@@ -215,15 +216,16 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.zTXt)
             {
-                var reader = new SequentialByteArrayReader(bytes);
-                var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(_latin1Encoding);
+                var reader = chunk.Reader;
+                var keyword = reader.GetNullTerminatedStringValue(79).ToString(_latin1Encoding);
                 var compressionMethod = reader.GetSByte();
 
-                var bytesLeft = bytes.Length - keyword.Length - 1 - 1 - 1 - 1;
+                var bytesLeft = (int)reader.Length - keyword.Length - 1 - 1 - 1 - 1;
                 byte[] textBytes = null;
                 if (compressionMethod == 0)
                 {
-                    using (var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress))
+                    var bytes = chunk.Reader.GetBytes((int)chunk.Reader.Length - bytesLeft);
+                    using (var inflaterStream = new DeflateStream(new MemoryStream(bytes), CompressionMode.Decompress))
                     {
                         Exception ex = null;
                         try
@@ -268,16 +270,16 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.iTXt)
             {
-                var reader = new SequentialByteArrayReader(bytes);
-                var keyword = reader.GetNullTerminatedStringValue(maxLengthBytes: 79).ToString(_latin1Encoding);
+                var reader = chunk.Reader;
+                var keyword = reader.GetNullTerminatedStringValue(79).ToString(_latin1Encoding);
                 var compressionFlag = reader.GetSByte();
                 var compressionMethod = reader.GetSByte();
 
                 // TODO we currently ignore languageTagBytes and translatedKeywordBytes
-                var languageTagBytes = reader.GetNullTerminatedBytes(bytes.Length);
-                var translatedKeywordBytes = reader.GetNullTerminatedBytes(bytes.Length);
+                var languageTagBytes = reader.GetNullTerminatedBytes((int)reader.Length);
+                var translatedKeywordBytes = reader.GetNullTerminatedBytes((int)reader.Length);
 
-                var bytesLeft = bytes.Length - keyword.Length - 1 - 1 - 1 - languageTagBytes.Length - 1 - translatedKeywordBytes.Length - 1;
+                var bytesLeft = (int)reader.Length - keyword.Length - 1 - 1 - 1 - languageTagBytes.Length - 1 - translatedKeywordBytes.Length - 1;
                 byte[] textBytes = null;
                 if (compressionFlag == 0)
                 {
@@ -287,7 +289,8 @@ namespace MetadataExtractor.Formats.Png
                 {
                     if (compressionMethod == 0)
                     {
-                        using (var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress))
+                        var bytes = chunk.Reader.GetBytes((int)chunk.Reader.Length - bytesLeft);
+                        using (var inflaterStream = new DeflateStream(new MemoryStream(bytes), CompressionMode.Decompress))
                         {
                             Exception ex = null;
                             try
@@ -340,7 +343,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.tIME)
             {
-                var reader = new SequentialByteArrayReader(bytes);
+                var reader = chunk.Reader;
                 var year = reader.GetUInt16();
                 var month = reader.GetByte();
                 int day = reader.GetByte();
@@ -359,7 +362,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.pHYs)
             {
-                var reader = new SequentialByteArrayReader(bytes);
+                var reader = chunk.Reader;
                 var pixelsPerUnitX = reader.GetInt32();
                 var pixelsPerUnitY = reader.GetInt32();
                 var unitSpecifier = reader.GetSByte();
@@ -371,6 +374,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType.Equals(PngChunkType.sBIT))
             {
+                var bytes = chunk.Reader.GetBytes((int)chunk.Reader.Length);
                 var directory = new PngDirectory(PngChunkType.sBIT);
                 directory.Set(PngDirectory.TagSignificantBits, bytes);
                 yield return directory;

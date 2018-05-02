@@ -29,13 +29,13 @@ using MetadataExtractor.IO;
 namespace MetadataExtractor.Formats.QuickTime
 {
     /// <summary>
-    /// Extension methods for reading QuickTime specific encodings from a <see cref="SequentialReader"/>.
+    /// Extension methods for reading QuickTime specific encodings from a <see cref="ReaderInfo"/>.
     /// </summary>
     public static class QuickTimeReaderExtensions
     {
         [NotNull]
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public static string Get4ccString([NotNull] this SequentialReader reader)
+        public static string Get4ccString([NotNull] this ReaderInfo reader)
         {
             var sb = new StringBuilder(4);
             sb.Append((char) reader.GetByte());
@@ -45,14 +45,14 @@ namespace MetadataExtractor.Formats.QuickTime
             return sb.ToString();
         }
 
-        public static decimal Get16BitFixedPoint([NotNull] this SequentialReader reader)
+        public static decimal Get16BitFixedPoint([NotNull] this ReaderInfo reader)
         {
             return decimal.Add(
                 reader.GetByte(),
                 decimal.Divide(reader.GetByte(), byte.MaxValue));
         }
 
-        public static decimal Get32BitFixedPoint([NotNull] this SequentialReader reader)
+        public static decimal Get32BitFixedPoint([NotNull] this ReaderInfo reader)
         {
             return decimal.Add(
                 reader.GetUInt16(),

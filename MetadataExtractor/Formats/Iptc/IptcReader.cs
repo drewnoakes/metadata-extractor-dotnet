@@ -64,7 +64,7 @@ namespace MetadataExtractor.Formats.Iptc
         public static final int POST_DATA_RECORD = 9;
 */
 
-        private const byte IptcMarkerByte = 0x1c;
+        public const byte IptcMarkerByte = 0x1c;
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppD };
 
@@ -72,8 +72,8 @@ namespace MetadataExtractor.Formats.Iptc
         {
             // Ensure data starts with the IPTC marker byte
             return segments
-                .Where(segment => segment.Bytes.Length != 0 && segment.Bytes[0] == IptcMarkerByte)
-                .Select(segment => Extract(new SequentialByteArrayReader(segment.Bytes), segment.Bytes.Length))
+                .Where(segment => segment.Reader.Length != 0 && segment.ByteMarker == IptcMarkerByte)
+                .Select(segment => Extract(segment.Reader))
 #if NET35
                 .Cast<Directory>()
 #endif
@@ -82,17 +82,17 @@ namespace MetadataExtractor.Formats.Iptc
 
         /// <summary>Reads IPTC values and returns them in an <see cref="IptcDirectory"/>.</summary>
         /// <remarks>
-        /// Note that IPTC data does not describe its own length, hence <paramref name="length"/> is required.
+        /// Note that IPTC data does not describe its own length, hence a ReaderInfo with a length is required.
         /// </remarks>
         [NotNull]
-        public IptcDirectory Extract([NotNull] SequentialReader reader, long length)
+        public IptcDirectory Extract([NotNull] ReaderInfo reader) //, long length)
         {
             var directory = new IptcDirectory();
 
             var offset = 0;
 
             // for each tag
-            while (offset < length)
+            while (offset < reader.Length)
             {
                 // identifies start of a tag
                 byte startByte;
@@ -111,13 +111,13 @@ namespace MetadataExtractor.Formats.Iptc
                 {
                     // NOTE have seen images where there was one extra byte at the end, giving
                     // offset==length at this point, which is not worth logging as an error.
-                    if (offset != length)
+                    if (offset != reader.Length)
                         directory.AddError($"Invalid IPTC tag marker at offset {offset - 1}. Expected '0x{IptcMarkerByte:x2}' but got '0x{startByte:x}'.");
                     break;
                 }
 
                 // we need at least four bytes left to read a tag
-                if (offset + 4 > length)
+                if (offset + 4 > reader.Length)
                 {
                     directory.AddError("Too few bytes remain for a valid IPTC tag");
                     break;
@@ -144,7 +144,7 @@ namespace MetadataExtractor.Formats.Iptc
                     break;
                 }
 
-                if (offset + tagByteCount > length)
+                if (offset + tagByteCount > reader.Length)
                 {
                     directory.AddError("Data for tag extends beyond end of IPTC segment");
                     break;
@@ -166,7 +166,7 @@ namespace MetadataExtractor.Formats.Iptc
             return directory;
         }
 
-        private static void ProcessTag([NotNull] SequentialReader reader, [NotNull] Directory directory, int directoryType, int tagType, int tagByteCount)
+        private static void ProcessTag([NotNull] ReaderInfo reader, [NotNull] Directory directory, int directoryType, int tagType, int tagByteCount)
         {
             var tagIdentifier = tagType | (directoryType << 8);
 
@@ -205,7 +205,7 @@ namespace MetadataExtractor.Formats.Iptc
                     if (tagByteCount >= 2)
                     {
                         var shortValue = reader.GetUInt16();
-                        reader.Skip(tagByteCount - 2);
+                        reader.Seek(tagByteCount - 2);
                         directory.Set(tagIdentifier, shortValue);
                         return;
                     }
@@ -216,7 +216,7 @@ namespace MetadataExtractor.Formats.Iptc
                 {
                     // byte
                     directory.Set(tagIdentifier, reader.GetByte());
-                    reader.Skip(tagByteCount - 1);
+                    reader.Seek(tagByteCount - 1);
                     return;
                 }
             }

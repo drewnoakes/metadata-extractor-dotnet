@@ -60,8 +60,8 @@ namespace MetadataExtractor.Formats.Jpeg
 
             // The value of TagCompressionType is determined by the segment type found
             directory.Set(JpegDirectory.TagCompressionType, (int)segment.Type - (int)JpegSegmentType.Sof0);
-
-            SequentialReader reader = new SequentialByteArrayReader(segment.Bytes);
+            
+            var reader = segment.Reader;
 
             try
             {

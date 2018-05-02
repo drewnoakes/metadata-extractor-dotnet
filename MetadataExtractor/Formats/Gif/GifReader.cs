@@ -55,9 +55,10 @@ namespace MetadataExtractor.Formats.Gif
         private const string Gif89AVersionIdentifier = "89a";
 
         [NotNull]
-        public DirectoryList Extract([NotNull] SequentialReader reader)
+        public DirectoryList Extract([NotNull] ReaderInfo reader)
         {
-            reader = reader.WithByteOrder(isMotorolaByteOrder: false);
+            if (reader.IsMotorolaByteOrder)
+                reader = reader.Clone(false);
 
             var directories = new List<Directory>();
             try
@@ -72,7 +73,7 @@ namespace MetadataExtractor.Formats.Gif
         }
 
         /// <summary>This method exists because generator methods cannot yield in try/catch blocks.</summary>
-        private static IEnumerable<Directory> ReadGifDirectoriesInternal(SequentialReader reader)
+        private static IEnumerable<Directory> ReadGifDirectoriesInternal(ReaderInfo reader)
         {
             var header = ReadGifHeader(reader);
 
@@ -85,7 +86,7 @@ namespace MetadataExtractor.Formats.Gif
             if (header.TryGetInt32(GifHeaderDirectory.TagColorTableSize, out int globalColorTableSize))
             {
                 // Colour table has R/G/B byte triplets
-                reader.Skip(3 * globalColorTableSize);
+                reader.Seek(3 * globalColorTableSize);
             }
 
             // After the header comes a sequence of blocks
@@ -134,7 +135,7 @@ namespace MetadataExtractor.Formats.Gif
         }
 
         /// <summary>Reads the fixed-position GIF header.</summary>
-        private static GifHeaderDirectory ReadGifHeader(SequentialReader reader)
+        private static GifHeaderDirectory ReadGifHeader(ReaderInfo reader)
         {
             // FILE HEADER
             //
@@ -206,11 +207,11 @@ namespace MetadataExtractor.Formats.Gif
             return headerDirectory;
         }
 
-        private static Directory ReadGifExtensionBlock(SequentialReader reader)
+        private static Directory ReadGifExtensionBlock(ReaderInfo reader)
         {
             var extensionLabel = reader.GetByte();
             var blockSizeBytes = reader.GetByte();
-            var blockStartPos = reader.Position;
+            var blockStartPos = reader.LocalPosition;
 
             Directory directory;
             switch (extensionLabel)
@@ -242,14 +243,14 @@ namespace MetadataExtractor.Formats.Gif
                 }
             }
 
-            var skipCount = blockStartPos + blockSizeBytes - reader.Position;
+            var skipCount = blockStartPos + blockSizeBytes - reader.LocalPosition; // reader.Position;
             if (skipCount > 0)
-                reader.Skip(skipCount);
+                reader.Seek(skipCount);
 
             return directory;
         }
 
-        private static Directory ReadPlainTextBlock(SequentialReader reader, byte blockSizeBytes)
+        private static Directory ReadPlainTextBlock(ReaderInfo reader, byte blockSizeBytes)
         {
             // It seems this extension is deprecated. If somebody finds an image with this in it, could implement here.
             // Just skip the entire block for now.
@@ -258,7 +259,7 @@ namespace MetadataExtractor.Formats.Gif
                 return new ErrorDirectory($"Invalid GIF plain text block size. Expected 12, got {blockSizeBytes}.");
 
             // skip 'blockSizeBytes' bytes
-            reader.Skip(12);
+            reader.Seek(12);
 
             // keep reading and skipping until a 0 byte is reached
             SkipBlocks(reader);
@@ -266,14 +267,14 @@ namespace MetadataExtractor.Formats.Gif
             return null;
         }
 
-        private static GifCommentDirectory ReadCommentBlock(SequentialReader reader, byte blockSizeBytes)
+        private static GifCommentDirectory ReadCommentBlock(ReaderInfo reader, byte blockSizeBytes)
         {
             var buffer = GatherBytes(reader, blockSizeBytes);
-            return new GifCommentDirectory(new StringValue(buffer, Encoding.ASCII));
+            return new GifCommentDirectory(new StringValue(buffer.GetAllBytes(), Encoding.ASCII));
         }
 
         [CanBeNull]
-        private static Directory ReadApplicationExtensionBlock(SequentialReader reader, byte blockSizeBytes)
+        private static Directory ReadApplicationExtensionBlock(ReaderInfo reader, byte blockSizeBytes)
         {
             if (blockSizeBytes != 11)
                 return new ErrorDirectory($"Invalid GIF application extension block size. Expected 11, got {blockSizeBytes}.");
@@ -286,24 +287,24 @@ namespace MetadataExtractor.Formats.Gif
                 {
                     // XMP data extension
                     var xmpBytes = GatherBytes(reader);
-                    return new XmpReader().Extract(xmpBytes, 0, xmpBytes.Length - 257);
+                    return new XmpReader().Extract(xmpBytes.Clone(xmpBytes.Length - 257));
                 }
                 case "ICCRGBG1012":
                 {
                     // ICC profile extension
                     var iccBytes = GatherBytes(reader, reader.GetByte());
                     return iccBytes.Length != 0
-                        ? new IccReader().Extract(new ByteArrayReader(iccBytes))
+                        ? new IccReader().Extract(iccBytes)
                         : null;
                 }
                 case "NETSCAPE2.0":
                 {
-                    reader.Skip(2);
+                    reader.Seek(2);
                     // Netscape's animated GIF extension
                     // Iteration count (0 means infinite)
                     var iterationCount = reader.GetUInt16();
                     // Skip terminator
-                    reader.Skip(1);
+                    reader.Seek(1);
                     var animationDirectory = new GifAnimationDirectory();
                     animationDirectory.Set(GifAnimationDirectory.TagIterationCount, iterationCount);
                     return animationDirectory;
@@ -316,19 +317,19 @@ namespace MetadataExtractor.Formats.Gif
             }
         }
 
-        private static GifControlDirectory ReadControlBlock(SequentialReader reader, byte blockSizeBytes)
+        private static GifControlDirectory ReadControlBlock(ReaderInfo reader, byte blockSizeBytes)
         {
             if (blockSizeBytes < 4)
                 blockSizeBytes = 4;
 
             var directory = new GifControlDirectory();
 
-            reader.Skip(1);
+            reader.Seek(1);
 
             directory.Set(GifControlDirectory.TagDelay, reader.GetUInt16());
 
             if (blockSizeBytes > 3)
-                reader.Skip(blockSizeBytes - 3);
+                reader.Seek(blockSizeBytes - 3);
 
             // skip 0x0 block terminator
             reader.GetByte();
@@ -336,7 +337,7 @@ namespace MetadataExtractor.Formats.Gif
             return directory;
         }
 
-        private static GifImageDirectory ReadImageBlock(SequentialReader reader)
+        private static GifImageDirectory ReadImageBlock(ReaderInfo reader)
         {
             var imageDirectory = new GifImageDirectory();
 
@@ -361,7 +362,7 @@ namespace MetadataExtractor.Formats.Gif
                 imageDirectory.Set(GifImageDirectory.TagLocalColourTableBitsPerPixel, bitsPerPixel);
 
                 // skip color table
-                reader.Skip(3 * (2 << (flags & 0x7)));
+                reader.Seek(3 * (2 << (flags & 0x7)));
             }
 
             // skip "LZW Minimum Code Size" byte
@@ -372,39 +373,37 @@ namespace MetadataExtractor.Formats.Gif
 
         #region Utility methods
 
-        private static byte[] GatherBytes(SequentialReader reader)
+        private static ReaderInfo GatherBytes(ReaderInfo reader)
         {
-            var bytes = new MemoryStream();
-            var buffer = new byte[257];
-
+            //var startPosition = reader.StartPosition;
+            var length = 0;
             while (true)
             {
                 var b = reader.GetByte();
                 if (b == 0)
-                    return bytes.ToArray();
-                buffer[0] = b;
-                reader.GetBytes(buffer, 1, b);
-                bytes.Write(buffer, 0, b + 1);
+                    break;
+                reader.Seek(b);
+                length += b + 1;    // must include the 1 byte of b from GetByte
             }
+            return reader.Clone(-length - 1, length);
         }
 
-        private static byte[] GatherBytes(SequentialReader reader, int firstLength)
+        private static ReaderInfo GatherBytes(ReaderInfo reader, int firstLength)
         {
-            var buffer = new MemoryStream();
-
             var length = firstLength;
+            var readerLength = 0;
 
             while (length > 0)
             {
-                buffer.Write(reader.GetBytes(length), 0, length);
-
+                reader.Seek(length);
+                readerLength += length;
                 length = reader.GetByte();
             }
 
-            return buffer.ToArray();
+            return reader.Clone(-readerLength - 1, readerLength);
         }
 
-        private static void SkipBlocks(SequentialReader reader)
+        private static void SkipBlocks(ReaderInfo reader)
         {
             while (true)
             {
@@ -413,7 +412,7 @@ namespace MetadataExtractor.Formats.Gif
                 if (length == 0)
                     return;
 
-                reader.Skip(length);
+                reader.Seek(length);
             }
         }
         

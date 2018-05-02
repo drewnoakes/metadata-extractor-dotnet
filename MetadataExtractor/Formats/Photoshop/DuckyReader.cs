@@ -42,6 +42,7 @@ namespace MetadataExtractor.Formats.Photoshop
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class DuckyReader : IJpegSegmentMetadataReader
     {
+        public const string JpegSegmentId = "Ducky";
         public const string JpegSegmentPreamble = "Ducky";
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppC };
@@ -50,8 +51,8 @@ namespace MetadataExtractor.Formats.Photoshop
         {
             // Skip segments not starting with the required header
             return segments
-                .Where(segment => segment.Bytes.Length >= JpegSegmentPreamble.Length && JpegSegmentPreamble == Encoding.UTF8.GetString(segment.Bytes, 0, JpegSegmentPreamble.Length))
-                .Select(segment => Extract(new SequentialByteArrayReader(segment.Bytes, JpegSegmentPreamble.Length)))
+                .Where(segment => segment.Reader.Length >= JpegSegmentPreamble.Length && segment.Preamble == JpegSegmentId)
+                .Select(segment => Extract(segment.Reader.Clone(JpegSegmentPreamble.Length, segment.Reader.Length - JpegSegmentPreamble.Length)))
 #if NET35
                 .Cast<Directory>()
 #endif
@@ -59,7 +60,7 @@ namespace MetadataExtractor.Formats.Photoshop
         }
 
         [NotNull]
-        public DuckyDirectory Extract([NotNull] SequentialReader reader)
+        public DuckyDirectory Extract([NotNull] ReaderInfo reader)
         {
             var directory = new DuckyDirectory();
 
@@ -90,7 +91,7 @@ namespace MetadataExtractor.Formats.Photoshop
                         case DuckyDirectory.TagComment:
                         case DuckyDirectory.TagCopyright:
                         {
-                            reader.Skip(4);
+                            reader.Seek(4);
                             directory.Set(tag, reader.GetString(length - 4, Encoding.BigEndianUnicode));
                             break;
                         }

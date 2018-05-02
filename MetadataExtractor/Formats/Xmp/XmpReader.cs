@@ -27,6 +27,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
+using MetadataExtractor.IO;
 using MetadataExtractor.Util;
 using MetadataExtractor.Formats.Jpeg;
 using XmpCore;
@@ -52,6 +53,9 @@ namespace MetadataExtractor.Formats.Xmp
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class XmpReader : IJpegSegmentMetadataReader
     {
+        public const string JpegSegmentId = "XMP";
+        public const string JpegSegmentExtensionId = "XMP (Extended)";
+
         public const string JpegSegmentPreamble = "http://ns.adobe.com/xap/1.0/\0";
         public const string JpegSegmentPreambleExtension = "http://ns.adobe.com/xmp/extension/\0";
 
@@ -67,7 +71,7 @@ namespace MetadataExtractor.Formats.Xmp
 
             var directories = segments
                 .Where(IsXmpSegment)
-                .Select(segment => Extract(segment.Bytes, JpegSegmentPreambleBytes.Length, segment.Bytes.Length - JpegSegmentPreambleBytes.Length))
+                .Select(segment => Extract(segment.Reader.Clone(JpegSegmentPreambleBytes.Length, segment.Reader.Length - JpegSegmentPreambleBytes.Length)))
                 .Cast<Directory>()
                 .ToList();
 
@@ -78,8 +82,10 @@ namespace MetadataExtractor.Formats.Xmp
                 var buffer = new MemoryStream();
                 foreach (var segment in extensionGroup)
                 {
+                    var bytes = segment.Reader.GetBytes((int)segment.Reader.Length);
+
                     var N = JpegSegmentPreambleExtensionBytes.Length + 32 + 4 + 4;
-                    buffer.Write(segment.Bytes, N, segment.Bytes.Length - N);
+                    buffer.Write(bytes, N, bytes.Length - N);
                 }
 
                 buffer.Position = 0;
@@ -92,10 +98,13 @@ namespace MetadataExtractor.Formats.Xmp
             return directories;
         }
 
-        private static string GetExtendedDataGuid(JpegSegment segment) => Encoding.UTF8.GetString(segment.Bytes, JpegSegmentPreambleExtensionBytes.Length, 32);
+        private static string GetExtendedDataGuid(JpegSegment segment) => Encoding.UTF8.GetString(segment.Reader.Clone().GetAllBytes(), JpegSegmentPreambleExtensionBytes.Length, 32);
 
-        private static bool IsXmpSegment(JpegSegment segment) => segment.Bytes.StartsWith(JpegSegmentPreambleBytes);
-        private static bool IsExtendedXmpSegment(JpegSegment segment) => segment.Bytes.StartsWith(JpegSegmentPreambleExtensionBytes);
+        private static bool IsXmpSegment(JpegSegment segment) => segment.Reader.StartsWith(JpegSegmentPreambleBytes);
+        private static bool IsExtendedXmpSegment(JpegSegment segment) => segment.Reader.StartsWith(JpegSegmentPreambleExtensionBytes);
+
+        [NotNull]
+        public XmpDirectory Extract([NotNull] ReaderInfo readerInfo) => Extract(readerInfo.Clone().GetAllBytes());
 
         [NotNull]
         public XmpDirectory Extract([NotNull] byte[] xmpBytes) => Extract(xmpBytes, 0, xmpBytes.Length);

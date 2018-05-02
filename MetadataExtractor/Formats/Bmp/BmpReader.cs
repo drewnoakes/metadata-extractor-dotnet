@@ -32,7 +32,7 @@ namespace MetadataExtractor.Formats.Bmp
     public sealed class BmpReader
     {
         [NotNull]
-        public BmpHeaderDirectory Extract([NotNull] SequentialReader reader)
+        public BmpHeaderDirectory Extract([NotNull] ReaderInfo reader)
         {
             var directory = new BmpHeaderDirectory();
 
@@ -80,8 +80,8 @@ namespace MetadataExtractor.Formats.Bmp
             // 4 = JPEG (or RLE-24 if BITMAPCOREHEADER2 (size 64))
             // 5 = PNG
             // 6 = Bit field
-
-            reader = reader.WithByteOrder(isMotorolaByteOrder: false);
+            
+            reader.IsMotorolaByteOrder = false;
 
             try
             {
@@ -94,7 +94,7 @@ namespace MetadataExtractor.Formats.Bmp
                 }
 
                 // skip past the rest of the file header
-                reader.Skip(4 + 2 + 2 + 4);
+                reader.Seek(4 + 2 + 2 + 4);
 
                 var headerSize = reader.GetInt32();
                 directory.Set(BmpHeaderDirectory.TagHeaderSize, headerSize);
@@ -109,7 +109,7 @@ namespace MetadataExtractor.Formats.Bmp
                     directory.Set(BmpHeaderDirectory.TagBitsPerPixel, reader.GetInt16());
                     directory.Set(BmpHeaderDirectory.TagCompression, reader.GetInt32());
                     // skip the pixel data length
-                    reader.Skip(4);
+                    reader.Seek(4);
                     directory.Set(BmpHeaderDirectory.TagXPixelsPerMeter, reader.GetInt32());
                     directory.Set(BmpHeaderDirectory.TagYPixelsPerMeter, reader.GetInt32());
                     directory.Set(BmpHeaderDirectory.TagPaletteColourCount, reader.GetInt32());

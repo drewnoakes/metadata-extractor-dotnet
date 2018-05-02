@@ -84,8 +84,8 @@ namespace MetadataExtractor.Formats.Photoshop
 
                 if (b == null)
                     return Directory.GetString(PhotoshopDirectory.TagJpegQuality);
-
-                var reader = new ByteArrayReader(b);
+                
+                var reader = new RandomAccessStream(b).CreateReader();
 
                 int q = reader.GetUInt16(0);
                 int f = reader.GetUInt16(2);
@@ -163,8 +163,8 @@ namespace MetadataExtractor.Formats.Photoshop
 
                 if (bytes == null)
                     return null;
-
-                var reader = new ByteArrayReader(bytes);
+                
+                var reader = new RandomAccessStream(bytes).CreateReader();
                 var d = reader.GetDouble64(4);
                 return d.ToString("0.0##");
             }
@@ -183,8 +183,8 @@ namespace MetadataExtractor.Formats.Photoshop
 
                 if (bytes == null)
                     return null;
-
-                var reader = new ByteArrayReader(bytes);
+                
+                var reader = new RandomAccessStream(bytes).CreateReader();
                 var style = reader.GetInt32(0);
                 var locX = reader.GetFloat32(2);
                 var locY = reader.GetFloat32(6);
@@ -217,8 +217,8 @@ namespace MetadataExtractor.Formats.Photoshop
 
                 if (bytes == null)
                     return null;
-
-                var reader = new ByteArrayReader(bytes);
+                
+                var reader = new RandomAccessStream(bytes).CreateReader();
 
                 var resX = reader.GetS15Fixed16(0);
                 var resY = reader.GetS15Fixed16(8);
@@ -241,8 +241,8 @@ namespace MetadataExtractor.Formats.Photoshop
 
                 if (bytes == null)
                     return null;
-
-                var reader = new ByteArrayReader(bytes);
+                
+                var reader = new RandomAccessStream(bytes).CreateReader();
 
                 var pos = 0;
                 var ver = reader.GetInt32(0);
@@ -275,8 +275,8 @@ namespace MetadataExtractor.Formats.Photoshop
 
                 if (bytes == null)
                     return null;
-
-                var reader = new ByteArrayReader(bytes);
+                
+                var reader = new RandomAccessStream(bytes).CreateReader();
 
                 var nameLength = reader.GetInt32(20);
                 var name = reader.GetString(24, nameLength * 2, Encoding.BigEndianUnicode);
@@ -299,8 +299,8 @@ namespace MetadataExtractor.Formats.Photoshop
 
                 if (v == null)
                     return null;
-
-                var reader = new ByteArrayReader(v);
+                
+                var reader = new RandomAccessStream(v).CreateReader();
                 var format = reader.GetInt32(0);
                 var width = reader.GetInt32(4);
                 var height = reader.GetInt32(8);
@@ -336,8 +336,8 @@ namespace MetadataExtractor.Formats.Photoshop
 
             if (bytes == null)
                 return null;
-
-            var reader = new ByteArrayReader(bytes);
+            
+            var reader = new RandomAccessStream(bytes).CreateReader();
 
             try
             {

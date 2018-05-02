@@ -48,7 +48,7 @@ namespace MetadataExtractor.Formats.Gif
             var directories = new List<Directory>(2);
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.AddRange(ReadMetadata(stream));
+                directories.AddRange(ReadMetadata(new RandomAccessStream(stream).CreateReader()));
 
             directories.Add(new FileMetadataReader().Read(filePath));
 
@@ -56,9 +56,9 @@ namespace MetadataExtractor.Formats.Gif
         }
 
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata([NotNull] ReaderInfo reader)
         {
-            return new GifReader().Extract(new SequentialStreamReader(stream)).ToList();
+            return new GifReader().Extract(reader).ToList();
         }
     }
 }

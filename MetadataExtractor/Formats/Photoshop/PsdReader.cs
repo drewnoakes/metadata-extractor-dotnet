@@ -41,7 +41,7 @@ namespace MetadataExtractor.Formats.Photoshop
     public sealed class PsdReader
     {
         [NotNull]
-        public DirectoryList Extract([NotNull] SequentialReader reader)
+        public DirectoryList Extract([NotNull] ReaderInfo reader) // SequentialReader reader)
         {
             var directory = new PsdHeaderDirectory();
 
@@ -64,7 +64,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 else
                 {
                     // 6 reserved bytes are skipped here.  They should be zero.
-                    reader.Skip(6);
+                    reader.Seek(6);
                     var channelCount = reader.GetUInt16();
                     directory.Set(PsdHeaderDirectory.TagChannelCount, channelCount);
                     // even though this is probably an unsigned int, the max height in practice is 300,000
@@ -103,13 +103,13 @@ namespace MetadataExtractor.Formats.Photoshop
                 //                 and just preserve the contents of the duotone information when reading and writing the
                 //                 file.
                 var colorModeSectionLength = reader.GetUInt32();
-                reader.Skip(colorModeSectionLength);
+                reader.Seek(colorModeSectionLength);
 
                 // IMAGE RESOURCES SECTION
 
                 var imageResourcesSectionLength = reader.GetUInt32();
                 Debug.Assert(imageResourcesSectionLength <= int.MaxValue);
-                photoshopDirectories = new PhotoshopReader().Extract(reader, (int)imageResourcesSectionLength);
+                photoshopDirectories = new PhotoshopReader().Extract(reader.Clone(reader.LocalPosition, (int)imageResourcesSectionLength));
             }
             catch (IOException)
             {

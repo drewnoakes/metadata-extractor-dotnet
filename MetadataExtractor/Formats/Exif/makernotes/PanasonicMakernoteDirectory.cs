@@ -613,7 +613,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (bytes == null)
                 yield break;
 
-            var reader = new ByteArrayReader(bytes, isMotorolaByteOrder: false);
+            var reader = new RandomAccessStream(bytes).CreateReader(false);
 
             int faceCount = reader.GetUInt16(0);
 

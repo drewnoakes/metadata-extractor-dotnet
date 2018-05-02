@@ -40,6 +40,7 @@ using MetadataExtractor.Formats.Raf;
 using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.WebP;
 using MetadataExtractor.Formats.Avi;
+using MetadataExtractor.IO;
 using MetadataExtractor.Util;
 
 #if NET35
@@ -90,43 +91,47 @@ namespace MetadataExtractor
         [NotNull]
         public static DirectoryList ReadMetadata([NotNull] Stream stream)
         {
-            var fileType = FileTypeDetector.DetectFileType(stream);
+            var fileTypeReader = new RandomAccessStream(stream).CreateReader();
+
+            var fileType = FileTypeDetector.DetectFileType(fileTypeReader);
 
             var fileTypeDirectory = new FileTypeDirectory(fileType);
-            
+
+            var readerClone = fileTypeReader.Clone();
+
             switch (fileType)
             {
                 case FileType.Jpeg:
-                    return Append(JpegMetadataReader.ReadMetadata(stream), fileTypeDirectory);
+                    return Append(JpegMetadataReader.ReadMetadata(readerClone), fileTypeDirectory);
                 case FileType.Tiff:
                 case FileType.Arw:
                 case FileType.Cr2:
                 case FileType.Nef:
                 case FileType.Orf:
                 case FileType.Rw2:
-                    return Append(TiffMetadataReader.ReadMetadata(stream), fileTypeDirectory);
+                    return Append(TiffMetadataReader.ReadMetadata(readerClone), fileTypeDirectory);
                 case FileType.Psd:
-                    return Append(PsdMetadataReader.ReadMetadata(stream), fileTypeDirectory);
+                    return Append(PsdMetadataReader.ReadMetadata(readerClone), fileTypeDirectory);
                 case FileType.Png:
-                    return Append(PngMetadataReader.ReadMetadata(stream), fileTypeDirectory);
+                    return Append(PngMetadataReader.ReadMetadata(readerClone), fileTypeDirectory);
                 case FileType.Bmp:
-                    return new Directory[] { BmpMetadataReader.ReadMetadata(stream), fileTypeDirectory };
+                    return new Directory[] { BmpMetadataReader.ReadMetadata(readerClone), fileTypeDirectory };
                 case FileType.Gif:
-                    return Append(GifMetadataReader.ReadMetadata(stream), fileTypeDirectory);
+                    return Append(GifMetadataReader.ReadMetadata(readerClone), fileTypeDirectory);
                 case FileType.Ico:
-                    return Append(IcoMetadataReader.ReadMetadata(stream), fileTypeDirectory);
+                    return Append(IcoMetadataReader.ReadMetadata(readerClone), fileTypeDirectory);
                 case FileType.Pcx:
-                    return new Directory[] { PcxMetadataReader.ReadMetadata(stream), fileTypeDirectory };
+                    return new Directory[] { PcxMetadataReader.ReadMetadata(readerClone), fileTypeDirectory };
                 case FileType.WebP:
-                    return Append(WebPMetadataReader.ReadMetadata(stream), fileTypeDirectory);
+                    return Append(WebPMetadataReader.ReadMetadata(readerClone), fileTypeDirectory);
                 case FileType.Avi:
-                    return Append(AviMetadataReader.ReadMetadata(stream), fileTypeDirectory);
+                    return Append(AviMetadataReader.ReadMetadata(readerClone), fileTypeDirectory);
                 case FileType.Raf:
-                    return Append(RafMetadataReader.ReadMetadata(stream), fileTypeDirectory);
+                    return Append(RafMetadataReader.ReadMetadata(readerClone), fileTypeDirectory);
                 case FileType.QuickTime:
-                    return Append(QuickTimeMetadataReader.ReadMetadata(stream), fileTypeDirectory);
+                    return Append(QuickTimeMetadataReader.ReadMetadata(readerClone), fileTypeDirectory);
                 case FileType.Netpbm:
-                    return new Directory[] { NetpbmMetadataReader.ReadMetadata(stream), fileTypeDirectory };
+                    return new Directory[] { NetpbmMetadataReader.ReadMetadata(readerClone), fileTypeDirectory };
                 case FileType.Unknown:
                     throw new ImageProcessingException("File format could not be determined");
                 case FileType.Riff:

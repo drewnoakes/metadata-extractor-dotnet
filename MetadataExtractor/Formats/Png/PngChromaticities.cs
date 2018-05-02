@@ -41,12 +41,10 @@ namespace MetadataExtractor.Formats.Png
         public int BlueY { get; }
 
         /// <exception cref="PngProcessingException"/>
-        public PngChromaticities([NotNull] byte[] bytes)
+        public PngChromaticities([NotNull] ReaderInfo reader)
         {
-            if (bytes.Length != 8*4)
+            if (reader.Length != 8*4)
                 throw new PngProcessingException("Invalid number of bytes");
-
-            var reader = new SequentialByteArrayReader(bytes);
 
             try
             {

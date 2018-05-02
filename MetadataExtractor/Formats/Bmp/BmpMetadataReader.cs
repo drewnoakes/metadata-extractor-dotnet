@@ -47,7 +47,7 @@ namespace MetadataExtractor.Formats.Bmp
             var directories = new List<Directory>(2);
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.Add(ReadMetadata(stream));
+                directories.Add(ReadMetadata(new RandomAccessStream(stream).CreateReader()));
 
             directories.Add(new FileMetadataReader().Read(filePath));
 
@@ -55,9 +55,9 @@ namespace MetadataExtractor.Formats.Bmp
         }
 
         [NotNull]
-        public static BmpHeaderDirectory ReadMetadata([NotNull] Stream stream)
+        public static BmpHeaderDirectory ReadMetadata([NotNull] ReaderInfo readerInfo)
         {
-            return new BmpReader().Extract(new SequentialStreamReader(stream));
+            return new BmpReader().Extract(readerInfo);
         }
     }
 }

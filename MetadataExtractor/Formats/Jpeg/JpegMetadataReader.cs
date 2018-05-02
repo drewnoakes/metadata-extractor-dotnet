@@ -67,9 +67,9 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream, [CanBeNull] ICollection<IJpegSegmentMetadataReader> readers = null)
+        public static DirectoryList ReadMetadata([NotNull] ReaderInfo readerInfo, [CanBeNull] ICollection<IJpegSegmentMetadataReader> readers = null)
         {
-            return Process(stream, readers);
+            return Process(readerInfo, readers);
         }
 
         /// <exception cref="JpegProcessingException"/>
@@ -80,7 +80,7 @@ namespace MetadataExtractor.Formats.Jpeg
             var directories = new List<Directory>();
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.AddRange(ReadMetadata(stream, readers));
+                directories.AddRange(ReadMetadata(new RandomAccessStream(stream).CreateReader(), readers));
 
             directories.Add(new FileMetadataReader().Read(filePath));
 
@@ -90,7 +90,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static DirectoryList Process([NotNull] Stream stream, [CanBeNull] ICollection<IJpegSegmentMetadataReader> readers = null)
+        public static DirectoryList Process([NotNull] ReaderInfo readerInfo, [CanBeNull] ICollection<IJpegSegmentMetadataReader> readers = null)
         {
             if (readers == null)
                 readers = _allReaders;
@@ -98,8 +98,20 @@ namespace MetadataExtractor.Formats.Jpeg
             // Build the union of segment types desired by all readers
             var segmentTypes = new HashSet<JpegSegmentType>(readers.SelectMany(reader => reader.SegmentTypes));
 
+            /*try
+            {
+                JpegSegmentReader.ReadSegments("adfaf");
+            }
+            catch (System.Exception) { }*/
+
+            /*System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Start();*/
+
             // Read out those segments
-            var segments = JpegSegmentReader.ReadSegments(new SequentialStreamReader(stream), segmentTypes);
+            var segments = JpegSegmentReader.ReadSegments(readerInfo, segmentTypes);
+
+            /*sw.Stop();
+            System.Console.WriteLine("JpegSegment read ticks: " + sw.ElapsedTicks);*/
 
             // Process them
             return ProcessJpegSegments(readers, segments.ToList());

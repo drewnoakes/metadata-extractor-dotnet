@@ -36,8 +36,12 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
     {
         private static IReadOnlyList<JpegSegment> ReadSegments(string fileName, ICollection<JpegSegmentType> segmentTypes = null)
         {
-            using (var stream = TestDataUtil.OpenRead(fileName))
-                return JpegSegmentReader.ReadSegments(new SequentialStreamReader(stream), segmentTypes).ToList();
+            // "Cannot access a closed file." RandomAccessStream needs the stream to be open. "using" closes it
+            //using (var stream = TestDataUtil.OpenRead(fileName))
+            //    return JpegSegmentReader.ReadSegments(new RandomAccessStream(stream).CreateReader(), segmentTypes).ToList();
+
+            var stream = TestDataUtil.GetBytes(fileName);
+            return JpegSegmentReader.ReadSegments(new RandomAccessStream(stream).CreateReader(), segmentTypes).ToList();
         }
 
         [Fact]
@@ -45,7 +49,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         {
             var segments = ReadSegments("Data/withExifAndIptc.jpg");
 
-            Assert.Equal(13, segments.Count);
+            Assert.Equal(14, segments.Count);
 
             Assert.Equal(JpegSegmentType.App0, segments[0].Type);
             Assert.Equal(JpegSegmentType.App1, segments[1].Type);
@@ -54,12 +58,12 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Assert.Equal(JpegSegmentType.App2, segments[4].Type);
             Assert.Equal(JpegSegmentType.AppE, segments[5].Type);
 
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app0"),   segments[0].Bytes);
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app1.0"), segments[1].Bytes);
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.appd"),   segments[2].Bytes);
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app1.1"), segments[3].Bytes);
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2"),   segments[4].Bytes);
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.appe"),   segments[5].Bytes);
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app0"),   segments[0].Reader.GetAllBytes());
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app1.0"), segments[1].Reader.GetAllBytes());
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.appd"),   segments[2].Reader.GetAllBytes());
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app1.1"), segments[3].Reader.GetAllBytes());
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2"),   segments[4].Reader.GetAllBytes());
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.appe"),   segments[5].Reader.GetAllBytes());
         }
 
         [Fact]
@@ -72,8 +76,8 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Assert.Equal(JpegSegmentType.App0, segments[0].Type);
             Assert.Equal(JpegSegmentType.App2, segments[1].Type);
 
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app0"), segments[0].Bytes);
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2"), segments[1].Bytes);
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app0"), segments[0].Reader.GetAllBytes());
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2"), segments[1].Reader.GetAllBytes());
         }
 
         [Fact]
@@ -89,7 +93,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         {
             var bytes = Enumerable.Range(1, 100).Select(i => (byte)i).ToArray();
             var ex = Assert.Throws<JpegProcessingException>(
-                () => JpegSegmentReader.ReadSegments(new SequentialByteArrayReader(bytes)).ToList());
+                () => JpegSegmentReader.ReadSegments(new RandomAccessStream(bytes).CreateReader()).ToList());
 
             Assert.Equal("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x0102", ex.Message);
         }

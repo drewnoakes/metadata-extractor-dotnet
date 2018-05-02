@@ -39,7 +39,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
         private static IptcDirectory ProcessBytes([NotNull] string filePath)
         {
             var bytes = TestDataUtil.GetBytes(filePath);
-            var directory = new IptcReader().Extract(new SequentialByteArrayReader(bytes), bytes.Length);
+            var directory = new IptcReader().Extract(new RandomAccessStream(bytes).CreateReader());
             Assert.NotNull(directory);
             return directory;
         }

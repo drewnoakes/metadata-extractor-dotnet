@@ -52,6 +52,7 @@ namespace MetadataExtractor.Formats.Photoshop
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PhotoshopReader : IJpegSegmentMetadataReader
     {
+        public const string JpegSegmentId = "Photoshop";
         public const string JpegSegmentPreamble = "Photoshop 3.0";
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppD };
@@ -59,14 +60,15 @@ namespace MetadataExtractor.Formats.Photoshop
         public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             var preambleLength = JpegSegmentPreamble.Length;
+
             return segments
-                .Where(segment => segment.Bytes.Length >= preambleLength + 1 && JpegSegmentPreamble == Encoding.UTF8.GetString(segment.Bytes, 0, preambleLength))
-                .SelectMany(segment => Extract(new SequentialByteArrayReader(segment.Bytes, preambleLength + 1), segment.Bytes.Length - preambleLength - 1))
+                .Where(segment => segment.Reader.Length >= preambleLength + 1 && segment.Preamble == JpegSegmentId)
+                .SelectMany(segment => Extract(segment.Reader.Clone(preambleLength + 1, segment.Reader.Length - preambleLength - 1)))
                 .ToList();
         }
 
         [NotNull]
-        public DirectoryList Extract([NotNull] SequentialReader reader, int length)
+        public DirectoryList Extract([NotNull] ReaderInfo reader) // SequentialReader reader, int length)
         {
             var directory = new PhotoshopDirectory();
 
@@ -82,7 +84,7 @@ namespace MetadataExtractor.Formats.Photoshop
             //
             // http://www.adobe.com/devnet-apps/photoshop/fileformatashtml/#50577409_pgfId-1037504
             var pos = 0;
-            while (pos < length)
+            while (pos < reader.Length)
             {
                 try
                 {
@@ -99,17 +101,17 @@ namespace MetadataExtractor.Formats.Photoshop
                     pos += 1;
 
                     // Some basic bounds checking
-                    if (descriptionLength + pos > length)
+                    if (descriptionLength + pos > reader.Length)
                         throw new ImageProcessingException("Invalid string length");
 
                     // We don't use the string value here
-                    reader.Skip(descriptionLength);
+                    reader.Seek(descriptionLength);
                     pos += descriptionLength;
 
                     // The number of bytes is padded with a trailing zero, if needed, to make the size even.
                     if (pos % 2 != 0)
                     {
-                        reader.Skip(1);
+                        reader.Seek(1);
                         pos++;
                     }
 
@@ -118,13 +120,14 @@ namespace MetadataExtractor.Formats.Photoshop
                     pos += 4;
 
                     // The resource data.
-                    var tagBytes = reader.GetBytes(byteCount);
+                    var tagReader = reader.Clone(byteCount);
+                    reader.Seek(byteCount);
                     pos += byteCount;
 
                     // The number of bytes is padded with a trailing zero, if needed, to make the size even.
                     if (pos % 2 != 0)
                     {
-                        reader.Skip(1);
+                        reader.Seek(1);
                         pos++;
                     }
 
@@ -135,29 +138,29 @@ namespace MetadataExtractor.Formats.Photoshop
                     switch (tagType)
                     {
                         case PhotoshopDirectory.TagIptc:
-                            var iptcDirectory = new IptcReader().Extract(new SequentialByteArrayReader(tagBytes), tagBytes.Length);
+                            var iptcDirectory = new IptcReader().Extract(tagReader);
                             iptcDirectory.Parent = directory;
                             directories.Add(iptcDirectory);
                             break;
                         case PhotoshopDirectory.TagIccProfileBytes:
-                            var iccDirectory = new IccReader().Extract(new ByteArrayReader(tagBytes));
+                            var iccDirectory = new IccReader().Extract(tagReader);
                             iccDirectory.Parent = directory;
                             directories.Add(iccDirectory);
                             break;
                         case PhotoshopDirectory.TagExifData1:
                         case PhotoshopDirectory.TagExifData3:
-                            var exifDirectories = new ExifReader().Extract(new ByteArrayReader(tagBytes));
+                            var exifDirectories = new ExifReader().Extract(tagReader);
                             foreach (var exifDirectory in exifDirectories.Where(d => d.Parent == null))
                                 exifDirectory.Parent = directory;
                             directories.AddRange(exifDirectories);
                             break;
                         case PhotoshopDirectory.TagXmpData:
-                            var xmpDirectory = new XmpReader().Extract(tagBytes);
+                            var xmpDirectory = new XmpReader().Extract(tagReader);
                             xmpDirectory.Parent = directory;
                             directories.Add(xmpDirectory);
                             break;
                         default:
-                            directory.Set(tagType, tagBytes);
+                            directory.Set(tagType, tagReader.GetAllBytes());
                             break;
                     }
 

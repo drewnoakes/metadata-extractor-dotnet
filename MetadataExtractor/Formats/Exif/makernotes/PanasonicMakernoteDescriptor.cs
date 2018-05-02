@@ -281,8 +281,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             var values = Directory.GetByteArray(tag);
             if (values == null)
                 return null;
-
-            IndexedReader reader = new ByteArrayReader(values);
+            
+            var reader = new RandomAccessStream(values).CreateReader();
 
             try
             {

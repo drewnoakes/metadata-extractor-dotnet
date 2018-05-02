@@ -28,6 +28,8 @@ using System.IO;
 using System.Text;
 using JetBrains.Annotations;
 
+using MetadataExtractor.IO;
+
 // ReSharper disable CommentTypo
 // ReSharper disable StringLiteralTypo
 
@@ -84,20 +86,18 @@ namespace MetadataExtractor.Util
         /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
         /// <exception cref="ArgumentException">Stream does not support seeking.</exception>
         /// <exception cref="IOException">An IO error occurred, or the input stream ended unexpectedly.</exception>
-        public static FileType DetectFileType([NotNull] Stream stream)
+        public static FileType DetectFileType([NotNull] ReaderInfo rdrInfo)
         {
-            if (!stream.CanSeek)
-                throw new ArgumentException("Must support seek", nameof(stream));
-
             var maxByteCount = _root.MaxDepth;
 
             var bytes = new byte[maxByteCount];
-            var bytesRead = stream.Read(bytes, 0, bytes.Length);
+            var bytesRead = rdrInfo.Read(bytes, 0, bytes.Length);
 
             if (bytesRead == 0)
                 return FileType.Unknown;
 
-            stream.Seek(-bytesRead, SeekOrigin.Current);
+            // reposition the reader before read bytes
+            rdrInfo.Seek(-bytesRead);
 
             var fileType = _root.Find(bytes);
 

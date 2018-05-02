@@ -68,32 +68,34 @@ namespace MetadataExtractor.Formats.WebP
 
         public bool ShouldAcceptList(string fourCc) => false;
 
-        public void ProcessChunk(string fourCc, byte[] payload)
+        public void ProcessChunk(string fourCc, ReaderInfo chunkReader) // byte[] payload)
         {
             switch (fourCc)
             {
                 case "EXIF":
                 {
-                    _directories.AddRange(new ExifReader().Extract(new ByteArrayReader(payload)));
+                    _directories.AddRange(new ExifReader().Extract(chunkReader)); // new ByteArrayReader(payload)));
                     break;
                 }
                 case "ICCP":
                 {
-                    _directories.Add(new IccReader().Extract(new ByteArrayReader(payload)));
-                    break;
+                    _directories.Add(new IccReader().Extract(chunkReader)); // new ByteArrayReader(payload)));
+                        break;
                 }
                 case "XMP ":
                 {
-                    _directories.Add(new XmpReader().Extract(payload));
-                    break;
+                    _directories.Add(new XmpReader().Extract(chunkReader)); // payload));
+                        break;
                 }
                 case "VP8X":
                 {
-                    if (payload.Length != 10)
+                    if (chunkReader.Length != 10)
                         break;
 
                     string error = null;
-                    var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
+                    var reader = chunkReader.Clone();
+                    reader.IsMotorolaByteOrder = false;
+
                     var isAnimation = false;
                     var hasAlpha = false;
                     var widthMinusOne = -1;
@@ -131,10 +133,11 @@ namespace MetadataExtractor.Formats.WebP
                 }
                 case "VP8L":
                 {
-                    if (payload.Length < 5)
+                    if (chunkReader.Length < 5)
                         break;
-
-                    var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
+                    
+                    var reader = chunkReader.Clone();
+                    reader.IsMotorolaByteOrder = false;
 
                     string error = null;
                     var widthMinusOne = -1;
@@ -173,10 +176,11 @@ namespace MetadataExtractor.Formats.WebP
                 }
                 case "VP8 ":
                 {
-                    if (payload.Length < 10)
+                    if (chunkReader.Length < 10)
                         break;
 
-                    var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
+                    var reader = chunkReader.Clone();
+                    reader.IsMotorolaByteOrder = false;
 
                     string error = null;
                     var width = 0;

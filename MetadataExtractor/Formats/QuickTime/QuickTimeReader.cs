@@ -47,11 +47,6 @@ namespace MetadataExtractor.Formats.QuickTime
         public long Size { get; }
 
         /// <summary>
-        /// Gets the stream from which atoms are being read.
-        /// </summary>
-        public Stream Stream { get; }
-
-        /// <summary>
         /// Gets the position within <see cref="Stream"/> at which this atom's data started.
         /// </summary>
         public long StartPosition { get; }
@@ -59,21 +54,17 @@ namespace MetadataExtractor.Formats.QuickTime
         /// <summary>
         /// Gets a sequential reader from which this atom's contents may be read.
         /// </summary>
-        /// <remarks>
-        /// It is backed by <see cref="Stream"/>, so manipulating the stream's position will influence this reader.
-        /// </remarks>
-        public SequentialStreamReader Reader { get; }
+        public ReaderInfo Reader { get; }
 
         /// <summary>
         /// Gets and sets whether the callback wishes processing to terminate.
         /// </summary>
         public bool Cancel { get; set; }
 
-        public AtomCallbackArgs(uint type, long size, Stream stream, long startPosition, SequentialStreamReader reader)
+        public AtomCallbackArgs(uint type, long size, ReaderInfo reader, long startPosition) //, SequentialStreamReader reader)
         {
             Type = type;
             Size = size;
-            Stream = stream;
             StartPosition = startPosition;
             Reader = reader;
         }
@@ -99,7 +90,7 @@ namespace MetadataExtractor.Formats.QuickTime
         /// <summary>
         /// Computes the number of bytes remaining in the atom, given the <see cref="Stream"/> position.
         /// </summary>
-        public long BytesLeft => Size - (Stream.Position - StartPosition);
+        public long BytesLeft => Size - (Reader.LocalPosition - StartPosition);
     }
 
     /// <summary>
@@ -111,20 +102,18 @@ namespace MetadataExtractor.Formats.QuickTime
     public static class QuickTimeReader
     {
         /// <summary>
-        /// Reads atom data from <paramref name="stream"/>, invoking <paramref name="handler"/> for each atom encountered.
+        /// Reads atom data from <paramref name="reader"/>, invoking <paramref name="handler"/> for each atom encountered.
         /// </summary>
-        /// <param name="stream">The stream to read atoms from.</param>
+        /// <param name="reader">The reader to read atoms from.</param>
         /// <param name="handler">A callback function to handle each atom.</param>
         /// <param name="stopByBytes">The maximum number of bytes to process before discontinuing.</param>
-        public static void ProcessAtoms([NotNull] Stream stream, [NotNull] Action<AtomCallbackArgs> handler, long stopByBytes = -1)
+        public static void ProcessAtoms([NotNull] ReaderInfo reader, [NotNull] Action<AtomCallbackArgs> handler, long stopByBytes = -1)
         {
-            var reader = new SequentialStreamReader(stream);
+            var seriesStartPos = reader.LocalPosition;
 
-            var seriesStartPos = stream.Position;
-
-            while (stopByBytes == -1 || stream.Position < seriesStartPos + stopByBytes)
+            while (stopByBytes == -1 || reader.LocalPosition < seriesStartPos + stopByBytes)
             {
-                var atomStartPos = stream.Position;
+                var atomStartPos = reader.LocalPosition;
 
                 try
                 {
@@ -154,7 +143,7 @@ namespace MetadataExtractor.Formats.QuickTime
                         return;
                     }
 
-                    var args = new AtomCallbackArgs(atomType, atomSize, stream, atomStartPos, reader);
+                    var args = new AtomCallbackArgs(atomType, atomSize, reader, atomStartPos); //, reader);
 
                     handler(args);
 
@@ -164,14 +153,14 @@ namespace MetadataExtractor.Formats.QuickTime
                     if (atomSize == 0)
                         return;
 
-                    var toSkip = atomStartPos + atomSize - stream.Position;
+                    var toSkip = atomStartPos + atomSize - reader.LocalPosition;
 
                     if (toSkip < 0)
                         throw new Exception("Handler moved stream beyond end of atom");
 
                     // To avoid exception handling we can check if needed number of bytes are available
                     if (!reader.IsCloserToEnd(toSkip))
-                        reader.TrySkip(toSkip);
+                        reader.TrySeek(toSkip);
                 }
                 catch (IOException)
                 {

@@ -28,6 +28,7 @@ using System;
 using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.IO;
 
 #if NET35
 using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
@@ -43,30 +44,27 @@ namespace MetadataExtractor.Formats.Raf
     public static class RafMetadataReader
     {
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata([NotNull] ReaderInfo reader)
         {
-            if (!stream.CanSeek)
-                throw new ArgumentException("Must support seek", nameof(stream));
-
             var data = new byte[512];
-            var bytesRead = stream.Read(data, 0, 512);
+            var bytesRead = reader.Read(data, 0, 512);
 
             if (bytesRead == 0)
                 throw new IOException("Stream is empty");
 
-            stream.Seek(-bytesRead, SeekOrigin.Current);
+            reader.Seek(-bytesRead);
 
             for (var i = 0; i < bytesRead - 2; i++)
             {
                 // Look for the first three bytes of a JPEG encoded file
                 if (data[i] == 0xff && data[i + 1] == 0xd8 && data[i + 2] == 0xff)
                 {
-                    stream.Seek(i, SeekOrigin.Current);
+                    reader.Seek(i);
                     break;
                 }
             }
 
-            return JpegMetadataReader.ReadMetadata(stream);
+            return JpegMetadataReader.ReadMetadata(reader);
         }
     }
 }

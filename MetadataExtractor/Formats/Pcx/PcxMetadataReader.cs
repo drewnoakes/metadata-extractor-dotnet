@@ -47,7 +47,7 @@ namespace MetadataExtractor.Formats.Pcx
             var directories = new List<Directory>();
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.Add(ReadMetadata(stream));
+                directories.Add(ReadMetadata(new RandomAccessStream(stream).CreateReader()));
 
             directories.Add(new FileMetadataReader().Read(filePath));
 
@@ -55,9 +55,9 @@ namespace MetadataExtractor.Formats.Pcx
         }
 
         [NotNull]
-        public static PcxDirectory ReadMetadata([NotNull] Stream stream)
+        public static PcxDirectory ReadMetadata([NotNull] ReaderInfo reader)
         {
-            return new PcxReader().Extract(new SequentialStreamReader(stream));
+            return new PcxReader().Extract(reader);
         }
     }
 }

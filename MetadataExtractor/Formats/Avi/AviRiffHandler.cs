@@ -66,14 +66,17 @@ namespace MetadataExtractor.Formats.Avi
                                                        fourCc == "strl" ||
                                                        fourCc == "AVI ";
 
-        public void ProcessChunk(string fourCc, byte[] payload)
+        public void ProcessChunk(string fourCc, ReaderInfo chunkReader)
         {
             switch (fourCc)
             {
-            case "strh":
+                case "strh":
                 {
                     string error = null;
-                    var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
+                    //var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
+                    var reader = chunkReader.Clone();
+                    reader.IsMotorolaByteOrder = false;
+
                     string fccType = null;
                     string fccHandler = null;
                     float dwScale = 0;
@@ -128,10 +131,11 @@ namespace MetadataExtractor.Formats.Avi
                     _directories.Add(directory);
                     break;
                 }
-            case "avih":
+                case "avih":
                 {
                     string error = null;
-                    var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
+                    var reader = chunkReader.Clone();
+                    reader.IsMotorolaByteOrder = false;
                     int dwStreams = 0;
                     int dwWidth = 0;
                     int dwHeight = 0;

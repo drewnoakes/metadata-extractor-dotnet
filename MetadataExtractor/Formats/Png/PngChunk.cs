@@ -24,21 +24,23 @@
 
 using JetBrains.Annotations;
 
+using MetadataExtractor.IO;
+
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunk
     {
-        public PngChunk([NotNull] PngChunkType chunkType, [NotNull] byte[] bytes)
+        public PngChunk([NotNull] PngChunkType chunkType, [NotNull] ReaderInfo chunkReader)
         {
             ChunkType = chunkType;
-            Bytes = bytes;
+            Reader = chunkReader;
         }
 
         [NotNull]
         public PngChunkType ChunkType { get; }
 
         [NotNull]
-        public byte[] Bytes { get; }
+        public ReaderInfo Reader { get; private set; }
     }
 }

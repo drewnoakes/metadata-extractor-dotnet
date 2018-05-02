@@ -478,8 +478,8 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         private void ProcessCameraSettings([NotNull] byte[] bytes)
         {
-            var reader = new SequentialByteArrayReader(bytes);
-            var count = bytes.Length / 4;
+            var reader = new RandomAccessStream(bytes).CreateReader();
+            var count = reader.Length / 4;
 
             for (var i = 0; i < count; i++)
                 Set(CameraSettings.Offset + i, reader.GetInt32());

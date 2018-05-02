@@ -32,16 +32,16 @@ namespace MetadataExtractor.Tests.IO
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ByteArrayReaderTest : IndexedReaderTestBase
     {
-        protected override IndexedReader CreateReader(params byte[] bytes)
+        protected override ReaderInfo CreateReader(params byte[] bytes)
         {
-            return new ByteArrayReader(bytes);
+            return new RandomAccessStream(bytes).CreateReader();
         }
 
         [Fact]
         public void ConstructWithNullBufferThrows()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new ByteArrayReader(null));
+            Assert.Throws<ArgumentNullException>(() => new RandomAccessStream((byte[])null).CreateReader());
         }
     }
 }

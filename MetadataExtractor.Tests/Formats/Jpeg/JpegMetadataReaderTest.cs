@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.IO;
 using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Jpeg
@@ -46,7 +47,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         public void ExtractMetadataUsingStream()
         {
             using (var stream = TestDataUtil.OpenRead("Data/withExif.jpg"))
-                Validate(JpegMetadataReader.ReadMetadata(stream));
+                Validate(JpegMetadataReader.ReadMetadata(new RandomAccessStream(stream).CreateReader()));
         }
 
         private static void Validate(IEnumerable<Directory> metadata)

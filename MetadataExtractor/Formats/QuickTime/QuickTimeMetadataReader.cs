@@ -26,6 +26,8 @@ using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 
+using MetadataExtractor.IO;
+
 #if NET35
 using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
 #else
@@ -39,7 +41,7 @@ namespace MetadataExtractor.Formats.QuickTime
         private static readonly DateTime _epoch = new DateTime(1904, 1, 1);
 
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata([NotNull] ReaderInfo reader)
         {
             var directories = new List<Directory>();
 
@@ -55,13 +57,13 @@ namespace MetadataExtractor.Formats.QuickTime
                         directory.Set(QuickTimeTrackHeaderDirectory.TagCreated, _epoch.AddTicks(TimeSpan.TicksPerSecond*a.Reader.GetUInt32()));
                         directory.Set(QuickTimeTrackHeaderDirectory.TagModified, _epoch.AddTicks(TimeSpan.TicksPerSecond*a.Reader.GetUInt32()));
                         directory.Set(QuickTimeTrackHeaderDirectory.TagTrackId, a.Reader.GetUInt32());
-                        a.Reader.Skip(4L);
+                        a.Reader.Seek(4L);
                         directory.Set(QuickTimeTrackHeaderDirectory.TagDuration, a.Reader.GetUInt32());
-                        a.Reader.Skip(8L);
+                        a.Reader.Seek(8L);
                         directory.Set(QuickTimeTrackHeaderDirectory.TagLayer, a.Reader.GetUInt16());
                         directory.Set(QuickTimeTrackHeaderDirectory.TagAlternateGroup, a.Reader.GetUInt16());
                         directory.Set(QuickTimeTrackHeaderDirectory.TagVolume, a.Reader.Get16BitFixedPoint());
-                        a.Reader.Skip(2L);
+                        a.Reader.Seek(2L);
                         a.Reader.GetBytes(36);
                         directory.Set(QuickTimeTrackHeaderDirectory.TagWidth, a.Reader.Get32BitFixedPoint());
                         directory.Set(QuickTimeTrackHeaderDirectory.TagHeight, a.Reader.Get32BitFixedPoint());
@@ -87,7 +89,7 @@ namespace MetadataExtractor.Formats.QuickTime
                         directory.Set(QuickTimeMovieHeaderDirectory.TagDuration, TimeSpan.FromSeconds(a.Reader.GetUInt32()/(double) timeScale));
                         directory.Set(QuickTimeMovieHeaderDirectory.TagPreferredRate, a.Reader.Get32BitFixedPoint());
                         directory.Set(QuickTimeMovieHeaderDirectory.TagPreferredVolume, a.Reader.Get16BitFixedPoint());
-                        a.Reader.Skip(10);
+                        a.Reader.Seek(10);
                         directory.Set(QuickTimeMovieHeaderDirectory.TagMatrix, a.Reader.GetBytes(36));
                         directory.Set(QuickTimeMovieHeaderDirectory.TagPreviewTime, a.Reader.GetUInt32());
                         directory.Set(QuickTimeMovieHeaderDirectory.TagPreviewDuration, a.Reader.GetUInt32());
@@ -101,7 +103,7 @@ namespace MetadataExtractor.Formats.QuickTime
                     }
                     case "trak":
                     {
-                        QuickTimeReader.ProcessAtoms(stream, TrakHandler, a.BytesLeft);
+                        QuickTimeReader.ProcessAtoms(reader, TrakHandler, a.BytesLeft);
                         break;
                     }
 //                    case "clip":
@@ -127,7 +129,7 @@ namespace MetadataExtractor.Formats.QuickTime
                 {
                     case "moov":
                     {
-                        QuickTimeReader.ProcessAtoms(stream, MoovHandler, a.BytesLeft);
+                        QuickTimeReader.ProcessAtoms(reader, MoovHandler, a.BytesLeft);
                         break;
                     }
                     case "ftyp":
@@ -145,7 +147,7 @@ namespace MetadataExtractor.Formats.QuickTime
                 }
             }
 
-            QuickTimeReader.ProcessAtoms(stream, Handler);
+            QuickTimeReader.ProcessAtoms(reader, Handler);
 
             return directories;
         }

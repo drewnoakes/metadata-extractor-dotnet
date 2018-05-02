@@ -45,11 +45,12 @@ namespace MetadataExtractor.Formats.Ico
     public sealed class IcoReader
     {
         [NotNull]
-        public DirectoryList Extract([NotNull] SequentialReader reader)
+        public DirectoryList Extract([NotNull] ReaderInfo reader)
         {
             var directories = new List<Directory>();
 
-            reader = reader.WithByteOrder(isMotorolaByteOrder: false);
+            if (reader.IsMotorolaByteOrder)
+                reader.IsMotorolaByteOrder = false;
 
             var type = 0;
             var imageCount = 0;
