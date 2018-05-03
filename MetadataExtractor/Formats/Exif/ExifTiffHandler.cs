@@ -400,7 +400,7 @@ namespace MetadataExtractor.Formats.Exif
                      string.Equals("SONY DSC", firstEightChars, StringComparison.Ordinal))
             {
                 PushDirectory(new SonyType1MakernoteDirectory());
-                TiffReader.ProcessIfd(this, reader, processedIfdOffsets, 12);
+                TiffReader.ProcessIfd(this, reader.Clone(-makernoteOffset, -1), processedIfdOffsets, makernoteOffset + 12);
             }
             // Do this check LAST after most other Sony checks
             else if (cameraMake != null && cameraMake.StartsWith("SONY", StringComparison.Ordinal) &&
