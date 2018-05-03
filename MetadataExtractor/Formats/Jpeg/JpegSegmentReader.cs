@@ -142,21 +142,19 @@ namespace MetadataExtractor.Formats.Jpeg
 
                 // Find the segment marker. Markers are zero or more 0xFF bytes, followed
                 // by a 0xFF and then a byte not equal to 0x00 or 0xFF.
+                if (reader.IsCloserToEnd(2))
+                    yield break;
                 var segmentIdentifier = reader.GetByte();
                 var segmentTypeByte = reader.GetByte();
-
-                if (unchecked((sbyte)segmentTypeByte) == -1)
-                    yield break;
 
                 // Read until we have a 0xFF byte followed by a byte that is not 0xFF or 0x00
                 while (segmentIdentifier != 0xFF || segmentTypeByte == 0xFF || segmentTypeByte == 0)
                 {
                     padding++;
+                    if (reader.IsCloserToEnd(2))
+                        yield break;
                     segmentIdentifier = segmentTypeByte;
                     segmentTypeByte = reader.GetByte();
-
-                    if (unchecked((sbyte)segmentTypeByte) == -1)
-                        yield break;
                 }
 
                 var segmentType = (JpegSegmentType)segmentTypeByte;
@@ -164,13 +162,6 @@ namespace MetadataExtractor.Formats.Jpeg
                 // decide whether this JPEG segment type's marker is followed by a length indicator
                 if (segmentType.ContainsPayload())
                 {
-                    /*var b1 = reader.GetByte();
-                    var b2 = reader.GetByte();
-                    if (unchecked((sbyte)b2) == -1)
-                        yield break;
-
-                    var segmentLength = reader.GetUInt16(b1, b2);*/
-
                     // Need two more bytes for the segment length. If closer than two bytes to the end, yield
                     if (reader.IsCloserToEnd(2))
                         yield break;
