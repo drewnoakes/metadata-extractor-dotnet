@@ -224,7 +224,7 @@ namespace MetadataExtractor.Formats.Png
                 byte[] textBytes = null;
                 if (compressionMethod == 0)
                 {
-                    var bytes = chunk.Reader.GetBytes((int)chunk.Reader.Length - bytesLeft);
+                    var bytes = chunk.Reader.GetBytes((int)chunk.Reader.Length - bytesLeft, bytesLeft);
                     using (var inflaterStream = new DeflateStream(new MemoryStream(bytes), CompressionMode.Decompress))
                     {
                         Exception ex = null;
@@ -289,7 +289,7 @@ namespace MetadataExtractor.Formats.Png
                 {
                     if (compressionMethod == 0)
                     {
-                        var bytes = chunk.Reader.GetBytes((int)chunk.Reader.Length - bytesLeft);
+                        var bytes = chunk.Reader.GetBytes((int)chunk.Reader.Length - bytesLeft, bytesLeft);
                         using (var inflaterStream = new DeflateStream(new MemoryStream(bytes), CompressionMode.Decompress))
                         {
                             Exception ex = null;
