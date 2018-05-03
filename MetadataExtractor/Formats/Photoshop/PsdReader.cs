@@ -109,7 +109,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
                 var imageResourcesSectionLength = reader.GetUInt32();
                 Debug.Assert(imageResourcesSectionLength <= int.MaxValue);
-                photoshopDirectories = new PhotoshopReader().Extract(reader.Clone(reader.LocalPosition, (int)imageResourcesSectionLength));
+                photoshopDirectories = new PhotoshopReader().Extract(reader.Clone(0, (int)imageResourcesSectionLength));
             }
             catch (IOException)
             {

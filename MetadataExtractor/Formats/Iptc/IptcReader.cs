@@ -88,7 +88,7 @@ namespace MetadataExtractor.Formats.Iptc
         public IptcDirectory Extract([NotNull] ReaderInfo reader) //, long length)
         {
             if (!reader.IsMotorolaByteOrder)
-                reader.IsMotorolaByteOrder = true;
+                reader = reader.Clone(false);
 
             var directory = new IptcDirectory();
 

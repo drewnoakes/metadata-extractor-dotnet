@@ -275,6 +275,7 @@ namespace MetadataExtractor.Formats.Exif
             if (tagId == PanasonicRawIfd0Directory.TagJpgFromRaw && CurrentDirectory is PanasonicRawIfd0Directory)
             {
                 var jpgreader = reader.Clone(tagOffset, byteCount);
+                jpgreader.IsMotorolaByteOrder = true;
 
                 // Extract information from embedded image since it is metadata-rich
                 var jpegDirectory = Jpeg.JpegMetadataReader.ReadMetadata(jpgreader);
