@@ -98,7 +98,7 @@ namespace MetadataExtractor.IO
             {
                 var fromChunkIndex = fromOffset / p_chunkLength;     // chunk integer key
                 var fromInnerIndex = fromOffset % p_chunkLength;     // index inside the chunk to start reading
-                var length = Math.Min(remaining, p_chunkLength - fromInnerIndex);    // 
+                var length = Math.Min(remaining, p_chunkLength - fromInnerIndex);
                 var chunk = p_chunks[fromChunkIndex];
                 Array.Copy(chunk, fromInnerIndex, buffer, toIndex, length);
                 remaining -= length;
@@ -490,9 +490,9 @@ namespace MetadataExtractor.IO
             if (endIndex > int.MaxValue)
                 return false;
 
-            if (p_isStreamFinished)
-                return endIndex < p_streamLength;
-                //return endIndex <= p_streamLength;
+            //if (p_isStreamFinished)
+            //    return endIndex < p_streamLength;
+            //    //return endIndex <= p_streamLength;
 
             
             // zero-based
@@ -505,11 +505,13 @@ namespace MetadataExtractor.IO
                 if(!CanSeek)
                     chunkstart = p_chunks.Count == 0 ? 0 : p_chunks.Keys.Max() + 1;
             }
-            
+
             for (var i = chunkstart; i < chunkend; i++)
             {
                 if (!p_chunks.ContainsKey(i))
                 {
+                    p_isStreamFinished = false;
+
                     // chunkstart can be anywhere. Try to seek
                     if (CanSeek)
                         p_inputStream.Seek(i * p_chunkLength, SeekOrigin.Begin);
@@ -522,6 +524,7 @@ namespace MetadataExtractor.IO
 
                     var totalBytesRead = 0;
                     while (!p_isStreamFinished && totalBytesRead != p_chunkLength)
+                    //while (totalBytesRead != p_chunkLength)
                     {
                         var bytesRead = p_inputStream.Read(chunk, totalBytesRead, p_chunkLength - totalBytesRead);
 
@@ -529,13 +532,12 @@ namespace MetadataExtractor.IO
                         {
                             // the stream has ended, which may be ok
                             p_isStreamFinished = true;
-                            //p_streamLength = _chunks.Count * _chunkLength + totalBytesRead;
-                            //p_streamLength = (_chunks.Count > 0 ? _chunks.Keys.Max() * _chunkLength : 0) + totalBytesRead;
                             p_streamLength = i * p_chunkLength + totalBytesRead;
 
                             // check we have enough bytes for the requested index
                             if (endIndex >= p_streamLength)
                             {
+                                p_totalBytesRead += totalBytesRead;
                                 p_chunks.Add(i, chunk);
                                 return false;
                             }
@@ -545,6 +547,9 @@ namespace MetadataExtractor.IO
                             totalBytesRead += bytesRead;
                         }
                     }
+
+                    p_totalBytesRead += totalBytesRead;
+
                     //Console.WriteLine("; totalBytesRead=" + totalBytesRead);
 
                     p_chunks.Add(i, chunk);
@@ -558,6 +563,9 @@ namespace MetadataExtractor.IO
 
             return true;
         }
+
+        private long p_totalBytesRead = 0;
+        public long TotalBytesRead => p_totalBytesRead;
 
     }
 }

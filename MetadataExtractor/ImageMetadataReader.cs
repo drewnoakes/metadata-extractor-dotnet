@@ -89,9 +89,11 @@ namespace MetadataExtractor
         /// <exception cref="ImageProcessingException">The file type is unknown, or processing errors occurred.</exception>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata([NotNull] Stream stream) => ReadMetadata(new RandomAccessStream(stream));
+
+        public static DirectoryList ReadMetadata([NotNull] RandomAccessStream rastream)
         {
-            var fileTypeReader = new RandomAccessStream(stream).CreateReader();
+            var fileTypeReader = rastream.CreateReader();
 
             var fileType = FileTypeDetector.DetectFileType(fileTypeReader);
 

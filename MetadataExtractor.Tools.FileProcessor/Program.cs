@@ -30,7 +30,7 @@ using System.Reflection;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
-
+using MetadataExtractor.IO;
 /*
  * metadata-extractor foo.jpg
  * metadata-extractor foo.jpg --extract-thumb foo.thumb.jpg
@@ -276,8 +276,9 @@ namespace MetadataExtractor.Tools.FileProcessor
                     {
                         try
                         {
-                            var directories = ImageMetadataReader.ReadMetadata(stream).ToList();
-                            handler.OnExtractionSuccess(file, directories, relativePath, log, stream.Position);
+                            var ras = new RandomAccessStream(stream);
+                            var directories = ImageMetadataReader.ReadMetadata(ras).ToList();
+                            handler.OnExtractionSuccess(file, directories, relativePath, log, ras.TotalBytesRead);
                         }
                         catch (Exception e)
                         {

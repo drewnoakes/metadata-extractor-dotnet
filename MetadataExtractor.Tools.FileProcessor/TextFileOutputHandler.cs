@@ -83,7 +83,17 @@ namespace MetadataExtractor.Tools.FileProcessor
                             foreach (var tag in directory.Tags)
                             {
                                 var tagName = tag.Name;
-                                var description = tag.Description;
+                                string description;
+                                try
+                                {
+                                    description = tag.Description;
+                                }
+                                catch (Exception ex)
+                                {
+                                    description = "ERROR: " + ex.ToString();
+                                }
+                                if (description == null)
+                                    description = "";
 
                                 if (directory is FileMetadataDirectory && tag.Type == FileMetadataDirectory.TagFileModifiedDate)
                                     description = "<omitted for regression testing as checkout dependent>";
