@@ -105,6 +105,9 @@ namespace MetadataExtractor.Formats.Icc
         [NotNull]
         public IccDirectory Extract([NotNull] ReaderInfo reader)
         {
+            if (!reader.IsMotorolaByteOrder)
+                reader.IsMotorolaByteOrder = true;
+
             // TODO review whether the 'tagPtr' values below really do require IndexedReader or whether SequentialReader may be used instead
             // Update: IndexedReader and SequentialReader replaced by ReaderInfo, which can do either indexed or sequential
             var directory = new IccDirectory();
