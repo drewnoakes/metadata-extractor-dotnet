@@ -79,22 +79,24 @@ namespace MetadataExtractor.Formats.Icc
             }
             else
             {
-                for (int i = 0; i < iccSegments.Count; i++)
+                /*for (int i = 0; i < iccSegments.Count; i++)
                 {
                     var seg = iccSegments[i];
                     Console.WriteLine("ICC " + i + ": pos=" + seg.Reader.StartPosition + "; length=" + seg.Reader.Length);
 
-                }
+                }*/
 
                 // Concatenate all buffers
-                /*var totalLength = iccSegments.Sum(s => s.Bytes.Length - JpegSegmentPreambleLength);
-                buffer = new byte[totalLength];
+                var totalLength = iccSegments.Sum(s => s.Reader.Length - JpegSegmentPreambleLength);
+                
+                byte[] buffer = new byte[totalLength];
                 for (int i = 0, pos = 0; i < iccSegments.Count; i++)
                 {
                     var segment = iccSegments[i];
-                    Array.Copy(segment.Bytes, JpegSegmentPreambleLength, buffer, pos, segment.Bytes.Length - JpegSegmentPreambleLength);
-                    pos += segment.Bytes.Length - JpegSegmentPreambleLength;
-                }*/
+                    Array.Copy(segment.Reader.GetAllBytes(), JpegSegmentPreambleLength, buffer, pos, (int)segment.Reader.Length - JpegSegmentPreambleLength);
+                    pos += (int)segment.Reader.Length - JpegSegmentPreambleLength;
+                }
+                iccInfo = new RandomAccessStream(buffer).CreateReader();
             }
 
             return new Directory[] { Extract(iccInfo) };
@@ -104,6 +106,7 @@ namespace MetadataExtractor.Formats.Icc
         public IccDirectory Extract([NotNull] ReaderInfo reader)
         {
             // TODO review whether the 'tagPtr' values below really do require IndexedReader or whether SequentialReader may be used instead
+            // Update: IndexedReader and SequentialReader replaced by ReaderInfo, which can do either indexed or sequential
             var directory = new IccDirectory();
 
             try
