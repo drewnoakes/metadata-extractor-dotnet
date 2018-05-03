@@ -70,6 +70,9 @@ namespace MetadataExtractor.Formats.Photoshop
         [NotNull]
         public DirectoryList Extract([NotNull] ReaderInfo reader) // SequentialReader reader, int length)
         {
+            if (!reader.IsMotorolaByteOrder)
+                reader.IsMotorolaByteOrder = true;
+
             var directory = new PhotoshopDirectory();
 
             var directories = new List<Directory> { directory };
