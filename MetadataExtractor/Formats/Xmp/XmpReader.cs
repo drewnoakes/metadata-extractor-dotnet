@@ -98,13 +98,13 @@ namespace MetadataExtractor.Formats.Xmp
             return directories;
         }
 
-        private static string GetExtendedDataGuid(JpegSegment segment) => Encoding.UTF8.GetString(segment.Reader.Clone().GetAllBytes(), JpegSegmentPreambleExtensionBytes.Length, 32);
+        private static string GetExtendedDataGuid(JpegSegment segment) => Encoding.UTF8.GetString(segment.Reader.Clone().ToArray(), JpegSegmentPreambleExtensionBytes.Length, 32);
 
         private static bool IsXmpSegment(JpegSegment segment) => segment.Reader.StartsWith(JpegSegmentPreambleBytes);
         private static bool IsExtendedXmpSegment(JpegSegment segment) => segment.Reader.StartsWith(JpegSegmentPreambleExtensionBytes);
 
         [NotNull]
-        public XmpDirectory Extract([NotNull] ReaderInfo readerInfo) => Extract(readerInfo.Clone().GetAllBytes());
+        public XmpDirectory Extract([NotNull] ReaderInfo readerInfo) => Extract(readerInfo.Clone().ToArray());
 
         [NotNull]
         public XmpDirectory Extract([NotNull] byte[] xmpBytes) => Extract(xmpBytes, 0, xmpBytes.Length);

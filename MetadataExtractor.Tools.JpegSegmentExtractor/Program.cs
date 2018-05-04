@@ -104,7 +104,7 @@ namespace MetadataExtractor.Tools.JpegSegmentExtractor
                     var outputFilePath = string.Format(format, jpegFilePath, segmentType.ToString().ToLower(), i++);
 
                     Console.Out.WriteLine($"Writing: {outputFilePath} (offset {segment.Reader.StartPosition}, length {segment.Reader.Length})");
-                    File.WriteAllBytes(outputFilePath, segment.Reader.GetAllBytes());
+                    File.WriteAllBytes(outputFilePath, segment.Reader.ToArray());
                 }
             }
         }

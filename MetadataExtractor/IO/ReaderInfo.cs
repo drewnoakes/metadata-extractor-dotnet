@@ -1,5 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region License
+//
+// Copyright 2002-2017 Drew Noakes
+// Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//
+// More information about this project is available at:
+//
+//    https://github.com/drewnoakes/metadata-extractor-dotnet
+//    https://drewnoakes.com/code/exif/
+//
+#endregion
+
+using System;
 using System.IO;
 using System.Text;
 
@@ -7,14 +30,15 @@ using JetBrains.Annotations;
 
 namespace MetadataExtractor.IO
 {
+    /// <author>Kevin Mott https://github.com/kwhopper</author>
+    /// <author>Drew Noakes https://drewnoakes.com</author>
     public class ReaderInfo
     {
+        // this flag is compared to index inputs and indicates sequential access
+        private const int SequentialFlag = int.MinValue;
+
         private RandomAccessStream p_ras = null;
         private long p_length = -1;
-
-        //private Dictionary<long, long> p_ranges = new Dictionary<long, long>();
-
-        private const int SequentialFlag = int.MinValue;
 
         public ReaderInfo(RandomAccessStream parent, long startPosition = 0, long localPosition = 0, long length = -1, bool isMotorolaByteOrder = true)
         {
@@ -26,9 +50,9 @@ namespace MetadataExtractor.IO
             IsMotorolaByteOrder = isMotorolaByteOrder;
         }
 
+        private long GlobalPosition => StartPosition + LocalPosition;
         public long StartPosition { get; private set; }
         public long LocalPosition { get; private set; }
-        private long GlobalPosition => StartPosition + LocalPosition;
 
         public long Length
         {
@@ -48,7 +72,80 @@ namespace MetadataExtractor.IO
         /// <value><c>true</c> for Motorola/big endian, <c>false</c> for Intel/little endian</value>
         public bool IsMotorolaByteOrder { get; set; }
 
+        /// <summary>
+        /// Creates a new <see cref="ReaderInfo"/> with the current properties of this reader
+        /// </summary>
+        /// <returns></returns>
+        public ReaderInfo Clone() => Clone(0, -1, true);
+        public ReaderInfo Clone(bool useByteOrder) => Clone(0, useByteOrder);
+        public ReaderInfo Clone(long length) => Clone(0, length, true);
+        public ReaderInfo Clone(long offset, long length) => Clone(offset, length, true);
+        public ReaderInfo Clone(long offset, bool useByteOrder) => Clone(offset, -1, useByteOrder);
+        //public ReaderInfo Clone(long length = -1, long offset = 0, bool useByteOrder = true)
+        public ReaderInfo Clone(long offset, long length, bool useByteOrder)
+        {
+            //return p_ras.CreateReader(GlobalPosition + offset, (length > -1 ? length : Length), useByteOrder ? IsMotorolaByteOrder : !IsMotorolaByteOrder);
+            return p_ras.CreateReader(GlobalPosition + offset, (length > -1 ? length : Length - offset), useByteOrder ? IsMotorolaByteOrder : !IsMotorolaByteOrder);
+        }
+
+        /// <summary>Seeks forward or backward in the sequence.</summary>
+        /// <remarks>
+        /// Skips forward in the sequence. If the sequence ends, an <see cref="IOException"/> is thrown.
+        /// </remarks>
+        /// <param name="offset">the number of bytes to seek, in either direction.</param>
+        /// <exception cref="IOException">the end of the sequence is reached.</exception>
+        /// <exception cref="IOException">an error occurred reading from the underlying source.</exception>
+        public void Seek(long offset)
+        {
+            Seek(offset, SeekOrigin.Current);
+        }
+
+        private void Seek(long offset, SeekOrigin origin)
+        {
+            if (offset + LocalPosition < 0)
+                offset = -LocalPosition;
+
+            p_ras.Seek(LocalPosition + offset, origin);
+            LocalPosition += offset;
+        }
+
+        /// <summary>Seeks forward or backward in the sequence, returning a boolean indicating whether the seek succeeded, or whether the sequence ended.</summary>
+        /// <param name="n">the number of bytes to seek, in either direction.</param>
+        /// <returns>a boolean indicating whether the skip succeeded, or whether the sequence ended.</returns>
+        /// <exception cref="IOException">an error occurred reading from the underlying source.</exception>
+        public bool TrySeek(long n)
+        {
+            try
+            {
+                Seek(n);
+                return true;
+            }
+            catch (IOException)
+            {
+                // Stream ended, or error reading from underlying source
+                return false;
+            }
+        }
+
+        /// <summary>Retrieves bytes, writing them into a caller-provided buffer.</summary>
+        /// <remarks>SequentialFlag as index indicates this call should read sequentially</remarks>
+        /// <param name="buffer">array to write bytes to.</param>
+        /// <param name="offset">starting position within <paramref name="buffer"/> to write to.</param>
+        /// <param name="count">number of bytes to be written.</param>
+        /// <returns>The requested bytes</returns>
+        /// <exception cref="BufferBoundsException"/>
+        /// <exception cref="IOException"/>
         public int Read(byte[] buffer, int offset, int count) => Read(buffer, offset, SequentialFlag, count);
+
+        /// <summary>Retrieves bytes, writing them into a caller-provided buffer.</summary>
+        /// <remarks>Sequential access to the next byte is indicated by setting index to SequntialFlag</remarks>
+        /// <param name="buffer">array to write bytes to.</param>
+        /// <param name="offset">starting position within <paramref name="buffer"/> to write to.</param>
+        /// <param name="index">position within the data buffer to read byte.</param>
+        /// <param name="count">number of bytes to be written.</param>
+        /// <returns>The requested bytes</returns>
+        /// <exception cref="BufferBoundsException"/>
+        /// <exception cref="IOException"/>
         public int Read(byte[] buffer, int offset, long index, int count)
         {
             int read = -1;
@@ -66,6 +163,11 @@ namespace MetadataExtractor.IO
             return read;
         }
 
+        /// <summary>
+        /// Determine if the next bytes match the input pattern. Internal sequential variables are unaffected
+        /// </summary>
+        /// <param name="pattern">the byte pattern to match</param>
+        /// <returns></returns>
         public bool StartsWith(byte[] pattern)
         {
             if (Length < pattern.Length)
@@ -89,7 +191,17 @@ namespace MetadataExtractor.IO
             return ret;
         }
 
+        /// <summary>Gets the byte value at the next sequential byte <c>index</c>.</summary>
+        /// <returns>The read byte value</returns>
+        /// <exception cref="BufferBoundsException">if the requested byte is beyond the end of the underlying data source</exception>
+        /// <exception cref="IOException">if the byte is unable to be read</exception>
         public byte GetByte() => GetByte(SequentialFlag);
+
+        /// <summary>Gets the byte value at the specified byte <c>index</c>.</summary>
+        /// <param name="index">The index from which to read the byte</param>
+        /// <returns>The read byte value</returns>
+        /// <exception cref="BufferBoundsException">if the requested byte is beyond the end of the underlying data source</exception>
+        /// <exception cref="IOException">if the byte is unable to be read</exception>
         public byte GetByte(long index)
         {
             bool isSeq = index == SequentialFlag;
@@ -105,19 +217,26 @@ namespace MetadataExtractor.IO
 
             return read;
         }
-        
+
+        /// <summary>Returns the required number of bytes sequentially from the underlying source.</summary>
+        /// <param name="count">The number of bytes to be returned</param>
+        /// <returns>The requested bytes</returns>
+        /// <exception cref="BufferBoundsException">if the requested bytes extend beyond the end of the underlying data source</exception>
+        /// <exception cref="System.IO.IOException">if the byte is unable to be read</exception>
         public byte[] GetBytes(int count) => GetBytes(SequentialFlag, count);
+
+        /// <summary>Returns the required number of bytes from the specified index from the underlying source.</summary>
+        /// <param name="index">The index from which the bytes begins in the underlying source</param>
+        /// <param name="count">The number of bytes to be returned</param>
+        /// <returns>The requested bytes</returns>
+        /// <exception cref="BufferBoundsException">if the requested bytes extend beyond the end of the underlying data source</exception>
+        /// <exception cref="IOException">if the byte is unable to be read</exception>
         public byte[] GetBytes(long index, int count)
         {
             var bytes = new byte[count];
             Read(bytes, 0, index, count);
 
             return bytes;
-        }
-
-        public byte[] GetAllBytes()
-        {
-            return GetBytes(0, (int)Length);
         }
 
         /// <summary>Gets whether a bit at a specific index is set or not sequentially.</summary>
@@ -142,11 +261,12 @@ namespace MetadataExtractor.IO
         /// <returns>the 8 bit signed byte value</returns>
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request</exception>
         public sbyte GetSByte() => GetSByte(SequentialFlag);
+
         /// <summary>Returns a signed 8-bit int calculated from one byte of data at the specified index.</summary>
         /// <param name="index">position within the data buffer to read byte</param>
         /// <returns>the 8 bit signed byte value</returns>
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
-        public sbyte GetSByte(int index)
+        public sbyte GetSByte(long index)
         {
             return unchecked((sbyte)GetByte(index));
         }
@@ -157,6 +277,7 @@ namespace MetadataExtractor.IO
         public ushort GetUInt16() => GetUInt16(SequentialFlag);
 
         /// <summary>Returns an unsigned 16-bit int calculated from the next two bytes of the sequence.</summary>
+        /// <param name="index">position within the data buffer to read byte</param>
         /// <returns>the 16 bit int value, between 0x0000 and 0xFFFF</returns>
         /// <exception cref="System.IO.IOException"/>
         public ushort GetUInt16(long index)
@@ -175,6 +296,9 @@ namespace MetadataExtractor.IO
             return p_ras.GetUInt16(readat, IsMotorolaByteOrder, isSeq);
         }
 
+        /// <summary>Returns an unsigned 16-bit int calculated from the next two bytes of the sequence.</summary>
+        /// <returns>the 16 bit int value, between 0x0000 and 0xFFFF</returns>
+        /// <exception cref="System.IO.IOException"/>
         public ushort GetUInt16(int b1, int b2)
         {
             if (IsMotorolaByteOrder)
@@ -366,12 +490,14 @@ namespace MetadataExtractor.IO
 
 
         public float GetFloat32() => GetFloat32(SequentialFlag);
+
         /// <exception cref="System.IO.IOException"/>
-        public float GetFloat32(int index) => BitConverter.ToSingle(BitConverter.GetBytes(GetInt32(index)), 0);
+        public float GetFloat32(long index) => BitConverter.ToSingle(BitConverter.GetBytes(GetInt32(index)), 0);
 
         public double GetDouble64() => GetDouble64(SequentialFlag);
+
         /// <exception cref="System.IO.IOException"/>
-        public double GetDouble64(int index) => BitConverter.Int64BitsToDouble(GetInt64(index));
+        public double GetDouble64(long index) => BitConverter.Int64BitsToDouble(GetInt64(index));
 
 
         [NotNull]
@@ -538,6 +664,13 @@ namespace MetadataExtractor.IO
             return bytes;
         }
 
+        /// <summary>Returns the bytes described by this particular reader</summary>
+        /// <returns></returns>
+        public byte[] ToArray()
+        {
+            return GetBytes(0, (int)Length);
+        }
+
         public string ReadLine()
         {
             StringBuilder sb = new StringBuilder();
@@ -564,47 +697,12 @@ namespace MetadataExtractor.IO
             return null;
         }
 
-
-        public bool TrySeek(long n)
-        {
-            try
-            {
-                Seek(n);
-                return true;
-            }
-            catch (IOException)
-            {
-                // Stream ended, or error reading from underlying source
-                return false;
-            }
-        }
-
-        public void Seek(long offset)
-        {
-            Seek(offset, SeekOrigin.Current);
-        }
-
-        private void Seek(long offset, SeekOrigin origin)
-        {
-            if (offset + LocalPosition < 0)
-                offset = -LocalPosition;
-            
-            p_ras.Seek(LocalPosition + offset, origin);
-            LocalPosition += offset;
-        }
-
-        public ReaderInfo Clone() => Clone(0, -1, true);
-        public ReaderInfo Clone(bool useByteOrder) => Clone(0, useByteOrder);
-        public ReaderInfo Clone(long length) => Clone(0, length, true);
-        public ReaderInfo Clone(long offset, long length) => Clone(offset, length, true);
-        public ReaderInfo Clone(long offset, bool useByteOrder) => Clone(offset, -1, useByteOrder);
-        //public ReaderInfo Clone(bool blah, long length = -1, long offset = 0, bool useByteOrder = true)
-        public ReaderInfo Clone(long offset, long length, bool useByteOrder)
-        {
-            //return p_ras.CreateReader(GlobalPosition + offset, (length > -1 ? length : Length), useByteOrder ? IsMotorolaByteOrder : !IsMotorolaByteOrder);
-            return p_ras.CreateReader(GlobalPosition + offset, (length > -1 ? length : Length - offset), useByteOrder ? IsMotorolaByteOrder : !IsMotorolaByteOrder);
-        }
-
+        /// <summary>
+        /// Returns true in case the sequence supports length checking and distance to the end of the stream is less then number of bytes in parameter.
+        /// Otherwise false.
+        /// </summary>
+        /// <param name="numberOfBytes"></param>
+        /// <returns>True if we are going to have an exception while reading next numberOfBytes bytes from the stream</returns>
         public bool IsCloserToEnd(long numberOfBytes)
         {
             return LocalPosition + numberOfBytes > Length;

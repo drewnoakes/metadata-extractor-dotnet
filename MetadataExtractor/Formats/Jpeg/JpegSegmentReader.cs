@@ -234,7 +234,6 @@ namespace MetadataExtractor.Formats.Jpeg
                         break;
                 }
 
-                //yield break;    // temp
             }
         }
     }

@@ -45,7 +45,7 @@ namespace MetadataExtractor.Formats.Jpeg
         public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             // The entire contents of the segment are the comment
-            return segments.Select(segment => new JpegCommentDirectory(new StringValue(segment.Reader.GetAllBytes(), Encoding.UTF8)))
+            return segments.Select(segment => new JpegCommentDirectory(new StringValue(segment.Reader.ToArray(), Encoding.UTF8)))
 #if NET35
                 .Cast<Directory>()
 #endif

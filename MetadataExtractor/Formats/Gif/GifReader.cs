@@ -270,7 +270,7 @@ namespace MetadataExtractor.Formats.Gif
         private static GifCommentDirectory ReadCommentBlock(ReaderInfo reader, byte blockSizeBytes)
         {
             var buffer = GatherBytes(reader, blockSizeBytes);
-            return new GifCommentDirectory(new StringValue(buffer.GetAllBytes(), Encoding.ASCII));
+            return new GifCommentDirectory(new StringValue(buffer.ToArray(), Encoding.ASCII));
         }
 
         [CanBeNull]

@@ -93,7 +93,7 @@ namespace MetadataExtractor.Formats.Icc
                 for (int i = 0, pos = 0; i < iccSegments.Count; i++)
                 {
                     var segment = iccSegments[i];
-                    Array.Copy(segment.Reader.GetAllBytes(), JpegSegmentPreambleLength, buffer, pos, (int)segment.Reader.Length - JpegSegmentPreambleLength);
+                    Array.Copy(segment.Reader.ToArray(), JpegSegmentPreambleLength, buffer, pos, (int)segment.Reader.Length - JpegSegmentPreambleLength);
                     pos += (int)segment.Reader.Length - JpegSegmentPreambleLength;
                 }
                 iccInfo = new RandomAccessStream(buffer).CreateReader();

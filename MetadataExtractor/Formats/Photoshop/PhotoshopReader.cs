@@ -163,7 +163,7 @@ namespace MetadataExtractor.Formats.Photoshop
                             directories.Add(xmpDirectory);
                             break;
                         default:
-                            directory.Set(tagType, tagReader.GetAllBytes());
+                            directory.Set(tagType, tagReader.ToArray());
                             break;
                     }
 

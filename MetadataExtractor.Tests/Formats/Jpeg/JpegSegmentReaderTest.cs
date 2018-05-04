@@ -58,12 +58,12 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Assert.Equal(JpegSegmentType.App2, segments[4].Type);
             Assert.Equal(JpegSegmentType.AppE, segments[5].Type);
 
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app0"),   segments[0].Reader.GetAllBytes());
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app1.0"), segments[1].Reader.GetAllBytes());
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.appd"),   segments[2].Reader.GetAllBytes());
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app1.1"), segments[3].Reader.GetAllBytes());
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2"),   segments[4].Reader.GetAllBytes());
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.appe"),   segments[5].Reader.GetAllBytes());
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app0"),   segments[0].Reader.ToArray());
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app1.0"), segments[1].Reader.ToArray());
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.appd"),   segments[2].Reader.ToArray());
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app1.1"), segments[3].Reader.ToArray());
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2"),   segments[4].Reader.ToArray());
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.appe"),   segments[5].Reader.ToArray());
         }
 
         [Fact]
@@ -76,8 +76,8 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             Assert.Equal(JpegSegmentType.App0, segments[0].Type);
             Assert.Equal(JpegSegmentType.App2, segments[1].Type);
 
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app0"), segments[0].Reader.GetAllBytes());
-            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2"), segments[1].Reader.GetAllBytes());
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app0"), segments[0].Reader.ToArray());
+            Assert.Equal(TestDataUtil.GetBytes("Data/withExifAndIptc.jpg.app2"), segments[1].Reader.ToArray());
         }
 
         [Fact]

@@ -64,7 +64,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
             var app1 = File.ReadAllBytes(filePath);
             var segments = new[] { new JpegSegment(JpegSegmentType.App1, new RandomAccessStream(app1).CreateReader()) };
             
-            Assert.Same(app1, segments[0].Reader.GetAllBytes());
+            Assert.Same(app1, segments[0].Reader.ToArray());
 
             var exifReader = new ExifReader();
 
