@@ -267,6 +267,7 @@ namespace MetadataExtractor.Formats.Jpeg
                 case JpegSegmentType.Rst5:
                 case JpegSegmentType.Rst6:
                 case JpegSegmentType.Rst7:
+                case JpegSegmentType.Tem:
                     return false;
 
                 default:
