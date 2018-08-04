@@ -29,7 +29,9 @@ using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
-    /// <summary>Describes Exif tags that contain Global Positioning System (GPS) data.</summary>
+    /// <summary>Describes Exif tags that contain Global Positioning System (GPS) data.
+    //// See: http://www.vieas.com/en/exif23.html
+    /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class GpsDirectory : ExifDirectoryBase
@@ -124,6 +126,9 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagDifferential = 0x001E;
 
+         /// <summary>GPSHPositioningError	Horizontal positioning error RATIONAL 1</summary>
+        public const int TagHorizontalPosError = 0x001f;
+
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>();
 
         static GpsDirectory()
@@ -164,6 +169,7 @@ namespace MetadataExtractor.Formats.Exif
             _tagNameMap[TagAreaInformation] = "GPS Area Information";
             _tagNameMap[TagDateStamp] = "GPS Date Stamp";
             _tagNameMap[TagDifferential] = "GPS Differential";
+            _tagNameMap[TagHorizontalPosError] = "GPS Horizontal Positioning Error";
         }
 
         public GpsDirectory()
