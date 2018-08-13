@@ -97,15 +97,10 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException">an error occurred reading from the underlying source.</exception>
         public void Seek(long offset)
         {
-            Seek(offset, SeekOrigin.Current);
-        }
-
-        private void Seek(long offset, SeekOrigin origin)
-        {
             if (offset + LocalPosition < 0)
                 offset = -LocalPosition;
 
-            p_ras.Seek(LocalPosition + offset, origin);
+            p_ras.Seek(LocalPosition + offset);
             LocalPosition += offset;
         }
 

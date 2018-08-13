@@ -103,10 +103,9 @@ namespace MetadataExtractor.IO
         /// Seeks to an index in the sequence. If the sequence can't satisfy the request, exceptions are thrown.
         /// </remarks>
         /// <param name="index">position within the data buffer to seek to</param>
-        /// <param name="origin">Position within the data to use for seeking</param>
         /// <exception cref="BufferBoundsException"/>
         /// <exception cref="IOException"/>
-        public void Seek(long index, SeekOrigin origin)
+        public void Seek(long index)
         {
             ValidateIndex(index, 0, false);
         }
