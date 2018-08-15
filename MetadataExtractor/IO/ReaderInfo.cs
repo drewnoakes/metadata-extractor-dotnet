@@ -143,17 +143,13 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException"/>
         public int Read(byte[] buffer, int offset, long index, int count)
         {
-            int read = -1;
-            bool isSeq = index == SequentialFlag;
+            bool isSeq = (index == SequentialFlag);
+            long readat = isSeq ? GlobalPosition : (StartPosition + index);
 
-            long readat = GlobalPosition;
-            if (!isSeq)
-                readat = StartPosition + index;
-
-            read = p_ras.Read(readat, buffer, offset, count, index == SequentialFlag);
+            int read = p_ras.Read(readat, buffer, offset, count, isSeq);
             
             if (isSeq && read > 0)
-                LocalPosition += read;
+                LocalPosition += read; // advance the sequential position
 
             return read;
         }
@@ -199,16 +195,13 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException">if the byte is unable to be read</exception>
         public byte GetByte(long index)
         {
-            bool isSeq = index == SequentialFlag;
-
-            long readat = GlobalPosition;
-            if(!isSeq)
-                readat = StartPosition + index;
+            bool isSeq = (index == SequentialFlag);
+            long readat = isSeq ? GlobalPosition : (StartPosition + index);
 
             var read = p_ras.GetByte(readat, isSeq);
-
+            
             if (isSeq)
-                LocalPosition++;
+                LocalPosition++; // advance the sequential position
 
             return read;
         }
@@ -247,7 +240,6 @@ namespace MetadataExtractor.IO
         {
             var byteIndex = index / 8;
             var bitIndex = index % 8;
-            p_ras.ValidateIndex(byteIndex, 1, index == SequentialFlag);
             var b = GetByte(byteIndex);
             return ((b >> bitIndex) & 1) == 1;
         }
@@ -277,18 +269,15 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException"/>
         public ushort GetUInt16(long index)
         {
-            bool isSeq = index == SequentialFlag;
-
-            long readat = GlobalPosition;
-            if(!isSeq)
-                readat = StartPosition + index;
-
-            p_ras.ValidateIndex(readat, 2, isSeq);
-
+            bool isSeq = (index == SequentialFlag);
+            long readat = isSeq ? GlobalPosition : (StartPosition + index);
+            
+            var read = p_ras.GetUInt16(readat, IsMotorolaByteOrder, isSeq);
+            
             if (isSeq)
-                LocalPosition += 2;
+                LocalPosition += 2; // advance the sequential position
 
-            return p_ras.GetUInt16(readat, IsMotorolaByteOrder, isSeq);
+            return read;
         }
 
         /// <summary>Returns an unsigned 16-bit int calculated from the next two bytes of the sequence.</summary>
@@ -315,18 +304,15 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request</exception>
         public short GetInt16(long index)
         {
-            bool isSeq = index == SequentialFlag;
-
-            long readat = GlobalPosition;
-            if(!isSeq)
-                readat = StartPosition + index;
-
-            p_ras.ValidateIndex(readat, 2, isSeq);
-
+            bool isSeq = (index == SequentialFlag);
+            long readat = isSeq ? GlobalPosition : (StartPosition + index);
+            
+            var read = p_ras.GetInt16(readat, IsMotorolaByteOrder, isSeq);
+            
             if (isSeq)
-                LocalPosition += sizeof(short);
+                LocalPosition += 2; // advance the sequential position
 
-            return p_ras.GetInt16(readat, IsMotorolaByteOrder, isSeq);
+            return read;
         }
 
         /// <summary>Get a 24-bit unsigned integer from the buffer sequentially, returning it as an int.</summary>
@@ -340,18 +326,15 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public int GetInt24(long index)
         {
-            bool isSeq = index == SequentialFlag;
+            bool isSeq = (index == SequentialFlag);
+            long readat = isSeq ? GlobalPosition : (StartPosition + index);
 
-            long readat = GlobalPosition;
-            if(!isSeq)
-                readat = StartPosition + index;
-
-            p_ras.ValidateIndex(readat, 3, isSeq);
+            var read = p_ras.GetInt24(readat, IsMotorolaByteOrder, isSeq);
 
             if(isSeq)
                 LocalPosition += 3; // advance the sequential position
 
-            return p_ras.GetInt24(readat, IsMotorolaByteOrder, isSeq);
+            return read;
         }
 
         /// <summary>Get a 32-bit unsigned integer from the buffer sequentially, returning it as a long.</summary>
@@ -365,18 +348,15 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public uint GetUInt32(long index)
         {
-            bool isSeq = index == SequentialFlag;
+            bool isSeq = (index == SequentialFlag);
+            long readat = isSeq ? GlobalPosition : (StartPosition + index);
 
-            long readat = GlobalPosition;
-            if(!isSeq)
-                readat = StartPosition + index;
-
-            p_ras.ValidateIndex(readat, 4, isSeq);
+            var read = p_ras.GetUInt32(readat, IsMotorolaByteOrder, isSeq);
 
             if(isSeq)
                 LocalPosition += 4; // advance the sequential position
 
-            return p_ras.GetUInt32(readat, IsMotorolaByteOrder, isSeq);
+            return read;
         }
 
         /// <summary>Returns a signed 32-bit integer from four bytes of data sequentially.</summary>
@@ -390,18 +370,15 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public int GetInt32(long index)
         {
-            bool isSeq = index == SequentialFlag;
-
-            long readat = GlobalPosition;
-            if(!isSeq)
-                readat = StartPosition + index;
-
-            p_ras.ValidateIndex(readat, 4, isSeq);
+            bool isSeq = (index == SequentialFlag);
+            long readat = isSeq ? GlobalPosition : (StartPosition + index);
+            
+            var read = p_ras.GetInt32(readat, IsMotorolaByteOrder, isSeq);
 
             if (isSeq)
                 LocalPosition += 4; // advance the sequential position
 
-            return p_ras.GetInt32(readat, IsMotorolaByteOrder, isSeq);
+            return read;
         }
 
         /// <summary>Get a signed 64-bit integer from the buffer sequentially.</summary>
@@ -415,18 +392,15 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public long GetInt64(long index)
         {
-            bool isSeq = index == SequentialFlag;
-
-            long readat = GlobalPosition;
-            if(!isSeq)
-                readat = StartPosition + index;
+            bool isSeq = (index == SequentialFlag);
+            long readat = isSeq ? GlobalPosition : (StartPosition + index);
             
-            p_ras.ValidateIndex(readat, 8, isSeq);
+            var read = p_ras.GetInt64(readat, IsMotorolaByteOrder, isSeq);
 
             if (isSeq)
                 LocalPosition += 8; // advance the sequential position
 
-            return p_ras.GetInt64(readat, IsMotorolaByteOrder, isSeq);
+            return read;
         }
 
         /// <summary>Get an usigned 64-bit integer from the buffer sequentially.</summary>
@@ -439,18 +413,15 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request</exception>
         public ulong GetUInt64(long index)
         {
-            var isSeq = index == SequentialFlag;
-
-            long readat = GlobalPosition;
-            if (!isSeq)
-                readat = StartPosition + index;
-
-            p_ras.ValidateIndex(readat, 8, isSeq);
+            bool isSeq = (index == SequentialFlag);
+            long readat = isSeq ? GlobalPosition : (StartPosition + index);
+            
+            var read = p_ras.GetUInt64(readat, IsMotorolaByteOrder, isSeq);
 
             if (isSeq)
                 LocalPosition += 8; // advance the sequential position
 
-            return p_ras.GetUInt64(readat, IsMotorolaByteOrder, isSeq);
+            return read;
         }
 
         /// <summary>Gets a s15.16 fixed point float from the buffer sequentially.</summary>
@@ -469,18 +440,15 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public float GetS15Fixed16(long index)
         {
-            bool isSeq = index == SequentialFlag;
-
-            long readat = GlobalPosition;
-            if(!isSeq)
-                readat = StartPosition + index;
-
-            p_ras.ValidateIndex(readat, 4, isSeq);
+            bool isSeq = (index == SequentialFlag);
+            long readat = isSeq ? GlobalPosition : (StartPosition + index);
+            
+            var read = p_ras.GetS15Fixed16(readat, IsMotorolaByteOrder, isSeq);
 
             if (isSeq)
                 LocalPosition += 4; // advance the sequential position
 
-            return p_ras.GetS15Fixed16(readat, IsMotorolaByteOrder, isSeq);
+            return read;
         }
 
 
@@ -641,7 +609,7 @@ namespace MetadataExtractor.IO
         [NotNull]
         public byte[] GetNullTerminatedBytes(int index, int maxLengthBytes)
         {
-            var isSeq = index == SequentialFlag;
+            var isSeq = (index == SequentialFlag);
 
             var buffer = !isSeq ? GetBytes(index, maxLengthBytes) : new byte[maxLengthBytes];
 
@@ -700,7 +668,7 @@ namespace MetadataExtractor.IO
         /// <returns>True if we are going to have an exception while reading next numberOfBytes bytes from the stream</returns>
         public bool IsCloserToEnd(long numberOfBytes)
         {
-            return LocalPosition + numberOfBytes > Length;
+            return (LocalPosition + numberOfBytes) > Length;
         }
 
     }
