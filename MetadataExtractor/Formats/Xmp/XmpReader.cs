@@ -82,7 +82,7 @@ namespace MetadataExtractor.Formats.Xmp
                 var buffer = new MemoryStream();
                 foreach (var segment in extensionGroup)
                 {
-                    var bytes = segment.Reader.GetBytes((int)segment.Reader.Length);
+                    var bytes = segment.Reader.ToArray();
 
                     var N = JpegSegmentPreambleExtensionBytes.Length + 32 + 4 + 4;
                     buffer.Write(bytes, N, bytes.Length - N);

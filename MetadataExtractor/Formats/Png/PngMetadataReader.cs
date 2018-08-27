@@ -157,7 +157,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.gAMA)
             {
-                var bytes = chunk.Reader.GetBytes((int)chunk.Reader.Length);
+                var bytes = chunk.Reader.ToArray();
                 var gammaInt = ByteConvert.ToInt32BigEndian(bytes);
                 var directory = new PngDirectory(PngChunkType.gAMA);
                 directory.Set(PngDirectory.TagGamma, gammaInt / 100000.0);
@@ -197,7 +197,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.bKGD)
             {
-                var bytes = chunk.Reader.GetBytes((int)chunk.Reader.Length);
+                var bytes = chunk.Reader.ToArray();
                 var directory = new PngDirectory(PngChunkType.bKGD);
                 directory.Set(PngDirectory.TagBackgroundColor, bytes);
                 yield return directory;
@@ -374,7 +374,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType.Equals(PngChunkType.sBIT))
             {
-                var bytes = chunk.Reader.GetBytes((int)chunk.Reader.Length);
+                var bytes = chunk.Reader.ToArray();
                 var directory = new PngDirectory(PngChunkType.sBIT);
                 directory.Set(PngDirectory.TagSignificantBits, bytes);
                 yield return directory;
