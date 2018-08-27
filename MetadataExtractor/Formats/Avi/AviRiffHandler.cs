@@ -115,7 +115,7 @@ namespace MetadataExtractor.Formats.Avi
                             int hours = (int)duration / (int)(Math.Pow(60, 2));
                             int minutes = ((int)duration / (int)(Math.Pow(60, 1))) - (hours * 60);
                             int seconds = (int)Math.Round((duration / (Math.Pow(60, 0))) - (minutes * 60));
-                            string time = new DateTime(2000, 1, 1, hours, minutes, seconds).ToString("hh:mm:ss");
+                            string time = new DateTime(2000, 1, 1, hours, minutes, seconds).ToString("HH:mm:ss");
 
                             directory.Set(AviDirectory.TAG_DURATION, time);
                             directory.Set(AviDirectory.TAG_VIDEO_CODEC, fccHandler);
