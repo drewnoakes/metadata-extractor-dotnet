@@ -82,10 +82,10 @@ namespace MetadataExtractor.Formats.Png
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] ReaderInfo readerInfo)
+        public static DirectoryList ReadMetadata([NotNull] ReaderInfo reader)
         {
             return new PngChunkReader()
-                .Extract(readerInfo, _desiredChunkTypes)
+                .Extract(reader, _desiredChunkTypes)
                 .SelectMany(ProcessChunk)
                 .ToList();
         }

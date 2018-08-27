@@ -55,9 +55,9 @@ namespace MetadataExtractor.Formats.Bmp
         }
 
         [NotNull]
-        public static BmpHeaderDirectory ReadMetadata([NotNull] ReaderInfo readerInfo)
+        public static BmpHeaderDirectory ReadMetadata([NotNull] ReaderInfo reader)
         {
-            return new BmpReader().Extract(readerInfo);
+            return new BmpReader().Extract(reader);
         }
     }
 }

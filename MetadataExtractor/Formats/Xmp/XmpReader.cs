@@ -104,7 +104,7 @@ namespace MetadataExtractor.Formats.Xmp
         private static bool IsExtendedXmpSegment(JpegSegment segment) => segment.Reader.StartsWith(JpegSegmentPreambleExtensionBytes);
 
         [NotNull]
-        public XmpDirectory Extract([NotNull] ReaderInfo readerInfo) => Extract(readerInfo.Clone().ToArray());
+        public XmpDirectory Extract([NotNull] ReaderInfo reader) => Extract(reader.Clone().ToArray());
 
         [NotNull]
         public XmpDirectory Extract([NotNull] byte[] xmpBytes) => Extract(xmpBytes, 0, xmpBytes.Length);
