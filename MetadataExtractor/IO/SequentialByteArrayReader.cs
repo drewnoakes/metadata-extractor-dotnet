@@ -29,7 +29,7 @@ using JetBrains.Annotations;
 namespace MetadataExtractor.IO
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class SequentialByteArrayReader : SequentialReader
+    public sealed class SequentialByteArrayReader : SequentialReader
     {
         [NotNull]
         private readonly byte[] _bytes;

@@ -30,7 +30,7 @@ using JetBrains.Annotations;
 namespace MetadataExtractor.IO
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class SequentialStreamReader : SequentialReader
+    public sealed class SequentialStreamReader : SequentialReader
     {
         [NotNull]
         private readonly Stream _stream;
@@ -77,7 +77,7 @@ namespace MetadataExtractor.IO
         public override void Skip(long n)
         {
             if (n < 0)
-                throw new ArgumentException("n must be zero or greater.");
+                throw new ArgumentException("Must be zero or greater.", nameof(n));
 
             if (_stream.Position + n > _stream.Length)
                 throw new IOException("Unable to skip past of end of file");

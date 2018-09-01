@@ -108,7 +108,7 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException"/>
         public ushort GetUInt16()
         {
-                        GetBytes(temp, 0, 2);
+            GetBytes(temp, 0, 2);
 
             return IsMotorolaByteOrder
                  ? BinaryPrimitives.ReadUInt16BigEndian(temp)

@@ -35,7 +35,7 @@ namespace MetadataExtractor.IO
     /// <see cref="IndexedReader.IsMotorolaByteOrder"/>.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ByteArrayReader : IndexedReader
+    public sealed class ByteArrayReader : IndexedReader
     {
         [NotNull]
         private readonly byte[] _buffer;

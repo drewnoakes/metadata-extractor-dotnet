@@ -32,7 +32,7 @@ namespace MetadataExtractor.IO
     /// Provides methods to read data types from a <see cref="Stream"/> by indexing into the data.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class IndexedSeekingReader : IndexedReader
+    public sealed class IndexedSeekingReader : IndexedReader
     {
         [NotNull]
         private readonly Stream _stream;
