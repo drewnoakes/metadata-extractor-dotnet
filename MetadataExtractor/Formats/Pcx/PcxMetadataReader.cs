@@ -51,7 +51,7 @@ namespace MetadataExtractor.Formats.Pcx
         [NotNull]
         public static PcxDirectory ReadMetadata([NotNull] Stream stream)
         {
-            return new PcxReader().Extract(new SequentialStreamReader(stream));
+            return PcxReader.Extract(new SequentialStreamReader(stream));
         }
     }
 }

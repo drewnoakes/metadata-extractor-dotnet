@@ -21,9 +21,9 @@
 //
 #endregion
 
+using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
-using System.Collections.Generic;
 using MetadataExtractor.Formats.FileSystem;
 
 namespace MetadataExtractor.Formats.Netpbm
@@ -49,7 +49,7 @@ namespace MetadataExtractor.Formats.Netpbm
         [NotNull]
         public static NetpbmHeaderDirectory ReadMetadata([NotNull] Stream stream)
         {
-            return new NetpbmReader().Extract(stream);
+            return NetpbmReader.Extract(stream);
         }
     }
 }

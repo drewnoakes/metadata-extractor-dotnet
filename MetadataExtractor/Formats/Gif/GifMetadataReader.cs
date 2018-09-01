@@ -52,7 +52,7 @@ namespace MetadataExtractor.Formats.Gif
         [NotNull]
         public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
-            return new GifReader().Extract(new SequentialStreamReader(stream)).ToList();
+            return GifReader.Extract(new SequentialStreamReader(stream)).ToList();
         }
     }
 }

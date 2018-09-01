@@ -36,10 +36,10 @@ namespace MetadataExtractor.Formats.Ico
     /// </list>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class IcoReader
+    public static class IcoReader
     {
         [NotNull]
-        public IReadOnlyList<Directory> Extract([NotNull] SequentialReader reader)
+        public static IReadOnlyList<Directory> Extract([NotNull] SequentialReader reader)
         {
             var directories = new List<Directory>();
 

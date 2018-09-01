@@ -37,10 +37,10 @@ namespace MetadataExtractor.Formats.Pcx
     /// </list>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class PcxReader
+    public static class PcxReader
     {
         [NotNull]
-        public PcxDirectory Extract([NotNull] SequentialReader reader)
+        public static PcxDirectory Extract([NotNull] SequentialReader reader)
         {
             reader = reader.WithByteOrder(isMotorolaByteOrder: false);
 

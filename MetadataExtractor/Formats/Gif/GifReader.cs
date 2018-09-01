@@ -43,13 +43,13 @@ namespace MetadataExtractor.Formats.Gif
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
-    public sealed class GifReader
+    public static class GifReader
     {
         private const string Gif87AVersionIdentifier = "87a";
         private const string Gif89AVersionIdentifier = "89a";
 
         [NotNull]
-        public IReadOnlyList<Directory> Extract([NotNull] SequentialReader reader)
+        public static IReadOnlyList<Directory> Extract([NotNull] SequentialReader reader)
         {
             reader = reader.WithByteOrder(isMotorolaByteOrder: false);
 

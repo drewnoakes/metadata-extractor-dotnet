@@ -51,7 +51,7 @@ namespace MetadataExtractor.Formats.Bmp
         [NotNull]
         public static BmpHeaderDirectory ReadMetadata([NotNull] Stream stream)
         {
-            return new BmpReader().Extract(new SequentialStreamReader(stream));
+            return BmpReader.Extract(new SequentialStreamReader(stream));
         }
     }
 }

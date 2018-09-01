@@ -34,7 +34,7 @@ namespace MetadataExtractor.Formats.Ico
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class IcoMetadataReader
     {
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         [NotNull]
         public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
         {
@@ -51,7 +51,7 @@ namespace MetadataExtractor.Formats.Ico
         [NotNull]
         public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
-            return new IcoReader().Extract(new SequentialStreamReader(stream));
+            return IcoReader.Extract(new SequentialStreamReader(stream));
         }
     }
 }
