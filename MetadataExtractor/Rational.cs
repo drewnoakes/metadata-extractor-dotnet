@@ -23,11 +23,9 @@
 #endregion
 
 using System;
-using JetBrains.Annotations;
-#if !NETSTANDARD1_3
-using System.Globalization;
 using System.ComponentModel;
-#endif
+using System.Globalization;
+using JetBrains.Annotations;
 
 // TODO operator overloads
 
@@ -39,10 +37,8 @@ namespace MetadataExtractor
     /// Note that any <see cref="Rational"/> with a numerator of zero will be treated as zero, even if the denominator is also zero.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-#if !NETSTANDARD1_3
     [Serializable]
     [TypeConverter(typeof(RationalConverter))]
-#endif
     public readonly struct Rational : IConvertible, IEquatable<Rational>
     {
         /// <summary>Gets the denominator.</summary>
@@ -322,7 +318,6 @@ namespace MetadataExtractor
 
         #region RationalConverter
 
-#if !NETSTANDARD1_3
         private sealed class RationalConverter : TypeConverter
         {
             public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
@@ -369,7 +364,6 @@ namespace MetadataExtractor
 
             public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType) => false;
         }
-#endif
 
         #endregion
     }

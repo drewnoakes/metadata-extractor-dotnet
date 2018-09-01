@@ -37,7 +37,7 @@ namespace MetadataExtractor
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class Directory
     {
-#if NETSTANDARD1_3 || NETSTANDARD2_0
+#if NETSTANDARD2_0
         static Directory()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
