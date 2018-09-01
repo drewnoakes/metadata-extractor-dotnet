@@ -25,7 +25,6 @@
     <Reference Include="System.Xaml" />
     <Reference Include="System.Drawing" />
     <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 
 </Project>
