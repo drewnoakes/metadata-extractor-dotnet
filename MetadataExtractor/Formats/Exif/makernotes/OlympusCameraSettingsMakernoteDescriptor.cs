@@ -1079,7 +1079,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             for (var i = 0; i < values.Length; i++)
             {
                 if (i == 0)
-                    sb.Append((_filters.ContainsKey(values[i]) ? _filters[values[i]] : "[unknown]") + "; ");
+                    sb.Append((_filters.TryGetValue(values[i], out string value) ? value : "[unknown]") + "; ");
                 else if (i == 3)
                     sb.Append("Partial Color " + values[i] + "; ");
                 else if (i == 4)
@@ -1400,7 +1400,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             for (var i = 0; i < values.Length; i++)
             {
                 if (i == 0)
-                    sb.Append(_filters.ContainsKey(values[i]) ? _filters[values[i]] : "[unknown]");
+                    sb.Append(_filters.TryGetValue(values[i], out string value) ? value : "[unknown]");
                 else
                     sb.Append(values[i]);
                 sb.Append("; ");
