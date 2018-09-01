@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 
 namespace MetadataExtractor.Util
 {
@@ -10,12 +11,7 @@ namespace MetadataExtractor.Util
             if (source.Length < pattern.Length)
                 return false;
 
-            // ReSharper disable once LoopCanBeConvertedToQuery
-            for (var i = 0; i < pattern.Length; i++)
-                if (source[i] != pattern[i])
-                    return false;
-
-            return true;
+            return source.AsSpan().StartsWith(pattern);
         }
     }
 }
