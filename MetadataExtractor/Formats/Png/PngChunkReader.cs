@@ -22,8 +22,8 @@
 //
 #endregion
 
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
@@ -76,7 +76,7 @@ namespace MetadataExtractor.Formats.Png
             // network byte order
             reader = reader.WithByteOrder(isMotorolaByteOrder: true);
 
-            if (!_pngSignatureBytes.SequenceEqual(reader.GetBytes(_pngSignatureBytes.Length)))
+            if (!_pngSignatureBytes.AsSpan().SequenceEqual(reader.GetBytes(_pngSignatureBytes.Length)))
                 throw new PngProcessingException("PNG signature mismatch");
 
             var seenImageHeader = false;
