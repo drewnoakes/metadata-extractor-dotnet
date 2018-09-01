@@ -23,14 +23,15 @@
 #endregion
 
 using System;
+using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.IO.Compression;
 using System.Linq;
+using System.Text;
 using JetBrains.Annotations;
-using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.FileSystem;
+using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 using MetadataExtractor.Util;
@@ -152,7 +153,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.gAMA)
             {
-                var gammaInt = ByteConvert.ToInt32BigEndian(bytes);
+                int gammaInt = BinaryPrimitives.ReadInt32BigEndian(bytes);
                 var directory = new PngDirectory(PngChunkType.gAMA);
                 directory.Set(PngDirectory.TagGamma, gammaInt / 100000.0);
                 yield return directory;
