@@ -25,9 +25,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-#if NETSTANDARD1_3
 using System.Text;
-#endif
 using JetBrains.Annotations;
 
 namespace MetadataExtractor
@@ -39,7 +37,7 @@ namespace MetadataExtractor
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class Directory
     {
-#if NETSTANDARD1_3
+#if NETSTANDARD1_3 || NETSTANDARD2_0
         static Directory()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
