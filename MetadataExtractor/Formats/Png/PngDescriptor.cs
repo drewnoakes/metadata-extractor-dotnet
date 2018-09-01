@@ -126,21 +126,16 @@ namespace MetadataExtractor.Formats.Png
         [CanBeNull]
         public string GetTextualDataDescription()
         {
-            var pairs = Directory.GetObject(PngDirectory.TagTextualData) as IList<KeyValuePair>;
-
-            return pairs == null
-                ? null
-                : string.Join(
-                    "\n",
-                    pairs.Select(kv => $"{kv.Key}: {kv.Value}")
-                    );
+            return Directory.GetObject(PngDirectory.TagTextualData) is IList<KeyValuePair> pairs    
+                ? string.Join("\n", pairs.Select(kv => $"{kv.Key}: {kv.Value}"))
+                : null;
         }
 
         [CanBeNull]
         public string GetBackgroundColorDescription()
         {
             var bytes = Directory.GetByteArray(PngDirectory.TagBackgroundColor);
-            if (bytes == null || !Directory.TryGetInt32(PngDirectory.TagColorType, out int colorType))
+            if (bytes is null || !Directory.TryGetInt32(PngDirectory.TagColorType, out int colorType))
                 return null;
 
             var reader = new SequentialByteArrayReader(bytes);
