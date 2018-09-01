@@ -26,21 +26,15 @@ using JetBrains.Annotations;
 using System.Collections.Generic;
 using MetadataExtractor.Formats.FileSystem;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Netpbm
 {
     /// <summary>Obtains metadata from BMP files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class NetpbmMetadataReader
     {
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
         {
             var directories = new List<Directory>(2);
 

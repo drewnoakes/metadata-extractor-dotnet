@@ -28,21 +28,15 @@ using JetBrains.Annotations;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.IO;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Photoshop
 {
     /// <summary>Obtains metadata from Photoshop's PSD files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class PsdMetadataReader
     {
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
         {
             var directories = new List<Directory>();
 
@@ -55,7 +49,7 @@ namespace MetadataExtractor.Formats.Photoshop
         }
 
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
             return new PsdReader().Extract(new SequentialStreamReader(stream));
         }

@@ -34,12 +34,6 @@ using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Photoshop
 {
     /// <summary>Reads metadata created by Photoshop and stored in the APPD segment of JPEG files.</summary>
@@ -56,7 +50,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.AppD };
 
-        public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             var preambleLength = JpegSegmentPreamble.Length;
             return segments
@@ -66,7 +60,7 @@ namespace MetadataExtractor.Formats.Photoshop
         }
 
         [NotNull]
-        public DirectoryList Extract([NotNull] SequentialReader reader, int length)
+        public IReadOnlyList<Directory> Extract([NotNull] SequentialReader reader, int length)
         {
             var directory = new PhotoshopDirectory();
 

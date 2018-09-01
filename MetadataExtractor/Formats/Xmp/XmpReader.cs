@@ -31,12 +31,6 @@ using MetadataExtractor.Util;
 using MetadataExtractor.Formats.Jpeg;
 using XmpCore;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Xmp
 {
     /// <summary>Extracts XMP data JPEG APP1 segments.</summary>
@@ -60,7 +54,7 @@ namespace MetadataExtractor.Formats.Xmp
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.App1 };
 
-        public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             // Ensure collection materialised (avoiding multiple lazy enumeration)
             segments = segments.ToList();

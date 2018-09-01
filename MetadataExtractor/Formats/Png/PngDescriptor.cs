@@ -133,9 +133,6 @@ namespace MetadataExtractor.Formats.Png
                 : string.Join(
                     "\n",
                     pairs.Select(kv => $"{kv.Key}: {kv.Value}")
-#if NET35
-                    .ToArray()
-#endif
                     );
         }
 

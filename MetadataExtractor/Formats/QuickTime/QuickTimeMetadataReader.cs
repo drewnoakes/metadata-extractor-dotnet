@@ -26,12 +26,6 @@ using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.QuickTime
 {
     public static class QuickTimeMetadataReader
@@ -39,7 +33,7 @@ namespace MetadataExtractor.Formats.QuickTime
         private static readonly DateTime _epoch = new DateTime(1904, 1, 1);
 
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
             var directories = new List<Directory>();
 

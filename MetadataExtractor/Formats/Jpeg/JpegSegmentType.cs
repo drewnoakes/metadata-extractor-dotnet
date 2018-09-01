@@ -244,11 +244,8 @@ namespace MetadataExtractor.Formats.Jpeg
         }
 
         /// <summary>Gets JPEG segment types that might contain metadata.</summary>
-#if NET35
-        public static IEnumerable<JpegSegmentType> CanContainMetadataTypes { get; }
-#else
+
         public static IReadOnlyList<JpegSegmentType> CanContainMetadataTypes { get; }
-#endif
             = Enum.GetValues(typeof(JpegSegmentType)).Cast<JpegSegmentType>().Where(type => type.CanContainMetadata()).ToList();
 
         /// <summary>Gets whether this JPEG segment type's marker is followed by a length indicator.</summary>

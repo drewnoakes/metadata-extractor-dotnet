@@ -229,11 +229,8 @@ namespace MetadataExtractor
                 value >>= 1;
                 bitIndex++;
             }
-#if NET35
-            return string.Join(", ", parts.ToArray());
-#else
+
             return string.Join(", ", parts);
-#endif
         }
 
         [Pure]

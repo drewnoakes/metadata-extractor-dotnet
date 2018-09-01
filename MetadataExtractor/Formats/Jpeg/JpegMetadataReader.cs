@@ -37,12 +37,6 @@ using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>Obtains all available metadata from JPEG formatted files.</summary>
@@ -65,17 +59,17 @@ namespace MetadataExtractor.Formats.Jpeg
         };
 
         /// <exception cref="JpegProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream, [CanBeNull] ICollection<IJpegSegmentMetadataReader> readers = null)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream, [CanBeNull] ICollection<IJpegSegmentMetadataReader> readers = null)
         {
             return Process(stream, readers);
         }
 
         /// <exception cref="JpegProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath, [CanBeNull] ICollection<IJpegSegmentMetadataReader> readers = null)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath, [CanBeNull] ICollection<IJpegSegmentMetadataReader> readers = null)
         {
             var directories = new List<Directory>();
 
@@ -88,9 +82,9 @@ namespace MetadataExtractor.Formats.Jpeg
         }
 
         /// <exception cref="JpegProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         [NotNull]
-        public static DirectoryList Process([NotNull] Stream stream, [CanBeNull] ICollection<IJpegSegmentMetadataReader> readers = null)
+        public static IReadOnlyList<Directory> Process([NotNull] Stream stream, [CanBeNull] ICollection<IJpegSegmentMetadataReader> readers = null)
         {
             if (readers == null)
                 readers = _allReaders;
@@ -106,7 +100,7 @@ namespace MetadataExtractor.Formats.Jpeg
         }
 
         [NotNull]
-        public static DirectoryList ProcessJpegSegments([NotNull] IEnumerable<IJpegSegmentMetadataReader> readers, [NotNull] ICollection<JpegSegment> segments)
+        public static IReadOnlyList<Directory> ProcessJpegSegments([NotNull] IEnumerable<IJpegSegmentMetadataReader> readers, [NotNull] ICollection<JpegSegment> segments)
         {
             var directories = new List<Directory>();
 

@@ -29,22 +29,16 @@ using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Riff;
 using MetadataExtractor.IO;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.WebP
 {
     /// <summary>Obtains metadata from WebP files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class WebPMetadataReader
     {
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         /// <exception cref="RiffProcessingException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
         {
             var directories = new List<Directory>();
 
@@ -56,10 +50,10 @@ namespace MetadataExtractor.Formats.WebP
             return directories;
         }
 
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         /// <exception cref="RiffProcessingException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
             var directories = new List<Directory>();
             new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new WebPRiffHandler(directories));
