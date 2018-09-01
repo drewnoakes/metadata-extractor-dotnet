@@ -89,7 +89,7 @@ namespace MetadataExtractor
         /// as a double.
         /// </summary>
         [CanBeNull, Pure]
-        public static double? DegreesMinutesSecondsToDecimal(Rational degs, Rational mins, Rational secs, bool isNegative)
+        public static double? DegreesMinutesSecondsToDecimal(in Rational degs, in  Rational mins, in Rational secs, bool isNegative)
         {
             var value = Math.Abs(degs.ToDouble()) + mins.ToDouble()/60.0d + secs.ToDouble()/3600.0d;
             if (double.IsNaN(value))
