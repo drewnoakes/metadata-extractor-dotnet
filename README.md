@@ -121,8 +121,6 @@ This library targets:
 
 All target frameworks are provided via the [one NuGet package](https://www.nuget.org/packages/MetadataExtractor).
 
-`net46` target the full .NET Framework. 
-
 `netstandard2.0` implements version 2.0 of the [.NET Standard](https://docs.microsoft.com/en-us/dotnet/articles/standard/library) which covers .NET Core, Mono, Xamarin platforms, UWP, and future platforms. 
 
 ## Previously Supported Frameworks
