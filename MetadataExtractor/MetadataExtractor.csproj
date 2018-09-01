@@ -39,7 +39,7 @@
 
   <ItemGroup>
     <PackageReference Include="XmpCore" Version="6.1.10" Condition=" '$(Signed)' != 'True' " />
-    <PackageReference Include="XmpCore.StrongName" Version="5.1.3" Condition=" '$(Signed)' == 'True' " />
+    <PackageReference Include="XmpCore.StrongName" Version="6.1.10" Condition=" '$(Signed)' == 'True' " />
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" PrivateAssets="All" />
     <PackageReference Include="System.Memory" Version="4.5.1" />
 
