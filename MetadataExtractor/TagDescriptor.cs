@@ -308,7 +308,7 @@ namespace MetadataExtractor
             if (values[0] == values[1])
                 sb.Append(values[0].ToSimpleString()).Append("mm");
             else
-                sb.Append(values[0].ToSimpleString()).Append("-").Append(values[1].ToSimpleString()).Append("mm");
+                sb.Append(values[0].ToSimpleString()).Append('-').Append(values[1].ToSimpleString()).Append("mm");
 
             if (!values[2].IsZero)
             {
@@ -319,7 +319,7 @@ namespace MetadataExtractor
                 else
                     sb.Append("f/")
                       .Append(Math.Round(values[2].ToDouble(), 1, MidpointRounding.AwayFromZero).ToString("0.0"))
-                      .Append("-")
+                      .Append('-')
                       .Append(Math.Round(values[3].ToDouble(), 1, MidpointRounding.AwayFromZero).ToString("0.0"));
 
             }
