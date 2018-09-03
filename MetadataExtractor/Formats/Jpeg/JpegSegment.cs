@@ -55,5 +55,15 @@ namespace MetadataExtractor.Formats.Jpeg
             Preamble = preamble;
             ByteMarker = byteMarker;
         }
+
+        private byte[] asByteArray = null;
+        public void HoldAsBytes()
+        {
+            if(asByteArray == null)
+            {
+                asByteArray = Reader.ToArray();
+                Reader = new ReaderInfo(new RandomAccessStream(asByteArray));
+            }
+        }
     }
 }

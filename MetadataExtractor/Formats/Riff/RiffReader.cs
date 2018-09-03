@@ -99,7 +99,7 @@ namespace MetadataExtractor.Formats.Riff
                     if (handler.ShouldAcceptList(listName))
                         ProcessChunks(reader, sizeLeft - 4, handler);
                     else
-                        reader.Seek(sizeLeft - 4);
+                        reader.Skip(sizeLeft - 4);
                     sizeLeft -= chunkSize;
                 }
                 else
@@ -111,7 +111,7 @@ namespace MetadataExtractor.Formats.Riff
                         handler.ProcessChunk(chunkFourCc, reader.Clone(chunkSize));
                     }
 
-                    reader.Seek(chunkSize);
+                    reader.Skip(chunkSize);
 
                     sizeLeft -= chunkSize;
 

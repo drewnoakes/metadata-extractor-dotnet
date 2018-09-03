@@ -62,6 +62,8 @@ namespace MetadataExtractor.Formats.Xmp
         private static byte[] JpegSegmentPreambleBytes { get; } = Encoding.UTF8.GetBytes(JpegSegmentPreamble);
         private static byte[] JpegSegmentPreambleExtensionBytes { get; } = Encoding.UTF8.GetBytes(JpegSegmentPreambleExtension);
 
+        private static byte[] XmpStringBytes { get; } = Encoding.UTF8.GetBytes("XMP");
+
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.App1 };
 
         public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
@@ -69,6 +71,7 @@ namespace MetadataExtractor.Formats.Xmp
             // Ensure collection materialised (avoiding multiple lazy enumeration)
             segments = segments.ToList();
 
+            // XMP in a JPEG file has an identifying preamble which is not valid XML
             var directories = segments
                 .Where(IsXmpSegment)
                 .Select(segment => Extract(segment.Reader.Clone(JpegSegmentPreambleBytes.Length, segment.Reader.Length - JpegSegmentPreambleBytes.Length)))
@@ -110,8 +113,18 @@ namespace MetadataExtractor.Formats.Xmp
 
         private static string GetExtendedDataGuid(JpegSegment segment) => Encoding.UTF8.GetString(segment.Reader.Clone().ToArray(), JpegSegmentPreambleExtensionBytes.Length, 32);
 
-        private static bool IsXmpSegment(JpegSegment segment) => segment.Reader.StartsWith(JpegSegmentPreambleBytes);
-        private static bool IsExtendedXmpSegment(JpegSegment segment) => segment.Reader.StartsWith(JpegSegmentPreambleExtensionBytes);
+        private static bool IsXmpSegment(JpegSegment segment)
+        {
+            // NOTE we expect the full preamble here, but some images (such as that reported on GitHub #102)
+            // start with "XMP\0://ns.adobe.com/xap/1.0/" which appears to be an error but is easily recovered
+            // from. In such cases, the actual XMP data begins at the same offset.
+            return segment.Reader.StartsWith(JpegSegmentPreambleBytes) ||
+                   segment.Reader.StartsWith(XmpStringBytes);
+        }
+        private static bool IsExtendedXmpSegment(JpegSegment segment)
+        {
+            return segment.Reader.StartsWith(JpegSegmentPreambleExtensionBytes);
+        }
 
         [NotNull]
         public XmpDirectory Extract([NotNull] ReaderInfo reader) => Extract(reader.Clone().ToArray());
@@ -125,15 +138,16 @@ namespace MetadataExtractor.Formats.Xmp
             var directory = new XmpDirectory();
             try
             {
+                // TODO: re-evaluate this method, and maybe use a pre-parse strategy instead
                 // Sometimes the byte arrays contain nul (0x00) characters. These can be legal if it's UTF-16 encoded,
                 // but should expect UTF-8. Otherwise, these characters are illegal in XML and C#'s XmlReader will not 
                 // handle or ignore them.
                 // Replace nul (0x00) bytes with space character (0x20)
-                for (int i = 0; i < xmpBytes.Length; i++)
+                /*for (int i = 0; i < xmpBytes.Length; i++)
                 {
                     if (!IsLegalXmlChar(xmpBytes[i]))
                         xmpBytes[i] = 0x20;
-                }
+                }*/
 
                 var xmpMeta = XmpMetaFactory.ParseFromBuffer(xmpBytes, offset, length);
                 directory.SetXmpMeta(xmpMeta);

@@ -51,7 +51,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
             _output = output;
         }
 
-        [Fact(Skip = "Don't run on CI machines as it takes an age to complete")]
+        [Fact] //(Skip = "Don't run on CI machines as it takes an age to complete")]
         public void DoesntThrowNoMatterWhat()
         {
             RunGremlinTest("Data/withExif.jpg.app1");
@@ -63,7 +63,6 @@ namespace MetadataExtractor.Tests.Formats.Exif
 
             var app1 = File.ReadAllBytes(filePath);
             var segments = new[] { new JpegSegment(JpegSegmentType.App1, new RandomAccessStream(app1).CreateReader()) };
-            
             Assert.Same(app1, segments[0].Reader.ToArray());
 
             var exifReader = new ExifReader();

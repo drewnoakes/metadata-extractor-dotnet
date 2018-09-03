@@ -94,7 +94,7 @@ namespace MetadataExtractor.Formats.Bmp
                 }
 
                 // skip past the rest of the file header
-                reader.Seek(4 + 2 + 2 + 4);
+                reader.Skip(4 + 2 + 2 + 4);
 
                 var headerSize = reader.GetInt32();
                 directory.Set(BmpHeaderDirectory.TagHeaderSize, headerSize);
@@ -109,7 +109,7 @@ namespace MetadataExtractor.Formats.Bmp
                     directory.Set(BmpHeaderDirectory.TagBitsPerPixel, reader.GetInt16());
                     directory.Set(BmpHeaderDirectory.TagCompression, reader.GetInt32());
                     // skip the pixel data length
-                    reader.Seek(4);
+                    reader.Skip(4);
                     directory.Set(BmpHeaderDirectory.TagXPixelsPerMeter, reader.GetInt32());
                     directory.Set(BmpHeaderDirectory.TagYPixelsPerMeter, reader.GetInt32());
                     directory.Set(BmpHeaderDirectory.TagPaletteColourCount, reader.GetInt32());

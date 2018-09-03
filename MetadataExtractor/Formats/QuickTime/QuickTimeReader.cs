@@ -160,7 +160,7 @@ namespace MetadataExtractor.Formats.QuickTime
 
                     // To avoid exception handling we can check if needed number of bytes are available
                     if (!reader.IsCloserToEnd(toSkip))
-                        reader.TrySeek(toSkip);
+                        reader.TrySkip(toSkip);
                 }
                 catch (IOException)
                 {

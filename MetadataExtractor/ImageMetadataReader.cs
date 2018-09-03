@@ -85,11 +85,12 @@ namespace MetadataExtractor
     {
         /// <summary>Reads metadata from an <see cref="Stream"/>.</summary>
         /// <param name="stream">A stream from which the file data may be read.  The stream must be positioned at the beginning of the file's data.</param>
+        /// <param name="streamLength">The length of the input stream. If it's less than zero, the stream must be seekable or extraction will fail.</param>
         /// <returns>A list of <see cref="Directory"/> instances containing the various types of metadata found within the file's data.</returns>
         /// <exception cref="ImageProcessingException">The file type is unknown, or processing errors occurred.</exception>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream) => ReadMetadata(new RandomAccessStream(stream));
+        public static DirectoryList ReadMetadata([NotNull] Stream stream, long streamLength = -1) => ReadMetadata(new RandomAccessStream(stream, streamLength));
 
         public static DirectoryList ReadMetadata([NotNull] RandomAccessStream rastream)
         {
@@ -159,7 +160,7 @@ namespace MetadataExtractor
             var directories = new List<Directory>();
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.AddRange(ReadMetadata(stream));
+                directories.AddRange(ReadMetadata(stream, stream.Length));
 
             directories.Add(new FileMetadataReader().Read(filePath));
 

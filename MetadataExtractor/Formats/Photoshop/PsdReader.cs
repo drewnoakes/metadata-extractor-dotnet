@@ -64,7 +64,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 else
                 {
                     // 6 reserved bytes are skipped here.  They should be zero.
-                    reader.Seek(6);
+                    reader.Skip(6);
                     var channelCount = reader.GetUInt16();
                     directory.Set(PsdHeaderDirectory.TagChannelCount, channelCount);
                     // even though this is probably an unsigned int, the max height in practice is 300,000
@@ -103,7 +103,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 //                 and just preserve the contents of the duotone information when reading and writing the
                 //                 file.
                 var colorModeSectionLength = reader.GetUInt32();
-                reader.Seek(colorModeSectionLength);
+                reader.Skip(colorModeSectionLength);
 
                 // IMAGE RESOURCES SECTION
 

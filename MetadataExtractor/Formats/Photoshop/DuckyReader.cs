@@ -91,7 +91,7 @@ namespace MetadataExtractor.Formats.Photoshop
                         case DuckyDirectory.TagComment:
                         case DuckyDirectory.TagCopyright:
                         {
-                            reader.Seek(4);
+                            reader.Skip(4);
                             directory.Set(tag, reader.GetString(length - 4, Encoding.BigEndianUnicode));
                             break;
                         }

@@ -52,14 +52,14 @@ namespace MetadataExtractor.Formats.Raf
             if (bytesRead == 0)
                 throw new IOException("Stream is empty");
 
-            reader.Seek(-bytesRead);
+            reader.Skip(-bytesRead);
 
             for (var i = 0; i < bytesRead - 2; i++)
             {
                 // Look for the first three bytes of a JPEG encoded file
                 if (data[i] == 0xff && data[i + 1] == 0xd8 && data[i + 2] == 0xff)
                 {
-                    reader.Seek(i);
+                    reader.Skip(i);
                     break;
                 }
             }

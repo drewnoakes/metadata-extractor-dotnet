@@ -94,7 +94,7 @@ namespace MetadataExtractor.Formats.Png
                 var chunkType = new PngChunkType(reader.GetBytes(4));
                 var willStoreChunk = desiredChunkTypes == null || desiredChunkTypes.Contains(chunkType);
                 var chunkReader = reader.Clone(chunkDataLength);
-                reader.Seek(chunkDataLength);
+                reader.Skip(chunkDataLength);
 
                 if (willStoreChunk && seenChunkTypes.Contains(chunkType) && !chunkType.AreMultipleAllowed)
                     throw new PngProcessingException($"Observed multiple instances of PNG chunk '{chunkType}', for which multiples are not allowed");
@@ -112,7 +112,7 @@ namespace MetadataExtractor.Formats.Png
 
                 // Skip the CRC bytes at the end of the chunk
                 // TODO consider verifying the CRC value to determine if we're processing bad data
-                reader.Seek(4);
+                reader.Skip(4);
 
                 seenChunkTypes.Add(chunkType);
             }

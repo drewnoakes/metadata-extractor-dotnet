@@ -87,7 +87,8 @@ namespace MetadataExtractor.Formats.Photoshop
             //
             // http://www.adobe.com/devnet-apps/photoshop/fileformatashtml/#50577409_pgfId-1037504
             var pos = 0;
-            while (pos < reader.Length)
+            int length = (int)reader.Length;
+            while (pos < length)
             {
                 try
                 {
@@ -104,17 +105,17 @@ namespace MetadataExtractor.Formats.Photoshop
                     pos += 1;
 
                     // Some basic bounds checking
-                    if (descriptionLength + pos > reader.Length)
+                    if (descriptionLength + pos > length)
                         throw new ImageProcessingException("Invalid string length");
 
                     // We don't use the string value here
-                    reader.Seek(descriptionLength);
+                    reader.Skip(descriptionLength);
                     pos += descriptionLength;
 
                     // The number of bytes is padded with a trailing zero, if needed, to make the size even.
                     if (pos % 2 != 0)
                     {
-                        reader.Seek(1);
+                        reader.Skip(1);
                         pos++;
                     }
 
@@ -124,13 +125,13 @@ namespace MetadataExtractor.Formats.Photoshop
 
                     // The resource data.
                     var tagReader = reader.Clone(byteCount);
-                    reader.Seek(byteCount);
+                    reader.Skip(byteCount);
                     pos += byteCount;
 
                     // The number of bytes is padded with a trailing zero, if needed, to make the size even.
                     if (pos % 2 != 0)
                     {
-                        reader.Seek(1);
+                        reader.Skip(1);
                         pos++;
                     }
 

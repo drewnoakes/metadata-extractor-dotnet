@@ -182,11 +182,31 @@ namespace MetadataExtractor.Formats.Png
                     bytesLeft -= 2;
 
                     var compressedProfile = reader.GetBytes(bytesLeft);
-                    using (var inflaterStream = new DeflateStream(new MemoryStream(compressedProfile), CompressionMode.Decompress))
+                    using (var inflateStream = new DeflateStream(new MemoryStream(compressedProfile), CompressionMode.Decompress))
                     {
-                        var iccDirectory = new IccReader().Extract(new RandomAccessStream(inflaterStream).CreateReader());
-                        iccDirectory.Parent = directory;
-                        yield return iccDirectory;
+                        byte[] inflateBuffer = null;
+                        Exception ex = null;
+                        try
+                        {
+                            inflateBuffer = ReadStreamToBytes(inflateStream);
+                        }
+                        catch (Exception e)
+                        {
+                            ex = e;
+                        }
+
+                        if (ex == null)
+                        {
+                            var iccDirectory = new IccReader().Extract(new RandomAccessStream(inflateBuffer).CreateReader());
+                            iccDirectory.Parent = directory;
+                            yield return iccDirectory;
+                        }
+                        else
+                        {
+                            var iccDirectory = new IccDirectory();
+                            directory.AddError($"Exception decompressing {nameof(PngChunkType.iCCP)} chunk: {ex.Message}");
+                            yield return directory;
+                        }
                     }
                 }
                 else

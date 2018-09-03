@@ -208,7 +208,7 @@ namespace MetadataExtractor.Formats.Iptc
                     if (tagByteCount >= 2)
                     {
                         var shortValue = reader.GetUInt16();
-                        reader.Seek(tagByteCount - 2);
+                        reader.Skip(tagByteCount - 2);
                         directory.Set(tagIdentifier, shortValue);
                         return;
                     }
@@ -219,7 +219,7 @@ namespace MetadataExtractor.Formats.Iptc
                 {
                     // byte
                     directory.Set(tagIdentifier, reader.GetByte());
-                    reader.Seek(tagByteCount - 1);
+                    reader.Skip(tagByteCount - 1);
                     return;
                 }
             }

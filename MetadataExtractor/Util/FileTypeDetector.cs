@@ -83,7 +83,7 @@ namespace MetadataExtractor.Util
                 : FileType.Unknown
         };
 
-        /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
+        /// <summary>Examines the file's first bytes and estimates the file's type.</summary>
         /// <exception cref="ArgumentException">Stream does not support seeking.</exception>
         /// <exception cref="IOException">An IO error occurred, or the input stream ended unexpectedly.</exception>
         public static FileType DetectFileType([NotNull] ReaderInfo rdrInfo)
@@ -97,7 +97,7 @@ namespace MetadataExtractor.Util
                 return FileType.Unknown;
 
             // reposition the reader before read bytes
-            rdrInfo.Seek(-bytesRead);
+            rdrInfo.Skip(-bytesRead);
 
             var fileType = _root.Find(bytes);
 

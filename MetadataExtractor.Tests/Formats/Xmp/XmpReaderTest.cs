@@ -57,6 +57,16 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         }
 
         [Fact]
+        public void testExtract_XmpMetadata()
+        {
+
+            var directories = JpegMetadataReader.ReadMetadata(new RandomAccessStream(TestDataUtil.OpenRead("Data/withXmp.jpg")).CreateReader());
+            var xmpDirectory = directories.OfType<XmpDirectory>().SingleOrDefault();
+            Assert.NotNull(xmpDirectory);
+
+        }
+
+        [Fact]
         public void GetXmpProperties()
         {
             var propertyMap = _directory.GetXmpProperties();

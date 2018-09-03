@@ -305,20 +305,20 @@ namespace MetadataExtractor.Tests.IO
         }
 
         [Fact]
-        public void SeekEof()
+        public void SkipEof()
         {
-            CreateReader(new byte[1]).Seek(1);
+            CreateReader(new byte[1]).Skip(1);
 
             var reader = CreateReader(new byte[2]);
-            reader.Seek(1);
-            reader.Seek(1);
+            reader.Skip(1);
+            reader.Skip(1);
 
             reader = CreateReader(new byte[1]);
-            reader.Seek(1);
+            reader.Skip(1);
 
-            var ex = Assert.Throws<BufferBoundsException>(() => reader.Seek(1));
+            var ex = Assert.Throws<BufferBoundsException>(() => reader.Skip(1));
             Assert.Equal(
-                "Attempt to read from beyond end of underlying data source (requested index: 2, requested count: 0, max index: 0)",
+                "Attempt to read from beyond end of underlying data source (requested index: 1, requested count: 1, max index: 0)",
                 ex.Message);
         }
 
@@ -337,14 +337,14 @@ namespace MetadataExtractor.Tests.IO
         }*/
 
         [Fact]
-        public void TrySeekEof()
+        public void TrySkipEof()
         {
-            Assert.True(CreateReader(new byte[1]).TrySeek(1));
+            Assert.True(CreateReader(new byte[1]).TrySkip(1));
 
             var reader = CreateReader(new byte[2]);
-            Assert.True(reader.TrySeek(1));
-            Assert.True(reader.TrySeek(1));
-            Assert.False(reader.TrySeek(1));
+            Assert.True(reader.TrySkip(1));
+            Assert.True(reader.TrySkip(1));
+            Assert.False(reader.TrySkip(1));
         }
     }
 }

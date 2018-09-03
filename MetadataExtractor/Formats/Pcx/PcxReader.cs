@@ -67,7 +67,7 @@ namespace MetadataExtractor.Formats.Pcx
                 directory.Set(PcxDirectory.TagHorizontalDpi, reader.GetUInt16());
                 directory.Set(PcxDirectory.TagVerticalDpi, reader.GetUInt16());
                 directory.Set(PcxDirectory.TagPalette, reader.GetBytes(48));
-                reader.Seek(1);
+                reader.Skip(1);
                 directory.Set(PcxDirectory.TagColorPlanes, reader.GetByte());
                 directory.Set(PcxDirectory.TagBytesPerLine, reader.GetUInt16());
 

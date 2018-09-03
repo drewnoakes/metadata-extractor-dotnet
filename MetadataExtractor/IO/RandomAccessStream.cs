@@ -44,29 +44,39 @@ namespace MetadataExtractor.IO
         private Stream p_inputStream;
         private long p_streamLength = -1;
 
-        private bool p_canSeek = false;
         //private readonly List<ReaderInfo> rdrList = new List<ReaderInfo>();
         private bool p_isStreamFinished;
 
         private const int DefaultChunkLength = 4 * 1024;
         private readonly int p_chunkLength;
         public Dictionary<long, byte[]> p_chunks = new Dictionary<long, byte[]>();
-        private long p_totalBytesRead = 0;
 
-        public RandomAccessStream([NotNull] Stream stream)
+        public RandomAccessStream([NotNull] Stream stream, long streamLength = -1)
         {
-            p_inputStream = stream ?? throw new ArgumentNullException(nameof(stream));
-            p_canSeek = stream.CanSeek;
+            if (stream == null)
+                throw new ArgumentNullException(nameof(stream));
+
+            if (streamLength == -1)
+            {
+                if (!stream.CanSeek)
+                    throw new ArgumentException("If a streamLength is not specified, the stream must be capable of seeking.", nameof(stream));
+
+                streamLength = stream.Length;
+            }
+
+            p_inputStream = stream;
+            CanSeek = stream.CanSeek;
 
             p_chunkLength = DefaultChunkLength;
+            p_streamLength = streamLength;
         }
 
         public RandomAccessStream([NotNull] byte[] bytes)
         {
             if (bytes == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(bytes));
             
-            p_canSeek = true;
+            CanSeek = true;
 
             p_chunks.Add(0, bytes);
             p_chunkLength = bytes.Length;
@@ -75,14 +85,15 @@ namespace MetadataExtractor.IO
             p_isStreamFinished = true;
         }
 
-        public bool CanSeek => p_canSeek;
+        public bool CanSeek { get; private set; } = false;
 
         public long Length
         {
             get
             {
                 // If finished and only one chunk, can bypass a lot of checks particularly when the input was a byte[]
-                return (CanSeek) ? (p_isStreamFinished && p_chunks.Count == 1 ? p_streamLength : p_inputStream.Length) : long.MaxValue;
+                //return (CanSeek) ? (p_isStreamFinished && p_chunks.Count == 1 ? p_streamLength : p_inputStream.Length) : (long)int.MaxValue;
+                return p_streamLength;
             }
         }
         
@@ -98,16 +109,18 @@ namespace MetadataExtractor.IO
             return new ReaderInfo(this, pos, 0, length, isMotorolaByteOrder);
         }
 
-        /// <summary>Seeks to an index in the sequence.</summary>
-        /// <remarks>
-        /// Seeks to an index in the sequence. If the sequence can't satisfy the request, exceptions are thrown.
-        /// </remarks>
-        /// <param name="index">position within the data buffer to seek to</param>
+        /// <summary>Retrieves bytes, writing them into a caller-provided buffer.</summary>
+        /// <param name="index">position within the data buffer to read byte.</param>
+        /// <param name="buffer">array to write bytes to.</param>
+        /// <param name="offset">starting position within <paramref name="buffer"/> to write to.</param>
+        /// <param name="count">number of bytes to be written.</param>
+        /// <param name="isSequential">flag indicating if caller is using sequential access</param>
+        /// <returns>The requested bytes, or as many as can be retrieved</returns>
         /// <exception cref="BufferBoundsException"/>
         /// <exception cref="IOException"/>
-        public void Seek(long index)
+        public int Read(long index, byte[] buffer, int offset, int count, bool isSequential)
         {
-            ValidateIndex(index, 0, false);
+            return Read(index, buffer, offset, count, isSequential, true);
         }
 
         /// <summary>Retrieves bytes, writing them into a caller-provided buffer.</summary>
@@ -116,12 +129,13 @@ namespace MetadataExtractor.IO
         /// <param name="offset">starting position within <paramref name="buffer"/> to write to.</param>
         /// <param name="count">number of bytes to be written.</param>
         /// <param name="isSequential">flag indicating if caller is using sequential access</param>
-        /// <returns>The requested bytes</returns>
+        /// <param name="allowPartial">flag indicating whether count should be enforced when validating the index</param>
+        /// <returns>The requested bytes, or as many as can be retrieved if <paramref name="allowPartial"/> is true</returns>
         /// <exception cref="BufferBoundsException"/>
         /// <exception cref="IOException"/>
-        public int Read(long index, byte[] buffer, int offset, int count, bool isSequential)
+        public int Read(long index, byte[] buffer, int offset, int count, bool isSequential, bool allowPartial)
         {
-            ValidateIndex(index, count, isSequential);
+            count = (int)ValidateIndex(index, count, isSequential, allowPartial);
 
             // This bypasses a lot of checks particularly when the input was a byte[]
             if (p_isStreamFinished && p_chunks.Count == 1)
@@ -181,7 +195,7 @@ namespace MetadataExtractor.IO
         public ushort GetUInt16(long index, bool IsMotorolaByteOrder, bool isSequential)
         {
             var bytes = new byte[2];
-            Read(index, bytes, 0, bytes.Length, isSequential);
+            Read(index, bytes, 0, bytes.Length, isSequential, false);
 
             if (IsMotorolaByteOrder)
             {
@@ -206,7 +220,7 @@ namespace MetadataExtractor.IO
         public short GetInt16(long index, bool IsMotorolaByteOrder, bool isSequential)
         {
             var bytes = new byte[2];
-            Read(index, bytes, 0, bytes.Length, isSequential);
+            Read(index, bytes, 0, bytes.Length, isSequential, false);
 
             if (IsMotorolaByteOrder)
             {
@@ -231,7 +245,7 @@ namespace MetadataExtractor.IO
         public int GetInt24(long index, bool IsMotorolaByteOrder, bool isSequential)
         {
             var bytes = new byte[3];
-            Read(index, bytes, 0, bytes.Length, isSequential);
+            Read(index, bytes, 0, bytes.Length, isSequential, false);
 
             if (IsMotorolaByteOrder)
             {
@@ -258,7 +272,7 @@ namespace MetadataExtractor.IO
         public uint GetUInt32(long index, bool IsMotorolaByteOrder, bool isSequential)
         {
             var bytes = new byte[4];
-            Read(index, bytes, 0, bytes.Length, isSequential);
+            Read(index, bytes, 0, bytes.Length, isSequential, false);
 
             if (IsMotorolaByteOrder)
             {
@@ -287,7 +301,7 @@ namespace MetadataExtractor.IO
         public int GetInt32(long index, bool IsMotorolaByteOrder, bool isSequential)
         {
             var bytes = new byte[4];
-            Read(index, bytes, 0, bytes.Length, isSequential);
+            Read(index, bytes, 0, bytes.Length, isSequential, false);
 
             if (IsMotorolaByteOrder)
             {
@@ -316,7 +330,7 @@ namespace MetadataExtractor.IO
         public long GetInt64(long index, bool IsMotorolaByteOrder, bool isSequential)
         {
             var bytes = new byte[8];
-            Read(index, bytes, 0, bytes.Length, isSequential);
+            Read(index, bytes, 0, bytes.Length, isSequential, false);
 
             if (IsMotorolaByteOrder)
             {
@@ -353,7 +367,7 @@ namespace MetadataExtractor.IO
         public ulong GetUInt64(long index, bool IsMotorolaByteOrder, bool isSequential)
         {
             var bytes = new byte[8];
-            Read(index, bytes, 0, bytes.Length, isSequential);
+            Read(index, bytes, 0, bytes.Length, isSequential, false);
 
             if (IsMotorolaByteOrder)
             {
@@ -395,7 +409,7 @@ namespace MetadataExtractor.IO
         public float GetS15Fixed16(long index, bool IsMotorolaByteOrder, bool isSequential)
         {
             var bytes = new byte[4];
-            Read(index, bytes, 0, bytes.Length, isSequential);
+            Read(index, bytes, 0, bytes.Length, isSequential, false);
 
             if (IsMotorolaByteOrder)
             {
@@ -412,6 +426,18 @@ namespace MetadataExtractor.IO
             }
         }
 
+        /// <summary>Seeks to an index in the sequence.</summary>
+        /// <remarks>
+        /// Seeks to an index in the sequence. If the sequence can't satisfy the request, exceptions are thrown.
+        /// </remarks>
+        /// <param name="index">position within the data buffer to seek to</param>
+        /// <exception cref="BufferBoundsException"/>
+        /// <exception cref="IOException"/>
+        public void Seek(long index)
+        {
+            ValidateIndex((index == 0) ? 0 : (index - 1), 1, false);
+        }
+
         /// <summary>
         /// Ensures that the buffered bytes extend to cover the specified index. If not, an attempt is made
         /// to read to that point.
@@ -422,11 +448,14 @@ namespace MetadataExtractor.IO
         /// <param name="index">the index from which the required bytes start</param>
         /// <param name="bytesRequested">the number of bytes which are required</param>
         /// <param name="isSequential">flag indicating if caller is using sequential access</param>
+        /// <param name="allowPartial">flag indicating whether count should be enforced when validating the index</param>
         /// <exception cref="BufferBoundsException">negative index, less than 0 bytes, or too many bytes are requested</exception>
         /// <exception cref="IOException">if the stream ends before the required number of bytes are acquired</exception>
-        public void ValidateIndex(long index, long bytesRequested, bool isSequential)
+        public long ValidateIndex(long index, long bytesRequested, bool isSequential, bool allowPartial = false)
         {
-            if (!IsValidIndex(index, bytesRequested))
+            long available = BytesAvailable(index, bytesRequested);
+            //if (available == 0)
+            if(available != bytesRequested && !allowPartial)
             {
                 if (index < 0)
                     throw new BufferBoundsException($"Attempt to read from buffer using a negative index ({index})");
@@ -434,25 +463,37 @@ namespace MetadataExtractor.IO
                     throw new BufferBoundsException("Number of requested bytes must be zero or greater");
                 if (index + bytesRequested - 1 > int.MaxValue)
                     throw new BufferBoundsException($"Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: {index}, requested count: {bytesRequested})");
-                if (isSequential && (index + bytesRequested >= p_streamLength))
-                    throw new IOException("End of data reached.");
-                if (isSequential)
-                    throw new IOException();
+                if (index + bytesRequested >= p_streamLength)
+                {
+                    if(isSequential)
+                        throw new IOException("End of data reached.");
+                    else
+                        throw new BufferBoundsException(index, bytesRequested, p_streamLength);
+                }
                 
                 // TODO test that can continue using an instance of this type after this exception
                 throw new BufferBoundsException(index, bytesRequested, p_streamLength);
             }
+
+            return available;
         }
 
-        private bool IsValidIndex(long index, long bytesRequested)
+        private long BytesAvailable(long index, long bytesRequested)
         {
             if (index < 0 || bytesRequested < 0)
-                return false;
+                return 0;
 
             // if there's only one chunk, there's no need to calculate anything.
             // This bypasses a lot of checks particularly when the input was a byte[]
             if (p_isStreamFinished && p_chunks.Count == 1)
-                return index + bytesRequested - 1 < p_streamLength;
+            {
+                if ((index + bytesRequested) < p_streamLength)
+                    return bytesRequested;
+                else if (index > p_streamLength)
+                    return 0;
+                else
+                    return p_streamLength - index;
+            }
 
 
             var endIndex = index + bytesRequested - 1;
@@ -460,7 +501,7 @@ namespace MetadataExtractor.IO
 
             // Maybe don't check this?
             if (endIndex > int.MaxValue)
-                return false;
+                return 0;
             
             // zero-based
             long chunkstart = index / p_chunkLength;
@@ -499,9 +540,9 @@ namespace MetadataExtractor.IO
                             // check we have enough bytes for the requested index
                             if (endIndex >= p_streamLength)
                             {
-                                p_totalBytesRead += totalBytesRead;
+                                TotalBytesRead += totalBytesRead;
                                 p_chunks.Add(i, chunk);
-                                return false;
+                                return (index + bytesRequested) <= p_streamLength ? bytesRequested : p_streamLength - index;
                             }
                         }
                         else
@@ -510,18 +551,40 @@ namespace MetadataExtractor.IO
                         }
                     }
 
-                    p_totalBytesRead += totalBytesRead;
+                    TotalBytesRead += totalBytesRead;
                     p_chunks.Add(i, chunk);
                 }
             }
 
-            return true;
+            if (p_isStreamFinished)
+                return (index + bytesRequested) <= p_streamLength ? bytesRequested : 0;
+            else
+                return bytesRequested;
         }
 
         /// <summary>
         /// Records the total bytes buffered
         /// </summary>
-        public long TotalBytesRead => p_totalBytesRead;
+        public long TotalBytesRead { get; private set; } = 0;
 
+        public byte[] ToArray(long index, int count)
+        {
+            byte[] buffer = null;
+            // if this was a byte array and asking for the whole thing...
+            if (p_isStreamFinished &&
+                p_chunks.Count == 1 &&
+                index == 0 &&
+                count == Length)
+            {
+                buffer = p_chunks[0];
+            }
+            else
+            {
+                buffer = new byte[count];
+                Read(index, buffer, 0, count, false);
+            }
+
+            return buffer;
+        }
     }
 }

@@ -86,7 +86,7 @@ namespace MetadataExtractor.Formats.Gif
             if (header.TryGetInt32(GifHeaderDirectory.TagColorTableSize, out int globalColorTableSize))
             {
                 // Colour table has R/G/B byte triplets
-                reader.Seek(3 * globalColorTableSize);
+                reader.Skip(3 * globalColorTableSize);
             }
 
             // After the header comes a sequence of blocks
@@ -245,7 +245,7 @@ namespace MetadataExtractor.Formats.Gif
 
             var skipCount = blockStartPos + blockSizeBytes - reader.LocalPosition; // reader.Position;
             if (skipCount > 0)
-                reader.Seek(skipCount);
+                reader.Skip(skipCount);
 
             return directory;
         }
@@ -259,7 +259,7 @@ namespace MetadataExtractor.Formats.Gif
                 return new ErrorDirectory($"Invalid GIF plain text block size. Expected 12, got {blockSizeBytes}.");
 
             // skip 'blockSizeBytes' bytes
-            reader.Seek(12);
+            reader.Skip(12);
 
             // keep reading and skipping until a 0 byte is reached
             SkipBlocks(reader);
@@ -299,12 +299,12 @@ namespace MetadataExtractor.Formats.Gif
                 }
                 case "NETSCAPE2.0":
                 {
-                    reader.Seek(2);
+                    reader.Skip(2);
                     // Netscape's animated GIF extension
                     // Iteration count (0 means infinite)
                     var iterationCount = reader.GetUInt16();
                     // Skip terminator
-                    reader.Seek(1);
+                    reader.Skip(1);
                     var animationDirectory = new GifAnimationDirectory();
                     animationDirectory.Set(GifAnimationDirectory.TagIterationCount, iterationCount);
                     return animationDirectory;
@@ -324,12 +324,12 @@ namespace MetadataExtractor.Formats.Gif
 
             var directory = new GifControlDirectory();
 
-            reader.Seek(1);
+            reader.Skip(1);
 
             directory.Set(GifControlDirectory.TagDelay, reader.GetUInt16());
 
             if (blockSizeBytes > 3)
-                reader.Seek(blockSizeBytes - 3);
+                reader.Skip(blockSizeBytes - 3);
 
             // skip 0x0 block terminator
             reader.GetByte();
@@ -362,7 +362,7 @@ namespace MetadataExtractor.Formats.Gif
                 imageDirectory.Set(GifImageDirectory.TagLocalColourTableBitsPerPixel, bitsPerPixel);
 
                 // skip color table
-                reader.Seek(3 * (2 << (flags & 0x7)));
+                reader.Skip(3 * (2 << (flags & 0x7)));
             }
 
             // skip "LZW Minimum Code Size" byte
@@ -382,7 +382,7 @@ namespace MetadataExtractor.Formats.Gif
                 var b = reader.GetByte();
                 if (b == 0)
                     break;
-                reader.Seek(b);
+                reader.Skip(b);
                 length += b + 1;    // must include the 1 byte of b from GetByte
             }
             return reader.Clone(-length - 1, length);
@@ -395,7 +395,7 @@ namespace MetadataExtractor.Formats.Gif
 
             while (length > 0)
             {
-                reader.Seek(length);
+                reader.Skip(length);
                 readerLength += length;
                 length = reader.GetByte();
             }
@@ -412,7 +412,7 @@ namespace MetadataExtractor.Formats.Gif
                 if (length == 0)
                     return;
 
-                reader.Seek(length);
+                reader.Skip(length);
             }
         }
         

@@ -58,7 +58,7 @@ namespace MetadataExtractor.IO
         {
             get
             {
-                return (p_length != -1) ? p_length : (p_ras.Length == long.MaxValue ? long.MaxValue : p_ras.Length - StartPosition);
+                return (p_length != -1) ? p_length : (p_ras.Length - StartPosition);
             }
         }
 
@@ -81,7 +81,6 @@ namespace MetadataExtractor.IO
         public ReaderInfo Clone(long length) => Clone(0, length, true);
         public ReaderInfo Clone(long offset, long length) => Clone(offset, length, true);
         public ReaderInfo Clone(long offset, bool useByteOrder) => Clone(offset, -1, useByteOrder);
-        //public ReaderInfo Clone(long length = -1, long offset = 0, bool useByteOrder = true)
         public ReaderInfo Clone(long offset, long length, bool useByteOrder)
         {
             //return p_ras.CreateReader(GlobalPosition + offset, (length > -1 ? length : Length), useByteOrder ? IsMotorolaByteOrder : !IsMotorolaByteOrder);
@@ -90,17 +89,18 @@ namespace MetadataExtractor.IO
 
         /// <summary>Seeks forward or backward in the sequence.</summary>
         /// <remarks>
-        /// Skips forward in the sequence. If the sequence ends, an <see cref="IOException"/> is thrown.
+        /// Skips forward or backward in the sequence. If the sequence ends, an <see cref="IOException"/> is thrown.
         /// </remarks>
         /// <param name="offset">the number of bytes to seek, in either direction.</param>
         /// <exception cref="IOException">the end of the sequence is reached.</exception>
         /// <exception cref="IOException">an error occurred reading from the underlying source.</exception>
-        public void Seek(long offset)
+        public void Skip(long offset)
         {
             if (offset + LocalPosition < 0)
                 offset = -LocalPosition;
 
             p_ras.Seek(LocalPosition + offset);
+
             LocalPosition += offset;
         }
 
@@ -108,11 +108,11 @@ namespace MetadataExtractor.IO
         /// <param name="n">the number of bytes to seek, in either direction.</param>
         /// <returns>a boolean indicating whether the skip succeeded, or whether the sequence ended.</returns>
         /// <exception cref="IOException">an error occurred reading from the underlying source.</exception>
-        public bool TrySeek(long n)
+        public bool TrySkip(long n)
         {
             try
             {
-                Seek(n);
+                Skip(n);
                 return true;
             }
             catch (IOException)
@@ -146,9 +146,14 @@ namespace MetadataExtractor.IO
             bool isSeq = (index == SequentialFlag);
             long readat = isSeq ? GlobalPosition : (StartPosition + index);
 
-            int read = p_ras.Read(readat, buffer, offset, count, isSeq);
-            
-            if (isSeq && read > 0)
+            return ReadAtGlobal(readat, buffer, offset, count, isSeq, true);
+        }
+
+        private int ReadAtGlobal(long readat, byte[] buffer, int offset, int count, bool isSequential, bool allowPartial)
+        {
+            int read = p_ras.Read(readat, buffer, offset, count, isSequential, allowPartial);
+
+            if (isSequential && read > 0)
                 LocalPosition += read; // advance the sequential position
 
             return read;
@@ -175,9 +180,6 @@ namespace MetadataExtractor.IO
                     break;
                 }
             }
-
-            if (i > 0)
-                Seek(-i);
 
             return ret;
         }
@@ -221,8 +223,16 @@ namespace MetadataExtractor.IO
         /// <exception cref="IOException">if the byte is unable to be read</exception>
         public byte[] GetBytes(long index, int count)
         {
+            // validate the index now to avoid creating a byte array that could cause a heap overflow
+            bool isSeq = (index == SequentialFlag);
+            long readat = isSeq ? GlobalPosition : (StartPosition + index);
+
+            long available = p_ras.ValidateIndex(readat, count, isSeq, false); //, isSeq);
+            if (available == 0)
+                return new byte[0];
+
             var bytes = new byte[count];
-            Read(bytes, 0, index, count);
+            ReadAtGlobal(readat, bytes, 0, count, isSeq, false);
 
             return bytes;
         }
@@ -271,7 +281,7 @@ namespace MetadataExtractor.IO
         {
             bool isSeq = (index == SequentialFlag);
             long readat = isSeq ? GlobalPosition : (StartPosition + index);
-            
+
             var read = p_ras.GetUInt16(readat, IsMotorolaByteOrder, isSeq);
             
             if (isSeq)
@@ -306,7 +316,7 @@ namespace MetadataExtractor.IO
         {
             bool isSeq = (index == SequentialFlag);
             long readat = isSeq ? GlobalPosition : (StartPosition + index);
-            
+
             var read = p_ras.GetInt16(readat, IsMotorolaByteOrder, isSeq);
             
             if (isSeq)
@@ -372,7 +382,7 @@ namespace MetadataExtractor.IO
         {
             bool isSeq = (index == SequentialFlag);
             long readat = isSeq ? GlobalPosition : (StartPosition + index);
-            
+
             var read = p_ras.GetInt32(readat, IsMotorolaByteOrder, isSeq);
 
             if (isSeq)
@@ -394,7 +404,7 @@ namespace MetadataExtractor.IO
         {
             bool isSeq = (index == SequentialFlag);
             long readat = isSeq ? GlobalPosition : (StartPosition + index);
-            
+
             var read = p_ras.GetInt64(readat, IsMotorolaByteOrder, isSeq);
 
             if (isSeq)
@@ -415,7 +425,7 @@ namespace MetadataExtractor.IO
         {
             bool isSeq = (index == SequentialFlag);
             long readat = isSeq ? GlobalPosition : (StartPosition + index);
-            
+
             var read = p_ras.GetUInt64(readat, IsMotorolaByteOrder, isSeq);
 
             if (isSeq)
@@ -442,7 +452,7 @@ namespace MetadataExtractor.IO
         {
             bool isSeq = (index == SequentialFlag);
             long readat = isSeq ? GlobalPosition : (StartPosition + index);
-            
+
             var read = p_ras.GetS15Fixed16(readat, IsMotorolaByteOrder, isSeq);
 
             if (isSeq)
@@ -631,7 +641,7 @@ namespace MetadataExtractor.IO
         /// <returns></returns>
         public byte[] ToArray()
         {
-            return GetBytes(0, (int)Length);
+            return p_ras.ToArray(StartPosition, (int)Length);
         }
 
         public string ReadLine()
@@ -650,7 +660,7 @@ namespace MetadataExtractor.IO
                     if(GlobalPosition + 1 < Length)
                         nextbyte = GetByte();
                     if (!(ch == '\r' && nextbyte == '\n'))
-                        Seek(-1);
+                        Skip(-1);
 
                     return sb.ToString();
                 }
