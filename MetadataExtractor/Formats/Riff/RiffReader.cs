@@ -84,8 +84,6 @@ namespace MetadataExtractor.Formats.Riff
                 string chunkFourCc = reader.GetString(4, Encoding.ASCII);
                 int chunkSize = reader.GetInt32();
 
-                sizeLeft -= 8;
-
                 // NOTE we fail a negative chunk size here (greater than 0x7FFFFFFF) as we cannot allocate arrays larger than this
                 if (chunkSize < 0 || sizeLeft < chunkSize)
                     throw new RiffProcessingException("Invalid RIFF chunk size");
@@ -100,7 +98,6 @@ namespace MetadataExtractor.Formats.Riff
                         ProcessChunks(reader, sizeLeft - 4, handler);
                     else
                         reader.Skip(sizeLeft - 4);
-                    sizeLeft -= chunkSize;
                 }
                 else
                 {
@@ -113,14 +110,9 @@ namespace MetadataExtractor.Formats.Riff
 
                     reader.Skip(chunkSize);
 
-                    sizeLeft -= chunkSize;
-
                     // Skip any padding byte added to keep chunks aligned to even numbers of bytes
                     if (chunkSize % 2 == 1)
-                    {
                         reader.GetSByte();
-                        sizeLeft--;
-                    }
                 }
             }
         }
