@@ -39,7 +39,7 @@ namespace MetadataExtractor.Tests.Formats.Adobe
         private static AdobeJpegDirectory ProcessBytes([NotNull] string filePath)
         {
             return new AdobeJpegReader()
-                .Extract(new RandomAccessStream(File.ReadAllBytes(TestDataUtil.GetPath(filePath))).CreateReader());
+                .Extract(ReaderInfo.CreateFromArray(File.ReadAllBytes(TestDataUtil.GetPath(filePath))));
         }
 
         [Fact]

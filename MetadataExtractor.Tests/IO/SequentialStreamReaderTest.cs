@@ -42,7 +42,7 @@ namespace MetadataExtractor.Tests.IO
 
         protected override ReaderInfo CreateReader(byte[] bytes)
         {
-            return new RandomAccessStream(new MemoryStream(bytes)).CreateReader();
+            return ReaderInfo.CreateFromArray(bytes);
         }
     }
 }

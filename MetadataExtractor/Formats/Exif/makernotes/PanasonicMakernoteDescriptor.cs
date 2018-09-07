@@ -282,7 +282,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values == null)
                 return null;
             
-            var reader = new RandomAccessStream(values).CreateReader();
+            var reader = ReaderInfo.CreateFromArray(values);
 
             try
             {

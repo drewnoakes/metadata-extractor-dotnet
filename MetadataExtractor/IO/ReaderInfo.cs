@@ -87,14 +87,22 @@ namespace MetadataExtractor.IO
             return p_ras.CreateReader(GlobalPosition + offset, (length > -1 ? length : Length - offset), useByteOrder ? IsMotorolaByteOrder : !IsMotorolaByteOrder);
         }
 
-        /// <summary>Seeks forward or backward in the sequence.</summary>
-        /// <remarks>
-        /// Skips forward or backward in the sequence. If the sequence ends, an <see cref="IOException"/> is thrown.
-        /// </remarks>
-        /// <param name="offset">the number of bytes to seek, in either direction.</param>
-        /// <exception cref="IOException">the end of the sequence is reached.</exception>
-        /// <exception cref="IOException">an error occurred reading from the underlying source.</exception>
-        public void Skip(long offset)
+        public static ReaderInfo CreateFromArray([NotNull] byte[] bytes)
+        {
+            if(bytes == null)
+                throw new ArgumentNullException(nameof(bytes));
+            
+            return new RandomAccessStream(bytes).CreateReader();
+        }
+
+    /// <summary>Seeks forward or backward in the sequence.</summary>
+    /// <remarks>
+    /// Skips forward or backward in the sequence. If the sequence ends, an <see cref="IOException"/> is thrown.
+    /// </remarks>
+    /// <param name="offset">the number of bytes to seek, in either direction.</param>
+    /// <exception cref="IOException">the end of the sequence is reached.</exception>
+    /// <exception cref="IOException">an error occurred reading from the underlying source.</exception>
+    public void Skip(long offset)
         {
             if (offset + LocalPosition < 0)
                 offset = -LocalPosition;
@@ -227,7 +235,7 @@ namespace MetadataExtractor.IO
             bool isSeq = (index == SequentialFlag);
             long readat = isSeq ? GlobalPosition : (StartPosition + index);
 
-            long available = p_ras.ValidateIndex(readat, count, isSeq, false); //, isSeq);
+            long available = p_ras.ValidateIndex(readat, count, isSeq, false);
             if (available == 0)
                 return new byte[0];
 

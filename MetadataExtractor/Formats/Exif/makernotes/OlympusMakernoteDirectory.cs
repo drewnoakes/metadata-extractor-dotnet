@@ -478,7 +478,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         private void ProcessCameraSettings([NotNull] byte[] bytes)
         {
-            var reader = new RandomAccessStream(bytes).CreateReader();
+            var reader = ReaderInfo.CreateFromArray(bytes);
             var count = reader.Length / 4;
 
             for (var i = 0; i < count; i++)

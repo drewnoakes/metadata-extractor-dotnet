@@ -36,7 +36,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
 
         public JpegReaderTest()
         {
-            var sof0 = new JpegSegment(JpegSegmentType.Sof0, new RandomAccessStream(TestDataUtil.GetBytes("Data/simple.jpg.sof0")).CreateReader());
+            var sof0 = new JpegSegment(JpegSegmentType.Sof0, ReaderInfo.CreateFromArray(TestDataUtil.GetBytes("Data/simple.jpg.sof0")));
 
             _directory = new JpegReader().Extract(sof0);
         }

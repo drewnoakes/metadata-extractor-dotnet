@@ -96,7 +96,7 @@ namespace MetadataExtractor.Formats.Icc
                     Array.Copy(segment.Reader.ToArray(), JpegSegmentPreambleLength, buffer, pos, (int)segment.Reader.Length - JpegSegmentPreambleLength);
                     pos += (int)segment.Reader.Length - JpegSegmentPreambleLength;
                 }
-                iccInfo = new RandomAccessStream(buffer).CreateReader();
+                iccInfo = ReaderInfo.CreateFromArray(buffer);
             }
 
             return new Directory[] { Extract(iccInfo) };

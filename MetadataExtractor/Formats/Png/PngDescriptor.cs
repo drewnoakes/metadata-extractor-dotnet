@@ -146,7 +146,7 @@ namespace MetadataExtractor.Formats.Png
             if (bytes == null || !Directory.TryGetInt32(PngDirectory.TagColorType, out int colorType))
                 return null;
 
-            var reader = new RandomAccessStream(bytes).CreateReader();
+            var reader = ReaderInfo.CreateFromArray(bytes);
             try
             {
                 switch (colorType)

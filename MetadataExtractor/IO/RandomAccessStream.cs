@@ -454,7 +454,6 @@ namespace MetadataExtractor.IO
         public long ValidateIndex(long index, long bytesRequested, bool isSequential, bool allowPartial = false)
         {
             long available = BytesAvailable(index, bytesRequested);
-            //if (available == 0)
             if(available != bytesRequested && !allowPartial)
             {
                 if (index < 0)
@@ -463,13 +462,8 @@ namespace MetadataExtractor.IO
                     throw new BufferBoundsException("Number of requested bytes must be zero or greater");
                 if (index + bytesRequested - 1 > int.MaxValue)
                     throw new BufferBoundsException($"Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: {index}, requested count: {bytesRequested})");
-                if (index + bytesRequested >= p_streamLength)
-                {
-                    if(isSequential)
-                        throw new IOException("End of data reached.");
-                    else
-                        throw new BufferBoundsException(index, bytesRequested, p_streamLength);
-                }
+                if (index + bytesRequested >= p_streamLength && isSequential)
+                    throw new IOException("End of data reached.");
                 
                 // TODO test that can continue using an instance of this type after this exception
                 throw new BufferBoundsException(index, bytesRequested, p_streamLength);

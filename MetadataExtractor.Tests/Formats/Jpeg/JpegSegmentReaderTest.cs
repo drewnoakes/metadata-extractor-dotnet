@@ -41,7 +41,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
             //    return JpegSegmentReader.ReadSegments(new RandomAccessStream(stream).CreateReader(), segmentTypes).ToList();
 
             var stream = TestDataUtil.GetBytes(fileName);
-            return JpegSegmentReader.ReadSegments(new RandomAccessStream(stream).CreateReader(), segmentTypes).ToList();
+            return JpegSegmentReader.ReadSegments(ReaderInfo.CreateFromArray(stream), segmentTypes).ToList();
         }
 
         [Fact]
@@ -93,7 +93,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         {
             var bytes = Enumerable.Range(1, 100).Select(i => (byte)i).ToArray();
             var ex = Assert.Throws<JpegProcessingException>(
-                () => JpegSegmentReader.ReadSegments(new RandomAccessStream(bytes).CreateReader()).ToList());
+                () => JpegSegmentReader.ReadSegments(ReaderInfo.CreateFromArray(bytes)).ToList());
 
             Assert.Equal("JPEG data is expected to begin with 0xFFD8 (ÿØ) not 0x0102", ex.Message);
         }

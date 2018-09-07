@@ -38,7 +38,7 @@ namespace MetadataExtractor.Tests.Formats.Jfif
         {
             var jfifData = new byte[] { 74, 70, 73, 70, 0, 1, 2, 1, 0, 108, 0, 108, 0, 0 };
             
-            var directory = new JfifReader().Extract(new RandomAccessStream(jfifData).CreateReader());
+            var directory = new JfifReader().Extract(ReaderInfo.CreateFromArray(jfifData));
 
             Assert.NotNull(directory);
             Assert.False(directory.HasError, directory.Errors.ToString());

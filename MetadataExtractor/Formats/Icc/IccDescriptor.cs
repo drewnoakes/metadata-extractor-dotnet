@@ -83,7 +83,7 @@ namespace MetadataExtractor.Formats.Icc
                 if (bytes == null)
                     return Directory.GetString(tagType);
 
-                var reader = new RandomAccessStream(bytes).CreateReader();
+                var reader = ReaderInfo.CreateFromArray(bytes);
 
                 var iccTagType = (IccTagType)reader.GetInt32(0);
 

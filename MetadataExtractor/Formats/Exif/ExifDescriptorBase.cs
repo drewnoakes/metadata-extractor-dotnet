@@ -789,7 +789,7 @@ namespace MetadataExtractor.Formats.Exif
                 return ret;
             }
             
-            var reader = new RandomAccessStream(values).CreateReader();
+            var reader = ReaderInfo.CreateFromArray(values);
 
             // first two values should be read as 16-bits (2 bytes)
             var item0 = reader.GetInt16(0);

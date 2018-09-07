@@ -114,7 +114,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <exception cref="IOException"/>
         public static IEnumerable<JpegSegment> ReadSegments([NotNull] byte[] bytes, [CanBeNull] ICollection<JpegSegmentType> segmentTypes = null)
         {
-            return ReadSegments(new RandomAccessStream(bytes).CreateReader(), segmentTypes, false);
+            return ReadSegments(ReaderInfo.CreateFromArray(bytes), segmentTypes, false);
         }
 
         /// <summary>

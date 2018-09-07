@@ -34,7 +34,7 @@ namespace MetadataExtractor.Tests.IO
     {
         protected override ReaderInfo CreateReader(params byte[] bytes)
         {
-            return new RandomAccessStream(bytes).CreateReader();
+            return ReaderInfo.CreateFromArray(bytes);
         }
 
         [Fact]
