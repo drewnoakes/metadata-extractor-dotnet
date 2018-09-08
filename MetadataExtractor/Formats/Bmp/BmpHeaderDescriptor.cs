@@ -28,6 +28,7 @@ using JetBrains.Annotations;
 namespace MetadataExtractor.Formats.Bmp
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    /// <author>Kevin Mott https://github.com/kwhopper</author>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class BmpHeaderDescriptor : TagDescriptor<BmpHeaderDirectory>
     {
@@ -40,10 +41,64 @@ namespace MetadataExtractor.Formats.Bmp
         {
             switch (tagType)
             {
+                case BmpHeaderDirectory.TagBitmapType:
+                    return GetBitmapTypeDescription();
                 case BmpHeaderDirectory.TagCompression:
                     return GetCompressionDescription();
+                case BmpHeaderDirectory.TagRendering:
+                    return GetRenderingDescription();
+                case BmpHeaderDirectory.TagColorEncoding:
+                    return GetColorEncodingDescription();
+                case BmpHeaderDirectory.TagRedMask:
+                case BmpHeaderDirectory.TagGreenMask:
+                case BmpHeaderDirectory.TagBlueMask:
+                case BmpHeaderDirectory.TagAlphaMask:
+                    return formatHex(Directory.GetInt64(tagType), 8);
+                case BmpHeaderDirectory.TagColorSpaceType:
+                    return GetColorSpaceTypeDescription();
+                case BmpHeaderDirectory.TagGammaRed:
+                case BmpHeaderDirectory.TagGammaGreen:
+                case BmpHeaderDirectory.TagGammaBlue:
+                    return formatFixed1616(Directory.GetInt64(tagType));
+                case BmpHeaderDirectory.TagIntent:
+                    return GetRenderingIntentDescription();
                 default:
                     return base.GetDescription(tagType);
+            }
+        }
+
+        private static string formatHex(long value, int digits)
+        {
+            return value.ToString("X" + digits.ToString());
+        }
+
+        public static string formatFixed1616(long value)
+        {
+            double d = (double)value / 0x10000;
+            return $"{d:0.###}";
+        }
+
+        public string GetBitmapTypeDescription()
+        {
+            if (!Directory.TryGetInt32(BmpHeaderDirectory.TagBitmapType, out int value))
+                return null;
+
+            switch (value)
+            {
+                case (int)BitmapType.Bitmap:
+                    return "Standard";
+                case (int)BitmapType.OS2BitmapArray:
+                    return "Bitmap Array";
+                case (int)BitmapType.OS2ColorIcon:
+                    return "Color Icon";
+                case (int)BitmapType.OS2ColorPointer:
+                    return "Color Pointer";
+                case (int)BitmapType.OS2Icon:
+                    return "Monochrome Icon";
+                case (int)BitmapType.OS2Pointer:
+                    return "Monochrome Pointer";
+                default:
+                    return "Unimplemented bitmap type " + value.ToString();
             }
         }
 
@@ -81,6 +136,82 @@ namespace MetadataExtractor.Formats.Bmp
             }
 
             return base.GetDescription(BmpHeaderDirectory.TagCompression);
+        }
+
+        public string GetRenderingDescription()
+        {
+            if (!Directory.TryGetInt32(BmpHeaderDirectory.TagRendering, out int value))
+                return null;
+
+            switch (value)
+            {
+                case (int)RenderingHalftoningAlgorithm.None:
+                    return "No Halftoning Algorithm";
+                case (int)RenderingHalftoningAlgorithm.ErrorDiffusion:
+                    return "Error Diffusion Halftoning";
+                case (int)RenderingHalftoningAlgorithm.Panda:
+                    return "Processing Algorithm for Noncoded Document Acquisition";
+                case (int)RenderingHalftoningAlgorithm.SuperCircle:
+                    return "Super-circle Halftoning";
+                default:
+                    return "Unimplemented rendering halftoning algorithm type " + value.ToString();
+            }
+        }
+
+        public string GetColorEncodingDescription()
+        {
+            if (!Directory.TryGetInt32(BmpHeaderDirectory.TagColorEncoding, out int value))
+                return null;
+
+            switch (value)
+            {
+                case (int)ColorEncoding.Rgb:
+                    return "RGB";
+                default:
+                    return "Unimplemented color encoding type " + value.ToString();
+            }
+        }
+
+        public string GetColorSpaceTypeDescription()
+        {
+            if (!Directory.TryGetInt64(BmpHeaderDirectory.TagColorSpaceType, out long value))
+                return null;
+
+            switch (value)
+            {
+                case (long)ColorSpaceType.LcsCalibratedRgb:
+                    return "Calibrated RGB";
+                case (long)ColorSpaceType.LcsSRgb:
+                    return "sRGB Color Space";
+                case (long)ColorSpaceType.LcsWindowsColorSpace:
+                    return "System Default Color Space, sRGB";
+                case (long)ColorSpaceType.ProfileLinked:
+                    return "Linked Profile";
+                case (long)ColorSpaceType.ProfileEmbedded:
+                    return "Embedded Profile";
+                default:
+                    return "Unimplemented color space type " + value.ToString();
+            }
+        }
+
+        public string GetRenderingIntentDescription()
+        {
+            if (!Directory.TryGetInt64(BmpHeaderDirectory.TagRendering, out long value))
+                return null;
+
+            switch (value)
+            {
+                case (long)RenderingIntent.LcsGmBusiness:
+                    return "Graphic, Saturation";
+                case (long)RenderingIntent.LcsGmGraphics:
+                    return "Proof, Relative Colorimetric";
+                case (long)RenderingIntent.LcsGmImages:
+                    return "Picture, Perceptual";
+                case (long)RenderingIntent.LcsGmAbsColorimetric:
+                    return "Match, Absolute Colorimetric";
+                default:
+                    return "Unimplemented rendering intent type " + value.ToString();
+            }
         }
     }
 }

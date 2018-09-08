@@ -499,7 +499,7 @@ namespace MetadataExtractor.IO
         }
 
         /// <summary>
-        /// Creates a string starting at the specified index, and ending where either <c>byte=='\0'</c> or
+        /// Creates a string starting at the current sequential index, and ending where either <c>byte=='\0'</c> or
         /// <c>length==maxLength</c>.
         /// </summary>
         /// <param name="maxLengthBytes">
@@ -510,6 +510,20 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
         [NotNull]
         public string GetNullTerminatedString(int maxLengthBytes) => GetNullTerminatedString(SequentialFlag, maxLengthBytes);
+
+        /// <summary>
+        /// Creates a string starting at the current sequential index, and ending where either <c>byte=='\0'</c> or
+        /// <c>length==maxLength</c>.
+        /// </summary>
+        /// <param name="maxLengthBytes">
+        /// The maximum number of bytes to read.  If a zero-byte is not reached within this limit,
+        /// reading will stop and the string will be truncated to this length.
+        /// </param>
+        /// <param name="encoding">An optional string encoding. If none is provided, <see cref="Encoding.UTF8"/> is used.</param>
+        /// <returns>The read <see cref="string"/></returns>
+        /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
+        [NotNull]
+        public string GetNullTerminatedString(int maxLengthBytes, Encoding encoding) => GetNullTerminatedString(SequentialFlag, maxLengthBytes, encoding);
 
         /// <summary>
         /// Creates a string starting at the specified index, and ending where either <c>byte=='\0'</c> or
@@ -571,7 +585,7 @@ namespace MetadataExtractor.IO
         public StringValue GetNullTerminatedStringValue(int index, int maxLengthBytes) => GetNullTerminatedStringValue(index, maxLengthBytes, null);
 
         /// <summary>
-        /// Creates a string starting at the specified index, and ending where either <c>byte=='\0'</c> or
+        /// Creates a string starting at the current sequential index, and ending where either <c>byte=='\0'</c> or
         /// <c>length==maxLength</c>.
         /// </summary>
         /// <param name="maxLengthBytes">

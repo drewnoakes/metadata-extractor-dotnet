@@ -118,7 +118,7 @@ namespace MetadataExtractor
                 case FileType.Png:
                     return Append(PngMetadataReader.ReadMetadata(readerClone), fileTypeDirectory);
                 case FileType.Bmp:
-                    return new Directory[] { BmpMetadataReader.ReadMetadata(readerClone), fileTypeDirectory };
+                    return Append(BmpMetadataReader.ReadMetadata(readerClone), fileTypeDirectory);
                 case FileType.Gif:
                     return Append(GifMetadataReader.ReadMetadata(readerClone), fileTypeDirectory);
                 case FileType.Ico:
