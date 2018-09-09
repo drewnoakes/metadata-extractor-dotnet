@@ -149,7 +149,7 @@ namespace MetadataExtractor
         }
 
         /// <summary>Reads metadata from a file.</summary>
-        /// <remarks>Unlike <see cref="ReadMetadata(System.IO.Stream)"/>, this overload includes a <see cref="FileMetadataDirectory"/> in the output.</remarks>
+        /// <remarks>Unlike <see cref="ReadMetadata(RandomAccessStream)"/>, this overload includes a <see cref="FileMetadataDirectory"/> in the output.</remarks>
         /// <param name="filePath">Location of a file from which data should be read.</param>
         /// <returns>A list of <see cref="Directory"/> instances containing the various types of metadata found within the file's data.</returns>
         /// <exception cref="ImageProcessingException">The file type is unknown, or processing errors occurred.</exception>

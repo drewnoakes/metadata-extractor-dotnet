@@ -49,7 +49,7 @@ namespace MetadataExtractor.Formats.Jpeg
     /// <para />
     /// Segments are returned in the order they appear in the file, however that order may vary from file to file.
     /// <para />
-    /// Use <see cref="ReadSegments(ReaderInfo,ICollection{JpegSegmentType})"/> to read specific segment types,
+    /// Use <see cref="ReadSegments(ReaderInfo,ICollection{JpegSegmentType}, bool)"/> to read specific segment types,
     /// or pass <c>null</c> to read all segments.
     /// <para />
     /// Note that SOS (start of scan) or EOI (end of image) segments are not returned by this class's methods.

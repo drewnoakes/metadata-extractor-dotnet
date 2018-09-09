@@ -148,7 +148,7 @@ namespace MetadataExtractor.Formats.Bmp
                         return;
                 }
             }
-            catch (IOException e)
+            catch (IOException)
             {
                 if (directory == null)
                     addError("Unable to read BMP file header", directories);
@@ -397,11 +397,11 @@ namespace MetadataExtractor.Formats.Bmp
                     directory.AddError("Unexpected DIB header size: " + headerSize);
                 }
             }
-            catch (IOException e)
+            catch (IOException)
             {
                 directory.AddError("Unable to read BMP header");
             }
-            catch (MetadataException e)
+            catch (MetadataException)
             {
                 directory.AddError("Internal error");
             }
