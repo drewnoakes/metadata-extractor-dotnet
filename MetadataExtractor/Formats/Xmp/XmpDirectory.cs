@@ -43,18 +43,45 @@ namespace MetadataExtractor.Formats.Xmp
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class XmpDirectory : Directory
     {
-        public const int TagXmpValueCount = 0xFFFF;
+        public const int TagXmpByteArray = 0xFFFE;
 
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
-            { TagXmpValueCount, "XMP Value Count" }
+            { TagXmpByteArray, "XMP Byte Array" }
         };
 
+        private IXmpMeta p_xmpMeta = null;
+        private int p_xmpValueCount = -1;
+
         /// <summary>Gets the <see cref="IXmpMeta"/> object within this directory.</summary>
-        /// <remarks>This object provides a rich API for working with XMP data.</remarks>
+        /// <remarks>This object provides a rich API for working with XMP data. It is lazy loaded.</remarks>
         [CanBeNull]
-        public IXmpMeta XmpMeta { get; private set; }
+        public IXmpMeta XmpMeta
+        {
+            get
+            {
+                if (p_xmpMeta == null && this.GetByteArray(TagXmpByteArray) != null)
+                {
+                    var xmpBytes = this.GetByteArray(TagXmpByteArray);
+                    p_xmpMeta = XmpMetaFactory.ParseFromBuffer(xmpBytes, 0, xmpBytes.Length);
+                }
+
+                return p_xmpMeta;
+            }
+        }
+
+        /// <summary>Gets a count of all XMP properties in this directory, not just the known ones.</summary>
+        /// <remarks>This is lazy loaded</remarks>
+        public int XmpValueCount
+        {
+            get
+            {
+                if (p_xmpValueCount < 0)
+                    p_xmpValueCount = XmpMeta?.Properties.Count(prop => prop.Path != null) ?? 0;
+                return p_xmpValueCount;
+            }
+        }
 
         public XmpDirectory()
         {
@@ -80,13 +107,6 @@ namespace MetadataExtractor.Formats.Xmp
                        .Where(p => p.Path != null)
                        .ToDictionary(p => p.Path, p => p.Value)
                    ?? new Dictionary<string, string>();
-        }
-
-        public void SetXmpMeta([NotNull] IXmpMeta xmpMeta)
-        {
-            XmpMeta = xmpMeta;
-
-            Set(TagXmpValueCount, XmpMeta.Properties.Count(prop => prop.Path != null));
         }
     }
 }

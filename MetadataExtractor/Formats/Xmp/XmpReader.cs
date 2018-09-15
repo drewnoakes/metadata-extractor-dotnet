@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -78,24 +79,23 @@ namespace MetadataExtractor.Formats.Xmp
                 var buffer = new MemoryStream();
                 foreach (var segment in extensionGroup)
                 {
+                    // TODO: re-evaluate this method, and maybe use a pre-parse strategy instead
                     // Sometimes the byte arrays contain nul (0x00) characters. These can be legal if it's UTF-16 encoded,
                     // but should expect UTF-8. Otherwise, these characters are illegal in XML and C#'s XmlReader will not 
                     // handle or ignore them.
                     // Replace nul (0x00) bytes with space character (0x20)
-                    for (int i = 0; i < segment.Bytes.Length; i++)
+                    /*for (int i = 0; i < segment.Bytes.Length; i++)
                     {
                         if (!IsLegalXmlChar(segment.Bytes[i]))
                             segment.Bytes[i] = 0x20;
-                    }
+                    }*/
 
                     var N = JpegSegmentPreambleExtensionBytes.Length + 32 + 4 + 4;
                     buffer.Write(segment.Bytes, N, segment.Bytes.Length - N);
                 }
 
-                buffer.Position = 0;
                 var directory = new XmpDirectory();
-                var xmpMeta = XmpMetaFactory.Parse(buffer);
-                directory.SetXmpMeta(xmpMeta);
+                directory.Set(XmpDirectory.TagXmpByteArray, buffer.ToArray());
                 directories.Add(directory);
             }
 
@@ -116,18 +116,25 @@ namespace MetadataExtractor.Formats.Xmp
             var directory = new XmpDirectory();
             try
             {
+                // TODO: re-evaluate this method, and maybe use a pre-parse strategy instead
                 // Sometimes the byte arrays contain nul (0x00) characters. These can be legal if it's UTF-16 encoded,
                 // but should expect UTF-8. Otherwise, these characters are illegal in XML and C#'s XmlReader will not 
                 // handle or ignore them.
                 // Replace nul (0x00) bytes with space character (0x20)
-                for (int i = 0; i < xmpBytes.Length; i++)
+                /*for (int i = 0; i < xmpBytes.Length; i++)
                 {
                     if (!IsLegalXmlChar(xmpBytes[i]))
                         xmpBytes[i] = 0x20;
-                }
+                }*/
 
-                var xmpMeta = XmpMetaFactory.ParseFromBuffer(xmpBytes, offset, length);
-                directory.SetXmpMeta(xmpMeta);
+                if (offset == 0 && length == xmpBytes.Length)
+                    directory.Set(XmpDirectory.TagXmpByteArray, xmpBytes);
+                else
+                {
+                    var destArray = new byte[length];
+                    Array.Copy(xmpBytes, offset, destArray, 0, length);
+                    directory.Set(XmpDirectory.TagXmpByteArray, destArray);
+                }
             }
             catch (XmpException e)
             {
