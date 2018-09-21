@@ -22,10 +22,9 @@
 //
 #endregion
 
-using System.IO;
-using System.Linq;
-using JetBrains.Annotations;
 using System.Collections.Generic;
+using System.IO;
+using JetBrains.Annotations;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.IO;
 
@@ -44,7 +43,7 @@ namespace MetadataExtractor.Formats.Gif
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 directories.AddRange(ReadMetadata(stream));
 
-            directories.Add(new FileMetadataReader().Read(filePath));
+            directories.Add(FileMetadataReader.Read(filePath));
 
             return directories;
         }
@@ -52,7 +51,7 @@ namespace MetadataExtractor.Formats.Gif
         [NotNull]
         public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
-            return GifReader.Extract(new SequentialStreamReader(stream)).ToList();
+            return GifReader.Extract(new SequentialStreamReader(stream));
         }
     }
 }
