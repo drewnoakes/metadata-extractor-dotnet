@@ -23,6 +23,7 @@
 #endregion
 
 using System;
+using System.Buffers.Binary;
 using System.Text;
 using JetBrains.Annotations;
 
@@ -85,6 +86,13 @@ namespace MetadataExtractor.IO
         [NotNull]
         public abstract byte[] GetBytes(int index, int count);
 
+
+        /// <summary>Retrieves bytes, writing them into a caller-provided buffer.</summary>
+        /// <param name="index">The index from which the bytes begins in the underlying source</param>
+        /// <param name="buffer">The buffer to write bytes to.</param>
+        /// <exception cref="System.IO.IOException"/>
+        public abstract void GetBytes(int index, [NotNull] Span<byte> buffer);
+
         /// <summary>
         /// Ensures that the buffered bytes extend to cover the specified index. If not, an attempt is made
         /// to read to that point.
@@ -142,18 +150,11 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public ushort GetUInt16(int index)
         {
-            ValidateIndex(index, 2);
-            if (IsMotorolaByteOrder)
-            {
-                // Motorola - MSB first
-                return (ushort)
-                    (GetByte(index) << 8 |
-                     GetByte(index + 1));
-            }
-            // Intel ordering - LSB first
-            return (ushort)
-                (GetByte(index + 1) << 8 |
-                 GetByte(index));
+            GetBytes(index, _temp.AsSpan(0, 2));
+
+            return IsMotorolaByteOrder
+                ? BinaryPrimitives.ReadUInt16BigEndian(_temp)
+                : BinaryPrimitives.ReadUInt16LittleEndian(_temp);
         }
 
         /// <summary>Returns a signed 16-bit int calculated from two bytes of data at the specified index (MSB, LSB).</summary>
@@ -162,18 +163,11 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public short GetInt16(int index)
         {
-            ValidateIndex(index, 2);
-            if (IsMotorolaByteOrder)
-            {
-                // Motorola - MSB first
-                return (short)
-                    (GetByte(index) << 8 |
-                     GetByte(index + 1));
-            }
-            // Intel ordering - LSB first
-            return (short)
-                (GetByte(index + 1) << 8 |
-                 GetByte(index));
+            GetBytes(index, _temp.AsSpan(0, 2));
+
+            return IsMotorolaByteOrder
+                ? BinaryPrimitives.ReadInt16BigEndian(_temp)
+                : BinaryPrimitives.ReadInt16LittleEndian(_temp);
         }
 
         /// <summary>Get a 24-bit unsigned integer from the buffer, returning it as an int.</summary>
@@ -198,29 +192,19 @@ namespace MetadataExtractor.IO
                 GetByte(index);
         }
 
+        private readonly byte[] _temp = new byte[16];
+
         /// <summary>Get a 32-bit unsigned integer from the buffer, returning it as a long.</summary>
         /// <param name="index">position within the data buffer to read first byte</param>
         /// <returns>the unsigned 32-bit int value as a long, between 0x00000000 and 0xFFFFFFFF</returns>
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public uint GetUInt32(int index)
         {
-            ValidateIndex(index, 4);
+            GetBytes(index, _temp.AsSpan(0, 4));
 
-            if (IsMotorolaByteOrder)
-            {
-                // Motorola - MSB first (big endian)
-                return (uint)
-                    (GetByte(index) << 24 |
-                     GetByte(index + 1) << 16 |
-                     GetByte(index + 2) << 8 |
-                     GetByte(index + 3));
-            }
-            // Intel ordering - LSB first (little endian)
-            return (uint)
-                (GetByte(index + 3) << 24 |
-                 GetByte(index + 2) << 16 |
-                 GetByte(index + 1) << 8 |
-                 GetByte(index));
+            return IsMotorolaByteOrder
+                ? BinaryPrimitives.ReadUInt32BigEndian(_temp)
+                : BinaryPrimitives.ReadUInt32LittleEndian(_temp);
         }
 
         /// <summary>Returns a signed 32-bit integer from four bytes of data at the specified index the buffer.</summary>
@@ -229,22 +213,11 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public int GetInt32(int index)
         {
-            ValidateIndex(index, 4);
-            if (IsMotorolaByteOrder)
-            {
-                // Motorola - MSB first (big endian)
-                return
-                    GetByte(index) << 24 |
-                    GetByte(index + 1) << 16 |
-                    GetByte(index + 2) << 8 |
-                    GetByte(index + 3);
-            }
-            // Intel ordering - LSB first (little endian)
-            return
-                GetByte(index + 3) << 24 |
-                GetByte(index + 2) << 16 |
-                GetByte(index + 1) << 8 |
-                GetByte(index);
+            GetBytes(index, _temp.AsSpan(0, 4));
+
+            return IsMotorolaByteOrder
+                ? BinaryPrimitives.ReadInt32BigEndian(_temp)
+                : BinaryPrimitives.ReadInt32LittleEndian(_temp);
         }
 
         /// <summary>Get a signed 64-bit integer from the buffer.</summary>
@@ -253,30 +226,11 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request, or index is negative</exception>
         public long GetInt64(int index)
         {
-            ValidateIndex(index, 8);
-            if (IsMotorolaByteOrder)
-            {
-                // Motorola - MSB first
-                return
-                    (long)GetByte(index) << 56 |
-                    (long)GetByte(index + 1) << 48 |
-                    (long)GetByte(index + 2) << 40 |
-                    (long)GetByte(index + 3) << 32 |
-                    (long)GetByte(index + 4) << 24 |
-                    (long)GetByte(index + 5) << 16 |
-                    (long)GetByte(index + 6) << 8 |
-                          GetByte(index + 7);
-            }
-            // Intel ordering - LSB first
-            return
-                (long)GetByte(index + 7) << 56 |
-                (long)GetByte(index + 6) << 48 |
-                (long)GetByte(index + 5) << 40 |
-                (long)GetByte(index + 4) << 32 |
-                (long)GetByte(index + 3) << 24 |
-                (long)GetByte(index + 2) << 16 |
-                (long)GetByte(index + 1) << 8 |
-                      GetByte(index);
+            GetBytes(index, _temp.AsSpan(0, 8));
+
+            return IsMotorolaByteOrder
+                ? BinaryPrimitives.ReadInt64BigEndian(_temp)
+                : BinaryPrimitives.ReadInt64LittleEndian(_temp);
         }
 
         /// <summary>Gets a s15.16 fixed point float from the buffer.</summary>

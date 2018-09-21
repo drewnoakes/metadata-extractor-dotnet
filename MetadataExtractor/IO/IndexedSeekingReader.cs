@@ -99,6 +99,28 @@ namespace MetadataExtractor.IO
             return bytes;
         }
 
+        private readonly byte[] _scratch = new byte[16];
+
+        public override void GetBytes(int index, [NotNull] Span<byte> buffer)
+        {
+            ValidateIndex(index, buffer.Length);
+
+            // TODO: Use ArrayPool when buffer is > 16
+            byte[] _temp = buffer.Length <= 16 ? _scratch : new byte[buffer.Length];
+
+            if (index + _baseOffset != _stream.Position)
+                Seek(index);
+
+            var bytesRead = _stream.Read(_temp, 0, buffer.Length);
+
+            _temp.AsSpan(0, buffer.Length).CopyTo(buffer);
+
+            if (bytesRead != buffer.Length)
+            {
+                throw new BufferBoundsException("Unexpected end of file encountered.");
+            }
+        }
+
         private void Seek(int index)
         {
             var streamIndex = index + _baseOffset;
