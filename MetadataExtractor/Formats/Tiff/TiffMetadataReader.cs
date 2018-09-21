@@ -53,7 +53,7 @@ namespace MetadataExtractor.Formats.Tiff
                 TiffReader.ProcessTiff(new IndexedSeekingReader(stream), handler);
             }
 
-            directories.Add(new FileMetadataReader().Read(filePath));
+            directories.Add(FileMetadataReader.Read(filePath));
 
             return directories;
         }

@@ -41,7 +41,7 @@ namespace MetadataExtractor.Formats.Netpbm
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 directories.Add(ReadMetadata(stream));
 
-            directories.Add(new FileMetadataReader().Read(filePath));
+            directories.Add(FileMetadataReader.Read(filePath));
 
             return directories;
         }

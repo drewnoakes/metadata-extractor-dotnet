@@ -45,7 +45,7 @@ namespace MetadataExtractor.Formats.WebP
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 directories.AddRange(ReadMetadata(stream));
 
-            directories.Add(new FileMetadataReader().Read(filePath));
+            directories.Add(FileMetadataReader.Read(filePath));
 
             return directories;
         }
@@ -56,7 +56,7 @@ namespace MetadataExtractor.Formats.WebP
         public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
             var directories = new List<Directory>();
-            new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new WebPRiffHandler(directories));
+            RiffReader.ProcessRiff(new SequentialStreamReader(stream), new WebPRiffHandler(directories));
             return directories;
         }
     }

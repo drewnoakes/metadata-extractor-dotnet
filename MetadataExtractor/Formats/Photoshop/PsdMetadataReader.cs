@@ -45,7 +45,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 directories.AddRange(PsdReader.Extract(new SequentialStreamReader(stream)));
             }
 
-            directories.Add(new FileMetadataReader().Read(filePath));
+            directories.Add(FileMetadataReader.Read(filePath));
 
             return directories;
         }
