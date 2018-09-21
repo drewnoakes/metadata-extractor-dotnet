@@ -45,18 +45,18 @@ namespace MetadataExtractor.Formats.Avi
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 directories.AddRange(ReadMetadata(stream));
 
-            directories.Add(new FileMetadataReader().Read(filePath));
+            directories.Add(FileMetadataReader.Read(filePath));
 
             return directories;
         }
 
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         /// <exception cref="RiffProcessingException"/>
         [NotNull]
         public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
             var directories = new List<Directory>();
-            new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new AviRiffHandler(directories));
+            RiffReader.ProcessRiff(new SequentialStreamReader(stream), new AviRiffHandler(directories));
             return directories;
         }
     }
