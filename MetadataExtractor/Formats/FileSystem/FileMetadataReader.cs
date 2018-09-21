@@ -27,11 +27,11 @@ using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.FileSystem
 {
-    public sealed class FileMetadataReader
+    public static class FileMetadataReader
     {
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         [NotNull]
-        public FileMetadataDirectory Read([NotNull] string file)
+        public static FileMetadataDirectory Read([NotNull] string file)
         {
             var attr = File.GetAttributes(file);
 

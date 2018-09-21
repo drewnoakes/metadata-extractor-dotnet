@@ -22,18 +22,14 @@
 //
 #endregion
 
-#if !NETSTANDARD1_3
 using System;
-#endif
 using System.Linq;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-#if !NETSTANDARD1_3
     [Serializable]
-#endif
     public sealed class PngColorType
     {
         /// <summary>Each pixel is a greyscale sample.</summary>

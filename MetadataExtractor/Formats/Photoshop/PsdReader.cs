@@ -28,20 +28,14 @@ using System.IO;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Photoshop
 {
     /// <summary>Reads metadata stored within PSD file format data.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class PsdReader
+    public static class PsdReader
     {
         [NotNull]
-        public DirectoryList Extract([NotNull] SequentialReader reader)
+        public static IReadOnlyList<Directory> Extract([NotNull] SequentialReader reader)
         {
             var directory = new PsdHeaderDirectory();
 

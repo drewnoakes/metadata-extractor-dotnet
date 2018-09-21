@@ -25,9 +25,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-#if NETSTANDARD1_3
 using System.Text;
-#endif
 using JetBrains.Annotations;
 
 namespace MetadataExtractor
@@ -39,7 +37,7 @@ namespace MetadataExtractor
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class Directory
     {
-#if NETSTANDARD1_3
+#if NETSTANDARD2_0
         static Directory()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -90,13 +88,7 @@ namespace MetadataExtractor
         /// <summary>Returns all <see cref="Tag"/> objects that have been set in this <see cref="Directory"/>.</summary>
         /// <value>The list of <see cref="Tag"/> objects.</value>
         [NotNull]
-        public
-#if NET35
-            IEnumerable<Tag>
-#else
-            IReadOnlyList<Tag>
-#endif
-            Tags => _definedTagList;
+        public IReadOnlyList<Tag> Tags => _definedTagList;
 
         /// <summary>Returns the number of tags set in this Directory.</summary>
         /// <value>the number of tags set in this Directory</value>
@@ -123,13 +115,7 @@ namespace MetadataExtractor
         /// <summary>Used to iterate over any error messages contained in this directory.</summary>
         /// <value>The collection of error message strings.</value>
         [NotNull]
-        public
-#if NET35
-            IEnumerable<string>
-#else
-            IReadOnlyList<string>
-#endif
-            Errors => _errorList;
+        public IReadOnlyList<string> Errors => _errorList;
 
         #endregion
 

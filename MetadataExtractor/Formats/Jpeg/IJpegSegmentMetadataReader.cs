@@ -25,12 +25,6 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>Defines an object that extracts metadata from in JPEG segments.</summary>
@@ -45,6 +39,6 @@ namespace MetadataExtractor.Formats.Jpeg
         /// A sequence of JPEG segments from which the metadata should be extracted. These are in the order encountered in the original file.
         /// </param>
         [NotNull]
-        DirectoryList ReadJpegSegments([NotNull] IEnumerable<JpegSegment> segments);
+        IReadOnlyList<Directory> ReadJpegSegments([NotNull] IEnumerable<JpegSegment> segments);
     }
 }

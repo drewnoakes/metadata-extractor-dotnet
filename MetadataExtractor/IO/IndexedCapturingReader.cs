@@ -184,12 +184,37 @@ namespace MetadataExtractor.IO
                 var fromInnerIndex = fromIndex % _chunkLength;
                 var length = Math.Min(remaining, _chunkLength - fromInnerIndex);
                 var chunk = _chunks[fromChunkIndex];
-                Array.Copy(chunk, fromInnerIndex, bytes, toIndex, length);
+
+                chunk.AsSpan(fromInnerIndex, length).CopyTo(bytes.AsSpan(toIndex));
+
                 remaining -= length;
                 fromIndex += length;
                 toIndex += length;
             }
+
             return bytes;
+        }
+
+        public override void GetBytes(int index, [NotNull] Span<byte> buffer)
+        {
+            ValidateIndex(index, buffer.Length);
+
+            var remaining = buffer.Length;
+            var fromIndex = index;
+            var toIndex = 0;
+            while (remaining != 0)
+            {
+                var fromChunkIndex = fromIndex / _chunkLength;
+                var fromInnerIndex = fromIndex % _chunkLength;
+                var length = Math.Min(remaining, _chunkLength - fromInnerIndex);
+                var chunk = _chunks[fromChunkIndex];
+
+                chunk.AsSpan(fromInnerIndex, length).CopyTo(buffer.Slice(toIndex));
+
+                remaining -= length;
+                fromIndex += length;
+                toIndex += length;
+            }
         }
 
         public override IndexedReader WithByteOrder(bool isMotorolaByteOrder) => isMotorolaByteOrder == IsMotorolaByteOrder ? (IndexedReader)this : new ShiftedIndexedCapturingReader(this, 0, isMotorolaByteOrder);
@@ -220,6 +245,11 @@ namespace MetadataExtractor.IO
             public override byte GetByte(int index) => _baseReader.GetByte(_baseOffset + index);
 
             public override byte[] GetBytes(int index, int count) => _baseReader.GetBytes(_baseOffset + index, count);
+
+            public override void GetBytes(int index, [NotNull] Span<byte> buffer)
+            {
+                _baseReader.GetBytes(_baseOffset + index, buffer);
+            }
 
             protected override void ValidateIndex(int index, int bytesRequested) => _baseReader.ValidateIndex(index + _baseOffset, bytesRequested);
 

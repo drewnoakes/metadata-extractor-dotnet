@@ -29,10 +29,10 @@ using MetadataExtractor.IO;
 namespace MetadataExtractor.Formats.Bmp
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class BmpReader
+    public static class BmpReader
     {
         [NotNull]
-        public BmpHeaderDirectory Extract([NotNull] SequentialReader reader)
+        public static BmpHeaderDirectory Extract([NotNull] SequentialReader reader)
         {
             var directory = new BmpHeaderDirectory();
 

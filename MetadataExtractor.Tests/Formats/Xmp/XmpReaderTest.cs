@@ -52,7 +52,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         [Fact]
         public void testExtract_PropertyCount()
         {
-            Assert.Equal(179, _directory.GetInt32(XmpDirectory.TagXmpValueCount));
+            Assert.Equal(178, _directory.GetInt32(XmpDirectory.TagXmpValueCount));
         }
 
         [Fact]
@@ -60,7 +60,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         {
             var propertyMap = _directory.GetXmpProperties();
 
-            Assert.Equal(179, propertyMap.Count);
+            Assert.Equal(178, propertyMap.Count);
 
             Assert.True(propertyMap.ContainsKey("photoshop:Country"));
             Assert.Equal("Deutschland", propertyMap["photoshop:Country"]);

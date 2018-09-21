@@ -230,9 +230,10 @@ namespace MetadataExtractor.Formats.Photoshop
             if (storedBytes == null || storedBytes.Length <= 28)
                 return null;
 
-            var thumbSize = storedBytes.Length - 28;
+            int thumbSize = storedBytes.Length - 28;
             var thumbBytes = new byte[thumbSize];
-            Array.Copy(storedBytes, 28, thumbBytes, 0, thumbSize);
+
+            storedBytes.AsSpan(28, thumbSize).CopyTo(thumbBytes);
 
             return thumbBytes;
         }

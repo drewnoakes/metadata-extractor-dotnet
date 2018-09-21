@@ -29,7 +29,7 @@ using JetBrains.Annotations;
 namespace MetadataExtractor.IO
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class SequentialByteArrayReader : SequentialReader
+    public sealed class SequentialByteArrayReader : SequentialReader
     {
         [NotNull]
         private readonly byte[] _bytes;
@@ -61,7 +61,9 @@ namespace MetadataExtractor.IO
                 throw new IOException("End of data reached.");
 
             var bytes = new byte[count];
-            Array.Copy(_bytes, _index, bytes, 0, count);
+
+            _bytes.AsSpan(_index, count).CopyTo(bytes);
+
             _index += count;
             return bytes;
         }
@@ -71,7 +73,8 @@ namespace MetadataExtractor.IO
             if (_index + count > _bytes.Length)
                 throw new IOException("End of data reached.");
 
-            Array.Copy(_bytes, _index, buffer, offset, count);
+            _bytes.AsSpan(_index, count).CopyTo(buffer.AsSpan(offset));
+
             _index += count;
         }
 

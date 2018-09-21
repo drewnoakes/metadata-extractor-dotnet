@@ -182,7 +182,7 @@ namespace MetadataExtractor.Formats.Png
 
         #region Equality and Hashing
 
-        private bool Equals([NotNull] PngChunkType other) => _bytes.SequenceEqual(other._bytes);
+        private bool Equals([NotNull] PngChunkType other) => _bytes.AsSpan().SequenceEqual(other._bytes);
 
         public override bool Equals(object obj)
         {

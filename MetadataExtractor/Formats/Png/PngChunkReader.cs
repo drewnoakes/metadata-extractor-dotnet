@@ -22,22 +22,22 @@
 //
 #endregion
 
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class PngChunkReader
+    public static class PngChunkReader
     {
         private static readonly byte[] _pngSignatureBytes = { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A };
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public IEnumerable<PngChunk> Extract([NotNull] SequentialReader reader, [CanBeNull] ICollection<PngChunkType> desiredChunkTypes)
+        public static IEnumerable<PngChunk> Extract([NotNull] SequentialReader reader, [CanBeNull] ICollection<PngChunkType> desiredChunkTypes)
         {
             //
             // PNG DATA STREAM
@@ -76,7 +76,7 @@ namespace MetadataExtractor.Formats.Png
             // network byte order
             reader = reader.WithByteOrder(isMotorolaByteOrder: true);
 
-            if (!_pngSignatureBytes.SequenceEqual(reader.GetBytes(_pngSignatureBytes.Length)))
+            if (!_pngSignatureBytes.AsSpan().SequenceEqual(reader.GetBytes(_pngSignatureBytes.Length)))
                 throw new PngProcessingException("PNG signature mismatch");
 
             var seenImageHeader = false;

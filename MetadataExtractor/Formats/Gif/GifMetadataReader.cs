@@ -22,18 +22,11 @@
 //
 #endregion
 
-using System.IO;
-using System.Linq;
-using JetBrains.Annotations;
 using System.Collections.Generic;
+using System.IO;
+using JetBrains.Annotations;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.IO;
-
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
 
 namespace MetadataExtractor.Formats.Gif
 {
@@ -41,24 +34,24 @@ namespace MetadataExtractor.Formats.Gif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class GifMetadataReader
     {
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
         {
             var directories = new List<Directory>(2);
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 directories.AddRange(ReadMetadata(stream));
 
-            directories.Add(new FileMetadataReader().Read(filePath));
+            directories.Add(FileMetadataReader.Read(filePath));
 
             return directories;
         }
 
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
-            return new GifReader().Extract(new SequentialStreamReader(stream)).ToList();
+            return GifReader.Extract(new SequentialStreamReader(stream));
         }
     }
 }

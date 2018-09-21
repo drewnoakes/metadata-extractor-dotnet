@@ -35,7 +35,7 @@ namespace MetadataExtractor.IO
     /// <see cref="IndexedReader.IsMotorolaByteOrder"/>.
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class ByteArrayReader : IndexedReader
+    public sealed class ByteArrayReader : IndexedReader
     {
         [NotNull]
         private readonly byte[] _buffer;
@@ -68,7 +68,16 @@ namespace MetadataExtractor.IO
         protected override void ValidateIndex(int index, int bytesRequested)
         {
             if (!IsValidIndex(index, bytesRequested))
+            {
                 throw new BufferBoundsException(ToUnshiftedOffset(index), bytesRequested, _buffer.Length);
+            }
+        }
+        
+        public override void GetBytes(int index, Span<byte> buffer)
+        {
+            ValidateIndex(index, buffer.Length);
+
+            _buffer.AsSpan(index + _baseOffset, buffer.Length).CopyTo(buffer);
         }
 
         protected override bool IsValidIndex(int index, int bytesRequested)
@@ -84,7 +93,9 @@ namespace MetadataExtractor.IO
             ValidateIndex(index, count);
 
             var bytes = new byte[count];
-            Array.Copy(_buffer, index + _baseOffset, bytes, 0, count);
+
+            _buffer.AsSpan(index + _baseOffset, count).CopyTo(bytes);
+
             return bytes;
         }
     }

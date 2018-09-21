@@ -23,18 +23,14 @@
 #endregion
 
 using System;
-#if !NETSTANDARD1_3
 using System.Runtime.Serialization;
-#endif
 using JetBrains.Annotations;
 
 namespace MetadataExtractor
 {
     /// <summary>An exception class thrown upon an unexpected condition that was fatal for the processing of an image.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-#if !NETSTANDARD1_3
     [Serializable]
-#endif
     public class ImageProcessingException : Exception
     {
         public ImageProcessingException([CanBeNull] string message)
@@ -52,11 +48,9 @@ namespace MetadataExtractor
         {
         }
 
-#if !NETSTANDARD1_3
         protected ImageProcessingException([NotNull] SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
-#endif
     }
 }

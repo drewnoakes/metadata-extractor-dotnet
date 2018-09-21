@@ -23,23 +23,18 @@
 #endregion
 
 using System;
+using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.IO.Compression;
 using System.Linq;
+using System.Text;
 using JetBrains.Annotations;
-using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.FileSystem;
+using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 using MetadataExtractor.Util;
-
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
 
 namespace MetadataExtractor.Formats.Png
 {
@@ -65,26 +60,26 @@ namespace MetadataExtractor.Formats.Png
         };
 
         /// <exception cref="PngProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
         {
             var directories = new List<Directory>();
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 directories.AddRange(ReadMetadata(stream));
 
-            directories.Add(new FileMetadataReader().Read(filePath));
+            directories.Add(FileMetadataReader.Read(filePath));
 
             return directories;
         }
 
         /// <exception cref="PngProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
-            return new PngChunkReader()
+            return PngChunkReader
                 .Extract(new SequentialStreamReader(stream), _desiredChunkTypes)
                 .SelectMany(ProcessChunk)
                 .ToList();
@@ -104,7 +99,7 @@ namespace MetadataExtractor.Formats.Png
         private static readonly Encoding _latin1Encoding = Encoding.GetEncoding("ISO-8859-1");
 
         /// <exception cref="PngProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         private static IEnumerable<Directory> ProcessChunk([NotNull] PngChunk chunk)
         {
             var chunkType = chunk.ChunkType;
@@ -158,7 +153,7 @@ namespace MetadataExtractor.Formats.Png
             }
             else if (chunkType == PngChunkType.gAMA)
             {
-                var gammaInt = ByteConvert.ToInt32BigEndian(bytes);
+                int gammaInt = BinaryPrimitives.ReadInt32BigEndian(bytes);
                 var directory = new PngDirectory(PngChunkType.gAMA);
                 directory.Set(PngDirectory.TagGamma, gammaInt / 100000.0);
                 yield return directory;
@@ -381,14 +376,7 @@ namespace MetadataExtractor.Formats.Png
         {
             var ms = new MemoryStream();
 
-#if !NET35
             stream.CopyTo(ms);
-#else
-            var buffer = new byte[1024];
-            int count;
-            while ((count = stream.Read(buffer, 0, 256)) > 0)
-                ms.Write(buffer, 0, count);
-#endif
 
             return ms.ToArray();
         }

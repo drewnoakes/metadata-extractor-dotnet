@@ -41,9 +41,9 @@ namespace MetadataExtractor.Formats.Netpbm
     /// </list>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class NetpbmReader
+    public static class NetpbmReader
     {
-        public NetpbmHeaderDirectory Extract(Stream stream)
+        public static NetpbmHeaderDirectory Extract(Stream stream)
         {
             var directory = new NetpbmHeaderDirectory();
 

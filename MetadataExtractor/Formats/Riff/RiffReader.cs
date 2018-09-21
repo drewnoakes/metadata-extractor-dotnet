@@ -40,14 +40,14 @@ namespace MetadataExtractor.Formats.Riff
     /// </list>
     /// </remarks>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class RiffReader
+    public static class RiffReader
     {
         /// <summary>Processes a RIFF data sequence.</summary>
         /// <param name="reader">The <see cref="SequentialReader"/> from which the data should be read.</param>
         /// <param name="handler">The <see cref="IRiffHandler"/> that will coordinate processing and accept read values.</param>
         /// <exception cref="RiffProcessingException">An error occurred during the processing of RIFF data that could not be ignored or recovered from.</exception>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
-        public void ProcessRiff([NotNull] SequentialReader reader, [NotNull] IRiffHandler handler)
+        public static void ProcessRiff([NotNull] SequentialReader reader, [NotNull] IRiffHandler handler)
         {
             // RIFF files are always little-endian
             reader = reader.WithByteOrder(isMotorolaByteOrder: false);
@@ -71,7 +71,7 @@ namespace MetadataExtractor.Formats.Riff
         }
 
         // PROCESS CHUNKS
-        public void ProcessChunks([NotNull] SequentialReader reader, int sizeLeft, [NotNull] IRiffHandler handler)
+        public static void ProcessChunks([NotNull] SequentialReader reader, int sizeLeft, [NotNull] IRiffHandler handler)
         {
             // Processing chunks. Each chunk is 8 bytes header (4 bytes CC code + 4 bytes length of chunk) + data of the chunk
 

@@ -23,18 +23,15 @@
 #endregion
 
 using System;
-#if !NETSTANDARD1_3
 using System.Runtime.Serialization;
-#endif
+
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Riff
 {
     /// <summary>An exception class thrown upon unexpected and fatal conditions while processing a RIFF file.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-#if !NETSTANDARD1_3
     [Serializable]
-#endif
     public class RiffProcessingException : ImageProcessingException
     {
         public RiffProcessingException([CanBeNull] string message)
@@ -52,11 +49,9 @@ namespace MetadataExtractor.Formats.Riff
         {
         }
 
-#if !NETSTANDARD1_3
         protected RiffProcessingException([NotNull] SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
-#endif
     }
 }

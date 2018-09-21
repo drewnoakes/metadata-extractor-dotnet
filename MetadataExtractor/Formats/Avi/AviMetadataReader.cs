@@ -29,12 +29,6 @@ using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Riff;
 using MetadataExtractor.IO;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Avi
 {
     /// <summary>Obtains metadata from Avi files.</summary>
@@ -44,25 +38,25 @@ namespace MetadataExtractor.Formats.Avi
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="RiffProcessingException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
         {
             var directories = new List<Directory>();
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 directories.AddRange(ReadMetadata(stream));
 
-            directories.Add(new FileMetadataReader().Read(filePath));
+            directories.Add(FileMetadataReader.Read(filePath));
 
             return directories;
         }
 
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         /// <exception cref="RiffProcessingException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
             var directories = new List<Directory>();
-            new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new AviRiffHandler(directories));
+            RiffReader.ProcessRiff(new SequentialStreamReader(stream), new AviRiffHandler(directories));
             return directories;
         }
     }

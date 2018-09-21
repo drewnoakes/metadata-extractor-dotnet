@@ -32,7 +32,7 @@ namespace MetadataExtractor.IO
     /// Provides methods to read data types from a <see cref="Stream"/> by indexing into the data.
     /// </summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public class IndexedSeekingReader : IndexedReader
+    public sealed class IndexedSeekingReader : IndexedReader
     {
         [NotNull]
         private readonly Stream _stream;
@@ -97,6 +97,28 @@ namespace MetadataExtractor.IO
                 throw new BufferBoundsException("Unexpected end of file encountered.");
 
             return bytes;
+        }
+
+        private readonly byte[] _scratch = new byte[16];
+
+        public override void GetBytes(int index, [NotNull] Span<byte> buffer)
+        {
+            ValidateIndex(index, buffer.Length);
+
+            // TODO: Use ArrayPool when buffer is > 16
+            byte[] _temp = buffer.Length <= 16 ? _scratch : new byte[buffer.Length];
+
+            if (index + _baseOffset != _stream.Position)
+                Seek(index);
+
+            var bytesRead = _stream.Read(_temp, 0, buffer.Length);
+
+            _temp.AsSpan(0, buffer.Length).CopyTo(buffer);
+
+            if (bytesRead != buffer.Length)
+            {
+                throw new BufferBoundsException("Unexpected end of file encountered.");
+            }
         }
 
         private void Seek(int index)

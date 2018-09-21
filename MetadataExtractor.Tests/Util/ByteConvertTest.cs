@@ -24,6 +24,7 @@
 
 #endregion
 
+using System.Buffers.Binary;
 using MetadataExtractor.Util;
 using Xunit;
 
@@ -35,15 +36,15 @@ namespace MetadataExtractor.Tests.Util
         [Fact]
         public void ToInt32BigEndian()
         {
-            Assert.Equal(0x01020304, ByteConvert.ToInt32BigEndian(new byte[] { 1, 2, 3, 4 }));
-            Assert.Equal(0x01020304, ByteConvert.ToInt32BigEndian(new byte[] { 1, 2, 3, 4, 5 }));
+            Assert.Equal(0x01020304, BinaryPrimitives.ReadInt32BigEndian(new byte[] { 1, 2, 3, 4 }));
+            Assert.Equal(0x01020304, BinaryPrimitives.ReadInt32BigEndian(new byte[] { 1, 2, 3, 4, 5 }));
         }
 
         [Fact]
         public void ToInt32LittleEndian()
         {
-            Assert.Equal(0x04030201, ByteConvert.ToInt32LittleEndian(new byte[] { 1, 2, 3, 4 }));
-            Assert.Equal(0x04030201, ByteConvert.ToInt32LittleEndian(new byte[] { 1, 2, 3, 4, 5 }));
+            Assert.Equal(0x04030201, BinaryPrimitives.ReadInt32LittleEndian(new byte[] { 1, 2, 3, 4 }));
+            Assert.Equal(0x04030201, BinaryPrimitives.ReadInt32LittleEndian(new byte[] { 1, 2, 3, 4, 5 }));
         }
     }
 }

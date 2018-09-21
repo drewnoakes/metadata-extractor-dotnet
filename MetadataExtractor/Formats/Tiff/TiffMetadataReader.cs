@@ -29,12 +29,6 @@ using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.IO;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Tiff
 {
     /// <summary>Obtains all available metadata from TIFF formatted files.</summary>
@@ -46,10 +40,10 @@ namespace MetadataExtractor.Formats.Tiff
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class TiffMetadataReader
     {
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         /// <exception cref="TiffProcessingException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
         {
             var directories = new List<Directory>();
 
@@ -59,15 +53,15 @@ namespace MetadataExtractor.Formats.Tiff
                 TiffReader.ProcessTiff(new IndexedSeekingReader(stream), handler);
             }
 
-            directories.Add(new FileMetadataReader().Read(filePath));
+            directories.Add(FileMetadataReader.Read(filePath));
 
             return directories;
         }
 
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         /// <exception cref="TiffProcessingException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
             // TIFF processing requires random access, as directories can be scattered throughout the byte sequence.
             // Stream does not support seeking backwards, so we wrap it with IndexedCapturingReader, which

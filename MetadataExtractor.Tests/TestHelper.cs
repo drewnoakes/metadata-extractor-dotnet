@@ -35,7 +35,9 @@ namespace MetadataExtractor.Tests
                 throw new ArgumentException("Attempting to skip more bytes than exist in the array.");
 
             var output = new byte[input.Length - countToSkip];
-            Array.Copy(input, countToSkip, output, 0, input.Length - countToSkip);
+
+            input.AsSpan(countToSkip, output.Length).CopyTo(output);
+
             return output;
         }
     }

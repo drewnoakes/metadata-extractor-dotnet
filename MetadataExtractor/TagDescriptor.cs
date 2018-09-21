@@ -229,11 +229,8 @@ namespace MetadataExtractor
                 value >>= 1;
                 bitIndex++;
             }
-#if NET35
-            return string.Join(", ", parts.ToArray());
-#else
+
             return string.Join(", ", parts);
-#endif
         }
 
         [Pure]
@@ -311,7 +308,7 @@ namespace MetadataExtractor
             if (values[0] == values[1])
                 sb.Append(values[0].ToSimpleString()).Append("mm");
             else
-                sb.Append(values[0].ToSimpleString()).Append("-").Append(values[1].ToSimpleString()).Append("mm");
+                sb.Append(values[0].ToSimpleString()).Append('-').Append(values[1].ToSimpleString()).Append("mm");
 
             if (!values[2].IsZero)
             {
@@ -321,17 +318,10 @@ namespace MetadataExtractor
                     sb.Append(GetFStopDescription(values[2].ToDouble()));
                 else
                     sb.Append("f/")
-#if !NETSTANDARD1_3
                       .Append(Math.Round(values[2].ToDouble(), 1, MidpointRounding.AwayFromZero).ToString("0.0"))
-#else
-                      .Append(Math.Round(values[2].ToDouble(), 1).ToString("0.0"))
-#endif
-                      .Append("-")
-#if !NETSTANDARD1_3
+                      .Append('-')
                       .Append(Math.Round(values[3].ToDouble(), 1, MidpointRounding.AwayFromZero).ToString("0.0"));
-#else
-                      .Append(Math.Round(values[3].ToDouble(), 1).ToString("0.0"));
-#endif
+
             }
 
             return sb.ToString();

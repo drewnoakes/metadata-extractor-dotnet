@@ -31,12 +31,6 @@ using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 using MetadataExtractor.Util;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Icc
 {
     /// <summary>Reads ICC profile data.</summary>
@@ -60,7 +54,7 @@ namespace MetadataExtractor.Formats.Icc
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.App2 };
 
-        public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             // ICC data can be spread across multiple JPEG segments.
 
@@ -68,13 +62,16 @@ namespace MetadataExtractor.Formats.Icc
             var iccSegments = segments.Where(segment => segment.Bytes.Length > JpegSegmentPreambleLength && IsSubarrayEqualTo(segment.Bytes, 0, _jpegSegmentPreambleBytes)).ToList();
 
             if (iccSegments.Count == 0)
-                return new Directory[0];
+            {
+                return Array.Empty<Directory>();
+            }
 
             byte[] buffer;
             if (iccSegments.Count == 1)
             {
                 buffer = new byte[iccSegments[0].Bytes.Length - JpegSegmentPreambleLength];
-                Array.Copy(iccSegments[0].Bytes, JpegSegmentPreambleLength, buffer, 0, iccSegments[0].Bytes.Length - JpegSegmentPreambleLength);
+
+                iccSegments[0].Bytes.AsSpan(JpegSegmentPreambleLength, buffer.Length).CopyTo(buffer);
             }
             else
             {
@@ -84,7 +81,9 @@ namespace MetadataExtractor.Formats.Icc
                 for (int i = 0, pos = 0; i < iccSegments.Count; i++)
                 {
                     var segment = iccSegments[i];
-                    Array.Copy(segment.Bytes, JpegSegmentPreambleLength, buffer, pos, segment.Bytes.Length - JpegSegmentPreambleLength);
+
+                    segment.Bytes.AsSpan(JpegSegmentPreambleLength, segment.Bytes.Length - JpegSegmentPreambleLength).CopyTo(buffer.AsSpan(pos));
+
                     pos += segment.Bytes.Length - JpegSegmentPreambleLength;
                 }
             }

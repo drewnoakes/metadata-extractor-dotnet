@@ -42,12 +42,6 @@ using MetadataExtractor.Formats.WebP;
 using MetadataExtractor.Formats.Avi;
 using MetadataExtractor.Util;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 // ReSharper disable RedundantCaseLabel
 
 namespace MetadataExtractor
@@ -88,7 +82,7 @@ namespace MetadataExtractor
         /// <exception cref="ImageProcessingException">The file type is unknown, or processing errors occurred.</exception>
         /// <exception cref="System.IO.IOException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
             var fileType = FileTypeDetector.DetectFileType(stream);
 
@@ -136,7 +130,7 @@ namespace MetadataExtractor
                     throw new ImageProcessingException("File format is not supported");
             }
 
-            DirectoryList Append(IEnumerable<Directory> list, Directory directory) 
+            IReadOnlyList<Directory> Append(IEnumerable<Directory> list, Directory directory) 
                 => new List<Directory>(list) { directory };
         }
 
@@ -145,16 +139,16 @@ namespace MetadataExtractor
         /// <param name="filePath">Location of a file from which data should be read.</param>
         /// <returns>A list of <see cref="Directory"/> instances containing the various types of metadata found within the file's data.</returns>
         /// <exception cref="ImageProcessingException">The file type is unknown, or processing errors occurred.</exception>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static IReadOnlyList<Directory> ReadMetadata([NotNull] string filePath)
         {
             var directories = new List<Directory>();
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 directories.AddRange(ReadMetadata(stream));
 
-            directories.Add(new FileMetadataReader().Read(filePath));
+            directories.Add(FileMetadataReader.Read(filePath));
 
             return directories;
         }

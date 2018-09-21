@@ -31,12 +31,6 @@ using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.IO;
 
-#if NET35
-using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
-#else
-using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
-#endif
-
 namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>
@@ -52,7 +46,7 @@ namespace MetadataExtractor.Formats.Exif
 
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new [] { JpegSegmentType.App1 };
 
-        public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
+        public IReadOnlyList<Directory> ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             return segments
                 .Where(segment => segment.Bytes.Length >= JpegSegmentPreamble.Length && Encoding.UTF8.GetString(segment.Bytes, 0, JpegSegmentPreamble.Length) == JpegSegmentPreamble)
@@ -64,7 +58,7 @@ namespace MetadataExtractor.Formats.Exif
         /// Reads TIFF formatted Exif data a specified offset within a <see cref="IndexedReader"/>.
         /// </summary>
         [NotNull]
-        public DirectoryList Extract([NotNull] IndexedReader reader)
+        public IReadOnlyList<Directory> Extract([NotNull] IndexedReader reader)
         {
             var directories = new List<Directory>();
             var exifTiffHandler = new ExifTiffHandler(directories);

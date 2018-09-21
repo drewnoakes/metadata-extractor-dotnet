@@ -55,7 +55,7 @@ namespace MetadataExtractor.Tests.Formats.Netpbm
         private static void Verify(string content, int formatType, int width, int height, int? maxVal)
         {
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
-            var directory = new NetpbmReader().Extract(stream);
+            var directory = NetpbmReader.Extract(stream);
 
             Assert.Equal(formatType, directory.GetInt32(NetpbmHeaderDirectory.TagFormatType));
             Assert.Equal(width, directory.GetInt32(NetpbmHeaderDirectory.TagWidth));
