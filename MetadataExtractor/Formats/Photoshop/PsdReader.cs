@@ -32,10 +32,10 @@ namespace MetadataExtractor.Formats.Photoshop
 {
     /// <summary>Reads metadata stored within PSD file format data.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    public sealed class PsdReader
+    public static class PsdReader
     {
         [NotNull]
-        public IReadOnlyList<Directory> Extract([NotNull] SequentialReader reader)
+        public static IReadOnlyList<Directory> Extract([NotNull] SequentialReader reader)
         {
             var directory = new PsdHeaderDirectory();
 
