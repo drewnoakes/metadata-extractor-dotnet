@@ -39,7 +39,7 @@ namespace MetadataExtractor.Tests.Formats.Png
         private static IList<PngChunk> ProcessFile(string filePath)
         {
             using (var stream = TestDataUtil.OpenRead(filePath))
-                return new PngChunkReader().Extract(new SequentialStreamReader(stream), null).ToList();
+                return PngChunkReader.Extract(new SequentialStreamReader(stream), null).ToList();
         }
 
         [Fact]

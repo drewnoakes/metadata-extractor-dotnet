@@ -79,7 +79,7 @@ namespace MetadataExtractor.Formats.Png
         [NotNull]
         public static IReadOnlyList<Directory> ReadMetadata([NotNull] Stream stream)
         {
-            return new PngChunkReader()
+            return PngChunkReader
                 .Extract(new SequentialStreamReader(stream), _desiredChunkTypes)
                 .SelectMany(ProcessChunk)
                 .ToList();
