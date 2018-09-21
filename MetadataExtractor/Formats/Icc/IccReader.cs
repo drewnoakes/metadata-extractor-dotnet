@@ -70,7 +70,8 @@ namespace MetadataExtractor.Formats.Icc
             if (iccSegments.Count == 1)
             {
                 buffer = new byte[iccSegments[0].Bytes.Length - JpegSegmentPreambleLength];
-                Array.Copy(iccSegments[0].Bytes, JpegSegmentPreambleLength, buffer, 0, iccSegments[0].Bytes.Length - JpegSegmentPreambleLength);
+
+                iccSegments[0].Bytes.AsSpan(JpegSegmentPreambleLength, buffer.Length).CopyTo(buffer);
             }
             else
             {
@@ -80,7 +81,9 @@ namespace MetadataExtractor.Formats.Icc
                 for (int i = 0, pos = 0; i < iccSegments.Count; i++)
                 {
                     var segment = iccSegments[i];
-                    Array.Copy(segment.Bytes, JpegSegmentPreambleLength, buffer, pos, segment.Bytes.Length - JpegSegmentPreambleLength);
+
+                    segment.Bytes.AsSpan(JpegSegmentPreambleLength, segment.Bytes.Length - JpegSegmentPreambleLength).CopyTo(buffer.AsSpan(pos));
+
                     pos += segment.Bytes.Length - JpegSegmentPreambleLength;
                 }
             }

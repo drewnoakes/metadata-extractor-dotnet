@@ -147,13 +147,13 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first
                 return (ushort)
-                    (GetByte(index    ) << 8 |
+                    (GetByte(index) << 8 |
                      GetByte(index + 1));
             }
             // Intel ordering - LSB first
             return (ushort)
                 (GetByte(index + 1) << 8 |
-                 GetByte(index    ));
+                 GetByte(index));
         }
 
         /// <summary>Returns a signed 16-bit int calculated from two bytes of data at the specified index (MSB, LSB).</summary>
@@ -167,7 +167,7 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first
                 return (short)
-                    (GetByte(index    ) << 8 |
+                    (GetByte(index) << 8 |
                      GetByte(index + 1));
             }
             // Intel ordering - LSB first
@@ -187,15 +187,15 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first (big endian)
                 return
-                    GetByte(index    ) << 16 |
-                    GetByte(index + 1)  << 8 |
+                    GetByte(index) << 16 |
+                    GetByte(index + 1) << 8 |
                     GetByte(index + 2);
             }
             // Intel ordering - LSB first (little endian)
             return
                 GetByte(index + 2) << 16 |
-                GetByte(index + 1) <<  8 |
-                GetByte(index    );
+                GetByte(index + 1) << 8 |
+                GetByte(index);
         }
 
         /// <summary>Get a 32-bit unsigned integer from the buffer, returning it as a long.</summary>
@@ -205,21 +205,22 @@ namespace MetadataExtractor.IO
         public uint GetUInt32(int index)
         {
             ValidateIndex(index, 4);
+
             if (IsMotorolaByteOrder)
             {
                 // Motorola - MSB first (big endian)
                 return (uint)
-                    (GetByte(index    ) << 24 |
+                    (GetByte(index) << 24 |
                      GetByte(index + 1) << 16 |
-                     GetByte(index + 2) <<  8 |
+                     GetByte(index + 2) << 8 |
                      GetByte(index + 3));
             }
             // Intel ordering - LSB first (little endian)
             return (uint)
                 (GetByte(index + 3) << 24 |
                  GetByte(index + 2) << 16 |
-                 GetByte(index + 1) <<  8 |
-                 GetByte(index    ));
+                 GetByte(index + 1) << 8 |
+                 GetByte(index));
         }
 
         /// <summary>Returns a signed 32-bit integer from four bytes of data at the specified index the buffer.</summary>
@@ -233,17 +234,17 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first (big endian)
                 return
-                    GetByte(index    ) << 24 |
+                    GetByte(index) << 24 |
                     GetByte(index + 1) << 16 |
-                    GetByte(index + 2) <<  8 |
+                    GetByte(index + 2) << 8 |
                     GetByte(index + 3);
             }
             // Intel ordering - LSB first (little endian)
             return
                 GetByte(index + 3) << 24 |
                 GetByte(index + 2) << 16 |
-                GetByte(index + 1) <<  8 |
-                GetByte(index    );
+                GetByte(index + 1) << 8 |
+                GetByte(index);
         }
 
         /// <summary>Get a signed 64-bit integer from the buffer.</summary>
@@ -257,13 +258,13 @@ namespace MetadataExtractor.IO
             {
                 // Motorola - MSB first
                 return
-                    (long)GetByte(index    ) << 56 |
+                    (long)GetByte(index) << 56 |
                     (long)GetByte(index + 1) << 48 |
                     (long)GetByte(index + 2) << 40 |
                     (long)GetByte(index + 3) << 32 |
                     (long)GetByte(index + 4) << 24 |
                     (long)GetByte(index + 5) << 16 |
-                    (long)GetByte(index + 6) <<  8 |
+                    (long)GetByte(index + 6) << 8 |
                           GetByte(index + 7);
             }
             // Intel ordering - LSB first
@@ -274,8 +275,8 @@ namespace MetadataExtractor.IO
                 (long)GetByte(index + 4) << 32 |
                 (long)GetByte(index + 3) << 24 |
                 (long)GetByte(index + 2) << 16 |
-                (long)GetByte(index + 1) <<  8 |
-                      GetByte(index    );
+                (long)GetByte(index + 1) << 8 |
+                      GetByte(index);
         }
 
         /// <summary>Gets a s15.16 fixed point float from the buffer.</summary>
@@ -378,9 +379,15 @@ namespace MetadataExtractor.IO
             if (length == maxLengthBytes)
                 return buffer;
 
-            var bytes = new byte[length];
-            if (length > 0)
-                Array.Copy(buffer, 0, bytes, 0, length);
+            if (length == 0)
+            {
+                return Array.Empty<byte>();
+            }
+
+            byte[] bytes = new byte[length];
+
+            buffer.AsSpan(0, length).CopyTo(bytes);
+
             return bytes;
         }
     }

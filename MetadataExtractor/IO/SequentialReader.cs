@@ -276,9 +276,15 @@ namespace MetadataExtractor.IO
             if (length == maxLengthBytes)
                 return buffer;
 
+            if (length == 0)
+            {
+                return Array.Empty<byte>();
+            }
+
             var bytes = new byte[length];
-            if (length > 0)
-                Array.Copy(buffer, bytes, length);
+
+            buffer.AsSpan(0, length).CopyTo(bytes);
+
             return bytes;
         }
 

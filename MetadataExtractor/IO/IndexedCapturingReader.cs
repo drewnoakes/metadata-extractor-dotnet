@@ -184,7 +184,9 @@ namespace MetadataExtractor.IO
                 var fromInnerIndex = fromIndex % _chunkLength;
                 var length = Math.Min(remaining, _chunkLength - fromInnerIndex);
                 var chunk = _chunks[fromChunkIndex];
-                Array.Copy(chunk, fromInnerIndex, bytes, toIndex, length);
+
+                chunk.AsSpan(fromInnerIndex, length).CopyTo(bytes.AsSpan(toIndex));
+
                 remaining -= length;
                 fromIndex += length;
                 toIndex += length;
