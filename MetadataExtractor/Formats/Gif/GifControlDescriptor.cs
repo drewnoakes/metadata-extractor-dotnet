@@ -33,5 +33,41 @@ namespace MetadataExtractor.Formats.Gif
             : base(directory)
         {
         }
+
+        public override string GetDescription(int tagType)
+        {
+            switch (tagType)
+            {
+                case GifControlDirectory.TagDisposalMethod:
+                    return GetDisposalMethodDescription();
+                default:
+                    return base.GetDescription(tagType);
+            }
+        }
+
+        public string GetDisposalMethodDescription()
+        {
+            if (!Directory.TryGetInt32(GifControlDirectory.TagDisposalMethod, out int value))
+                return null;
+
+            switch (value)
+            {
+                case 0:
+                    return "Not Specified";
+                case 1:
+                    return "Don't Dispose";
+                case 2:
+                    return "Restore to Background Color";
+                case 3:
+                    return "Restore to Previous";
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                    return "To Be Defined";
+                default:
+                    return "Invalid value";
+            }
+        }
     }
 }
