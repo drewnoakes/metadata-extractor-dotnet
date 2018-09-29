@@ -225,7 +225,7 @@ namespace MetadataExtractor.Formats.Exif
         {
             if (!Directory.TryGetRational(GpsDirectory.TagAltitude, out Rational value))
                 return null;
-            return value.ToInt32() + " metres";
+            return $"{value.ToDouble():0.0##} metres";
         }
 
         [CanBeNull]
