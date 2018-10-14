@@ -106,12 +106,14 @@ namespace MetadataExtractor.Formats.Gif
                 {
                     case (byte)'!': // 0x21
                     {
-                        yield return ReadGifExtensionBlock(reader);
+                        var extBlock = ReadGifExtensionBlock(reader);
+                        if (extBlock != null) yield return extBlock;
                         break;
                     }
                     case (byte)',': // 0x2c
                     {
-                        yield return ReadImageBlock(reader);
+                        var imageBlock = ReadImageBlock(reader);
+                        if (imageBlock != null) yield return imageBlock;
 
                         // skip image data blocks
                         SkipBlocks(reader);
@@ -287,7 +289,11 @@ namespace MetadataExtractor.Formats.Gif
                 {
                     // XMP data extension
                     var xmpBytes = GatherBytes(reader);
-                    return new XmpReader().Extract(xmpBytes.Clone(xmpBytes.Length - 257));
+                    int xmpLength = (int)xmpBytes.Length - 257; // Exclude the "magic trailer", see XMP Specification Part 3, 1.1.2 GIF
+                    // Only extract valid blocks
+                    return xmpLength > 0
+                        ? new XmpReader().Extract(xmpBytes.Clone(xmpBytes.Length - 257))
+                        : null;
                 }
                 case "ICCRGBG1012":
                 {
