@@ -22,7 +22,9 @@
 //
 #endregion
 
+using System;
 using System.Diagnostics.CodeAnalysis;
+using MetadataExtractor.Util;
 using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
@@ -98,7 +100,15 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         [CanBeNull]
         public string GetPowerUpTimeDescription()
         {
-            return GetEpochTimeDescription(NikonType2MakernoteDirectory.TagPowerUpTime);
+            // this is generally a byte[] of length 8 directly representing a date and time.
+            // the format is : first 2 bytes together are the year, and then each byte after
+            //                 is month, day, hour, minute, second with the eighth byte unused
+            // e.g., 2011:04:25 01:54:58
+
+            var o = Directory.GetByteArray(NikonType2MakernoteDirectory.TagPowerUpTime);
+            ushort year = ByteConvert.FromBigEndianToNative(BitConverter.ToUInt16(o, 0));
+            return string.Format("{0}:{1}:{2} {3}:{4}:{5}", year, o[2].ToString("D2"), o[3].ToString("D2"),
+                                             o[4].ToString("D2"), o[5].ToString("D2"), o[6].ToString("D2"));
         }
 
         [CanBeNull]

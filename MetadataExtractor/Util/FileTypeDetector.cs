@@ -28,6 +28,8 @@ using System.IO;
 using System.Text;
 using JetBrains.Annotations;
 
+using MetadataExtractor.IO;
+
 // ReSharper disable CommentTypo
 // ReSharper disable StringLiteralTypo
 
@@ -44,8 +46,12 @@ namespace MetadataExtractor.Util
             { FileType.Tiff, Encoding.UTF8.GetBytes("MM"), new byte[] { 0x00, 0x2a } },
             { FileType.Psd, Encoding.UTF8.GetBytes("8BPS") },
             { FileType.Png, new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52 } },
-            { FileType.Bmp, Encoding.UTF8.GetBytes("BM") },
-            // TODO technically there are other very rare magic numbers for OS/2 BMP files
+            { FileType.Bmp, Encoding.UTF8.GetBytes("BM") }, // Standard Bitmap Windows and OS/2
+            { FileType.Bmp, Encoding.UTF8.GetBytes("BA") }, // OS/2 Bitmap Array
+            { FileType.Bmp, Encoding.UTF8.GetBytes("CI") }, // OS/2 Color Icon
+            { FileType.Bmp, Encoding.UTF8.GetBytes("CP") }, // OS/2 Color Pointer
+            { FileType.Bmp, Encoding.UTF8.GetBytes("IC") }, // OS/2 Icon
+            { FileType.Bmp, Encoding.UTF8.GetBytes("PT") }, // OS/2 Pointer
             { FileType.Gif, Encoding.UTF8.GetBytes("GIF87a") },
             { FileType.Gif, Encoding.UTF8.GetBytes("GIF89a") },
             { FileType.Ico, new byte[] { 0x00, 0x00, 0x01, 0x00 } },
@@ -81,23 +87,20 @@ namespace MetadataExtractor.Util
                 : FileType.Unknown
         };
 
-        /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
-        /// <exception cref="ArgumentException">Stream does not support seeking.</exception>
+        /// <summary>Examines a file's first bytes and estimates the file's type.</summary>
         /// <exception cref="IOException">An IO error occurred, or the input stream ended unexpectedly.</exception>
-        public static FileType DetectFileType([NotNull] Stream stream)
+        public static FileType DetectFileType([NotNull] ReaderInfo rdrInfo)
         {
-            if (!stream.CanSeek)
-                throw new ArgumentException("Must support seek", nameof(stream));
-
             var maxByteCount = _root.MaxDepth;
 
             var bytes = new byte[maxByteCount];
-            var bytesRead = stream.Read(bytes, 0, bytes.Length);
+            var bytesRead = rdrInfo.Read(bytes, 0, bytes.Length);
 
             if (bytesRead == 0)
                 return FileType.Unknown;
 
-            stream.Seek(-bytesRead, SeekOrigin.Current);
+            // reposition the reader before read bytes
+            rdrInfo.Skip(-bytesRead);
 
             var fileType = _root.Find(bytes);
 

@@ -33,6 +33,7 @@ using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.IO;
 using System.Windows.Media.Imaging;
 
 namespace MetadataExtractor.Benchmarks
@@ -109,7 +110,8 @@ namespace MetadataExtractor.Benchmarks
         {
             _stream.Position = 0;
 
-            var directories = JpegMetadataReader.ReadMetadata(_stream, new[] { new ExifReader() });
+            //var directories = JpegMetadataReader.ReadMetadata(_stream, new[] { new ExifReader() });
+            var directories = JpegMetadataReader.ReadMetadata(new RandomAccessStream(_stream).CreateReader(), new[] { new ExifReader() });
             var subIfdDirectory = directories.OfType<ExifSubIfdDirectory>().First();
             return subIfdDirectory.GetDateTime(ExifDirectoryBase.TagDateTimeOriginal);
         }
@@ -119,7 +121,7 @@ namespace MetadataExtractor.Benchmarks
         {
             _stream.Position = 0;
 
-            var directories = JpegMetadataReader.ReadMetadata(_stream);
+            var directories = JpegMetadataReader.ReadMetadata(new RandomAccessStream(_stream).CreateReader());
             var subIfdDirectory = directories.OfType<ExifSubIfdDirectory>().First();
             return subIfdDirectory.GetDateTime(ExifDirectoryBase.TagDateTimeOriginal);
         }

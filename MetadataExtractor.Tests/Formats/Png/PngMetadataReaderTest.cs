@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Png;
+using MetadataExtractor.IO;
 using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Png
@@ -41,7 +42,7 @@ namespace MetadataExtractor.Tests.Formats.Png
         private static IEnumerable<Directory> ProcessFile([NotNull] string filePath)
         {
             using (var stream = TestDataUtil.OpenRead(filePath))
-                return PngMetadataReader.ReadMetadata(stream);
+                return PngMetadataReader.ReadMetadata(new RandomAccessStream(stream).CreateReader());
         }
 
         [Fact, UseCulture("en-GB")]

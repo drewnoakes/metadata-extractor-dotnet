@@ -35,22 +35,24 @@ namespace MetadataExtractor.Formats.Tiff
     public static class TiffReader
     {
         /// <summary>Processes a TIFF data sequence.</summary>
-        /// <param name="reader">the <see cref="IndexedReader"/> from which the data should be read</param>
+        /// <param name="reader">the <see cref="ReaderInfo"/> from which the data should be read</param>
         /// <param name="handler">the <see cref="ITiffHandler"/> that will coordinate processing and accept read values</param>
         /// <exception cref="TiffProcessingException">if an error occurred during the processing of TIFF data that could not be ignored or recovered from</exception>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
         /// <exception cref="TiffProcessingException"/>
-        public static void ProcessTiff([NotNull] IndexedReader reader, [NotNull] ITiffHandler handler)
+        public static void ProcessTiff([NotNull] ReaderInfo reader, [NotNull] ITiffHandler handler)
         {
             // Read byte order.
             var byteOrder = reader.GetInt16(0);
             switch (byteOrder)
             {
                 case 0x4d4d: // MM
-                    reader = reader.WithByteOrder(isMotorolaByteOrder: true);
+                    if (!reader.IsMotorolaByteOrder)
+                        reader = reader.Clone(false);
                     break;
                 case 0x4949: // II
-                    reader = reader.WithByteOrder(isMotorolaByteOrder: false);
+                    if (reader.IsMotorolaByteOrder)
+                        reader = reader.Clone(false);
                     break;
                 default:
                     throw new TiffProcessingException("Unclear distinction between Motorola/Intel byte ordering: " + reader.GetInt16(0));
@@ -71,7 +73,7 @@ namespace MetadataExtractor.Formats.Tiff
                 firstIfdOffset = 2 + 2 + 4;
             }
 
-            var processedIfdOffsets = new HashSet<int>();
+            var processedIfdOffsets = new HashSet<long>();
 
             ProcessIfd(handler, reader, processedIfdOffsets, firstIfdOffset);
         }
@@ -91,17 +93,17 @@ namespace MetadataExtractor.Formats.Tiff
         /// </list>
         /// </remarks>
         /// <param name="handler">the <see cref="ITiffHandler"/> that will coordinate processing and accept read values</param>
-        /// <param name="reader">the <see cref="IndexedReader"/> from which the data should be read</param>
+        /// <param name="reader">the <see cref="ReaderInfo"/> from which the data should be read</param>
         /// <param name="processedGlobalIfdOffsets">the set of visited IFD offsets, to avoid revisiting the same IFD in an endless loop</param>
         /// <param name="ifdOffset">the offset within <c>reader</c> at which the IFD data starts</param>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
-        public static void ProcessIfd([NotNull] ITiffHandler handler, [NotNull] IndexedReader reader, [NotNull] ICollection<int> processedGlobalIfdOffsets, int ifdOffset)
+        public static void ProcessIfd([NotNull] ITiffHandler handler, [NotNull] ReaderInfo reader, [NotNull] ICollection<long> processedGlobalIfdOffsets, int ifdOffset)
         {
             try
             {
                 // Check for directories we've already visited to avoid stack overflows when recursive/cyclic directory structures exist.
                 // Note that we track these offsets in the global frame, not the reader's local frame.
-                var globalIfdOffset = reader.ToUnshiftedOffset(ifdOffset);
+                var globalIfdOffset = reader.StartPosition + ifdOffset;
                 if (processedGlobalIfdOffsets.Contains(globalIfdOffset))
                     return;
 
@@ -125,7 +127,7 @@ namespace MetadataExtractor.Formats.Tiff
                 if (dirTagCount > 0xFF && (dirTagCount & 0xFF) == 0)
                 {
                     dirTagCount >>= 8;
-                    reader = reader.WithByteOrder(!reader.IsMotorolaByteOrder);
+                    reader = reader.Clone(false);
                 }
 
                 var dirLength = 2 + 12*dirTagCount + 4;
@@ -259,7 +261,7 @@ namespace MetadataExtractor.Formats.Tiff
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private static void ProcessTag([NotNull] ITiffHandler handler, int tagId, int tagValueOffset, int componentCount, TiffDataFormatCode formatCode, [NotNull] IndexedReader reader)
+        private static void ProcessTag([NotNull] ITiffHandler handler, int tagId, int tagValueOffset, int componentCount, TiffDataFormatCode formatCode, [NotNull] ReaderInfo reader)
         {
             switch (formatCode)
             {

@@ -25,7 +25,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
+
+using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Netpbm
 {
@@ -43,11 +44,9 @@ namespace MetadataExtractor.Formats.Netpbm
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class NetpbmReader
     {
-        public NetpbmHeaderDirectory Extract(Stream stream)
+        public NetpbmHeaderDirectory Extract(ReaderInfo reader)
         {
             var directory = new NetpbmHeaderDirectory();
-
-            var reader = new StreamReader(stream, Encoding.UTF8);
 
             using (var words = ReadWords(reader).GetEnumerator())
             {
@@ -92,6 +91,24 @@ namespace MetadataExtractor.Formats.Netpbm
             }
 
             return directory;
+        }
+
+        private static IEnumerable<string> ReadWords(ReaderInfo reader)
+        {
+            while (true)
+            {
+                var line = reader.ReadLine();
+                if (line == null)
+                    yield break;
+
+                var commentFromIndex = line.IndexOf('#');
+                if (commentFromIndex != -1)
+                    line = line.Substring(0, commentFromIndex);
+
+                var words = line.Split(new[] { ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var word in words)
+                    yield return word.Trim();
+            }
         }
 
         private static IEnumerable<string> ReadWords(TextReader reader)

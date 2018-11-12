@@ -25,6 +25,7 @@
 using System.Linq;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Xmp;
+using MetadataExtractor.IO;
 using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Xmp
@@ -37,7 +38,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
 
         public XmpReaderTest()
         {
-            var jpegSegments = new [] { new JpegSegment(JpegSegmentType.App1, TestDataUtil.GetBytes("Data/withXmpAndIptc.jpg.app1.1"), offset: 0) };
+            var jpegSegments = new[] { new JpegSegment(JpegSegmentType.App1, ReaderInfo.CreateFromArray(TestDataUtil.GetBytes("Data/withXmpAndIptc.jpg.app1.1")), "Exif") };
             var directories = new XmpReader().ReadJpegSegments(jpegSegments);
             _directory = directories.OfType<XmpDirectory>().ToList().Single();
             Assert.False(_directory.HasError);
@@ -52,7 +53,17 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         [Fact]
         public void testExtract_PropertyCount()
         {
-            Assert.Equal(179, _directory.GetInt32(XmpDirectory.TagXmpValueCount));
+            Assert.Equal(179, _directory.XmpValueCount);
+        }
+
+        [Fact]
+        public void testExtract_XmpMetadata()
+        {
+
+            var directories = JpegMetadataReader.ReadMetadata(new RandomAccessStream(TestDataUtil.OpenRead("Data/withXmp.jpg")).CreateReader());
+            var xmpDirectory = directories.OfType<XmpDirectory>().SingleOrDefault();
+            Assert.NotNull(xmpDirectory);
+
         }
 
         [Fact]

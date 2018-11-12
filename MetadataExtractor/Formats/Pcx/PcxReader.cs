@@ -40,9 +40,9 @@ namespace MetadataExtractor.Formats.Pcx
     public sealed class PcxReader
     {
         [NotNull]
-        public PcxDirectory Extract([NotNull] SequentialReader reader)
+        public PcxDirectory Extract([NotNull] ReaderInfo reader)
         {
-            reader = reader.WithByteOrder(isMotorolaByteOrder: false);
+            reader.IsMotorolaByteOrder = false;
 
             var directory = new PcxDirectory();
 

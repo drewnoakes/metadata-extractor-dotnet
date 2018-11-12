@@ -47,6 +47,7 @@ namespace MetadataExtractor.Formats.Exif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class ExifReader : IJpegSegmentMetadataReader
     {
+        public const string JpegSegmentId = "Exif";
         /// <summary>Exif data stored in JPEG files' APP1 segment are preceded by this six character preamble.</summary>
         public const string JpegSegmentPreamble = "Exif\x0\x0";
 
@@ -55,16 +56,16 @@ namespace MetadataExtractor.Formats.Exif
         public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
             return segments
-                .Where(segment => segment.Bytes.Length >= JpegSegmentPreamble.Length && Encoding.UTF8.GetString(segment.Bytes, 0, JpegSegmentPreamble.Length) == JpegSegmentPreamble)
-                .SelectMany(segment => Extract(new ByteArrayReader(segment.Bytes, baseOffset: JpegSegmentPreamble.Length)))
+                .Where(segment => segment.Reader.Length >= JpegSegmentPreamble.Length && segment.Preamble == JpegSegmentId)
+                .SelectMany(segment => Extract(segment.Reader.Clone(JpegSegmentPreamble.Length, segment.Reader.Length - JpegSegmentPreamble.Length)))
                 .ToList();
         }
 
         /// <summary>
-        /// Reads TIFF formatted Exif data a specified offset within a <see cref="IndexedReader"/>.
+        /// Reads TIFF formatted Exif data a specified offset within a <see cref="ReaderInfo"/>.
         /// </summary>
         [NotNull]
-        public DirectoryList Extract([NotNull] IndexedReader reader)
+        public DirectoryList Extract([NotNull] ReaderInfo reader)
         {
             var directories = new List<Directory>();
             var exifTiffHandler = new ExifTiffHandler(directories);

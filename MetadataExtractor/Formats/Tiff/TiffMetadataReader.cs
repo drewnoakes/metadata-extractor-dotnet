@@ -56,7 +56,7 @@ namespace MetadataExtractor.Formats.Tiff
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.RandomAccess))
             {
                 var handler = new ExifTiffHandler(directories);
-                TiffReader.ProcessTiff(new IndexedSeekingReader(stream), handler);
+                TiffReader.ProcessTiff(new RandomAccessStream(stream).CreateReader(), handler);
             }
 
             directories.Add(new FileMetadataReader().Read(filePath));
@@ -67,7 +67,7 @@ namespace MetadataExtractor.Formats.Tiff
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="TiffProcessingException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata([NotNull] ReaderInfo reader)
         {
             // TIFF processing requires random access, as directories can be scattered throughout the byte sequence.
             // Stream does not support seeking backwards, so we wrap it with IndexedCapturingReader, which
@@ -75,7 +75,7 @@ namespace MetadataExtractor.Formats.Tiff
             var directories = new List<Directory>();
 
             var handler = new ExifTiffHandler(directories);
-            TiffReader.ProcessTiff(new IndexedCapturingReader(stream), handler);
+            TiffReader.ProcessTiff(reader, handler);
 
             return directories;
         }

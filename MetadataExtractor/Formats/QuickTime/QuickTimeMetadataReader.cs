@@ -26,6 +26,8 @@ using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
 
+using MetadataExtractor.IO;
+
 #if NET35
 using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
 #else
@@ -39,7 +41,7 @@ namespace MetadataExtractor.Formats.QuickTime
         private static readonly DateTime _epoch = new DateTime(1904, 1, 1);
 
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata([NotNull] ReaderInfo reader)
         {
             var directories = new List<Directory>();
 
@@ -101,7 +103,7 @@ namespace MetadataExtractor.Formats.QuickTime
                     }
                     case "trak":
                     {
-                        QuickTimeReader.ProcessAtoms(stream, TrakHandler, a.BytesLeft);
+                        QuickTimeReader.ProcessAtoms(reader, TrakHandler, a.BytesLeft);
                         break;
                     }
 //                    case "clip":
@@ -127,7 +129,7 @@ namespace MetadataExtractor.Formats.QuickTime
                 {
                     case "moov":
                     {
-                        QuickTimeReader.ProcessAtoms(stream, MoovHandler, a.BytesLeft);
+                        QuickTimeReader.ProcessAtoms(reader, MoovHandler, a.BytesLeft);
                         break;
                     }
                     case "ftyp":
@@ -145,7 +147,7 @@ namespace MetadataExtractor.Formats.QuickTime
                 }
             }
 
-            QuickTimeReader.ProcessAtoms(stream, Handler);
+            QuickTimeReader.ProcessAtoms(reader, Handler);
 
             return directories;
         }

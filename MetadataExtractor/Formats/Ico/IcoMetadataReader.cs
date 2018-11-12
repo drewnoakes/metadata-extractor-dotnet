@@ -47,7 +47,7 @@ namespace MetadataExtractor.Formats.Ico
             var directories = new List<Directory>();
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.AddRange(ReadMetadata(stream));
+                directories.AddRange(ReadMetadata(new RandomAccessStream(stream).CreateReader()));
 
             directories.Add(new FileMetadataReader().Read(filePath));
 
@@ -55,9 +55,9 @@ namespace MetadataExtractor.Formats.Ico
         }
 
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata([NotNull] ReaderInfo reader)
         {
-            return new IcoReader().Extract(new SequentialStreamReader(stream));
+            return new IcoReader().Extract(reader);
         }
     }
 }

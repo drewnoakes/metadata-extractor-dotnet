@@ -26,6 +26,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using MetadataExtractor.Formats.Netpbm;
+using MetadataExtractor.IO;
 using Xunit;
 
 namespace MetadataExtractor.Tests.Formats.Netpbm
@@ -55,7 +56,7 @@ namespace MetadataExtractor.Tests.Formats.Netpbm
         private static void Verify(string content, int formatType, int width, int height, int? maxVal)
         {
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
-            var directory = new NetpbmReader().Extract(stream);
+            var directory = new NetpbmReader().Extract(new RandomAccessStream(stream).CreateReader());
 
             Assert.Equal(formatType, directory.GetInt32(NetpbmHeaderDirectory.TagFormatType));
             Assert.Equal(width, directory.GetInt32(NetpbmHeaderDirectory.TagWidth));

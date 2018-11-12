@@ -49,7 +49,7 @@ namespace MetadataExtractor.Formats.Avi
             var directories = new List<Directory>();
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.AddRange(ReadMetadata(stream));
+                directories.AddRange(ReadMetadata(new RandomAccessStream(stream).CreateReader()));
 
             directories.Add(new FileMetadataReader().Read(filePath));
 
@@ -59,10 +59,10 @@ namespace MetadataExtractor.Formats.Avi
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="RiffProcessingException"/>
         [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata([NotNull] ReaderInfo reader)
         {
             var directories = new List<Directory>();
-            new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new AviRiffHandler(directories));
+            new RiffReader().ProcessRiff(reader, new AviRiffHandler(directories));
             return directories;
         }
     }

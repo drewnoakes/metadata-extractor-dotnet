@@ -30,6 +30,7 @@ using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Xmp;
+using MetadataExtractor.IO;
 using MetadataExtractor.Util;
 
 namespace MetadataExtractor.Tools.FileProcessor
@@ -82,7 +83,17 @@ namespace MetadataExtractor.Tools.FileProcessor
                             foreach (var tag in directory.Tags)
                             {
                                 var tagName = tag.Name;
-                                var description = tag.Description;
+                                string description;
+                                try
+                                {
+                                    description = tag.Description;
+                                }
+                                catch (Exception ex)
+                                {
+                                    description = "ERROR: " + ex.ToString();
+                                }
+                                if (description == null)
+                                    description = "";
 
                                 if (directory is FileMetadataDirectory && tag.Type == FileMetadataDirectory.TagFileModifiedDate)
                                     description = "<omitted for regression testing as checkout dependent>";
@@ -184,7 +195,7 @@ namespace MetadataExtractor.Tools.FileProcessor
             // Detect file type
             using (var fileTypeDetectStream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-                var fileType = FileTypeDetector.DetectFileType(fileTypeDetectStream);
+                var fileType = FileTypeDetector.DetectFileType(new RandomAccessStream(fileTypeDetectStream).CreateReader());
                 writer.Write("TYPE: {0}\n\n", fileType.ToString().ToUpper());
             }
 

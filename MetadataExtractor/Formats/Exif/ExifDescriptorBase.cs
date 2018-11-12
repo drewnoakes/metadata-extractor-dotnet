@@ -25,6 +25,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Util;
@@ -138,6 +139,8 @@ namespace MetadataExtractor.Formats.Exif
                     return GetExposureProgramDescription();
                 case ExifDirectoryBase.TagAperture:
                     return GetApertureValueDescription();
+                case ExifDirectoryBase.TagBrightnessValue:
+                    return GetBrightnessValueDescription();
                 case ExifDirectoryBase.TagMaxAperture:
                     return GetMaxApertureValueDescription();
                 case ExifDirectoryBase.TagSensingMethod:
@@ -787,8 +790,8 @@ namespace MetadataExtractor.Formats.Exif
                     ret[i] = values[i];
                 return ret;
             }
-
-            IndexedReader reader = new ByteArrayReader(values);
+            
+            var reader = ReaderInfo.CreateFromArray(values);
 
             // first two values should be read as 16-bits (2 bytes)
             var item0 = reader.GetInt16(0);
@@ -801,7 +804,7 @@ namespace MetadataExtractor.Formats.Exif
             if (end > values.Length) // sanity check in case of byte order problems; calculated 'end' should be <= length of the values
             {
                 // try swapping byte order (I have seen this order different than in EXIF)
-                reader = reader.WithByteOrder(!reader.IsMotorolaByteOrder);
+                reader = reader.Clone(0, false);
                 item0 = reader.GetInt16(0);
                 item1 = reader.GetInt16(2);
 
@@ -855,6 +858,16 @@ namespace MetadataExtractor.Formats.Exif
             if (!Directory.TryGetDouble(ExifDirectoryBase.TagAperture, out double aperture))
                 return null;
             return GetFStopDescription(PhotographicConversions.ApertureToFStop(aperture));
+        }
+
+        public string GetBrightnessValueDescription()
+        {
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagBrightnessValue, out Rational value))
+                return null;
+            if (value.Numerator == 0xFFFFFFFFL)
+                return "Unknown";
+
+            return $"{value.ToDouble():0.0##}";
         }
 
         [CanBeNull]
@@ -1133,6 +1146,10 @@ namespace MetadataExtractor.Formats.Exif
         {
             if (!Directory.TryGetRational(ExifDirectoryBase.TagSubjectDistance, out Rational value))
                 return null;
+            if (value.Numerator == 0xFFFFFFFFL)
+                return "Infinity";
+            if (value.Numerator == 0)
+                return "Unknown";
             return $"{value.ToDouble():0.0##} metres";
         }
 

@@ -41,7 +41,7 @@ namespace MetadataExtractor.Formats.Photoshop
     public sealed class PsdReader
     {
         [NotNull]
-        public DirectoryList Extract([NotNull] SequentialReader reader)
+        public DirectoryList Extract([NotNull] ReaderInfo reader) // SequentialReader reader)
         {
             var directory = new PsdHeaderDirectory();
 
@@ -109,7 +109,7 @@ namespace MetadataExtractor.Formats.Photoshop
 
                 var imageResourcesSectionLength = reader.GetUInt32();
                 Debug.Assert(imageResourcesSectionLength <= int.MaxValue);
-                photoshopDirectories = new PhotoshopReader().Extract(reader, (int)imageResourcesSectionLength);
+                photoshopDirectories = new PhotoshopReader().Extract(reader.Clone(0, (int)imageResourcesSectionLength));
             }
             catch (IOException)
             {

@@ -31,12 +31,10 @@ namespace MetadataExtractor.Formats.Png
     public sealed class PngHeader
     {
         /// <exception cref="PngProcessingException"/>
-        public PngHeader([NotNull] byte[] bytes)
+        public PngHeader([NotNull] ReaderInfo reader)
         {
-            if (bytes.Length != 13)
+            if (reader.Length != 13)
                 throw new PngProcessingException("PNG header chunk must have exactly 13 data bytes");
-
-            var reader = new SequentialByteArrayReader(bytes);
 
             ImageWidth = reader.GetInt32();
             ImageHeight = reader.GetInt32();

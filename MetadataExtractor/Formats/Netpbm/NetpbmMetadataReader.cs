@@ -25,6 +25,7 @@ using System.IO;
 using JetBrains.Annotations;
 using System.Collections.Generic;
 using MetadataExtractor.Formats.FileSystem;
+using MetadataExtractor.IO;
 
 #if NET35
 using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
@@ -45,7 +46,7 @@ namespace MetadataExtractor.Formats.Netpbm
             var directories = new List<Directory>(2);
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.Add(ReadMetadata(stream));
+                directories.Add(ReadMetadata(new RandomAccessStream(stream).CreateReader()));
 
             directories.Add(new FileMetadataReader().Read(filePath));
 
@@ -53,9 +54,9 @@ namespace MetadataExtractor.Formats.Netpbm
         }
 
         [NotNull]
-        public static NetpbmHeaderDirectory ReadMetadata([NotNull] Stream stream)
+        public static NetpbmHeaderDirectory ReadMetadata([NotNull] ReaderInfo reader)
         {
-            return new NetpbmReader().Extract(stream);
+            return new NetpbmReader().Extract(reader);
         }
     }
 }
