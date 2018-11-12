@@ -57,12 +57,7 @@ namespace MetadataExtractor.IO
                 throw new ArgumentNullException(nameof(stream));
 
             if (streamLength == -1)
-            {
-                if (!stream.CanSeek)
-                    throw new ArgumentException("If a streamLength is not specified, the stream must be capable of seeking.", nameof(stream));
-
-                streamLength = stream.Length;
-            }
+                streamLength = stream.CanSeek ? stream.Length : int.MaxValue;
 
             p_inputStream = stream;
             CanSeek = stream.CanSeek;
