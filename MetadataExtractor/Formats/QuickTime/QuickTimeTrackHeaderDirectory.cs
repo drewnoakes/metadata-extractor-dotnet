@@ -40,6 +40,8 @@ namespace MetadataExtractor.Formats.QuickTime
         public const int TagVolume = 9;
         public const int TagWidth = 10;
         public const int TagHeight = 11;
+        public const int TagMatrix = 12;
+        public const int TagRotation = 13;
 
         public override string Name { get; } = "QuickTime Track Header";
 
@@ -55,7 +57,9 @@ namespace MetadataExtractor.Formats.QuickTime
             { TagAlternateGroup, "Alternate Group" },
             { TagVolume,         "Volume" },
             { TagWidth,          "Width" },
-            { TagHeight,         "Height" }
+            { TagHeight,         "Height" },
+            { TagMatrix,         "Matrix" },
+            { TagRotation,       "Rotation" },
         };
 
         public QuickTimeTrackHeaderDirectory()
