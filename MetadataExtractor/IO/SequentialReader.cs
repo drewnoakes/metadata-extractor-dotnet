@@ -348,6 +348,21 @@ namespace MetadataExtractor.IO
         }
 
         /// <summary>
+        /// Returns an array of signed 32-bit integers with the given length.
+        /// </summary>
+        /// <param name="sizeOfArray">The destination size of the array.</param>
+        /// <returns>An array of of signed 32-bit integers</returns>
+        /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
+        [NotNull]
+        public int[] GetInt32Array(int sizeOfArray)
+        {
+            var ints = new int[sizeOfArray];
+            for (var i = 0; i < sizeOfArray; i++)
+                ints[i] = GetInt32();
+            return ints;
+        }
+
+        /// <summary>
         /// Returns true in case the stream supports length checking and distance to the end of the stream is less then number of bytes in parameter.
         /// Otherwise false.
         /// </summary>
