@@ -58,5 +58,21 @@ namespace MetadataExtractor.Formats.QuickTime
                 reader.GetUInt16(),
                 decimal.Divide(reader.GetUInt16(), ushort.MaxValue));
         }
+
+        public static int[] GetMatrix(this SequentialReader reader)
+        {
+            var matrix = new int[9];
+            for (var i = 0; i < matrix.Length; i++)
+            {
+                var val = reader.GetInt32() / ushort.MaxValue;
+                // the right column is fixed 2.30 instead of 16.16
+                if (i == 2 || i == 5 || i == 8)
+                {
+                    val /= 0x4000;
+                }
+                matrix[i] = (int)val;
+            }
+            return matrix;
+        }
     }
 }
