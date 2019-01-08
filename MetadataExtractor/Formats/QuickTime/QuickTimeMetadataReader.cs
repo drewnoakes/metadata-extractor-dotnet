@@ -84,7 +84,7 @@ namespace MetadataExtractor.Formats.QuickTime
                 var x = matrix[1] + matrix[4];
                 var y = matrix[0] + matrix[3];
                 var theta = Math.Atan2(x, y);
-                var degree = (180 / Math.PI) * theta - 45;
+                var degree = ((180 / Math.PI) * theta) - 45;
                 if (degree < 0)
                     degree += 360;
 
