@@ -62,7 +62,7 @@ namespace MetadataExtractor.Formats.QuickTime
                         directory.Set(QuickTimeTrackHeaderDirectory.TagAlternateGroup, a.Reader.GetUInt16());
                         directory.Set(QuickTimeTrackHeaderDirectory.TagVolume, a.Reader.Get16BitFixedPoint());
                         a.Reader.Skip(2L);
-                        directory.Set(QuickTimeTrackHeaderDirectory.TagMatrix, a.Reader.GetInt32Array(9));
+                        directory.Set(QuickTimeTrackHeaderDirectory.TagMatrix, a.Reader.GetMatrix());
                         directory.Set(QuickTimeTrackHeaderDirectory.TagWidth, a.Reader.Get32BitFixedPoint());
                         directory.Set(QuickTimeTrackHeaderDirectory.TagHeight, a.Reader.Get32BitFixedPoint());
                         SetRotation(directory);
@@ -78,15 +78,17 @@ namespace MetadataExtractor.Formats.QuickTime
                 var height = directory.GetInt32(QuickTimeTrackHeaderDirectory.TagHeight);
                 if (width == 0 || height == 0 || directory.GetObject(QuickTimeTrackHeaderDirectory.TagRotation) != null) return;
 
-                var matrix = directory.GetInt32Array(QuickTimeTrackHeaderDirectory.TagMatrix);
-                if (matrix == null || matrix.Length <= 5) return;
+                if (directory.GetObject(QuickTimeTrackHeaderDirectory.TagMatrix) is float[] matrix && matrix.Length > 5)
+                {
+                    var x = matrix[1] + matrix[4];
+                    var y = matrix[0] + matrix[3];
+                    var theta = Math.Atan2(x, y);
+                    var degree = ((180 / Math.PI) * theta) - 45;
+                    if (degree < 0)
+                        degree += 360;
 
-                var x = matrix[1] + matrix[4];
-                var y = matrix[0] + matrix[3];
-                var theta = Math.Atan2(y, x);
-                var degree = (180 / Math.PI) * theta;
-                degree -= 45;
-                directory.Set(QuickTimeTrackHeaderDirectory.TagRotation, degree);
+                    directory.Set(QuickTimeTrackHeaderDirectory.TagRotation, degree);
+                }
             }
 
             void MoovHandler(AtomCallbackArgs a)
