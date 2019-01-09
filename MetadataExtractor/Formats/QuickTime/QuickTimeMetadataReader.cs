@@ -78,17 +78,17 @@ namespace MetadataExtractor.Formats.QuickTime
                 var height = directory.GetInt32(QuickTimeTrackHeaderDirectory.TagHeight);
                 if (width == 0 || height == 0 || directory.GetObject(QuickTimeTrackHeaderDirectory.TagRotation) != null) return;
 
-                var matrix = directory.GetInt32Array(QuickTimeTrackHeaderDirectory.TagMatrix);
-                if (matrix == null || matrix.Length <= 5) return;
+                if (directory.GetObject(QuickTimeTrackHeaderDirectory.TagMatrix) is float[] matrix && matrix.Length > 5)
+                {
+                    var x = matrix[1] + matrix[4];
+                    var y = matrix[0] + matrix[3];
+                    var theta = Math.Atan2(x, y);
+                    var degree = ((180 / Math.PI) * theta) - 45;
+                    if (degree < 0)
+                        degree += 360;
 
-                var x = matrix[1] + matrix[4];
-                var y = matrix[0] + matrix[3];
-                var theta = Math.Atan2(x, y);
-                var degree = ((180 / Math.PI) * theta) - 45;
-                if (degree < 0)
-                    degree += 360;
-
-                directory.Set(QuickTimeTrackHeaderDirectory.TagRotation, degree);
+                    directory.Set(QuickTimeTrackHeaderDirectory.TagRotation, degree);
+                }
             }
 
             void MoovHandler(AtomCallbackArgs a)
