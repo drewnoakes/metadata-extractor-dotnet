@@ -25,7 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
-
+using MetadataExtractor.IO;
 #if NET35
 using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
 #else
@@ -62,12 +62,32 @@ namespace MetadataExtractor.Formats.QuickTime
                         directory.Set(QuickTimeTrackHeaderDirectory.TagAlternateGroup, a.Reader.GetUInt16());
                         directory.Set(QuickTimeTrackHeaderDirectory.TagVolume, a.Reader.Get16BitFixedPoint());
                         a.Reader.Skip(2L);
-                        a.Reader.GetBytes(36);
+                        directory.Set(QuickTimeTrackHeaderDirectory.TagMatrix, a.Reader.GetMatrix());
                         directory.Set(QuickTimeTrackHeaderDirectory.TagWidth, a.Reader.Get32BitFixedPoint());
                         directory.Set(QuickTimeTrackHeaderDirectory.TagHeight, a.Reader.Get32BitFixedPoint());
+                        SetRotation(directory);
                         directories.Add(directory);
                         break;
                     }
+                }
+            }
+
+            void SetRotation(QuickTimeTrackHeaderDirectory directory)
+            {
+                var width = directory.GetInt32(QuickTimeTrackHeaderDirectory.TagWidth);
+                var height = directory.GetInt32(QuickTimeTrackHeaderDirectory.TagHeight);
+                if (width == 0 || height == 0 || directory.GetObject(QuickTimeTrackHeaderDirectory.TagRotation) != null) return;
+
+                if (directory.GetObject(QuickTimeTrackHeaderDirectory.TagMatrix) is float[] matrix && matrix.Length > 5)
+                {
+                    var x = matrix[1] + matrix[4];
+                    var y = matrix[0] + matrix[3];
+                    var theta = Math.Atan2(x, y);
+                    var degree = ((180 / Math.PI) * theta) - 45;
+                    if (degree < 0)
+                        degree += 360;
+
+                    directory.Set(QuickTimeTrackHeaderDirectory.TagRotation, degree);
                 }
             }
 

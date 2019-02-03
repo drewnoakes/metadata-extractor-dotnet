@@ -957,7 +957,8 @@ namespace MetadataExtractor.Formats.Exif
             // check if we're able to detect a return, before we mention it
             if ((value & 0x4) != 0)
                 sb.Append((value & 0x2) != 0 ? ", return detected" : ", return not detected");
-            if ((value & 0x10) != 0)
+            // If 0x10 is set and the lowest byte is not zero - then flash is Auto
+            if ((value & 0x10) != 0 && (value & 0x0F) != 0)
                 sb.Append(", auto");
             if ((value & 0x40) != 0)
                 sb.Append(", red-eye reduction");
