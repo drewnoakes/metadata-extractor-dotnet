@@ -30,6 +30,7 @@ using System.Reflection;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
+using MetadataExtractor.Formats.Xmp;
 
 /*
  * metadata-extractor foo.jpg
@@ -156,6 +157,21 @@ namespace MetadataExtractor.Tools.FileProcessor
                             tag.Type,
                             tag.Name,
                             description);
+                    }
+
+                    if (directory is XmpDirectory xmpDirectory && xmpDirectory.XmpMeta != null)
+                    {
+                        foreach (var property in xmpDirectory.XmpMeta.Properties)
+                        {
+                            Console.Out.WriteLine(
+                                markdownFormat
+                                    ? "{0}||{1} {2}|{3}"
+                                    : "[{0}] {1} {2} = {3}",
+                                directory.Name,
+                                property.Namespace,
+                                property.Path,
+                                property.Value);
+                        }
                     }
 
                     // print out any errors
