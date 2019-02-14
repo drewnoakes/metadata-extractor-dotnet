@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -103,6 +104,18 @@ namespace MetadataExtractor.Formats.Xmp
         [NotNull]
         public XmpDirectory Extract([NotNull] byte[] xmpBytes, int offset, int length)
         {
+            if (offset < 0)
+                throw new ArgumentOutOfRangeException(nameof(offset), "Must be zero or greater.");
+            if (length < 0)
+                throw new ArgumentOutOfRangeException(nameof(length), "Must be zero or greater.");
+            if (xmpBytes.Length < offset + length)
+                throw new ArgumentException("Extends beyond length of byte array.", nameof(length));
+
+            // Trim any trailing null bytes
+            // https://github.com/drewnoakes/metadata-extractor-dotnet/issues/154
+            while (xmpBytes[offset + length - 1] == 0)
+                length--;
+
             var directory = new XmpDirectory();
             try
             {
