@@ -129,6 +129,10 @@ All target frameworks are provided via the [one NuGet package](https://www.nuget
 
 A PCL build was supported until [version 1.5.3](https://www.nuget.org/packages/MetadataExtractor/1.5.3) which supported Silverlight 5.0, Windows 8.0, Windows Phone 8.1 and Windows Phone Silverlight 8.0. PCL versions did not support file-system metadata due to restricted IO APIs.
 
+## Building
+
+If using Visual Studio to compile this repo, ensure you have the _.NET Core Development Tools_ workload installed. This can be verified and corrected using the Visual Studio Installer in VS2017 and later.
+
 ## Questions & Feedback
 
 The quickest way to have your questions answered is via [Stack Overflow](http://stackoverflow.com/questions/tagged/metadata-extractor).
