@@ -120,9 +120,7 @@ namespace MetadataExtractor.Formats.Jpeg
             if (value == null)
                 return null;
 
-            return value.Name + " component: Quantization table "
-                + value.QuantizationTableNumber + ", Sampling factors "
-                + value.HorizontalSamplingFactor + " horiz/" + value.VerticalSamplingFactor + " vert";
+            return $"{value.Name} component: {value}";
         }
     }
 }

@@ -80,5 +80,8 @@ namespace MetadataExtractor.Formats.Jpeg
         public int HorizontalSamplingFactor => (_samplingFactorByte >> 4) & 0x0F;
 
         public int VerticalSamplingFactor => _samplingFactorByte & 0x0F;
+
+        public override string ToString()
+            => $"Quantization table {QuantizationTableNumber}, Sampling factors {HorizontalSamplingFactor} horiz/{VerticalSamplingFactor} vert";
     }
 }
