@@ -247,7 +247,7 @@ namespace MetadataExtractor
         [Pure]
         public static long GetInt64([NotNull] this Directory directory, int tagType)
         {
-            if (directory.TryGetInt32(tagType, out int value))
+            if (directory.TryGetInt64(tagType, out long value))
                 return value;
 
             return ThrowValueNotPossible<long>(directory, tagType);
