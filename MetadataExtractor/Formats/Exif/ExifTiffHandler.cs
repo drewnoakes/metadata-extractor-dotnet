@@ -578,6 +578,11 @@ namespace MetadataExtractor.Formats.Exif
                 PushDirectory(new SamsungType2MakernoteDirectory());
                 TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset);
             }
+            else if (string.Equals("DJI", cameraMake, StringComparison.Ordinal))
+            {
+                PushDirectory(new DJIMakernoteDirectory());
+                TiffReader.ProcessIfd(this, reader, processedIfdOffsets, makernoteOffset);
+            }
             else
             {
                 // The makernote is not comprehended by this library.
