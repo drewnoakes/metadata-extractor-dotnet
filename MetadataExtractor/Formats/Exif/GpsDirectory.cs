@@ -29,9 +29,7 @@ using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
-    /// <summary>Describes Exif tags that contain Global Positioning System (GPS) data.
-    //// See: http://www.vieas.com/en/exif23.html
-    /// </summary>
+    /// <summary>Describes Exif tags that contain Global Positioning System (GPS) data.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class GpsDirectory : ExifDirectoryBase
