@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,9 +29,7 @@ using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
-    /// <summary>Describes Exif tags that contain Global Positioning System (GPS) data.
-    //// See: http://www.vieas.com/en/exif23.html
-    /// </summary>
+    /// <summary>Describes Exif tags that contain Global Positioning System (GPS) data.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class GpsDirectory : ExifDirectoryBase

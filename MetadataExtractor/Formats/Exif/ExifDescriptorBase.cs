@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -606,9 +606,17 @@ namespace MetadataExtractor.Formats.Exif
                 ["UTF8"] = Encoding.UTF8,
                 ["UTF7"] = Encoding.UTF7,
                 ["UTF32"] = Encoding.UTF32,
-                ["UNICODE"] = Encoding.Unicode,
-                ["JIS"] = Encoding.GetEncoding("Shift-JIS")
+                ["UNICODE"] = Encoding.Unicode
             };
+
+            try
+            {
+                encodingMap["JIS"] = Encoding.GetEncoding("Shift-JIS");
+            }
+            catch (ArgumentException)
+            {
+                // On some platforms, 'Shift-JIS' is not a supported encoding name
+            }
 
             try
             {
