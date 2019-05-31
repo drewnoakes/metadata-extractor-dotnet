@@ -2,9 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
-    <DebugType>portable</DebugType>
     <OutputType>Exe</OutputType>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

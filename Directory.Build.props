@@ -1,5 +1,22 @@
 <Project>
+
+  <PropertyGroup>
+    <VersionPrefix>2.0.0</VersionPrefix>
+    <DebugType>portable</DebugType>
+    <LangVersion>latest</LangVersion>
+    <Authors>Drew Noakes</Authors>
+    <Copyright>Copyright Drew Noakes 2002-2019</Copyright>
+    <PackageIconUrl>https://raw.githubusercontent.com/drewnoakes/metadata-extractor-dotnet/master/docs/metadata-extractor-logo-122.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/drewnoakes/metadata-extractor-dotnet</PackageProjectUrl>
+    <PackageLicense>Apache-2.0</PackageLicense>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/drewnoakes/metadata-extractor-dotnet.git</RepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSource>true</IncludeSource>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" PrivateAssets="All" />
   </ItemGroup>
+
 </Project>
