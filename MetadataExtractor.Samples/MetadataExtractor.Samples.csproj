@@ -13,10 +13,6 @@
     <ProjectReference Include="..\MetadataExtractor\MetadataExtractor.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" PrivateAssets="All" />
-  </ItemGroup>
-
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
     <Reference Include="System" />
   </ItemGroup>
