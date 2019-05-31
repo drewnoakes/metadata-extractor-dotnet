@@ -606,9 +606,17 @@ namespace MetadataExtractor.Formats.Exif
                 ["UTF8"] = Encoding.UTF8,
                 ["UTF7"] = Encoding.UTF7,
                 ["UTF32"] = Encoding.UTF32,
-                ["UNICODE"] = Encoding.Unicode,
-                ["JIS"] = Encoding.GetEncoding("Shift-JIS")
+                ["UNICODE"] = Encoding.Unicode
             };
+
+            try
+            {
+                encodingMap["JIS"] = Encoding.GetEncoding("Shift-JIS");
+            }
+            catch (ArgumentException)
+            {
+                // On some platforms, 'Shift-JIS' is not a supported encoding name
+            }
 
             try
             {
