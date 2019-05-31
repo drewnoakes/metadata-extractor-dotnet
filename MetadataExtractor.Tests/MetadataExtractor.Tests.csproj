@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp1.0;net452</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.1;net452</TargetFrameworks>
     <DebugType>portable</DebugType>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">$(PackageTargetFallback);dotnet5.4;portable-net451+win8</PackageTargetFallback>
