@@ -20,7 +20,7 @@
     <PackageTags>Metadata;Exif;IPTC;XMP;ICC;Photoshop;WebP;PNG;BMP;ICO;PCX;JPEG;TIFF;PSD;Photography;QuickTime;MOV;MP4;M4V;Video</PackageTags>
     <PackageIconUrl>https://raw.githubusercontent.com/drewnoakes/metadata-extractor-dotnet/master/docs/metadata-extractor-logo-122.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/drewnoakes/metadata-extractor-dotnet</PackageProjectUrl>
-    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <PackageLicense>Apache-2.0</PackageLicense>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/drewnoakes/metadata-extractor-dotnet.git</RepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
