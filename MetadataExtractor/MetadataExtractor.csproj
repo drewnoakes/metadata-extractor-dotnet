@@ -14,6 +14,7 @@
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageTags>Metadata;Exif;IPTC;XMP;ICC;Photoshop;WebP;PNG;BMP;ICO;PCX;JPEG;TIFF;PSD;Photography;QuickTime;MOV;MP4;M4V;Video</PackageTags>
+    <PackageId>MetadataExtractor</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Signed)' == 'True' ">
