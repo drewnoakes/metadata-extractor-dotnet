@@ -13,6 +13,7 @@
     <TargetFrameworks>netstandard1.3;netstandard2.0;net35;net45</TargetFrameworks>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageId>MetadataExtractor</PackageId>
     <PackageTags>Metadata;Exif;IPTC;XMP;ICC;Photoshop;WebP;PNG;BMP;ICO;PCX;JPEG;TIFF;PSD;Photography;QuickTime;MOV;MP4;M4V;Video</PackageTags>
   </PropertyGroup>
 
