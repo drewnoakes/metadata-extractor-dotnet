@@ -50,9 +50,9 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         }
 
         [Fact]
-        public void testExtract_PropertyCount()
+        public void Extract_PropertyCount()
         {
-            Assert.Equal(179, _directory.GetInt32(XmpDirectory.TagXmpValueCount));
+            Assert.Equal(178, _directory.GetInt32(XmpDirectory.TagXmpValueCount));
         }
 
         [Fact]
