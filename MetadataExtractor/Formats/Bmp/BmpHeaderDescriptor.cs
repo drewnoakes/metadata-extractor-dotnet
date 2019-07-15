@@ -28,6 +28,7 @@ using JetBrains.Annotations;
 namespace MetadataExtractor.Formats.Bmp
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    /// <author>Kevin Mott https://github.com/kwhopper</author>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class BmpHeaderDescriptor : TagDescriptor<BmpHeaderDirectory>
     {
@@ -40,10 +41,53 @@ namespace MetadataExtractor.Formats.Bmp
         {
             switch (tagType)
             {
+                case BmpHeaderDirectory.TagBitmapType:
+                    return GetBitmapTypeDescription();
                 case BmpHeaderDirectory.TagCompression:
                     return GetCompressionDescription();
+                case BmpHeaderDirectory.TagRendering:
+                    return GetRenderingDescription();
+                case BmpHeaderDirectory.TagColorEncoding:
+                    return GetColorEncodingDescription();
+                case BmpHeaderDirectory.TagRedMask:
+                case BmpHeaderDirectory.TagGreenMask:
+                case BmpHeaderDirectory.TagBlueMask:
+                case BmpHeaderDirectory.TagAlphaMask:
+                    return FormatHex(Directory.GetInt64(tagType), 8);
+                case BmpHeaderDirectory.TagColorSpaceType:
+                    return GetColorSpaceTypeDescription();
+                case BmpHeaderDirectory.TagGammaRed:
+                case BmpHeaderDirectory.TagGammaGreen:
+                case BmpHeaderDirectory.TagGammaBlue:
+                    return FormatFixed1616(Directory.GetInt64(tagType));
+                case BmpHeaderDirectory.TagIntent:
+                    return GetRenderingIntentDescription();
                 default:
                     return base.GetDescription(tagType);
+            }
+        }
+
+        public string GetBitmapTypeDescription()
+        {
+            if (!Directory.TryGetInt32(BmpHeaderDirectory.TagBitmapType, out int value))
+                return null;
+
+            switch (value)
+            {
+                case (int)BmpHeaderDirectory.BitmapType.Bitmap:
+                    return "Standard";
+                case (int)BmpHeaderDirectory.BitmapType.OS2BitmapArray:
+                    return "Bitmap Array";
+                case (int)BmpHeaderDirectory.BitmapType.OS2ColorIcon:
+                    return "Color Icon";
+                case (int)BmpHeaderDirectory.BitmapType.OS2ColorPointer:
+                    return "Color Pointer";
+                case (int)BmpHeaderDirectory.BitmapType.OS2Icon:
+                    return "Monochrome Icon";
+                case (int)BmpHeaderDirectory.BitmapType.OS2Pointer:
+                    return "Monochrome Pointer";
+                default:
+                    return "Unimplemented bitmap type " + value.ToString();
             }
         }
 
@@ -53,10 +97,14 @@ namespace MetadataExtractor.Formats.Bmp
             // 0 = None
             // 1 = RLE 8-bit/pixel
             // 2 = RLE 4-bit/pixel
-            // 3 = Bit field (or Huffman 1D if BITMAPCOREHEADER2 (size 64))
-            // 4 = JPEG (or RLE-24 if BITMAPCOREHEADER2 (size 64))
+            // 3 = Bit fields (not OS22XBITMAPHEADER (size 64))
+            // 3 = Huffman 1D (if OS22XBITMAPHEADER (size 64))
+            // 4 = JPEG (not OS22XBITMAPHEADER (size 64))
             // 5 = PNG
-            // 6 = Bit field
+            // 6 = RGBA bit fields
+            // 11 = CMYK
+            // 12 = CMYK RLE-8
+            // 13 = CMYK RLE-4
 
             if (!Directory.TryGetInt32(BmpHeaderDirectory.TagCompression, out int value) ||
                 !Directory.TryGetInt32(BmpHeaderDirectory.TagHeaderSize, out int headerSize))
@@ -71,16 +119,109 @@ namespace MetadataExtractor.Formats.Bmp
                 case 2:
                     return "RLE 4-bit/pixel";
                 case 3:
-                    return headerSize == 64 ? "Bit field" : "Huffman 1D";
+                    return headerSize == 64 ? "Huffman 1D" : "Bit Fields";
                 case 4:
-                    return headerSize == 64 ? "JPEG" : "RLE-24";
+                    return headerSize == 64 ? "RLE 24-bit/pixel" : "JPEG";
                 case 5:
                     return "PNG";
                 case 6:
-                    return "Bit field";
+                    return "RGBA Bit Fields";
+                case 11:
+                    return "CMYK Uncompressed";
+                case 12:
+                    return "CMYK RLE-8";
+                case 13:
+                    return "CMYK RLE-4";
+                default:
+                    return "Unimplemented compression type " + value.ToString();
             }
+        }
 
-            return base.GetDescription(BmpHeaderDirectory.TagCompression);
+        public string GetRenderingDescription()
+        {
+            if (!Directory.TryGetInt32(BmpHeaderDirectory.TagRendering, out int value))
+                return null;
+
+            switch (value)
+            {
+                case (int)BmpHeaderDirectory.RenderingHalftoningAlgorithm.None:
+                    return "No Halftoning Algorithm";
+                case (int)BmpHeaderDirectory.RenderingHalftoningAlgorithm.ErrorDiffusion:
+                    return "Error Diffusion Halftoning";
+                case (int)BmpHeaderDirectory.RenderingHalftoningAlgorithm.Panda:
+                    return "Processing Algorithm for Noncoded Document Acquisition";
+                case (int)BmpHeaderDirectory.RenderingHalftoningAlgorithm.SuperCircle:
+                    return "Super-circle Halftoning";
+                default:
+                    return "Unimplemented rendering halftoning algorithm type " + value.ToString();
+            }
+        }
+
+        public string GetColorEncodingDescription()
+        {
+            if (!Directory.TryGetInt32(BmpHeaderDirectory.TagColorEncoding, out int value))
+                return null;
+
+            switch (value)
+            {
+                case (int)BmpHeaderDirectory.ColorEncoding.Rgb:
+                    return "RGB";
+                default:
+                    return "Unimplemented color encoding type " + value.ToString();
+            }
+        }
+
+        public string GetColorSpaceTypeDescription()
+        {
+            if (!Directory.TryGetInt64(BmpHeaderDirectory.TagColorSpaceType, out long value))
+                return null;
+
+            switch (value)
+            {
+                case (long)BmpHeaderDirectory.ColorSpaceType.LcsCalibratedRgb:
+                    return "Calibrated RGB";
+                case (long)BmpHeaderDirectory.ColorSpaceType.LcsSRgb:
+                    return "sRGB Color Space";
+                case (long)BmpHeaderDirectory.ColorSpaceType.LcsWindowsColorSpace:
+                    return "System Default Color Space, sRGB";
+                case (long)BmpHeaderDirectory.ColorSpaceType.ProfileLinked:
+                    return "Linked Profile";
+                case (long)BmpHeaderDirectory.ColorSpaceType.ProfileEmbedded:
+                    return "Embedded Profile";
+                default:
+                    return "Unimplemented color space type " + value.ToString();
+            }
+        }
+
+        public string GetRenderingIntentDescription()
+        {
+            if (!Directory.TryGetInt64(BmpHeaderDirectory.TagIntent, out long value))
+                return null;
+
+            switch (value)
+            {
+                case (long)BmpHeaderDirectory.RenderingIntent.LcsGmBusiness:
+                    return "Graphic, Saturation";
+                case (long)BmpHeaderDirectory.RenderingIntent.LcsGmGraphics:
+                    return "Proof, Relative Colorimetric";
+                case (long)BmpHeaderDirectory.RenderingIntent.LcsGmImages:
+                    return "Picture, Perceptual";
+                case (long)BmpHeaderDirectory.RenderingIntent.LcsGmAbsColorimetric:
+                    return "Match, Absolute Colorimetric";
+                default:
+                    return "Unimplemented rendering intent type " + value.ToString();
+            }
+        }
+
+        private static string FormatHex(long value, int digits)
+        {
+            return string.Format("0x{0}", value.ToString("X" + digits.ToString()));
+        }
+
+        public static string FormatFixed1616(long value)
+        {
+            double d = (double)value / 0x10000;
+            return $"{d:0.###}";
         }
     }
 }
