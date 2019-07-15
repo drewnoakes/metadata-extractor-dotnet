@@ -30,7 +30,9 @@ using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif.Makernotes;
+using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Iptc;
+using MetadataExtractor.Formats.Photoshop;
 using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
@@ -188,6 +190,29 @@ namespace MetadataExtractor.Formats.Exif
                     return true;
                 }
                 return false;
+            }
+
+            // Custom processing for ICC Profile data
+            if (tagId == ExifDirectoryBase.TagInterColorProfile)
+            {
+                var iccBytes = reader.GetBytes(tagOffset, byteCount);
+                var iccDirectory = new IccReader().Extract(new ByteArrayReader(iccBytes));
+                iccDirectory.Parent = CurrentDirectory;
+                Directories.Add(iccDirectory);
+                return true;
+            }
+
+            // Custom processing for Photoshop data
+            if (tagId == ExifDirectoryBase.TagPhotoshopSettings && CurrentDirectory is ExifIfd0Directory)
+            {
+                var photoshopBytes = reader.GetBytes(tagOffset, byteCount);
+                var photoshopDirectory = new PhotoshopReader().Extract(new SequentialByteArrayReader(photoshopBytes), byteCount);
+                foreach (var dir in photoshopDirectory)
+                {
+                    dir.Parent = CurrentDirectory;
+                    Directories.Add(dir);
+                }
+                return true;
             }
 
             // Custom processing for embedded XMP data
