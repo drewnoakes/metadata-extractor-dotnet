@@ -138,6 +138,8 @@ namespace MetadataExtractor.Formats.Exif
                     return GetExposureProgramDescription();
                 case ExifDirectoryBase.TagAperture:
                     return GetApertureValueDescription();
+                case ExifDirectoryBase.TagBrightnessValue:
+                    return GetBrightnessValueDescription();
                 case ExifDirectoryBase.TagMaxAperture:
                     return GetMaxApertureValueDescription();
                 case ExifDirectoryBase.TagSensingMethod:
@@ -863,6 +865,17 @@ namespace MetadataExtractor.Formats.Exif
             if (!Directory.TryGetDouble(ExifDirectoryBase.TagAperture, out double aperture))
                 return null;
             return GetFStopDescription(PhotographicConversions.ApertureToFStop(aperture));
+        }
+
+        [CanBeNull]
+        public string GetBrightnessValueDescription()
+        {
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagBrightnessValue, out Rational value))
+                return null;
+            if (value.Numerator == 0xFFFFFFFFL)
+                return "Unknown";
+
+            return $"{value.ToDouble():0.0##}";
         }
 
         [CanBeNull]
