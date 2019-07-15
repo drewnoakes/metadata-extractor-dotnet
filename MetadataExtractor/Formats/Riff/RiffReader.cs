@@ -70,12 +70,11 @@ namespace MetadataExtractor.Formats.Riff
             ProcessChunks(reader, sizeLeft, handler);
         }
 
-        // PROCESS CHUNKS
-        public void ProcessChunks([NotNull] SequentialReader reader, int sizeLeft, [NotNull] IRiffHandler handler)
+        public void ProcessChunks([NotNull] SequentialReader reader, int sectionSize, [NotNull] IRiffHandler handler)
         {
             // Processing chunks. Each chunk is 8 bytes header (4 bytes CC code + 4 bytes length of chunk) + data of the chunk
 
-            while (reader.Position < sizeLeft)
+            while (reader.Position < sectionSize)
             {
                 // Check if end of the file is closer then 8 bytes
                 if (reader.IsCloserToEnd(8)) return;
@@ -83,10 +82,8 @@ namespace MetadataExtractor.Formats.Riff
                 string chunkFourCc = reader.GetString(4, Encoding.ASCII);
                 int chunkSize = reader.GetInt32();
 
-                sizeLeft -= 8;
-
                 // NOTE we fail a negative chunk size here (greater than 0x7FFFFFFF) as we cannot allocate arrays larger than this
-                if (chunkSize < 0 || sizeLeft < chunkSize)
+                if (chunkSize < 0 || sectionSize < chunkSize)
                     throw new RiffProcessingException("Invalid RIFF chunk size");
 
                 // Check if end of the file is closer then chunkSize bytes
@@ -96,10 +93,15 @@ namespace MetadataExtractor.Formats.Riff
                 {
                     string listName = reader.GetString(4, Encoding.ASCII);
                     if (handler.ShouldAcceptList(listName))
-                        ProcessChunks(reader, sizeLeft - 4, handler);
+                        ProcessChunks(reader, chunkSize - 4, handler);
                     else
-                        reader.Skip(sizeLeft - 4);
-                    sizeLeft -= chunkSize;
+                        reader.Skip(chunkSize - 4);
+                }
+                else if (chunkFourCc == "IDIT")
+                {
+                    // Avi DateTimeOriginal
+                    handler.ProcessChunk(chunkFourCc, reader.GetBytes(chunkSize - 2));
+                    reader.Skip(2); // ?0A 00?
                 }
                 else
                 {
@@ -113,13 +115,10 @@ namespace MetadataExtractor.Formats.Riff
                         reader.Skip(chunkSize);
                     }
 
-                    sizeLeft -= chunkSize;
-
                     // Skip any padding byte added to keep chunks aligned to even numbers of bytes
                     if (chunkSize % 2 == 1)
                     {
                         reader.GetSByte();
-                        sizeLeft--;
                     }
                 }
             }
