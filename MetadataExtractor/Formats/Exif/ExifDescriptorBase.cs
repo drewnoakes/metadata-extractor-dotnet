@@ -1154,6 +1154,10 @@ namespace MetadataExtractor.Formats.Exif
         {
             if (!Directory.TryGetRational(ExifDirectoryBase.TagSubjectDistance, out Rational value))
                 return null;
+            if (value.Numerator == 0xFFFFFFFFL)
+                return "Infinity";
+            if (value.Numerator == 0)
+                return "Unknown";
             return $"{value.ToDouble():0.0##} metres";
         }
 
