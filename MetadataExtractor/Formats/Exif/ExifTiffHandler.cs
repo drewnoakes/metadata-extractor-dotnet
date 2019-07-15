@@ -206,11 +206,12 @@ namespace MetadataExtractor.Formats.Exif
             if (tagId == ExifDirectoryBase.TagPhotoshopSettings && CurrentDirectory is ExifIfd0Directory)
             {
                 var photoshopBytes = reader.GetBytes(tagOffset, byteCount);
-                var photoshopDirectory = new PhotoshopReader().Extract(new SequentialByteArrayReader(photoshopBytes), byteCount);
-                foreach (var dir in photoshopDirectory)
+                var photoshopDirectories = new PhotoshopReader().Extract(new SequentialByteArrayReader(photoshopBytes), byteCount);
+                if (photoshopDirectories != null)
                 {
-                    dir.Parent = CurrentDirectory;
-                    Directories.Add(dir);
+                    // Could be any number of directories. Only assign the Parent to the PhotoshopDirectory
+                    photoshopDirectories.OfType<PhotoshopDirectory>().First().Parent = CurrentDirectory;
+                    Directories.AddRange(photoshopDirectories);
                 }
                 return true;
             }
