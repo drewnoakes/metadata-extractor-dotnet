@@ -115,10 +115,10 @@ namespace MetadataExtractor.Formats.Riff
                         reader.Skip(chunkSize);
                     }
 
-                    // Skip any padding byte added to keep chunks aligned to even numbers of bytes
+                    // Bytes read must be even - skip one if not
                     if (chunkSize % 2 == 1)
                     {
-                        reader.GetSByte();
+                        reader.Skip(1);
                     }
                 }
             }
