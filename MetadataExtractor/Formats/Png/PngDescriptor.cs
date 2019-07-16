@@ -143,23 +143,21 @@ namespace MetadataExtractor.Formats.Png
         public string GetBackgroundColorDescription()
         {
             var bytes = Directory.GetByteArray(PngDirectory.TagBackgroundColor);
-            if (bytes == null || !Directory.TryGetInt32(PngDirectory.TagColorType, out int colorType))
+            if (bytes == null)
                 return null;
 
             var reader = new SequentialByteArrayReader(bytes);
             try
             {
-                switch (colorType)
+                // TODO do we need to normalise these based upon the bit depth?
+                switch (bytes.Length)
                 {
-                    case 0:
-                    case 4:
-                        // TODO do we need to normalise these based upon the bit depth?
-                        return $"Greyscale Level {reader.GetUInt16()}";
+                    case 1:
+                        return $"Palette Index {reader.GetByte()}";
                     case 2:
+                        return $"Greyscale Level {reader.GetUInt16()}";
                     case 6:
                         return $"R {reader.GetUInt16()}, G {reader.GetUInt16()}, B {reader.GetUInt16()}";
-                    case 3:
-                        return $"Palette Index {reader.GetByte()}";
                 }
             }
             catch (IOException)
