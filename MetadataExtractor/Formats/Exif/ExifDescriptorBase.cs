@@ -138,6 +138,8 @@ namespace MetadataExtractor.Formats.Exif
                     return GetExposureProgramDescription();
                 case ExifDirectoryBase.TagAperture:
                     return GetApertureValueDescription();
+                case ExifDirectoryBase.TagBrightnessValue:
+                    return GetBrightnessValueDescription();
                 case ExifDirectoryBase.TagMaxAperture:
                     return GetMaxApertureValueDescription();
                 case ExifDirectoryBase.TagSensingMethod:
@@ -866,6 +868,17 @@ namespace MetadataExtractor.Formats.Exif
         }
 
         [CanBeNull]
+        public string GetBrightnessValueDescription()
+        {
+            if (!Directory.TryGetRational(ExifDirectoryBase.TagBrightnessValue, out Rational value))
+                return null;
+            if (value.Numerator == 0xFFFFFFFFL)
+                return "Unknown";
+
+            return $"{value.ToDouble():0.0##}";
+        }
+
+        [CanBeNull]
         public string GetExposureProgramDescription()
         {
             return GetIndexedDescription(ExifDirectoryBase.TagExposureProgram, 1,
@@ -1141,6 +1154,10 @@ namespace MetadataExtractor.Formats.Exif
         {
             if (!Directory.TryGetRational(ExifDirectoryBase.TagSubjectDistance, out Rational value))
                 return null;
+            if (value.Numerator == 0xFFFFFFFFL)
+                return "Infinity";
+            if (value.Numerator == 0)
+                return "Unknown";
             return $"{value.ToDouble():0.0##} metres";
         }
 
