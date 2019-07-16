@@ -329,12 +329,12 @@ namespace MetadataExtractor.Formats.Gif
 
             var directory = new GifControlDirectory();
 
-            reader.Skip(1);
-
+            byte packedFields = reader.GetByte();
+            directory.Set(GifControlDirectory.TagDisposalMethod, (packedFields >> 2) & 7);
+            directory.Set(GifControlDirectory.TagUserInputFlag, (packedFields & 2) == 2);
+            directory.Set(GifControlDirectory.TagTransparentColorFlag, (packedFields & 1) == 1);
             directory.Set(GifControlDirectory.TagDelay, reader.GetUInt16());
-
-            if (blockSizeBytes > 3)
-                reader.Skip(blockSizeBytes - 3);
+            directory.Set(GifControlDirectory.TagTransparentColorIndex, reader.GetByte());
 
             // skip 0x0 block terminator
             reader.GetByte();
