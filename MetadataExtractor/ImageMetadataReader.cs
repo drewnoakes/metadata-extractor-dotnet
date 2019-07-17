@@ -110,7 +110,7 @@ namespace MetadataExtractor
                 case FileType.Png:
                     return Append(PngMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Bmp:
-                    return new Directory[] { BmpMetadataReader.ReadMetadata(stream), fileTypeDirectory };
+                    return Append(BmpMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Gif:
                     return Append(GifMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Ico:

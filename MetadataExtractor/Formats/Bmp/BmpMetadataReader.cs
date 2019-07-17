@@ -23,6 +23,7 @@
 #endregion
 
 using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using System.Collections.Generic;
 using MetadataExtractor.Formats.FileSystem;
@@ -38,6 +39,7 @@ namespace MetadataExtractor.Formats.Bmp
 {
     /// <summary>Obtains metadata from BMP files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    /// <author>Kevin Mott https://github.com/kwhopper</author>
     public static class BmpMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
@@ -47,7 +49,7 @@ namespace MetadataExtractor.Formats.Bmp
             var directories = new List<Directory>(2);
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.Add(ReadMetadata(stream));
+                directories.AddRange(ReadMetadata(stream));
 
             directories.Add(new FileMetadataReader().Read(filePath));
 
@@ -55,9 +57,9 @@ namespace MetadataExtractor.Formats.Bmp
         }
 
         [NotNull]
-        public static BmpHeaderDirectory ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata([NotNull] Stream stream)
         {
-            return new BmpReader().Extract(new SequentialStreamReader(stream));
+            return new BmpReader().Extract(new SequentialStreamReader(stream)).ToList();
         }
     }
 }
