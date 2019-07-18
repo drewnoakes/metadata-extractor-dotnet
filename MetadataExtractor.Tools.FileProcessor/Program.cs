@@ -30,6 +30,7 @@ using System.Reflection;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
+using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Xmp;
 
 /*
@@ -293,6 +294,11 @@ namespace MetadataExtractor.Tools.FileProcessor
                         try
                         {
                             var directories = ImageMetadataReader.ReadMetadata(stream).ToList();
+
+                            // ImageMetadataReader.ReadMetadata(Stream) doesn't add a FileMetadataReader directory.
+                            // Add it manually
+                            directories.Add(new FileMetadataReader().Read(file));
+
                             handler.OnExtractionSuccess(file, directories, relativePath, log, stream.Position);
                         }
                         catch (Exception e)

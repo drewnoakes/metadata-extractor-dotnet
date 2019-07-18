@@ -231,6 +231,8 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagIptcNaa = 0x83BB;
 
+        public const int TagPhotoshopSettings = 0x8649;
+
         public const int TagInterColorProfile = 0x8773;
 
         /// <summary>Exposure program that the camera used when image was taken.</summary>
@@ -794,6 +796,7 @@ namespace MetadataExtractor.Formats.Exif
             map[TagExposureTime] = "Exposure Time";
             map[TagFNumber] = "F-Number";
             map[TagIptcNaa] = "IPTC/NAA";
+            map[TagPhotoshopSettings] = "Photoshop Settings";
             map[TagInterColorProfile] = "Inter Color Profile";
             map[TagExposureProgram] = "Exposure Program";
             map[TagSpectralSensitivity] = "Spectral Sensitivity";
