@@ -44,8 +44,12 @@ namespace MetadataExtractor.Util
             { FileType.Tiff, Encoding.UTF8.GetBytes("MM"), new byte[] { 0x00, 0x2a } },
             { FileType.Psd, Encoding.UTF8.GetBytes("8BPS") },
             { FileType.Png, new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52 } },
-            { FileType.Bmp, Encoding.UTF8.GetBytes("BM") },
-            // TODO technically there are other very rare magic numbers for OS/2 BMP files
+            { FileType.Bmp, Encoding.UTF8.GetBytes("BM") }, // Standard Bitmap Windows and OS/2
+            { FileType.Bmp, Encoding.UTF8.GetBytes("BA") }, // OS/2 Bitmap Array
+            { FileType.Bmp, Encoding.UTF8.GetBytes("CI") }, // OS/2 Color Icon
+            { FileType.Bmp, Encoding.UTF8.GetBytes("CP") }, // OS/2 Color Pointer
+            { FileType.Bmp, Encoding.UTF8.GetBytes("IC") }, // OS/2 Icon
+            { FileType.Bmp, Encoding.UTF8.GetBytes("PT") }, // OS/2 Pointer
             { FileType.Gif, Encoding.UTF8.GetBytes("GIF87a") },
             { FileType.Gif, Encoding.UTF8.GetBytes("GIF89a") },
             { FileType.Ico, new byte[] { 0x00, 0x00, 0x01, 0x00 } },

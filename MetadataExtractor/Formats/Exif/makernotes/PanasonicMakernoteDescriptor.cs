@@ -570,7 +570,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagUptime, out int value))
                 return null;
-            return value / 100f + " s";
+            return $"{(value / 100f):0.0##}" + " s";
         }
 
         [CanBeNull]
