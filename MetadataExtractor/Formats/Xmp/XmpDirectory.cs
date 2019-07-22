@@ -27,6 +27,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrains.Annotations;
 using XmpCore;
+using XmpCore.Impl;
+using XmpCore.Options;
 
 namespace MetadataExtractor.Formats.Xmp
 {
@@ -76,17 +78,43 @@ namespace MetadataExtractor.Formats.Xmp
         [NotNull]
         public IDictionary<string, string> GetXmpProperties()
         {
-            return XmpMeta?.Properties
-                       .Where(p => p.Path != null)
-                       .ToDictionary(p => p.Path, p => p.Value)
-                   ?? new Dictionary<string, string>();
+            var propertyValueByPath = new Dictionary<string, string>();
+            if (XmpMeta != null)
+            {
+                try
+                {
+                    XmpIterator i = new XmpIterator((XmpMeta)XmpMeta, null, null, new IteratorOptions() { IsJustLeafNodes = true });
+                    while (i.HasNext())
+                    {
+                        var prop = (IXmpPropertyInfo)i.Next();
+                        var path = prop.Path;
+                        var value = prop.Value;
+                        if (path != null && value != null)
+                            propertyValueByPath.Add(path, value);
+                    }
+                }
+                catch (XmpException) { } // ignored
+            }
+
+            return propertyValueByPath;
         }
 
         public void SetXmpMeta([NotNull] IXmpMeta xmpMeta)
         {
             XmpMeta = xmpMeta;
 
-            Set(TagXmpValueCount, XmpMeta.Properties.Count(prop => prop.Path != null));
+            int valueCount = 0;
+            XmpIterator i = new XmpIterator((XmpMeta)XmpMeta, null, null, new IteratorOptions() { IsJustLeafNodes = true });
+
+            while (i.HasNext())
+            {
+                var prop = (IXmpPropertyInfo)i.Next();
+
+                if (prop.Path != null)
+                    valueCount++;
+            }
+
+            Set(TagXmpValueCount, valueCount);
         }
     }
 }
