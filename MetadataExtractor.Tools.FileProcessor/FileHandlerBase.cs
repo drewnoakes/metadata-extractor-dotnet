@@ -9,11 +9,12 @@ namespace MetadataExtractor.Tools.FileProcessor
     {
         private static readonly ICollection<string> _supportedExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
-            "jpg", "jpeg", "png", "gif", "bmp", "ico", "webp", "pcx", "ai", "eps",
+            "jpg", "jpeg", "png", "gif", "bmp", "heic", "ico", "webp", "pcx", "ai", "eps",
             "nef", "crw", "cr2", "orf", "arw", "raf", "srw", "x3f", "rw2", "rwl",
             "tif", "tiff", "psd", "dng",
-            "3g2", "3gp", "m4v", "mov", "mp4",
-            "pbm", "pnm", "pgm"
+            "j2c", "jp2", "jpf", "jpm", "mj2",
+            "3g2", "3gp", "m4v", "mov", "mp4", "m2v", "mts",
+            "pbm", "pnm", "pgm", "ppm"
         };
 
         private int _processedFileCount;
