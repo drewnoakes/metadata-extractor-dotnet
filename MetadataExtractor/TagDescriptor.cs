@@ -23,6 +23,7 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
@@ -66,8 +67,8 @@ namespace MetadataExtractor
                 return null;
 
             // special presentation for long arrays
-            if (obj is Array array && array.Length > 16)
-                return $"[{array.Length} {(array.Length == 1 ? "value" : "values")}]";
+            if (obj is ICollection collection && collection.Count > 16)
+                return $"[{collection.Count} {(collection.Count == 1 ? "value" : "values")}]";
 
             // no special handling required, so use default conversion to a string
             return Directory.GetString(tagType);
