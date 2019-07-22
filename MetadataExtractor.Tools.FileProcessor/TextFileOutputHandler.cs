@@ -168,14 +168,16 @@ namespace MetadataExtractor.Tools.FileProcessor
         {
             var directoryPath = Path.GetDirectoryName(filePath);
             Debug.Assert(directoryPath != null);
-            var metadataPath = Path.Combine(directoryPath, "metadata");
+            var metadataPath = Path.Combine(
+                Path.Combine(directoryPath, "metadata"),
+                "dotnet");
             var fileName = Path.GetFileName(filePath);
 
             // Create the output directory if it doesn't exist
             if (!System.IO.Directory.Exists(metadataPath))
                 System.IO.Directory.CreateDirectory(metadataPath);
 
-            var outputPath = $"{directoryPath}/metadata/{fileName}.txt";
+            var outputPath = Path.Combine(metadataPath, $"{fileName}.txt");
 
             var stream = File.Open(outputPath, FileMode.Create);
             var writer = new StreamWriter(stream, new UTF8Encoding(false));
