@@ -22,6 +22,7 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
@@ -908,6 +909,22 @@ namespace MetadataExtractor
                 }
 
                 return str.ToString();
+            }
+
+            if (o is IEnumerable<string> strings)
+            {
+#if NET35
+                var sb = new StringBuilder();
+                foreach (var s in strings)
+                {
+                    if (sb.Length != 0)
+                        sb.Append(' ');
+                    sb.Append(s);
+                }
+                return sb.ToString();
+#else
+                return string.Join(" ", strings);
+#endif
             }
 
             if (o is double d)
