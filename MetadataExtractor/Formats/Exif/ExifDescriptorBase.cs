@@ -989,10 +989,16 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetWhiteBalanceDescription()
         {
-            // See http://web.archive.org/web/20131018091152/http://exif.org/Exif2-2.PDF page 35
-
             if (!Directory.TryGetInt32(ExifDirectoryBase.TagWhiteBalance, out int value))
                 return null;
+
+            return GetWhiteBalanceDescription(value);
+        }
+
+        [NotNull]
+        internal static string GetWhiteBalanceDescription(int value)
+        {
+            // See http://web.archive.org/web/20131018091152/http://exif.org/Exif2-2.PDF page 35
 
             switch (value)
             {
