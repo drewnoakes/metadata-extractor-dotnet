@@ -80,13 +80,18 @@ namespace MetadataExtractor.Formats.Gif
 
             if (header.HasError)
                 yield break;
-
-            // Skip over any global colour table
-            if (header.TryGetInt32(GifHeaderDirectory.TagColorTableSize, out int globalColorTableSize))
+            
+            if(header.TryGetBoolean(GifHeaderDirectory.TagHasGlobalColorTable, out bool hasGlobalColorTable))
             {
-                // Colour table has R/G/B byte triplets
-                reader.Skip(3 * globalColorTableSize);
+                // Skip over any global colour table
+                if (hasGlobalColorTable && header.TryGetInt32(GifHeaderDirectory.TagColorTableSize, out int globalColorTableSize))
+                {
+                    // Colour table has R/G/B byte triplets
+                    reader.Skip(3 * globalColorTableSize);
+                }
             }
+            else
+                yield return new ErrorDirectory("GIF did not have hasGlobalColorTable bit.");
 
             // After the header comes a sequence of blocks
             while (true)
@@ -129,6 +134,7 @@ namespace MetadataExtractor.Formats.Gif
                         // Anything other than these types is unexpected.
                         // GIF87a spec says to keep reading until a separator is found.
                         // GIF89a spec says file is corrupt.
+                        yield return new ErrorDirectory("Unknown gif block marker found.");
                         yield break;
                     }
                 }
@@ -183,7 +189,7 @@ namespace MetadataExtractor.Formats.Gif
             // First three bits = (BPP - 1)
             var colorTableSize = 1 << ((flags & 7) + 1);
             var bitsPerPixel = ((flags & 0x70) >> 4) + 1;
-            var hasGlobalColorTable = (flags & 0xf) != 0;
+            var hasGlobalColorTable = (flags >> 7) != 0;
 
             headerDirectory.Set(GifHeaderDirectory.TagColorTableSize, colorTableSize);
 
@@ -337,7 +343,7 @@ namespace MetadataExtractor.Formats.Gif
             directory.Set(GifControlDirectory.TagTransparentColorIndex, reader.GetByte());
 
             // skip 0x0 block terminator
-            reader.GetByte();
+            reader.Skip(1);
 
             return directory;
         }
@@ -352,15 +358,15 @@ namespace MetadataExtractor.Formats.Gif
             imageDirectory.Set(GifImageDirectory.TagHeight, reader.GetUInt16());
 
             var flags = reader.GetByte();
-            var hasColorTable = (flags & 0x7) != 0;
+            var hasColorTable = (flags >> 7) != 0;
             var isInterlaced = (flags & 0x40) != 0;
-            var isColorTableSorted = (flags & 0x20) != 0;
 
             imageDirectory.Set(GifImageDirectory.TagHasLocalColourTable, hasColorTable);
             imageDirectory.Set(GifImageDirectory.TagIsInterlaced, isInterlaced);
 
             if (hasColorTable)
             {
+                var isColorTableSorted = (flags & 0x20) != 0;
                 imageDirectory.Set(GifImageDirectory.TagIsColorTableSorted, isColorTableSorted);
 
                 var bitsPerPixel = (flags & 0x7) + 1;
