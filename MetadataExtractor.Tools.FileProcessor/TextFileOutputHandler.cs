@@ -111,18 +111,15 @@ namespace MetadataExtractor.Tools.FileProcessor
                                 while (iterator.HasNext())
                                 {
                                     var prop = (IXmpPropertyInfo)iterator.Next();
-                                    var ns = prop.Namespace;
                                     var path = prop.Path;
-                                    var value = prop.Value;
 
                                     if (path == null)
                                         continue;
-                                    if (ns == null)
-                                        ns = "";
 
-                                    if (value == null)
-                                        value = "";
-                                    else if (value.Length > 512)
+                                    var ns = prop.Namespace ?? "";
+                                    var value = prop.Value ?? "";
+
+                                    if (value.Length > 512)
                                         value = value.Substring(0, 512) + $" <truncated from {value.Length} characters>";
                                     writer.Write($"[XMPMeta - {ns}] {path} = {value}{NEW_LINE}");
                                     wrote = true;
