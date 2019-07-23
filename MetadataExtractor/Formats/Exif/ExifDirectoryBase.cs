@@ -350,6 +350,7 @@ namespace MetadataExtractor.Formats.Exif
         /// '18' standard light B, '19' standard light C, '20' D55, '21' D65,
         /// '22' D75, '255' other.
         /// </remarks>
+        /// <seealso cref="TagWhiteBalanceMode" />
         public const int TagWhiteBalance = 0x9208;
 
         /// <summary>
@@ -537,6 +538,7 @@ namespace MetadataExtractor.Formats.Exif
         /// 1 = Manual white balance
         /// Other = reserved
         /// </remarks>
+        /// <seealso cref="TagWhiteBalance" />
         public const int TagWhiteBalanceMode = 0xA403;
 
         /// <summary>This tag indicates the digital zoom ratio when the image was shot.</summary>
