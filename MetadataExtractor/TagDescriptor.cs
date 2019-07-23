@@ -431,7 +431,7 @@ namespace MetadataExtractor
                     return "Other";
             }
 
-            return GetDescription(wbtype);
+            return $"Unknown ({wbtype})";
         }
     }
 }
