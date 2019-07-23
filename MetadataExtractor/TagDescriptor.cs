@@ -107,6 +107,10 @@ namespace MetadataExtractor
                     continue;
                 version.Append(c);
             }
+
+            if (version.Length == 0)
+                return null;
+
             return version.ToString();
         }
 
