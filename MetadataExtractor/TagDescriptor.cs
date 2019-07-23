@@ -68,7 +68,7 @@ namespace MetadataExtractor
 
             // special presentation for long arrays
             if (obj is ICollection collection && collection.Count > 16)
-                return $"[{collection.Count} {(collection.Count == 1 ? "value" : "values")}]";
+                return $"[{collection.Count} values]";
 
             // no special handling required, so use default conversion to a string
             return Directory.GetString(tagType);
