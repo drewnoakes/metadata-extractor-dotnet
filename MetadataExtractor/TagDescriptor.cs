@@ -81,8 +81,8 @@ namespace MetadataExtractor
         /// <remarks>
         /// Two different formats are processed:
         /// <list type="bullet">
-        /// <item>[30 32 31 30] -&gt; 2.10</item>
-        /// <item>[0 1 0 0] -&gt; 1.00</item>
+        /// <item>[0x30 0x32 0x31 0x30] ⇒ 2.10</item>
+        /// <item>[0 1 0 0] ⇒ 1.00</item>
         /// </list>
         /// </remarks>
         /// <param name="components">the four version values</param>
@@ -96,6 +96,7 @@ namespace MetadataExtractor
                 return null;
 
             var version = new StringBuilder();
+
             for (var i = 0; i < 4 && i < components.Length; i++)
             {
                 if (i == majorDigits)
