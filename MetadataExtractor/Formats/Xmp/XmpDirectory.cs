@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using JetBrains.Annotations;
 using XmpCore;
 using XmpCore.Impl;
@@ -70,6 +69,9 @@ namespace MetadataExtractor.Formats.Xmp
             return _tagNameMap.TryGetValue(tagType, out tagName);
         }
 
+        // set only once to save some allocations
+        private static readonly IteratorOptions _iteratorOptions = new IteratorOptions() { IsJustLeafNodes = true };
+
         /// <summary>Gets a map of all XMP properties in this directory, not just the known ones.</summary>
         /// <remarks>
         /// This is required because XMP properties are represented as strings, whereas the rest of this library
@@ -83,7 +85,7 @@ namespace MetadataExtractor.Formats.Xmp
             {
                 try
                 {
-                    XmpIterator i = new XmpIterator((XmpMeta)XmpMeta, null, null, new IteratorOptions() { IsJustLeafNodes = true });
+                    XmpIterator i = new XmpIterator((XmpMeta)XmpMeta, null, null, _iteratorOptions);
                     while (i.HasNext())
                     {
                         var prop = (IXmpPropertyInfo)i.Next();
@@ -104,7 +106,7 @@ namespace MetadataExtractor.Formats.Xmp
             XmpMeta = xmpMeta;
 
             int valueCount = 0;
-            XmpIterator i = new XmpIterator((XmpMeta)XmpMeta, null, null, new IteratorOptions() { IsJustLeafNodes = true });
+            XmpIterator i = new XmpIterator((XmpMeta)XmpMeta, null, null, _iteratorOptions);
 
             while (i.HasNext())
             {
