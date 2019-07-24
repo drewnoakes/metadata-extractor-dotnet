@@ -33,7 +33,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class XmpReaderTest
     {
-        private const int expectedPropertyCount = 178;
+        private const int expectedPropertyCount = 167;
 
         private readonly XmpDirectory _directory;
 
