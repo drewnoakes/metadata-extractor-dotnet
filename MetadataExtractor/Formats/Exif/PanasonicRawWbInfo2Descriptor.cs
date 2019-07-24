@@ -60,10 +60,9 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetWbTypeDescription(int tagType)
         {
-            if (!Directory.TryGetUInt16(tagType, out ushort wbtype))
+            if (!Directory.TryGetUInt16(tagType, out ushort value))
                 return null;
-
-            return base.GetLightSourceDescription(wbtype);
+            return ExifDescriptorBase<PanasonicRawWbInfo2Directory>.GetWhiteBalanceDescription(value);
         }
     }
 }
