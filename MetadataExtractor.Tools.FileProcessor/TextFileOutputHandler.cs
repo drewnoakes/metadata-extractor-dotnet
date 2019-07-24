@@ -42,7 +42,7 @@ namespace MetadataExtractor.Tools.FileProcessor
         public override void OnStartingDirectory(string directoryPath)
         {
             base.OnStartingDirectory(directoryPath);
-            System.IO.Directory.Delete(Path.Combine(directoryPath, "metadata\\dotnet"), recursive: true);
+            System.IO.Directory.Delete(Path.Combine(directoryPath, @"metadata\dotnet"), recursive: true);
         }
 
         public override void OnBeforeExtraction(string filePath, string relativePath, TextWriter log)
