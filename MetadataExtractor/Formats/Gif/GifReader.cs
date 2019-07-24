@@ -80,8 +80,8 @@ namespace MetadataExtractor.Formats.Gif
 
             if (header.HasError)
                 yield break;
-            
-            if(header.TryGetBoolean(GifHeaderDirectory.TagHasGlobalColorTable, out bool hasGlobalColorTable))
+
+            if (header.TryGetBoolean(GifHeaderDirectory.TagHasGlobalColorTable, out bool hasGlobalColorTable))
             {
                 // Skip over any global colour table
                 if (hasGlobalColorTable && header.TryGetInt32(GifHeaderDirectory.TagColorTableSize, out int globalColorTableSize))
@@ -91,7 +91,9 @@ namespace MetadataExtractor.Formats.Gif
                 }
             }
             else
+            {
                 yield return new ErrorDirectory("GIF did not have hasGlobalColorTable bit.");
+            }
 
             // After the header comes a sequence of blocks
             while (true)
@@ -134,7 +136,7 @@ namespace MetadataExtractor.Formats.Gif
                         // Anything other than these types is unexpected.
                         // GIF87a spec says to keep reading until a separator is found.
                         // GIF89a spec says file is corrupt.
-                        yield return new ErrorDirectory("Unknown gif block marker found.");
+                        yield return new ErrorDirectory("Unknown GIF block marker found.");
                         yield break;
                     }
                 }
