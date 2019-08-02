@@ -58,6 +58,8 @@ namespace MetadataExtractor.Formats.Exif
                     return GetOrientationDescription();
                 case ExifDirectoryBase.TagResolutionUnit:
                     return GetResolutionDescription();
+                case ExifDirectoryBase.TagPageNumber:
+                    return GetPageNumberDescription();
                 case ExifDirectoryBase.TagYCbCrPositioning:
                     return GetYCbCrPositioningDescription();
                 case ExifDirectoryBase.TagXResolution:
@@ -271,6 +273,25 @@ namespace MetadataExtractor.Formats.Exif
                 "(No unit)",
                 "Inch",
                 "cm");
+        }
+
+        [CanBeNull]
+        public string GetPageNumberDescription()
+        {
+            var values = Directory.GetInt32Array(ExifDirectoryBase.TagPageNumber);
+
+            if (values?.Length != 2)
+                return null;
+
+            if (values[1] == 0)
+                return (values[0] + 1).ToString();
+
+            // The first number is the zero-based page index. However, support for this tag seems quite variable in the wild.
+            // If the page number seems within range, increment it to the more human friendly one-based index.
+            if (values[0] < values[1])
+                values[0]++;
+
+            return $"{values[0]} of {values[1]}";
         }
 
         /// <summary>The Windows specific tags uses plain Unicode.</summary>
