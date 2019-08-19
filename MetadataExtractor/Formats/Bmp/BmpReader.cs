@@ -39,7 +39,6 @@ using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor
 namespace MetadataExtractor.Formats.Bmp
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class BmpReader
     {
         [NotNull]

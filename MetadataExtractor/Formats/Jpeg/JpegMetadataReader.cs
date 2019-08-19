@@ -61,7 +61,9 @@ namespace MetadataExtractor.Formats.Jpeg
             new PhotoshopReader(),
             new DuckyReader(),
             new IptcReader(),
-            new AdobeJpegReader()
+            new AdobeJpegReader(),
+            new JpegDhtReader(),
+            new JpegDnlReader()
         };
 
         /// <exception cref="JpegProcessingException"/>
@@ -114,7 +116,10 @@ namespace MetadataExtractor.Formats.Jpeg
             {
                 var readerSegmentTypes = reader.SegmentTypes;
                 var readerSegments = segments.Where(s => readerSegmentTypes.Contains(s.Type));
-                directories.AddRange(reader.ReadJpegSegments(readerSegments));
+                if(reader is JpegDnlReader)
+                    ((JpegDnlReader)reader).ReadJpegSegments(readerSegments, directories);
+                else
+                    directories.AddRange(reader.ReadJpegSegments(readerSegments));
             }
 
             return directories;

@@ -102,7 +102,12 @@ namespace MetadataExtractor.IO
             return true;
         }
 
-		public override bool IsCloserToEnd(long numberOfBytes)
+        public override int Available()
+        {
+            return _bytes.Length - _index;
+        }
+
+        public override bool IsCloserToEnd(long numberOfBytes)
 		{
 			return _index + numberOfBytes > _bytes.Length;
 		}
