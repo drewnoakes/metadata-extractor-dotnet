@@ -45,42 +45,28 @@ namespace MetadataExtractor.Formats.Jpeg
 
         public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
-            return new List<Directory>();
+            return segments.Select(segment => Extract(new SequentialByteArrayReader(segment.Bytes)))
+#if NET35
+                .Cast<Directory>()
+#endif
+                .ToList();
         }
 
-        public void ReadJpegSegments(IEnumerable<JpegSegment> segments, List<Directory> directories)
+        [NotNull]
+        public JpegDnlDirectory Extract([NotNull] SequentialReader reader)
         {
-            foreach (var segment in segments)
-            {
-                Extract(segment, directories);
-            }
-        }
-        
-        public void Extract([NotNull] JpegSegment segment, List<Directory> directories)
-        {
-            var directory = directories.OfType<JpegDirectory>().FirstOrDefault();
-            if (directory == null)
-            {
-                directories.Add(new ErrorDirectory("DNL segment found without SOFx - illegal JPEG format"));
-                return;
-            }
-
-            var reader = new SequentialByteArrayReader(segment.Bytes);
+            var directory = new JpegDnlDirectory();
 
             try
             {
-                // Only set height from DNL if it's not already defined
-                if(!directory.TryGetInt32(JpegDirectory.TagImageHeight, out int i) || i == 0)
-                {
-                    directory.Set(JpegDirectory.TagImageHeight, reader.GetUInt16());
-                }
+                directory.Set(JpegDirectory.TagImageHeight, reader.GetUInt16());
             }
             catch (IOException me)
             {
                 directory.AddError(me.ToString());
             }
-        }
-        
 
+            return directory;
+        }
     }
 }

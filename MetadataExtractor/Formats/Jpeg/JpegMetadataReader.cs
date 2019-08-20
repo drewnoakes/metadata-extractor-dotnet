@@ -116,8 +116,21 @@ namespace MetadataExtractor.Formats.Jpeg
             {
                 var readerSegmentTypes = reader.SegmentTypes;
                 var readerSegments = segments.Where(s => readerSegmentTypes.Contains(s.Type));
-                if(reader is JpegDnlReader)
-                    ((JpegDnlReader)reader).ReadJpegSegments(readerSegments, directories);
+
+                // Note: JpegDnl parsing is optional. The DNL reader only defines a Height tag, 
+                //       which is redundant unless there's some problem with the regular Jpeg Height tag
+                if (reader is JpegDnlReader && readerSegments.Count() > 0)
+                {
+                    var jpegDirectory = directories.OfType<JpegDirectory>().FirstOrDefault();
+                    if (jpegDirectory == null)
+                        directories.Add(new ErrorDirectory("DNL segment found without SOFx - illegal JPEG format"));
+                    else
+                    {
+                        // Only parse DNL for a Height if it's not already defined
+                        if (!jpegDirectory.TryGetInt32(JpegDirectory.TagImageHeight, out int i) || i == 0)
+                            directories.AddRange(reader.ReadJpegSegments(readerSegments));
+                    }
+                }
                 else
                     directories.AddRange(reader.ReadJpegSegments(readerSegments));
             }

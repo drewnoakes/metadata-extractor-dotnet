@@ -24,6 +24,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
 #if NET35
@@ -42,18 +43,23 @@ namespace MetadataExtractor.Formats.Jpeg
     {
         ICollection<JpegSegmentType> IJpegSegmentMetadataReader.SegmentTypes => new[] { JpegSegmentType.Dht };
 
-        private HuffmanTablesDirectory directory = null;
-
         public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
-
-            var directory = new HuffmanTablesDirectory();
-            foreach (var segment in segments)
+            // This Extract structure is a little different since we only want to return one HuffmanTablesDirectory
+            // for one-to-many segments
+            var directories = new List<Directory>();
+            if (segments.Count() > 0)
             {
-                Extract(new SequentialByteArrayReader(segment.Bytes), directory);
+                var directory = new HuffmanTablesDirectory();
+                foreach (var segment in segments)
+                {
+                    Extract(new SequentialByteArrayReader(segment.Bytes), directory);
+                }
+
+                directories.Add(directory);
             }
 
-            return new List<Directory> { directory };
+            return directories;
         }
 
         public void Extract([NotNull] SequentialReader reader, HuffmanTablesDirectory directory)
@@ -73,15 +79,13 @@ namespace MetadataExtractor.Formats.Jpeg
                         vCount += (b & 0xFF);
                     }
                     byte[] vBytes = GetBytes(reader, vCount);
-                    directory.Tables.Add(new HuffmanTable(tableClass, tableDestinationId, lBytes, vBytes));
+                    directory.AddTable(new HuffmanTable(tableClass, tableDestinationId, lBytes, vBytes));
                 }
             }
             catch (IOException me)
             {
                 directory.AddError(me.ToString());
             }
-
-            directory.Set(HuffmanTablesDirectory.TagNumberOfTables, directory.Tables.Count);
         }
 
         private byte[] GetBytes([NotNull] SequentialReader reader, int count)
@@ -90,12 +94,12 @@ namespace MetadataExtractor.Formats.Jpeg
             for (int i = 0; i < count; i++)
             {
                 byte b = reader.GetByte();
-                if ((b & 0xFF) == 0xFF)
+                if (b == 0xFF)
                 {
                     byte stuffing = reader.GetByte();
                     if (stuffing != 0x00)
                     {
-                        throw new IOException("Marker " + (JpegSegmentType)stuffing + " found inside DHT segment");
+                        throw new MetadataException("Marker " + (JpegSegmentType)stuffing + " found inside DHT segment");
                     }
                 }
                 bytes[i] = b;

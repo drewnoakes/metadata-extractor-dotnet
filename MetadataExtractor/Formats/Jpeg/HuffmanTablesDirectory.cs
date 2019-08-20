@@ -25,7 +25,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using JetBrains.Annotations;
+
+using MetadataExtractor.Util;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -147,9 +150,16 @@ namespace MetadataExtractor.Formats.Jpeg
             return this.GetInt32(TagNumberOfTables);
         }
 
+        internal void AddTable(HuffmanTable table)
+        {
+            Tables.Add(table);
+            // update the number-of-tables tag with the current count
+            Set(TagNumberOfTables, Tables.Count);
+        }
+
         /// <returns>The List of HuffmanTables in this Directory.</returns>
         [NotNull]
-        public List<HuffmanTable> Tables { get; set; } = new List<HuffmanTable>(4);
+        private List<HuffmanTable> Tables { get; set; } = new List<HuffmanTable>(4);
 
         /// <summary>Evaluates whether all the tables in this HuffmanTablesDirectory are "typical" Huffman tables.</summary>
         /// <remarks>
@@ -199,16 +209,16 @@ namespace MetadataExtractor.Formats.Jpeg
 
     }
 
-    /// <summary>An instance of this class holds a JPEG Huffman table.</summary>
-    public class HuffmanTable
+    /// <summary>A JPEG Huffman table.</summary>
+    public readonly struct HuffmanTable
     {
-        private byte[] _lengthBytes;
-        private byte[] _valueBytes;
+        private readonly byte[] _lengthBytes;
+        private readonly byte[] _valueBytes;
 
         public HuffmanTable([NotNull] HuffmanTableClass tableClass, int tableDestinationId, [NotNull] byte[] lengthBytes, [NotNull] byte[] valueBytes)
         {
-            _lengthBytes = lengthBytes ?? throw new ArgumentNullException("lengthBytes cannot be null.");
-            _valueBytes = valueBytes ?? throw new ArgumentNullException("valueBytes cannot be null.");
+            _lengthBytes = lengthBytes ?? throw new ArgumentNullException(nameof(lengthBytes));
+            _valueBytes = valueBytes ?? throw new ArgumentNullException(nameof(valueBytes));
 
             TableClass = tableClass;
             TableDestinationId = tableDestinationId;
@@ -216,13 +226,13 @@ namespace MetadataExtractor.Formats.Jpeg
         }
 
         /// <returns>The table length in bytes.</returns>
-        public int TableLength { get; private set; }
+        public int TableLength { get; }
 
         /// <returns>The HuffmanTableClass of this table.</returns>
-        public HuffmanTableClass TableClass { get; private set; }
+        public HuffmanTableClass TableClass { get; }
 
         /// <returns>The destination identifier for this table.</returns>
-        public int TableDestinationId { get; private set; }
+        public int TableDestinationId { get; }
 
         /// <returns>A byte array with the L values for this table.</returns>
         [NotNull]
@@ -230,9 +240,7 @@ namespace MetadataExtractor.Formats.Jpeg
         {
             get
             {
-                byte[] result = new byte[_lengthBytes.Length];
-                Array.Copy(_lengthBytes, 0, result, 0, _lengthBytes.Length);
-                return result;
+                return _lengthBytes.ToArray();
             }
         }
 
@@ -242,9 +250,7 @@ namespace MetadataExtractor.Formats.Jpeg
         {
             get
             {
-                byte[] result = new byte[_valueBytes.Length];
-                Array.Copy(_valueBytes, 0, result, 0, _valueBytes.Length);
-                return result;
+                return _valueBytes.ToArray();
             }
         }
 
@@ -273,18 +279,18 @@ namespace MetadataExtractor.Formats.Jpeg
             if (TableClass == HuffmanTableClass.DC)
             {
                 return
-                    Equals(_lengthBytes, HuffmanTablesDirectory.TypicalLuminanceDcLengths) &&
-                    Equals(_valueBytes, HuffmanTablesDirectory.TypicalLuminanceDcValues) ||
-                    Equals(_lengthBytes, HuffmanTablesDirectory.TypicalChrominanceDcLengths) &&
-                    Equals(_valueBytes, HuffmanTablesDirectory.TypicalChrominanceDcValues);
+                    _lengthBytes.EqualTo(HuffmanTablesDirectory.TypicalLuminanceDcLengths) &&
+                    _valueBytes.EqualTo(HuffmanTablesDirectory.TypicalLuminanceDcValues) ||
+                    _lengthBytes.EqualTo(HuffmanTablesDirectory.TypicalChrominanceDcLengths) &&
+                    _valueBytes.EqualTo(HuffmanTablesDirectory.TypicalChrominanceDcValues);
             }
             else if (TableClass == HuffmanTableClass.AC)
             {
                 return
-                    Equals(_lengthBytes, HuffmanTablesDirectory.TypicalLuminanceAcLengths) &&
-                    Equals(_valueBytes, HuffmanTablesDirectory.TypicalLuminanceAcValues) ||
-                    Equals(_lengthBytes, HuffmanTablesDirectory.TypicalChrominanceAcLengths) &&
-                    Equals(_valueBytes, HuffmanTablesDirectory.TypicalChrominanceAcValues);
+                    _lengthBytes.EqualTo(HuffmanTablesDirectory.TypicalLuminanceAcLengths) &&
+                    _valueBytes.EqualTo(HuffmanTablesDirectory.TypicalLuminanceAcValues) ||
+                    _lengthBytes.EqualTo(HuffmanTablesDirectory.TypicalChrominanceAcLengths) &&
+                    _valueBytes.EqualTo(HuffmanTablesDirectory.TypicalChrominanceAcValues);
             }
             return false;
         }
