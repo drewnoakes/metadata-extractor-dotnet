@@ -18,6 +18,7 @@ namespace MetadataExtractor.Util
             return true;
         }
 
+        [Pure]
         public static bool EqualTo([NotNull] this byte[] source, [NotNull] byte[] compare)
         {
             // If not the same length, bail out

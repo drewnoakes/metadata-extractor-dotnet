@@ -1,7 +1,6 @@
 #region License
 //
 // Copyright 2002-2019 Drew Noakes
-// Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -40,32 +39,32 @@ namespace MetadataExtractor.Formats.Jpeg
     {
         public const int TagNumberOfTables = 1;
 
-        internal static byte[] TypicalLuminanceDcLengths = {
+        public static readonly byte[] TypicalLuminanceDcLengths = {
             0x00, 0x01, 0x05, 0x01, 0x01, 0x01, 0x01, 0x01,
             0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
         };
 
-        internal static byte[] TypicalLuminanceDcValues = {
+        public static readonly byte[] TypicalLuminanceDcValues = {
             0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
             0x08, 0x09, 0x0A, 0x0B
         };
 
-        internal static byte[] TypicalChrominanceDcLengths = {
+        public static readonly byte[] TypicalChrominanceDcLengths = {
             0x00, 0x03, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
             0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00
         };
 
-        internal static byte[] TypicalChrominanceDcValues = {
+        public static readonly byte[] TypicalChrominanceDcValues = {
             0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
             0x08, 0x09, 0x0A, 0x0B
         };
 
-        internal static byte[] TypicalLuminanceAcLengths = {
+        public static readonly byte[] TypicalLuminanceAcLengths = {
             0x00, 0x02, 0x01, 0x03, 0x03, 0x02, 0x04, 0x03,
             0x05, 0x05, 0x04, 0x04, 0x00, 0x00, 0x01, 0x7D
         };
 
-        internal static byte[] TypicalLuminanceAcValues = {
+        public static readonly byte[] TypicalLuminanceAcValues = {
             0x01, 0x02, 0x03, 0x00, 0x04, 0x11, 0x05, 0x12,
             0x21, 0x31, 0x41, 0x06, 0x13, 0x51, 0x61, 0x07,
             0x22, 0x71, 0x14, 0x32, 0x81, 0x91, 0xA1, 0x08,
@@ -89,12 +88,12 @@ namespace MetadataExtractor.Formats.Jpeg
             0xF9, 0xFA
         };
 
-        internal static byte[] TypicalChrominanceAcLengths = {
+        public static readonly byte[] TypicalChrominanceAcLengths = {
             0x00, 0x02, 0x01, 0x02, 0x04, 0x04, 0x03, 0x04,
             0x07, 0x05, 0x04, 0x04, 0x00, 0x01, 0x02, 0x77
         };
 
-        internal static byte[] TypicalChrominanceAcValues = {
+        public static readonly byte[] TypicalChrominanceAcValues = {
             0x00, 0x01, 0x02, 0x03, 0x11, 0x04, 0x05, 0x21,
             0x31, 0x06, 0x12, 0x41, 0x51, 0x07, 0x61, 0x71,
             0x13, 0x22, 0x32, 0x81, 0x08, 0x14, 0x42, 0x91,
@@ -141,7 +140,7 @@ namespace MetadataExtractor.Formats.Jpeg
         [NotNull]
         public HuffmanTable GetTable(int tableNumber)
         {
-            return Tables[tableNumber];
+            return _tables[tableNumber];
         }
 
         /// <returns>The number of Huffman tables held by this HuffmanTablesDirectory instance.</returns>
@@ -150,16 +149,16 @@ namespace MetadataExtractor.Formats.Jpeg
             return this.GetInt32(TagNumberOfTables);
         }
 
-        internal void AddTable(HuffmanTable table)
+        public void AddTable(HuffmanTable table)
         {
-            Tables.Add(table);
+            _tables.Add(table);
             // update the number-of-tables tag with the current count
-            Set(TagNumberOfTables, Tables.Count);
+            Set(TagNumberOfTables, _tables.Count);
         }
 
         /// <returns>The List of HuffmanTables in this Directory.</returns>
         [NotNull]
-        private List<HuffmanTable> Tables { get; set; } = new List<HuffmanTable>(4);
+        private List<HuffmanTable> _tables = new List<HuffmanTable>(4);
 
         /// <summary>Evaluates whether all the tables in this HuffmanTablesDirectory are "typical" Huffman tables.</summary>
         /// <remarks>
@@ -182,11 +181,11 @@ namespace MetadataExtractor.Formats.Jpeg
         /// </remarks>
         public bool IsTypical()
         {
-            if (Tables.Count == 0)
+            if (_tables.Count == 0)
             {
                 return false;
             }
-            foreach (HuffmanTable table in Tables)
+            foreach (HuffmanTable table in _tables)
             {
                 if (!table.IsTypical())
                 {

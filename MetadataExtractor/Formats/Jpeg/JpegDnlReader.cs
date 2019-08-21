@@ -1,7 +1,6 @@
 ﻿#region License
 //
 // Copyright 2002-2019 Drew Noakes
-// Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -35,7 +34,8 @@ using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor
 
 namespace MetadataExtractor.Formats.Jpeg
 {
-    /// <summary>Decodes JPEG DNL data, adjusting the image height with information missing from the JPEG SOFx segment.</summary>
+    /// <summary>Decodes JPEG DNL image height data.</summary>
+    /// <remarks>The current implementation only calls this reader if image height is missing from the JPEG SOFx segment.</remarks>
     /// <seealso cref="JpegSegment"/>
     /// <author>Nadahar</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
@@ -59,7 +59,7 @@ namespace MetadataExtractor.Formats.Jpeg
 
             try
             {
-                directory.Set(JpegDirectory.TagImageHeight, reader.GetUInt16());
+                directory.Set(JpegDnlDirectory.TagImageHeight, reader.GetUInt16());
             }
             catch (IOException me)
             {

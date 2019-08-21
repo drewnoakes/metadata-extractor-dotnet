@@ -1,7 +1,6 @@
 ﻿#region License
 //
 // Copyright 2002-2019 Drew Noakes
-// Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -24,7 +23,6 @@
 
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using JetBrains.Annotations;
 using MetadataExtractor.IO;
 #if NET35
@@ -45,19 +43,21 @@ namespace MetadataExtractor.Formats.Jpeg
 
         public DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments)
         {
-            // This Extract structure is a little different since we only want to return one HuffmanTablesDirectory
-            // for one-to-many segments
-            var directories = new List<Directory>();
-            if (segments.Count() > 0)
-            {
-                var directory = new HuffmanTablesDirectory();
-                foreach (var segment in segments)
-                {
-                    Extract(new SequentialByteArrayReader(segment.Bytes), directory);
-                }
+            // This Extract structure is a little different since we only want
+            // to return one HuffmanTablesDirectory for one-to-many segments
+            HuffmanTablesDirectory directory = null;
 
-                directories.Add(directory);
+            foreach (var segment in segments)
+            {
+                if(directory == null)
+                    directory = new HuffmanTablesDirectory();
+
+                Extract(new SequentialByteArrayReader(segment.Bytes), directory);
             }
+
+            var directories = new List<Directory>();
+            if (directory != null)
+                directories.Add(directory);
 
             return directories;
         }
