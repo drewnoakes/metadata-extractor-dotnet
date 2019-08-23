@@ -55,11 +55,10 @@ namespace MetadataExtractor.Formats.Jpeg
                 Extract(new SequentialByteArrayReader(segment.Bytes), directory);
             }
 
-            var directories = new List<Directory>();
             if (directory != null)
-                directories.Add(directory);
+                return new List<Directory>() { directory };
 
-            return directories;
+            return Directory.EmptyList;
         }
 
         public void Extract([NotNull] SequentialReader reader, HuffmanTablesDirectory directory)

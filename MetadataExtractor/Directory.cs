@@ -29,6 +29,11 @@ using System.Diagnostics;
 using System.Text;
 #endif
 using JetBrains.Annotations;
+#if NET35
+using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
+#else
+using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
+#endif
 
 namespace MetadataExtractor
 {
@@ -45,6 +50,7 @@ namespace MetadataExtractor
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
 #endif
+        internal static readonly DirectoryList EmptyList = new Directory[0];
 
         /// <summary>Map of values hashed by type identifiers.</summary>
         [NotNull]
