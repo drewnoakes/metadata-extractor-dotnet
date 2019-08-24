@@ -125,7 +125,7 @@ namespace MetadataExtractor.Formats.Exif
         public const int TagDifferential = 0x001E;
 
          /// <summary>GPSHPositioningError	Horizontal positioning error RATIONAL 1</summary>
-        public const int TagHorizontalPosError = 0x001f;
+        public const int TagHPositioningError = 0x001F;
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>();
 
@@ -167,7 +167,7 @@ namespace MetadataExtractor.Formats.Exif
             _tagNameMap[TagAreaInformation] = "GPS Area Information";
             _tagNameMap[TagDateStamp] = "GPS Date Stamp";
             _tagNameMap[TagDifferential] = "GPS Differential";
-            _tagNameMap[TagHorizontalPosError] = "GPS Horizontal Positioning Error";
+            _tagNameMap[TagHPositioningError] = "GPS Horizontal Positioning Error";
         }
 
         public GpsDirectory()

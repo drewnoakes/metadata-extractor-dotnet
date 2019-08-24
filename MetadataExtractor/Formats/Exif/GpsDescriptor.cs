@@ -22,6 +22,7 @@
 //
 #endregion
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
@@ -53,8 +54,12 @@ namespace MetadataExtractor.Formats.Exif
                     return GetGpsStatusDescription();
                 case GpsDirectory.TagMeasureMode:
                     return GetGpsMeasureModeDescription();
+                case GpsDirectory.TagDop:
+                    return GetGpsDopDescription();
                 case GpsDirectory.TagSpeedRef:
                     return GetGpsSpeedRefDescription();
+                case GpsDirectory.TagSpeed:
+                    return GetGpsSpeedDescription();
                 case GpsDirectory.TagTrackRef:
                 case GpsDirectory.TagImgDirectionRef:
                 case GpsDirectory.TagDestBearingRef:
@@ -63,8 +68,14 @@ namespace MetadataExtractor.Formats.Exif
                 case GpsDirectory.TagImgDirection:
                 case GpsDirectory.TagDestBearing:
                     return GetGpsDirectionDescription(tagType);
+                case GpsDirectory.TagDestLatitude:
+                    return GetGpsDestLatitudeDescription();
+                case GpsDirectory.TagDestLongitude:
+                    return GetGpsDestLongitudeDescription();
                 case GpsDirectory.TagDestDistanceRef:
                     return GetGpsDestinationReferenceDescription();
+                case GpsDirectory.TagDestDistance:
+                    return GetGpsDestDistanceDescription();
                 case GpsDirectory.TagTimeStamp:
                     return GetGpsTimeStampDescription();
                 case GpsDirectory.TagLongitude:
@@ -73,8 +84,14 @@ namespace MetadataExtractor.Formats.Exif
                 case GpsDirectory.TagLatitude:
                     // three rational numbers -- displayed in HH"MM"SS.ss
                     return GetGpsLatitudeDescription();
+                case GpsDirectory.TagProcessingMethod:
+                    return GetGpsProcessingMethodDescription();
+                case GpsDirectory.TagAreaInformation:
+                    return GetGpsAreaInformationDescription();
                 case GpsDirectory.TagDifferential:
                     return GetGpsDifferentialDescription();
+                case GpsDirectory.TagHPositioningError:
+                    return GetGpsHPositioningErrorDescription();
                 default:
                     return base.GetDescription(tagType);
             }
@@ -111,6 +128,36 @@ namespace MetadataExtractor.Formats.Exif
         }
 
         [CanBeNull]
+        public string GetGpsDestLatitudeDescription()
+        {
+            var latitudes = Directory.GetRationalArray(GpsDirectory.TagDestLatitude);
+            var latitudeRef = Directory.GetString(GpsDirectory.TagDestLatitudeRef);
+
+            if (latitudes == null || latitudes.Length != 3 || latitudeRef == null)
+                return null;
+
+            var lat = GeoLocation.DegreesMinutesSecondsToDecimal(
+                latitudes[0], latitudes[1], latitudes[2], latitudeRef.Equals("S", StringComparison.OrdinalIgnoreCase));
+
+            return lat == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString((double)lat);
+        }
+
+        [CanBeNull]
+        public string GetGpsDestLongitudeDescription()
+        {
+            var longitudes = Directory.GetRationalArray(GpsDirectory.TagDestLongitude);
+            var longitudeRef = Directory.GetString(GpsDirectory.TagDestLongitudeRef);
+
+            if (longitudes == null || longitudes.Length != 3 || longitudeRef == null)
+                return null;
+
+            var lon = GeoLocation.DegreesMinutesSecondsToDecimal(
+                longitudes[0], longitudes[1], longitudes[2], longitudeRef.Equals("S", StringComparison.OrdinalIgnoreCase));
+
+            return lon == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString((double)lon);
+        }
+
+        [CanBeNull]
         public string GetGpsDestinationReferenceDescription()
         {
             var value = Directory.GetString(GpsDirectory.TagDestDistanceRef);
@@ -128,6 +175,16 @@ namespace MetadataExtractor.Formats.Exif
             }
 
             return "Unknown (" + value.Trim() + ")";
+        }
+
+        [CanBeNull]
+        public string GetGpsDestDistanceDescription()
+        {
+            if (!Directory.TryGetRational(GpsDirectory.TagDestDistance, out Rational value))
+                return null;
+
+            var unit = GetGpsDestinationReferenceDescription();
+            return string.Format("{0} {1}", value.ToDouble().ToString("0.##"), unit == null ? "unit" : unit.ToLower());
         }
 
         [CanBeNull]
@@ -158,6 +215,14 @@ namespace MetadataExtractor.Formats.Exif
         }
 
         [CanBeNull]
+        public string GetGpsDopDescription()
+        {
+            if (!Directory.TryGetRational(GpsDirectory.TagDop, out Rational value))
+                return null;
+            return $"{value.ToDouble():0.##}";
+        }
+
+        [CanBeNull]
         public string GetGpsSpeedRefDescription()
         {
             var value = Directory.GetString(GpsDirectory.TagSpeedRef);
@@ -167,7 +232,7 @@ namespace MetadataExtractor.Formats.Exif
             switch (value.Trim().ToUpper())
             {
                 case "K":
-                    return "kph";
+                    return "km/h";
                 case "M":
                     return "mph";
                 case "N":
@@ -175,6 +240,16 @@ namespace MetadataExtractor.Formats.Exif
             }
 
             return "Unknown (" + value.Trim() + ")";
+        }
+
+        [CanBeNull]
+        public string GetGpsSpeedDescription()
+        {
+            if (!Directory.TryGetRational(GpsDirectory.TagSpeed, out Rational value))
+                return null;
+
+            var unit = GetGpsSpeedRefDescription();
+            return string.Format("{0} {1}", value.ToDouble().ToString("0.##"), unit == null ? "unit" : unit.ToLower());
         }
 
         [CanBeNull]
@@ -225,7 +300,19 @@ namespace MetadataExtractor.Formats.Exif
         {
             if (!Directory.TryGetRational(GpsDirectory.TagAltitude, out Rational value))
                 return null;
-            return value.ToInt32() + " metres";
+            return $"{value.ToDouble():0.##} metres";
+        }
+
+        [CanBeNull]
+        public string GetGpsProcessingMethodDescription()
+        {
+            return GetEncodedTextDescription(GpsDirectory.TagProcessingMethod);
+        }
+
+        [CanBeNull]
+        public string GetGpsAreaInformationDescription()
+        {
+            return GetEncodedTextDescription(GpsDirectory.TagAreaInformation);
         }
 
         [CanBeNull]
@@ -233,6 +320,14 @@ namespace MetadataExtractor.Formats.Exif
         {
             return GetIndexedDescription(GpsDirectory.TagDifferential,
                 "No Correction", "Differential Corrected");
+        }
+
+        [CanBeNull]
+        public string GetGpsHPositioningErrorDescription()
+        {
+            if (!Directory.TryGetRational(GpsDirectory.TagHPositioningError, out Rational value))
+                return null;
+            return $"{value.ToDouble():0.##} metres";
         }
 
         [CanBeNull]

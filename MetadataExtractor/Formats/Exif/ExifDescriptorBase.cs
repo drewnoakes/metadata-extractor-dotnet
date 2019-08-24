@@ -592,67 +592,7 @@ namespace MetadataExtractor.Formats.Exif
         [CanBeNull]
         public string GetUserCommentDescription()
         {
-            var commentBytes = Directory.GetByteArray(ExifDirectoryBase.TagUserComment);
-
-            if (commentBytes == null)
-                return null;
-
-            if (commentBytes.Length == 0)
-                return string.Empty;
-
-            // TODO use ByteTrie here
-            // Someone suggested "ISO-8859-1".
-            var encodingMap = new Dictionary<string, Encoding>
-            {
-                ["ASCII"] = Encoding.ASCII,
-                ["UTF8"] = Encoding.UTF8,
-                ["UTF7"] = Encoding.UTF7,
-                ["UTF32"] = Encoding.UTF32,
-                ["UNICODE"] = Encoding.Unicode
-            };
-
-            try
-            {
-                encodingMap["JIS"] = Encoding.GetEncoding("Shift-JIS");
-            }
-            catch (ArgumentException)
-            {
-                // On some platforms, 'Shift-JIS' is not a supported encoding name
-            }
-
-            try
-            {
-                if (commentBytes.Length >= 10)
-                {
-                    // TODO no guarantee bytes after the UTF8 name are valid UTF8 -- only read as many as needed
-                    var firstTenBytesString = Encoding.UTF8.GetString(commentBytes, 0, 10);
-                    // try each encoding name
-                    foreach (var pair in encodingMap)
-                    {
-                        var encodingName = pair.Key;
-                        var encoding = pair.Value;
-                        if (firstTenBytesString.StartsWith(encodingName))
-                        {
-                            // skip any null or blank characters commonly present after the encoding name, up to a limit of 10 from the start
-                            for (var j = encodingName.Length; j < 10; j++)
-                            {
-                                var b = commentBytes[j];
-                                if (b != '\0' && b != ' ')
-                                {
-                                    return encoding.GetString(commentBytes, j, commentBytes.Length - j).Trim('\0', ' ');
-                                }
-                            }
-                            return encoding.GetString(commentBytes, 10, commentBytes.Length - 10).Trim('\0', ' ');
-                        }
-                    }
-                }
-                // special handling fell through, return a plain string representation
-                return Encoding.UTF8.GetString(commentBytes, 0, commentBytes.Length).Trim('\0', ' ');
-            }
-            catch
-            {
-                return null;
-            }
+            return GetEncodedTextDescription(ExifDirectoryBase.TagUserComment);
         }
 
         [CanBeNull]
