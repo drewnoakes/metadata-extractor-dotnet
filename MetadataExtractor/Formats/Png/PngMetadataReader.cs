@@ -84,10 +84,26 @@ namespace MetadataExtractor.Formats.Png
         [NotNull]
         public static DirectoryList ReadMetadata([NotNull] Stream stream)
         {
-            return new PngChunkReader()
-                .Extract(new SequentialStreamReader(stream), _desiredChunkTypes)
-                .SelectMany(ProcessChunk)
-                .ToList();
+            List<Directory> directories = null;
+
+            var chunks = new PngChunkReader().Extract(new SequentialStreamReader(stream), _desiredChunkTypes);
+
+            foreach (var chunk in chunks)
+            {
+                if(directories == null)
+                    directories = new List<Directory>();
+
+                try
+                {
+                    directories.AddRange(ProcessChunk(chunk));
+                }
+                catch (Exception ex)
+                {
+                    directories.Add(new ErrorDirectory("Exception reading PNG chunk: " + ex.Message));
+                }
+            }
+
+            return directories ?? Directory.EmptyList;
         }
 
         /// <summary>
