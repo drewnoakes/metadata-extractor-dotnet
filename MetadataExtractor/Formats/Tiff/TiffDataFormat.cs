@@ -22,7 +22,7 @@
 //
 #endregion
 
-using JetBrains.Annotations;
+using System;
 
 namespace MetadataExtractor.Formats.Tiff
 {
@@ -59,8 +59,7 @@ namespace MetadataExtractor.Formats.Tiff
         public static readonly TiffDataFormat Single    = new TiffDataFormat("SINGLE",    TiffDataFormatCode.Single,    4);
         public static readonly TiffDataFormat Double    = new TiffDataFormat("DOUBLE",    TiffDataFormatCode.Double,    8);
 
-        [CanBeNull]
-        public static TiffDataFormat FromTiffFormatCode(TiffDataFormatCode tiffFormatCode)
+        public static TiffDataFormat? FromTiffFormatCode(TiffDataFormatCode tiffFormatCode)
         {
             switch (tiffFormatCode)
             {
@@ -81,14 +80,13 @@ namespace MetadataExtractor.Formats.Tiff
             return null;
         }
 
-        [NotNull]
         public string Name { get; }
         public int ComponentSizeBytes { get; }
         public TiffDataFormatCode TiffFormatCode { get; }
 
-        private TiffDataFormat([NotNull] string name, TiffDataFormatCode tiffFormatCode, int componentSizeBytes)
+        private TiffDataFormat(string name, TiffDataFormatCode tiffFormatCode, int componentSizeBytes)
         {
-            Name = name;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
             TiffFormatCode = tiffFormatCode;
             ComponentSizeBytes = componentSizeBytes;
         }

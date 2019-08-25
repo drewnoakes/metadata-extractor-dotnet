@@ -21,7 +21,6 @@
 //
 #endregion
 
-using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
@@ -41,12 +40,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class OlympusRawDevelopment2MakernoteDescriptor : TagDescriptor<OlympusRawDevelopment2MakernoteDirectory>
     {
-        public OlympusRawDevelopment2MakernoteDescriptor([NotNull] OlympusRawDevelopment2MakernoteDirectory directory)
+        public OlympusRawDevelopment2MakernoteDescriptor(OlympusRawDevelopment2MakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -73,28 +72,24 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetRawDevVersionDescription()
+        public string? GetRawDevVersionDescription()
         {
             return GetVersionBytesDescription(OlympusRawDevelopment2MakernoteDirectory.TagRawDevVersion, 4);
         }
 
-        [CanBeNull]
-        public string GetRawDevExposureBiasValueDescription()
+        public string? GetRawDevExposureBiasValueDescription()
         {
             return GetIndexedDescription(OlympusRawDevelopment2MakernoteDirectory.TagRawDevExposureBiasValue, 1,
                 "Color Temperature", "Gray Point");
         }
 
-        [CanBeNull]
-        public string GetRawDevColorSpaceDescription()
+        public string? GetRawDevColorSpaceDescription()
         {
             return GetIndexedDescription(OlympusRawDevelopment2MakernoteDirectory.TagRawDevColorSpace,
                 "sRGB", "Adobe RGB", "Pro Photo RGB");
         }
 
-        [CanBeNull]
-        public string GetRawDevNoiseReductionDescription()
+        public string? GetRawDevNoiseReductionDescription()
         {
             if (!Directory.TryGetInt32(OlympusRawDevelopment2MakernoteDirectory.TagRawDevNoiseReduction, out int value))
                 return null;
@@ -112,15 +107,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return sb.ToString(0, sb.Length - 2);
         }
 
-        [CanBeNull]
-        public string GetRawDevEngineDescription()
+        public string? GetRawDevEngineDescription()
         {
             return GetIndexedDescription(OlympusRawDevelopment2MakernoteDirectory.TagRawDevEngine,
                 "High Speed", "High Function", "Advanced High Speed", "Advanced High Function");
         }
 
-        [CanBeNull]
-        public string GetRawDevPictureModeDescription()
+        public string? GetRawDevPictureModeDescription()
         {
             if (!Directory.TryGetInt32(OlympusRawDevelopment2MakernoteDirectory.TagRawDevPictureMode, out int value))
                 return null;
@@ -142,25 +135,21 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetRawDevPmBwFilterDescription()
+        public string? GetRawDevPmBwFilterDescription()
         {
             return GetIndexedDescription(OlympusRawDevelopment2MakernoteDirectory.TagRawDevPmBwFilter, 1,
                 "Neutral", "Yellow", "Orange", "Red", "Green");
         }
 
-        [CanBeNull]
-        public string GetRawDevPmPictureToneDescription()
+        public string? GetRawDevPmPictureToneDescription()
         {
             return GetIndexedDescription(OlympusRawDevelopment2MakernoteDirectory.TagRawDevPmPictureTone, 1,
                 "Neutral", "Sepia", "Blue", "Purple", "Green");
         }
 
-        [CanBeNull]
-        public string GetRawDevArtFilterDescription() => GetFilterDescription(OlympusRawDevelopment2MakernoteDirectory.TagRawDevArtFilter);
+        public string? GetRawDevArtFilterDescription() => GetFilterDescription(OlympusRawDevelopment2MakernoteDirectory.TagRawDevArtFilter);
 
-        [CanBeNull]
-        private string GetFilterDescription(int tagId)
+        private string? GetFilterDescription(int tagId)
         {
             var values = Directory.GetObject(tagId) as short[];
             if (values == null || values.Length == 0)

@@ -27,7 +27,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.Util;
 using MetadataExtractor.Formats.Jpeg;
 using XmpCore;
@@ -99,11 +98,9 @@ namespace MetadataExtractor.Formats.Xmp
         private static bool IsXmpSegment(JpegSegment segment) => segment.Bytes.StartsWith(JpegSegmentPreambleBytes);
         private static bool IsExtendedXmpSegment(JpegSegment segment) => segment.Bytes.StartsWith(JpegSegmentPreambleExtensionBytes);
 
-        [NotNull]
-        public XmpDirectory Extract([NotNull] byte[] xmpBytes) => Extract(xmpBytes, 0, xmpBytes.Length);
+        public XmpDirectory Extract(byte[] xmpBytes) => Extract(xmpBytes, 0, xmpBytes.Length);
 
-        [NotNull]
-        public XmpDirectory Extract([NotNull] byte[] xmpBytes, int offset, int length)
+        public XmpDirectory Extract(byte[] xmpBytes, int offset, int length)
         {
             if (offset < 0)
                 throw new ArgumentOutOfRangeException(nameof(offset), "Must be zero or greater.");

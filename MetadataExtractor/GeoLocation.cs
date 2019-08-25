@@ -63,7 +63,7 @@ namespace MetadataExtractor
         /// of format:
         /// <c>-1° 23' 4.56"</c>
         /// </summary>
-        [NotNull, Pure]
+        [Pure]
         public static string DecimalToDegreesMinutesSecondsString(double value)
         {
             var dms = DecimalToDegreesMinutesSeconds(value);
@@ -74,7 +74,7 @@ namespace MetadataExtractor
         /// Converts a decimal degree angle into its corresponding DMS (degrees-minutes-seconds) component values, as
         /// a double array.
         /// </summary>
-        [NotNull, Pure]
+        [Pure]
         public static double[] DecimalToDegreesMinutesSeconds(double value)
         {
             var d = (int)value;
@@ -88,7 +88,7 @@ namespace MetadataExtractor
         /// <see cref="GpsDirectory"/>, into a single value in degrees,
         /// as a double.
         /// </summary>
-        [CanBeNull, Pure]
+        [Pure]
         public static double? DegreesMinutesSecondsToDecimal(Rational degs, Rational mins, Rational secs, bool isNegative)
         {
             var value = Math.Abs(degs.ToDouble()) + mins.ToDouble()/60.0d + secs.ToDouble()/3600.0d;
@@ -103,7 +103,7 @@ namespace MetadataExtractor
 
         #region Equality and Hashing
 
-        private bool Equals([NotNull] GeoLocation other) => Latitude.Equals(other.Latitude) &&
+        private bool Equals(GeoLocation other) => Latitude.Equals(other.Latitude) &&
                                                   Longitude.Equals(other.Longitude);
 
         public override bool Equals(object obj)
@@ -131,7 +131,7 @@ namespace MetadataExtractor
         /// a string representation of this location, of format:
         /// <c>-1° 23' 4.56", 54° 32' 1.92"</c>
         /// </returns>
-        [NotNull, Pure]
+        [Pure]
         public string ToDmsString() => DecimalToDegreesMinutesSecondsString(Latitude) + ", " + DecimalToDegreesMinutesSecondsString(Longitude);
 
         #endregion

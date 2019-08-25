@@ -23,7 +23,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -40,12 +39,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class OlympusRawInfoMakernoteDescriptor : TagDescriptor<OlympusRawInfoMakernoteDirectory>
     {
-        public OlympusRawInfoMakernoteDescriptor([NotNull] OlympusRawInfoMakernoteDirectory directory)
+        public OlympusRawInfoMakernoteDescriptor(OlympusRawInfoMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -62,8 +61,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetColorMatrix2Description()
+        public string? GetColorMatrix2Description()
         {
             var values = Directory.GetObject(OlympusRawInfoMakernoteDirectory.TagColorMatrix2) as short[];
             if (values == null)
@@ -72,8 +70,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return string.Join(" ", values.Select(b => b.ToString()).ToArray());
         }
 
-        [CanBeNull]
-        public string GetYCbCrCoefficientsDescription()
+        public string? GetYCbCrCoefficientsDescription()
         {
             var values = Directory.GetObject(OlympusRawInfoMakernoteDirectory.TagYCbCrCoefficients) as ushort[];
             if (values == null)
@@ -88,8 +85,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return string.Join(" ", ret.Select(r => r.ToDecimal().ToString()).ToArray());
         }
 
-        [CanBeNull]
-        public string GetOlympusLightSourceDescription()
+        public string? GetOlympusLightSourceDescription()
         {
             if (!Directory.TryGetUInt16(OlympusRawInfoMakernoteDirectory.TagLightSource, out ushort value))
                 return null;

@@ -25,7 +25,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
@@ -54,8 +53,7 @@ namespace MetadataExtractor.Formats.Gif
         private const string Gif87AVersionIdentifier = "87a";
         private const string Gif89AVersionIdentifier = "89a";
 
-        [NotNull]
-        public DirectoryList Extract([NotNull] SequentialReader reader)
+        public DirectoryList Extract(SequentialReader reader)
         {
             reader = reader.WithByteOrder(isMotorolaByteOrder: false);
 
@@ -216,13 +214,13 @@ namespace MetadataExtractor.Formats.Gif
             return headerDirectory;
         }
 
-        private static Directory ReadGifExtensionBlock(SequentialReader reader)
+        private static Directory? ReadGifExtensionBlock(SequentialReader reader)
         {
             var extensionLabel = reader.GetByte();
             var blockSizeBytes = reader.GetByte();
             var blockStartPos = reader.Position;
 
-            Directory directory;
+            Directory? directory;
             switch (extensionLabel)
             {
                 case 0x01:
@@ -259,7 +257,7 @@ namespace MetadataExtractor.Formats.Gif
             return directory;
         }
 
-        private static Directory ReadPlainTextBlock(SequentialReader reader, byte blockSizeBytes)
+        private static Directory? ReadPlainTextBlock(SequentialReader reader, byte blockSizeBytes)
         {
             // It seems this extension is deprecated. If somebody finds an image with this in it, could implement here.
             // Just skip the entire block for now.
@@ -282,8 +280,7 @@ namespace MetadataExtractor.Formats.Gif
             return new GifCommentDirectory(new StringValue(buffer, Encoding.ASCII));
         }
 
-        [CanBeNull]
-        private static Directory ReadApplicationExtensionBlock(SequentialReader reader, byte blockSizeBytes)
+        private static Directory? ReadApplicationExtensionBlock(SequentialReader reader, byte blockSizeBytes)
         {
             if (blockSizeBytes != 11)
                 return new ErrorDirectory($"Invalid GIF application extension block size. Expected 11, got {blockSizeBytes}.");

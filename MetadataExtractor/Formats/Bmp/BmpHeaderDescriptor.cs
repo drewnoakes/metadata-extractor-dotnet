@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Bmp
 {
@@ -32,12 +31,12 @@ namespace MetadataExtractor.Formats.Bmp
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class BmpHeaderDescriptor : TagDescriptor<BmpHeaderDirectory>
     {
-        public BmpHeaderDescriptor([NotNull] BmpHeaderDirectory directory)
+        public BmpHeaderDescriptor(BmpHeaderDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -68,8 +67,7 @@ namespace MetadataExtractor.Formats.Bmp
             }
         }
 
-        [CanBeNull]
-        public string GetBitmapTypeDescription()
+        public string? GetBitmapTypeDescription()
         {
             if (!Directory.TryGetInt32(BmpHeaderDirectory.TagBitmapType, out int value))
                 return null;
@@ -93,8 +91,7 @@ namespace MetadataExtractor.Formats.Bmp
             }
         }
 
-        [CanBeNull]
-        public string GetCompressionDescription()
+        public string? GetCompressionDescription()
         {
             // 0 = None
             // 1 = RLE 8-bit/pixel
@@ -139,8 +136,7 @@ namespace MetadataExtractor.Formats.Bmp
             }
         }
 
-        [CanBeNull]
-        public string GetRenderingDescription()
+        public string? GetRenderingDescription()
         {
             if (!Directory.TryGetInt32(BmpHeaderDirectory.TagRendering, out int value))
                 return null;
@@ -160,8 +156,7 @@ namespace MetadataExtractor.Formats.Bmp
             }
         }
 
-        [CanBeNull]
-        public string GetColorEncodingDescription()
+        public string? GetColorEncodingDescription()
         {
             if (!Directory.TryGetInt32(BmpHeaderDirectory.TagColorEncoding, out int value))
                 return null;
@@ -175,8 +170,7 @@ namespace MetadataExtractor.Formats.Bmp
             }
         }
 
-        [CanBeNull]
-        public string GetColorSpaceTypeDescription()
+        public string? GetColorSpaceTypeDescription()
         {
             if (!Directory.TryGetInt64(BmpHeaderDirectory.TagColorSpaceType, out long value))
                 return null;
@@ -198,8 +192,7 @@ namespace MetadataExtractor.Formats.Bmp
             }
         }
 
-        [CanBeNull]
-        public string GetRenderingIntentDescription()
+        public string? GetRenderingIntentDescription()
         {
             if (!Directory.TryGetInt64(BmpHeaderDirectory.TagIntent, out long value))
                 return null;

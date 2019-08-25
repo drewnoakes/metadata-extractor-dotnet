@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jfxx
 {
@@ -39,12 +38,12 @@ namespace MetadataExtractor.Formats.Jfxx
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class JfxxDescriptor : TagDescriptor<JfxxDirectory>
     {
-        public JfxxDescriptor([NotNull] JfxxDirectory directory)
+        public JfxxDescriptor(JfxxDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -55,8 +54,7 @@ namespace MetadataExtractor.Formats.Jfxx
             }
         }
 
-        [CanBeNull]
-        public string GetExtensionCodeDescription()
+        public string? GetExtensionCodeDescription()
         {
             if (!Directory.TryGetInt32(JfxxDirectory.TagExtensionCode, out int value))
                 return null;

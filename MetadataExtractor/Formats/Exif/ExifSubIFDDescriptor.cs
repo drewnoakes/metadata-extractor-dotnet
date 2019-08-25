@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
@@ -34,7 +33,7 @@ namespace MetadataExtractor.Formats.Exif
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class ExifSubIfdDescriptor : ExifDescriptorBase<ExifSubIfdDirectory>
     {
-        public ExifSubIfdDescriptor([NotNull] ExifSubIfdDirectory directory)
+        public ExifSubIfdDescriptor(ExifSubIfdDirectory directory)
             : base(directory)
         {
         }

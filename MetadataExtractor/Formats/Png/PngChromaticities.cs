@@ -23,7 +23,6 @@
 #endregion
 
 using System.IO;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Png
@@ -41,7 +40,7 @@ namespace MetadataExtractor.Formats.Png
         public int BlueY { get; }
 
         /// <exception cref="PngProcessingException"/>
-        public PngChromaticities([NotNull] byte[] bytes)
+        public PngChromaticities(byte[] bytes)
         {
             if (bytes.Length != 8*4)
                 throw new PngProcessingException("Invalid number of bytes");

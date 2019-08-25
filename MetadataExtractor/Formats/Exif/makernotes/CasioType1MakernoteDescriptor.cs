@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -34,12 +33,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class CasioType1MakernoteDescriptor : TagDescriptor<CasioType1MakernoteDirectory>
     {
-        public CasioType1MakernoteDescriptor([NotNull] CasioType1MakernoteDirectory directory)
+        public CasioType1MakernoteDescriptor(CasioType1MakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -72,8 +71,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetCcdSensitivityDescription()
+        public string? GetCcdSensitivityDescription()
         {
             if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagCcdSensitivity, out int value))
                 return null;
@@ -100,29 +98,25 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetSaturationDescription()
+        public string? GetSaturationDescription()
         {
             return GetIndexedDescription(CasioType1MakernoteDirectory.TagSaturation,
                 "Normal", "Low", "High");
         }
 
-        [CanBeNull]
-        public string GetContrastDescription()
+        public string? GetContrastDescription()
         {
             return GetIndexedDescription(CasioType1MakernoteDirectory.TagContrast,
                 "Normal", "Low", "High");
         }
 
-        [CanBeNull]
-        public string GetSharpnessDescription()
+        public string? GetSharpnessDescription()
         {
             return GetIndexedDescription(CasioType1MakernoteDirectory.TagSharpness,
                 "Normal", "Soft", "Hard");
         }
 
-        [CanBeNull]
-        public string GetDigitalZoomDescription()
+        public string? GetDigitalZoomDescription()
         {
             if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagDigitalZoom, out int value))
                 return null;
@@ -142,8 +136,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetWhiteBalanceDescription()
+        public string? GetWhiteBalanceDescription()
         {
             if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagWhiteBalance, out int value))
                 return null;
@@ -167,16 +160,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetObjectDistanceDescription()
+        public string? GetObjectDistanceDescription()
         {
             if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagObjectDistance, out int value))
                 return null;
             return value + " mm";
         }
 
-        [CanBeNull]
-        public string GetFlashIntensityDescription()
+        public string? GetFlashIntensityDescription()
         {
             if (!Directory.TryGetInt32(CasioType1MakernoteDirectory.TagFlashIntensity, out int value))
                 return null;
@@ -194,32 +185,28 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetFlashModeDescription()
+        public string? GetFlashModeDescription()
         {
             return GetIndexedDescription(CasioType1MakernoteDirectory.TagFlashMode,
                 1,
                 "Auto", "On", "Off", "Red eye reduction");
         }
 
-        [CanBeNull]
-        public string GetFocusingModeDescription()
+        public string? GetFocusingModeDescription()
         {
             return GetIndexedDescription(CasioType1MakernoteDirectory.TagFocusingMode,
                 2,
                 "Macro", "Auto focus", "Manual focus", "Infinity");
         }
 
-        [CanBeNull]
-        public string GetQualityDescription()
+        public string? GetQualityDescription()
         {
             return GetIndexedDescription(CasioType1MakernoteDirectory.TagQuality,
                 1,
                 "Economy", "Normal", "Fine");
         }
 
-        [CanBeNull]
-        public string GetRecordingModeDescription()
+        public string? GetRecordingModeDescription()
         {
             return GetIndexedDescription(CasioType1MakernoteDirectory.TagRecordingMode,
                 1,

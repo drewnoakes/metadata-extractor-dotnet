@@ -24,7 +24,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Photoshop
@@ -34,12 +33,12 @@ namespace MetadataExtractor.Formats.Photoshop
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class PhotoshopDescriptor : TagDescriptor<PhotoshopDirectory>
     {
-        public PhotoshopDescriptor([NotNull] PhotoshopDirectory directory)
+        public PhotoshopDescriptor(PhotoshopDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -75,8 +74,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        public string GetJpegQualityString()
+        public string? GetJpegQualityString()
         {
             try
             {
@@ -154,8 +152,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        public string GetPixelAspectRatioString()
+        public string? GetPixelAspectRatioString()
         {
             try
             {
@@ -174,8 +171,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        public string GetPrintScaleDescription()
+        public string? GetPrintScaleDescription()
         {
             try
             {
@@ -208,8 +204,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        public string GetResolutionInfoDescription()
+        public string? GetResolutionInfoDescription()
         {
             try
             {
@@ -232,8 +227,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        public string GetVersionDescription()
+        public string? GetVersionDescription()
         {
             try
             {
@@ -266,8 +260,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        public string GetSlicesDescription()
+        public string? GetSlicesDescription()
         {
             try
             {
@@ -290,8 +283,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        public string GetThumbnailDescription(int tagType)
+        public string? GetThumbnailDescription(int tagType)
         {
             try
             {
@@ -318,8 +310,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        private string GetBooleanString(int tag)
+        private string? GetBooleanString(int tag)
         {
             var bytes = Directory.GetByteArray(tag);
 
@@ -329,8 +320,7 @@ namespace MetadataExtractor.Formats.Photoshop
             return bytes[0] == 0 ? "No" : "Yes";
         }
 
-        [CanBeNull]
-        private string Get32BitNumberString(int tag)
+        private string? Get32BitNumberString(int tag)
         {
             var bytes = Directory.GetByteArray(tag);
 
@@ -349,8 +339,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        private string GetSimpleString(int tagType)
+        private string? GetSimpleString(int tagType)
         {
             var bytes = Directory.GetByteArray(tagType);
 
@@ -359,8 +348,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 : Encoding.UTF8.GetString(bytes, 0, bytes.Length);
         }
 
-        [CanBeNull]
-        private string GetBinaryDataString(int tagType)
+        private string? GetBinaryDataString(int tagType)
         {
             var bytes = Directory.GetByteArray(tagType);
 

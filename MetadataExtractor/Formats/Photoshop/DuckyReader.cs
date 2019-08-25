@@ -26,7 +26,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 
@@ -58,8 +57,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 .ToList();
         }
 
-        [NotNull]
-        public DuckyDirectory Extract([NotNull] SequentialReader reader)
+        public DuckyDirectory Extract(SequentialReader reader)
         {
             var directory = new DuckyDirectory();
 

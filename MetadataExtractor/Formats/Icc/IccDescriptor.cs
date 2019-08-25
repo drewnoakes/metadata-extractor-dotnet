@@ -26,7 +26,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Icc
@@ -36,12 +35,12 @@ namespace MetadataExtractor.Formats.Icc
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class IccDescriptor : TagDescriptor<IccDirectory>
     {
-        public IccDescriptor([NotNull] IccDirectory directory)
+        public IccDescriptor(IccDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -74,8 +73,7 @@ namespace MetadataExtractor.Formats.Icc
             Curv = 0x63757276
         }
 
-        [CanBeNull]
-        private string GetTagDataString(int tagType)
+        private string? GetTagDataString(int tagType)
         {
             try
             {
@@ -266,7 +264,6 @@ namespace MetadataExtractor.Formats.Icc
             }
         }
 
-        [NotNull]
         private static string FormatDoubleAsString(double value, int precision, bool zeroes)
         {
             if (precision < 1)
@@ -289,8 +286,7 @@ namespace MetadataExtractor.Formats.Icc
             return (isNegative ? "-" : string.Empty) + intPart + "." + res;
         }
 
-        [CanBeNull]
-        private string GetRenderingIntentDescription()
+        private string? GetRenderingIntentDescription()
         {
             return GetIndexedDescription(IccDirectory.TagRenderingIntent,
                 "Perceptual",
@@ -299,8 +295,7 @@ namespace MetadataExtractor.Formats.Icc
                 "ICC-Absolute Colorimetric");
         }
 
-        [CanBeNull]
-        private string GetPlatformDescription()
+        private string? GetPlatformDescription()
         {
             var str = Directory.GetString(IccDirectory.TagPlatform);
             if (str == null)
@@ -323,8 +318,7 @@ namespace MetadataExtractor.Formats.Icc
             }
         }
 
-        [CanBeNull]
-        private string GetProfileClassDescription()
+        private string? GetProfileClassDescription()
         {
             var str = Directory.GetString(IccDirectory.TagProfileClass);
 
@@ -352,8 +346,7 @@ namespace MetadataExtractor.Formats.Icc
             }
         }
 
-        [CanBeNull]
-        private string GetProfileVersionDescription()
+        private string? GetProfileVersionDescription()
         {
             if (!Directory.TryGetInt32(IccDirectory.TagProfileVersion, out int value))
                 return null;
@@ -364,8 +357,7 @@ namespace MetadataExtractor.Formats.Icc
             return $"{m}.{r}.{R}";
         }
 
-        [CanBeNull]
-        private string GetProfileDateTimeDescription()
+        private string? GetProfileDateTimeDescription()
         {
             if (!Directory.TryGetDateTime(IccDirectory.TagProfileDateTime, out DateTime value))
                 return null;

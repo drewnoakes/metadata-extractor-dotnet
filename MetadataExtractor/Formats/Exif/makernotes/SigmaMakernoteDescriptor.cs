@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -34,12 +33,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class SigmaMakernoteDescriptor : TagDescriptor<SigmaMakernoteDirectory>
     {
-        public SigmaMakernoteDescriptor([NotNull] SigmaMakernoteDirectory directory)
+        public SigmaMakernoteDescriptor(SigmaMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -52,14 +51,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        private string GetMeteringModeDescription()
+        private string? GetMeteringModeDescription()
         {
             var value = Directory.GetString(SigmaMakernoteDirectory.TagMeteringMode);
             if (string.IsNullOrEmpty(value))
                 return null;
 
-            switch (value[0])
+            switch (value![0])
             {
                 case '8':
                     return "Multi Segment";
@@ -72,14 +70,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        private string GetExposureModeDescription()
+        private string? GetExposureModeDescription()
         {
             var value = Directory.GetString(SigmaMakernoteDirectory.TagExposureMode);
             if (string.IsNullOrEmpty(value))
                 return null;
 
-            switch (value[0])
+            switch (value![0])
             {
                 case 'A':
                     return "Aperture Priority AE";

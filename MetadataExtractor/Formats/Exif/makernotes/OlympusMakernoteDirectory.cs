@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
@@ -476,7 +475,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 base.Set(tagType, value);
         }
 
-        private void ProcessCameraSettings([NotNull] byte[] bytes)
+        private void ProcessCameraSettings(byte[] bytes)
         {
             var reader = new SequentialByteArrayReader(bytes);
             var count = bytes.Length / 4;

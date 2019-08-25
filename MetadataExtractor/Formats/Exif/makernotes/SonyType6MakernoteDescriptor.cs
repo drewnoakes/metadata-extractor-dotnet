@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -34,12 +33,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class SonyType6MakernoteDescriptor : TagDescriptor<SonyType6MakernoteDirectory>
     {
-        public SonyType6MakernoteDescriptor([NotNull] SonyType6MakernoteDirectory directory)
+        public SonyType6MakernoteDescriptor(SonyType6MakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -50,8 +49,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetMakernoteThumbVersionDescription()
+        public string? GetMakernoteThumbVersionDescription()
         {
             return GetVersionBytesDescription(SonyType6MakernoteDirectory.TagMakernoteThumbVersion, 2);
         }

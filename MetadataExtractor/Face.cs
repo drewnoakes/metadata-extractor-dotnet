@@ -23,7 +23,6 @@
 #endregion
 
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif.Makernotes;
 
 namespace MetadataExtractor
@@ -39,7 +38,7 @@ namespace MetadataExtractor
     /// <author>Philipp Sandhaus, Drew Noakes</author>
     public sealed class Face
     {
-        public Face(int x, int y, int width, int height, [CanBeNull] string name = null, [CanBeNull] Age age = null)
+        public Face(int x, int y, int width, int height, string? name = null, Age? age = null)
         {
             X = x;
             Y = y;
@@ -57,15 +56,13 @@ namespace MetadataExtractor
 
         public int Height { get; }
 
-        [CanBeNull]
-        public string Name { get; }
+        public string? Name { get; }
 
-        [CanBeNull]
-        public Age Age { get; }
+        public Age? Age { get; }
 
         #region Equality and hashing
 
-        private bool Equals([NotNull] Face other)
+        private bool Equals(Face other)
         {
             return X == other.X && Y == other.Y && Width == other.Width && Height == other.Height && string.Equals(Name, other.Name) && Equals(Age, other.Age);
         }

@@ -130,9 +130,9 @@ namespace MetadataExtractor.Formats.Png
 
         #endregion
 
-        [NotNull] private readonly byte[] _bytes;
+        private readonly byte[] _bytes;
 
-        public PngChunkType([NotNull] string identifier, bool multipleAllowed = false)
+        public PngChunkType(string identifier, bool multipleAllowed = false)
         {
             AreMultipleAllowed = multipleAllowed;
             var bytes = Encoding.UTF8.GetBytes(identifier);
@@ -140,7 +140,7 @@ namespace MetadataExtractor.Formats.Png
             _bytes = bytes;
         }
 
-        public PngChunkType([NotNull] byte[] bytes)
+        public PngChunkType(byte[] bytes)
         {
             ValidateBytes(bytes);
             _bytes = bytes;
@@ -148,7 +148,7 @@ namespace MetadataExtractor.Formats.Png
         }
 
         [SuppressMessage("ReSharper", "UnusedParameter.Local")]
-        private static void ValidateBytes([NotNull] byte[] bytes)
+        private static void ValidateBytes(byte[] bytes)
         {
             if (bytes.Length != 4)
                 throw new ArgumentException("PNG chunk type identifier must be four bytes in length");
@@ -175,14 +175,13 @@ namespace MetadataExtractor.Formats.Png
         [Pure]
         private static bool IsValidByte(byte b) => (b >= 65 && b <= 90) || (b >= 97 && b <= 122);
 
-        [NotNull]
         public string Identifier => Encoding.UTF8.GetString(_bytes, 0, _bytes.Length);
 
         public override string ToString() => Identifier;
 
         #region Equality and Hashing
 
-        private bool Equals([NotNull] PngChunkType other) => _bytes.SequenceEqual(other._bytes);
+        private bool Equals(PngChunkType other) => _bytes.SequenceEqual(other._bytes);
 
         public override bool Equals(object obj)
         {

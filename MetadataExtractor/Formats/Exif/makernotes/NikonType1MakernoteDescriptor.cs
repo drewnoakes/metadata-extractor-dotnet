@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -46,12 +45,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class NikonType1MakernoteDescriptor : TagDescriptor<NikonType1MakernoteDirectory>
     {
-        public NikonType1MakernoteDescriptor([NotNull] NikonType1MakernoteDirectory directory)
+        public NikonType1MakernoteDescriptor(NikonType1MakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -76,15 +75,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetConverterDescription()
+        public string? GetConverterDescription()
         {
             return GetIndexedDescription(NikonType1MakernoteDirectory.TagConverter,
                 "None", "Fisheye converter");
         }
 
-        [CanBeNull]
-        public string GetDigitalZoomDescription()
+        public string? GetDigitalZoomDescription()
         {
             if (!Directory.TryGetRational(NikonType1MakernoteDirectory.TagDigitalZoom, out Rational value))
                 return null;
@@ -93,8 +90,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 : value.ToSimpleString() + "x digital zoom";
         }
 
-        [CanBeNull]
-        public string GetFocusDescription()
+        public string? GetFocusDescription()
         {
             if (!Directory.TryGetRational(NikonType1MakernoteDirectory.TagFocus, out Rational value))
                 return null;
@@ -103,37 +99,32 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 : value.ToSimpleString();
         }
 
-        [CanBeNull]
-        public string GetWhiteBalanceDescription()
+        public string? GetWhiteBalanceDescription()
         {
             return GetIndexedDescription(NikonType1MakernoteDirectory.TagWhiteBalance,
                 "Auto", "Preset", "Daylight", "Incandescence", "Florescence", "Cloudy", "SpeedLight");
         }
 
-        [CanBeNull]
-        public string GetCcdSensitivityDescription()
+        public string? GetCcdSensitivityDescription()
         {
             return GetIndexedDescription(NikonType1MakernoteDirectory.TagCcdSensitivity,
                 "ISO80", null, "ISO160", null, "ISO320", "ISO100");
         }
 
-        [CanBeNull]
-        public string GetImageAdjustmentDescription()
+        public string? GetImageAdjustmentDescription()
         {
             return GetIndexedDescription(NikonType1MakernoteDirectory.TagImageAdjustment,
                 "Normal", "Bright +", "Bright -", "Contrast +", "Contrast -");
         }
 
-        [CanBeNull]
-        public string GetColorModeDescription()
+        public string? GetColorModeDescription()
         {
             return GetIndexedDescription(NikonType1MakernoteDirectory.TagColorMode,
                 1,
                 "Color", "Monochrome");
         }
 
-        [CanBeNull]
-        public string GetQualityDescription()
+        public string? GetQualityDescription()
         {
             return GetIndexedDescription(NikonType1MakernoteDirectory.TagQuality,
                 1,

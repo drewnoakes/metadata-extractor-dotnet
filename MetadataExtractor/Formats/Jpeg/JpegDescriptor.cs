@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -36,12 +35,12 @@ namespace MetadataExtractor.Formats.Jpeg
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class JpegDescriptor : TagDescriptor<JpegDirectory>
     {
-        public JpegDescriptor([NotNull] JpegDirectory directory)
+        public JpegDescriptor(JpegDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -66,8 +65,7 @@ namespace MetadataExtractor.Formats.Jpeg
             }
         }
 
-        [CanBeNull]
-        public string GetImageCompressionTypeDescription()
+        public string? GetImageCompressionTypeDescription()
         {
             return GetIndexedDescription(JpegDirectory.TagCompressionType,
                 "Baseline",
@@ -88,32 +86,28 @@ namespace MetadataExtractor.Formats.Jpeg
                 "Differential lossless, arithmetic");
         }
 
-        [CanBeNull]
-        public string GetImageWidthDescription()
+        public string? GetImageWidthDescription()
         {
             var value = Directory.GetString(JpegDirectory.TagImageWidth);
 
             return value == null ? null : value + " pixels";
         }
 
-        [CanBeNull]
-        public string GetImageHeightDescription()
+        public string? GetImageHeightDescription()
         {
             var value = Directory.GetString(JpegDirectory.TagImageHeight);
 
             return value == null ? null : value + " pixels";
         }
 
-        [CanBeNull]
-        public string GetDataPrecisionDescription()
+        public string? GetDataPrecisionDescription()
         {
             var value = Directory.GetString(JpegDirectory.TagDataPrecision);
 
             return value == null ? null : value + " bits";
         }
 
-        [CanBeNull]
-        public string GetComponentDataDescription(int componentNumber)
+        public string? GetComponentDataDescription(int componentNumber)
         {
             var value = Directory.GetComponent(componentNumber);
 

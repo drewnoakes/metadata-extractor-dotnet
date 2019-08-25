@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -42,12 +41,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class KyoceraMakernoteDescriptor : TagDescriptor<KyoceraMakernoteDirectory>
     {
-        public KyoceraMakernoteDescriptor([NotNull] KyoceraMakernoteDirectory directory)
+        public KyoceraMakernoteDescriptor(KyoceraMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -58,8 +57,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetProprietaryThumbnailDataDescription()
+        public string? GetProprietaryThumbnailDataDescription()
         {
             return GetByteLengthDescription(KyoceraMakernoteDirectory.TagProprietaryThumbnail);
         }

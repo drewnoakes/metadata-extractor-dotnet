@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -35,12 +34,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class SonyType1MakernoteDescriptor : TagDescriptor<SonyType1MakernoteDirectory>
     {
-        public SonyType1MakernoteDescriptor([NotNull] SonyType1MakernoteDirectory directory)
+        public SonyType1MakernoteDescriptor(SonyType1MakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -113,22 +112,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetImageQualityDescription()
+        public string? GetImageQualityDescription()
         {
             return GetIndexedDescription(SonyType1MakernoteDirectory.TagImageQuality,
                 "RAW", "Super Fine", "Fine", "Standard", "Economy", "Extra Fine", "RAW + JPEG", "Compressed RAW", "Compressed RAW + JPEG");
         }
 
-        [CanBeNull]
-        public string GetFlashExposureCompensationDescription()
+        public string? GetFlashExposureCompensationDescription()
         {
             return GetFormattedInt(SonyType1MakernoteDirectory.TagFlashExposureComp,
                 "{0} EV");
         }
 
-        [CanBeNull]
-        public string GetTeleconverterDescription()
+        public string? GetTeleconverterDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagTeleconverter, out int value))
                 return null;
@@ -154,8 +150,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetWhiteBalanceDescription()
+        public string? GetWhiteBalanceDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagWhiteBalance, out int value))
                 return null;
@@ -185,8 +180,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetColorTemperatureDescription()
+        public string? GetColorTemperatureDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagColorTemperature, out int value))
                 return null;
@@ -196,15 +190,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return $"{kelvin} K";
         }
 
-        [CanBeNull]
-        public string GetZoneMatchingDescription()
+        public string? GetZoneMatchingDescription()
         {
             return GetIndexedDescription(SonyType1MakernoteDirectory.TagZoneMatching,
                 "ISO Setting Used", "High Key", "Low Key");
         }
 
-        [CanBeNull]
-        public string GetDynamicRangeOptimizerDescription()
+        public string? GetDynamicRangeOptimizerDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagDynamicRangeOptimiser, out int value))
                 return null;
@@ -244,8 +236,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetImageStabilizationDescription()
+        public string? GetImageStabilizationDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagImageStabilisation, out int value))
                 return null;
@@ -261,8 +252,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetColorModeDescription()
+        public string? GetColorModeDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagColorMode, out int value))
                 return null;
@@ -310,8 +300,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetMacroDescription()
+        public string? GetMacroDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagMacro, out int value))
                 return null;
@@ -331,8 +320,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetExposureModeDescription()
+        public string? GetExposureModeDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagExposureMode, out int value))
                 return null;
@@ -406,8 +394,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetJpegQualityDescription()
+        public string? GetJpegQualityDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagJpegQuality, out int value))
                 return null;
@@ -427,8 +414,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetAntiBlurDescription()
+        public string? GetAntiBlurDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagAntiBlur, out int value))
                 return null;
@@ -448,8 +434,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetLongExposureNoiseReductionDescription()
+        public string? GetLongExposureNoiseReductionDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagLongExposureNoiseReductionOrFocusMode, out int value))
                 return null;
@@ -467,8 +452,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetHighIsoNoiseReductionDescription()
+        public string? GetHighIsoNoiseReductionDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagHighIsoNoiseReduction, out int value))
                 return null;
@@ -492,8 +476,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetPictureEffectDescription()
+        public string? GetPictureEffectDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagPictureEffect, out int value))
                 return null;
@@ -577,15 +560,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetSoftSkinEffectDescription()
+        public string? GetSoftSkinEffectDescription()
         {
             return GetIndexedDescription(SonyType1MakernoteDirectory.TagSoftSkinEffect,
                 "Off", "Low", "Mid", "High");
         }
 
-        [CanBeNull]
-        public string GetVignettingCorrectionDescription()
+        public string? GetVignettingCorrectionDescription()
         {
             if (!Directory.TryGetUInt32(SonyType1MakernoteDirectory.TagVignettingCorrection, out uint value))
                 return null;
@@ -603,8 +584,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetLateralChromaticAberrationDescription()
+        public string? GetLateralChromaticAberrationDescription()
         {
             if (!Directory.TryGetUInt32(SonyType1MakernoteDirectory.TagLateralChromaticAberration, out uint value))
                 return null;
@@ -622,8 +602,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetDistortionCorrectionDescription()
+        public string? GetDistortionCorrectionDescription()
         {
             if (!Directory.TryGetUInt32(SonyType1MakernoteDirectory.TagDistortionCorrection, out uint value))
                 return null;
@@ -641,22 +620,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetAutoPortraitFramedDescription()
+        public string? GetAutoPortraitFramedDescription()
         {
             return GetIndexedDescription(SonyType1MakernoteDirectory.TagAutoPortraitFramed,
                 "No", "Yes");
         }
 
-        [CanBeNull]
-        public string GetFocusModeDescription()
+        public string? GetFocusModeDescription()
         {
             return GetIndexedDescription(SonyType1MakernoteDirectory.TagFocusMode,
                 "Manual", null, "AF-A", "AF-C", "AF-S", null, "DMF", "AF-D");
         }
 
-        [CanBeNull]
-        public string GetAfPointSelectedDescription()
+        public string? GetAfPointSelectedDescription()
         {
             return GetIndexedDescription(SonyType1MakernoteDirectory.TagAfPointSelected,
                 "Auto", "Center", "Top", "Upper-right", "Right", "Lower-right", "Bottom", "Lower-left", "Left", "Upper-left",
@@ -664,8 +640,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 "Lower Far Right", "Lower Far Left", "Upper Far Left");
         }
 
-        [CanBeNull]
-        public string GetSonyModelIdDescription()
+        public string? GetSonyModelIdDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagSonyModelId, out int value))
                 return null;
@@ -753,8 +728,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetSceneModeDescription()
+        public string? GetSceneModeDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagSceneMode, out int value))
                 return null;
@@ -812,8 +786,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetAfModeDescription()
+        public string? GetAfModeDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagAfMode, out int value))
                 return null;
@@ -843,8 +816,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetAfIlluminatorDescription()
+        public string? GetAfIlluminatorDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagAfIlluminator, out int value))
                 return null;
@@ -862,8 +834,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetFlashLevelDescription()
+        public string? GetFlashLevelDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagFlashLevel, out int value))
                 return null;
@@ -895,8 +866,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetReleaseModeDescription()
+        public string? GetReleaseModeDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagReleaseMode, out int value))
                 return null;
@@ -918,8 +888,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetSequenceNumberDescription()
+        public string? GetSequenceNumberDescription()
         {
             if (!Directory.TryGetInt32(SonyType1MakernoteDirectory.TagReleaseMode, out int value))
                 return null;

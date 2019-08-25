@@ -25,7 +25,6 @@
 #if !NETSTANDARD1_3
 using System;
 #endif
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -54,7 +53,6 @@ namespace MetadataExtractor.Formats.Jpeg
 
         /// <summary>Returns the component name (one of: Y, Cb, Cr, I, or Q)</summary>
         /// <value>the component name</value>
-        [NotNull]
         public string Name
         {
             get

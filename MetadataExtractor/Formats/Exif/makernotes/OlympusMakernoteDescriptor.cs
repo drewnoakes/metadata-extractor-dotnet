@@ -26,7 +26,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.Util;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
@@ -38,13 +37,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class OlympusMakernoteDescriptor : TagDescriptor<OlympusMakernoteDirectory>
     {
-        public OlympusMakernoteDescriptor([NotNull] OlympusMakernoteDirectory directory)
+        public OlympusMakernoteDescriptor(OlympusMakernoteDirectory directory)
             : base(directory)
         {
         }
 
         // TODO extend support for some offset-encoded byte[] tags: http://www.ozhiker.com/electronics/pjmt/jpeg_info/olympus_mn.html
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -199,58 +198,50 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetExposureModeDescription()
+        public string? GetExposureModeDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagExposureMode,
                 "P", "A", "S", "M");
         }
 
-        [CanBeNull]
-        public string GetFlashModeCameraSettingDescription()
+        public string? GetFlashModeCameraSettingDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagFlashMode,
                 "Normal", "Red-eye reduction", "Rear flash sync", "Wireless");
         }
 
-        [CanBeNull]
-        public string GetWhiteBalanceDescription()
+        public string? GetWhiteBalanceDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagWhiteBalance,
                 "Auto", "Daylight", "Cloudy", "Tungsten", null, "Custom", null, "Fluorescent", "Fluorescent 2", null, null, "Custom 2", "Custom 3");
         }
 
-        [CanBeNull]
-        public string GetImageSizeDescription()
+        public string? GetImageSizeDescription()
         {
             // This is a pretty weird way to store this information!
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagImageSize,
                 "2560 x 1920", "1600 x 1200", "1280 x 960", "640 x 480");
         }
 
-        [CanBeNull]
-        public string GetImageQualityDescription()
+        public string? GetImageQualityDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagImageQuality,
                 "Raw", "Super Fine", "Fine", "Standard", "Economy", "Extra Fine");
         }
 
-        [CanBeNull]
-        public string GetShootingModeDescription()
+        public string? GetShootingModeDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagShootingMode,
                 "Single", "Continuous", "Self Timer", null, "Bracketing", "Interval", "UHS Continuous", "HS Continuous");
         }
 
-        [CanBeNull]
-        public string GetMeteringModeDescription()
+        public string? GetMeteringModeDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagMeteringMode,
                 "Multi-Segment", "Centre Weighted", "Spot");
         }
 
-        [CanBeNull]
-        public string GetApexFilmSpeedDescription()
+        public string? GetApexFilmSpeedDescription()
         {
             // http://www.ozhiker.com/electronics/pjmt/jpeg_info/minolta_mn.html#Minolta_Camera_Settings
             // Apex Speed value = value/8-1 ,
@@ -261,8 +252,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return iso.ToString("0.##");
         }
 
-        [CanBeNull]
-        public string GetApexShutterSpeedTimeDescription()
+        public string? GetApexShutterSpeedTimeDescription()
         {
             // http://www.ozhiker.com/electronics/pjmt/jpeg_info/minolta_mn.html#Minolta_Camera_Settings
             // Apex Time value = value/8-6 ,
@@ -274,8 +264,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return $"{shutterSpeed:0.###} sec";
         }
 
-        [CanBeNull]
-        public string GetApexApertureDescription()
+        public string? GetApexApertureDescription()
         {
             // http://www.ozhiker.com/electronics/pjmt/jpeg_info/minolta_mn.html#Minolta_Camera_Settings
             // Apex Aperture Value = value/8-1 ,
@@ -286,37 +275,32 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return GetFStopDescription(fStop);
         }
 
-        [CanBeNull]
-        public string GetMacroModeCameraSettingDescription()
+        public string? GetMacroModeCameraSettingDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagMacroMode,
                 "Off", "On");
         }
 
-        [CanBeNull]
-        public string GetDigitalZoomCameraSettingDescription()
+        public string? GetDigitalZoomCameraSettingDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagDigitalZoom,
                 "Off", "Electronic magnification", "Digital zoom 2x");
         }
 
-        [CanBeNull]
-        public string GetExposureCompensationDescription()
+        public string? GetExposureCompensationDescription()
         {
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagExposureCompensation, out long value)
                 ? $"{value / 3d - 2:0.##} EV"
                 : null;
         }
 
-        [CanBeNull]
-        public string GetBracketStepDescription()
+        public string? GetBracketStepDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagBracketStep,
                 "1/3 EV", "2/3 EV", "1 EV");
         }
 
-        [CanBeNull]
-        public string GetIntervalLengthDescription()
+        public string? GetIntervalLengthDescription()
         {
             if (!Directory.IsIntervalMode())
                 return "N/A";
@@ -326,8 +310,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 : null;
         }
 
-        [CanBeNull]
-        public string GetIntervalNumberDescription()
+        public string? GetIntervalNumberDescription()
         {
             if (!Directory.IsIntervalMode())
                 return "N/A";
@@ -337,31 +320,27 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 : null;
         }
 
-        [CanBeNull]
-        public string GetFocalLengthDescription()
+        public string? GetFocalLengthDescription()
         {
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagFocalLength, out long value)
                 ? GetFocalLengthDescription(value / 256d)
                 : null;
         }
 
-        [CanBeNull]
-        public string GetFocusDistanceDescription()
+        public string? GetFocusDistanceDescription()
         {
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagFocusDistance, out long value)
                 ? value == 0 ? "Infinity" : value + " mm"
                 : null;
         }
 
-        [CanBeNull]
-        public string GetFlashFiredDescription()
+        public string? GetFlashFiredDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagFlashFired,
                 "No", "Yes");
         }
 
-        [CanBeNull]
-        public string GetDateDescription()
+        public string? GetDateDescription()
         {
             // day = value%256,
             // month = floor( (value - floor( value/65536 )*65536 )/256 )
@@ -381,8 +360,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return $"{year:0000}-{month + 1:00}-{day:00}";
         }
 
-        [CanBeNull]
-        public string GetTimeDescription()
+        public string? GetTimeDescription()
         {
             // hours = floor( value/65536 ),
             // minutes = floor( ( value - floor( value/65536 )*65536 )/256 ),
@@ -400,8 +378,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return $"{hours:D2}:{minutes:D2}:{seconds:D2}";
         }
 
-        [CanBeNull]
-        public string GetMaxApertureAtFocalLengthDescription()
+        public string? GetMaxApertureAtFocalLengthDescription()
         {
             // Aperture F-Stop = 2^(value/16-0.5)
             if (!Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagTime, out long value))
@@ -410,15 +387,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return GetFStopDescription(fStop);
         }
 
-        [CanBeNull]
-        public string GetFileNumberMemoryDescription()
+        public string? GetFileNumberMemoryDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagFileNumberMemory,
                 "Off", "On");
         }
 
-        [CanBeNull]
-        public string GetLastFileNumberDescription()
+        public string? GetLastFileNumberDescription()
         {
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagLastFileNumber, out long value)
                 ? value == 0
@@ -427,208 +402,179 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 : null;
         }
 
-        [CanBeNull]
-        public string GetWhiteBalanceRedDescription()
+        public string? GetWhiteBalanceRedDescription()
         {
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceRed, out long value)
                 ? (value / 256d).ToString("0.##")
                 : null;
         }
 
-        [CanBeNull]
-        public string GetWhiteBalanceGreenDescription()
+        public string? GetWhiteBalanceGreenDescription()
         {
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceGreen, out long value)
                 ? (value / 256d).ToString("0.##")
                 : null;
         }
 
-        [CanBeNull]
-        public string GetWhiteBalanceBlueDescription()
+        public string? GetWhiteBalanceBlueDescription()
         {
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceBlue, out long value)
                 ? (value / 256d).ToString("0.##")
                 : null;
         }
 
-        [CanBeNull]
-        public string GetSaturationDescription()
+        public string? GetSaturationDescription()
         {
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagSaturation, out long value)
                 ? (value - 3).ToString()
                 : null;
         }
 
-        [CanBeNull]
-        public string GetContrastCameraSettingDescription()
+        public string? GetContrastCameraSettingDescription()
         {
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagContrast, out long value)
                 ? (value - 3).ToString()
                 : null;
         }
 
-        [CanBeNull]
-        public string GetSharpnessCameraSettingDescription()
+        public string? GetSharpnessCameraSettingDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagSharpness,
                 "Hard", "Normal", "Soft");
         }
 
-        [CanBeNull]
-        public string GetSubjectProgramDescription()
+        public string? GetSubjectProgramDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagSubjectProgram,
                 "None", "Portrait", "Text", "Night Portrait", "Sunset", "Sports Action");
         }
 
-        [CanBeNull]
-        public string GetFlashCompensationDescription()
+        public string? GetFlashCompensationDescription()
         {
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagFlashCompensation, out long value)
                 ? $"{(value - 6) / 3d:0.##} EV"
                 : null;
         }
 
-        [CanBeNull]
-        public string GetIsoSettingDescription()
+        public string? GetIsoSettingDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagIsoSetting,
                 "100", "200", "400", "800", "Auto", "64");
         }
 
-        [CanBeNull]
-        public string GetCameraModelDescription()
+        public string? GetCameraModelDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagCameraModel,
                 "DiMAGE 7", "DiMAGE 5", "DiMAGE S304", "DiMAGE S404", "DiMAGE 7i", "DiMAGE 7Hi", "DiMAGE A1", "DiMAGE S414");
         }
 
-        [CanBeNull]
-        public string GetIntervalModeDescription()
+        public string? GetIntervalModeDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagIntervalMode,
                 "Still Image", "Time Lapse Movie");
         }
 
-        [CanBeNull]
-        public string GetFolderNameDescription()
+        public string? GetFolderNameDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagFolderName,
                 "Standard Form", "Data Form");
         }
 
-        [CanBeNull]
-        public string GetColorModeCameraSettingDescription()
+        public string? GetColorModeCameraSettingDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagColorMode,
                 "Natural Color", "Black & White", "Vivid Color", "Solarization", "AdobeRGB");
         }
 
-        [CanBeNull]
-        public string GetColorFilterDescription()
+        public string? GetColorFilterDescription()
         {
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagColorFilter, out long value)
                 ? (value - 3).ToString()
                 : null;
         }
 
-        [CanBeNull]
-        public string GetBlackAndWhiteFilterDescription()
+        public string? GetBlackAndWhiteFilterDescription()
         {
             return base.GetDescription(OlympusMakernoteDirectory.CameraSettings.TagBlackAndWhiteFilter);
         }
 
-        [CanBeNull]
-        public string GetInternalFlashDescription()
+        public string? GetInternalFlashDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagInternalFlash,
                 "Did Not Fire", "Fired");
         }
 
-        [CanBeNull]
-        public string GetApexBrightnessDescription()
+        public string? GetApexBrightnessDescription()
         {
             return Directory.TryGetInt64(OlympusMakernoteDirectory.CameraSettings.TagApexBrightnessValue, out long value)
                 ? (value/8d - 6).ToString()
                 : null;
         }
 
-        [CanBeNull]
-        public string GetSpotFocusPointXCoordinateDescription()
+        public string? GetSpotFocusPointXCoordinateDescription()
         {
             return base.GetDescription(OlympusMakernoteDirectory.CameraSettings.TagSpotFocusPointXCoordinate);
         }
 
-        [CanBeNull]
-        public string GetSpotFocusPointYCoordinateDescription()
+        public string? GetSpotFocusPointYCoordinateDescription()
         {
             return base.GetDescription(OlympusMakernoteDirectory.CameraSettings.TagSpotFocusPointYCoordinate);
         }
 
-        [CanBeNull]
-        public string GetWideFocusZoneDescription()
+        public string? GetWideFocusZoneDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagWideFocusZone,
                 "No Zone or AF Failed", "Center Zone (Horizontal Orientation)", "Center Zone (Vertical Orientation)", "Left Zone", "Right Zone");
         }
 
-        [CanBeNull]
-        public string GetFocusModeCameraSettingDescription()
+        public string? GetFocusModeCameraSettingDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagFocusMode,
                 "Auto Focus", "Manual Focus");
         }
 
-        [CanBeNull]
-        public string GetFocusAreaDescription()
+        public string? GetFocusAreaDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagFocusArea,
                 "Wide Focus (Normal)", "Spot Focus");
         }
 
-        [CanBeNull]
-        public string GetDecSwitchPositionDescription()
+        public string? GetDecSwitchPositionDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.CameraSettings.TagDecSwitchPosition,
                 "Exposure", "Contrast", "Saturation", "Filter");
         }
 
-        [CanBeNull]
-        public string GetMakernoteVersionDescription()
+        public string? GetMakernoteVersionDescription()
         {
             return GetVersionBytesDescription(OlympusMakernoteDirectory.TagMakernoteVersion, 2);
         }
 
-        [CanBeNull]
-        public string GetImageQuality2Description()
+        public string? GetImageQuality2Description()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.TagImageQuality2,
                 "Raw", "Super Fine", "Fine", "Standard", "Extra Fine");
         }
 
-        [CanBeNull]
-        public string GetImageQuality1Description()
+        public string? GetImageQuality1Description()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.TagImageQuality1,
                 "Raw", "Super Fine", "Fine", "Standard", "Extra Fine");
         }
 
-        [CanBeNull]
-        public string GetColorModeDescription()
+        public string? GetColorModeDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.TagColourMode,
                 "Natural Colour", "Black & White", "Vivid Colour", "Solarization", "AdobeRGB");
         }
 
-        [CanBeNull]
-        public string GetSharpnessDescription()
+        public string? GetSharpnessDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.TagSharpness,
                 "Normal", "Hard", "Soft");
         }
 
-        [CanBeNull]
-        public string GetColorMatrixDescription()
+        public string? GetColorMatrixDescription()
         {
             var values = Directory.GetObject(OlympusMakernoteDirectory.TagColourMatrix) as short[];
             if (values == null)
@@ -637,8 +583,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return string.Join(" ", values.Select(b => b.ToString()).ToArray());
         }
 
-        [CanBeNull]
-        public string GetWbModeDescription()
+        public string? GetWbModeDescription()
         {
             var values = Directory.GetObject(OlympusMakernoteDirectory.TagWbMode) as short[];
             if (values == null)
@@ -674,8 +619,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetRedBalanceDescription()
+        public string? GetRedBalanceDescription()
         {
             var values = Directory.GetObject(OlympusMakernoteDirectory.TagRedBalance) as ushort[];
             if (values == null || values.Length < 2)
@@ -684,8 +628,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return (values[0] / 256.0d).ToString();
         }
 
-        [CanBeNull]
-        public string GetBlueBalanceDescription()
+        public string? GetBlueBalanceDescription()
         {
             var values = Directory.GetObject(OlympusMakernoteDirectory.TagBlueBalance) as ushort[];
             if (values == null || values.Length < 2)
@@ -694,59 +637,51 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return (values[0] / 256.0d).ToString();
         }
 
-        [CanBeNull]
-        public string GetContrastDescription()
+        public string? GetContrastDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.TagContrast,
                 "High", "Normal", "Low");
         }
 
-        [CanBeNull]
-        public string GetPreviewImageValidDescription()
+        public string? GetPreviewImageValidDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.TagPreviewImageValid,
                 "No", "Yes");
         }
 
-        [CanBeNull]
-        public string GetFocusModeDescription()
+        public string? GetFocusModeDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.TagFocusMode,
                 "Auto", "Manual");
         }
 
-        [CanBeNull]
-        public string GetFocusRangeDescription()
+        public string? GetFocusRangeDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.TagFocusRange,
                 "Normal", "Macro");
         }
 
-        [CanBeNull]
-        public string GetFlashModeDescription()
+        public string? GetFlashModeDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.TagFlashMode,
                 null, null, "On", "Off");
         }
 
-        [CanBeNull]
-        public string GetDigitalZoomDescription()
+        public string? GetDigitalZoomDescription()
         {
             if (!Directory.TryGetRational(OlympusMakernoteDirectory.TagDigitalZoom, out Rational value))
                 return null;
             return value.ToSimpleString(allowDecimal: false);
         }
 
-        [CanBeNull]
-        public string GetFocalPlaneDiagonalDescription()
+        public string? GetFocalPlaneDiagonalDescription()
         {
             if (!Directory.TryGetRational(OlympusMakernoteDirectory.TagFocalPlaneDiagonal, out Rational value))
                 return null;
             return value.ToDouble().ToString("0.###") + " mm";
         }
 
-        [CanBeNull]
-        public string GetCameraTypeDescription()
+        public string? GetCameraTypeDescription()
         {
             var cameratype = Directory.GetString(OlympusMakernoteDirectory.TagCameraType);
             if (cameratype == null)
@@ -758,8 +693,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return cameratype;
         }
 
-        [CanBeNull]
-        public string GetCameraIdDescription()
+        public string? GetCameraIdDescription()
         {
             var bytes = Directory.GetByteArray(OlympusMakernoteDirectory.TagCameraId);
             if (bytes == null)
@@ -768,21 +702,18 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
         }
 
-        [CanBeNull]
-        public string GetOneTouchWbDescription()
+        public string? GetOneTouchWbDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.TagOneTouchWb,
                 "Off", "On", "On (Preset)");
         }
 
-        [CanBeNull]
-        public string GetShutterSpeedDescription()
+        public string? GetShutterSpeedDescription()
         {
             return GetShutterSpeedDescription(OlympusMakernoteDirectory.TagShutterSpeedValue);
         }
 
-        [CanBeNull]
-        public string GetIsoValueDescription()
+        public string? GetIsoValueDescription()
         {
             if (!Directory.TryGetRational(OlympusMakernoteDirectory.TagIsoValue, out Rational value))
                 return null;
@@ -790,30 +721,26 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return Math.Round(Math.Pow(2, value.ToDouble() - 5) * 100, 0).ToString();
         }
 
-        [CanBeNull]
-        public string GetApertureValueDescription()
+        public string? GetApertureValueDescription()
         {
             if (!Directory.TryGetDouble(OlympusMakernoteDirectory.TagApertureValue, out double aperture))
                 return null;
             return GetFStopDescription(PhotographicConversions.ApertureToFStop(aperture));
         }
 
-        [CanBeNull]
-        public string GetMacroModeDescription()
+        public string? GetMacroModeDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.TagMacroMode,
                 "Normal (no macro)", "Macro");
         }
 
-        [CanBeNull]
-        public string GetBwModeDescription()
+        public string? GetBwModeDescription()
         {
             return GetIndexedDescription(OlympusMakernoteDirectory.TagBwMode,
                 "Off", "On");
         }
 
-        [CanBeNull]
-        public string GetJpegQualityDescription()
+        public string? GetJpegQualityDescription()
         {
             var cameratype = Directory.GetString(OlympusMakernoteDirectory.TagCameraType);
 
@@ -868,8 +795,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     "Standard Quality", "High Quality", "Super High Quality");
         }
 
-        [CanBeNull]
-        public string GetSpecialModeDescription()
+        public string? GetSpecialModeDescription()
         {
             var values = Directory.GetObject(OlympusMakernoteDirectory.TagSpecialMode) as uint[];
             if (values == null)

@@ -22,7 +22,6 @@
 #endregion
 
 using System.Text;
-using JetBrains.Annotations;
 using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
@@ -40,12 +39,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class OlympusImageProcessingMakernoteDescriptor : TagDescriptor<OlympusImageProcessingMakernoteDirectory>
     {
-        public OlympusImageProcessingMakernoteDescriptor([NotNull] OlympusImageProcessingMakernoteDirectory directory)
+        public OlympusImageProcessingMakernoteDescriptor(OlympusImageProcessingMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -72,14 +71,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetImageProcessingVersionDescription()
+        public string? GetImageProcessingVersionDescription()
         {
             return GetVersionBytesDescription(OlympusImageProcessingMakernoteDirectory.TagImageProcessingVersion, 4);
         }
 
-        [CanBeNull]
-        public string GetColorMatrixDescription()
+        public string? GetColorMatrixDescription()
         {
             var values = Directory.GetObject(OlympusImageProcessingMakernoteDirectory.TagColorMatrix) as short[];
             if (values == null)
@@ -96,8 +93,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return str.ToString();
         }
 
-        [CanBeNull]
-        public string GetNoiseReduction2Description()
+        public string? GetNoiseReduction2Description()
         {
             if (!Directory.TryGetInt32(OlympusImageProcessingMakernoteDirectory.TagNoiseReduction2, out int value))
                 return null;
@@ -115,22 +111,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return sb.ToString(0, sb.Length - 2);
         }
 
-        [CanBeNull]
-        public string GetDistortionCorrection2Description()
+        public string? GetDistortionCorrection2Description()
         {
             return GetIndexedDescription(OlympusImageProcessingMakernoteDirectory.TagDistortionCorrection2,
                 "Off", "On");
         }
 
-        [CanBeNull]
-        public string GetShadingCompensation2Description()
+        public string? GetShadingCompensation2Description()
         {
             return GetIndexedDescription(OlympusImageProcessingMakernoteDirectory.TagShadingCompensation2,
                 "Off", "On");
         }
 
-        [CanBeNull]
-        public string GetMultipleExposureModeDescription()
+        public string? GetMultipleExposureModeDescription()
         {
             var values = Directory.GetObject(OlympusImageProcessingMakernoteDirectory.TagMultipleExposureMode) as ushort[];
             if (values == null)
@@ -170,8 +163,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return sb.ToString();
         }
 
-        [CanBeNull]
-        public string GetAspectRatioDescription()
+        public string? GetAspectRatioDescription()
         {
             var values = Directory.GetObject(OlympusImageProcessingMakernoteDirectory.TagAspectRatio) as byte[];
             if (values == null || values.Length < 2)
@@ -232,8 +224,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return ret;
         }
 
-        [CanBeNull]
-        public string GetKeystoneCompensationDescription()
+        public string? GetKeystoneCompensationDescription()
         {
             var values = Directory.GetObject(OlympusImageProcessingMakernoteDirectory.TagKeystoneCompensation) as byte[];
             if (values == null || values.Length < 2)
@@ -258,8 +249,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return ret;
         }
 
-        [CanBeNull]
-        public string GetKeystoneDirectionDescription()
+        public string? GetKeystoneDirectionDescription()
         {
             return GetIndexedDescription(OlympusImageProcessingMakernoteDirectory.TagKeystoneDirection,
                 "Vertical", "Horizontal");

@@ -21,20 +21,18 @@
 //
 #endregion
 
-using JetBrains.Annotations;
-
 namespace MetadataExtractor.Formats.Gif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     public class GifAnimationDescriptor : TagDescriptor<GifAnimationDirectory>
     {
-        public GifAnimationDescriptor([NotNull] GifAnimationDirectory directory)
+        public GifAnimationDescriptor(GifAnimationDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -45,7 +43,7 @@ namespace MetadataExtractor.Formats.Gif
             }
         }
 
-        private string GetIterationCountDescription()
+        private string? GetIterationCountDescription()
         {
             if (!Directory.TryGetUInt16(GifAnimationDirectory.TagIterationCount, out ushort count))
                 return null;

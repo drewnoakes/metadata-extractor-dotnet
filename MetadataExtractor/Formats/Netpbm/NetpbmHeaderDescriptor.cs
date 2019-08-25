@@ -22,19 +22,17 @@
 //
 #endregion
 
-using JetBrains.Annotations;
-
 namespace MetadataExtractor.Formats.Netpbm
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class NetpbmHeaderDescriptor : TagDescriptor<NetpbmHeaderDirectory>
     {
-        public NetpbmHeaderDescriptor([NotNull] NetpbmHeaderDirectory directory)
+        public NetpbmHeaderDescriptor(NetpbmHeaderDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -45,8 +43,7 @@ namespace MetadataExtractor.Formats.Netpbm
             }
         }
 
-        [CanBeNull]
-        private string GetFormatTypeDescription()
+        private string? GetFormatTypeDescription()
         {
             return GetIndexedDescription(NetpbmHeaderDirectory.TagFormatType, 1,
                 "Portable BitMap (ASCII, B&W)",

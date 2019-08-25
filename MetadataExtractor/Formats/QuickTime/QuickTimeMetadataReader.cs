@@ -24,7 +24,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Exif.Makernotes;
 using MetadataExtractor.Formats.Tiff;
@@ -42,8 +41,7 @@ namespace MetadataExtractor.Formats.QuickTime
     {
         private static readonly DateTime _epoch = new DateTime(1904, 1, 1);
 
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata(Stream stream)
         {
             var directories = new List<Directory>();
 

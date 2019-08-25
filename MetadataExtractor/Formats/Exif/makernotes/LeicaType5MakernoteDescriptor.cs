@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -37,12 +36,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class LeicaType5MakernoteDescriptor : TagDescriptor<LeicaType5MakernoteDirectory>
     {
-        public LeicaType5MakernoteDescriptor([NotNull] LeicaType5MakernoteDirectory directory)
+        public LeicaType5MakernoteDescriptor(LeicaType5MakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -57,8 +56,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// 4 values
         /// </summary>
         /// <returns></returns>
-        [CanBeNull]
-        public string GetExposureModeDescription()
+        public string? GetExposureModeDescription()
         {
             var values = Directory.GetObject(LeicaType5MakernoteDirectory.TagExposureMode) as byte[];
             if (values == null || values.Length < 4)

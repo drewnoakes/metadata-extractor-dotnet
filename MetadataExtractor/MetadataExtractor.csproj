@@ -12,6 +12,7 @@
     <AssemblyTitle>Metadata Extractor</AssemblyTitle>
     <TargetFrameworks>netstandard1.3;netstandard2.0;net35;net45</TargetFrameworks>
     <NoWarn>$(NoWarn);1591</NoWarn>
+    <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>MetadataExtractor</PackageId>
     <PackageTags>Metadata;Exif;IPTC;XMP;ICC;Photoshop;WebP;PNG;BMP;ICO;PCX;JPEG;TIFF;PSD;Photography;QuickTime;MOV;MP4;M4V;Video</PackageTags>
@@ -24,6 +25,10 @@
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Annotations.cs" Link="Annotations.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="XmpCore" Version="6.1.10" Condition=" '$(Signed)' != 'True' " />

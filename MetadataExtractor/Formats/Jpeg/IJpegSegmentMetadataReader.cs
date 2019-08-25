@@ -23,7 +23,6 @@
 #endregion
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 #if NET35
 using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
@@ -37,14 +36,12 @@ namespace MetadataExtractor.Formats.Jpeg
     public interface IJpegSegmentMetadataReader
     {
         /// <summary>Gets the set of JPEG segment types that this reader is interested in.</summary>
-        [NotNull]
         ICollection<JpegSegmentType> SegmentTypes { get; }
 
         /// <summary>Extracts metadata from all instances of a particular JPEG segment type.</summary>
         /// <param name="segments">
         /// A sequence of JPEG segments from which the metadata should be extracted. These are in the order encountered in the original file.
         /// </param>
-        [NotNull]
-        DirectoryList ReadJpegSegments([NotNull] IEnumerable<JpegSegment> segments);
+        DirectoryList ReadJpegSegments(IEnumerable<JpegSegment> segments);
     }
 }

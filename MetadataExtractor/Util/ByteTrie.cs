@@ -27,7 +27,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Util
 {
@@ -40,7 +39,7 @@ namespace MetadataExtractor.Util
         {
             public readonly IDictionary<byte, ByteTrieNode> Children = new Dictionary<byte, ByteTrieNode>();
 
-            public T Value { get; private set; }
+            public T Value { get; private set; } = default!;
             public bool HasValue { get; private set; }
 
             public void SetValue(T value)
@@ -65,9 +64,9 @@ namespace MetadataExtractor.Util
         /// If not found, returns <c>null</c> or a default values as specified by
         /// calling <see cref="SetDefaultValue"/>.
         /// </remarks>
-        [CanBeNull]
+        [return: MaybeNull]
         [SuppressMessage("ReSharper", "ParameterTypeCanBeEnumerable.Global")]
-        public T Find([NotNull] byte[] bytes)
+        public T Find(byte[] bytes)
         {
             var node = _root;
             var value = node.Value;
@@ -82,7 +81,7 @@ namespace MetadataExtractor.Util
         }
 
         /// <summary>Store the given value at the specified path.</summary>
-        public void Add(T value, [NotNull] params byte[][] parts)
+        public void Add(T value, params byte[][] parts)
         {
             var depth = 0;
             var node = _root;
@@ -109,6 +108,7 @@ namespace MetadataExtractor.Util
         public void SetDefaultValue(T defaultValue) => _root.SetValue(defaultValue);
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator() => throw new NotImplementedException();
+
         IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
     }
 }

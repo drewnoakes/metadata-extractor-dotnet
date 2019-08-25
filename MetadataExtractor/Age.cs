@@ -24,7 +24,6 @@
 
 using System;
 using System.Text;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor
 {
@@ -41,8 +40,7 @@ namespace MetadataExtractor
         /// </summary>
         /// <param name="s">The string in format <c>0031:07:15 00:00:00</c>.</param>
         /// <returns>The parsed Age object, or null if the value could not be parsed</returns>
-        [CanBeNull]
-        public static Age FromPanasonicString([NotNull] string s)
+        public static Age? FromPanasonicString(string s)
         {
             if (s == null)
                 throw new ArgumentNullException(nameof(s));
@@ -88,7 +86,6 @@ namespace MetadataExtractor
             return $"{Years:D4}:{Months:D2}:{Days:D2} {Hours:D2}:{Minutes:D2}:{Seconds:D2}";
         }
 
-        [NotNull]
         public string ToFriendlyString()
         {
             var result = new StringBuilder();
@@ -101,7 +98,7 @@ namespace MetadataExtractor
             return result.ToString();
         }
 
-        private static void AppendAgePart([NotNull] StringBuilder result, int num, string singularName)
+        private static void AppendAgePart(StringBuilder result, int num, string singularName)
         {
             if (num == 0)
                 return;
@@ -114,7 +111,7 @@ namespace MetadataExtractor
 
         #region Equality and hashing
 
-        private bool Equals([NotNull] Age other)
+        private bool Equals(Age other)
         {
             return Years == other.Years && Months == other.Months && Days == other.Days && Hours == other.Hours && Minutes == other.Minutes && Seconds == other.Seconds;
         }

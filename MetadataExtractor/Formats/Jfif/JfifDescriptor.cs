@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jfif
 {
@@ -39,12 +38,12 @@ namespace MetadataExtractor.Formats.Jfif
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class JfifDescriptor : TagDescriptor<JfifDirectory>
     {
-        public JfifDescriptor([NotNull] JfifDirectory directory)
+        public JfifDescriptor(JfifDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -61,32 +60,28 @@ namespace MetadataExtractor.Formats.Jfif
             }
         }
 
-        [CanBeNull]
-        public string GetImageVersionDescription()
+        public string? GetImageVersionDescription()
         {
             if (!Directory.TryGetInt32(JfifDirectory.TagVersion, out int value))
                 return null;
             return $"{(value & 0xFF00) >> 8}.{value & 0x00FF}";
         }
 
-        [CanBeNull]
-        public string GetImageResYDescription()
+        public string? GetImageResYDescription()
         {
             if (!Directory.TryGetInt32(JfifDirectory.TagResY, out int value))
                 return null;
             return $"{value} dot{(value == 1 ? string.Empty : "s")}";
         }
 
-        [CanBeNull]
-        public string GetImageResXDescription()
+        public string? GetImageResXDescription()
         {
             if (!Directory.TryGetInt32(JfifDirectory.TagResX, out int value))
                 return null;
             return $"{value} dot{(value == 1 ? string.Empty : "s")}";
         }
 
-        [CanBeNull]
-        public string GetImageResUnitsDescription()
+        public string? GetImageResUnitsDescription()
         {
             if (!Directory.TryGetInt32(JfifDirectory.TagUnits, out int value))
                 return null;

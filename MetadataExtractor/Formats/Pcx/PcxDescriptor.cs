@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Pcx
 {
@@ -31,12 +30,12 @@ namespace MetadataExtractor.Formats.Pcx
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class PcxDescriptor : TagDescriptor<PcxDirectory>
     {
-        public PcxDescriptor([NotNull] PcxDirectory directory)
+        public PcxDescriptor(PcxDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -51,8 +50,7 @@ namespace MetadataExtractor.Formats.Pcx
             }
         }
 
-        [CanBeNull]
-        public string GetVersionDescription()
+        public string? GetVersionDescription()
         {
             // Prior to v2.5 of PC Paintbrush, the PCX image file format was considered proprietary information
             // by ZSoft Corporation
@@ -65,14 +63,12 @@ namespace MetadataExtractor.Formats.Pcx
                 "3.0 or better");
         }
 
-        [CanBeNull]
-        public string GetColorPlanesDescription()
+        public string? GetColorPlanesDescription()
         {
             return GetIndexedDescription(PcxDirectory.TagColorPlanes, 3, "24-bit color", "16 colors");
         }
 
-        [CanBeNull]
-        public string GetPaletteTypeDescription()
+        public string? GetPaletteTypeDescription()
         {
             return GetIndexedDescription(PcxDirectory.TagPaletteType, 1, "Color or B&W", "Grayscale");
         }

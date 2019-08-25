@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.IO;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Riff;
@@ -49,10 +48,9 @@ namespace MetadataExtractor.Formats.WebP
     /// </remarks>
     public sealed class WebPRiffHandler : IRiffHandler
     {
-        [NotNull]
         private readonly List<Directory> _directories;
 
-        public WebPRiffHandler([NotNull] List<Directory> directories)
+        public WebPRiffHandler(List<Directory> directories)
         {
             _directories = directories;
         }
@@ -92,7 +90,7 @@ namespace MetadataExtractor.Formats.WebP
                     if (payload.Length != 10)
                         break;
 
-                    string error = null;
+                    string? error = null;
                     var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
                     var isAnimation = false;
                     var hasAlpha = false;
@@ -136,7 +134,7 @@ namespace MetadataExtractor.Formats.WebP
 
                     var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
 
-                    string error = null;
+                    string? error = null;
                     var widthMinusOne = -1;
                     var heightMinusOne = -1;
                     try
@@ -178,7 +176,7 @@ namespace MetadataExtractor.Formats.WebP
 
                     var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
 
-                    string error = null;
+                    string? error = null;
                     var width = 0;
                     var height = 0;
                     try

@@ -26,7 +26,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 using MetadataExtractor.Util;
@@ -92,8 +91,7 @@ namespace MetadataExtractor.Formats.Icc
             return new Directory[] { Extract(new ByteArrayReader(buffer)) };
         }
 
-        [NotNull]
-        public IccDirectory Extract([NotNull] IndexedReader reader)
+        public IccDirectory Extract(IndexedReader reader)
         {
             // TODO review whether the 'tagPtr' values below really do require IndexedReader or whether SequentialReader may be used instead
             var directory = new IccDirectory();
@@ -151,28 +149,28 @@ namespace MetadataExtractor.Formats.Icc
             return directory;
         }
 
-        private static void Set4ByteString([NotNull] Directory directory, int tagType, [NotNull] IndexedReader reader)
+        private static void Set4ByteString(Directory directory, int tagType, IndexedReader reader)
         {
             var i = reader.GetUInt32(tagType);
             if (i != 0)
                 directory.Set(tagType, GetStringFromUInt32(i));
         }
 
-        private static void SetInt32([NotNull] Directory directory, int tagType, [NotNull] IndexedReader reader)
+        private static void SetInt32(Directory directory, int tagType, IndexedReader reader)
         {
             var i = reader.GetInt32(tagType);
             if (i != 0)
                 directory.Set(tagType, i);
         }
 
-        private static void SetInt64([NotNull] Directory directory, int tagType, [NotNull] IndexedReader reader)
+        private static void SetInt64(Directory directory, int tagType, IndexedReader reader)
         {
             var l = reader.GetInt64(tagType);
             if (l != 0)
                 directory.Set(tagType, l);
         }
 
-        private static void SetDate([NotNull] IccDirectory directory, int tagType, [NotNull] IndexedReader reader)
+        private static void SetDate(IccDirectory directory, int tagType, IndexedReader reader)
         {
             var year = reader.GetUInt16(tagType);
             var month = reader.GetUInt16(tagType + 2);
@@ -188,7 +186,6 @@ namespace MetadataExtractor.Formats.Icc
                 directory.AddError($"ICC data describes an invalid date/time: year={year} month={month} day={day} hour={hours} minute={minutes} second={seconds}");
         }
 
-        [NotNull]
         public static string GetStringFromUInt32(uint d)
         {
             // MSB
@@ -203,7 +200,7 @@ namespace MetadataExtractor.Formats.Icc
             return Encoding.UTF8.GetString(b, 0, b.Length);
         }
 
-        private static bool IsSubarrayEqualTo<T>([NotNull] T[] source, int sourceIndex, [NotNull] T[] pattern)
+        private static bool IsSubarrayEqualTo<T>(T[] source, int sourceIndex, T[] pattern) where T : notnull
         {
             if (sourceIndex + pattern.Length >= source.Length)
                 return false;

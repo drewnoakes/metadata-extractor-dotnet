@@ -25,7 +25,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
 using JetBrains.Annotations;
 using MetadataExtractor.Util;
@@ -41,10 +40,9 @@ namespace MetadataExtractor
     public class TagDescriptor<T> : ITagDescriptor
         where T : Directory
     {
-        [NotNull]
         protected readonly T Directory;
 
-        public TagDescriptor([NotNull] T directory)
+        public TagDescriptor(T directory)
         {
             Directory = directory;
         }
@@ -60,7 +58,7 @@ namespace MetadataExtractor
         /// a description of the image's value for the specified tag, or
         /// <c>null</c> if the tag hasn't been defined.
         /// </returns>
-        public virtual string GetDescription(int tagType)
+        public virtual string? GetDescription(int tagType)
         {
             var obj = Directory.GetObject(tagType);
             if (obj == null)
@@ -89,8 +87,7 @@ namespace MetadataExtractor
         /// <param name="majorDigits">the number of components to be</param>
         /// <returns>the version as a string of form "2.10" or null if the argument cannot be converted</returns>
         [Pure]
-        [CanBeNull]
-        public static string ConvertBytesToVersionString([CanBeNull] int[] components, int majorDigits)
+        public static string? ConvertBytesToVersionString(int[]? components, int majorDigits)
         {
             if (components == null)
                 return null;
@@ -116,23 +113,20 @@ namespace MetadataExtractor
         }
 
         [Pure]
-        [CanBeNull]
-        protected string GetVersionBytesDescription(int tagType, int majorDigits)
+        protected string? GetVersionBytesDescription(int tagType, int majorDigits)
         {
             var values = Directory.GetInt32Array(tagType);
             return values == null ? null : ConvertBytesToVersionString(values, majorDigits);
         }
 
         [Pure]
-        [CanBeNull]
-        protected string GetIndexedDescription(int tagType, [NotNull] params string[] descriptions)
+        protected string? GetIndexedDescription(int tagType, params string?[] descriptions)
         {
             return GetIndexedDescription(tagType, 0, descriptions);
         }
 
         [Pure]
-        [CanBeNull]
-        protected string GetIndexedDescription(int tagType, int baseIndex, [NotNull] params string[] descriptions)
+        protected string? GetIndexedDescription(int tagType, int baseIndex, params string?[] descriptions)
         {
             if (!Directory.TryGetUInt32(tagType, out uint index))
                 return null;
@@ -150,8 +144,7 @@ namespace MetadataExtractor
         }
 
         [Pure]
-        [CanBeNull]
-        protected string GetByteLengthDescription(int tagType)
+        protected string? GetByteLengthDescription(int tagType)
         {
             var bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
@@ -160,8 +153,7 @@ namespace MetadataExtractor
         }
 
         [Pure]
-        [CanBeNull]
-        protected string GetSimpleRational(int tagType)
+        protected string? GetSimpleRational(int tagType)
         {
             if (!Directory.TryGetRational(tagType, out Rational value))
                 return null;
@@ -169,8 +161,7 @@ namespace MetadataExtractor
         }
 
         [Pure]
-        [CanBeNull]
-        protected string GetDecimalRational(int tagType, int decimalPlaces)
+        protected string? GetDecimalRational(int tagType, int decimalPlaces)
         {
             if (!Directory.TryGetRational(tagType, out Rational value))
                 return null;
@@ -178,8 +169,7 @@ namespace MetadataExtractor
         }
 
         [Pure]
-        [CanBeNull]
-        protected string GetFormattedInt(int tagType, [NotNull] string format)
+        protected string? GetFormattedInt(int tagType, string format)
         {
             if (!Directory.TryGetInt32(tagType, out int value))
                 return null;
@@ -187,8 +177,7 @@ namespace MetadataExtractor
         }
 
         [Pure]
-        [CanBeNull]
-        protected string GetFormattedString(int tagType, [NotNull] string format)
+        protected string? GetFormattedString(int tagType, string format)
         {
             var value = Directory.GetString(tagType);
             if (value == null)
@@ -197,8 +186,7 @@ namespace MetadataExtractor
         }
 
         [Pure]
-        [CanBeNull]
-        protected string GetEpochTimeDescription(int tagType)
+        protected string? GetEpochTimeDescription(int tagType)
         {
             // TODO have observed a byte[8] here which is likely some kind of date (ticks as long?)
             return Directory.TryGetInt64(tagType, out long value)
@@ -208,8 +196,7 @@ namespace MetadataExtractor
 
         /// <remarks>LSB first. Labels may be null, a String, or a String[2] with (low label,high label) values.</remarks>
         [Pure]
-        [CanBeNull]
-        protected string GetBitFlagDescription(int tagType, [NotNull] params object[] labels)
+        protected string? GetBitFlagDescription(int tagType, params object?[] labels)
         {
             if (!Directory.TryGetInt32(tagType, out int value))
                 return null;
@@ -243,8 +230,7 @@ namespace MetadataExtractor
         }
 
         [Pure]
-        [CanBeNull]
-        protected string GetStringFrom7BitBytes(int tagType)
+        protected string? GetStringFrom7BitBytes(int tagType)
         {
             var bytes = Directory.GetByteArray(tagType);
             if (bytes == null)
@@ -263,8 +249,7 @@ namespace MetadataExtractor
         }
 
         [Pure]
-        [CanBeNull]
-        protected string GetStringFromUtf8Bytes(int tag)
+        protected string? GetStringFromUtf8Bytes(int tag)
         {
             var values = Directory.GetByteArray(tag);
             if (values == null)
@@ -283,8 +268,7 @@ namespace MetadataExtractor
         }
 
         [Pure]
-        [CanBeNull]
-        protected string GetRationalOrDoubleString(int tagType)
+        protected string? GetRationalOrDoubleString(int tagType)
         {
             if (Directory.TryGetRational(tagType, out Rational rational))
                 return rational.ToSimpleString();
@@ -296,16 +280,13 @@ namespace MetadataExtractor
         }
 
         [Pure]
-        [NotNull]
         protected static string GetFStopDescription(double fStop) => $"f/{Math.Round(fStop, 1, MidpointRounding.AwayFromZero):0.0}";
 
         [Pure]
-        [NotNull]
         protected static string GetFocalLengthDescription(double mm) => $"{mm:0.#} mm";
 
         [Pure]
-        [CanBeNull]
-        protected string GetLensSpecificationDescription(int tagId)
+        protected string? GetLensSpecificationDescription(int tagId)
         {
             var values = Directory.GetRationalArray(tagId);
 
@@ -343,8 +324,7 @@ namespace MetadataExtractor
             return sb.ToString();
         }
 
-        [CanBeNull]
-        protected string GetOrientationDescription(int tag)
+        protected string? GetOrientationDescription(int tag)
         {
             return GetIndexedDescription(tag, 1,
                 "Top, left side (Horizontal / normal)",
@@ -356,8 +336,7 @@ namespace MetadataExtractor
                 "Left side, bottom (Rotate 270 CW)");
         }
 
-        [CanBeNull]
-        protected string GetShutterSpeedDescription(int tagId)
+        protected string? GetShutterSpeedDescription(int tagId)
         {
             // I believe this method to now be stable, but am leaving some alternative snippets of
             // code in here, to assist anyone who's looking into this (given that I don't have a public CVS).
@@ -385,8 +364,7 @@ namespace MetadataExtractor
             }
         }
 
-        [CanBeNull]
-        protected string GetEncodedTextDescription(int tagType)
+        protected string? GetEncodedTextDescription(int tagType)
         {
             var commentBytes = Directory.GetByteArray(tagType);
 

@@ -22,7 +22,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -33,11 +32,11 @@ namespace MetadataExtractor.Formats.Jpeg
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class JpegDnlDescriptor : TagDescriptor<JpegDnlDirectory>
     {
-        public JpegDnlDescriptor([NotNull] JpegDnlDirectory directory)
+        public JpegDnlDescriptor(JpegDnlDirectory directory)
             : base(directory)
         {}
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -48,8 +47,7 @@ namespace MetadataExtractor.Formats.Jpeg
             }
         }
 
-        [CanBeNull]
-        public string GetImageHeightDescription()
+        public string? GetImageHeightDescription()
         {
             var value = Directory.GetString(JpegDnlDirectory.TagImageHeight);
 

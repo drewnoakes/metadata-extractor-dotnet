@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -34,12 +33,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class KodakMakernoteDescriptor : TagDescriptor<KodakMakernoteDirectory>
     {
-        public KodakMakernoteDescriptor([NotNull] KodakMakernoteDirectory directory)
+        public KodakMakernoteDescriptor(KodakMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -66,14 +65,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetSharpnessDescription()
+        public string? GetSharpnessDescription()
         {
             return GetIndexedDescription(KodakMakernoteDirectory.TagSharpness, "Normal");
         }
 
-        [CanBeNull]
-        public string GetColorModeDescription()
+        public string? GetColorModeDescription()
         {
             if (!Directory.TryGetInt32(KodakMakernoteDirectory.TagColorMode, out int value))
                 return null;
@@ -102,14 +99,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetFlashFiredDescription()
+        public string? GetFlashFiredDescription()
         {
             return GetIndexedDescription(KodakMakernoteDirectory.TagFlashFired, "No", "Yes");
         }
 
-        [CanBeNull]
-        public string GetFlashModeDescription()
+        public string? GetFlashModeDescription()
         {
             if (!Directory.TryGetInt32(KodakMakernoteDirectory.TagFlashMode, out int value))
                 return null;
@@ -132,22 +127,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetWhiteBalanceDescription()
+        public string? GetWhiteBalanceDescription()
         {
             return GetIndexedDescription(KodakMakernoteDirectory.TagWhiteBalance,
                 "Auto", "Flash", "Tungsten", "Daylight");
         }
 
-        [CanBeNull]
-        public string GetFocusModeDescription()
+        public string? GetFocusModeDescription()
         {
             return GetIndexedDescription(KodakMakernoteDirectory.TagFocusMode,
                 "Normal", null, "Macro");
         }
 
-        [CanBeNull]
-        public string GetShutterModeDescription()
+        public string? GetShutterModeDescription()
         {
             if (!Directory.TryGetInt32(KodakMakernoteDirectory.TagShutterMode, out int value))
                 return null;
@@ -165,15 +157,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetBurstModeDescription()
+        public string? GetBurstModeDescription()
         {
             return GetIndexedDescription(KodakMakernoteDirectory.TagBurstMode,
                 "Off", "On");
         }
 
-        [CanBeNull]
-        public string GetQualityDescription()
+        public string? GetQualityDescription()
         {
             return GetIndexedDescription(KodakMakernoteDirectory.TagQuality,
                 1,

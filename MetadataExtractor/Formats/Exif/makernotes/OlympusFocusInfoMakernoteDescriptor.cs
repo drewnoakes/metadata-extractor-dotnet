@@ -22,7 +22,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -39,12 +38,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class OlympusFocusInfoMakernoteDescriptor : TagDescriptor<OlympusFocusInfoMakernoteDirectory>
     {
-        public OlympusFocusInfoMakernoteDescriptor([NotNull] OlympusFocusInfoMakernoteDirectory directory)
+        public OlympusFocusInfoMakernoteDescriptor(OlympusFocusInfoMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -75,14 +74,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetFocusInfoVersionDescription()
+        public string? GetFocusInfoVersionDescription()
         {
             return GetVersionBytesDescription(OlympusFocusInfoMakernoteDirectory.TagFocusInfoVersion, 4);
         }
 
-        [CanBeNull]
-        public string GetAutoFocusDescription()
+        public string? GetAutoFocusDescription()
         {
             return GetIndexedDescription(OlympusFocusInfoMakernoteDirectory.TagAutoFocus,
                 "Off", "On");
@@ -93,8 +90,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// 1 (E-1), and cm when denominator is 10 (E-300), so if we ignore the
         /// denominator we are consistently in mm - PH
         /// </remarks>
-        [CanBeNull]
-        public string GetFocusDistanceDescription()
+        public string? GetFocusDistanceDescription()
         {
             if (!Directory.TryGetRational(OlympusFocusInfoMakernoteDirectory.TagFocusDistance, out Rational value))
                 return "inf";
@@ -108,8 +104,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// <para>TODO: Complete when Camera Model is available.</para>
         /// <para>There are differences in how to interpret this tag that can only be reconciled by knowing the model.</para>
         /// </remarks>
-        [CanBeNull]
-        public string GetAfPointDescription()
+        public string? GetAfPointDescription()
         {
             if (!Directory.TryGetInt16(OlympusFocusInfoMakernoteDirectory.TagAfPoint, out short value))
                 return null;
@@ -117,8 +112,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return value.ToString();
         }
 
-        [CanBeNull]
-        public string GetExternalFlashDescription()
+        public string? GetExternalFlashDescription()
         {
             var values = Directory.GetObject(OlympusFocusInfoMakernoteDirectory.TagExternalFlash) as ushort[];
             if (values == null || values.Length < 2)
@@ -137,15 +131,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetExternalFlashBounceDescription()
+        public string? GetExternalFlashBounceDescription()
         {
             return GetIndexedDescription(OlympusFocusInfoMakernoteDirectory.TagExternalFlashBounce,
                 "Bounce or Off", "Direct");
         }
 
-        [CanBeNull]
-        public string GetExternalFlashZoomDescription()
+        public string? GetExternalFlashZoomDescription()
         {
             var values = Directory.GetObject(OlympusFocusInfoMakernoteDirectory.TagExternalFlashZoom) as ushort[];
             if (values == null)
@@ -178,8 +170,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetManualFlashDescription()
+        public string? GetManualFlashDescription()
         {
             var values = Directory.GetObject(OlympusFocusInfoMakernoteDirectory.TagManualFlash) as short[];
             if (values == null)
@@ -193,8 +184,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return "On (1/" + values[1] + " strength)";
         }
 
-        [CanBeNull]
-        public string GetMacroLedDescription()
+        public string? GetMacroLedDescription()
         {
             return GetIndexedDescription(OlympusFocusInfoMakernoteDirectory.TagMacroLed,
                 "Off", "On");
@@ -204,8 +194,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// <para>TODO: Complete when Camera Model is available.</para>
         /// <para>There are differences in how to interpret this tag that can only be reconciled by knowing the model.</para>
         /// </remarks>
-        [CanBeNull]
-        public string GetSensorTemperatureDescription()
+        public string? GetSensorTemperatureDescription()
         {
             return Directory.GetString(OlympusFocusInfoMakernoteDirectory.TagSensorTemperature);
         }
@@ -214,8 +203,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// <para> if the first 4 bytes are non-zero, then bit 0x01 of byte 44 gives the stabilization mode</para>
         /// <notes>(the other value is more reliable, so ignore this totally if the other exists)</notes>
         /// </remarks>
-        [CanBeNull]
-        public string GetImageStabilizationDescription()
+        public string? GetImageStabilizationDescription()
         {
             var values = Directory.GetByteArray(OlympusFocusInfoMakernoteDirectory.TagImageStabilization);
             if (values == null)

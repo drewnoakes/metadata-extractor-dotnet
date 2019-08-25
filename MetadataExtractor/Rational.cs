@@ -23,7 +23,6 @@
 #endregion
 
 using System;
-using JetBrains.Annotations;
 #if !NETSTANDARD1_3
 using System.Globalization;
 using System.ComponentModel;
@@ -198,13 +197,12 @@ namespace MetadataExtractor
         /// <returns>a string representation of the object.</returns>
         public override string ToString() => Numerator + "/" + Denominator;
 
-        public string ToString(IFormatProvider provider) => Numerator.ToString(provider) + "/" + Denominator.ToString(provider);
+        public string ToString(IFormatProvider? provider) => Numerator.ToString(provider) + "/" + Denominator.ToString(provider);
 
         /// <summary>
         /// Returns the simplest representation of this <see cref="Rational"/>'s value possible.
         /// </summary>
-        [NotNull]
-        public string ToSimpleString(bool allowDecimal = true, IFormatProvider provider = null)
+        public string ToSimpleString(bool allowDecimal = true, IFormatProvider? provider = null)
         {
             if (Denominator == 0 && Numerator != 0)
                 return ToString(provider);

@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -37,12 +36,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class PentaxMakernoteDescriptor : TagDescriptor<PentaxMakernoteDirectory>
     {
-        public PentaxMakernoteDescriptor([NotNull] PentaxMakernoteDirectory directory)
+        public PentaxMakernoteDescriptor(PentaxMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -73,16 +72,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetColourDescription()
+        public string? GetColourDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagColour,
                 1,
                 "Normal", "Black & White", "Sepia");
         }
 
-        [CanBeNull]
-        public string GetIsoSpeedDescription()
+        public string? GetIsoSpeedDescription()
         {
             if (!Directory.TryGetInt32(PentaxMakernoteDirectory.TagIsoSpeed, out int value))
                 return null;
@@ -103,67 +100,58 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetSaturationDescription()
+        public string? GetSaturationDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagSaturation,
                 "Normal", "Low", "High");
         }
 
-        [CanBeNull]
-        public string GetContrastDescription()
+        public string? GetContrastDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagContrast,
                 "Normal", "Low", "High");
         }
 
-        [CanBeNull]
-        public string GetSharpnessDescription()
+        public string? GetSharpnessDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagSharpness,
                 "Normal", "Soft", "Hard");
         }
 
-        [CanBeNull]
-        public string GetDigitalZoomDescription()
+        public string? GetDigitalZoomDescription()
         {
             if (!Directory.TryGetSingle(PentaxMakernoteDirectory.TagDigitalZoom, out float value))
                 return null;
             return value == 0 ? "Off" : value.ToString("0.0###########");
         }
 
-        [CanBeNull]
-        public string GetWhiteBalanceDescription()
+        public string? GetWhiteBalanceDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagWhiteBalance,
                 "Auto", "Daylight", "Shade", "Tungsten", "Fluorescent", "Manual");
         }
 
-        [CanBeNull]
-        public string GetFlashModeDescription()
+        public string? GetFlashModeDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagFlashMode,
                 1,
                 "Auto", "Flash On", null, "Flash Off", null, "Red-eye Reduction");
         }
 
-        [CanBeNull]
-        public string GetFocusModeDescription()
+        public string? GetFocusModeDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagFocusMode,
                 2,
                 "Custom", "Auto");
         }
 
-        [CanBeNull]
-        public string GetQualityLevelDescription()
+        public string? GetQualityLevelDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagQualityLevel,
                 "Good", "Better", "Best");
         }
 
-        [CanBeNull]
-        public string GetCaptureModeDescription()
+        public string? GetCaptureModeDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagCaptureMode,
                 "Auto", "Night-scene", "Manual", null, "Multiple");

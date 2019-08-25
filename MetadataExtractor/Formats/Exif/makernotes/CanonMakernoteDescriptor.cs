@@ -26,8 +26,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
-using JetBrains.Annotations;
 
+using JetBrains.Annotations;
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
     /// <summary>
@@ -37,12 +37,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class CanonMakernoteDescriptor : TagDescriptor<CanonMakernoteDirectory>
     {
-        public CanonMakernoteDescriptor([NotNull] CanonMakernoteDirectory directory)
+        public CanonMakernoteDescriptor(CanonMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -159,8 +159,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetSerialNumberDescription()
+        public string? GetSerialNumberDescription()
         {
             // http://www.ozhiker.com/electronics/pjmt/jpeg_info/canon_mn.html
             return Directory.TryGetInt32(CanonMakernoteDirectory.TagCanonSerialNumber, out int value)
@@ -346,8 +345,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 */
-        [CanBeNull]
-        public string GetFlashBiasDescription()
+        public string? GetFlashBiasDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.FocalLength.TagFlashBias, out int value))
                 return null;
@@ -368,8 +366,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return (isNegative ? "-" : string.Empty) + (value / 32f).ToString("0.0###########") + " EV";
         }
 
-        [CanBeNull]
-        public string GetAfPointUsedDescription()
+        public string? GetAfPointUsedDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.FocalLength.TagAfPointUsed, out int value))
                 return null;
@@ -384,8 +381,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return "Unknown (" + value + ")";
         }
 
-        [CanBeNull]
-        public string GetTagAfPointsInFocus()
+        public string? GetTagAfPointsInFocus()
         {
             if (!Directory.TryGetInt16(CanonMakernoteDirectory.AfInfo.TagAfPointsInFocus, out short value))
                 return null;
@@ -405,22 +401,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return sb.Length == 0 ? "None" : sb.ToString();
         }
 
-        [CanBeNull]
-        public string GetWhiteBalanceDescription()
+        public string? GetWhiteBalanceDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.FocalLength.TagWhiteBalance,
                 "Auto", "Sunny", "Cloudy", "Tungsten", "Florescent", "Flash", "Custom");
         }
 
-        [CanBeNull]
-        public string GetFocusMode2Description()
+        public string? GetFocusMode2Description()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagFocusMode2,
                 "Single", "Continuous");
         }
 
-        [CanBeNull]
-        public string GetFlashDetailsDescription()
+        public string? GetFlashDetailsDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagFlashDetails, out int value))
                 return null;
@@ -433,8 +426,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return "Unknown (" + value + ")";
         }
 
-        [CanBeNull]
-        public string GetFocalUnitsPerMillimetreDescription()
+        public string? GetFocalUnitsPerMillimetreDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagFocalUnitsPerMm, out int value))
                 return null;
@@ -442,8 +434,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return value != 0 ? value.ToString() : string.Empty;
         }
 
-        [CanBeNull]
-        public string GetShortFocalLengthDescription()
+        public string? GetShortFocalLengthDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagShortFocalLength, out int value))
                 return null;
@@ -452,8 +443,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return value + " " + units;
         }
 
-        [CanBeNull]
-        public string GetLongFocalLengthDescription()
+        public string? GetLongFocalLengthDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagLongFocalLength, out int value))
                 return null;
@@ -461,31 +451,27 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return value + " " + GetFocalUnitsPerMillimetreDescription();
         }
 
-        [CanBeNull]
-        public string GetExposureModeDescription()
+        public string? GetExposureModeDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagExposureMode,
                 "Easy shooting", "Program", "Tv-priority", "Av-priority", "Manual", "A-DEP");
         }
 
-        [CanBeNull]
-        public string GetAfPointSelectedDescription()
+        public string? GetAfPointSelectedDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagAfPointSelected,
                 0x3000,
                 "None (MF)", "Auto selected", "Right", "Centre", "Left");
         }
 
-        [CanBeNull]
-        public string GetMeteringModeDescription()
+        public string? GetMeteringModeDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagMeteringMode,
                 3,
                 "Evaluative", "Partial", "Centre weighted");
         }
 
-        [CanBeNull]
-        public string GetIsoDescription()
+        public string? GetIsoDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagIso, out int value))
                 return null;
@@ -507,8 +493,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetSharpnessDescription()
+        public string? GetSharpnessDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSharpness, out int value))
                 return null;
@@ -522,8 +507,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetSaturationDescription()
+        public string? GetSaturationDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSaturation, out int value))
                 return null;
@@ -537,8 +521,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetContrastDescription()
+        public string? GetContrastDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagContrast, out int value))
                 return null;
@@ -552,27 +535,23 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetEasyShootingModeDescription()
+        public string? GetEasyShootingModeDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagEasyShootingMode, "Full auto", "Manual", "Landscape", "Fast shutter", "Slow shutter", "Night", "B&W", "Sepia", "Portrait", "Sports", "Macro / Closeup", "Pan focus");
         }
 
-        [CanBeNull]
-        public string GetImageSizeDescription()
+        public string? GetImageSizeDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagImageSize, "Large", "Medium", "Small");
         }
 
-        [CanBeNull]
-        public string GetFocusMode1Description()
+        public string? GetFocusMode1Description()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagFocusMode1, "One-shot", "AI Servo", "AI Focus", "Manual Focus", "Single", "Continuous", "Manual Focus");
         }
 
         // TODO should check field 32 here (FOCUS_MODE_2)
-        [CanBeNull]
-        public string GetContinuousDriveModeDescription()
+        public string? GetContinuousDriveModeDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagContinuousDriveMode, out int value))
                 return null;
@@ -589,8 +568,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return "Unknown (" + value + ")";
         }
 
-        [CanBeNull]
-        public string GetFlashModeDescription()
+        public string? GetFlashModeDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagFlashMode, out int value))
                 return null;
@@ -619,8 +597,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetSelfTimerDelayDescription()
+        public string? GetSelfTimerDelayDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSelfTimerDelay, out int value))
                 return null;
@@ -631,32 +608,27 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 : $"{value*0.1d} sec";
         }
 
-        [CanBeNull]
-        public string GetMacroModeDescription()
+        public string? GetMacroModeDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagMacroMode, 1, "Macro", "Normal");
         }
 
-        [CanBeNull]
-        public string GetQualityDescription()
+        public string? GetQualityDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagQuality, 2, "Normal", "Fine", null, "Superfine");
         }
 
-        [CanBeNull]
-        public string GetDigitalZoomDescription()
+        public string? GetDigitalZoomDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagDigitalZoom, "No digital zoom", "2x", "4x");
         }
 
-        [CanBeNull]
-        public string GetRecordModeDescription()
+        public string? GetRecordModeDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagRecordMode, 1, "JPEG", "CRW+THM", "AVI+THM", "TIF", "TIF+JPEG", "CR2", "CR2+JPEG", null, "MOV", "MP4");
         }
 
-        [CanBeNull]
-        public string GetFocusTypeDescription()
+        public string? GetFocusTypeDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagFocusType, out int value))
                 return null;
@@ -676,8 +648,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetLensTypeDescription()
+        public string? GetLensTypeDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagLensType, out int value))
                 return null;
@@ -687,8 +658,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 : $"Unknown ({value})";
         }
 
-        [CanBeNull]
-        public string GetMaxApertureDescription()
+        public string? GetMaxApertureDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagMaxAperture, out int value))
                 return null;
@@ -697,8 +667,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return GetFStopDescription(Math.Exp(DecodeCanonEv(value) * Math.Log(2.0) / 2.0));
         }
 
-        [CanBeNull]
-        public string GetMinApertureDescription()
+        public string? GetMinApertureDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagMinAperture, out int value))
                 return null;
@@ -707,28 +676,24 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return GetFStopDescription(Math.Exp(DecodeCanonEv(value) * Math.Log(2.0) / 2.0));
         }
 
-        [CanBeNull]
-        public string GetFlashActivityDescription()
+        public string? GetFlashActivityDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagFlashActivity, "Flash did not fire", "Flash fired");
         }
 
-        [CanBeNull]
-        public string GetFocusContinuousDescription()
+        public string? GetFocusContinuousDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagFocusContinuous, 0,
                 "Single", "Continuous", null, null, null, null, null, null, "Manual");
         }
 
-        [CanBeNull]
-        public string GetAESettingDescription()
+        public string? GetAESettingDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagAESetting, 0,
                 "Normal AE", "Exposure Compensation", "AE Lock", "AE Lock + Exposure Comp.", "No AE");
         }
 
-        [CanBeNull]
-        public string GetDisplayApertureDescription()
+        public string? GetDisplayApertureDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagDisplayAperture, out int value))
                 return null;
@@ -738,14 +703,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return GetFStopDescription(value / 10.0);
         }
 
-        [CanBeNull]
-        public string GetSpotMeteringModeDescription()
+        public string? GetSpotMeteringModeDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagSpotMeteringMode, 0, "Center", "AF Point");
         }
 
-        [CanBeNull]
-        public string GetPhotoEffectDescription()
+        public string? GetPhotoEffectDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagPhotoEffect, out int value))
                 return null;
@@ -773,8 +736,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetManualFlashOutputDescription()
+        public string? GetManualFlashOutputDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagManualFlashOutput, out int value))
                 return null;
@@ -796,8 +758,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetColorToneDescription()
+        public string? GetColorToneDescription()
         {
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagColorTone, out int value))
                 return null;
@@ -805,8 +766,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return value == 0x7fff ? "n/a" : value.ToString();
         }
 
-        [CanBeNull]
-        public string GetSRawQualityDescription()
+        public string? GetSRawQualityDescription()
         {
             return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagSRawQuality, 0, "n/a", "sRAW1 (mRAW)", "sRAW2 (sRAW)");
         }

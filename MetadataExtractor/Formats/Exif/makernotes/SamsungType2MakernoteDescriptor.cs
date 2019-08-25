@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -37,12 +36,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class SamsungType2MakernoteDescriptor : TagDescriptor<SamsungType2MakernoteDirectory>
     {
-        public SamsungType2MakernoteDescriptor([NotNull] SamsungType2MakernoteDirectory directory)
+        public SamsungType2MakernoteDescriptor(SamsungType2MakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -65,14 +64,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetMakernoteVersionDescription()
+        public string? GetMakernoteVersionDescription()
         {
             return GetVersionBytesDescription(SamsungType2MakernoteDirectory.TagMakerNoteVersion, 2);
         }
 
-        [CanBeNull]
-        public string GetDeviceTypeDescription()
+        public string? GetDeviceTypeDescription()
         {
             if (!Directory.TryGetUInt32(SamsungType2MakernoteDirectory.TagDeviceType, out uint value))
                 return null;
@@ -94,8 +91,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetSamsungModelIdDescription()
+        public string? GetSamsungModelIdDescription()
         {
             if (!Directory.TryGetUInt32(SamsungType2MakernoteDirectory.TagSamsungModelId, out uint value))
                 return null;
@@ -187,21 +183,18 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        private string GetCameraTemperatureDescription()
+        private string? GetCameraTemperatureDescription()
         {
             return GetFormattedInt(SamsungType2MakernoteDirectory.TagCameraTemperature, "{0} C");
         }
 
-        [CanBeNull]
-        public string GetFaceDetectDescription()
+        public string? GetFaceDetectDescription()
         {
             return GetIndexedDescription(SamsungType2MakernoteDirectory.TagFaceDetect,
                 "Off", "On");
         }
 
-        [CanBeNull]
-        public string GetFaceRecognitionDescription()
+        public string? GetFaceRecognitionDescription()
         {
             return GetIndexedDescription(SamsungType2MakernoteDirectory.TagFaceRecognition,
                 "Off", "On");

@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -34,12 +33,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class CasioType2MakernoteDescriptor : TagDescriptor<CasioType2MakernoteDirectory>
     {
-        public CasioType2MakernoteDescriptor([NotNull] CasioType2MakernoteDirectory directory)
+        public CasioType2MakernoteDescriptor(CasioType2MakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -100,38 +99,32 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetFilterDescription()
+        public string? GetFilterDescription()
         {
             return GetIndexedDescription(CasioType2MakernoteDirectory.TagFilter, "Off");
         }
 
-        [CanBeNull]
-        public string GetEnhancementDescription()
+        public string? GetEnhancementDescription()
         {
             return GetIndexedDescription(CasioType2MakernoteDirectory.TagEnhancement, "Off");
         }
 
-        [CanBeNull]
-        public string GetColourModeDescription()
+        public string? GetColourModeDescription()
         {
             return GetIndexedDescription(CasioType2MakernoteDirectory.TagColourMode, "Off");
         }
 
-        [CanBeNull]
-        public string GetCcdIsoSensitivityDescription()
+        public string? GetCcdIsoSensitivityDescription()
         {
             return GetIndexedDescription(CasioType2MakernoteDirectory.TagCcdIsoSensitivity, "Off", "On");
         }
 
-        [CanBeNull]
-        public string GetTimeZoneDescription()
+        public string? GetTimeZoneDescription()
         {
             return Directory.GetString(CasioType2MakernoteDirectory.TagTimeZone);
         }
 
-        [CanBeNull]
-        public string GetFocusMode2Description()
+        public string? GetFocusMode2Description()
         {
             if (!Directory.TryGetInt32(CasioType2MakernoteDirectory.TagFocusMode2, out int value))
                 return null;
@@ -144,40 +137,34 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetQualityDescription()
+        public string? GetQualityDescription()
         {
             return GetIndexedDescription(CasioType2MakernoteDirectory.TagQuality, 3, "Fine");
         }
 
-        [CanBeNull]
-        public string GetSelfTimerDescription()
+        public string? GetSelfTimerDescription()
         {
             return GetIndexedDescription(CasioType2MakernoteDirectory.TagSelfTimer, 1, "Off");
         }
 
-        [CanBeNull]
-        public string GetRecordModeDescription()
+        public string? GetRecordModeDescription()
         {
             return GetIndexedDescription(CasioType2MakernoteDirectory.TagRecordMode, 2, "Normal");
         }
 
-        [CanBeNull]
-        public string GetFlashDistanceDescription()
+        public string? GetFlashDistanceDescription()
         {
             return GetIndexedDescription(CasioType2MakernoteDirectory.TagFlashDistance, "Off");
         }
 
-        [CanBeNull]
-        public string GetObjectDistanceDescription()
+        public string? GetObjectDistanceDescription()
         {
             if (!Directory.TryGetInt32(CasioType2MakernoteDirectory.TagObjectDistance, out int value))
                 return null;
             return value + " mm";
         }
 
-        [CanBeNull]
-        public string GetWhiteBalance2Description()
+        public string? GetWhiteBalance2Description()
         {
             if (!Directory.TryGetInt32(CasioType2MakernoteDirectory.TagWhiteBalance2, out int value))
                 return null;
@@ -198,14 +185,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetWhiteBalanceBiasDescription()
+        public string? GetWhiteBalanceBiasDescription()
         {
             return Directory.GetString(CasioType2MakernoteDirectory.TagWhiteBalanceBias);
         }
 
-        [CanBeNull]
-        public string GetCasioPreviewThumbnailDescription()
+        public string? GetCasioPreviewThumbnailDescription()
         {
             var bytes = Directory.GetByteArray(CasioType2MakernoteDirectory.TagPreviewThumbnail);
             if (bytes == null)
@@ -214,40 +199,34 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return "<" + bytes.Length + " bytes of image data>";
         }
 
-        [CanBeNull]
-        public string GetSharpnessDescription()
+        public string? GetSharpnessDescription()
         {
             return GetIndexedDescription(CasioType2MakernoteDirectory.TagSharpness, "-1", "Normal", "+1");
         }
 
-        [CanBeNull]
-        public string GetContrastDescription()
+        public string? GetContrastDescription()
         {
             return GetIndexedDescription(CasioType2MakernoteDirectory.TagContrast, "-1", "Normal", "+1");
         }
 
-        [CanBeNull]
-        public string GetSaturationDescription()
+        public string? GetSaturationDescription()
         {
             return GetIndexedDescription(CasioType2MakernoteDirectory.TagSaturation, "-1", "Normal", "+1");
         }
 
-        [CanBeNull]
-        public string GetFocalLengthDescription()
+        public string? GetFocalLengthDescription()
         {
             if (!Directory.TryGetDouble(CasioType2MakernoteDirectory.TagFocalLength, out double value))
                 return null;
             return GetFocalLengthDescription(value/10d);
         }
 
-        [CanBeNull]
-        public string GetWhiteBalance1Description()
+        public string? GetWhiteBalance1Description()
         {
             return GetIndexedDescription(CasioType2MakernoteDirectory.TagWhiteBalance1, "Auto", "Daylight", "Shade", "Tungsten", "Florescent", "Manual");
         }
 
-        [CanBeNull]
-        public string GetIsoSensitivityDescription()
+        public string? GetIsoSensitivityDescription()
         {
             if (!Directory.TryGetInt32(CasioType2MakernoteDirectory.TagIsoSensitivity, out int value))
                 return null;
@@ -267,14 +246,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetFocusMode1Description()
+        public string? GetFocusMode1Description()
         {
             return GetIndexedDescription(CasioType2MakernoteDirectory.TagFocusMode1, "Normal", "Macro");
         }
 
-        [CanBeNull]
-        public string GetImageSizeDescription()
+        public string? GetImageSizeDescription()
         {
             if (!Directory.TryGetInt32(CasioType2MakernoteDirectory.TagImageSize, out int value))
                 return null;
@@ -292,20 +269,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetQualityModeDescription()
+        public string? GetQualityModeDescription()
         {
             return GetIndexedDescription(CasioType2MakernoteDirectory.TagQualityMode, 1, "Fine", "Super Fine");
         }
 
-        [CanBeNull]
-        public string GetThumbnailOffsetDescription()
+        public string? GetThumbnailOffsetDescription()
         {
             return Directory.GetString(CasioType2MakernoteDirectory.TagThumbnailOffset);
         }
 
-        [CanBeNull]
-        public string GetThumbnailSizeDescription()
+        public string? GetThumbnailSizeDescription()
         {
             if (!Directory.TryGetInt32(CasioType2MakernoteDirectory.TagThumbnailSize, out int value))
                 return null;
@@ -313,8 +287,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return value + " bytes";
         }
 
-        [CanBeNull]
-        public string GetThumbnailDimensionsDescription()
+        public string? GetThumbnailDimensionsDescription()
         {
             var dimensions = Directory.GetInt32Array(CasioType2MakernoteDirectory.TagThumbnailDimensions);
             if (dimensions == null || dimensions.Length != 2)

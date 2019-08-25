@@ -27,7 +27,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Png
@@ -36,12 +35,12 @@ namespace MetadataExtractor.Formats.Png
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class PngDescriptor : TagDescriptor<PngDirectory>
     {
-        public PngDescriptor([NotNull] PngDirectory directory)
+        public PngDescriptor(PngDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -70,52 +69,44 @@ namespace MetadataExtractor.Formats.Png
             }
         }
 
-        [CanBeNull]
-        public string GetColorTypeDescription()
+        public string? GetColorTypeDescription()
         {
             if (!Directory.TryGetInt32(PngDirectory.TagColorType, out int value))
                 return null;
             return PngColorType.FromNumericValue(value).Description;
         }
 
-        [CanBeNull]
-        public string GetCompressionTypeDescription()
+        public string? GetCompressionTypeDescription()
         {
             return GetIndexedDescription(PngDirectory.TagCompressionType, "Deflate");
         }
 
-        [CanBeNull]
-        public string GetFilterMethodDescription()
+        public string? GetFilterMethodDescription()
         {
             return GetIndexedDescription(PngDirectory.TagFilterMethod, "Adaptive");
         }
 
-        [CanBeNull]
-        public string GetInterlaceMethodDescription()
+        public string? GetInterlaceMethodDescription()
         {
             return GetIndexedDescription(PngDirectory.TagInterlaceMethod, "No Interlace", "Adam7 Interlace");
         }
 
-        [CanBeNull]
-        public string GetPaletteHasTransparencyDescription()
+        public string? GetPaletteHasTransparencyDescription()
         {
             return GetIndexedDescription(PngDirectory.TagPaletteHasTransparency, null, "Yes");
         }
 
-        [CanBeNull]
-        public string GetIsSrgbColorSpaceDescription()
+        public string? GetIsSrgbColorSpaceDescription()
         {
             return GetIndexedDescription(PngDirectory.TagSrgbRenderingIntent, "Perceptual", "Relative Colorimetric", "Saturation", "Absolute Colorimetric");
         }
 
-        [CanBeNull]
-        public string GetUnitSpecifierDescription()
+        public string? GetUnitSpecifierDescription()
         {
             return GetIndexedDescription(PngDirectory.TagUnitSpecifier, "Unspecified", "Metres");
         }
 
-        [CanBeNull]
-        public string GetLastModificationTimeDescription()
+        public string? GetLastModificationTimeDescription()
         {
             if (!Directory.TryGetDateTime(PngDirectory.TagLastModificationTime, out DateTime value))
                 return null;
@@ -123,8 +114,7 @@ namespace MetadataExtractor.Formats.Png
             return value.ToString("yyyy:MM:dd HH:mm:ss");
         }
 
-        [CanBeNull]
-        public string GetTextualDataDescription()
+        public string? GetTextualDataDescription()
         {
             var pairs = Directory.GetObject(PngDirectory.TagTextualData) as IList<KeyValuePair>;
 
@@ -139,8 +129,7 @@ namespace MetadataExtractor.Formats.Png
                     );
         }
 
-        [CanBeNull]
-        public string GetBackgroundColorDescription()
+        public string? GetBackgroundColorDescription()
         {
             var bytes = Directory.GetByteArray(PngDirectory.TagBackgroundColor);
             if (bytes == null)

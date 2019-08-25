@@ -26,7 +26,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using JetBrains.Annotations;
 
 // ReSharper disable CommentTypo
 // ReSharper disable StringLiteralTypo
@@ -95,7 +94,7 @@ namespace MetadataExtractor.Util
         /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
         /// <exception cref="ArgumentException">Stream does not support seeking.</exception>
         /// <exception cref="IOException">An IO error occurred, or the input stream ended unexpectedly.</exception>
-        public static FileType DetectFileType([NotNull] Stream stream)
+        public static FileType DetectFileType(Stream stream)
         {
             if (!stream.CanSeek)
                 throw new ArgumentException("Must support seek", nameof(stream));
@@ -141,7 +140,7 @@ namespace MetadataExtractor.Util
 
     internal static class ByteArrayExtensions
     {
-        public static bool RegionEquals([NotNull] this byte[] bytes, int offset, int count, [NotNull] byte[] comparand)
+        public static bool RegionEquals(this byte[] bytes, int offset, int count, byte[] comparand)
         {
             if (offset < 0 ||                   // invalid arg
                 count < 0 ||                    // invalid arg

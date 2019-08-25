@@ -21,20 +21,18 @@
 //
 #endregion
 
-using JetBrains.Annotations;
-
 namespace MetadataExtractor.Formats.Gif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     public class GifControlDescriptor : TagDescriptor<GifControlDirectory>
     {
-        public GifControlDescriptor([NotNull] GifControlDirectory directory)
+        public GifControlDescriptor(GifControlDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -45,7 +43,7 @@ namespace MetadataExtractor.Formats.Gif
             }
         }
 
-        public string GetDisposalMethodDescription()
+        public string? GetDisposalMethodDescription()
         {
             if (!Directory.TryGetInt32(GifControlDirectory.TagDisposalMethod, out int value))
                 return null;
