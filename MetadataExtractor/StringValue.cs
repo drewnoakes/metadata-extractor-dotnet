@@ -87,7 +87,23 @@ namespace MetadataExtractor
 
         ushort IConvertible.ToUInt16(IFormatProvider provider) => ushort.Parse(ToString());
 
-        uint IConvertible.ToUInt32(IFormatProvider provider) => uint.Parse(ToString());
+        uint IConvertible.ToUInt32(IFormatProvider provider)
+        {
+            try
+            {
+                return uint.Parse(ToString());
+            }
+            catch(Exception)
+            {
+                long val = 0;
+                foreach (var b in Bytes)
+                {
+                    val = val << 8;
+                    val += b & 0xff;
+                }
+                return (uint)val;
+            }
+        }
 
         ulong IConvertible.ToUInt64(IFormatProvider provider) => ulong.Parse(ToString());
 
