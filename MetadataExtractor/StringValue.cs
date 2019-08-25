@@ -75,7 +75,7 @@ namespace MetadataExtractor
                 foreach(var b in Bytes)
                 {
                     val = val << 8;
-                    val += b & 0xff;
+                    val += b;
                 }
                 return (int)val;
             }
@@ -95,11 +95,11 @@ namespace MetadataExtractor
             }
             catch(Exception)
             {
-                long val = 0;
+                ulong val = 0;
                 foreach (var b in Bytes)
                 {
                     val = val << 8;
-                    val += b & 0xff;
+                    val += b;
                 }
                 return (uint)val;
             }
