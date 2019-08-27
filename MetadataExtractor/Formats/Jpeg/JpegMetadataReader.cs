@@ -61,7 +61,9 @@ namespace MetadataExtractor.Formats.Jpeg
             new PhotoshopReader(),
             new DuckyReader(),
             new IptcReader(),
-            new AdobeJpegReader()
+            new AdobeJpegReader(),
+            new JpegDhtReader(),
+            new JpegDnlReader()
         };
 
         /// <exception cref="JpegProcessingException"/>

@@ -46,14 +46,6 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <remarks>No length or parameter sequence follows this marker.</remarks>
         Tem = 0x01,
 
-        /// <summary>Start Of Image segment. Begins the compressed JPEG data stream.</summary>
-        /// <remarks>No length or parameter sequence follows this marker.</remarks>
-        Soi = 0xD8,
-
-        /// <summary>Define Quantization Table.</summary>
-        /// <remarks>Specifies one or more quantization tables.</remarks>
-        Dqt = 0xDB,
-
         /// <summary>Start-of-Frame, non-differential Huffman coding frame, baseline DCT.</summary>
         /// <remarks>
         /// Indicates that this is a baseline DCT-based JPEG, and specifies the width,
@@ -140,6 +132,10 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <remarks>No length or parameter sequence follows this marker.</remarks>
         Rst7 = 0xD7,
 
+        /// <summary>Start Of Image segment. Begins the compressed JPEG data stream.</summary>
+        /// <remarks>No length or parameter sequence follows this marker.</remarks>
+        Soi = 0xD8,
+
         /// <summary>End-of-Image. Terminates the JPEG compressed data stream that started at <see cref="Soi"/>.</summary>
         /// <remarks>No length or parameter sequence follows this marker.</remarks>
         Eoi = 0xD9,
@@ -153,6 +149,10 @@ namespace MetadataExtractor.Formats.Jpeg
         /// immediately followed by entropy-coded data.
         /// </remarks>
         Sos = 0xDA,
+
+        /// <summary>Define Quantization Table.</summary>
+        /// <remarks>Specifies one or more quantization tables.</remarks>
+        Dqt = 0xDB,
 
         /// <summary>Define Number of Lines.</summary>
         Dnl = 0xDC,
@@ -235,8 +235,13 @@ namespace MetadataExtractor.Formats.Jpeg
             switch (type)
             {
                 case JpegSegmentType.Soi:
-                case JpegSegmentType.Dqt:
+                case JpegSegmentType.Dac:
+                case JpegSegmentType.Dhp:
                 case JpegSegmentType.Dht:
+                case JpegSegmentType.Dnl:
+                case JpegSegmentType.Dqt:
+                case JpegSegmentType.Dri:
+                case JpegSegmentType.Exp:
                     return false;
                 default:
                     return true;

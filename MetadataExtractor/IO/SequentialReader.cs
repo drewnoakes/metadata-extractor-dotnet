@@ -90,6 +90,26 @@ namespace MetadataExtractor.IO
         /// <exception cref="System.IO.IOException">an error occurred reading from the underlying source.</exception>
         public abstract bool TrySkip(long n);
 
+        /// <summary>
+        /// Returns an estimate of the number of bytes that can be read (or skipped over)
+        /// from this SequentialReader without blocking by the next
+        /// invocation of a method for this input stream.A single read or skip of
+        /// this many bytes will not block, but may read or skip fewer bytes.
+        /// </summary>
+        /// <remarks>
+        /// Note that while some implementations of SequentialReader like
+        /// SequentialByteArrayReader will return the total remaining number
+        /// of bytes in the stream, others will not. It is never correct to use the
+        /// return value of this method to allocate a buffer intended to hold all
+        /// data in this stream.
+        /// </remarks>
+        /// <returns>
+        /// an estimate of the number of bytes that can be read (or skipped
+        /// over) from this SequentialReader without blocking or
+        /// 0 when it reaches the end of the input stream.
+        /// </returns>
+        public abstract int Available();
+
         /// <summary>Returns the next unsigned byte from the sequence.</summary>
         /// <returns>the 8 bit int value, between 0 and 255</returns>
         /// <exception cref="System.IO.IOException"/>
@@ -285,7 +305,7 @@ namespace MetadataExtractor.IO
         }
 
         /// <summary>
-        /// Creates a <see cref="String"/> from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.
+        /// Creates a <see cref="string"/> from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.
         /// </summary>
         /// <param name="maxLengthBytes">
         /// The maximum number of bytes to read.  If a <c>\0</c> byte is not reached within this limit,
