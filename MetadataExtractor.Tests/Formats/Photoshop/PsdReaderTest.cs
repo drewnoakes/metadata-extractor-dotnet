@@ -37,12 +37,10 @@ namespace MetadataExtractor.Tests.Formats.Photoshop
         [NotNull]
         private static PsdHeaderDirectory ProcessBytes([NotNull] string filePath)
         {
-            using (var stream = TestDataUtil.OpenRead(filePath))
-            {
-                var directory = new PsdReader().Extract(new SequentialStreamReader(stream)).OfType<PsdHeaderDirectory>().FirstOrDefault();
-                Assert.NotNull(directory);
-                return directory;
-            }
+            using var stream = TestDataUtil.OpenRead(filePath);
+            var directory = new PsdReader().Extract(new SequentialStreamReader(stream)).OfType<PsdHeaderDirectory>().FirstOrDefault();
+            Assert.NotNull(directory);
+            return directory;
         }
 
         [Fact]

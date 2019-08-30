@@ -199,11 +199,9 @@ namespace MetadataExtractor.Formats.Png
                     Exception? ex = null;
                     try
                     {
-                        using (var inflaterStream = new DeflateStream(new MemoryStream(compressedProfile), CompressionMode.Decompress))
-                        {
-                            iccDirectory = new IccReader().Extract(new IndexedCapturingReader(inflaterStream));
-                            iccDirectory.Parent = directory;
-                        }
+                        using var inflaterStream = new DeflateStream(new MemoryStream(compressedProfile), CompressionMode.Decompress);
+                        iccDirectory = new IccReader().Extract(new IndexedCapturingReader(inflaterStream));
+                        iccDirectory.Parent = directory;
                     }
                     catch (Exception e)
                     {
@@ -249,25 +247,23 @@ namespace MetadataExtractor.Formats.Png
                 byte[]? textBytes = null;
                 if (compressionMethod == 0)
                 {
-                    using (var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress))
+                    using var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress);
+                    Exception? ex = null;
+                    try
                     {
-                        Exception? ex = null;
-                        try
-                        {
-                            textBytes = ReadStreamToBytes(inflaterStream);
-                        }
-                        catch (Exception e)
-                        {
-                            ex = e;
-                        }
+                        textBytes = ReadStreamToBytes(inflaterStream);
+                    }
+                    catch (Exception e)
+                    {
+                        ex = e;
+                    }
 
-                        // Work-around no yield-return from catch blocks
-                        if (ex != null)
-                        {
-                            var directory = new PngDirectory(PngChunkType.zTXt);
-                            directory.AddError($"Exception decompressing {nameof(PngChunkType.zTXt)} chunk with keyword \"{keyword}\": {ex.Message}");
-                            yield return directory;
-                        }
+                    // Work-around no yield-return from catch blocks
+                    if (ex != null)
+                    {
+                        var directory = new PngDirectory(PngChunkType.zTXt);
+                        directory.AddError($"Exception decompressing {nameof(PngChunkType.zTXt)} chunk with keyword \"{keyword}\": {ex.Message}");
+                        yield return directory;
                     }
                 }
                 else
@@ -313,25 +309,23 @@ namespace MetadataExtractor.Formats.Png
                 {
                     if (compressionMethod == 0)
                     {
-                        using (var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress))
+                        using var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress);
+                        Exception? ex = null;
+                        try
                         {
-                            Exception? ex = null;
-                            try
-                            {
-                                textBytes = ReadStreamToBytes(inflaterStream);
-                            }
-                            catch (Exception e)
-                            {
-                                ex = e;
-                            }
+                            textBytes = ReadStreamToBytes(inflaterStream);
+                        }
+                        catch (Exception e)
+                        {
+                            ex = e;
+                        }
 
-                            // Work-around no yield-return from catch blocks
-                            if (ex != null)
-                            {
-                                var directory = new PngDirectory(PngChunkType.iTXt);
-                                directory.AddError($"Exception decompressing {nameof(PngChunkType.iTXt)} chunk with keyword \"{keyword}\": {ex.Message}");
-                                yield return directory;
-                            }
+                        // Work-around no yield-return from catch blocks
+                        if (ex != null)
+                        {
+                            var directory = new PngDirectory(PngChunkType.iTXt);
+                            directory.AddError($"Exception decompressing {nameof(PngChunkType.iTXt)} chunk with keyword \"{keyword}\": {ex.Message}");
+                            yield return directory;
                         }
                     }
                     else

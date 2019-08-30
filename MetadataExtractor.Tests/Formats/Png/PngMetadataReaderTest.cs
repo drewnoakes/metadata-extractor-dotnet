@@ -40,8 +40,8 @@ namespace MetadataExtractor.Tests.Formats.Png
         [NotNull]
         private static IEnumerable<Directory> ProcessFile([NotNull] string filePath)
         {
-            using (var stream = TestDataUtil.OpenRead(filePath))
-                return PngMetadataReader.ReadMetadata(stream);
+            using var stream = TestDataUtil.OpenRead(filePath);
+            return PngMetadataReader.ReadMetadata(stream);
         }
 
         [Fact, UseCulture("en-GB")]

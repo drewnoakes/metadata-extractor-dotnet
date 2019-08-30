@@ -38,8 +38,8 @@ namespace MetadataExtractor.Tests.Formats.Gif
         [NotNull]
         private static IEnumerable<Directory> ProcessBytes([NotNull] string file)
         {
-            using (var stream = TestDataUtil.OpenRead(file))
-                return new GifReader().Extract(new SequentialStreamReader(stream));
+            using var stream = TestDataUtil.OpenRead(file);
+            return new GifReader().Extract(new SequentialStreamReader(stream));
         }
 
         [Fact]

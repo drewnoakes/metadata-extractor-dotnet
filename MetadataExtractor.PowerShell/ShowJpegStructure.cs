@@ -92,8 +92,8 @@ namespace MetadataExtractor.PowerShell
 
             WriteVerbose($"Extracting metadata from file: {FilePath}");
 
-            using (var stream = File.OpenRead(FilePath))
-                WriteObject(ReadSegments(stream).ToList());
+            using var stream = File.OpenRead(FilePath);
+            WriteObject(ReadSegments(stream).ToList());
         }
 
         [NotNull]

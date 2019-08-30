@@ -64,95 +64,93 @@ namespace MetadataExtractor.Tools.FileProcessor
 
             try
             {
-                using (var writer = OpenWriter(filePath))
+                using var writer = OpenWriter(filePath);
+                try
                 {
-                    try
+                    // Write any errors
+                    if (directories.Any(d => d.HasError))
                     {
-                        // Write any errors
-                        if (directories.Any(d => d.HasError))
-                        {
-                            foreach (var directory in directories)
-                            {
-                                if (!directory.HasError)
-                                    continue;
-                                foreach (var error in directory.Errors)
-                                    writer.Write("[ERROR: {0}] {1}\n", directory.Name, error);
-                            }
-                            writer.Write(NEW_LINE);
-                        }
-
-                        // Write tag values for each directory
                         foreach (var directory in directories)
                         {
-                            var directoryName = directory.Name;
-                            foreach (var tag in directory.Tags)
-                            {
-                                var tagName = tag.Name;
-                                var description = tag.Description;
-
-                                if (directory is FileMetadataDirectory && tag.Type == FileMetadataDirectory.TagFileModifiedDate)
-                                    description = "<omitted for regression testing as checkout dependent>";
-
-                                writer.Write("[{0} - 0x{1:x4}] {2} = {3}{4}",
-                                    directoryName, tag.Type, tagName, description, NEW_LINE);
-                            }
-
-                            if (directory.TagCount != 0)
-                                writer.Write(NEW_LINE);
-
-                            // Special handling for XMP directory data
-                            var xmpDirectory = directory as XmpDirectory;
-                            if (xmpDirectory?.XmpMeta != null)
-                            {
-                                var wrote = false;
-
-                                XmpIterator iterator = new XmpIterator((XmpMeta)xmpDirectory.XmpMeta, null, null, new IteratorOptions() { IsJustLeafNodes = true });
-
-                                while (iterator.HasNext())
-                                {
-                                    var prop = (IXmpPropertyInfo)iterator.Next();
-                                    var path = prop.Path;
-
-                                    if (path == null)
-                                        continue;
-
-                                    var ns = prop.Namespace ?? "";
-                                    var value = prop.Value ?? "";
-
-                                    if (value.Length > 512)
-                                        value = value.Substring(0, 512) + $" <truncated from {value.Length} characters>";
-                                    writer.Write($"[XMPMeta - {ns}] {path} = {value}{NEW_LINE}");
-                                    wrote = true;
-                                }
-                                if (wrote)
-                                    writer.Write(NEW_LINE);
-                            }
+                            if (!directory.HasError)
+                                continue;
+                            foreach (var error in directory.Errors)
+                                writer.Write("[ERROR: {0}] {1}\n", directory.Name, error);
                         }
-
-                        // Write file structure
-                        var tree = directories.ToLookup(d => d.Parent);
-
-                        void WriteLevel(Directory parent, int level)
-                        {
-                            const int indent = 4;
-
-                            foreach (var child in tree[parent])
-                            {
-                                writer.Write(new string(' ', level*indent));
-                                writer.Write($"- {child.Name}\n");
-                                WriteLevel(child, level + 1);
-                            }
-                        }
-
-                        WriteLevel(null, 0);
-
                         writer.Write(NEW_LINE);
                     }
-                    finally
+
+                    // Write tag values for each directory
+                    foreach (var directory in directories)
                     {
-                        writer.Write("Generated using metadata-extractor\n");
-                        writer.Write("https://drewnoakes.com/code/exif/\n");
+                        var directoryName = directory.Name;
+                        foreach (var tag in directory.Tags)
+                        {
+                            var tagName = tag.Name;
+                            var description = tag.Description;
+
+                            if (directory is FileMetadataDirectory && tag.Type == FileMetadataDirectory.TagFileModifiedDate)
+                                description = "<omitted for regression testing as checkout dependent>";
+
+                            writer.Write("[{0} - 0x{1:x4}] {2} = {3}{4}",
+                                directoryName, tag.Type, tagName, description, NEW_LINE);
+                        }
+
+                        if (directory.TagCount != 0)
+                            writer.Write(NEW_LINE);
+
+                        // Special handling for XMP directory data
+                        var xmpDirectory = directory as XmpDirectory;
+                        if (xmpDirectory?.XmpMeta != null)
+                        {
+                            var wrote = false;
+
+                            XmpIterator iterator = new XmpIterator((XmpMeta)xmpDirectory.XmpMeta, null, null, new IteratorOptions() { IsJustLeafNodes = true });
+
+                            while (iterator.HasNext())
+                            {
+                                var prop = (IXmpPropertyInfo)iterator.Next();
+                                var path = prop.Path;
+
+                                if (path == null)
+                                    continue;
+
+                                var ns = prop.Namespace ?? "";
+                                var value = prop.Value ?? "";
+
+                                if (value.Length > 512)
+                                    value = value.Substring(0, 512) + $" <truncated from {value.Length} characters>";
+                                writer.Write($"[XMPMeta - {ns}] {path} = {value}{NEW_LINE}");
+                                wrote = true;
+                            }
+                            if (wrote)
+                                writer.Write(NEW_LINE);
+                        }
                     }
+
+                    // Write file structure
+                    var tree = directories.ToLookup(d => d.Parent);
+
+                    void WriteLevel(Directory parent, int level)
+                    {
+                        const int indent = 4;
+
+                        foreach (var child in tree[parent])
+                        {
+                            writer.Write(new string(' ', level * indent));
+                            writer.Write($"- {child.Name}\n");
+                            WriteLevel(child, level + 1);
+                        }
+                    }
+
+                    WriteLevel(null, 0);
+
+                    writer.Write(NEW_LINE);
+                }
+                finally
+                {
+                    writer.Write("Generated using metadata-extractor\n");
+                    writer.Write("https://drewnoakes.com/code/exif/\n");
                 }
             }
             catch (Exception e)
@@ -167,13 +165,11 @@ namespace MetadataExtractor.Tools.FileProcessor
 
             try
             {
-                using (var writer = OpenWriter(filePath))
-                {
-                    writer.Write("EXCEPTION: {0}\n", exception.Message);
-                    writer.Write('\n');
-                    writer.Write("Generated using metadata-extractor\n");
-                    writer.Write("https://drewnoakes.com/code/exif/\n");
-                }
+                using var writer = OpenWriter(filePath);
+                writer.Write("EXCEPTION: {0}\n", exception.Message);
+                writer.Write('\n');
+                writer.Write("Generated using metadata-extractor\n");
+                writer.Write("https://drewnoakes.com/code/exif/\n");
             }
             catch (Exception e)
             {

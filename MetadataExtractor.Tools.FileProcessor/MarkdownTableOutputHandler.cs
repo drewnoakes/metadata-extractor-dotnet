@@ -124,9 +124,9 @@ namespace MetadataExtractor.Tools.FileProcessor
         {
             base.OnScanCompleted(log);
 
-            using (var stream = File.OpenWrite("ContentSummary.md"))
-            using (var writer = new StreamWriter(stream))
-                WriteOutput(writer);
+            using var stream = File.OpenWrite("ContentSummary.md");
+            using var writer = new StreamWriter(stream);
+            WriteOutput(writer);
         }
 
         private void WriteOutput(TextWriter writer)

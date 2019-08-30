@@ -38,8 +38,8 @@ namespace MetadataExtractor.Tests.Formats.Png
         /// <exception cref="System.IO.IOException"/>
         private static IList<PngChunk> ProcessFile(string filePath)
         {
-            using (var stream = TestDataUtil.OpenRead(filePath))
-                return new PngChunkReader().Extract(new SequentialStreamReader(stream), null).ToList();
+            using var stream = TestDataUtil.OpenRead(filePath);
+            return new PngChunkReader().Extract(new SequentialStreamReader(stream), null).ToList();
         }
 
         [Fact]

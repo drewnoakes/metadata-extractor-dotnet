@@ -37,8 +37,8 @@ namespace MetadataExtractor.Tests.Formats.Bmp
         [NotNull]
         private static BmpHeaderDirectory ProcessBytes([NotNull] string filePath)
         {
-            using (var stream = TestDataUtil.OpenRead(filePath))
-                return new BmpReader().Extract(new SequentialStreamReader(stream)).OfType<BmpHeaderDirectory>().First();
+            using var stream = TestDataUtil.OpenRead(filePath);
+            return new BmpReader().Extract(new SequentialStreamReader(stream)).OfType<BmpHeaderDirectory>().First();
         }
 
         [Fact]

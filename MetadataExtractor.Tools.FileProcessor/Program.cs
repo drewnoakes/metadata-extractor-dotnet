@@ -289,22 +289,20 @@ namespace MetadataExtractor.Tools.FileProcessor
                     handler.OnBeforeExtraction(file, relativePath, log);
 
                     // Read metadata
-                    using (var stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
+                    using var stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read);
+                    try
                     {
-                        try
-                        {
-                            var directories = ImageMetadataReader.ReadMetadata(stream).ToList();
+                        var directories = ImageMetadataReader.ReadMetadata(stream).ToList();
 
-                            // ImageMetadataReader.ReadMetadata(Stream) doesn't add a FileMetadataReader directory.
-                            // Add it manually
-                            directories.Add(new FileMetadataReader().Read(file));
+                        // ImageMetadataReader.ReadMetadata(Stream) doesn't add a FileMetadataReader directory.
+                        // Add it manually
+                        directories.Add(new FileMetadataReader().Read(file));
 
-                            handler.OnExtractionSuccess(file, directories, relativePath, log, stream.Position);
-                        }
-                        catch (Exception e)
-                        {
-                            handler.OnExtractionError(file, e, log, stream.Position);
-                        }
+                        handler.OnExtractionSuccess(file, directories, relativePath, log, stream.Position);
+                    }
+                    catch (Exception e)
+                    {
+                        handler.OnExtractionError(file, e, log, stream.Position);
                     }
                 }
             }
