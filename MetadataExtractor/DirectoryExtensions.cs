@@ -70,7 +70,7 @@ namespace MetadataExtractor
                 }
             }
 
-            value = default(byte);
+            value = default;
             return false;
         }
 
@@ -111,7 +111,7 @@ namespace MetadataExtractor
                 }
             }
 
-            value = default(short);
+            value = default;
             return false;
         }
 
@@ -152,7 +152,7 @@ namespace MetadataExtractor
                 }
             }
 
-            value = default(ushort);
+            value = default;
             return false;
         }
 
@@ -193,7 +193,7 @@ namespace MetadataExtractor
                 }
             }
 
-            value = default(int);
+            value = default;
             return false;
         }
 
@@ -232,7 +232,7 @@ namespace MetadataExtractor
                 }
             }
 
-            value = default(uint);
+            value = default;
             return false;
         }
 
@@ -274,7 +274,7 @@ namespace MetadataExtractor
                 }
             }
 
-            value = default(long);
+            value = default;
             return false;
         }
 
@@ -315,7 +315,7 @@ namespace MetadataExtractor
                 }
             }
 
-            value = default(float);
+            value = default;
             return false;
         }
 
@@ -356,7 +356,7 @@ namespace MetadataExtractor
                 }
             }
 
-            value = default(double);
+            value = default;
             return false;
         }
 
@@ -397,7 +397,7 @@ namespace MetadataExtractor
                 }
             }
 
-            value = default(bool);
+            value = default;
             return false;
         }
 
@@ -649,7 +649,7 @@ namespace MetadataExtractor
 
             if (o == null)
             {
-                dateTime = default(DateTime);
+                dateTime = default;
                 return false;
             }
 
@@ -669,7 +669,7 @@ namespace MetadataExtractor
                 if (DateTime.TryParseExact(s, _datePatterns, null, DateTimeStyles.AllowWhiteSpaces, out dateTime))
                     return true;
 
-                dateTime = default(DateTime);
+                dateTime = default;
                 return false;
             }
 
@@ -684,7 +684,7 @@ namespace MetadataExtractor
                 { }
             }
 
-            dateTime = default(DateTime);
+            dateTime = default;
             return false;
         }
 
@@ -710,7 +710,7 @@ namespace MetadataExtractor
 
             if (o == null)
             {
-                value = default(Rational);
+                value = default;
                 return false;
             }
 
@@ -734,7 +734,7 @@ namespace MetadataExtractor
 
             // NOTE not doing conversions for real number types
 
-            value = default(Rational);
+            value = default;
             return false;
         }
 
@@ -952,7 +952,7 @@ namespace MetadataExtractor
             if (o is StringValue value)
                 return value;
 
-            return default(StringValue);
+            return default;
         }
 
         [Pure]
