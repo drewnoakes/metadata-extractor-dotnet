@@ -74,7 +74,7 @@ namespace MetadataExtractor.Formats.QuickTime
                 }
             }
 
-            void SetRotation(QuickTimeTrackHeaderDirectory directory)
+            static void SetRotation(QuickTimeTrackHeaderDirectory directory)
             {
                 var width = directory.GetInt32(QuickTimeTrackHeaderDirectory.TagWidth);
                 var height = directory.GetInt32(QuickTimeTrackHeaderDirectory.TagHeight);

@@ -101,7 +101,7 @@ namespace MetadataExtractor.Samples
             }
 
             // Write all extracted values to stdout
-            void Print(IEnumerable<Directory> directories, string method)
+            static void Print(IEnumerable<Directory> directories, string method)
             {
                 Console.WriteLine();
                 Console.WriteLine("-------------------------------------------------");
@@ -122,7 +122,7 @@ namespace MetadataExtractor.Samples
                 }
             }
 
-            DateTime? GetTakenDateTime(IEnumerable<Directory> directories)
+            static DateTime? GetTakenDateTime(IEnumerable<Directory> directories)
             {
                 // obtain the Exif SubIFD directory
                 var directory = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
@@ -137,7 +137,7 @@ namespace MetadataExtractor.Samples
                 return null;
             }
 
-            string GetExposureProgramDescription(IEnumerable<Directory> directories)
+            static string GetExposureProgramDescription(IEnumerable<Directory> directories)
             {
                 // obtain a specific directory
                 var directory = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
@@ -152,7 +152,7 @@ namespace MetadataExtractor.Samples
                 return descriptor.GetExposureProgramDescription();
             }
 
-            void PrintError(Exception exception) => Console.Error.WriteLine($"EXCEPTION: {exception}");
+            static void PrintError(Exception exception) => Console.Error.WriteLine($"EXCEPTION: {exception}");
         }
     }
 }

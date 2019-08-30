@@ -283,7 +283,7 @@ namespace MetadataExtractor
         /// </returns>
         public Rational GetSimplifiedInstance()
         {
-            long GCD(long a, long b)
+            static long GCD(long a, long b)
             {
                 if (a < 0)
                     a = -a;

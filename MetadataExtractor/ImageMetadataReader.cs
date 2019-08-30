@@ -135,7 +135,7 @@ namespace MetadataExtractor
                     throw new ImageProcessingException("File format is not supported");
             }
 
-            DirectoryList Append(IEnumerable<Directory> list, Directory directory) 
+            static DirectoryList Append(IEnumerable<Directory> list, Directory directory) 
                 => new List<Directory>(list) { directory };
         }
 
