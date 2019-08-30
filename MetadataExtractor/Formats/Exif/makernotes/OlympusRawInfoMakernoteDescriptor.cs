@@ -58,8 +58,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetColorMatrix2Description()
         {
-            var values = Directory.GetObject(OlympusRawInfoMakernoteDirectory.TagColorMatrix2) as short[];
-            if (values == null)
+            if (!(Directory.GetObject(OlympusRawInfoMakernoteDirectory.TagColorMatrix2) is short[] values))
                 return null;
 
             return string.Join(" ", values.Select(b => b.ToString()).ToArray());
@@ -67,8 +66,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetYCbCrCoefficientsDescription()
         {
-            var values = Directory.GetObject(OlympusRawInfoMakernoteDirectory.TagYCbCrCoefficients) as ushort[];
-            if (values == null)
+            if (!(Directory.GetObject(OlympusRawInfoMakernoteDirectory.TagYCbCrCoefficients) is ushort[] values))
                 return null;
 
             var ret = new Rational[values.Length / 2];

@@ -502,8 +502,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetColorMatrixDescription()
         {
-            var values = Directory.GetObject(OlympusMakernoteDirectory.TagColourMatrix) as short[];
-            if (values == null)
+            if (!(Directory.GetObject(OlympusMakernoteDirectory.TagColourMatrix) is short[] values))
                 return null;
 
             return string.Join(" ", values.Select(b => b.ToString()).ToArray());
@@ -511,8 +510,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetWbModeDescription()
         {
-            var values = Directory.GetObject(OlympusMakernoteDirectory.TagWbMode) as short[];
-            if (values == null)
+            if (!(Directory.GetObject(OlympusMakernoteDirectory.TagWbMode) is short[] values))
                 return null;
 
             switch ($"{values[0]} {values[1]}".Trim())
@@ -547,8 +545,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetRedBalanceDescription()
         {
-            var values = Directory.GetObject(OlympusMakernoteDirectory.TagRedBalance) as ushort[];
-            if (values == null || values.Length < 2)
+            if (!(Directory.GetObject(OlympusMakernoteDirectory.TagRedBalance) is ushort[] values) || values.Length < 2)
                 return null;
 
             return (values[0] / 256.0d).ToString();
@@ -556,8 +553,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetBlueBalanceDescription()
         {
-            var values = Directory.GetObject(OlympusMakernoteDirectory.TagBlueBalance) as ushort[];
-            if (values == null || values.Length < 2)
+            if (!(Directory.GetObject(OlympusMakernoteDirectory.TagBlueBalance) is ushort[] values) || values.Length < 2)
                 return null;
 
             return (values[0] / 256.0d).ToString();
@@ -710,8 +706,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetSpecialModeDescription()
         {
-            var values = Directory.GetObject(OlympusMakernoteDirectory.TagSpecialMode) as uint[];
-            if (values == null)
+            if (!(Directory.GetObject(OlympusMakernoteDirectory.TagSpecialMode) is uint[] values))
                 return null;
             if (values.Length < 1)
                 return string.Empty;

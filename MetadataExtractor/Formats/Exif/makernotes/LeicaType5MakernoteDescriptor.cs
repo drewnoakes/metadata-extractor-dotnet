@@ -56,8 +56,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         /// <returns></returns>
         public string? GetExposureModeDescription()
         {
-            var values = Directory.GetObject(LeicaType5MakernoteDirectory.TagExposureMode) as byte[];
-            if (values == null || values.Length < 4)
+            if (!(Directory.GetObject(LeicaType5MakernoteDirectory.TagExposureMode) is byte[] values) || values.Length < 4)
                 return null;
 
             var join = $"{values[0]} {values[1]} {values[2]} {values[3]}";
