@@ -185,7 +185,7 @@ namespace MetadataExtractor.Formats.Png
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj))
+            if (obj is null)
                 return false;
             if (ReferenceEquals(this, obj))
                 return true;
