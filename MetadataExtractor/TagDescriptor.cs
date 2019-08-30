@@ -208,15 +208,13 @@ namespace MetadataExtractor
                 if (labelObj != null)
                 {
                     var isBitSet = (value & 1) == 1;
-                    if (labelObj is string[] obj)
+                    if (labelObj is string[] labelPair && labelPair.Length == 2)
                     {
-                        var labelPair = obj;
-                        Debug.Assert(labelPair.Length == 2);
                         parts.Add(labelPair[isBitSet ? 1 : 0]);
                     }
-                    else if (isBitSet && labelObj is string)
+                    else if (isBitSet && labelObj is string label)
                     {
-                        parts.Add((string)labelObj);
+                        parts.Add(label);
                     }
                 }
                 value >>= 1;
