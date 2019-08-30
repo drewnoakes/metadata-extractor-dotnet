@@ -47,37 +47,23 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case OlympusEquipmentMakernoteDirectory.TagEquipmentVersion:
-                    return GetEquipmentVersionDescription();
-                case OlympusEquipmentMakernoteDirectory.TagCameraType2:
-                    return GetCameraType2Description();
-                case OlympusEquipmentMakernoteDirectory.TagFocalPlaneDiagonal:
-                    return GetFocalPlaneDiagonalDescription();
-                case OlympusEquipmentMakernoteDirectory.TagBodyFirmwareVersion:
-                    return GetBodyFirmwareVersionDescription();
-                case OlympusEquipmentMakernoteDirectory.TagLensType:
-                    return GetLensTypeDescription();
-                case OlympusEquipmentMakernoteDirectory.TagLensFirmwareVersion:
-                    return GetLensFirmwareVersionDescription();
-                case OlympusEquipmentMakernoteDirectory.TagMaxApertureAtMinFocal:
-                    return GetMaxApertureAtMinFocalDescription();
-                case OlympusEquipmentMakernoteDirectory.TagMaxApertureAtMaxFocal:
-                    return GetMaxApertureAtMaxFocalDescription();
-                case OlympusEquipmentMakernoteDirectory.TagMaxAperture:
-                    return GetMaxApertureDescription();
-                case OlympusEquipmentMakernoteDirectory.TagLensProperties:
-                    return GetLensPropertiesDescription();
-                case OlympusEquipmentMakernoteDirectory.TagExtender:
-                    return GetExtenderDescription();
-                case OlympusEquipmentMakernoteDirectory.TagFlashType:
-                    return GetFlashTypeDescription();
-                case OlympusEquipmentMakernoteDirectory.TagFlashModel:
-                    return GetFlashModelDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                OlympusEquipmentMakernoteDirectory.TagEquipmentVersion => GetEquipmentVersionDescription(),
+                OlympusEquipmentMakernoteDirectory.TagCameraType2 => GetCameraType2Description(),
+                OlympusEquipmentMakernoteDirectory.TagFocalPlaneDiagonal => GetFocalPlaneDiagonalDescription(),
+                OlympusEquipmentMakernoteDirectory.TagBodyFirmwareVersion => GetBodyFirmwareVersionDescription(),
+                OlympusEquipmentMakernoteDirectory.TagLensType => GetLensTypeDescription(),
+                OlympusEquipmentMakernoteDirectory.TagLensFirmwareVersion => GetLensFirmwareVersionDescription(),
+                OlympusEquipmentMakernoteDirectory.TagMaxApertureAtMinFocal => GetMaxApertureAtMinFocalDescription(),
+                OlympusEquipmentMakernoteDirectory.TagMaxApertureAtMaxFocal => GetMaxApertureAtMaxFocalDescription(),
+                OlympusEquipmentMakernoteDirectory.TagMaxAperture => GetMaxApertureDescription(),
+                OlympusEquipmentMakernoteDirectory.TagLensProperties => GetLensPropertiesDescription(),
+                OlympusEquipmentMakernoteDirectory.TagExtender => GetExtenderDescription(),
+                OlympusEquipmentMakernoteDirectory.TagFlashType => GetFlashTypeDescription(),
+                OlympusEquipmentMakernoteDirectory.TagFlashModel => GetFlashModelDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetEquipmentVersionDescription()

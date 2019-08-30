@@ -40,47 +40,28 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case SanyoMakernoteDirectory.TagSanyoQuality:
-                    return GetSanyoQualityDescription();
-                case SanyoMakernoteDirectory.TagMacro:
-                    return GetMacroDescription();
-                case SanyoMakernoteDirectory.TagDigitalZoom:
-                    return GetDigitalZoomDescription();
-                case SanyoMakernoteDirectory.TagSequentialShot:
-                    return GetSequentialShotDescription();
-                case SanyoMakernoteDirectory.TagWideRange:
-                    return GetWideRangeDescription();
-                case SanyoMakernoteDirectory.TagColorAdjustmentMode:
-                    return GetColorAdjustmentModeDescription();
-                case SanyoMakernoteDirectory.TagQuickShot:
-                    return GetQuickShotDescription();
-                case SanyoMakernoteDirectory.TagSelfTimer:
-                    return GetSelfTimerDescription();
-                case SanyoMakernoteDirectory.TagVoiceMemo:
-                    return GetVoiceMemoDescription();
-                case SanyoMakernoteDirectory.TagRecordShutterRelease:
-                    return GetRecordShutterDescription();
-                case SanyoMakernoteDirectory.TagFlickerReduce:
-                    return GetFlickerReduceDescription();
-                case SanyoMakernoteDirectory.TagOpticalZoomOn:
-                    return GetOptimalZoomOnDescription();
-                case SanyoMakernoteDirectory.TagDigitalZoomOn:
-                    return GetDigitalZoomOnDescription();
-                case SanyoMakernoteDirectory.TagLightSourceSpecial:
-                    return GetLightSourceSpecialDescription();
-                case SanyoMakernoteDirectory.TagResaved:
-                    return GetResavedDescription();
-                case SanyoMakernoteDirectory.TagSceneSelect:
-                    return GetSceneSelectDescription();
-                case SanyoMakernoteDirectory.TagSequenceShotInterval:
-                    return GetSequenceShotIntervalDescription();
-                case SanyoMakernoteDirectory.TagFlashMode:
-                    return GetFlashModeDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                SanyoMakernoteDirectory.TagSanyoQuality => GetSanyoQualityDescription(),
+                SanyoMakernoteDirectory.TagMacro => GetMacroDescription(),
+                SanyoMakernoteDirectory.TagDigitalZoom => GetDigitalZoomDescription(),
+                SanyoMakernoteDirectory.TagSequentialShot => GetSequentialShotDescription(),
+                SanyoMakernoteDirectory.TagWideRange => GetWideRangeDescription(),
+                SanyoMakernoteDirectory.TagColorAdjustmentMode => GetColorAdjustmentModeDescription(),
+                SanyoMakernoteDirectory.TagQuickShot => GetQuickShotDescription(),
+                SanyoMakernoteDirectory.TagSelfTimer => GetSelfTimerDescription(),
+                SanyoMakernoteDirectory.TagVoiceMemo => GetVoiceMemoDescription(),
+                SanyoMakernoteDirectory.TagRecordShutterRelease => GetRecordShutterDescription(),
+                SanyoMakernoteDirectory.TagFlickerReduce => GetFlickerReduceDescription(),
+                SanyoMakernoteDirectory.TagOpticalZoomOn => GetOptimalZoomOnDescription(),
+                SanyoMakernoteDirectory.TagDigitalZoomOn => GetDigitalZoomOnDescription(),
+                SanyoMakernoteDirectory.TagLightSourceSpecial => GetLightSourceSpecialDescription(),
+                SanyoMakernoteDirectory.TagResaved => GetResavedDescription(),
+                SanyoMakernoteDirectory.TagSceneSelect => GetSceneSelectDescription(),
+                SanyoMakernoteDirectory.TagSequenceShotInterval => GetSequenceShotIntervalDescription(),
+                SanyoMakernoteDirectory.TagFlashMode => GetFlashModeDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetSanyoQualityDescription()
@@ -88,59 +69,34 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(SanyoMakernoteDirectory.TagSanyoQuality, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0x0:
-                    return "Normal/Very Low";
-                case 0x1:
-                    return "Normal/Low";
-                case 0x2:
-                    return "Normal/Medium Low";
-                case 0x3:
-                    return "Normal/Medium";
-                case 0x4:
-                    return "Normal/Medium High";
-                case 0x5:
-                    return "Normal/High";
-                case 0x6:
-                    return "Normal/Very High";
-                case 0x7:
-                    return "Normal/Super High";
-                case 0x100:
-                    return "Fine/Very Low";
-                case 0x101:
-                    return "Fine/Low";
-                case 0x102:
-                    return "Fine/Medium Low";
-                case 0x103:
-                    return "Fine/Medium";
-                case 0x104:
-                    return "Fine/Medium High";
-                case 0x105:
-                    return "Fine/High";
-                case 0x106:
-                    return "Fine/Very High";
-                case 0x107:
-                    return "Fine/Super High";
-                case 0x200:
-                    return "Super Fine/Very Low";
-                case 0x201:
-                    return "Super Fine/Low";
-                case 0x202:
-                    return "Super Fine/Medium Low";
-                case 0x203:
-                    return "Super Fine/Medium";
-                case 0x204:
-                    return "Super Fine/Medium High";
-                case 0x205:
-                    return "Super Fine/High";
-                case 0x206:
-                    return "Super Fine/Very High";
-                case 0x207:
-                    return "Super Fine/Super High";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0x0 => "Normal/Very Low",
+                0x1 => "Normal/Low",
+                0x2 => "Normal/Medium Low",
+                0x3 => "Normal/Medium",
+                0x4 => "Normal/Medium High",
+                0x5 => "Normal/High",
+                0x6 => "Normal/Very High",
+                0x7 => "Normal/Super High",
+                0x100 => "Fine/Very Low",
+                0x101 => "Fine/Low",
+                0x102 => "Fine/Medium Low",
+                0x103 => "Fine/Medium",
+                0x104 => "Fine/Medium High",
+                0x105 => "Fine/High",
+                0x106 => "Fine/Very High",
+                0x107 => "Fine/Super High",
+                0x200 => "Super Fine/Very Low",
+                0x201 => "Super Fine/Low",
+                0x202 => "Super Fine/Medium Low",
+                0x203 => "Super Fine/Medium",
+                0x204 => "Super Fine/Medium High",
+                0x205 => "Super Fine/High",
+                0x206 => "Super Fine/Very High",
+                0x207 => "Super Fine/Super High",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         private string? GetMacroDescription()

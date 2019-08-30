@@ -45,19 +45,14 @@ namespace MetadataExtractor.Formats.Jfif
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case JfifDirectory.TagResX:
-                    return GetImageResXDescription();
-                case JfifDirectory.TagResY:
-                    return GetImageResYDescription();
-                case JfifDirectory.TagVersion:
-                    return GetImageVersionDescription();
-                case JfifDirectory.TagUnits:
-                    return GetImageResUnitsDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                JfifDirectory.TagResX => GetImageResXDescription(),
+                JfifDirectory.TagResY => GetImageResYDescription(),
+                JfifDirectory.TagVersion => GetImageVersionDescription(),
+                JfifDirectory.TagUnits => GetImageResUnitsDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetImageVersionDescription()
@@ -85,17 +80,13 @@ namespace MetadataExtractor.Formats.Jfif
         {
             if (!Directory.TryGetInt32(JfifDirectory.TagUnits, out int value))
                 return null;
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "none";
-                case 1:
-                    return "inch";
-                case 2:
-                    return "centimetre";
-                default:
-                    return "unit";
-            }
+                0 => "none",
+                1 => "inch",
+                2 => "centimetre",
+                _ => "unit",
+            };
         }
     }
 }

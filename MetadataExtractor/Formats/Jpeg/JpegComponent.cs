@@ -57,21 +57,15 @@ namespace MetadataExtractor.Formats.Jpeg
         {
             get
             {
-                switch (Id)
+                return Id switch
                 {
-                    case 1:
-                        return "Y";
-                    case 2:
-                        return "Cb";
-                    case 3:
-                        return "Cr";
-                    case 4:
-                        return "I";
-                    case 5:
-                        return "Q";
-                    default:
-                        return $"Unknown ({Id})";
-                }
+                    1 => "Y",
+                    2 => "Cb",
+                    3 => "Cr",
+                    4 => "I",
+                    5 => "Q",
+                    _ => $"Unknown ({Id})",
+                };
             }
         }
 

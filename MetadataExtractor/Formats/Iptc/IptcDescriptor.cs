@@ -44,37 +44,23 @@ namespace MetadataExtractor.Formats.Iptc
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case TagDateCreated:
-                    return GetDateCreatedDescription();
-                case TagDigitalDateCreated:
-                    return GetDigitalDateCreatedDescription();
-                case TagDateSent:
-                    return GetDateSentDescription();
-                case TagExpirationDate:
-                    return GetExpirationDateDescription();
-                case TagExpirationTime:
-                    return GetExpirationTimeDescription();
-                case TagFileFormat:
-                    return GetFileFormatDescription();
-                case TagKeywords:
-                    return GetKeywordsDescription();
-                case TagReferenceDate:
-                    return GetReferenceDateDescription();
-                case TagReleaseDate:
-                    return GetReleaseDateDescription();
-                case TagReleaseTime:
-                    return GetReleaseTimeDescription();
-                case TagTimeCreated:
-                    return GetTimeCreatedDescription();
-                case TagDigitalTimeCreated:
-                    return GetDigitalTimeCreatedDescription();
-                case TagTimeSent:
-                    return GetTimeSentDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                TagDateCreated => GetDateCreatedDescription(),
+                TagDigitalDateCreated => GetDigitalDateCreatedDescription(),
+                TagDateSent => GetDateSentDescription(),
+                TagExpirationDate => GetExpirationDateDescription(),
+                TagExpirationTime => GetExpirationTimeDescription(),
+                TagFileFormat => GetFileFormatDescription(),
+                TagKeywords => GetKeywordsDescription(),
+                TagReferenceDate => GetReferenceDateDescription(),
+                TagReleaseDate => GetReleaseDateDescription(),
+                TagReleaseTime => GetReleaseTimeDescription(),
+                TagTimeCreated => GetTimeCreatedDescription(),
+                TagDigitalTimeCreated => GetDigitalTimeCreatedDescription(),
+                TagTimeSent => GetTimeSentDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         private string? GetDateDescription(int tagType)

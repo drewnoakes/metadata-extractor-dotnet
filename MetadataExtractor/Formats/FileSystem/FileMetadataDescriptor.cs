@@ -37,13 +37,11 @@ namespace MetadataExtractor.Formats.FileSystem
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case FileMetadataDirectory.TagFileSize:
-                    return GetFileSizeDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                FileMetadataDirectory.TagFileSize => GetFileSizeDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         private string? GetFileSizeDescription()

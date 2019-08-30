@@ -43,33 +43,21 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case PentaxMakernoteDirectory.TagCaptureMode:
-                    return GetCaptureModeDescription();
-                case PentaxMakernoteDirectory.TagQualityLevel:
-                    return GetQualityLevelDescription();
-                case PentaxMakernoteDirectory.TagFocusMode:
-                    return GetFocusModeDescription();
-                case PentaxMakernoteDirectory.TagFlashMode:
-                    return GetFlashModeDescription();
-                case PentaxMakernoteDirectory.TagWhiteBalance:
-                    return GetWhiteBalanceDescription();
-                case PentaxMakernoteDirectory.TagDigitalZoom:
-                    return GetDigitalZoomDescription();
-                case PentaxMakernoteDirectory.TagSharpness:
-                    return GetSharpnessDescription();
-                case PentaxMakernoteDirectory.TagContrast:
-                    return GetContrastDescription();
-                case PentaxMakernoteDirectory.TagSaturation:
-                    return GetSaturationDescription();
-                case PentaxMakernoteDirectory.TagIsoSpeed:
-                    return GetIsoSpeedDescription();
-                case PentaxMakernoteDirectory.TagColour:
-                    return GetColourDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                PentaxMakernoteDirectory.TagCaptureMode => GetCaptureModeDescription(),
+                PentaxMakernoteDirectory.TagQualityLevel => GetQualityLevelDescription(),
+                PentaxMakernoteDirectory.TagFocusMode => GetFocusModeDescription(),
+                PentaxMakernoteDirectory.TagFlashMode => GetFlashModeDescription(),
+                PentaxMakernoteDirectory.TagWhiteBalance => GetWhiteBalanceDescription(),
+                PentaxMakernoteDirectory.TagDigitalZoom => GetDigitalZoomDescription(),
+                PentaxMakernoteDirectory.TagSharpness => GetSharpnessDescription(),
+                PentaxMakernoteDirectory.TagContrast => GetContrastDescription(),
+                PentaxMakernoteDirectory.TagSaturation => GetSaturationDescription(),
+                PentaxMakernoteDirectory.TagIsoSpeed => GetIsoSpeedDescription(),
+                PentaxMakernoteDirectory.TagColour => GetColourDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetColourDescription()
@@ -84,20 +72,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(PentaxMakernoteDirectory.TagIsoSpeed, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 10:
-                    // TODO there must be other values which aren't catered for here
-                    return "ISO 100";
-                case 16:
-                    return "ISO 200";
-                case 100:
-                    return "ISO 100";
-                case 200:
-                    return "ISO 200";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                10 => "ISO 100",
+                16 => "ISO 200",
+                100 => "ISO 100",
+                200 => "ISO 200",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetSaturationDescription()

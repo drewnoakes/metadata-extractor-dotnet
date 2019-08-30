@@ -41,15 +41,12 @@ namespace MetadataExtractor.Formats.Exif
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case PanasonicRawIfd0Directory.TagPanasonicRawVersion:
-                    return GetVersionBytesDescription(PanasonicRawIfd0Directory.TagPanasonicRawVersion, 2);
-                case PanasonicRawIfd0Directory.TagOrientation:
-                    return GetOrientationDescription(PanasonicRawIfd0Directory.TagOrientation);
-                default:
-                    return base.GetDescription(tagType);
-            }
+                PanasonicRawIfd0Directory.TagPanasonicRawVersion => GetVersionBytesDescription(PanasonicRawIfd0Directory.TagPanasonicRawVersion, 2),
+                PanasonicRawIfd0Directory.TagOrientation => GetOrientationDescription(PanasonicRawIfd0Directory.TagOrientation),
+                _ => base.GetDescription(tagType),
+            };
         }
     }
 }

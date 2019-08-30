@@ -42,27 +42,18 @@ namespace MetadataExtractor.Formats.Jpeg
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case JpegDirectory.TagCompressionType:
-                    return GetImageCompressionTypeDescription();
-                case JpegDirectory.TagComponentData1:
-                    return GetComponentDataDescription(0);
-                case JpegDirectory.TagComponentData2:
-                    return GetComponentDataDescription(1);
-                case JpegDirectory.TagComponentData3:
-                    return GetComponentDataDescription(2);
-                case JpegDirectory.TagComponentData4:
-                    return GetComponentDataDescription(3);
-                case JpegDirectory.TagDataPrecision:
-                    return GetDataPrecisionDescription();
-                case JpegDirectory.TagImageHeight:
-                    return GetImageHeightDescription();
-                case JpegDirectory.TagImageWidth:
-                    return GetImageWidthDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                JpegDirectory.TagCompressionType => GetImageCompressionTypeDescription(),
+                JpegDirectory.TagComponentData1 => GetComponentDataDescription(0),
+                JpegDirectory.TagComponentData2 => GetComponentDataDescription(1),
+                JpegDirectory.TagComponentData3 => GetComponentDataDescription(2),
+                JpegDirectory.TagComponentData4 => GetComponentDataDescription(3),
+                JpegDirectory.TagDataPrecision => GetDataPrecisionDescription(),
+                JpegDirectory.TagImageHeight => GetImageHeightDescription(),
+                JpegDirectory.TagImageWidth => GetImageWidthDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetImageCompressionTypeDescription()

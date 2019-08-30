@@ -156,17 +156,14 @@ namespace MetadataExtractor.Formats.Exif
             if (value == null)
                 return null;
 
-            switch (value.Trim().ToUpper())
+            return (value.Trim().ToUpper()) switch
             {
-                case "K":
-                    return "kilometers";
-                case "M":
-                    return "miles";
-                case "N":
-                    return "knots";
-            }
+                "K" => "kilometers",
+                "M" => "miles",
+                "N" => "knots",
 
-            return "Unknown (" + value.Trim() + ")";
+                _ => "Unknown (" + value.Trim() + ")",
+            };
         }
 
         public string? GetGpsDestDistanceDescription()
@@ -192,15 +189,13 @@ namespace MetadataExtractor.Formats.Exif
             if (value == null)
                 return null;
 
-            switch (value.Trim().ToUpper())
+            return (value.Trim().ToUpper()) switch
             {
-                case "T":
-                    return "True direction";
-                case "M":
-                    return "Magnetic direction";
-            }
+                "T" => "True direction",
+                "M" => "Magnetic direction",
 
-            return "Unknown (" + value.Trim() + ")";
+                _ => "Unknown (" + value.Trim() + ")",
+            };
         }
 
         public string? GetGpsDopDescription()
@@ -216,17 +211,14 @@ namespace MetadataExtractor.Formats.Exif
             if (value == null)
                 return null;
 
-            switch (value.Trim().ToUpper())
+            return (value.Trim().ToUpper()) switch
             {
-                case "K":
-                    return "km/h";
-                case "M":
-                    return "mph";
-                case "N":
-                    return "knots";
-            }
+                "K" => "km/h",
+                "M" => "mph",
+                "N" => "knots",
 
-            return "Unknown (" + value.Trim() + ")";
+                _ => "Unknown (" + value.Trim() + ")",
+            };
         }
 
         public string? GetGpsSpeedDescription()
@@ -244,14 +236,12 @@ namespace MetadataExtractor.Formats.Exif
             if (value == null)
                 return null;
 
-            switch (value.Trim())
+            return (value.Trim()) switch
             {
-                case "2":
-                    return "2-dimensional measurement";
-                case "3":
-                    return "3-dimensional measurement";
-            }
-            return "Unknown (" + value.Trim() + ")";
+                "2" => "2-dimensional measurement",
+                "3" => "3-dimensional measurement",
+                _ => "Unknown (" + value.Trim() + ")",
+            };
         }
 
 
@@ -261,15 +251,13 @@ namespace MetadataExtractor.Formats.Exif
             if (value == null)
                 return null;
 
-            switch (value.Trim().ToUpper())
+            return (value.Trim().ToUpper()) switch
             {
-                case "A":
-                    return "Active (Measurement in progress)";
-                case "V":
-                    return "Void (Measurement Interoperability)";
-            }
+                "A" => "Active (Measurement in progress)",
+                "V" => "Void (Measurement Interoperability)",
 
-            return "Unknown (" + value.Trim() + ")";
+                _ => "Unknown (" + value.Trim() + ")",
+            };
         }
 
         public string? GetGpsAltitudeRefDescription()

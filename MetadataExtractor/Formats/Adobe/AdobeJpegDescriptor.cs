@@ -37,15 +37,12 @@ namespace MetadataExtractor.Formats.Adobe
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case AdobeJpegDirectory.TagColorTransform:
-                    return GetColorTransformDescription();
-                case AdobeJpegDirectory.TagDctEncodeVersion:
-                    return GetDctEncodeVersionDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                AdobeJpegDirectory.TagColorTransform => GetColorTransformDescription(),
+                AdobeJpegDirectory.TagDctEncodeVersion => GetDctEncodeVersionDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetDctEncodeVersionDescription()

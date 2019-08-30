@@ -37,21 +37,15 @@ namespace MetadataExtractor.Formats.Photoshop
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case PsdHeaderDirectory.TagChannelCount:
-                    return GetChannelCountDescription();
-                case PsdHeaderDirectory.TagBitsPerChannel:
-                    return GetBitsPerChannelDescription();
-                case PsdHeaderDirectory.TagColorMode:
-                    return GetColorModeDescription();
-                case PsdHeaderDirectory.TagImageHeight:
-                    return GetImageHeightDescription();
-                case PsdHeaderDirectory.TagImageWidth:
-                    return GetImageWidthDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                PsdHeaderDirectory.TagChannelCount => GetChannelCountDescription(),
+                PsdHeaderDirectory.TagBitsPerChannel => GetBitsPerChannelDescription(),
+                PsdHeaderDirectory.TagColorMode => GetColorModeDescription(),
+                PsdHeaderDirectory.TagImageHeight => GetImageHeightDescription(),
+                PsdHeaderDirectory.TagImageWidth => GetImageWidthDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetChannelCountDescription()

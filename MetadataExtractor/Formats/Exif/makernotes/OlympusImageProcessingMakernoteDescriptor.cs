@@ -46,29 +46,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case OlympusImageProcessingMakernoteDirectory.TagImageProcessingVersion:
-                    return GetImageProcessingVersionDescription();
-                case OlympusImageProcessingMakernoteDirectory.TagColorMatrix:
-                    return GetColorMatrixDescription();
-                case OlympusImageProcessingMakernoteDirectory.TagNoiseReduction2:
-                    return GetNoiseReduction2Description();
-                case OlympusImageProcessingMakernoteDirectory.TagDistortionCorrection2:
-                    return GetDistortionCorrection2Description();
-                case OlympusImageProcessingMakernoteDirectory.TagShadingCompensation2:
-                    return GetShadingCompensation2Description();
-                case OlympusImageProcessingMakernoteDirectory.TagMultipleExposureMode:
-                    return GetMultipleExposureModeDescription();
-                case OlympusImageProcessingMakernoteDirectory.TagAspectRatio:
-                    return GetAspectRatioDescription();
-                case OlympusImageProcessingMakernoteDirectory.TagKeystoneCompensation:
-                    return GetKeystoneCompensationDescription();
-                case OlympusImageProcessingMakernoteDirectory.TagKeystoneDirection:
-                    return GetKeystoneDirectionDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                OlympusImageProcessingMakernoteDirectory.TagImageProcessingVersion => GetImageProcessingVersionDescription(),
+                OlympusImageProcessingMakernoteDirectory.TagColorMatrix => GetColorMatrixDescription(),
+                OlympusImageProcessingMakernoteDirectory.TagNoiseReduction2 => GetNoiseReduction2Description(),
+                OlympusImageProcessingMakernoteDirectory.TagDistortionCorrection2 => GetDistortionCorrection2Description(),
+                OlympusImageProcessingMakernoteDirectory.TagShadingCompensation2 => GetShadingCompensation2Description(),
+                OlympusImageProcessingMakernoteDirectory.TagMultipleExposureMode => GetMultipleExposureModeDescription(),
+                OlympusImageProcessingMakernoteDirectory.TagAspectRatio => GetAspectRatioDescription(),
+                OlympusImageProcessingMakernoteDirectory.TagKeystoneCompensation => GetKeystoneCompensationDescription(),
+                OlympusImageProcessingMakernoteDirectory.TagKeystoneDirection => GetKeystoneDirectionDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetImageProcessingVersionDescription()
@@ -170,57 +160,24 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             var join = $"{values[0]} {values[1]}";
-
-            string ret;
-            switch (join)
+            var ret = join switch
             {
-                case "1 1":
-                    ret = "4:3";
-                    break;
-                case "1 4":
-                    ret = "1:1";
-                    break;
-                case "2 1":
-                    ret = "3:2 (RAW)";
-                    break;
-                case "2 2":
-                    ret = "3:2";
-                    break;
-                case "3 1":
-                    ret = "16:9 (RAW)";
-                    break;
-                case "3 3":
-                    ret = "16:9";
-                    break;
-                case "4 1":
-                    ret = "1:1 (RAW)";
-                    break;
-                case "4 4":
-                    ret = "6:6";
-                    break;
-                case "5 5":
-                    ret = "5:4";
-                    break;
-                case "6 6":
-                    ret = "7:6";
-                    break;
-                case "7 7":
-                    ret = "6:5";
-                    break;
-                case "8 8":
-                    ret = "7:5";
-                    break;
-                case "9 1":
-                    ret = "3:4 (RAW)";
-                    break;
-                case "9 9":
-                    ret = "3:4";
-                    break;
-                default:
-                    ret = "Unknown (" + join + ")";
-                    break;
-            }
-
+                "1 1" => "4:3",
+                "1 4" => "1:1",
+                "2 1" => "3:2 (RAW)",
+                "2 2" => "3:2",
+                "3 1" => "16:9 (RAW)",
+                "3 3" => "16:9",
+                "4 1" => "1:1 (RAW)",
+                "4 4" => "6:6",
+                "5 5" => "5:4",
+                "6 6" => "7:6",
+                "7 7" => "6:5",
+                "8 8" => "7:5",
+                "9 1" => "3:4 (RAW)",
+                "9 9" => "3:4",
+                _ => "Unknown (" + join + ")",
+            };
             return ret;
         }
 
@@ -231,21 +188,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             var join = $"{values[0]} {values[1]}";
-
-            string ret;
-            switch (join)
+            var ret = join switch
             {
-                case "0 0":
-                    ret = "Off";
-                    break;
-                case "0 1":
-                    ret = "On";
-                    break;
-                default:
-                    ret = "Unknown (" + join + ")";
-                    break;
-            }
-
+                "0 0" => "Off",
+                "0 1" => "On",
+                _ => "Unknown (" + join + ")",
+            };
             return ret;
         }
 

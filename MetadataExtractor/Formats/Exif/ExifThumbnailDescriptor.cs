@@ -40,15 +40,12 @@ namespace MetadataExtractor.Formats.Exif
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case ExifThumbnailDirectory.TagThumbnailOffset:
-                    return GetThumbnailOffsetDescription();
-                case ExifThumbnailDirectory.TagThumbnailLength:
-                    return GetThumbnailLengthDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                ExifThumbnailDirectory.TagThumbnailOffset => GetThumbnailOffsetDescription(),
+                ExifThumbnailDirectory.TagThumbnailLength => GetThumbnailLengthDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetThumbnailLengthDescription()

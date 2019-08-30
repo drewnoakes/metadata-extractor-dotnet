@@ -45,33 +45,21 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case OlympusFocusInfoMakernoteDirectory.TagFocusInfoVersion:
-                    return GetFocusInfoVersionDescription();
-                case OlympusFocusInfoMakernoteDirectory.TagAutoFocus:
-                    return GetAutoFocusDescription();
-                case OlympusFocusInfoMakernoteDirectory.TagFocusDistance:
-                    return GetFocusDistanceDescription();
-                case OlympusFocusInfoMakernoteDirectory.TagAfPoint:
-                    return GetAfPointDescription();
-                case OlympusFocusInfoMakernoteDirectory.TagExternalFlash:
-                    return GetExternalFlashDescription();
-                case OlympusFocusInfoMakernoteDirectory.TagExternalFlashBounce:
-                    return GetExternalFlashBounceDescription();
-                case OlympusFocusInfoMakernoteDirectory.TagExternalFlashZoom:
-                    return GetExternalFlashZoomDescription();
-                case OlympusFocusInfoMakernoteDirectory.TagManualFlash:
-                    return GetManualFlashDescription();
-                case OlympusFocusInfoMakernoteDirectory.TagMacroLed:
-                    return GetMacroLedDescription();
-                case OlympusFocusInfoMakernoteDirectory.TagSensorTemperature:
-                    return GetSensorTemperatureDescription();
-                case OlympusFocusInfoMakernoteDirectory.TagImageStabilization:
-                    return GetImageStabilizationDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                OlympusFocusInfoMakernoteDirectory.TagFocusInfoVersion => GetFocusInfoVersionDescription(),
+                OlympusFocusInfoMakernoteDirectory.TagAutoFocus => GetAutoFocusDescription(),
+                OlympusFocusInfoMakernoteDirectory.TagFocusDistance => GetFocusDistanceDescription(),
+                OlympusFocusInfoMakernoteDirectory.TagAfPoint => GetAfPointDescription(),
+                OlympusFocusInfoMakernoteDirectory.TagExternalFlash => GetExternalFlashDescription(),
+                OlympusFocusInfoMakernoteDirectory.TagExternalFlashBounce => GetExternalFlashBounceDescription(),
+                OlympusFocusInfoMakernoteDirectory.TagExternalFlashZoom => GetExternalFlashZoomDescription(),
+                OlympusFocusInfoMakernoteDirectory.TagManualFlash => GetManualFlashDescription(),
+                OlympusFocusInfoMakernoteDirectory.TagMacroLed => GetMacroLedDescription(),
+                OlympusFocusInfoMakernoteDirectory.TagSensorTemperature => GetSensorTemperatureDescription(),
+                OlympusFocusInfoMakernoteDirectory.TagImageStabilization => GetImageStabilizationDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetFocusInfoVersionDescription()
@@ -120,15 +108,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             var join = $"{values[0]} {values[1]}";
 
-            switch (join)
+            return join switch
             {
-                case "0 0":
-                    return "Off";
-                case "1 0":
-                    return "On";
-                default:
-                    return "Unknown (" + join + ")";
-            }
+                "0 0" => "Off",
+                "1 0" => "On",
+                _ => "Unknown (" + join + ")",
+            };
         }
 
         public string? GetExternalFlashBounceDescription()
@@ -155,19 +140,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             var join = $"{values[0]}" + (values.Length > 1 ? $"{ values[1]}" : "");
 
-            switch (join)
+            return join switch
             {
-                case "0":
-                    return "Off";
-                case "1":
-                    return "On";
-                case "0 0":
-                    return "Off";
-                case "1 0":
-                    return "On";
-                default:
-                    return "Unknown (" + join + ")";
-            }
+                "0" => "Off",
+                "1" => "On",
+                "0 0" => "Off",
+                "1 0" => "On",
+                _ => "Unknown (" + join + ")",
+            };
         }
 
         public string? GetManualFlashDescription()

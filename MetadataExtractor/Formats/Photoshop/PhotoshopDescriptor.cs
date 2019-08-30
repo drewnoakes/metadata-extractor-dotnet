@@ -122,24 +122,13 @@ namespace MetadataExtractor.Formats.Photoshop
                         quality = "Unknown";
                         break;
                 }
-
-                string format;
-                switch (f)
+                var format = f switch
                 {
-                    case 0x0000:
-                        format = "Standard";
-                        break;
-                    case 0x0001:
-                        format = "Optimised";
-                        break;
-                    case 0x0101:
-                        format = "Progressive";
-                        break;
-                    default:
-                        format = $"Unknown (0x{f:X4})";
-                        break;
-                }
-
+                    0x0000 => "Standard",
+                    0x0001 => "Optimised",
+                    0x0101 => "Progressive",
+                    _ => $"Unknown (0x{f:X4})",
+                };
                 var scans = s >= 1 && s <= 3
                     ? (s + 2).ToString()
                     : $"Unknown (0x{s:X4})";
@@ -186,17 +175,13 @@ namespace MetadataExtractor.Formats.Photoshop
                 var locY = reader.GetFloat32(6);
                 var scale = reader.GetFloat32(10);
 
-                switch (style)
+                return style switch
                 {
-                    case 0:
-                        return $"Centered, Scale {scale:0.0##}";
-                    case 1:
-                        return "Size to fit";
-                    case 2:
-                        return $"User defined, X:{locX} Y:{locY}, Scale:{scale:0.0##}";
-                    default:
-                        return $"Unknown {style:X4}, X:{locX} Y:{locY}, Scale:{scale:0.0##}";
-                }
+                    0 => $"Centered, Scale {scale:0.0##}",
+                    1 => "Size to fit",
+                    2 => $"User defined, X:{locX} Y:{locY}, Scale:{scale:0.0##}",
+                    _ => $"Unknown {style:X4}, X:{locX} Y:{locY}, Scale:{scale:0.0##}",
+                };
             }
             catch
             {

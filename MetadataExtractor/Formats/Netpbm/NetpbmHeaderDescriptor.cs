@@ -34,13 +34,11 @@ namespace MetadataExtractor.Formats.Netpbm
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case NetpbmHeaderDirectory.TagFormatType:
-                    return GetFormatTypeDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                NetpbmHeaderDirectory.TagFormatType => GetFormatTypeDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         private string? GetFormatTypeDescription()

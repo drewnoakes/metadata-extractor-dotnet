@@ -38,13 +38,11 @@ namespace MetadataExtractor.Formats.Jpeg
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case JpegDnlDirectory.TagImageHeight:
-                    return GetImageHeightDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                JpegDnlDirectory.TagImageHeight => GetImageHeightDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetImageHeightDescription()

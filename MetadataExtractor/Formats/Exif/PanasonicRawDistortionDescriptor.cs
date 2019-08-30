@@ -41,25 +41,17 @@ namespace MetadataExtractor.Formats.Exif
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case PanasonicRawDistortionDirectory.TagDistortionParam02:
-                    return GetDistortionParam02Description();
-                case PanasonicRawDistortionDirectory.TagDistortionParam04:
-                    return GetDistortionParam04Description();
-                case PanasonicRawDistortionDirectory.TagDistortionScale:
-                    return GetDistortionScaleDescription();
-                case PanasonicRawDistortionDirectory.TagDistortionCorrection:
-                    return GetDistortionCorrectionDescription();
-                case PanasonicRawDistortionDirectory.TagDistortionParam08:
-                    return GetDistortionParam08Description();
-                case PanasonicRawDistortionDirectory.TagDistortionParam09:
-                    return GetDistortionParam09Description();
-                case PanasonicRawDistortionDirectory.TagDistortionParam11:
-                    return GetDistortionParam11Description();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                PanasonicRawDistortionDirectory.TagDistortionParam02 => GetDistortionParam02Description(),
+                PanasonicRawDistortionDirectory.TagDistortionParam04 => GetDistortionParam04Description(),
+                PanasonicRawDistortionDirectory.TagDistortionScale => GetDistortionScaleDescription(),
+                PanasonicRawDistortionDirectory.TagDistortionCorrection => GetDistortionCorrectionDescription(),
+                PanasonicRawDistortionDirectory.TagDistortionParam08 => GetDistortionParam08Description(),
+                PanasonicRawDistortionDirectory.TagDistortionParam09 => GetDistortionParam09Description(),
+                PanasonicRawDistortionDirectory.TagDistortionParam11 => GetDistortionParam11Description(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetDistortionParam02Description()
@@ -94,15 +86,12 @@ namespace MetadataExtractor.Formats.Exif
 
             // (have seen the upper 4 bits set for GF5 and GX1, giving a value of -4095 - PH)
             var mask = 0x000f;
-            switch (value & mask)
+            return (value & mask) switch
             {
-                case 0:
-                    return "Off";
-                case 1:
-                    return "On";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0 => "Off",
+                1 => "On",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetDistortionParam08Description()

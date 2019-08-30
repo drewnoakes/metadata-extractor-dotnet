@@ -301,15 +301,12 @@ namespace MetadataExtractor.Formats.Jpeg
 
         public static HuffmanTableClass TypeOf(int value)
         {
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return HuffmanTableClass.DC;
-                case 1:
-                    return HuffmanTableClass.AC;
-                default:
-                    return HuffmanTableClass.UNKNOWN;
-            }
+                0 => HuffmanTableClass.DC,
+                1 => HuffmanTableClass.AC,
+                _ => HuffmanTableClass.UNKNOWN,
+            };
         }
     }
 

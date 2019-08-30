@@ -44,119 +44,78 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case CanonMakernoteDirectory.TagCanonSerialNumber:
-                    return GetSerialNumberDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagFlashActivity:
-                    return GetFlashActivityDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagFocusType:
-                    return GetFocusTypeDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagLensType:
-                    return GetLensTypeDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagDigitalZoom:
-                    return GetDigitalZoomDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagRecordMode:
-                    return GetRecordModeDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagQuality:
-                    return GetQualityDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagMacroMode:
-                    return GetMacroModeDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagSelfTimerDelay:
-                    return GetSelfTimerDelayDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagFlashMode:
-                    return GetFlashModeDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagContinuousDriveMode:
-                    return GetContinuousDriveModeDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagFocusMode1:
-                    return GetFocusMode1Description();
-                case CanonMakernoteDirectory.CameraSettings.TagImageSize:
-                    return GetImageSizeDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagEasyShootingMode:
-                    return GetEasyShootingModeDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagContrast:
-                    return GetContrastDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagSaturation:
-                    return GetSaturationDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagSharpness:
-                    return GetSharpnessDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagIso:
-                    return GetIsoDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagMeteringMode:
-                    return GetMeteringModeDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagAfPointSelected:
-                    return GetAfPointSelectedDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagExposureMode:
-                    return GetExposureModeDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagLongFocalLength:
-                    return GetLongFocalLengthDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagShortFocalLength:
-                    return GetShortFocalLengthDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagFocalUnitsPerMm:
-                    return GetFocalUnitsPerMillimetreDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagFlashDetails:
-                    return GetFlashDetailsDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagFocusMode2:
-                    return GetFocusMode2Description();
-                case CanonMakernoteDirectory.FocalLength.TagWhiteBalance:
-                    return GetWhiteBalanceDescription();
-                case CanonMakernoteDirectory.FocalLength.TagAfPointUsed:
-                    return GetAfPointUsedDescription();
-                case CanonMakernoteDirectory.FocalLength.TagFlashBias:
-                    return GetFlashBiasDescription();
-                case CanonMakernoteDirectory.AfInfo.TagAfPointsInFocus:
-                    return GetTagAfPointsInFocus();
-                case CanonMakernoteDirectory.CameraSettings.TagMaxAperture:
-                    return GetMaxApertureDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagMinAperture:
-                    return GetMinApertureDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagFocusContinuous:
-                    return GetFocusContinuousDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagAESetting:
-                    return GetAESettingDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagDisplayAperture:
-                    return GetDisplayApertureDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagSpotMeteringMode:
-                    return GetSpotMeteringModeDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagPhotoEffect:
-                    return GetPhotoEffectDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagManualFlashOutput:
-                    return GetManualFlashOutputDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagColorTone:
-                    return GetColorToneDescription();
-                case CanonMakernoteDirectory.CameraSettings.TagSRawQuality:
-                    return GetSRawQualityDescription();
+                CanonMakernoteDirectory.TagCanonSerialNumber => GetSerialNumberDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagFlashActivity => GetFlashActivityDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagFocusType => GetFocusTypeDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagLensType => GetLensTypeDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagDigitalZoom => GetDigitalZoomDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagRecordMode => GetRecordModeDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagQuality => GetQualityDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagMacroMode => GetMacroModeDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagSelfTimerDelay => GetSelfTimerDelayDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagFlashMode => GetFlashModeDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagContinuousDriveMode => GetContinuousDriveModeDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagFocusMode1 => GetFocusMode1Description(),
+                CanonMakernoteDirectory.CameraSettings.TagImageSize => GetImageSizeDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagEasyShootingMode => GetEasyShootingModeDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagContrast => GetContrastDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagSaturation => GetSaturationDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagSharpness => GetSharpnessDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagIso => GetIsoDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagMeteringMode => GetMeteringModeDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagAfPointSelected => GetAfPointSelectedDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagExposureMode => GetExposureModeDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagLongFocalLength => GetLongFocalLengthDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagShortFocalLength => GetShortFocalLengthDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagFocalUnitsPerMm => GetFocalUnitsPerMillimetreDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagFlashDetails => GetFlashDetailsDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagFocusMode2 => GetFocusMode2Description(),
+                CanonMakernoteDirectory.FocalLength.TagWhiteBalance => GetWhiteBalanceDescription(),
+                CanonMakernoteDirectory.FocalLength.TagAfPointUsed => GetAfPointUsedDescription(),
+                CanonMakernoteDirectory.FocalLength.TagFlashBias => GetFlashBiasDescription(),
+                CanonMakernoteDirectory.AfInfo.TagAfPointsInFocus => GetTagAfPointsInFocus(),
+                CanonMakernoteDirectory.CameraSettings.TagMaxAperture => GetMaxApertureDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagMinAperture => GetMinApertureDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagFocusContinuous => GetFocusContinuousDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagAESetting => GetAESettingDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagDisplayAperture => GetDisplayApertureDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagSpotMeteringMode => GetSpotMeteringModeDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagPhotoEffect => GetPhotoEffectDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagManualFlashOutput => GetManualFlashOutputDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagColorTone => GetColorToneDescription(),
+                CanonMakernoteDirectory.CameraSettings.TagSRawQuality => GetSRawQualityDescription(),
                 // It turns out that these values are dependent upon the camera model and therefore the below code was
                 // incorrect for some Canon models.  This needs to be revisited.
-//              case TAG_CANON_CUSTOM_FUNCTION_LONG_EXPOSURE_NOISE_REDUCTION:
-//                  return getLongExposureNoiseReductionDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_AUTO_EXPOSURE_LOCK_BUTTONS:
-//                  return getShutterAutoExposureLockButtonDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_MIRROR_LOCKUP:
-//                  return getMirrorLockupDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_TV_AV_AND_EXPOSURE_LEVEL:
-//                  return getTvAndAvExposureLevelDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_AF_ASSIST_LIGHT:
-//                  return getAutoFocusAssistLightDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_SPEED_IN_AV_MODE:
-//                  return getShutterSpeedInAvModeDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_BRACKETING:
-//                  return getAutoExposureBracketingSequenceAndAutoCancellationDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_CURTAIN_SYNC:
-//                  return getShutterCurtainSyncDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_AF_STOP:
-//                  return getLensAutoFocusStopButtonDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_FILL_FLASH_REDUCTION:
-//                  return getFillFlashReductionDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_MENU_BUTTON_RETURN:
-//                  return getMenuButtonReturnPositionDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_SET_BUTTON_FUNCTION:
-//                  return getSetButtonFunctionWhenShootingDescription();
-//              case TAG_CANON_CUSTOM_FUNCTION_SENSOR_CLEANING:
-//                  return getSensorCleaningDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                //              case TAG_CANON_CUSTOM_FUNCTION_LONG_EXPOSURE_NOISE_REDUCTION:
+                //                  return getLongExposureNoiseReductionDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_AUTO_EXPOSURE_LOCK_BUTTONS:
+                //                  return getShutterAutoExposureLockButtonDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_MIRROR_LOCKUP:
+                //                  return getMirrorLockupDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_TV_AV_AND_EXPOSURE_LEVEL:
+                //                  return getTvAndAvExposureLevelDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_AF_ASSIST_LIGHT:
+                //                  return getAutoFocusAssistLightDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_SPEED_IN_AV_MODE:
+                //                  return getShutterSpeedInAvModeDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_BRACKETING:
+                //                  return getAutoExposureBracketingSequenceAndAutoCancellationDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_SHUTTER_CURTAIN_SYNC:
+                //                  return getShutterCurtainSyncDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_AF_STOP:
+                //                  return getLensAutoFocusStopButtonDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_FILL_FLASH_REDUCTION:
+                //                  return getFillFlashReductionDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_MENU_BUTTON_RETURN:
+                //                  return getMenuButtonReturnPositionDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_SET_BUTTON_FUNCTION:
+                //                  return getSetButtonFunctionWhenShootingDescription();
+                //              case TAG_CANON_CUSTOM_FUNCTION_SENSOR_CLEANING:
+                //                  return getSensorCleaningDescription();
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetSerialNumberDescription()
@@ -371,14 +330,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.FocalLength.TagAfPointUsed, out int value))
                 return null;
 
-            switch (value & 0x7)
+            return (value & 0x7) switch
             {
-                case 0: return "Right";
-                case 1: return "Centre";
-                case 2: return "Left";
-            }
+                0 => "Right",
+                1 => "Centre",
+                2 => "Left",
 
-            return "Unknown (" + value + ")";
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetTagAfPointsInFocus()
@@ -481,16 +440,16 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if ((value & canonMask) != 0)
                 return (value & ~canonMask).ToString();
 
-            switch (value)
+            return value switch
             {
-                case 0:  return "Not specified (see ISOSpeedRatings tag)";
-                case 15: return "Auto";
-                case 16: return "50";
-                case 17: return "100";
-                case 18: return "200";
-                case 19: return "400";
-                default: return "Unknown (" + value + ")";
-            }
+                0 => "Not specified (see ISOSpeedRatings tag)",
+                15 => "Auto",
+                16 => "50",
+                17 => "100",
+                18 => "200",
+                19 => "400",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetSharpnessDescription()
@@ -498,13 +457,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSharpness, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0xFFFF: return "Low";
-                case 0x0000: return "Normal";
-                case 0x0001: return "High";
-                default:     return "Unknown (" + value + ")";
-            }
+                0xFFFF => "Low",
+                0x0000 => "Normal",
+                0x0001 => "High",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetSaturationDescription()
@@ -512,13 +471,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagSaturation, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0xFFFF: return "Low";
-                case 0x0000: return "Normal";
-                case 0x0001: return "High";
-                default:     return "Unknown (" + value + ")";
-            }
+                0xFFFF => "Low",
+                0x0000 => "Normal",
+                0x0001 => "High",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetContrastDescription()
@@ -526,13 +485,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagContrast, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0xFFFF: return "Low";
-                case 0x0000: return "Normal";
-                case 0x0001: return "High";
-                default:     return "Unknown (" + value + ")";
-            }
+                0xFFFF => "Low",
+                0x0000 => "Normal",
+                0x0001 => "High",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetEasyShootingModeDescription()
@@ -573,28 +532,18 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagFlashMode, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "No flash fired";
-                case 1:
-                    return "Auto";
-                case 2:
-                    return "On";
-                case 3:
-                    return "Red-eye reduction";
-                case 4:
-                    return "Slow-synchro";
-                case 5:
-                    return "Auto and red-eye reduction";
-                case 6:
-                    return "On and red-eye reduction";
-                case 16:
-                    // note: this value not set on Canon D30
-                    return "External flash";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0 => "No flash fired",
+                1 => "Auto",
+                2 => "On",
+                3 => "Red-eye reduction",
+                4 => "Slow-synchro",
+                5 => "Auto and red-eye reduction",
+                6 => "On and red-eye reduction",
+                16 => "External flash",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetSelfTimerDelayDescription()
@@ -633,19 +582,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagFocusType, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "Manual";
-                case 1:
-                    return "Auto";
-                case 3:
-                    return "Close-up (Macro)";
-                case 8:
-                    return "Locked (Pan Mode)";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0 => "Manual",
+                1 => "Auto",
+                3 => "Close-up (Macro)",
+                8 => "Locked (Pan Mode)",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetLensTypeDescription()
@@ -713,27 +657,18 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagPhotoEffect, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "Off";
-                case 1:
-                    return "Vivid";
-                case 2:
-                    return "Neutral";
-                case 3:
-                    return "Smooth";
-                case 4:
-                    return "Sepia";
-                case 5:
-                    return "B&W";
-                case 6:
-                    return "Custom";
-                case 100:
-                    return "My Color Data";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0 => "Off",
+                1 => "Vivid",
+                2 => "Neutral",
+                3 => "Smooth",
+                4 => "Sepia",
+                5 => "B&W",
+                6 => "Custom",
+                100 => "My Color Data",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetManualFlashOutputDescription()
@@ -741,21 +676,15 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagManualFlashOutput, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "n/a";
-                case 0x500:
-                    return "Full";
-                case 0x502:
-                    return "Medium";
-                case 0x504:
-                    return "Low";
-                case 0x7fff:
-                    return "n/a";   // (EOS models)
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0 => "n/a",
+                0x500 => "Full",
+                0x502 => "Medium",
+                0x504 => "Low",
+                0x7fff => "n/a",   // (EOS models)
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetColorToneDescription()

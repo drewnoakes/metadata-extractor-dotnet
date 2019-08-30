@@ -46,153 +46,81 @@ namespace MetadataExtractor.Formats.Exif
         {
             // TODO order case blocks and corresponding methods in the same order as the TAG_* values are defined
 
-            switch (tagType)
+            return tagType switch
             {
-                case ExifDirectoryBase.TagInteropIndex:
-                    return GetInteropIndexDescription();
-                case ExifDirectoryBase.TagInteropVersion:
-                    return GetInteropVersionDescription();
-                case ExifDirectoryBase.TagOrientation:
-                    return GetOrientationDescription();
-                case ExifDirectoryBase.TagResolutionUnit:
-                    return GetResolutionDescription();
-                case ExifDirectoryBase.TagYCbCrPositioning:
-                    return GetYCbCrPositioningDescription();
-                case ExifDirectoryBase.TagXResolution:
-                    return GetXResolutionDescription();
-                case ExifDirectoryBase.TagYResolution:
-                    return GetYResolutionDescription();
-                case ExifDirectoryBase.TagImageWidth:
-                    return GetImageWidthDescription();
-                case ExifDirectoryBase.TagImageHeight:
-                    return GetImageHeightDescription();
-                case ExifDirectoryBase.TagBitsPerSample:
-                    return GetBitsPerSampleDescription();
-                case ExifDirectoryBase.TagPhotometricInterpretation:
-                    return GetPhotometricInterpretationDescription();
-                case ExifDirectoryBase.TagRowsPerStrip:
-                    return GetRowsPerStripDescription();
-                case ExifDirectoryBase.TagStripByteCounts:
-                    return GetStripByteCountsDescription();
-                case ExifDirectoryBase.TagSamplesPerPixel:
-                    return GetSamplesPerPixelDescription();
-                case ExifDirectoryBase.TagPlanarConfiguration:
-                    return GetPlanarConfigurationDescription();
-                case ExifDirectoryBase.TagYCbCrSubsampling:
-                    return GetYCbCrSubsamplingDescription();
-                case ExifDirectoryBase.TagReferenceBlackWhite:
-                    return GetReferenceBlackWhiteDescription();
-                case ExifDirectoryBase.TagWinAuthor:
-                    return GetWindowsAuthorDescription();
-                case ExifDirectoryBase.TagWinComment:
-                    return GetWindowsCommentDescription();
-                case ExifDirectoryBase.TagWinKeywords:
-                    return GetWindowsKeywordsDescription();
-                case ExifDirectoryBase.TagWinSubject:
-                    return GetWindowsSubjectDescription();
-                case ExifDirectoryBase.TagWinTitle:
-                    return GetWindowsTitleDescription();
-                case ExifDirectoryBase.TagNewSubfileType:
-                    return GetNewSubfileTypeDescription();
-                case ExifDirectoryBase.TagSubfileType:
-                    return GetSubfileTypeDescription();
-                case ExifDirectoryBase.TagThresholding:
-                    return GetThresholdingDescription();
-                case ExifDirectoryBase.TagFillOrder:
-                    return GetFillOrderDescription();
-                case ExifDirectoryBase.TagCfaPattern2:
-                    return GetCfaPattern2Description();
-                case ExifDirectoryBase.TagExposureTime:
-                    return GetExposureTimeDescription();
-                case ExifDirectoryBase.TagShutterSpeed:
-                    return GetShutterSpeedDescription();
-                case ExifDirectoryBase.TagFNumber:
-                    return GetFNumberDescription();
-                case ExifDirectoryBase.TagCompressedAverageBitsPerPixel:
-                    return GetCompressedAverageBitsPerPixelDescription();
-                case ExifDirectoryBase.TagSubjectDistance:
-                    return GetSubjectDistanceDescription();
-                case ExifDirectoryBase.TagMeteringMode:
-                    return GetMeteringModeDescription();
-                case ExifDirectoryBase.TagWhiteBalance:
-                    return GetWhiteBalanceDescription();
-                case ExifDirectoryBase.TagFlash:
-                    return GetFlashDescription();
-                case ExifDirectoryBase.TagFocalLength:
-                    return GetFocalLengthDescription();
-                case ExifDirectoryBase.TagColorSpace:
-                    return GetColorSpaceDescription();
-                case ExifDirectoryBase.TagExifImageWidth:
-                    return GetExifImageWidthDescription();
-                case ExifDirectoryBase.TagExifImageHeight:
-                    return GetExifImageHeightDescription();
-                case ExifDirectoryBase.TagFocalPlaneResolutionUnit:
-                    return GetFocalPlaneResolutionUnitDescription();
-                case ExifDirectoryBase.TagFocalPlaneXResolution:
-                    return GetFocalPlaneXResolutionDescription();
-                case ExifDirectoryBase.TagFocalPlaneYResolution:
-                    return GetFocalPlaneYResolutionDescription();
-                case ExifDirectoryBase.TagExposureProgram:
-                    return GetExposureProgramDescription();
-                case ExifDirectoryBase.TagAperture:
-                    return GetApertureValueDescription();
-                case ExifDirectoryBase.TagBrightnessValue:
-                    return GetBrightnessValueDescription();
-                case ExifDirectoryBase.TagMaxAperture:
-                    return GetMaxApertureValueDescription();
-                case ExifDirectoryBase.TagSensingMethod:
-                    return GetSensingMethodDescription();
-                case ExifDirectoryBase.TagExposureBias:
-                    return GetExposureBiasDescription();
-                case ExifDirectoryBase.TagFileSource:
-                    return GetFileSourceDescription();
-                case ExifDirectoryBase.TagSceneType:
-                    return GetSceneTypeDescription();
-                case ExifDirectoryBase.TagCfaPattern:
-                    return GetCfaPatternDescription();
-                case ExifDirectoryBase.TagComponentsConfiguration:
-                    return GetComponentConfigurationDescription();
-                case ExifDirectoryBase.TagExifVersion:
-                    return GetExifVersionDescription();
-                case ExifDirectoryBase.TagFlashpixVersion:
-                    return GetFlashPixVersionDescription();
-                case ExifDirectoryBase.TagIsoEquivalent:
-                    return GetIsoEquivalentDescription();
-                case ExifDirectoryBase.TagUserComment:
-                    return GetUserCommentDescription();
-                case ExifDirectoryBase.TagCustomRendered:
-                    return GetCustomRenderedDescription();
-                case ExifDirectoryBase.TagExposureMode:
-                    return GetExposureModeDescription();
-                case ExifDirectoryBase.TagWhiteBalanceMode:
-                    return GetWhiteBalanceModeDescription();
-                case ExifDirectoryBase.TagDigitalZoomRatio:
-                    return GetDigitalZoomRatioDescription();
-                case ExifDirectoryBase.Tag35MMFilmEquivFocalLength:
-                    return Get35MMFilmEquivFocalLengthDescription();
-                case ExifDirectoryBase.TagSceneCaptureType:
-                    return GetSceneCaptureTypeDescription();
-                case ExifDirectoryBase.TagGainControl:
-                    return GetGainControlDescription();
-                case ExifDirectoryBase.TagContrast:
-                    return GetContrastDescription();
-                case ExifDirectoryBase.TagSaturation:
-                    return GetSaturationDescription();
-                case ExifDirectoryBase.TagSharpness:
-                    return GetSharpnessDescription();
-                case ExifDirectoryBase.TagSubjectDistanceRange:
-                    return GetSubjectDistanceRangeDescription();
-                case ExifDirectoryBase.TagSensitivityType:
-                    return GetSensitivityTypeDescription();
-                case ExifDirectoryBase.TagCompression:
-                    return GetCompressionDescription();
-                case ExifDirectoryBase.TagJpegProc:
-                    return GetJpegProcDescription();
-                case ExifDirectoryBase.TagLensSpecification:
-                    return GetLensSpecificationDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                ExifDirectoryBase.TagInteropIndex => GetInteropIndexDescription(),
+                ExifDirectoryBase.TagInteropVersion => GetInteropVersionDescription(),
+                ExifDirectoryBase.TagOrientation => GetOrientationDescription(),
+                ExifDirectoryBase.TagResolutionUnit => GetResolutionDescription(),
+                ExifDirectoryBase.TagYCbCrPositioning => GetYCbCrPositioningDescription(),
+                ExifDirectoryBase.TagXResolution => GetXResolutionDescription(),
+                ExifDirectoryBase.TagYResolution => GetYResolutionDescription(),
+                ExifDirectoryBase.TagImageWidth => GetImageWidthDescription(),
+                ExifDirectoryBase.TagImageHeight => GetImageHeightDescription(),
+                ExifDirectoryBase.TagBitsPerSample => GetBitsPerSampleDescription(),
+                ExifDirectoryBase.TagPhotometricInterpretation => GetPhotometricInterpretationDescription(),
+                ExifDirectoryBase.TagRowsPerStrip => GetRowsPerStripDescription(),
+                ExifDirectoryBase.TagStripByteCounts => GetStripByteCountsDescription(),
+                ExifDirectoryBase.TagSamplesPerPixel => GetSamplesPerPixelDescription(),
+                ExifDirectoryBase.TagPlanarConfiguration => GetPlanarConfigurationDescription(),
+                ExifDirectoryBase.TagYCbCrSubsampling => GetYCbCrSubsamplingDescription(),
+                ExifDirectoryBase.TagReferenceBlackWhite => GetReferenceBlackWhiteDescription(),
+                ExifDirectoryBase.TagWinAuthor => GetWindowsAuthorDescription(),
+                ExifDirectoryBase.TagWinComment => GetWindowsCommentDescription(),
+                ExifDirectoryBase.TagWinKeywords => GetWindowsKeywordsDescription(),
+                ExifDirectoryBase.TagWinSubject => GetWindowsSubjectDescription(),
+                ExifDirectoryBase.TagWinTitle => GetWindowsTitleDescription(),
+                ExifDirectoryBase.TagNewSubfileType => GetNewSubfileTypeDescription(),
+                ExifDirectoryBase.TagSubfileType => GetSubfileTypeDescription(),
+                ExifDirectoryBase.TagThresholding => GetThresholdingDescription(),
+                ExifDirectoryBase.TagFillOrder => GetFillOrderDescription(),
+                ExifDirectoryBase.TagCfaPattern2 => GetCfaPattern2Description(),
+                ExifDirectoryBase.TagExposureTime => GetExposureTimeDescription(),
+                ExifDirectoryBase.TagShutterSpeed => GetShutterSpeedDescription(),
+                ExifDirectoryBase.TagFNumber => GetFNumberDescription(),
+                ExifDirectoryBase.TagCompressedAverageBitsPerPixel => GetCompressedAverageBitsPerPixelDescription(),
+                ExifDirectoryBase.TagSubjectDistance => GetSubjectDistanceDescription(),
+                ExifDirectoryBase.TagMeteringMode => GetMeteringModeDescription(),
+                ExifDirectoryBase.TagWhiteBalance => GetWhiteBalanceDescription(),
+                ExifDirectoryBase.TagFlash => GetFlashDescription(),
+                ExifDirectoryBase.TagFocalLength => GetFocalLengthDescription(),
+                ExifDirectoryBase.TagColorSpace => GetColorSpaceDescription(),
+                ExifDirectoryBase.TagExifImageWidth => GetExifImageWidthDescription(),
+                ExifDirectoryBase.TagExifImageHeight => GetExifImageHeightDescription(),
+                ExifDirectoryBase.TagFocalPlaneResolutionUnit => GetFocalPlaneResolutionUnitDescription(),
+                ExifDirectoryBase.TagFocalPlaneXResolution => GetFocalPlaneXResolutionDescription(),
+                ExifDirectoryBase.TagFocalPlaneYResolution => GetFocalPlaneYResolutionDescription(),
+                ExifDirectoryBase.TagExposureProgram => GetExposureProgramDescription(),
+                ExifDirectoryBase.TagAperture => GetApertureValueDescription(),
+                ExifDirectoryBase.TagBrightnessValue => GetBrightnessValueDescription(),
+                ExifDirectoryBase.TagMaxAperture => GetMaxApertureValueDescription(),
+                ExifDirectoryBase.TagSensingMethod => GetSensingMethodDescription(),
+                ExifDirectoryBase.TagExposureBias => GetExposureBiasDescription(),
+                ExifDirectoryBase.TagFileSource => GetFileSourceDescription(),
+                ExifDirectoryBase.TagSceneType => GetSceneTypeDescription(),
+                ExifDirectoryBase.TagCfaPattern => GetCfaPatternDescription(),
+                ExifDirectoryBase.TagComponentsConfiguration => GetComponentConfigurationDescription(),
+                ExifDirectoryBase.TagExifVersion => GetExifVersionDescription(),
+                ExifDirectoryBase.TagFlashpixVersion => GetFlashPixVersionDescription(),
+                ExifDirectoryBase.TagIsoEquivalent => GetIsoEquivalentDescription(),
+                ExifDirectoryBase.TagUserComment => GetUserCommentDescription(),
+                ExifDirectoryBase.TagCustomRendered => GetCustomRenderedDescription(),
+                ExifDirectoryBase.TagExposureMode => GetExposureModeDescription(),
+                ExifDirectoryBase.TagWhiteBalanceMode => GetWhiteBalanceModeDescription(),
+                ExifDirectoryBase.TagDigitalZoomRatio => GetDigitalZoomRatioDescription(),
+                ExifDirectoryBase.Tag35MMFilmEquivFocalLength => Get35MMFilmEquivFocalLengthDescription(),
+                ExifDirectoryBase.TagSceneCaptureType => GetSceneCaptureTypeDescription(),
+                ExifDirectoryBase.TagGainControl => GetGainControlDescription(),
+                ExifDirectoryBase.TagContrast => GetContrastDescription(),
+                ExifDirectoryBase.TagSaturation => GetSaturationDescription(),
+                ExifDirectoryBase.TagSharpness => GetSharpnessDescription(),
+                ExifDirectoryBase.TagSubjectDistanceRange => GetSubjectDistanceRangeDescription(),
+                ExifDirectoryBase.TagSensitivityType => GetSensitivityTypeDescription(),
+                ExifDirectoryBase.TagCompression => GetCompressionDescription(),
+                ExifDirectoryBase.TagJpegProc => GetJpegProcDescription(),
+                ExifDirectoryBase.TagLensSpecification => GetLensSpecificationDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetInteropVersionDescription()
@@ -350,39 +278,24 @@ namespace MetadataExtractor.Formats.Exif
             if (!Directory.TryGetInt32(ExifDirectoryBase.TagPhotometricInterpretation, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "WhiteIsZero";
-                case 1:
-                    return "BlackIsZero";
-                case 2:
-                    return "RGB";
-                case 3:
-                    return "RGB Palette";
-                case 4:
-                    return "Transparency Mask";
-                case 5:
-                    return "CMYK";
-                case 6:
-                    return "YCbCr";
-                case 8:
-                    return "CIELab";
-                case 9:
-                    return "ICCLab";
-                case 10:
-                    return "ITULab";
-                case 32803:
-                    return "Color Filter Array";
-                case 32844:
-                    return "Pixar LogL";
-                case 32845:
-                    return "Pixar LogLuv";
-                case 32892:
-                    return "Linear Raw";
-                default:
-                    return "Unknown colour space";
-            }
+                0 => "WhiteIsZero",
+                1 => "BlackIsZero",
+                2 => "RGB",
+                3 => "RGB Palette",
+                4 => "Transparency Mask",
+                5 => "CMYK",
+                6 => "YCbCr",
+                8 => "CIELab",
+                9 => "ICCLab",
+                10 => "ITULab",
+                32803 => "Color Filter Array",
+                32844 => "Pixar LogL",
+                32845 => "Pixar LogLuv",
+                32892 => "Linear Raw",
+                _ => "Unknown colour space",
+            };
         }
 
         public string? GetBitsPerSampleDescription()
@@ -876,33 +789,32 @@ namespace MetadataExtractor.Formats.Exif
         {
             // See http://web.archive.org/web/20131018091152/http://exif.org/Exif2-2.PDF page 35
 
-            switch (value)
+            return value switch
             {
-                case 0: return "Unknown";
-                case 1: return "Daylight";
-                case 2: return "Florescent";
-                case 3: return "Tungsten (Incandescent)";
-                case 4: return "Flash";
-                case 9: return "Fine Weather";
-                case 10: return "Cloudy";
-                case 11: return "Shade";
-                case 12: return "Daylight Fluorescent";   // (D 5700 - 7100K)
-                case 13: return "Day White Fluorescent";  // (N 4600 - 5500K)
-                case 14: return "Cool White Fluorescent"; // (W 3800 - 4500K)
-                case 15: return "White Fluorescent";      // (WW 3250 - 3800K)
-                case 16: return "Warm White Fluorescent"; // (L 2600 - 3250K)
-                case 17: return "Standard light A";
-                case 18: return "Standard light B";
-                case 19: return "Standard light C";
-                case 20: return "D55";
-                case 21: return "D65";
-                case 22: return "D75";
-                case 23: return "D50";
-                case 24: return "ISO Studio Tungsten";
-                case 255: return "Other";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0 => "Unknown",
+                1 => "Daylight",
+                2 => "Florescent",
+                3 => "Tungsten (Incandescent)",
+                4 => "Flash",
+                9 => "Fine Weather",
+                10 => "Cloudy",
+                11 => "Shade",
+                12 => "Daylight Fluorescent",   // (D 5700 - 7100K)
+                13 => "Day White Fluorescent",  // (N 4600 - 5500K)
+                14 => "Cool White Fluorescent", // (W 3800 - 4500K)
+                15 => "White Fluorescent",      // (WW 3250 - 3800K)
+                16 => "Warm White Fluorescent", // (L 2600 - 3250K)
+                17 => "Standard light A",
+                18 => "Standard light B",
+                19 => "Standard light C",
+                20 => "D55",
+                21 => "D65",
+                22 => "D75",
+                23 => "D50",
+                24 => "ISO Studio Tungsten",
+                255 => "Other",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetMeteringModeDescription()
@@ -912,27 +824,18 @@ namespace MetadataExtractor.Formats.Exif
             if (!Directory.TryGetInt32(ExifDirectoryBase.TagMeteringMode, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "Unknown";
-                case 1:
-                    return "Average";
-                case 2:
-                    return "Center weighted average";
-                case 3:
-                    return "Spot";
-                case 4:
-                    return "Multi-spot";
-                case 5:
-                    return "Multi-segment";
-                case 6:
-                    return "Partial";
-                case 255:
-                    return "(Other)";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0 => "Unknown",
+                1 => "Average",
+                2 => "Center weighted average",
+                3 => "Spot",
+                4 => "Multi-spot",
+                5 => "Multi-segment",
+                6 => "Partial",
+                255 => "(Other)",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetCompressionDescription()
@@ -940,93 +843,51 @@ namespace MetadataExtractor.Formats.Exif
             if (!Directory.TryGetInt32(ExifDirectoryBase.TagCompression, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 1:
-                    return "Uncompressed";
-                case 2:
-                    return "CCITT 1D";
-                case 3:
-                    return "T4/Group 3 Fax";
-                case 4:
-                    return "T6/Group 4 Fax";
-                case 5:
-                    return "LZW";
-                case 6:
-                    return "JPEG (old-style)";
-                case 7:
-                    return "JPEG";
-                case 8:
-                    return "Adobe Deflate";
-                case 9:
-                    return "JBIG B&W";
-                case 10:
-                    return "JBIG Color";
-                case 99:
-                    return "JPEG";
-                case 262:
-                    return "Kodak 262";
-                case 32766:
-                    return "Next";
-                case 32767:
-                    return "Sony ARW Compressed";
-                case 32769:
-                    return "Packed RAW";
-                case 32770:
-                    return "Samsung SRW Compressed";
-                case 32771:
-                    return "CCIRLEW";
-                case 32772:
-                    return "Samsung SRW Compressed 2";
-                case 32773:
-                    return "PackBits";
-                case 32809:
-                    return "Thunderscan";
-                case 32867:
-                    return "Kodak KDC Compressed";
-                case 32895:
-                    return "IT8CTPAD";
-                case 32896:
-                    return "IT8LW";
-                case 32897:
-                    return "IT8MP";
-                case 32898:
-                    return "IT8BL";
-                case 32908:
-                    return "PixarFilm";
-                case 32909:
-                    return "PixarLog";
-                case 32946:
-                    return "Deflate";
-                case 32947:
-                    return "DCS";
-                case 34661:
-                    return "JBIG";
-                case 34676:
-                    return "SGILog";
-                case 34677:
-                    return "SGILog24";
-                case 34712:
-                    return "JPEG 2000";
-                case 34713:
-                    return "Nikon NEF Compressed";
-                case 34715:
-                    return "JBIG2 TIFF FX";
-                case 34718:
-                    return "Microsoft Document Imaging (MDI) Binary Level Codec";
-                case 34719:
-                    return "Microsoft Document Imaging (MDI) Progressive Transform Codec";
-                case 34720:
-                    return "Microsoft Document Imaging (MDI) Vector";
-                case 34892:
-                    return "Lossy JPEG";
-                case 65000:
-                    return "Kodak DCR Compressed";
-                case 65535:
-                    return "Pentax PEF Compressed";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                1 => "Uncompressed",
+                2 => "CCITT 1D",
+                3 => "T4/Group 3 Fax",
+                4 => "T6/Group 4 Fax",
+                5 => "LZW",
+                6 => "JPEG (old-style)",
+                7 => "JPEG",
+                8 => "Adobe Deflate",
+                9 => "JBIG B&W",
+                10 => "JBIG Color",
+                99 => "JPEG",
+                262 => "Kodak 262",
+                32766 => "Next",
+                32767 => "Sony ARW Compressed",
+                32769 => "Packed RAW",
+                32770 => "Samsung SRW Compressed",
+                32771 => "CCIRLEW",
+                32772 => "Samsung SRW Compressed 2",
+                32773 => "PackBits",
+                32809 => "Thunderscan",
+                32867 => "Kodak KDC Compressed",
+                32895 => "IT8CTPAD",
+                32896 => "IT8LW",
+                32897 => "IT8MP",
+                32898 => "IT8BL",
+                32908 => "PixarFilm",
+                32909 => "PixarLog",
+                32946 => "Deflate",
+                32947 => "DCS",
+                34661 => "JBIG",
+                34676 => "SGILog",
+                34677 => "SGILog24",
+                34712 => "JPEG 2000",
+                34713 => "Nikon NEF Compressed",
+                34715 => "JBIG2 TIFF FX",
+                34718 => "Microsoft Document Imaging (MDI) Binary Level Codec",
+                34719 => "Microsoft Document Imaging (MDI) Progressive Transform Codec",
+                34720 => "Microsoft Document Imaging (MDI) Vector",
+                34892 => "Lossy JPEG",
+                65000 => "Kodak DCR Compressed",
+                65535 => "Pentax PEF Compressed",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetSubjectDistanceDescription()
@@ -1103,15 +964,12 @@ namespace MetadataExtractor.Formats.Exif
             if (!Directory.TryGetInt32(ExifDirectoryBase.TagJpegProc, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 1:
-                    return "Baseline";
-                case 14:
-                    return "Lossless";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                1 => "Baseline",
+                14 => "Lossless",
+                _ => "Unknown (" + value + ")",
+            };
         }
     }
 }

@@ -52,27 +52,18 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case NikonType1MakernoteDirectory.TagQuality:
-                    return GetQualityDescription();
-                case NikonType1MakernoteDirectory.TagColorMode:
-                    return GetColorModeDescription();
-                case NikonType1MakernoteDirectory.TagImageAdjustment:
-                    return GetImageAdjustmentDescription();
-                case NikonType1MakernoteDirectory.TagCcdSensitivity:
-                    return GetCcdSensitivityDescription();
-                case NikonType1MakernoteDirectory.TagWhiteBalance:
-                    return GetWhiteBalanceDescription();
-                case NikonType1MakernoteDirectory.TagFocus:
-                    return GetFocusDescription();
-                case NikonType1MakernoteDirectory.TagDigitalZoom:
-                    return GetDigitalZoomDescription();
-                case NikonType1MakernoteDirectory.TagConverter:
-                    return GetConverterDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                NikonType1MakernoteDirectory.TagQuality => GetQualityDescription(),
+                NikonType1MakernoteDirectory.TagColorMode => GetColorModeDescription(),
+                NikonType1MakernoteDirectory.TagImageAdjustment => GetImageAdjustmentDescription(),
+                NikonType1MakernoteDirectory.TagCcdSensitivity => GetCcdSensitivityDescription(),
+                NikonType1MakernoteDirectory.TagWhiteBalance => GetWhiteBalanceDescription(),
+                NikonType1MakernoteDirectory.TagFocus => GetFocusDescription(),
+                NikonType1MakernoteDirectory.TagDigitalZoom => GetDigitalZoomDescription(),
+                NikonType1MakernoteDirectory.TagConverter => GetConverterDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetConverterDescription()

@@ -34,13 +34,11 @@ namespace MetadataExtractor.Formats.Gif
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case GifControlDirectory.TagDisposalMethod:
-                    return GetDisposalMethodDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                GifControlDirectory.TagDisposalMethod => GetDisposalMethodDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetDisposalMethodDescription()

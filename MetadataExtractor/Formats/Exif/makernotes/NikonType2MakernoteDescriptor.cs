@@ -43,57 +43,33 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case NikonType2MakernoteDirectory.TagProgramShift:
-                    return GetProgramShiftDescription();
-                case NikonType2MakernoteDirectory.TagExposureDifference:
-                    return GetExposureDifferenceDescription();
-                case NikonType2MakernoteDirectory.TagLens:
-                    return GetLensDescription();
-                case NikonType2MakernoteDirectory.TagCameraHueAdjustment:
-                    return GetHueAdjustmentDescription();
-                case NikonType2MakernoteDirectory.TagCameraColorMode:
-                    return GetColorModeDescription();
-                case NikonType2MakernoteDirectory.TagAutoFlashCompensation:
-                    return GetAutoFlashCompensationDescription();
-                case NikonType2MakernoteDirectory.TagFlashExposureCompensation:
-                    return GetFlashExposureCompensationDescription();
-                case NikonType2MakernoteDirectory.TagFlashBracketCompensation:
-                    return GetFlashBracketCompensationDescription();
-                case NikonType2MakernoteDirectory.TagExposureTuning:
-                    return GetExposureTuningDescription();
-                case NikonType2MakernoteDirectory.TagLensStops:
-                    return GetLensStopsDescription();
-                case NikonType2MakernoteDirectory.TagColorSpace:
-                    return GetColorSpaceDescription();
-                case NikonType2MakernoteDirectory.TagActiveDLighting:
-                    return GetActiveDLightingDescription();
-                case NikonType2MakernoteDirectory.TagVignetteControl:
-                    return GetVignetteControlDescription();
-                case NikonType2MakernoteDirectory.TagIso1:
-                    return GetIsoSettingDescription();
-                case NikonType2MakernoteDirectory.TagDigitalZoom:
-                    return GetDigitalZoomDescription();
-                case NikonType2MakernoteDirectory.TagFlashUsed:
-                    return GetFlashUsedDescription();
-                case NikonType2MakernoteDirectory.TagAfFocusPosition:
-                    return GetAutoFocusPositionDescription();
-                case NikonType2MakernoteDirectory.TagFirmwareVersion:
-                    return GetFirmwareVersionDescription();
-                case NikonType2MakernoteDirectory.TagLensType:
-                    return GetLensTypeDescription();
-                case NikonType2MakernoteDirectory.TagShootingMode:
-                    return GetShootingModeDescription();
-                case NikonType2MakernoteDirectory.TagNefCompression:
-                    return GetNefCompressionDescription();
-                case NikonType2MakernoteDirectory.TagHighIsoNoiseReduction:
-                    return GetHighIsoNoiseReductionDescription();
-                case NikonType2MakernoteDirectory.TagPowerUpTime:
-                    return GetPowerUpTimeDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                NikonType2MakernoteDirectory.TagProgramShift => GetProgramShiftDescription(),
+                NikonType2MakernoteDirectory.TagExposureDifference => GetExposureDifferenceDescription(),
+                NikonType2MakernoteDirectory.TagLens => GetLensDescription(),
+                NikonType2MakernoteDirectory.TagCameraHueAdjustment => GetHueAdjustmentDescription(),
+                NikonType2MakernoteDirectory.TagCameraColorMode => GetColorModeDescription(),
+                NikonType2MakernoteDirectory.TagAutoFlashCompensation => GetAutoFlashCompensationDescription(),
+                NikonType2MakernoteDirectory.TagFlashExposureCompensation => GetFlashExposureCompensationDescription(),
+                NikonType2MakernoteDirectory.TagFlashBracketCompensation => GetFlashBracketCompensationDescription(),
+                NikonType2MakernoteDirectory.TagExposureTuning => GetExposureTuningDescription(),
+                NikonType2MakernoteDirectory.TagLensStops => GetLensStopsDescription(),
+                NikonType2MakernoteDirectory.TagColorSpace => GetColorSpaceDescription(),
+                NikonType2MakernoteDirectory.TagActiveDLighting => GetActiveDLightingDescription(),
+                NikonType2MakernoteDirectory.TagVignetteControl => GetVignetteControlDescription(),
+                NikonType2MakernoteDirectory.TagIso1 => GetIsoSettingDescription(),
+                NikonType2MakernoteDirectory.TagDigitalZoom => GetDigitalZoomDescription(),
+                NikonType2MakernoteDirectory.TagFlashUsed => GetFlashUsedDescription(),
+                NikonType2MakernoteDirectory.TagAfFocusPosition => GetAutoFocusPositionDescription(),
+                NikonType2MakernoteDirectory.TagFirmwareVersion => GetFirmwareVersionDescription(),
+                NikonType2MakernoteDirectory.TagLensType => GetLensTypeDescription(),
+                NikonType2MakernoteDirectory.TagShootingMode => GetShootingModeDescription(),
+                NikonType2MakernoteDirectory.TagNefCompression => GetNefCompressionDescription(),
+                NikonType2MakernoteDirectory.TagHighIsoNoiseReduction => GetHighIsoNoiseReductionDescription(),
+                NikonType2MakernoteDirectory.TagPowerUpTime => GetPowerUpTimeDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetPowerUpTimeDescription()
@@ -156,23 +132,16 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(NikonType2MakernoteDirectory.TagActiveDLighting, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "Off";
-                case 1:
-                    return "Light";
-                case 3:
-                    return "Normal";
-                case 5:
-                    return "High";
-                case 7:
-                    return "Extra High";
-                case 65535:
-                    return "Auto";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0 => "Off",
+                1 => "Light",
+                3 => "Normal",
+                5 => "High",
+                7 => "Extra High",
+                65535 => "Auto",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetVignetteControlDescription()
@@ -180,19 +149,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(NikonType2MakernoteDirectory.TagVignetteControl, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "Off";
-                case 1:
-                    return "Low";
-                case 3:
-                    return "Normal";
-                case 5:
-                    return "High";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0 => "Off",
+                1 => "Low",
+                3 => "Normal",
+                5 => "High",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetAutoFocusPositionDescription()
@@ -204,21 +168,15 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values.Length != 4 || values[0] != 0 || values[2] != 0 || values[3] != 0)
                 return "Unknown (" + Directory.GetString(NikonType2MakernoteDirectory.TagAfFocusPosition) + ")";
 
-            switch (values[1])
+            return (values[1]) switch
             {
-                case 0:
-                    return "Centre";
-                case 1:
-                    return "Top";
-                case 2:
-                    return "Bottom";
-                case 3:
-                    return "Left";
-                case 4:
-                    return "Right";
-                default:
-                    return "Unknown (" + values[1] + ")";
-            }
+                0 => "Centre",
+                1 => "Top",
+                2 => "Bottom",
+                3 => "Left",
+                4 => "Right",
+                _ => "Unknown (" + values[1] + ")",
+            };
         }
 
         public string? GetDigitalZoomDescription()

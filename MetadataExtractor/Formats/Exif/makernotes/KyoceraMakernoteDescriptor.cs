@@ -48,13 +48,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case KyoceraMakernoteDirectory.TagProprietaryThumbnail:
-                    return GetProprietaryThumbnailDataDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                KyoceraMakernoteDirectory.TagProprietaryThumbnail => GetProprietaryThumbnailDataDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetProprietaryThumbnailDataDescription()

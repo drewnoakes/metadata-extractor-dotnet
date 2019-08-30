@@ -34,13 +34,11 @@ namespace MetadataExtractor.Formats.Gif
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case GifAnimationDirectory.TagIterationCount:
-                    return GetIterationCountDescription();
-                default:
-                    return null;
-            }
+                GifAnimationDirectory.TagIterationCount => GetIterationCountDescription(),
+                _ => null,
+            };
         }
 
         private string? GetIterationCountDescription()

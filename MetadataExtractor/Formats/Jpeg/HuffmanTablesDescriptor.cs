@@ -45,13 +45,11 @@ namespace MetadataExtractor.Formats.Jpeg
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case HuffmanTablesDirectory.TagNumberOfTables:
-                    return GetNumberOfTablesDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                HuffmanTablesDirectory.TagNumberOfTables => GetNumberOfTablesDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetNumberOfTablesDescription()

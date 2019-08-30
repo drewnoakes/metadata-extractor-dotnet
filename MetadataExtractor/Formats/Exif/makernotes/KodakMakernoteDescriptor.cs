@@ -40,29 +40,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case KodakMakernoteDirectory.TagQuality:
-                    return GetQualityDescription();
-                case KodakMakernoteDirectory.TagBurstMode:
-                    return GetBurstModeDescription();
-                case KodakMakernoteDirectory.TagShutterMode:
-                    return GetShutterModeDescription();
-                case KodakMakernoteDirectory.TagFocusMode:
-                    return GetFocusModeDescription();
-                case KodakMakernoteDirectory.TagWhiteBalance:
-                    return GetWhiteBalanceDescription();
-                case KodakMakernoteDirectory.TagFlashMode:
-                    return GetFlashModeDescription();
-                case KodakMakernoteDirectory.TagFlashFired:
-                    return GetFlashFiredDescription();
-                case KodakMakernoteDirectory.TagColorMode:
-                    return GetColorModeDescription();
-                case KodakMakernoteDirectory.TagSharpness:
-                    return GetSharpnessDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                KodakMakernoteDirectory.TagQuality => GetQualityDescription(),
+                KodakMakernoteDirectory.TagBurstMode => GetBurstModeDescription(),
+                KodakMakernoteDirectory.TagShutterMode => GetShutterModeDescription(),
+                KodakMakernoteDirectory.TagFocusMode => GetFocusModeDescription(),
+                KodakMakernoteDirectory.TagWhiteBalance => GetWhiteBalanceDescription(),
+                KodakMakernoteDirectory.TagFlashMode => GetFlashModeDescription(),
+                KodakMakernoteDirectory.TagFlashFired => GetFlashFiredDescription(),
+                KodakMakernoteDirectory.TagColorMode => GetColorModeDescription(),
+                KodakMakernoteDirectory.TagSharpness => GetSharpnessDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetSharpnessDescription()
@@ -144,17 +134,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(KodakMakernoteDirectory.TagShutterMode, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "Auto";
-                case 8:
-                    return "Aperture Priority";
-                case 32:
-                    return "Manual";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0 => "Auto",
+                8 => "Aperture Priority",
+                32 => "Manual",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetBurstModeDescription()

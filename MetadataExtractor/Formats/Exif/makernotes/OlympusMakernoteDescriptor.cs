@@ -45,157 +45,83 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         // TODO extend support for some offset-encoded byte[] tags: http://www.ozhiker.com/electronics/pjmt/jpeg_info/olympus_mn.html
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case OlympusMakernoteDirectory.TagMakernoteVersion:
-                    return GetMakernoteVersionDescription();
-                case OlympusMakernoteDirectory.TagColourMode:
-                    return GetColorModeDescription();
-                case OlympusMakernoteDirectory.TagImageQuality1:
-                    return GetImageQuality1Description();
-                case OlympusMakernoteDirectory.TagImageQuality2:
-                    return GetImageQuality2Description();
-                case OlympusMakernoteDirectory.TagSpecialMode:
-                    return GetSpecialModeDescription();
-                case OlympusMakernoteDirectory.TagJpegQuality:
-                    return GetJpegQualityDescription();
-                case OlympusMakernoteDirectory.TagMacroMode:
-                    return GetMacroModeDescription();
-                case OlympusMakernoteDirectory.TagBwMode:
-                    return GetBwModeDescription();
-                case OlympusMakernoteDirectory.TagDigitalZoom:
-                    return GetDigitalZoomDescription();
-                case OlympusMakernoteDirectory.TagFocalPlaneDiagonal:
-                    return GetFocalPlaneDiagonalDescription();
-                case OlympusMakernoteDirectory.TagCameraType:
-                    return GetCameraTypeDescription();
-                case OlympusMakernoteDirectory.TagCameraId:
-                    return GetCameraIdDescription();
-                case OlympusMakernoteDirectory.TagOneTouchWb:
-                    return GetOneTouchWbDescription();
-                case OlympusMakernoteDirectory.TagShutterSpeedValue:
-                    return GetShutterSpeedDescription();
-                case OlympusMakernoteDirectory.TagIsoValue:
-                    return GetIsoValueDescription();
-                case OlympusMakernoteDirectory.TagApertureValue:
-                    return GetApertureValueDescription();
-                case OlympusMakernoteDirectory.TagFlashMode:
-                    return GetFlashModeDescription();
-                case OlympusMakernoteDirectory.TagFocusRange:
-                    return GetFocusRangeDescription();
-                case OlympusMakernoteDirectory.TagFocusMode:
-                    return GetFocusModeDescription();
-                case OlympusMakernoteDirectory.TagSharpness:
-                    return GetSharpnessDescription();
-                case OlympusMakernoteDirectory.TagColourMatrix:
-                    return GetColorMatrixDescription();
-                case OlympusMakernoteDirectory.TagWbMode:
-                    return GetWbModeDescription();
-                case OlympusMakernoteDirectory.TagRedBalance:
-                    return GetRedBalanceDescription();
-                case OlympusMakernoteDirectory.TagBlueBalance:
-                    return GetBlueBalanceDescription();
-                case OlympusMakernoteDirectory.TagContrast:
-                    return GetContrastDescription();
-                case OlympusMakernoteDirectory.TagPreviewImageValid:
-                    return GetPreviewImageValidDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagExposureMode:
-                    return GetExposureModeDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagFlashMode:
-                    return GetFlashModeCameraSettingDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagWhiteBalance:
-                    return GetWhiteBalanceDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagImageSize:
-                    return GetImageSizeDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagImageQuality:
-                    return GetImageQualityDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagShootingMode:
-                    return GetShootingModeDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagMeteringMode:
-                    return GetMeteringModeDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagApexFilmSpeedValue:
-                    return GetApexFilmSpeedDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagApexShutterSpeedTimeValue:
-                    return GetApexShutterSpeedTimeDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagApexApertureValue:
-                    return GetApexApertureDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagMacroMode:
-                    return GetMacroModeCameraSettingDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagDigitalZoom:
-                    return GetDigitalZoomCameraSettingDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagExposureCompensation:
-                    return GetExposureCompensationDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagBracketStep:
-                    return GetBracketStepDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagIntervalLength:
-                    return GetIntervalLengthDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagIntervalNumber:
-                    return GetIntervalNumberDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagFocalLength:
-                    return GetFocalLengthDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagFocusDistance:
-                    return GetFocusDistanceDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagFlashFired:
-                    return GetFlashFiredDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagDate:
-                    return GetDateDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagTime:
-                    return GetTimeDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagMaxApertureAtFocalLength:
-                    return GetMaxApertureAtFocalLengthDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagFileNumberMemory:
-                    return GetFileNumberMemoryDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagLastFileNumber:
-                    return GetLastFileNumberDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceRed:
-                    return GetWhiteBalanceRedDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceGreen:
-                    return GetWhiteBalanceGreenDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceBlue:
-                    return GetWhiteBalanceBlueDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagSaturation:
-                    return GetSaturationDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagContrast:
-                    return GetContrastCameraSettingDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagSharpness:
-                    return GetSharpnessCameraSettingDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagSubjectProgram:
-                    return GetSubjectProgramDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagFlashCompensation:
-                    return GetFlashCompensationDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagIsoSetting:
-                    return GetIsoSettingDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagCameraModel:
-                    return GetCameraModelDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagIntervalMode:
-                    return GetIntervalModeDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagFolderName:
-                    return GetFolderNameDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagColorMode:
-                    return GetColorModeCameraSettingDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagColorFilter:
-                    return GetColorFilterDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagBlackAndWhiteFilter:
-                    return GetBlackAndWhiteFilterDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagInternalFlash:
-                    return GetInternalFlashDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagApexBrightnessValue:
-                    return GetApexBrightnessDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagSpotFocusPointXCoordinate:
-                    return GetSpotFocusPointXCoordinateDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagSpotFocusPointYCoordinate:
-                    return GetSpotFocusPointYCoordinateDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagWideFocusZone:
-                    return GetWideFocusZoneDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagFocusMode:
-                    return GetFocusModeCameraSettingDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagFocusArea:
-                    return GetFocusAreaDescription();
-                case OlympusMakernoteDirectory.CameraSettings.TagDecSwitchPosition:
-                    return GetDecSwitchPositionDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                OlympusMakernoteDirectory.TagMakernoteVersion => GetMakernoteVersionDescription(),
+                OlympusMakernoteDirectory.TagColourMode => GetColorModeDescription(),
+                OlympusMakernoteDirectory.TagImageQuality1 => GetImageQuality1Description(),
+                OlympusMakernoteDirectory.TagImageQuality2 => GetImageQuality2Description(),
+                OlympusMakernoteDirectory.TagSpecialMode => GetSpecialModeDescription(),
+                OlympusMakernoteDirectory.TagJpegQuality => GetJpegQualityDescription(),
+                OlympusMakernoteDirectory.TagMacroMode => GetMacroModeDescription(),
+                OlympusMakernoteDirectory.TagBwMode => GetBwModeDescription(),
+                OlympusMakernoteDirectory.TagDigitalZoom => GetDigitalZoomDescription(),
+                OlympusMakernoteDirectory.TagFocalPlaneDiagonal => GetFocalPlaneDiagonalDescription(),
+                OlympusMakernoteDirectory.TagCameraType => GetCameraTypeDescription(),
+                OlympusMakernoteDirectory.TagCameraId => GetCameraIdDescription(),
+                OlympusMakernoteDirectory.TagOneTouchWb => GetOneTouchWbDescription(),
+                OlympusMakernoteDirectory.TagShutterSpeedValue => GetShutterSpeedDescription(),
+                OlympusMakernoteDirectory.TagIsoValue => GetIsoValueDescription(),
+                OlympusMakernoteDirectory.TagApertureValue => GetApertureValueDescription(),
+                OlympusMakernoteDirectory.TagFlashMode => GetFlashModeDescription(),
+                OlympusMakernoteDirectory.TagFocusRange => GetFocusRangeDescription(),
+                OlympusMakernoteDirectory.TagFocusMode => GetFocusModeDescription(),
+                OlympusMakernoteDirectory.TagSharpness => GetSharpnessDescription(),
+                OlympusMakernoteDirectory.TagColourMatrix => GetColorMatrixDescription(),
+                OlympusMakernoteDirectory.TagWbMode => GetWbModeDescription(),
+                OlympusMakernoteDirectory.TagRedBalance => GetRedBalanceDescription(),
+                OlympusMakernoteDirectory.TagBlueBalance => GetBlueBalanceDescription(),
+                OlympusMakernoteDirectory.TagContrast => GetContrastDescription(),
+                OlympusMakernoteDirectory.TagPreviewImageValid => GetPreviewImageValidDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagExposureMode => GetExposureModeDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagFlashMode => GetFlashModeCameraSettingDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagWhiteBalance => GetWhiteBalanceDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagImageSize => GetImageSizeDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagImageQuality => GetImageQualityDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagShootingMode => GetShootingModeDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagMeteringMode => GetMeteringModeDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagApexFilmSpeedValue => GetApexFilmSpeedDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagApexShutterSpeedTimeValue => GetApexShutterSpeedTimeDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagApexApertureValue => GetApexApertureDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagMacroMode => GetMacroModeCameraSettingDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagDigitalZoom => GetDigitalZoomCameraSettingDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagExposureCompensation => GetExposureCompensationDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagBracketStep => GetBracketStepDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagIntervalLength => GetIntervalLengthDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagIntervalNumber => GetIntervalNumberDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagFocalLength => GetFocalLengthDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagFocusDistance => GetFocusDistanceDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagFlashFired => GetFlashFiredDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagDate => GetDateDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagTime => GetTimeDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagMaxApertureAtFocalLength => GetMaxApertureAtFocalLengthDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagFileNumberMemory => GetFileNumberMemoryDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagLastFileNumber => GetLastFileNumberDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceRed => GetWhiteBalanceRedDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceGreen => GetWhiteBalanceGreenDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagWhiteBalanceBlue => GetWhiteBalanceBlueDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagSaturation => GetSaturationDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagContrast => GetContrastCameraSettingDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagSharpness => GetSharpnessCameraSettingDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagSubjectProgram => GetSubjectProgramDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagFlashCompensation => GetFlashCompensationDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagIsoSetting => GetIsoSettingDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagCameraModel => GetCameraModelDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagIntervalMode => GetIntervalModeDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagFolderName => GetFolderNameDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagColorMode => GetColorModeCameraSettingDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagColorFilter => GetColorFilterDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagBlackAndWhiteFilter => GetBlackAndWhiteFilterDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagInternalFlash => GetInternalFlashDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagApexBrightnessValue => GetApexBrightnessDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagSpotFocusPointXCoordinate => GetSpotFocusPointXCoordinateDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagSpotFocusPointYCoordinate => GetSpotFocusPointYCoordinateDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagWideFocusZone => GetWideFocusZoneDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagFocusMode => GetFocusModeCameraSettingDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagFocusArea => GetFocusAreaDescription(),
+                OlympusMakernoteDirectory.CameraSettings.TagDecSwitchPosition => GetDecSwitchPositionDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetExposureModeDescription()
@@ -752,41 +678,28 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 if ((cameratype.StartsWith("SX", StringComparison.OrdinalIgnoreCase) && !cameratype.StartsWith("SX151", StringComparison.OrdinalIgnoreCase))
                     || cameratype.StartsWith("D4322", StringComparison.OrdinalIgnoreCase))
                 {
-                    switch (value)
+                    return value switch
                     {
-                        case 0:
-                            return "Standard Quality (Low)";
-                        case 1:
-                            return "High Quality (Normal)";
-                        case 2:
-                            return "Super High Quality (Fine)";
-                        case 6:
-                            return "RAW";
-                        default:
-                            return "Unknown (" + value + ")";
-                    }
+                        0 => "Standard Quality (Low)",
+                        1 => "High Quality (Normal)",
+                        2 => "Super High Quality (Fine)",
+                        6 => "RAW",
+                        _ => "Unknown (" + value + ")",
+                    };
                 }
                 else
                 {
-                    switch (value)
+                    return value switch
                     {
-                        case 0:
-                            return "Standard Quality (Low)";
-                        case 1:
-                            return "High Quality (Normal)";
-                        case 2:
-                            return "Super High Quality (Fine)";
-                        case 4:
-                            return "RAW";
-                        case 5:
-                            return "Medium-Fine";
-                        case 6:
-                            return "Small-Fine";
-                        case 33:
-                            return "Uncompressed";
-                        default:
-                            return "Unknown (" + value + ")";
-                    }
+                        0 => "Standard Quality (Low)",
+                        1 => "High Quality (Normal)",
+                        2 => "Super High Quality (Fine)",
+                        4 => "RAW",
+                        5 => "Medium-Fine",
+                        6 => "Small-Fine",
+                        33 => "Uncompressed",
+                        _ => "Unknown (" + value + ")",
+                    };
                 }
             }
             else

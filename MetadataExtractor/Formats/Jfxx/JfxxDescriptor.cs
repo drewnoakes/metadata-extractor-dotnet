@@ -45,13 +45,11 @@ namespace MetadataExtractor.Formats.Jfxx
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case JfxxDirectory.TagExtensionCode:
-                    return GetExtensionCodeDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                JfxxDirectory.TagExtensionCode => GetExtensionCodeDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetExtensionCodeDescription()
@@ -59,13 +57,13 @@ namespace MetadataExtractor.Formats.Jfxx
             if (!Directory.TryGetInt32(JfxxDirectory.TagExtensionCode, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0x10: return "Thumbnail coded using JPEG";
-                case 0x11: return "Thumbnail stored using 1 byte/pixel";
-                case 0x13: return "Thumbnail stored using 3 bytes/pixel";
-                default: return "Unknown extension code " + value;
-            }
+                0x10 => "Thumbnail coded using JPEG",
+                0x11 => "Thumbnail stored using 1 byte/pixel",
+                0x13 => "Thumbnail stored using 3 bytes/pixel",
+                _ => "Unknown extension code " + value,
+            };
         }
     }
 }

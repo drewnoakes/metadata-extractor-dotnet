@@ -43,17 +43,12 @@ namespace MetadataExtractor.Formats.Tiff
         {
             // Read byte order.
             var byteOrder = reader.GetInt16(0);
-            switch (byteOrder)
+            reader = byteOrder switch
             {
-                case 0x4d4d: // MM
-                    reader = reader.WithByteOrder(isMotorolaByteOrder: true);
-                    break;
-                case 0x4949: // II
-                    reader = reader.WithByteOrder(isMotorolaByteOrder: false);
-                    break;
-                default:
-                    throw new TiffProcessingException("Unclear distinction between Motorola/Intel byte ordering: " + reader.GetInt16(0));
-            }
+                0x4d4d => reader.WithByteOrder(isMotorolaByteOrder: true),
+                0x4949 => reader.WithByteOrder(isMotorolaByteOrder: false),
+                _ => throw new TiffProcessingException("Unclear distinction between Motorola/Intel byte ordering: " + reader.GetInt16(0)),
+            };
 
             // Check the next two values for correctness.
             int tiffMarker = reader.GetUInt16(2);

@@ -48,129 +48,73 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case OlympusCameraSettingsMakernoteDirectory.TagCameraSettingsVersion:
-                    return GetCameraSettingsVersionDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagPreviewImageValid:
-                    return GetPreviewImageValidDescription();
+                OlympusCameraSettingsMakernoteDirectory.TagCameraSettingsVersion => GetCameraSettingsVersionDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagPreviewImageValid => GetPreviewImageValidDescription(),
 
-                case OlympusCameraSettingsMakernoteDirectory.TagExposureMode:
-                    return GetExposureModeDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagAeLock:
-                    return GetAeLockDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagMeteringMode:
-                    return GetMeteringModeDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagExposureShift:
-                    return GetExposureShiftDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagNdFilter:
-                    return GetNdFilterDescription();
+                OlympusCameraSettingsMakernoteDirectory.TagExposureMode => GetExposureModeDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagAeLock => GetAeLockDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagMeteringMode => GetMeteringModeDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagExposureShift => GetExposureShiftDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagNdFilter => GetNdFilterDescription(),
 
-                case OlympusCameraSettingsMakernoteDirectory.TagMacroMode:
-                    return GetMacroModeDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagFocusMode:
-                    return GetFocusModeDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagFocusProcess:
-                    return GetFocusProcessDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagAfSearch:
-                    return GetAfSearchDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagAfAreas:
-                    return GetAfAreasDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagAfPointSelected:
-                    return GetAfPointSelectedDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagAfFineTune:
-                    return GetAfFineTuneDescription();
+                OlympusCameraSettingsMakernoteDirectory.TagMacroMode => GetMacroModeDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagFocusMode => GetFocusModeDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagFocusProcess => GetFocusProcessDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagAfSearch => GetAfSearchDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagAfAreas => GetAfAreasDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagAfPointSelected => GetAfPointSelectedDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagAfFineTune => GetAfFineTuneDescription(),
 
-                case OlympusCameraSettingsMakernoteDirectory.TagFlashMode:
-                    return GetFlashModeDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagFlashRemoteControl:
-                    return GetFlashRemoteControlDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagFlashControlMode:
-                    return GetFlashControlModeDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagFlashIntensity:
-                    return GetFlashIntensityDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagManualFlashStrength:
-                    return GetManualFlashStrengthDescription();
+                OlympusCameraSettingsMakernoteDirectory.TagFlashMode => GetFlashModeDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagFlashRemoteControl => GetFlashRemoteControlDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagFlashControlMode => GetFlashControlModeDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagFlashIntensity => GetFlashIntensityDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagManualFlashStrength => GetManualFlashStrengthDescription(),
 
-                case OlympusCameraSettingsMakernoteDirectory.TagWhiteBalance2:
-                    return GetWhiteBalance2Description();
-                case OlympusCameraSettingsMakernoteDirectory.TagWhiteBalanceTemperature:
-                    return GetWhiteBalanceTemperatureDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagCustomSaturation:
-                    return GetCustomSaturationDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagModifiedSaturation:
-                    return GetModifiedSaturationDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagContrastSetting:
-                    return GetContrastSettingDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagSharpnessSetting:
-                    return GetSharpnessSettingDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagColorSpace:
-                    return GetColorSpaceDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagSceneMode:
-                    return GetSceneModeDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagNoiseReduction:
-                    return GetNoiseReductionDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagDistortionCorrection:
-                    return GetDistortionCorrectionDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagShadingCompensation:
-                    return GetShadingCompensationDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagGradation:
-                    return GetGradationDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagPictureMode:
-                    return GetPictureModeDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagPictureModeSaturation:
-                    return GetPictureModeSaturationDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagPictureModeContrast:
-                    return GetPictureModeContrastDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagPictureModeSharpness:
-                    return GetPictureModeSharpnessDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagPictureModeBWFilter:
-                    return GetPictureModeBWFilterDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagPictureModeTone:
-                    return GetPictureModeToneDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagNoiseFilter:
-                    return GetNoiseFilterDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagArtFilter:
-                    return GetArtFilterDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagMagicFilter:
-                    return GetMagicFilterDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagPictureModeEffect:
-                    return GetPictureModeEffectDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagToneLevel:
-                    return GetToneLevelDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagArtFilterEffect:
-                    return GetArtFilterEffectDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagColorCreatorEffect:
-                    return GetColorCreatorEffectDescription();
+                OlympusCameraSettingsMakernoteDirectory.TagWhiteBalance2 => GetWhiteBalance2Description(),
+                OlympusCameraSettingsMakernoteDirectory.TagWhiteBalanceTemperature => GetWhiteBalanceTemperatureDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagCustomSaturation => GetCustomSaturationDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagModifiedSaturation => GetModifiedSaturationDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagContrastSetting => GetContrastSettingDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagSharpnessSetting => GetSharpnessSettingDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagColorSpace => GetColorSpaceDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagSceneMode => GetSceneModeDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagNoiseReduction => GetNoiseReductionDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagDistortionCorrection => GetDistortionCorrectionDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagShadingCompensation => GetShadingCompensationDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagGradation => GetGradationDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagPictureMode => GetPictureModeDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagPictureModeSaturation => GetPictureModeSaturationDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagPictureModeContrast => GetPictureModeContrastDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagPictureModeSharpness => GetPictureModeSharpnessDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagPictureModeBWFilter => GetPictureModeBWFilterDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagPictureModeTone => GetPictureModeToneDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagNoiseFilter => GetNoiseFilterDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagArtFilter => GetArtFilterDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagMagicFilter => GetMagicFilterDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagPictureModeEffect => GetPictureModeEffectDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagToneLevel => GetToneLevelDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagArtFilterEffect => GetArtFilterEffectDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagColorCreatorEffect => GetColorCreatorEffectDescription(),
 
-                case OlympusCameraSettingsMakernoteDirectory.TagDriveMode:
-                    return GetDriveModeDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagPanoramaMode:
-                    return GetPanoramaModeDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagImageQuality2:
-                    return GetImageQuality2Description();
-                case OlympusCameraSettingsMakernoteDirectory.TagImageStabilization:
-                    return GetImageStabilizationDescription();
+                OlympusCameraSettingsMakernoteDirectory.TagDriveMode => GetDriveModeDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagPanoramaMode => GetPanoramaModeDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagImageQuality2 => GetImageQuality2Description(),
+                OlympusCameraSettingsMakernoteDirectory.TagImageStabilization => GetImageStabilizationDescription(),
 
-                case OlympusCameraSettingsMakernoteDirectory.TagStackedImage:
-                    return GetStackedImageDescription();
+                OlympusCameraSettingsMakernoteDirectory.TagStackedImage => GetStackedImageDescription(),
 
-                case OlympusCameraSettingsMakernoteDirectory.TagManometerPressure:
-                    return GetManometerPressureDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagManometerReading:
-                    return GetManometerReadingDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagExtendedWBDetect:
-                    return GetExtendedWBDetectDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagRollAngle:
-                    return GetRollAngleDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagPitchAngle:
-                    return GetPitchAngleDescription();
-                case OlympusCameraSettingsMakernoteDirectory.TagDateTimeUtc:
-                    return GetDateTimeUtcDescription();
+                OlympusCameraSettingsMakernoteDirectory.TagManometerPressure => GetManometerPressureDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagManometerReading => GetManometerReadingDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagExtendedWBDetect => GetExtendedWBDetectDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagRollAngle => GetRollAngleDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagPitchAngle => GetPitchAngleDescription(),
+                OlympusCameraSettingsMakernoteDirectory.TagDateTimeUtc => GetDateTimeUtcDescription(),
 
-                default:
-                    return base.GetDescription(tagType);
-            }
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetCameraSettingsVersionDescription()
@@ -201,23 +145,16 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagMeteringMode, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 2:
-                    return "Center-weighted average";
-                case 3:
-                    return "Spot";
-                case 5:
-                    return "ESP";
-                case 261:
-                    return "Pattern+AF";
-                case 515:
-                    return "Spot+Highlight control";
-                case 1027:
-                    return "Spot+Shadow control";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                2 => "Center-weighted average",
+                3 => "Spot",
+                5 => "ESP",
+                261 => "Pattern+AF",
+                515 => "Spot+Highlight control",
+                1027 => "Spot+Shadow control",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetExposureShiftDescription()
@@ -441,38 +378,24 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagFlashRemoteControl, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "Off";
-                case 0x01:
-                    return "Channel 1, Low";
-                case 0x02:
-                    return "Channel 2, Low";
-                case 0x03:
-                    return "Channel 3, Low";
-                case 0x04:
-                    return "Channel 4, Low";
-                case 0x09:
-                    return "Channel 1, Mid";
-                case 0x0a:
-                    return "Channel 2, Mid";
-                case 0x0b:
-                    return "Channel 3, Mid";
-                case 0x0c:
-                    return "Channel 4, Mid";
-                case 0x11:
-                    return "Channel 1, High";
-                case 0x12:
-                    return "Channel 2, High";
-                case 0x13:
-                    return "Channel 3, High";
-                case 0x14:
-                    return "Channel 4, High";
+                0 => "Off",
+                0x01 => "Channel 1, Low",
+                0x02 => "Channel 2, Low",
+                0x03 => "Channel 3, Low",
+                0x04 => "Channel 4, Low",
+                0x09 => "Channel 1, Mid",
+                0x0a => "Channel 2, Mid",
+                0x0b => "Channel 3, Mid",
+                0x0c => "Channel 4, Mid",
+                0x11 => "Channel 1, High",
+                0x12 => "Channel 2, High",
+                0x13 => "Channel 3, High",
+                0x14 => "Channel 4, High",
 
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         /// <summary>
@@ -576,57 +499,33 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagWhiteBalance2, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "Auto";
-                case 1:
-                    return "Auto (Keep Warm Color Off)";
-                case 16:
-                    return "7500K (Fine Weather with Shade)";
-                case 17:
-                    return "6000K (Cloudy)";
-                case 18:
-                    return "5300K (Fine Weather)";
-                case 20:
-                    return "3000K (Tungsten light)";
-                case 21:
-                    return "3600K (Tungsten light-like)";
-                case 22:
-                    return "Auto Setup";
-                case 23:
-                    return "5500K (Flash)";
-                case 33:
-                    return "6600K (Daylight fluorescent)";
-                case 34:
-                    return "4500K (Neutral white fluorescent)";
-                case 35:
-                    return "4000K (Cool white fluorescent)";
-                case 36:
-                    return "White Fluorescent";
-                case 48:
-                    return "3600K (Tungsten light-like)";
-                case 67:
-                    return "Underwater";
-                case 256:
-                    return "One Touch WB 1";
-                case 257:
-                    return "One Touch WB 2";
-                case 258:
-                    return "One Touch WB 3";
-                case 259:
-                    return "One Touch WB 4";
-                case 512:
-                    return "Custom WB 1";
-                case 513:
-                    return "Custom WB 2";
-                case 514:
-                    return "Custom WB 3";
-                case 515:
-                    return "Custom WB 4";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0 => "Auto",
+                1 => "Auto (Keep Warm Color Off)",
+                16 => "7500K (Fine Weather with Shade)",
+                17 => "6000K (Cloudy)",
+                18 => "5300K (Fine Weather)",
+                20 => "3000K (Tungsten light)",
+                21 => "3600K (Tungsten light-like)",
+                22 => "Auto Setup",
+                23 => "5500K (Flash)",
+                33 => "6600K (Daylight fluorescent)",
+                34 => "4500K (Neutral white fluorescent)",
+                35 => "4000K (Cool white fluorescent)",
+                36 => "White Fluorescent",
+                48 => "3600K (Tungsten light-like)",
+                67 => "Underwater",
+                256 => "One Touch WB 1",
+                257 => "One Touch WB 2",
+                258 => "One Touch WB 3",
+                259 => "One Touch WB 4",
+                512 => "Custom WB 1",
+                513 => "Custom WB 2",
+                514 => "Custom WB 3",
+                515 => "Custom WB 4",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetWhiteBalanceTemperatureDescription()
@@ -673,125 +572,67 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(OlympusCameraSettingsMakernoteDirectory.TagSceneMode, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "Standard";
-                case 6:
-                    return "Auto";
-                case 7:
-                    return "Sport";
-                case 8:
-                    return "Portrait";
-                case 9:
-                    return "Landscape+Portrait";
-                case 10:
-                    return "Landscape";
-                case 11:
-                    return "Night Scene";
-                case 12:
-                    return "Self Portrait";
-                case 13:
-                    return "Panorama";
-                case 14:
-                    return "2 in 1";
-                case 15:
-                    return "Movie";
-                case 16:
-                    return "Landscape+Portrait";
-                case 17:
-                    return "Night+Portrait";
-                case 18:
-                    return "Indoor";
-                case 19:
-                    return "Fireworks";
-                case 20:
-                    return "Sunset";
-                case 21:
-                    return "Beauty Skin";
-                case 22:
-                    return "Macro";
-                case 23:
-                    return "Super Macro";
-                case 24:
-                    return "Food";
-                case 25:
-                    return "Documents";
-                case 26:
-                    return "Museum";
-                case 27:
-                    return "Shoot & Select";
-                case 28:
-                    return "Beach & Snow";
-                case 29:
-                    return "Self Portrait+Timer";
-                case 30:
-                    return "Candle";
-                case 31:
-                    return "Available Light";
-                case 32:
-                    return "Behind Glass";
-                case 33:
-                    return "My Mode";
-                case 34:
-                    return "Pet";
-                case 35:
-                    return "Underwater Wide1";
-                case 36:
-                    return "Underwater Macro";
-                case 37:
-                    return "Shoot & Select1";
-                case 38:
-                    return "Shoot & Select2";
-                case 39:
-                    return "High Key";
-                case 40:
-                    return "Digital Image Stabilization";
-                case 41:
-                    return "Auction";
-                case 42:
-                    return "Beach";
-                case 43:
-                    return "Snow";
-                case 44:
-                    return "Underwater Wide2";
-                case 45:
-                    return "Low Key";
-                case 46:
-                    return "Children";
-                case 47:
-                    return "Vivid";
-                case 48:
-                    return "Nature Macro";
-                case 49:
-                    return "Underwater Snapshot";
-                case 50:
-                    return "Shooting Guide";
-                case 54:
-                    return "Face Portrait";
-                case 57:
-                    return "Bulb";
-                case 59:
-                    return "Smile Shot";
-                case 60:
-                    return "Quick Shutter";
-                case 63:
-                    return "Slow Shutter";
-                case 64:
-                    return "Bird Watching";
-                case 65:
-                    return "Multiple Exposure";
-                case 66:
-                    return "e-Portrait";
-                case 67:
-                    return "Soft Background Shot";
-                case 142:
-                    return "Hand-held Starlight";
-                case 154:
-                    return "HDR";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0 => "Standard",
+                6 => "Auto",
+                7 => "Sport",
+                8 => "Portrait",
+                9 => "Landscape+Portrait",
+                10 => "Landscape",
+                11 => "Night Scene",
+                12 => "Self Portrait",
+                13 => "Panorama",
+                14 => "2 in 1",
+                15 => "Movie",
+                16 => "Landscape+Portrait",
+                17 => "Night+Portrait",
+                18 => "Indoor",
+                19 => "Fireworks",
+                20 => "Sunset",
+                21 => "Beauty Skin",
+                22 => "Macro",
+                23 => "Super Macro",
+                24 => "Food",
+                25 => "Documents",
+                26 => "Museum",
+                27 => "Shoot & Select",
+                28 => "Beach & Snow",
+                29 => "Self Portrait+Timer",
+                30 => "Candle",
+                31 => "Available Light",
+                32 => "Behind Glass",
+                33 => "My Mode",
+                34 => "Pet",
+                35 => "Underwater Wide1",
+                36 => "Underwater Macro",
+                37 => "Shoot & Select1",
+                38 => "Shoot & Select2",
+                39 => "High Key",
+                40 => "Digital Image Stabilization",
+                41 => "Auction",
+                42 => "Beach",
+                43 => "Snow",
+                44 => "Underwater Wide2",
+                45 => "Low Key",
+                46 => "Children",
+                47 => "Vivid",
+                48 => "Nature Macro",
+                49 => "Underwater Snapshot",
+                50 => "Shooting Guide",
+                54 => "Face Portrait",
+                57 => "Bulb",
+                59 => "Smile Shot",
+                60 => "Quick Shutter",
+                63 => "Slow Shutter",
+                64 => "Bird Watching",
+                65 => "Multiple Exposure",
+                66 => "e-Portrait",
+                67 => "Soft Background Shot",
+                142 => "Hand-held Starlight",
+                154 => "HDR",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetNoiseReductionDescription()
@@ -842,27 +683,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             var join = $"{values[0]} {values[1]} {values[2]}";
-
-            string ret;
-            switch (join)
+            var ret = join switch
             {
-                case "0 0 0":
-                    ret = "n/a";
-                    break;
-                case "-1 -1 1":
-                    ret = "Low Key";
-                    break;
-                case "0 -1 1":
-                    ret = "Normal";
-                    break;
-                case "1 -1 1":
-                    ret = "High Key";
-                    break;
-                default:
-                    ret = "Unknown (" + join + ")";
-                    break;
-            }
-
+                "0 0 0" => "n/a",
+                "-1 -1 1" => "Low Key",
+                "0 -1 1" => "Normal",
+                "1 -1 1" => "High Key",
+                _ => "Unknown (" + join + ")",
+            };
             if (values.Length > 3)
             {
                 if (values[3] == 0)
@@ -962,21 +790,15 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values == null)
                 return null;
 
-            switch ($"{values[0]} {values[1]} {values[2]}")
+            return $"{values[0]} {values[1]} {values[2]}" switch
             {
-                case "0 0 0":
-                    return "n/a";
-                case "-2 -2 1":
-                    return "Off";
-                case "-1 -2 1":
-                    return "Low";
-                case "0 -2 1":
-                    return "Standard";
-                case "1 -2 1":
-                    return "High";
-                default:
-                    return $"Unknown ({values[0]} {values[1]} {values[2]})";
-            }
+                "0 0 0" => "n/a",
+                "-2 -2 1" => "Off",
+                "-1 -2 1" => "Low",
+                "0 -2 1" => "Standard",
+                "1 -2 1" => "High",
+                _ => $"Unknown ({values[0]} {values[1]} {values[2]})",
+            };
         }
 
         public string? GetArtFilterDescription() => GetFilterDescription(OlympusCameraSettingsMakernoteDirectory.TagArtFilter);
@@ -989,19 +811,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (values == null)
                 return null;
 
-            switch ($"{values[0]} {values[1]} {values[2]}")
+            return $"{values[0]} {values[1]} {values[2]}" switch
             {
-                case "0 0 0":
-                    return "n/a";
-                case "-1 -1 1":
-                    return "Low";
-                case "0 -1 1":
-                    return "Standard";
-                case "1 -1 1":
-                    return "High";
-                default:
-                    return "Unknown (" + $"{values[0]} {values[1]} {values[2]}" + ")";
-            }
+                "0 0 0" => "n/a",
+                "-1 -1 1" => "Low",
+                "0 -1 1" => "Standard",
+                "1 -1 1" => "High",
+                _ => "Unknown (" + $"{values[0]} {values[1]} {values[2]}" + ")",
+            };
         }
 
         public string? GetToneLevelDescription()
@@ -1194,27 +1011,14 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
             if (values.Length == 0 || values[0] == 0)
                 return "Off";
-
-            string a;
-            switch (values[0])
+            var a = (values[0]) switch
             {
-                case 1:
-                    a = "Left to Right";
-                    break;
-                case 2:
-                    a = "Right to Left";
-                    break;
-                case 3:
-                    a = "Bottom to Top";
-                    break;
-                case 4:
-                    a = "Top to Bottom";
-                    break;
-                default:
-                    a = "Unknown (" + values[0] + ")";
-                    break;
-            }
-
+                1 => "Left to Right",
+                2 => "Right to Left",
+                3 => "Bottom to Top",
+                4 => "Top to Bottom",
+                _ => "Unknown (" + values[0] + ")",
+            };
             return $"{a}, Shot {values[1]}";
         }
 

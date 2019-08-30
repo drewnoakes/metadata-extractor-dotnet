@@ -37,17 +37,13 @@ namespace MetadataExtractor.Formats.Pcx
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case PcxDirectory.TagVersion:
-                    return GetVersionDescription();
-                case PcxDirectory.TagColorPlanes:
-                    return GetColorPlanesDescription();
-                case PcxDirectory.TagPaletteType:
-                    return GetPaletteTypeDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                PcxDirectory.TagVersion => GetVersionDescription(),
+                PcxDirectory.TagColorPlanes => GetColorPlanesDescription(),
+                PcxDirectory.TagPaletteType => GetPaletteTypeDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetVersionDescription()

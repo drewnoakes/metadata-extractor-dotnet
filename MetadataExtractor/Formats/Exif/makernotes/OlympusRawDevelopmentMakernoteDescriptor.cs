@@ -46,23 +46,16 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case OlympusRawDevelopmentMakernoteDirectory.TagRawDevVersion:
-                    return GetRawDevVersionDescription();
-                case OlympusRawDevelopmentMakernoteDirectory.TagRawDevColorSpace:
-                    return GetRawDevColorSpaceDescription();
-                case OlympusRawDevelopmentMakernoteDirectory.TagRawDevEngine:
-                    return GetRawDevEngineDescription();
-                case OlympusRawDevelopmentMakernoteDirectory.TagRawDevNoiseReduction:
-                    return GetRawDevNoiseReductionDescription();
-                case OlympusRawDevelopmentMakernoteDirectory.TagRawDevEditStatus:
-                    return GetRawDevEditStatusDescription();
-                case OlympusRawDevelopmentMakernoteDirectory.TagRawDevSettings:
-                    return GetRawDevSettingsDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                OlympusRawDevelopmentMakernoteDirectory.TagRawDevVersion => GetRawDevVersionDescription(),
+                OlympusRawDevelopmentMakernoteDirectory.TagRawDevColorSpace => GetRawDevColorSpaceDescription(),
+                OlympusRawDevelopmentMakernoteDirectory.TagRawDevEngine => GetRawDevEngineDescription(),
+                OlympusRawDevelopmentMakernoteDirectory.TagRawDevNoiseReduction => GetRawDevNoiseReductionDescription(),
+                OlympusRawDevelopmentMakernoteDirectory.TagRawDevEditStatus => GetRawDevEditStatusDescription(),
+                OlympusRawDevelopmentMakernoteDirectory.TagRawDevSettings => GetRawDevSettingsDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetRawDevVersionDescription()

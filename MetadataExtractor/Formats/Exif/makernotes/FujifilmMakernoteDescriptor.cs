@@ -57,59 +57,34 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case FujifilmMakernoteDirectory.TagMakernoteVersion:
-                    return GetMakernoteVersionDescription();
-                case FujifilmMakernoteDirectory.TagSharpness:
-                    return GetSharpnessDescription();
-                case FujifilmMakernoteDirectory.TagWhiteBalance:
-                    return GetWhiteBalanceDescription();
-                case FujifilmMakernoteDirectory.TagColorSaturation:
-                    return GetColorSaturationDescription();
-                case FujifilmMakernoteDirectory.TagTone:
-                    return GetToneDescription();
-                case FujifilmMakernoteDirectory.TagContrast:
-                    return GetContrastDescription();
-                case FujifilmMakernoteDirectory.TagNoiseReduction:
-                    return GetNoiseReductionDescription();
-                case FujifilmMakernoteDirectory.TagHighIsoNoiseReduction:
-                    return GetHighIsoNoiseReductionDescription();
-                case FujifilmMakernoteDirectory.TagFlashMode:
-                    return GetFlashModeDescription();
-                case FujifilmMakernoteDirectory.TagFlashEv:
-                    return GetFlashExposureValueDescription();
-                case FujifilmMakernoteDirectory.TagMacro:
-                    return GetMacroDescription();
-                case FujifilmMakernoteDirectory.TagFocusMode:
-                    return GetFocusModeDescription();
-                case FujifilmMakernoteDirectory.TagSlowSync:
-                    return GetSlowSyncDescription();
-                case FujifilmMakernoteDirectory.TagPictureMode:
-                    return GetPictureModeDescription();
-                case FujifilmMakernoteDirectory.TagExrAuto:
-                    return GetExrAutoDescription();
-                case FujifilmMakernoteDirectory.TagExrMode:
-                    return GetExrModeDescription();
-                case FujifilmMakernoteDirectory.TagAutoBracketing:
-                    return GetAutoBracketingDescription();
-                case FujifilmMakernoteDirectory.TagFinePixColor:
-                    return GetFinePixColorDescription();
-                case FujifilmMakernoteDirectory.TagBlurWarning:
-                    return GetBlurWarningDescription();
-                case FujifilmMakernoteDirectory.TagFocusWarning:
-                    return GetFocusWarningDescription();
-                case FujifilmMakernoteDirectory.TagAutoExposureWarning:
-                    return GetAutoExposureWarningDescription();
-                case FujifilmMakernoteDirectory.TagDynamicRange:
-                    return GetDynamicRangeDescription();
-                case FujifilmMakernoteDirectory.TagFilmMode:
-                    return GetFilmModeDescription();
-                case FujifilmMakernoteDirectory.TagDynamicRangeSetting:
-                    return GetDynamicRangeSettingDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                FujifilmMakernoteDirectory.TagMakernoteVersion => GetMakernoteVersionDescription(),
+                FujifilmMakernoteDirectory.TagSharpness => GetSharpnessDescription(),
+                FujifilmMakernoteDirectory.TagWhiteBalance => GetWhiteBalanceDescription(),
+                FujifilmMakernoteDirectory.TagColorSaturation => GetColorSaturationDescription(),
+                FujifilmMakernoteDirectory.TagTone => GetToneDescription(),
+                FujifilmMakernoteDirectory.TagContrast => GetContrastDescription(),
+                FujifilmMakernoteDirectory.TagNoiseReduction => GetNoiseReductionDescription(),
+                FujifilmMakernoteDirectory.TagHighIsoNoiseReduction => GetHighIsoNoiseReductionDescription(),
+                FujifilmMakernoteDirectory.TagFlashMode => GetFlashModeDescription(),
+                FujifilmMakernoteDirectory.TagFlashEv => GetFlashExposureValueDescription(),
+                FujifilmMakernoteDirectory.TagMacro => GetMacroDescription(),
+                FujifilmMakernoteDirectory.TagFocusMode => GetFocusModeDescription(),
+                FujifilmMakernoteDirectory.TagSlowSync => GetSlowSyncDescription(),
+                FujifilmMakernoteDirectory.TagPictureMode => GetPictureModeDescription(),
+                FujifilmMakernoteDirectory.TagExrAuto => GetExrAutoDescription(),
+                FujifilmMakernoteDirectory.TagExrMode => GetExrModeDescription(),
+                FujifilmMakernoteDirectory.TagAutoBracketing => GetAutoBracketingDescription(),
+                FujifilmMakernoteDirectory.TagFinePixColor => GetFinePixColorDescription(),
+                FujifilmMakernoteDirectory.TagBlurWarning => GetBlurWarningDescription(),
+                FujifilmMakernoteDirectory.TagFocusWarning => GetFocusWarningDescription(),
+                FujifilmMakernoteDirectory.TagAutoExposureWarning => GetAutoExposureWarningDescription(),
+                FujifilmMakernoteDirectory.TagDynamicRange => GetDynamicRangeDescription(),
+                FujifilmMakernoteDirectory.TagFilmMode => GetFilmModeDescription(),
+                FujifilmMakernoteDirectory.TagDynamicRangeSetting => GetDynamicRangeSettingDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         private string? GetMakernoteVersionDescription()
@@ -122,29 +97,19 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagSharpness, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 1:
-                    return "Softest";
-                case 2:
-                    return "Soft";
-                case 3:
-                    return "Normal";
-                case 4:
-                    return "Hard";
-                case 5:
-                    return "Hardest";
-                case 0x82:
-                    return "Medium Soft";
-                case 0x84:
-                    return "Medium Hard";
-                case 0x8000:
-                    return "Film Simulation";
-                case 0xFFFF:
-                    return "N/A";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                1 => "Softest",
+                2 => "Soft",
+                3 => "Normal",
+                4 => "Hard",
+                5 => "Hardest",
+                0x82 => "Medium Soft",
+                0x84 => "Medium Hard",
+                0x8000 => "Film Simulation",
+                0xFFFF => "N/A",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetWhiteBalanceDescription()
@@ -152,43 +117,26 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagWhiteBalance, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0x000:
-                    return "Auto";
-                case 0x100:
-                    return "Daylight";
-                case 0x200:
-                    return "Cloudy";
-                case 0x300:
-                    return "Daylight Fluorescent";
-                case 0x301:
-                    return "Day White Fluorescent";
-                case 0x302:
-                    return "White Fluorescent";
-                case 0x303:
-                    return "Warm White Fluorescent";
-                case 0x304:
-                    return "Living Room Warm White Fluorescent";
-                case 0x400:
-                    return "Incandescence";
-                case 0x500:
-                    return "Flash";
-                case 0xf00:
-                    return "Custom White Balance";
-                case 0xf01:
-                    return "Custom White Balance 2";
-                case 0xf02:
-                    return "Custom White Balance 3";
-                case 0xf03:
-                    return "Custom White Balance 4";
-                case 0xf04:
-                    return "Custom White Balance 5";
-                case 0xff0:
-                    return "Kelvin";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0x000 => "Auto",
+                0x100 => "Daylight",
+                0x200 => "Cloudy",
+                0x300 => "Daylight Fluorescent",
+                0x301 => "Day White Fluorescent",
+                0x302 => "White Fluorescent",
+                0x303 => "Warm White Fluorescent",
+                0x304 => "Living Room Warm White Fluorescent",
+                0x400 => "Incandescence",
+                0x500 => "Flash",
+                0xf00 => "Custom White Balance",
+                0xf01 => "Custom White Balance 2",
+                0xf02 => "Custom White Balance 3",
+                0xf03 => "Custom White Balance 4",
+                0xf04 => "Custom White Balance 5",
+                0xff0 => "Kelvin",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetColorSaturationDescription()
@@ -196,33 +144,21 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagColorSaturation, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0x000:
-                    return "Normal";
-                case 0x080:
-                    return "Medium High";
-                case 0x100:
-                    return "High";
-                case 0x180:
-                    return "Medium Low";
-                case 0x200:
-                    return "Low";
-                case 0x300:
-                    return "None (B&W)";
-                case 0x301:
-                    return "B&W Green Filter";
-                case 0x302:
-                    return "B&W Yellow Filter";
-                case 0x303:
-                    return "B&W Blue Filter";
-                case 0x304:
-                    return "B&W Sepia";
-                case 0x8000:
-                    return "Film Simulation";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0x000 => "Normal",
+                0x080 => "Medium High",
+                0x100 => "High",
+                0x180 => "Medium Low",
+                0x200 => "Low",
+                0x300 => "None (B&W)",
+                0x301 => "B&W Green Filter",
+                0x302 => "B&W Yellow Filter",
+                0x303 => "B&W Blue Filter",
+                0x304 => "B&W Sepia",
+                0x8000 => "Film Simulation",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetToneDescription()
@@ -230,25 +166,17 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagTone, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0x000:
-                    return "Normal";
-                case 0x080:
-                    return "Medium High";
-                case 0x100:
-                    return "High";
-                case 0x180:
-                    return "Medium Low";
-                case 0x200:
-                    return "Low";
-                case 0x300:
-                    return "None (B&W)";
-                case 0x8000:
-                    return "Film Simulation";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0x000 => "Normal",
+                0x080 => "Medium High",
+                0x100 => "High",
+                0x180 => "Medium Low",
+                0x200 => "Low",
+                0x300 => "None (B&W)",
+                0x8000 => "Film Simulation",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetContrastDescription()
@@ -256,34 +184,26 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagContrast, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0x000:
-                    return "Normal";
-                case 0x100:
-                    return "High";
-                case 0x300:
-                    return "Low";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0x000 => "Normal",
+                0x100 => "High",
+                0x300 => "Low",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetNoiseReductionDescription()
         {
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagNoiseReduction, out int value))
                 return null;
-            switch (value)
+            return value switch
             {
-                case 0x040:
-                    return "Low";
-                case 0x080:
-                    return "Normal";
-                case 0x100:
-                    return "N/A";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0x040 => "Low",
+                0x080 => "Normal",
+                0x100 => "N/A",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetHighIsoNoiseReductionDescription()
@@ -291,17 +211,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagHighIsoNoiseReduction, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0x000:
-                    return "Normal";
-                case 0x100:
-                    return "Strong";
-                case 0x200:
-                    return "Weak";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0x000 => "Normal",
+                0x100 => "Strong",
+                0x200 => "Weak",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetFlashModeDescription()
@@ -340,73 +256,42 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagPictureMode, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0x000:
-                    return "Auto";
-                case 0x001:
-                    return "Portrait scene";
-                case 0x002:
-                    return "Landscape scene";
-                case 0x003:
-                    return "Macro";
-                case 0x004:
-                    return "Sports scene";
-                case 0x005:
-                    return "Night scene";
-                case 0x006:
-                    return "Program AE";
-                case 0x007:
-                    return "Natural Light";
-                case 0x008:
-                    return "Anti-blur";
-                case 0x009:
-                    return "Beach & Snow";
-                case 0x00a:
-                    return "Sunset";
-                case 0x00b:
-                    return "Museum";
-                case 0x00c:
-                    return "Party";
-                case 0x00d:
-                    return "Flower";
-                case 0x00e:
-                    return "Text";
-                case 0x00f:
-                    return "Natural Light & Flash";
-                case 0x010:
-                    return "Beach";
-                case 0x011:
-                    return "Snow";
-                case 0x012:
-                    return "Fireworks";
-                case 0x013:
-                    return "Underwater";
-                case 0x014:
-                    return "Portrait with Skin Correction";
+                0x000 => "Auto",
+                0x001 => "Portrait scene",
+                0x002 => "Landscape scene",
+                0x003 => "Macro",
+                0x004 => "Sports scene",
+                0x005 => "Night scene",
+                0x006 => "Program AE",
+                0x007 => "Natural Light",
+                0x008 => "Anti-blur",
+                0x009 => "Beach & Snow",
+                0x00a => "Sunset",
+                0x00b => "Museum",
+                0x00c => "Party",
+                0x00d => "Flower",
+                0x00e => "Text",
+                0x00f => "Natural Light & Flash",
+                0x010 => "Beach",
+                0x011 => "Snow",
+                0x012 => "Fireworks",
+                0x013 => "Underwater",
+                0x014 => "Portrait with Skin Correction",
                 // skip 0x015
-                case 0x016:
-                    return "Panorama";
-                case 0x017:
-                    return "Night (Tripod)";
-                case 0x018:
-                    return "Pro Low-light";
-                case 0x019:
-                    return "Pro Focus";
+                0x016 => "Panorama",
+                0x017 => "Night (Tripod)",
+                0x018 => "Pro Low-light",
+                0x019 => "Pro Focus",
                 // skip 0x01a
-                case 0x01b:
-                    return "Dog Face Detection";
-                case 0x01c:
-                    return "Cat Face Detection";
-                case 0x100:
-                    return "Aperture priority AE";
-                case 0x200:
-                    return "Shutter priority AE";
-                case 0x300:
-                    return "Manual exposure";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0x01b => "Dog Face Detection",
+                0x01c => "Cat Face Detection",
+                0x100 => "Aperture priority AE",
+                0x200 => "Shutter priority AE",
+                0x300 => "Manual exposure",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetExrAutoDescription()
@@ -420,17 +305,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagExrMode, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0x100:
-                    return "HR (High Resolution)";
-                case 0x200:
-                    return "SN (Signal to Noise Priority)";
-                case 0x300:
-                    return "DR (Dynamic Range Priority)";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0x100 => "HR (High Resolution)",
+                0x200 => "SN (Signal to Noise Priority)",
+                0x300 => "DR (Dynamic Range Priority)",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetAutoBracketingDescription()
@@ -443,17 +324,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         {
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagFinePixColor, out int value))
                 return null;
-            switch (value)
+            return value switch
             {
-                case 0x00:
-                    return "Standard";
-                case 0x10:
-                    return "Chrome";
-                case 0x30:
-                    return "B&W";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0x00 => "Standard",
+                0x10 => "Chrome",
+                0x30 => "B&W",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetBlurWarningDescription()
@@ -486,31 +363,20 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagFilmMode, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0x000:
-                    return "F0/Standard (Provia) ";
-                case 0x100:
-                    return "F1/Studio Portrait";
-                case 0x110:
-                    return "F1a/Studio Portrait Enhanced Saturation";
-                case 0x120:
-                    return "F1b/Studio Portrait Smooth Skin Tone (Astia)";
-                case 0x130:
-                    return "F1c/Studio Portrait Increased Sharpness";
-                case 0x200:
-                    return "F2/Fujichrome (Velvia)";
-                case 0x300:
-                    return "F3/Studio Portrait Ex";
-                case 0x400:
-                    return "F4/Velvia";
-                case 0x500:
-                    return "Pro Neg. Std";
-                case 0x501:
-                    return "Pro Neg. Hi";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0x000 => "F0/Standard (Provia) ",
+                0x100 => "F1/Studio Portrait",
+                0x110 => "F1a/Studio Portrait Enhanced Saturation",
+                0x120 => "F1b/Studio Portrait Smooth Skin Tone (Astia)",
+                0x130 => "F1c/Studio Portrait Increased Sharpness",
+                0x200 => "F2/Fujichrome (Velvia)",
+                0x300 => "F3/Studio Portrait Ex",
+                0x400 => "F4/Velvia",
+                0x500 => "Pro Neg. Std",
+                0x501 => "Pro Neg. Hi",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
         public string? GetDynamicRangeSettingDescription()
@@ -518,23 +384,16 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if (!Directory.TryGetInt32(FujifilmMakernoteDirectory.TagDynamicRangeSetting, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0x000:
-                    return "Auto (100-400%)";
-                case 0x001:
-                    return "Manual";
-                case 0x100:
-                    return "Standard (100%)";
-                case 0x200:
-                    return "Wide 1 (230%)";
-                case 0x201:
-                    return "Wide 2 (400%)";
-                case 0x8000:
-                    return "Film Simulation";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0x000 => "Auto (100-400%)",
+                0x001 => "Manual",
+                0x100 => "Standard (100%)",
+                0x200 => "Wide 1 (230%)",
+                0x201 => "Wide 2 (400%)",
+                0x8000 => "Film Simulation",
+                _ => "Unknown (" + value + ")",
+            };
         }
     }
 }

@@ -40,13 +40,11 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case SonyType6MakernoteDirectory.TagMakernoteThumbVersion:
-                    return GetMakernoteThumbVersionDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                SonyType6MakernoteDirectory.TagMakernoteThumbVersion => GetMakernoteThumbVersionDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         public string? GetMakernoteThumbVersionDescription()
