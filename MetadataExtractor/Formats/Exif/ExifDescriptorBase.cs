@@ -28,6 +28,8 @@ using System.Text;
 using MetadataExtractor.Util;
 using MetadataExtractor.IO;
 
+using static MetadataExtractor.Formats.Exif.ExifDirectoryBase;
+
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace MetadataExtractor.Formats.Exif
@@ -48,89 +50,89 @@ namespace MetadataExtractor.Formats.Exif
 
             return tagType switch
             {
-                ExifDirectoryBase.TagInteropIndex => GetInteropIndexDescription(),
-                ExifDirectoryBase.TagInteropVersion => GetInteropVersionDescription(),
-                ExifDirectoryBase.TagOrientation => GetOrientationDescription(),
-                ExifDirectoryBase.TagResolutionUnit => GetResolutionDescription(),
-                ExifDirectoryBase.TagYCbCrPositioning => GetYCbCrPositioningDescription(),
-                ExifDirectoryBase.TagXResolution => GetXResolutionDescription(),
-                ExifDirectoryBase.TagYResolution => GetYResolutionDescription(),
-                ExifDirectoryBase.TagImageWidth => GetImageWidthDescription(),
-                ExifDirectoryBase.TagImageHeight => GetImageHeightDescription(),
-                ExifDirectoryBase.TagBitsPerSample => GetBitsPerSampleDescription(),
-                ExifDirectoryBase.TagPhotometricInterpretation => GetPhotometricInterpretationDescription(),
-                ExifDirectoryBase.TagRowsPerStrip => GetRowsPerStripDescription(),
-                ExifDirectoryBase.TagStripByteCounts => GetStripByteCountsDescription(),
-                ExifDirectoryBase.TagSamplesPerPixel => GetSamplesPerPixelDescription(),
-                ExifDirectoryBase.TagPlanarConfiguration => GetPlanarConfigurationDescription(),
-                ExifDirectoryBase.TagYCbCrSubsampling => GetYCbCrSubsamplingDescription(),
-                ExifDirectoryBase.TagReferenceBlackWhite => GetReferenceBlackWhiteDescription(),
-                ExifDirectoryBase.TagWinAuthor => GetWindowsAuthorDescription(),
-                ExifDirectoryBase.TagWinComment => GetWindowsCommentDescription(),
-                ExifDirectoryBase.TagWinKeywords => GetWindowsKeywordsDescription(),
-                ExifDirectoryBase.TagWinSubject => GetWindowsSubjectDescription(),
-                ExifDirectoryBase.TagWinTitle => GetWindowsTitleDescription(),
-                ExifDirectoryBase.TagNewSubfileType => GetNewSubfileTypeDescription(),
-                ExifDirectoryBase.TagSubfileType => GetSubfileTypeDescription(),
-                ExifDirectoryBase.TagThresholding => GetThresholdingDescription(),
-                ExifDirectoryBase.TagFillOrder => GetFillOrderDescription(),
-                ExifDirectoryBase.TagCfaPattern2 => GetCfaPattern2Description(),
-                ExifDirectoryBase.TagExposureTime => GetExposureTimeDescription(),
-                ExifDirectoryBase.TagShutterSpeed => GetShutterSpeedDescription(),
-                ExifDirectoryBase.TagFNumber => GetFNumberDescription(),
-                ExifDirectoryBase.TagCompressedAverageBitsPerPixel => GetCompressedAverageBitsPerPixelDescription(),
-                ExifDirectoryBase.TagSubjectDistance => GetSubjectDistanceDescription(),
-                ExifDirectoryBase.TagMeteringMode => GetMeteringModeDescription(),
-                ExifDirectoryBase.TagWhiteBalance => GetWhiteBalanceDescription(),
-                ExifDirectoryBase.TagFlash => GetFlashDescription(),
-                ExifDirectoryBase.TagFocalLength => GetFocalLengthDescription(),
-                ExifDirectoryBase.TagColorSpace => GetColorSpaceDescription(),
-                ExifDirectoryBase.TagExifImageWidth => GetExifImageWidthDescription(),
-                ExifDirectoryBase.TagExifImageHeight => GetExifImageHeightDescription(),
-                ExifDirectoryBase.TagFocalPlaneResolutionUnit => GetFocalPlaneResolutionUnitDescription(),
-                ExifDirectoryBase.TagFocalPlaneXResolution => GetFocalPlaneXResolutionDescription(),
-                ExifDirectoryBase.TagFocalPlaneYResolution => GetFocalPlaneYResolutionDescription(),
-                ExifDirectoryBase.TagExposureProgram => GetExposureProgramDescription(),
-                ExifDirectoryBase.TagAperture => GetApertureValueDescription(),
-                ExifDirectoryBase.TagBrightnessValue => GetBrightnessValueDescription(),
-                ExifDirectoryBase.TagMaxAperture => GetMaxApertureValueDescription(),
-                ExifDirectoryBase.TagSensingMethod => GetSensingMethodDescription(),
-                ExifDirectoryBase.TagExposureBias => GetExposureBiasDescription(),
-                ExifDirectoryBase.TagFileSource => GetFileSourceDescription(),
-                ExifDirectoryBase.TagSceneType => GetSceneTypeDescription(),
-                ExifDirectoryBase.TagCfaPattern => GetCfaPatternDescription(),
-                ExifDirectoryBase.TagComponentsConfiguration => GetComponentConfigurationDescription(),
-                ExifDirectoryBase.TagExifVersion => GetExifVersionDescription(),
-                ExifDirectoryBase.TagFlashpixVersion => GetFlashPixVersionDescription(),
-                ExifDirectoryBase.TagIsoEquivalent => GetIsoEquivalentDescription(),
-                ExifDirectoryBase.TagUserComment => GetUserCommentDescription(),
-                ExifDirectoryBase.TagCustomRendered => GetCustomRenderedDescription(),
-                ExifDirectoryBase.TagExposureMode => GetExposureModeDescription(),
-                ExifDirectoryBase.TagWhiteBalanceMode => GetWhiteBalanceModeDescription(),
-                ExifDirectoryBase.TagDigitalZoomRatio => GetDigitalZoomRatioDescription(),
-                ExifDirectoryBase.Tag35MMFilmEquivFocalLength => Get35MMFilmEquivFocalLengthDescription(),
-                ExifDirectoryBase.TagSceneCaptureType => GetSceneCaptureTypeDescription(),
-                ExifDirectoryBase.TagGainControl => GetGainControlDescription(),
-                ExifDirectoryBase.TagContrast => GetContrastDescription(),
-                ExifDirectoryBase.TagSaturation => GetSaturationDescription(),
-                ExifDirectoryBase.TagSharpness => GetSharpnessDescription(),
-                ExifDirectoryBase.TagSubjectDistanceRange => GetSubjectDistanceRangeDescription(),
-                ExifDirectoryBase.TagSensitivityType => GetSensitivityTypeDescription(),
-                ExifDirectoryBase.TagCompression => GetCompressionDescription(),
-                ExifDirectoryBase.TagJpegProc => GetJpegProcDescription(),
-                ExifDirectoryBase.TagLensSpecification => GetLensSpecificationDescription(),
-                _ => base.GetDescription(tagType),
+                TagInteropIndex                  => GetInteropIndexDescription(),
+                TagInteropVersion                => GetInteropVersionDescription(),
+                TagOrientation                   => GetOrientationDescription(),
+                TagResolutionUnit                => GetResolutionDescription(),
+                TagYCbCrPositioning              => GetYCbCrPositioningDescription(),
+                TagXResolution                   => GetXResolutionDescription(),
+                TagYResolution                   => GetYResolutionDescription(),
+                TagImageWidth                    => GetImageWidthDescription(),
+                TagImageHeight                   => GetImageHeightDescription(),
+                TagBitsPerSample                 => GetBitsPerSampleDescription(),
+                TagPhotometricInterpretation     => GetPhotometricInterpretationDescription(),
+                TagRowsPerStrip                  => GetRowsPerStripDescription(),
+                TagStripByteCounts               => GetStripByteCountsDescription(),
+                TagSamplesPerPixel               => GetSamplesPerPixelDescription(),
+                TagPlanarConfiguration           => GetPlanarConfigurationDescription(),
+                TagYCbCrSubsampling              => GetYCbCrSubsamplingDescription(),
+                TagReferenceBlackWhite           => GetReferenceBlackWhiteDescription(),
+                TagWinAuthor                     => GetWindowsAuthorDescription(),
+                TagWinComment                    => GetWindowsCommentDescription(),
+                TagWinKeywords                   => GetWindowsKeywordsDescription(),
+                TagWinSubject                    => GetWindowsSubjectDescription(),
+                TagWinTitle                      => GetWindowsTitleDescription(),
+                TagNewSubfileType                => GetNewSubfileTypeDescription(),
+                TagSubfileType                   => GetSubfileTypeDescription(),
+                TagThresholding                  => GetThresholdingDescription(),
+                TagFillOrder                     => GetFillOrderDescription(),
+                TagCfaPattern2                   => GetCfaPattern2Description(),
+                TagExposureTime                  => GetExposureTimeDescription(),
+                TagShutterSpeed                  => GetShutterSpeedDescription(),
+                TagFNumber                       => GetFNumberDescription(),
+                TagCompressedAverageBitsPerPixel => GetCompressedAverageBitsPerPixelDescription(),
+                TagSubjectDistance               => GetSubjectDistanceDescription(),
+                TagMeteringMode                  => GetMeteringModeDescription(),
+                TagWhiteBalance                  => GetWhiteBalanceDescription(),
+                TagFlash                         => GetFlashDescription(),
+                TagFocalLength                   => GetFocalLengthDescription(),
+                TagColorSpace                    => GetColorSpaceDescription(),
+                TagExifImageWidth                => GetExifImageWidthDescription(),
+                TagExifImageHeight               => GetExifImageHeightDescription(),
+                TagFocalPlaneResolutionUnit      => GetFocalPlaneResolutionUnitDescription(),
+                TagFocalPlaneXResolution         => GetFocalPlaneXResolutionDescription(),
+                TagFocalPlaneYResolution         => GetFocalPlaneYResolutionDescription(),
+                TagExposureProgram               => GetExposureProgramDescription(),
+                TagAperture                      => GetApertureValueDescription(),
+                TagBrightnessValue               => GetBrightnessValueDescription(),
+                TagMaxAperture                   => GetMaxApertureValueDescription(),
+                TagSensingMethod                 => GetSensingMethodDescription(),
+                TagExposureBias                  => GetExposureBiasDescription(),
+                TagFileSource                    => GetFileSourceDescription(),
+                TagSceneType                     => GetSceneTypeDescription(),
+                TagCfaPattern                    => GetCfaPatternDescription(),
+                TagComponentsConfiguration       => GetComponentConfigurationDescription(),
+                TagExifVersion                   => GetExifVersionDescription(),
+                TagFlashpixVersion               => GetFlashPixVersionDescription(),
+                TagIsoEquivalent                 => GetIsoEquivalentDescription(),
+                TagUserComment                   => GetUserCommentDescription(),
+                TagCustomRendered                => GetCustomRenderedDescription(),
+                TagExposureMode                  => GetExposureModeDescription(),
+                TagWhiteBalanceMode              => GetWhiteBalanceModeDescription(),
+                TagDigitalZoomRatio              => GetDigitalZoomRatioDescription(),
+                Tag35MMFilmEquivFocalLength      => Get35MMFilmEquivFocalLengthDescription(),
+                TagSceneCaptureType              => GetSceneCaptureTypeDescription(),
+                TagGainControl                   => GetGainControlDescription(),
+                TagContrast                      => GetContrastDescription(),
+                TagSaturation                    => GetSaturationDescription(),
+                TagSharpness                     => GetSharpnessDescription(),
+                TagSubjectDistanceRange          => GetSubjectDistanceRangeDescription(),
+                TagSensitivityType               => GetSensitivityTypeDescription(),
+                TagCompression                   => GetCompressionDescription(),
+                TagJpegProc                      => GetJpegProcDescription(),
+                TagLensSpecification             => GetLensSpecificationDescription(),
+                _                                => base.GetDescription(tagType),
             };
         }
 
         public string? GetInteropVersionDescription()
         {
-            return GetVersionBytesDescription(ExifDirectoryBase.TagInteropVersion, 2);
+            return GetVersionBytesDescription(TagInteropVersion, 2);
         }
 
         public string? GetInteropIndexDescription()
         {
-            var value = Directory.GetString(ExifDirectoryBase.TagInteropIndex);
+            var value = Directory.GetString(TagInteropIndex);
             if (value == null)
                 return null;
             return string.Equals("R98", value.Trim(), StringComparison.OrdinalIgnoreCase)
@@ -140,7 +142,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetReferenceBlackWhiteDescription()
         {
-            var ints = Directory.GetInt32Array(ExifDirectoryBase.TagReferenceBlackWhite);
+            var ints = Directory.GetInt32Array(TagReferenceBlackWhite);
             if (ints == null || ints.Length < 6)
                 return null;
             var blackR = ints[0];
@@ -154,7 +156,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetYResolutionDescription()
         {
-            var resolution = GetRationalOrDoubleString(ExifDirectoryBase.TagYResolution);
+            var resolution = GetRationalOrDoubleString(TagYResolution);
             if (resolution == null)
                 return null;
             var unit = GetResolutionDescription();
@@ -163,7 +165,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetXResolutionDescription()
         {
-            var resolution = GetRationalOrDoubleString(ExifDirectoryBase.TagXResolution);
+            var resolution = GetRationalOrDoubleString(TagXResolution);
             if (resolution == null)
                 return null;
             var unit = GetResolutionDescription();
@@ -172,20 +174,20 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetYCbCrPositioningDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagYCbCrPositioning, 1,
+            return GetIndexedDescription(TagYCbCrPositioning, 1,
                 "Center of pixel array",
                 "Datum point");
         }
 
         public string? GetOrientationDescription()
         {
-            return base.GetOrientationDescription(ExifDirectoryBase.TagOrientation);
+            return base.GetOrientationDescription(TagOrientation);
         }
 
         public string? GetResolutionDescription()
         {
             // '1' means no-unit, '2' means inch, '3' means centimeter. Default value is '2'(inch)
-            return GetIndexedDescription(ExifDirectoryBase.TagResolutionUnit, 1,
+            return GetIndexedDescription(TagResolutionUnit, 1,
                 "(No unit)",
                 "Inch",
                 "cm");
@@ -210,32 +212,32 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetWindowsAuthorDescription()
         {
-            return GetUnicodeDescription(ExifDirectoryBase.TagWinAuthor);
+            return GetUnicodeDescription(TagWinAuthor);
         }
 
         public string? GetWindowsCommentDescription()
         {
-            return GetUnicodeDescription(ExifDirectoryBase.TagWinComment);
+            return GetUnicodeDescription(TagWinComment);
         }
 
         public string? GetWindowsKeywordsDescription()
         {
-            return GetUnicodeDescription(ExifDirectoryBase.TagWinKeywords);
+            return GetUnicodeDescription(TagWinKeywords);
         }
 
         public string? GetWindowsTitleDescription()
         {
-            return GetUnicodeDescription(ExifDirectoryBase.TagWinTitle);
+            return GetUnicodeDescription(TagWinTitle);
         }
 
         public string? GetWindowsSubjectDescription()
         {
-            return GetUnicodeDescription(ExifDirectoryBase.TagWinSubject);
+            return GetUnicodeDescription(TagWinSubject);
         }
 
         public string? GetYCbCrSubsamplingDescription()
         {
-            var positions = Directory.GetInt32Array(ExifDirectoryBase.TagYCbCrSubsampling);
+            var positions = Directory.GetInt32Array(TagYCbCrSubsampling);
             if (positions == null || positions.Length < 2)
                 return null;
             if (positions[0] == 2 && positions[1] == 1)
@@ -251,31 +253,31 @@ namespace MetadataExtractor.Formats.Exif
             // data. If value is '1', Y/Cb/Cr value is chunky format, contiguous for each subsampling
             // pixel. If value is '2', Y/Cb/Cr value is separated and stored to Y plane/Cb plane/Cr
             // plane format.
-            return GetIndexedDescription(ExifDirectoryBase.TagPlanarConfiguration, 1, "Chunky (contiguous for each subsampling pixel)", "Separate (Y-plane/Cb-plane/Cr-plane format)");
+            return GetIndexedDescription(TagPlanarConfiguration, 1, "Chunky (contiguous for each subsampling pixel)", "Separate (Y-plane/Cb-plane/Cr-plane format)");
         }
 
         public string? GetSamplesPerPixelDescription()
         {
-            var value = Directory.GetString(ExifDirectoryBase.TagSamplesPerPixel);
+            var value = Directory.GetString(TagSamplesPerPixel);
             return value == null ? null : value + " samples/pixel";
         }
 
         public string? GetRowsPerStripDescription()
         {
-            var value = Directory.GetString(ExifDirectoryBase.TagRowsPerStrip);
+            var value = Directory.GetString(TagRowsPerStrip);
             return value == null ? null : value + " rows/strip";
         }
 
         public string? GetStripByteCountsDescription()
         {
-            var value = Directory.GetString(ExifDirectoryBase.TagStripByteCounts);
+            var value = Directory.GetString(TagStripByteCounts);
             return value == null ? null : value + " bytes";
         }
 
         public string? GetPhotometricInterpretationDescription()
         {
             // Shows the color space of the image data components
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagPhotometricInterpretation, out int value))
+            if (!Directory.TryGetInt32(TagPhotometricInterpretation, out int value))
                 return null;
 
             return value switch
@@ -300,25 +302,25 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetBitsPerSampleDescription()
         {
-            var value = Directory.GetString(ExifDirectoryBase.TagBitsPerSample);
+            var value = Directory.GetString(TagBitsPerSample);
             return value == null ? null : value + " bits/component/pixel";
         }
 
         public string? GetImageWidthDescription()
         {
-            var value = Directory.GetString(ExifDirectoryBase.TagImageWidth);
+            var value = Directory.GetString(TagImageWidth);
             return value == null ? null : value + " pixels";
         }
 
         public string? GetImageHeightDescription()
         {
-            var value = Directory.GetString(ExifDirectoryBase.TagImageHeight);
+            var value = Directory.GetString(TagImageHeight);
             return value == null ? null : value + " pixels";
         }
 
         public string? GetNewSubfileTypeDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagNewSubfileType, 0,
+            return GetIndexedDescription(TagNewSubfileType, 0,
                 "Full-resolution image",
                 "Reduced-resolution image",
                 "Single page of multi-page image",
@@ -331,7 +333,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetSubfileTypeDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagSubfileType, 1,
+            return GetIndexedDescription(TagSubfileType, 1,
                 "Full-resolution image",
                 "Reduced-resolution image",
                 "Single page of multi-page image");
@@ -339,7 +341,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetThresholdingDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagThresholding, 1,
+            return GetIndexedDescription(TagThresholding, 1,
                 "No dithering or halftoning",
                 "Ordered dither or halftone",
                 "Randomized dither");
@@ -347,14 +349,14 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetFillOrderDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagFillOrder, 1,
+            return GetIndexedDescription(TagFillOrder, 1,
                 "Normal",
                 "Reversed");
         }
 
         public string? GetSubjectDistanceRangeDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagSubjectDistanceRange,
+            return GetIndexedDescription(TagSubjectDistanceRange,
                 "Unknown",
                 "Macro",
                 "Close view",
@@ -363,7 +365,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetSensitivityTypeDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagSensitivityType,
+            return GetIndexedDescription(TagSensitivityType,
                 "Unknown",
                 "Standard Output Sensitivity",
                 "Recommended Exposure Index",
@@ -376,12 +378,12 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetLensSpecificationDescription()
         {
-            return GetLensSpecificationDescription(ExifDirectoryBase.TagLensSpecification);
+            return GetLensSpecificationDescription(TagLensSpecification);
         }
 
         public string? GetSharpnessDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagSharpness,
+            return GetIndexedDescription(TagSharpness,
                 "None",
                 "Low",
                 "Hard");
@@ -389,7 +391,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetSaturationDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagSaturation,
+            return GetIndexedDescription(TagSaturation,
                 "None",
                 "Low saturation",
                 "High saturation");
@@ -397,7 +399,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetContrastDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagContrast,
+            return GetIndexedDescription(TagContrast,
                 "None",
                 "Soft",
                 "Hard");
@@ -405,7 +407,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetGainControlDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagGainControl,
+            return GetIndexedDescription(TagGainControl,
                 "None",
                 "Low gain up",
                 "Low gain down",
@@ -415,7 +417,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetSceneCaptureTypeDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagSceneCaptureType,
+            return GetIndexedDescription(TagSceneCaptureType,
                 "Standard",
                 "Landscape",
                 "Portrait",
@@ -424,14 +426,14 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? Get35MMFilmEquivFocalLengthDescription()
         {
-            if (!Directory.TryGetInt32(ExifDirectoryBase.Tag35MMFilmEquivFocalLength, out int value))
+            if (!Directory.TryGetInt32(Tag35MMFilmEquivFocalLength, out int value))
                 return null;
             return value == 0 ? "Unknown" : GetFocalLengthDescription(value);
         }
 
         public string? GetDigitalZoomRatioDescription()
         {
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagDigitalZoomRatio, out Rational value))
+            if (!Directory.TryGetRational(TagDigitalZoomRatio, out Rational value))
                 return null;
             return value.Numerator == 0
                 ? "Digital zoom not used"
@@ -440,14 +442,14 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetWhiteBalanceModeDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagWhiteBalanceMode,
+            return GetIndexedDescription(TagWhiteBalanceMode,
                 "Auto white balance",
                 "Manual white balance");
         }
 
         public string? GetExposureModeDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagExposureMode,
+            return GetIndexedDescription(TagExposureMode,
                 "Auto exposure",
                 "Manual exposure",
                 "Auto bracket");
@@ -455,14 +457,14 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetCustomRenderedDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagCustomRendered,
+            return GetIndexedDescription(TagCustomRendered,
                 "Normal process",
                 "Custom process");
         }
 
         public string? GetUserCommentDescription()
         {
-            return GetEncodedTextDescription(ExifDirectoryBase.TagUserComment);
+            return GetEncodedTextDescription(TagUserComment);
         }
 
         public string? GetIsoEquivalentDescription()
@@ -470,24 +472,24 @@ namespace MetadataExtractor.Formats.Exif
             // Have seen an exception here from files produced by ACDSEE that stored an int[] here with two values
             // There used to be a check here that multiplied ISO values < 50 by 200.
             // Issue 36 shows a smart-phone image from a Samsung Galaxy S2 with ISO-40.
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagIsoEquivalent, out int value))
+            if (!Directory.TryGetInt32(TagIsoEquivalent, out int value))
                 return null;
             return value.ToString();
         }
 
         public string? GetExifVersionDescription()
         {
-            return GetVersionBytesDescription(ExifDirectoryBase.TagExifVersion, 2);
+            return GetVersionBytesDescription(TagExifVersion, 2);
         }
 
         public string? GetFlashPixVersionDescription()
         {
-            return GetVersionBytesDescription(ExifDirectoryBase.TagFlashpixVersion, 2);
+            return GetVersionBytesDescription(TagFlashpixVersion, 2);
         }
 
         public string? GetSceneTypeDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagSceneType, 1,
+            return GetIndexedDescription(TagSceneType, 1,
                 "Directly photographed image");
         }
 
@@ -504,7 +506,7 @@ namespace MetadataExtractor.Formats.Exif
         /// </remarks>
         public string? GetCfaPatternDescription()
         {
-            return FormatCFAPattern(DecodeCFAPattern(ExifDirectoryBase.TagCfaPattern));
+            return FormatCFAPattern(DecodeCFAPattern(TagCfaPattern));
         }
 
         /// <summary>
@@ -514,18 +516,18 @@ namespace MetadataExtractor.Formats.Exif
         /// Indicates the color filter array (CFA) geometric pattern of the image sensor when a one-chip color area sensor is used.
         /// It does not apply to all sensing methods.
         ///
-        /// <see cref="ExifDirectoryBase.TagCfaPattern2"/> holds only the pixel pattern. <see cref="ExifDirectoryBase.TagCfaRepeatPatternDim"/> is expected to exist and pass
+        /// <see cref="TagCfaPattern2"/> holds only the pixel pattern. <see cref="TagCfaRepeatPatternDim"/> is expected to exist and pass
         /// some conditional tests.
         /// </remarks>
         public string? GetCfaPattern2Description()
         {
-            var values = Directory.GetByteArray(ExifDirectoryBase.TagCfaPattern2);
+            var values = Directory.GetByteArray(TagCfaPattern2);
             if (values == null)
                 return null;
 
-            var repeatPattern = Directory.GetObject(ExifDirectoryBase.TagCfaRepeatPatternDim) as ushort[];
+            var repeatPattern = Directory.GetObject(TagCfaRepeatPatternDim) as ushort[];
             if (repeatPattern == null)
-                return $"Repeat Pattern not found for CFAPattern ({base.GetDescription(ExifDirectoryBase.TagCfaPattern2)})";
+                return $"Repeat Pattern not found for CFAPattern ({base.GetDescription(TagCfaPattern2)})";
 
             if (repeatPattern.Length == 2 && values.Length == (repeatPattern[0] * repeatPattern[1]))
             {
@@ -538,7 +540,7 @@ namespace MetadataExtractor.Formats.Exif
                 return FormatCFAPattern(intpattern);
             }
 
-            return $"Unknown Pattern ({base.GetDescription(ExifDirectoryBase.TagCfaPattern2)})";
+            return $"Unknown Pattern ({base.GetDescription(TagCfaPattern2)})";
         }
 
         private static string? FormatCFAPattern(int[]? pattern)
@@ -641,7 +643,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetFileSourceDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagFileSource, 1,
+            return GetIndexedDescription(TagFileSource, 1,
                 "Film Scanner",
                 "Reflection Print Scanner",
                 "Digital Still Camera (DSC)");
@@ -649,28 +651,28 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetExposureBiasDescription()
         {
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagExposureBias, out Rational value))
+            if (!Directory.TryGetRational(TagExposureBias, out Rational value))
                 return null;
             return value.ToSimpleString() + " EV";
         }
 
         public string? GetMaxApertureValueDescription()
         {
-            if (!Directory.TryGetDouble(ExifDirectoryBase.TagMaxAperture, out double aperture))
+            if (!Directory.TryGetDouble(TagMaxAperture, out double aperture))
                 return null;
             return GetFStopDescription(PhotographicConversions.ApertureToFStop(aperture));
         }
 
         public string? GetApertureValueDescription()
         {
-            if (!Directory.TryGetDouble(ExifDirectoryBase.TagAperture, out double aperture))
+            if (!Directory.TryGetDouble(TagAperture, out double aperture))
                 return null;
             return GetFStopDescription(PhotographicConversions.ApertureToFStop(aperture));
         }
 
         public string? GetBrightnessValueDescription()
         {
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagBrightnessValue, out Rational value))
+            if (!Directory.TryGetRational(TagBrightnessValue, out Rational value))
                 return null;
             if (value.Numerator == 0xFFFFFFFFL)
                 return "Unknown";
@@ -680,7 +682,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetExposureProgramDescription()
         {
-            return GetIndexedDescription(ExifDirectoryBase.TagExposureProgram, 1,
+            return GetIndexedDescription(TagExposureProgram, 1,
                 "Manual control",
                 "Program normal",
                 "Aperture priority",
@@ -693,7 +695,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetFocalPlaneXResolutionDescription()
         {
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagFocalPlaneXResolution, out Rational value))
+            if (!Directory.TryGetRational(TagFocalPlaneXResolution, out Rational value))
                 return null;
             var unit = GetFocalPlaneResolutionUnitDescription();
             return value.Reciprocal.ToSimpleString() + (unit == null ? string.Empty : " " + unit.ToLower());
@@ -701,7 +703,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetFocalPlaneYResolutionDescription()
         {
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagFocalPlaneYResolution, out Rational value))
+            if (!Directory.TryGetRational(TagFocalPlaneYResolution, out Rational value))
                 return null;
             var unit = GetFocalPlaneResolutionUnitDescription();
             return value.Reciprocal.ToSimpleString() + (unit == null ? string.Empty : " " + unit.ToLower());
@@ -711,7 +713,7 @@ namespace MetadataExtractor.Formats.Exif
         {
             // Unit of FocalPlaneXResolution/FocalPlaneYResolution.
             // '1' means no-unit, '2' inch, '3' centimeter.
-            return GetIndexedDescription(ExifDirectoryBase.TagFocalPlaneResolutionUnit, 1,
+            return GetIndexedDescription(TagFocalPlaneResolutionUnit, 1,
                 "(No unit)",
                 "Inches",
                 "cm");
@@ -719,21 +721,21 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetExifImageWidthDescription()
         {
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagExifImageWidth, out int value))
+            if (!Directory.TryGetInt32(TagExifImageWidth, out int value))
                 return null;
             return value + " pixels";
         }
 
         public string? GetExifImageHeightDescription()
         {
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagExifImageHeight, out int value))
+            if (!Directory.TryGetInt32(TagExifImageHeight, out int value))
                 return null;
             return value + " pixels";
         }
 
         public string? GetColorSpaceDescription()
         {
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagColorSpace, out int value))
+            if (!Directory.TryGetInt32(TagColorSpace, out int value))
                 return null;
             if (value == 1)
                 return "sRGB";
@@ -744,7 +746,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetFocalLengthDescription()
         {
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagFocalLength, out Rational value))
+            if (!Directory.TryGetRational(TagFocalLength, out Rational value))
                 return null;
             return GetFocalLengthDescription(value.ToDouble());
         }
@@ -761,7 +763,7 @@ namespace MetadataExtractor.Formats.Exif
              * 5 = unknown
              * 6 = red eye reduction used
              */
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagFlash, out int value))
+            if (!Directory.TryGetInt32(TagFlash, out int value))
                 return null;
 
             var sb = new StringBuilder();
@@ -779,7 +781,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetWhiteBalanceDescription()
         {
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagWhiteBalance, out int value))
+            if (!Directory.TryGetInt32(TagWhiteBalance, out int value))
                 return null;
 
             return GetWhiteBalanceDescription(value);
@@ -821,7 +823,7 @@ namespace MetadataExtractor.Formats.Exif
         {
             // '0' means unknown, '1' average, '2' center weighted average, '3' spot
             // '4' multi-spot, '5' multi-segment, '6' partial, '255' other
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagMeteringMode, out int value))
+            if (!Directory.TryGetInt32(TagMeteringMode, out int value))
                 return null;
 
             return value switch
@@ -840,7 +842,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetCompressionDescription()
         {
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagCompression, out int value))
+            if (!Directory.TryGetInt32(TagCompression, out int value))
                 return null;
 
             return value switch
@@ -892,7 +894,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetSubjectDistanceDescription()
         {
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagSubjectDistance, out Rational value))
+            if (!Directory.TryGetRational(TagSubjectDistance, out Rational value))
                 return null;
             if (value.Numerator == 0xFFFFFFFFL)
                 return "Infinity";
@@ -903,7 +905,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetCompressedAverageBitsPerPixelDescription()
         {
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagCompressedAverageBitsPerPixel, out Rational value))
+            if (!Directory.TryGetRational(TagCompressedAverageBitsPerPixel, out Rational value))
                 return null;
             var ratio = value.ToSimpleString();
             return value.IsInteger && value.ToInt32() == 1 ? ratio + " bit/pixel" : ratio + " bits/pixel";
@@ -911,18 +913,18 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetExposureTimeDescription()
         {
-            var value = Directory.GetString(ExifDirectoryBase.TagExposureTime);
+            var value = Directory.GetString(TagExposureTime);
             return value == null ? null : value + " sec";
         }
 
         public string? GetShutterSpeedDescription()
         {
-            return GetShutterSpeedDescription(ExifDirectoryBase.TagShutterSpeed);
+            return GetShutterSpeedDescription(TagShutterSpeed);
         }
 
         public string? GetFNumberDescription()
         {
-            if (!Directory.TryGetRational(ExifDirectoryBase.TagFNumber, out Rational value))
+            if (!Directory.TryGetRational(TagFNumber, out Rational value))
                 return null;
             return GetFStopDescription(value.ToDouble());
         }
@@ -932,7 +934,7 @@ namespace MetadataExtractor.Formats.Exif
             // '1' Not defined, '2' One-chip color area sensor, '3' Two-chip color area sensor
             // '4' Three-chip color area sensor, '5' Color sequential area sensor
             // '7' Trilinear sensor '8' Color sequential linear sensor,  'Other' reserved
-            return GetIndexedDescription(ExifDirectoryBase.TagSensingMethod, 1,
+            return GetIndexedDescription(TagSensingMethod, 1,
                 "(Not defined)",
                 "One-chip color area sensor",
                 "Two-chip color area sensor",
@@ -945,7 +947,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetComponentConfigurationDescription()
         {
-            var components = Directory.GetInt32Array(ExifDirectoryBase.TagComponentsConfiguration);
+            var components = Directory.GetInt32Array(TagComponentsConfiguration);
             if (components == null)
                 return null;
             var componentStrings = new[] { string.Empty, "Y", "Cb", "Cr", "R", "G", "B" };
@@ -961,7 +963,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public string? GetJpegProcDescription()
         {
-            if (!Directory.TryGetInt32(ExifDirectoryBase.TagJpegProc, out int value))
+            if (!Directory.TryGetInt32(TagJpegProc, out int value))
                 return null;
 
             return value switch
