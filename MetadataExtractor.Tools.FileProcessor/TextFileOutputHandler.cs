@@ -43,7 +43,7 @@ namespace MetadataExtractor.Tools.FileProcessor
     /// </summary>
     internal class TextFileOutputHandler : FileHandlerBase
     {
-        private static string NEW_LINE = "\n";
+        private static readonly string NEW_LINE = "\n";
 
         public override void OnStartingDirectory(string directoryPath)
         {

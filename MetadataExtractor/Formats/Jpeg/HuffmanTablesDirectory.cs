@@ -155,7 +155,7 @@ namespace MetadataExtractor.Formats.Jpeg
         }
 
         /// <returns>The List of HuffmanTables in this Directory.</returns>
-        private List<HuffmanTable> _tables = new List<HuffmanTable>(4);
+        private readonly List<HuffmanTable> _tables = new List<HuffmanTable>(4);
 
         /// <summary>Evaluates whether all the tables in this HuffmanTablesDirectory are "typical" Huffman tables.</summary>
         /// <remarks>
