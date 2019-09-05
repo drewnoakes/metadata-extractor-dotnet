@@ -93,7 +93,7 @@ namespace MetadataExtractor
                 long val = 0;
                 foreach(var b in Bytes)
                 {
-                    val = val << 8;
+                    val <<= 8;
                     val += b & 0xff;
                 }
                 return (int)val;
