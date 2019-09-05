@@ -37,8 +37,7 @@ namespace MetadataExtractor.Tests.Formats.Png
     {
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        private static IEnumerable<Directory> ProcessFile([NotNull] string filePath)
+        private static IEnumerable<Directory> ProcessFile(string filePath)
         {
             using var stream = TestDataUtil.OpenRead(filePath);
             return PngMetadataReader.ReadMetadata(stream);
@@ -72,9 +71,9 @@ namespace MetadataExtractor.Tests.Formats.Png
             Assert.Equal(testString, directories[4].GetDateTime(PngDirectory.TagLastModificationTime).ToString("ddd MMM dd HH:mm:ss zzz yyyy"));
             Assert.Equal("Tue Jan 01 04:08:30 2013", directories[4].GetString(PngDirectory.TagLastModificationTime));
             Assert.Equal(PngChunkType.iTXt, directories[5].GetPngChunkType());
-            var pairs = (IList<KeyValuePair>)directories[5].GetObject(PngDirectory.TagTextualData);
+            var pairs = (IList<KeyValuePair>?)directories[5].GetObject(PngDirectory.TagTextualData);
             Assert.NotNull(pairs);
-            Assert.Equal(1, pairs.Count);
+            Assert.Equal(1, pairs!.Count);
             Assert.Equal("Comment", pairs[0].Key);
             Assert.Equal("Created with GIMP", pairs[0].Value.ToString());
         }

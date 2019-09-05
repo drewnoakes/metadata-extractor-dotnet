@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Gif;
 using MetadataExtractor.IO;
 using Xunit;
@@ -35,8 +34,7 @@ namespace MetadataExtractor.Tests.Formats.Gif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class GifReaderTest
     {
-        [NotNull]
-        private static IEnumerable<Directory> ProcessBytes([NotNull] string file)
+        private static IEnumerable<Directory> ProcessBytes(string file)
         {
             using var stream = TestDataUtil.OpenRead(file);
             return new GifReader().Extract(new SequentialStreamReader(stream));

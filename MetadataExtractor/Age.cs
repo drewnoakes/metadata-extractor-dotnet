@@ -111,12 +111,12 @@ namespace MetadataExtractor
 
         #region Equality and hashing
 
-        private bool Equals(Age other)
+        private bool Equals(Age? other)
         {
-            return Years == other.Years && Months == other.Months && Days == other.Days && Hours == other.Hours && Minutes == other.Minutes && Seconds == other.Seconds;
+            return other != null && Years == other.Years && Months == other.Months && Days == other.Days && Hours == other.Hours && Minutes == other.Minutes && Seconds == other.Seconds;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is null)
                 return false;

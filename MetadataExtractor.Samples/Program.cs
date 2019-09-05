@@ -137,7 +137,7 @@ namespace MetadataExtractor.Samples
                 return null;
             }
 
-            static string GetExposureProgramDescription(IEnumerable<Directory> directories)
+            static string? GetExposureProgramDescription(IEnumerable<Directory> directories)
             {
                 // obtain a specific directory
                 var directory = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();

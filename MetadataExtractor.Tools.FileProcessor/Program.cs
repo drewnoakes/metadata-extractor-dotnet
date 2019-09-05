@@ -63,7 +63,7 @@ namespace MetadataExtractor.Tools.FileProcessor
         /// <param name="argArray">the command line arguments</param>
         /// <exception cref="MetadataException"/>
         /// <exception cref="System.IO.IOException"/>
-        private static int ProcessFileList([NotNull] string[] argArray)
+        private static int ProcessFileList(string[] argArray)
         {
             var args = argArray.ToList();
 
@@ -134,7 +134,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                 {
                     foreach (var tag in directory.Tags)
                     {
-                        string description;
+                        string? description;
                         try
                         {
                             description = tag.Description;
@@ -191,7 +191,7 @@ namespace MetadataExtractor.Tools.FileProcessor
         {
             var directories = new List<string>();
 
-            var fileHandler = (IFileHandler)null;
+            var fileHandler = (IFileHandler?)null;
             var log = Console.Out;
 
             for (var i = 0; i < args.Length; i++)
@@ -269,7 +269,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                 Assembly.GetEntryAssembly().GetName().Name);
         }
 
-        private static void ProcessDirectory([NotNull] string path, [NotNull] IFileHandler handler, [NotNull] string relativePath, [NotNull] TextWriter log)
+        private static void ProcessDirectory(string path, IFileHandler handler, string relativePath, TextWriter log)
         {
             var entries = System.IO.Directory.GetFileSystemEntries(path);
 

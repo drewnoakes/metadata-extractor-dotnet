@@ -34,8 +34,7 @@ namespace MetadataExtractor.Tests.Formats.Photoshop
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PsdReaderTest
     {
-        [NotNull]
-        private static PsdHeaderDirectory ProcessBytes([NotNull] string filePath)
+        private static PsdHeaderDirectory ProcessBytes(string filePath)
         {
             using var stream = TestDataUtil.OpenRead(filePath);
             var directory = new PsdReader().Extract(new SequentialStreamReader(stream)).OfType<PsdHeaderDirectory>().FirstOrDefault();

@@ -131,7 +131,7 @@ namespace MetadataExtractor.Tools.FileProcessor
                     // Write file structure
                     var tree = directories.ToLookup(d => d.Parent);
 
-                    void WriteLevel(Directory parent, int level)
+                    void WriteLevel(Directory? parent, int level)
                     {
                         const int indent = 4;
 
@@ -177,7 +177,6 @@ namespace MetadataExtractor.Tools.FileProcessor
             }
         }
 
-        [NotNull]
         private static TextWriter OpenWriter(string filePath)
         {
             var directoryPath = Path.GetDirectoryName(filePath);

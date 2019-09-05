@@ -67,9 +67,9 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Fact]
         public void ComponentData1()
         {
-            var component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData1);
+            var component = (JpegComponent?)_directory.GetObject(JpegDirectory.TagComponentData1);
             Assert.NotNull(component);
-            Assert.Equal("Y", component.Name);
+            Assert.Equal("Y", component!.Name);
             Assert.Equal(1, component.Id);
             Assert.Equal(0, component.QuantizationTableNumber);
             Assert.Equal(2, component.HorizontalSamplingFactor);
@@ -79,9 +79,9 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Fact]
         public void ComponentData2()
         {
-            var component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData2);
+            var component = (JpegComponent?)_directory.GetObject(JpegDirectory.TagComponentData2);
             Assert.NotNull(component);
-            Assert.Equal("Cb", component.Name);
+            Assert.Equal("Cb", component!.Name);
             Assert.Equal(2, component.Id);
             Assert.Equal(1, component.QuantizationTableNumber);
             Assert.Equal(1, component.HorizontalSamplingFactor);
@@ -92,9 +92,9 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Fact]
         public void ComponentData3()
         {
-            var component = (JpegComponent)_directory.GetObject(JpegDirectory.TagComponentData3);
+            var component = (JpegComponent?)_directory.GetObject(JpegDirectory.TagComponentData3);
             Assert.NotNull(component);
-            Assert.Equal("Cr", component.Name);
+            Assert.Equal("Cr", component!.Name);
             Assert.Equal(3, component.Id);
             Assert.Equal(1, component.QuantizationTableNumber);
             Assert.Equal(1, component.HorizontalSamplingFactor);

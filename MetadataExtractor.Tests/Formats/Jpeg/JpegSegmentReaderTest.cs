@@ -34,7 +34,7 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegSegmentReaderTest
     {
-        private static IReadOnlyList<JpegSegment> ReadSegments(string fileName, ICollection<JpegSegmentType> segmentTypes = null)
+        private static IReadOnlyList<JpegSegment> ReadSegments(string fileName, ICollection<JpegSegmentType>? segmentTypes = null)
         {
             using var stream = TestDataUtil.OpenRead(fileName);
             return JpegSegmentReader.ReadSegments(new SequentialStreamReader(stream), segmentTypes).ToList();

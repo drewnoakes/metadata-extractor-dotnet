@@ -36,7 +36,7 @@ namespace MetadataExtractor.Tests
         {
             var age = Age.FromPanasonicString("0031:07:15 00:00:00");
             Assert.NotNull(age);
-            Assert.Equal(31, age.Years);
+            Assert.Equal(31, age!.Years);
             Assert.Equal(7, age.Months);
             Assert.Equal(15, age.Days);
             Assert.Equal(0, age.Hours);
@@ -61,7 +61,7 @@ namespace MetadataExtractor.Tests
             Assert.True(age1.Equals(age2));
             Assert.False(age1.Equals(age3));
             Assert.False(age1.Equals(null));
-            Assert.False(age1.Equals("Hello"));
+            Assert.False(age1!.Equals("Hello"));
             Assert.Equal(age1.GetHashCode(), age1.GetHashCode());
             Assert.Equal(age1.GetHashCode(), age2.GetHashCode());
             Assert.False(age1.GetHashCode() == age3.GetHashCode());
