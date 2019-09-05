@@ -37,7 +37,7 @@ namespace MetadataExtractor
     /// The introduction of this type allows full transparency and control over the use of string data extracted
     /// by the library during the read phase.
     /// </remarks>
-    public struct StringValue : IConvertible
+    public readonly struct StringValue : IConvertible
     {
         /// <summary>
         /// The encoding used when decoding a <see cref="StringValue"/> that does not specify its encoding.

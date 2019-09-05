@@ -42,7 +42,7 @@ namespace MetadataExtractor
     [Serializable]
     [TypeConverter(typeof(RationalConverter))]
 #endif
-    public struct Rational : IConvertible, IEquatable<Rational>
+    public readonly struct Rational : IConvertible, IEquatable<Rational>
     {
         /// <summary>Gets the denominator.</summary>
         public long Denominator { get; }
