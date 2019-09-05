@@ -91,7 +91,7 @@ namespace MetadataExtractor
             catch(Exception)
             {
                 long val = 0;
-                foreach(var b in Bytes)
+                foreach (var b in Bytes)
                 {
                     val <<= 8;
                     val += b & 0xff;

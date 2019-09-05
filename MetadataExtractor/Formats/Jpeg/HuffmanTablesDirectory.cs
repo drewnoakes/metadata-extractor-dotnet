@@ -202,7 +202,6 @@ namespace MetadataExtractor.Formats.Jpeg
         {
             return !IsTypical();
         }
-
     }
 
     /// <summary>A JPEG Huffman table.</summary>
@@ -231,22 +230,10 @@ namespace MetadataExtractor.Formats.Jpeg
         public int TableDestinationId { get; }
 
         /// <returns>A byte array with the L values for this table.</returns>
-        public byte[] LengthBytes
-        {
-            get
-            {
-                return _lengthBytes.ToArray();
-            }
-        }
+        public byte[] LengthBytes => _lengthBytes.ToArray();
 
         /// <returns>A byte array with the V values for this table.</returns>
-        public byte[] ValueBytes
-        {
-            get
-            {
-                return _valueBytes.ToArray();
-            }
-        }
+        public byte[] ValueBytes => _valueBytes.ToArray();
 
         /// <summary>Evaluates whether this table is a "typical" Huffman table.</summary>
         /// <remarks>
@@ -316,5 +303,4 @@ namespace MetadataExtractor.Formats.Jpeg
         AC,
         UNKNOWN
     }
-
 }
