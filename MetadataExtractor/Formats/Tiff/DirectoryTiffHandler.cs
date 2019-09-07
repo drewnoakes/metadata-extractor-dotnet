@@ -61,7 +61,10 @@ namespace MetadataExtractor.Formats.Tiff
                 directory.Parent = CurrentDirectory;
             }
             CurrentDirectory = directory;
-            Directories.Add(CurrentDirectory);
+            if (!Directories.Contains(CurrentDirectory))
+            {
+                Directories.Add(CurrentDirectory);
+            }
         }
 
         public void Warn(string message)  => GetCurrentOrErrorDirectory().AddError(message);
