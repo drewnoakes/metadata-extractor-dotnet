@@ -272,20 +272,10 @@ namespace MetadataExtractor.Formats.Png
                     directory.AddError("Invalid compression method value");
                     yield return directory;
                 }
+
                 if (textBytes != null)
                 {
-                    if (keyword == "XML:com.adobe.xmp")
-                    {
-                        // NOTE in testing images, the XMP has parsed successfully, but we are not extracting tags from it as necessary
-                        yield return new XmpReader().Extract(textBytes);
-                    }
-                    else
-                    {
-                        var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, new StringValue(textBytes, _latin1Encoding)) };
-                        var directory = new PngDirectory(PngChunkType.zTXt);
-                        directory.Set(PngDirectory.TagTextualData, textPairs);
-                        yield return directory;
-                    }
+                    yield return ProcessTextChunk(keyword, textBytes);
                 }
             }
             else if (chunkType == PngChunkType.iTXt)
@@ -344,18 +334,7 @@ namespace MetadataExtractor.Formats.Png
 
                 if (textBytes != null)
                 {
-                    if (keyword == "XML:com.adobe.xmp")
-                    {
-                        // NOTE in testing images, the XMP has parsed successfully, but we are not extracting tags from it as necessary
-                        yield return new XmpReader().Extract(textBytes);
-                    }
-                    else
-                    {
-                        var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, new StringValue(textBytes, _latin1Encoding)) };
-                        var directory = new PngDirectory(PngChunkType.iTXt);
-                        directory.Set(PngDirectory.TagTextualData, textPairs);
-                        yield return directory;
-                    }
+                    yield return ProcessTextChunk(keyword, textBytes);
                 }
             }
             else if (chunkType == PngChunkType.tIME)
@@ -394,6 +373,24 @@ namespace MetadataExtractor.Formats.Png
                 var directory = new PngDirectory(PngChunkType.sBIT);
                 directory.Set(PngDirectory.TagSignificantBits, bytes);
                 yield return directory;
+            }
+
+            yield break;
+
+            Directory ProcessTextChunk(string keyword, byte[] textBytes)
+            {
+                if (keyword == "XML:com.adobe.xmp")
+                {
+                    // NOTE in testing images, the XMP has parsed successfully, but we are not extracting tags from it as necessary
+                    return new XmpReader().Extract(textBytes);
+                }
+                else
+                {
+                    var textPairs = new List<KeyValuePair> { new KeyValuePair(keyword, new StringValue(textBytes, _latin1Encoding)) };
+                    var directory = new PngDirectory(chunkType);
+                    directory.Set(PngDirectory.TagTextualData, textPairs);
+                    return directory;
+                }
             }
         }
 
