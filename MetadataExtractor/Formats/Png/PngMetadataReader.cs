@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using System.IO.Compression;
@@ -247,22 +248,10 @@ namespace MetadataExtractor.Formats.Png
                 byte[]? textBytes = null;
                 if (compressionMethod == 0)
                 {
-                    using var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress);
-                    Exception? ex = null;
-                    try
-                    {
-                        textBytes = ReadStreamToBytes(inflaterStream);
-                    }
-                    catch (Exception e)
-                    {
-                        ex = e;
-                    }
-
-                    // Work-around no yield-return from catch blocks
-                    if (ex != null)
+                    if (!TryDeflate(bytes, bytesLeft, out textBytes, out string? errorMessage))
                     {
                         var directory = new PngDirectory(PngChunkType.zTXt);
-                        directory.AddError($"Exception decompressing {nameof(PngChunkType.zTXt)} chunk with keyword \"{keyword}\": {ex.Message}");
+                        directory.AddError($"Exception decompressing {nameof(PngChunkType.zTXt)} chunk with keyword \"{keyword}\": {errorMessage}");
                         yield return directory;
                     }
                 }
@@ -299,22 +288,10 @@ namespace MetadataExtractor.Formats.Png
                 {
                     if (compressionMethod == 0)
                     {
-                        using var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress);
-                        Exception? ex = null;
-                        try
-                        {
-                            textBytes = ReadStreamToBytes(inflaterStream);
-                        }
-                        catch (Exception e)
-                        {
-                            ex = e;
-                        }
-
-                        // Work-around no yield-return from catch blocks
-                        if (ex != null)
+                        if (!TryDeflate(bytes, bytesLeft, out textBytes, out string? errorMessage))
                         {
                             var directory = new PngDirectory(PngChunkType.iTXt);
-                            directory.AddError($"Exception decompressing {nameof(PngChunkType.iTXt)} chunk with keyword \"{keyword}\": {ex.Message}");
+                            directory.AddError($"Exception decompressing {nameof(PngChunkType.iTXt)} chunk with keyword \"{keyword}\": {errorMessage}");
                             yield return directory;
                         }
                     }
@@ -394,20 +371,37 @@ namespace MetadataExtractor.Formats.Png
             }
         }
 
-        private static byte[] ReadStreamToBytes(Stream stream)
+        private static bool TryDeflate(
+            byte[] bytes,
+            int bytesLeft,
+            [NotNullWhen(returnValue: true)] out byte[]? textBytes,
+            [NotNullWhen(returnValue: true)] out string? errorMessage)
         {
-            var ms = new MemoryStream();
+            using var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress);
+            try
+            {
+                var ms = new MemoryStream();
 
 #if !NET35
-            stream.CopyTo(ms);
+                inflaterStream.CopyTo(ms);
 #else
-            var buffer = new byte[1024];
-            int count;
-            while ((count = stream.Read(buffer, 0, 256)) > 0)
-                ms.Write(buffer, 0, count);
+                var buffer = new byte[1024];
+                int count;
+                while ((count = inflaterStream.Read(buffer, 0, 256)) > 0)
+                    ms.Write(buffer, 0, count);
 #endif
 
-            return ms.ToArray();
+                textBytes = ms.ToArray();
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                textBytes = default;
+                return false;
+            }
+
+            errorMessage = default;
+            return true;
         }
     }
 }
