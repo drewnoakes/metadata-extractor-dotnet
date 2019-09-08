@@ -96,7 +96,11 @@ namespace MetadataExtractor.Util
         QuickTime = 20,
 
         /// <summary>Netpbm family of image formats.</summary>
-        Netpbm = 21
+        Netpbm = 21,
+
+        /// <summary>Canon camera raw (version 3).</summary>
+        /// <remarks>Shared by CR3 (image) and CRM (video).</remarks>
+        Crx = 22
     }
 
     public static class FileTypeExtensions
@@ -124,7 +128,8 @@ namespace MetadataExtractor.Util
             "RAF",
             "RW2",
             "QuickTime",
-            "Netpbm"
+            "Netpbm",
+            "CRX"
         };
         
         private static readonly string[] _longNames =
@@ -150,7 +155,8 @@ namespace MetadataExtractor.Util
             "FujiFilm Camera Raw",
             "Panasonic Camera Raw",
             "QuickTime",
-            "Netpbm"
+            "Netpbm",
+            "Canon Camera Raw"
         };
 
         [ItemCanBeNull] private static readonly string[] _mimeTypes =
@@ -176,7 +182,8 @@ namespace MetadataExtractor.Util
             null,
             null,
             "video/quicktime",
-            "image/x-portable-graymap"
+            "image/x-portable-graymap",
+            null
         };
 
         [ItemCanBeNull] private static readonly string[][] _extensions =
@@ -202,7 +209,8 @@ namespace MetadataExtractor.Util
             new[] { "raf" },
             new[] { "rw2" },
             new[] { "mov" },
-            new[] { "pbm", "ppm" }
+            new[] { "pbm", "ppm" },
+            new[] { "cr3", "crm" }
         };
         
         [NotNull]

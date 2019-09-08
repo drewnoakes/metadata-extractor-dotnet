@@ -124,6 +124,7 @@ namespace MetadataExtractor
                 case FileType.Raf:
                     return Append(RafMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.QuickTime:
+                case FileType.Crx:
                     return Append(QuickTimeMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Netpbm:
                     return new Directory[] { NetpbmMetadataReader.ReadMetadata(stream), fileTypeDirectory };
