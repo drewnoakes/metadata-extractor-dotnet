@@ -15,6 +15,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>MetadataExtractor</PackageId>
     <PackageTags>Metadata;Exif;IPTC;XMP;ICC;Photoshop;WebP;PNG;BMP;ICO;PCX;JPEG;TIFF;PSD;Photography;QuickTime;MOV;MP4;M4V;Video</PackageTags>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Signed)' == 'True' ">
