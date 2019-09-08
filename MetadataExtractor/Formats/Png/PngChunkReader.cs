@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Png
@@ -36,8 +35,7 @@ namespace MetadataExtractor.Formats.Png
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public IEnumerable<PngChunk> Extract([NotNull] SequentialReader reader, [CanBeNull] ICollection<PngChunkType> desiredChunkTypes)
+        public IEnumerable<PngChunk> Extract(SequentialReader reader, ICollection<PngChunkType>? desiredChunkTypes)
         {
             //
             // PNG DATA STREAM

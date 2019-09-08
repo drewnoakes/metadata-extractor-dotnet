@@ -22,7 +22,6 @@
 #endregion
 
 using System.IO;
-using JetBrains.Annotations;
 using System.Collections.Generic;
 using MetadataExtractor.Formats.FileSystem;
 
@@ -39,8 +38,7 @@ namespace MetadataExtractor.Formats.Netpbm
     public static class NetpbmMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static DirectoryList ReadMetadata(string filePath)
         {
             var directories = new List<Directory>(2);
 
@@ -52,8 +50,7 @@ namespace MetadataExtractor.Formats.Netpbm
             return directories;
         }
 
-        [NotNull]
-        public static NetpbmHeaderDirectory ReadMetadata([NotNull] Stream stream)
+        public static NetpbmHeaderDirectory ReadMetadata(Stream stream)
         {
             return new NetpbmReader().Extract(stream);
         }

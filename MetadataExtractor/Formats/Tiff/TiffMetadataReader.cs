@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.IO;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.IO;
@@ -48,8 +47,7 @@ namespace MetadataExtractor.Formats.Tiff
     {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="TiffProcessingException"/>
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static DirectoryList ReadMetadata(string filePath)
         {
             var directories = new List<Directory>();
 
@@ -66,8 +64,7 @@ namespace MetadataExtractor.Formats.Tiff
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="TiffProcessingException"/>
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata(Stream stream)
         {
             // TIFF processing requires random access, as directories can be scattered throughout the byte sequence.
             // Stream does not support seeking backwards, so we wrap it with IndexedCapturingReader, which

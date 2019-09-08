@@ -25,7 +25,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Photoshop
 {
@@ -124,7 +123,6 @@ namespace MetadataExtractor.Formats.Photoshop
         public const int TagLightroomWorkflow = 0x1F40;
         public const int TagPrintFlagsInfo = 0x2710;
 
-        [NotNull]
         internal static readonly Dictionary<int, string> TagNameMap = new Dictionary<int, string>
         {
             { TagChannelsRowsColumnsDepthMode, "Channels, Rows, Columns, Depth, Mode" },
@@ -222,8 +220,7 @@ namespace MetadataExtractor.Formats.Photoshop
             return TagNameMap.TryGetValue(tagType, out tagName);
         }
 
-        [CanBeNull]
-        public byte[] GetThumbnailBytes()
+        public byte[]? GetThumbnailBytes()
         {
             var storedBytes = this.GetByteArray(TagThumbnail) ?? this.GetByteArray(TagThumbnailOld);
 

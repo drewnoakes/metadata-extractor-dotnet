@@ -26,7 +26,6 @@ using System;
 #if !NETSTANDARD1_3
 using System.Runtime.Serialization;
 #endif
-using JetBrains.Annotations;
 
 namespace MetadataExtractor
 {
@@ -37,23 +36,23 @@ namespace MetadataExtractor
 #endif
     public class ImageProcessingException : Exception
     {
-        public ImageProcessingException([CanBeNull] string message)
+        public ImageProcessingException(string? message)
             : base(message)
         {
         }
 
-        public ImageProcessingException([CanBeNull] string message, [CanBeNull] Exception innerException)
+        public ImageProcessingException(string? message, Exception? innerException)
             : base(message, innerException)
         {
         }
 
-        public ImageProcessingException([CanBeNull] Exception innerException)
+        public ImageProcessingException(Exception? innerException)
             : base(null, innerException)
         {
         }
 
 #if !NETSTANDARD1_3
-        protected ImageProcessingException([NotNull] SerializationInfo info, StreamingContext context)
+        protected ImageProcessingException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

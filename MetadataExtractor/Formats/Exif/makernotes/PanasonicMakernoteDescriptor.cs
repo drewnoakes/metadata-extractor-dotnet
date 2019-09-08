@@ -27,7 +27,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
@@ -47,236 +46,156 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class PanasonicMakernoteDescriptor : TagDescriptor<PanasonicMakernoteDirectory>
     {
-        public PanasonicMakernoteDescriptor([NotNull] PanasonicMakernoteDirectory directory)
+        public PanasonicMakernoteDescriptor(PanasonicMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case PanasonicMakernoteDirectory.TagQualityMode:
-                    return GetQualityModeDescription();
-                case PanasonicMakernoteDirectory.TagFirmwareVersion:
-                    return GetVersionDescription();
-                case PanasonicMakernoteDirectory.TagWhiteBalance:
-                    return GetWhiteBalanceDescription();
-                case PanasonicMakernoteDirectory.TagFocusMode:
-                    return GetFocusModeDescription();
-                case PanasonicMakernoteDirectory.TagAfAreaMode:
-                    return GetAfAreaModeDescription();
-                case PanasonicMakernoteDirectory.TagImageStabilization:
-                    return GetImageStabilizationDescription();
-                case PanasonicMakernoteDirectory.TagMacroMode:
-                    return GetMacroModeDescription();
-                case PanasonicMakernoteDirectory.TagRecordMode:
-                    return GetRecordModeDescription();
-                case PanasonicMakernoteDirectory.TagAudio:
-                    return GetAudioDescription();
-                case PanasonicMakernoteDirectory.TagUnknownDataDump:
-                    return GetUnknownDataDumpDescription();
-                case PanasonicMakernoteDirectory.TagColorEffect:
-                    return GetColorEffectDescription();
-                case PanasonicMakernoteDirectory.TagUptime:
-                    return GetUptimeDescription();
-                case PanasonicMakernoteDirectory.TagBurstMode:
-                    return GetBurstModeDescription();
-                case PanasonicMakernoteDirectory.TagContrastMode:
-                    return GetContrastModeDescription();
-                case PanasonicMakernoteDirectory.TagNoiseReduction:
-                    return GetNoiseReductionDescription();
-                case PanasonicMakernoteDirectory.TagSelfTimer:
-                    return GetSelfTimerDescription();
-                case PanasonicMakernoteDirectory.TagRotation:
-                    return GetRotationDescription();
-                case PanasonicMakernoteDirectory.TagAfAssistLamp:
-                    return GetAfAssistLampDescription();
-                case PanasonicMakernoteDirectory.TagColorMode:
-                    return GetColorModeDescription();
-                case PanasonicMakernoteDirectory.TagOpticalZoomMode:
-                    return GetOpticalZoomModeDescription();
-                case PanasonicMakernoteDirectory.TagConversionLens:
-                    return GetConversionLensDescription();
-                case PanasonicMakernoteDirectory.TagContrast:
-                    return GetContrastDescription();
-                case PanasonicMakernoteDirectory.TagWorldTimeLocation:
-                    return GetWorldTimeLocationDescription();
-                case PanasonicMakernoteDirectory.TagAdvancedSceneMode:
-                    return GetAdvancedSceneModeDescription();
-                case PanasonicMakernoteDirectory.TagFaceDetectionInfo:
-                    return GetDetectedFacesDescription();
-                case PanasonicMakernoteDirectory.TagTransform:
-                    return GetTransformDescription();
-                case PanasonicMakernoteDirectory.TagTransform1:
-                    return GetTransform1Description();
-                case PanasonicMakernoteDirectory.TagIntelligentExposure:
-                    return GetIntelligentExposureDescription();
-                case PanasonicMakernoteDirectory.TagFlashWarning:
-                    return GetFlashWarningDescription();
-                case PanasonicMakernoteDirectory.TagCountry:
-                    return GetCountryDescription();
-                case PanasonicMakernoteDirectory.TagState:
-                    return GetStateDescription();
-                case PanasonicMakernoteDirectory.TagCity:
-                    return GetCityDescription();
-                case PanasonicMakernoteDirectory.TagLandmark:
-                    return GetLandmarkDescription();
-                case PanasonicMakernoteDirectory.TagIntelligentResolution:
-                    return GetIntelligentResolutionDescription();
-                case PanasonicMakernoteDirectory.TagFaceRecognitionInfo:
-                    return GetRecognizedFacesDescription();
-                case PanasonicMakernoteDirectory.TagSceneMode:
-                    return GetSceneModeDescription();
-                case PanasonicMakernoteDirectory.TagFlashFired:
-                    return GetFlashFiredDescription();
-                case PanasonicMakernoteDirectory.TagTextStamp:
-                    return GetTextStampDescription();
-                case PanasonicMakernoteDirectory.TagTextStamp1:
-                    return GetTextStamp1Description();
-                case PanasonicMakernoteDirectory.TagTextStamp2:
-                    return GetTextStamp2Description();
-                case PanasonicMakernoteDirectory.TagTextStamp3:
-                    return GetTextStamp3Description();
-                case PanasonicMakernoteDirectory.TagMakernoteVersion:
-                    return GetMakernoteVersionDescription();
-                case PanasonicMakernoteDirectory.TagExifVersion:
-                    return GetExifVersionDescription();
-                case PanasonicMakernoteDirectory.TagInternalSerialNumber:
-                    return GetInternalSerialNumberDescription();
-                case PanasonicMakernoteDirectory.TagTitle:
-                    return GetTitleDescription();
-                case PanasonicMakernoteDirectory.TagBracketSettings:
-                    return GetBracketSettingsDescription();
-                case PanasonicMakernoteDirectory.TagFlashCurtain:
-                    return GetFlashCurtainDescription();
-                case PanasonicMakernoteDirectory.TagLongExposureNoiseReduction:
-                    return GetLongExposureNoiseReductionDescription();
-                case PanasonicMakernoteDirectory.TagBabyName:
-                    return GetBabyNameDescription();
-                case PanasonicMakernoteDirectory.TagLocation:
-                    return GetLocationDescription();
-                case PanasonicMakernoteDirectory.TagLensFirmwareVersion:
-                    return GetLensFirmwareVersionDescription();
-                case PanasonicMakernoteDirectory.TagIntelligentDRange:
-                    return GetIntelligentDRangeDescription();
-                case PanasonicMakernoteDirectory.TagClearRetouch:
-                    return GetClearRetouchDescription();
-                case PanasonicMakernoteDirectory.TagPhotoStyle:
-                    return GetPhotoStyleDescription();
-                case PanasonicMakernoteDirectory.TagShadingCompensation:
-                    return GetShadingCompensationDescription();
+                PanasonicMakernoteDirectory.TagQualityMode => GetQualityModeDescription(),
+                PanasonicMakernoteDirectory.TagFirmwareVersion => GetVersionDescription(),
+                PanasonicMakernoteDirectory.TagWhiteBalance => GetWhiteBalanceDescription(),
+                PanasonicMakernoteDirectory.TagFocusMode => GetFocusModeDescription(),
+                PanasonicMakernoteDirectory.TagAfAreaMode => GetAfAreaModeDescription(),
+                PanasonicMakernoteDirectory.TagImageStabilization => GetImageStabilizationDescription(),
+                PanasonicMakernoteDirectory.TagMacroMode => GetMacroModeDescription(),
+                PanasonicMakernoteDirectory.TagRecordMode => GetRecordModeDescription(),
+                PanasonicMakernoteDirectory.TagAudio => GetAudioDescription(),
+                PanasonicMakernoteDirectory.TagUnknownDataDump => GetUnknownDataDumpDescription(),
+                PanasonicMakernoteDirectory.TagColorEffect => GetColorEffectDescription(),
+                PanasonicMakernoteDirectory.TagUptime => GetUptimeDescription(),
+                PanasonicMakernoteDirectory.TagBurstMode => GetBurstModeDescription(),
+                PanasonicMakernoteDirectory.TagContrastMode => GetContrastModeDescription(),
+                PanasonicMakernoteDirectory.TagNoiseReduction => GetNoiseReductionDescription(),
+                PanasonicMakernoteDirectory.TagSelfTimer => GetSelfTimerDescription(),
+                PanasonicMakernoteDirectory.TagRotation => GetRotationDescription(),
+                PanasonicMakernoteDirectory.TagAfAssistLamp => GetAfAssistLampDescription(),
+                PanasonicMakernoteDirectory.TagColorMode => GetColorModeDescription(),
+                PanasonicMakernoteDirectory.TagOpticalZoomMode => GetOpticalZoomModeDescription(),
+                PanasonicMakernoteDirectory.TagConversionLens => GetConversionLensDescription(),
+                PanasonicMakernoteDirectory.TagContrast => GetContrastDescription(),
+                PanasonicMakernoteDirectory.TagWorldTimeLocation => GetWorldTimeLocationDescription(),
+                PanasonicMakernoteDirectory.TagAdvancedSceneMode => GetAdvancedSceneModeDescription(),
+                PanasonicMakernoteDirectory.TagFaceDetectionInfo => GetDetectedFacesDescription(),
+                PanasonicMakernoteDirectory.TagTransform => GetTransformDescription(),
+                PanasonicMakernoteDirectory.TagTransform1 => GetTransform1Description(),
+                PanasonicMakernoteDirectory.TagIntelligentExposure => GetIntelligentExposureDescription(),
+                PanasonicMakernoteDirectory.TagFlashWarning => GetFlashWarningDescription(),
+                PanasonicMakernoteDirectory.TagCountry => GetCountryDescription(),
+                PanasonicMakernoteDirectory.TagState => GetStateDescription(),
+                PanasonicMakernoteDirectory.TagCity => GetCityDescription(),
+                PanasonicMakernoteDirectory.TagLandmark => GetLandmarkDescription(),
+                PanasonicMakernoteDirectory.TagIntelligentResolution => GetIntelligentResolutionDescription(),
+                PanasonicMakernoteDirectory.TagFaceRecognitionInfo => GetRecognizedFacesDescription(),
+                PanasonicMakernoteDirectory.TagSceneMode => GetSceneModeDescription(),
+                PanasonicMakernoteDirectory.TagFlashFired => GetFlashFiredDescription(),
+                PanasonicMakernoteDirectory.TagTextStamp => GetTextStampDescription(),
+                PanasonicMakernoteDirectory.TagTextStamp1 => GetTextStamp1Description(),
+                PanasonicMakernoteDirectory.TagTextStamp2 => GetTextStamp2Description(),
+                PanasonicMakernoteDirectory.TagTextStamp3 => GetTextStamp3Description(),
+                PanasonicMakernoteDirectory.TagMakernoteVersion => GetMakernoteVersionDescription(),
+                PanasonicMakernoteDirectory.TagExifVersion => GetExifVersionDescription(),
+                PanasonicMakernoteDirectory.TagInternalSerialNumber => GetInternalSerialNumberDescription(),
+                PanasonicMakernoteDirectory.TagTitle => GetTitleDescription(),
+                PanasonicMakernoteDirectory.TagBracketSettings => GetBracketSettingsDescription(),
+                PanasonicMakernoteDirectory.TagFlashCurtain => GetFlashCurtainDescription(),
+                PanasonicMakernoteDirectory.TagLongExposureNoiseReduction => GetLongExposureNoiseReductionDescription(),
+                PanasonicMakernoteDirectory.TagBabyName => GetBabyNameDescription(),
+                PanasonicMakernoteDirectory.TagLocation => GetLocationDescription(),
+                PanasonicMakernoteDirectory.TagLensFirmwareVersion => GetLensFirmwareVersionDescription(),
+                PanasonicMakernoteDirectory.TagIntelligentDRange => GetIntelligentDRangeDescription(),
+                PanasonicMakernoteDirectory.TagClearRetouch => GetClearRetouchDescription(),
+                PanasonicMakernoteDirectory.TagPhotoStyle => GetPhotoStyleDescription(),
+                PanasonicMakernoteDirectory.TagShadingCompensation => GetShadingCompensationDescription(),
 
-                case PanasonicMakernoteDirectory.TagAccelerometerZ:
-                    return GetAccelerometerZDescription();
-                case PanasonicMakernoteDirectory.TagAccelerometerX:
-                    return GetAccelerometerXDescription();
-                case PanasonicMakernoteDirectory.TagAccelerometerY:
-                    return GetAccelerometerYDescription();
-                case PanasonicMakernoteDirectory.TagCameraOrientation:
-                    return GetCameraOrientationDescription();
-                case PanasonicMakernoteDirectory.TagRollAngle:
-                    return GetRollAngleDescription();
-                case PanasonicMakernoteDirectory.TagPitchAngle:
-                    return GetPitchAngleDescription();
-                case PanasonicMakernoteDirectory.TagSweepPanoramaDirection:
-                    return GetSweepPanoramaDirectionDescription();
-                case PanasonicMakernoteDirectory.TagTimerRecording:
-                    return GetTimerRecordingDescription();
-                case PanasonicMakernoteDirectory.TagHDR:
-                    return GetHDRDescription();
-                case PanasonicMakernoteDirectory.TagShutterType:
-                    return GetShutterTypeDescription();
-                case PanasonicMakernoteDirectory.TagTouchAe:
-                    return GetTouchAeDescription();
+                PanasonicMakernoteDirectory.TagAccelerometerZ => GetAccelerometerZDescription(),
+                PanasonicMakernoteDirectory.TagAccelerometerX => GetAccelerometerXDescription(),
+                PanasonicMakernoteDirectory.TagAccelerometerY => GetAccelerometerYDescription(),
+                PanasonicMakernoteDirectory.TagCameraOrientation => GetCameraOrientationDescription(),
+                PanasonicMakernoteDirectory.TagRollAngle => GetRollAngleDescription(),
+                PanasonicMakernoteDirectory.TagPitchAngle => GetPitchAngleDescription(),
+                PanasonicMakernoteDirectory.TagSweepPanoramaDirection => GetSweepPanoramaDirectionDescription(),
+                PanasonicMakernoteDirectory.TagTimerRecording => GetTimerRecordingDescription(),
+                PanasonicMakernoteDirectory.TagHDR => GetHDRDescription(),
+                PanasonicMakernoteDirectory.TagShutterType => GetShutterTypeDescription(),
+                PanasonicMakernoteDirectory.TagTouchAe => GetTouchAeDescription(),
 
-                case PanasonicMakernoteDirectory.TagBabyAge:
-                    return GetBabyAgeDescription();
-                case PanasonicMakernoteDirectory.TagBabyAge1:
-                    return GetBabyAge1Description();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                PanasonicMakernoteDirectory.TagBabyAge => GetBabyAgeDescription(),
+                PanasonicMakernoteDirectory.TagBabyAge1 => GetBabyAge1Description(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
-        [CanBeNull]
-        public string GetTextStampDescription()
+        public string? GetTextStampDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagTextStamp,
                 1,
                 "Off", "On");
         }
 
-        [CanBeNull]
-        public string GetTextStamp1Description()
+        public string? GetTextStamp1Description()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagTextStamp1,
                 1,
                 "Off", "On");
         }
 
-        [CanBeNull]
-        public string GetTextStamp2Description()
+        public string? GetTextStamp2Description()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagTextStamp2,
                 1,
                 "Off", "On");
         }
 
-        [CanBeNull]
-        public string GetTextStamp3Description()
+        public string? GetTextStamp3Description()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagTextStamp3,
                 1,
                 "Off", "On");
         }
 
-        [CanBeNull]
-        public string GetMacroModeDescription()
+        public string? GetMacroModeDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagMacroMode,
                 1,
                 "Off", "On");
         }
 
-        [CanBeNull]
-        public string GetFlashFiredDescription()
+        public string? GetFlashFiredDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagFlashFired,
                 1,
                 "Off", "On");
         }
 
-        [CanBeNull]
-        public string GetImageStabilizationDescription()
+        public string? GetImageStabilizationDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagImageStabilization,
                 2,
                 "On, Mode 1", "Off", "On, Mode 2");
         }
 
-        [CanBeNull]
-        public string GetAudioDescription()
+        public string? GetAudioDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagAudio,
                 1,
                 "Off", "On");
         }
 
-        [CanBeNull]
-        public string GetTransformDescription()
+        public string? GetTransformDescription()
         {
             return GetTransformDescription(PanasonicMakernoteDirectory.TagTransform);
         }
 
-        [CanBeNull]
-        public string GetTransform1Description()
+        public string? GetTransform1Description()
         {
             return GetTransformDescription(PanasonicMakernoteDirectory.TagTransform1);
         }
 
-        [CanBeNull]
-        private string GetTransformDescription(int tag)
+        private string? GetTransformDescription(int tag)
         {
             var values = Directory.GetByteArray(tag);
             if (values == null)
@@ -307,72 +226,63 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetIntelligentExposureDescription()
+        public string? GetIntelligentExposureDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagIntelligentExposure,
                 "Off", "Low", "Standard", "High");
         }
 
-        [CanBeNull]
-        public string GetFlashWarningDescription()
+        public string? GetFlashWarningDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagFlashWarning,
                 "No", "Yes (Flash required but disabled)");
         }
 
-        [CanBeNull]
-        public string GetCountryDescription()
+        public string? GetCountryDescription()
         {
             return GetStringFromUtf8Bytes(PanasonicMakernoteDirectory.TagCountry);
         }
 
-        [CanBeNull]
-        public string GetStateDescription()
+        public string? GetStateDescription()
         {
             return GetStringFromUtf8Bytes(PanasonicMakernoteDirectory.TagState);
         }
 
-        [CanBeNull]
-        public string GetCityDescription()
+        public string? GetCityDescription()
         {
             return GetStringFromUtf8Bytes(PanasonicMakernoteDirectory.TagCity);
         }
 
-        [CanBeNull]
-        public string GetLandmarkDescription()
+        public string? GetLandmarkDescription()
         {
             return GetStringFromUtf8Bytes(PanasonicMakernoteDirectory.TagLandmark);
         }
 
-        [CanBeNull]
-        public string GetTitleDescription()
+        public string? GetTitleDescription()
         {
             return GetStringFromUtf8Bytes(PanasonicMakernoteDirectory.TagTitle);
         }
 
-        [CanBeNull]
-        public string GetBracketSettingsDescription()
+        public string? GetBracketSettingsDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagBracketSettings,
                 "No Bracket", "3 Images, Sequence 0/-/+", "3 Images, Sequence -/0/+", "5 Images, Sequence 0/-/+",
                 "5 Images, Sequence -/0/+", "7 Images, Sequence 0/-/+", "7 Images, Sequence -/0/+");
         }
 
-        public string GetFlashCurtainDescription()
+        public string? GetFlashCurtainDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagFlashCurtain,
                 "n/a", "1st", "2nd");
         }
 
-        public string GetLongExposureNoiseReductionDescription()
+        public string? GetLongExposureNoiseReductionDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagLongExposureNoiseReduction, 1,
                 "Off", "On");
         }
 
-        [CanBeNull]
-        public string GetLensFirmwareVersionDescription()
+        public string? GetLensFirmwareVersionDescription()
         {
             // lens version has 4 parts separated by periods
             var bytes = Directory.GetByteArray(PanasonicMakernoteDirectory.TagLensFirmwareVersion);
@@ -382,32 +292,32 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return string.Join(".", bytes.Select(b => b.ToString()).ToArray());
         }
 
-        public string GetIntelligentDRangeDescription()
+        public string? GetIntelligentDRangeDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagIntelligentDRange,
                 "Off", "Low", "Standard", "High");
         }
 
-        public string GetClearRetouchDescription()
+        public string? GetClearRetouchDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagClearRetouch,
                     "Off", "On");
 
         }
 
-        public string GetPhotoStyleDescription()
+        public string? GetPhotoStyleDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagPhotoStyle,
                 "Auto", "Standard or Custom", "Vivid", "Natural", "Monochrome", "Scenery", "Portrait");
         }
 
-        public string GetShadingCompensationDescription()
+        public string? GetShadingCompensationDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagShadingCompensation,
                 "Off", "On");
         }
 
-        public string GetAccelerometerZDescription()
+        public string? GetAccelerometerZDescription()
         {
             if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagAccelerometerZ, out int value))
                 return null;
@@ -416,7 +326,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return ((short)value).ToString();
         }
 
-        public string GetAccelerometerXDescription()
+        public string? GetAccelerometerXDescription()
         {
             if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagAccelerometerX, out int value))
                 return null;
@@ -425,7 +335,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return ((short)value).ToString();
         }
 
-        public string GetAccelerometerYDescription()
+        public string? GetAccelerometerYDescription()
         {
             if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagAccelerometerY, out int value))
                 return null;
@@ -434,13 +344,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return ((short)value).ToString();
         }
 
-        public string GetCameraOrientationDescription()
+        public string? GetCameraOrientationDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagCameraOrientation,
                     "Normal", "Rotate CW", "Rotate 180", "Rotate CCW", "Tilt Upwards", "Tile Downwards");
         }
 
-        public string GetRollAngleDescription()
+        public string? GetRollAngleDescription()
         {
             if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagRollAngle, out int value))
                 return null;
@@ -449,7 +359,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return ((short)value/10.0).ToString();
         }
 
-        public string GetPitchAngleDescription()
+        public string? GetPitchAngleDescription()
         {
             if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagPitchAngle, out int value))
                 return null;
@@ -458,238 +368,195 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return (-(short)value/10.0).ToString();
         }
 
-        public string GetSweepPanoramaDirectionDescription()
+        public string? GetSweepPanoramaDirectionDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagSweepPanoramaDirection,
                     "Off", "Left to Right", "Right to Left", "Top to Bottom", "Bottom to Top");
         }
 
-        public string GetTimerRecordingDescription()
+        public string? GetTimerRecordingDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagTimerRecording,
                     "Off", "Time Lapse", "Stop-motion Animation");
         }
 
-        public string GetHDRDescription()
+        public string? GetHDRDescription()
         {
             if (!Directory.TryGetUInt16(PanasonicMakernoteDirectory.TagHDR, out ushort value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "Off";
-                case 100:
-                    return "1 EV";
-                case 200:
-                    return "2 EV";
-                case 300:
-                    return "3 EV";
-                case 32868:
-                    return "1 EV (Auto)";
-                case 32968:
-                    return "2 EV (Auto)";
-                case 33068:
-                    return "3 EV (Auto)";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0 => "Off",
+                100 => "1 EV",
+                200 => "2 EV",
+                300 => "3 EV",
+                32868 => "1 EV (Auto)",
+                32968 => "2 EV (Auto)",
+                33068 => "3 EV (Auto)",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
-        public string GetShutterTypeDescription()
+        public string? GetShutterTypeDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagShutterType,
                     "Mechanical", "Electronic", "Hybrid");
         }
 
-        public string GetTouchAeDescription()
+        public string? GetTouchAeDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagTouchAe,
                     "Off", "On");
 
         }
 
-        [CanBeNull]
-        public string GetBabyNameDescription()
+        public string? GetBabyNameDescription()
         {
             return GetStringFromUtf8Bytes(PanasonicMakernoteDirectory.TagBabyName);
         }
 
-        [CanBeNull]
-        public string GetLocationDescription()
+        public string? GetLocationDescription()
         {
             return GetStringFromUtf8Bytes(PanasonicMakernoteDirectory.TagLocation);
         }
 
-        [CanBeNull]
-        public string GetIntelligentResolutionDescription()
+        public string? GetIntelligentResolutionDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagIntelligentResolution,
                 "Off", null, "Auto", "On");
         }
 
-        [CanBeNull]
-        public string GetContrastDescription()
+        public string? GetContrastDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagContrast,
                 "Normal");
         }
 
-        [CanBeNull]
-        public string GetWorldTimeLocationDescription()
+        public string? GetWorldTimeLocationDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagWorldTimeLocation,
                 1,
                 "Home", "Destination");
         }
 
-        [CanBeNull]
-        public string GetAdvancedSceneModeDescription()
+        public string? GetAdvancedSceneModeDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagAdvancedSceneMode,
                 1,
                 "Normal", "Outdoor/Illuminations/Flower/HDR Art", "Indoor/Architecture/Objects/HDR B&W", "Creative", "Auto", null, "Expressive", "Retro", "Pure", "Elegant", null, "Monochrome", "Dynamic Art", "Silhouette");
         }
 
-        [CanBeNull]
-        public string GetUnknownDataDumpDescription()
+        public string? GetUnknownDataDumpDescription()
         {
             return GetByteLengthDescription(PanasonicMakernoteDirectory.TagUnknownDataDump);
         }
 
-        [CanBeNull]
-        public string GetColorEffectDescription()
+        public string? GetColorEffectDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagColorEffect,
                 1,
                 "Off", "Warm", "Cool", "Black & White", "Sepia");
         }
 
-        [CanBeNull]
-        public string GetUptimeDescription()
+        public string? GetUptimeDescription()
         {
             if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagUptime, out int value))
                 return null;
             return $"{(value / 100f):0.0##}" + " s";
         }
 
-        [CanBeNull]
-        public string GetBurstModeDescription()
+        public string? GetBurstModeDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagBurstMode,
                 "Off", null, "On", "Indefinite", "Unlimited");
         }
 
-        [CanBeNull]
-        public string GetContrastModeDescription()
+        public string? GetContrastModeDescription()
         {
             if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagContrastMode, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0x0:
-                    return "Normal";
-                case 0x1:
-                    return "Low";
-                case 0x2:
-                    return "High";
-                case 0x6:
-                    return "Medium Low";
-                case 0x7:
-                    return "Medium High";
-                case 0x100:
-                    return "Low";
-                case 0x110:
-                    return "Normal";
-                case 0x120:
-                    return "High";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0x0 => "Normal",
+                0x1 => "Low",
+                0x2 => "High",
+                0x6 => "Medium Low",
+                0x7 => "Medium High",
+                0x100 => "Low",
+                0x110 => "Normal",
+                0x120 => "High",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
-        [CanBeNull]
-        public string GetNoiseReductionDescription()
+        public string? GetNoiseReductionDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagNoiseReduction,
                 "Standard (0)", "Low (-1)", "High (+1)", "Lowest (-2)", "Highest (+2)");
         }
 
-        [CanBeNull]
-        public string GetSelfTimerDescription()
+        public string? GetSelfTimerDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagSelfTimer,
                 1,
                 "Off", "10 s", "2 s");
         }
 
-        [CanBeNull]
-        public string GetRotationDescription()
+        public string? GetRotationDescription()
         {
             if (!Directory.TryGetInt32(PanasonicMakernoteDirectory.TagRotation, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 1:
-                    return "Horizontal";
-                case 3:
-                    return "Rotate 180";
-                case 6:
-                    return "Rotate 90 CW";
-                case 8:
-                    return "Rotate 270 CW";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                1 => "Horizontal",
+                3 => "Rotate 180",
+                6 => "Rotate 90 CW",
+                8 => "Rotate 270 CW",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
-        [CanBeNull]
-        public string GetAfAssistLampDescription()
+        public string? GetAfAssistLampDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagAfAssistLamp,
                 1,
                 "Fired", "Enabled but not used", "Disabled but required", "Disabled and not required");
         }
 
-        [CanBeNull]
-        public string GetColorModeDescription()
+        public string? GetColorModeDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagColorMode,
                 "Normal", "Natural", "Vivid");
         }
 
-        [CanBeNull]
-        public string GetOpticalZoomModeDescription()
+        public string? GetOpticalZoomModeDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagOpticalZoomMode,
                 1,
                 "Standard", "Extended");
         }
 
-        [CanBeNull]
-        public string GetConversionLensDescription()
+        public string? GetConversionLensDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagConversionLens,
                 1,
                 "Off", "Wide", "Telephoto", "Macro");
         }
 
-        [CanBeNull]
-        public string GetDetectedFacesDescription()
+        public string? GetDetectedFacesDescription()
         {
             return BuildFacesDescription(Directory.GetDetectedFaces());
         }
 
-        [CanBeNull]
-        public string GetRecognizedFacesDescription()
+        public string? GetRecognizedFacesDescription()
         {
             return BuildFacesDescription(Directory.GetRecognizedFaces());
         }
 
-        [CanBeNull]
-        private static string BuildFacesDescription([CanBeNull] IEnumerable<Face> faces)
+        private static string? BuildFacesDescription(IEnumerable<Face>? faces)
         {
             if (faces == null)
                 return null;
@@ -704,34 +571,30 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return description.Length == 0 ? null : description;
         }
 
-        private static readonly string[] _sceneModes =
+        private static readonly string?[] _sceneModes =
         {
             "Normal", "Portrait", "Scenery", "Sports", "Night Portrait", "Program", "Aperture Priority", "Shutter Priority", "Macro", "Spot", "Manual", "Movie Preview", "Panning", "Simple", "Color Effects",
             "Self Portrait", "Economy", "Fireworks", "Party", "Snow", "Night Scenery", "Food", "Baby", "Soft Skin", "Candlelight", "Starry Night", "High Sensitivity", "Panorama Assist", "Underwater", "Beach",
             "Aerial Photo", "Sunset", "Pet", "Intelligent ISO", "Clipboard", "High Speed Continuous Shooting", "Intelligent Auto", null, "Multi-aspect", null, "Transform", "Flash Burst", "Pin Hole", "Film Grain", "My Color", "Photo Frame", null, null, null, null, "HDR"
         };
 
-        [CanBeNull]
-        public string GetRecordModeDescription()
+        public string? GetRecordModeDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagRecordMode, 1, _sceneModes);
         }
 
-        [CanBeNull]
-        public string GetSceneModeDescription()
+        public string? GetSceneModeDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagSceneMode, 1, _sceneModes);
         }
 
-        [CanBeNull]
-        public string GetFocusModeDescription()
+        public string? GetFocusModeDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagFocusMode, 1,
                 "Auto", "Manual", null, "Auto, Focus Button", "Auto, Continuous");
         }
 
-        [CanBeNull]
-        public string GetAfAreaModeDescription()
+        public string? GetAfAreaModeDescription()
         {
             var value = Directory.GetInt32Array(PanasonicMakernoteDirectory.TagAfAreaMode);
             if (value == null || value.Length < 2)
@@ -741,56 +604,42 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             {
                 case 0:
                 {
-                    switch (value[1])
-                    {
-                        case 1:
-                            return "Spot Mode On";
-                        case 16:
-                            return "Spot Mode Off";
-                        default:
-                            return "Unknown (" + value[0] + " " + value[1] + ")";
+                        return (value[1]) switch
+                        {
+                            1 => "Spot Mode On",
+                            16 => "Spot Mode Off",
+                            _ => "Unknown (" + value[0] + " " + value[1] + ")",
+                        };
                     }
-                }
                 case 1:
                 {
-                    switch (value[1])
-                    {
-                        case 0:
-                            return "Spot Focusing";
-                        case 1:
-                            return "5-area";
-                        default:
-                            return "Unknown (" + value[0] + " " + value[1] + ")";
+                        return (value[1]) switch
+                        {
+                            0 => "Spot Focusing",
+                            1 => "5-area",
+                            _ => "Unknown (" + value[0] + " " + value[1] + ")",
+                        };
                     }
-                }
                 case 16:
                 {
-                    switch (value[1])
-                    {
-                        case 0:
-                            return "1-area";
-                        case 16:
-                            return "1-area (high speed)";
-                        default:
-                            return "Unknown (" + value[0] + " " + value[1] + ")";
+                        return (value[1]) switch
+                        {
+                            0 => "1-area",
+                            16 => "1-area (high speed)",
+                            _ => "Unknown (" + value[0] + " " + value[1] + ")",
+                        };
                     }
-                }
                 case 32:
                 {
-                    switch (value[1])
-                    {
-                        case 0:
-                            return "Auto or Face Detect";
-                        case 1:
-                            return "3-area (left)";
-                        case 2:
-                            return "3-area (center)";
-                        case 3:
-                            return "3-area (right)";
-                        default:
-                            return "Unknown (" + value[0] + " " + value[1] + ")";
+                        return (value[1]) switch
+                        {
+                            0 => "Auto or Face Detect",
+                            1 => "3-area (left)",
+                            2 => "3-area (center)",
+                            3 => "3-area (right)",
+                            _ => "Unknown (" + value[0] + " " + value[1] + ")",
+                        };
                     }
-                }
                 case 64:
                     return "Face Detect";
                 default:
@@ -798,54 +647,46 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetQualityModeDescription()
+        public string? GetQualityModeDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagQualityMode,
                 2,
                 "High", "Normal", null, null, "Very High", "Raw", null, "Motion Picture");
         }
 
-        [CanBeNull]
-        public string GetVersionDescription()
+        public string? GetVersionDescription()
         {
             return GetVersionBytesDescription(PanasonicMakernoteDirectory.TagFirmwareVersion, 2);
         }
 
-        [CanBeNull]
-        public string GetMakernoteVersionDescription()
+        public string? GetMakernoteVersionDescription()
         {
             return GetVersionBytesDescription(PanasonicMakernoteDirectory.TagMakernoteVersion, 2);
         }
 
-        [CanBeNull]
-        public string GetExifVersionDescription()
+        public string? GetExifVersionDescription()
         {
             return GetVersionBytesDescription(PanasonicMakernoteDirectory.TagExifVersion, 2);
         }
 
-        [CanBeNull]
-        public string GetInternalSerialNumberDescription()
+        public string? GetInternalSerialNumberDescription()
         {
             return GetStringFrom7BitBytes(PanasonicMakernoteDirectory.TagInternalSerialNumber);
         }
 
-        [CanBeNull]
-        public string GetWhiteBalanceDescription()
+        public string? GetWhiteBalanceDescription()
         {
             return GetIndexedDescription(PanasonicMakernoteDirectory.TagWhiteBalance,
                 1,
                 "Auto", "Daylight", "Cloudy", "Incandescent", "Manual", null, null, "Flash", null, "Black & White", "Manual", "Shade");
         }
 
-        [CanBeNull]
-        public string GetBabyAgeDescription()
+        public string? GetBabyAgeDescription()
         {
             return Directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge)?.ToFriendlyString();
         }
 
-        [CanBeNull]
-        public string GetBabyAge1Description()
+        public string? GetBabyAge1Description()
         {
             return Directory.GetAge(PanasonicMakernoteDirectory.TagBabyAge1)?.ToFriendlyString();
         }

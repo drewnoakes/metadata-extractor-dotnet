@@ -77,11 +77,9 @@ namespace MetadataExtractor.Tools.JpegSegmentExtractor
                     segmentTypes.Add(segmentType);
             }
             Console.Out.WriteLine("Reading: {0}", filePath);
-            using (var stream = File.OpenRead(filePath))
-            {
-                var segmentData = JpegSegmentReader.ReadSegments(new SequentialStreamReader(stream), segmentTypes);
-                SaveSegmentFiles(filePath, segmentData);
-            }
+            using var stream = File.OpenRead(filePath);
+            var segmentData = JpegSegmentReader.ReadSegments(new SequentialStreamReader(stream), segmentTypes);
+            SaveSegmentFiles(filePath, segmentData);
         }
 
         private static void SaveSegmentFiles(string jpegFilePath, IEnumerable<JpegSegment> segments)

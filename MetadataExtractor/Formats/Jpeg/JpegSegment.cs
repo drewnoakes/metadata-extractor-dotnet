@@ -22,8 +22,6 @@
 //
 #endregion
 
-using JetBrains.Annotations;
-
 namespace MetadataExtractor.Formats.Jpeg
 {
     /// <summary>
@@ -34,10 +32,10 @@ namespace MetadataExtractor.Formats.Jpeg
     public sealed class JpegSegment
     {
         public JpegSegmentType Type { get; }
-        [NotNull] public byte[] Bytes { get; }
+        public byte[] Bytes { get; }
         public long Offset { get; }
 
-        public JpegSegment(JpegSegmentType type, [NotNull] byte[] bytes, long offset)
+        public JpegSegment(JpegSegmentType type, byte[] bytes, long offset)
         {
             Type = type;
             Bytes = bytes;

@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.IO;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Riff;
 using MetadataExtractor.IO;
@@ -43,8 +42,7 @@ namespace MetadataExtractor.Formats.WebP
     {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="RiffProcessingException"/>
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static DirectoryList ReadMetadata(string filePath)
         {
             var directories = new List<Directory>();
 
@@ -58,8 +56,7 @@ namespace MetadataExtractor.Formats.WebP
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="RiffProcessingException"/>
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata(Stream stream)
         {
             var directories = new List<Directory>();
             new RiffReader().ProcessRiff(new SequentialStreamReader(stream), new WebPRiffHandler(directories));

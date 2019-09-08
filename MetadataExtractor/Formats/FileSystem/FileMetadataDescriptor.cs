@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.FileSystem
 {
@@ -31,24 +30,21 @@ namespace MetadataExtractor.Formats.FileSystem
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class FileMetadataDescriptor : TagDescriptor<FileMetadataDirectory>
     {
-        public FileMetadataDescriptor([NotNull] FileMetadataDirectory directory)
+        public FileMetadataDescriptor(FileMetadataDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case FileMetadataDirectory.TagFileSize:
-                    return GetFileSizeDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                FileMetadataDirectory.TagFileSize => GetFileSizeDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
-        [CanBeNull]
-        private string GetFileSizeDescription()
+        private string? GetFileSizeDescription()
         {
             return Directory.TryGetInt64(FileMetadataDirectory.TagFileSize, out long size)
                 ? size + " bytes"

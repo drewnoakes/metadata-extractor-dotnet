@@ -25,7 +25,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using JetBrains.Annotations;
 
 using MetadataExtractor.Util;
 
@@ -137,7 +136,6 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <remarks>Use GetNumberOfTables for bounds-checking.</remarks>
         /// <param name="tableNumber">The zero-based index of the table. This number is normally between 0 and 3.</param>
         /// <returns>The HuffmanTable having the specified number.</returns>
-        [NotNull]
         public HuffmanTable GetTable(int tableNumber)
         {
             return _tables[tableNumber];
@@ -157,8 +155,7 @@ namespace MetadataExtractor.Formats.Jpeg
         }
 
         /// <returns>The List of HuffmanTables in this Directory.</returns>
-        [NotNull]
-        private List<HuffmanTable> _tables = new List<HuffmanTable>(4);
+        private readonly List<HuffmanTable> _tables = new List<HuffmanTable>(4);
 
         /// <summary>Evaluates whether all the tables in this HuffmanTablesDirectory are "typical" Huffman tables.</summary>
         /// <remarks>
@@ -205,7 +202,6 @@ namespace MetadataExtractor.Formats.Jpeg
         {
             return !IsTypical();
         }
-
     }
 
     /// <summary>A JPEG Huffman table.</summary>
@@ -214,7 +210,7 @@ namespace MetadataExtractor.Formats.Jpeg
         private readonly byte[] _lengthBytes;
         private readonly byte[] _valueBytes;
 
-        public HuffmanTable([NotNull] HuffmanTableClass tableClass, int tableDestinationId, [NotNull] byte[] lengthBytes, [NotNull] byte[] valueBytes)
+        public HuffmanTable(HuffmanTableClass tableClass, int tableDestinationId, byte[] lengthBytes, byte[] valueBytes)
         {
             _lengthBytes = lengthBytes ?? throw new ArgumentNullException(nameof(lengthBytes));
             _valueBytes = valueBytes ?? throw new ArgumentNullException(nameof(valueBytes));
@@ -234,24 +230,10 @@ namespace MetadataExtractor.Formats.Jpeg
         public int TableDestinationId { get; }
 
         /// <returns>A byte array with the L values for this table.</returns>
-        [NotNull]
-        public byte[] LengthBytes
-        {
-            get
-            {
-                return _lengthBytes.ToArray();
-            }
-        }
+        public byte[] LengthBytes => _lengthBytes.ToArray();
 
         /// <returns>A byte array with the V values for this table.</returns>
-        [NotNull]
-        public byte[] ValueBytes
-        {
-            get
-            {
-                return _valueBytes.ToArray();
-            }
-        }
+        public byte[] ValueBytes => _valueBytes.ToArray();
 
         /// <summary>Evaluates whether this table is a "typical" Huffman table.</summary>
         /// <remarks>
@@ -306,15 +288,12 @@ namespace MetadataExtractor.Formats.Jpeg
 
         public static HuffmanTableClass TypeOf(int value)
         {
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return HuffmanTableClass.DC;
-                case 1:
-                    return HuffmanTableClass.AC;
-                default:
-                    return HuffmanTableClass.UNKNOWN;
-            }
+                0 => HuffmanTableClass.DC,
+                1 => HuffmanTableClass.AC,
+                _ => HuffmanTableClass.UNKNOWN,
+            };
         }
     }
 
@@ -324,5 +303,4 @@ namespace MetadataExtractor.Formats.Jpeg
         AC,
         UNKNOWN
     }
-
 }

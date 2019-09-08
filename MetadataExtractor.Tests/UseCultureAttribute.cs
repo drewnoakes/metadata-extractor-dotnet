@@ -18,8 +18,8 @@ namespace MetadataExtractor.Tests
         private readonly Lazy<CultureInfo> _culture;
         private readonly Lazy<CultureInfo> _uiCulture;
 
-        private CultureInfo _originalCulture;
-        private CultureInfo _originalUiCulture;
+        private CultureInfo? _originalCulture;
+        private CultureInfo? _originalUiCulture;
 
         /// <summary>
         /// Replaces the culture and UI culture of the current thread with

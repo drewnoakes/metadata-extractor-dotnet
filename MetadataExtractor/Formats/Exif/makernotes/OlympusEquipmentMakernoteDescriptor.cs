@@ -22,7 +22,6 @@
 #endregion
 
 using System;
-using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -41,54 +40,38 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class OlympusEquipmentMakernoteDescriptor : TagDescriptor<OlympusEquipmentMakernoteDirectory>
     {
-        public OlympusEquipmentMakernoteDescriptor([NotNull] OlympusEquipmentMakernoteDirectory directory)
+        public OlympusEquipmentMakernoteDescriptor(OlympusEquipmentMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case OlympusEquipmentMakernoteDirectory.TagEquipmentVersion:
-                    return GetEquipmentVersionDescription();
-                case OlympusEquipmentMakernoteDirectory.TagCameraType2:
-                    return GetCameraType2Description();
-                case OlympusEquipmentMakernoteDirectory.TagFocalPlaneDiagonal:
-                    return GetFocalPlaneDiagonalDescription();
-                case OlympusEquipmentMakernoteDirectory.TagBodyFirmwareVersion:
-                    return GetBodyFirmwareVersionDescription();
-                case OlympusEquipmentMakernoteDirectory.TagLensType:
-                    return GetLensTypeDescription();
-                case OlympusEquipmentMakernoteDirectory.TagLensFirmwareVersion:
-                    return GetLensFirmwareVersionDescription();
-                case OlympusEquipmentMakernoteDirectory.TagMaxApertureAtMinFocal:
-                    return GetMaxApertureAtMinFocalDescription();
-                case OlympusEquipmentMakernoteDirectory.TagMaxApertureAtMaxFocal:
-                    return GetMaxApertureAtMaxFocalDescription();
-                case OlympusEquipmentMakernoteDirectory.TagMaxAperture:
-                    return GetMaxApertureDescription();
-                case OlympusEquipmentMakernoteDirectory.TagLensProperties:
-                    return GetLensPropertiesDescription();
-                case OlympusEquipmentMakernoteDirectory.TagExtender:
-                    return GetExtenderDescription();
-                case OlympusEquipmentMakernoteDirectory.TagFlashType:
-                    return GetFlashTypeDescription();
-                case OlympusEquipmentMakernoteDirectory.TagFlashModel:
-                    return GetFlashModelDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                OlympusEquipmentMakernoteDirectory.TagEquipmentVersion => GetEquipmentVersionDescription(),
+                OlympusEquipmentMakernoteDirectory.TagCameraType2 => GetCameraType2Description(),
+                OlympusEquipmentMakernoteDirectory.TagFocalPlaneDiagonal => GetFocalPlaneDiagonalDescription(),
+                OlympusEquipmentMakernoteDirectory.TagBodyFirmwareVersion => GetBodyFirmwareVersionDescription(),
+                OlympusEquipmentMakernoteDirectory.TagLensType => GetLensTypeDescription(),
+                OlympusEquipmentMakernoteDirectory.TagLensFirmwareVersion => GetLensFirmwareVersionDescription(),
+                OlympusEquipmentMakernoteDirectory.TagMaxApertureAtMinFocal => GetMaxApertureAtMinFocalDescription(),
+                OlympusEquipmentMakernoteDirectory.TagMaxApertureAtMaxFocal => GetMaxApertureAtMaxFocalDescription(),
+                OlympusEquipmentMakernoteDirectory.TagMaxAperture => GetMaxApertureDescription(),
+                OlympusEquipmentMakernoteDirectory.TagLensProperties => GetLensPropertiesDescription(),
+                OlympusEquipmentMakernoteDirectory.TagExtender => GetExtenderDescription(),
+                OlympusEquipmentMakernoteDirectory.TagFlashType => GetFlashTypeDescription(),
+                OlympusEquipmentMakernoteDirectory.TagFlashModel => GetFlashModelDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
-        [CanBeNull]
-        public string GetEquipmentVersionDescription()
+        public string? GetEquipmentVersionDescription()
         {
             return GetVersionBytesDescription(OlympusEquipmentMakernoteDirectory.TagEquipmentVersion, 4);
         }
 
-        [CanBeNull]
-        public string GetCameraType2Description()
+        public string? GetCameraType2Description()
         {
             var cameratype = Directory.GetString(OlympusEquipmentMakernoteDirectory.TagCameraType2);
             if (cameratype == null)
@@ -100,14 +83,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return cameratype;
         }
 
-        [CanBeNull]
-        public string GetFocalPlaneDiagonalDescription()
+        public string? GetFocalPlaneDiagonalDescription()
         {
             return Directory.GetString(OlympusEquipmentMakernoteDirectory.TagFocalPlaneDiagonal) + " mm";
         }
 
-        [CanBeNull]
-        public string GetBodyFirmwareVersionDescription()
+        public string? GetBodyFirmwareVersionDescription()
         {
             if (!Directory.TryGetInt32(OlympusEquipmentMakernoteDirectory.TagBodyFirmwareVersion, out int value))
                 return null;
@@ -116,8 +97,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return hex.Substring(0, hex.Length - 3) + "." + hex.Substring(hex.Length - 3);
         }
 
-        [CanBeNull]
-        public string GetLensTypeDescription()
+        public string? GetLensTypeDescription()
         {
             var str = Directory.GetString(OlympusEquipmentMakernoteDirectory.TagLensType);
 
@@ -148,8 +128,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                        : null;
         }
 
-        [CanBeNull]
-        public string GetLensFirmwareVersionDescription()
+        public string? GetLensFirmwareVersionDescription()
         {
             if (!Directory.TryGetInt32(OlympusEquipmentMakernoteDirectory.TagLensFirmwareVersion, out int value))
                 return null;
@@ -158,8 +137,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return hexstring.Insert(hexstring.Length - 3, ".");
         }
 
-        [CanBeNull]
-        public string GetMaxApertureAtMinFocalDescription()
+        public string? GetMaxApertureAtMinFocalDescription()
         {
             if (!Directory.TryGetInt32(OlympusEquipmentMakernoteDirectory.TagMaxApertureAtMinFocal, out int value))
                 return null;
@@ -167,8 +145,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return CalcMaxAperture((ushort)value).ToString("0.#");
         }
 
-        [CanBeNull]
-        public string GetMaxApertureAtMaxFocalDescription()
+        public string? GetMaxApertureAtMaxFocalDescription()
         {
             if (!Directory.TryGetInt32(OlympusEquipmentMakernoteDirectory.TagMaxApertureAtMaxFocal, out int value))
                 return null;
@@ -176,8 +153,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return CalcMaxAperture((ushort)value).ToString("0.#");
         }
 
-        [CanBeNull]
-        public string GetMaxApertureDescription()
+        public string? GetMaxApertureDescription()
         {
             if (!Directory.TryGetInt32(OlympusEquipmentMakernoteDirectory.TagMaxAperture, out int value))
                 return null;
@@ -190,8 +166,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return Math.Pow(Math.Sqrt(2.00), value / 256.0);
         }
 
-        [CanBeNull]
-        public string GetLensPropertiesDescription()
+        public string? GetLensPropertiesDescription()
         {
             if (!Directory.TryGetInt32(OlympusEquipmentMakernoteDirectory.TagLensProperties, out int value))
                 return null;
@@ -199,8 +174,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return $"0x{value:X4}";
         }
 
-        [CanBeNull]
-        public string GetExtenderDescription()
+        public string? GetExtenderDescription()
         {
             var str = Directory.GetString(OlympusEquipmentMakernoteDirectory.TagExtender);
 
@@ -230,15 +204,13 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                        : null;
         }
 
-        [CanBeNull]
-        public string GetFlashTypeDescription()
+        public string? GetFlashTypeDescription()
         {
             return GetIndexedDescription(OlympusEquipmentMakernoteDirectory.TagFlashType,
                 "None", null, "Simple E-System", "E-System");
         }
 
-        [CanBeNull]
-        public string GetFlashModelDescription()
+        public string? GetFlashModelDescription()
         {
             return GetIndexedDescription(OlympusEquipmentMakernoteDirectory.TagFlashModel,
                 "None", "FL-20", "FL-50", "RF-11", "TF-22", "FL-36", "FL-50R", "FL-36R");

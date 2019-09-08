@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -34,12 +33,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class ReconyxHyperFireMakernoteDescriptor : TagDescriptor<ReconyxHyperFireMakernoteDirectory>
     {
-        public ReconyxHyperFireMakernoteDescriptor([NotNull] ReconyxHyperFireMakernoteDirectory directory)
+        public ReconyxHyperFireMakernoteDescriptor(ReconyxHyperFireMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -52,7 +51,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return Directory.GetString(tagType);
                 case ReconyxHyperFireMakernoteDirectory.TagSequence:
                     var sequence = Directory.GetInt32Array(tagType);
-                    return $"{sequence[0]}/{sequence[1]}";
+                    return sequence != null ? $"{sequence[0]}/{sequence[1]}" : base.GetDescription(tagType);
                 case ReconyxHyperFireMakernoteDirectory.TagEventNumber:
                     return Directory.GetUInt32(tagType).ToString();
                 case ReconyxHyperFireMakernoteDirectory.TagMotionSensitivity:

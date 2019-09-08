@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.IO;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 #if NET35
@@ -44,8 +43,7 @@ namespace MetadataExtractor.Formats.Ico
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class IcoReader
     {
-        [NotNull]
-        public DirectoryList Extract([NotNull] SequentialReader reader)
+        public DirectoryList Extract(SequentialReader reader)
         {
             var directories = new List<Directory>();
 
@@ -56,7 +54,7 @@ namespace MetadataExtractor.Formats.Ico
 
             // Read header (ICONDIR structure)
 
-            string error = null;
+            string? error = null;
             try
             {
                 var reserved = reader.GetUInt16();

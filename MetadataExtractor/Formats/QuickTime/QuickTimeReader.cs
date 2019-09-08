@@ -22,11 +22,9 @@
 #endregion
 
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.QuickTime
@@ -81,7 +79,6 @@ namespace MetadataExtractor.Formats.QuickTime
         /// <summary>
         /// Gets the string representation of this atom's type.
         /// </summary>
-        [NotNull]
         public string TypeString
         {
             get
@@ -116,7 +113,7 @@ namespace MetadataExtractor.Formats.QuickTime
         /// <param name="stream">The stream to read atoms from.</param>
         /// <param name="handler">A callback function to handle each atom.</param>
         /// <param name="stopByBytes">The maximum number of bytes to process before discontinuing.</param>
-        public static void ProcessAtoms([NotNull] Stream stream, [NotNull] Action<AtomCallbackArgs> handler, long stopByBytes = -1)
+        public static void ProcessAtoms(Stream stream, Action<AtomCallbackArgs> handler, long stopByBytes = -1)
         {
             var reader = new SequentialStreamReader(stream);
 

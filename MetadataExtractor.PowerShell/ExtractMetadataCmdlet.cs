@@ -36,7 +36,7 @@ namespace MetadataExtractor.PowerShell
     {
         [Parameter(Position = 0, Mandatory = true, HelpMessage = "Path to the file to process")]
         [ValidateNotNullOrEmpty]
-        public string FilePath { get; set; }
+        public string FilePath { get; set; } = default!;
 
         [Parameter(HelpMessage = "Show raw value")]
         public SwitchParameter Raw { get; set; }

@@ -24,7 +24,6 @@
 
 using System;
 using System.IO;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 
 #if NET35
@@ -40,8 +39,7 @@ namespace MetadataExtractor.Formats.Raf
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class RafMetadataReader
     {
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata(Stream stream)
         {
             if (!stream.CanSeek)
                 throw new ArgumentException("Must support seek", nameof(stream));

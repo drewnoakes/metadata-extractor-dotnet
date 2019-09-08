@@ -3,7 +3,8 @@
   <PropertyGroup>
     <VersionPrefix>2.1.0</VersionPrefix>
     <DebugType>portable</DebugType>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
     <Authors>Drew Noakes</Authors>
     <Copyright>Copyright Drew Noakes 2002-2019</Copyright>
     <PackageIconUrl>https://raw.githubusercontent.com/drewnoakes/metadata-extractor-dotnet/master/docs/metadata-extractor-logo-122.png</PackageIconUrl>
@@ -18,6 +19,11 @@
   
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" PrivateAssets="All" />
+  </ItemGroup>
+
+  <!-- Opt in to a newer compiler -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Net.Compilers.Toolset" Version="3.3.0-beta2-final" />
   </ItemGroup>
 
 </Project>

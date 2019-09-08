@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Bmp
 {
@@ -32,12 +31,12 @@ namespace MetadataExtractor.Formats.Bmp
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class BmpHeaderDescriptor : TagDescriptor<BmpHeaderDirectory>
     {
-        public BmpHeaderDescriptor([NotNull] BmpHeaderDirectory directory)
+        public BmpHeaderDescriptor(BmpHeaderDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -68,33 +67,24 @@ namespace MetadataExtractor.Formats.Bmp
             }
         }
 
-        [CanBeNull]
-        public string GetBitmapTypeDescription()
+        public string? GetBitmapTypeDescription()
         {
             if (!Directory.TryGetInt32(BmpHeaderDirectory.TagBitmapType, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case (int)BmpHeaderDirectory.BitmapType.Bitmap:
-                    return "Standard";
-                case (int)BmpHeaderDirectory.BitmapType.OS2BitmapArray:
-                    return "Bitmap Array";
-                case (int)BmpHeaderDirectory.BitmapType.OS2ColorIcon:
-                    return "Color Icon";
-                case (int)BmpHeaderDirectory.BitmapType.OS2ColorPointer:
-                    return "Color Pointer";
-                case (int)BmpHeaderDirectory.BitmapType.OS2Icon:
-                    return "Monochrome Icon";
-                case (int)BmpHeaderDirectory.BitmapType.OS2Pointer:
-                    return "Monochrome Pointer";
-                default:
-                    return "Unimplemented bitmap type " + value.ToString();
-            }
+                (int)BmpHeaderDirectory.BitmapType.Bitmap => "Standard",
+                (int)BmpHeaderDirectory.BitmapType.OS2BitmapArray => "Bitmap Array",
+                (int)BmpHeaderDirectory.BitmapType.OS2ColorIcon => "Color Icon",
+                (int)BmpHeaderDirectory.BitmapType.OS2ColorPointer => "Color Pointer",
+                (int)BmpHeaderDirectory.BitmapType.OS2Icon => "Monochrome Icon",
+                (int)BmpHeaderDirectory.BitmapType.OS2Pointer => "Monochrome Pointer",
+                _ => "Unimplemented bitmap type " + value.ToString(),
+            };
         }
 
-        [CanBeNull]
-        public string GetCompressionDescription()
+        public string? GetCompressionDescription()
         {
             // 0 = None
             // 1 = RLE 8-bit/pixel
@@ -112,111 +102,78 @@ namespace MetadataExtractor.Formats.Bmp
                 !Directory.TryGetInt32(BmpHeaderDirectory.TagHeaderSize, out int headerSize))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case (int)BmpHeaderDirectory.Compression.Rgb:
-                    return "None";
-                case (int)BmpHeaderDirectory.Compression.Rle8:
-                    return "RLE 8-bit/pixel";
-                case (int)BmpHeaderDirectory.Compression.Rle4:
-                    return "RLE 4-bit/pixel";
-                case (int)BmpHeaderDirectory.Compression.BitFields:
-                    return headerSize == 64 ? "Huffman 1D" : "Bit Fields";
-                case (int)BmpHeaderDirectory.Compression.Jpeg:
-                    return headerSize == 64 ? "RLE 24-bit/pixel" : "JPEG";
-                case (int)BmpHeaderDirectory.Compression.Png:
-                    return "PNG";
-                case (int)BmpHeaderDirectory.Compression.AlphaBitFields:
-                    return "RGBA Bit Fields";
-                case (int)BmpHeaderDirectory.Compression.Cmyk:
-                    return "CMYK Uncompressed";
-                case (int)BmpHeaderDirectory.Compression.CmykRle8:
-                    return "CMYK RLE-8";
-                case (int)BmpHeaderDirectory.Compression.CmykRle4:
-                    return "CMYK RLE-4";
-                default:
-                    return "Unimplemented compression type " + value.ToString();
-            }
+                (int)BmpHeaderDirectory.Compression.Rgb => "None",
+                (int)BmpHeaderDirectory.Compression.Rle8 => "RLE 8-bit/pixel",
+                (int)BmpHeaderDirectory.Compression.Rle4 => "RLE 4-bit/pixel",
+                (int)BmpHeaderDirectory.Compression.BitFields => headerSize == 64 ? "Huffman 1D" : "Bit Fields",
+                (int)BmpHeaderDirectory.Compression.Jpeg => headerSize == 64 ? "RLE 24-bit/pixel" : "JPEG",
+                (int)BmpHeaderDirectory.Compression.Png => "PNG",
+                (int)BmpHeaderDirectory.Compression.AlphaBitFields => "RGBA Bit Fields",
+                (int)BmpHeaderDirectory.Compression.Cmyk => "CMYK Uncompressed",
+                (int)BmpHeaderDirectory.Compression.CmykRle8 => "CMYK RLE-8",
+                (int)BmpHeaderDirectory.Compression.CmykRle4 => "CMYK RLE-4",
+                _ => "Unimplemented compression type " + value.ToString(),
+            };
         }
 
-        [CanBeNull]
-        public string GetRenderingDescription()
+        public string? GetRenderingDescription()
         {
             if (!Directory.TryGetInt32(BmpHeaderDirectory.TagRendering, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case (int)BmpHeaderDirectory.RenderingHalftoningAlgorithm.None:
-                    return "No Halftoning Algorithm";
-                case (int)BmpHeaderDirectory.RenderingHalftoningAlgorithm.ErrorDiffusion:
-                    return "Error Diffusion Halftoning";
-                case (int)BmpHeaderDirectory.RenderingHalftoningAlgorithm.Panda:
-                    return "Processing Algorithm for Noncoded Document Acquisition";
-                case (int)BmpHeaderDirectory.RenderingHalftoningAlgorithm.SuperCircle:
-                    return "Super-circle Halftoning";
-                default:
-                    return "Unimplemented rendering halftoning algorithm type " + value.ToString();
-            }
+                (int)BmpHeaderDirectory.RenderingHalftoningAlgorithm.None => "No Halftoning Algorithm",
+                (int)BmpHeaderDirectory.RenderingHalftoningAlgorithm.ErrorDiffusion => "Error Diffusion Halftoning",
+                (int)BmpHeaderDirectory.RenderingHalftoningAlgorithm.Panda => "Processing Algorithm for Noncoded Document Acquisition",
+                (int)BmpHeaderDirectory.RenderingHalftoningAlgorithm.SuperCircle => "Super-circle Halftoning",
+                _ => "Unimplemented rendering halftoning algorithm type " + value.ToString(),
+            };
         }
 
-        [CanBeNull]
-        public string GetColorEncodingDescription()
+        public string? GetColorEncodingDescription()
         {
             if (!Directory.TryGetInt32(BmpHeaderDirectory.TagColorEncoding, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case (int)BmpHeaderDirectory.ColorEncoding.Rgb:
-                    return "RGB";
-                default:
-                    return "Unimplemented color encoding type " + value.ToString();
-            }
+                (int)BmpHeaderDirectory.ColorEncoding.Rgb => "RGB",
+                _ => "Unimplemented color encoding type " + value.ToString(),
+            };
         }
 
-        [CanBeNull]
-        public string GetColorSpaceTypeDescription()
+        public string? GetColorSpaceTypeDescription()
         {
             if (!Directory.TryGetInt64(BmpHeaderDirectory.TagColorSpaceType, out long value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case (long)BmpHeaderDirectory.ColorSpaceType.LcsCalibratedRgb:
-                    return "Calibrated RGB";
-                case (long)BmpHeaderDirectory.ColorSpaceType.LcsSRgb:
-                    return "sRGB Color Space";
-                case (long)BmpHeaderDirectory.ColorSpaceType.LcsWindowsColorSpace:
-                    return "System Default Color Space, sRGB";
-                case (long)BmpHeaderDirectory.ColorSpaceType.ProfileLinked:
-                    return "Linked Profile";
-                case (long)BmpHeaderDirectory.ColorSpaceType.ProfileEmbedded:
-                    return "Embedded Profile";
-                default:
-                    return "Unimplemented color space type " + value.ToString();
-            }
+                (long)BmpHeaderDirectory.ColorSpaceType.LcsCalibratedRgb => "Calibrated RGB",
+                (long)BmpHeaderDirectory.ColorSpaceType.LcsSRgb => "sRGB Color Space",
+                (long)BmpHeaderDirectory.ColorSpaceType.LcsWindowsColorSpace => "System Default Color Space, sRGB",
+                (long)BmpHeaderDirectory.ColorSpaceType.ProfileLinked => "Linked Profile",
+                (long)BmpHeaderDirectory.ColorSpaceType.ProfileEmbedded => "Embedded Profile",
+                _ => "Unimplemented color space type " + value.ToString(),
+            };
         }
 
-        [CanBeNull]
-        public string GetRenderingIntentDescription()
+        public string? GetRenderingIntentDescription()
         {
             if (!Directory.TryGetInt64(BmpHeaderDirectory.TagIntent, out long value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case (long)BmpHeaderDirectory.RenderingIntent.LcsGmBusiness:
-                    return "Graphic, Saturation";
-                case (long)BmpHeaderDirectory.RenderingIntent.LcsGmGraphics:
-                    return "Proof, Relative Colorimetric";
-                case (long)BmpHeaderDirectory.RenderingIntent.LcsGmImages:
-                    return "Picture, Perceptual";
-                case (long)BmpHeaderDirectory.RenderingIntent.LcsGmAbsColorimetric:
-                    return "Match, Absolute Colorimetric";
-                default:
-                    return "Unimplemented rendering intent type " + value.ToString();
-            }
+                (long)BmpHeaderDirectory.RenderingIntent.LcsGmBusiness => "Graphic, Saturation",
+                (long)BmpHeaderDirectory.RenderingIntent.LcsGmGraphics => "Proof, Relative Colorimetric",
+                (long)BmpHeaderDirectory.RenderingIntent.LcsGmImages => "Picture, Perceptual",
+                (long)BmpHeaderDirectory.RenderingIntent.LcsGmAbsColorimetric => "Match, Absolute Colorimetric",
+                _ => "Unimplemented rendering intent type " + value.ToString(),
+            };
         }
     }
 }

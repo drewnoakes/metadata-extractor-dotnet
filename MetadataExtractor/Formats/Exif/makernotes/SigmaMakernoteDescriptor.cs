@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -34,64 +33,50 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class SigmaMakernoteDescriptor : TagDescriptor<SigmaMakernoteDirectory>
     {
-        public SigmaMakernoteDescriptor([NotNull] SigmaMakernoteDirectory directory)
+        public SigmaMakernoteDescriptor(SigmaMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case SigmaMakernoteDirectory.TagExposureMode:
-                    return GetExposureModeDescription();
-                case SigmaMakernoteDirectory.TagMeteringMode:
-                    return GetMeteringModeDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                SigmaMakernoteDirectory.TagExposureMode => GetExposureModeDescription(),
+                SigmaMakernoteDirectory.TagMeteringMode => GetMeteringModeDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
-        [CanBeNull]
-        private string GetMeteringModeDescription()
+        private string? GetMeteringModeDescription()
         {
             var value = Directory.GetString(SigmaMakernoteDirectory.TagMeteringMode);
             if (string.IsNullOrEmpty(value))
                 return null;
 
-            switch (value[0])
+            return (value![0]) switch
             {
-                case '8':
-                    return "Multi Segment";
-                case 'A':
-                    return "Average";
-                case 'C':
-                    return "Center Weighted Average";
-                default:
-                    return value;
-            }
+                '8' => "Multi Segment",
+                'A' => "Average",
+                'C' => "Center Weighted Average",
+                _ => value,
+            };
         }
 
-        [CanBeNull]
-        private string GetExposureModeDescription()
+        private string? GetExposureModeDescription()
         {
             var value = Directory.GetString(SigmaMakernoteDirectory.TagExposureMode);
             if (string.IsNullOrEmpty(value))
                 return null;
 
-            switch (value[0])
+            return (value![0]) switch
             {
-                case 'A':
-                    return "Aperture Priority AE";
-                case 'M':
-                    return "Manual";
-                case 'P':
-                    return "Program AE";
-                case 'S':
-                    return "Shutter Speed Priority AE";
-                default:
-                    return value;
-            }
+                'A' => "Aperture Priority AE",
+                'M' => "Manual",
+                'P' => "Program AE",
+                'S' => "Shutter Speed Priority AE",
+                _ => value,
+            };
         }
     }
 }

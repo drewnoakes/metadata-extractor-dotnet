@@ -26,7 +26,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Iptc;
@@ -65,8 +64,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 .ToList();
         }
 
-        [NotNull]
-        public DirectoryList Extract([NotNull] SequentialReader reader, int length)
+        public DirectoryList Extract(SequentialReader reader, int length)
         {
             var directory = new PhotoshopDirectory();
 

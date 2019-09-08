@@ -23,7 +23,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.QuickTime
@@ -33,9 +32,8 @@ namespace MetadataExtractor.Formats.QuickTime
     /// </summary>
     public static class QuickTimeReaderExtensions
     {
-        [NotNull]
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public static string Get4ccString([NotNull] this SequentialReader reader)
+        public static string Get4ccString(this SequentialReader reader)
         {
             var sb = new StringBuilder(4);
             sb.Append((char) reader.GetByte());
@@ -45,14 +43,14 @@ namespace MetadataExtractor.Formats.QuickTime
             return sb.ToString();
         }
 
-        public static decimal Get16BitFixedPoint([NotNull] this SequentialReader reader)
+        public static decimal Get16BitFixedPoint(this SequentialReader reader)
         {
             return decimal.Add(
                 reader.GetByte(),
                 decimal.Divide(reader.GetByte(), byte.MaxValue));
         }
 
-        public static decimal Get32BitFixedPoint([NotNull] this SequentialReader reader)
+        public static decimal Get32BitFixedPoint(this SequentialReader reader)
         {
             return decimal.Add(
                 reader.GetUInt16(),

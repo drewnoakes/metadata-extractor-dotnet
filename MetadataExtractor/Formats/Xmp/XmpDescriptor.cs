@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Xmp
 {
@@ -32,7 +31,7 @@ namespace MetadataExtractor.Formats.Xmp
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class XmpDescriptor : TagDescriptor<XmpDirectory>
     {
-        public XmpDescriptor([NotNull] XmpDirectory directory)
+        public XmpDescriptor(XmpDirectory directory)
             : base(directory)
         {}
     }

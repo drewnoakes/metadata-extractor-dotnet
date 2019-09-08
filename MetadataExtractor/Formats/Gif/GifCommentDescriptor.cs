@@ -21,15 +21,13 @@
 //
 #endregion
 
-using JetBrains.Annotations;
-
 namespace MetadataExtractor.Formats.Gif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     public class GifCommentDescriptor : TagDescriptor<GifCommentDirectory>
     {
-        public GifCommentDescriptor([NotNull] GifCommentDirectory directory)
+        public GifCommentDescriptor(GifCommentDirectory directory)
             : base(directory)
         {
         }

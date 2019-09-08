@@ -24,7 +24,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Photoshop
@@ -34,12 +33,12 @@ namespace MetadataExtractor.Formats.Photoshop
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class PhotoshopDescriptor : TagDescriptor<PhotoshopDirectory>
     {
-        public PhotoshopDescriptor([NotNull] PhotoshopDirectory directory)
+        public PhotoshopDescriptor(PhotoshopDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -75,8 +74,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        public string GetJpegQualityString()
+        public string? GetJpegQualityString()
         {
             try
             {
@@ -124,24 +122,13 @@ namespace MetadataExtractor.Formats.Photoshop
                         quality = "Unknown";
                         break;
                 }
-
-                string format;
-                switch (f)
+                var format = f switch
                 {
-                    case 0x0000:
-                        format = "Standard";
-                        break;
-                    case 0x0001:
-                        format = "Optimised";
-                        break;
-                    case 0x0101:
-                        format = "Progressive";
-                        break;
-                    default:
-                        format = $"Unknown (0x{f:X4})";
-                        break;
-                }
-
+                    0x0000 => "Standard",
+                    0x0001 => "Optimised",
+                    0x0101 => "Progressive",
+                    _ => $"Unknown (0x{f:X4})",
+                };
                 var scans = s >= 1 && s <= 3
                     ? (s + 2).ToString()
                     : $"Unknown (0x{s:X4})";
@@ -154,8 +141,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        public string GetPixelAspectRatioString()
+        public string? GetPixelAspectRatioString()
         {
             try
             {
@@ -174,8 +160,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        public string GetPrintScaleDescription()
+        public string? GetPrintScaleDescription()
         {
             try
             {
@@ -190,17 +175,13 @@ namespace MetadataExtractor.Formats.Photoshop
                 var locY = reader.GetFloat32(6);
                 var scale = reader.GetFloat32(10);
 
-                switch (style)
+                return style switch
                 {
-                    case 0:
-                        return $"Centered, Scale {scale:0.0##}";
-                    case 1:
-                        return "Size to fit";
-                    case 2:
-                        return $"User defined, X:{locX} Y:{locY}, Scale:{scale:0.0##}";
-                    default:
-                        return $"Unknown {style:X4}, X:{locX} Y:{locY}, Scale:{scale:0.0##}";
-                }
+                    0 => $"Centered, Scale {scale:0.0##}",
+                    1 => "Size to fit",
+                    2 => $"User defined, X:{locX} Y:{locY}, Scale:{scale:0.0##}",
+                    _ => $"Unknown {style:X4}, X:{locX} Y:{locY}, Scale:{scale:0.0##}",
+                };
             }
             catch
             {
@@ -208,8 +189,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        public string GetResolutionInfoDescription()
+        public string? GetResolutionInfoDescription()
         {
             try
             {
@@ -232,8 +212,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        public string GetVersionDescription()
+        public string? GetVersionDescription()
         {
             try
             {
@@ -266,8 +245,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        public string GetSlicesDescription()
+        public string? GetSlicesDescription()
         {
             try
             {
@@ -290,8 +268,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        public string GetThumbnailDescription(int tagType)
+        public string? GetThumbnailDescription(int tagType)
         {
             try
             {
@@ -318,8 +295,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        private string GetBooleanString(int tag)
+        private string? GetBooleanString(int tag)
         {
             var bytes = Directory.GetByteArray(tag);
 
@@ -329,8 +305,7 @@ namespace MetadataExtractor.Formats.Photoshop
             return bytes[0] == 0 ? "No" : "Yes";
         }
 
-        [CanBeNull]
-        private string Get32BitNumberString(int tag)
+        private string? Get32BitNumberString(int tag)
         {
             var bytes = Directory.GetByteArray(tag);
 
@@ -349,8 +324,7 @@ namespace MetadataExtractor.Formats.Photoshop
             }
         }
 
-        [CanBeNull]
-        private string GetSimpleString(int tagType)
+        private string? GetSimpleString(int tagType)
         {
             var bytes = Directory.GetByteArray(tagType);
 
@@ -359,8 +333,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 : Encoding.UTF8.GetString(bytes, 0, bytes.Length);
         }
 
-        [CanBeNull]
-        private string GetBinaryDataString(int tagType)
+        private string? GetBinaryDataString(int tagType)
         {
             var bytes = Directory.GetByteArray(tagType);
 

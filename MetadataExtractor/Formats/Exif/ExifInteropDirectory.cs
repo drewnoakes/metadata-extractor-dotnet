@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
@@ -33,7 +32,7 @@ namespace MetadataExtractor.Formats.Exif
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class ExifInteropDirectory : ExifDirectoryBase
     {
-        [NotNull] private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>();
+        private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>();
 
         static ExifInteropDirectory()
         {

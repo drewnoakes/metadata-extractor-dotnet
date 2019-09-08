@@ -27,7 +27,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Iptc
 {
@@ -210,8 +209,7 @@ namespace MetadataExtractor.Formats.Iptc
 
         /// <summary>Returns any keywords contained in the IPTC data.</summary>
         /// <remarks>This value may be <c>null</c>.</remarks>
-        [CanBeNull]
-        public IList<string> GetKeywords()
+        public IList<string>? GetKeywords()
         {
             return this.GetStringArray(TagKeywords)?.ToList();
         }
@@ -221,7 +219,6 @@ namespace MetadataExtractor.Formats.Iptc
         /// <see cref="DateTimeOffset"/> representing when the service sent this image.
         /// </summary>
         /// <returns>When the service sent this image, if possible, otherwise <c>null</c>.</returns>
-        [CanBeNull]
         public DateTimeOffset? GetDateSent()
         {
             return GetDate(TagDateSent, TagTimeSent);
@@ -232,7 +229,6 @@ namespace MetadataExtractor.Formats.Iptc
         /// <see cref="DateTimeOffset"/> representing when this image was released.
         /// </summary>
         /// <returns>When this image was released, if possible, otherwise <c>null</c>.</returns>
-        [CanBeNull]
         public DateTimeOffset? GetReleaseDate()
         {
             return GetDate(TagReleaseDate, TagReleaseTime);
@@ -243,7 +239,6 @@ namespace MetadataExtractor.Formats.Iptc
         /// <see cref="DateTimeOffset"/> after which this image should not be used.
         /// </summary>
         /// <returns>When this image should expire, if possible, otherwise <c>null</c>.</returns>
-        [CanBeNull]
         public DateTimeOffset? GetExpirationDate()
         {
             return GetDate(TagExpirationDate, TagExpirationTime);
@@ -254,7 +249,6 @@ namespace MetadataExtractor.Formats.Iptc
         /// <see cref="DateTimeOffset"/> representing when this image was captured.
         /// </summary>
         /// <returns>When this image was released, if possible, otherwise <c>null</c>.</returns>
-        [CanBeNull]
         public DateTimeOffset? GetDateCreated()
         {
             return GetDate(TagDateCreated, TagTimeCreated);
@@ -265,7 +259,6 @@ namespace MetadataExtractor.Formats.Iptc
         /// <see cref="DateTimeOffset"/> representing when the digital representation of this image was created.
         /// </summary>
         /// <returns>When the digital representation of this image was created, if possible, otherwise <c>null</c>.</returns>
-        [CanBeNull]
         public DateTimeOffset? GetDigitalDateCreated()
         {
             return GetDate(TagDigitalDateCreated, TagDigitalTimeCreated);
@@ -273,7 +266,6 @@ namespace MetadataExtractor.Formats.Iptc
 
         private static readonly string[] _formats = { "yyyyMMddHHmmsszzz", "yyyyMMddHHmmss" };
 
-        [CanBeNull]
         private DateTimeOffset? GetDate(int dateTagType, int timeTagType)
         {
             var date = this.GetString(dateTagType);
