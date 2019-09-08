@@ -574,7 +574,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetRecordModeDescription()
         {
-            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagRecordMode, 1, "JPEG", "CRW+THM", "AVI+THM", "TIF", "TIF+JPEG", "CR2", "CR2+JPEG", null, "MOV", "MP4");
+            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagRecordMode, 1, "JPEG", "CRW+THM", "AVI+THM", "TIF", "TIF+JPEG", "CR2", "CR2+JPEG", null, "MOV", "MP4", "CRM", "CR3", "CR3+JPEG");
         }
 
         public string? GetFocusTypeDescription()
