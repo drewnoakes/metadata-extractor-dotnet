@@ -26,7 +26,6 @@ using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Tiff;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MetadataExtractor.Formats.QuickTime
 {
@@ -45,8 +44,7 @@ namespace MetadataExtractor.Formats.QuickTime
             {
                 throw new TiffProcessingException($"Unexpected TIFF marker: 0x{marker:X}");
             }
-            var directory = Directories.OfType<T>().FirstOrDefault() ?? new T();
-            PushDirectory(directory);
+            PushDirectory(new T());
         }
     }
 }

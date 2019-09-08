@@ -100,9 +100,15 @@ namespace MetadataExtractor.Formats.QuickTime
                 switch (a.TypeString)
                 {
                     case "CMT1":
-                    case "CMT2":
                     {
                         var handler = new QuickTimeTiffHandler<ExifIfd0Directory>(directories);
+                        var reader = new IndexedSeekingReader(a.Stream, (int)a.Reader.Position);
+                        TiffReader.ProcessTiff(reader, handler);
+                        break;
+                    }
+                    case "CMT2":
+                    {
+                        var handler = new QuickTimeTiffHandler<ExifSubIfdDirectory>(directories);
                         var reader = new IndexedSeekingReader(a.Stream, (int)a.Reader.Position);
                         TiffReader.ProcessTiff(reader, handler);
                         break;
