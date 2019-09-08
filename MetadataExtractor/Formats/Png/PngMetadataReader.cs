@@ -194,7 +194,7 @@ namespace MetadataExtractor.Formats.Png
 
                     // http://george.chiramattel.com/blog/2007/09/deflatestream-block-length-does-not-match.html
                     // First two bytes are part of the zlib specification (RFC 1950), not the deflate specification (RFC 1951).
-                    reader.GetByte(); reader.GetByte();
+                    reader.Skip(2);
                     bytesLeft -= 2;
 
                     var compressedProfile = reader.GetBytes(bytesLeft);
