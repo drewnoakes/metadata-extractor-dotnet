@@ -94,7 +94,7 @@ namespace MetadataExtractor
                 foreach (var b in Bytes)
                 {
                     val <<= 8;
-                    val += b & 0xff;
+                    val += b;
                 }
                 return (int)val;
             }
@@ -106,7 +106,23 @@ namespace MetadataExtractor
 
         ushort IConvertible.ToUInt16(IFormatProvider provider) => ushort.Parse(ToString());
 
-        uint IConvertible.ToUInt32(IFormatProvider provider) => uint.Parse(ToString());
+        uint IConvertible.ToUInt32(IFormatProvider provider)
+        {
+            try
+            {
+                return uint.Parse(ToString());
+            }
+            catch(Exception)
+            {
+                ulong val = 0;
+                foreach (var b in Bytes)
+                {
+                    val = val << 8;
+                    val += b;
+                }
+                return (uint)val;
+            }
+        }
 
         ulong IConvertible.ToUInt64(IFormatProvider provider) => ulong.Parse(ToString());
 
