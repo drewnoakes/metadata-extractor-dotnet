@@ -99,7 +99,7 @@ namespace MetadataExtractor.Util
         Netpbm = 21,
 
         /// <summary>Canon camera raw (version 3).</summary>
-        /// Shared by CR3 (image) and CRM (video).
+        /// <remarks>Shared by CR3 (image) and CRM (video).</remarks>
         Crx = 22
     }
 
