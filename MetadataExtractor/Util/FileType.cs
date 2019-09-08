@@ -99,7 +99,8 @@ namespace MetadataExtractor.Util
         Netpbm = 21,
 
         /// <summary>Canon camera raw (version 3).</summary>
-        Crx = 22,
+        /// Shared by CR3 (image) and CRM (video).
+        Crx = 22
     }
 
     public static class FileTypeExtensions
