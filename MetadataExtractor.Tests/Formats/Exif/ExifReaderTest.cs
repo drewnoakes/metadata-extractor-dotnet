@@ -25,7 +25,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Jpeg;
 using Xunit;
@@ -38,16 +37,14 @@ namespace MetadataExtractor.Tests.Formats.Exif
     {
         #region Helpers
 
-        [NotNull]
-        public static IList<Directory> ProcessSegmentBytes([NotNull] string filePath, JpegSegmentType type)
+        public static IList<Directory> ProcessSegmentBytes(string filePath, JpegSegmentType type)
         {
             var segment = new JpegSegment(type, TestDataUtil.GetBytes(filePath), 0);
 
             return new ExifReader().ReadJpegSegments(new[] { segment }).ToList();
         }
 
-        [NotNull]
-        public static T ProcessSegmentBytes<T>([NotNull] string filePath, JpegSegmentType type) where T : Directory
+        public static T ProcessSegmentBytes<T>(string filePath, JpegSegmentType type) where T : Directory
         {
             return ProcessSegmentBytes(filePath, type).OfType<T>().First();
         }
@@ -58,7 +55,7 @@ namespace MetadataExtractor.Tests.Formats.Exif
         public void ReadJpegSegmentsWithNullDataThrows()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new ExifReader().ReadJpegSegments(null));
+            Assert.Throws<ArgumentNullException>(() => new ExifReader().ReadJpegSegments(null!));
         }
 
         [Fact]

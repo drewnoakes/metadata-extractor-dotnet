@@ -23,7 +23,6 @@
 #endregion
 
 using System;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor
 {
@@ -35,10 +34,9 @@ namespace MetadataExtractor
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class Tag
     {
-        [NotNull]
         private readonly Directory _directory;
 
-        public Tag(int type, [NotNull] Directory directory)
+        public Tag(int type, Directory directory)
         {
             Type = type;
             _directory = directory;
@@ -56,8 +54,7 @@ namespace MetadataExtractor
         /// and units.
         /// </summary>
         /// <value>a description of the tag's value</value>
-        [CanBeNull]
-        public string Description => _directory.GetDescription(Type);
+        public string? Description => _directory.GetDescription(Type);
 
         /// <summary>Get whether this tag has a name.</summary>
         /// <remarks>
@@ -72,17 +69,14 @@ namespace MetadataExtractor
         /// <summary>
         /// Get the name of the tag, such as <c>Aperture</c>, or <c>InteropVersion</c>.
         /// </summary>
-        [NotNull]
         public string Name => _directory.GetTagName(Type);
 
-        [NotNull]
         [Obsolete("Use Name instead")]
         public string TagName => Name;
 
         /// <summary>
         /// Get the name of the <see cref="Directory"/> in which the tag exists, such as <c>Exif</c>, <c>GPS</c> or <c>Interoperability</c>.
         /// </summary>
-        [NotNull]
         public string DirectoryName => _directory.Name;
 
         /// <summary>A basic representation of the tag's type and value.</summary>

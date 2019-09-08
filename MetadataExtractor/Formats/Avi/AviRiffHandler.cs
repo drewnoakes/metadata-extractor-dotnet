@@ -26,7 +26,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Riff;
 using MetadataExtractor.IO;
 
@@ -49,10 +48,9 @@ namespace MetadataExtractor.Formats.Avi
     /// <author>Payton Garland</author>
     public sealed class AviRiffHandler : IRiffHandler
     {
-        [NotNull]
         private readonly List<Directory> _directories;
 
-        public AviRiffHandler([NotNull] List<Directory> directories)
+        public AviRiffHandler(List<Directory> directories)
         {
             _directories = directories;
         }
@@ -70,12 +68,12 @@ namespace MetadataExtractor.Formats.Avi
         {
             switch (fourCc)
             {
-            case "strh":
+                case "strh":
                 {
-                    string error = null;
+                    string? error = null;
                     var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
-                    string fccType = null;
-                    string fccHandler = null;
+                    string? fccType = null;
+                    string? fccHandler = null;
                     float dwScale = 0;
                     float dwRate = 0;
                     int dwLength = 0;
@@ -115,7 +113,7 @@ namespace MetadataExtractor.Formats.Avi
                             string time = new DateTime(new TimeSpan(hours, minutes, seconds).Ticks).ToString("HH:mm:ss");
 
                             directory.Set(AviDirectory.TAG_DURATION, time);
-                            directory.Set(AviDirectory.TAG_VIDEO_CODEC, fccHandler);
+                            directory.Set(AviDirectory.TAG_VIDEO_CODEC, fccHandler!);
                         }
                         else
                         if (fccType == "auds")
@@ -128,9 +126,9 @@ namespace MetadataExtractor.Formats.Avi
                     _directories.Add(directory);
                     break;
                 }
-            case "avih":
+                case "avih":
                 {
-                    string error = null;
+                    string? error = null;
                     var reader = new ByteArrayReader(payload, isMotorolaByteOrder: false);
                     int dwStreams = 0;
                     int dwWidth = 0;

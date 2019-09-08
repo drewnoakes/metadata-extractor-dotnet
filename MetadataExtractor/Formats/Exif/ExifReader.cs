@@ -26,7 +26,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.IO;
@@ -63,8 +62,7 @@ namespace MetadataExtractor.Formats.Exif
         /// <summary>
         /// Reads TIFF formatted Exif data a specified offset within a <see cref="IndexedReader"/>.
         /// </summary>
-        [NotNull]
-        public DirectoryList Extract([NotNull] IndexedReader reader)
+        public DirectoryList Extract(IndexedReader reader)
         {
             var directories = new List<Directory>();
             var exifTiffHandler = new ExifTiffHandler(directories);

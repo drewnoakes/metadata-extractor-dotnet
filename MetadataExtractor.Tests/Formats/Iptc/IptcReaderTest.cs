@@ -35,8 +35,7 @@ namespace MetadataExtractor.Tests.Formats.Iptc
     public sealed class IptcReaderTest
     {
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        private static IptcDirectory ProcessBytes([NotNull] string filePath)
+        private static IptcDirectory ProcessBytes(string filePath)
         {
             var bytes = TestDataUtil.GetBytes(filePath);
             var directory = new IptcReader().Extract(new SequentialByteArrayReader(bytes), bytes.Length);

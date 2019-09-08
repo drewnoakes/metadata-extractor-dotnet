@@ -25,7 +25,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 #if NET35
@@ -40,8 +39,7 @@ namespace MetadataExtractor.Formats.Photoshop
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PsdReader
     {
-        [NotNull]
-        public DirectoryList Extract([NotNull] SequentialReader reader)
+        public DirectoryList Extract(SequentialReader reader)
         {
             var directory = new PsdHeaderDirectory();
 
@@ -87,7 +85,7 @@ namespace MetadataExtractor.Formats.Photoshop
             if (directory.HasError)
                 return new Directory[] { directory };
 
-            IEnumerable<Directory> photoshopDirectories = null;
+            IEnumerable<Directory>? photoshopDirectories = null;
 
             try
             {

@@ -25,7 +25,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
@@ -187,8 +186,7 @@ namespace MetadataExtractor.Formats.Exif
         /// at which this image was captured.
         /// </summary>
         /// <returns>The geographical location of this image, if possible, otherwise <c>null</c>.</returns>
-        [CanBeNull]
-        public GeoLocation GetGeoLocation()
+        public GeoLocation? GetGeoLocation()
         {
             var latitudes = this.GetRationalArray(TagLatitude);
             var longitudes = this.GetRationalArray(TagLongitude);

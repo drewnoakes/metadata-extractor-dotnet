@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Adobe
 {
@@ -31,26 +30,22 @@ namespace MetadataExtractor.Formats.Adobe
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class AdobeJpegDescriptor : TagDescriptor<AdobeJpegDirectory>
     {
-        public AdobeJpegDescriptor([NotNull] AdobeJpegDirectory directory)
+        public AdobeJpegDescriptor(AdobeJpegDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case AdobeJpegDirectory.TagColorTransform:
-                    return GetColorTransformDescription();
-                case AdobeJpegDirectory.TagDctEncodeVersion:
-                    return GetDctEncodeVersionDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                AdobeJpegDirectory.TagColorTransform => GetColorTransformDescription(),
+                AdobeJpegDirectory.TagDctEncodeVersion => GetDctEncodeVersionDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
-        [CanBeNull]
-        public string GetDctEncodeVersionDescription()
+        public string? GetDctEncodeVersionDescription()
         {
             if (!Directory.TryGetInt32(AdobeJpegDirectory.TagDctEncodeVersion, out int value))
                 return null;
@@ -58,8 +53,7 @@ namespace MetadataExtractor.Formats.Adobe
             return value == 0x64 ? "100" : value.ToString();
         }
 
-        [CanBeNull]
-        public string GetColorTransformDescription()
+        public string? GetColorTransformDescription()
         {
             return GetIndexedDescription(AdobeJpegDirectory.TagColorTransform,
                 "Unknown (RGB or CMYK)",

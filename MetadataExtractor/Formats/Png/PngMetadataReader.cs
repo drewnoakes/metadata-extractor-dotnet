@@ -27,8 +27,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.IO.Compression;
-using System.Linq;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.Xmp;
@@ -66,8 +64,7 @@ namespace MetadataExtractor.Formats.Png
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static DirectoryList ReadMetadata(string filePath)
         {
             var directories = new List<Directory>();
 
@@ -81,10 +78,9 @@ namespace MetadataExtractor.Formats.Png
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata(Stream stream)
         {
-            List<Directory> directories = null;
+            List<Directory>? directories = null;
 
             var chunks = new PngChunkReader().Extract(new SequentialStreamReader(stream), _desiredChunkTypes);
 
@@ -121,7 +117,7 @@ namespace MetadataExtractor.Formats.Png
 
         /// <exception cref="PngProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        private static IEnumerable<Directory> ProcessChunk([NotNull] PngChunk chunk)
+        private static IEnumerable<Directory> ProcessChunk(PngChunk chunk)
         {
             var chunkType = chunk.ChunkType;
             var bytes = chunk.Bytes;
@@ -199,24 +195,22 @@ namespace MetadataExtractor.Formats.Png
 
                     var compressedProfile = reader.GetBytes(bytesLeft);
 
-                    IccDirectory iccDirectory = null;
-                    Exception ex = null;
+                    IccDirectory? iccDirectory = null;
+                    Exception? ex = null;
                     try
                     {
-                        using (var inflaterStream = new DeflateStream(new MemoryStream(compressedProfile), CompressionMode.Decompress))
-                        {
-                            iccDirectory = new IccReader().Extract(new IndexedCapturingReader(inflaterStream));
-                            iccDirectory.Parent = directory;
-                        }
+                        using var inflaterStream = new DeflateStream(new MemoryStream(compressedProfile), CompressionMode.Decompress);
+                        iccDirectory = new IccReader().Extract(new IndexedCapturingReader(inflaterStream));
+                        iccDirectory.Parent = directory;
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         ex = e;
                     }
 
-                    if(ex == null)
+                    if (iccDirectory != null)
                         yield return iccDirectory;
-                    else
+                    else if (ex != null)
                         directory.AddError($"Exception decompressing {nameof(PngChunkType.iCCP)} chunk: {ex.Message}");
                 }
                 else
@@ -250,28 +244,26 @@ namespace MetadataExtractor.Formats.Png
                 var compressionMethod = reader.GetSByte();
 
                 var bytesLeft = bytes.Length - keyword.Length - 1 - 1 - 1 - 1;
-                byte[] textBytes = null;
+                byte[]? textBytes = null;
                 if (compressionMethod == 0)
                 {
-                    using (var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress))
+                    using var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress);
+                    Exception? ex = null;
+                    try
                     {
-                        Exception ex = null;
-                        try
-                        {
-                            textBytes = ReadStreamToBytes(inflaterStream);
-                        }
-                        catch (Exception e)
-                        {
-                            ex = e;
-                        }
+                        textBytes = ReadStreamToBytes(inflaterStream);
+                    }
+                    catch (Exception e)
+                    {
+                        ex = e;
+                    }
 
-                        // Work-around no yield-return from catch blocks
-                        if (ex != null)
-                        {
-                            var directory = new PngDirectory(PngChunkType.zTXt);
-                            directory.AddError($"Exception decompressing {nameof(PngChunkType.zTXt)} chunk with keyword \"{keyword}\": {ex.Message}");
-                            yield return directory;
-                        }
+                    // Work-around no yield-return from catch blocks
+                    if (ex != null)
+                    {
+                        var directory = new PngDirectory(PngChunkType.zTXt);
+                        directory.AddError($"Exception decompressing {nameof(PngChunkType.zTXt)} chunk with keyword \"{keyword}\": {ex.Message}");
+                        yield return directory;
                     }
                 }
                 else
@@ -308,7 +300,7 @@ namespace MetadataExtractor.Formats.Png
                 var translatedKeywordBytes = reader.GetNullTerminatedBytes(bytes.Length);
 
                 var bytesLeft = bytes.Length - keyword.Length - 1 - 1 - 1 - languageTagBytes.Length - 1 - translatedKeywordBytes.Length - 1;
-                byte[] textBytes = null;
+                byte[]? textBytes = null;
                 if (compressionFlag == 0)
                 {
                     textBytes = reader.GetNullTerminatedBytes(bytesLeft);
@@ -317,25 +309,23 @@ namespace MetadataExtractor.Formats.Png
                 {
                     if (compressionMethod == 0)
                     {
-                        using (var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress))
+                        using var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress);
+                        Exception? ex = null;
+                        try
                         {
-                            Exception ex = null;
-                            try
-                            {
-                                textBytes = ReadStreamToBytes(inflaterStream);
-                            }
-                            catch (Exception e)
-                            {
-                                ex = e;
-                            }
+                            textBytes = ReadStreamToBytes(inflaterStream);
+                        }
+                        catch (Exception e)
+                        {
+                            ex = e;
+                        }
 
-                            // Work-around no yield-return from catch blocks
-                            if (ex != null)
-                            {
-                                var directory = new PngDirectory(PngChunkType.iTXt);
-                                directory.AddError($"Exception decompressing {nameof(PngChunkType.iTXt)} chunk with keyword \"{keyword}\": {ex.Message}");
-                                yield return directory;
-                            }
+                        // Work-around no yield-return from catch blocks
+                        if (ex != null)
+                        {
+                            var directory = new PngDirectory(PngChunkType.iTXt);
+                            directory.AddError($"Exception decompressing {nameof(PngChunkType.iTXt)} chunk with keyword \"{keyword}\": {ex.Message}");
+                            yield return directory;
                         }
                     }
                     else

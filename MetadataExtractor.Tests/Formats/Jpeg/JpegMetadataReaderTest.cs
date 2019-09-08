@@ -45,8 +45,8 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
         [Fact]
         public void ExtractMetadataUsingStream()
         {
-            using (var stream = TestDataUtil.OpenRead("Data/withExif.jpg"))
-                Validate(JpegMetadataReader.ReadMetadata(stream));
+            using var stream = TestDataUtil.OpenRead("Data/withExif.jpg");
+            Validate(JpegMetadataReader.ReadMetadata(stream));
         }
 
         private static void Validate(IEnumerable<Directory> metadata)

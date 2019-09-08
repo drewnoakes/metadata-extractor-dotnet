@@ -26,7 +26,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Jpeg
@@ -57,11 +56,10 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <param name="segmentTypes">the set of JPEG segments types that are to be returned. If this argument is <c>null</c> then all found segment types are returned.</param>
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="IOException"/>
-        [NotNull]
-        public static IEnumerable<JpegSegment> ReadSegments([NotNull] string filePath, [CanBeNull] ICollection<JpegSegmentType> segmentTypes = null)
+        public static IEnumerable<JpegSegment> ReadSegments(string filePath, ICollection<JpegSegmentType>? segmentTypes = null)
         {
-            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                return ReadSegments(new SequentialStreamReader(stream), segmentTypes).ToList();
+            using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            return ReadSegments(new SequentialStreamReader(stream), segmentTypes).ToList();
         }
 
         /// <summary>
@@ -74,8 +72,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// <param name="segmentTypes">the set of JPEG segments types that are to be returned. If this argument is <c>null</c> then all found segment types are returned.</param>
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="IOException"/>
-        [NotNull]
-        public static IEnumerable<JpegSegment> ReadSegments([NotNull] SequentialReader reader, [CanBeNull] ICollection<JpegSegmentType> segmentTypes = null)
+        public static IEnumerable<JpegSegment> ReadSegments(SequentialReader reader, ICollection<JpegSegmentType>? segmentTypes = null)
         {
             if (!reader.IsMotorolaByteOrder)
                 throw new JpegProcessingException("Must be big-endian/Motorola byte order.");

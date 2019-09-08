@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.IO;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Bmp;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.FileType;
@@ -87,8 +86,7 @@ namespace MetadataExtractor
         /// <returns>A list of <see cref="Directory"/> instances containing the various types of metadata found within the file's data.</returns>
         /// <exception cref="ImageProcessingException">The file type is unknown, or processing errors occurred.</exception>
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata(Stream stream)
         {
             var fileType = FileTypeDetector.DetectFileType(stream);
 
@@ -137,7 +135,7 @@ namespace MetadataExtractor
                     throw new ImageProcessingException("File format is not supported");
             }
 
-            DirectoryList Append(IEnumerable<Directory> list, Directory directory) 
+            static DirectoryList Append(IEnumerable<Directory> list, Directory directory) 
                 => new List<Directory>(list) { directory };
         }
 
@@ -147,8 +145,7 @@ namespace MetadataExtractor
         /// <returns>A list of <see cref="Directory"/> instances containing the various types of metadata found within the file's data.</returns>
         /// <exception cref="ImageProcessingException">The file type is unknown, or processing errors occurred.</exception>
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static DirectoryList ReadMetadata(string filePath)
         {
             var directories = new List<Directory>();
 

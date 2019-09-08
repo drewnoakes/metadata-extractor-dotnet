@@ -24,7 +24,6 @@
 
 using System.IO;
 using System.Linq;
-using JetBrains.Annotations;
 using System.Collections.Generic;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.IO;
@@ -43,8 +42,7 @@ namespace MetadataExtractor.Formats.Bmp
     public static class BmpMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static DirectoryList ReadMetadata(string filePath)
         {
             var directories = new List<Directory>(2);
 
@@ -56,8 +54,7 @@ namespace MetadataExtractor.Formats.Bmp
             return directories;
         }
 
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata(Stream stream)
         {
             return new BmpReader().Extract(new SequentialStreamReader(stream)).ToList();
         }

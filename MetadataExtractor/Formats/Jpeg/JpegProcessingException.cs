@@ -26,7 +26,6 @@ using System;
 #if !NETSTANDARD1_3
 using System.Runtime.Serialization;
 #endif
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -37,23 +36,23 @@ namespace MetadataExtractor.Formats.Jpeg
 #endif
     public class JpegProcessingException : ImageProcessingException
     {
-        public JpegProcessingException([CanBeNull] string message)
+        public JpegProcessingException(string? message)
             : base(message)
         {
         }
 
-        public JpegProcessingException([CanBeNull] string message, [CanBeNull] Exception innerException)
+        public JpegProcessingException(string? message, Exception? innerException)
             : base(message, innerException)
         {
         }
 
-        public JpegProcessingException([CanBeNull] Exception innerException)
+        public JpegProcessingException(Exception? innerException)
             : base(innerException)
         {
         }
 
 #if !NETSTANDARD1_3
-        protected JpegProcessingException([NotNull] SerializationInfo info, StreamingContext context)
+        protected JpegProcessingException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

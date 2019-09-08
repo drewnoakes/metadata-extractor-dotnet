@@ -26,7 +26,6 @@
 using System;
 #endif
 using System.Linq;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Png
 {
@@ -52,7 +51,6 @@ namespace MetadataExtractor.Formats.Png
         /// <summary>Each pixel is an R,G,B triple followed by an alpha sample.</summary>
         public static readonly PngColorType TrueColorWithAlpha = new PngColorType(6, "True Color with Alpha", 8, 16);
 
-        [NotNull]
         public static PngColorType FromNumericValue(int numericValue)
         {
             var colorTypes = new[] { Greyscale, TrueColor, IndexedColor, GreyscaleWithAlpha, TrueColorWithAlpha };
@@ -62,13 +60,11 @@ namespace MetadataExtractor.Formats.Png
 
         public int NumericValue { get; }
 
-        [NotNull]
         public string Description { get; }
 
-        [NotNull]
         public int[] AllowedBitDepths { get; }
 
-        private PngColorType(int numericValue, [NotNull] string description, [NotNull] params int[] allowedBitDepths)
+        private PngColorType(int numericValue, string description, params int[] allowedBitDepths)
         {
             NumericValue = numericValue;
             Description = description;

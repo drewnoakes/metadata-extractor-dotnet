@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.IO;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.IO;
 
@@ -41,8 +40,7 @@ namespace MetadataExtractor.Formats.Ico
     public static class IcoMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static DirectoryList ReadMetadata(string filePath)
         {
             var directories = new List<Directory>();
 
@@ -54,8 +52,7 @@ namespace MetadataExtractor.Formats.Ico
             return directories;
         }
 
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata(Stream stream)
         {
             return new IcoReader().Extract(new SequentialStreamReader(stream));
         }

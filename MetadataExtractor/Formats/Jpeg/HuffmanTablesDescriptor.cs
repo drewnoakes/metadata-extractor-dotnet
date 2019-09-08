@@ -22,7 +22,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -39,24 +38,21 @@ namespace MetadataExtractor.Formats.Jpeg
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class HuffmanTablesDescriptor : TagDescriptor<HuffmanTablesDirectory>
     {
-        public HuffmanTablesDescriptor([NotNull] HuffmanTablesDirectory directory)
+        public HuffmanTablesDescriptor(HuffmanTablesDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case HuffmanTablesDirectory.TagNumberOfTables:
-                    return GetNumberOfTablesDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                HuffmanTablesDirectory.TagNumberOfTables => GetNumberOfTablesDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
-        [CanBeNull]
-        public string GetNumberOfTablesDescription()
+        public string? GetNumberOfTablesDescription()
         {
             if (!Directory.TryGetInt32(HuffmanTablesDirectory.TagNumberOfTables, out int value))
                 return null;

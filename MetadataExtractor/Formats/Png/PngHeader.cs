@@ -22,7 +22,6 @@
 //
 #endregion
 
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Png
@@ -31,7 +30,7 @@ namespace MetadataExtractor.Formats.Png
     public sealed class PngHeader
     {
         /// <exception cref="PngProcessingException"/>
-        public PngHeader([NotNull] byte[] bytes)
+        public PngHeader(byte[] bytes)
         {
             if (bytes.Length != 13)
                 throw new PngProcessingException("PNG header chunk must have exactly 13 data bytes");
@@ -53,7 +52,6 @@ namespace MetadataExtractor.Formats.Png
 
         public byte BitsPerSample { get; }
 
-        [NotNull]
         public PngColorType ColorType { get; }
 
         public byte CompressionType { get; }

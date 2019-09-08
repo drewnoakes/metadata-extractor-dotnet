@@ -100,8 +100,8 @@ namespace MetadataExtractor.Benchmarks
             _stream = new MemoryStream();
 
             // This is the largest JPEG file in this repository
-            using (var fs = File.OpenRead("../MetadataExtractor.Tests/Data/nikonMakernoteType2b.jpg"))
-                fs.CopyTo(_stream);
+            using var fs = File.OpenRead("../MetadataExtractor.Tests/Data/nikonMakernoteType2b.jpg");
+            fs.CopyTo(_stream);
         }
 
         [Benchmark(Baseline = true)]
@@ -143,13 +143,11 @@ namespace MetadataExtractor.Benchmarks
 
             // Based on code from http://stackoverflow.com/a/7713780/24874
 
-            using (var myImage = Image.FromStream(_stream, useEmbeddedColorManagement: false, validateImageData: false))
-            {
-                const int PropertyTagExifDTOrig = ExifDirectoryBase.TagDateTimeOriginal;
-                var propItem = myImage.GetPropertyItem(PropertyTagExifDTOrig);
-                var dateTakenStr = Encoding.UTF8.GetString(propItem.Value);
-                return DateTime.Parse(_dateTimeRegex.Replace(dateTakenStr, "-", count: 2));
-            }
+            using var myImage = Image.FromStream(_stream, useEmbeddedColorManagement: false, validateImageData: false);
+            const int PropertyTagExifDTOrig = ExifDirectoryBase.TagDateTimeOriginal;
+            var propItem = myImage.GetPropertyItem(PropertyTagExifDTOrig);
+            var dateTakenStr = Encoding.UTF8.GetString(propItem.Value);
+            return DateTime.Parse(_dateTimeRegex.Replace(dateTakenStr, "-", count: 2));
         }
 
         [Benchmark]

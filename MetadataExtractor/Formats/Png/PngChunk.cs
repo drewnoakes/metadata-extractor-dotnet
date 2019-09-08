@@ -22,23 +22,19 @@
 //
 #endregion
 
-using JetBrains.Annotations;
-
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunk
     {
-        public PngChunk([NotNull] PngChunkType chunkType, [NotNull] byte[] bytes)
+        public PngChunk(PngChunkType chunkType, byte[] bytes)
         {
             ChunkType = chunkType;
             Bytes = bytes;
         }
 
-        [NotNull]
         public PngChunkType ChunkType { get; }
 
-        [NotNull]
         public byte[] Bytes { get; }
     }
 }

@@ -24,7 +24,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 #if NET35
 using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
@@ -52,8 +51,7 @@ namespace MetadataExtractor.Formats.Jpeg
                 .ToList();
         }
 
-        [NotNull]
-        public JpegDnlDirectory Extract([NotNull] SequentialReader reader)
+        public JpegDnlDirectory Extract(SequentialReader reader)
         {
             var directory = new JpegDnlDirectory();
 

@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
@@ -35,12 +34,12 @@ namespace MetadataExtractor.Formats.Exif
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class PanasonicRawWbInfo2Descriptor : TagDescriptor<PanasonicRawWbInfo2Directory>
     {
-        public PanasonicRawWbInfo2Descriptor([NotNull] PanasonicRawWbInfo2Directory directory)
+        public PanasonicRawWbInfo2Descriptor(PanasonicRawWbInfo2Directory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -57,8 +56,7 @@ namespace MetadataExtractor.Formats.Exif
             }
         }
 
-        [CanBeNull]
-        public string GetWbTypeDescription(int tagType)
+        public string? GetWbTypeDescription(int tagType)
         {
             if (!Directory.TryGetUInt16(tagType, out ushort value))
                 return null;

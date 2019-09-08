@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Png
 {
@@ -77,13 +76,12 @@ namespace MetadataExtractor.Formats.Png
 
         private readonly PngChunkType _pngChunkType;
 
-        public PngDirectory([NotNull] PngChunkType pngChunkType)
+        public PngDirectory(PngChunkType pngChunkType)
         {
             _pngChunkType = pngChunkType;
             SetDescriptor(new PngDescriptor(this));
         }
 
-        [NotNull]
         public PngChunkType GetPngChunkType()
         {
             return _pngChunkType;

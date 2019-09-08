@@ -22,7 +22,6 @@
 #endregion
 
 using System.Text;
-using JetBrains.Annotations;
 using System.Diagnostics.CodeAnalysis;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
@@ -40,54 +39,43 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class OlympusRawDevelopmentMakernoteDescriptor : TagDescriptor<OlympusRawDevelopmentMakernoteDirectory>
     {
-        public OlympusRawDevelopmentMakernoteDescriptor([NotNull] OlympusRawDevelopmentMakernoteDirectory directory)
+        public OlympusRawDevelopmentMakernoteDescriptor(OlympusRawDevelopmentMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case OlympusRawDevelopmentMakernoteDirectory.TagRawDevVersion:
-                    return GetRawDevVersionDescription();
-                case OlympusRawDevelopmentMakernoteDirectory.TagRawDevColorSpace:
-                    return GetRawDevColorSpaceDescription();
-                case OlympusRawDevelopmentMakernoteDirectory.TagRawDevEngine:
-                    return GetRawDevEngineDescription();
-                case OlympusRawDevelopmentMakernoteDirectory.TagRawDevNoiseReduction:
-                    return GetRawDevNoiseReductionDescription();
-                case OlympusRawDevelopmentMakernoteDirectory.TagRawDevEditStatus:
-                    return GetRawDevEditStatusDescription();
-                case OlympusRawDevelopmentMakernoteDirectory.TagRawDevSettings:
-                    return GetRawDevSettingsDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                OlympusRawDevelopmentMakernoteDirectory.TagRawDevVersion => GetRawDevVersionDescription(),
+                OlympusRawDevelopmentMakernoteDirectory.TagRawDevColorSpace => GetRawDevColorSpaceDescription(),
+                OlympusRawDevelopmentMakernoteDirectory.TagRawDevEngine => GetRawDevEngineDescription(),
+                OlympusRawDevelopmentMakernoteDirectory.TagRawDevNoiseReduction => GetRawDevNoiseReductionDescription(),
+                OlympusRawDevelopmentMakernoteDirectory.TagRawDevEditStatus => GetRawDevEditStatusDescription(),
+                OlympusRawDevelopmentMakernoteDirectory.TagRawDevSettings => GetRawDevSettingsDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
-        [CanBeNull]
-        public string GetRawDevVersionDescription()
+        public string? GetRawDevVersionDescription()
         {
             return GetVersionBytesDescription(OlympusRawDevelopmentMakernoteDirectory.TagRawDevVersion, 4);
         }
 
-        [CanBeNull]
-        public string GetRawDevColorSpaceDescription()
+        public string? GetRawDevColorSpaceDescription()
         {
             return GetIndexedDescription(OlympusRawDevelopmentMakernoteDirectory.TagRawDevColorSpace,
                 "sRGB", "Adobe RGB", "Pro Photo RGB");
         }
 
-        [CanBeNull]
-        public string GetRawDevEngineDescription()
+        public string? GetRawDevEngineDescription()
         {
             return GetIndexedDescription(OlympusRawDevelopmentMakernoteDirectory.TagRawDevEngine,
                 "High Speed", "High Function", "Advanced High Speed", "Advanced High Function");
         }
 
-        [CanBeNull]
-        public string GetRawDevNoiseReductionDescription()
+        public string? GetRawDevNoiseReductionDescription()
         {
             if (!Directory.TryGetInt32(OlympusRawDevelopmentMakernoteDirectory.TagRawDevNoiseReduction, out int value))
                 return null;
@@ -105,8 +93,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return sb.ToString(0, sb.Length - 2);
         }
 
-        [CanBeNull]
-        public string GetRawDevEditStatusDescription()
+        public string? GetRawDevEditStatusDescription()
         {
             if (!Directory.TryGetInt32(OlympusRawDevelopmentMakernoteDirectory.TagRawDevEditStatus, out int value))
                 return null;
@@ -125,8 +112,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        public string GetRawDevSettingsDescription()
+        public string? GetRawDevSettingsDescription()
         {
             if (!Directory.TryGetInt32(OlympusRawDevelopmentMakernoteDirectory.TagRawDevSettings, out int value))
                 return null;

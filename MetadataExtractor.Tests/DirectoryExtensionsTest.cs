@@ -35,7 +35,7 @@ namespace MetadataExtractor.Tests
         [Fact]
         public void Int32Tests()
         {
-            void AssertPresentInt32(Directory dictionary, int i)
+            static void AssertPresentInt32(Directory dictionary, int i)
             {
                 Assert.Equal(i, dictionary.GetInt32(i));
                 Assert.True(dictionary.TryGetInt32(i, out int _));
@@ -55,7 +55,7 @@ namespace MetadataExtractor.Tests
         [Fact]
         public void Int64Tests()
         {
-            void AssertPresentInt64(Directory dictionary, int i)
+            static void AssertPresentInt64(Directory dictionary, int i)
             {
                 Assert.Equal(i, dictionary.GetInt64(i));
                 Assert.True(dictionary.TryGetInt64(i, out long _));
@@ -75,7 +75,7 @@ namespace MetadataExtractor.Tests
         [Fact]
         public void SingleTests()
         {
-            void AssertPresentSingle(Directory dictionary, int i)
+            static void AssertPresentSingle(Directory dictionary, int i)
             {
                 Assert.Equal(i, dictionary.GetSingle(i));
                 Assert.True(dictionary.TryGetSingle(i, out float _));
@@ -95,7 +95,7 @@ namespace MetadataExtractor.Tests
         [Fact]
         public void DoubleTests()
         {
-            void AssertPresentDouble(Directory dictionary, int i)
+            static void AssertPresentDouble(Directory dictionary, int i)
             {
                 Assert.Equal(i, dictionary.GetDouble(i));
                 Assert.True(dictionary.TryGetDouble(i, out double _));
@@ -115,14 +115,14 @@ namespace MetadataExtractor.Tests
         [Fact]
         public void BooleanTests()
         {
-            void AssertPresentTrueBoolean(Directory dictionary, int i)
+            static void AssertPresentTrueBoolean(Directory dictionary, int i)
             {
                 Assert.True(dictionary.GetBoolean(i));
                 Assert.True(dictionary.TryGetBoolean(i, out bool _));
                 Assert.True(dictionary.GetBoolean(i));
             }
 
-            void AssertPresentFalseBoolean(Directory dictionary, int i)
+            static void AssertPresentFalseBoolean(Directory dictionary, int i)
             {
                 Assert.False(dictionary.GetBoolean(i));
                 Assert.True(dictionary.TryGetBoolean(i, out bool _));
