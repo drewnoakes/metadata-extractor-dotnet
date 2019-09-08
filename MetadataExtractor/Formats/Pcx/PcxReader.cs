@@ -23,7 +23,6 @@
 #endregion
 
 using System;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Pcx
@@ -39,8 +38,7 @@ namespace MetadataExtractor.Formats.Pcx
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PcxReader
     {
-        [NotNull]
-        public PcxDirectory Extract([NotNull] SequentialReader reader)
+        public PcxDirectory Extract(SequentialReader reader)
         {
             reader = reader.WithByteOrder(isMotorolaByteOrder: false);
 

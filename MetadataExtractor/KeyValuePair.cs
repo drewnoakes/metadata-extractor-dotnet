@@ -22,8 +22,6 @@
 //
 #endregion
 
-using JetBrains.Annotations;
-
 namespace MetadataExtractor
 {
     /// <summary>
@@ -32,15 +30,20 @@ namespace MetadataExtractor
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class KeyValuePair
     {
-        public KeyValuePair([NotNull] string key, StringValue value)
+        public KeyValuePair(string key, StringValue value)
         {
             Key = key;
             Value = value;
         }
 
-        [NotNull]
         public string Key { get; }
 
         public StringValue Value { get; }
+
+        public void Deconstruct(out string key, out StringValue value)
+        {
+            key = Key;
+            value = Value;
+        }
     }
 }

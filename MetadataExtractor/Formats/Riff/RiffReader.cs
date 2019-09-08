@@ -23,7 +23,6 @@
 #endregion
 
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Riff
@@ -47,7 +46,7 @@ namespace MetadataExtractor.Formats.Riff
         /// <param name="handler">The <see cref="IRiffHandler"/> that will coordinate processing and accept read values.</param>
         /// <exception cref="RiffProcessingException">An error occurred during the processing of RIFF data that could not be ignored or recovered from.</exception>
         /// <exception cref="System.IO.IOException">an error occurred while accessing the required data</exception>
-        public void ProcessRiff([NotNull] SequentialReader reader, [NotNull] IRiffHandler handler)
+        public void ProcessRiff(SequentialReader reader, IRiffHandler handler)
         {
             // RIFF files are always little-endian
             reader = reader.WithByteOrder(isMotorolaByteOrder: false);
@@ -71,7 +70,7 @@ namespace MetadataExtractor.Formats.Riff
         }
 
         // PROCESS CHUNKS
-        public void ProcessChunks([NotNull] SequentialReader reader, int sizeLeft, [NotNull] IRiffHandler handler)
+        public void ProcessChunks(SequentialReader reader, int sizeLeft, IRiffHandler handler)
         {
             // Processing chunks. Each chunk is 8 bytes header (4 bytes CC code + 4 bytes length of chunk) + data of the chunk
 

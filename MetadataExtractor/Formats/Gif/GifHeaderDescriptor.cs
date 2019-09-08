@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Gif
 {
@@ -31,7 +30,7 @@ namespace MetadataExtractor.Formats.Gif
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class GifHeaderDescriptor : TagDescriptor<GifHeaderDirectory>
     {
-        public GifHeaderDescriptor([NotNull] GifHeaderDirectory directory)
+        public GifHeaderDescriptor(GifHeaderDirectory directory)
             : base(directory)
         {
         }

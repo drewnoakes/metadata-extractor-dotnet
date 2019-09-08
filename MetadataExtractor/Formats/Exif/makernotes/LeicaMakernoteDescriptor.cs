@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -36,12 +35,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class LeicaMakernoteDescriptor : TagDescriptor<LeicaMakernoteDirectory>
     {
-        public LeicaMakernoteDescriptor([NotNull] LeicaMakernoteDirectory directory)
+        public LeicaMakernoteDescriptor(LeicaMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -70,47 +69,40 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 
-        [CanBeNull]
-        private string GetCameraTemperatureDescription()
+        private string? GetCameraTemperatureDescription()
         {
             return GetFormattedInt(LeicaMakernoteDirectory.TagCameraTemperature, "{0} C");
         }
 
-        [CanBeNull]
-        private string GetApproximateFNumberDescription()
+        private string? GetApproximateFNumberDescription()
         {
             return GetSimpleRational(LeicaMakernoteDirectory.TagApproximateFNumber);
         }
 
-        [CanBeNull]
-        private string GetMeasuredLVDescription()
+        private string? GetMeasuredLVDescription()
         {
             return GetSimpleRational(LeicaMakernoteDirectory.TagMeasuredLV);
         }
 
-        [CanBeNull]
-        private string GetExternalSensorBrightnessValueDescription()
+        private string? GetExternalSensorBrightnessValueDescription()
         {
             return GetSimpleRational(LeicaMakernoteDirectory.TagExternalSensorBrightnessValue);
         }
 
-        [CanBeNull]
-        private string GetWhiteBalanceDescription()
+        private string? GetWhiteBalanceDescription()
         {
             return GetIndexedDescription(LeicaMakernoteDirectory.TagWhiteBalance,
                 "Auto or Manual", "Daylight", "Fluorescent", "Tungsten", "Flash", "Cloudy", "Shadow");
         }
 
-        [CanBeNull]
-        private string GetUserProfileDescription()
+        private string? GetUserProfileDescription()
         {
             return GetIndexedDescription(LeicaMakernoteDirectory.TagQuality,
                 1,
                 "User Profile 1", "User Profile 2", "User Profile 3", "User Profile 0 (Dynamic)");
         }
 
-        [CanBeNull]
-        private string GetQualityDescription()
+        private string? GetQualityDescription()
         {
             return GetIndexedDescription(LeicaMakernoteDirectory.TagQuality,
                 1,

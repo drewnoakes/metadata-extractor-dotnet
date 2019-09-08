@@ -25,7 +25,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Util
 {
@@ -159,7 +158,7 @@ namespace MetadataExtractor.Util
             "Canon Camera Raw"
         };
 
-        [ItemCanBeNull] private static readonly string[] _mimeTypes =
+        private static readonly string?[] _mimeTypes =
         {
             null,
             "image/jpeg",
@@ -186,7 +185,7 @@ namespace MetadataExtractor.Util
             null
         };
 
-        [ItemCanBeNull] private static readonly string[][] _extensions =
+        private static readonly string[]?[] _extensions =
         {
             null,
             new[] { "jpg", "jpeg", "jpe" },
@@ -213,7 +212,6 @@ namespace MetadataExtractor.Util
             new[] { "cr3", "crm" }
         };
         
-        [NotNull]
         public static string GetName(this FileType fileType)
         {
             var i = (int)fileType;
@@ -222,7 +220,6 @@ namespace MetadataExtractor.Util
             return _shortNames[i];
         }
         
-        [NotNull]
         public static string GetLongName(this FileType fileType)
         {
             var i = (int)fileType;
@@ -231,8 +228,7 @@ namespace MetadataExtractor.Util
             return _longNames[i];
         }
         
-        [CanBeNull]
-        public static string GetMimeType(this FileType fileType)
+        public static string? GetMimeType(this FileType fileType)
         {
             var i = (int)fileType;
             if (i < 0 || i >= _mimeTypes.Length)
@@ -240,8 +236,7 @@ namespace MetadataExtractor.Util
             return _mimeTypes[i];
         }
         
-        [CanBeNull]
-        public static string GetCommonExtension(this FileType fileType)
+        public static string? GetCommonExtension(this FileType fileType)
         {
             var i = (int)fileType;
             if (i < 0 || i >= _extensions.Length)
@@ -249,8 +244,7 @@ namespace MetadataExtractor.Util
             return _extensions[i]?.FirstOrDefault();
         }
         
-        [CanBeNull]
-        public static IEnumerable<string> GetAllExtensions(this FileType fileType)
+        public static IEnumerable<string>? GetAllExtensions(this FileType fileType)
         {
             var i = (int)fileType;
             if (i < 0 || i >= _mimeTypes.Length)

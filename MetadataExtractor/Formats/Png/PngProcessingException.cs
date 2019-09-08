@@ -26,7 +26,6 @@ using System;
 #if !NETSTANDARD1_3
 using System.Runtime.Serialization;
 #endif
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Png
 {
@@ -37,23 +36,23 @@ namespace MetadataExtractor.Formats.Png
 #endif
     public class PngProcessingException : ImageProcessingException
     {
-        public PngProcessingException([CanBeNull] string message)
+        public PngProcessingException(string? message)
             : base(message)
         {
         }
 
-        public PngProcessingException([CanBeNull] string message, [CanBeNull] Exception innerException)
+        public PngProcessingException(string? message, Exception? innerException)
             : base(message, innerException)
         {
         }
 
-        public PngProcessingException([CanBeNull] Exception innerException)
+        public PngProcessingException(Exception? innerException)
             : base(innerException)
         {
         }
 
 #if !NETSTANDARD1_3
-        protected PngProcessingException([NotNull] SerializationInfo info, StreamingContext context)
+        protected PngProcessingException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

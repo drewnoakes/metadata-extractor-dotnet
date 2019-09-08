@@ -24,7 +24,6 @@
 
 using System;
 using System.Text;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.IO
 {
@@ -64,7 +63,6 @@ namespace MetadataExtractor.IO
         /// <param name="count">The number of bytes to be returned</param>
         /// <returns>The requested bytes</returns>
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
         public abstract byte[] GetBytes(int count);
 
         /// <summary>Retrieves bytes, writing them into a caller-provided buffer.</summary>
@@ -73,7 +71,7 @@ namespace MetadataExtractor.IO
         /// <param name="count">The number of bytes to be written.</param>
         /// <returns>The requested bytes</returns>
         /// <exception cref="System.IO.IOException"/>
-        public abstract void GetBytes([NotNull] byte[] buffer, int offset, int count);
+        public abstract void GetBytes(byte[] buffer, int offset, int count);
 
         /// <summary>Skips forward in the sequence.</summary>
         /// <remarks>
@@ -292,14 +290,13 @@ namespace MetadataExtractor.IO
         public double GetDouble64() => BitConverter.Int64BitsToDouble(GetInt64());
 
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public string GetString(int bytesRequested, [NotNull] Encoding encoding)
+        public string GetString(int bytesRequested, Encoding encoding)
         {
             var bytes = GetBytes(bytesRequested);
             return encoding.GetString(bytes, 0, bytes.Length);
         }
 
-        public StringValue GetStringValue(int bytesRequested, Encoding encoding = null)
+        public StringValue GetStringValue(int bytesRequested, Encoding? encoding = null)
         {
             return new StringValue(GetBytes(bytesRequested), encoding);
         }
@@ -314,8 +311,7 @@ namespace MetadataExtractor.IO
         /// <param name="encoding">An optional string encoding. If none is provided, <see cref="Encoding.UTF8"/> is used.</param>
         /// <returns>The read <see cref="string"/></returns>
         /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
-        [NotNull]
-        public string GetNullTerminatedString(int maxLengthBytes, Encoding encoding = null)
+        public string GetNullTerminatedString(int maxLengthBytes, Encoding? encoding = null)
         {
             var bytes = GetNullTerminatedBytes(maxLengthBytes);
 
@@ -332,7 +328,7 @@ namespace MetadataExtractor.IO
         /// <param name="encoding">An optional string encoding to use when interpreting bytes.</param>
         /// <returns>The read string as a <see cref="StringValue"/>, excluding the null terminator.</returns>
         /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
-        public StringValue GetNullTerminatedStringValue(int maxLengthBytes, Encoding encoding = null)
+        public StringValue GetNullTerminatedStringValue(int maxLengthBytes, Encoding? encoding = null)
         {
             var bytes = GetNullTerminatedBytes(maxLengthBytes);
 
@@ -348,7 +344,6 @@ namespace MetadataExtractor.IO
         /// </param>
         /// <returns>The read byte array, excluding the null terminator.</returns>
         /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
-        [NotNull]
         public byte[] GetNullTerminatedBytes(int maxLengthBytes)
         {
             var buffer = new byte[maxLengthBytes];

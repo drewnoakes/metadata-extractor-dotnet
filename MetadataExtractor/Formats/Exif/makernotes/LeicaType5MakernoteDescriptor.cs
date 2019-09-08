@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -37,58 +36,39 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class LeicaType5MakernoteDescriptor : TagDescriptor<LeicaType5MakernoteDirectory>
     {
-        public LeicaType5MakernoteDescriptor([NotNull] LeicaType5MakernoteDirectory directory)
+        public LeicaType5MakernoteDescriptor(LeicaType5MakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case LeicaType5MakernoteDirectory.TagExposureMode:
-                    return GetExposureModeDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                LeicaType5MakernoteDirectory.TagExposureMode => GetExposureModeDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
         /// <summary>
         /// 4 values
         /// </summary>
         /// <returns></returns>
-        [CanBeNull]
-        public string GetExposureModeDescription()
+        public string? GetExposureModeDescription()
         {
-            var values = Directory.GetObject(LeicaType5MakernoteDirectory.TagExposureMode) as byte[];
-            if (values == null || values.Length < 4)
+            if (!(Directory.GetObject(LeicaType5MakernoteDirectory.TagExposureMode) is byte[] values) || values.Length < 4)
                 return null;
 
             var join = $"{values[0]} {values[1]} {values[2]} {values[3]}";
-
-            string ret;
-            switch (join)
+            var ret = join switch
             {
-                case "0 0 0 0":
-                    ret = "Program AE";
-                    break;
-                case "1 0 0 0":
-                    ret = "Aperture-priority AE";
-                    break;
-                case "1 1 0 0":
-                    ret = "Aperture-priority AE (1)";
-                    break;
-                case "2 0 0 0":
-                    ret = "Shutter speed priority AE";  // guess
-                    break;
-                case "3 0 0 0":
-                    ret = "Manual";
-                    break;
-                default:
-                    ret = "Unknown (" + join + ")";
-                    break;
-            }
-
+                "0 0 0 0" => "Program AE",
+                "1 0 0 0" => "Aperture-priority AE",
+                "1 1 0 0" => "Aperture-priority AE (1)",
+                "2 0 0 0" => "Shutter speed priority AE",  // guess
+                "3 0 0 0" => "Manual",
+                _ => "Unknown (" + join + ")",
+            };
             return ret;
         }
     }

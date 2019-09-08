@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 using static MetadataExtractor.Formats.Iptc.IptcDirectory;
 
 namespace MetadataExtractor.Formats.Iptc
@@ -38,48 +37,33 @@ namespace MetadataExtractor.Formats.Iptc
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class IptcDescriptor : TagDescriptor<IptcDirectory>
     {
-        public IptcDescriptor([NotNull] IptcDirectory directory)
+        public IptcDescriptor(IptcDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case TagDateCreated:
-                    return GetDateCreatedDescription();
-                case TagDigitalDateCreated:
-                    return GetDigitalDateCreatedDescription();
-                case TagDateSent:
-                    return GetDateSentDescription();
-                case TagExpirationDate:
-                    return GetExpirationDateDescription();
-                case TagExpirationTime:
-                    return GetExpirationTimeDescription();
-                case TagFileFormat:
-                    return GetFileFormatDescription();
-                case TagKeywords:
-                    return GetKeywordsDescription();
-                case TagReferenceDate:
-                    return GetReferenceDateDescription();
-                case TagReleaseDate:
-                    return GetReleaseDateDescription();
-                case TagReleaseTime:
-                    return GetReleaseTimeDescription();
-                case TagTimeCreated:
-                    return GetTimeCreatedDescription();
-                case TagDigitalTimeCreated:
-                    return GetDigitalTimeCreatedDescription();
-                case TagTimeSent:
-                    return GetTimeSentDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                TagDateCreated => GetDateCreatedDescription(),
+                TagDigitalDateCreated => GetDigitalDateCreatedDescription(),
+                TagDateSent => GetDateSentDescription(),
+                TagExpirationDate => GetExpirationDateDescription(),
+                TagExpirationTime => GetExpirationTimeDescription(),
+                TagFileFormat => GetFileFormatDescription(),
+                TagKeywords => GetKeywordsDescription(),
+                TagReferenceDate => GetReferenceDateDescription(),
+                TagReleaseDate => GetReleaseDateDescription(),
+                TagReleaseTime => GetReleaseTimeDescription(),
+                TagTimeCreated => GetTimeCreatedDescription(),
+                TagDigitalTimeCreated => GetDigitalTimeCreatedDescription(),
+                TagTimeSent => GetTimeSentDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
-        [CanBeNull]
-        private string GetDateDescription(int tagType)
+        private string? GetDateDescription(int tagType)
         {
             var s = Directory.GetString(tagType);
             if (s == null)
@@ -89,8 +73,7 @@ namespace MetadataExtractor.Formats.Iptc
             return s;
         }
 
-        [CanBeNull]
-        private string GetTimeDescription(int tagType)
+        private string? GetTimeDescription(int tagType)
         {
             var s = Directory.GetString(tagType);
             if (s == null)
@@ -100,8 +83,7 @@ namespace MetadataExtractor.Formats.Iptc
             return s;
         }
 
-        [CanBeNull]
-        public string GetFileFormatDescription()
+        public string? GetFileFormatDescription()
         {
             return GetIndexedDescription(TagFileFormat,
                 "No ObjectData",
@@ -136,189 +118,158 @@ namespace MetadataExtractor.Formats.Iptc
                 "Corel Draw [.CDR]");
         }
 
-        [CanBeNull]
-        public string GetByLineDescription()
+        public string? GetByLineDescription()
         {
             return Directory.GetString(TagByLine);
         }
 
-        [CanBeNull]
-        public string GetByLineTitleDescription()
+        public string? GetByLineTitleDescription()
         {
             return Directory.GetString(TagByLineTitle);
         }
 
-        [CanBeNull]
-        public string GetCaptionDescription()
+        public string? GetCaptionDescription()
         {
             return Directory.GetString(TagCaption);
         }
 
-        [CanBeNull]
-        public string GetCategoryDescription()
+        public string? GetCategoryDescription()
         {
             return Directory.GetString(TagCategory);
         }
 
-        [CanBeNull]
-        public string GetCityDescription()
+        public string? GetCityDescription()
         {
             return Directory.GetString(TagCity);
         }
 
-        [CanBeNull]
-        public string GetCopyrightNoticeDescription()
+        public string? GetCopyrightNoticeDescription()
         {
             return Directory.GetString(TagCopyrightNotice);
         }
 
-        [CanBeNull]
-        public string GetCountryOrPrimaryLocationDescription()
+        public string? GetCountryOrPrimaryLocationDescription()
         {
             return Directory.GetString(TagCountryOrPrimaryLocationName);
         }
 
-        [CanBeNull]
-        public string GetCreditDescription()
+        public string? GetCreditDescription()
         {
             return Directory.GetString(TagCredit);
         }
 
-        [CanBeNull]
-        public string GetDateCreatedDescription()
+        public string? GetDateCreatedDescription()
         {
             return GetDateDescription(TagDateCreated);
         }
 
-        [CanBeNull]
-        public string GetDigitalDateCreatedDescription()
+        public string? GetDigitalDateCreatedDescription()
         {
             return GetDateDescription(TagDigitalDateCreated);
         }
 
-        [CanBeNull]
-        public string GetDateSentDescription()
+        public string? GetDateSentDescription()
         {
             return GetDateDescription(TagDateSent);
         }
 
-        [CanBeNull]
-        public string GetExpirationDateDescription()
+        public string? GetExpirationDateDescription()
         {
             return GetDateDescription(TagExpirationDate);
         }
 
-        [CanBeNull]
-        public string GetExpirationTimeDescription()
+        public string? GetExpirationTimeDescription()
         {
             return GetTimeDescription(TagExpirationTime);
         }
 
-        [CanBeNull]
-        public string GetHeadlineDescription()
+        public string? GetHeadlineDescription()
         {
             return Directory.GetString(TagHeadline);
         }
 
-        [CanBeNull]
-        public string GetKeywordsDescription()
+        public string? GetKeywordsDescription()
         {
             var keywords = Directory.GetStringArray(TagKeywords);
             return keywords == null ? null : string.Join(";", keywords);
         }
 
-        [CanBeNull]
-        public string GetObjectNameDescription()
+        public string? GetObjectNameDescription()
         {
             return Directory.GetString(TagObjectName);
         }
 
-        [CanBeNull]
-        public string GetOriginalTransmissionReferenceDescription()
+        public string? GetOriginalTransmissionReferenceDescription()
         {
             return Directory.GetString(TagOriginalTransmissionReference);
         }
 
-        [CanBeNull]
-        public string GetOriginatingProgramDescription()
+        public string? GetOriginatingProgramDescription()
         {
             return Directory.GetString(TagOriginatingProgram);
         }
 
-        [CanBeNull]
-        public string GetProvinceOrStateDescription()
+        public string? GetProvinceOrStateDescription()
         {
             return Directory.GetString(TagProvinceOrState);
         }
 
-        [CanBeNull]
-        public string GetRecordVersionDescription()
+        public string? GetRecordVersionDescription()
         {
             return Directory.GetString(TagApplicationRecordVersion);
         }
 
-        [CanBeNull]
-        public string GetReferenceDateDescription()
+        public string? GetReferenceDateDescription()
         {
             return GetDateDescription(TagReferenceDate);
         }
 
-        [CanBeNull]
-        public string GetReleaseDateDescription()
+        public string? GetReleaseDateDescription()
         {
             return GetDateDescription(TagReleaseDate);
         }
 
-        [CanBeNull]
-        public string GetReleaseTimeDescription()
+        public string? GetReleaseTimeDescription()
         {
             return GetTimeDescription(TagReleaseTime);
         }
 
-        [CanBeNull]
-        public string GetTimeSentDescription()
+        public string? GetTimeSentDescription()
         {
             return GetTimeDescription(TagTimeSent);
         }
 
-        [CanBeNull]
-        public string GetSourceDescription()
+        public string? GetSourceDescription()
         {
             return Directory.GetString(TagSource);
         }
 
-        [CanBeNull]
-        public string GetSpecialInstructionsDescription()
+        public string? GetSpecialInstructionsDescription()
         {
             return Directory.GetString(TagSpecialInstructions);
         }
 
-        [CanBeNull]
-        public string GetSupplementalCategoriesDescription()
+        public string? GetSupplementalCategoriesDescription()
         {
             return Directory.GetString(TagSupplementalCategories);
         }
 
-        [CanBeNull]
-        public string GetTimeCreatedDescription()
+        public string? GetTimeCreatedDescription()
         {
             return GetTimeDescription(TagTimeCreated);
         }
 
-        [CanBeNull]
-        public string GetDigitalTimeCreatedDescription()
+        public string? GetDigitalTimeCreatedDescription()
         {
             return GetTimeDescription(TagDigitalTimeCreated);
         }
 
-        [CanBeNull]
-        public string GetUrgencyDescription()
+        public string? GetUrgencyDescription()
         {
             return Directory.GetString(TagUrgency);
         }
 
-        [CanBeNull]
-        public string GetWriterDescription()
+        public string? GetWriterDescription()
         {
             return Directory.GetString(TagCaptionWriter);
         }

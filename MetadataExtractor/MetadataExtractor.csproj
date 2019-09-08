@@ -26,6 +26,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Annotations.cs" Link="Annotations.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="XmpCore" Version="6.1.10" Condition=" '$(Signed)' != 'True' " />
     <PackageReference Include="XmpCore.StrongName" Version="6.1.10" Condition=" '$(Signed)' == 'True' " />
   </ItemGroup>

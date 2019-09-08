@@ -23,7 +23,6 @@
 
 using System.Collections.Generic;
 using System.IO;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 #if NET35
 using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
@@ -45,7 +44,7 @@ namespace MetadataExtractor.Formats.Jpeg
         {
             // This Extract structure is a little different since we only want
             // to return one HuffmanTablesDirectory for one-to-many segments
-            HuffmanTablesDirectory directory = null;
+            HuffmanTablesDirectory? directory = null;
 
             foreach (var segment in segments)
             {
@@ -61,7 +60,7 @@ namespace MetadataExtractor.Formats.Jpeg
             return Directory.EmptyList;
         }
 
-        public void Extract([NotNull] SequentialReader reader, HuffmanTablesDirectory directory)
+        public void Extract(SequentialReader reader, HuffmanTablesDirectory directory)
         {
             try
             {
@@ -87,7 +86,7 @@ namespace MetadataExtractor.Formats.Jpeg
             }
         }
 
-        private byte[] GetBytes([NotNull] SequentialReader reader, int count)
+        private byte[] GetBytes(SequentialReader reader, int count)
         {
             byte[] bytes = new byte[count];
             for (int i = 0; i < count; i++)

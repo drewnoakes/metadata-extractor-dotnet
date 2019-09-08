@@ -40,6 +40,7 @@ namespace MetadataExtractor.Util
 
         // NOTE jhead uses a different calculation as far as i can tell...  this confuses me...
         // fStop = (float)Math.exp(aperture * Math.log(2) * 0.5));
+
         /// <summary>Converts a shutter speed to an exposure time.</summary>
         /// <param name="shutterSpeed">the shutter speed to convert</param>
         /// <returns>the exposure time of the specified shutter speed</returns>

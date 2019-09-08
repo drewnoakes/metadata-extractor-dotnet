@@ -25,19 +25,17 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.IO
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class SequentialStreamReader : SequentialReader
     {
-        [NotNull]
         private readonly Stream _stream;
 
         public override long Position => _stream.Position;
 
-        public SequentialStreamReader([NotNull] Stream stream, bool isMotorolaByteOrder = true)
+        public SequentialStreamReader(Stream stream, bool isMotorolaByteOrder = true)
             : base(isMotorolaByteOrder)
         {
             _stream = stream ?? throw new ArgumentNullException(nameof(stream));

@@ -26,7 +26,6 @@ using System;
 #if !NETSTANDARD1_3
 using System.Runtime.Serialization;
 #endif
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Tiff
 {
@@ -38,23 +37,23 @@ namespace MetadataExtractor.Formats.Tiff
 #endif
     public class TiffProcessingException : ImageProcessingException
     {
-        public TiffProcessingException([CanBeNull] string message)
+        public TiffProcessingException(string? message)
             : base(message)
         {
         }
 
-        public TiffProcessingException([CanBeNull] string message, [CanBeNull] Exception innerException)
+        public TiffProcessingException(string? message, Exception? innerException)
             : base(message, innerException)
         {
         }
 
-        public TiffProcessingException([CanBeNull] Exception innerException)
+        public TiffProcessingException(Exception? innerException)
             : base(innerException)
         {
         }
 
 #if !NETSTANDARD1_3
-        protected TiffProcessingException([NotNull] SerializationInfo info, StreamingContext context)
+        protected TiffProcessingException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

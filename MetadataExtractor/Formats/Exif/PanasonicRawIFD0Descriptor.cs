@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
@@ -35,22 +34,19 @@ namespace MetadataExtractor.Formats.Exif
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class PanasonicRawIfd0Descriptor : TagDescriptor<PanasonicRawIfd0Directory>
     {
-        public PanasonicRawIfd0Descriptor([NotNull] PanasonicRawIfd0Directory directory)
+        public PanasonicRawIfd0Descriptor(PanasonicRawIfd0Directory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case PanasonicRawIfd0Directory.TagPanasonicRawVersion:
-                    return GetVersionBytesDescription(PanasonicRawIfd0Directory.TagPanasonicRawVersion, 2);
-                case PanasonicRawIfd0Directory.TagOrientation:
-                    return GetOrientationDescription(PanasonicRawIfd0Directory.TagOrientation);
-                default:
-                    return base.GetDescription(tagType);
-            }
+                PanasonicRawIfd0Directory.TagPanasonicRawVersion => GetVersionBytesDescription(PanasonicRawIfd0Directory.TagPanasonicRawVersion, 2),
+                PanasonicRawIfd0Directory.TagOrientation => GetOrientationDescription(PanasonicRawIfd0Directory.TagOrientation),
+                _ => base.GetDescription(tagType),
+            };
         }
     }
 }

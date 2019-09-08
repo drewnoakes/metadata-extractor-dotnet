@@ -26,7 +26,6 @@ using System;
 #if !NETSTANDARD1_3
 using System.Runtime.Serialization;
 #endif
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Riff
 {
@@ -37,23 +36,23 @@ namespace MetadataExtractor.Formats.Riff
 #endif
     public class RiffProcessingException : ImageProcessingException
     {
-        public RiffProcessingException([CanBeNull] string message)
+        public RiffProcessingException(string? message)
             : base(message)
         {
         }
 
-        public RiffProcessingException([CanBeNull] string message, [CanBeNull] Exception innerException)
+        public RiffProcessingException(string? message, Exception? innerException)
             : base(message, innerException)
         {
         }
 
-        public RiffProcessingException([CanBeNull] Exception innerException)
+        public RiffProcessingException(Exception? innerException)
             : base(innerException)
         {
         }
 
 #if !NETSTANDARD1_3
-        protected RiffProcessingException([NotNull] SerializationInfo info, StreamingContext context)
+        protected RiffProcessingException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -37,133 +36,104 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class PentaxMakernoteDescriptor : TagDescriptor<PentaxMakernoteDirectory>
     {
-        public PentaxMakernoteDescriptor([NotNull] PentaxMakernoteDirectory directory)
+        public PentaxMakernoteDescriptor(PentaxMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case PentaxMakernoteDirectory.TagCaptureMode:
-                    return GetCaptureModeDescription();
-                case PentaxMakernoteDirectory.TagQualityLevel:
-                    return GetQualityLevelDescription();
-                case PentaxMakernoteDirectory.TagFocusMode:
-                    return GetFocusModeDescription();
-                case PentaxMakernoteDirectory.TagFlashMode:
-                    return GetFlashModeDescription();
-                case PentaxMakernoteDirectory.TagWhiteBalance:
-                    return GetWhiteBalanceDescription();
-                case PentaxMakernoteDirectory.TagDigitalZoom:
-                    return GetDigitalZoomDescription();
-                case PentaxMakernoteDirectory.TagSharpness:
-                    return GetSharpnessDescription();
-                case PentaxMakernoteDirectory.TagContrast:
-                    return GetContrastDescription();
-                case PentaxMakernoteDirectory.TagSaturation:
-                    return GetSaturationDescription();
-                case PentaxMakernoteDirectory.TagIsoSpeed:
-                    return GetIsoSpeedDescription();
-                case PentaxMakernoteDirectory.TagColour:
-                    return GetColourDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                PentaxMakernoteDirectory.TagCaptureMode => GetCaptureModeDescription(),
+                PentaxMakernoteDirectory.TagQualityLevel => GetQualityLevelDescription(),
+                PentaxMakernoteDirectory.TagFocusMode => GetFocusModeDescription(),
+                PentaxMakernoteDirectory.TagFlashMode => GetFlashModeDescription(),
+                PentaxMakernoteDirectory.TagWhiteBalance => GetWhiteBalanceDescription(),
+                PentaxMakernoteDirectory.TagDigitalZoom => GetDigitalZoomDescription(),
+                PentaxMakernoteDirectory.TagSharpness => GetSharpnessDescription(),
+                PentaxMakernoteDirectory.TagContrast => GetContrastDescription(),
+                PentaxMakernoteDirectory.TagSaturation => GetSaturationDescription(),
+                PentaxMakernoteDirectory.TagIsoSpeed => GetIsoSpeedDescription(),
+                PentaxMakernoteDirectory.TagColour => GetColourDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
-        [CanBeNull]
-        public string GetColourDescription()
+        public string? GetColourDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagColour,
                 1,
                 "Normal", "Black & White", "Sepia");
         }
 
-        [CanBeNull]
-        public string GetIsoSpeedDescription()
+        public string? GetIsoSpeedDescription()
         {
             if (!Directory.TryGetInt32(PentaxMakernoteDirectory.TagIsoSpeed, out int value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 10:
-                    // TODO there must be other values which aren't catered for here
-                    return "ISO 100";
-                case 16:
-                    return "ISO 200";
-                case 100:
-                    return "ISO 100";
-                case 200:
-                    return "ISO 200";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                10 => "ISO 100",
+                16 => "ISO 200",
+                100 => "ISO 100",
+                200 => "ISO 200",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
-        [CanBeNull]
-        public string GetSaturationDescription()
+        public string? GetSaturationDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagSaturation,
                 "Normal", "Low", "High");
         }
 
-        [CanBeNull]
-        public string GetContrastDescription()
+        public string? GetContrastDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagContrast,
                 "Normal", "Low", "High");
         }
 
-        [CanBeNull]
-        public string GetSharpnessDescription()
+        public string? GetSharpnessDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagSharpness,
                 "Normal", "Soft", "Hard");
         }
 
-        [CanBeNull]
-        public string GetDigitalZoomDescription()
+        public string? GetDigitalZoomDescription()
         {
             if (!Directory.TryGetSingle(PentaxMakernoteDirectory.TagDigitalZoom, out float value))
                 return null;
             return value == 0 ? "Off" : value.ToString("0.0###########");
         }
 
-        [CanBeNull]
-        public string GetWhiteBalanceDescription()
+        public string? GetWhiteBalanceDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagWhiteBalance,
                 "Auto", "Daylight", "Shade", "Tungsten", "Fluorescent", "Manual");
         }
 
-        [CanBeNull]
-        public string GetFlashModeDescription()
+        public string? GetFlashModeDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagFlashMode,
                 1,
                 "Auto", "Flash On", null, "Flash Off", null, "Red-eye Reduction");
         }
 
-        [CanBeNull]
-        public string GetFocusModeDescription()
+        public string? GetFocusModeDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagFocusMode,
                 2,
                 "Custom", "Auto");
         }
 
-        [CanBeNull]
-        public string GetQualityLevelDescription()
+        public string? GetQualityLevelDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagQualityLevel,
                 "Good", "Better", "Best");
         }
 
-        [CanBeNull]
-        public string GetCaptureModeDescription()
+        public string? GetCaptureModeDescription()
         {
             return GetIndexedDescription(PentaxMakernoteDirectory.TagCaptureMode,
                 "Auto", "Night-scene", "Manual", null, "Multiple");

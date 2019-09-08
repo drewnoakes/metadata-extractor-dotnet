@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -105,8 +104,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// Use <see cref="GetNumberOfComponents"/> for bounds-checking.
         /// </param>
         /// <returns>the JpegComponent having the specified number, or <c>null</c>.</returns>
-        [CanBeNull]
-        public JpegComponent GetComponent(int componentNumber)
+        public JpegComponent? GetComponent(int componentNumber)
         {
             var tagType = TagComponentData1 + componentNumber;
             return GetObject(tagType) as JpegComponent;

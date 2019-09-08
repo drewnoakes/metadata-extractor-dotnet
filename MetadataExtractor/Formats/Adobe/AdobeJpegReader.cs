@@ -27,7 +27,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 
@@ -59,8 +58,7 @@ namespace MetadataExtractor.Formats.Adobe
                 .ToList();
         }
 
-        [NotNull]
-        public AdobeJpegDirectory Extract([NotNull] SequentialReader reader)
+        public AdobeJpegDirectory Extract(SequentialReader reader)
         {
             reader = reader.WithByteOrder(isMotorolaByteOrder: false);
 

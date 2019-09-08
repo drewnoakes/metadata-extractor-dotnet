@@ -26,7 +26,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 
@@ -66,8 +65,7 @@ namespace MetadataExtractor.Formats.Jfif
         }
 
         /// <summary>Reads JFIF values and returns them in an <see cref="JfifDirectory"/>.</summary>
-        [NotNull]
-        public JfifDirectory Extract([NotNull] IndexedReader reader)
+        public JfifDirectory Extract(IndexedReader reader)
         {
             var directory = new JfifDirectory();
 

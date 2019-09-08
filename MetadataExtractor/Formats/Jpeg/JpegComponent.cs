@@ -25,7 +25,6 @@
 #if !NETSTANDARD1_3
 using System;
 #endif
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -54,26 +53,19 @@ namespace MetadataExtractor.Formats.Jpeg
 
         /// <summary>Returns the component name (one of: Y, Cb, Cr, I, or Q)</summary>
         /// <value>the component name</value>
-        [NotNull]
         public string Name
         {
             get
             {
-                switch (Id)
+                return Id switch
                 {
-                    case 1:
-                        return "Y";
-                    case 2:
-                        return "Cb";
-                    case 3:
-                        return "Cr";
-                    case 4:
-                        return "I";
-                    case 5:
-                        return "Q";
-                    default:
-                        return $"Unknown ({Id})";
-                }
+                    1 => "Y",
+                    2 => "Cb",
+                    3 => "Cr",
+                    4 => "I",
+                    5 => "Q",
+                    _ => $"Unknown ({Id})",
+                };
             }
         }
 
