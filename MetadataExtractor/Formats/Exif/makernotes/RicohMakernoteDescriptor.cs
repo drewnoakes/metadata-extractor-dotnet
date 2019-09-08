@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -38,12 +37,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class RicohMakernoteDescriptor : TagDescriptor<RicohMakernoteDirectory>
     {
-        public RicohMakernoteDescriptor([NotNull] RicohMakernoteDirectory directory)
+        public RicohMakernoteDescriptor(RicohMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -56,8 +55,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             }
         }
 //
-//        [CanBeNull]
-//        public string GetProprietaryThumbnailDataDescription()
+//        public string? GetProprietaryThumbnailDataDescription()
 //        {
 //            return GetByteLengthDescription(RicohMakernoteDirectory.TagProprietaryThumbnail);
 //        }

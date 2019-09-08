@@ -25,7 +25,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Util
 {
@@ -96,7 +95,11 @@ namespace MetadataExtractor.Util
         QuickTime = 20,
 
         /// <summary>Netpbm family of image formats.</summary>
-        Netpbm = 21
+        Netpbm = 21,
+
+        /// <summary>Canon camera raw (version 3).</summary>
+        /// <remarks>Shared by CR3 (image) and CRM (video).</remarks>
+        Crx = 22
     }
 
     public static class FileTypeExtensions
@@ -124,7 +127,8 @@ namespace MetadataExtractor.Util
             "RAF",
             "RW2",
             "QuickTime",
-            "Netpbm"
+            "Netpbm",
+            "CRX"
         };
         
         private static readonly string[] _longNames =
@@ -150,10 +154,11 @@ namespace MetadataExtractor.Util
             "FujiFilm Camera Raw",
             "Panasonic Camera Raw",
             "QuickTime",
-            "Netpbm"
+            "Netpbm",
+            "Canon Camera Raw"
         };
 
-        [ItemCanBeNull] private static readonly string[] _mimeTypes =
+        private static readonly string?[] _mimeTypes =
         {
             null,
             "image/jpeg",
@@ -176,10 +181,11 @@ namespace MetadataExtractor.Util
             null,
             null,
             "video/quicktime",
-            "image/x-portable-graymap"
+            "image/x-portable-graymap",
+            null
         };
 
-        [ItemCanBeNull] private static readonly string[][] _extensions =
+        private static readonly string[]?[] _extensions =
         {
             null,
             new[] { "jpg", "jpeg", "jpe" },
@@ -202,10 +208,10 @@ namespace MetadataExtractor.Util
             new[] { "raf" },
             new[] { "rw2" },
             new[] { "mov" },
-            new[] { "pbm", "ppm" }
+            new[] { "pbm", "ppm" },
+            new[] { "cr3", "crm" }
         };
         
-        [NotNull]
         public static string GetName(this FileType fileType)
         {
             var i = (int)fileType;
@@ -214,7 +220,6 @@ namespace MetadataExtractor.Util
             return _shortNames[i];
         }
         
-        [NotNull]
         public static string GetLongName(this FileType fileType)
         {
             var i = (int)fileType;
@@ -223,8 +228,7 @@ namespace MetadataExtractor.Util
             return _longNames[i];
         }
         
-        [CanBeNull]
-        public static string GetMimeType(this FileType fileType)
+        public static string? GetMimeType(this FileType fileType)
         {
             var i = (int)fileType;
             if (i < 0 || i >= _mimeTypes.Length)
@@ -232,8 +236,7 @@ namespace MetadataExtractor.Util
             return _mimeTypes[i];
         }
         
-        [CanBeNull]
-        public static string GetCommonExtension(this FileType fileType)
+        public static string? GetCommonExtension(this FileType fileType)
         {
             var i = (int)fileType;
             if (i < 0 || i >= _extensions.Length)
@@ -241,8 +244,7 @@ namespace MetadataExtractor.Util
             return _extensions[i]?.FirstOrDefault();
         }
         
-        [CanBeNull]
-        public static IEnumerable<string> GetAllExtensions(this FileType fileType)
+        public static IEnumerable<string>? GetAllExtensions(this FileType fileType)
         {
             var i = (int)fileType;
             if (i < 0 || i >= _mimeTypes.Length)

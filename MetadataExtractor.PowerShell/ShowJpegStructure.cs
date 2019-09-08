@@ -45,15 +45,15 @@ namespace MetadataExtractor.PowerShell
     [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global")]
-    public struct JpegSegment
+    public readonly struct JpegSegment
     {
         public JpegSegmentType Type { get; }
         public int Length { get; }
         public int Padding { get; }
         public long Offset { get; }
-        public string Preamble { get; }
+        public string? Preamble { get; }
 
-        public JpegSegment(JpegSegmentType type, int length, int padding, long offset, string preamble)
+        public JpegSegment(JpegSegmentType type, int length, int padding, long offset, string? preamble)
         {
             Type = type;
             Length = length;
@@ -84,7 +84,7 @@ namespace MetadataExtractor.PowerShell
         [ValidateNotNullOrEmpty]
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
-        public string FilePath { get; set; }
+        public string FilePath { get; set; } = default!;
 
         protected override void ProcessRecord()
         {
@@ -92,12 +92,11 @@ namespace MetadataExtractor.PowerShell
 
             WriteVerbose($"Extracting metadata from file: {FilePath}");
 
-            using (var stream = File.OpenRead(FilePath))
-                WriteObject(ReadSegments(stream).ToList());
+            using var stream = File.OpenRead(FilePath);
+            WriteObject(ReadSegments(stream).ToList());
         }
 
-        [NotNull]
-        private static IEnumerable<JpegSegment> ReadSegments([NotNull] Stream stream)
+        private static IEnumerable<JpegSegment> ReadSegments(Stream stream)
         {
             if (!stream.CanSeek)
                 throw new ArgumentException("Must be able to seek.", nameof(stream));

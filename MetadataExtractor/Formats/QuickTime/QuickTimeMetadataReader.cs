@@ -24,8 +24,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using JetBrains.Annotations;
+using MetadataExtractor.Formats.Exif;
+using MetadataExtractor.Formats.Exif.Makernotes;
+using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.IO;
+using MetadataExtractor.Util;
 #if NET35
 using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
 #else
@@ -38,8 +41,7 @@ namespace MetadataExtractor.Formats.QuickTime
     {
         private static readonly DateTime _epoch = new DateTime(1904, 1, 1);
 
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata(Stream stream)
         {
             var directories = new List<Directory>();
 
@@ -72,7 +74,7 @@ namespace MetadataExtractor.Formats.QuickTime
                 }
             }
 
-            void SetRotation(QuickTimeTrackHeaderDirectory directory)
+            static void SetRotation(QuickTimeTrackHeaderDirectory directory)
             {
                 var width = directory.GetInt32(QuickTimeTrackHeaderDirectory.TagWidth);
                 var height = directory.GetInt32(QuickTimeTrackHeaderDirectory.TagHeight);
@@ -88,6 +90,41 @@ namespace MetadataExtractor.Formats.QuickTime
                         degree += 360;
 
                     directory.Set(QuickTimeTrackHeaderDirectory.TagRotation, degree);
+                }
+            }
+
+            void UuidHandler(AtomCallbackArgs a)
+            {
+                switch (a.TypeString)
+                {
+                    case "CMT1":
+                    {
+                        var handler = new QuickTimeTiffHandler<ExifIfd0Directory>(directories);
+                        var reader = new IndexedSeekingReader(a.Stream, (int)a.Reader.Position);
+                        TiffReader.ProcessTiff(reader, handler);
+                        break;
+                    }
+                    case "CMT2":
+                    {
+                        var handler = new QuickTimeTiffHandler<ExifSubIfdDirectory>(directories);
+                        var reader = new IndexedSeekingReader(a.Stream, (int)a.Reader.Position);
+                        TiffReader.ProcessTiff(reader, handler);
+                        break;
+                    }
+                    case "CMT3":
+                    {
+                        var handler = new QuickTimeTiffHandler<CanonMakernoteDirectory>(directories);
+                        var reader = new IndexedSeekingReader(a.Stream, (int)a.Reader.Position);
+                        TiffReader.ProcessTiff(reader, handler);
+                        break;
+                    }
+                    case "CMT4":
+                    {
+                        var handler = new QuickTimeTiffHandler<GpsDirectory>(directories);
+                        var reader = new IndexedSeekingReader(a.Stream, (int)a.Reader.Position);
+                        TiffReader.ProcessTiff(reader, handler);
+                        break;
+                    }
                 }
             }
 
@@ -117,6 +154,16 @@ namespace MetadataExtractor.Formats.QuickTime
                         directory.Set(QuickTimeMovieHeaderDirectory.TagCurrentTime, a.Reader.GetUInt32());
                         directory.Set(QuickTimeMovieHeaderDirectory.TagNextTrackId, a.Reader.GetUInt32());
                         directories.Add(directory);
+                        break;
+                    }
+                    case "uuid":
+                    {
+                        var CR3 = new byte[] { 0x85, 0xc0, 0xb6, 0x87, 0x82, 0x0f, 0x11, 0xe0, 0x81, 0x11, 0xf4, 0xce, 0x46, 0x2b, 0x6a, 0x48 };
+                        var uuid = a.Reader.GetBytes(CR3.Length);
+                        if (CR3.RegionEquals(0, CR3.Length, uuid))
+                        {
+                            QuickTimeReader.ProcessAtoms(stream, UuidHandler, a.BytesLeft);
+                        }
                         break;
                     }
                     case "trak":

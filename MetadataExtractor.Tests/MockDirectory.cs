@@ -30,7 +30,7 @@ namespace MetadataExtractor.Tests
     {
         public override string Name => string.Empty;
 
-        protected override bool TryGetTagName(int tagType, out string tagName)
+        protected override bool TryGetTagName(int tagType, out string? tagName)
         {
             tagName = null;
             return false;

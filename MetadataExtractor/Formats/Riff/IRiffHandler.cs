@@ -22,8 +22,6 @@
 //
 #endregion
 
-using JetBrains.Annotations;
-
 namespace MetadataExtractor.Formats.Riff
 {
     /// <summary>
@@ -37,7 +35,7 @@ namespace MetadataExtractor.Formats.Riff
         /// <remarks>Returning <c>false</c> causes processing to stop after reading only the first twelve bytes of data.</remarks>
         /// <param name="identifier">The four character code identifying the type of RIFF data</param>
         /// <returns>true if processing should continue, otherwise false</returns>
-        bool ShouldAcceptRiffIdentifier([NotNull] string identifier);
+        bool ShouldAcceptRiffIdentifier(string identifier);
 
         /// <summary>Gets whether this handler is interested in the specific chunk type.</summary>
         /// <remarks>
@@ -47,7 +45,7 @@ namespace MetadataExtractor.Formats.Riff
         /// </remarks>
         /// <param name="fourCc">the four character code of this chunk</param>
         /// <returns><c>true</c> if <see cref="ProcessChunk(string, byte[])"/> should be called, otherwise <c>false</c>.</returns>
-        bool ShouldAcceptChunk([NotNull] string fourCc);
+        bool ShouldAcceptChunk(string fourCc);
 
         /// <summary>Gets whether this handler is interested in the specific list type.</summary>
         /// <remarks>
@@ -57,12 +55,12 @@ namespace MetadataExtractor.Formats.Riff
         /// </remarks>
         /// <param name="fourCc">the four character code of this chunk</param>
         /// <returns><c>true</c> if <see cref="ProcessChunk(string, byte[])"/> should be called, otherwise <c>false</c>.</returns>
-        bool ShouldAcceptList([NotNull] string fourCc);
+        bool ShouldAcceptList(string fourCc);
 
         /// <summary>Perform whatever processing is necessary for the type of chunk with its payload.</summary>
         /// <remarks>This is only called if a previous call to <see cref="ShouldAcceptChunk(string)"/> with the same <c>fourCC</c> returned <c>true</c>.</remarks>
         /// <param name="fourCc">the four character code of the chunk</param>
         /// <param name="payload">they payload of the chunk as a byte array</param>
-        void ProcessChunk([NotNull] string fourCc, [NotNull] byte[] payload);
+        void ProcessChunk(string fourCc, byte[] payload);
     }
 }

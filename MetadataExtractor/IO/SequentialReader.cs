@@ -24,7 +24,6 @@
 
 using System;
 using System.Text;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.IO
 {
@@ -64,7 +63,6 @@ namespace MetadataExtractor.IO
         /// <param name="count">The number of bytes to be returned</param>
         /// <returns>The requested bytes</returns>
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
         public abstract byte[] GetBytes(int count);
 
         /// <summary>Retrieves bytes, writing them into a caller-provided buffer.</summary>
@@ -73,7 +71,7 @@ namespace MetadataExtractor.IO
         /// <param name="count">The number of bytes to be written.</param>
         /// <returns>The requested bytes</returns>
         /// <exception cref="System.IO.IOException"/>
-        public abstract void GetBytes([NotNull] byte[] buffer, int offset, int count);
+        public abstract void GetBytes(byte[] buffer, int offset, int count);
 
         /// <summary>Skips forward in the sequence.</summary>
         /// <remarks>
@@ -89,6 +87,26 @@ namespace MetadataExtractor.IO
         /// <returns>a boolean indicating whether the skip succeeded, or whether the sequence ended.</returns>
         /// <exception cref="System.IO.IOException">an error occurred reading from the underlying source.</exception>
         public abstract bool TrySkip(long n);
+
+        /// <summary>
+        /// Returns an estimate of the number of bytes that can be read (or skipped over)
+        /// from this SequentialReader without blocking by the next
+        /// invocation of a method for this input stream.A single read or skip of
+        /// this many bytes will not block, but may read or skip fewer bytes.
+        /// </summary>
+        /// <remarks>
+        /// Note that while some implementations of SequentialReader like
+        /// SequentialByteArrayReader will return the total remaining number
+        /// of bytes in the stream, others will not. It is never correct to use the
+        /// return value of this method to allocate a buffer intended to hold all
+        /// data in this stream.
+        /// </remarks>
+        /// <returns>
+        /// an estimate of the number of bytes that can be read (or skipped
+        /// over) from this SequentialReader without blocking or
+        /// 0 when it reaches the end of the input stream.
+        /// </returns>
+        public abstract int Available();
 
         /// <summary>Returns the next unsigned byte from the sequence.</summary>
         /// <returns>the 8 bit int value, between 0 and 255</returns>
@@ -272,20 +290,19 @@ namespace MetadataExtractor.IO
         public double GetDouble64() => BitConverter.Int64BitsToDouble(GetInt64());
 
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public string GetString(int bytesRequested, [NotNull] Encoding encoding)
+        public string GetString(int bytesRequested, Encoding encoding)
         {
             var bytes = GetBytes(bytesRequested);
             return encoding.GetString(bytes, 0, bytes.Length);
         }
 
-        public StringValue GetStringValue(int bytesRequested, Encoding encoding = null)
+        public StringValue GetStringValue(int bytesRequested, Encoding? encoding = null)
         {
             return new StringValue(GetBytes(bytesRequested), encoding);
         }
 
         /// <summary>
-        /// Creates a <see cref="String"/> from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.
+        /// Creates a <see cref="string"/> from the stream, ending where <c>byte=='\0'</c> or where <c>length==maxLength</c>.
         /// </summary>
         /// <param name="maxLengthBytes">
         /// The maximum number of bytes to read.  If a <c>\0</c> byte is not reached within this limit,
@@ -294,8 +311,7 @@ namespace MetadataExtractor.IO
         /// <param name="encoding">An optional string encoding. If none is provided, <see cref="Encoding.UTF8"/> is used.</param>
         /// <returns>The read <see cref="string"/></returns>
         /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
-        [NotNull]
-        public string GetNullTerminatedString(int maxLengthBytes, Encoding encoding = null)
+        public string GetNullTerminatedString(int maxLengthBytes, Encoding? encoding = null)
         {
             var bytes = GetNullTerminatedBytes(maxLengthBytes);
 
@@ -312,7 +328,7 @@ namespace MetadataExtractor.IO
         /// <param name="encoding">An optional string encoding to use when interpreting bytes.</param>
         /// <returns>The read string as a <see cref="StringValue"/>, excluding the null terminator.</returns>
         /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
-        public StringValue GetNullTerminatedStringValue(int maxLengthBytes, Encoding encoding = null)
+        public StringValue GetNullTerminatedStringValue(int maxLengthBytes, Encoding? encoding = null)
         {
             var bytes = GetNullTerminatedBytes(maxLengthBytes);
 
@@ -328,7 +344,6 @@ namespace MetadataExtractor.IO
         /// </param>
         /// <returns>The read byte array, excluding the null terminator.</returns>
         /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
-        [NotNull]
         public byte[] GetNullTerminatedBytes(int maxLengthBytes)
         {
             var buffer = new byte[maxLengthBytes];

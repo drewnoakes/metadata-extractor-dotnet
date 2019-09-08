@@ -26,7 +26,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 
@@ -66,8 +65,7 @@ namespace MetadataExtractor.Formats.Jfxx
         }
 
         /// <summary>Reads JFXX values and returns them in an <see cref="JfxxDirectory"/>.</summary>
-        [NotNull]
-        public JfxxDirectory Extract([NotNull] IndexedReader reader)
+        public JfxxDirectory Extract(IndexedReader reader)
         {
             var directory = new JfxxDirectory();
 

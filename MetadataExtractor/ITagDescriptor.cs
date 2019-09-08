@@ -22,8 +22,6 @@
 //
 #endregion
 
-using JetBrains.Annotations;
-
 namespace MetadataExtractor
 {
     public interface ITagDescriptor
@@ -39,7 +37,6 @@ namespace MetadataExtractor
         /// A description of the image's value for the specified tag, or
         /// <c>null</c> if the tag hasn't been defined.
         /// </returns>
-        [CanBeNull]
-        string GetDescription(int tagType);
+        string? GetDescription(int tagType);
     }
 }

@@ -24,7 +24,6 @@
 
 using System.Diagnostics;
 using System.Text;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Iptc
 {
@@ -37,8 +36,7 @@ namespace MetadataExtractor.Formats.Iptc
         private const byte Esc = 0x1B;
 
         /// <summary>Attempts to convert the given ISO2022 escape sequence to an encoding name.</summary>
-        [CanBeNull]
-        public static string ConvertEscapeSequenceToEncodingName([NotNull] byte[] bytes)
+        public static string? ConvertEscapeSequenceToEncodingName(byte[] bytes)
         {
             if (bytes.Length > 2 && bytes[0] == Esc && bytes[1] == PercentSign && bytes[2] == LatinCapitalG)
                 return "UTF-8";
@@ -67,8 +65,7 @@ namespace MetadataExtractor.Formats.Iptc
         /// </remarks>
         /// <param name="bytes">some text as bytes</param>
         /// <returns>the name of the encoding or null if none could be guessed</returns>
-        [CanBeNull]
-        internal static Encoding GuessEncoding([NotNull] byte[] bytes)
+        internal static Encoding? GuessEncoding(byte[] bytes)
         {
             // First, give ASCII a shot
             var ascii = true;
@@ -117,7 +114,7 @@ namespace MetadataExtractor.Formats.Iptc
                 try
                 {
                     // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                    var s = encoding.GetString(bytes, 0, bytes.Length);
+                    var s = encoding!.GetString(bytes, 0, bytes.Length);
                     if (s.IndexOf((char)65533) != -1)
                         continue;
                     return encoding;

@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.FileType
 {
@@ -31,7 +30,7 @@ namespace MetadataExtractor.Formats.FileType
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class FileTypeDescriptor : TagDescriptor<FileTypeDirectory>
     {
-        public FileTypeDescriptor([NotNull] FileTypeDirectory directory)
+        public FileTypeDescriptor(FileTypeDirectory directory)
             : base(directory)
         {
         }

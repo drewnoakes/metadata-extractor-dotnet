@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
@@ -34,33 +33,28 @@ namespace MetadataExtractor.Formats.Exif
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class ExifThumbnailDescriptor : ExifDescriptorBase<ExifThumbnailDirectory>
     {
-        public ExifThumbnailDescriptor([NotNull] ExifThumbnailDirectory directory)
+        public ExifThumbnailDescriptor(ExifThumbnailDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case ExifThumbnailDirectory.TagThumbnailOffset:
-                    return GetThumbnailOffsetDescription();
-                case ExifThumbnailDirectory.TagThumbnailLength:
-                    return GetThumbnailLengthDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                ExifThumbnailDirectory.TagThumbnailOffset => GetThumbnailOffsetDescription(),
+                ExifThumbnailDirectory.TagThumbnailLength => GetThumbnailLengthDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
-        [CanBeNull]
-        public string GetThumbnailLengthDescription()
+        public string? GetThumbnailLengthDescription()
         {
             var value = Directory.GetString(ExifThumbnailDirectory.TagThumbnailLength);
             return value == null ? null : value + " bytes";
         }
 
-        [CanBeNull]
-        public string GetThumbnailOffsetDescription()
+        public string? GetThumbnailOffsetDescription()
         {
             var value = Directory.GetString(ExifThumbnailDirectory.TagThumbnailOffset);
             return value == null ? null : value + " bytes";

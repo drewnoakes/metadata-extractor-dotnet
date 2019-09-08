@@ -22,8 +22,8 @@
 //
 #endregion
 
+using System;
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
@@ -34,12 +34,12 @@ namespace MetadataExtractor.Formats.Exif
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class GpsDescriptor : TagDescriptor<GpsDirectory>
     {
-        public GpsDescriptor([NotNull] GpsDirectory directory)
+        public GpsDescriptor(GpsDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -53,8 +53,12 @@ namespace MetadataExtractor.Formats.Exif
                     return GetGpsStatusDescription();
                 case GpsDirectory.TagMeasureMode:
                     return GetGpsMeasureModeDescription();
+                case GpsDirectory.TagDop:
+                    return GetGpsDopDescription();
                 case GpsDirectory.TagSpeedRef:
                     return GetGpsSpeedRefDescription();
+                case GpsDirectory.TagSpeed:
+                    return GetGpsSpeedDescription();
                 case GpsDirectory.TagTrackRef:
                 case GpsDirectory.TagImgDirectionRef:
                 case GpsDirectory.TagDestBearingRef:
@@ -63,8 +67,14 @@ namespace MetadataExtractor.Formats.Exif
                 case GpsDirectory.TagImgDirection:
                 case GpsDirectory.TagDestBearing:
                     return GetGpsDirectionDescription(tagType);
+                case GpsDirectory.TagDestLatitude:
+                    return GetGpsDestLatitudeDescription();
+                case GpsDirectory.TagDestLongitude:
+                    return GetGpsDestLongitudeDescription();
                 case GpsDirectory.TagDestDistanceRef:
                     return GetGpsDestinationReferenceDescription();
+                case GpsDirectory.TagDestDistance:
+                    return GetGpsDestDistanceDescription();
                 case GpsDirectory.TagTimeStamp:
                     return GetGpsTimeStampDescription();
                 case GpsDirectory.TagLongitude:
@@ -73,35 +83,37 @@ namespace MetadataExtractor.Formats.Exif
                 case GpsDirectory.TagLatitude:
                     // three rational numbers -- displayed in HH"MM"SS.ss
                     return GetGpsLatitudeDescription();
+                case GpsDirectory.TagProcessingMethod:
+                    return GetGpsProcessingMethodDescription();
+                case GpsDirectory.TagAreaInformation:
+                    return GetGpsAreaInformationDescription();
                 case GpsDirectory.TagDifferential:
                     return GetGpsDifferentialDescription();
+                case GpsDirectory.TagHPositioningError:
+                    return GetGpsHPositioningErrorDescription();
                 default:
                     return base.GetDescription(tagType);
             }
         }
 
-        [CanBeNull]
-        private string GetGpsVersionIdDescription()
+        private string? GetGpsVersionIdDescription()
         {
             return GetVersionBytesDescription(GpsDirectory.TagVersionId, 1);
         }
 
-        [CanBeNull]
-        public string GetGpsLatitudeDescription()
+        public string? GetGpsLatitudeDescription()
         {
             var location = Directory.GetGeoLocation();
             return location == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString(location.Latitude);
         }
 
-        [CanBeNull]
-        public string GetGpsLongitudeDescription()
+        public string? GetGpsLongitudeDescription()
         {
             var location = Directory.GetGeoLocation();
             return location == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString(location.Longitude);
         }
 
-        [CanBeNull]
-        public string GetGpsTimeStampDescription()
+        public string? GetGpsTimeStampDescription()
         {
             // time in hour, min, sec
             var timeComponents = Directory.GetRationalArray(GpsDirectory.TagTimeStamp);
@@ -110,28 +122,60 @@ namespace MetadataExtractor.Formats.Exif
                 : $"{timeComponents[0].ToInt32():D2}:{timeComponents[1].ToInt32():D2}:{timeComponents[2].ToDouble():00.000} UTC";
         }
 
-        [CanBeNull]
-        public string GetGpsDestinationReferenceDescription()
+        public string? GetGpsDestLatitudeDescription()
+        {
+            var latitudes = Directory.GetRationalArray(GpsDirectory.TagDestLatitude);
+            var latitudeRef = Directory.GetString(GpsDirectory.TagDestLatitudeRef);
+
+            if (latitudes == null || latitudes.Length != 3 || latitudeRef == null)
+                return null;
+
+            var lat = GeoLocation.DegreesMinutesSecondsToDecimal(
+                latitudes[0], latitudes[1], latitudes[2], latitudeRef.Equals("S", StringComparison.OrdinalIgnoreCase));
+
+            return lat == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString((double)lat);
+        }
+
+        public string? GetGpsDestLongitudeDescription()
+        {
+            var longitudes = Directory.GetRationalArray(GpsDirectory.TagDestLongitude);
+            var longitudeRef = Directory.GetString(GpsDirectory.TagDestLongitudeRef);
+
+            if (longitudes == null || longitudes.Length != 3 || longitudeRef == null)
+                return null;
+
+            var lon = GeoLocation.DegreesMinutesSecondsToDecimal(
+                longitudes[0], longitudes[1], longitudes[2], longitudeRef.Equals("S", StringComparison.OrdinalIgnoreCase));
+
+            return lon == null ? null : GeoLocation.DecimalToDegreesMinutesSecondsString((double)lon);
+        }
+
+        public string? GetGpsDestinationReferenceDescription()
         {
             var value = Directory.GetString(GpsDirectory.TagDestDistanceRef);
             if (value == null)
                 return null;
 
-            switch (value.Trim().ToUpper())
+            return (value.Trim().ToUpper()) switch
             {
-                case "K":
-                    return "kilometers";
-                case "M":
-                    return "miles";
-                case "N":
-                    return "knots";
-            }
+                "K" => "kilometers",
+                "M" => "miles",
+                "N" => "knots",
 
-            return "Unknown (" + value.Trim() + ")";
+                _ => "Unknown (" + value.Trim() + ")",
+            };
         }
 
-        [CanBeNull]
-        public string GetGpsDirectionDescription(int tagType)
+        public string? GetGpsDestDistanceDescription()
+        {
+            if (!Directory.TryGetRational(GpsDirectory.TagDestDistance, out Rational value))
+                return null;
+
+            var unit = GetGpsDestinationReferenceDescription();
+            return string.Format("{0} {1}", value.ToDouble().ToString("0.##"), unit == null ? "unit" : unit.ToLower());
+        }
+
+        public string? GetGpsDirectionDescription(int tagType)
         {
             if (!Directory.TryGetRational(tagType, out Rational angle))
                 return null;
@@ -139,104 +183,120 @@ namespace MetadataExtractor.Formats.Exif
             return angle.ToDouble().ToString("0.##") + " degrees";
         }
 
-        [CanBeNull]
-        public string GetGpsDirectionReferenceDescription(int tagType)
+        public string? GetGpsDirectionReferenceDescription(int tagType)
         {
             var value = Directory.GetString(tagType);
             if (value == null)
                 return null;
 
-            switch (value.Trim().ToUpper())
+            return (value.Trim().ToUpper()) switch
             {
-                case "T":
-                    return "True direction";
-                case "M":
-                    return "Magnetic direction";
-            }
+                "T" => "True direction",
+                "M" => "Magnetic direction",
 
-            return "Unknown (" + value.Trim() + ")";
+                _ => "Unknown (" + value.Trim() + ")",
+            };
         }
 
-        [CanBeNull]
-        public string GetGpsSpeedRefDescription()
+        public string? GetGpsDopDescription()
+        {
+            if (!Directory.TryGetRational(GpsDirectory.TagDop, out Rational value))
+                return null;
+            return $"{value.ToDouble():0.##}";
+        }
+
+        public string? GetGpsSpeedRefDescription()
         {
             var value = Directory.GetString(GpsDirectory.TagSpeedRef);
             if (value == null)
                 return null;
 
-            switch (value.Trim().ToUpper())
+            return (value.Trim().ToUpper()) switch
             {
-                case "K":
-                    return "kph";
-                case "M":
-                    return "mph";
-                case "N":
-                    return "knots";
-            }
+                "K" => "km/h",
+                "M" => "mph",
+                "N" => "knots",
 
-            return "Unknown (" + value.Trim() + ")";
+                _ => "Unknown (" + value.Trim() + ")",
+            };
         }
 
-        [CanBeNull]
-        public string GetGpsMeasureModeDescription()
+        public string? GetGpsSpeedDescription()
+        {
+            if (!Directory.TryGetRational(GpsDirectory.TagSpeed, out Rational value))
+                return null;
+
+            var unit = GetGpsSpeedRefDescription();
+            return string.Format("{0} {1}", value.ToDouble().ToString("0.##"), unit == null ? "unit" : unit.ToLower());
+        }
+
+        public string? GetGpsMeasureModeDescription()
         {
             var value = Directory.GetString(GpsDirectory.TagMeasureMode);
             if (value == null)
                 return null;
 
-            switch (value.Trim())
+            return (value.Trim()) switch
             {
-                case "2":
-                    return "2-dimensional measurement";
-                case "3":
-                    return "3-dimensional measurement";
-            }
-            return "Unknown (" + value.Trim() + ")";
+                "2" => "2-dimensional measurement",
+                "3" => "3-dimensional measurement",
+                _ => "Unknown (" + value.Trim() + ")",
+            };
         }
 
 
-        [CanBeNull]
-        public string GetGpsStatusDescription()
+        public string? GetGpsStatusDescription()
         {
             var value = Directory.GetString(GpsDirectory.TagStatus);
             if (value == null)
                 return null;
 
-            switch (value.Trim().ToUpper())
+            return (value.Trim().ToUpper()) switch
             {
-                case "A":
-                    return "Active (Measurement in progress)";
-                case "V":
-                    return "Void (Measurement Interoperability)";
-            }
+                "A" => "Active (Measurement in progress)",
+                "V" => "Void (Measurement Interoperability)",
 
-            return "Unknown (" + value.Trim() + ")";
+                _ => "Unknown (" + value.Trim() + ")",
+            };
         }
 
-        [CanBeNull]
-        public string GetGpsAltitudeRefDescription()
+        public string? GetGpsAltitudeRefDescription()
         {
             return GetIndexedDescription(GpsDirectory.TagAltitudeRef,
                 "Sea level", "Below sea level");
         }
 
-        [CanBeNull]
-        public string GetGpsAltitudeDescription()
+        public string? GetGpsAltitudeDescription()
         {
             if (!Directory.TryGetRational(GpsDirectory.TagAltitude, out Rational value))
                 return null;
-            return value.ToInt32() + " metres";
+            return $"{value.ToDouble():0.##} metres";
         }
 
-        [CanBeNull]
-        public string GetGpsDifferentialDescription()
+        public string? GetGpsProcessingMethodDescription()
+        {
+            return GetEncodedTextDescription(GpsDirectory.TagProcessingMethod);
+        }
+
+        public string? GetGpsAreaInformationDescription()
+        {
+            return GetEncodedTextDescription(GpsDirectory.TagAreaInformation);
+        }
+
+        public string? GetGpsDifferentialDescription()
         {
             return GetIndexedDescription(GpsDirectory.TagDifferential,
                 "No Correction", "Differential Corrected");
         }
 
-        [CanBeNull]
-        public string GetDegreesMinutesSecondsDescription()
+        public string? GetGpsHPositioningErrorDescription()
+        {
+            if (!Directory.TryGetRational(GpsDirectory.TagHPositioningError, out Rational value))
+                return null;
+            return $"{value.ToDouble():0.##} metres";
+        }
+
+        public string? GetDegreesMinutesSecondsDescription()
         {
             var location = Directory.GetGeoLocation();
             return location?.ToDmsString();

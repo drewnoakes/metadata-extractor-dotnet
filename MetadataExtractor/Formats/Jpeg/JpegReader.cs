@@ -25,7 +25,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Jpeg
@@ -53,8 +52,7 @@ namespace MetadataExtractor.Formats.Jpeg
 #endif
 
         /// <summary>Reads JPEG SOF values and returns them in a <see cref="JpegDirectory"/>.</summary>
-        [NotNull]
-        public JpegDirectory Extract([NotNull] JpegSegment segment)
+        public JpegDirectory Extract(JpegSegment segment)
         {
             var directory = new JpegDirectory();
 

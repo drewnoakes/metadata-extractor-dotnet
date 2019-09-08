@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
@@ -727,7 +726,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagLens = 0xFDEA;
 
-        protected static void AddExifTagNames([NotNull] Dictionary<int, string> map)
+        protected static void AddExifTagNames(Dictionary<int, string> map)
         {
             map[TagInteropIndex] = "Interoperability Index";
             map[TagInteropVersion] = "Interoperability Version";

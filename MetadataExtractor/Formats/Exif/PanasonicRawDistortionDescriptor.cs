@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
@@ -35,36 +34,27 @@ namespace MetadataExtractor.Formats.Exif
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class PanasonicRawDistortionDescriptor : TagDescriptor<PanasonicRawDistortionDirectory>
     {
-        public PanasonicRawDistortionDescriptor([NotNull] PanasonicRawDistortionDirectory directory)
+        public PanasonicRawDistortionDescriptor(PanasonicRawDistortionDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case PanasonicRawDistortionDirectory.TagDistortionParam02:
-                    return GetDistortionParam02Description();
-                case PanasonicRawDistortionDirectory.TagDistortionParam04:
-                    return GetDistortionParam04Description();
-                case PanasonicRawDistortionDirectory.TagDistortionScale:
-                    return GetDistortionScaleDescription();
-                case PanasonicRawDistortionDirectory.TagDistortionCorrection:
-                    return GetDistortionCorrectionDescription();
-                case PanasonicRawDistortionDirectory.TagDistortionParam08:
-                    return GetDistortionParam08Description();
-                case PanasonicRawDistortionDirectory.TagDistortionParam09:
-                    return GetDistortionParam09Description();
-                case PanasonicRawDistortionDirectory.TagDistortionParam11:
-                    return GetDistortionParam11Description();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                PanasonicRawDistortionDirectory.TagDistortionParam02 => GetDistortionParam02Description(),
+                PanasonicRawDistortionDirectory.TagDistortionParam04 => GetDistortionParam04Description(),
+                PanasonicRawDistortionDirectory.TagDistortionScale => GetDistortionScaleDescription(),
+                PanasonicRawDistortionDirectory.TagDistortionCorrection => GetDistortionCorrectionDescription(),
+                PanasonicRawDistortionDirectory.TagDistortionParam08 => GetDistortionParam08Description(),
+                PanasonicRawDistortionDirectory.TagDistortionParam09 => GetDistortionParam09Description(),
+                PanasonicRawDistortionDirectory.TagDistortionParam11 => GetDistortionParam11Description(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
-        [CanBeNull]
-        public string GetDistortionParam02Description()
+        public string? GetDistortionParam02Description()
         {
             if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionParam02, out short value))
                 return null;
@@ -73,8 +63,7 @@ namespace MetadataExtractor.Formats.Exif
             //return ((double)value / 32768.0d).ToString();
         }
 
-        [CanBeNull]
-        public string GetDistortionParam04Description()
+        public string? GetDistortionParam04Description()
         {
             if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionParam04, out short value))
                 return null;
@@ -82,8 +71,7 @@ namespace MetadataExtractor.Formats.Exif
             return new Rational(value, 32678).ToString();
         }
 
-        [CanBeNull]
-        public string GetDistortionScaleDescription()
+        public string? GetDistortionScaleDescription()
         {
             if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionScale, out short value))
                 return null;
@@ -91,27 +79,22 @@ namespace MetadataExtractor.Formats.Exif
             return (1 / (1 + value / 32768)).ToString();
         }
 
-        [CanBeNull]
-        public string GetDistortionCorrectionDescription()
+        public string? GetDistortionCorrectionDescription()
         {
             if (!Directory.TryGetInt32(PanasonicRawDistortionDirectory.TagDistortionCorrection, out int value))
                 return null;
 
             // (have seen the upper 4 bits set for GF5 and GX1, giving a value of -4095 - PH)
             var mask = 0x000f;
-            switch (value & mask)
+            return (value & mask) switch
             {
-                case 0:
-                    return "Off";
-                case 1:
-                    return "On";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0 => "Off",
+                1 => "On",
+                _ => "Unknown (" + value + ")",
+            };
         }
 
-        [CanBeNull]
-        public string GetDistortionParam08Description()
+        public string? GetDistortionParam08Description()
         {
             if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionParam08, out short value))
                 return null;
@@ -119,8 +102,7 @@ namespace MetadataExtractor.Formats.Exif
             return new Rational(value, 32678).ToString();
         }
 
-        [CanBeNull]
-        public string GetDistortionParam09Description()
+        public string? GetDistortionParam09Description()
         {
             if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionParam09, out short value))
                 return null;
@@ -128,8 +110,7 @@ namespace MetadataExtractor.Formats.Exif
             return new Rational(value, 32678).ToString();
         }
 
-        [CanBeNull]
-        public string GetDistortionParam11Description()
+        public string? GetDistortionParam11Description()
         {
             if (!Directory.TryGetInt16(PanasonicRawDistortionDirectory.TagDistortionParam11, out short value))
                 return null;

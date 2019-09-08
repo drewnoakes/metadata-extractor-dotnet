@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Ico
 {
@@ -31,12 +30,12 @@ namespace MetadataExtractor.Formats.Ico
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class IcoDescriptor : TagDescriptor<IcoDirectory>
     {
-        public IcoDescriptor([NotNull] IcoDirectory directory)
+        public IcoDescriptor(IcoDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -67,30 +66,26 @@ namespace MetadataExtractor.Formats.Ico
             }
         }
 
-        [CanBeNull]
-        public string GetImageTypeDescription()
+        public string? GetImageTypeDescription()
         {
             return GetIndexedDescription(IcoDirectory.TagImageType, 1, "Icon", "Cursor");
         }
 
-        [CanBeNull]
-        public string GetImageWidthDescription()
+        public string? GetImageWidthDescription()
         {
             if (!Directory.TryGetInt32(IcoDirectory.TagImageWidth, out int width))
                 return null;
             return (width == 0 ? 256 : width) + " pixels";
         }
 
-        [CanBeNull]
-        public string GetImageHeightDescription()
+        public string? GetImageHeightDescription()
         {
             if (!Directory.TryGetInt32(IcoDirectory.TagImageHeight, out int height))
                 return null;
             return (height == 0 ? 256 : height) + " pixels";
         }
 
-        [CanBeNull]
-        public string GetColourPaletteSizeDescription()
+        public string? GetColourPaletteSizeDescription()
         {
             if (!Directory.TryGetInt32(IcoDirectory.TagColourPaletteSize, out int size))
                 return null;

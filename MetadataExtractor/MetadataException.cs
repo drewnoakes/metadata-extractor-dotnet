@@ -26,7 +26,6 @@ using System;
 #if !NETSTANDARD1_3
 using System.Runtime.Serialization;
 #endif
-using JetBrains.Annotations;
 
 namespace MetadataExtractor
 {
@@ -37,23 +36,23 @@ namespace MetadataExtractor
 #endif
     public class MetadataException : Exception
     {
-        public MetadataException([CanBeNull] string msg)
+        public MetadataException(string? msg)
             : base(msg)
         {
         }
 
-        public MetadataException([CanBeNull] Exception innerException)
+        public MetadataException(Exception? innerException)
             : base(null, innerException)
         {
         }
 
-        public MetadataException([CanBeNull] string msg, [CanBeNull] Exception innerException)
+        public MetadataException(string? msg, Exception? innerException)
             : base(msg, innerException)
         {
         }
 
 #if !NETSTANDARD1_3
-        protected MetadataException([NotNull] SerializationInfo info, StreamingContext context)
+        protected MetadataException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

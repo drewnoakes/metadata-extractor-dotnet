@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 using XmpCore;
 using XmpCore.Impl;
 using XmpCore.Options;
@@ -54,8 +53,7 @@ namespace MetadataExtractor.Formats.Xmp
 
         /// <summary>Gets the <see cref="IXmpMeta"/> object within this directory.</summary>
         /// <remarks>This object provides a rich API for working with XMP data.</remarks>
-        [CanBeNull]
-        public IXmpMeta XmpMeta { get; private set; }
+        public IXmpMeta? XmpMeta { get; private set; }
 
         public XmpDirectory()
         {
@@ -77,7 +75,6 @@ namespace MetadataExtractor.Formats.Xmp
         /// This is required because XMP properties are represented as strings, whereas the rest of this library
         /// uses integers for keys.
         /// </remarks>
-        [NotNull]
         public IDictionary<string, string> GetXmpProperties()
         {
             var propertyValueByPath = new Dictionary<string, string>();
@@ -101,7 +98,7 @@ namespace MetadataExtractor.Formats.Xmp
             return propertyValueByPath;
         }
 
-        public void SetXmpMeta([NotNull] IXmpMeta xmpMeta)
+        public void SetXmpMeta(IXmpMeta xmpMeta)
         {
             XmpMeta = xmpMeta;
 

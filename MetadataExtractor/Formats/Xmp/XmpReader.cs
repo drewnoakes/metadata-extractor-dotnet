@@ -27,10 +27,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.Util;
 using MetadataExtractor.Formats.Jpeg;
 using XmpCore;
+using XmpCore.Options;
 
 #if NET35
 using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directory>;
@@ -98,11 +98,9 @@ namespace MetadataExtractor.Formats.Xmp
         private static bool IsXmpSegment(JpegSegment segment) => segment.Bytes.StartsWith(JpegSegmentPreambleBytes);
         private static bool IsExtendedXmpSegment(JpegSegment segment) => segment.Bytes.StartsWith(JpegSegmentPreambleExtensionBytes);
 
-        [NotNull]
-        public XmpDirectory Extract([NotNull] byte[] xmpBytes) => Extract(xmpBytes, 0, xmpBytes.Length);
+        public XmpDirectory Extract(byte[] xmpBytes) => Extract(xmpBytes, 0, xmpBytes.Length);
 
-        [NotNull]
-        public XmpDirectory Extract([NotNull] byte[] xmpBytes, int offset, int length)
+        public XmpDirectory Extract(byte[] xmpBytes, int offset, int length)
         {
             if (offset < 0)
                 throw new ArgumentOutOfRangeException(nameof(offset), "Must be zero or greater.");
@@ -119,7 +117,12 @@ namespace MetadataExtractor.Formats.Xmp
             var directory = new XmpDirectory();
             try
             {
-                var xmpMeta = XmpMetaFactory.ParseFromBuffer(xmpBytes, offset, length);
+                // Limit photoshop:DocumentAncestors node as it can reach over 100000 items and make parsing extremely slow. 
+                // This is not a typical value but it may happen https://forums.adobe.com/thread/2081839
+                var parseOptions = new ParseOptions();
+                parseOptions.SetXMPNodesToLimit(new Dictionary<string, int>() { { "photoshop:DocumentAncestors", 1000 } });
+
+                var xmpMeta = XmpMetaFactory.ParseFromBuffer(xmpBytes, offset, length, parseOptions);
                 directory.SetXmpMeta(xmpMeta);
             }
             catch (XmpException e)

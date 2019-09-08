@@ -23,15 +23,13 @@
 #endregion
 
 using System.IO;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.FileSystem
 {
     public sealed class FileMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public FileMetadataDirectory Read([NotNull] string file)
+        public FileMetadataDirectory Read(string file)
         {
             var attr = File.GetAttributes(file);
 

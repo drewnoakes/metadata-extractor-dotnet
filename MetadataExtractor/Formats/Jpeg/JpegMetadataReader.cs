@@ -25,7 +25,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Adobe;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Icc;
@@ -61,21 +60,21 @@ namespace MetadataExtractor.Formats.Jpeg
             new PhotoshopReader(),
             new DuckyReader(),
             new IptcReader(),
-            new AdobeJpegReader()
+            new AdobeJpegReader(),
+            new JpegDhtReader(),
+            new JpegDnlReader()
         };
 
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream, [CanBeNull] ICollection<IJpegSegmentMetadataReader> readers = null)
+        public static DirectoryList ReadMetadata(Stream stream, ICollection<IJpegSegmentMetadataReader>? readers = null)
         {
             return Process(stream, readers);
         }
 
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath, [CanBeNull] ICollection<IJpegSegmentMetadataReader> readers = null)
+        public static DirectoryList ReadMetadata(string filePath, ICollection<IJpegSegmentMetadataReader>? readers = null)
         {
             var directories = new List<Directory>();
 
@@ -89,8 +88,7 @@ namespace MetadataExtractor.Formats.Jpeg
 
         /// <exception cref="JpegProcessingException"/>
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public static DirectoryList Process([NotNull] Stream stream, [CanBeNull] ICollection<IJpegSegmentMetadataReader> readers = null)
+        public static DirectoryList Process(Stream stream, ICollection<IJpegSegmentMetadataReader>? readers = null)
         {
             if (readers == null)
                 readers = _allReaders;
@@ -105,8 +103,7 @@ namespace MetadataExtractor.Formats.Jpeg
             return ProcessJpegSegments(readers, segments.ToList());
         }
 
-        [NotNull]
-        public static DirectoryList ProcessJpegSegments([NotNull] IEnumerable<IJpegSegmentMetadataReader> readers, [NotNull] ICollection<JpegSegment> segments)
+        public static DirectoryList ProcessJpegSegments(IEnumerable<IJpegSegmentMetadataReader> readers, ICollection<JpegSegment> segments)
         {
             var directories = new List<Directory>();
 

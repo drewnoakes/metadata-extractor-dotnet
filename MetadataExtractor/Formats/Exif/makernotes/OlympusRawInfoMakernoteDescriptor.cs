@@ -23,7 +23,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -40,43 +39,34 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class OlympusRawInfoMakernoteDescriptor : TagDescriptor<OlympusRawInfoMakernoteDirectory>
     {
-        public OlympusRawInfoMakernoteDescriptor([NotNull] OlympusRawInfoMakernoteDirectory directory)
+        public OlympusRawInfoMakernoteDescriptor(OlympusRawInfoMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case OlympusRawInfoMakernoteDirectory.TagRawInfoVersion:
-                    return GetVersionBytesDescription(OlympusRawInfoMakernoteDirectory.TagRawInfoVersion, 4);
-                case OlympusRawInfoMakernoteDirectory.TagColorMatrix2:
-                    return GetColorMatrix2Description();
-                case OlympusRawInfoMakernoteDirectory.TagYCbCrCoefficients:
-                    return GetYCbCrCoefficientsDescription();
-                case OlympusRawInfoMakernoteDirectory.TagLightSource:
-                    return GetOlympusLightSourceDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                OlympusRawInfoMakernoteDirectory.TagRawInfoVersion => GetVersionBytesDescription(OlympusRawInfoMakernoteDirectory.TagRawInfoVersion, 4),
+                OlympusRawInfoMakernoteDirectory.TagColorMatrix2 => GetColorMatrix2Description(),
+                OlympusRawInfoMakernoteDirectory.TagYCbCrCoefficients => GetYCbCrCoefficientsDescription(),
+                OlympusRawInfoMakernoteDirectory.TagLightSource => GetOlympusLightSourceDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
-        [CanBeNull]
-        public string GetColorMatrix2Description()
+        public string? GetColorMatrix2Description()
         {
-            var values = Directory.GetObject(OlympusRawInfoMakernoteDirectory.TagColorMatrix2) as short[];
-            if (values == null)
+            if (!(Directory.GetObject(OlympusRawInfoMakernoteDirectory.TagColorMatrix2) is short[] values))
                 return null;
 
             return string.Join(" ", values.Select(b => b.ToString()).ToArray());
         }
 
-        [CanBeNull]
-        public string GetYCbCrCoefficientsDescription()
+        public string? GetYCbCrCoefficientsDescription()
         {
-            var values = Directory.GetObject(OlympusRawInfoMakernoteDirectory.TagYCbCrCoefficients) as ushort[];
-            if (values == null)
+            if (!(Directory.GetObject(OlympusRawInfoMakernoteDirectory.TagYCbCrCoefficients) is ushort[] values))
                 return null;
 
             var ret = new Rational[values.Length / 2];
@@ -88,41 +78,27 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             return string.Join(" ", ret.Select(r => r.ToDecimal().ToString()).ToArray());
         }
 
-        [CanBeNull]
-        public string GetOlympusLightSourceDescription()
+        public string? GetOlympusLightSourceDescription()
         {
             if (!Directory.TryGetUInt16(OlympusRawInfoMakernoteDirectory.TagLightSource, out ushort value))
                 return null;
 
-            switch (value)
+            return value switch
             {
-                case 0:
-                    return "Unknown";
-                case 16:
-                    return "Shade";
-                case 17:
-                    return "Cloudy";
-                case 18:
-                    return "Fine Weather";
-                case 20:
-                    return "Tungsten (Incandescent)";
-                case 22:
-                    return "Evening Sunlight";
-                case 33:
-                    return "Daylight Fluorescent";
-                case 34:
-                    return "Day White Fluorescent";
-                case 35:
-                    return "Cool White Fluorescent";
-                case 36:
-                    return "White Fluorescent";
-                case 256:
-                    return "One Touch White Balance";
-                case 512:
-                    return "Custom 1-4";
-                default:
-                    return "Unknown (" + value + ")";
-            }
+                0 => "Unknown",
+                16 => "Shade",
+                17 => "Cloudy",
+                18 => "Fine Weather",
+                20 => "Tungsten (Incandescent)",
+                22 => "Evening Sunlight",
+                33 => "Daylight Fluorescent",
+                34 => "Day White Fluorescent",
+                35 => "Cool White Fluorescent",
+                36 => "White Fluorescent",
+                256 => "One Touch White Balance",
+                512 => "Custom 1-4",
+                _ => "Unknown (" + value + ")",
+            };
         }
     }
 }

@@ -26,7 +26,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 using MetadataExtractor.Formats.Icc;
 
@@ -39,11 +38,9 @@ using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor
 namespace MetadataExtractor.Formats.Bmp
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
-    /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class BmpReader
     {
-        [NotNull]
-        public DirectoryList Extract([NotNull] SequentialReader reader)
+        public DirectoryList Extract(SequentialReader reader)
         {
             var directories = new List<Directory>();
             reader = reader.WithByteOrder(isMotorolaByteOrder: false);
@@ -64,7 +61,7 @@ namespace MetadataExtractor.Formats.Bmp
             return directories;
         }
 
-        private static void ReadFileHeader([NotNull] SequentialReader reader, bool allowArray, List<Directory> directories)
+        private static void ReadFileHeader(SequentialReader reader, bool allowArray, List<Directory> directories)
         {
             /*
              * There are two possible headers a file can start with. If the magic
@@ -90,7 +87,7 @@ namespace MetadataExtractor.Formats.Bmp
              *
              */
 
-            Directory directory = null;
+            Directory? directory = null;
             int magicNumber;
             try
             {
@@ -157,7 +154,7 @@ namespace MetadataExtractor.Formats.Bmp
             return;
         }
 
-        private static void ReadBitmapHeader([NotNull] SequentialReader reader, [NotNull] BmpHeaderDirectory directory, [NotNull]List<Directory> directories)
+        private static void ReadBitmapHeader(SequentialReader reader, BmpHeaderDirectory directory, List<Directory> directories)
         {
             /*
              * BITMAPCOREHEADER (12 bytes):
@@ -407,7 +404,7 @@ namespace MetadataExtractor.Formats.Bmp
             }
         }
 
-        private static void AddError([NotNull] string errorMessage, [NotNull] List<Directory> directories)
+        private static void AddError(string errorMessage, List<Directory> directories)
         {
             ErrorDirectory directory = directories.OfType<ErrorDirectory>().FirstOrDefault();
             if (directory == null)

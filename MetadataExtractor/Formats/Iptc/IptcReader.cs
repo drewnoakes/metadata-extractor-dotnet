@@ -27,7 +27,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
 
@@ -84,8 +83,7 @@ namespace MetadataExtractor.Formats.Iptc
         /// <remarks>
         /// Note that IPTC data does not describe its own length, hence <paramref name="length"/> is required.
         /// </remarks>
-        [NotNull]
-        public IptcDirectory Extract([NotNull] SequentialReader reader, long length)
+        public IptcDirectory Extract(SequentialReader reader, long length)
         {
             var directory = new IptcDirectory();
 
@@ -166,7 +164,7 @@ namespace MetadataExtractor.Formats.Iptc
             return directory;
         }
 
-        private static void ProcessTag([NotNull] SequentialReader reader, [NotNull] Directory directory, int directoryType, int tagType, int tagByteCount)
+        private static void ProcessTag(SequentialReader reader, Directory directory, int directoryType, int tagType, int tagByteCount)
         {
             var tagIdentifier = tagType | (directoryType << 8);
 
@@ -224,7 +222,7 @@ namespace MetadataExtractor.Formats.Iptc
             // If we haven't returned yet, treat it as a string
             // NOTE that there's a chance we've already loaded the value as a string above, but failed to parse the value
             var encodingName = directory.GetString(IptcDirectory.TagCodedCharacterSet);
-            Encoding encoding = null;
+            Encoding? encoding = null;
             if (encodingName != null)
             {
                 try

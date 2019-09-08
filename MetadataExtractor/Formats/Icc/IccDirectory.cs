@@ -97,6 +97,13 @@ namespace MetadataExtractor.Formats.Icc
         public const int TagTagBfd = 0x62666420;
         public const int TagTagVued = 0x76756564;
         public const int TagTagView = 0x76696577;
+
+        public const int TagTagAabg = 0x61616267;
+        public const int TagTagAagg = 0x61616767;
+        public const int TagTagAarg = 0x61617267;
+        public const int TagTagMmod = 0x6D6D6F64;
+        public const int TagTagNdin = 0x6E64696E;
+        public const int TagTagVcgt = 0x76636774;
         public const int TagAppleMultiLanguageProfileName = 0x6473636d;
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
@@ -165,6 +172,12 @@ namespace MetadataExtractor.Formats.Icc
             { TagTagBfd, "Ucrbg" },
             { TagTagVued, "Viewing Conditions Description" },
             { TagTagView, "Viewing Conditions" },
+            { TagTagAabg, "Blue Parametric TRC" },
+            { TagTagAagg, "Green Parametric TRC" },
+            { TagTagAarg, "Red Parametric TRC" },
+            { TagTagMmod, "Make And Model" },
+            { TagTagNdin, "Native Display Information" },
+            { TagTagVcgt, "Video Card Gamma" },
             { TagAppleMultiLanguageProfileName, "Apple Multi-language Profile Name" }
         };
 

@@ -24,7 +24,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif.Makernotes
 {
@@ -35,12 +34,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public sealed class ReconyxUltraFireMakernoteDescriptor : TagDescriptor<ReconyxUltraFireMakernoteDirectory>
     {
-        public ReconyxUltraFireMakernoteDescriptor([NotNull] ReconyxUltraFireMakernoteDirectory directory)
+        public ReconyxUltraFireMakernoteDescriptor(ReconyxUltraFireMakernoteDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -65,7 +64,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return Directory.GetString(tagType);
                 case ReconyxUltraFireMakernoteDirectory.TagSequence:
                     var sequence = Directory.GetInt32Array(tagType);
-                    return $"{sequence[0]}/{sequence[1]}";
+                    return sequence != null ? $"{sequence[0]}/{sequence[1]}" : base.GetDescription(tagType);
                 case ReconyxUltraFireMakernoteDirectory.TagEventNumber:
                     return Directory.GetUInt32(tagType).ToString();
                 case ReconyxUltraFireMakernoteDirectory.TagDateTimeOriginal:

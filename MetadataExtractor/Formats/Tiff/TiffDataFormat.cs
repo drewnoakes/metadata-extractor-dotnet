@@ -22,7 +22,7 @@
 //
 #endregion
 
-using JetBrains.Annotations;
+using System;
 
 namespace MetadataExtractor.Formats.Tiff
 {
@@ -59,36 +59,34 @@ namespace MetadataExtractor.Formats.Tiff
         public static readonly TiffDataFormat Single    = new TiffDataFormat("SINGLE",    TiffDataFormatCode.Single,    4);
         public static readonly TiffDataFormat Double    = new TiffDataFormat("DOUBLE",    TiffDataFormatCode.Double,    8);
 
-        [CanBeNull]
-        public static TiffDataFormat FromTiffFormatCode(TiffDataFormatCode tiffFormatCode)
+        public static TiffDataFormat? FromTiffFormatCode(TiffDataFormatCode tiffFormatCode)
         {
-            switch (tiffFormatCode)
+            return tiffFormatCode switch
             {
-                case TiffDataFormatCode.Int8U:     return Int8U;
-                case TiffDataFormatCode.String:    return String;
-                case TiffDataFormatCode.Int16U:    return Int16U;
-                case TiffDataFormatCode.Int32U:    return Int32U;
-                case TiffDataFormatCode.RationalU: return RationalU;
-                case TiffDataFormatCode.Int8S:     return Int8S;
-                case TiffDataFormatCode.Undefined: return Undefined;
-                case TiffDataFormatCode.Int16S:    return Int16S;
-                case TiffDataFormatCode.Int32S:    return Int32S;
-                case TiffDataFormatCode.RationalS: return RationalS;
-                case TiffDataFormatCode.Single:    return Single;
-                case TiffDataFormatCode.Double:    return Double;
-            }
+                TiffDataFormatCode.Int8U => Int8U,
+                TiffDataFormatCode.String => String,
+                TiffDataFormatCode.Int16U => Int16U,
+                TiffDataFormatCode.Int32U => Int32U,
+                TiffDataFormatCode.RationalU => RationalU,
+                TiffDataFormatCode.Int8S => Int8S,
+                TiffDataFormatCode.Undefined => Undefined,
+                TiffDataFormatCode.Int16S => Int16S,
+                TiffDataFormatCode.Int32S => Int32S,
+                TiffDataFormatCode.RationalS => RationalS,
+                TiffDataFormatCode.Single => Single,
+                TiffDataFormatCode.Double => Double,
 
-            return null;
+                _ => null,
+            };
         }
 
-        [NotNull]
         public string Name { get; }
         public int ComponentSizeBytes { get; }
         public TiffDataFormatCode TiffFormatCode { get; }
 
-        private TiffDataFormat([NotNull] string name, TiffDataFormatCode tiffFormatCode, int componentSizeBytes)
+        private TiffDataFormat(string name, TiffDataFormatCode tiffFormatCode, int componentSizeBytes)
         {
-            Name = name;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
             TiffFormatCode = tiffFormatCode;
             ComponentSizeBytes = componentSizeBytes;
         }

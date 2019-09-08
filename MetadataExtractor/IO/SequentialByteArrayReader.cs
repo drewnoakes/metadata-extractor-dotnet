@@ -24,21 +24,19 @@
 
 using System;
 using System.IO;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.IO
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class SequentialByteArrayReader : SequentialReader
     {
-        [NotNull]
         private readonly byte[] _bytes;
 
         private int _index;
 
         public override long Position => _index;
 
-        public SequentialByteArrayReader([NotNull] byte[] bytes, int baseIndex = 0, bool isMotorolaByteOrder = true)
+        public SequentialByteArrayReader(byte[] bytes, int baseIndex = 0, bool isMotorolaByteOrder = true)
             : base(isMotorolaByteOrder)
         {
             _bytes = bytes ?? throw new ArgumentNullException(nameof(bytes));
@@ -102,7 +100,12 @@ namespace MetadataExtractor.IO
             return true;
         }
 
-		public override bool IsCloserToEnd(long numberOfBytes)
+        public override int Available()
+        {
+            return _bytes.Length - _index;
+        }
+
+        public override bool IsCloserToEnd(long numberOfBytes)
 		{
 			return _index + numberOfBytes > _bytes.Length;
 		}
