@@ -77,18 +77,20 @@ namespace MetadataExtractor.Util
             { FileType.Rw2, Encoding.UTF8.GetBytes("II"), new byte[] { 0x55, 0x00 } },
         };
 
+        private static FileType CheckQuickTime(byte[] bytes)
+        {
+            if (!bytes.RegionEquals(4, 4, Encoding.UTF8.GetBytes("ftyp")))
+                return FileType.Unknown;
+            if (bytes.RegionEquals(8, 4, Encoding.UTF8.GetBytes("qt  ")))
+                return FileType.QuickTime;
+            if (bytes.RegionEquals(8, 4, Encoding.UTF8.GetBytes("crx ")))
+                return FileType.Crx;
+            return FileType.Unknown;
+        }
+
         private static readonly IEnumerable<Func<byte[], FileType>> _fixedCheckers = new Func<byte[], FileType>[]
         {
-            bytes =>
-            {
-                if (!bytes.RegionEquals(4, 4, Encoding.UTF8.GetBytes("ftyp")))
-                    return FileType.Unknown;
-                if (bytes.RegionEquals(8, 4, Encoding.UTF8.GetBytes("qt  ")))
-                    return FileType.QuickTime;
-                if (bytes.RegionEquals(8, 4, Encoding.UTF8.GetBytes("crx ")))
-                    return FileType.Crx;
-                return FileType.Unknown;
-            }
+            CheckQuickTime
         };
 
         /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
