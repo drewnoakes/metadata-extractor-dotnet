@@ -64,7 +64,6 @@ namespace MetadataExtractor.Util
             { FileType.Pcx, new byte[] { 0x0A, 0x02, 0x01 } },
             { FileType.Pcx, new byte[] { 0x0A, 0x03, 0x01 } },
             { FileType.Pcx, new byte[] { 0x0A, 0x05, 0x01 } },
-            { FileType.Riff, Encoding.UTF8.GetBytes("RIFF") },
             { FileType.Arw, Encoding.UTF8.GetBytes("II"), new byte[] { 0x2a, 0x00, 0x08, 0x00 } },
             { FileType.Crw, Encoding.UTF8.GetBytes("II"), new byte[] { 0x1a, 0x00, 0x00, 0x00 }, Encoding.UTF8.GetBytes("HEAPCCDR") },
             { FileType.Cr2, Encoding.UTF8.GetBytes("II"), new byte[] { 0x2a, 0x00, 0x10, 0x00, 0x00, 0x00, 0x43, 0x52 } },
@@ -81,14 +80,32 @@ namespace MetadataExtractor.Util
         {
             if (!bytes.RegionEquals(4, 4, Encoding.UTF8.GetBytes("ftyp")))
                 return FileType.Unknown;
-            if (bytes.RegionEquals(8, 4, Encoding.UTF8.GetBytes("crx ")))
-                return FileType.Crx;
-            return FileType.QuickTime;
+            var fourCC = Encoding.UTF8.GetString(bytes, index: 8, count: 4);
+            return fourCC switch
+            {
+                "crx " => FileType.Crx,
+                _ => FileType.QuickTime,
+            };
+        }
+
+        private static FileType CheckRiff(byte[] bytes)
+        {
+            if (!bytes.RegionEquals(0, 4, Encoding.UTF8.GetBytes("RIFF")))
+                return FileType.Unknown;
+            var fourCC = Encoding.UTF8.GetString(bytes, index: 8, count: 4);
+            return fourCC switch
+            {
+                "WAVE" => FileType.Wav,
+                "AVI " => FileType.Avi,
+                "WEBP" => FileType.WebP,
+                _ => FileType.Riff,
+            };
         }
 
         private static readonly IEnumerable<Func<byte[], FileType>> _fixedCheckers = new Func<byte[], FileType>[]
         {
-            CheckQuickTime
+            CheckQuickTime,
+            CheckRiff
         };
 
         /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
@@ -118,19 +135,6 @@ namespace MetadataExtractor.Util
                     fileType = fixedChecker(bytes);
                     if (fileType != FileType.Unknown)
                         return fileType;
-                }
-            }
-            else if (fileType == FileType.Riff)
-            {
-                var fourCC = Encoding.UTF8.GetString(bytes, index: 8, count: 4);
-                switch (fourCC)
-                {
-                    case "WAVE":
-                        return FileType.Wav;
-                    case "AVI ":
-                        return FileType.Avi;
-                    case "WEBP":
-                        return FileType.WebP;
                 }
             }
 
