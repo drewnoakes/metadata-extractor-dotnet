@@ -375,13 +375,21 @@ namespace MetadataExtractor.Formats.Png
                     {
                         yield return new XmpReader().Extract(textBytes, 0, byteCount);
                     }
+                    else
+                    {
+                        yield return ReadTextDirectory(keyword, textBytes, chunkType);
+                    }
                 }
                 else if (keyword == "Raw profile type exif" || keyword == "Raw profile type APP1")
                 {
                     if (TryProcessRawProfile(out _))
                     {
                         foreach (var exifDirectory in new ExifReader().Extract(new ByteArrayReader(textBytes)))
-                            yield return exifDirectory; 
+                            yield return exifDirectory;
+                    }
+                    else
+                    {
+                        yield return ReadTextDirectory(keyword, textBytes, chunkType);
                     }
                 }
                 else if (keyword == "Raw profile type icc" || keyword == "Raw profile type icm")
@@ -390,6 +398,10 @@ namespace MetadataExtractor.Formats.Png
                     {
                         yield return new IccReader().Extract(new ByteArrayReader(textBytes));
                     }
+                    else
+                    {
+                        yield return ReadTextDirectory(keyword, textBytes, chunkType);
+                    }
                 }
                 else if (keyword == "Raw profile type iptc")
                 {
@@ -397,13 +409,22 @@ namespace MetadataExtractor.Formats.Png
                     {
                         yield return new IptcReader().Extract(new SequentialByteArrayReader(textBytes), byteCount);
                     }
+                    else
+                    {
+                        yield return ReadTextDirectory(keyword, textBytes, chunkType);
+                    }
                 }
                 else
                 {
+                    yield return ReadTextDirectory(keyword, textBytes, chunkType);
+                }
+
+                PngDirectory ReadTextDirectory(string keyword, byte[] textBytes, PngChunkType pngChunkType)
+                {
                     var textPairs = new[] { new KeyValuePair(keyword, new StringValue(textBytes, _latin1Encoding)) };
-                    var directory = new PngDirectory(chunkType);
+                    var directory = new PngDirectory(pngChunkType);
                     directory.Set(PngDirectory.TagTextualData, textPairs);
-                    yield return directory;
+                    return directory;
                 }
 
                 bool TryProcessRawProfile(out int byteCount)
