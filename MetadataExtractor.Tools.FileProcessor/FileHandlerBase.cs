@@ -10,7 +10,7 @@ namespace MetadataExtractor.Tools.FileProcessor
         private static readonly ICollection<string> _supportedExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
             "jpg", "jpeg", "png", "gif", "bmp", "heic", "heif", "ico", "webp", "pcx", "ai", "eps",
-            "nef", "crw", "cr2", "orf", "arw", "raf", "srw", "x3f", "rw2", "rwl",
+            "nef", "crw", "cr2", "orf", "arw", "raf", "srw", "x3f", "rw2", "rwl", "dcr",
             "tif", "tiff", "psd", "dng",
             "mp3",
             "j2c", "jp2", "jpf", "jpm", "mj2",
