@@ -200,7 +200,7 @@ namespace MetadataExtractor.Formats.Iptc
                 case IptcDirectory.TagProgramVersion:
                 {
                     // short
-                    if (tagByteCount >= 2)
+                    if (tagByteCount == 2)
                     {
                         var shortValue = reader.GetUInt16();
                         reader.Skip(tagByteCount - 2);
