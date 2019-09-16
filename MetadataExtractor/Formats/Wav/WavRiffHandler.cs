@@ -47,7 +47,7 @@ namespace MetadataExtractor.Formats.Wav
             : base(directories, new Dictionary<string, Func<List<Directory>, IRiffChunkHandler>>
             {
                 { "fmt ", d => new WavFormatHandler(d) },
-                { "fact ", d => new WavFactHandler(d) }
+                { "fact", d => new WavFactHandler(d) }
             })
         {
         }
