@@ -23,7 +23,6 @@
 #endregion
 
 using System.Linq;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Photoshop;
 using MetadataExtractor.IO;
 using Xunit;

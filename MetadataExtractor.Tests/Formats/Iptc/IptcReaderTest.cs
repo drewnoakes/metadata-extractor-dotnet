@@ -23,7 +23,6 @@
 #endregion
 
 using System.Linq;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Iptc;
 using MetadataExtractor.IO;
 using Xunit;
