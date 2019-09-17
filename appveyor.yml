@@ -1,7 +1,4 @@
 version: 2.1.0-ci{build}
-branches:
-  only:
-  - master
 image: Visual Studio 2019 Preview
 configuration: Release
 before_build:
