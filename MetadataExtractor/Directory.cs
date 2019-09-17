@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-#if NETSTANDARD1_3
+#if NETSTANDARD1_3 || NETSTANDARD2_0
 using System.Text;
 #endif
 #if NET35
@@ -22,7 +22,7 @@ namespace MetadataExtractor
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public abstract class Directory
     {
-#if NETSTANDARD1_3
+#if NETSTANDARD1_3 || NETSTANDARD2_0
         static Directory()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -149,7 +149,7 @@ namespace MetadataExtractor
         /// <summary>Gets whether the specified tag is known by the directory and has a name.</summary>
         /// <param name="tagType">the tag type identifier</param>
         /// <returns>whether this directory has a name for the specified tag</returns>
-        public bool HasTagName(int tagType) => TryGetTagName(tagType, out string? _);
+        public bool HasTagName(int tagType) => TryGetTagName(tagType, out _);
 
         /// <summary>
         /// Provides a description of a tag's value using the descriptor set by <see cref="SetDescriptor"/>.
