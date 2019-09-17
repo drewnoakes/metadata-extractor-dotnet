@@ -171,7 +171,7 @@ namespace MetadataExtractor
         /// <summary>Gets whether the specified tag is known by the directory and has a name.</summary>
         /// <param name="tagType">the tag type identifier</param>
         /// <returns>whether this directory has a name for the specified tag</returns>
-        public bool HasTagName(int tagType) => TryGetTagName(tagType, out string? _);
+        public bool HasTagName(int tagType) => TryGetTagName(tagType, out _);
 
         /// <summary>
         /// Provides a description of a tag's value using the descriptor set by <see cref="SetDescriptor"/>.
