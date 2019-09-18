@@ -9,8 +9,6 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-timeoutInMinutes: 20    
-
 strategy:
   maxParallel: 2
   matrix:
@@ -18,7 +16,7 @@ strategy:
       buildConfiguration: Debug
     Release:
       buildConfiguration: Release
-        
+
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
