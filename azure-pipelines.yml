@@ -9,10 +9,17 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
+strategy:
+  maxParallel: 2
+  matrix:
+    Debug:
+      buildConfiguration: Debug
+    Release:
+      buildConfiguration: Release
+
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
 
 steps:
 - task: NuGetToolInstaller@1
