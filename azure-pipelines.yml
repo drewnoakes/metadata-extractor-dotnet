@@ -6,18 +6,18 @@
 trigger:
 - master
 
-jobs:
-- job: Windows
-  pool:
-    vmImage: 'windows-latest'
-  timeoutInMinutes: 20    
-  strategy:
-    maxParallel: 2
-    matrix:
-      Debug:
-        buildConfiguration: Debug
-      Release:
-        buildConfiguration: Release
+pool:
+  vmImage: 'windows-latest'
+
+timeoutInMinutes: 20    
+
+strategy:
+  maxParallel: 2
+  matrix:
+    Debug:
+      buildConfiguration: Debug
+    Release:
+      buildConfiguration: Release
         
 variables:
   solution: '**/*.sln'
