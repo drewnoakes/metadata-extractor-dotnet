@@ -6,13 +6,22 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'windows-latest'
-
+jobs:
+- job: Windows
+  pool:
+    vmImage: 'windows-latest'
+  timeoutInMinutes: 20    
+  strategy:
+    maxParallel: 2
+    matrix:
+      Debug:
+        buildConfiguration: Debug
+      Release:
+        buildConfiguration: Release
+        
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
 
 steps:
 - task: NuGetToolInstaller@1
