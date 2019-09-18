@@ -272,6 +272,12 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagDateTimeDigitized = 0x9004;
 
+        public const int TagTimeZone = 0x9010;
+
+        public const int TagTimeZoneOriginal = 0x9011;
+
+        public const int TagTimeZoneDigitized = 0x9012;
+
         public const int TagComponentsConfiguration = 0x9101;
 
         /// <summary>Average (rough estimate) compression level in JPEG bits per pixel.</summary>
@@ -792,6 +798,9 @@ namespace MetadataExtractor.Formats.Exif
             map[TagExifVersion] = "Exif Version";
             map[TagDateTimeOriginal] = "Date/Time Original";
             map[TagDateTimeDigitized] = "Date/Time Digitized";
+            map[TagTimeZone] = "Time Zone";
+            map[TagTimeZoneOriginal] = "Time Zone Original";
+            map[TagTimeZoneDigitized] = "Time Zone Digitized";
             map[TagComponentsConfiguration] = "Components Configuration";
             map[TagCompressedAverageBitsPerPixel] = "Compressed Bits Per Pixel";
             map[TagShutterSpeed] = "Shutter Speed Value";
