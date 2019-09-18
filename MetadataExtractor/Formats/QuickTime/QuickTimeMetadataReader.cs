@@ -3,9 +3,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Exif.Makernotes;
 using MetadataExtractor.Formats.Tiff;
+using MetadataExtractor.Formats.Xmp;
 using MetadataExtractor.IO;
 using MetadataExtractor.Util;
 #if NET35
@@ -174,6 +176,22 @@ namespace MetadataExtractor.Formats.QuickTime
                     case "moov":
                     {
                         QuickTimeReader.ProcessAtoms(stream, MoovHandler, a.BytesLeft);
+                        break;
+                    }
+                    case "uuid":
+                    {
+                        var XMP = new byte[] { 0xbe, 0x7a, 0xcf, 0xcb, 0x97, 0xa9, 0x42, 0xe8, 0x9c, 0x71, 0x99, 0x94, 0x91, 0xe3, 0xaf, 0xac };
+                        if (a.BytesLeft >= XMP.Length)
+                        {
+                            var uuid = a.Reader.GetBytes(XMP.Length);
+                            if (XMP.RegionEquals(0, XMP.Length, uuid))
+                            {
+                                var xmpBytes = a.Reader.GetNullTerminatedBytes((int)a.BytesLeft);
+                                var xmpDirectory = new XmpReader().Extract(xmpBytes);
+                                xmpDirectory.Parent = directories.OfType<ExifIfd0Directory>().SingleOrDefault();
+                                directories.Add(xmpDirectory);
+                            }
+                        }
                         break;
                     }
                     case "ftyp":
