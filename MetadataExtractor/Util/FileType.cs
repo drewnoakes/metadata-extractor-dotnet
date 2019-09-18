@@ -225,7 +225,7 @@ namespace MetadataExtractor.Util
         public static IEnumerable<string>? GetAllExtensions(this FileType fileType)
         {
             var i = (int)fileType;
-            if (i < 0 || i >= _mimeTypes.Length)
+            if (i < 0 || i >= _extensions.Length)
                 throw new ArgumentException($"Invalid {nameof(FileType)} enum member.", nameof(fileType));
             return _extensions[i];
         }
