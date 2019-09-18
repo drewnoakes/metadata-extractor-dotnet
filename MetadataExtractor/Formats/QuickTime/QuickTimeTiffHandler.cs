@@ -4,11 +4,13 @@ using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Tiff;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MetadataExtractor.Formats.QuickTime
 {
-    public sealed class QuickTimeTiffHandler<T> : ExifTiffHandler
+    public sealed class QuickTimeTiffHandler<T, TParent> : ExifTiffHandler
         where T : Directory, new()
+        where TParent : Directory
     {
         public QuickTimeTiffHandler([NotNull] List<Directory> directories)
             : base(directories)
@@ -22,7 +24,11 @@ namespace MetadataExtractor.Formats.QuickTime
             {
                 throw new TiffProcessingException($"Unexpected TIFF marker: 0x{marker:X}");
             }
-            PushDirectory(new T());
+            var directory = new T
+            {
+                Parent = Directories.OfType<TParent>().SingleOrDefault()
+            };
+            PushDirectory(directory);
         }
     }
 }
