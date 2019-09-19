@@ -542,7 +542,22 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public string? GetQualityDescription()
         {
-            return GetIndexedDescription(CanonMakernoteDirectory.CameraSettings.TagQuality, 2, "Normal", "Fine", null, "Superfine");
+            if (!Directory.TryGetInt32(CanonMakernoteDirectory.CameraSettings.TagQuality, out int value))
+                return null;
+
+            return value switch
+            {
+                -1 => "n/a",
+                1 => "Economy",
+                2 => "Normal",
+                3 => "Fine",
+                4 => "RAW",
+                5 => "Superfine",
+                7 => "CRAW",
+                130 => "Normal Movie",
+                131 => "Movie (2)",
+                _ => $"Unknown ({value})"
+            };
         }
 
         public string? GetDigitalZoomDescription()
