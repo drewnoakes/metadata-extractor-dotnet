@@ -188,7 +188,7 @@ namespace MetadataExtractor.Formats.QuickTime
                             {
                                 var xmpBytes = a.Reader.GetNullTerminatedBytes((int)a.BytesLeft);
                                 var xmpDirectory = new XmpReader().Extract(xmpBytes);
-                                xmpDirectory.Parent = directories.OfType<ExifIfd0Directory>().SingleOrDefault();
+                                xmpDirectory.Parent = directories.OfType<ExifIfd0Directory>().FirstOrDefault();
                                 directories.Add(xmpDirectory);
                             }
                         }
