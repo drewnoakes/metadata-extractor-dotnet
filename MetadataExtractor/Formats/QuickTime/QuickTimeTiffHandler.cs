@@ -26,7 +26,7 @@ namespace MetadataExtractor.Formats.QuickTime
             }
             var directory = new T
             {
-                Parent = Directories.OfType<TParent>().SingleOrDefault()
+                Parent = Directories.OfType<TParent>().FirstOrDefault()
             };
             PushDirectory(directory);
         }
