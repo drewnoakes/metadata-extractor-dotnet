@@ -26,6 +26,10 @@ namespace MetadataExtractor.Formats.QuickTime
         {
             var directories = new List<Directory>();
 
+            QuickTimeReader.ProcessAtoms(stream, Handler);
+
+            return directories;
+
             void TrakHandler(AtomCallbackArgs a)
             {
                 switch (a.TypeString)
@@ -208,10 +212,6 @@ namespace MetadataExtractor.Formats.QuickTime
                     }
                 }
             }
-
-            QuickTimeReader.ProcessAtoms(stream, Handler);
-
-            return directories;
         }
     }
 }
