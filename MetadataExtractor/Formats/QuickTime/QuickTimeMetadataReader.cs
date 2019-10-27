@@ -184,7 +184,11 @@ namespace MetadataExtractor.Formats.QuickTime
                         var compatibleBrands = new List<string>();
                         while (a.BytesLeft >= 4)
                             compatibleBrands.Add(a.Reader.Get4ccString());
-                        directory.Set(QuickTimeFileTypeDirectory.TagCompatibleBrands, compatibleBrands);
+#if NET35
+                        directory.Set(QuickTimeFileTypeDirectory.TagCompatibleBrands, string.Join(", ", compatibleBrands.ToArray()));
+#else
+                        directory.Set(QuickTimeFileTypeDirectory.TagCompatibleBrands, string.Join(", ", compatibleBrands));
+#endif
                         directories.Add(directory);
                         break;
                     }
