@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
     <Authors>Drew Noakes</Authors>
     <Copyright>Copyright Drew Noakes 2002-2019</Copyright>
-    <PackageIconUrl>https://raw.githubusercontent.com/drewnoakes/metadata-extractor-dotnet/master/docs/metadata-extractor-logo-122.png</PackageIconUrl>
+    <PackageIcon>metadata-extractor-logo-122.png</PackageIcon>
     <PackageProjectUrl>https://github.com/drewnoakes/metadata-extractor-dotnet</PackageProjectUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
@@ -21,6 +21,10 @@
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19367-01" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)\docs\metadata-extractor-logo-122.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>
