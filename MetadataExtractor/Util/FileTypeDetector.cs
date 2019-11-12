@@ -1,5 +1,6 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using MetadataExtractor.Formats.Tga;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -80,10 +81,18 @@ namespace MetadataExtractor.Util
             };
         }
 
+        private static FileType CheckTga(byte[] bytes)
+        {
+            if (TgaHeaderReader.Instance.TryExtract(bytes, out var _))
+                return FileType.Tga;
+            return FileType.Unknown;
+        }
+
         private static readonly IEnumerable<Func<byte[], FileType>> _fixedCheckers = new Func<byte[], FileType>[]
         {
             CheckQuickTime,
-            CheckRiff
+            CheckRiff,
+            CheckTga
         };
 
         /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
@@ -94,7 +103,7 @@ namespace MetadataExtractor.Util
             if (!stream.CanSeek)
                 throw new ArgumentException("Must support seek", nameof(stream));
 
-            var maxByteCount = _root.MaxDepth;
+            var maxByteCount = Math.Max(_root.MaxDepth, TgaHeaderReader.HeaderSize);
 
             var bytes = new byte[maxByteCount];
             var bytesRead = stream.Read(bytes, 0, bytes.Length);

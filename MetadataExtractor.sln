@@ -76,6 +76,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specs", "Specs", "{1806EC0F
 		wiki\docs\PCX File Format.html = wiki\docs\PCX File Format.html
 		wiki\docs\PCX File Format.txt = wiki\docs\PCX File Format.txt
 		wiki\docs\QTFF.pdf = wiki\docs\QTFF.pdf
+		wiki\docs\tga_specs.pdf = wiki\docs\tga_specs.pdf
 		wiki\docs\TIFF6.pdf = wiki\docs\TIFF6.pdf
 		wiki\docs\x3f-raw-format.pdf = wiki\docs\x3f-raw-format.pdf
 		wiki\docs\XMPSpecificationPart1.pdf = wiki\docs\XMPSpecificationPart1.pdf

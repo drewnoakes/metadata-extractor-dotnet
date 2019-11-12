@@ -18,6 +18,7 @@ using MetadataExtractor.Formats.Tiff;
 using MetadataExtractor.Formats.WebP;
 using MetadataExtractor.Formats.Avi;
 using MetadataExtractor.Formats.Wav;
+using MetadataExtractor.Formats.Tga;
 using MetadataExtractor.Util;
 
 #if NET35
@@ -107,6 +108,8 @@ namespace MetadataExtractor
                     return Append(QuickTimeMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Netpbm:
                     return new Directory[] { NetpbmMetadataReader.ReadMetadata(stream), fileTypeDirectory };
+                case FileType.Tga:
+                    return Append(TgaMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Unknown:
                     throw new ImageProcessingException("File format could not be determined");
                 case FileType.Riff:
