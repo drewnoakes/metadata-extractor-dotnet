@@ -127,16 +127,15 @@ namespace MetadataExtractor.Formats.Tga
 
         private static bool TryGetRational(SequentialReader reader, out Rational value)
         {
-            var ratioNum = reader.GetUInt16();
-            var ratioDenom = reader.GetUInt16();
-            if (ratioDenom == 0)
+            var num = reader.GetUInt16();
+            var denom = reader.GetUInt16();
+            if (denom == 0)
             {
                 value = default;
                 return false;
             }
-            value = new Rational(ratioNum, ratioDenom);
+            value = new Rational(num, denom);
             return true;
         }
-
     }
 }
