@@ -1,5 +1,7 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using MetadataExtractor.Formats.QuickTime;
+using MetadataExtractor.Formats.Riff;
 using MetadataExtractor.Formats.Tga;
 using System;
 using System.Collections.Generic;
@@ -55,44 +57,11 @@ namespace MetadataExtractor.Util
             { FileType.Rw2, Encoding.UTF8.GetBytes("II"), new byte[] { 0x55, 0x00 } },
         };
 
-        private static FileType CheckQuickTime(byte[] bytes)
+        private static readonly IEnumerable<ITypeChecker> _fixedCheckers = new ITypeChecker[]
         {
-            if (!bytes.RegionEquals(4, 4, Encoding.UTF8.GetBytes("ftyp")))
-                return FileType.Unknown;
-            var fourCC = Encoding.UTF8.GetString(bytes, index: 8, count: 4);
-            return fourCC switch
-            {
-                "crx " => FileType.Crx,
-                _ => FileType.QuickTime,
-            };
-        }
-
-        private static FileType CheckRiff(byte[] bytes)
-        {
-            if (!bytes.RegionEquals(0, 4, Encoding.UTF8.GetBytes("RIFF")))
-                return FileType.Unknown;
-            var fourCC = Encoding.UTF8.GetString(bytes, index: 8, count: 4);
-            return fourCC switch
-            {
-                "WAVE" => FileType.Wav,
-                "AVI " => FileType.Avi,
-                "WEBP" => FileType.WebP,
-                _ => FileType.Riff,
-            };
-        }
-
-        private static FileType CheckTga(byte[] bytes)
-        {
-            if (TgaHeaderReader.Instance.TryExtract(bytes, out var _))
-                return FileType.Tga;
-            return FileType.Unknown;
-        }
-
-        private static readonly IEnumerable<Func<byte[], FileType>> _fixedCheckers = new Func<byte[], FileType>[]
-        {
-            CheckQuickTime,
-            CheckRiff,
-            CheckTga
+            new QuickTimeTypeChecker(),
+            new RiffTypeChecker(),
+            new TgaTypeChecker(),
         };
 
         /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
@@ -103,7 +72,10 @@ namespace MetadataExtractor.Util
             if (!stream.CanSeek)
                 throw new ArgumentException("Must support seek", nameof(stream));
 
-            var maxByteCount = Math.Max(_root.MaxDepth, TgaHeaderReader.HeaderSize);
+            var maxByteCount = _root.MaxDepth;
+            foreach (var fixedChecker in _fixedCheckers)
+                if (fixedChecker.ByteCount > maxByteCount)
+                    maxByteCount = fixedChecker.ByteCount;
 
             var bytes = new byte[maxByteCount];
             var bytesRead = stream.Read(bytes, 0, bytes.Length);
@@ -119,9 +91,12 @@ namespace MetadataExtractor.Util
             {
                 foreach (var fixedChecker in _fixedCheckers)
                 {
-                    fileType = fixedChecker(bytes);
-                    if (fileType != FileType.Unknown)
-                        return fileType;
+                    if (bytesRead >= fixedChecker.ByteCount)
+                    {
+                        fileType = fixedChecker.CheckType(bytes);
+                        if (fileType != FileType.Unknown)
+                            return fileType;
+                    }
                 }
             }
 
