@@ -20,13 +20,7 @@ namespace MetadataExtractor.Formats.Tga
 
         public const int HeaderSize = 18;
 
-        public static readonly TgaHeaderReader Instance = new TgaHeaderReader();
-
-        private TgaHeaderReader()
-        {
-        }
-
-        public bool TryExtract(byte[] buffer, out TgaHeaderDirectory? directory)
+        public static bool TryExtract(byte[] buffer, out TgaHeaderDirectory? directory)
         {
             var reader = new ByteArrayReader(buffer, isMotorolaByteOrder: false);
             directory = new TgaHeaderDirectory();

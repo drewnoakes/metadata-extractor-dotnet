@@ -9,12 +9,6 @@ namespace MetadataExtractor.Formats.Tga
     /// <author>Dmitry Shechtman</author>
     internal sealed class TgaDeveloperReader : TgaDirectoryReader<TgaDeveloperDirectory, IndexedReader>
     {
-        public static readonly TgaDeveloperReader Instance = new TgaDeveloperReader();
-
-        private TgaDeveloperReader()
-        {
-        }
-
         protected override IndexedReader CreateReader(Stream stream)
         {
             return new IndexedSeekingReader(stream, isMotorolaByteOrder: false);
@@ -23,7 +17,7 @@ namespace MetadataExtractor.Formats.Tga
         protected override void Populate(Stream stream, int offset, IndexedReader reader, TgaDeveloperDirectory directory)
         {
             var pos = stream.Position;
-            var tags = TgaTagReader.Instance.Extract(stream);
+            var tags = new TgaTagReader().Extract(stream);
             stream.Seek(pos - offset, SeekOrigin.Begin);
             for (int i = 0; i < tags.Length; i++)
             {

@@ -39,13 +39,13 @@ namespace MetadataExtractor.Formats.Tga
                 throw new ArgumentException("Must support seek", nameof(stream));
             var list = new List<Directory>
             {
-                TgaHeaderReader.Instance.Extract(stream)
+                new TgaHeaderReader().Extract(stream)
             };
-            TgaFooterReader.TryGetOffsets(stream, out int extOffset, out int devOffset);
+            new TgaFooterReader().TryGetOffsets(stream, out int extOffset, out int devOffset);
             if (extOffset > 0)
-                list.Add(TgaExtensionReader.Instance.Extract(stream, extOffset));
+                list.Add(new TgaExtensionReader().Extract(stream, extOffset));
             if (devOffset > 0)
-                list.Add(TgaDeveloperReader.Instance.Extract(stream, devOffset));
+                list.Add(new TgaDeveloperReader().Extract(stream, devOffset));
             return list;
         }
     }

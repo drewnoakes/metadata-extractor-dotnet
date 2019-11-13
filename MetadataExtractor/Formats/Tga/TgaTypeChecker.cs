@@ -11,7 +11,7 @@ namespace MetadataExtractor.Formats.Tga
 
         public Util.FileType CheckType(byte[] bytes)
         {
-            if (TgaHeaderReader.Instance.TryExtract(bytes, out var _))
+            if (TgaHeaderReader.TryExtract(bytes, out var _))
                 return Util.FileType.Tga;
             return Util.FileType.Unknown;
         }

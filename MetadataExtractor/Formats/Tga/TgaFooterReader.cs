@@ -22,15 +22,9 @@ namespace MetadataExtractor.Formats.Tga
 
         private static readonly byte[] FooterSignature = Encoding.ASCII.GetBytes("TRUEVISION-XFILE.\0");
 
-        public static readonly TgaFooterReader Instance = new TgaFooterReader();
-
-        private TgaFooterReader()
+        public bool TryGetOffsets(Stream stream, out int extOffset, out int devOffset)
         {
-        }
-
-        public static bool TryGetOffsets(Stream stream, out int extOffset, out int devOffset)
-        {
-            var footer = Instance.Extract(stream, -FooterSize, SeekOrigin.End);
+            var footer = Extract(stream, -FooterSize, SeekOrigin.End);
             if (footer.Signature.RegionEquals(0, FooterSignature.Length, FooterSignature))
             {
                 extOffset = footer.ExtOffset;

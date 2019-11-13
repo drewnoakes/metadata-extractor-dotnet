@@ -13,12 +13,6 @@ namespace MetadataExtractor.Formats.Tga
     {
         private const int ExtensionSize = 495;
 
-        public static readonly TgaExtensionReader Instance = new TgaExtensionReader();
-
-        private TgaExtensionReader()
-        {
-        }
-
         protected override SequentialReader CreateReader(Stream stream)
         {
             return new SequentialStreamReader(stream, isMotorolaByteOrder: false);
