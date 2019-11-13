@@ -5,9 +5,9 @@ using System.IO;
 
 namespace MetadataExtractor.Formats.Tga
 {
-    /// <summary>Reads TGA image file extension area.</summary>
+    /// <summary>Reads TGA image file developer area.</summary>
     /// <author>Dmitry Shechtman</author>
-    sealed class TgaDeveloperReader : TgaDirectoryReader<TgaDeveloperDirectory, IndexedReader>
+    internal sealed class TgaDeveloperReader : TgaDirectoryReader<TgaDeveloperDirectory, IndexedReader>
     {
         public static readonly TgaDeveloperReader Instance = new TgaDeveloperReader();
 
@@ -28,8 +28,8 @@ namespace MetadataExtractor.Formats.Tga
             for (int i = 0; i < tags.Length; i++)
             {
                 var tag = tags[i];
-                var bytes = reader.GetBytes(tag.offset, tag.size);
-                directory.Set(tag.id, bytes);
+                var bytes = reader.GetBytes(tag.Offset, tag.Size);
+                directory.Set(tag.Id, bytes);
             }
         }
     }

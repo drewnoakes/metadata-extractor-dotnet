@@ -3,14 +3,14 @@ using System.IO;
 
 namespace MetadataExtractor.Formats.Tga
 {
-    struct TgaTagInfo
+    internal struct TgaTagInfo
     {
-        public short id;
-        public int offset;
-        public int size;
+        public short Id;
+        public int Offset;
+        public int Size;
     }
 
-    sealed class TgaTagReader : TgaReader<TgaTagInfo[], SequentialReader>
+    internal sealed class TgaTagReader : TgaReader<TgaTagInfo[], SequentialReader>
     {
         public static readonly TgaTagReader Instance = new TgaTagReader();
 
@@ -36,9 +36,9 @@ namespace MetadataExtractor.Formats.Tga
         {
             return new TgaTagInfo
             {
-                id = reader.GetInt16(),
-                offset = reader.GetInt32(),
-                size = reader.GetInt32()
+                Id = reader.GetInt16(),
+                Offset = reader.GetInt32(),
+                Size = reader.GetInt32()
             };
         }
     }

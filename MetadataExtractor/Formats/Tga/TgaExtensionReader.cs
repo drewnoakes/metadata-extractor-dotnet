@@ -9,7 +9,7 @@ namespace MetadataExtractor.Formats.Tga
 {
     /// <summary>Reads TGA image file extension area.</summary>
     /// <author>Dmitry Shechtman</author>
-    sealed class TgaExtensionReader : TgaDirectoryReader<TgaExtensionDirectory, SequentialReader>
+    internal sealed class TgaExtensionReader : TgaDirectoryReader<TgaExtensionDirectory, SequentialReader>
     {
         private const int ExtensionSize = 495;
 

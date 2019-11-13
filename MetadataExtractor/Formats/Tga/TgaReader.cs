@@ -5,7 +5,7 @@ using System.IO;
 
 namespace MetadataExtractor.Formats.Tga
 {
-    abstract class TgaReader<TData, TReader>
+    internal abstract class TgaReader<TData, TReader>
     {
         public TData Extract(Stream stream, int offset = 0, SeekOrigin origin = SeekOrigin.Current)
         {
@@ -21,7 +21,7 @@ namespace MetadataExtractor.Formats.Tga
         protected abstract TData Extract(Stream stream, int offset, TReader reader);
     }
 
-    abstract class TgaDirectoryReader<TDirectory, TReader> : TgaReader<TDirectory, TReader>
+    internal abstract class TgaDirectoryReader<TDirectory, TReader> : TgaReader<TDirectory, TReader>
         where TDirectory : Directory, new()
     {
         protected sealed override TDirectory Extract(Stream stream, int offset, TReader reader)

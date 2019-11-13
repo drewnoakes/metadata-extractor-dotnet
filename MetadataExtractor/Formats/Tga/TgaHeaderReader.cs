@@ -8,14 +8,14 @@ namespace MetadataExtractor.Formats.Tga
 {
     /// <summary>Reads TGA image file header.</summary>
     /// <author>Dmitry Shechtman</author>
-    sealed class TgaHeaderReader : TgaDirectoryReader<TgaHeaderDirectory, IndexedReader>
+    internal sealed class TgaHeaderReader : TgaDirectoryReader<TgaHeaderDirectory, IndexedReader>
     {
-        struct ColormapInfo
+        private struct ColormapInfo
         {
-            public byte type;
-            public int origin;
-            public int length;
-            public int depth;
+            public byte Type;
+            public int Origin;
+            public int Length;
+            public int Depth;
         }
 
         public const int HeaderSize = 18;
@@ -26,7 +26,7 @@ namespace MetadataExtractor.Formats.Tga
         {
         }
 
-        public bool TryExtract(byte[] buffer, out TgaHeaderDirectory directory)
+        public bool TryExtract(byte[] buffer, out TgaHeaderDirectory? directory)
         {
             var reader = new ByteArrayReader(buffer, isMotorolaByteOrder: false);
             directory = new TgaHeaderDirectory();
@@ -36,6 +36,7 @@ namespace MetadataExtractor.Formats.Tga
             }
             catch
             {
+                directory = null;
                 return false;
             }
         }
@@ -53,9 +54,9 @@ namespace MetadataExtractor.Formats.Tga
                 var id = reader.GetBytes(HeaderSize, idLength);
                 directory.Set(TgaHeaderDirectory.TagId, id);
             }
-            if (colormapInfo.type > 0)
+            if (colormapInfo.Type > 0)
             {
-                var colormapLength = colormapInfo.length * (Math.Max(colormapInfo.depth / 3, 8) / 8);
+                var colormapLength = colormapInfo.Length * (Math.Max(colormapInfo.Depth / 3, 8) / 8);
                 var colormap = reader.GetBytes(HeaderSize + idLength, colormapLength);
                 directory.Set(TgaHeaderDirectory.TagColormap, colormap);
             }
@@ -76,34 +77,27 @@ namespace MetadataExtractor.Formats.Tga
         private static byte SetDataType(IndexedReader reader, TgaHeaderDirectory directory)
         {
             var dataType = reader.GetByte(2);
-            switch (dataType)
+            return dataType switch
             {
-                case 1:
-                case 9:
-                    return SetDataTypeMapped(reader, directory, dataType);
-                case 2:
-                case 10:
-                    return SetDataTypeTrueColor(reader, directory, dataType);
-                case 3:
-                case 11:
-                    return SetDataTypeGrayscale(reader, directory, dataType);
-                default:
-                    throw new ImageProcessingException("Invalid TGA data type");
-            }
+                1 => SetDataTypeMapped(reader, directory, dataType),
+                9 => SetDataTypeMapped(reader, directory, dataType),
+                2 => SetDataTypeTrueColor(reader, directory, dataType),
+                10 => SetDataTypeTrueColor(reader, directory, dataType),
+                3 => SetDataTypeGrayscale(reader, directory, dataType),
+                11 => SetDataTypeGrayscale(reader, directory, dataType),
+                _ => throw new ImageProcessingException("Invalid TGA data type"),
+            };
         }
 
         private static ColormapInfo SetColormapInfo(IndexedReader reader, TgaHeaderDirectory directory)
         {
             var colormapType = reader.GetByte(1);
-            switch (colormapType)
+            return colormapType switch
             {
-                case 0:
-                    return SetColormapNotIncluded(directory);
-                case 1:
-                    return SetColormapIncluded(reader, directory);
-                default:
-                    throw new ImageProcessingException("Invalid TGA color map type");
-            }
+                0 => SetColormapNotIncluded(directory),
+                1 => SetColormapIncluded(reader, directory),
+                _ => throw new ImageProcessingException("Invalid TGA color map type"),
+            };
         }
 
         private static void SetGeometry(IndexedReader reader, TgaHeaderDirectory directory)
@@ -132,19 +126,14 @@ namespace MetadataExtractor.Formats.Tga
         private static byte SetDepth(IndexedReader reader, TgaHeaderDirectory directory)
         {
             var depth = reader.GetByte(16);
-            switch (depth)
+            return depth switch
             {
-                case 8:
-                    return SetDepth8(reader, directory, depth);
-                case 16:
-                    return SetDepth16(reader, directory, depth);
-                case 24:
-                    return SetDepth24(reader, directory, depth);
-                case 32:
-                    return SetDepth32(reader, directory, depth);
-                default:
-                    throw new ImageProcessingException("Invalid TGA pixel depth");
-            }
+                8 => SetDepth8(reader, directory, depth),
+                16 => SetDepth16(reader, directory, depth),
+                24 => SetDepth24(reader, directory, depth),
+                32 => SetDepth32(reader, directory, depth),
+                _ => throw new ImageProcessingException("Invalid TGA pixel depth"),
+            };
         }
 
         private static byte SetFlags(IndexedReader reader, TgaHeaderDirectory directory)
@@ -201,10 +190,10 @@ namespace MetadataExtractor.Formats.Tga
         {
             var colormap = new ColormapInfo
             {
-                type = 0
+                Type = 0
             };
 
-            directory.Set(TgaHeaderDirectory.TagColormapType, colormap.type);
+            directory.Set(TgaHeaderDirectory.TagColormapType, colormap.Type);
 
             return colormap;
         }
@@ -213,25 +202,25 @@ namespace MetadataExtractor.Formats.Tga
         {
             var colormap = new ColormapInfo
             {
-                type = 1,
-                origin = reader.GetInt16(3),
-                length = reader.GetInt16(5),
-                depth = reader.GetByte(7)
+                Type = 1,
+                Origin = reader.GetInt16(3),
+                Length = reader.GetInt16(5),
+                Depth = reader.GetByte(7)
             };
 
-            directory.Set(TgaHeaderDirectory.TagColormapType, colormap.type);
+            directory.Set(TgaHeaderDirectory.TagColormapType, colormap.Type);
 
-            if (colormap.origin < 0)
+            if (colormap.Origin < 0)
                 throw new ImageProcessingException("Invalid TGA color map origin");
-            directory.Set(TgaHeaderDirectory.TagColormapOrigin, colormap.origin);
+            directory.Set(TgaHeaderDirectory.TagColormapOrigin, colormap.Origin);
 
-            if (colormap.length < 0)
+            if (colormap.Length < 0)
                 throw new ImageProcessingException("Invalid TGA color map length");
-            directory.Set(TgaHeaderDirectory.TagColormapLength, colormap.length);
+            directory.Set(TgaHeaderDirectory.TagColormapLength, colormap.Length);
 
-            if (colormap.depth != 15 && colormap.depth != 16 && colormap.depth != 24 && colormap.depth != 32)
+            if (colormap.Depth != 15 && colormap.Depth != 16 && colormap.Depth != 24 && colormap.Depth != 32)
                 throw new ImageProcessingException("Invalid TGA color map depth");
-            directory.Set(TgaHeaderDirectory.TagColormapDepth, colormap.depth);
+            directory.Set(TgaHeaderDirectory.TagColormapDepth, colormap.Depth);
 
             return colormap;
         }

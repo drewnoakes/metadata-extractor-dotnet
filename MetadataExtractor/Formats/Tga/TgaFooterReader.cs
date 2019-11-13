@@ -7,20 +7,20 @@ using System.Text;
 
 namespace MetadataExtractor.Formats.Tga
 {
-    struct TgaFooter
+    internal struct TgaFooter
     {
-        public int extOffset;
-        public int devOffset;
-        public byte[] signature;
+        public int ExtOffset;
+        public int DevOffset;
+        public byte[] Signature;
     }
 
     /// <summary>Reads TGA image file footer.</summary>
     /// <author>Dmitry Shechtman</author>
-    sealed class TgaFooterReader : TgaReader<TgaFooter, SequentialReader>
+    internal sealed class TgaFooterReader : TgaReader<TgaFooter, SequentialReader>
     {
         private const int FooterSize = 26;
 
-        private static readonly byte[] FooterMagic = Encoding.ASCII.GetBytes("TRUEVISION-XFILE.\0");
+        private static readonly byte[] FooterSignature = Encoding.ASCII.GetBytes("TRUEVISION-XFILE.\0");
 
         public static readonly TgaFooterReader Instance = new TgaFooterReader();
 
@@ -31,11 +31,10 @@ namespace MetadataExtractor.Formats.Tga
         public static bool TryGetOffsets(Stream stream, out int extOffset, out int devOffset)
         {
             var footer = Instance.Extract(stream, -FooterSize, SeekOrigin.End);
-            if (footer.signature.RegionEquals(0, FooterMagic.Length, FooterMagic))
+            if (footer.Signature.RegionEquals(0, FooterSignature.Length, FooterSignature))
             {
-                extOffset = footer.extOffset;
-                devOffset = footer.devOffset;
-
+                extOffset = footer.ExtOffset;
+                devOffset = footer.DevOffset;
                 if (extOffset >= 0 && extOffset < stream.Length && devOffset >= 0 && devOffset < stream.Length)
                     return true;
             }
@@ -52,9 +51,9 @@ namespace MetadataExtractor.Formats.Tga
         {
             return new TgaFooter
             {
-                extOffset = reader.GetInt32(),
-                devOffset = reader.GetInt32(),
-                signature = reader.GetBytes(FooterMagic.Length)
+                ExtOffset = reader.GetInt32(),
+                DevOffset = reader.GetInt32(),
+                Signature = reader.GetBytes(FooterSignature.Length)
             };
         }
     }
