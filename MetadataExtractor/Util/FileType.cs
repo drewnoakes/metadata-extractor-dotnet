@@ -166,7 +166,7 @@ namespace MetadataExtractor.Util
             "video/quicktime",
             "image/x-portable-graymap",
             null,
-            null
+            "image/x-targa"
         };
 
         private static readonly string[]?[] _extensions =
