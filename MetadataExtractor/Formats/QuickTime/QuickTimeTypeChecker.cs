@@ -5,6 +5,7 @@ using System.Text;
 
 namespace MetadataExtractor.Formats.QuickTime
 {
+    /// <author>Dmitry Shechtman</author>
     internal sealed class QuickTimeTypeChecker : ITypeChecker
     {
         public int ByteCount => 12;
