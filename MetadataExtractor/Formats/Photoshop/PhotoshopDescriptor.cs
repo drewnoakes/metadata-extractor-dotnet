@@ -1,5 +1,7 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using MetadataExtractor.IO;
@@ -47,7 +49,11 @@ namespace MetadataExtractor.Formats.Photoshop
                     return GetPrintScaleDescription();
                 case PhotoshopDirectory.TagPixelAspectRatio:
                     return GetPixelAspectRatioString();
+                case PhotoshopDirectory.TagClippingPathName:
+                    return GetClippingPathNameString(tagType);
                 default:
+                    if (tagType >= 0x07D0 && tagType <= 0x0BB6)
+                        return GetPathString(tagType);
                     return base.GetDescription(tagType);
             }
         }
@@ -319,5 +325,176 @@ namespace MetadataExtractor.Formats.Photoshop
                 ? null
                 : $"{bytes.Length} bytes binary data";
         }
+
+        private string? GetClippingPathNameString(int tagType)
+        {
+            try
+            {
+                var bytes = Directory.GetByteArray(tagType);
+                if (bytes == null)
+                    return null;
+                var reader = new ByteArrayReader(bytes);
+                int length = reader.GetByte(0);
+                return Encoding.UTF8.GetString(reader.GetBytes(1, length));
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public string? GetPathString(int tagType)
+        {
+            try
+            {
+                var bytes = Directory.GetByteArray(tagType);
+                if (bytes == null)
+                    return null;
+                var reader = new ByteArrayReader(bytes);
+                int length = (int)(reader.Length - reader.GetByte((int)reader.Length - 1) - 1) / 26;
+
+                string? fillRecord = null;
+
+                // Possible subpaths
+                var cSubpath = new Subpath();
+                var oSubpath = new Subpath();
+
+                var paths = new List<Subpath>();
+
+                // Loop through each path resource block segment (26-bytes)
+                for (int i = 0; i < length; i++)
+                {
+                    // Spacer takes into account which block is currently being worked on while accessing byte array
+                    int recordSpacer = 26 * i;
+                    int selector = reader.GetInt16(recordSpacer);
+
+                    /*
+                     * Subpath resource blocks come in 26-byte segments with 9 possible selectors - some selectors
+                     * are formatted different from others
+                     *
+                     *      0 = Closed subpath length record
+                     *      1 = Closed subpath Bezier knot, linked
+                     *      2 = Closed subpath Bezier knot, unlinked
+                     *      3 = Open subpath length record
+                     *      4 = Open subpath Bezier knot, linked
+                     *      5 = Open subpath Bezier knot, unlinked
+                     *      6 = Subpath fill rule record
+                     *      7 = Clipboard record
+                     *      8 = Initial fill rule record
+                     *
+                     * Source: http://www.adobe.com/devnet-apps/photoshop/fileformatashtml/
+                     */
+                    switch (selector)
+                    {
+                        case 0:
+                            // Insert previous Paths if there are any
+                            if (cSubpath.Size() != 0)
+                            {
+                                paths.Add(cSubpath);
+                            }
+
+                            // Make path size accordingly
+                            cSubpath = new Subpath("Closed Subpath");
+                            break;
+                        case 1:
+                        case 2:
+                            {
+                                Knot knot;
+                                if (selector == 1)
+                                    knot = new Knot("Linked");
+                                else
+                                    knot = new Knot("Unlinked");
+                                // Insert each point into cSubpath - points are 32-bit signed, fixed point numbers and have 8-bits before the point
+                                for (int j = 0; j < 6; j++)
+                                {
+                                    knot.SetPoint(j, reader.GetByte((j * 4) + 2 + recordSpacer) + (reader.GetInt24((j * 4) + 3 + recordSpacer) / Math.Pow(2.0, 24.0)));
+                                }
+                                cSubpath.Add(knot);
+                                break;
+                            }
+                        case 3:
+                            // Insert previous Paths if there are any
+                            if (oSubpath.Size() != 0)
+                            {
+                                paths.Add(oSubpath);
+                            }
+
+                            // Make path size accordingly
+                            oSubpath = new Subpath("Open Subpath");
+                            break;
+                        case 4:
+                        case 5:
+                            {
+                                Knot knot;
+                                if (selector == 4)
+                                    knot = new Knot("Linked");
+                                else
+                                    knot = new Knot("Unlinked");
+                                // Insert each point into oSubpath - points are 32-bit signed, fixed point numbers and have 8-bits before the point
+                                for (int j = 0; j < 6; j++)
+                                {
+                                    knot.SetPoint(j, reader.GetByte((j * 4) + 2 + recordSpacer) + (reader.GetInt24((j * 4) + 3 + recordSpacer) / Math.Pow(2.0, 24.0)));
+                                }
+                                oSubpath.Add(knot);
+                                break;
+                            }
+                        case 6:
+                            break;
+                        case 7:
+                            // TODO: Clipboard record
+                            //                        for (int j = 0; j < 24; j++) {
+                            //                           clipboardRecord[j] = bytes[j + 2 + recordSpacer];
+                            //                        }
+                            break;
+                        case 8:
+                            if (reader.GetInt16(2 + recordSpacer) == 1)
+                                fillRecord = "with all pixels";
+                            else
+                                fillRecord = "without all pixels";
+                            break;
+                    }
+                }
+
+                // Add any more paths that were not added already
+                if (cSubpath.Size() != 0)
+                    paths.Add(cSubpath);
+                if (oSubpath.Size() != 0)
+                    paths.Add(oSubpath);
+
+                // Extract name (previously appended to end of byte array)
+                int nameLength = reader.GetByte((int)reader.Length - 1);
+                var name = reader.GetString((int)reader.Length - nameLength - 1, nameLength, Encoding.ASCII);
+
+                // Build description
+                var str = new StringBuilder();
+
+                str.Append($"\"{name}\" having ");
+                if (fillRecord != null)
+                    str.Append($"initial fill rule \"{fillRecord}\" and ");
+
+                str.Append(paths.Count).Append(paths.Count == 1 ? " subpath:" : " subpaths:");
+
+                foreach(Subpath path in paths)
+                {
+                    str.Append($"\n- {path.Type} with { paths.Count}").Append(paths.Count == 1 ? " knot:" : " knots:");
+
+                    foreach (Knot knot in path.GetKnots())
+                    {
+                        str.Append($"\n  - {knot.Type}");
+                        str.Append($" ({knot.GetPoint(0)},{knot.GetPoint(1)})");
+                        str.Append($" ({knot.GetPoint(2)},{knot.GetPoint(3)})");
+                        str.Append($" ({knot.GetPoint(4)},{knot.GetPoint(5)})");
+                    }
+                }
+
+                return str.ToString();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
     }
 }

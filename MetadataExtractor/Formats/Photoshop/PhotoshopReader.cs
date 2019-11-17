@@ -58,6 +58,7 @@ namespace MetadataExtractor.Formats.Photoshop
             //
             // http://www.adobe.com/devnet-apps/photoshop/fileformatashtml/#50577409_pgfId-1037504
             var pos = 0;
+            int clippingPathCount = 0;
             while (pos < length)
             {
                 try
@@ -71,16 +72,22 @@ namespace MetadataExtractor.Formats.Photoshop
                     pos += 2;
 
                     // A variable number of bytes holding a pascal string (two leading bytes for length).
-                    var descriptionLength = reader.GetByte();
+                    int descriptionLength = reader.GetByte();
                     pos += 1;
 
                     // Some basic bounds checking
-                    if (descriptionLength + pos > length)
+                    if (descriptionLength < 0 || descriptionLength + pos > length)
                         throw new ImageProcessingException("Invalid string length");
 
-                    // We don't use the string value here
-                    reader.Skip(descriptionLength);
-                    pos += descriptionLength;
+                    // Get name (important for paths)
+                    var description = new StringBuilder();
+                    descriptionLength += pos;
+                    // Loop through each byte and append to string
+                    while (pos < descriptionLength)
+                    {
+                        description.Append((char)reader.GetByte());
+                        pos++;
+                    }
 
                     // The number of bytes is padded with a trailing zero, if needed, to make the size even.
                     if (pos % 2 != 0)
@@ -133,7 +140,23 @@ namespace MetadataExtractor.Formats.Photoshop
                             directories.Add(xmpDirectory);
                             break;
                         default:
-                            directory.Set(tagType, tagBytes);
+                            if (tagType >= 0x07D0 && tagType <= 0x0BB6)
+                            {
+                                clippingPathCount++;
+                                Array.Resize(ref tagBytes, tagBytes.Length + description.Length + 1);
+                                // Append description(name) to end of byte array with 1 byte before the description representing the length
+                                for (int i = tagBytes.Length - description.Length - 1; i < tagBytes.Length; i++)
+                                {
+                                    if (i % (tagBytes.Length - description.Length - 1 + description.Length) == 0)
+                                        tagBytes[i] = (byte)description.Length;
+                                    else
+                                        tagBytes[i] = (byte)description[i - (tagBytes.Length - description.Length - 1)];
+                                }
+                                PhotoshopDirectory.TagNameMap[0x07CF + clippingPathCount] = "Path Info " + clippingPathCount;
+                                directory.Set(0x07CF + clippingPathCount, tagBytes);
+                            }
+                            else
+                                directory.Set(tagType, tagBytes);
                             break;
                     }
 

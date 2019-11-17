@@ -98,6 +98,11 @@ namespace MetadataExtractor.Formats.Photoshop
         // PLUG IN RESOURCES                                                            0x0FA0 -> 0x1387
         public const int TagImageReadyVariablesXml = 0x1B58;
         public const int TagImageReadyDataSets = 0x1B59;
+        public const int TagImageReadySelectedState = 0x1B5A;
+        public const int TagImageReady7Rollover = 0x1B5B;
+        public const int TagImageReadyRollover = 0x1B5C;
+        public const int TagImageReadySaveLayerSettings = 0x1B5D;
+        public const int TagImageReadyVersion = 0x1B5E;
         public const int TagLightroomWorkflow = 0x1F40;
         public const int TagPrintFlagsInfo = 0x2710;
 
@@ -177,11 +182,18 @@ namespace MetadataExtractor.Formats.Photoshop
             { TagWinDevmode, "Win DEVMODE" },
             { TagAutoSaveFilePath, "Auto Save File Path" },
             { TagAutoSaveFormat, "Auto Save Format" },
-            { TagPathSelectionState, "Path Selection State" },
+            { TagPathSelectionState, "Subpath Selection State" },
             { TagClippingPathName, "Clipping Path Name" },
-            { TagOriginPathInfo, "Origin Path Info" },
+            { TagOriginPathInfo, "Origin Subpath Info" },
             { TagImageReadyVariablesXml, "Image Ready Variables XML" },
             { TagImageReadyDataSets, "Image Ready Data Sets" },
+
+            { TagImageReadySelectedState, "Image Ready Selected State" },
+            { TagImageReady7Rollover, "Image Ready 7 Rollover Expanded State" },
+            { TagImageReadyRollover, "Image Ready Rollover Expanded State" },
+            { TagImageReadySaveLayerSettings, "Image Ready Save Layer Settings" },
+            { TagImageReadyVersion, "Image Ready Version" },
+
             { TagLightroomWorkflow, "Lightroom Workflow" },
             { TagPrintFlagsInfo, "Print Flags Information" }
         };
