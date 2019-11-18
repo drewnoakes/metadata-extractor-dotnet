@@ -140,7 +140,7 @@ namespace MetadataExtractor.Formats.Photoshop
                             directories.Add(xmpDirectory);
                             break;
                         default:
-                            if (tagType >= 0x07D0 && tagType <= 0x0BB6)
+                            if (tagType >= PhotoshopDirectory.TagClippingPathBlockStart && tagType <= PhotoshopDirectory.TagClippingPathBlockEnd)
                             {
                                 clippingPathCount++;
                                 Array.Resize(ref tagBytes, tagBytes.Length + description.Length + 1);
@@ -152,8 +152,8 @@ namespace MetadataExtractor.Formats.Photoshop
                                     else
                                         tagBytes[i] = (byte)description[i - (tagBytes.Length - description.Length - 1)];
                                 }
-                                PhotoshopDirectory.TagNameMap[0x07CF + clippingPathCount] = "Path Info " + clippingPathCount;
-                                directory.Set(0x07CF + clippingPathCount, tagBytes);
+                                PhotoshopDirectory.TagNameMap[PhotoshopDirectory.TagClippingPathBlockStart + clippingPathCount] = "Path Info " + clippingPathCount;
+                                directory.Set(PhotoshopDirectory.TagClippingPathBlockStart + clippingPathCount, tagBytes);
                             }
                             else
                                 directory.Set(tagType, tagBytes);

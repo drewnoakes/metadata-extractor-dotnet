@@ -17,13 +17,9 @@ namespace MetadataExtractor.Formats.Photoshop
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     public class Subpath
     {
-        private List<Knot> p_knots = new List<Knot>();
+        private readonly List<Knot> _knots = new List<Knot>();
 
-        public Subpath() : this("")
-        {
-        }
-
-        public Subpath(string type)
+        public Subpath(string type = "")
         {
             Type = type;
         }
@@ -34,23 +30,26 @@ namespace MetadataExtractor.Formats.Photoshop
         /// <param name="knot"></param>
         public void Add(Knot knot)
         {
-            p_knots.Add(knot);
+            _knots.Add(knot);
         }
 
         /// <summary>
         /// Gets size of knots list
         /// </summary>
         /// <returns>size of knots List</returns>
-        public int Size()
+        public int KnotCount
         {
-            return p_knots.Count;
+            get { return _knots.Count; }
         }
 
-        public IEnumerable<Knot> GetKnots()
+        ///<summary>
+        ///Return a read-only list of Knots
+        ///</summary>
+        public IEnumerable<Knot> Knots
         {
-            return p_knots;
+            get { return _knots; }
         }
 
-        public string Type { get; private set; }
+        public string Type { get; }
     }
 }

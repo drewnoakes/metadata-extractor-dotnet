@@ -93,6 +93,10 @@ namespace MetadataExtractor.Formats.Photoshop
         public const int TagAutoSaveFormat = 0x043F;
         public const int TagPathSelectionState = 0x0440;
         // CLIPPING PATHS                                                               0x07D0 -> 0x0BB6
+        // convenience constants of the clipping path block of codes to avoid using the hex in code
+        public const int TagClippingPathBlockStart = 0x07D0;
+        public const int TagClippingPathBlockEnd = 0x0BB6;
+
         public const int TagClippingPathName = 0x0BB7;
         public const int TagOriginPathInfo = 0x0BB8;
         // PLUG IN RESOURCES                                                            0x0FA0 -> 0x1387

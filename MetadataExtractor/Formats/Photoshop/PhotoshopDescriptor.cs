@@ -52,7 +52,7 @@ namespace MetadataExtractor.Formats.Photoshop
                 case PhotoshopDirectory.TagClippingPathName:
                     return GetClippingPathNameString(tagType);
                 default:
-                    if (tagType >= 0x07D0 && tagType <= 0x0BB6)
+                    if (tagType >= PhotoshopDirectory.TagClippingPathBlockStart && tagType <= PhotoshopDirectory.TagClippingPathBlockEnd)
                         return GetPathString(tagType);
                     return base.GetDescription(tagType);
             }
@@ -388,7 +388,7 @@ namespace MetadataExtractor.Formats.Photoshop
                     {
                         case 0:
                             // Insert previous Paths if there are any
-                            if (cSubpath.Size() != 0)
+                            if (cSubpath.KnotCount != 0)
                             {
                                 paths.Add(cSubpath);
                             }
@@ -407,14 +407,14 @@ namespace MetadataExtractor.Formats.Photoshop
                                 // Insert each point into cSubpath - points are 32-bit signed, fixed point numbers and have 8-bits before the point
                                 for (int j = 0; j < 6; j++)
                                 {
-                                    knot.SetPoint(j, reader.GetByte((j * 4) + 2 + recordSpacer) + (reader.GetInt24((j * 4) + 3 + recordSpacer) / Math.Pow(2.0, 24.0)));
+                                    knot[j] = reader.GetByte((j * 4) + 2 + recordSpacer) + (reader.GetInt24((j * 4) + 3 + recordSpacer) / Math.Pow(2.0, 24.0));
                                 }
                                 cSubpath.Add(knot);
                                 break;
                             }
                         case 3:
                             // Insert previous Paths if there are any
-                            if (oSubpath.Size() != 0)
+                            if (oSubpath.KnotCount != 0)
                             {
                                 paths.Add(oSubpath);
                             }
@@ -433,7 +433,7 @@ namespace MetadataExtractor.Formats.Photoshop
                                 // Insert each point into oSubpath - points are 32-bit signed, fixed point numbers and have 8-bits before the point
                                 for (int j = 0; j < 6; j++)
                                 {
-                                    knot.SetPoint(j, reader.GetByte((j * 4) + 2 + recordSpacer) + (reader.GetInt24((j * 4) + 3 + recordSpacer) / Math.Pow(2.0, 24.0)));
+                                    knot[j] = reader.GetByte((j * 4) + 2 + recordSpacer) + (reader.GetInt24((j * 4) + 3 + recordSpacer) / Math.Pow(2.0, 24.0));
                                 }
                                 oSubpath.Add(knot);
                                 break;
@@ -456,9 +456,9 @@ namespace MetadataExtractor.Formats.Photoshop
                 }
 
                 // Add any more paths that were not added already
-                if (cSubpath.Size() != 0)
+                if (cSubpath.KnotCount != 0)
                     paths.Add(cSubpath);
-                if (oSubpath.Size() != 0)
+                if (oSubpath.KnotCount != 0)
                     paths.Add(oSubpath);
 
                 // Extract name (previously appended to end of byte array)
@@ -478,12 +478,12 @@ namespace MetadataExtractor.Formats.Photoshop
                 {
                     str.Append($"\n- {path.Type} with { paths.Count}").Append(paths.Count == 1 ? " knot:" : " knots:");
 
-                    foreach (Knot knot in path.GetKnots())
+                    foreach (Knot knot in path.Knots)
                     {
                         str.Append($"\n  - {knot.Type}");
-                        str.Append($" ({knot.GetPoint(0)},{knot.GetPoint(1)})");
-                        str.Append($" ({knot.GetPoint(2)},{knot.GetPoint(3)})");
-                        str.Append($" ({knot.GetPoint(4)},{knot.GetPoint(5)})");
+                        str.Append($" ({knot[0]},{knot[1]})");
+                        str.Append($" ({knot[2]},{knot[3]})");
+                        str.Append($" ({knot[4]},{knot[5]})");
                     }
                 }
 

@@ -13,7 +13,7 @@ namespace MetadataExtractor.Formats.Photoshop
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     public class Knot
     {
-        private double[] p_points = new double[6];
+        private readonly double[] _points = new double[6];
 
         public Knot(string type)
         {
@@ -21,29 +21,21 @@ namespace MetadataExtractor.Formats.Photoshop
         }
 
         /// <summary>
-        /// Add an individual coordinate value (x or y) to
+        /// Add/Get an individual coordinate value (x or y) to/from
         /// points array (6 points per knot)
-        /// </summary>
-        /// <param name="index">location of point to be added in points</param>
-        /// <param name="point">coordinate value to be added to points</param>
-        public void SetPoint(int index, double point)
-        {
-            p_points[index] = point;
-        }
-
-        /// <summary>
-        /// Get an individual coordinate value (x or y)
         /// </summary>
         /// <param name="index"></param>
         /// <returns>an individual coordinate value</returns>
-        public double GetPoint(int index)
+        /// <remarks>Define the indexer to allow client code to use [] notation</remarks>
+        public double this[int index]
         {
-            return p_points[index];
+            get => _points[index];
+            set => _points[index] = value;
         }
 
         /// <summary>
         /// Get the type of knot (linked or unlinked)
         /// </summary>
-        public string Type { get; private set; }
+        public string Type { get; }
     }
 }
