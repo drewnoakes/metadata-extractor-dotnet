@@ -72,7 +72,7 @@ namespace MetadataExtractor.Formats.Photoshop
                     pos += 2;
 
                     // A variable number of bytes holding a pascal string (two leading bytes for length).
-                    int descriptionLength = reader.GetByte();
+                    var descriptionLength = reader.GetByte();
                     pos += 1;
 
                     // Some basic bounds checking
@@ -81,12 +81,12 @@ namespace MetadataExtractor.Formats.Photoshop
 
                     // Get name (important for paths)
                     var description = new StringBuilder();
-                    descriptionLength += pos;
                     // Loop through each byte and append to string
-                    while (pos < descriptionLength)
+                    while (descriptionLength > 0)
                     {
                         description.Append((char)reader.GetByte());
                         pos++;
+                        descriptionLength--;
                     }
 
                     // The number of bytes is padded with a trailing zero, if needed, to make the size even.
@@ -152,8 +152,8 @@ namespace MetadataExtractor.Formats.Photoshop
                                     else
                                         tagBytes[i] = (byte)description[i - (tagBytes.Length - description.Length - 1)];
                                 }
-                                PhotoshopDirectory.TagNameMap[PhotoshopDirectory.TagClippingPathBlockStart + clippingPathCount] = "Path Info " + clippingPathCount;
-                                directory.Set(PhotoshopDirectory.TagClippingPathBlockStart + clippingPathCount, tagBytes);
+                                PhotoshopDirectory.TagNameMap[PhotoshopDirectory.TagClippingPathBlockStart + clippingPathCount - 1] = "Path Info " + clippingPathCount;
+                                directory.Set(PhotoshopDirectory.TagClippingPathBlockStart + clippingPathCount - 1, tagBytes);
                             }
                             else
                                 directory.Set(tagType, tagBytes);
