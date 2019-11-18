@@ -76,7 +76,7 @@ namespace MetadataExtractor.Formats.Photoshop
                     pos += 1;
 
                     // Some basic bounds checking
-                    if (descriptionLength < 0 || descriptionLength + pos > length)
+                    if (descriptionLength + pos > length)
                         throw new ImageProcessingException("Invalid string length");
 
                     // Get name (important for paths)
