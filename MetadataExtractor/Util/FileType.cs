@@ -48,36 +48,39 @@ namespace MetadataExtractor.Util
         /// <summary>WebP.</summary>
         WebP = 12, //("WebP", "WebP", "image/webp", "webp"),
 
+        /// <summary>Encapsulated PostScript</summary>
+        Eps = 13, //("EPS", "Encapsulated PostScript", "application/postscript", "eps", "epsf", "epsi"),
+
         /// <summary>Sony camera raw.</summary>
-        Arw = 13,
+        Arw = 14,
 
         /// <summary>Canon camera raw (version 1).</summary>
-        Crw = 14,
+        Crw = 15,
 
         /// <summary>Canon camera raw (version 2).</summary>
-        Cr2 = 15,
+        Cr2 = 16,
 
         /// <summary>Nikon camera raw.</summary>
-        Nef = 16,
+        Nef = 17,
 
         /// <summary>Olympus camera raw.</summary>
-        Orf = 17,
+        Orf = 18,
 
         /// <summary>Fujifilm camera raw.</summary>
-        Raf = 18,
+        Raf = 19,
 
         /// <summary>Panasonic camera raw.</summary>
-        Rw2 = 19,
+        Rw2 = 20,
 
         /// <summary>QuickTime (mov) format video.</summary>
-        QuickTime = 20,
+        QuickTime = 21,
 
         /// <summary>Netpbm family of image formats.</summary>
-        Netpbm = 21,
+        Netpbm = 22,
 
         /// <summary>Canon camera raw (version 3).</summary>
         /// <remarks>Shared by CR3 (image) and CRM (video).</remarks>
-        Crx = 22
+        Crx = 23
     }
 
     public static class FileTypeExtensions
@@ -97,6 +100,7 @@ namespace MetadataExtractor.Util
             "WAV",
             "AVI",
             "WebP",
+            "EPS",
             "ARW",
             "CRW",
             "CR2",
@@ -124,6 +128,7 @@ namespace MetadataExtractor.Util
             "Waveform Audio File Format",
             "Audio Video Interleaved",
             "WebP",
+            "Encapsulated PostScript",
             "Sony Camera Raw",
             "Canon Camera Raw",
             "Canon Camera Raw",
@@ -151,6 +156,7 @@ namespace MetadataExtractor.Util
             "audio/vnd.wave",
             "video/vnd.avi",
             "image/webp",
+            "application/postscript",
             null, // Sony RAW
             null,
             null,
@@ -178,6 +184,7 @@ namespace MetadataExtractor.Util
             new[] { "wav", "wave" },
             new[] { "avi" },
             new[] { "webp" },
+            new[] { "eps", "epsf", "epsi" },
             new[] { "arw" },
             new[] { "crw" },
             new[] { "cr2" },

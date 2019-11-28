@@ -2,7 +2,9 @@
 
 using System.Collections.Generic;
 using System.IO;
+using MetadataExtractor.Formats.Avi;
 using MetadataExtractor.Formats.Bmp;
+using MetadataExtractor.Formats.Eps;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.FileType;
 using MetadataExtractor.Formats.Gif;
@@ -15,9 +17,8 @@ using MetadataExtractor.Formats.Png;
 using MetadataExtractor.Formats.QuickTime;
 using MetadataExtractor.Formats.Raf;
 using MetadataExtractor.Formats.Tiff;
-using MetadataExtractor.Formats.WebP;
-using MetadataExtractor.Formats.Avi;
 using MetadataExtractor.Formats.Wav;
+using MetadataExtractor.Formats.WebP;
 using MetadataExtractor.Util;
 
 #if NET35
@@ -102,6 +103,8 @@ namespace MetadataExtractor
                     return Append(WavMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Raf:
                     return Append(RafMetadataReader.ReadMetadata(stream), fileTypeDirectory);
+                case FileType.Eps:
+                    return Append(EpsMetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.QuickTime:
                 case FileType.Crx:
                     return Append(QuickTimeMetadataReader.ReadMetadata(stream), fileTypeDirectory);
