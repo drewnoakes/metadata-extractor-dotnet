@@ -42,6 +42,8 @@ namespace MetadataExtractor.Util
             { FileType.Pcx, new byte[] { 0x0A, 0x02, 0x01 } },
             { FileType.Pcx, new byte[] { 0x0A, 0x03, 0x01 } },
             { FileType.Pcx, new byte[] { 0x0A, 0x05, 0x01 } },
+            { FileType.Eps, Encoding.UTF8.GetBytes("%!PS") },
+            { FileType.Eps, new byte[] { 0xC5, 0xD0, 0xD3, 0xC6 } },
             { FileType.Arw, Encoding.UTF8.GetBytes("II"), new byte[] { 0x2a, 0x00, 0x08, 0x00 } },
             { FileType.Crw, Encoding.UTF8.GetBytes("II"), new byte[] { 0x1a, 0x00, 0x00, 0x00 }, Encoding.UTF8.GetBytes("HEAPCCDR") },
             { FileType.Cr2, Encoding.UTF8.GetBytes("II"), new byte[] { 0x2a, 0x00, 0x10, 0x00, 0x00, 0x00, 0x43, 0x52 } },
