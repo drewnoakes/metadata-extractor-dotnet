@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Xmp;
@@ -26,7 +25,7 @@ namespace MetadataExtractor.Formats.Photoshop
         private const int TagTImageSourceData = 0x935C;
         private const int TagTAnnotations = 0xC44F;
 
-        public PhotoshopTiffHandler([NotNull] List<Directory> directories)
+        public PhotoshopTiffHandler(List<Directory> directories)
             : base(directories)
         {
         }

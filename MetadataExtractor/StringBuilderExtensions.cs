@@ -9,7 +9,7 @@ namespace MetadataExtractor
     /// Adapted from http://developer.classpath.org/doc/java/lang/StringBuilder-source.html
     /// </remarks>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
-    public static class StringBuilderExtensions
+    internal static class StringBuilderExtensions
     {
         /// <summary>
         /// Finds the first instance of a substring in this StringBuilder.
@@ -23,8 +23,8 @@ namespace MetadataExtractor
 
         /// <summary>
         /// Finds the first instance of a String in this StringBuilder, starting at
-        /// a given index.If starting index is less than 0, the search starts at
-        /// the beginning of this String.If the starting index is greater than the
+        /// a given index. If starting index is less than 0, the search starts at
+        /// the beginning of this String. If the starting index is greater than the
         /// length of this String, or the substring is not found, -1 is returned.
         /// </summary>
         /// <param name="str">String to find</param>

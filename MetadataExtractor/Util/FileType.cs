@@ -48,39 +48,39 @@ namespace MetadataExtractor.Util
         /// <summary>WebP.</summary>
         WebP = 12, //("WebP", "WebP", "image/webp", "webp"),
 
-        /// <summary>Encapsulated PostScript</summary>
-        Eps = 13, //("EPS", "Encapsulated PostScript", "application/postscript", "eps", "epsf", "epsi"),
-
         /// <summary>Sony camera raw.</summary>
-        Arw = 14,
+        Arw = 13,
 
         /// <summary>Canon camera raw (version 1).</summary>
-        Crw = 15,
+        Crw = 14,
 
         /// <summary>Canon camera raw (version 2).</summary>
-        Cr2 = 16,
+        Cr2 = 15,
 
         /// <summary>Nikon camera raw.</summary>
-        Nef = 17,
+        Nef = 16,
 
         /// <summary>Olympus camera raw.</summary>
-        Orf = 18,
+        Orf = 17,
 
         /// <summary>Fujifilm camera raw.</summary>
-        Raf = 19,
+        Raf = 18,
 
         /// <summary>Panasonic camera raw.</summary>
-        Rw2 = 20,
+        Rw2 = 19,
 
         /// <summary>QuickTime (mov) format video.</summary>
-        QuickTime = 21,
+        QuickTime = 20,
 
         /// <summary>Netpbm family of image formats.</summary>
-        Netpbm = 22,
+        Netpbm = 21,
 
         /// <summary>Canon camera raw (version 3).</summary>
         /// <remarks>Shared by CR3 (image) and CRM (video).</remarks>
-        Crx = 23
+        Crx = 22,
+
+        /// <summary>Encapsulated PostScript</summary>
+        Eps = 23 //("EPS", "Encapsulated PostScript", "application/postscript", "eps", "epsf", "epsi"),
     }
 
     public static class FileTypeExtensions
@@ -100,7 +100,6 @@ namespace MetadataExtractor.Util
             "WAV",
             "AVI",
             "WebP",
-            "EPS",
             "ARW",
             "CRW",
             "CR2",
@@ -110,7 +109,8 @@ namespace MetadataExtractor.Util
             "RW2",
             "QuickTime",
             "Netpbm",
-            "CRX"
+            "CRX",
+            "EPS"
         };
         
         private static readonly string[] _longNames =
@@ -128,7 +128,6 @@ namespace MetadataExtractor.Util
             "Waveform Audio File Format",
             "Audio Video Interleaved",
             "WebP",
-            "Encapsulated PostScript",
             "Sony Camera Raw",
             "Canon Camera Raw",
             "Canon Camera Raw",
@@ -138,7 +137,8 @@ namespace MetadataExtractor.Util
             "Panasonic Camera Raw",
             "QuickTime",
             "Netpbm",
-            "Canon Camera Raw"
+            "Canon Camera Raw",
+            "Encapsulated PostScript"
         };
 
         private static readonly string?[] _mimeTypes =
@@ -156,7 +156,6 @@ namespace MetadataExtractor.Util
             "audio/vnd.wave",
             "video/vnd.avi",
             "image/webp",
-            "application/postscript",
             null, // Sony RAW
             null,
             null,
@@ -166,7 +165,8 @@ namespace MetadataExtractor.Util
             null,
             "video/quicktime",
             "image/x-portable-graymap",
-            null
+            null,
+            "application/postscript"
         };
 
         private static readonly string[]?[] _extensions =
@@ -184,7 +184,6 @@ namespace MetadataExtractor.Util
             new[] { "wav", "wave" },
             new[] { "avi" },
             new[] { "webp" },
-            new[] { "eps", "epsf", "epsi" },
             new[] { "arw" },
             new[] { "crw" },
             new[] { "cr2" },
@@ -194,7 +193,8 @@ namespace MetadataExtractor.Util
             new[] { "rw2" },
             new[] { "mov" },
             new[] { "pbm", "ppm" },
-            new[] { "cr3", "crm" }
+            new[] { "cr3", "crm" },
+            new[] { "eps", "epsf", "epsi" }
         };
         
         public static string GetName(this FileType fileType)

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.Photoshop;
 using MetadataExtractor.Formats.Tiff;
@@ -31,7 +30,7 @@ namespace MetadataExtractor.Formats.Eps
     /// </list>
     /// EPS comments are retrieved from EPS directory.  Photoshop, ICC Profile, and XMP processing
     /// is passed to their respective reader.
-    /// 
+    /// <para />
     /// EPS Constraints (Source: https://www-cdf.fnal.gov/offline/PostScript/5001.PDF pg.18):
     /// <list type = "bullet" >
     ///   <item>Max line length is 255 characters</item>
@@ -116,7 +115,7 @@ namespace MetadataExtractor.Formats.Eps
         /// <param name="directory"></param>
         /// <param name="directories">list to add directory to and extracted data</param>
         /// <param name="reader"></param>
-        private void Extract([NotNull] EpsDirectory directory, List<Directory> directories, [NotNull] SequentialReader reader)
+        private void Extract(EpsDirectory directory, List<Directory> directories, SequentialReader reader)
         {
             var line = new StringBuilder();
 
@@ -169,7 +168,7 @@ namespace MetadataExtractor.Formats.Eps
         /// <param name="directory">EpsDirectory to add extracted data to</param>
         /// <param name="name">String that holds name of current comment</param>
         /// <param name="value">String that holds value of current comment</param>
-        private void AddToDirectory([NotNull] EpsDirectory directory, string name, string value)
+        private void AddToDirectory(EpsDirectory directory, string name, string value)
         {
             if (!EpsDirectory._tagIntegerMap.ContainsKey(name))
                 return;
@@ -200,7 +199,7 @@ namespace MetadataExtractor.Formats.Eps
         /// Parses '%ImageData' comment which holds several values including width in px,
         /// height in px and color type.
         /// </summary>
-        private static void ExtractImageData([NotNull] EpsDirectory directory, string imageData)
+        private static void ExtractImageData(EpsDirectory directory, string imageData)
         {
             // %ImageData: 1000 1000 8 3 1 1000 7 "beginimage"
             directory.Set(EpsDirectory.TagImageData, imageData.Trim());
@@ -221,13 +220,14 @@ namespace MetadataExtractor.Formats.Eps
 
             if (!directory.ContainsTag(EpsDirectory.TagRamSize))
             {
-                int bytesPerPixel = 0;
-                if (colorType == 1)
-                    bytesPerPixel = 1; // grayscale
-                else if (colorType == 2 || colorType == 3)
-                    bytesPerPixel = 3; // Lab or RGB
-                else if (colorType == 4)
-                    bytesPerPixel = 3; // CMYK
+                int bytesPerPixel = colorType switch
+                {
+                    1 => 1, // grayscale
+                    2 => 3, // Lab
+                    3 => 3, // RGB
+                    4 => 3, // CMYK
+                    _ => 0
+                };
 
                 if (bytesPerPixel != 0)
                     directory.Set(EpsDirectory.TagRamSize, bytesPerPixel * width * height);
@@ -237,7 +237,7 @@ namespace MetadataExtractor.Formats.Eps
         /// <summary>
         /// Decodes a commented hex section, and uses <see cref="PhotoshopReader"/> to decode the resulting data.
         /// </summary>
-        private static void ExtractPhotoshopData([NotNull] List<Directory> directories, [NotNull] SequentialReader reader)
+        private static void ExtractPhotoshopData(List<Directory> directories, SequentialReader reader)
         {
             var buffer = DecodeHexCommentBlock(reader);
 
@@ -248,7 +248,7 @@ namespace MetadataExtractor.Formats.Eps
         /// <summary>
         /// Decodes a commented hex section, and uses <see cref="IccReader"/> to decode the resulting data.
         /// </summary>
-        private static void ExtractIccData([NotNull] List<Directory> directories, [NotNull] SequentialReader reader)
+        private static void ExtractIccData(List<Directory> directories, SequentialReader reader)
         {
             var buffer = DecodeHexCommentBlock(reader);
 
@@ -259,7 +259,7 @@ namespace MetadataExtractor.Formats.Eps
         /// <summary>
         /// Extracts an XMP xpacket, and uses <see cref="XmpReader"/> to decode the resulting data.
         /// </summary>
-        private static void ExtractXmpData([NotNull] List<Directory> directories, [NotNull] SequentialReader reader)
+        private static void ExtractXmpData(List<Directory> directories, SequentialReader reader)
         {
             byte[] xmp = ReadUntil(reader, Encoding.UTF8.GetBytes("<?xpacket end=\"w\"?>"));
             directories.Add(new XmpReader().Extract(xmp));
@@ -269,7 +269,7 @@ namespace MetadataExtractor.Formats.Eps
         /// Reads all bytes until the given sentinel is observed.
         /// The sentinel will be included in the returned bytes.
         /// </summary>
-        private static byte[] ReadUntil([NotNull] SequentialReader reader, [NotNull] byte[] sentinel)
+        private static byte[] ReadUntil(SequentialReader reader, byte[] sentinel)
         {
             var bytes = new MemoryStream();
 
@@ -325,7 +325,7 @@ namespace MetadataExtractor.Formats.Eps
         /// hex data, not at the introductory line.
         /// </remarks>
         /// <returns>The decoded bytes, or null if decoding failed.</returns>
-        private static byte[]? DecodeHexCommentBlock([NotNull] SequentialReader reader)
+        private static byte[]? DecodeHexCommentBlock(SequentialReader reader)
         {
             var bytes = new MemoryStream();
 
