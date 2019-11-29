@@ -142,7 +142,7 @@ namespace MetadataExtractor.Formats.Eps
 
                 // ':' signifies there is an associated keyword (should be put in directory)
                 // otherwise, the name could be a marker
-                int colonIndex = line.IndexOf(":");
+                int colonIndex = line.IndexOf(':');
                 if (colonIndex != -1)
                 {
                     name = line.ToString(0, colonIndex).Trim();
