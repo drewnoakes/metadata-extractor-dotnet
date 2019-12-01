@@ -7,15 +7,11 @@ namespace MetadataExtractor.Formats.Tga
 {
     /// <summary>Reads TGA image file developer area.</summary>
     /// <author>Dmitry Shechtman</author>
-    internal sealed class TgaDeveloperReader : TgaDirectoryReader<TgaDeveloperDirectory, IndexedReader>
+    internal sealed class TgaDeveloperReader : TgaDirectoryReader<TgaDeveloperDirectory>
     {
-        protected override IndexedReader CreateReader(Stream stream)
+        protected override void Populate(Stream stream, int offset, TgaDeveloperDirectory directory)
         {
-            return new IndexedSeekingReader(stream, isMotorolaByteOrder: false);
-        }
-
-        protected override void Populate(Stream stream, int offset, IndexedReader reader, TgaDeveloperDirectory directory)
-        {
+            var reader = new IndexedSeekingReader(stream, isMotorolaByteOrder: false);
             var pos = stream.Position;
             var tags = new TgaTagReader().Extract(stream);
             stream.Seek(pos - offset, SeekOrigin.Begin);

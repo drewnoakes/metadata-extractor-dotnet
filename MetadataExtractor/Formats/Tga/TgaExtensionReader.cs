@@ -9,17 +9,14 @@ namespace MetadataExtractor.Formats.Tga
 {
     /// <summary>Reads TGA image file extension area.</summary>
     /// <author>Dmitry Shechtman</author>
-    internal sealed class TgaExtensionReader : TgaDirectoryReader<TgaExtensionDirectory, SequentialReader>
+    internal sealed class TgaExtensionReader : TgaDirectoryReader<TgaExtensionDirectory>
     {
         private const int ExtensionSize = 495;
 
-        protected override SequentialReader CreateReader(Stream stream)
+        protected override void Populate(Stream stream, int offset, TgaExtensionDirectory directory)
         {
-            return new SequentialStreamReader(stream, isMotorolaByteOrder: false);
-        }
+            var reader = new SequentialStreamReader(stream, isMotorolaByteOrder: false);
 
-        protected override void Populate(Stream stream, int offset, SequentialReader reader, TgaExtensionDirectory directory)
-        {
             var size = reader.GetUInt16();
             if (size < ExtensionSize)
                 throw new ImageProcessingException("Invalid TGA extension size");

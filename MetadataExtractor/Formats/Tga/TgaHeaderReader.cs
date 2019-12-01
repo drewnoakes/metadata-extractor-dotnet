@@ -8,7 +8,7 @@ namespace MetadataExtractor.Formats.Tga
 {
     /// <summary>Reads TGA image file header.</summary>
     /// <author>Dmitry Shechtman</author>
-    internal sealed class TgaHeaderReader : TgaDirectoryReader<TgaHeaderDirectory, IndexedReader>
+    internal sealed class TgaHeaderReader : TgaDirectoryReader<TgaHeaderDirectory>
     {
         private struct ColormapInfo
         {
@@ -35,13 +35,10 @@ namespace MetadataExtractor.Formats.Tga
             }
         }
 
-        protected override IndexedReader CreateReader(Stream stream)
+        protected override void Populate(Stream stream, int offset, TgaHeaderDirectory directory)
         {
-            return new IndexedSeekingReader(stream, isMotorolaByteOrder: false);
-        }
+            var reader = new IndexedSeekingReader(stream, isMotorolaByteOrder: false);
 
-        protected override void Populate(Stream stream, int offset, IndexedReader reader, TgaHeaderDirectory directory)
-        {
             PopulateHeader(reader, directory, out var idLength, out var colormapInfo);
             if (idLength > 0)
             {

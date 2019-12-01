@@ -5,31 +5,29 @@ using System.IO;
 
 namespace MetadataExtractor.Formats.Tga
 {
-    internal abstract class TgaReader<TData, TReader>
+    internal abstract class TgaReader<T>
     {
-        public TData Extract(Stream stream, int offset = 0, SeekOrigin origin = SeekOrigin.Current)
+        public T Extract(Stream stream, int offset = 0, SeekOrigin origin = SeekOrigin.Current)
         {
             var pos = stream.Position;
             stream.Seek(offset, origin);
-            var reader = CreateReader(stream);
-            var data = Extract(stream, offset, reader);
+            var data = Extract(stream, offset);
             stream.Seek(pos, SeekOrigin.Begin);
             return data;
         }
 
-        protected abstract TReader CreateReader(Stream stream);
-        protected abstract TData Extract(Stream stream, int offset, TReader reader);
+        protected abstract T Extract(Stream stream, int offset);
     }
 
-    internal abstract class TgaDirectoryReader<TDirectory, TReader> : TgaReader<TDirectory, TReader>
+    internal abstract class TgaDirectoryReader<TDirectory> : TgaReader<TDirectory>
         where TDirectory : Directory, new()
     {
-        protected sealed override TDirectory Extract(Stream stream, int offset, TReader reader)
+        protected sealed override TDirectory Extract(Stream stream, int offset)
         {
             var directory = new TDirectory();
             try
             {
-                Populate(stream, offset, reader, directory);
+                Populate(stream, offset, directory);
             }
             catch (Exception ex)
             {
@@ -38,6 +36,6 @@ namespace MetadataExtractor.Formats.Tga
             return directory;
         }
 
-        protected abstract void Populate(Stream stream, int offset, TReader reader, TDirectory directory);
+        protected abstract void Populate(Stream stream, int offset, TDirectory directory);
     }
 }

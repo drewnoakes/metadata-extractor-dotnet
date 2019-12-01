@@ -16,7 +16,7 @@ namespace MetadataExtractor.Formats.Tga
 
     /// <summary>Reads TGA image file footer.</summary>
     /// <author>Dmitry Shechtman</author>
-    internal sealed class TgaFooterReader : TgaReader<TgaFooter, SequentialReader>
+    internal sealed class TgaFooterReader : TgaReader<TgaFooter>
     {
         private const int FooterSize = 26;
 
@@ -36,13 +36,10 @@ namespace MetadataExtractor.Formats.Tga
             return false;
         }
 
-        protected override SequentialReader CreateReader(Stream stream)
+        protected override TgaFooter Extract(Stream stream, int offset)
         {
-            return new SequentialStreamReader(stream, isMotorolaByteOrder: false);
-        }
+            var reader = new SequentialStreamReader(stream, isMotorolaByteOrder: false);
 
-        protected override TgaFooter Extract(Stream stream, int offset, SequentialReader reader)
-        {
             return new TgaFooter
             {
                 ExtOffset = reader.GetInt32(),

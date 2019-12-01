@@ -10,15 +10,11 @@ namespace MetadataExtractor.Formats.Tga
         public int Size;
     }
 
-    internal sealed class TgaTagReader : TgaReader<TgaTagInfo[], SequentialReader>
+    internal sealed class TgaTagReader : TgaReader<TgaTagInfo[]>
     {
-        protected override SequentialReader CreateReader(Stream stream)
+        protected override TgaTagInfo[] Extract(Stream stream, int _)
         {
-            return new SequentialStreamReader(stream, isMotorolaByteOrder: false);
-        }
-
-        protected override TgaTagInfo[] Extract(Stream stream, int _, SequentialReader reader)
-        {
+            var reader = new SequentialStreamReader(stream, isMotorolaByteOrder: false);
             var count = reader.GetUInt16();
             var tags = new TgaTagInfo[count];
             for (int i = 0; i < count; i++)
