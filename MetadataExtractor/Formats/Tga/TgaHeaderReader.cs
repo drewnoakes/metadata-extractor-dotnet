@@ -10,12 +10,20 @@ namespace MetadataExtractor.Formats.Tga
     /// <author>Dmitry Shechtman</author>
     internal sealed class TgaHeaderReader : TgaDirectoryReader<TgaHeaderDirectory>
     {
-        private struct ColormapInfo
+        private readonly struct ColormapInfo
         {
-            public byte Type;
-            public int Origin;
-            public int Length;
-            public int Depth;
+            public byte Type { get; }
+            public int Origin { get; }
+            public int Length { get; }
+            public int Depth { get; }
+
+            public ColormapInfo(byte type, int origin, int length, int depth)
+            {
+                Type = type;
+                Origin = origin;
+                Length = length;
+                Depth = depth;
+            }
         }
 
         public const int HeaderSize = 18;
@@ -120,10 +128,7 @@ namespace MetadataExtractor.Formats.Tga
 
                 ColormapInfo SetColormapNotIncluded()
                 {
-                    var colormap = new ColormapInfo
-                    {
-                        Type = 0
-                    };
+                    var colormap = new ColormapInfo(type: 0, default, default, default);
 
                     directory.Set(TgaHeaderDirectory.TagColormapType, colormap.Type);
 
@@ -132,13 +137,11 @@ namespace MetadataExtractor.Formats.Tga
 
                 ColormapInfo SetColormapIncluded()
                 {
-                    var colormap = new ColormapInfo
-                    {
-                        Type = 1,
-                        Origin = reader.GetInt16(3),
-                        Length = reader.GetInt16(5),
-                        Depth = reader.GetByte(7)
-                    };
+                    var colormap = new ColormapInfo(
+                        type: 1,
+                        origin: reader.GetInt16(3),
+                        length: reader.GetInt16(5),
+                        depth: reader.GetByte(7));
 
                     directory.Set(TgaHeaderDirectory.TagColormapType, colormap.Type);
 

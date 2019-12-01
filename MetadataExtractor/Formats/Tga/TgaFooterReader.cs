@@ -7,11 +7,18 @@ using System.Text;
 
 namespace MetadataExtractor.Formats.Tga
 {
-    internal struct TgaFooter
+    internal readonly struct TgaFooter
     {
-        public int ExtOffset;
-        public int DevOffset;
-        public byte[] Signature;
+        public int ExtOffset { get; }
+        public int DevOffset { get; }
+        public byte[] Signature { get; }
+
+        public TgaFooter(int extOffset, int devOffset, byte[] signature)
+        {
+            ExtOffset = extOffset;
+            DevOffset = devOffset;
+            Signature = signature;
+        }
     }
 
     /// <summary>Reads TGA image file footer.</summary>
@@ -40,12 +47,10 @@ namespace MetadataExtractor.Formats.Tga
         {
             var reader = new SequentialStreamReader(stream, isMotorolaByteOrder: false);
 
-            return new TgaFooter
-            {
-                ExtOffset = reader.GetInt32(),
-                DevOffset = reader.GetInt32(),
-                Signature = reader.GetBytes(FooterSignature.Length)
-            };
+            return new TgaFooter(
+                extOffset: reader.GetInt32(),
+                devOffset: reader.GetInt32(),
+                signature: reader.GetBytes(FooterSignature.Length));
         }
     }
 }
