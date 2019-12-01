@@ -25,12 +25,12 @@ namespace MetadataExtractor.Formats.Tga
             };
         }
 
-        private string? GetColormapTypeDescription()
+        public string? GetColormapTypeDescription()
         {
             return GetIndexedDescription(TgaHeaderDirectory.TagColormapType, "No color map data included", "Color map data included");
         }
 
-        private string? GetDataTypeDescription()
+        public string? GetDataTypeDescription()
         {
             if (!Directory.TryGetByte(TgaHeaderDirectory.TagDataType, out var value))
                 return null;
@@ -46,7 +46,7 @@ namespace MetadataExtractor.Formats.Tga
             };
         }
 
-        private string? GetHorizontalOrderDescription()
+        public string? GetHorizontalOrderDescription()
         {
             return GetBooleanDescription(
                 TgaHeaderDirectory.TagHorizontalOrder,
@@ -54,7 +54,7 @@ namespace MetadataExtractor.Formats.Tga
                 falseValue: "Left to right");
         }
 
-        private string? GetVerticalOrderDescription()
+        public string? GetVerticalOrderDescription()
         {
             return GetBooleanDescription(
                 TgaHeaderDirectory.TagVerticalOrder,

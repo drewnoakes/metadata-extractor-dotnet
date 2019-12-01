@@ -22,7 +22,7 @@ namespace MetadataExtractor.Formats.Tga
             };
         }
 
-        private string? GetAttributesTypeDescription()
+        public string? GetAttributesTypeDescription()
         {
             return GetIndexedDescription(
                 TgaExtensionDirectory.TagAttributesType,
