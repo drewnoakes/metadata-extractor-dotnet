@@ -24,7 +24,13 @@ namespace MetadataExtractor.Formats.Tga
 
         private string? GetAttributesTypeDescription()
         {
-            return GetIndexedDescription(TgaExtensionDirectory.TagAttributesType, "No alpha data included", "Undefined alpha data; ignore", "Undefined alpha data; retain", "Useful alpha data", "Pre-multiplied alpha data");
+            return GetIndexedDescription(
+                TgaExtensionDirectory.TagAttributesType,
+                "No alpha data included",
+                "Undefined alpha data; ignore",
+                "Undefined alpha data; retain",
+                "Useful alpha data",
+                "Pre-multiplied alpha data");
         }
     }
 }

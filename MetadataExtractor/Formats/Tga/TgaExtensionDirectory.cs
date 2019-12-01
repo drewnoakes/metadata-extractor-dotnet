@@ -23,7 +23,7 @@ namespace MetadataExtractor.Formats.Tga
         public const int TagScanLineOffset = 13;
         public const int TagAttributesType = 14;
 
-        private static readonly string[] _tagNames = new[]
+        private static readonly string[] _tagNames =
         {
             "Author Name",
             "Comments",
