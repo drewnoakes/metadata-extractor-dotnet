@@ -78,9 +78,11 @@ namespace MetadataExtractor.Util
         /// <summary>Canon camera raw (version 3).</summary>
         /// <remarks>Shared by CR3 (image) and CRM (video).</remarks>
         Crx = 22,
+        /// <summary>Encapsulated PostScript</summary>
+        Eps = 23, //("EPS", "Encapsulated PostScript", "application/postscript", "eps", "epsf", "epsi"),
 
         /// <summary>Truevision graphics.</summary>
-        Tga = 23
+        Tga = 24
     }
 
     public static class FileTypeExtensions
@@ -110,6 +112,7 @@ namespace MetadataExtractor.Util
             "QuickTime",
             "Netpbm",
             "CRX",
+            "EPS",
             "TGA"
         };
         
@@ -138,6 +141,7 @@ namespace MetadataExtractor.Util
             "QuickTime",
             "Netpbm",
             "Canon Camera Raw",
+            "Encapsulated PostScript",
             "Truevision Graphics"
         };
 
@@ -166,6 +170,7 @@ namespace MetadataExtractor.Util
             "video/quicktime",
             "image/x-portable-graymap",
             null,
+            "application/postscript",
             "image/x-targa"
         };
 
@@ -194,6 +199,7 @@ namespace MetadataExtractor.Util
             new[] { "mov" },
             new[] { "pbm", "ppm" },
             new[] { "cr3", "crm" },
+            new[] { "eps", "epsf", "epsi" },
             new[] { "tga", "icb", "vda", "vst" }
         };
         

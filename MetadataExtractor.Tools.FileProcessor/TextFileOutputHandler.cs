@@ -22,11 +22,12 @@ namespace MetadataExtractor.Tools.FileProcessor
     internal class TextFileOutputHandler : FileHandlerBase
     {
         private static readonly string NEW_LINE = "\n";
+        private static readonly string subdir = @"metadata\dotnet";
 
         public override void OnStartingDirectory(string directoryPath)
         {
             base.OnStartingDirectory(directoryPath);
-            System.IO.Directory.Delete(Path.Combine(directoryPath, @"metadata\dotnet"), recursive: true);
+            System.IO.Directory.Delete(Path.Combine(directoryPath, subdir), recursive: true);
         }
 
         public override void OnBeforeExtraction(string filePath, string relativePath, TextWriter log)
@@ -159,9 +160,7 @@ namespace MetadataExtractor.Tools.FileProcessor
         {
             var directoryPath = Path.GetDirectoryName(filePath);
             Debug.Assert(directoryPath != null);
-            var metadataPath = Path.Combine(
-                Path.Combine(directoryPath, "metadata"),
-                "dotnet");
+            var metadataPath = Path.Combine(directoryPath, subdir);
             var fileName = Path.GetFileName(filePath);
 
             // Create the output directory if it doesn't exist
