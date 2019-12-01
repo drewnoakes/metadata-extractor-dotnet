@@ -19,9 +19,8 @@ namespace MetadataExtractor.Formats.Tga
             var pos = stream.Position;
             var tags = new TgaTagReader().Extract(stream);
             stream.Seek(pos - offset, SeekOrigin.Begin);
-            for (int i = 0; i < tags.Length; i++)
+            foreach (var tag in tags)
             {
-                var tag = tags[i];
                 var bytes = reader.GetBytes(tag.Offset, tag.Size);
                 directory.Set(tag.Id, bytes);
             }
