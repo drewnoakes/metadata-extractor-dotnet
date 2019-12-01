@@ -84,11 +84,13 @@ namespace MetadataExtractor.Formats.Photoshop
                 // IMAGE RESOURCES SECTION
 
                 var imageResourcesSectionLength = reader.GetUInt32();
-                Debug.Assert(imageResourcesSectionLength <= int.MaxValue);
+                if (imageResourcesSectionLength > int.MaxValue)
+                    throw new IOException("Invalid resource section length.");
                 photoshopDirectories = new PhotoshopReader().Extract(reader, (int)imageResourcesSectionLength);
             }
             catch (IOException)
             {
+                directory.AddError("Unable to read PSD image resources");
             }
 
             var directories = new List<Directory> { directory };
