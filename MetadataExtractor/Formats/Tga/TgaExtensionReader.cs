@@ -20,31 +20,31 @@ namespace MetadataExtractor.Formats.Tga
             var size = reader.GetUInt16();
             if (size < ExtensionSize)
                 throw new ImageProcessingException("Invalid TGA extension size");
-            var authorName = GetString(reader, 41);
+            var authorName = GetString(41);
             if (authorName.Length > 0)
                 directory.Set(TgaExtensionDirectory.TagAuthorName, authorName);
-            var comments = GetString(reader, 324);
+            var comments = GetString(324);
             if (comments.Length > 0)
                 directory.Set(TgaExtensionDirectory.TagComments, comments);
-            if (TryGetDateTime(reader, out var dateTime))
+            if (TryGetDateTime(out var dateTime))
                 directory.Set(TgaExtensionDirectory.TagDateTime, dateTime);
-            var jobName = GetString(reader, 41);
+            var jobName = GetString(41);
             if (jobName.Length > 0)
                 directory.Set(TgaExtensionDirectory.TagJobName, jobName);
-            if (TryGetTimeSpan(reader, out var jobTime))
+            if (TryGetTimeSpan(out var jobTime))
                 directory.Set(TgaExtensionDirectory.TagJobTime, jobTime);
-            var softwareName = GetString(reader, 41);
+            var softwareName = GetString(41);
             if (softwareName.Length > 0)
                 directory.Set(TgaExtensionDirectory.TagSoftwareName, softwareName);
-            var softwareVersion = GetSoftwareVersion(reader, softwareName);
+            var softwareVersion = GetSoftwareVersion(softwareName);
             if (softwareVersion.Length > 0)
                 directory.Set(TgaExtensionDirectory.TagSoftwareVersion, softwareVersion);
             var keyColor = reader.GetUInt32();
             if (keyColor != 0)
                 directory.Set(TgaExtensionDirectory.TagKeyColor, keyColor);
-            if (TryGetRational(reader, out var aspectRatio))
+            if (TryGetRational(out var aspectRatio))
                 directory.Set(TgaExtensionDirectory.TagAspectRatio, aspectRatio);
-            if (TryGetRational(reader, out var gamma))
+            if (TryGetRational(out var gamma))
                 directory.Set(TgaExtensionDirectory.TagGamma, gamma);
             var colorCorrectionOffset = reader.GetInt32();
             if (colorCorrectionOffset != 0)
@@ -57,76 +57,76 @@ namespace MetadataExtractor.Formats.Tga
                 directory.Set(TgaExtensionDirectory.TagScanLineOffset, scanLineOffset);
             var attributesType = reader.GetByte();
             directory.Set(TgaExtensionDirectory.TagAttributesType, attributesType);
-        }
 
-        private static string GetString(SequentialReader reader, int length)
-        {
-            var buffer = new byte[length];
-            reader.GetBytes(buffer, 0, length);
-            int i = 0;
-            while (i < buffer.Length && buffer[i] != '\0')
-                ++i;
-            return Encoding.ASCII.GetString(buffer, 0, i).TrimEnd();
-        }
-
-        private static bool TryGetDateTime(SequentialReader reader, out DateTime dateTime)
-        {
-            var month = reader.GetInt16();
-            var day = reader.GetInt16();
-            var year = reader.GetInt16();
-            var hour = reader.GetInt16();
-            var minute = reader.GetInt16();
-            var second = reader.GetInt16();
-            if (month == 0 && day == 0 && year == 0)
+            string GetString(int length)
             {
-                dateTime = DateTime.MinValue;
-                return false;
+                var buffer = new byte[length];
+                reader.GetBytes(buffer, 0, length);
+                int i = 0;
+                while (i < buffer.Length && buffer[i] != '\0')
+                    ++i;
+                return Encoding.ASCII.GetString(buffer, 0, i).TrimEnd();
             }
-            dateTime = new DateTime(year, month, day, hour, minute, second);
-            return true;
-        }
 
-        private static bool TryGetTimeSpan(SequentialReader reader, out TimeSpan timeSpan)
-        {
-            var hours = reader.GetInt16();
-            var minutes = reader.GetInt16();
-            var seconds = reader.GetInt16();
-            if (hours == 0 && minutes == 0 && seconds == 0)
+            bool TryGetDateTime(out DateTime dateTime)
             {
-                timeSpan = TimeSpan.Zero;
-                return false;
+                var month = reader.GetInt16();
+                var day = reader.GetInt16();
+                var year = reader.GetInt16();
+                var hour = reader.GetInt16();
+                var minute = reader.GetInt16();
+                var second = reader.GetInt16();
+                if (month == 0 && day == 0 && year == 0)
+                {
+                    dateTime = DateTime.MinValue;
+                    return false;
+                }
+                dateTime = new DateTime(year, month, day, hour, minute, second);
+                return true;
             }
-            timeSpan = new TimeSpan(hours, minutes, seconds);
-            return true;
-        }
 
-        private static string GetSoftwareVersion(SequentialReader reader, string softwareName)
-        {
-            var number = reader.GetUInt16();
-            var letter = reader.GetByte();
-            if (number == 0)
-                return string.Empty;
-            var sb = new StringBuilder();
-            var denom = softwareName != "Paint Shop Pro" ? 100 : 0x100;
-            sb.Append(number / denom);
-            sb.Append('.');
-            sb.Append(number % denom);
-            if (letter != 0 && letter != 0x20)
-                sb.Append((char)letter);
-            return sb.ToString();
-        }
-
-        private static bool TryGetRational(SequentialReader reader, out Rational value)
-        {
-            var num = reader.GetUInt16();
-            var denom = reader.GetUInt16();
-            if (denom == 0)
+            bool TryGetTimeSpan(out TimeSpan timeSpan)
             {
-                value = default;
-                return false;
+                var hours = reader.GetInt16();
+                var minutes = reader.GetInt16();
+                var seconds = reader.GetInt16();
+                if (hours == 0 && minutes == 0 && seconds == 0)
+                {
+                    timeSpan = TimeSpan.Zero;
+                    return false;
+                }
+                timeSpan = new TimeSpan(hours, minutes, seconds);
+                return true;
             }
-            value = new Rational(num, denom);
-            return true;
+
+            string GetSoftwareVersion(string softwareName)
+            {
+                var number = reader.GetUInt16();
+                var letter = reader.GetByte();
+                if (number == 0)
+                    return string.Empty;
+                var sb = new StringBuilder();
+                var denom = softwareName != "Paint Shop Pro" ? 100 : 0x100;
+                sb.Append(number / denom);
+                sb.Append('.');
+                sb.Append(number % denom);
+                if (letter != 0 && letter != 0x20)
+                    sb.Append((char)letter);
+                return sb.ToString();
+            }
+
+            bool TryGetRational(out Rational value)
+            {
+                var num = reader.GetUInt16();
+                var denom = reader.GetUInt16();
+                if (denom == 0)
+                {
+                    value = default;
+                    return false;
+                }
+                value = new Rational(num, denom);
+                return true;
+            }
         }
     }
 }
