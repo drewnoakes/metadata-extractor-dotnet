@@ -96,15 +96,8 @@ namespace MetadataExtractor.Formats.Tga
 
         private static void SetGeometry(IndexedReader reader, TgaHeaderDirectory directory)
         {
-            var xOrigin = reader.GetUInt16(8);
-            if (xOrigin < 0)
-                throw new ImageProcessingException("Invalid TGA X-origin");
-            directory.Set(TgaHeaderDirectory.TagXOrigin, xOrigin);
-
-            var yOrigin = reader.GetUInt16(10);
-            if (yOrigin < 0)
-                throw new ImageProcessingException("Invalid TGA Y-origin");
-            directory.Set(TgaHeaderDirectory.TagYOrigin, yOrigin);
+            directory.Set(TgaHeaderDirectory.TagXOrigin, reader.GetUInt16(8));
+            directory.Set(TgaHeaderDirectory.TagYOrigin, reader.GetUInt16(10));
 
             var width = reader.GetInt16(12);
             if (width <= 0)
