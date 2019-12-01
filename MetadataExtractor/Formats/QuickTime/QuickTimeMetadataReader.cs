@@ -204,12 +204,10 @@ namespace MetadataExtractor.Formats.QuickTime
                         directory.Set(QuickTimeFileTypeDirectory.TagMinorVersion, a.Reader.GetUInt32());
                         var compatibleBrands = new List<string>();
                         while (a.BytesLeft >= 4)
+                        {
                             compatibleBrands.Add(a.Reader.Get4ccString());
-#if NET35
-                        directory.Set(QuickTimeFileTypeDirectory.TagCompatibleBrands, string.Join(", ", compatibleBrands.ToArray()));
-#else
-                        directory.Set(QuickTimeFileTypeDirectory.TagCompatibleBrands, string.Join(", ", compatibleBrands));
-#endif
+                        }
+                        directory.Set(QuickTimeFileTypeDirectory.TagCompatibleBrands, compatibleBrands.ToArray());
                         directories.Add(directory);
                         break;
                     }

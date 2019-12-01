@@ -23,7 +23,7 @@ namespace MetadataExtractor.Formats.QuickTime
 
         public QuickTimeFileTypeDirectory()
         {
-            SetDescriptor(new TagDescriptor<QuickTimeFileTypeDirectory>(this));
+            SetDescriptor(new QuickTimeFileTypeDescriptor(this));
         }
 
         protected override bool TryGetTagName(int tagType, out string tagName)
