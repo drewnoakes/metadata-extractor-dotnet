@@ -122,6 +122,17 @@ namespace MetadataExtractor
         }
 
         [Pure]
+        protected string? GetBooleanDescription(int tagType, string trueValue, string falseValue)
+        {
+            if (!Directory.TryGetBoolean(tagType, out var value))
+                return null;
+
+            return value
+                ? trueValue
+                : falseValue;
+        }
+
+        [Pure]
         protected string? GetByteLengthDescription(int tagType)
         {
             var bytes = Directory.GetByteArray(tagType);

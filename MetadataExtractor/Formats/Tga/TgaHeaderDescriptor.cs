@@ -48,20 +48,18 @@ namespace MetadataExtractor.Formats.Tga
 
         private string? GetHorizontalOrderDescription()
         {
-            if (!Directory.TryGetBoolean(TgaHeaderDirectory.TagHorizontalOrder, out var value))
-                return null;
-            return value
-                ? "Right to left"
-                : "Left to right";
+            return GetBooleanDescription(
+                TgaHeaderDirectory.TagHorizontalOrder,
+                trueValue: "Right to left",
+                falseValue: "Left to right");
         }
 
         private string? GetVerticalOrderDescription()
         {
-            if (!Directory.TryGetBoolean(TgaHeaderDirectory.TagVerticalOrder, out var value))
-                return null;
-            return value
-                ? "Top to bottom"
-                : "Bottom to top";
+            return GetBooleanDescription(
+                TgaHeaderDirectory.TagVerticalOrder,
+                trueValue: "Top to bottom",
+                falseValue: "Bottom to top");
         }
     }
 }
