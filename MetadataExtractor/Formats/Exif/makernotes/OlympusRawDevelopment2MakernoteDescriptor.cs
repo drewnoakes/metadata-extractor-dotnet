@@ -72,8 +72,12 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
             if ((v        & 1) != 0) sb.Append("Noise Reduction, ");
             if (((v >> 1) & 1) != 0) sb.Append("Noise Filter, ");
             if (((v >> 2) & 1) != 0) sb.Append("Noise Filter (ISO Boost), ");
+            if (((v >> 3) & 1) != 0) sb.Append("Noise Filter (Auto), ");
 
-            return sb.ToString(0, sb.Length - 2);
+            if (sb.Length > 2)
+                sb.Length -= 2;
+
+            return sb.ToString();
         }
 
         public string? GetRawDevEngineDescription()
