@@ -4,6 +4,7 @@ bin/
 obj/
 _ReSharper*/
 .idea/
+artifacts/
 *.suo
 *.user
 *.ReSharper
