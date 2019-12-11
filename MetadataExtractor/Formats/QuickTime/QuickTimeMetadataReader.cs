@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Exif.Makernotes;
 using MetadataExtractor.Formats.Tiff;
@@ -21,6 +22,9 @@ namespace MetadataExtractor.Formats.QuickTime
     public static class QuickTimeMetadataReader
     {
         private static readonly DateTime _epoch = new DateTime(1904, 1, 1);
+
+        private static uint entryCount = 0;
+        private static readonly List<string> metaDataKeys = new List<string>();
 
         public static DirectoryList ReadMetadata(Stream stream)
         {
@@ -113,6 +117,62 @@ namespace MetadataExtractor.Formats.QuickTime
                 }
             }
 
+            void MetaDataHandler(AtomCallbackArgs a)
+            {
+                // see https://developer.apple.com/library/archive/documentation/QuickTime/QTFF/Metadata/Metadata.html
+                switch (a.TypeString)
+                {
+                    case "keys":
+                    {
+                        var version = a.Reader.GetByte();
+                        var flags = a.Reader.GetBytes(3);
+                        entryCount = a.Reader.GetUInt32();
+                        for (int i = 1; i <= entryCount; i++)
+                        {
+                            var keySize = a.Reader.GetUInt32();
+                            var keyValueSize = (int)keySize - 8;
+                            var keyNamespace = a.Reader.GetUInt32();
+                            var keyValue = a.Reader.GetBytes(keyValueSize);
+                            metaDataKeys.Add(Encoding.UTF8.GetString(keyValue));
+                        }
+                        break;
+                    }
+                    case "ilst":
+                    {
+                        var directory = new QuickTimeMetadataHeaderDirectory();
+                        // Iterate over the list of Metadata Item Atoms.
+                        for (int i = 0; i < entryCount; i++)
+                        {
+                            long atomSize = a.Reader.GetUInt32();
+                            var atomType = a.Reader.GetUInt32();
+
+                            // Indexes into the metadata item keys atom are 1-based (1…entry_count).
+                            // atom type for each metadata item atom should be set equal to the index of the key
+                            var key = metaDataKeys[(int)atomType - 1];
+
+                            // Value Atom
+                            var typeIndicator = a.Reader.GetBytes(4);
+                            var localeIndicator = a.Reader.GetBytes(4);
+
+                            // TODO - check for optional Item_info atom
+                            // TODO - check for optional name atom
+
+                            // Data Atom
+                            var dataTypeIndicator = a.Reader.GetBytes(4);
+                            var dataLocaleIndicator = a.Reader.GetBytes(4);
+                            var data = a.Reader.GetBytes((int)atomSize - 24);
+                            var dataStr = Encoding.UTF8.GetString(data);
+                            if (directory.TryGetTag(key, out int tag))
+                            {
+                                directory.Set(tag, dataStr);
+                            }
+                        }
+                        directories.Add(directory);
+                        break;
+                    }
+                }
+            }
+
             void MoovHandler(AtomCallbackArgs a)
             {
                 switch (a.TypeString)
@@ -156,6 +216,12 @@ namespace MetadataExtractor.Formats.QuickTime
                         QuickTimeReader.ProcessAtoms(stream, TrakHandler, a.BytesLeft);
                         break;
                     }
+                    case "meta":
+                    {
+                        QuickTimeReader.ProcessAtoms(stream, MetaDataHandler, a.BytesLeft);
+                        break;
+                    }
+
 //                    case "clip":
 //                    {
 //                        QuickTimeReader.ProcessAtoms(stream, clipHandler, a.BytesLeft);
