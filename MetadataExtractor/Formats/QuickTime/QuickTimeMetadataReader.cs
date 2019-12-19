@@ -142,10 +142,22 @@ namespace MetadataExtractor.Formats.QuickTime
                         for (int i = 0; i < metaDataKeys.Count; i++)
                         {
                             long atomSize = a.Reader.GetUInt32();
+                            if (atomSize < 24)
+                            {
+                                directory.AddError("Invalid ilist AtomSize");
+                                directories.Add(directory);
+                                break;
+                            }
                             var atomType = a.Reader.GetUInt32();
 
                             // Indexes into the metadata item keys atom are 1-based (1…entry_count).
-                            // atom type for each metadata item atom should be set equal to the index of the key
+                            // atom type for each metadata item atom is the index of the key
+                            if (atomType < 1 || atomType > metaDataKeys.Count)
+                            {
+                                directory.AddError("Invalid ilist AtomType");
+                                directories.Add(directory);
+                                break;
+                            }
                             var key = metaDataKeys[(int)atomType - 1];
 
                             // Value Atom
@@ -164,8 +176,8 @@ namespace MetadataExtractor.Formats.QuickTime
                         }
                         directories.Add(directory);
                         break;
+                    }
                 }
-            }
             }
 
             void MoovHandler(AtomCallbackArgs a)
