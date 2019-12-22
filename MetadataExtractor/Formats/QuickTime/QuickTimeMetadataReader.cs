@@ -145,7 +145,6 @@ namespace MetadataExtractor.Formats.QuickTime
                             if (atomSize < 24)
                             {
                                 directory.AddError("Invalid ilist AtomSize");
-                                directories.Add(directory);
                                 break;
                             }
                             var atomType = a.Reader.GetUInt32();
@@ -155,7 +154,6 @@ namespace MetadataExtractor.Formats.QuickTime
                             if (atomType < 1 || atomType > metaDataKeys.Count)
                             {
                                 directory.AddError("Invalid ilist AtomType");
-                                directories.Add(directory);
                                 break;
                             }
                             var key = metaDataKeys[(int)atomType - 1];
