@@ -177,7 +177,7 @@ namespace MetadataExtractor.Formats.QuickTime
                             var dataLocaleIndicator = a.Reader.GetUInt32();
                             if (dataLocaleIndicator != 0)
                             {
-                                directory.AddError("Unsupported Metadata Locale Indicator: " + dataLocaleIndicator);
+                                directory.AddError($"Unsupported Metadata Locale Indicator: {dataLocaleIndicator} for key: {key}");
                                 a.Reader.Skip(atomSize - 24);
                                 continue;
                             }
