@@ -42,7 +42,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     };
                 case ReconyxHyperFire2MakernoteDirectory.TagSequence:
                     var sequence = Directory.GetInt32Array(tagType);
-                    return sequence != null ? $"{sequence[0]}/{sequence[1]}" : base.GetDescription(tagType);
+                    return sequence != null && sequence.Length > 1 ? $"{sequence[0]}/{sequence[1]}" : base.GetDescription(tagType);
                 case ReconyxHyperFire2MakernoteDirectory.TagEventNumber:
                     return Directory.GetUInt32(tagType).ToString();
                 case ReconyxHyperFire2MakernoteDirectory.TagDateTimeOriginal:
@@ -53,7 +53,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                     return GetIndexedDescription(tagType, "New", "Waxing Crescent", "First Quarter", "Waxing Gibbous", "Full", "Waning Gibbous", "Last Quarter", "Waning Crescent");
                 case ReconyxHyperFire2MakernoteDirectory.TagAmbientTemperatureFahrenheit:
                     return $"{Directory.GetInt16(tagType)}°F";
-                case ReconyxHyperFire2MakernoteDirectory.TagAmbientTemperature:
+                case ReconyxHyperFire2MakernoteDirectory.TagAmbientTemperatureCelcius:
                     return $"{Directory.GetInt16(tagType)}°C";
                 case ReconyxHyperFire2MakernoteDirectory.TagContrast:
                 case ReconyxHyperFire2MakernoteDirectory.TagBrightness:

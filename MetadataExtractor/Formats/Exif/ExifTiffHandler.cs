@@ -960,7 +960,7 @@ namespace MetadataExtractor.Formats.Exif
 
             directory.Set(ReconyxHyperFire2MakernoteDirectory.TagMoonPhase, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagMoonPhase));
             directory.Set(ReconyxHyperFire2MakernoteDirectory.TagAmbientTemperatureFahrenheit, reader.GetInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagAmbientTemperatureFahrenheit));
-            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagAmbientTemperature, reader.GetInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagAmbientTemperature));
+            directory.Set(ReconyxHyperFire2MakernoteDirectory.TagAmbientTemperatureCelcius, reader.GetInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagAmbientTemperatureCelcius));
 
             directory.Set(ReconyxHyperFire2MakernoteDirectory.TagContrast, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagContrast));
             directory.Set(ReconyxHyperFire2MakernoteDirectory.TagBrightness, reader.GetUInt16(makernoteOffset + ReconyxHyperFire2MakernoteDirectory.TagBrightness));

@@ -18,7 +18,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
         public const int TagDayOfWeek = 74;
         public const int TagMoonPhase = 76;
         public const int TagAmbientTemperatureFahrenheit = 78;
-        public const int TagAmbientTemperature = 80;
+        public const int TagAmbientTemperatureCelcius = 80;
         public const int TagContrast = 82;
         public const int TagBrightness = 84;
         public const int TagSharpness = 86;
@@ -48,7 +48,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
              { TagDayOfWeek, "Day Of Week" },
              { TagMoonPhase, "Moon Phase" },
              { TagAmbientTemperatureFahrenheit, "Ambient Temperature Fahrenheit" },
-             { TagAmbientTemperature, "Ambient Temperature" },
+             { TagAmbientTemperatureCelcius, "Ambient Temperature Celcius" },
              { TagContrast, "Contrast" },
              { TagBrightness, "Brightness" },
              { TagSharpness, "Sharpness" },
