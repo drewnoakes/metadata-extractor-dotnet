@@ -27,6 +27,7 @@ namespace MetadataExtractor.Formats.QuickTime
         {
             var directories = new List<Directory>();
             var metaDataKeys = new List<string>();
+            var supportedAtomValueTypes = new List<int> { 1, 13, 14, 23, 27 };
 
             QuickTimeReader.ProcessAtoms(stream, Handler);
 
@@ -145,7 +146,8 @@ namespace MetadataExtractor.Formats.QuickTime
                             if (atomSize < 24)
                             {
                                 directory.AddError("Invalid ilist AtomSize");
-                                break;
+                                a.Reader.Skip(atomSize - 4);
+                                continue;
                             }
                             var atomType = a.Reader.GetUInt32();
 
@@ -154,22 +156,39 @@ namespace MetadataExtractor.Formats.QuickTime
                             if (atomType < 1 || atomType > metaDataKeys.Count)
                             {
                                 directory.AddError("Invalid ilist AtomType");
-                                break;
+                                a.Reader.Skip(atomSize - 8);
+                                continue;
                             }
                             var key = metaDataKeys[(int)atomType - 1];
 
                             // Value Atom
-                            var typeIndicator = a.Reader.GetBytes(4);
-                            var localeIndicator = a.Reader.GetBytes(4);
+                            var typeIndicator = a.Reader.GetUInt32();
+                            var localeIndicator = a.Reader.GetUInt32();
 
                             // Data Atom
-                            var dataTypeIndicator = a.Reader.GetBytes(4);
-                            var dataLocaleIndicator = a.Reader.GetBytes(4);
+                            var dataTypeIndicator = a.Reader.GetUInt32();
+                            if (!supportedAtomValueTypes.Contains((int)dataTypeIndicator))
+                            {
+                                directory.AddError($"Unsupported Metadata Type Indicator: {dataTypeIndicator} for key: {key}");
+                                a.Reader.Skip(atomSize - 20);
+                                continue;
+                            }
+                            // Currently only the Default Country/Locale is supported
+                            var dataLocaleIndicator = a.Reader.GetUInt32();
+                            if (dataLocaleIndicator != 0)
+                            {
+                                directory.AddError("Unsupported Metadata Locale Indicator: " + dataLocaleIndicator);
+                                a.Reader.Skip(atomSize - 24);
+                                continue;
+                            }
                             var data = a.Reader.GetBytes((int)atomSize - 24);
-                            var dataStr = Encoding.UTF8.GetString(data);
                             if (directory.TryGetTag(key, out int tag))
                             {
-                                directory.Set(tag, dataStr);
+                                DecodeData(data, (int)dataTypeIndicator, tag, directory);
+                            }
+                            else
+                            {
+                                directory.AddError($"No Tag for ilist Key {key} found in QuickTimeMetadataHeaderDirectory");
                             }
                         }
                         directories.Add(directory);
@@ -282,6 +301,31 @@ namespace MetadataExtractor.Formats.QuickTime
                         directories.Add(directory);
                         break;
                     }
+                }
+            }
+        }
+
+        private static void DecodeData(byte[] data, int dataTypeIndicator, int tagType, QuickTimeMetadataHeaderDirectory directory)
+        {
+            switch (dataTypeIndicator)
+            {
+                case 1:
+                {
+                    // UTF-8
+                    directory.Set(tagType, new StringValue(data, Encoding.UTF8));
+                    break;
+                }
+            case 13: // JPEG
+            case 14: // PNG
+            case 27: // BMP
+                {
+                    directory.Set(tagType, data);
+                    break;
+                }
+            case 23: // BE Float32 (used for User Rating)
+                {
+                    directory.Set(tagType, BitConverter.ToSingle(BitConverter.IsLittleEndian ? data.Reverse().ToArray() : data, 0));
+                    break;
                 }
             }
         }
