@@ -315,16 +315,17 @@ namespace MetadataExtractor.Formats.QuickTime
                     directory.Set(tagType, new StringValue(data, Encoding.UTF8));
                     break;
                 }
-            case 13: // JPEG
-            case 14: // PNG
-            case 27: // BMP
-                {
-                    directory.Set(tagType, data);
-                    break;
-                }
-            case 23: // BE Float32 (used for User Rating)
+                case 23: // BE Float32 (used for User Rating)
                 {
                     directory.Set(tagType, BitConverter.ToSingle(BitConverter.IsLittleEndian ? data.Reverse().ToArray() : data, 0));
+                    break;
+                }
+                case 13: // JPEG
+                case 14: // PNG
+                case 27: // BMP
+                default:
+                {
+                    directory.Set(tagType, data);
                     break;
                 }
             }

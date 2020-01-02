@@ -41,7 +41,7 @@ namespace MetadataExtractor.Formats.QuickTime
             { TagAuthor,            "Author"},
             { TagComment,           "Comment"},
             { TagCopyright,         "Copyright"},
-            { TagCreationDate,      "Creationdate"},
+            { TagCreationDate,      "Creation Date"},
             { TagDescription,       "Description"},
             { TagDirector,          "Director"},
             { TagTitle,             "Title"},
