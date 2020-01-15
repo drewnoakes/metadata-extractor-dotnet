@@ -10,6 +10,7 @@ using MetadataExtractor.Formats.FileType;
 using MetadataExtractor.Formats.Gif;
 using MetadataExtractor.Formats.Ico;
 using MetadataExtractor.Formats.Jpeg;
+using MetadataExtractor.Formats.Mpeg;
 using MetadataExtractor.Formats.Netpbm;
 using MetadataExtractor.Formats.Pcx;
 using MetadataExtractor.Formats.Photoshop;
@@ -113,6 +114,8 @@ namespace MetadataExtractor
                     return new Directory[] { NetpbmMetadataReader.ReadMetadata(stream), fileTypeDirectory };
                 case FileType.Tga:
                     return Append(TgaMetadataReader.ReadMetadata(stream), fileTypeDirectory);
+                case FileType.Mp3:
+                    return Append(Mp3MetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Unknown:
                     throw new ImageProcessingException("File format could not be determined");
                 case FileType.Riff:
