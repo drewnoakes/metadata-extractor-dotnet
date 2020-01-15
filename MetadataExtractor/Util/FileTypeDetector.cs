@@ -6,6 +6,7 @@ using MetadataExtractor.Formats.Tga;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 // ReSharper disable CommentTypo
@@ -66,6 +67,15 @@ namespace MetadataExtractor.Util
             new TgaTypeChecker(),
         };
 
+        private static readonly int _bytesNeeded;
+
+        static FileTypeDetector()
+        {
+            _bytesNeeded = Math.Max(
+                _root.MaxDepth,
+                _fixedCheckers.Max(checker => checker.ByteCount));
+        }
+
         /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
         /// <exception cref="ArgumentException">Stream does not support seeking.</exception>
         /// <exception cref="IOException">An IO error occurred, or the input stream ended unexpectedly.</exception>
@@ -74,12 +84,7 @@ namespace MetadataExtractor.Util
             if (!stream.CanSeek)
                 throw new ArgumentException("Must support seek", nameof(stream));
 
-            var maxByteCount = _root.MaxDepth;
-            foreach (var fixedChecker in _fixedCheckers)
-                if (fixedChecker.ByteCount > maxByteCount)
-                    maxByteCount = fixedChecker.ByteCount;
-
-            var bytes = new byte[maxByteCount];
+            var bytes = new byte[_bytesNeeded];
             var bytesRead = stream.Read(bytes, 0, bytes.Length);
 
             if (bytesRead == 0)
