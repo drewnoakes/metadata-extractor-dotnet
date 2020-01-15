@@ -82,7 +82,10 @@ namespace MetadataExtractor.Util
         Eps = 23, //("EPS", "Encapsulated PostScript", "application/postscript", "eps", "epsf", "epsi"),
 
         /// <summary>Truevision graphics.</summary>
-        Tga = 24
+        Tga = 24,
+
+        /// <summary>MPEG-1 / MPEG-2 Audio Layer III.</summary>
+        Mp3 = 25
     }
 
     public static class FileTypeExtensions
@@ -113,7 +116,8 @@ namespace MetadataExtractor.Util
             "Netpbm",
             "CRX",
             "EPS",
-            "TGA"
+            "TGA",
+            "MP3"
         };
         
         private static readonly string[] _longNames =
@@ -142,7 +146,8 @@ namespace MetadataExtractor.Util
             "Netpbm",
             "Canon Camera Raw",
             "Encapsulated PostScript",
-            "Truevision Graphics"
+            "Truevision Graphics",
+            "MPEG Audio Layer III"
         };
 
         private static readonly string?[] _mimeTypes =
@@ -171,7 +176,8 @@ namespace MetadataExtractor.Util
             "image/x-portable-graymap",
             null,
             "application/postscript",
-            "image/x-targa"
+            "image/x-targa",
+            "audio/mpeg"
         };
 
         private static readonly string[]?[] _extensions =
@@ -200,7 +206,8 @@ namespace MetadataExtractor.Util
             new[] { "pbm", "ppm" },
             new[] { "cr3", "crm" },
             new[] { "eps", "epsf", "epsi" },
-            new[] { "tga", "icb", "vda", "vst" }
+            new[] { "tga", "icb", "vda", "vst" },
+            new[] { "mp3" }
         };
         
         public static string GetName(this FileType fileType)

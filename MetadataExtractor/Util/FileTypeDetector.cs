@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using MetadataExtractor.Formats.Mpeg;
 using MetadataExtractor.Formats.QuickTime;
 using MetadataExtractor.Formats.Riff;
 using MetadataExtractor.Formats.Tga;
@@ -65,6 +66,7 @@ namespace MetadataExtractor.Util
             new QuickTimeTypeChecker(),
             new RiffTypeChecker(),
             new TgaTypeChecker(),
+            new MpegAudioTypeChecker()
         };
 
         private static readonly int _bytesNeeded;
