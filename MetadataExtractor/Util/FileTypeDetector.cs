@@ -78,7 +78,7 @@ namespace MetadataExtractor.Util
                 _fixedCheckers.Max(checker => checker.ByteCount));
         }
 
-        /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
+        /// <summary>Examines the file's first bytes and estimates the file's type.</summary>
         /// <exception cref="ArgumentException">Stream does not support seeking.</exception>
         /// <exception cref="IOException">An IO error occurred, or the input stream ended unexpectedly.</exception>
         public static FileType DetectFileType(Stream stream)
