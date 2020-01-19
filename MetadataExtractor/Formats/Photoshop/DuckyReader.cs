@@ -67,7 +67,13 @@ namespace MetadataExtractor.Formats.Photoshop
                         case DuckyDirectory.TagCopyright:
                         {
                             reader.Skip(4);
-                            directory.Set(tag, reader.GetString(length - 4, Encoding.BigEndianUnicode));
+                            length -= 4;
+                            if (length < 0)
+                            {
+                                directory.AddError("Unexpected length for a text tag");
+                                return directory;
+                            }
+                            directory.Set(tag, reader.GetString(length, Encoding.BigEndianUnicode));
                             break;
                         }
                         default:
