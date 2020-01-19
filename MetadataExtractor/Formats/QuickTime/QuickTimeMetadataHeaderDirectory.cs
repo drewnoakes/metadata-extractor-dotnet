@@ -28,6 +28,8 @@ namespace MetadataExtractor.Formats.QuickTime
         public const int TagYear = 18;
         public const int TagCollection = 19;
         public const int TagRating = 20;
+        public const int TagMake = 21;
+        public const int TagModel = 22;
 
         public override string Name => "QuickTime Metadata Header";
 
@@ -52,7 +54,9 @@ namespace MetadataExtractor.Formats.QuickTime
             { TagSoftware,          "Software"},
             { TagYear,              "Year"},
             { TagCollection,        "Collection"},
-            { TagRating,            "Rating"}
+            { TagRating,            "Rating"},
+            { TagMake,              "Make"},
+            { TagModel,             "Model"}
         };
 
         private static readonly Dictionary<string, int> _nameTagMap = new Dictionary<string, int>
@@ -76,7 +80,9 @@ namespace MetadataExtractor.Formats.QuickTime
             { "com.apple.quicktime.software",           TagSoftware},
             { "com.apple.quicktime.year",               TagYear},
             { "com.apple.quicktime.collection.user",    TagCollection},
-            { "com.apple.quicktime.rating.user",        TagRating}
+            { "com.apple.quicktime.rating.user",        TagRating},
+            { "com.apple.quicktime.make",               TagMake},
+            { "com.apple.quicktime.model",              TagModel},
         };
 
         public QuickTimeMetadataHeaderDirectory()
