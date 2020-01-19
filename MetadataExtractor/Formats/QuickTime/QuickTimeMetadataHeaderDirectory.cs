@@ -85,7 +85,7 @@ namespace MetadataExtractor.Formats.QuickTime
             SetDescriptor(new TagDescriptor<QuickTimeMetadataHeaderDirectory>(this));
         }
 
-        protected override bool TryGetTagName(int tagType, out string tagName)
+        protected override bool TryGetTagName(int tagType, [NotNullWhen(returnValue: true)] out string? tagName)
         {
             return _tagNameMap.TryGetValue(tagType, out tagName);
         }
