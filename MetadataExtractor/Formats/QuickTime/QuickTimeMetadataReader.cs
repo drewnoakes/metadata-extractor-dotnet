@@ -146,7 +146,7 @@ namespace MetadataExtractor.Formats.QuickTime
                             long atomSize = a.Reader.GetUInt32();
                             if (atomSize < 24)
                             {
-                                directory.AddError("Invalid ilist AtomSize");
+                                directory.AddError("Invalid ilist atom type");
                                 a.Reader.Skip(atomSize - 4);
                                 continue;
                             }
@@ -156,7 +156,7 @@ namespace MetadataExtractor.Formats.QuickTime
                             // atom type for each metadata item atom is the index of the key
                             if (atomType < 1 || atomType > metaDataKeys.Count)
                             {
-                                directory.AddError("Invalid ilist AtomType");
+                                directory.AddError("Invalid ilist atom type");
                                 a.Reader.Skip(atomSize - 8);
                                 continue;
                             }
@@ -170,7 +170,7 @@ namespace MetadataExtractor.Formats.QuickTime
                             var dataTypeIndicator = a.Reader.GetUInt32();
                             if (!_supportedAtomValueTypes.Contains((int)dataTypeIndicator))
                             {
-                                directory.AddError($"Unsupported Metadata Type Indicator: {dataTypeIndicator} for key: {key}");
+                                directory.AddError($"Unsupported type indicator \"{dataTypeIndicator}\" for key \"{key}\"");
                                 a.Reader.Skip(atomSize - 20);
                                 continue;
                             }
@@ -178,7 +178,7 @@ namespace MetadataExtractor.Formats.QuickTime
                             var dataLocaleIndicator = a.Reader.GetUInt32();
                             if (dataLocaleIndicator != 0)
                             {
-                                directory.AddError($"Unsupported Metadata Locale Indicator: {dataLocaleIndicator} for key: {key}");
+                                directory.AddError($"Unsupported locale indicator \"{dataLocaleIndicator}\" for key \"{key}\"");
                                 a.Reader.Skip(atomSize - 24);
                                 continue;
                             }
@@ -189,7 +189,7 @@ namespace MetadataExtractor.Formats.QuickTime
                             }
                             else
                             {
-                                directory.AddError($"No Tag for ilist Key {key} found in QuickTimeMetadataHeaderDirectory");
+                                directory.AddError($"Unsupported ilist key \"{key}\"");
                             }
                         }
                         directories.Add(directory);
