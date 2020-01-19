@@ -12,7 +12,7 @@ namespace MetadataExtractor.Formats.QuickTime
         public const int TagMinorVersion = 2;
         public const int TagCompatibleBrands = 3;
 
-        public override string Name { get; } = "QuickTime File Type";
+        public override string Name => "QuickTime File Type";
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {

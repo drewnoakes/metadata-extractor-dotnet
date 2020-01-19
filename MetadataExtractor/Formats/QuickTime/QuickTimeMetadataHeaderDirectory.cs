@@ -30,8 +30,7 @@ namespace MetadataExtractor.Formats.QuickTime
         public const int TagCollection = 19;
         public const int TagRating = 20;
 
-
-        public override string Name { get; } = "QuickTime Metadata Header";
+        public override string Name => "QuickTime Metadata Header";
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {

@@ -25,7 +25,7 @@ namespace MetadataExtractor.Formats.QuickTime
         public const int TagCurrentTime = 15;
         public const int TagNextTrackId = 16;
 
-        public override string Name { get; } = "QuickTime Movie Header";
+        public override string Name => "QuickTime Movie Header";
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {

@@ -22,7 +22,7 @@ namespace MetadataExtractor.Formats.QuickTime
         public const int TagMatrix = 12;
         public const int TagRotation = 13;
 
-        public override string Name { get; } = "QuickTime Track Header";
+        public override string Name => "QuickTime Track Header";
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
         {
