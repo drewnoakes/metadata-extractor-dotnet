@@ -91,12 +91,12 @@ namespace MetadataExtractor
             {
                 return uint.Parse(ToString());
             }
-            catch(Exception)
+            catch (Exception)
             {
                 ulong val = 0;
                 foreach (var b in Bytes)
                 {
-                    val = val << 8;
+                    val <<= 8;
                     val += b;
                 }
                 return (uint)val;
