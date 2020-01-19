@@ -398,7 +398,7 @@ namespace MetadataExtractor.Formats.Png
                     yield return ReadTextDirectory(keyword, textBytes, chunkType);
                 }
 
-                PngDirectory ReadTextDirectory(string keyword, byte[] textBytes, PngChunkType pngChunkType)
+                static PngDirectory ReadTextDirectory(string keyword, byte[] textBytes, PngChunkType pngChunkType)
                 {
                     var textPairs = new[] { new KeyValuePair(keyword, new StringValue(textBytes, _latin1Encoding)) };
                     var directory = new PngDirectory(pngChunkType);
