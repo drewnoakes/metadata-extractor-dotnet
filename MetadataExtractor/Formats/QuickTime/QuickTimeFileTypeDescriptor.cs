@@ -13,13 +13,11 @@ namespace MetadataExtractor.Formats.QuickTime
 
         public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case QuickTimeFileTypeDirectory.TagCompatibleBrands:
-                    return GetCompatibleBrandsDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                QuickTimeFileTypeDirectory.TagCompatibleBrands => GetCompatibleBrandsDescription(),
+                _ => base.GetDescription(tagType)
+            };
         }
 
         public string? GetCompatibleBrandsDescription()
