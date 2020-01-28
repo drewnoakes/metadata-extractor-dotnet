@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using MetadataExtractor.Formats.Avi;
 using MetadataExtractor.Formats.Bmp;
 using MetadataExtractor.Formats.Eps;
@@ -72,58 +73,42 @@ namespace MetadataExtractor
         {
             var fileType = FileTypeDetector.DetectFileType(stream);
 
-            var fileTypeDirectory = new FileTypeDirectory(fileType);
-            
-            switch (fileType)
+            var directories = new List<Directory>
             {
-                case FileType.Jpeg:
-                    return Append(JpegMetadataReader.ReadMetadata(stream), fileTypeDirectory);
-                case FileType.Tiff:
-                case FileType.Arw:
-                case FileType.Cr2:
-                case FileType.Nef:
-                case FileType.Orf:
-                case FileType.Rw2:
-                    return Append(TiffMetadataReader.ReadMetadata(stream), fileTypeDirectory);
-                case FileType.Psd:
-                    return Append(PsdMetadataReader.ReadMetadata(stream), fileTypeDirectory);
-                case FileType.Png:
-                    return Append(PngMetadataReader.ReadMetadata(stream), fileTypeDirectory);
-                case FileType.Bmp:
-                    return Append(BmpMetadataReader.ReadMetadata(stream), fileTypeDirectory);
-                case FileType.Gif:
-                    return Append(GifMetadataReader.ReadMetadata(stream), fileTypeDirectory);
-                case FileType.Ico:
-                    return Append(IcoMetadataReader.ReadMetadata(stream), fileTypeDirectory);
-                case FileType.Pcx:
-                    return new Directory[] { PcxMetadataReader.ReadMetadata(stream), fileTypeDirectory };
-                case FileType.WebP:
-                    return Append(WebPMetadataReader.ReadMetadata(stream), fileTypeDirectory);
-                case FileType.Avi:
-                    return Append(AviMetadataReader.ReadMetadata(stream), fileTypeDirectory);
-                case FileType.Wav:
-                    return Append(WavMetadataReader.ReadMetadata(stream), fileTypeDirectory);
-                case FileType.Raf:
-                    return Append(RafMetadataReader.ReadMetadata(stream), fileTypeDirectory);
-                case FileType.Eps:
-                    return Append(EpsMetadataReader.ReadMetadata(stream), fileTypeDirectory);
-                case FileType.QuickTime:
-                case FileType.Crx:
-                    return Append(QuickTimeMetadataReader.ReadMetadata(stream), fileTypeDirectory);
-                case FileType.Netpbm:
-                    return new Directory[] { NetpbmMetadataReader.ReadMetadata(stream), fileTypeDirectory };
-                case FileType.Tga:
-                    return Append(TgaMetadataReader.ReadMetadata(stream), fileTypeDirectory);
-                case FileType.Mp3:
-                    return Append(Mp3MetadataReader.ReadMetadata(stream), fileTypeDirectory);
-                case FileType.Unknown:
-                    throw new ImageProcessingException("File format could not be determined");
-                default:
-                    return new[] { fileTypeDirectory };
-            }
+                new FileTypeDirectory(fileType)
+            };
 
-            static DirectoryList Append(IEnumerable<Directory> list, Directory directory) 
-                => new List<Directory>(list) { directory };
+            directories.AddRange(fileType switch
+            {
+                FileType.Arw       => TiffMetadataReader.ReadMetadata(stream),
+                FileType.Avi       => AviMetadataReader.ReadMetadata(stream),
+                FileType.Bmp       => BmpMetadataReader.ReadMetadata(stream),
+                FileType.Crx       => QuickTimeMetadataReader.ReadMetadata(stream),
+                FileType.Cr2       => TiffMetadataReader.ReadMetadata(stream),
+                FileType.Eps       => EpsMetadataReader.ReadMetadata(stream),
+                FileType.Gif       => GifMetadataReader.ReadMetadata(stream),
+                FileType.Ico       => IcoMetadataReader.ReadMetadata(stream),
+                FileType.Jpeg      => JpegMetadataReader.ReadMetadata(stream),
+                FileType.Mp3       => Mp3MetadataReader.ReadMetadata(stream),
+                FileType.Nef       => TiffMetadataReader.ReadMetadata(stream),
+                FileType.Netpbm    => new Directory[] { NetpbmMetadataReader.ReadMetadata(stream) },
+                FileType.Orf       => TiffMetadataReader.ReadMetadata(stream),
+                FileType.Pcx       => new Directory[] { PcxMetadataReader.ReadMetadata(stream) },
+                FileType.Png       => PngMetadataReader.ReadMetadata(stream),
+                FileType.Psd       => PsdMetadataReader.ReadMetadata(stream),
+                FileType.QuickTime => QuickTimeMetadataReader.ReadMetadata(stream),
+                FileType.Raf       => RafMetadataReader.ReadMetadata(stream),
+                FileType.Rw2       => TiffMetadataReader.ReadMetadata(stream),
+                FileType.Tga       => TgaMetadataReader.ReadMetadata(stream),
+                FileType.Tiff      => TiffMetadataReader.ReadMetadata(stream),
+                FileType.Wav       => WavMetadataReader.ReadMetadata(stream),
+                FileType.WebP      => WebPMetadataReader.ReadMetadata(stream),
+
+                FileType.Unknown   => throw new ImageProcessingException("File format could not be determined"),
+                _                  => Enumerable.Empty<Directory>()
+            });
+
+            return directories;
         }
 
         /// <summary>Reads metadata from a file.</summary>
