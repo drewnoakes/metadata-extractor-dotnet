@@ -118,10 +118,8 @@ namespace MetadataExtractor
                     return Append(Mp3MetadataReader.ReadMetadata(stream), fileTypeDirectory);
                 case FileType.Unknown:
                     throw new ImageProcessingException("File format could not be determined");
-                case FileType.Riff:
-                case FileType.Crw:
                 default:
-                    throw new ImageProcessingException("File format is not supported");
+                    return new[] { fileTypeDirectory };
             }
 
             static DirectoryList Append(IEnumerable<Directory> list, Directory directory) 
