@@ -90,6 +90,9 @@ namespace MetadataExtractor.Util
 
         // <summary>High Efficiency Image File Format.</summary>
         Heif = 26,
+
+        /// <summary>MPEG-4 Part 14.</summary>
+        Mp4 = 27
     }
 
     public static class FileTypeExtensions
@@ -122,7 +125,8 @@ namespace MetadataExtractor.Util
             "EPS",
             "TGA",
             "MP3",
-            "HEIC"
+            "HEIC",
+            "MP4"
         };
 
         private static readonly string[] _longNames =
@@ -153,7 +157,8 @@ namespace MetadataExtractor.Util
             "Encapsulated PostScript",
             "Truevision Graphics",
             "MPEG Audio Layer III",
-            "High Efficiency Image File Format"
+            "High Efficiency Image File Format",
+            "MPEG-4 Part 14",
         };
 
         private static readonly string?[] _mimeTypes =
@@ -184,7 +189,8 @@ namespace MetadataExtractor.Util
             "application/postscript",
             "image/x-targa",
             "audio/mpeg",
-            "image/heic"
+            "image/heic",
+            "video/mp4",
         };
 
         private static readonly string[]?[] _extensions =
@@ -215,7 +221,8 @@ namespace MetadataExtractor.Util
             new[] { "eps", "epsf", "epsi" },
             new[] { "tga", "icb", "vda", "vst" },
             new[] { "mp3" },
-            new[] { "heic", "heif", "avci" }
+            new[] { "heic", "heif", "avci" },
+            new[] { "mp4", "m4a", "m4p", "m4b", "m4r", "m4v" }
         };
 
         public static string GetName(this FileType fileType)
