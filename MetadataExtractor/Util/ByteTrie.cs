@@ -43,18 +43,31 @@ namespace MetadataExtractor.Util
         /// calling <see cref="SetDefaultValue"/>.
         /// </remarks>
         [return: MaybeNull]
-        [SuppressMessage("ReSharper", "ParameterTypeCanBeEnumerable.Global")]
-        public T Find(byte[] bytes)
+        public T Find(byte[] bytes) => Find(bytes, 0, bytes.Length);
+
+        /// <summary>Return the most specific value stored for this byte sequence.</summary>
+        /// <remarks>
+        /// If not found, returns <c>null</c> or a default values as specified by
+        /// calling <see cref="SetDefaultValue"/>.
+        /// </remarks>
+        [return: MaybeNull]
+        public T Find(byte[] bytes, int offset, int count)
         {
+            var maxIndex = offset + count;
+            if (maxIndex > bytes.Length)
+                throw new ArgumentOutOfRangeException(nameof(offset), "Offset and length are not in bounds for byte array.");
+
             var node = _root;
             var value = node.Value;
-            foreach (var b in bytes)
+            for (var i = offset; i < maxIndex; i++)
             {
+                var b = bytes[i];
                 if (!node.Children.TryGetValue(b, out node))
                     break;
                 if (node.HasValue)
                     value = node.Value;
             }
+
             return value;
         }
 
