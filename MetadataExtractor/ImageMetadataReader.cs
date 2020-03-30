@@ -73,10 +73,7 @@ namespace MetadataExtractor
         {
             var fileType = FileTypeDetector.DetectFileType(stream);
 
-            var directories = new List<Directory>
-            {
-                new FileTypeDirectory(fileType)
-            };
+            var directories = new List<Directory>();
 
             directories.AddRange(fileType switch
             {
@@ -107,6 +104,8 @@ namespace MetadataExtractor
                 FileType.Unknown   => throw new ImageProcessingException("File format could not be determined"),
                 _                  => Enumerable.Empty<Directory>()
             });
+
+            directories.Add(new FileTypeDirectory(fileType));
 
             return directories;
         }
