@@ -10,6 +10,9 @@ using System.ComponentModel;
 
 namespace MetadataExtractor
 {
+    public readonly struct URational : IConvertible, IEquatable<URational>
+    { }
+
     /// <summary>Immutable type for representing a rational number.</summary>
     /// <remarks>
     /// Underlying values are stored as a numerator and denominator, each of type <see cref="long"/>.

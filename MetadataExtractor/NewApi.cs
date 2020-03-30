@@ -29,15 +29,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Tiff;
 
 namespace MetadataExtractor.NewApi
 {
-    public interface IDirectory : IEnumerable<IEntry>
+    public interface IDirectory : IReadOnlyCollection<IEntry>
     {
         string Name { get; }
-        int Count { get; }
+
         IEnumerable<IDirectory> SubDirectories { get; }
     }
 
@@ -47,14 +46,11 @@ namespace MetadataExtractor.NewApi
 
         private readonly List<TEntry> _entries = new List<TEntry>();
 
-        [NotNull]
         public abstract string Name { get; }
 
-        public int Count
-            => _entries.Count;
+        public int Count => _entries.Count;
 
-        public IEnumerable<IDirectory> SubDirectories
-            => _entries.Select(entry => entry.Value).OfType<IDirectory>();
+        public IEnumerable<IDirectory> SubDirectories => _entries.Select(entry => entry.Value).OfType<IDirectory>();
 
 //        public bool TryGetValue(TKey key, out TEntry entry)
 //        {
@@ -63,11 +59,9 @@ namespace MetadataExtractor.NewApi
 
         #region IEnumerable
 
-        IEnumerator IEnumerable.GetEnumerator()
-            => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public IEnumerator<IEntry> GetEnumerator()
-            => _entries.Cast<IEntry>().GetEnumerator();
+        public IEnumerator<IEntry> GetEnumerator() => _entries.Cast<IEntry>().GetEnumerator();
 
         #endregion
     }
@@ -75,8 +69,8 @@ namespace MetadataExtractor.NewApi
     public interface IEntry
     {
         object Value { get; }
-        string Description { get; }
         string Name { get; }
+        string? Description { get; }
     }
 
 //    public static class ExifTags
@@ -85,12 +79,12 @@ namespace MetadataExtractor.NewApi
 //    }
 
     [StructLayout(LayoutKind.Auto)]
-    public struct TiffValue
+    public readonly struct TiffValue : IEntry
     {
         public TiffDataFormat Format { get; }
         public int ComponentCount { get; }
-        [NotNull] public object Value { get; }
-        [NotNull] public TiffTag Tag { get; }
+        public object Value { get; }
+        public TiffTag Tag { get; }
 
         private TiffValue(TiffDataFormat format, int componentCount, object value, TiffTag tag)
         {
@@ -99,6 +93,10 @@ namespace MetadataExtractor.NewApi
             Value = value;
             Tag = tag;
         }
+
+        string IEntry.Name => Tag is KnownTiffTag knownTag ? knownTag.Name : $"Unknown ({Tag.Id})";
+
+        string? IEntry.Description => Tag.Describe(this);
 
         public static TiffValue CreateInt8U    (byte      value, TiffTag tag) => new TiffValue(TiffDataFormat.Int8U,     1, value, tag);
         public static TiffValue CreateInt16U   (ushort    value, TiffTag tag) => new TiffValue(TiffDataFormat.Int16U,    1, value, tag);
@@ -126,6 +124,11 @@ namespace MetadataExtractor.NewApi
         public static TiffValue CreateSingleArray   (float[]     value, TiffTag tag) => new TiffValue(TiffDataFormat.Single,    value.Length, value, tag);
         public static TiffValue CreateDoubleArray   (double[]    value, TiffTag tag) => new TiffValue(TiffDataFormat.Double,    value.Length, value, tag);
 
+        public bool TryGetByte(out byte b)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool TryGetInt(out int value)
         {
 
@@ -143,30 +146,69 @@ namespace MetadataExtractor.NewApi
         public bool TryGetString(out string s)
         {
         }
+
+        public bool TryGetRational(out Rational rational)
+        {
+            
+        }
+
+        public bool TryGetURational(out URational uRational)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool TryGetByteArray(out byte[] bytes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool TryGetURationalArray(out URational[] uRationals)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string ToString(IFormatProvider? provider)
+        {
+
+        }
     }
 
+    /// <summary>
+    /// Base class for metadata about TIFF tags, whether known or unknown.
+    /// </summary>
     public abstract class TiffTag
     {
         public abstract bool IsKnown { get; }
 
-        public abstract string Describe(TiffValue value, IFormatProvider provider = null);
+        public int Id { get; } // TODO should this be int?
 
-        // TODO should this be int?
-        public int Id { get; }
+        protected TiffTag(int id) => Id = id;
 
-        protected TiffTag(int id)
-        {
-            Id = id;
-        }
+        public abstract string? Describe(TiffValue value, IFormatProvider? provider = null);
     }
 
+    /// <summary>
+    /// Base class for TIFF tags known to exist within some TIFF-compliant format.
+    /// </summary>
     public abstract class KnownTiffTag : TiffTag
     {
         public override bool IsKnown => true;
 
+        // TODO why model expected format/count? if it's for validation, consider a more general Validate method
+
+        /// <summary>
+        /// Gets the data format specified for this tag by its standard.
+        /// </summary>
         public abstract TiffDataFormat ExpectedFormat { get; }
 
-        public int ExpectedCount { get; }
+        /// <summary>
+        /// Gets the number of items expected for this tag by its standard.
+        /// </summary>
+        public int ExpectedCount { get; } // TODO do all tags have a single value? should this be a range? nullable?
+
+        /// <summary>
+        /// Gets the display name for this tag.
+        /// </summary>
         public string Name { get; }
 
         protected KnownTiffTag(int id, string name, int expectedCount = 1)
@@ -179,23 +221,18 @@ namespace MetadataExtractor.NewApi
 
     public class TiffUInt8Tag : KnownTiffTag
     {
-        [NotNull]
-        private Func<TiffValue, IFormatProvider, string> Describer { get; }
+        private Func<TiffValue, IFormatProvider?, string?> Describer { get; }
 
-        public TiffUInt8Tag(int id, string name, Func<byte, IFormatProvider, string> describer = null)
+        public TiffUInt8Tag(int id, string name, Func<byte, IFormatProvider?, string>? describer = null)
             : base(id, name)
         {
             // TODO store describer delegate in base class if all subclasses end up using it
-            Describer = (value, format) =>
-            {
-                byte b;
-                return value.TryGetByte(out b)
-                    ? (describer?.Invoke(b, format) ?? b.ToString(format))
-                    : null;
-            };
+            Describer = (value, format) => value.TryGetByte(out byte b)
+                ? describer?.Invoke(b, format) ?? b.ToString(format)
+                : null;
         }
 
-        public override string Describe(TiffValue value, IFormatProvider provider = null)
+        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
             => Describer(value, provider);
 
         public override TiffDataFormat ExpectedFormat => TiffDataFormat.Int8U;
@@ -203,23 +240,18 @@ namespace MetadataExtractor.NewApi
 
     public class TiffUInt16Tag : KnownTiffTag
     {
-        [NotNull]
-        private Func<TiffValue, IFormatProvider, string> Describer { get; }
+        private Func<TiffValue, IFormatProvider?, string?> Describer { get; }
 
-        public TiffUInt16Tag(int id, string name, Func<int, IFormatProvider, string> describer = null)
+        public TiffUInt16Tag(int id, string name, Func<int, IFormatProvider?, string?>? describer = null)
             : base(id, name)
         {
             // TODO store describer delegate in base class if all subclasses end up using it
-            Describer = (value, format) =>
-            {
-                int i;
-                return value.TryGetInt(out i)
-                    ? (describer?.Invoke(i, format) ?? i.ToString(format))
-                    : null;
-            };
+            Describer = (value, format) => value.TryGetInt(out var i)
+                ? describer?.Invoke(i, format) ?? i.ToString(format)
+                : null;
         }
 
-        public override string Describe(TiffValue value, IFormatProvider provider = null)
+        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
             => Describer(value, provider);
 
         public override TiffDataFormat ExpectedFormat => TiffDataFormat.Int16U;
@@ -227,23 +259,18 @@ namespace MetadataExtractor.NewApi
 
     public class TiffUInt32Tag : KnownTiffTag
     {
-        [NotNull]
-        private Func<TiffValue, IFormatProvider, string> Describer { get; }
+        private Func<TiffValue, IFormatProvider?, string?> Describer { get; }
 
-        public TiffUInt32Tag(int id, string name, Func<int, IFormatProvider, string> describer = null)
+        public TiffUInt32Tag(int id, string name, Func<int, IFormatProvider?, string>? describer = null)
             : base(id, name)
         {
             // TODO store describer delegate in base class if all subclasses end up using it
-            Describer = (value, format) =>
-            {
-                int i;
-                return value.TryGetInt(out i)
-                    ? (describer?.Invoke(i, format) ?? i.ToString(format))
-                    : null;
-            };
+            Describer = (value, format) => value.TryGetInt(out var i)
+                ? describer?.Invoke(i, format) ?? i.ToString(format)
+                : null;
         }
 
-        public override string Describe(TiffValue value, IFormatProvider provider = null)
+        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
             => Describer(value, provider);
 
         public override TiffDataFormat ExpectedFormat => TiffDataFormat.Int32U;
@@ -251,23 +278,18 @@ namespace MetadataExtractor.NewApi
 
     public class TiffSingleTag : KnownTiffTag
     {
-        [NotNull]
-        private Func<TiffValue, IFormatProvider, string> Describer { get; }
+        private Func<TiffValue, IFormatProvider?, string?> Describer { get; }
 
-        public TiffSingleTag(int id, string name, Func<float, IFormatProvider, string> describer = null)
+        public TiffSingleTag(int id, string name, Func<float, IFormatProvider?, string?>? describer = null)
             : base(id, name)
         {
             // TODO store describer delegate in base class if all subclasses end up using it
-            Describer = (value, format) =>
-            {
-                float f;
-                return value.TryGetSingle(out f)
-                    ? (describer?.Invoke(f, format) ?? f.ToString(format))
-                    : null;
-            };
+            Describer = (value, format) => value.TryGetSingle(out float f)
+                ? describer?.Invoke(f, format) ?? f.ToString(format)
+                : null;
         }
 
-        public override string Describe(TiffValue value, IFormatProvider provider = null)
+        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
             => Describer(value, provider);
 
         public override TiffDataFormat ExpectedFormat => TiffDataFormat.Single;
@@ -275,23 +297,21 @@ namespace MetadataExtractor.NewApi
 
     public class RationalTag : KnownTiffTag
     {
-        [NotNull]
-        private Func<TiffValue, IFormatProvider, string> Describer { get; }
+        private Func<TiffValue, IFormatProvider?, string?> Describer { get; }
 
-        public RationalTag(int id, string name, Func<Rational, IFormatProvider, string> describer = null)
+        public RationalTag(int id, string name, Func<Rational, IFormatProvider?, string>? describer = null)
             : base(id, name)
         {
             // TODO store describer delegate in base class if all subclasses end up using it
             Describer = (value, format) =>
             {
-                Rational r;
-                return value.TryGetRational(out r)
-                    ? (describer?.Invoke(r, format) ?? r.ToString(format))
+                return value.TryGetRational(out Rational r)
+                    ? describer?.Invoke(r, format) ?? r.ToString(format)
                     : null;
             };
         }
 
-        public override string Describe(TiffValue value, IFormatProvider provider = null)
+        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
             => Describer(value, provider);
 
         public override TiffDataFormat ExpectedFormat => TiffDataFormat.RationalS;
@@ -299,23 +319,21 @@ namespace MetadataExtractor.NewApi
 
     public class TiffURationalTag : KnownTiffTag
     {
-        [NotNull]
-        private Func<TiffValue, IFormatProvider, string> Describer { get; }
+        private Func<TiffValue, IFormatProvider?, string?> Describer { get; }
 
-        public TiffURationalTag(int id, string name, Func<URational, IFormatProvider, string> describer = null)
+        public TiffURationalTag(int id, string name, Func<URational, IFormatProvider?, string>? describer = null)
             : base(id, name)
         {
             // TODO store describer delegate in base class if all subclasses end up using it
             Describer = (value, format) =>
             {
-                URational r;
-                return value.TryGetURational(out r)
-                    ? (describer?.Invoke(r, format) ?? r.ToString(format))
+                return value.TryGetURational(out URational r)
+                    ? describer?.Invoke(r, format) ?? r.ToString(format)
                     : null;
             };
         }
 
-        public override string Describe(TiffValue value, IFormatProvider provider = null)
+        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
             => Describer(value, provider);
 
         public override TiffDataFormat ExpectedFormat => TiffDataFormat.RationalU;
@@ -323,22 +341,20 @@ namespace MetadataExtractor.NewApi
 
     public class TiffStringTag : KnownTiffTag
     {
-        [CanBeNull] private readonly Func<string, IFormatProvider, string> _describer;
+        private readonly Func<string, IFormatProvider?, string?>? _describer;
 
-        [NotNull]
         public Encoding ExpectedEncoding { get; }
 
-        public TiffStringTag(int id, string name, Encoding expectedEncoding = null, Func<string, IFormatProvider, string> describer = null)
+        public TiffStringTag(int id, string name, Encoding? expectedEncoding = null, Func<string, IFormatProvider?, string>? describer = null)
             : base(id, name)
         {
             _describer = describer;
             ExpectedEncoding = expectedEncoding ?? Encoding.UTF8;
         }
 
-        public override string Describe(TiffValue value, IFormatProvider provider = null)
+        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
         {
-            byte[] bytes;
-            if (!value.TryGetByteArray(out bytes))
+            if (!value.TryGetByteArray(out byte[] bytes))
                 return null;
 
             try
@@ -368,7 +384,7 @@ namespace MetadataExtractor.NewApi
             Descriptions = descriptions;
         }
 
-        private string DecodeIndex(int index, IFormatProvider provider)
+        private string? DecodeIndex(int index, IFormatProvider? provider)
         {
             var arrayIndex = index - BaseIndex;
 
@@ -393,32 +409,26 @@ namespace MetadataExtractor.NewApi
             Descriptions = descriptions;
         }
 
-        private string DecodeIndex(int value, IFormatProvider provider)
+        private string? DecodeIndex(int value, IFormatProvider provider)
         {
-            string description;
-            return !Descriptions.TryGetValue(value, out description) ? null : description;
+            return !Descriptions.TryGetValue(value, out var description) ? null : description;
         }
     }
 
     public class TiffUInt16ArrayTag : KnownTiffTag
     {
-        [NotNull]
-        private Func<TiffValue, IFormatProvider, string> Describer { get; }
+        private Func<TiffValue, IFormatProvider?, string?> Describer { get; }
 
-        public TiffUInt16ArrayTag(int id, string name, int expectedCount, Func<int[], IFormatProvider, string> describer = null)
+        public TiffUInt16ArrayTag(int id, string name, int expectedCount, Func<int[], IFormatProvider?, string?>? describer = null)
             : base(id, name, expectedCount)
         {
             // TODO store describer delegate in base class if all subclasses end up using it
-            Describer = (value, format) =>
-            {
-                int[] i;
-                return value.TryGetIntArray(out i)
-                    ? (describer?.Invoke(i, format) ?? i.ToString())
-                    : null;
-            };
+            Describer = (value, format) => value.TryGetIntArray(out var i)
+                ? describer?.Invoke(i, format) ?? i.ToString()
+                : null;
         }
 
-        public override string Describe(TiffValue value, IFormatProvider provider = null)
+        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
             => Describer(value, provider);
 
         public override TiffDataFormat ExpectedFormat => TiffDataFormat.Int16U;
@@ -426,23 +436,18 @@ namespace MetadataExtractor.NewApi
 
     public class TiffURationalArrayTag : KnownTiffTag
     {
-        [NotNull]
-        private Func<TiffValue, IFormatProvider, string> Describer { get; }
+        private Func<TiffValue, IFormatProvider?, string?> Describer { get; }
 
-        public TiffURationalArrayTag(int id, string name, int expectedCount, Func<URational[], IFormatProvider, string> describer = null)
+        public TiffURationalArrayTag(int id, string name, int expectedCount, Func<URational[], IFormatProvider?, string?>? describer = null)
             : base(id, name, expectedCount)
         {
             // TODO store describer delegate in base class if all subclasses end up using it
-            Describer = (value, format) =>
-            {
-                URational[] i;
-                return value.TryGetURationalArray(out i)
-                    ? (describer?.Invoke(i, format) ?? i.ToString())
-                    : null;
-            };
+            Describer = (value, format) => value.TryGetURationalArray(out URational[] i)
+                ? describer?.Invoke(i, format) ?? i.ToString()
+                : null;
         }
 
-        public override string Describe(TiffValue value, IFormatProvider provider = null)
+        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
             => Describer(value, provider);
 
         public override TiffDataFormat ExpectedFormat => TiffDataFormat.RationalU;
@@ -456,16 +461,18 @@ namespace MetadataExtractor.NewApi
         {
         }
 
-        public override string Describe(TiffValue value, IFormatProvider provider = null)
+        public override string? Describe(TiffValue value, IFormatProvider? provider = null)
         {
             return value.ToString(provider);
         }
     }
 
-    public abstract class TiffDirectory : Directory<TiffTag, TiffValue>
+    public abstract class TiffDirectory : Directory<TiffValue>
     {
         protected TiffDirectory(string name) : base(name)
         {}
+
+        // TODO store values -- Dictionary<TiffTag, TiffValue>
     }
 
     public class ExifIfd0Directory : TiffDirectory
@@ -474,9 +481,9 @@ namespace MetadataExtractor.NewApi
             : base("Exif IFD0")
         {}
 
-        public int Width
+        public int? Width
         {
-            get { GetInt32 }
+            get { this.GetInt32 }
         }
     }
 
@@ -496,9 +503,9 @@ namespace MetadataExtractor.NewApi
             foreach (var entry in directory)
                 Console.Out.WriteLine($"{directory.Name} - {entry.Name} = {entry.Description}");
 
-            var exif = directories.OfType<ExifIfd0Directory>().SingleOrDefault();
+            var ifd0 = directories.OfType<ExifIfd0Directory>().SingleOrDefault();
 
-            exif.Get()
+            ifd0.Width
         }
     }
 }
