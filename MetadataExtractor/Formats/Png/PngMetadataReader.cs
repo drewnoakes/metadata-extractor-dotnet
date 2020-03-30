@@ -542,7 +542,7 @@ namespace MetadataExtractor.Formats.Png
             byte[] bytes,
             int bytesLeft,
             [NotNullWhen(returnValue: true)] out byte[]? textBytes,
-            [NotNullWhen(returnValue: true)] out string? errorMessage)
+            [NotNullWhen(returnValue: false)] out string? errorMessage)
         {
             using var inflaterStream = new DeflateStream(new MemoryStream(bytes, bytes.Length - bytesLeft, bytesLeft), CompressionMode.Decompress);
             try
