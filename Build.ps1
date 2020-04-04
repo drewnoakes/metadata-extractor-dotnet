@@ -30,7 +30,7 @@ if ((test-path $msbuild) -eq $false) {
     exit 2
 }
 
-&$msbuild MetadataExtractor\MetadataExtractor.csproj /t:Restore,Build,Pack /p:Configuration=Release /p:PackageOutputPath=..\artifacts
-&$msbuild MetadataExtractor\MetadataExtractor.csproj /t:Restore,Build,Pack /p:Configuration=Release /p:PackageOutputPath=..\artifacts /p:Signed=True /p:PackageId=MetadataExtractor.StrongName
+&$msbuild MetadataExtractor\MetadataExtractor.csproj /t:Restore,Build,Pack /p:Configuration=Release /p:ContinuousIntegrationBuild=True /p:PackageOutputPath=..\artifacts
+&$msbuild MetadataExtractor\MetadataExtractor.csproj /t:Restore,Build,Pack /p:Configuration=Release /p:ContinuousIntegrationBuild=True /p:PackageOutputPath=..\artifacts /p:Signed=True /p:PackageId=MetadataExtractor.StrongName
 
 Pop-Location
