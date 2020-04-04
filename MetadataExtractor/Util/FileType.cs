@@ -38,13 +38,13 @@ namespace MetadataExtractor.Util
 
         /// <summary>Resource Interchange File Format.</summary>
         Riff = 9,
-        
+
         /// <summary>Waveform Audio File Format.</summary>
         Wav = 10, // ("WAV", "Waveform Audio File Format", "audio/vnd.wave", "wav", "wave"),
-        
+
         /// <summary>Audio Video Interleaved.</summary>
         Avi = 11, //("AVI", "Audio Video Interleaved", "video/vnd.avi", "avi"),
-        
+
         /// <summary>WebP.</summary>
         WebP = 12, //("WebP", "WebP", "image/webp", "webp"),
 
@@ -86,7 +86,10 @@ namespace MetadataExtractor.Util
         Tga = 24,
 
         /// <summary>MPEG-1 / MPEG-2 Audio Layer III.</summary>
-        Mp3 = 25
+        Mp3 = 25,
+
+        // <summary>High Efficency Image File Format.</summary>
+        Heif = 26,
     }
 
     public static class FileTypeExtensions
@@ -118,9 +121,10 @@ namespace MetadataExtractor.Util
             "CRX",
             "EPS",
             "TGA",
-            "MP3"
+            "MP3",
+            "HEIC"
         };
-        
+
         private static readonly string[] _longNames =
         {
             "Unknown",
@@ -148,7 +152,8 @@ namespace MetadataExtractor.Util
             "Canon Camera Raw",
             "Encapsulated PostScript",
             "Truevision Graphics",
-            "MPEG Audio Layer III"
+            "MPEG Audio Layer III",
+            "High Efficiency Image File Format"
         };
 
         private static readonly string?[] _mimeTypes =
@@ -178,7 +183,8 @@ namespace MetadataExtractor.Util
             null,
             "application/postscript",
             "image/x-targa",
-            "audio/mpeg"
+            "audio/mpeg",
+            "image/heic"
         };
 
         private static readonly string[]?[] _extensions =
@@ -208,9 +214,10 @@ namespace MetadataExtractor.Util
             new[] { "cr3", "crm" },
             new[] { "eps", "epsf", "epsi" },
             new[] { "tga", "icb", "vda", "vst" },
-            new[] { "mp3" }
+            new[] { "mp3" },
+            new [] {"heic", "heif"}
         };
-        
+
         public static string GetName(this FileType fileType)
         {
             var i = (int)fileType;
@@ -218,7 +225,7 @@ namespace MetadataExtractor.Util
                 throw new ArgumentException($"Invalid {nameof(FileType)} enum member.", nameof(fileType));
             return _shortNames[i];
         }
-        
+
         public static string GetLongName(this FileType fileType)
         {
             var i = (int)fileType;
@@ -226,7 +233,7 @@ namespace MetadataExtractor.Util
                 throw new ArgumentException($"Invalid {nameof(FileType)} enum member.", nameof(fileType));
             return _longNames[i];
         }
-        
+
         public static string? GetMimeType(this FileType fileType)
         {
             var i = (int)fileType;
@@ -234,7 +241,7 @@ namespace MetadataExtractor.Util
                 throw new ArgumentException($"Invalid {nameof(FileType)} enum member.", nameof(fileType));
             return _mimeTypes[i];
         }
-        
+
         public static string? GetCommonExtension(this FileType fileType)
         {
             var i = (int)fileType;
@@ -242,7 +249,7 @@ namespace MetadataExtractor.Util
                 throw new ArgumentException($"Invalid {nameof(FileType)} enum member.", nameof(fileType));
             return _extensions[i]?.FirstOrDefault();
         }
-        
+
         public static IEnumerable<string>? GetAllExtensions(this FileType fileType)
         {
             var i = (int)fileType;
