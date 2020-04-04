@@ -9,11 +9,23 @@ _MetadataExtractor_ is a straightforward .NET library for reading metadata from 
 
 ## Installation
 
-The easiest way to use this library is via its [NuGet package](https://www.nuget.org/packages/MetadataExtractor/):
+The easiest way to use this library is via its [NuGet package](https://www.nuget.org/packages/MetadataExtractor/).
 
-    PM> Install-Package MetadataExtractor
+Either add this to your project file
 
-Alternatively, search for `MetadataExtractor` in the Visual Studio NuGet Package Manager.
+```xml
+<ItemGroup>
+    <PackageReference Include="MetadataExtractor" Version="2.3.1" />
+</ItemGroup>
+```
+
+Or type this in Visual Studio's Package Manager Console:
+
+```
+PM> Install-Package MetadataExtractor
+```
+
+Or search for `MetadataExtractor` in the Visual Studio NuGet Package Manager.
 
 ## Usage
 
