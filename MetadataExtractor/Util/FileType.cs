@@ -78,6 +78,7 @@ namespace MetadataExtractor.Util
         /// <summary>Canon camera raw (version 3).</summary>
         /// <remarks>Shared by CR3 (image) and CRM (video).</remarks>
         Crx = 22,
+
         /// <summary>Encapsulated PostScript</summary>
         Eps = 23, //("EPS", "Encapsulated PostScript", "application/postscript", "eps", "epsf", "epsi"),
 
