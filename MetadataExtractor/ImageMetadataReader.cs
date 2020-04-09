@@ -9,6 +9,7 @@ using MetadataExtractor.Formats.Eps;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.Formats.FileType;
 using MetadataExtractor.Formats.Gif;
+using MetadataExtractor.Formats.Heif;
 using MetadataExtractor.Formats.Ico;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.Formats.Mpeg;
@@ -100,6 +101,7 @@ namespace MetadataExtractor
                 FileType.Tiff      => TiffMetadataReader.ReadMetadata(stream),
                 FileType.Wav       => WavMetadataReader.ReadMetadata(stream),
                 FileType.WebP      => WebPMetadataReader.ReadMetadata(stream),
+                FileType.Heif      => HeifMetadataReader.ReadMetadata(stream),
 
                 FileType.Unknown   => throw new ImageProcessingException("File format could not be determined"),
                 _                  => Enumerable.Empty<Directory>()

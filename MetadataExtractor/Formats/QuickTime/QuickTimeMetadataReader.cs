@@ -152,7 +152,7 @@ namespace MetadataExtractor.Formats.QuickTime
                             }
                             var atomType = a.Reader.GetUInt32();
 
-                            // Indexes into the metadata item keys atom are 1-based (1…entry_count).
+                            // Indexes into the metadata item keys atom are 1-based (1â€¦entry_count).
                             // atom type for each metadata item atom is the index of the key
                             if (atomType < 1 || atomType > metaDataKeys.Count)
                             {
