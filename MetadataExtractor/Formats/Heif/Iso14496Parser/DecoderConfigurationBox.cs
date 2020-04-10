@@ -13,12 +13,15 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
         public ushort MinSpacialSegmentationIdc {get;}
         public byte ParallelismType { get; }
         public byte ChromaFormat{ get; }
+        /*
+         These fields appear in the standard document but are never read in the parser
         public ushort PicWidthInLumaSamples { get; }
         public ushort PicHeightInLumaSamples { get; }
         public ushort ConfWinLeftOffset { get; }
         public ushort ConfWinRightOffset { get; }
         public ushort ConfWinTopOffset { get; }
         public ushort ConfWinBottomOffset { get; }
+        */
         public byte BitDepthLumaMinus8 { get; }
         public byte BitDepthChromaMinus8 { get; }
         public ushort AvgFrameRate{ get; }

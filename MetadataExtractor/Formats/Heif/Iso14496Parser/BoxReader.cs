@@ -8,15 +8,18 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
     {
         public static Box ReadBox(SequentialReader sr) => ReadBox(sr, LoadFinalType);
 
-        public static Box ReadBox(SequentialReader sr, Func<BoxLocation, SequentialReader, Box> reader)
+        public static Box? ReadBox(SequentialReader sr, Func<BoxLocation, SequentialReader, Box> reader)
         {
+            if (sr.Available() < 8) return null;
             var location = new BoxLocation(sr);
+            if (location.Type == MdatTag) return null;
             var ret = reader(location, sr);
             ret.SkipRemainingData(sr);
             return ret;
 
         }
 
+        private const uint MdatTag = 0x6D646174; // mdat
         private const uint MetaTag = 0x6D657461; // meta
         private const uint FTypTag = 0x66747970; // ftyp
         private const uint HdlrTag = 0x68646C72; // hdlr
@@ -37,6 +40,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
         private const uint PixiTag = 0x70697869; // pixi
         private const uint IdatTag = 0x69646174; // idat
         private const uint IlocTag = 0x696C6F63; // iloc
+        private const uint IpmaTag = 0x69706D61; // ipma
         private static Box LoadFinalType(BoxLocation location, SequentialReader sr)
         {
             return location.Type switch
@@ -61,6 +65,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
                 PixiTag => new PixelInformationBox(location, sr),
                 IdatTag => new ItemDataBox(location, sr),
                 IlocTag => new ItemLocationBox(location, sr),
+                IpmaTag => new ItemPropertyAssociationBox(location, sr),
                 _=> new Box(location)
             };
         }
