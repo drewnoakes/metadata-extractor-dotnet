@@ -34,6 +34,9 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
         private const uint HvcCTag = 0x68766343; // hvcC
         private const uint ColrTag = 0x636F6C72; // colr
         private const uint IrotTag = 0x69726f74; // irot
+        private const uint PixiTag = 0x70697869; // pixi
+        private const uint IdatTag = 0x69646174; // idat
+        private const uint IlocTag = 0x696C6F63; // iloc
         private static Box LoadFinalType(BoxLocation location, SequentialReader sr)
         {
             return location.Type switch
@@ -55,6 +58,9 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
                 HvcCTag => new DecoderConfigurationBox(location, sr),
                 ColrTag => new ColorInformationBox(location, sr),
                 IrotTag => new ImageRotationBox(location, sr),
+                PixiTag => new PixelInformationBox(location, sr),
+                IdatTag => new ItemDataBox(location, sr),
+                IlocTag => new ItemLocationBox(location, sr),
                 _=> new Box(location)
             };
         }
