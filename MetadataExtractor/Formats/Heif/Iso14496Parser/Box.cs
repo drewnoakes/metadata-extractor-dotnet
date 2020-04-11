@@ -1,4 +1,6 @@
-﻿using MetadataExtractor.IO;
+﻿using System.Collections.Generic;
+using System.Net.Sockets;
+using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496Parser
 {
@@ -17,5 +19,8 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
             sr.Skip((long) NextPosition - sr.Position);
         }
         public byte[] ReadRemainingData(SequentialReader sr) => sr.GetBytes((int) ((long) NextPosition - sr.Position));
+        public virtual IEnumerable<Box> Children() => EmptyChildren;
+
+        private static Box[] EmptyChildren = new Box[0];
     }
 }

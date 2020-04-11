@@ -12,5 +12,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
             BoxCount = sr.GetUInt32();
             Boxes = BoxReader.BoxList(loc, sr);
         }
+        public override IEnumerable<Box> Children() => Boxes;
+
     }
 }
