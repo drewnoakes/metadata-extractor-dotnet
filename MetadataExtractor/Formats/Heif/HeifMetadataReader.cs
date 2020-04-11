@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using MetadataExtractor.Formats.FileType;
 using MetadataExtractor.Formats.Heif.Iso14496Parser;
+using MetadataExtractor.Formats.Icc;
 using MetadataExtractor.Formats.QuickTime;
 using MetadataExtractor.IO;
 #if NET35
@@ -78,6 +79,7 @@ namespace MetadataExtractor.Formats.Heif
         {
             var dir = new HeicImagePropertiesDirectory(propertyBoxTitle);
             bool hasProp = false;
+            _directories.Add(dir); // add now so it will preceed the ICC profile directory
             foreach (var prop in props)
             {
                 switch (prop)
@@ -93,9 +95,9 @@ namespace MetadataExtractor.Formats.Heif
                 hasProp = true;
             }
 
-            if (hasProp)
+            if (!hasProp)
             {
-                _directories.Add(dir);
+                _directories.Remove(dir);
             }
         }
 
@@ -111,7 +113,9 @@ namespace MetadataExtractor.Formats.Heif
             }
             else
             {
-                // parse ICC
+                var iccDirectory = new IccReader().Extract(new ByteArrayReader(colr.IccProfile));
+                iccDirectory.Parent = dir;
+                _directories.Add(iccDirectory);
             }
         }
 
