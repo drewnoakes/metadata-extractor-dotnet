@@ -26,6 +26,6 @@
         public const uint IpmaTag = 0x69706D61; // ipma
         public const uint ThmbTag = 0x74686D62; // thmb
         public const uint CdscTag = 0x63647363; // cdsc
-
+        public const uint DimgTag = 0x64696D67; // dimg
     }
 }
