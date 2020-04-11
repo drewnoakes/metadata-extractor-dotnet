@@ -12,7 +12,8 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
         {
             if (sr.Available() < 8) return null;
             var location = new BoxLocation(sr);
-            if (location.Type == BoxTypes.MdatTag) return null;
+            if ((long)location.NextPosition - sr.Position >= sr.Available()) return null; // skip the last box of the file.
+           // if (location.Type == BoxTypes.MdatTag) return null;
             var ret = reader(location, sr);
             ret.SkipRemainingData(sr);
             return ret;

@@ -38,7 +38,7 @@ namespace MetadataExtractor.Formats.Heif
             ReadBoxes(reader);
             ParseQuickTimeTest();
             uint primaryItem = _sourceBoxes.Descendant<PrimaryItemBox>()?.PrimaryItem ?? uint.MaxValue;
-            var itemRefs = _sourceBoxes.Descendant<ItemReferenceBox>().Boxes
+            var itemRefs = (_sourceBoxes.Descendant<ItemReferenceBox>()?.Boxes ?? new SingleItemTypeReferenceBox[0])
                 .Where(i=>i.Type == BoxTypes.ThmbTag || i.Type == BoxTypes.CdscTag).ToList();
             ParseImageProperties(primaryItem, itemRefs);
 
@@ -85,14 +85,31 @@ namespace MetadataExtractor.Formats.Heif
 
         private void ParseExif(ulong extentOffset, ulong extentLength, SequentialStreamReader reader)
         {
+            if ((long)extentLength + (long)extentOffset - reader.Position > reader.Available()) return;
             reader.Skip((long)extentOffset - reader.Position);
-            var headerLength = reader.GetUInt32();
-            reader.Skip((int)headerLength);
-            var exifBytes = reader.GetBytes((int)extentLength);
+            var exifBytes = GetExifBytes(extentLength, reader);
 
             var parser = new ExifReader();
             var dirs = parser.Extract(new ByteArrayReader(exifBytes));
             _directories.AddRange(dirs);
+        }
+
+        private static byte[] GetExifBytes(ulong extentLength, SequentialStreamReader reader)
+        {
+            var headerLength = reader.GetUInt32();
+            if (headerLength >> 16 == 0x4d4d)
+            {
+                var ret = new byte[extentLength];
+                ret[0] = (byte) (headerLength >> 24 & 0xFF);
+                ret[1] = (byte) (headerLength >> 16 & 0xFF);
+                ret[2] = (byte) (headerLength >> 8 & 0xFF);
+                ret[3] = (byte) (headerLength & 0xFF);
+                reader.GetBytes(ret, 4, (int)extentLength - 4);
+                return ret;
+            }
+            reader.Skip((int) headerLength);
+            var exifBytes = reader.GetBytes((int) extentLength);
+            return exifBytes;
         }
 
         private void ParseThumbnail(ulong extentOffset, ulong extentLength)
@@ -105,10 +122,12 @@ namespace MetadataExtractor.Formats.Heif
 
         private void ParseImageProperties(uint primaryItem, List<SingleItemTypeReferenceBox> itemRefs)
         {
-            uint[] allPrimaryTiles = _sourceBoxes.Descendant<ItemReferenceBox>().Boxes
+            uint[] allPrimaryTiles = (_sourceBoxes.Descendant<ItemReferenceBox>()?.Boxes ??
+                                      new SingleItemTypeReferenceBox[0])
                 .SelectMany(i => i.FromItemId == primaryItem && i.Type == BoxTypes.DimgTag ? i.ToItemIds : new uint[0])
                 .ToArray();
             var itemPropertyBox = _sourceBoxes.Descendant<ItemPropertyBox>();
+            if (itemPropertyBox == null) return;
             var props = itemPropertyBox.Boxes.Descendant<ItemPropertyContainerBox>().Boxes;
             var associations = itemPropertyBox.Boxes.Descendant<ItemPropertyAssociationBox>();
 

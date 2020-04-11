@@ -18,7 +18,6 @@ namespace MetadataExtractor.Formats.QuickTime
             return fourCC switch
             {
                 "crx " => Util.FileType.Crx,
-                "heic" => Util.FileType.Heif,
                 _ => Util.FileType.QuickTime,
             };
         }
