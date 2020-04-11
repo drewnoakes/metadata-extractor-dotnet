@@ -10,9 +10,9 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
         public ushort MatrixCharacteristics { get; }
         public bool FullRangeFlag { get; }
         public byte[] IccProfile { get; }
-        private const uint NclxTag = 0x6E636C78; // nclx
-        private const uint RICCTag = 0x72494343; // rICC
-        private const uint ProfTag = 0x70726F66; // prof
+        public const uint NclxTag = 0x6E636C78; // nclx
+        public const uint RICCTag = 0x72494343; // rICC
+        public const uint ProfTag = 0x70726F66; // prof
         public ColorInformationBox(BoxLocation location, SequentialReader sr) : base(location)
         {
             ColorType = sr.GetUInt32();

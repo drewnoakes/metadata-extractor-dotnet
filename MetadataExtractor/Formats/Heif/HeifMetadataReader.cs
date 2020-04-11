@@ -40,9 +40,11 @@ namespace MetadataExtractor.Formats.Heif
             uint[] allPrimaryTiles = _sourceBoxes.Descendant<ItemReferenceBox>().Boxes
                 .SelectMany(i=>i.FromItemId == primaryItem && i.Type == BoxTypes.DimgTag?
                   i.ToItemIds:new uint[0]).ToArray();
+
             var itemPropertyBox = _sourceBoxes.Descendant<ItemPropertyBox>();
             var props = itemPropertyBox.Boxes.Descendant<ItemPropertyContainerBox>().Boxes;
             var associations = itemPropertyBox.Boxes.Descendant<ItemPropertyAssociationBox>();
+
             ParsePropertyBoxes("HEIC Primary Item Properties", ImageProperties(primaryItem, allPrimaryTiles,
                 associations, props));
             foreach (var itemRef in itemRefs)
@@ -50,14 +52,6 @@ namespace MetadataExtractor.Formats.Heif
                 ParsePropertyBoxes("HEIC Thumbnail Properties", ImageProperties(itemRef.FromItemId, new uint[0],
                     associations, props));
             }
-            // foreach (var pbox in InterestingPropertyBoxes(itemPropertyBox, allPrimaryTiles, itemRefs).Distinct())
-            // {
-            //     var propertyBoxTitle = pbox.ItemId == primaryItem
-            //         ? "HEIC Primary Item Properties"
-            //         : "HEIC Thumbnal Properties";
-            //     ParsePropertyBoxes(propertyBoxTitle, pbox, props);
-            // }
-
             return _directories;
         }
 
@@ -92,6 +86,7 @@ namespace MetadataExtractor.Formats.Heif
                     case ImageRotationBox irot: ParseImageRotation(dir, irot); break;
                     case PixelInformationBox pixi : ParsePixelDepth(dir, pixi); break;
                     case DecoderConfigurationBox hvcC : ParseDecoderInformation(dir, hvcC); break;
+                    case ColorInformationBox colr: ParseColorBox(dir, colr); break;
                     default: continue;
                 }
 
@@ -101,6 +96,22 @@ namespace MetadataExtractor.Formats.Heif
             if (hasProp)
             {
                 _directories.Add(dir);
+            }
+        }
+
+        private void ParseColorBox(HeicImagePropertiesDirectory dir, ColorInformationBox colr)
+        {
+            dir.Set(HeicImagePropertiesDirectory.ColorFormat, colr.ColorType);
+            if (colr.ColorType == ColorInformationBox.NclxTag)
+            {
+                dir.Set(HeicImagePropertiesDirectory.ColorPrimaries, colr.ColorPrimaries);
+                dir.Set(HeicImagePropertiesDirectory.ColorTransferCharacteristics, colr.TransferCharacteristics);
+                dir.Set(HeicImagePropertiesDirectory.ColorMatrixCharacteristicis, colr.MatrixCharacteristics);
+                dir.Set(HeicImagePropertiesDirectory.FullRangeColor, colr.FullRangeFlag);
+            }
+            else
+            {
+                // parse ICC
             }
         }
 
