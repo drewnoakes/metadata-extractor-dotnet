@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.FileType;
 using MetadataExtractor.Formats.Heif.Iso14496Parser;
 using MetadataExtractor.Formats.Icc;
@@ -38,10 +40,74 @@ namespace MetadataExtractor.Formats.Heif
             uint primaryItem = _sourceBoxes.Descendant<PrimaryItemBox>()?.PrimaryItem ?? uint.MaxValue;
             var itemRefs = _sourceBoxes.Descendant<ItemReferenceBox>().Boxes
                 .Where(i=>i.Type == BoxTypes.ThmbTag || i.Type == BoxTypes.CdscTag).ToList();
-            uint[] allPrimaryTiles = _sourceBoxes.Descendant<ItemReferenceBox>().Boxes
-                .SelectMany(i=>i.FromItemId == primaryItem && i.Type == BoxTypes.DimgTag?
-                  i.ToItemIds:new uint[0]).ToArray();
+            ParseImageProperties(primaryItem, itemRefs);
 
+            ParseItemSegments(itemRefs, reader);
+            return _directories;
+        }
+
+        private void ParseItemSegments(List<SingleItemTypeReferenceBox> itemRefs, SequentialStreamReader reader)
+        {
+            var locations = _sourceBoxes.Descendant<ItemLocationBox>();
+            var information = _sourceBoxes.Descendant<ItemInformationBox>();
+
+            var segments = itemRefs.Select(i =>
+                    new
+                    {
+                        Info = information.Boxes.OfType<ItemInfoEntryBox>().First(j => j.ItemId == i.FromItemId),
+                        Location = locations.ItemLocations.First(j => j.ItemId == i.FromItemId)
+                    })
+                .OrderBy(i => i.Location.BaseOffset);
+            foreach (var segment in segments)
+            {
+                // Itemlocation is a complex structure that can load data in multiple extents in
+                // different locations in different files.  It appears the Heics made by apple only use
+                // the simpleist of references.  Thus we check that the simplifying assumption is true
+                // and then proceed with the simple case.
+                Debug.Assert(segment.Location.ConstructionMethod == ConstructionMethod.FileOffset);
+                Debug.Assert(segment.Location.ExtentList.Length == 1);
+                ParseSingleSegment(segment.Info.ItemType,
+                    segment.Location.BaseOffset + segment.Location.ExtentList[0].ExtentOffset,
+                    segment.Location.ExtentList[0].ExtentLength, reader);
+            }
+        }
+
+        private const int Hvc1Tag = 0x68766331; // hvc1
+        private const int ExifTag = 0x45786966; // Exif
+        private void ParseSingleSegment(uint itemType, ulong extentOffset, ulong extentLength,
+            SequentialStreamReader reader) {
+            switch (itemType)
+            {
+                case Hvc1Tag: ParseThumbnail(extentOffset, extentLength); break;
+                case ExifTag: ParseExif(extentOffset, extentLength, reader); break;
+            }
+        }
+
+        private void ParseExif(ulong extentOffset, ulong extentLength, SequentialStreamReader reader)
+        {
+            reader.Skip((long)extentOffset - reader.Position);
+            var headerLength = reader.GetUInt32();
+            reader.Skip((int)headerLength);
+            var exifBytes = reader.GetBytes((int)extentLength);
+
+            var parser = new ExifReader();
+            var dirs = parser.Extract(new ByteArrayReader(exifBytes));
+            _directories.AddRange(dirs);
+        }
+
+        private void ParseThumbnail(ulong extentOffset, ulong extentLength)
+        {
+            var dir = new HeicThumbnailDirectory();
+            dir.Set(HeicThumbnailDirectory.FileOffset, extentOffset);
+            dir.Set(HeicThumbnailDirectory.Length, extentLength);
+            _directories.Add(dir);
+        }
+
+        private void ParseImageProperties(uint primaryItem, List<SingleItemTypeReferenceBox> itemRefs)
+        {
+            uint[] allPrimaryTiles = _sourceBoxes.Descendant<ItemReferenceBox>().Boxes
+                .SelectMany(i => i.FromItemId == primaryItem && i.Type == BoxTypes.DimgTag ? i.ToItemIds : new uint[0])
+                .ToArray();
             var itemPropertyBox = _sourceBoxes.Descendant<ItemPropertyBox>();
             var props = itemPropertyBox.Boxes.Descendant<ItemPropertyContainerBox>().Boxes;
             var associations = itemPropertyBox.Boxes.Descendant<ItemPropertyAssociationBox>();
@@ -53,7 +119,6 @@ namespace MetadataExtractor.Formats.Heif
                 ParsePropertyBoxes("HEIC Thumbnail Properties", ImageProperties(itemRef.FromItemId, new uint[0],
                     associations, props));
             }
-            return _directories;
         }
 
         private IEnumerable<Box> ImageProperties(uint primaryId, uint[] secondary,
