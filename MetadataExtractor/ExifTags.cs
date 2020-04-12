@@ -1,3 +1,5 @@
+// Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -160,7 +162,7 @@ namespace MetadataExtractor.NewApi
 
         public static readonly TiffUInt16Tag MaxSampleValue = new TiffUInt16Tag(0x0119, "Maximum Sample Value");
 
-        // TODO the descriptor function for these two tags attempts to read units from the directory, which is not yet available via this new API
+        // TODO the descriptor function for these two tags attempts to read ResolutionUnit from the directory, which is not yet available via this new API
         public static readonly TiffUInt16Tag XResolution = new TiffUInt16Tag(0x011A, "X Resolution");
         public static readonly TiffUInt16Tag YResolution = new TiffUInt16Tag(0x011B, "Y Resolution");
 
@@ -263,6 +265,7 @@ namespace MetadataExtractor.NewApi
         public static readonly TiffUInt16Tag CfaRepeatPatternDim = new TiffUInt16Tag(0x828D, "CFA Repeat Pattern Dim");
 
         /// <summary>There are two definitions for CFA pattern, I don't know the difference...</summary>
+        // TODO interpreting this tag requires the value of CfaRepeatPatternDim too
         public static readonly TiffUInt16Tag CfaPattern2 = new TiffUInt16Tag(0x828E, "CFA Pattern 2");
 
         public static readonly TiffUInt16Tag BatteryLevel = new TiffUInt16Tag(0x828F, "Battery Level");
@@ -274,7 +277,8 @@ namespace MetadataExtractor.NewApi
         public static readonly TiffURationalTag ExposureTime = new TiffURationalTag(0x829A, "Exposure Time", (value, format) => $"{value.ToSimpleString()} sec");
 
         /// <summary>The actual F-number(F-stop) of lens when the image was taken.</summary>
-        public static readonly TiffURationalTag FNumber = new TiffURationalTag(0x829D, "F-Number", DescribeFStop);
+        public static readonly TiffURationalTag FNumber = new TiffURationalTag(0x829D, "F-Number",
+            (value, format) => DescribeFStop(PhotographicConversions.ApertureToFStop(value.ToDouble()), format));
 
         // TODO what type is this?
         public static readonly TiffUInt16Tag IptcNaa = new TiffUInt16Tag(0x83BB, "Iptc Naa");
@@ -365,7 +369,7 @@ namespace MetadataExtractor.NewApi
 
         // TODO is this URational
         /// <summary>Average (rough estimate) compression level in JPEG bits per pixel.</summary>
-        public static readonly RationalTag CompressedAverageBitsPerPixel = new RationalTag(0x9102, "Compressed Average Bits Per Pixel",
+        public static readonly TiffRationalTag CompressedAverageBitsPerPixel = new TiffRationalTag(0x9102, "Compressed Average Bits Per Pixel",
             (r, p) => $"{r.ToSimpleString(provider: p)} bit{(r.IsInteger && r.ToInt32() == 1 ? "" : "s")}/pixel");
 
         /// <summary>Shutter speed by APEX value.</summary>
@@ -397,18 +401,18 @@ namespace MetadataExtractor.NewApi
 
         /// <summary>Lens aperture used in an image.</summary>
         public static readonly TiffURationalTag Aperture = new TiffURationalTag(0x9202, "Aperture",
-            (r, p) => DescribeFStop(PhotographicConversions.ApertureToFStop(r)));
+            (value, p) => DescribeFStop(PhotographicConversions.ApertureToFStop(value.ToDouble()), p));
 
-        public static readonly RationalTag BrightnessValue = new RationalTag(0x9203, "Brightness");
+        public static readonly TiffRationalTag BrightnessValue = new TiffRationalTag(0x9203, "Brightness");
 
-        public static readonly RationalTag ExposureBias = new RationalTag(0x9204, "Exposure Bias", (value, format) => string.Format(format, "{0} EV", value.ToSimpleString()));
+        public static readonly TiffRationalTag ExposureBias = new TiffRationalTag(0x9204, "Exposure Bias", (value, format) => string.Format(format, "{0} EV", value.ToSimpleString()));
 
         /// <summary>Maximum aperture of lens.</summary>
-        public static readonly RationalTag MaxAperture = new RationalTag(0x9205, "Max Aperture", (value, format) => DescribeFStop(PhotographicConversions.ApertureToFStop(value.ToDouble()), format));
+        public static readonly TiffRationalTag MaxAperture = new TiffRationalTag(0x9205, "Max Aperture", (value, format) => DescribeFStop(PhotographicConversions.ApertureToFStop(value.ToDouble()), format));
 
         /// <summary>The distance autofocus focused to.</summary>
         /// <remarks>Tends to be less accurate as distance increases.</remarks>
-        public static readonly RationalTag SubjectDistance = new RationalTag(0x9206, "Subject Distance", (value, format) => $"{value.ToDouble():0.0##} metres");
+        public static readonly TiffRationalTag SubjectDistance = new TiffRationalTag(0x9206, "Subject Distance", (value, format) => $"{value.ToDouble():0.0##} metres");
 
         /// <summary>Exposure metering method.</summary>
         public static readonly TiffMappedUInt16Tag MeteringMode = new TiffMappedUInt16Tag(0x9207, "Metering Mode", new Dictionary<int, string>
@@ -522,10 +526,10 @@ namespace MetadataExtractor.NewApi
         /// <para />
         /// The component count for this tag includes all of the bytes needed for the makernote.
         /// </remarks>
-        // TODO should this be public?
+        // TODO should this be public? probably shouldn't be storing the byte array for makernotes, unless it's unknown (in which case it's in a makernote directory)
         public static readonly TiffByteArrayTag Makernote = new TiffByteArrayTag(0x927C, "Makernote");
 
-        public static readonly TiffStringTag UserComment = new TiffStringTag(0x9286, "User Comment");
+        public static readonly TiffStringTag UserComment = new TiffStringTag(0x9286, "User Comment", DescribeUserComment);
 
         public static readonly TiffUInt16Tag SubsecondTime = new TiffUInt16Tag(0x9290, "Subsecond Time");
 
@@ -652,7 +656,7 @@ namespace MetadataExtractor.NewApi
 
         /// <remarks>The digital zoom ratio, or zero if digital zoom was not used.</remarks>
         public static readonly TiffURationalTag DigitalZoomRatio = new TiffURationalTag(0xA404, "Digital Zoom Ratio",
-            (ratio, format) => ratio.Numerator == 0 ? "Digital zoom not used" : ratio.ToSimpleString(format));
+            (ratio, format) => ratio.Numerator == 0 ? "Digital zoom not used" : ratio.ToSimpleString(provider: format));
 
         /// <summary>
         /// The equivalent focal length assuming a 35mm film camera, in millimetres.
@@ -763,7 +767,7 @@ namespace MetadataExtractor.NewApi
         /// </remarks>
         public static readonly TiffURationalArrayTag LensSpecification = new TiffURationalArrayTag(0xA432, "Lens Specification", 4, (values, format) =>
         {
-            if (values.Length != 4 || (values[0] == 0 && values[2] == 0))
+            if (values.Length != 4 || (values[0].IsZero && values[2].IsZero))
                 return null;
 
             var sb = new StringBuilder();
@@ -771,10 +775,10 @@ namespace MetadataExtractor.NewApi
             sb.AppendFormat(
                 format,
                 values[0] == values[1] ? "{0}mm" : "{0}-{1}mm",
-                values[0].ToSimpleString(format),
-                values[1].ToSimpleString(format));
+                values[0].ToSimpleString(provider: format),
+                values[1].ToSimpleString(provider: format));
 
-            if (values[2] != 0)
+            if (!values[2].IsZero)
             {
                 sb.Append(' ');
                 sb.AppendFormat(
@@ -810,11 +814,11 @@ namespace MetadataExtractor.NewApi
         // TODO what type is this?
         public static readonly TiffUInt16Tag Lens = new TiffUInt16Tag(0xFDEA, "Lens");
 
-        private static string DescribeFStop(double fStop, IFormatProvider p) => string.Format(p, "f/{0:0.0}", fStop);
+        private static string DescribeFStop(double fStop, IFormatProvider format) => string.Format(format, "f/{0:0.0}", fStop);
 
-        private static string DescribeFocalLength(double mm, IFormatProvider p) => string.Format(p, "{0:0.#} mm", mm);
+        private static string DescribeFocalLength(double mm, IFormatProvider format) => string.Format(format, "{0:0.#} mm", mm);
 
-        private static string DescribePixels(int i, IFormatProvider p) => string.Format(p, "{0} pixel{1}", i, i == 1 ? "" : "s");
+        private static string DescribePixels(int i, IFormatProvider format) => string.Format(format, "{0} pixel{1}", i, i == 1 ? "" : "s");
 
         private static string DescribeVersion(IReadOnlyList<int> components, int majorDigits)
         {
@@ -834,6 +838,58 @@ namespace MetadataExtractor.NewApi
                 version.Append(c);
             }
             return version.ToString();
+        }
+
+        private static string DescribeUserComment(byte[] bytes, IFormatProvider provider)
+        {
+            if (bytes.Length == 0)
+                return string.Empty;
+
+            // TODO use ByteTrie here
+            // Someone suggested "ISO-8859-1".
+            var encodingMap = new Dictionary<string, Encoding>
+            {
+                ["ASCII"] = Encoding.ASCII,
+                ["UTF8"] = Encoding.UTF8,
+                ["UTF7"] = Encoding.UTF7,
+                ["UTF32"] = Encoding.UTF32,
+                ["UNICODE"] = Encoding.Unicode,
+                ["JIS"] = Encoding.GetEncoding("Shift-JIS")
+            };
+
+            try
+            {
+                if (bytes.Length >= 10)
+                {
+                    // TODO no guarantee bytes after the UTF8 name are valid UTF8 -- only read as many as needed
+                    var firstTenBytesString = Encoding.UTF8.GetString(bytes, 0, 10);
+                    // try each encoding name
+                    foreach (var pair in encodingMap)
+                    {
+                        var encodingName = pair.Key;
+                        var encoding = pair.Value;
+                        if (firstTenBytesString.StartsWith(encodingName))
+                        {
+                            // skip any null or blank characters commonly present after the encoding name, up to a limit of 10 from the start
+                            for (var j = encodingName.Length; j < 10; j++)
+                            {
+                                var b = bytes[j];
+                                if (b != '\0' && b != ' ')
+                                {
+                                    return encoding.GetString(bytes, j, bytes.Length - j).Trim('\0', ' ');
+                                }
+                            }
+                            return encoding.GetString(bytes, 10, bytes.Length - 10).Trim('\0', ' ');
+                        }
+                    }
+                }
+                // special handling fell through, return a plain string representation
+                return Encoding.UTF8.GetString(bytes, 0, bytes.Length).Trim('\0', ' ');
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

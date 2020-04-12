@@ -7,12 +7,9 @@ using MetadataExtractor.IO;
 
 using static MetadataExtractor.Formats.Exif.ExifDirectoryBase;
 
-// ReSharper disable MemberCanBePrivate.Global
-
 namespace MetadataExtractor.Formats.Exif
 {
     /// <summary>Base class for several Exif format descriptor classes.</summary>
-    /// <author>Drew Noakes https://drewnoakes.com</author>
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public abstract class ExifDescriptorBase<T> : TagDescriptor<T> where T : Directory
     {
@@ -23,91 +20,9 @@ namespace MetadataExtractor.Formats.Exif
 
         public override string? GetDescription(int tagType)
         {
-            // TODO order case blocks and corresponding methods in the same order as the TAG_* values are defined
-
-#pragma warning disable format
-
-            return tagType switch
-            {
-                TagInteropIndex                  => GetInteropIndexDescription(),
-                TagInteropVersion                => GetInteropVersionDescription(),
-                TagOrientation                   => GetOrientationDescription(),
-                TagResolutionUnit                => GetResolutionDescription(),
-                TagYCbCrPositioning              => GetYCbCrPositioningDescription(),
-                TagXResolution                   => GetXResolutionDescription(),
-                TagYResolution                   => GetYResolutionDescription(),
-                TagImageWidth                    => GetImageWidthDescription(),
-                TagImageHeight                   => GetImageHeightDescription(),
-                TagBitsPerSample                 => GetBitsPerSampleDescription(),
-                TagPhotometricInterpretation     => GetPhotometricInterpretationDescription(),
-                TagRowsPerStrip                  => GetRowsPerStripDescription(),
-                TagStripByteCounts               => GetStripByteCountsDescription(),
-                TagSamplesPerPixel               => GetSamplesPerPixelDescription(),
-                TagPlanarConfiguration           => GetPlanarConfigurationDescription(),
-                TagYCbCrSubsampling              => GetYCbCrSubsamplingDescription(),
-                TagReferenceBlackWhite           => GetReferenceBlackWhiteDescription(),
-                TagWinAuthor                     => GetWindowsAuthorDescription(),
-                TagWinComment                    => GetWindowsCommentDescription(),
-                TagWinKeywords                   => GetWindowsKeywordsDescription(),
-                TagWinSubject                    => GetWindowsSubjectDescription(),
-                TagWinTitle                      => GetWindowsTitleDescription(),
-                TagNewSubfileType                => GetNewSubfileTypeDescription(),
-                TagSubfileType                   => GetSubfileTypeDescription(),
-                TagThresholding                  => GetThresholdingDescription(),
-                TagFillOrder                     => GetFillOrderDescription(),
-                TagCfaPattern2                   => GetCfaPattern2Description(),
-                TagExposureTime                  => GetExposureTimeDescription(),
-                TagShutterSpeed                  => GetShutterSpeedDescription(),
-                TagFNumber                       => GetFNumberDescription(),
-                TagCompressedAverageBitsPerPixel => GetCompressedAverageBitsPerPixelDescription(),
-                TagSubjectDistance               => GetSubjectDistanceDescription(),
-                TagMeteringMode                  => GetMeteringModeDescription(),
-                TagWhiteBalance                  => GetWhiteBalanceDescription(),
-                TagFlash                         => GetFlashDescription(),
-                TagFocalLength                   => GetFocalLengthDescription(),
-                TagColorSpace                    => GetColorSpaceDescription(),
-                TagExifImageWidth                => GetExifImageWidthDescription(),
-                TagExifImageHeight               => GetExifImageHeightDescription(),
-                TagFocalPlaneResolutionUnit      => GetFocalPlaneResolutionUnitDescription(),
-                TagFocalPlaneXResolution         => GetFocalPlaneXResolutionDescription(),
-                TagFocalPlaneYResolution         => GetFocalPlaneYResolutionDescription(),
-                TagExposureProgram               => GetExposureProgramDescription(),
-                TagAperture                      => GetApertureValueDescription(),
-                TagBrightnessValue               => GetBrightnessValueDescription(),
-                TagMaxAperture                   => GetMaxApertureValueDescription(),
-                TagSensingMethod                 => GetSensingMethodDescription(),
-                TagExposureBias                  => GetExposureBiasDescription(),
-                TagFileSource                    => GetFileSourceDescription(),
-                TagSceneType                     => GetSceneTypeDescription(),
-                TagCfaPattern                    => GetCfaPatternDescription(),
-                TagComponentsConfiguration       => GetComponentConfigurationDescription(),
-                TagExifVersion                   => GetExifVersionDescription(),
-                TagFlashpixVersion               => GetFlashPixVersionDescription(),
-                TagIsoEquivalent                 => GetIsoEquivalentDescription(),
-                TagUserComment                   => GetUserCommentDescription(),
-                TagCustomRendered                => GetCustomRenderedDescription(),
-                TagExposureMode                  => GetExposureModeDescription(),
-                TagWhiteBalanceMode              => GetWhiteBalanceModeDescription(),
-                TagDigitalZoomRatio              => GetDigitalZoomRatioDescription(),
-                Tag35MMFilmEquivFocalLength      => Get35MMFilmEquivFocalLengthDescription(),
-                TagSceneCaptureType              => GetSceneCaptureTypeDescription(),
-                TagGainControl                   => GetGainControlDescription(),
-                TagContrast                      => GetContrastDescription(),
-                TagSaturation                    => GetSaturationDescription(),
-                TagSharpness                     => GetSharpnessDescription(),
-                TagSubjectDistanceRange          => GetSubjectDistanceRangeDescription(),
-                TagSensitivityType               => GetSensitivityTypeDescription(),
-                TagCompression                   => GetCompressionDescription(),
-                TagJpegProc                      => GetJpegProcDescription(),
-                TagLensSpecification             => GetLensSpecificationDescription(),
-                TagExtraSamples                  => GetExtraSamplesDescription(),
-                TagSampleFormat                  => GetSampleFormatDescription(),
-                _                                => base.GetDescription(tagType),
-            };
-
-#pragma warning restore format
+            // REMOVED
         }
-
+        
         public string? GetYResolutionDescription()
         {
             var resolution = GetRationalOrDoubleString(TagYResolution);
@@ -124,11 +39,6 @@ namespace MetadataExtractor.Formats.Exif
                 return null;
             var unit = GetResolutionDescription();
             return $"{resolution} dots per {unit?.ToLower() ?? "unit"}";
-        }
-
-        public string? GetUserCommentDescription()
-        {
-            return GetEncodedTextDescription(TagUserComment);
         }
 
         /// <summary>

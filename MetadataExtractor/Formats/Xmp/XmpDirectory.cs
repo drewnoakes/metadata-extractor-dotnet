@@ -23,7 +23,6 @@ namespace MetadataExtractor.Formats.Xmp
     {
         public const int TagXmpValueCount = 0xFFFF;
 
-
         private static readonly Dictionary<int, string> _tagNameMap = new()
         {
             { TagXmpValueCount, "XMP Value Count" }
