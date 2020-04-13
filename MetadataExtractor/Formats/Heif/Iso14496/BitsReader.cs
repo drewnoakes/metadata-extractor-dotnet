@@ -63,7 +63,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496
         private void ReadWholeByteFromSource()
         {
             _currentByte = _source.GetByte();
-            _mask = 128;
+            _mask = 0b1000_0000;
         }
     }
 }
