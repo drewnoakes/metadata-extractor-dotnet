@@ -18,7 +18,7 @@ namespace MetadataExtractor.Formats.WebP
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class WebPMetadataReader
     {
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         /// <exception cref="RiffProcessingException"/>
         public static DirectoryList ReadMetadata(string filePath)
         {
@@ -32,7 +32,7 @@ namespace MetadataExtractor.Formats.WebP
             return directories;
         }
 
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         /// <exception cref="RiffProcessingException"/>
         public static DirectoryList ReadMetadata(Stream stream)
         {

@@ -23,7 +23,7 @@ namespace MetadataExtractor.Formats.Tiff
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class TiffMetadataReader
     {
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         /// <exception cref="TiffProcessingException"/>
         public static DirectoryList ReadMetadata(string filePath)
         {
@@ -40,7 +40,7 @@ namespace MetadataExtractor.Formats.Tiff
             return directories;
         }
 
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         /// <exception cref="TiffProcessingException"/>
         public static DirectoryList ReadMetadata(Stream stream)
         {

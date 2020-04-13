@@ -18,7 +18,7 @@ namespace MetadataExtractor.Formats.Avi
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class AviMetadataReader
     {
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         /// <exception cref="RiffProcessingException"/>
         public static DirectoryList ReadMetadata(string filePath)
         {
@@ -32,7 +32,7 @@ namespace MetadataExtractor.Formats.Avi
             return directories;
         }
 
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         /// <exception cref="RiffProcessingException"/>
         public static DirectoryList ReadMetadata(Stream stream)
         {

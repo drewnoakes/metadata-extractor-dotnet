@@ -44,14 +44,14 @@ namespace MetadataExtractor.Formats.Jpeg
         };
 
         /// <exception cref="JpegProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public static DirectoryList ReadMetadata(Stream stream, ICollection<IJpegSegmentMetadataReader>? readers = null)
         {
             return Process(stream, readers);
         }
 
         /// <exception cref="JpegProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public static DirectoryList ReadMetadata(string filePath, ICollection<IJpegSegmentMetadataReader>? readers = null)
         {
             var directories = new List<Directory>();
@@ -65,7 +65,7 @@ namespace MetadataExtractor.Formats.Jpeg
         }
 
         /// <exception cref="JpegProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public static DirectoryList Process(Stream stream, ICollection<IJpegSegmentMetadataReader>? readers = null)
         {
             if (readers == null)

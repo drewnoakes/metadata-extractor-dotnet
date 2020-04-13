@@ -8,7 +8,7 @@ namespace MetadataExtractor
         /// <remarks>
         /// Where possible, known values will be substituted here in place of the raw
         /// tokens actually kept in the metadata segment.  If no substitution is
-        /// available, the value provided by <see cref="DirectoryExtensions.GetString(MetadataExtractor.Directory,int)"/> will be returned.
+        /// available, the value provided by <see cref="DirectoryExtensions.GetString(Directory,int)"/> will be returned.
         /// </remarks>
         /// <param name="tagType">The tag to find a description for.</param>
         /// <returns>

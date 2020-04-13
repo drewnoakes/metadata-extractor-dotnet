@@ -17,7 +17,7 @@ namespace MetadataExtractor.Formats.Pcx
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class PcxMetadataReader
     {
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public static DirectoryList ReadMetadata(string filePath)
         {
             var directories = new List<Directory>();

@@ -47,7 +47,7 @@ namespace MetadataExtractor.IO
         /// </remarks>
         /// <param name="index">The index from which to read the byte</param>
         /// <returns>The read byte value</returns>
-        /// <exception cref="System.ArgumentException"><c>index</c> is negative</exception>
+        /// <exception cref="ArgumentException"><c>index</c> is negative</exception>
         /// <exception cref="BufferBoundsException">if the requested byte is beyond the end of the underlying data source</exception>
         /// <exception cref="System.IO.IOException">if the byte is unable to be read</exception>
         public abstract byte GetByte(int index);
@@ -56,7 +56,7 @@ namespace MetadataExtractor.IO
         /// <param name="index">The index from which the bytes begins in the underlying source</param>
         /// <param name="count">The number of bytes to be returned</param>
         /// <returns>The requested bytes</returns>
-        /// <exception cref="System.ArgumentException"><c>index</c> or <c>count</c> are negative</exception>
+        /// <exception cref="ArgumentException"><c>index</c> or <c>count</c> are negative</exception>
         /// <exception cref="BufferBoundsException">if the requested bytes extend beyond the end of the underlying data source</exception>
         /// <exception cref="System.IO.IOException">if the byte is unable to be read</exception>
         public abstract byte[] GetBytes(int index, int count);

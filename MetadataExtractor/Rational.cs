@@ -230,7 +230,7 @@ namespace MetadataExtractor
         /// <remarks>
         /// For example, <c>1/2</c> is not equal to <c>10/20</c> by this method.
         /// Similarly, <c>1/0</c> is not equal to <c>100/0</c> by this method.
-        /// To test numerically equivalence, use <see cref="Equals(MetadataExtractor.Rational)"/>.
+        /// To test numerically equivalence, use <see cref="Equals(Rational)"/>.
         /// </remarks>
         /// <param name="other"></param>
         /// <returns></returns>

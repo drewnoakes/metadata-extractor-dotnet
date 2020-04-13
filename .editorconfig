@@ -179,3 +179,13 @@ dotnet_naming_rule.members_should_be_pascal_case.style = pascal_case_style
 dotnet_naming_symbols.all_members.applicable_kinds = *
 
 dotnet_naming_style.pascal_case_style.capitalization = pascal_case
+
+##### Microsoft.CodeAnalysis.CSharp.Features
+
+dotnet_diagnostic.IDE0001.severity = error                        # Simplify names
+dotnet_diagnostic.IDE0002.severity = error                        # Simplify (member access)
+dotnet_diagnostic.IDE0005.severity = error                        # Using directive is unnecessary
+dotnet_diagnostic.IDE0030.severity = error                        # Use coalesce expression (nullable)
+dotnet_diagnostic.IDE0030WithoutSuggestion.severity = error
+dotnet_diagnostic.IDE1006.severity = error                        # Naming styles
+dotnet_diagnostic.IDE1006WithoutSuggestion.severity = suggestion

@@ -17,7 +17,7 @@ namespace MetadataExtractor.Formats.Photoshop
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class PsdMetadataReader
     {
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public static DirectoryList ReadMetadata(string filePath)
         {
             var directories = new List<Directory>();

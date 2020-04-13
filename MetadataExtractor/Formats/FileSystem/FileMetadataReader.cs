@@ -6,7 +6,7 @@ namespace MetadataExtractor.Formats.FileSystem
 {
     public sealed class FileMetadataReader
     {
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public FileMetadataDirectory Read(string file)
         {
             var attr = File.GetAttributes(file);

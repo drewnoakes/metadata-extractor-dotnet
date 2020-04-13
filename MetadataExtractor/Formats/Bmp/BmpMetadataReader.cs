@@ -19,7 +19,7 @@ namespace MetadataExtractor.Formats.Bmp
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     public static class BmpMetadataReader
     {
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public static DirectoryList ReadMetadata(string filePath)
         {
             var directories = new List<Directory>(2);

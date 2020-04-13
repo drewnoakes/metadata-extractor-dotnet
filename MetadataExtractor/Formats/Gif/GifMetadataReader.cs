@@ -18,7 +18,7 @@ namespace MetadataExtractor.Formats.Gif
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class GifMetadataReader
     {
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public static DirectoryList ReadMetadata(string filePath)
         {
             var directories = new List<Directory>(2);

@@ -16,7 +16,7 @@ namespace MetadataExtractor.Formats.Netpbm
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public static class NetpbmMetadataReader
     {
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public static DirectoryList ReadMetadata(string filePath)
         {
             var directories = new List<Directory>(2);

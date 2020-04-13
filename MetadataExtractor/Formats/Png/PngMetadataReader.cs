@@ -46,7 +46,7 @@ namespace MetadataExtractor.Formats.Png
         };
 
         /// <exception cref="PngProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public static DirectoryList ReadMetadata(string filePath)
         {
             var directories = new List<Directory>();
@@ -60,7 +60,7 @@ namespace MetadataExtractor.Formats.Png
         }
 
         /// <exception cref="PngProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public static DirectoryList ReadMetadata(Stream stream)
         {
             List<Directory>? directories = null;
@@ -99,7 +99,7 @@ namespace MetadataExtractor.Formats.Png
         private static readonly Encoding _latin1Encoding = Encoding.GetEncoding("ISO-8859-1");
 
         /// <exception cref="PngProcessingException"/>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         private static IEnumerable<Directory> ProcessChunk(PngChunk chunk)
         {
             var chunkType = chunk.ChunkType;
