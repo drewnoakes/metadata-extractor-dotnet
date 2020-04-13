@@ -7,7 +7,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
     public class ItemPropertyAssociationBox : FullBox
     {
         public uint EntryCount { get; }
-        public ItemPropertyAssociationEntry[] Entries;
+        public ItemPropertyAssociationEntry[] Entries { get; }
 
         public ItemPropertyAssociationBox(BoxLocation loc, SequentialReader sr) : base(loc, sr)
         {

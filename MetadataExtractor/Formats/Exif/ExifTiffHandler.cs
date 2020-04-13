@@ -34,21 +34,21 @@ namespace MetadataExtractor.Formats.Exif
         {
 #pragma warning disable format
 
-            const int standardTiffMarker     = 0x002A;
-            const int olympusRawTiffMarker   = 0x4F52; // for ORF files
-            const int olympusRawTiffMarker2  = 0x5352; // for ORF files
-            const int panasonicRawTiffMarker = 0x0055; // for RAW, RW2, and RWL files
+            const int StandardTiffMarker     = 0x002A;
+            const int OlympusRawTiffMarker   = 0x4F52; // for ORF files
+            const int OlympusRawTiffMarker2  = 0x5352; // for ORF files
+            const int PanasonicRawTiffMarker = 0x0055; // for RAW, RW2, and RWL files
 
 #pragma warning restore format
 
             switch (marker)
             {
-                case standardTiffMarker:
-                case olympusRawTiffMarker:  // Todo: implement an IFD0
-                case olympusRawTiffMarker2: // Todo: implement an IFD0
+                case StandardTiffMarker:
+                case OlympusRawTiffMarker:  // Todo: implement an IFD0
+                case OlympusRawTiffMarker2: // Todo: implement an IFD0
                     PushDirectory(new ExifIfd0Directory());
                     break;
-                case panasonicRawTiffMarker:
+                case PanasonicRawTiffMarker:
                     PushDirectory(new PanasonicRawIfd0Directory());
                     break;
                 default:

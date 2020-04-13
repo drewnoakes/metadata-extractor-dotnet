@@ -58,7 +58,7 @@ namespace MetadataExtractor.Formats.Eps
         // public const int TagBeginData = 41;
         // public const int TagAI9EndPrivateData = 42;
 
-        internal static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>
+        internal static readonly Dictionary<int, string> TagNameMap = new Dictionary<int, string>
         {
             { TagContinueLine, "Line Continuation" },
             { TagBoundingBox, "Bounding Box" },
@@ -98,7 +98,7 @@ namespace MetadataExtractor.Formats.Eps
             { TagWmfPreviewOffset, "WMF Preview Offset" }
         };
 
-        internal static readonly Dictionary<string, int> _tagIntegerMap = new Dictionary<string, int>
+        internal static readonly Dictionary<string, int> TagIntegerMap = new Dictionary<string, int>
         {
             { "%!PS-Adobe-", TagDscVersion },
             { "%%Author", TagAuthor },
@@ -147,7 +147,7 @@ namespace MetadataExtractor.Formats.Eps
 
         protected override bool TryGetTagName(int tagType, out string tagName)
         {
-            return _tagNameMap.TryGetValue(tagType, out tagName);
+            return TagNameMap.TryGetValue(tagType, out tagName);
         }
     }
 }

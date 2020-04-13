@@ -417,9 +417,9 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
                 return null;
 
             // Canon PowerShot S3 is special
-            const int canonMask = 0x4000;
-            if ((value & canonMask) != 0)
-                return (value & ~canonMask).ToString();
+            const int CanonMask = 0x4000;
+            if ((value & CanonMask) != 0)
+                return (value & ~CanonMask).ToString();
 
             return value switch
             {

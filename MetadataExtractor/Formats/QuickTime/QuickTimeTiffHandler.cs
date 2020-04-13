@@ -16,8 +16,8 @@ namespace MetadataExtractor.Formats.QuickTime
 
         public override void SetTiffMarker(int marker)
         {
-            const int standardTiffMarker = 0x002A;
-            if (marker != standardTiffMarker)
+            const int StandardTiffMarker = 0x002A;
+            if (marker != StandardTiffMarker)
             {
                 throw new TiffProcessingException($"Unexpected TIFF marker: 0x{marker:X}");
             }

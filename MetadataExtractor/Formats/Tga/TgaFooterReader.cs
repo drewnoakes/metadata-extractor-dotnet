@@ -27,12 +27,12 @@ namespace MetadataExtractor.Formats.Tga
     {
         private const int FooterSize = 26;
 
-        private static readonly byte[] FooterSignature = Encoding.ASCII.GetBytes("TRUEVISION-XFILE.\0");
+        private static readonly byte[] _footerSignature = Encoding.ASCII.GetBytes("TRUEVISION-XFILE.\0");
 
         public bool TryGetOffsets(Stream stream, out int extOffset, out int devOffset)
         {
             var footer = Extract(stream, -FooterSize, SeekOrigin.End);
-            if (footer.Signature.RegionEquals(0, FooterSignature.Length, FooterSignature))
+            if (footer.Signature.RegionEquals(0, _footerSignature.Length, _footerSignature))
             {
                 extOffset = footer.ExtOffset;
                 devOffset = footer.DevOffset;
@@ -50,7 +50,7 @@ namespace MetadataExtractor.Formats.Tga
             return new TgaFooter(
                 extOffset: reader.GetInt32(),
                 devOffset: reader.GetInt32(),
-                signature: reader.GetBytes(FooterSignature.Length));
+                signature: reader.GetBytes(_footerSignature.Length));
         }
     }
 }

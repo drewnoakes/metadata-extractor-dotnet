@@ -7,11 +7,14 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
 {
     public class BitsReader
     {
-        private readonly SequentialReader source;
+        private readonly SequentialReader _source;
+
+        private byte _mask = 0;
+        private byte _currentByte = 0;
 
         public BitsReader(SequentialReader source)
         {
-            this.source = source;
+            _source = source;
         }
 
         public ulong GetUInt64(int bits)
@@ -48,22 +51,19 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
             return (byte)GetUInt64(bits);
         }
 
-        private byte mask = 0;
-        private byte currentByte = 0;
-
         public bool GetBit()
         {
-            if (mask == 0)
+            if (_mask == 0)
                 ReadWholeByteFromSource();
-            var ret = (mask & currentByte) == mask;
-            mask >>= 1;
+            var ret = (_mask & _currentByte) == _mask;
+            _mask >>= 1;
             return ret;
         }
 
         private void ReadWholeByteFromSource()
         {
-            currentByte = source.GetByte();
-            mask = 128;
+            _currentByte = _source.GetByte();
+            _mask = 128;
         }
     }
 }

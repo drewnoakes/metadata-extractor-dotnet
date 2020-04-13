@@ -461,8 +461,8 @@ namespace MetadataExtractor.Formats.Png
                     // consumers may want the unmodified data.
 
                     // Each row must have 72 characters (36 bytes once decoded) separated by \n
-                    const int rowCharCount = 72;
-                    int charsInRow = rowCharCount;
+                    const int RowCharCount = 72;
+                    int charsInRow = RowCharCount;
 
                     for (int j = i; j < length + i; j++)
                     {
@@ -476,7 +476,7 @@ namespace MetadataExtractor.Formats.Png
                                 return false;
                             }
 
-                            charsInRow = rowCharCount;
+                            charsInRow = RowCharCount;
                             continue;
                         }
 
@@ -489,7 +489,7 @@ namespace MetadataExtractor.Formats.Png
 
                     byteCount = length;
                     var writeIndex = 0;
-                    charsInRow = rowCharCount;
+                    charsInRow = RowCharCount;
                     while (length > 0)
                     {
                         var c1 = textBytes[i++];
@@ -497,7 +497,7 @@ namespace MetadataExtractor.Formats.Png
                         if (charsInRow-- == 0)
                         {
                             Debug.Assert(c1 == '\n');
-                            charsInRow = rowCharCount;
+                            charsInRow = RowCharCount;
                             continue;
                         }
 

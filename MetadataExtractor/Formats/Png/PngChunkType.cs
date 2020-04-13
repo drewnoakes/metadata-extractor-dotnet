@@ -14,8 +14,10 @@ namespace MetadataExtractor.Formats.Png
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public sealed class PngChunkType
     {
-        private static readonly ICollection<string> IdentifiersAllowingMultiples
+        private static readonly ICollection<string> _identifiersAllowingMultiples
             = new HashSet<string> { "IDAT", "sPLT", "iTXt", "tEXt", "zTXt" };
+
+#pragma warning disable IDE1006 // Naming Styles
 
         #region Standard critical chunks
 
@@ -108,6 +110,8 @@ namespace MetadataExtractor.Formats.Png
 
         #endregion
 
+#pragma warning restore IDE1006 // Naming Styles
+
         private readonly byte[] _bytes;
 
         public PngChunkType(string identifier, bool multipleAllowed = false)
@@ -122,7 +126,7 @@ namespace MetadataExtractor.Formats.Png
         {
             ValidateBytes(bytes);
             _bytes = bytes;
-            AreMultipleAllowed = IdentifiersAllowingMultiples.Contains(Identifier);
+            AreMultipleAllowed = _identifiersAllowingMultiples.Contains(Identifier);
         }
 
         [SuppressMessage("ReSharper", "UnusedParameter.Local")]

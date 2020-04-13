@@ -8,12 +8,12 @@ namespace MetadataExtractor.Formats.QuickTime
 {
     public static class HeifChecker
     {
-        private static readonly uint[] heicTypes = new[]
-        {
-            0x68656963u, // heic
-            0x68656966u, // heif
-            0x68657663u, //hevc
+        private static readonly uint[] _heicTypes = {
+            0x68656963u, // "heic"
+            0x68656966u, // "heif"
+            0x68657663u, // "hevc"
         };
+
         public static bool IsHeicStream(Stream str)
         {
             try
@@ -24,7 +24,8 @@ namespace MetadataExtractor.Formats.QuickTime
                 while (reader.Position < fTypeLen)
                 {
                     var candidate = reader.GetUInt32();
-                    if (heicTypes.Contains(candidate)) return true;
+                    if (_heicTypes.Contains(candidate))
+                        return true;
                 }
 
                 return false;

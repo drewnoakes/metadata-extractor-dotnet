@@ -228,9 +228,9 @@ namespace MetadataExtractor.Formats.QuickTime
                     }
                     case "uuid":
                     {
-                        var CR3 = new byte[] { 0x85, 0xc0, 0xb6, 0x87, 0x82, 0x0f, 0x11, 0xe0, 0x81, 0x11, 0xf4, 0xce, 0x46, 0x2b, 0x6a, 0x48 };
-                        var uuid = a.Reader.GetBytes(CR3.Length);
-                        if (CR3.RegionEquals(0, CR3.Length, uuid))
+                        var cr3 = new byte[] { 0x85, 0xc0, 0xb6, 0x87, 0x82, 0x0f, 0x11, 0xe0, 0x81, 0x11, 0xf4, 0xce, 0x46, 0x2b, 0x6a, 0x48 };
+                        var uuid = a.Reader.GetBytes(cr3.Length);
+                        if (cr3.RegionEquals(0, cr3.Length, uuid))
                         {
                             QuickTimeReader.ProcessAtoms(stream, UuidHandler, a.BytesLeft);
                         }
@@ -276,11 +276,11 @@ namespace MetadataExtractor.Formats.QuickTime
                     }
                     case "uuid":
                     {
-                        var XMP = new byte[] { 0xbe, 0x7a, 0xcf, 0xcb, 0x97, 0xa9, 0x42, 0xe8, 0x9c, 0x71, 0x99, 0x94, 0x91, 0xe3, 0xaf, 0xac };
-                        if (a.BytesLeft >= XMP.Length)
+                        var xmp = new byte[] { 0xbe, 0x7a, 0xcf, 0xcb, 0x97, 0xa9, 0x42, 0xe8, 0x9c, 0x71, 0x99, 0x94, 0x91, 0xe3, 0xaf, 0xac };
+                        if (a.BytesLeft >= xmp.Length)
                         {
-                            var uuid = a.Reader.GetBytes(XMP.Length);
-                            if (XMP.RegionEquals(0, XMP.Length, uuid))
+                            var uuid = a.Reader.GetBytes(xmp.Length);
+                            if (xmp.RegionEquals(0, xmp.Length, uuid))
                             {
                                 var xmpBytes = a.Reader.GetNullTerminatedBytes((int)a.BytesLeft);
                                 var xmpDirectory = new XmpReader().Extract(xmpBytes);
