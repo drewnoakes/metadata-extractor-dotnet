@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496Parser

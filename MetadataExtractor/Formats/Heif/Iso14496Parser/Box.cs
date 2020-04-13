@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net.Sockets;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496Parser
