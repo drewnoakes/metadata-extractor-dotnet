@@ -11,13 +11,13 @@ namespace MetadataExtractor.Formats.Heif
             SetDescriptor(new HeicThumbnailTagDescriptor(this));
         }
 
-        public const int FileOffset = 1;
-        public const int Length = 2;
+        public const int TagFileOffset = 1;
+        public const int TagLength = 2;
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>()
         {
-            { FileOffset, "Offset From Beginning of File" },
-            { Length, "Data Length" }
+            { TagFileOffset, "Offset From Beginning of File" },
+            { TagLength, "Data Length" }
         };
 
         protected override bool TryGetTagName(int tagType, out string? tagName) =>

@@ -123,8 +123,8 @@ namespace MetadataExtractor.Formats.Heif
         private void ParseThumbnail(ulong extentOffset, ulong extentLength)
         {
             var dir = new HeicThumbnailDirectory();
-            dir.Set(HeicThumbnailDirectory.FileOffset, extentOffset);
-            dir.Set(HeicThumbnailDirectory.Length, extentLength);
+            dir.Set(HeicThumbnailDirectory.TagFileOffset, extentOffset);
+            dir.Set(HeicThumbnailDirectory.TagLength, extentLength);
             _directories.Add(dir);
         }
 
