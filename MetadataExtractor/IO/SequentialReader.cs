@@ -1,6 +1,7 @@
 // Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System;
+using System.IO;
 using System.Text;
 
 namespace MetadataExtractor.IO
@@ -40,7 +41,7 @@ namespace MetadataExtractor.IO
         /// <summary>Returns the required number of bytes from the sequence.</summary>
         /// <param name="count">The number of bytes to be returned</param>
         /// <returns>The requested bytes</returns>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public abstract byte[] GetBytes(int count);
 
         /// <summary>Retrieves bytes, writing them into a caller-provided buffer.</summary>
@@ -48,22 +49,22 @@ namespace MetadataExtractor.IO
         /// <param name="offset">The starting position within <paramref name="buffer"/> to write to.</param>
         /// <param name="count">The number of bytes to be written.</param>
         /// <returns>The requested bytes</returns>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public abstract void GetBytes(byte[] buffer, int offset, int count);
 
         /// <summary>Skips forward in the sequence.</summary>
         /// <remarks>
-        /// Skips forward in the sequence. If the sequence ends, an <see cref="System.IO.IOException"/> is thrown.
+        /// Skips forward in the sequence. If the sequence ends, an <see cref="IOException"/> is thrown.
         /// </remarks>
         /// <param name="n">the number of byte to skip. Must be zero or greater.</param>
-        /// <exception cref="System.IO.IOException">the end of the sequence is reached.</exception>
-        /// <exception cref="System.IO.IOException">an error occurred reading from the underlying source.</exception>
+        /// <exception cref="IOException">the end of the sequence is reached.</exception>
+        /// <exception cref="IOException">an error occurred reading from the underlying source.</exception>
         public abstract void Skip(long n);
 
         /// <summary>Skips forward in the sequence, returning a boolean indicating whether the skip succeeded, or whether the sequence ended.</summary>
         /// <param name="n">the number of byte to skip. Must be zero or greater.</param>
         /// <returns>a boolean indicating whether the skip succeeded, or whether the sequence ended.</returns>
-        /// <exception cref="System.IO.IOException">an error occurred reading from the underlying source.</exception>
+        /// <exception cref="IOException">an error occurred reading from the underlying source.</exception>
         public abstract bool TrySkip(long n);
 
         /// <summary>
@@ -88,19 +89,19 @@ namespace MetadataExtractor.IO
 
         /// <summary>Returns the next unsigned byte from the sequence.</summary>
         /// <returns>the 8 bit int value, between 0 and 255</returns>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public abstract byte GetByte();
 
         /// <summary>Returns a signed 8-bit int calculated from the next byte the sequence.</summary>
         /// <returns>the 8 bit int value, between 0x00 and 0xFF</returns>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public sbyte GetSByte() => unchecked((sbyte)GetByte());
 
 #pragma warning disable format
 
         /// <summary>Returns an unsigned 16-bit int calculated from the next two bytes of the sequence.</summary>
         /// <returns>the 16 bit int value, between 0x0000 and 0xFFFF</returns>
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public ushort GetUInt16()
         {
             if (IsMotorolaByteOrder)
@@ -118,7 +119,7 @@ namespace MetadataExtractor.IO
 
         /// <summary>Returns a signed 16-bit int calculated from two bytes of data (MSB, LSB).</summary>
         /// <returns>the 16 bit int value, between 0x0000 and 0xFFFF</returns>
-        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request</exception>
+        /// <exception cref="IOException">the buffer does not contain enough bytes to service the request</exception>
         public short GetInt16()
         {
             if (IsMotorolaByteOrder)
@@ -136,7 +137,7 @@ namespace MetadataExtractor.IO
 
         /// <summary>Get a 32-bit unsigned integer from the buffer, returning it as a long.</summary>
         /// <returns>the unsigned 32-bit int value as a long, between 0x00000000 and 0xFFFFFFFF</returns>
-        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request</exception>
+        /// <exception cref="IOException">the buffer does not contain enough bytes to service the request</exception>
         public uint GetUInt32()
         {
             if (IsMotorolaByteOrder)
@@ -158,7 +159,7 @@ namespace MetadataExtractor.IO
 
         /// <summary>Returns a signed 32-bit integer from four bytes of data.</summary>
         /// <returns>the signed 32 bit int value, between 0x00000000 and 0xFFFFFFFF</returns>
-        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request</exception>
+        /// <exception cref="IOException">the buffer does not contain enough bytes to service the request</exception>
         public int GetInt32()
         {
             if (IsMotorolaByteOrder)
@@ -180,7 +181,7 @@ namespace MetadataExtractor.IO
 
         /// <summary>Get a signed 64-bit integer from the buffer.</summary>
         /// <returns>the 64 bit int value, between 0x0000000000000000 and 0xFFFFFFFFFFFFFFFF</returns>
-        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request</exception>
+        /// <exception cref="IOException">the buffer does not contain enough bytes to service the request</exception>
         public long GetInt64()
         {
             if (IsMotorolaByteOrder)
@@ -210,7 +211,7 @@ namespace MetadataExtractor.IO
 
         /// <summary>Get an usigned 64-bit integer from the buffer.</summary>
         /// <returns>the unsigned 64 bit int value, between 0x0000000000000000 and 0xFFFFFFFFFFFFFFFF</returns>
-        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request</exception>
+        /// <exception cref="IOException">the buffer does not contain enough bytes to service the request</exception>
         public ulong GetUInt64()
         {
             if (IsMotorolaByteOrder)
@@ -247,7 +248,7 @@ namespace MetadataExtractor.IO
         /// This particular fixed point encoding has one sign bit, 15 numerator bits and 16 denominator bits.
         /// </remarks>
         /// <returns>the floating point value</returns>
-        /// <exception cref="System.IO.IOException">the buffer does not contain enough bytes to service the request</exception>
+        /// <exception cref="IOException">the buffer does not contain enough bytes to service the request</exception>
         public float GetS15Fixed16()
         {
             if (IsMotorolaByteOrder)
@@ -265,13 +266,13 @@ namespace MetadataExtractor.IO
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public float GetFloat32() => BitConverter.ToSingle(BitConverter.GetBytes(GetInt32()), 0);
 
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public double GetDouble64() => BitConverter.Int64BitsToDouble(GetInt64());
 
-        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="IOException"/>
         public string GetString(int bytesRequested, Encoding encoding)
         {
             var bytes = GetBytes(bytesRequested);
@@ -292,7 +293,7 @@ namespace MetadataExtractor.IO
         /// </param>
         /// <param name="encoding">An optional string encoding. If none is provided, <see cref="Encoding.UTF8"/> is used.</param>
         /// <returns>The read <see cref="string"/></returns>
-        /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
+        /// <exception cref="IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
         public string GetNullTerminatedString(int maxLengthBytes, Encoding? encoding = null)
         {
             var bytes = GetNullTerminatedBytes(maxLengthBytes);
@@ -309,7 +310,7 @@ namespace MetadataExtractor.IO
         /// </param>
         /// <param name="encoding">An optional string encoding to use when interpreting bytes.</param>
         /// <returns>The read string as a <see cref="StringValue"/>, excluding the null terminator.</returns>
-        /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
+        /// <exception cref="IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
         public StringValue GetNullTerminatedStringValue(int maxLengthBytes, Encoding? encoding = null)
         {
             var bytes = GetNullTerminatedBytes(maxLengthBytes);
@@ -325,7 +326,7 @@ namespace MetadataExtractor.IO
         /// the returned array will be <paramref name="maxLengthBytes"/> long.
         /// </param>
         /// <returns>The read byte array, excluding the null terminator.</returns>
-        /// <exception cref="System.IO.IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
+        /// <exception cref="IOException">The buffer does not contain enough bytes to satisfy this request.</exception>
         public byte[] GetNullTerminatedBytes(int maxLengthBytes)
         {
             var buffer = new byte[maxLengthBytes];
