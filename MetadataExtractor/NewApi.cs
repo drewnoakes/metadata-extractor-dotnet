@@ -637,8 +637,12 @@ namespace MetadataExtractor.NewApi
         Version,
     }
     
-    public sealed class PcxDirectory : Directory<IEntry>
+    public sealed class PcxDirectory : IDirectory
     {
+        public const int HeaderSizeBytes = 74;
+
+        private readonly byte[] _bytes;
+
         // NOTE this directory must be strict about the values it can receive for properties.
         // Version, for example, must be a byte. Other types are invalid and cannot be written.
         // This is different to TIFF, for example, where a value has an expected type, but may
@@ -652,15 +656,126 @@ namespace MetadataExtractor.NewApi
         // operations work directly on that byte array. Maybe all read/write operations provide the
         // directory instance. This would also help with Exif tags that need to read multiple values
         // as part of their description, but will make the API uglier I think.
+        
+        private static readonly IndexedTable _pcxVersionTable = new IndexedTable(new[]
+        {
+            "2.5 with fixed EGA palette information",
+            null,
+            "2.8 with modifiable EGA palette information",
+            "2.8 without palette information (default palette)",
+            "PC Paintbrush for Windows",
+            "3.0 or better"
+        });
+        
+        private static readonly IndexedTable _pcxColorPlanesTable = new IndexedTable(new[] { "24-bit color", "16 colors" }, baseIndex: 3);
+        private static readonly IndexedTable _pcxPaletteTypeTable = new IndexedTable(new[] { "Color or B&W", "Grayscale" }, baseIndex: 1);
+
+        public PcxDirectory(byte[] bytes)
+        {
+            if (bytes == null)
+                throw new ArgumentNullException(nameof(bytes));
+            if (bytes.Length != HeaderSizeBytes)
+                throw new ArgumentException($"Must contain {HeaderSizeBytes} bytes", nameof(bytes));
+            _bytes = bytes;
+        }
+
+        public byte Version
+        {
+            get => _bytes[1];
+            set => _bytes[1] = value;
+        }
+
+        public byte BitsPerPixel
+        {
+            get => _bytes[3];
+            set => _bytes[3] = value;
+        }
+        
+        // TODO additional properties
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public IEnumerator<IEntry> GetEnumerator()
+        {
+            yield return new Entry<byte>("Version", Version, index => _pcxVersionTable.LookUp(index));
+            yield return new Entry<byte>("Bits Per Pixel", BitsPerPixel);
+            yield return new Entry<ushort>("X Min", XMin);
+            yield return new Entry<ushort>("Y Min", YMin);
+            yield return new Entry<ushort>("X Max", XMax);
+            yield return new Entry<ushort>("Y Max", YMax);
+            yield return new Entry<ushort>("Horizontal DPI", HorizontalDpi);
+            yield return new Entry<ushort>("Vertical DPI", VerticalDpi);
+            yield return new Entry<byte[]>("Palette", Palette);
+            yield return new Entry<byte>("Color Planes", ColorPlanes, index => _pcxColorPlanesTable.LookUp(index));
+            yield return new Entry<ushort>("Bytes Per Line", BytesPerLine);
+            yield return new Entry<ushort>("Palette Type", PalleteType, index => _pcxPaletteTypeTable.LookUp(index));
+        }
+
+        public int Count => 14;
+        
+        public string Name => "PCX";
+        
+        public IEnumerable<IDirectory> SubDirectories => Enumerable.Empty<IDirectory>();
+    }
+
+    internal sealed class IndexedTable
+    {
+        public IndexedTable(string?[] strings, int baseIndex = 0)
+        {
+        }
+
+        public string? LookUp(int index)
+        {
+            asdf
+        }
+    }
+
+    public class Entry<T> : IEntry
+    {
+        private readonly Func<T, string> _descriptor;
+
+        public Entry(string name, T value, Func<T, string>? descriptor = null)
+        {
+            _descriptor = descriptor;
+            Name = name;
+            Value = value;
+        }
+
+        private T Value { get; }
+        object IEntry.Value => Value;
+        public string Name { get; }
+        public string Description => _descriptor == null ? Value.ToString() : _descriptor(Value);
     }
 
     public sealed class PcxReader
     {
         public PcxDirectory Extract(SequentialReader reader)
         {
-            reader = reader.WithByteOrder(isMotorolaByteOrder: false);
+            byte[] bytes;
+            try
+            {
+                bytes = reader.GetBytes(PcxDirectory.HeaderSizeBytes);
+            }
+            catch (Exception ex)
+            {
+                return WithError("Exception reading PCX metadata: " + ex.Message);
+            }
+            
+            if (bytes[0] != 0x0A)
+                return WithError("Invalid PCX identifier byte");
+            if (bytes[2] != 0x01)
+                return WithError("Invalid PCX encoding byte");
 
-            var directory = new PcxDirectory();
+//            reader = reader.WithByteOrder(isMotorolaByteOrder: false);
+            
+            return new PcxDirectory(bytes);
+
+            static PcxDirectory WithError(string errorMessage)
+            {
+                var directory = new PcxDirectory();
+                directory.AddError(errorMessage);
+                return directory;
+            }
 
             try
             {
