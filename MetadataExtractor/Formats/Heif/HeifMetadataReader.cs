@@ -292,7 +292,7 @@ namespace MetadataExtractor.Formats.Heif
 
         private void ReadBoxes(SequentialStreamReader reader)
         {
-            Box? item = null;
+            Box? item;
             while ((item = BoxReader.ReadBox(reader)) != null)
             {
                 _sourceBoxes.Add(item);
