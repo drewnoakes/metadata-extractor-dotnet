@@ -14,6 +14,12 @@ dotnet_diagnostic.IDE0004.severity = warning
 # IDE0005: Remove unnecessary using directives
 dotnet_diagnostic.IDE0005.severity = warning
 
+# IDE0051: Remove unused private members (no reads or writes)
+dotnet_diagnostic.IDE0051.severity = warning
+
+# IDE0052: Remove unread private members (writes but no reads)
+dotnet_diagnostic.IDE0052.severity = warning
+
 # IDE0073: File header
 dotnet_diagnostic.IDE0073.severity = error
 file_header_template = Copyright (c) Drew Noakes and contributors. All Rights Reserved. Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.

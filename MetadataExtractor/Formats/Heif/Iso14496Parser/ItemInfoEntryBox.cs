@@ -19,7 +19,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
         public string Location { get; } = "";
         public string MD5 { get; } = "";
         public ulong ContentLength { get; }
-        ulong TransferLength { get; }
+        public ulong TransferLength { get; }
         public byte GroupIdCount { get; }
         public uint[] GroupIds { get; } = new uint[0];
         public uint ItemType { get; }

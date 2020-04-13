@@ -14,16 +14,16 @@ namespace MetadataExtractor.Formats.Photoshop
     {
         // Photoshop-specific Tiff Tags
         // http://www.adobe.com/devnet-apps/photoshop/fileformatashtml/#50577413_pgfId-1039502
-        private const int TagPageMakerExtension = 0x014A;
-        private const int TagJpegTables = 0X01B5;
+//        private const int TagPageMakerExtension = 0x014A;
+//        private const int TagJpegTables = 0X01B5;
         private const int TagXmp = 0x02BC;
-        private const int TagFileInformation = 0x83BB;
+//        private const int TagFileInformation = 0x83BB;
         private const int TagPhotoshopImageResources = 0x8649;
-        private const int TagExifIfdPointer = 0x8769;
+//        private const int TagExifIfdPointer = 0x8769;
         private const int TagIccProfiles = 0x8773;
-        private const int TagExifGps = 0x8825;
-        private const int TagTImageSourceData = 0x935C;
-        private const int TagTAnnotations = 0xC44F;
+//        private const int TagExifGps = 0x8825;
+//        private const int TagTImageSourceData = 0x935C;
+//        private const int TagTAnnotations = 0xC44F;
 
         public PhotoshopTiffHandler(List<Directory> directories)
             : base(directories)
