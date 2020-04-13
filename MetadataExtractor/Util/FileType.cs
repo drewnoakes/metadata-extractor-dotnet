@@ -40,13 +40,13 @@ namespace MetadataExtractor.Util
         Riff = 9,
 
         /// <summary>Waveform Audio File Format.</summary>
-        Wav = 10, // ("WAV", "Waveform Audio File Format", "audio/vnd.wave", "wav", "wave"),
+        Wav = 10,
 
         /// <summary>Audio Video Interleaved.</summary>
-        Avi = 11, //("AVI", "Audio Video Interleaved", "video/vnd.avi", "avi"),
+        Avi = 11,
 
         /// <summary>WebP.</summary>
-        WebP = 12, //("WebP", "WebP", "image/webp", "webp"),
+        WebP = 12,
 
         /// <summary>Sony camera raw.</summary>
         Arw = 13,
@@ -79,8 +79,8 @@ namespace MetadataExtractor.Util
         /// <remarks>Shared by CR3 (image) and CRM (video).</remarks>
         Crx = 22,
 
-        /// <summary>Encapsulated PostScript</summary>
-        Eps = 23, //("EPS", "Encapsulated PostScript", "application/postscript", "eps", "epsf", "epsi"),
+        /// <summary>Encapsulated PostScript.</summary>
+        Eps = 23,
 
         /// <summary>Truevision graphics.</summary>
         Tga = 24,
