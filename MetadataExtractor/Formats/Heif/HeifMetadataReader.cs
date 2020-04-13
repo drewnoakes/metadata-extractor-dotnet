@@ -212,13 +212,13 @@ namespace MetadataExtractor.Formats.Heif
 
         private void ParseColorBox(HeicImagePropertiesDirectory dir, ColorInformationBox colr)
         {
-            dir.Set(HeicImagePropertiesDirectory.ColorFormat, colr.ColorType);
+            dir.Set(HeicImagePropertiesDirectory.TagColorFormat, colr.ColorType);
             if (colr.ColorType == ColorInformationBox.NclxTag)
             {
-                dir.Set(HeicImagePropertiesDirectory.ColorPrimaries, colr.ColorPrimaries);
-                dir.Set(HeicImagePropertiesDirectory.ColorTransferCharacteristics, colr.TransferCharacteristics);
-                dir.Set(HeicImagePropertiesDirectory.ColorMatrixCharacteristics, colr.MatrixCharacteristics);
-                dir.Set(HeicImagePropertiesDirectory.FullRangeColor, colr.FullRangeFlag);
+                dir.Set(HeicImagePropertiesDirectory.TagColorPrimaries, colr.ColorPrimaries);
+                dir.Set(HeicImagePropertiesDirectory.TagColorTransferCharacteristics, colr.TransferCharacteristics);
+                dir.Set(HeicImagePropertiesDirectory.TagColorMatrixCharacteristics, colr.MatrixCharacteristics);
+                dir.Set(HeicImagePropertiesDirectory.TagFullRangeColor, colr.FullRangeFlag);
             }
             else
             {
@@ -230,37 +230,37 @@ namespace MetadataExtractor.Formats.Heif
 
         private static void ParseDecoderInformation(HeicImagePropertiesDirectory dir, DecoderConfigurationBox hvcC)
         {
-            dir.Set(HeicImagePropertiesDirectory.ConfigurationVersion, hvcC.ConfigurationVersion);
-            dir.Set(HeicImagePropertiesDirectory.GeneralProfileSpace, hvcC.GeneralProfileSpace);
-            dir.Set(HeicImagePropertiesDirectory.GeneralTierTag, hvcC.GeneralTierTag);
-            dir.Set(HeicImagePropertiesDirectory.GeneralProfileIdc, hvcC.GeneralProfileIdc);
-            dir.Set(HeicImagePropertiesDirectory.GeneralProfileCompatibilityTag, hvcC.GeneralProfileCompatibilityFlags);
-            dir.Set(HeicImagePropertiesDirectory.GeneralLevelIdc, hvcC.GeneralLevelIdc);
-            dir.Set(HeicImagePropertiesDirectory.MinSpacialSegmentationIdc, hvcC.MinSpacialSegmentationIdc);
-            dir.Set(HeicImagePropertiesDirectory.ParallelismType, hvcC.ParallelismType);
-            dir.Set(HeicImagePropertiesDirectory.ChromaFormat, hvcC.ChromaFormat);
-            dir.Set(HeicImagePropertiesDirectory.BitDepthLuma, hvcC.BitDepthLumaMinus8 + 8);
-            dir.Set(HeicImagePropertiesDirectory.BitDepthChroma, hvcC.BitDepthChromaMinus8 + 8);
-            dir.Set(HeicImagePropertiesDirectory.AverageFrameRate, hvcC.AvgFrameRate);
-            dir.Set(HeicImagePropertiesDirectory.ConstantFrameRate, hvcC.ConstantFrameRate);
-            dir.Set(HeicImagePropertiesDirectory.NumTemporalLayers, hvcC.NumTemporalLayers);
-            dir.Set(HeicImagePropertiesDirectory.LengthSize, hvcC.LengthSizeMinus1 + 1);
+            dir.Set(HeicImagePropertiesDirectory.TagConfigurationVersion, hvcC.ConfigurationVersion);
+            dir.Set(HeicImagePropertiesDirectory.TagGeneralProfileSpace, hvcC.GeneralProfileSpace);
+            dir.Set(HeicImagePropertiesDirectory.TagGeneralTierTag, hvcC.GeneralTierTag);
+            dir.Set(HeicImagePropertiesDirectory.TagGeneralProfileIdc, hvcC.GeneralProfileIdc);
+            dir.Set(HeicImagePropertiesDirectory.TagGeneralProfileCompatibilityTag, hvcC.GeneralProfileCompatibilityFlags);
+            dir.Set(HeicImagePropertiesDirectory.TagGeneralLevelIdc, hvcC.GeneralLevelIdc);
+            dir.Set(HeicImagePropertiesDirectory.TagMinSpacialSegmentationIdc, hvcC.MinSpacialSegmentationIdc);
+            dir.Set(HeicImagePropertiesDirectory.TagParallelismType, hvcC.ParallelismType);
+            dir.Set(HeicImagePropertiesDirectory.TagChromaFormat, hvcC.ChromaFormat);
+            dir.Set(HeicImagePropertiesDirectory.TagBitDepthLuma, hvcC.BitDepthLumaMinus8 + 8);
+            dir.Set(HeicImagePropertiesDirectory.TagBitDepthChroma, hvcC.BitDepthChromaMinus8 + 8);
+            dir.Set(HeicImagePropertiesDirectory.TagAverageFrameRate, hvcC.AvgFrameRate);
+            dir.Set(HeicImagePropertiesDirectory.TagConstantFrameRate, hvcC.ConstantFrameRate);
+            dir.Set(HeicImagePropertiesDirectory.TagNumTemporalLayers, hvcC.NumTemporalLayers);
+            dir.Set(HeicImagePropertiesDirectory.TagLengthSize, hvcC.LengthSizeMinus1 + 1);
         }
 
         private static void ParsePixelDepth(HeicImagePropertiesDirectory dir, PixelInformationBox pixi)
         {
-            dir.Set(HeicImagePropertiesDirectory.PixelDepths, pixi.BitsPerChannel);
+            dir.Set(HeicImagePropertiesDirectory.TagPixelDepths, pixi.BitsPerChannel);
         }
 
         private static void ParseImageRotation(HeicImagePropertiesDirectory dir, ImageRotationBox irot)
         {
-            dir.Set(HeicImagePropertiesDirectory.Rotation, irot.Rotation);
+            dir.Set(HeicImagePropertiesDirectory.TagRotation, irot.Rotation);
         }
 
         private static void ParseImageSize(HeicImagePropertiesDirectory dir, ImageSpatialExtentsBox ipse)
         {
-            dir.Set(HeicImagePropertiesDirectory.ImageWidth, ipse.X);
-            dir.Set(HeicImagePropertiesDirectory.ImageHeight, ipse.Y);
+            dir.Set(HeicImagePropertiesDirectory.TagImageWidth, ipse.X);
+            dir.Set(HeicImagePropertiesDirectory.TagImageHeight, ipse.Y);
         }
 
         private void ParseQuickTimeTest()

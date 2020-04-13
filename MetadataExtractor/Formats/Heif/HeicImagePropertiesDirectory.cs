@@ -12,57 +12,57 @@ namespace MetadataExtractor.Formats.Heif
             SetDescriptor(new HeicImagePropertyDescriptor(this));
         }
 
-        public const int ImageWidth = 1;
-        public const int ImageHeight = 2;
-        public const int Rotation = 3;
-        public const int PixelDepths = 4;
-        public const int ConfigurationVersion = 5;
-        public const int GeneralProfileSpace = 6;
-        public const int GeneralTierTag = 7;
-        public const int GeneralProfileIdc = 8;
-        public const int GeneralProfileCompatibilityTag = 9;
-        public const int GeneralLevelIdc = 10;
-        public const int MinSpacialSegmentationIdc = 11;
-        public const int ParallelismType = 12;
-        public const int ChromaFormat = 13;
-        public const int BitDepthLuma = 14;
-        public const int BitDepthChroma = 15;
-        public const int AverageFrameRate = 16;
-        public const int ConstantFrameRate = 17;
-        public const int NumTemporalLayers = 18;
-        public const int LengthSize = 19;
-        public const int ColorPrimaries = 20;
-        public const int ColorTransferCharacteristics = 21;
-        public const int ColorMatrixCharacteristics = 22;
-        public const int FullRangeColor = 23;
-        public const int ColorFormat = 24;
+        public const int TagImageWidth = 1;
+        public const int TagImageHeight = 2;
+        public const int TagRotation = 3;
+        public const int TagPixelDepths = 4;
+        public const int TagConfigurationVersion = 5;
+        public const int TagGeneralProfileSpace = 6;
+        public const int TagGeneralTierTag = 7;
+        public const int TagGeneralProfileIdc = 8;
+        public const int TagGeneralProfileCompatibilityTag = 9;
+        public const int TagGeneralLevelIdc = 10;
+        public const int TagMinSpacialSegmentationIdc = 11;
+        public const int TagParallelismType = 12;
+        public const int TagChromaFormat = 13;
+        public const int TagBitDepthLuma = 14;
+        public const int TagBitDepthChroma = 15;
+        public const int TagAverageFrameRate = 16;
+        public const int TagConstantFrameRate = 17;
+        public const int TagNumTemporalLayers = 18;
+        public const int TagLengthSize = 19;
+        public const int TagColorPrimaries = 20;
+        public const int TagColorTransferCharacteristics = 21;
+        public const int TagColorMatrixCharacteristics = 22;
+        public const int TagFullRangeColor = 23;
+        public const int TagColorFormat = 24;
 
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>()
         {
-            { ImageHeight, "Image Height" },
-            { ImageWidth, "Image Width" },
-            { Rotation, "Default Rotation" },
-            { PixelDepths, "Pixel Depth in Bits" },
-            { ConfigurationVersion, "HEVC Configuration Version" },
-            { GeneralProfileSpace, "General Profile Space" },
-            { GeneralTierTag, "General Tiler Tag" },
-            { GeneralProfileIdc, "General Profile" },
-            { GeneralProfileCompatibilityTag, "General Profile Compatibility" },
-            { GeneralLevelIdc, "General Level" },
-            { MinSpacialSegmentationIdc, "Minimum Spacial Segmentation" },
-            { ParallelismType, "Parallelism Type" },
-            { ChromaFormat, "Chroma Format" },
-            { BitDepthLuma, "Luma Bit Depth" },
-            { BitDepthChroma, "Chroma Bit Depth" },
-            { AverageFrameRate, "Average Frame Rate" },
-            { ConstantFrameRate, "Constant Frame Rate" },
-            { NumTemporalLayers, "Number of Temporal Layers" },
-            { LengthSize, "Length or Size" },
-            { ColorPrimaries, "Primary Color Definitions" },
-            { ColorTransferCharacteristics, "Optical Color Transfer Characteristic" },
-            { ColorMatrixCharacteristics, "Color Deviation Matrix Characteristics" },
-            { FullRangeColor, "Full-Range Color" },
-            { ColorFormat, "Color Data Format" }
+            { TagImageHeight, "Image Height" },
+            { TagImageWidth, "Image Width" },
+            { TagRotation, "Default Rotation" },
+            { TagPixelDepths, "Pixel Depth in Bits" },
+            { TagConfigurationVersion, "HEVC Configuration Version" },
+            { TagGeneralProfileSpace, "General Profile Space" },
+            { TagGeneralTierTag, "General Tiler Tag" },
+            { TagGeneralProfileIdc, "General Profile" },
+            { TagGeneralProfileCompatibilityTag, "General Profile Compatibility" },
+            { TagGeneralLevelIdc, "General Level" },
+            { TagMinSpacialSegmentationIdc, "Minimum Spacial Segmentation" },
+            { TagParallelismType, "Parallelism Type" },
+            { TagChromaFormat, "Chroma Format" },
+            { TagBitDepthLuma, "Luma Bit Depth" },
+            { TagBitDepthChroma, "Chroma Bit Depth" },
+            { TagAverageFrameRate, "Average Frame Rate" },
+            { TagConstantFrameRate, "Constant Frame Rate" },
+            { TagNumTemporalLayers, "Number of Temporal Layers" },
+            { TagLengthSize, "Length or Size" },
+            { TagColorPrimaries, "Primary Color Definitions" },
+            { TagColorTransferCharacteristics, "Optical Color Transfer Characteristic" },
+            { TagColorMatrixCharacteristics, "Color Deviation Matrix Characteristics" },
+            { TagFullRangeColor, "Full-Range Color" },
+            { TagColorFormat, "Color Data Format" }
         };
 
         protected override bool TryGetTagName(int tagType, out string? tagName) =>

@@ -14,18 +14,18 @@ namespace MetadataExtractor.Formats.Heif
         {
             switch (tagType)
             {
-                case HeicImagePropertiesDirectory.Rotation:
+                case HeicImagePropertiesDirectory.TagRotation:
                     return Directory.GetString(tagType) + " degrees";
-                case HeicImagePropertiesDirectory.PixelDepths:
-                    return string.Join(" ", ((byte[])Directory.GetObject(HeicImagePropertiesDirectory.PixelDepths)).Select(i => i.ToString()).ToArray());
-                case HeicImagePropertiesDirectory.ColorFormat:
-                    return TypeStringConverter.ToTypeString(Directory.GetUInt32(HeicImagePropertiesDirectory.ColorFormat));
-                case HeicImagePropertiesDirectory.ColorPrimaries:
-                    return ColorPrimary(Directory.GetUInt16(HeicImagePropertiesDirectory.ColorPrimaries));
-                case HeicImagePropertiesDirectory.ColorTransferCharacteristics:
-                    return ColorTransfer(Directory.GetUInt16(HeicImagePropertiesDirectory.ColorTransferCharacteristics));
-                case HeicImagePropertiesDirectory.ColorMatrixCharacteristics:
-                    return ColorMatrixCoeffs(Directory.GetUInt16(HeicImagePropertiesDirectory.ColorMatrixCharacteristics));
+                case HeicImagePropertiesDirectory.TagPixelDepths:
+                    return string.Join(" ", ((byte[])Directory.GetObject(HeicImagePropertiesDirectory.TagPixelDepths)).Select(i => i.ToString()).ToArray());
+                case HeicImagePropertiesDirectory.TagColorFormat:
+                    return TypeStringConverter.ToTypeString(Directory.GetUInt32(HeicImagePropertiesDirectory.TagColorFormat));
+                case HeicImagePropertiesDirectory.TagColorPrimaries:
+                    return ColorPrimary(Directory.GetUInt16(HeicImagePropertiesDirectory.TagColorPrimaries));
+                case HeicImagePropertiesDirectory.TagColorTransferCharacteristics:
+                    return ColorTransfer(Directory.GetUInt16(HeicImagePropertiesDirectory.TagColorTransferCharacteristics));
+                case HeicImagePropertiesDirectory.TagColorMatrixCharacteristics:
+                    return ColorMatrixCoeffs(Directory.GetUInt16(HeicImagePropertiesDirectory.TagColorMatrixCharacteristics));
                 default:
                     return base.GetDescription(tagType);
             }
