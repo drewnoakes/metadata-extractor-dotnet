@@ -2,17 +2,20 @@
 
 namespace MetadataExtractor.Formats.Heif.Iso14496Parser
 {
-    public class DecoderConfigurationBox: Box {
+    public class DecoderConfigurationBox : Box
+    {
         public byte ConfigurationVersion { get; }
-        public byte GeneralProfileSpace{ get; }
+        public byte GeneralProfileSpace { get; }
         public byte GeneralTierTag { get; }
         public byte GeneralProfileIdc { get; }
-        public uint GeneralProfileCompatibilityFlags {get;}
-        public byte[] GeneralConstraintIndicatorFlags {get;} = new byte[6];
-        public byte GeneralLevelIdc {get;}
-        public ushort MinSpacialSegmentationIdc {get;}
+        public uint GeneralProfileCompatibilityFlags { get; }
+        public byte[] GeneralConstraintIndicatorFlags { get; } = new byte[6];
+        public byte GeneralLevelIdc { get; }
+        public ushort MinSpacialSegmentationIdc { get; }
         public byte ParallelismType { get; }
-        public byte ChromaFormat{ get; }
+
+        public byte ChromaFormat { get; }
+
         /*
          These fields appear in the standard document but are never read in the parser
         public ushort PicWidthInLumaSamples { get; }
@@ -24,7 +27,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
         */
         public byte BitDepthLumaMinus8 { get; }
         public byte BitDepthChromaMinus8 { get; }
-        public ushort AvgFrameRate{ get; }
+        public ushort AvgFrameRate { get; }
         public byte ConstantFrameRate { get; }
         public byte NumTemporalLayers { get; }
         public byte TemporalIdNested { get; }
@@ -42,6 +45,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
             {
                 GeneralConstraintIndicatorFlags[i] = bitReader.GetByte(8);
             }
+
             GeneralLevelIdc = bitReader.GetByte(8);
             bitReader.GetUInt32(4); // reserved should be all 1's
             MinSpacialSegmentationIdc = bitReader.GetUInt16(12);

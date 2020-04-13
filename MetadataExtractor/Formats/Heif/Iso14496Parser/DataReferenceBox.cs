@@ -7,12 +7,13 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
     {
         public IList<Box> Boxes { get; }
         public uint BoxCount { get; }
+
         public DataReferenceBox(BoxLocation loc, SequentialReader sr) : base(loc, sr)
         {
             BoxCount = sr.GetUInt32();
             Boxes = BoxReader.BoxList(loc, sr);
         }
-        public override IEnumerable<Box> Children() => Boxes;
 
+        public override IEnumerable<Box> Children() => Boxes;
     }
 }

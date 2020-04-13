@@ -6,12 +6,13 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
 {
     public class ItemInfoEntryBox : FullBox
     {
-
         public uint ItemId { get; }
         public ushort ItemProtectionIndex { get; }
         public string ItemName { get; } = "";
         public string ContentType { get; } = "";
+
         public string ContentEncoding { get; } = "";
+
         // version 1
         public uint ExtensionType { get; }
         public string Location { get; } = "";
@@ -36,6 +37,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
                 ItemProtectionIndex = sr.GetUInt16();
                 ItemName = sr.GetNullTerminatedString((int)loc.BytesLeft(sr), Encoding.UTF8);
             }
+
             if (Version == 1)
             {
                 ExtensionType = sr.GetUInt32();
@@ -53,6 +55,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
                     }
                 }
             }
+
             if (Version >= 2)
             {
                 ItemId = Version == 2 ? sr.GetUInt16() : sr.GetUInt32();
@@ -65,6 +68,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
                     ContentType = sr.GetNullTerminatedString((int)loc.BytesLeft(sr), Encoding.UTF8);
                     ContentEncoding = sr.GetNullTerminatedString((int)loc.BytesLeft(sr), Encoding.UTF8);
                 }
+
                 if (ItemType == UriTag)
                 {
                     ItemUri = sr.GetNullTerminatedString((int)loc.BytesLeft(sr), Encoding.UTF8);

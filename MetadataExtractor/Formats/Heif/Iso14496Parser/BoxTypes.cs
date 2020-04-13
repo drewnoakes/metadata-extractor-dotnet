@@ -8,8 +8,8 @@
         public const uint HdlrTag = 0x68646C72; // hdlr
         public const uint DinfTag = 0x64696E66; // dinf
         public const uint DrefTag = 0x64726566; // dref
-        public const uint UrlTag  = 0x75726C20; // 'url '
-        public const uint UrnTag  = 0x75726E20; // 'urn '
+        public const uint UrlTag = 0x75726C20; // 'url '
+        public const uint UrnTag = 0x75726E20; // 'urn '
         public const uint PitmTag = 0x7069746D; // pitm
         public const uint Iinftag = 0x69696E66; // iinf
         public const uint InfeTag = 0x696E6665; // infe

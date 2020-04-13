@@ -2,7 +2,7 @@
 
 namespace MetadataExtractor.Formats.Heif
 {
-    public class HeicThumbnailDirectory: Directory
+    public class HeicThumbnailDirectory : Directory
     {
         public override string Name => "HEIC Thumbnail Data";
 
@@ -13,10 +13,11 @@ namespace MetadataExtractor.Formats.Heif
 
         public const int FileOffset = 1;
         public const int Length = 2;
+
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>()
         {
-            {FileOffset, "Offset From Beginning of File"},
-            {Length, "Data Length"}
+            { FileOffset, "Offset From Beginning of File" },
+            { Length, "Data Length" }
         };
 
         protected override bool TryGetTagName(int tagType, out string? tagName) =>
@@ -33,6 +34,6 @@ namespace MetadataExtractor.Formats.Heif
         }
 
         public string? GetDescription(int tagType) =>
-            _heicThumbnailDirectory.GetObject(tagType)?.ToString()??"";
+            _heicThumbnailDirectory.GetObject(tagType)?.ToString() ?? "";
     }
 }

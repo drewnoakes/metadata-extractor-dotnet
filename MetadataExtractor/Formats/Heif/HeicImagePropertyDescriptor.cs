@@ -3,7 +3,7 @@ using MetadataExtractor.Formats.Heif.Iso14496Parser;
 
 namespace MetadataExtractor.Formats.Heif
 {
-    public class HeicImagePropertyDescriptor: ITagDescriptor
+    public class HeicImagePropertyDescriptor : ITagDescriptor
     {
         private readonly HeicImagePropertiesDirectory dir;
 
@@ -12,20 +12,15 @@ namespace MetadataExtractor.Formats.Heif
             this.dir = dir;
         }
 
-        public string? GetDescription(int tagType) => tagType switch {
+        public string? GetDescription(int tagType) => tagType switch
+        {
             HeicImagePropertiesDirectory.Rotation => dir.GetString(tagType) + " degrees",
-            HeicImagePropertiesDirectory.PixelDepths =>
-            string.Join(" ", ((byte[])dir.GetObject(HeicImagePropertiesDirectory.PixelDepths))
-                .Select(i=>i.ToString()).ToArray()),
-            HeicImagePropertiesDirectory.ColorFormat =>
-            TypeStringConverter.ToTypeString(dir.GetUInt32(HeicImagePropertiesDirectory.ColorFormat)),
-            HeicImagePropertiesDirectory.ColorPrimaries =>
-            ColorPrimary(dir.GetUInt16(HeicImagePropertiesDirectory.ColorPrimaries)),
-            HeicImagePropertiesDirectory.ColorTransferCharacteristics =>
-            ColorTransfer(dir.GetUInt16(HeicImagePropertiesDirectory.ColorTransferCharacteristics)),
-            HeicImagePropertiesDirectory.ColorMatrixCharacteristics =>
-            ColorMatricCoeffs(dir.GetUInt16(HeicImagePropertiesDirectory.ColorMatrixCharacteristics)),
-            _=>dir.GetString(tagType)
+            HeicImagePropertiesDirectory.PixelDepths => string.Join(" ", ((byte[])dir.GetObject(HeicImagePropertiesDirectory.PixelDepths)).Select(i => i.ToString()).ToArray()),
+            HeicImagePropertiesDirectory.ColorFormat => TypeStringConverter.ToTypeString(dir.GetUInt32(HeicImagePropertiesDirectory.ColorFormat)),
+            HeicImagePropertiesDirectory.ColorPrimaries => ColorPrimary(dir.GetUInt16(HeicImagePropertiesDirectory.ColorPrimaries)),
+            HeicImagePropertiesDirectory.ColorTransferCharacteristics => ColorTransfer(dir.GetUInt16(HeicImagePropertiesDirectory.ColorTransferCharacteristics)),
+            HeicImagePropertiesDirectory.ColorMatrixCharacteristics => ColorMatricCoeffs(dir.GetUInt16(HeicImagePropertiesDirectory.ColorMatrixCharacteristics)),
+            _ => dir.GetString(tagType)
         };
 
         private string? ColorMatricCoeffs(ushort value) =>
@@ -61,13 +56,13 @@ namespace MetadataExtractor.Formats.Heif
         private string? ColorPrimary(ushort value) =>
             value switch
             {
-                1=> "G(0.3, 0.6) B(0.15, 0.06) R(0.64, 0.33) W(.3127, .329)",
-                2=> "Unspecified",
-                4=> "G(0.21, 0.72) B(0.14, 0.08), R(0.67, 0.33) W(0.31, 0.316)",
-                5=> "G(0.29, 0.70) B(0.15, 0.06), R(0.64, 0.33) W(0.3127, 0.3290)",
-                6=> "G(0.31, 0.595) B(0.155, 0.07), R(0.63, 0.34) W(0.3127, 0.3290)",
-                7=> "G(0.31, 0.595) B(0.155, 0.07), R(0.63, 0.34) W (0.3127, 0.3290)",
-                _=> "Reserved"
+                1 => "G(0.3, 0.6) B(0.15, 0.06) R(0.64, 0.33) W(.3127, .329)",
+                2 => "Unspecified",
+                4 => "G(0.21, 0.72) B(0.14, 0.08), R(0.67, 0.33) W(0.31, 0.316)",
+                5 => "G(0.29, 0.70) B(0.15, 0.06), R(0.64, 0.33) W(0.3127, 0.3290)",
+                6 => "G(0.31, 0.595) B(0.155, 0.07), R(0.63, 0.34) W(0.3127, 0.3290)",
+                7 => "G(0.31, 0.595) B(0.155, 0.07), R(0.63, 0.34) W (0.3127, 0.3290)",
+                _ => "Reserved"
             };
     }
 }

@@ -10,6 +10,7 @@
                 ret = ret << 8;
                 ret |= s[i];
             }
+
             return ret;
         }
 

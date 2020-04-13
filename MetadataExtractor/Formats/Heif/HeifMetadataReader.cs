@@ -16,21 +16,23 @@ using DirectoryList = System.Collections.Generic.IList<MetadataExtractor.Directo
 using DirectoryList = System.Collections.Generic.IReadOnlyList<MetadataExtractor.Directory>;
 #endif
 
-
 namespace MetadataExtractor.Formats.Heif
 {
     public class HeifMetadataReader
     {
-        public static DirectoryList ReadMetadata(Stream stream) => new HeifMetadataReader(stream).Process();
-        private List<Box> _sourceBoxes = new List<Box>();
+        private const int Hvc1Tag = 0x68766331; // hvc1
+        private const int ExifTag = 0x45786966; // Exif
 
+        public static DirectoryList ReadMetadata(Stream stream) => new HeifMetadataReader(stream).Process();
+
+        private List<Box> _sourceBoxes = new List<Box>();
         private readonly Stream _stream;
+        List<Directory> _directories = new List<Directory>();
+
         private HeifMetadataReader(Stream stream)
         {
             _stream = stream;
         }
-
-        List<Directory> _directories = new List<Directory>();
 
         private DirectoryList Process()
         {
@@ -39,7 +41,7 @@ namespace MetadataExtractor.Formats.Heif
             ParseQuickTimeTest();
             uint primaryItem = _sourceBoxes.Descendant<PrimaryItemBox>()?.PrimaryItem ?? uint.MaxValue;
             var itemRefs = (_sourceBoxes.Descendant<ItemReferenceBox>()?.Boxes ?? new SingleItemTypeReferenceBox[0])
-                .Where(i=>i.Type == BoxTypes.ThmbTag || i.Type == BoxTypes.CdscTag).ToList();
+                .Where(i => i.Type == BoxTypes.ThmbTag || i.Type == BoxTypes.CdscTag).ToList();
             ParseImageProperties(primaryItem, itemRefs);
 
             ParseItemSegments(itemRefs, reader);
@@ -51,12 +53,13 @@ namespace MetadataExtractor.Formats.Heif
             var locations = _sourceBoxes.Descendant<ItemLocationBox>();
             var information = _sourceBoxes.Descendant<ItemInformationBox>();
 
-            var segments = itemRefs.Select(i =>
-                    new
-                    {
-                        Info = information.Boxes.OfType<ItemInfoEntryBox>().First(j => j.ItemId == i.FromItemId),
-                        Location = locations.ItemLocations.First(j => j.ItemId == i.FromItemId)
-                    })
+            var segments = itemRefs.Select(
+                    i =>
+                        new
+                        {
+                            Info = information.Boxes.OfType<ItemInfoEntryBox>().First(j => j.ItemId == i.FromItemId),
+                            Location = locations.ItemLocations.First(j => j.ItemId == i.FromItemId)
+                        })
                 .OrderBy(i => i.Location.BaseOffset);
             foreach (var segment in segments)
             {
@@ -66,20 +69,27 @@ namespace MetadataExtractor.Formats.Heif
                 // and then proceed with the simple case.
                 Debug.Assert(segment.Location.ConstructionMethod == ConstructionMethod.FileOffset);
                 Debug.Assert(segment.Location.ExtentList.Length == 1);
-                ParseSingleSegment(segment.Info.ItemType,
+                ParseSingleSegment(
+                    segment.Info.ItemType,
                     segment.Location.BaseOffset + segment.Location.ExtentList[0].ExtentOffset,
                     segment.Location.ExtentList[0].ExtentLength, reader);
             }
         }
 
-        private const int Hvc1Tag = 0x68766331; // hvc1
-        private const int ExifTag = 0x45786966; // Exif
-        private void ParseSingleSegment(uint itemType, ulong extentOffset, ulong extentLength,
-            SequentialStreamReader reader) {
+        private void ParseSingleSegment(
+            uint itemType,
+            ulong extentOffset,
+            ulong extentLength,
+            SequentialStreamReader reader)
+        {
             switch (itemType)
             {
-                case Hvc1Tag: ParseThumbnail(extentOffset, extentLength); break;
-                case ExifTag: ParseExif(extentOffset, extentLength, reader); break;
+                case Hvc1Tag:
+                    ParseThumbnail(extentOffset, extentLength);
+                    break;
+                case ExifTag:
+                    ParseExif(extentOffset, extentLength, reader);
+                    break;
             }
         }
 
@@ -100,15 +110,16 @@ namespace MetadataExtractor.Formats.Heif
             if (headerLength >> 16 == 0x4d4d)
             {
                 var ret = new byte[extentLength];
-                ret[0] = (byte) (headerLength >> 24 & 0xFF);
-                ret[1] = (byte) (headerLength >> 16 & 0xFF);
-                ret[2] = (byte) (headerLength >> 8 & 0xFF);
-                ret[3] = (byte) (headerLength & 0xFF);
+                ret[0] = (byte)(headerLength >> 24 & 0xFF);
+                ret[1] = (byte)(headerLength >> 16 & 0xFF);
+                ret[2] = (byte)(headerLength >> 8 & 0xFF);
+                ret[3] = (byte)(headerLength & 0xFF);
                 reader.GetBytes(ret, 4, (int)extentLength - 4);
                 return ret;
             }
-            reader.Skip((int) headerLength);
-            var exifBytes = reader.GetBytes((int) extentLength);
+
+            reader.Skip((int)headerLength);
+            var exifBytes = reader.GetBytes((int)extentLength);
             return exifBytes;
         }
 
@@ -131,30 +142,37 @@ namespace MetadataExtractor.Formats.Heif
             var props = itemPropertyBox.Boxes.Descendant<ItemPropertyContainerBox>().Boxes;
             var associations = itemPropertyBox.Boxes.Descendant<ItemPropertyAssociationBox>();
 
-            ParsePropertyBoxes("HEIC Primary Item Properties", ImageProperties(primaryItem, allPrimaryTiles,
-                associations, props));
+            ParsePropertyBoxes(
+                "HEIC Primary Item Properties", ImageProperties(
+                    primaryItem, allPrimaryTiles,
+                    associations, props));
             foreach (var itemRef in itemRefs)
             {
-                ParsePropertyBoxes("HEIC Thumbnail Properties", ImageProperties(itemRef.FromItemId, new uint[0],
-                    associations, props));
+                ParsePropertyBoxes(
+                    "HEIC Thumbnail Properties", ImageProperties(
+                        itemRef.FromItemId, new uint[0],
+                        associations, props));
             }
         }
 
-        private IEnumerable<Box> ImageProperties(uint primaryId, uint[] secondary,
-            ItemPropertyAssociationBox associations, IList<Box> props)
+        private IEnumerable<Box> ImageProperties(
+            uint primaryId,
+            uint[] secondary,
+            ItemPropertyAssociationBox associations,
+            IList<Box> props)
         {
-            return DirectProperties(primaryId, associations, props). Concat(
-                (from associationBox in associations.Entries.Where(i=>secondary.Contains(i.ItemId))
-                from propIndex in associationBox.Properties
-                select props.ElementAt(propIndex.Index - 1))
-                .Where(i=>i is DecoderConfigurationBox || i is ColorInformationBox)
+            return DirectProperties(primaryId, associations, props).Concat(
+                (from associationBox in associations.Entries.Where(i => secondary.Contains(i.ItemId))
+                    from propIndex in associationBox.Properties
+                    select props.ElementAt(propIndex.Index - 1))
+                .Where(i => i is DecoderConfigurationBox || i is ColorInformationBox)
                 .Distinct()
-                );
+            );
         }
 
         private static IEnumerable<Box> DirectProperties(uint primaryId, ItemPropertyAssociationBox associations, IList<Box> props)
         {
-            return from associationBox in associations.Entries.Where(i=>i.ItemId == primaryId)
+            return from associationBox in associations.Entries.Where(i => i.ItemId == primaryId)
                 from propIndex in associationBox.Properties
                 select props.ElementAt(propIndex.Index - 1);
         }
@@ -168,11 +186,21 @@ namespace MetadataExtractor.Formats.Heif
             {
                 switch (prop)
                 {
-                    case ImageSpatialExtentsBox ipse: ParseImageSize(dir, ipse); break;
-                    case ImageRotationBox irot: ParseImageRotation(dir, irot); break;
-                    case PixelInformationBox pixi : ParsePixelDepth(dir, pixi); break;
-                    case DecoderConfigurationBox hvcC : ParseDecoderInformation(dir, hvcC); break;
-                    case ColorInformationBox colr: ParseColorBox(dir, colr); break;
+                    case ImageSpatialExtentsBox ipse:
+                        ParseImageSize(dir, ipse);
+                        break;
+                    case ImageRotationBox irot:
+                        ParseImageRotation(dir, irot);
+                        break;
+                    case PixelInformationBox pixi:
+                        ParsePixelDepth(dir, pixi);
+                        break;
+                    case DecoderConfigurationBox hvcC:
+                        ParseDecoderInformation(dir, hvcC);
+                        break;
+                    case ColorInformationBox colr:
+                        ParseColorBox(dir, colr);
+                        break;
                     default: continue;
                 }
 
@@ -214,8 +242,8 @@ namespace MetadataExtractor.Formats.Heif
             dir.Set(HeicImagePropertiesDirectory.MinSpacialSegmentationIdc, hvcC.MinSpacialSegmentationIdc);
             dir.Set(HeicImagePropertiesDirectory.ParallelismType, hvcC.ParallelismType);
             dir.Set(HeicImagePropertiesDirectory.ChromaFormat, hvcC.ChromaFormat);
-            dir.Set(HeicImagePropertiesDirectory.BitDepthLuma, hvcC.BitDepthLumaMinus8+8);
-            dir.Set(HeicImagePropertiesDirectory.BitDepthChroma, hvcC.BitDepthChromaMinus8+8);
+            dir.Set(HeicImagePropertiesDirectory.BitDepthLuma, hvcC.BitDepthLumaMinus8 + 8);
+            dir.Set(HeicImagePropertiesDirectory.BitDepthChroma, hvcC.BitDepthChromaMinus8 + 8);
             dir.Set(HeicImagePropertiesDirectory.AverageFrameRate, hvcC.AvgFrameRate);
             dir.Set(HeicImagePropertiesDirectory.ConstantFrameRate, hvcC.ConstantFrameRate);
             dir.Set(HeicImagePropertiesDirectory.NumTemporalLayers, hvcC.NumTemporalLayers);
@@ -247,6 +275,7 @@ namespace MetadataExtractor.Formats.Heif
                 {
                     dir.Set(QuickTimeFileTypeDirectory.TagMajorBrand, ftype.MajorBrandString);
                 }
+
                 if (ftype.MinorBrand > 0)
                 {
                     dir.Set(QuickTimeFileTypeDirectory.TagMinorVersion, ftype.MinorBrandString);
@@ -254,9 +283,11 @@ namespace MetadataExtractor.Formats.Heif
 
                 if (ftype.CompatibleBrands.Count > 0)
                 {
-                    dir.Set(QuickTimeFileTypeDirectory.TagCompatibleBrands,
-                        String.Join(", ", ftype.CompatibleBrandStrings.ToArray()));
+                    dir.Set(
+                        QuickTimeFileTypeDirectory.TagCompatibleBrands,
+                        string.Join(", ", ftype.CompatibleBrandStrings.ToArray()));
                 }
+
                 _directories.Add(dir);
             }
         }

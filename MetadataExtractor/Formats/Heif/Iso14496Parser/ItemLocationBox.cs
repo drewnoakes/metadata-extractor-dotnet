@@ -11,6 +11,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
         public byte IndexSize { get; }
         public uint ItemCount { get; }
         public ItemLocation[] ItemLocations { get; }
+
         public ItemLocationBox(BoxLocation loc, SequentialReader sr) : base(loc, sr)
         {
             var reader = new BitsReader(sr);
@@ -43,14 +44,15 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
 
         private ItemLocation ParseLocation(SequentialReader sr)
         {
-            return new ItemLocation(ReadItemNumber(sr), ReadConstructionMethod(sr), sr.GetUInt16(),
+            return new ItemLocation(
+                ReadItemNumber(sr), ReadConstructionMethod(sr), sr.GetUInt16(),
                 ReadSizedPointer(sr, BaseOffsetSize), ReadExtentList(sr));
         }
 
-        private uint ReadItemNumber(SequentialReader sr) => Version<2?(uint)sr.GetUInt16():sr.GetUInt32();
+        private uint ReadItemNumber(SequentialReader sr) => Version < 2 ? (uint)sr.GetUInt16() : sr.GetUInt32();
 
         private ConstructionMethod ReadConstructionMethod(SequentialReader sr) =>
-            (ConstructionMethod)((Version==1||Version==2)?(sr.GetUInt16()&0x0F):0);
+            (ConstructionMethod)((Version == 1 || Version == 2) ? (sr.GetUInt16() & 0x0F) : 0);
 
         private ulong ReadSizedPointer(SequentialReader sr, byte pointerSize) =>
             pointerSize switch
@@ -68,15 +70,17 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
             {
                 ret[i] = ReadExtent(sr);
             }
+
             return ret;
         }
 
         private ItemLocationExtent ReadExtent(SequentialReader sr) =>
-            new ItemLocationExtent(ReadItemIndex(sr), ReadSizedPointer(sr, OffsetSize),
+            new ItemLocationExtent(
+                ReadItemIndex(sr), ReadSizedPointer(sr, OffsetSize),
                 ReadSizedPointer(sr, LengthSize));
 
         private ulong ReadItemIndex(SequentialReader sr) =>
-            (Version==1 || Version==2)?ReadSizedPointer(sr, IndexSize):0;
+            (Version == 1 || Version == 2) ? ReadSizedPointer(sr, IndexSize) : 0;
     }
 
     public enum ConstructionMethod
@@ -94,8 +98,12 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
         public ulong BaseOffset { get; }
         public ItemLocationExtent[] ExtentList { get; }
 
-        public ItemLocation(uint itemId, ConstructionMethod constructionMethod,
-            ushort dataReferenceIndex, ulong baseOffset, ItemLocationExtent[] extentList)
+        public ItemLocation(
+            uint itemId,
+            ConstructionMethod constructionMethod,
+            ushort dataReferenceIndex,
+            ulong baseOffset,
+            ItemLocationExtent[] extentList)
         {
             ItemId = itemId;
             ConstructionMethod = constructionMethod;

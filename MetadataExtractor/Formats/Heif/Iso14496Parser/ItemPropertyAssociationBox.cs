@@ -21,14 +21,15 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
             {
                 ret[i] = ParseAssociationEntry(bits);
             }
+
             return ret;
         }
 
         private ItemPropertyAssociationEntry ParseAssociationEntry(BitsReader bits)
         {
-            return new ItemPropertyAssociationEntry(bits.GetUInt32(ItemIndexWidth),
+            return new ItemPropertyAssociationEntry(
+                bits.GetUInt32(ItemIndexWidth),
                 ReadAssociatedItems(bits));
-
         }
 
         private AssociatedProperty[] ReadAssociatedItems(BitsReader bits)
@@ -49,7 +50,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
                 bits.GetUInt16(PropertyIndexWidth));
         }
 
-        private int ItemIndexWidth => Version<1?16:32;
+        private int ItemIndexWidth => Version < 1 ? 16 : 32;
 
         private int PropertyIndexWidth => (Flags & 0x1) == 0x1 ? 15 : 7;
     }
@@ -68,8 +69,8 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
 
     public class AssociatedProperty
     {
-        public bool Essential { get;}
-        public ushort Index { get;}
+        public bool Essential { get; }
+        public ushort Index { get; }
 
         public AssociatedProperty(bool essential, ushort index)
         {

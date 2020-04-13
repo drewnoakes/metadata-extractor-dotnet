@@ -7,8 +7,9 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
     public class HandlerBox : FullBox
     {
         public uint HandlerType { get; }
+        public string TrackType { get; }
+
         public string HandlerTypeString => TypeStringConverter.ToTypeString(HandlerType);
-        public String TrackType { get; }
 
         public HandlerBox(BoxLocation loc, SequentialReader sr) : base(loc, sr)
         {

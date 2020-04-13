@@ -13,25 +13,32 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
         public const uint NclxTag = 0x6E636C78; // nclx
         public const uint RICCTag = 0x72494343; // rICC
         public const uint ProfTag = 0x70726F66; // prof
+
         public ColorInformationBox(BoxLocation location, SequentialReader sr) : base(location)
         {
             ColorType = sr.GetUInt32();
             switch (ColorType)
             {
                 case NclxTag:
+                {
                     ColorPrimaries = sr.GetUInt16();
                     TransferCharacteristics = sr.GetUInt16();
                     MatrixCharacteristics = sr.GetUInt16();
                     FullRangeFlag = (sr.GetByte() & 128) == 128;
                     IccProfile = new byte[0];
                     break;
+                }
                 case RICCTag:
                 case ProfTag:
+                {
                     IccProfile = ReadRemainingData(sr);
                     break;
+                }
                 default:
+                {
                     IccProfile = new byte[0];
                     break;
+                }
             }
         }
     }

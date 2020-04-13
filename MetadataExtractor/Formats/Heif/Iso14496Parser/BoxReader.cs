@@ -13,7 +13,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
             if (sr.Available() < 8) return null;
             var location = new BoxLocation(sr);
             if ((long)location.NextPosition - sr.Position >= sr.Available()) return null; // skip the last box of the file.
-           // if (location.Type == BoxTypes.MdatTag) return null;
+            // if (location.Type == BoxTypes.MdatTag) return null;
             var ret = reader(location, sr);
             ret.SkipRemainingData(sr);
             return ret;
@@ -28,8 +28,8 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
                 BoxTypes.HdlrTag => new HandlerBox(location, sr),
                 BoxTypes.DinfTag => new DataInformationBox(location, sr),
                 BoxTypes.DrefTag => new DataReferenceBox(location, sr),
-                BoxTypes.UrlTag  => new DataEntryLocationBox(location, sr, false),
-                BoxTypes.UrnTag  => new DataEntryLocationBox(location, sr, true),
+                BoxTypes.UrlTag => new DataEntryLocationBox(location, sr, false),
+                BoxTypes.UrnTag => new DataEntryLocationBox(location, sr, true),
                 BoxTypes.PitmTag => new PrimaryItemBox(location, sr),
                 BoxTypes.Iinftag => new ItemInformationBox(location, sr),
                 BoxTypes.InfeTag => new ItemInfoEntryBox(location, sr),
@@ -44,15 +44,18 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
                 BoxTypes.IdatTag => new ItemDataBox(location, sr),
                 BoxTypes.IlocTag => new ItemLocationBox(location, sr),
                 BoxTypes.IpmaTag => new ItemPropertyAssociationBox(location, sr),
-                _=> new Box(location)
+                _ => new Box(location)
             };
         }
 
-        public static IList<Box> BoxList(BoxLocation loc, SequentialReader sr) {
+        public static IList<Box> BoxList(BoxLocation loc, SequentialReader sr)
+        {
             var ret = new List<Box>();
-            while (!loc.DoneReading(sr)){
+            while (!loc.DoneReading(sr))
+            {
                 ret.Add(ReadBox(sr));
             }
+
             return ret;
         }
     }
