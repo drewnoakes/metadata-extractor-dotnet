@@ -51,7 +51,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
                 ReadSizedPointer(sr, BaseOffsetSize), ReadExtentList(sr));
         }
 
-        private uint ReadItemNumber(SequentialReader sr) => Version < 2 ? (uint)sr.GetUInt16() : sr.GetUInt32();
+        private uint ReadItemNumber(SequentialReader sr) => Version < 2 ? sr.GetUInt16() : sr.GetUInt32();
 
         private ConstructionMethod ReadConstructionMethod(SequentialReader sr) =>
             (ConstructionMethod)((Version == 1 || Version == 2) ? (sr.GetUInt16() & 0x0F) : 0);
