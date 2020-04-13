@@ -54,7 +54,7 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
         private ConstructionMethod ReadConstructionMethod(SequentialReader sr) =>
             (ConstructionMethod)((Version == 1 || Version == 2) ? (sr.GetUInt16() & 0x0F) : 0);
 
-        private ulong ReadSizedPointer(SequentialReader sr, byte pointerSize) =>
+        private static ulong ReadSizedPointer(SequentialReader sr, byte pointerSize) =>
             pointerSize switch
             {
                 0 => 0,

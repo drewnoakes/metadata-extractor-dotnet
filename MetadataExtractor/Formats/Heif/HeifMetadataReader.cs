@@ -155,7 +155,7 @@ namespace MetadataExtractor.Formats.Heif
             }
         }
 
-        private IEnumerable<Box> ImageProperties(
+        private static IEnumerable<Box> ImageProperties(
             uint primaryId,
             uint[] secondary,
             ItemPropertyAssociationBox associations,
@@ -231,7 +231,7 @@ namespace MetadataExtractor.Formats.Heif
             }
         }
 
-        private void ParseDecoderInformation(HeicImagePropertiesDirectory dir, DecoderConfigurationBox hvcC)
+        private static void ParseDecoderInformation(HeicImagePropertiesDirectory dir, DecoderConfigurationBox hvcC)
         {
             dir.Set(HeicImagePropertiesDirectory.ConfigurationVersion, hvcC.ConfigurationVersion);
             dir.Set(HeicImagePropertiesDirectory.GeneralProfileSpace, hvcC.GeneralProfileSpace);
@@ -250,12 +250,12 @@ namespace MetadataExtractor.Formats.Heif
             dir.Set(HeicImagePropertiesDirectory.LengthSize, hvcC.LengthSizeMinus1 + 1);
         }
 
-        private void ParsePixelDepth(HeicImagePropertiesDirectory dir, PixelInformationBox pixi)
+        private static void ParsePixelDepth(HeicImagePropertiesDirectory dir, PixelInformationBox pixi)
         {
             dir.Set(HeicImagePropertiesDirectory.PixelDepths, pixi.BitsPerChannel);
         }
 
-        private void ParseImageRotation(HeicImagePropertiesDirectory dir, ImageRotationBox irot)
+        private static void ParseImageRotation(HeicImagePropertiesDirectory dir, ImageRotationBox irot)
         {
             dir.Set(HeicImagePropertiesDirectory.Rotation, irot.Rotation);
         }

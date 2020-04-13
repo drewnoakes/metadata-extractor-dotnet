@@ -23,7 +23,7 @@ namespace MetadataExtractor.Formats.Heif
             _ => dir.GetString(tagType)
         };
 
-        private string? ColorMatrixCoeffs(ushort value) =>
+        private static string? ColorMatrixCoeffs(ushort value) =>
             value switch
             {
                 0 => "RGB, GBR",
@@ -37,7 +37,7 @@ namespace MetadataExtractor.Formats.Heif
                 _ => "Reserved"
             };
 
-        private string? ColorTransfer(ushort value) =>
+        private static string? ColorTransfer(ushort value) =>
             value switch
             {
                 1 => "vV - 1.009 * vLc^0.45 - 0.099 for 1 >= vLc >= 0.018 or vV = 4.500 * vLc otherwise.",
@@ -53,7 +53,7 @@ namespace MetadataExtractor.Formats.Heif
                 _ => "Reserved"
             };
 
-        private string? ColorPrimary(ushort value) =>
+        private static string? ColorPrimary(ushort value) =>
             value switch
             {
                 1 => "G(0.3, 0.6) B(0.15, 0.06) R(0.64, 0.33) W(.3127, .329)",
