@@ -5,7 +5,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class ItemInfoEntryBox : FullBox
+    internal class ItemInfoEntryBox : FullBox
     {
         public uint ItemId { get; }
         public ushort ItemProtectionIndex { get; }

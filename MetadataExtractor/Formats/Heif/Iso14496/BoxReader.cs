@@ -6,7 +6,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public static class BoxReader
+    internal static class BoxReader
     {
         public static Box? ReadBox(SequentialReader sr) => ReadBox(sr, LoadFinalType);
 

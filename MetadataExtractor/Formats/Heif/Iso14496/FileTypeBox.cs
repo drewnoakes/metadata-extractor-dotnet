@@ -6,7 +6,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class FileTypeBox : Box
+    internal class FileTypeBox : Box
     {
         public uint MajorBrand { get; }
         public uint MinorBrand { get; }

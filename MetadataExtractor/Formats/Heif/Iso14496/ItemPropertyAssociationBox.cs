@@ -4,7 +4,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class ItemPropertyAssociationBox : FullBox
+    internal class ItemPropertyAssociationBox : FullBox
     {
         public uint EntryCount { get; }
         public ItemPropertyAssociationEntry[] Entries { get; }

@@ -4,7 +4,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class DecoderConfigurationBox : Box
+    internal class DecoderConfigurationBox : Box
     {
         public byte ConfigurationVersion { get; }
         public byte GeneralProfileSpace { get; }

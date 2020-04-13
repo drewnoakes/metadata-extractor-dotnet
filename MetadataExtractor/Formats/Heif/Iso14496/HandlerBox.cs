@@ -5,7 +5,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class HandlerBox : FullBox
+    internal class HandlerBox : FullBox
     {
         public uint HandlerType { get; }
         public string TrackType { get; }

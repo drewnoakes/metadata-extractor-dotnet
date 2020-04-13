@@ -2,7 +2,7 @@
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public static class BoxTypes
+    internal static class BoxTypes
     {
         public const uint MdatTag = 0x6D646174; // mdat
         public const uint MetaTag = 0x6D657461; // meta

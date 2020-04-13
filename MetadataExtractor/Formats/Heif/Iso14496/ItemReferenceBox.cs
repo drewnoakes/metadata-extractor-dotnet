@@ -8,7 +8,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class ItemReferenceBox : FullBox
+    internal class ItemReferenceBox : FullBox
     {
         public IList<SingleItemTypeReferenceBox> Boxes { get; }
 

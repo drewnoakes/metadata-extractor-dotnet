@@ -5,7 +5,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class ItemPropertyBox : Box
+    internal class ItemPropertyBox : Box
     {
         public IList<Box> Boxes { get; }
 

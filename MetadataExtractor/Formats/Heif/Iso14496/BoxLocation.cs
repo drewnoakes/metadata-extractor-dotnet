@@ -4,7 +4,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class BoxLocation
+    internal class BoxLocation
     {
         public uint Type { get; }
         public ulong Origin { get; }

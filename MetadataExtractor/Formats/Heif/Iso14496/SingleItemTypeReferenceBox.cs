@@ -4,7 +4,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class SingleItemTypeReferenceBox : Box
+    internal class SingleItemTypeReferenceBox : Box
     {
         public uint FromItemId { get; }
         public ushort ReferenceCount { get; }

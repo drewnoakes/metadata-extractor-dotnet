@@ -4,7 +4,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class FullBox : Box
+    internal class FullBox : Box
     {
         private readonly uint _typeAndFlags;
 

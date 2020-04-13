@@ -4,7 +4,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class ImageSpatialExtentsBox : FullBox
+    internal class ImageSpatialExtentsBox : FullBox
     {
         public uint X { get; }
         public uint Y { get; }

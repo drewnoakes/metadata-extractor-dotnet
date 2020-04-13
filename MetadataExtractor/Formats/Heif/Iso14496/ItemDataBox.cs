@@ -4,7 +4,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class ItemDataBox : Box
+    internal class ItemDataBox : Box
     {
         public byte[] Data { get; }
 

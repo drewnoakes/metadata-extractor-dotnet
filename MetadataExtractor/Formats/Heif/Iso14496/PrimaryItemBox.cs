@@ -4,7 +4,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class PrimaryItemBox : FullBox
+    internal class PrimaryItemBox : FullBox
     {
         public uint PrimaryItem { get; }
 

@@ -4,7 +4,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class ImageRotationBox : Box
+    internal class ImageRotationBox : Box
     {
         public uint Rotation { get; } // rotation is anti-clockwise and valid values are 0,90,180, and 270
 

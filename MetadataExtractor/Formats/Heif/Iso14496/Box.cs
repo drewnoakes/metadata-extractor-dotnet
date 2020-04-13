@@ -5,7 +5,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class Box
+    internal class Box
     {
         private static readonly Box[] _emptyChildren = new Box[0];
 

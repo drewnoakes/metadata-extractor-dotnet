@@ -5,7 +5,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class DataReferenceBox : FullBox
+    internal class DataReferenceBox : FullBox
     {
         public IList<Box> Boxes { get; }
         public uint BoxCount { get; }

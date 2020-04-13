@@ -4,7 +4,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class PixelInformationBox : FullBox
+    internal class PixelInformationBox : FullBox
     {
         public byte ChannelCount { get; }
         public byte[] BitsPerChannel { get; }

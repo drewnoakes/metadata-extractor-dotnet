@@ -5,7 +5,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class DataEntryLocationBox : FullBox
+    internal class DataEntryLocationBox : FullBox
     {
         public string Name { get; }
         public string Location { get; }

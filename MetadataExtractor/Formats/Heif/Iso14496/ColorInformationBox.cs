@@ -4,7 +4,7 @@ using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496
 {
-    public class ColorInformationBox : Box
+    internal class ColorInformationBox : Box
     {
         public uint ColorType { get; }
         public ushort ColorPrimaries { get; }
