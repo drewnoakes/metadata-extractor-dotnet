@@ -23,8 +23,8 @@ namespace MetadataExtractor.Formats.Heif
             ColorPrimary(dir.GetUInt16(HeicImagePropertiesDirectory.ColorPrimaries)),
             HeicImagePropertiesDirectory.ColorTransferCharacteristics =>
             ColorTransfer(dir.GetUInt16(HeicImagePropertiesDirectory.ColorTransferCharacteristics)),
-            HeicImagePropertiesDirectory.ColorMatrixCharacteristicis =>
-            ColorMatricCoeffs(dir.GetUInt16(HeicImagePropertiesDirectory.ColorMatrixCharacteristicis)),
+            HeicImagePropertiesDirectory.ColorMatrixCharacteristics =>
+            ColorMatricCoeffs(dir.GetUInt16(HeicImagePropertiesDirectory.ColorMatrixCharacteristics)),
             _=>dir.GetString(tagType)
         };
 

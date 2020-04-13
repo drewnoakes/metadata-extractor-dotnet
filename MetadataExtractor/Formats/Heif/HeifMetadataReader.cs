@@ -192,7 +192,7 @@ namespace MetadataExtractor.Formats.Heif
             {
                 dir.Set(HeicImagePropertiesDirectory.ColorPrimaries, colr.ColorPrimaries);
                 dir.Set(HeicImagePropertiesDirectory.ColorTransferCharacteristics, colr.TransferCharacteristics);
-                dir.Set(HeicImagePropertiesDirectory.ColorMatrixCharacteristicis, colr.MatrixCharacteristics);
+                dir.Set(HeicImagePropertiesDirectory.ColorMatrixCharacteristics, colr.MatrixCharacteristics);
                 dir.Set(HeicImagePropertiesDirectory.FullRangeColor, colr.FullRangeFlag);
             }
             else

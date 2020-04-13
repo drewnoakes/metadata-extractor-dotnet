@@ -33,7 +33,7 @@ namespace MetadataExtractor.Formats.Heif
         public const int LengthSize = 19;
         public const int ColorPrimaries = 20;
         public const int ColorTransferCharacteristics = 21;
-        public const int ColorMatrixCharacteristicis = 22;
+        public const int ColorMatrixCharacteristics = 22;
         public const int FullRangeColor = 23;
         public const int ColorFormat = 24;
         private static readonly Dictionary<int, string> _tagNameMap = new Dictionary<int, string>()
@@ -59,7 +59,7 @@ namespace MetadataExtractor.Formats.Heif
             { LengthSize, "Length or Size"},
             { ColorPrimaries, "Primary Color Definitions"},
             { ColorTransferCharacteristics, "Optical Color Transfer Characteristic"},
-            { ColorMatrixCharacteristicis, "Color Deviation Matrix Characteristics"},
+            { ColorMatrixCharacteristics, "Color Deviation Matrix Characteristics"},
             { FullRangeColor, "Full-Range Color"},
             { ColorFormat, "Color Data Format"}
         };

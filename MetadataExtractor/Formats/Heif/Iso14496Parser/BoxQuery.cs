@@ -14,14 +14,14 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
         public static IEnumerable<T> Traverse<T>(this IEnumerable<T> roots, Func<T,IEnumerable<T>> children)
         {
             var queue = new Queue<T>();
-            EnqueAll(roots);
+            EnqueueAll(roots);
             while(queue.Count > 0)
             {
                 var current = queue.Dequeue();
                 yield return current;
-                EnqueAll(children(current));
+                EnqueueAll(children(current));
             }
-            void EnqueAll(IEnumerable<T> all)
+            void EnqueueAll(IEnumerable<T> all)
             {
                 foreach (var item in all)
                 {
