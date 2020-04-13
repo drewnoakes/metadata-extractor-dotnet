@@ -23,12 +23,4 @@ namespace MetadataExtractor.Formats.Heif
         protected override bool TryGetTagName(int tagType, out string? tagName) =>
             _tagNameMap.TryGetValue(tagType, out tagName);
     }
-
-    public class HeicThumbnailTagDescriptor : TagDescriptor<HeicThumbnailDirectory>
-    {
-        public HeicThumbnailTagDescriptor(HeicThumbnailDirectory directory)
-            : base(directory)
-        {
-        }
-    }
 }
