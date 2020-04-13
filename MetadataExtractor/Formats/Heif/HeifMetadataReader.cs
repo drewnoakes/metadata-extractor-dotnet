@@ -135,7 +135,8 @@ namespace MetadataExtractor.Formats.Heif
                 .SelectMany(i => i.FromItemId == primaryItem && i.Type == BoxTypes.DimgTag ? i.ToItemIds : new uint[0])
                 .ToArray();
             var itemPropertyBox = _sourceBoxes.Descendant<ItemPropertyBox>();
-            if (itemPropertyBox == null) return;
+            if (itemPropertyBox == null)
+                return;
             var props = itemPropertyBox.Boxes.Descendant<ItemPropertyContainerBox>().Boxes;
             var associations = itemPropertyBox.Boxes.Descendant<ItemPropertyAssociationBox>();
 
@@ -163,8 +164,7 @@ namespace MetadataExtractor.Formats.Heif
                     from propIndex in associationBox.Properties
                     select props.ElementAt(propIndex.Index - 1))
                 .Where(i => i is DecoderConfigurationBox || i is ColorInformationBox)
-                .Distinct()
-            );
+                .Distinct());
         }
 
         private static IEnumerable<Box> DirectProperties(uint primaryId, ItemPropertyAssociationBox associations, IList<Box> props)
@@ -198,7 +198,8 @@ namespace MetadataExtractor.Formats.Heif
                     case ColorInformationBox colr:
                         ParseColorBox(dir, colr);
                         break;
-                    default: continue;
+                    default:
+                        continue;
                 }
 
                 hasProp = true;
