@@ -15,14 +15,13 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
         public ItemReferenceBox(BoxLocation loc, SequentialReader sr) : base(loc, sr)
         {
             var list = new List<SingleItemTypeReferenceBox>();
-            Boxes = list;
             while (!loc.DoneReading(sr))
             {
-                list.Add(
-                    (SingleItemTypeReferenceBox)BoxReader.ReadBox(
-                        sr,
-                        (l, r) => new SingleItemTypeReferenceBox(l, r, Version)));
+                var box = BoxReader.ReadBox(sr, (l, r) => new SingleItemTypeReferenceBox(l, r, Version));
+                if (box != null)
+                    list.Add((SingleItemTypeReferenceBox)box);
             }
+            Boxes = list;
         }
 
 #if NET35

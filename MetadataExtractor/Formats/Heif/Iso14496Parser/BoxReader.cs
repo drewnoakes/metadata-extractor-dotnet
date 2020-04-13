@@ -12,10 +12,15 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
 
         public static Box? ReadBox(SequentialReader sr, Func<BoxLocation, SequentialReader, Box> reader)
         {
-            if (sr.Available() < 8) return null;
+            if (sr.Available() < 8)
+                return null;
+
             var location = new BoxLocation(sr);
-            if ((long)location.NextPosition - sr.Position >= sr.Available()) return null; // skip the last box of the file.
-            // if (location.Type == BoxTypes.MdatTag) return null;
+
+            if ((long)location.NextPosition - sr.Position >= sr.Available())
+                // skip the last box of the file.
+                return null;
+
             var ret = reader(location, sr);
             ret.SkipRemainingData(sr);
             return ret;
@@ -55,7 +60,9 @@ namespace MetadataExtractor.Formats.Heif.Iso14496Parser
             var ret = new List<Box>();
             while (!loc.DoneReading(sr))
             {
-                ret.Add(ReadBox(sr));
+                var box = ReadBox(sr);
+                if (box != null)
+                    ret.Add(box);
             }
 
             return ret;
