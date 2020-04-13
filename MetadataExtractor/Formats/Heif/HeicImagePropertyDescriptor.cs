@@ -19,11 +19,11 @@ namespace MetadataExtractor.Formats.Heif
             HeicImagePropertiesDirectory.ColorFormat => TypeStringConverter.ToTypeString(dir.GetUInt32(HeicImagePropertiesDirectory.ColorFormat)),
             HeicImagePropertiesDirectory.ColorPrimaries => ColorPrimary(dir.GetUInt16(HeicImagePropertiesDirectory.ColorPrimaries)),
             HeicImagePropertiesDirectory.ColorTransferCharacteristics => ColorTransfer(dir.GetUInt16(HeicImagePropertiesDirectory.ColorTransferCharacteristics)),
-            HeicImagePropertiesDirectory.ColorMatrixCharacteristics => ColorMatricCoeffs(dir.GetUInt16(HeicImagePropertiesDirectory.ColorMatrixCharacteristics)),
+            HeicImagePropertiesDirectory.ColorMatrixCharacteristics => ColorMatrixCoeffs(dir.GetUInt16(HeicImagePropertiesDirectory.ColorMatrixCharacteristics)),
             _ => dir.GetString(tagType)
         };
 
-        private string? ColorMatricCoeffs(ushort value) =>
+        private string? ColorMatrixCoeffs(ushort value) =>
             value switch
             {
                 0 => "RGB, GBR",
