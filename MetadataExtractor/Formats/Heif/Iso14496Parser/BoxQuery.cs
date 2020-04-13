@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MetadataExtractor.Formats.Heif.Iso14496Parser
 {
-    public static class BoxQuery
+    internal static class BoxQuery
     {
         public static IEnumerable<T> Descendants<T>(this IEnumerable<Box> source) where T : Box =>
             source.Traverse(b => b.Children()).OfType<T>();

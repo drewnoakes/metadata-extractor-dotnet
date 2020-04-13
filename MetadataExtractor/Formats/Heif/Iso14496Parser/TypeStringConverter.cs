@@ -1,6 +1,6 @@
 ﻿namespace MetadataExtractor.Formats.Heif.Iso14496Parser
 {
-    public static class TypeStringConverter
+    internal static class TypeStringConverter
     {
         public static uint ToCode(string s)
         {
